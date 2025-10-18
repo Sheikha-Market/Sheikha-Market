@@ -1,18 +1,20 @@
 #!/bin/bash
 # =====================================================
-# 🚀 سكربت تشغيل سوق شيخة عبر ChatGPT Codex – النسخة الذكية الكاملة
+# 🚀 سكربت تشغيل سوق شيخة عبر ChatGPT Codex – النسخة النهائية الذكية
 # إعداد: سلمان أحمد الراجح – Sheikha-Market
 # =====================================================
 
 echo "🚀 بدء تشغيل سوق شيخة عبر ChatGPT Codex..."
 
-# ⚙️ إعداد المتغيرات العامة
+# ⚙️ إعداد المتغيرات
 GITHUB_USER="Sheikha-Market"
 REPO_NAME="Sheikha-Market"
 REPO_URL="https://github.com/${GITHUB_USER}/${REPO_NAME}.git"
 TOKEN_FILE="$HOME/.config/sheikha_token"
 CREDENTIAL_FILE="$HOME/.git-credentials"
 BRANCH="main"
+LOCAL_PORT=5173
+LOCAL_URL="http://localhost:${LOCAL_PORT}"
 
 # 🔒 1. التحقق من وجود التوكن أو طلبه مرة واحدة فقط
 if [ ! -f "$TOKEN_FILE" ]; then
@@ -47,7 +49,7 @@ else
   git pull origin $BRANCH || echo "⚠️ لا توجد فروع بعد على GitHub."
 fi
 
-#   4. إضافة ورفع التعديلات تلقائيًا
+#   4. رفع أي تغييرات جديدة تلقائيًا
 echo "💾 التحقق من التغييرات..."
 if [ -n "$(git status --porcelain)" ]; then
   echo "  تم العثور على تغييرات جديدة. رفعها إلى GitHub..."
@@ -56,12 +58,17 @@ if [ -n "$(git status --porcelain)" ]; then
   git push -u origin $BRANCH
   echo "✅ تم رفع التحديثات بنجاح إلى GitHub."
 else
-  echo "🔹 لا توجد تغييرات جديدة. المستودع محدث بالفعل."
+  echo "🔹 لا توجد تغييرات جديدة. المستودع محدث."
 fi
 
-# 🤖 5. تشغيل بيئة Codex
+# ⚙️ 5. تشغيل Codex
 echo "⚙️ تشغيل OpenAI Codex..."
 codex /init
 
-echo "  تم تهيئة سوق شيخة وتشغيل Codex بذكاء وإتقان. الله ولي التوفيق."
+# 🌐 6. فتح لوحة تحكم سوق شيخة تلقائيًا في المتصفح
+echo "🌍 فتح لوحة تحكم سوق شيخة على المتصفح..."
+sleep 2
+xdg-open "$LOCAL_URL" >/dev/null 2>&1 || open "$LOCAL_URL" >/dev/null 2>&1
+
+echo "🌟 تم تشغيل سوق شيخة وتشغيل Codex ولوحة التحكم بنجاح. الله ولي التوفيق."
 
