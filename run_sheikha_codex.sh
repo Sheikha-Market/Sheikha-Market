@@ -1,12 +1,12 @@
 #!/bin/bash
 # =====================================================
-# 🚀 سكربت التشغيل الذكي لسوق شيخة – النسخة الاحترافية
+# 🚀 سكربت التشغيل الذكي لسوق شيخة – تنبيهات عند الفشل فقط
 # إعداد: سلمان أحمد الراجح – Sheikha-Market
 # =====================================================
 
-echo "🚀 بدء تشغيل سوق شيخة عبر ChatGPT Codex..."
+set -Eeuo pipefail
 
-# ⚙️ الإعدادات العامة
+# ---------- الإعدادات العامة ----------
 GITHUB_USER="Sheikha-Market"
 REPO_NAME="Sheikha-Market"
 REPO_URL="https://github.com/${GITHUB_USER}/${REPO_NAME}.git"
@@ -15,76 +15,103 @@ CREDENTIAL_FILE="$HOME/.git-credentials"
 BRANCH="main"
 LOCAL_PORT=5173
 LOCAL_URL="http://localhost:${LOCAL_PORT}"
-PROJECT_TYPE="auto"
+PROJECT_TYPE="auto"   # auto | node | streamlit
 
-# 📧 إعداد البريد الإلكتروني والإشعارات
-ADMIN_EMAIL="market@sheikha.top"
-WHATSAPP_NUMBER="966500000000"  # ← غيّر هذا لرقمك بصيغة دولية (بدون +)
-WHATSAPP_API="https://api.callmebot.com/whatsapp.php?phone=${WHATSAPP_NUMBER}&text="
-EMAIL_SUBJECT="🚀 تشغيل سوق شيخة بنجاح"
-EMAIL_MESSAGE="تم تشغيل سوق شيخة ورفع التحديثات بنجاح في $(date '+%Y-%m-%d %H:%M:%S')."
+# ---------- إعدادات الإشعارات ----------
+# ضع بريدك الاحتياطي بدل المثال التالي
+ADMIN_EMAILS=("market@sheikha.top" "backup@example.com")
 
-# =====================================================
-# 🔐 1. إعداد توكن GitHub
-# =====================================================
+# واتساب عبر CallMeBot (ضع رقمك الدولي بدون +) ومفتاح API إن كان لديك
+WHATSAPP_NUMBER="966500000000"
+WHATSAPP_KEY=""   # إن كان لديك مفتاح، اكتبه هنا، وإلا اتركه فارغًا
+
+# ---------- التسجيل ----------
+LOG_DIR="$PWD/logs"
+LOG_FILE="$LOG_DIR/sheikha_errors.log"
+mkdir -p "$LOG_DIR"
+
+# ---------- الدوال ----------
+notify_whatsapp() {
+  local msg="$1"
+  # ترميز URL بطريقة مضمونة
+  local enc=$(python3 - <<'PY'
+import sys, urllib.parse
+print(urllib.parse.quote(sys.stdin.read()))
+PY
+  <<< "$msg")
+  local url="https://api.callmebot.com/whatsapp.php?phone=${WHATSAPP_NUMBER}&text=${enc}"
+  if [[ -n "$WHATSAPP_KEY" ]]; then
+    url="${url}&apikey=${WHATSAPP_KEY}"
+  fi
+  curl -s "$url" >/dev/null || true
+}
+
+notify_email() {
+  local subject="$1"
+  local body="$2"
+  for em in "${ADMIN_EMAILS[@]}"; do
+    echo "$body" | mail -s "$subject" "$em" || true
+  done
+}
+
+handle_error() {
+  local line="$1"
+  local cmd="$2"
+  local msg="❌ فشل تشغيل سوق شيخة عند السطر ${line}\nالأمر: ${cmd}\nالدليل: $(pwd)\nالتاريخ: $(date '+%Y-%m-%d %H:%M:%S')"
+  echo -e "$msg" | tee -a "$LOG_FILE"
+  notify_whatsapp "$msg"
+  notify_email "❌ فشل تشغيل سوق شيخة" "$msg"
+  exit 1
+}
+trap 'handle_error $LINENO "$BASH_COMMAND"' ERR
+
+echo "🚀 بدء تشغيل سوق شيخة عبر ChatGPT Codex..."
+
+# ---------- 1) التوكن ----------
 if [ ! -f "$TOKEN_FILE" ]; then
-  echo "🔑 أدخل GitHub Token (لن يُعرض):"
-  read -s TOKEN
+  read -s -p "🔑 أدخل GitHub Token (لن يُعرض): " TOKEN
   echo ""
-  mkdir -p $(dirname "$TOKEN_FILE")
+  mkdir -p "$(dirname "$TOKEN_FILE")"
   echo "$TOKEN" > "$TOKEN_FILE"
   chmod 600 "$TOKEN_FILE"
-  echo "✅ تم حفظ التوكن بأمان في $TOKEN_FILE"
 else
   TOKEN=$(cat "$TOKEN_FILE")
 fi
 
-# =====================================================
-# 🔐 2. تخزين بيانات الدخول
-# =====================================================
+# ---------- 2) تخزين بيانات الدخول ----------
 if [ ! -f "$CREDENTIAL_FILE" ]; then
   echo "https://${GITHUB_USER}:${TOKEN}@github.com" > "$CREDENTIAL_FILE"
   chmod 600 "$CREDENTIAL_FILE"
   git config --global credential.helper store
-  echo "✅ تم تفعيل تخزين بيانات الدخول."
 fi
 
-# =====================================================
-# 🌀 3. تحديث أو إنشاء المستودع
-# =====================================================
+# ---------- 3) تحديث/إنشاء المستودع ----------
 if [ -d ".git" ]; then
-  echo "🌀 تحديث المستودع المحلي..."
-  git pull origin $BRANCH
+  echo "🌀 تحديث المستودع..."
+  git pull origin "$BRANCH"
 else
   echo "⚙️ إنشاء مستودع جديد..."
   git init
-  git remote add origin $REPO_URL
-  git branch -M $BRANCH
-  git pull origin $BRANCH || echo "⚠️ لا توجد فروع بعد."
+  git remote add origin "$REPO_URL"
+  git branch -M "$BRANCH"
+  git pull origin "$BRANCH" || echo "⚠️ لا توجد فروع بعد."
 fi
 
-# =====================================================
-# 💾 4. رفع التحديثات
-# =====================================================
+# ---------- 4) رفع التغييرات تلقائيًا إن وجدت ----------
 if [ -n "$(git status --porcelain)" ]; then
   echo "📤 رفع التعديلات إلى GitHub..."
   git add .
-  git commit -m "تحديث تلقائي عبر Codex بتاريخ $(date '+%Y-%m-%d %H:%M:%S')"
-  git push -u origin $BRANCH
-  echo "✅ تم رفع التحديثات بنجاح."
+  git commit -m "تحديث تلقائي عبر Codex بتاريخ $(date '+%Y-%m-%d %H:%M:%S')" || true
+  git push -u origin "$BRANCH"
 else
   echo "🔹 لا توجد تغييرات جديدة."
 fi
 
-# =====================================================
-# ⚙️ 5. تشغيل Codex
-# =====================================================
+# ---------- 5) تشغيل Codex ----------
 echo "🤖 تشغيل OpenAI Codex..."
-codex /init || echo "⚠️ لم يتم العثور على codex."
+codex /init
 
-# =====================================================
-# 💡 6. تشغيل المشروع تلقائيًا
-# =====================================================
+# ---------- 6) تحديد نوع المشروع وتشغيله ----------
 if [ "$PROJECT_TYPE" == "auto" ]; then
   if [ -f "package.json" ]; then
     PROJECT_TYPE="node"
@@ -93,48 +120,26 @@ if [ "$PROJECT_TYPE" == "auto" ]; then
   fi
 fi
 
-if [ "$PROJECT_TYPE" == "node" ]; then
-  echo "⚙️ تشغيل مشروع Node.js..."
-  npm install
-  npm run dev &
-elif [ "$PROJECT_TYPE" == "streamlit" ]; then
-  FILE=$(ls *.py | head -n 1)
-  echo "⚙️ تشغيل Streamlit: $FILE"
-  streamlit run "$FILE" --server.port $LOCAL_PORT &
-else
-  echo "⚠️ لم يتم التعرف على نوع المشروع."
-fi
+case "$PROJECT_TYPE" in
+  node)
+    echo "⚙️ تشغيل مشروع Node.js..."
+    npm install
+    npm run dev &
+    ;;
+  streamlit)
+    echo "⚙️ تشغيل مشروع Streamlit..."
+    FILE=$(ls *.py | head -n 1)
+    streamlit run "$FILE" --server.port "$LOCAL_PORT" &
+    ;;
+  *)
+    echo "ℹ️ لم يتم التعرف على نوع المشروع. تم تجاوز التشغيل."
+    ;;
+esac
 
-# =====================================================
-# 🌐 7. فتح لوحة التحكم
-# =====================================================
+# ---------- 7) فتح لوحة التحكم ----------
 sleep 5
-xdg-open "$LOCAL_URL" >/dev/null 2>&1 || open "$LOCAL_URL" >/dev/null 2>&1
-echo "🌍 تم فتح لوحة تحكم سوق شيخة."
+xdg-open "$LOCAL_URL" >/dev/null 2>&1 || open "$LOCAL_URL" >/dev/null 2>&1 || true
 
-# =====================================================
-# 🔔 8. إرسال إشعار واتساب وبريد إلكتروني
-# =====================================================
-
-# إشعار واتساب عبر CallMeBot
-notify_whatsapp() {
-  local msg="🚀 تم تشغيل سوق شيخة بنجاح ✅ بتاريخ $(date '+%Y-%m-%d %H:%M:%S')"
-  local encoded_msg=$(echo "$msg" | jq -s -R -r @uri)
-  curl -s "${WHATSAPP_API}${encoded_msg}" >/dev/null
-  echo "💬 تم إرسال إشعار واتساب إلى ${WHATSAPP_NUMBER}"
-}
-
-# إشعار بالبريد الإلكتروني
-notify_email() {
-  echo "$EMAIL_MESSAGE" | mail -s "$EMAIL_SUBJECT" "$ADMIN_EMAIL"
-  echo "📧 تم إرسال إشعار بالبريد إلى ${ADMIN_EMAIL}"
-}
-
-notify_whatsapp
-notify_email
-
-# =====================================================
-# ✅ الانتهاء
-# =====================================================
-echo "✅ تم تشغيل سوق شيخة وتشغيل Codex والإشعارات بنجاح. الله ولي التوفيق."
+echo "✅ تم التشغيل بنجاح (لن تُرسل إشعارات نجاح — الإشعار يُرسل فقط عند الفشل)."
+exit 0
 
