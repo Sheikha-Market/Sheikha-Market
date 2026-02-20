@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes">
+    <meta name="theme-color" content="#d4af37">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="شيخة">
+    <link rel="manifest" href="/manifest.json">
+    <title>متخصص السكراب — شيخة | Scrap Specialist — Sheikha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #d4af37; --gold-light: #f4d03f; --green: #006633; --dark: #0a0a0a; --card: #151515; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--dark); color: #fff; min-height: 100vh; }
+        .header { background: linear-gradient(135deg, #0a0a0a, #1a1a1a); border-bottom: 3px solid var(--gold); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo h1 { font-size: 1.4em; background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav { display: flex; gap: 1.5rem; align-items: center; }
+        .nav a { color: #ccc; text-decoration: none; font-weight: 500; }
+        .nav a:hover { color: var(--gold); }
+        .lang-switcher { display: flex; gap: 8px; }
+        .lang-switcher button { background: rgba(212,175,55,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.9em; }
+        .lang-switcher button:hover, .lang-switcher button.active { background: var(--gold); color: #000; }
+        .main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .page-title { text-align: center; margin-bottom: 2rem; }
+        .page-title h2 { font-size: 2.2em; color: var(--gold); margin-bottom: 0.5rem; }
+        .page-title p { color: #888; }
+        .sections { display: grid; gap: 2rem; }
+        .section { background: var(--card); border: 1px solid #333; border-radius: 16px; padding: 2rem; }
+        .section h3 { color: var(--gold); margin-bottom: 1rem; font-size: 1.4em; }
+        .section p { color: #aaa; line-height: 1.8; }
+        .personas-title { text-align: center; margin: 3rem 0 1.5rem; font-size: 1.5em; color: var(--gold); }
+        .personas-note { text-align: center; color: #666; font-size: 0.9em; margin-bottom: 2rem; }
+        .personas { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .persona { background: var(--card); border: 1px solid #333; border-radius: 12px; padding: 1.5rem; transition: all 0.3s; }
+        .persona:hover { border-color: var(--gold); box-shadow: 0 8px 24px rgba(212,175,55,0.15); }
+        .persona .avatar { width: 64px; height: 64px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8em; margin-bottom: 1rem; }
+        .persona .name { font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+        .persona .role { color: var(--gold); font-size: 0.95em; margin-bottom: 0.5rem; }
+        .persona .specialty { font-size: 0.85em; color: #888; margin-bottom: 0.75rem; }
+        .persona .bio { color: #aaa; font-size: 0.9em; line-height: 1.6; }
+        /* مجتمع متخصصي السكراب */
+        .community-hero { background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(0,102,51,0.08)); border: 2px solid var(--gold); border-radius: 20px; padding: 2.5rem; margin: 2.5rem 0; text-align: center; }
+        .community-hero h2 { color: var(--gold); font-size: 1.8em; margin-bottom: 0.75rem; }
+        .community-hero .tagline { color: #aaa; font-size: 1.05em; margin-bottom: 1.5rem; max-width: 640px; margin-left: auto; margin-right: auto; }
+        .community-pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .pillar { background: var(--card); border: 1px solid #333; border-radius: 12px; padding: 1.25rem; text-align: center; transition: all 0.3s; }
+        .pillar:hover { border-color: var(--gold); }
+        .pillar .icon { font-size: 2em; margin-bottom: 0.5rem; }
+        .pillar .label { font-weight: 700; color: #fff; font-size: 0.95em; }
+        .pillar .desc { font-size: 0.8em; color: #888; margin-top: 0.25rem; }
+        .community-rules { background: var(--card); border: 1px solid #2a5a2a; border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; text-align: right; }
+        .community-rules h4 { color: var(--gold); margin-bottom: 0.75rem; font-size: 1.1em; }
+        .community-rules ul { list-style: none; color: #aaa; font-size: 0.95em; line-height: 1.9; }
+        .community-rules li::before { content: "✓ "; color: #006633; font-weight: bold; margin-left: 0.5rem; }
+        .community-rules .no-outside { color: #d4af37; font-weight: 600; }
+        .community-cta { margin-top: 1.5rem; }
+        .community-cta a, .community-cta button { display: inline-block; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #000; font-weight: 700; padding: 12px 28px; border-radius: 12px; text-decoration: none; border: none; cursor: pointer; font-family: inherit; font-size: 1em; transition: transform 0.2s; }
+        .community-cta a:hover, .community-cta button:hover { transform: scale(1.03); }
+        /* بحوث الشركات والتقنيات — السياسات — محرك التحليل */
+        .community-research { background: var(--card); border: 1px solid #333; border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; text-align: right; }
+        .community-research h4 { color: var(--gold); margin-bottom: 0.75rem; font-size: 1.1em; }
+        .community-research p, .community-research ul { color: #aaa; font-size: 0.95em; line-height: 1.9; }
+        .community-research ul { list-style: none; padding-right: 0; }
+        .community-research li::before { content: "• "; color: var(--gold); margin-left: 0.5rem; }
+        .policy-box { background: linear-gradient(135deg, rgba(0,102,51,0.15), rgba(212,175,55,0.08)); border: 1px solid #2a5a2a; border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; text-align: right; }
+        .policy-box h4 { color: var(--gold); margin-bottom: 0.75rem; font-size: 1.1em; }
+        .policy-box p { color: #bbb; font-size: 0.95em; line-height: 1.9; }
+        .policy-box .allow-rd { color: #006633; font-weight: 600; }
+        .engine-box { background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(0,102,51,0.1)); border: 2px solid var(--gold); border-radius: 16px; padding: 1.75rem; margin-top: 1.5rem; }
+        .engine-box h4 { color: var(--gold); margin-bottom: 0.75rem; font-size: 1.2em; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .engine-box .engine-desc { color: #aaa; font-size: 0.95em; line-height: 1.9; margin-bottom: 1rem; }
+        .engine-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+        .engine-feat { background: var(--card); border: 1px solid #333; border-radius: 10px; padding: 1rem; text-align: right; }
+        .engine-feat .icon { font-size: 1.5em; margin-bottom: 0.35rem; }
+        .engine-feat .title { font-weight: 700; color: #fff; font-size: 0.95em; }
+        .engine-feat .text { font-size: 0.85em; color: #888; margin-top: 0.25rem; }
+        .engine-feat.moderation .title { color: #d4af37; }
+        .footer { text-align: center; padding: 2rem; color: #666; border-top: 1px solid #333; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <span style="font-size:1.8em;">♻️</span>
+            <h1>شيخة</h1>
+        </div>
+        <nav class="nav">
+            <a href="index.html" data-i18n="nav.home">الرئيسية</a>
+            <a href="index.html#services" data-i18n="nav.services">خدماتنا</a>
+            <a href="index.html#market" data-i18n="nav.market">السوق</a>
+            <a href="scrap-specialist.html" data-i18n="nav.scrapSpecialist">متخصص السكراب</a>
+            <a href="scrap-specialist.html#scrap-community" data-i18n="nav.scrapCommunity">مجتمع السكراب</a>
+            <a href="index.html#sciences" data-i18n="nav.sciences">موسوعة المعادن</a>
+            <a href="index.html#contact" data-i18n="nav.contact">تواصل معنا</a>
+            <div class="lang-switcher" id="langSwitcher"></div>
+        </nav>
+    </header>
+    <main class="main">
+        <div class="page-title">
+            <h2 id="scrapPageTitle">متخصص السكراب</h2>
+            <p id="scrapPageSubtitle">حديث تخصصي وهندسي ومختبري وإداري عن السكراب — وخبير بيئة مجتمعية</p>
+        </div>
+        <div class="sections">
+            <section class="section">
+                <h3 id="secSpecialist">📋 التخصصي</h3>
+                <p>تصنيف السكراب وتقييمه وتداوله حسب المعايير العالمية (ISRI وغيرها): حديدي، غير حديدي، نحاس، ألومنيوم، ستانلس، درجات ومواصفات. تحديد الأسعار والجودة والمنشأ.</p>
+            </section>
+            <section class="section">
+                <h3 id="secEngineering">⚙️ الهندسي</h3>
+                <p>عمليات الجمع والفرز والقطع والفرم والكبس والصهر وإعادة التدوير. معدات وآلات، استهلاك طاقة، معايير السلامة والجودة الهندسية في المنشآت.</p>
+            </section>
+            <section class="section">
+                <h3 id="secLaboratory">🔬 المختبري</h3>
+                <p>تحليل كيميائي (XRF, OES, ICP)، فحص صلادة ومتانة، شهادات المطابقة والجودة. ضبط جودة المدخلات والمخرجات وإصدار تقارير للمعاملات والتصدير.</p>
+            </section>
+            <section class="section">
+                <h3 id="secAdmin">📁 الإداري</h3>
+                <p>إجراءات التوريد والتخزين والمتابعة والامتثال. عقود، وثائق، تخليص، ضمانات واعتمادات. إدارة المخزون والطلبات والعلاقة مع البنوك والجهات التنظيمية.</p>
+            </section>
+            <section class="section">
+                <h3 id="secEnv">🌍 خبير بيئة مجتمعية</h3>
+                <p>الاستدامة والاقتصاد الدائري وأثر السكراب وإعادة التدوير على المجتمع والبيئة. امتثال بيئي، تقليل الانبعاثات والنفايات، وخلق قيمة مجتمعية.</p>
+            </section>
+
+            <!-- مجتمع متخصصي السكراب — أفضل من المنتديات -->
+            <section class="section" id="scrap-community">
+                <div class="community-hero">
+                    <h2 id="communityTitle">مجتمع متخصصي السكراب</h2>
+                    <p class="tagline" id="communityTagline">مساحة احترافية للمهتمين بالسكراب: بحوث وتطوير وتجارة — كل ما يخص السكراب في مكان واحد، بأسلوب أفضل من المنتديات.</p>
+                    <div class="community-research" id="communityResearchBlock">
+                        <h4 id="communityResearchTitle">بحوث للشركات والتقنيات</h4>
+                        <p id="communityResearchIntro">المجتمع يخدم البحوث والتطوير للشركات والتقنيات المتعلقة بالسكراب والمعادن وإعادة تدويرها:</p>
+                        <ul>
+                            <li id="communityResearch1">تقنيات الفرز والتحليل والتصنيف (حديد، غير حديدي، نحاس، ألومنيوم، ستانلس، إلخ).</li>
+                            <li id="communityResearch2">تقنيات الصهر وإعادة التدوير والاقتصاد الدائري.</li>
+                            <li id="communityResearch3">معايير الجودة والسلامة والامتثال (ISRI ومثيلاتها).</li>
+                            <li id="communityResearch4">حلول لوجستية وتتبع سلاسل الإمداد والشفافية.</li>
+                        </ul>
+                    </div>
+                    <div class="community-pillars">
+                        <div class="pillar"><span class="icon">🔬</span><div class="label">بحوث وتطوير</div><div class="desc">دراسات ومعايير وابتكار</div></div>
+                        <div class="pillar"><span class="icon">🤝</span><div class="label">تجارة آمنة</div><div class="desc">عروض وطلبات داخل السوق فقط</div></div>
+                        <div class="pillar"><span class="icon">📐</span><div class="label">معايير واحترافية</div><div class="desc">ISRI ومواصفات وجودة</div></div>
+                        <div class="pillar"><span class="icon">🛡️</span><div class="label">بدون ضرر ولا ضرار</div><div class="desc">قواعد واضحة وحماية للجميع</div></div>
+                    </div>
+                    <div class="community-rules">
+                        <h4 id="communityRulesTitle">قواعد المجتمع</h4>
+                        <ul>
+                            <li>كل النقاشات والعروض والطلبات تتم <span class="no-outside">داخل سوق شيخة فقط</span> — لا يوجد أي طريق للتعامل خارج السوق.</li>
+                            <li>ممنوع التوجيه للتعامل خارج المنصة أو تبادل اتصالات للصفقات الخارجية.</li>
+                            <li>بدون ضرر ولا ضرار: محتوى مهني، لا إساءة ولا احتيال ولا مخالفة للشريعة أو القانون.</li>
+                            <li>البحوث والتطوير والتجارة والاستشارات تتم في إطار النظام والضمانات المعتمدة.</li>
+                        </ul>
+                        <div class="policy-box" id="policyBox">
+                            <h4 id="policyTitle">السياسات والقوانين</h4>
+                            <p><span class="allow-rd" id="policyAllowRd">يُسمح باستخدام المحتوى المنشور في المجتمع لغرض البحث والتطوير</span> — ضمن إطار الشروط والأخلاقيات المعتمدة. لا يجوز استخدام المحتوى لأغراض مخالفة للشريعة أو القانون أو لإلحاق الضرر بأي طرف. الاستخدام للأبحاث والتقنيات والتطوير يجب أن يكون مشروعاً وشفافاً.</p>
+                        </div>
+                        <div class="engine-box" id="engineBox">
+                            <h4 id="engineTitle">محرك التحليل والذكاء الصناعي</h4>
+                            <p class="engine-desc" id="engineDesc">محرك لتحليل كامل البيانات والتطوير والبحث عن حلول في مجالات السكراب والمعادن وإعادة التدوير. يعمل الذكاء الصناعي على <strong>منع الردود المحظورة آلياً</strong> — فلا يظهر محتوى مخالف للشريعة أو القانون أو الإساءة أو الاحتيال أو التوجيه للتعامل خارج السوق.</p>
+                            <div class="engine-features">
+                                <div class="engine-feat"><span class="icon">📊</span><div class="title" id="engineFeat1Title">تحليل البيانات</div><div class="text" id="engineFeat1Text">تحليل كامل للبيانات والتقارير والاتجاهات</div></div>
+                                <div class="engine-feat"><span class="icon">🔍</span><div class="title" id="engineFeat2Title">البحث عن حلول</div><div class="text" id="engineFeat2Text">بحث وتطوير وحلول للسكراب والمعادن</div></div>
+                                <div class="engine-feat moderation"><span class="icon">🛡️</span><div class="title" id="engineFeat3Title">منع المحظور آلياً</div><div class="text" id="engineFeat3Text">ذكاء صناعي يمنع الردود المحظورة تلقائياً</div></div>
+                            </div>
+                        </div>
+                        <div class="community-cta">
+                            <a href="index.html#market" id="communityCtaText">الدخول إلى سوق شيخة</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <h2 class="personas-title" id="personasTitle">خبراؤنا الافتراضيون</h2>
+        <p class="personas-note" id="personasNote">شخصيات افتراضية عربية للتمثيل فقط — بدون ادعاء روح أو هوية حقيقية. حلال.</p>
+        <div class="personas" id="personasContainer"></div>
+    </main>
+    <footer class="footer">
+        <p><a href="index.html" style="color: #d4af37;">الرئيسية</a> · <a href="خريطة-الموقع.html" style="color: #d4af37;">خريطة الموقع</a> · <a href="https://wa.me/966554942904" target="_blank" rel="noopener" style="color: #d4af37;">واتساب: +966 55 494 2904</a></p>
+        <p><span data-i18n="footer.sheikha">سوق شيخة</span> — <span data-i18n="footer.rights">جميع الحقوق محفوظة.</span></p>
+        <p style="margin-top:0.5rem;font-size:0.9em;">أهداف الموقع: بلا ضرر ولا ضرار · حب العلامة وأمان · محافظة على البيئة والصحة والبشر.</p>
+    </footer>
+    <script src="i18n.js"></script>
+    <script>
+        const params = new URLSearchParams(location.search);
+        let currentLang = params.get('lang') || getStoredLang();
+        if (!SHEIKHA_I18N[currentLang]) currentLang = 'ar';
+        const LANG_LIST = ['ar', 'en', 'fr', 'tr', 'ur', 'zh'];
+
+        function renderLangSwitcher() {
+            const container = document.getElementById('langSwitcher');
+            container.innerHTML = LANG_LIST.map(lang => {
+                const label = SHEIKHA_I18N[lang]?.langName || lang;
+                return `<button class="${currentLang === lang ? 'active' : ''}" onclick="setLang('${lang}')">${label}</button>`;
+            }).join('');
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            setPageLang(lang);
+            renderLangSwitcher();
+            applyTranslations();
+        }
+
+        function applyTranslations() {
+            const d = SHEIKHA_I18N[currentLang] || SHEIKHA_I18N.ar;
+            document.getElementById('scrapPageTitle').textContent = d.scrapPage?.title || 'متخصص السكراب';
+            document.getElementById('scrapPageSubtitle').textContent = d.scrapPage?.subtitle || 'حديث تخصصي وهندسي ومختبري وإداري عن السكراب';
+            document.getElementById('personasTitle').textContent = d.scrapPage?.personasTitle || 'خبراؤنا الافتراضيون';
+            document.getElementById('personasNote').textContent = d.scrapPage?.personasNote || 'شخصيات افتراضية عربية للتمثيل فقط — حلال.';
+            if (document.getElementById('communityTitle')) document.getElementById('communityTitle').textContent = d.scrapPage?.communityTitle || 'مجتمع متخصصي السكراب';
+            if (document.getElementById('communityTagline')) document.getElementById('communityTagline').textContent = d.scrapPage?.communityTagline || 'مساحة احترافية للمهتمين بالسكراب: بحوث وتطوير وتجارة.';
+            if (document.getElementById('communityRulesTitle')) document.getElementById('communityRulesTitle').textContent = d.scrapPage?.communityRulesTitle || 'قواعد المجتمع';
+            if (document.getElementById('communityCtaText')) document.getElementById('communityCtaText').textContent = d.scrapPage?.communityCtaText || 'الدخول إلى سوق شيخة';
+            if (document.getElementById('communityResearchTitle')) document.getElementById('communityResearchTitle').textContent = d.scrapPage?.communityResearchTitle || 'بحوث للشركات والتقنيات';
+            if (document.getElementById('communityResearchIntro')) document.getElementById('communityResearchIntro').textContent = d.scrapPage?.communityResearchIntro || 'المجتمع يخدم البحوث والتطوير للشركات والتقنيات المتعلقة بالسكراب والمعادن وإعادة تدويرها:';
+            if (document.getElementById('communityResearch1')) document.getElementById('communityResearch1').textContent = d.scrapPage?.communityResearch1 || '';
+            if (document.getElementById('communityResearch2')) document.getElementById('communityResearch2').textContent = d.scrapPage?.communityResearch2 || '';
+            if (document.getElementById('communityResearch3')) document.getElementById('communityResearch3').textContent = d.scrapPage?.communityResearch3 || '';
+            if (document.getElementById('communityResearch4')) document.getElementById('communityResearch4').textContent = d.scrapPage?.communityResearch4 || '';
+            if (document.getElementById('policyTitle')) document.getElementById('policyTitle').textContent = d.scrapPage?.policyTitle || 'السياسات والقوانين';
+            if (document.getElementById('policyAllowRd')) document.getElementById('policyAllowRd').textContent = d.scrapPage?.policyAllowRd || 'يُسمح باستخدام المحتوى لغرض البحث والتطوير';
+            if (document.getElementById('engineTitle')) document.getElementById('engineTitle').textContent = d.scrapPage?.engineTitle || 'محرك التحليل والذكاء الصناعي';
+            if (document.getElementById('engineDesc')) document.getElementById('engineDesc').textContent = d.scrapPage?.engineDesc || '';
+            if (document.getElementById('engineFeat1Title')) document.getElementById('engineFeat1Title').textContent = d.scrapPage?.engineFeat1Title || 'تحليل البيانات';
+            if (document.getElementById('engineFeat1Text')) document.getElementById('engineFeat1Text').textContent = d.scrapPage?.engineFeat1Text || '';
+            if (document.getElementById('engineFeat2Title')) document.getElementById('engineFeat2Title').textContent = d.scrapPage?.engineFeat2Title || 'البحث عن حلول';
+            if (document.getElementById('engineFeat2Text')) document.getElementById('engineFeat2Text').textContent = d.scrapPage?.engineFeat2Text || '';
+            if (document.getElementById('engineFeat3Title')) document.getElementById('engineFeat3Title').textContent = d.scrapPage?.engineFeat3Title || 'منع المحظور آلياً';
+            if (document.getElementById('engineFeat3Text')) document.getElementById('engineFeat3Text').textContent = d.scrapPage?.engineFeat3Text || '';
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const val = key.split('.').reduce((o, k) => o && o[k], d);
+                if (val) el.textContent = val;
+            });
+            const personas = d.personas || SHEIKHA_I18N.ar.personas;
+            const container = document.getElementById('personasContainer');
+            const icons = ['📋', '⚙️', '🔬', '📁', '🌍'];
+            container.innerHTML = personas.map((p, i) => `
+                <div class="persona">
+                    <div class="avatar">${icons[i] || '👤'}</div>
+                    <div class="name">${p.name}</div>
+                    <div class="role">${p.role}</div>
+                    <div class="specialty">${p.specialty}${p.voiceNote ? ' · ' + p.voiceNote : ''}</div>
+                    <div class="bio">${p.bio}</div>
+                </div>
+            `).join('');
+        }
+
+        renderLangSwitcher();
+        applyTranslations();
+    </script>
+</body>
+</html>

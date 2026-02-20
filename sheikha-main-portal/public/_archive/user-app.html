@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes">
+    <meta name="theme-color" content="#006633">
+    <meta name="apple-mobile-web-app-title" content="شيخة — المستخدم">
+    <link rel="manifest" href="/manifest.json">
+    <title>تطبيق المستخدم — شيخة | User App — Sheikha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #d4af37; --green: #006633; --dark: #0a0a0a; --card: #151515; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--dark); color: #fff; min-height: 100vh; padding: 1.5rem; }
+        .header { text-align: center; margin-bottom: 2rem; padding: 1.5rem; border-bottom: 2px solid var(--green); }
+        .header h1 { color: var(--gold); font-size: 1.75rem; }
+        .header p { color: #888; margin-top: 0.5rem; font-size: 0.95rem; }
+        .section { margin-bottom: 2rem; }
+        .section h2 { color: var(--gold); font-size: 1.2rem; margin-bottom: 1rem; }
+        .cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+        .cat-card {
+            background: var(--card); border: 1px solid #333; border-radius: 12px; padding: 1.5rem;
+            text-align: center; cursor: pointer; transition: all 0.2s;
+        }
+        .cat-card:hover { border-color: var(--green); box-shadow: 0 4px 20px rgba(0,102,51,0.3); }
+        .cat-card .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+        .cat-card .name { font-weight: 700; color: #fff; margin-bottom: 0.35rem; }
+        .cat-card .desc { font-size: 0.85rem; color: #888; }
+        .stages { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
+        .stage { padding: 0.5rem 1rem; background: rgba(0,102,51,0.2); border: 1px solid var(--green); border-radius: 8px; color: #aaa; cursor: pointer; font-size: 0.9rem; }
+        .stage:hover, .stage.active { background: var(--green); color: #fff; }
+        .back { display: inline-block; margin-bottom: 1rem; color: var(--gold); text-decoration: none; font-weight: 500; }
+        .back:hover { text-decoration: underline; }
+        .go-btn { display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--green); color: #fff; border: none; border-radius: 8px; font-family: inherit; font-weight: 600; cursor: pointer; text-decoration: none; }
+        .go-btn:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back">← الرئيسية</a>
+    <div class="header">
+        <h1>👤 تطبيق المستخدم</h1>
+        <p>اختر فئتك أو مرحلتك — لوحة تحكم وخدمات حسب دورك (عميل، مشتري، مورد، مسؤول مخزن)</p>
+    </div>
+    <div class="section">
+        <h2>الفئة / الدور</h2>
+        <div class="cats" id="categories"></div>
+    </div>
+    <div class="section">
+        <h2>المرحلة</h2>
+        <div class="stages" id="stages"></div>
+        <p style="color:#888;font-size:0.9rem;">المرحلة توضح مستوى التفاعل (زائر → مسجل → نشط). الداشبورد يظهر حسب الفئة أعلاه.</p>
+    </div>
+    <div class="section">
+        <h2>الدخول إلى لوحتك</h2>
+        <p style="color:#888;margin-bottom:0.75rem;">بعد اختيار الفئة اضغط «فتح لوحتي» لفتح الداشبورد بصلاحياتك.</p>
+        <a id="goDashboard" class="go-btn" href="http://localhost:35000" target="_blank">فتح لوحتي (داشبورد شبكة شيخة)</a>
+    </div>
+    <script>
+        const DASHBOARD_URL = 'http://localhost:35000';
+        const CATEGORIES = [
+            { id: 'client', name: 'عميل', desc: 'عروضك، طلباتك، تسويقك، مبيعاتك، متابعة، تحليل', icon: '👤', role: 'client' },
+            { id: 'buyer', name: 'مشتري', desc: 'تصفح العروض، طلباتك، متابعة، تحليل', icon: '🛒', role: 'buyer' },
+            { id: 'supplier', name: 'مورد', desc: 'إمداد، عروض، تتبع شحنات', icon: '📦', role: 'client' },
+            { id: 'warehouse', name: 'مسؤول مخزن', desc: 'تخزين، سلاسل إمداد، متابعة، تحليل', icon: '🏭', role: 'warehouse' }
+        ];
+        const STAGES = [
+            { id: 'visitor', name: 'زائر' },
+            { id: 'registered', name: 'مسجل' },
+            { id: 'active', name: 'نشط' }
+        ];
+        let selectedRole = 'client';
+        function render() {
+            document.getElementById('categories').innerHTML = CATEGORIES.map(c => `
+                <div class="cat-card" data-role="${c.role}" onclick="selectRole('${c.role}')">
+                    <div class="icon">${c.icon}</div>
+                    <div class="name">${c.name}</div>
+                    <div class="desc">${c.desc}</div>
+                </div>
+            `).join('');
+            document.getElementById('stages').innerHTML = STAGES.map(s => `<span class="stage" data-stage="${s.id}">${s.name}</span>`).join('');
+            document.querySelectorAll('.stage').forEach(el => {
+                el.addEventListener('click', () => {
+                    document.querySelectorAll('.stage').forEach(x => x.classList.remove('active'));
+                    el.classList.add('active');
+                });
+            });
+            document.getElementById('goDashboard').href = `${DASHBOARD_URL}?role=${selectedRole}`;
+        }
+        function selectRole(role) {
+            selectedRole = role;
+            document.querySelectorAll('.cat-card').forEach(c => c.style.borderColor = '');
+            const card = document.querySelector(`.cat-card[data-role="${role}"]`);
+            if (card) card.style.borderColor = 'var(--green)';
+            document.getElementById('goDashboard').href = `${DASHBOARD_URL}?role=${selectedRole}`;
+        }
+        render();
+        selectRole('client');
+    </script>
+    <footer style="text-align:center;padding:1.5rem;color:#8a9a8a;font-size:0.9em;border-top:1px solid #2a352a;">
+        <a href="index.html" style="color:#d4af37;">الرئيسية</a> · <a href="خريطة-الموقع.html" style="color:#d4af37;">خريطة الموقع</a> · <a href="ريادة-الأعمال.html" style="color:#d4af37;">ريادة الأعمال</a> · <a href="https://wa.me/966554942904" target="_blank" rel="noopener" style="color:#d4af37;">واتساب +966 55 494 2904</a>
+        <p style="margin-top:0.5rem;font-size:0.85em;">أهداف الموقع: بلا ضرر ولا ضرار · حب العلامة وأمان · محافظة على البيئة والصحة والبشر.</p>
+    </footer>
+</body>
+</html>

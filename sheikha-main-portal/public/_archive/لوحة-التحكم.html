@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم الذكية | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --green: #0a5c36;
+            --green-saudi: #006c35;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --card-hover: #111b2e;
+            --text: #fff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; }
+        
+        /* Dashboard Layout */
+        .dashboard { display: flex; min-height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--card);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 100;
+        }
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sidebar-logo {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; font-weight: 900; color: var(--dark);
+        }
+        .sidebar-brand h2 { font-size: 1.1rem; color: var(--gold); }
+        .sidebar-brand p { font-size: 0.75rem; color: var(--text-muted); }
+        
+        /* User Type Selector */
+        .user-type-selector {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .user-type-selector label { font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 8px; }
+        .user-type-select {
+            width: 100%;
+            padding: 12px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .user-type-select:focus { outline: none; border-color: var(--gold); }
+        
+        /* Sidebar Nav */
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+        }
+        .nav-section { margin-bottom: 24px; }
+        .nav-section-title {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: var(--radius);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+        .nav-item:hover { background: rgba(212,175,55,0.1); color: var(--gold); }
+        .nav-item.active { background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(10,92,54,0.15)); color: var(--gold); border: 1px solid rgba(212,175,55,0.3); }
+        .nav-item-icon { font-size: 1.2rem; }
+        .nav-item-badge {
+            margin-right: auto;
+            padding: 2px 8px;
+            background: var(--gold);
+            color: var(--dark);
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .nav-item[data-restricted="true"] { opacity: 0.4; pointer-events: none; }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-right: 280px;
+        }
+        
+        /* Top Bar */
+        .topbar {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .topbar-title { font-size: 1.3rem; font-weight: 800; }
+        .topbar-title span { color: var(--gold); }
+        .topbar-actions { display: flex; gap: 12px; align-items: center; }
+        .topbar-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background: var(--dark);
+            border-radius: var(--radius);
+        }
+        .user-avatar {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--gold), var(--green));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700;
+        }
+        .user-info h4 { font-size: 0.85rem; }
+        .user-info p { font-size: 0.7rem; color: var(--text-muted); }
+        
+        /* Dashboard Content */
+        .dashboard-content { padding: 24px; }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: all 0.3s;
+        }
+        .stat-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+        .stat-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+        .stat-icon {
+            width: 50px; height: 50px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+        }
+        .stat-change { font-size: 0.8rem; padding: 4px 8px; border-radius: 6px; }
+        .stat-change.up { background: rgba(16,185,129,0.15); color: var(--success); }
+        .stat-change.down { background: rgba(239,68,68,0.15); color: var(--danger); }
+        .stat-value { font-size: 2rem; font-weight: 900; margin-bottom: 4px; }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); }
+        
+        /* Module Grid */
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title span { color: var(--gold); }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        .module-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .module-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        .module-card[data-restricted="true"] { opacity: 0.4; pointer-events: none; }
+        .module-icon {
+            width: 60px; height: 60px;
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        .module-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .module-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+        .module-features { display: flex; flex-wrap: wrap; gap: 8px; }
+        .module-feature {
+            padding: 4px 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        /* User Type Badges */
+        .user-type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .badge-admin { background: rgba(139,92,246,0.15); color: var(--purple); border: 1px solid rgba(139,92,246,0.3); }
+        .badge-trader { background: rgba(212,175,55,0.15); color: var(--gold); border: 1px solid rgba(212,175,55,0.3); }
+        .badge-factory { background: rgba(16,185,129,0.15); color: var(--success); border: 1px solid rgba(16,185,129,0.3); }
+        .badge-logistics { background: rgba(59,130,246,0.15); color: var(--info); border: 1px solid rgba(59,130,246,0.3); }
+        .badge-buyer { background: rgba(6,182,212,0.15); color: #06b6d4; border: 1px solid rgba(6,182,212,0.3); }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+        .quick-action {
+            padding: 12px 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .quick-action:hover { border-color: var(--gold); color: var(--gold); }
+        .quick-action.primary { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--dark); border: none; }
+        
+        /* Activity Feed */
+        .activity-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+        }
+        .activity-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .activity-content { flex: 1; }
+        .activity-content h4 { font-size: 0.9rem; margin-bottom: 4px; }
+        .activity-content p { font-size: 0.8rem; color: var(--text-muted); }
+        .activity-time { font-size: 0.75rem; color: var(--text-muted); }
+        
+        /* Responsive */
+        @media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .modules-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-right: 0; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .modules-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">ش</div>
+                <div class="sidebar-brand">
+                    <h2>لوحة التحكم</h2>
+                    <p>منظومة شيخة</p>
+                </div>
+            </div>
+            
+            <!-- User Type Selector -->
+            <div class="user-type-selector">
+                <label>نوع المستخدم</label>
+                <select class="user-type-select" id="userTypeSelect" onchange="switchUserType(this.value)">
+                    <option value="admin">👑 مدير النظام (Admin)</option>
+                    <option value="trader">🏪 تاجر (Trader)</option>
+                    <option value="factory">🏭 مصنع / مصهر (Factory)</option>
+                    <option value="logistics">🚚 شركة نقل (Logistics)</option>
+                    <option value="buyer">🛒 مشتري (Buyer)</option>
+                </select>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="sidebar-nav" id="sidebarNav">
+                <!-- Will be populated by JavaScript -->
+            </nav>
+            
+            <!-- Footer -->
+            <div style="padding: 16px; border-top: 1px solid var(--border); text-align: center;">
+                <a href="/" style="color: var(--text-muted); text-decoration: none; font-size: 0.85rem;">← الرئيسية</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <h1 class="topbar-title">مرحباً في <span>لوحة التحكم</span></h1>
+                <div class="topbar-actions">
+                    <span class="user-type-badge badge-admin" id="userTypeBadge">👑 مدير النظام</span>
+                    <div class="topbar-user">
+                        <div class="user-avatar">س</div>
+                        <div class="user-info">
+                            <h4>سلمان الراجح</h4>
+                            <p>admin@sheikha.sa</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content" id="dashboardContent">
+                <!-- Stats -->
+                <div class="stats-grid" id="statsGrid">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions" id="quickActions">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Modules -->
+                <h2 class="section-title">⚙️ الأدوات <span>المتاحة</span></h2>
+                <div class="modules-grid" id="modulesGrid">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Activity -->
+                <h2 class="section-title">📊 النشاط <span>الأخير</span></h2>
+                <div class="activity-section" id="activitySection">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════════════
+        // تعريف الوحدات والأدوات حسب نوع المستخدم
+        // ═══════════════════════════════════════════════════════════════════════
+        
+        const USER_TYPES = {
+            admin: {
+                name: 'مدير النظام',
+                nameEn: 'System Admin',
+                icon: '👑',
+                badgeClass: 'badge-admin',
+                color: '#8b5cf6'
+            },
+            trader: {
+                name: 'تاجر',
+                nameEn: 'Trader',
+                icon: '🏪',
+                badgeClass: 'badge-trader',
+                color: '#d4af37'
+            },
+            factory: {
+                name: 'مصنع / مصهر',
+                nameEn: 'Factory',
+                icon: '🏭',
+                badgeClass: 'badge-factory',
+                color: '#10b981'
+            },
+            logistics: {
+                name: 'شركة نقل',
+                nameEn: 'Logistics',
+                icon: '🚚',
+                badgeClass: 'badge-logistics',
+                color: '#3b82f6'
+            },
+            buyer: {
+                name: 'مشتري',
+                nameEn: 'Buyer',
+                icon: '🛒',
+                badgeClass: 'badge-buyer',
+                color: '#06b6d4'
+            }
+        };
+
+        const MODULES = {
+            // أدوات إدارة النظام (Admin فقط)
+            systemSettings: {
+                id: 'systemSettings',
+                name: 'إعدادات النظام',
+                icon: '⚙️',
+                desc: 'إدارة إعدادات المنظومة الكاملة',
+                features: ['API', 'الأمان', 'النسخ الاحتياطي'],
+                color: '#8b5cf6',
+                users: ['admin'],
+                link: 'admin.html'
+            },
+            userManagement: {
+                id: 'userManagement',
+                name: 'إدارة المستخدمين',
+                icon: '👥',
+                desc: 'إضافة وإدارة المستخدمين والصلاحيات',
+                features: ['المستخدمين', 'الصلاحيات', 'الأدوار'],
+                color: '#8b5cf6',
+                users: ['admin'],
+                link: 'admin.html#users'
+            },
+            analytics: {
+                id: 'analytics',
+                name: 'التحليلات المتقدمة',
+                icon: '📊',
+                desc: 'تحليلات شاملة للمنظومة',
+                features: ['AI', 'تقارير', 'توقعات'],
+                color: '#8b5cf6',
+                users: ['admin'],
+                link: 'admin.html#analytics'
+            },
+            devEnvironment: {
+                id: 'devEnvironment',
+                name: 'بيئة التطوير',
+                icon: '💻',
+                desc: 'Monaco Editor وأدوات البرمجة',
+                features: ['كود', 'API', 'اختبار'],
+                color: '#8b5cf6',
+                users: ['admin'],
+                link: 'admin.html#dev'
+            },
+            
+            // السوق والتجارة (الجميع)
+            market: {
+                id: 'market',
+                name: 'السوق',
+                icon: '🏪',
+                desc: 'تصفح وشراء المنتجات',
+                features: ['معادن', 'سكراب', 'ثمينة', 'نادرة'],
+                color: '#d4af37',
+                users: ['admin', 'trader', 'factory', 'logistics', 'buyer'],
+                link: 'السوق.html'
+            },
+            
+            // إدارة المنتجات (Trader + Admin)
+            myProducts: {
+                id: 'myProducts',
+                name: 'منتجاتي',
+                icon: '📦',
+                desc: 'إدارة وعرض منتجاتك',
+                features: ['إضافة', 'تعديل', 'تسعير'],
+                color: '#d4af37',
+                users: ['admin', 'trader', 'factory'],
+                link: 'عرض-بضائع.html'
+            },
+            myStore: {
+                id: 'myStore',
+                name: 'متجري',
+                icon: '🏬',
+                desc: 'إدارة متجرك ومبيعاتك',
+                features: ['الطلبات', 'العملاء', 'التقييمات'],
+                color: '#d4af37',
+                users: ['admin', 'trader'],
+                link: 'تسجيل-تاجر.html'
+            },
+            
+            // سلسلة التوريد (Factory + Logistics + Admin)
+            supplyChain: {
+                id: 'supplyChain',
+                name: 'سلسلة التوريد',
+                icon: '🔗',
+                desc: 'إدارة مراحل التوريد الكاملة',
+                features: ['المراحل', 'التتبع', 'الأتمتة'],
+                color: '#10b981',
+                users: ['admin', 'factory', 'logistics'],
+                link: 'نظام-شيخة-الذكي.html'
+            },
+            
+            // التكامل الصناعي (Factory + Admin)
+            industrialIntegration: {
+                id: 'industrialIntegration',
+                name: 'التكامل الصناعي',
+                icon: '🏭',
+                desc: 'ربط المصانع والمصاهر',
+                features: ['IoT', 'البيانات الحية', 'OPC-UA'],
+                color: '#10b981',
+                users: ['admin', 'factory'],
+                link: 'التكامل-الصناعي.html'
+            },
+            productionManagement: {
+                id: 'productionManagement',
+                name: 'إدارة الإنتاج',
+                icon: '⚙️',
+                desc: 'جدولة ومراقبة الإنتاج',
+                features: ['الجدولة', 'الجودة', 'OEE'],
+                color: '#10b981',
+                users: ['admin', 'factory'],
+                link: 'التكامل-الصناعي.html#production'
+            },
+            
+            // اللوجستيات (Logistics + Admin)
+            fleetManagement: {
+                id: 'fleetManagement',
+                name: 'إدارة الأسطول',
+                icon: '🚛',
+                desc: 'إدارة الشاحنات والسائقين',
+                features: ['GPS', 'الصيانة', 'الوقود'],
+                color: '#3b82f6',
+                users: ['admin', 'logistics'],
+                link: 'fbs.html'
+            },
+            shipments: {
+                id: 'shipments',
+                name: 'الشحنات',
+                icon: '📦',
+                desc: 'تتبع وإدارة الشحنات',
+                features: ['التتبع', 'التسليم', 'البوالص'],
+                color: '#3b82f6',
+                users: ['admin', 'logistics', 'trader', 'factory'],
+                link: 'نظام-شيخة-الذكي.html#bol'
+            },
+            warehouses: {
+                id: 'warehouses',
+                name: 'المستودعات',
+                icon: '🏢',
+                desc: 'إدارة المستودعات والمخزون',
+                features: ['الجرد', 'المواقع', 'RFID'],
+                color: '#3b82f6',
+                users: ['admin', 'logistics', 'factory'],
+                link: 'fbs.html#warehouses'
+            },
+            
+            // المشاريع الكبرى (Admin + Factory)
+            enterpriseProjects: {
+                id: 'enterpriseProjects',
+                name: 'المشاريع الكبرى',
+                icon: '🏗️',
+                desc: 'إدارة مشاريع المناجم والمصانع',
+                features: ['المناقصات', 'العقود', 'التنفيذ'],
+                color: '#f59e0b',
+                users: ['admin', 'factory'],
+                link: 'enterprise.html'
+            },
+            
+            // المساعد الذكي (الجميع)
+            aiAssistant: {
+                id: 'aiAssistant',
+                name: 'المستشار الذكي',
+                icon: '🤖',
+                desc: 'مساعد AI للاستشارات',
+                features: ['استشارات', 'تحليل', 'توصيات'],
+                color: '#06b6d4',
+                users: ['admin', 'trader', 'factory', 'logistics', 'buyer'],
+                link: 'مساعد-شيخة.html'
+            },
+            
+            // الطلبات (Buyer + Trader)
+            myOrders: {
+                id: 'myOrders',
+                name: 'طلباتي',
+                icon: '🛒',
+                desc: 'متابعة طلبات الشراء',
+                features: ['الحالة', 'التتبع', 'الفواتير'],
+                color: '#06b6d4',
+                users: ['admin', 'buyer', 'trader'],
+                link: '#orders'
+            },
+            
+            // المختبرات والشهادات (Factory + Admin)
+            labCertificates: {
+                id: 'labCertificates',
+                name: 'المختبرات والشهادات',
+                icon: '🔬',
+                desc: 'تحليل الجودة وإصدار الشهادات',
+                features: ['التحليل', 'ISO', 'الشهادات'],
+                color: '#f59e0b',
+                users: ['admin', 'factory'],
+                link: 'نظام-شيخة-الذكي.html#labs'
+            }
+        };
+
+        const NAV_SECTIONS = {
+            admin: [
+                { title: 'الإدارة', items: ['systemSettings', 'userManagement', 'analytics', 'devEnvironment'] },
+                { title: 'التجارة', items: ['market', 'myProducts', 'myStore'] },
+                { title: 'العمليات', items: ['supplyChain', 'industrialIntegration', 'enterpriseProjects'] },
+                { title: 'اللوجستيات', items: ['fleetManagement', 'shipments', 'warehouses'] },
+                { title: 'الدعم', items: ['aiAssistant', 'labCertificates'] }
+            ],
+            trader: [
+                { title: 'متجري', items: ['myStore', 'myProducts'] },
+                { title: 'السوق', items: ['market', 'myOrders'] },
+                { title: 'العمليات', items: ['shipments'] },
+                { title: 'الدعم', items: ['aiAssistant'] }
+            ],
+            factory: [
+                { title: 'الإنتاج', items: ['productionManagement', 'industrialIntegration'] },
+                { title: 'السوق', items: ['market', 'myProducts'] },
+                { title: 'سلسلة التوريد', items: ['supplyChain', 'warehouses'] },
+                { title: 'الجودة', items: ['labCertificates'] },
+                { title: 'المشاريع', items: ['enterpriseProjects'] },
+                { title: 'الدعم', items: ['aiAssistant'] }
+            ],
+            logistics: [
+                { title: 'الأسطول', items: ['fleetManagement', 'shipments'] },
+                { title: 'التخزين', items: ['warehouses'] },
+                { title: 'السوق', items: ['market', 'supplyChain'] },
+                { title: 'الدعم', items: ['aiAssistant'] }
+            ],
+            buyer: [
+                { title: 'التسوق', items: ['market', 'myOrders'] },
+                { title: 'الدعم', items: ['aiAssistant'] }
+            ]
+        };
+
+        const STATS = {
+            admin: [
+                { icon: '💰', value: '12.5M', label: 'إجمالي المبيعات', change: '+15%', up: true, color: '#d4af37' },
+                { icon: '👥', value: '2,847', label: 'المستخدمين', change: '+8%', up: true, color: '#10b981' },
+                { icon: '📦', value: '15,420', label: 'المنتجات', change: '+23%', up: true, color: '#3b82f6' },
+                { icon: '🚚', value: '847', label: 'الشحنات النشطة', change: '+5%', up: true, color: '#8b5cf6' }
+            ],
+            trader: [
+                { icon: '💰', value: '245K', label: 'مبيعاتي', change: '+12%', up: true, color: '#d4af37' },
+                { icon: '📦', value: '127', label: 'منتجاتي', change: '+5', up: true, color: '#10b981' },
+                { icon: '🛒', value: '34', label: 'الطلبات الجديدة', change: '+8', up: true, color: '#3b82f6' },
+                { icon: '⭐', value: '4.8', label: 'التقييم', change: '+0.2', up: true, color: '#f59e0b' }
+            ],
+            factory: [
+                { icon: '⚙️', value: '847', label: 'طن/يوم', change: '+12%', up: true, color: '#10b981' },
+                { icon: '✅', value: '99.7%', label: 'نسبة النقاء', change: '+0.2%', up: true, color: '#d4af37' },
+                { icon: '📦', value: '45', label: 'الطلبات', change: '+15', up: true, color: '#3b82f6' },
+                { icon: '🔥', value: '1,450°', label: 'درجة الحرارة', change: 'مستقر', up: true, color: '#f59e0b' }
+            ],
+            logistics: [
+                { icon: '🚛', value: '156', label: 'الشاحنات', change: '+12', up: true, color: '#3b82f6' },
+                { icon: '📦', value: '423', label: 'شحنات نشطة', change: '+45', up: true, color: '#10b981' },
+                { icon: '✅', value: '98.5%', label: 'نسبة التسليم', change: '+1.2%', up: true, color: '#d4af37' },
+                { icon: '⏱️', value: '2.3h', label: 'متوسط التسليم', change: '-15min', up: true, color: '#8b5cf6' }
+            ],
+            buyer: [
+                { icon: '🛒', value: '12', label: 'طلباتي', change: '+3', up: true, color: '#06b6d4' },
+                { icon: '📦', value: '5', label: 'قيد التوصيل', change: '', up: true, color: '#3b82f6' },
+                { icon: '💰', value: '45K', label: 'إجمالي المشتريات', change: '', up: true, color: '#d4af37' },
+                { icon: '⭐', value: '15', label: 'المفضلة', change: '+2', up: true, color: '#f59e0b' }
+            ]
+        };
+
+        let currentUserType = 'admin';
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // تبديل نوع المستخدم
+        // ═══════════════════════════════════════════════════════════════════════
+        
+        function switchUserType(type) {
+            currentUserType = type;
+            const userType = USER_TYPES[type];
+            
+            // Update badge
+            const badge = document.getElementById('userTypeBadge');
+            badge.className = 'user-type-badge ' + userType.badgeClass;
+            badge.innerHTML = `${userType.icon} ${userType.name}`;
+            
+            // Render all sections
+            renderSidebar();
+            renderStats();
+            renderQuickActions();
+            renderModules();
+            renderActivity();
+        }
+
+        function renderSidebar() {
+            const nav = document.getElementById('sidebarNav');
+            const sections = NAV_SECTIONS[currentUserType];
+            
+            let html = '';
+            sections.forEach(section => {
+                html += `<div class="nav-section">
+                    <div class="nav-section-title">${section.title}</div>`;
+                section.items.forEach(itemId => {
+                    const module = MODULES[itemId];
+                    if (module) {
+                        const isRestricted = !module.users.includes(currentUserType);
+                        html += `<a href="${module.link}" class="nav-item" data-restricted="${isRestricted}">
+                            <span class="nav-item-icon">${module.icon}</span>
+                            <span>${module.name}</span>
+                        </a>`;
+                    }
+                });
+                html += '</div>';
+            });
+            nav.innerHTML = html;
+        }
+
+        function renderStats() {
+            const grid = document.getElementById('statsGrid');
+            const stats = STATS[currentUserType];
+            
+            grid.innerHTML = stats.map(stat => `
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon" style="background: ${stat.color}20;">${stat.icon}</div>
+                        <span class="stat-change ${stat.up ? 'up' : 'down'}">${stat.change}</span>
+                    </div>
+                    <div class="stat-value">${stat.value}</div>
+                    <div class="stat-label">${stat.label}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderQuickActions() {
+            const container = document.getElementById('quickActions');
+            const actions = {
+                admin: [
+                    { icon: '➕', label: 'إضافة منتج', link: 'عرض-بضائع.html', primary: true },
+                    { icon: '📊', label: 'التقارير', link: 'admin.html#reports' },
+                    { icon: '👥', label: 'المستخدمين', link: 'admin.html#users' },
+                    { icon: '⚙️', label: 'الإعدادات', link: 'admin.html#settings' }
+                ],
+                trader: [
+                    { icon: '➕', label: 'إضافة منتج', link: 'عرض-بضائع.html', primary: true },
+                    { icon: '📦', label: 'طلبات جديدة', link: '#orders' },
+                    { icon: '💬', label: 'الرسائل', link: '#messages' }
+                ],
+                factory: [
+                    { icon: '📊', label: 'تقرير الإنتاج', link: 'التكامل-الصناعي.html', primary: true },
+                    { icon: '🔬', label: 'طلب تحليل', link: '#lab' },
+                    { icon: '📦', label: 'عرض منتج', link: 'عرض-بضائع.html' }
+                ],
+                logistics: [
+                    { icon: '➕', label: 'شحنة جديدة', link: '#new-shipment', primary: true },
+                    { icon: '🗺️', label: 'خريطة الأسطول', link: 'fbs.html' },
+                    { icon: '📋', label: 'الجدول', link: '#schedule' }
+                ],
+                buyer: [
+                    { icon: '🛒', label: 'تصفح السوق', link: 'السوق.html', primary: true },
+                    { icon: '📦', label: 'تتبع الطلبات', link: '#orders' }
+                ]
+            };
+            
+            container.innerHTML = actions[currentUserType].map(action => `
+                <a href="${action.link}" class="quick-action ${action.primary ? 'primary' : ''}">
+                    <span>${action.icon}</span>
+                    <span>${action.label}</span>
+                </a>
+            `).join('');
+        }
+
+        function renderModules() {
+            const grid = document.getElementById('modulesGrid');
+            const sections = NAV_SECTIONS[currentUserType];
+            const moduleIds = sections.flatMap(s => s.items);
+            const uniqueModules = [...new Set(moduleIds)];
+            
+            grid.innerHTML = uniqueModules.slice(0, 6).map(id => {
+                const m = MODULES[id];
+                if (!m) return '';
+                const isRestricted = !m.users.includes(currentUserType);
+                return `
+                    <a href="${m.link}" class="module-card" data-restricted="${isRestricted}">
+                        <div class="module-icon" style="background: ${m.color}20;">${m.icon}</div>
+                        <h3>${m.name}</h3>
+                        <p>${m.desc}</p>
+                        <div class="module-features">
+                            ${m.features.map(f => `<span class="module-feature">${f}</span>`).join('')}
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        }
+
+        function renderActivity() {
+            const section = document.getElementById('activitySection');
+            const activities = [
+                { icon: '📦', iconBg: '#10b981', title: 'تم إضافة منتج جديد', desc: 'سكراب حديد HMS 1/2 - 50 طن', time: 'منذ 5 دقائق' },
+                { icon: '💰', iconBg: '#d4af37', title: 'تم إتمام عملية بيع', desc: 'نحاس أحمر - 12,500 ر.س', time: 'منذ 15 دقيقة' },
+                { icon: '🚚', iconBg: '#3b82f6', title: 'شحنة في الطريق', desc: 'شحنة #SH-2847 - جدة ← الرياض', time: 'منذ 30 دقيقة' },
+                { icon: '⭐', iconBg: '#f59e0b', title: 'تقييم جديد', desc: '5 نجوم من عميل جديد', time: 'منذ ساعة' }
+            ];
+            
+            section.innerHTML = activities.map(a => `
+                <div class="activity-item">
+                    <div class="activity-icon" style="background: ${a.iconBg}20; color: ${a.iconBg};">${a.icon}</div>
+                    <div class="activity-content">
+                        <h4>${a.title}</h4>
+                        <p>${a.desc}</p>
+                    </div>
+                    <span class="activity-time">${a.time}</span>
+                </div>
+            `).join('');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            switchUserType('admin');
+        });
+    </script>
+</body>
+</html>

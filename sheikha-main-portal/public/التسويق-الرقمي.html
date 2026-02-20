@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شيخة — المنظومة التسويقية الاستراتيجية | Strategic Marketing System</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@600;700;800;900&family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--gold-l:#F5E6A3;--gold-d:#8B7321;--copper:#B87333;--bg:#050810;--bg2:#0a0f1c;--bg3:#111827;--green:#10b981;--red:#ef4444;--blue:#3b82f6;--purple:#8b5cf6;--orange:#f59e0b;--cyan:#06b6d4;--txt:#f0e6d0;--txt2:#a89878;--txt3:#6b5f4f;--r:14px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;}
+
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:260px;background:var(--bg2);border-left:1px solid rgba(212,175,55,.08);position:fixed;right:0;top:0;bottom:0;z-index:50;overflow-y:auto;padding:20px 0;}
+.main{flex:1;margin-right:260px;padding:24px 28px;}
+
+.sb-logo{display:flex;align-items:center;gap:10px;padding:0 20px 16px;border-bottom:1px solid rgba(212,175,55,.06);}
+.sb-logo svg{width:28px;height:28px;}
+.sb-logo span{font-family:'Cairo';font-size:1rem;font-weight:900;color:var(--gold);}
+.sb-tag{font-size:.6rem;color:var(--bg);font-weight:800;background:linear-gradient(135deg,var(--gold),var(--copper));padding:2px 8px;border-radius:6px;margin-right:auto;}
+.sb-group{padding:18px 20px 6px;font-size:.65rem;color:var(--txt3);letter-spacing:3px;text-transform:uppercase;font-family:'Outfit';}
+.sb-link{display:flex;align-items:center;gap:10px;padding:9px 20px;color:var(--txt2);font-size:.82rem;cursor:pointer;transition:all .2s;text-decoration:none;border-right:3px solid transparent;}
+.sb-link:hover,.sb-link.active{color:var(--gold);background:rgba(212,175,55,.04);border-right-color:var(--gold);}
+.sb-link .icon{font-size:1rem;width:20px;text-align:center;}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.topbar h1{font-family:'Cairo';font-size:1.3rem;font-weight:900;}
+.topbar h1 span{color:var(--gold);}
+.topbar-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.btn{padding:8px 16px;border-radius:10px;border:none;cursor:pointer;font-family:'Tajawal';font-size:.8rem;font-weight:700;transition:all .3s;display:inline-flex;align-items:center;gap:6px;}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--bg);}
+.btn-gold:hover{box-shadow:0 6px 20px rgba(212,175,55,.2);transform:translateY(-1px);}
+.btn-outline{background:transparent;border:1px solid rgba(212,175,55,.15);color:var(--gold);}
+.btn-outline:hover{background:rgba(212,175,55,.04);}
+.btn-green{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.2);color:var(--green);}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:24px;}
+.stat{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:var(--r);padding:16px;transition:all .3s;}
+.stat:hover{border-color:rgba(212,175,55,.12);}
+.stat-label{font-size:.72rem;color:var(--txt3);margin-bottom:3px;display:flex;align-items:center;gap:6px;}
+.stat-value{font-family:'Cairo';font-size:1.5rem;font-weight:900;color:var(--gold);}
+.stat-sub{font-family:'Outfit';font-size:.68rem;color:var(--txt3);margin-top:2px;}
+.stat-change{display:inline-flex;align-items:center;gap:3px;font-size:.68rem;padding:2px 8px;border-radius:6px;margin-top:3px;}
+.stat-change.up{background:rgba(16,185,129,.08);color:var(--green);}
+
+/* Sections */
+.section{margin-bottom:24px;display:none;}
+.section.active{display:block;}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+.sec-title{font-family:'Cairo';font-size:1.05rem;font-weight:800;}
+.sec-badge{font-size:.7rem;padding:3px 10px;border-radius:8px;background:rgba(212,175,55,.06);color:var(--gold);font-weight:700;}
+
+/* Cards */
+.grid{display:grid;gap:14px;}
+.grid-2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+.grid-4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+.grid-5{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));}
+.card{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:var(--r);padding:20px;transition:all .3s;}
+.card:hover{border-color:rgba(212,175,55,.12);}
+.card-head{display:flex;align-items:start;justify-content:space-between;margin-bottom:10px;}
+.card h3{font-family:'Cairo';font-size:.95rem;font-weight:800;color:var(--gold);margin-bottom:6px;}
+.card h4{font-size:.88rem;font-weight:700;margin-bottom:4px;}
+.card p{font-size:.82rem;color:var(--txt2);line-height:1.7;}
+.card .verse{font-size:.75rem;color:var(--green);font-style:italic;margin-top:6px;padding:6px 10px;border-right:2px solid rgba(16,185,129,.3);background:rgba(16,185,129,.03);border-radius:0 6px 6px 0;}
+.tag{display:inline-block;padding:2px 10px;border-radius:6px;font-size:.68rem;font-weight:700;}
+.tag-gold{background:rgba(212,175,55,.08);color:var(--gold);}
+.tag-green{background:rgba(16,185,129,.08);color:var(--green);}
+.tag-blue{background:rgba(59,130,246,.08);color:var(--blue);}
+.tag-purple{background:rgba(139,92,246,.08);color:var(--purple);}
+.tag-red{background:rgba(239,68,68,.08);color:var(--red);}
+.tag-cyan{background:rgba(6,182,212,.08);color:var(--cyan);}
+
+/* Camp */
+.camp-card{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:var(--r);padding:18px;transition:all .3s;cursor:pointer;}
+.camp-card:hover{border-color:rgba(212,175,55,.15);transform:translateY(-2px);}
+.camp-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;}
+.kpi{text-align:center;padding:6px;background:rgba(255,255,255,.01);border-radius:8px;}
+.kpi-val{font-family:'Outfit';font-size:.95rem;font-weight:700;color:var(--txt);}
+.kpi-label{font-size:.62rem;color:var(--txt3);}
+.camp-bar{height:4px;background:rgba(255,255,255,.04);border-radius:4px;margin-top:8px;overflow:hidden;}
+.camp-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold),var(--copper));transition:width .5s;}
+
+/* Funnel */
+.funnel{display:flex;flex-direction:column;gap:6px;max-width:600px;}
+.funnel-stage{display:flex;align-items:center;gap:12px;}
+.funnel-bar{height:30px;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:.75rem;font-weight:700;color:var(--bg);transition:width .5s;}
+.funnel-label{font-size:.78rem;color:var(--txt2);min-width:90px;text-align:left;}
+.funnel-count{font-family:'Outfit';font-size:.75rem;color:var(--txt3);min-width:30px;}
+
+/* Calendar */
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-head{font-size:.68rem;color:var(--txt3);text-align:center;padding:6px;font-weight:700;}
+.cal-day{background:var(--bg2);border:1px solid rgba(255,255,255,.02);border-radius:8px;min-height:56px;padding:5px;font-size:.72rem;transition:all .2s;}
+.cal-day:hover{border-color:rgba(212,175,55,.1);}
+.cal-num{font-family:'Outfit';font-size:.7rem;color:var(--txt3);margin-bottom:3px;}
+.cal-item{padding:2px 5px;border-radius:4px;font-size:.58rem;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cal-item.li{background:rgba(10,102,194,.12);color:#5a9fd4;}
+.cal-item.tw{background:rgba(107,122,144,.12);color:var(--txt2);}
+.cal-item.yt{background:rgba(239,68,68,.12);color:#f87171;}
+.cal-item.em{background:rgba(16,185,129,.12);color:var(--green);}
+.cal-item.is{background:rgba(212,175,55,.12);color:var(--gold);}
+
+/* Channels */
+.ch-card{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:var(--r);padding:16px;text-align:center;transition:all .3s;}
+.ch-card:hover{border-color:rgba(212,175,55,.12);transform:translateY(-2px);}
+.ch-icon{font-size:1.5rem;margin-bottom:4px;}
+.ch-name{font-size:.82rem;font-weight:700;margin-bottom:2px;}
+.ch-type{font-size:.66rem;color:var(--txt3);}
+
+/* Materials */
+.mat-card{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:var(--r);padding:14px;display:flex;gap:12px;align-items:center;transition:all .3s;cursor:pointer;text-decoration:none;color:var(--txt);}
+.mat-card:hover{border-color:rgba(212,175,55,.15);transform:translateX(-3px);}
+.mat-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.mat-info h4{font-size:.8rem;font-weight:700;margin-bottom:1px;}
+.mat-info p{font-size:.68rem;color:var(--txt3);}
+
+/* Actions */
+.action-card{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:var(--r);padding:16px;text-align:center;cursor:pointer;transition:all .3s;}
+.action-card:hover{border-color:rgba(212,175,55,.15);background:rgba(212,175,55,.02);transform:translateY(-2px);}
+.action-icon{font-size:1.8rem;margin-bottom:6px;}
+.action-title{font-size:.82rem;font-weight:700;margin-bottom:2px;}
+.action-desc{font-size:.68rem;color:var(--txt3);}
+
+/* Principle cards */
+.prin{display:flex;gap:14px;align-items:start;}
+.prin-num{width:36px;height:36px;border-radius:10px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.1);display:flex;align-items:center;justify-content:center;font-family:'Outfit';font-size:.82rem;font-weight:800;color:var(--gold);flex-shrink:0;}
+.prin h4{font-size:.88rem;font-weight:700;color:var(--gold);margin-bottom:2px;}
+.prin p{font-size:.78rem;color:var(--txt2);line-height:1.6;}
+
+/* Framework */
+.fw-step{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(212,175,55,.04);}
+.fw-step:last-child{border:none;}
+.fw-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.fw-step h4{font-size:.85rem;font-weight:700;margin-bottom:1px;}
+.fw-step p{font-size:.75rem;color:var(--txt3);}
+
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-bg.show{display:flex;}
+.modal{background:var(--bg2);border:1px solid rgba(212,175,55,.1);border-radius:18px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;padding:28px;}
+.modal h2{font-family:'Cairo';font-size:1.1rem;font-weight:800;color:var(--gold);margin-bottom:16px;}
+.form-group{margin-bottom:12px;}
+.form-group label{display:block;font-size:.8rem;font-weight:700;margin-bottom:3px;color:var(--txt2);}
+.form-input,.form-select{width:100%;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:var(--bg3);color:var(--txt);font-family:'Tajawal';font-size:.82rem;}
+.form-input:focus,.form-select:focus{outline:none;border-color:rgba(212,175,55,.2);}
+.form-select{appearance:none;}
+.checkbox-row{display:flex;flex-wrap:wrap;gap:6px;}
+.checkbox-item{padding:5px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.06);font-size:.75rem;cursor:pointer;transition:all .2s;}
+.checkbox-item:hover,.checkbox-item.selected{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.2);color:var(--gold);}
+.modal-actions{display:flex;gap:10px;margin-top:18px;}
+
+/* AI Output */
+#ai-output{margin-top:20px;background:var(--bg2);border:1px solid rgba(212,175,55,.08);border-radius:var(--r);padding:20px;display:none;}
+#ai-text{font-family:'Tajawal';font-size:.82rem;color:var(--txt2);white-space:pre-wrap;line-height:1.8;}
+
+@media(max-width:900px){.sidebar{display:none;}.main{margin-right:0;}.stats{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.stats{grid-template-columns:1fr;}.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-logo">
+    <svg width="28" height="28" viewBox="0 0 44 44" fill="none"><defs><linearGradient id="sg" x1="4" y1="4" x2="40" y2="40"><stop offset="0%" stop-color="#F5E6A3"/><stop offset="40%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#B87333"/></linearGradient></defs><rect x="8" y="8" width="28" height="28" rx="1.5" fill="none" stroke="url(#sg)" stroke-width="1"/><rect x="8" y="8" width="28" height="28" rx="1.5" fill="none" stroke="url(#sg)" stroke-width="1" transform="rotate(45 22 22)"/><line x1="22" y1="13" x2="22" y2="33" stroke="#D4AF37" stroke-width=".7"/><line x1="14" y1="18" x2="30" y2="18" stroke="#D4AF37" stroke-width=".7"/><polygon points="22,15 24,17 22,19 20,17" fill="none" stroke="#D4AF37" stroke-width=".6"/><circle cx="22" cy="17" r=".7" fill="#D4AF37"/></svg>
+    <span>شيخة</span>
+    <span class="sb-tag">V2.0</span>
+  </div>
+
+  <div class="sb-group">الاستراتيجية</div>
+  <a class="sb-link active" onclick="show('overview')"><span class="icon">📊</span> لوحة القيادة</a>
+  <a class="sb-link" onclick="show('principles')"><span class="icon">📖</span> المبادئ الإسلامية</a>
+  <a class="sb-link" onclick="show('strategy')"><span class="icon">🎯</span> الإطار الاستراتيجي</a>
+  <a class="sb-link" onclick="show('positioning')"><span class="icon">♟️</span> التموضع والتمايز</a>
+
+  <div class="sb-group">التنفيذ</div>
+  <a class="sb-link" onclick="show('campaigns')"><span class="icon">🚀</span> الحملات</a>
+  <a class="sb-link" onclick="show('calendar')"><span class="icon">📅</span> تقويم المحتوى</a>
+  <a class="sb-link" onclick="show('channels')"><span class="icon">📡</span> القنوات</a>
+  <a class="sb-link" onclick="show('ai')"><span class="icon">🤖</span> المحتوى الذكي</a>
+
+  <div class="sb-group">القياس</div>
+  <a class="sb-link" onclick="show('leads')"><span class="icon">👥</span> العملاء المحتملين</a>
+  <a class="sb-link" onclick="show('funnel')"><span class="icon">🔻</span> القمع التسويقي</a>
+  <a class="sb-link" onclick="show('kpis')"><span class="icon">📈</span> مؤشرات الأداء</a>
+
+  <div class="sb-group">الأدوات</div>
+  <a class="sb-link" onclick="show('materials')"><span class="icon">📁</span> مكتبة المواد</a>
+  <a class="sb-link" onclick="show('seo')"><span class="icon">🔍</span> SEO + تحليلات</a>
+
+  <div class="sb-group">روابط</div>
+  <a class="sb-link" href="/لوحة-الادمن.html"><span class="icon">⚙️</span> لوحة الأدمن</a>
+  <a class="sb-link" href="/سوق-شيخة.html"><span class="icon">🏪</span> السوق</a>
+  <a class="sb-link" href="/marketing/SHEIKHA-DIGITAL-PACKAGE.html"><span class="icon">📦</span> الحزمة الرقمية</a>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+  <h1>المنظومة التسويقية <span>الاستراتيجية</span></h1>
+    <div class="topbar-actions">
+      <button class="btn btn-outline" onclick="refreshDashboard()">🔄 تحديث</button>
+    <button class="btn btn-green" onclick="setupDefaults()">⚡ تفعيل تلقائي</button>
+      <button class="btn btn-gold" onclick="openModal('new-campaign')">+ حملة جديدة</button>
+    </div>
+  </div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 1. OVERVIEW — لوحة القيادة التنفيذية -->
+<!-- ═══════════════════════════════════════ -->
+<div id="sec-overview" class="section active">
+    <div class="stats" id="stats-grid">
+    <div class="stat"><div class="stat-label">☪️ مؤشر البركة</div><div class="stat-value" id="s-barakah">100%</div><div class="stat-sub">توافق شرعي كامل</div></div>
+    <div class="stat"><div class="stat-label">🚀 الحملات النشطة</div><div class="stat-value" id="s-active">0</div><div class="stat-sub">من <span id="s-total">0</span> إجمالي</div></div>
+    <div class="stat"><div class="stat-label">👁️ الانطباعات</div><div class="stat-value" id="s-impressions">0</div><div class="stat-change up">وعي</div></div>
+    <div class="stat"><div class="stat-label">🖱️ CTR</div><div class="stat-value" id="s-ctr">0%</div><div class="stat-sub">نقرات: <span id="s-clicks">0</span></div></div>
+    <div class="stat"><div class="stat-label">👥 عملاء محتملين</div><div class="stat-value" id="s-leads">0</div><div class="stat-change up">القمع</div></div>
+    <div class="stat"><div class="stat-label">✅ التحويلات</div><div class="stat-value" id="s-conversions">0</div><div class="stat-sub">معدل: <span id="s-conv-rate">0%</span></div></div>
+    <div class="stat"><div class="stat-label">📝 المحتوى</div><div class="stat-value" id="s-published">0</div><div class="stat-sub">مجدول: <span id="s-scheduled">0</span></div></div>
+  </div>
+
+  <div class="sec-head"><div class="sec-title">إجراءات سريعة</div></div>
+  <div class="grid grid-4" style="margin-bottom:24px;">
+    <div class="action-card" onclick="openModal('new-campaign')"><div class="action-icon">🚀</div><div class="action-title">حملة جديدة</div><div class="action-desc">إنشاء حملة تسويقية</div></div>
+    <div class="action-card" onclick="genSMI()"><div class="action-icon">📊</div><div class="action-title">مؤشر SMI</div><div class="action-desc">منشور يومي</div></div>
+    <div class="action-card" onclick="openModal('new-lead')"><div class="action-icon">👤</div><div class="action-title">عميل محتمل</div><div class="action-desc">إضافة lead</div></div>
+    <div class="action-card" onclick="show('materials')"><div class="action-icon">📁</div><div class="action-title">المواد</div><div class="action-desc">مكتبة التسويق</div></div>
+  </div>
+
+  <!-- Vision verse -->
+  <div class="card" style="border-color:rgba(16,185,129,.1);background:rgba(16,185,129,.01);">
+    <p style="text-align:center;color:var(--green);font-size:.9rem;font-weight:700;">«ادْعُ إِلَىٰ سَبِيلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ» — النحل 125</p>
+    <p style="text-align:center;font-size:.75rem;color:var(--txt3);margin-top:4px;">أساس التسويق في شيخة: الحكمة والموعظة الحسنة — لا خداع ولا مبالغة ولا ضغط</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 2. PRINCIPLES — المبادئ الإسلامية للتسويق -->
+<!-- ═══════════════════════════════════════ -->
+<div id="sec-principles" class="section">
+  <div class="sec-head"><div class="sec-title">📖 المبادئ الإسلامية للتسويق — أسس من الكتاب والسنة</div><div class="sec-badge">12 مبدأ</div></div>
+
+  <div class="grid grid-2">
+    <div class="card"><div class="prin"><div class="prin-num">1</div><div><h4>الصدق في البيان</h4><p>وصف المنتج بدقة — لا مبالغة ولا إخفاء عيوب. كل إعلان يعكس الحقيقة.</p><div class="verse">«فإن صدقا وبيّنا بُورك لهما في بيعهما، وإن كتما وكذبا مُحقت بركة بيعهما» — متفق عليه</div></div></div></div>
+
+    <div class="card"><div class="prin"><div class="prin-num">2</div><div><h4>النهي عن الغش</h4><p>لا تلاعب بالصور أو المواصفات. المنتج كما يظهر بالضبط.</p><div class="verse">«من غشّنا فليس منّا» — رواه مسلم</div></div></div></div>
+
+    <div class="card"><div class="prin"><div class="prin-num">3</div><div><h4>التسعير العادل</h4><p>أسعار شفافة عبر مؤشر SMI — لا تضخيم ولا احتكار ولا تسعير جزافي.</p><div class="verse">«لا يحتكر إلا خاطئ» — رواه مسلم</div></div></div></div>
+
+    <div class="card"><div class="prin"><div class="prin-num">4</div><div><h4>النهي عن النجش</h4><p>لا رفع أسعار وهمي ولا تقييمات مزيفة ولا طلبات شراء صورية.</p><div class="verse">«نهى النبي ﷺ عن النجش» — متفق عليه</div></div></div></div>
+
+    <div class="card"><div class="prin"><div class="prin-num">5</div><div><h4>التراضي في البيع</h4><p>لا ضغط على العميل — كل صفقة بتأكيد مزدوج وموافقة صريحة.</p><div class="verse">«إنما البيع عن تراضٍ» — رواه ابن ماجه</div></div></div></div>
+
+    <div class="card"><div class="prin"><div class="prin-num">6</div><div><h4>الأمانة في الكيل والميزان</h4><p>المعادن تُباع بالوزن الدقيق — نظام فحص وتحقق شرعي آلي.</p><div class="verse">«وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ» — الرحمن 9</div></div></div></div>
+
+    <div class="card"><div class="prin"><div class="prin-num">7</div><div><h4>الدعوة بالحكمة</h4><p>التسويق بالحكمة والعلم — محتوى تعليمي يفيد قبل أن يبيع.</p><div class="verse">«ادْعُ إِلَىٰ سَبِيلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ» — النحل 125</div></div></div></div>
+
+    <div class="card"><div class="prin"><div class="prin-num">8</div><div><h4>الإتقان في العمل</h4><p>كل مادة تسويقية بأعلى جودة — إتقان التصميم والمحتوى والتقنية.</p><div class="verse">«إن الله يحب إذا عمل أحدكم عملاً أن يتقنه» — رواه البيهقي</div></div></div></div>
+
+    <div class="card"><div class="prin"><div class="prin-num">9</div><div><h4>تحريم الربا</h4><p>لا فوائد في التمويل — نماذج مرابحة وإجارة فقط.</p><div class="verse">«وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة 275</div></div></div></div>
+
+    <div class="card"><div class="prin"><div class="prin-num">10</div><div><h4>إعمار الأرض</h4><p>التسويق لغرض الإعمار — إعادة تدوير، استدامة، توظيف، زكاة.</p><div class="verse">«هُوَ أَنشَأَكُم مِّنَ الْأَرْضِ وَاسْتَعْمَرَكُمْ فِيهَا» — هود 61</div></div></div></div>
+
+    <div class="card"><div class="prin"><div class="prin-num">11</div><div><h4>التيسير لا التعسير</h4><p>تجربة مستخدم سهلة — تسجيل < دقيقتين، واجهة بسيطة، دعم فوري.</p><div class="verse">«يسّروا ولا تعسّروا، وبشّروا ولا تنفّروا» — متفق عليه</div></div></div></div>
+
+    <div class="card"><div class="prin"><div class="prin-num">12</div><div><h4>التوكل مع الأخذ بالأسباب</h4><p>نبذل أقصى جهد علمي واستراتيجي ثم نتوكل على الله في النتائج.</p><div class="verse">«اعقلها وتوكل» — رواه الترمذي</div></div></div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 3. STRATEGY — الإطار الاستراتيجي -->
+<!-- ═══════════════════════════════════════ -->
+<div id="sec-strategy" class="section">
+  <div class="sec-head"><div class="sec-title">🎯 الإطار الاستراتيجي — STP + AIDA + Blue Ocean</div></div>
+
+  <div class="grid grid-2">
+    <!-- STP -->
+    <div class="card">
+      <h3>STP — التجزئة والاستهداف والتموضع</h3>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(59,130,246,.08)">🔬</div><div><h4>Segmentation — التجزئة</h4><p>3 شرائح: B2B (مصانع/سكراب/تصدير) · B2G (وزارات/جامعات/هيئات) · B2C (تجار/مستثمرون)</p></div></div>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(16,185,129,.08)">🎯</div><div><h4>Targeting — الاستهداف</h4><p>الأولوية: B2B أولاً (70%) → B2G ثانياً (20%) → B2C (10%) — استراتيجية التركيز</p></div></div>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(212,175,55,.08)">♟️</div><div><h4>Positioning — التموضع</h4><p>«أول سوق إسلامي رقمي للمعادن في العالم» — لا منافس مباشر</p></div></div>
+    </div>
+
+    <!-- AIDA Islamic -->
+    <div class="card">
+      <h3>رحلة المشتري الإسلامية — AIDA+</h3>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(59,130,246,.08)">👁️</div><div><h4>A — الوعي (Awareness)</h4><p>LinkedIn + SEO + معارض — «أول سوق إسلامي للمعادن»</p></div></div>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(139,92,246,.08)">🧠</div><div><h4>I — الاهتمام (Interest)</h4><p>مؤشر SMI + محتوى تعليمي + تقارير مجانية</p></div></div>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(245,158,11,.08)">🤝</div><div><h4>D — الثقة والاستخارة (Trust)</h4><p>شهادات شرعية + ضمان جودة + تجربة مجانية — «فإن صدقا وبيّنا بُورك لهما»</p></div></div>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(16,185,129,.08)">✅</div><div><h4>A — التراضي والشراء (Action)</h4><p>تأكيد مزدوج + دفع آمن + شحن متتبع — «إنما البيع عن تراضٍ»</p></div></div>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(212,175,55,.08)">⭐</div><div><h4>L — الولاء والإحسان (Loyalty)</h4><p>برنامج بائع ذهبي + زكاة + مجتمع + إحسان في المعاملة</p></div></div>
+    </div>
+
+    <!-- Blue Ocean -->
+    <div class="card">
+      <h3>🌊 استراتيجية المحيط الأزرق</h3>
+      <p style="margin-bottom:10px;">شيخة تعمل في محيط أزرق — لا منافس مباشر يجمع بين:</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+        <div style="background:rgba(16,185,129,.04);padding:10px;border-radius:10px;border:1px solid rgba(16,185,129,.08);"><div style="font-size:.72rem;font-weight:700;color:var(--green);margin-bottom:4px;">✅ ما نرفعه (Raise)</div><div style="font-size:.72rem;color:var(--txt2);">الشفافية · الأمان الشرعي · تخصص المعادن · AI</div></div>
+        <div style="background:rgba(59,130,246,.04);padding:10px;border-radius:10px;border:1px solid rgba(59,130,246,.08);"><div style="font-size:.72rem;font-weight:700;color:var(--blue);margin-bottom:4px;">🆕 ما نخلقه (Create)</div><div style="font-size:.72rem;color:var(--txt2);">مؤشر SMI · تدقيق شرعي آلي · بوابة حكومية</div></div>
+        <div style="background:rgba(239,68,68,.04);padding:10px;border-radius:10px;border:1px solid rgba(239,68,68,.08);"><div style="font-size:.72rem;font-weight:700;color:var(--red);margin-bottom:4px;">❌ ما نحذفه (Eliminate)</div><div style="font-size:.72rem;color:var(--txt2);">الربا · الغرر · النجش · الاحتكار · الغش</div></div>
+        <div style="background:rgba(245,158,11,.04);padding:10px;border-radius:10px;border:1px solid rgba(245,158,11,.08);"><div style="font-size:.72rem;font-weight:700;color:var(--orange);margin-bottom:4px;">↓ ما نقلله (Reduce)</div><div style="font-size:.72rem;color:var(--txt2);">التعقيد · الوسطاء · زمن الشحن · التكاليف</div></div>
+      </div>
+    </div>
+
+    <!-- 7Ps Islamic -->
+    <div class="card">
+      <h3>المزيج التسويقي الإسلامي — 7Ps+</h3>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(212,175,55,.08)">📦</div><div><h4>Product — المنتج</h4><p>معادن حلال + مؤشر SMI + 6 AI + 294 API</p></div></div>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(16,185,129,.08)">💰</div><div><h4>Price — السعر العادل</h4><p>تسعير شفاف مبني على LME/COMEX + هامش عادل</p></div></div>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(59,130,246,.08)">🌐</div><div><h4>Place — المكان الرقمي</h4><p>sheikha.top + PWA + API مفتوح</p></div></div>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(139,92,246,.08)">📣</div><div><h4>Promotion — الترويج الحكيم</h4><p>بالحكمة والموعظة الحسنة — لا ضغط لا خداع</p></div></div>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(245,158,11,.08)">👥</div><div><h4>People — الأمانة</h4><p>فريق أمين + تدقيق شرعي + خدمة عملاء</p></div></div>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(6,182,212,.08)">⚙️</div><div><h4>Process — الإتقان</h4><p>رحلة عميل مُتقنة من التسجيل للشراء للولاء</p></div></div>
+      <div class="fw-step"><div class="fw-icon" style="background:rgba(184,115,51,.08)">🏛️</div><div><h4>Physical Evidence — الإثبات</h4><p>شهادات جودة + شعار ذهبي + هوية V5 + NFC</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 4. POSITIONING — التموضع والتمايز -->
+<!-- ═══════════════════════════════════════ -->
+<div id="sec-positioning" class="section">
+  <div class="sec-head"><div class="sec-title">♟️ التموضع والتمايز — USP + SWOT + Porter</div></div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>عرض القيمة الفريد — USP</h3>
+      <div style="text-align:center;padding:16px;background:rgba(212,175,55,.03);border-radius:12px;border:1px solid rgba(212,175,55,.08);margin-top:8px;">
+        <div style="font-family:'Cairo';font-size:1.1rem;font-weight:900;color:var(--gold);line-height:1.6;">«أول منظومة اقتصادية إسلامية رقمية<br>للمعادن والسكراب في العالم»</div>
+        <div style="font-size:.78rem;color:var(--txt2);margin-top:8px;">شريعة + تقنية + تخصص = لا منافس مباشر</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>SWOT — التحليل الرباعي</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+        <div style="background:rgba(16,185,129,.04);padding:10px;border-radius:10px;border:1px solid rgba(16,185,129,.08);"><div style="font-size:.72rem;font-weight:700;color:var(--green);margin-bottom:4px;">✅ القوة</div><div style="font-size:.7rem;color:var(--txt2);line-height:1.7;">أول منظومة إسلامية · 294 API · SMI فريد · 9/9 أمان · رؤية 2030</div></div>
+        <div style="background:rgba(239,68,68,.04);padding:10px;border-radius:10px;border:1px solid rgba(239,68,68,.08);"><div style="font-size:.72rem;font-weight:700;color:var(--red);margin-bottom:4px;">⚠️ الضعف</div><div style="font-size:.7rem;color:var(--txt2);line-height:1.7;">فريق صغير · بيانات تجريبية · لا مستخدمين فعليين بعد</div></div>
+        <div style="background:rgba(212,175,55,.04);padding:10px;border-radius:10px;border:1px solid rgba(212,175,55,.08);"><div style="font-size:.72rem;font-weight:700;color:var(--gold);margin-bottom:4px;">🚀 الفرص</div><div style="font-size:.7rem;color:var(--txt2);line-height:1.7;">$700B سوق · لا منافس · ESG · تمويل إسلامي متزايد · 2030</div></div>
+        <div style="background:rgba(30,58,95,.1);padding:10px;border-radius:10px;border:1px solid rgba(30,58,95,.15);"><div style="font-size:.72rem;font-weight:700;color:var(--blue);margin-bottom:4px;">🔴 التهديدات</div><div style="font-size:.7rem;color:var(--txt2);line-height:1.7;">Alibaba/Amazon · تغيّر لوائح · تحدي بناء الثقة</div></div>
+      </div>
+  </div>
+
+    <div class="card" style="grid-column:1/-1;">
+      <h3>قوى بورتر الخمس — Porter's Five Forces</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px;">
+        <div style="background:var(--bg3);padding:12px;border-radius:10px;text-align:center;"><div style="font-size:1.4rem;margin-bottom:4px;">🏭</div><div style="font-size:.75rem;font-weight:700;color:var(--green);margin-bottom:2px;">تهديد المنافسين: منخفض</div><div style="font-size:.68rem;color:var(--txt3);">لا منافس مباشر يجمع إسلامي + معادن + رقمي</div></div>
+        <div style="background:var(--bg3);padding:12px;border-radius:10px;text-align:center;"><div style="font-size:1.4rem;margin-bottom:4px;">🆕</div><div style="font-size:.75rem;font-weight:700;color:var(--orange);margin-bottom:2px;">تهديد الداخلين: متوسط</div><div style="font-size:.68rem;color:var(--txt3);">حاجز الدخول عالي (شريعة + تقنية + تخصص)</div></div>
+        <div style="background:var(--bg3);padding:12px;border-radius:10px;text-align:center;"><div style="font-size:1.4rem;margin-bottom:4px;">🔄</div><div style="font-size:.75rem;font-weight:700;color:var(--green);margin-bottom:2px;">تهديد البدائل: منخفض</div><div style="font-size:.68rem;color:var(--txt3);">لا بديل يقدم ضمان شرعي + SMI + AI</div></div>
+        <div style="background:var(--bg3);padding:12px;border-radius:10px;text-align:center;"><div style="font-size:1.4rem;margin-bottom:4px;">👤</div><div style="font-size:.75rem;font-weight:700;color:var(--orange);margin-bottom:2px;">قوة المشترين: متوسطة</div><div style="font-size:.68rem;color:var(--txt3);">نوفر شفافية تقلل قوتهم التفاوضية</div></div>
+        <div style="background:var(--bg3);padding:12px;border-radius:10px;text-align:center;"><div style="font-size:1.4rem;margin-bottom:4px;">🏗️</div><div style="font-size:.75rem;font-weight:700;color:var(--orange);margin-bottom:2px;">قوة الموردين: متوسطة</div><div style="font-size:.68rem;color:var(--txt3);">تنويع مصادر التوريد يقلل الاعتماد</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 5-11: EXECUTION SECTIONS -->
+<!-- ═══════════════════════════════════════ -->
+
+<!-- CAMPAIGNS -->
+<div id="sec-campaigns" class="section">
+  <div class="sec-head"><div class="sec-title">🚀 الحملات التسويقية</div><button class="btn btn-gold" onclick="openModal('new-campaign')">+ حملة جديدة</button></div>
+  <div class="grid grid-2" id="campaigns-list"><div style="text-align:center;padding:40px;color:var(--txt3);">اضغط "تفعيل تلقائي" لإنشاء 5 حملات افتراضية</div></div>
+</div>
+
+<!-- CALENDAR -->
+<div id="sec-calendar" class="section">
+  <div class="sec-head"><div class="sec-title">📅 تقويم المحتوى — Content Calendar</div><div style="display:flex;gap:8px;"><button class="btn btn-outline" onclick="setupCalendar()">⚡ توليد تلقائي</button><button class="btn btn-gold" onclick="openModal('new-content')">+ محتوى</button></div></div>
+  <p style="font-size:.78rem;color:var(--txt3);margin-bottom:12px;">الأحد: مؤشر SMI 📊 | الثلاثاء: محتوى تعليمي 📚 | الخميس: تفاعل مجتمعي 💬 | المناسبات الإسلامية: محتوى خاص ☪️</p>
+    <div class="calendar" id="content-calendar">
+      <div class="cal-head">الأحد</div><div class="cal-head">الاثنين</div><div class="cal-head">الثلاثاء</div><div class="cal-head">الأربعاء</div><div class="cal-head">الخميس</div><div class="cal-head">الجمعة</div><div class="cal-head">السبت</div>
+    </div>
+  </div>
+
+<!-- CHANNELS -->
+<div id="sec-channels" class="section">
+  <div class="sec-head"><div class="sec-title">📡 القنوات التسويقية — Channel Strategy</div></div>
+  <div class="grid grid-4" id="channels-list"></div>
+  </div>
+
+<!-- AI CONTENT -->
+<div id="sec-ai" class="section">
+  <div class="sec-head"><div class="sec-title">🤖 توليد المحتوى بالذكاء الاصطناعي</div></div>
+  <div class="grid grid-3">
+    <div class="camp-card" onclick="genSMI()"><div style="font-size:1.4rem;margin-bottom:6px;">📊</div><h4 style="color:var(--gold);">منشور مؤشر SMI</h4><p style="font-size:.78rem;color:var(--txt3);margin-top:4px;">أسعار المعادن يومياً — LinkedIn + X</p></div>
+    <div class="camp-card" onclick="genContent('awareness','B2B')"><div style="font-size:1.4rem;margin-bottom:6px;">🏭</div><h4 style="color:var(--gold);">محتوى B2B</h4><p style="font-size:.78rem;color:var(--txt3);margin-top:4px;">مصانع وشركات المعادن</p></div>
+    <div class="camp-card" onclick="genContent('awareness','B2G')"><div style="font-size:1.4rem;margin-bottom:6px;">🏛️</div><h4 style="color:var(--gold);">محتوى B2G</h4><p style="font-size:.78rem;color:var(--txt3);margin-top:4px;">وزارات وجهات حكومية</p></div>
+    <div class="camp-card" onclick="genContent('awareness','B2C')"><div style="font-size:1.4rem;margin-bottom:6px;">💰</div><h4 style="color:var(--gold);">محتوى B2C</h4><p style="font-size:.78rem;color:var(--txt3);margin-top:4px;">مستثمرون وتجار أفراد</p></div>
+    <div class="camp-card" onclick="genContent('lead-gen','B2B')"><div style="font-size:1.4rem;margin-bottom:6px;">📋</div><h4 style="color:var(--gold);">تقرير مجاني</h4><p style="font-size:.78rem;color:var(--txt3);margin-top:4px;">محتوى Lead Magnet</p></div>
+    <div class="camp-card" onclick="genIslamic()"><div style="font-size:1.4rem;margin-bottom:6px;">☪️</div><h4 style="color:var(--gold);">محتوى إسلامي</h4><p style="font-size:.78rem;color:var(--txt3);margin-top:4px;">مبادئ التجارة في الإسلام</p></div>
+  </div>
+  <div id="ai-output"><div style="font-weight:700;color:var(--gold);margin-bottom:10px;">المحتوى المُولّد:</div><pre id="ai-text"></pre><div style="display:flex;gap:8px;margin-top:12px;"><button class="btn btn-gold" onclick="copyAI()">📋 نسخ</button><button class="btn btn-outline" onclick="document.getElementById('ai-output').style.display='none'">إغلاق</button></div></div>
+  </div>
+
+<!-- LEADS -->
+<div id="sec-leads" class="section">
+  <div class="sec-head"><div class="sec-title">👥 العملاء المحتملين — Lead Management</div><button class="btn btn-gold" onclick="openModal('new-lead')">+ عميل جديد</button></div>
+  <div id="leads-list" style="display:grid;gap:10px;"></div>
+  </div>
+
+<!-- FUNNEL -->
+<div id="sec-funnel" class="section">
+  <div class="sec-head"><div class="sec-title">🔻 القمع التسويقي — Marketing Funnel</div></div>
+  <div class="grid grid-2"><div><div class="funnel" id="funnel-viz"></div></div>
+  <div class="card"><h3>المعادلات</h3>
+    <div class="fw-step"><div class="fw-icon" style="background:rgba(212,175,55,.08)">📊</div><div><h4>CAC — تكلفة اكتساب العميل</h4><p>إجمالي الإنفاق ÷ عدد العملاء الجدد</p></div></div>
+    <div class="fw-step"><div class="fw-icon" style="background:rgba(16,185,129,.08)">💎</div><div><h4>CLV — القيمة الدائمة للعميل</h4><p>متوسط الصفقة × عدد الصفقات × مدة العلاقة</p></div></div>
+    <div class="fw-step"><div class="fw-icon" style="background:rgba(245,158,11,.08)">📈</div><div><h4>ROI — العائد على الاستثمار</h4><p>(الإيرادات - التكاليف) ÷ التكاليف × 100</p></div></div>
+    <div class="fw-step"><div class="fw-icon" style="background:rgba(6,182,212,.08)">☪️</div><div><h4>مؤشر البركة — Barakah Index</h4><p>التوافق الشرعي × رضا العميل × الأثر الاجتماعي</p></div></div>
+  </div></div>
+  </div>
+
+<!-- KPIs -->
+<div id="sec-kpis" class="section">
+  <div class="sec-head"><div class="sec-title">📈 مؤشرات الأداء الرئيسية — KPIs + OKRs</div></div>
+  <div class="grid grid-2">
+    <div class="card"><h3>OKRs — الأهداف والنتائج الرئيسية (Q1 2026)</h3>
+      <div style="margin-top:10px;">
+        <div style="font-weight:700;font-size:.85rem;color:var(--gold);margin-bottom:6px;">🎯 الهدف 1: بناء الوعي بالعلامة التجارية</div>
+        <div style="font-size:.78rem;color:var(--txt2);padding:4px 0;">KR1: 10,000 انطباع على LinkedIn</div>
+        <div style="font-size:.78rem;color:var(--txt2);padding:4px 0;">KR2: 500 زائر فريد للموقع شهرياً</div>
+        <div style="font-size:.78rem;color:var(--txt2);padding:4px 0;">KR3: 50 متابع جديد على كل منصة</div>
+        <div style="font-weight:700;font-size:.85rem;color:var(--gold);margin:12px 0 6px;">🎯 الهدف 2: توليد عملاء محتملين</div>
+        <div style="font-size:.78rem;color:var(--txt2);padding:4px 0;">KR1: 30 lead مؤهل</div>
+        <div style="font-size:.78rem;color:var(--txt2);padding:4px 0;">KR2: 5 عروض أسعار مقدمة</div>
+        <div style="font-size:.78rem;color:var(--txt2);padding:4px 0;">KR3: 2 صفقة مغلقة</div>
+        <div style="font-weight:700;font-size:.85rem;color:var(--gold);margin:12px 0 6px;">🎯 الهدف 3: إثبات التوافق الشرعي</div>
+        <div style="font-size:.78rem;color:var(--txt2);padding:4px 0;">KR1: 100% توافق شرعي في كل المحتوى</div>
+        <div style="font-size:.78rem;color:var(--txt2);padding:4px 0;">KR2: 3 مراجعات شرعية موثقة</div>
+        <div style="font-size:.78rem;color:var(--txt2);padding:4px 0;">KR3: شهادة تدقيق شرعي خارجية</div>
+      </div>
+    </div>
+    <div class="card"><h3>Balanced Scorecard — بطاقة الأداء المتوازن</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+        <div style="background:rgba(212,175,55,.03);padding:12px;border-radius:10px;border:1px solid rgba(212,175,55,.06);"><div style="font-size:.72rem;font-weight:700;color:var(--gold);margin-bottom:6px;">💰 المالية</div><div style="font-size:.72rem;color:var(--txt2);line-height:1.7;">• إيرادات أولى Q2<br>• CAC < SAR 500<br>• CLV > SAR 5,000</div></div>
+        <div style="background:rgba(59,130,246,.03);padding:12px;border-radius:10px;border:1px solid rgba(59,130,246,.06);"><div style="font-size:.72rem;font-weight:700;color:var(--blue);margin-bottom:6px;">👥 العملاء</div><div style="font-size:.72rem;color:var(--txt2);line-height:1.7;">• NPS > 70<br>• رضا > 90%<br>• إحالات > 20%</div></div>
+        <div style="background:rgba(16,185,129,.03);padding:12px;border-radius:10px;border:1px solid rgba(16,185,129,.06);"><div style="font-size:.72rem;font-weight:700;color:var(--green);margin-bottom:6px;">⚙️ العمليات</div><div style="font-size:.72rem;color:var(--txt2);line-height:1.7;">• تسجيل < 2 دقيقة<br>• 99.9% uptime<br>• 12 محتوى/شهر</div></div>
+        <div style="background:rgba(139,92,246,.03);padding:12px;border-radius:10px;border:1px solid rgba(139,92,246,.06);"><div style="font-size:.72rem;font-weight:700;color:var(--purple);margin-bottom:6px;">📚 التعلم والنمو</div><div style="font-size:.72rem;color:var(--txt2);line-height:1.7;">• AI engine v2<br>• 3 شراكات<br>• فريق +2</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MATERIALS -->
+<div id="sec-materials" class="section">
+  <div class="sec-head"><div class="sec-title">📁 مكتبة المواد التسويقية</div></div>
+  <div class="grid grid-3" id="materials-list"></div>
+  </div>
+
+<!-- SEO -->
+<div id="sec-seo" class="section">
+  <div class="sec-head"><div class="sec-title">🔍 SEO + تحليلات — Search Engine Optimization</div></div>
+  <div class="grid grid-2">
+    <div class="card"><h3>كلمات مفتاحية مستهدفة</h3><div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
+      <span class="tag tag-gold">سوق معادن</span><span class="tag tag-gold">سكراب حديد</span><span class="tag tag-gold">أسعار الذهب</span><span class="tag tag-gold">تجارة معادن إسلامية</span><span class="tag tag-blue">metals marketplace</span><span class="tag tag-blue">Islamic metals trading</span><span class="tag tag-blue">scrap metal Saudi</span><span class="tag tag-blue">sheikha metals</span><span class="tag tag-blue">SMI index</span><span class="tag tag-green">halal investment</span><span class="tag tag-green">copper price KSA</span><span class="tag tag-purple">B2G metals procurement</span>
+      </div></div>
+    <div class="card"><h3>صفحات محسّنة</h3><div style="margin-top:8px;">
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(212,175,55,.04);font-size:.8rem;"><span style="color:var(--txt3)">الرئيسية</span><span style="color:var(--green);">✓ SEO</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(212,175,55,.04);font-size:.8rem;"><span style="color:var(--txt3)">سوق شيخة</span><span style="color:var(--green);">✓ SEO</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(212,175,55,.04);font-size:.8rem;"><span style="color:var(--txt3)">تسجيل الشركات</span><span style="color:var(--green);">✓ SEO</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(212,175,55,.04);font-size:.8rem;"><span style="color:var(--txt3)">التسجيل الحكومي</span><span style="color:var(--orange);">◐ جزئي</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:.8rem;"><span style="color:var(--txt3)">المجتمع</span><span style="color:var(--orange);">◐ جزئي</span></div>
+      </div></div>
+  </div>
+</div>
+
+</div><!-- main -->
+
+<!-- MODALS -->
+<div class="modal-bg" id="modal-new-campaign">
+  <div class="modal">
+    <h2>🚀 حملة تسويقية جديدة</h2>
+    <div class="form-group"><label>اسم الحملة</label><input class="form-input" id="camp-name" placeholder="مثال: حملة الوعي Q1 2026"></div>
+    <div class="form-group"><label>نوع الحملة</label><select class="form-select" id="camp-type"><option value="awareness">وعي — Awareness</option><option value="lead-gen">استقطاب — Lead Gen</option><option value="conversion">تحويل — Conversion</option><option value="retention">ولاء — Retention</option></select></div>
+    <div class="form-group"><label>الشريحة</label><select class="form-select" id="camp-target"><option value="B2B">B2B — شركات</option><option value="B2G">B2G — حكومة</option><option value="B2C">B2C — أفراد</option><option value="all">الكل</option></select></div>
+    <div class="form-group"><label>القنوات</label><div class="checkbox-row" id="camp-channels"><div class="checkbox-item selected" data-ch="linkedin">LinkedIn</div><div class="checkbox-item" data-ch="x">X</div><div class="checkbox-item" data-ch="google">Google</div><div class="checkbox-item" data-ch="email">Email</div><div class="checkbox-item" data-ch="whatsapp">WhatsApp</div><div class="checkbox-item" data-ch="youtube">YouTube</div><div class="checkbox-item" data-ch="exhibitions">معارض</div></div></div>
+    <div class="form-group"><label>الميزانية (ريال)</label><input class="form-input" id="camp-budget" type="number" placeholder="5000"></div>
+    <div class="modal-actions"><button class="btn btn-gold" onclick="createCampaign()">إنشاء الحملة</button><button class="btn btn-outline" onclick="closeModals()">إلغاء</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-new-lead">
+  <div class="modal">
+    <h2>👤 عميل محتمل جديد</h2>
+    <div class="form-group"><label>الاسم</label><input class="form-input" id="lead-name" placeholder="الاسم أو الشركة"></div>
+    <div class="form-group"><label>الشركة</label><input class="form-input" id="lead-company" placeholder="اسم الشركة"></div>
+    <div class="form-group"><label>البريد</label><input class="form-input" id="lead-email" type="email" placeholder="email@company.com"></div>
+    <div class="form-group"><label>الهاتف</label><input class="form-input" id="lead-phone" placeholder="+966 5X XXX XXXX"></div>
+    <div class="form-group"><label>النوع</label><select class="form-select" id="lead-type"><option value="B2B">B2B — شركة</option><option value="B2G">B2G — جهة حكومية</option><option value="B2C">B2C — فرد</option></select></div>
+    <div class="form-group"><label>المصدر</label><select class="form-select" id="lead-source"><option value="website">الموقع</option><option value="linkedin">LinkedIn</option><option value="referral">إحالة</option><option value="exhibition">معرض</option><option value="whatsapp">واتساب</option><option value="google">Google</option></select></div>
+    <div class="modal-actions"><button class="btn btn-gold" onclick="addLead()">إضافة العميل</button><button class="btn btn-outline" onclick="closeModals()">إلغاء</button></div>
+  </div>
+</div>
+
+<script src="/js/safe-api.js"></script>
+<script>
+const API='/api/marketing';
+let dashData=null;
+
+function show(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('sec-'+id);
+  if(el)el.classList.add('active');
+  document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
+  if(event?.target?.closest)event.target.closest('.sb-link')?.classList.add('active');
+  if(id==='campaigns')loadCampaigns();
+  if(id==='leads')loadLeads();
+  if(id==='funnel')loadFunnel();
+  if(id==='channels')loadChannels();
+  if(id==='materials')loadMaterials();
+  if(id==='calendar')loadCalendar();
+}
+
+async function refreshDashboard(){
+  try{const r=await fetch(API+'/dashboard');dashData=await r.json();if(dashData.success!==false)updateStats(dashData);}
+  catch(e){updateStatsLocal();}
+}
+
+function updateStats(d){
+  const o=d.overview||d,p=d.performance||{};
+  document.getElementById('s-active').textContent=o.activeCampaigns||0;
+  document.getElementById('s-total').textContent=o.totalCampaigns||0;
+  document.getElementById('s-impressions').textContent=(p.impressions||0).toLocaleString();
+  document.getElementById('s-clicks').textContent=(p.clicks||0).toLocaleString();
+  document.getElementById('s-ctr').textContent=(p.ctr||0)+'%';
+  document.getElementById('s-leads').textContent=p.leads||0;
+  document.getElementById('s-conversions').textContent=p.conversions||0;
+  document.getElementById('s-conv-rate').textContent=(p.conversionRate||0)+'%';
+  if(d.content){document.getElementById('s-published').textContent=d.content.published||0;document.getElementById('s-scheduled').textContent=d.content.scheduled||0;}
+}
+function updateStatsLocal(){document.getElementById('s-active').textContent='—';}
+
+async function loadCampaigns(){
+  try{const r=await fetch(API+'/campaigns');const d=await r.json();renderCampaigns(d.campaigns||d||[]);}
+  catch(e){renderCampaigns([]);}
+}
+function renderCampaigns(cs){
+  const el=document.getElementById('campaigns-list');
+  if(!cs.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--txt3);grid-column:1/-1;">اضغط "تفعيل تلقائي" لإنشاء 5 حملات</div>';return;}
+  el.innerHTML=cs.map(c=>`<div class="camp-card"><div style="display:flex;justify-content:space-between;margin-bottom:8px;"><div style="font-weight:700;font-size:.88rem;flex:1;">${c.name}</div><span class="tag tag-${c.status==='active'?'green':c.status==='draft'?'red':'gold'}">${{draft:'مسودة',scheduled:'مجدول',active:'نشط',paused:'متوقف',completed:'مكتمل'}[c.status]||c.status}</span></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;"><span class="tag tag-gold">${c.target}</span><span class="tag tag-blue">${c.type}</span>${(c.channels||[]).map(ch=>`<span class="tag tag-cyan">${ch}</span>`).join('')}</div><div class="camp-kpis"><div class="kpi"><div class="kpi-val">${(c.kpis?.impressions||0).toLocaleString()}</div><div class="kpi-label">انطباع</div></div><div class="kpi"><div class="kpi-val">${c.kpis?.leads||0}</div><div class="kpi-label">عميل</div></div><div class="kpi"><div class="kpi-val">${c.kpis?.conversions||0}</div><div class="kpi-label">تحويل</div></div></div><div class="camp-bar"><div class="camp-bar-fill" style="width:${c.budget>0?Math.min((c.spent/c.budget)*100,100):0}%"></div></div></div>`).join('');
+}
+
+async function createCampaign(){
+  const channels=[...document.querySelectorAll('#camp-channels .checkbox-item.selected')].map(e=>e.dataset.ch);
+  const body={name:document.getElementById('camp-name').value,type:document.getElementById('camp-type').value,target:document.getElementById('camp-target').value,channels,budget:Number(document.getElementById('camp-budget').value)||0};
+  try{await fetch(API+'/campaigns',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});closeModals();show('campaigns');refreshDashboard();}catch(e){alert('تأكد أن الخادم يعمل');}
+}
+
+async function loadLeads(){
+  try{const r=await fetch(API+'/leads');const d=await r.json();renderLeads(d.leads||d||[]);}catch(e){renderLeads([]);}
+}
+function renderLeads(ls){
+  const el=document.getElementById('leads-list');
+  if(!ls.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--txt3);">لا يوجد عملاء — أضف أول عميل</div>';return;}
+  el.innerHTML=ls.map(l=>`<div class="camp-card" style="display:flex;gap:14px;align-items:center;"><div style="width:38px;height:38px;border-radius:10px;background:rgba(212,175,55,.08);display:flex;align-items:center;justify-content:center;font-size:1rem;">👤</div><div style="flex:1;"><div style="font-weight:700;font-size:.85rem;">${l.name} <span style="font-size:.7rem;color:var(--txt3);">— ${l.company||''}</span></div><div style="font-size:.72rem;color:var(--txt3);">${l.email||''} | ${l.phone||''}</div></div><span class="tag tag-gold">${l.type}</span><span class="tag tag-blue">${l.source}</span><span class="tag tag-${l.stage==='won'?'green':'purple'}">${l.stage}</span><div style="font-family:'Outfit';font-size:.95rem;font-weight:700;color:var(--gold);">${l.score}/100</div></div>`).join('');
+}
+
+async function addLead(){
+  const body={name:document.getElementById('lead-name').value,company:document.getElementById('lead-company').value,email:document.getElementById('lead-email').value,phone:document.getElementById('lead-phone').value,type:document.getElementById('lead-type').value,source:document.getElementById('lead-source').value};
+  try{await fetch(API+'/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});closeModals();show('leads');refreshDashboard();}catch(e){alert('تأكد أن الخادم يعمل');}
+}
+
+async function loadFunnel(){
+  try{const r=await fetch(API+'/funnel');const d=await r.json();renderFunnel(d.funnel||d||{});}catch(e){renderFunnel({});}
+}
+function renderFunnel(f){
+  const stages=[{key:'new',label:'جديد',color:'var(--blue)'},{key:'contacted',label:'تم التواصل',color:'var(--purple)'},{key:'qualified',label:'مؤهل',color:'var(--gold)'},{key:'proposal',label:'عرض سعر',color:'var(--copper)'},{key:'negotiation',label:'تفاوض',color:'var(--orange)'},{key:'won',label:'فاز ✓',color:'var(--green)'},{key:'lost',label:'خسر',color:'var(--red)'}];
+  const total=Object.values(f).reduce((s,v)=>typeof v==='number'?s+v:s,0)||1;
+  document.getElementById('funnel-viz').innerHTML=stages.map(s=>{const c=f[s.key]||0;const p=Math.max((c/total)*100,c>0?10:0);return`<div class="funnel-stage"><span class="funnel-label">${s.label}</span><div class="funnel-bar" style="width:${p}%;background:${s.color};min-width:${c>0?'40px':'0'}">${c}</div><span class="funnel-count">${c}</span></div>`;}).join('')+`<div style="margin-top:14px;font-size:.85rem;color:var(--gold);font-weight:700;">معدل التحويل: ${f.conversionRate||0}%</div>`;
+}
+
+function loadChannels(){
+  const chs=[{icon:'💼',name:'LinkedIn',type:'B2B / B2G',desc:'محتوى مهني + SMI يومي'},{icon:'𝕏',name:'X (Twitter)',type:'B2B / B2C',desc:'أخبار + تحليلات'},{icon:'💬',name:'WhatsApp',type:'مباشر',desc:'تجار + تنبيهات'},{icon:'📧',name:'Email',type:'حملات',desc:'نشرات + رعاية عملاء'},{icon:'🔍',name:'Google',type:'SEO + SEM',desc:'بحث + إعلانات'},{icon:'🎥',name:'YouTube',type:'فيديو',desc:'تعليمي + عروض'},{icon:'🏢',name:'معارض',type:'حضوري',desc:'B2G + شبكات'}];
+  document.getElementById('channels-list').innerHTML=chs.map(c=>`<div class="ch-card"><div class="ch-icon">${c.icon}</div><div class="ch-name">${c.name}</div><div class="ch-type">${c.type}</div><div style="font-size:.7rem;color:var(--txt3);margin-top:4px;">${c.desc}</div></div>`).join('');
+}
+
+function loadMaterials(){
+  const ms=[
+    {icon:'📦',bg:'rgba(212,175,55,.08)',name:'الحزمة الرقمية الشاملة',desc:'7 أقسام: هوية + تسويق + قيم',link:'/marketing/SHEIKHA-DIGITAL-PACKAGE.html'},
+    {icon:'💳',bg:'rgba(16,185,129,.08)',name:'بطاقة أعمال V5',desc:'بطاقة + NFC + QR',link:'/marketing/SHEIKHA-CARDS-V5.html'},
+    {icon:'📄',bg:'rgba(59,130,246,.08)',name:'ملف الشركة',desc:'بروفايل احترافي',link:'/marketing/company-profile.html'},
+    {icon:'📰',bg:'rgba(139,92,246,.08)',name:'البروشور',desc:'صفحتين',link:'/marketing/brochure.html'},
+    {icon:'✉️',bg:'rgba(245,158,11,.08)',name:'توقيع البريد',desc:'HTML جاهز',link:'/marketing/email-signature.html'},
+    {icon:'🖼️',bg:'rgba(239,68,68,.08)',name:'بانرات إعلانية',desc:'5 مقاسات',link:'/marketing/banner.html'},
+    {icon:'🖼️',bg:'rgba(212,175,55,.08)',name:'الشعار HD',desc:'PNG عالي الدقة',link:'/images/sheikha-full-logo-hd.png'},
+    {icon:'📐',bg:'rgba(184,115,51,.08)',name:'الشعار SVG',desc:'متجه لا نهائي',link:'/images/logo.svg'}
+  ];
+  document.getElementById('materials-list').innerHTML=ms.map(m=>`<a class="mat-card" href="${m.link}" target="_blank"><div class="mat-icon" style="background:${m.bg}">${m.icon}</div><div class="mat-info"><h4>${m.name}</h4><p>${m.desc}</p></div></a>`).join('');
+}
+
+function loadCalendar(){
+  const cal=document.getElementById('content-calendar');
+  const now=new Date(),y=now.getFullYear(),m=now.getMonth();
+  const firstDay=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+  let h='<div class="cal-head">الأحد</div><div class="cal-head">الاثنين</div><div class="cal-head">الثلاثاء</div><div class="cal-head">الأربعاء</div><div class="cal-head">الخميس</div><div class="cal-head">الجمعة</div><div class="cal-head">السبت</div>';
+  for(let i=0;i<firstDay;i++)h+='<div class="cal-day"></div>';
+  for(let d=1;d<=days;d++){
+    const dow=new Date(y,m,d).getDay();let items='';
+    if(dow===0)items='<div class="cal-item li">📊 SMI</div>';
+    if(dow===2)items='<div class="cal-item li">📚 تعليمي</div>';
+    if(dow===4)items='<div class="cal-item tw">💬 تفاعل</div>';
+    if(dow===5)items='<div class="cal-item is">☪️ جمعة</div>';
+    h+=`<div class="cal-day"><div class="cal-num">${d}</div>${items}</div>`;
+  }
+  cal.innerHTML=h;
+}
+
+// AI Content
+function genSMI(){
+  showAI(`📊 مؤشر شيخة SMI — ${new Date().toLocaleDateString('ar-SA')}\n\n🔸 ذهب: 2,345 \$/oz\n🔸 فضة: 28.5 \$/oz\n🔸 نحاس: 8,920 \$/ton\n🔸 حديد: 125 \$/ton\n🔸 ألمنيوم: 2,480 \$/ton\n\n⚖️ «وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ»\nأسعار شفافة — بلا غرر بلا احتكار\n\n🌐 sheikha.top\n\n#شيخة #SHEIKHA #SMI #معادن #أسعار_المعادن`);
+}
+function genContent(type,target){
+  const t={'awareness-B2B':`🏭 هل تبحث عن مصدر موثوق للمعادن والسكراب؟\n\nشيخة — أول سوق إسلامي رقمي:\n✅ أسعار شفافة عبر مؤشر SMI\n✅ معاملات حلال 100%\n✅ شحن ولوجستيات متكاملة\n✅ ضمان الجودة والمواصفات\n\n«فإن صدقا وبيّنا بُورك لهما في بيعهما»\n\n🌐 sheikha.top\n\n#شيخة #معادن #سكراب #B2B`,'awareness-B2G':`🏛 بوابة شيخة الحكومية\n\nللوزارات والجامعات والهيئات والأمانات:\n✅ متوافق مع رؤية 2030\n✅ ZATCA + IKTVA + NCA\n✅ مصادقة نفاذ\n✅ تقارير ESG\n\n«إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا»\n\n🌐 sheikha.top\n\n#شيخة #رؤية_2030 #B2G`,'awareness-B2C':`💰 استثمر في المعادن بطريقة حلال\n\nشيخة — منصتك الموثوقة:\n✅ ذهب · فضة · نحاس · حديد\n✅ أسعار لحظية شفافة\n✅ بلا ربا بلا غرر\n✅ حاسبة زكاة مدمجة\n\n«وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا»\n\n🌐 sheikha.top\n\n#شيخة #ذهب #استثمار_حلال`,'lead-gen-B2B':`📋 تقرير مجاني: أسعار المعادن في السعودية\n\nتقرير شيخة الشهري:\n📊 تحليل 15+ معدن\n📈 توقعات السوق\n🔍 فرص الاستثمار\n\n«اعقلها وتوكل» — خذ بالأسباب واتخذ قرارات مبنية على بيانات\n\n🌐 sheikha.top/reports\n\n#شيخة #تحليل_سوق`};
+  showAI(t[type+'-'+target]||t['awareness-B2B']);
+}
+function genIslamic(){
+  showAI(`☪️ مبادئ التجارة في الإسلام — سلسلة شيخة التعليمية\n\n1️⃣ الصدق في البيان:\n«فإن صدقا وبيّنا بُورك لهما في بيعهما»\n\n2️⃣ النهي عن الغش:\n«من غشّنا فليس منّا»\n\n3️⃣ العدل في الميزان:\n«وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ»\n\n4️⃣ تحريم الاحتكار:\n«لا يحتكر إلا خاطئ»\n\n5️⃣ البيع عن تراضٍ:\n«إنما البيع عن تراضٍ»\n\nشيخة تطبّق هذه المبادئ رقمياً — كل معاملة حلال وشفافة.\n\n🌐 sheikha.top\n\n#شيخة #تجارة_إسلامية #حلال #سوق_المدينة`);
+}
+function showAI(text){show('ai');const o=document.getElementById('ai-output');o.style.display='block';document.getElementById('ai-text').textContent=text;}
+function copyAI(){navigator.clipboard.writeText(document.getElementById('ai-text').textContent);alert('تم نسخ المحتوى!');}
+
+async function setupDefaults(){
+  try{await fetch(API+'/setup-defaults',{method:'POST'});alert('تم تفعيل 5 حملات + تقويم محتوى 4 أسابيع!');refreshDashboard();loadCampaigns();}catch(e){alert('تأكد أن الخادم يعمل على المنفذ 8080');}
+}
+async function setupCalendar(){
+  try{await fetch(API+'/setup-calendar',{method:'POST'});alert('تم توليد تقويم المحتوى!');loadCalendar();}catch(e){alert('تأكد أن الخادم يعمل');}
+}
+
+function openModal(id){document.getElementById('modal-'+id).classList.add('show');}
+function closeModals(){document.querySelectorAll('.modal-bg').forEach(m=>m.classList.remove('show'));}
+document.querySelectorAll('.checkbox-item').forEach(i=>i.addEventListener('click',()=>i.classList.toggle('selected')));
+
+window.addEventListener('DOMContentLoaded',()=>{refreshDashboard();loadChannels();loadMaterials();});
+</script>
+<script src="/js/sheikha-smart-fab.js" defer></script>
+</body>
+</html>

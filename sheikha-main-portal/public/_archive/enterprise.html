@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏭 نظام المشاريع الضخمة | شيخة Enterprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #fff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --radius: 12px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; }
+        
+        .header {
+            background: linear-gradient(135deg, var(--card), var(--darker));
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .header h1 { font-size: 2.2rem; margin-bottom: 10px; }
+        .header h1 span { color: var(--gold); }
+        .header p { color: var(--text-muted); max-width: 700px; margin: 0 auto; }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
+        
+        .project-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .project-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .project-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+        .project-card.active { border-color: var(--gold); background: rgba(212,175,55,0.1); }
+        .project-icon { font-size: 3rem; margin-bottom: 16px; }
+        .project-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 8px; }
+        .project-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px; }
+        .project-features { list-style: none; }
+        .project-features li { padding: 6px 0; font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+        .project-features li::before { content: '✓'; color: var(--success); }
+        
+        .section-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+        
+        .supply-chain {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .chain-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .chain-node {
+            text-align: center;
+            min-width: 100px;
+        }
+        .chain-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 10px;
+        }
+        .chain-node.active .chain-icon { box-shadow: 0 0 20px rgba(212,175,55,0.5); }
+        .chain-arrow { font-size: 2rem; color: var(--gold); }
+        
+        .management-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .mgmt-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .mgmt-header {
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(10,92,54,0.1));
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .mgmt-header h3 { font-size: 1.1rem; }
+        .mgmt-body { padding: 20px; }
+        
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .stat-row:last-child { border-bottom: none; }
+        .stat-label { color: var(--text-muted); }
+        .stat-value { font-weight: 700; color: var(--gold); }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--dark); }
+        .btn-gold:hover { transform: translateY(-2px); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+        
+        .automation-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .auto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .auto-item {
+            background: var(--dark);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .auto-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .auto-title { font-weight: 700; margin-bottom: 6px; }
+        .auto-desc { font-size: 0.85rem; color: var(--text-muted); }
+        
+        .tender-section {
+            background: linear-gradient(135deg, rgba(212,175,55,0.05), rgba(10,92,54,0.05));
+            border: 1px solid var(--gold);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .tender-badges {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .tender-badge {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tender-badge.ready { border-color: var(--success); color: var(--success); }
+        
+        .quick-start {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card);
+            border-radius: var(--radius);
+        }
+        .quick-start h2 { margin-bottom: 16px; }
+        .quick-start p { color: var(--text-muted); margin-bottom: 24px; }
+
+        @media (max-width: 768px) {
+            .chain-flow { flex-direction: column; }
+            .chain-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🏭 نظام المشاريع <span>الضخمة</span></h1>
+        <p>إدارة متكاملة للمناجم والمصاهر والمصانع والموانئ — سلاسل إمداد ذكية بدون تدخل بشري</p>
+    </header>
+
+    <div class="container">
+        <!-- Project Types -->
+        <h2 class="section-title">🎯 اختر نوع مشروعك</h2>
+        <div class="project-types">
+            <div class="project-card" onclick="selectProject('mine')">
+                <div class="project-icon">⛏️</div>
+                <div class="project-title">منجم</div>
+                <div class="project-desc">إدارة عمليات التعدين والاستخراج</div>
+                <ul class="project-features">
+                    <li>تتبع الإنتاج اليومي</li>
+                    <li>إدارة المعدات والآليات</li>
+                    <li>تحليل جودة الخام</li>
+                    <li>سلامة العمال</li>
+                </ul>
+            </div>
+            <div class="project-card" onclick="selectProject('smelter')">
+                <div class="project-icon">🔥</div>
+                <div class="project-title">مصهر</div>
+                <div class="project-desc">إدارة عمليات الصهر والتكرير</div>
+                <ul class="project-features">
+                    <li>مراقبة درجات الحرارة</li>
+                    <li>تتبع المدخلات والمخرجات</li>
+                    <li>إدارة الطاقة</li>
+                    <li>شهادات النقاء</li>
+                </ul>
+            </div>
+            <div class="project-card" onclick="selectProject('factory')">
+                <div class="project-icon">�icing</div>
+                <div class="project-title">مصنع</div>
+                <div class="project-desc">إدارة خطوط الإنتاج والتصنيع</div>
+                <ul class="project-features">
+                    <li>جدولة الإنتاج</li>
+                    <li>مراقبة الجودة</li>
+                    <li>إدارة المخزون</li>
+                    <li>صيانة المعدات</li>
+                </ul>
+            </div>
+            <div class="project-card" onclick="selectProject('port')">
+                <div class="project-icon">🚢</div>
+                <div class="project-title">ميناء</div>
+                <div class="project-desc">إدارة الشحن والتفريغ</div>
+                <ul class="project-features">
+                    <li>تتبع الحاويات</li>
+                    <li>جدولة السفن</li>
+                    <li>إدارة الجمارك</li>
+                    <li>التخزين المؤقت</li>
+                </ul>
+            </div>
+            <div class="project-card" onclick="selectProject('warehouse')">
+                <div class="project-icon">🏪</div>
+                <div class="project-title">مستودع</div>
+                <div class="project-desc">إدارة التخزين والتوزيع</div>
+                <ul class="project-features">
+                    <li>إدارة المواقع</li>
+                    <li>تتبع المخزون</li>
+                    <li>أوامر الشحن</li>
+                    <li>الجرد الآلي</li>
+                </ul>
+            </div>
+            <div class="project-card" onclick="selectProject('contractor')">
+                <div class="project-icon">🏗️</div>
+                <div class="project-title">مقاولات</div>
+                <div class="project-desc">إدارة مشاريع البناء والمقاولات</div>
+                <ul class="project-features">
+                    <li>إدارة المشاريع</li>
+                    <li>تتبع المواد</li>
+                    <li>جدولة العمالة</li>
+                    <li>المستخلصات</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Supply Chain Flow -->
+        <div class="supply-chain">
+            <h2 class="section-title">🔗 سلسلة الإمداد الذكية</h2>
+            <div class="chain-flow">
+                <div class="chain-node active">
+                    <div class="chain-icon">⛏️</div>
+                    <div>المصدر</div>
+                </div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-node">
+                    <div class="chain-icon">📦</div>
+                    <div>التجميع</div>
+                </div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-node">
+                    <div class="chain-icon">🔥</div>
+                    <div>المعالجة</div>
+                </div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-node">
+                    <div class="chain-icon">🚚</div>
+                    <div>النقل</div>
+                </div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-node">
+                    <div class="chain-icon">🏪</div>
+                    <div>التخزين</div>
+                </div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-node">
+                    <div class="chain-icon">🎯</div>
+                    <div>المستهلك</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Automation -->
+        <div class="automation-section">
+            <h2 class="section-title">🤖 الأتمتة الذكية — بدون تدخل بشري</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">رقمنة كاملة للعمليات مع إدخال آلي للبيانات</p>
+            <div class="auto-grid">
+                <div class="auto-item">
+                    <div class="auto-icon">📷</div>
+                    <div class="auto-title">التعرف البصري</div>
+                    <div class="auto-desc">قراءة الباركود وOCR للمستندات</div>
+                </div>
+                <div class="auto-item">
+                    <div class="auto-icon">⚖️</div>
+                    <div class="auto-title">الوزن الآلي</div>
+                    <div class="auto-desc">ربط مع الموازين الإلكترونية</div>
+                </div>
+                <div class="auto-item">
+                    <div class="auto-icon">🏷️</div>
+                    <div class="auto-title">RFID / NFC</div>
+                    <div class="auto-desc">تتبع المواد بالشرائح</div>
+                </div>
+                <div class="auto-item">
+                    <div class="auto-icon">📡</div>
+                    <div class="auto-title">IoT Sensors</div>
+                    <div class="auto-desc">مستشعرات ذكية للمراقبة</div>
+                </div>
+                <div class="auto-item">
+                    <div class="auto-icon">🧠</div>
+                    <div class="auto-title">تحليل AI</div>
+                    <div class="auto-desc">تصنيف آلي للمواد</div>
+                </div>
+                <div class="auto-item">
+                    <div class="auto-icon">📊</div>
+                    <div class="auto-title">تقارير آلية</div>
+                    <div class="auto-desc">إنشاء التقارير تلقائياً</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Management Modules -->
+        <h2 class="section-title">📋 وحدات الإدارة المتكاملة</h2>
+        <div class="management-grid">
+            <div class="mgmt-card">
+                <div class="mgmt-header">
+                    <span style="font-size: 1.5rem;">📦</span>
+                    <h3>إدارة المخزون</h3>
+                </div>
+                <div class="mgmt-body">
+                    <div class="stat-row"><span class="stat-label">المواد المسجلة</span><span class="stat-value">0</span></div>
+                    <div class="stat-row"><span class="stat-label">الكمية الإجمالية</span><span class="stat-value">0 طن</span></div>
+                    <div class="stat-row"><span class="stat-label">القيمة</span><span class="stat-value">0 ر.س</span></div>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 12px;">إدارة المخزون</button>
+                </div>
+            </div>
+            <div class="mgmt-card">
+                <div class="mgmt-header">
+                    <span style="font-size: 1.5rem;">🚚</span>
+                    <h3>إدارة النقل</h3>
+                </div>
+                <div class="mgmt-body">
+                    <div class="stat-row"><span class="stat-label">شحنات نشطة</span><span class="stat-value">0</span></div>
+                    <div class="stat-row"><span class="stat-label">في الطريق</span><span class="stat-value">0</span></div>
+                    <div class="stat-row"><span class="stat-label">تم التسليم</span><span class="stat-value">0</span></div>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 12px;">إدارة الشحن</button>
+                </div>
+            </div>
+            <div class="mgmt-card">
+                <div class="mgmt-header">
+                    <span style="font-size: 1.5rem;">💰</span>
+                    <h3>الإدارة المالية</h3>
+                </div>
+                <div class="mgmt-body">
+                    <div class="stat-row"><span class="stat-label">المبيعات</span><span class="stat-value">0 ر.س</span></div>
+                    <div class="stat-row"><span class="stat-label">المشتريات</span><span class="stat-value">0 ر.س</span></div>
+                    <div class="stat-row"><span class="stat-label">الأرباح</span><span class="stat-value">0 ر.س</span></div>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 12px;">التقارير المالية</button>
+                </div>
+            </div>
+            <div class="mgmt-card">
+                <div class="mgmt-header">
+                    <span style="font-size: 1.5rem;">👥</span>
+                    <h3>إدارة الموردين</h3>
+                </div>
+                <div class="mgmt-body">
+                    <div class="stat-row"><span class="stat-label">الموردون</span><span class="stat-value">0</span></div>
+                    <div class="stat-row"><span class="stat-label">العقود النشطة</span><span class="stat-value">0</span></div>
+                    <div class="stat-row"><span class="stat-label">التقييم</span><span class="stat-value">—</span></div>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 12px;">إدارة الموردين</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Government Tenders -->
+        <div class="tender-section">
+            <h2 class="section-title">🏛️ جاهزية المناقصات الحكومية</h2>
+            <p style="color: var(--text-muted);">النظام جاهز للتسجيل في المنصات الحكومية والمناقصات الكبرى</p>
+            <div class="tender-badges">
+                <span class="tender-badge ready">✓ اعتماد منصة اعتماد</span>
+                <span class="tender-badge ready">✓ نظام نافس</span>
+                <span class="tender-badge ready">✓ منصة المشتريات الحكومية</span>
+                <span class="tender-badge ready">✓ شهادات ISO</span>
+                <span class="tender-badge ready">✓ التأهيل المسبق</span>
+                <span class="tender-badge ready">✓ ضمانات بنكية</span>
+            </div>
+            <button class="btn btn-gold" style="margin-top: 20px;" onclick="window.location.href='/تسجيل-مشروع.html'">📝 تسجيل مشروعك الآن</button>
+        </div>
+
+        <!-- Quick Start -->
+        <div class="quick-start">
+            <h2>🚀 ابدأ مشروعك الآن</h2>
+            <p>سجّل مشروعك واحصل على نظام إدارة متكامل جاهز للعمل</p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <a href="/تسجيل-مشروع.html" class="btn btn-gold">📝 تسجيل مشروع جديد</a>
+                <a href="/نظام-شيخة-الذكي.html" class="btn btn-outline">🔗 الشبكات التجارية</a>
+                <a href="/app.html" class="btn btn-outline">📱 التطبيق</a>
+                <a href="/" class="btn btn-outline">🏠 الرئيسية</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectProject(type) {
+            document.querySelectorAll('.project-card').forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            // Update chain based on project type
+            const chains = {
+                'mine': ['المنجم', 'التكسير', 'الفرز', 'النقل', 'المصهر', 'المشتري'],
+                'smelter': ['الخام', 'الصهر', 'التكرير', 'السبائك', 'التخزين', 'التصدير'],
+                'factory': ['المواد الخام', 'التصنيع', 'التجميع', 'الفحص', 'التغليف', 'التوزيع'],
+                'port': ['السفينة', 'التفريغ', 'الجمارك', 'التخزين', 'النقل', 'المستلم'],
+                'warehouse': ['الاستلام', 'الفحص', 'التخزين', 'الفرز', 'التجهيز', 'الشحن'],
+                'contractor': ['التخطيط', 'التوريد', 'التنفيذ', 'المراقبة', 'التسليم', 'الصيانة']
+            };
+            
+            console.log('Selected project:', type);
+        }
+    </script>
+</body>
+</html>

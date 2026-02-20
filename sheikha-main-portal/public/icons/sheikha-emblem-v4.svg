@@ -1,0 +1,347 @@
+<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <!-- (3E 'DDG 'D1-EF 'D1-JE                                              -->
+    <!-- 49'1 4J.)  'D%5/'1 'D1'(9 'DEO*BNF                                  -->
+    <!-- SHEIKHA EMBLEM V4  Enhanced & Refined                            -->
+    <!--                                                                    -->
+    <!-- 'DE'DC: 3DE'F #-E/ (F 3DE'F 'D1',-                                   -->
+    <!-- 'DEDCJ) 'DAC1J) E-AH8) © 2025E / 1446G@                              -->
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <defs>
+        <!-- PPP 'D*/1,'* 'D0G(J) 'DEDCJ) PPP -->
+        <linearGradient id="gMain" x1="15%" y1="0%" x2="85%" y2="100%">
+            <stop offset="0%" stop-color="#FFFDE8"/>
+            <stop offset="18%" stop-color="#F5E6A3"/>
+            <stop offset="40%" stop-color="#E8C94A"/>
+            <stop offset="65%" stop-color="#D4AF37"/>
+            <stop offset="100%" stop-color="#A8882B"/>
+        </linearGradient>
+        <linearGradient id="gV" x1="50%" y1="0%" x2="50%" y2="100%">
+            <stop offset="0%" stop-color="#FFFDE8"/>
+            <stop offset="50%" stop-color="#F5E6A3"/>
+            <stop offset="100%" stop-color="#D4AF37"/>
+        </linearGradient>
+        <linearGradient id="gArm" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" stop-color="#8B7224"/>
+            <stop offset="20%" stop-color="#D4AF37"/>
+            <stop offset="50%" stop-color="#F5E6A3"/>
+            <stop offset="80%" stop-color="#D4AF37"/>
+            <stop offset="100%" stop-color="#8B7224"/>
+        </linearGradient>
+        <linearGradient id="gPillar" x1="50%" y1="0%" x2="50%" y2="100%">
+            <stop offset="0%" stop-color="#FFFDE8"/>
+            <stop offset="30%" stop-color="#F5E6A3"/>
+            <stop offset="60%" stop-color="#D4AF37"/>
+            <stop offset="100%" stop-color="#8B7224"/>
+        </linearGradient>
+        <linearGradient id="gBase" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" stop-color="#A8882B" stop-opacity=".5"/>
+            <stop offset="30%" stop-color="#D4AF37"/>
+            <stop offset="50%" stop-color="#F5E6A3"/>
+            <stop offset="70%" stop-color="#D4AF37"/>
+            <stop offset="100%" stop-color="#A8882B" stop-opacity=".5"/>
+        </linearGradient>
+        <linearGradient id="gShin" x1="50%" y1="0%" x2="50%" y2="100%">
+            <stop offset="0%" stop-color="#FFFEF5"/>
+            <stop offset="40%" stop-color="#F5E6A3"/>
+            <stop offset="100%" stop-color="#E8C94A"/>
+        </linearGradient>
+        <radialGradient id="gBg" cx="50%" cy="45%" r="52%">
+            <stop offset="0%" stop-color="#F5E6A3" stop-opacity=".15"/>
+            <stop offset="30%" stop-color="#D4AF37" stop-opacity=".06"/>
+            <stop offset="70%" stop-color="#D4AF37" stop-opacity=".02"/>
+            <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="gGem" cx="42%" cy="38%" r="58%">
+            <stop offset="0%" stop-color="#FFFEF5"/>
+            <stop offset="25%" stop-color="#FFFDE8"/>
+            <stop offset="50%" stop-color="#F5E6A3"/>
+            <stop offset="100%" stop-color="#D4AF37"/>
+        </radialGradient>
+        <radialGradient id="gCrown" cx="48%" cy="32%" r="55%">
+            <stop offset="0%" stop-color="#FFFEF5"/>
+            <stop offset="30%" stop-color="#FFFDE8"/>
+            <stop offset="55%" stop-color="#F5E6A3"/>
+            <stop offset="100%" stop-color="#E8C94A"/>
+        </radialGradient>
+        <radialGradient id="gPanGlow" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#D4AF37" stop-opacity=".14"/>
+            <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+        </radialGradient>
+
+        <!-- PPP 'DAD'*1 PPP -->
+        <filter id="gl"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="glBig"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="glSoft"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="glWarm"><feGaussianBlur stdDeviation="14" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="innerGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+            <feFlood flood-color="#FFFDE8" flood-opacity=".15"/>
+            <feComposite in2="blur" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <!-- CDJ( DD/'&1) 'D.'1,J) -->
+        <clipPath id="circleClip"><circle cx="200" cy="200" r="192"/></clipPath>
+    </defs>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <!-- 'D7(B) 1: 'DG'D) 'DCHFJ) 'D.'1,J)           -->
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <circle cx="200" cy="200" r="198" fill="url(#gBg)"/>
+    <circle cx="200" cy="200" r="195" stroke="url(#gMain)" stroke-width=".3" fill="none" opacity=".06" stroke-dasharray="2 6"/>
+    <circle cx="200" cy="200" r="190" stroke="url(#gMain)" stroke-width=".4" fill="none" opacity=".07" stroke-dasharray="4 12"/>
+
+    <!-- PPP 'D7(B) 2: 'D%7'1 'D2.1AJ 'DE2/H, PPP -->
+    <circle cx="200" cy="200" r="186" stroke="url(#gMain)" stroke-width="2.5" fill="none" opacity=".25"/>
+    <circle cx="200" cy="200" r="182.5" stroke="url(#gMain)" stroke-width=".6" fill="none" opacity=".08"/>
+    <circle cx="200" cy="200" r="179" stroke="url(#gMain)" stroke-width=".3" fill="none" opacity=".05" stroke-dasharray="1 3"/>
+
+    <!-- FB'7 2.1AJ) 9DI 'D%7'1 (12 FB7) = #4G1 'D3F) 'DG,1J)) -->
+    <circle cx="200" cy="14" r="3" fill="url(#gV)" opacity=".4"/>
+    <circle cx="293" cy="27" r="2.2" fill="url(#gMain)" opacity=".22"/>
+    <circle cx="373" cy="107" r="2.2" fill="url(#gMain)" opacity=".22"/>
+    <circle cx="386" cy="200" r="3" fill="url(#gMain)" opacity=".25"/>
+    <circle cx="373" cy="293" r="2.2" fill="url(#gMain)" opacity=".22"/>
+    <circle cx="293" cy="373" r="2.2" fill="url(#gMain)" opacity=".22"/>
+    <circle cx="200" cy="386" r="3" fill="url(#gMain)" opacity=".25"/>
+    <circle cx="107" cy="373" r="2.2" fill="url(#gMain)" opacity=".22"/>
+    <circle cx="27" cy="293" r="2.2" fill="url(#gMain)" opacity=".22"/>
+    <circle cx="14" cy="200" r="3" fill="url(#gMain)" opacity=".25"/>
+    <circle cx="27" cy="107" r="2.2" fill="url(#gMain)" opacity=".22"/>
+    <circle cx="107" cy="27" r="2.2" fill="url(#gMain)" opacity=".22"/>
+
+    <!-- PPP 'D7(B) 3: 'DF,E) 'D+E'FJ) 'D.'1,J)  'D%*B'F 'D%DGJ PPP -->
+    <rect x="78" y="78" width="244" height="244" rx="6" fill="url(#gMain)" opacity=".04" transform="rotate(0 200 200)"/>
+    <rect x="78" y="78" width="244" height="244" rx="6" stroke="url(#gMain)" stroke-width="1.5" fill="none" opacity=".2" transform="rotate(0 200 200)"/>
+    <rect x="78" y="78" width="244" height="244" rx="6" fill="url(#gMain)" opacity=".03" transform="rotate(45 200 200)"/>
+    <rect x="78" y="78" width="244" height="244" rx="6" stroke="url(#gMain)" stroke-width="1.5" fill="none" opacity=".2" transform="rotate(45 200 200)"/>
+
+    <!-- PPP 'D7(B) 4: 'DF,E) 'D+E'FJ) 'D/'.DJ)  'D*F'3B PPP -->
+    <rect x="116" y="116" width="168" height="168" rx="4" fill="url(#gMain)" opacity=".03" transform="rotate(0 200 200)"/>
+    <rect x="116" y="116" width="168" height="168" rx="4" stroke="url(#gMain)" stroke-width="1" fill="none" opacity=".13" transform="rotate(0 200 200)"/>
+    <rect x="116" y="116" width="168" height="168" rx="4" fill="url(#gMain)" opacity=".02" transform="rotate(45 200 200)"/>
+    <rect x="116" y="116" width="168" height="168" rx="4" stroke="url(#gMain)" stroke-width="1" fill="none" opacity=".13" transform="rotate(45 200 200)"/>
+
+    <!-- PPP 'D7(B) 5: 'D-DB) 'DE1C2J) 'DEB/3) PPP -->
+    <circle cx="200" cy="200" r="88" stroke="url(#gMain)" stroke-width="1.4" fill="none" opacity=".12"/>
+    <circle cx="200" cy="200" r="82" stroke="url(#gMain)" stroke-width=".5" fill="none" opacity=".05" stroke-dasharray="2 5"/>
+
+    <!-- PPP (3E 'DDG 'D1-EF 'D1-JE  -DB) 'D(3ED) PPP -->
+    <g opacity=".09">
+        <path id="bismPath" d="M200,50 A150,150 0 1,1 199.9,50" fill="none"/>
+        <text font-family="'Amiri','Traditional Arabic',serif" font-size="11" fill="#D4AF37" font-weight="700">
+            <textPath href="#bismPath" startOffset="8%">(3E 'DDG 'D1-EF 'D1-JE Þ ? HN#NBPJEOH' 'DRHN2RFN (P'DRBP3R7P HNDN' *O.R3P1OH' 'DREPJ2N'FN > Þ ? HN#N-NDNQ 'DDNQGO 'DR(NJR9N HN-N1NQEN 'D1PQ(N' ></textPath>
+        </text>
+    </g>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <!-- 'DEJ2'F 'DF(HJ  BD( 'D49'1                  -->
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+
+    <!-- 9EH/ 'DEJ2'F 'D1&J3J  EO*BNF (9EB -->
+    <rect x="196" y="72" width="8" height="244" rx="4" fill="url(#gPillar)" opacity=".72"/>
+    <!-- .7 E1C2J (1JB ('F9C'3 'D6H!) -->
+    <rect x="199" y="76" width="2.5" height="236" rx="1.25" fill="#FFFDE8" opacity=".12"/>
+    <!-- .7 8D #JEF -->
+    <rect x="202" y="76" width="1" height="236" rx=".5" fill="#8B7224" opacity=".07"/>
+
+    <!-- PPP *', 'D-CE)  #9DI 'D9EH/ PPP -->
+    <!-- 'DG'D) 'D.'1,J) -->
+    <circle cx="200" cy="62" r="26" fill="url(#gCrown)" filter="url(#glWarm)" opacity=".22"/>
+    <!-- 'D,3E 'D1&J3J -->
+    <circle cx="200" cy="62" r="22" fill="url(#gCrown)" filter="url(#glBig)" opacity=".95"/>
+    <!-- 'D-DB) 'D/'.DJ) -->
+    <circle cx="200" cy="62" r="13" fill="#070c16" opacity=".4"/>
+    <!-- 'D,HG1) 'D/'.DJ) -->
+    <circle cx="200" cy="62" r="7" fill="url(#gGem)" filter="url(#gl)" opacity=".85"/>
+    <!-- (1JB 'D*', -->
+    <circle cx="196" cy="58" r="2.5" fill="#fff" opacity=".35"/>
+    <circle cx="202" cy="60" r="1.2" fill="#fff" opacity=".18"/>
+    <!-- .7H7 %49'9 'D*', -->
+    <line x1="200" y1="38" x2="200" y2="31" stroke="url(#gV)" stroke-width="1.2" opacity=".2"/>
+    <line x1="218" y1="48" x2="224" y2="43" stroke="url(#gMain)" stroke-width=".9" opacity=".1"/>
+    <line x1="182" y1="48" x2="176" y2="43" stroke="url(#gMain)" stroke-width=".9" opacity=".1"/>
+    <line x1="214" y1="54" x2="220" y2="52" stroke="url(#gMain)" stroke-width=".5" opacity=".06"/>
+    <line x1="186" y1="54" x2="180" y2="52" stroke="url(#gMain)" stroke-width=".5" opacity=".06"/>
+    <!-- 2.1A) #3AD 'D*', (4CD V E2/H, +D'+J) -->
+    <path d="M182,84 L200,96 L218,84" stroke="url(#gMain)" stroke-width="2" fill="none" opacity=".32"/>
+    <path d="M187,88 L200,97 L213,88" stroke="url(#gMain)" stroke-width="1.2" fill="none" opacity=".16"/>
+    <path d="M192,92 L200,97 L208,92" stroke="url(#gMain)" stroke-width=".7" fill="none" opacity=".1"/>
+
+    <!-- PPP 01'9 'DEJ2'F  'D'E*/'/ 'D#ABJ PPP -->
+    <rect x="80" y="155" width="240" height="9" rx="4.5" fill="url(#gArm)" opacity=".68"/>
+    <!-- (1JB H37 'D01'9 -->
+    <rect x="138" y="158" width="124" height="2.5" rx="1.25" fill="#FFFDE8" opacity=".1"/>
+    <!-- .7 8D -->
+    <rect x="80" y="162" width="240" height="1" rx=".5" fill="#8B7224" opacity=".06"/>
+    <!-- FB7) 'D'1*C'2 'DE1C2J) -->
+    <circle cx="200" cy="159.5" r="11" fill="url(#gV)" opacity=".68"/>
+    <circle cx="200" cy="159.5" r="6.5" fill="#070c16" opacity=".3"/>
+    <circle cx="200" cy="159.5" r="3.5" fill="url(#gGem)" opacity=".5"/>
+    <circle cx="198" cy="157.5" r="1.2" fill="#fff" opacity=".18"/>
+
+    <!-- PPP 'DCA) 'DJEFI  CA) 'D9/D PPP -->
+    <!-- 'D.JH7 'D.'1,J) -->
+    <line x1="102" y1="160" x2="87" y2="228" stroke="url(#gMain)" stroke-width="2.2" opacity=".52"/>
+    <line x1="158" y1="160" x2="173" y2="228" stroke="url(#gMain)" stroke-width="2.2" opacity=".52"/>
+    <!-- 'D.JH7 'D/'.DJ) -->
+    <line x1="118" y1="160" x2="109" y2="222" stroke="url(#gMain)" stroke-width=".9" opacity=".2"/>
+    <line x1="142" y1="160" x2="151" y2="222" stroke="url(#gMain)" stroke-width=".9" opacity=".2"/>
+    <!-- -(D 'D#E'F) 'DE1C2J -->
+    <line x1="130" y1="160" x2="130" y2="220" stroke="url(#gMain)" stroke-width=".7" opacity=".14" stroke-dasharray="2 4"/>
+    <!-- G'D) 'DCA) -->
+    <ellipse cx="130" cy="228" rx="48" ry="7" fill="url(#gPanGlow)"/>
+    <!-- 4CD 'DCA) -->
+    <path d="M80,228 C89,262 130,272 130,272 C130,272 171,262 180,228 Z" fill="rgba(212,175,55,.08)" stroke="url(#gMain)" stroke-width="2.5" opacity=".56"/>
+    <!-- 2.1A) /'.D 'DCA) -->
+    <path d="M94,234 C105,254 130,262 130,262 C130,262 155,254 166,234" stroke="url(#gMain)" stroke-width=".9" fill="none" opacity=".2"/>
+    <path d="M106,238 C114,250 130,256 130,256 C130,256 146,250 154,238" stroke="url(#gMain)" stroke-width=".5" fill="none" opacity=".1"/>
+    <!-- FB'7 'D*9DJB -->
+    <circle cx="102" cy="160" r="3.5" fill="url(#gV)" opacity=".4"/>
+    <circle cx="158" cy="160" r="3.5" fill="url(#gV)" opacity=".4"/>
+
+    <!-- PPP 'DCA) 'DJ31I  CA) 'DB37 PPP -->
+    <line x1="242" y1="160" x2="227" y2="228" stroke="url(#gMain)" stroke-width="2.2" opacity=".52"/>
+    <line x1="298" y1="160" x2="313" y2="228" stroke="url(#gMain)" stroke-width="2.2" opacity=".52"/>
+    <line x1="258" y1="160" x2="249" y2="222" stroke="url(#gMain)" stroke-width=".9" opacity=".2"/>
+    <line x1="282" y1="160" x2="291" y2="222" stroke="url(#gMain)" stroke-width=".9" opacity=".2"/>
+    <line x1="270" y1="160" x2="270" y2="220" stroke="url(#gMain)" stroke-width=".7" opacity=".14" stroke-dasharray="2 4"/>
+    <ellipse cx="270" cy="228" rx="48" ry="7" fill="url(#gPanGlow)"/>
+    <path d="M220,228 C229,262 270,272 270,272 C270,272 311,262 320,228 Z" fill="rgba(212,175,55,.08)" stroke="url(#gMain)" stroke-width="2.5" opacity=".56"/>
+    <path d="M234,234 C245,254 270,262 270,262 C270,262 295,254 306,234" stroke="url(#gMain)" stroke-width=".9" fill="none" opacity=".2"/>
+    <path d="M246,238 C254,250 270,256 270,256 C270,256 286,250 294,238" stroke="url(#gMain)" stroke-width=".5" fill="none" opacity=".1"/>
+    <circle cx="242" cy="160" r="3.5" fill="url(#gV)" opacity=".4"/>
+    <circle cx="298" cy="160" r="3.5" fill="url(#gV)" opacity=".4"/>
+
+    <!-- PPP 'D,HG1) 'DE1C2J)  BD( 'DE9'/F 'DFAJ3) PPP -->
+    <!-- 'D%7'1 'D.'1,J DDE'3) -->
+    <polygon points="200,122 240,200 200,278 160,200" fill="rgba(212,175,55,.06)" stroke="url(#gMain)" stroke-width="2.5" opacity=".46"/>
+    <!-- #6D'9 'D'FC3'1 -->
+    <line x1="200" y1="122" x2="160" y2="200" stroke="url(#gMain)" stroke-width="1.1" opacity=".14"/>
+    <line x1="200" y1="122" x2="240" y2="200" stroke="url(#gMain)" stroke-width="1.1" opacity=".14"/>
+    <line x1="200" y1="278" x2="160" y2="200" stroke="url(#gMain)" stroke-width=".8" opacity=".09"/>
+    <line x1="200" y1="278" x2="240" y2="200" stroke="url(#gMain)" stroke-width=".8" opacity=".09"/>
+    <!-- 'D7(B) 'DH37I -->
+    <polygon points="200,146 224,200 200,254 176,200" fill="rgba(212,175,55,.05)" stroke="url(#gMain)" stroke-width="1.3" opacity=".3"/>
+    <!-- 'D7(B) 'D/'.DJ) -->
+    <polygon points="200,166 212,200 200,234 188,200" fill="rgba(212,175,55,.04)" stroke="url(#gMain)" stroke-width=".8" opacity=".18"/>
+    <!-- .7 'D#AB -->
+    <line x1="160" y1="200" x2="240" y2="200" stroke="url(#gMain)" stroke-width=".6" opacity=".1"/>
+    <!-- .7 9EH/J -->
+    <line x1="200" y1="122" x2="200" y2="278" stroke="url(#gMain)" stroke-width=".5" opacity=".06"/>
+    <!-- .7H7 'FC3'1 E*B'79) -->
+    <line x1="180" y1="161" x2="220" y2="239" stroke="url(#gMain)" stroke-width=".35" opacity=".05"/>
+    <line x1="220" y1="161" x2="180" y2="239" stroke="url(#gMain)" stroke-width=".35" opacity=".05"/>
+
+    <!-- 'DFH') 'DE*HG,)  FH1 'D9DE H'D#E'F) -->
+    <circle cx="200" cy="200" r="26" fill="url(#gGem)" filter="url(#glSoft)" opacity=".16"/>
+    <circle cx="200" cy="200" r="20" fill="url(#gGem)" filter="url(#glBig)" opacity=".94"/>
+    <circle cx="200" cy="200" r="11" fill="#FFFDE8" opacity=".42"/>
+    <circle cx="200" cy="200" r="5.5" fill="#FFFEF5" opacity=".22"/>
+    <!-- (1JB 'DFH') -->
+    <circle cx="193" cy="192" r="4.5" fill="#fff" opacity=".25"/>
+    <circle cx="205" cy="196" r="2" fill="#fff" opacity=".12"/>
+
+    <!-- PPP -1A 'D4JF  GHJ) 4J.) AJ 'DBD( PPP -->
+    <text x="200" y="209" font-family="'Amiri','Traditional Arabic','Cairo','Tajawal',serif" font-size="30" fill="url(#gShin)" text-anchor="middle" opacity=".65" font-weight="700" filter="url(#gl)">4</text>
+
+    <!-- PPP 'DB'9/)  'D#3'3 'D1'3. ('DC*'( H'D3F)) PPP -->
+    <!-- 'D9EH/ 'D3ADJ -->
+    <rect x="196" y="316" width="8" height="18" rx="3.5" fill="url(#gMain)" opacity=".52"/>
+    <!-- 'DEF5) 'D9DHJ) -->
+    <rect x="150" y="334" width="100" height="9" rx="4.5" fill="url(#gBase)" opacity=".6"/>
+    <rect x="172" y="336.5" width="56" height="2.5" rx="1.25" fill="#FFFDE8" opacity=".08"/>
+    <!-- 'DB'9/) 'DC(1I -->
+    <rect x="134" y="347" width="132" height="8" rx="4" fill="url(#gMain)" opacity=".42"/>
+    <rect x="160" y="349" width="80" height="2" rx="1" fill="#FFFDE8" opacity=".06"/>
+    <!-- 'D#1,D 'DE*JF) -->
+    <line x1="162" y1="343" x2="146" y2="355" stroke="url(#gMain)" stroke-width="2.4" opacity=".3"/>
+    <line x1="238" y1="343" x2="254" y2="355" stroke="url(#gMain)" stroke-width="2.4" opacity=".3"/>
+    <!-- FB'7 'DB'9/) -->
+    <circle cx="146" cy="355" r="2.2" fill="url(#gMain)" opacity=".18"/>
+    <circle cx="254" cy="355" r="2.2" fill="url(#gMain)" opacity=".18"/>
+
+    <!-- PPP FB'7 'D(H5D)  'D4EHD 'D9'DEJ PPP -->
+    <!-- 'D'*,'G'* 'D#1(9 'D1&J3J) -->
+    <circle cx="200" cy="5" r="6" fill="url(#gV)" filter="url(#gl)" opacity=".48"/>
+    <circle cx="200" cy="395" r="5.5" fill="url(#gMain)" filter="url(#gl)" opacity=".28"/>
+    <circle cx="5" cy="200" r="5.5" fill="url(#gMain)" filter="url(#gl)" opacity=".28"/>
+    <circle cx="395" cy="200" r="5.5" fill="url(#gMain)" filter="url(#gl)" opacity=".28"/>
+    <!-- 'D'*,'G'* 'DA19J) -->
+    <circle cx="50" cy="50" r="4" fill="url(#gMain)" opacity=".16"/>
+    <circle cx="350" cy="50" r="4" fill="url(#gMain)" opacity=".16"/>
+    <circle cx="50" cy="350" r="4" fill="url(#gMain)" opacity=".16"/>
+    <circle cx="350" cy="350" r="4" fill="url(#gMain)" opacity=".16"/>
+    <!-- .7H7 (H5D) .AJA) -->
+    <line x1="200" y1="11" x2="200" y2="48" stroke="url(#gMain)" stroke-width=".5" opacity=".06"/>
+    <line x1="200" y1="352" x2="200" y2="389" stroke="url(#gMain)" stroke-width=".5" opacity=".06"/>
+    <line x1="11" y1="200" x2="48" y2="200" stroke="url(#gMain)" stroke-width=".5" opacity=".06"/>
+    <line x1="352" y1="200" x2="389" y2="200" stroke="url(#gMain)" stroke-width=".5" opacity=".06"/>
+
+    <!-- PPP 'D,3JE'* 'D0G(J) 'DE*-1C) PPP -->
+    <circle cx="120" cy="118" r="1.5" fill="#F5E6A3" opacity="0">
+        <animate attributeName="opacity" values="0;.65;0" dur="4s" repeatCount="indefinite" begin="0s"/>
+        <animate attributeName="r" values="0;2.2;0" dur="4s" repeatCount="indefinite" begin="0s"/>
+    </circle>
+    <circle cx="282" cy="138" r="1.5" fill="#D4AF37" opacity="0">
+        <animate attributeName="opacity" values="0;.55;0" dur="5s" repeatCount="indefinite" begin="1.5s"/>
+        <animate attributeName="r" values="0;2;0" dur="5s" repeatCount="indefinite" begin="1.5s"/>
+    </circle>
+    <circle cx="158" cy="282" r="1.5" fill="#E8C94A" opacity="0">
+        <animate attributeName="opacity" values="0;.45;0" dur="6s" repeatCount="indefinite" begin="3s"/>
+        <animate attributeName="r" values="0;2.4;0" dur="6s" repeatCount="indefinite" begin="3s"/>
+    </circle>
+    <circle cx="262" cy="262" r="1.5" fill="#F5E6A3" opacity="0">
+        <animate attributeName="opacity" values="0;.55;0" dur="4.5s" repeatCount="indefinite" begin="2s"/>
+        <animate attributeName="r" values="0;1.8;0" dur="4.5s" repeatCount="indefinite" begin="2s"/>
+    </circle>
+    <circle cx="138" cy="178" r="1" fill="#FFFDE8" opacity="0">
+        <animate attributeName="opacity" values="0;.75;0" dur="3.5s" repeatCount="indefinite" begin="0.5s"/>
+        <animate attributeName="r" values="0;1.6;0" dur="3.5s" repeatCount="indefinite" begin="0.5s"/>
+    </circle>
+    <circle cx="272" cy="178" r="1" fill="#D4AF37" opacity="0">
+        <animate attributeName="opacity" values="0;.5;0" dur="5.5s" repeatCount="indefinite" begin="2.5s"/>
+        <animate attributeName="r" values="0;2;0" dur="5.5s" repeatCount="indefinite" begin="2.5s"/>
+    </circle>
+    <!-- ,3JE'* %6'AJ) DD9EB -->
+    <circle cx="168" cy="140" r="1" fill="#FFFDE8" opacity="0">
+        <animate attributeName="opacity" values="0;.4;0" dur="7s" repeatCount="indefinite" begin="1s"/>
+        <animate attributeName="r" values="0;1.5;0" dur="7s" repeatCount="indefinite" begin="1s"/>
+    </circle>
+    <circle cx="240" cy="290" r="1" fill="#E8C94A" opacity="0">
+        <animate attributeName="opacity" values="0;.35;0" dur="6.5s" repeatCount="indefinite" begin="3.5s"/>
+        <animate attributeName="r" values="0;1.8;0" dur="6.5s" repeatCount="indefinite" begin="3.5s"/>
+    </circle>
+
+    <!-- PPP F(6 'DFH') 'DE1C2J) PPP -->
+    <circle cx="200" cy="200" r="20" fill="none" stroke="url(#gGem)" stroke-width=".9" opacity="0">
+        <animate attributeName="r" values="20;32;48" dur="3.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values=".28;.09;0" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="200" r="20" fill="none" stroke="url(#gGem)" stroke-width=".6" opacity="0">
+        <animate attributeName="r" values="20;38;55" dur="3.2s" repeatCount="indefinite" begin="1.6s"/>
+        <animate attributeName="opacity" values=".18;.06;0" dur="3.2s" repeatCount="indefinite" begin="1.6s"/>
+    </circle>
+
+    <!-- PPP F(6 FB'7 'D(H5D) PPP -->
+    <circle cx="200" cy="5" r="3" fill="url(#gV)" opacity="0">
+        <animate attributeName="opacity" values=".18;.55;.18" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="r" values="3;5.5;3" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="395" cy="200" r="3" fill="url(#gMain)" opacity="0">
+        <animate attributeName="opacity" values=".18;.45;.18" dur="4s" repeatCount="indefinite" begin="1s"/>
+        <animate attributeName="r" values="3;5;3" dur="4s" repeatCount="indefinite" begin="1s"/>
+    </circle>
+    <circle cx="200" cy="395" r="3" fill="url(#gMain)" opacity="0">
+        <animate attributeName="opacity" values=".18;.45;.18" dur="4s" repeatCount="indefinite" begin="2s"/>
+        <animate attributeName="r" values="3;5;3" dur="4s" repeatCount="indefinite" begin="2s"/>
+    </circle>
+    <circle cx="5" cy="200" r="3" fill="url(#gMain)" opacity="0">
+        <animate attributeName="opacity" values=".18;.45;.18" dur="4s" repeatCount="indefinite" begin="3s"/>
+        <animate attributeName="r" values="3;5;3" dur="4s" repeatCount="indefinite" begin="3s"/>
+    </circle>
+
+    <!-- PPP 'D*HBJ9  4J.) PPP -->
+    <text x="200" y="380" font-family="'Amiri','Traditional Arabic','Cairo','Tajawal',serif" font-size="22" fill="url(#gMain)" text-anchor="middle" opacity=".28" font-weight="700" letter-spacing="8">4J.)</text>
+    <text x="200" y="394" font-family="'Cairo','Tajawal',sans-serif" font-size="9" fill="url(#gMain)" text-anchor="middle" opacity=".14" font-weight="800" letter-spacing="5">SHEIKHA</text>
+</svg>

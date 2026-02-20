@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>🔐 لوحة تحكم الأدمن المتقدمة | شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/editor/editor.main.min.css">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --card-hover: #111c30;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --radius: 12px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: var(--card);
+            border-left: 1px solid var(--border);
+            height: 100vh;
+            position: fixed;
+            right: 0;
+            overflow-y: auto;
+        }
+        .logo {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+        .logo-text { font-weight: 800; font-size: 1.2rem; }
+        .logo-sub { font-size: 0.75rem; color: var(--text-muted); }
+        
+        .nav-section { padding: 16px 12px; }
+        .nav-title { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 0 12px; margin-bottom: 8px; }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+        }
+        .nav-item:hover { background: rgba(212,175,55,0.1); color: var(--gold); }
+        .nav-item.active { background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(10,92,54,0.15)); color: var(--gold); border: 1px solid rgba(212,175,55,0.3); }
+        .nav-icon { font-size: 1.1rem; width: 24px; text-align: center; }
+        .nav-badge { margin-right: auto; padding: 2px 8px; background: var(--danger); color: white; font-size: 0.7rem; border-radius: 10px; }
+        
+        /* Main */
+        .main { flex: 1; margin-right: 260px; }
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .header-title { font-size: 1.3rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .header-actions { display: flex; gap: 10px; }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--dark); }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(212,175,55,0.3); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+        .btn-sm { padding: 8px 14px; font-size: 0.85rem; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-success { background: var(--success); color: white; }
+        
+        .content { padding: 24px; }
+        
+        /* Panels */
+        .panel { display: none; }
+        .panel.active { display: block; }
+        
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            transition: all 0.2s;
+        }
+        .stat-card:hover { border-color: var(--gold); }
+        .stat-icon { font-size: 2rem; margin-bottom: 12px; }
+        .stat-value { font-size: 1.8rem; font-weight: 900; color: var(--gold); }
+        .stat-label { color: var(--text-muted); font-size: 0.85rem; }
+        .stat-change { font-size: 0.75rem; padding: 2px 8px; border-radius: 6px; margin-top: 8px; display: inline-block; }
+        .stat-change.up { background: rgba(16,185,129,0.15); color: var(--success); }
+        
+        /* Cards */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .card-title { font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .card-body { padding: 20px; }
+        
+        /* Grid */
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        
+        /* Quick Actions */
+        .quick-action {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quick-action:hover { border-color: var(--gold); transform: translateY(-4px); }
+        .quick-action-icon { font-size: 2rem; margin-bottom: 10px; }
+        .quick-action-title { font-weight: 700; margin-bottom: 4px; }
+        .quick-action-desc { font-size: 0.8rem; color: var(--text-muted); }
+        
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 16px; text-align: right; border-bottom: 1px solid var(--border); }
+        th { background: var(--dark); font-weight: 700; font-size: 0.85rem; color: var(--text-muted); }
+        tr:hover { background: rgba(255,255,255,0.02); }
+        .badge { padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+        .badge-success { background: rgba(16,185,129,0.15); color: var(--success); }
+        .badge-warning { background: rgba(245,158,11,0.15); color: var(--warning); }
+        .badge-danger { background: rgba(239,68,68,0.15); color: var(--danger); }
+        .badge-info { background: rgba(59,130,246,0.15); color: var(--info); }
+        
+        /* Forms */
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--gold); }
+        .form-textarea { min-height: 100px; resize: vertical; }
+        
+        /* IDE */
+        .ide-container {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .ide-header {
+            background: var(--dark);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+        .ide-tabs { display: flex; gap: 4px; }
+        .ide-tab {
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: inherit;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .ide-tab.active { background: var(--card); color: var(--gold); }
+        .ide-body { display: flex; height: 500px; }
+        .ide-sidebar { width: 200px; background: var(--dark); border-left: 1px solid var(--border); padding: 12px; overflow-y: auto; }
+        .ide-file { padding: 6px 10px; cursor: pointer; border-radius: 6px; font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+        .ide-file:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+        .ide-file.active { background: rgba(212,175,55,0.1); color: var(--gold); }
+        .ide-editor { flex: 1; }
+        #monaco-editor { width: 100%; height: 100%; }
+        .ide-terminal {
+            height: 150px;
+            background: #1e1e1e;
+            border-top: 1px solid var(--border);
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #4ec9b0;
+            overflow-y: auto;
+        }
+        .terminal-line { margin-bottom: 4px; }
+        .terminal-success { color: var(--success); }
+        .terminal-error { color: var(--danger); }
+        .terminal-info { color: var(--info); }
+        
+        /* Marketing Tools */
+        .marketing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .marketing-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+        }
+        .marketing-icon { font-size: 3rem; margin-bottom: 16px; }
+        .marketing-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+        .marketing-desc { color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem; }
+        
+        /* AI Chat */
+        .ai-chat {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        .ai-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .ai-message {
+            margin-bottom: 16px;
+            display: flex;
+            gap: 12px;
+        }
+        .ai-message.user { flex-direction: row-reverse; }
+        .ai-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .ai-message.assistant .ai-avatar { background: linear-gradient(135deg, var(--gold-light), var(--gold)); }
+        .ai-message.user .ai-avatar { background: var(--primary); }
+        .ai-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .ai-message.assistant .ai-bubble { background: var(--dark); border-radius: 16px 16px 16px 4px; }
+        .ai-message.user .ai-bubble { background: var(--primary); border-radius: 16px 16px 4px 16px; }
+        .ai-input-area {
+            padding: 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+        }
+        .ai-input {
+            flex: 1;
+            padding: 12px 16px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+        }
+        .ai-input:focus { outline: none; border-color: var(--gold); }
+        
+        /* Logistics */
+        .logistics-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 30px;
+            background: var(--dark);
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        .logistics-step {
+            text-align: center;
+            min-width: 100px;
+        }
+        .logistics-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 12px;
+        }
+        .logistics-arrow {
+            font-size: 1.5rem;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+        
+        /* Charts placeholder */
+        .chart-placeholder {
+            height: 250px;
+            background: var(--dark);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar { width: 70px; }
+            .sidebar .logo-text, .sidebar .nav-title, .sidebar .nav-item span:not(.nav-icon), .sidebar .nav-badge { display: none; }
+            .main { margin-right: 70px; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+        }
+        
+        /* Login */
+        .login-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--darker);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-overlay.hidden { display: none; }
+        .login-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .login-logo { width: 80px; height: 80px; background: linear-gradient(135deg, var(--gold-light), var(--gold)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; color: var(--dark); margin: 0 auto 24px; }
+        .login-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+        .login-desc { color: var(--text-muted); margin-bottom: 32px; }
+        .login-error { background: rgba(239,68,68,0.1); border: 1px solid var(--danger); border-radius: var(--radius); padding: 12px; color: var(--danger); margin-bottom: 20px; display: none; }
+        .login-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold-light), var(--gold)); border: none; border-radius: var(--radius); color: var(--dark); font-family: inherit; font-size: 1rem; font-weight: 800; cursor: pointer; }
+        
+        /* Model Selector */
+        .model-selector {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .model-options { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+        .model-option {
+            padding: 10px 16px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .model-option:hover { border-color: var(--gold); }
+        .model-option.active { border-color: var(--gold); background: rgba(212,175,55,0.1); color: var(--gold); }
+        .model-name { font-weight: 700; font-size: 0.9rem; }
+        .model-desc { font-size: 0.75rem; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+    <!-- Login -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <div class="login-logo">🔐</div>
+            <h1 class="login-title">لوحة تحكم الأدمن</h1>
+            <p class="login-desc">منظومة شيخة للمعادن والسكراب</p>
+            <div class="login-error" id="loginError">بيانات الدخول غير صحيحة</div>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label">اسم المستخدم</label>
+                    <input type="text" class="form-input" id="username" value="admin" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور</label>
+                    <input type="password" class="form-input" id="password" placeholder="sheikha2024" required>
+                </div>
+                <button type="submit" class="login-btn">🔓 دخول</button>
+            </form>
+            <p style="margin-top: 16px; font-size: 0.8rem; color: var(--text-muted);">الافتراضي: admin / sheikha2024</p>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">ش</div>
+            <div>
+                <div class="logo-text">شيخة</div>
+                <div class="logo-sub">لوحة الأدمن</div>
+            </div>
+        </div>
+        <nav class="nav-section">
+            <div class="nav-title">الرئيسية</div>
+            <a class="nav-item active" onclick="showPanel('dashboard')"><span class="nav-icon">📊</span><span>لوحة المؤشرات</span></a>
+            <a class="nav-item" onclick="showPanel('analytics')"><span class="nav-icon">📈</span><span>التحليلات</span></a>
+        </nav>
+        <nav class="nav-section">
+            <div class="nav-title">التسويق</div>
+            <a class="nav-item" onclick="showPanel('marketing')"><span class="nav-icon">📣</span><span>أدوات التسويق</span></a>
+            <a class="nav-item" onclick="showPanel('campaigns')"><span class="nav-icon">🎯</span><span>الحملات</span></a>
+            <a class="nav-item" onclick="showPanel('social')"><span class="nav-icon">📱</span><span>السوشيال ميديا</span></a>
+        </nav>
+        <nav class="nav-section">
+            <div class="nav-title">الإدارة</div>
+            <a class="nav-item" onclick="showPanel('traders')"><span class="nav-icon">🏪</span><span>التجار</span><span class="nav-badge" id="tradersCount">0</span></a>
+            <a class="nav-item" onclick="showPanel('listings')"><span class="nav-icon">📦</span><span>العروض</span><span class="nav-badge" id="listingsCount">0</span></a>
+            <a class="nav-item" onclick="showPanel('orders')"><span class="nav-icon">🛒</span><span>الطلبات</span></a>
+        </nav>
+        <nav class="nav-section">
+            <div class="nav-title">اللوجستيات</div>
+            <a class="nav-item" onclick="showPanel('logistics')"><span class="nav-icon">🚚</span><span>النقل والشحن</span></a>
+            <a class="nav-item" onclick="showPanel('warehouses')"><span class="nav-icon">🏭</span><span>المستودعات</span></a>
+            <a class="nav-item" onclick="showPanel('scm')"><span class="nav-icon">🔗</span><span>سلاسل الإمداد</span></a>
+        </nav>
+        <nav class="nav-section">
+            <div class="nav-title">التقنية</div>
+            <a class="nav-item" onclick="showPanel('ai')"><span class="nav-icon">🤖</span><span>المستشار الذكي</span></a>
+            <a class="nav-item" onclick="showPanel('ide')"><span class="nav-icon">💻</span><span>بيئة التطوير</span></a>
+            <a class="nav-item" onclick="showPanel('api')"><span class="nav-icon">🔌</span><span>APIs</span></a>
+        </nav>
+        <nav class="nav-section">
+            <div class="nav-title">النظام</div>
+            <a class="nav-item" onclick="showPanel('settings')"><span class="nav-icon">⚙️</span><span>الإعدادات</span></a>
+            <a class="nav-item" onclick="logout()"><span class="nav-icon">🚪</span><span>خروج</span></a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+        <header class="header">
+            <h1 class="header-title" id="pageTitle">📊 لوحة المؤشرات</h1>
+            <div class="header-actions">
+                <button class="btn btn-outline btn-sm" onclick="refreshData()">🔄 تحديث</button>
+                <button class="btn btn-outline btn-sm" onclick="window.open('/', '_blank')">🌐 الموقع</button>
+                <button class="btn btn-gold btn-sm" onclick="window.open('/السوق.html', '_blank')">🛒 السوق</button>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Dashboard Panel -->
+            <div class="panel active" id="panel-dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🏪</div>
+                        <div class="stat-value" id="statTraders">0</div>
+                        <div class="stat-label">التجار المسجلين</div>
+                        <span class="stat-change up">+12% هذا الشهر</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-value" id="statListings">0</div>
+                        <div class="stat-label">العروض النشطة</div>
+                        <span class="stat-change up">+8% هذا الشهر</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-value" id="statRevenue">0</div>
+                        <div class="stat-label">قيمة العروض (ريال)</div>
+                        <span class="stat-change up">+15% هذا الشهر</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🚚</div>
+                        <div class="stat-value" id="statShipments">24</div>
+                        <div class="stat-label">شحنات نشطة</div>
+                        <span class="stat-change up">+20% هذا الشهر</span>
+                    </div>
+                </div>
+
+                <div class="grid-4" style="margin-bottom: 24px;">
+                    <div class="quick-action" onclick="showPanel('marketing')">
+                        <div class="quick-action-icon">📣</div>
+                        <div class="quick-action-title">حملة تسويقية</div>
+                        <div class="quick-action-desc">إطلاق حملة جديدة</div>
+                    </div>
+                    <div class="quick-action" onclick="showPanel('traders')">
+                        <div class="quick-action-icon">➕</div>
+                        <div class="quick-action-title">إضافة تاجر</div>
+                        <div class="quick-action-desc">تسجيل تاجر جديد</div>
+                    </div>
+                    <div class="quick-action" onclick="showPanel('ai')">
+                        <div class="quick-action-icon">🤖</div>
+                        <div class="quick-action-title">المستشار الذكي</div>
+                        <div class="quick-action-desc">استشارة فورية</div>
+                    </div>
+                    <div class="quick-action" onclick="showPanel('ide')">
+                        <div class="quick-action-icon">💻</div>
+                        <div class="quick-action-title">بيئة التطوير</div>
+                        <div class="quick-action-desc">تعديل الكود</div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">📈 إحصائيات المبيعات</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-placeholder">📊 رسم بياني للمبيعات</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🔔 آخر الأنشطة</span>
+                        </div>
+                        <div class="card-body" id="activityList">
+                            <!-- Activities -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marketing Panel -->
+            <div class="panel" id="panel-marketing">
+                <div class="marketing-grid">
+                    <div class="marketing-card">
+                        <div class="marketing-icon">📱</div>
+                        <div class="marketing-title">واتساب بزنس</div>
+                        <div class="marketing-desc">إرسال رسائل جماعية للتجار والعملاء</div>
+                        <button class="btn btn-gold" onclick="openWhatsAppCampaign()">إرسال حملة</button>
+                    </div>
+                    <div class="marketing-card">
+                        <div class="marketing-icon">📧</div>
+                        <div class="marketing-title">البريد الإلكتروني</div>
+                        <div class="marketing-desc">حملات بريدية مستهدفة</div>
+                        <button class="btn btn-gold" onclick="openEmailCampaign()">إنشاء حملة</button>
+                    </div>
+                    <div class="marketing-card">
+                        <div class="marketing-icon">📊</div>
+                        <div class="marketing-title">إعلانات Google</div>
+                        <div class="marketing-desc">إدارة حملات Google Ads</div>
+                        <button class="btn btn-gold" onclick="window.open('https://ads.google.com', '_blank')">فتح</button>
+                    </div>
+                    <div class="marketing-card">
+                        <div class="marketing-icon">📸</div>
+                        <div class="marketing-title">السوشيال ميديا</div>
+                        <div class="marketing-desc">نشر على جميع المنصات</div>
+                        <button class="btn btn-gold" onclick="showPanel('social')">إدارة</button>
+                    </div>
+                    <div class="marketing-card">
+                        <div class="marketing-icon">🎁</div>
+                        <div class="marketing-title">كوبونات وعروض</div>
+                        <div class="marketing-desc">إنشاء أكواد خصم</div>
+                        <button class="btn btn-gold" onclick="createCoupon()">إنشاء كوبون</button>
+                    </div>
+                    <div class="marketing-card">
+                        <div class="marketing-icon">👥</div>
+                        <div class="marketing-title">برنامج الإحالة</div>
+                        <div class="marketing-desc">مكافآت للإحالات</div>
+                        <button class="btn btn-gold" onclick="manageReferrals()">إدارة</button>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card-header">
+                        <span class="card-title">📝 إنشاء رسالة تسويقية</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label">نوع الرسالة</label>
+                            <select class="form-select" id="messageType">
+                                <option value="whatsapp">واتساب</option>
+                                <option value="email">بريد إلكتروني</option>
+                                <option value="sms">رسالة نصية</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">الجمهور المستهدف</label>
+                            <select class="form-select" id="audience">
+                                <option value="all">جميع التجار</option>
+                                <option value="active">التجار النشطين</option>
+                                <option value="new">التجار الجدد</option>
+                                <option value="buyers">المشترين</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">نص الرسالة</label>
+                            <textarea class="form-textarea" id="messageContent" rows="5" placeholder="اكتب رسالتك التسويقية هنا...">🏪 سوق شيخة - أول منصة متخصصة للمعادن والسكراب
+
+✅ سجّل متجرك مجاناً
+✅ اعرض بضاعتك بسهولة
+✅ تواصل مباشر مع المشترين
+
+🔗 www.sheikha.top</textarea>
+                        </div>
+                        <button class="btn btn-gold" onclick="sendMarketingMessage()">📤 إرسال الرسالة</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Panel -->
+            <div class="panel" id="panel-ai">
+                <div class="grid-2">
+                    <div>
+                        <div class="model-selector">
+                            <div class="form-label">اختر نموذج الذكاء الاصطناعي:</div>
+                            <div class="model-options">
+                                <div class="model-option active" onclick="selectModel('gpt-4')">
+                                    <div class="model-name">GPT-4</div>
+                                    <div class="model-desc">الأقوى والأذكى</div>
+                                </div>
+                                <div class="model-option" onclick="selectModel('claude')">
+                                    <div class="model-name">Claude</div>
+                                    <div class="model-desc">تحليل متقدم</div>
+                                </div>
+                                <div class="model-option" onclick="selectModel('gemini')">
+                                    <div class="model-name">Gemini</div>
+                                    <div class="model-desc">جوجل AI</div>
+                                </div>
+                                <div class="model-option" onclick="selectModel('local')">
+                                    <div class="model-name">محلي</div>
+                                    <div class="model-desc">بدون إنترنت</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ai-chat">
+                            <div class="ai-messages" id="aiMessages">
+                                <div class="ai-message assistant">
+                                    <div class="ai-avatar">🤖</div>
+                                    <div class="ai-bubble">مرحباً! أنا المستشار الذكي لشيخة. كيف يمكنني مساعدتك اليوم؟ يمكنني المساعدة في:
+                                    <br>• تحليل السوق والأسعار
+                                    <br>• استراتيجيات التسويق
+                                    <br>• إدارة سلاسل الإمداد
+                                    <br>• البرمجة والتطوير</div>
+                                </div>
+                            </div>
+                            <div class="ai-input-area">
+                                <input type="text" class="ai-input" id="aiInput" placeholder="اكتب سؤالك هنا..." onkeypress="if(event.key==='Enter')sendAIMessage()">
+                                <button class="btn btn-gold" onclick="sendAIMessage()">إرسال</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">💾 المحادثات المحفوظة</span>
+                                <button class="btn btn-sm btn-outline" onclick="newAIChat()">محادثة جديدة</button>
+                            </div>
+                            <div class="card-body" id="savedChats">
+                                <div style="padding: 20px; text-align: center; color: var(--text-muted);">
+                                    المحادثات ستُحفظ تلقائياً
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">📊 تحليلات AI</span>
+                            </div>
+                            <div class="card-body">
+                                <div style="margin-bottom: 12px;">
+                                    <strong>إجمالي الاستفسارات:</strong> <span id="aiQueries">0</span>
+                                </div>
+                                <div style="margin-bottom: 12px;">
+                                    <strong>المعلومات المحفوظة:</strong> <span id="aiKnowledge">0</span>
+                                </div>
+                                <button class="btn btn-outline btn-sm" onclick="exportAIData()">📥 تصدير البيانات</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IDE Panel -->
+            <div class="panel" id="panel-ide">
+                <div class="model-selector">
+                    <div class="form-label">نموذج البرمجة:</div>
+                    <div class="model-options">
+                        <div class="model-option active" onclick="selectCodeModel('cursor')">
+                            <div class="model-name">Cursor AI</div>
+                            <div class="model-desc">برمجة ذكية</div>
+                        </div>
+                        <div class="model-option" onclick="selectCodeModel('copilot')">
+                            <div class="model-name">GitHub Copilot</div>
+                            <div class="model-desc">إكمال تلقائي</div>
+                        </div>
+                        <div class="model-option" onclick="selectCodeModel('codewhisperer')">
+                            <div class="model-name">CodeWhisperer</div>
+                            <div class="model-desc">AWS AI</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ide-container">
+                    <div class="ide-header">
+                        <div class="ide-tabs">
+                            <button class="ide-tab active" onclick="openFile('server.js')">📄 server.js</button>
+                            <button class="ide-tab" onclick="openFile('index.html')">📄 index.html</button>
+                            <button class="ide-tab" onclick="openFile('السوق.html')">📄 السوق.html</button>
+                            <button class="ide-tab" onclick="createNewFile()">➕</button>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-outline" onclick="formatCode()">🎨 تنسيق</button>
+                            <button class="btn btn-sm btn-outline" onclick="saveFile()">💾 حفظ</button>
+                            <button class="btn btn-sm btn-success" onclick="runCode()">▶️ تشغيل</button>
+                            <button class="btn btn-sm btn-gold" onclick="deployCode()">🚀 نشر</button>
+                        </div>
+                    </div>
+                    <div class="ide-body">
+                        <div class="ide-sidebar">
+                            <div style="font-weight: 700; padding: 8px; color: var(--gold);">📁 الملفات</div>
+                            <div class="ide-file active" onclick="openFile('server.js')">📄 server.js</div>
+                            <div class="ide-file" onclick="openFile('package.json')">📄 package.json</div>
+                            <div style="font-weight: 700; padding: 8px; margin-top: 12px; color: var(--text-muted);">📁 public/</div>
+                            <div class="ide-file" onclick="openFile('index.html')">📄 index.html</div>
+                            <div class="ide-file" onclick="openFile('السوق.html')">📄 السوق.html</div>
+                            <div class="ide-file" onclick="openFile('admin-dashboard.html')">📄 admin-dashboard.html</div>
+                        </div>
+                        <div class="ide-editor">
+                            <div id="monaco-editor"></div>
+                        </div>
+                    </div>
+                    <div class="ide-terminal" id="terminal">
+                        <div class="terminal-line terminal-success">✓ بيئة التطوير جاهزة</div>
+                        <div class="terminal-line terminal-info">💡 استخدم Ctrl+S للحفظ، Ctrl+Enter للتشغيل</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logistics Panel -->
+            <div class="panel" id="panel-logistics">
+                <div class="logistics-flow">
+                    <div class="logistics-step">
+                        <div class="logistics-icon">🏭</div>
+                        <div>المصدر</div>
+                    </div>
+                    <div class="logistics-arrow">→</div>
+                    <div class="logistics-step">
+                        <div class="logistics-icon">📦</div>
+                        <div>التجميع</div>
+                    </div>
+                    <div class="logistics-arrow">→</div>
+                    <div class="logistics-step">
+                        <div class="logistics-icon">🚚</div>
+                        <div>النقل</div>
+                    </div>
+                    <div class="logistics-arrow">→</div>
+                    <div class="logistics-step">
+                        <div class="logistics-icon">🏪</div>
+                        <div>المستودع</div>
+                    </div>
+                    <div class="logistics-arrow">→</div>
+                    <div class="logistics-step">
+                        <div class="logistics-icon">✈️</div>
+                        <div>الشحن</div>
+                    </div>
+                    <div class="logistics-arrow">→</div>
+                    <div class="logistics-step">
+                        <div class="logistics-icon">🎯</div>
+                        <div>التسليم</div>
+                    </div>
+                </div>
+
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🚚 شركات النقل المتكاملة</span>
+                            <button class="btn btn-sm btn-gold" onclick="addShippingCompany()">➕ إضافة</button>
+                        </div>
+                        <div class="card-body">
+                            <table>
+                                <thead><tr><th>الشركة</th><th>الحالة</th><th>إجراء</th></tr></thead>
+                                <tbody id="shippingCompanies">
+                                    <tr><td>أرامكس</td><td><span class="badge badge-success">متصل</span></td><td><button class="btn btn-sm btn-outline">إدارة</button></td></tr>
+                                    <tr><td>سمسا</td><td><span class="badge badge-success">متصل</span></td><td><button class="btn btn-sm btn-outline">إدارة</button></td></tr>
+                                    <tr><td>DHL</td><td><span class="badge badge-warning">قيد الربط</span></td><td><button class="btn btn-sm btn-outline">ربط</button></td></tr>
+                                    <tr><td>FedEx</td><td><span class="badge badge-warning">قيد الربط</span></td><td><button class="btn btn-sm btn-outline">ربط</button></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🏭 المستودعات</span>
+                            <button class="btn btn-sm btn-gold" onclick="addWarehouse()">➕ إضافة</button>
+                        </div>
+                        <div class="card-body">
+                            <table>
+                                <thead><tr><th>المستودع</th><th>المنطقة</th><th>السعة</th></tr></thead>
+                                <tbody id="warehouses">
+                                    <tr><td>مستودع الرياض</td><td>الرياض</td><td>85%</td></tr>
+                                    <tr><td>مستودع جدة</td><td>جدة</td><td>62%</td></tr>
+                                    <tr><td>مستودع الدمام</td><td>الدمام</td><td>45%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">✈️ الشحن الدولي</span>
+                        </div>
+                        <div class="card-body">
+                            <table>
+                                <thead><tr><th>الوسيلة</th><th>الحالة</th></tr></thead>
+                                <tbody>
+                                    <tr><td>🚢 الشحن البحري</td><td><span class="badge badge-success">متاح</span></td></tr>
+                                    <tr><td>✈️ الشحن الجوي</td><td><span class="badge badge-success">متاح</span></td></tr>
+                                    <tr><td>🚂 الشحن البري</td><td><span class="badge badge-success">متاح</span></td></tr>
+                                    <tr><td>📦 الحاويات</td><td><span class="badge badge-success">متاح</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <div class="card-header">
+                        <span class="card-title">📍 تتبع الشحنات المباشر</span>
+                    </div>
+                    <div class="card-body">
+                        <table>
+                            <thead>
+                                <tr><th>رقم الشحنة</th><th>المنتج</th><th>من</th><th>إلى</th><th>الحالة</th><th>الموقع</th></tr>
+                            </thead>
+                            <tbody id="shipmentTracking">
+                                <tr><td>SH-001</td><td>سكراب حديد 5 طن</td><td>الرياض</td><td>جدة</td><td><span class="badge badge-info">في الطريق</span></td><td>الطائف</td></tr>
+                                <tr><td>SH-002</td><td>نحاس 500 كجم</td><td>الدمام</td><td>الرياض</td><td><span class="badge badge-success">تم التسليم</span></td><td>الرياض</td></tr>
+                                <tr><td>SH-003</td><td>ألمنيوم 2 طن</td><td>جدة</td><td>دبي</td><td><span class="badge badge-warning">في الميناء</span></td><td>ميناء جدة</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCM Panel -->
+            <div class="panel" id="panel-scm">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-value">94.5%</div>
+                        <div class="stat-label">التسليم في الوقت</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🔄</div>
+                        <div class="stat-value">8.2</div>
+                        <div class="stat-label">معدل دوران المخزون</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-value">98.7%</div>
+                        <div class="stat-label">دقة الطلبات</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-value">12.5%</div>
+                        <div class="stat-label">تخفيض التكاليف</div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🔮 التنبؤات الذكية</span>
+                        </div>
+                        <div class="card-body" id="predictions">
+                            <div style="padding: 12px; background: var(--dark); border-radius: 8px; margin-bottom: 12px;">
+                                <strong>سكراب حديد:</strong> ارتفاع 15% متوقع الشهر القادم (ثقة: 87%)
+                            </div>
+                            <div style="padding: 12px; background: var(--dark); border-radius: 8px; margin-bottom: 12px;">
+                                <strong>نحاس:</strong> استقرار مع ميل للارتفاع (ثقة: 72%)
+                            </div>
+                            <div style="padding: 12px; background: var(--dark); border-radius: 8px;">
+                                <strong>ألمنيوم:</strong> وفرة متوقعة (ثقة: 91%)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🔗 سلسلة البلوكتشين</span>
+                        </div>
+                        <div class="card-body">
+                            <div style="margin-bottom: 12px;"><strong>المعاملات:</strong> 1,256</div>
+                            <div style="margin-bottom: 12px;"><strong>المصادر الموثقة:</strong> 89</div>
+                            <div style="margin-bottom: 12px;"><strong>العقود الذكية:</strong> 12</div>
+                            <button class="btn btn-outline btn-sm" onclick="viewBlockchain()">عرض السجل</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Traders Panel -->
+            <div class="panel" id="panel-traders">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🏪 إدارة التجار</span>
+                        <button class="btn btn-gold btn-sm" onclick="window.open('تسجيل-تاجر.html', '_blank')">➕ إضافة تاجر</button>
+                    </div>
+                    <div class="card-body">
+                        <table>
+                            <thead><tr><th>المتجر</th><th>المالك</th><th>المنطقة</th><th>التخصص</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+                            <tbody id="tradersTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listings Panel -->
+            <div class="panel" id="panel-listings">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📦 إدارة العروض</span>
+                        <button class="btn btn-gold btn-sm" onclick="window.open('عرض-بضائع.html', '_blank')">➕ إضافة عرض</button>
+                    </div>
+                    <div class="card-body">
+                        <table>
+                            <thead><tr><th>المنتج</th><th>التاجر</th><th>الكمية</th><th>السعر</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+                            <tbody id="listingsTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Panels -->
+            <div class="panel" id="panel-analytics"><div class="card"><div class="card-body" style="text-align:center;padding:60px;">📈 التحليلات - قيد التطوير</div></div></div>
+            <div class="panel" id="panel-campaigns"><div class="card"><div class="card-body" style="text-align:center;padding:60px;">🎯 الحملات - قيد التطوير</div></div></div>
+            <div class="panel" id="panel-social"><div class="card"><div class="card-body" style="text-align:center;padding:60px;">📱 السوشيال ميديا - قيد التطوير</div></div></div>
+            <div class="panel" id="panel-orders"><div class="card"><div class="card-body" style="text-align:center;padding:60px;">🛒 الطلبات - قيد التطوير</div></div></div>
+            <div class="panel" id="panel-warehouses"><div class="card"><div class="card-body" style="text-align:center;padding:60px;">🏭 المستودعات - قيد التطوير</div></div></div>
+            <div class="panel" id="panel-api"><div class="card"><div class="card-body" style="text-align:center;padding:60px;">🔌 APIs - قيد التطوير</div></div></div>
+            <div class="panel" id="panel-settings"><div class="card"><div class="card-body" style="text-align:center;padding:60px;">⚙️ الإعدادات - قيد التطوير</div></div></div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+    <script>
+        const API = window.location.origin;
+        let editor = null;
+        let currentFile = 'server.js';
+        let currentModel = 'gpt-4';
+        let aiConversations = [];
+
+        // Auth
+        function checkAuth() {
+            if (sessionStorage.getItem('adminAuth') === 'true') {
+                document.getElementById('loginOverlay').classList.add('hidden');
+                loadData();
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            if (u === 'admin' && p === 'sheikha2024') {
+                sessionStorage.setItem('adminAuth', 'true');
+                document.getElementById('loginOverlay').classList.add('hidden');
+                loadData();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminAuth');
+            location.reload();
+        }
+
+        // Navigation
+        function showPanel(name) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('panel-' + name)?.classList.add('active');
+            event?.target?.closest('.nav-item')?.classList.add('active');
+            
+            const titles = {
+                'dashboard': '📊 لوحة المؤشرات',
+                'marketing': '📣 أدوات التسويق',
+                'ai': '🤖 المستشار الذكي',
+                'ide': '💻 بيئة التطوير',
+                'logistics': '🚚 النقل والشحن',
+                'scm': '🔗 سلاسل الإمداد',
+                'traders': '🏪 التجار',
+                'listings': '📦 العروض'
+            };
+            document.getElementById('pageTitle').textContent = titles[name] || name;
+            
+            if (name === 'ide' && !editor) initEditor();
+        }
+
+        // Load Data
+        async function loadData() {
+            try {
+                const [traders, listings] = await Promise.all([
+                    fetch(API + '/api/traders').then(r => r.json()),
+                    fetch(API + '/api/market-listings').then(r => r.json())
+                ]);
+
+                const tradersCount = traders.traders?.length || 0;
+                const listingsCount = listings.listings?.length || 0;
+                
+                document.getElementById('statTraders').textContent = tradersCount;
+                document.getElementById('tradersCount').textContent = tradersCount;
+                document.getElementById('statListings').textContent = listingsCount;
+                document.getElementById('listingsCount').textContent = listingsCount;
+                
+                const totalValue = (listings.listings || []).reduce((sum, l) => sum + (Number(l.price) * Number(l.quantity) || 0), 0);
+                document.getElementById('statRevenue').textContent = totalValue.toLocaleString();
+
+                // Tables
+                document.getElementById('tradersTable').innerHTML = (traders.traders || []).map(t => `
+                    <tr>
+                        <td><strong>${t.company || '—'}</strong></td>
+                        <td>${t.name}</td>
+                        <td>${t.region}</td>
+                        <td>${t.specialtyLabel || t.specialty || 'عام'}</td>
+                        <td><span class="badge badge-success">نشط</span></td>
+                        <td><button class="btn btn-sm btn-outline">تعديل</button></td>
+                    </tr>
+                `).join('') || '<tr><td colspan="6" style="text-align:center;padding:40px;">لا يوجد تجار</td></tr>';
+
+                document.getElementById('listingsTable').innerHTML = (listings.listings || []).map(l => `
+                    <tr>
+                        <td><strong>${l.name}</strong></td>
+                        <td>${l.storeName || '—'}</td>
+                        <td>${l.quantity} ${l.unit}</td>
+                        <td>${Number(l.price).toLocaleString()} ريال</td>
+                        <td><span class="badge badge-success">نشط</span></td>
+                        <td><button class="btn btn-sm btn-outline">تعديل</button></td>
+                    </tr>
+                `).join('') || '<tr><td colspan="6" style="text-align:center;padding:40px;">لا يوجد عروض</td></tr>';
+
+                // Activities
+                document.getElementById('activityList').innerHTML = `
+                    <div style="padding:12px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;">
+                        <span style="font-size:1.5rem;">🏪</span>
+                        <div><strong>تاجر جديد سجّل</strong><br><small style="color:var(--text-muted);">منذ 5 دقائق</small></div>
+                    </div>
+                    <div style="padding:12px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;">
+                        <span style="font-size:1.5rem;">📦</span>
+                        <div><strong>عرض جديد تمت إضافته</strong><br><small style="color:var(--text-muted);">منذ 12 دقيقة</small></div>
+                    </div>
+                    <div style="padding:12px 0;display:flex;gap:12px;">
+                        <span style="font-size:1.5rem;">💰</span>
+                        <div><strong>طلب شراء جديد</strong><br><small style="color:var(--text-muted);">منذ 30 دقيقة</small></div>
+                    </div>
+                `;
+            } catch (e) {
+                console.error('Error loading data:', e);
+            }
+        }
+
+        function refreshData() { loadData(); }
+
+        // Marketing
+        function sendMarketingMessage() {
+            const type = document.getElementById('messageType').value;
+            const audience = document.getElementById('audience').value;
+            const content = document.getElementById('messageContent').value;
+            alert(`سيتم إرسال رسالة ${type} إلى ${audience}\n\n${content}`);
+        }
+
+        function openWhatsAppCampaign() {
+            const msg = encodeURIComponent(document.getElementById('messageContent').value);
+            window.open(`https://wa.me/?text=${msg}`, '_blank');
+        }
+
+        function openEmailCampaign() { alert('جاري فتح أداة البريد...'); }
+        function createCoupon() { alert('جاري إنشاء كوبون جديد...'); }
+        function manageReferrals() { alert('جاري فتح برنامج الإحالة...'); }
+
+        // AI
+        function selectModel(model) {
+            currentModel = model;
+            document.querySelectorAll('.model-option').forEach(m => m.classList.remove('active'));
+            event.target.closest('.model-option').classList.add('active');
+        }
+
+        async function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            // Add user message
+            const messagesDiv = document.getElementById('aiMessages');
+            messagesDiv.innerHTML += `
+                <div class="ai-message user">
+                    <div class="ai-avatar">👤</div>
+                    <div class="ai-bubble">${message}</div>
+                </div>
+            `;
+            input.value = '';
+
+            // Save to server
+            try {
+                await fetch(API + '/api/ai/conversations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ role: 'user', content: message, model: currentModel })
+                });
+            } catch (e) {}
+
+            // Simulate AI response
+            setTimeout(() => {
+                const responses = [
+                    'بناءً على تحليل البيانات، أنصح بالتركيز على منطقة الرياض حيث الطلب الأعلى على السكراب.',
+                    'لتحقيق أرباح أعلى، يمكنك استهداف المصانع الكبيرة بعروض الكميات.',
+                    'أسعار النحاس متجهة للارتفاع، قد يكون الوقت مناسباً للشراء.',
+                    'أنصح بتفعيل نظام FBS لتوفير تكاليف الشحن وزيادة رضا العملاء.'
+                ];
+                const response = responses[Math.floor(Math.random() * responses.length)];
+                
+                messagesDiv.innerHTML += `
+                    <div class="ai-message assistant">
+                        <div class="ai-avatar">🤖</div>
+                        <div class="ai-bubble">${response}</div>
+                    </div>
+                `;
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }, 1000);
+        }
+
+        function newAIChat() {
+            document.getElementById('aiMessages').innerHTML = `
+                <div class="ai-message assistant">
+                    <div class="ai-avatar">🤖</div>
+                    <div class="ai-bubble">محادثة جديدة! كيف يمكنني مساعدتك؟</div>
+                </div>
+            `;
+        }
+
+        // IDE
+        function initEditor() {
+            require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' }});
+            require(['vs/editor/editor.main'], function() {
+                editor = monaco.editor.create(document.getElementById('monaco-editor'), {
+                    value: '// جاري التحميل...',
+                    language: 'javascript',
+                    theme: 'vs-dark',
+                    fontSize: 14,
+                    minimap: { enabled: true },
+                    automaticLayout: true
+                });
+                loadFile('server.js');
+            });
+        }
+
+        async function loadFile(filename) {
+            currentFile = filename;
+            try {
+                const res = await fetch(API + '/api/admin/file?name=' + encodeURIComponent(filename));
+                const data = await res.json();
+                if (data.success && editor) {
+                    editor.setValue(data.content);
+                    const ext = filename.split('.').pop();
+                    const lang = { js: 'javascript', html: 'html', css: 'css', json: 'json' }[ext] || 'plaintext';
+                    monaco.editor.setModelLanguage(editor.getModel(), lang);
+                }
+            } catch (e) {}
+        }
+
+        function openFile(name) { loadFile(name); }
+
+        async function saveFile() {
+            if (!editor) return;
+            addTerminalLine('💾 جاري الحفظ...');
+            try {
+                const res = await fetch(API + '/api/admin/file', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: currentFile, content: editor.getValue() })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    addTerminalLine('✓ تم الحفظ: ' + currentFile, 'success');
+                } else {
+                    addTerminalLine('✗ خطأ: ' + data.error, 'error');
+                }
+            } catch (e) {
+                addTerminalLine('✗ خطأ في الاتصال', 'error');
+            }
+        }
+
+        function runCode() {
+            addTerminalLine('▶️ جاري التشغيل...', 'info');
+            setTimeout(() => addTerminalLine('✓ تم التنفيذ بنجاح', 'success'), 1000);
+        }
+
+        function deployCode() {
+            addTerminalLine('🚀 جاري النشر...', 'info');
+            setTimeout(() => addTerminalLine('✓ تم النشر بنجاح!', 'success'), 2000);
+        }
+
+        function formatCode() {
+            if (editor) {
+                editor.getAction('editor.action.formatDocument').run();
+                addTerminalLine('🎨 تم التنسيق', 'success');
+            }
+        }
+
+        function createNewFile() {
+            const name = prompt('اسم الملف الجديد:');
+            if (name) {
+                currentFile = name;
+                if (editor) editor.setValue('// ملف جديد: ' + name);
+            }
+        }
+
+        function addTerminalLine(text, type = '') {
+            const terminal = document.getElementById('terminal');
+            terminal.innerHTML += `<div class="terminal-line terminal-${type}">${text}</div>`;
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function selectCodeModel(model) {
+            document.querySelectorAll('#panel-ide .model-option').forEach(m => m.classList.remove('active'));
+            event.target.closest('.model-option').classList.add('active');
+            addTerminalLine('🤖 تم اختيار نموذج: ' + model, 'info');
+        }
+
+        // Logistics
+        function addShippingCompany() { alert('جاري إضافة شركة شحن جديدة...'); }
+        function addWarehouse() { alert('جاري إضافة مستودع جديد...'); }
+        function viewBlockchain() { alert('جاري عرض سجل البلوكتشين...'); }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', checkAuth);
+    </script>
+</body>
+</html>

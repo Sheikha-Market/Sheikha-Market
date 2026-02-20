@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="لوحة تحكم المدير - سوق شيخة للمعادن والسكراب">
+    <title>لوحة تحكم المدير | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --transition: all 0.25s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        
+        /* Layout */
+        .layout { display: flex; min-height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--card);
+            border-left: 1px solid var(--border);
+            padding: 24px 16px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .logo-text {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .logo-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .nav-section {
+            margin-bottom: 24px;
+        }
+        .nav-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0 16px;
+            margin-bottom: 8px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: var(--radius);
+            margin-bottom: 4px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .nav-item:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+        .nav-item.active { background: rgba(212,175,55,0.15); color: var(--gold); }
+        .nav-item .icon { font-size: 1.2rem; width: 28px; text-align: center; }
+        .nav-item .badge {
+            margin-right: auto;
+            padding: 2px 8px;
+            background: var(--danger);
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        
+        /* Main Content */
+        .main {
+            flex: 1;
+            margin-right: 280px;
+            padding: 24px;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding: 20px 24px;
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+        }
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+        }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(212,175,55,0.3); }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+        }
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+        .stat-icon.users { background: rgba(59,130,246,0.15); }
+        .stat-icon.orders { background: rgba(16,185,129,0.15); }
+        .stat-icon.revenue { background: rgba(212,175,55,0.15); }
+        .stat-icon.products { background: rgba(139,92,246,0.15); }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+        .stat-change.up { background: rgba(16,185,129,0.15); color: var(--success); }
+        .stat-change.down { background: rgba(239,68,68,0.15); color: var(--danger); }
+        
+        /* Content Sections */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .action-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+        }
+        .action-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .action-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .action-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        .action-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 14px 16px;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        td {
+            font-size: 0.9rem;
+        }
+        tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        .status {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .status.active { background: rgba(16,185,129,0.15); color: var(--success); }
+        .status.pending { background: rgba(245,158,11,0.15); color: var(--warning); }
+        .status.inactive { background: rgba(239,68,68,0.15); color: var(--danger); }
+        
+        /* System Panel */
+        .system-panel {
+            background: linear-gradient(135deg, rgba(10,92,54,0.2), rgba(212,175,55,0.1));
+            border: 1px solid var(--primary);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .system-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .metric {
+            text-align: center;
+            padding: 16px;
+            background: rgba(0,0,0,0.2);
+            border-radius: var(--radius);
+        }
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        /* Dev Tools */
+        .dev-section {
+            background: var(--card);
+            border: 1px solid var(--purple);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .dev-title {
+            color: var(--purple);
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .dev-tools {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .dev-tool {
+            background: rgba(139,92,246,0.1);
+            border: 1px solid rgba(139,92,246,0.3);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .dev-tool:hover {
+            background: rgba(139,92,246,0.2);
+            transform: translateY(-2px);
+        }
+        .dev-tool .icon { font-size: 1.5rem; margin-bottom: 8px; }
+        .dev-tool .name { font-weight: 700; font-size: 0.85rem; }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .content-grid { grid-template-columns: 1fr; }
+            .system-metrics { grid-template-columns: repeat(2, 1fr); }
+            .dev-tools { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main { margin-right: 0; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">👑</div>
+                <div>
+                    <div class="logo-text">سوق شيخة</div>
+                    <div class="logo-sub">لوحة تحكم المدير</div>
+                </div>
+            </div>
+            
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-title">الرئيسية</div>
+                    <a href="#" class="nav-item active" onclick="showSection('dashboard')">
+                        <span class="icon">📊</span> لوحة القيادة
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('analytics')">
+                        <span class="icon">📈</span> التحليلات
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">إدارة السوق</div>
+                    <a href="#" class="nav-item" onclick="showSection('users')">
+                        <span class="icon">👥</span> المستخدمون
+                        <span class="badge">12</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('traders')">
+                        <span class="icon">🏪</span> التجار
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('products')">
+                        <span class="icon">📦</span> المنتجات
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('orders')">
+                        <span class="icon">🛒</span> الطلبات
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">المالية</div>
+                    <a href="#" class="nav-item" onclick="showSection('payments')">
+                        <span class="icon">💰</span> المدفوعات
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('accounting')">
+                        <span class="icon">📋</span> المحاسبة
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">النظام</div>
+                    <a href="#" class="nav-item" onclick="showSection('settings')">
+                        <span class="icon">⚙️</span> الإعدادات
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('devtools')">
+                        <span class="icon">🛠️</span> أدوات التطوير
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('logs')">
+                        <span class="icon">📝</span> السجلات
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('security')">
+                        <span class="icon">🔒</span> الأمان
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">روابط سريعة</div>
+                    <a href="index.html" class="nav-item">
+                        <span class="icon">🏠</span> الموقع الرئيسي
+                    </a>
+                    <a href="السوق.html" class="nav-item">
+                        <span class="icon">🏪</span> السوق
+                    </a>
+                </div>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Header -->
+            <div class="header">
+                <div>
+                    <h1 class="header-title">مرحباً، مدير النظام 👋</h1>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">إدارة شاملة لسوق شيخة</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="refreshData()">🔄 تحديث</button>
+                    <button class="btn btn-gold" onclick="showSection('devtools')">🛠️ أدوات التطوير</button>
+                </div>
+            </div>
+            
+            <!-- System Status Panel -->
+            <div class="system-panel">
+                <div class="system-status">
+                    <div class="status-indicator"></div>
+                    <div>
+                        <strong style="font-size: 1.1rem;">النظام يعمل بشكل طبيعي</strong>
+                        <span style="color: var(--text-muted); margin-right: 8px;">— آخر تحديث: الآن</span>
+                    </div>
+                </div>
+                <div class="system-metrics">
+                    <div class="metric">
+                        <div class="metric-value" id="uptime">99.9%</div>
+                        <div class="metric-label">وقت التشغيل</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value" id="responseTime">45ms</div>
+                        <div class="metric-label">زمن الاستجابة</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value" id="activeUsers">0</div>
+                        <div class="metric-label">مستخدم نشط</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value" id="apiCalls">0</div>
+                        <div class="metric-label">طلب API/دقيقة</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon users">👥</div>
+                    <div class="stat-value" id="totalUsers">0</div>
+                    <div class="stat-label">إجمالي المستخدمين</div>
+                    <span class="stat-change up">↑ جديد</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orders">🛒</div>
+                    <div class="stat-value" id="totalOrders">0</div>
+                    <div class="stat-label">الطلبات</div>
+                    <span class="stat-change up">↑ 0%</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon revenue">💰</div>
+                    <div class="stat-value" id="totalRevenue">0</div>
+                    <div class="stat-label">الإيرادات (ريال)</div>
+                    <span class="stat-change up">↑ 0%</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon products">📦</div>
+                    <div class="stat-value" id="totalProducts">0</div>
+                    <div class="stat-label">المنتجات</div>
+                    <span class="stat-change up">↑ 0%</span>
+                </div>
+            </div>
+            
+            <!-- Dev Tools Section -->
+            <div class="dev-section" id="devtoolsSection">
+                <h3 class="dev-title">🛠️ أدوات التطوير والبرمجة</h3>
+                <div class="dev-tools">
+                    <div class="dev-tool" onclick="openDevTool('api')">
+                        <div class="icon">📡</div>
+                        <div class="name">API Explorer</div>
+                    </div>
+                    <div class="dev-tool" onclick="openDevTool('database')">
+                        <div class="icon">🗄️</div>
+                        <div class="name">قاعدة البيانات</div>
+                    </div>
+                    <div class="dev-tool" onclick="openDevTool('logs')">
+                        <div class="icon">📋</div>
+                        <div class="name">سجلات النظام</div>
+                    </div>
+                    <div class="dev-tool" onclick="openDevTool('cache')">
+                        <div class="icon">⚡</div>
+                        <div class="name">إدارة الكاش</div>
+                    </div>
+                    <div class="dev-tool" onclick="openDevTool('deploy')">
+                        <div class="icon">🚀</div>
+                        <div class="name">النشر والتحديث</div>
+                    </div>
+                    <div class="dev-tool" onclick="openDevTool('backup')">
+                        <div class="icon">💾</div>
+                        <div class="name">النسخ الاحتياطي</div>
+                    </div>
+                    <div class="dev-tool" onclick="openDevTool('terminal')">
+                        <div class="icon">💻</div>
+                        <div class="name">الطرفية</div>
+                    </div>
+                    <div class="dev-tool" onclick="openDevTool('ai')">
+                        <div class="icon">🤖</div>
+                        <div class="name">الذكاء الاصطناعي</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content Grid -->
+            <div class="content-grid">
+                <!-- Recent Activity -->
+                <div class="section">
+                    <div class="section-header">
+                        <h3 class="section-title">📋 آخر النشاطات</h3>
+                        <button class="btn btn-outline" style="padding: 8px 16px; font-size: 0.8rem;">عرض الكل</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>النشاط</th>
+                                    <th>المستخدم</th>
+                                    <th>الوقت</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="activityTable">
+                                <tr>
+                                    <td>تشغيل النظام</td>
+                                    <td>النظام</td>
+                                    <td>الآن</td>
+                                    <td><span class="status active">نشط</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="section">
+                    <div class="section-header">
+                        <h3 class="section-title">⚡ إجراءات سريعة</h3>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="تسجيل-تاجر.html" class="action-card">
+                            <div class="action-icon">➕</div>
+                            <div class="action-name">إضافة تاجر</div>
+                            <div class="action-desc">تسجيل تاجر جديد</div>
+                        </a>
+                        <a href="عرض-بضائع.html" class="action-card">
+                            <div class="action-icon">📦</div>
+                            <div class="action-name">إضافة منتج</div>
+                            <div class="action-desc">عرض بضاعة جديدة</div>
+                        </a>
+                        <div class="action-card" onclick="openDevTool('backup')">
+                            <div class="action-icon">💾</div>
+                            <div class="action-name">نسخ احتياطي</div>
+                            <div class="action-desc">حفظ البيانات</div>
+                        </div>
+                        <div class="action-card" onclick="openDevTool('deploy')">
+                            <div class="action-icon">🚀</div>
+                            <div class="action-name">نشر التحديثات</div>
+                            <div class="action-desc">تحديث الموقع</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- API Documentation Link -->
+            <div class="section" style="text-align: center; padding: 32px;">
+                <h3 style="margin-bottom: 16px;">📚 وثائق النظام والـ API</h3>
+                <p style="color: var(--text-muted); margin-bottom: 24px;">
+                    الوصول الكامل لوثائق API والمخططات البرمجية والهيكلية للنظام
+                </p>
+                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                    <a href="api-docs.html" class="btn btn-gold">📡 وثائق API</a>
+                    <a href="نظام-البرمجة.html" class="btn btn-outline">💻 نظام البرمجة</a>
+                    <a href="devops.html" class="btn btn-outline">🔧 DevOps</a>
+                    <a href="ادارة-النظام.html" class="btn btn-outline">⚙️ إدارة النظام</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        const API = window.location.origin;
+        
+        // تحميل البيانات
+        async function loadDashboardData() {
+            try {
+                // حالة الخادم
+                const healthRes = await fetch(API + '/api/health');
+                const health = await healthRes.json();
+                
+                if (health.success) {
+                    document.getElementById('responseTime').textContent = '45ms';
+                }
+                
+                // إحصائيات
+                const statsRes = await fetch(API + '/api/admin/stats').catch(() => null);
+                if (statsRes) {
+                    const stats = await statsRes.json();
+                    if (stats.success) {
+                        document.getElementById('totalUsers').textContent = stats.users || 0;
+                        document.getElementById('totalOrders').textContent = stats.orders || 0;
+                        document.getElementById('totalProducts').textContent = stats.products || 0;
+                        document.getElementById('totalRevenue').textContent = (stats.revenue || 0).toLocaleString();
+                    }
+                }
+            } catch (e) {
+                console.log('Loading dashboard data...');
+            }
+        }
+        
+        // تحديث البيانات
+        function refreshData() {
+            loadDashboardData();
+            alert('✓ تم تحديث البيانات');
+        }
+        
+        // عرض القسم
+        function showSection(section) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.nav-item').classList.add('active');
+            
+            // يمكن إضافة منطق لعرض أقسام مختلفة
+            console.log('عرض قسم:', section);
+        }
+        
+        // فتح أداة التطوير
+        function openDevTool(tool) {
+            const tools = {
+                'api': 'api-docs.html',
+                'database': '#database',
+                'logs': '#logs',
+                'cache': '#cache',
+                'deploy': '#deploy',
+                'backup': '#backup',
+                'terminal': '#terminal',
+                'ai': 'مساعد-شيخة.html'
+            };
+            
+            if (tools[tool].startsWith('#')) {
+                alert('🛠️ أداة ' + tool + ' - قيد التطوير');
+            } else {
+                window.location.href = tools[tool];
+            }
+        }
+        
+        // تحميل البيانات عند البدء
+        loadDashboardData();
+        
+        // تحديث كل 30 ثانية
+        setInterval(loadDashboardData, 30000);
+    </script>
+</body>
+</html>

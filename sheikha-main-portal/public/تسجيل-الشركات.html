@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل التاجر | SHEIKHA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--gold:#D4AF37;--gold-l:#F5E6A3;--copper:#B87333;--bg:#050810;--bg2:#0a0f1a;--bg3:#111827;--t1:#f8fafc;--t2:#94a3b8;--t3:#64748b;--border:#1e293b;--green:#10b981;--red:#ef4444;--blue:#3b82f6;--orange:#f59e0b;--r:12px}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh}
+        a{color:var(--gold);text-decoration:none}
+
+        /* Nav */
+        .nav{position:sticky;top:0;z-index:100;background:rgba(5,8,16,.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(212,175,55,.08);padding:0 24px}
+        .nav-c{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+        .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+        .logo-m{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--copper));border-radius:10px;display:grid;place-items:center}
+        .logo-m svg{width:20px;height:20px}
+        .logo-t{font-size:1.15rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .nav-links{display:flex;gap:4px;list-style:none}
+        .nav-links a{color:var(--t2);text-decoration:none;padding:8px 16px;border-radius:10px;font-size:.88rem;font-weight:500;transition:all .2s}
+        .nav-links a:hover,.nav-links a.active{color:var(--gold);background:rgba(212,175,55,.06)}
+
+        /* Hero */
+        .hero{padding:60px 24px 40px;text-align:center;position:relative}
+        .hero::before{content:'';position:absolute;top:0;left:0;right:0;height:300px;background:radial-gradient(ellipse at 50% 0%,rgba(212,175,55,.04),transparent 60%);pointer-events:none}
+        .hero h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;margin-bottom:10px;position:relative}
+        .hero h1 span{background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero p{color:var(--t2);font-size:1rem;max-width:600px;margin:0 auto}
+
+        /* Progress Steps */
+        .steps{display:flex;justify-content:center;gap:8px;padding:0 24px;margin-bottom:40px;flex-wrap:wrap}
+        .step{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:50px;border:1px solid var(--border);background:var(--bg2);font-size:.82rem;font-weight:600;color:var(--t3);transition:all .35s;cursor:default}
+        .step.active{border-color:var(--gold);background:rgba(212,175,55,.08);color:var(--gold)}
+        .step.done{border-color:var(--green);background:rgba(16,185,129,.06);color:var(--green)}
+        .step-n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.75rem;background:var(--border);color:var(--t3);transition:all .35s}
+        .step.active .step-n{background:var(--gold);color:var(--bg)}
+        .step.done .step-n{background:var(--green);color:#fff}
+
+        /* Form Container */
+        .form-wrap{max-width:860px;margin:0 auto 80px;padding:0 24px}
+        .form-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:40px;position:relative;overflow:hidden}
+        .form-box::before{content:'';position:absolute;top:0;right:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--copper),var(--gold));opacity:.4}
+
+        /* Sections */
+        .sec{display:none;animation:fadeUp .4s ease}
+        .sec.active{display:block}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        .sec h2{font-size:1.4rem;font-weight:800;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+        .sec h2 svg{width:24px;height:24px;flex-shrink:0}
+        .sec>p.desc{color:var(--t2);margin-bottom:28px;font-size:.92rem}
+
+        /* Business Type Cards */
+        .type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px}
+        .type-card{padding:28px 20px;background:var(--bg);border:2px solid var(--border);border-radius:16px;text-align:center;cursor:pointer;transition:all .35s;position:relative}
+        .type-card:hover{border-color:rgba(212,175,55,.3);transform:translateY(-4px)}
+        .type-card.selected{border-color:var(--gold);background:rgba(212,175,55,.05);box-shadow:0 0 30px rgba(212,175,55,.1)}
+        .type-card .tc-icon{width:56px;height:56px;border-radius:14px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center}
+        .type-card .tc-icon svg{width:28px;height:28px}
+        .type-card h3{font-size:1.05rem;font-weight:700;margin-bottom:6px}
+        .type-card p{font-size:.8rem;color:var(--t3);line-height:1.5}
+        .type-card .tc-check{position:absolute;top:12px;left:12px;width:24px;height:24px;border-radius:50%;border:2px solid var(--border);display:grid;place-items:center;transition:all .3s}
+        .type-card.selected .tc-check{border-color:var(--gold);background:var(--gold)}
+        .type-card.selected .tc-check svg{opacity:1}
+        .type-card .tc-check svg{opacity:0;transition:opacity .2s}
+
+        /* Size Cards */
+        .size-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 24px}
+        .size-card{padding:18px 12px;background:var(--bg);border:2px solid var(--border);border-radius:12px;text-align:center;cursor:pointer;transition:all .3s}
+        .size-card:hover{border-color:rgba(212,175,55,.3)}
+        .size-card.selected{border-color:var(--gold);background:rgba(212,175,55,.05)}
+        .size-card h4{font-size:.88rem;font-weight:700;margin-bottom:4px}
+        .size-card p{font-size:.7rem;color:var(--t3)}
+
+        /* Nafath Card */
+        .nafath-box{background:linear-gradient(135deg,rgba(0,108,53,.1),rgba(0,108,53,.02));border:1px solid rgba(0,108,53,.2);border-radius:16px;padding:28px;margin-bottom:24px;display:flex;align-items:center;gap:20px;cursor:pointer;transition:all .3s}
+        .nafath-box:hover{border-color:rgba(0,108,53,.5);background:rgba(0,108,53,.12)}
+        .nafath-icon{width:56px;height:56px;background:rgba(0,108,53,.15);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .nafath-icon svg{width:28px;height:28px}
+        .nafath-body h3{font-size:1rem;font-weight:700;margin-bottom:4px}
+        .nafath-body p{font-size:.82rem;color:var(--t2)}
+        .nafath-badge{margin-right:auto;padding:6px 14px;border-radius:8px;background:rgba(0,108,53,.15);color:#10b981;font-size:.78rem;font-weight:700;white-space:nowrap}
+
+        /* OR divider */
+        .or-div{display:flex;align-items:center;gap:16px;margin:24px 0;color:var(--t3);font-size:.85rem}
+        .or-div::before,.or-div::after{content:'';flex:1;height:1px;background:var(--border)}
+
+        /* Website Auto */
+        .auto-box{background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.15);border-radius:16px;padding:24px;margin-bottom:24px}
+        .auto-box h3{font-size:1rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;color:var(--blue)}
+        .auto-row{display:flex;gap:10px}
+        .auto-row input{flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--t1);font-size:.9rem;font-family:inherit}
+        .auto-row input:focus{outline:none;border-color:var(--blue)}
+        .auto-row button{padding:12px 24px;border-radius:10px;border:none;background:var(--blue);color:#fff;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .25s}
+        .auto-row button:hover{background:#2563eb}
+
+        /* Form Fields */
+        .fg{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:20px}
+        .fg.f1{grid-template-columns:1fr}
+        .ff{display:flex;flex-direction:column;gap:6px}
+        .ff label{font-size:.85rem;color:var(--t2);font-weight:500}
+        .ff label .req{color:var(--red);margin-right:4px}
+        .ff input,.ff select,.ff textarea{padding:12px 16px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--t1);font-size:.9rem;font-family:inherit;transition:border-color .25s}
+        .ff input:focus,.ff select:focus,.ff textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 12px rgba(212,175,55,.08)}
+        .ff textarea{min-height:90px;resize:vertical}
+        .ff .hint{font-size:.75rem;color:var(--t3)}
+        .ff select option{background:var(--bg2);color:var(--t1)}
+
+        /* Activity Tags */
+        .activity-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px 0}
+        .act-tag{padding:12px;border:1.5px solid var(--border);border-radius:10px;text-align:center;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .25s;color:var(--t2)}
+        .act-tag:hover{border-color:rgba(212,175,55,.3);color:var(--t1)}
+        .act-tag.selected{border-color:var(--gold);background:rgba(212,175,55,.08);color:var(--gold)}
+
+        /* HS Code Tree in Registration */
+        .hs-reg-title{font-size:.95rem;font-weight:700;color:var(--gold);margin:28px 0 12px;display:flex;align-items:center;gap:8px}
+        .hs-reg-title svg{width:20px;height:20px;flex-shrink:0}
+        .hs-reg-desc{font-size:.82rem;color:var(--t3);margin-bottom:16px}
+        .hs-reg-search{width:100%;padding:11px 16px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--t1);font-size:.88rem;font-family:inherit;outline:none;margin-bottom:16px;transition:border .25s}
+        .hs-reg-search:focus{border-color:var(--gold)}
+        .hs-reg-search::placeholder{color:var(--t3)}
+        .hs-reg-tree{max-height:420px;overflow-y:auto;border:1px solid var(--border);border-radius:14px;padding:12px;background:rgba(0,0,0,.15)}
+        .hs-reg-tree::-webkit-scrollbar{width:5px}
+        .hs-reg-tree::-webkit-scrollbar-track{background:transparent}
+        .hs-reg-tree::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+        .hs-reg-group{margin-bottom:4px}
+        .hs-reg-ghdr{display:flex;align-items:center;gap:6px;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:.84rem;font-weight:600;color:var(--t2);transition:all .2s;user-select:none}
+        .hs-reg-ghdr:hover{background:rgba(255,255,255,.04);color:var(--t1)}
+        .hs-reg-ghdr.open{color:var(--gold)}
+        .hs-reg-arrow{width:12px;height:12px;transition:transform .25s;flex-shrink:0;opacity:.6}
+        .hs-reg-ghdr.open>.hs-reg-arrow{transform:rotate(90deg);opacity:1}
+        .hs-reg-gcode{font-family:'SF Mono','Consolas','Courier New',monospace;font-size:.7rem;color:var(--t3);background:rgba(255,255,255,.05);padding:1px 5px;border-radius:4px;margin-inline-start:auto;flex-shrink:0;direction:ltr}
+        .hs-reg-l2{list-style:none;padding-right:14px;max-height:0;overflow:hidden;transition:max-height .4s ease}
+        .hs-reg-l2.show{max-height:2000px}
+        .hs-reg-item{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;cursor:pointer;font-size:.8rem;color:var(--t3);transition:all .2s;user-select:none}
+        .hs-reg-item:hover{color:var(--t1);background:rgba(255,255,255,.04)}
+        .hs-reg-item.selected{color:var(--gold);background:rgba(212,175,55,.08)}
+        .hs-reg-chk{width:16px;height:16px;border:1.5px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+        .hs-reg-item.selected .hs-reg-chk{border-color:var(--gold);background:var(--gold)}
+        .hs-reg-item.selected .hs-reg-chk svg{opacity:1}
+        .hs-reg-chk svg{width:10px;height:10px;stroke:var(--bg);stroke-width:3;opacity:0;transition:opacity .2s}
+        .hs-reg-hcode{font-family:'SF Mono','Consolas','Courier New',monospace;font-size:.72rem;color:var(--t3);direction:ltr;min-width:42px}
+        .hs-reg-item.selected .hs-reg-hcode{color:var(--gold)}
+        .hs-selected-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;min-height:28px}
+        .hs-stag{display:flex;align-items:center;gap:5px;padding:5px 12px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.2);border-radius:20px;font-size:.76rem;font-weight:600;color:var(--gold);animation:fadeUp .3s ease}
+        .hs-stag .hs-stag-x{cursor:pointer;width:14px;height:14px;border-radius:50%;background:rgba(212,175,55,.15);display:flex;align-items:center;justify-content:center;transition:background .2s}
+        .hs-stag .hs-stag-x:hover{background:rgba(212,175,55,.3)}
+        .hs-stag .hs-stag-x svg{width:8px;height:8px;stroke:var(--gold);stroke-width:3}
+
+        /* Smart CR Analysis Panel */
+        .cr-analysis{margin-top:24px;border:1px solid rgba(212,175,55,.15);border-radius:16px;overflow:hidden;background:var(--bg);display:none;animation:fadeUp .5s ease}
+        .cr-analysis.show{display:block}
+        .cr-analysis-hdr{padding:18px 22px;background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(184,115,51,.05));border-bottom:1px solid rgba(212,175,55,.1);display:flex;align-items:center;gap:10px}
+        .cr-analysis-hdr svg{width:22px;height:22px;stroke:var(--gold);flex-shrink:0}
+        .cr-analysis-hdr h3{font-size:1rem;font-weight:700;color:var(--gold)}
+        .cr-analysis-hdr .cr-ai-badge{margin-inline-start:auto;padding:4px 12px;border-radius:20px;background:rgba(212,175,55,.1);color:var(--gold);font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:4px}
+        .cr-analysis-hdr .cr-ai-badge svg{width:12px;height:12px}
+        .cr-analysis-body{padding:22px}
+        .cr-info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:20px}
+        .cr-info-card{padding:14px;background:var(--bg2);border:1px solid var(--border);border-radius:12px}
+        .cr-info-card .cr-ic-label{font-size:.72rem;color:var(--t3);font-weight:600;margin-bottom:5px;display:flex;align-items:center;gap:5px;text-transform:uppercase;letter-spacing:.03em}
+        .cr-info-card .cr-ic-label svg{width:13px;height:13px;stroke:var(--t3)}
+        .cr-info-card .cr-ic-value{font-size:.92rem;font-weight:700;color:var(--t1)}
+        .cr-info-card .cr-ic-sub{font-size:.75rem;color:var(--t3);margin-top:3px}
+        .cr-info-card.highlight{border-color:rgba(212,175,55,.2);background:rgba(212,175,55,.03)}
+        .cr-info-card.highlight .cr-ic-value{color:var(--gold)}
+
+        .cr-licenses{margin-bottom:20px}
+        .cr-licenses h4{font-size:.88rem;font-weight:700;color:var(--t1);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+        .cr-licenses h4 svg{width:18px;height:18px;stroke:var(--gold)}
+        .cr-lic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+        .cr-lic{padding:12px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:10px}
+        .cr-lic-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .cr-lic-icon.active{background:rgba(34,197,94,.1)}
+        .cr-lic-icon.active svg{stroke:#22c55e}
+        .cr-lic-icon.pending{background:rgba(245,158,11,.1)}
+        .cr-lic-icon.pending svg{stroke:#f59e0b}
+        .cr-lic-icon.expired{background:rgba(239,68,68,.1)}
+        .cr-lic-icon.expired svg{stroke:#ef4444}
+        .cr-lic-icon svg{width:18px;height:18px}
+        .cr-lic-body h5{font-size:.8rem;font-weight:600;color:var(--t1);margin-bottom:2px}
+        .cr-lic-body p{font-size:.7rem;color:var(--t3)}
+        .cr-lic-status{margin-inline-start:auto;padding:3px 10px;border-radius:20px;font-size:.68rem;font-weight:700;white-space:nowrap}
+        .cr-lic-status.active{background:rgba(34,197,94,.1);color:#22c55e}
+        .cr-lic-status.pending{background:rgba(245,158,11,.1);color:#f59e0b}
+        .cr-lic-status.expired{background:rgba(239,68,68,.1);color:#ef4444}
+
+        .cr-ai-insights{padding:16px;background:linear-gradient(135deg,rgba(129,140,248,.05),rgba(212,175,55,.04));border:1px solid rgba(129,140,248,.12);border-radius:12px}
+        .cr-ai-insights h4{font-size:.88rem;font-weight:700;color:#818cf8;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+        .cr-ai-insights h4 svg{width:18px;height:18px;stroke:#818cf8}
+        .cr-ai-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+        .cr-ai-list li{display:flex;align-items:flex-start;gap:8px;font-size:.82rem;color:var(--t2);line-height:1.6}
+        .cr-ai-list li .cr-ai-dot{width:6px;height:6px;border-radius:50%;background:#818cf8;flex-shrink:0;margin-top:7px}
+        .cr-ai-list li strong{color:var(--t1);font-weight:600}
+
+        .cr-loading{text-align:center;padding:30px;color:var(--t3)}
+        .cr-loading svg{width:32px;height:32px;stroke:var(--gold);animation:spin 1s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .cr-loading p{margin-top:10px;font-size:.85rem}
+
+        /* ISIC Activity Tags */
+        .cr-isic-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+        .cr-isic-tag{padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:600;display:flex;align-items:center;gap:4px}
+        .cr-isic-tag.primary{background:rgba(212,175,55,.1);color:var(--gold);border:1px solid rgba(212,175,55,.2)}
+        .cr-isic-tag.secondary{background:rgba(148,163,184,.08);color:var(--t2);border:1px solid rgba(148,163,184,.15)}
+
+        /* Entrepreneur Section */
+        .entre-box{background:linear-gradient(135deg,rgba(245,158,11,.04),rgba(245,158,11,.01));border:1px solid rgba(245,158,11,.12);border-radius:16px;padding:28px;margin:24px 0}
+        .entre-box h3{font-size:1.05rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;color:var(--orange)}
+        .entre-box h3 svg{width:22px;height:22px}
+        .entre-features{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+        .ef{padding:16px;background:rgba(245,158,11,.03);border:1px solid rgba(245,158,11,.08);border-radius:10px;display:flex;align-items:flex-start;gap:10px}
+        .ef svg{width:18px;height:18px;flex-shrink:0;color:var(--orange);margin-top:2px}
+        .ef div h4{font-size:.85rem;font-weight:700;margin-bottom:2px}
+        .ef div p{font-size:.75rem;color:var(--t3)}
+
+        /* Highlight Box */
+        .hl-box{background:rgba(212,175,55,.04);border:1px solid rgba(212,175,55,.1);border-radius:14px;padding:24px;margin:20px 0}
+        .hl-box h3{font-size:1rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;color:var(--gold)}
+        .hl-box ul{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+        .hl-box li{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--t2)}
+        .hl-box li svg{width:16px;height:16px;color:var(--green);flex-shrink:0}
+
+        /* Buttons */
+        .btn-row{display:flex;justify-content:space-between;margin-top:32px;gap:12px}
+        .btn{padding:14px 32px;border-radius:12px;font-size:.92rem;font-weight:700;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px;transition:all .3s}
+        .btn-p{background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--bg);box-shadow:0 6px 24px rgba(212,175,55,.2)}
+        .btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(212,175,55,.35)}
+        .btn-s{background:var(--bg);color:var(--t1);border:1px solid var(--border)}
+        .btn-s:hover{border-color:var(--gold)}
+
+        /* Success */
+        .success-view{text-align:center;padding:40px 20px}
+        .success-icon{width:80px;height:80px;border-radius:50%;background:rgba(16,185,129,.1);display:grid;place-items:center;margin:0 auto 24px}
+        .success-icon svg{width:40px;height:40px;color:var(--green)}
+        .success-view h2{font-size:1.5rem;color:var(--green);margin-bottom:8px}
+        .info-card{background:var(--bg);border-radius:12px;padding:20px;margin:20px auto;max-width:480px;text-align:right}
+        .info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:.88rem}
+        .info-row:last-child{border:none}
+        .info-row .lbl{color:var(--t3)}
+        .info-row .val{font-weight:700;color:var(--gold)}
+
+        /* Verify Badges */
+        .verify-row{display:flex;gap:12px;margin:16px 0;flex-wrap:wrap}
+        .v-badge{padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:6px}
+        .v-badge svg{width:16px;height:16px}
+        .v-pending{background:rgba(245,158,11,.1);color:var(--orange);border:1px solid rgba(245,158,11,.2)}
+        .v-done{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+
+        @media(max-width:768px){
+            .type-grid{grid-template-columns:1fr}
+            .size-grid{grid-template-columns:repeat(2,1fr)}
+            .fg{grid-template-columns:1fr}
+            .hl-box ul{grid-template-columns:1fr}
+            .entre-features{grid-template-columns:1fr}
+            .nav-links{display:none}
+            .nafath-box{flex-direction:column;text-align:center}
+        }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav"><div class="nav-c">
+    <a href="/" class="logo">
+        <div class="logo-m"><svg viewBox="0 0 24 24" fill="none" stroke="#050810" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <span class="logo-t">SHEIKHA</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="/">الرئيسية</a></li>
+        <li><a href="/هوية-السوق.html">هوية شيخة</a></li>
+        <li><a href="/سوق-المدينة.html">سوق المدينة</a></li>
+        <li><a href="/سوق-شيخة.html">السوق</a></li>
+        <li><a href="/تسجيل-الشركات.html" class="active">تسجيل شركة/تاجر</a></li>
+        <li><a href="/تسجيل-حكومي.html">تسجيل حكومي</a></li>
+        <li><a href="/الشريعة-الاسلامية.html">الشريعة</a></li>
+        <li><a href="/المجتمع.html">المجتمع</a></li>
+        <li><a href="/تسجيل-الدخول.html" class="cta" style="background:linear-gradient(135deg,#D4AF37,#B87333);color:#030509;font-weight:800;padding:9px 22px;border-radius:10px">ادخل</a></li>
+    </ul>
+</div></nav>
+
+<!-- Hero -->
+<section class="hero">
+    <h1>تسجيل <span>التاجر</span></h1>
+    <p>انضم لأكبر شبكة معادن في العالم العربي — لوحة تحكم مخصصة حسب نشاطك وحجمك</p>
+</section>
+
+<!-- Steps -->
+<div class="steps">
+    <div class="step active" data-step="1"><span class="step-n">1</span> نوع التاجر</div>
+    <div class="step" data-step="2"><span class="step-n">2</span> التحقق والبيانات</div>
+    <div class="step" data-step="3"><span class="step-n">3</span> النشاط والتخصص</div>
+    <div class="step" data-step="4"><span class="step-n">4</span> الرؤية والأهداف</div>
+    <div class="step" data-step="5"><span class="step-n">5</span> التقنيات والتكامل</div>
+</div>
+
+<!-- Form -->
+<div class="form-wrap"><div class="form-box">
+
+    <!-- Step 1: نوع التاجر -->
+    <div class="sec active" id="s1">
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            اختر نوع نشاطك التجاري
+        </h2>
+        <p class="desc">حدد الصنف الذي يناسبك — سنخصص لوحة التحكم والأدوات والتقنيات حسب اختيارك</p>
+
+        <div class="type-grid">
+            <div class="type-card" data-type="company" onclick="selectType(this)">
+                <div class="tc-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#050810" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div class="tc-icon" style="background:rgba(59,130,246,.1)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12.01"/></svg>
+                </div>
+                <h3>شركة</h3>
+                <p>شركة مسجلة — ذات مسؤولية محدودة، مساهمة، أو تضامنية</p>
+            </div>
+            <div class="type-card" data-type="establishment" onclick="selectType(this)">
+                <div class="tc-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#050810" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div class="tc-icon" style="background:rgba(16,185,129,.1)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <h3>مؤسسة فردية</h3>
+                <p>مؤسسة فردية بسجل تجاري — تاجر مستقل</p>
+            </div>
+            <div class="type-card" data-type="individual" onclick="selectType(this)">
+                <div class="tc-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#050810" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div class="tc-icon" style="background:rgba(168,85,247,.1)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <h3>فرد</h3>
+                <p>تاجر فرد — بطاقة عمل حر أو وثيقة مستقل</p>
+            </div>
+            <div class="type-card" data-type="entrepreneur" onclick="selectType(this)">
+                <div class="tc-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#050810" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div class="tc-icon" style="background:rgba(245,158,11,.1)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <h3>رائد أعمال</h3>
+                <p>مشروع ناشئ — فكرة أو شركة في مراحلها الأولى</p>
+            </div>
+        </div>
+
+        <!-- Company Size (visible when company selected) -->
+        <div id="sizeSection" style="display:none">
+            <label style="font-size:.9rem;color:var(--t2);font-weight:600;display:block;margin-bottom:8px">حجم الشركة</label>
+            <div class="size-grid">
+                <div class="size-card" data-size="micro" onclick="selectSize(this)"><h4>صغيرة جداً</h4><p>1 - 9 موظفين</p></div>
+                <div class="size-card" data-size="small" onclick="selectSize(this)"><h4>صغيرة</h4><p>10 - 49 موظف</p></div>
+                <div class="size-card" data-size="medium" onclick="selectSize(this)"><h4>متوسطة</h4><p>50 - 249 موظف</p></div>
+                <div class="size-card" data-size="large" onclick="selectSize(this)"><h4>كبيرة</h4><p>250+ موظف</p></div>
+            </div>
+        </div>
+
+        <!-- Entrepreneur Smart System (visible when entrepreneur selected) -->
+        <div id="entreSection" style="display:none">
+            <div class="entre-box">
+                <h3>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    نظام ريادة الأعمال الذكي
+                </h3>
+                <p style="font-size:.88rem;color:var(--t2);margin-bottom:16px">سيتم تفعيل أدوات ذكية مصممة خصيصاً لرواد الأعمال لتسريع نمو مشروعك:</p>
+                <div class="entre-features">
+                    <div class="ef">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <div><h4>خطة عمل آلية</h4><p>إنشاء خطة عمل احترافية بالذكاء الاصطناعي حسب مجالك</p></div>
+                    </div>
+                    <div class="ef">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                        <div><h4>دراسة جدوى رقمية</h4><p>تحليل السوق والمنافسين والتكاليف والأرباح المتوقعة</p></div>
+                    </div>
+                    <div class="ef">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                        <div><h4>مراحل التأسيس</h4><p>خطوات التسجيل والتراخيص والشهادات المطلوبة</p></div>
+                    </div>
+                    <div class="ef">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <div><h4>ربط مع مستثمرين</h4><p>شبكة مستثمرين مهتمين بقطاع المعادن والسكراب</p></div>
+                    </div>
+                    <div class="ef">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <div><h4>استشارات شرعية</h4><p>مراجعة نموذج العمل مع أحكام الشريعة الإسلامية</p></div>
+                    </div>
+                    <div class="ef">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                        <div><h4>حاضنة رقمية</h4><p>بيئة عمل رقمية متكاملة مع أدوات إدارة المشاريع</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <div></div>
+            <button class="btn btn-p" onclick="goStep(2)">التالي <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- Step 2: التحقق والبيانات -->
+    <div class="sec" id="s2">
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            التحقق وجلب البيانات
+        </h2>
+        <p class="desc">يمكنك تسريع التسجيل عبر النفاذ الوطني أو الموقع الإلكتروني — أو إدخال البيانات يدوياً</p>
+
+        <!-- Nafath -->
+        <div class="nafath-box" onclick="connectNafath()">
+            <div class="nafath-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+            </div>
+            <div class="nafath-body">
+                <h3>الربط عبر النفاذ الوطني</h3>
+                <p>جلب بيانات السجل التجاري والهوية تلقائياً — تسجيل في أقل من دقيقة</p>
+            </div>
+            <span class="nafath-badge">الأسرع</span>
+        </div>
+
+        <div class="or-div">أو</div>
+
+        <!-- Website Auto-fill -->
+        <div class="auto-box">
+            <h3>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                جلب بيانات من الموقع الإلكتروني
+            </h3>
+            <p style="font-size:.82rem;color:var(--t2);margin-bottom:12px">أدخل رابط موقعك وسنستخلص المعلومات تلقائياً</p>
+            <div class="auto-row">
+                <input type="url" id="websiteUrl" placeholder="https://company.com">
+                <button onclick="fetchWebsite()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left:6px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    استخلاص
+                </button>
+            </div>
+        </div>
+
+        <div class="or-div">أو أدخل البيانات يدوياً</div>
+
+        <!-- Manual Fields -->
+        <div class="fg">
+            <div class="ff">
+                <label>الاسم التجاري بالعربية <span class="req">*</span></label>
+                <input type="text" id="nameAr" placeholder="مثال: شركة المعادن المتقدمة" required>
+            </div>
+            <div class="ff">
+                <label>الاسم بالإنجليزية</label>
+                <input type="text" id="nameEn" placeholder="Advanced Metals Co.">
+            </div>
+            <div class="ff" id="crField">
+                <label>رقم السجل التجاري <span class="req">*</span></label>
+                <input type="text" id="cr" placeholder="1010XXXXXX" required>
+                <span class="hint">سيتم التحقق من السجل عبر بيانات وزارة التجارة</span>
+            </div>
+            <div class="ff">
+                <label>الرقم الضريبي (VAT)</label>
+                <input type="text" id="vat" placeholder="3000XXXXXXXXXX" pattern="^3\d{14}$" title="رقم ضريبي يبدأ بـ 3 ويتكون من 15 رقم">
+            </div>
+            <div class="ff">
+                <label>البريد الإلكتروني <span class="req">*</span></label>
+                <input type="email" id="email" placeholder="info@company.com" required>
+            </div>
+            <div class="ff">
+                <label>رقم الجوال <span class="req">*</span></label>
+                <input type="tel" id="phone" placeholder="05XXXXXXXX" required pattern="^05\d{8}$" title="رقم الجوال يبدأ بـ 05 ويتكون من 10 أرقام">
+            </div>
+            <div class="ff">
+                <label>المدينة <span class="req">*</span></label>
+                <select id="city">
+                    <option value="">اختر...</option>
+                    <option>الرياض</option><option>جدة</option><option>الدمام</option>
+                    <option>مكة المكرمة</option><option>المدينة المنورة</option>
+                    <option>الخبر</option><option>ينبع</option><option>الجبيل</option>
+                    <option>نجران</option><option>تبوك</option><option>أبها</option>
+                    <option>حائل</option><option>أخرى</option>
+                </select>
+            </div>
+            <div class="ff">
+                <label>سنة التأسيس</label>
+                <input type="number" id="founded" placeholder="2020" min="1900" max="2026">
+            </div>
+        </div>
+
+        <!-- Verification Status -->
+        <div class="verify-row" id="verifyRow" style="display:none">
+            <div class="v-badge v-pending" id="vCr">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                السجل التجاري: قيد التحقق
+            </div>
+            <div class="v-badge v-pending" id="vVat">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                الرقم الضريبي: قيد التحقق
+            </div>
+        </div>
+
+        <!-- Smart CR Analysis Panel -->
+        <div class="cr-analysis" id="crAnalysis">
+            <div class="cr-analysis-hdr">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                <h3>التحليل الذكي للسجل التجاري</h3>
+                <span class="cr-ai-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4.5 4.5 0 0 0 0 9 4.5 4.5 0 0 0 0-9z"/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/></svg>
+                    شيخة AI
+                </span>
+            </div>
+            <div class="cr-analysis-body" id="crAnalysisBody">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-s" onclick="goStep(1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg> السابق</button>
+            <button class="btn btn-p" onclick="goStep(3)">التالي <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- Step 3: النشاط والتخصص -->
+    <div class="sec" id="s3">
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            النشاط التجاري والتخصص
+        </h2>
+        <p class="desc">حدد تخصصك في المعادن — سيتم تخصيص السوق ولوحة التحكم حسب نشاطك</p>
+
+        <label style="font-size:.9rem;color:var(--t2);font-weight:600;display:block;margin-bottom:12px">طبيعة النشاط (اختر واحداً أو أكثر)</label>
+        <div class="activity-grid">
+            <div class="act-tag" onclick="toggleActivity(this)" data-act="mining">التعدين والاستخراج</div>
+            <div class="act-tag" onclick="toggleActivity(this)" data-act="trading">التجارة والتوزيع</div>
+            <div class="act-tag" onclick="toggleActivity(this)" data-act="manufacturing">التصنيع والمعالجة</div>
+            <div class="act-tag" onclick="toggleActivity(this)" data-act="smelting">المصاهر والتكرير</div>
+            <div class="act-tag" onclick="toggleActivity(this)" data-act="scrap">السكراب وإعادة التدوير</div>
+            <div class="act-tag" onclick="toggleActivity(this)" data-act="collection">التجميع والفرز</div>
+            <div class="act-tag" onclick="toggleActivity(this)" data-act="logistics">النقل واللوجستيات</div>
+            <div class="act-tag" onclick="toggleActivity(this)" data-act="supply">سلاسل الإمداد</div>
+            <div class="act-tag" onclick="toggleActivity(this)" data-act="export">التصدير والاستيراد</div>
+            <div class="act-tag" onclick="toggleActivity(this)" data-act="consulting">الاستشارات والتقييم</div>
+        </div>
+
+        <!-- HS Code Selection Tree -->
+        <div class="hs-reg-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            تصنيف المنتجات حسب HS Code — النظام المنسق
+        </div>
+        <div class="hs-reg-desc">اختر الأبواب والبنود التي تتعامل فيها — جميع أكواد HS للمعادن والخامات جاهزة ومتاحة</div>
+        <input type="text" class="hs-reg-search" id="hsRegSearch" placeholder="ابحث بالاسم أو رقم HS..." oninput="filterHSTree(this.value)">
+
+        <div class="hs-reg-tree" id="hsRegTree"></div>
+
+        <div class="hs-selected-tags" id="hsSelectedTags"></div>
+
+        <div class="fg" style="margin-top:24px">
+            <div class="ff">
+                <label>المنتجات الرئيسية</label>
+                <textarea id="products" placeholder="اذكر منتجاتك مع الكميات إن وجدت:
+سكراب حديد HMS1 — 5,000 طن/شهر
+نحاس أحمر — 200 طن/شهر"></textarea>
+            </div>
+            <div class="ff">
+                <label>الخدمات المقدمة</label>
+                <textarea id="services" placeholder="مثال: فرز، تقطيع، نقل، تخزين، تصدير"></textarea>
+            </div>
+            <div class="ff">
+                <label>الطاقة الإنتاجية</label>
+                <input type="text" id="capacity" placeholder="50,000 طن/سنة">
+            </div>
+            <div class="ff">
+                <label>التغطية الجغرافية</label>
+                <input type="text" id="coverage" placeholder="جميع مناطق المملكة + تصدير">
+            </div>
+            <div class="ff">
+                <label>الشهادات والاعتمادات</label>
+                <input type="text" id="certs" placeholder="ISO 9001, ISO 14001, SASO">
+            </div>
+            <div class="ff">
+                <label>عدد المنشآت/الفروع</label>
+                <input type="number" id="branches" placeholder="3">
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-s" onclick="goStep(2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg> السابق</button>
+            <button class="btn btn-p" onclick="goStep(4)">التالي <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- Step 4: الرؤية -->
+    <div class="sec" id="s4">
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            الرؤية والرسالة والأهداف
+        </h2>
+        <p class="desc">ساعدنا في فهم توجه مشروعك — سنستخدم هذه المعلومات لتقديم استشارات مخصصة</p>
+
+        <div class="fg f1">
+            <div class="ff">
+                <label>رؤية المشروع</label>
+                <textarea id="vision" placeholder="ما هي رؤيتك المستقبلية؟ مثال: أن نكون أكبر منصة لإعادة تدوير المعادن في المنطقة"></textarea>
+            </div>
+            <div class="ff">
+                <label>الرسالة</label>
+                <textarea id="mission" placeholder="ما رسالتك؟ مثال: تقديم حلول مستدامة لإدارة المعادن بأعلى معايير الجودة"></textarea>
+            </div>
+        </div>
+
+        <h3 style="color:var(--gold);font-size:1rem;margin:24px 0 16px;display:flex;align-items:center;gap:8px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            الأهداف الاستراتيجية
+        </h3>
+        <div class="fg f1">
+            <div class="ff">
+                <label>أهداف السنة الأولى</label>
+                <textarea id="goals1" placeholder="مثال: بدء التشغيل، تحقيق 100 صفقة، بناء شبكة 50 عميل"></textarea>
+            </div>
+            <div class="ff">
+                <label>أهداف 3-5 سنوات</label>
+                <textarea id="goals3" placeholder="مثال: التوسع الخليجي، تحقيق التحول الرقمي، فتح 5 فروع"></textarea>
+            </div>
+        </div>
+
+        <!-- Heikal structure for companies -->
+        <div id="structureSection" style="display:none;margin-top:24px">
+            <h3 style="color:var(--gold);font-size:1rem;margin-bottom:16px;display:flex;align-items:center;gap:8px">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                الهيكل الإداري والموظفون
+            </h3>
+            <div class="fg">
+                <div class="ff">
+                    <label>عدد الموظفين</label>
+                    <select id="empCount">
+                        <option value="">اختر...</option>
+                        <option>1-9</option><option>10-49</option><option>50-249</option><option>250+</option>
+                    </select>
+                </div>
+                <div class="ff">
+                    <label>عدد المستخدمين المطلوب على المنصة</label>
+                    <input type="number" id="users" placeholder="5">
+                </div>
+            </div>
+            <div class="fg f1">
+                <div class="ff">
+                    <label>الأقسام الرئيسية</label>
+                    <textarea id="departments" placeholder="مثال:
+إدارة - مبيعات - مشتريات - لوجستيات - مالية
+اذكر لكل قسم: المسمى الوظيفي، المؤهل المطلوب، عدد الموظفين"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-s" onclick="goStep(3)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg> السابق</button>
+            <button class="btn btn-p" onclick="goStep(5)">التالي <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- Step 5: التقنيات والتكامل -->
+    <div class="sec" id="s5">
+        <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            التقنيات والتكامل
+        </h2>
+        <p class="desc">اختر التقنيات المناسبة لنشاطك — سيتم تفعيلها في لوحة تحكمك</p>
+
+        <div class="fg">
+            <div class="ff">
+                <label>تفعيل الذكاء الاصطناعي المخصص</label>
+                <select id="aiEnabled">
+                    <option value="yes">نعم — مستشار AI متخصص في مجالي</option>
+                    <option value="no">لا — استخدم الوضع العام</option>
+                </select>
+            </div>
+            <div class="ff">
+                <label>تكامل API مع أنظمتك</label>
+                <select id="apiEnabled">
+                    <option value="yes">نعم — أريد API Key للتكامل</option>
+                    <option value="no">لاحقاً</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="fg f1">
+            <div class="ff">
+                <label>رابط Webhook (اختياري)</label>
+                <input type="url" id="webhook" placeholder="https://your-system.com/webhook">
+            </div>
+            <div class="ff">
+                <label>تعليمات خاصة للذكاء الاصطناعي (اختياري)</label>
+                <textarea id="aiPrompt" placeholder="مثال: ركّز على عروض أسعار النحاس، تحدث باسم الشركة، قدم استشارات في إعادة التدوير"></textarea>
+            </div>
+        </div>
+
+        <div class="hl-box">
+            <h3>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                ما ستحصل عليه
+            </h3>
+            <ul>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> لوحة تحكم مخصصة لنشاطك</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ذكاء اصطناعي متخصص</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> إدارة المبيعات والمشتريات</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> سلاسل الإمداد واللوجستيات</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> إدارة المشاريع</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> تحليلات وتقارير متقدمة</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> شبكة شركاء موثوقة</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> التزام شرعي كامل</li>
+            </ul>
+        </div>
+
+        <div class="ff" style="margin-top:20px">
+            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:.9rem">
+                <input type="checkbox" id="agree" style="width:18px;height:18px;accent-color:var(--gold)">
+                أوافق على <a href="/الشروط-والسياسات.html">الشروط والأحكام</a> و<a href="/سياسة-الخصوصية.html">سياسة الخصوصية</a>
+            </label>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-s" onclick="goStep(4)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg> السابق</button>
+            <button class="btn btn-p" onclick="submitRegistration()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                تسجيل التاجر
+            </button>
+        </div>
+    </div>
+
+    <!-- Success -->
+    <div class="sec" id="s6">
+        <div class="success-view">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <h2>تم تسجيلك بنجاح!</h2>
+            <p style="color:var(--t2);margin-bottom:24px">مرحباً بك في شبكة شيخة — لوحة تحكمك المخصصة جاهزة</p>
+
+            <div class="info-card">
+                <div class="info-row"><span class="lbl">معرف التاجر</span><span class="val" id="resId">—</span></div>
+                <div class="info-row"><span class="lbl">نوع الحساب</span><span class="val" id="resType">—</span></div>
+                <div class="info-row"><span class="lbl">API Key</span><span class="val" id="resApi" style="font-size:.75rem;word-break:break-all">—</span></div>
+            </div>
+
+            <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap">
+                <a href="/لوحة-الشركة.html" class="btn btn-p">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    لوحة تحكم الشركة
+                </a>
+                <a href="/لوحة-تحكم-المستخدم.html" class="btn btn-p" style="background:linear-gradient(135deg,#006c35,#10b981)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    لوحة تحكم التاجر
+                </a>
+                <a href="/سوق-شيخة.html" class="btn btn-s">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    دخول السوق
+                </a>
+                <a href="/" class="btn btn-s">الصفحة الرئيسية</a>
+            </div>
+        </div>
+    </div>
+
+</div></div>
+
+<script src="/js/safe-api.js"></script>
+<script>
+let currentStep = 1;
+let selectedType = '';
+let selectedSize = '';
+let selectedActivities = new Set();
+let selectedHSCodes = new Set();
+let lastCRAnalysis = null;
+
+/* ═══ Complete HS Code Data for Metals ═══ */
+const hsCodeData = [
+  {group:'الخامات والركازات',code:'26',items:[
+    {hs:'26.01',n:'خامات الحديد ومركزاتها'},
+    {hs:'26.02',n:'خامات المنغنيز ومركزاتها'},
+    {hs:'26.03',n:'خامات النحاس ومركزاتها'},
+    {hs:'26.04',n:'خامات النيكل ومركزاتها'},
+    {hs:'26.05',n:'خامات الكوبالت ومركزاتها'},
+    {hs:'26.06',n:'خامات الألومنيوم (بوكسايت)'},
+    {hs:'26.07',n:'خامات الرصاص ومركزاتها'},
+    {hs:'26.08',n:'خامات الزنك ومركزاتها'},
+    {hs:'26.09',n:'خامات القصدير ومركزاتها'},
+    {hs:'26.10',n:'خامات الكروم ومركزاتها'},
+    {hs:'26.11',n:'خامات التنغستن ومركزاتها'},
+    {hs:'26.13',n:'خامات الموليبدينوم ومركزاتها'},
+    {hs:'26.14',n:'خامات التيتانيوم ومركزاتها'},
+    {hs:'26.15',n:'خامات النيوبيوم والتنتالوم والفاناديوم والزركونيوم'},
+    {hs:'26.16',n:'خامات المعادن الثمينة ومركزاتها'},
+    {hs:'26.17',n:'خامات معدنية أخرى'},
+    {hs:'26.18',n:'خبث محبب من صناعة الحديد والصلب'},
+    {hs:'26.19',n:'خبث ورماد وبقايا'},
+    {hs:'26.20',n:'خبث ورماد يحتوي على معادن'},
+    {hs:'26.21',n:'خبث ورماد أخرى'}
+  ]},
+  {group:'الحديد والصلب',code:'72',items:[
+    {hs:'72.01',n:'حديد زهر وحديد مرآوي (سبيجل)'},
+    {hs:'72.02',n:'سبائك حديدية (فيرو)'},
+    {hs:'72.03',n:'منتجات حديدية بالاختزال المباشر'},
+    {hs:'72.04',n:'نفايات وفضلات حديد وصلب (سكراب)',subs:[
+      {hs:'7204.10',n:'نفايات وفضلات حديد زهر'},
+      {hs:'7204.21',n:'نفايات فولاذ مقاوم للصدأ'},
+      {hs:'7204.29',n:'نفايات سبائك صلب أخرى'},
+      {hs:'7204.30',n:'نفايات حديد أو صلب مُقَصْدَر'},
+      {hs:'7204.41',n:'خراطة وشظايا ورقائق'},
+      {hs:'7204.49',n:'نفايات حديدية أخرى (HMS1/HMS2)'},
+      {hs:'7204.50',n:'سبائك إعادة صهر'}
+    ]},
+    {hs:'72.05',n:'حبيبات ومساحيق حديد وصلب'},
+    {hs:'72.06',n:'حديد وصلب غير مخلوط بشكل سبائك خام'},
+    {hs:'72.07',n:'منتجات نصف مصنعة من حديد وصلب'},
+    {hs:'72.08',n:'منتجات مسطحة مدرفلة على الساخن ≥600مم',subs:[
+      {hs:'7208.10',n:'ذات أنماط بارزة'},
+      {hs:'7208.25',n:'مخللة بسُمك ≥4.75مم'},
+      {hs:'7208.26',n:'مخللة بسُمك 3-4.75مم'},
+      {hs:'7208.27',n:'مخللة بسُمك <3مم'},
+      {hs:'7208.36',n:'أخرى بسُمك >10مم'},
+      {hs:'7208.37',n:'أخرى بسُمك 4.75-10مم'},
+      {hs:'7208.38',n:'أخرى بسُمك 3-4.75مم'},
+      {hs:'7208.39',n:'أخرى بسُمك <3مم'},
+      {hs:'7208.51',n:'أخرى بسُمك >10مم (غير مخللة)'},
+      {hs:'7208.52',n:'أخرى بسُمك 4.75-10مم (غير مخللة)'},
+      {hs:'7208.53',n:'أخرى بسُمك 3-4.75مم (غير مخللة)'},
+      {hs:'7208.54',n:'أخرى بسُمك <3مم (غير مخللة)'},
+      {hs:'7208.90',n:'أخرى'}
+    ]},
+    {hs:'72.09',n:'منتجات مسطحة مدرفلة على البارد ≥600مم'},
+    {hs:'72.10',n:'منتجات مسطحة مطلية أو مغلفة ≥600مم'},
+    {hs:'72.11',n:'منتجات مسطحة <600مم غير مطلية'},
+    {hs:'72.12',n:'منتجات مسطحة <600مم مطلية أو مغلفة'},
+    {hs:'72.13',n:'قضبان وعيدان مدرفلة على الساخن (لفائف)'},
+    {hs:'72.14',n:'قضبان وعيدان أخرى مدرفلة على الساخن'},
+    {hs:'72.15',n:'قضبان وعيدان أخرى'},
+    {hs:'72.16',n:'زوايا وأشكال ومقاطع'},
+    {hs:'72.17',n:'أسلاك حديد وصلب غير مخلوط'},
+    {hs:'72.18',n:'صلب مقاوم للصدأ بأشكال خام أو نصف مصنعة'},
+    {hs:'72.19',n:'منتجات مسطحة من فولاذ مقاوم للصدأ'},
+    {hs:'72.20',n:'منتجات مسطحة من فولاذ مقاوم <600مم'},
+    {hs:'72.21',n:'قضبان وعيدان فولاذ مقاوم مدرفلة'},
+    {hs:'72.22',n:'زوايا وأشكال من فولاذ مقاوم'},
+    {hs:'72.23',n:'أسلاك فولاذ مقاوم للصدأ'},
+    {hs:'72.24',n:'سبائك صلب أخرى بأشكال خام'},
+    {hs:'72.25',n:'منتجات مسطحة من سبائك صلب أخرى ≥600مم'},
+    {hs:'72.26',n:'منتجات مسطحة من سبائك صلب أخرى <600مم'},
+    {hs:'72.27',n:'قضبان وعيدان سبائك صلب أخرى مدرفلة'},
+    {hs:'72.28',n:'قضبان وزوايا سبائك صلب أخرى'},
+    {hs:'72.29',n:'أسلاك سبائك صلب أخرى'}
+  ]},
+  {group:'مصنوعات الحديد والصلب',code:'73',items:[
+    {hs:'73.01',n:'ألواح خوازيق (Sheet piling)'},
+    {hs:'73.02',n:'مواد بناء سكك الحديد'},
+    {hs:'73.03',n:'أنابيب ومواسير من حديد زهر'},
+    {hs:'73.04',n:'أنابيب ومواسير بدون لحام'},
+    {hs:'73.05',n:'أنابيب ومواسير أخرى >406.4مم'},
+    {hs:'73.06',n:'أنابيب ومواسير ومقاطع مجوفة أخرى'},
+    {hs:'73.07',n:'لوازم أنابيب ومواسير'},
+    {hs:'73.08',n:'إنشاءات وأجزاؤها'},
+    {hs:'73.09',n:'خزانات وأوعية وصهاريج'},
+    {hs:'73.10',n:'خزانات وبراميل وعلب'},
+    {hs:'73.11',n:'حاويات غاز مضغوط'},
+    {hs:'73.12',n:'أسلاك مجدولة وحبال وكابلات'},
+    {hs:'73.13',n:'أسلاك شائكة'},
+    {hs:'73.14',n:'أقمشة وشبكات وسياج'},
+    {hs:'73.15',n:'سلاسل وأجزاؤها'},
+    {hs:'73.17',n:'مسامير ودبابيس'},
+    {hs:'73.18',n:'براغي وصواميل وغسالات'}
+  ]},
+  {group:'النحاس ومصنوعاته',code:'74',items:[
+    {hs:'74.01',n:'نحاس خام (Matte) ونحاس ترسيب'},
+    {hs:'74.02',n:'نحاس غير مكرر وأنودات'},
+    {hs:'74.03',n:'نحاس مكرر وسبائكه',subs:[
+      {hs:'7403.11',n:'كاثودات ومقاطع كاثودات'},
+      {hs:'7403.12',n:'قضبان سلكية (Wire-bar)'},
+      {hs:'7403.13',n:'بليت (Billets)'},
+      {hs:'7403.19',n:'نحاس مكرر آخر'},
+      {hs:'7403.21',n:'سبائك نحاس-زنك (نحاس أصفر/Brass)'},
+      {hs:'7403.22',n:'سبائك نحاس-قصدير (برونز/Bronze)'},
+      {hs:'7403.29',n:'سبائك نحاسية أخرى'}
+    ]},
+    {hs:'74.04',n:'نفايات وفضلات نحاس (سكراب)'},
+    {hs:'74.05',n:'سبائك أم (Master Alloys) من نحاس'},
+    {hs:'74.06',n:'مساحيق ورقائق نحاس'},
+    {hs:'74.07',n:'قضبان وعيدان ومقاطع نحاسية'},
+    {hs:'74.08',n:'أسلاك نحاسية'},
+    {hs:'74.09',n:'ألواح وصفائح وأشرطة نحاسية >0.15مم'},
+    {hs:'74.10',n:'رقائق نحاسية ≤0.15مم'},
+    {hs:'74.11',n:'أنابيب ومواسير نحاسية'},
+    {hs:'74.12',n:'لوازم أنابيب نحاسية'},
+    {hs:'74.13',n:'أسلاك مجدولة وكابلات نحاسية'}
+  ]},
+  {group:'النيكل ومصنوعاته',code:'75',items:[
+    {hs:'75.01',n:'نيكل خام (Matte) ومنتجات تلبيد'},
+    {hs:'75.02',n:'نيكل غير مشغول'},
+    {hs:'75.03',n:'نفايات وفضلات نيكل (سكراب)'},
+    {hs:'75.04',n:'مساحيق ورقائق نيكل'},
+    {hs:'75.05',n:'قضبان وعيدان ومقاطع وأسلاك نيكل'},
+    {hs:'75.06',n:'ألواح وصفائح وأشرطة ورقائق نيكل'},
+    {hs:'75.07',n:'أنابيب ومواسير ولوازمها نيكل'},
+    {hs:'75.08',n:'مصنوعات نيكل أخرى'}
+  ]},
+  {group:'الألومنيوم ومصنوعاته',code:'76',items:[
+    {hs:'76.01',n:'ألومنيوم غير مشغول',subs:[
+      {hs:'7601.10',n:'ألومنيوم غير مخلوط'},
+      {hs:'7601.20',n:'سبائك ألومنيوم'}
+    ]},
+    {hs:'76.02',n:'نفايات وفضلات ألومنيوم (سكراب)'},
+    {hs:'76.03',n:'مساحيق ورقائق ألومنيوم'},
+    {hs:'76.04',n:'قضبان وعيدان ومقاطع ألومنيوم'},
+    {hs:'76.05',n:'أسلاك ألومنيوم'},
+    {hs:'76.06',n:'ألواح وصفائح وأشرطة ألومنيوم >0.2مم',subs:[
+      {hs:'7606.11',n:'مستطيلة من ألومنيوم غير مخلوط'},
+      {hs:'7606.12',n:'مستطيلة من سبائك ألومنيوم'},
+      {hs:'7606.91',n:'أخرى من ألومنيوم غير مخلوط'},
+      {hs:'7606.92',n:'أخرى من سبائك ألومنيوم'}
+    ]},
+    {hs:'76.07',n:'رقائق ألومنيوم ≤0.2مم'},
+    {hs:'76.08',n:'أنابيب ومواسير ألومنيوم'},
+    {hs:'76.09',n:'لوازم أنابيب ألومنيوم'},
+    {hs:'76.10',n:'إنشاءات ألومنيوم'},
+    {hs:'76.11',n:'خزانات وصهاريج ألومنيوم'},
+    {hs:'76.12',n:'براميل وعلب ألومنيوم'},
+    {hs:'76.13',n:'حاويات غاز مضغوط ألومنيوم'},
+    {hs:'76.14',n:'أسلاك مجدولة وكابلات ألومنيوم'},
+    {hs:'76.15',n:'أدوات مائدة ومطبخ ألومنيوم'},
+    {hs:'76.16',n:'مصنوعات ألومنيوم أخرى'}
+  ]},
+  {group:'الرصاص ومصنوعاته',code:'78',items:[
+    {hs:'78.01',n:'رصاص غير مشغول'},
+    {hs:'78.02',n:'نفايات وفضلات رصاص (سكراب)'},
+    {hs:'78.04',n:'ألواح وصفائح وأشرطة ورقائق رصاص'},
+    {hs:'78.06',n:'مصنوعات رصاص أخرى'}
+  ]},
+  {group:'الزنك ومصنوعاته',code:'79',items:[
+    {hs:'79.01',n:'زنك غير مشغول'},
+    {hs:'79.02',n:'نفايات وفضلات زنك (سكراب)'},
+    {hs:'79.03',n:'غبار وتراب ورقائق زنك'},
+    {hs:'79.04',n:'قضبان وعيدان ومقاطع وأسلاك زنك'},
+    {hs:'79.05',n:'ألواح وصفائح وأشرطة زنك'},
+    {hs:'79.07',n:'مصنوعات زنك أخرى'}
+  ]},
+  {group:'القصدير ومصنوعاته',code:'80',items:[
+    {hs:'80.01',n:'قصدير غير مشغول'},
+    {hs:'80.02',n:'نفايات وفضلات قصدير (سكراب)'},
+    {hs:'80.03',n:'قضبان وعيدان ومقاطع وأسلاك قصدير'},
+    {hs:'80.07',n:'مصنوعات قصدير أخرى'}
+  ]},
+  {group:'معادن أساسية أخرى',code:'81',items:[
+    {hs:'81.01',n:'تنغستن (ولفرام) ومصنوعاته'},
+    {hs:'81.02',n:'موليبدينوم ومصنوعاته'},
+    {hs:'81.03',n:'تنتالوم ومصنوعاته'},
+    {hs:'81.04',n:'مغنيسيوم ومصنوعاته'},
+    {hs:'81.05',n:'كوبالت خام ومصنوعاته'},
+    {hs:'81.06',n:'بزموث ومصنوعاته'},
+    {hs:'81.07',n:'كادميوم ومصنوعاته'},
+    {hs:'81.08',n:'تيتانيوم ومصنوعاته'},
+    {hs:'81.09',n:'زركونيوم ومصنوعاته'},
+    {hs:'81.10',n:'أنتيمون ومصنوعاته'},
+    {hs:'81.11',n:'منغنيز ومصنوعاته'},
+    {hs:'81.12',n:'بيريليوم، كروم، جرمانيوم، فاناديوم، غاليوم، هافنيوم، إنديوم، نيوبيوم، رينيوم، ثاليوم'}
+  ]},
+  {group:'المعادن الثمينة',code:'71',items:[
+    {hs:'71.06',n:'فضة (بما فيها المطلية بذهب أو بلاتين)',subs:[
+      {hs:'7106.10',n:'مساحيق فضة'},
+      {hs:'7106.91',n:'فضة غير مشغولة'},
+      {hs:'7106.92',n:'فضة نصف مصنعة'}
+    ]},
+    {hs:'71.07',n:'معادن عادية مكسوة بفضة'},
+    {hs:'71.08',n:'ذهب (بما فيه المطلي ببلاتين)',subs:[
+      {hs:'7108.11',n:'مساحيق ذهب'},
+      {hs:'7108.12',n:'ذهب غير مشغول (غير نقدي)'},
+      {hs:'7108.13',n:'ذهب نصف مصنع'},
+      {hs:'7108.20',n:'ذهب نقدي'}
+    ]},
+    {hs:'71.09',n:'معادن عادية مكسوة بذهب'},
+    {hs:'71.10',n:'بلاتين ومجموعته',subs:[
+      {hs:'7110.11',n:'بلاتين غير مشغول أو مسحوق'},
+      {hs:'7110.19',n:'بلاتين نصف مصنع'},
+      {hs:'7110.21',n:'بالاديوم غير مشغول أو مسحوق'},
+      {hs:'7110.29',n:'بالاديوم نصف مصنع'},
+      {hs:'7110.31',n:'روديوم غير مشغول أو مسحوق'},
+      {hs:'7110.39',n:'روديوم نصف مصنع'},
+      {hs:'7110.41',n:'إيريديوم، أوزميوم، روثينيوم غير مشغول'},
+      {hs:'7110.49',n:'إيريديوم، أوزميوم، روثينيوم نصف مصنع'}
+    ]},
+    {hs:'71.11',n:'معادن عادية مكسوة ببلاتين'},
+    {hs:'71.12',n:'نفايات وفضلات معادن ثمينة (سكراب)'},
+    {hs:'71.13',n:'حلي ومجوهرات من معادن ثمينة'},
+    {hs:'71.14',n:'أصناف صاغة ومجوهرات أخرى'},
+    {hs:'71.15',n:'مصنوعات معادن ثمينة أخرى'},
+    {hs:'71.18',n:'نقود معدنية'}
+  ]},
+  {group:'مركبات كيميائية (أرض نادرة وليثيوم)',code:'28',items:[
+    {hs:'28.25',n:'أكاسيد وهيدروكسيدات ليثيوم',subs:[
+      {hs:'2825.10',n:'هيدرازين وهيدروكسيل أمين وأملاحهما'},
+      {hs:'2825.20',n:'أكسيد وهيدروكسيد ليثيوم'}
+    ]},
+    {hs:'28.46',n:'مركبات عناصر أرضية نادرة',subs:[
+      {hs:'2846.10',n:'مركبات سيريوم'},
+      {hs:'2846.90',n:'أخرى (نيوديميوم، لانثانوم، إتريوم، سكانديوم...)'}
+    ]}
+  ]}
+];
+
+function buildHSRegTree(){
+  const tree = document.getElementById('hsRegTree');
+  if(!tree) return;
+  const arrow = '<svg class="hs-reg-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+  const check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  let html = '';
+  hsCodeData.forEach((g,gi)=>{
+    html += `<div class="hs-reg-group" data-gidx="${gi}">
+      <div class="hs-reg-ghdr" onclick="toggleHSRegGroup(this)">
+        ${arrow}
+        ${g.group}
+        <span class="hs-reg-gcode">${g.code}</span>
+      </div>
+      <ul class="hs-reg-l2">`;
+    g.items.forEach(item=>{
+      if(item.subs && item.subs.length){
+        html += `<li>
+          <div class="hs-reg-item" onclick="toggleHSRegItem(this)" data-hs="${item.hs}" data-name="${item.n}">
+            <span class="hs-reg-chk">${check}</span>
+            <span class="hs-reg-hcode">${item.hs}</span>
+            ${item.n}
+          </div>
+          <ul class="hs-reg-l3">`;
+        item.subs.forEach(sub=>{
+          html += `<li>
+            <div class="hs-reg-item hs-sub" onclick="toggleHSRegItem(this)" data-hs="${sub.hs}" data-name="${sub.n}">
+              <span class="hs-reg-chk">${check}</span>
+              <span class="hs-reg-hcode">${sub.hs}</span>
+              ${sub.n}
+            </div>
+          </li>`;
+        });
+        html += `</ul></li>`;
+      } else {
+        html += `<li>
+          <div class="hs-reg-item" onclick="toggleHSRegItem(this)" data-hs="${item.hs}" data-name="${item.n}">
+            <span class="hs-reg-chk">${check}</span>
+            <span class="hs-reg-hcode">${item.hs}</span>
+            ${item.n}
+          </div>
+        </li>`;
+      }
+    });
+    html += `</ul></div>`;
+  });
+  tree.innerHTML = html;
+}
+
+function toggleHSRegGroup(el){
+  el.classList.toggle('open');
+  const l2 = el.nextElementSibling;
+  if(l2) l2.classList.toggle('show');
+}
+
+function toggleHSRegItem(el){
+  const hs = el.dataset.hs;
+  const name = el.dataset.name;
+
+  // If parent item with subs, also toggle sub-list visibility
+  const nextUl = el.nextElementSibling;
+  if(nextUl && nextUl.tagName === 'UL'){
+    nextUl.classList.toggle('show');
+  }
+
+  el.classList.toggle('selected');
+  if(selectedHSCodes.has(hs)){
+    selectedHSCodes.delete(hs);
+  } else {
+    selectedHSCodes.add(hs);
+  }
+  renderHSSelectedTags();
+}
+
+function renderHSSelectedTags(){
+  const container = document.getElementById('hsSelectedTags');
+  if(!container) return;
+  if(selectedHSCodes.size === 0){
+    container.innerHTML = '<span style="font-size:.8rem;color:var(--t3)">لم يتم اختيار أي تصنيف بعد</span>';
+    return;
+  }
+  let html = '';
+  selectedHSCodes.forEach(hs=>{
+    const name = findHSName(hs);
+    html += `<span class="hs-stag">
+      <span style="direction:ltr;font-family:monospace">${hs}</span>
+      ${name ? ' — ' + name.substring(0,30) : ''}
+      <span class="hs-stag-x" onclick="removeHSCode('${hs}')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </span>
+    </span>`;
+  });
+  container.innerHTML = html;
+}
+
+function findHSName(hs){
+  for(const g of hsCodeData){
+    for(const item of g.items){
+      if(item.hs === hs) return item.n;
+      if(item.subs){
+        for(const sub of item.subs){
+          if(sub.hs === hs) return sub.n;
+        }
+      }
+    }
+  }
+  return '';
+}
+
+function removeHSCode(hs){
+  selectedHSCodes.delete(hs);
+  // Deselect in tree
+  const el = document.querySelector(`.hs-reg-item[data-hs="${hs}"]`);
+  if(el) el.classList.remove('selected');
+  renderHSSelectedTags();
+}
+
+function filterHSTree(query){
+  query = query.trim().toLowerCase();
+  const groups = document.querySelectorAll('.hs-reg-group');
+  groups.forEach(group=>{
+    const items = group.querySelectorAll('.hs-reg-item');
+    let hasVisible = false;
+    items.forEach(item=>{
+      const hs = (item.dataset.hs || '').toLowerCase();
+      const name = (item.dataset.name || '').toLowerCase();
+      const text = item.textContent.toLowerCase();
+      const match = !query || hs.includes(query) || name.includes(query) || text.includes(query);
+      item.style.display = match ? '' : 'none';
+      if(match) hasVisible = true;
+    });
+    group.style.display = hasVisible ? '' : 'none';
+    // Auto-expand groups with matches
+    if(query && hasVisible){
+      const hdr = group.querySelector('.hs-reg-ghdr');
+      const l2 = group.querySelector('.hs-reg-l2');
+      if(hdr && !hdr.classList.contains('open')){
+        hdr.classList.add('open');
+        if(l2) l2.classList.add('show');
+      }
+    }
+  });
+}
+
+// Build tree on page load
+document.addEventListener('DOMContentLoaded', function(){
+  buildHSRegTree();
+  renderHSSelectedTags();
+});
+
+function selectType(el){
+    document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedType = el.dataset.type;
+
+    // Show/hide size for company
+    document.getElementById('sizeSection').style.display = selectedType === 'company' ? 'block' : 'none';
+    // Show/hide entrepreneur section
+    document.getElementById('entreSection').style.display = selectedType === 'entrepreneur' ? 'block' : 'none';
+    // Show/hide CR field based on type
+    const crField = document.getElementById('crField');
+    if(selectedType === 'individual'){
+        crField.querySelector('label').innerHTML = 'رقم الهوية / العمل الحر <span class="req">*</span>';
+        crField.querySelector('input').placeholder = 'رقم الهوية أو وثيقة العمل الحر';
+    } else {
+        crField.querySelector('label').innerHTML = 'رقم السجل التجاري <span class="req">*</span>';
+        crField.querySelector('input').placeholder = '1010XXXXXX';
+    }
+}
+
+function selectSize(el){
+    document.querySelectorAll('.size-card').forEach(c=>c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedSize = el.dataset.size;
+}
+
+function toggleActivity(el){
+    el.classList.toggle('selected');
+    const act = el.dataset.act;
+    selectedActivities.has(act) ? selectedActivities.delete(act) : selectedActivities.add(act);
+}
+
+function goStep(n){
+    if(n === 2 && !selectedType){alert('يرجى اختيار نوع النشاط');return;}
+    if(n === 2 && selectedType === 'company' && !selectedSize){alert('يرجى اختيار حجم الشركة');return;}
+
+    currentStep = n;
+    // Update steps UI
+    document.querySelectorAll('.step').forEach((s,i)=>{
+        s.classList.remove('active','done');
+        if(i+1 < n) s.classList.add('done');
+        if(i+1 === n) s.classList.add('active');
+    });
+    // Show section
+    document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+    document.getElementById('s'+n).classList.add('active');
+    // Show structure section if company/establishment
+    if(n === 4 && (selectedType === 'company' || selectedType === 'establishment')){
+        document.getElementById('structureSection').style.display = 'block';
+    }
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function connectNafath(){
+    // Simulate Nafath connection
+    const nafathBox = document.querySelector('.nafath-box');
+    nafathBox.innerHTML = `
+        <div class="nafath-icon" style="background:rgba(16,185,129,.2)">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="nafath-body">
+            <h3 style="color:#10b981">جاري التحقق عبر النفاذ الوطني...</h3>
+            <p>أدخل الرمز <strong style="color:#10b981;font-size:1.3rem;letter-spacing:4px">47</strong> في تطبيق نفاذ على جوالك</p>
+        </div>
+        <span class="nafath-badge" style="animation:pulse 1.5s infinite">في الانتظار</span>
+    `;
+    // Simulate success after 3 seconds
+    setTimeout(()=>{
+        nafathBox.innerHTML = `
+            <div class="nafath-icon" style="background:rgba(16,185,129,.2)">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="nafath-body">
+                <h3 style="color:#10b981">تم التحقق بنجاح</h3>
+                <p>تم جلب بيانات السجل التجاري والهوية — يمكنك مراجعة البيانات أدناه</p>
+            </div>
+            <span class="nafath-badge" style="background:rgba(16,185,129,.15);color:#10b981">مُتحقق</span>
+        `;
+        // Auto-fill fields
+        document.getElementById('nameAr').value = 'شركة المعادن المتقدمة للتجارة';
+        document.getElementById('nameEn').value = 'Advanced Metals Trading Co.';
+        document.getElementById('cr').value = '1010456789';
+        document.getElementById('vat').value = '300012345600003';
+        document.getElementById('email').value = 'info@advmetals.sa';
+        document.getElementById('city').value = 'الرياض';
+        document.getElementById('founded').value = '2019';
+        document.getElementById('verifyRow').style.display = 'flex';
+        // Trigger smart CR analysis
+        analyzeCR('1010456789');
+        setTimeout(()=>{
+            document.getElementById('vCr').className = 'v-badge v-done';
+            document.getElementById('vCr').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> السجل التجاري: مُتحقق';
+            document.getElementById('vVat').className = 'v-badge v-done';
+            document.getElementById('vVat').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> الرقم الضريبي: مُتحقق';
+        }, 1500);
+    }, 3000);
+}
+
+function fetchWebsite(){
+    const url = document.getElementById('websiteUrl').value;
+    if(!url){alert('أدخل رابط الموقع');return;}
+    const btn = document.querySelector('.auto-row button');
+    btn.textContent = 'جاري الاستخلاص...';
+    btn.disabled = true;
+    setTimeout(()=>{
+        // Simulate extraction
+        const domain = new URL(url).hostname.replace('www.','');
+        document.getElementById('nameEn').value = domain.split('.')[0].charAt(0).toUpperCase() + domain.split('.')[0].slice(1) + ' Co.';
+        document.getElementById('email').value = 'info@' + domain;
+        btn.textContent = 'تم الاستخلاص ✓';
+        btn.style.background = '#10b981';
+    }, 2000);
+}
+
+/* ═══ Smart CR Analysis ═══ */
+
+// ISIC activity database for metal-related businesses
+const isicActivities = {
+  '4610': {name:'وكالات وسطاء تجارة الجملة',nameEn:'Wholesale agents/brokers',sector:'تجارة'},
+  '4620': {name:'تجارة جملة المواد الخام الزراعية والحيوانات',nameEn:'Wholesale raw materials',sector:'تجارة'},
+  '4651': {name:'تجارة جملة الحواسيب والمعدات الطرفية',nameEn:'Wholesale computers/peripherals',sector:'تقنية'},
+  '4659': {name:'تجارة جملة الآلات والمعدات الأخرى',nameEn:'Wholesale machinery/equipment',sector:'تجارة'},
+  '4669': {name:'تجارة جملة النفايات والخردة وغيرها',nameEn:'Wholesale waste and scrap',sector:'سكراب'},
+  '2410': {name:'صناعة الحديد والصلب الأساسية',nameEn:'Basic iron and steel',sector:'تصنيع'},
+  '2420': {name:'صناعة المنتجات الأساسية للمعادن الثمينة وغير الحديدية',nameEn:'Basic precious/non-ferrous metals',sector:'تصنيع'},
+  '2431': {name:'سباكة الحديد والصلب',nameEn:'Casting of iron and steel',sector:'مصاهر'},
+  '2432': {name:'سباكة المعادن غير الحديدية',nameEn:'Casting non-ferrous metals',sector:'مصاهر'},
+  '2511': {name:'صنع المنشآت المعدنية وأجزائها',nameEn:'Structural metal products',sector:'تصنيع'},
+  '2599': {name:'صنع منتجات معدنية مصنعة أخرى',nameEn:'Other fabricated metal products',sector:'تصنيع'},
+  '0710': {name:'تعدين خامات الحديد',nameEn:'Mining of iron ores',sector:'تعدين'},
+  '0721': {name:'تعدين خامات اليورانيوم والثوريوم',nameEn:'Mining uranium/thorium ores',sector:'تعدين'},
+  '0729': {name:'تعدين خامات المعادن غير الحديدية الأخرى',nameEn:'Mining other non-ferrous ores',sector:'تعدين'},
+  '3811': {name:'جمع النفايات غير الخطرة',nameEn:'Collection of non-hazardous waste',sector:'تجميع'},
+  '3821': {name:'معالجة النفايات غير الخطرة والتخلص منها',nameEn:'Treatment of non-hazardous waste',sector:'إعادة تدوير'},
+  '3830': {name:'استرداد المواد (إعادة التدوير)',nameEn:'Materials recovery/recycling',sector:'إعادة تدوير'},
+  '4923': {name:'نقل البضائع بالطرق',nameEn:'Freight transport by road',sector:'لوجستيات'},
+  '5210': {name:'التخزين والإيداع',nameEn:'Warehousing and storage',sector:'لوجستيات'},
+  '5229': {name:'أنشطة دعم النقل الأخرى',nameEn:'Other transport support activities',sector:'لوجستيات'},
+  '7110': {name:'أنشطة الهندسة المعمارية والهندسية',nameEn:'Architectural/engineering activities',sector:'استشارات'},
+  '7120': {name:'الاختبارات والتحليل الفني',nameEn:'Technical testing and analysis',sector:'استشارات'}
+};
+
+// Simulated CR analysis database (in production: API call to MC/Wathq/Nafath)
+const crDatabase = {
+  '1010': {region:'الرياض',city:'الرياض'},
+  '2050': {region:'مكة المكرمة',city:'جدة'},
+  '2055': {region:'مكة المكرمة',city:'مكة المكرمة'},
+  '3350': {region:'المنطقة الشرقية',city:'الدمام'},
+  '3351': {region:'المنطقة الشرقية',city:'الخبر'},
+  '3352': {region:'المنطقة الشرقية',city:'الجبيل'},
+  '4700': {region:'المدينة المنورة',city:'المدينة المنورة'},
+  '5850': {region:'عسير',city:'أبها'},
+  '5900': {region:'تبوك',city:'تبوك'}
+};
+
+let crAnalysisTimeout = null;
+
+function initCRListener(){
+  const crInput = document.getElementById('cr');
+  if(!crInput) return;
+  crInput.addEventListener('input', function(){
+    clearTimeout(crAnalysisTimeout);
+    const val = this.value.trim();
+    if(val.length >= 10){
+      crAnalysisTimeout = setTimeout(()=> analyzeCR(val), 800);
+    } else {
+      document.getElementById('crAnalysis').classList.remove('show');
+    }
+  });
+}
+
+function analyzeCR(crNumber){
+  const panel = document.getElementById('crAnalysis');
+  const body = document.getElementById('crAnalysisBody');
+  panel.classList.add('show');
+
+  // Show loading state
+  body.innerHTML = `<div class="cr-loading">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg>
+    <p>جاري تحليل السجل التجاري وجلب بيانات النشاط والتراخيص...</p>
+  </div>`;
+
+  // Simulate API call delay
+  setTimeout(()=>{
+    const prefix = crNumber.substring(0,4);
+    const regionData = crDatabase[prefix] || {region:'غير محدد',city:'غير محدد'};
+
+    // Generate realistic analysis based on CR number
+    const analysis = generateCRAnalysis(crNumber, regionData);
+    renderCRAnalysis(analysis, body);
+  }, 2000);
+}
+
+function generateCRAnalysis(crNumber, regionData){
+  // Determine activity types based on CR pattern (simulated)
+  const lastDigit = parseInt(crNumber.slice(-1));
+  const midDigits = parseInt(crNumber.substring(4,7));
+
+  // Primary ISIC codes based on simulated lookup
+  let primaryISIC = [];
+  let secondaryISIC = [];
+  let licenses = [];
+  let companyAge = 2026 - (2015 + (midDigits % 10));
+  if(companyAge < 1) companyAge = 1;
+
+  // Simulate different activity profiles
+  if(midDigits % 3 === 0){
+    primaryISIC = ['4669','3830','3811'];
+    secondaryISIC = ['4923','5210'];
+    licenses = [
+      {name:'رخصة تجارة الخردة والسكراب',issuer:'وزارة التجارة',status:'active',expiry:'2027-03-15'},
+      {name:'رخصة إعادة التدوير',issuer:'الهيئة العامة لإدارة النفايات (موان)',status:'active',expiry:'2026-11-20'},
+      {name:'ترخيص بيئي',issuer:'المركز الوطني للرقابة على الالتزام البيئي',status:'active',expiry:'2027-01-10'},
+      {name:'رخصة نقل نفايات',issuer:'هيئة النقل العام',status:'pending',expiry:'—'}
+    ];
+  } else if(midDigits % 3 === 1){
+    primaryISIC = ['2410','2420','2511'];
+    secondaryISIC = ['4659','7120'];
+    licenses = [
+      {name:'رخصة صناعية',issuer:'وزارة الصناعة والثروة المعدنية',status:'active',expiry:'2027-06-30'},
+      {name:'رخصة تعدين / استغلال',issuer:'وزارة الصناعة والثروة المعدنية',status:'active',expiry:'2028-02-15'},
+      {name:'شهادة الجودة SASO',issuer:'هيئة المواصفات والمقاييس',status:'active',expiry:'2026-09-01'},
+      {name:'ترخيص بيئي صناعي',issuer:'المركز الوطني للرقابة البيئية',status:'active',expiry:'2027-04-22'},
+      {name:'شهادة السلامة المهنية',issuer:'وزارة الموارد البشرية',status:'expired',expiry:'2025-12-31'}
+    ];
+  } else {
+    primaryISIC = ['4669','0729','2420'];
+    secondaryISIC = ['5229','7110','4610'];
+    licenses = [
+      {name:'سجل تجاري (تجارة معادن)',issuer:'وزارة التجارة',status:'active',expiry:'2027-08-20'},
+      {name:'رخصة استيراد وتصدير',issuer:'وزارة التجارة',status:'active',expiry:'2027-08-20'},
+      {name:'شهادة تصنيف مقاولين',issuer:'وزارة الشؤون البلدية',status:'active',expiry:'2026-05-15'},
+      {name:'ترخيص جمركي',issuer:'هيئة الزكاة والضريبة والجمارك',status:'active',expiry:'2027-01-30'},
+      {name:'شهادة الالتزام الزكوي',issuer:'هيئة الزكاة والضريبة والجمارك',status:'pending',expiry:'قيد التجديد'}
+    ];
+  }
+
+  // Determine main sector
+  const sectorCounts = {};
+  primaryISIC.forEach(code=>{
+    const act = isicActivities[code];
+    if(act) sectorCounts[act.sector] = (sectorCounts[act.sector]||0) + 2;
+  });
+  secondaryISIC.forEach(code=>{
+    const act = isicActivities[code];
+    if(act) sectorCounts[act.sector] = (sectorCounts[act.sector]||0) + 1;
+  });
+  const mainSector = Object.entries(sectorCounts).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'تجارة';
+
+  // Generate AI insights
+  const insights = generateAIInsights(primaryISIC, secondaryISIC, licenses, mainSector, regionData, companyAge);
+
+  return {
+    crNumber,
+    region: regionData.region,
+    city: regionData.city,
+    age: companyAge,
+    mainSector,
+    primaryISIC,
+    secondaryISIC,
+    licenses,
+    insights,
+    capitalCategory: midDigits > 500 ? 'كبيرة (أكثر من 50 مليون)' : midDigits > 200 ? 'متوسطة (10-50 مليون)' : 'صغيرة (أقل من 10 مليون)',
+    employeeRange: midDigits > 500 ? '250+' : midDigits > 200 ? '50-249' : midDigits > 100 ? '10-49' : '1-9',
+    entityType: selectedType === 'company' ? 'شركة ذات مسؤولية محدودة' : selectedType === 'establishment' ? 'مؤسسة فردية' : 'غير محدد'
+  };
+}
+
+function generateAIInsights(primary, secondary, licenses, sector, region, age){
+  const insights = [];
+
+  // Activity match insight
+  const allCodes = [...primary,...secondary];
+  const metalRelated = allCodes.filter(c=>['2410','2420','2431','2432','0710','0729','4669','3830'].includes(c));
+  if(metalRelated.length > 0){
+    insights.push({
+      type:'match',
+      text:`نشاط المنشأة <strong>متوافق بشكل مباشر</strong> مع تخصص سوق شيخة — تم اكتشاف ${metalRelated.length} نشاط مرتبط بالمعادن والسكراب`
+    });
+  }
+
+  // License warnings
+  const expiredLics = licenses.filter(l=>l.status === 'expired');
+  const pendingLics = licenses.filter(l=>l.status === 'pending');
+  if(expiredLics.length > 0){
+    insights.push({
+      type:'warning',
+      text:`تنبيه: توجد <strong>${expiredLics.length} رخصة منتهية الصلاحية</strong> — يُنصح بتجديدها لاستكمال التفعيل والتشغيل الكامل على المنصة`
+    });
+  }
+  if(pendingLics.length > 0){
+    insights.push({
+      type:'info',
+      text:`يوجد <strong>${pendingLics.length} ترخيص قيد المراجعة</strong> — ستتمكن من التشغيل الجزئي حتى إتمام التراخيص`
+    });
+  }
+
+  // Regional analysis
+  insights.push({
+    type:'location',
+    text:`المنشأة في <strong>${region.city}</strong> — منطقة نشطة في قطاع المعادن مع ${region.city === 'الدمام' || region.city === 'الجبيل' || region.city === 'الخبر' ? 'قرب من الموانئ الصناعية والمناطق الحرة' : region.city === 'الرياض' ? 'وصول ممتاز لسوق المعادن المحلي والمناطق الصناعية' : 'فرص لربط سلاسل الإمداد الإقليمية'}`
+  });
+
+  // Company age insight
+  if(age >= 5){
+    insights.push({
+      type:'strength',
+      text:`خبرة <strong>${age} سنوات</strong> في السوق — مؤهلة للحصول على تصنيف "تاجر موثّق" وأولوية في العرض`
+    });
+  } else {
+    insights.push({
+      type:'growth',
+      text:`منشأة ناشئة (<strong>${age} ${age === 1 ? 'سنة' : 'سنوات'}</strong>) — سيتم تفعيل برنامج "دعم النمو" مع استشارات مجانية وربط بالشبكة`
+    });
+  }
+
+  // HS Code recommendations
+  if(sector === 'سكراب' || sector === 'إعادة تدوير'){
+    insights.push({
+      type:'recommend',
+      text:'بناءً على النشاط: يُنصح بتفعيل أقسام <strong>HS 72.04 (سكراب حديد)</strong> و<strong>HS 74.04 (سكراب نحاس)</strong> و<strong>HS 76.02 (سكراب ألومنيوم)</strong> في لوحة المنتجات'
+    });
+  } else if(sector === 'تصنيع' || sector === 'مصاهر'){
+    insights.push({
+      type:'recommend',
+      text:'بناءً على النشاط الصناعي: يُنصح بتفعيل أقسام <strong>HS 72.08-72.17 (منتجات مسطحة وقضبان)</strong> وعرض الطاقة الإنتاجية ومواصفات المنتجات'
+    });
+  } else {
+    insights.push({
+      type:'recommend',
+      text:'بناءً على النشاط التجاري: يُنصح بتفعيل جميع أقسام المعادن ذات الصلة وربط <strong>مصادر التوريد</strong> و<strong>طلبات الشراء</strong> مع شبكة شيخة'
+    });
+  }
+
+  // Sharia compliance
+  insights.push({
+    type:'sharia',
+    text:'سيتم مراجعة العقود والمعاملات وفق <strong>أحكام الشريعة الإسلامية</strong> — لا ربا، لا غرر، لا احتكار — بإشراف المستشار الشرعي'
+  });
+
+  return insights;
+}
+
+function renderCRAnalysis(data, container){
+  lastCRAnalysis = data;
+  let licHTML = '';
+  data.licenses.forEach(lic=>{
+    const iconClass = lic.status;
+    const statusLabel = lic.status === 'active' ? 'ساري' : lic.status === 'pending' ? 'قيد المراجعة' : 'منتهي';
+    const icon = lic.status === 'active'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'
+      : lic.status === 'pending'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+    licHTML += `<div class="cr-lic">
+      <div class="cr-lic-icon ${iconClass}">${icon}</div>
+      <div class="cr-lic-body">
+        <h5>${lic.name}</h5>
+        <p>${lic.issuer} ${lic.expiry !== '—' && lic.expiry !== 'قيد التجديد' ? '• انتهاء: ' + lic.expiry : lic.expiry === 'قيد التجديد' ? '• ' + lic.expiry : ''}</p>
+      </div>
+      <span class="cr-lic-status ${lic.status}">${statusLabel}</span>
+    </div>`;
+  });
+
+  let isicTagsHTML = '';
+  data.primaryISIC.forEach(code=>{
+    const act = isicActivities[code];
+    if(act) isicTagsHTML += `<span class="cr-isic-tag primary"><span style="font-family:monospace;direction:ltr">${code}</span> ${act.name}</span>`;
+  });
+  data.secondaryISIC.forEach(code=>{
+    const act = isicActivities[code];
+    if(act) isicTagsHTML += `<span class="cr-isic-tag secondary"><span style="font-family:monospace;direction:ltr">${code}</span> ${act.name}</span>`;
+  });
+
+  let insightsHTML = '';
+  data.insights.forEach(ins=>{
+    insightsHTML += `<li><span class="cr-ai-dot"></span><span>${ins.text}</span></li>`;
+  });
+
+  container.innerHTML = `
+    <!-- Basic Info Grid -->
+    <div class="cr-info-grid">
+      <div class="cr-info-card highlight">
+        <div class="cr-ic-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          القطاع الرئيسي
+        </div>
+        <div class="cr-ic-value">${data.mainSector}</div>
+        <div class="cr-ic-sub">حسب تصنيف ISIC Rev.4</div>
+      </div>
+      <div class="cr-info-card">
+        <div class="cr-ic-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          المنطقة / المدينة
+        </div>
+        <div class="cr-ic-value">${data.city}</div>
+        <div class="cr-ic-sub">${data.region}</div>
+      </div>
+      <div class="cr-info-card">
+        <div class="cr-ic-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          نوع الكيان
+        </div>
+        <div class="cr-ic-value">${data.entityType}</div>
+        <div class="cr-ic-sub">عمر المنشأة: ${data.age} ${data.age === 1 ? 'سنة' : 'سنوات'}</div>
+      </div>
+      <div class="cr-info-card">
+        <div class="cr-ic-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          تصنيف رأس المال
+        </div>
+        <div class="cr-ic-value">${data.capitalCategory}</div>
+        <div class="cr-ic-sub">عدد الموظفين التقريبي: ${data.employeeRange}</div>
+      </div>
+    </div>
+
+    <!-- ISIC Activities -->
+    <div style="margin-bottom:20px">
+      <h4 style="font-size:.88rem;font-weight:700;color:var(--t1);margin-bottom:10px;display:flex;align-items:center;gap:8px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        الأنشطة التجارية المسجلة (ISIC)
+      </h4>
+      <div class="cr-isic-tags">${isicTagsHTML}</div>
+    </div>
+
+    <!-- Licenses -->
+    <div class="cr-licenses">
+      <h4>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        التراخيص والشهادات التجارية
+      </h4>
+      <div class="cr-lic-grid">${licHTML}</div>
+    </div>
+
+    <!-- AI Insights -->
+    <div class="cr-ai-insights">
+      <h4>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        تحليل شيخة الذكي — توصيات واهتمام
+      </h4>
+      <ul class="cr-ai-list">${insightsHTML}</ul>
+    </div>
+  `;
+}
+
+// Initialize CR listener when DOM is ready
+document.addEventListener('DOMContentLoaded', initCRListener);
+
+async function submitRegistration(){
+    if(!document.getElementById('agree').checked){
+        alert('يرجى الموافقة على الشروط والأحكام');return;
+    }
+
+    // التحقق من البريد الإلكتروني
+    const emailInput = document.getElementById('email');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailInput.value || !emailRegex.test(emailInput.value)){
+        alert('يرجى إدخال بريد إلكتروني صحيح');emailInput.focus();return;
+    }
+
+    // التحقق من رقم الجوال
+    const phoneInput = document.getElementById('phone');
+    const phoneRegex = /^05\d{8}$/;
+    if(!phoneInput.value || !phoneRegex.test(phoneInput.value)){
+        alert('يرجى إدخال رقم جوال صحيح (يبدأ بـ 05 ويتكون من 10 أرقام)');phoneInput.focus();return;
+    }
+
+    // التحقق من اسم الشركة
+    const nameArInput = document.getElementById('nameAr');
+    if(!nameArInput.value.trim()){
+        alert('يرجى إدخال اسم الشركة');nameArInput.focus();return;
+    }
+
+    // التحقق من السجل التجاري
+    const crInput = document.getElementById('cr');
+    if(!crInput.value.trim()){
+        alert('يرجى إدخال رقم السجل التجاري');crInput.focus();return;
+    }
+
+    const typeLabels = {company:'شركة',establishment:'مؤسسة فردية',individual:'فرد',entrepreneur:'رائد أعمال'};
+    const id = selectedType.toUpperCase().slice(0,3) + '-' + Date.now().toString().slice(-6);
+    const apiKey = 'shk_' + Array.from({length:32},()=>'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random()*62)]).join('');
+
+    const data = {
+        id, type: selectedType, size: selectedSize,
+        nameAr: document.getElementById('nameAr').value,
+        nameEn: document.getElementById('nameEn').value,
+        cr: document.getElementById('cr').value,
+        vat: document.getElementById('vat').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        city: document.getElementById('city').value,
+        activities: [...selectedActivities],
+        hsCodes: [...selectedHSCodes],
+        crAnalysis: lastCRAnalysis || null,
+        apiKey
+    };
+
+    try {
+        const res = await fetch('/api/companies/register', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify(data)
+        });
+        const r = await res.json();
+        if(!r.success) throw new Error(r.message);
+    } catch(e){ console.log('Local save:', data); }
+
+    // Save merchant data to localStorage for dashboards
+    localStorage.setItem('sheikha_token', apiKey);
+    localStorage.setItem('sheikha_role', 'merchant');
+    localStorage.setItem('sheikha_merchant_id', id);
+    localStorage.setItem('sheikha_merchant_name', data.nameAr || '');
+    localStorage.setItem('sheikha_user_name', data.nameAr || 'تاجر شيخة');
+    localStorage.setItem('user_name', data.nameAr || 'تاجر شيخة');
+    localStorage.setItem('sheikha_merchant_type', selectedType);
+    localStorage.setItem('sheikha_merchant_data', JSON.stringify({
+        id, type: selectedType, size: selectedSize,
+        nameAr: data.nameAr, nameEn: data.nameEn,
+        cr: data.cr, vat: data.vat,
+        email: data.email, phone: data.phone, city: data.city,
+        activities: data.activities, hsCodes: data.hsCodes,
+        crAnalysis: data.crAnalysis,
+        registeredAt: new Date().toISOString()
+    }));
+
+    // Show success
+    document.getElementById('resId').textContent = id;
+    document.getElementById('resType').textContent = typeLabels[selectedType] || selectedType;
+    document.getElementById('resApi').textContent = apiKey;
+
+    document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+    document.getElementById('s6').classList.add('active');
+    document.querySelectorAll('.step').forEach(s=>{s.classList.remove('active');s.classList.add('done')});
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

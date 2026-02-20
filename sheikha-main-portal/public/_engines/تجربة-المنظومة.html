@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تجربة منظومة شيخة — على نهج الرسول ﷺ</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#D4AF37;--gold2:#B87333;--bg:#050810;--card:rgba(15,20,35,0.95);--border:rgba(212,175,55,0.1);--text:#e2e8f0;--dim:#64748b}
+body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(212,175,55,0.03),transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(184,115,51,0.02),transparent 50%);pointer-events:none;z-index:0}
+
+.container{max-width:1200px;margin:0 auto;padding:20px;position:relative;z-index:1}
+
+/* Header */
+.hdr{text-align:center;padding:30px 0 20px}
+.hdr .bsm{font-family:'Amiri',serif;font-size:1rem;color:rgba(212,175,55,0.5);margin-bottom:8px}
+.hdr h1{font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,var(--gold),#F5E6A3,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.hdr .sub{font-size:0.85rem;color:var(--dim);max-width:600px;margin:0 auto}
+
+/* مؤشرات عامة */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center}
+.stat .val{font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat .lbl{font-size:0.7rem;color:var(--dim);margin-top:4px}
+
+/* المبادئ النبوية */
+.section{margin:24px 0}
+.section-title{display:flex;align-items:center;gap:8px;font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.principles{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.principle{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;transition:all 0.3s}
+.principle:hover{border-color:rgba(212,175,55,0.3);transform:translateY(-2px)}
+.principle .p-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.principle .p-name{font-size:0.9rem;font-weight:700;color:#fff}
+.principle .p-en{font-size:0.65rem;color:var(--dim)}
+.principle .p-badge{width:24px;height:24px;border-radius:50%;background:rgba(34,197,94,0.1);color:#22c55e;display:flex;align-items:center;justify-content:center;font-size:0.7rem;flex-shrink:0;margin-right:auto}
+.principle .p-hadith{font-family:'Amiri',serif;font-size:0.8rem;color:rgba(212,175,55,0.6);margin-bottom:6px;line-height:1.6;padding:6px 8px;background:rgba(212,175,55,0.03);border-radius:8px}
+.principle .p-impl{font-size:0.72rem;color:var(--dim);line-height:1.5}
+
+/* الرحلات */
+.journeys{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.journey{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.journey .j-head{padding:16px;background:linear-gradient(135deg,rgba(212,175,55,0.05),rgba(184,115,51,0.03));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.journey .j-icon{width:42px;height:42px;border-radius:12px;background:rgba(212,175,55,0.08);display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.journey .j-info{flex:1}
+.journey .j-name{font-size:0.95rem;font-weight:700;color:#fff}
+.journey .j-en{font-size:0.65rem;color:var(--dim)}
+.journey .j-desc{font-size:0.72rem;color:var(--dim);margin-top:2px}
+.journey .j-rates{display:flex;gap:8px;margin-top:6px}
+.journey .j-rate{font-size:0.6rem;padding:2px 8px;border-radius:8px;background:rgba(34,197,94,0.08);color:#22c55e}
+
+.journey .j-steps{padding:12px 16px}
+.step{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.02)}
+.step:last-child{border-bottom:none}
+.step-num{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:900;flex-shrink:0;margin-top:2px}
+.step-info{flex:1}
+.step-name{font-size:0.8rem;font-weight:600;color:#fff}
+.step-feel{font-size:0.68rem;color:rgba(212,175,55,0.5);font-family:'Amiri',serif;margin-top:2px}
+.step-badges{display:flex;gap:4px;margin-top:3px}
+.step-badge{font-size:0.55rem;padding:1px 6px;border-radius:6px;background:rgba(34,197,94,0.06);color:#22c55e}
+
+.journey .j-footer{padding:10px 16px;border-top:1px solid var(--border);display:flex;gap:8px}
+.btn{padding:8px 16px;border-radius:10px;border:none;cursor:pointer;font-family:'Tajawal';font-size:0.75rem;font-weight:700;transition:all 0.3s}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg)}
+.btn-gold:hover{transform:scale(1.04);box-shadow:0 4px 16px rgba(212,175,55,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--dim)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* المحاكاة */
+.sim-result{background:var(--card);border:1px solid rgba(34,197,94,0.2);border-radius:14px;padding:16px;margin-top:16px;display:none}
+.sim-result.active{display:block;animation:fadeIn 0.4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.sim-steps{margin-top:10px}
+.sim-step{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:0.75rem}
+.sim-step .check{color:#22c55e;font-weight:bold}
+.sim-step .name{flex:1;color:var(--text)}
+.sim-step .time{color:var(--dim);font-size:0.65rem}
+.sim-step .score{color:var(--gold);font-weight:700;font-size:0.7rem}
+
+/* Footer */
+.footer{text-align:center;padding:30px;color:var(--dim);font-size:0.7rem;border-top:1px solid var(--border);margin-top:30px}
+.footer .owner{font-family:'Amiri',serif;color:rgba(212,175,55,0.4)}
+
+@media(max-width:600px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .principles,.journeys{grid-template-columns:1fr}
+    .hdr h1{font-size:1.4rem}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="hdr">
+    <div class="bsm">☪️ بسم الله الرحمن الرحيم</div>
+    <h1>تجربة منظومة وسوق شيخة</h1>
+    <div class="sub">رقمنة التجربة الكاملة — تجربة المستخدم والتاجر والعملية التجارية والمجتمع العلمي — على نهج النبي محمد ﷺ في التجارة والمعاملات</div>
+</div>
+
+<div class="stats" id="stats">
+    <div class="stat"><div class="val" id="s-journeys">—</div><div class="lbl">رحلات تجربة</div></div>
+    <div class="stat"><div class="val" id="s-steps">—</div><div class="lbl">خطوة مرقمنة</div></div>
+    <div class="stat"><div class="val" id="s-auto">—</div><div class="lbl">أتمتة %</div></div>
+    <div class="stat"><div class="val" id="s-digi">—</div><div class="lbl">رقمنة %</div></div>
+    <div class="stat"><div class="val" id="s-principles">—</div><div class="lbl">مبدأ نبوي مُرقمن</div></div>
+    <div class="stat"><div class="val" id="s-itqan">—</div><div class="lbl">إتقان %</div></div>
+</div>
+
+<!-- المبادئ النبوية -->
+<div class="section">
+    <div class="section-title">☪️ المبادئ النبوية في التجارة — مُرقمنة ومُفعّلة</div>
+    <div class="principles" id="principles"></div>
+</div>
+
+<!-- الرحلات -->
+<div class="section">
+    <div class="section-title">🗺️ رحلات التجربة المتكاملة</div>
+    <div class="journeys" id="journeys"></div>
+</div>
+
+<!-- نتيجة المحاكاة -->
+<div class="sim-result" id="sim-result">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="color:#22c55e;font-size:1.2rem">✅</span>
+        <span style="font-weight:700;color:#fff" id="sim-title">نتيجة المحاكاة</span>
+        <span style="margin-right:auto;font-size:0.7rem;color:var(--dim)" id="sim-time"></span>
+    </div>
+    <div style="display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap">
+        <div style="font-size:0.7rem;color:var(--dim)">الخطوات: <strong style="color:#22c55e" id="sim-completed">—</strong></div>
+        <div style="font-size:0.7rem;color:var(--dim)">الأتمتة: <strong style="color:var(--gold)" id="sim-auto-rate">—</strong></div>
+        <div style="font-size:0.7rem;color:var(--dim)">الإتقان: <strong style="color:var(--gold)" id="sim-itqan">—</strong></div>
+    </div>
+    <div class="sim-steps" id="sim-steps"></div>
+</div>
+
+<div class="footer">
+    <div class="owner">المالك: سلمان أحمد بن سلمان الراجح</div>
+    <div style="margin-top:4px">SHEIKHA Experience Engine v1.0 — رقمنة التجربة على نهج النبي ﷺ</div>
+</div>
+
+</div>
+
+<script>
+const API = '';
+
+async function safeFetch(url) {
+    try {
+        const r = await fetch(url);
+        if (!r.ok) return null;
+        return await r.json();
+    } catch(e) { return null; }
+}
+
+async function loadDashboard() {
+    const data = await safeFetch(API + '/api/experience/dashboard');
+    if (!data || !data.success) return;
+
+    document.getElementById('s-journeys').textContent = data.summary.totalJourneys;
+    document.getElementById('s-steps').textContent = data.summary.totalSteps;
+    document.getElementById('s-auto').textContent = data.summary.overallAutomation + '%';
+    document.getElementById('s-digi').textContent = data.summary.overallDigitization + '%';
+    document.getElementById('s-principles').textContent = data.propheticPrinciples.total;
+    document.getElementById('s-itqan').textContent = data.metrics.itqanScore + '%';
+
+    // المبادئ النبوية
+    const pEl = document.getElementById('principles');
+    pEl.innerHTML = data.propheticPrinciples.list.map(p => `
+        <div class="principle">
+            <div class="p-head">
+                <div><div class="p-name">${p.nameAr}</div><div class="p-en">${p.nameEn}</div></div>
+                <div class="p-badge">✓</div>
+            </div>
+            <div class="p-hadith">${p.hadith || ''}</div>
+            <div class="p-impl">${p.implementation}</div>
+        </div>
+    `).join('');
+
+    // الرحلات
+    const jEl = document.getElementById('journeys');
+    jEl.innerHTML = data.journeys.map(j => `
+        <div class="journey">
+            <div class="j-head">
+                <div class="j-icon">${j.id === 'user' ? '👤' : j.id === 'merchant' ? '🏪' : j.id === 'trade' ? '🤝' : j.id === 'community' ? '🌐' : '⚙️'}</div>
+                <div class="j-info">
+                    <div class="j-name">${j.nameAr}</div>
+                    <div class="j-en">${j.nameEn}</div>
+                    <div class="j-desc">${j.description}</div>
+                    <div class="j-rates">
+                        <span class="j-rate">أتمتة ${j.automationRate}%</span>
+                        <span class="j-rate">رقمنة ${j.digitizationRate}%</span>
+                        <span class="j-rate">${j.totalSteps} خطوة</span>
+                    </div>
+                </div>
+            </div>
+            <div class="j-steps" id="steps-${j.id}"></div>
+            <div class="j-footer">
+                <button class="btn btn-gold" onclick="simulate('${j.id}')">▶ تشغيل المحاكاة</button>
+                <button class="btn btn-outline" onclick="toggleSteps('${j.id}')">عرض الخطوات</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function toggleSteps(journeyId) {
+    const el = document.getElementById('steps-' + journeyId);
+    if (el.innerHTML.trim()) { el.innerHTML = ''; return; }
+
+    const data = await safeFetch(API + '/api/experience/journey/' + journeyId);
+    if (!data || !data.success) return;
+
+    el.innerHTML = data.journey.steps.map(s => `
+        <div class="step">
+            <div class="step-num">${s.order}</div>
+            <div class="step-info">
+                <div class="step-name">${s.nameAr}</div>
+                <div class="step-feel">${s.feeling}</div>
+                <div class="step-badges">
+                    ${s.automated ? '<span class="step-badge">⚡ آلي</span>' : ''}
+                    ${s.digitized ? '<span class="step-badge">🔢 مُرقمن</span>' : ''}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function simulate(journeyId) {
+    const data = await safeFetch(API + '/api/experience/simulate/' + journeyId);
+    if (!data || !data.success) return;
+
+    const sim = data.simulation;
+    const el = document.getElementById('sim-result');
+    el.classList.add('active');
+
+    document.getElementById('sim-title').textContent = '✅ محاكاة: ' + sim.journeyName;
+    document.getElementById('sim-time').textContent = new Date(sim.completedAt).toLocaleTimeString('ar-SA');
+    document.getElementById('sim-completed').textContent = sim.completedSteps + '/' + sim.totalSteps;
+    document.getElementById('sim-auto-rate').textContent = sim.automationRate + '%';
+    document.getElementById('sim-itqan').textContent = sim.avgItqan + '%';
+
+    document.getElementById('sim-steps').innerHTML = sim.steps.map(s => `
+        <div class="sim-step">
+            <span class="check">✓</span>
+            <span class="name">${s.name}</span>
+            <span class="time">${s.duration}</span>
+            <span class="score">${s.itqanScore}%</span>
+        </div>
+    `).join('');
+
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+loadDashboard();
+</script>
+</body>
+</html>

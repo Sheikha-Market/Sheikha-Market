@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏢 الشركات الحكومية والصناديق السيادية | SHEIKHA</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#D4AF37;--gold2:#B87333;--bg:#050810;--card:rgba(15,20,35,0.95);--border:rgba(212,175,55,0.1);--text:#e2e8f0;--dim:#64748b;--green:#10b981;--blue:#0ea5e9}
+body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(212,175,55,0.03),transparent 50%);pointer-events:none}
+.container{max-width:1200px;margin:0 auto;padding:20px;position:relative;z-index:1}
+.hdr{text-align:center;padding:24px 0 16px}
+.hdr .icon{font-size:2.5rem;margin-bottom:8px}
+.hdr h1{font-size:1.6rem;font-weight:900;color:#fff;margin-bottom:4px}
+.hdr h1 span{background:linear-gradient(135deg,var(--gold),#F5E6A3);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hdr .sub{font-size:0.8rem;color:var(--dim);max-width:600px;margin:0 auto}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center}
+.stat .val{font-size:1.5rem;font-weight:900;color:var(--gold)}
+.stat .val.green{color:var(--green)}
+.stat .lbl{font-size:0.65rem;color:var(--dim);margin-top:2px}
+.section{margin:20px 0}
+.section-title{display:flex;align-items:center;gap:8px;font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;transition:all 0.3s}
+.item:hover{border-color:rgba(212,175,55,0.25);transform:translateY(-2px)}
+.item .i-name{font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:2px}
+.item .i-en{font-size:0.62rem;color:var(--dim)}
+.item .i-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.item .tag{font-size:0.58rem;padding:2px 8px;border-radius:6px;font-weight:600}
+.item .tag.sector{background:rgba(14,165,233,0.08);color:var(--blue)}
+.item .tag.type{background:rgba(212,175,55,0.08);color:var(--gold)}
+.item .tag.fund{background:rgba(16,185,129,0.08);color:var(--green)}
+.item .tag.rel{background:rgba(139,92,246,0.08);color:#8b5cf6}
+.footer{text-align:center;padding:24px;color:var(--dim);font-size:0.65rem;border-top:1px solid var(--border);margin-top:24px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="hdr">
+    <div class="icon">🏢</div>
+    <h1>الشركات <span>الحكومية</span> والصناديق السيادية</h1>
+    <div class="sub">الشركات الحكومية وشبه الحكومية والمشاريع الكبرى والصناديق السيادية المسجلة والمتكاملة مع منظومة شيخة</div>
+</div>
+<div class="stats" id="stats"></div>
+<div id="sectors"></div>
+<div class="footer">
+    <div style="font-family:'Amiri',serif;color:rgba(212,175,55,0.4)">المالك: سلمان أحمد بن سلمان الراجح</div>
+    <div style="margin-top:3px">SHEIKHA Gov Engine v1.0 — الشركات الحكومية</div>
+</div>
+</div>
+<script>
+async function safeFetch(u){try{const r=await fetch(u);if(!r.ok)return null;return await r.json();}catch(e){return null;}}
+async function load(){
+    const data = await safeFetch('/api/gov/companies');
+    if(!data||!data.success) return;
+    document.getElementById('stats').innerHTML=`
+        <div class="stat"><div class="val">${data.summary.total}</div><div class="lbl">إجمالي</div></div>
+        <div class="stat"><div class="val">${data.summary.semiGov}</div><div class="lbl">شبه حكومية</div></div>
+        <div class="stat"><div class="val">${data.summary.govProjects}</div><div class="lbl">مشاريع كبرى</div></div>
+        <div class="stat"><div class="val green">${data.summary.funds}</div><div class="lbl">صناديق</div></div>
+        <div class="stat"><div class="val">${data.summary.sectors}</div><div class="lbl">قطاع</div></div>
+    `;
+    const typeLabels={
+        'semi-gov':'شبه حكومية','gov-project':'مشروع كبير','sovereign-fund':'صندوق سيادي','dev-fund':'صندوق تنمية'
+    };
+    const relLabels={'strategic':'استراتيجي','critical':'حرج','high':'عالي','medium':'متوسط'};
+    let html='';
+    for(const[sector,items]of Object.entries(data.sectors)){
+        html+=`<div class="section"><div class="section-title">📂 ${sector} (${items.length})</div><div class="grid">${items.map(c=>`
+            <div class="item">
+                <div class="i-name">${c.nameAr}</div>
+                <div class="i-en">${c.nameEn}</div>
+                <div class="i-tags">
+                    <span class="tag type">${typeLabels[c.type]||c.type}</span>
+                    <span class="tag sector">${c.sector}</span>
+                    ${c.fund?`<span class="tag fund">${c.fund}</span>`:''}
+                    <span class="tag rel">${relLabels[c.relevance]||c.relevance}</span>
+                </div>
+            </div>
+        `).join('')}</div></div>`;
+    }
+    document.getElementById('sectors').innerHTML=html;
+}
+load();
+</script>
+</body>
+</html>

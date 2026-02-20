@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة المؤشرات الذكية | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --cyan: #06b6d4;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --radius: 16px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .time-filter {
+            display: flex;
+            gap: 4px;
+            background: rgba(0,0,0,0.3);
+            padding: 4px;
+            border-radius: 10px;
+        }
+        .time-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .time-btn.active {
+            background: var(--gold);
+            color: var(--dark);
+        }
+        .refresh-btn {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .refresh-btn:hover {
+            border-color: var(--gold);
+        }
+
+        /* Main Layout */
+        .main {
+            padding: 24px;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        .kpi-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            opacity: 0.1;
+            transform: translate(30%, -30%);
+        }
+        .kpi-card.gold::before { background: var(--gold); }
+        .kpi-card.green::before { background: var(--success); }
+        .kpi-card.blue::before { background: var(--info); }
+        .kpi-card.purple::before { background: var(--purple); }
+        .kpi-card.cyan::before { background: var(--cyan); }
+        .kpi-card.orange::before { background: var(--warning); }
+
+        .kpi-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .kpi-icon {
+            font-size: 1.5rem;
+        }
+        .kpi-trend {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .kpi-trend.up {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+        .kpi-trend.down {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+        .kpi-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .kpi-value.gold { color: var(--gold); }
+        .kpi-value.green { color: var(--success); }
+        .kpi-value.blue { color: var(--info); }
+        .kpi-value.purple { color: var(--purple); }
+        .kpi-label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .kpi-sparkline {
+            margin-top: 12px;
+            height: 40px;
+        }
+
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .chart-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        /* Live Updates */
+        .live-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .live-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+        .live-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        .live-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        /* Activity Feed */
+        .activity-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            background: rgba(0,0,0,0.2);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .activity-icon.order { background: rgba(16, 185, 129, 0.2); }
+        .activity-icon.user { background: rgba(59, 130, 246, 0.2); }
+        .activity-icon.payment { background: rgba(212, 175, 55, 0.2); }
+        .activity-icon.alert { background: rgba(239, 68, 68, 0.2); }
+        .activity-text {
+            flex: 1;
+        }
+        .activity-text h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .activity-text span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .activity-time {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Top Performers */
+        .performers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .performer-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        .performer-rank {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+        .performer-rank.gold { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--dark); }
+        .performer-rank.silver { background: linear-gradient(135deg, #94a3b8, #cbd5e1); color: var(--dark); }
+        .performer-rank.bronze { background: linear-gradient(135deg, #b87333, #d4956a); color: #fff; }
+        .performer-info {
+            flex: 1;
+        }
+        .performer-info h4 {
+            font-size: 0.95rem;
+        }
+        .performer-info span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .performer-value {
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        /* Data Table */
+        .data-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+        .data-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .data-table th {
+            text-align: right;
+            padding: 12px 16px;
+            background: rgba(0,0,0,0.3);
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table tr:hover td {
+            background: rgba(212, 175, 55, 0.05);
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .status-badge.success { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+        .status-badge.pending { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+        .status-badge.processing { background: rgba(59, 130, 246, 0.2); color: var(--info); }
+
+        /* Intelligence Panel */
+        .intelligence-section {
+            background: linear-gradient(135deg, var(--card), #0f1e30);
+            border: 1px solid var(--gold);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-top: 32px;
+        }
+        .intelligence-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .intelligence-header h2 {
+            font-size: 1.3rem;
+            color: var(--gold);
+        }
+        .ai-badge {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--dark);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .insight-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            border-right: 3px solid var(--gold);
+        }
+        .insight-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            color: var(--gold);
+        }
+        .insight-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+        .insight-action {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+
+        @media (max-width: 1200px) {
+            .charts-grid { grid-template-columns: 1fr; }
+            .live-section { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .header { flex-direction: column; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">
+            <div class="logo-icon">ش</div>
+            <span class="logo-text">لوحة المؤشرات</span>
+        </a>
+        <div class="header-actions">
+            <div class="time-filter">
+                <button class="time-btn" onclick="setTimeRange('today')">اليوم</button>
+                <button class="time-btn active" onclick="setTimeRange('week')">الأسبوع</button>
+                <button class="time-btn" onclick="setTimeRange('month')">الشهر</button>
+                <button class="time-btn" onclick="setTimeRange('year')">السنة</button>
+            </div>
+            <button class="refresh-btn" onclick="refreshData()">
+                🔄 تحديث
+            </button>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card gold">
+                <div class="kpi-header">
+                    <span class="kpi-icon">💰</span>
+                    <span class="kpi-trend up">↑ 12.5%</span>
+                </div>
+                <div class="kpi-value gold" id="totalRevenue">0</div>
+                <div class="kpi-label">إجمالي الإيرادات (ر.س)</div>
+            </div>
+
+            <div class="kpi-card green">
+                <div class="kpi-header">
+                    <span class="kpi-icon">📦</span>
+                    <span class="kpi-trend up">↑ 8.3%</span>
+                </div>
+                <div class="kpi-value green" id="totalOrders">0</div>
+                <div class="kpi-label">الطلبات</div>
+            </div>
+
+            <div class="kpi-card blue">
+                <div class="kpi-header">
+                    <span class="kpi-icon">👥</span>
+                    <span class="kpi-trend up">↑ 15.2%</span>
+                </div>
+                <div class="kpi-value blue" id="activeUsers">0</div>
+                <div class="kpi-label">المستخدمون النشطون</div>
+            </div>
+
+            <div class="kpi-card purple">
+                <div class="kpi-header">
+                    <span class="kpi-icon">🏪</span>
+                    <span class="kpi-trend up">↑ 5.7%</span>
+                </div>
+                <div class="kpi-value purple" id="activeTraders">0</div>
+                <div class="kpi-label">التجار النشطون</div>
+            </div>
+
+            <div class="kpi-card cyan">
+                <div class="kpi-header">
+                    <span class="kpi-icon">🚚</span>
+                    <span class="kpi-trend up">↑ 3.1%</span>
+                </div>
+                <div class="kpi-value" style="color: var(--cyan);" id="shipments">0</div>
+                <div class="kpi-label">الشحنات النشطة</div>
+            </div>
+
+            <div class="kpi-card orange">
+                <div class="kpi-header">
+                    <span class="kpi-icon">⭐</span>
+                    <span class="kpi-trend up">↑ 0.2</span>
+                </div>
+                <div class="kpi-value" style="color: var(--warning);" id="avgRating">0</div>
+                <div class="kpi-label">متوسط التقييم</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">📈 المبيعات والإيرادات</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">📊 توزيع المنتجات</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="productsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Section -->
+        <div class="live-section">
+            <div class="live-card">
+                <div class="live-header">
+                    <span class="live-dot"></span>
+                    <h3 class="live-title">النشاط المباشر</h3>
+                </div>
+                <div class="activity-list" id="activityFeed">
+                    <!-- Activities will be added here -->
+                </div>
+            </div>
+
+            <div class="live-card">
+                <div class="live-header">
+                    <span class="live-dot"></span>
+                    <h3 class="live-title">🏆 أفضل التجار</h3>
+                </div>
+                <div class="performers-list" id="topTraders">
+                    <!-- Top traders will be added here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Orders Table -->
+        <div class="data-section">
+            <div class="data-header">
+                <h3 class="chart-title">📋 آخر الطلبات</h3>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>رقم الطلب</th>
+                        <th>العميل</th>
+                        <th>المنتج</th>
+                        <th>الكمية</th>
+                        <th>المبلغ</th>
+                        <th>الحالة</th>
+                        <th>التاريخ</th>
+                    </tr>
+                </thead>
+                <tbody id="ordersTable">
+                    <!-- Orders will be added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- AI Intelligence Panel -->
+        <section class="intelligence-section">
+            <div class="intelligence-header">
+                <h2>🧠 رؤى الذكاء الاصطناعي</h2>
+                <span class="ai-badge">AI Powered</span>
+            </div>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h4>📈 فرصة نمو</h4>
+                    <p>الطلب على النحاس ارتفع 25% هذا الأسبوع. يُنصح بزيادة المخزون.</p>
+                    <span class="insight-action">عرض التفاصيل →</span>
+                </div>
+                <div class="insight-card">
+                    <h4>⚠️ تنبيه مخزون</h4>
+                    <p>3 منتجات على وشك النفاد. يُنصح بإعادة الطلب خلال 48 ساعة.</p>
+                    <span class="insight-action">مراجعة المخزون →</span>
+                </div>
+                <div class="insight-card">
+                    <h4>🎯 توصية تسعير</h4>
+                    <p>أسعار الألمنيوم في السوق انخفضت 3%. تعديل الأسعار قد يزيد المبيعات.</p>
+                    <span class="insight-action">تحليل الأسعار →</span>
+                </div>
+                <div class="insight-card">
+                    <h4>👥 سلوك العملاء</h4>
+                    <p>60% من العملاء يفضلون الدفع عبر مدى. تحسين تجربة الدفع مُقترح.</p>
+                    <span class="insight-action">تقرير السلوك →</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Initialize Data
+        const kpiData = {
+            totalRevenue: 2547830,
+            totalOrders: 1284,
+            activeUsers: 8543,
+            activeTraders: 342,
+            shipments: 156,
+            avgRating: 4.8
+        };
+
+        // Animate KPI values
+        function animateValue(id, value, prefix = '', suffix = '') {
+            const el = document.getElementById(id);
+            const duration = 1500;
+            const start = 0;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                
+                const current = Math.floor(start + (value - start) * easeProgress);
+                el.textContent = prefix + current.toLocaleString('ar-SA') + suffix;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        // Initialize KPIs
+        animateValue('totalRevenue', kpiData.totalRevenue);
+        animateValue('totalOrders', kpiData.totalOrders);
+        animateValue('activeUsers', kpiData.activeUsers);
+        animateValue('activeTraders', kpiData.activeTraders);
+        animateValue('shipments', kpiData.shipments);
+        document.getElementById('avgRating').textContent = kpiData.avgRating;
+
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'],
+                datasets: [{
+                    label: 'الإيرادات',
+                    data: [320000, 410000, 380000, 450000, 520000, 480000, 550000],
+                    borderColor: '#d4af37',
+                    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'الطلبات',
+                    data: [150, 200, 180, 220, 250, 230, 270],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'y1'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#94a3b8' }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: '#94a3b8' }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: '#94a3b8' }
+                    },
+                    y1: {
+                        position: 'left',
+                        grid: { display: false },
+                        ticks: { color: '#10b981' }
+                    }
+                }
+            }
+        });
+
+        // Products Chart
+        const productsCtx = document.getElementById('productsChart').getContext('2d');
+        new Chart(productsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['حديد', 'نحاس', 'ألمنيوم', 'ذهب', 'فضة', 'أخرى'],
+                datasets: [{
+                    data: [35, 25, 20, 10, 5, 5],
+                    backgroundColor: [
+                        '#71797E',
+                        '#b87333',
+                        '#94a3b8',
+                        '#d4af37',
+                        '#C0C0C0',
+                        '#64748b'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#94a3b8', padding: 15 }
+                    }
+                }
+            }
+        });
+
+        // Activity Feed
+        const activities = [
+            { type: 'order', text: 'طلب جديد #ORD-1284', sub: 'نحاس - 500 كجم', time: 'الآن' },
+            { type: 'user', text: 'مستخدم جديد سجّل', sub: 'شركة المعادن المتقدمة', time: '2 دقيقة' },
+            { type: 'payment', text: 'دفعة مستلمة', sub: '25,000 ر.س', time: '5 دقائق' },
+            { type: 'order', text: 'شحنة تم تسليمها', sub: '#SHK-892341', time: '10 دقائق' },
+            { type: 'alert', text: 'تنبيه مخزون', sub: 'ألمنيوم - مخزون منخفض', time: '15 دقيقة' }
+        ];
+
+        function renderActivities() {
+            const feed = document.getElementById('activityFeed');
+            feed.innerHTML = activities.map(a => `
+                <div class="activity-item">
+                    <div class="activity-icon ${a.type}">${a.type === 'order' ? '📦' : a.type === 'user' ? '👤' : a.type === 'payment' ? '💳' : '⚠️'}</div>
+                    <div class="activity-text">
+                        <h4>${a.text}</h4>
+                        <span>${a.sub}</span>
+                    </div>
+                    <span class="activity-time">${a.time}</span>
+                </div>
+            `).join('');
+        }
+        renderActivities();
+
+        // Top Traders
+        const traders = [
+            { name: 'مؤسسة الفهد للمعادن', region: 'الرياض', value: '485,000' },
+            { name: 'شركة النور للسكراب', region: 'جدة', value: '412,000' },
+            { name: 'مصنع الخليج', region: 'الدمام', value: '378,000' },
+            { name: 'تجارة المعادن الحديثة', region: 'مكة', value: '295,000' },
+            { name: 'مؤسسة الأمل', region: 'المدينة', value: '267,000' }
+        ];
+
+        function renderTraders() {
+            const list = document.getElementById('topTraders');
+            list.innerHTML = traders.map((t, i) => `
+                <div class="performer-item">
+                    <div class="performer-rank ${i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : ''}">${i + 1}</div>
+                    <div class="performer-info">
+                        <h4>${t.name}</h4>
+                        <span>${t.region}</span>
+                    </div>
+                    <span class="performer-value">${t.value} ر.س</span>
+                </div>
+            `).join('');
+        }
+        renderTraders();
+
+        // Orders Table
+        const orders = [
+            { id: 'ORD-1284', customer: 'شركة الأمل', product: 'نحاس', qty: '500 كجم', amount: '45,000', status: 'success', date: 'اليوم' },
+            { id: 'ORD-1283', customer: 'مصنع الخليج', product: 'حديد', qty: '2 طن', amount: '12,000', status: 'processing', date: 'اليوم' },
+            { id: 'ORD-1282', customer: 'تجارة المعادن', product: 'ألمنيوم', qty: '800 كجم', amount: '28,000', status: 'pending', date: 'أمس' },
+            { id: 'ORD-1281', customer: 'مؤسسة النور', product: 'ذهب', qty: '50 جم', amount: '15,000', status: 'success', date: 'أمس' },
+            { id: 'ORD-1280', customer: 'شركة الفهد', product: 'فضة', qty: '1 كجم', amount: '3,500', status: 'success', date: '2 يوم' }
+        ];
+
+        function renderOrders() {
+            const table = document.getElementById('ordersTable');
+            table.innerHTML = orders.map(o => `
+                <tr>
+                    <td><strong>${o.id}</strong></td>
+                    <td>${o.customer}</td>
+                    <td>${o.product}</td>
+                    <td>${o.qty}</td>
+                    <td>${o.amount} ر.س</td>
+                    <td><span class="status-badge ${o.status}">${o.status === 'success' ? 'مكتمل' : o.status === 'processing' ? 'قيد التنفيذ' : 'معلق'}</span></td>
+                    <td>${o.date}</td>
+                </tr>
+            `).join('');
+        }
+        renderOrders();
+
+        // Time Range Filter
+        function setTimeRange(range) {
+            document.querySelectorAll('.time-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            refreshData();
+        }
+
+        // Refresh Data
+        function refreshData() {
+            // Simulate data refresh
+            animateValue('totalRevenue', kpiData.totalRevenue + Math.floor(Math.random() * 50000));
+            animateValue('totalOrders', kpiData.totalOrders + Math.floor(Math.random() * 20));
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            // Add new activity
+            activities.unshift({
+                type: ['order', 'user', 'payment'][Math.floor(Math.random() * 3)],
+                text: 'نشاط جديد #' + Math.floor(Math.random() * 1000),
+                sub: 'تفاصيل النشاط',
+                time: 'الآن'
+            });
+            if (activities.length > 10) activities.pop();
+            renderActivities();
+        }, 30000);
+    </script>
+</body>
+</html>

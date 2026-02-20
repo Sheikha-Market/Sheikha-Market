@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 حملات التسويق | شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #fff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --success: #10b981;
+            --radius: 12px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card);
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header h1 span { color: var(--gold); }
+        .header p { color: var(--text-muted); font-size: 1.1rem; }
+        
+        .campaigns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        .campaign-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .campaign-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+        
+        .campaign-header {
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(10,92,54,0.1));
+            border-bottom: 1px solid var(--border);
+        }
+        .campaign-icon { font-size: 3rem; margin-bottom: 16px; }
+        .campaign-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+        .campaign-desc { color: var(--text-muted); font-size: 0.95rem; }
+        
+        .campaign-body { padding: 24px; }
+        
+        .campaign-features { list-style: none; margin-bottom: 24px; }
+        .campaign-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .campaign-features li:last-child { border-bottom: none; }
+        .campaign-features li::before { content: '✓'; color: var(--success); font-weight: bold; }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border: none;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            width: 100%;
+            justify-content: center;
+        }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--dark); }
+        .btn-gold:hover { transform: scale(1.02); }
+        .btn-outline { background: transparent; border: 2px solid var(--gold); color: var(--gold); }
+        
+        .quick-message {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .quick-message h2 { margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        .form-textarea { min-height: 120px; resize: vertical; }
+        
+        .templates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .template {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .template:hover { border-color: var(--gold); }
+        .template.active { border-color: var(--gold); background: rgba(212,175,55,0.1); }
+        .template-title { font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .template-preview { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+        
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .stat-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 30px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+        .stat-value { font-size: 2rem; font-weight: 900; color: var(--gold); }
+        .stat-label { color: var(--text-muted); font-size: 0.85rem; }
+        
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .social-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .social-btn:hover { transform: translateY(-2px); }
+        .social-whatsapp { background: #25D366; color: white; }
+        .social-twitter { background: #1DA1F2; color: white; }
+        .social-facebook { background: #1877F2; color: white; }
+        .social-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+        .social-email { background: #EA4335; color: white; }
+        .social-sms { background: #5C6BC0; color: white; }
+        
+        .result-box {
+            background: var(--dark);
+            border: 1px solid var(--success);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        .result-box.show { display: block; }
+        .result-box h3 { color: var(--success); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        
+        .copy-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: var(--text);
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 12px;
+        }
+        .copy-btn:hover { border-color: var(--gold); }
+        
+        @media (max-width: 768px) {
+            .campaigns-grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎯 حملات <span>التسويق</span></h1>
+            <p>أدوات تسويقية متكاملة للوصول لعملائك بسرعة وفعالية</p>
+        </header>
+
+        <!-- Stats -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" id="totalReach">0</div>
+                <div class="stat-label">إجمالي الوصول</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="campaignsSent">0</div>
+                <div class="stat-label">حملات مرسلة</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="responseRate">0%</div>
+                <div class="stat-label">معدل الاستجابة</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="newLeads">0</div>
+                <div class="stat-label">عملاء جدد</div>
+            </div>
+        </div>
+
+        <!-- Quick Message Sender -->
+        <div class="quick-message">
+            <h2>📤 إرسال رسالة تسويقية سريعة</h2>
+            
+            <div class="form-group">
+                <label class="form-label">اختر قالب الرسالة:</label>
+                <div class="templates">
+                    <div class="template active" onclick="selectTemplate(0)">
+                        <div class="template-title">🏪 دعوة للتسجيل</div>
+                        <div class="template-preview">سجّل متجرك في سوق شيخة مجاناً...</div>
+                    </div>
+                    <div class="template" onclick="selectTemplate(1)">
+                        <div class="template-title">🔥 عروض خاصة</div>
+                        <div class="template-preview">احصل على خصم 20% على أول معاملة...</div>
+                    </div>
+                    <div class="template" onclick="selectTemplate(2)">
+                        <div class="template-title">📈 أسعار اليوم</div>
+                        <div class="template-preview">أسعار المعادن المباشرة لهذا اليوم...</div>
+                    </div>
+                    <div class="template" onclick="selectTemplate(3)">
+                        <div class="template-title">🎁 برنامج الإحالة</div>
+                        <div class="template-preview">احصل على 100 ريال لكل صديق...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">نص الرسالة:</label>
+                <textarea class="form-textarea" id="messageText">🏪 سوق شيخة - أول منصة متخصصة للمعادن والسكراب في السعودية
+
+✅ سجّل متجرك مجاناً
+✅ اعرض بضاعتك بسهولة  
+✅ تواصل مباشر مع المشترين
+✅ أسعار السوق المباشرة
+
+🎁 سجّل الآن واحصل على شهر مجاني!
+
+🔗 www.sheikha.top
+📞 966554942904</textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">أرسل عبر:</label>
+                <div class="social-buttons">
+                    <button class="social-btn social-whatsapp" onclick="sendVia('whatsapp')">
+                        <span>📱</span> واتساب
+                    </button>
+                    <button class="social-btn social-twitter" onclick="sendVia('twitter')">
+                        <span>🐦</span> تويتر
+                    </button>
+                    <button class="social-btn social-facebook" onclick="sendVia('facebook')">
+                        <span>📘</span> فيسبوك
+                    </button>
+                    <button class="social-btn social-instagram" onclick="sendVia('instagram')">
+                        <span>📸</span> انستقرام
+                    </button>
+                    <button class="social-btn social-email" onclick="sendVia('email')">
+                        <span>📧</span> بريد
+                    </button>
+                    <button class="social-btn social-sms" onclick="sendVia('sms')">
+                        <span>💬</span> SMS
+                    </button>
+                </div>
+            </div>
+
+            <div class="result-box" id="resultBox">
+                <h3>✅ تم تجهيز الرسالة</h3>
+                <p id="resultText"></p>
+                <button class="copy-btn" onclick="copyMessage()">📋 نسخ الرسالة</button>
+            </div>
+        </div>
+
+        <!-- Campaign Types -->
+        <h2 style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">📊 أنواع الحملات</h2>
+        <div class="campaigns-grid">
+            <!-- WhatsApp Campaign -->
+            <div class="campaign-card">
+                <div class="campaign-header">
+                    <div class="campaign-icon">📱</div>
+                    <div class="campaign-title">حملة واتساب</div>
+                    <div class="campaign-desc">إرسال رسائل جماعية عبر واتساب بزنس</div>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>إرسال لـ 1000+ جهة اتصال</li>
+                        <li>رسائل مخصصة بالاسم</li>
+                        <li>إرفاق صور وملفات</li>
+                        <li>جدولة الإرسال</li>
+                        <li>تقارير الاستلام والقراءة</li>
+                    </ul>
+                    <a href="https://business.whatsapp.com" target="_blank" class="btn btn-gold">إطلاق حملة واتساب</a>
+                </div>
+            </div>
+
+            <!-- Google Ads -->
+            <div class="campaign-card">
+                <div class="campaign-header">
+                    <div class="campaign-icon">🔍</div>
+                    <div class="campaign-title">إعلانات Google</div>
+                    <div class="campaign-desc">ظهور في نتائج البحث والشبكة الإعلانية</div>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>استهداف كلمات (سكراب، معادن، حديد)</li>
+                        <li>ظهور في خرائط جوجل</li>
+                        <li>إعلانات YouTube</li>
+                        <li>تحليلات مفصلة</li>
+                        <li>الدفع حسب النقرة</li>
+                    </ul>
+                    <a href="https://ads.google.com" target="_blank" class="btn btn-gold">إنشاء حملة Google</a>
+                </div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="campaign-card">
+                <div class="campaign-header">
+                    <div class="campaign-icon">📸</div>
+                    <div class="campaign-title">السوشيال ميديا</div>
+                    <div class="campaign-desc">إعلانات على فيسبوك وانستقرام وتويتر</div>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>استهداف دقيق بالاهتمامات</li>
+                        <li>استهداف أصحاب الأعمال</li>
+                        <li>إعلانات فيديو وصور</li>
+                        <li>إعادة الاستهداف</li>
+                        <li>قصص ورسائل مباشرة</li>
+                    </ul>
+                    <a href="https://business.facebook.com" target="_blank" class="btn btn-gold">إطلاق حملة</a>
+                </div>
+            </div>
+
+            <!-- Email Marketing -->
+            <div class="campaign-card">
+                <div class="campaign-header">
+                    <div class="campaign-icon">📧</div>
+                    <div class="campaign-title">التسويق بالبريد</div>
+                    <div class="campaign-desc">نشرات إخبارية وعروض عبر الإيميل</div>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>قوالب احترافية جاهزة</li>
+                        <li>إرسال تلقائي</li>
+                        <li>تتبع الفتح والنقر</li>
+                        <li>تقسيم القوائم</li>
+                        <li>A/B Testing</li>
+                    </ul>
+                    <a href="https://mailchimp.com" target="_blank" class="btn btn-gold">إنشاء حملة بريدية</a>
+                </div>
+            </div>
+
+            <!-- Referral Program -->
+            <div class="campaign-card">
+                <div class="campaign-header">
+                    <div class="campaign-icon">🎁</div>
+                    <div class="campaign-title">برنامج الإحالة</div>
+                    <div class="campaign-desc">مكافآت للإحالات الناجحة</div>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>100 ريال للمُحيل</li>
+                        <li>50 ريال خصم للمُحال</li>
+                        <li>روابط إحالة فريدة</li>
+                        <li>تتبع الإحالات</li>
+                        <li>دفع تلقائي للمكافآت</li>
+                    </ul>
+                    <button class="btn btn-gold" onclick="generateReferralLink()">إنشاء رابط إحالة</button>
+                </div>
+            </div>
+
+            <!-- Content Marketing -->
+            <div class="campaign-card">
+                <div class="campaign-header">
+                    <div class="campaign-icon">📝</div>
+                    <div class="campaign-title">التسويق بالمحتوى</div>
+                    <div class="campaign-desc">مقالات وفيديوهات تعليمية</div>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>مقالات عن أسعار المعادن</li>
+                        <li>فيديوهات تعليمية</li>
+                        <li>دليل التجار</li>
+                        <li>تحسين محركات البحث SEO</li>
+                        <li>نشر على المدونة</li>
+                    </ul>
+                    <button class="btn btn-gold" onclick="openContentStudio()">استوديو المحتوى</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div style="text-align: center; padding: 40px 20px; background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);">
+            <h3 style="margin-bottom: 20px;">🔗 روابط سريعة</h3>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="/" class="btn btn-outline">🏠 الرئيسية</a>
+                <a href="/السوق.html" class="btn btn-outline">🛒 السوق</a>
+                <a href="/admin-dashboard.html" class="btn btn-outline">🔐 لوحة التحكم</a>
+                <a href="/app.html" class="btn btn-gold">📱 تحميل التطبيق</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const templates = [
+            `🏪 سوق شيخة - أول منصة متخصصة للمعادن والسكراب في السعودية
+
+✅ سجّل متجرك مجاناً
+✅ اعرض بضاعتك بسهولة  
+✅ تواصل مباشر مع المشترين
+✅ أسعار السوق المباشرة
+
+🎁 سجّل الآن واحصل على شهر مجاني!
+
+🔗 www.sheikha.top
+📞 966554942904`,
+            
+            `🔥 عروض خاصة من سوق شيخة!
+
+💰 خصم 20% على أول معاملة
+🚚 شحن مجاني للطلبات فوق 5000 ريال
+🎁 نقاط مكافآت على كل عملية
+
+سارع قبل انتهاء العرض!
+🔗 www.sheikha.top`,
+            
+            `📈 أسعار المعادن اليوم - سوق شيخة
+
+🔸 الحديد: 2,500 ريال/طن
+🔸 النحاس: 28,000 ريال/طن  
+🔸 الألمنيوم: 8,500 ريال/طن
+🔸 الذهب: 245 ريال/جرام
+
+تابع الأسعار المباشرة:
+🔗 www.sheikha.top`,
+            
+            `🎁 اكسب 100 ريال مع برنامج الإحالة!
+
+👥 ادعُ أصدقاءك لسوق شيخة
+💰 احصل على 100 ريال لكل صديق يسجّل
+🎉 صديقك يحصل على خصم 50 ريال
+
+شارك رابطك الآن:
+🔗 www.sheikha.top/ref/YOUR_CODE`
+        ];
+
+        let currentTemplate = 0;
+
+        function selectTemplate(index) {
+            currentTemplate = index;
+            document.querySelectorAll('.template').forEach((t, i) => {
+                t.classList.toggle('active', i === index);
+            });
+            document.getElementById('messageText').value = templates[index];
+        }
+
+        function sendVia(platform) {
+            const message = encodeURIComponent(document.getElementById('messageText').value);
+            let url = '';
+
+            switch(platform) {
+                case 'whatsapp':
+                    url = `https://wa.me/?text=${message}`;
+                    break;
+                case 'twitter':
+                    url = `https://twitter.com/intent/tweet?text=${message}`;
+                    break;
+                case 'facebook':
+                    url = `https://www.facebook.com/sharer/sharer.php?quote=${message}`;
+                    break;
+                case 'instagram':
+                    // Instagram doesn't have direct share, copy message
+                    copyToClipboard(document.getElementById('messageText').value);
+                    alert('تم نسخ الرسالة! افتح انستقرام والصقها في منشور جديد');
+                    return;
+                case 'email':
+                    url = `mailto:?subject=${encodeURIComponent('دعوة للتسجيل في سوق شيخة')}&body=${message}`;
+                    break;
+                case 'sms':
+                    url = `sms:?body=${message}`;
+                    break;
+            }
+
+            if (url) {
+                window.open(url, '_blank');
+                updateStats();
+            }
+
+            document.getElementById('resultBox').classList.add('show');
+            document.getElementById('resultText').textContent = `تم فتح ${platform} لإرسال الرسالة`;
+        }
+
+        function copyMessage() {
+            copyToClipboard(document.getElementById('messageText').value);
+            alert('✅ تم نسخ الرسالة!');
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            });
+        }
+
+        function generateReferralLink() {
+            const code = 'REF' + Math.random().toString(36).substr(2, 6).toUpperCase();
+            const link = `www.sheikha.top/ref/${code}`;
+            copyToClipboard(link);
+            alert(`✅ تم إنشاء رابط الإحالة الخاص بك:\n\n${link}\n\nتم نسخه للحافظة!`);
+        }
+
+        function openContentStudio() {
+            alert('🎬 استوديو المحتوى قيد التطوير\n\nقريباً: إنشاء فيديوهات ومقالات تسويقية');
+        }
+
+        function updateStats() {
+            // Simulate stats update
+            const reach = parseInt(document.getElementById('totalReach').textContent) + Math.floor(Math.random() * 100);
+            const sent = parseInt(document.getElementById('campaignsSent').textContent) + 1;
+            
+            document.getElementById('totalReach').textContent = reach;
+            document.getElementById('campaignsSent').textContent = sent;
+            document.getElementById('responseRate').textContent = Math.floor(Math.random() * 30 + 10) + '%';
+            document.getElementById('newLeads').textContent = Math.floor(reach * 0.05);
+        }
+
+        // Initialize with some stats
+        document.getElementById('totalReach').textContent = '1,250';
+        document.getElementById('campaignsSent').textContent = '15';
+        document.getElementById('responseRate').textContent = '23%';
+        document.getElementById('newLeads').textContent = '62';
+    </script>
+</body>
+</html>

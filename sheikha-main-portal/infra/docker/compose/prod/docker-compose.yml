@@ -1,0 +1,198 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: sheikha-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../../../../infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - main-portal
+    networks:
+      - front_net
+      - back_net
+
+  main-portal:
+    image: ghcr.io/sheikha/main-portal:latest
+    container_name: sheikha-main-portal
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - STARTUP_L0_ONLY=true
+      - SHEIKHA_CHARTER_ENFORCED=true
+      - MCP_DENY_BY_DEFAULT=true
+      - PORT=8080
+    depends_on:
+      - postgres
+      - redis
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - back_net
+
+  mcp-server:
+    image: ghcr.io/sheikha/mcp-server:latest
+    container_name: sheikha-mcp-server
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - MCP_DENY_BY_DEFAULT=true
+      - MCP_ALLOWLIST_PATH=/app/config/allowlist.json
+      - MCP_DENYLIST_PATH=/app/config/denylist.json
+      - MCP_POLICIES_PATH=/app/config/policies.json
+    volumes:
+      - ../../../../mcp-servers/config/allowlist.json:/app/config/allowlist.json:ro
+      - ../../../../mcp-servers/config/denylist.json:/app/config/denylist.json:ro
+      - ../../../../mcp-servers/config/policies.json:/app/config/policies.json:ro
+    networks:
+      - back_net
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: sheikha-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    networks:
+      - back_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: sheikha-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    networks:
+      - back_net
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: sheikha-prometheus
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-lifecycle"
+    volumes:
+      - ../../../../infra/observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ../../../../infra/observability/prometheus/alert_rules.yml:/etc/prometheus/alert_rules.yml:ro
+    depends_on:
+      - node-exporter
+      - cadvisor
+      - alertmanager
+    networks:
+      - back_net
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: sheikha-alertmanager
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+    volumes:
+      - ../../../../infra/observability/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+    networks:
+      - back_net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: sheikha-grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ../../../../infra/observability/grafana/provisioning/datasources/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml:ro
+    depends_on:
+      - prometheus
+      - loki
+    networks:
+      - back_net
+
+  loki:
+    image: grafana/loki:latest
+    container_name: sheikha-loki
+    restart: unless-stopped
+    command: ["-config.file=/etc/loki/loki-config.yml"]
+    volumes:
+      - ../../../../infra/observability/loki/loki-config.yml:/etc/loki/loki-config.yml:ro
+      - loki_data:/loki
+    networks:
+      - back_net
+
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: sheikha-otel
+    restart: unless-stopped
+    command: ["--config=/etc/otelcol/config.yaml"]
+    volumes:
+      - ../../../../infra/observability/otel/otel-collector-config.yml:/etc/otelcol/config.yaml:ro
+    depends_on:
+      - loki
+      - prometheus
+    networks:
+      - back_net
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: sheikha-node-exporter
+    restart: unless-stopped
+    command:
+      - "--path.rootfs=/host"
+    volumes:
+      - /:/host:ro,rslave
+    networks:
+      - back_net
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: sheikha-cadvisor
+    restart: unless-stopped
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+    networks:
+      - back_net
+
+networks:
+  front_net:
+    driver: bridge
+  back_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  grafana_data:
+  loki_data:
+

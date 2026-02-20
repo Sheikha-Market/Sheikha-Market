@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="نظام رقمنة سلسلة التوريد الذكية - تتبع كامل من المصدر حتى التسليم">
+    <title>السلسلة الذكية | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(30, 41, 59, 0.9));
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #d4af37, #f0d060);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .logo-text {
+            font-weight: 900;
+            font-size: 1.3rem;
+        }
+        .logo-text span { color: #d4af37; }
+
+        .hero {
+            padding: 80px 32px;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        .hero h1 span { color: #d4af37; }
+        .hero p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto 32px;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 40px;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #d4af37;
+        }
+        .hero-stat-label {
+            color: #64748b;
+        }
+
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px 80px;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .section-title span { color: #d4af37; }
+
+        /* Chain Visualization */
+        .chain-container {
+            margin-bottom: 80px;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+        .chain {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-width: 1100px;
+        }
+        .chain-stage {
+            flex: 0 0 160px;
+            text-align: center;
+            position: relative;
+        }
+        .stage-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 24px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+        .chain-stage:hover .stage-icon {
+            border-color: #d4af37;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            transform: scale(1.05);
+        }
+        .chain-stage.active .stage-icon {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+            border-color: #d4af37;
+        }
+        .stage-name {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .stage-status {
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        .stage-status.complete { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .stage-status.active { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .stage-status.pending { background: rgba(100, 116, 139, 0.2); color: #64748b; }
+
+        .chain-arrow {
+            flex: 0 0 40px;
+            text-align: center;
+            color: #d4af37;
+            font-size: 1.5rem;
+            position: relative;
+        }
+        .chain-arrow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.6));
+            transform: translateY(-50%);
+        }
+
+        /* Stage Details */
+        .stage-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        .detail-card {
+            background: linear-gradient(145deg, rgba(20, 30, 50, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+        .detail-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-4px);
+        }
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .detail-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+        }
+        .detail-icon.source { background: rgba(139, 92, 246, 0.2); }
+        .detail-icon.collect { background: rgba(245, 158, 11, 0.2); }
+        .detail-icon.transport { background: rgba(59, 130, 246, 0.2); }
+        .detail-icon.smelt { background: rgba(239, 68, 68, 0.2); }
+        .detail-icon.manufacture { background: rgba(16, 185, 129, 0.2); }
+        .detail-icon.distribute { background: rgba(236, 72, 153, 0.2); }
+        
+        .detail-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+        .detail-subtitle {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .detail-features {
+            list-style: none;
+        }
+        .detail-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .detail-features li:last-child { border-bottom: none; }
+        .feature-check {
+            color: #10b981;
+        }
+
+        /* Blockchain Section */
+        .blockchain-section {
+            background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+        .blockchain-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .blockchain-header h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .blockchain-header p {
+            color: #94a3b8;
+        }
+        .blockchain-features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .blockchain-feature {
+            text-align: center;
+            padding: 24px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+        }
+        .blockchain-feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        .blockchain-feature-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .blockchain-feature-desc {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        /* Smart Tools */
+        .smart-tools {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        .tool-card {
+            background: linear-gradient(145deg, rgba(20, 30, 50, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .tool-card:hover {
+            border-color: #d4af37;
+            transform: scale(1.02);
+        }
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        .tool-name {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .tool-desc {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Live Tracking */
+        .tracking-section {
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.05), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+        }
+        .tracking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .tracking-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .tracking-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 20px;
+            color: #10b981;
+        }
+        .tracking-status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .tracking-map {
+            background: #0f172a;
+            border-radius: 16px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .map-placeholder {
+            color: #64748b;
+            text-align: center;
+        }
+        .map-placeholder span {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .tracking-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .tracking-info-item {
+            background: rgba(255,255,255,0.03);
+            padding: 16px;
+            border-radius: 12px;
+        }
+        .tracking-info-label {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+        .tracking-info-value {
+            font-weight: 700;
+        }
+
+        @media (max-width: 1200px) {
+            .stage-details { grid-template-columns: repeat(2, 1fr); }
+            .blockchain-features { grid-template-columns: repeat(2, 1fr); }
+            .smart-tools { grid-template-columns: repeat(2, 1fr); }
+            .tracking-info { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero-stats { flex-direction: column; gap: 24px; }
+            .stage-details { grid-template-columns: 1fr; }
+            .blockchain-features { grid-template-columns: 1fr; }
+            .smart-tools { grid-template-columns: 1fr; }
+            .tracking-info { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <div class="logo">
+            <div class="logo-icon">⛓️</div>
+            <div class="logo-text"><span>السلسلة</span> الذكية</div>
+        </div>
+        <nav style="display: flex; gap: 24px;">
+            <a href="منظومة-شيخة.html" style="color: #94a3b8; text-decoration: none;">الرئيسية</a>
+            <a href="سوق-شيخة.html" style="color: #94a3b8; text-decoration: none;">السوق</a>
+            <a href="مركز-أبحاث-شيخة.html" style="color: #94a3b8; text-decoration: none;">الأبحاث</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <h1>سلسلة التوريد <span>الذكية</span></h1>
+    <p>تتبع كامل ورقمنة شاملة لكل مراحل سلسلة توريد المعادن من المصدر وحتى التسليم النهائي</p>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="hero-stat-value">6</div>
+            <div class="hero-stat-label">مراحل السلسلة</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">100%</div>
+            <div class="hero-stat-label">رقمنة كاملة</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">24/7</div>
+            <div class="hero-stat-label">تتبع مباشر</div>
+        </div>
+    </div>
+</section>
+
+<main class="main">
+
+    <!-- Chain Visualization -->
+    <div class="chain-container">
+        <div class="chain">
+            <div class="chain-stage active">
+                <div class="stage-icon">⛏️</div>
+                <div class="stage-name">المصدر</div>
+                <span class="stage-status complete">✓ مكتمل</span>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-stage active">
+                <div class="stage-icon">📦</div>
+                <div class="stage-name">التجميع</div>
+                <span class="stage-status complete">✓ مكتمل</span>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-stage active">
+                <div class="stage-icon">🚚</div>
+                <div class="stage-name">النقل</div>
+                <span class="stage-status active">◉ جاري</span>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-stage">
+                <div class="stage-icon">🔥</div>
+                <div class="stage-name">الصهر</div>
+                <span class="stage-status pending">○ قادم</span>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-stage">
+                <div class="stage-icon">🏭</div>
+                <div class="stage-name">التصنيع</div>
+                <span class="stage-status pending">○ قادم</span>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-stage">
+                <div class="stage-icon">📤</div>
+                <div class="stage-name">التوزيع</div>
+                <span class="stage-status pending">○ قادم</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stage Details -->
+    <h2 class="section-title">📋 تفاصيل <span>مراحل السلسلة</span></h2>
+    <div class="stage-details">
+        <div class="detail-card">
+            <div class="detail-header">
+                <div class="detail-icon source">⛏️</div>
+                <div>
+                    <div class="detail-title">المصدر</div>
+                    <div class="detail-subtitle">مناجم ومرافق التعدين</div>
+                </div>
+            </div>
+            <ul class="detail-features">
+                <li><span class="feature-check">✓</span> توثيق مصدر المعدن</li>
+                <li><span class="feature-check">✓</span> شهادة الأصل الإلكترونية</li>
+                <li><span class="feature-check">✓</span> فحص الجودة الأولي</li>
+                <li><span class="feature-check">✓</span> تسجيل على Blockchain</li>
+            </ul>
+        </div>
+        <div class="detail-card">
+            <div class="detail-header">
+                <div class="detail-icon collect">📦</div>
+                <div>
+                    <div class="detail-title">التجميع</div>
+                    <div class="detail-subtitle">مراكز تجميع السكراب</div>
+                </div>
+            </div>
+            <ul class="detail-features">
+                <li><span class="feature-check">✓</span> الوزن بالموازين الذكية</li>
+                <li><span class="feature-check">✓</span> الفرز والتصنيف</li>
+                <li><span class="feature-check">✓</span> التوثيق بالصور</li>
+                <li><span class="feature-check">✓</span> إصدار بطاقة RFID</li>
+            </ul>
+        </div>
+        <div class="detail-card">
+            <div class="detail-header">
+                <div class="detail-icon transport">🚚</div>
+                <div>
+                    <div class="detail-title">النقل</div>
+                    <div class="detail-subtitle">شحن بري/بحري/سكك حديدية</div>
+                </div>
+            </div>
+            <ul class="detail-features">
+                <li><span class="feature-check">✓</span> تتبع GPS مباشر</li>
+                <li><span class="feature-check">✓</span> حساسات IoT للحرارة</li>
+                <li><span class="feature-check">✓</span> نقاط تفتيش إلكترونية</li>
+                <li><span class="feature-check">✓</span> تنبيهات الوصول</li>
+            </ul>
+        </div>
+        <div class="detail-card">
+            <div class="detail-header">
+                <div class="detail-icon smelt">🔥</div>
+                <div>
+                    <div class="detail-title">الصهر</div>
+                    <div class="detail-subtitle">مصاهر معتمدة</div>
+                </div>
+            </div>
+            <ul class="detail-features">
+                <li><span class="feature-check">✓</span> تحليل التركيبة</li>
+                <li><span class="feature-check">✓</span> شهادة النقاء</li>
+                <li><span class="feature-check">✓</span> تتبع الطاقة المستهلكة</li>
+                <li><span class="feature-check">✓</span> معايير الانبعاثات</li>
+            </ul>
+        </div>
+        <div class="detail-card">
+            <div class="detail-header">
+                <div class="detail-icon manufacture">🏭</div>
+                <div>
+                    <div class="detail-title">التصنيع</div>
+                    <div class="detail-subtitle">مصانع الإنتاج</div>
+                </div>
+            </div>
+            <ul class="detail-features">
+                <li><span class="feature-check">✓</span> تكامل نظام MES</li>
+                <li><span class="feature-check">✓</span> مراقبة خط الإنتاج</li>
+                <li><span class="feature-check">✓</span> ضمان الجودة QC</li>
+                <li><span class="feature-check">✓</span> باركود المنتج النهائي</li>
+            </ul>
+        </div>
+        <div class="detail-card">
+            <div class="detail-header">
+                <div class="detail-icon distribute">📤</div>
+                <div>
+                    <div class="detail-title">التوزيع</div>
+                    <div class="detail-subtitle">التسليم للعملاء</div>
+                </div>
+            </div>
+            <ul class="detail-features">
+                <li><span class="feature-check">✓</span> فاتورة إلكترونية</li>
+                <li><span class="feature-check">✓</span> توقيع رقمي للاستلام</li>
+                <li><span class="feature-check">✓</span> شهادة المنشأ الكاملة</li>
+                <li><span class="feature-check">✓</span> تقييم الخدمة</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Blockchain -->
+    <div class="blockchain-section">
+        <div class="blockchain-header">
+            <h3>🔗 تقنية Blockchain للشفافية</h3>
+            <p>كل عملية مسجلة بشكل لا يمكن تغييره لضمان الشفافية والمصداقية</p>
+        </div>
+        <div class="blockchain-features">
+            <div class="blockchain-feature">
+                <div class="blockchain-feature-icon">🔒</div>
+                <div class="blockchain-feature-title">الأمان</div>
+                <div class="blockchain-feature-desc">تشفير عالي المستوى</div>
+            </div>
+            <div class="blockchain-feature">
+                <div class="blockchain-feature-icon">📜</div>
+                <div class="blockchain-feature-title">الشفافية</div>
+                <div class="blockchain-feature-desc">سجل عام قابل للتحقق</div>
+            </div>
+            <div class="blockchain-feature">
+                <div class="blockchain-feature-icon">⏱️</div>
+                <div class="blockchain-feature-title">التتبع الزمني</div>
+                <div class="blockchain-feature-desc">طابع زمني لكل عملية</div>
+            </div>
+            <div class="blockchain-feature">
+                <div class="blockchain-feature-icon">✅</div>
+                <div class="blockchain-feature-title">عدم التلاعب</div>
+                <div class="blockchain-feature-desc">سجلات غير قابلة للتعديل</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Smart Tools -->
+    <h2 class="section-title">🛠️ الأدوات <span>الذكية</span></h2>
+    <div class="smart-tools">
+        <div class="tool-card">
+            <div class="tool-icon">📍</div>
+            <div class="tool-name">GPS متقدم</div>
+            <div class="tool-desc">تتبع الموقع بدقة متناهية</div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-icon">🌡️</div>
+            <div class="tool-name">حساسات IoT</div>
+            <div class="tool-desc">مراقبة الظروف البيئية</div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-icon">⚖️</div>
+            <div class="tool-name">موازين ذكية</div>
+            <div class="tool-desc">وزن دقيق ومتصل</div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-icon">📱</div>
+            <div class="tool-name">RFID/QR</div>
+            <div class="tool-desc">تعريف إلكتروني فوري</div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-icon">🔬</div>
+            <div class="tool-name">أجهزة تحليل</div>
+            <div class="tool-desc">فحص التركيبة الكيميائية</div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-icon">📊</div>
+            <div class="tool-name">نظام ERP</div>
+            <div class="tool-desc">تكامل العمليات</div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-icon">🤖</div>
+            <div class="tool-name">الذكاء الاصطناعي</div>
+            <div class="tool-desc">تنبؤات وتحليلات ذكية</div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-icon">🔗</div>
+            <div class="tool-name">APIs</div>
+            <div class="tool-desc">تكامل مع أنظمة خارجية</div>
+        </div>
+    </div>
+
+    <!-- Live Tracking Demo -->
+    <div class="tracking-section">
+        <div class="tracking-header">
+            <h3 class="tracking-title">📍 التتبع المباشر - شحنة #SHP-2026-00123</h3>
+            <div class="tracking-status">متصل - تحديث كل 30 ثانية</div>
+        </div>
+        
+        <div class="tracking-map">
+            <div class="map-placeholder">
+                <span>🗺️</span>
+                خريطة التتبع التفاعلية
+            </div>
+        </div>
+
+        <div class="tracking-info">
+            <div class="tracking-info-item">
+                <div class="tracking-info-label">الموقع الحالي</div>
+                <div class="tracking-info-value">القصيم - طريق الرياض</div>
+            </div>
+            <div class="tracking-info-item">
+                <div class="tracking-info-label">السرعة</div>
+                <div class="tracking-info-value">85 كم/س</div>
+            </div>
+            <div class="tracking-info-item">
+                <div class="tracking-info-label">المسافة المتبقية</div>
+                <div class="tracking-info-value">420 كم</div>
+            </div>
+            <div class="tracking-info-item">
+                <div class="tracking-info-label">الوصول المتوقع</div>
+                <div class="tracking-info-value">اليوم 6:30 م</div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+</body>
+</html>

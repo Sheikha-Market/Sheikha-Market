@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="رسومات هندسية وفنية — منظومة وشبكة شيخة، خواص وقوانين كاملة. حلال — أشكال هندسية فقط.">
+    <title>رسومات هندسية وفنية — شيخة | Sheikha Engineering &amp; Technical</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #0d9488; --primary-dark: #0f766e; --accent: #d4af37; --bg: #f0fdfa; --card: #fff; --text: #0f172a; --muted: #64748b; --border: #e2e8f0; --radius: 12px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 1rem; }
+        .header-bar { background: linear-gradient(90deg, var(--primary-dark), var(--primary)); color: #fff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+        .header-bar a { color: #fff; text-decoration: none; font-weight: 600; }
+        .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 16px; }
+        .back { display: inline-block; margin-bottom: 20px; color: var(--primary); font-weight: 600; text-decoration: none; }
+        .back:hover { text-decoration: underline; }
+        h1 { font-size: 1.6rem; color: var(--primary-dark); margin-bottom: 8px; }
+        .sub { color: var(--muted); margin-bottom: 24px; font-size: 0.95rem; }
+        .diagram-section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+        .diagram-section h2 { font-size: 1.2rem; color: var(--primary-dark); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--primary); }
+        .diagram-wrap { overflow-x: auto; padding: 16px 0; }
+        .laws-section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; }
+        .laws-section h2 { font-size: 1.2rem; color: var(--primary-dark); margin-bottom: 12px; }
+        .laws-section table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .laws-section th, .laws-section td { border: 1px solid var(--border); padding: 8px 12px; text-align: right; }
+        .laws-section th { background: rgba(13,148,136,0.08); color: var(--primary-dark); font-weight: 700; }
+        .halal-note { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 24px; padding: 12px; background: rgba(13,148,136,0.06); border-radius: var(--radius); }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <div><a href="index.html">سوق شيخة</a> | <a href="رسومات-هندسية-وفنية.html">الرسومات الهندسية والفنية</a> | <a href="نظام-متابعة-وتنفيذ-وتحليل.html">نظام المتابعة</a></div>
+        <div><a href="index.html">← الرئيسية</a></div>
+    </div>
+    <div class="wrap">
+        <a href="index.html" class="back">← العودة إلى الرئيسية</a>
+        <h1>رسومات هندسية وفنية — منظومة وشبكة شيخة</h1>
+        <p class="sub">خواص وقوانين كاملة. جميع الرسومات حلال — أشكال هندسية وخطوط فقط (لا صور ذوات أرواح).</p>
+
+        <!-- رسم 1: معمارية النظام -->
+        <div class="diagram-section">
+            <h2>١ — معمارية النظام (هيكل المنظومة)</h2>
+            <div class="diagram-wrap">
+                <svg viewBox="0 0 520 280" width="100%" height="280" style="max-width:520px;" xmlns="http://www.w3.org/2000/svg" aria-label="معمارية النظام">
+                    <defs>
+                        <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#0d9488"/></marker>
+                    </defs>
+                    <rect x="160" y="10" width="200" height="44" rx="8" fill="#f0fdfa" stroke="#0d9488" stroke-width="2"/>
+                    <text x="260" y="36" text-anchor="middle" font-size="12" font-weight="700" fill="#0f766e">المستخدم (المتصفح)</text>
+                    <line x1="260" y1="54" x2="260" y2="78" stroke="#0d9488" stroke-width="2" marker-end="url(#arrow)"/>
+                    <rect x="160" y="78" width="200" height="50" rx="8" fill="#e0f2f1" stroke="#0d9488" stroke-width="2"/>
+                    <text x="260" y="100" text-anchor="middle" font-size="11" fill="#0f766e">واجهة الموقع (Frontend)</text>
+                    <text x="260" y="118" text-anchor="middle" font-size="9" fill="#64748b">الرئيسية • تسجيل • عرض بضائع • السوق</text>
+                    <line x1="260" y1="128" x2="260" y2="152" stroke="#0d9488" stroke-width="2" marker-end="url(#arrow)"/>
+                    <rect x="160" y="152" width="200" height="50" rx="8" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+                    <text x="260" y="174" text-anchor="middle" font-size="11" fill="#0f766e">الخادم (Backend) — Express • API</text>
+                    <text x="260" y="192" text-anchor="middle" font-size="9" fill="#64748b">traders • listings • market • prices</text>
+                    <line x1="260" y1="202" x2="260" y2="226" stroke="#0d9488" stroke-width="2" marker-end="url(#arrow)"/>
+                    <rect x="160" y="226" width="200" height="44" rx="8" fill="#99f6e4" stroke="#0d9488" stroke-width="2"/>
+                    <text x="260" y="252" text-anchor="middle" font-size="11" fill="#0f766e">التخزين — data/ (traders, listings)</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- رسم 2: تدفق الشبكة والبيانات -->
+        <div class="diagram-section">
+            <h2>٢ — تدفق الشبكة والبيانات</h2>
+            <div class="diagram-wrap">
+                <svg viewBox="0 0 480 120" width="100%" height="120" style="max-width:480px;" xmlns="http://www.w3.org/2000/svg" aria-label="تدفق الشبكة">
+                    <defs><marker id="ar2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="#0d9488"/></marker></defs>
+                    <rect x="20" y="40" width="80" height="40" rx="6" fill="#f0fdfa" stroke="#0d9488" stroke-width="1.5"/><text x="60" y="64" text-anchor="middle" font-size="10" fill="#0f766e">مستخدم</text>
+                    <line x1="100" y1="60" x2="140" y2="60" stroke="#0d9488" stroke-width="1.5" marker-end="url(#ar2)"/>
+                    <rect x="140" y="40" width="80" height="40" rx="6" fill="#e0f2f1" stroke="#0d9488" stroke-width="1.5"/><text x="180" y="64" text-anchor="middle" font-size="10" fill="#0f766e">الموقع</text>
+                    <line x1="220" y1="60" x2="260" y2="60" stroke="#0d9488" stroke-width="1.5" marker-end="url(#ar2)"/>
+                    <rect x="260" y="40" width="80" height="40" rx="6" fill="#ccfbf1" stroke="#0d9488" stroke-width="1.5"/><text x="300" y="64" text-anchor="middle" font-size="10" fill="#0f766e">API</text>
+                    <line x1="340" y1="60" x2="380" y2="60" stroke="#0d9488" stroke-width="1.5" marker-end="url(#ar2)"/>
+                    <rect x="380" y="40" width="80" height="40" rx="6" fill="#99f6e4" stroke="#0d9488" stroke-width="1.5"/><text x="420" y="64" text-anchor="middle" font-size="10" fill="#0f766e">بيانات</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- رسم 3: سلسلة التوريد -->
+        <div class="diagram-section">
+            <h2>٣ — سلسلة التوريد (من المصدر إلى الطرف النهائي)</h2>
+            <div class="diagram-wrap">
+                <svg viewBox="0 0 700 80" width="100%" height="80" style="max-width:700px;" xmlns="http://www.w3.org/2000/svg" aria-label="سلسلة التوريد">
+                    <defs><marker id="ar3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="#0d9488"/></marker></defs>
+                    <rect x="10" y="20" width="90" height="40" rx="6" fill="#f0fdfa" stroke="#0d9488"/><text x="55" y="44" text-anchor="middle" font-size="9" fill="#0f766e">مصدر</text>
+                    <line x1="100" y1="40" x2="125" y2="40" stroke="#0d9488" marker-end="url(#ar3)"/>
+                    <rect x="125" y="20" width="90" height="40" rx="6" fill="#e0f2f1" stroke="#0d9488"/><text x="170" y="44" text-anchor="middle" font-size="9" fill="#0f766e">تجميع</text>
+                    <line x1="215" y1="40" x2="240" y2="40" stroke="#0d9488" marker-end="url(#ar3)"/>
+                    <rect x="240" y="20" width="90" height="40" rx="6" fill="#ccfbf1" stroke="#0d9488"/><text x="285" y="44" text-anchor="middle" font-size="9" fill="#0f766e">نقل</text>
+                    <line x1="330" y1="40" x2="355" y2="40" stroke="#0d9488" marker-end="url(#ar3)"/>
+                    <rect x="355" y="20" width="90" height="40" rx="6" fill="#99f6e4" stroke="#0d9488"/><text x="400" y="44" text-anchor="middle" font-size="9" fill="#0f766e">مصهر</text>
+                    <line x1="445" y1="40" x2="470" y2="40" stroke="#0d9488" marker-end="url(#ar3)"/>
+                    <rect x="470" y="20" width="90" height="40" rx="6" fill="#5eead4" stroke="#0d9488"/><text x="515" y="44" text-anchor="middle" font-size="9" fill="#0f766e">تصنيع</text>
+                    <line x1="560" y1="40" x2="585" y2="40" stroke="#0d9488" marker-end="url(#ar3)"/>
+                    <rect x="585" y="20" width="90" height="40" rx="6" fill="#2dd4bf" stroke="#0d9488"/><text x="630" y="44" text-anchor="middle" font-size="9" fill="#0f766e">طرف نهائي</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- رسم 4: هيكل الموقع (سايت ماب) -->
+        <div class="diagram-section">
+            <h2>٤ — هيكل الموقع (صفحات رئيسية)</h2>
+            <div class="diagram-wrap">
+                <svg viewBox="0 0 400 180" width="100%" height="180" style="max-width:400px;" xmlns="http://www.w3.org/2000/svg" aria-label="هيكل الموقع">
+                    <rect x="140" y="5" width="120" height="36" rx="6" fill="#0f766e" stroke="#0d9488"/><text x="200" y="26" text-anchor="middle" font-size="11" fill="#fff">الرئيسية</text>
+                    <line x1="200" y1="41" x2="200" y2="58" stroke="#0d9488" stroke-width="1"/>
+                    <rect x="20" y="58" width="85" height="32" rx="4" fill="#e0f2f1" stroke="#0d9488"/><text x="62" y="77" text-anchor="middle" font-size="9" fill="#0f766e">تسجيل تاجر</text>
+                    <rect x="115" y="58" width="85" height="32" rx="4" fill="#e0f2f1" stroke="#0d9488"/><text x="157" y="77" text-anchor="middle" font-size="9" fill="#0f766e">عرض بضائع</text>
+                    <rect x="210" y="58" width="85" height="32" rx="4" fill="#e0f2f1" stroke="#0d9488"/><text x="252" y="77" text-anchor="middle" font-size="9" fill="#0f766e">لوحة التحكم</text>
+                    <rect x="305" y="58" width="85" height="32" rx="4" fill="#e0f2f1" stroke="#0d9488"/><text x="347" y="77" text-anchor="middle" font-size="9" fill="#0f766e">التكامل</text>
+                    <rect x="60" y="110" width="90" height="28" rx="4" fill="#f0fdfa" stroke="#0d9488"/><text x="105" y="127" text-anchor="middle" font-size="8" fill="#64748b">مساعد ذكي</text>
+                    <rect x="160" y="110" width="90" height="28" rx="4" fill="#f0fdfa" stroke="#0d9488"/><text x="205" y="127" text-anchor="middle" font-size="8" fill="#64748b">سلسلة التوريد</text>
+                    <rect x="260" y="110" width="90" height="28" rx="4" fill="#f0fdfa" stroke="#0d9488"/><text x="305" y="127" text-anchor="middle" font-size="8" fill="#64748b">نظام المتابعة</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- الخواص والقوانين -->
+        <div class="laws-section">
+            <h2>الخواص الأساسية (من تعريف شيخة)</h2>
+            <table>
+                <tr><th>الخاصية</th><th>الوصف</th></tr>
+                <tr><td>سوق متخصص 100%</td><td>سكراب ومعادن فقط؛ سلسلة توريد كاملة</td></tr>
+                <tr><td>B2B + B2C</td><td>نفس المنصة؛ التمييز بمرحلة التوريد ونوع العرض</td></tr>
+                <tr><td>متاجر حسب التخصص</td><td>مصدر، جامع، ناقل، مصهر، معادن، شاحنات</td></tr>
+                <tr><td>أسعار مرجعية</td><td>عالمية وسعودية؛ تنبيه أنها مرجعية</td></tr>
+                <tr><td>FBS</td><td>التخزين والشحن بواسطة شيخة — حاويات، أوزان، مواقع</td></tr>
+                <tr><td>Sheikha Partner API</td><td>ربط ERP أو أي نظام — عروض، طلبات، أسعار</td></tr>
+                <tr><td>ذكاء مخصص للسكراب</td><td>اقتراح أسعار، توصيات، لوجستيات</td></tr>
+                <tr><td>متوافق مع الشريعة</td><td>تجارة حلال؛ محتوى حلال (لا صور ذوات أرواح)</td></tr>
+            </table>
+        </div>
+        <div class="laws-section">
+            <h2>القوانين (مرجع سريع)</h2>
+            <table>
+                <tr><th>النوع</th><th>الأرقام</th><th>ملخص</th></tr>
+                <tr><td>إدارية</td><td>أ-1 إلى أ-7</td><td>وضوح الرسالة، مسار واحد، تواصل واحد، حلال، لغة، خصوصية، عدم إظهار تفاصيل تقنية</td></tr>
+                <tr><td>هندسية</td><td>ه-1 إلى ه-6</td><td>هيكل الصفحة، هيدر، تسلسل هرمي، ألوان وخط، استجابة، خادم وبيانات</td></tr>
+                <tr><td>تجارة ومنصة</td><td>ت-1 إلى ت-5</td><td>تخصص، تصنيف منتجات، مصدر أسعار، عمولة واشتراكات، منع الهندسة العكسية</td></tr>
+            </table>
+        </div>
+
+        <p class="halal-note">جميع الرسومات أعلاه حلال — أشكال هندسية وخطوط وسهام فقط (لا صور لذوات أرواح). وفق قانون أ-4.</p>
+        <p style="margin-top:16px;text-align:center;"><a href="نظام-متابعة-وتنفيذ-وتحليل.html" style="color:var(--primary);font-weight:600;">نظام متابعة وتنفيذ وتحليل الخطط ←</a></p>
+    </div>
+    <footer style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e2e8f0;text-align:center;font-size:0.9em;color:#64748b;">
+        <p><a href="index.html" style="color:#0d9488;text-decoration:none;">الرئيسية</a> · <a href="خريطة-الموقع.html" style="color:#0d9488;text-decoration:none;">خريطة الموقع</a></p>
+        <p style="margin-top:0.5rem;">أهداف الموقع: بلا ضرر ولا ضرار · حب العلامة وأمان · محافظة على البيئة والصحة والبشر.</p>
+    </footer>
+</body>
+</html>

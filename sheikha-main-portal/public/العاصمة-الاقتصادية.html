@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العاصمة الاقتصادية | رؤية شيخة العالمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37; --gold-l: #F5E6A3; --gold-d: #A8882B;
+            --bg: #030712; --bg2: #0a0e18; --bg3: #111827;
+            --card: rgba(212,175,55,.03); --border: rgba(212,175,55,.1);
+            --t1: #f4f4f5; --t2: #a1a1aa; --t3: #71717a;
+            --green: #006c35; --green-l: #10b981;
+            --radius: 16px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t1); line-height: 1.8; min-height: 100vh; }
+        ::selection { background: rgba(212,175,55,.2); color: #fff; }
+
+        .topbar { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 14px 32px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px); }
+        .topbar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .topbar-logo { font-size: 1.4rem; font-weight: 800; color: var(--gold); text-decoration: none; }
+        .topbar-back { color: var(--t2); text-decoration: none; font-size: .95rem; transition: color .3s; }
+        .topbar-back:hover { color: var(--gold); }
+
+        .hero { background: linear-gradient(135deg, #0c1a3a 0%, #030712 50%, rgba(212,175,55,.08) 100%); padding: 72px 32px; text-align: center; border-bottom: 3px solid var(--gold); position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(212,175,55,.06) 0%, transparent 70%); pointer-events: none; }
+        .hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 14px; position: relative; }
+        .hero h1 span { color: var(--gold); }
+        .hero p { font-size: 1.15rem; color: var(--t2); max-width: 720px; margin: 0 auto; position: relative; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 48px 24px; }
+        .section-title { font-size: 1.6rem; font-weight: 700; color: var(--gold); margin-bottom: 32px; text-align: center; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 12px auto 0; border-radius: 2px; }
+
+        /* ═══ VISION ═══ */
+        .vision-block { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px 36px; margin-bottom: 56px; text-align: center; }
+        .vision-block h3 { font-size: 1.4rem; color: var(--gold); margin-bottom: 16px; }
+        .vision-block p { font-size: 1.05rem; color: var(--t2); max-width: 800px; margin: 0 auto; line-height: 2; }
+
+        /* ═══ PILLARS ═══ */
+        .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 56px; }
+        .pillar { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; transition: border-color .3s, transform .3s; }
+        .pillar:hover { border-color: rgba(212,175,55,.3); transform: translateY(-2px); }
+        .pillar-icon { font-size: 2.2rem; margin-bottom: 12px; }
+        .pillar h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .pillar p { font-size: .9rem; color: var(--t2); }
+
+        /* ═══ MAP ═══ */
+        .map-section { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px 32px; margin-bottom: 56px; text-align: center; }
+        .map-section h3 { color: var(--gold); font-size: 1.3rem; margin-bottom: 20px; }
+        .regions { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 24px; }
+        .region { background: rgba(212,175,55,.04); border: 1px solid rgba(212,175,55,.08); border-radius: 12px; padding: 20px 16px; }
+        .region h4 { color: var(--gold); font-size: 1rem; margin-bottom: 6px; }
+        .region .count { font-size: 1.6rem; font-weight: 800; color: var(--green-l); }
+        .region p { font-size: .8rem; color: var(--t3); }
+
+        /* ═══ PARTNERS ═══ */
+        .partners { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 56px; }
+        .partner-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; gap: 16px; align-items: flex-start; }
+        .partner-icon { width: 48px; height: 48px; background: linear-gradient(135deg, rgba(212,175,55,.15), rgba(212,175,55,.05)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+        .partner-card h4 { font-size: 1rem; margin-bottom: 4px; }
+        .partner-card p { font-size: .85rem; color: var(--t2); }
+
+        /* ═══ TIMELINE ═══ */
+        .timeline { position: relative; margin-bottom: 56px; }
+        .timeline::before { content: ''; position: absolute; right: 50%; top: 0; bottom: 0; width: 2px; background: var(--border); transform: translateX(50%); }
+        .tl-item { display: flex; justify-content: flex-end; width: 50%; padding: 0 32px 40px 0; position: relative; }
+        .tl-item:nth-child(even) { justify-content: flex-start; margin-right: 50%; padding: 0 0 40px 32px; }
+        .tl-item::after { content: ''; position: absolute; top: 8px; width: 14px; height: 14px; background: var(--gold); border-radius: 50%; border: 3px solid var(--bg); }
+        .tl-item:nth-child(odd)::after { left: -7px; }
+        .tl-item:nth-child(even)::after { right: -7px; }
+        .tl-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; max-width: 400px; }
+        .tl-year { color: var(--gold); font-weight: 800; font-size: 1.1rem; margin-bottom: 4px; }
+        .tl-box p { font-size: .9rem; color: var(--t2); }
+
+        .footer { text-align: center; padding: 32px; color: var(--t3); font-size: .8rem; border-top: 1px solid var(--border); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .timeline::before { right: 16px; }
+            .tl-item, .tl-item:nth-child(even) { width: 100%; margin-right: 0; padding: 0 40px 32px 0; justify-content: flex-end; }
+            .tl-item::after, .tl-item:nth-child(even)::after { right: auto; left: 9px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-inner">
+        <a href="/" class="topbar-logo">شيخة</a>
+        <a href="/" class="topbar-back">← الرئيسية</a>
+    </div>
+</div>
+
+<section class="hero">
+    <h1>العاصمة <span>الاقتصادية</span></h1>
+    <p>رؤية شيخة العالمية — بناء أكبر مركز اقتصادي إسلامي رقمي للمعادن يربط 42 دولة بمنظومة تجارية موحدة على مبادئ سوق المدينة</p>
+</section>
+
+<div class="container">
+
+    <h2 class="section-title">الرؤية</h2>
+    <div class="vision-block">
+        <h3>أكبر مركز اقتصادي إسلامي رقمي في العالم</h3>
+        <p>تسعى شيخة لتكون العاصمة الاقتصادية الإسلامية الرقمية الأولى — مركز يجمع التجارة والتقنية والشريعة في منظومة واحدة. نبني اقتصاداً رقمياً قائماً على العدل والشفافية والأمانة، يُحيي مبادئ سوق المدينة المنورة الذي أسسه النبي ﷺ، ويُمكّن ملايين التجار حول العالم من التجارة الحلال.</p>
+    </div>
+
+    <h2 class="section-title">المحاور الاستراتيجية</h2>
+    <div class="pillars">
+        <div class="pillar">
+            <div class="pillar-icon">🏪</div>
+            <h3>محور التجارة</h3>
+            <p>سوق رقمي متكامل للمعادن والسكراب يربط الموردين بالمصانع والتجار — تسعير عادل وشفاف وعمليات بيع وشراء بلا وسطاء زائدين.</p>
+        </div>
+        <div class="pillar">
+            <div class="pillar-icon">⚡</div>
+            <h3>محور التقنية</h3>
+            <p>بنية تحتية رقمية متقدمة — ذكاء اصطناعي للتسعير، تتبع لحظي للشحنات، أنظمة تحقق ذكية، وواجهات برمجية مفتوحة للتكامل.</p>
+        </div>
+        <div class="pillar">
+            <div class="pillar-icon">📖</div>
+            <h3>محور الشريعة</h3>
+            <p>رقابة شرعية مستمرة على كل معاملة — هيئة فتوى رقمية، عقود ذكية متوافقة مع أحكام الشريعة، ومعايير AAOIFI المطبقة.</p>
+        </div>
+        <div class="pillar">
+            <div class="pillar-icon">🤝</div>
+            <h3>محور المجتمع</h3>
+            <p>مجتمع تجاري نابض — منتديات حوار، مختبرات ابتكار، برامج تدريب، ودعم لريادة الأعمال الإسلامية في قطاع المعادن.</p>
+        </div>
+    </div>
+
+    <h2 class="section-title">الخريطة العالمية — 42 دولة</h2>
+    <div class="map-section">
+        <h3>تغطية شيخة حول العالم</h3>
+        <p style="color: var(--t2); font-size: .95rem;">شبكة تجارية تمتد عبر 6 قارات، تربط أسواق المعادن الرئيسية بمنظومة رقمية موحدة</p>
+        <div class="regions">
+            <div class="region">
+                <h4>الشرق الأوسط</h4>
+                <div class="count">14</div>
+                <p>السعودية، الإمارات، قطر، الكويت، البحرين، عمان، العراق، الأردن، لبنان، فلسطين، اليمن، سوريا، مصر، تركيا</p>
+            </div>
+            <div class="region">
+                <h4>جنوب شرق آسيا</h4>
+                <div class="count">8</div>
+                <p>ماليزيا، إندونيسيا، باكستان، بنغلاديش، الهند، سريلانكا، تايلاند، الفلبين</p>
+            </div>
+            <div class="region">
+                <h4>أفريقيا</h4>
+                <div class="count">10</div>
+                <p>المغرب، تونس، الجزائر، ليبيا، السودان، نيجيريا، جنوب أفريقيا، كينيا، تنزانيا، غانا</p>
+            </div>
+            <div class="region">
+                <h4>أوروبا والأمريكتان</h4>
+                <div class="count">10</div>
+                <p>بريطانيا، ألمانيا، فرنسا، هولندا، بلجيكا، السويد، كندا، أمريكا، البرازيل، أستراليا</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">الشراكات الاستراتيجية</h2>
+    <div class="partners">
+        <div class="partner-card">
+            <div class="partner-icon">🏛️</div>
+            <div>
+                <h4>الجهات الحكومية</h4>
+                <p>شراكات مع وزارات التجارة والصناعة في 14 دولة عربية لتنظيم تجارة المعادن وإصدار التراخيص الرقمية.</p>
+            </div>
+        </div>
+        <div class="partner-card">
+            <div class="partner-icon">🏭</div>
+            <div>
+                <h4>القطاع الصناعي</h4>
+                <p>تكامل مباشر مع أكثر من 3,200 مصنع ومنشأة صناعية حول العالم لتوريد وشراء المعادن الخام والمعاد تدويرها.</p>
+            </div>
+        </div>
+        <div class="partner-card">
+            <div class="partner-icon">🎓</div>
+            <div>
+                <h4>المؤسسات الأكاديمية</h4>
+                <p>تعاون بحثي مع 8 جامعات رائدة في مجال الاقتصاد الإسلامي والتقنية المالية لتطوير نماذج ابتكارية.</p>
+            </div>
+        </div>
+        <div class="partner-card">
+            <div class="partner-icon">⚖️</div>
+            <div>
+                <h4>الهيئات الشرعية</h4>
+                <p>اعتماد من مجامع فقهية دولية وهيئات رقابة شرعية مستقلة لضمان الامتثال الكامل.</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">رؤية 2030</h2>
+    <div class="timeline">
+        <div class="tl-item">
+            <div class="tl-box">
+                <div class="tl-year">2025</div>
+                <p>إطلاق المنظومة الأساسية — السوق الرقمي، نظام المصادقة، مؤشر شيخة للأسعار، وأول 5,000 تاجر مسجل.</p>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-box">
+                <div class="tl-year">2026</div>
+                <p>التوسع الإقليمي — تغطية 20 دولة، إطلاق بنك شيخة المركزي، ونظام اللوجستيات الذكي.</p>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-box">
+                <div class="tl-year">2027</div>
+                <p>الانطلاق العالمي — 42 دولة، شراكات حكومية رسمية، وإطلاق تطبيق شيخة على iOS و Android.</p>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-box">
+                <div class="tl-year">2030</div>
+                <p>العاصمة الاقتصادية — أكبر منظومة إسلامية رقمية للمعادن في العالم، $10B حجم تداول سنوي، و 100,000+ تاجر نشط.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">العاصمة الاقتصادية — جميع الحقوق محفوظة © 2026 منظومة شيخة</div>
+
+<script src="/js/safe-api.js"></script>
+<script src="/js/sheikha-smart-fab.js" defer></script>
+</body>
+</html>

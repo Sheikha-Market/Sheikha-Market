@@ -1,0 +1,33 @@
+{
+  "name": "sheikha-main-portal",
+  "version": "1.0.0",
+  "description": "البوابة الرئيسية لسوق شيخه للمعادن والسكراب | Sheikha Main Portal",
+  "main": "server.js",
+  "engines": {
+    "node": "^20.0.0 || ^25.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "start:safe": "~/.nvm/versions/node/v20.20.0/bin/node server.js",
+    "ops:readiness": "node scripts/integration-readiness.js",
+    "ops:readiness:fix": "SHEIKHA_AUTOFIX=1 node scripts/integration-readiness.js",
+    "ops:auth:readiness": "node scripts/auth-readiness.js",
+    "ops:bg-guard": "node scripts/background-processes-guard.js",
+    "ops:bg-guard:loop": "node scripts/background-processes-guard.js --loop --interval=60",
+    "ops:bg-guard:pm2:start": "pm2 delete sheikha-bg-guard 2>/dev/null; pm2 start npm --name sheikha-bg-guard -- run ops:bg-guard:loop && pm2 save",
+    "ops:bg-guard:pm2:stop": "pm2 delete sheikha-bg-guard"
+  },
+  "dependencies": {
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "node-cron": "^3.0.3",
+    "uuid": "^9.0.0",
+    "ws": "^8.14.2"
+  }
+}

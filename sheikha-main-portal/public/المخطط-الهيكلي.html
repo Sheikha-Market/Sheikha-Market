@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>المخطط الهيكلي الشامل — منظومة شيخة | Sheikha System Blueprint</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#D4AF37;--dark:#050810;--card:#0a1128;--border:#1a2340;--text:#f8fafc;--muted:#94a3b8;--green:#10b981;--blue:#3b82f6;--purple:#a855f7;--cyan:#06b6d4;--orange:#f59e0b;--rose:#f43f5e;--radius:16px}
+body{font-family:'Segoe UI','Tajawal',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;padding:0}
+
+/* ═══ Header ═══ */
+.header{text-align:center;padding:50px 20px 25px;background:linear-gradient(180deg,#0a1128 0%,#0d0f25 50%,var(--dark) 100%);position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(212,175,55,.08),transparent);border-radius:50%}
+.header::after{content:'';position:absolute;bottom:-80px;left:-80px;width:250px;height:250px;background:radial-gradient(circle,rgba(59,130,246,.06),transparent);border-radius:50%}
+.header h1{font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--gold),#F5E6A3,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative}
+.header .ayah{color:var(--gold);font-size:1.05rem;margin:14px 0 6px;font-style:italic;opacity:.9}
+.header .ref{color:var(--muted);font-size:.85rem}
+.header .subtitle{color:var(--muted);font-size:.9rem;margin-top:12px;direction:ltr;letter-spacing:.5px}
+
+/* ═══ Stats ═══ */
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding:20px;max-width:1400px;margin:0 auto}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 26px;text-align:center;min-width:130px;transition:.3s}
+.stat:hover{border-color:rgba(212,175,55,.3);transform:translateY(-2px)}
+.stat .num{font-size:2.1rem;font-weight:900;color:var(--gold)}
+.stat .lbl{color:var(--muted);font-size:.78rem;margin-top:4px}
+
+/* ═══ Tabs ═══ */
+.tabs{display:flex;justify-content:center;gap:8px;padding:16px 20px;flex-wrap:wrap;max-width:1200px;margin:0 auto}
+.tab{padding:10px 22px;border-radius:30px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:.85rem;transition:.3s;font-family:inherit}
+.tab.active,.tab:hover{background:rgba(212,175,55,.12);color:var(--gold);border-color:var(--gold)}
+
+/* ═══ Search ═══ */
+.search-box{max-width:600px;margin:12px auto;padding:0 20px}
+.search-box input{width:100%;padding:14px 20px;border-radius:var(--radius);border:1px solid var(--border);background:var(--card);color:var(--text);font-size:1rem;outline:none;text-align:right;transition:.3s}
+.search-box input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(212,175,55,.1)}
+
+/* ═══ Layers ═══ */
+.layers{max-width:1400px;margin:0 auto;padding:20px}
+.layer{margin-bottom:20px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--card);transition:.3s}
+.layer:hover{border-color:rgba(255,255,255,.08)}
+.layer-header{padding:18px 22px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:background .2s}
+.layer-header:hover{background:#111b36}
+.layer-num{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.9rem;color:#050810;flex-shrink:0}
+.layer-title{flex:1}
+.layer-title h2{font-size:1.1rem;font-weight:700}
+.layer-title span{font-size:.8rem;color:var(--muted)}
+.layer-ayah{font-size:.75rem;color:var(--gold);opacity:.7;font-style:italic;margin-top:2px}
+.layer-count{background:rgba(212,175,55,.15);color:var(--gold);padding:5px 14px;border-radius:20px;font-size:.8rem;font-weight:700}
+.layer-arrow{color:var(--muted);font-size:1.2rem;transition:transform .3s}
+.layer.open .layer-arrow{transform:rotate(180deg)}
+.engines{display:none;padding:0 20px 20px;gap:14px;flex-wrap:wrap}
+.layer.open .engines{display:flex}
+.engine{background:#0d1530;border:1px solid var(--border);border-radius:14px;padding:18px;flex:1 1 300px;max-width:420px;transition:all .3s;position:relative;overflow:hidden}
+.engine:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.engine::before{content:'';position:absolute;top:0;right:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+.engine .eid{display:inline-block;padding:3px 10px;border-radius:8px;font-size:.7rem;font-weight:700;color:#050810;margin-bottom:8px}
+.engine h3{font-size:1rem;font-weight:700;margin-bottom:4px}
+.engine .en{font-size:.78rem;color:var(--blue);margin-bottom:6px}
+.engine .desc{font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:8px}
+.engine .status{display:inline-flex;align-items:center;gap:4px;font-size:.75rem;color:var(--green)}
+.engine .status::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.engine .apis{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.engine .apis span{background:rgba(59,130,246,.12);color:var(--blue);padding:3px 9px;border-radius:8px;font-size:.62rem;font-family:'Tajawal',sans-serif}
+
+/* ═══ Relations Map ═══ */
+.relations{max-width:1400px;margin:0 auto;padding:20px}
+.relations h2{color:var(--gold);font-size:1.4rem;text-align:center;margin-bottom:8px;font-weight:900}
+.relations .sub{text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:20px}
+.rel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:14px}
+.rel-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;transition:.3s}
+.rel-card:hover{border-color:rgba(212,175,55,.2)}
+.rel-card h3{font-size:.95rem;color:var(--gold);margin-bottom:10px}
+.rel-step{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rel-node{background:#0d1530;border:1px solid var(--border);padding:6px 14px;border-radius:10px;font-size:.78rem;font-weight:600}
+.rel-arrow{color:var(--gold);font-size:1rem;flex-shrink:0}
+
+/* ═══ Laws / Specs / Maturity — Reuse ═══ */
+.section-wrap{max-width:1400px;margin:0 auto;padding:20px}
+.section-title{color:var(--gold);font-size:1.4rem;text-align:center;margin:32px 0 8px;font-weight:900}
+.section-ayah{text-align:center;color:var(--gold);font-size:.88rem;font-style:italic;margin-bottom:18px;opacity:.8}
+.grid{display:grid;gap:14px}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
+.grid-5{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+
+.law-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;transition:.3s}
+.law-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.law-card .law-id{display:inline-block;background:var(--gold);color:#050810;padding:3px 12px;border-radius:8px;font-size:.7rem;font-weight:900;margin-bottom:8px}
+.law-card h3{font-size:.95rem;font-weight:700;margin-bottom:6px}
+.law-card .evidence{font-size:.78rem;color:var(--gold);font-style:italic;margin:8px 0;line-height:1.7;border-right:3px solid var(--gold);padding-right:10px}
+.law-card .code{font-family:'Tajawal',sans-serif;direction:rtl;text-align:right;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.08);padding:7px 12px;border-radius:8px;font-size:.73rem;color:var(--green);margin-top:8px}
+
+.spec-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;transition:.3s}
+.spec-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.spec-card .spec-id{display:inline-block;background:var(--blue);color:#fff;padding:3px 12px;border-radius:8px;font-size:.7rem;font-weight:900;margin-bottom:8px}
+.spec-card h3{font-size:.92rem;font-weight:700;margin-bottom:6px}
+.spec-card .conditions{font-size:.76rem;color:var(--muted);line-height:1.8;margin-top:8px}
+.spec-card .conditions li{list-style:none;padding:2px 0}
+.spec-card .conditions li::before{content:'✓ ';color:var(--green);font-weight:700}
+
+.maturity-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:.3s}
+.maturity-card:hover{transform:translateY(-3px);border-color:rgba(212,175,55,.2)}
+.maturity-card .level-num{font-size:2.2rem;font-weight:900}
+.maturity-card .level-name{font-size:1rem;font-weight:700;margin:4px 0}
+.maturity-card .level-range{font-size:.78rem;color:var(--muted)}
+
+/* ═══ Footer ═══ */
+.footer{text-align:center;padding:50px 20px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:40px}
+.footer .owner{color:var(--gold);font-weight:700;font-size:.95rem;margin-bottom:8px}
+
+/* ═══ Nav Bar ═══ */
+.nav-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(5,8,16,.95);backdrop-filter:blur(15px);display:flex;justify-content:center;gap:8px;padding:12px;border-top:1px solid rgba(212,175,55,.15);z-index:1000}
+.nav-bar a{color:var(--muted);text-decoration:none;padding:8px 16px;border-radius:10px;font-size:.8rem;transition:.3s}
+.nav-bar a:hover,.nav-bar a.active{background:rgba(212,175,55,.12);color:var(--gold)}
+
+@media(max-width:768px){
+    .header h1{font-size:1.6rem}
+    .stats{gap:8px}
+    .stat{min-width:100px;padding:12px 16px}
+    .stat .num{font-size:1.4rem}
+    .engine{flex:1 1 100%;max-width:100%}
+    .grid-3{grid-template-columns:1fr}
+    .grid-5{grid-template-columns:repeat(2,1fr)}
+    .rel-grid{grid-template-columns:1fr}
+    .tabs{gap:4px}
+    .tab{padding:8px 14px;font-size:.75rem}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>☪️ المخطط الهيكلي الشامل — منظومة شيخة</h1>
+    <div class="ayah">"وَكُلَّ شَيْءٍ أَحْصَيْنَاهُ كِتَابًا"</div>
+    <div class="ref">النبأ ٢٩</div>
+    <div class="subtitle" id="subtitle"></div>
+</div>
+
+<div class="stats" id="main-stats"></div>
+
+<div class="tabs" id="tabs"></div>
+
+<div class="search-box">
+    <input type="text" id="search" placeholder="🔍 ابحث عن محرك أو نظام أو طبقة...">
+</div>
+
+<div class="layers" id="layers"></div>
+
+<!-- Relations Map -->
+<div class="relations">
+    <h2>🔗 خريطة العلاقات والتدفقات — Relations & Data Flows</h2>
+    <div class="sub">تدفق البيانات والعلاقات بين المحركات والطبقات وفق المنهجية الشرعية</div>
+    <div class="rel-grid" id="flows"></div>
+</div>
+
+<!-- Supreme Laws -->
+<div class="section-wrap">
+    <h2 class="section-title">⚖️ القوانين العليا العشر بالكتاب والسنة</h2>
+    <div class="section-ayah">"وَمَنْ لَمْ يَحْكُمْ بِمَا أَنْزَلَ اللَّهُ فَأُولَئِكَ هُمُ الظَّالِمُونَ" — المائدة ٤٥</div>
+    <div class="grid grid-3" id="laws-grid"></div>
+</div>
+
+<!-- Domain Specs -->
+<div class="section-wrap">
+    <h2 class="section-title">📋 مواصفات المجالات — Domain Specifications</h2>
+    <div class="section-ayah">"وَكُلَّ شَيْءٍ فَصَّلْنَاهُ تَفْصِيلًا" — الإسراء ١٢</div>
+    <div class="grid grid-3" id="specs-grid"></div>
+</div>
+
+<!-- KPI & Maturity -->
+<div class="section-wrap">
+    <h2 class="section-title">📊 مؤشرات القياس والنضج — KPIs & Maturity</h2>
+    <div class="section-ayah">"وَأَحْصَى كُلَّ شَيْءٍ عَدَدًا" — الجن ٢٨</div>
+    <div class="stats" id="kpi-stats"></div>
+    <div class="grid grid-5" id="maturity-grid"></div>
+</div>
+
+<div class="footer">
+    <div class="owner">المالك: سلمان أحمد بن سلمان الراجح</div>
+    <div>منظومة وسوق شيخة — مبنية على الكتاب والسنة</div>
+    <div style="margin-top:6px;font-size:.75rem;color:var(--t3)">الملكية الفكرية: سلمان أحمد بن سلمان الراجح</div>
+    <div style="margin-top:8px;color:var(--gold);font-size:.8rem">بسم الله توكلنا على الله ولا حول ولا قوة إلا بالله</div>
+</div>
+
+<nav class="nav-bar">
+    <a href="/">🏠 الرئيسية</a>
+    <a href="/المخطط-الهيكلي.html" class="active">🏗️ الهيكل</a>
+    <a href="/خريطة-شيخة.html">🗺️ الخريطة</a>
+    <a href="/فهرس-المنظومة.html">📑 الفهرس</a>
+    <a href="/منظومة-الحكمة-والمنطق.html">🧿 الحكمة</a>
+</nav>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════════
+// بسم الله الرحمن الرحيم
+// المخطط الهيكلي الشامل — ٥٠ محرك · ١٨ طبقة · الكتاب والسنة
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const LAYERS = [
+    {
+        id:1, nameAr:'الشريعة والأساس الإيماني', nameEn:'Sharia & Faith Foundation', color:'#D4AF37',
+        ayah:'وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ — الذاريات ٥٦',
+        engines:[
+            {id:1,code:'SHR',nameAr:'محرك الشريعة الإسلامية',nameEn:'Sharia Engine',desc:'القرآن الكريم والسنة والفقه والأصول والمقاصد والمالية الإسلامية',apis:['sharia/dashboard','sharia/quran','sharia/sunnah','sharia/fiqh']},
+            {id:2,code:'BRK',nameAr:'محرك البركة',nameEn:'Barakah Engine',desc:'البركة والتزكية — ربط كل نشاط بالنية الصالحة والإتقان والتوكل',apis:['barakah/dashboard']},
+            {id:3,code:'QSE',nameAr:'محرك القرآن والسنة',nameEn:'Quran & Sunnah Engine',desc:'محرك تخصصي لآيات القرآن والأحاديث النبوية — البحث والتفسير والتخريج',apis:['quran-sunnah/dashboard','quran-sunnah/search','quran-sunnah/tafsir']},
+            {id:4,code:'HKM',nameAr:'محرك الحكمة والمنطق والبصيرة',nameEn:'Hikmah Engine',desc:'٦ أسس — ٦ طبقات منطق — ٨ قواعد فقهية — ٨ أنواع حساب — خريطة القرار الحكيم',apis:['hikmah/dashboard','hikmah/foundations','hikmah/logic-layers','hikmah/wisdom-rules','hikmah/computation-types']}
+        ]
+    },
+    {
+        id:2, nameAr:'الحوكمة والقانون', nameEn:'Governance & Law', color:'#4A90D9',
+        ayah:'إِنَّ اللَّهَ يَأْمُرُكُمْ أَنْ تُؤَدُّوا الْأَمَانَاتِ إِلَى أَهْلِهَا — النساء ٥٨',
+        engines:[
+            {id:5,code:'GOV',nameAr:'محرك الحوكمة',nameEn:'Governance Engine',desc:'الشورى والرقابة والشفافية والمساءلة وفق الكتاب والسنة',apis:['gov/dashboard']},
+            {id:6,code:'LGL',nameAr:'محرك القوانين والأنظمة',nameEn:'Legal Engine',desc:'٥٤ نظام سعودي + ٧ فروع قانون دولي + ٢٠ منظمة + ٢٩ معاهدة',apis:['legal/dashboard','legal/saudi','legal/international','legal/treaties']},
+            {id:7,code:'SEC',nameAr:'محرك الأمن والحماية',nameEn:'Security Engine',desc:'الأمن السيبراني وحماية البيانات والخصوصية والملكية الفكرية',apis:['security/status','security/config','security/logs']},
+            {id:8,code:'MSH',nameAr:'محرك المشرّع الذكي',nameEn:'Musharri Engine',desc:'الإشراف التنظيمي والامتثال — رقابة شرعية وتنظيمية',apis:['musharri/dashboard']}
+        ]
+    },
+    {
+        id:3, nameAr:'العلوم والابتكار والبحث', nameEn:'Sciences & Innovation', color:'#8E44AD',
+        ayah:'وَقُل رَّبِّ زِدْنِي عِلْمًا — طه ١١٤',
+        engines:[
+            {id:9,code:'SCI',nameAr:'محرك العلوم والابتكار والبحث',nameEn:'Sciences Engine',desc:'العلوم الطبيعية والتطبيقية والطبية والإنسانية — المختبرات والاستكشاف — ١٤ عالم إسلامي',apis:['sciences/dashboard','sciences/natural','sciences/applied','sciences/medical','sciences/human','sciences/technology','sciences/innovation','sciences/research']},
+            {id:10,code:'MED',nameAr:'محرك الطب والمعالجة',nameEn:'Medical Engine',desc:'الطب والعلاج والتداوي والدواء — الطب النبوي — التشخيص والوقاية والرعاية الصحية',apis:['medical/dashboard','medical/diagnosis','medical/prophetic']}
+        ]
+    },
+    {
+        id:4, nameAr:'الذكاء الاصطناعي', nameEn:'Artificial Intelligence', color:'#6C3483',
+        ayah:'عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ — العلق ٥',
+        engines:[
+            {id:11,code:'AIC',nameAr:'محرك الذكاء الاصطناعي والحوسبة',nameEn:'AI & Computing Engine',desc:'الذكاء الاصطناعي والتعلم الآلي والحوسبة السحابية والكمية',apis:['ai-computing/dashboard']},
+            {id:12,code:'AIA',nameAr:'محرك تطوير الذكاء الاصطناعي',nameEn:'AI Advancement Engine',desc:'تطوير نماذج AI وتدريبها ونشرها ومراقبتها',apis:['ai-advancement/dashboard']},
+            {id:13,code:'AIE',nameAr:'محرك الذكاء الاصطناعي الأساسي',nameEn:'Core AI Engine',desc:'محرك الاستدلال والتحليل الذكي المركزي',apis:['ai/dashboard']},
+            {id:14,code:'AI2',nameAr:'النواة الذكية المركزية',nameEn:'Sheikha AI Core',desc:'النواة التي تربط جميع المحركات بالذكاء الاصطناعي',apis:['ai-core/dashboard']}
+        ]
+    },
+    {
+        id:5, nameAr:'التقنية والحوسبة والأنظمة', nameEn:'Technology & Computing', color:'#2980B9',
+        ayah:'اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ — العلق ١',
+        engines:[
+            {id:15,code:'TCH',nameAr:'محرك التقنية والحاسب الشامل',nameEn:'Tech & Computing Engine',desc:'كل أنظمة التشغيل (Apple/Linux/Microsoft/Android) والأجهزة ولغات البرمجة',apis:['tech/dashboard','tech/os','tech/hardware','tech/mobile','tech/automotive','tech/software']},
+            {id:16,code:'SOS',nameAr:'نظام التشغيل شيخة',nameEn:'Sheikha (Operating System)',desc:'٩ إصدارات: حاسب، جوال، سحابة، سيارات، صناعة، IoT، ساعة، تلفزيون، واقع مكاني — ٢٠ تطبيق مدمج',apis:['sheikha-os/dashboard','sheikha-os/editions','sheikha-os/apps','sheikha-os/dev']},
+            {id:17,code:'OPS',nameAr:'محرك أنظمة التشغيل',nameEn:'Operations Systems Engine',desc:'أنظمة التشغيل لكل الأنظمة: حاسب، نقل، مصانع، فضاء، سفن، حكومات، عسكري',apis:['ops-systems/dashboard','ops-systems/types']},
+            {id:18,code:'BRW',nameAr:'متصفح شيخة',nameEn:'Sheikha Browser Engine',desc:'متصفح ذكي مبني على الخصوصية والأمان — فلترة المحتوى شرعياً',apis:['browser/dashboard']},
+            {id:19,code:'NET',nameAr:'محرك الشبكات والاتصالات',nameEn:'Networks Engine',desc:'5G/6G، ألياف ضوئية، اتصالات فضائية، إنترنت، جوال، كهرباء، طاقة',apis:['networks/dashboard']}
+        ]
+    },
+    {
+        id:6, nameAr:'الاقتصاد والمالية', nameEn:'Economy & Finance', color:'#27AE60',
+        ayah:'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة ٢٧٥',
+        engines:[
+            {id:20,code:'ECO',nameAr:'محرك الاقتصاد',nameEn:'Economics Engine',desc:'الاقتصاد الكلي والجزئي والإسلامي والرقمي والتنموي',apis:['economics/dashboard']},
+            {id:21,code:'BNK',nameAr:'بنك شيخة الإسلامي الرقمي',nameEn:'Banking & Funds Engine',desc:'البنوك الإسلامية والصناديق الاستثمارية والتمويل والصكوك',apis:['bank-fund/dashboard']},
+            {id:22,code:'PET',nameAr:'محرك البترول والطاقة',nameEn:'Petroleum & Energy Engine',desc:'النفط والغاز والطاقة المتجددة والبتروكيماويات',apis:['petroleum/dashboard']},
+            {id:23,code:'MTL',nameAr:'محرك سوق المعادن',nameEn:'Metals Market Engine',desc:'تداول المعادن الثمينة والصناعية — الذهب والفضة والنحاس',apis:['metals-market/dashboard']}
+        ]
+    },
+    {
+        id:7, nameAr:'التجارة والسوق والتسويق', nameEn:'Trade, Market & Marketing', color:'#E67E22',
+        ayah:'يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ — النساء ٢٩',
+        engines:[
+            {id:24,code:'TRD',nameAr:'محرك التجارة',nameEn:'Trade Engine',desc:'التجارة الإلكترونية والتبادل التجاري — البيع والشراء الحلال',apis:['trade/dashboard']},
+            {id:25,code:'MKT',nameAr:'محرك التسويق',nameEn:'Marketing Engine',desc:'التسويق الرقمي والتقليدي — استراتيجيات وحملات شرعية',apis:['marketing/dashboard']},
+            {id:26,code:'SEG',nameAr:'محرك تصنيف المستخدمين',nameEn:'Segments Engine',desc:'١٢ فئة مستخدم + ٦٠ نوع فرعي + ٨ منصات تواصل + ٩ مصفوفة تسويق',apis:['segments/dashboard','segments/users','segments/channels','segments/matrix']}
+        ]
+    },
+    {
+        id:8, nameAr:'الصناعة والإنتاج والتصنيع', nameEn:'Industry & Manufacturing', color:'#C0392B',
+        ayah:'وَعَلَّمْنَاهُ صَنْعَةَ لَبُوسٍ لَّكُمْ لِتُحْصِنَكُم — الأنبياء ٨٠',
+        engines:[
+            {id:27,code:'IND',nameAr:'محرك الصناعة والتصنيع',nameEn:'Industry Engine',desc:'الصناعة والتصنيع المحلي والإسلامي والعالمي والرقمي ومصانع شيخة للذكاء الاصطناعي',apis:['industry/dashboard']},
+            {id:28,code:'PRD',nameAr:'محرك الإنتاج',nameEn:'Production Engine',desc:'إدارة خطوط الإنتاج — تخطيط وجدولة ومراقبة وضمان جودة',apis:['production/dashboard']}
+        ]
+    },
+    {
+        id:9, nameAr:'سلاسل الإمداد واللوجستيات', nameEn:'Supply Chain & Logistics', color:'#16A085',
+        ayah:'وَآتُوهُم مِّن مَّالِ اللَّهِ الَّذِي آتَاكُمْ — النور ٣٣',
+        engines:[
+            {id:29,code:'SCL',nameAr:'محرك سلاسل الإمداد واللوجستيات',nameEn:'Supply Chain Engine',desc:'إدارة سلاسل الإمداد والنقل والتخزين والتوزيع والجمارك',apis:['supply-logistics/dashboard']}
+        ]
+    },
+    {
+        id:10, nameAr:'الموارد والكون والأرض', nameEn:'Resources, Earth & Cosmos', color:'#2C3E50',
+        ayah:'هُوَ الَّذِي جَعَلَ لَكُمُ الْأَرْضَ ذَلُولًا فَامْشُوا فِي مَنَاكِبِهَا — الملك ١٥',
+        engines:[
+            {id:30,code:'ERT',nameAr:'محرك موارد الأرض والجيولوجيا',nameEn:'Earth Resources Engine',desc:'إدارة الموارد الطبيعية — المعادن والمياه والزراعة والجغرافيا',apis:['earth-resources/dashboard']},
+            {id:31,code:'COS',nameAr:'محرك الكون والفضاء',nameEn:'Cosmos Engine',desc:'استكشاف الكون — الفلك والفضاء والآيات الكونية والبروج والمنازل',apis:['cosmos/dashboard']},
+            {id:32,code:'UNV',nameAr:'محرك الشمولية الكونية',nameEn:'Universal Engine',desc:'المحرك الشمولي الذي يربط جميع الأنظمة ويوحد البيانات',apis:['universal/dashboard']}
+        ]
+    },
+    {
+        id:11, nameAr:'المجتمع والتجربة والهوية', nameEn:'Community, Experience & Brand', color:'#F39C12',
+        ayah:'وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى — المائدة ٢',
+        engines:[
+            {id:33,code:'COM',nameAr:'محرك المجتمعات',nameEn:'Community Engine',desc:'١٢ نوع مجتمع مع أدوات رقمية وأهداف إسلامية واقتصادية واجتماعية',apis:['community/dashboard','community/types','community/goals','community/tools']},
+            {id:34,code:'EXP',nameAr:'محرك تجربة المستخدم والعميل',nameEn:'Experience Engine',desc:'تجربة المستخدم — واجهات ذكية وتخصيص ورحلة عميل متقنة',apis:['experience/dashboard']},
+            {id:35,code:'BRD',nameAr:'محرك الهوية والعلامة التجارية',nameEn:'Brand Engine',desc:'بناء الهوية والعلامة التجارية الفخمة — الشعار والألوان والقيم والتعريف',apis:['brand/dashboard','brand/identity','brand/guidelines']},
+            {id:51,code:'I18N',nameAr:'نظام شيخة متعدد اللغات',nameEn:'Sheikha i18n System',desc:'العربية أصل + ترجمة تلقائية لـ١٤ لغة عالمية — المحتوى يترجم للمستخدم الأعجمي والعكس — RTL/LTR تلقائي',apis:['i18n/dashboard','i18n/translate','i18n/detect']},
+            {id:52,code:'PID',nameAr:'محرك الهوية المكانية',nameEn:'Place Identity Engine',desc:'رواية هوية السوق — من سوق المدينة النبوي إلى أول سوق إسلامي رقمي — ٨ أركان نبوية مُرقمنة',apis:['place-identity/dashboard','place-identity/story','place-identity/pillars']}
+        ]
+    },
+    {
+        id:12, nameAr:'العمليات والمراقبة والأتمتة', nameEn:'Operations & Monitoring', color:'#7F8C8D',
+        ayah:'وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ — التوبة ١٠٥',
+        engines:[
+            {id:36,code:'AUT',nameAr:'محرك الأتمتة',nameEn:'Automation Engine',desc:'الأتمتة والعمليات الذكية — RPA وسير عمل آلي',apis:['automation/dashboard']},
+            {id:37,code:'MON',nameAr:'محرك المراقبة والرصد',nameEn:'Monitor Engine',desc:'المراقبة الشاملة — أداء وأمن وسلامة وصحة النظام',apis:['monitor/dashboard']},
+            {id:38,code:'DIM',nameAr:'محرك التحليل متعدد الأبعاد',nameEn:'DIM Engine',desc:'تحليل متعدد الأبعاد — ربط بيانات من مصادر متعددة',apis:['dim/dashboard']},
+            {id:39,code:'SHL',nameAr:'محرك المعالجة الذاتية',nameEn:'Self-Heal Engine',desc:'إصلاح تلقائي للأعطال — كشف المشاكل ومعالجتها قبل التأثير على المستخدم',apis:['selfheal/dashboard','selfheal/status','selfheal/logs']}
+        ]
+    },
+    {
+        id:13, nameAr:'الجودة والتميز والإتقان', nameEn:'Quality & Excellence', color:'#1ABC9C',
+        ayah:'صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ — النمل ٨٨',
+        engines:[
+            {id:40,code:'EXC',nameAr:'محرك التميز والجودة',nameEn:'Excellence Engine',desc:'إدارة الجودة والتميز — معايير ISO والتحسين المستمر',apis:['excellence/dashboard']},
+            {id:41,code:'FPH',nameAr:'محرك المراحل الأربع',nameEn:'Four Phase Engine',desc:'إدارة دورة المشاريع — تأسيس، تشغيل، تحسين، استقلال',apis:['four-phase/dashboard']}
+        ]
+    },
+    {
+        id:14, nameAr:'الملاحة والإطلاق', nameEn:'Navigation & Launch', color:'#9B59B6',
+        ayah:'وَعَلَامَاتٍ وَبِالنَّجْمِ هُمْ يَهْتَدُونَ — النحل ١٦',
+        engines:[
+            {id:42,code:'NAV',nameAr:'ملاح شيخة',nameEn:'Sheikha Navigator',desc:'نظام الملاحة الذكي — توجيه المستخدم عبر المنظومة',apis:['navigator/dashboard']},
+            {id:43,code:'PLT',nameAr:'محرك الطيّار التجريبي',nameEn:'Pilot Engine',desc:'الاختبار التجريبي — إطلاق محدود بدون مخاطر',apis:['pilot/dashboard']},
+            {id:44,code:'LCH',nameAr:'محرك مراقبة الإطلاق',nameEn:'Launch Monitor',desc:'مراقبة إطلاق الخدمات — سلامة وأداء ومتابعة',apis:['launch/dashboard']}
+        ]
+    },
+    {
+        id:15, nameAr:'التزامن والتقويم الهجري', nameEn:'Calendar & Sync', color:'#E74C3C',
+        ayah:'إِنَّ عِدَّةَ الشُّهُورِ عِندَ اللَّهِ اثْنَا عَشَرَ شَهْرًا — التوبة ٣٦',
+        engines:[
+            {id:45,code:'CAL',nameAr:'محرك التزامن والرزنامة الهجرية',nameEn:'Hijri Calendar & Sync Engine',desc:'التاريخ الهجري أساسي + تزامن مع كل التواريخ والأحداث',apis:['calendar/dashboard','calendar/hijri','calendar/events','calendar/sync']}
+        ]
+    },
+    {
+        id:16, nameAr:'البنية التحتية والتطوير', nameEn:'Infrastructure & DevOps', color:'#34495E',
+        ayah:'وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ — الأنفال ٦٠',
+        engines:[
+            {id:46,code:'DVO',nameAr:'محرك البنية التحتية والنشر',nameEn:'DevOps Engine',desc:'إدارة الخوادم والنشر المستمر — CI/CD وDocker وVPS',apis:['devops/dashboard','devops/deploy','devops/health']},
+            {id:47,code:'DSH',nameAr:'محرك لوحات التحكم',nameEn:'Dashboard Engine',desc:'لوحات تحكم ذكية — إدارية وحكومية وتجارية ومجتمعية',apis:['dashboard/dashboard','dashboard/admin','dashboard/gov']},
+            {id:48,code:'INT',nameAr:'محرك التكامل الذكي',nameEn:'Integration Engine',desc:'تكامل وتزامن بين جميع المحركات — REST/GraphQL/WebSocket',apis:['integration/dashboard','integration/sync','integration/apis']}
+        ]
+    },
+    {
+        id:17, nameAr:'التعليمات والإرشادات', nameEn:'Instructions & Guidance', color:'#E91E63',
+        ayah:'ادْعُ إِلَى سَبِيلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ — النحل ١٢٥',
+        engines:[
+            {id:49,code:'INS',nameAr:'محرك التعليمات والإرشادات',nameEn:'Instructions Engine',desc:'التعليمات والإجراءات والتوجيهات والتعريفات — رحلة الاستخدام الكاملة',apis:['instructions/dashboard','instructions/guides','instructions/definitions']}
+        ]
+    },
+    {
+        id:18, nameAr:'الفهرسة والتوثيق الشامل', nameEn:'Cataloging & Documentation', color:'#607D8B',
+        ayah:'وَكُلَّ شَيْءٍ أَحْصَيْنَاهُ فِي إِمَامٍ مُّبِينٍ — يس ١٢',
+        engines:[
+            {id:50,code:'CAT',nameAr:'فهرس المحركات الشامل',nameEn:'Master Catalog',desc:'الفهرس المركزي لجميع المنظومات والمحركات — ترقيم وتعريف وخواص ومواصفات',apis:['catalog/dashboard','catalog/engines','catalog/layers']}
+        ]
+    }
+];
+
+const FLOWS = [
+    {name:'تدفق التجارة الحلال — Halal Trade Flow', steps:['المستخدم','التصنيف (SEG)','التجارة (TRD)','الشريعة (SHR)','البنوك (BNK)','اللوجستيات (SCL)','المراقبة (MON)','الحساب (HKM)'], icon:'🕌'},
+    {name:'تدفق الابتكار والبحث — Innovation Flow', steps:['الباحث','العلوم (SCI)','المختبر','الابتكار','الملكية الفكرية (SEC)','الصناعة (IND)','السوق (TRD)'], icon:'🔬'},
+    {name:'تدفق الحوكمة والامتثال — Governance Flow', steps:['النظام','القوانين (LGL)','الشريعة (SHR)','المشرّع (MSH)','الحوكمة (GOV)','الأمن (SEC)','المراقبة (MON)','التقارير'], icon:'⚖️'},
+    {name:'تدفق المجتمع والتواصل — Community Flow', steps:['المستخدم','المجتمع (COM)','التسويق (MKT)','القنوات (SEG)','التجربة (EXP)','الهوية (BRD)','التقييم','الولاء'], icon:'🤝'},
+    {name:'تدفق الصناعة الذكية — Smart Industry Flow', steps:['المواد الخام (ERT)','الصناعة (IND)','الإنتاج (PRD)','الجودة (EXC)','اللوجستيات (SCL)','السوق (TRD)','المستهلك'], icon:'🏭'},
+    {name:'تدفق نظام شيخة — Sheikha OS Flow', steps:['النواة (Kernel)','الأمان (Amanah)','الخدمات','التطبيقات','المتجر','المستخدم','السحابة'], icon:'💻'},
+    {name:'تدفق القرار الحكيم — Wisdom Decision Flow', steps:['العلم (LL-01)','المنطق (LL-02)','البصيرة (LL-03)','الحلم (LL-04)','الحكمة (LL-05)','الإتقان','الحساب (LL-06)'], icon:'🧿'},
+    {name:'تدفق الطب والعلاج — Medical Flow', steps:['المريض','التشخيص (MED)','الطب النبوي','العلاج','المتابعة','المعالجة الذاتية (SHL)','الشفاء بإذن الله'], icon:'🏥'},
+    {name:'تدفق الإطلاق والتجريب — Launch Flow', steps:['الفكرة','المراحل (FPH)','الطيّار (PLT)','الاختبار','الإطلاق (LCH)','المراقبة (MON)','الإتقان (EXC)'], icon:'🚀'},
+    {name:'تدفق التكامل الذكي — Integration Flow', steps:['المحرك','التكامل (INT)','التزامن (CAL)','الفهرس (CAT)','لوحة التحكم (DSH)','المعالجة (SHL)','النشر (DVO)'], icon:'🔗'},
+    {name:'تدفق اللغات والترجمة — i18n Flow', steps:['المستخدم','كشف اللغة (I18N)','عربي؟ → RTL','أعجمي؟ → ترجمة','عرض المحتوى','كتابة (Forum)','ترجمة ثنائية → عربي+أعجمي'], icon:'🌍'},
+    {name:'تدفق الهوية المكانية — Place Identity Flow', steps:['سوق المدينة النبوي','٨ أركان شرعية','الرقمنة (PID)','الهوية البصرية (BRD)','التجربة (EXP)','المستخدم','العالم'], icon:'📜'}
+];
+
+// ═══════════════════════════════════════════════════════════════
+// القوانين العليا العشر
+// ═══════════════════════════════════════════════════════════════
+const SUPREME_LAWS = [
+    { id:'LAW-01', name:'قانون التوحيد والنية', quran:'قُلْ إِنَّ صَلَاتِي وَنُسُكِي وَمَحْيَايَ وَمَمَاتِي لِلَّهِ رَبِّ الْعَالَمِينَ', ref:'الأنعام ١٦٢', hadith:'إنما الأعمال بالنيات — متفق عليه', code:'✅ النية خالصة لله' },
+    { id:'LAW-02', name:'قانون الإتقان', quran:'صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ', ref:'النمل ٨٨', hadith:'إن الله يحب إذا عمل أحدكم عملاً أن يتقنه — الطبراني', code:'✅ مستوى الإتقان أعلى من ٩٥٪' },
+    { id:'LAW-03', name:'قانون لا ضرر ولا ضرار', quran:'وَلَا تُلْقُوا بِأَيْدِيكُمْ إِلَى التَّهْلُكَةِ', ref:'البقرة ١٩٥', hadith:'لا ضرر ولا ضرار — ابن ماجه', code:'✅ صفر ضرر — لا ضرر ولا ضرار' },
+    { id:'LAW-04', name:'قانون الأمانة والصدق', quran:'إِنَّ اللَّهَ يَأْمُرُكُمْ أَنْ تُؤَدُّوا الْأَمَانَاتِ إِلَى أَهْلِهَا', ref:'النساء ٥٨', hadith:'التاجر الصدوق الأمين مع النبيين — الترمذي', code:'✅ الصدق والأمانة مُوثّقة' },
+    { id:'LAW-05', name:'قانون العدل والميزان', quran:'وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ', ref:'الرحمن ٩', hadith:'أد الأمانة إلى من ائتمنك — أبو داود', code:'✅ مؤشر العدل مكتمل' },
+    { id:'LAW-06', name:'قانون حفظ الضروريات الخمس', quran:'وَلَقَدْ كَرَّمْنَا بَنِي آدَمَ', ref:'الإسراء ٧٠', hadith:'مقاصد الشريعة: حفظ الدين والنفس والعقل والنسل والمال', code:'✅ الضروريات الخمس محفوظة' },
+    { id:'LAW-07', name:'قانون الشورى والمراجعة', quran:'وَأَمْرُهُمْ شُورَى بَيْنَهُمْ', ref:'الشورى ٣٨', hadith:'وَشَاوِرْهُمْ فِي الْأَمْرِ — آل عمران ١٥٩', code:'✅ ٣ مراحل مراجعة على الأقل' },
+    { id:'LAW-08', name:'قانون التيسير ورفع الحرج', quran:'يُرِيدُ اللَّهُ بِكُمُ الْيُسْرَ وَلَا يُرِيدُ بِكُمُ الْعُسْرَ', ref:'البقرة ١٨٥', hadith:'يسّروا ولا تعسّروا — متفق عليه', code:'✅ سهولة الاستخدام أعلى من ٩٠٪' },
+    { id:'LAW-09', name:'قانون العلم والتعلم', quran:'اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ', ref:'العلق ١', hadith:'طلب العلم فريضة على كل مسلم — ابن ماجه', code:'✅ تغطية علمية كاملة ١٠٠٪' },
+    { id:'LAW-10', name:'قانون حفظ الوقت', quran:'وَالْعَصْرِ ● إِنَّ الْإِنسَانَ لَفِي خُسْرٍ', ref:'العصر ١-٢', hadith:'نعمتان مغبون فيهما: الصحة والفراغ — البخاري', code:'✅ صفر وقت ضائع — كل ثانية محسوبة' }
+];
+
+// ═══════════════════════════════════════════════════════════════
+// مواصفات المجالات
+// ═══════════════════════════════════════════════════════════════
+const DOMAIN_SPECS = [
+    { id:'SPEC-COMMERCE', name:'مواصفات التجارة', evidence:'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة ٢٧٥', conditions:['البيع عن تراضٍ','تحريم الربا والغرر والاحتكار','الكيل والميزان بالعدل','الوفاء بالعقود','حق الخيار','توثيق كل عقد'], laws:8 },
+    { id:'SPEC-DATA', name:'مواصفات البيانات', evidence:'إِن جَاءَكُمْ فَاسِقٌ بِنَبَإٍ فَتَبَيَّنُوا — الحجرات ٦', conditions:['التثبت من كل معلومة','حرمة التجسس','تشفير إلزامي','حق الحذف الكامل','لا تتبع بدون إذن'], laws:5 },
+    { id:'SPEC-SECURITY', name:'مواصفات الأمن', evidence:'وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ — الأنفال ٦٠', conditions:['TLS 1.3 + AES-256','MFA إلزامي','فحص كل 24 ساعة','نسخ احتياطي في 3 مواقع','خطة استجابة أمنية','اختبار اختراق دوري','Zero Trust'], laws:4 },
+    { id:'SPEC-QUALITY', name:'مواصفات الجودة', evidence:'صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ — النمل ٨٨', conditions:['اختبارات آلية لكل كود','اختبار مستخدمين حقيقيين','توثيق كامل','إصلاح خلال 24 ساعة','مراجعة جودة أسبوعية'], laws:4 },
+    { id:'SPEC-UX', name:'مواصفات تجربة المستخدم', evidence:'يُرِيدُ اللَّهُ بِكُمُ الْيُسْرَ — البقرة ١٨٥', conditions:['أقل من 3 نقرات','نص واضح ومقروء','دعم ذوي الإعاقة','RTL عربي أصلي','تجربة متسقة عبر الأجهزة'], laws:4 },
+    { id:'SPEC-GOVERNANCE', name:'مواصفات الحوكمة', evidence:'كلكم راعٍ وكلكم مسؤول عن رعيته — متفق عليه', conditions:['توثيق كل قرار بالسبب والأثر','سجل تدقيق غير قابل للتعديل','موافقة بشرية إلزامية','مراجعة دورية','تقرير شفافية سنوي'], laws:4 },
+    { id:'SPEC-AI', name:'مواصفات الذكاء الاصطناعي', evidence:'عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ — العلق ٥', conditions:['مراجعة بشرية لكل قرار AI','لا إصدار فتاوى بالـAI','لا تلاعب بالأسعار','فحص تحيز قبل النشر','شفافية كاملة'], laws:5 },
+    { id:'SPEC-ENVIRONMENT', name:'مواصفات البيئة', evidence:'وَلَا تُفْسِدُوا فِي الْأَرْضِ بَعْدَ إِصْلَاحِهَا — الأعراف ٥٦', conditions:['تحسين استهلاك الطاقة','خوادم طاقة نظيفة','تقليل البصمة الكربونية','إعادة استخدام الموارد'], laws:3 }
+];
+
+// ═══════════════════════════════════════════════════════════════
+// النضج
+// ═══════════════════════════════════════════════════════════════
+const MATURITY = [
+    { level:1, name:'مبتدئ', en:'Initial', range:'0–49', color:'#ef4444' },
+    { level:2, name:'متطور', en:'Developing', range:'50–69', color:'#f97316' },
+    { level:3, name:'جيد', en:'Good', range:'70–79', color:'#eab308' },
+    { level:4, name:'متقن', en:'Excellent', range:'80–89', color:'#22c55e' },
+    { level:5, name:'متقن مبدع', en:'Mastery', range:'90–100', color:'#D4AF37' }
+];
+
+// ═══════════════════════════════════════════════════════════════
+// === Render ===
+// ═══════════════════════════════════════════════════════════════
+const totalEngines = LAYERS.reduce((s,l)=>s+l.engines.length,0);
+const totalAPIs = LAYERS.reduce((s,l)=>s+l.engines.reduce((ss,e)=>ss+e.apis.length,0),0);
+const totalLayers = LAYERS.length;
+const totalConditions = DOMAIN_SPECS.reduce((s,d)=>s+d.conditions.length,0);
+
+document.getElementById('subtitle').textContent = `Sheikha Blueprint — ${totalEngines} Engines · ${totalLayers} Layers · ${SUPREME_LAWS.length} Laws · ${DOMAIN_SPECS.length} Specs · ${totalConditions} Conditions · Quran & Sunnah`;
+
+const statsData = [
+    {num:totalEngines,lbl:'محرك / Engine'},
+    {num:totalLayers,lbl:'طبقة / Layer'},
+    {num:totalAPIs,lbl:'نقطة API'},
+    {num:'50',lbl:'ملف محرك'},
+    {num:SUPREME_LAWS.length,lbl:'قانون شرعي'},
+    {num:totalConditions,lbl:'شرط وضابط'},
+    {num:DOMAIN_SPECS.length,lbl:'مجال مواصفات'},
+    {num:'9',lbl:'إصدار شيخة'},
+    {num:'100%',lbl:'التزام شرعي'}
+];
+document.getElementById('main-stats').innerHTML = statsData.map(s=>`<div class="stat"><div class="num">${s.num}</div><div class="lbl">${s.lbl}</div></div>`).join('');
+
+// Tabs
+const tabNames = ['الكل',...LAYERS.map(l=>l.nameAr)];
+const tabsEl = document.getElementById('tabs');
+tabsEl.innerHTML = tabNames.map((t,i) => `<button class="tab ${i===0?'active':''}" data-idx="${i}">${t}</button>`).join('');
+tabsEl.addEventListener('click', e => {
+    if (!e.target.classList.contains('tab')) return;
+    tabsEl.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    e.target.classList.add('active');
+    const idx = +e.target.dataset.idx;
+    renderLayers('', idx === 0 ? null : idx);
+});
+
+function renderLayers(filter='', layerIdx=null) {
+    const f = filter.toLowerCase();
+    const layersEl = document.getElementById('layers');
+    layersEl.innerHTML = LAYERS.map(layer => {
+        if (layerIdx && layer.id !== layerIdx) return '';
+        const filteredEngines = layer.engines.filter(e =>
+            !f || e.nameAr.includes(f) || e.nameEn.toLowerCase().includes(f) || e.desc.includes(f) || e.code.toLowerCase().includes(f)
+        );
+        if(f && filteredEngines.length===0) return '';
+        const isOpen = f || layerIdx ? 'open' : '';
+        return `
+        <div class="layer ${isOpen}" data-id="${layer.id}">
+            <div class="layer-header" onclick="this.parentElement.classList.toggle('open')">
+                <div class="layer-num" style="background:${layer.color}">${layer.id}</div>
+                <div class="layer-title">
+                    <h2>${layer.nameAr}</h2>
+                    <span style="font-size:.7rem;color:var(--muted)">${layer.ayah ? '' : ''}</span>
+                    <div class="layer-ayah">${layer.ayah}</div>
+                </div>
+                <div class="layer-count">${filteredEngines.length} محرك</div>
+                <div class="layer-arrow">▼</div>
+            </div>
+            <div class="engines">
+                ${filteredEngines.map(e=>`
+                <div class="engine">
+                    <div class="eid" style="background:${layer.color}">${e.code}-${String(e.id).padStart(2,'0')}</div>
+                    <h3>${e.nameAr}</h3>
+                    <div class="desc">${e.desc}</div>
+                    <div class="status">✅ نشط ومفعّل</div>
+                </div>`).join('')}
+            </div>
+        </div>`;
+    }).join('');
+}
+
+// Flows
+document.getElementById('flows').innerHTML = FLOWS.map(f=>`
+<div class="rel-card">
+    <h3>${f.icon} ${f.name}</h3>
+    <div class="rel-step">${f.steps.map((s,i)=> `<span class="rel-node">${s}</span>` + (i<f.steps.length-1 ? '<span class="rel-arrow">←</span>' : '')).join('')}</div>
+</div>`).join('');
+
+// Laws
+document.getElementById('laws-grid').innerHTML = SUPREME_LAWS.map(l => `
+<div class="law-card">
+    <div class="law-id">${l.id}</div>
+    <h3>${l.name}</h3>
+    <div class="evidence">${l.quran}<br><small style="color:var(--muted)">${l.ref}</small></div>
+    <div style="font-size:.76rem;color:var(--muted);margin:6px 0">${l.hadith}</div>
+    <div class="code">${l.code}</div>
+</div>`).join('');
+
+// Specs
+document.getElementById('specs-grid').innerHTML = DOMAIN_SPECS.map(s => `
+<div class="spec-card">
+    <div class="spec-id">${s.id}</div> <span style="font-size:.7rem;color:var(--gold)">${s.laws} قوانين</span>
+    <h3>${s.name}</h3>
+    <div style="font-size:.76rem;color:var(--gold);font-style:italic;margin:8px 0;border-right:3px solid var(--blue);padding-right:10px">${s.evidence}</div>
+    <ul class="conditions">${s.conditions.map(c => `<li>${c}</li>`).join('')}</ul>
+</div>`).join('');
+
+// KPI Stats
+const KPI_DATA = [
+    {num:SUPREME_LAWS.length,lbl:'قانون شرعي'},{num:DOMAIN_SPECS.length,lbl:'مجال مواصفات'},
+    {num:totalConditions,lbl:'شرط وضابط'},{num:'6',lbl:'مؤشر KPI'},
+    {num:MATURITY.length,lbl:'مستوى نضج'},{num:'37',lbl:'قاعدة تجارية'}
+];
+document.getElementById('kpi-stats').innerHTML = KPI_DATA.map(s=>`<div class="stat"><div class="num">${s.num}</div><div class="lbl">${s.lbl}</div></div>`).join('');
+
+// Maturity
+document.getElementById('maturity-grid').innerHTML = MATURITY.map(m => `
+<div class="maturity-card">
+    <div class="level-num" style="color:${m.color}">${m.level}</div>
+    <div class="level-name">${m.name}</div>
+    <div style="font-size:.73rem;color:var(--blue)">${m.en}</div>
+    <div class="level-range">${m.range} نقطة</div>
+</div>`).join('');
+
+// Search
+renderLayers();
+document.getElementById('search').addEventListener('input', e => {
+    renderLayers(e.target.value);
+    tabsEl.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    tabsEl.querySelector('.tab').classList.add('active');
+});
+</script>
+</body>
+</html>

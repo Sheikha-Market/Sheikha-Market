@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>الإتقان والتقدم | منظومة شيخة — SHEIKHA</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--gold:#D4AF37;--gold-light:#F5E6A3;--copper:#B87333;
+--bg:#050810;--bg2:#0a1628;--bg3:#111d35;
+--text:#f8fafc;--text2:#94a3b8;--text3:#64748b;
+--green:#22c55e;--blue:#3b82f6;--red:#ef4444;--amber:#f59e0b;--purple:#a855f7;--cyan:#06b6d4;
+--radius:16px;--shadow:0 8px 32px rgba(0,0,0,.4)
+}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+
+/* Header */
+.header{text-align:center;padding:40px 20px 30px;background:linear-gradient(180deg,var(--bg2),transparent)}
+.header h1{font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-light),var(--copper));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header .subtitle{color:var(--text2);font-size:1.1rem;margin-top:8px}
+.header .hadith{color:var(--gold);font-size:1rem;margin-top:12px;font-style:italic;opacity:.85}
+.version-badge{display:inline-block;background:var(--bg3);color:var(--gold);padding:6px 18px;border-radius:20px;font-size:.85rem;margin-top:12px;border:1px solid rgba(212,175,55,.2)}
+
+/* Loading */
+.loading{text-align:center;padding:60px;color:var(--text2)}
+.loading .spinner{width:48px;height:48px;border:3px solid var(--bg3);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Overall Score */
+.overall-card{background:linear-gradient(135deg,var(--bg2),var(--bg3));border-radius:var(--radius);padding:32px;text-align:center;border:1px solid rgba(212,175,55,.15);margin-bottom:28px;position:relative;overflow:hidden}
+.overall-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(212,175,55,.03),transparent 70%);pointer-events:none}
+.score-ring{width:180px;height:180px;margin:0 auto 20px;position:relative}
+.score-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.score-ring .bg{fill:none;stroke:var(--bg);stroke-width:10}
+.score-ring .fg{fill:none;stroke:url(#goldGrad);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1.5s ease}
+.score-ring .label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.score-ring .label .num{font-size:3rem;font-weight:900;color:var(--gold)}
+.score-ring .label .txt{font-size:.85rem;color:var(--text2)}
+.overall-level{font-size:1.6rem;font-weight:800;color:var(--gold);margin-bottom:4px}
+.overall-grade{color:var(--text2);font-size:1rem}
+
+/* Dimensions Grid */
+.dims-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:28px}
+.dim-card{background:var(--bg2);border-radius:var(--radius);padding:24px;border:1px solid rgba(255,255,255,.06);transition:transform .2s,border-color .2s;cursor:pointer}
+.dim-card:hover{transform:translateY(-3px);border-color:rgba(212,175,55,.3)}
+.dim-card .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.dim-card .top h3{font-size:1.15rem;font-weight:700}
+.dim-card .top .weight{font-size:.8rem;color:var(--text3);background:var(--bg3);padding:3px 10px;border-radius:10px}
+.dim-bar{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;margin-bottom:8px}
+.dim-bar .fill{height:100%;border-radius:4px;transition:width 1s ease}
+.dim-score{display:flex;justify-content:space-between;font-size:.85rem}
+.dim-score .val{color:var(--gold);font-weight:700}
+.dim-score .lvl{color:var(--text3)}
+
+/* Sections */
+.section{background:var(--bg2);border-radius:var(--radius);padding:28px;margin-bottom:24px;border:1px solid rgba(255,255,255,.05)}
+.section h2{font-size:1.4rem;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section h2 .icon{font-size:1.6rem}
+
+/* Itqan Levels */
+.itqan-levels{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.itqan-level{flex:1;min-width:120px;background:var(--bg3);border-radius:12px;padding:14px 10px;text-align:center;border:2px solid transparent;transition:border-color .3s}
+.itqan-level.active{border-color:var(--gold);background:rgba(212,175,55,.08)}
+.itqan-level .num{font-size:1.8rem;font-weight:900;color:var(--gold)}
+.itqan-level .name{font-size:.95rem;font-weight:700;margin-top:4px}
+.itqan-level .desc{font-size:.75rem;color:var(--text3);margin-top:2px}
+
+/* First & Best */
+.fb-list{display:grid;gap:10px}
+.fb-item{display:flex;align-items:flex-start;gap:12px;background:var(--bg3);border-radius:12px;padding:14px 16px}
+.fb-item .badge{min-width:50px;padding:4px 8px;border-radius:8px;font-size:.75rem;font-weight:700;text-align:center;color:var(--bg)}
+.fb-item .badge.first{background:var(--gold)}
+.fb-item .badge.best{background:var(--green)}
+.fb-item .badge.unique{background:var(--purple)}
+.fb-item .txt{font-size:.92rem;line-height:1.5}
+
+/* Roadmap */
+.roadmap{display:flex;gap:0;position:relative;overflow-x:auto;padding:20px 0}
+.roadmap::before{content:'';position:absolute;top:50%;left:0;right:0;height:3px;background:var(--bg3)}
+.rm-step{flex:1;min-width:140px;text-align:center;position:relative;z-index:1}
+.rm-dot{width:32px;height:32px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--bg)}
+.rm-dot.done{background:var(--green)}
+.rm-dot.active{background:var(--gold);animation:pulse 2s infinite}
+.rm-dot.pending{background:var(--bg3);color:var(--text3)}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(212,175,55,.4)}50%{box-shadow:0 0 0 10px rgba(212,175,55,0)}}
+.rm-label{font-size:.85rem;font-weight:600}
+.rm-ver{font-size:.75rem;color:var(--text3)}
+
+/* Quality Checks */
+.checks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.check-item{display:flex;align-items:center;gap:10px;background:var(--bg3);border-radius:10px;padding:10px 14px}
+.check-item .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.check-item .dot.pass{background:var(--green)}
+.check-item .dot.warning{background:var(--amber)}
+.check-item .dot.fail{background:var(--red)}
+.check-item .info{flex:1}
+.check-item .info .name{font-size:.88rem;font-weight:600}
+.check-item .info .val{font-size:.78rem;color:var(--text3)}
+
+/* Competitive */
+.comp-box{background:linear-gradient(135deg,rgba(212,175,55,.05),rgba(184,115,51,.05));border:1px solid rgba(212,175,55,.15);border-radius:12px;padding:20px;text-align:center}
+.comp-box .position{font-size:2rem;font-weight:900;color:var(--gold)}
+.comp-box .market{color:var(--text2);margin-top:4px;font-size:.9rem}
+.comp-box .competitors{color:var(--text3);font-size:.82rem;margin-top:8px}
+
+/* Principle */
+.principle{text-align:center;padding:20px;color:var(--gold);font-size:1.05rem;font-style:italic;opacity:.8;border-top:1px solid rgba(212,175,55,.1);margin-top:16px}
+
+/* Tabs */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.tab{padding:8px 18px;background:var(--bg3);border:1px solid transparent;border-radius:10px;cursor:pointer;font-size:.88rem;font-weight:600;color:var(--text2);transition:all .2s}
+.tab.active{background:rgba(212,175,55,.1);border-color:var(--gold);color:var(--gold)}
+
+/* Pilot Banner */
+.pilot-banner{background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(184,115,51,.05));border:1px solid rgba(212,175,55,.2);border-radius:12px;padding:14px 20px;text-align:center;margin-bottom:24px;font-size:.95rem;color:var(--gold)}
+.pilot-banner .mode{font-weight:700}
+
+/* Stats Row */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+.stat-box{background:var(--bg3);border-radius:12px;padding:16px;text-align:center}
+.stat-box .val{font-size:1.6rem;font-weight:800;color:var(--gold)}
+.stat-box .lbl{font-size:.78rem;color:var(--text3);margin-top:4px}
+
+@media(max-width:768px){
+.header h1{font-size:1.8rem}
+.dims-grid{grid-template-columns:1fr}
+.itqan-levels{flex-direction:column}
+.score-ring{width:140px;height:140px}
+.score-ring .label .num{font-size:2.2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>الإتقان والتقدم</h1>
+    <div class="subtitle">نظام التقدم العلمي والتجاري والتقني — منظومة شيخة</div>
+    <div class="hadith">"إن الله يحب إذا عمل أحدكم عملاً أن يتقنه"</div>
+    <div class="version-badge">SHEIKHA-DEV v1.6 — AL/ML + إتقان</div>
+</div>
+
+<div class="container" id="app">
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div>جاري تحميل بيانات الإتقان والتقدم...</div>
+    </div>
+</div>
+
+<svg width="0" height="0"><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#F5E6A3"/></linearGradient></defs></svg>
+
+<script>
+const API = '/api/excellence';
+const $ = s => document.querySelector(s);
+const app = $('#app');
+
+async function fetchJSON(url) {
+    try {
+        const r = await fetch(url);
+        return await r.json();
+    } catch(e) { return { success: false, error: e.message }; }
+}
+
+function scoreColor(s) {
+    if (s >= 90) return 'var(--green)';
+    if (s >= 75) return 'var(--gold)';
+    if (s >= 60) return 'var(--blue)';
+    if (s >= 40) return 'var(--amber)';
+    return 'var(--red)';
+}
+
+function ringHTML(score, size=180) {
+    const r = (size/2) - 10;
+    const c = 2 * Math.PI * r;
+    const offset = c - (score/100) * c;
+    return `<div class="score-ring" style="width:${size}px;height:${size}px">
+        <svg viewBox="0 0 ${size} ${size}">
+            <circle class="bg" cx="${size/2}" cy="${size/2}" r="${r}" stroke-width="10"/>
+            <circle class="fg" cx="${size/2}" cy="${size/2}" r="${r}" stroke="url(#goldGrad)" stroke-width="10" stroke-linecap="round"
+                stroke-dasharray="${c}" stroke-dashoffset="${offset}" fill="none" style="transition:stroke-dashoffset 1.5s ease"/>
+        </svg>
+        <div class="label"><div class="num">${score}</div><div class="txt">من 100</div></div>
+    </div>`;
+}
+
+function checkDotClass(status) {
+    if (['pass','good','excellent','comprehensive','acceptable'].includes(status)) return 'pass';
+    if (['warning_large','warning'].includes(status)) return 'warning';
+    return 'fail';
+}
+
+async function loadDashboard() {
+    const [dRes, pRes] = await Promise.all([
+        fetchJSON(API + '/dashboard'),
+        fetchJSON('/api/pilot/status')
+    ]);
+
+    if (!dRes.success) {
+        app.innerHTML = `<div class="section" style="text-align:center;padding:60px"><h2>⚠️ محرك الإتقان غير متوفر</h2><p style="color:var(--text2);margin-top:12px">تأكد من تشغيل الخادم</p></div>`;
+        return;
+    }
+
+    const d = dRes;
+    const pilot = pRes.success ? pRes : null;
+    const o = d.overall || {};
+    const dims = d.dimensions || {};
+    const fb = d.firstBest || {};
+    const roadmap = d.roadmap || [];
+
+    let html = '';
+
+    // Pilot Banner
+    if (pilot && pilot.mode === 'PILOT') {
+        html += `<div class="pilot-banner">🧪 <span class="mode">وضع تجريبي (PILOT)</span> — ${pilot.message?.ar || 'لا بيع ولا شراء في هذه المرحلة'}
+            ${pilot.pilot ? ` | اليوم ${pilot.pilot.elapsedDays} من ${pilot.pilot.durationDays}` : ''}</div>`;
+    }
+
+    // Overall Score
+    html += `<div class="overall-card">
+        ${ringHTML(o.score || 0)}
+        <div class="overall-level">${o.level?.name || '—'}</div>
+        <div class="overall-grade">التقدير: ${o.grade || '—'} | المستوى: ${o.level?.nameEn || '—'}</div>
+    </div>`;
+
+    // 4 Dimensions
+    const dimColors = { scientific: 'var(--blue)', commercial: 'var(--green)', technical: 'var(--cyan)', itqan: 'var(--gold)' };
+    const dimLabels = { scientific: '🔬 التقدم العلمي', commercial: '📈 التقدم التجاري', technical: '⚙️ التقدم التقني', itqan: '🏆 الإتقان' };
+
+    html += '<div class="dims-grid">';
+    for (const [key, dim] of Object.entries(dims)) {
+        const sc = dim.score || 0;
+        const lvl = dim.dashboard?.level || {};
+        html += `<div class="dim-card" onclick="showSection('${key}')">
+            <div class="top"><h3>${dimLabels[key] || key}</h3><span class="weight">${dim.weight || ''}</span></div>
+            <div class="dim-bar"><div class="fill" style="width:${sc}%;background:${dimColors[key]}"></div></div>
+            <div class="dim-score"><span class="val">${sc}/100</span><span class="lvl">${lvl.name || ''}</span></div>
+        </div>`;
+    }
+    html += '</div>';
+
+    // Roadmap
+    html += `<div class="section"><h2><span class="icon">🗺️</span> خارطة الطريق</h2><div class="roadmap">`;
+    roadmap.forEach(r => {
+        const cls = r.status === 'completed' ? 'done' : r.status === 'active' ? 'active' : 'pending';
+        html += `<div class="rm-step">
+            <div class="rm-dot ${cls}">${r.status === 'completed' ? '✓' : r.status === 'active' ? '●' : '○'}</div>
+            <div class="rm-label">${r.label}</div><div class="rm-ver">${r.version}</div>
+        </div>`;
+    });
+    html += '</div></div>';
+
+    // Itqan Levels
+    const itqanD = dims.itqan?.dashboard || {};
+    const levels = itqanD.levels || [];
+    const currentLevel = o.level?.level || 4;
+    html += `<div class="section"><h2><span class="icon">🏆</span> مستويات الإتقان</h2><div class="itqan-levels">`;
+    levels.forEach(l => {
+        html += `<div class="itqan-level ${l.level === currentLevel ? 'active' : ''}">
+            <div class="num">${l.level}</div><div class="name">${l.name}</div><div class="desc">${l.description}</div>
+        </div>`;
+    });
+    html += '</div>';
+    if (itqanD.principle) html += `<div class="principle">${itqanD.principle}</div>`;
+    html += '</div>';
+
+    // Quality Checks
+    const techD = dims.technical?.dashboard || {};
+    const quality = techD.codeQuality || {};
+    if (quality.checks) {
+        html += `<div class="section"><h2><span class="icon">⚙️</span> تقييم جودة الكود والمعمارية — ${quality.score || 0}/100 (${quality.grade || ''})</h2>`;
+        html += '<div class="checks-grid">';
+        quality.checks.forEach(c => {
+            html += `<div class="check-item">
+                <div class="dot ${checkDotClass(c.status)}"></div>
+                <div class="info"><div class="name">${c.check}</div>
+                <div class="val">${c.value !== undefined ? c.value : c.status}${c.recommendation ? ' — ' + c.recommendation : ''}</div></div>
+            </div>`;
+        });
+        html += '</div>';
+        if (quality.summary) {
+            html += `<div class="stats-row" style="margin-top:16px">
+                <div class="stat-box"><div class="val">${quality.summary.engines}</div><div class="lbl">محركات</div></div>
+                <div class="stat-box"><div class="val">${(quality.summary.serverLines/1000).toFixed(1)}K</div><div class="lbl">سطر كود</div></div>
+                <div class="stat-box"><div class="val">${quality.summary.dataFiles}</div><div class="lbl">ملف بيانات</div></div>
+                <div class="stat-box"><div class="val">${quality.summary.htmlPages}</div><div class="lbl">صفحة HTML</div></div>
+            </div>`;
+        }
+        html += '</div>';
+    }
+
+    // Architecture
+    if (techD.architecture) {
+        const arch = techD.architecture;
+        html += `<div class="section"><h2><span class="icon">🏗️</span> المعمارية التقنية</h2>`;
+        html += '<div class="checks-grid">';
+        (arch.layers || []).forEach(l => {
+            html += `<div class="check-item">
+                <div class="dot pass"></div>
+                <div class="info"><div class="name">${l.name}</div><div class="val">${l.tech}</div></div>
+            </div>`;
+        });
+        html += '</div>';
+        html += `<div style="margin-top:14px"><strong style="color:var(--gold)">الأمان:</strong> <span style="color:var(--text2)">${(arch.security||[]).join(' • ')}</span></div>`;
+        html += '</div>';
+    }
+
+    // First & Best
+    const firsts = fb.coreFirsts || [];
+    if (firsts.length) {
+        html += `<div class="section"><h2><span class="icon">🥇</span> الأول والأفضل — ${fb.counts?.total || 0} ميزة</h2>`;
+        // Competitive Position
+        const comp = fb.competitivePosition || {};
+        html += `<div class="comp-box" style="margin-bottom:16px">
+            <div class="position">${comp.position || '—'}</div>
+            <div class="market">${comp.market || ''}</div>
+            <div class="competitors">${comp.advantage || ''}</div>
+        </div>`;
+        html += '<div class="fb-list">';
+        firsts.forEach(f => {
+            const badgeCls = f.type === 'first' ? 'first' : f.type === 'best' ? 'best' : 'unique';
+            const badgeLabel = f.type === 'first' ? 'الأول' : f.type === 'best' ? 'الأفضل' : 'فريد';
+            html += `<div class="fb-item"><div class="badge ${badgeCls}">${badgeLabel}</div><div class="txt">${f.title}</div></div>`;
+        });
+        html += '</div>';
+        if (fb.principle) html += `<div class="principle">${fb.principle}</div>`;
+        html += '</div>';
+    }
+
+    // Commercial Stages
+    const commD = dims.commercial?.dashboard || {};
+    const stages = commD.stages || [];
+    if (stages.length) {
+        html += `<div class="section"><h2><span class="icon">📈</span> مراحل التقدم التجاري — ${commD.progress || 0}%</h2>`;
+        html += '<div class="roadmap">';
+        stages.forEach(s => {
+            const cls = s.status === 'completed' ? 'done' : s.status === 'active' ? 'active' : 'pending';
+            html += `<div class="rm-step">
+                <div class="rm-dot ${cls}">${s.status === 'completed' ? '✓' : s.status === 'active' ? '●' : '○'}</div>
+                <div class="rm-label">${s.label}</div><div class="rm-ver">${s.target}</div>
+            </div>`;
+        });
+        html += '</div>';
+        // Value Proposition
+        const vp = commD.valueProposition || {};
+        if (vp.primary) {
+            html += `<div style="margin-top:16px;text-align:center"><strong style="color:var(--gold)">${vp.primary}</strong></div>`;
+            html += '<div class="stats-row" style="margin-top:12px">';
+            (vp.differentiators || []).forEach(d => {
+                html += `<div class="stat-box" style="padding:10px"><div class="lbl" style="color:var(--text);font-size:.85rem">✦ ${d}</div></div>`;
+            });
+            html += '</div>';
+        }
+        if (commD.principle) html += `<div class="principle">${commD.principle}</div>`;
+        html += '</div>';
+    }
+
+    // Scientific
+    const sciD = dims.scientific?.dashboard || {};
+    html += `<div class="section"><h2><span class="icon">🔬</span> التقدم العلمي — المنهج المعتمد</h2>`;
+    const steps = sciD.methodology?.steps || [];
+    if (steps.length) {
+        html += '<div class="stats-row">';
+        steps.forEach((s,i) => {
+            html += `<div class="stat-box"><div class="val" style="font-size:1.2rem">${i+1}</div><div class="lbl">${s}</div></div>`;
+        });
+        html += '</div>';
+    }
+    html += `<div style="text-align:center;margin-top:8px;color:var(--text2)">
+        دورات مكتملة: <strong style="color:var(--gold)">${sciD.methodology?.completedCycles || 0}</strong> |
+        اكتشافات: <strong style="color:var(--gold)">${sciD.discoveries?.total || 0}</strong> |
+        مُطبّقة: <strong style="color:var(--green)">${sciD.discoveries?.applied || 0}</strong>
+    </div>`;
+    if (sciD.principle) html += `<div class="principle">${sciD.principle}</div>`;
+    html += '</div>';
+
+    // Governance
+    const gov = d.governance || {};
+    html += `<div class="section" style="text-align:center">
+        <h2><span class="icon">📜</span> الحاكمية</h2>
+        <div style="font-size:1.1rem;color:var(--gold);margin:12px 0">المرجعية العليا: ${gov.reference || 'الكتاب والسنة'}</div>
+        <div style="color:var(--text2);font-size:.92rem">${gov.rule || ''}</div>
+        <div style="margin-top:8px;color:var(--text3);font-size:.85rem">الوثيقة: ${gov.document || ''}</div>
+    </div>`;
+
+    // Footer
+    html += `<div style="text-align:center;padding:30px 0;color:var(--text3);font-size:.85rem">
+        <div>بسم الله توكلنا على الله — لا حول ولا قوة إلا بالله</div>
+        <div style="margin-top:4px">منظومة وسوق شيخة — SHEIKHA | ${new Date().toLocaleDateString('ar-SA')}</div>
+    </div>`;
+
+    app.innerHTML = html;
+}
+
+// Auto-refresh
+loadDashboard();
+setInterval(loadDashboard, 60000);
+</script>
+</body>
+</html>

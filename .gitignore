@@ -1,0 +1,15 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Temp/log/backups
+logs/
+tmp/
+*/.backup*
+*/.temp
+data/backups/

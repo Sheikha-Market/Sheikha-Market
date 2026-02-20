@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>خريطة شبكات المعادن التفاعلية | شيخة</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#050810;color:#f0f0f0;overflow:hidden}
+#map{width:100vw;height:100vh;background:#0a0f1e}
+
+/* ════════ الشريط العلوي ════════ */
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:1000;background:linear-gradient(180deg,rgba(5,8,16,.97),rgba(5,8,16,.85));backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,.15);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top-bar h1{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#D4AF37,#F5E6A3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+.top-bar .stats{display:flex;gap:16px;font-size:.8rem;color:#94a3b8}
+.top-bar .stats span{display:flex;align-items:center;gap:4px}
+.top-bar .stats b{color:#D4AF37}
+
+/* ════════ لوحة التحكم الجانبية ════════ */
+.sidebar{position:fixed;top:60px;right:0;width:340px;height:calc(100vh - 60px);background:linear-gradient(180deg,rgba(5,8,16,.97),rgba(10,15,30,.95));backdrop-filter:blur(20px);border-left:1px solid rgba(212,175,55,.1);z-index:999;overflow-y:auto;padding:16px;transition:transform .3s}
+.sidebar.hidden{transform:translateX(100%)}
+.sidebar h2{font-size:1rem;color:#D4AF37;margin:12px 0 8px;border-bottom:1px solid rgba(212,175,55,.15);padding-bottom:6px}
+.sidebar h2:first-child{margin-top:0}
+
+/* فلاتر الشبكات */
+.net-filter{display:flex;align-items:center;gap:8px;padding:8px 10px;margin:4px 0;border-radius:10px;cursor:pointer;transition:all .2s;border:1px solid transparent}
+.net-filter:hover{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.15)}
+.net-filter.active{background:rgba(212,175,55,.12);border-color:rgba(212,175,55,.25)}
+.net-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;box-shadow:0 0 8px currentColor}
+.net-label{font-size:.85rem;flex:1}
+.net-count{font-size:.75rem;color:#64748b;background:rgba(255,255,255,.05);padding:2px 8px;border-radius:8px}
+
+/* بطاقة المعلومات */
+.info-card{position:fixed;bottom:20px;left:20px;max-width:450px;background:linear-gradient(135deg,rgba(10,15,30,.97),rgba(5,8,16,.95));backdrop-filter:blur(20px);border:1px solid rgba(212,175,55,.2);border-radius:16px;padding:20px;z-index:1000;display:none;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.info-card.show{display:block;animation:slideUp .3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.info-card h3{color:#D4AF37;font-size:1.1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.info-card .meta{font-size:.8rem;color:#94a3b8;margin-bottom:6px}
+.info-card .detail{font-size:.85rem;color:#cbd5e1;line-height:1.7}
+.info-card .detail b{color:#D4AF37}
+.info-card .close-btn{position:absolute;top:10px;left:10px;background:none;border:none;color:#64748b;font-size:1.2rem;cursor:pointer}
+.info-card .close-btn:hover{color:#D4AF37}
+
+/* زر العرض والطلب */
+.sd-panel{position:fixed;top:60px;left:0;width:320px;height:calc(100vh - 60px);background:linear-gradient(180deg,rgba(5,8,16,.97),rgba(10,15,30,.95));backdrop-filter:blur(20px);border-right:1px solid rgba(212,175,55,.1);z-index:998;overflow-y:auto;padding:16px;transform:translateX(-100%);transition:transform .3s}
+.sd-panel.show{transform:translateX(0)}
+.sd-item{padding:10px 12px;margin:4px 0;border-radius:10px;border:1px solid rgba(255,255,255,.05);cursor:pointer;transition:all .2s}
+.sd-item:hover{border-color:rgba(212,175,55,.2);background:rgba(212,175,55,.05)}
+.sd-item h4{font-size:.9rem;color:#f0f0f0;margin-bottom:4px}
+.sd-item .nums{font-size:.78rem;color:#94a3b8;display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.sd-item .nums b{color:#D4AF37}
+
+/* أزرار التبديل */
+.toggle-btn{position:fixed;z-index:1001;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);color:#D4AF37;padding:8px 14px;border-radius:10px;cursor:pointer;font-family:'Tajawal';font-size:.8rem;backdrop-filter:blur(10px);transition:all .2s}
+.toggle-btn:hover{background:rgba(212,175,55,.25)}
+#toggleSidebar{top:70px;right:10px}
+#toggleSD{top:70px;left:10px}
+
+/* ════════ تخصيص Leaflet ════════ */
+.leaflet-container{background:#0a0f1e!important}
+.leaflet-popup-content-wrapper{background:rgba(10,15,30,.95)!important;color:#f0f0f0!important;border:1px solid rgba(212,175,55,.2)!important;border-radius:12px!important;backdrop-filter:blur(20px)}
+.leaflet-popup-tip{background:rgba(10,15,30,.95)!important}
+.leaflet-popup-content{font-family:'Tajawal'!important;font-size:.85rem!important;line-height:1.6!important;direction:rtl!important}
+.leaflet-control-zoom a{background:rgba(10,15,30,.9)!important;color:#D4AF37!important;border-color:rgba(212,175,55,.2)!important}
+.custom-marker{border-radius:50%;border:2px solid rgba(255,255,255,.3);box-shadow:0 0 12px currentColor;cursor:pointer;transition:transform .2s}
+.custom-marker:hover{transform:scale(1.3)}
+
+/* ════════ آية ════════ */
+.quran-bar{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(5,8,16,.9);border-top:1px solid rgba(212,175,55,.1);padding:8px 20px;text-align:center;font-size:.8rem;color:rgba(212,175,55,.6)}
+</style>
+</head>
+<body>
+
+<!-- الشريط العلوي -->
+<div class="top-bar">
+    <h1>خريطة شبكات المعادن | شيخة</h1>
+    <div class="stats">
+        <span>الشبكات: <b id="statNets">—</b></span>
+        <span>النقاط: <b id="statNodes">—</b></span>
+        <span>المعادن: <b id="statMetals">—</b></span>
+    </div>
+</div>
+
+<!-- أزرار التبديل -->
+<button class="toggle-btn" id="toggleSidebar">الشبكات</button>
+<button class="toggle-btn" id="toggleSD">العرض والطلب</button>
+
+<!-- الشريط الجانبي — الشبكات -->
+<div class="sidebar" id="sidebar">
+    <h2>الشبكات</h2>
+    <div id="networkFilters"></div>
+    <h2>بحث</h2>
+    <input type="text" id="searchBox" placeholder="ابحث: سابك، معادن، دبي..." style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(212,175,55,.2);background:rgba(255,255,255,.05);color:#f0f0f0;font-family:'Tajawal';font-size:.85rem;outline:none">
+    <div id="searchResults" style="margin-top:8px"></div>
+</div>
+
+<!-- لوحة العرض والطلب -->
+<div class="sd-panel" id="sdPanel">
+    <h2 style="color:#D4AF37;margin:0 0 12px;border-bottom:1px solid rgba(212,175,55,.15);padding-bottom:8px">العرض والطلب</h2>
+    <div id="sdList"></div>
+</div>
+
+<!-- بطاقة المعلومات -->
+<div class="info-card" id="infoCard">
+    <button class="close-btn" onclick="document.getElementById('infoCard').classList.remove('show')">&times;</button>
+    <h3 id="infoTitle"></h3>
+    <div class="meta" id="infoMeta"></div>
+    <div class="detail" id="infoDetail"></div>
+</div>
+
+<!-- الخريطة -->
+<div id="map"></div>
+
+<!-- آية -->
+<div class="quran-bar">"وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا" — الحجرات ١٣ | الشبكات التجارية = تعارف الشعوب</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ═══════════════ تهيئة الخريطة ═══════════════
+const map = L.map('map', { zoomControl: true, attributionControl: false }).setView([25, 45], 4);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    maxZoom: 18, subdomains: 'abcd'
+}).addTo(map);
+
+// تخصيص Zoom
+map.zoomControl.setPosition('bottomright');
+
+let allLayers = {};
+let allNodesData = [];
+let activeNetworks = new Set();
+
+// ═══════════════ تحميل البيانات ═══════════════
+async function loadData() {
+    try {
+        const [dashRes, mapRes, sdRes] = await Promise.all([
+            fetch('/api/networks/dashboard').then(r => r.json()),
+            fetch('/api/networks/map').then(r => r.json()),
+            fetch('/api/networks/supply-demand').then(r => r.json())
+        ]);
+
+        // إحصائيات
+        document.getElementById('statNets').textContent = dashRes.networks;
+        document.getElementById('statNodes').textContent = dashRes.totalNodes;
+        document.getElementById('statMetals').textContent = dashRes.metals;
+
+        // فلاتر الشبكات
+        const filtersEl = document.getElementById('networkFilters');
+        dashRes.networkList.forEach(net => {
+            activeNetworks.add(net.id);
+            const div = document.createElement('div');
+            div.className = 'net-filter active';
+            div.dataset.id = net.id;
+            div.innerHTML = `<div class="net-dot" style="background:${net.color};color:${net.color}"></div><span class="net-label">${net.name}</span><span class="net-count">${net.nodes}</span>`;
+            div.onclick = () => toggleNetwork(net.id, div);
+            filtersEl.appendChild(div);
+        });
+
+        // رسم النقاط على الخريطة
+        allNodesData = mapRes.nodes;
+        renderNodes(allNodesData);
+
+        // العرض والطلب
+        const sdList = document.getElementById('sdList');
+        const sdData = sdRes['\u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a'] || sdRes.البيانات;
+        if (sdData) {
+            Object.entries(sdData).forEach(([key, val]) => {
+                const div = document.createElement('div');
+                div.className = 'sd-item';
+                const g = val.global || {};
+                div.innerHTML = `
+                    <h4>${val.nameAr || key} ${val.symbol ? '(' + val.symbol + ')' : ''}</h4>
+                    <div class="nums">
+                        <span>إنتاج: <b>${g.production || g.oreProduction || g.ironScrap || '—'}</b></span>
+                        <span>طلب: <b>${g.demand || '—'}</b></span>
+                        <span>سعر: <b>${val.price2025 || '—'}</b></span>
+                        <span>${g.deficit ? 'عجز: <b style="color:#ef4444">' + g.deficit + '</b>' : g.surplus ? 'فائض: <b style="color:#22c55e">' + g.surplus + '</b>' : ''}</span>
+                    </div>
+                `;
+                div.onclick = () => showSDDetail(key, val);
+                sdList.appendChild(div);
+            });
+        }
+
+    } catch(e) {
+        console.error('خطأ في تحميل البيانات:', e);
+    }
+}
+
+// ═══════════════ رسم النقاط ═══════════════
+function renderNodes(nodes) {
+    // مسح القديم
+    Object.values(allLayers).forEach(lg => lg.forEach(l => map.removeLayer(l)));
+    allLayers = {};
+
+    nodes.forEach(node => {
+        if (!node.lat || !node.lng) return;
+        if (!activeNetworks.has(node.networkId)) return;
+
+        const size = node.networkType === 'mining' ? 12 : node.networkType === 'smelting' ? 14 : node.networkType === 'market' ? 16 : 10;
+
+        const icon = L.divIcon({
+            className: 'custom-marker',
+            html: `<div style="width:${size}px;height:${size}px;background:${node.networkColor};border-radius:50%;box-shadow:0 0 ${size}px ${node.networkColor}"></div>`,
+            iconSize: [size, size]
+        });
+
+        const marker = L.marker([node.lat, node.lng], { icon }).addTo(map);
+
+        marker.on('click', () => showNodeInfo(node));
+
+        // تلميح
+        marker.bindTooltip(node.name, {
+            direction: 'top', offset: [0, -8],
+            className: 'leaflet-tooltip',
+            opacity: .9
+        });
+
+        if (!allLayers[node.networkId]) allLayers[node.networkId] = [];
+        allLayers[node.networkId].push(marker);
+    });
+}
+
+// ═══════════════ إظهار معلومات نقطة ═══════════════
+function showNodeInfo(node) {
+    const card = document.getElementById('infoCard');
+    document.getElementById('infoTitle').innerHTML = `<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${node.networkColor};margin-left:6px"></span> ${node.name}`;
+    document.getElementById('infoMeta').textContent = `${node.networkName} | ${node.country || ''} — ${node.city || ''}`;
+
+    let detail = '';
+    if (node.operator) detail += `<b>المشغّل:</b> ${node.operator}<br>`;
+    if (node.production) detail += `<b>الإنتاج:</b> ${node.production}<br>`;
+    if (node.capacity) detail += `<b>القدرة:</b> ${node.capacity}<br>`;
+    if (node.reserves) detail += `<b>الاحتياطي:</b> ${node.reserves}<br>`;
+    if (node.products) detail += `<b>المنتجات:</b> ${node.products}<br>`;
+    if (node.volume) detail += `<b>الحجم:</b> ${node.volume}<br>`;
+    if (node.metals) detail += `<b>المعادن:</b> ${node.metals}<br>`;
+    if (node.metalsTrade) detail += `<b>التجارة:</b> ${node.metalsTrade}<br>`;
+    if (node.scrap) detail += `<b>السكراب:</b> ${node.scrap}<br>`;
+    if (node.type) detail += `<b>النوع:</b> ${node.type}<br>`;
+    if (node.history) detail += `<b>التاريخ:</b> ${node.history}<br>`;
+    if (node.note) detail += `<b>ملاحظة:</b> ${node.note}<br>`;
+    if (node.ref) detail += `<b>المرجع:</b> ${node.ref}<br>`;
+    if (node.era) detail += `<b>العصر:</b> ${node.era}<br>`;
+    if (node.website) detail += `<b>الموقع:</b> <a href="https://${node.website}" target="_blank" style="color:#D4AF37">${node.website}</a><br>`;
+    if (node.status) detail += `<b>الحالة:</b> <span style="color:${node.status === 'نشط' ? '#22c55e' : '#eab308'}">${node.status}</span><br>`;
+
+    document.getElementById('infoDetail').innerHTML = detail || 'لا توجد تفاصيل إضافية';
+    card.classList.add('show');
+}
+
+// ═══════════════ تبديل الشبكات ═══════════════
+function toggleNetwork(id, el) {
+    if (activeNetworks.has(id)) {
+        activeNetworks.delete(id);
+        el.classList.remove('active');
+    } else {
+        activeNetworks.add(id);
+        el.classList.add('active');
+    }
+    renderNodes(allNodesData);
+}
+
+// ═══════════════ العرض والطلب — تفاصيل ═══════════════
+function showSDDetail(key, val) {
+    const card = document.getElementById('infoCard');
+    document.getElementById('infoTitle').textContent = `${val.nameAr || key} — العرض والطلب`;
+    document.getElementById('infoMeta').textContent = val.price2025 || '';
+
+    let d = '';
+    if (val.global) {
+        d += '<b style="color:#60a5fa">عالمياً:</b><br>';
+        Object.entries(val.global).forEach(([k, v]) => { d += `  ${k}: <b>${v}</b><br>`; });
+    }
+    if (val.saudi) {
+        d += '<br><b style="color:#22c55e">السعودية:</b><br>';
+        Object.entries(val.saudi).forEach(([k, v]) => { if (typeof v !== 'object') d += `  ${k}: <b>${v}</b><br>`; });
+    }
+    if (val.arabPeninsula) {
+        d += '<br><b style="color:#eab308">جزيرة العرب:</b><br>';
+        Object.entries(val.arabPeninsula).forEach(([k, v]) => { if (typeof v !== 'object') d += `  ${k}: <b>${v}</b><br>`; });
+    }
+    if (val.islamicWorld) {
+        d += '<br><b style="color:#a78bfa">العالم الإسلامي:</b><br>';
+        Object.entries(val.islamicWorld).forEach(([k, v]) => { d += `  ${k}: <b>${v}</b><br>`; });
+    }
+    if (val.historicalProduction) {
+        d += '<br><b style="color:#D4AF37">الإنتاج التاريخي:</b><br>';
+        val.historicalProduction.forEach(h => { d += `  ${h.era}: <b>${h.annual || h.note || ''}</b><br>`; });
+    }
+
+    document.getElementById('infoDetail').innerHTML = d;
+    card.classList.add('show');
+}
+
+// ═══════════════ بحث ═══════════════
+document.getElementById('searchBox').addEventListener('input', async function() {
+    const q = this.value.trim();
+    const el = document.getElementById('searchResults');
+    if (q.length < 2) { el.innerHTML = ''; return; }
+
+    try {
+        const res = await fetch(`/api/networks/search?q=${encodeURIComponent(q)}`).then(r => r.json());
+        if (res.results && res.results.length > 0) {
+            el.innerHTML = res.results.slice(0, 8).map(r =>
+                `<div style="padding:6px 10px;margin:3px 0;border-radius:8px;cursor:pointer;font-size:.82rem;border:1px solid rgba(255,255,255,.05);transition:all .2s" onmouseover="this.style.borderColor='rgba(212,175,55,.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,.05)'" onclick='flyToNode(${r.lat},${r.lng},"${r.name}")'>${r.name} <span style="color:#64748b">— ${r.country || ''}</span></div>`
+            ).join('');
+        } else {
+            el.innerHTML = '<div style="color:#64748b;font-size:.8rem;padding:8px">لا نتائج</div>';
+        }
+    } catch(e) { el.innerHTML = ''; }
+});
+
+function flyToNode(lat, lng, name) {
+    if (lat && lng) {
+        map.flyTo([lat, lng], 8, { duration: 1.5 });
+        // ابحث عن النقطة وأظهر معلوماتها
+        const node = allNodesData.find(n => n.lat === lat && n.lng === lng);
+        if (node) setTimeout(() => showNodeInfo(node), 600);
+    }
+}
+
+// ═══════════════ أزرار التبديل ═══════════════
+document.getElementById('toggleSidebar').onclick = () => {
+    document.getElementById('sidebar').classList.toggle('hidden');
+};
+document.getElementById('toggleSD').onclick = () => {
+    document.getElementById('sdPanel').classList.toggle('show');
+};
+
+// ═══════════════ تحميل ═══════════════
+loadData();
+</script>
+</body>
+</html>

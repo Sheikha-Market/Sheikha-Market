@@ -1,0 +1,64 @@
+{
+  "project": "SHEIKHA — منظومة وسوق شيخة",
+  "owner": "سلمان أحمد بن سلمان الراجح",
+  "lastUpdated": "2026-02-08T23:00:00Z",
+  "lastUpdatedBy": "Cursor IDE",
+  "version": "1.0.0",
+  "domain": "sheikha.top",
+
+  "servers": {
+    "mainPortal": { "port": 8080, "status": "running", "apis": 200, "pages": 106 },
+    "universalMarketplace": { "port": 23000, "status": "running", "apis": 13, "pages": 1 },
+    "smartMarket": { "port": null, "status": "initial", "apis": 0, "pages": 1 }
+  },
+
+  "security": {
+    "score": "9/9",
+    "layers": ["helmet", "rate-limit", "compression", "cors", "input-sanitization", "error-handling", "security-logging", "memory-health", "jwt-auth"]
+  },
+
+  "dashboards": {
+    "admin": { "sections": 40, "status": "complete" },
+    "user": { "sections": 32, "status": "complete" },
+    "company": { "sections": 25, "status": "complete" }
+  },
+
+  "completed": [
+    { "id": 1, "task": "تفعيل الأمان الكامل 9 طبقات", "date": "2026-02-08", "env": "Cursor" },
+    { "id": 2, "task": "إصلاح Node.js → v20 LTS", "date": "2026-02-08", "env": "Cursor" },
+    { "id": 3, "task": "إضافة /api/project/identity", "date": "2026-02-08", "env": "Cursor" },
+    { "id": 4, "task": "إصلاح فحص الذاكرة الذكي", "date": "2026-02-08", "env": "Cursor" },
+    { "id": 5, "task": "إنشاء ملفات التكامل بين البيئات", "date": "2026-02-08", "env": "Cursor" },
+    { "id": 6, "task": "بروتوكول التكامل السيادي", "date": "2026-02-08", "env": "Cursor+Claude" },
+    { "id": 7, "task": "المراجعة الهيكلية الشاملة", "date": "2026-02-08", "env": "Claude+Cursor" },
+    { "id": 8, "task": "تحليل الفجوات 6 فجوات", "date": "2026-02-08", "env": "Claude+Cursor" },
+    { "id": 9, "task": "إنشاء صفحة التسجيل الحكومي", "date": "2026-02-08", "env": "Cursor" },
+    { "id": 10, "task": "إنشاء سجل العمل المركزي", "date": "2026-02-08", "env": "Cursor" },
+    { "id": 11, "task": "إنشاء SHEIKHA-STATUS.json", "date": "2026-02-08", "env": "Cursor" },
+    { "id": 12, "task": "إضافة API /api/project/status", "date": "2026-02-08", "env": "Cursor" },
+    { "id": 13, "task": "إضافة API /api/government/register", "date": "2026-02-08", "env": "Cursor" },
+    { "id": 14, "task": "إصلاح الأقسام المفقودة في لوحات التحكم", "date": "2026-02-08", "env": "Cursor" }
+  ],
+
+  "inProgress": [
+    { "id": 15, "task": "تحديث التسجيل الحكومي — قطاع عام + جامعات + شبه حكومي", "env": "Cursor" }
+  ],
+
+  "planned": [
+    { "id": 16, "task": "نظام إشعارات مركزي Event Bus", "phase": "أسبوع 1-2" },
+    { "id": 17, "task": "ربط الخادمين بـ API Gateway", "phase": "أسبوع 1-2" },
+    { "id": 18, "task": "تفعيل CRM endpoints كاملة", "phase": "أسبوع 1-2" },
+    { "id": 19, "task": "MongoDB Migration", "phase": "شهر 1-3" },
+    { "id": 20, "task": "CI/CD Pipeline", "phase": "شهر 1-3" },
+    { "id": 21, "task": "تكامل أنظمة حكومية (فسح/اعتماد/بلدي/نافذ)", "phase": "3-6 أشهر" }
+  ],
+
+  "sharia": {
+    "noRiba": true,
+    "noGharar": true,
+    "noGhish": true,
+    "noIhtikar": true,
+    "mutualConsent": true,
+    "zakatEnabled": true
+  }
+}

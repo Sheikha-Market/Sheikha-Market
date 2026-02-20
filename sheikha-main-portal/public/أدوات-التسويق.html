@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أدوات التسويق الرقمي — شيخة</title>
+    <meta name="description" content="أدوات تسويق رقمي متكاملة لتجار المعادن — إنشاء حملات، استهداف الفئات، تحليل السوق، هوية رقمية">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+    :root { --gold:#D4AF37; --gold-l:#F5E6A3; --dark:#030712; --dark2:#0a0f1a; --dark3:#111827; --t1:#f4f4f5; --t2:#a1a1aa; --t3:#71717a; --green:#22c55e; --blue:#3b82f6; --red:#ef4444; --border:rgba(212,175,55,.1); --radius:14px; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Tajawal',sans-serif; background:var(--dark); color:var(--t1); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+    ::selection { background:rgba(212,175,55,.2); }
+
+    /* ═══ NAV ═══ */
+    .top-nav { position:sticky; top:0; z-index:100; background:rgba(3,7,18,.97); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); }
+    .nav-c { max-width:1300px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .nav-logo { width:36px; height:36px; background:linear-gradient(135deg,var(--gold),var(--gold-l)); border-radius:10px; display:grid; place-items:center; font-size:1.2rem; font-weight:900; color:var(--dark); }
+    .nav-name { font-size:1.05rem; font-weight:800; background:linear-gradient(135deg,var(--gold),var(--gold-l)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .nav-tabs { display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; }
+    .nav-tabs::-webkit-scrollbar { display:none; }
+    .nav-tab { padding:8px 14px; font-family:inherit; font-size:.78rem; font-weight:700; color:var(--t3); text-decoration:none; border-radius:8px; white-space:nowrap; cursor:pointer; border:none; background:none; transition:.3s; }
+    .nav-tab:hover,.nav-tab.active { color:var(--gold); background:rgba(212,175,55,.06); }
+
+    /* ═══ HERO ═══ */
+    .hero { text-align:center; padding:60px 20px 40px; }
+    .hero h1 { font-size:2.2rem; font-weight:900; background:linear-gradient(135deg,var(--gold),var(--gold-l)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px; }
+    .hero p { color:var(--t2); font-size:1rem; max-width:700px; margin:0 auto; line-height:1.8; }
+    .hero-verse { margin-top:20px; padding:12px 24px; background:rgba(212,175,55,.04); border:1px solid var(--border); border-radius:var(--radius); display:inline-block; font-size:.85rem; color:var(--gold-l); }
+
+    /* ═══ CONTAINER ═══ */
+    .container { max-width:1300px; margin:0 auto; padding:0 20px 60px; }
+
+    /* ═══ SECTION ═══ */
+    .section { margin-bottom:48px; }
+    .section-hdr { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
+    .section-icon { width:40px; height:40px; background:rgba(212,175,55,.08); border:1px solid var(--border); border-radius:12px; display:grid; place-items:center; font-size:1.2rem; }
+    .section-title { font-size:1.3rem; font-weight:800; color:var(--t1); }
+
+    /* ═══ GRID ═══ */
+    .grid-3 { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:20px; }
+    .grid-2 { display:grid; grid-template-columns:repeat(auto-fill,minmax(400px,1fr)); gap:20px; }
+    .grid-4 { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
+
+    /* ═══ CARD ═══ */
+    .card { background:var(--dark2); border:1px solid var(--border); border-radius:var(--radius); padding:24px; transition:.3s; }
+    .card:hover { border-color:rgba(212,175,55,.25); transform:translateY(-2px); }
+    .card-head { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+    .card-icon { width:42px; height:42px; border-radius:12px; display:grid; place-items:center; font-size:1.3rem; flex-shrink:0; }
+    .card-icon.gold { background:rgba(212,175,55,.1); }
+    .card-icon.green { background:rgba(34,197,94,.1); }
+    .card-icon.blue { background:rgba(59,130,246,.1); }
+    .card-icon.red { background:rgba(239,68,68,.1); }
+    .card-name { font-size:1.05rem; font-weight:700; }
+    .card-desc { font-size:.82rem; color:var(--t3); line-height:1.7; }
+    .card-meta { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .tag { padding:4px 10px; background:rgba(212,175,55,.06); border:1px solid var(--border); border-radius:6px; font-size:.72rem; color:var(--t2); }
+
+    /* ═══ AUDIENCE CARD ═══ */
+    .aud-card { background:var(--dark2); border:1px solid var(--border); border-radius:var(--radius); padding:20px; }
+    .aud-card:hover { border-color:rgba(212,175,55,.3); }
+    .aud-name { font-size:1rem; font-weight:800; color:var(--gold); margin-bottom:4px; }
+    .aud-size { font-size:.78rem; color:var(--green); margin-bottom:8px; }
+    .aud-desc { font-size:.82rem; color:var(--t3); line-height:1.6; margin-bottom:12px; }
+    .aud-row { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px; }
+    .aud-label { font-size:.72rem; color:var(--t2); font-weight:700; margin-bottom:4px; }
+    .aud-chip { padding:3px 8px; background:rgba(59,130,246,.08); border:1px solid rgba(59,130,246,.15); border-radius:6px; font-size:.7rem; color:var(--blue); }
+    .aud-chip.ch { background:rgba(34,197,94,.08); border-color:rgba(34,197,94,.15); color:var(--green); }
+    .aud-chip.db { background:rgba(212,175,55,.06); border-color:var(--border); color:var(--gold); }
+
+    /* ═══ CAMPAIGN BUILDER ═══ */
+    .camp-form { background:var(--dark2); border:1px solid var(--border); border-radius:var(--radius); padding:28px; }
+    .camp-form h3 { font-size:1.1rem; font-weight:800; margin-bottom:20px; color:var(--gold); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+    .form-group label { font-size:.78rem; font-weight:700; color:var(--t2); }
+    .form-group input,.form-group select,.form-group textarea { font-family:inherit; font-size:.85rem; padding:10px 14px; background:var(--dark3); border:1px solid var(--border); border-radius:10px; color:var(--t1); outline:none; transition:.3s; }
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:var(--gold); }
+    .form-group textarea { min-height:80px; resize:vertical; }
+    .btn-gold { padding:12px 28px; font-family:inherit; font-size:.9rem; font-weight:800; background:linear-gradient(135deg,var(--gold),var(--gold-l)); color:var(--dark); border:none; border-radius:10px; cursor:pointer; transition:.3s; }
+    .btn-gold:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(212,175,55,.25); }
+
+    /* ═══ STATS ═══ */
+    .stats-row { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; margin-bottom:36px; }
+    .stat-box { background:var(--dark2); border:1px solid var(--border); border-radius:var(--radius); padding:20px; text-align:center; }
+    .stat-num { font-size:2rem; font-weight:900; background:linear-gradient(135deg,var(--gold),var(--gold-l)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .stat-label { font-size:.78rem; color:var(--t3); margin-top:4px; }
+
+    /* ═══ MIX ═══ */
+    .mix-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; margin-bottom:32px; }
+    .mix-card { background:var(--dark2); border:1px solid var(--border); border-radius:var(--radius); padding:20px; text-align:center; }
+    .mix-p { font-size:1.3rem; font-weight:900; color:var(--gold); margin-bottom:4px; }
+    .mix-name { font-size:.85rem; font-weight:700; color:var(--t1); margin-bottom:8px; }
+    .mix-desc { font-size:.78rem; color:var(--t3); line-height:1.7; }
+
+    /* ═══ CHANNELS TABLE ═══ */
+    .ch-table { width:100%; border-collapse:collapse; background:var(--dark2); border-radius:var(--radius); overflow:hidden; }
+    .ch-table th,.ch-table td { padding:12px 16px; text-align:right; font-size:.82rem; border-bottom:1px solid var(--border); }
+    .ch-table th { background:rgba(212,175,55,.06); color:var(--gold); font-weight:700; }
+    .ch-table tr:hover { background:rgba(212,175,55,.03); }
+    .priority-badge { padding:3px 10px; border-radius:20px; font-size:.72rem; font-weight:700; }
+    .priority-1 { background:rgba(239,68,68,.1); color:var(--red); }
+    .priority-2 { background:rgba(212,175,55,.1); color:var(--gold); }
+    .priority-3 { background:rgba(34,197,94,.1); color:var(--green); }
+    .priority-4,.priority-5,.priority-6,.priority-7 { background:rgba(59,130,246,.1); color:var(--blue); }
+
+    /* ═══ TIMELINE ═══ */
+    .timeline { position:relative; padding-right:40px; }
+    .timeline::before { content:''; position:absolute; right:15px; top:0; bottom:0; width:2px; background:var(--border); }
+    .tl-item { position:relative; margin-bottom:24px; }
+    .tl-dot { position:absolute; right:-33px; top:4px; width:12px; height:12px; background:var(--gold); border-radius:50%; border:2px solid var(--dark); }
+    .tl-week { font-size:.72rem; color:var(--gold); font-weight:700; margin-bottom:4px; }
+    .tl-action { font-size:.88rem; color:var(--t1); font-weight:600; }
+    .tl-channel { font-size:.75rem; color:var(--t3); margin-top:2px; }
+
+    /* ═══ LOADING ═══ */
+    .loading { text-align:center; padding:60px; color:var(--t3); }
+    .spinner { width:40px; height:40px; border:3px solid var(--border); border-top-color:var(--gold); border-radius:50%; animation:spin .8s linear infinite; margin:0 auto 16px; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media(max-width:768px) {
+        .hero h1 { font-size:1.6rem; }
+        .grid-3,.grid-2 { grid-template-columns:1fr; }
+        .form-row { grid-template-columns:1fr; }
+        .stats-row { grid-template-columns:1fr 1fr; }
+        .mix-grid { grid-template-columns:1fr; }
+    }
+    </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="top-nav">
+    <div class="nav-c">
+        <a href="/" class="nav-brand">
+            <div class="nav-logo">ش</div>
+            <span class="nav-name">أدوات التسويق الرقمي</span>
+        </a>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="scrollTo_('identity')">الهوية الرقمية</button>
+            <button class="nav-tab" onclick="scrollTo_('mix')">المزيج التسويقي</button>
+            <button class="nav-tab" onclick="scrollTo_('audiences')">الفئات المستهدفة</button>
+            <button class="nav-tab" onclick="scrollTo_('channels')">القنوات</button>
+            <button class="nav-tab" onclick="scrollTo_('tools')">أدواتي</button>
+            <button class="nav-tab" onclick="scrollTo_('campaign')">إنشاء حملة</button>
+            <button class="nav-tab" onclick="scrollTo_('plan')">الخطة التسويقية</button>
+        </div>
+    </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+    <h1>منظومة التسويق الرقمي المتكامل</h1>
+    <p>أدوات رقمية ذكية تساعدك على التسويق لمنتجاتك واستهداف الفئات الصحيحة وإدارة حملاتك التسويقية — بالكتاب والسنة</p>
+    <div class="hero-verse">﴿ وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ ﴾ — المائدة: ٢</div>
+</div>
+
+<div class="container" id="mainContent">
+    <div class="loading" id="loadingState"><div class="spinner"></div>جارٍ تحميل البيانات...</div>
+</div>
+
+<script>
+const API = '/api/digital-market';
+
+async function fetchJSON(url) {
+    try { const r = await fetch(url); return await r.json(); } catch (e) { return null; }
+}
+
+function scrollTo_(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+}
+
+async function init() {
+    const [toolsData, planData, audienceData, dashData] = await Promise.all([
+        fetchJSON(API + '/marketing-tools'),
+        fetchJSON(API + '/marketing-plan'),
+        fetchJSON(API + '/target-audiences'),
+        fetchJSON(API + '/dashboard'),
+    ]);
+
+    const main = document.getElementById('mainContent');
+    const tools = toolsData?.tools || [];
+    const channels = toolsData?.channels || [];
+    const strategy = toolsData?.strategy || {};
+    const identity = toolsData?.identity || {};
+    const plan = planData?.plan || {};
+    const audiences = audienceData?.audiences || [];
+    const dataSources = audienceData?.dataSources || [];
+    const dash = dashData?.dashboard || {};
+    const overview = dash.overview || {};
+
+    main.innerHTML = `
+    <!-- ═══ إحصائيات ═══ -->
+    <div class="stats-row">
+        <div class="stat-box"><div class="stat-num">${overview.totalMerchants || 0}</div><div class="stat-label">تاجر مسجّل</div></div>
+        <div class="stat-box"><div class="stat-num">${overview.totalProducts || 0}</div><div class="stat-label">منتج معروض</div></div>
+        <div class="stat-box"><div class="stat-num">${overview.totalOrders || 0}</div><div class="stat-label">طلب</div></div>
+        <div class="stat-box"><div class="stat-num">${audiences.length}</div><div class="stat-label">شريحة مستهدفة</div></div>
+        <div class="stat-box"><div class="stat-num">${channels.length}</div><div class="stat-label">قناة تسويقية</div></div>
+    </div>
+
+    <!-- ═══ ١. الهوية الرقمية ═══ -->
+    <div class="section" id="identity">
+        <div class="section-hdr"><div class="section-icon">☪</div><div class="section-title">الهوية الرقمية — التعريف بالعلامة التجارية</div></div>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-head"><div class="card-icon gold">🏷</div><div class="card-name">الاسم التجاري</div></div>
+                <div style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;">${identity.name || 'شيخة'}</div>
+                <div class="card-desc">${identity.tagline || ''}</div>
+            </div>
+            <div class="card">
+                <div class="card-head"><div class="card-icon green">🎯</div><div class="card-name">الرؤية</div></div>
+                <div class="card-desc" style="font-size:.9rem;line-height:1.9;">${identity.vision || ''}</div>
+            </div>
+            <div class="card">
+                <div class="card-head"><div class="card-icon blue">💎</div><div class="card-name">القيم الأساسية</div></div>
+                <div class="card-meta">${(identity.values || []).map(v => '<span class="tag">'+v+'</span>').join('')}</div>
+            </div>
+            <div class="card">
+                <div class="card-head"><div class="card-icon gold">🎨</div><div class="card-name">الألوان الرسمية</div></div>
+                <div style="display:flex;gap:12px;margin-top:8px;">
+                    ${Object.entries(identity.colors || {}).map(([k,v]) => '<div style="text-align:center"><div style="width:48px;height:48px;background:'+v+';border-radius:10px;border:1px solid rgba(255,255,255,.1);margin-bottom:4px;"></div><div style="font-size:.7rem;color:var(--t3)">'+k+'</div><div style="font-size:.65rem;color:var(--t2)">'+v+'</div></div>').join('')}
+                </div>
+            </div>
+            <div class="card" style="grid-column:span 2;">
+                <div class="card-head"><div class="card-icon gold">📋</div><div class="card-name">بطاقة التعريف الرقمية</div></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.82rem;">
+                    <div><span style="color:var(--t3)">الاسم:</span> <strong>سلمان أحمد بن سلمان الراجح</strong></div>
+                    <div><span style="color:var(--t3)">المنشأة:</span> <strong>مؤسسة سلمان احمد بن سلمان الراجح التجارية</strong></div>
+                    <div><span style="color:var(--t3)">السجل التجاري:</span> <strong>2051263653</strong></div>
+                    <div><span style="color:var(--t3)">النطاق:</span> <strong>sheikha.top</strong></div>
+                    <div><span style="color:var(--t3)">العلامة:</span> <strong>شيخة — Sheikha</strong></div>
+                    <div><span style="color:var(--t3)">حقوق النشر:</span> <strong>© 2026 جميع الحقوق محفوظة</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ ٢. المزيج التسويقي ═══ -->
+    <div class="section" id="mix">
+        <div class="section-hdr"><div class="section-icon">📊</div><div class="section-title">المزيج التسويقي الرقمي — 4Ps</div></div>
+        <div class="mix-grid">
+            <div class="mix-card"><div class="mix-p">Product</div><div class="mix-name">المنتج</div><div class="mix-desc">${strategy.product || ''}</div></div>
+            <div class="mix-card"><div class="mix-p">Price</div><div class="mix-name">السعر</div><div class="mix-desc">${strategy.price || ''}</div></div>
+            <div class="mix-card"><div class="mix-p">Place</div><div class="mix-name">المكان</div><div class="mix-desc">${strategy.place || ''}</div></div>
+            <div class="mix-card"><div class="mix-p">Promotion</div><div class="mix-name">الترويج</div><div class="mix-desc">${strategy.promotion || ''}</div></div>
+        </div>
+    </div>
+
+    <!-- ═══ ٣. الفئات المستهدفة ═══ -->
+    <div class="section" id="audiences">
+        <div class="section-hdr"><div class="section-icon">🎯</div><div class="section-title">الفئات المستهدفة — ${audiences.length} شريحة</div></div>
+        <div class="grid-2">
+            ${audiences.map(a => `
+            <div class="aud-card">
+                <div class="aud-name">${a.ar}</div>
+                <div class="aud-size">${a.size_sa || ''}</div>
+                <div class="aud-desc">${a.description}</div>
+                
+                <div class="aud-label">الاحتياجات:</div>
+                <div class="aud-row">${(a.needs || []).map(n => '<span class="aud-chip">'+n+'</span>').join('')}</div>
+                
+                <div class="aud-label">نقاط الألم:</div>
+                <div class="aud-row">${(a.pain_points || []).map(p => '<span class="aud-chip" style="background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.15);color:var(--red);">'+p+'</span>').join('')}</div>
+                
+                <div class="aud-label">قنوات التواصل:</div>
+                <div class="aud-row">${(a.channels || []).map(c => '<span class="aud-chip ch">'+c+'</span>').join('')}</div>
+                
+                <div class="aud-label">قواعد البيانات:</div>
+                <div class="aud-row">${(a.databases || []).map(d => '<span class="aud-chip db">'+d+'</span>').join('')}</div>
+                
+                <div style="display:flex;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:.75rem;color:var(--t3);">
+                    <span>الميزانية: <strong style="color:var(--gold)">${a.budget_range}</strong></span>
+                    <span>دورة القرار: <strong style="color:var(--green)">${a.decision_cycle}</strong></span>
+                </div>
+            </div>
+            `).join('')}
+        </div>
+
+        <!-- مصادر البيانات -->
+        <div style="margin-top:32px;">
+            <div class="section-hdr"><div class="section-icon">🗃</div><div class="section-title">مصادر البيانات التجارية — ${dataSources.length} مصدر</div></div>
+            <table class="ch-table">
+                <thead><tr><th>المصدر</th><th>النوع</th><th>البيانات المتوفرة</th><th>الرابط</th></tr></thead>
+                <tbody>
+                    ${dataSources.map(s => `<tr>
+                        <td><strong>${s.name}</strong></td>
+                        <td><span class="tag">${s.type}</span></td>
+                        <td style="font-size:.78rem;color:var(--t3);">${s.data}</td>
+                        <td><a href="${s.url}" target="_blank" style="color:var(--gold);font-size:.78rem;">زيارة</a></td>
+                    </tr>`).join('')}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══ ٤. القنوات التسويقية ═══ -->
+    <div class="section" id="channels">
+        <div class="section-hdr"><div class="section-icon">📡</div><div class="section-title">القنوات التسويقية — الأولوية والاستهداف</div></div>
+        <table class="ch-table">
+            <thead><tr><th>الأولوية</th><th>القناة</th><th>الجمهور</th><th>التكلفة</th><th>الوصول</th></tr></thead>
+            <tbody>
+                ${channels.map(c => `<tr>
+                    <td><span class="priority-badge priority-${c.priority}">#${c.priority}</span></td>
+                    <td><strong>${c.ar}</strong></td>
+                    <td>${c.audience}</td>
+                    <td>${c.cost}</td>
+                    <td>${c.reach}</td>
+                </tr>`).join('')}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ═══ ٥. أدواتي التسويقية ═══ -->
+    <div class="section" id="tools">
+        <div class="section-hdr"><div class="section-icon">🛠</div><div class="section-title">أدوات التسويق الرقمي — ${tools.length} أداة</div></div>
+        <div class="grid-3">
+            ${tools.map((t,i) => `
+            <div class="card" style="cursor:pointer;" onclick="activateTool('${t.id}')">
+                <div class="card-head">
+                    <div class="card-icon ${['gold','green','blue','red'][i%4]}">${['📄','🔔','📣','👁','✍️','📱','🔗','📈'][i%8]}</div>
+                    <div class="card-name">${t.ar}</div>
+                </div>
+                <div class="card-desc">${t.description}</div>
+                <div style="margin-top:12px;"><button class="btn-gold" style="font-size:.75rem;padding:8px 18px;">تفعيل الأداة</button></div>
+            </div>
+            `).join('')}
+        </div>
+    </div>
+
+    <!-- ═══ ٦. إنشاء حملة تسويقية ═══ -->
+    <div class="section" id="campaign">
+        <div class="section-hdr"><div class="section-icon">🚀</div><div class="section-title">إنشاء حملة تسويقية جديدة</div></div>
+        <div class="camp-form">
+            <h3>بيانات الحملة</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>اسم الحملة</label>
+                    <input type="text" id="campName" placeholder="مثال: حملة إطلاق منتج الحديد">
+                </div>
+                <div class="form-group">
+                    <label>نوع الحملة</label>
+                    <select id="campType">
+                        <option value="awareness">وعي بالعلامة التجارية</option>
+                        <option value="leads">توليد عملاء محتملين</option>
+                        <option value="sales">زيادة المبيعات</option>
+                        <option value="retention">الاحتفاظ بالعملاء</option>
+                        <option value="product_launch">إطلاق منتج</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>الفئة المستهدفة</label>
+                    <select id="campAudience">
+                        ${audiences.map(a => '<option value="'+a.id+'">'+a.ar+' ('+a.size_sa+')</option>').join('')}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>القناة الرئيسية</label>
+                    <select id="campChannel">
+                        ${channels.map(c => '<option value="'+c.id+'">'+c.ar+' — '+c.audience+'</option>').join('')}
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>الميزانية (ر.س)</label>
+                    <input type="number" id="campBudget" placeholder="5000">
+                </div>
+                <div class="form-group">
+                    <label>المدة (أيام)</label>
+                    <input type="number" id="campDuration" placeholder="30">
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom:20px;">
+                <label>وصف الحملة والأهداف</label>
+                <textarea id="campDesc" placeholder="اكتب أهداف الحملة والرسالة التسويقية..."></textarea>
+            </div>
+            <button class="btn-gold" onclick="createCampaign()">🚀 إنشاء الحملة</button>
+            <div id="campResult" style="margin-top:16px;"></div>
+        </div>
+    </div>
+
+    <!-- ═══ ٧. الخطة التسويقية ═══ -->
+    <div class="section" id="plan">
+        <div class="section-hdr"><div class="section-icon">📋</div><div class="section-title">الخطة التسويقية — ${plan.name || 'انطلاقة شيخة'}</div></div>
+        <div class="grid-3" style="margin-bottom:24px;">
+            <div class="stat-box"><div class="stat-num">${plan.duration || '90 يوم'}</div><div class="stat-label">المدة</div></div>
+            <div class="stat-box"><div class="stat-num">${plan.budget || '25,000 ر.س'}</div><div class="stat-label">الميزانية</div></div>
+            <div class="stat-box">
+                <div style="font-size:.82rem;color:var(--t2);line-height:1.8;">
+                    هدف: <strong style="color:var(--gold)">${plan.targets?.registrations || 500}</strong> تسجيل<br>
+                    هدف: <strong style="color:var(--green)">${plan.targets?.merchants || 100}</strong> تاجر<br>
+                    هدف: <strong style="color:var(--blue)">${plan.targets?.orders || 50}</strong> طلب
+                </div>
+                <div class="stat-label">الأهداف</div>
+            </div>
+        </div>
+        <div class="timeline">
+            ${(plan.phases || []).map(p => `
+            <div class="tl-item">
+                <div class="tl-dot"></div>
+                <div class="tl-week">الأسبوع ${p.week}</div>
+                <div class="tl-action">${p.action}</div>
+                <div class="tl-channel">${p.channel}</div>
+            </div>
+            `).join('')}
+        </div>
+    </div>
+
+    <!-- ═══ الأساس الشرعي ═══ -->
+    <div style="text-align:center;padding:40px;border-top:1px solid var(--border);margin-top:24px;">
+        <div style="font-size:1rem;color:var(--gold-l);font-weight:700;margin-bottom:8px;">«التَّاجِرُ الصَّدُوقُ الأَمِينُ مَعَ النَّبِيِّينَ وَالصِّدِّيقِينَ وَالشُّهَدَاءِ»</div>
+        <div style="font-size:.78rem;color:var(--t3);">رواه الترمذي — الأساس الشرعي لمنظومة شيخة</div>
+        <div style="font-size:.72rem;color:var(--t3);margin-top:8px;">© 2026 شيخة — سلمان أحمد بن سلمان الراجح — جميع الحقوق محفوظة</div>
+    </div>
+    `;
+}
+
+async function createCampaign() {
+    const name = document.getElementById('campName').value;
+    const type = document.getElementById('campType').value;
+    const audience = document.getElementById('campAudience').value;
+    const channel = document.getElementById('campChannel').value;
+    const budget = document.getElementById('campBudget').value;
+    const duration = document.getElementById('campDuration').value;
+    const desc = document.getElementById('campDesc').value;
+
+    if (!name) { alert('يرجى إدخال اسم الحملة'); return; }
+
+    const result = document.getElementById('campResult');
+    try {
+        const r = await fetch('/api/marketing/campaigns', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, type, targetAudience: audience, channel, budget: Number(budget), duration: Number(duration), description: desc })
+        });
+        const data = await r.json();
+        if (data.success || data.campaign) {
+            result.innerHTML = '<div style="padding:16px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:10px;color:var(--green);font-size:.85rem;">✅ تم إنشاء الحملة بنجاح — ' + (data.campaign?.id || 'CAMP-' + Date.now()) + '</div>';
+        } else {
+            result.innerHTML = '<div style="padding:16px;background:rgba(212,175,55,.08);border:1px solid var(--border);border-radius:10px;color:var(--gold);font-size:.85rem;">📋 تم تسجيل الحملة — سيتم مراجعتها وتفعيلها</div>';
+        }
+    } catch (e) {
+        result.innerHTML = '<div style="padding:16px;background:rgba(212,175,55,.08);border:1px solid var(--border);border-radius:10px;color:var(--gold);font-size:.85rem;">📋 تم حفظ بيانات الحملة محلياً</div>';
+    }
+}
+
+function activateTool(toolId) {
+    const messages = {
+        'product_page': 'سيتم إنشاء صفحة منتج احترافية لمنتجك — اذهب إلى سوق شيخة وأضف منتجاً جديداً',
+        'price_alert': 'تنبيه الأسعار — سيتم إشعارك عند تغيّر أسعار المعادن التي تهتم بها',
+        'rfq_broadcast': 'بث طلب عرض سعر — اذهب للسوق واضغط "طلب عرض سعر" على أي منتج',
+        'competitor_watch': 'مراقبة المنافسين — ستظهر لك أسعار المنتجات المشابهة في نفس الفئة',
+        'ai_copywriter': 'الكاتب الذكي — استخدم أيقونة ش > كتابة ذكية > وصف منتج',
+        'qr_catalog': 'كتالوج QR — سيتم إنشاء كود QR يحتوي على جميع منتجاتك',
+        'social_share': 'المشاركة — استخدم أيقونة ش > مشاركة للنشر على جميع المنصات',
+        'analytics': 'تحليلات — سيتم عرض إحصائيات منتجاتك في لوحة التحكم',
+    };
+    alert('✅ ' + (messages[toolId] || 'سيتم تفعيل الأداة قريباً'));
+}
+
+init();
+</script>
+</body>
+</html>

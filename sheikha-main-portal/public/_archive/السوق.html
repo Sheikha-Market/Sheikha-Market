@@ -1,0 +1,2332 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="سوق شيخة العالمي للمعادن والمعادن الثمينة والسكراب - المسعر الأساسي العادل في السعودية والعالم الإسلامي">
+    <title>السوق | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-dark: #063d24;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --gold-dark: #aa8c2c;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --cyan: #06b6d4;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --card-hover: #111b2e;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --shadow-gold: 0 4px 20px rgba(212,175,55,0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .nav {
+            display: flex;
+            gap: 8px;
+        }
+        .nav-link {
+            padding: 10px 18px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .lang-switcher {
+            display: flex;
+            gap: 4px;
+            background: rgba(0,0,0,0.3);
+            padding: 4px;
+            border-radius: var(--radius);
+        }
+        .lang-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        .lang-btn.active {
+            background: var(--gold);
+            color: var(--dark);
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.9rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 48px 32px;
+            background: linear-gradient(180deg, var(--card) 0%, var(--dark) 100%);
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(212,175,55,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hero-title {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+        .hero-title span { color: var(--gold); }
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        /* Market Tabs */
+        .market-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .market-tab {
+            padding: 14px 32px;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .market-tab:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .market-tab.active {
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(10,92,54,0.15));
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: var(--shadow-gold);
+        }
+        .market-tab-icon {
+            font-size: 1.3rem;
+        }
+
+        /* Main Layout */
+        .main-layout {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 24px 32px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 24px;
+        }
+
+        /* Sidebar - HS Code Tree */
+        .sidebar {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+        .sidebar-title {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* HS Code Tree */
+        .hs-tree {
+            list-style: none;
+        }
+        .hs-chapter {
+            margin-bottom: 8px;
+        }
+        .hs-chapter-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .hs-chapter-header:hover {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.05);
+        }
+        .hs-chapter-header.active {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        .hs-chapter-icon {
+            font-size: 1.2rem;
+        }
+        .hs-chapter-info {
+            flex: 1;
+        }
+        .hs-chapter-code {
+            font-size: 0.7rem;
+            color: var(--gold);
+            font-family: monospace;
+            font-weight: 700;
+        }
+        .hs-chapter-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .hs-chapter-arrow {
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+        .hs-chapter-header.expanded .hs-chapter-arrow {
+            transform: rotate(90deg);
+        }
+        
+        .hs-headings {
+            list-style: none;
+            padding-right: 16px;
+            margin-top: 4px;
+            display: none;
+        }
+        .hs-headings.show {
+            display: block;
+        }
+        .hs-heading {
+            padding: 8px 12px;
+            margin: 2px 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hs-heading:hover {
+            background: rgba(212,175,55,0.05);
+            color: var(--gold);
+        }
+        .hs-heading.active {
+            background: rgba(212,175,55,0.1);
+            color: var(--gold);
+        }
+        .hs-heading-code {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: var(--text-faint);
+        }
+
+        /* Main Content */
+        .main-content {
+            min-height: 500px;
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title span { color: var(--gold); }
+        .section-badge {
+            padding: 4px 12px;
+            background: rgba(212,175,55,0.1);
+            color: var(--gold);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: monospace;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .breadcrumb a:hover {
+            color: var(--gold);
+        }
+        .breadcrumb-sep {
+            color: var(--text-faint);
+        }
+        .breadcrumb-current {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Subcategories Grid */
+        .subcategories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .subcat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .subcat-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        .subcat-card.active {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.05);
+        }
+        .subcat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(10,92,54,0.1));
+        }
+        .subcat-info {
+            flex: 1;
+        }
+        .subcat-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+        .subcat-hs {
+            font-size: 0.7rem;
+            color: var(--text-faint);
+            font-family: monospace;
+        }
+        .subcat-count {
+            font-size: 0.75rem;
+            color: var(--gold);
+        }
+
+        /* Products Grid */
+        .products-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .filter-select {
+            padding: 8px 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.8rem;
+            min-width: 120px;
+        }
+        .search-input {
+            padding: 8px 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.85rem;
+            width: 200px;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .product-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .product-card:hover {
+            border-color: rgba(212,175,55,0.5);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+        .product-image {
+            height: 140px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(10,92,54,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 700;
+        }
+        .badge-metals { background: rgba(113,121,126,0.3); color: #c0c0c0; }
+        .badge-scrap { background: rgba(16,185,129,0.2); color: var(--success); }
+        .badge-precious { background: rgba(212,175,55,0.2); color: var(--gold); }
+        .product-content {
+            padding: 16px;
+        }
+        .product-category {
+            font-size: 0.7rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .product-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .product-specs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .spec-item {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        .product-price small {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+        .seller-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .seller-avatar {
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .seller-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .seller-location {
+            font-size: 0.65rem;
+            color: var(--text-faint);
+        }
+        .contact-btn {
+            padding: 6px 14px;
+            background: var(--primary);
+            border: none;
+            border-radius: var(--radius);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .contact-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Supply Chain Section */
+        .supply-chain-section {
+            margin-top: 32px;
+            padding: 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+        }
+        .supply-chain-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: var(--radius-lg);
+            margin: 16px 0;
+            overflow-x: auto;
+            gap: 8px;
+        }
+        .chain-stage {
+            text-align: center;
+            min-width: 90px;
+            padding: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+        .chain-stage:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .stage-icon { font-size: 1.5rem; margin-bottom: 6px; }
+        .stage-name { font-size: 0.8rem; font-weight: 700; margin-bottom: 2px; }
+        .stage-desc { font-size: 0.65rem; color: var(--text-muted); }
+        .chain-arrow { font-size: 1.2rem; color: var(--gold); flex-shrink: 0; }
+
+        /* Containers Section */
+        .containers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .container-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .container-card:hover {
+            border-color: var(--success);
+            transform: translateY(-2px);
+        }
+        .container-icon { font-size: 2rem; margin-bottom: 8px; }
+        .container-card h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; }
+        .container-specs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .container-specs span {
+            padding: 2px 8px;
+            background: rgba(16,185,129,0.1);
+            color: var(--success);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .container-card p { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; }
+
+        /* Logistics Grid */
+        .logistics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .logistics-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+        }
+        .logistics-card:hover { border-color: var(--gold); }
+        .logistics-icon { font-size: 1.8rem; margin-bottom: 10px; }
+        .logistics-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; }
+        .logistics-card ul { list-style: none; margin-bottom: 12px; }
+        .logistics-card li { padding: 4px 0; font-size: 0.8rem; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .logistics-card li:last-child { border-bottom: none; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar { position: static; max-height: none; }
+        }
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .header { padding: 12px 16px; }
+            .hero { padding: 32px 16px; }
+            .main-layout { padding: 16px; }
+            .market-tabs { gap: 8px; }
+            .market-tab { padding: 10px 20px; font-size: 0.9rem; }
+            .supply-chain-flow { flex-wrap: wrap; justify-content: center; }
+            .chain-arrow { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 60 60" width="100%" height="100%">
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#f7e98e"/>
+                                <stop offset="50%" style="stop-color:#d4af37"/>
+                                <stop offset="100%" style="stop-color:#aa8c2c"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="30" cy="30" r="27" fill="none" stroke="url(#logoGrad)" stroke-width="2"/>
+                        <path d="M30 12 L38 24 L32 24 L32 32 L28 32 L28 24 L22 24 Z" fill="url(#logoGrad)" transform="rotate(0 30 30)"/>
+                        <path d="M30 12 L38 24 L32 24 L32 32 L28 32 L28 24 L22 24 Z" fill="url(#logoGrad)" transform="rotate(120 30 30)"/>
+                        <path d="M30 12 L38 24 L32 24 L32 32 L28 32 L28 24 L22 24 Z" fill="url(#logoGrad)" transform="rotate(240 30 30)"/>
+                        <circle cx="30" cy="30" r="6" fill="url(#logoGrad)"/>
+                    </svg>
+                </div>
+                <span class="logo-text">سوق شيخة</span>
+            </a>
+            <nav class="nav">
+                <a href="/" class="nav-link">🏠 الرئيسية</a>
+                <a href="السوق.html" class="nav-link active">🛒 السوق</a>
+                <a href="الاقسام.html" class="nav-link">🗂️ الأقسام</a>
+                <a href="نظام-شيخة-الذكي.html" class="nav-link">🔗 سلسلة التوريد</a>
+                <a href="مساعد-شيخة.html" class="nav-link">🤖 المساعد</a>
+                <a href="app.html" class="nav-link">📱 التطبيق</a>
+            </nav>
+            <div class="header-actions">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" onclick="setLanguage('ar')">عربي</button>
+                    <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+                </div>
+                <a href="عرض-بضائع.html" class="btn btn-gold">عرض بضاعة</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">سوق <span>المعادن والسكراب</span></h1>
+            <p class="hero-desc">سوق متكامل مصنف وفق النظام المنسق الدولي (HS Code) — من الفصل 71 إلى 83</p>
+            
+            <!-- View Mode Tabs -->
+            <div style="display: flex; gap: 8px; justify-content: center; margin-bottom: 16px;">
+                <button class="market-tab" style="padding: 8px 16px; font-size: 0.85rem;" onclick="setViewMode('category')" id="viewCategory">
+                    📦 حسب المنتج
+                </button>
+                <button class="market-tab" style="padding: 8px 16px; font-size: 0.85rem;" onclick="setViewMode('stage')" id="viewStage">
+                    🔗 حسب مرحلة التوريد
+                </button>
+            </div>
+            
+            <!-- Market Tabs (Category View) -->
+            <div class="market-tabs" id="categoryTabs">
+                <button class="market-tab active" onclick="switchMarket('metals')" data-market="metals">
+                    <span class="market-tab-icon">🔩</span>
+                    <span>المعادن الأساسية</span>
+                </button>
+                <button class="market-tab" onclick="switchMarket('precious')" data-market="precious">
+                    <span class="market-tab-icon">💎</span>
+                    <span>المعادن الثمينة</span>
+                </button>
+                <button class="market-tab" onclick="switchMarket('scrap')" data-market="scrap">
+                    <span class="market-tab-icon">♻️</span>
+                    <span>السكراب</span>
+                </button>
+                <button class="market-tab" onclick="switchMarket('rare')" data-market="rare">
+                    <span class="market-tab-icon">⚛️</span>
+                    <span>المعادن النادرة</span>
+                </button>
+            </div>
+            
+            <!-- Supply Chain Stage Tabs (Stage View) -->
+            <div class="market-tabs" id="stageTabs" style="display: none;">
+                <button class="market-tab active" onclick="switchStage('all')" data-stage="all">
+                    <span class="market-tab-icon">🔗</span>
+                    <span>كل المراحل</span>
+                </button>
+                <button class="market-tab" onclick="switchStage('source')" data-stage="source">
+                    <span class="market-tab-icon">⛏️</span>
+                    <span>المصدر</span>
+                </button>
+                <button class="market-tab" onclick="switchStage('collection')" data-stage="collection">
+                    <span class="market-tab-icon">🚛</span>
+                    <span>التجميع</span>
+                </button>
+                <button class="market-tab" onclick="switchStage('transport')" data-stage="transport">
+                    <span class="market-tab-icon">🚚</span>
+                    <span>النقل</span>
+                </button>
+                <button class="market-tab" onclick="switchStage('smelter')" data-stage="smelter">
+                    <span class="market-tab-icon">🔥</span>
+                    <span>المصهر</span>
+                </button>
+                <button class="market-tab" onclick="switchStage('manufacturing')" data-stage="manufacturing">
+                    <span class="market-tab-icon">🏭</span>
+                    <span>التصنيع</span>
+                </button>
+                <button class="market-tab" onclick="switchStage('end')" data-stage="end">
+                    <span class="market-tab-icon">🏪</span>
+                    <span>الطرف النهائي</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Sidebar - HS Code Tree -->
+        <aside class="sidebar" id="sidebar">
+            <h3 class="sidebar-title">📋 تصنيفات HS Code</h3>
+            <ul class="hs-tree" id="hsTree">
+                <!-- Will be populated by JavaScript -->
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb" id="breadcrumb">
+                <a href="#" onclick="resetView()">السوق</a>
+                <span class="breadcrumb-sep">›</span>
+                <span class="breadcrumb-current" id="currentSection">المعادن الأساسية</span>
+            </div>
+
+            <!-- Section Header -->
+            <div class="section-header">
+                <h2 class="section-title" id="sectionTitle">🔩 <span>أقسام المعادن الأساسية</span></h2>
+                <span class="section-badge" id="sectionBadge">HS 72-83</span>
+            </div>
+
+            <!-- Subcategories -->
+            <div class="subcategories-grid" id="subcategoriesGrid">
+                <!-- Will be populated by JavaScript -->
+            </div>
+
+            <!-- Products Section -->
+            <div class="products-section">
+                <div class="products-header">
+                    <h3 style="font-size: 1rem; font-weight: 700;">📦 العروض المتاحة</h3>
+                    <div class="filters">
+                        <select class="filter-select" id="regionFilter" onchange="filterProducts()">
+                            <option value="">كل المناطق</option>
+                            <option value="riyadh">الرياض</option>
+                            <option value="jeddah">جدة</option>
+                            <option value="dammam">الدمام</option>
+                        </select>
+                        <input type="text" class="search-input" id="searchInput" placeholder="ابحث..." onkeyup="filterProducts()">
+                    </div>
+                </div>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Supply Chain Section -->
+            <div class="supply-chain-section" id="supplyChainSection">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // قاعدة بيانات HS Code الكاملة
+        // ═══════════════════════════════════════════════════════════════════════════════
+        
+        const HS_DATABASE = {
+            // ═══════════════════════════════════════════════════════════════════════
+            // المعادن الأساسية - Base Metals (HS 72-83)
+            // ═══════════════════════════════════════════════════════════════════════
+            metals: {
+                name: 'المعادن الأساسية',
+                nameEn: 'Base Metals',
+                icon: '🔩',
+                hsRange: 'HS 72-83',
+                chapters: {
+                    72: {
+                        code: '72',
+                        name: 'الحديد والصلب',
+                        nameEn: 'Iron & Steel',
+                        icon: '🔩',
+                        headings: {
+                            7201: { name: 'حديد زهر خام', nameEn: 'Pig Iron', products: 12 },
+                            7202: { name: 'سبائك حديدية', nameEn: 'Ferro-alloys', products: 8 },
+                            7203: { name: 'منتجات حديدية أولية', nameEn: 'Primary Iron Products', products: 5 },
+                            7204: { name: 'نفايات وفضلات حديد (سكراب)', nameEn: 'Iron/Steel Waste & Scrap', products: 234 },
+                            7205: { name: 'حبيبات ومساحيق حديد', nameEn: 'Iron Granules & Powders', products: 6 },
+                            7206: { name: 'حديد نقي', nameEn: 'Pure Iron', products: 3 },
+                            7207: { name: 'منتجات نصف مصنعة', nameEn: 'Semi-finished Products', products: 15 },
+                            7208: { name: 'منتجات مسطحة ساخنة', nameEn: 'Hot-rolled Flat Products', products: 45 },
+                            7209: { name: 'منتجات مسطحة باردة', nameEn: 'Cold-rolled Flat Products', products: 38 },
+                            7210: { name: 'منتجات مطلية', nameEn: 'Coated Products', products: 28 },
+                            7211: { name: 'منتجات مسطحة أخرى', nameEn: 'Other Flat Products', products: 22 },
+                            7212: { name: 'منتجات مسطحة مطلية', nameEn: 'Coated Flat Products', products: 18 },
+                            7213: { name: 'قضبان مدرفلة ساخنة', nameEn: 'Hot-rolled Bars', products: 35 },
+                            7214: { name: 'حديد تسليح', nameEn: 'Rebar', products: 156 },
+                            7215: { name: 'قضبان أخرى', nameEn: 'Other Bars', products: 25 },
+                            7216: { name: 'مقاطع حديدية', nameEn: 'Sections & Profiles', products: 67 },
+                            7217: { name: 'أسلاك حديد', nameEn: 'Iron Wire', products: 42 },
+                            7218: { name: 'صلب مقاوم للصدأ نصف مصنع', nameEn: 'Semi-finished Stainless', products: 18 },
+                            7219: { name: 'ستانلس مسطح ساخن', nameEn: 'Hot-rolled Stainless Flat', products: 24 },
+                            7220: { name: 'ستانلس مسطح بارد', nameEn: 'Cold-rolled Stainless Flat', products: 28 },
+                            7221: { name: 'قضبان ستانلس ساخنة', nameEn: 'Hot-rolled Stainless Bars', products: 15 },
+                            7222: { name: 'قضبان ستانلس أخرى', nameEn: 'Other Stainless Bars', products: 12 },
+                            7223: { name: 'أسلاك ستانلس', nameEn: 'Stainless Wire', products: 18 },
+                            7224: { name: 'صلب سبائكي نصف مصنع', nameEn: 'Semi-finished Alloy Steel', products: 8 },
+                            7225: { name: 'منتجات مسطحة سبائكية', nameEn: 'Alloy Steel Flat Products', products: 15 },
+                            7226: { name: 'منتجات مسطحة سبائكية أخرى', nameEn: 'Other Alloy Flat Products', products: 10 },
+                            7227: { name: 'قضبان سبائكية ساخنة', nameEn: 'Hot-rolled Alloy Bars', products: 8 },
+                            7228: { name: 'قضبان سبائكية أخرى', nameEn: 'Other Alloy Bars', products: 12 },
+                            7229: { name: 'أسلاك سبائكية', nameEn: 'Alloy Wire', products: 6 }
+                        }
+                    },
+                    73: {
+                        code: '73',
+                        name: 'مصنوعات من حديد أو صلب',
+                        nameEn: 'Articles of Iron/Steel',
+                        icon: '🔧',
+                        headings: {
+                            7301: { name: 'ألواح ومقاطع خازوقية', nameEn: 'Sheet Piling', products: 8 },
+                            7302: { name: 'مواد السكك الحديدية', nameEn: 'Railway Materials', products: 12 },
+                            7303: { name: 'أنابيب حديد زهر', nameEn: 'Cast Iron Tubes', products: 15 },
+                            7304: { name: 'أنابيب غير ملحومة', nameEn: 'Seamless Tubes', products: 45 },
+                            7305: { name: 'أنابيب ملحومة كبيرة', nameEn: 'Large Welded Tubes', products: 28 },
+                            7306: { name: 'أنابيب ملحومة أخرى', nameEn: 'Other Welded Tubes', products: 35 },
+                            7307: { name: 'وصلات أنابيب', nameEn: 'Tube Fittings', products: 42 },
+                            7308: { name: 'هياكل معدنية', nameEn: 'Metal Structures', products: 55 },
+                            7309: { name: 'خزانات وصهاريج', nameEn: 'Tanks & Reservoirs', products: 22 },
+                            7310: { name: 'حاويات وبراميل', nameEn: 'Containers & Drums', products: 28 }
+                        }
+                    },
+                    74: {
+                        code: '74',
+                        name: 'النحاس ومصنوعاته',
+                        nameEn: 'Copper & Articles',
+                        icon: '🥉',
+                        headings: {
+                            7401: { name: 'ماط نحاس', nameEn: 'Copper Matte', products: 3 },
+                            7402: { name: 'نحاس غير مكرر', nameEn: 'Unrefined Copper', products: 5 },
+                            7403: { name: 'نحاس مكرر وسبائك', nameEn: 'Refined Copper & Alloys', products: 45 },
+                            7404: { name: 'نفايات وفضلات نحاس (سكراب)', nameEn: 'Copper Scrap', products: 156 },
+                            7405: { name: 'سبائك نحاس أم', nameEn: 'Master Alloys', products: 8 },
+                            7406: { name: 'مساحيق ورقائق نحاس', nameEn: 'Copper Powders & Flakes', products: 6 },
+                            7407: { name: 'قضبان وأسياخ نحاس', nameEn: 'Copper Bars & Rods', products: 35 },
+                            7408: { name: 'أسلاك نحاس', nameEn: 'Copper Wire', products: 48 },
+                            7409: { name: 'ألواح وصفائح نحاس', nameEn: 'Copper Plates & Sheets', products: 32 },
+                            7410: { name: 'رقائق نحاس', nameEn: 'Copper Foil', products: 15 },
+                            7411: { name: 'أنابيب نحاس', nameEn: 'Copper Tubes', products: 42 },
+                            7412: { name: 'وصلات أنابيب نحاس', nameEn: 'Copper Tube Fittings', products: 25 }
+                        }
+                    },
+                    75: {
+                        code: '75',
+                        name: 'النيكل ومصنوعاته',
+                        nameEn: 'Nickel & Articles',
+                        icon: '⚪',
+                        headings: {
+                            7501: { name: 'ماط نيكل', nameEn: 'Nickel Matte', products: 2 },
+                            7502: { name: 'نيكل غير مشغول', nameEn: 'Unwrought Nickel', products: 8 },
+                            7503: { name: 'نفايات نيكل (سكراب)', nameEn: 'Nickel Scrap', products: 15 },
+                            7504: { name: 'مساحيق ورقائق نيكل', nameEn: 'Nickel Powders & Flakes', products: 5 },
+                            7505: { name: 'قضبان وأسياخ نيكل', nameEn: 'Nickel Bars & Rods', products: 12 },
+                            7506: { name: 'ألواح وصفائح نيكل', nameEn: 'Nickel Plates & Sheets', products: 10 },
+                            7507: { name: 'أنابيب نيكل', nameEn: 'Nickel Tubes', products: 8 },
+                            7508: { name: 'مصنوعات نيكل أخرى', nameEn: 'Other Nickel Articles', products: 15 }
+                        }
+                    },
+                    76: {
+                        code: '76',
+                        name: 'الألمنيوم ومصنوعاته',
+                        nameEn: 'Aluminum & Articles',
+                        icon: '🪙',
+                        headings: {
+                            7601: { name: 'ألمنيوم غير مشغول', nameEn: 'Unwrought Aluminum', products: 25 },
+                            7602: { name: 'نفايات ألمنيوم (سكراب)', nameEn: 'Aluminum Scrap', products: 189 },
+                            7603: { name: 'مساحيق ورقائق ألمنيوم', nameEn: 'Aluminum Powders & Flakes', products: 8 },
+                            7604: { name: 'قضبان وقطاعات ألمنيوم', nameEn: 'Aluminum Bars & Profiles', products: 112 },
+                            7605: { name: 'أسلاك ألمنيوم', nameEn: 'Aluminum Wire', products: 35 },
+                            7606: { name: 'ألواح وصفائح ألمنيوم', nameEn: 'Aluminum Plates & Sheets', products: 58 },
+                            7607: { name: 'رقائق ألمنيوم', nameEn: 'Aluminum Foil', products: 22 },
+                            7608: { name: 'أنابيب ألمنيوم', nameEn: 'Aluminum Tubes', products: 28 },
+                            7609: { name: 'وصلات أنابيب ألمنيوم', nameEn: 'Aluminum Tube Fittings', products: 18 },
+                            7610: { name: 'هياكل ألمنيوم', nameEn: 'Aluminum Structures', products: 45 },
+                            7611: { name: 'خزانات ألمنيوم', nameEn: 'Aluminum Tanks', products: 12 },
+                            7612: { name: 'حاويات ألمنيوم', nameEn: 'Aluminum Containers', products: 25 },
+                            7613: { name: 'أسطوانات غاز ألمنيوم', nameEn: 'Aluminum Gas Cylinders', products: 8 },
+                            7614: { name: 'كابلات ألمنيوم', nameEn: 'Aluminum Cables', products: 18 },
+                            7615: { name: 'أدوات مائدة ألمنيوم', nameEn: 'Aluminum Tableware', products: 22 },
+                            7616: { name: 'مصنوعات ألمنيوم أخرى', nameEn: 'Other Aluminum Articles', products: 35 }
+                        }
+                    },
+                    78: {
+                        code: '78',
+                        name: 'الرصاص ومصنوعاته',
+                        nameEn: 'Lead & Articles',
+                        icon: '⚫',
+                        headings: {
+                            7801: { name: 'رصاص غير مشغول', nameEn: 'Unwrought Lead', products: 15 },
+                            7802: { name: 'نفايات رصاص (سكراب)', nameEn: 'Lead Scrap', products: 45 },
+                            7804: { name: 'ألواح وصفائح رصاص', nameEn: 'Lead Plates & Sheets', products: 12 },
+                            7806: { name: 'مصنوعات رصاص أخرى', nameEn: 'Other Lead Articles', products: 18 }
+                        }
+                    },
+                    79: {
+                        code: '79',
+                        name: 'الزنك ومصنوعاته',
+                        nameEn: 'Zinc & Articles',
+                        icon: '🔘',
+                        headings: {
+                            7901: { name: 'زنك غير مشغول', nameEn: 'Unwrought Zinc', products: 18 },
+                            7902: { name: 'نفايات زنك (سكراب)', nameEn: 'Zinc Scrap', products: 28 },
+                            7903: { name: 'غبار ومساحيق زنك', nameEn: 'Zinc Dust & Powders', products: 8 },
+                            7904: { name: 'قضبان وأسياخ زنك', nameEn: 'Zinc Bars & Rods', products: 10 },
+                            7905: { name: 'ألواح وصفائح زنك', nameEn: 'Zinc Plates & Sheets', products: 15 },
+                            7907: { name: 'مصنوعات زنك أخرى', nameEn: 'Other Zinc Articles', products: 12 }
+                        }
+                    },
+                    80: {
+                        code: '80',
+                        name: 'القصدير ومصنوعاته',
+                        nameEn: 'Tin & Articles',
+                        icon: '⚪',
+                        headings: {
+                            8001: { name: 'قصدير غير مشغول', nameEn: 'Unwrought Tin', products: 8 },
+                            8002: { name: 'نفايات قصدير (سكراب)', nameEn: 'Tin Scrap', products: 12 },
+                            8003: { name: 'قضبان وأسياخ قصدير', nameEn: 'Tin Bars & Rods', products: 5 },
+                            8007: { name: 'مصنوعات قصدير أخرى', nameEn: 'Other Tin Articles', products: 10 }
+                        }
+                    }
+                }
+            },
+            
+            // ═══════════════════════════════════════════════════════════════════════
+            // إعادة التدوير والسكراب - Recycling & Scrap
+            // ═══════════════════════════════════════════════════════════════════════
+            scrap: {
+                name: 'إعادة التدوير والسكراب',
+                nameEn: 'Recycling & Scrap',
+                icon: '♻️',
+                hsRange: 'HS 7204, 7404, 7602, 8548',
+                chapters: {
+                    7204: {
+                        code: '7204',
+                        name: 'سكراب الحديد والصلب',
+                        nameEn: 'Iron & Steel Scrap',
+                        icon: '🔩',
+                        headings: {
+                            720410: { name: 'نفايات وفضلات حديد زهر', nameEn: 'Cast Iron Scrap', isri: 'Cast', products: 35 },
+                            720421: { name: 'نفايات ستانلس ستيل', nameEn: 'Stainless Steel Scrap', isri: '304/316', products: 87 },
+                            720429: { name: 'نفايات صلب سبائكي أخرى', nameEn: 'Other Alloy Steel Scrap', products: 28 },
+                            720430: { name: 'نفايات صلب مطلي بالقصدير', nameEn: 'Tinned Steel Scrap', products: 15 },
+                            720441: { name: 'برادة وخراطة حديد', nameEn: 'Iron Turnings & Borings', isri: 'Turnings', products: 42 },
+                            720449: { name: 'نفايات حديد أخرى', nameEn: 'Other Iron Scrap', isri: 'HMS 1/2', products: 234 }
+                        }
+                    },
+                    7404: {
+                        code: '7404',
+                        name: 'سكراب النحاس',
+                        nameEn: 'Copper Scrap',
+                        icon: '🥉',
+                        headings: {
+                            740400: { name: 'نفايات وفضلات نحاس', nameEn: 'Copper Waste & Scrap', products: 156 }
+                        },
+                        isriGrades: {
+                            berry: { name: 'Berry (Bare Bright)', purity: '99%+', price: 'الأعلى' },
+                            birch: { name: 'Birch (Cliff #1)', purity: '96%+', price: 'عالي' },
+                            candy: { name: 'Candy (#2 Cu)', purity: '94%+', price: 'متوسط' },
+                            cobra: { name: 'Cobra (Brass)', purity: '70% Cu', price: 'متوسط' },
+                            druid: { name: 'Druid (Insulated)', purity: 'متفاوت', price: 'حسب النحاس' }
+                        }
+                    },
+                    7602: {
+                        code: '7602',
+                        name: 'سكراب الألمنيوم',
+                        nameEn: 'Aluminum Scrap',
+                        icon: '🪙',
+                        headings: {
+                            760200: { name: 'نفايات وفضلات ألمنيوم', nameEn: 'Aluminum Waste & Scrap', products: 189 }
+                        },
+                        isriGrades: {
+                            taint: { name: 'Taint/Tabor', type: 'قطاعات نظيفة', price: 'عالي' },
+                            taldon: { name: 'Taldon (UBC)', type: 'علب مشروبات', price: 'متوسط' },
+                            tense: { name: 'Tense', type: 'صفائح مطبوعة', price: 'متوسط' },
+                            twitch: { name: 'Twitch', type: 'مصبوبات', price: 'عالي' }
+                        }
+                    },
+                    8548: {
+                        code: '8548',
+                        name: 'نفايات البطاريات والإلكترونيات',
+                        nameEn: 'Battery & Electronic Waste',
+                        icon: '🔋',
+                        headings: {
+                            854810: { name: 'نفايات بطاريات رصاص', nameEn: 'Lead-acid Battery Waste', products: 45 },
+                            854830: { name: 'نفايات بطاريات ليثيوم', nameEn: 'Lithium Battery Waste', products: 28 },
+                            854890: { name: 'نفايات كهربائية أخرى', nameEn: 'Other Electrical Waste', products: 35 }
+                        }
+                    },
+                    8549: {
+                        code: '8549',
+                        name: 'النفايات الإلكترونية (E-Waste)',
+                        nameEn: 'Electronic Waste',
+                        icon: '📱',
+                        headings: {
+                            854911: { name: 'نفايات لوحات إلكترونية', nameEn: 'PCB Scrap', products: 25 },
+                            854919: { name: 'نفايات إلكترونية أخرى', nameEn: 'Other E-Waste', products: 45 }
+                        }
+                    }
+                }
+            },
+            
+            // ═══════════════════════════════════════════════════════════════════════
+            // المعادن الثمينة - Precious Metals (HS 71)
+            // ═══════════════════════════════════════════════════════════════════════
+            precious: {
+                name: 'المعادن الثمينة والمجوهرات',
+                nameEn: 'Precious Metals & Jewelry',
+                icon: '💎',
+                hsRange: 'HS 71',
+                chapters: {
+                    7101: {
+                        code: '7101',
+                        name: 'اللؤلؤ',
+                        nameEn: 'Pearls',
+                        icon: '🪙',
+                        headings: {
+                            710110: { name: 'لؤلؤ طبيعي', nameEn: 'Natural Pearls', products: 18 },
+                            710121: { name: 'لؤلؤ مستزرع خام', nameEn: 'Cultured Pearls - Raw', products: 12 },
+                            710122: { name: 'لؤلؤ مستزرع مشغول', nameEn: 'Cultured Pearls - Worked', products: 25 }
+                        }
+                    },
+                    7102: {
+                        code: '7102',
+                        name: 'الألماس',
+                        nameEn: 'Diamonds',
+                        icon: '💎',
+                        headings: {
+                            710210: { name: 'ألماس غير مصنف', nameEn: 'Unsorted Diamonds', products: 5 },
+                            710221: { name: 'ألماس صناعي خام', nameEn: 'Industrial Diamonds - Rough', products: 15 },
+                            710229: { name: 'ألماس صناعي مشغول', nameEn: 'Industrial Diamonds - Worked', products: 22 },
+                            710231: { name: 'ألماس طبيعي خام', nameEn: 'Natural Diamonds - Rough', products: 8 },
+                            710239: { name: 'ألماس طبيعي مصقول', nameEn: 'Natural Diamonds - Polished', products: 45 }
+                        }
+                    },
+                    7103: {
+                        code: '7103',
+                        name: 'الأحجار الكريمة',
+                        nameEn: 'Gemstones',
+                        icon: '💠',
+                        headings: {
+                            710310: { name: 'أحجار كريمة خام', nameEn: 'Rough Gemstones', products: 22 },
+                            710391: { name: 'ياقوت وزفير وزمرد', nameEn: 'Ruby, Sapphire, Emerald', products: 35 },
+                            710399: { name: 'أحجار كريمة أخرى', nameEn: 'Other Gemstones', products: 28 }
+                        }
+                    },
+                    7106: {
+                        code: '7106',
+                        name: 'الفضة',
+                        nameEn: 'Silver',
+                        icon: '🥈',
+                        headings: {
+                            710610: { name: 'مساحيق فضة', nameEn: 'Silver Powder', products: 8 },
+                            710691: { name: 'فضة خام غير مشغولة', nameEn: 'Unwrought Silver', products: 35 },
+                            710692: { name: 'فضة نصف مشغولة', nameEn: 'Semi-manufactured Silver', products: 42 }
+                        }
+                    },
+                    7108: {
+                        code: '7108',
+                        name: 'الذهب',
+                        nameEn: 'Gold',
+                        icon: '🥇',
+                        headings: {
+                            710811: { name: 'مساحيق ذهب', nameEn: 'Gold Powder', products: 5 },
+                            710812: { name: 'ذهب خام غير مشغول', nameEn: 'Unwrought Gold', products: 45 },
+                            710813: { name: 'ذهب نصف مشغول', nameEn: 'Semi-manufactured Gold', products: 68 },
+                            710820: { name: 'ذهب نقدي', nameEn: 'Monetary Gold', products: 12 }
+                        }
+                    },
+                    7110: {
+                        code: '7110',
+                        name: 'البلاتين',
+                        nameEn: 'Platinum Group',
+                        icon: '⚪',
+                        headings: {
+                            711011: { name: 'بلاتين خام', nameEn: 'Unwrought Platinum', products: 15 },
+                            711019: { name: 'بلاتين نصف مشغول', nameEn: 'Semi-manufactured Platinum', products: 22 },
+                            711021: { name: 'بالاديوم خام', nameEn: 'Unwrought Palladium', products: 8 },
+                            711029: { name: 'بالاديوم نصف مشغول', nameEn: 'Semi-manufactured Palladium', products: 12 },
+                            711031: { name: 'روديوم خام', nameEn: 'Unwrought Rhodium', products: 5 },
+                            711041: { name: 'إيريديوم وأوزميوم', nameEn: 'Iridium & Osmium', products: 3 }
+                        }
+                    },
+                    7112: {
+                        code: '7112',
+                        name: 'نفايات المعادن الثمينة',
+                        nameEn: 'Precious Metal Scrap',
+                        icon: '♻️',
+                        headings: {
+                            711230: { name: 'رماد معادن ثمينة', nameEn: 'Precious Metal Ash', products: 8 },
+                            711291: { name: 'نفايات ذهب', nameEn: 'Gold Scrap', products: 35 },
+                            711292: { name: 'نفايات بلاتين', nameEn: 'Platinum Scrap', products: 15 },
+                            711299: { name: 'نفايات معادن ثمينة أخرى', nameEn: 'Other Precious Scrap', products: 22 }
+                        }
+                    },
+                    7113: {
+                        code: '7113',
+                        name: 'المجوهرات',
+                        nameEn: 'Jewelry',
+                        icon: '💍',
+                        headings: {
+                            711311: { name: 'مجوهرات فضة', nameEn: 'Silver Jewelry', products: 145 },
+                            711319: { name: 'مجوهرات معادن ثمينة أخرى', nameEn: 'Other Precious Metal Jewelry', products: 312 },
+                            711320: { name: 'مجوهرات معادن عادية مطلية', nameEn: 'Base Metal Plated Jewelry', products: 85 }
+                        }
+                    },
+                    7116: {
+                        code: '7116',
+                        name: 'مصنوعات اللؤلؤ والأحجار',
+                        nameEn: 'Pearl & Stone Articles',
+                        icon: '📿',
+                        headings: {
+                            711610: { name: 'مصنوعات لؤلؤ', nameEn: 'Pearl Articles', products: 28 },
+                            711620: { name: 'مصنوعات أحجار كريمة', nameEn: 'Gemstone Articles', products: 35 }
+                        }
+                    },
+                    7118: {
+                        code: '7118',
+                        name: 'عملات معدنية',
+                        nameEn: 'Coins',
+                        icon: '🪙',
+                        headings: {
+                            711810: { name: 'عملات غير متداولة', nameEn: 'Non-circulating Coins', products: 15 },
+                            711890: { name: 'عملات أخرى', nameEn: 'Other Coins', products: 22 }
+                        }
+                    }
+                }
+            },
+
+            // ═══════════════════════════════════════════════════════════════════════
+            // المعادن النادرة - Rare Earth Elements (REE) - رؤية 2030
+            // استخدامات: الصناعات المتقدمة، المفاعلات النووية، التقنيات العسكرية
+            // ═══════════════════════════════════════════════════════════════════════
+            rare: {
+                name: 'المعادن النادرة',
+                nameEn: 'Rare Earth Elements',
+                icon: '⚛️',
+                hsRange: 'HS 2846, 2805, 8112',
+                vision2030: true,
+                strategicImportance: 'عالية جداً',
+                chapters: {
+                    // اللانثانيدات - Lanthanides
+                    2846: {
+                        code: '2846',
+                        name: 'مركبات العناصر الأرضية النادرة',
+                        nameEn: 'Rare Earth Compounds',
+                        icon: '⚗️',
+                        headings: {
+                            284610: { name: 'أكاسيد السيريوم', nameEn: 'Cerium Oxides', products: 15, uses: ['محفزات السيارات', 'زجاج UV', 'صقل'] },
+                            284690: { name: 'مركبات أرضية نادرة أخرى', nameEn: 'Other REE Compounds', products: 45, uses: ['إلكترونيات', 'مغناطيس'] }
+                        }
+                    },
+                    // العناصر الأرضية النادرة الخام
+                    2805: {
+                        code: '2805',
+                        name: 'الفلزات القلوية والأرضية النادرة',
+                        nameEn: 'Alkali & Rare Earth Metals',
+                        icon: '🔬',
+                        headings: {
+                            280530: { name: 'فلزات أرضية نادرة وسكانديوم ويتريوم', nameEn: 'REE, Scandium & Yttrium', products: 35, strategic: true }
+                        }
+                    },
+                    // العناصر الفردية
+                    REE_LIGHT: {
+                        code: 'REE-L',
+                        name: 'العناصر النادرة الخفيفة (LREE)',
+                        nameEn: 'Light Rare Earth Elements',
+                        icon: '💫',
+                        headings: {
+                            La: { name: 'اللانثانوم (La)', nameEn: 'Lanthanum', products: 12, atomicNo: 57, uses: ['بطاريات هجينة', 'محفزات', 'عدسات'], price: '$5/كجم' },
+                            Ce: { name: 'السيريوم (Ce)', nameEn: 'Cerium', products: 28, atomicNo: 58, uses: ['محفزات السيارات', 'صقل الزجاج', 'الصلب'], price: '$5/كجم' },
+                            Pr: { name: 'البراسيوديميوم (Pr)', nameEn: 'Praseodymium', products: 8, atomicNo: 59, uses: ['مغناطيس NdFeB', 'سبائك الطائرات', 'زجاج'], price: '$85/كجم' },
+                            Nd: { name: 'النيوديميوم (Nd)', nameEn: 'Neodymium', products: 22, atomicNo: 60, uses: ['مغناطيس فائق', 'توربينات الرياح', 'سيارات كهربائية'], price: '$85/كجم', critical: true },
+                            Pm: { name: 'البروميثيوم (Pm)', nameEn: 'Promethium', products: 2, atomicNo: 61, uses: ['بطاريات نووية', 'قياس السُمك'], radioactive: true },
+                            Sm: { name: 'السماريوم (Sm)', nameEn: 'Samarium', products: 15, atomicNo: 62, uses: ['مغناطيس SmCo', 'قضبان تحكم نووية', 'علاج السرطان'], price: '$15/كجم' }
+                        }
+                    },
+                    REE_HEAVY: {
+                        code: 'REE-H',
+                        name: 'العناصر النادرة الثقيلة (HREE)',
+                        nameEn: 'Heavy Rare Earth Elements',
+                        icon: '☢️',
+                        headings: {
+                            Eu: { name: 'اليوروبيوم (Eu)', nameEn: 'Europium', products: 5, atomicNo: 63, uses: ['شاشات LED/LCD', 'ليزر', 'أمن الأوراق النقدية'], price: '$700/كجم', critical: true },
+                            Gd: { name: 'الجادولينيوم (Gd)', nameEn: 'Gadolinium', products: 8, atomicNo: 64, uses: ['MRI', 'قضبان تحكم نووية', 'ذاكرة الكمبيوتر'], price: '$45/كجم' },
+                            Tb: { name: 'التيربيوم (Tb)', nameEn: 'Terbium', products: 6, atomicNo: 65, uses: ['شاشات خضراء', 'مغناطيس', 'سونار'], price: '$1,400/كجم', critical: true },
+                            Dy: { name: 'الديسبروسيوم (Dy)', nameEn: 'Dysprosium', products: 10, atomicNo: 66, uses: ['مغناطيس حراري', 'محركات كهربائية', 'مفاعلات'], price: '$350/كجم', critical: true },
+                            Ho: { name: 'الهولميوم (Ho)', nameEn: 'Holmium', products: 4, atomicNo: 67, uses: ['ليزر طبي', 'مغناطيس فائق', 'ملونات'], price: '$80/كجم' },
+                            Er: { name: 'الإربيوم (Er)', nameEn: 'Erbium', products: 6, atomicNo: 68, uses: ['ألياف بصرية', 'ليزر', 'ملونات زجاج'], price: '$35/كجم' },
+                            Tm: { name: 'الثوليوم (Tm)', nameEn: 'Thulium', products: 3, atomicNo: 69, uses: ['أشعة سينية محمولة', 'ليزر جراحي'], price: '$7,000/كجم' },
+                            Yb: { name: 'الإيتربيوم (Yb)', nameEn: 'Ytterbium', products: 5, atomicNo: 70, uses: ['ليزر', 'صلب خاص', 'ساعات ذرية'], price: '$25/كجم' },
+                            Lu: { name: 'اللوتيتيوم (Lu)', nameEn: 'Lutetium', products: 2, atomicNo: 71, uses: ['PET Scan', 'محفزات بترول', 'كاشفات'], price: '$10,000/كجم', rarest: true }
+                        }
+                    },
+                    // عناصر ذات صلة
+                    RELATED: {
+                        code: 'REL',
+                        name: 'عناصر ذات صلة',
+                        nameEn: 'Related Elements',
+                        icon: '🔗',
+                        headings: {
+                            Sc: { name: 'السكانديوم (Sc)', nameEn: 'Scandium', products: 8, atomicNo: 21, uses: ['سبائك ألمنيوم الطائرات', 'رياضات', 'إضاءة'], price: '$15,000/كجم', superCritical: true },
+                            Y: { name: 'اليتريوم (Y)', nameEn: 'Yttrium', products: 15, atomicNo: 39, uses: ['LED أحمر', 'موصلات فائقة', 'YAG ليزر'], price: '$30/كجم' }
+                        }
+                    },
+                    // تطبيقات استراتيجية
+                    NUCLEAR: {
+                        code: 'NUC',
+                        name: 'التطبيقات النووية',
+                        nameEn: 'Nuclear Applications',
+                        icon: '☢️',
+                        strategic: true,
+                        regulated: true,
+                        headings: {
+                            GdRods: { name: 'قضبان تحكم جادولينيوم', nameEn: 'Gadolinium Control Rods', products: 3, uses: ['مفاعلات نووية'] },
+                            SmRods: { name: 'قضبان تحكم سماريوم', nameEn: 'Samarium Control Rods', products: 2, uses: ['مفاعلات نووية'] },
+                            EuShield: { name: 'درع إشعاعي يوروبيوم', nameEn: 'Europium Radiation Shield', products: 2, uses: ['حماية إشعاعية'] },
+                            ThFuel: { name: 'وقود ثوريوم', nameEn: 'Thorium Fuel', products: 1, uses: ['مفاعلات الجيل الرابع'], regulated: true }
+                        }
+                    },
+                    // المغناطيس الدائم
+                    MAGNETS: {
+                        code: 'MAG',
+                        name: 'المغناطيس الدائم',
+                        nameEn: 'Permanent Magnets',
+                        icon: '🧲',
+                        headings: {
+                            NdFeB: { name: 'مغناطيس نيوديميوم (NdFeB)', nameEn: 'Neodymium Magnets', products: 45, uses: ['محركات كهربائية', 'توربينات', 'أقراص صلبة'], critical: true },
+                            SmCo: { name: 'مغناطيس سماريوم كوبالت', nameEn: 'Samarium-Cobalt Magnets', products: 18, uses: ['فضاء', 'عسكري', 'حرارة عالية'] },
+                            AlNiCo: { name: 'مغناطيس ألنيكو', nameEn: 'AlNiCo Magnets', products: 12, uses: ['مستشعرات', 'محركات'] }
+                        }
+                    },
+                    // البطاريات والطاقة
+                    ENERGY: {
+                        code: 'BAT',
+                        name: 'البطاريات وتخزين الطاقة',
+                        nameEn: 'Batteries & Energy Storage',
+                        icon: '🔋',
+                        headings: {
+                            LaNiH: { name: 'بطاريات لانثانوم نيكل', nameEn: 'Lanthanum-Nickel Batteries', products: 22, uses: ['سيارات هجينة'] },
+                            CeFC: { name: 'خلايا وقود السيريوم', nameEn: 'Cerium Fuel Cells', products: 8, uses: ['طاقة نظيفة'] }
+                        }
+                    }
+                },
+                // سلسلة توريد المعادن النادرة
+                supplyChain: {
+                    stages: [
+                        { icon: '⛏️', name: 'التعدين', desc: 'استخراج الخام (الصين، أستراليا)' },
+                        { icon: '🧪', name: 'الفصل', desc: 'فصل العناصر كيميائياً' },
+                        { icon: '🔬', name: 'التنقية', desc: 'تنقية حتى 99.99%' },
+                        { icon: '⚙️', name: 'التصنيع', desc: 'سبائك ومركبات' },
+                        { icon: '🏭', name: 'التطبيق', desc: 'منتجات نهائية' }
+                    ]
+                }
+            }
+        };
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // متغيرات الحالة
+        // ═══════════════════════════════════════════════════════════════════════════════
+        
+        let currentMarket = 'metals';
+        let currentChapter = null;
+        let currentHeading = null;
+        let currentLang = 'ar';
+        let currentViewMode = 'category'; // 'category' or 'stage'
+        let currentStage = 'all';
+        
+        // مراحل سلسلة التوريد
+        const SUPPLY_CHAIN_STAGES = {
+            'source': { icon: '⛏️', name: 'المصدر', nameEn: 'Source', desc: 'مصادر السكراب والمعادن' },
+            'collection': { icon: '🚛', name: 'التجميع', nameEn: 'Collection', desc: 'جمع وتجميع السكراب' },
+            'transport': { icon: '🚚', name: 'النقل', nameEn: 'Transport', desc: 'نقل السكراب والمعادن' },
+            'smelter': { icon: '🔥', name: 'المصهر', nameEn: 'Smelter', desc: 'صهر وتكرير المعادن' },
+            'manufacturing': { icon: '🏭', name: 'التصنيع', nameEn: 'Manufacturing', desc: 'تصنيع المنتجات' },
+            'end': { icon: '🏪', name: 'الطرف النهائي', nameEn: 'End User', desc: 'التجزئة والمستهلك' }
+        };
+        
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // تبديل وضع العرض
+        // ═══════════════════════════════════════════════════════════════════════════════
+        
+        function setViewMode(mode) {
+            currentViewMode = mode;
+            
+            // تحديث أزرار الوضع
+            document.getElementById('viewCategory').classList.toggle('active', mode === 'category');
+            document.getElementById('viewStage').classList.toggle('active', mode === 'stage');
+            
+            // إظهار/إخفاء التبويبات المناسبة
+            document.getElementById('categoryTabs').style.display = mode === 'category' ? 'flex' : 'none';
+            document.getElementById('stageTabs').style.display = mode === 'stage' ? 'flex' : 'none';
+            
+            // تحديث الشريط الجانبي
+            if (mode === 'stage') {
+                renderStageSidebar();
+            } else {
+                renderSidebar();
+            }
+            
+            renderMainContent();
+        }
+        
+        function switchStage(stage) {
+            currentStage = stage;
+            
+            // Update tabs
+            document.querySelectorAll('#stageTabs .market-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-stage="${stage}"]`).classList.add('active');
+            
+            renderStageSidebar();
+            renderMainContent();
+        }
+        
+        function renderStageSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.innerHTML = `
+                <h3 class="sidebar-title">🔗 مراحل سلسلة التوريد</h3>
+                <ul class="hs-tree">
+                    ${Object.entries(SUPPLY_CHAIN_STAGES).map(([id, stage]) => `
+                        <li class="hs-chapter">
+                            <div class="hs-chapter-header ${currentStage === id ? 'active' : ''}" onclick="switchStage('${id}')">
+                                <span class="hs-chapter-icon">${stage.icon}</span>
+                                <div class="hs-chapter-info">
+                                    <div class="hs-chapter-name">${stage.name}</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-faint);">${stage.desc}</div>
+                                </div>
+                            </div>
+                        </li>
+                    `).join('')}
+                </ul>
+                <div style="margin-top: 20px; padding: 16px; background: rgba(10,92,54,0.1); border: 1px solid rgba(10,92,54,0.2); border-radius: var(--radius);">
+                    <h4 style="font-size: 0.9rem; margin-bottom: 8px; color: var(--gold);">📊 سلسلة التوريد</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.6;">
+                        تصفح العروض حسب موقعها في سلسلة التوريد — من المصدر إلى المستهلك النهائي
+                    </p>
+                </div>
+            `;
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // دوال العرض
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        function switchMarket(market) {
+            currentMarket = market;
+            currentChapter = null;
+            currentHeading = null;
+            
+            // Update tabs
+            document.querySelectorAll('.market-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-market="${market}"]`).classList.add('active');
+            
+            // Render sidebar and content
+            renderSidebar();
+            renderMainContent();
+            renderSupplyChain();
+        }
+
+        function renderSidebar() {
+            const data = HS_DATABASE[currentMarket];
+            const tree = document.getElementById('hsTree');
+            
+            let html = '';
+            for (const [code, chapter] of Object.entries(data.chapters)) {
+                const isExpanded = currentChapter === code;
+                html += `
+                    <li class="hs-chapter">
+                        <div class="hs-chapter-header ${isExpanded ? 'expanded active' : ''}" onclick="toggleChapter('${code}')">
+                            <span class="hs-chapter-icon">${chapter.icon}</span>
+                            <div class="hs-chapter-info">
+                                <div class="hs-chapter-code">HS ${chapter.code}</div>
+                                <div class="hs-chapter-name">${chapter.name}</div>
+                            </div>
+                            <span class="hs-chapter-arrow">›</span>
+                        </div>
+                        <ul class="hs-headings ${isExpanded ? 'show' : ''}" id="headings-${code}">
+                            ${Object.entries(chapter.headings).map(([hcode, heading]) => `
+                                <li class="hs-heading ${currentHeading === hcode ? 'active' : ''}" onclick="selectHeading('${code}', '${hcode}')">
+                                    <span class="hs-heading-code">${hcode}</span>
+                                    <span>${heading.name}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </li>
+                `;
+            }
+            tree.innerHTML = html;
+        }
+
+        function toggleChapter(code) {
+            if (currentChapter === code) {
+                currentChapter = null;
+            } else {
+                currentChapter = code;
+            }
+            currentHeading = null;
+            renderSidebar();
+            renderMainContent();
+        }
+
+        function selectHeading(chapterCode, headingCode) {
+            currentChapter = chapterCode;
+            currentHeading = headingCode;
+            renderSidebar();
+            renderMainContent();
+        }
+
+        function renderMainContent() {
+            const titleEl = document.getElementById('sectionTitle');
+            const badgeEl = document.getElementById('sectionBadge');
+            const breadcrumbCurrent = document.getElementById('currentSection');
+            const grid = document.getElementById('subcategoriesGrid');
+            
+            // عرض حسب مرحلة سلسلة التوريد
+            if (currentViewMode === 'stage') {
+                renderStageContent(titleEl, badgeEl, breadcrumbCurrent, grid);
+                return;
+            }
+            
+            // العرض العادي حسب الفئة
+            const data = HS_DATABASE[currentMarket];
+            
+            if (currentChapter && currentHeading) {
+                // Show specific heading
+                const chapter = data.chapters[currentChapter];
+                const heading = chapter.headings[currentHeading];
+                
+                titleEl.innerHTML = `${chapter.icon} <span>${heading.name}</span>`;
+                badgeEl.textContent = `HS ${currentHeading}`;
+                breadcrumbCurrent.textContent = heading.name;
+                
+                // Show products for this heading
+                grid.innerHTML = `<p style="color: var(--text-muted);">عرض المنتجات المتاحة في التصنيف: ${heading.name} (${heading.products || 0} منتج)</p>`;
+                
+            } else if (currentChapter) {
+                // Show chapter headings
+                const chapter = data.chapters[currentChapter];
+                
+                titleEl.innerHTML = `${chapter.icon} <span>${chapter.name}</span>`;
+                badgeEl.textContent = `HS ${chapter.code}`;
+                breadcrumbCurrent.textContent = chapter.name;
+                
+                grid.innerHTML = Object.entries(chapter.headings).map(([code, heading]) => `
+                    <div class="subcat-card" onclick="selectHeading('${currentChapter}', '${code}')">
+                        <div class="subcat-icon">${chapter.icon}</div>
+                        <div class="subcat-info">
+                            <div class="subcat-name">${heading.name}</div>
+                            <div class="subcat-hs">HS ${code}</div>
+                            <div class="subcat-count">${heading.products || 0} منتج</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } else {
+                // Show all chapters
+                titleEl.innerHTML = `${data.icon} <span>${data.name}</span>`;
+                badgeEl.textContent = data.hsRange;
+                breadcrumbCurrent.textContent = data.name;
+                
+                grid.innerHTML = Object.entries(data.chapters).map(([code, chapter]) => `
+                    <div class="subcat-card" onclick="toggleChapter('${code}')">
+                        <div class="subcat-icon">${chapter.icon}</div>
+                        <div class="subcat-info">
+                            <div class="subcat-name">${chapter.name}</div>
+                            <div class="subcat-hs">HS ${chapter.code}</div>
+                            <div class="subcat-count">${Object.keys(chapter.headings).length} تصنيف فرعي</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            renderProducts();
+        }
+        
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // عرض المحتوى حسب مرحلة سلسلة التوريد
+        // ═══════════════════════════════════════════════════════════════════════════════
+        
+        function renderStageContent(titleEl, badgeEl, breadcrumbCurrent, grid) {
+            if (currentStage === 'all') {
+                titleEl.innerHTML = `🔗 <span>كل مراحل سلسلة التوريد</span>`;
+                badgeEl.textContent = '6 مراحل';
+                breadcrumbCurrent.textContent = 'سلسلة التوريد';
+                
+                // عرض كل المراحل كبطاقات
+                grid.innerHTML = Object.entries(SUPPLY_CHAIN_STAGES).map(([id, stage]) => `
+                    <div class="subcat-card" onclick="switchStage('${id}')">
+                        <div class="subcat-icon">${stage.icon}</div>
+                        <div class="subcat-info">
+                            <div class="subcat-name">${stage.name}</div>
+                            <div class="subcat-hs">${stage.nameEn}</div>
+                            <div class="subcat-count">${stage.desc}</div>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                const stage = SUPPLY_CHAIN_STAGES[currentStage];
+                titleEl.innerHTML = `${stage.icon} <span>${stage.name}</span>`;
+                badgeEl.textContent = stage.nameEn;
+                breadcrumbCurrent.textContent = stage.name;
+                
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; padding: 20px; background: rgba(10,92,54,0.1); border: 1px solid rgba(10,92,54,0.2); border-radius: var(--radius-lg); margin-bottom: 20px;">
+                        <h4 style="color: var(--gold); margin-bottom: 8px;">${stage.icon} مرحلة ${stage.name}</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">${stage.desc}</p>
+                    </div>
+                `;
+            }
+            
+            renderProductsByStage();
+        }
+        
+        async function renderProductsByStage() {
+            const grid = document.getElementById('productsGrid');
+            
+            try {
+                const url = currentStage === 'all' 
+                    ? '/api/market-listings' 
+                    : '/api/market-by-stage?stage=' + currentStage;
+                    
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                const listings = data.listings || [];
+                
+                if (listings.length > 0) {
+                    grid.innerHTML = listings.map(l => {
+                        const stage = SUPPLY_CHAIN_STAGES[l.supplyChainStage] || { icon: '📦', name: 'عام' };
+                        return `
+                            <div class="product-card" data-id="${l.id}">
+                                <div class="product-image">
+                                    ${l.icon || '📦'}
+                                    <span class="product-badge" style="background: rgba(10,92,54,0.2); color: var(--success);">${stage.icon} ${stage.name}</span>
+                                </div>
+                                <div class="product-content">
+                                    <div class="product-category">${l.categoryName || 'معدن'} • ${l.scrapTypeName || ''}</div>
+                                    <h3 class="product-title">${l.name}</h3>
+                                    <div class="product-specs">
+                                        <span class="spec-item">📦 ${l.quantity || '—'} ${l.unit || 'طن'}</span>
+                                        <span class="spec-item">📍 ${l.storeRegion || 'السعودية'}</span>
+                                    </div>
+                                    <div class="product-price">${Number(l.price || 0).toLocaleString()} <small>${l.currency || 'ريال'}/${l.unit || 'طن'}</small></div>
+                                    <div class="product-footer">
+                                        <div class="seller-info">
+                                            <div class="seller-avatar">${(l.storeName || 'م')[0]}</div>
+                                            <div>
+                                                <div class="seller-name">${l.storeName || 'متجر'}</div>
+                                                <div class="seller-location">${l.storeRegion || ''}</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-gold" onclick="openPurchaseModal('${l.id}', '${l.name}', ${l.price || 0}, '${l.unit || 'طن'}', '${l.currency || 'ريال'}', ${l.quantity || 0})" style="font-size: 0.8rem; padding: 8px 14px;">
+                                            🛒 اشترِ
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    grid.innerHTML = `
+                        <div class="empty-market" style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: var(--card); border: 2px dashed var(--border); border-radius: var(--radius-lg);">
+                            <div style="font-size: 4rem; margin-bottom: 20px;">🔗</div>
+                            <h3 style="font-size: 1.4rem; margin-bottom: 10px; color: var(--gold);">لا توجد عروض في هذه المرحلة</h3>
+                            <p style="color: var(--text-muted); margin-bottom: 24px;">
+                                سجّل متجرك وابدأ عرض منتجاتك في مرحلة ${currentStage !== 'all' ? SUPPLY_CHAIN_STAGES[currentStage].name : 'سلسلة التوريد'}
+                            </p>
+                            <a href="عرض-بضائع.html" class="btn btn-gold" style="text-decoration: none;">📦 اعرض بضاعتك</a>
+                        </div>
+                    `;
+                }
+            } catch (e) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">خطأ في تحميل البيانات</div>`;
+            }
+        }
+
+        async function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            
+            // جلب المنتجات الحقيقية من قاعدة البيانات
+            try {
+                const response = await fetch('/api/market/products?market=' + currentMarket + '&chapter=' + (currentChapter || '') + '&heading=' + (currentHeading || ''));
+                const data = await response.json();
+                
+                if (data.success && data.products && data.products.length > 0) {
+                    grid.innerHTML = data.products.map(p => renderProductCard(p)).join('');
+                } else {
+                    // لا توجد منتجات حقيقية - عرض رسالة للتسجيل
+                    grid.innerHTML = `
+                        <div class="empty-market" style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: var(--card); border: 2px dashed var(--border); border-radius: var(--radius-lg);">
+                            <div style="font-size: 4rem; margin-bottom: 20px;">📦</div>
+                            <h3 style="font-size: 1.4rem; margin-bottom: 10px; color: var(--gold);">السوق في انتظار عروضك!</h3>
+                            <p style="color: var(--text-muted); margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                                لا توجد عروض متاحة حالياً في هذا القسم.<br>
+                                كن أول من يعرض بضاعته واستفد من التسجيل المجاني!
+                            </p>
+                            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                                <a href="تسجيل-تاجر.html" class="btn btn-gold" style="text-decoration: none;">
+                                    ✨ سجّل متجرك مجاناً
+                                </a>
+                                <a href="عرض-بضائع.html" class="btn btn-outline" style="text-decoration: none;">
+                                    📦 اعرض بضاعتك
+                                </a>
+                            </div>
+                            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border);">
+                                <p style="font-size: 0.85rem; color: var(--text-faint);">
+                                    💡 نصيحة: التسجيل يستغرق أقل من 3 دقائق وبدون أي رسوم
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (e) {
+                // في حالة عدم الاتصال بالخادم - عرض نفس الرسالة
+                grid.innerHTML = `
+                    <div class="empty-market" style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: var(--card); border: 2px dashed var(--border); border-radius: var(--radius-lg);">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">🚀</div>
+                        <h3 style="font-size: 1.4rem; margin-bottom: 10px; color: var(--gold);">سوق شيخة جاهز للانطلاق!</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                            نستقبل الآن تسجيل التجار والمتاجر الحقيقية.<br>
+                            سجّل الآن وكن من أوائل التجار في السوق!
+                        </p>
+                        <a href="تسجيل-تاجر.html" class="btn btn-gold" style="text-decoration: none;">
+                            ✨ سجّل متجرك مجاناً
+                        </a>
+                    </div>
+                `;
+            }
+        }
+        
+        function renderProductCard(p) {
+            // حساب الإجمالي
+            const total = (Number(p.price) || 0) * (Number(p.quantity) || 1);
+            const deliveryLabels = {
+                'pickup': '🏭 استلام من الموقع',
+                'local': '🚛 توصيل داخلي',
+                'international': '🚢 شحن دولي'
+            };
+            
+            return `
+                <div class="product-card" data-id="${p.id}">
+                    <div class="product-image">
+                        ${p.icon || '📦'}
+                        <span class="product-badge badge-${currentMarket}">${p.badge || p.category}</span>
+                        ${p.bulkAvailable ? '<span class="product-badge" style="background: rgba(16,185,129,0.2); color: var(--success); left: 10px; right: auto;">🏭 مصنع</span>' : ''}
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">${p.category} • HS ${p.hs}</div>
+                        <h3 class="product-title">${p.name}</h3>
+                        ${p.description ? `<p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; line-height: 1.5;">${p.description.slice(0, 100)}${p.description.length > 100 ? '...' : ''}</p>` : ''}
+                        
+                        <div class="product-specs">
+                            <span class="spec-item">📦 ${p.quantity || '—'} ${p.unit || 'طن'}</span>
+                            <span class="spec-item">📍 ${p.location}</span>
+                            ${p.quality ? `<span class="spec-item">⭐ ${p.quality}</span>` : ''}
+                        </div>
+                        
+                        <!-- طاقة المصنع -->
+                        ${p.storeCapacity && p.storeCapacity.daily !== '—' ? `
+                        <div style="margin: 10px 0; padding: 8px; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; font-size: 0.75rem;">
+                            <div style="font-weight: 700; color: var(--success); margin-bottom: 6px;">🏭 إنتاج حسب الطلب</div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span>طاقة يومية:</span>
+                                <span style="color: var(--gold);">${p.storeCapacity.daily} ${p.unit || 'طن'}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>طاقة شهرية:</span>
+                                <span style="color: var(--gold);">${p.storeCapacity.monthly} ${p.unit || 'طن'}</span>
+                            </div>
+                        </div>
+                        ` : ''}
+                        
+                        <!-- خيارات الشحن -->
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin: 8px 0; padding: 6px 10px; background: rgba(0,0,0,0.2); border-radius: 6px;">
+                            ${deliveryLabels[p.delivery] || deliveryLabels['pickup']}
+                            ${p.transportTypes && p.transportTypes.length > 0 ? ` • ${p.transportTypes.length} وسيلة نقل` : ''}
+                        </div>
+                        
+                        <!-- السعر -->
+                        <div class="product-price">
+                            ${p.price ? `${Number(p.price).toLocaleString()}` : 'اتصل للسعر'} 
+                            ${p.price ? `<small>${p.currency || 'ريال'}/${p.unit || 'طن'}</small>` : ''}
+                        </div>
+                        ${p.price && p.quantity ? `<div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">الإجمالي: ${total.toLocaleString()} ${p.currency || 'ريال'}</div>` : ''}
+                        
+                        <!-- خصم الكميات -->
+                        ${p.hasBulkDiscount && p.bulkQty && p.bulkDiscount ? `
+                        <div style="font-size: 0.75rem; color: var(--success); background: rgba(16,185,129,0.1); padding: 6px 10px; border-radius: 6px; margin-bottom: 10px;">
+                            💰 خصم ${p.bulkDiscount}% عند شراء ${p.bulkQty}+ ${p.unit || 'طن'}
+                        </div>
+                        ` : ''}
+                        
+                        <div class="product-footer">
+                            <div class="seller-info" onclick="event.stopPropagation(); openStoreProfile('${p.sellerId}')" style="cursor: pointer;">
+                                <div class="seller-avatar">${p.seller ? p.seller.charAt(0) : '؟'}</div>
+                                <div>
+                                    <div class="seller-name">${p.seller || 'تاجر'}</div>
+                                    <div class="seller-location">${p.location}</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 6px;">
+                                <button class="btn btn-outline" onclick="event.stopPropagation(); contactSeller('${p.sellerId}', '${p.id}', '${p.name}')" style="font-size: 0.75rem; padding: 8px 12px;" title="تواصل مباشر">
+                                    💬
+                                </button>
+                                <button class="btn btn-gold" onclick="event.stopPropagation(); openPurchaseModal('${p.id}', '${p.name}', ${p.price || 0}, '${p.unit || 'طن'}', '${p.currency || 'ريال'}', ${p.quantity || 0})" style="font-size: 0.8rem; padding: 8px 14px;">
+                                    🛒 اشترِ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // آلية عرض ذكية للمنتجات - Smart Product Display
+        // ═══════════════════════════════════════════════════════════════════════════════
+        
+        // فتح تفاصيل المنتج
+        function openProductDetails(productId) {
+            // عرض نافذة تفاصيل المنتج الكاملة
+            showModal(`
+                <div style="text-align: center; padding: 40px;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">📦</div>
+                    <h3 style="color: var(--gold); margin-bottom: 12px;">تفاصيل المنتج</h3>
+                    <p style="color: var(--text-muted);">سيتم عرض التفاصيل الكاملة للمنتج هنا</p>
+                    <p style="color: var(--text-faint); font-size: 0.85rem; margin-top: 20px;">
+                        معرف المنتج: ${productId}
+                    </p>
+                </div>
+            `);
+        }
+        
+        // فتح صفحة المتجر
+        function openStoreProfile(sellerId) {
+            showModal(`
+                <div style="text-align: center; padding: 40px;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🏪</div>
+                    <h3 style="color: var(--gold); margin-bottom: 12px;">صفحة المتجر</h3>
+                    <p style="color: var(--text-muted);">
+                        سيتم عرض:<br>
+                        • معلومات المتجر والتاجر<br>
+                        • جميع منتجات المتجر<br>
+                        • تقييمات العملاء<br>
+                        • الطاقة الإنتاجية
+                    </p>
+                </div>
+            `);
+        }
+        
+        // التواصل المباشر مع التاجر
+        function contactSeller(sellerId, productId, productName) {
+            const msg = encodeURIComponent('السلام عليكم،\nأرغب بالاستفسار عن: ' + (productName || 'المنتج') + '\nرقم العرض: ' + productId);
+            showModal(`
+                <div style="padding: 24px;">
+                    <h3 style="color: var(--gold); margin-bottom: 24px; text-align: center;">💬 طرق التواصل</h3>
+                    
+                    <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 12px; margin-bottom: 20px;">
+                        <div style="font-weight: 700; margin-bottom: 8px;">📦 ${productName || 'المنتج'}</div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">رقم العرض: ${productId.slice(0,8)}...</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 12px;">
+                        <a href="https://wa.me/966554942904?text=${msg}" 
+                           target="_blank" class="btn" style="width: 100%; text-decoration: none; background: #25D366; color: white; padding: 14px;">
+                            <span style="font-size: 1.2rem;">📱</span> تواصل واتساب
+                        </a>
+                        <button class="btn btn-outline" style="width: 100%; padding: 14px;" onclick="showCallbackForm('${sellerId}', '${productId}')">
+                            <span style="font-size: 1.2rem;">📞</span> اطلب اتصالاً
+                        </button>
+                        <button class="btn btn-outline" style="width: 100%; padding: 14px;" onclick="showInquiryForm('${productId}', '${productName}')">
+                            <span style="font-size: 1.2rem;">✉️</span> أرسل استفساراً
+                        </button>
+                    </div>
+                    
+                    <div style="margin-top: 24px; padding: 16px; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 12px;">
+                        <div style="font-weight: 700; color: var(--success); margin-bottom: 8px;">🏭 هل تحتاج كميات كبيرة؟</div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+                            سوق شيخة يوفر خدمة التوريد الشامل — نجمع لك من عدة تجار لتلبية طلبك
+                        </p>
+                        <button class="btn btn-success" style="width: 100%; padding: 12px;" onclick="requestBulkOrder()">
+                            🏭 اطلب توريداً ضخماً
+                        </button>
+                    </div>
+                </div>
+            `);
+        }
+        
+        // نموذج طلب اتصال
+        function showCallbackForm(sellerId, productId) {
+            closeModal();
+            showModal(`
+                <div style="padding: 24px;">
+                    <h3 style="color: var(--gold); margin-bottom: 20px; text-align: center;">📞 طلب اتصال</h3>
+                    <form id="callbackForm" style="display: grid; gap: 16px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">رقم جوالك</label>
+                            <input type="tel" class="search-input" style="width: 100%;" placeholder="05XXXXXXXX" required>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">الوقت المناسب</label>
+                            <select class="filter-select" style="width: 100%;">
+                                <option value="anytime">أي وقت</option>
+                                <option value="morning">صباحاً (8-12)</option>
+                                <option value="afternoon">ظهراً (12-4)</option>
+                                <option value="evening">مساءً (4-9)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-gold" style="width: 100%;">📤 إرسال الطلب</button>
+                    </form>
+                </div>
+            `);
+            document.getElementById('callbackForm')?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('تم إرسال طلب الاتصال! سيتواصل معك التاجر قريباً.');
+                closeModal();
+            });
+        }
+        
+        // نموذج استفسار
+        function showInquiryForm(productId, productName) {
+            closeModal();
+            showModal(`
+                <div style="padding: 24px;">
+                    <h3 style="color: var(--gold); margin-bottom: 20px; text-align: center;">✉️ إرسال استفسار</h3>
+                    <form id="inquiryForm" style="display: grid; gap: 16px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">اسمك</label>
+                            <input type="text" class="search-input" style="width: 100%;" placeholder="الاسم" required>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">رقم جوالك</label>
+                            <input type="tel" class="search-input" style="width: 100%;" placeholder="05XXXXXXXX" required>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">رسالتك</label>
+                            <textarea class="search-input" style="width: 100%; height: 100px; resize: none;" placeholder="اكتب استفسارك عن ${productName || 'المنتج'}..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gold" style="width: 100%;">📤 إرسال</button>
+                    </form>
+                </div>
+            `);
+            document.getElementById('inquiryForm')?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('تم إرسال استفسارك! سيرد عليك التاجر قريباً.');
+                closeModal();
+            });
+        }
+        
+        // طلب توريد ضخم من السوق مباشرة
+        function requestBulkOrder() {
+            closeModal();
+            showModal(`
+                <div style="padding: 20px;">
+                    <h3 style="color: var(--gold); margin-bottom: 20px; text-align: center;">🏭 طلب توريد ضخم</h3>
+                    
+                    <p style="color: var(--text-muted); text-align: center; margin-bottom: 20px;">
+                        للكميات الكبيرة، يقوم سوق شيخة بالتوريد من عدة تجار لتلبية طلبك
+                    </p>
+                    
+                    <form id="bulkOrderForm" style="display: grid; gap: 16px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">نوع المعدن المطلوب</label>
+                            <select class="filter-select" style="width: 100%;" required>
+                                <option value="">اختر النوع</option>
+                                <option value="iron">حديد</option>
+                                <option value="copper">نحاس</option>
+                                <option value="aluminum">ألمنيوم</option>
+                                <option value="scrap">سكراب</option>
+                                <option value="other">أخرى</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">الكمية المطلوبة (طن)</label>
+                            <input type="number" class="search-input" style="width: 100%;" placeholder="مثال: 500" required>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">موعد التسليم</label>
+                            <input type="date" class="search-input" style="width: 100%;" required>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">موقع التسليم</label>
+                            <select class="filter-select" style="width: 100%;" required>
+                                <option value="">اختر المنطقة</option>
+                                <option value="riyadh">الرياض</option>
+                                <option value="jeddah">جدة</option>
+                                <option value="dammam">الدمام</option>
+                                <option value="other">أخرى</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">ملاحظات إضافية</label>
+                            <textarea class="search-input" style="width: 100%; height: 80px; resize: none;" placeholder="المواصفات المطلوبة..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gold" style="width: 100%;">
+                            📤 إرسال طلب التوريد
+                        </button>
+                    </form>
+                    
+                    <p style="font-size: 0.8rem; color: var(--text-faint); text-align: center; margin-top: 16px;">
+                        سيتم الرد خلال 24 ساعة بعرض سعر شامل
+                    </p>
+                </div>
+            `);
+        }
+        
+        // نافذة الشراء
+        function openPurchaseModal(productId, productName, price, unit, currency, availableQty) {
+            showModal(`
+                <div style="padding: 24px;">
+                    <h3 style="color: var(--gold); margin-bottom: 24px; text-align: center;">🛒 إتمام الشراء</h3>
+                    
+                    <div style="background: rgba(0,0,0,0.2); border-radius: 12px; padding: 16px; margin-bottom: 20px;">
+                        <div style="font-weight: 700; margin-bottom: 8px;">📦 ${productName || 'المنتج'}</div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-muted);">
+                            <span>السعر: ${price ? Number(price).toLocaleString() : '—'} ${currency}/${unit}</span>
+                            <span>المتوفر: ${availableQty || '—'} ${unit}</span>
+                        </div>
+                    </div>
+                    
+                    <form id="purchaseForm" style="display: grid; gap: 16px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">الكمية المطلوبة (${unit})</label>
+                            <input type="number" id="purchaseQty" class="search-input" style="width: 100%;" placeholder="أدخل الكمية" min="1" ${availableQty ? 'max="'+availableQty+'"' : ''} oninput="updatePurchaseTotal(${price}, '${currency}')" required>
+                        </div>
+                        
+                        <div id="purchaseTotalBox" style="background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; padding: 16px; text-align: center; display: none;">
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">الإجمالي المقدر</div>
+                            <div id="purchaseTotal" style="font-size: 1.5rem; font-weight: 900; color: var(--gold);">—</div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div>
+                                <label style="display: block; margin-bottom: 6px; font-size: 0.85rem;">طريقة الاستلام</label>
+                                <select id="deliveryMethod" class="filter-select" style="width: 100%;">
+                                    <option value="pickup">استلام من الموقع</option>
+                                    <option value="delivery">توصيل</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 6px; font-size: 0.85rem;">طريقة الدفع</label>
+                                <select id="paymentMethod" class="filter-select" style="width: 100%;">
+                                    <option value="escrow">ضمان شيخة (آمن)</option>
+                                    <option value="direct">دفع مباشر</option>
+                                    <option value="credit">آجل (بموافقة)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 10px; padding: 12px; font-size: 0.8rem; color: var(--success);">
+                            🔒 <strong>ضمان شيخة:</strong> يُحفظ المبلغ في حساب آمن حتى تستلم البضاعة وتؤكد
+                        </div>
+                        
+                        <button type="submit" class="btn btn-gold" style="width: 100%; padding: 16px; font-size: 1rem;">
+                            ✓ تأكيد الطلب
+                        </button>
+                        
+                        <button type="button" class="btn btn-outline" style="width: 100%;" onclick="contactSeller('', '${productId}', '${productName}')">
+                            💬 تواصل مع التاجر أولاً
+                        </button>
+                    </form>
+                </div>
+            `);
+            
+            document.getElementById('purchaseForm')?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const qty = document.getElementById('purchaseQty').value;
+                const total = Number(qty) * Number(price);
+                alert('تم إرسال طلب الشراء!\\n\\nالمنتج: ${productName}\\nالكمية: ' + qty + ' ${unit}\\nالإجمالي: ' + total.toLocaleString() + ' ${currency}\\n\\nسيتواصل معك التاجر لتأكيد الطلب.');
+                closeModal();
+            });
+        }
+        
+        // تحديث إجمالي الشراء
+        function updatePurchaseTotal(price, currency) {
+            const qty = document.getElementById('purchaseQty')?.value || 0;
+            const totalBox = document.getElementById('purchaseTotalBox');
+            const totalEl = document.getElementById('purchaseTotal');
+            if (qty > 0 && price > 0) {
+                const total = Number(qty) * Number(price);
+                totalEl.textContent = total.toLocaleString() + ' ' + currency;
+                totalBox.style.display = 'block';
+            } else {
+                totalBox.style.display = 'none';
+            }
+        }
+        
+        // دوال مساعدة للنوافذ
+        function showModal(content) {
+            let modal = document.getElementById('smartModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'smartModal';
+                modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px;';
+                modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+                document.body.appendChild(modal);
+            }
+            modal.innerHTML = `
+                <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-xl); max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative;">
+                    <button onclick="closeModal()" style="position: absolute; top: 16px; left: 16px; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer;">×</button>
+                    ${content}
+                </div>
+            `;
+            modal.style.display = 'flex';
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('smartModal');
+            if (modal) modal.style.display = 'none';
+        }
+        
+        function requestCallback(sellerId) {
+            alert('سيتم الاتصال بك قريباً');
+            closeModal();
+        }
+        
+        function sendInquiry(productId) {
+            alert('تم إرسال الاستفسار');
+            closeModal();
+        }
+
+        // لا توجد بيانات وهمية - المنتجات تأتي من قاعدة البيانات فقط
+        function generateSampleProducts() {
+            // إرجاع مصفوفة فارغة - المنتجات الحقيقية فقط من API
+            return [];
+        }
+
+        function renderSupplyChain() {
+            const section = document.getElementById('supplyChainSection');
+            
+            const chains = {
+                metals: {
+                    title: '🔗 سلسلة إمداد المعادن الأساسية',
+                    stages: [
+                        { icon: '⛏️', name: 'التعدين', desc: 'استخراج المواد الخام' },
+                        { icon: '🏭', name: 'التصنيع', desc: 'الصهر والتشكيل' },
+                        { icon: '📦', name: 'التخزين', desc: 'مستودعات معتمدة' },
+                        { icon: '🚛', name: 'النقل', desc: 'شاحنات ثقيلة' },
+                        { icon: '🏪', name: 'التوزيع', desc: 'تجار الجملة' },
+                        { icon: '🏠', name: 'المستهلك', desc: 'المصانع والمشاريع' }
+                    ],
+                    logistics: [
+                        { icon: '🚛', title: 'النقل البري الثقيل', items: ['شاحنات مسطحة 40 طن', 'تريلات نقل الكويلات', 'شاحنات مقطورة'] },
+                        { icon: '🚂', title: 'النقل بالسكك الحديدية', items: ['عربات الشحن المفتوحة', 'الربط مع الموانئ', 'شحنات أكثر من 100 طن'] },
+                        { icon: '🚢', title: 'النقل البحري', items: ['حاويات 20ft / 40ft', 'سفن البضائع السائبة', 'تصدير للأسواق العالمية'] }
+                    ]
+                },
+                scrap: {
+                    title: '♻️ سلسلة إمداد إعادة التدوير',
+                    stages: [
+                        { icon: '🗑️', name: 'المصدر', desc: 'مصانع، ورش، هدم' },
+                        { icon: '📦', name: 'التجميع', desc: 'حاويات ونقاط تجميع' },
+                        { icon: '⚙️', name: 'الفرز', desc: 'تنظيف، تقطيع، ضغط' },
+                        { icon: '🚛', name: 'النقل', desc: 'حاويات سكراب' },
+                        { icon: '🏭', name: 'المصهر', desc: 'إعادة الصهر' },
+                        { icon: '🔄', name: 'المنتج الجديد', desc: 'سبائك ومنتجات' }
+                    ],
+                    containers: [
+                        { icon: '📦', name: 'حاوية صغيرة', specs: '3-5 م³', desc: 'للورش الصغيرة' },
+                        { icon: '🗑️', name: 'حاوية متوسطة', specs: '10-15 م³', desc: 'للورش المتوسطة' },
+                        { icon: '🏗️', name: 'حاوية Roll-off', specs: '20-40 م³', desc: 'للمصانع والهدم' },
+                        { icon: '🔋', name: 'حاوية بطاريات', specs: 'مقاومة للأحماض', desc: 'للبطاريات' },
+                        { icon: '📱', name: 'حاوية إلكترونيات', specs: 'مغلقة وآمنة', desc: 'للنفايات الإلكترونية' }
+                    ],
+                    logistics: [
+                        { icon: '🚛', title: 'شاحنات Hook Lift', items: ['رفع وتفريغ الحاويات', 'سعة 10-30 طن', 'خدمة التبديل السريع'] },
+                        { icon: '🏗️', title: 'رافعات ومعدات', items: ['رافعات مغناطيسية', 'معدات تحميل ثقيلة', 'موازين إلكترونية'] },
+                        { icon: '🔄', title: 'التجميع الدوري', items: ['جدولة أسبوعية/شهرية', 'تقارير الكميات', 'دفع فوري'] }
+                    ]
+                },
+                precious: {
+                    title: '💎 سلسلة إمداد المعادن الثمينة',
+                    stages: [
+                        { icon: '⛏️', name: 'التعدين/الاستيراد', desc: 'مناجم معتمدة' },
+                        { icon: '🔬', name: 'التكرير والفحص', desc: 'مصافي معتمدة' },
+                        { icon: '🏦', name: 'التخزين الآمن', desc: 'خزائن مؤمنة' },
+                        { icon: '🚐', name: 'النقل الآمن', desc: 'سيارات مصفحة' },
+                        { icon: '💍', name: 'الصياغة', desc: 'ورش معتمدة' },
+                        { icon: '🏪', name: 'البيع', desc: 'محلات ومعارض' }
+                    ],
+                    logistics: [
+                        { icon: '🚐', title: 'النقل الآمن والمصفح', items: ['سيارات مصفحة مع حراسة', 'تتبع GPS مباشر', 'حماية وتوثيق على القيمة'] },
+                        { icon: '🏦', title: 'خزائن التخزين', items: ['خزائن بنكية مؤمنة', 'مراقبة 24/7', 'تقارير الجرد الدورية'] },
+                        { icon: '✈️', title: 'الشحن الجوي الآمن', items: ['شحن دولي سريع', 'تخليص جمركي VIP', 'شهادات المنشأ'] }
+                    ],
+                    certifications: ['LBMA للذهب', 'GIA للألماس', 'دمغة الدار السعودية', 'Kimberley للألماس']
+                }
+            };
+            
+            const chainData = chains[currentMarket];
+            
+            let html = `<h3 class="section-title">${chainData.title}</h3>`;
+            
+            // Supply chain flow
+            html += `<div class="supply-chain-flow">`;
+            chainData.stages.forEach((stage, i) => {
+                html += `
+                    <div class="chain-stage">
+                        <div class="stage-icon">${stage.icon}</div>
+                        <div class="stage-name">${stage.name}</div>
+                        <div class="stage-desc">${stage.desc}</div>
+                    </div>
+                `;
+                if (i < chainData.stages.length - 1) {
+                    html += `<div class="chain-arrow">→</div>`;
+                }
+            });
+            html += `</div>`;
+            
+            // Containers for scrap
+            if (chainData.containers) {
+                html += `<h4 style="margin: 24px 0 12px; font-size: 1rem;">📦 حاويات السكراب المتخصصة</h4>`;
+                html += `<div class="containers-grid">`;
+                chainData.containers.forEach(c => {
+                    html += `
+                        <div class="container-card">
+                            <div class="container-icon">${c.icon}</div>
+                            <h4>${c.name}</h4>
+                            <div class="container-specs"><span>${c.specs}</span></div>
+                            <p>${c.desc}</p>
+                            <button class="btn btn-success" style="font-size: 0.8rem; padding: 8px 16px;">اطلب حاوية</button>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+            }
+            
+            // Logistics
+            html += `<h4 style="margin: 24px 0 12px; font-size: 1rem;">🚛 النقل واللوجستيات</h4>`;
+            html += `<div class="logistics-grid">`;
+            chainData.logistics.forEach(l => {
+                html += `
+                    <div class="logistics-card">
+                        <div class="logistics-icon">${l.icon}</div>
+                        <h4>${l.title}</h4>
+                        <ul>${l.items.map(item => `<li>${item}</li>`).join('')}</ul>
+                        <button class="btn btn-outline" style="width: 100%; font-size: 0.8rem;">طلب خدمة</button>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            
+            // Certifications for precious
+            if (chainData.certifications) {
+                html += `<h4 style="margin: 24px 0 12px; font-size: 1rem;">📜 الشهادات والاعتمادات</h4>`;
+                html += `<div style="display: flex; flex-wrap: wrap; gap: 12px;">`;
+                chainData.certifications.forEach(cert => {
+                    html += `<span style="padding: 8px 16px; background: rgba(212,175,55,0.1); color: var(--gold); border-radius: 8px; font-size: 0.85rem;">✓ ${cert}</span>`;
+                });
+                html += `</div>`;
+            }
+            
+            section.innerHTML = html;
+        }
+
+        function resetView() {
+            currentChapter = null;
+            currentHeading = null;
+            renderSidebar();
+            renderMainContent();
+        }
+
+        function filterProducts() {
+            // Filter logic here
+            renderProducts();
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.includes(lang === 'ar' ? 'عربي' : 'EN'));
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSidebar();
+            renderMainContent();
+            renderSupplyChain();
+        });
+    </script>
+</body>
+</html>

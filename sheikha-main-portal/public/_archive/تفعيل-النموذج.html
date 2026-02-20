@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفعيل نموذج عمل شيخة المبتكر | Sheikha Business Model</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d9488;
+            --primary-dark: #0f766e;
+            --bg: #f5f6f8;
+            --bg-card: #ffffff;
+            --text: #1a1d21;
+            --text-muted: #5c6370;
+            --border: #dde1e6;
+            --accent: #c9a227;
+            --radius: 10px;
+            --shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 24px; line-height: 1.6; }
+        .wrap { max-width: 900px; margin: 0 auto; }
+        .back { display: inline-block; margin-bottom: 20px; color: var(--primary); text-decoration: none; font-weight: 600; }
+        .back:hover { text-decoration: underline; }
+        h1 { font-size: 1.75rem; color: var(--text); margin-bottom: 8px; }
+        .sub { color: var(--text-muted); margin-bottom: 24px; }
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #fff; padding: 12px 20px; border-radius: var(--radius);
+            font-weight: 700; margin-bottom: 28px;
+        }
+        .status-badge span { font-size: 1.25rem; }
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 20px 24px; margin-bottom: 16px; box-shadow: var(--shadow);
+        }
+        .card h2 { font-size: 1.1rem; color: var(--primary); margin-bottom: 12px; }
+        .pillar { padding: 12px 0; border-bottom: 1px solid var(--border); }
+        .pillar:last-child { border-bottom: none; }
+        .pillar strong { color: var(--text); }
+        .pillar p { color: var(--text-muted); font-size: 0.95rem; margin-top: 4px; }
+        .api-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 12px; }
+        .api-link {
+            display: block; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border);
+            border-radius: 8px; color: var(--primary); text-decoration: none; font-size: 0.9rem; font-weight: 500;
+        }
+        .api-link:hover { border-color: var(--primary); background: rgba(13,148,136,0.06); }
+        .doc-link { color: var(--accent); text-decoration: none; font-weight: 600; margin-top: 24px; display: inline-block; }
+        .doc-link:hover { text-decoration: underline; }
+        .err { color: #dc2626; padding: 16px; background: #fef2f2; border-radius: var(--radius); margin-top: 16px; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <a href="index.html" class="back">← الرئيسية</a>
+        <h1>نموذج عمل شيخة المبتكر والتكامل</h1>
+        <p class="sub">أفضل من Microservices / B2B / AI / FBA / SP-API / CS-Cart — مفعّل في البوابة</p>
+
+        <div id="statusBadge" class="status-badge" style="display: none;">
+            <span>✓</span>
+            <span>النموذج المبتكر مفعّل</span>
+        </div>
+
+        <div id="content"></div>
+        <div id="error" class="err" style="display: none;"></div>
+
+        <a href="/docs/نموذج-عمل-شيخة-المبتكر-والتكامل.md" class="doc-link" target="_blank">📄 وثيقة النموذج الكاملة (MD)</a>
+    </div>
+    <script>
+        const origin = window.location.origin || '';
+        const isLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin);
+        const apiBase = (origin && isLocalhost) ? origin : 'http://localhost:8080';
+
+        function showError(msg, detail) {
+            var el = document.getElementById('error');
+            el.style.display = 'block';
+            el.innerHTML = msg + (detail ? '<br><small>' + detail + '</small>' : '');
+        }
+
+        async function load() {
+            try {
+                var url = apiBase + '/api/business-model';
+                var res = await fetch(url);
+                var contentType = (res.headers.get('Content-Type') || '').toLowerCase();
+                if (!res.ok) {
+                    var msg = (res.status === 404)
+                        ? 'الواجهة /api/business-model غير متوفرة (404). أعد تشغيل الخادم لتحميل الكود الحالي.'
+                        : 'الخادم أعاد خطأ ' + res.status + '.';
+                    showError(msg, '1) أوقف العملية على المنفذ 8080: <code>lsof -i :8080</code> ثم <code>kill &lt;PID&gt;</code><br>2) من مجلد البوابة شغّل: <code>./شغل-البوابة.sh</code><br>3) افتح: <a href="http://localhost:8080/تفعيل-النموذج.html">http://localhost:8080/تفعيل-النموذج.html</a>');
+                    return;
+                }
+                if (contentType.indexOf('application/json') === -1) {
+                    showError('الخادم أعاد صفحة HTML بدل JSON.', 'افتح الصفحة من المتصفح عبر: <a href="http://localhost:8080/تفعيل-النموذج.html">http://localhost:8080/تفعيل-النموذج.html</a>');
+                    return;
+                }
+                var data = await res.json();
+                if (!data.success || !data.model) {
+                    showError('لا توجد بيانات نموذج في الاستجابة.');
+                    return;
+                }
+
+                document.getElementById('statusBadge').style.display = 'inline-flex';
+
+                var m = data.model;
+                var html = '';
+
+                html += '<div class="card"><h2>أركان النموذج</h2>';
+                (m.pillars || []).forEach(function(p) {
+                    html += '<div class="pillar"><strong>' + (p.nameAr || p.id) + '</strong><p>' + (p.description || '') + '</p></div>';
+                });
+                html += '</div>';
+
+                html += '<div class="card"><h2>واجهات التفعيل (API)</h2><div class="api-grid">';
+                var apis = m.apis || {};
+                Object.keys(apis).forEach(function(k) {
+                    var path = apis[k];
+                    html += '<a class="api-link" href="' + apiBase + path + '" target="_blank">' + path + '</a>';
+                });
+                html += '</div></div>';
+
+                document.getElementById('content').innerHTML = html;
+            } catch (e) {
+                var friendly = e.message || '';
+                if (friendly.indexOf('expected pattern') !== -1 || friendly.indexOf('JSON') !== -1) {
+                    friendly = 'الخادم أعاد HTML بدل JSON. افتح الصفحة من: <a href="http://localhost:8080/تفعيل-النموذج.html">http://localhost:8080/تفعيل-النموذج.html</a>';
+                } else {
+                    friendly = 'تعذر تحميل النموذج. ' + friendly;
+                }
+                showError(friendly, 'شغّل الخادم من مجلد البوابة: ./شغل-البوابة.sh');
+            }
+        }
+
+        load();
+    </script>
+    <footer style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e2e8f0;text-align:center;font-size:0.9em;color:#64748b;">
+        <p><a href="index.html" style="color:#0d9488;text-decoration:none;">الرئيسية</a> · <a href="خريطة-الموقع.html" style="color:#0d9488;text-decoration:none;">خريطة الموقع</a></p>
+        <p style="margin-top:0.5rem;">أهداف الموقع: بلا ضرر ولا ضرار · حب العلامة وأمان · محافظة على البيئة والصحة والبشر.</p>
+    </footer>
+</body>
+</html>

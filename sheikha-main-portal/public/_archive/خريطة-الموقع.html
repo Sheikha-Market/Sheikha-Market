@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خريطة الموقع | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --gold: #c9a227;
+            --gold-light: #e4c04a;
+            --dark: #0a1628;
+            --darker: #060d17;
+            --card: #0f1e2f;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: #1e3a50;
+            --radius: 16px;
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--gold), var(--primary));
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .back-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text-muted);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .back-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 32px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .hero h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 900;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        .sitemap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .section:hover {
+            border-color: rgba(201,162,39,0.3);
+        }
+        .section-header {
+            background: linear-gradient(135deg, rgba(10,92,54,0.2), rgba(201,162,39,0.1));
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .section-header h2 {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+        .section-body {
+            padding: 20px;
+        }
+        .section-body ul {
+            list-style: none;
+        }
+        .section-body li {
+            margin-bottom: 12px;
+        }
+        .section-body li:last-child {
+            margin-bottom: 0;
+        }
+        .section-body a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        .section-body a:hover {
+            background: rgba(201,162,39,0.1);
+            color: var(--gold);
+        }
+        .section-body a::before {
+            content: '→';
+            color: var(--gold);
+        }
+
+        .objectives {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-top: 48px;
+            text-align: center;
+        }
+        .objectives h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+        .obj-grid {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .obj-item {
+            text-align: center;
+        }
+        .obj-item .icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .obj-item p {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 32px;
+            margin-top: 48px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .main { padding: 24px 16px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><svg viewBox="0 0 60 60" width="100%" height="100%"><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f7e98e"/><stop offset="50%" style="stop-color:#d4af37"/><stop offset="100%" style="stop-color:#aa8c2c"/></linearGradient></defs><circle cx="30" cy="30" r="28" fill="none" stroke="url(#goldGrad)" stroke-width="2"/><path d="M20 22 Q30 18 40 22 Q42 30 40 38 Q30 42 20 38 Q18 30 20 22" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/><circle cx="24" cy="20" r="2" fill="url(#goldGrad)"/><circle cx="30" cy="18" r="2" fill="url(#goldGrad)"/><circle cx="36" cy="20" r="2" fill="url(#goldGrad)"/><path d="M25 30 L35 30" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round"/></svg></div>
+                <span class="logo-text">سوق شيخة</span>
+            </a>
+            <a href="index.html" class="back-btn">← الرئيسية</a>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="hero">
+            <h1>خريطة الموقع</h1>
+            <p>فهرس شامل لجميع صفحات ومحتويات سوق شيخة</p>
+        </div>
+
+        <div class="sitemap-grid">
+            <!-- الصفحات الرئيسية -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🏠</div>
+                    <h2>الصفحات الرئيسية</h2>
+                </div>
+                <div class="section-body">
+                    <ul>
+                        <li><a href="index.html">الصفحة الرئيسية</a></li>
+                        <li><a href="index.html#market">السوق</a></li>
+                        <li><a href="index.html#journey">كيف تبدأ</a></li>
+                        <li><a href="index.html#features">المميزات</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- التجارة -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🛒</div>
+                    <h2>التجارة</h2>
+                </div>
+                <div class="section-body">
+                    <ul>
+                        <li><a href="تسجيل-تاجر.html">تسجيل متجر</a></li>
+                        <li><a href="تسجيل-الدخول.html">تسجيل الدخول</a></li>
+                        <li><a href="عرض-بضائع.html">عرض بضائع</a></li>
+                        <li><a href="آلية-البيع.html">آلية البيع</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- لوحة التحكم -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">📊</div>
+                    <h2>لوحة التحكم</h2>
+                </div>
+                <div class="section-body">
+                    <ul>
+                        <li><a href="لوحة-التحكم.html">نظرة عامة</a></li>
+                        <li><a href="لوحة-التحكم.html#products">منتجاتي</a></li>
+                        <li><a href="لوحة-التحكم.html#erp">نظام ERP</a></li>
+                        <li><a href="لوحة-التحكم.html#scm">سلسلة التوريد</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- النظام واللوائح -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">📜</div>
+                    <h2>النظام واللوائح</h2>
+                </div>
+                <div class="section-body">
+                    <ul>
+                        <li><a href="اللوائح-والقوانين-والاجراءات.html">اللوائح والقوانين</a></li>
+                        <li><a href="اللوائح-والقوانين-والاجراءات.html#tab-specs">المواصفات</a></li>
+                        <li><a href="اللوائح-والقوانين-والاجراءات.html#tab-procedures">الإجراءات</a></li>
+                        <li><a href="اللوائح-والقوانين-والاجراءات.html#tab-forms">النماذج</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- المعلومات -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">📖</div>
+                    <h2>المعلومات</h2>
+                </div>
+                <div class="section-body">
+                    <ul>
+                        <li><a href="الهوية-والبيئة-والجودة.html">الهوية والبيئة</a></li>
+                        <li><a href="تكامل.html">التكامل (API)</a></li>
+                        <li><a href="مساعد-شيخة.html">مساعد شيخة</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- التواصل -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">📞</div>
+                    <h2>التواصل</h2>
+                </div>
+                <div class="section-body">
+                    <ul>
+                        <li><a href="https://wa.me/966554942904" target="_blank">واتساب</a></li>
+                        <li><a href="mailto:info@sheikha.top">البريد الإلكتروني</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- أهداف المنظومة -->
+        <div class="objectives">
+            <h3>أهداف منظومة شيخة</h3>
+            <div class="obj-grid">
+                <div class="obj-item">
+                    <div class="icon">🌿</div>
+                    <p>بلا ضرر ولا ضرار</p>
+                </div>
+                <div class="obj-item">
+                    <div class="icon">💚</div>
+                    <p>حب العلامة وأمان</p>
+                </div>
+                <div class="obj-item">
+                    <div class="icon">♻️</div>
+                    <p>محافظة على البيئة</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 منظومة وسوق شيخة — تجارة السكراب والمعادن</p>
+        <p style="margin-top: 8px;"><a href="index.html">الرئيسية</a></p>
+    </footer>
+</body>
+</html>

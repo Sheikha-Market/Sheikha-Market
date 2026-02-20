@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الالتزام الشرعي | منظومة شيخة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/elite-design-system.css">
+    <style>
+        :root {
+            --bg-primary: #020617;
+            --bg-secondary: #0f172a;
+            --bg-tertiary: #1e293b;
+            --bg-elevated: #0c1220;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border-primary: #334155;
+            --border-secondary: #1e293b;
+            --sheikha-gold-500: #d4af37;
+            --saudi-green-500: #006c35;
+            --islamic-green: #00a550;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+        
+        .quran-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            line-height: 2.2;
+            color: var(--sheikha-gold-500);
+            text-align: center;
+            padding: 24px;
+            background: rgba(212,175,55,0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(212,175,55,0.2);
+            margin: 24px 0;
+        }
+        
+        .hadith-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.25rem;
+            line-height: 2;
+            color: var(--islamic-green);
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,165,80,0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(0,165,80,0.2);
+            margin: 20px 0;
+        }
+        
+        .reference {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 8px;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 12px 24px;
+            background: rgba(2,6,23,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        
+        .logo-mark {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--sheikha-gold-500), #b8942f);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #000;
+        }
+        
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--sheikha-gold-500);
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+        }
+        
+        .nav-link {
+            padding: 8px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--sheikha-gold-500);
+            background: rgba(212,175,55,0.1);
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding-top: 80px;
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 80px 24px 60px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 400px;
+            background: 
+                radial-gradient(ellipse at 50% 0%, rgba(0,165,80,0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 32px;
+            background: linear-gradient(135deg, var(--islamic-green), var(--saudi-green-500));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            box-shadow: 0 0 60px rgba(0,165,80,0.3);
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--islamic-green), var(--sheikha-gold-500));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.9;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Section */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: rgba(0,165,80,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Principles Grid */
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+        
+        .principle-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-secondary);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+        
+        .principle-card:hover {
+            border-color: var(--islamic-green);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .principle-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .principle-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(0,165,80,0.15);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+        }
+        
+        .principle-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        
+        .principle-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+        
+        .principle-evidence {
+            padding: 16px;
+            background: rgba(0,165,80,0.05);
+            border-radius: 12px;
+            border-right: 4px solid var(--islamic-green);
+        }
+        
+        .evidence-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.1rem;
+            color: var(--islamic-green);
+            margin-bottom: 8px;
+        }
+        
+        .evidence-source {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        /* Halal Standards */
+        .standards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+        
+        .standard-category {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .category-header {
+            padding: 24px;
+            background: linear-gradient(135deg, var(--islamic-green), var(--saudi-green-500));
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        
+        .category-content {
+            padding: 24px;
+        }
+        
+        .standard-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        
+        .standard-item:last-child {
+            border-bottom: none;
+        }
+        
+        .standard-check {
+            width: 24px;
+            height: 24px;
+            background: var(--islamic-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .standard-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .standard-text strong {
+            color: var(--text-primary);
+        }
+        
+        /* Prohibited List */
+        .prohibited-section {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 48px;
+            margin: 60px 0;
+        }
+        
+        .prohibited-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 32px;
+        }
+        
+        .prohibited-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: rgba(239,68,68,0.05);
+            border: 1px solid rgba(239,68,68,0.2);
+            border-radius: 14px;
+        }
+        
+        .prohibited-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(239,68,68,0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: #ef4444;
+        }
+        
+        .prohibited-text {
+            flex: 1;
+        }
+        
+        .prohibited-title {
+            font-weight: 600;
+            color: #ef4444;
+            margin-bottom: 4px;
+        }
+        
+        .prohibited-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        /* Certification */
+        .certification-section {
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .certification-badge {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 32px;
+            background: linear-gradient(145deg, var(--bg-elevated), var(--bg-secondary));
+            border: 4px solid var(--islamic-green);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 60px rgba(0,165,80,0.2);
+        }
+        
+        .cert-icon {
+            font-size: 3rem;
+            margin-bottom: 8px;
+        }
+        
+        .cert-text {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--islamic-green);
+        }
+        
+        .cert-subtext {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 60px 24px 30px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-secondary);
+            text-align: center;
+        }
+        
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .standards-grid { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .principles-grid { grid-template-columns: 1fr; }
+            .prohibited-section { padding: 32px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="منظومة-شيخة.html" class="logo-link">
+                <div class="logo-mark">ش</div>
+                <span class="logo-text">شيخة</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="منظومة-شيخة.html" class="nav-link">الرئيسية</a></li>
+                <li><a href="سوق-شيخة.html" class="nav-link">السوق</a></li>
+                <li><a href="سلسلة-التوريد.html" class="nav-link">سلسلة التوريد</a></li>
+                <li><a href="الالتزام-الشرعي.html" class="nav-link active">الالتزام الشرعي</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-icon">☪️</div>
+            <h1>الالتزام <span>الشرعي</span></h1>
+            <p>
+                منظومة شيخة ملتزمة التزاماً كاملاً بأحكام الشريعة الإسلامية الغراء
+                من الكتاب والسنة النبوية الشريفة. كل معاملاتنا حلال وموافقة للشرع.
+            </p>
+        </section>
+        
+        <div class="container">
+            <!-- Quranic Verse -->
+            <div class="quran-text">
+                ﴿ يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ مِّنكُمْ ﴾
+            </div>
+            <p class="reference">سورة النساء - الآية 29</p>
+            
+            <!-- Principles Section -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon">📜</div>
+                    <h2 class="section-title">المبادئ الشرعية الأساسية</h2>
+                    <p class="section-description">
+                        تقوم منظومة شيخة على مبادئ شرعية راسخة مستمدة من القرآن الكريم والسنة النبوية
+                    </p>
+                </div>
+                
+                <div class="principles-grid">
+                    <!-- Principle 1 -->
+                    <div class="principle-card">
+                        <div class="principle-header">
+                            <div class="principle-icon">⚖️</div>
+                            <h3 class="principle-title">العدل والإنصاف</h3>
+                        </div>
+                        <p class="principle-content">
+                            نلتزم بالعدل في جميع المعاملات، فلا ظلم ولا غبن ولا استغلال.
+                            الأسعار عادلة والمواصفات واضحة والحقوق محفوظة.
+                        </p>
+                        <div class="principle-evidence">
+                            <p class="evidence-text">
+                                ﴿ إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ ﴾
+                            </p>
+                            <span class="evidence-source">سورة النحل - الآية 90</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Principle 2 -->
+                    <div class="principle-card">
+                        <div class="principle-header">
+                            <div class="principle-icon">🤝</div>
+                            <h3 class="principle-title">الصدق والأمانة</h3>
+                        </div>
+                        <p class="principle-content">
+                            الصدق في البيع والشراء أساس كل معاملة. لا غش ولا تدليس ولا إخفاء للعيوب.
+                            البيان الصادق واجب شرعي.
+                        </p>
+                        <div class="principle-evidence">
+                            <p class="evidence-text">
+                                «البَيِّعانِ بالخِيارِ ما لم يَتَفَرَّقا، فإنْ صَدَقا وبَيَّنا بُورِكَ لهُما في بَيعِهِما»
+                            </p>
+                            <span class="evidence-source">متفق عليه</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Principle 3 -->
+                    <div class="principle-card">
+                        <div class="principle-header">
+                            <div class="principle-icon">📏</div>
+                            <h3 class="principle-title">الوفاء بالعقود</h3>
+                        </div>
+                        <p class="principle-content">
+                            العقد شريعة المتعاقدين. نلتزم بكل ما نتعهد به من مواصفات ومواعيد وشروط.
+                            الوفاء بالعهد فريضة.
+                        </p>
+                        <div class="principle-evidence">
+                            <p class="evidence-text">
+                                ﴿ يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ ﴾
+                            </p>
+                            <span class="evidence-source">سورة المائدة - الآية 1</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Principle 4 -->
+                    <div class="principle-card">
+                        <div class="principle-header">
+                            <div class="principle-icon">🏛️</div>
+                            <h3 class="principle-title">الحلال الطيب</h3>
+                        </div>
+                        <p class="principle-content">
+                            نتعامل فقط في المعادن والسلع الحلال. مصادرنا مشروعة
+                            واستخداماتها مباحة ولا نتاجر في المحرمات.
+                        </p>
+                        <div class="principle-evidence">
+                            <p class="evidence-text">
+                                ﴿ يَا أَيُّهَا النَّاسُ كُلُوا مِمَّا فِي الْأَرْضِ حَلَالًا طَيِّبًا ﴾
+                            </p>
+                            <span class="evidence-source">سورة البقرة - الآية 168</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Principle 5 -->
+                    <div class="principle-card">
+                        <div class="principle-header">
+                            <div class="principle-icon">⚡</div>
+                            <h3 class="principle-title">عدم الإضرار</h3>
+                        </div>
+                        <p class="principle-content">
+                            لا ضرر ولا ضرار. نحرص على سلامة المنتجات وعدم الإضرار بالبيئة
+                            أو الصحة العامة في جميع عملياتنا.
+                        </p>
+                        <div class="principle-evidence">
+                            <p class="evidence-text">
+                                «لا ضَرَرَ ولا ضِرارَ»
+                            </p>
+                            <span class="evidence-source">رواه ابن ماجه وأحمد</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Principle 6 -->
+                    <div class="principle-card">
+                        <div class="principle-header">
+                            <div class="principle-icon">💰</div>
+                            <h3 class="principle-title">تحريم الربا</h3>
+                        </div>
+                        <p class="principle-content">
+                            جميع معاملاتنا المالية خالية من الربا بجميع صوره.
+                            نعتمد البدائل الشرعية في التمويل والتقسيط.
+                        </p>
+                        <div class="principle-evidence">
+                            <p class="evidence-text">
+                                ﴿ وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا ﴾
+                            </p>
+                            <span class="evidence-source">سورة البقرة - الآية 275</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Halal Standards -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon">✅</div>
+                    <h2 class="section-title">معايير الحلال في المعاملات</h2>
+                    <p class="section-description">
+                        معايير شرعية صارمة نطبقها في كل معاملة
+                    </p>
+                </div>
+                
+                <div class="standards-grid">
+                    <!-- Trading Standards -->
+                    <div class="standard-category">
+                        <div class="category-header">
+                            <div class="category-icon">🏪</div>
+                            <h3 class="category-title">معايير البيع والشراء</h3>
+                        </div>
+                        <div class="category-content">
+                            <div class="standard-item">
+                                <div class="standard-check">✓</div>
+                                <p class="standard-text">
+                                    <strong>معلومية المبيع:</strong> وصف دقيق وواضح لكل منتج (النوع، الكمية، الجودة، المواصفات)
+                                </p>
+                            </div>
+                            <div class="standard-item">
+                                <div class="standard-check">✓</div>
+                                <p class="standard-text">
+                                    <strong>معلومية الثمن:</strong> سعر محدد وواضح دون غموض أو جهالة
+                                </p>
+                            </div>
+                            <div class="standard-item">
+                                <div class="standard-check">✓</div>
+                                <p class="standard-text">
+                                    <strong>القدرة على التسليم:</strong> لا نبيع ما لا نملك ولا ما لا نقدر على تسليمه
+                                </p>
+                            </div>
+                            <div class="standard-item">
+                                <div class="standard-check">✓</div>
+                                <p class="standard-text">
+                                    <strong>التراضي:</strong> موافقة صريحة من الطرفين دون إكراه أو تدليس
+                                </p>
+                            </div>
+                            <div class="standard-item">
+                                <div class="standard-check">✓</div>
+                                <p class="standard-text">
+                                    <strong>خيار الرؤية:</strong> حق المشتري في معاينة البضاعة والفسخ إن لم تطابق الوصف
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Financial Standards -->
+                    <div class="standard-category">
+                        <div class="category-header">
+                            <div class="category-icon">💳</div>
+                            <h3 class="category-title">معايير المعاملات المالية</h3>
+                        </div>
+                        <div class="category-content">
+                            <div class="standard-item">
+                                <div class="standard-check">✓</div>
+                                <p class="standard-text">
+                                    <strong>بدون ربا:</strong> لا فوائد ربوية في أي معاملة تمويلية أو تأخير سداد
+                                </p>
+                            </div>
+                            <div class="standard-item">
+                                <div class="standard-check">✓</div>
+                                <p class="standard-text">
+                                    <strong>بدون غرر:</strong> لا عقود تحتوي على مخاطرة مجهولة أو قمار
+                                </p>
+                            </div>
+                            <div class="standard-item">
+                                <div class="standard-check">✓</div>
+                                <p class="standard-text">
+                                    <strong>صرف المعادن الثمينة:</strong> يداً بيد ومثلاً بمثل (ذهب بذهب، فضة بفضة)
+                                </p>
+                            </div>
+                            <div class="standard-item">
+                                <div class="standard-check">✓</div>
+                                <p class="standard-text">
+                                    <strong>المرابحة الشرعية:</strong> تمويل بصيغة المرابحة وفق الضوابط الشرعية
+                                </p>
+                            </div>
+                            <div class="standard-item">
+                                <div class="standard-check">✓</div>
+                                <p class="standard-text">
+                                    <strong>الزكاة:</strong> تذكير بوجوب الزكاة على المعادن الثمينة عند بلوغ النصاب
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Prohibited Items -->
+            <section class="prohibited-section">
+                <div class="section-header">
+                    <div class="section-icon" style="background: rgba(239,68,68,0.15);">🚫</div>
+                    <h2 class="section-title">المحرمات التي لا نتعامل بها</h2>
+                    <p class="section-description">
+                        التزاماً بالشريعة الإسلامية، نمتنع تماماً عن التعامل في الآتي
+                    </p>
+                </div>
+                
+                <div class="prohibited-grid">
+                    <div class="prohibited-item">
+                        <div class="prohibited-icon">🍺</div>
+                        <div class="prohibited-text">
+                            <div class="prohibited-title">الخمور والمسكرات</div>
+                            <div class="prohibited-desc">لا نقدم خدمات لمصانع أو تجارة الخمور</div>
+                        </div>
+                    </div>
+                    
+                    <div class="prohibited-item">
+                        <div class="prohibited-icon">🎰</div>
+                        <div class="prohibited-text">
+                            <div class="prohibited-title">القمار والميسر</div>
+                            <div class="prohibited-desc">لا معاملات تحتوي على مقامرة أو مخاطرة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="prohibited-item">
+                        <div class="prohibited-icon">💸</div>
+                        <div class="prohibited-text">
+                            <div class="prohibited-title">الربا بجميع صوره</div>
+                            <div class="prohibited-desc">لا فوائد ربوية في أي معاملة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="prohibited-item">
+                        <div class="prohibited-icon">🔫</div>
+                        <div class="prohibited-text">
+                            <div class="prohibited-title">الأسلحة غير المشروعة</div>
+                            <div class="prohibited-desc">لا تجارة في أسلحة محرمة أو غير مرخصة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="prohibited-item">
+                        <div class="prohibited-icon">💊</div>
+                        <div class="prohibited-text">
+                            <div class="prohibited-title">المخدرات والمواد الضارة</div>
+                            <div class="prohibited-desc">لا تعامل مع أي مواد محرمة أو ضارة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="prohibited-item">
+                        <div class="prohibited-icon">🎭</div>
+                        <div class="prohibited-text">
+                            <div class="prohibited-title">الغش والتدليس</div>
+                            <div class="prohibited-desc">لا إخفاء عيوب أو تضليل في الأوصاف</div>
+                        </div>
+                    </div>
+                    
+                    <div class="prohibited-item">
+                        <div class="prohibited-icon">⚠️</div>
+                        <div class="prohibited-text">
+                            <div class="prohibited-title">الاحتكار</div>
+                            <div class="prohibited-desc">لا حبس للسلع للتحكم بالأسعار</div>
+                        </div>
+                    </div>
+                    
+                    <div class="prohibited-item">
+                        <div class="prohibited-icon">🌍</div>
+                        <div class="prohibited-text">
+                            <div class="prohibited-title">الإضرار بالبيئة</div>
+                            <div class="prohibited-desc">لا ممارسات تضر بالبيئة أو الصحة العامة</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Hadith -->
+            <div class="hadith-text">
+                «التَّاجِرُ الصَّدُوقُ الأَمِينُ مَعَ النَّبِيِّينَ وَالصِّدِّيقِينَ وَالشُّهَدَاءِ»
+            </div>
+            <p class="reference">رواه الترمذي</p>
+            
+            <!-- Certification -->
+            <section class="certification-section">
+                <div class="certification-badge">
+                    <span class="cert-icon">☪️</span>
+                    <span class="cert-text">معتمد شرعياً</span>
+                    <span class="cert-subtext">SHARIAH COMPLIANT</span>
+                </div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 16px;">منظومة شيخة ملتزمة بالشريعة الإسلامية</h3>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                    جميع معاملاتنا وعقودنا مراجعة ومعتمدة وفق أحكام الشريعة الإسلامية
+                    من الكتاب والسنة. نسعى للكسب الحلال الطيب.
+                </p>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">
+            © 2026 شيخة. جميع الحقوق محفوظة. 
+            <span style="color: var(--islamic-green);">☪️</span>
+            ملتزمون بالشريعة الإسلامية
+            <br><br>
+            <span style="color: var(--sheikha-gold-500);">🤲 اللهم اجعلها بركة وخيراً — لا حول ولا قوة إلا بالله</span>
+        </p>
+    </footer>
+</body>
+</html>
