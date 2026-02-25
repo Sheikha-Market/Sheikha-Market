@@ -1,0 +1,402 @@
+{
+  "success": true,
+  "timestamp": "2026-02-21T15:39:38.904Z",
+  "mode": "READONLY",
+  "summary": {
+    "total": 26,
+    "active": 0,
+    "pendingCredentials": 26,
+    "pendingApproval": 0
+  },
+  "services": [
+    {
+      "id": "IFADA",
+      "name": "إفادة",
+      "priority": "P1",
+      "requiresApproval": true,
+      "enabledKey": "IFADA_ENABLED",
+      "approvedKey": "IFADA_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "IFADA_BASE_URL",
+        "IFADA_API_KEY"
+      ]
+    },
+    {
+      "id": "BASMAH",
+      "name": "البصمة",
+      "priority": "P0",
+      "requiresApproval": true,
+      "enabledKey": "BASMAH_ENABLED",
+      "approvedKey": "BASMAH_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "BASMAH_BASE_URL",
+        "BASMAH_API_KEY"
+      ]
+    },
+    {
+      "id": "RAQABA",
+      "name": "رقابة",
+      "priority": "P1",
+      "requiresApproval": true,
+      "enabledKey": "RAQABA_ENABLED",
+      "approvedKey": "RAQABA_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "RAQABA_BASE_URL",
+        "RAQABA_API_KEY"
+      ]
+    },
+    {
+      "id": "YAQEEN",
+      "name": "يقين",
+      "priority": "P0",
+      "requiresApproval": true,
+      "enabledKey": "YAQEEN_ENABLED",
+      "approvedKey": "YAQEEN_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "YAQEEN_BASE_URL",
+        "YAQEEN_API_KEY"
+      ]
+    },
+    {
+      "id": "DHAMEN",
+      "name": "ضامن",
+      "priority": "P0",
+      "requiresApproval": true,
+      "enabledKey": "DHAMEN_ENABLED",
+      "approvedKey": "DHAMEN_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "DHAMEN_BASE_URL",
+        "DHAMEN_API_KEY"
+      ]
+    },
+    {
+      "id": "SALAMAH",
+      "name": "سلامة",
+      "priority": "P1",
+      "requiresApproval": true,
+      "enabledKey": "SALAMAH_ENABLED",
+      "approvedKey": "SALAMAH_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "SALAMAH_BASE_URL",
+        "SALAMAH_API_KEY"
+      ]
+    },
+    {
+      "id": "MUQEEM",
+      "name": "مقيم",
+      "priority": "P1",
+      "requiresApproval": true,
+      "enabledKey": "MUQEEM_ENABLED",
+      "approvedKey": "MUQEEM_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "MUQEEM_BASE_URL",
+        "MUQEEM_API_KEY"
+      ]
+    },
+    {
+      "id": "BASHER",
+      "name": "باشر",
+      "priority": "P1",
+      "requiresApproval": true,
+      "enabledKey": "BASHER_ENABLED",
+      "approvedKey": "BASHER_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "BASHER_BASE_URL",
+        "BASHER_API_KEY"
+      ]
+    },
+    {
+      "id": "SMART_GATEWAY",
+      "name": "البوابة الذكية",
+      "priority": "P1",
+      "requiresApproval": true,
+      "enabledKey": "SMART_GATEWAY_ENABLED",
+      "approvedKey": "SMART_GATEWAY_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "SMART_GATEWAY_BASE_URL",
+        "SMART_GATEWAY_API_KEY"
+      ]
+    },
+    {
+      "id": "MOJAZ",
+      "name": "موجز",
+      "priority": "P1",
+      "requiresApproval": true,
+      "enabledKey": "MOJAZ_ENABLED",
+      "approvedKey": "MOJAZ_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "MOJAZ_BASE_URL",
+        "MOJAZ_API_KEY"
+      ]
+    },
+    {
+      "id": "DAKHLI",
+      "name": "دخلي",
+      "priority": "P1",
+      "requiresApproval": true,
+      "enabledKey": "DAKHLI_ENABLED",
+      "approvedKey": "DAKHLI_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "DAKHLI_BASE_URL",
+        "DAKHLI_API_KEY"
+      ]
+    },
+    {
+      "id": "VEHICLE_SPECS",
+      "name": "مواصفات المركبة",
+      "priority": "P1",
+      "requiresApproval": true,
+      "enabledKey": "VEHICLE_SPECS_ENABLED",
+      "approvedKey": "VEHICLE_SPECS_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "VEHICLE_SPECS_BASE_URL",
+        "VEHICLE_SPECS_API_KEY"
+      ]
+    },
+    {
+      "id": "BAYAN",
+      "name": "بيان",
+      "priority": "P0",
+      "requiresApproval": true,
+      "enabledKey": "BAYAN_ENABLED",
+      "approvedKey": "BAYAN_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "BAYAN_BASE_URL",
+        "BAYAN_API_KEY"
+      ]
+    },
+    {
+      "id": "TAJER",
+      "name": "تأجير",
+      "priority": "P1",
+      "requiresApproval": true,
+      "enabledKey": "TAJER_ENABLED",
+      "approvedKey": "TAJER_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "TAJER_BASE_URL",
+        "TAJER_API_KEY"
+      ]
+    },
+    {
+      "id": "TRADERS_IMPORTS",
+      "name": "واردات التجار",
+      "priority": "P0",
+      "requiresApproval": true,
+      "enabledKey": "TRADERS_IMPORTS_ENABLED",
+      "approvedKey": "TRADERS_IMPORTS_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "TRADERS_IMPORTS_BASE_URL",
+        "TRADERS_IMPORTS_API_KEY"
+      ]
+    },
+    {
+      "id": "NAFATH",
+      "name": "نفاذ",
+      "priority": "P0",
+      "requiresApproval": true,
+      "enabledKey": "NAFATH_ENABLED",
+      "approvedKey": "NAFATH_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "NAFATH_CLIENT_ID",
+        "NAFATH_CLIENT_SECRET"
+      ]
+    },
+    {
+      "id": "TAMM",
+      "name": "تم",
+      "priority": "P1",
+      "requiresApproval": true,
+      "enabledKey": "TAMM_ENABLED",
+      "approvedKey": "TAMM_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "TAMM_BASE_URL",
+        "TAMM_API_KEY"
+      ]
+    },
+    {
+      "id": "FURSAH",
+      "name": "فرصة",
+      "priority": "P1",
+      "requiresApproval": true,
+      "enabledKey": "FURSAH_ENABLED",
+      "approvedKey": "FURSAH_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "FURSAH_BASE_URL",
+        "FURSAH_API_KEY"
+      ]
+    },
+    {
+      "id": "NATHEER",
+      "name": "Natheer",
+      "priority": "P2",
+      "requiresApproval": true,
+      "enabledKey": "NATHEER_ENABLED",
+      "approvedKey": "NATHEER_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "NATHEER_BASE_URL",
+        "NATHEER_API_KEY"
+      ]
+    },
+    {
+      "id": "DALEEL",
+      "name": "Daleel",
+      "priority": "P2",
+      "requiresApproval": true,
+      "enabledKey": "DALEEL_ENABLED",
+      "approvedKey": "DALEEL_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "DALEEL_BASE_URL",
+        "DALEEL_API_KEY"
+      ]
+    },
+    {
+      "id": "VEHICLE_RECALL",
+      "name": "Vehicle Recall",
+      "priority": "P2",
+      "requiresApproval": true,
+      "enabledKey": "VEHICLE_RECALL_ENABLED",
+      "approvedKey": "VEHICLE_RECALL_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "VEHICLE_RECALL_BASE_URL",
+        "VEHICLE_RECALL_API_KEY"
+      ]
+    },
+    {
+      "id": "ONBOARDING_API",
+      "name": "التهيئة والاعتماد",
+      "priority": "P0",
+      "requiresApproval": true,
+      "enabledKey": "ONBOARDING_API_ENABLED",
+      "approvedKey": "ONBOARDING_API_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "ONBOARDING_API_BASE_URL",
+        "ONBOARDING_API_KEY"
+      ]
+    },
+    {
+      "id": "ATHR",
+      "name": "Athr",
+      "priority": "P2",
+      "requiresApproval": true,
+      "enabledKey": "ATHR_ENABLED",
+      "approvedKey": "ATHR_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "ATHR_BASE_URL",
+        "ATHR_API_KEY"
+      ]
+    },
+    {
+      "id": "VIBAN",
+      "name": "VIBAN",
+      "priority": "P2",
+      "requiresApproval": true,
+      "enabledKey": "VIBAN_ENABLED",
+      "approvedKey": "VIBAN_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "VIBAN_BASE_URL",
+        "VIBAN_API_KEY"
+      ]
+    },
+    {
+      "id": "MONTHER",
+      "name": "Monther",
+      "priority": "P2",
+      "requiresApproval": true,
+      "enabledKey": "MONTHER_ENABLED",
+      "approvedKey": "MONTHER_APPROVED",
+      "configured": false,
+      "approved": false,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "MONTHER_BASE_URL",
+        "MONTHER_API_KEY"
+      ]
+    },
+    {
+      "id": "NATIONAL_ADDRESS",
+      "name": "National Address",
+      "priority": "P0",
+      "requiresApproval": false,
+      "enabledKey": "NATIONAL_ADDRESS_ENABLED",
+      "approvedKey": "NATIONAL_ADDRESS_APPROVED",
+      "configured": false,
+      "approved": true,
+      "status": "pending_credentials",
+      "missingEnv": [
+        "NATIONAL_ADDRESS_BASE_URL"
+      ]
+    }
+  ]
+}

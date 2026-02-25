@@ -11,6 +11,7 @@
 const express = require('express');
 const router = express.Router();
 const config = require('../config/config');
+const SheikhaOllamaOrchestrator = require('../lib/sheikha-ollama-orchestrator');
 
 // ─── استيراد المحركات الأساسية ───────────────────────────────────────────────
 let SheikaAIEngine = null;
@@ -44,6 +45,12 @@ let ragEngine = null;
 let agentOrchestrator = null;
 let productionMonitor = null;
 let islamicGuardrails = null;
+const ollamaOrchestrator = new SheikhaOllamaOrchestrator({
+    ollamaHost: config.ai?.ollama?.host
+});
+if (config.ai?.ollama?.enabled && config.ai?.ollama?.autoUpdate) {
+    ollamaOrchestrator.startAutoSync();
+}
 
 try {
     SheikhaRAGEngine = require('../lib/sheikha-rag-engine');
@@ -112,9 +119,17 @@ const conversationContexts = new Map();
 // ─── حالة المحركات ────────────────────────────────────────────────────────────
 
 router.get('/status', (req, res) => {
+    const ollamaRec = ollamaOrchestrator.recommendedModels(ollamaOrchestrator.detectResources());
     res.json({
         success: true,
         engines: {
+            ollama: {
+                enabled: !!config.ai?.ollama?.enabled,
+                host: config.ai?.ollama?.host,
+                profile: config.ai?.ollama?.profile,
+                autoUpdate: !!config.ai?.ollama?.autoUpdate,
+                bestModel: ollamaRec.bestModel
+            },
             openai: {
                 enabled: !!config.ai.openai.apiKey,
                 model: config.ai.openai.model
@@ -158,6 +173,139 @@ router.get('/status', (req, res) => {
         },
         routing: config.ai.routing,
         mode: config.ai.mode
+    });
+});
+
+router.get('/model-strategy', (req, res) => {
+    const resources = ollamaOrchestrator.detectResources();
+    const recommendation = ollamaOrchestrator.recommendedModels(resources);
+    res.json({
+        success: true,
+        data: {
+            goal: 'تقوية ذكاء شيخة مع تحقيق المنفعة بلا ضرر',
+            resources,
+            bestOverall: {
+                claude: 'claude-opus-4-6-20260205',
+                openai: config.ai.openai.model || 'gpt-5.2',
+                ollama: recommendation.bestModel,
+                note: 'الأفضل يعتمد على نوع المهمة والموارد'
+            },
+            orchestration: {
+                cursor: 'هندسة وتطوير الكود (Control Plane)',
+                claude: 'استدلال عميق وتحليل معقد',
+                openai: 'محادثة عامة وسرعة استجابة',
+                ollama: 'تشغيل محلي وسيادة البيانات',
+                localMind: 'هوية شيخة المعرفية الداخلية'
+            },
+            taskRouting: {
+                sharia: ['claude', 'localMind', 'ollama'],
+                development: ['claude', 'openai', 'ollama'],
+                marketAnalysis: ['openai', 'claude', 'ollama'],
+                privateData: ['ollama', 'localMind', 'claude'],
+                fallback: ['ollama', 'localMind']
+            },
+            policy: SheikhaOllamaOrchestrator.policy()
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── Ollama Orchestrator APIs ────────────────────────────────────────────────
+router.get('/ollama/resources', (req, res) => {
+    const resources = ollamaOrchestrator.detectResources();
+    res.json({
+        success: true,
+        data: resources,
+        message: 'تم قياس موارد الخادم بنجاح',
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.get('/ollama/recommendation', (req, res) => {
+    const resources = ollamaOrchestrator.detectResources();
+    const rec = ollamaOrchestrator.recommendedModels(resources);
+    res.json({
+        success: true,
+        data: {
+            resources,
+            profile: rec.profile,
+            bestModel: rec.bestModel,
+            models: rec.models,
+            policy: SheikhaOllamaOrchestrator.policy()
+        },
+        message: 'توصية النماذج حسب الموارد والسياسة الشرعية',
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.get('/ollama/models', (req, res) => {
+    const installed = ollamaOrchestrator.listInstalledModels();
+    res.json({
+        success: true,
+        data: { installed },
+        message: 'النماذج المثبتة محلياً',
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.post('/ollama/sync', (req, res) => {
+    const mode = String(req.body?.mode || 'plan');
+    const dryRun = mode !== 'apply';
+    const result = ollamaOrchestrator.syncModels({ dryRun });
+    res.json({
+        success: true,
+        data: result,
+        message: dryRun ? 'خطة مزامنة فقط (بدون تحميل)' : 'تم تنفيذ المزامنة',
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.post('/model-router/plan', (req, res) => {
+    const { message = '', context = '', forcedModel = 'auto' } = req.body || {};
+    const taskType = detectTaskType(message);
+    const sensitivity = detectSensitivity(message, context);
+    const preferredModel = forcedModel !== 'auto' ? forcedModel : getPreferredModel(taskType);
+    const modelPipeline = buildModelPipeline({
+        forcedModel,
+        preferredModel,
+        taskType,
+        sensitivity,
+        hasClaude: !!config.ai.anthropic.apiKey,
+        hasOpenAI: !!config.ai.openai.apiKey,
+        hasOllama: !!config.ai?.ollama?.enabled
+    });
+    res.json({
+        success: true,
+        data: {
+            taskType,
+            sensitivity,
+            preferredModel,
+            modelPipeline,
+            ollamaModel: selectOllamaModel(taskType, sensitivity),
+            policy: SheikhaOllamaOrchestrator.policy()
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.get('/model-router/status', (req, res) => {
+    const resources = ollamaOrchestrator.detectResources();
+    const recommendation = ollamaOrchestrator.recommendedModels(resources);
+    res.json({
+        success: true,
+        data: {
+            cloud: {
+                claude: !!config.ai.anthropic.apiKey,
+                openai: !!config.ai.openai.apiKey
+            },
+            local: {
+                ollama: !!config.ai?.ollama?.enabled,
+                localMind: !!localMind
+            },
+            recommendation,
+            policy: SheikhaOllamaOrchestrator.policy()
+        },
+        timestamp: new Date().toISOString()
     });
 });
 
@@ -208,6 +356,16 @@ router.post('/chat', async (req, res) => {
         // ─── 2. توجيه ذكي حسب نوع المهمة ─────────────────────────
         const taskType = detectTaskType(message);
         const preferredModel = model !== 'auto' ? model : getPreferredModel(taskType);
+        const sensitivity = detectSensitivity(message, context);
+        const modelPipeline = buildModelPipeline({
+            forcedModel: model,
+            preferredModel,
+            taskType,
+            sensitivity,
+            hasClaude: !!config.ai.anthropic.apiKey,
+            hasOpenAI: !!config.ai.openai.apiKey,
+            hasOllama: !!config.ai?.ollama?.enabled
+        });
 
         // ─── 3. أولوية Claude Opus 4.6 مع سياق RAG ────────────────
         if (config.ai.anthropic.apiKey && (preferredModel === 'claude' || preferredModel === 'anthropic')) {
@@ -234,7 +392,28 @@ router.post('/chat', async (req, res) => {
             }
         }
 
-        // ─── 5. عقل شيخة المحلي المستقل (الأولوية الأولى بدون API) ──
+        // ─── 4.5. Ollama (محلي/‏VPS) ضمن منظومة التكامل ─────────────
+        if (!response && config.ai?.ollama?.enabled && modelPipeline.includes('ollama')) {
+            try {
+                response = await callOllama(message, context, taskType, sensitivity);
+                if (response) provider = `ollama-${selectOllamaModel(taskType, sensitivity)}`;
+            } catch (e) {
+                console.warn('Ollama error:', e.message);
+            }
+        }
+
+        // ─── 5. Ollama المحلي (تشغيل VPS/On-Prem) ────────────────────
+        if (!response && config.ai?.ollama?.enabled && (preferredModel === 'ollama' || preferredModel === 'auto' || preferredModel === 'local')) {
+            try {
+                const ollamaModel = resolveOllamaModel(taskType, req.body?.ollamaModel);
+                response = await callOllama(message, context, ollamaModel);
+                provider = `ollama-${ollamaModel}`;
+            } catch (e) {
+                console.warn('Ollama error:', e.message);
+            }
+        }
+
+        // ─── 6. عقل شيخة المحلي المستقل (الأولوية الأولى بدون API) ──
         if (!response && localMind && localMind.ready) {
             try {
                 const userId = req.body.userId || req.ip || 'anonymous';
@@ -255,7 +434,7 @@ router.post('/chat', async (req, res) => {
             }
         }
 
-        // ─── 6. استجابة محلية بسيطة كاحتياط أخير ─────────────────────
+        // ─── 7. استجابة محلية بسيطة كاحتياط أخير ─────────────────────
         if (!response) {
             if (ragContext && ragContext.retrieval?.results?.length > 0) {
                 const topResults = ragContext.retrieval.results.slice(0, 3);
@@ -272,7 +451,7 @@ router.post('/chat', async (req, res) => {
             }
         }
 
-        // ─── 6. فحص المخرجات ────────────────────────────────────────
+        // ─── 8. فحص المخرجات ────────────────────────────────────────
         if (islamicGuardrails) {
             const outputCheck = islamicGuardrails.validateOutput(response);
             if (outputCheck.warnings.length > 0) {
@@ -280,7 +459,7 @@ router.post('/chat', async (req, res) => {
             }
         }
 
-        // ─── 7. تقييم الجودة ────────────────────────────────────────
+        // ─── 9. تقييم الجودة ────────────────────────────────────────
         let quality = null;
         if (ragEngine && ragContext) {
             quality = ragEngine.evaluateQuality(message, response, ragContext.retrieval.results);
@@ -294,6 +473,8 @@ router.post('/chat', async (req, res) => {
             response,
             provider,
             taskType,
+            sensitivity,
+            modelPipeline,
             pipeline: ragContext ? 'rag-augmented' : 'direct',
             quality: quality ? { grade: quality.grade, score: Math.round(quality.scores.overall * 100) } : null,
             timestamp: new Date().toISOString()
@@ -745,6 +926,45 @@ async function callOpenAI(message, context) {
     return data.choices?.[0]?.message?.content || 'لم أتمكن من الرد';
 }
 
+async function callOllama(message, context, taskType, sensitivity) {
+    const model = selectOllamaModel(taskType, sensitivity);
+    const systemPrompt = 'أنت شيخة، مساعد ذكي يعمل وفق الشريعة الإسلامية ويمنع الضرر والغش والربا.';
+    const messages = [
+        { role: 'system', content: systemPrompt }
+    ];
+    if (context) {
+        messages.push({ role: 'user', content: `سياق: ${typeof context === 'string' ? context : JSON.stringify(context)}` });
+    }
+    messages.push({ role: 'user', content: message });
+
+    const timeoutMs = config.ai?.ollama?.timeoutMs || 90000;
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+    try {
+        const response = await fetch(`${config.ai?.ollama?.host || 'http://127.0.0.1:11434'}/api/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model,
+                messages,
+                stream: false,
+                options: {
+                    temperature: 0.2,
+                    num_ctx: 8192
+                }
+            }),
+            signal: ctrl.signal
+        });
+        const data = await response.json();
+        if (!response.ok || data.error) {
+            throw new Error(data.error || `Ollama HTTP ${response.status}`);
+        }
+        return data?.message?.content || '';
+    } finally {
+        clearTimeout(timer);
+    }
+}
+
 /**
  * ═══════════════════════════════════════════════════════════════════════════
  *  Claude Opus 4.6 — النداء الرئيسي مع جميع المميزات الجديدة
@@ -961,6 +1181,53 @@ function getPreferredModel(taskType) {
         default:
             return routing.chat === 'anthropic' ? 'claude' : 'openai';
     }
+}
+
+function detectSensitivity(message, context) {
+    const text = `${message || ''} ${typeof context === 'string' ? context : JSON.stringify(context || {})}`;
+    const privatePattern = /رقم هوية|هوية وطنية|جواز|iban|حساب بنكي|كلمة مرور|otp|سرّي|سري|confidential|private|token|api key/i;
+    const highRiskPattern = /اختراق|تهكير|تجاوز|تزوير|غش|ربا|احتيال|احتكار/i;
+    if (highRiskPattern.test(text)) return 'high-risk';
+    if (privatePattern.test(text)) return 'private';
+    return 'normal';
+}
+
+function buildModelPipeline({ forcedModel = 'auto', preferredModel, taskType, sensitivity, hasClaude, hasOpenAI, hasOllama }) {
+    if (forcedModel && forcedModel !== 'auto') return [forcedModel, 'localMind', 'local'];
+
+    const order = [];
+    if (sensitivity === 'private') {
+        if (hasOllama) order.push('ollama');
+        order.push('localMind');
+        if (hasClaude) order.push('claude');
+        if (hasOpenAI) order.push('openai');
+    } else if (taskType === 'sharia' || taskType === 'analysis') {
+        if (hasClaude) order.push('claude');
+        if (hasOllama) order.push('ollama');
+        order.push('localMind');
+        if (hasOpenAI) order.push('openai');
+    } else if (taskType === 'development' || taskType === 'coding') {
+        if (hasClaude) order.push('claude');
+        if (hasOpenAI) order.push('openai');
+        if (hasOllama) order.push('ollama');
+        order.push('localMind');
+    } else {
+        if (preferredModel === 'openai' && hasOpenAI) order.push('openai');
+        if (preferredModel === 'claude' && hasClaude) order.push('claude');
+        if (hasOllama) order.push('ollama');
+        order.push('localMind');
+        if (hasClaude && !order.includes('claude')) order.push('claude');
+        if (hasOpenAI && !order.includes('openai')) order.push('openai');
+    }
+    order.push('local');
+    return [...new Set(order)];
+}
+
+function selectOllamaModel(taskType, sensitivity) {
+    if (sensitivity === 'private') return config.ai?.ollama?.strongModel || config.ai?.ollama?.defaultModel;
+    if (taskType === 'sharia' || taskType === 'analysis') return config.ai?.ollama?.strongModel || config.ai?.ollama?.defaultModel;
+    if (taskType === 'coding' || taskType === 'development') return config.ai?.ollama?.defaultModel;
+    return config.ai?.ollama?.lightModel || config.ai?.ollama?.defaultModel;
 }
 
 function generateLocalResponse(message) {

@@ -17,6 +17,8 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 'use strict';
+const fs = require('fs');
+const path = require('path');
 
 module.exports = function(app, ctx) {
 
@@ -497,6 +499,55 @@ const AI_FEEDING_SYSTEM = {
 };
 
 // ╔═══════════════════════════════════════════════════════════════╗
+// ║ ٨. شبكة الباحثين R&D — نظام داخلي يتجاوز منصات الهوية البحثية      ║
+// ╚═══════════════════════════════════════════════════════════════╝
+const researchStorePath = path.join(__dirname, '..', 'data', 'riyad-research-network.json');
+function defaultResearchStore() {
+  return {
+    meta: { version: '1.0.0', updatedAt: new Date().toISOString() },
+    researchers: [],
+    projects: [],
+    publications: [],
+    reviews: [],
+    collaborations: []
+  };
+}
+function loadResearchStore() {
+  try {
+    if (fs.existsSync(researchStorePath)) {
+      const parsed = JSON.parse(fs.readFileSync(researchStorePath, 'utf8'));
+      return Object.assign(defaultResearchStore(), parsed || {});
+    }
+  } catch (_) {}
+  return defaultResearchStore();
+}
+function saveResearchStore(store) {
+  try {
+    const next = Object.assign(defaultResearchStore(), store || {});
+    next.meta.updatedAt = new Date().toISOString();
+    fs.writeFileSync(researchStorePath, JSON.stringify(next, null, 2), 'utf8');
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+function asArray(v) {
+  return Array.isArray(v) ? v : (v ? [v] : []);
+}
+function normText(v) {
+  return String(v || '').trim();
+}
+function scoreResearcher(researcher) {
+  const profile = researcher || {};
+  const papers = asArray(profile.publicationIds).length;
+  const projects = asArray(profile.projectIds).length;
+  const verified = profile.verificationStatus === 'verified' ? 15 : 0;
+  const impact = Math.min(30, Number(profile.impactPoints || 0));
+  const methods = asArray(profile.methodologies).length;
+  return Math.min(100, 25 + (papers * 4) + (projects * 3) + verified + impact + Math.min(20, methods * 2));
+}
+
+// ╔═══════════════════════════════════════════════════════════════╗
 // ║                         APIs                                    ║
 // ╚═══════════════════════════════════════════════════════════════╝
 
@@ -661,6 +712,239 @@ app.get('/api/riyad-aljannah/overview', function(req, res) {
   }});
 });
 
+// ─── شبكة الباحثين R&D (أفضل من ORCID داخلياً) ───
+app.get('/api/riyad-aljannah/research-network/dashboard', function(req, res) {
+  const store = loadResearchStore();
+  const topResearchers = store.researchers
+    .map((r) => Object.assign({}, r, { score: scoreResearcher(r) }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10);
+  res.json({
+    success: true,
+    data: {
+      summary: {
+        researchers: store.researchers.length,
+        projects: store.projects.length,
+        publications: store.publications.length,
+        reviews: store.reviews.length,
+        collaborations: store.collaborations.length
+      },
+      topResearchers
+    },
+    message: 'تم جلب لوحة شبكة الباحثين بنجاح',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/api/riyad-aljannah/research-network/orcid-gap', function(req, res) {
+  res.json({
+    success: true,
+    data: {
+      sheikhaAdvantages: [
+        'هوية بحثية شرعية + مهنية + أثر مجتمعي في نموذج واحد',
+        'ربط مباشر بين الباحث والمشروع والتطبيق التنفيذي في السوق',
+        'تدقيق جودة المخرجات + مراجعة أقران + فحص امتثال شرعي',
+        'مؤشر ثقة الباحث (Integrity & Impact Score) بدلاً من رقم تعريفي فقط',
+        'تكامل رقمي فوري مع مجتمع شيخة ورياض الجنة وسلاسل العمليات'
+      ],
+      gapsToCloseContinuously: [
+        'رفع نسبة التحقق المؤسسي للباحثين',
+        'توسيع مصادر الفهرسة الدولية للمخرجات',
+        'تحسين التتبع الاستشهادي المتقدم'
+      ]
+    },
+    message: 'تم تحليل الفجوة المرجعية بنجاح',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/api/riyad-aljannah/research-network/researchers', function(req, res) {
+  const store = loadResearchStore();
+  const q = normText(req.query.q || '').toLowerCase();
+  let rows = store.researchers.map((r) => Object.assign({}, r, { score: scoreResearcher(r) }));
+  if (q) {
+    rows = rows.filter((r) =>
+      normText(r.fullName).toLowerCase().includes(q) ||
+      asArray(r.focusAreas).join(' ').toLowerCase().includes(q) ||
+      asArray(r.affiliations).join(' ').toLowerCase().includes(q)
+    );
+  }
+  rows.sort((a, b) => b.score - a.score);
+  res.json({
+    success: true,
+    data: rows,
+    message: 'تم جلب الباحثين بنجاح',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.post('/api/riyad-aljannah/research-network/researchers', function(req, res) {
+  const body = req.body || {};
+  const fullName = normText(body.fullName);
+  if (!fullName) {
+    return res.status(400).json({
+      success: false,
+      data: null,
+      message: 'اسم الباحث مطلوب',
+      timestamp: new Date().toISOString()
+    });
+  }
+  const store = loadResearchStore();
+  const row = {
+    id: 'RSH-' + Date.now(),
+    fullName,
+    email: normText(body.email),
+    affiliations: asArray(body.affiliations).map(normText).filter(Boolean),
+    focusAreas: asArray(body.focusAreas).map(normText).filter(Boolean),
+    methodologies: asArray(body.methodologies).map(normText).filter(Boolean),
+    verificationStatus: body.verificationStatus === 'verified' ? 'verified' : 'pending',
+    impactPoints: Number(body.impactPoints || 0),
+    publicationIds: [],
+    projectIds: [],
+    createdAt: new Date().toISOString()
+  };
+  store.researchers.unshift(row);
+  saveResearchStore(store);
+  res.json({
+    success: true,
+    data: Object.assign({}, row, { score: scoreResearcher(row) }),
+    message: 'تم تسجيل الباحث بنجاح',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.post('/api/riyad-aljannah/research-network/projects', function(req, res) {
+  const body = req.body || {};
+  const title = normText(body.title);
+  const leadResearcherId = normText(body.leadResearcherId);
+  if (!title || !leadResearcherId) {
+    return res.status(400).json({
+      success: false,
+      data: null,
+      message: 'عنوان المشروع ومعرف الباحث الرئيسي مطلوبان',
+      timestamp: new Date().toISOString()
+    });
+  }
+  const store = loadResearchStore();
+  const lead = store.researchers.find((r) => r.id === leadResearcherId);
+  if (!lead) {
+    return res.status(404).json({
+      success: false,
+      data: null,
+      message: 'الباحث الرئيسي غير موجود',
+      timestamp: new Date().toISOString()
+    });
+  }
+  const project = {
+    id: 'PRJ-' + Date.now(),
+    title,
+    domain: normText(body.domain),
+    objectives: asArray(body.objectives).map(normText).filter(Boolean),
+    leadResearcherId,
+    members: asArray(body.members).map(normText).filter(Boolean),
+    status: normText(body.status) || 'active',
+    kpi: {
+      milestones: Number(body.milestones || 0),
+      completion: Number(body.completion || 0),
+      societalImpact: Number(body.societalImpact || 0)
+    },
+    createdAt: new Date().toISOString()
+  };
+  store.projects.unshift(project);
+  lead.projectIds = asArray(lead.projectIds);
+  if (!lead.projectIds.includes(project.id)) lead.projectIds.push(project.id);
+  saveResearchStore(store);
+  res.json({
+    success: true,
+    data: project,
+    message: 'تم إنشاء مشروع البحث والتطوير بنجاح',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.post('/api/riyad-aljannah/research-network/publications', function(req, res) {
+  const body = req.body || {};
+  const title = normText(body.title);
+  const researcherId = normText(body.researcherId);
+  if (!title || !researcherId) {
+    return res.status(400).json({
+      success: false,
+      data: null,
+      message: 'عنوان المخرج ومعرف الباحث مطلوبان',
+      timestamp: new Date().toISOString()
+    });
+  }
+  const store = loadResearchStore();
+  const researcher = store.researchers.find((r) => r.id === researcherId);
+  if (!researcher) {
+    return res.status(404).json({
+      success: false,
+      data: null,
+      message: 'الباحث غير موجود',
+      timestamp: new Date().toISOString()
+    });
+  }
+  const publication = {
+    id: 'PUB-' + Date.now(),
+    title,
+    type: normText(body.type) || 'research-paper',
+    domain: normText(body.domain),
+    doi: normText(body.doi),
+    citations: Number(body.citations || 0),
+    peerReviewed: body.peerReviewed === false ? false : true,
+    shariaReviewed: body.shariaReviewed === false ? false : true,
+    createdAt: new Date().toISOString()
+  };
+  store.publications.unshift(Object.assign({ researcherId }, publication));
+  researcher.publicationIds = asArray(researcher.publicationIds);
+  if (!researcher.publicationIds.includes(publication.id)) researcher.publicationIds.push(publication.id);
+  researcher.impactPoints = Number(researcher.impactPoints || 0) + (publication.peerReviewed ? 4 : 2) + Math.min(10, publication.citations);
+  saveResearchStore(store);
+  res.json({
+    success: true,
+    data: publication,
+    message: 'تم توثيق المخرج البحثي بنجاح',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.post('/api/riyad-aljannah/research-network/match', function(req, res) {
+  const body = req.body || {};
+  const focus = asArray(body.focusAreas).map((x) => normText(x).toLowerCase()).filter(Boolean);
+  const methods = asArray(body.methodologies).map((x) => normText(x).toLowerCase()).filter(Boolean);
+  const store = loadResearchStore();
+  const scored = store.researchers.map((r) => {
+    const rFocus = asArray(r.focusAreas).map((x) => normText(x).toLowerCase());
+    const rMethods = asArray(r.methodologies).map((x) => normText(x).toLowerCase());
+    const focusHit = focus.filter((f) => rFocus.includes(f)).length;
+    const methodHit = methods.filter((m) => rMethods.includes(m)).length;
+    const score = focusHit * 35 + methodHit * 20 + Math.round(scoreResearcher(r) * 0.2);
+    return { researcher: r, matchScore: score };
+  }).sort((a, b) => b.matchScore - a.matchScore).slice(0, 10);
+
+  res.json({
+    success: true,
+    data: scored,
+    message: 'تم توليد أفضل ترشيحات التعاون البحثي',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// ─── بوابة المجتمع البحثي (موازية لرياض الجنة) ───
+app.get('/api/community/research/dashboard', function(req, res) {
+  const store = loadResearchStore();
+  res.json({
+    success: true,
+    data: {
+      researchers: store.researchers.length,
+      activeProjects: store.projects.filter((p) => p.status === 'active').length,
+      publications: store.publications.length
+    },
+    message: 'تم جلب لوحة المجتمع البحثي',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // ─── سجل التشغيل ───
 console.log('✅ [رياض الجنة] بيت العلم ودار المعرفة ومصنع الابتكار — مفعّل');
 console.log('   ☪ الأساس الشرعي: ' + SHARIA_FOUNDATION.quran.length + ' آية + ' + SHARIA_FOUNDATION.hadith.length + ' حديث');
@@ -671,6 +955,7 @@ console.log('   🌍 أحداث AI: ' + AI_STRATEGIC_EVENTS.event_sources.length
 console.log('   ⚖️ تشريعات: ' + REGULATORY_SYSTEM.saudi_regulators.length + ' سعودية + ' + REGULATORY_SYSTEM.international_regulators.length + ' دولية | ' + REGULATORY_SYSTEM.active_regulations.length + ' نظام نشط | لا طاعة لمخلوق في معصية الخالق');
 console.log('   🏗  هيكل: ' + STRUCTURE_AND_EXECUTION.organizational_structure.levels.length + ' مستوى | تنفيذ: ' + STRUCTURE_AND_EXECUTION.execution_roadmap.length + ' مرحلة | تشغيل ذاتي: ' + STRUCTURE_AND_EXECUTION.self_operating_codification.layers.length + ' طبقة');
 console.log('   🤖 تغذية AI: ' + AI_FEEDING_SYSTEM.knowledge_sources.length + ' مصدر | ' + AI_FEEDING_SYSTEM.ai_capabilities_enhanced.length + ' قدرة محسّنة');
+console.log('   🧪 شبكة R&D: مفعلة | APIs: /api/riyad-aljannah/research-network/* + /api/community/research/dashboard');
 console.log('   📡 APIs: /api/riyad-aljannah/*');
 
 };

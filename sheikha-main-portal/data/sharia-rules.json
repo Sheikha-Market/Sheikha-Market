@@ -105,6 +105,32 @@
         "category": "marketing",
         "enforcement": "STRICT",
         "description": "لا مبالغة ولا وعود كاذبة"
+      },
+      {
+        "id": "SC-COMM-001",
+        "rule": "امتثال الرسائل للشريعة",
+        "category": "communications",
+        "enforcement": "STRICT",
+        "blockedTypes": [
+          "gambling",
+          "alcohol",
+          "pork",
+          "adult",
+          "deception",
+          "riba",
+          "gharar"
+        ]
+      },
+      {
+        "id": "SC-COMM-002",
+        "rule": "احترام أوقات الهدوء",
+        "category": "communications",
+        "enforcement": "MONITORED",
+        "quietHours": {
+          "start": "23:00",
+          "end": "07:00",
+          "timezone": "Asia/Riyadh"
+        }
       }
     ]
   },

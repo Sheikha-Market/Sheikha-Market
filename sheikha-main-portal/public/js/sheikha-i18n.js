@@ -150,28 +150,23 @@ const SheikhaI18n = (function() {
             })
             .then(r => r.json())
             .then(data => {
-                if (data.success && data.translations) {
+                if (data && data.success && Array.isArray(data.translations)) {
                     const transMap = {};
-                    uniqueTexts.forEach((t, i) => {
-                        if (data.translations[i]) {
-                            // Handle both string and object response formats
-                            const translated = typeof data.translations[i] === 'object' 
-                                ? (data.translations[i].translation || data.translations[i].text || t)
-                                : data.translations[i];
-                            transMap[t] = translated;
-                            _translationCache[lang + ':' + t] = translated;
+                    data.translations.forEach((item, i) => {
+                        const orig = item && (item.original != null ? item.original : uniqueTexts[i]);
+                        const translated = item && (typeof item.translation !== 'undefined' ? item.translation : (item.text || orig));
+                        if (orig != null && translated != null && translated !== orig) {
+                            transMap[orig] = String(translated);
+                            _translationCache[lang + ':' + orig] = String(translated);
                         }
                     });
                     toTranslate.forEach(el => {
-                        if (transMap[el._origText]) {
-                            el.textContent = transMap[el._origText];
-                        }
+                        const val = transMap[el._origText];
+                        if (val) el.textContent = val;
                     });
                 }
             })
-            .catch((err) => {
-                console.log('i18n: API not available, using dictionary fallback');
-            });
+            .catch(() => {});
         }
     }
 

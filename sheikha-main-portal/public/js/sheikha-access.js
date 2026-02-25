@@ -22,7 +22,7 @@
             '/هوية-السوق.html', '/سوق-المدينة.html', '/منظومة-البركة.html',
             '/آيات-التجارة.html', '/معايير-الأحاديث.html', '/بنك-شيخة.html',
             '/العاصمة-الاقتصادية.html', '/المشرع-الذكي.html', '/المُشرِّع-الذكي.html',
-            '/لوحة-المؤشرات.html', '/خريطة-الأهداف.html'
+            '/لوحة-المؤشرات.html', '/خريطة-الأهداف.html', '/تعليم-المجتمع.html'
         ],
         user: ['/لوحة-تحكم-المستخدم.html'],
         company: ['/لوحة-الشركة.html'],
@@ -37,6 +37,16 @@
         ]
     };
     var ADMIN_PREFIXES = ['/_admin/', '/marketing/', '/_engines/'];
+    // صفحات عامة نمطية (لمنع إعادة توجيه خاطئة في صفحات المجتمع/التعليم)
+    var PUBLIC_PREFIXES = ['/المجتمع', '/community', '/تعليم', '/education'];
+
+    function normalizePath(path) {
+        var p = String(path || '/');
+        try { p = decodeURIComponent(p); } catch(e) {}
+        if (!p) p = '/';
+        if (p.length > 1 && p.charAt(p.length - 1) === '/') p = p.slice(0, -1);
+        return p;
+    }
 
     // الحالة — يبدأ كزائر حتى يثبت العكس من السيرفر
     var _verifiedRole = null; // null = لم يُتحقق بعد
@@ -72,8 +82,12 @@
 
     // ═══ فحص الصلاحية ═══
     function hasAccess(role, path) {
+        path = normalizePath(path);
         if (role === 'admin') return true;
         if (ACCESS_MAP.public.indexOf(path) !== -1) return true;
+        for (var p = 0; p < PUBLIC_PREFIXES.length; p++) {
+            if (path.indexOf(PUBLIC_PREFIXES[p]) === 0) return true;
+        }
         for (var i = 0; i < ADMIN_PREFIXES.length; i++) {
             if (path.indexOf(ADMIN_PREFIXES[i]) === 0) return false;
         }
@@ -87,7 +101,7 @@
     // ═══ حماية الصفحة الحالية ═══
     function protectCurrentPage() {
         var role = getLocalRole();
-        var path = window.location.pathname;
+        var path = normalizePath(window.location.pathname);
         if (!hasAccess(role, path)) {
             if (role === 'visitor') {
                 window.location.href = '/تسجيل-الدخول.html?redirect=' + encodeURIComponent(path);
@@ -255,6 +269,51 @@
         _verifiedRole = 'visitor';
         window.location.href = '/';
     };
+    // توافق مع صفحات تستخدم logout() مباشرة
+    window.logout = window.sheikhaLogout;
+
+    // CSP يمنع onclick في بعض الصفحات، لذا نربط أزرار الخروج برمجياً.
+    function bindLogoutButtons() {
+        var selector = [
+            '[data-action="logout"]',
+            '.logout-btn',
+            'a[onclick*="sheikhaLogout"]',
+            'a[onclick*="logout()"]',
+            'button[onclick*="logout()"]',
+            'div[onclick*="logout()"]',
+            'a[href*="logout"]',
+            'button[id*="logout"]',
+            'a[id*="logout"]'
+        ].join(',');
+        var nodes = document.querySelectorAll(selector);
+        for (var i = 0; i < nodes.length; i++) {
+            var node = nodes[i];
+            if (node.dataset && node.dataset.shkLogoutBound === '1') continue;
+            if (node.dataset) node.dataset.shkLogoutBound = '1';
+            node.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.sheikhaLogout();
+            });
+        }
+    }
+
+    // دعم عناصر الخروج المضافة ديناميكياً (مثل قوائم أعلى الصفحة/الإشعارات)
+    document.addEventListener('click', function(e) {
+        var target = e.target;
+        if (!target) return;
+        var clickable = target.closest('a,button,div,[role="button"],.nav-item,.menu-item,.dropdown-item');
+        if (!clickable) return;
+        var text = String(clickable.textContent || '').trim();
+        var hasLogoutText = text.indexOf('تسجيل الخروج') !== -1 || text === 'خروج';
+        var isMarkedLogout = clickable.matches('[data-action="logout"], .logout-btn') ||
+            String(clickable.getAttribute('onclick') || '').indexOf('logout') !== -1 ||
+            String(clickable.getAttribute('id') || '').toLowerCase().indexOf('logout') !== -1;
+        if (!hasLogoutText && !isMarkedLogout) return;
+        e.preventDefault();
+        e.stopPropagation();
+        window.sheikhaLogout();
+    }, true);
 
     // ═══ API عامة ═══
     window.SheikhaAccess = {
@@ -271,6 +330,7 @@
 
     function onReady() {
         applyNavVisibility();
+        bindLogoutButtons();
         verifyTokenWithServer();
     }
 

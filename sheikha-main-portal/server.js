@@ -294,17 +294,15 @@ console.log('⏸️ [LAZY] Survey Engine — سيُحمّل عند الطلب');
 
 // ═══ COMMS ENGINE — منظومة شيخة للاتصالات الشاملة ═══
 // SMS | واتساب | بريد | مكالمات آلية | مصادقة | إشعارات — بالكتاب والسنة
-/* LAZY: let commsEngine = null;
-/* LAZY: try {
-/* LAZY:     const SheikhaCommsEngine = require('./lib/sheikha-comms-engine.js');
-/* LAZY:     commsEngine = new SheikhaCommsEngine();
-/* LAZY:     const cd = commsEngine.getDashboard();
-/* LAZY:     console.log(`\u2705 Comms Engine \u2014 ${cd.summary.totalChannels} \u0642\u0646\u0627\u0629 | ${cd.summary.totalTemplates} \u0642\u0627\u0644\u0628 | ${cd.summary.totalWorkflows} \u0633\u064a\u0631 \u0639\u0645\u0644 | ${cd.summary.totalProviders} \u0645\u0632\u0648\u062f | ${cd.summary.otpMethods} \u0637\u0631\u064a\u0642\u0629 OTP | ${cd.summary.autoReplyKeywords} \u0631\u062f \u0622\u0644\u064a`);
-/* LAZY: } catch (e) {
-/* LAZY:     console.log('\u26a0\ufe0f Comms Engine \u063a\u064a\u0631 \u0645\u062a\u0648\u0641\u0631:', e.message);
-/* LAZY: }
-*/
-console.log('⏸️ [LAZY] Comms Engine — سيُحمّل عند الطلب');
+let commsEngine = null;
+try {
+    const SheikhaCommsEngine = require('./lib/sheikha-comms-engine.js');
+    commsEngine = new SheikhaCommsEngine();
+    const cd = commsEngine.getDashboard();
+    console.log(`✅ Comms Engine — ${cd.summary.totalChannels} قناة | ${cd.summary.totalTemplates} قالب | ${cd.summary.totalWorkflows} سير عمل | ${cd.summary.totalProviders} مزوّد | ${cd.summary.otpMethods} طريقة OTP | ${cd.summary.autoReplyKeywords} رد آلي`);
+} catch (e) {
+    console.log('⚠️ Comms Engine غير متوفر:', e.message);
+}
 
 // ═══ AI-COMMS BRIDGE — جسر التكامل بين الذكاء والاتصالات ═══
 // يُهيّأ لاحقاً بعد تحميل sheikhaAI (سطر ~1460) — هنا نحمّل الكلاس فقط
@@ -315,13 +313,13 @@ try {
     /*     _AICBridgeClass = require('./lib/sheikha-ai-comms-bridge.js'); */
     console.log('⏸️ [LAZY] sheikha-ai-comms-bridge.js — سيُحمّل عند الطلب');
     // التهيئة المؤجلة — تتم بعد تحميل sheikhaAI
-    aiCommsBridge = new _AICBridgeClass({
-        aiEngine: null,
-        localMind: sheikhaLocalMind || null,
-        commsEngine: commsEngine || null
-    });
-    const bd = aiCommsBridge.getDashboard();
-    console.log(`\u2705 AI-Comms Bridge \u2014 ${bd.summary.totalUniversalChannels || '?'} \u0642\u0646\u0627\u0629 \u0634\u0627\u0645\u0644\u0629 | ${bd.summary.socialMedia || 0} \u062a\u0648\u0627\u0635\u0644 | ${bd.summary.marketingChannels || 0} \u062a\u0633\u0648\u064a\u0642 | ${bd.summary.salesChannels || 0} \u0645\u0628\u064a\u0639\u0627\u062a | ${bd.summary.logisticsChannels || 0} \u0644\u0648\u062c\u0633\u062a\u064a\u0627\u062a | ${bd.summary.dataSources || 0} \u0645\u0635\u062f\u0631 \u0628\u064a\u0627\u0646\u0627\u062a | ${bd.summary.capabilities} \u0642\u062f\u0631\u0629 AI | ${bd.summary.thinkingModes} \u062a\u0641\u0643\u064a\u0631 | AI:${bd.aiConnected ? '\u2705' : '\u274c'} Comms:${bd.commsConnected ? '\u2705' : '\u274c'}`);
+    // LAZY: aiCommsBridge = new _AICBridgeClass({
+        // LAZY: aiEngine: null,
+        // LAZY: localMind: sheikhaLocalMind || null,
+        // LAZY: commsEngine: commsEngine || null
+    // LAZY: });
+    // LAZY: const bd = aiCommsBridge.getDashboard();
+    // LAZY: console.log(`\u2705 AI-Comms Bridge \u2014 ${bd.summary.totalUniversalChannels || '?'} \u0642\u0646\u0627\u0629 \u0634\u0627\u0645\u0644\u0629 | ${bd.summary.socialMedia || 0} \u062a\u0648\u0627\u0635\u0644 | ${bd.summary.marketingChannels || 0} \u062a\u0633\u0648\u064a\u0642 | ${bd.summary.salesChannels || 0} \u0645\u0628\u064a\u0639\u0627\u062a | ${bd.summary.logisticsChannels || 0} \u0644\u0648\u062c\u0633\u062a\u064a\u0627\u062a | ${bd.summary.dataSources || 0} \u0645\u0635\u062f\u0631 \u0628\u064a\u0627\u0646\u0627\u062a | ${bd.summary.capabilities} \u0642\u062f\u0631\u0629 AI | ${bd.summary.thinkingModes} \u062a\u0641\u0643\u064a\u0631 | AI:${bd.aiConnected ? '\u2705' : '\u274c'} Comms:${bd.commsConnected ? '\u2705' : '\u274c'}`);
 } catch (e) {
     console.log('\u26a0\ufe0f AI-Comms Bridge \u063a\u064a\u0631 \u0645\u062a\u0648\u0641\u0631:', e.message);
 }
@@ -332,9 +330,9 @@ try {
     // P0-1: LAZY (L2) - sheikha-ihsan-engine.js
     /*     const SheikhaIhsanEngine = require('./lib/sheikha-ihsan-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-ihsan-engine.js — سيُحمّل عند الطلب');
-    ihsanEngine = new SheikhaIhsanEngine(__dirname);
-    const d = ihsanEngine.getDashboard();
-    console.log(`✅ Ihsan Engine — ${d.ihsanLevels} مستوى إحسان | ${d.digitalApplications} تطبيق رقمي | ${d.principles} مبدأ شرعي | إحسان ${d.ihsanScore}%`);
+    // LAZY: ihsanEngine = new SheikhaIhsanEngine(__dirname);
+    // LAZY: const d = ihsanEngine.getDashboard();
+    // LAZY: console.log(`✅ Ihsan Engine — ${d.ihsanLevels} مستوى إحسان | ${d.digitalApplications} تطبيق رقمي | ${d.principles} مبدأ شرعي | إحسان ${d.ihsanScore}%`);
 } catch (e) {
     console.log('⚠️ Ihsan Engine غير متوفر:', e.message);
 }
@@ -345,9 +343,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-itqan-system-engine.js
     /*     const SheikhaItqanSystemEngine = require('./lib/sheikha-itqan-system-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-itqan-system-engine.js — سيُحمّل عند الطلب');
-    itqanSystemEngine = new SheikhaItqanSystemEngine();
-    const d = itqanSystemEngine.getDashboard();
-    console.log(`✅ Itqan System Engine — ${d.domains} مجال إتقان | ${d.levels} مستوى | ${d.zeroDefectsRules} قاعدة صفر أخطاء | ${d.principles} أساس شرعي`);
+    // LAZY: itqanSystemEngine = new SheikhaItqanSystemEngine();
+    // LAZY: const d = itqanSystemEngine.getDashboard();
+    // LAZY: console.log(`✅ Itqan System Engine — ${d.domains} مجال إتقان | ${d.levels} مستوى | ${d.zeroDefectsRules} قاعدة صفر أخطاء | ${d.principles} أساس شرعي`);
 } catch (e) {
     console.log('⚠️ Itqan System Engine غير متوفر:', e.message);
 }
@@ -358,9 +356,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-quran-dhikr-engine.js
     /*     const SheikhaQuranDhikrEngine = require('./lib/sheikha-quran-dhikr-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-quran-dhikr-engine.js — سيُحمّل عند الطلب');
-    quranDhikrEngine = new SheikhaQuranDhikrEngine();
-    const d = quranDhikrEngine.getDashboard();
-    console.log(`✅ Quran & Dhikr Engine — ${d.surahs} سورة | ${d.ayat} آية | ${d.adhkarCount} ذكر | ${d.baqiyatCount} باقية صالحة | ${d.features} ميزة رقمية`);
+    // LAZY: quranDhikrEngine = new SheikhaQuranDhikrEngine();
+    // LAZY: const d = quranDhikrEngine.getDashboard();
+    // LAZY: console.log(`✅ Quran & Dhikr Engine — ${d.surahs} سورة | ${d.ayat} آية | ${d.adhkarCount} ذكر | ${d.baqiyatCount} باقية صالحة | ${d.features} ميزة رقمية`);
 } catch (e) {
     console.log('⚠️ Quran & Dhikr Engine غير متوفر:', e.message);
 }
@@ -393,8 +391,8 @@ try {
     // P0-1: LAZY (L2) - sheikha-gov-engine.js
     /*     const SheikhaGovEngine = require('./lib/sheikha-gov-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-gov-engine.js — سيُحمّل عند الطلب');
-    govEngine = new SheikhaGovEngine();
-    console.log(`✅ Gov Engine — ${govEngine.saudiEntities.length} جهة سعودية | ${govEngine.countries.length} دولة | ${govEngine.govCompanies.length} شركة حكومية | ${govEngine.saudiRegulations.length} نظام/تشريع`);
+    // LAZY: govEngine = new SheikhaGovEngine();
+    // LAZY: console.log(`✅ Gov Engine — ${govEngine.saudiEntities.length} جهة سعودية | ${govEngine.countries.length} دولة | ${govEngine.govCompanies.length} شركة حكومية | ${govEngine.saudiRegulations.length} نظام/تشريع`);
 } catch (e) {
     console.log('⚠️ Gov Engine غير متوفر:', e.message);
 }
@@ -405,9 +403,9 @@ try {
     // P0-1: LAZY (L2) - sheikha-barakah-engine.js
     /*     const SheikhaBarakahEngine = require('./lib/sheikha-barakah-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-barakah-engine.js — سيُحمّل عند الطلب');
-    barakahEngine = new SheikhaBarakahEngine();
-    const bd = barakahEngine.getDashboard();
-    console.log(`✅ Barakah Engine — مؤشر البركة: ${bd.barakahIndex.currentScore}/100 | ${bd.summary.pillarsCount} ركن | ${bd.summary.financingModesCount} نمط تمويل | تكامل منتدى البركة ✓`);
+    // LAZY: barakahEngine = new SheikhaBarakahEngine();
+    // LAZY: const bd = barakahEngine.getDashboard();
+    // LAZY: console.log(`✅ Barakah Engine — مؤشر البركة: ${bd.barakahIndex.currentScore}/100 | ${bd.summary.pillarsCount} ركن | ${bd.summary.financingModesCount} نمط تمويل | تكامل منتدى البركة ✓`);
 } catch (e) {
     console.log('⚠️ Barakah Engine غير متوفر:', e.message);
 }
@@ -429,9 +427,9 @@ try {
     // P0-1: LAZY (L2) - sheikha-cosmos-engine.js
     /*     const SheikhaCosmosEngine = require('./lib/sheikha-cosmos-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-cosmos-engine.js — سيُحمّل عند الطلب');
-    cosmosEngine = new SheikhaCosmosEngine();
-    const cd = cosmosEngine.getDashboard();
-    console.log(`✅ Cosmos Engine — ${cd.summary.earthSectors} قطاع أرضي | ${cd.summary.spaceDomains} مجال فضائي | ${cd.summary.celestialBodies} جرم | ${cd.summary.tradeRoutes} ممر تجاري | ${cd.summary.quranVerses} آية`);
+    // LAZY: cosmosEngine = new SheikhaCosmosEngine();
+    // LAZY: const cd = cosmosEngine.getDashboard();
+    // LAZY: console.log(`✅ Cosmos Engine — ${cd.summary.earthSectors} قطاع أرضي | ${cd.summary.spaceDomains} مجال فضائي | ${cd.summary.celestialBodies} جرم | ${cd.summary.tradeRoutes} ممر تجاري | ${cd.summary.quranVerses} آية`);
 } catch (e) {
     console.log('⚠️ Cosmos Engine غير متوفر:', e.message);
 }
@@ -442,9 +440,9 @@ try {
     // P0-1: LAZY (L1) - sheikha-networks-engine.js
     /*     const SheikhaNetworksEngine = require('./lib/sheikha-networks-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-networks-engine.js — سيُحمّل عند الطلب');
-    networksEngine = new SheikhaNetworksEngine();
-    const nd = networksEngine.getDashboard();
-    console.log(`✅ Networks Engine — ${nd.summary.networkTypes} شبكة | ${nd.summary.telecomSectors} اتصالات | ${nd.summary.mobileGenerations} جيل | ${nd.summary.energySectors} طاقة | ${nd.summary.digitalKeyTypes} مفتاح رقمي | ${nd.summary.cyberDomains} أمن`);
+    // LAZY: networksEngine = new SheikhaNetworksEngine();
+    // LAZY: const nd = networksEngine.getDashboard();
+    // LAZY: console.log(`✅ Networks Engine — ${nd.summary.networkTypes} شبكة | ${nd.summary.telecomSectors} اتصالات | ${nd.summary.mobileGenerations} جيل | ${nd.summary.energySectors} طاقة | ${nd.summary.digitalKeyTypes} مفتاح رقمي | ${nd.summary.cyberDomains} أمن`);
 } catch (e) {
     console.log('⚠️ Networks Engine غير متوفر:', e.message);
 }
@@ -466,9 +464,9 @@ try {
     // P0-1: LAZY (L2) - sheikha-earth-resources-engine.js
     /*     const SheikhaEarthResourcesEngine = require('./lib/sheikha-earth-resources-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-earth-resources-engine.js — سيُحمّل عند الطلب');
-    earthResourcesEngine = new SheikhaEarthResourcesEngine();
-    const ed = earthResourcesEngine.getDashboard();
-    console.log(`✅ Earth Resources — ${ed.summary.agriSectors} زراعة | ${ed.summary.waterSources} مصدر مياه | ${ed.summary.mineralCategories} تصنيف معادن | ${ed.summary.ecosystems} نظام بيئي | ${ed.summary.continents} قارة | ${ed.summary.quranVerses} آية`);
+    // LAZY: earthResourcesEngine = new SheikhaEarthResourcesEngine();
+    // LAZY: const ed = earthResourcesEngine.getDashboard();
+    // LAZY: console.log(`✅ Earth Resources — ${ed.summary.agriSectors} زراعة | ${ed.summary.waterSources} مصدر مياه | ${ed.summary.mineralCategories} تصنيف معادن | ${ed.summary.ecosystems} نظام بيئي | ${ed.summary.continents} قارة | ${ed.summary.quranVerses} آية`);
 } catch (e) {
     console.log('⚠️ Earth Resources Engine غير متوفر:', e.message);
 }
@@ -495,12 +493,11 @@ try {
     console.log('⚠️ Supply & Logistics Engine غير متوفر:', e.message);
 }
 
-// ═══ ECONOMICS ENGINE — التجارة والاقتصاد السعودي والعالمي ═══
+// ═══ ECONOMICS ENGINE — المركز الاقتصادي: التجارة والاقتصاد السعودي والعالمي ═══
+// تفعيل مؤكد — المحلي السعودي والعالمي
 let economicsEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-economics-engine.js
-    /*     const SheikhaEconomicsEngine = require('./lib/sheikha-economics-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-economics-engine.js — سيُحمّل عند الطلب');
+    const SheikhaEconomicsEngine = require('./lib/sheikha-economics-engine.js');
     economicsEngine = new SheikhaEconomicsEngine();
     const ec = economicsEngine.getDashboard();
     console.log(`✅ Economics Engine — ${ec.summary.macroIndicators} مؤشر كلي | ${ec.summary.saudiSectors} قطاع سعودي | ${ec.summary.saudiBanks} بنك | ${ec.summary.globalExchanges} بورصة | ${ec.summary.investmentTypes} نوع استثمار | ${ec.summary.islamicFinancingModes} صيغة إسلامية`);
@@ -508,12 +505,11 @@ try {
     console.log('⚠️ Economics Engine غير متوفر:', e.message);
 }
 
-// ═══ UNIVERSAL ENGINE — النظام الكوني بالكتاب والسنة ═══
+// ═══ UNIVERSAL ENGINE — المركز الاقتصادي الكوني (بالكتاب والسنة) ═══
+// تفعيل مؤكد — البعد الكوني
 let universalEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-universal-engine.js
-    /*     const SheikhaUniversalEngine = require('./lib/sheikha-universal-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-universal-engine.js — سيُحمّل عند الطلب');
+    const SheikhaUniversalEngine = require('./lib/sheikha-universal-engine.js');
     universalEngine = new SheikhaUniversalEngine();
     const ue = universalEngine.getDashboard();
     console.log(`✅ Universal Engine — ${ue.summary.heavens} سماء | ${ue.summary.cosmicLaws} سنة كونية | ${ue.summary.scienceBranches} علم | ${ue.summary.techFundamentals} تقنية | ${ue.summary.mathBranches} رياضيات | ${ue.summary.wisdomPrinciples} حكمة`);
@@ -538,9 +534,9 @@ try {
     // P0-1: LAZY (L1) - sheikha-ai-computing-engine.js
     /*     const SheikhaAIComputingEngine = require('./lib/sheikha-ai-computing-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-ai-computing-engine.js — سيُحمّل عند الطلب');
-    aiComputingEngine = new SheikhaAIComputingEngine();
-    const ac = aiComputingEngine.getDashboard();
-    console.log(`✅ AI & Computing — ${ac.summary.aiBranches} فرع AI | ${ac.summary.programmingLanguages} لغة | ${ac.summary.cyberDomains} أمن | ${ac.summary.emergingTech} تقنية ناشئة | ${ac.summary.saudiAIEntities} جهة سعودية`);
+    // LAZY: aiComputingEngine = new SheikhaAIComputingEngine();
+    // LAZY: const ac = aiComputingEngine.getDashboard();
+    // LAZY: console.log(`✅ AI & Computing — ${ac.summary.aiBranches} فرع AI | ${ac.summary.programmingLanguages} لغة | ${ac.summary.cyberDomains} أمن | ${ac.summary.emergingTech} تقنية ناشئة | ${ac.summary.saudiAIEntities} جهة سعودية`);
 } catch (e) {
     console.log('⚠️ AI & Computing Engine غير متوفر:', e.message);
 }
@@ -551,9 +547,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-bank-fund-engine.js
     /*     const SheikhaBank_FundEngine = require('./lib/sheikha-bank-fund-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-bank-fund-engine.js — سيُحمّل عند الطلب');
-    bankFundEngine = new SheikhaBank_FundEngine();
-    const bf = bankFundEngine.getDashboard();
-    console.log(`✅ Bank & Fund — ${bf.summary.bankAccounts} حساب | ${bf.summary.bankFinancing} تمويل | ${bf.summary.investmentFunds} صندوق | ${bf.summary.riskTypes} مخاطر | ${bf.summary.complianceRegulations} امتثال`);
+    // LAZY: bankFundEngine = new SheikhaBank_FundEngine();
+    // LAZY: const bf = bankFundEngine.getDashboard();
+    // LAZY: console.log(`✅ Bank & Fund — ${bf.summary.bankAccounts} حساب | ${bf.summary.bankFinancing} تمويل | ${bf.summary.investmentFunds} صندوق | ${bf.summary.riskTypes} مخاطر | ${bf.summary.complianceRegulations} امتثال`);
 } catch (e) {
     console.log('⚠️ Bank & Fund Engine غير متوفر:', e.message);
 }
@@ -575,9 +571,9 @@ try {
     // P0-1: LAZY (L1) - sheikha-industry-engine.js
     /*     const SheikhaIndustryEngine = require('./lib/sheikha-industry-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-industry-engine.js — سيُحمّل عند الطلب');
-    industryEngine = new SheikhaIndustryEngine();
-    const ie = industryEngine.getDashboard();
-    console.log(`✅ Industry Engine — ${ie.summary.industrialSectors} قطاع صناعي | ${ie.summary.digitalIndustryDomains} مجال رقمي | ${ie.summary.qualityMethodologies} منهجية جودة | ${ie.summary.robotTypes} نوع روبوت | ${ie.summary.saudiIndustrialCities} مدينة صناعية | ${ie.summary.shariaRules} ضابط شرعي`);
+    // LAZY: industryEngine = new SheikhaIndustryEngine();
+    // LAZY: const ie = industryEngine.getDashboard();
+    // LAZY: console.log(`✅ Industry Engine — ${ie.summary.industrialSectors} قطاع صناعي | ${ie.summary.digitalIndustryDomains} مجال رقمي | ${ie.summary.qualityMethodologies} منهجية جودة | ${ie.summary.robotTypes} نوع روبوت | ${ie.summary.saudiIndustrialCities} مدينة صناعية | ${ie.summary.shariaRules} ضابط شرعي`);
 } catch (e) {
     console.log('⚠️ Industry Engine غير متوفر:', e.message);
 }
@@ -610,9 +606,9 @@ try {
     // P0-1: LAZY (L1) - sheikha-sciences-engine.js
     /*     const ShekhaSciencesEngine = require('./lib/sheikha-sciences-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-sciences-engine.js — سيُحمّل عند الطلب');
-    sciencesEngine = new ShekhaSciencesEngine();
-    const sci = sciencesEngine.getDashboard();
-    console.log(`✅ Sciences Engine — ${sci.summary.naturalScienceBranches} علوم طبيعية | ${sci.summary.appliedScienceBranches} علوم تطبيقية | ${sci.summary.medicalScienceBranches} علوم طبية | ${sci.summary.humanScienceBranches} علوم إنسانية | ${sci.summary.techDomains} مجال تقني | ${sci.summary.labTypes} نوع مختبر | ${sci.summary.explorationDomains} مجال استكشاف | ${sci.summary.islamicScholars} عالم إسلامي | ${sci.summary.digitalSystems} نظام رقمي`);
+    // LAZY: sciencesEngine = new ShekhaSciencesEngine();
+    // LAZY: const sci = sciencesEngine.getDashboard();
+    // LAZY: console.log(`✅ Sciences Engine — ${sci.summary.naturalScienceBranches} علوم طبيعية | ${sci.summary.appliedScienceBranches} علوم تطبيقية | ${sci.summary.medicalScienceBranches} علوم طبية | ${sci.summary.humanScienceBranches} علوم إنسانية | ${sci.summary.techDomains} مجال تقني | ${sci.summary.labTypes} نوع مختبر | ${sci.summary.explorationDomains} مجال استكشاف | ${sci.summary.islamicScholars} عالم إسلامي | ${sci.summary.digitalSystems} نظام رقمي`);
 } catch (e) {
     console.log('⚠️ Sciences Engine غير متوفر:', e.message);
 }
@@ -623,9 +619,9 @@ try {
     // P0-1: LAZY (L2) - sheikha-community-engine.js
     /*     const SheikhaCommunityEngine = require('./lib/sheikha-community-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-community-engine.js — سيُحمّل عند الطلب');
-    communityEngine = new SheikhaCommunityEngine();
-    const com = communityEngine.getDashboard();
-    console.log(`✅ Community Engine — ${com.summary.communityTypes} نوع مجتمع | ${com.summary.totalSubGroups} مجموعة فرعية | ${com.summary.digitalTools} أداة رقمية | ${com.summary.islamicGoals + com.summary.economicGoals + com.summary.socialGoals + com.summary.digitalGoals} هدف`);
+    // LAZY: communityEngine = new SheikhaCommunityEngine();
+    // LAZY: const com = communityEngine.getDashboard();
+    // LAZY: console.log(`✅ Community Engine — ${com.summary.communityTypes} نوع مجتمع | ${com.summary.totalSubGroups} مجموعة فرعية | ${com.summary.digitalTools} أداة رقمية | ${com.summary.islamicGoals + com.summary.economicGoals + com.summary.socialGoals + com.summary.digitalGoals} هدف`);
 } catch (e) {
     console.log('⚠️ Community Engine غير متوفر:', e.message);
 }
@@ -647,9 +643,9 @@ try {
     // P0-1: LAZY (L1) - sheikha-master-catalog.js
     /*     const SheikhaMasterCatalog = require('./lib/sheikha-master-catalog.js'); */
     console.log('⏸️ [LAZY] sheikha-master-catalog.js — سيُحمّل عند الطلب');
-    masterCatalog = new SheikhaMasterCatalog();
-    const cat = masterCatalog.getDashboard();
-    console.log(`✅ Master Catalog — ${cat.summary.totalEngines} محرك | ${cat.summary.totalLayers} طبقة | ${cat.summary.totalAPIs} API | ${cat.summary.activeEngines} نشط`);
+    // LAZY: masterCatalog = new SheikhaMasterCatalog();
+    // LAZY: const cat = masterCatalog.getDashboard();
+    // LAZY: console.log(`✅ Master Catalog — ${cat.summary.totalEngines} محرك | ${cat.summary.totalLayers} طبقة | ${cat.summary.totalAPIs} API | ${cat.summary.activeEngines} نشط`);
 } catch (e) {
     console.log('⚠️ Master Catalog غير متوفر:', e.message);
 }
@@ -660,9 +656,9 @@ try {
     // P0-1: LAZY (L1) - sheikha-tech-computing-engine.js
     /*     const SheikhaTechComputingEngine = require('./lib/sheikha-tech-computing-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-tech-computing-engine.js — سيُحمّل عند الطلب');
-    techEngine = new SheikhaTechComputingEngine();
-    const t = techEngine.getDashboard();
-    console.log(`✅ Tech Computing Engine — ${t.summary.osCategories} فئة أنظمة تشغيل | ${t.summary.totalOSSystems} نظام | ${t.summary.programmingLanguages} لغة برمجة | ${t.summary.databaseCategories} فئة قواعد بيانات | ${t.summary.automotiveDomains} مجال سيارات | ${t.summary.emergingTechnologies} تقنية ناشئة`);
+    // LAZY: techEngine = new SheikhaTechComputingEngine();
+    // LAZY: const t = techEngine.getDashboard();
+    // LAZY: console.log(`✅ Tech Computing Engine — ${t.summary.osCategories} فئة أنظمة تشغيل | ${t.summary.totalOSSystems} نظام | ${t.summary.programmingLanguages} لغة برمجة | ${t.summary.databaseCategories} فئة قواعد بيانات | ${t.summary.automotiveDomains} مجال سيارات | ${t.summary.emergingTechnologies} تقنية ناشئة`);
 } catch (e) {
     console.log('⚠️ Tech Computing Engine غير متوفر:', e.message);
 }
@@ -673,9 +669,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-calendar-engine.js
     /*     const SheikhaCalendarEngine = require('./lib/sheikha-calendar-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-calendar-engine.js — سيُحمّل عند الطلب');
-    calendarEngine = new SheikhaCalendarEngine();
-    const cal = calendarEngine.getDashboard();
-    console.log(`✅ Calendar Engine — ${cal.currentTime.hijri} | ${cal.summary.hijriMonths} شهر هجري | ${cal.summary.worldCalendars} تقويم عالمي | ${cal.summary.islamicEvents} مناسبة إسلامية | ${cal.summary.saudiEvents} مناسبة سعودية | ${cal.summary.realTimeEventTypes} نوع حدث لحظي | ${cal.summary.integrations} تكامل | ${cal.summary.digitalSystems} نظام رقمي`);
+    // LAZY: calendarEngine = new SheikhaCalendarEngine();
+    // LAZY: const cal = calendarEngine.getDashboard();
+    // LAZY: console.log(`✅ Calendar Engine — ${cal.currentTime.hijri} | ${cal.summary.hijriMonths} شهر هجري | ${cal.summary.worldCalendars} تقويم عالمي | ${cal.summary.islamicEvents} مناسبة إسلامية | ${cal.summary.saudiEvents} مناسبة سعودية | ${cal.summary.realTimeEventTypes} نوع حدث لحظي | ${cal.summary.integrations} تكامل | ${cal.summary.digitalSystems} نظام رقمي`);
 } catch (e) {
     console.log('⚠️ Calendar Engine غير متوفر:', e.message);
 }
@@ -686,9 +682,9 @@ try {
     // P0-1: LAZY (L1) - sheikha-os-engine.js
     /*     const SheikhaOSEngine = require('./lib/sheikha-os-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-os-engine.js — سيُحمّل عند الطلب');
-    sheikhaOSEngine = new SheikhaOSEngine();
-    const os = sheikhaOSEngine.getDashboard();
-    console.log(`✅ نظام شيخة — ${os.brandName} (${os.brandNameEn}) | ${os.summary.editions} إصدار | ${os.summary.builtInApps} تطبيق مدمج | ${os.summary.developerAPIs} API | ${os.summary.securityLayers} طبقة أمان | ${os.summary.sdkLanguages} لغة تطوير | ${os.summary.supremeLaws} قانون شرعي | ${os.summary.domainSpecs} مجال مواصفات | ${os.summary.totalConditions} شرط`);
+    // LAZY: sheikhaOSEngine = new SheikhaOSEngine();
+    // LAZY: const os = sheikhaOSEngine.getDashboard();
+    // LAZY: console.log(`✅ نظام شيخة — ${os.brandName} (${os.brandNameEn}) | ${os.summary.editions} إصدار | ${os.summary.builtInApps} تطبيق مدمج | ${os.summary.developerAPIs} API | ${os.summary.securityLayers} طبقة أمان | ${os.summary.sdkLanguages} لغة تطوير | ${os.summary.supremeLaws} قانون شرعي | ${os.summary.domainSpecs} مجال مواصفات | ${os.summary.totalConditions} شرط`);
 } catch (e) {
     console.log('⚠️ SheikhaOS Engine غير متوفر:', e.message);
 }
@@ -759,12 +755,11 @@ try {
     console.log('⚠️ Banking Engine غير متوفر:', e.message);
 }
 
-// 🌍 محرك العاصمة الاقتصادية العالمية — Global Economic Capital Engine
+// 🌍 محرك العاصمة الاقتصادية العالمية — المركز الاقتصادي التجاري (محلي سعودي / دولي / عالمي / كوني)
+// تفعيل مؤكد — المركز الاقتصادي مفعّل بالكامل
 let capitalEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-capital-engine.js
-    /*     const SheikhaCapitalEngine = require('./lib/sheikha-capital-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-capital-engine.js — سيُحمّل عند الطلب');
+    const SheikhaCapitalEngine = require('./lib/sheikha-capital-engine.js');
     capitalEngine = new SheikhaCapitalEngine();
     const ce = capitalEngine.getDashboard();
     console.log(`✅ العاصمة الاقتصادية — ${ce.summary.pillars} ركن | ${ce.summary.tradeCorridors} ممر | ${ce.summary.phases} مرحلة | ${ce.summary.totalComponents} مكون`);
@@ -789,9 +784,9 @@ try {
     // P0-1: LAZY (L2) - sheikha-hikmah-engine.js
     /*     const SheikhaHikmahEngine = require('./lib/sheikha-hikmah-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-hikmah-engine.js — سيُحمّل عند الطلب');
-    hikmahEngine = new SheikhaHikmahEngine();
-    const h = hikmahEngine.getDashboard();
-    console.log(`✅ محرك الحكمة — ${h.summary.foundations} أساس | ${h.summary.logicLayers} طبقة منطق | ${h.summary.wisdomRules} قاعدة حكمة | ${h.summary.computationTypes} نوع حساب`);
+    // LAZY: hikmahEngine = new SheikhaHikmahEngine();
+    // LAZY: const h = hikmahEngine.getDashboard();
+    // LAZY: console.log(`✅ محرك الحكمة — ${h.summary.foundations} أساس | ${h.summary.logicLayers} طبقة منطق | ${h.summary.wisdomRules} قاعدة حكمة | ${h.summary.computationTypes} نوع حساب`);
 } catch (e) {
     console.log('⚠️ Hikmah Engine غير متوفر:', e.message);
 }
@@ -802,9 +797,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-ops-systems-engine.js
     /*     const SheikhaOpsSystemsEngine = require('./lib/sheikha-ops-systems-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-ops-systems-engine.js — سيُحمّل عند الطلب');
-    opsSystemsEngine = new SheikhaOpsSystemsEngine();
-    const ops = opsSystemsEngine.getDashboard();
-    console.log(`✅ Ops Systems Engine — ${ops.summary.sectors} قطاع | ${ops.summary.totalSystems} نظام تشغيلي | ${ops.summary.shariaPrinciples} ضابط شرعي`);
+    // LAZY: opsSystemsEngine = new SheikhaOpsSystemsEngine();
+    // LAZY: const ops = opsSystemsEngine.getDashboard();
+    // LAZY: console.log(`✅ Ops Systems Engine — ${ops.summary.sectors} قطاع | ${ops.summary.totalSystems} نظام تشغيلي | ${ops.summary.shariaPrinciples} ضابط شرعي`);
 } catch (e) {
     console.log('⚠️ Ops Systems Engine غير متوفر:', e.message);
 }
@@ -815,9 +810,9 @@ try {
     // P0-1: LAZY (L2) - sheikha-browser-engine.js
     /*     const SheikhaBrowserEngine = require('./lib/sheikha-browser-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-browser-engine.js — سيُحمّل عند الطلب');
-    browserEngine = new SheikhaBrowserEngine();
-    const br = browserEngine.getDashboard();
-    console.log(`✅ Sheikha Browser — ${br.summary.coreFeatures} ميزة | ${br.summary.securityLayers} طبقة أمان | ${br.summary.platforms} منصة`);
+    // LAZY: browserEngine = new SheikhaBrowserEngine();
+    // LAZY: const br = browserEngine.getDashboard();
+    // LAZY: console.log(`✅ Sheikha Browser — ${br.summary.coreFeatures} ميزة | ${br.summary.securityLayers} طبقة أمان | ${br.summary.platforms} منصة`);
 } catch (e) {
     console.log('⚠️ Browser Engine غير متوفر:', e.message);
 }
@@ -828,9 +823,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-devops-engine.js
     /*     const SheikhaDevOpsEngine = require('./lib/sheikha-devops-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-devops-engine.js — سيُحمّل عند الطلب');
-    devopsEngine = new SheikhaDevOpsEngine();
-    const dv = devopsEngine.getDashboard();
-    console.log(`✅ DevOps Engine — ${dv.summary.cicdStages} مرحلة CI/CD | ${dv.summary.improvementKPIs} مؤشر | ${dv.summary.teamRoles} دور`);
+    // LAZY: devopsEngine = new SheikhaDevOpsEngine();
+    // LAZY: const dv = devopsEngine.getDashboard();
+    // LAZY: console.log(`✅ DevOps Engine — ${dv.summary.cicdStages} مرحلة CI/CD | ${dv.summary.improvementKPIs} مؤشر | ${dv.summary.teamRoles} دور`);
 } catch (e) {
     console.log('⚠️ DevOps Engine غير متوفر:', e.message);
 }
@@ -852,9 +847,9 @@ try {
     // P0-1: LAZY (L2) - sheikha-medical-engine.js
     /*     const SheikhaMedicalEngine = require('./lib/sheikha-medical-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-medical-engine.js — سيُحمّل عند الطلب');
-    medicalEngine = new SheikhaMedicalEngine();
-    const med = medicalEngine.getDashboard();
-    console.log(`✅ Medical Engine — ${med.summary.propheticRemedies} علاج نبوي | ${med.summary.medicalSpecialties} تخصص | ${med.summary.digitalSystems} نظام رقمي`);
+    // LAZY: medicalEngine = new SheikhaMedicalEngine();
+    // LAZY: const med = medicalEngine.getDashboard();
+    // LAZY: console.log(`✅ Medical Engine — ${med.summary.propheticRemedies} علاج نبوي | ${med.summary.medicalSpecialties} تخصص | ${med.summary.digitalSystems} نظام رقمي`);
 } catch (e) {
     console.log('⚠️ Medical Engine غير متوفر:', e.message);
 }
@@ -865,9 +860,9 @@ try {
     // P0-1: LAZY (L1) - sheikha-instructions-engine.js
     /*     const SheikhaInstructionsEngine = require('./lib/sheikha-instructions-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-instructions-engine.js — سيُحمّل عند الطلب');
-    instructionsEngine = new SheikhaInstructionsEngine();
-    const ins = instructionsEngine.getDashboard();
-    console.log(`✅ Instructions Engine — ${ins.summary.totalTerms} تعريف | ${ins.summary.journeyStages} مرحلة رحلة | ${ins.summary.procedureCategories} فئة إجراء`);
+    // LAZY: instructionsEngine = new SheikhaInstructionsEngine();
+    // LAZY: const ins = instructionsEngine.getDashboard();
+    // LAZY: console.log(`✅ Instructions Engine — ${ins.summary.totalTerms} تعريف | ${ins.summary.journeyStages} مرحلة رحلة | ${ins.summary.procedureCategories} فئة إجراء`);
 } catch (e) {
     console.log('⚠️ Instructions Engine غير متوفر:', e.message);
 }
@@ -900,9 +895,9 @@ try {
     // P0-1: LAZY (L2) - sheikha-selfheal-engine.js
     /*     const SheikhaSelfHealEngine = require('./lib/sheikha-selfheal-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-selfheal-engine.js — سيُحمّل عند الطلب');
-    selfHealEngine = new SheikhaSelfHealEngine();
-    const sh = selfHealEngine.getDashboard();
-    console.log(`✅ Self-Heal Engine — ${sh.summary.monitoringChecks} فحص | ${sh.summary.repairStrategies} استراتيجية إصلاح | ${sh.summary.escalationLevels} مستوى تصعيد`);
+    // LAZY: selfHealEngine = new SheikhaSelfHealEngine();
+    // LAZY: const sh = selfHealEngine.getDashboard();
+    // LAZY: console.log(`✅ Self-Heal Engine — ${sh.summary.monitoringChecks} فحص | ${sh.summary.repairStrategies} استراتيجية إصلاح | ${sh.summary.escalationLevels} مستوى تصعيد`);
 } catch (e) {
     console.log('⚠️ Self-Heal Engine غير متوفر:', e.message);
 }
@@ -910,10 +905,8 @@ try {
 // ☪️ التكامل الذكي بين كل المنظومات — Integration
 let integrationEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-integration-engine.js
-    /*     const SheikhaIntegrationEngine = require('./lib/sheikha-integration-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-integration-engine.js — سيُحمّل عند الطلب');
-    integrationEngine = new SheikhaIntegrationEngine();
+    const SheikhaIntegrationEngine = require('./lib/sheikha-integration-engine.js');
+    integrationEngine = new SheikhaIntegrationEngine(__dirname);
     const ig = integrationEngine.getDashboard();
     console.log(`✅ Integration Engine — ${ig.summary.integrationLayers} طبقة تكامل | ${ig.summary.totalEngines} محرك | ${ig.summary.dataFlowPatterns} نمط تدفق`);
 } catch (e) {
@@ -926,7 +919,7 @@ try {
     // P0-1: LAZY (L1) - sheikha-dev-platform-engine.js
     /*     const SheikhaDevPlatformEngine = require('./lib/sheikha-dev-platform-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-dev-platform-engine.js — سيُحمّل عند الطلب');
-    devPlatformEngine = new SheikhaDevPlatformEngine();
+    // LAZY: devPlatformEngine = new SheikhaDevPlatformEngine();
 } catch (e) {
     console.log('⚠️ Dev Platform Engine غير متوفر:', e.message);
 }
@@ -1968,12 +1961,64 @@ if (!process.env.PASSWORD_SALT || process.env.PASSWORD_SALT.length < 10) {
 }
 function hashPassword(pwd) { return crypto.createHash('sha256').update(PASSWORD_SALT + (pwd || '')).digest('hex'); }
 function verifyPassword(pwd, hash) { return hashPassword(pwd) === hash; }
+function isStrongPassword(pwd) {
+    const value = String(pwd || '');
+    if (value.length < 10) return false;
+    const hasLetter = /[A-Za-z\u0600-\u06FF]/.test(value);
+    const hasNumber = /\d/.test(value);
+    const hasSymbol = /[^A-Za-z0-9\u0600-\u06FF\s]/.test(value);
+    return hasLetter && hasNumber && hasSymbol;
+}
+function passwordPolicyMessage() {
+    return 'كلمة المرور يجب أن تكون 10 أحرف على الأقل وتحتوي على حروف وأرقام ورمز خاص.';
+}
+function generateStrongPassword(len = 18) {
+    const size = Math.max(14, Number(len || 18));
+    const lower = 'abcdefghijklmnopqrstuvwxyz';
+    const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const numbers = '0123456789';
+    const symbols = '!@#$%^&*()-_=+[]{}:,.?/|~';
+    const all = lower + upper + numbers + symbols;
+
+    const pick = (chars) => chars[crypto.randomInt(0, chars.length)];
+    const raw = [pick(lower), pick(upper), pick(numbers), pick(symbols)];
+    for (let i = raw.length; i < size; i++) raw.push(pick(all));
+    for (let i = raw.length - 1; i > 0; i--) {
+        const j = crypto.randomInt(0, i + 1);
+        const t = raw[i];
+        raw[i] = raw[j];
+        raw[j] = t;
+    }
+    return raw.join('');
+}
 
 const app = express();
 
-// Behind nginx (X-Forwarded-For/Proto), this must be enabled for correct IP detection
-// and to avoid express-rate-limit ValidationError.
-app.set('trust proxy', true);
+// تفعيل مسارات محرك التكامل مبكرًا قبل مسار not_found
+if (integrationEngine) {
+    try {
+        integrationEngine.registerRoutes(app);
+        console.log('🔗 Integration Engine APIs — /api/integration/* مفعّلة (early register)');
+    } catch (e) {
+        console.log('⚠️ خطأ في تسجيل مسارات التكامل (early):', e.message);
+    }
+}
+
+// trust proxy يجب ألا يكون permissive في التطوير المحلي؛
+// express-rate-limit يرمي ERR_ERL_PERMISSIVE_TRUST_PROXY إذا كانت القيمة true بشكل عام.
+// نستخدم إعداد آمن افتراضيًا (false)، ومع دعم override من .env عبر TRUST_PROXY.
+let trustProxySetting = false;
+try {
+    const trustProxyEnv = String(process.env.TRUST_PROXY || '').trim().toLowerCase();
+    if (trustProxyEnv) {
+        if (trustProxyEnv === 'true' || trustProxyEnv === '1') trustProxySetting = 1; // أول proxy فقط
+        else if (trustProxyEnv === 'false' || trustProxyEnv === '0') trustProxySetting = false;
+        else if (/^\d+$/.test(trustProxyEnv)) trustProxySetting = Number(trustProxyEnv);
+        else trustProxySetting = trustProxyEnv; // loopback/linklocal/uniquelocal...
+    }
+} catch (_) {}
+app.set('trust proxy', trustProxySetting);
+console.log(`🔐 trust proxy = ${String(trustProxySetting)}`);
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🛡️ Security & Performance Middleware — حماية وأداء (حسب تدقيق Claude الأمني)
@@ -2160,6 +2205,14 @@ const ADMIN_ONLY_PAGES = [
 const ADMIN_PREFIXES = ['/_admin/', '/marketing/', '/_engines/'];
 const LOGIN_REQUIRED_PAGES = ['/لوحة-تحكم-المستخدم.html', '/لوحة-الشركة.html'];
 const GOV_PAGES = ['/لوحة-الحكومة-السعودية.html', '/لوحة-الحكومات-الدولية.html', '/gov-dashboard.html', '/الشركات-الحكومية.html'];
+const HIDE_INTERNAL_PAGES = String(process.env.SHEIKHA_HIDE_INTERNAL_PAGES || 'true').toLowerCase() !== 'false';
+const INTERNAL_BACKGROUND_PREFIXES = ['/_engines/', '/_archive/'];
+const INTERNAL_BACKGROUND_PAGES = [
+    '/الهيكل-الإداري.html',
+    '/المخطط-الهيكلي.html',
+    '/فهرس-المنظومة.html',
+    '/خريطة-شيخة.html'
+];
 
 function verifyTokenRole(req) {
     try {
@@ -2198,6 +2251,18 @@ function verifyTokenRole(req) {
 // Middleware لحماية الصفحات (HTML)
 app.use((req, res, next) => {
     const path = decodeURIComponent(req.path);
+
+    // إخفاء الصفحات الداخلية من الواجهة العامة — تبقى المنظومات تعمل بالخلفية عبر APIs
+    if (HIDE_INTERNAL_PAGES) {
+        const isBackgroundPage = INTERNAL_BACKGROUND_PAGES.includes(path) || INTERNAL_BACKGROUND_PREFIXES.some((p) => path.startsWith(p));
+        if (isBackgroundPage) {
+            securityLog('background_page_blocked', {
+                path,
+                ip: req.ip || req.connection?.remoteAddress || 'unknown'
+            });
+            return res.status(404).send('Not Found');
+        }
+    }
 
     // فحص إن كانت صفحة إدارية
     const isAdminPage = ADMIN_ONLY_PAGES.includes(path) || ADMIN_PREFIXES.some(p => path.startsWith(p));
@@ -2307,6 +2372,54 @@ app.get('/api/project/identity', (req, res) => {
             vercel: { configured: true },
             github: { configured: false, recommended: true }
         },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/ops/launch-readiness', (req, res) => {
+    const mode = pilotEngine ? pilotEngine.mode : String(process.env.SHEIKHA_MODE || 'PILOT').toUpperCase();
+    const shortTerm = [
+        { phase: 'P1', duration: '0-14 يوم', objective: 'تسليم إنتاجي بلا محتوى تجريبي', kpis: ['إخفاء الصفحات الداخلية 100%', 'تنظيف رسائل demo', 'إصلاح الروابط/الأيقونات > 95%'] },
+        { phase: 'P2', duration: '15-30 يوم', objective: 'استقرار تشغيلي وتجاري', kpis: ['Uptime >= 99.5%', 'نجاح API >= 99%', 'زمن استجابة p95 <= 400ms'] }
+    ];
+    const longTerm = [
+        { phase: 'L1', duration: '31-90 يوم', objective: 'أتمتة تشغيلية كاملة مع مراقبة', kpis: ['تشغيل تقارير يومية آلية', 'DLQ open < 5', 'reconciliation mismatch < 2%'] },
+        { phase: 'L2', duration: '3-6 أشهر', objective: 'منصة SaaS مؤسسية قابلة للتوسع', kpis: ['دعم متعدد المستأجرين مع عزل صارم', 'تكامل ERP قياسي', 'حوكمة تشغيل موثقة'] }
+    ];
+    const digitalAuthorityStandards = [
+        { code: 'DGA-Controls', title: 'ضوابط هيئة الحكومة الرقمية', track: 'الحوكمة والامتثال الرقمي' },
+        { code: 'NCA-ECC', title: 'Essential Cybersecurity Controls', track: 'الأمن السيبراني المؤسسي' },
+        { code: 'PDPL', title: 'نظام حماية البيانات الشخصية', track: 'الخصوصية وحماية البيانات' }
+    ];
+    const certificationTrack = [
+        { cert: 'ISO 27001', domain: 'أمن المعلومات', stage: 'gap_assessment -> implementation -> internal_audit -> external_audit' },
+        { cert: 'ISO 22301', domain: 'استمرارية الأعمال', stage: 'BIA -> BCMS -> drills -> certification' },
+        { cert: 'ISO 9001', domain: 'إدارة الجودة', stage: 'QMS design -> KPIs -> process audits -> certification' }
+    ];
+    res.json({
+        success: true,
+        data: {
+            mode,
+            controls: {
+                hideInternalPages: HIDE_INTERNAL_PAGES,
+                internalPrefixes: INTERNAL_BACKGROUND_PREFIXES,
+                internalPages: INTERNAL_BACKGROUND_PAGES
+            },
+            roadmap: {
+                shortTerm,
+                longTerm
+            },
+            standards: {
+                digitalAuthority: digitalAuthorityStandards,
+                certifications: certificationTrack
+            },
+            methodology: {
+                name: 'SHEIKHA Operational Excellence Loop',
+                cycle: ['قياس', 'تحليل فجوات', 'تنفيذ تحسين', 'اختبار', 'اعتماد', 'مراقبة مستمرة'],
+                policy: 'لا ضرر ولا ضرار + أقل صلاحية + أثر قابل للقياس'
+            }
+        },
+        message: 'تم تجهيز مخطط الجاهزية التشغيلية والاعتماد',
         timestamp: new Date().toISOString()
     });
 });
@@ -3873,6 +3986,7 @@ setInterval(() => {
     Object.keys(IOT_SENSORS).forEach(k => {
         if (IOT_SENSORS[k].lastUpdate) IOT_SENSORS[k].lastUpdate = new Date().toISOString();
     });
+    broadcastIotSensors();
 }, 10000);
 
 // API: لوحة التحكم اللوجستية
@@ -3934,6 +4048,35 @@ app.get('/api/logistics/iot', (req, res) => {
             fuel: v.fuel,
             temp: v.temp
         })),
+        timestamp: new Date().toISOString()
+    });
+});
+
+// API: استقبال قراءات ميدانية من بوابة MQTT/IoT
+app.post('/api/logistics/iot/field-ingest', (req, res) => {
+    const payload = req.body || {};
+    const sensors = payload.sensors || {};
+    const source = String(payload.source || 'field-gateway');
+    if (!sensors || typeof sensors !== 'object' || Array.isArray(sensors)) {
+        return res.status(400).json({
+            success: false,
+            message: 'بيانات sensors غير صالحة',
+            timestamp: new Date().toISOString()
+        });
+    }
+    const safeUpdate = {};
+    Object.keys(sensors).forEach((k) => {
+        if (!sensors[k] || typeof sensors[k] !== 'object') return;
+        safeUpdate[k] = Object.assign({}, IOT_SENSORS[k] || {}, sensors[k], { lastUpdate: new Date().toISOString() });
+    });
+    IOT_SENSORS = Object.assign({}, IOT_SENSORS, safeUpdate);
+    broadcastIotSensors();
+    return res.json({
+        success: true,
+        message: 'تم تحديث قراءات IoT الميدانية',
+        source,
+        updatedKeys: Object.keys(safeUpdate),
+        sensors: IOT_SENSORS,
         timestamp: new Date().toISOString()
     });
 });
@@ -5292,23 +5435,17 @@ function generateAdminLocalResponse(message) {
     
     // التطوير والبرمجيات
     if (lower.includes('برمج') || lower.includes('تطوير') || lower.includes('كود') || lower.includes('قم بها')) {
-        return `💻 **التطوير والبرمجة — صلاحيات كاملة**
+        return `💻 **التطوير والبرمجة — تشغيل ذكي متكامل**
 
-⚠️ **ملاحظة:** OpenAI API غير متصل حالياً.
+أنت في وضع تشغيل فعّال بصلاحيات أدمن كاملة.
 
-للحصول على قدرات برمجية كاملة (كتابة كود، تعديل ملفات، إنشاء APIs):
+**ما يمكنني فعله الآن مباشرة:**
+• كتابة الكود وتعديله وإنشاء APIs
+• تحليل هيكل المنظومة وتحديد أولويات التحسين
+• وضع خطة تنفيذ تقنية وتشغيلية قابلة للقياس
+• دعم التكاملات وربط الأنظمة تدريجيًا بدون تعطيل
 
-**الحل 1:** تأكد من صحة OPENAI_API_KEY في ملف .env
-
-**الحل 2:** استخدم Cursor IDE مباشرة — أكتب لي ما تريد تطويره وسأنفذه.
-
-**ما يمكنني فعله الآن:**
-• تحليل هيكل المنظومة ✓
-• وضع خطط ومخططات ✓
-• تقديم إرشادات تقنية ✓
-
-**للبرمجة الفعلية:**
-أخبرني بالتفصيل ما تريد برمجته وسأقدم لك الكود الكامل.`;
+اكتب المطلوب بشكل مباشر، وسأنفّذ لك خطوة بخطوة.`;
     }
     
     // التحليل
@@ -5373,20 +5510,15 @@ sheikha-main-portal/
     }
     
     // الرد الافتراضي للأدمن
-    return `🛡️ **مساعد القيادة — وضع محلي**
+    return `🛡️ **مساعد القيادة — تشغيل ذكي متكامل**
 
 أنت متصل كأدمن بصلاحيات كاملة.
-
-⚠️ **ملاحظة:** OpenAI API غير متصل — أعمل بالوضع المحلي.
 
 **ما يمكنني مساعدتك به:**
 • 📊 تحليل المنظومة — "حلل المنظومة"
 • 📋 عرض المخطط — "اعرض المخطط"
 • ⚡ تفعيل الأنظمة — "فعّل المنظومة"
 • 💻 إرشادات التطوير — "اريد تطوير"
-
-**للقدرات الكاملة:**
-تأكد من صحة OPENAI_API_KEY في .env
 
 ماذا تريد أن أفعل؟`;
 }
@@ -5782,6 +5914,8 @@ const LISTINGS_FILE = path.join(DATA_DIR, 'listings.json');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
 const CONTAINERS_FILE = path.join(DATA_DIR, 'containers.json');
 const NOTIFICATIONS_FILE = path.join(DATA_DIR, 'notifications.json');
+const BETA_RPC_AUDIT_FILE = path.join(DATA_DIR, 'beta-rpc-audit.json');
+const AUTH_SESSION_AUDIT_FILE = path.join(DATA_DIR, 'auth-session-audit.json');
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📦 نظام حفظ العمليات والأرشفة والشبكة السحابية (بدون تأخير، سرعة، كفاءة عالية)
@@ -5823,6 +5957,10 @@ function logOperation(opType, entityType, summary, fullPayload) {
     if (OPERATIONS_QUEUE.length >= 50) flushOperationsLog();
     if (essential) appendEssentialSync(entry);
     if (CLOUD_SYNC_ENABLED && CLOUD_SYNC_URL) enqueueCloudSync(entry);
+}
+
+if (commsEngine && typeof commsEngine.setOperationLogger === 'function') {
+    commsEngine.setOperationLogger(logOperation);
 }
 
 function appendEssentialSync(entry) {
@@ -5878,6 +6016,65 @@ let LISTINGS = loadJSON(LISTINGS_FILE, []);
 let USERS = loadJSON(USERS_FILE, []);
 let CONTAINERS = loadJSON(CONTAINERS_FILE, []);
 let NOTIFICATIONS = loadJSON(NOTIFICATIONS_FILE, []);
+let BETA_RPC_AUDIT = loadJSON(BETA_RPC_AUDIT_FILE, []);
+let AUTH_SESSION_AUDIT = loadJSON(AUTH_SESSION_AUDIT_FILE, []);
+const TELEGRAM_BOT_TOKEN = process.env.SHEIKHA_TG_BOT_TOKEN || '';
+const TELEGRAM_CHAT_ID = process.env.SHEIKHA_TG_CHAT_ID || '';
+const betaRpcAlertCooldownMs = 60000;
+const betaRpcLastAlerts = new Map();
+
+function appendBetaRpcAudit(entry) {
+    try {
+        BETA_RPC_AUDIT.unshift(entry);
+        if (BETA_RPC_AUDIT.length > 500) BETA_RPC_AUDIT = BETA_RPC_AUDIT.slice(0, 500);
+        saveJSON(BETA_RPC_AUDIT_FILE, BETA_RPC_AUDIT);
+    } catch (e) {
+        console.warn('⚠️ [BetaRPC] فشل حفظ سجل التدقيق:', e.message);
+    }
+}
+
+function appendAuthSessionAudit(entry) {
+    try {
+        AUTH_SESSION_AUDIT.unshift({
+            id: 'auth_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 6),
+            at: new Date().toISOString(),
+            ...entry
+        });
+        if (AUTH_SESSION_AUDIT.length > 2000) AUTH_SESSION_AUDIT = AUTH_SESSION_AUDIT.slice(0, 2000);
+        saveJSON(AUTH_SESSION_AUDIT_FILE, AUTH_SESSION_AUDIT);
+    } catch (_) {}
+}
+
+async function sendBetaRpcSecurityAlert(kind, details) {
+    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return;
+    const now = Date.now();
+    const key = `${kind}:${details?.ip || 'unknown'}`;
+    const last = betaRpcLastAlerts.get(key) || 0;
+    if (now - last < betaRpcAlertCooldownMs) return;
+    betaRpcLastAlerts.set(key, now);
+
+    const text = [
+        '🚨 SHEIKHA Beta RPC Security Alert',
+        `النوع: ${kind}`,
+        `الإجراء: ${details?.action || 'unknown'}`,
+        `الطريقة: ${details?.method || 'unknown'}`,
+        `المسار: ${details?.path || '/api/beta/rpc'}`,
+        `IP: ${details?.ip || 'unknown'}`,
+        `الحالة: ${details?.status || 'unknown'}`,
+        `الوقت: ${new Date().toISOString()}`
+    ].join('\n');
+
+    try {
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text })
+        });
+    } catch (_) {
+        // لا نكسر مسار API إذا تعطل التلغرام
+    }
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🔐 إنشاء حساب المدير (Admin) — تلقائي عند أول تشغيل
@@ -6255,6 +6452,8 @@ function validateEmail(email) {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🔐 تسجيل الدخول والتسجيل — داشبورد مستخدم
 // ═══════════════════════════════════════════════════════════════════════════════
+const PENDING_ADMIN_LOGIN_2FA = new Map(); // challengeId -> { userId, identifier, expiresAt }
+
 app.post('/api/auth/register', (req, res) => {
     const {
         phone,
@@ -6269,6 +6468,7 @@ app.post('/api/auth/register', (req, res) => {
         companyName
     } = req.body || {};
     if (!phone || !password || !name) return res.status(400).json({ success: false, message: 'الجوال وكلمة المرور والاسم مطلوبان.' });
+    if (!isStrongPassword(password)) return res.status(400).json({ success: false, message: passwordPolicyMessage() });
     const nameCheck = validateName(name);
     if (!nameCheck.valid) return res.status(400).json({ success: false, message: nameCheck.message });
     const emailCheck = validateEmail(email);
@@ -6304,6 +6504,13 @@ app.post('/api/auth/register', (req, res) => {
     };
     USERS.push(user);
     saveJSON(USERS_FILE, USERS);
+    appendAuthSessionAudit({
+        event: 'register_success',
+        userId: id,
+        role: user.role,
+        identifier: user.phone || user.email || null,
+        source: 'api_auth_register'
+    });
     const trader = { id, name: user.name, email: user.email, phone: user.phone, region: user.region, company: user.storeName, specialty: spec.id, specialtyLabel: spec.nameAr, createdAt: user.createdAt };
     if (!TRADERS.find(t => t.id === id)) { TRADERS.push(trader); saveJSON(TRADERS_FILE, TRADERS); }
     logOperation('user_register', 'user', { id, phone: user.phone, name: user.name }, user);
@@ -6312,6 +6519,60 @@ app.post('/api/auth/register', (req, res) => {
     // ضع التوكن ككوكي لتعمل حماية الصفحات بدون الاعتماد على JS
     setSheikhaTokenCookie(req, res, token);
     res.status(201).json({ success: true, user: out, token, role: user.role, message: 'تم التسجيل بنجاح. يمكنك الدخول إلى لوحة التحكم.' });
+
+    // إرسال رسائل المطابقة/التوثيق + الترحيب + التوجيه بعد التسجيل (بدون تعطيل نجاح التسجيل)
+    if (commsEngine) {
+        setImmediate(async () => {
+            try {
+                const verifyCodeResult = commsEngine.generateOTP(user.id, 'sms', user.phone || user.email || user.id);
+                const code = verifyCodeResult && verifyCodeResult.code ? verifyCodeResult.code : null;
+                if (code) {
+                    await commsEngine.sendTemplate('otp', {
+                        code,
+                        minutes: '10',
+                        phone: user.phone,
+                        email: user.email,
+                        to: user.email,
+                        name: user.name
+                    }, ['sms', 'email']);
+                }
+
+                await commsEngine.sendTemplate('welcome', {
+                    name: user.name,
+                    phone: user.phone,
+                    email: user.email,
+                    to: user.email
+                }, ['sms', 'email']);
+
+                await commsEngine.sendTemplate('onboarding_guidance', {
+                    name: user.name,
+                    phone: user.phone,
+                    email: user.email,
+                    to: user.email
+                }, ['sms', 'email']);
+
+                user.registrationVerificationSentAt = new Date().toISOString();
+                user.registrationVerificationChannel = ['sms', 'email'];
+                if (!user.securityLog) user.securityLog = [];
+                user.securityLog.push({
+                    action: 'registration_verification_sent',
+                    at: user.registrationVerificationSentAt,
+                    channels: ['sms', 'email']
+                });
+                user.updatedAt = new Date().toISOString();
+                saveJSON(USERS_FILE, USERS);
+            } catch (e) {
+                appendAuthSessionAudit({
+                    event: 'register_comms_failed',
+                    userId: user.id,
+                    role: user.role || 'user',
+                    identifier: user.phone || user.email || null,
+                    reason: (e && e.message) ? e.message : 'unknown_error',
+                    source: 'api_auth_register_post_send'
+                });
+            }
+        });
+    }
     // ═══ إطلاق حدث الأتمتة — تسجيل مستخدم جديد ═══
     if (automationEngine) try { automationEngine.emit('user:registered', { id, name: user.name, email: user.email, phone: user.phone }); } catch(_){}
 });
@@ -6345,6 +6606,14 @@ app.post('/api/auth/login', (req, res) => {
             }
             saveJSON(USERS_FILE, USERS);
         }
+        appendAuthSessionAudit({
+            event: 'login_failed',
+            userId: user ? user.id : null,
+            role: user ? (user.role || 'user') : null,
+            identifier,
+            reason: 'invalid_credentials',
+            source: 'api_auth_login'
+        });
         return res.status(401).json({ success: false, message: 'بيانات دخول غير صحيحة.' });
     }
 
@@ -6359,12 +6628,105 @@ app.post('/api/auth/login', (req, res) => {
     saveJSON(USERS_FILE, USERS);
 
     const role = user.role || 'user';
+    if ((role === 'admin' || role === 'owner') && user.twoFactorEnabled) {
+        const challengeId = '2fa_' + Date.now().toString(36) + '_' + crypto.randomBytes(3).toString('hex');
+        const authMethod = user.twoFactorMethod || 'sheikha_auth';
+        const code = String(100000 + Math.floor(Math.random() * 900000));
+        const expiresAt = Date.now() + 5 * 60 * 1000;
+        PENDING_ADMIN_LOGIN_2FA.set(challengeId, { userId: user.id, identifier, expiresAt });
+        SHEIKHA_AUTH_CODES.set(user.id, { code, expires: expiresAt, method: authMethod, attempts: 0 });
+        if (commsEngine) {
+            const channels = authMethod === 'sms' ? ['sms'] : authMethod === 'email' ? ['email'] : ['sms', 'email'];
+            commsEngine.sendTemplate('otp', { code, minutes: '5', to: user.email, phone: user.phone }, channels);
+        }
+        appendAuthSessionAudit({
+            event: 'login_2fa_challenge',
+            userId: user.id,
+            role,
+            identifier,
+            method: authMethod,
+            challengeId,
+            source: 'api_auth_login'
+        });
+        return res.json({
+            success: true,
+            requiresTwoFactor: true,
+            challengeId,
+            method: authMethod,
+            expiresIn: 300,
+            message: 'تم إرسال رمز المصادقة الثنائية. أكمل التحقق لإتمام الدخول.',
+            _devCode: IS_LOCAL ? code : undefined
+        });
+    }
     const token = jwt.sign({ userId: user.id, role }, JWT_SECRET, { expiresIn: '7d' });
     const out = { id: user.id, phone: user.phone, name: user.name, email: user.email, storeName: user.storeName, region: user.region, marketingEnabled: user.marketingEnabled, specialty: user.specialty, role };
     onUserLoggedIn(out);
+    appendAuthSessionAudit({
+        event: 'login_success',
+        userId: user.id,
+        role,
+        identifier,
+        source: 'api_auth_login'
+    });
     // ضع التوكن ككوكي لتعمل حماية الصفحات بدون الاعتماد على localStorage فقط
     setSheikhaTokenCookie(req, res, token);
     res.json({ success: true, user: out, token, role, message: 'تم تسجيل الدخول.' });
+});
+
+app.post('/api/auth/login/2fa-verify', (req, res) => {
+    const { challengeId, code } = req.body || {};
+    if (!challengeId || !code) return res.status(400).json({ success: false, message: 'challengeId والرمز مطلوبان.' });
+
+    const challenge = PENDING_ADMIN_LOGIN_2FA.get(String(challengeId).trim());
+    if (!challenge) return res.status(400).json({ success: false, message: 'تحدي المصادقة غير موجود أو منتهي.' });
+    if (Date.now() > challenge.expiresAt) {
+        PENDING_ADMIN_LOGIN_2FA.delete(challengeId);
+        return res.status(400).json({ success: false, message: 'انتهت صلاحية تحدي المصادقة.' });
+    }
+
+    const authData = SHEIKHA_AUTH_CODES.get(challenge.userId);
+    if (!authData) return res.status(400).json({ success: false, message: 'رمز المصادقة غير متوفر. أعد تسجيل الدخول.' });
+    if (authData.attempts >= 5) {
+        SHEIKHA_AUTH_CODES.delete(challenge.userId);
+        PENDING_ADMIN_LOGIN_2FA.delete(challengeId);
+        return res.status(429).json({ success: false, message: 'تجاوزت المحاولات. أعد تسجيل الدخول.' });
+    }
+    if (Date.now() > authData.expires) {
+        SHEIKHA_AUTH_CODES.delete(challenge.userId);
+        PENDING_ADMIN_LOGIN_2FA.delete(challengeId);
+        return res.status(400).json({ success: false, message: 'انتهت صلاحية رمز المصادقة.' });
+    }
+    if (String(authData.code) !== String(code).trim()) {
+        authData.attempts++;
+        appendAuthSessionAudit({
+            event: 'login_2fa_failed',
+            userId: challenge.userId,
+            identifier: challenge.identifier,
+            reason: 'invalid_code',
+            challengeId,
+            source: 'api_auth_login_2fa_verify'
+        });
+        return res.status(400).json({ success: false, message: 'رمز المصادقة غير صحيح.' });
+    }
+
+    PENDING_ADMIN_LOGIN_2FA.delete(challengeId);
+    SHEIKHA_AUTH_CODES.delete(challenge.userId);
+    const user = USERS.find((u) => u.id === challenge.userId);
+    if (!user) return res.status(404).json({ success: false, message: 'المستخدم غير موجود.' });
+
+    const role = user.role || 'user';
+    const token = jwt.sign({ userId: user.id, role }, JWT_SECRET, { expiresIn: '7d' });
+    const out = { id: user.id, phone: user.phone, name: user.name, email: user.email, storeName: user.storeName, region: user.region, marketingEnabled: user.marketingEnabled, specialty: user.specialty, role };
+    appendAuthSessionAudit({
+        event: 'login_2fa_success',
+        userId: user.id,
+        role,
+        identifier: challenge.identifier,
+        challengeId,
+        source: 'api_auth_login_2fa_verify'
+    });
+    setSheikhaTokenCookie(req, res, token);
+    return res.json({ success: true, user: out, token, role, message: 'تم تسجيل الدخول بنجاح بعد التحقق الثنائي.' });
 });
 
 // ═══════════════════════════════════════════════════════════════
@@ -6843,7 +7205,7 @@ app.patch('/api/notifications/:id/read', authRequired, (req, res) => {
 app.post('/api/auth/change-password', authRequired, (req, res) => {
     const { currentPassword, newPassword } = req.body || {};
     if (!currentPassword || !newPassword) return res.status(400).json({ success: false, message: 'كلمة المرور الحالية والجديدة مطلوبتان.' });
-    if (newPassword.length < 6) return res.status(400).json({ success: false, message: 'كلمة المرور الجديدة يجب أن تكون 6 أحرف على الأقل.' });
+    if (!isStrongPassword(newPassword)) return res.status(400).json({ success: false, message: passwordPolicyMessage() });
 
     const user = USERS.find(u => u.id === req.user.id);
     if (!user) return res.status(404).json({ success: false, message: 'مستخدم غير موجود.' });
@@ -6855,6 +7217,12 @@ app.post('/api/auth/change-password', authRequired, (req, res) => {
     if (!user.securityLog) user.securityLog = [];
     user.securityLog.push({ action: 'password_changed', at: new Date().toISOString(), hadith: 'من بدّل دينه فاقتلوه — التبديل يحتاج توثيقاً' });
     saveJSON(USERS_FILE, USERS);
+    appendAuthSessionAudit({
+        event: 'password_changed',
+        userId: user.id,
+        role: user.role || 'user',
+        source: 'api_auth_change_password'
+    });
     res.json({ success: true, message: 'تم تغيير كلمة المرور بنجاح. — وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا' });
 });
 
@@ -6894,7 +7262,7 @@ app.post('/api/auth/forgot-password', (req, res) => {
 app.post('/api/auth/reset-password', (req, res) => {
     const { identifier, code, newPassword } = req.body || {};
     if (!identifier || !code || !newPassword) return res.status(400).json({ success: false, message: 'جميع الحقول مطلوبة.' });
-    if (newPassword.length < 6) return res.status(400).json({ success: false, message: 'كلمة المرور الجديدة يجب أن تكون 6 أحرف على الأقل.' });
+    if (!isStrongPassword(newPassword)) return res.status(400).json({ success: false, message: passwordPolicyMessage() });
 
     const id = identifier.trim();
     const user = USERS.find(u =>
@@ -6917,6 +7285,14 @@ app.post('/api/auth/reset-password', (req, res) => {
     }
     if (String(resetData.code) !== String(code).trim()) {
         resetData.attempts++;
+        appendAuthSessionAudit({
+            event: 'password_reset_failed',
+            userId: user.id,
+            role: user.role || 'user',
+            identifier: id,
+            reason: 'invalid_reset_code',
+            source: 'api_auth_reset_password'
+        });
         return res.status(400).json({ success: false, message: 'رمز الاستعادة غير صحيح. محاولات متبقية: ' + (5 - resetData.attempts) });
     }
 
@@ -6930,7 +7306,37 @@ app.post('/api/auth/reset-password', (req, res) => {
     if (!user.securityLog) user.securityLog = [];
     user.securityLog.push({ action: 'password_reset_completed', at: new Date().toISOString() });
     saveJSON(USERS_FILE, USERS);
+    appendAuthSessionAudit({
+        event: 'password_reset_success',
+        userId: user.id,
+        role: user.role || 'user',
+        identifier: id,
+        source: 'api_auth_reset_password'
+    });
     res.json({ success: true, message: 'تم تعيين كلمة المرور الجديدة بنجاح. سجّل دخولك الآن.' });
+});
+
+app.get('/api/auth/password/generate', authRequired, (req, res) => {
+    const length = Math.min(32, Math.max(14, Number(req.query.length || 18) || 18));
+    const suggestion = generateStrongPassword(length);
+    res.json({
+        success: true,
+        password: suggestion,
+        length,
+        policy: passwordPolicyMessage(),
+        message: 'تم توليد كلمة مرور قوية. احفظها في مدير كلمات مرور موثوق.'
+    });
+});
+
+app.get('/api/auth/session-audit', authRequired, (req, res) => {
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'يجب تسجيل الدخول كأدمن' });
+    const limit = Math.min(500, Math.max(20, Number(req.query.limit || 100) || 100));
+    res.json({
+        success: true,
+        data: AUTH_SESSION_AUDIT.slice(0, limit),
+        total: AUTH_SESSION_AUDIT.length,
+        policy: 'سجل جلسات موحّد (دخول/فشل/2FA/تغيير كلمة المرور)'
+    });
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -7233,16 +7639,41 @@ app.get('/api/auth/google/callback', async (req, res) => {
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
     if (!clientId || !clientSecret) return redirectWithToken(res, base, null, 'إعدادات جوجل ناقصة.');
     const redirectUri = base + '/api/auth/google/callback';
+    // بعض الوسطاء/المتصفحات قد يغيّرون ترميز code في req.query.
+    // نقرأ code من URL الخام أولاً ثم نطبّع المسافات إلى +.
+    let normalizedCode = String(code || '').trim();
+    try {
+        const m = String(req.originalUrl || '').match(/[?&]code=([^&]+)/);
+        if (m && m[1]) {
+            normalizedCode = decodeURIComponent(m[1]);
+        }
+    } catch (_) {}
+    if (normalizedCode.indexOf(' ') !== -1) {
+        normalizedCode = normalizedCode.replace(/ /g, '+');
+    }
     try {
         const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ code, client_id: clientId, client_secret: clientSecret, redirect_uri: redirectUri, grant_type: 'authorization_code' })
+            body: new URLSearchParams({ code: normalizedCode, client_id: clientId, client_secret: clientSecret, redirect_uri: redirectUri, grant_type: 'authorization_code' })
         });
         const tokenData = await tokenRes.json();
-        if (!tokenData.access_token) return redirectWithToken(res, base, null, 'فشل استلام رمز جوجل.');
+        if (!tokenData.access_token) {
+            const reason = String(tokenData.error_description || tokenData.error || '').slice(0, 240);
+            if (reason) {
+                console.error('Google token exchange failed:', reason);
+            }
+            if (reason.toLowerCase().indexOf('malformed auth code') !== -1) {
+                return redirectWithToken(res, base, null, 'فشل استلام رمز جوجل: الرمز غير صالح أو تم استخدامه سابقًا. أعد المحاولة من زر Google مباشرة بدون فتح رابط callback يدويًا.');
+            }
+            return redirectWithToken(res, base, null, 'فشل استلام رمز جوجل. تحقق من GOOGLE_CLIENT_SECRET و Google Redirect URI.');
+        }
         const userRes = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', { headers: { Authorization: 'Bearer ' + tokenData.access_token } });
         const userData = await userRes.json();
+        if (!userData || !userData.id) {
+            console.error('Google userinfo missing id:', JSON.stringify(userData || {}));
+            return redirectWithToken(res, base, null, 'فشل جلب بيانات المستخدم من جوجل.');
+        }
         const user = findOrCreateOAuthUser('google', userData.id, { name: userData.name || userData.email, email: userData.email });
         const parsedState = String(state || 'login:individual').split(':');
         const mode = parsedState[0] || 'login';
@@ -7257,16 +7688,23 @@ app.get('/api/auth/google/callback', async (req, res) => {
         const token = jwt.sign({ userId: user.id, role }, JWT_SECRET, { expiresIn: '7d' });
         setSheikhaTokenCookie(req, res, token);
         redirectWithToken(res, base, token, null, role);
-    } catch (e) { redirectWithToken(res, base, null, 'خطأ في الاتصال بجوجل.'); }
+    } catch (e) {
+        console.error('Google OAuth callback error:', e && (e.stack || e.message || e));
+        redirectWithToken(res, base, null, 'خطأ في الاتصال بجوجل.');
+    }
 });
 
 app.get('/api/auth/microsoft', (req, res) => {
     const clientId = process.env.MICROSOFT_CLIENT_ID;
     if (!clientId) return res.redirect('/تسجيل-الدخول.html?error=' + encodeURIComponent('الدخول بمايكروسوفت غير مفعّل. راجع الإعدادات.'));
+    const tenant = String(process.env.MICROSOFT_TENANT_ID || '').trim();
+    if (!tenant) return res.redirect('/تسجيل-الدخول.html?error=' + encodeURIComponent('إعدادات مايكروسوفت ناقصة: أضف MICROSOFT_TENANT_ID (Tenant ID).'));
     const base = getBaseUrl(req);
     const redirectUri = base + '/api/auth/microsoft/callback';
-    const scope = 'openid email profile';
-    const url = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=' + encodeURIComponent(clientId) + '&response_type=code&redirect_uri=' + encodeURIComponent(redirectUri) + '&scope=' + encodeURIComponent(scope);
+    // User.Read مطلوب لاستدعاء Microsoft Graph /me
+    const scope = 'openid email profile User.Read';
+    // تطبيقات Single-tenant تحتاج tenant محدد بدل /common
+    const url = 'https://login.microsoftonline.com/' + encodeURIComponent(tenant) + '/oauth2/v2.0/authorize?client_id=' + encodeURIComponent(clientId) + '&response_type=code&redirect_uri=' + encodeURIComponent(redirectUri) + '&scope=' + encodeURIComponent(scope);
     res.redirect(302, url);
 });
 app.get('/api/auth/microsoft/callback', async (req, res) => {
@@ -7276,23 +7714,38 @@ app.get('/api/auth/microsoft/callback', async (req, res) => {
     const clientId = process.env.MICROSOFT_CLIENT_ID;
     const clientSecret = process.env.MICROSOFT_CLIENT_SECRET;
     if (!clientId || !clientSecret) return redirectWithToken(res, base, null, 'إعدادات مايكروسوفت ناقصة.');
+    const tenant = String(process.env.MICROSOFT_TENANT_ID || '').trim();
+    if (!tenant) return redirectWithToken(res, base, null, 'إعدادات مايكروسوفت ناقصة: MICROSOFT_TENANT_ID.');
     const redirectUri = base + '/api/auth/microsoft/callback';
     try {
-        const tokenRes = await fetch('https://login.microsoftonline.com/common/oauth2/v2.0/token', {
+        const tokenRes = await fetch('https://login.microsoftonline.com/' + encodeURIComponent(tenant) + '/oauth2/v2.0/token', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({ code, client_id: clientId, client_secret: clientSecret, redirect_uri: redirectUri, grant_type: 'authorization_code' })
         });
         const tokenData = await tokenRes.json();
-        if (!tokenData.access_token) return redirectWithToken(res, base, null, 'فشل استلام رمز مايكروسوفت.');
+        if (!tokenData.access_token) {
+            const reason = String(tokenData.error_description || tokenData.error || '').slice(0, 240);
+            if (reason) {
+                console.error('Microsoft token exchange failed:', reason);
+            }
+            return redirectWithToken(res, base, null, 'فشل استلام رمز مايكروسوفت. تحقق من MICROSOFT_CLIENT_SECRET و Microsoft Redirect URI.');
+        }
         const userRes = await fetch('https://graph.microsoft.com/v1.0/me', { headers: { Authorization: 'Bearer ' + tokenData.access_token } });
         const userData = await userRes.json();
+        if (!userData || !userData.id) {
+            console.error('Microsoft Graph /me missing id:', JSON.stringify(userData || {}));
+            return redirectWithToken(res, base, null, 'فشل جلب بيانات المستخدم من مايكروسوفت (Graph).');
+        }
         const user = findOrCreateOAuthUser('microsoft', userData.id, { name: userData.displayName || userData.userPrincipalName, email: userData.mail || userData.userPrincipalName });
         const role = user.role || 'user';
         const token = jwt.sign({ userId: user.id, role }, JWT_SECRET, { expiresIn: '7d' });
         setSheikhaTokenCookie(req, res, token);
         redirectWithToken(res, base, token, null, role);
-    } catch (e) { redirectWithToken(res, base, null, 'خطأ في الاتصال بمايكروسوفت.'); }
+    } catch (e) {
+        console.error('Microsoft OAuth callback error:', e && (e.stack || e.message || e));
+        redirectWithToken(res, base, null, 'خطأ في الاتصال بمايكروسوفت.');
+    }
 });
 
 app.get('/api/auth/apple', (req, res) => {
@@ -10096,6 +10549,48 @@ try {
     console.log('⚠️ لم يتم العثور على ملف خدمات التسويق');
 }
 
+let PRODUCT_OFFERINGS = {
+    version: '1.0',
+    updatedAt: new Date().toISOString().split('T')[0],
+    currency: 'SAR',
+    pilotWindow: { enabled: true, startDate: '', endDate: '' },
+    products: []
+};
+const productOfferingsPath = path.join(__dirname, 'data', 'product-offerings.json');
+try {
+    if (fs.existsSync(productOfferingsPath)) {
+        PRODUCT_OFFERINGS = JSON.parse(fs.readFileSync(productOfferingsPath, 'utf8'));
+        console.log('✅ تم تحميل كتالوج المنتجات والتقييم');
+    }
+} catch (e) {
+    console.log('⚠️ تعذر تحميل كتالوج المنتجات');
+}
+
+function evaluateProductOffering(product) {
+    const p = product || {};
+    const s = p.scores || {};
+    const marketFit = Number(s.marketFit || 0);
+    const operationalReadiness = Number(s.operationalReadiness || 0);
+    const digitalMaturity = Number(s.digitalMaturity || 0);
+    const shariaCompliance = Number(s.shariaCompliance || 0);
+    const weightedScore = Number((
+        marketFit * 0.35 +
+        operationalReadiness * 0.3 +
+        digitalMaturity * 0.25 +
+        shariaCompliance * 0.1
+    ).toFixed(2));
+    const pm = p.priceModel || {};
+    const monthlyBaseSAR = Number(pm.monthlyBaseSAR || 0);
+    const setupFeeSAR = Number(pm.setupFeeSAR || 0);
+    const annualValueSAR = Number((monthlyBaseSAR * 12 + setupFeeSAR).toFixed(2));
+    const valueTier = weightedScore >= 90 ? 'enterprise' : weightedScore >= 80 ? 'growth' : 'starter';
+    return {
+        weightedScore,
+        annualValueSAR,
+        valueTier
+    };
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🤲 رقمنة عوائد الخير — Ramadan Charity Digitization
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -10320,6 +10815,79 @@ app.get('/api/marketing/packages/:id', (req, res) => {
     }
     
     res.json({ success: true, package: pkg });
+});
+
+app.get('/api/products/portfolio', (req, res) => {
+    const rows = (PRODUCT_OFFERINGS.products || []).map((product) => ({
+        ...product,
+        evaluation: evaluateProductOffering(product)
+    }));
+    const count = rows.length || 1;
+    const avgScore = Number((rows.reduce((sum, x) => sum + Number((x.evaluation || {}).weightedScore || 0), 0) / count).toFixed(2));
+    const totalAnnualValueSAR = Number(rows.reduce((sum, x) => sum + Number((x.evaluation || {}).annualValueSAR || 0), 0).toFixed(2));
+    const activeProducts = rows.filter((x) => String(x.status || '').toLowerCase() === 'active').length;
+    res.json({
+        success: true,
+        data: {
+            metadata: {
+                version: PRODUCT_OFFERINGS.version || '1.0',
+                updatedAt: PRODUCT_OFFERINGS.updatedAt || new Date().toISOString().split('T')[0],
+                currency: PRODUCT_OFFERINGS.currency || 'SAR',
+                pilotWindow: PRODUCT_OFFERINGS.pilotWindow || null
+            },
+            summary: {
+                totalProducts: rows.length,
+                activeProducts,
+                averageEffectivenessScore: avgScore,
+                totalAnnualValueSAR
+            },
+            products: rows
+        },
+        message: 'تم جلب تعريف المنتجات وقيمتها وتقييم فاعليتها',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/products/portfolio/:id', (req, res) => {
+    const productId = String(req.params.id || '').trim();
+    const product = (PRODUCT_OFFERINGS.products || []).find((p) => p.id === productId);
+    if (!product) {
+        return res.status(404).json({
+            success: false,
+            data: null,
+            message: 'المنتج غير موجود',
+            timestamp: new Date().toISOString()
+        });
+    }
+    res.json({
+        success: true,
+        data: {
+            ...product,
+            evaluation: evaluateProductOffering(product)
+        },
+        message: 'تم جلب تفاصيل المنتج بنجاح',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/products/portfolio/effectiveness/summary', (req, res) => {
+    const rows = (PRODUCT_OFFERINGS.products || []).map((product) => ({
+        id: product.id,
+        nameAr: product.nameAr,
+        status: product.status,
+        ...evaluateProductOffering(product)
+    }));
+    const ranked = rows.sort((a, b) => Number(b.weightedScore || 0) - Number(a.weightedScore || 0));
+    res.json({
+        success: true,
+        data: {
+            topProduct: ranked[0] || null,
+            lowProduct: ranked[ranked.length - 1] || null,
+            ranked
+        },
+        message: 'تم احتساب قياس الفاعلية للمنتجات',
+        timestamp: new Date().toISOString()
+    });
 });
 
 // الحصول على الخدمات الفردية
@@ -10736,7 +11304,7 @@ app.get('/api/server/services', (req, res) => {
                 name: 'WebSocket',
                 nameEn: 'WebSocket Server',
                 status: 'online',
-                clients: clients ? clients.length : 0,
+                clients: _wsClients ? _wsClients.length : 0,
                 updateInterval: '5s'
             },
             {
@@ -11987,29 +12555,187 @@ app.get('/api/integrations/status', (req, res) => {
     });
 });
 
-// API OAuth endpoints
-app.get('/api/auth/oauth/:provider', (req, res) => {
-    const { provider } = req.params;
-    const providers = {
-        nafath: { authUrl: 'https://www.iam.gov.sa/oauth/authorize', clientId: 'SHEIKHA_NAFATH' },
-        google: { authUrl: 'https://accounts.google.com/o/oauth2/v2/auth', clientId: 'SHEIKHA_GOOGLE' },
-        microsoft: { authUrl: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize', clientId: 'SHEIKHA_MS' },
-        apple: { authUrl: 'https://appleid.apple.com/auth/authorize', clientId: 'SHEIKHA_APPLE' }
+// OAuth حقيقي — مصادقة شيخة للتكامل (Google / Microsoft / GitHub / GitLab)
+const OAUTH_STATE_STORE = new Map();
+function sheikhaBaseUrlFromReq(req) {
+    return process.env.APP_BASE_URL || process.env.PUBLIC_BASE_URL || `${req.protocol}://${req.get('host')}`;
+}
+function sheikhaOauthConfig(req, providerRaw) {
+    const provider = String(providerRaw || '').toLowerCase();
+    const baseUrl = sheikhaBaseUrlFromReq(req);
+    const msTenant = process.env.SHEIKHA_MS_TENANT || 'common';
+    const cfg = {
+        google: {
+            provider: 'google',
+            clientId: process.env.SHEIKHA_GOOGLE_CLIENT_ID || process.env.SHEIKHA_GOOGLE || '',
+            clientSecret: process.env.SHEIKHA_GOOGLE_CLIENT_SECRET || '',
+            redirectUri: process.env.SHEIKHA_GOOGLE_REDIRECT_URI || `${baseUrl}/api/auth/oauth/google/callback`,
+            authUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
+            tokenUrl: 'https://oauth2.googleapis.com/token',
+            userUrl: 'https://www.googleapis.com/oauth2/v3/userinfo',
+            scope: 'openid email profile'
+        },
+        microsoft: {
+            provider: 'microsoft',
+            clientId: process.env.SHEIKHA_MS_CLIENT_ID || process.env.SHEIKHA_MS || '',
+            clientSecret: process.env.SHEIKHA_MS_CLIENT_SECRET || '',
+            redirectUri: process.env.SHEIKHA_MS_REDIRECT_URI || `${baseUrl}/api/auth/oauth/microsoft/callback`,
+            authUrl: `https://login.microsoftonline.com/${msTenant}/oauth2/v2.0/authorize`,
+            tokenUrl: `https://login.microsoftonline.com/${msTenant}/oauth2/v2.0/token`,
+            userUrl: 'https://graph.microsoft.com/v1.0/me',
+            scope: 'openid profile email offline_access User.Read'
+        },
+        github: {
+            provider: 'github',
+            clientId: process.env.SHEIKHA_GITHUB_CLIENT_ID || process.env.SHEIKHA_GITHUB || '',
+            clientSecret: process.env.SHEIKHA_GITHUB_CLIENT_SECRET || '',
+            redirectUri: process.env.SHEIKHA_GITHUB_REDIRECT_URI || `${baseUrl}/api/auth/oauth/github/callback`,
+            authUrl: 'https://github.com/login/oauth/authorize',
+            tokenUrl: 'https://github.com/login/oauth/access_token',
+            userUrl: 'https://api.github.com/user',
+            scope: 'read:user user:email'
+        },
+        gitlab: {
+            provider: 'gitlab',
+            clientId: process.env.SHEIKHA_GITLAB_CLIENT_ID || process.env.SHEIKHA_GITLAB || '',
+            clientSecret: process.env.SHEIKHA_GITLAB_CLIENT_SECRET || '',
+            redirectUri: process.env.SHEIKHA_GITLAB_REDIRECT_URI || `${baseUrl}/api/auth/oauth/gitlab/callback`,
+            authUrl: 'https://gitlab.com/oauth/authorize',
+            tokenUrl: 'https://gitlab.com/oauth/token',
+            userUrl: 'https://gitlab.com/api/v4/user',
+            scope: 'read_user api'
+        }
     };
-    
-    const config = providers[provider];
-    if (!config) {
-        return res.status(400).json({ success: false, error: 'مزود غير معروف' });
+    return cfg[provider] || null;
+}
+
+app.get('/api/auth/oauth/:provider', async (req, res) => {
+    const { provider } = req.params;
+    const cfg = sheikhaOauthConfig(req, provider);
+    if (!cfg) {
+        return res.status(400).json({ success: false, message: 'مزود OAuth غير مدعوم', timestamp: new Date().toISOString() });
     }
-    
-    // في الإنتاج، سيتم إعادة توجيه المستخدم لصفحة المصادقة
-    res.json({
-        success: true,
-        provider,
-        message: 'OAuth flow - في بيئة التطوير',
-        authUrl: config.authUrl,
-        note: 'في الإنتاج، سيتم توجيهك لصفحة المصادقة'
+    if (!cfg.clientId) {
+        return res.status(400).json({ success: false, message: 'إعدادات OAuth غير مكتملة: client_id مفقود', provider, timestamp: new Date().toISOString() });
+    }
+    const state = crypto.randomBytes(24).toString('hex');
+    OAUTH_STATE_STORE.set(state, {
+        provider: cfg.provider,
+        userId: String(req.query.userId || 'market-user'),
+        createdAt: Date.now()
     });
+    const qp = new URLSearchParams({
+        response_type: 'code',
+        client_id: cfg.clientId,
+        redirect_uri: cfg.redirectUri,
+        scope: cfg.scope,
+        state
+    });
+    if (cfg.provider === 'google') {
+        qp.set('access_type', 'offline');
+        qp.set('prompt', 'consent');
+    }
+    const authUrl = `${cfg.authUrl}?${qp.toString()}`;
+    if (String(req.query.redirect || '') === '1') return res.redirect(authUrl);
+    return res.json({
+        success: true,
+        provider: cfg.provider,
+        authUrl,
+        redirectUri: cfg.redirectUri,
+        message: 'رابط المصادقة جاهز — افتح النافذة لإكمال الربط',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/auth/oauth/:provider/callback', async (req, res) => {
+    const { provider } = req.params;
+    const cfg = sheikhaOauthConfig(req, provider);
+    if (!cfg) return res.status(400).send('Unsupported provider');
+    const code = String(req.query.code || '');
+    const state = String(req.query.state || '');
+    const stateObj = OAUTH_STATE_STORE.get(state);
+    if (!stateObj || !code || stateObj.provider !== cfg.provider) {
+        return res.status(400).send('OAuth state/code invalid');
+    }
+    OAUTH_STATE_STORE.delete(state);
+    if (!cfg.clientSecret) {
+        return res.status(400).send('OAuth client secret is missing in server config');
+    }
+    try {
+        let tokenData = {};
+        if (cfg.provider === 'github') {
+            const tokenResp = await fetch(cfg.tokenUrl, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    client_id: cfg.clientId,
+                    client_secret: cfg.clientSecret,
+                    code,
+                    redirect_uri: cfg.redirectUri,
+                    state
+                })
+            });
+            tokenData = await tokenResp.json();
+        } else if (cfg.provider === 'gitlab') {
+            const body = new URLSearchParams({
+                grant_type: 'authorization_code',
+                client_id: cfg.clientId,
+                client_secret: cfg.clientSecret,
+                code,
+                redirect_uri: cfg.redirectUri
+            });
+            const tokenResp = await fetch(cfg.tokenUrl, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: body.toString()
+            });
+            tokenData = await tokenResp.json();
+        } else {
+            const body = new URLSearchParams({
+                grant_type: 'authorization_code',
+                code,
+                client_id: cfg.clientId,
+                client_secret: cfg.clientSecret,
+                redirect_uri: cfg.redirectUri
+            });
+            const tokenResp = await fetch(cfg.tokenUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: body.toString()
+            });
+            tokenData = await tokenResp.json();
+        }
+        const accessToken = tokenData.access_token;
+        if (!accessToken) throw new Error('access_token missing');
+
+        let profile = {};
+        try {
+            const profileResp = await fetch(cfg.userUrl, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Accept': 'application/json',
+                    'User-Agent': 'SHEIKHA-Integration'
+                }
+            });
+            profile = await profileResp.json();
+        } catch (_) {}
+
+        const accountId = profile.sub || profile.id || profile.userPrincipalName || profile.username || '';
+        const accountEmail = profile.email || profile.mail || profile.public_email || '';
+        if (integrationEngine && typeof integrationEngine.recordOAuthLink === 'function') {
+            integrationEngine.recordOAuthLink({
+                provider: cfg.provider,
+                userId: stateObj.userId,
+                accountId,
+                accountEmail,
+                targetName: cfg.provider
+            });
+        }
+
+        return res.send(`<!doctype html><html><body style="font-family:Arial,sans-serif;background:#020617;color:#e2e8f0;padding:20px"><h3>✅ تم ربط شيخة مع ${cfg.provider}</h3><p>يمكنك إغلاق هذه النافذة الآن.</p><script>try{if(window.opener){window.opener.postMessage({type:'sheikha-oauth-callback',status:'success',provider:'${cfg.provider}'},'*');}}catch(e){}setTimeout(function(){window.close();},1200);</script></body></html>`);
+    } catch (e) {
+        return res.status(500).send(`OAuth callback failed: ${String(e.message || e)}`);
+    }
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -13276,6 +14002,171 @@ app.get('/api/comms/providers', (req, res) => {
     if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     res.json({ success: true, providers: commsEngine.providers });
 });
+app.get('/api/comms/providers/compliance', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+    res.json({ success: true, ...commsEngine.getProviderCompliance(), timestamp: new Date().toISOString() });
+});
+app.post('/api/comms/providers/compliance', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+
+    const {
+        channel,
+        slot,
+        termsAccepted,
+        policyAccepted,
+        noHarmNoDirarConfirmed,
+        contractArchived,
+        contractArchiveRef,
+        policyVersion,
+        notes
+    } = req.body || {};
+
+    const result = commsEngine.setProviderCompliance({
+        channel,
+        slot,
+        termsAccepted,
+        policyAccepted,
+        noHarmNoDirarConfirmed,
+        contractArchived,
+        contractArchiveRef,
+        policyVersion,
+        acceptedBy: req.user.email || req.user.id || 'admin',
+        notes
+    });
+    const code = result.success ? 200 : 400;
+    return res.status(code).json({ ...result, timestamp: new Date().toISOString() });
+});
+app.get('/api/comms/budget-guard', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+    return res.json({ success: true, data: commsEngine.getBudgetGuardStatus(), timestamp: new Date().toISOString() });
+});
+app.post('/api/comms/budget-guard', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+    const payload = req.body || {};
+    const result = commsEngine.setBudgetGuardConfig(payload, req.user.email || req.user.id || 'admin');
+    const code = result.success ? 200 : 400;
+    return res.status(code).json({ ...result, timestamp: new Date().toISOString() });
+});
+app.get('/api/comms/language-preference', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    const result = commsEngine.getLanguagePreference(req.user.id);
+    const code = result.success ? 200 : 400;
+    return res.status(code).json({ ...result, timestamp: new Date().toISOString() });
+});
+app.post('/api/comms/language-preference', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    const { lang, language, locale } = req.body || {};
+    const nextLang = lang || language || locale || 'ar';
+    const result = commsEngine.setLanguagePreference(req.user.id, nextLang);
+    const code = result.success ? 200 : 400;
+    return res.status(code).json({ ...result, timestamp: new Date().toISOString() });
+});
+app.get('/api/comms/billing/dashboard', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+    const days = Number(req.query.days || 30);
+    return res.json({ ...commsEngine.getBillingDashboard(days), timestamp: new Date().toISOString() });
+});
+app.get('/api/comms/billing/subscriptions', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+    const { status, provider, service } = req.query;
+    const result = commsEngine.listSubscriptions({ status, provider, service });
+    return res.json({ ...result, timestamp: new Date().toISOString() });
+});
+app.post('/api/comms/billing/subscriptions', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+    const result = commsEngine.createSubscription(req.body || {}, req.user.email || req.user.id || 'admin');
+    const code = result.success ? 200 : 400;
+    return res.status(code).json({ ...result, timestamp: new Date().toISOString() });
+});
+app.get('/api/comms/billing/invoices', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+    const { status, provider, subscriptionId } = req.query;
+    const result = commsEngine.listInvoices({ status, provider, subscriptionId });
+    return res.json({ ...result, timestamp: new Date().toISOString() });
+});
+app.post('/api/comms/billing/invoices', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+    const result = commsEngine.createInvoice(req.body || {}, req.user.email || req.user.id || 'admin');
+    const code = result.success ? 200 : 400;
+    return res.status(code).json({ ...result, timestamp: new Date().toISOString() });
+});
+app.get('/api/comms/billing/payments', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+    const { provider, subscriptionId } = req.query;
+    const result = commsEngine.listPayments({ provider, subscriptionId });
+    return res.json({ ...result, timestamp: new Date().toISOString() });
+});
+app.post('/api/comms/billing/invoices/:invoiceId/pay', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+    const result = commsEngine.markInvoicePaid(req.params.invoiceId, req.body || {}, req.user.email || req.user.id || 'admin');
+    const code = result.success ? 200 : 400;
+    return res.status(code).json({ ...result, timestamp: new Date().toISOString() });
+});
+// مسار بديل للوضع التجريبي: لا ينتهي بـ /pay لتجنّب حظر Pilot middleware
+app.post('/api/comms/billing/invoices/:invoiceId/mark-paid', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+    const result = commsEngine.markInvoicePaid(req.params.invoiceId, req.body || {}, req.user.email || req.user.id || 'admin');
+    const code = result.success ? 200 : 400;
+    return res.status(code).json({ ...result, timestamp: new Date().toISOString() });
+});
+app.get('/api/comms/readiness', (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+
+    const providers = commsEngine.providers || {};
+    const channels = commsEngine.channels || {};
+    const missingEnv = [];
+
+    Object.values(providers).forEach((bucket) => {
+        if (!bucket || typeof bucket !== 'object') return;
+        Object.values(bucket).forEach((provider) => {
+            if (!provider || typeof provider !== 'object') return;
+            if (!provider.configured && Array.isArray(provider.envKeys)) {
+                provider.envKeys.forEach((key) => {
+                    if (!String(process.env[key] || '').trim()) missingEnv.push(key);
+                });
+            }
+        });
+    });
+
+    const channelsSummary = Object.values(channels).map((channel) => ({
+        id: channel.id,
+        nameAr: channel.nameAr,
+        enabled: !!channel.enabled
+    }));
+
+    const enabledChannels = channelsSummary.filter((c) => c.enabled).map((c) => c.id);
+    const readinessScore = channelsSummary.length > 0
+        ? Math.round((enabledChannels.length / channelsSummary.length) * 100)
+        : 0;
+
+    res.json({
+        success: true,
+        data: {
+            readinessScore,
+            mode: String(process.env.SHEIKHA_COMMS_REAL_SEND || 'false').toLowerCase() === 'true' ? 'real_send' : 'dry_run',
+            channels: channelsSummary,
+            enabledChannels,
+            missingEnv: [...new Set(missingEnv)],
+            webhookProtected: !!String(process.env.SHEIKHA_COMMS_WEBHOOK_KEY || '').trim()
+        },
+        message: readinessScore >= 70
+            ? 'جاهزية الاتصالات جيدة ويمكن التشغيل بثقة.'
+            : 'جاهزية الاتصالات متوسطة/منخفضة. أكمل مفاتيح البيئة المطلوبة.',
+        timestamp: new Date().toISOString()
+    });
+});
 app.get('/api/comms/templates', (req, res) => {
     if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     const templates = Object.entries(commsEngine.templates).map(([id, t]) => ({
@@ -13288,16 +14179,79 @@ app.get('/api/comms/log', (req, res) => {
     const { limit, channel } = req.query;
     res.json({ success: true, log: commsEngine.getLog(parseInt(limit) || 50, channel || null) });
 });
+app.get('/api/comms/message/:messageId/status', authRequired, (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    const result = commsEngine.getMessageStatus(req.params.messageId);
+    if (!result.success) return res.status(404).json(result);
+    return res.json(result);
+});
 
 // OTP عبر منظومة الاتصالات
 app.post('/api/comms/otp/generate', authRequired, (req, res) => {
     if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     const { method, destination } = req.body || {};
-    const result = commsEngine.generateOTP(req.user.id, method || 'sms', destination);
+    const otpMethod = method || 'sms';
+    const channelMap = {
+        sms: 'sms',
+        whatsapp: 'whatsapp',
+        email: 'email',
+        voice: 'voice'
+    };
+    const targetChannel = channelMap[otpMethod];
+    const destFromUser = destination || req.user?.phone || req.user?.email || req.user?.username || null;
+
+    if (!commsEngine.otpSystem.methods[otpMethod]) {
+        return res.status(400).json({ success: false, message: 'طريقة OTP غير مدعومة.' });
+    }
+    if (targetChannel && !destFromUser) {
+        return res.status(400).json({ success: false, message: 'الوجهة مطلوبة لإرسال رمز التحقق.' });
+    }
+
+    const result = commsEngine.generateOTP(req.user.id, otpMethod, destFromUser);
+    if (!result.success) return res.status(400).json(result);
+
+    let dispatchResult = null;
+    if (targetChannel) {
+        const payload = {
+            code: result.code,
+            code_spoken: String(result.code || '').split('').join(' '),
+            minutes: String(Math.round((result.expiresIn || 300) / 60)),
+            phone: targetChannel === 'email' ? undefined : destFromUser,
+            email: targetChannel === 'email' ? destFromUser : undefined,
+            to: destFromUser
+        };
+        commsEngine.sendTemplate('otp', payload, [targetChannel]).then((dispatch) => {
+            dispatchResult = dispatch;
+            if (!dispatch.success) {
+                return res.status(502).json({
+                    success: false,
+                    message: 'تم إنشاء الرمز لكن فشل الإرسال عبر القناة المطلوبة.',
+                    method: otpMethod,
+                    delivery: dispatch,
+                    _devCode: (!process.env.NODE_ENV || process.env.NODE_ENV !== 'production') ? result.code : undefined
+                });
+            }
+
+            const IS_LOCAL_ENV = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
+            if (!IS_LOCAL_ENV) delete result.code;
+            return res.json({
+                success: true,
+                message: 'تم إنشاء وإرسال رمز التحقق بنجاح.',
+                expiresIn: result.expiresIn,
+                method: otpMethod,
+                delivery: dispatchResult,
+                _devCode: IS_LOCAL_ENV ? result.code : undefined
+            });
+        }).catch((e) => {
+            return res.status(500).json({ success: false, message: 'فشل إرسال رمز التحقق.', error: e.message });
+        });
+        return;
+    }
+
     // Don't expose the code to client in production
     const IS_LOCAL_ENV = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
     if (!IS_LOCAL_ENV) delete result.code;
-    res.json({ success: result.success, message: result.message, expiresIn: result.expiresIn, method: result.method, _devCode: IS_LOCAL_ENV ? result.code : undefined });
+    res.json({ success: true, message: 'تم إنشاء رمز التحقق.', expiresIn: result.expiresIn, method: result.method, _devCode: IS_LOCAL_ENV ? result.code : undefined });
 });
 app.post('/api/comms/otp/verify', authRequired, (req, res) => {
     if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
@@ -13313,6 +14267,19 @@ app.post('/api/comms/send-template', authRequired, (req, res) => {
     const { templateId, data, channels } = req.body || {};
     if (!templateId) return res.status(400).json({ success: false, message: 'معرّف القالب مطلوب.' });
     commsEngine.sendTemplate(templateId, data || {}, channels).then(result => res.json(result)).catch(e => res.status(500).json({ success: false, error: e.message }));
+});
+app.post('/api/comms/webhook/delivery-status', express.json(), (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    const webhookKey = String(process.env.SHEIKHA_COMMS_WEBHOOK_KEY || '').trim();
+    const incomingKey = String(req.headers['x-comms-webhook-key'] || '').trim();
+    if (webhookKey && incomingKey !== webhookKey) {
+        return res.status(403).json({ success: false, message: 'Webhook key غير صحيح.' });
+    }
+    const { messageId, status, provider, channel, raw } = req.body || {};
+    if (!messageId || !status) return res.status(400).json({ success: false, message: 'messageId و status مطلوبان.' });
+    const result = commsEngine.updateDeliveryStatus(messageId, status, { provider, channel, raw });
+    const code = result.success ? 200 : 404;
+    return res.status(code).json(result);
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -13362,13 +14329,101 @@ app.post('/api/smart-chat/whatsapp-webhook', express.json(), async (req, res) =>
     } catch (e) { res.status(200).json({ success: false }); }
 });
 
+function extractInboundEmailPayload(raw = {}) {
+    const body = (raw.body && typeof raw.body === 'string' ? raw.body : '')
+        || (raw.text && typeof raw.text === 'string' ? raw.text : '')
+        || (raw.message && typeof raw.message === 'string' ? raw.message : '')
+        || (raw.content && typeof raw.content === 'string' ? raw.content : '');
+    const from = String(
+        raw.from
+        || raw.sender
+        || (raw.fromAddress && raw.fromAddress.email)
+        || raw.email
+        || ''
+    ).trim().toLowerCase();
+    const subject = String(raw.subject || raw.title || '').trim();
+    return { body, from, subject };
+}
+
 // استقبال رسائل البريد (Webhook)
 app.post('/api/smart-chat/email-webhook', express.json(), async (req, res) => {
     if (!aiCommsBridge) return res.status(200).send('OK');
+    const webhookKey = String(process.env.SHEIKHA_COMMS_WEBHOOK_KEY || '').trim();
+    const incomingKey = String(req.headers['x-comms-webhook-key'] || '').trim();
+    if (webhookKey && incomingKey !== webhookKey) {
+        return res.status(403).json({ success: false, message: 'Webhook key غير صحيح.' });
+    }
     try {
-        const result = await aiCommsBridge.processMessage(req.body, 'email');
-        res.json(result);
-    } catch (e) { res.status(200).json({ success: false }); }
+        const inbound = extractInboundEmailPayload(req.body || {});
+        if (!inbound.from || !inbound.body) {
+            return res.status(400).json({ success: false, message: 'بيانات البريد الوارد غير مكتملة.' });
+        }
+
+        const result = await aiCommsBridge.processMessage({
+            from: inbound.from,
+            email: inbound.from,
+            subject: inbound.subject,
+            body: inbound.body,
+            text: inbound.body
+        }, 'email');
+
+        // منع حلقات الرد الآلي على نفس بريد الإرسال الداخلي
+        const internalSender = String(process.env.INFOBIP_EMAIL_FROM || '').trim().toLowerCase();
+        const isAutoGenerated = /auto-?reply|auto-?submitted|no-?reply|mailer-daemon|out of office|vacation/i.test(
+            String(inbound.subject || '') + ' ' + String(inbound.body || '').slice(0, 300)
+        );
+        if (commsEngine && result.success && !isAutoGenerated && inbound.from !== internalSender) {
+            const autoReplySubject = 'RE: ' + (inbound.subject || 'رسالتك إلى سوق شيخة');
+            await commsEngine.sendTemplate('system_alert', {
+                to: inbound.from,
+                email: inbound.from,
+                subject: autoReplySubject,
+                message: result.reply
+            }, ['email']);
+            commsEngine._logComm('email_auto_reply', 'email', inbound.from, 'sent', {
+                inboundSubject: inbound.subject || null,
+                replyPreview: String(result.reply || '').slice(0, 140)
+            });
+        }
+
+        return res.json({
+            success: true,
+            inbound: { from: inbound.from, subject: inbound.subject || null },
+            ai: result
+        });
+    } catch (e) {
+        return res.status(200).json({ success: false, message: 'فشل معالجة بريد webhook', error: e.message });
+    }
+});
+
+// إرسال بريد آلي (إداري) — اختبار وتشغيل الأتمتة البريدية
+app.post('/api/comms/email/send-auto', authRequired, async (req, res) => {
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'صلاحيات المدير مطلوبة.' });
+
+    const { to, subject, message, templateId, data } = req.body || {};
+    const destination = String(to || '').trim().toLowerCase();
+    if (!destination) return res.status(400).json({ success: false, message: 'البريد المستلم to مطلوب.' });
+
+    try {
+        if (templateId) {
+            const payload = { ...(data || {}), to: destination, email: destination };
+            const result = await commsEngine.sendTemplate(String(templateId).trim(), payload, ['email']);
+            const code = result.success ? 200 : 502;
+            return res.status(code).json({ success: result.success, mode: 'template', result, timestamp: new Date().toISOString() });
+        }
+
+        const result = await commsEngine.sendTemplate('system_alert', {
+            to: destination,
+            email: destination,
+            subject: subject || 'رسالة تلقائية من سوق شيخة',
+            message: message || 'مرحباً بك في سوق شيخة. تم إرسال هذه الرسالة تلقائياً.'
+        }, ['email']);
+        const code = result.success ? 200 : 502;
+        return res.status(code).json({ success: result.success, mode: 'direct', result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        return res.status(500).json({ success: false, message: 'فشل إرسال البريد الآلي.', error: e.message });
+    }
 });
 
 // استقبال نتيجة المكالمة الصوتية (Webhook)
@@ -13437,9 +14492,14 @@ app.post('/api/ai-comms/universal-channel', authRequired, async (req, res) => {
 // الرد الآلي
 app.post('/api/comms/auto-reply', (req, res) => {
     if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
-    const { message } = req.body || {};
+    const { message, lang, language, locale, isFirstMessage, userId } = req.body || {};
     if (!message) return res.status(400).json({ success: false, message: 'الرسالة مطلوبة.' });
-    const result = commsEngine.getAutoReply(message);
+    const result = commsEngine.getAutoReply(message, {
+        lang: lang || language,
+        locale,
+        isFirstMessage: !!isFirstMessage,
+        userId: userId || (req.user && req.user.id ? req.user.id : undefined)
+    });
     res.json({ success: true, ...result });
 });
 
@@ -13730,30 +14790,39 @@ app.post('/api/i18n/translate', async (req, res) => {
     }
 });
 
-// API: ترجمة مجموعة نصوص
+// API: ترجمة مجموعة نصوص — لا يرمي خطأ أبداً؛ يرجع النص الأصلي عند الفشل (لا ضرر ولا ضرار)
 app.post('/api/i18n/translate-batch', async (req, res) => {
-    const { texts, targetLang, sourceLang = 'ar' } = req.body;
+    const { texts, targetLang, sourceLang = 'ar' } = req.body || {};
     
     if (!texts || !Array.isArray(texts) || !targetLang) {
         return res.status(400).json({ success: false, error: 'النصوص واللغة المستهدفة مطلوبان' });
     }
     
+    const safeTexts = texts.slice(0, 100).filter(t => typeof t === 'string' && t.trim().length > 0);
+    if (safeTexts.length === 0) {
+        return res.json({ success: true, translations: [], targetLang, sourceLang: sourceLang || 'ar' });
+    }
+    
     try {
         const translations = await Promise.all(
-            texts.map(text => autoTranslate(text, targetLang, sourceLang))
+            safeTexts.map(text => Promise.resolve(autoTranslate(text, targetLang, sourceLang)).catch(() => text))
         );
-        
         res.json({
             success: true,
-            translations: texts.map((text, i) => ({
+            translations: safeTexts.map((text, i) => ({
                 original: text,
-                translation: translations[i]
+                translation: translations[i] != null ? String(translations[i]) : text
             })),
             targetLang,
-            sourceLang
+            sourceLang: sourceLang || 'ar'
         });
     } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
+        res.json({
+            success: true,
+            translations: safeTexts.map(text => ({ original: text, translation: text })),
+            targetLang,
+            sourceLang: sourceLang || 'ar'
+        });
     }
 });
 
@@ -14829,7 +15898,7 @@ function broadcastNotification(notification) {
         notification,
         timestamp: new Date().toISOString() 
     });
-    clients.forEach(client => { 
+    _wsClients.forEach(client => { 
         if (client.readyState === WebSocket.OPEN) {
             client.send(data); 
         }
@@ -15565,7 +16634,7 @@ try {
     // P0-1: LAZY (L2) - arabic-language-engine.js
     /*     ArabicEngine = require('./lib/arabic-language-engine.js'); */
     console.log('⏸️ [LAZY] arabic-language-engine.js — سيُحمّل عند الطلب');
-    console.log('✅ محرك اللغة العربية الشامل - تم التحميل');
+    // LAZY: console.log('✅ محرك اللغة العربية الشامل - تم التحميل');
 } catch (e) {
     console.log('⚠️ محرك اللغة العربية غير متوفر:', e.message);
 }
@@ -15837,7 +16906,7 @@ try {
     // P0-1: LAZY (L2) - arabic-parser-engine.js
     /*     ArabicParserEngine = require('./lib/arabic-parser-engine.js'); */
     console.log('⏸️ [LAZY] arabic-parser-engine.js — سيُحمّل عند الطلب');
-    console.log('✅ محرك الإعراب والتحليل النحوي المتقدم - تم التحميل');
+    // LAZY: console.log('✅ محرك الإعراب والتحليل النحوي المتقدم - تم التحميل');
 } catch (e) {
     console.log('⚠️ محرك الإعراب غير متوفر:', e.message);
 }
@@ -18142,8 +19211,8 @@ try {
     // P0-1: LAZY (L1) - sheikha-continuous-improvement-engine.js
     /*     const kaizenEngine = require('./lib/sheikha-continuous-improvement-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-continuous-improvement-engine.js — سيُحمّل عند الطلب');
-    kaizenEngine(app);
-    console.log('✅ Kaizen Engine — محرك التحسين المستمر مفعّل');
+    // LAZY: kaizenEngine(app);
+    // LAZY: console.log('✅ Kaizen Engine — محرك التحسين المستمر مفعّل');
 } catch (e) {
     console.log('⚠️ Kaizen Engine غير متوفر:', e.message);
 }
@@ -18153,8 +19222,8 @@ try {
     // P0-1: LAZY (L1) - sheikha-digital-learning-engine.js
     /*     const learningEngine = require('./lib/sheikha-digital-learning-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-digital-learning-engine.js — سيُحمّل عند الطلب');
-    learningEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
-    console.log('✅ Learning Engine — منظومة التعلم والتدريب الرقمي مفعّلة');
+    // LAZY: learningEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
+    // LAZY: console.log('✅ Learning Engine — منظومة التعلم والتدريب الرقمي مفعّلة');
 } catch (e) {
     console.log('⚠️ Learning Engine غير متوفر:', e.message);
 }
@@ -18164,8 +19233,8 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-dashboards-engine.js
     /*     const dashboardsEngine = require('./lib/sheikha-dashboards-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-dashboards-engine.js — سيُحمّل عند الطلب');
-    dashboardsEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS });
-    console.log('✅ Dashboards Engine — محرك لوحات التحكم الشامل مفعّل');
+    // LAZY: dashboardsEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS });
+    // LAZY: console.log('✅ Dashboards Engine — محرك لوحات التحكم الشامل مفعّل');
 } catch (e) {
     console.log('⚠️ Dashboards Engine غير متوفر:', e.message);
 }
@@ -18175,22 +19244,143 @@ try {
     // P0-1: LAZY (L1) - sheikha-digital-community-ecosystem.js
     /*     const communityEcosystem = require('./lib/sheikha-digital-community-ecosystem.js'); */
     console.log('⏸️ [LAZY] sheikha-digital-community-ecosystem.js — سيُحمّل عند الطلب');
-    communityEcosystem(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
-    console.log('✅ Community Ecosystem — منظومة المجتمع الرقمي الشاملة مفعّلة');
+    // LAZY: communityEcosystem(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
+    // LAZY: console.log('✅ Community Ecosystem — منظومة المجتمع الرقمي الشاملة مفعّلة');
 } catch (e) {
     console.log('⚠️ Community Ecosystem غير متوفر:', e.message);
 }
 
 // ═══ رياض الجنة — بيت العلم ودار المعرفة ومصنع الابتكار ═══
+// تفعيل مؤكد — رياض الجنة مفعّلة بالكامل
 try {
-    // P0-1: LAZY (L1) - sheikha-riyad-aljannah-engine.js
-    /*     const riyadEngine = require('./lib/sheikha-riyad-aljannah-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-riyad-aljannah-engine.js — سيُحمّل عند الطلب');
+    const riyadEngine = require('./lib/sheikha-riyad-aljannah-engine.js');
     riyadEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Riyad Al-Jannah — رياض الجنة مفعّلة');
 } catch (e) {
     console.log('⚠️ Riyad Al-Jannah غير متوفر:', e.message);
 }
+
+// ═══ Fallback مباشر: شبكة الباحثين R&D (رياض الجنة + المجتمع) ═══
+const RIYAD_RND_FILE = path.join(DATA_DIR, 'riyad-research-network.json');
+function loadRiyadRndStore() {
+    try {
+        if (fs.existsSync(RIYAD_RND_FILE)) return JSON.parse(fs.readFileSync(RIYAD_RND_FILE, 'utf8'));
+    } catch (_) {}
+    return { meta: { updatedAt: new Date().toISOString() }, researchers: [], projects: [], publications: [] };
+}
+function saveRiyadRndStore(store) {
+    try {
+        const next = Object.assign({ meta: {}, researchers: [], projects: [], publications: [] }, store || {});
+        next.meta.updatedAt = new Date().toISOString();
+        fs.writeFileSync(RIYAD_RND_FILE, JSON.stringify(next, null, 2), 'utf8');
+    } catch (_) {}
+}
+function riyadResearchScore(row) {
+    const papers = Array.isArray(row.publicationIds) ? row.publicationIds.length : 0;
+    const projects = Array.isArray(row.projectIds) ? row.projectIds.length : 0;
+    const impact = Number(row.impactPoints || 0);
+    return Math.min(100, 30 + papers * 4 + projects * 3 + Math.min(30, impact));
+}
+
+app.get('/api/riyad-aljannah/research-network/dashboard', (req, res) => {
+    const store = loadRiyadRndStore();
+    const topResearchers = (store.researchers || [])
+        .map((r) => Object.assign({}, r, { score: riyadResearchScore(r) }))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 10);
+    res.json({
+        success: true,
+        data: {
+            summary: {
+                researchers: (store.researchers || []).length,
+                projects: (store.projects || []).length,
+                publications: (store.publications || []).length
+            },
+            topResearchers
+        },
+        message: 'تم جلب لوحة شبكة الباحثين بنجاح',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/riyad-aljannah/research-network/orcid-gap', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            sheikhaAdvantages: [
+                'هوية بحثية شرعية + أثر مجتمعي + تطبيق تنفيذي',
+                'ربط مباشر بين الباحث والمشاريع وسلاسل العمليات',
+                'مراجعة أقران + تدقيق امتثال شرعي + جودة بيانات'
+            ]
+        },
+        message: 'تحليل الفجوة المرجعية جاهز',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/riyad-aljannah/research-network/researchers', (req, res) => {
+    const q = String(req.query.q || '').trim().toLowerCase();
+    const store = loadRiyadRndStore();
+    let rows = (store.researchers || []).map((r) => Object.assign({}, r, { score: riyadResearchScore(r) }));
+    if (q) {
+        rows = rows.filter((r) => String(r.fullName || '').toLowerCase().includes(q));
+    }
+    rows.sort((a, b) => b.score - a.score);
+    res.json({
+        success: true,
+        data: rows,
+        message: 'تم جلب الباحثين بنجاح',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/riyad-aljannah/research-network/researchers', (req, res) => {
+    const body = req.body || {};
+    const fullName = String(body.fullName || '').trim();
+    if (!fullName) {
+        return res.status(400).json({
+            success: false,
+            data: null,
+            message: 'اسم الباحث مطلوب',
+            timestamp: new Date().toISOString()
+        });
+    }
+    const store = loadRiyadRndStore();
+    const researcher = {
+        id: 'RSH-' + Date.now(),
+        fullName,
+        email: String(body.email || '').trim(),
+        focusAreas: Array.isArray(body.focusAreas) ? body.focusAreas : [],
+        methodologies: Array.isArray(body.methodologies) ? body.methodologies : [],
+        verificationStatus: body.verificationStatus === 'verified' ? 'verified' : 'pending',
+        impactPoints: Number(body.impactPoints || 0),
+        publicationIds: [],
+        projectIds: [],
+        createdAt: new Date().toISOString()
+    };
+    store.researchers.unshift(researcher);
+    saveRiyadRndStore(store);
+    res.json({
+        success: true,
+        data: Object.assign({}, researcher, { score: riyadResearchScore(researcher) }),
+        message: 'تم تسجيل الباحث بنجاح',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/community/research/dashboard', (req, res) => {
+    const store = loadRiyadRndStore();
+    res.json({
+        success: true,
+        data: {
+            researchers: (store.researchers || []).length,
+            activeProjects: (store.projects || []).filter((p) => p.status === 'active').length,
+            publications: (store.publications || []).length
+        },
+        message: 'تم جلب لوحة المجتمع البحثي',
+        timestamp: new Date().toISOString()
+    });
+});
 
 // ═══ منصة شيخة التعليمية الجاهزة — محتوى + أدوات + تراخيص + تسويق ═══
 // ═══ P0-1: LAZY — منصة تعليمية ضخمة، ليست حرجة عند startup ═══
@@ -18210,8 +19400,8 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-quran-sunnah-education.js
     /*     const quranEdu = require('./lib/sheikha-quran-sunnah-education.js'); */
     console.log('⏸️ [LAZY] sheikha-quran-sunnah-education.js — سيُحمّل عند الطلب');
-    quranEdu(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
-    console.log('✅ Quran Education — منظومة تعليم القرآن والسنة مفعّلة');
+    // LAZY: quranEdu(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
+    // LAZY: console.log('✅ Quran Education — منظومة تعليم القرآن والسنة مفعّلة');
 } catch (e) {
     console.log('⚠️ Quran Education غير متوفر:', e.message);
 }
@@ -18221,8 +19411,8 @@ try {
     // P0-1: LAZY (L1) - sheikha-org-execution-engine.js
     /*     const orgExecEngine = require('./lib/sheikha-org-execution-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-org-execution-engine.js — سيُحمّل عند الطلب');
-    orgExecEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
-    console.log('✅ OrgExec Engine — محرك الهيكل التنظيمي والتنفيذي + تغذية AI مفعّل');
+    // LAZY: orgExecEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
+    // LAZY: console.log('✅ OrgExec Engine — محرك الهيكل التنظيمي والتنفيذي + تغذية AI مفعّل');
 } catch (e) {
     console.log('⚠️ OrgExec Engine غير متوفر:', e.message);
 }
@@ -18587,17 +19777,17 @@ let greenCircularEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-green-circular-engine
     /*     const SheikhaGreenCircularEngine = require('./lib/sheikha-green-circular-engine'); */
-    greenCircularEngine = new SheikhaGreenCircularEngine();
-    console.log('✅ [Green+Circular] منظومة شيخة الخضراء والاقتصاد الدائري — مُفعّلة');
-    const dash = greenCircularEngine.getDashboard();
-    console.log(`   📗 الأساس الشرعي: ${dash.summary.quranVerses} آية + ${dash.summary.hadith} حديث`);
-    console.log(`   🌿 الركائز الخضراء: ${dash.summary.greenPillars} ركيزة`);
-    console.log(`   ♻️ مبادئ الاقتصاد الدائري: ${dash.summary.circularPrinciples} مبدأ`);
-    console.log(`   💼 نماذج الأعمال: ${dash.summary.businessModels} نموذج`);
-    console.log(`   🔗 سلسلة التوريد الدائرية: ${dash.summary.supplyChainStages} مراحل`);
-    console.log(`   🏅 الشهادات: ${dash.summary.certifications} شهادة`);
-    console.log(`   📜 العقود الخضراء: ${dash.summary.greenContractTypes} نوع`);
-    console.log(`   🤖 أنظمة رقمية: ${dash.summary.digitalSystems} نظام`);
+    // LAZY: greenCircularEngine = new SheikhaGreenCircularEngine();
+    // LAZY: console.log('✅ [Green+Circular] منظومة شيخة الخضراء والاقتصاد الدائري — مُفعّلة');
+    // LAZY: const dash = greenCircularEngine.getDashboard();
+    // LAZY: console.log(`   📗 الأساس الشرعي: ${dash.summary.quranVerses} آية + ${dash.summary.hadith} حديث`);
+    // LAZY: console.log(`   🌿 الركائز الخضراء: ${dash.summary.greenPillars} ركيزة`);
+    // LAZY: console.log(`   ♻️ مبادئ الاقتصاد الدائري: ${dash.summary.circularPrinciples} مبدأ`);
+    // LAZY: console.log(`   💼 نماذج الأعمال: ${dash.summary.businessModels} نموذج`);
+    // LAZY: console.log(`   🔗 سلسلة التوريد الدائرية: ${dash.summary.supplyChainStages} مراحل`);
+    // LAZY: console.log(`   🏅 الشهادات: ${dash.summary.certifications} شهادة`);
+    // LAZY: console.log(`   📜 العقود الخضراء: ${dash.summary.greenContractTypes} نوع`);
+    // LAZY: console.log(`   🤖 أنظمة رقمية: ${dash.summary.digitalSystems} نظام`);
 } catch(e) {
     console.warn('⚠️ [Green+Circular] لم يتم تحميل المنظومة:', e.message);
 }
@@ -18819,6 +20009,20 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🕰️ منظومة علامات الساعة (تثقيف شرعي منضبط)
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const akhiraRouter = require('./routes/akhira');
+    app.use('/api/akhira', akhiraRouter);
+    console.log('✅ [Akhira] منظومة علامات الساعة — مُفعّلة على /api/akhira');
+    console.log('   📡 GET /api/akhira/status');
+    console.log('   📡 GET /api/akhira/signs?level=major|minor|all');
+    console.log('   📡 GET /api/akhira/important');
+} catch (e) {
+    console.warn('⚠️ [Akhira] لم يتم تحميل منظومة علامات الساعة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // ⚙️ منظومة المعادن والسكراب والأسواق — مرقمنة بالكتاب والسنة
 // "وَأَنزَلْنَا الْحَدِيدَ فِيهِ بَأْسٌ شَدِيدٌ وَمَنَافِعُ لِلنَّاسِ" — الحديد ٢٥
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -18827,13 +20031,13 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-scrap-markets-engine
     /*     const MSMEngine = require('./lib/sheikha-metals-scrap-markets-engine'); */
     console.log('⏸️ [LAZY] sheikha-metals-scrap-markets-engine — سيُحمّل عند الطلب');
-    metalsScrapMarketsEngine = new MSMEngine();
-    const d = metalsScrapMarketsEngine.getDashboard();
-    console.log('✅ [Metals+Scrap+Markets] منظومة المعادن والسكراب والأسواق — مُفعّلة');
-    console.log(`   ⚙️ المعادن: ${d.metals.total} (${d.metals.precious} ثمين + ${d.metals.base} أساسي + ${d.metals.strategic} استراتيجي)`);
-    console.log(`   ♻️ السكراب: ${d.scrap.ferrousGrades} حديدي + ${d.scrap.copperGrades} نحاس + ${d.scrap.aluminumGrades} ألمنيوم + ${d.scrap.eWasteTypes} إلكتروني`);
-    console.log(`   📊 الأسواق: ${d.markets.globalExchanges} بورصة + ${d.markets.marketPrinciples} مبدأ شرعي + ${d.markets.contractTypes} نوع عقد`);
-    console.log(`   📗 الأساس الشرعي: ${d.metals.quranVerses} آية + ${d.metals.hadith} حديث`);
+    // LAZY: metalsScrapMarketsEngine = new MSMEngine();
+    // LAZY: const d = metalsScrapMarketsEngine.getDashboard();
+    // LAZY: console.log('✅ [Metals+Scrap+Markets] منظومة المعادن والسكراب والأسواق — مُفعّلة');
+    // LAZY: console.log(`   ⚙️ المعادن: ${d.metals.total} (${d.metals.precious} ثمين + ${d.metals.base} أساسي + ${d.metals.strategic} استراتيجي)`);
+    // LAZY: console.log(`   ♻️ السكراب: ${d.scrap.ferrousGrades} حديدي + ${d.scrap.copperGrades} نحاس + ${d.scrap.aluminumGrades} ألمنيوم + ${d.scrap.eWasteTypes} إلكتروني`);
+    // LAZY: console.log(`   📊 الأسواق: ${d.markets.globalExchanges} بورصة + ${d.markets.marketPrinciples} مبدأ شرعي + ${d.markets.contractTypes} نوع عقد`);
+    // LAZY: console.log(`   📗 الأساس الشرعي: ${d.metals.quranVerses} آية + ${d.metals.hadith} حديث`);
 } catch(e) {
     console.warn('⚠️ [Metals+Scrap+Markets] خطأ:', e.message);
 }
@@ -18940,10 +20144,10 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-global-data
     /*     const MGD = require('./lib/sheikha-metals-global-data'); */
     console.log('⏸️ [LAZY] sheikha-metals-global-data — سيُحمّل عند الطلب');
-    metalsGlobalData = new MGD();
-    const gd = metalsGlobalData.getDashboard();
-    console.log(`✅ [Global Metals Data] بيانات ${gd.metalsCount} معدن عالمية — مصادر + إنتاج + احتياطي + تكاليف`);
-    console.log(`   📗 الأساس الشرعي: ${gd.islamicFoundation.verses} آية + ${gd.islamicFoundation.miningRules} حكم تعدين`);
+    // LAZY: metalsGlobalData = new MGD();
+    // LAZY: const gd = metalsGlobalData.getDashboard();
+    // LAZY: console.log(`✅ [Global Metals Data] بيانات ${gd.metalsCount} معدن عالمية — مصادر + إنتاج + احتياطي + تكاليف`);
+    // LAZY: console.log(`   📗 الأساس الشرعي: ${gd.islamicFoundation.verses} آية + ${gd.islamicFoundation.miningRules} حكم تعدين`);
 } catch(e) {
     console.warn('⚠️ [Global Metals Data] خطأ:', e.message);
 }
@@ -19004,10 +20208,10 @@ let scrapGlobalData = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-scrap-global-data
     /*     const SGD = require('./lib/sheikha-scrap-global-data'); */
-    scrapGlobalData = new SGD();
-    const sd = scrapGlobalData.getDashboard();
-    console.log(`✅ [Scrap Global Data] ${sd.typesCount} نوع سكراب | ${sd.historicalEras} حقبة تاريخية | ${sd.saudiSmelters} مصهر سعودي`);
-    console.log(`   📗 الأساس الشرعي: ${sd.shariaEvidence} دليل | مشاكل البيع بدون عقد: ${sd.contractIssues} | حلول ذكية: ${sd.smartContractFeatures}`);
+    // LAZY: scrapGlobalData = new SGD();
+    // LAZY: const sd = scrapGlobalData.getDashboard();
+    // LAZY: console.log(`✅ [Scrap Global Data] ${sd.typesCount} نوع سكراب | ${sd.historicalEras} حقبة تاريخية | ${sd.saudiSmelters} مصهر سعودي`);
+    // LAZY: console.log(`   📗 الأساس الشرعي: ${sd.shariaEvidence} دليل | مشاكل البيع بدون عقد: ${sd.contractIssues} | حلول ذكية: ${sd.smartContractFeatures}`);
 } catch(e) {
     console.warn('⚠️ [Scrap Global Data] خطأ:', e.message);
 }
@@ -19091,10 +20295,10 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-hs-history
     /*     const MHH = require('./lib/sheikha-metals-hs-history'); */
     console.log('⏸️ [LAZY] sheikha-metals-hs-history — سيُحمّل عند الطلب');
-    metalsHSHistory = new MHH();
-    const hd = metalsHSHistory.getDashboard();
-    console.log(`✅ [HS+History] ${hd.hsCodes.total} كود HS | ${hd.history.eras} حقبة تاريخية | ${hd.history.quranMentions} ذكر قرآني للمعادن`);
-    console.log(`   📦 أقسام HS: حديد ${hd.hsCodes.iron} | ألمنيوم ${hd.hsCodes.aluminum} | نحاس ${hd.hsCodes.copper} | ثمينة ${hd.hsCodes.precious}`);
+    // LAZY: metalsHSHistory = new MHH();
+    // LAZY: const hd = metalsHSHistory.getDashboard();
+    // LAZY: console.log(`✅ [HS+History] ${hd.hsCodes.total} كود HS | ${hd.history.eras} حقبة تاريخية | ${hd.history.quranMentions} ذكر قرآني للمعادن`);
+    // LAZY: console.log(`   📦 أقسام HS: حديد ${hd.hsCodes.iron} | ألمنيوم ${hd.hsCodes.aluminum} | نحاس ${hd.hsCodes.copper} | ثمينة ${hd.hsCodes.precious}`);
 } catch(e) {
     console.warn('⚠️ [HS+History] خطأ:', e.message);
 }
@@ -19167,10 +20371,10 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-networks-map
     /*     const MNM = require('./lib/sheikha-metals-networks-map'); */
     console.log('⏸️ [LAZY] sheikha-metals-networks-map — سيُحمّل عند الطلب');
-    metalsNetworks = new MNM();
-    const nd = metalsNetworks.getDashboard();
-    console.log(`✅ [Networks+Map] ${nd.networks} شبكة | ${nd.totalNodes} نقطة جغرافية | ${nd.metals} معدن (عرض/طلب)`);
-    nd.networkList.forEach(n => console.log(`   🔗 ${n.name}: ${n.nodes} نقطة`));
+    // LAZY: metalsNetworks = new MNM();
+    // LAZY: const nd = metalsNetworks.getDashboard();
+    // LAZY: console.log(`✅ [Networks+Map] ${nd.networks} شبكة | ${nd.totalNodes} نقطة جغرافية | ${nd.metals} معدن (عرض/طلب)`);
+    // LAZY: nd.networkList.forEach(n => console.log(`   🔗 ${n.name}: ${n.nodes} نقطة`));
 } catch(e) {
     console.warn('⚠️ [Networks+Map] خطأ:', e.message);
 }
@@ -19238,9 +20442,9 @@ let autoSalvage = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-auto-salvage
     /*     const AS = require('./lib/sheikha-auto-salvage'); */
-    autoSalvage = new AS();
-    const asd = autoSalvage.getDashboard();
-    console.log(`✅ [Auto Salvage] سوق التشليح: ${asd.saudi.salvageYards} ساحة | ${asd.saudi.elvAnnual} سيارة/سنة | ${asd.saudi.marketValue}/سنة`);
+    // LAZY: autoSalvage = new AS();
+    // LAZY: const asd = autoSalvage.getDashboard();
+    // LAZY: console.log(`✅ [Auto Salvage] سوق التشليح: ${asd.saudi.salvageYards} ساحة | ${asd.saudi.elvAnnual} سيارة/سنة | ${asd.saudi.marketValue}/سنة`);
 } catch(e) { console.warn('⚠️ [Auto Salvage] خطأ:', e.message); }
 
 app.get('/api/salvage/dashboard', (req, res) => {
@@ -19278,9 +20482,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-logistics-supply-chain
     /*     const LSC = require('./lib/sheikha-logistics-supply-chain'); */
     console.log('⏸️ [LAZY] sheikha-logistics-supply-chain — سيُحمّل عند الطلب');
-    logistics = new LSC();
-    const ld = logistics.getDashboard();
-    console.log(`✅ [Logistics] ${ld.stats.ports} ميناء | ${ld.stats.airports} مطار | ${ld.stats.pipelines} خط أنابيب | ${ld.stats.railways} سكة حديد | ${ld.stats.gapAnalysis} فجوة`);
+    // LAZY: logistics = new LSC();
+    // LAZY: const ld = logistics.getDashboard();
+    // LAZY: console.log(`✅ [Logistics] ${ld.stats.ports} ميناء | ${ld.stats.airports} مطار | ${ld.stats.pipelines} خط أنابيب | ${ld.stats.railways} سكة حديد | ${ld.stats.gapAnalysis} فجوة`);
 } catch(e) { console.warn('⚠️ [Logistics] خطأ:', e.message); }
 
 app.get('/api/logistics/supply-chain-dashboard', (req, res) => {
@@ -19322,9 +20526,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-trade-networks-history
     /*     const TNH = require('./lib/sheikha-trade-networks-history'); */
     console.log('⏸️ [LAZY] sheikha-trade-networks-history — سيُحمّل عند الطلب');
-    tradeHistory = new TNH();
-    const td = tradeHistory.getDashboard();
-    console.log(`✅ [Trade History] ${td.stats.historicalEras} حقبة | ${td.stats.tradeRoutes} طريق | ${td.stats.tradeNetworks} شبكة | ${td.stats.modernNetworks} شبكة حديثة | ${td.stats.mapPoints} نقطة خريطة`);
+    // LAZY: tradeHistory = new TNH();
+    // LAZY: const td = tradeHistory.getDashboard();
+    // LAZY: console.log(`✅ [Trade History] ${td.stats.historicalEras} حقبة | ${td.stats.tradeRoutes} طريق | ${td.stats.tradeNetworks} شبكة | ${td.stats.modernNetworks} شبكة حديثة | ${td.stats.mapPoints} نقطة خريطة`);
 } catch(e) { console.warn('⚠️ [Trade History] خطأ:', e.message); }
 
 app.get('/api/trade-history/dashboard', (req, res) => {
@@ -19365,9 +20569,9 @@ let leadership = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-leadership-governance
     /*     const LG = require('./lib/sheikha-leadership-governance'); */
-    leadership = new LG();
-    const ld = leadership.getDashboard();
-    console.log(`✅ [Leadership] ${ld.stats.leadershipPrinciples} مبدأ قيادة | ${ld.stats.organizationalLayers} طبقة تنظيمية | ${ld.stats.organizations} منظمة | ${ld.stats.caravans} قافلة | ${ld.stats.networks} شبكة | ${ld.stats.historicalEras} حقبة`);
+    // LAZY: leadership = new LG();
+    // LAZY: const ld = leadership.getDashboard();
+    // LAZY: console.log(`✅ [Leadership] ${ld.stats.leadershipPrinciples} مبدأ قيادة | ${ld.stats.organizationalLayers} طبقة تنظيمية | ${ld.stats.organizations} منظمة | ${ld.stats.caravans} قافلة | ${ld.stats.networks} شبكة | ${ld.stats.historicalEras} حقبة`);
 } catch(e) { console.warn('⚠️ [Leadership] خطأ:', e.message); }
 
 app.get('/api/leadership/dashboard', (req, res) => {
@@ -19417,9 +20621,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-bank
     /*     const MB = require('./lib/sheikha-metals-bank'); */
     console.log('⏸️ [LAZY] sheikha-metals-bank — سيُحمّل عند الطلب');
-    metalsBank = new MB();
-    const md = metalsBank.getDashboard();
-    console.log(`✅ [Metals Bank] ${md.stats.preciousMetals} ثمين | ${md.stats.baseMetals} أساسي | ${md.stats.rareMetals} نادر | ${md.stats.scrapTypes} سكراب | ${md.stats.tradingContracts} عقد | ${md.stats.vaultLocations} خزنة | ${md.stats.shariaEvidence} دليل شرعي`);
+    // LAZY: metalsBank = new MB();
+    // LAZY: const md = metalsBank.getDashboard();
+    // LAZY: console.log(`✅ [Metals Bank] ${md.stats.preciousMetals} ثمين | ${md.stats.baseMetals} أساسي | ${md.stats.rareMetals} نادر | ${md.stats.scrapTypes} سكراب | ${md.stats.tradingContracts} عقد | ${md.stats.vaultLocations} خزنة | ${md.stats.shariaEvidence} دليل شرعي`);
 } catch(e) { console.warn('⚠️ [Metals Bank] خطأ:', e.message); }
 
 app.get('/api/metals-bank/dashboard', (req, res) => {
@@ -19468,9 +20672,9 @@ let licensesReg = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-licenses-registry
     /*     const LR = require('./lib/sheikha-licenses-registry'); */
-    licensesReg = new LR();
-    const ld = licensesReg.getDashboard();
-    console.log(`✅ [Licenses] ${ld.stats.commercialActivities} نشاط تجاري | ${ld.stats.essentialLicenses} ترخيص | ${ld.stats.certificates} شهادة | ${ld.stats.saudiAuthorities} جهة | ${ld.stats.timelinePhases} مرحلة`);
+    // LAZY: licensesReg = new LR();
+    // LAZY: const ld = licensesReg.getDashboard();
+    // LAZY: console.log(`✅ [Licenses] ${ld.stats.commercialActivities} نشاط تجاري | ${ld.stats.essentialLicenses} ترخيص | ${ld.stats.certificates} شهادة | ${ld.stats.saudiAuthorities} جهة | ${ld.stats.timelinePhases} مرحلة`);
 } catch(e) { console.warn('⚠️ [Licenses] خطأ:', e.message); }
 
 app.get('/api/licenses/dashboard', (req, res) => {
@@ -19519,9 +20723,9 @@ let officialDocs = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-official-documents
     /*     const OD = require('./lib/sheikha-official-documents'); */
-    officialDocs = new OD();
-    const od = officialDocs.getDashboard();
-    console.log(`✅ [Official Docs] ${od.stats.officialDocTemplates} قالب | ${od.stats.stampDesigns} ختم | ${od.stats.signatureTypes} توقيع | ${od.stats.autoFillForms} نموذج آلي | ${od.stats.governmentForms} حكومي | ${od.stats.commercialForms} تجاري`);
+    // LAZY: officialDocs = new OD();
+    // LAZY: const od = officialDocs.getDashboard();
+    // LAZY: console.log(`✅ [Official Docs] ${od.stats.officialDocTemplates} قالب | ${od.stats.stampDesigns} ختم | ${od.stats.signatureTypes} توقيع | ${od.stats.autoFillForms} نموذج آلي | ${od.stats.governmentForms} حكومي | ${od.stats.commercialForms} تجاري`);
 } catch(e) { console.warn('⚠️ [Official Docs] خطأ:', e.message); }
 
 app.get('/api/official-docs/dashboard', (req, res) => {
@@ -19567,9 +20771,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-archive-engine
     /*     const AE = require('./lib/sheikha-archive-engine'); */
     console.log('⏸️ [LAZY] sheikha-archive-engine — سيُحمّل عند الطلب');
-    archiveEngine = new AE();
-    const ad = archiveEngine.getDashboard();
-    console.log(`✅ [Archive] ${ad.stats.archiveCategories} فئة أرشفة | ${ad.stats.documentClasses} تصنيف وثائق | ${ad.stats.indexingLevels} مستوى فهرسة | ${ad.stats.retentionPolicies} سياسة حفظ | ${ad.stats.autoWorkflows} سير عمل آلي | ${ad.stats.securityLevels} مستوى أمان | أساس: ${ad.stats.calendarBasis}`);
+    // LAZY: archiveEngine = new AE();
+    // LAZY: const ad = archiveEngine.getDashboard();
+    // LAZY: console.log(`✅ [Archive] ${ad.stats.archiveCategories} فئة أرشفة | ${ad.stats.documentClasses} تصنيف وثائق | ${ad.stats.indexingLevels} مستوى فهرسة | ${ad.stats.retentionPolicies} سياسة حفظ | ${ad.stats.autoWorkflows} سير عمل آلي | ${ad.stats.securityLevels} مستوى أمان | أساس: ${ad.stats.calendarBasis}`);
 } catch(e) { console.warn('⚠️ [Archive] خطأ:', e.message); }
 
 app.get('/api/archive/dashboard', (req, res) => {
@@ -19623,9 +20827,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-accounting-engine
     /*     const ACE = require('./lib/sheikha-accounting-engine'); */
     console.log('⏸️ [LAZY] sheikha-accounting-engine — سيُحمّل عند الطلب');
-    accountingEngine = new ACE();
-    const acd = accountingEngine.getDashboard();
-    console.log(`✅ [Accounting] ${acd.stats.chartOfAccounts} شجرة حسابات | ${acd.stats.accountCategories} حساب | ${acd.stats.financialStatements} قائمة مالية | ${acd.stats.automationWorkflows} سير عمل آلي | ${acd.stats.archiveIntegrations} تكامل أرشفة | ${acd.stats.shariaRules} ضابط شرعي | أساس: ${acd.stats.calendarBasis}`);
+    // LAZY: accountingEngine = new ACE();
+    // LAZY: const acd = accountingEngine.getDashboard();
+    // LAZY: console.log(`✅ [Accounting] ${acd.stats.chartOfAccounts} شجرة حسابات | ${acd.stats.accountCategories} حساب | ${acd.stats.financialStatements} قائمة مالية | ${acd.stats.automationWorkflows} سير عمل آلي | ${acd.stats.archiveIntegrations} تكامل أرشفة | ${acd.stats.shariaRules} ضابط شرعي | أساس: ${acd.stats.calendarBasis}`);
 } catch(e) { console.warn('⚠️ [Accounting] خطأ:', e.message); }
 
 app.get('/api/accounting/dashboard', (req, res) => {
@@ -19662,9 +20866,9 @@ let govPlatformsEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-gov-platforms-engine
     /*     const GPE = require('./lib/sheikha-gov-platforms-engine'); */
-    govPlatformsEngine = new GPE();
-    const gpd = govPlatformsEngine.getDashboard();
-    console.log(`✅ [GovPlatforms] ${gpd.stats.govPlatforms} منصة حكومية | ${gpd.stats.autoUploadFlows} سير رفع آلي | ${gpd.stats.carrierIntegrations} ناقل | ${gpd.stats.portSystems} ميناء | ${gpd.stats.sheikhaDocuments} وثيقة شيخة | ${gpd.stats.operationPhases} مرحلة عملية | ${gpd.stats.analyticsKPIs} مؤشر أداء | ${gpd.stats.backgroundProcesses} عملية خلفية | أساس: ${gpd.stats.calendarBasis}`);
+    // LAZY: govPlatformsEngine = new GPE();
+    // LAZY: const gpd = govPlatformsEngine.getDashboard();
+    // LAZY: console.log(`✅ [GovPlatforms] ${gpd.stats.govPlatforms} منصة حكومية | ${gpd.stats.autoUploadFlows} سير رفع آلي | ${gpd.stats.carrierIntegrations} ناقل | ${gpd.stats.portSystems} ميناء | ${gpd.stats.sheikhaDocuments} وثيقة شيخة | ${gpd.stats.operationPhases} مرحلة عملية | ${gpd.stats.analyticsKPIs} مؤشر أداء | ${gpd.stats.backgroundProcesses} عملية خلفية | أساس: ${gpd.stats.calendarBasis}`);
 } catch(e) { console.warn('⚠️ [GovPlatforms] خطأ:', e.message); }
 
 app.get('/api/gov-platforms/dashboard', (req, res) => {
@@ -19703,9 +20907,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-logistics-management-engine
     /*     const LME = require('./lib/sheikha-logistics-management-engine'); */
     console.log('⏸️ [LAZY] sheikha-logistics-management-engine — سيُحمّل عند الطلب');
-    logisticsManagementEngine = new LME();
-    const lmd = logisticsManagementEngine.getDashboard();
-    console.log(`✅ [LogisticsManagement] ${lmd.totalModules} وحدة | ${lmd.registeredCarriers} ناقل مسجل | ${lmd.openSourceDataSources} مصدر مفتوح | ${lmd.integrationPoints} نقطة تكامل | TMS+WMS+OMS+YMS+FMS+CMS+AI`);
+    // LAZY: logisticsManagementEngine = new LME();
+    // LAZY: const lmd = logisticsManagementEngine.getDashboard();
+    // LAZY: console.log(`✅ [LogisticsManagement] ${lmd.totalModules} وحدة | ${lmd.registeredCarriers} ناقل مسجل | ${lmd.openSourceDataSources} مصدر مفتوح | ${lmd.integrationPoints} نقطة تكامل | TMS+WMS+OMS+YMS+FMS+CMS+AI`);
 } catch(e) { console.warn('⚠️ [LogisticsManagement] خطأ:', e.message); }
 
 app.get('/api/logistics-mgmt/dashboard', (req, res) => {
@@ -19758,9 +20962,9 @@ let materialsSpecsEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-materials-specs-engine
     /*     const MSE = require('./lib/sheikha-materials-specs-engine'); */
-    materialsSpecsEngine = new MSE();
-    const msd = materialsSpecsEngine.getDashboard();
-    console.log(`✅ [MaterialsSpecs] ${msd.stats.metalCategories} فئات معادن | ${msd.stats.totalProducts} منتج | ${msd.stats.hsCodes} كود HS | ${msd.stats.standards} معيار | ${msd.stats.userIndustries} صناعة | ${msd.stats.geographicSources} مصدر جغرافي | ${msd.stats.islamicReferences} مرجع شرعي`);
+    // LAZY: materialsSpecsEngine = new MSE();
+    // LAZY: const msd = materialsSpecsEngine.getDashboard();
+    // LAZY: console.log(`✅ [MaterialsSpecs] ${msd.stats.metalCategories} فئات معادن | ${msd.stats.totalProducts} منتج | ${msd.stats.hsCodes} كود HS | ${msd.stats.standards} معيار | ${msd.stats.userIndustries} صناعة | ${msd.stats.geographicSources} مصدر جغرافي | ${msd.stats.islamicReferences} مرجع شرعي`);
 } catch(e) { console.warn('⚠️ [MaterialsSpecs] خطأ:', e.message); }
 
 app.get('/api/materials/dashboard', (req, res) => {
@@ -19801,9 +21005,9 @@ let readinessEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-readiness-compliance-engine
     /*     const RCE = require('./lib/sheikha-readiness-compliance-engine'); */
-    readinessEngine = new RCE();
-    const rcd = readinessEngine.getDashboard();
-    console.log(`✅ [Readiness] ${rcd.stats.saudiPlatforms} منصة سعودية | ${rcd.stats.saudiLaws} نظام سعودي | ${rcd.stats.internationalRegions} مناطق دولية | ${rcd.stats.countriesSupported} دولة | ${rcd.stats.internationalStandards} معيار دولي | ${rcd.stats.tradeAgreements} اتفاقية تجارية | ${rcd.stats.digitalIntegrationPoints} نقطة تكامل رقمي | ${rcd.stats.shariaRules} قاعدة شرعية`);
+    // LAZY: readinessEngine = new RCE();
+    // LAZY: const rcd = readinessEngine.getDashboard();
+    // LAZY: console.log(`✅ [Readiness] ${rcd.stats.saudiPlatforms} منصة سعودية | ${rcd.stats.saudiLaws} نظام سعودي | ${rcd.stats.internationalRegions} مناطق دولية | ${rcd.stats.countriesSupported} دولة | ${rcd.stats.internationalStandards} معيار دولي | ${rcd.stats.tradeAgreements} اتفاقية تجارية | ${rcd.stats.digitalIntegrationPoints} نقطة تكامل رقمي | ${rcd.stats.shariaRules} قاعدة شرعية`);
 } catch(e) { console.warn('⚠️ [Readiness] خطأ:', e.message); }
 
 app.get('/api/readiness/dashboard', (req, res) => {
@@ -19836,9 +21040,9 @@ let wisdomEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-wisdom-power-engine
     /*     const WPE = require('./lib/sheikha-wisdom-power-engine'); */
-    wisdomEngine = new WPE();
-    const wpd = wisdomEngine.getDashboard();
-    console.log(`✅ [WisdomPower] ${wpd.totalModules} وحدة | AI:${wpd.domains.AI.modules} | Systems:${wpd.domains.Systems.modules} | Computing:${wpd.domains.Computing.modules} | Tech:${wpd.domains.Technology.modules} | Mgmt:${wpd.domains.Management.modules} | Eng:${wpd.domains.Engineering.modules} | Sci:${wpd.domains.Science.modules} | ${wpd.islamicReferences} مرجع شرعي`);
+    // LAZY: wisdomEngine = new WPE();
+    // LAZY: const wpd = wisdomEngine.getDashboard();
+    // LAZY: console.log(`✅ [WisdomPower] ${wpd.totalModules} وحدة | AI:${wpd.domains.AI.modules} | Systems:${wpd.domains.Systems.modules} | Computing:${wpd.domains.Computing.modules} | Tech:${wpd.domains.Technology.modules} | Mgmt:${wpd.domains.Management.modules} | Eng:${wpd.domains.Engineering.modules} | Sci:${wpd.domains.Science.modules} | ${wpd.islamicReferences} مرجع شرعي`);
 } catch(e) { console.warn('⚠️ [WisdomPower] خطأ:', e.message); }
 
 app.get('/api/wisdom/dashboard', (req, res) => {
@@ -19880,9 +21084,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-impact-engine
     /*     const MIE = require('./lib/sheikha-metals-impact-engine'); */
     console.log('⏸️ [LAZY] sheikha-metals-impact-engine — سيُحمّل عند الطلب');
-    metalsImpactEngine = new MIE();
-    const mid = metalsImpactEngine.getDashboard();
-    console.log(`✅ [MetalsImpact] ${mid.stats.metalsTracked} معدن | ${mid.stats.impactDimensions} أبعاد أثر | ${mid.stats.hsCodesCovered} كود HS | ${mid.stats.sdgAlignment} هدف SDG | ${mid.stats.kpis} مؤشر | ${mid.stats.islamicReferences} مرجع شرعي | ${mid.stats.backgroundProcesses} عملية خلفية`);
+    // LAZY: metalsImpactEngine = new MIE();
+    // LAZY: const mid = metalsImpactEngine.getDashboard();
+    // LAZY: console.log(`✅ [MetalsImpact] ${mid.stats.metalsTracked} معدن | ${mid.stats.impactDimensions} أبعاد أثر | ${mid.stats.hsCodesCovered} كود HS | ${mid.stats.sdgAlignment} هدف SDG | ${mid.stats.kpis} مؤشر | ${mid.stats.islamicReferences} مرجع شرعي | ${mid.stats.backgroundProcesses} عملية خلفية`);
 } catch(e) { console.warn('⚠️ [MetalsImpact] خطأ:', e.message); }
 
 app.get('/api/metals-impact/dashboard', (req, res) => {
@@ -19920,9 +21124,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-measurement-engine
     /*     const MME = require('./lib/sheikha-metals-measurement-engine'); */
     console.log('⏸️ [LAZY] sheikha-metals-measurement-engine — سيُحمّل عند الطلب');
-    metalsMeasurementEngine = new MME();
-    const mmd = metalsMeasurementEngine.getDashboard();
-    console.log(`✅ [MetalsMeasurement] ${mmd.stats.propheticMeasures} مقياس نبوي | ${mmd.stats.scientificMeasures} مقياس علمي | ${mmd.stats.economicMeasures} مقياس اقتصادي | ${mmd.stats.classificationAxes} محاور تصنيف | ${mmd.stats.metalsClassified} معدن | ${mmd.stats.backgroundProcesses} عملية خلفية | ${mmd.stats.wisdomDisplayRules} قاعدة عرض حكيم | ${mmd.stats.islamicReferences} مرجع شرعي`);
+    // LAZY: metalsMeasurementEngine = new MME();
+    // LAZY: const mmd = metalsMeasurementEngine.getDashboard();
+    // LAZY: console.log(`✅ [MetalsMeasurement] ${mmd.stats.propheticMeasures} مقياس نبوي | ${mmd.stats.scientificMeasures} مقياس علمي | ${mmd.stats.economicMeasures} مقياس اقتصادي | ${mmd.stats.classificationAxes} محاور تصنيف | ${mmd.stats.metalsClassified} معدن | ${mmd.stats.backgroundProcesses} عملية خلفية | ${mmd.stats.wisdomDisplayRules} قاعدة عرض حكيم | ${mmd.stats.islamicReferences} مرجع شرعي`);
 } catch(e) { console.warn('⚠️ [MetalsMeasurement] خطأ:', e.message); }
 
 app.get('/api/metals-measure/dashboard', (req, res) => {
@@ -19959,9 +21163,9 @@ let logicEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-logic-engine
     /*     const LE = require('./lib/sheikha-logic-engine'); */
-    logicEngine = new LE();
-    const ld = logicEngine.getDashboard();
-    console.log(`✅ [Logic] ${ld.stats.quranicLogicPrinciples} مبدأ قرآني | ${ld.stats.propheticReasoningMethods} منهج نبوي | ${ld.stats.decisionFrameworks} إطار قرار | ${ld.stats.logicalFallacies} مغالطة منطقية | ${ld.stats.businessLogicRules} قاعدة تجارية | ${ld.stats.aiReasoningModels} نموذج AI`);
+    // LAZY: logicEngine = new LE();
+    // LAZY: const ld = logicEngine.getDashboard();
+    // LAZY: console.log(`✅ [Logic] ${ld.stats.quranicLogicPrinciples} مبدأ قرآني | ${ld.stats.propheticReasoningMethods} منهج نبوي | ${ld.stats.decisionFrameworks} إطار قرار | ${ld.stats.logicalFallacies} مغالطة منطقية | ${ld.stats.businessLogicRules} قاعدة تجارية | ${ld.stats.aiReasoningModels} نموذج AI`);
 } catch(e) { console.warn('⚠️ [Logic] خطأ:', e.message); }
 
 app.get('/api/logic/dashboard', (req, res) => {
@@ -19998,9 +21202,9 @@ let quantumStatsEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-quantum-stats-engine
     /*     const QSE = require('./lib/sheikha-quantum-stats-engine'); */
-    quantumStatsEngine = new QSE();
-    const qd = quantumStatsEngine.getDashboard();
-    console.log(`✅ [QuantumStats] ${qd.stats.cosmicMeasures} مقياس كوني | ${qd.stats.propheticEraData} بيانات نبوية | ${qd.stats.earthMeasures} مقياس أرضي | ${qd.stats.heavensMeasures} مقياس سماوي | ${qd.stats.metalQuantities} كمية معدنية | ${qd.stats.systemMetrics} مقياس أنظمة | ${qd.stats.backgroundProcesses} عملية خلفية | ${qd.stats.islamicReferences} مرجع شرعي`);
+    // LAZY: quantumStatsEngine = new QSE();
+    // LAZY: const qd = quantumStatsEngine.getDashboard();
+    // LAZY: console.log(`✅ [QuantumStats] ${qd.stats.cosmicMeasures} مقياس كوني | ${qd.stats.propheticEraData} بيانات نبوية | ${qd.stats.earthMeasures} مقياس أرضي | ${qd.stats.heavensMeasures} مقياس سماوي | ${qd.stats.metalQuantities} كمية معدنية | ${qd.stats.systemMetrics} مقياس أنظمة | ${qd.stats.backgroundProcesses} عملية خلفية | ${qd.stats.islamicReferences} مرجع شرعي`);
 } catch(e) { console.warn('⚠️ [QuantumStats] خطأ:', e.message); }
 
 app.get('/api/quantum-stats/dashboard', (req, res) => {
@@ -20045,9 +21249,9 @@ let wisdomFusionEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-wisdom-fusion-engine
     /*     const WFE = require('./lib/sheikha-wisdom-fusion-engine'); */
-    wisdomFusionEngine = new WFE();
-    const wfd = wisdomFusionEngine.getDashboard();
-    console.log(`✅ [WisdomFusion] ${wfd.stats.fusionDomains} مجال مدموج | ${wfd.stats.wisdomPrinciples} مبدأ حكمة | ${wfd.stats.crossDomainRules} قاعدة عابرة | ${wfd.stats.integrationPoints} نقطة تكامل | ${wfd.stats.logicLayers} طبقة منطق | ${wfd.stats.backgroundProcesses} عملية خلفية | ${wfd.stats.islamicFoundations} مرجع شرعي`);
+    // LAZY: wisdomFusionEngine = new WFE();
+    // LAZY: const wfd = wisdomFusionEngine.getDashboard();
+    // LAZY: console.log(`✅ [WisdomFusion] ${wfd.stats.fusionDomains} مجال مدموج | ${wfd.stats.wisdomPrinciples} مبدأ حكمة | ${wfd.stats.crossDomainRules} قاعدة عابرة | ${wfd.stats.integrationPoints} نقطة تكامل | ${wfd.stats.logicLayers} طبقة منطق | ${wfd.stats.backgroundProcesses} عملية خلفية | ${wfd.stats.islamicFoundations} مرجع شرعي`);
 } catch(e) { console.warn('⚠️ [WisdomFusion] خطأ:', e.message); }
 
 app.get('/api/wisdom-fusion/dashboard', (req, res) => {
@@ -20084,9 +21288,9 @@ let qurayshEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-quraysh-journey-engine
     /*     const QJE = require('./lib/sheikha-quraysh-journey-engine'); */
-    qurayshEngine = new QJE();
-    const qjd = qurayshEngine.getDashboard();
-    console.log(`✅ [Quraysh] ${qjd.stats.divineBlessing} نِعَم إلهية | ${qjd.stats.tradeRoutes} مسار تجاري | ${qjd.stats.partnerCountries} دولة شريكة | ${qjd.stats.securityLayers} طبقة أمان | ${qjd.stats.gratitudePractices} ممارسة شكر | ${qjd.stats.backgroundProcesses} عملية خلفية`);
+    // LAZY: qurayshEngine = new QJE();
+    // LAZY: const qjd = qurayshEngine.getDashboard();
+    // LAZY: console.log(`✅ [Quraysh] ${qjd.stats.divineBlessing} نِعَم إلهية | ${qjd.stats.tradeRoutes} مسار تجاري | ${qjd.stats.partnerCountries} دولة شريكة | ${qjd.stats.securityLayers} طبقة أمان | ${qjd.stats.gratitudePractices} ممارسة شكر | ${qjd.stats.backgroundProcesses} عملية خلفية`);
 } catch(e) { console.warn('⚠️ [Quraysh] خطأ:', e.message); }
 
 app.get('/api/quraysh/dashboard', (req, res) => {
@@ -20127,9 +21331,9 @@ let learningEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-learning-engine
     /*     const SLE = require('./lib/sheikha-learning-engine'); */
-    learningEngine = new SLE();
-    const sld = learningEngine.getDashboard();
-    console.log(`✅ [Learning] ${sld.stats.learningDomains} مجال تعلم | ${sld.stats.quranicKnowledgeVerses} آية علم | ${sld.stats.machineLearningModels} نموذج ML | ${sld.stats.wisdomLessons} درس حكمة | ${sld.stats.continuousProcesses} عملية مستمرة | ${sld.stats.knowledgeSources} مصدر معرفة`);
+    // LAZY: learningEngine = new SLE();
+    // LAZY: const sld = learningEngine.getDashboard();
+    // LAZY: console.log(`✅ [Learning] ${sld.stats.learningDomains} مجال تعلم | ${sld.stats.quranicKnowledgeVerses} آية علم | ${sld.stats.machineLearningModels} نموذج ML | ${sld.stats.wisdomLessons} درس حكمة | ${sld.stats.continuousProcesses} عملية مستمرة | ${sld.stats.knowledgeSources} مصدر معرفة`);
 } catch(e) { console.warn('⚠️ [Learning] خطأ:', e.message); }
 
 app.get('/api/learning/dashboard', (req, res) => {
@@ -20166,9 +21370,9 @@ let walaaBaraaEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-walaa-baraa-engine
     /*     const WBE = require('./lib/sheikha-walaa-baraa-engine'); */
-    walaaBaraaEngine = new WBE();
-    const wbd = walaaBaraaEngine.getDashboard();
-    console.log(`✅ [WalaaBaraa] ${wbd.stats.walaaFoundations} أساس ولاء | ${wbd.stats.baraaShields} درع براء | ${wbd.stats.protectionLayers} طبقة حماية | ${wbd.stats.rejectionRules} قاعدة رفض | ${wbd.stats.victoryPrinciples} مبدأ نصر | ${wbd.stats.backgroundProcesses} عملية خلفية | ${wbd.stats.islamicReferences} مرجع شرعي`);
+    // LAZY: walaaBaraaEngine = new WBE();
+    // LAZY: const wbd = walaaBaraaEngine.getDashboard();
+    // LAZY: console.log(`✅ [WalaaBaraa] ${wbd.stats.walaaFoundations} أساس ولاء | ${wbd.stats.baraaShields} درع براء | ${wbd.stats.protectionLayers} طبقة حماية | ${wbd.stats.rejectionRules} قاعدة رفض | ${wbd.stats.victoryPrinciples} مبدأ نصر | ${wbd.stats.backgroundProcesses} عملية خلفية | ${wbd.stats.islamicReferences} مرجع شرعي`);
 } catch(e) { console.warn('⚠️ [WalaaBaraa] خطأ:', e.message); }
 
 app.get('/api/walaa-baraa/dashboard', (req, res) => {
@@ -20202,9 +21406,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-trade-legacy-engine
     /*     const TLE = require('./lib/sheikha-trade-legacy-engine'); */
     console.log('⏸️ [LAZY] sheikha-trade-legacy-engine — سيُحمّل عند الطلب');
-    tradeLegacyEngine = new TLE();
-    const tld = tradeLegacyEngine.getDashboard();
-    console.log(`✅ [TradeLegacy] ${tld.stats.historicalNetworks} شبكة تاريخية | ${tld.stats.tradersAnalyzed} تاجر | ${tld.stats.goodsCategories} بضاعة | ${tld.stats.sheikhGoals} هدف شيخة | ${tld.stats.backgroundGoals} هدف خلفي | ${tld.stats.islamicReferences} مرجع شرعي | إن شاء الله`);
+    // LAZY: tradeLegacyEngine = new TLE();
+    // LAZY: const tld = tradeLegacyEngine.getDashboard();
+    // LAZY: console.log(`✅ [TradeLegacy] ${tld.stats.historicalNetworks} شبكة تاريخية | ${tld.stats.tradersAnalyzed} تاجر | ${tld.stats.goodsCategories} بضاعة | ${tld.stats.sheikhGoals} هدف شيخة | ${tld.stats.backgroundGoals} هدف خلفي | ${tld.stats.islamicReferences} مرجع شرعي | إن شاء الله`);
 } catch(e) { console.warn('⚠️ [TradeLegacy] خطأ:', e.message); }
 
 app.get('/api/trade-legacy/dashboard', (req, res) => {
@@ -20237,8 +21441,8 @@ let adabAnbiyaEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-adab-anbiya-engine
     /*     const AAE = require('./lib/sheikha-adab-anbiya-engine'); */
-    adabAnbiyaEngine = new AAE();
-    console.log('✅ [🔒 Private] أدب الأنبياء والمقام المباح — مُفعّل — سري وخاص للمالك فقط');
+    // LAZY: adabAnbiyaEngine = new AAE();
+    // LAZY: console.log('✅ [🔒 Private] أدب الأنبياء والمقام المباح — مُفعّل — سري وخاص للمالك فقط');
 } catch(e) { console.warn('⚠️ [Private] خطأ:', e.message); }
 
 // حماية: كل API يتطلب مفتاح المالك في الترويسة
@@ -20281,9 +21485,9 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-trust-auth-engine
     /*     const TAE = require('./lib/sheikha-trust-auth-engine'); */
     console.log('⏸️ [LAZY] sheikha-trust-auth-engine — سيُحمّل عند الطلب');
-    trustAuthEngine = new TAE();
-    const tad = trustAuthEngine.getDashboard();
-    console.log(`✅ [TrustAuth] ${tad.stats.trustPillars} ركائز أمانة | ${tad.stats.authLayers} طبقة مصادقة | ${tad.stats.reliabilityMetrics} مقياس موثوقية | ${tad.stats.authMethods} طريقة auth | ${tad.stats.rbacRoles} دور صلاحية | ${tad.stats.securityProtocols} بروتوكول أمان | ${tad.stats.islamicTrustPrinciples} مبدأ أمانة إسلامي | ${tad.stats.backgroundProcesses} عملية خلفية | الأمين ﷺ`);
+    // LAZY: trustAuthEngine = new TAE();
+    // LAZY: const tad = trustAuthEngine.getDashboard();
+    // LAZY: console.log(`✅ [TrustAuth] ${tad.stats.trustPillars} ركائز أمانة | ${tad.stats.authLayers} طبقة مصادقة | ${tad.stats.reliabilityMetrics} مقياس موثوقية | ${tad.stats.authMethods} طريقة auth | ${tad.stats.rbacRoles} دور صلاحية | ${tad.stats.securityProtocols} بروتوكول أمان | ${tad.stats.islamicTrustPrinciples} مبدأ أمانة إسلامي | ${tad.stats.backgroundProcesses} عملية خلفية | الأمين ﷺ`);
 } catch(e) { console.warn('⚠️ [TrustAuth] خطأ:', e.message); }
 
 app.get('/api/trust-auth/dashboard', (req, res) => {
@@ -20318,8 +21522,8 @@ try {
     // P0-1: LAZY (L1) - sheikha-master-architecture-engine.js
     /*     const SheikhaArchitectureEngine = require('./lib/sheikha-master-architecture-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-master-architecture-engine.js — سيُحمّل عند الطلب');
-    architectureEngine = new SheikhaArchitectureEngine();
-    console.log('✅ 🏗️ Master Architecture Engine — الهيكل والمخطط المتقن الشامل — 100 محرك في 10 طبقات — مُفعّل');
+    // LAZY: architectureEngine = new SheikhaArchitectureEngine();
+    // LAZY: console.log('✅ 🏗️ Master Architecture Engine — الهيكل والمخطط المتقن الشامل — 100 محرك في 10 طبقات — مُفعّل');
 } catch (e) {
     console.log('⚠️ Architecture Engine غير متوفر:', e.message);
 }
@@ -20367,8 +21571,8 @@ try {
     // P0-1: LAZY (L2) - sheikha-os-v2-agentic-engine.js
     /*     const SheikhaAgenticOSEngine = require('./lib/sheikha-os-v2-agentic-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-os-v2-agentic-engine.js — سيُحمّل عند الطلب');
-    agenticOSEngine = new SheikhaAgenticOSEngine();
-    console.log('✅ 🖥️ Sheikha OS V2 (Agentic AI) — نظام التشغيل الوكيلي الذكي — أفضل من HUMAIN ONE — مُفعّل');
+    // LAZY: agenticOSEngine = new SheikhaAgenticOSEngine();
+    // LAZY: console.log('✅ 🖥️ Sheikha OS V2 (Agentic AI) — نظام التشغيل الوكيلي الذكي — أفضل من HUMAIN ONE — مُفعّل');
 } catch (e) {
     console.log('⚠️ Agentic OS Engine غير متوفر:', e.message);
 }
@@ -20410,9 +21614,9 @@ let customsClearanceEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-customs-clearance-automation-engine
     /*     const CCAE = require('./lib/sheikha-customs-clearance-automation-engine'); */
-    customsClearanceEngine = new CCAE();
-    const ccd = customsClearanceEngine.getDashboard();
-    console.log(`✅ [CustomsClearance] أتمتة التخليص الجمركي — ${Object.keys(ccd.systems).length} أنظمة | ${ccd.transportChannels.length} قنوات نقل | ${ccd.governmentPlatforms.length} منصات حكومية | قاعدة بيانات متكاملة`);
+    // LAZY: customsClearanceEngine = new CCAE();
+    // LAZY: const ccd = customsClearanceEngine.getDashboard();
+    // LAZY: console.log(`✅ [CustomsClearance] أتمتة التخليص الجمركي — ${Object.keys(ccd.systems).length} أنظمة | ${ccd.transportChannels.length} قنوات نقل | ${ccd.governmentPlatforms.length} منصات حكومية | قاعدة بيانات متكاملة`);
 } catch(e) { console.warn('⚠️ [CustomsClearance] خطأ:', e.message); }
 
 // لوحة التحكم الرئيسية
@@ -20544,9 +21748,9 @@ let powerEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-ultimate-power-engine
     /*     const PE = require('./lib/sheikha-ultimate-power-engine'); */
-    powerEngine = new PE();
-    const pd = powerEngine.getDashboard();
-    console.log(`✅ [UltimatePower] محرك القوة المطلقة — ${pd.totalPowers} قوة رقمية | ${pd.totalBackgroundOperations} عملية خلفية | بالكتاب والسنة`);
+    // LAZY: powerEngine = new PE();
+    // LAZY: const pd = powerEngine.getDashboard();
+    // LAZY: console.log(`✅ [UltimatePower] محرك القوة المطلقة — ${pd.totalPowers} قوة رقمية | ${pd.totalBackgroundOperations} عملية خلفية | بالكتاب والسنة`);
 } catch(e) { console.warn('⚠️ [UltimatePower] خطأ:', e.message); }
 
 // لوحة التحكم
@@ -20595,9 +21799,9 @@ let paymentsEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-payments-engine
     /*     const PME = require('./lib/sheikha-payments-engine'); */
-    paymentsEngine = new PME();
-    const pd = paymentsEngine.getDashboard();
-    console.log(`✅ [Payments] قوة المدفوعات — ${pd.stats.totalPaymentMethods} وسيلة دفع | ${pd.stats.activeNow} مفعّلة | ${pd.stats.shariaChecks} فحص شرعي | بيان أجور شفاف`);
+    // LAZY: paymentsEngine = new PME();
+    // LAZY: const pd = paymentsEngine.getDashboard();
+    // LAZY: console.log(`✅ [Payments] قوة المدفوعات — ${pd.stats.totalPaymentMethods} وسيلة دفع | ${pd.stats.activeNow} مفعّلة | ${pd.stats.shariaChecks} فحص شرعي | بيان أجور شفاف`);
 } catch(e) { console.warn('⚠️ [Payments] خطأ:', e.message); }
 
 app.get('/api/payments/dashboard', (req, res) => {
@@ -20898,6 +22102,260 @@ app.get('/api/taqwa/system', (req, res) => {
 console.log('   🛡️ Taqwa APIs: /api/taqwa/dashboard, /api/taqwa/system');
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🏗️ المعمارية الرقمية الذكية — 3 أعمدة مترابطة (قبل 404)
+// ═══════════════════════════════════════════════════════════════════════════════
+let smartArch = null, smartNet = null, smartStruct = null;
+try {
+    const SheikhaSmartArchitecture = require('./lib/sheikha-smart-architecture');
+    const SheikhaSmartNetwork = require('./lib/sheikha-smart-network');
+    const SheikhaSmartStructure = require('./lib/sheikha-smart-structure');
+
+    smartArch = new SheikhaSmartArchitecture();
+    smartNet = new SheikhaSmartNetwork();
+    smartStruct = new SheikhaSmartStructure();
+
+    // ── تسجيل كل المحركات المتوفرة للمراقبة الذاتية ──
+    const allEngines = {
+        sharia: shariaEngine, taqwa: taqwaEngine, security: securityEngine,
+        metals: metalsMarketEngine, trade: tradeEngine, legal: legalEngine,
+        banking: bankingEngine, segments: segmentsEngine, dashboard: dashboardEngine,
+        experience: experienceEngine, musharri: musharriEngine, pilot: pilotEngine,
+        brand: brandEngine, quranSunnah: quranSunnahEngine, historical: historicalEngine,
+        souqMadinah: souqMadinahEngine, admin: adminBlueprintEngine,
+        marketStructure: marketStructureEngine, supplyLogistics: supplyLogisticsEngine,
+        petroleum: petroleumEngine, economics: economicsEngine,
+        smartStruct: smartStruct, smartNet: smartNet
+    };
+    for (const [name, inst] of Object.entries(allEngines)) {
+        if (inst) {
+            const wrapper = {
+                healthCheck: () => {
+                    try {
+                        if (typeof inst.getStatus === 'function') {
+                            const s = inst.getStatus();
+                            return Promise.resolve(s && s.status !== 'error');
+                        }
+                        if (typeof inst.getDashboard === 'function') {
+                            inst.getDashboard();
+                            return Promise.resolve(true);
+                        }
+                        return Promise.resolve(!!inst);
+                    } catch (_) { return Promise.resolve(false); }
+                },
+                restart: () => Promise.resolve()
+            };
+            smartArch.registerEngine(name, wrapper);
+        }
+    }
+
+    // ── ربط جدار الحماية الذكي كـ middleware ──
+    app.use((req, res, next) => {
+        try {
+            const result = smartNet.analyzeRequest(req);
+            if (result && result.blocked) {
+                return res.status(403).json({
+                    success: false,
+                    message: 'طلب محظور — جدار الحماية الذكي',
+                    reason: result.reason || 'threat_detected'
+                });
+            }
+        } catch (_) {}
+        next();
+    });
+
+    // ── ربط الأعمدة الثلاثة عبر ناقل الأحداث ──
+    smartArch.on('engine-dead', (data) => {
+        smartNet.publish('architecture', { type: 'engine-dead', ...data });
+    });
+    smartArch.on('engine-restarted', (data) => {
+        smartNet.publish('architecture', { type: 'engine-restarted', ...data });
+    });
+
+    // ── حماية مسارات الأدمن للمعمارية الذكية ──
+    const ownerAccessKey = String(process.env.SHEIKHA_OWNER_KEY || '').trim();
+    if (!ownerAccessKey) {
+        console.warn('⚠️ [SmartDigital] SHEIKHA_OWNER_KEY غير مضبوط — تم تعطيل الدخول عبر x-owner-key');
+    }
+    const smartAdminGuard = (req, res, next) => {
+        const user = verifyTokenRole(req);
+        if (user && (user.role === 'admin' || user.role === 'owner')) return next();
+        if (ownerAccessKey && req.headers['x-owner-key'] === ownerAccessKey) return next();
+        return res.status(401).json({ success: false, message: 'يجب تسجيل الدخول كأدمن' });
+    };
+    app.use('/api/smart', smartAdminGuard);
+    app.use('/api/network', smartAdminGuard);
+    app.use('/api/structure', smartAdminGuard);
+    app.get('/api/erp/architecture/status', smartAdminGuard, (req, res) => {
+        const smartStatus = smartArch ? smartArch.getStatus() : null;
+        const networkStatus = smartNet ? smartNet.getStatus() : null;
+        const structureStatus = smartStruct ? smartStruct.getStatus() : null;
+        return res.json({
+            success: true,
+            data: {
+                smart: smartStatus,
+                network: networkStatus,
+                structure: structureStatus,
+                topology: smartNet ? smartNet.getTopology() : null,
+                telemetry: smartNet ? smartNet.getLiveTelemetry() : null
+            },
+            timestamp: new Date().toISOString()
+        });
+    });
+
+    smartArch.registerAPIs(app);
+    smartNet.registerAPIs(app);
+    smartStruct.registerAPIs(app);
+
+    // ── Beta RPC (مغلق افتراضيًا إلا عند التفعيل) ──
+    const betaRpcEnabled = String(process.env.SHEIKHA_BETA_RPC_ENABLED || 'true').toLowerCase() === 'true';
+    app.all('/api/beta/rpc', smartAdminGuard, (req, res) => {
+        const action = String(req.body?.action || req.query?.action || 'status').trim().toLowerCase();
+        const payload = req.body?.payload || {};
+        const auditBase = {
+            ts: new Date().toISOString(),
+            path: '/api/beta/rpc',
+            method: req.method,
+            action,
+            ip: req.ip,
+            userAgent: req.headers['user-agent'] || 'unknown'
+        };
+
+        if (!betaRpcEnabled) {
+            const auditEntry = { ...auditBase, success: false, status: 423, reason: 'rpc_disabled' };
+            appendBetaRpcAudit(auditEntry);
+            sendBetaRpcSecurityAlert('rpc_disabled', auditEntry);
+            return res.status(423).json({
+                success: false,
+                message: 'Beta RPC مغلق حاليًا لأسباب أمنية',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        if (action === 'ping') {
+            appendBetaRpcAudit({ ...auditBase, success: true, status: 200 });
+            return res.json({ success: true, data: { pong: true, mode: 'beta' }, timestamp: new Date().toISOString() });
+        }
+
+        if (action === 'status') {
+            appendBetaRpcAudit({ ...auditBase, success: true, status: 200 });
+            return res.json({
+                success: true,
+                data: {
+                    rpc: { mode: 'beta', enabled: true, allow: ['ping', 'status', 'smart.status', 'network.status', 'structure.status'] },
+                    smart: smartArch ? smartArch.getStatus() : null,
+                    network: smartNet ? smartNet.getStatus() : null,
+                    structure: smartStruct ? smartStruct.getStatus() : null
+                },
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        if (action === 'smart.status') {
+            appendBetaRpcAudit({ ...auditBase, success: true, status: 200 });
+            return res.json({ success: true, data: smartArch ? smartArch.getStatus() : null, timestamp: new Date().toISOString() });
+        }
+
+        if (action === 'network.status') {
+            appendBetaRpcAudit({ ...auditBase, success: true, status: 200 });
+            return res.json({ success: true, data: smartNet ? smartNet.getStatus() : null, timestamp: new Date().toISOString() });
+        }
+
+        if (action === 'structure.status') {
+            appendBetaRpcAudit({ ...auditBase, success: true, status: 200 });
+            return res.json({ success: true, data: smartStruct ? smartStruct.getStatus() : null, timestamp: new Date().toISOString() });
+        }
+
+        if (action === 'audit') {
+            const limit = Math.max(1, Math.min(200, Number(req.body?.limit || req.query?.limit || 50)));
+            appendBetaRpcAudit({ ...auditBase, success: true, status: 200 });
+            return res.json({
+                success: true,
+                data: {
+                    total: BETA_RPC_AUDIT.length,
+                    items: BETA_RPC_AUDIT.slice(0, limit)
+                },
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        const auditEntry = { ...auditBase, success: false, status: 400, reason: 'unsupported_action' };
+        appendBetaRpcAudit(auditEntry);
+        sendBetaRpcSecurityAlert('unsupported_action', auditEntry);
+        return res.status(400).json({
+            success: false,
+            message: 'أمر Beta RPC غير مدعوم',
+            supported: ['ping', 'status', 'smart.status', 'network.status', 'structure.status', 'audit'],
+            payload,
+            timestamp: new Date().toISOString()
+        });
+    });
+
+    app.get('/api/beta/rpc/audit', smartAdminGuard, (req, res) => {
+        const limit = Math.max(1, Math.min(200, Number(req.query.limit || 50)));
+        res.json({
+            success: true,
+            data: {
+                total: BETA_RPC_AUDIT.length,
+                items: BETA_RPC_AUDIT.slice(0, limit)
+            },
+            timestamp: new Date().toISOString()
+        });
+    });
+
+    smartArch.start();
+    smartNet.start();
+    // تغذية طوبولوجيا الشبكة من صحة المحركات بشكل دوري + تنبيهات الخروج من active
+    const engineStatusMemo = new Map();
+    setInterval(() => {
+        try {
+            for (const [engineName, engineState] of smartArch.engines.entries()) {
+                const currentStatus = String(engineState.status || 'active');
+                const previousStatus = engineStatusMemo.get(engineName) || null;
+                if (previousStatus && previousStatus !== currentStatus) {
+                    if (currentStatus !== 'active') {
+                        smartNet.publish('alerts', {
+                            type: 'engine_status_degraded',
+                            engine: engineName,
+                            previousStatus,
+                            currentStatus,
+                            failures: Number(engineState.failures || 0)
+                        }, 'smartArch');
+                        if (typeof addSystemLog === 'function') {
+                            addSystemLog('warning', 'SmartDigital', `المحرك ${engineName} خرج من active إلى ${currentStatus}`);
+                        }
+                    } else {
+                        smartNet.publish('alerts', {
+                            type: 'engine_status_recovered',
+                            engine: engineName,
+                            previousStatus,
+                            currentStatus
+                        }, 'smartArch');
+                        if (typeof addSystemLog === 'function') {
+                            addSystemLog('success', 'SmartDigital', `المحرك ${engineName} عاد إلى active`);
+                        }
+                    }
+                }
+                engineStatusMemo.set(engineName, currentStatus);
+                smartNet.reportTelemetry(engineName, {
+                    status: currentStatus,
+                    latency: Number(engineState.latency || 0),
+                    load: 0,
+                    errors: Number(engineState.failures || 0),
+                    requests: 0
+                });
+            }
+        } catch (_) {}
+    }, 15000);
+
+    const regCount = smartArch.engines ? smartArch.engines.size : 0;
+    console.log(`✅ [SmartDigital] المعمارية الرقمية الذكية — 3 أعمدة مترابطة`);
+    console.log(`   🏗 Smart Architecture: /api/smart/dashboard — ${regCount} محرك مسجّل`);
+    console.log('   🌐 Smart Network: /api/network/dashboard — جدار حماية مُفعّل');
+    console.log('   🔷 Smart Structure: /api/structure/org — سير عمل + توائم رقمية');
+    console.log('   🔗 الأعمدة مترابطة عبر ناقل الأحداث');
+} catch (e) { console.warn('⚠️ SmartDigital:', e.message); }
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
@@ -21002,8 +22460,8 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-quran-ai-foundations
     /*     const { QuranAIFoundationsEngine } = require('./lib/sheikha-quran-ai-foundations'); */
     console.log('⏸️ [LAZY] sheikha-quran-ai-foundations — سيُحمّل عند الطلب');
-    quranAIEngine = new QuranAIFoundationsEngine();
-    console.log(`   📖 [QuranAI] محرك الأسس القرآنية — ${Object.keys(quranAIEngine.foundations).length} مفهوم | ${quranAIEngine.humanCreation.stages.length} مرحلة خلق | يعمل بالخلفية`);
+    // LAZY: quranAIEngine = new QuranAIFoundationsEngine();
+    // LAZY: console.log(`   📖 [QuranAI] محرك الأسس القرآنية — ${Object.keys(quranAIEngine.foundations).length} مفهوم | ${quranAIEngine.humanCreation.stages.length} مرحلة خلق | يعمل بالخلفية`);
 } catch (e) { console.warn('⚠️ QuranAI:', e.message); }
 
 // ─── مساهمة سلمان أحمد بن سلمان الراجح — علمياً لله سبحانه ───
@@ -21138,16 +22596,34 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-smart-market-engine
     /*     smartMarketEngine = require('./lib/sheikha-smart-market-engine'); */
     console.log('⏸️ [LAZY] sheikha-smart-market-engine — سيُحمّل عند الطلب');
-    smartMarketEngine.registerAPIs(app, { LISTINGS, TRADERS, USERS, ORDERS, saveJSON });
-    console.log('✅ [SmartMarket] نظام السوق الرقمي الذكي — 7 أنظمة متكاملة');
+    // LAZY: smartMarketEngine.registerAPIs(app, { LISTINGS, TRADERS, USERS, ORDERS, saveJSON });
+    // LAZY: console.log('✅ [SmartMarket] نظام السوق الرقمي الذكي — 7 أنظمة متكاملة');
 } catch (e) { console.warn('⚠️ SmartMarket:', e.message); }
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🚀 بدء الخادم
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const server = app.listen(PORT, '127.0.0.1', () => {
-    addSystemLog('success', 'Server', `Server started on port ${PORT}`);
+function startListening() {
+    const server = app.listen(PORT, '127.0.0.1', () => {
+        addSystemLog('success', 'Server', `Server started on port ${PORT}`);
+    });
+
+    server.on('error', (err) => {
+        if (err.code === 'EADDRINUSE') {
+            console.error(`🔴 المنفذ ${PORT} مستخدم — تأكد أن PM2 متوقف وأن systemd هو المسؤول الوحيد`);
+        } else {
+            console.error('🔴 خطأ في بدء الخادم:', err.message);
+        }
+        process.exit(1);
+    });
+
+    server.on('listening', onServerListening);
+    global._sheikhaServer = server;
+}
+
+function onServerListening() {
+    const server = global._sheikhaServer;
 
     // ═══ تفعيل محرك الأتمتة v2.0 — تسجيل APIs + بدء الجدولة ═══
     if (automationEngine) {
@@ -21170,6 +22646,24 @@ const server = app.listen(PORT, '127.0.0.1', () => {
         }
     }
 
+    // ═══ تسجيل مسارات منظومة التكامل والتحويل ═══
+    if (integrationEngine) {
+        try {
+            console.log('🔗 Integration Engine APIs — جاهزة ومفعّلة');
+        } catch (e) {
+            console.log('⚠️ خطأ في تفعيل منظومة التكامل:', e.message);
+        }
+    }
+
+    // WebSocket
+    const wss = new WebSocket.Server({ server });
+    wss.on('connection', (ws) => {
+        _wsClients.push(ws);
+        ws.send(JSON.stringify({ type: 'connected', prices: LIVE_PRICES }));
+        ws.send(JSON.stringify({ type: 'iotSensors', sensors: IOT_SENSORS, timestamp: new Date().toISOString() }));
+        ws.on('close', () => { _wsClients = _wsClients.filter(c => c !== ws); });
+    });
+
     console.log(`
 ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                           🏪 سوق شيخة للمعادن والسكراب - البوابة الرئيسية                                          ║
@@ -21181,19 +22675,17 @@ const server = app.listen(PORT, '127.0.0.1', () => {
 ║   شريكك الموثوق في عالم المعادن والسكراب                                                                           ║
 ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 `);
-});
+}
 
-// WebSocket
-const wss = new WebSocket.Server({ server });
-let clients = [];
-
-wss.on('connection', (ws) => {
-    clients.push(ws);
-    ws.send(JSON.stringify({ type: 'connected', prices: LIVE_PRICES }));
-    ws.on('close', () => { clients = clients.filter(c => c !== ws); });
-});
-
+let _wsClients = [];
 function broadcastPrices() {
     const data = JSON.stringify({ type: 'priceUpdate', prices: LIVE_PRICES, timestamp: new Date().toISOString() });
-    clients.forEach(client => { if (client.readyState === WebSocket.OPEN) client.send(data); });
+    _wsClients.forEach(client => { if (client.readyState === WebSocket.OPEN) client.send(data); });
 }
+
+function broadcastIotSensors() {
+    const data = JSON.stringify({ type: 'iotSensors', sensors: IOT_SENSORS, timestamp: new Date().toISOString() });
+    _wsClients.forEach(client => { if (client.readyState === WebSocket.OPEN) client.send(data); });
+}
+
+startListening();

@@ -11,14 +11,23 @@
     "dev": "node --watch server.js",
     "start:safe": "~/.nvm/versions/node/v20.20.0/bin/node server.js",
     "ops:readiness": "node scripts/integration-readiness.js",
+    "ops:gov:readiness": "node scripts/gov-integrations-readiness.js",
+    "ops:gov:auto": "node scripts/gov-auto-activation.js",
+    "ops:gov:auto:fix": "SHEIKHA_AUTOFIX=1 node scripts/gov-auto-activation.js",
+    "ops:gov:procedures": "node scripts/gov-procedures-digitalization.js",
+    "ops:gov:procedures:fix": "SHEIKHA_AUTOFIX=1 node scripts/gov-procedures-digitalization.js",
     "ops:readiness:fix": "SHEIKHA_AUTOFIX=1 node scripts/integration-readiness.js",
     "ops:auth:readiness": "node scripts/auth-readiness.js",
     "ops:bg-guard": "node scripts/background-processes-guard.js",
     "ops:bg-guard:loop": "node scripts/background-processes-guard.js --loop --interval=60",
     "ops:bg-guard:pm2:start": "pm2 delete sheikha-bg-guard 2>/dev/null; pm2 start npm --name sheikha-bg-guard -- run ops:bg-guard:loop && pm2 save",
-    "ops:bg-guard:pm2:stop": "pm2 delete sheikha-bg-guard"
+    "ops:bg-guard:pm2:stop": "pm2 delete sheikha-bg-guard",
+    "ops:ollama:plan": "node scripts/ollama-models-sync.js --plan",
+    "ops:ollama:apply": "OLLAMA_ALLOW_PULL=true node scripts/ollama-models-sync.js --apply"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "@google/generative-ai": "^0.24.1",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -27,7 +36,12 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "node-cron": "^3.0.3",
+    "ollama": "^0.6.3",
+    "openai": "^6.22.0",
     "uuid": "^9.0.0",
     "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "pm2": "^6.0.14"
   }
 }

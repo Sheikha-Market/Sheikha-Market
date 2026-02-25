@@ -6720,14 +6720,18 @@ async function sendAdminChat(){
             return;
         }
 
-        // fallback محلي مع رسالة توضيحية
+        // fallback محلي مع رسالة توضيحية (لا تعتبر خطأ — تشغيل ذكي)
         var reason = (data && (data.message || data.detail)) ? (data.message || data.detail) : ('HTTP ' + res.status);
-        _shkAppendBubble('system', '⚠️ تعذر الاتصال بالمحرك — تم استخدام رد محلي. (' + _shkEscapeHtml(reason) + ')');
+        var isRateLimit = (reason && reason.indexOf('حد استخدام') !== -1) || (reason && reason.indexOf('حد الطلبات') !== -1);
+        var systemMsg = isRateLimit
+            ? ('🔄 تشغيل ذكي: تم استخدام الرد المحلي (تجاوز حد الطلبات مؤقتاً).')
+            : ('🔄 تشغيل ذكي: تم استخدام الرد المحلي. (' + _shkEscapeHtml(reason) + ')');
+        _shkAppendBubble('system', systemMsg);
         var resp = (typeof generateAdminResponse === 'function') ? generateAdminResponse(msg) : 'تم استلام طلبك. جارٍ التنفيذ...';
         _shkAppendBubble('assistant', resp);
     } catch (e) {
         if (typing) typing.remove();
-        _shkAppendBubble('system', '⚠️ خطأ اتصال بالشات — تم استخدام رد محلي.');
+        _shkAppendBubble('system', '🔄 تشغيل ذكي: تم استخدام الرد المحلي.');
         var resp2 = (typeof generateAdminResponse === 'function') ? generateAdminResponse(msg) : 'تم استلام طلبك. جارٍ التنفيذ...';
         _shkAppendBubble('assistant', resp2);
     }
@@ -7784,5 +7788,6 @@ setInterval(function() {
 }, 30000);
 </script>
 <script src="/js/sheikha-smart-fab.js" defer></script>
+<script src="/js/sheikha-itqan.js"></script>
 </body>
 </html>

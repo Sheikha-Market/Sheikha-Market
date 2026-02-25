@@ -1,0 +1,8 @@
+[Unit]
+Description=Sheikha daily readiness report
+After=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/home/sheikha/Projects/sheikha/sheikha-main-portal/.env
+ExecStart=/usr/local/bin/sheikha-daily-report.sh

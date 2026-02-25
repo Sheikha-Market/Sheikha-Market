@@ -1,3 +1,8 @@
+---
+description: 
+alwaysApply: true
+---
+
 # بسم الله الرحمن الرحيم
 # CLAUDE.md — منظومة وسوق شيخة
 

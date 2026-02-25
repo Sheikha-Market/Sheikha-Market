@@ -33,6 +33,18 @@ const config = {
 
     // ─── إعدادات الذكاء الاصطناعي ─────────────────────────────────────────────
     ai: {
+        ollama: {
+            enabled: process.env.OLLAMA_ENABLED !== 'false',
+            host: process.env.OLLAMA_HOST || 'http://127.0.0.1:11434',
+            profile: process.env.OLLAMA_PROFILE || 'auto',
+            autoUpdate: process.env.OLLAMA_AUTO_UPDATE !== 'false',
+            updateIntervalHours: parseInt(process.env.OLLAMA_UPDATE_INTERVAL_HOURS || '24', 10),
+            allowPull: process.env.OLLAMA_ALLOW_PULL === 'true',
+            defaultModel: process.env.OLLAMA_DEFAULT_MODEL || 'llama3.1:8b',
+            strongModel: process.env.OLLAMA_STRONG_MODEL || 'qwen2.5:14b',
+            lightModel: process.env.OLLAMA_LIGHT_MODEL || 'phi3:mini',
+            timeoutMs: parseInt(process.env.OLLAMA_TIMEOUT_MS || '90000', 10)
+        },
         openai: {
             apiKey: process.env.OPENAI_API_KEY,
             model: process.env.AI_LLM_MODEL || 'gpt-5.2',

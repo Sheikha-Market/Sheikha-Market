@@ -148,6 +148,36 @@ input[type=range]::-moz-range-track{height:6px;background:var(--bdr);border-radi
 .p-img{height:260px;background:linear-gradient(170deg,#101628 0%,#0c1122 30%,#080d1a 60%,#060a14 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .p-img::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 35% 25%,rgba(255,255,255,.02),transparent 55%),radial-gradient(ellipse at 65% 75%,rgba(212,175,55,.035),transparent 45%),radial-gradient(ellipse at 50% 50%,rgba(184,115,51,.02),transparent 60%)}
 .p-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top,rgba(7,11,22,.98),rgba(7,11,22,.4) 60%,transparent);z-index:2}
+.p-real-media{position:absolute;inset:0;z-index:1;opacity:0;transform:scale(1.04);transition:opacity .35s ease,transform .6s cubic-bezier(.23,1,.32,1)}
+.p-real-media picture,.p-real-media img{width:100%;height:100%;display:block}
+.p-real-media img{object-fit:cover;filter:saturate(1.06) contrast(1.08) brightness(1.02)}
+.p-img.has-real .p-real-media{opacity:1;transform:scale(1)}
+.p-img.has-real .metal-scene{opacity:0;transform:scale(.96)}
+.p-img.has-real .p-img-studio,.p-img.has-real .p-img-grain{opacity:0}
+.p-card:hover .p-img.has-real .p-real-media{transform:scale(1.04)}
+.p-img.no-real .p-real-media{opacity:0!important;transform:none!important}
+.p-img.no-real .metal-scene{display:none!important}
+.p-img.no-real .p-img-studio,.p-img.no-real .p-img-grain{opacity:0!important}
+.p-no-real-label{position:absolute;inset:auto 12px 12px 12px;z-index:4;padding:8px 10px;border-radius:10px;background:rgba(2,6,23,.72);border:1px solid rgba(148,163,184,.28);color:#cbd5e1;font-size:.68rem;font-weight:700;display:none;text-align:center}
+.p-img.no-real .p-no-real-label{display:block}
+.p-media-thumbs{position:absolute;left:10px;top:50%;transform:translateY(-50%);z-index:4;display:flex;flex-direction:column;gap:6px}
+.p-thumb{width:40px;height:40px;border-radius:8px;overflow:hidden;border:1px solid rgba(212,175,55,.24);background:rgba(5,8,16,.75);box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.p-thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.02)}
+.p-real-overlay{position:absolute;inset:0;z-index:2;pointer-events:none;background:
+  linear-gradient(to top,rgba(4,7,14,.92),rgba(4,7,14,.18) 45%,rgba(4,7,14,.05)),
+  radial-gradient(circle at 18% 16%,rgba(255,255,255,.14),transparent 28%),
+  radial-gradient(circle at 82% 12%,rgba(212,175,55,.14),transparent 30%)}
+.p-img.has-real .p-real-overlay{opacity:.35}
+.p-real-badge{position:absolute;left:12px;bottom:12px;z-index:4;padding:5px 10px;border-radius:999px;font-size:.61rem;font-weight:800;background:rgba(5,8,16,.75);border:1px solid rgba(212,175,55,.25);color:#f5e6a3;backdrop-filter:blur(8px)}
+.p-no-spirits{position:absolute;right:12px;bottom:12px;z-index:4;padding:5px 10px;border-radius:999px;font-size:.6rem;font-weight:800;background:rgba(8,20,14,.72);border:1px solid rgba(34,197,94,.28);color:#86efac;backdrop-filter:blur(8px)}
+.p-no-spirits.warn{background:rgba(28,20,8,.75);border-color:rgba(251,191,36,.45);color:#fde68a}
+.p-no-spirits.alert{background:rgba(36,8,8,.78);border-color:rgba(248,113,113,.5);color:#fecaca}
+.p-img-studio{position:absolute;inset:0;background:radial-gradient(circle at 22% 18%,rgba(255,255,255,.1),transparent 28%),radial-gradient(circle at 78% 22%,rgba(212,175,55,.12),transparent 32%),radial-gradient(circle at 50% 84%,rgba(8,12,24,.92),rgba(5,8,16,.98) 48%,rgba(4,6,12,1) 72%);z-index:0;pointer-events:none}
+.p-img-grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.18;mix-blend-mode:soft-light;background-image:radial-gradient(rgba(255,255,255,.15) .4px,transparent .4px),radial-gradient(rgba(0,0,0,.16) .4px,transparent .4px);background-size:3px 3px,4px 4px;background-position:0 0,1px 1px}
+.p-realism-badge{position:absolute;bottom:12px;right:12px;z-index:4;padding:5px 10px;border-radius:999px;font-size:.62rem;font-weight:800;letter-spacing:.02em;background:linear-gradient(135deg,rgba(5,8,16,.82),rgba(14,20,36,.84));color:#dbeafe;border:1px solid rgba(148,163,184,.24);backdrop-filter:blur(8px)}
+.p-image-truth{position:absolute;right:12px;top:46px;z-index:4;padding:5px 10px;border-radius:999px;font-size:.6rem;font-weight:800;letter-spacing:.01em;backdrop-filter:blur(8px);border:1px solid transparent}
+.p-image-truth.real{background:rgba(22,163,74,.2);border-color:rgba(34,197,94,.35);color:#bbf7d0}
+.p-image-truth.ref{background:rgba(59,130,246,.16);border-color:rgba(96,165,250,.35);color:#bfdbfe}
 /* ═══════════════════════════════════════════════════════════════════════════
    منظومة شيخة — محرك الرسوميات المتقدم V5
    SHEIKHA ADVANCED GRAPHICS ENGINE — 3D / 4D / Animation / Simulation
@@ -319,6 +349,19 @@ input[type=range]::-moz-range-track{height:6px;background:var(--bdr);border-radi
 .p-cat::before{content:'';width:14px;height:1.5px;background:linear-gradient(90deg,var(--gold),transparent);display:inline-block}
 .p-name{font-size:1.15rem;font-weight:900;color:#f8f0d8;margin-bottom:6px;line-height:1.45;letter-spacing:.3px;text-shadow:0 1px 2px rgba(0,0,0,.3);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .p-desc{font-size:.83rem;color:var(--t2);line-height:1.75;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.p-quality-strip{display:flex;gap:6px;flex-wrap:wrap;margin:-4px 0 14px}
+.p-q-chip{padding:4px 8px;border-radius:8px;font-size:.62rem;font-weight:700;letter-spacing:.01em}
+.p-q-chip.real{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);color:#93c5fd}
+.p-q-chip.verified{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.22);color:#86efac}
+.p-q-chip.tier-a{background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.2);color:#f5e6a3}
+.p-value-proposition{display:grid;grid-template-columns:1fr;gap:6px;margin:0 0 12px}
+.p-value-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}
+.p-value-k{font-size:.64rem;color:#cbd5e1;font-weight:700}
+.p-value-v{font-size:.64rem;color:#f8fafc;font-weight:800}
+.p-value-honesty{margin:0 0 12px;padding:9px 11px;border-radius:10px;background:linear-gradient(135deg,rgba(250,204,21,.08),rgba(15,23,42,.6));border:1px solid rgba(250,204,21,.2);font-size:.62rem;color:#fde68a;line-height:1.8}
+.p-compliance{margin:0 0 14px;padding:10px 12px;background:rgba(5,8,16,.45);border:1px solid rgba(148,163,184,.16);border-radius:10px;display:grid;grid-template-columns:1fr;gap:5px}
+.p-compliance-row{display:flex;justify-content:space-between;align-items:center;font-size:.64rem;color:#cbd5e1}
+.p-compliance-row b{color:#f1f5f9;font-weight:700}
 .p-specs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;padding:12px;background:rgba(212,175,55,.015);border:1px solid rgba(212,175,55,.04);border-radius:12px}
 .p-spec{display:flex;flex-direction:column;gap:2px}
 .p-spec-l{font-size:.66rem;color:var(--t3);font-weight:500;letter-spacing:.03em}
@@ -484,6 +527,8 @@ input[type=range]::-moz-range-track{height:6px;background:var(--bdr);border-radi
 .p-card-actions{display:flex;gap:7px;margin-top:14px}
 .p-action-btn{flex:1;padding:9px 6px;background:rgba(212,175,55,.02);border:1px solid rgba(212,175,55,.06);border-radius:10px;color:var(--t3);font-size:.7rem;font-weight:700;cursor:pointer;transition:all .35s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:4px;letter-spacing:.02em}
 .p-action-btn:hover{border-color:rgba(212,175,55,.3);color:var(--gold);background:rgba(212,175,55,.06);box-shadow:0 2px 10px rgba(212,175,55,.08);transform:translateY(-1px)}
+.p-trust-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px dashed rgba(148,163,184,.18)}
+.p-trust-pill{padding:3px 7px;border-radius:999px;font-size:.58rem;font-weight:700;color:#cbd5e1;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.15)}
 .p-incoterm{display:inline-flex;padding:2px 7px;background:rgba(129,140,248,.1);border-radius:4px;font-size:.62rem;font-weight:700;color:#818cf8;margin-inline-start:6px}
 .p-supplier-rating{display:flex;align-items:center;gap:3px;font-size:.68rem;color:#fbbf24}
 .p-sharia-badge{display:inline-flex;padding:2px 8px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.12);border-radius:5px;font-size:.62rem;font-weight:700;color:#22c55e;gap:3px;align-items:center}
@@ -563,6 +608,15 @@ input[type=range]::-moz-range-track{height:6px;background:var(--bdr);border-radi
 <main class="main-content">
   <div class="cat-tabs" id="catTabs"></div>
   <div class="sub-filters" id="subFilters"></div>
+  <div id="supplyChainHub"></div>
+  <div id="integrationOneClickHub"></div>
+  <div id="adoptionGrowthHub"></div>
+  <div id="engagementHub"></div>
+  <div id="merchantPackagesHub"></div>
+  <div id="b2bLoyaltyHub"></div>
+  <div id="realImageStudioHub"></div>
+  <div id="iotImageTrackingHub"></div>
+  <div id="digitalNetworkMapHub"></div>
   <div id="scrapDashboard" style="display:none"></div>
 
   <!-- ═══════════ SHEIKHA INDEX — مؤشر شيخة الرئيسي ═══════════ -->
@@ -2123,6 +2177,34 @@ const products=[
 {id:148,cat:'scrap',hs:'7204.41',name:'سكراب سيارات مضغوطة — البرازيل',
  desc:'هياكل سيارات مضغوطة Baled Cars من البرازيل — شحن FOB سانتوس — فحص SGS.',
  price:'$280',priceNum:1050,unit:'USD / MT',purity:'Fe 84%+',origin:'البرازيل',qty:'20,000 طن',verified:true,svg:'carBody',scrapType:'ferrous'},
+/* --- Scrap Operations: Equipment / Processing / Logistics / Services --- */
+{id:149,cat:'scrap',hs:'8479.89',name:'مكبس هيدروليكي سكراب 500 طن',
+ desc:'مكبس صناعي لضغط خردة الحديد والألمنيوم بكفاءة عالية مع تحكم رقمي، مناسب لساحات التجميع والموانئ.',
+ price:'420,000',priceNum:420000,unit:'ر.س / جهاز',purity:'معدات تشغيل',origin:'السعودية',qty:'4 أجهزة',verified:true,svg:'engine',scrapType:'equipment',dealMode:'direct',supplyStage:'التجهيز والتشغيل',customsNo:'BAYAN-1447-500149'},
+{id:150,cat:'scrap',hs:'8479.82',name:'خط فرم وتقطيع سكراب (Shredder)',
+ desc:'خط فرم آلي للخردة المعدنية 35 طن/ساعة مع فصل أولي للشوائب، يرفع جودة التغذية للأفران.',
+ price:'1,250,000',priceNum:1250000,unit:'ر.س / خط',purity:'معدات تشغيل',origin:'ألمانيا',qty:'2 خطوط',verified:true,svg:'engine',scrapType:'processing',dealMode:'thirdParty',supplyStage:'المعالجة والفرز',customsNo:'BAYAN-1447-500150'},
+{id:151,cat:'scrap',hs:'8479.82',name:'مطحنة معادن دقيقة (طحن سكراب)',
+ desc:'منظومة طحن وفرز مقاسات للخردة غير الحديدية (نحاس/ألمنيوم) لرفع قيمة البيع وإعادة الصهر.',
+ price:'680,000',priceNum:680000,unit:'ر.س / وحدة',purity:'معدات تشغيل',origin:'تركيا',qty:'3 وحدات',verified:true,svg:'engine',scrapType:'processing',dealMode:'direct',supplyStage:'المعالجة والفرز',customsNo:'BAYAN-1447-500151'},
+{id:152,cat:'scrap',hs:'8479.89',name:'فاصل مغناطيسي صناعي عالي الشدة',
+ desc:'مغناطيس فرز تلقائي لفصل المعادن الحديدية من خطوط السكراب، يرفع النقاء ويخفض الهدر التشغيلي.',
+ price:'290,000',priceNum:290000,unit:'ر.س / جهاز',purity:'معدات فرز',origin:'الصين',qty:'6 أجهزة',verified:true,svg:'engine',scrapType:'equipment',dealMode:'direct',supplyStage:'الفرز والتصنيف',customsNo:'BAYAN-1447-500152'},
+{id:153,cat:'scrap',hs:'8427.20',name:'رافعة شوكية 5 طن لساحات السكراب',
+ desc:'رافعة شوكية ديزل مع ملحقات حمل بالات ومكعبات المعادن، مصممة للعمل في بيئات الساحات الثقيلة.',
+ price:'165,000',priceNum:165000,unit:'ر.س / رافعة',purity:'معدات مناولة',origin:'اليابان',qty:'8 رافعات',verified:true,svg:'engine',scrapType:'logistics',dealMode:'direct',supplyStage:'المناولة الداخلية',customsNo:'BAYAN-1447-500153'},
+{id:154,cat:'scrap',hs:'8428.90',name:'خدمة تحميل وشحن سكراب للموانئ',
+ desc:'خدمة متكاملة تشمل الموازين، التحميل، الحاويات، وإصدار مستندات الشحن للصفقات المحلية والدولية.',
+ price:'42,000',priceNum:42000,unit:'ر.س / عقد شحن',purity:'خدمة تشغيل',origin:'السعودية',qty:'25 عقد',verified:true,svg:'steelPipe',scrapType:'logistics',dealMode:'serviceProvider',supplyStage:'الشحن والتسليم',customsNo:'BAYAN-1447-500154'},
+{id:155,cat:'scrap',hs:'9985.90',name:'وساطة طرف ثالث لصفقات السكراب',
+ desc:'منصة طرف ثالث لإدارة التعاقدات، التحقق من الأطراف، حجز الدفعات، وإغلاق الصفقة بشفافية كاملة.',
+ price:'2.8',priceNum:2.8,unit:'% من قيمة الصفقة',purity:'خدمة رقمية',origin:'السعودية',qty:'مفتوح',verified:true,svg:'pcb',scrapType:'service',dealMode:'thirdParty',supplyStage:'التعاقد والتسوية',customsNo:'BAYAN-1447-500155'},
+{id:156,cat:'scrap',hs:'9985.90',name:'خدمة البيان الجمركي وربط HS',
+ desc:'إعداد وتدقيق رقم البيان الجمركي، مطابقة HS Code، والتأكد من اكتمال السمة والوصف الفني قبل التصدير/الاستيراد.',
+ price:'7,500',priceNum:7500,unit:'ر.س / بيان',purity:'خدمة امتثال',origin:'السعودية',qty:'120 بيان',verified:true,svg:'pcb',scrapType:'service',dealMode:'serviceProvider',supplyStage:'الامتثال الجمركي',customsNo:'BAYAN-1447-500156'},
+{id:157,cat:'scrap',hs:'8479.89',name:'مقص هيدروليكي متنقل لقص السكراب',
+ desc:'مقص متنقل لقص الهياكل والأنابيب والمقاطع الثقيلة في مواقع المشاريع والهدم، مع تتبع إنتاجية يومية.',
+ price:'510,000',priceNum:510000,unit:'ر.س / جهاز',purity:'معدات تشغيل',origin:'إيطاليا',qty:'2 أجهزة',verified:true,svg:'engine',scrapType:'equipment',dealMode:'thirdParty',supplyStage:'التجهيز بالموقع',customsNo:'BAYAN-1447-500157'},
 
 /* ══════════════════════════════════════════════════════════
    SALVAGE — تشليح السيارات (13 items)
@@ -2177,6 +2259,64 @@ const products=[
  price:'600',priceNum:600,unit:'ر.س / طقم',condition:'جيد — 60%+ عمر',origin:'السعودية',qty:'10 أطقم',verified:false,svg:'wheelSteel',brand:'other',yearRange:'all',partType:'tires'}
 ];
 
+const traderDirectory=[
+  {id:'T-SA-001',store:'متجر الجبيل للمعادن',city:'الجبيل',country:'السعودية',rating:4.9,responseMins:15,categories:['steel','scrap'],hsPrefixes:['72','73'],origins:['السعودية','الإمارات','تركيا'],modes:['direct','serviceProvider']},
+  {id:'T-SA-002',store:'بيت النحاس الصناعي',city:'جدة',country:'السعودية',rating:4.8,responseMins:18,categories:['copper','scrap'],hsPrefixes:['74'],origins:['السعودية','عُمان','الإمارات'],modes:['direct','thirdParty']},
+  {id:'T-SA-003',store:'مركز الألومنيوم الموحد',city:'الدمام',country:'السعودية',rating:4.7,responseMins:22,categories:['aluminum','scrap'],hsPrefixes:['76'],origins:['السعودية','الإمارات','الصين'],modes:['direct']},
+  {id:'T-SA-004',store:'سوق السبائك الثمينة',city:'الرياض',country:'السعودية',rating:4.95,responseMins:12,categories:['precious'],hsPrefixes:['71'],origins:['السعودية','سويسرا','جنوب أفريقيا'],modes:['direct','thirdParty']},
+  {id:'T-SA-005',store:'دار المعادن النادرة',city:'الرياض',country:'السعودية',rating:4.6,responseMins:28,categories:['rare'],hsPrefixes:['28','75','78','79','80','81'],origins:['السعودية','أستراليا','الصين','روسيا'],modes:['direct','thirdParty']},
+  {id:'T-SA-006',store:'مجمع الخامات العالمي',city:'ينبع',country:'السعودية',rating:4.65,responseMins:25,categories:['ores'],hsPrefixes:['26'],origins:['البرازيل','تشيلي','أستراليا','جنوب أفريقيا'],modes:['direct','serviceProvider']},
+  {id:'T-GCC-007',store:'بوابة الخليج للسكراب',city:'الشارقة',country:'الإمارات',rating:4.7,responseMins:19,categories:['scrap','steel'],hsPrefixes:['72','74','76','85'],origins:['الإمارات','السعودية','قطر','البحرين'],modes:['direct','serviceProvider','thirdParty']},
+  {id:'T-INT-008',store:'Global Metal Link',city:'سنغافورة',country:'سنغافورة',rating:4.55,responseMins:35,categories:['ores','steel','copper','aluminum','rare'],hsPrefixes:['26','72','73','74','76','28','81'],origins:['الصين','الهند','اليابان','كوريا الجنوبية'],modes:['thirdParty']},
+  {id:'T-SA-009',store:'منصة التشليح الذكي',city:'الرياض',country:'السعودية',rating:4.5,responseMins:16,categories:['salvage'],hsPrefixes:['8708'],origins:['السعودية'],modes:['direct','serviceProvider']},
+  {id:'T-SA-010',store:'وسيط شيخة الموثوق',city:'المدينة المنورة',country:'السعودية',rating:4.85,responseMins:10,categories:['ores','steel','copper','aluminum','precious','rare','scrap','salvage'],hsPrefixes:['26','71','72','73','74','75','76','78','79','80','81','85','8708'],origins:['السعودية','الإمارات','عُمان','قطر','البحرين','تركيا','الهند','الصين'],modes:['direct','serviceProvider','thirdParty']}
+];
+
+function getProductDealModeSmart(product){
+  if(product&&product.dealMode) return product.dealMode;
+  if(product&&product.cat==='scrap'&&['service','logistics'].includes(product.scrapType)) return 'serviceProvider';
+  return 'direct';
+}
+
+function scoreTraderForProduct(trader,product){
+  if(!trader||!product) return 0;
+  let score=0;
+  const hsPrefix=String(product.hs||'').replace(/\./g,'').slice(0,2);
+  const hs4=String(product.hs||'').replace(/\./g,'').slice(0,4);
+  const dealMode=getProductDealModeSmart(product);
+  if((trader.categories||[]).includes(product.cat)) score+=42;
+  if((trader.hsPrefixes||[]).includes(hsPrefix)||(trader.hsPrefixes||[]).includes(hs4)) score+=30;
+  if((trader.origins||[]).includes(product.origin)) score+=14;
+  if((trader.modes||[]).includes(dealMode)) score+=9; else score-=5;
+  if(product.verified) score+=4;
+  score+=Math.round((Number(trader.rating)||4)*2);
+  score+=Math.max(0,10-Math.floor((Number(trader.responseMins)||40)/6));
+  return score;
+}
+
+function getSmartTradersForProduct(product){
+  return traderDirectory
+    .map((tr)=>Object.assign({},tr,{matchScore:scoreTraderForProduct(tr,product)}))
+    .sort((a,b)=>b.matchScore-a.matchScore)
+    .slice(0,3);
+}
+
+function requestTraderMatch(productId,traderId){
+  const product=products.find((p)=>p.id===productId);
+  const trader=traderDirectory.find((t)=>t.id===traderId);
+  if(!product||!trader) return;
+  trackBehavior('rfq',1);
+  trackBehavior('dealPoints',4);
+  alert(
+    '✅ تم فتح ربط التاجر الذكي\n\n'
+    +'المنتج: '+product.name+'\n'
+    +'المتجر: '+trader.store+'\n'
+    +'المدينة: '+trader.city+' — '+trader.country+'\n'
+    +'زمن الرد المتوقع: '+trader.responseMins+' دقيقة\n\n'
+    +'الخطوة التالية: أرسل RFQ للتثبيت النهائي.'
+  );
+}
+
 /* ═══════════════════════════════════════════
    STATE
    ═══════════════════════════════════════════ */
@@ -2188,6 +2328,22 @@ let activeCountries=new Set();
 /* Sub-filter state */
 let activeScrapType='all';
 let activeScrapRegion='all';
+let activeDealMode='all';
+let activeOpsRole='buyer';
+let activePackage='starter';
+let activeOperationNode='source';
+let iotTrackerRunning=false;
+let iotTrackerTimer=null;
+let iotLastHeartbeat=0;
+let iotLiveData=null;
+let iotLiveConnected=false;
+let iotLastFetchTs=0;
+let iotSocket=null;
+let iotSocketReady=false;
+let iotSocketRetryTimer=null;
+let activeIntegrationSystem='sap-s4hana';
+let integrationLastResult=null;
+let integrationBusy=false;
 let activeBrand='all';
 let activeYear='all';
 let activePartType='all';
@@ -2266,9 +2422,13 @@ function buildTabs(){
 
 function selectCat(cat,btn){
   activeCat=cat;
+  trackBehavior('views',1);
   activeHS='';
   /* Reset sub-filters when switching */
   activeScrapType='all';
+  activeScrapRegion='all';
+  activeDealMode='all';
+  activeOpsRole='buyer';
   activeBrand='all';
   activeYear='all';
   activePartType='all';
@@ -2302,6 +2462,10 @@ function buildSubFilters(){
       ${sfBtn('activeScrapType','ewaste','إلكترونيات 💻')}
       ${sfBtn('activeScrapType','precious','معادن ثمينة ✦')}
       ${sfBtn('activeScrapType','industrial','صناعي ⚙')}
+      ${sfBtn('activeScrapType','equipment','معدات ♜')}
+      ${sfBtn('activeScrapType','processing','معالجة وفرز 🏭')}
+      ${sfBtn('activeScrapType','logistics','لوجستيات 🚚')}
+      ${sfBtn('activeScrapType','service','خدمات طرف ثالث 🤝')}
     </div>
     <div class="sf-group">
       <span class="sf-label">منطقة السوق:</span>
@@ -2310,6 +2474,13 @@ function buildSubFilters(){
       ${sfBtn('activeScrapRegion','gcc','الخليج')}
       ${sfBtn('activeScrapRegion','islamic','الدول الإسلامية')}
       ${sfBtn('activeScrapRegion','global','الأسواق الدولية')}
+    </div>
+    <div class="sf-group">
+      <span class="sf-label">نمط التعامل:</span>
+      ${sfBtn('activeDealMode','all','الكل')}
+      ${sfBtn('activeDealMode','direct','بيع مباشر')}
+      ${sfBtn('activeDealMode','serviceProvider','مورد خدمة')}
+      ${sfBtn('activeDealMode','thirdParty','طرف ثالث')}
     </div>`;
   } else if(activeCat==='salvage'){
     el.innerHTML=`
@@ -2359,6 +2530,7 @@ function sfBtn(stateKey,val,label){
 
 function setSF(stateKey,val,btn){
   window[stateKey]=val;
+  trackBehavior('filters',1);
   /* Update active class in group */
   btn.parentElement.querySelectorAll('.sf-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
@@ -2408,6 +2580,1232 @@ function getScrapRegion(p){
   return mapped||'global';
 }
 
+function getDealModeLabel(mode){
+  const map={
+    direct:'بيع مباشر',
+    serviceProvider:'مورد خدمة',
+    thirdParty:'طرف ثالث'
+  };
+  return map[mode]||'بيع مباشر';
+}
+
+function getHSBookTitle(hsCode){
+  const code=String(hsCode||'').replace('.','');
+  if(code.startsWith('72')||code.startsWith('73')) return 'فصول الحديد والصلب (72-73)';
+  if(code.startsWith('74')) return 'فصل النحاس (74)';
+  if(code.startsWith('75')) return 'فصل النيكل (75)';
+  if(code.startsWith('76')) return 'فصل الألومنيوم (76)';
+  if(code.startsWith('71')) return 'فصل المعادن الثمينة (71)';
+  if(code.startsWith('81')||code.startsWith('28')) return 'فصول المعادن النادرة (81/28)';
+  if(code.startsWith('84')) return 'فصل الآلات والمعدات (84)';
+  if(code.startsWith('85')) return 'فصل المعدات الكهربائية (85)';
+  if(code.startsWith('87')) return 'فصل المركبات وملحقاتها (87)';
+  return 'دليل HS العام';
+}
+
+function getChainProfile(cat){
+  const profiles={
+    all:{
+      title:'الشبكة الذكية الرقمية المتكاملة',
+      sub:'سلسلة موحدة: عمليات أساسية + عمليات مساندة + أدوات تشغيل حسب الدور',
+      blocks:[
+        {icon:'📥',name:'توريد وشراء',desc:'مصدر/مورد/تجميع'},
+        {icon:'📋',name:'توثيق وامتثال',desc:'بيان جمركي + HS + عقود'},
+        {icon:'🔬',name:'فحص وتحليل',desc:'XRF/OES/جودة'},
+        {icon:'🚚',name:'نقل ولوجستيات',desc:'تحميل وتخزين وتسليم'},
+        {icon:'💱',name:'تنفيذ الصفقة',desc:'بيع مباشر/خدمة/طرف ثالث'},
+        {icon:'📈',name:'إدارة الأداء',desc:'KPI + تنبيهات + مخاطر'}
+      ],
+      coreOps:['إدارة الطلب والعرض','مطابقة الصفقات','تسعير وتنفيذ','إقفال الصفقة'],
+      supportOps:['توثيق HS/جمارك','فحص واعتماد','خدمات لوجستية','تحليلات وتشغيل']
+    },
+    ores:{
+      title:'سلسلة الخامات (Upstream)',
+      sub:'من المصدر إلى المصهر الصناعي',
+      blocks:[{icon:'⛏',name:'استخراج',desc:'خام وتجهيز أولي'},{icon:'🧪',name:'تحليل عيار',desc:'Assay ونقاء'},{icon:'🚢',name:'شحن Bulk',desc:'FOB/CIF'},{icon:'🏭',name:'استلام صناعي',desc:'مصهر/مصنع'}],
+      coreOps:['اختيار المصدر','تأكيد العيار','عقد التوريد'],
+      supportOps:['شهادة منشأ','تأمين الشحن','تتبع المخزون']
+    },
+    steel:{
+      title:'سلسلة الحديد والصلب',
+      sub:'تدفق الصلب من الإنتاج حتى مشاريع التنفيذ',
+      blocks:[{icon:'🏗',name:'منتج أولي',desc:'Billet/Slab'},{icon:'🏭',name:'تشكيل',desc:'درفلة/قص'},{icon:'📦',name:'تجهيز',desc:'أطوال ومواصفات'},{icon:'🚛',name:'توزيع',desc:'مشاريع ومصانع'}],
+      coreOps:['عرض فني','تثبيت مواصفة','تسليم تشغيلي'],
+      supportOps:['اختبارات ميكانيكية','اعتمادات جودة','متابعة العقود']
+    },
+    copper:{
+      title:'سلسلة النحاس',
+      sub:'كاثودات وأسلاك ونحاس صناعي',
+      blocks:[{icon:'🧱',name:'مصدر النحاس',desc:'Cathode/Raw'},{icon:'🧵',name:'سحب وتشكيل',desc:'أسلاك وقضبان'},{icon:'⚡',name:'تصنيع',desc:'كهربائيات وكابلات'},{icon:'🏪',name:'تسويق وتوريد',desc:'B2B مباشر'}],
+      coreOps:['فرز الدرجة','تسعير السوق','تسليم الكميات'],
+      supportOps:['فحص النقاء','تتبع دفعات','إدارة مخاطر']
+    },
+    aluminum:{
+      title:'سلسلة الألومنيوم',
+      sub:'من السبائك إلى القطاعات والصفائح',
+      blocks:[{icon:'⬜',name:'سبائك أولية',desc:'P1020/A356'},{icon:'🔧',name:'تشكيل',desc:'Coil/Extrusion'},{icon:'📦',name:'تعبئة',desc:'Bundles'},{icon:'🚚',name:'توريد',desc:'مصانع ومشاريع'}],
+      coreOps:['حجز الكمية','تأكيد المواصفة','شحن وتسليم'],
+      supportOps:['توثيق فني','اختبار السماكة','خطة مخزون']
+    },
+    precious:{
+      title:'سلسلة المعادن الثمينة',
+      sub:'ذهب وفضة وبلاتين مع امتثال مشدد',
+      blocks:[{icon:'🥇',name:'منشأ واعتماد',desc:'LBMA/LPPM'},{icon:'🧾',name:'توثيق',desc:'Batch + COC'},{icon:'🔒',name:'حفظ ونقل',desc:'Secure Logistics'},{icon:'💰',name:'تداول وتسوية',desc:'صفقات موثقة'}],
+      coreOps:['اعتماد المصدر','تأكيد العيار','تنفيذ الصفقة'],
+      supportOps:['امتثال شرعي','تأمين عالي','تدقيق تدفق']
+    },
+    rare:{
+      title:'سلسلة المعادن النادرة',
+      sub:'معادن استراتيجية للتقنية والطاقة',
+      blocks:[{icon:'⚡',name:'تأمين مادة',desc:'Li/Co/Ti/REE'},{icon:'🔬',name:'تحليل متقدم',desc:'دقة عالية'},{icon:'🏭',name:'معالجة',desc:'Refining'},{icon:'🌍',name:'توريد عالمي',desc:'عقود طويلة'}],
+      coreOps:['تأهيل مورد','تحليل نقاء','توريد دوري'],
+      supportOps:['إدارة مخاطر جيوسياسية','التزام بيئي','خطة بدائل']
+    },
+    scrap:{
+      title:'سلسلة السكراب المتكاملة',
+      sub:'تجميع → فرز → معالجة → بيع/خدمة → تدوير',
+      blocks:[{icon:'♻',name:'تجميع',desc:'ساحات ومورّدين'},{icon:'🧲',name:'فرز',desc:'حديدي/غير حديدي'},{icon:'⚙',name:'معالجة',desc:'مكبس/شريدر/طحن'},{icon:'🚚',name:'لوجستيات',desc:'مناولة وشحن'},{icon:'🤝',name:'تعاملات',desc:'مباشر/خدمة/طرف ثالث'},{icon:'🏭',name:'تدوير',desc:'صهر وإعادة طرح'}],
+      coreOps:['استلام وفرز','تحديد grade','عقد بيع/خدمة','تسليم'],
+      supportOps:['بيان جمركي HS','مختبر وتحليل','تتبع شحنة','تسوية رقمية']
+    },
+    salvage:{
+      title:'سلسلة التشليح',
+      sub:'تفكيك وفحص وتوثيق وبيع قطع',
+      blocks:[{icon:'🚗',name:'استلام مركبة',desc:'توثيق الحالة'},{icon:'🔧',name:'تفكيك',desc:'استخراج قطع'},{icon:'🔬',name:'فحص قطعة',desc:'جودة وعمر'},{icon:'🏷',name:'ترميز',desc:'Part/HS'},{icon:'🛒',name:'بيع',desc:'طلب وتسليم'}],
+      coreOps:['تصنيف القطع','تقييم الحالة','إدراج البيع'],
+      supportOps:['ضمان وتشغيل','لوجستيات محلية','خدمة ما بعد البيع']
+    }
+  };
+  return profiles[cat]||profiles.all;
+}
+
+function getRoleToolset(role){
+  const toolsets={
+    buyer:['كشف مطابقة المواصفة','تنبيه السعر المستهدف','مقارنة 3 عروض','متابعة الشحنة','لوحة مخاطر المورد'],
+    trader:['محرّك تسعير سريع','إدارة RFQ والهوامش','لوحة تدفق الصفقات','تنبيه تغير السوق','متابعة التحصيل'],
+    collector:['تسجيل وارد يومي','تصنيف grade تلقائي','جدولة المكابس/الفرز','قياس إنتاجية الساحة','تقرير الهدر'],
+    serviceProvider:['إدارة أوامر الخدمة','SLA وتتبع زمن التنفيذ','جدولة الأسطول/المعدات','فوترة رقمية','تقييم جودة الخدمة'],
+    refinery:['تخطيط التغذية للمصهر','تتبع النقاء والعيار','متابعة الطاقة والكفاءة','موازنة المخزون','تقارير العائد'],
+    admin:['مركز قيادة السوق','KPI لكل قسم','مخاطر وامتثال','حوكمة العقود','مؤشرات أداء الشبكة']
+  };
+  return toolsets[role]||toolsets.buyer;
+}
+
+function setOpsRole(role,btn){
+  activeOpsRole=role;
+  const wrap=document.getElementById('opsRoleChips');
+  if(wrap){
+    wrap.querySelectorAll('button').forEach((b)=>{b.style.borderColor='rgba(148,163,184,.25)';b.style.color='#cbd5e1';b.style.background='rgba(15,23,42,.45)';});
+    if(btn){btn.style.borderColor='rgba(212,175,55,.4)';btn.style.color='#f5e6a3';btn.style.background='rgba(212,175,55,.1)';}
+  }
+  renderSupplyChainHub();
+}
+
+function getOpsTaskTemplate(role,cat){
+  const catLabel=catNames[cat]||'السوق العام';
+  const byRole={
+    buyer:[
+      {id:'b1',title:'اعتماد المواصفة الفنية',stage:'التوريد',status:'active',sla:'2h',priority:'high'},
+      {id:'b2',title:'مقارنة 3 عروض سعر',stage:'التفاوض',status:'todo',sla:'4h',priority:'medium'},
+      {id:'b3',title:'تأكيد بيان HS والدفعة',stage:'الامتثال',status:'todo',sla:'6h',priority:'high'},
+      {id:'b4',title:'متابعة الشحنة حتى الوصول',stage:'اللوجستيات',status:'blocked',sla:'12h',priority:'medium'},
+      {id:'b5',title:'إقفال الاستلام والجودة',stage:'الإغلاق',status:'done',sla:'24h',priority:'low'}
+    ],
+    trader:[
+      {id:'t1',title:'تفعيل طلب RFQ جديد',stage:'العرض',status:'active',sla:'1h',priority:'high'},
+      {id:'t2',title:'ضبط هامش الربح',stage:'التسعير',status:'todo',sla:'2h',priority:'medium'},
+      {id:'t3',title:'مطابقة طرفي الصفقة',stage:'التحقق',status:'todo',sla:'3h',priority:'high'},
+      {id:'t4',title:'ترتيب الشحن والتسليم',stage:'التنفيذ',status:'blocked',sla:'8h',priority:'medium'},
+      {id:'t5',title:'تسوية الفاتورة والتحصيل',stage:'الإغلاق',status:'done',sla:'24h',priority:'low'}
+    ],
+    collector:[
+      {id:'c1',title:'تسجيل وارد الساحة',stage:'الاستلام',status:'active',sla:'1h',priority:'high'},
+      {id:'c2',title:'فرز نوع السكراب',stage:'الفرز',status:'todo',sla:'2h',priority:'high'},
+      {id:'c3',title:'ضغط/تقطيع حسب grade',stage:'المعالجة',status:'todo',sla:'4h',priority:'medium'},
+      {id:'c4',title:'تجهيز بيان الكميات',stage:'التوثيق',status:'blocked',sla:'6h',priority:'medium'},
+      {id:'c5',title:'تحميل وتسليم للمشتري',stage:'الشحن',status:'done',sla:'12h',priority:'low'}
+    ],
+    serviceProvider:[
+      {id:'s1',title:'استلام أمر الخدمة',stage:'الجدولة',status:'active',sla:'1h',priority:'high'},
+      {id:'s2',title:'تعيين فريق التنفيذ',stage:'التشغيل',status:'todo',sla:'2h',priority:'medium'},
+      {id:'s3',title:'تنفيذ SLA المتفق',stage:'التنفيذ',status:'todo',sla:'4h',priority:'high'},
+      {id:'s4',title:'رفع تقرير الإنجاز',stage:'التوثيق',status:'blocked',sla:'8h',priority:'medium'},
+      {id:'s5',title:'إصدار الفاتورة الرقمية',stage:'الإغلاق',status:'done',sla:'24h',priority:'low'}
+    ],
+    refinery:[
+      {id:'r1',title:'تخطيط تغذية خط الصهر',stage:'التخطيط',status:'active',sla:'2h',priority:'high'},
+      {id:'r2',title:'فحص النقاء قبل المعالجة',stage:'الفحص',status:'todo',sla:'3h',priority:'high'},
+      {id:'r3',title:'تنفيذ المعالجة/الصهر',stage:'الإنتاج',status:'todo',sla:'6h',priority:'medium'},
+      {id:'r4',title:'اعتماد المنتج النهائي',stage:'الجودة',status:'blocked',sla:'10h',priority:'medium'},
+      {id:'r5',title:'تحديث رصيد المخزون',stage:'الإغلاق',status:'done',sla:'24h',priority:'low'}
+    ],
+    admin:[
+      {id:'a1',title:'مراقبة KPI الأقسام',stage:'الرقابة',status:'active',sla:'1h',priority:'high'},
+      {id:'a2',title:'تنبيه المخاطر التشغيلية',stage:'المخاطر',status:'todo',sla:'2h',priority:'high'},
+      {id:'a3',title:'مراجعة الامتثال والحوكمة',stage:'الامتثال',status:'todo',sla:'4h',priority:'medium'},
+      {id:'a4',title:'اعتماد الإجراءات التصحيحية',stage:'التحسين',status:'blocked',sla:'8h',priority:'medium'},
+      {id:'a5',title:'إصدار تقرير الإدارة اليومي',stage:'الإغلاق',status:'done',sla:'24h',priority:'low'}
+    ]
+  };
+  return (byRole[role]||byRole.buyer).map((x)=>({...x,title:`${x.title} — ${catLabel}`}));
+}
+
+function getOpsTaskStoreKey(role,cat){
+  return `sheikha_ops_tasks_${role}_${cat||'all'}`;
+}
+
+function getOpsTasks(role,cat){
+  const key=getOpsTaskStoreKey(role,cat);
+  try{
+    const raw=localStorage.getItem(key);
+    if(raw){
+      const parsed=JSON.parse(raw);
+      if(Array.isArray(parsed)&&parsed.length) return parsed;
+    }
+  }catch(_){}
+  return getOpsTaskTemplate(role,cat);
+}
+
+function saveOpsTasks(role,cat,tasks){
+  const key=getOpsTaskStoreKey(role,cat);
+  try{localStorage.setItem(key,JSON.stringify(tasks));}catch(_){}
+}
+
+function advanceOpsTask(taskId){
+  const sequence=['todo','active','blocked','done'];
+  const tasks=getOpsTasks(activeOpsRole,activeCat);
+  const next=tasks.map((t)=>{
+    if(t.id!==taskId) return t;
+    const idx=sequence.indexOf(t.status);
+    const nextStatus=idx<0?'todo':sequence[Math.min(idx+1,sequence.length-1)];
+    return {...t,status:nextStatus};
+  });
+  saveOpsTasks(activeOpsRole,activeCat,next);
+  renderSupplyChainHub();
+}
+
+function renderSupplyChainHub(){
+  const el=document.getElementById('supplyChainHub');
+  if(!el) return;
+  const profile=getChainProfile(activeCat);
+  const tools=getRoleToolset(activeOpsRole);
+  const opsTasks=getOpsTasks(activeOpsRole,activeCat);
+  const statusMeta={
+    todo:{label:'جديد',bg:'rgba(59,130,246,.12)',bd:'rgba(59,130,246,.3)',tx:'#93c5fd'},
+    active:{label:'قيد التنفيذ',bg:'rgba(34,197,94,.12)',bd:'rgba(34,197,94,.3)',tx:'#86efac'},
+    blocked:{label:'متوقف',bg:'rgba(239,68,68,.12)',bd:'rgba(239,68,68,.3)',tx:'#fca5a5'},
+    done:{label:'مكتمل',bg:'rgba(212,175,55,.12)',bd:'rgba(212,175,55,.3)',tx:'#f5e6a3'}
+  };
+  const priorityMeta={
+    high:{label:'عالية',tx:'#fca5a5'},
+    medium:{label:'متوسطة',tx:'#fcd34d'},
+    low:{label:'منخفضة',tx:'#86efac'}
+  };
+  const groupBy=(state)=>opsTasks.filter((x)=>x.status===state);
+  const kpiOpen=opsTasks.filter((x)=>x.status!=='done').length;
+  const kpiSlaRisk=opsTasks.filter((x)=>x.status==='blocked').length;
+  const kpiDone=opsTasks.filter((x)=>x.status==='done').length;
+  const roleBtn=(id,label)=>{
+    const isActive=activeOpsRole===id;
+    return `<button onclick="setOpsRole('${id}',this)" style="padding:6px 11px;border-radius:8px;border:1px solid ${isActive?'rgba(212,175,55,.4)':'rgba(148,163,184,.25)'};background:${isActive?'rgba(212,175,55,.1)':'rgba(15,23,42,.45)'};color:${isActive?'#f5e6a3':'#cbd5e1'};font-size:.72rem;font-family:inherit;font-weight:700;cursor:pointer">${label}</button>`;
+  };
+  el.innerHTML=`
+  <div style="margin:0 0 16px;padding:16px 18px;background:linear-gradient(135deg,rgba(15,23,42,.92),rgba(30,41,59,.82));border:1px solid rgba(212,175,55,.2);border-radius:14px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+      <div>
+        <div style="font-size:1rem;color:#D4AF37;font-weight:900">${profile.title}</div>
+        <div style="font-size:.74rem;color:#94a3b8;line-height:1.6">${profile.sub}</div>
+      </div>
+      <div id="opsRoleChips" style="display:flex;flex-wrap:wrap;gap:6px">
+        ${roleBtn('buyer','المشتري')}
+        ${roleBtn('trader','التاجر')}
+        ${roleBtn('collector','مجمّع السكراب')}
+        ${roleBtn('serviceProvider','مورد خدمة')}
+        ${roleBtn('refinery','المصنع/المصهر')}
+        ${roleBtn('admin','الإدارة')}
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;margin-bottom:10px">
+      ${profile.blocks.map((b)=>`<div style="padding:10px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16);border-radius:10px"><div style="font-size:1rem">${b.icon}</div><div style="font-size:.75rem;color:#f1f5f9;font-weight:800;margin-top:3px">${b.name}</div><div style="font-size:.67rem;color:#94a3b8;line-height:1.45">${b.desc}</div></div>`).join('')}
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="padding:10px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.18);border-radius:10px">
+        <div style="font-size:.72rem;color:#22c55e;font-weight:800;margin-bottom:5px">العمليات الأساسية (CORE)</div>
+        ${profile.coreOps.map((x)=>`<div style="font-size:.69rem;color:#d1fae5;line-height:1.6">◆ ${x}</div>`).join('')}
+      </div>
+      <div style="padding:10px;background:rgba(129,140,248,.08);border:1px solid rgba(129,140,248,.18);border-radius:10px">
+        <div style="font-size:.72rem;color:#818cf8;font-weight:800;margin-bottom:5px">العمليات المساندة (SUPPORT)</div>
+        ${profile.supportOps.map((x)=>`<div style="font-size:.69rem;color:#dbeafe;line-height:1.6">◆ ${x}</div>`).join('')}
+      </div>
+    </div>
+    <div style="margin-top:10px;padding:10px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.15);border-radius:10px">
+      <div style="font-size:.72rem;color:#D4AF37;font-weight:800;margin-bottom:5px">أدوات رقمية مساندة للدور الحالي</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        ${tools.map((t)=>`<span style="padding:4px 8px;border-radius:999px;background:rgba(15,23,42,.6);border:1px solid rgba(212,175,55,.16);font-size:.67rem;color:#e2e8f0">${t}</span>`).join('')}
+      </div>
+    </div>
+    <div style="margin-top:10px;padding:10px;background:rgba(15,23,42,.45);border:1px solid rgba(148,163,184,.2);border-radius:10px">
+      <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+        <div style="font-size:.74rem;color:#f1f5f9;font-weight:800">لوحة تنفيذ تشغيلية حيّة (Kanban + SLA)</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span style="padding:3px 7px;border-radius:999px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);font-size:.64rem;color:#93c5fd">مفتوح: ${kpiOpen}</span>
+          <span style="padding:3px 7px;border-radius:999px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);font-size:.64rem;color:#fca5a5">مخاطر SLA: ${kpiSlaRisk}</span>
+          <span style="padding:3px 7px;border-radius:999px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);font-size:.64rem;color:#86efac">مكتمل: ${kpiDone}</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px">
+        ${['todo','active','blocked','done'].map((st)=>{
+          const m=statusMeta[st];
+          const cards=groupBy(st);
+          return `<div style="padding:8px;background:rgba(2,6,23,.45);border:1px solid ${m.bd};border-radius:10px">
+            <div style="font-size:.68rem;color:${m.tx};font-weight:800;margin-bottom:6px">${m.label} (${cards.length})</div>
+            ${cards.map((task)=>{
+              const p=priorityMeta[task.priority]||priorityMeta.medium;
+              return `<div style="padding:7px;background:rgba(15,23,42,.62);border:1px solid rgba(148,163,184,.18);border-radius:8px;margin-bottom:6px">
+                <div style="font-size:.67rem;color:#f8fafc;line-height:1.5">${task.title}</div>
+                <div style="display:flex;justify-content:space-between;gap:6px;margin-top:4px;align-items:center;flex-wrap:wrap">
+                  <span style="font-size:.6rem;color:#94a3b8">${task.stage}</span>
+                  <span style="font-size:.6rem;color:${p.tx}">أولوية ${p.label}</span>
+                  <span style="font-size:.6rem;color:#cbd5e1">SLA ${task.sla}</span>
+                </div>
+                <button onclick="advanceOpsTask('${task.id}')" style="margin-top:5px;padding:4px 7px;border-radius:7px;border:1px solid rgba(212,175,55,.25);background:rgba(212,175,55,.08);color:#f5e6a3;font-size:.62rem;font-weight:700;font-family:inherit;cursor:pointer">تقدم الحالة</button>
+              </div>`;
+            }).join('')||'<div style="font-size:.62rem;color:#64748b">لا توجد مهام</div>'}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function getDailyRoutineKey(){
+  const d=new Date();
+  const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  return `sheikha_daily_routine_${k}`;
+}
+
+function getDailyRoutineState(){
+  const key=getDailyRoutineKey();
+  try{
+    const raw=localStorage.getItem(key);
+    if(raw){
+      const parsed=JSON.parse(raw);
+      if(parsed && typeof parsed==='object') return parsed;
+    }
+  }catch(_){}
+  return {
+    marketScan:false,
+    complianceCheck:false,
+    leadAction:false,
+    customerFollowup:false,
+    dealClosure:false
+  };
+}
+
+function setDailyRoutineState(next){
+  try{localStorage.setItem(getDailyRoutineKey(),JSON.stringify(next));}catch(_){}
+}
+
+function toggleRoutineItem(itemKey){
+  const state=getDailyRoutineState();
+  state[itemKey]=!state[itemKey];
+  setDailyRoutineState(state);
+  renderAdoptionGrowthHub();
+}
+
+function getStreakDays(){
+  let streak=0;
+  const dayMs=24*60*60*1000;
+  const now=new Date();
+  for(let i=0;i<120;i++){
+    const d=new Date(now.getTime()-(i*dayMs));
+    const key=`sheikha_daily_routine_${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    try{
+      const raw=localStorage.getItem(key);
+      if(!raw) break;
+      const state=JSON.parse(raw);
+      const done=Object.values(state||{}).filter(Boolean).length;
+      if(done>=3) streak++;
+      else break;
+    }catch(_){break;}
+  }
+  return streak;
+}
+
+function renderAdoptionGrowthHub(){
+  const el=document.getElementById('adoptionGrowthHub');
+  if(!el) return;
+  const state=getDailyRoutineState();
+  const checklist=[
+    {id:'marketScan',label:'مسح السوق اليومي (5 دقائق)'},
+    {id:'complianceCheck',label:'تدقيق الامتثال وHS قبل العرض'},
+    {id:'leadAction',label:'إجراء تجاري واحد جديد (عرض/طلب)'},
+    {id:'customerFollowup',label:'متابعة عميل واحد على الأقل'},
+    {id:'dealClosure',label:'إغلاق أو تحديث صفقة بنهاية اليوم'}
+  ];
+  const doneCount=checklist.filter((x)=>state[x.id]).length;
+  const completion=Math.round((doneCount/checklist.length)*100);
+  const streak=getStreakDays();
+  const adoptionLevel=completion>=80?'اعتياد قوي':completion>=50?'اعتياد متنامي':'بداية ممتازة';
+  el.innerHTML=`
+  <div style="margin:0 0 16px;padding:16px 18px;background:linear-gradient(135deg,rgba(2,6,23,.95),rgba(15,23,42,.88));border:1px solid rgba(34,197,94,.22);border-radius:14px">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start;margin-bottom:10px">
+      <div>
+        <div style="font-size:.98rem;font-weight:900;color:#22c55e">خطة النمو والتسويق الأخلاقي — اعتياد الاستخدام</div>
+        <div style="font-size:.73rem;color:#94a3b8;line-height:1.7">هدفها: حب العمل، تيسير المعاملة، تقليل العسر، وثبات الاستخدام كنمط حياة تجاري نافع محلياً وعالمياً — بدون ضرر ولا ضرار.</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <span style="padding:4px 8px;border-radius:999px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);font-size:.64rem;color:#86efac">التزام اليوم: ${completion}%</span>
+        <span style="padding:4px 8px;border-radius:999px;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.25);font-size:.64rem;color:#f5e6a3">سلسلة الاستمرارية: ${streak} يوم</span>
+        <span style="padding:4px 8px;border-radius:999px;background:rgba(129,140,248,.12);border:1px solid rgba(129,140,248,.25);font-size:.64rem;color:#c7d2fe">${adoptionLevel}</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:10px">
+      <div style="padding:10px;background:rgba(15,23,42,.5);border:1px solid rgba(148,163,184,.2);border-radius:10px">
+        <div style="font-size:.72rem;color:#f1f5f9;font-weight:800;margin-bottom:6px">روتين يومي يحوّل الاستخدام إلى عادة محبوبة</div>
+        ${checklist.map((item)=>`
+          <button onclick="toggleRoutineItem('${item.id}')" style="width:100%;text-align:right;margin-bottom:6px;padding:8px 10px;border-radius:8px;border:1px solid ${state[item.id]?'rgba(34,197,94,.3)':'rgba(148,163,184,.2)'};background:${state[item.id]?'rgba(34,197,94,.08)':'rgba(15,23,42,.45)'};color:${state[item.id]?'#86efac':'#e2e8f0'};font-size:.69rem;font-family:inherit;cursor:pointer"> ${state[item.id]?'✅':'◻'} ${item.label}</button>
+        `).join('')}
+      </div>
+      <div style="padding:10px;background:rgba(15,23,42,.5);border:1px solid rgba(148,163,184,.2);border-radius:10px">
+        <div style="font-size:.72rem;color:#D4AF37;font-weight:800;margin-bottom:6px">محركات تسويقية أخلاقية (بدون إضرار)</div>
+        <div style="font-size:.68rem;color:#cbd5e1;line-height:1.7">◆ تيسير الطلب بخطوات أقل (RFQ سريع + قوالب عروض)</div>
+        <div style="font-size:.68rem;color:#cbd5e1;line-height:1.7">◆ شفافية كاملة في السعر/HS/الجودة تمنع الغرر</div>
+        <div style="font-size:.68rem;color:#cbd5e1;line-height:1.7">◆ متابعة رحيمة للعملاء (تذكير مفيد بلا إزعاج)</div>
+        <div style="font-size:.68rem;color:#cbd5e1;line-height:1.7">◆ مكافأة الانضباط اليومي بمؤشرات تقدم واضحة</div>
+        <div style="font-size:.68rem;color:#cbd5e1;line-height:1.7">◆ تمكين التجارة العادلة محلياً وعالمياً</div>
+        <div style="margin-top:8px;padding:8px;border-radius:8px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.18);font-size:.66rem;color:#bbf7d0;line-height:1.6">
+          ميثاق شيخة: لا ضرر ولا ضرار — لا غش — لا استغلال — تسهيل المعاملات — احترام الوقت — خدمة نزيهة.
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function getBehaviorStats(){
+  const key='sheikha_behavior_stats_v1';
+  const base={views:0,searches:0,filters:0,rfq:0,cart:0,shares:0,sessions:0,lastSeen:0,dealPoints:0,weeklyGoals:{}};
+  try{
+    const raw=localStorage.getItem(key);
+    if(raw){
+      const parsed=JSON.parse(raw);
+      return Object.assign(base,parsed||{});
+    }
+  }catch(_){}
+  return base;
+}
+
+function saveBehaviorStats(next){
+  try{localStorage.setItem('sheikha_behavior_stats_v1',JSON.stringify(next));}catch(_){}
+}
+
+function trackBehavior(eventKey,delta){
+  const stats=getBehaviorStats();
+  const inc=typeof delta==='number'?delta:1;
+  stats[eventKey]=(stats[eventKey]||0)+inc;
+  stats.lastSeen=Date.now();
+  saveBehaviorStats(stats);
+}
+
+function getEngagementMessage(stats){
+  if(stats.rfq>=5&&stats.dealPoints>=300) return 'ما شاء الله! نشاطك التجاري ناضج. حافظ على الرحمة والشفافية لتبقى البركة في الصفقات.';
+  if(stats.searches>=15&&stats.filters>=10) return 'تحليلك للسوق ممتاز. الخطوة التالية: نفّذ عرض سعر واحد اليوم لتتحول المعرفة إلى إنجاز.';
+  if(stats.views>=8) return 'تقدم جميل. سهّل المعاملة على الطرف الآخر تكن معاملتك أيسر وأسرع.';
+  return 'ابدأ بخطوة يسيرة: حدّد منتجًا، راجع HS، ثم أرسل طلب عرض واحد اليوم.';
+}
+
+function renderEngagementHub(){
+  const el=document.getElementById('engagementHub');
+  if(!el) return;
+  const stats=getBehaviorStats();
+  const msg=getEngagementMessage(stats);
+  const noHarm='ميثاق الحملة: لا ضرر ولا ضرار — لا ضغط نفسي — لا تضليل — التيسير أولاً.';
+  el.innerHTML=`
+  <div style="margin:0 0 16px;padding:14px 16px;background:linear-gradient(135deg,rgba(15,23,42,.92),rgba(30,41,59,.86));border:1px solid rgba(129,140,248,.22);border-radius:12px">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <div style="font-size:.9rem;color:#818cf8;font-weight:900">حملة التفاعل الذكية الداخلية (بالخير لله سبحانه)</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <span style="padding:3px 7px;border-radius:999px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);font-size:.62rem;color:#93c5fd">بحث: ${stats.searches}</span>
+        <span style="padding:3px 7px;border-radius:999px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);font-size:.62rem;color:#86efac">RFQ: ${stats.rfq}</span>
+        <span style="padding:3px 7px;border-radius:999px;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.25);font-size:.62rem;color:#f5e6a3">نقاط إنجاز: ${stats.dealPoints}</span>
+      </div>
+    </div>
+    <div style="padding:9px 10px;background:rgba(2,6,23,.45);border:1px solid rgba(148,163,184,.18);border-radius:10px;font-size:.7rem;color:#e2e8f0;line-height:1.8">${msg}</div>
+    <div style="margin-top:7px;font-size:.65rem;color:#bbf7d0;line-height:1.7">${noHarm}</div>
+  </div>`;
+}
+
+function getPackageConfig(){
+  return {
+    starter:{
+      label:'باقة تاجر مبتدئ',
+      weekly:['3 طلبات RFQ','10 عمليات بحث','متابعة 5 عملاء','صفقة واحدة مغلقة'],
+      required:{rfq:3,searches:10,shares:2,dealPoints:80}
+    },
+    pro:{
+      label:'باقة تاجر محترف',
+      weekly:['8 طلبات RFQ','25 بحث وتحليل','إدارة 10 فرص','3 صفقات مغلقة'],
+      required:{rfq:8,searches:25,shares:5,dealPoints:220}
+    },
+    factory:{
+      label:'باقة مصنع / مورد كبير',
+      weekly:['15 طلب RFQ','40 تحليل سوق','اتفاقات B2B طويلة','5 صفقات موثقة'],
+      required:{rfq:15,searches:40,shares:8,dealPoints:420}
+    }
+  };
+}
+
+function setMerchantPackage(id){
+  activePackage=id;
+  renderMerchantPackagesHub();
+}
+
+function renderMerchantPackagesHub(){
+  const el=document.getElementById('merchantPackagesHub');
+  if(!el) return;
+  const stats=getBehaviorStats();
+  const cfgs=getPackageConfig();
+  const pkg=cfgs[activePackage]||cfgs.starter;
+  const req=pkg.required;
+  const score=Math.min(100,Math.round(((Math.min((stats.rfq||0)/req.rfq,1)+Math.min((stats.searches||0)/req.searches,1)+Math.min((stats.shares||0)/req.shares,1)+Math.min((stats.dealPoints||0)/req.dealPoints,1))/4)*100));
+  const btn=(id,label)=>{
+    const active=id===activePackage;
+    return `<button onclick="setMerchantPackage('${id}')" style="padding:6px 10px;border-radius:8px;border:1px solid ${active?'rgba(212,175,55,.35)':'rgba(148,163,184,.22)'};background:${active?'rgba(212,175,55,.1)':'rgba(15,23,42,.45)'};color:${active?'#f5e6a3':'#cbd5e1'};font-size:.68rem;font-family:inherit;font-weight:700;cursor:pointer">${label}</button>`;
+  };
+  el.innerHTML=`
+  <div style="margin:0 0 16px;padding:14px 16px;background:linear-gradient(135deg,rgba(2,6,23,.95),rgba(15,23,42,.86));border:1px solid rgba(212,175,55,.22);border-radius:12px">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <div style="font-size:.9rem;color:#D4AF37;font-weight:900">باقات التاجر + أهداف أسبوعية</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">${btn('starter','مبتدئ')}${btn('pro','محترف')}${btn('factory','مصنع')}</div>
+    </div>
+    <div style="font-size:.74rem;color:#f1f5f9;font-weight:800;margin-bottom:6px">${pkg.label}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="padding:9px;background:rgba(15,23,42,.5);border:1px solid rgba(148,163,184,.2);border-radius:10px">
+        ${pkg.weekly.map((g)=>`<div style="font-size:.68rem;color:#e2e8f0;line-height:1.7">◆ ${g}</div>`).join('')}
+      </div>
+      <div style="padding:9px;background:rgba(15,23,42,.5);border:1px solid rgba(148,163,184,.2);border-radius:10px">
+        <div style="font-size:.66rem;color:#94a3b8">مستوى إنجاز الأسبوع</div>
+        <div style="font-size:1rem;font-weight:900;color:#22c55e;margin:3px 0">${score}%</div>
+        <div style="height:8px;border-radius:999px;background:rgba(148,163,184,.2);overflow:hidden"><div style="height:100%;width:${score}%;background:linear-gradient(90deg,#22c55e,#D4AF37)"></div></div>
+        <div style="margin-top:7px;font-size:.62rem;color:#cbd5e1">بدون ضرر: التدرّج في الأهداف حسب قدرة التاجر.</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderB2BLoyaltyHub(){
+  const el=document.getElementById('b2bLoyaltyHub');
+  if(!el) return;
+  const stats=getBehaviorStats();
+  const points=stats.dealPoints||0;
+  const tier=points>=500?'Platinum B2B':points>=250?'Gold B2B':points>=80?'Silver B2B':'Starter B2B';
+  const nextTarget=points>=500?500:(points>=250?500:(points>=80?250:80));
+  const progress=Math.round(Math.min(100,(points/nextTarget)*100));
+  el.innerHTML=`
+  <div style="margin:0 0 16px;padding:14px 16px;background:linear-gradient(135deg,rgba(15,23,42,.95),rgba(30,41,59,.86));border:1px solid rgba(34,197,94,.22);border-radius:12px">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <div style="font-size:.9rem;color:#22c55e;font-weight:900">لوحة ولاء أعمال B2B (مرتبطة بالإنجاز الحقيقي)</div>
+      <span style="padding:4px 8px;border-radius:999px;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.25);font-size:.64rem;color:#f5e6a3">${tier}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(110px,1fr));gap:8px;margin-bottom:8px">
+      <div style="padding:8px;border-radius:9px;background:rgba(2,6,23,.45);border:1px solid rgba(148,163,184,.18);text-align:center"><div style="font-size:.62rem;color:#94a3b8">نقاط الولاء</div><div style="font-size:.95rem;color:#f8fafc;font-weight:900">${points}</div></div>
+      <div style="padding:8px;border-radius:9px;background:rgba(2,6,23,.45);border:1px solid rgba(148,163,184,.18);text-align:center"><div style="font-size:.62rem;color:#94a3b8">RFQ منجزة</div><div style="font-size:.95rem;color:#f8fafc;font-weight:900">${stats.rfq||0}</div></div>
+      <div style="padding:8px;border-radius:9px;background:rgba(2,6,23,.45);border:1px solid rgba(148,163,184,.18);text-align:center"><div style="font-size:.62rem;color:#94a3b8">مشاركات عروض</div><div style="font-size:.95rem;color:#f8fafc;font-weight:900">${stats.shares||0}</div></div>
+    </div>
+    <div style="font-size:.64rem;color:#94a3b8;margin-bottom:4px">الاقتراب من المستوى القادم</div>
+    <div style="height:8px;border-radius:999px;background:rgba(148,163,184,.2);overflow:hidden"><div style="height:100%;width:${progress}%;background:linear-gradient(90deg,#22c55e,#D4AF37)"></div></div>
+    <div style="margin-top:6px;font-size:.62rem;color:#cbd5e1">تُحتسب النقاط من الأعمال الفعلية: RFQ، مشاركة صفقات، وتقدم مهام التشغيل. لا نقاط مزيفة.</div>
+  </div>`;
+}
+
+function getMerchantImageRegistry(){
+  const base={};
+  try{
+    const raw=localStorage.getItem('sheikha_merchant_images_v1');
+    if(raw){
+      const parsed=JSON.parse(raw);
+      if(parsed && typeof parsed==='object') return parsed;
+    }
+  }catch(_){}
+  return base;
+}
+
+function saveMerchantImageRegistry(next){
+  try{localStorage.setItem('sheikha_merchant_images_v1',JSON.stringify(next));}catch(_){}
+}
+
+function getMerchantImageSet(productId){
+  const store=getMerchantImageRegistry();
+  return store[String(productId)]||null;
+}
+
+function parseGeoTarget(v){
+  const raw=String(v||'').trim();
+  if(!raw || !raw.includes(',')) return null;
+  const parts=raw.split(',').map((x)=>parseFloat(x.trim()));
+  if(parts.length!==2 || !Number.isFinite(parts[0]) || !Number.isFinite(parts[1])) return null;
+  return {lat:parts[0],lon:parts[1]};
+}
+
+function distanceKm(aLat,aLon,bLat,bLon){
+  const toRad=(d)=>d*Math.PI/180;
+  const R=6371;
+  const dLat=toRad(bLat-aLat);
+  const dLon=toRad(bLon-aLon);
+  const lat1=toRad(aLat);
+  const lat2=toRad(bLat);
+  const x=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.sin(dLon/2)*Math.sin(dLon/2)*Math.cos(lat1)*Math.cos(lat2);
+  const c=2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+  return R*c;
+}
+
+async function getCurrentGeoSnapshot(){
+  if(!navigator || !navigator.geolocation) return {ok:false,reason:'no_geolocation'};
+  return new Promise((resolve)=>{
+    navigator.geolocation.getCurrentPosition(
+      (pos)=>{
+        resolve({
+          ok:true,
+          lat:pos.coords.latitude,
+          lon:pos.coords.longitude,
+          accuracy:pos.coords.accuracy,
+          ts:Date.now()
+        });
+      },
+      (err)=>resolve({ok:false,reason:err&&err.message?err.message:'geo_error'}),
+      {enableHighAccuracy:true,timeout:8000,maximumAge:10000}
+    );
+  });
+}
+
+function getIotMonitoringStore(){
+  const base={events:[],heartbeat:0,lastProductId:'',lastStatus:'idle'};
+  try{
+    const raw=localStorage.getItem('sheikha_iot_image_monitor_v1');
+    if(raw){
+      const parsed=JSON.parse(raw);
+      return Object.assign(base,parsed||{});
+    }
+  }catch(_){}
+  return base;
+}
+
+function saveIotMonitoringStore(next){
+  try{localStorage.setItem('sheikha_iot_image_monitor_v1',JSON.stringify(next));}catch(_){}
+}
+
+function appendIotEvent(evt){
+  const store=getIotMonitoringStore();
+  const eventObj=Object.assign({ts:Date.now()},evt||{});
+  store.events=[eventObj].concat(store.events||[]).slice(0,40);
+  store.lastStatus=eventObj.type||'update';
+  saveIotMonitoringStore(store);
+}
+
+function connectIotSocket(){
+  if(iotSocket && iotSocket.readyState===1) return;
+  if(iotSocket && iotSocket.readyState===0) return;
+  try{
+    const proto=location.protocol==='https:'?'wss':'ws';
+    const wsUrl=`${proto}://${location.host}`;
+    iotSocket=new WebSocket(wsUrl);
+    iotSocket.onopen=()=>{
+      iotSocketReady=true;
+      iotLiveConnected=true;
+      if(iotSocketRetryTimer){clearTimeout(iotSocketRetryTimer);iotSocketRetryTimer=null;}
+      renderIotImageTrackingHub();
+    };
+    iotSocket.onmessage=(ev)=>{
+      try{
+        const msg=JSON.parse(ev.data||'{}');
+        if(msg&&msg.type==='iotSensors'&&msg.sensors){
+          iotLiveData=msg.sensors;
+          iotLiveConnected=true;
+          iotLastFetchTs=Date.now();
+          renderIotImageTrackingHub();
+        }
+      }catch(_){}
+    };
+    iotSocket.onclose=()=>{
+      iotSocketReady=false;
+      iotLiveConnected=false;
+      if(iotTrackerRunning && !iotSocketRetryTimer){
+        iotSocketRetryTimer=setTimeout(()=>{
+          iotSocketRetryTimer=null;
+          connectIotSocket();
+        },2500);
+      }
+    };
+    iotSocket.onerror=()=>{try{iotSocket&&iotSocket.close();}catch(_){}};
+  }catch(_){}
+}
+
+async function refreshIotLiveData(force){
+  if(iotSocketReady && iotLiveData && !force) return iotLiveData;
+  const now=Date.now();
+  if(!force && (now-iotLastFetchTs)<5000) return iotLiveData;
+  iotLastFetchTs=now;
+  const endpoints=['/api/logistics/iot/sensors','/api/iot/sensors'];
+  for(const ep of endpoints){
+    try{
+      const r=await fetch(ep,{cache:'no-store'});
+      if(!r.ok) continue;
+      const j=await r.json();
+      const sensors=j&&j.sensors?j.sensors:(j&&j.data&&j.data.sensors?j.data.sensors:null);
+      if(sensors){
+        iotLiveData=sensors;
+        iotLiveConnected=true;
+        return sensors;
+      }
+    }catch(_){}
+  }
+  iotLiveConnected=false;
+  return null;
+}
+
+function runIotImageMonitoringTick(){
+  const reg=getMerchantImageRegistry();
+  const ids=Object.keys(reg||{});
+  const store=getIotMonitoringStore();
+  const total=ids.length;
+  let matched=0;
+  let geoMatched=0;
+  let qualityAvg=0;
+  ids.forEach((id)=>{
+    const meta=reg[id]&&reg[id].meta?reg[id].meta:null;
+    if(!meta) return;
+    if(meta.matchState) matched++;
+    if(meta.geoMatched) geoMatched++;
+    qualityAvg+=meta.qualityAvg||0;
+  });
+  const finalQuality=total?Math.round(qualityAvg/total):0;
+  store.heartbeat=Date.now();
+  store.summary={total,matched,geoMatched,quality:finalQuality};
+  saveIotMonitoringStore(store);
+  iotLastHeartbeat=store.heartbeat;
+}
+
+function startIotImageTracking(){
+  if(iotTrackerRunning) return;
+  iotTrackerRunning=true;
+  connectIotSocket();
+  runIotImageMonitoringTick();
+  refreshIotLiveData(true);
+  appendIotEvent({type:'tracking_started',msg:'بدء المراقبة اللحظية'});
+  iotTrackerTimer=setInterval(async ()=>{
+    runIotImageMonitoringTick();
+    await refreshIotLiveData(false);
+    renderIotImageTrackingHub();
+  },7000);
+  renderIotImageTrackingHub();
+}
+
+function stopIotImageTracking(){
+  iotTrackerRunning=false;
+  if(iotTrackerTimer){
+    clearInterval(iotTrackerTimer);
+    iotTrackerTimer=null;
+  }
+  if(iotSocket){
+    try{iotSocket.close();}catch(_){}
+    iotSocket=null;
+  }
+  iotSocketReady=false;
+  iotLiveConnected=false;
+  if(iotSocketRetryTimer){clearTimeout(iotSocketRetryTimer);iotSocketRetryTimer=null;}
+  appendIotEvent({type:'tracking_stopped',msg:'إيقاف المراقبة اللحظية'});
+  renderIotImageTrackingHub();
+}
+
+function scoreImageQuality(w,h){
+  const pixels=w*h;
+  const resScore=Math.min(60,Math.round((pixels/1500000)*60));
+  const ratio=w/h;
+  const ratioScore=(ratio>1.2&&ratio<1.8)?20:12;
+  const sizeScore=(w>=1200&&h>=800)?20:10;
+  return Math.min(100,resScore+ratioScore+sizeScore);
+}
+
+function parseNumberFromText(v){
+  if(v===undefined||v===null) return 0;
+  const n=parseFloat(String(v).replace(/[^\d.]/g,''));
+  return Number.isFinite(n)?n:0;
+}
+
+async function processMerchantImageFile(file){
+  const bitmap=await createImageBitmap(file);
+  const targetW=1600,targetH=1100;
+  const srcRatio=bitmap.width/bitmap.height;
+  const dstRatio=targetW/targetH;
+  let sx=0,sy=0,sw=bitmap.width,sh=bitmap.height;
+  if(srcRatio>dstRatio){
+    sw=Math.round(bitmap.height*dstRatio);
+    sx=Math.round((bitmap.width-sw)/2);
+  }else{
+    sh=Math.round(bitmap.width/dstRatio);
+    sy=Math.round((bitmap.height-sh)/2);
+  }
+  const canvas=document.createElement('canvas');
+  canvas.width=targetW;
+  canvas.height=targetH;
+  const ctx=canvas.getContext('2d');
+  ctx.filter='contrast(1.08) saturate(1.08) brightness(1.03)';
+  ctx.drawImage(bitmap,sx,sy,sw,sh,0,0,targetW,targetH);
+  ctx.filter='none';
+  try{
+    const detector=getSheikhaFaceDetector();
+    if(detector){
+      const faces=await detector.detect(bitmap);
+      if(faces && faces.length){
+        const scaleX=targetW/sw;
+        const scaleY=targetH/sh;
+        faces.forEach((f)=>{
+          if(!f || !f.boundingBox) return;
+          const bx=(f.boundingBox.x-sx)*scaleX;
+          const by=(f.boundingBox.y-sy)*scaleY;
+          const bw=f.boundingBox.width*scaleX;
+          const bh=f.boundingBox.height*scaleY;
+          sheikhaBlurRect(ctx,bx,by,bw,bh);
+        });
+      }
+    }
+  }catch(_){}
+  const quality=scoreImageQuality(bitmap.width,bitmap.height);
+  const accepted=(bitmap.width>=1200&&bitmap.height>=800&&quality>=55);
+  const out=canvas.toDataURL('image/webp',0.92);
+  return {out,quality,width:bitmap.width,height:bitmap.height,name:file.name,accepted};
+}
+
+async function onMerchantImageUpload(inputEl){
+  const files=[...(inputEl&&inputEl.files?inputEl.files:[])];
+  const outEl=document.getElementById('merchantImageResults');
+  if(!outEl){return;}
+  if(!files.length){
+    outEl.innerHTML='<div style="font-size:.66rem;color:#64748b">لم يتم اختيار صور.</div>';
+    return;
+  }
+  const productId=String(document.getElementById('merchantImageProduct')?.value||'');
+  const locationText=(document.getElementById('merchantImageLocation')?.value||'').trim();
+  const qtyText=(document.getElementById('merchantImageQty')?.value||'').trim();
+  const specsText=(document.getElementById('merchantImageSpecs')?.value||'').trim();
+  const hsText=(document.getElementById('merchantImageHS')?.value||'').trim();
+  const geoTargetText=(document.getElementById('merchantImageGeoTarget')?.value||'').trim();
+  const product=products.find((p)=>String(p.id)===productId);
+  if(!product){
+    outEl.innerHTML='<div style="font-size:.66rem;color:#fca5a5">اختر المنتج أولاً لربط الصور داخل المتجر.</div>';
+    return;
+  }
+  if(!locationText||!qtyText||!specsText||!hsText){
+    outEl.innerHTML='<div style="font-size:.66rem;color:#fca5a5">أكمل بيانات المطابقة: الموقع + الكمية + المواصفة + HS.</div>';
+    return;
+  }
+
+  outEl.innerHTML='<div style="font-size:.66rem;color:#94a3b8">جارٍ تحسين الصور وطمس الأرواح...</div>';
+  const items=[];
+  for(const file of files){
+    if(!file.type.startsWith('image/')) continue;
+    try{
+      const r=await processMerchantImageFile(file);
+      items.push(r);
+    }catch(_){}
+  }
+  if(!items.length){
+    outEl.innerHTML='<div style="font-size:.66rem;color:#fca5a5">تعذر معالجة الصور المختارة.</div>';
+    return;
+  }
+  const acceptedItems=items.filter((x)=>x.accepted);
+  if(!acceptedItems.length){
+    outEl.innerHTML='<div style="font-size:.66rem;color:#fca5a5">كل الصور مرفوضة: يلزم دقة لا تقل عن 1200×800 وجودة لا تقل عن 55/100.</div>';
+    return;
+  }
+
+  const qtyProduct=parseNumberFromText(product.qty);
+  const qtyInput=parseNumberFromText(qtyText);
+  const hsOk=String(product.hs).replace(/\s/g,'')===String(hsText).replace(/\s/g,'');
+  const qtyOk=(qtyProduct===0||qtyInput===0)?true:(qtyInput<=qtyProduct);
+  const fieldSensors=await refreshIotLiveData(true);
+  const sensorWeight=parseNumberFromText(fieldSensors&&fieldSensors.weight?fieldSensors.weight.value:0);
+  const sensorWeightOk=(sensorWeight&&qtyInput)?(Math.abs(sensorWeight-qtyInput)/Math.max(qtyInput,1)<=0.3):true;
+  const geoSnapshot=await getCurrentGeoSnapshot();
+  const geoTarget=parseGeoTarget(geoTargetText);
+  let geoMatched=true;
+  let geoDistanceKm=0;
+  if(geoTarget){
+    if(geoSnapshot.ok){
+      geoDistanceKm=distanceKm(geoSnapshot.lat,geoSnapshot.lon,geoTarget.lat,geoTarget.lon);
+      geoMatched=geoDistanceKm<=8;
+    }else{
+      geoMatched=false;
+    }
+  }
+  const matchState=hsOk&&qtyOk&&geoMatched&&sensorWeightOk;
+
+  const reg=getMerchantImageRegistry();
+  const base=reg[productId]||{};
+  const sorted=acceptedItems.slice(0,3);
+  const cover=sorted[0]?.out||base.cover||'';
+  const front=sorted[0]?.out||base.front||'';
+  const side=sorted[1]?.out||base.side||front;
+  const detail=sorted[2]?.out||base.detail||front;
+  reg[productId]={
+    cover,front,side,detail,
+    meta:{
+      productName:product.name,
+      location:locationText,
+      quantityText:qtyText,
+      specs:specsText,
+      hs:hsText,
+      geoTarget:geoTargetText,
+      hsMatched:hsOk,
+      qtyMatched:qtyOk,
+      geoMatched,
+      sensorWeight,
+      sensorWeightMatched:sensorWeightOk,
+      geoDistanceKm:geoDistanceKm?Number(geoDistanceKm.toFixed(2)):0,
+      geoSnapshot:geoSnapshot.ok?{lat:geoSnapshot.lat,lon:geoSnapshot.lon,accuracy:geoSnapshot.accuracy,ts:geoSnapshot.ts}:null,
+      matchState,
+      uploadedAt:Date.now(),
+      qualityAvg:Math.round(acceptedItems.reduce((s,x)=>s+x.quality,0)/acceptedItems.length),
+      files:acceptedItems.map((x)=>({name:x.name,w:x.width,h:x.height,q:x.quality}))
+    }
+  };
+  saveMerchantImageRegistry(reg);
+  appendIotEvent({
+    type:'upload_verified',
+    productId,
+    productName:product.name,
+    matchState,
+    hsOk,
+    qtyOk,
+    geoMatched,
+    sensorWeightOk,
+    qualityAvg:reg[productId]&&reg[productId].meta?reg[productId].meta.qualityAvg:0
+  });
+  trackBehavior('dealPoints',matchState?15:6);
+  runIotImageMonitoringTick();
+
+  outEl.innerHTML=`
+  <div style="grid-column:1/-1;padding:8px;background:${matchState?'rgba(34,197,94,.08)':'rgba(239,68,68,.08)'};border:1px solid ${matchState?'rgba(34,197,94,.22)':'rgba(239,68,68,.22)'};border-radius:10px;font-size:.66rem;color:${matchState?'#86efac':'#fca5a5'}">
+    ${matchState?'تمت المطابقة بنجاح وإدخال الصور إلى المتجر.':'تنبيه: يوجد عدم تطابق في HS أو الكمية أو الموقع أو وزن الحساس، راجع البيانات قبل الاعتماد.'}
+  </div>
+  ${acceptedItems.map((it)=>`
+    <div style="padding:8px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.2);border-radius:10px">
+      <img src="${it.out}" alt="${it.name}" style="width:100%;height:150px;object-fit:cover;border-radius:8px;border:1px solid rgba(212,175,55,.2)">
+      <div style="display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;margin-top:6px">
+        <span style="font-size:.62rem;color:#cbd5e1">${it.name}</span>
+        <span style="font-size:.62rem;color:#86efac">جودة ${it.quality}/100</span>
+        <span style="font-size:.62rem;color:#22c55e">بلا أرواح ✅</span>
+      </div>
+      <a href="${it.out}" download="sheikha-${Date.now()}-${Math.round(Math.random()*9999)}.webp" style="display:inline-block;margin-top:6px;padding:4px 8px;border-radius:7px;border:1px solid rgba(212,175,55,.25);background:rgba(212,175,55,.08);color:#f5e6a3;font-size:.62rem;text-decoration:none">تحميل النسخة المحسّنة</a>
+    </div>
+  `).join('')}
+  <div style="grid-column:1/-1;padding:8px;background:rgba(15,23,42,.5);border:1px solid rgba(148,163,184,.2);border-radius:10px">
+    <div style="font-size:.66rem;color:#f1f5f9;font-weight:800;margin-bottom:4px">ملف المطابقة</div>
+    <div style="font-size:.63rem;color:#cbd5e1;line-height:1.7">المنتج: ${product.name}</div>
+    <div style="font-size:.63rem;color:#cbd5e1;line-height:1.7">الموقع: ${locationText}</div>
+    <div style="font-size:.63rem;color:#cbd5e1;line-height:1.7">الكمية المرفوعة: ${qtyText} — المتاح: ${product.qty}</div>
+    <div style="font-size:.63rem;color:${hsOk?'#86efac':'#fca5a5'};line-height:1.7">مطابقة HS: ${hsOk?'مطابق':'غير مطابق'} (${hsText} / ${product.hs})</div>
+    <div style="font-size:.63rem;color:${qtyOk?'#86efac':'#fca5a5'};line-height:1.7">مطابقة الكمية: ${qtyOk?'مطابقة':'تجاوزت المتاح'}</div>
+    <div style="font-size:.63rem;color:${geoMatched?'#86efac':'#fca5a5'};line-height:1.7">مطابقة الموقع: ${geoMatched?'مطابق':'غير مطابق'} ${geoDistanceKm?`(المسافة ${geoDistanceKm.toFixed(2)} كم)`:''}</div>
+    <div style="font-size:.63rem;color:${sensorWeightOk?'#86efac':'#fca5a5'};line-height:1.7">مطابقة وزن الحساس: ${sensorWeightOk?'مطابق':'غير مطابق'} ${sensorWeight?`(الحساس ${sensorWeight.toFixed(2)} طن)`:''}</div>
+    <div style="font-size:.63rem;color:#cbd5e1;line-height:1.7">المواصفة: ${specsText}</div>
+    <div style="font-size:.61rem;color:#94a3b8;margin-top:4px">تحسين أمين بدون خداع: قص، توازن إضاءة، تباين خفيف، طمس الأرواح فقط.</div>
+  </div>`;
+  renderProducts();
+}
+
+function renderRealImageStudioHub(){
+  const el=document.getElementById('realImageStudioHub');
+  if(!el) return;
+  const options=products.map((p)=>`<option value="${p.id}">${p.name} — HS ${p.hs}</option>`).join('');
+  el.innerHTML=`
+  <div style="margin:0 0 16px;padding:14px 16px;background:linear-gradient(135deg,rgba(2,6,23,.96),rgba(15,23,42,.88));border:1px solid rgba(212,175,55,.22);border-radius:12px">
+    <div style="font-size:.9rem;color:#D4AF37;font-weight:900;margin-bottom:5px">استوديو الصور الحقيقية للتاجر (فاخر + بلا أرواح)</div>
+    <div style="font-size:.68rem;color:#cbd5e1;line-height:1.7;margin-bottom:7px">نظام داخلي كامل: قبول صور عالية الجودة فقط، تحسين أمين بدون خداع، ودمج تلقائي داخل بطاقة المنتج بعد المطابقة، مع تتبع موقع لحظي (IoT/Geo).</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-bottom:8px">
+      <select id="merchantImageProduct" style="padding:7px;border-radius:8px;border:1px solid rgba(148,163,184,.25);background:rgba(15,23,42,.55);color:#e2e8f0;font-family:inherit;font-size:.66rem">
+        <option value="">اختر المنتج لربط الصور</option>${options}
+      </select>
+      <input id="merchantImageLocation" type="text" placeholder="موقع المنتج (المدينة/المستودع)" style="padding:7px;border-radius:8px;border:1px solid rgba(148,163,184,.25);background:rgba(15,23,42,.55);color:#e2e8f0;font-family:inherit;font-size:.66rem">
+      <input id="merchantImageQty" type="text" placeholder="الكمية (مثال: 500 طن)" style="padding:7px;border-radius:8px;border:1px solid rgba(148,163,184,.25);background:rgba(15,23,42,.55);color:#e2e8f0;font-family:inherit;font-size:.66rem">
+      <input id="merchantImageHS" type="text" placeholder="HS Code" style="padding:7px;border-radius:8px;border:1px solid rgba(148,163,184,.25);background:rgba(15,23,42,.55);color:#e2e8f0;font-family:inherit;font-size:.66rem">
+      <input id="merchantImageGeoTarget" type="text" placeholder="إحداثيات الموقع المستهدف (lat,lon) اختياري" style="padding:7px;border-radius:8px;border:1px solid rgba(148,163,184,.25);background:rgba(15,23,42,.55);color:#e2e8f0;font-family:inherit;font-size:.66rem">
+      <input id="merchantImageSpecs" type="text" placeholder="المواصفة الأساسية (نقاء/درجة/حالة)" style="padding:7px;border-radius:8px;border:1px solid rgba(148,163,184,.25);background:rgba(15,23,42,.55);color:#e2e8f0;font-family:inherit;font-size:.66rem">
+    </div>
+    <div style="font-size:.62rem;color:#94a3b8;line-height:1.7;margin-bottom:6px">شروط الرفع: دقة ≥ 1200×800، وضوح كافٍ، صورة حقيقية للمنتج، وعدم إضافة مؤثرات تغيّر الحقيقة.</div>
+    <input type="file" multiple accept="image/*" onchange="onMerchantImageUpload(this)" style="margin-bottom:8px;padding:7px;border-radius:8px;border:1px solid rgba(148,163,184,.25);background:rgba(15,23,42,.55);color:#e2e8f0;font-family:inherit;font-size:.66rem">
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+      <button onclick="startIotImageTracking()" style="padding:5px 9px;border-radius:8px;border:1px solid rgba(34,197,94,.3);background:rgba(34,197,94,.12);color:#86efac;font-size:.64rem;font-family:inherit;font-weight:700;cursor:pointer">تشغيل تتبع IoT</button>
+      <button onclick="runIotImageMonitoringTick();refreshIotLiveData(true).then(()=>renderIotImageTrackingHub());" style="padding:5px 9px;border-radius:8px;border:1px solid rgba(59,130,246,.3);background:rgba(59,130,246,.12);color:#93c5fd;font-size:.64rem;font-family:inherit;font-weight:700;cursor:pointer">تحديث فوري للمراقبة</button>
+      <span style="font-size:.61rem;color:#94a3b8;align-self:center">يلزم السماح بالموقع لمطابقة GPS.</span>
+    </div>
+    <div id="merchantImageResults" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px"></div>
+  </div>`;
+}
+
+function formatIotTime(ts){
+  if(!ts) return '—';
+  try{return new Date(ts).toLocaleTimeString('ar-SA');}catch(_){return '—';}
+}
+
+function renderIotImageTrackingHub(){
+  const el=document.getElementById('iotImageTrackingHub');
+  if(!el) return;
+  if(iotTrackerRunning && !iotSocketReady) connectIotSocket();
+  if(!iotLiveData) refreshIotLiveData(false).then(()=>renderIotImageTrackingHub());
+  const store=getIotMonitoringStore();
+  const sum=store.summary||{total:0,matched:0,geoMatched:0,quality:0};
+  const events=(store.events||[]).slice(0,6);
+  const health=sum.total?Math.round(((sum.matched/sum.total)*55)+((sum.geoMatched/sum.total)*25)+((sum.quality/100)*20)):0;
+  const healthLabel=health>=85?'ممتاز':health>=65?'جيد':health>=45?'متوسط':'يحتاج تحسين';
+  const live=iotLiveData||{};
+  const gps=live.gps||{};
+  const weight=live.weight||{};
+  const temp=live.temperature||{};
+  const shock=live.shock||{};
+  el.innerHTML=`
+  <div style="margin:0 0 16px;padding:14px 16px;background:linear-gradient(135deg,rgba(2,6,23,.96),rgba(15,23,42,.88));border:1px solid rgba(14,165,233,.25);border-radius:12px">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <div>
+        <div style="font-size:.9rem;color:#38bdf8;font-weight:900">نظام تتبع لحظي لمطابقة الصور (IoT/Geo)</div>
+        <div style="font-size:.64rem;color:#94a3b8">يراقب: الموقع + الجودة + الكمية + مطابقة HS + دورة العملية للتحسين المستمر</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        ${iotTrackerRunning
+          ?`<button onclick="stopIotImageTracking()" style="padding:6px 10px;border-radius:8px;border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.12);color:#fca5a5;font-size:.66rem;font-family:inherit;font-weight:700;cursor:pointer">إيقاف التتبع</button>`
+          :`<button onclick="startIotImageTracking()" style="padding:6px 10px;border-radius:8px;border:1px solid rgba(34,197,94,.3);background:rgba(34,197,94,.12);color:#86efac;font-size:.66rem;font-family:inherit;font-weight:700;cursor:pointer">تشغيل التتبع</button>`}
+        <span style="padding:4px 8px;border-radius:999px;background:${iotLiveConnected?'rgba(34,197,94,.12)':'rgba(239,68,68,.12)'};border:1px solid ${iotLiveConnected?'rgba(34,197,94,.25)':'rgba(239,68,68,.25)'};font-size:.62rem;color:${iotLiveConnected?'#86efac':'#fca5a5'}">${iotLiveConnected?'ربط IoT ميداني متصل':'ربط IoT غير متصل'}</span>
+        <span style="padding:4px 8px;border-radius:999px;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.2);font-size:.62rem;color:#cbd5e1">آخر نبضة: ${formatIotTime(store.heartbeat||iotLastHeartbeat)}</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:8px;margin-bottom:8px">
+      <div style="padding:7px;border-radius:9px;background:rgba(2,6,23,.45);border:1px solid rgba(148,163,184,.18);text-align:center"><div style="font-size:.58rem;color:#94a3b8">وزن حساس</div><div style="font-size:.84rem;color:#f8fafc;font-weight:900">${weight.value!==undefined?`${Number(weight.value).toFixed(2)} ${weight.unit||''}`:'—'}</div></div>
+      <div style="padding:7px;border-radius:9px;background:rgba(2,6,23,.45);border:1px solid rgba(148,163,184,.18);text-align:center"><div style="font-size:.58rem;color:#94a3b8">GPS</div><div style="font-size:.78rem;color:#f8fafc;font-weight:900">${gps.lat!==undefined&&gps.lng!==undefined?`${Number(gps.lat).toFixed(4)}, ${Number(gps.lng).toFixed(4)}`:'—'}</div></div>
+      <div style="padding:7px;border-radius:9px;background:rgba(2,6,23,.45);border:1px solid rgba(148,163,184,.18);text-align:center"><div style="font-size:.58rem;color:#94a3b8">حرارة</div><div style="font-size:.84rem;color:#f8fafc;font-weight:900">${temp.value!==undefined?`${Number(temp.value).toFixed(1)} ${temp.unit||''}`:'—'}</div></div>
+      <div style="padding:7px;border-radius:9px;background:rgba(2,6,23,.45);border:1px solid rgba(148,163,184,.18);text-align:center"><div style="font-size:.58rem;color:#94a3b8">اهتزاز</div><div style="font-size:.84rem;color:#f8fafc;font-weight:900">${shock.value!==undefined?`${Number(shock.value).toFixed(2)} ${shock.unit||''}`:'—'}</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(5,minmax(90px,1fr));gap:8px;margin-bottom:8px">
+      <div style="padding:7px;border-radius:9px;background:rgba(2,6,23,.45);border:1px solid rgba(148,163,184,.18);text-align:center"><div style="font-size:.59rem;color:#94a3b8">سجلات مرفوعة</div><div style="font-size:.88rem;color:#f8fafc;font-weight:900">${sum.total||0}</div></div>
+      <div style="padding:7px;border-radius:9px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);text-align:center"><div style="font-size:.59rem;color:#86efac">مطابقة كلية</div><div style="font-size:.88rem;color:#86efac;font-weight:900">${sum.matched||0}</div></div>
+      <div style="padding:7px;border-radius:9px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);text-align:center"><div style="font-size:.59rem;color:#93c5fd">مطابقة موقع</div><div style="font-size:.88rem;color:#93c5fd;font-weight:900">${sum.geoMatched||0}</div></div>
+      <div style="padding:7px;border-radius:9px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.2);text-align:center"><div style="font-size:.59rem;color:#f5e6a3">جودة متوسطة</div><div style="font-size:.88rem;color:#f5e6a3;font-weight:900">${sum.quality||0}/100</div></div>
+      <div style="padding:7px;border-radius:9px;background:rgba(129,140,248,.08);border:1px solid rgba(129,140,248,.2);text-align:center"><div style="font-size:.59rem;color:#c7d2fe">مؤشر التحسين</div><div style="font-size:.88rem;color:#c7d2fe;font-weight:900">${health}%</div></div>
+    </div>
+    <div style="font-size:.62rem;color:${health>=65?'#86efac':'#fcd34d'};margin-bottom:7px">حالة المراقبة: ${healthLabel} — بلا ضرر ولا خداع، التحسين يركز على الجودة والامتثال فقط.</div>
+    <div style="padding:8px;background:rgba(15,23,42,.5);border:1px solid rgba(148,163,184,.2);border-radius:10px">
+      <div style="font-size:.65rem;color:#f1f5f9;font-weight:800;margin-bottom:5px">سجل التتبع اللحظي</div>
+      ${events.length?events.map((e)=>`<div style="font-size:.62rem;color:#cbd5e1;line-height:1.7">• [${formatIotTime(e.ts)}] ${e.type||'event'} ${e.productName?`— ${e.productName}`:''} ${e.matchState===true?'(مطابقة ✅)':e.matchState===false?'(مراجعة ⚠)':''}</div>`).join(''):'<div style="font-size:.62rem;color:#64748b">لا توجد أحداث بعد. ارفع صورًا وشغّل التتبع.</div>'}
+    </div>
+  </div>`;
+}
+
+async function sheikhaIntegrationRequest(endpoint,payload){
+  const opts={method:payload?'POST':'GET',headers:{'Content-Type':'application/json'}};
+  if(payload) opts.body=JSON.stringify(payload);
+  const r=await fetch(endpoint,opts);
+  const j=await r.json().catch(()=>({success:false,message:'استجابة غير مفهومة'}));
+  return j;
+}
+
+function setIntegrationSystem(systemId){
+  activeIntegrationSystem=systemId||'sap-s4hana';
+  renderIntegrationOneClickHub();
+}
+
+function sheikhaOAuthProviderFromSystem(systemId){
+  const map={
+    'google-workspace':'google',
+    'microsoft-365':'microsoft',
+    'ms-dynamics':'microsoft',
+    'github':'github'
+  };
+  return map[String(systemId||'').toLowerCase()]||'';
+}
+
+async function startSheikhaAuthFlow(){
+  const provider=sheikhaOAuthProviderFromSystem(activeIntegrationSystem);
+  const resultEl=document.getElementById('integrationOneClickResult');
+  if(!provider){
+    if(resultEl) resultEl.innerHTML='<div style="font-size:.64rem;color:#fcd34d">هذا النظام يدعم الربط المباشر بدون OAuth، اضغط تفعيل الربط.</div>';
+    return;
+  }
+  if(resultEl) resultEl.innerHTML='<div style="font-size:.64rem;color:#93c5fd">جارٍ تجهيز نافذة مصادقة شيخة...</div>';
+  try{
+    const res=await sheikhaIntegrationRequest(`/api/auth/oauth/${provider}?userId=market-user`);
+    if(res&&res.success&&res.authUrl){
+      window.open(res.authUrl,'sheikha_oauth','width=640,height=760');
+      if(resultEl) resultEl.innerHTML='<div style="font-size:.64rem;color:#93c5fd">تم فتح نافذة المصادقة. أكمل الربط ثم ارجع هنا.</div>';
+    }else{
+      if(resultEl) resultEl.innerHTML=`<div style="font-size:.64rem;color:#fca5a5">${res&&res.message?res.message:'تعذر تجهيز OAuth'}</div>`;
+    }
+  }catch(_){
+    if(resultEl) resultEl.innerHTML='<div style="font-size:.64rem;color:#fca5a5">تعذر بدء المصادقة الآن.</div>';
+  }
+}
+
+async function discoverIntegrationMethod(){
+  const resultEl=document.getElementById('integrationOneClickResult');
+  if(resultEl) resultEl.innerHTML='<div style="font-size:.64rem;color:#93c5fd">جارٍ اكتشاف أفضل وسيلة ربط...</div>';
+  try{
+    const res=await sheikhaIntegrationRequest('/api/integration/one-click/discover',{
+      systemId:activeIntegrationSystem,
+      hint:'مباشر'
+    });
+    integrationLastResult=res&&res.data?res.data:null;
+    const rec=integrationLastResult&&integrationLastResult.recommendation?integrationLastResult.recommendation:null;
+    if(resultEl){
+      resultEl.innerHTML=rec
+        ?`<div style="font-size:.64rem;color:#86efac">أفضل وسيلة: <b>${rec.method}</b> — ${rec.reason}</div>`
+        :`<div style="font-size:.64rem;color:#fca5a5">${res&&res.message?res.message:'تعذر اكتشاف وسيلة الربط'}</div>`;
+    }
+  }catch(_){
+    if(resultEl) resultEl.innerHTML='<div style="font-size:.64rem;color:#fca5a5">تعذر الاتصال بخدمة الاكتشاف الآن.</div>';
+  }
+}
+
+async function oneClickIntegrationConnect(systemId){
+  if(systemId) activeIntegrationSystem=systemId;
+  if(integrationBusy) return;
+  integrationBusy=true;
+  const resultEl=document.getElementById('integrationOneClickResult');
+  if(resultEl) resultEl.innerHTML='<div style="font-size:.64rem;color:#93c5fd">جارٍ تفعيل الربط بضغطة زر...</div>';
+  try{
+    const res=await sheikhaIntegrationRequest('/api/integration/one-click/connect',{
+      systemId:activeIntegrationSystem,
+      userId:'market-user',
+      autoSync:true,
+      scopes:['read','write','sync']
+    });
+    const conn=res&&res.data&&res.data.connection?res.data.connection:null;
+    if(resultEl){
+      if(conn && conn.requiresOAuth){
+        resultEl.innerHTML=`<div style="font-size:.64rem;color:#fcd34d;line-height:1.8">الاتصال مع <b>${conn.targetName}</b> يحتاج مصادقة OAuth قبل التفعيل النهائي. اضغط زر <b>مصادقة شيخة</b>.</div>`;
+      }else{
+        resultEl.innerHTML=conn
+        ?`<div style="font-size:.64rem;color:#86efac;line-height:1.8">✅ تم تفعيل الربط المباشر مع <b>${conn.targetName}</b> عبر <b>${conn.method}</b> (${conn.mode}).</div>`
+        :`<div style="font-size:.64rem;color:#fca5a5">${res&&res.message?res.message:'تعذر التفعيل الآن'}</div>`;
+      }
+    }
+  }catch(_){
+    if(resultEl) resultEl.innerHTML='<div style="font-size:.64rem;color:#fca5a5">الخدمة غير متاحة الآن. أعد المحاولة بعد لحظات.</div>';
+  }finally{
+    integrationBusy=false;
+  }
+}
+
+function renderIntegrationOneClickHub(){
+  const el=document.getElementById('integrationOneClickHub');
+  if(!el) return;
+  const systems=[
+    {id:'sap-s4hana',label:'SAP'},
+    {id:'oracle-erp-cloud',label:'Oracle ERP'},
+    {id:'ms-dynamics',label:'Dynamics'},
+    {id:'odoo',label:'Odoo'},
+    {id:'google-workspace',label:'Google'},
+    {id:'microsoft-365',label:'Microsoft'},
+    {id:'github',label:'GitHub'}
+  ];
+  const btn=(s)=>`<button onclick="setIntegrationSystem('${s.id}')" style="padding:5px 9px;border-radius:8px;border:1px solid ${activeIntegrationSystem===s.id?'rgba(212,175,55,.35)':'rgba(148,163,184,.2)'};background:${activeIntegrationSystem===s.id?'rgba(212,175,55,.12)':'rgba(15,23,42,.45)'};color:${activeIntegrationSystem===s.id?'#f5e6a3':'#cbd5e1'};font-size:.62rem;font-family:inherit;font-weight:800;cursor:pointer">${s.label}</button>`;
+  el.innerHTML=`
+  <div style="margin:0 0 16px;padding:14px 16px;background:linear-gradient(135deg,rgba(2,6,23,.96),rgba(15,23,42,.88));border:1px solid rgba(212,175,55,.22);border-radius:12px">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <div>
+        <div style="font-size:.92rem;color:#f5e6a3;font-weight:900">🔗 أيقونة شيخة للتكامل — One Click Integration</div>
+        <div style="font-size:.65rem;color:#94a3b8;line-height:1.7">ربط مباشر مع ERP وGoogle/Microsoft/GitHub بضغطة زر مع اختيار أفضل وسيلة تلقائيًا.</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button onclick="discoverIntegrationMethod()" style="padding:6px 10px;border-radius:8px;border:1px solid rgba(59,130,246,.3);background:rgba(59,130,246,.12);color:#93c5fd;font-size:.64rem;font-family:inherit;font-weight:800;cursor:pointer">اكتشاف الوسيلة الأفضل</button>
+        <button onclick="startSheikhaAuthFlow()" style="padding:6px 10px;border-radius:8px;border:1px solid rgba(147,51,234,.3);background:rgba(147,51,234,.12);color:#d8b4fe;font-size:.64rem;font-family:inherit;font-weight:900;cursor:pointer">مصادقة شيخة</button>
+        <button onclick="oneClickIntegrationConnect()" style="padding:6px 10px;border-radius:8px;border:1px solid rgba(34,197,94,.3);background:rgba(34,197,94,.12);color:#86efac;font-size:.64rem;font-family:inherit;font-weight:900;cursor:pointer">تفعيل الربط بضغطة زر</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">${systems.map(btn).join('')}</div>
+    <div id="integrationOneClickResult" style="padding:8px;background:rgba(15,23,42,.5);border:1px solid rgba(148,163,184,.2);border-radius:10px;font-size:.64rem;color:#cbd5e1">اختر النظام ثم اضغط <b>تفعيل الربط بضغطة زر</b>.</div>
+  </div>`;
+}
+
+function getDigitalNetworkFlow(cat){
+  const catLabel=catNames[cat]||'السوق العام';
+  const shared=[
+    {id:'source',icon:'📥',name:'المصدر',desc:'مورد/تاجر/مجمّع'},
+    {id:'verify',icon:'🔬',name:'التحقق',desc:'فحص جودة + مطابقة'},
+    {id:'customs',icon:'📋',name:'الامتثال',desc:'HS + بيان + توثيق'},
+    {id:'trade',icon:'💱',name:'التنفيذ',desc:'عرض/تفاوض/إقفال'},
+    {id:'delivery',icon:'🚚',name:'التسليم',desc:'نقل + استلام + تتبع'},
+    {id:'review',icon:'📈',name:'المراجعة',desc:'قياس وتحسين مستمر'}
+  ];
+  const notes={
+    all:'تدفق موحّد لكل الأقسام ضمن شبكة رقمية واحدة.',
+    ores:'يركّز على الجودة والعيار قبل التعاقد.',
+    steel:'يركّز على المواصفة الفنية ومراحل التشكيل.',
+    copper:'يركّز على النقاء والدرجة الصناعية.',
+    aluminum:'يركّز على السبائك والسماكات والتطبيق.',
+    precious:'يركّز على التوثيق عالي الثقة والتتبع.',
+    rare:'يركّز على المخاطر والتوريد الاستراتيجي.',
+    scrap:'يركّز على الفرز/المعالجة/التدوير.',
+    salvage:'يركّز على التفكيك وفحص القطعة والحالة.'
+  };
+  return {catLabel,nodes:shared,note:notes[cat]||notes.all};
+}
+
+function getOperationDetail(nodeId){
+  const map={
+    source:{title:'مرحلة المصدر',kpis:['زمن توفير العرض','تنوع الموردين','نسبة الاعتماد الأولي'],units:['مركز الموردين','سجل التاجر','بوابة إدخال الكميات'],tools:['RFQ Manager','Supplier Score','Lead Queue']},
+    verify:{title:'مرحلة التحقق',kpis:['نسبة المطابقة','زمن الفحص','رفض الشحنات'],units:['مختبرات الفحص','محرك XRF','وحدة التوثيق'],tools:['Quality Check','Spec Matcher','COC Generator']},
+    customs:{title:'مرحلة الامتثال',kpis:['دقة HS','زمن البيان','نسبة الأخطاء الجمركية'],units:['وحدة الامتثال','أرشيف المستندات','نقطة ربط الجمارك'],tools:['HS Resolver','Bayan Draft','Compliance Audit']},
+    trade:{title:'مرحلة التنفيذ التجاري',kpis:['معدل إغلاق الصفقات','هامش الربح','الزمن حتى الاتفاق'],units:['مركز العروض','إدارة العقود','محرك التسعير'],tools:['Deal Room','Contract Builder','Margin Guard']},
+    delivery:{title:'مرحلة التسليم',kpis:['نسبة التسليم في الوقت','تكلفة اللوجستيات','المرتجعات'],units:['وحدة الشحن','مركز التتبع','إدارة الاستلام'],tools:['TMS Lite','Delivery Tracker','Proof of Delivery']},
+    review:{title:'مرحلة التحسين المستمر',kpis:['تحسن KPI أسبوعي','إغلاق ملاحظات التحسين','استقرار الجودة'],units:['مكتب التحسين','لوحة الأداء','إدارة المعرفة'],tools:['PDCA Board','KPI Insights','Action Register']}
+  };
+  return map[nodeId]||map.source;
+}
+
+function setOperationNode(nodeId){
+  activeOperationNode=nodeId;
+  renderDigitalNetworkMapHub();
+}
+
+function renderDigitalNetworkMapHub(){
+  const el=document.getElementById('digitalNetworkMapHub');
+  if(!el) return;
+  const flow=getDigitalNetworkFlow(activeCat);
+  const detail=getOperationDetail(activeOperationNode);
+  const supportUnits=['وحدة الهوية الرقمية','وحدة التتبع الزمني','وحدة المخاطر','وحدة التوثيق الشرعي','وحدة دعم العملاء B2B','وحدة تكامل الأنظمة'];
+  el.innerHTML=`
+  <div style="margin:0 0 16px;padding:14px 16px;background:linear-gradient(135deg,rgba(2,6,23,.96),rgba(15,23,42,.88));border:1px solid rgba(148,163,184,.24);border-radius:12px">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:flex-start;margin-bottom:8px">
+      <div>
+        <div style="font-size:.92rem;color:#93c5fd;font-weight:900">خريطة الشبكة الرقمية — ${flow.catLabel}</div>
+        <div style="font-size:.67rem;color:#94a3b8;line-height:1.7">${flow.note}</div>
+      </div>
+      <div style="font-size:.62rem;color:#bbf7d0">التوثيق والتحسين: مستمر ودوري بلا انقطاع</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:10px">
+      ${flow.nodes.map((n)=>`<button onclick="setOperationNode('${n.id}')" style="text-align:right;padding:9px;border-radius:9px;border:1px solid ${activeOperationNode===n.id?'rgba(212,175,55,.35)':'rgba(148,163,184,.2)'};background:${activeOperationNode===n.id?'rgba(212,175,55,.1)':'rgba(15,23,42,.45)'};color:#e2e8f0;font-family:inherit;cursor:pointer"><div style="font-size:.9rem">${n.icon}</div><div style="font-size:.71rem;font-weight:800">${n.name}</div><div style="font-size:.62rem;color:#94a3b8">${n.desc}</div></button>`).join('')}
+    </div>
+    <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:10px">
+      <div style="padding:10px;background:rgba(15,23,42,.5);border:1px solid rgba(148,163,184,.2);border-radius:10px">
+        <div style="font-size:.74rem;color:#f5e6a3;font-weight:900;margin-bottom:6px">${detail.title}</div>
+        <div style="font-size:.66rem;color:#cbd5e1;font-weight:800;margin-bottom:4px">مؤشرات القياس</div>
+        ${detail.kpis.map((k)=>`<div style="font-size:.65rem;color:#e2e8f0;line-height:1.7">◆ ${k}</div>`).join('')}
+        <div style="font-size:.66rem;color:#cbd5e1;font-weight:800;margin:6px 0 4px">الوحدات الرقمية</div>
+        ${detail.units.map((u)=>`<div style="font-size:.65rem;color:#bfdbfe;line-height:1.7">■ ${u}</div>`).join('')}
+        <div style="font-size:.66rem;color:#cbd5e1;font-weight:800;margin:6px 0 4px">الأدوات المساندة</div>
+        ${detail.tools.map((t)=>`<span style="display:inline-block;margin:0 4px 4px 0;padding:3px 7px;border-radius:999px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.2);font-size:.62rem;color:#bfdbfe">${t}</span>`).join('')}
+      </div>
+      <div style="padding:10px;background:rgba(15,23,42,.5);border:1px solid rgba(148,163,184,.2);border-radius:10px">
+        <div style="font-size:.72rem;color:#22c55e;font-weight:900;margin-bottom:6px">آلية التوثيق والتحسين الدائم</div>
+        <div style="font-size:.64rem;color:#d1fae5;line-height:1.7">1) توثيق كل حدث تشغيل (وقت/طرف/نتيجة) داخل سجل رقمي.</div>
+        <div style="font-size:.64rem;color:#d1fae5;line-height:1.7">2) دراسة الانحرافات أسبوعياً (زمن، جودة، تكلفة، امتثال).</div>
+        <div style="font-size:.64rem;color:#d1fae5;line-height:1.7">3) تنفيذ تحسينات تدريجية (PDCA: خطط ← نفّذ ← تحقق ← طوّر).</div>
+        <div style="font-size:.64rem;color:#d1fae5;line-height:1.7">4) تعميم الإجراء الأفضل على كل الوحدات والأدوات المساندة.</div>
+        <div style="margin-top:8px;font-size:.63rem;color:#94a3b8">الوحدات المرقمنة المشتركة:</div>
+        ${supportUnits.map((u)=>`<div style="font-size:.63rem;color:#cbd5e1;line-height:1.6">• ${u}</div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
 function getFiltered(){
   return products.filter(p=>{
     /* Category */
@@ -2416,6 +3814,10 @@ function getFiltered(){
     if(activeCat==='scrap'){
       if(activeScrapType!=='all'){
         if(getScrapType(p)!==activeScrapType) return false;
+      }
+      if(activeDealMode!=='all'){
+        const pDealMode=p.dealMode||'direct';
+        if(pDealMode!==activeDealMode) return false;
       }
       if(activeScrapRegion!=='all'){
         const pRegion=scrapRegionMap[p.origin]||'global';
@@ -2460,9 +3862,23 @@ function renderScrapDashboard(){
   const ewasteCount=scrapProducts.filter(p=>getScrapType(p)==='ewaste').length;
   const preciousCount=scrapProducts.filter(p=>getScrapType(p)==='precious').length;
   const industrialCount=scrapProducts.filter(p=>getScrapType(p)==='industrial').length;
+  const equipmentCount=scrapProducts.filter(p=>getScrapType(p)==='equipment').length;
+  const processingCount=scrapProducts.filter(p=>getScrapType(p)==='processing').length;
+  const logisticsCount=scrapProducts.filter(p=>getScrapType(p)==='logistics').length;
+  const serviceCount=scrapProducts.filter(p=>getScrapType(p)==='service').length;
   const saCount=scrapProducts.filter(p=>(scrapRegionMap[p.origin]||'global')==='sa').length;
   const totalCountries=[...new Set(scrapProducts.map(p=>p.origin))].length;
+  const verifiedCount=scrapProducts.filter(p=>p.verified).length;
+  const healthScore=Math.round(((verifiedCount/Math.max(scrapProducts.length,1))*70)+Math.min(totalCountries*2,30));
+  const healthLabel=healthScore>=85?'صحة قوية جداً':healthScore>=70?'صحة قوية':healthScore>=55?'صحة متوسطة':'تحتاج تحسين';
   el.innerHTML=`
+  <div style="margin-bottom:14px;padding:12px 16px;background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(34,197,94,.05));border:1px solid rgba(212,175,55,.18);border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:.85rem;color:#D4AF37;font-weight:800">صحة سوق السكراب</div>
+      <div style="font-size:.72rem;color:#cbd5e1">مؤشر تجميعي: توثيق الموردين + تنوع العرض + تغطية السوق</div>
+    </div>
+    <div style="font-size:.95rem;font-weight:800;color:#f8fafc">${healthScore}/100 — <span style="color:#22c55e">${healthLabel}</span></div>
+  </div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px">
     <div style="padding:14px 16px;background:linear-gradient(135deg,rgba(107,114,128,.08),rgba(107,114,128,.03));border:1px solid rgba(107,114,128,.12);border-radius:12px;text-align:center">
       <div style="font-size:1.4rem;font-weight:800;color:#9ca3af">♻</div>
@@ -2488,6 +3904,26 @@ function renderScrapDashboard(){
       <div style="font-size:1.4rem;font-weight:800;color:#22c55e">⚙</div>
       <div style="font-size:1.1rem;font-weight:800;color:#f1f5f9">${industrialCount}</div>
       <div style="font-size:.68rem;color:#64748b">صناعي</div>
+    </div>
+    <div style="padding:14px 16px;background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(14,165,233,.03));border:1px solid rgba(14,165,233,.12);border-radius:12px;text-align:center">
+      <div style="font-size:1.4rem;font-weight:800;color:#0ea5e9">♜</div>
+      <div style="font-size:1.1rem;font-weight:800;color:#f1f5f9">${equipmentCount}</div>
+      <div style="font-size:.68rem;color:#64748b">معدات</div>
+    </div>
+    <div style="padding:14px 16px;background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(168,85,247,.03));border:1px solid rgba(168,85,247,.12);border-radius:12px;text-align:center">
+      <div style="font-size:1.4rem;font-weight:800;color:#a855f7">🏭</div>
+      <div style="font-size:1.1rem;font-weight:800;color:#f1f5f9">${processingCount}</div>
+      <div style="font-size:.68rem;color:#64748b">معالجة وفرز</div>
+    </div>
+    <div style="padding:14px 16px;background:linear-gradient(135deg,rgba(249,115,22,.08),rgba(249,115,22,.03));border:1px solid rgba(249,115,22,.12);border-radius:12px;text-align:center">
+      <div style="font-size:1.4rem;font-weight:800;color:#f97316">🚚</div>
+      <div style="font-size:1.1rem;font-weight:800;color:#f1f5f9">${logisticsCount}</div>
+      <div style="font-size:.68rem;color:#64748b">لوجستيات</div>
+    </div>
+    <div style="padding:14px 16px;background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(59,130,246,.03));border:1px solid rgba(59,130,246,.12);border-radius:12px;text-align:center">
+      <div style="font-size:1.4rem;font-weight:800;color:#3b82f6">🤝</div>
+      <div style="font-size:1.1rem;font-weight:800;color:#f1f5f9">${serviceCount}</div>
+      <div style="font-size:.68rem;color:#64748b">خدمات طرف ثالث</div>
     </div>
     <div style="padding:14px 16px;background:linear-gradient(135deg,rgba(129,140,248,.08),rgba(129,140,248,.03));border:1px solid rgba(129,140,248,.12);border-radius:12px;text-align:center">
       <div style="font-size:1.4rem;font-weight:800;color:#818cf8">🌍</div>
@@ -2560,6 +3996,202 @@ const ART_MAP={
   carBody:{t:'body',bg:'linear-gradient(160deg,#080a10,#0e1220,#141a28,#080a10)',ac:'#64748b'},
   wheel:{t:'wheel',bg:'linear-gradient(160deg,#0a0a0e,#101018,#161624,#0a0a0e)',ac:'#6b7280'}
 };
+
+/* ═══════════════════════════════════════════════════════════════════
+   معمارية الصور الحقيقية — Real Image Architecture (بدون أرواح)
+   1) صورة حقيقية أولاً (AVIF/WEBP/JPG)
+   2) فحص/طمس الأرواح تلقائيًا قبل العرض
+   3) fallback محدود عند تعذر الصورة
+   ═══════════════════════════════════════════════════════════════════ */
+const REAL_IMAGE_BASE='/assets/market-real';
+const REAL_IMAGE_CULTURE={
+  marketMedina:'/assets/market-real/culture/souq-madinah-heritage.jpg',
+  museum:'/assets/market-real/culture/athar-museum-hall.jpg'
+};
+const REAL_IMAGE_FALLBACK_BY_CAT={
+  ores:'https://images.unsplash.com/photo-1610737241336-371badac3b66?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  steel:'https://images.unsplash.com/photo-1565610222536-ef125c59da2e?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  copper:'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  aluminum:'https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  rare:'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  precious:'https://images.unsplash.com/photo-1610375461369-d613b5647f19?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  scrap:'https://images.unsplash.com/photo-1534131707746-25d604851a1f?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  salvage:'https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  general:'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2'
+};
+const REAL_IMAGE_DIRECT_BY_SVG={
+  goldBar:'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1920&h=1280&q=88&dpr=2',
+  silverBar:'https://images.unsplash.com/photo-1574607383476-f517f260d30b?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  platBar:'https://images.unsplash.com/photo-1589307357824-96b0e4c44670?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  copperCathode:'https://images.unsplash.com/photo-1605001011156-cbf0b0f67a51?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  alIngot:'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  steelPlate:'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  zincIngot:'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  scrapCopper:'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  scrapLight:'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  scrapPile:'https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  pcb:'https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  lithiumPowder:'https://images.unsplash.com/photo-1624628639856-100bf817fd35?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  cobaltCathode:'https://images.unsplash.com/photo-1624628639856-100bf817fd35?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  titaniumSponge:'https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  engine:'https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  carDoor:'https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  carBody:'https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  wheel:'https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2'
+};
+function resolveRealImage(p){
+  const catMap={
+    ores:'raw-materials',
+    steel:'steel',
+    copper:'copper',
+    aluminum:'aluminum',
+    rare:'rare',
+    precious:'precious',
+    scrap:'scrap',
+    salvage:'salvage'
+  };
+  const bucket=catMap[p.cat]||'general';
+  const key=String(p.svg||'product').replace(/[^a-zA-Z0-9_-]/g,'');
+  return {
+    avif:`${REAL_IMAGE_BASE}/${bucket}/${key}.avif`,
+    webp:`${REAL_IMAGE_BASE}/${bucket}/${key}.webp`,
+    jpg:`${REAL_IMAGE_BASE}/${bucket}/${key}.jpg`
+  };
+}
+function resolveRemoteFallbackImage(p){
+  const merchantSet=getMerchantImageSet(p.id);
+  if(merchantSet && merchantSet.cover) return merchantSet.cover;
+  const svgKey=String(p.svg||'').trim();
+  if(svgKey && REAL_IMAGE_DIRECT_BY_SVG[svgKey]) return REAL_IMAGE_DIRECT_BY_SVG[svgKey]+'&v=real2027';
+  const key=String(p.cat||'general').toLowerCase();
+  return (REAL_IMAGE_FALLBACK_BY_CAT[key]||REAL_IMAGE_FALLBACK_BY_CAT.general)+'&v=real2027';
+}
+
+function sheikhaHandleImageFallback(imgEl){
+  if(!imgEl) return;
+  const stage=Number(imgEl.dataset.fallbackStage||'0');
+  const parent=imgEl.closest('.p-img');
+  const setHasReal=()=>{ if(parent){ parent.classList.add('has-real'); parent.classList.remove('no-real'); } };
+  const setNoReal=()=>{ if(parent){ parent.classList.remove('has-real'); parent.classList.add('no-real'); } };
+  if(stage===0 && imgEl.dataset.webp){
+    imgEl.dataset.fallbackStage='1';
+    imgEl.src=imgEl.dataset.webp;
+    return;
+  }
+  if(stage===1 && imgEl.dataset.jpg){
+    imgEl.dataset.fallbackStage='2';
+    imgEl.src=imgEl.dataset.jpg;
+    return;
+  }
+  if(stage===2 && imgEl.dataset.remote){
+    imgEl.dataset.fallbackStage='3';
+    imgEl.src=imgEl.dataset.remote;
+    setHasReal();
+    return;
+  }
+  setNoReal();
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   طمس الأرواح تلقائيًا — AI No-Souls Auto Blur
+   - يعتمد على FaceDetector في المتصفح عند التوفر
+   - يطمس الوجوه المكتشفة قبل العرض
+   ═══════════════════════════════════════════════════════════════════ */
+let sheikhaFaceDetector=null;
+function getSheikhaFaceDetector(){
+  try{
+    if(!('FaceDetector' in window)) return null;
+    if(!sheikhaFaceDetector) sheikhaFaceDetector=new FaceDetector({fastMode:true,maxDetectedFaces:20});
+    return sheikhaFaceDetector;
+  }catch(_){return null;}
+}
+function sheikhaBlurRect(ctx,x,y,w,h){
+  const bx=Math.max(0,Math.floor(x));
+  const by=Math.max(0,Math.floor(y));
+  const bw=Math.max(1,Math.floor(w));
+  const bh=Math.max(1,Math.floor(h));
+  const s=Math.max(2,Math.floor(Math.min(bw,bh)/12));
+  const tmp=document.createElement('canvas');
+  tmp.width=Math.max(1,Math.floor(bw/s));
+  tmp.height=Math.max(1,Math.floor(bh/s));
+  const tctx=tmp.getContext('2d');
+  tctx.drawImage(ctx.canvas,bx,by,bw,bh,0,0,tmp.width,tmp.height);
+  ctx.save();
+  try{ctx.filter='blur(4px)';}catch(_){}
+  ctx.drawImage(tmp,0,0,tmp.width,tmp.height,bx,by,bw,bh);
+  ctx.restore();
+  ctx.fillStyle='rgba(0,0,0,.18)';
+  ctx.fillRect(bx,by,bw,bh);
+}
+async function autoBlurSouls(imgEl){
+  if(!imgEl||imgEl.dataset.soulProcessed==='1') return;
+  imgEl.dataset.soulProcessed='1';
+  try{
+    const parent=imgEl.closest('.p-img');
+    const badge=parent?parent.querySelector('.p-no-spirits'):null;
+    if(!imgEl.complete||!imgEl.naturalWidth||!imgEl.naturalHeight) return;
+    const detector=getSheikhaFaceDetector();
+    if(!detector){
+      if(badge){ badge.classList.add('warn'); badge.textContent='فحص الأرواح محدود'; }
+      return;
+    }
+    const bitmap=await createImageBitmap(imgEl);
+    const faces=await detector.detect(bitmap);
+    if(!faces||!faces.length){
+      if(badge){ badge.classList.remove('warn','alert'); badge.textContent='بدون أرواح'; }
+      return;
+    }
+    const canvas=document.createElement('canvas');
+    canvas.width=imgEl.naturalWidth;
+    canvas.height=imgEl.naturalHeight;
+    const ctx=canvas.getContext('2d');
+    ctx.drawImage(imgEl,0,0,canvas.width,canvas.height);
+    faces.forEach((f)=>{
+      const b=f&&f.boundingBox?f.boundingBox:null;
+      if(!b) return;
+      const pad=Math.round(Math.max(b.width,b.height)*0.22);
+      sheikhaBlurRect(ctx,b.x-pad,b.y-pad,b.width+(pad*2),b.height+(pad*2));
+    });
+    imgEl.src=canvas.toDataURL('image/webp',0.92);
+    if(badge){ badge.classList.add('alert'); badge.textContent=`تم طمس ${faces.length} وجه`; }
+  }catch(_){}
+}
+
+function resolveGalleryImages(p){
+  const merchantSet=getMerchantImageSet(p.id);
+  if(merchantSet && merchantSet.front){
+    const frontJpg=merchantSet.front;
+    const sideJpg=merchantSet.side||merchantSet.front;
+    const detailJpg=merchantSet.detail||merchantSet.front;
+    return {
+      front:{avif:frontJpg,webp:frontJpg,jpg:frontJpg},
+      side:{avif:sideJpg,webp:sideJpg,jpg:sideJpg},
+      detail:{avif:detailJpg,webp:detailJpg,jpg:detailJpg}
+    };
+  }
+  const catMap={
+    ores:'raw-materials',
+    steel:'steel',
+    copper:'copper',
+    aluminum:'aluminum',
+    rare:'rare',
+    precious:'precious',
+    scrap:'scrap',
+    salvage:'salvage'
+  };
+  const bucket=catMap[p.cat]||'general';
+  const key=String(p.svg||'product').replace(/[^a-zA-Z0-9_-]/g,'');
+  const build=(slot)=>({
+    avif:`${REAL_IMAGE_BASE}/${bucket}/${key}-${slot}.avif`,
+    webp:`${REAL_IMAGE_BASE}/${bucket}/${key}-${slot}.webp`,
+    jpg:`${REAL_IMAGE_BASE}/${bucket}/${key}-${slot}.jpg`
+  });
+  return {
+    front:build('front'),
+    side:build('side'),
+    detail:build('detail')
+  };
+}
 
 /* ═══════════════════════════════════════════════════════════════════
    محرك توليد الرسوم V5 — بدون صور — كود فقط
@@ -2739,6 +4371,16 @@ function renderProducts(){
   const startIdx=(currentPage-1)*ITEMS_PER_PAGE;
   const pageItems=filtered.slice(startIdx,startIdx+ITEMS_PER_PAGE);
   count.textContent=`عرض ${startIdx+1}-${Math.min(startIdx+ITEMS_PER_PAGE,filtered.length)} من ${filtered.length} منتج`;
+  trackBehavior('views',1);
+  renderSupplyChainHub();
+  renderIntegrationOneClickHub();
+  renderAdoptionGrowthHub();
+  renderEngagementHub();
+  renderMerchantPackagesHub();
+  renderB2BLoyaltyHub();
+  renderRealImageStudioHub();
+  renderIotImageTrackingHub();
+  renderDigitalNetworkMapHub();
   renderScrapDashboard();
 
   if(filtered.length===0){
@@ -2748,6 +4390,9 @@ function renderProducts(){
 
   grid.innerHTML=pageItems.map((p,i)=>{
     const art=getArt(p.svg);
+    const realImage=resolveRealImage(p);
+    const remoteImage=resolveRemoteFallbackImage(p);
+    const gallery=resolveGalleryImages(p);
     const catLabel=catNames[p.cat]||p.cat;
     const isSalvage=p.cat==='salvage';
     const spec1Label=isSalvage?'الحالة':'النقاء / الدرجة';
@@ -2756,12 +4401,27 @@ function renderProducts(){
     const spec2Val=isSalvage?(brandNames[p.brand]||p.origin):p.origin;
     const salvageBadge=isSalvage?'<span class="p-badge badge-s"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><rect x="1" y="6" width="22" height="10" rx="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>تشليح</span>':'';
     const isScrap=p.cat==='scrap';
-    const scrapTypeLabel={'ferrous':'حديدي ♻','nonferrous':'غير حديدي','cable':'كابلات ⚡','ewaste':'إلكترونيات','precious':'معادن ثمينة ✦','industrial':'صناعي ⚙'};
+    const scrapTypeLabel={'ferrous':'حديدي ♻','nonferrous':'غير حديدي','cable':'كابلات ⚡','ewaste':'إلكترونيات','precious':'معادن ثمينة ✦','industrial':'صناعي ⚙','equipment':'معدات ♜','processing':'معالجة وفرز 🏭','logistics':'لوجستيات 🚚','service':'خدمات 🤝'};
     const scrapBadge=isScrap?`<span class="p-badge" style="background:rgba(120,113,108,.2);color:#a8a29e;border-color:rgba(120,113,108,.3)">♻ ${scrapTypeLabel[getScrapType(p)]||'سكراب'}</span>`:'';
     /* Supplier rating (deterministic based on product id) */
     const seed=(p.id*7+13)%100;
     const rating=p.verified?(4+(seed/100)).toFixed(1):(3+(seed/66)).toFixed(1);
     const stars='★'.repeat(Math.round(parseFloat(rating)))+'☆'.repeat(5-Math.round(parseFloat(rating)));
+    const qualityTier=(parseFloat(rating)>=4.6&&p.verified)?'Tier-A':'Tier-B';
+    const trustSource=(p.origin==='السعودية')?'توثيق داخلي سعودي':'توثيق سوق دولي';
+    const certRef=`SHEIKHA-COC-${String(p.id).padStart(6,'0')}`;
+    const batchNo=`LOT-${String((p.id*37)%90000+10000)}`;
+    const customsNo=p.customsNo||`BAYAN-1447-${String(p.id).padStart(6,'0')}`;
+    const hsBookRef=getHSBookTitle(p.hs);
+    const dealModeLabel=getDealModeLabel(p.dealMode||'direct');
+    const merchantMeta=(getMerchantImageSet(p.id)||{}).meta||null;
+    const hasMerchantRealImage=!!((getMerchantImageSet(p.id)||{}).cover);
+    const imageTruthClass=hasMerchantRealImage?'real':'ref';
+    const imageTruthText=hasMerchantRealImage?'صورة حقيقية من التاجر':'صورة مرجعية فاخرة (تأكيد نهائي قبل التعاقد)';
+    const honestyText=p.verified
+      ? 'بيانات المنتج معتمدة من المورد الموثق، ويُنصح بمعاينة نهائية قبل الإغلاق.'
+      : 'المنتج معروض مبدئيًا بسعر ومواصفات أولية، واعتماد نهائي عند التثبيت.';
+    const smartTraders=getSmartTradersForProduct(p);
     /* Incoterm for international products */
     const isIntl=p.unit&&p.unit.includes('USD');
     const incoLabel=isIntl?'<span class="p-incoterm">FOB</span>':'';
@@ -2769,9 +4429,34 @@ function renderProducts(){
     const val=calcProductValue(p);
     return `<div class="p-card" style="animation-delay:${i*0.03}s;contain:layout style paint;cursor:pointer" onclick="openProductDetail(${p.id},event)">
   <div class="p-img" style="background:${art.bg}">
+    <div class="p-real-media">
+      <picture>
+        <source srcset="${realImage.avif}" type="image/avif">
+        <source srcset="${realImage.webp}" type="image/webp">
+        <img loading="lazy" decoding="async" src="${realImage.jpg}" alt="${p.name}"
+             onload="this.closest('.p-img')&&this.closest('.p-img').classList.add('has-real');autoBlurSouls(this)"
+             onerror="sheikhaHandleImageFallback(this)"
+             data-jpg="${realImage.jpg}"
+             data-webp="${realImage.webp}"
+             data-avif="${realImage.avif}"
+             data-remote="${remoteImage}">
+      </picture>
+    </div>
+    <div class="p-media-thumbs">
+      <div class="p-thumb"><img loading="lazy" decoding="async" src="${gallery.front.jpg}" alt="واجهة المنتج" onload="autoBlurSouls(this)" onerror="this.onerror=null;this.src='${remoteImage}'"></div>
+      <div class="p-thumb"><img loading="lazy" decoding="async" src="${gallery.side.jpg}" alt="جانب المنتج" onload="autoBlurSouls(this)" onerror="this.onerror=null;this.src='${remoteImage}'"></div>
+      <div class="p-thumb"><img loading="lazy" decoding="async" src="${gallery.detail.jpg}" alt="تفاصيل المنتج" onload="autoBlurSouls(this)" onerror="this.onerror=null;this.src='${remoteImage}'"></div>
+    </div>
+    <div class="p-real-overlay"></div>
+    <div class="p-img-studio"></div>
     <div class="p-badges">${p.verified?'<span class="p-badge badge-v"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>موثّق</span>':''}${scrapBadge}${salvageBadge}<span class="p-sharia-badge"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>حلال</span></div>
     <span class="p-hs">HS ${p.hs}</span>
     <div class="metal-scene">${art.html}</div>
+    <div class="p-img-grain"></div>
+    <span class="p-realism-badge">${hasMerchantRealImage?'مطابقة للحقيقة (صورة أصلية)':'مطابقة وصفية (صورة مرجعية)'}</span>
+    <span class="p-image-truth ${imageTruthClass}">${imageTruthText}</span>
+    <span class="p-no-spirits">بدون أرواح</span>
+    <span class="p-no-real-label">الصورة غير متاحة الآن — سيتم الاعتماد على صورة حقيقية قبل إتمام الصفقة</span>
   </div>
   <div class="p-body">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
@@ -2785,11 +4470,49 @@ function renderProducts(){
     </div>
     <div class="p-name">${p.name}</div>
     <div class="p-desc">${p.desc}</div>
+    <div class="p-value-proposition">
+      <div class="p-value-item"><span class="p-value-k">قيمة الشحنة الإجمالية</span><span class="p-value-v">${val.totalFormatted} ر.س</span></div>
+      <div class="p-value-item"><span class="p-value-k">درجة التحقق</span><span class="p-value-v">${p.verified?'موثّق عالي':'توثيق مبدئي'}</span></div>
+      <div class="p-value-item"><span class="p-value-k">مرجع الدفعة/الشهادة</span><span class="p-value-v">${batchNo} / ${certRef}</span></div>
+    </div>
+    <div class="p-value-honesty">أمانة العرض: ${honestyText}</div>
+    <div class="p-quality-strip">
+      <span class="p-q-chip real">خامة واضحة</span>
+      ${p.verified?'<span class="p-q-chip verified">موثوق ومطابق</span>':''}
+      <span class="p-q-chip tier-a">${qualityTier}</span>
+    </div>
+    <div class="p-compliance">
+      <div class="p-compliance-row"><span>شهادة المطابقة</span><b>${certRef}</b></div>
+      <div class="p-compliance-row"><span>رقم الدفعة</span><b>${batchNo}</b></div>
+      <div class="p-compliance-row"><span>بلد المنشأ</span><b>${p.origin}</b></div>
+      ${isScrap?`<div class="p-compliance-row"><span>رقم البيان الجمركي</span><b>${customsNo}</b></div>`:''}
+      ${isScrap?`<div class="p-compliance-row"><span>مرجع HS</span><b>${hsBookRef}</b></div>`:''}
+      ${merchantMeta?`<div class="p-compliance-row"><span>موقع الصورة المرفوعة</span><b>${merchantMeta.location||'—'}</b></div>`:''}
+      ${merchantMeta?`<div class="p-compliance-row"><span>جودة الصورة</span><b>${merchantMeta.qualityAvg||0}/100</b></div>`:''}
+      ${merchantMeta?`<div class="p-compliance-row"><span>مطابقة HS/كمية</span><b style="color:${merchantMeta.matchState?'#86efac':'#fca5a5'}">${merchantMeta.matchState?'مطابقة':'تحتاج مراجعة'}</b></div>`:''}
+      ${merchantMeta?`<div class="p-compliance-row"><span>مطابقة الموقع (IoT)</span><b style="color:${merchantMeta.geoMatched?'#86efac':'#fca5a5'}">${merchantMeta.geoMatched?'مطابق':'غير مطابق'}</b></div>`:''}
+      ${merchantMeta?`<div class="p-compliance-row"><span>مطابقة وزن الحساس</span><b style="color:${merchantMeta.sensorWeightMatched!==false?'#86efac':'#fca5a5'}">${merchantMeta.sensorWeightMatched!==false?'مطابق':'غير مطابق'} ${merchantMeta.sensorWeight?`(${Number(merchantMeta.sensorWeight).toFixed(2)} طن)`:''}</b></div>`:''}
+    </div>
+    <div style="margin:8px 0 0;padding:8px;background:rgba(2,6,23,.42);border:1px solid rgba(148,163,184,.2);border-radius:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px">
+        <span style="font-size:.66rem;color:#bfdbfe;font-weight:800">متاجر وتجار هذا المنتج (ترشيح ذكي)</span>
+        <span style="font-size:.58rem;color:#94a3b8">أفضل تطابق حسب HS/الفئة/المنشأ</span>
+      </div>
+      ${smartTraders.map((tr)=>`<div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;padding:6px 0;border-top:1px dashed rgba(148,163,184,.16)">
+        <div>
+          <div style="font-size:.65rem;color:#e2e8f0;font-weight:800">${tr.store}</div>
+          <div style="font-size:.6rem;color:#94a3b8">${tr.city} — ${tr.country} • تقييم ${Number(tr.rating).toFixed(1)} • رد ${tr.responseMins}د</div>
+        </div>
+        <button onclick="event.stopPropagation();requestTraderMatch(${p.id},'${tr.id}')" style="padding:4px 8px;border-radius:8px;border:1px solid rgba(34,197,94,.25);background:rgba(34,197,94,.1);color:#86efac;font-size:.6rem;font-family:inherit;font-weight:800;cursor:pointer">ربط الآن (${tr.matchScore})</button>
+      </div>`).join('')}
+    </div>
     <div class="p-specs">
       <div class="p-spec"><span class="p-spec-l">${spec1Label}</span><span class="p-spec-v">${spec1Val}</span></div>
       <div class="p-spec"><span class="p-spec-l">${spec2Label}</span><span class="p-spec-v">${spec2Val}</span></div>
       <div class="p-spec"><span class="p-spec-l">الكمية المتاحة</span><span class="p-spec-v">${p.qty}</span></div>
       <div class="p-spec"><span class="p-spec-l">رمز HS</span><span class="p-spec-v" style="font-family:monospace;direction:ltr;text-align:right">${p.hs}</span></div>
+      ${isScrap?`<div class="p-spec"><span class="p-spec-l">نمط التعامل</span><span class="p-spec-v">${dealModeLabel}</span></div>`:''}
+      ${isScrap?`<div class="p-spec"><span class="p-spec-l">مرحلة السلسلة</span><span class="p-spec-v">${p.supplyStage||'تجميع وفرز'}</span></div>`:''}
     </div>
     <!-- ═══ قسم القيمة الإجمالية — إظهار قيمة المنتج ═══ -->
     <div class="p-value-section">
@@ -2821,6 +4544,10 @@ function renderProducts(){
       <button class="p-action-btn" onclick="compareProduct(${p.id})"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>مقارنة</button>
       <button class="p-action-btn" onclick="shareProduct(${p.id})"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>مشاركة</button>
       <button class="p-action-btn" onclick="calcZakat(${p.id})"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>زكاة</button>
+    </div>
+    <div class="p-trust-row">
+      <span class="p-trust-pill">${trustSource}</span>
+      <span class="p-trust-pill">نزاهة العرض: ${p.verified?'مرتفعة':'متوسطة'}</span>
     </div>
   </div>
 </div>`;
@@ -2873,12 +4600,14 @@ function openDigitalConsulting(){
    ═══════════════════════════════════════════ */
 function onSearch(val){
   searchQ=val.trim();
+  trackBehavior('searches',1);
   currentPage=1;
   renderProducts();
 }
 
 function onPriceChange(val){
   maxPrice=parseInt(val);
+  trackBehavior('filters',1);
   document.getElementById('priceMax').textContent=maxPrice.toLocaleString('en');
   currentPage=1;
   renderProducts();
@@ -2907,6 +4636,10 @@ function readURLParams(){
    INIT
    ═══════════════════════════════════════════ */
 (function init(){
+  const stats=getBehaviorStats();
+  if(!stats.sessions){stats.sessions=0;}
+  stats.sessions+=1;
+  saveBehaviorStats(stats);
   readURLParams();
   buildHSTree();
   buildTabs();
@@ -2923,6 +4656,7 @@ function readURLParams(){
 function openRFQ(productId){
   var p=products.find(x=>x.id===productId);
   if(!p)return;
+  trackBehavior('rfq',1);
   var overlay=document.getElementById('rfqOverlay');
   if(!overlay)return;
   overlay.style.display='flex';
@@ -2970,6 +4704,8 @@ var cart=JSON.parse(localStorage.getItem('sheikha_cart')||'[]');
 function addToCart(productId){
   var p=products.find(x=>x.id===productId);
   if(!p)return;
+  trackBehavior('cart',1);
+  trackBehavior('dealPoints',5);
   var exists=cart.find(x=>x.id===productId);
   if(exists){exists.qty=(exists.qty||1)+1;}
   else{cart.push({id:p.id,name:p.name,price:p.price,unit:p.unit,qty:1});}
@@ -2993,6 +4729,8 @@ function compareProduct(productId){
 function shareProduct(productId){
   var p=products.find(x=>x.id===productId);
   if(!p)return;
+  trackBehavior('shares',1);
+  trackBehavior('dealPoints',8);
   var text='🏪 '+p.name+'\n💰 '+p.price+' '+p.unit+'\n📦 '+p.qty+'\n🔗 '+window.location.origin+'/سوق-شيخة.html?product='+productId+'\n\nسوق شيخة — sheikha.top';
   if(navigator.share){navigator.share({title:p.name,text:text,url:window.location.href}).catch(()=>{});}
   else if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>alert('✅ تم نسخ بيانات المنتج')).catch(()=>{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert('✅ تم نسخ بيانات المنتج');});}
@@ -3218,7 +4956,19 @@ document.addEventListener('DOMContentLoaded', () => {
         SheikhaI18n.init('marketLangBar');
     }
 });
+
+window.addEventListener('message',(event)=>{
+  const data=event&&event.data?event.data:null;
+  if(!data||data.type!=='sheikha-oauth-callback') return;
+  const resultEl=document.getElementById('integrationOneClickResult');
+  if(resultEl){
+    resultEl.innerHTML=data.status==='success'
+      ?`<div style="font-size:.64rem;color:#86efac">✅ اكتملت مصادقة شيخة مع ${data.provider||'OAuth'} بنجاح. يمكنك الآن تشغيل الربط المباشر.</div>`
+      :`<div style="font-size:.64rem;color:#fca5a5">فشلت المصادقة. حاول مرة أخرى.</div>`;
+  }
+});
 </script>
 <script src="/js/sheikha-smart-fab.js" defer></script>
+<script src="/js/sheikha-itqan.js"></script>
 </body>
 </html>

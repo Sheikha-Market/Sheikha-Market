@@ -90,10 +90,18 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .instrument .i-badge.planned{background:rgba(212,175,55,0.08);color:var(--gold)}
 
 .footer{text-align:center;padding:24px;color:var(--dim);font-size:0.65rem;border-top:1px solid var(--border);margin-top:24px}
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:14px 32px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between;max-width:100%}
+.topbar-logo{font-size:1.2rem;font-weight:800;color:var(--gold);text-decoration:none}
+.topbar-back{color:var(--dim);text-decoration:none;font-size:.9rem;transition:color .3s}
+.topbar-back:hover{color:var(--gold)}
 @media(max-width:600px){.stats,.bi-components{grid-template-columns:repeat(2,1fr)}.pillars,.modes,.standards,.instruments{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+<div class="topbar">
+    <a href="/" class="topbar-logo">شيخة</a>
+    <a href="/" class="topbar-back">← الرئيسية</a>
+</div>
 <div class="container">
 
 <div class="hdr">
