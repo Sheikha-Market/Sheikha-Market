@@ -1,0 +1,706 @@
+/**
+ * ╔═══════════════════════════════════════════════════════════════════════════════╗
+ * ║           SHEIKHA 3D GRAPHICS SYSTEM — نظام الرسوميات ثلاثية الأبعاد          ║
+ * ╠═══════════════════════════════════════════════════════════════════════════════╣
+ * ║  تقنيات متقدمة: CSS 3D Transforms + WebGL-ready + GPU Acceleration            ║
+ * ║  متوافق مع: Chrome, Firefox, Safari, Edge                                     ║
+ * ╚═══════════════════════════════════════════════════════════════════════════════╝
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION 1: 3D SCENE SETUP — إعداد المشهد ثلاثي الأبعاد
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+:root {
+    /* Metal Colors — ألوان المعادن الواقعية */
+    --metal-gold: linear-gradient(135deg, #d4af37 0%, #f0d060 25%, #d4af37 50%, #a67c00 75%, #d4af37 100%);
+    --metal-silver: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 25%, #c0c0c0 50%, #a0a0a0 75%, #c0c0c0 100%);
+    --metal-copper: linear-gradient(135deg, #b87333 0%, #da8a67 25%, #b87333 50%, #8b4513 75%, #b87333 100%);
+    --metal-platinum: linear-gradient(135deg, #e5e4e2 0%, #ffffff 25%, #e5e4e2 50%, #d0d0d0 75%, #e5e4e2 100%);
+    --metal-iron: linear-gradient(135deg, #434343 0%, #6b6b6b 25%, #434343 50%, #2d2d2d 75%, #434343 100%);
+    --metal-aluminum: linear-gradient(135deg, #848789 0%, #b8bbbe 25%, #848789 50%, #6a6d70 75%, #848789 100%);
+    --metal-bronze: linear-gradient(135deg, #cd7f32 0%, #e6a856 25%, #cd7f32 50%, #8b5a2b 75%, #cd7f32 100%);
+    --metal-zinc: linear-gradient(135deg, #bac4c8 0%, #e0e8ec 25%, #bac4c8 50%, #98a4a8 75%, #bac4c8 100%);
+    
+    /* Rare Metals — المعادن النادرة */
+    --metal-palladium: linear-gradient(135deg, #ced0dd 0%, #f0f2ff 25%, #ced0dd 50%, #a8aabb 75%, #ced0dd 100%);
+    --metal-rhodium: linear-gradient(135deg, #dddfe6 0%, #ffffff 25%, #dddfe6 50%, #b8bac1 75%, #dddfe6 100%);
+    --metal-titanium: linear-gradient(135deg, #878681 0%, #b5b4af 25%, #878681 50%, #5f5e59 75%, #878681 100%);
+    
+    /* 3D Scene Variables */
+    --perspective-normal: 1000px;
+    --perspective-deep: 2000px;
+    --perspective-close: 500px;
+    --rotation-speed: 20s;
+    --hover-lift: -20px;
+    --shadow-depth: 30px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION 2: 3D CARD SYSTEM — نظام البطاقات ثلاثية الأبعاد
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.scene-3d {
+    perspective: var(--perspective-normal);
+    perspective-origin: 50% 50%;
+}
+
+.card-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+}
+
+.card-3d:hover {
+    transform: translateZ(30px) rotateX(-5deg) rotateY(5deg);
+}
+
+/* Metal Surface Effect — تأثير سطح المعدن */
+.metal-surface {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.metal-surface::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.3) 45%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0.3) 55%,
+        transparent 60%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.8s ease;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.metal-surface:hover::before {
+    transform: translateX(100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION 3: METALLIC BUTTONS — أزرار معدنية
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.btn-metal-gold {
+    background: var(--metal-gold);
+    background-size: 200% 200%;
+    color: #1a1a1a;
+    font-weight: 700;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 15px rgba(212, 175, 55, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+    animation: shimmer 3s infinite linear;
+}
+
+.btn-metal-gold:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+        0 8px 25px rgba(212, 175, 55, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-metal-silver {
+    background: var(--metal-silver);
+    background-size: 200% 200%;
+    color: #1a1a1a;
+    font-weight: 700;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 15px rgba(192, 192, 192, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+    animation: shimmer 3s infinite linear;
+}
+
+.btn-metal-copper {
+    background: var(--metal-copper);
+    background-size: 200% 200%;
+    color: #fff;
+    font-weight: 700;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 15px rgba(184, 115, 51, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+    animation: shimmer 4s infinite linear;
+}
+
+@keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION 4: 3D METAL ICONS — أيقونات معدنية ثلاثية الأبعاد
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.icon-3d-metal {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.icon-3d-metal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: inherit;
+    transform: translateZ(-10px);
+    filter: brightness(0.6);
+}
+
+.icon-3d-metal::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 10%;
+    width: 80%;
+    height: 15px;
+    background: radial-gradient(ellipse, rgba(0,0,0,0.4) 0%, transparent 70%);
+    filter: blur(5px);
+    transform: translateZ(-20px);
+}
+
+.icon-3d-metal:hover {
+    transform: translateY(-10px) rotateX(-10deg);
+}
+
+.icon-3d-gold {
+    background: var(--metal-gold);
+    box-shadow: 
+        0 10px 30px rgba(212, 175, 55, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+.icon-3d-silver {
+    background: var(--metal-silver);
+    box-shadow: 
+        0 10px 30px rgba(192, 192, 192, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4);
+}
+
+.icon-3d-copper {
+    background: var(--metal-copper);
+    box-shadow: 
+        0 10px 30px rgba(184, 115, 51, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.2);
+}
+
+.icon-3d-iron {
+    background: var(--metal-iron);
+    box-shadow: 
+        0 10px 30px rgba(67, 67, 67, 0.4),
+        inset 0 2px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION 5: ROTATING 3D CUBE — مكعب دوار ثلاثي الأبعاد
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.cube-container {
+    width: 200px;
+    height: 200px;
+    perspective: 800px;
+    margin: 40px auto;
+}
+
+.cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotateCube var(--rotation-speed) infinite linear;
+}
+
+.cube-face {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 900;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.cube-face-front  { transform: translateZ(100px); background: var(--metal-gold); }
+.cube-face-back   { transform: rotateY(180deg) translateZ(100px); background: var(--metal-silver); }
+.cube-face-right  { transform: rotateY(90deg) translateZ(100px); background: var(--metal-copper); }
+.cube-face-left   { transform: rotateY(-90deg) translateZ(100px); background: var(--metal-bronze); }
+.cube-face-top    { transform: rotateX(90deg) translateZ(100px); background: var(--metal-platinum); }
+.cube-face-bottom { transform: rotateX(-90deg) translateZ(100px); background: var(--metal-iron); }
+
+@keyframes rotateCube {
+    0% { transform: rotateX(0deg) rotateY(0deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION 6: 3D STATS PANELS — لوحات إحصائيات ثلاثية الأبعاد
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.stats-panel-3d {
+    background: linear-gradient(145deg, #1a2332 0%, #0d1424 100%);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    overflow: hidden;
+}
+
+.stats-panel-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--metal-gold);
+}
+
+.stats-panel-3d::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at 30% 20%,
+        rgba(212, 175, 55, 0.1) 0%,
+        transparent 50%
+    );
+    pointer-events: none;
+}
+
+.stats-panel-3d:hover {
+    transform: translateY(-10px) rotateX(-2deg) rotateY(2deg);
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.4),
+        0 15px 30px rgba(212, 175, 55, 0.1);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+.stat-value-3d {
+    font-size: 3rem;
+    font-weight: 900;
+    background: var(--metal-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    position: relative;
+    display: inline-block;
+}
+
+.stat-value-3d::after {
+    content: attr(data-value);
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    background: rgba(0, 0, 0, 0.3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    z-index: -1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION 7: FLOATING METAL PARTICLES — جسيمات معدنية عائمة
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.particles-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.metal-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: floatParticle 15s infinite ease-in-out;
+    opacity: 0.6;
+}
+
+.metal-particle.gold {
+    background: radial-gradient(circle, #f0d060, #d4af37);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.metal-particle.silver {
+    background: radial-gradient(circle, #e8e8e8, #c0c0c0);
+    box-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
+}
+
+.metal-particle.copper {
+    background: radial-gradient(circle, #da8a67, #b87333);
+    box-shadow: 0 0 10px rgba(184, 115, 51, 0.5);
+}
+
+@keyframes floatParticle {
+    0%, 100% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-10vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION 8: 3D PROGRESS BARS — أشرطة تقدم ثلاثية الأبعاد
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.progress-3d {
+    height: 30px;
+    background: linear-gradient(180deg, #1a2332 0%, #0d1424 100%);
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        inset 0 3px 8px rgba(0, 0, 0, 0.5),
+        0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.progress-3d-bar {
+    height: 100%;
+    border-radius: 15px;
+    position: relative;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.progress-3d-bar.gold {
+    background: var(--metal-gold);
+    box-shadow: 
+        inset 0 -3px 0 rgba(0, 0, 0, 0.2),
+        inset 0 3px 0 rgba(255, 255, 255, 0.3),
+        0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.progress-3d-bar.silver {
+    background: var(--metal-silver);
+    box-shadow: 
+        inset 0 -3px 0 rgba(0, 0, 0, 0.15),
+        inset 0 3px 0 rgba(255, 255, 255, 0.4);
+}
+
+.progress-3d-bar.copper {
+    background: var(--metal-copper);
+    box-shadow: 
+        inset 0 -3px 0 rgba(0, 0, 0, 0.25),
+        inset 0 3px 0 rgba(255, 255, 255, 0.2);
+}
+
+.progress-3d-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 100%
+    );
+    animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION 9: 3D SUPPLY CHAIN VISUALIZATION — تصور سلسلة التوريد
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.supply-chain-3d {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+    perspective: 1200px;
+    gap: 20px;
+}
+
+.chain-node-3d {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(145deg, #1a2332, #0d1424);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transform-style: preserve-3d;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+}
+
+.chain-node-3d::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 20%;
+    width: 60%;
+    height: 10px;
+    background: radial-gradient(ellipse, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+    filter: blur(5px);
+    transform: translateZ(-30px);
+    transition: all 0.4s ease;
+}
+
+.chain-node-3d:hover {
+    transform: translateY(-15px) rotateX(-10deg) scale(1.05);
+    border-color: var(--sheikha-gold-500);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+}
+
+.chain-node-3d:hover::before {
+    opacity: 0;
+}
+
+.chain-node-3d .node-icon {
+    font-size: 2.5rem;
+}
+
+.chain-node-3d .node-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-align: center;
+}
+
+.chain-node-3d.active {
+    border-color: var(--sheikha-gold-500);
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+}
+
+.chain-node-3d.active .node-label {
+    color: var(--sheikha-gold-400);
+}
+
+.chain-connector-3d {
+    flex: 1;
+    height: 4px;
+    background: linear-gradient(90deg, 
+        rgba(212, 175, 55, 0.2) 0%,
+        rgba(212, 175, 55, 0.6) 50%,
+        rgba(212, 175, 55, 0.2) 100%
+    );
+    position: relative;
+    border-radius: 2px;
+}
+
+.chain-connector-3d::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 30px;
+    height: 4px;
+    background: var(--metal-gold);
+    border-radius: 2px;
+    transform: translateY(-50%);
+    animation: flowConnector 2s infinite linear;
+}
+
+@keyframes flowConnector {
+    0% { left: 0; opacity: 1; }
+    100% { left: calc(100% - 30px); opacity: 0.3; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION 10: HOLOGRAPHIC EFFECTS — تأثيرات هولوغرافية
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.hologram-card {
+    position: relative;
+    background: linear-gradient(145deg, 
+        rgba(26, 35, 50, 0.9) 0%,
+        rgba(13, 20, 36, 0.95) 100%
+    );
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.hologram-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(212, 175, 55, 0.1) 60deg,
+        transparent 120deg,
+        rgba(0, 108, 53, 0.1) 180deg,
+        transparent 240deg,
+        rgba(212, 175, 55, 0.1) 300deg,
+        transparent 360deg
+    );
+    animation: hologramRotate 10s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes hologramRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hologram-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        transparent 40%,
+        rgba(212, 175, 55, 0.05) 45%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(212, 175, 55, 0.05) 55%,
+        transparent 60%
+    );
+    background-size: 200% 200%;
+    animation: hologramShine 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes hologramShine {
+    0%, 100% { background-position: 200% 200%; }
+    50% { background-position: 0% 0%; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION 11: RESPONSIVE 3D — استجابة ثلاثية الأبعاد
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .cube-container {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .cube-face {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .cube-face-front  { transform: translateZ(75px); }
+    .cube-face-back   { transform: rotateY(180deg) translateZ(75px); }
+    .cube-face-right  { transform: rotateY(90deg) translateZ(75px); }
+    .cube-face-left   { transform: rotateY(-90deg) translateZ(75px); }
+    .cube-face-top    { transform: rotateX(90deg) translateZ(75px); }
+    .cube-face-bottom { transform: rotateX(-90deg) translateZ(75px); }
+    
+    .supply-chain-3d {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .chain-node-3d {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .chain-connector-3d {
+        display: none;
+    }
+    
+    .icon-3d-metal {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION 12: PERFORMANCE OPTIMIZATIONS — تحسينات الأداء
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+    .cube,
+    .metal-particle,
+    .hologram-card::before,
+    .progress-3d-bar::after,
+    .chain-connector-3d::before {
+        animation: none;
+    }
+    
+    .card-3d:hover,
+    .chain-node-3d:hover,
+    .icon-3d-metal:hover,
+    .stats-panel-3d:hover {
+        transform: none;
+    }
+}
+
+/* GPU Acceleration Hints */
+.card-3d,
+.cube,
+.icon-3d-metal,
+.chain-node-3d,
+.stats-panel-3d,
+.hologram-card {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}

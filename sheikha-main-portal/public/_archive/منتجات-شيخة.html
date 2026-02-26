@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منتجات وخدمات شيخة | المنتجات القابلة للتسليم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/elite-design-system.css">
+    <style>
+        :root {
+            --bg-primary: #020617;
+            --bg-secondary: #0f172a;
+            --bg-tertiary: #1e293b;
+            --bg-elevated: #0c1220;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border-primary: #334155;
+            --border-secondary: #1e293b;
+            --sheikha-gold-500: #d4af37;
+            --saudi-green-500: #006c35;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 12px 24px;
+            background: rgba(2,6,23,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        
+        .logo-mark {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--sheikha-gold-500), #b8942f);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #000;
+        }
+        
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--sheikha-gold-500);
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+        }
+        
+        .nav-link {
+            padding: 8px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--sheikha-gold-500);
+            background: rgba(212,175,55,0.1);
+        }
+        
+        /* Main */
+        .main-content {
+            padding-top: 80px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 60px 24px 40px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--sheikha-gold-500), var(--saudi-green-500));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Principle Box */
+        .principle-box {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 24px 32px;
+            background: rgba(0,165,80,0.1);
+            border: 1px solid rgba(0,165,80,0.3);
+            border-radius: 16px;
+            text-align: center;
+        }
+        
+        .principle-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 8px;
+        }
+        
+        .principle-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        /* Categories */
+        .categories-section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        
+        .category-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .category-card:hover {
+            border-color: var(--sheikha-gold-500);
+            transform: translateY(-4px);
+        }
+        
+        .category-header {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        
+        .category-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+        }
+        
+        .category-icon.gold { background: rgba(212,175,55,0.15); }
+        .category-icon.green { background: rgba(0,108,53,0.15); }
+        .category-icon.blue { background: rgba(59,130,246,0.15); }
+        .category-icon.purple { background: rgba(139,92,246,0.15); }
+        
+        .category-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .category-info p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        .category-products {
+            padding: 20px 24px;
+        }
+        
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        
+        .product-item:last-child {
+            border-bottom: none;
+        }
+        
+        .product-name {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .product-emoji {
+            font-size: 1.25rem;
+        }
+        
+        .product-title {
+            font-weight: 600;
+        }
+        
+        .product-delivery {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: #10b981;
+        }
+        
+        .product-delivery::before {
+            content: '✓';
+            font-size: 0.7rem;
+        }
+        
+        /* Services Section */
+        .services-section {
+            padding: 60px 0;
+            background: var(--bg-secondary);
+            border-radius: 32px;
+            margin: 40px 0;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            padding: 0 24px;
+        }
+        
+        .service-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-secondary);
+            border-radius: 20px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            border-color: var(--sheikha-gold-500);
+            transform: translateY(-4px);
+        }
+        
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(212,175,55,0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .service-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .service-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .service-features li::before {
+            content: '✓';
+            color: var(--sheikha-gold-500);
+            font-weight: 700;
+        }
+        
+        .service-price {
+            padding: 12px;
+            background: rgba(212,175,55,0.1);
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        
+        .price-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        .price-value {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--sheikha-gold-500);
+        }
+        
+        .service-delivery {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #10b981;
+        }
+        
+        .service-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 2px solid var(--sheikha-gold-500);
+            border-radius: 10px;
+            color: var(--sheikha-gold-500);
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 16px;
+            transition: all 0.2s;
+        }
+        
+        .service-btn:hover {
+            background: var(--sheikha-gold-500);
+            color: #000;
+        }
+        
+        /* Not Products Section */
+        .not-products {
+            padding: 60px 0;
+        }
+        
+        .not-products-box {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px;
+            background: rgba(239,68,68,0.05);
+            border: 1px solid rgba(239,68,68,0.2);
+            border-radius: 20px;
+        }
+        
+        .not-products-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ef4444;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .not-products-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .not-product-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: rgba(239,68,68,0.05);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .not-product-item::before {
+            content: '✗';
+            color: #ef4444;
+            font-weight: 700;
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 40px 24px;
+            text-align: center;
+            border-top: 1px solid var(--border-secondary);
+        }
+        
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .categories-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .services-grid { grid-template-columns: 1fr; }
+            .not-products-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="منظومة-شيخة.html" class="logo-link">
+                <div class="logo-mark">ش</div>
+                <span class="logo-text">شيخة</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="منظومة-شيخة.html" class="nav-link">الرئيسية</a></li>
+                <li><a href="سوق-شيخة.html" class="nav-link">السوق</a></li>
+                <li><a href="منتجات-شيخة.html" class="nav-link active">المنتجات</a></li>
+                <li><a href="الالتزام-الشرعي.html" class="nav-link">☪️ الالتزام الشرعي</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero -->
+        <section class="hero">
+            <h1>منتجات وخدمات <span>شيخة</span></h1>
+            <p>
+                قائمة واضحة بجميع المنتجات والخدمات القابلة للتسليم الفعلي
+            </p>
+        </section>
+        
+        <div class="container">
+            <!-- Principle -->
+            <div class="principle-box">
+                <div class="principle-title">☪️ مبدأ القدرة على التسليم</div>
+                <p class="principle-text">
+                    كل منتج مدرج هنا <strong>قابل للتسليم فعلياً</strong> بمواصفات محددة وسعر معلوم.
+                    <br>لا نبيع ما لا نملك ولا ما لا نقدر على تسليمه — التزاماً بالشريعة الإسلامية.
+                </p>
+            </div>
+            
+            <!-- Physical Products -->
+            <section class="categories-section">
+                <h2 class="section-title">📦 المنتجات المادية (المعادن)</h2>
+                
+                <div class="categories-grid">
+                    <!-- Basic Metals -->
+                    <div class="category-card">
+                        <div class="category-header">
+                            <div class="category-icon gold">🔩</div>
+                            <div class="category-info">
+                                <h3>المعادن الأساسية</h3>
+                                <p>للبناء والصناعة</p>
+                            </div>
+                        </div>
+                        <div class="category-products">
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">🔩</span>
+                                    <span class="product-title">حديد صلب</span>
+                                </div>
+                                <span class="product-delivery">3-5 أيام</span>
+                            </div>
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">🟤</span>
+                                    <span class="product-title">نحاس أحمر</span>
+                                </div>
+                                <span class="product-delivery">4-6 أيام</span>
+                            </div>
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">🥈</span>
+                                    <span class="product-title">ألومنيوم خام</span>
+                                </div>
+                                <span class="product-delivery">5-7 أيام</span>
+                            </div>
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">⬜</span>
+                                    <span class="product-title">زنك / رصاص</span>
+                                </div>
+                                <span class="product-delivery">5-7 أيام</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Precious Metals -->
+                    <div class="category-card">
+                        <div class="category-header">
+                            <div class="category-icon gold">💎</div>
+                            <div class="category-info">
+                                <h3>المعادن الثمينة</h3>
+                                <p>للاستثمار والمجوهرات</p>
+                            </div>
+                        </div>
+                        <div class="category-products">
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">🥇</span>
+                                    <span class="product-title">سبائك ذهب 24ق</span>
+                                </div>
+                                <span class="product-delivery">1-2 يوم</span>
+                            </div>
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">⬜</span>
+                                    <span class="product-title">فضة خام 999</span>
+                                </div>
+                                <span class="product-delivery">2-3 أيام</span>
+                            </div>
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">⚪</span>
+                                    <span class="product-title">بلاتين</span>
+                                </div>
+                                <span class="product-delivery">3-5 أيام</span>
+                            </div>
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">⚪</span>
+                                    <span class="product-title">بلاديوم</span>
+                                </div>
+                                <span class="product-delivery">5-7 أيام</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Rare Earth -->
+                    <div class="category-card">
+                        <div class="category-header">
+                            <div class="category-icon purple">⚛️</div>
+                            <div class="category-info">
+                                <h3>المعادن النادرة</h3>
+                                <p>للتقنيات المتقدمة</p>
+                            </div>
+                        </div>
+                        <div class="category-products">
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">⚛️</span>
+                                    <span class="product-title">نيوديميوم (Nd)</span>
+                                </div>
+                                <span class="product-delivery">7-14 يوم</span>
+                            </div>
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">⚛️</span>
+                                    <span class="product-title">ديسبروسيوم (Dy)</span>
+                                </div>
+                                <span class="product-delivery">10-14 يوم</span>
+                            </div>
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">⚛️</span>
+                                    <span class="product-title">سكانديوم (Sc)</span>
+                                </div>
+                                <span class="product-delivery">14-21 يوم</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Scrap -->
+                    <div class="category-card">
+                        <div class="category-header">
+                            <div class="category-icon green">♻️</div>
+                            <div class="category-info">
+                                <h3>السكراب</h3>
+                                <p>لإعادة التدوير</p>
+                            </div>
+                        </div>
+                        <div class="category-products">
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">♻️</span>
+                                    <span class="product-title">سكراب حديد</span>
+                                </div>
+                                <span class="product-delivery">5-7 أيام</span>
+                            </div>
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">♻️</span>
+                                    <span class="product-title">سكراب نحاس</span>
+                                </div>
+                                <span class="product-delivery">3-5 أيام</span>
+                            </div>
+                            <div class="product-item">
+                                <div class="product-name">
+                                    <span class="product-emoji">♻️</span>
+                                    <span class="product-title">سكراب ألومنيوم</span>
+                                </div>
+                                <span class="product-delivery">4-6 أيام</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Services -->
+            <section class="services-section">
+                <h2 class="section-title" style="padding-top: 40px;">🛎️ الخدمات (منتجات غير مادية)</h2>
+                
+                <div class="services-grid">
+                    <!-- Store Service -->
+                    <div class="service-card">
+                        <div class="service-icon">🏪</div>
+                        <h3 class="service-title">متجر إلكتروني</h3>
+                        <p class="service-desc">
+                            افتح متجرك الخاص في سوق شيخة وابدأ ببيع المعادن
+                        </p>
+                        <ul class="service-features">
+                            <li>صفحة متجر خاصة</li>
+                            <li>إضافة منتجات غير محدودة</li>
+                            <li>لوحة تحكم كاملة</li>
+                            <li>نظام محفظة إلكترونية</li>
+                            <li>شارة "تاجر معتمد"</li>
+                        </ul>
+                        <div class="service-price">
+                            <div class="price-label">يبدأ من</div>
+                            <div class="price-value">مجاناً</div>
+                        </div>
+                        <div class="service-delivery">✓ تفعيل خلال 1-2 يوم عمل</div>
+                        <a href="تسجيل-تاجر.html" class="service-btn">سجل الآن</a>
+                    </div>
+                    
+                    <!-- Transporter Service -->
+                    <div class="service-card">
+                        <div class="service-icon">🚚</div>
+                        <h3 class="service-title">حساب ناقل</h3>
+                        <p class="service-desc">
+                            انضم لشبكة النقل واستقبل طلبات الشحن
+                        </p>
+                        <ul class="service-features">
+                            <li>استقبال طلبات شحن</li>
+                            <li>نظام تتبع GPS</li>
+                            <li>لوحة إدارة الشحنات</li>
+                            <li>محفظة للأرباح</li>
+                            <li>شارة "ناقل معتمد"</li>
+                        </ul>
+                        <div class="service-price">
+                            <div class="price-label">التسجيل</div>
+                            <div class="price-value">مجاناً</div>
+                        </div>
+                        <div class="service-delivery">✓ تفعيل خلال 2-3 يوم عمل</div>
+                        <a href="تسجيل-ناقل.html" class="service-btn">سجل كناقل</a>
+                    </div>
+                    
+                    <!-- Shipping Service -->
+                    <div class="service-card">
+                        <div class="service-icon">📦</div>
+                        <h3 class="service-title">خدمة الشحن</h3>
+                        <p class="service-desc">
+                            نقل المعادن من البائع إليك بأمان
+                        </p>
+                        <ul class="service-features">
+                            <li>شاحنات متنوعة</li>
+                            <li>تتبع مباشر GPS</li>
+                            <li>حماية وتوثيق للشحنة</li>
+                            <li>تغطية كل المناطق</li>
+                        </ul>
+                        <div class="service-price">
+                            <div class="price-label">يبدأ من</div>
+                            <div class="price-value">500 ر.س</div>
+                        </div>
+                        <div class="service-delivery">✓ توصيل 1-7 أيام</div>
+                        <a href="نظام-اللوجستيات-الذكي.html" class="service-btn">اعرف المزيد</a>
+                    </div>
+                    
+                    <!-- Storage Service -->
+                    <div class="service-card">
+                        <div class="service-icon">🏭</div>
+                        <h3 class="service-title">خدمة التخزين</h3>
+                        <p class="service-desc">
+                            تخزين آمن في مستودعات معتمدة
+                        </p>
+                        <ul class="service-features">
+                            <li>مستودعات مؤمنة 24/7</li>
+                            <li>نظام RFID للجرد</li>
+                            <li>تحكم بالمناخ</li>
+                            <li>حماية وتوثيق للمخزون</li>
+                        </ul>
+                        <div class="service-price">
+                            <div class="price-label">يبدأ من</div>
+                            <div class="price-value">50 ر.س/طن/شهر</div>
+                        </div>
+                        <div class="service-delivery">✓ متاح فوراً</div>
+                        <a href="#" class="service-btn">احجز مساحة</a>
+                    </div>
+                    
+                    <!-- Quality Service -->
+                    <div class="service-card">
+                        <div class="service-icon">🔬</div>
+                        <h3 class="service-title">فحص الجودة</h3>
+                        <p class="service-desc">
+                            فحص وشهادات جودة معتمدة
+                        </p>
+                        <ul class="service-features">
+                            <li>تحليل كيميائي</li>
+                            <li>فحص فيزيائي</li>
+                            <li>شهادة مطابقة</li>
+                            <li>شهادة LBMA للذهب</li>
+                        </ul>
+                        <div class="service-price">
+                            <div class="price-label">يبدأ من</div>
+                            <div class="price-value">500 ر.س/عينة</div>
+                        </div>
+                        <div class="service-delivery">✓ نتائج خلال 3-7 أيام</div>
+                        <a href="#" class="service-btn">اطلب فحص</a>
+                    </div>
+                    
+                    <!-- Risk Management Service (حماية وتوثيق) -->
+                    <div class="service-card">
+                        <div class="service-icon">🛡️</div>
+                        <h3 class="service-title">إدارة المخاطر والتوثيق</h3>
+                        <p class="service-desc">
+                            حماية تشغيلية وتوثيق للشحنات والمخزون
+                        </p>
+                        <ul class="service-features">
+                            <li>توثيق استلام/تسليم بالصور</li>
+                            <li>محاضر وزن وكمية</li>
+                            <li>ختم وتتبع ومسار موثق</li>
+                            <li>إدارة نزاعات وتشغيل</li>
+                        </ul>
+                        <div class="service-price">
+                            <div class="price-label">يبدأ من</div>
+                            <div class="price-value">150 ر.س/شحنة</div>
+                        </div>
+                        <div class="service-delivery">✓ تفعيل خلال نفس اليوم</div>
+                        <a href="#" class="service-btn">فعّل الحماية والتوثيق</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Not Products -->
+            <section class="not-products">
+                <div class="not-products-box">
+                    <h3 class="not-products-title">⚠️ هذه ليست منتجات للبيع</h3>
+                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 20px;">
+                        الصفحات التالية هي أدوات إدارية أو معلومات تعريفية — وليست منتجات قابلة للشراء
+                    </p>
+                    <div class="not-products-list">
+                        <div class="not-product-item">لوحة التحكم (أداة إدارية)</div>
+                        <div class="not-product-item">صفحة الالتزام الشرعي (معلومات)</div>
+                        <div class="not-product-item">صفحة سلسلة التوريد (شرح)</div>
+                        <div class="not-product-item">صفحة اللوجستيات (تعريف)</div>
+                        <div class="not-product-item">المساعد الذكي (دعم)</div>
+                        <div class="not-product-item">الشروط والسياسات (قانونية)</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">
+            ☪️ جميع المنتجات والخدمات ملتزمة بالشريعة الإسلامية
+            <br>
+            <span style="color: var(--sheikha-gold-500);">لا حول ولا قوة إلا بالله</span>
+        </p>
+    </footer>
+</body>
+</html>

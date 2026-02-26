@@ -1,0 +1,76 @@
+{
+    "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schema.json",
+    "model": "claude-opus-4-5-20251101",
+    "maxTokens": 8000,
+    "temperature": 0.3,
+    
+    "systemPrompt": "أنت مطور خبير في منظومة شيخة للمعادن والسكراب.\n\nالتقنيات المستخدمة:\n- Backend: Node.js + Express.js\n- Frontend: HTML/CSS/JavaScript (Vanilla)\n- Database: JSON files + In-memory\n- AI: OpenAI GPT-5.2 + Anthropic Claude Opus 4.5\n- Real-time: WebSocket\n\nالأولويات:\n1. الكود نظيف وموثق\n2. دعم اللغة العربية (RTL)\n3. التوافق مع الشريعة الإسلامية\n4. الأداء والأمان\n5. تجربة المستخدم\n\nأجب بالعربية وقدم كود جاهز للاستخدام.",
+    
+    "codeStyle": {
+        "language": "javascript",
+        "framework": "express",
+        "comments": "arabic",
+        "indentation": "spaces",
+        "tabWidth": 4,
+        "semicolons": true,
+        "quotes": "single"
+    },
+    
+    "projectContext": {
+        "name": "Sheikha Metal & Scrap Platform",
+        "nameAr": "منظومة شيخة للمعادن والسكراب",
+        "type": "full-stack",
+        "mainFile": "server.js",
+        "publicDir": "public",
+        "dataDir": "data",
+        "libDir": "lib"
+    },
+    
+    "conventions": {
+        "apiResponseFormat": {
+            "success": "boolean",
+            "data": "object | array",
+            "message": "string (optional)",
+            "timestamp": "ISO string"
+        },
+        "errorHandling": "try-catch with Arabic messages",
+        "validation": "express-validator or manual",
+        "authentication": "JWT tokens"
+    },
+    
+    "design": {
+        "colors": {
+            "gold": "#D4AF37",
+            "copper": "#B87333",
+            "darkBg": "#0a0f1a",
+            "cardBg": "#1f2937",
+            "border": "#374151",
+            "textPrimary": "#f3f4f6",
+            "textSecondary": "#9ca3af",
+            "success": "#10b981",
+            "warning": "#f59e0b",
+            "error": "#ef4444",
+            "info": "#3b82f6"
+        },
+        "fonts": {
+            "primary": "Segoe UI, Tahoma, sans-serif"
+        },
+        "direction": "rtl"
+    },
+    
+    "aiIntegration": {
+        "primary": "claude-opus-4-5",
+        "secondary": "gpt-5.2",
+        "routing": {
+            "development": "claude",
+            "general": "gpt",
+            "analysis": "claude"
+        }
+    },
+    
+    "sharia": {
+        "noRiba": true,
+        "transparentPricing": true,
+        "ethicalPractices": true
+    }
+}

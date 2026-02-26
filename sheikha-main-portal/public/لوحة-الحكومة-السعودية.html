@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇸🇦 لوحة التحكم الحكومية — المملكة العربية السعودية | SHEIKHA</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#D4AF37;--gold2:#B87333;--bg:#050810;--card:rgba(15,20,35,0.95);--border:rgba(14,165,233,0.1);--text:#e2e8f0;--dim:#64748b;--green:#10b981;--blue:#0ea5e9;--sa:#006C35}
+body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(0,108,53,0.04),transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(14,165,233,0.02),transparent 50%);pointer-events:none}
+.container{max-width:1200px;margin:0 auto;padding:20px;position:relative;z-index:1}
+
+.hdr{text-align:center;padding:24px 0 16px}
+.hdr .flag{font-size:2.5rem;margin-bottom:8px}
+.hdr h1{font-size:1.6rem;font-weight:900;color:#fff;margin-bottom:4px}
+.hdr h1 span{color:var(--sa)}
+.hdr .sub{font-size:0.8rem;color:var(--dim);max-width:600px;margin:0 auto}
+.hdr .verse{font-family:'Amiri',serif;font-size:0.85rem;color:rgba(0,108,53,0.5);margin-top:8px}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center}
+.stat .val{font-size:1.5rem;font-weight:900;color:var(--blue)}
+.stat .val.green{color:var(--green)}
+.stat .val.gold{color:var(--gold)}
+.stat .lbl{font-size:0.65rem;color:var(--dim);margin-top:2px}
+
+.section{margin:20px 0}
+.section-title{display:flex;align-items:center;gap:8px;font-size:1rem;font-weight:700;color:var(--blue);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+
+/* الجهات */
+.entities{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.entity{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all 0.3s}
+.entity:hover{border-color:rgba(14,165,233,0.25);transform:translateY(-2px)}
+.entity .e-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.entity .e-name{font-size:0.82rem;font-weight:700;color:#fff;flex:1}
+.entity .e-abbr{font-size:0.6rem;padding:2px 6px;border-radius:6px;background:rgba(14,165,233,0.08);color:var(--blue);font-weight:700}
+.entity .e-en{font-size:0.6rem;color:var(--dim)}
+.entity .e-status{display:inline-flex;align-items:center;gap:3px;font-size:0.6rem;padding:2px 8px;border-radius:8px;font-weight:600}
+.entity .e-status.integrated{background:rgba(16,185,129,0.08);color:var(--green)}
+.entity .e-status.ready{background:rgba(212,175,55,0.08);color:var(--gold)}
+.entity .e-services{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.entity .e-svc{font-size:0.58rem;padding:1px 6px;border-radius:6px;background:rgba(255,255,255,0.03);color:var(--dim)}
+
+/* الأنظمة */
+.regs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.reg{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all 0.3s}
+.reg:hover{border-color:rgba(16,185,129,0.2)}
+.reg .r-name{font-size:0.82rem;font-weight:700;color:#fff;margin-bottom:3px}
+.reg .r-en{font-size:0.6rem;color:var(--dim)}
+.reg .r-auth{font-size:0.65rem;color:var(--blue);margin:4px 0}
+.reg .r-reqs{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
+.reg .r-req{font-size:0.55rem;padding:2px 6px;border-radius:6px;background:rgba(16,185,129,0.06);color:var(--green)}
+.reg .r-badge{display:inline-block;font-size:0.55rem;padding:2px 8px;border-radius:6px;background:rgba(16,185,129,0.1);color:var(--green);font-weight:700;margin-top:4px}
+
+/* الشركات الحكومية */
+.companies{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.company{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all 0.3s}
+.company:hover{border-color:rgba(212,175,55,0.2)}
+.company .c-name{font-size:0.82rem;font-weight:700;color:#fff}
+.company .c-en{font-size:0.6rem;color:var(--dim)}
+.company .c-sector{font-size:0.6rem;padding:2px 8px;border-radius:6px;background:rgba(212,175,55,0.06);color:var(--gold);margin-top:4px;display:inline-block}
+
+/* رؤية 2030 */
+.vision{background:linear-gradient(135deg,rgba(0,108,53,0.06),rgba(14,165,233,0.04));border:1px solid rgba(0,108,53,0.15);border-radius:14px;padding:20px;text-align:center;margin:20px 0}
+.vision h3{color:var(--sa);font-size:1rem;margin-bottom:8px}
+.vision .pillars{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:10px 0}
+.vision .pillar{padding:6px 14px;border-radius:10px;background:rgba(0,108,53,0.08);color:var(--sa);font-size:0.75rem;font-weight:600;border:1px solid rgba(0,108,53,0.15)}
+.vision .contrib{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:8px}
+.vision .citem{font-size:0.65rem;color:var(--dim);padding:3px 10px;border-radius:8px;background:rgba(255,255,255,0.02)}
+
+.footer{text-align:center;padding:24px;color:var(--dim);font-size:0.65rem;border-top:1px solid var(--border);margin-top:24px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}.entities,.regs,.companies{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hdr">
+    <div class="flag">🇸🇦</div>
+    <h1>لوحة التحكم <span>الحكومية</span> — المملكة العربية السعودية</h1>
+    <div class="sub">تكامل منظومة شيخة مع الجهات الحكومية السعودية — الوزارات والهيئات والمنصات والأنظمة والشركات الحكومية</div>
+    <div class="verse">☪️ إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا — النساء ٥٨</div>
+</div>
+
+<div class="stats" id="stats"></div>
+
+<div class="vision" id="vision"></div>
+
+<div class="section">
+    <div class="section-title">🏛️ الوزارات</div>
+    <div class="entities" id="ministries"></div>
+</div>
+
+<div class="section">
+    <div class="section-title">⚙️ الهيئات والمؤسسات</div>
+    <div class="entities" id="agencies"></div>
+</div>
+
+<div class="section">
+    <div class="section-title">📱 المنصات الرقمية</div>
+    <div class="entities" id="platforms"></div>
+</div>
+
+<div class="section">
+    <div class="section-title">📜 الأنظمة والتشريعات — الامتثال</div>
+    <div class="regs" id="regulations"></div>
+</div>
+
+<div class="section">
+    <div class="section-title">🏢 الشركات الحكومية والصناديق السيادية</div>
+    <div class="companies" id="companies"></div>
+</div>
+
+<div class="footer">
+    <div style="font-family:'Amiri',serif;color:rgba(0,108,53,0.4)">المالك: سلمان أحمد بن سلمان الراجح</div>
+    <div style="margin-top:3px">SHEIKHA Gov Engine v1.0 — النظام الحكومي السعودي</div>
+</div>
+
+</div>
+
+<script>
+async function safeFetch(u){try{const r=await fetch(u);if(!r.ok)return null;return await r.json();}catch(e){return null;}}
+
+async function load(){
+    const data = await safeFetch('/api/gov/saudi');
+    if(!data||!data.success) return;
+    const d=data;
+
+    // الإحصائيات
+    document.getElementById('stats').innerHTML = `
+        <div class="stat"><div class="val">${d.summary.totalEntities}</div><div class="lbl">جهة حكومية</div></div>
+        <div class="stat"><div class="val green">${d.summary.integrated}</div><div class="lbl">مُتكاملة</div></div>
+        <div class="stat"><div class="val gold">${d.summary.integrationRate}%</div><div class="lbl">نسبة التكامل</div></div>
+        <div class="stat"><div class="val green">${d.summary.complianceRate}%</div><div class="lbl">الامتثال</div></div>
+        <div class="stat"><div class="val">${d.summary.regulations}</div><div class="lbl">نظام/تشريع</div></div>
+        <div class="stat"><div class="val">${d.summary.govCompanies}</div><div class="lbl">شركة حكومية</div></div>
+    `;
+
+    // رؤية 2030
+    const v=d.vision2030;
+    document.getElementById('vision').innerHTML=`
+        <h3>🌟 ${v.alignment}</h3>
+        <div class="pillars">${v.pillars.map(p=>`<div class="pillar">${p}</div>`).join('')}</div>
+        <div class="contrib">${v.sheikhaContribution.map(c=>`<div class="citem">✓ ${c}</div>`).join('')}</div>
+    `;
+
+    // الجهات
+    function renderEntities(arr, elId){
+        document.getElementById(elId).innerHTML = arr.map(e=>`
+            <div class="entity">
+                <div class="e-head">
+                    <div style="flex:1"><div class="e-name">${e.nameAr}</div><div class="e-en">${e.nameEn}</div></div>
+                    <span class="e-abbr">${e.abbr}</span>
+                </div>
+                <span class="e-status ${e.status}">${e.status==='integrated'?'✓ مُتكامل':'◉ جاهز'}</span>
+                <span style="font-size:0.6rem;color:var(--dim);margin-right:6px">${e.integration}</span>
+                <div class="e-services">${e.services.map(s=>`<span class="e-svc">${s}</span>`).join('')}</div>
+            </div>
+        `).join('');
+    }
+    renderEntities(d.entities.ministries, 'ministries');
+    renderEntities(d.entities.agencies, 'agencies');
+    renderEntities(d.entities.platforms, 'platforms');
+
+    // الأنظمة
+    document.getElementById('regulations').innerHTML = d.regulations.map(r=>`
+        <div class="reg">
+            <div class="r-name">${r.nameAr}</div>
+            <div class="r-en">${r.nameEn} (${r.year})</div>
+            <div class="r-auth">📋 ${r.authority}</div>
+            <div class="r-reqs">${r.requirements.map(q=>`<span class="r-req">✓ ${q}</span>`).join('')}</div>
+            <div class="r-badge">✅ ممتثل</div>
+        </div>
+    `).join('');
+
+    // الشركات
+    document.getElementById('companies').innerHTML = d.govCompanies.map(c=>`
+        <div class="company">
+            <div class="c-name">${c.nameAr}</div>
+            <div class="c-en">${c.nameEn}</div>
+            <span class="c-sector">${c.sector}</span>
+        </div>
+    `).join('');
+}
+
+load();
+</script>
+</body>
+</html>

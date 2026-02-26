@@ -1,0 +1,127 @@
+{
+  "name": "منظومة شيخة للمعادن والسكراب",
+  "short_name": "شيخة",
+  "description": "أول سوق إسلامي رقمي للمعادن والسكراب — سلسلة توريد متكاملة من المصدر إلى المصهر — تسعير نبوي — تجارة حلال",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "background_color": "#030712",
+  "theme_color": "#D4AF37",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["business", "shopping", "productivity", "finance"],
+  "iarc_rating_id": "",
+  "icons": [
+    {
+      "src": "/icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "السوق",
+      "short_name": "السوق",
+      "description": "تصفح عروض المعادن والسكراب",
+      "url": "/سوق-شيخة.html",
+      "icons": [{"src": "/icons/icon-192.svg", "sizes": "192x192"}]
+    },
+    {
+      "name": "لوحة التحكم",
+      "short_name": "لوحتي",
+      "description": "إدارة متجرك ومنتجاتك",
+      "url": "/لوحة-تحكم-المستخدم.html"
+    },
+    {
+      "name": "لوحة الشركة",
+      "short_name": "الشركة",
+      "description": "لوحة تحكم الشركة المتكاملة",
+      "url": "/لوحة-الشركة.html"
+    },
+    {
+      "name": "المجتمع",
+      "short_name": "المجتمع",
+      "description": "المجتمع العلمي والمختبرات",
+      "url": "/المجتمع.html"
+    },
+    {
+      "name": "تسجيل تاجر",
+      "short_name": "تسجيل",
+      "description": "سجّل كتاجر في منظومة شيخة",
+      "url": "/تسجيل-الشركات.html"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "منظومة شيخة — الصفحة الرئيسية"
+    },
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "form_factor": "narrow",
+      "label": "سوق شيخة — تصفح المعادن"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=sa.sheikha.market",
+      "id": "sa.sheikha.market"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/sheikha-market/id000000000"
+    },
+    {
+      "platform": "webapp",
+      "url": "https://sheikha.top/manifest.json"
+    }
+  ],
+  "prefer_related_applications": false,
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [{"name": "images", "accept": ["image/*"]}]
+    }
+  },
+  "protocol_handlers": [
+    {"protocol": "web+sheikha", "url": "/protocol?type=%s"}
+  ],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}

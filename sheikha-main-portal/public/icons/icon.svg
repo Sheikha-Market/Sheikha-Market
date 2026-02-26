@@ -1,0 +1,86 @@
+<svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0a0f1a"/>
+        <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="20%" y1="0%" x2="80%" y2="100%">
+        <stop offset="0%" stop-color="#FBF0C8"/>
+        <stop offset="25%" stop-color="#E8C94A"/>
+        <stop offset="55%" stop-color="#D4AF37"/>
+        <stop offset="100%" stop-color="#A8882B"/>
+    </linearGradient>
+    <linearGradient id="goldV" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="#FBF0C8"/>
+        <stop offset="100%" stop-color="#D4AF37"/>
+    </linearGradient>
+    <radialGradient id="core" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFFDE8"/>
+        <stop offset="40%" stop-color="#F5E6A3"/>
+        <stop offset="100%" stop-color="#D4AF37"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#D4AF37" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glowBig"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+
+<!-- الخلفية -->
+<rect width="512" height="512" rx="100" fill="url(#bg)"/>
+<circle cx="256" cy="256" r="240" fill="url(#halo)"/>
+
+<!-- النجمة الثمانية -->
+<polygon points="256,30 296,208 474,208 332,312 370,490 256,384 142,490 180,312 38,208 216,208" fill="url(#gold)" opacity=".06"/>
+<polygon points="256,30 296,208 474,208 332,312 370,490 256,384 142,490 180,312 38,208 216,208" stroke="url(#gold)" stroke-width="3" fill="none" opacity=".25" filter="url(#glow)"/>
+<!-- نجمة داخلية -->
+<polygon points="256,90 284,210 404,210 308,280 336,400 256,336 176,400 204,280 108,210 228,210" stroke="url(#gold)" stroke-width="1.5" fill="none" opacity=".1"/>
+
+<!-- حلقة مركزية -->
+<circle cx="256" cy="256" r="100" stroke="url(#gold)" stroke-width="2" fill="none" opacity=".12"/>
+
+<!-- عمود الميزان -->
+<rect x="249" y="95" width="14" height="290" rx="7" fill="url(#gold)" opacity=".45"/>
+
+<!-- التاج -->
+<circle cx="256" cy="88" r="20" fill="url(#goldV)" filter="url(#glowBig)" opacity=".85"/>
+<circle cx="256" cy="88" r="10" fill="#0a0f1a" opacity=".3"/>
+<circle cx="256" cy="88" r="5" fill="url(#core)" opacity=".6"/>
+<!-- زخرفة تحت التاج -->
+<path d="M242,110 L256,120 L270,110" stroke="url(#gold)" stroke-width="2.5" fill="none" opacity=".3"/>
+
+<!-- ذراع الميزان -->
+<rect x="115" y="204" width="282" height="8" rx="4" fill="url(#gold)" opacity=".45"/>
+<circle cx="256" cy="208" r="8" fill="url(#goldV)" opacity=".45"/>
+
+<!-- الكفة اليمنى -->
+<line x1="134" y1="208" x2="118" y2="285" stroke="url(#gold)" stroke-width="2.5" opacity=".35"/>
+<line x1="194" y1="208" x2="210" y2="285" stroke="url(#gold)" stroke-width="2.5" opacity=".35"/>
+<path d="M108,285 C116,318 164,326 164,326 C164,326 212,318 220,285 Z" fill="rgba(212,175,55,.06)" stroke="url(#gold)" stroke-width="3" opacity=".45"/>
+
+<!-- الكفة اليسرى -->
+<line x1="318" y1="208" x2="302" y2="285" stroke="url(#gold)" stroke-width="2.5" opacity=".35"/>
+<line x1="378" y1="208" x2="394" y2="285" stroke="url(#gold)" stroke-width="2.5" opacity=".35"/>
+<path d="M292,285 C300,318 348,326 348,326 C348,326 396,318 404,285 Z" fill="rgba(212,175,55,.06)" stroke="url(#gold)" stroke-width="3" opacity=".45"/>
+
+<!-- الجوهرة المركزية -->
+<polygon points="256,155 292,256 256,357 220,256" fill="rgba(212,175,55,.04)" stroke="url(#gold)" stroke-width="2" opacity=".35"/>
+<line x1="256" y1="155" x2="220" y2="256" stroke="url(#gold)" stroke-width="0.8" opacity=".1"/>
+<line x1="256" y1="155" x2="292" y2="256" stroke="url(#gold)" stroke-width="0.8" opacity=".1"/>
+<polygon points="256,180 278,256 256,332 234,256" fill="rgba(212,175,55,.04)" stroke="url(#gold)" stroke-width="1" opacity=".2"/>
+<circle cx="256" cy="256" r="22" fill="url(#core)" filter="url(#glowBig)" opacity=".8"/>
+<circle cx="256" cy="256" r="10" fill="#FFFDE8" opacity=".35"/>
+<circle cx="252" cy="250" r="4" fill="#fff" opacity=".12"/>
+
+<!-- القاعدة -->
+<rect x="248" y="385" width="16" height="16" rx="4" fill="url(#gold)" opacity=".35"/>
+<rect x="192" y="401" width="128" height="8" rx="4" fill="url(#gold)" opacity=".45"/>
+<rect x="178" y="413" width="156" height="6" rx="3" fill="url(#gold)" opacity=".28"/>
+<line x1="206" y1="409" x2="192" y2="419" stroke="url(#gold)" stroke-width="2.5" opacity=".25"/>
+<line x1="306" y1="409" x2="320" y2="419" stroke="url(#gold)" stroke-width="2.5" opacity=".25"/>
+
+<!-- النص -->
+<text x="256" y="462" font-family="Cairo,Tajawal,sans-serif" font-size="32" fill="url(#gold)" text-anchor="middle" opacity=".35" font-weight="900" letter-spacing="6">شيخة</text>
+<text x="256" y="486" font-family="Outfit,sans-serif" font-size="14" fill="url(#gold)" text-anchor="middle" opacity=".2" font-weight="600" letter-spacing="8">SHEIKHA</text>
+</svg>

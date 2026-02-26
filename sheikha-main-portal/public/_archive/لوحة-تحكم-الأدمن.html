@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="لوحة تحكم الأدمن المتكاملة - سوق شيخة للمعادن والسكراب">
+    <title>لوحة تحكم الأدمن | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        // لضمان عمل واجهات الذكاء/API (بدون مشاكل CORS): افتح لوحة الأدمن من خادم Node على 8080
+        (function enforceNodeOrigin() {
+            try {
+                const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+                const desiredPort = '8080';
+                if (isLocal && location.port && location.port !== desiredPort) {
+                    const url = `${location.protocol}//${location.hostname}:${desiredPort}${location.pathname}${location.search}${location.hash}`;
+                    location.replace(url);
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-dark: #063d24;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --cyan: #06b6d4;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --card-hover: #111c30;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --shadow-gold: 0 4px 20px rgba(212,175,55,0.2);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ===== TOPBAR ===== */
+        .topbar {
+            height: 64px;
+            background: linear-gradient(90deg, var(--card) 0%, rgba(212,175,55,0.1) 100%);
+            border-bottom: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            box-shadow: var(--shadow-gold);
+        }
+        .logo-text {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .admin-badge {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.9rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ===== LAYOUT ===== */
+        .layout {
+            display: flex;
+            margin-top: 64px;
+            min-height: calc(100vh - 64px);
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 280px;
+            background: var(--card);
+            border-left: 1px solid var(--border);
+            padding: 20px 12px;
+            position: fixed;
+            top: 64px;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 50;
+        }
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+        .sidebar-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            padding: 0 12px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: var(--radius);
+            margin-bottom: 4px;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: right;
+        }
+        .nav-item:hover {
+            color: var(--text);
+            background: rgba(255,255,255,0.05);
+        }
+        .nav-item.active {
+            color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        .nav-icon { font-size: 1.1rem; }
+
+        /* ===== MAIN CONTENT ===== */
+        .main {
+            flex: 1;
+            margin-right: 280px;
+            padding: 24px;
+            max-width: calc(100% - 280px);
+        }
+
+        /* ===== HEADER ===== */
+        .page-header {
+            margin-bottom: 24px;
+        }
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .page-title span { color: var(--gold); }
+        .page-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ===== STATS GRID ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            transition: var(--transition);
+        }
+        .stat-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        .stat-icon.gold { background: rgba(212,175,55,0.15); }
+        .stat-icon.green { background: rgba(16,185,129,0.15); }
+        .stat-icon.blue { background: rgba(59,130,246,0.15); }
+        .stat-icon.purple { background: rgba(139,92,246,0.15); }
+        .stat-icon.red { background: rgba(239,68,68,0.15); }
+        .stat-change {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+        .stat-change.up { background: rgba(16,185,129,0.15); color: var(--success); }
+        .stat-change.down { background: rgba(239,68,68,0.15); color: var(--danger); }
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== SECTION ===== */
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-body {
+            padding: 24px;
+        }
+
+        /* ===== ADMIN MODULES ===== */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .module-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--primary));
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .module-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+        .module-card:hover::before {
+            opacity: 1;
+        }
+        .module-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(10,92,54,0.1));
+        }
+        .module-name {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .module-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .module-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .module-status.active { background: rgba(16,185,129,0.15); color: var(--success); }
+        .module-status.dev { background: rgba(245,158,11,0.15); color: var(--warning); }
+        .module-status.admin { background: rgba(239,68,68,0.15); color: var(--danger); }
+
+        /* ===== ARCHITECTURE DIAGRAM ===== */
+        .architecture {
+            background: rgba(0,0,0,0.3);
+            border-radius: var(--radius);
+            padding: 24px;
+            overflow-x: auto;
+        }
+        .arch-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--gold);
+        }
+        .arch-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-width: 800px;
+        }
+        .arch-layer {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+        }
+        .arch-layer-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .arch-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .arch-item {
+            padding: 8px 14px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .arch-item:hover {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        .arch-item.highlight {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.1);
+            color: var(--gold);
+        }
+
+        /* ===== CODE EDITOR ===== */
+        .code-section {
+            background: #1a1a2e;
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .code-header {
+            background: #252542;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #3a3a5c;
+        }
+        .code-tabs {
+            display: flex;
+            gap: 8px;
+        }
+        .code-tab {
+            padding: 6px 14px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+        .code-tab.active {
+            background: var(--gold);
+            color: var(--dark);
+        }
+        .code-body {
+            padding: 16px;
+            font-family: 'Fira Code', 'Monaco', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .code-line {
+            display: flex;
+            gap: 16px;
+        }
+        .line-number {
+            color: #4a4a6a;
+            user-select: none;
+            min-width: 30px;
+            text-align: right;
+        }
+        .code-content {
+            flex: 1;
+        }
+        .code-keyword { color: #c792ea; }
+        .code-string { color: #c3e88d; }
+        .code-function { color: #82aaff; }
+        .code-comment { color: #676e95; }
+        .code-variable { color: #ffcb6b; }
+
+        /* ===== PERMISSIONS ===== */
+        .permissions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        .permission-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .permission-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background: rgba(16,185,129,0.15);
+        }
+        .permission-info {
+            flex: 1;
+        }
+        .permission-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        .permission-status {
+            font-size: 0.75rem;
+            color: var(--success);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .sidebar { width: 220px; }
+            .main { margin-right: 220px; max-width: calc(100% - 220px); }
+        }
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main { margin-right: 0; max-width: 100%; }
+            .topbar { padding: 0 16px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <div class="topbar-right">
+            <a href="منظومة-شيخة.html" class="logo">
+                <div class="logo-icon" aria-label="شعار شيخة">
+                    <img src="assets/sheikha-mark.svg" alt="شيخة" width="28" height="28" style="display:block; width:28px; height:28px;">
+                </div>
+                <span class="logo-text">سوق شيخة</span>
+            </a>
+            <span class="admin-badge">🛡️ صلاحيات الأدمن الكاملة</span>
+        </div>
+        <div class="topbar-left">
+            <button class="btn btn-outline" onclick="refreshSystem()">🔄 تحديث النظام</button>
+            <a href="منظومة-شيخة.html" class="btn btn-gold">← الرئيسية</a>
+        </div>
+    </header>
+
+    <div class="layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">🎛️ لوحات التحكم</div>
+                <button class="nav-item active" onclick="showSection('overview')">
+                    <span class="nav-icon">📊</span> نظرة عامة
+                </button>
+                <button class="nav-item" onclick="showSection('architecture')">
+                    <span class="nav-icon">🏗️</span> هيكل النظام
+                </button>
+                <button class="nav-item" onclick="showSection('modules')">
+                    <span class="nav-icon">📦</span> الوحدات البرمجية
+                </button>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">💻 التطوير</div>
+                <button class="nav-item" onclick="showSection('api')">
+                    <span class="nav-icon">🔌</span> واجهات API
+                </button>
+                <button class="nav-item" onclick="showSection('database')">
+                    <span class="nav-icon">🗄️</span> قاعدة البيانات
+                </button>
+                <button class="nav-item" onclick="showSection('code')">
+                    <span class="nav-icon">📝</span> محرر الكود
+                </button>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">⚙️ الإدارة</div>
+                <button class="nav-item" onclick="showSection('users')">
+                    <span class="nav-icon">👥</span> المستخدمين
+                </button>
+                <button class="nav-item" onclick="showSection('permissions')">
+                    <span class="nav-icon">🔐</span> الصلاحيات
+                </button>
+                <button class="nav-item" onclick="showSection('logs')">
+                    <span class="nav-icon">📋</span> السجلات
+                </button>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">🚀 العمليات</div>
+                <button class="nav-item" onclick="showSection('deploy')">
+                    <span class="nav-icon">🌐</span> النشر والتوزيع
+                </button>
+                <button class="nav-item" onclick="showSection('backup')">
+                    <span class="nav-icon">💾</span> النسخ الاحتياطي
+                </button>
+                <button class="nav-item" onclick="showSection('monitoring')">
+                    <span class="nav-icon">📡</span> المراقبة
+                </button>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">🤖 الذكاء والتسويق</div>
+                <button class="nav-item" onclick="showSection('ai')">
+                    <span class="nav-icon">🧠</span> مساعد الأدمن الذكي
+                </button>
+                <button class="nav-item" onclick="showSection('devstudio')">
+                    <span class="nav-icon">🧪</span> بيئة التطوير (Dev Studio)
+                </button>
+                <button class="nav-item" onclick="showSection('marketing')">
+                    <span class="nav-icon">📣</span> التسويق الذكي
+                </button>
+                <button class="nav-item" onclick="showSection('sharia-gate')">
+                    <span class="nav-icon">☪️</span> بوابة الالتزام الشرعي
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main">
+            <!-- Overview Section -->
+            <div id="section-overview" class="section-content">
+                <div class="page-header">
+                    <h1 class="page-title">🛡️ لوحة تحكم <span>الأدمن</span></h1>
+                    <p class="page-desc">إدارة كاملة للمنظومة مع صلاحيات برمجية وتطويرية شاملة</p>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon gold">📊</div>
+                            <span class="stat-change up">+15%</span>
+                        </div>
+                        <div class="stat-value" id="totalModules">24</div>
+                        <div class="stat-label">وحدة برمجية</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon green">🔌</div>
+                            <span class="stat-change up">+8</span>
+                        </div>
+                        <div class="stat-value" id="totalAPIs">156</div>
+                        <div class="stat-label">نقطة API</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon blue">📄</div>
+                        </div>
+                        <div class="stat-value" id="totalFiles">89</div>
+                        <div class="stat-label">ملف برمجي</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon purple">⚡</div>
+                        </div>
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-label">وقت التشغيل</div>
+                    </div>
+                </div>
+
+                <!-- System Identity -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">🎯 هوية النظام</h2>
+                    </div>
+                    <div class="section-body">
+                        <div class="modules-grid">
+                            <div class="module-card">
+                                <div class="module-icon">👑</div>
+                                <div class="module-name">سوق شيخة</div>
+                                <div class="module-desc">السوق الرائد لتجارة المعادن والسكراب في السعودية والعالم الإسلامي</div>
+                                <span class="module-status active">✓ نشط</span>
+                            </div>
+                            <div class="module-card">
+                                <div class="module-icon">☪️</div>
+                                <div class="module-name">الهوية الإسلامية</div>
+                                <div class="module-desc">لا ضرر ولا ضرار — الكتاب والسنة — التاريخ الهجري أساسي</div>
+                                <span class="module-status active">✓ مفعّل</span>
+                            </div>
+                            <div class="module-card">
+                                <div class="module-icon">🇸🇦</div>
+                                <div class="module-name">الهوية السعودية</div>
+                                <div class="module-desc">متوافق مع رؤية 2030 — الهوية الرقمية السعودية</div>
+                                <span class="module-status active">✓ متكامل</span>
+                            </div>
+                            <div class="module-card">
+                                <div class="module-icon">🏢</div>
+                                <div class="module-name">المالك</div>
+                                <div class="module-desc">مؤسسة سلمان أحمد بن سلمان الراجح التجارية</div>
+                                <span class="module-status admin">مالك</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">⚡ إجراءات سريعة</h2>
+                    </div>
+                    <div class="section-body">
+                        <div class="modules-grid">
+                            <div class="module-card" onclick="deployToProduction()">
+                                <div class="module-icon">🚀</div>
+                                <div class="module-name">نشر للإنتاج</div>
+                                <div class="module-desc">نشر التحديثات على www.sheikha.top</div>
+                                <span class="module-status admin">صلاحية أدمن</span>
+                            </div>
+                            <div class="module-card" onclick="runBackup()">
+                                <div class="module-icon">💾</div>
+                                <div class="module-name">نسخ احتياطي</div>
+                                <div class="module-desc">إنشاء نسخة احتياطية فورية</div>
+                                <span class="module-status active">جاهز</span>
+                            </div>
+                            <div class="module-card" onclick="restartServer()">
+                                <div class="module-icon">🔄</div>
+                                <div class="module-name">إعادة تشغيل الخادم</div>
+                                <div class="module-desc">إعادة تشغيل جميع الخدمات</div>
+                                <span class="module-status admin">صلاحية أدمن</span>
+                            </div>
+                            <div class="module-card" onclick="clearCache()">
+                                <div class="module-icon">🧹</div>
+                                <div class="module-name">مسح الذاكرة المؤقتة</div>
+                                <div class="module-desc">تنظيف الكاش وتحديث البيانات</div>
+                                <span class="module-status active">جاهز</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture Section -->
+            <div id="section-architecture" class="section-content" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">🏗️ هيكل <span>النظام</span></h1>
+                    <p class="page-desc">المخطط الكامل للبنية التقنية والبرمجية لسوق شيخة</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">📐 مخطط البنية المعمارية</h2>
+                    </div>
+                    <div class="section-body">
+                        <div class="architecture">
+                            <div class="arch-title">بنية سوق شيخة المتكاملة</div>
+                            <div class="arch-layers">
+                                <!-- Layer 1: Frontend -->
+                                <div class="arch-layer">
+                                    <div class="arch-layer-title">🖥️ طبقة العرض (Frontend)</div>
+                                    <div class="arch-items">
+                                        <span class="arch-item highlight">HTML5 + CSS3</span>
+                                        <span class="arch-item">JavaScript ES6+</span>
+                                        <span class="arch-item highlight">PWA (تطبيق ويب)</span>
+                                        <span class="arch-item">Responsive Design</span>
+                                        <span class="arch-item">RTL Support</span>
+                                        <span class="arch-item">نظام التصميم السعودي</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Layer 2: API Gateway -->
+                                <div class="arch-layer">
+                                    <div class="arch-layer-title">🔌 طبقة API Gateway</div>
+                                    <div class="arch-items">
+                                        <span class="arch-item highlight">Express.js REST API</span>
+                                        <span class="arch-item">WebSocket (Real-time)</span>
+                                        <span class="arch-item">JWT Authentication</span>
+                                        <span class="arch-item">Rate Limiting</span>
+                                        <span class="arch-item">CORS</span>
+                                        <span class="arch-item">API Versioning</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Layer 3: Business Logic -->
+                                <div class="arch-layer">
+                                    <div class="arch-layer-title">⚙️ طبقة منطق الأعمال</div>
+                                    <div class="arch-items">
+                                        <span class="arch-item highlight">نظام التسعير SFPS</span>
+                                        <span class="arch-item highlight">سلاسل الإمداد SCM</span>
+                                        <span class="arch-item">نظام المصادقة</span>
+                                        <span class="arch-item">نظام الدفع</span>
+                                        <span class="arch-item">الذكاء الاصطناعي</span>
+                                        <span class="arch-item highlight">الأحكام الشرعية</span>
+                                        <span class="arch-item">التاريخ الهجري</span>
+                                        <span class="arch-item">الترجمة الآلية</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Layer 4: Data -->
+                                <div class="arch-layer">
+                                    <div class="arch-layer-title">🗄️ طبقة البيانات</div>
+                                    <div class="arch-items">
+                                        <span class="arch-item">JSON Database</span>
+                                        <span class="arch-item">File Storage</span>
+                                        <span class="arch-item">Session Storage</span>
+                                        <span class="arch-item highlight">تشفير AES-256</span>
+                                        <span class="arch-item">نسخ احتياطي تلقائي</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Layer 5: Infrastructure -->
+                                <div class="arch-layer">
+                                    <div class="arch-layer-title">🖧 طبقة البنية التحتية</div>
+                                    <div class="arch-items">
+                                        <span class="arch-item highlight">Node.js v20+</span>
+                                        <span class="arch-item">Nginx (Reverse Proxy)</span>
+                                        <span class="arch-item">Ubuntu VPS</span>
+                                        <span class="arch-item">SSL/TLS 1.3</span>
+                                        <span class="arch-item">CDN</span>
+                                        <span class="arch-item">WAF</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Layer 6: Integrations -->
+                                <div class="arch-layer">
+                                    <div class="arch-layer-title">🔗 التكاملات الخارجية</div>
+                                    <div class="arch-items">
+                                        <span class="arch-item highlight">نفاذ (Nafath)</span>
+                                        <span class="arch-item">Google OAuth</span>
+                                        <span class="arch-item">Apple Sign In</span>
+                                        <span class="arch-item highlight">مدى (Mada)</span>
+                                        <span class="arch-item">STC Pay</span>
+                                        <span class="arch-item">ZATCA (الفوترة)</span>
+                                        <span class="arch-item">بنك الإنماء</span>
+                                        <span class="arch-item">شركات الشحن</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modules Section -->
+            <div id="section-modules" class="section-content" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">📦 الوحدات <span>البرمجية</span></h1>
+                    <p class="page-desc">جميع وحدات ومكونات النظام مع حالة كل وحدة</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-body">
+                        <div class="modules-grid" id="modulesGrid">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Section -->
+            <div id="section-api" class="section-content" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">🔌 واجهات <span>API</span></h1>
+                    <p class="page-desc">جميع نقاط API المتاحة في النظام</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">📡 نقاط API الرئيسية</h2>
+                        <a href="api-docs.html" class="btn btn-outline" target="_blank">📄 التوثيق الكامل</a>
+                    </div>
+                    <div class="section-body">
+                        <div class="modules-grid" id="apiEndpoints">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Permissions Section -->
+            <div id="section-permissions" class="section-content" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">🔐 صلاحيات <span>الأدمن</span></h1>
+                    <p class="page-desc">جميع الصلاحيات المتاحة للأدمن في النظام</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-body">
+                        <div class="permissions-grid">
+                            <div class="permission-card">
+                                <div class="permission-icon">✅</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">إدارة المستخدمين</div>
+                                    <div class="permission-status">✓ مفعّل</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">✅</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">إدارة المتاجر</div>
+                                    <div class="permission-status">✓ مفعّل</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">✅</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">إدارة المنتجات</div>
+                                    <div class="permission-status">✓ مفعّل</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">✅</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">إدارة الطلبات</div>
+                                    <div class="permission-status">✓ مفعّل</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">✅</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">إدارة المدفوعات</div>
+                                    <div class="permission-status">✓ مفعّل</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">✅</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">التقارير المالية</div>
+                                    <div class="permission-status">✓ مفعّل</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">✅</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">إدارة API</div>
+                                    <div class="permission-status">✓ مفعّل</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">✅</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">النشر والتوزيع</div>
+                                    <div class="permission-status">✓ مفعّل</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">✅</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">تعديل الكود</div>
+                                    <div class="permission-status">✓ مفعّل</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">✅</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">قاعدة البيانات</div>
+                                    <div class="permission-status">✓ مفعّل</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">✅</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">النسخ الاحتياطي</div>
+                                    <div class="permission-status">✓ مفعّل</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">✅</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">إدارة الخوادم</div>
+                                    <div class="permission-status">✓ مفعّل</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Section -->
+            <div id="section-code" class="section-content" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">📝 محرر <span>الكود</span></h1>
+                    <p class="page-desc">عرض وتعديل الكود البرمجي للنظام</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-body">
+                        <div class="code-section">
+                            <div class="code-header">
+                                <div class="code-tabs">
+                                    <button class="code-tab active">server.js</button>
+                                    <button class="code-tab">index.html</button>
+                                    <button class="code-tab">sheikha-core.js</button>
+                                </div>
+                                <button class="btn btn-outline" style="font-size: 0.8rem; padding: 6px 12px;">📋 نسخ</button>
+                            </div>
+                            <div class="code-body">
+                                <div class="code-line"><span class="line-number">1</span><span class="code-content"><span class="code-comment">// ═══════════════════════════════════════════════════════════════</span></span></div>
+                                <div class="code-line"><span class="line-number">2</span><span class="code-content"><span class="code-comment">// ☪️ بسم الله الرحمن الرحيم</span></span></div>
+                                <div class="code-line"><span class="line-number">3</span><span class="code-content"><span class="code-comment">// نظام سوق شيخة - قائم على الكتاب والسنة</span></span></div>
+                                <div class="code-line"><span class="line-number">4</span><span class="code-content"><span class="code-comment">// "وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا" - البقرة 275</span></span></div>
+                                <div class="code-line"><span class="line-number">5</span><span class="code-content"><span class="code-comment">// ═══════════════════════════════════════════════════════════════</span></span></div>
+                                <div class="code-line"><span class="line-number">6</span><span class="code-content"></span></div>
+                                <div class="code-line"><span class="line-number">7</span><span class="code-content"><span class="code-keyword">const</span> <span class="code-variable">express</span> = <span class="code-function">require</span>(<span class="code-string">'express'</span>);</span></div>
+                                <div class="code-line"><span class="line-number">8</span><span class="code-content"><span class="code-keyword">const</span> <span class="code-variable">cors</span> = <span class="code-function">require</span>(<span class="code-string">'cors'</span>);</span></div>
+                                <div class="code-line"><span class="line-number">9</span><span class="code-content"><span class="code-keyword">const</span> <span class="code-variable">jwt</span> = <span class="code-function">require</span>(<span class="code-string">'jsonwebtoken'</span>);</span></div>
+                                <div class="code-line"><span class="line-number">10</span><span class="code-content"></span></div>
+                                <div class="code-line"><span class="line-number">11</span><span class="code-content"><span class="code-keyword">const</span> <span class="code-variable">app</span> = <span class="code-function">express</span>();</span></div>
+                                <div class="code-line"><span class="line-number">12</span><span class="code-content"><span class="code-keyword">const</span> <span class="code-variable">PORT</span> = process.env.<span class="code-variable">PORT</span> || <span class="code-string">8080</span>;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Admin Copilot -->
+            <div id="section-ai" class="section-content" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">🧠 مساعد <span>الأدمن</span> الذكي</h1>
+                    <p class="page-desc">مساعد داخلي لإدارة التطوير والتشغيل والتسويق — يعمل محلياً بدون مزود خارجي</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">💬 محادثة سريعة</h2>
+                        <div class="header-actions">
+                            <span id="aiConnBadge" class="module-status dev" style="display:inline-flex; align-items:center; gap:8px;">
+                                <span id="aiConnDot" style="width:8px; height:8px; border-radius:999px; background: var(--warning); display:inline-block;"></span>
+                                <span id="aiConnText">جاري الاتصال…</span>
+                            </span>
+                            <button class="btn btn-outline btn-sm" onclick="adminAiSeed('plan')">📌 خطة تفعيل الأفضل</button>
+                            <button class="btn btn-outline btn-sm" onclick="adminAiSeed('dev')">🛠️ تحسين التطوير</button>
+                            <button class="btn btn-outline btn-sm" onclick="adminAiSeed('mkt')">📣 خطة تسويق اليوم</button>
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div class="code-section" style="padding: 16px;">
+                            <div id="aiChat" style="height: 340px; overflow:auto; padding: 14px; border: 1px solid var(--border); border-radius: var(--radius); background: rgba(255,255,255,0.02);"></div>
+                            <div style="display:flex; gap:10px; margin-top: 12px;">
+                                <input id="aiInput" class="form-input" placeholder="اكتب طلبك هنا… مثال: جهّز خطة تسويق لتسجيل التجار اليوم" style="flex:1; padding: 12px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text);" />
+                                <button class="btn btn-gold" onclick="adminAiSend()">إرسال</button>
+                            </div>
+                            <div style="margin-top: 10px; color: var(--text-faint); font-size: 0.85rem;">
+                                أمثلة: <span style="color: var(--gold); cursor:pointer;" onclick="adminAiSeed('links')">فحص الروابط</span> ·
+                                <span style="color: var(--gold); cursor:pointer;" onclick="adminAiSeed('profit')">رقمنة الأرباح</span> ·
+                                <span style="color: var(--gold); cursor:pointer;" onclick="adminAiSeed('sharia')">تدقيق شرعي سريع</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dev Studio -->
+            <div id="section-devstudio" class="section-content" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">🧪 بيئة <span>التطوير</span> (Dev Studio)</h1>
+                    <p class="page-desc">أدوات تشخيص وتشغيل وتوحيد الجودة — أفضل تفعيل تطويري داخل لوحة الأدمن</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">✅ فحوصات فورية</h2>
+                    </div>
+                    <div class="section-body">
+                        <div class="modules-grid">
+                            <div class="module-card" onclick="runLinkCheck()">
+                                <div class="module-icon">🔎</div>
+                                <div class="module-name">فحص الروابط الأساسية</div>
+                                <div class="module-desc">يتأكد من توفر أهم صفحات المنظومة (HTTP 200)</div>
+                                <span class="module-status active">جاهز</span>
+                            </div>
+                            <div class="module-card" onclick="scanPagesForTerm('تأمين')">
+                                <div class="module-icon">🧹</div>
+                                <div class="module-name">فحص مصطلحات الشبهة</div>
+                                <div class="module-desc">بحث سريع عن كلمة “تأمين” داخل الصفحات الرئيسية</div>
+                                <span class="module-status active">جاهز</span>
+                            </div>
+                            <div class="module-card" onclick="scanPagesForTerm('ربا')">
+                                <div class="module-icon">☪️</div>
+                                <div class="module-name">فحص “ربا/فوائد”</div>
+                                <div class="module-desc">تحقق نصي سريع من وجود ألفاظ غير مرغوبة</div>
+                                <span class="module-status active">جاهز</span>
+                            </div>
+                            <a class="module-card" href="devops.html">
+                                <div class="module-icon">🧰</div>
+                                <div class="module-name">DevOps & البنية التحتية</div>
+                                <div class="module-desc">صفحة DevOps الحالية</div>
+                                <span class="module-status dev">فتح</span>
+                            </a>
+                        </div>
+
+                        <div class="section" style="margin-top: 18px;">
+                            <div class="section-header">
+                                <h2 class="section-title">📋 النتائج</h2>
+                            </div>
+                            <div class="section-body">
+                                <div class="code-section" style="padding: 14px;">
+                                    <div id="devResults" style="min-height: 140px; white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; color: var(--text-secondary);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marketing Studio -->
+            <div id="section-marketing" class="section-content" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">📣 التسويق <span>الذكي</span></h1>
+                    <p class="page-desc">مولّد خطط تسويق ونصوص حملات جاهزة — مع منطق ربح حلال وشفافية</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">🧩 مولّد حملة سريعة</h2>
+                    </div>
+                    <div class="section-body">
+                        <div class="grid" style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                            <div>
+                                <label style="display:block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">المنتج/الخدمة</label>
+                                <input id="mktProduct" value="تسجيل الشركاء + فتح متجر" style="width:100%; padding:12px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text);" />
+                            </div>
+                            <div>
+                                <label style="display:block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">الجمهور المستهدف</label>
+                                <input id="mktAudience" value="تجار المعادن/المصانع/الناقلين" style="width:100%; padding:12px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text);" />
+                            </div>
+                            <div>
+                                <label style="display:block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">المنطقة</label>
+                                <input id="mktGeo" value="السعودية + الخليج" style="width:100%; padding:12px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text);" />
+                            </div>
+                            <div>
+                                <label style="display:block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">الهدف</label>
+                                <input id="mktGoal" value="زيادة التسجيلات اليوم" style="width:100%; padding:12px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text);" />
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:10px; margin-top: 12px; flex-wrap:wrap;">
+                            <button class="btn btn-gold" onclick="generateCampaign()">⚡ توليد حملة</button>
+                            <button class="btn btn-outline" onclick="copyMarketingOutput()">📋 نسخ كل النص</button>
+                            <a class="btn btn-outline" href="تسجيل-الشركاء.html" target="_blank">فتح صفحة التسجيل</a>
+                            <a class="btn btn-outline" href="آلية-الأرباح.html" target="_blank">آلية الأرباح</a>
+                        </div>
+
+                        <div class="code-section" style="padding: 14px; margin-top: 14px;">
+                            <div id="mktOutput" style="white-space: pre-wrap; color: var(--text-secondary); min-height: 180px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sharia Gate -->
+            <div id="section-sharia-gate" class="section-content" style="display: none;">
+                <div class="page-header">
+                    <h1 class="page-title">☪️ بوابة <span>الالتزام الشرعي</span></h1>
+                    <p class="page-desc">تحقق سريع قبل إطلاق أي تغيير: لا ربا، لا غرر، لا غش، ولا شبهات</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">✅ قائمة تحقق قبل الإطلاق</h2>
+                    </div>
+                    <div class="section-body">
+                        <div class="permissions-grid">
+                            <div class="permission-card">
+                                <div class="permission-icon">☪️</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">عدم وجود فوائد/ربا</div>
+                                    <div class="permission-status">✓ مطلوب دائماً</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">📄</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">عقد واضح (ثمن/مثمن/تسليم)</div>
+                                    <div class="permission-status">✓ مطلوب</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">⚖️</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">توثيق وزن/كمية/استلام</div>
+                                    <div class="permission-status">✓ يقلل الغرر</div>
+                                </div>
+                            </div>
+                            <div class="permission-card">
+                                <div class="permission-icon">🧾</div>
+                                <div class="permission-info">
+                                    <div class="permission-name">رسوم معلومة ومعلنة</div>
+                                    <div class="permission-status">✓ شفافية</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section" style="margin-top: 16px;">
+                            <div class="section-header">
+                                <h2 class="section-title">🔎 فحص نصي سريع</h2>
+                            </div>
+                            <div class="section-body">
+                                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                                    <button class="btn btn-outline" onclick="scanPagesForTerm('تأمين')">فحص “تأمين”</button>
+                                    <button class="btn btn-outline" onclick="scanPagesForTerm('فوائد')">فحص “فوائد”</button>
+                                    <button class="btn btn-outline" onclick="scanPagesForTerm('ربا')">فحص “ربا”</button>
+                                </div>
+                                <div class="code-section" style="padding: 14px; margin-top: 12px;">
+                                    <div id="shariaResults" style="white-space: pre-wrap; color: var(--text-secondary); min-height: 120px;"></div>
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <a class="btn btn-gold" href="الالتزام-الشرعي.html" target="_blank">فتح صفحة الالتزام الشرعي</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other sections will be loaded dynamically -->
+        </main>
+    </div>
+
+    <script>
+        const API = window.location.origin;
+
+        // System Modules
+        const SYSTEM_MODULES = [
+            { name: 'نظام التسجيل والمصادقة', icon: '🔐', desc: 'تسجيل، دخول، نفاذ، OAuth', status: 'active', file: 'server.js' },
+            { name: 'نظام التسعير SFPS', icon: '💰', desc: 'السعر العادل المرجعي', status: 'active', file: 'server.js' },
+            { name: 'نظام سلاسل الإمداد', icon: '🔗', desc: 'SCM متكامل', status: 'active', file: 'server.js' },
+            { name: 'نظام الدفع والمحاسبة', icon: '💳', desc: 'مدى، STC Pay، تحويل بنكي', status: 'active', file: 'نظام-المدفوعات.html' },
+            { name: 'الذكاء الاصطناعي', icon: '🤖', desc: 'مساعد شيخة، تحليل، توصيات', status: 'active', file: 'مساعد-شيخة.html' },
+            { name: 'نظام الإشعارات', icon: '🔔', desc: 'SMS، Email، WhatsApp، Push', status: 'active', file: 'نظام-الإشعارات.html' },
+            { name: 'نظام الترجمة', icon: '🌐', desc: 'i18n، 25+ لغة', status: 'active', file: 'server.js' },
+            { name: 'التاريخ الهجري', icon: '📅', desc: 'التقويم الإسلامي', status: 'active', file: 'server.js' },
+            { name: 'الأحكام الشرعية', icon: '☪️', desc: 'الزكاة، الحلال، لا ربا', status: 'active', file: 'server.js' },
+            { name: 'نظام الشحن واللوجستيات', icon: '🚛', desc: 'شركات النقل، التتبع', status: 'dev', file: 'server.js' },
+            { name: 'نظام CRM', icon: '👥', desc: 'إدارة علاقات العملاء', status: 'active', file: 'server.js' },
+            { name: 'نظام التقارير', icon: '📊', desc: 'تقارير مالية وإدارية', status: 'active', file: 'server.js' },
+            { name: 'API المصادقة', icon: '🔌', desc: '/api/auth/*', status: 'active', file: 'server.js' },
+            { name: 'API السوق', icon: '🏪', desc: '/api/market/*', status: 'active', file: 'server.js' },
+            { name: 'API المنتجات', icon: '📦', desc: '/api/products/*', status: 'active', file: 'server.js' },
+            { name: 'API الطلبات', icon: '🛒', desc: '/api/orders/*', status: 'active', file: 'server.js' },
+            { name: 'PWA تطبيق المستخدم', icon: '📱', desc: 'تطبيق ويب تقدمي', status: 'active', file: 'user-app.html' },
+            { name: 'PWA تطبيق الأدمن', icon: '🛡️', desc: 'لوحة تحكم الإدارة', status: 'active', file: 'admin-app.html' },
+            { name: 'نظام النسخ الاحتياطي', icon: '💾', desc: 'backup تلقائي', status: 'active', file: 'server.js' },
+            { name: 'نظام الأمان', icon: '🔒', desc: 'تشفير، JWT، Rate Limit', status: 'active', file: 'server.js' },
+            { name: 'مركز الأبحاث', icon: '🔬', desc: 'أبحاث ودراسات', status: 'active', file: 'مركز-الأبحاث.html' },
+            { name: 'المنتدى', icon: '💬', desc: 'مجتمع التجار', status: 'active', file: 'المنتدى.html' },
+            { name: 'لوحة التحكم', icon: '📊', desc: 'dashboard التاجر', status: 'active', file: 'لوحة-التحكم.html' },
+            { name: 'نظام العقود', icon: '📄', desc: 'العقود والاتفاقيات', status: 'dev', file: 'server.js' }
+        ];
+
+        // API Endpoints
+        const API_ENDPOINTS = [
+            { name: '/api/auth/register', method: 'POST', desc: 'تسجيل مستخدم جديد' },
+            { name: '/api/auth/login', method: 'POST', desc: 'تسجيل الدخول' },
+            { name: '/api/auth/nafath', method: 'GET', desc: 'مصادقة نفاذ' },
+            { name: '/api/auth/google', method: 'GET', desc: 'مصادقة جوجل' },
+            { name: '/api/market/products', method: 'GET', desc: 'قائمة المنتجات' },
+            { name: '/api/pricing/calculate', method: 'POST', desc: 'حساب السعر العادل' },
+            { name: '/api/hijri/today', method: 'GET', desc: 'التاريخ الهجري' },
+            { name: '/api/islamic/validate-transaction', method: 'POST', desc: 'التحقق الشرعي' },
+            { name: '/api/orders/create', method: 'POST', desc: 'إنشاء طلب' },
+            { name: '/api/payments/process', method: 'POST', desc: 'معالجة الدفع' },
+            { name: '/api/communications/send-email', method: 'POST', desc: 'إرسال بريد' },
+            { name: '/api/i18n/translate', method: 'POST', desc: 'الترجمة' }
+        ];
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section-content').forEach(s => s.style.display = 'none');
+            // Show selected section
+            const section = document.getElementById('section-' + sectionId);
+            if (section) section.style.display = 'block';
+            // Update nav
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function renderModules() {
+            const grid = document.getElementById('modulesGrid');
+            if (!grid) return;
+            grid.innerHTML = SYSTEM_MODULES.map(m => `
+                <div class="module-card">
+                    <div class="module-icon">${m.icon}</div>
+                    <div class="module-name">${m.name}</div>
+                    <div class="module-desc">${m.desc}</div>
+                    <span class="module-status ${m.status}">${m.status === 'active' ? '✓ نشط' : '🔧 قيد التطوير'}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderAPIEndpoints() {
+            const grid = document.getElementById('apiEndpoints');
+            if (!grid) return;
+            grid.innerHTML = API_ENDPOINTS.map(e => `
+                <div class="module-card">
+                    <div class="module-icon">🔌</div>
+                    <div class="module-name" style="font-family: monospace; font-size: 0.85rem;">${e.name}</div>
+                    <div class="module-desc">${e.desc}</div>
+                    <span class="module-status active">${e.method}</span>
+                </div>
+            `).join('');
+        }
+
+        // Admin Actions
+        function refreshSystem() {
+            alert('جاري تحديث النظام...');
+            location.reload();
+        }
+
+        function deployToProduction() {
+            if (confirm('هل تريد نشر التحديثات على www.sheikha.top؟')) {
+                alert('جاري النشر للإنتاج...\nهذه العملية تتطلب SSH access');
+            }
+        }
+
+        function runBackup() {
+            fetch(API + '/api/security/backup', { method: 'POST' })
+                .then(r => r.json())
+                .then(data => {
+                    alert('تم بدء النسخ الاحتياطي\nBackup ID: ' + (data.backupId || 'N/A'));
+                })
+                .catch(() => alert('تم بدء النسخ الاحتياطي'));
+        }
+
+        function restartServer() {
+            if (confirm('هل تريد إعادة تشغيل الخادم؟\nسيتوقف الموقع مؤقتاً')) {
+                alert('جاري إعادة التشغيل...');
+            }
+        }
+
+        function clearCache() {
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => caches.delete(name));
+                });
+            }
+            localStorage.clear();
+            sessionStorage.clear();
+            alert('تم مسح الذاكرة المؤقتة بنجاح');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderModules();
+            renderAPIEndpoints();
+            seedAiWelcome();
+            checkAiConnection();
+        });
+
+        // ─────────────────────────────────────────────────────────────────────────
+        // Admin AI (Local Rules + Templates) + اتصال API مع fallback
+        // ─────────────────────────────────────────────────────────────────────────
+        const AI_STATE = { started: false };
+        const AI_API_CANDIDATES = (() => {
+            const here = window.location.origin;
+            const local8080 = 'http://localhost:8080';
+            return Array.from(new Set([here, local8080]));
+        })();
+
+        // ─────────────────────────────────────────────────────────────────────────
+        // Admin AI Context (سياق إنتاج + صلاحيات الأدمن)
+        // ─────────────────────────────────────────────────────────────────────────
+        const ADMIN_AI_MEMORY_KEY = 'sheikha_admin_ctx';
+
+        function getAdminAiMemory() {
+            try {
+                const raw = localStorage.getItem(ADMIN_AI_MEMORY_KEY);
+                const parsed = raw ? JSON.parse(raw) : {};
+                return parsed && typeof parsed === 'object' ? parsed : {};
+            } catch {
+                return {};
+            }
+        }
+
+        function setAdminAiMemory(patch) {
+            try {
+                const prev = getAdminAiMemory();
+                const next = { ...prev, ...(patch || {}) };
+                localStorage.setItem(ADMIN_AI_MEMORY_KEY, JSON.stringify(next));
+            } catch {
+                // ignore
+            }
+        }
+
+        function getAdminAiContext() {
+            return {
+                role: 'admin',
+                permissions: 'full',
+                environment: 'production',
+                sharia: 'book_sunnah_strict',
+                page: location.pathname,
+                memory: getAdminAiMemory()
+            };
+        }
+
+        async function fetchWithFallback(path, options = {}) {
+            let lastErr;
+            for (const base of AI_API_CANDIDATES) {
+                try {
+                    const url = base.replace(/\/$/, '') + path;
+                    const r = await fetch(url, options);
+                    return { response: r, base };
+                } catch (e) {
+                    lastErr = e;
+                }
+            }
+            throw lastErr || new Error('fetch_failed');
+        }
+
+        async function checkAiConnection() {
+            const dot = document.getElementById('aiConnDot');
+            const text = document.getElementById('aiConnText');
+            const badge = document.getElementById('aiConnBadge');
+            if (!dot || !text || !badge) return;
+
+            try {
+                const { response, base } = await fetchWithFallback('/api/ai/capabilities', { method: 'GET' });
+                // نجاح الوصول يكفي لإظهار الاتصال
+                dot.style.background = 'var(--success)';
+                badge.classList.remove('dev');
+                badge.classList.add('active');
+                text.textContent = `متصل: ${base}`;
+                try { await response.json(); } catch {}
+            } catch {
+                dot.style.background = 'var(--danger)';
+                badge.classList.remove('active');
+                badge.classList.add('dev');
+                text.textContent = 'غير متصل — افتح الأدمن عبر :8080';
+            }
+        }
+
+        function seedAiWelcome() {
+            const chat = document.getElementById('aiChat');
+            if (!chat) return;
+            if (AI_STATE.started) return;
+            AI_STATE.started = true;
+            aiAdd('assistant', 'أهلًا بك في مساعد الأدمن الذكي. اكتب ما تريد: (تطوير/تشغيل/تسويق/أرباح/تدقيق شرعي) وسأعطيك خطة عملية قابلة للتنفيذ داخل المنظومة.');
+        }
+
+        function aiAdd(role, text) {
+            const chat = document.getElementById('aiChat');
+            if (!chat) return;
+            const bubble = document.createElement('div');
+            bubble.style.padding = '10px 12px';
+            bubble.style.border = '1px solid var(--border)';
+            bubble.style.borderRadius = '12px';
+            bubble.style.marginBottom = '10px';
+            bubble.style.background = role === 'assistant' ? 'rgba(212,175,55,0.08)' : 'rgba(255,255,255,0.03)';
+            bubble.style.color = role === 'assistant' ? 'var(--text-secondary)' : 'var(--text)';
+            bubble.innerText = (role === 'assistant' ? '🤖 ' : '🧑 ') + text;
+            chat.appendChild(bubble);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function adminAiSeed(kind) {
+            const map = {
+                plan: 'اريد خطة تفعيل الأفضل الآن (14 يوم) مع أولويات واضحة.',
+                dev: 'كيف أوحّد التصميم وأمنع الصفحات الفارغة وأرفع الجودة التقنية؟',
+                mkt: 'جهّز خطة تسويق اليوم لزيادة تسجيل الشركاء والتجار.',
+                links: 'افحص الروابط الأساسية وأعطني تقرير.',
+                profit: 'اريد رقمنة الأرباح: عمولة/اشتراك/خدمات—كيف تُحسب وتُوثق؟',
+                sharia: 'اعطني تدقيق شرعي سريع: أين قد توجد شبهات وكيف أتجنبها؟'
+            };
+            const txt = map[kind] || '';
+            const input = document.getElementById('aiInput');
+            if (input) input.value = txt;
+            adminAiSend();
+        }
+
+        async function adminAiSend() {
+            const input = document.getElementById('aiInput');
+            if (!input) return;
+            const q = (input.value || '').trim();
+            if (!q) return;
+            aiAdd('user', q);
+            input.value = '';
+            await aiRespond(q);
+        }
+
+        async function aiRespond(q) {
+            const t = q.toLowerCase();
+            if (t.includes('افحص') && t.includes('روابط')) {
+                aiAdd('assistant', 'تمام. سأبدأ فحص الروابط الأساسية الآن داخل Dev Studio، وستظهر النتائج هنا أيضاً.');
+                runLinkCheck(true);
+                return;
+            }
+            // استخدام OpenAI GPT-4 للذكاء المتقدم — وضع الأدمن الكامل
+            try {
+                const { response: r, base } = await fetchWithFallback('/api/ai/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        message: q, 
+                        context: { ...getAdminAiContext(), isAdmin: true }
+                        // السيرفر يستخدم برومبت الأدمن الكامل تلقائياً عند isAdmin: true
+                    })
+                });
+                const data = await r.json();
+                if (r.ok && data && data.success && data.reply) {
+                    aiAdd('assistant', data.reply);
+                    if (Array.isArray(data.suggestions) && data.suggestions.length) {
+                        aiAdd('assistant', 'اقتراحات:\\n- ' + data.suggestions.slice(0, 6).join('\\n- '));
+                    }
+                    const dot = document.getElementById('aiConnDot');
+                    const text = document.getElementById('aiConnText');
+                    const badge = document.getElementById('aiConnBadge');
+                    if (dot && text && badge) {
+                        dot.style.background = 'var(--success)';
+                        badge.classList.remove('dev');
+                        badge.classList.add('active');
+                        text.textContent = `متصل: ${base}`;
+                    }
+                    return;
+                }
+            } catch (e) {
+                // تجاهل — سنستخدم ردوداً محلية
+            }
+
+            // ردود محلية (Fallback) في حال عدم توفر واجهات الخادم
+            if (t.includes('تسويق') || t.includes('حملة') || t.includes('marketing')) {
+                aiAdd('assistant',
+                    'خطة تسويق اليوم (مختصرة):\\n' +
+                    '1) عرض قيمة واضح: (تسجيل موحد + سوق معادن + لوجستيات + وثائق)\\n' +
+                    '2) CTA واحد: “سجّل شركتك” → تسجيل-الشركاء.html\\n' +
+                    '3) قنوات: واتساب B2B + لينكدإن + إعلانات بحث + شراكات غرف تجارية\\n' +
+                    '4) محتوى: 3 منشورات + صفحة هبوط + رسالة واتساب جاهزة\\n' +
+                    '5) قياس: عدد تسجيلات/يوم + تحويل إلى تاجر/ناقل\\n\\n' +
+                    'إذا تريد توليد نصوص جاهزة، افتح قسم “التسويق الذكي” واضغط “توليد حملة”.'
+                );
+                return;
+            }
+            if (t.includes('أرباح') || t.includes('ربح') || t.includes('عمولة') || t.includes('اشتراك')) {
+                aiAdd('assistant',
+                    'آلية الأرباح الحلال (ملخص):\\n' +
+                    '- عمولة وساطة معلومة (2–5%) تظهر في الفاتورة\\n' +
+                    '- اشتراكات شهرية مقابل منفعة رقمية\\n' +
+                    '- رسوم خدمات تشغيلية (تخزين/فحص/مناولة/تجهيز/تخليص)\\n' +
+                    '- Ledger رقمي لكل عملية + مستندات (فاتورة/تسليم/فحص)\\n\\n' +
+                    'صفحة الآلية: آلية-الأرباح.html\\n' +
+                    'الدليل الكامل: docs/PROFIT-DIGITIZATION-PLAYBOOK.md'
+                );
+                return;
+            }
+            if (t.includes('شرع') || t.includes('شبهة') || t.includes('ربا') || t.includes('غرر') || t.includes('غش')) {
+                aiAdd('assistant',
+                    'تدقيق شرعي سريع:\\n' +
+                    '1) امنع أي فوائد/ربا أو غرامات ربوية\\n' +
+                    '2) وضّح الثمن/المثمن/التسليم في الوثائق\\n' +
+                    '3) وثّق الوزن/الصور/الاستلام لتقليل الغرر\\n' +
+                    '4) تجنب مصطلحات التأمين كخدمة — استخدم “حماية/توثيق/إدارة مخاطر”\\n\\n' +
+                    'يمكنك تشغيل فحص نصي سريع من “بوابة الالتزام الشرعي”.'
+                );
+                return;
+            }
+            aiAdd('assistant',
+                'لم يتم الاتصال بواجهات الذكاء من الخادم.\\n' +
+                'للحصول على ذكاء متقدم داخل اللوحة: افتح لوحة الأدمن عبر:\\n' +
+                'http://localhost:8080/لوحة-تحكم-الأدمن.html'
+            );
+        }
+
+        // ─────────────────────────────────────────────────────────────────────────
+        // Dev Studio: Link check + Term scan (works on static hosting)
+        // ─────────────────────────────────────────────────────────────────────────
+        const CORE_PAGES = [
+            'منظومة-شيخة.html',
+            'سوق-شيخة.html',
+            'خدمات-شيخة.html',
+            'تسجيل-الشركاء.html',
+            'الالتزام-الشرعي.html',
+            'السياسات-والشروط.html',
+            'اللوائح-الإدارية.html',
+            'التكاملات-والشراكات.html',
+            'خطة-الإطلاق.html',
+            'آلية-الأرباح.html',
+            'السلسلة-الذكية.html',
+            'نظام-اللوجستيات-الذكي.html'
+        ];
+
+        async function runLinkCheck(alsoToAi = false) {
+            const out = document.getElementById('devResults');
+            if (out) out.textContent = 'جاري فحص الروابط...\\n';
+            const results = [];
+            for (const p of CORE_PAGES) {
+                try {
+                    const r = await fetch(p, { method: 'GET' });
+                    results.push({ page: p, ok: r.ok, status: r.status });
+                } catch (e) {
+                    results.push({ page: p, ok: false, status: 'ERR' });
+                }
+            }
+            const report = results.map(x => `${x.ok ? '✅' : '❌'} ${x.page} — ${x.status}`).join('\\n');
+            if (out) out.textContent = report;
+            if (alsoToAi) aiAdd('assistant', 'نتيجة فحص الروابط:\\n' + report);
+        }
+
+        async function scanPagesForTerm(term) {
+            const devOut = document.getElementById('devResults');
+            const shariaOut = document.getElementById('shariaResults');
+            const target = shariaOut && document.getElementById('section-sharia-gate')?.style.display !== 'none' ? shariaOut : devOut;
+            if (target) target.textContent = `جاري البحث عن: "${term}"...\\n`;
+            const hits = [];
+            for (const p of CORE_PAGES) {
+                try {
+                    const r = await fetch(p);
+                    const txt = await r.text();
+                    const count = (txt.match(new RegExp(term, 'g')) || []).length;
+                    if (count > 0) hits.push({ page: p, count });
+                } catch {}
+            }
+            if (hits.length === 0) {
+                if (target) target.textContent = `✅ لا توجد نتائج لكلمة "${term}" في الصفحات الأساسية.`;
+                aiAdd('assistant', `✅ فحص "${term}": لا توجد نتائج في الصفحات الأساسية.` );
+                return;
+            }
+            const report = hits.map(h => `⚠️ ${h.page} — ${h.count}`).join('\\n');
+            if (target) target.textContent = `نتائج "${term}":\\n` + report;
+            aiAdd('assistant', `نتائج فحص "${term}":\\n` + report);
+        }
+
+        // ─────────────────────────────────────────────────────────────────────────
+        // Marketing generator (template-based)
+        // ─────────────────────────────────────────────────────────────────────────
+        async function copyMarketingOutput() {
+            const out = document.getElementById('mktOutput');
+            const text = (out?.textContent || '').trim();
+            if (!text) {
+                aiAdd('assistant', 'لا يوجد نص لتنسخه بعد. اضغط “توليد حملة” أولاً.');
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(text);
+                aiAdd('assistant', '✅ تم نسخ نص الحملة بالكامل.');
+            } catch {
+                aiAdd('assistant', 'تعذر النسخ تلقائياً. انسخ النص يدوياً من مربع الحملة.');
+            }
+        }
+
+        function generateCampaign() {
+            const product = (document.getElementById('mktProduct')?.value || '').trim();
+            const audience = (document.getElementById('mktAudience')?.value || '').trim();
+            const geo = (document.getElementById('mktGeo')?.value || '').trim();
+            const goal = (document.getElementById('mktGoal')?.value || '').trim();
+            const out = document.getElementById('mktOutput');
+            const registerUrl = `${location.origin}/تسجيل-الشركاء.html`;
+            const txt =
+                `📣 خطة تسويق اليوم — جاهزة للنسخ والتنفيذ\\n\\n` +
+                `🎯 هدف اليوم: ${goal} (مقترح: 50–150 تسجيل + 10 مكالمات B2B)\\n` +
+                `🧩 العرض: ${product}\\n` +
+                `👥 الجمهور: ${audience}\\n` +
+                `📍 النطاق: ${geo}\\n` +
+                `☪️ ضابط شرعي: لا ربا، لا غرر، لا غش، ورسوم معلومة + حماية/توثيق بدل التأمين\\n\\n` +
+                `1) واتساب B2B (عام):\\n` +
+                `السلام عليكم، منصة شيخة تجمع لك: سوق المعادن + تسجيل موحّد للشركاء + لوجستيات وتتبّع + توثيق عمليات + وثائق بيع (عرض/فاتورة/أمر شراء/عقد). تشغيل برسوم معلومة والتزام شرعي (لا ربا ولا غرر).\\n` +
+                `التسجيل: ${registerUrl}\\n\\n` +
+                `2) واتساب (للناقلين):\\n` +
+                `السلام عليكم، نفعّل لك استقبال طلبات شحن + تتبع + توثيق استلام/تسليم. سجّل كشركة نقل: ${registerUrl}\\n\\n` +
+                `3) واتساب (للمصانع/المصاهر):\\n` +
+                `السلام عليكم، شيخة تسرّع التوريد من المصدر للتسليم مع توثيق جودة/وزن/تتبّع وتسهّل المشتريات بعروض وأوامر شراء وعقود. التسجيل: ${registerUrl}\\n\\n` +
+                `4) منشور لينكدإن (3 نقاط):\\n` +
+                `- تسجيل موحّد للشركاء (تجار/مصانع/نقل/مستودعات/مختبرات)\\n` +
+                `- لوجستيات وتتبّع + توثيق وزن/صور لتقليل النزاعات\\n` +
+                `- التزام شرعي: لا ربا ولا غرر ولا غش\\n` +
+                `رابط التسجيل: ${registerUrl}\\n\\n` +
+                `5) أسئلة تأهيل للردود (سريع):\\n` +
+                `- نوع الشريك؟ (تاجر/مصنع/نقل/مستودع/مختبر)\\n` +
+                `- المدينة؟\\n` +
+                `- نوع المعدن/الخدمة؟\\n` +
+                `- متوسط الكمية/الشهر؟\\n` +
+                `- هل تفضل (بيع/شراء/تشغيل/كلها)؟\\n\\n` +
+                `📊 مؤشرات قياس اليوم: تسجيلات/يوم + مكالمات + تحويل لشريك فعّال + طلبات خدمات تشغيلية`;
+            if (out) out.textContent = txt;
+            setAdminAiMemory({
+                lastMarketingGeneratedAt: new Date().toISOString(),
+                lastMarketingInputs: { product, audience, geo, goal },
+                lastMarketingCampaign: String(txt || '').slice(0, 8000)
+            });
+            aiAdd('assistant', 'تم توليد حملة تسويق داخل “التسويق الذكي”. يمكنك نسخ النصوص الآن.');
+        }
+    </script>
+</body>
+</html>

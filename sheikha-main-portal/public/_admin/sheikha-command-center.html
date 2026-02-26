@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>مركز القيادة | SHEIKHA Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050810; --bg2: #0a0f1a; --bg3: #111827;
+            --gold: #D4AF37; --gold-light: #f0d060; --gold-dark: #b8960c;
+            --green: #0a5c36; --green-light: #10b981;
+            --danger: #ef4444; --warning: #f59e0b; --info: #3b82f6;
+            --text: #ffffff; --text-muted: #94a3b8; --text-faint: #64748b;
+            --border: rgba(212,175,55,0.12); --border-light: rgba(255,255,255,0.06);
+            --card: rgba(17,24,39,0.88); --radius: 12px; --radius-lg: 18px;
+            --shadow: 0 8px 32px rgba(0,0,0,0.4); --shadow-gold: 0 4px 24px rgba(212,175,55,0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.7; }
+        .bg-grid { position: fixed; inset: 0; z-index: 0; background-image: linear-gradient(rgba(212,175,55,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.02) 1px, transparent 1px); background-size: 40px 40px; }
+
+        /* Header */
+        .header { background: rgba(10,15,26,0.95); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); padding: 12px 24px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; }
+        .header-right { display: flex; align-items: center; gap: 14px; }
+        .logo-mark { width: 38px; height: 38px; background: linear-gradient(135deg, var(--gold-light), var(--gold)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 900; color: var(--bg); box-shadow: var(--shadow-gold); }
+        .header-title { font-size: 1.1rem; font-weight: 800; background: linear-gradient(135deg, var(--gold-light), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header-subtitle { font-size: 0.72rem; color: var(--text-faint); font-weight: 500; }
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        .admin-badge { padding: 5px 14px; background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.2); border-radius: 100px; font-size: 0.75rem; font-weight: 700; color: var(--gold); }
+        .btn-sm { padding: 8px 16px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-muted); border-radius: var(--radius); font-family: inherit; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: var(--transition); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-sm:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,175,55,0.06); }
+        .btn-danger { border-color: rgba(239,68,68,0.3); color: var(--danger); }
+        .btn-danger:hover { background: rgba(239,68,68,0.1); border-color: var(--danger); }
+
+        /* Layout */
+        .page { position: relative; z-index: 1; display: flex; min-height: calc(100vh - 60px); }
+        .sidebar { width: 240px; background: rgba(10,15,26,0.6); border-left: 1px solid var(--border-light); padding: 16px 0; flex-shrink: 0; overflow-y: auto; }
+        .sidebar-section { padding: 8px 16px; font-size: 0.7rem; font-weight: 700; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1px; margin-top: 12px; }
+        .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 10px 20px; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: var(--transition); text-decoration: none; border-right: 3px solid transparent; }
+        .sidebar-item:hover { background: rgba(212,175,55,0.04); color: var(--text); }
+        .sidebar-item.active { background: rgba(212,175,55,0.08); color: var(--gold); border-right-color: var(--gold); }
+        .sidebar-icon { width: 20px; text-align: center; font-size: 0.95rem; }
+
+        /* Main */
+        .main { flex: 1; padding: 24px; overflow-y: auto; }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Cards */
+        .grid { display: grid; gap: 16px; }
+        .grid-2 { grid-template-columns: 1fr 1fr; }
+        .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+        .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: var(--transition); }
+        .card:hover { border-color: rgba(212,175,55,0.25); box-shadow: var(--shadow-gold); }
+        .card-title { font-size: 0.82rem; color: var(--text-faint); font-weight: 600; margin-bottom: 8px; }
+        .card-value { font-size: 2rem; font-weight: 900; color: var(--gold); }
+        .card-value.green { color: var(--green-light); }
+        .card-desc { font-size: 0.78rem; color: var(--text-faint); margin-top: 4px; }
+
+        /* Stat Icon */
+        .stat-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 12px; }
+        .stat-icon.gold { background: rgba(212,175,55,0.1); }
+        .stat-icon.green { background: rgba(16,185,129,0.1); }
+        .stat-icon.blue { background: rgba(59,130,246,0.1); }
+        .stat-icon.red { background: rgba(239,68,68,0.1); }
+
+        /* Status badges */
+        .badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; }
+        .badge-success { background: rgba(16,185,129,0.12); color: var(--green-light); border: 1px solid rgba(16,185,129,0.2); }
+        .badge-warning { background: rgba(245,158,11,0.12); color: var(--warning); border: 1px solid rgba(245,158,11,0.2); }
+        .badge-danger { background: rgba(239,68,68,0.12); color: var(--danger); border: 1px solid rgba(239,68,68,0.2); }
+        .badge-info { background: rgba(59,130,246,0.12); color: var(--info); border: 1px solid rgba(59,130,246,0.2); }
+
+        /* Section header */
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+        .section-title { font-size: 1.3rem; font-weight: 800; }
+        .section-title span { color: var(--gold); }
+
+        /* Tables */
+        .table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; }
+        th { padding: 12px 16px; background: rgba(0,0,0,0.3); font-size: 0.78rem; color: var(--text-faint); font-weight: 700; text-align: right; border-bottom: 1px solid var(--border); }
+        td { padding: 12px 16px; font-size: 0.85rem; border-bottom: 1px solid var(--border-light); }
+        tr:hover td { background: rgba(212,175,55,0.02); }
+
+        /* Forms */
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+        .form-input { width: 100%; padding: 12px 16px; background: rgba(0,0,0,0.3); border: 1.5px solid rgba(255,255,255,0.08); border-radius: var(--radius); color: var(--text); font-family: inherit; font-size: 0.9rem; transition: var(--transition); }
+        .form-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.08); }
+        .btn { padding: 12px 24px; border: none; border-radius: var(--radius); font-weight: 700; font-size: 0.9rem; font-family: inherit; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--bg); }
+        .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(212,175,55,0.3); }
+        .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text-muted); }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* Auth method list */
+        .auth-list { list-style: none; }
+        .auth-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border-light); }
+        .auth-item:last-child { border: none; }
+        .auth-item-right { display: flex; align-items: center; gap: 12px; }
+        .auth-item-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .auth-item-name { font-weight: 700; font-size: 0.9rem; }
+        .auth-item-desc { font-size: 0.75rem; color: var(--text-faint); }
+
+        /* Loading */
+        .loading { text-align: center; padding: 40px; color: var(--text-faint); }
+        .spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 12px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Msg */
+        .msg { padding: 12px 16px; border-radius: var(--radius); margin-bottom: 16px; font-weight: 600; font-size: 0.85rem; display: none; }
+        .msg.show { display: block; animation: fadeIn 0.3s ease; }
+        .msg.success { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.25); color: var(--green-light); }
+        .msg.error { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.25); color: var(--danger); }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
+            .main { padding: 16px; }
+            .header { padding: 10px 14px; }
+        }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.2); border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-right">
+            <div class="logo-mark">S</div>
+            <div>
+                <div class="header-title">مركز قيادة شيخة</div>
+                <div class="header-subtitle">Sheikha Command Center — Admin Only</div>
+            </div>
+        </div>
+        <div class="header-left">
+            <span class="admin-badge" id="adminName">المدير</span>
+            <a href="/" class="btn-sm">الرئيسية</a>
+            <button class="btn-sm btn-danger" onclick="logout()">خروج</button>
+        </div>
+    </header>
+
+    <!-- Page -->
+    <div class="page">
+        <!-- Sidebar — هيكل مرقّم ومُتقن -->
+        <nav class="sidebar">
+            <!-- ١. القيادة والإدارة -->
+            <div class="sidebar-section">١. القيادة والإدارة</div>
+            <a class="sidebar-item active" onclick="showSection('overview')">
+                <span class="sidebar-icon">١.١</span> نظرة عامة شاملة
+            </a>
+            <a class="sidebar-item" onclick="showSection('users')">
+                <span class="sidebar-icon">١.٢</span> المستخدمون والتجار
+            </a>
+            <a class="sidebar-item" onclick="showSection('engines')">
+                <span class="sidebar-icon">١.٣</span> المحركات النشطة
+            </a>
+            <a class="sidebar-item" onclick="showSection('apis')">
+                <span class="sidebar-icon">١.٤</span> واجهات API
+            </a>
+
+            <!-- ٢. الأمان والتوثيق -->
+            <div class="sidebar-section">٢. الأمان والتوثيق</div>
+            <a class="sidebar-item" onclick="showSection('security')">
+                <span class="sidebar-icon">٢.١</span> أمان الحساب
+            </a>
+            <a class="sidebar-item" onclick="showSection('verification')">
+                <span class="sidebar-icon">٢.٢</span> توثيق الهوية
+            </a>
+            <a class="sidebar-item" onclick="showSection('authenticator')">
+                <span class="sidebar-icon">٢.٣</span> المصادقة
+            </a>
+
+            <!-- ٣. السوق والتجارة -->
+            <div class="sidebar-section">٣. السوق والتجارة</div>
+            <a class="sidebar-item" onclick="showSection('market')">
+                <span class="sidebar-icon">٣.١</span> أسعار المعادن
+            </a>
+            <a class="sidebar-item" onclick="showSection('companies')">
+                <span class="sidebar-icon">٣.٢</span> الشركات المسجلة
+            </a>
+
+            <!-- ٤. التسويق والتواصل -->
+            <div class="sidebar-section">٤. التسويق والتواصل</div>
+            <a class="sidebar-item" onclick="showSection('marketing')">
+                <span class="sidebar-icon">٤.١</span> الحملات والتسويق
+            </a>
+
+            <!-- ٥. الأساس الشرعي -->
+            <div class="sidebar-section">٥. الأساس الشرعي</div>
+            <a class="sidebar-item" onclick="showSection('sharia')">
+                <span class="sidebar-icon">٥.١</span> الكتاب والسنة
+            </a>
+
+            <!-- ٦. السجلات والمراقبة -->
+            <div class="sidebar-section">٦. السجلات والمراقبة</div>
+            <a class="sidebar-item" onclick="showSection('logs')">
+                <span class="sidebar-icon">٦.١</span> سجلات النظام
+            </a>
+
+            <!-- ٧. الإعدادات -->
+            <div class="sidebar-section">٧. الإعدادات</div>
+            <a class="sidebar-item" onclick="showSection('password')">
+                <span class="sidebar-icon">٧.١</span> تغيير كلمة المرور
+            </a>
+            <a class="sidebar-item" onclick="showSection('recovery')">
+                <span class="sidebar-icon">٧.٢</span> استعادة الحساب
+            </a>
+        </nav>
+
+        <!-- Main -->
+        <main class="main">
+            <!-- ١.١ نظرة عامة شاملة -->
+            <div class="section active" id="sec-overview">
+                <div class="section-header">
+                    <h1 class="section-title">١.١ مرحباً يا <span id="adminGreeting">مدير</span></h1>
+                    <span class="badge badge-success" id="modeLabel">PILOT</span>
+                </div>
+                <div id="overviewMsg" class="msg"></div>
+                <div class="grid grid-4" id="statsGrid">
+                    <div class="card"><div class="stat-icon gold">&#9632;</div><div class="card-title">المستخدمون</div><div class="card-value" id="statUsers">-</div></div>
+                    <div class="card"><div class="stat-icon green">&#9679;</div><div class="card-title">التجار</div><div class="card-value green" id="statTraders">-</div></div>
+                    <div class="card"><div class="stat-icon blue">&#9670;</div><div class="card-title">المنتجات</div><div class="card-value" id="statProducts" style="color:var(--info)">-</div></div>
+                    <div class="card"><div class="stat-icon red">&#9674;</div><div class="card-title">درجة الأمان</div><div class="card-value" id="statSecurity" style="color:var(--warning)">-</div></div>
+                </div>
+                <div style="margin-top:20px">
+                    <div class="card" style="padding:16px;border-color:rgba(16,185,129,0.15)">
+                        <div style="font-size:0.85rem;color:var(--green-light);font-weight:700">الأساس الشرعي</div>
+                        <div style="font-size:0.82rem;color:var(--text-muted);margin-top:6px;line-height:2">
+                            &#x2756; &laquo;إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا&raquo; &mdash; النساء ٥٨<br>
+                            &#x2756; &laquo;التاجر الصدوق الأمين مع النبيين والصديقين والشهداء&raquo; &mdash; الترمذي<br>
+                            &#x2756; &laquo;إن الله يحب إذا عمل أحدكم عملاً أن يتقنه&raquo; &mdash; البيهقي
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ١.٢ المستخدمون والتجار -->
+            <div class="section" id="sec-users">
+                <div class="section-header">
+                    <h1 class="section-title">١.٢ <span>المستخدمون</span> والتجار</h1>
+                </div>
+                <div class="table-wrap" id="usersTable"><div class="loading"><div class="spinner"></div>جاري التحميل...</div></div>
+            </div>
+
+            <!-- ٢.١ أمان الحساب -->
+            <div class="section" id="sec-security">
+                <div class="section-header">
+                    <h1 class="section-title">٢.١ أمان <span>الحساب</span></h1>
+                </div>
+                <div id="securityMsg" class="msg"></div>
+                <div class="grid grid-2">
+                    <div class="card">
+                        <div class="card-title">درجة الأمان</div>
+                        <div class="card-value" id="secScore">-</div>
+                        <div class="card-desc">من 100 — كلما زاد التوثيق زادت الدرجة</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">آخر تسجيل دخول</div>
+                        <div style="font-size:1.1rem;font-weight:700;color:var(--text);margin-top:8px" id="lastLogin">-</div>
+                    </div>
+                </div>
+                <div style="margin-top:16px">
+                    <div class="card">
+                        <div class="card-title">سجل الأمان (آخر 20 عملية)</div>
+                        <div id="securityLogList" style="margin-top:12px"><div class="loading"><div class="spinner"></div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ٢.٢ توثيق الهوية -->
+            <div class="section" id="sec-verification">
+                <div class="section-header">
+                    <h1 class="section-title">٢.٢ توثيق <span>الهوية</span> والسجل التجاري</h1>
+                </div>
+                <div id="verMsg" class="msg"></div>
+                <div class="grid grid-2">
+                    <div class="card">
+                        <div class="card-title">توثيق الأحوال عبر نفاذ</div>
+                        <div style="margin:12px 0"><span class="badge" id="nafathBadge">-</span></div>
+                        <form onsubmit="verifyNafath(event)">
+                            <div class="form-group"><label class="form-label">رقم الهوية الوطنية</label><input type="text" class="form-input" id="nationalIdInput" placeholder="10XXXXXXXX" maxlength="10"></div>
+                            <button type="submit" class="btn btn-gold">توثيق عبر نفاذ</button>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">توثيق السجل التجاري</div>
+                        <div style="margin:12px 0"><span class="badge" id="crBadge">-</span></div>
+                        <form onsubmit="verifyBusiness(event)">
+                            <div class="form-group"><label class="form-label">رقم السجل التجاري</label><input type="text" class="form-input" id="crNumberInput" placeholder="رقم السجل"></div>
+                            <div class="form-group"><label class="form-label">اسم المنشأة</label><input type="text" class="form-input" id="crNameInput" placeholder="اسم المنشأة"></div>
+                            <div class="form-group"><label class="form-label">مدينة السجل</label><input type="text" class="form-input" id="crCityInput" placeholder="المدينة"></div>
+                            <button type="submit" class="btn btn-gold">توثيق السجل</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ٢.٣ المصادقة -->
+            <div class="section" id="sec-authenticator">
+                <div class="section-header">
+                    <h1 class="section-title">٢.٣ منظومة <span>المصادقة</span></h1>
+                </div>
+                <div class="card">
+                    <div class="card-title">طرق المصادقة المفعّلة</div>
+                    <ul class="auth-list" id="authMethodsList"><li class="loading"><div class="spinner"></div></li></ul>
+                </div>
+                <div style="margin-top:16px" class="grid grid-2">
+                    <div class="card">
+                        <div class="card-title">البريد الأساسي</div>
+                        <div style="font-size:1rem;font-weight:700;color:var(--gold);margin-top:8px" id="primaryEmail">-</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">بريد الطوارئ والاسترجاع</div>
+                        <div style="font-size:1rem;font-weight:700;color:var(--green-light);margin-top:8px" id="recoveryEmail">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ١.٣ المحركات النشطة -->
+            <div class="section" id="sec-engines">
+                <div class="section-header">
+                    <h1 class="section-title">١.٣ <span>المحركات</span> النشطة</h1>
+                </div>
+                <div id="enginesContent"><div class="loading"><div class="spinner"></div>جاري تحميل المحركات...</div></div>
+            </div>
+
+            <!-- ٦.١ سجلات النظام -->
+            <div class="section" id="sec-logs">
+                <div class="section-header">
+                    <h1 class="section-title">٦.١ سجلات <span>النظام</span></h1>
+                </div>
+                <div id="logsContent"><div class="loading"><div class="spinner"></div></div></div>
+            </div>
+
+            <!-- ٧.١ تغيير كلمة المرور -->
+            <div class="section" id="sec-password">
+                <div class="section-header">
+                    <h1 class="section-title">٧.١ تغيير <span>كلمة المرور</span></h1>
+                </div>
+                <div id="pwMsg" class="msg"></div>
+                <div class="card" style="max-width:500px">
+                    <form onsubmit="changePassword(event)">
+                        <div class="form-group"><label class="form-label">كلمة المرور الحالية</label><input type="password" class="form-input" id="currentPw" required></div>
+                        <div class="form-group"><label class="form-label">كلمة المرور الجديدة</label><input type="password" class="form-input" id="newPw" required minlength="6"></div>
+                        <div class="form-group"><label class="form-label">تأكيد كلمة المرور الجديدة</label><input type="password" class="form-input" id="confirmPw" required></div>
+                        <button type="submit" class="btn btn-gold">تغيير كلمة المرور</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Recovery — ٧.٢ -->
+            <div class="section" id="sec-recovery">
+                <div class="section-header">
+                    <h1 class="section-title">٧.٢ استعادة <span>الحساب</span></h1>
+                </div>
+                <div class="grid grid-2">
+                    <div class="card">
+                        <div class="card-title">طرق الاستعادة المتاحة</div>
+                        <div style="margin-top:12px;font-size:0.88rem;line-height:2.2;color:var(--text-muted)">
+                            &#9654; البريد الأساسي: <strong style="color:var(--gold)" id="recPrimary">-</strong><br>
+                            &#9654; بريد الطوارئ: <strong style="color:var(--green-light)" id="recRecovery">-</strong><br>
+                            &#9654; رقم الجوال: <strong style="color:var(--text)" id="recPhone">-</strong><br>
+                            &#9654; نفاذ الوطني: <span id="recNafath" class="badge badge-warning">غير موثّق</span><br>
+                            &#9654; السجل التجاري: <span id="recBusiness" class="badge badge-warning">غير موثّق</span>
+                        </div>
+                    </div>
+                    <div class="card" style="border-color:rgba(16,185,129,0.15)">
+                        <div class="card-title" style="color:var(--green-light)">الأساس الشرعي للأمان</div>
+                        <div style="font-size:0.82rem;color:var(--text-muted);margin-top:10px;line-height:2">
+                            &#x2756; &laquo;يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَكُونُوا مَعَ الصَّادِقِينَ&raquo; &mdash; التوبة ١١٩<br>
+                            &#x2756; &laquo;وَالَّذِينَ هُمْ لِأَمَانَاتِهِمْ وَعَهْدِهِمْ رَاعُونَ&raquo; &mdash; المؤمنون ٨<br>
+                            &#x2756; &laquo;وَلَا تَكْتُمُوا الشَّهَادَةَ وَمَن يَكْتُمْهَا فَإِنَّهُ آثِمٌ قَلْبُهُ&raquo; &mdash; البقرة ٢٨٣<br>
+                            &#x2756; &laquo;إن الله يحب إذا عمل أحدكم عملاً أن يتقنه&raquo; &mdash; البيهقي
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════ ١.٤ واجهات API ═══════════════ -->
+            <div class="section" id="sec-apis">
+                <div class="section-header">
+                    <h1 class="section-title">١.٤ واجهات <span>API</span> المسجلة</h1>
+                </div>
+                <div class="grid grid-4" id="apiStatsGrid">
+                    <div class="card"><div class="stat-icon gold">&#9881;</div><div class="card-title">إجمالي APIs</div><div class="card-value" id="apiTotal">-</div></div>
+                    <div class="card"><div class="stat-icon green">&#10003;</div><div class="card-title">نشطة</div><div class="card-value green" id="apiActive">-</div></div>
+                    <div class="card"><div class="stat-icon blue">&#9672;</div><div class="card-title">فئات المحركات</div><div class="card-value" id="apiCategories">-</div></div>
+                    <div class="card"><div class="stat-icon red">&#9888;</div><div class="card-title">تحتاج مراجعة</div><div class="card-value" id="apiReview">0</div></div>
+                </div>
+                <div style="margin-top:20px">
+                    <div class="table-wrap" id="apiListTable">
+                        <div class="loading"><div class="spinner"></div>جاري تحميل واجهات API...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════ ٣.١ أسعار المعادن والسوق ═══════════════ -->
+            <div class="section" id="sec-market">
+                <div class="section-header">
+                    <h1 class="section-title">٣.١ أسعار <span>المعادن</span> والسوق</h1>
+                </div>
+                <div class="grid grid-4" id="marketGrid">
+                    <div class="card" style="border-color:rgba(255,215,0,0.2)">
+                        <div class="stat-icon gold">&#9670;</div>
+                        <div class="card-title">الذهب (عيار 24)</div>
+                        <div class="card-value" id="goldPrice">-</div>
+                        <div class="card-desc">ريال سعودي / جرام</div>
+                    </div>
+                    <div class="card" style="border-color:rgba(192,192,192,0.2)">
+                        <div class="stat-icon blue">&#9670;</div>
+                        <div class="card-title">الفضة</div>
+                        <div class="card-value" id="silverPrice" style="color:#c0c0c0">-</div>
+                        <div class="card-desc">ريال سعودي / جرام</div>
+                    </div>
+                    <div class="card" style="border-color:rgba(184,135,11,0.2)">
+                        <div class="stat-icon gold">&#9670;</div>
+                        <div class="card-title">الذهب (عيار 21)</div>
+                        <div class="card-value" id="gold21Price">-</div>
+                        <div class="card-desc">ريال سعودي / جرام</div>
+                    </div>
+                    <div class="card" style="border-color:rgba(205,127,50,0.2)">
+                        <div class="stat-icon red">&#9670;</div>
+                        <div class="card-title">النحاس</div>
+                        <div class="card-value" id="copperPrice" style="color:#cd7f32">-</div>
+                        <div class="card-desc">ريال سعودي / كجم</div>
+                    </div>
+                </div>
+                <div class="grid grid-2" style="margin-top:16px">
+                    <div class="card" style="border-color:rgba(16,185,129,0.15)">
+                        <div class="card-title" style="color:var(--green-light)">&#x2756; الأساس الشرعي للتجارة</div>
+                        <div style="font-size:0.82rem;color:var(--text-muted);margin-top:10px;line-height:2.2">
+                            &#x2756; &laquo;وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا&raquo; &mdash; البقرة ٢٧٥<br>
+                            &#x2756; &laquo;يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ مِّنكُمْ&raquo; &mdash; النساء ٢٩<br>
+                            &#x2756; قال ﷺ: &laquo;الذهبُ بالذهبِ، والفضةُ بالفضةِ، مِثلاً بمِثلٍ، يداً بيدٍ&raquo; &mdash; مسلم
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">آخر تحديث للأسعار</div>
+                        <div style="margin-top:12px;font-size:0.88rem;color:var(--text-muted);line-height:2">
+                            &#9654; المصدر: <strong style="color:var(--gold)" id="marketSource">API مباشر</strong><br>
+                            &#9654; التحديث: <strong style="color:var(--text)" id="marketLastUpdate">-</strong><br>
+                            &#9654; العملة الأساسية: <strong style="color:var(--gold)">ريال سعودي (SAR)</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════ ٣.٢ الشركات المسجلة ═══════════════ -->
+            <div class="section" id="sec-companies">
+                <div class="section-header">
+                    <h1 class="section-title">٣.٢ الشركات <span>المسجلة</span></h1>
+                </div>
+                <div class="grid grid-3" id="companiesStats">
+                    <div class="card"><div class="stat-icon gold">&#9670;</div><div class="card-title">إجمالي الشركات</div><div class="card-value" id="compTotal">-</div></div>
+                    <div class="card"><div class="stat-icon green">&#10003;</div><div class="card-title">مفعّلة</div><div class="card-value green" id="compActive">-</div></div>
+                    <div class="card"><div class="stat-icon blue">&#9632;</div><div class="card-title">الفئات</div><div class="card-value" id="compCategories">-</div></div>
+                </div>
+                <div style="margin-top:20px">
+                    <div class="table-wrap" id="companiesTable">
+                        <div class="loading"><div class="spinner"></div>جاري تحميل بيانات الشركات...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════ ٤.١ الحملات والتسويق ═══════════════ -->
+            <div class="section" id="sec-marketing">
+                <div class="section-header">
+                    <h1 class="section-title">٤.١ الحملات <span>والتسويق</span></h1>
+                </div>
+                <div class="grid grid-4">
+                    <div class="card"><div class="stat-icon gold">&#9670;</div><div class="card-title">الحملات النشطة</div><div class="card-value" id="mktCampaigns">0</div></div>
+                    <div class="card"><div class="stat-icon green">&#9670;</div><div class="card-title">معدل الوصول</div><div class="card-value green" id="mktReach">0</div></div>
+                    <div class="card"><div class="stat-icon blue">&#9670;</div><div class="card-title">التفاعل</div><div class="card-value" id="mktEngagement" style="color:var(--info)">0%</div></div>
+                    <div class="card"><div class="stat-icon red">&#9670;</div><div class="card-title">التحويلات</div><div class="card-value" id="mktConversion" style="color:var(--warning)">0</div></div>
+                </div>
+                <div class="grid grid-2" style="margin-top:16px">
+                    <div class="card">
+                        <div class="card-title">القنوات التسويقية</div>
+                        <div id="mktChannels" style="margin-top:12px;font-size:0.85rem;color:var(--text-muted);line-height:2.2">
+                            &#9654; وسائل التواصل الاجتماعي<br>
+                            &#9654; البريد الإلكتروني<br>
+                            &#9654; المحتوى الرقمي<br>
+                            &#9654; الشراكات والتكاملات<br>
+                            &#9654; التسويق بالحكمة (بدون ميزانية)
+                        </div>
+                    </div>
+                    <div class="card" style="border-color:rgba(16,185,129,0.15)">
+                        <div class="card-title" style="color:var(--green-light)">&#x2756; الأساس الشرعي للتسويق</div>
+                        <div style="font-size:0.82rem;color:var(--text-muted);margin-top:10px;line-height:2.2">
+                            &#x2756; &laquo;ادْعُ إِلَى سَبِيلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ&raquo; &mdash; النحل ١٢٥<br>
+                            &#x2756; &laquo;وَقُولُوا لِلنَّاسِ حُسْنًا&raquo; &mdash; البقرة ٨٣<br>
+                            &#x2756; قال ﷺ: &laquo;لا يؤمن أحدكم حتى يُحبَّ لأخيه ما يُحبُّ لنفسه&raquo; &mdash; البخاري ومسلم<br>
+                            &#x2756; قال ﷺ: &laquo;التاجرُ الصدوقُ الأمينُ مع النبيّين والصدّيقين والشهداء&raquo; &mdash; الترمذي
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════ ٥.١ الأساس الشرعي — الكتاب والسنة ═══════════════ -->
+            <div class="section" id="sec-sharia">
+                <div class="section-header">
+                    <h1 class="section-title">٥.١ الأساس <span>الشرعي</span> — الكتاب والسنة</h1>
+                </div>
+
+                <!-- رؤية شيخة الشرعية -->
+                <div class="card" style="border-color:rgba(212,175,55,0.25);margin-bottom:20px">
+                    <div class="card-title" style="color:var(--gold);font-size:0.95rem">بسم الله الرحمن الرحيم — رؤية شيخة الشرعية</div>
+                    <div style="font-size:0.88rem;color:var(--text-muted);margin-top:12px;line-height:2.4">
+                        منظومة شيخة مؤسسة على أصول الشريعة الإسلامية، تلتزم بأحكام القرآن الكريم والسنة النبوية الشريفة في جميع عملياتها التجارية والتقنية والاجتماعية. الهدف: الإتقان في كل عمل، والعدل في كل معاملة، والنفع للجميع بلا ضرر ولا ضرار.
+                    </div>
+                </div>
+
+                <div class="grid grid-2">
+                    <!-- أصول التجارة -->
+                    <div class="card" style="border-color:rgba(212,175,55,0.2)">
+                        <div class="card-title" style="color:var(--gold)">&#x2756; أصول التجارة والمعاملات</div>
+                        <div style="font-size:0.82rem;color:var(--text-muted);margin-top:10px;line-height:2.3">
+                            &#x2756; &laquo;وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا&raquo; &mdash; البقرة ٢٧٥<br>
+                            &#x2756; &laquo;لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ&raquo; &mdash; النساء ٢٩<br>
+                            &#x2756; &laquo;وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ&raquo; &mdash; الأنعام ١٥٢<br>
+                            &#x2756; &laquo;يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ&raquo; &mdash; المائدة ١<br>
+                            &#x2756; قال ﷺ: &laquo;البَيِّعانِ بالخِيارِ ما لَم يَتَفَرَّقَا، فإنْ صَدَقَا وبَيَّنَا بُوِركَ لهُمَا في بَيْعِهِمَا&raquo; &mdash; البخاري<br>
+                            &#x2756; قال ﷺ: &laquo;رحِمَ اللَّهُ رَجُلًا سَمْحًا إِذَا بَاعَ وَإِذَا اشْتَرَى وَإِذَا اقْتَضَى&raquo; &mdash; البخاري
+                        </div>
+                    </div>
+
+                    <!-- أصول الأمانة والعدل -->
+                    <div class="card" style="border-color:rgba(16,185,129,0.2)">
+                        <div class="card-title" style="color:var(--green-light)">&#x2756; أصول الأمانة والعدل</div>
+                        <div style="font-size:0.82rem;color:var(--text-muted);margin-top:10px;line-height:2.3">
+                            &#x2756; &laquo;إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَى أَهْلِهَا&raquo; &mdash; النساء ٥٨<br>
+                            &#x2756; &laquo;يَا أَيُّهَا الَّذِينَ آمَنُوا كُونُوا قَوَّامِينَ بِالْقِسْطِ&raquo; &mdash; النساء ١٣٥<br>
+                            &#x2756; &laquo;وَالَّذِينَ هُمْ لِأَمَانَاتِهِمْ وَعَهْدِهِمْ رَاعُونَ&raquo; &mdash; المؤمنون ٨<br>
+                            &#x2756; &laquo;يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَكُونُوا مَعَ الصَّادِقِينَ&raquo; &mdash; التوبة ١١٩<br>
+                            &#x2756; قال ﷺ: &laquo;أدِّ الأمانةَ إلى من ائتمنَك ولا تخُنْ من خانَك&raquo; &mdash; أبو داود والترمذي<br>
+                            &#x2756; قال ﷺ: &laquo;المسلمُ من سَلِمَ المسلمون من لسانه ويده&raquo; &mdash; البخاري ومسلم
+                        </div>
+                    </div>
+
+                    <!-- أصول الإتقان -->
+                    <div class="card" style="border-color:rgba(59,130,246,0.2)">
+                        <div class="card-title" style="color:var(--info)">&#x2756; أصول الإتقان والإحسان</div>
+                        <div style="font-size:0.82rem;color:var(--text-muted);margin-top:10px;line-height:2.3">
+                            &#x2756; &laquo;وَأَحْسِنُوا إِنَّ اللَّهَ يُحِبُّ الْمُحْسِنِينَ&raquo; &mdash; البقرة ١٩٥<br>
+                            &#x2756; &laquo;الَّذِي خَلَقَ الْمَوْتَ وَالْحَيَاةَ لِيَبْلُوَكُمْ أَيُّكُمْ أَحْسَنُ عَمَلًا&raquo; &mdash; الملك ٢<br>
+                            &#x2756; قال ﷺ: &laquo;إنَّ اللَّهَ يُحبُّ إذا عَمِلَ أحَدُكُم عَمَلًا أن يُتقِنَه&raquo; &mdash; البيهقي<br>
+                            &#x2756; قال ﷺ: &laquo;إنَّ اللَّهَ كَتَبَ الإحسانَ على كلِّ شيءٍ&raquo; &mdash; مسلم<br>
+                            &#x2756; قال ﷺ: &laquo;ما نَقَصَتْ صَدَقَةٌ مِن مالٍ&raquo; &mdash; مسلم
+                        </div>
+                    </div>
+
+                    <!-- أصول التواصل والدعوة -->
+                    <div class="card" style="border-color:rgba(245,158,11,0.2)">
+                        <div class="card-title" style="color:var(--warning)">&#x2756; أصول التواصل والدعوة</div>
+                        <div style="font-size:0.82rem;color:var(--text-muted);margin-top:10px;line-height:2.3">
+                            &#x2756; &laquo;ادْعُ إِلَى سَبِيلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ&raquo; &mdash; النحل ١٢٥<br>
+                            &#x2756; &laquo;وَقُولُوا لِلنَّاسِ حُسْنًا&raquo; &mdash; البقرة ٨٣<br>
+                            &#x2756; &laquo;كُنتُمْ خَيْرَ أُمَّةٍ أُخْرِجَتْ لِلنَّاسِ تَأْمُرُونَ بِالْمَعْرُوفِ&raquo; &mdash; آل عمران ١١٠<br>
+                            &#x2756; &laquo;وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى وَلَا تَعَاوَنُوا عَلَى الْإِثْمِ وَالْعُدْوَانِ&raquo; &mdash; المائدة ٢<br>
+                            &#x2756; قال ﷺ: &laquo;لا يؤمنُ أحدُكُم حتَّى يحبَّ لأخيهِ ما يحبُّ لنفسِهِ&raquo; &mdash; البخاري ومسلم<br>
+                            &#x2756; قال ﷺ: &laquo;بَلِّغُوا عَنِّي وَلَوْ آيَة&raquo; &mdash; البخاري
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ملخص الأهداف الشرعية -->
+                <div class="card" style="margin-top:20px;border-color:rgba(212,175,55,0.2)">
+                    <div class="card-title" style="color:var(--gold);font-size:0.95rem">&#x2756; مقاصد الشريعة في منظومة شيخة</div>
+                    <div class="grid grid-3" style="margin-top:16px">
+                        <div style="text-align:center;padding:16px">
+                            <div style="font-size:1.5rem;color:var(--gold)">&#9733;</div>
+                            <div style="font-weight:800;margin-top:8px">حفظ الدين</div>
+                            <div style="font-size:0.78rem;color:var(--text-faint);margin-top:4px">نشر الخير بالحكمة</div>
+                        </div>
+                        <div style="text-align:center;padding:16px">
+                            <div style="font-size:1.5rem;color:var(--green-light)">&#9733;</div>
+                            <div style="font-weight:800;margin-top:8px">حفظ المال</div>
+                            <div style="font-size:0.78rem;color:var(--text-faint);margin-top:4px">تجارة حلال بلا ربا</div>
+                        </div>
+                        <div style="text-align:center;padding:16px">
+                            <div style="font-size:1.5rem;color:var(--info)">&#9733;</div>
+                            <div style="font-weight:800;margin-top:8px">حفظ العقل</div>
+                            <div style="font-size:0.78rem;color:var(--text-faint);margin-top:4px">ذكاء وتقنية بإتقان</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="/js/safe-api.js"></script>
+    <script>
+    var API = window.location.origin;
+    var TOKEN = localStorage.getItem('sheikha_token');
+    var ROLE = localStorage.getItem('sheikha_role');
+
+    // Auth check
+    if (!TOKEN || (ROLE !== 'admin' && ROLE !== 'owner')) {
+        window.location.href = '/\u062a\u0633\u062c\u064a\u0644-\u0627\u0644\u062f\u062e\u0648\u0644.html';
+    }
+
+    function headers() { return { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json' }; }
+
+    function showSection(name) {
+        document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+        document.querySelectorAll('.sidebar-item').forEach(function(s) { s.classList.remove('active'); });
+        var sec = document.getElementById('sec-' + name);
+        if (sec) sec.classList.add('active');
+        // highlight sidebar
+        var items = document.querySelectorAll('.sidebar-item');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].textContent.trim() && items[i].getAttribute('onclick') === "showSection('" + name + "')") {
+                items[i].classList.add('active');
+            }
+        }
+        // load data
+        if (name === 'users') loadUsers();
+        if (name === 'security') loadSecurity();
+        if (name === 'verification') loadVerification();
+        if (name === 'authenticator') loadAuthenticator();
+        if (name === 'engines') loadEngines();
+        if (name === 'apis') loadAPIs();
+        if (name === 'market') loadMarket();
+        if (name === 'companies') loadCompanies();
+        if (name === 'marketing') loadMarketing();
+        if (name === 'logs') loadLogs();
+        if (name === 'recovery') loadRecovery();
+    }
+
+    function showMsg(el, text, type) {
+        var e = document.getElementById(el);
+        if (!e) return;
+        e.textContent = text;
+        e.className = 'msg show ' + type;
+        setTimeout(function() { e.className = 'msg'; }, 5000);
+    }
+
+    // ═══ Load overview ═══
+    function loadOverview() {
+        fetch(API + '/api/me', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (d.success && d.user) {
+                document.getElementById('adminGreeting').textContent = d.user.name || 'مدير';
+                document.getElementById('adminName').textContent = d.user.name || 'المدير';
+                if (d.user.lastLoginAt) document.getElementById('lastLogin').textContent = new Date(d.user.lastLoginAt).toLocaleString('ar-SA');
+            }
+        }).catch(function() {});
+
+        fetch(API + '/api/admin/stats', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (d.success && d.stats) {
+                document.getElementById('statUsers').textContent = d.stats.users || 0;
+                document.getElementById('statTraders').textContent = d.stats.traders || 0;
+                document.getElementById('statProducts').textContent = d.stats.products || 0;
+            }
+        }).catch(function() {});
+
+        fetch(API + '/api/admin/verification-status', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (d.success) {
+                document.getElementById('statSecurity').textContent = (d.verification.securityScore || 0) + '%';
+            }
+        }).catch(function() {});
+
+        // Mode
+        fetch(API + '/api/pilot/status', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (d.success) {
+                var mode = (d.status && d.status.mode) || 'PILOT';
+                var el = document.getElementById('modeLabel');
+                el.textContent = mode;
+                el.className = 'badge ' + (mode === 'PRODUCTION' ? 'badge-success' : 'badge-info');
+            }
+        }).catch(function() {});
+    }
+
+    // ═══ Users ═══
+    function loadUsers() {
+        fetch(API + '/api/admin/users', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (!d.success || !d.users) return;
+            var html = '<table><thead><tr><th>الاسم</th><th>الجوال</th><th>البريد</th><th>الدور</th><th>التاريخ</th></tr></thead><tbody>';
+            d.users.forEach(function(u) {
+                html += '<tr><td>' + (u.name || '-') + '</td><td dir="ltr">' + (u.phone || '-') + '</td><td dir="ltr">' + (u.email || '-') + '</td><td><span class="badge ' + (u.role === 'admin' ? 'badge-warning' : 'badge-info') + '">' + (u.role || 'user') + '</span></td><td>' + (u.createdAt ? new Date(u.createdAt).toLocaleDateString('ar-SA') : '-') + '</td></tr>';
+            });
+            html += '</tbody></table>';
+            document.getElementById('usersTable').innerHTML = html;
+        }).catch(function() { document.getElementById('usersTable').innerHTML = '<div class="loading">خطأ في التحميل</div>'; });
+    }
+
+    // ═══ Security ═══
+    function loadSecurity() {
+        fetch(API + '/api/admin/verification-status', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (!d.success) return;
+            document.getElementById('secScore').textContent = (d.verification.securityScore || 0) + '%';
+        }).catch(function() {});
+
+        fetch(API + '/api/auth/security-log', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (!d.success || !d.log) return;
+            var html = '';
+            d.log.slice(0, 20).forEach(function(entry) {
+                var cls = entry.action.includes('locked') ? 'badge-danger' : entry.action.includes('fail') ? 'badge-warning' : 'badge-success';
+                html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light)"><div><span class="badge ' + cls + '">' + entry.action + '</span></div><div style="font-size:0.75rem;color:var(--text-faint)">' + (entry.at ? new Date(entry.at).toLocaleString('ar-SA') : '-') + '</div></div>';
+            });
+            document.getElementById('securityLogList').innerHTML = html || '<div style="color:var(--text-faint);padding:12px">لا توجد سجلات.</div>';
+        }).catch(function() {});
+
+        fetch(API + '/api/me', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (d.success && d.user && d.user.lastLoginAt) {
+                document.getElementById('lastLogin').textContent = new Date(d.user.lastLoginAt).toLocaleString('ar-SA');
+            }
+        }).catch(function() {});
+    }
+
+    // ═══ Verification ═══
+    function loadVerification() {
+        fetch(API + '/api/admin/verification-status', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (!d.success) return;
+            var v = d.verification;
+            var nb = document.getElementById('nafathBadge');
+            nb.textContent = v.nafath.status === 'verified' ? 'موثّق' : 'غير موثّق';
+            nb.className = 'badge ' + (v.nafath.status === 'verified' ? 'badge-success' : 'badge-warning');
+            var cb = document.getElementById('crBadge');
+            cb.textContent = v.businessRegistry.status === 'verified' ? 'موثّق — ' + (v.businessRegistry.number || '') : 'غير موثّق';
+            cb.className = 'badge ' + (v.businessRegistry.status === 'verified' ? 'badge-success' : 'badge-warning');
+        }).catch(function() {});
+    }
+
+    function verifyNafath(e) {
+        e.preventDefault();
+        var nid = document.getElementById('nationalIdInput').value.trim();
+        if (!nid || nid.length < 10) return showMsg('verMsg', 'رقم الهوية يجب أن يكون 10 أرقام.', 'error');
+        fetch(API + '/api/admin/verify-nafath', { method: 'POST', headers: headers(), body: JSON.stringify({ nationalId: nid }) })
+        .then(function(r) { return r.json(); }).then(function(d) {
+            showMsg('verMsg', d.message || (d.success ? 'تم التوثيق' : 'فشل'), d.success ? 'success' : 'error');
+            if (d.success) loadVerification();
+        }).catch(function() { showMsg('verMsg', 'خطأ في الاتصال', 'error'); });
+    }
+
+    function verifyBusiness(e) {
+        e.preventDefault();
+        var num = document.getElementById('crNumberInput').value.trim();
+        var name = document.getElementById('crNameInput').value.trim();
+        var city = document.getElementById('crCityInput').value.trim();
+        if (!num) return showMsg('verMsg', 'رقم السجل التجاري مطلوب.', 'error');
+        fetch(API + '/api/admin/verify-business-registry', { method: 'POST', headers: headers(), body: JSON.stringify({ registryNumber: num, registryName: name, registryCity: city }) })
+        .then(function(r) { return r.json(); }).then(function(d) {
+            showMsg('verMsg', d.message || (d.success ? 'تم التوثيق' : 'فشل'), d.success ? 'success' : 'error');
+            if (d.success) loadVerification();
+        }).catch(function() { showMsg('verMsg', 'خطأ في الاتصال', 'error'); });
+    }
+
+    // ═══ Authenticator ═══
+    function loadAuthenticator() {
+        fetch(API + '/api/auth/authenticator-status', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (!d.success) return;
+            var auth = d.authenticator;
+            var html = '';
+            var icons = { sheikha_auth: '#D4AF37', nafath: '#0a7c46', google: '#4285F4', google_authenticator: '#EA4335', microsoft: '#00A4EF', apple: '#FFFFFF', phone: '#10b981', email: '#D4AF37' };
+            var labels = { sheikha_auth: 'Sheikha Authenticator', nafath: 'النفاذ الوطني', google: 'Google', google_authenticator: 'Google Authenticator', microsoft: 'Microsoft', apple: 'Apple', phone: 'الجوال (SMS)', email: 'البريد الإلكتروني' };
+            Object.keys(auth).forEach(function(key) {
+                var m = auth[key];
+                var color = icons[key] || '#D4AF37';
+                html += '<li class="auth-item"><div class="auth-item-right"><div class="auth-item-icon" style="background:' + color + '22;color:' + color + '">&#9654;</div><div><div class="auth-item-name">' + (labels[key] || m.label) + '</div></div></div><span class="badge ' + (m.enabled ? 'badge-success' : 'badge-warning') + '">' + (m.enabled ? 'مفعّل' : 'غير مفعّل') + '</span></li>';
+            });
+            document.getElementById('authMethodsList').innerHTML = html;
+        }).catch(function() {});
+
+        fetch(API + '/api/me', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (d.success && d.user) {
+                document.getElementById('primaryEmail').textContent = d.user.email || '-';
+                document.getElementById('recoveryEmail').textContent = d.user.recoveryEmail || '-';
+            }
+        }).catch(function() {});
+    }
+
+    // ═══ Engines ═══
+    function loadEngines() {
+        fetch(API + '/api/system/status', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (!d.success) { document.getElementById('enginesContent').innerHTML = '<div class="loading">غير متاح</div>'; return; }
+            var html = '<div class="grid grid-3">';
+            if (d.engines) {
+                Object.keys(d.engines).forEach(function(k) {
+                    var v = d.engines[k];
+                    html += '<div class="card"><div class="card-title">' + k + '</div><span class="badge ' + (v ? 'badge-success">مفعّل' : 'badge-danger">متوقف') + '</span></div>';
+                });
+            }
+            html += '</div>';
+            document.getElementById('enginesContent').innerHTML = html;
+        }).catch(function() { document.getElementById('enginesContent').innerHTML = '<div class="loading">خطأ في التحميل</div>'; });
+    }
+
+    // ═══ Logs ═══
+    function loadLogs() {
+        fetch(API + '/api/admin/logs', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (!d.success || !d.logs) return;
+            var html = '<div class="table-wrap"><table><thead><tr><th>النوع</th><th>التفاصيل</th><th>الوقت</th></tr></thead><tbody>';
+            d.logs.slice(-30).reverse().forEach(function(l) {
+                html += '<tr><td><span class="badge badge-info">' + (l.type || l.action || '-') + '</span></td><td style="font-size:0.8rem">' + (l.details || l.message || JSON.stringify(l).substring(0, 80)) + '</td><td style="font-size:0.75rem;color:var(--text-faint)">' + (l.timestamp || l.at ? new Date(l.timestamp || l.at).toLocaleString('ar-SA') : '-') + '</td></tr>';
+            });
+            html += '</tbody></table></div>';
+            document.getElementById('logsContent').innerHTML = html;
+        }).catch(function() { document.getElementById('logsContent').innerHTML = '<div class="loading">خطأ في التحميل</div>'; });
+    }
+
+    // ═══ Password ═══
+    function changePassword(e) {
+        e.preventDefault();
+        var cur = document.getElementById('currentPw').value;
+        var np = document.getElementById('newPw').value;
+        var cp = document.getElementById('confirmPw').value;
+        if (np !== cp) return showMsg('pwMsg', 'كلمة المرور الجديدة غير متطابقة.', 'error');
+        if (np.length < 6) return showMsg('pwMsg', 'كلمة المرور يجب أن تكون 6 أحرف على الأقل.', 'error');
+        fetch(API + '/api/auth/change-password', { method: 'POST', headers: headers(), body: JSON.stringify({ currentPassword: cur, newPassword: np }) })
+        .then(function(r) { return r.json(); }).then(function(d) {
+            showMsg('pwMsg', d.message || (d.success ? 'تم التغيير' : 'فشل'), d.success ? 'success' : 'error');
+            if (d.success) { document.getElementById('currentPw').value = ''; document.getElementById('newPw').value = ''; document.getElementById('confirmPw').value = ''; }
+        }).catch(function() { showMsg('pwMsg', 'خطأ في الاتصال', 'error'); });
+    }
+
+    // ═══ Recovery ═══
+    function loadRecovery() {
+        fetch(API + '/api/me', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (d.success && d.user) {
+                document.getElementById('recPrimary').textContent = d.user.email || '-';
+                document.getElementById('recRecovery').textContent = d.user.recoveryEmail || '-';
+                document.getElementById('recPhone').textContent = d.user.phone || '-';
+            }
+        }).catch(function() {});
+        fetch(API + '/api/admin/verification-status', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (d.success) {
+                var v = d.verification;
+                var rn = document.getElementById('recNafath');
+                rn.textContent = v.nafath.status === 'verified' ? 'موثّق' : 'غير موثّق';
+                rn.className = 'badge ' + (v.nafath.status === 'verified' ? 'badge-success' : 'badge-warning');
+                var rb = document.getElementById('recBusiness');
+                rb.textContent = v.businessRegistry.status === 'verified' ? 'موثّق' : 'غير موثّق';
+                rb.className = 'badge ' + (v.businessRegistry.status === 'verified' ? 'badge-success' : 'badge-warning');
+            }
+        }).catch(function() {});
+    }
+
+    // ═══ Logout ═══
+    function logout() {
+        localStorage.removeItem('sheikha_token');
+        localStorage.removeItem('sheikha_user');
+        localStorage.removeItem('sheikha_role');
+        window.location.href = '/\u062a\u0633\u062c\u064a\u0644-\u0627\u0644\u062f\u062e\u0648\u0644.html';
+    }
+
+    // Init
+    loadOverview();
+    </script>
+</body>
+</html>

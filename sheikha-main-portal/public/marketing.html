@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أدوات التسويق — شيخة | SHEIKHA Marketing Toolkit</title>
+    <meta name="description" content="أدوات التسويق الكاملة لمنظومة شيخة — بروشور، بطاقات عمل، توقيع إيميل، بانرات، قوالب بريد، خطابات رسمية، ملف تأهيل">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════
+           SHEIKHA MARKETING TOOLKIT — CORE STYLES
+           ═══════════════════════════════════════════════ */
+        :root {
+            --gold: #D4AF37;
+            --gold-l: #F5E6A3;
+            --gold-d: #A8882B;
+            --dark: #030712;
+            --dark2: #0a0f1a;
+            --dark3: #111827;
+            --t1: #f4f4f5;
+            --t2: #a1a1aa;
+            --t3: #71717a;
+            --border: rgba(212,175,55,.1);
+            --radius: 12px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--dark); color: var(--t1); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        ::selection { background: rgba(212,175,55,.2); color: #fff; }
+
+        /* ═══ GEOMETRIC BG ═══ */
+        .geo-bg { position: fixed; inset: 0; pointer-events: none; opacity: .015; z-index: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='.3'%3E%3Cpolygon points='40,4 58,16 58,40 40,52 22,40 22,16'/%3E%3Ccircle cx='40' cy='28' r='10'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* ═══ STICKY NAV ═══ */
+        .sticky-nav { position: sticky; top: 0; z-index: 100; background: rgba(3,7,18,.97); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .nav-inner { max-width: 1400px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .brand svg { width: 40px; height: 40px; flex-shrink: 0; }
+        .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+        .brand-text .ar { font-size: 1.15rem; font-weight: 900; background: linear-gradient(135deg, var(--gold), var(--gold-l)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .brand-text .en { font-size: .58rem; font-weight: 700; color: var(--t3); letter-spacing: .25em; text-transform: uppercase; }
+        .nav-title { font-size: .95rem; color: var(--t2); font-weight: 600; }
+        .nav-links { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+        .nav-links::-webkit-scrollbar { display: none; }
+        .nav-links a { padding: 8px 14px; font-family: inherit; font-size: .78rem; font-weight: 700; color: var(--t3); text-decoration: none; border-radius: 8px; white-space: nowrap; transition: all .3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); background: rgba(212,175,55,.06); }
+
+        /* ═══ SECTION WRAPPER ═══ */
+        .toolkit-section { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 48px 24px; }
+        .section-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+        .section-header h2 { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, var(--gold), var(--gold-l)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section-header .sub { font-size: .85rem; color: var(--t3); font-weight: 500; }
+        .section-actions { display: flex; gap: 8px; }
+        .btn-action { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border: 1px solid var(--border); background: rgba(212,175,55,.04); color: var(--gold); font-family: inherit; font-size: .8rem; font-weight: 700; border-radius: 8px; cursor: pointer; transition: all .3s; }
+        .btn-action:hover { background: rgba(212,175,55,.1); border-color: var(--gold); }
+        .btn-action svg { width: 16px; height: 16px; }
+
+        .section-content { background: var(--dark2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+
+        /* ═══ DIVIDER ═══ */
+        .section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .15; margin: 0 24px; }
+
+        /* ═══ TOAST ═══ */
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px); background: linear-gradient(135deg, var(--gold), var(--gold-d)); color: var(--dark); padding: 14px 28px; border-radius: 10px; font-family: 'Tajawal', sans-serif; font-weight: 800; font-size: .9rem; z-index: 9999; opacity: 0; transition: all .4s cubic-bezier(.22,1,.36,1); pointer-events: none; box-shadow: 0 8px 32px rgba(212,175,55,.3); }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ═══════════════════════════════════════════════
+           SECTION 1: BROCHURE
+           ═══════════════════════════════════════════════ */
+        .brochure-preview { padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+        .brochure-page { width: 100%; max-width: 794px; min-height: 1123px; margin: 0 auto; border-radius: 4px; overflow: hidden; position: relative; page-break-after: always; }
+
+        /* Cover Page */
+        .br-cover { background: linear-gradient(160deg, #030712 0%, #0a0f1a 50%, #111827 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 48px; position: relative; }
+        .br-cover::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='.2'%3E%3Cpolygon points='30,3 44,12 44,30 30,39 16,30 16,12'/%3E%3Ccircle cx='30' cy='21' r='7'/%3E%3C/g%3E%3C/svg%3E"); opacity: .04; }
+        .br-cover::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 3px solid transparent; border-image: linear-gradient(135deg, #D4AF37, transparent, #D4AF37) 1; margin: 20px; }
+        .br-cover .logo-big { width: 160px; height: 160px; margin-bottom: 40px; position: relative; z-index: 1; }
+        .br-cover h1 { font-size: 3rem; font-weight: 900; background: linear-gradient(135deg, #f0d060, #D4AF37, #b8942f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; z-index: 1; margin-bottom: 8px; }
+        .br-cover .en-title { font-size: 1.1rem; font-weight: 700; color: var(--t3); letter-spacing: .35em; text-transform: uppercase; position: relative; z-index: 1; margin-bottom: 30px; }
+        .br-cover .tagline { font-size: 1.2rem; color: var(--t2); font-weight: 500; line-height: 1.8; position: relative; z-index: 1; max-width: 500px; }
+        .br-cover .tagline strong { color: var(--gold); font-weight: 700; }
+        .br-cover .bottom-badge { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 1; display: flex; align-items: center; gap: 8px; color: var(--t3); font-size: .8rem; }
+        .br-cover .bottom-badge span { color: var(--gold); font-weight: 700; }
+
+        /* About Page */
+        .br-about { background: #fff; color: #1a1a1a; padding: 60px 56px; display: flex; flex-direction: column; gap: 36px; }
+        .br-about .page-heading { font-size: 1.8rem; font-weight: 800; color: #030712; border-right: 4px solid #D4AF37; padding-right: 16px; }
+        .br-about .subsection { margin-bottom: 10px; }
+        .br-about .subsection h3 { font-size: 1.1rem; font-weight: 700; color: #D4AF37; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .br-about .subsection p { font-size: .95rem; line-height: 1.9; color: #374151; }
+        .br-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+        .br-value-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 20px; text-align: center; }
+        .br-value-card .icon { font-size: 1.6rem; margin-bottom: 8px; }
+        .br-value-card h4 { font-size: .95rem; font-weight: 700; color: #030712; margin-bottom: 4px; }
+        .br-value-card p { font-size: .78rem; color: #6b7280; line-height: 1.6; }
+
+        /* Services Page */
+        .br-services { background: #fff; color: #1a1a1a; padding: 60px 56px; }
+        .br-services .page-heading { font-size: 1.8rem; font-weight: 800; color: #030712; border-right: 4px solid #D4AF37; padding-right: 16px; margin-bottom: 30px; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .service-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 22px 18px; text-align: center; transition: all .3s; }
+        .service-card:hover { border-color: #D4AF37; box-shadow: 0 4px 20px rgba(212,175,55,.08); }
+        .service-card .s-icon { width: 44px; height: 44px; background: linear-gradient(135deg, #D4AF37, #b8942f); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 1.2rem; color: #fff; }
+        .service-card h4 { font-size: .9rem; font-weight: 700; color: #030712; margin-bottom: 6px; }
+        .service-card p { font-size: .75rem; color: #6b7280; line-height: 1.6; }
+
+        /* Why SHEIKHA Page */
+        .br-why { background: #fff; color: #1a1a1a; padding: 60px 56px; }
+        .br-why .page-heading { font-size: 1.8rem; font-weight: 800; color: #030712; border-right: 4px solid #D4AF37; padding-right: 16px; margin-bottom: 30px; }
+        .reasons-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .reason-card { display: flex; gap: 16px; align-items: flex-start; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; }
+        .reason-num { width: 40px; height: 40px; background: linear-gradient(135deg, #D4AF37, #b8942f); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; color: #030712; flex-shrink: 0; }
+        .reason-card h4 { font-size: .95rem; font-weight: 700; color: #030712; margin-bottom: 6px; }
+        .reason-card p { font-size: .8rem; color: #6b7280; line-height: 1.7; }
+
+        /* Contact Page */
+        .br-contact { background: linear-gradient(160deg, #030712, #0a0f1a, #111827); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 56px; position: relative; }
+        .br-contact::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='.2'%3E%3Cpolygon points='30,3 44,12 44,30 30,39 16,30 16,12'/%3E%3C/g%3E%3C/svg%3E"); opacity: .03; }
+        .br-contact .logo-contact { width: 80px; height: 80px; margin-bottom: 24px; position: relative; z-index: 1; }
+        .br-contact h2 { font-size: 2rem; font-weight: 900; color: #D4AF37; margin-bottom: 8px; position: relative; z-index: 1; }
+        .br-contact .en-sub { color: var(--t3); font-size: .9rem; letter-spacing: .2em; margin-bottom: 40px; position: relative; z-index: 1; }
+        .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; position: relative; z-index: 1; margin-bottom: 40px; width: 100%; max-width: 600px; }
+        .contact-item { text-align: center; }
+        .contact-item .c-label { font-size: .75rem; color: var(--t3); margin-bottom: 6px; font-weight: 600; }
+        .contact-item .c-value { font-size: .9rem; color: var(--t1); font-weight: 700; direction: ltr; }
+        .br-contact .slogan { font-size: 1rem; color: var(--t3); position: relative; z-index: 1; font-style: italic; }
+
+        /* ═══════════════════════════════════════════════
+           SECTION 2: BUSINESS CARD
+           ═══════════════════════════════════════════════ */
+        .cards-preview { padding: 40px 24px; display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; }
+        .biz-card { width: 340px; height: 200px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,.4); }
+        .card-front { background: linear-gradient(145deg, #030712, #0a0f1a); position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; }
+        .card-front::before { content: ''; position: absolute; inset: 0; border: 2px solid transparent; border-image: linear-gradient(135deg, rgba(212,175,55,.3), transparent, rgba(212,175,55,.3)) 1; }
+        .card-front .cf-logo { width: 48px; height: 48px; margin-bottom: 12px; }
+        .card-front .cf-name { font-size: 1.1rem; font-weight: 800; color: #D4AF37; margin-bottom: 2px; }
+        .card-front .cf-title { font-size: .7rem; color: var(--t3); font-weight: 600; margin-bottom: 4px; }
+        .card-front .cf-company { font-size: .65rem; color: var(--t2); font-weight: 700; letter-spacing: .15em; }
+
+        .card-back { background: linear-gradient(145deg, #D4AF37, #b8942f); position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; gap: 10px; }
+        .card-back .cb-row { display: flex; align-items: center; gap: 8px; color: #030712; font-size: .78rem; font-weight: 700; }
+        .card-back .cb-row svg { width: 16px; height: 16px; fill: #030712; flex-shrink: 0; }
+        .card-back .cb-tagline { font-size: .68rem; color: rgba(3,7,18,.6); font-weight: 600; margin-top: 6px; border-top: 1px solid rgba(3,7,18,.15); padding-top: 10px; width: 100%; }
+
+        /* ═══════════════════════════════════════════════
+           SECTION 3: EMAIL SIGNATURE
+           ═══════════════════════════════════════════════ */
+        .signature-preview { padding: 40px 24px; display: flex; justify-content: center; }
+        .sig-container { background: #fff; border-radius: 8px; padding: 24px; max-width: 520px; width: 100%; }
+        .sig-container table { font-family: 'Tajawal', Arial, sans-serif; }
+        .sig-container td { vertical-align: middle; }
+
+        /* ═══════════════════════════════════════════════
+           SECTION 4: BANNERS
+           ═══════════════════════════════════════════════ */
+        .banners-preview { padding: 32px 24px; display: flex; flex-direction: column; gap: 32px; align-items: center; }
+        .banner-wrap { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .banner-wrap .b-label { font-size: .75rem; color: var(--t3); font-weight: 600; }
+        .banner-wrap svg { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.3); }
+
+        /* ═══════════════════════════════════════════════
+           SECTION 5: EMAIL TEMPLATE
+           ═══════════════════════════════════════════════ */
+        .email-preview { padding: 32px 24px; display: flex; justify-content: center; }
+        .email-frame { background: #f4f4f5; border-radius: 8px; padding: 20px; max-width: 640px; width: 100%; }
+
+        /* ═══════════════════════════════════════════════
+           SECTION 6: LETTERHEAD
+           ═══════════════════════════════════════════════ */
+        .letterhead-preview { padding: 24px; display: flex; justify-content: center; }
+        .letterhead-page { width: 100%; max-width: 794px; min-height: 1123px; background: #fff; color: #1a1a1a; border-radius: 4px; position: relative; display: flex; flex-direction: column; }
+        .lh-header { padding: 30px 50px; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid #D4AF37; }
+        .lh-header .lh-logo { width: 60px; height: 60px; }
+        .lh-header .lh-info { text-align: left; direction: ltr; }
+        .lh-header .lh-info div { font-size: .65rem; color: #6b7280; line-height: 1.6; }
+        .lh-body { flex: 1; padding: 40px 50px; display: flex; flex-direction: column; gap: 20px; }
+        .lh-body .bismillah { text-align: center; font-size: 1.3rem; font-weight: 700; color: #D4AF37; margin-bottom: 10px; }
+        .lh-body .date-ref { display: flex; justify-content: space-between; font-size: .85rem; color: #374151; }
+        .lh-body .body-text { font-size: .9rem; line-height: 2; color: #374151; flex: 1; min-height: 400px; }
+        .lh-body .body-text p { margin-bottom: 12px; }
+        .lh-body .sig-area { margin-top: 30px; }
+        .lh-body .sig-area .sig-name { font-size: 1rem; font-weight: 800; color: #030712; }
+        .lh-body .sig-area .sig-role { font-size: .8rem; color: #6b7280; }
+        .lh-footer { padding: 16px 50px; border-top: 2px solid #D4AF37; display: flex; justify-content: space-between; align-items: center; font-size: .65rem; color: #9ca3af; background: #f9fafb; }
+
+        /* ═══════════════════════════════════════════════
+           SECTION 7: VENDOR QUALIFICATION
+           ═══════════════════════════════════════════════ */
+        .vendor-preview { padding: 24px; display: flex; justify-content: center; }
+        .vendor-page { width: 100%; max-width: 794px; background: #fff; color: #1a1a1a; border-radius: 4px; }
+        .vendor-header { background: linear-gradient(135deg, #030712, #111827); padding: 30px 50px; display: flex; align-items: center; justify-content: space-between; }
+        .vendor-header .vh-right { display: flex; align-items: center; gap: 14px; }
+        .vendor-header .vh-right svg { width: 50px; height: 50px; }
+        .vendor-header .vh-title { color: #D4AF37; font-size: 1.3rem; font-weight: 800; }
+        .vendor-header .vh-sub { color: #9ca3af; font-size: .75rem; }
+        .vendor-header .vh-left { text-align: left; color: #9ca3af; font-size: .7rem; line-height: 1.7; }
+        .vendor-body { padding: 30px 50px; }
+        .qual-section { margin-bottom: 24px; }
+        .qual-section h3 { font-size: 1rem; font-weight: 800; color: #030712; background: #f9fafb; border-right: 4px solid #D4AF37; padding: 10px 16px; margin-bottom: 12px; border-radius: 0 6px 6px 0; }
+        .qual-row { display: flex; border-bottom: 1px solid #e5e7eb; padding: 8px 0; font-size: .82rem; }
+        .qual-row .ql { width: 200px; font-weight: 700; color: #374151; flex-shrink: 0; padding-left: 8px; }
+        .qual-row .qv { flex: 1; color: #6b7280; border-right: 1px solid #e5e7eb; padding-right: 12px; }
+        .vendor-footer { background: #f9fafb; padding: 16px 50px; border-top: 2px solid #D4AF37; text-align: center; font-size: .65rem; color: #9ca3af; }
+
+        /* ═══════════════════════════════════════════════
+           PRINT STYLES
+           ═══════════════════════════════════════════════ */
+        @media print {
+            body { background: #fff !important; }
+            .sticky-nav, .section-header, .geo-bg, .section-divider, .toast { display: none !important; }
+            .toolkit-section { padding: 0 !important; }
+            .section-content { border: none !important; background: transparent !important; }
+            .brochure-page { box-shadow: none !important; }
+        }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 768px) {
+            .nav-inner { padding: 12px 16px; }
+            .nav-links a { padding: 6px 10px; font-size: .72rem; }
+            .toolkit-section { padding: 32px 16px; }
+            .section-header h2 { font-size: 1.3rem; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .reasons-grid { grid-template-columns: 1fr; }
+            .biz-card { width: 300px; height: 176px; }
+            .contact-grid { grid-template-columns: 1fr; gap: 16px; }
+            .br-cover h1 { font-size: 2.2rem; }
+            .br-about, .br-services, .br-why { padding: 40px 32px; }
+            .lh-header, .lh-body, .lh-footer { padding-left: 30px; padding-right: 30px; }
+            .vendor-header, .vendor-body, .vendor-footer { padding-left: 30px; padding-right: 30px; }
+            .qual-row { flex-direction: column; gap: 4px; }
+            .qual-row .ql { width: auto; }
+            .qual-row .qv { border-right: none; padding-right: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="geo-bg"></div>
+
+<!-- ═══ STICKY NAV ═══ -->
+<nav class="sticky-nav">
+    <div class="nav-inner">
+        <a href="index.html" class="brand">
+            <svg viewBox="0 0 120 120"><defs><linearGradient id="gG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs><circle cx="60" cy="60" r="56" fill="#030712" stroke="url(#gG)" stroke-width="3"/><text x="60" y="78" text-anchor="middle" fill="url(#gG)" font-size="52" font-weight="900" font-family="Tajawal">ش</text></svg>
+            <div class="brand-text">
+                <span class="ar">شيخة</span>
+                <span class="en">SHEIKHA</span>
+            </div>
+        </a>
+        <span class="nav-title">أدوات التسويق</span>
+        <div class="nav-links">
+            <a href="#brochure">البروشور</a>
+            <a href="#bizcard">بطاقة العمل</a>
+            <a href="#signature">توقيع الإيميل</a>
+            <a href="#banners">بانرات</a>
+            <a href="#email-template">قالب الإيميل</a>
+            <a href="#letterhead">خطاب رسمي</a>
+            <a href="#vendor">ملف التأهيل</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 1: البروشور
+     ══════════════════════════════════════════════════════════════ -->
+<section class="toolkit-section" id="brochure">
+    <div class="section-header">
+        <div>
+            <h2>📖 البروشور التعريفي</h2>
+            <div class="sub">Company Brochure — 5 صفحات A4</div>
+        </div>
+        <div class="section-actions">
+            <button class="btn-action" onclick="printSection('brochure-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                طباعة
+            </button>
+            <button class="btn-action" onclick="copyHTML('brochure-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                نسخ HTML
+            </button>
+        </div>
+    </div>
+    <div class="section-content">
+        <div class="brochure-preview" id="brochure-content">
+
+            <!-- Page 1: Cover -->
+            <div class="brochure-page br-cover">
+                <svg class="logo-big" viewBox="0 0 120 120"><defs><linearGradient id="gG1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs><circle cx="60" cy="60" r="56" fill="#030712" stroke="url(#gG1)" stroke-width="3"/><text x="60" y="78" text-anchor="middle" fill="url(#gG1)" font-size="52" font-weight="900" font-family="Tajawal">ش</text></svg>
+                <h1>شيخة</h1>
+                <div class="en-title">SHEIKHA</div>
+                <div class="tagline">
+                    أول سوق إسلامي رقمي للمعادن والسكراب<br>
+                    مبني على مبادئ <strong>سوق المدينة المنورة</strong> الذي أسسه النبي ﷺ
+                </div>
+                <div class="bottom-badge">
+                    <span>sheikha.top</span> | منظومة شيخة للتجارة
+                </div>
+            </div>
+
+            <!-- Page 2: About -->
+            <div class="brochure-page br-about">
+                <h2 class="page-heading">من نحن</h2>
+                <div class="subsection">
+                    <h3>🔭 الرؤية</h3>
+                    <p>أن نكون المنصة الإسلامية الرائدة عالمياً في تجارة المعادن والسكراب، مع الالتزام الكامل بالشريعة الإسلامية ومبادئ التجارة النبوية.</p>
+                </div>
+                <div class="subsection">
+                    <h3>🎯 الرسالة</h3>
+                    <p>تقديم بيئة تجارية رقمية آمنة وشفافة تجمع بين التقنية الحديثة والأصالة الإسلامية، لخدمة تجار المعادن والسكراب في المملكة العربية السعودية والعالم.</p>
+                </div>
+                <h3 style="font-size:1.1rem;font-weight:700;color:#D4AF37;margin-bottom:12px;">⭐ قيمنا</h3>
+                <div class="br-values">
+                    <div class="br-value-card">
+                        <div class="icon">🕌</div>
+                        <h4>الشريعة أولاً</h4>
+                        <p>كل معاملة تتوافق مع أحكام الشريعة الإسلامية</p>
+                    </div>
+                    <div class="br-value-card">
+                        <div class="icon">🤝</div>
+                        <h4>الشفافية</h4>
+                        <p>وضوح كامل في التسعير والمعاملات</p>
+                    </div>
+                    <div class="br-value-card">
+                        <div class="icon">⚖️</div>
+                        <h4>العدالة</h4>
+                        <p>لا احتكار ولا غش — عدل نبوي</p>
+                    </div>
+                    <div class="br-value-card">
+                        <div class="icon">🔒</div>
+                        <h4>الأمان</h4>
+                        <p>حماية بيانات ومعاملات العملاء</p>
+                    </div>
+                    <div class="br-value-card">
+                        <div class="icon">🚀</div>
+                        <h4>الابتكار</h4>
+                        <p>تقنيات حديثة في خدمة التجارة الحلال</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 3: Services -->
+            <div class="brochure-page br-services">
+                <h2 class="page-heading">خدماتنا</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="s-icon">🏪</div>
+                        <h4>سوق المعادن</h4>
+                        <p>سوق إلكتروني متكامل لبيع وشراء المعادن والسكراب بتسعير شفاف</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="s-icon">📊</div>
+                        <h4>أسعار لحظية</h4>
+                        <p>تحديث مباشر لأسعار المعادن من الأسواق العالمية</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="s-icon">🔍</div>
+                        <h4>فحص الجودة</h4>
+                        <p>نظام فحص واعتماد لضمان جودة المعادن المعروضة</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="s-icon">🚛</div>
+                        <h4>النقل والشحن</h4>
+                        <p>خدمات لوجستية متكاملة لنقل المعادن والسكراب</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="s-icon">💰</div>
+                        <h4>التمويل الإسلامي</h4>
+                        <p>حلول تمويلية متوافقة مع الشريعة الإسلامية</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="s-icon">📱</div>
+                        <h4>تطبيق الجوال</h4>
+                        <p>إدارة أعمالك من أي مكان عبر تطبيق شيخة</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="s-icon">🤖</div>
+                        <h4>الذكاء الاصطناعي</h4>
+                        <p>تحليلات ذكية وتوصيات مبنية على البيانات</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="s-icon">📋</div>
+                        <h4>إدارة العقود</h4>
+                        <p>نظام عقود إلكتروني آمن ومتوافق شرعياً</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="s-icon">🎓</div>
+                        <h4>التدريب والتأهيل</h4>
+                        <p>برامج تعليمية لتأهيل تجار المعادن والسكراب</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Why SHEIKHA -->
+            <div class="brochure-page br-why">
+                <h2 class="page-heading">لماذا شيخة؟</h2>
+                <div class="reasons-grid">
+                    <div class="reason-card">
+                        <div class="reason-num">١</div>
+                        <div>
+                            <h4>توافق شرعي كامل</h4>
+                            <p>مبنية على مبادئ سوق المدينة المنورة الذي أسسه النبي ﷺ — لا ربا، لا غرر، لا احتكار</p>
+                        </div>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-num">٢</div>
+                        <div>
+                            <h4>تسعير نبوي عادل</h4>
+                            <p>نظام تسعير شفاف يعتمد على العرض والطلب الحقيقي دون تلاعب أو احتكار — «دعوا الناس يرزق الله بعضهم من بعض»</p>
+                        </div>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-num">٣</div>
+                        <div>
+                            <h4>تقنية متقدمة</h4>
+                            <p>ذكاء اصطناعي وتحليلات بيانات متقدمة لدعم قرارات التجار</p>
+                        </div>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-num">٤</div>
+                        <div>
+                            <h4>أمان وحماية</h4>
+                            <p>تشفير متقدم وحماية كاملة للبيانات والمعاملات المالية</p>
+                        </div>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-num">٥</div>
+                        <div>
+                            <h4>مجتمع تجاري</h4>
+                            <p>شبكة واسعة من تجار المعادن والسكراب في المملكة والعالم</p>
+                        </div>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-num">٦</div>
+                        <div>
+                            <h4>دعم رؤية 2030</h4>
+                            <p>مساهمة فعالة في التحول الرقمي وتنويع الاقتصاد السعودي</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 5: Contact -->
+            <div class="brochure-page br-contact">
+                <svg class="logo-contact" viewBox="0 0 120 120"><defs><linearGradient id="gG2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs><circle cx="60" cy="60" r="56" fill="#030712" stroke="url(#gG2)" stroke-width="3"/><text x="60" y="78" text-anchor="middle" fill="url(#gG2)" font-size="52" font-weight="900" font-family="Tajawal">ش</text></svg>
+                <h2>تواصل معنا</h2>
+                <div class="en-sub">CONTACT US</div>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="c-label">📧 البريد</div>
+                        <div class="c-value">market@sheikha.top</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="c-label">📞 الهاتف</div>
+                        <div class="c-value">+966 554 942 904</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="c-label">🌐 الموقع</div>
+                        <div class="c-value">sheikha.top</div>
+                    </div>
+                </div>
+                <div class="slogan">«خير الناس أنفعهم للناس»</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 2: بطاقة العمل
+     ══════════════════════════════════════════════════════════════ -->
+<section class="toolkit-section" id="bizcard">
+    <div class="section-header">
+        <div>
+            <h2>💳 بطاقة العمل</h2>
+            <div class="sub">Business Card — وجهان (أمامي + خلفي)</div>
+        </div>
+        <div class="section-actions">
+            <button class="btn-action" onclick="printSection('bizcard-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                طباعة
+            </button>
+            <button class="btn-action" onclick="copyHTML('bizcard-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                نسخ HTML
+            </button>
+        </div>
+    </div>
+    <div class="section-content">
+        <div class="cards-preview" id="bizcard-content">
+
+            <!-- Front -->
+            <div class="biz-card card-front">
+                <svg class="cf-logo" viewBox="0 0 120 120"><defs><linearGradient id="gG3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs><circle cx="60" cy="60" r="56" fill="#030712" stroke="url(#gG3)" stroke-width="3"/><text x="60" y="78" text-anchor="middle" fill="url(#gG3)" font-size="52" font-weight="900" font-family="Tajawal">ش</text></svg>
+                <div class="cf-name">سلمان أحمد بن سلمان الراجح</div>
+                <div class="cf-title">المؤسس والرئيس التنفيذي</div>
+                <div class="cf-company">SHEIKHA | شيخة</div>
+            </div>
+
+            <!-- Back -->
+            <div class="biz-card card-back">
+                <div class="cb-row">
+                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                    +966 554 942 904
+                </div>
+                <div class="cb-row">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    market@sheikha.top
+                </div>
+                <div class="cb-row">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                    sheikha.top
+                </div>
+                <div class="cb-tagline">أول سوق إسلامي رقمي للمعادن — على نهج سوق المدينة المنورة</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 3: توقيع الإيميل
+     ══════════════════════════════════════════════════════════════ -->
+<section class="toolkit-section" id="signature">
+    <div class="section-header">
+        <div>
+            <h2>✉️ توقيع الإيميل</h2>
+            <div class="sub">Email Signature — جاهز للنسخ واللصق</div>
+        </div>
+        <div class="section-actions">
+            <button class="btn-action" onclick="printSection('signature-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                طباعة
+            </button>
+            <button class="btn-action" onclick="copyHTML('signature-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                نسخ HTML
+            </button>
+        </div>
+    </div>
+    <div class="section-content">
+        <div class="signature-preview" id="signature-content">
+            <div class="sig-container">
+                <table cellpadding="0" cellspacing="0" border="0" style="max-width:500px;font-family:'Tajawal',Arial,sans-serif;direction:rtl;">
+                    <tr>
+                        <td style="vertical-align:top;padding-left:18px;border-left:3px solid #D4AF37;">
+                            <!-- Logo -->
+                            <div style="width:56px;height:56px;background:#030712;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:10px;border:2px solid #D4AF37;">
+                                <span style="color:#D4AF37;font-size:28px;font-weight:900;font-family:'Tajawal',sans-serif;line-height:1;">ش</span>
+                            </div>
+                        </td>
+                        <td style="vertical-align:top;padding-right:18px;">
+                            <div style="font-size:16px;font-weight:800;color:#030712;margin-bottom:2px;">سلمان أحمد بن سلمان الراجح</div>
+                            <div style="font-size:12px;color:#6b7280;font-weight:600;margin-bottom:8px;">المؤسس والرئيس التنفيذي | SHEIKHA — شيخة</div>
+                            <div style="border-top:1px solid #e5e7eb;padding-top:8px;margin-top:4px;">
+                                <table cellpadding="0" cellspacing="0" border="0" style="font-family:'Tajawal',Arial,sans-serif;">
+                                    <tr>
+                                        <td style="font-size:12px;color:#374151;padding-bottom:3px;">
+                                            📞 <span style="direction:ltr;unicode-bidi:embed;">+966 554 942 904</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;color:#374151;padding-bottom:3px;">
+                                            📧 <a href="mailto:market@sheikha.top" style="color:#D4AF37;text-decoration:none;font-weight:600;">market@sheikha.top</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;color:#374151;">
+                                            🌐 <a href="https://sheikha.top" style="color:#D4AF37;text-decoration:none;font-weight:600;">sheikha.top</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 4: بانرات
+     ══════════════════════════════════════════════════════════════ -->
+<section class="toolkit-section" id="banners">
+    <div class="section-header">
+        <div>
+            <h2>🖼️ بانرات إعلانية</h2>
+            <div class="sub">Ad Banners — Hero + Social + Leaderboard</div>
+        </div>
+        <div class="section-actions">
+            <button class="btn-action" onclick="printSection('banners-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                طباعة
+            </button>
+            <button class="btn-action" onclick="copyHTML('banners-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                نسخ HTML
+            </button>
+        </div>
+    </div>
+    <div class="section-content">
+        <div class="banners-preview" id="banners-content">
+
+            <!-- Hero Banner 1200x400 -->
+            <div class="banner-wrap">
+                <div class="b-label">Hero Banner — 1200 × 400</div>
+                <svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:1200px;">
+                    <defs>
+                        <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#030712"/>
+                            <stop offset="100%" stop-color="#111827"/>
+                        </linearGradient>
+                        <linearGradient id="gg1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#f0d060"/>
+                            <stop offset="50%" stop-color="#D4AF37"/>
+                            <stop offset="100%" stop-color="#b8942f"/>
+                        </linearGradient>
+                        <pattern id="pat1" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+                            <polygon points="30,3 44,12 44,30 30,39 16,30 16,12" fill="none" stroke="#D4AF37" stroke-width=".3" opacity=".08"/>
+                        </pattern>
+                    </defs>
+                    <rect width="1200" height="400" fill="url(#bg1)"/>
+                    <rect width="1200" height="400" fill="url(#pat1)"/>
+                    <!-- Gold border -->
+                    <rect x="12" y="12" width="1176" height="376" rx="8" fill="none" stroke="url(#gg1)" stroke-width="1.5" opacity=".3"/>
+                    <!-- Logo -->
+                    <circle cx="200" cy="200" r="70" fill="#030712" stroke="url(#gg1)" stroke-width="2.5"/>
+                    <text x="200" y="222" text-anchor="middle" fill="url(#gg1)" font-size="64" font-weight="900" font-family="Tajawal">ش</text>
+                    <!-- Text -->
+                    <text x="750" y="155" text-anchor="middle" fill="url(#gg1)" font-size="56" font-weight="900" font-family="Tajawal">شيخة</text>
+                    <text x="750" y="195" text-anchor="middle" fill="#9ca3af" font-size="18" font-weight="700" font-family="Tajawal" letter-spacing="8">SHEIKHA</text>
+                    <text x="750" y="250" text-anchor="middle" fill="#d1d5db" font-size="22" font-weight="500" font-family="Tajawal">أول سوق إسلامي رقمي للمعادن والسكراب</text>
+                    <text x="750" y="285" text-anchor="middle" fill="#9ca3af" font-size="16" font-weight="400" font-family="Tajawal">على نهج سوق المدينة المنورة الذي أسسه النبي ﷺ</text>
+                    <!-- CTA -->
+                    <rect x="680" y="310" width="140" height="42" rx="8" fill="url(#gg1)"/>
+                    <text x="750" y="337" text-anchor="middle" fill="#030712" font-size="16" font-weight="800" font-family="Tajawal">sheikha.top</text>
+                </svg>
+            </div>
+
+            <!-- Social Banner 600x600 -->
+            <div class="banner-wrap">
+                <div class="b-label">Social Media — 600 × 600</div>
+                <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:600px;">
+                    <defs>
+                        <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#030712"/>
+                            <stop offset="100%" stop-color="#111827"/>
+                        </linearGradient>
+                        <linearGradient id="gg2" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#f0d060"/>
+                            <stop offset="50%" stop-color="#D4AF37"/>
+                            <stop offset="100%" stop-color="#b8942f"/>
+                        </linearGradient>
+                        <pattern id="pat2" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+                            <polygon points="25,3 37,10 37,25 25,32 13,25 13,10" fill="none" stroke="#D4AF37" stroke-width=".3" opacity=".06"/>
+                        </pattern>
+                    </defs>
+                    <rect width="600" height="600" fill="url(#bg2)"/>
+                    <rect width="600" height="600" fill="url(#pat2)"/>
+                    <rect x="10" y="10" width="580" height="580" rx="8" fill="none" stroke="url(#gg2)" stroke-width="1.5" opacity=".25"/>
+                    <!-- Logo -->
+                    <circle cx="300" cy="210" r="80" fill="#030712" stroke="url(#gg2)" stroke-width="2.5"/>
+                    <text x="300" y="236" text-anchor="middle" fill="url(#gg2)" font-size="72" font-weight="900" font-family="Tajawal">ش</text>
+                    <!-- Text -->
+                    <text x="300" y="345" text-anchor="middle" fill="url(#gg2)" font-size="48" font-weight="900" font-family="Tajawal">شيخة</text>
+                    <text x="300" y="380" text-anchor="middle" fill="#9ca3af" font-size="16" font-weight="700" font-family="Tajawal" letter-spacing="6">SHEIKHA</text>
+                    <text x="300" y="430" text-anchor="middle" fill="#d1d5db" font-size="18" font-weight="500" font-family="Tajawal">أول سوق إسلامي رقمي للمعادن</text>
+                    <text x="300" y="460" text-anchor="middle" fill="#9ca3af" font-size="14" font-family="Tajawal">على نهج سوق المدينة المنورة</text>
+                    <!-- CTA -->
+                    <rect x="230" y="500" width="140" height="40" rx="8" fill="url(#gg2)"/>
+                    <text x="300" y="526" text-anchor="middle" fill="#030712" font-size="15" font-weight="800" font-family="Tajawal">sheikha.top</text>
+                </svg>
+            </div>
+
+            <!-- Leaderboard Banner 728x90 -->
+            <div class="banner-wrap">
+                <div class="b-label">Leaderboard — 728 × 90</div>
+                <svg viewBox="0 0 728 90" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:728px;">
+                    <defs>
+                        <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#030712"/>
+                            <stop offset="100%" stop-color="#111827"/>
+                        </linearGradient>
+                        <linearGradient id="gg3" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#f0d060"/>
+                            <stop offset="50%" stop-color="#D4AF37"/>
+                            <stop offset="100%" stop-color="#b8942f"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="728" height="90" rx="6" fill="url(#bg3)"/>
+                    <rect x="3" y="3" width="722" height="84" rx="4" fill="none" stroke="url(#gg3)" stroke-width="1" opacity=".2"/>
+                    <!-- Logo -->
+                    <circle cx="55" cy="45" r="28" fill="#030712" stroke="url(#gg3)" stroke-width="1.5"/>
+                    <text x="55" y="55" text-anchor="middle" fill="url(#gg3)" font-size="26" font-weight="900" font-family="Tajawal">ش</text>
+                    <!-- Text -->
+                    <text x="330" y="38" text-anchor="middle" fill="url(#gg3)" font-size="26" font-weight="900" font-family="Tajawal">شيخة — أول سوق إسلامي رقمي للمعادن</text>
+                    <text x="330" y="62" text-anchor="middle" fill="#9ca3af" font-size="13" font-weight="500" font-family="Tajawal">على نهج سوق المدينة المنورة الذي أسسه النبي ﷺ</text>
+                    <!-- CTA -->
+                    <rect x="610" y="25" width="100" height="40" rx="6" fill="url(#gg3)"/>
+                    <text x="660" y="50" text-anchor="middle" fill="#030712" font-size="13" font-weight="800" font-family="Tajawal">sheikha.top</text>
+                </svg>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 5: قالب الإيميل التسويقي
+     ══════════════════════════════════════════════════════════════ -->
+<section class="toolkit-section" id="email-template">
+    <div class="section-header">
+        <div>
+            <h2>📧 قالب الإيميل التسويقي</h2>
+            <div class="sub">Marketing Email Template — 600px</div>
+        </div>
+        <div class="section-actions">
+            <button class="btn-action" onclick="printSection('email-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                طباعة
+            </button>
+            <button class="btn-action" onclick="copyHTML('email-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                نسخ HTML
+            </button>
+        </div>
+    </div>
+    <div class="section-content">
+        <div class="email-preview" id="email-content">
+            <div class="email-frame">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:600px;margin:0 auto;font-family:'Tajawal',Arial,sans-serif;direction:rtl;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background:linear-gradient(135deg,#030712,#111827);padding:30px 40px;text-align:center;">
+                            <div style="width:50px;height:50px;background:#030712;border:2px solid #D4AF37;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px;">
+                                <span style="color:#D4AF37;font-size:26px;font-weight:900;font-family:'Tajawal',sans-serif;">ش</span>
+                            </div>
+                            <div style="font-size:22px;font-weight:900;color:#D4AF37;margin-bottom:2px;">شيخة</div>
+                            <div style="font-size:10px;color:#9ca3af;letter-spacing:4px;font-weight:700;">SHEIKHA</div>
+                        </td>
+                    </tr>
+                    <!-- Hero Text -->
+                    <tr>
+                        <td style="padding:36px 40px 20px;text-align:center;">
+                            <div style="font-size:24px;font-weight:800;color:#030712;margin-bottom:12px;line-height:1.5;">مرحباً بك في منظومة شيخة</div>
+                            <div style="font-size:14px;color:#6b7280;line-height:1.8;">أول سوق إسلامي رقمي للمعادن والسكراب — مبني على مبادئ سوق المدينة المنورة الذي أسسه النبي ﷺ</div>
+                        </td>
+                    </tr>
+                    <!-- 4 Features -->
+                    <tr>
+                        <td style="padding:10px 40px 30px;">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td width="50%" style="padding:8px;">
+                                        <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:18px;text-align:center;">
+                                            <div style="font-size:24px;margin-bottom:6px;">🕌</div>
+                                            <div style="font-size:13px;font-weight:700;color:#030712;margin-bottom:4px;">توافق شرعي</div>
+                                            <div style="font-size:11px;color:#6b7280;line-height:1.5;">معاملات متوافقة مع الشريعة</div>
+                                        </div>
+                                    </td>
+                                    <td width="50%" style="padding:8px;">
+                                        <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:18px;text-align:center;">
+                                            <div style="font-size:24px;margin-bottom:6px;">📊</div>
+                                            <div style="font-size:13px;font-weight:700;color:#030712;margin-bottom:4px;">أسعار لحظية</div>
+                                            <div style="font-size:11px;color:#6b7280;line-height:1.5;">تحديث مباشر من الأسواق</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="50%" style="padding:8px;">
+                                        <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:18px;text-align:center;">
+                                            <div style="font-size:24px;margin-bottom:6px;">🔒</div>
+                                            <div style="font-size:13px;font-weight:700;color:#030712;margin-bottom:4px;">أمان متقدم</div>
+                                            <div style="font-size:11px;color:#6b7280;line-height:1.5;">تشفير وحماية كاملة</div>
+                                        </div>
+                                    </td>
+                                    <td width="50%" style="padding:8px;">
+                                        <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:18px;text-align:center;">
+                                            <div style="font-size:24px;margin-bottom:6px;">🤖</div>
+                                            <div style="font-size:13px;font-weight:700;color:#030712;margin-bottom:4px;">ذكاء اصطناعي</div>
+                                            <div style="font-size:11px;color:#6b7280;line-height:1.5;">تحليلات ذكية متقدمة</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- CTA -->
+                    <tr>
+                        <td style="padding:0 40px 30px;text-align:center;">
+                            <a href="https://sheikha.top" style="display:inline-block;background:linear-gradient(135deg,#D4AF37,#b8942f);color:#030712;text-decoration:none;padding:14px 40px;border-radius:10px;font-size:16px;font-weight:800;font-family:'Tajawal',sans-serif;">ابدأ الآن — sheikha.top</a>
+                        </td>
+                    </tr>
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background:#f9fafb;padding:20px 40px;text-align:center;border-top:1px solid #e5e7eb;">
+                            <div style="font-size:11px;color:#9ca3af;line-height:1.8;">
+                                منظومة شيخة للتجارة | market@sheikha.top | +966 554 942 904<br>
+                                «خير الناس أنفعهم للناس»
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 6: خطاب رسمي
+     ══════════════════════════════════════════════════════════════ -->
+<section class="toolkit-section" id="letterhead">
+    <div class="section-header">
+        <div>
+            <h2>📄 خطاب رسمي</h2>
+            <div class="sub">Official Letterhead — A4</div>
+        </div>
+        <div class="section-actions">
+            <button class="btn-action" onclick="printSection('letterhead-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                طباعة
+            </button>
+            <button class="btn-action" onclick="copyHTML('letterhead-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                نسخ HTML
+            </button>
+        </div>
+    </div>
+    <div class="section-content">
+        <div class="letterhead-preview" id="letterhead-content">
+            <div class="letterhead-page">
+                <!-- Header -->
+                <div class="lh-header">
+                    <div style="display:flex;align-items:center;gap:14px;">
+                        <svg class="lh-logo" viewBox="0 0 120 120" style="width:60px;height:60px;"><defs><linearGradient id="gG4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs><circle cx="60" cy="60" r="56" fill="#030712" stroke="url(#gG4)" stroke-width="3"/><text x="60" y="78" text-anchor="middle" fill="url(#gG4)" font-size="52" font-weight="900" font-family="Tajawal">ش</text></svg>
+                        <div>
+                            <div style="font-size:1.3rem;font-weight:900;color:#D4AF37;">شيخة</div>
+                            <div style="font-size:.65rem;color:#9ca3af;letter-spacing:.2em;font-weight:700;">SHEIKHA</div>
+                        </div>
+                    </div>
+                    <div class="lh-info">
+                        <div>market@sheikha.top</div>
+                        <div>+966 554 942 904</div>
+                        <div>sheikha.top</div>
+                    </div>
+                </div>
+                <!-- Body -->
+                <div class="lh-body">
+                    <div class="bismillah">بسم الله الرحمن الرحيم</div>
+                    <div class="date-ref">
+                        <span>التاريخ: _____ / _____ / ١٤٤٧ هـ</span>
+                        <span>الرقم المرجعي: SH-_______</span>
+                    </div>
+                    <div style="font-size:.95rem;font-weight:700;color:#030712;margin-top:16px;">
+                        السيد / السادة المحترمين<br>
+                        السلام عليكم ورحمة الله وبركاته
+                    </div>
+                    <div style="font-size:.95rem;font-weight:700;color:#D4AF37;margin-top:8px;">
+                        الموضوع: ___________________________
+                    </div>
+                    <div class="body-text">
+                        <p>أما بعد،</p>
+                        <p>يسرنا في منظومة شيخة أن نتقدم إليكم بهذا الخطاب...</p>
+                        <p style="color:#ccc;">[محتوى الخطاب هنا]</p>
+                    </div>
+                    <div style="margin-top:16px;font-size:.9rem;color:#374151;">
+                        وتفضلوا بقبول فائق الاحترام والتقدير،
+                    </div>
+                    <div class="sig-area" style="margin-top:40px;">
+                        <div class="sig-name">سلمان أحمد بن سلمان الراجح</div>
+                        <div class="sig-role">المؤسس والرئيس التنفيذي</div>
+                    </div>
+                </div>
+                <!-- Footer -->
+                <div class="lh-footer">
+                    <span>منظومة شيخة للتجارة</span>
+                    <span>market@sheikha.top | +966 554 942 904 | sheikha.top</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 7: ملف تأهيل الموردين
+     ══════════════════════════════════════════════════════════════ -->
+<section class="toolkit-section" id="vendor">
+    <div class="section-header">
+        <div>
+            <h2>📋 ملف تأهيل الموردين</h2>
+            <div class="sub">Vendor Qualification Profile — A4</div>
+        </div>
+        <div class="section-actions">
+            <button class="btn-action" onclick="printSection('vendor-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                طباعة
+            </button>
+            <button class="btn-action" onclick="copyHTML('vendor-content')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                نسخ HTML
+            </button>
+        </div>
+    </div>
+    <div class="section-content">
+        <div class="vendor-preview" id="vendor-content">
+            <div class="vendor-page">
+                <!-- Header -->
+                <div class="vendor-header">
+                    <div class="vh-right">
+                        <svg viewBox="0 0 120 120"><defs><linearGradient id="gG5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs><circle cx="60" cy="60" r="56" fill="#030712" stroke="url(#gG5)" stroke-width="3"/><text x="60" y="78" text-anchor="middle" fill="url(#gG5)" font-size="52" font-weight="900" font-family="Tajawal">ش</text></svg>
+                        <div>
+                            <div class="vh-title">ملف تأهيل الموردين</div>
+                            <div class="vh-sub">Vendor Qualification Profile</div>
+                        </div>
+                    </div>
+                    <div class="vh-left">
+                        <div>SHEIKHA</div>
+                        <div>sheikha.top</div>
+                        <div>market@sheikha.top</div>
+                    </div>
+                </div>
+
+                <!-- Body -->
+                <div class="vendor-body">
+
+                    <!-- 1. Company Profile -->
+                    <div class="qual-section">
+                        <h3>١. الملف التعريفي للشركة — Company Profile</h3>
+                        <div class="qual-row"><div class="ql">اسم الشركة</div><div class="qv">منظومة شيخة للتجارة</div></div>
+                        <div class="qual-row"><div class="ql">الاسم التجاري</div><div class="qv">SHEIKHA — شيخة</div></div>
+                        <div class="qual-row"><div class="ql">سنة التأسيس</div><div class="qv">٢٠٢٤م</div></div>
+                        <div class="qual-row"><div class="ql">نوع النشاط</div><div class="qv">سوق إسلامي رقمي للمعادن والسكراب</div></div>
+                        <div class="qual-row"><div class="ql">المالك</div><div class="qv">سلمان أحمد بن سلمان الراجح</div></div>
+                        <div class="qual-row"><div class="ql">العنوان</div><div class="qv">المملكة العربية السعودية</div></div>
+                        <div class="qual-row"><div class="ql">الهاتف</div><div class="qv" style="direction:ltr;text-align:right;">+966 554 942 904</div></div>
+                        <div class="qual-row"><div class="ql">البريد الإلكتروني</div><div class="qv">market@sheikha.top</div></div>
+                        <div class="qual-row"><div class="ql">الموقع الإلكتروني</div><div class="qv">sheikha.top</div></div>
+                    </div>
+
+                    <!-- 2. Licenses -->
+                    <div class="qual-section">
+                        <h3>٢. التراخيص والتسجيلات — Licenses & Registrations</h3>
+                        <div class="qual-row"><div class="ql">السجل التجاري</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">الرقم الضريبي</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">رخصة البلدية</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">شهادة الزكاة</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">تصنيف المقاولين</div><div class="qv">_________________</div></div>
+                    </div>
+
+                    <!-- 3. Financials -->
+                    <div class="qual-section">
+                        <h3>٣. المعلومات المالية — Financial Information</h3>
+                        <div class="qual-row"><div class="ql">البنك الرئيسي</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">رأس المال</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">الإيراد السنوي</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">تقرير مدقق الحسابات</div><div class="qv">متوفر عند الطلب</div></div>
+                    </div>
+
+                    <!-- 4. Track Record -->
+                    <div class="qual-section">
+                        <h3>٤. السجل المهني — Track Record</h3>
+                        <div class="qual-row"><div class="ql">عدد المشاريع المنجزة</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">أبرز العملاء</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">المشاريع الحالية</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">شهادات الإنجاز</div><div class="qv">متوفرة عند الطلب</div></div>
+                    </div>
+
+                    <!-- 5. Quality & HSE -->
+                    <div class="qual-section">
+                        <h3>٥. الجودة والسلامة — Quality & HSE</h3>
+                        <div class="qual-row"><div class="ql">ISO 9001</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">ISO 14001</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">ISO 45001</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">سياسة السلامة</div><div class="qv">متوفرة عند الطلب</div></div>
+                    </div>
+
+                    <!-- 6. Insurance -->
+                    <div class="qual-section">
+                        <h3>٦. التأمين — Insurance</h3>
+                        <div class="qual-row"><div class="ql">تأمين المسؤولية</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">تأمين الممتلكات</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">تأمين العمال</div><div class="qv">_________________</div></div>
+                    </div>
+
+                    <!-- 7. Technical Capabilities -->
+                    <div class="qual-section">
+                        <h3>٧. القدرات التقنية — Technical Capabilities</h3>
+                        <div class="qual-row"><div class="ql">المعدات الرئيسية</div><div class="qv">منصة رقمية متكاملة — ذكاء اصطناعي — أنظمة تحليل بيانات</div></div>
+                        <div class="qual-row"><div class="ql">التقنيات المستخدمة</div><div class="qv">تطبيقات ويب حديثة — أنظمة أمان متقدمة — تكامل API</div></div>
+                        <div class="qual-row"><div class="ql">البنية التحتية</div><div class="qv">خوادم سحابية عالية الأداء — نسخ احتياطي مستمر</div></div>
+                    </div>
+
+                    <!-- 8. Key Personnel -->
+                    <div class="qual-section">
+                        <h3>٨. الكوادر الرئيسية — Key Personnel</h3>
+                        <div class="qual-row"><div class="ql">المؤسس والرئيس التنفيذي</div><div class="qv">سلمان أحمد بن سلمان الراجح</div></div>
+                        <div class="qual-row"><div class="ql">مدير التقنية</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">مدير العمليات</div><div class="qv">_________________</div></div>
+                        <div class="qual-row"><div class="ql">إجمالي الموظفين</div><div class="qv">_________________</div></div>
+                    </div>
+
+                    <!-- 9. References -->
+                    <div class="qual-section">
+                        <h3>٩. المراجع — References</h3>
+                        <div class="qual-row"><div class="ql">المرجع الأول</div><div class="qv">الاسم: _____________ | الهاتف: _____________ | الشركة: _____________</div></div>
+                        <div class="qual-row"><div class="ql">المرجع الثاني</div><div class="qv">الاسم: _____________ | الهاتف: _____________ | الشركة: _____________</div></div>
+                        <div class="qual-row"><div class="ql">المرجع الثالث</div><div class="qv">الاسم: _____________ | الهاتف: _____________ | الشركة: _____________</div></div>
+                    </div>
+
+                </div>
+
+                <!-- Footer -->
+                <div class="vendor-footer">
+                    منظومة شيخة للتجارة | SHEIKHA | market@sheikha.top | +966 554 942 904 | sheikha.top
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+    // ── Active nav link highlighting ──
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('.toolkit-section');
+
+    function updateActiveNav() {
+        let current = '';
+        sections.forEach(section => {
+            const top = section.offsetTop - 120;
+            if (window.scrollY >= top) current = section.id;
+        });
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+        });
+    }
+    window.addEventListener('scroll', updateActiveNav);
+    updateActiveNav();
+
+    // ── Smooth scroll for nav links ──
+    navLinks.forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    // ── Print Section ──
+    function printSection(id) {
+        const content = document.getElementById(id);
+        if (!content) return;
+        const printWin = window.open('', '_blank', 'width=900,height=700');
+        printWin.document.write(`<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>طباعة — شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: #fff; color: #1a1a1a; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        @media print {
+            body { background: #fff !important; }
+            @page { margin: 0; }
+        }
+        ${document.querySelector('style').textContent}
+    </style>
+</head>
+<body>${content.innerHTML}</body>
+</html>`);
+        printWin.document.close();
+        printWin.onload = () => {
+            setTimeout(() => { printWin.print(); }, 500);
+        };
+    }
+
+    // ── Copy HTML ──
+    function copyHTML(id) {
+        const content = document.getElementById(id);
+        if (!content) return;
+        const html = content.innerHTML;
+        navigator.clipboard.writeText(html).then(() => {
+            showToast('تم نسخ HTML بنجاح ✓');
+        }).catch(() => {
+            // Fallback
+            const ta = document.createElement('textarea');
+            ta.value = html;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast('تم نسخ HTML بنجاح ✓');
+        });
+    }
+
+    // ── Toast ──
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+</script>
+<script src="/js/sheikha-itqan.js"></script>
+</body>
+</html>

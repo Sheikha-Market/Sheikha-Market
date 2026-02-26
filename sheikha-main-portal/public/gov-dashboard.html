@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شيخة — لوحة التحكم الحكومية | Gov Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@600;700;800;900&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--gold:#D4AF37;--gold-l:#F5E6A3;--gold-d:#8B7321;--copper:#B87333;--bg:#050810;--bg2:#0B1120;--bg3:#111827;--txt:#FFF;--txt2:#B0B8C8;--txt3:#6B7A90;--green:#10b981;--red:#ef4444;--blue:#0ea5e9;--r:14px}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+
+        /* NAV */
+        .nav{background:rgba(5,8,16,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,.06);padding:0 24px;position:sticky;top:0;z-index:100}
+        .nav-c{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:54px}
+        .nav-logo{display:flex;align-items:center;gap:10px}
+        .nav-logo svg{width:28px;height:28px}
+        .nav-logo .brand{font-family:'Cairo';font-size:1rem;font-weight:900;color:var(--gold)}
+        .nav-logo .sub{font-size:.65rem;color:var(--txt3)}
+        .nav-badge{padding:3px 10px;border-radius:6px;background:rgba(14,165,233,.08);color:var(--blue);font-size:.7rem;font-weight:700;border:1px solid rgba(14,165,233,.15)}
+
+        /* HERO */
+        .hero{text-align:center;padding:40px 24px 24px;position:relative}
+        .hero::before{content:'';position:absolute;top:0;left:0;right:0;height:250px;background:radial-gradient(ellipse at 50% 0%,rgba(14,165,233,.03),transparent 60%);pointer-events:none}
+        .hero h1{font-family:'Cairo';font-size:clamp(1.4rem,3vw,2rem);font-weight:900;position:relative}
+        .hero h1 span{color:var(--blue)}
+        .hero p{color:var(--txt3);font-size:.85rem;margin-top:6px}
+
+        /* CONTAINER */
+        .container{max-width:1000px;margin:0 auto;padding:0 24px 40px}
+
+        /* STATUS GRID */
+        .status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px}
+        .stat{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:var(--r);padding:16px;text-align:center;transition:all .3s}
+        .stat:hover{border-color:rgba(212,175,55,.12);transform:translateY(-2px)}
+        .stat .label{font-size:.75rem;color:var(--txt3);margin-bottom:6px}
+        .stat .val{font-family:'Outfit';font-size:1.4rem;font-weight:700}
+        .stat .val.ok{color:var(--green)}
+        .stat .val.err{color:var(--red)}
+        .stat .val.wait{color:var(--gold)}
+
+        /* ACTION ROW */
+        .actions{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap}
+        .btn{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:var(--bg2);color:var(--txt);font-family:'Tajawal';font-size:.85rem;font-weight:600;cursor:pointer;transition:all .3s}
+        .btn:hover{background:rgba(212,175,55,.06);border-color:rgba(212,175,55,.15);transform:translateY(-1px)}
+        .btn-primary{background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--bg);border:none}
+        .btn-primary:hover{box-shadow:0 8px 24px rgba(212,175,55,.2)}
+
+        /* SERVICE CARDS */
+        .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:16px;margin-bottom:24px}
+        @media(max-width:520px){.services{grid-template-columns:1fr}}
+        .svc{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:var(--r);overflow:hidden;transition:all .3s}
+        .svc:hover{border-color:rgba(212,175,55,.1)}
+        .svc-h{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.03)}
+        .svc-h .name{font-weight:700;font-size:.9rem}
+        .svc-h .port{font-family:'Outfit';font-size:.75rem;color:var(--txt3);padding:2px 8px;background:rgba(255,255,255,.03);border-radius:6px}
+        .svc-status{padding:4px 10px;border-radius:6px;font-size:.72rem;font-weight:700}
+        .svc-status.online{background:rgba(16,185,129,.1);color:var(--green)}
+        .svc-status.offline{background:rgba(239,68,68,.1);color:var(--red)}
+        .svc-status.checking{background:rgba(212,175,55,.1);color:var(--gold)}
+        .svc-b{padding:14px 16px}
+        .svc-url{font-family:'Outfit';font-size:.8rem;color:var(--txt2);direction:ltr;text-align:left;word-break:break-all;background:rgba(0,0,0,.2);padding:8px 10px;border-radius:8px;margin-bottom:10px}
+        .svc-checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px}
+        .chk{display:flex;align-items:center;gap:6px;padding:6px 8px;background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.03);border-radius:8px;font-size:.75rem}
+        .chk .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+        .dot.g{background:var(--green);box-shadow:0 0 6px rgba(16,185,129,.3)}
+        .dot.r{background:var(--red);box-shadow:0 0 6px rgba(239,68,68,.3)}
+        .dot.y{background:var(--gold);box-shadow:0 0 6px rgba(212,175,55,.3)}
+        .svc-body{padding:10px 16px;font-family:'Outfit';font-size:.75rem;color:var(--txt3);max-height:180px;overflow-y:auto;background:rgba(0,0,0,.15);direction:ltr;text-align:left;white-space:pre-wrap;word-break:break-all}
+
+        /* LOGS */
+        .log-box{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:var(--r);margin-bottom:24px}
+        .log-h{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.03);display:flex;align-items:center;justify-content:space-between}
+        .log-h h3{font-size:.9rem;font-weight:700}
+        .log-entries{padding:10px 16px;max-height:200px;overflow-y:auto}
+        .log-e{display:flex;gap:8px;padding:4px 0;font-size:.78rem;border-bottom:1px solid rgba(255,255,255,.02)}
+        .log-e:last-child{border:none}
+        .log-time{font-family:'Outfit';color:var(--txt3);min-width:60px}
+        .log-msg{color:var(--txt2);flex:1}
+
+        /* FOOTER */
+        .footer{text-align:center;padding:20px;color:var(--txt3);font-size:.75rem;border-top:1px solid rgba(212,175,55,.04)}
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-c">
+            <div class="nav-logo">
+                <svg viewBox="0 0 44 44" fill="none"><defs><linearGradient id="ng" x1="4" y1="4" x2="40" y2="40"><stop offset="0%" stop-color="#F5E6A3"/><stop offset="40%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#B87333"/></linearGradient></defs><rect x="8" y="8" width="28" height="28" rx="1.5" fill="none" stroke="url(#ng)" stroke-width="1" transform="rotate(0 22 22)"/><rect x="8" y="8" width="28" height="28" rx="1.5" fill="none" stroke="url(#ng)" stroke-width="1" transform="rotate(45 22 22)"/><line x1="22" y1="13" x2="22" y2="33" stroke="#D4AF37" stroke-width=".8"/><line x1="13" y1="18" x2="31" y2="18" stroke="#D4AF37" stroke-width=".8"/><polygon points="22,15 24,17 22,19 20,17" fill="none" stroke="#D4AF37" stroke-width=".7"/><circle cx="22" cy="17" r=".8" fill="#D4AF37"/></svg>
+                <div><div class="brand">شيخة</div><div class="sub">لوحة التحكم الحكومية</div></div>
+            </div>
+            <span class="nav-badge">🏛️ GOV DASHBOARD</span>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>لوحة التحكم <span>الحكومية</span></h1>
+        <p>مراقبة حالة منظومة شيخة — الخوادم والخدمات وفحوصات الصحة</p>
+    </div>
+
+    <div class="container">
+        <!-- Status Grid -->
+        <div class="status-grid">
+            <div class="stat"><div class="label">الخادم الرئيسي</div><div class="val wait" id="st-main">—</div></div>
+            <div class="stat"><div class="label">السوق العالمي</div><div class="val wait" id="st-market">—</div></div>
+            <div class="stat"><div class="label">Nginx Proxy</div><div class="val wait" id="st-nginx">—</div></div>
+            <div class="stat"><div class="label">الاستجابة</div><div class="val wait" id="st-latency">—</div></div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+            <button class="btn btn-primary" onclick="runAllChecks()">🔍 فحص شامل — Run All Checks</button>
+            <button class="btn" onclick="runAllChecks()">🔄 تحديث</button>
+            <button class="btn" onclick="clearLogs()">🗑️ مسح السجل</button>
+        </div>
+
+        <!-- Service Cards -->
+        <div class="services">
+            <!-- Main Portal -->
+            <div class="svc">
+                <div class="svc-h">
+                    <div><span class="name">البوابة الرئيسية</span> <span class="port">:8080</span></div>
+                    <span class="svc-status checking" id="svc1-st">جارٍ الفحص...</span>
+                </div>
+                <div class="svc-b">
+                    <div class="svc-url" id="svc1-url"></div>
+                    <div class="svc-checks" id="svc1-checks"></div>
+                </div>
+                <div class="svc-body" id="svc1-body">اضغط "فحص شامل" للبدء...</div>
+            </div>
+            <!-- Marketplace -->
+            <div class="svc">
+                <div class="svc-h">
+                    <div><span class="name">السوق العالمي</span> <span class="port">:23000</span></div>
+                    <span class="svc-status checking" id="svc2-st">جارٍ الفحص...</span>
+                </div>
+                <div class="svc-b">
+                    <div class="svc-url" id="svc2-url"></div>
+                    <div class="svc-checks" id="svc2-checks"></div>
+                </div>
+                <div class="svc-body" id="svc2-body">اضغط "فحص شامل" للبدء...</div>
+            </div>
+        </div>
+
+        <!-- Activity Log -->
+        <div class="log-box">
+            <div class="log-h"><h3>📋 سجل الأحداث</h3><span style="font-size:.7rem;color:var(--txt3)" id="log-count">0 أحداث</span></div>
+            <div class="log-entries" id="log-entries"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div>منظومة وسوق شيخة — SHEIKHA &copy; 2026 | المالك: سلمان أحمد بن سلمان الراجح</div>
+        <div style="margin-top:4px">«وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة 275</div>
+    </footer>
+
+<script>
+const IP = '31.97.190.74';
+
+// Detect base: if opened from VPS domain, use relative paths. If local file, use IP.
+const IS_LOCAL = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+const BASE = IS_LOCAL ? 'http://' + IP : '';
+
+const ENDPOINTS = {
+    main:   { health: BASE + '/api8080/api/health',  name: 'البوابة الرئيسية', port: 8080 },
+    market: { health: BASE + '/api23000/api/health', name: 'السوق العالمي',    port: 23000 },
+    nginx:  { health: BASE + '/healthz',             name: 'Nginx' }
+};
+
+// If running on domain directly, use simpler paths
+if (!IS_LOCAL && location.hostname.includes('sheikha.top')) {
+    ENDPOINTS.main.health = '/api/health';
+    ENDPOINTS.market.health = '/market/api/health';
+    ENDPOINTS.nginx.health = '/healthz';
+}
+
+document.getElementById('svc1-url').textContent = ENDPOINTS.main.health;
+document.getElementById('svc2-url').textContent = ENDPOINTS.market.health;
+
+let logEntries = [];
+
+function addLog(msg, type='info') {
+    const now = new Date();
+    const time = now.toLocaleTimeString('ar-SA', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    logEntries.unshift({ time, msg, type });
+    renderLogs();
+}
+
+function renderLogs() {
+    const el = document.getElementById('log-entries');
+    el.innerHTML = logEntries.slice(0, 50).map(e => {
+        const c = e.type === 'ok' ? 'var(--green)' : e.type === 'err' ? 'var(--red)' : 'var(--txt2)';
+        return '<div class="log-e"><span class="log-time">' + e.time + '</span><span class="log-msg" style="color:' + c + '">' + e.msg + '</span></div>';
+    }).join('');
+    document.getElementById('log-count').textContent = logEntries.length + ' أحداث';
+}
+
+function clearLogs() { logEntries = []; renderLogs(); addLog('تم مسح السجل'); }
+
+async function checkService(key, stEl, bodyEl, checksEl) {
+    const ep = ENDPOINTS[key];
+    const statusEl = document.getElementById(stEl);
+    const bEl = document.getElementById(bodyEl);
+    const cEl = checksEl ? document.getElementById(checksEl) : null;
+
+    statusEl.textContent = 'جارٍ الفحص...';
+    statusEl.className = 'svc-status checking';
+    addLog('بدء فحص: ' + ep.name);
+
+    const t0 = performance.now();
+    try {
+        const r = await fetch(ep.health, { method: 'GET', signal: AbortSignal.timeout(8000) });
+        const latency = Math.round(performance.now() - t0);
+        const txt = await r.text();
+
+        if (r.ok) {
+            statusEl.textContent = '✅ متصل — ' + r.status + ' (' + latency + 'ms)';
+            statusEl.className = 'svc-status online';
+            addLog(ep.name + ' ✅ متصل (' + latency + 'ms)', 'ok');
+
+            try {
+                const data = JSON.parse(txt);
+                bEl.textContent = JSON.stringify(data, null, 2);
+
+                if (cEl && data.checks) {
+                    cEl.innerHTML = Object.entries(data.checks).map(([k,v]) => {
+                        const dot = v ? 'g' : 'r';
+                        const label = v ? '✓ ' + k : '✗ ' + k;
+                        return '<div class="chk"><span class="dot ' + dot + '"></span>' + label + '</div>';
+                    }).join('');
+                }
+            } catch(e) { bEl.textContent = txt.slice(0, 2000); }
+
+            return { ok: true, latency };
+        } else {
+            statusEl.textContent = '⚠️ خطأ — ' + r.status;
+            statusEl.className = 'svc-status offline';
+            bEl.textContent = txt.slice(0, 2000);
+            addLog(ep.name + ' ⚠️ خطأ HTTP ' + r.status, 'err');
+            return { ok: false, latency };
+        }
+    } catch(e) {
+        const latency = Math.round(performance.now() - t0);
+        statusEl.textContent = '❌ غير متاح';
+        statusEl.className = 'svc-status offline';
+        bEl.textContent = String(e);
+        addLog(ep.name + ' ❌ ' + e.message, 'err');
+        return { ok: false, latency };
+    }
+}
+
+async function runAllChecks() {
+    addLog('═══ بدء الفحص الشامل ═══');
+
+    // Quick stat reset
+    ['st-main','st-market','st-nginx','st-latency'].forEach(id => {
+        const el = document.getElementById(id);
+        el.textContent = '...';
+        el.className = 'val wait';
+    });
+
+    // Check Main Portal
+    const r1 = await checkService('main', 'svc1-st', 'svc1-body', 'svc1-checks');
+    const stMain = document.getElementById('st-main');
+    stMain.textContent = r1.ok ? 'متصل' : 'منقطع';
+    stMain.className = 'val ' + (r1.ok ? 'ok' : 'err');
+
+    // Check Marketplace
+    const r2 = await checkService('market', 'svc2-st', 'svc2-body', 'svc2-checks');
+    const stMarket = document.getElementById('st-market');
+    stMarket.textContent = r2.ok ? 'متصل' : 'منقطع';
+    stMarket.className = 'val ' + (r2.ok ? 'ok' : 'err');
+
+    // Check Nginx
+    try {
+        const t0 = performance.now();
+        const nr = await fetch(ENDPOINTS.nginx.health, { signal: AbortSignal.timeout(5000) });
+        const nl = Math.round(performance.now() - t0);
+        const stNginx = document.getElementById('st-nginx');
+        stNginx.textContent = nr.ok ? 'متصل' : 'خطأ';
+        stNginx.className = 'val ' + (nr.ok ? 'ok' : 'err');
+        addLog('Nginx ' + (nr.ok ? '✅' : '❌') + ' (' + nl + 'ms)', nr.ok ? 'ok' : 'err');
+    } catch(e) {
+        document.getElementById('st-nginx').textContent = 'منقطع';
+        document.getElementById('st-nginx').className = 'val err';
+        addLog('Nginx ❌ ' + e.message, 'err');
+    }
+
+    // Latency avg
+    const avgLat = Math.round((r1.latency + r2.latency) / 2);
+    const stLat = document.getElementById('st-latency');
+    stLat.textContent = avgLat + 'ms';
+    stLat.className = 'val ' + (avgLat < 500 ? 'ok' : avgLat < 2000 ? 'wait' : 'err');
+
+    addLog('═══ الفحص مكتمل ═══', (r1.ok && r2.ok) ? 'ok' : 'err');
+}
+
+// Auto-check on load
+window.addEventListener('DOMContentLoaded', () => { setTimeout(runAllChecks, 500); });
+</script>
+<script src="/js/sheikha-itqan.js"></script>
+</body>
+</html>

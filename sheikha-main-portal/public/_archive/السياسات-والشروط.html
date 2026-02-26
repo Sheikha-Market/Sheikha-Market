@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="السياسات والشروط والأحكام - منظومة شيخة">
+    <title>السياسات والشروط | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            line-height: 1.9;
+        }
+
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #f0d060, #d4af37);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #0a0f1a;
+        }
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #d4af37;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 24px;
+            background: radial-gradient(ellipse at center top, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+        .hero h1 span { color: #d4af37; }
+        .hero p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        .policy-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+            justify-content: center;
+        }
+        .policy-tab {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .policy-tab:hover, .policy-tab.active {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: #d4af37;
+            color: #d4af37;
+        }
+
+        .policy-section {
+            display: none;
+        }
+        .policy-section.active {
+            display: block;
+        }
+
+        .policy-card {
+            background: linear-gradient(145deg, rgba(20, 30, 50, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 24px;
+        }
+
+        .policy-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .policy-title-icon {
+            font-size: 2rem;
+        }
+
+        .policy-content h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #d4af37;
+            margin: 28px 0 12px;
+        }
+        .policy-content p {
+            color: #cbd5e1;
+            margin-bottom: 12px;
+        }
+        .policy-content ul {
+            margin-right: 24px;
+            color: #94a3b8;
+        }
+        .policy-content li {
+            margin-bottom: 8px;
+        }
+
+        .sharia-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(0, 108, 53, 0.2), rgba(0, 108, 53, 0.05));
+            border: 1px solid rgba(0, 108, 53, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+
+        .highlight-box {
+            background: rgba(212, 175, 55, 0.1);
+            border-right: 4px solid #d4af37;
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .highlight-box.warning {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+        }
+        .highlight-box.info {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+        }
+
+        .last-update {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            background: rgba(5, 8, 16, 0.95);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 30px 24px;
+            text-align: center;
+        }
+        .footer-prayer {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .policy-card { padding: 24px; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <a href="منظومة-شيخة.html" class="logo">
+            <div class="logo-icon" aria-label="شعار شيخة">
+                <img src="assets/sheikha-mark.svg" alt="شيخة" width="28" height="28" style="display:block; width:28px; height:28px;">
+            </div>
+            <span class="logo-text">منظومة شيخة</span>
+        </a>
+        <nav style="display: flex; gap: 24px;">
+            <a href="منظومة-شيخة.html" style="color: #94a3b8; text-decoration: none;">الرئيسية</a>
+            <a href="سوق-شيخة.html" style="color: #94a3b8; text-decoration: none;">السوق</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <h1>📜 السياسات <span>والشروط</span></h1>
+    <p>الشفافية والوضوح في جميع تعاملاتنا - اقرأ واطمئن</p>
+</section>
+
+<main class="main">
+
+    <div class="policy-nav">
+        <div class="policy-tab active" onclick="showPolicy('terms')">شروط الاستخدام</div>
+        <div class="policy-tab" onclick="showPolicy('privacy')">سياسة الخصوصية</div>
+        <div class="policy-tab" onclick="showPolicy('cookies')">سياسة الكوكيز</div>
+        <div class="policy-tab" onclick="showPolicy('sales')">شروط البيع والشراء</div>
+        <div class="policy-tab" onclick="showPolicy('shipping')">سياسة الشحن</div>
+        <div class="policy-tab" onclick="showPolicy('merchant')">اتفاقية التاجر</div>
+        <div class="policy-tab" onclick="showPolicy('sharia')">الالتزام الشرعي</div>
+    </div>
+
+    <!-- شروط الاستخدام -->
+    <div class="policy-section active" id="terms">
+        <div class="policy-card">
+            <h2 class="policy-title"><span class="policy-title-icon">📋</span> شروط الاستخدام</h2>
+            <div class="sharia-badge">☪️ متوافق مع الشريعة الإسلامية</div>
+            <div class="policy-content">
+                <h3>1. مقدمة</h3>
+                <p>مرحباً بك في منظومة شيخة. باستخدامك لهذه المنصة، فإنك توافق على الالتزام بهذه الشروط والأحكام.</p>
+                
+                <h3>2. التعريفات</h3>
+                <ul>
+                    <li><strong>المنصة:</strong> منظومة شيخة وسوق شيخة للمعادن</li>
+                    <li><strong>المستخدم:</strong> أي شخص يستخدم المنصة سواء كان تاجراً أو مشترياً</li>
+                    <li><strong>الخدمات:</strong> جميع الخدمات المقدمة عبر المنصة</li>
+                </ul>
+
+                <h3>3. الأهلية</h3>
+                <p>يجب أن يكون عمرك 18 سنة على الأقل لاستخدام المنصة. يجب أن تكون الشركات مسجلة بشكل قانوني.</p>
+
+                <h3>4. حقوق الملكية الفكرية</h3>
+                <p>جميع المحتويات على المنصة مملوكة لمنظومة شيخة ومحمية بموجب قوانين حقوق الملكية الفكرية.</p>
+
+                <h3>5. التزامات المستخدم</h3>
+                <ul>
+                    <li>تقديم معلومات صحيحة ودقيقة</li>
+                    <li>عدم استخدام المنصة لأغراض غير قانونية</li>
+                    <li>الالتزام بأحكام الشريعة الإسلامية في جميع المعاملات</li>
+                    <li>عدم الغش أو التضليل في وصف المنتجات</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <strong>⚠️ مهم:</strong> أي مخالفة لهذه الشروط قد تؤدي إلى تعليق أو إلغاء حسابك.
+                </div>
+
+                <h3>6. تعديل الشروط</h3>
+                <p>نحتفظ بالحق في تعديل هذه الشروط في أي وقت. سيتم إخطارك بأي تغييرات جوهرية.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- سياسة الخصوصية -->
+    <div class="policy-section" id="privacy">
+        <div class="policy-card">
+            <h2 class="policy-title"><span class="policy-title-icon">🔒</span> سياسة الخصوصية</h2>
+            <div class="policy-content">
+                <h3>1. المعلومات التي نجمعها</h3>
+                <ul>
+                    <li>معلومات التسجيل (الاسم، البريد الإلكتروني، رقم الهاتف)</li>
+                    <li>معلومات الشركة (السجل التجاري، العنوان)</li>
+                    <li>سجل المعاملات والطلبات</li>
+                    <li>معلومات الدفع (مشفرة وآمنة)</li>
+                </ul>
+
+                <h3>2. كيف نستخدم المعلومات</h3>
+                <ul>
+                    <li>تقديم الخدمات المطلوبة</li>
+                    <li>التواصل معك بخصوص طلباتك</li>
+                    <li>تحسين خدماتنا</li>
+                    <li>الامتثال للمتطلبات القانونية</li>
+                </ul>
+
+                <h3>3. مشاركة المعلومات</h3>
+                <p>لا نبيع أو نؤجر معلوماتك الشخصية. قد نشاركها مع:</p>
+                <ul>
+                    <li>شركاء الشحن لتنفيذ الطلبات</li>
+                    <li>مزودي خدمات الدفع</li>
+                    <li>الجهات الحكومية عند الطلب القانوني</li>
+                </ul>
+
+                <h3>4. حماية البيانات</h3>
+                <div class="highlight-box info">
+                    نستخدم تشفير SSL 256-bit وأحدث تقنيات الأمان لحماية بياناتك.
+                </div>
+
+                <h3>5. حقوقك</h3>
+                <ul>
+                    <li>طلب الوصول إلى بياناتك</li>
+                    <li>طلب تصحيح البيانات غير الدقيقة</li>
+                    <li>طلب حذف بياناتك</li>
+                    <li>الاعتراض على معالجة البيانات</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- سياسة الكوكيز -->
+    <div class="policy-section" id="cookies">
+        <div class="policy-card">
+            <h2 class="policy-title"><span class="policy-title-icon">🍪</span> سياسة الكوكيز</h2>
+            <div class="policy-content">
+                <h3>1. ما هي الكوكيز؟</h3>
+                <p>الكوكيز هي ملفات نصية صغيرة يتم تخزينها على جهازك عند زيارة موقعنا.</p>
+
+                <h3>2. أنواع الكوكيز المستخدمة</h3>
+                <ul>
+                    <li><strong>كوكيز ضرورية:</strong> لتشغيل الموقع بشكل صحيح</li>
+                    <li><strong>كوكيز الأداء:</strong> لتحليل استخدام الموقع</li>
+                    <li><strong>كوكيز الوظائف:</strong> لتذكر تفضيلاتك</li>
+                    <li><strong>كوكيز التسويق:</strong> لعرض إعلانات مخصصة (اختيارية)</li>
+                </ul>
+
+                <h3>3. إدارة الكوكيز</h3>
+                <p>يمكنك التحكم في الكوكيز من خلال إعدادات متصفحك. تعطيل الكوكيز قد يؤثر على بعض وظائف الموقع.</p>
+
+                <h3>4. كوكيز الطرف الثالث</h3>
+                <p>نستخدم خدمات تحليلية مثل Google Analytics. هذه الخدمات لها سياسات خصوصية خاصة بها.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- شروط البيع والشراء -->
+    <div class="policy-section" id="sales">
+        <div class="policy-card">
+            <h2 class="policy-title"><span class="policy-title-icon">🤝</span> شروط البيع والشراء</h2>
+            <div class="sharia-badge">☪️ عقود واضحة بلا غرر ولا غش</div>
+            <div class="policy-content">
+                <h3>1. العقد</h3>
+                <p>يتم إبرام العقد عند قبول البائع لطلب المشتري وتأكيده.</p>
+
+                <h3>2. الأسعار</h3>
+                <ul>
+                    <li>الأسعار معروضة بالريال السعودي</li>
+                    <li>الأسعار قد تتغير حسب سعر السوق للمعادن</li>
+                    <li>السعر النهائي يُثبت عند تأكيد الطلب</li>
+                </ul>
+
+                <h3>3. الدفع</h3>
+                <ul>
+                    <li>الدفع الفوري أو عند الاستلام</li>
+                    <li>التحويل البنكي</li>
+                    <li>خطابات الاعتماد للصفقات الكبيرة</li>
+                </ul>
+
+                <div class="highlight-box warning">
+                    <strong>⚠️ تحذير:</strong> لا نقبل أي معاملات ربوية أو تمويل بفوائد. جميع المعاملات نقدية أو بطرق شرعية.
+                </div>
+
+                <h3>4. المواصفات والجودة</h3>
+                <p>يلتزم البائع بتقديم المنتج حسب المواصفات المعلنة. أي اختلاف جوهري يعطي المشتري حق الإرجاع.</p>
+
+                <h3>5. المسؤولية</h3>
+                <ul>
+                    <li>البائع مسؤول عن جودة المنتج حتى التسليم</li>
+                    <li>المشتري مسؤول عن فحص البضاعة عند الاستلام</li>
+                    <li>الاعتراضات خلال 48 ساعة من الاستلام</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- سياسة الشحن -->
+    <div class="policy-section" id="shipping">
+        <div class="policy-card">
+            <h2 class="policy-title"><span class="policy-title-icon">🚚</span> سياسة الشحن والتوصيل</h2>
+            <div class="policy-content">
+                <h3>1. خيارات الشحن</h3>
+                <ul>
+                    <li><strong>شحن بري:</strong> شاحنات (مسطحة، مغلقة)</li>
+                    <li><strong>سكك حديدية:</strong> للكميات الكبيرة</li>
+                    <li><strong>شحن بحري:</strong> للتصدير الدولي</li>
+                    <li><strong>استلام ذاتي:</strong> من المستودع</li>
+                </ul>
+
+                <h3>2. مدة التوصيل</h3>
+                <ul>
+                    <li>داخل المدينة: 1-2 يوم عمل</li>
+                    <li>داخل المملكة: 3-5 أيام عمل</li>
+                    <li>دول الخليج: 5-10 أيام عمل</li>
+                    <li>دولياً: 10-21 يوم عمل</li>
+                </ul>
+
+                <h3>3. تتبع الشحنة</h3>
+                <p>جميع الشحنات مزودة بنظام تتبع GPS. يمكنك متابعة شحنتك من لوحة التحكم.</p>
+
+                <h3>4. الاستلام</h3>
+                <ul>
+                    <li>فحص البضاعة قبل التوقيع</li>
+                    <li>التأكد من الوزن والكمية</li>
+                    <li>توثيق أي أضرار ظاهرة</li>
+                    <li>الاحتفاظ بسند الاستلام</li>
+                </ul>
+
+                <h3>5. المرتجعات</h3>
+                <p>يمكن إرجاع البضاعة خلال 48 ساعة في حالة:</p>
+                <ul>
+                    <li>اختلاف المواصفات عن المعلن</li>
+                    <li>وجود عيوب مصنعية</li>
+                    <li>أضرار الشحن</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- اتفاقية التاجر -->
+    <div class="policy-section" id="merchant">
+        <div class="policy-card">
+            <h2 class="policy-title"><span class="policy-title-icon">🏪</span> اتفاقية التاجر</h2>
+            <div class="policy-content">
+                <h3>1. التسجيل</h3>
+                <ul>
+                    <li>تقديم السجل التجاري ساري المفعول</li>
+                    <li>شهادة الزكاة والدخل</li>
+                    <li>معلومات صحيحة ومحدثة</li>
+                </ul>
+
+                <h3>2. التزامات التاجر</h3>
+                <ul>
+                    <li>عرض منتجات حلال ومشروعة فقط</li>
+                    <li>الصدق في وصف المنتجات والأسعار</li>
+                    <li>الالتزام بمواعيد التسليم</li>
+                    <li>الرد على استفسارات العملاء خلال 24 ساعة</li>
+                    <li>الاحتفاظ بسجلات دقيقة</li>
+                </ul>
+
+                <h3>3. العمولات</h3>
+                <ul>
+                    <li>الباقة المجانية: 5% عمولة</li>
+                    <li>الباقة الأساسية: 3% عمولة</li>
+                    <li>الباقة الاحترافية: 2% عمولة</li>
+                </ul>
+
+                <h3>4. المحظورات</h3>
+                <div class="highlight-box warning">
+                    <strong>يُحظر على التاجر:</strong>
+                    <ul>
+                        <li>بيع منتجات محرمة أو مغشوشة</li>
+                        <li>التلاعب بالأسعار أو المواصفات</li>
+                        <li>إجراء معاملات خارج المنصة</li>
+                        <li>استخدام معلومات العملاء لأغراض غير مصرح بها</li>
+                    </ul>
+                </div>
+
+                <h3>5. إنهاء الاتفاقية</h3>
+                <p>يحق لنا إنهاء اتفاقية التاجر في حالة المخالفات الجسيمة أو المتكررة.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- الالتزام الشرعي -->
+    <div class="policy-section" id="sharia">
+        <div class="policy-card">
+            <h2 class="policy-title"><span class="policy-title-icon">☪️</span> الالتزام الشرعي</h2>
+            <div class="sharia-badge">☪️ ملتزمون بالكتاب والسنة</div>
+            <div class="policy-content">
+                <h3>1. الأساس الشرعي</h3>
+                <p>تلتزم منظومة شيخة بأحكام الشريعة الإسلامية المستمدة من الكتاب والسنة في جميع معاملاتها.</p>
+
+                <div class="highlight-box">
+                    قال الله تعالى: {وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا} [البقرة: 275]
+                </div>
+
+                <h3>2. المحرمات المجتنبة</h3>
+                <ul>
+                    <li><strong>الربا:</strong> لا قروض بفوائد ولا تمويل ربوي</li>
+                    <li><strong>الغرر:</strong> وضوح تام في المواصفات والأسعار</li>
+                    <li><strong>الغش:</strong> صدق في الوصف والوزن والجودة</li>
+                    <li><strong>الاحتكار:</strong> لا احتكار للمعادن الضرورية</li>
+                    <li><strong>بيع ما لا يُملك:</strong> البائع يملك البضاعة قبل البيع</li>
+                </ul>
+
+                <h3>3. قواعد البيع الشرعي</h3>
+                <ul>
+                    <li>تحديد الثمن والمثمن بوضوح</li>
+                    <li>القدرة على التسليم</li>
+                    <li>العلم بالمبيع ورؤيته أو وصفه</li>
+                    <li>التراضي بين الطرفين</li>
+                </ul>
+
+                <h3>4. آلية الربح</h3>
+                <ul>
+                    <li>العمولة: أجر على الوساطة (السمسرة) - حلال</li>
+                    <li>رسوم الخدمات: أجر على عمل مباح - حلال</li>
+                    <li>هامش الربح: فرق بين سعر الشراء والبيع - حلال</li>
+                </ul>
+
+                <h3>5. فض النزاعات</h3>
+                <p>يتم حل النزاعات ودياً أولاً، ثم عبر التحكيم الشرعي، ثم القضاء وفق الأنظمة السعودية المستمدة من الشريعة.</p>
+
+                <div class="highlight-box">
+                    <strong>دعاء:</strong> لا حول ولا قوة إلا بالله، اللهم اجعل منظومة شيخة بركة وخير على جميع المتعاملين فيها.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="last-update">
+        آخر تحديث: 3 فبراير 2026
+    </div>
+
+</main>
+
+<footer class="footer">
+    <p class="footer-prayer">لا حول ولا قوة إلا بالله - اللهم اجعلها منظومة وسوق بركة وخير 🤲</p>
+</footer>
+
+<script>
+    function showPolicy(id) {
+        // إخفاء جميع الأقسام
+        document.querySelectorAll('.policy-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.policy-tab').forEach(t => t.classList.remove('active'));
+        
+        // إظهار القسم المطلوب
+        document.getElementById(id).classList.add('active');
+        event.target.classList.add('active');
+    }
+</script>
+
+</body>
+</html>

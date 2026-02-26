@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مجتمع شيخة | SHEIKHA Community</title>
+<meta name="description" content="مجتمع شيخة — مجتمع قائم على الصدق والإتقان والتعاون على الخير">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#D4AF37">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--gold-l:#F5E6A3;--gold-d:#A8882B;--copper:#B87333;--bg:#030509;--bg2:#0a0e18;--bg3:#111827;--t1:#f4f4f5;--t2:#a1a1aa;--t3:#71717a;--border:rgba(212,175,55,.07);--green:#006c35;--green-l:#10b981}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.amiri{font-family:'Amiri',serif}
+
+/* ═══ الزخرفة الإسلامية ═══ */
+.geo{position:fixed;inset:0;pointer-events:none;opacity:.012;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='.4'%3E%3Cpolygon points='50,5 72,20 72,50 50,65 28,50 28,20'/%3E%3Ccircle cx='50' cy='35' r='12'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ═══ NAV — 6 روابط فقط ═══ */
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(3,5,9,.96);backdrop-filter:blur(30px);border-bottom:1px solid var(--border)}
+.nv{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 clamp(1rem,4vw,2.5rem)}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-mark{width:36px;height:36px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:36px;height:36px}
+.logo-text .ar{font-size:1.15rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-text .en{font-size:.52rem;font-weight:700;color:var(--t3);letter-spacing:.3em;text-transform:uppercase}
+.nl{display:flex;align-items:center;gap:2px;list-style:none}
+.nl a{color:var(--t2);padding:8px 16px;border-radius:10px;font-size:.84rem;font-weight:600;transition:all .3s;display:block}
+.nl a:hover,.nl a.active{color:var(--gold);background:rgba(212,175,55,.04)}
+.nl .cta{background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--bg);font-weight:800;padding:9px 22px;border-radius:10px}
+.mob-toggle{display:none;background:none;border:1px solid var(--border);color:var(--gold);width:38px;height:38px;border-radius:10px;cursor:pointer;font-size:1.1rem;align-items:center;justify-content:center;font-family:inherit}
+@media(max-width:860px){
+    .nl{display:none}
+    .mob-toggle{display:flex}
+    .nl.mob-open{display:flex;flex-direction:column;position:fixed;top:64px;right:0;left:0;background:rgba(3,5,9,.98);backdrop-filter:blur(30px);padding:1rem;gap:4px;border-bottom:1px solid var(--border)}
+}
+
+/* ═══ HERO ═══ */
+.hero{text-align:center;padding:120px 24px 60px;position:relative}
+.hero::before{content:'';position:absolute;top:40px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(212,175,55,.05) 0%,transparent 70%);pointer-events:none}
+.hero h1{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:900;margin-bottom:14px;position:relative}
+.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--t2);max-width:600px;margin:0 auto;font-size:1.05rem;line-height:1.9}
+
+/* ═══ الأقسام ═══ */
+.section{max-width:900px;margin:0 auto;padding:48px 24px}
+.section-title{text-align:center;margin-bottom:32px}
+.section-title h2{font-size:1.5rem;font-weight:900;margin-bottom:8px}
+.section-title h2 span{background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.section-title p{color:var(--t3);font-size:.9rem;line-height:1.7}
+.sep{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 48px;opacity:.3}
+
+/* ═══ القيم ═══ */
+.values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.value-card{background:var(--bg2);border:1px solid rgba(212,175,55,.06);border-radius:16px;padding:24px 18px;text-align:center;transition:border-color .3s}
+.value-card:hover{border-color:rgba(212,175,55,.15)}
+.value-icon{width:48px;height:48px;margin:0 auto 14px;border-radius:14px;background:rgba(212,175,55,.06);display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+.value-name{font-size:.95rem;font-weight:800;color:var(--gold);margin-bottom:6px}
+.value-desc{font-size:.78rem;color:var(--t3);line-height:1.7}
+
+/* ═══ المساهمات ═══ */
+.contrib-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.contrib-card{background:var(--bg2);border:1px solid rgba(212,175,55,.06);border-radius:16px;padding:24px;transition:border-color .3s}
+.contrib-card:hover{border-color:rgba(212,175,55,.12)}
+.contrib-tag{display:inline-block;font-size:.68rem;font-weight:700;color:var(--gold);background:rgba(212,175,55,.08);padding:4px 12px;border-radius:8px;margin-bottom:12px;letter-spacing:.05em}
+.contrib-card h3{font-size:1rem;font-weight:800;margin-bottom:8px}
+.contrib-card p{font-size:.82rem;color:var(--t2);line-height:1.8}
+
+/* ═══ مجالات المجتمع ═══ */
+.domains-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.domain-card{background:var(--bg2);border:1px solid rgba(212,175,55,.07);border-radius:16px;padding:24px;text-align:center;cursor:default}
+.domain-icon{font-size:1.8rem;margin-bottom:12px;line-height:1}
+.domain-card h3{font-size:.98rem;font-weight:800;color:var(--gold);margin-bottom:8px}
+.domain-card p{font-size:.82rem;color:var(--t2);line-height:1.8}
+.knowledge-card{text-decoration:none;cursor:pointer;transition:all .3s ease}
+.knowledge-card:hover{border-color:rgba(212,175,55,.2);transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.knowledge-card--saudi{border-color:rgba(0,108,53,.12)}
+.knowledge-card--saudi:hover{border-color:rgba(0,108,53,.3)}
+
+/* ═══ الميثاق ═══ */
+.charter-list{display:flex;flex-direction:column;gap:12px}
+.charter-item{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:var(--bg2);border:1px solid rgba(212,175,55,.06);border-radius:14px;transition:border-color .3s}
+.charter-item:hover{border-color:rgba(212,175,55,.12)}
+.charter-num{width:36px;height:36px;border-radius:10px;background:rgba(212,175,55,.08);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;color:var(--gold);flex-shrink:0}
+.charter-text h4{font-size:.92rem;font-weight:800;margin-bottom:4px}
+.charter-text p{font-size:.8rem;color:var(--t2);line-height:1.7}
+
+/* ═══ الانضمام ═══ */
+.join{text-align:center;padding:48px 24px 64px;max-width:600px;margin:0 auto}
+.join h2{font-size:1.3rem;font-weight:900;margin-bottom:10px}
+.join h2 span{background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.join p{color:var(--t3);font-size:.88rem;line-height:1.8;margin-bottom:28px}
+.join-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--bg);font-weight:800;font-size:1rem;border:none;border-radius:14px;cursor:pointer;transition:all .3s;font-family:'Tajawal',sans-serif;box-shadow:0 4px 24px rgba(212,175,55,.2)}
+.join-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,175,55,.3)}
+.join-btn svg{width:20px;height:20px}
+.join-links{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.join-secondary{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border:1px solid rgba(212,175,55,.22);border-radius:12px;color:var(--gold);font-weight:700;font-size:.92rem;transition:all .25s}
+.join-secondary:hover{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.42)}
+
+/* ═══ FOOTER ═══ */
+footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center}
+.fbot{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:8px;align-items:center}
+.fbot .cp{font-size:.75rem;color:var(--t3)}
+.fbot .pr{font-size:.82rem;color:rgba(212,175,55,.25)}
+.fbot a{color:var(--t3);font-size:.75rem;transition:color .2s}
+.fbot a:hover{color:var(--gold)}
+.f-links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="geo"></div>
+
+<!-- ═══ NAV — 6 روابط معتمدة ═══ -->
+<nav><div class="nv">
+    <a href="/" class="logo">
+        <div class="logo-mark">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="g1" x1="20%" y1="0%" x2="80%" y2="100%"><stop offset="0%" stop-color="#FBF0C8"/><stop offset="30%" stop-color="#E8C94A"/><stop offset="60%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#A8882B"/></linearGradient>
+                    <linearGradient id="g1c" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#FBF0C8"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient>
+                    <filter id="nGl"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                </defs>
+                <polygon points="100,12 120,80 188,80 132,120 152,188 100,148 48,188 68,120 12,80 80,80" fill="url(#g1)" opacity=".08"/>
+                <polygon points="100,12 120,80 188,80 132,120 152,188 100,148 48,188 68,120 12,80 80,80" stroke="url(#g1)" stroke-width="1.8" fill="none" opacity=".35"/>
+                <circle cx="100" cy="100" r="42" stroke="url(#g1)" stroke-width="1.5" fill="rgba(212,175,55,.02)" opacity=".25"/>
+                <rect x="97" y="42" width="6" height="108" rx="3" fill="url(#g1)" opacity=".65"/>
+                <circle cx="100" cy="40" r="7" fill="url(#g1c)" filter="url(#nGl)"/>
+                <rect x="48" y="78" width="104" height="4" rx="2" fill="url(#g1)" opacity=".6"/>
+                <circle cx="100" cy="80" r="4" fill="url(#g1)" opacity=".5"/>
+                <line x1="56" y1="80" x2="50" y2="108" stroke="url(#g1)" stroke-width="1.5" opacity=".4"/>
+                <line x1="76" y1="80" x2="82" y2="108" stroke="url(#g1)" stroke-width="1.5" opacity=".4"/>
+                <path d="M46,108 C50,122 66,126 66,126 C66,126 82,122 86,108" stroke="url(#g1)" stroke-width="2" fill="rgba(212,175,55,.08)"/>
+                <line x1="124" y1="80" x2="118" y2="108" stroke="url(#g1)" stroke-width="1.5" opacity=".4"/>
+                <line x1="144" y1="80" x2="150" y2="108" stroke="url(#g1)" stroke-width="1.5" opacity=".4"/>
+                <path d="M114,108 C118,122 134,126 134,126 C134,126 150,122 154,108" stroke="url(#g1)" stroke-width="2" fill="rgba(212,175,55,.08)"/>
+                <polygon points="100,68 118,100 100,132 82,100" fill="rgba(212,175,55,.06)" stroke="url(#g1)" stroke-width="1.5" opacity=".5"/>
+                <circle cx="100" cy="100" r="8" fill="url(#g1c)" filter="url(#nGl)" opacity=".9"/>
+                <rect x="76" y="150" width="48" height="4" rx="2" fill="url(#g1)" opacity=".6"/>
+                <rect x="68" y="158" width="64" height="3" rx="1.5" fill="url(#g1)" opacity=".3"/>
+            </svg>
+        </div>
+        <div class="logo-text"><span class="ar">شيخة</span><span class="en">SHEIKHA</span></div>
+    </a>
+    <button class="mob-toggle" id="communityMenuToggle" aria-label="القائمة">☰</button>
+    <ul class="nl">
+        <li><a href="/">الرئيسية</a></li>
+        <li><a href="/هوية-السوق.html">هوية شيخة</a></li>
+        <li><a href="/سوق-المدينة.html">سوق المدينة</a></li>
+        <li><a href="/سوق-شيخة.html">السوق</a></li>
+        <li><a href="/تسجيل-الدخول.html?tab=register">التسجيل</a></li>
+        <li><a href="/تسجيل-حكومي.html">تسجيل حكومي</a></li>
+        <li><a href="/الشريعة-الاسلامية.html">الشريعة</a></li>
+        <li><a href="/المجتمع.html" class="active">المجتمع</a></li>
+        <li><a href="/تسجيل-الدخول.html" class="cta">ادخل</a></li>
+    </ul>
+</div></nav>
+
+<!-- ═══ القسم 1: رسالة المجتمع (Hero) ═══ -->
+<section class="hero">
+    <h1>مجتمع <span>شيخة</span></h1>
+    <p>سوق شيخة مجتمع قائم على الصدق، الإتقان، والتعاون على الخير. ليس مجرد سوق — بل منظومة يجمعها الإيمان بأن التجارة الصادقة عبادة.</p>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══ القسم 2: قيم المجتمع ═══ -->
+<section class="section">
+    <div class="section-title">
+        <h2>قيم <span>المجتمع</span></h2>
+        <p>خمس قيم تحكم كل تعامل في مجتمع شيخة — مستمدة من الكتاب والسنة</p>
+    </div>
+    <div class="values-grid">
+        <div class="value-card">
+            <div class="value-icon">🤝</div>
+            <div class="value-name">الصدق</div>
+            <div class="value-desc">التاجر الصدوق الأمين مع النبيين والصديقين والشهداء يوم القيامة</div>
+        </div>
+        <div class="value-card">
+            <div class="value-icon">⚖️</div>
+            <div class="value-name">العدل</div>
+            <div class="value-desc">لا ظلم ولا بخس — كل معاملة بالقسط والميزان المستقيم</div>
+        </div>
+        <div class="value-card">
+            <div class="value-icon">✨</div>
+            <div class="value-name">الإتقان</div>
+            <div class="value-desc">إن الله يحب إذا عمل أحدكم عملاً أن يتقنه — جودة في كل تفصيل</div>
+        </div>
+        <div class="value-card">
+            <div class="value-icon">🔍</div>
+            <div class="value-name">الشفافية</div>
+            <div class="value-desc">وضوح تام في الأسعار والمواصفات — لا تدليس ولا إخفاء عيب</div>
+        </div>
+        <div class="value-card">
+            <div class="value-icon">🌿</div>
+            <div class="value-name">النفع المتبادل</div>
+            <div class="value-desc">تجارة عن تراضٍ — يربح البائع والمشتري والمجتمع</div>
+        </div>
+    </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══ القسم 3: مجالات المجتمع ═══ -->
+<section class="section">
+    <div class="section-title">
+        <h2>مجالات <span>المجتمع</span></h2>
+        <p>البحث العلمي والتجاري، شبكة التجار، التطوير، المعرفة الشرعية، والتواصل الدولي</p>
+    </div>
+    <div class="domains-grid">
+        <div class="domain-card">
+            <div class="domain-icon">🔬</div>
+            <h3>البحث العلمي</h3>
+            <p>أبحاث المعادن والمواد والتقنية</p>
+        </div>
+        <div class="domain-card">
+            <div class="domain-icon">📊</div>
+            <h3>البحث التجاري</h3>
+            <p>تحليل الأسواق والاستخبارات التجارية</p>
+        </div>
+        <div class="domain-card">
+            <div class="domain-icon">🤝</div>
+            <h3>شبكة التجار</h3>
+            <p>تواصل وتعاون بين التجار</p>
+        </div>
+        <div class="domain-card">
+            <div class="domain-icon">💡</div>
+            <h3>التطوير والابتكار</h3>
+            <p>تقنيات جديدة وحلول ذكية</p>
+        </div>
+        <div class="domain-card">
+            <div class="domain-icon">📚</div>
+            <h3>المعرفة الشرعية</h3>
+            <p>فقه المعاملات والتجارة</p>
+        </div>
+        <div class="domain-card">
+            <div class="domain-icon">🌍</div>
+            <h3>التواصل الدولي</h3>
+            <p>شراكات عالمية ومعارض</p>
+        </div>
+    </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══ القسم 4: ميثاق المجتمع ═══ -->
+<section class="section">
+    <div class="section-title">
+        <h2>ميثاق <span>المجتمع</span></h2>
+        <p>ثلاثة مبادئ أساسية يلتزم بها كل عضو في مجتمع شيخة</p>
+    </div>
+    <div class="charter-list">
+        <div class="charter-item">
+            <div class="charter-num">١</div>
+            <div class="charter-text">
+                <h4>الالتزام بالكتاب والسنة</h4>
+                <p>كل معاملة وقرار وسياسة في شيخة مبنية على أحكام الشريعة الإسلامية من القرآن الكريم والسنة النبوية الصحيحة — لا اجتهاد يخالف النص.</p>
+            </div>
+        </div>
+        <div class="charter-item">
+            <div class="charter-num">٢</div>
+            <div class="charter-text">
+                <h4>منع الغش والاحتكار</h4>
+                <p>من غشّنا فليس منّا — لا غش في المواصفات، لا احتكار للأسعار، لا تلاعب بالموازين. نظام مراقبة ذكي يكشف أي مخالفة فوراً.</p>
+            </div>
+        </div>
+        <div class="charter-item">
+            <div class="charter-num">٣</div>
+            <div class="charter-text">
+                <h4>احترام الجميع</h4>
+                <p>كل تاجر وعميل ومستخدم في شيخة يُعامَل بالاحترام والإنصاف — لا تمييز ولا إقصاء. المنظومة للجميع بلا استثناء.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══ القسم 5: مصادر المعرفة — سعوديبيديا وويكيبيديا ═══ -->
+<section class="section">
+    <div class="section-title">
+        <h2>مصادر <span>المعرفة</span></h2>
+        <p>﴿ اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ ﴾ — موسوعات ومراجع معتمدة لإثراء المعرفة</p>
+    </div>
+    <div class="domains-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+        <!-- سعوديبيديا -->
+        <a href="https://saudipedia.com" target="_blank" rel="noopener" class="domain-card knowledge-card knowledge-card--saudi">
+            <div class="domain-icon" style="font-size:2.4rem">🇸🇦</div>
+            <h3 style="color:var(--green-l)">سعوديبيديا</h3>
+            <p style="font-size:.82rem;color:var(--t2);line-height:1.8;margin-bottom:8px">الموسوعة السعودية الرقمية — مصدر موثوق ومعتمد للمعرفة عن المملكة العربية السعودية وتاريخها وثقافتها واقتصادها ورؤية 2030</p>
+            <div style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(0,108,53,.08);border-radius:100px;font-size:.72rem;font-weight:700;color:var(--green-l)">
+                <span style="width:6px;height:6px;background:var(--green-l);border-radius:50%;display:inline-block"></span>
+                saudipedia.com
+            </div>
+        </a>
+        <!-- ويكيبيديا العربية -->
+        <a href="https://ar.wikipedia.org" target="_blank" rel="noopener" class="domain-card knowledge-card">
+            <div class="domain-icon" style="font-size:2.4rem">📖</div>
+            <h3>ويكيبيديا العربية</h3>
+            <p style="font-size:.82rem;color:var(--t2);line-height:1.8;margin-bottom:8px">الموسوعة الحرة — أكبر موسوعة متعددة اللغات على الإنترنت. مليون+ مقال بالعربية في كل المجالات</p>
+            <div style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(212,175,55,.06);border-radius:100px;font-size:.72rem;font-weight:700;color:var(--gold)">
+                <span style="width:6px;height:6px;background:var(--gold);border-radius:50%;display:inline-block"></span>
+                ar.wikipedia.org
+            </div>
+        </a>
+        <!-- ويكيبيديا الإنجليزية -->
+        <a href="https://en.wikipedia.org" target="_blank" rel="noopener" class="domain-card knowledge-card">
+            <div class="domain-icon" style="font-size:2.4rem">📚</div>
+            <h3>Wikipedia (English)</h3>
+            <p style="font-size:.82rem;color:var(--t2);line-height:1.8;margin-bottom:8px">The Free Encyclopedia — 6M+ articles. The largest multilingual knowledge base on the internet</p>
+            <div style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(212,175,55,.06);border-radius:100px;font-size:.72rem;font-weight:700;color:var(--gold)">
+                <span style="width:6px;height:6px;background:var(--gold);border-radius:50%;display:inline-block"></span>
+                en.wikipedia.org
+            </div>
+        </a>
+    </div>
+    <div style="text-align:center;margin-top:20px;padding:14px;background:rgba(212,175,55,.015);border:1px solid rgba(212,175,55,.04);border-radius:14px">
+        <p style="font-size:.78rem;color:var(--t3);line-height:1.8;font-family:'Amiri',serif">﴿ الحكمة ضالة المؤمن أنّى وجدها فهو أحقّ بها ﴾ — العلم النافع يُؤخذ من كل مصدر موثوق مع مراجعة المحتوى الشرعي</p>
+    </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══ القسم 6: الانضمام ═══ -->
+<section class="join">
+    <h2>انضم إلى مجتمع <span>شيخة</span></h2>
+    <p>مكانك بين التجار الصادقين الأمناء — سجّل واحصل على عضوية في أول مجتمع تجاري إسلامي رقمي</p>
+    <div class="join-links">
+        <a href="/تسجيل-الدخول.html?tab=register" class="join-btn" id="communityRegisterBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            سجّل للانضمام إلى مجتمع شيخة
+        </a>
+        <a href="/رياض-الجنة-الباحثين.html" class="join-secondary">
+            منصة الباحثين (R&D)
+        </a>
+        <a href="/تعليم-المجتمع.html" class="join-secondary">
+            صفحة التعليم المجتمعي
+        </a>
+    </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer><div class="fbot">
+    <div class="f-links">
+        <a href="/">الرئيسية</a>
+        <a href="/سوق-شيخة.html">السوق</a>
+        <a href="/الشريعة-الاسلامية.html">الشريعة</a>
+        <a href="/هوية-السوق.html">هوية السوق</a>
+        <a href="/آيات-التجارة.html">آيات التجارة</a>
+        <a href="/معايير-الأحاديث.html">معايير الأحاديث</a>
+        <a href="/الشروط-والسياسات.html">الشروط والأحكام</a>
+        <a href="/سياسة-الخصوصية.html">سياسة الخصوصية</a>
+    </div>
+    <span class="cp">&copy; 2026 SHEIKHA — أول سوق إسلامي رقمي للمعادن — جميع الحقوق محفوظة</span>
+    <span style="font-size:.7rem;color:var(--t3)">ملكية فكرية وتجارية محفوظة لـ سلمان أحمد بن سلمان الراجح — المملكة العربية السعودية</span>
+    <span class="pr amiri">﴿ سُبْحَانَ رَبِّكَ رَبِّ الْعِزَّةِ عَمَّا يَصِفُونَ ﴾</span>
+</div></footer>
+
+<script src="/js/safe-api.js"></script>
+<script src="/js/sheikha-access.js"></script>
+<script>
+    (function() {
+        // ربط زر قائمة الجوال بدون inline onclick لضمان العمل مع CSP.
+        var toggle = document.getElementById('communityMenuToggle');
+        var navList = document.querySelector('.nl');
+        if (toggle && navList) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                navList.classList.toggle('mob-open');
+            });
+        }
+
+        // ضمان عمل زر التسجيل حتى عند وجود تعارضات إضافية في الواجهة.
+        var regBtn = document.getElementById('communityRegisterBtn');
+        if (regBtn) {
+            regBtn.addEventListener('click', function() {
+                window.location.href = '/تسجيل-الدخول.html?tab=register';
+            });
+        }
+    })();
+</script>
+</body>
+</html>

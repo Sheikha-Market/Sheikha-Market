@@ -1,0 +1,21 @@
+{
+    "name": "sheikha-mcp-servers",
+    "version": "1.0.0",
+    "description": "خوادم MCP لتكامل منظومة شيخة مع Cursor IDE",
+    "type": "commonjs",
+    "scripts": {
+        "start:sheikha": "node sheikha-mcp-server.js",
+        "start:market": "node market-mcp-server.js"
+    },
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.0.0"
+    },
+    "keywords": [
+        "mcp",
+        "cursor",
+        "sheikha",
+        "ai"
+    ],
+    "author": "Sheikha System",
+    "license": "MIT"
+}

@@ -1,0 +1,1614 @@
+{
+  "profiles": [
+    {
+      "file": "arabic-language-engine.js",
+      "exists": true,
+      "size": 34173,
+      "lines": 970,
+      "risk": "low",
+      "risk_factors": [],
+      "has_routes": false,
+      "jami_suggested": "bayan_tawthiq",
+      "reason": "basic"
+    },
+    {
+      "file": "arabic-parser-engine.js",
+      "exists": true,
+      "size": 37430,
+      "lines": 981,
+      "risk": "low",
+      "risk_factors": [],
+      "has_routes": false,
+      "jami_suggested": "bayan_tawthiq",
+      "reason": "basic"
+    },
+    {
+      "file": "development-engine.js",
+      "exists": true,
+      "size": 12912,
+      "lines": 519,
+      "risk": "medium",
+      "risk_factors": [
+        "fs_write",
+        "network",
+        "auth",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "sharia_dhabt",
+      "reason": "fs_write, network, auth, heavy_compute"
+    },
+    {
+      "file": "sheikha-adab-anbiya-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-ai",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-ai-advancement-engine.js",
+      "exists": true,
+      "size": 31289,
+      "lines": 718,
+      "risk": "medium",
+      "risk_factors": [
+        "fs_write",
+        "network",
+        "auth",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "sharia_dhabt",
+      "reason": "fs_write, network, auth, heavy_compute"
+    },
+    {
+      "file": "sheikha-ai-comms-bridge.js",
+      "exists": true,
+      "size": 48698,
+      "lines": 799,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "auth"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, auth"
+    },
+    {
+      "file": "sheikha-ai-computing-engine.js",
+      "exists": true,
+      "size": 16276,
+      "lines": 275,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "db",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, db, heavy_compute"
+    },
+    {
+      "file": "sheikha-ai-engine.js",
+      "exists": true,
+      "size": 20982,
+      "lines": 615,
+      "risk": "low",
+      "risk_factors": [],
+      "has_routes": false,
+      "jami_suggested": "souq_muamalah",
+      "reason": "basic"
+    },
+    {
+      "file": "sheikha-auto-salvage",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-automation-engine.js",
+      "exists": true,
+      "size": 57780,
+      "lines": 1280,
+      "risk": "medium",
+      "risk_factors": [
+        "fs_write",
+        "network",
+        "heavy_compute"
+      ],
+      "has_routes": true,
+      "jami_suggested": "sharia_dhabt",
+      "reason": "fs_write, network, heavy_compute"
+    },
+    {
+      "file": "sheikha-barakah-engine.js",
+      "exists": true,
+      "size": 16412,
+      "lines": 344,
+      "risk": "low",
+      "risk_factors": [],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "basic"
+    },
+    {
+      "file": "sheikha-browser-engine.js",
+      "exists": true,
+      "size": 7425,
+      "lines": 98,
+      "risk": "low",
+      "risk_factors": [
+        "network"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network"
+    },
+    {
+      "file": "sheikha-capital-engine.js",
+      "exists": true,
+      "size": 13228,
+      "lines": 168,
+      "risk": "low",
+      "risk_factors": [],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "basic"
+    },
+    {
+      "file": "sheikha-comms-engine.js",
+      "exists": true,
+      "size": 30791,
+      "lines": 577,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "auth",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, auth, heavy_compute"
+    },
+    {
+      "file": "sheikha-community-engine.js",
+      "exists": true,
+      "size": 14998,
+      "lines": 238,
+      "risk": "low",
+      "risk_factors": [],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "basic"
+    },
+    {
+      "file": "sheikha-continuous-improvement-engine.js",
+      "exists": true,
+      "size": 14017,
+      "lines": 232,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "db",
+        "auth",
+        "heavy_compute"
+      ],
+      "has_routes": true,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, db, auth, heavy_compute"
+    },
+    {
+      "file": "sheikha-cosmos-engine.js",
+      "exists": true,
+      "size": 25451,
+      "lines": 306,
+      "risk": "low",
+      "risk_factors": [],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "basic"
+    },
+    {
+      "file": "sheikha-customs-clearance-automation-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-dev-platform-engine.js",
+      "exists": true,
+      "size": 17310,
+      "lines": 321,
+      "risk": "medium",
+      "risk_factors": [
+        "fs_write",
+        "auth",
+        "heavy_compute"
+      ],
+      "has_routes": true,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "fs_write, auth, heavy_compute"
+    },
+    {
+      "file": "sheikha-digital-community-ecosystem.js",
+      "exists": true,
+      "size": 63200,
+      "lines": 970,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "heavy_compute"
+      ],
+      "has_routes": true,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, heavy_compute"
+    },
+    {
+      "file": "sheikha-digital-learning-engine.js",
+      "exists": true,
+      "size": 13162,
+      "lines": 246,
+      "risk": "medium",
+      "risk_factors": [
+        "heavy_compute"
+      ],
+      "has_routes": true,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "heavy_compute"
+    },
+    {
+      "file": "sheikha-digital-operations-engine.js",
+      "exists": true,
+      "size": 40398,
+      "lines": 669,
+      "risk": "low",
+      "risk_factors": [],
+      "has_routes": true,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "basic"
+    },
+    {
+      "file": "sheikha-dim-engine.js",
+      "exists": true,
+      "size": 13507,
+      "lines": 341,
+      "risk": "medium",
+      "risk_factors": [
+        "fs_write"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "fs_write"
+    },
+    {
+      "file": "sheikha-earth-resources-engine.js",
+      "exists": true,
+      "size": 29542,
+      "lines": 435,
+      "risk": "low",
+      "risk_factors": [
+        "network"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network"
+    },
+    {
+      "file": "sheikha-economics-engine.js",
+      "exists": true,
+      "size": 34497,
+      "lines": 526,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, heavy_compute"
+    },
+    {
+      "file": "sheikha-educational-launchpad-engine.js",
+      "exists": true,
+      "size": 28791,
+      "lines": 464,
+      "risk": "medium",
+      "risk_factors": [
+        "heavy_compute"
+      ],
+      "has_routes": true,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "heavy_compute"
+    },
+    {
+      "file": "sheikha-excellence-engine.js",
+      "exists": true,
+      "size": 28004,
+      "lines": 662,
+      "risk": "medium",
+      "risk_factors": [
+        "fs_write",
+        "network",
+        "auth",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "fs_write, network, auth, heavy_compute"
+    },
+    {
+      "file": "sheikha-four-phase-engine.js",
+      "exists": true,
+      "size": 21755,
+      "lines": 608,
+      "risk": "medium",
+      "risk_factors": [
+        "fs_write",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "sharia_dhabt",
+      "reason": "fs_write, heavy_compute"
+    },
+    {
+      "file": "sheikha-gov-engine.js",
+      "exists": true,
+      "size": 20792,
+      "lines": 280,
+      "risk": "low",
+      "risk_factors": [],
+      "has_routes": false,
+      "jami_suggested": "sharia_dhabt",
+      "reason": "basic"
+    },
+    {
+      "file": "sheikha-gov-platforms-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-green-circular-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-hikmah-engine.js",
+      "exists": true,
+      "size": 17208,
+      "lines": 353,
+      "risk": "low",
+      "risk_factors": [
+        "network"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network"
+    },
+    {
+      "file": "sheikha-historical-engine.js",
+      "exists": true,
+      "size": 30218,
+      "lines": 354,
+      "risk": "low",
+      "risk_factors": [
+        "network"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network"
+    },
+    {
+      "file": "sheikha-ihsan-engine.js",
+      "exists": true,
+      "size": 3685,
+      "lines": 113,
+      "risk": "low",
+      "risk_factors": [
+        "network"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network"
+    },
+    {
+      "file": "sheikha-industry-engine.js",
+      "exists": true,
+      "size": 132753,
+      "lines": 1818,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "auth",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, auth, heavy_compute"
+    },
+    {
+      "file": "sheikha-instructions-engine.js",
+      "exists": true,
+      "size": 9663,
+      "lines": 116,
+      "risk": "medium",
+      "risk_factors": [
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "heavy_compute"
+    },
+    {
+      "file": "sheikha-integration-engine.js",
+      "exists": true,
+      "size": 3262,
+      "lines": 51,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "auth"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, auth"
+    },
+    {
+      "file": "sheikha-leadership-governance",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-learning-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-licenses-registry",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-local-mind.js",
+      "exists": true,
+      "size": 33937,
+      "lines": 777,
+      "risk": "high",
+      "risk_factors": [
+        "child_process",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "child_process, heavy_compute"
+    },
+    {
+      "file": "sheikha-logic-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-master-architecture-engine.js",
+      "exists": true,
+      "size": 30447,
+      "lines": 523,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "db",
+        "auth",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, db, auth, heavy_compute"
+    },
+    {
+      "file": "sheikha-master-catalog.js",
+      "exists": true,
+      "size": 24852,
+      "lines": 432,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, heavy_compute"
+    },
+    {
+      "file": "sheikha-materials-specs-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-medical-engine.js",
+      "exists": true,
+      "size": 9060,
+      "lines": 114,
+      "risk": "low",
+      "risk_factors": [],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "basic"
+    },
+    {
+      "file": "sheikha-monitor-engine.js",
+      "exists": true,
+      "size": 21027,
+      "lines": 503,
+      "risk": "medium",
+      "risk_factors": [
+        "fs_write",
+        "network",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "sharia_dhabt",
+      "reason": "fs_write, network, heavy_compute"
+    },
+    {
+      "file": "sheikha-navigator.js",
+      "exists": true,
+      "size": 15625,
+      "lines": 435,
+      "risk": "medium",
+      "risk_factors": [
+        "fs_write",
+        "db",
+        "auth",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "sharia_dhabt",
+      "reason": "fs_write, db, auth, heavy_compute"
+    },
+    {
+      "file": "sheikha-networks-engine.js",
+      "exists": true,
+      "size": 38237,
+      "lines": 595,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "auth"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, auth"
+    },
+    {
+      "file": "sheikha-official-documents",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-org-execution-engine.js",
+      "exists": true,
+      "size": 20540,
+      "lines": 279,
+      "risk": "medium",
+      "risk_factors": [
+        "heavy_compute"
+      ],
+      "has_routes": true,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "heavy_compute"
+    },
+    {
+      "file": "sheikha-os-engine.js",
+      "exists": true,
+      "size": 63022,
+      "lines": 1190,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "auth",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, auth, heavy_compute"
+    },
+    {
+      "file": "sheikha-os-v2-agentic-engine.js",
+      "exists": true,
+      "size": 23987,
+      "lines": 463,
+      "risk": "low",
+      "risk_factors": [
+        "network"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network"
+    },
+    {
+      "file": "sheikha-payments-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-petroleum-engine.js",
+      "exists": true,
+      "size": 22109,
+      "lines": 351,
+      "risk": "low",
+      "risk_factors": [],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "basic"
+    },
+    {
+      "file": "sheikha-production-engine.js",
+      "exists": true,
+      "size": 35455,
+      "lines": 743,
+      "risk": "medium",
+      "risk_factors": [
+        "fs_write",
+        "network"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "fs_write, network"
+    },
+    {
+      "file": "sheikha-quantum-stats-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-quraysh-journey-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-readiness-compliance-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-riyad-aljannah-engine.js",
+      "exists": true,
+      "size": 39556,
+      "lines": 677,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "heavy_compute"
+      ],
+      "has_routes": true,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, heavy_compute"
+    },
+    {
+      "file": "sheikha-sciences-engine.js",
+      "exists": true,
+      "size": 52959,
+      "lines": 809,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, heavy_compute"
+    },
+    {
+      "file": "sheikha-scrap-global-data",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-selfheal-engine.js",
+      "exists": true,
+      "size": 6578,
+      "lines": 91,
+      "risk": "low",
+      "risk_factors": [],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "basic"
+    },
+    {
+      "file": "sheikha-survey-feedback-engine.js",
+      "exists": true,
+      "size": 21774,
+      "lines": 249,
+      "risk": "medium",
+      "risk_factors": [
+        "fs_write"
+      ],
+      "has_routes": false,
+      "jami_suggested": "sharia_dhabt",
+      "reason": "fs_write"
+    },
+    {
+      "file": "sheikha-tech-computing-engine.js",
+      "exists": true,
+      "size": 33670,
+      "lines": 460,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "db",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, db, heavy_compute"
+    },
+    {
+      "file": "sheikha-ultimate-power-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-universal-engine.js",
+      "exists": true,
+      "size": 23311,
+      "lines": 378,
+      "risk": "medium",
+      "risk_factors": [
+        "network",
+        "db",
+        "heavy_compute"
+      ],
+      "has_routes": false,
+      "jami_suggested": "tawheed_niyyah",
+      "reason": "network, db, heavy_compute"
+    },
+    {
+      "file": "sheikha-walaa-baraa-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-wisdom-fusion-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    },
+    {
+      "file": "sheikha-wisdom-power-engine",
+      "exists": false,
+      "jami_suggested": "blocked",
+      "reason": "ملف غير موجود"
+    }
+  ],
+  "summary": {
+    "bayan_tawthiq": [
+      {
+        "file": "arabic-language-engine.js",
+        "exists": true,
+        "size": 34173,
+        "lines": 970,
+        "risk": "low",
+        "risk_factors": [],
+        "has_routes": false,
+        "jami_suggested": "bayan_tawthiq",
+        "reason": "basic"
+      },
+      {
+        "file": "arabic-parser-engine.js",
+        "exists": true,
+        "size": 37430,
+        "lines": 981,
+        "risk": "low",
+        "risk_factors": [],
+        "has_routes": false,
+        "jami_suggested": "bayan_tawthiq",
+        "reason": "basic"
+      }
+    ],
+    "sharia_dhabt": [
+      {
+        "file": "development-engine.js",
+        "exists": true,
+        "size": 12912,
+        "lines": 519,
+        "risk": "medium",
+        "risk_factors": [
+          "fs_write",
+          "network",
+          "auth",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "sharia_dhabt",
+        "reason": "fs_write, network, auth, heavy_compute"
+      },
+      {
+        "file": "sheikha-ai-advancement-engine.js",
+        "exists": true,
+        "size": 31289,
+        "lines": 718,
+        "risk": "medium",
+        "risk_factors": [
+          "fs_write",
+          "network",
+          "auth",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "sharia_dhabt",
+        "reason": "fs_write, network, auth, heavy_compute"
+      },
+      {
+        "file": "sheikha-automation-engine.js",
+        "exists": true,
+        "size": 57780,
+        "lines": 1280,
+        "risk": "medium",
+        "risk_factors": [
+          "fs_write",
+          "network",
+          "heavy_compute"
+        ],
+        "has_routes": true,
+        "jami_suggested": "sharia_dhabt",
+        "reason": "fs_write, network, heavy_compute"
+      },
+      {
+        "file": "sheikha-four-phase-engine.js",
+        "exists": true,
+        "size": 21755,
+        "lines": 608,
+        "risk": "medium",
+        "risk_factors": [
+          "fs_write",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "sharia_dhabt",
+        "reason": "fs_write, heavy_compute"
+      },
+      {
+        "file": "sheikha-gov-engine.js",
+        "exists": true,
+        "size": 20792,
+        "lines": 280,
+        "risk": "low",
+        "risk_factors": [],
+        "has_routes": false,
+        "jami_suggested": "sharia_dhabt",
+        "reason": "basic"
+      },
+      {
+        "file": "sheikha-monitor-engine.js",
+        "exists": true,
+        "size": 21027,
+        "lines": 503,
+        "risk": "medium",
+        "risk_factors": [
+          "fs_write",
+          "network",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "sharia_dhabt",
+        "reason": "fs_write, network, heavy_compute"
+      },
+      {
+        "file": "sheikha-navigator.js",
+        "exists": true,
+        "size": 15625,
+        "lines": 435,
+        "risk": "medium",
+        "risk_factors": [
+          "fs_write",
+          "db",
+          "auth",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "sharia_dhabt",
+        "reason": "fs_write, db, auth, heavy_compute"
+      },
+      {
+        "file": "sheikha-survey-feedback-engine.js",
+        "exists": true,
+        "size": 21774,
+        "lines": 249,
+        "risk": "medium",
+        "risk_factors": [
+          "fs_write"
+        ],
+        "has_routes": false,
+        "jami_suggested": "sharia_dhabt",
+        "reason": "fs_write"
+      }
+    ],
+    "blocked": [
+      {
+        "file": "sheikha-adab-anbiya-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-ai",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-auto-salvage",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-customs-clearance-automation-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-gov-platforms-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-green-circular-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-leadership-governance",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-learning-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-licenses-registry",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-logic-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-materials-specs-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-official-documents",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-payments-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-quantum-stats-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-quraysh-journey-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-readiness-compliance-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-scrap-global-data",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-ultimate-power-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-walaa-baraa-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-wisdom-fusion-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      },
+      {
+        "file": "sheikha-wisdom-power-engine",
+        "exists": false,
+        "jami_suggested": "blocked",
+        "reason": "ملف غير موجود"
+      }
+    ],
+    "tawheed_niyyah": [
+      {
+        "file": "sheikha-ai-comms-bridge.js",
+        "exists": true,
+        "size": 48698,
+        "lines": 799,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "auth"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, auth"
+      },
+      {
+        "file": "sheikha-ai-computing-engine.js",
+        "exists": true,
+        "size": 16276,
+        "lines": 275,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "db",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, db, heavy_compute"
+      },
+      {
+        "file": "sheikha-barakah-engine.js",
+        "exists": true,
+        "size": 16412,
+        "lines": 344,
+        "risk": "low",
+        "risk_factors": [],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "basic"
+      },
+      {
+        "file": "sheikha-browser-engine.js",
+        "exists": true,
+        "size": 7425,
+        "lines": 98,
+        "risk": "low",
+        "risk_factors": [
+          "network"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network"
+      },
+      {
+        "file": "sheikha-capital-engine.js",
+        "exists": true,
+        "size": 13228,
+        "lines": 168,
+        "risk": "low",
+        "risk_factors": [],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "basic"
+      },
+      {
+        "file": "sheikha-comms-engine.js",
+        "exists": true,
+        "size": 30791,
+        "lines": 577,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "auth",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, auth, heavy_compute"
+      },
+      {
+        "file": "sheikha-community-engine.js",
+        "exists": true,
+        "size": 14998,
+        "lines": 238,
+        "risk": "low",
+        "risk_factors": [],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "basic"
+      },
+      {
+        "file": "sheikha-continuous-improvement-engine.js",
+        "exists": true,
+        "size": 14017,
+        "lines": 232,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "db",
+          "auth",
+          "heavy_compute"
+        ],
+        "has_routes": true,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, db, auth, heavy_compute"
+      },
+      {
+        "file": "sheikha-cosmos-engine.js",
+        "exists": true,
+        "size": 25451,
+        "lines": 306,
+        "risk": "low",
+        "risk_factors": [],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "basic"
+      },
+      {
+        "file": "sheikha-dev-platform-engine.js",
+        "exists": true,
+        "size": 17310,
+        "lines": 321,
+        "risk": "medium",
+        "risk_factors": [
+          "fs_write",
+          "auth",
+          "heavy_compute"
+        ],
+        "has_routes": true,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "fs_write, auth, heavy_compute"
+      },
+      {
+        "file": "sheikha-digital-community-ecosystem.js",
+        "exists": true,
+        "size": 63200,
+        "lines": 970,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "heavy_compute"
+        ],
+        "has_routes": true,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, heavy_compute"
+      },
+      {
+        "file": "sheikha-digital-learning-engine.js",
+        "exists": true,
+        "size": 13162,
+        "lines": 246,
+        "risk": "medium",
+        "risk_factors": [
+          "heavy_compute"
+        ],
+        "has_routes": true,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "heavy_compute"
+      },
+      {
+        "file": "sheikha-digital-operations-engine.js",
+        "exists": true,
+        "size": 40398,
+        "lines": 669,
+        "risk": "low",
+        "risk_factors": [],
+        "has_routes": true,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "basic"
+      },
+      {
+        "file": "sheikha-dim-engine.js",
+        "exists": true,
+        "size": 13507,
+        "lines": 341,
+        "risk": "medium",
+        "risk_factors": [
+          "fs_write"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "fs_write"
+      },
+      {
+        "file": "sheikha-earth-resources-engine.js",
+        "exists": true,
+        "size": 29542,
+        "lines": 435,
+        "risk": "low",
+        "risk_factors": [
+          "network"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network"
+      },
+      {
+        "file": "sheikha-economics-engine.js",
+        "exists": true,
+        "size": 34497,
+        "lines": 526,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, heavy_compute"
+      },
+      {
+        "file": "sheikha-educational-launchpad-engine.js",
+        "exists": true,
+        "size": 28791,
+        "lines": 464,
+        "risk": "medium",
+        "risk_factors": [
+          "heavy_compute"
+        ],
+        "has_routes": true,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "heavy_compute"
+      },
+      {
+        "file": "sheikha-excellence-engine.js",
+        "exists": true,
+        "size": 28004,
+        "lines": 662,
+        "risk": "medium",
+        "risk_factors": [
+          "fs_write",
+          "network",
+          "auth",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "fs_write, network, auth, heavy_compute"
+      },
+      {
+        "file": "sheikha-hikmah-engine.js",
+        "exists": true,
+        "size": 17208,
+        "lines": 353,
+        "risk": "low",
+        "risk_factors": [
+          "network"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network"
+      },
+      {
+        "file": "sheikha-historical-engine.js",
+        "exists": true,
+        "size": 30218,
+        "lines": 354,
+        "risk": "low",
+        "risk_factors": [
+          "network"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network"
+      },
+      {
+        "file": "sheikha-ihsan-engine.js",
+        "exists": true,
+        "size": 3685,
+        "lines": 113,
+        "risk": "low",
+        "risk_factors": [
+          "network"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network"
+      },
+      {
+        "file": "sheikha-industry-engine.js",
+        "exists": true,
+        "size": 132753,
+        "lines": 1818,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "auth",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, auth, heavy_compute"
+      },
+      {
+        "file": "sheikha-instructions-engine.js",
+        "exists": true,
+        "size": 9663,
+        "lines": 116,
+        "risk": "medium",
+        "risk_factors": [
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "heavy_compute"
+      },
+      {
+        "file": "sheikha-integration-engine.js",
+        "exists": true,
+        "size": 3262,
+        "lines": 51,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "auth"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, auth"
+      },
+      {
+        "file": "sheikha-local-mind.js",
+        "exists": true,
+        "size": 33937,
+        "lines": 777,
+        "risk": "high",
+        "risk_factors": [
+          "child_process",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "child_process, heavy_compute"
+      },
+      {
+        "file": "sheikha-master-architecture-engine.js",
+        "exists": true,
+        "size": 30447,
+        "lines": 523,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "db",
+          "auth",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, db, auth, heavy_compute"
+      },
+      {
+        "file": "sheikha-master-catalog.js",
+        "exists": true,
+        "size": 24852,
+        "lines": 432,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, heavy_compute"
+      },
+      {
+        "file": "sheikha-medical-engine.js",
+        "exists": true,
+        "size": 9060,
+        "lines": 114,
+        "risk": "low",
+        "risk_factors": [],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "basic"
+      },
+      {
+        "file": "sheikha-networks-engine.js",
+        "exists": true,
+        "size": 38237,
+        "lines": 595,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "auth"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, auth"
+      },
+      {
+        "file": "sheikha-org-execution-engine.js",
+        "exists": true,
+        "size": 20540,
+        "lines": 279,
+        "risk": "medium",
+        "risk_factors": [
+          "heavy_compute"
+        ],
+        "has_routes": true,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "heavy_compute"
+      },
+      {
+        "file": "sheikha-os-engine.js",
+        "exists": true,
+        "size": 63022,
+        "lines": 1190,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "auth",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, auth, heavy_compute"
+      },
+      {
+        "file": "sheikha-os-v2-agentic-engine.js",
+        "exists": true,
+        "size": 23987,
+        "lines": 463,
+        "risk": "low",
+        "risk_factors": [
+          "network"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network"
+      },
+      {
+        "file": "sheikha-petroleum-engine.js",
+        "exists": true,
+        "size": 22109,
+        "lines": 351,
+        "risk": "low",
+        "risk_factors": [],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "basic"
+      },
+      {
+        "file": "sheikha-production-engine.js",
+        "exists": true,
+        "size": 35455,
+        "lines": 743,
+        "risk": "medium",
+        "risk_factors": [
+          "fs_write",
+          "network"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "fs_write, network"
+      },
+      {
+        "file": "sheikha-riyad-aljannah-engine.js",
+        "exists": true,
+        "size": 39556,
+        "lines": 677,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "heavy_compute"
+        ],
+        "has_routes": true,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, heavy_compute"
+      },
+      {
+        "file": "sheikha-sciences-engine.js",
+        "exists": true,
+        "size": 52959,
+        "lines": 809,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, heavy_compute"
+      },
+      {
+        "file": "sheikha-selfheal-engine.js",
+        "exists": true,
+        "size": 6578,
+        "lines": 91,
+        "risk": "low",
+        "risk_factors": [],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "basic"
+      },
+      {
+        "file": "sheikha-tech-computing-engine.js",
+        "exists": true,
+        "size": 33670,
+        "lines": 460,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "db",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, db, heavy_compute"
+      },
+      {
+        "file": "sheikha-universal-engine.js",
+        "exists": true,
+        "size": 23311,
+        "lines": 378,
+        "risk": "medium",
+        "risk_factors": [
+          "network",
+          "db",
+          "heavy_compute"
+        ],
+        "has_routes": false,
+        "jami_suggested": "tawheed_niyyah",
+        "reason": "network, db, heavy_compute"
+      }
+    ],
+    "souq_muamalah": [
+      {
+        "file": "sheikha-ai-engine.js",
+        "exists": true,
+        "size": 20982,
+        "lines": 615,
+        "risk": "low",
+        "risk_factors": [],
+        "has_routes": false,
+        "jami_suggested": "souq_muamalah",
+        "reason": "basic"
+      }
+    ]
+  }
+}

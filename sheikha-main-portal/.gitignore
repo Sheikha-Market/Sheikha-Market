@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# OS
+.DS_Store
+Thumbs.db
+~$*
+*.tmp
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.*
+
+# Data
+data/*.bak
+data/*.tmp
+data/monitor-state.json
+
+# Build
+dist/
+build/
+.cache/
+
+# IDE
+.cursor/
+.vscode/
+*.swp

@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps & البنية التحتية | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --cyan: #06b6d4;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+        h1 {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        h1 span { color: var(--gold); }
+        .header-nav {
+            display: flex;
+            gap: 8px;
+        }
+        .nav-link {
+            padding: 10px 18px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+        .nav-link:hover, .nav-link.active {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Main */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 12px 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tab:hover {
+            border-color: rgba(212,175,55,0.5);
+            color: var(--text);
+        }
+        .tab.active {
+            background: rgba(212,175,55,0.1);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Panel */
+        .panel {
+            display: none;
+        }
+        .panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        /* Card */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: var(--transition);
+        }
+        .card:hover {
+            border-color: rgba(212,175,55,0.3);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .badge-success { background: rgba(16,185,129,0.15); color: var(--success); }
+        .badge-warning { background: rgba(245,158,11,0.15); color: var(--warning); }
+        .badge-danger { background: rgba(239,68,68,0.15); color: var(--danger); }
+        .badge-info { background: rgba(59,130,246,0.15); color: var(--info); }
+
+        /* Metric Card */
+        .metric-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .metric-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        .metric-icon.green { background: rgba(16,185,129,0.15); }
+        .metric-icon.blue { background: rgba(59,130,246,0.15); }
+        .metric-icon.purple { background: rgba(139,92,246,0.15); }
+        .metric-icon.gold { background: rgba(212,175,55,0.15); }
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Progress */
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        .progress-fill.green { background: var(--success); }
+        .progress-fill.gold { background: var(--gold); }
+        .progress-fill.warning { background: var(--warning); }
+        .progress-fill.danger { background: var(--danger); }
+
+        /* Pipeline */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 0;
+            overflow-x: auto;
+        }
+        .pipeline-stage {
+            flex: 1;
+            min-width: 120px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            position: relative;
+        }
+        .pipeline-stage.success { border-color: var(--success); background: rgba(16,185,129,0.1); }
+        .pipeline-stage.running { border-color: var(--info); background: rgba(59,130,246,0.1); }
+        .pipeline-stage.pending { opacity: 0.5; }
+        .pipeline-stage-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .pipeline-stage-name {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .pipeline-stage-time {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .pipeline-arrow {
+            color: var(--text-faint);
+            font-size: 1.2rem;
+        }
+
+        /* Technology Badge */
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tech-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .tech-badge img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Terminal */
+        .terminal {
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: 16px;
+        }
+        .terminal-header {
+            background: #161b22;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; }
+        .terminal-title {
+            margin-right: auto;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+        .terminal-body {
+            padding: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            line-height: 1.8;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .terminal-line { margin-bottom: 4px; }
+        .t-prompt { color: var(--success); }
+        .t-cmd { color: var(--text); }
+        .t-output { color: var(--text-muted); }
+        .t-success { color: var(--success); }
+        .t-error { color: var(--danger); }
+        .t-info { color: var(--info); }
+
+        /* Config Table */
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .config-table th, .config-table td {
+            padding: 14px 16px;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+        }
+        .config-table th {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-faint);
+            text-transform: uppercase;
+        }
+        .config-table td {
+            font-size: 0.85rem;
+        }
+        .config-key {
+            font-family: var(--font-mono);
+            color: var(--info);
+        }
+        .config-value {
+            font-family: var(--font-mono);
+            color: var(--success);
+        }
+
+        /* Architecture Diagram */
+        .architecture {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            text-align: center;
+        }
+        .arch-layer {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .arch-node {
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 24px;
+            min-width: 120px;
+            transition: var(--transition);
+        }
+        .arch-node:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .arch-node-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .arch-node-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .arch-node-desc {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .arch-arrow {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin: 8px 0;
+        }
+        .arch-layer-label {
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 999px;
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        /* Button */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.85rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 32px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .main { padding: 20px; }
+            .header-nav { display: none; }
+            .tabs { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-title">
+                <div class="logo-icon">🚀</div>
+                <h1>DevOps & <span>البنية التحتية</span></h1>
+            </div>
+            <nav class="header-nav">
+                <a href="ادارة-النظام.html" class="nav-link">🖥️ إدارة النظام</a>
+                <a href="لوحة-التحكم.html" class="nav-link">📊 لوحة التحكم</a>
+                <a href="index.html" class="nav-link">🏠 الرئيسية</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="showPanel('overview')">📊 نظرة عامة</button>
+            <button class="tab" onclick="showPanel('architecture')">🏗️ البنية</button>
+            <button class="tab" onclick="showPanel('ci-cd')">🔄 CI/CD</button>
+            <button class="tab" onclick="showPanel('monitoring')">📈 المراقبة</button>
+            <button class="tab" onclick="showPanel('security')">🔒 الأمان</button>
+            <button class="tab" onclick="showPanel('config')">⚙️ الإعدادات</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div class="panel active" id="panel-overview">
+            <!-- Metrics -->
+            <div class="grid-4" style="margin-bottom: 32px;">
+                <div class="metric-card">
+                    <div class="metric-icon green">🟢</div>
+                    <div class="metric-value">99.9%</div>
+                    <div class="metric-label">Uptime</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon blue">📦</div>
+                    <div class="metric-value">v2.0.0</div>
+                    <div class="metric-label">Current Version</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon purple">🚀</div>
+                    <div class="metric-value">156</div>
+                    <div class="metric-label">Deployments</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon gold">⚡</div>
+                    <div class="metric-value">45ms</div>
+                    <div class="metric-label">Avg Response</div>
+                </div>
+            </div>
+
+            <!-- Two Column -->
+            <div class="grid-2">
+                <!-- Tech Stack -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">🛠️ التقنيات المستخدمة</div>
+                    </div>
+                    <div class="tech-grid">
+                        <div class="tech-badge">⚡ Node.js v20</div>
+                        <div class="tech-badge">🚂 Express.js</div>
+                        <div class="tech-badge">🌐 WebSocket</div>
+                        <div class="tech-badge">🤖 OpenAI API</div>
+                        <div class="tech-badge">🔐 JWT Auth</div>
+                        <div class="tech-badge">📄 JSON Storage</div>
+                        <div class="tech-badge">⏰ Node-cron</div>
+                        <div class="tech-badge">🎨 CSS3 / HTML5</div>
+                        <div class="tech-badge">📱 PWA Ready</div>
+                    </div>
+                </div>
+
+                <!-- System Resources -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">💻 موارد النظام</div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+                                <span>CPU</span>
+                                <span style="color: var(--success);">23%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill green" style="width: 23%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+                                <span>Memory</span>
+                                <span style="color: var(--gold);">68%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill gold" style="width: 68%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+                                <span>Disk</span>
+                                <span style="color: var(--success);">42%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill green" style="width: 42%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+                                <span>Network I/O</span>
+                                <span style="color: var(--success);">12%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill green" style="width: 12%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture Panel -->
+        <div class="panel" id="panel-architecture">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">🏗️ معمارية النظام</div>
+                </div>
+                <div class="architecture">
+                    <!-- Client Layer -->
+                    <div class="arch-layer-label">طبقة العميل</div>
+                    <div class="arch-layer">
+                        <div class="arch-node">
+                            <div class="arch-node-icon">🌐</div>
+                            <div class="arch-node-name">Web Browser</div>
+                            <div class="arch-node-desc">HTML/CSS/JS</div>
+                        </div>
+                        <div class="arch-node">
+                            <div class="arch-node-icon">📱</div>
+                            <div class="arch-node-name">Mobile PWA</div>
+                            <div class="arch-node-desc">Service Worker</div>
+                        </div>
+                    </div>
+                    <div class="arch-arrow">↓</div>
+                    
+                    <!-- API Layer -->
+                    <div class="arch-layer-label">طبقة API</div>
+                    <div class="arch-layer">
+                        <div class="arch-node">
+                            <div class="arch-node-icon">🚂</div>
+                            <div class="arch-node-name">Express.js</div>
+                            <div class="arch-node-desc">REST API</div>
+                        </div>
+                        <div class="arch-node">
+                            <div class="arch-node-icon">📡</div>
+                            <div class="arch-node-name">WebSocket</div>
+                            <div class="arch-node-desc">Real-time</div>
+                        </div>
+                        <div class="arch-node">
+                            <div class="arch-node-icon">🔐</div>
+                            <div class="arch-node-name">Auth Middleware</div>
+                            <div class="arch-node-desc">JWT</div>
+                        </div>
+                    </div>
+                    <div class="arch-arrow">↓</div>
+                    
+                    <!-- Services Layer -->
+                    <div class="arch-layer-label">طبقة الخدمات</div>
+                    <div class="arch-layer">
+                        <div class="arch-node">
+                            <div class="arch-node-icon">🤖</div>
+                            <div class="arch-node-name">AI Service</div>
+                            <div class="arch-node-desc">OpenAI / Ollama</div>
+                        </div>
+                        <div class="arch-node">
+                            <div class="arch-node-icon">📊</div>
+                            <div class="arch-node-name">Analytics</div>
+                            <div class="arch-node-desc">Page Views</div>
+                        </div>
+                        <div class="arch-node">
+                            <div class="arch-node-icon">⏰</div>
+                            <div class="arch-node-name">Scheduler</div>
+                            <div class="arch-node-desc">Node-cron</div>
+                        </div>
+                    </div>
+                    <div class="arch-arrow">↓</div>
+                    
+                    <!-- Data Layer -->
+                    <div class="arch-layer-label">طبقة البيانات</div>
+                    <div class="arch-layer">
+                        <div class="arch-node">
+                            <div class="arch-node-icon">📄</div>
+                            <div class="arch-node-name">JSON Files</div>
+                            <div class="arch-node-desc">users, traders, listings</div>
+                        </div>
+                        <div class="arch-node">
+                            <div class="arch-node-icon">📝</div>
+                            <div class="arch-node-name">NDJSON Logs</div>
+                            <div class="arch-node-desc">Operations</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CI/CD Panel -->
+        <div class="panel" id="panel-ci-cd">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">🔄 خط الإنتاج (CI/CD Pipeline)</div>
+                    <button class="btn btn-gold" onclick="runPipeline()">▶️ تشغيل</button>
+                </div>
+                <div class="card" style="padding: 0;">
+                    <div class="pipeline">
+                        <div class="pipeline-stage success">
+                            <div class="pipeline-stage-icon">📥</div>
+                            <div class="pipeline-stage-name">Code Pull</div>
+                            <div class="pipeline-stage-time">2s</div>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-stage success">
+                            <div class="pipeline-stage-icon">🔍</div>
+                            <div class="pipeline-stage-name">Lint</div>
+                            <div class="pipeline-stage-time">5s</div>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-stage success">
+                            <div class="pipeline-stage-icon">🧪</div>
+                            <div class="pipeline-stage-name">Test</div>
+                            <div class="pipeline-stage-time">12s</div>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-stage success">
+                            <div class="pipeline-stage-icon">📦</div>
+                            <div class="pipeline-stage-name">Build</div>
+                            <div class="pipeline-stage-time">8s</div>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-stage success">
+                            <div class="pipeline-stage-icon">🚀</div>
+                            <div class="pipeline-stage-name">Deploy</div>
+                            <div class="pipeline-stage-time">15s</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terminal -->
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                        <span class="terminal-title">deploy.sh</span>
+                    </div>
+                    <div class="terminal-body" id="deployTerminal">
+                        <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd">git pull origin main</span></div>
+                        <div class="terminal-line"><span class="t-output">Already up to date.</span></div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd">npm run lint</span></div>
+                        <div class="terminal-line"><span class="t-success">✓ No linting errors found</span></div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd">npm test</span></div>
+                        <div class="terminal-line"><span class="t-success">✓ All tests passed (12/12)</span></div>
+                        <div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd">pm2 restart sheikha-portal</span></div>
+                        <div class="terminal-line"><span class="t-success">✓ Process restarted successfully</span></div>
+                        <div class="terminal-line"><span class="t-info">→ Deployment completed in 42s</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monitoring Panel -->
+        <div class="panel" id="panel-monitoring">
+            <div class="grid-3" style="margin-bottom: 24px;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">📈 الطلبات</div>
+                        <span class="card-badge badge-success">+12%</span>
+                    </div>
+                    <div class="metric-value" style="font-size: 2.5rem;">1,284</div>
+                    <div class="metric-label">طلب / ساعة</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">⚡ الاستجابة</div>
+                        <span class="card-badge badge-success">سريع</span>
+                    </div>
+                    <div class="metric-value" style="font-size: 2.5rem;">45ms</div>
+                    <div class="metric-label">متوسط</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">❌ الأخطاء</div>
+                        <span class="card-badge badge-success">منخفض</span>
+                    </div>
+                    <div class="metric-value" style="font-size: 2.5rem;">0.1%</div>
+                    <div class="metric-label">معدل الأخطاء</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🔔 التنبيهات</div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(16,185,129,0.1); border-radius: 8px;">
+                        <span style="color: var(--success);">✓</span>
+                        <span>جميع الأنظمة تعمل بشكل طبيعي</span>
+                        <span style="margin-right: auto; font-size: 0.8rem; color: var(--text-muted);">منذ 5 دقائق</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(59,130,246,0.1); border-radius: 8px;">
+                        <span style="color: var(--info);">ℹ</span>
+                        <span>تم تحديث النظام إلى الإصدار 2.0.0</span>
+                        <span style="margin-right: auto; font-size: 0.8rem; color: var(--text-muted);">منذ ساعة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Panel -->
+        <div class="panel" id="panel-security">
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">🔐 حالة الأمان</div>
+                        <span class="card-badge badge-success">آمن</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>HTTPS/TLS</span>
+                            <span style="color: var(--success);">✓ مفعّل</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>JWT Authentication</span>
+                            <span style="color: var(--success);">✓ مفعّل</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Rate Limiting</span>
+                            <span style="color: var(--success);">✓ مفعّل</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>CORS Policy</span>
+                            <span style="color: var(--success);">✓ مفعّل</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>XSS Protection</span>
+                            <span style="color: var(--success);">✓ مفعّل</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">🔑 مفاتيح API</div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                            <span>OpenAI API</span>
+                            <span style="font-family: var(--font-mono); color: var(--text-muted);">sk-...xxxx</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                            <span>JWT Secret</span>
+                            <span style="font-family: var(--font-mono); color: var(--text-muted);">●●●●●●●●</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Config Panel -->
+        <div class="panel" id="panel-config">
+            <div class="card" style="padding: 0; overflow: hidden;">
+                <div class="card-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border);">
+                    <div class="card-title">⚙️ متغيرات البيئة (.env)</div>
+                    <button class="btn btn-outline" onclick="reloadConfig()">🔄 إعادة تحميل</button>
+                </div>
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>المتغير</th>
+                            <th>القيمة</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="config-key">PORT</td>
+                            <td class="config-value">8080</td>
+                            <td><span class="card-badge badge-success">مفعّل</span></td>
+                        </tr>
+                        <tr>
+                            <td class="config-key">JWT_SECRET</td>
+                            <td class="config-value">●●●●●●●●</td>
+                            <td><span class="card-badge badge-success">مفعّل</span></td>
+                        </tr>
+                        <tr>
+                            <td class="config-key">OPENAI_API_KEY</td>
+                            <td class="config-value">sk-...xxxx</td>
+                            <td><span class="card-badge badge-success">مفعّل</span></td>
+                        </tr>
+                        <tr>
+                            <td class="config-key">AI_LLM_MODEL</td>
+                            <td class="config-value">gpt-4o-mini</td>
+                            <td><span class="card-badge badge-success">مفعّل</span></td>
+                        </tr>
+                        <tr>
+                            <td class="config-key">AI_LLM_BASE_URL</td>
+                            <td class="config-value">https://api.openai.com/v1</td>
+                            <td><span class="card-badge badge-success">مفعّل</span></td>
+                        </tr>
+                        <tr>
+                            <td class="config-key">CLOUD_SYNC_ENABLED</td>
+                            <td class="config-value">false</td>
+                            <td><span class="card-badge badge-warning">معطّل</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showPanel(id) {
+            // Update tabs
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update panels
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('panel-' + id).classList.add('active');
+        }
+
+        function runPipeline() {
+            const terminal = document.getElementById('deployTerminal');
+            terminal.innerHTML = '<div class="terminal-line"><span class="t-info">🔄 Starting deployment pipeline...</span></div>';
+            
+            const steps = [
+                { cmd: 'git pull origin main', output: 'Already up to date.', delay: 500 },
+                { cmd: 'npm run lint', output: '✓ No linting errors found', success: true, delay: 1000 },
+                { cmd: 'npm test', output: '✓ All tests passed (12/12)', success: true, delay: 1500 },
+                { cmd: 'npm run build', output: '✓ Build completed', success: true, delay: 1000 },
+                { cmd: 'pm2 restart sheikha-portal', output: '✓ Process restarted successfully', success: true, delay: 800 },
+            ];
+            
+            let totalDelay = 500;
+            steps.forEach(step => {
+                setTimeout(() => {
+                    terminal.innerHTML += `<div class="terminal-line"><span class="t-prompt">$</span> <span class="t-cmd">${step.cmd}</span></div>`;
+                    terminal.innerHTML += `<div class="terminal-line"><span class="${step.success ? 't-success' : 't-output'}">${step.output}</span></div>`;
+                    terminal.scrollTop = terminal.scrollHeight;
+                }, totalDelay);
+                totalDelay += step.delay;
+            });
+            
+            setTimeout(() => {
+                terminal.innerHTML += `<div class="terminal-line"><span class="t-info">→ Deployment completed in ${(totalDelay/1000).toFixed(1)}s</span></div>`;
+            }, totalDelay + 500);
+        }
+
+        function reloadConfig() {
+            alert('تم إعادة تحميل الإعدادات');
+        }
+    </script>
+</body>
+</html>

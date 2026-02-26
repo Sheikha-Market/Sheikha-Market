@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="آلية البيع في سوق شيخة - دليل شامل للبائعين والمشترين">
+    <title>آلية البيع | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-dark: #063d24;
+            --primary-light: #0d7a47;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --gold-dark: #b8960c;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --shadow-gold: 0 4px 20px rgba(212,175,55,0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+        .nav-link {
+            padding: 10px 18px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .nav-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 32px;
+            background: linear-gradient(180deg, var(--card) 0%, var(--dark) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+        .hero-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        .hero-title span { color: var(--gold); }
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 32px;
+            line-height: 1.8;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Main */
+        .main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 64px 32px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 64px;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+        .section-title span { color: var(--gold); }
+        .section-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Journey Flow */
+        .journey-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 32px 0;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            margin-bottom: 48px;
+        }
+        .journey-step {
+            text-align: center;
+            padding: 20px;
+        }
+        .journey-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(10,92,54,0.2));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 12px;
+        }
+        .journey-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .journey-arrow {
+            color: var(--gold);
+            font-size: 1.5rem;
+            opacity: 0.5;
+        }
+
+        /* Steps Grid */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            transition: var(--transition);
+            position: relative;
+        }
+        .step-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+        .step-number {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+            font-weight: 900;
+            font-size: 1rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .step-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Role Cards */
+        .role-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .role-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        .role-header {
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(10,92,54,0.15), rgba(212,175,55,0.1));
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .role-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .role-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+        .role-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .role-body {
+            padding: 24px;
+        }
+        .role-steps {
+            list-style: none;
+        }
+        .role-steps li {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .role-steps li:last-child { border-bottom: none; }
+        .role-step-num {
+            width: 28px;
+            height: 28px;
+            background: rgba(212,175,55,0.1);
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 0.8rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .role-step-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Calculator */
+        .calculator-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+        }
+        .calc-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .calc-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .calc-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+        .calc-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .calc-form {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .calc-input {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px 18px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .calc-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        .calc-result {
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(10,92,54,0.1));
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .calc-result-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .calc-result-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+        .calc-result-unit {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* FAQ */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .faq-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .faq-question {
+            width: 100%;
+            padding: 18px 24px;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: right;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            transition: var(--transition);
+        }
+        .faq-question:hover {
+            color: var(--gold);
+        }
+        .faq-icon {
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+        }
+        .faq-answer {
+            padding: 0 24px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        .faq-item.open .faq-answer {
+            padding: 0 24px 20px;
+            max-height: 500px;
+        }
+        .faq-answer p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, var(--primary-dark), var(--dark));
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 48px;
+            text-align: center;
+        }
+        .cta h3 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+        .cta p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .steps-grid, .role-cards { grid-template-columns: 1fr; }
+            .calc-form { grid-template-columns: 1fr; }
+            .journey-flow { flex-direction: column; }
+            .journey-arrow { transform: rotate(90deg); }
+        }
+        @media (max-width: 600px) {
+            .hero { padding: 60px 20px; }
+            .main { padding: 40px 20px; }
+            .nav-links { display: none; }
+            .hero-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><svg viewBox="0 0 60 60" width="100%" height="100%"><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f7e98e"/><stop offset="50%" style="stop-color:#d4af37"/><stop offset="100%" style="stop-color:#aa8c2c"/></linearGradient></defs><circle cx="30" cy="30" r="28" fill="none" stroke="url(#goldGrad)" stroke-width="2"/><path d="M20 22 Q30 18 40 22 Q42 30 40 38 Q30 42 20 38 Q18 30 20 22" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/><circle cx="24" cy="20" r="2" fill="url(#goldGrad)"/><circle cx="30" cy="18" r="2" fill="url(#goldGrad)"/><circle cx="36" cy="20" r="2" fill="url(#goldGrad)"/><path d="M25 30 L35 30" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round"/></svg></div>
+                <span class="logo-text">سوق شيخة</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">🏠 الرئيسية</a>
+                <a href="السوق.html" class="nav-link">🛒 السوق</a>
+                <a href="لوحة-التحكم.html" class="nav-link">📊 لوحة التحكم</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">📋 دليل شامل</div>
+            <h1 class="hero-title">آلية <span>البيع والشراء</span></h1>
+            <p class="hero-desc">
+                دليلك الشامل لفهم كيفية البيع والشراء في سوق شيخة — من التسجيل إلى تحقيق الربح
+            </p>
+            <div class="hero-buttons">
+                <a href="تسجيل-تاجر.html" class="btn btn-gold">ابدأ الآن — مجاناً</a>
+                <a href="السوق.html" class="btn btn-outline">تصفح السوق</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main -->
+    <main class="main">
+        <!-- Journey Flow -->
+        <div class="journey-flow">
+            <div class="journey-step">
+                <div class="journey-icon">📝</div>
+                <div class="journey-label">التسجيل</div>
+            </div>
+            <span class="journey-arrow">←</span>
+            <div class="journey-step">
+                <div class="journey-icon">📦</div>
+                <div class="journey-label">عرض البضاعة</div>
+            </div>
+            <span class="journey-arrow">←</span>
+            <div class="journey-step">
+                <div class="journey-icon">💬</div>
+                <div class="journey-label">التفاوض</div>
+            </div>
+            <span class="journey-arrow">←</span>
+            <div class="journey-step">
+                <div class="journey-icon">🤝</div>
+                <div class="journey-label">الاتفاق</div>
+            </div>
+            <span class="journey-arrow">←</span>
+            <div class="journey-step">
+                <div class="journey-icon">🚚</div>
+                <div class="journey-label">التسليم</div>
+            </div>
+            <span class="journey-arrow">←</span>
+            <div class="journey-step">
+                <div class="journey-icon">💰</div>
+                <div class="journey-label">الربح</div>
+            </div>
+        </div>
+
+        <!-- Role Cards -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-badge">👥 الأدوار</div>
+                <h2 class="section-title">خطوات <span>البائع</span> و<span>المشتري</span></h2>
+                <p class="section-desc">كل دور له خطوات واضحة ومحددة</p>
+            </div>
+            <div class="role-cards">
+                <div class="role-card">
+                    <div class="role-header">
+                        <div class="role-icon">🏪</div>
+                        <div>
+                            <div class="role-title">البائع</div>
+                            <div class="role-subtitle">6 خطوات للبيع الناجح</div>
+                        </div>
+                    </div>
+                    <div class="role-body">
+                        <ul class="role-steps">
+                            <li>
+                                <span class="role-step-num">1</span>
+                                <span class="role-step-text">سجّل متجرك مجاناً واختر تخصصك</span>
+                            </li>
+                            <li>
+                                <span class="role-step-num">2</span>
+                                <span class="role-step-text">أضف منتجاتك بالتفاصيل والأسعار</span>
+                            </li>
+                            <li>
+                                <span class="role-step-num">3</span>
+                                <span class="role-step-text">استقبل استفسارات وطلبات الشراء</span>
+                            </li>
+                            <li>
+                                <span class="role-step-num">4</span>
+                                <span class="role-step-text">تفاوض واتفق على السعر والتسليم</span>
+                            </li>
+                            <li>
+                                <span class="role-step-num">5</span>
+                                <span class="role-step-text">سلّم البضاعة واستلم المبلغ</span>
+                            </li>
+                            <li>
+                                <span class="role-step-num">6</span>
+                                <span class="role-step-text">احصل على تقييم وابنِ سمعتك</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="role-card">
+                    <div class="role-header">
+                        <div class="role-icon">🛒</div>
+                        <div>
+                            <div class="role-title">المشتري</div>
+                            <div class="role-subtitle">4 خطوات للشراء الآمن</div>
+                        </div>
+                    </div>
+                    <div class="role-body">
+                        <ul class="role-steps">
+                            <li>
+                                <span class="role-step-num">1</span>
+                                <span class="role-step-text">تصفح السوق وابحث عن ما تحتاجه</span>
+                            </li>
+                            <li>
+                                <span class="role-step-num">2</span>
+                                <span class="role-step-text">تواصل مع البائع واستفسر عن التفاصيل</span>
+                            </li>
+                            <li>
+                                <span class="role-step-num">3</span>
+                                <span class="role-step-text">تفاوض واتفق على السعر والتسليم</span>
+                            </li>
+                            <li>
+                                <span class="role-step-num">4</span>
+                                <span class="role-step-text">استلم البضاعة وقيّم البائع</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator -->
+        <section class="section">
+            <div class="calculator-card">
+                <div class="calc-header">
+                    <div class="calc-icon">🧮</div>
+                    <div>
+                        <div class="calc-title">حاسبة الربح</div>
+                        <div class="calc-subtitle">احسب أرباحك المتوقعة</div>
+                    </div>
+                </div>
+                <div class="calc-form">
+                    <input type="number" class="calc-input" id="calcQuantity" placeholder="الكمية (طن)" value="50">
+                    <input type="number" class="calc-input" id="calcBuyPrice" placeholder="سعر الشراء (ريال/طن)" value="1800">
+                    <input type="number" class="calc-input" id="calcSellPrice" placeholder="سعر البيع (ريال/طن)" value="2100">
+                </div>
+                <div class="calc-result">
+                    <div class="calc-result-label">الربح المتوقع</div>
+                    <div class="calc-result-value" id="calcProfit">15,000</div>
+                    <div class="calc-result-unit">ريال سعودي</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-badge">❓ الأسئلة الشائعة</div>
+                <h2 class="section-title">إجابات على <span>تساؤلاتك</span></h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>هل التسجيل مجاني؟</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>نعم، التسجيل مجاني 100% ولا توجد رسوم اشتراك أو عمولة على المبيعات. يمكنك فتح متجرك وعرض منتجاتك بدون أي تكاليف.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>كيف أضمن حقوقي كبائع أو مشتري؟</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>نلتزم في سوق شيخة بمبدأ "لا ضرر ولا ضرار". لدينا نظام تقييمات يساعد في بناء الثقة، وقوانين واضحة لحل النزاعات. ننصح دائماً بالتحقق من المنتج قبل الشراء والاتفاق على كل التفاصيل كتابياً.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>ما هي طرق الدفع المتاحة؟</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>يتم الاتفاق على طريقة الدفع بين البائع والمشتري مباشرة. الطرق الشائعة تشمل: التحويل البنكي، الدفع عند الاستلام، أو عبر وسيط موثوق.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>كم من الوقت يستغرق نشر منتجي؟</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>منتجاتك تُنشر فوراً بعد إضافتها. لا يوجد فترة انتظار للموافقة — يمكنك البدء في استقبال الاستفسارات مباشرة.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>هل يمكنني التصدير خارج السعودية؟</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>نعم، يمكنك عرض منتجاتك للتصدير. تأكد من الالتزام بالأنظمة والقوانين الخاصة بتصدير المعادن والسكراب، واحصل على التراخيص اللازمة.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <div class="cta">
+            <h3>ابدأ تجارتك <span style="color: var(--gold);">الآن</span></h3>
+            <p>سجّل متجرك مجاناً وابدأ بعرض منتجاتك في أكبر سوق متخصص للمعادن والسكراب</p>
+            <div class="cta-buttons">
+                <a href="تسجيل-تاجر.html" class="btn btn-gold">افتح متجرك مجاناً</a>
+                <a href="السوق.html" class="btn btn-outline">تصفح السوق</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // FAQ Toggle
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            const wasOpen = item.classList.contains('open');
+            
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            
+            // Open clicked if it was closed
+            if (!wasOpen) {
+                item.classList.add('open');
+            }
+        }
+
+        // Calculator
+        function calculateProfit() {
+            const qty = parseFloat(document.getElementById('calcQuantity').value) || 0;
+            const buyPrice = parseFloat(document.getElementById('calcBuyPrice').value) || 0;
+            const sellPrice = parseFloat(document.getElementById('calcSellPrice').value) || 0;
+            
+            const profit = (sellPrice - buyPrice) * qty;
+            document.getElementById('calcProfit').textContent = profit.toLocaleString('ar-SA');
+        }
+
+        // Add event listeners to calculator inputs
+        ['calcQuantity', 'calcBuyPrice', 'calcSellPrice'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateProfit);
+        });
+
+        // Initial calculation
+        calculateProfit();
+    </script>
+</body>
+</html>

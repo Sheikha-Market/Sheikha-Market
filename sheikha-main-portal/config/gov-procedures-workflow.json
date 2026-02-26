@@ -1,0 +1,36 @@
+{
+    "version": "1.0.0",
+    "workflowName": "Government Services Digital Procedures",
+    "stages": [
+        {
+            "id": "legal_intake",
+            "name": "التأهيل النظامي",
+            "requiredFlags": ["approval"],
+            "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+            "id": "technical_setup",
+            "name": "الإعداد التقني",
+            "requiredFlags": ["credentials"],
+            "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+            "id": "sandbox_validation",
+            "name": "اختبار Sandbox",
+            "requiredFlags": ["credentials"],
+            "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+            "id": "go_live",
+            "name": "الإطلاق التشغيلي",
+            "requiredFlags": ["approval", "credentials"],
+            "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+            "id": "continuous_compliance",
+            "name": "المراقبة والامتثال",
+            "requiredFlags": [],
+            "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+    ]
+}

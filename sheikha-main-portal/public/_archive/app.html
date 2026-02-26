@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="حمّل تطبيق شيخة على جوالك أو حاسوبك">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="شيخة">
+    <meta name="theme-color" content="#d4af37">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/icon.svg">
+    <title>📱 تحميل التطبيق | شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #fff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --success: #10b981;
+            --radius: 16px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        
+        .hero {
+            padding: 60px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--card) 0%, var(--darker) 100%);
+        }
+        .app-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--dark);
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 40px rgba(212,175,55,0.3);
+        }
+        h1 { font-size: 2rem; font-weight: 900; margin-bottom: 12px; }
+        h1 span { color: var(--gold); }
+        .subtitle { color: var(--text-muted); margin-bottom: 30px; }
+        
+        .main-install-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border: none;
+            border-radius: 16px;
+            color: var(--dark);
+            font-family: inherit;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .main-install-btn:hover { transform: scale(1.05); box-shadow: 0 8px 30px rgba(212,175,55,0.4); }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+        
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .platform-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .platform-tab {
+            padding: 12px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .platform-tab:hover { border-color: var(--gold); color: var(--gold); }
+        .platform-tab.active { background: rgba(212,175,55,0.15); border-color: var(--gold); color: var(--gold); }
+        
+        .instructions-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            display: none;
+        }
+        .instructions-box.active { display: block; }
+        
+        .step {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+        .step:last-child { margin-bottom: 0; }
+        .step-num {
+            width: 36px;
+            height: 36px;
+            background: var(--gold);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .step-content h4 { margin-bottom: 6px; font-size: 1rem; }
+        .step-content p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+        .step-icon { font-size: 1.5rem; margin-left: 8px; }
+        
+        .tip-box {
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+        .tip-box h4 { color: var(--gold); margin-bottom: 8px; }
+        .tip-box p { font-size: 0.9rem; color: var(--text-muted); }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 40px;
+        }
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .feature-icon { font-size: 2rem; margin-bottom: 12px; }
+        .feature-title { font-weight: 700; margin-bottom: 6px; }
+        .feature-desc { font-size: 0.85rem; color: var(--text-muted); }
+        
+        .quick-links {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+        .quick-link {
+            padding: 12px 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .quick-link:hover { border-color: var(--gold); color: var(--gold); }
+        
+        .success-msg {
+            display: none;
+            background: rgba(16,185,129,0.15);
+            border: 1px solid var(--success);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .success-msg.show { display: block; }
+        .success-msg h3 { color: var(--success); margin-bottom: 8px; }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.6rem; }
+            .main-install-btn { padding: 16px 30px; font-size: 1rem; }
+            .platform-tabs { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="app-icon">ش</div>
+        <h1>حمّل تطبيق <span>شيخة</span></h1>
+        <p class="subtitle">السوق الرائد للمعادن والسكراب في السعودية</p>
+        
+        <button class="main-install-btn" id="installBtn" onclick="handleInstall()">
+            📥 تثبيت التطبيق الآن
+        </button>
+        
+        <div class="success-msg" id="successMsg">
+            <h3>✅ تم تثبيت التطبيق!</h3>
+            <p>ابحث عن أيقونة شيخة على شاشتك الرئيسية</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">📱 اختر جهازك</h2>
+        
+        <div class="platform-tabs">
+            <button class="platform-tab" onclick="showInstructions('iphone')" id="tab-iphone">🍎 iPhone / iPad</button>
+            <button class="platform-tab" onclick="showInstructions('android')" id="tab-android">🤖 Android</button>
+            <button class="platform-tab" onclick="showInstructions('mac')" id="tab-mac">💻 Mac</button>
+            <button class="platform-tab" onclick="showInstructions('windows')" id="tab-windows">🪟 Windows</button>
+        </div>
+
+        <!-- iPhone Instructions -->
+        <div class="instructions-box" id="instructions-iphone">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h4>افتح Safari <span class="step-icon">🧭</span></h4>
+                    <p>تأكد أنك تستخدم متصفح Safari (المتصفح الأزرق). التطبيق لا يعمل من Chrome على iPhone.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h4>اضغط على أيقونة المشاركة <span class="step-icon">⬆️</span></h4>
+                    <p>في أسفل الشاشة (أو أعلاها في iPad)، اضغط على المربع مع السهم للأعلى.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h4>اختر "إضافة إلى الشاشة الرئيسية" <span class="step-icon">➕</span></h4>
+                    <p>مرر القائمة للأسفل وابحث عن "إضافة إلى الشاشة الرئيسية" أو "Add to Home Screen"</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h4>اضغط "إضافة" <span class="step-icon">✅</span></h4>
+                    <p>غيّر الاسم إذا أردت، ثم اضغط "إضافة" في الزاوية العلوية اليسرى.</p>
+                </div>
+            </div>
+            <div class="tip-box">
+                <h4>💡 نصيحة</h4>
+                <p>بعد الإضافة، ستجد أيقونة شيخة الذهبية على شاشتك الرئيسية. اضغط عليها لفتح التطبيق!</p>
+            </div>
+        </div>
+
+        <!-- Android Instructions -->
+        <div class="instructions-box" id="instructions-android">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h4>افتح Chrome <span class="step-icon">🌐</span></h4>
+                    <p>استخدم متصفح Google Chrome للحصول على أفضل تجربة.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h4>اضغط على القائمة <span class="step-icon">⋮</span></h4>
+                    <p>في أعلى يمين الشاشة، اضغط على النقاط الثلاث العمودية.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h4>اختر "تثبيت التطبيق" <span class="step-icon">📲</span></h4>
+                    <p>أو "إضافة إلى الشاشة الرئيسية" أو "Install app"</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h4>اضغط "تثبيت" <span class="step-icon">✅</span></h4>
+                    <p>سيظهر مربع حوار، اضغط "تثبيت" وانتظر ثواني.</p>
+                </div>
+            </div>
+            <div class="tip-box">
+                <h4>💡 نصيحة</h4>
+                <p>قد يظهر شريط في أسفل الشاشة يطلب منك تثبيت التطبيق مباشرة - اضغط عليه!</p>
+            </div>
+        </div>
+
+        <!-- Mac Instructions -->
+        <div class="instructions-box" id="instructions-mac">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h4>افتح Chrome أو Edge <span class="step-icon">🌐</span></h4>
+                    <p>Safari على Mac لا يدعم تثبيت التطبيقات بشكل كامل. استخدم Chrome أو Edge.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h4>ابحث عن أيقونة التثبيت <span class="step-icon">📥</span></h4>
+                    <p>في شريط العنوان (URL)، على اليمين بجانب النجمة، ستجد أيقونة تثبيت صغيرة.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h4>أو من القائمة <span class="step-icon">⋮</span></h4>
+                    <p>اضغط على النقاط الثلاث ← "تثبيت شيخة..." أو "Install Sheikha..."</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h4>اضغط "تثبيت" <span class="step-icon">✅</span></h4>
+                    <p>سيفتح التطبيق كنافذة مستقلة ويُضاف للـ Dock.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Windows Instructions -->
+        <div class="instructions-box" id="instructions-windows">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h4>افتح Chrome أو Edge <span class="step-icon">🌐</span></h4>
+                    <p>كلا المتصفحين يدعمان تثبيت التطبيقات.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h4>ابحث عن أيقونة التثبيت <span class="step-icon">📥</span></h4>
+                    <p>في شريط العنوان، على اليمين، ستجد أيقونة كمبيوتر مع سهم للأسفل.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h4>أو من القائمة <span class="step-icon">⋮</span></h4>
+                    <p>Chrome: ⋮ ← "تثبيت شيخة..."<br>Edge: ... ← "Apps" ← "Install this site as an app"</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h4>اضغط "تثبيت" <span class="step-icon">✅</span></h4>
+                    <p>سيُضاف اختصار للتطبيق على سطح المكتب وقائمة Start.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📴</div>
+                <div class="feature-title">يعمل بدون إنترنت</div>
+                <div class="feature-desc">تصفح المنتجات المحفوظة</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔔</div>
+                <div class="feature-title">إشعارات فورية</div>
+                <div class="feature-desc">تنبيهات العروض والطلبات</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">سريع جداً</div>
+                <div class="feature-desc">تحميل فوري</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <div class="feature-title">تجربة أصلية</div>
+                <div class="feature-desc">يبدو كتطبيق حقيقي</div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="quick-links">
+            <a href="/" class="quick-link">🏠 الرئيسية</a>
+            <a href="/السوق.html" class="quick-link">🛒 السوق</a>
+            <a href="/تسجيل-تاجر.html" class="quick-link">📝 سجّل متجرك</a>
+        </div>
+    </div>
+
+    <script>
+        let deferredPrompt = null;
+
+        // Detect platform on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const ua = navigator.userAgent;
+            let platform = 'windows';
+            
+            if (/iPhone|iPad|iPod/.test(ua)) {
+                platform = 'iphone';
+            } else if (/Android/.test(ua)) {
+                platform = 'android';
+            } else if (/Mac/.test(ua)) {
+                platform = 'mac';
+            }
+            
+            showInstructions(platform);
+        });
+
+        // Show instructions for selected platform
+        function showInstructions(platform) {
+            // Hide all
+            document.querySelectorAll('.instructions-box').forEach(box => box.classList.remove('active'));
+            document.querySelectorAll('.platform-tab').forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected
+            const box = document.getElementById('instructions-' + platform);
+            const tab = document.getElementById('tab-' + platform);
+            if (box) box.classList.add('active');
+            if (tab) tab.classList.add('active');
+        }
+
+        // PWA Install prompt (for Chrome/Edge)
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('Install prompt ready');
+        });
+
+        // Handle install button click
+        async function handleInstall() {
+            if (deferredPrompt) {
+                // Chrome/Edge - use native prompt
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log('Install outcome:', outcome);
+                
+                if (outcome === 'accepted') {
+                    document.getElementById('successMsg').classList.add('show');
+                }
+                deferredPrompt = null;
+            } else {
+                // iOS/Safari or prompt not available - scroll to instructions
+                const ua = navigator.userAgent;
+                let platform = 'windows';
+                
+                if (/iPhone|iPad|iPod/.test(ua)) {
+                    platform = 'iphone';
+                    alert('📱 على iPhone:\n\n1. تأكد أنك في Safari\n2. اضغط على أيقونة المشاركة ⬆️ في الأسفل\n3. اختر "إضافة إلى الشاشة الرئيسية"');
+                } else if (/Android/.test(ua)) {
+                    platform = 'android';
+                    alert('📱 على Android:\n\n1. اضغط على ⋮ في أعلى Chrome\n2. اختر "تثبيت التطبيق" أو "إضافة إلى الشاشة"');
+                } else if (/Mac/.test(ua)) {
+                    platform = 'mac';
+                    alert('💻 على Mac:\n\n1. استخدم Chrome أو Edge\n2. ابحث عن أيقونة 📥 في شريط العنوان\n3. أو من القائمة ⋮ اختر "تثبيت"');
+                } else {
+                    alert('💻 على Windows:\n\n1. استخدم Chrome أو Edge\n2. ابحث عن أيقونة 📥 في شريط العنوان\n3. اضغط "تثبيت"');
+                }
+                
+                showInstructions(platform);
+                document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Check if installed
+        window.addEventListener('appinstalled', () => {
+            console.log('App installed!');
+            document.getElementById('successMsg').classList.add('show');
+            document.getElementById('installBtn').textContent = '✅ تم التثبيت!';
+        });
+
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('SW registered'))
+                .catch(err => console.log('SW failed:', err));
+        }
+    </script>
+</body>
+</html>

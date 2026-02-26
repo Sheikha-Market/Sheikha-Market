@@ -1,0 +1,295 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * ☪️ بسم الله الرحمن الرحيم
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * SHEIKHA Motion Pack — شعار متحرك + انتقالات + تجربة مستخدم هادئة وقوية
+ * المالك: سلمان أحمد بن سلمان الراجح
+ * المرجعية: الكتاب والسنة
+ * المبدأ: الحركة = سكينة وقوة، لا بهرجة
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════
+   🌟 SPLASH SCREEN — شاشة الترحيب
+   ════════════════════════════════════════════════════ */
+#sheikha-splash {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, #0d1220 0%, #070a12 50%, #020305 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+/* الخلفية — نمط هندسي إسلامي خفيف */
+#sheikha-splash::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='.25' opacity='.08'%3E%3Cpolygon points='60,8 85,25 85,58 60,75 35,58 35,25'/%3E%3Cline x1='60' y1='8' x2='60' y2='75'/%3E%3Cline x1='35' y1='25' x2='85' y2='58'/%3E%3Cline x1='85' y1='25' x2='35' y2='58'/%3E%3Ccircle cx='60' cy='42' r='15'/%3E%3C/g%3E%3C/svg%3E");
+    animation: splashPatternFloat 30s linear infinite;
+}
+
+@keyframes splashPatternFloat {
+    from { background-position: 0 0; }
+    to { background-position: 120px 120px; }
+}
+
+/* هالة ذهبية مركزية */
+#sheikha-splash::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(212,175,55,0.06) 0%, rgba(212,175,55,0.02) 30%, transparent 60%);
+    animation: splashGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes splashGlow {
+    from { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+.sheikha-splash-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: splashContentIn 800ms ease 200ms forwards;
+}
+
+/* ═══ الشعار المتحرك ═══ */
+.sheikha-logo-animated {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 20px;
+    position: relative;
+}
+
+/* حلقة الشعار الخارجية */
+.logo-ring {
+    position: absolute;
+    inset: 0;
+    border: 2px solid rgba(212,175,55,0.15);
+    border-radius: 50%;
+    opacity: 0;
+    animation: logoRingIn 1200ms ease 400ms forwards;
+}
+
+.logo-ring::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 2px solid transparent;
+    border-top-color: #D4AF37;
+    border-radius: 50%;
+    animation: logoRingSpin 4s linear infinite;
+}
+
+@keyframes logoRingSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes logoRingIn {
+    from { opacity: 0; transform: scale(0.6); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* حلقة داخلية */
+.logo-ring-inner {
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(212,175,55,0.08);
+    border-radius: 50%;
+    opacity: 0;
+    animation: logoRingIn 1000ms ease 600ms forwards;
+}
+
+.logo-ring-inner::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border: 1px solid transparent;
+    border-bottom-color: rgba(184,115,51,0.6);
+    border-radius: 50%;
+    animation: logoRingSpin 6s linear infinite reverse;
+}
+
+/* حرف ش — الشعار */
+.logo-shin {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4.5rem;
+    font-weight: 900;
+    font-family: 'Amiri', 'Traditional Arabic', serif;
+    background: linear-gradient(135deg, #F5E6A3 0%, #D4AF37 40%, #B87333 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    transform: scale(0.7);
+    animation: logoShinIn 1000ms cubic-bezier(0.34, 1.56, 0.64, 1) 500ms forwards;
+    filter: drop-shadow(0 0 30px rgba(212,175,55,0.2));
+    line-height: 1;
+}
+
+@keyframes logoShinIn {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* نبض خفيف مستمر */
+.logo-shin::after {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+    animation: logoPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.95); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+/* ═══ النصوص ═══ */
+.splash-bismillah {
+    font-family: 'Amiri', serif;
+    font-size: 1.1rem;
+    color: rgba(212,175,55,0.7);
+    margin-bottom: 6px;
+    opacity: 0;
+    animation: splashTextIn 700ms ease 1000ms forwards;
+    letter-spacing: 0.5px;
+}
+
+.splash-brand {
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: 6px;
+    background: linear-gradient(135deg, #D4AF37, #F5E6A3, #D4AF37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: splashTextIn 700ms ease 1200ms forwards;
+    text-transform: uppercase;
+}
+
+.splash-tagline {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    opacity: 0;
+    animation: splashTextIn 700ms ease 1400ms forwards;
+    letter-spacing: 0.3px;
+}
+
+/* شريط التحميل */
+.splash-loader {
+    width: 120px;
+    height: 2px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 2px;
+    margin: 24px auto 0;
+    overflow: hidden;
+    opacity: 0;
+    animation: splashTextIn 500ms ease 1600ms forwards;
+}
+
+.splash-loader-bar {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #D4AF37, #B87333);
+    border-radius: 2px;
+    animation: splashLoaderFill 1800ms ease 1700ms forwards;
+}
+
+@keyframes splashLoaderFill {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes splashContentIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes splashTextIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* اختفاء Splash */
+.sheikha-splash-hide {
+    animation: splashFadeOut 600ms ease forwards !important;
+}
+
+.sheikha-splash-hide * {
+    animation-play-state: paused !important;
+}
+
+@keyframes splashFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+
+/* ════════════════════════════════════════════════════
+   🔄 PAGE TRANSITIONS — انتقالات بين الصفحات
+   ════════════════════════════════════════════════════ */
+#sheikha-transition {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 999998;
+    transition: opacity 200ms ease;
+    background: radial-gradient(ellipse at center, rgba(5,8,16,0.4), rgba(0,0,0,0.6));
+}
+
+#sheikha-transition.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* ميكرو-شعار أثناء الانتقال */
+#sheikha-transition::after {
+    content: 'ش';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    font-family: 'Amiri', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #D4AF37, #F5E6A3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transition: opacity 150ms ease 100ms, transform 200ms ease 100ms;
+}
+
+#sheikha-transition.active::after {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* تأثير دخول الصفحة */
+.sheikha-page-enter {
+    animation: pageEnter 300ms ease;
+}
+
+@keyframes pageEnter {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}

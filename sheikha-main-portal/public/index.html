@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شيخة — أول سوق إسلامي رقمي للمعادن | على نهج سوق المدينة المنورة</title>
+    <meta name="description" content="منظومة وسوق شيخة — أول مركز اقتصادي إسلامي رقمي متخصص بالمعادن، مبني على مبادئ سوق المدينة المنورة الذي أسسه النبي ﷺ">
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#D4AF37">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="شيخة">
+    <link rel="apple-touch-icon" href="/icons/icon.svg">
+    <meta name="application-name" content="شيخة">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#030712">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="شيخة — أول سوق إسلامي رقمي للمعادن">
+    <meta property="og:description" content="سوق إسلامي رقمي متكامل للمعادن والسكراب — تسعير نبوي — تجارة حلال">
+    <meta property="og:url" content="https://sheikha.top">
+    <meta property="og:site_name" content="SHEIKHA">
+    <meta property="og:locale" content="ar_SA">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="شيخة — أول سوق إسلامي رقمي للمعادن">
+    <meta name="twitter:description" content="سوق إسلامي رقمي متكامل للمعادن والسكراب">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <script src="/js/safe-api.js"></script>
+    <script src="/js/sheikha-access.js"></script>
+    <script src="/js/sheikha-smart-fab.js" defer></script>
+    <script src="/js/sheikha-i18n.js" defer></script>
+    <style>
+        /* ═══ Language Switcher ═══ */
+        .sheikha-i18n-switcher{display:flex;gap:4px;flex-wrap:wrap}
+        .sheikha-lang-btn{padding:6px 12px;border:1px solid rgba(212,175,55,.1);border-radius:8px;font-size:.72rem;font-weight:600;cursor:pointer;transition:.3s;background:transparent;color:var(--t3);font-family:inherit}
+        .sheikha-lang-btn.active{background:rgba(212,175,55,.12);color:var(--gold);border-color:rgba(212,175,55,.25)}
+        .sheikha-lang-btn:hover{color:var(--gold);border-color:rgba(212,175,55,.2)}
+        .lang-bar{position:fixed;top:76px;left:0;right:0;z-index:99;padding:6px 1.5rem;display:flex;justify-content:center;background:rgba(3,5,9,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,.05);transition:opacity .5s}
+        .lang-bar.hidden{opacity:0;pointer-events:none}
+        :root{
+            --gold:#D4AF37;--gold-l:#F5E6A3;--gold-d:#A8882B;
+            --copper:#B87333;--silver:#C0C0C0;
+            --bg:#030509;--bg2:#0a0e18;--bg3:#111827;
+            --card:rgba(212,175,55,.015);--border:rgba(212,175,55,.07);
+            --t1:#f4f4f5;--t2:#a1a1aa;--t3:#71717a;
+            --green:#006c35;--green-l:#10b981
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+        ::selection{background:rgba(212,175,55,.2);color:#fff}
+        .amiri{font-family:'Amiri',serif}
+
+        /* ═══ GEOMETRIC ISLAMIC PATTERN ═══ */
+        .geo{position:fixed;inset:0;pointer-events:none;opacity:.015;z-index:0;
+            background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='.4'%3E%3Cpolygon points='50,5 72,20 72,50 50,65 28,50 28,20'/%3E%3Cline x1='50' y1='5' x2='50' y2='65'/%3E%3Cline x1='28' y1='20' x2='72' y2='50'/%3E%3Cline x1='72' y1='20' x2='28' y2='50'/%3E%3Ccircle cx='50' cy='35' r='12'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* ═══ NAV ═══ */
+        nav{position:fixed;top:0;width:100%;z-index:100;transition:all .5s}
+        nav.s{background:rgba(3,5,9,.96);backdrop-filter:blur(30px);border-bottom:1px solid var(--border)}
+        .nv{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px;padding:0 clamp(1rem,4vw,3rem)}
+        .logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+        .logo-text{display:flex;flex-direction:column;line-height:1.1}
+        .logo-text .ar{font-size:1.25rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .logo-text .en{font-size:.58rem;font-weight:700;color:var(--t3);letter-spacing:.3em;text-transform:uppercase}
+        .nl{display:flex;align-items:center;gap:4px;list-style:none}
+        .nl>li{position:relative}
+        .nl a{color:var(--t2);text-decoration:none;padding:9px 18px;border-radius:10px;font-size:.85rem;font-weight:600;transition:all .3s;display:flex;align-items:center;gap:6px}
+        .nl a:hover{color:var(--gold);background:rgba(212,175,55,.04)}
+        .nl .cta{background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--bg);font-weight:800;padding:10px 26px;border-radius:10px}
+        .nl .cta:hover{box-shadow:0 8px 28px rgba(212,175,55,.3);transform:translateY(-1px)}
+
+        /* ═══ MEGA DROPDOWN ═══ */
+        .nav-drop{position:relative}
+        .nav-drop-trigger{cursor:pointer;color:var(--t2);padding:9px 18px;border-radius:10px;font-size:.85rem;font-weight:600;transition:all .3s;display:flex;align-items:center;gap:6px;border:none;background:none;font-family:inherit}
+        .nav-drop-trigger:hover{color:var(--gold);background:rgba(212,175,55,.04)}
+        .nav-drop-trigger svg{width:12px;height:12px;transition:transform .3s}
+        .nav-drop:hover .nav-drop-trigger svg{transform:rotate(180deg)}
+        .nav-drop-trigger .dd-dot{width:5px;height:5px;background:var(--green-l);border-radius:50%;animation:pulse 2s infinite}
+
+        .mega-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:580px;background:rgba(8,12,24,.97);backdrop-filter:blur(40px);border:1px solid rgba(212,175,55,.1);border-radius:18px;padding:20px;opacity:0;visibility:hidden;transform:translateY(8px);transition:all .3s;box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:200;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+        .nav-drop:hover .mega-menu{opacity:1;visibility:visible;transform:translateY(0)}
+
+        .mega-section{padding:4px 0}
+        .mega-title{font-size:.65rem;font-weight:800;color:var(--gold);letter-spacing:.12em;padding:6px 12px;margin-bottom:4px;text-transform:uppercase;opacity:.7}
+        .mega-link{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;text-decoration:none;color:var(--t2);transition:all .25s;font-size:.82rem;font-weight:600}
+        .mega-link:hover{background:rgba(212,175,55,.04);color:var(--gold)}
+        .mega-link .ml-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;background:rgba(212,175,55,.04)}
+        .mega-link .ml-text{line-height:1.3}
+        .mega-link .ml-name{font-weight:700;font-size:.8rem}
+        .mega-link .ml-desc{font-size:.65rem;color:var(--t3);font-weight:400}
+        .mega-sep{height:1px;background:rgba(212,175,55,.06);margin:6px 12px}
+
+        /* ═══ MOBILE MENU ═══ */
+        .mob-toggle{display:none;background:none;border:1px solid var(--border);color:var(--gold);width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:1.2rem;align-items:center;justify-content:center}
+        @media(max-width:900px){
+            .nl{display:none}
+            .mob-toggle{display:flex}
+            .nl.mob-open{display:flex;flex-direction:column;position:fixed;top:72px;right:0;left:0;background:rgba(3,5,9,.98);backdrop-filter:blur(30px);padding:1.5rem;gap:4px;border-bottom:1px solid var(--border);max-height:80vh;overflow-y:auto}
+            .nl.mob-open .nav-drop{width:100%}
+            .nl.mob-open .mega-menu{position:static;min-width:100%;opacity:1;visibility:visible;transform:none;display:none;grid-template-columns:1fr;box-shadow:none;border:1px solid rgba(212,175,55,.06);margin-top:6px}
+            .nl.mob-open .nav-drop.mob-exp .mega-menu{display:grid}
+        }
+
+        /* ═══ HERO ═══ */
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 1.5rem 80px;position:relative}
+        .hero-bg{position:absolute;inset:0;pointer-events:none}
+        .hero-bg::before{content:'';position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(212,175,55,.035) 0%,rgba(184,115,51,.015) 40%,transparent 70%);animation:breathe 12s ease infinite alternate}
+        .hero-bg::after{content:'';position:absolute;bottom:0;left:0;right:0;height:240px;background:linear-gradient(to top,var(--bg),transparent)}
+        @keyframes breathe{0%{opacity:.5;transform:translateX(-50%) scale(1)}100%{opacity:.85;transform:translateX(-50%) scale(1.12)}}
+
+        .hero-c{position:relative;z-index:2;max-width:840px}
+
+        /* ═══ SHEIKHA EMBLEM V3 — شعار شيخة المُتقَن المُحسّن ═══ */
+        .emblem{width:240px;height:240px;margin:0 auto 2.5rem;animation:emblem-in 2s cubic-bezier(.23,1,.32,1) .2s both;position:relative}
+        .emblem::before{content:'';position:absolute;inset:-50px;background:radial-gradient(circle,rgba(212,175,55,.08) 0%,rgba(245,230,163,.03) 30%,rgba(184,115,51,.015) 50%,transparent 70%);border-radius:50%;animation:emblem-pulse 7s ease infinite alternate;pointer-events:none}
+        .emblem::after{content:'';position:absolute;inset:-16px;border:1.5px solid rgba(212,175,55,.04);border-radius:50%;animation:emblem-ring 25s linear infinite;pointer-events:none;border-top-color:rgba(212,175,55,.12);border-right-color:rgba(212,175,55,.08)}
+        .emblem svg{width:100%;height:100%;filter:drop-shadow(0 0 40px rgba(212,175,55,.06)) drop-shadow(0 0 80px rgba(212,175,55,.03));transition:filter .6s,transform .6s}
+        .emblem:hover svg{filter:drop-shadow(0 0 60px rgba(212,175,55,.18)) drop-shadow(0 0 120px rgba(212,175,55,.08));transform:scale(1.04)}
+        @keyframes emblem-in{from{opacity:0;transform:scale(.5) rotate(-20deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+        @keyframes emblem-pulse{0%{opacity:.3;transform:scale(.9)}100%{opacity:1;transform:scale(1.15)}}
+        @keyframes emblem-ring{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+        @keyframes emblem-shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+        @keyframes emblem-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        /* تأثير الجسيمات الذهبية */
+        @keyframes sparkle-drift{0%{opacity:0;transform:translate(0,0) scale(0)}25%{opacity:1;transform:translate(var(--dx),var(--dy)) scale(1)}75%{opacity:.6;transform:translate(calc(var(--dx)*2),calc(var(--dy)*2)) scale(.8)}100%{opacity:0;transform:translate(calc(var(--dx)*3),calc(var(--dy)*3)) scale(0)}}
+        @keyframes gem-glow{0%,100%{filter:drop-shadow(0 0 8px rgba(212,175,55,.3))}50%{filter:drop-shadow(0 0 20px rgba(245,230,163,.5))}}
+        .emblem-wrap{position:relative;display:inline-block;animation:emblem-float 8s ease infinite}
+        .emblem-wrap::before{content:'';position:absolute;inset:-70px;background:conic-gradient(from 0deg,transparent,rgba(212,175,55,.05),transparent,rgba(245,230,163,.04),transparent,rgba(212,175,55,.03),transparent);border-radius:50%;animation:emblem-ring 25s linear infinite;pointer-events:none}
+        .emblem-wrap::after{content:'';position:absolute;inset:-35px;background:conic-gradient(from 180deg,transparent,rgba(245,230,163,.03),transparent,rgba(212,175,55,.04),transparent);border-radius:50%;animation:emblem-ring 18s linear infinite reverse;pointer-events:none}
+
+        /* Logo Mark — Enhanced V5 — مُتقَن بإحسان */
+        .logo-mark{width:56px;height:56px;flex-shrink:0;position:relative}
+        .logo-mark::before{content:'';position:absolute;inset:-12px;background:radial-gradient(circle,rgba(212,175,55,.09),rgba(245,230,163,.04),transparent 70%);border-radius:50%;pointer-events:none;transition:all .6s cubic-bezier(.4,0,.2,1);opacity:.5;transform:scale(.92);animation:logo-breathe 5s ease-in-out infinite alternate}
+        .logo:hover .logo-mark::before{opacity:1;transform:scale(1.15);background:radial-gradient(circle,rgba(212,175,55,.14),rgba(245,230,163,.06),transparent 70%)}
+        .logo-mark::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0%,rgba(245,230,163,.08) 12%,transparent 25%,rgba(212,175,55,.06) 40%,transparent 55%,rgba(245,230,163,.07) 70%,rgba(212,175,55,.05) 85%,transparent 100%);opacity:.6;transition:opacity .5s;pointer-events:none;animation:logo-ring-spin 16s linear infinite}
+        .logo:hover .logo-mark::after{opacity:1}
+        .logo-mark svg{width:100%;height:100%;transition:filter .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1);filter:drop-shadow(0 0 8px rgba(212,175,55,.12)) drop-shadow(0 0 2px rgba(212,175,55,.06))}
+        .logo:hover .logo-mark svg{filter:drop-shadow(0 0 20px rgba(212,175,55,.3)) drop-shadow(0 0 50px rgba(212,175,55,.12)) drop-shadow(0 0 90px rgba(245,230,163,.06));transform:scale(1.12) rotate(4deg)}
+        /* شريط اللمعان المتحرك */
+        .logo-mark .shimmer{position:absolute;inset:0;border-radius:50%;overflow:hidden;pointer-events:none}
+        .logo-mark .shimmer::before{content:'';position:absolute;top:-100%;left:-100%;width:300%;height:300%;background:linear-gradient(115deg,transparent 40%,rgba(245,230,163,.08) 45%,rgba(255,253,232,.12) 50%,rgba(245,230,163,.08) 55%,transparent 60%);animation:logo-shimmer 6s ease-in-out infinite;pointer-events:none}
+        @keyframes logo-breathe{0%{opacity:.4;transform:scale(.9)}100%{opacity:.7;transform:scale(1.04)}}
+        @keyframes logo-ring-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+        @keyframes logo-shimmer{0%,100%{transform:translateX(-100%) rotate(25deg)}40%,60%{transform:translateX(100%) rotate(25deg)}}
+
+        /* Emblem Meaning Section V2 */
+        .emblem-meaning{transition:all .5s;position:relative}
+        .emblem-meaning:hover{border-color:rgba(212,175,55,.15)!important;transform:translateY(-2px);box-shadow:0 20px 60px rgba(212,175,55,.04)}
+        .emblem-meaning::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.15),rgba(245,230,163,.1),rgba(212,175,55,.15),transparent);opacity:0;transition:opacity .4s}
+        .emblem-meaning:hover::before{opacity:1}
+
+        .badge{display:inline-flex;align-items:center;gap:10px;padding:7px 20px;border-radius:50px;border:1px solid var(--border);font-size:.76rem;color:var(--gold);margin-bottom:2rem;background:rgba(212,175,55,.015);animation:fu .8s ease .4s both;letter-spacing:.04em;font-weight:700}
+        .dot{width:7px;height:7px;background:var(--green-l);border-radius:50%;animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,.3)}50%{opacity:.5;box-shadow:0 0 0 7px transparent}}
+
+        h1.hero-t{font-size:clamp(2.6rem,6vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:1rem;letter-spacing:-.04em;animation:fu 1s ease .5s both}
+        .hero-t .g{background:linear-gradient(135deg,var(--gold-l),var(--gold),var(--copper));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+        .hero-verse{font-size:clamp(.95rem,2vw,1.15rem);color:rgba(212,175,55,.45);margin-bottom:1.5rem;animation:fu 1s ease .6s both;font-family:'Amiri',serif;font-weight:400;line-height:1.8}
+        .hero-sub{color:var(--t2);font-size:1.1rem;line-height:1.8;margin-bottom:2.5rem;max-width:640px;margin-left:auto;margin-right:auto;animation:fu 1s ease .7s both}
+        @keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+        .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fu 1s ease .85s both}
+        .btn{padding:16px 36px;border-radius:12px;font-size:.95rem;font-weight:700;text-decoration:none;transition:all .35s;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:10px}
+        .bp{background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--bg);box-shadow:0 8px 32px rgba(212,175,55,.16)}
+        .bp:hover{transform:translateY(-3px);box-shadow:0 16px 50px rgba(212,175,55,.3)}
+        .bo{background:transparent;color:var(--t1);border:1.5px solid rgba(255,255,255,.08)}
+        .bo:hover{border-color:rgba(212,175,55,.25);background:rgba(212,175,55,.02)}
+        .btn svg{width:18px;height:18px;flex-shrink:0}
+
+        /* ═══ TRUST ═══ */
+        .trust{padding:26px 1.5rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(212,175,55,.006)}
+        .trust-in{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:clamp(1.5rem,4vw,3.5rem);flex-wrap:wrap}
+        .ti{display:flex;align-items:center;gap:8px;color:var(--t3);font-size:.8rem;font-weight:600;white-space:nowrap}
+        .ti svg{width:18px;height:18px;color:var(--gold);opacity:.65;flex-shrink:0}
+        .ti strong{color:var(--t2)}
+
+        /* ═══ TICKER ═══ */
+        .ticker{overflow:hidden;padding:13px 0;background:rgba(0,0,0,.25);border-bottom:1px solid var(--border)}
+        .tt{display:flex;gap:3rem;animation:sc 65s linear infinite;width:max-content}
+        .tm{display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:.82rem}
+        .tm .n{color:var(--t3)}.tm .p{color:var(--t1);font-weight:700}.tm .c{font-size:.76rem;font-weight:600}
+        .up{color:var(--green-l)}.dn{color:#ef4444}
+        @keyframes sc{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+        /* ═══ SECTION ═══ */
+        .sec{max-width:1280px;margin:0 auto;padding:6rem 1.5rem}
+        .sb{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:50px;border:1px solid var(--border);font-size:.7rem;font-weight:700;color:var(--gold);letter-spacing:.14em;margin-bottom:1.2rem;background:rgba(212,175,55,.015);text-transform:uppercase}
+        .st{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:900;line-height:1.15;margin-bottom:.8rem;letter-spacing:-.03em}
+        .st .g{background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .sd{color:var(--t2);font-size:1.02rem;line-height:1.75;max-width:640px}
+        .sh{margin-bottom:3.5rem}
+        .sh.c{text-align:center}.sh.c .sd{margin:0 auto}
+        .hov-card{background:var(--bg2);border:1px solid rgba(255,255,255,.02);border-radius:20px;padding:32px;transition:all .4s}
+        .hov-card:hover{border-color:rgba(212,175,55,.12)!important;transform:translateY(-4px)}
+        .hov-card--sm{border-radius:18px;padding:36px}
+        .hov-link{transition:all .35s}
+        .hov-link:hover{background:rgba(212,175,55,.12)!important;transform:translateY(-2px)}
+        .store-badge{display:inline-flex;align-items:center;gap:10px;padding:12px 24px;background:#000;border:1px solid rgba(255,255,255,.15);border-radius:12px;text-decoration:none;color:#fff;transition:all .3s}
+        .store-badge:hover{border-color:#D4AF37!important}
+
+        /* ═══ PROPHETIC FOUNDATIONS ═══ */
+        .found-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;border-radius:24px;overflow:hidden}
+        .found{padding:44px 34px;background:var(--bg2);position:relative;transition:all .5s}
+        .found::before{content:'';position:absolute;top:0;right:0;bottom:0;width:3px;background:var(--gold);opacity:0;transition:opacity .4s}
+        .found:hover{background:rgba(212,175,55,.015)}.found:hover::before{opacity:1}
+        .found-num{font-size:.65rem;font-weight:800;color:var(--gold);letter-spacing:.15em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+        .found-num span{width:20px;height:20px;border-radius:5px;background:rgba(212,175,55,.1);display:inline-grid;place-items:center;font-size:.65rem;color:var(--gold)}
+        .found h3{font-size:1.08rem;font-weight:800;margin-bottom:8px}
+        .found>p{color:var(--t2);font-size:.86rem;line-height:1.7}
+        .found .src{font-size:.72rem;color:rgba(212,175,55,.35);margin-top:12px;font-family:'Amiri',serif;font-style:italic}
+
+        /* ═══ MARKETS VISITED ═══ */
+        .markets{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+        .mkt{background:var(--bg2);border:1px solid rgba(255,255,255,.02);border-radius:18px;padding:32px 24px;text-align:center;transition:all .45s;position:relative;overflow:hidden}
+        .mkt:hover{border-color:rgba(212,175,55,.12);transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+        .mkt-ic{width:56px;height:56px;border-radius:14px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center}
+        .mkt-ic svg{width:28px;height:28px}
+        .mkt h3{font-size:1rem;font-weight:800;margin-bottom:4px}
+        .mkt .loc{font-size:.75rem;color:var(--t3);margin-bottom:10px}
+        .mkt p{color:var(--t2);font-size:.8rem;line-height:1.6}
+
+        /* ═══ CATS ═══ */
+        .cats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+        .cat{background:var(--bg2);border:1px solid rgba(255,255,255,.02);border-radius:20px;padding:40px 28px;text-align:center;transition:all .45s;cursor:pointer;text-decoration:none;color:var(--t1);position:relative;overflow:hidden}
+        .cat::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(212,175,55,.03),transparent 70%);opacity:0;transition:opacity .4s}
+        .cat:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,.35);border-color:rgba(212,175,55,.12)}.cat:hover::after{opacity:1}
+        .cat .ic{width:68px;height:68px;border-radius:17px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+        .cat .ic svg{width:34px;height:34px}
+        .cat .hs{font-size:.7rem;color:var(--gold);font-weight:700;letter-spacing:.08em;margin-bottom:8px;font-family:monospace;position:relative;z-index:1}
+        .cat h3{font-size:1.05rem;font-weight:800;margin-bottom:6px;position:relative;z-index:1}
+        .cat p{color:var(--t3);font-size:.8rem;line-height:1.6;position:relative;z-index:1}
+
+        /* ═══ VISION ═══ */
+        .vision-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+        .vis{background:var(--bg2);border:1px solid rgba(255,255,255,.02);border-radius:18px;padding:36px 28px;transition:all .4s;text-align:center}
+        .vis:hover{border-color:rgba(212,175,55,.12);transform:translateY(-4px)}
+        .vis .phase{font-size:.7rem;font-weight:800;color:var(--gold);letter-spacing:.12em;margin-bottom:12px}
+        .vis h3{font-size:1.05rem;font-weight:800;margin-bottom:8px}
+        .vis p{color:var(--t2);font-size:.84rem;line-height:1.65}
+
+        /* ═══ WISDOM ═══ */
+        .wisdom{text-align:center;padding:5rem 1.5rem;position:relative}
+        .wisdom::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(212,175,55,.015),transparent 55%);pointer-events:none}
+        .wisdom-line{width:60px;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 2rem}
+        .wisdom q{display:block;font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:300;line-height:1.9;max-width:700px;margin:0 auto 1.2rem;color:var(--t2);font-family:'Amiri',serif;position:relative;z-index:1}
+        .wisdom cite{color:var(--gold);font-size:.85rem;font-weight:600;position:relative;z-index:1;font-style:normal}
+
+        /* ═══ ECO ═══ */
+        .eco{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+        .ec{background:var(--bg2);border:1px solid rgba(255,255,255,.02);border-radius:16px;padding:32px 28px;display:flex;gap:18px;transition:all .4s}
+        .ec:hover{border-color:rgba(212,175,55,.1);transform:translateY(-3px)}
+        .ec-ic{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .ec-ic svg{width:22px;height:22px}
+        .ec h3{font-size:.95rem;font-weight:700;margin-bottom:4px}
+        .ec p{color:var(--t2);font-size:.84rem;line-height:1.6}
+
+        /* ═══ CTA ═══ */
+        .cta{padding:5rem 1.5rem;text-align:center}
+        .cta-box{max-width:800px;margin:0 auto;background:linear-gradient(145deg,rgba(212,175,55,.03),rgba(184,115,51,.015));border:1px solid rgba(212,175,55,.08);border-radius:32px;padding:4.5rem 3rem;position:relative;overflow:hidden}
+        .cta-box::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(212,175,55,.03),transparent);border-radius:50%;pointer-events:none}
+        .cta-box h2{font-size:clamp(1.5rem,3.5vw,2.1rem);font-weight:900;margin-bottom:.8rem}
+        .cta-box>p{color:var(--t2);margin-bottom:2.2rem;font-size:1rem;max-width:520px;margin-left:auto;margin-right:auto}
+
+        /* ═══ FOOTER ═══ */
+        footer{border-top:1px solid var(--border);padding:3rem 1.5rem 2rem}
+        .fi{max-width:1280px;margin:0 auto}
+        .ft{display:flex;justify-content:space-between;flex-wrap:wrap;gap:2rem;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.03)}
+        .fb{max-width:280px}
+        .fb p{color:var(--t3);font-size:.83rem;line-height:1.7;margin-top:12px}
+        .fls{display:flex;gap:3rem}
+        .fc h4{color:var(--gold);font-size:.78rem;font-weight:700;margin-bottom:12px;letter-spacing:.06em}
+        .fc a{display:block;color:var(--t3);text-decoration:none;font-size:.83rem;padding:3px 0;transition:color .25s}
+        .fc a:hover{color:var(--gold)}
+        .fbot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+        .fbot .cp{color:var(--t3);font-size:.75rem}
+        .fbot .pr{color:rgba(212,175,55,.3);font-size:.78rem;font-family:'Amiri',serif}
+
+        @media(max-width:1024px){.found-grid,.eco{grid-template-columns:1fr}}
+        @media(max-width:900px){.cats,.markets{grid-template-columns:repeat(2,1fr)}.vision-grid{grid-template-columns:1fr}}
+        @media(max-width:768px){.cats,.markets{grid-template-columns:1fr}.btns{flex-direction:column;align-items:center}.btn{width:100%;justify-content:center}.fls{flex-direction:column;gap:1.5rem}.ft{flex-direction:column}}
+    </style>
+</head>
+<body>
+<div class="geo"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nb"><div class="nv">
+    <a href="/" class="logo">
+        <div class="logo-mark">
+            <div class="shimmer"></div>
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="g1" x1="10%" y1="0%" x2="90%" y2="100%">
+                        <stop offset="0%" stop-color="#FFFDE8"/>
+                        <stop offset="18%" stop-color="#F5E6A3"/>
+                        <stop offset="42%" stop-color="#E8C94A"/>
+                        <stop offset="68%" stop-color="#D4AF37"/>
+                        <stop offset="100%" stop-color="#A8882B"/>
+                    </linearGradient>
+                    <linearGradient id="g1c" x1="50%" y1="0%" x2="50%" y2="100%">
+                        <stop offset="0%" stop-color="#FFFEF5"/>
+                        <stop offset="50%" stop-color="#F5E6A3"/>
+                        <stop offset="100%" stop-color="#D4AF37"/>
+                    </linearGradient>
+                    <linearGradient id="g1arm" x1="0%" y1="50%" x2="100%" y2="50%">
+                        <stop offset="0%" stop-color="#B8932E"/>
+                        <stop offset="35%" stop-color="#F5E6A3"/>
+                        <stop offset="50%" stop-color="#FFFDE8"/>
+                        <stop offset="65%" stop-color="#F5E6A3"/>
+                        <stop offset="100%" stop-color="#B8932E"/>
+                    </linearGradient>
+                    <radialGradient id="g1gem" cx="42%" cy="38%" r="55%">
+                        <stop offset="0%" stop-color="#FFFEF5"/>
+                        <stop offset="30%" stop-color="#F5E6A3"/>
+                        <stop offset="70%" stop-color="#E8C94A"/>
+                        <stop offset="100%" stop-color="#D4AF37"/>
+                    </radialGradient>
+                    <linearGradient id="g1shin" x1="50%" y1="0%" x2="50%" y2="100%">
+                        <stop offset="0%" stop-color="#FFFEF5"/>
+                        <stop offset="100%" stop-color="#D4AF37"/>
+                    </linearGradient>
+                    <filter id="navGlow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <filter id="navWarm"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                </defs>
+                <!-- النجمة الثمانية — مربعان متداخلان — محسّنة -->
+                <rect x="28" y="28" width="144" height="144" rx="4" fill="url(#g1)" opacity=".05" transform="rotate(0 100 100)"/>
+                <rect x="28" y="28" width="144" height="144" rx="4" stroke="url(#g1)" stroke-width="1.4" fill="none" opacity=".28" transform="rotate(0 100 100)"/>
+                <rect x="28" y="28" width="144" height="144" rx="4" fill="url(#g1)" opacity=".04" transform="rotate(45 100 100)"/>
+                <rect x="28" y="28" width="144" height="144" rx="4" stroke="url(#g1)" stroke-width="1.4" fill="none" opacity=".28" transform="rotate(45 100 100)"/>
+                <!-- حلقة مركزية مزدوجة -->
+                <circle cx="100" cy="100" r="46" stroke="url(#g1)" stroke-width="1.2" fill="none" opacity=".16"/>
+                <circle cx="100" cy="100" r="42" stroke="url(#g1)" stroke-width=".5" fill="none" opacity=".06" stroke-dasharray="2 4"/>
+                <!-- عمود الميزان — مُتقَن -->
+                <rect x="96.5" y="34" width="7" height="124" rx="3.5" fill="url(#g1)" opacity=".78"/>
+                <rect x="98.5" y="38" width="2.5" height="116" rx="1.25" fill="#FFFDE8" opacity=".12"/>
+                <rect x="101.5" y="38" width="1" height="116" rx=".5" fill="#8B7224" opacity=".05"/>
+                <!-- تاج الحكمة — محسّن -->
+                <circle cx="100" cy="32" r="10" fill="url(#g1gem)" filter="url(#navWarm)" opacity=".95"/>
+                <circle cx="100" cy="32" r="5.5" fill="#0a0f1a" opacity=".3"/>
+                <circle cx="100" cy="32" r="3.5" fill="url(#g1gem)" opacity=".7"/>
+                <circle cx="97.5" cy="29.5" r="1.5" fill="#fff" opacity=".3"/>
+                <circle cx="101" cy="31" r=".7" fill="#fff" opacity=".4"/>
+                <!-- أشعة التاج -->
+                <line x1="100" y1="20" x2="100" y2="14" stroke="url(#g1c)" stroke-width="1" opacity=".2"/>
+                <line x1="112" y1="24" x2="116" y2="18" stroke="url(#g1)" stroke-width=".7" opacity=".1"/>
+                <line x1="88" y1="24" x2="84" y2="18" stroke="url(#g1)" stroke-width=".7" opacity=".1"/>
+                <!-- زخرفة أسفل التاج -->
+                <path d="M88,48 L100,55 L112,48" stroke="url(#g1)" stroke-width="1.4" fill="none" opacity=".3"/>
+                <path d="M93,51 L100,55.5 L107,51" stroke="url(#g1)" stroke-width=".8" fill="none" opacity=".15"/>
+                <!-- ذراع الميزان — أفقي محسّن -->
+                <rect x="38" y="76" width="124" height="5.5" rx="2.75" fill="url(#g1arm)" opacity=".72"/>
+                <rect x="60" y="77.5" width="80" height="1.8" rx=".9" fill="#FFFDE8" opacity=".1"/>
+                <rect x="38" y="80" width="124" height="1" rx=".5" fill="#8B7224" opacity=".04"/>
+                <!-- نقطة الارتكاز المركزية -->
+                <circle cx="100" cy="79" r="5.5" fill="url(#g1c)" opacity=".65"/>
+                <circle cx="100" cy="79" r="3.2" fill="#0a0f1a" opacity=".22"/>
+                <circle cx="100" cy="79" r="1.8" fill="url(#g1gem)" opacity=".5"/>
+                <!-- الكفة اليمنى — محسّنة -->
+                <line x1="50" y1="79" x2="43" y2="114" stroke="url(#g1)" stroke-width="1.8" opacity=".55"/>
+                <line x1="76" y1="79" x2="83" y2="114" stroke="url(#g1)" stroke-width="1.8" opacity=".55"/>
+                <line x1="63" y1="79" x2="63" y2="108" stroke="url(#g1)" stroke-width=".5" opacity=".12" stroke-dasharray="2 3"/>
+                <path d="M39,114 C44,132 63,136 63,136 C63,136 82,132 87,114 Z" fill="rgba(212,175,55,.07)" stroke="url(#g1)" stroke-width="2" opacity=".58"/>
+                <path d="M48,118 C53,128 63,131 63,131 C63,131 73,128 78,118" stroke="url(#g1)" stroke-width=".7" fill="none" opacity=".18"/>
+                <circle cx="50" cy="79" r="2.2" fill="url(#g1)" opacity=".38"/>
+                <circle cx="76" cy="79" r="2.2" fill="url(#g1)" opacity=".38"/>
+                <!-- الكفة اليسرى — محسّنة -->
+                <line x1="124" y1="79" x2="117" y2="114" stroke="url(#g1)" stroke-width="1.8" opacity=".55"/>
+                <line x1="150" y1="79" x2="157" y2="114" stroke="url(#g1)" stroke-width="1.8" opacity=".55"/>
+                <line x1="137" y1="79" x2="137" y2="108" stroke="url(#g1)" stroke-width=".5" opacity=".12" stroke-dasharray="2 3"/>
+                <path d="M113,114 C118,132 137,136 137,136 C137,136 156,132 161,114 Z" fill="rgba(212,175,55,.07)" stroke="url(#g1)" stroke-width="2" opacity=".58"/>
+                <path d="M122,118 C127,128 137,131 137,131 C137,131 147,128 152,118" stroke="url(#g1)" stroke-width=".7" fill="none" opacity=".18"/>
+                <circle cx="124" cy="79" r="2.2" fill="url(#g1)" opacity=".38"/>
+                <circle cx="150" cy="79" r="2.2" fill="url(#g1)" opacity=".38"/>
+                <!-- الجوهرة المركزية — قلب المعادن -->
+                <polygon points="100,62 118,100 100,138 82,100" fill="rgba(212,175,55,.06)" stroke="url(#g1)" stroke-width="1.8" opacity=".5"/>
+                <polygon points="100,72 112,100 100,128 88,100" fill="rgba(212,175,55,.05)" stroke="url(#g1)" stroke-width=".9" opacity=".3"/>
+                <line x1="82" y1="100" x2="118" y2="100" stroke="url(#g1)" stroke-width=".5" opacity=".1"/>
+                <line x1="100" y1="62" x2="100" y2="138" stroke="url(#g1)" stroke-width=".3" opacity=".06"/>
+                <!-- النواة المتوهجة -->
+                <circle cx="100" cy="100" r="11" fill="url(#g1gem)" filter="url(#navWarm)" opacity=".12"/>
+                <circle cx="100" cy="100" r="9" fill="url(#g1gem)" filter="url(#navGlow)" opacity=".95"/>
+                <circle cx="100" cy="100" r="5" fill="#FFFDE8" opacity=".45"/>
+                <circle cx="100" cy="100" r="2.5" fill="#FFFEF5" opacity=".25"/>
+                <circle cx="97.5" cy="97.5" r="2" fill="#fff" opacity=".22"/>
+                <!-- حرف الشين — هوية شيخة -->
+                <text x="100" y="106" font-family="'Amiri','Cairo',serif" font-size="20" fill="url(#g1shin)" text-anchor="middle" opacity=".6" font-weight="700" filter="url(#navGlow)">ش</text>
+                <!-- القاعدة الراسخة — محسّنة -->
+                <rect x="96" y="154" width="8" height="10" rx="3" fill="url(#g1)" opacity=".52"/>
+                <rect x="74" y="162" width="52" height="5.5" rx="2.75" fill="url(#g1)" opacity=".68"/>
+                <rect x="78" y="163.5" width="44" height="1.8" rx=".9" fill="#FFFDE8" opacity=".08"/>
+                <rect x="64" y="170" width="72" height="4.5" rx="2.25" fill="url(#g1)" opacity=".42"/>
+                <line x1="80" y1="167.5" x2="70" y2="174.5" stroke="url(#g1)" stroke-width="1.8" opacity=".3"/>
+                <line x1="120" y1="167.5" x2="130" y2="174.5" stroke="url(#g1)" stroke-width="1.8" opacity=".3"/>
+                <circle cx="70" cy="174.5" r="1.5" fill="url(#g1)" opacity=".18"/>
+                <circle cx="130" cy="174.5" r="1.5" fill="url(#g1)" opacity=".18"/>
+                <!-- نقاط البوصلة الأربع -->
+                <circle cx="100" cy="6" r="3.5" fill="url(#g1c)" opacity=".38"/>
+                <circle cx="100" cy="194" r="3" fill="url(#g1)" opacity=".22"/>
+                <circle cx="6" cy="100" r="3" fill="url(#g1)" opacity=".22"/>
+                <circle cx="194" cy="100" r="3" fill="url(#g1)" opacity=".22"/>
+                <!-- خطوط ربط البوصلة -->
+                <line x1="100" y1="10" x2="100" y2="22" stroke="url(#g1)" stroke-width=".4" opacity=".06"/>
+                <line x1="100" y1="178" x2="100" y2="190" stroke="url(#g1)" stroke-width=".4" opacity=".06"/>
+                <line x1="10" y1="100" x2="22" y2="100" stroke="url(#g1)" stroke-width=".4" opacity=".06"/>
+                <line x1="178" y1="100" x2="190" y2="100" stroke="url(#g1)" stroke-width=".4" opacity=".06"/>
+            </svg>
+        </div>
+        <div class="logo-text"><span class="ar">شيخة</span><span class="en">SHEIKHA</span></div>
+    </a>
+    <button class="mob-toggle" id="homeMobileToggle" aria-label="القائمة">☰</button>
+    <ul class="nl">
+        <!-- ═══ القائمة الرئيسية ═══ -->
+        <!-- 1. الرئيسية -->
+        <li data-access="all"><a href="/">الرئيسية</a></li>
+        <!-- 2. هوية السوق — من نحن وقصة شيخة -->
+        <li data-access="all"><a href="/هوية-السوق.html">هوية شيخة</a></li>
+        <!-- 3. سوق المدينة — الأصل والمرجع -->
+        <li data-access="all"><a href="/سوق-المدينة.html">سوق المدينة</a></li>
+        <!-- 4. السوق (Read-Only) -->
+        <li data-access="all"><a href="/سوق-شيخة.html">السوق</a></li>
+        <!-- 5. الشريعة -->
+        <li data-access="all"><a href="/الشريعة-الاسلامية.html">الشريعة</a></li>
+        <!-- 6. التسجيل — dropdown للأنواع المختلفة -->
+        <li class="nav-drop" data-access="all" id="nav-register-btn">
+            <button class="nav-drop-trigger">التسجيل <svg viewBox="0 0 12 12" fill="none" style="width:10px;height:10px;margin-right:4px"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+            <div class="mega-menu" style="min-width:240px;grid-template-columns:1fr">
+                <div class="mega-section">
+                    <a href="/تسجيل-الدخول.html?tab=register&type=company" class="mega-link">
+                        <div class="ml-icon">🏢</div>
+                        <div class="ml-text"><div class="ml-name">تسجيل شركة / تاجر</div><div class="ml-desc">سجل كشركة أو تاجر معادن</div></div>
+                    </a>
+                    <a href="/تسجيل-الدخول.html?tab=register&type=government" class="mega-link">
+                        <div class="ml-icon">🏛</div>
+                        <div class="ml-text"><div class="ml-name">تسجيل حكومي</div><div class="ml-desc">جهات حكومية ومنظمات</div></div>
+                    </a>
+            </div>
+        </div>
+        </li>
+        <!-- 7. دخول — CTA للزوار (يختفي عند التسجيل) -->
+        <li data-access="all" id="nav-login-btn"><a href="/تسجيل-الدخول.html" class="cta">دخول</a></li>
+        <!-- 8. المجتمع -->
+        <li data-access="all"><a href="/المجتمع.html">المجتمع</a></li>
+        <!-- 9. لوحة المتابعة — للمسجّلين فقط -->
+        <li data-access="user,company,gov,admin">
+            <a href="/لوحة-تحكم-المستخدم.html" id="nav-dash-link" style="color:var(--gold)">لوحة المتابعة</a>
+        </li>
+
+        <!-- ═══ قائمة حساب المستخدم المسجّل (ليست رابط أساسي — dropdown فقط) ═══ -->
+        <li class="nav-drop" id="nav-user-menu" data-access="user,company,gov,admin" style="display:none">
+            <button class="nav-drop-trigger" style="color:var(--gold)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0113 0"/></svg>
+                <span id="nav-user-name">حسابي</span>
+                <svg viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="mega-menu" style="min-width:260px;grid-template-columns:1fr">
+                <div class="mega-section">
+                    <a href="/لوحة-تحكم-المستخدم.html" class="mega-link" id="nav-dash-link-2">
+                        <div class="ml-icon">📊</div>
+                        <div class="ml-text"><div class="ml-name">لوحة التحكم</div><div class="ml-desc">إدارة حسابك وصفقاتك</div></div>
+                    </a>
+                    <a href="/سوق-شيخة.html" class="mega-link">
+                        <div class="ml-icon">🏪</div>
+                        <div class="ml-text"><div class="ml-name">السوق</div><div class="ml-desc">تصفح المنتجات والأسعار</div></div>
+                    </a>
+                    <!-- أدوات الإدارة — تظهر للمدير فقط -->
+                    <div class="mega-sep" data-access="admin"></div>
+                    <a href="/admin" class="mega-link" data-access="admin" style="color:#ef4444">
+                        <div class="ml-icon" style="background:rgba(239,68,68,.06)">👑</div>
+                        <div class="ml-text"><div class="ml-name" style="color:#ef4444">مركز القيادة</div><div class="ml-desc">لوحة تحكم المدير</div></div>
+                    </a>
+                    <div class="mega-sep"></div>
+                    <a href="#" class="mega-link" id="homeLogoutLink" style="color:#ef4444">
+                        <div class="ml-icon" style="background:rgba(239,68,68,.06)">🚪</div>
+                        <div class="ml-text"><div class="ml-name" style="color:#ef4444">تسجيل الخروج</div></div>
+                    </a>
+        </div>
+                </div>
+        </li>
+    </ul>
+</div></nav>
+
+<!-- ═══ LANGUAGE BAR ═══ -->
+<div class="lang-bar" id="langBar"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-c">
+        <div class="emblem-wrap"><div class="emblem">
+            <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <!-- ═══ التدرجات الذهبية المُتقنة ═══ -->
+                    <linearGradient id="g2" x1="15%" y1="0%" x2="85%" y2="100%">
+                        <stop offset="0%" stop-color="#FFFDE8"/>
+                        <stop offset="18%" stop-color="#F5E6A3"/>
+                        <stop offset="40%" stop-color="#E8C94A"/>
+                        <stop offset="65%" stop-color="#D4AF37"/>
+                        <stop offset="100%" stop-color="#A8882B"/>
+                    </linearGradient>
+                    <linearGradient id="g2v" x1="50%" y1="0%" x2="50%" y2="100%">
+                        <stop offset="0%" stop-color="#FFFDE8"/>
+                        <stop offset="50%" stop-color="#F5E6A3"/>
+                        <stop offset="100%" stop-color="#D4AF37"/>
+                    </linearGradient>
+                    <linearGradient id="gArm" x1="0%" y1="50%" x2="100%" y2="50%">
+                        <stop offset="0%" stop-color="#8B7224"/>
+                        <stop offset="25%" stop-color="#D4AF37"/>
+                        <stop offset="50%" stop-color="#F5E6A3"/>
+                        <stop offset="75%" stop-color="#D4AF37"/>
+                        <stop offset="100%" stop-color="#8B7224"/>
+                    </linearGradient>
+                    <linearGradient id="gPillar" x1="50%" y1="0%" x2="50%" y2="100%">
+                        <stop offset="0%" stop-color="#FFFDE8"/>
+                        <stop offset="30%" stop-color="#F5E6A3"/>
+                        <stop offset="60%" stop-color="#D4AF37"/>
+                        <stop offset="100%" stop-color="#8B7224"/>
+                    </linearGradient>
+                    <linearGradient id="gPillarH" x1="0%" y1="50%" x2="100%" y2="50%">
+                        <stop offset="0%" stop-color="#A8882B" stop-opacity=".5"/>
+                        <stop offset="30%" stop-color="#D4AF37"/>
+                        <stop offset="50%" stop-color="#F5E6A3"/>
+                        <stop offset="70%" stop-color="#D4AF37"/>
+                        <stop offset="100%" stop-color="#A8882B" stop-opacity=".5"/>
+                    </linearGradient>
+                    <radialGradient id="g2r" cx="50%" cy="45%" r="52%">
+                        <stop offset="0%" stop-color="#F5E6A3" stop-opacity=".15"/>
+                        <stop offset="30%" stop-color="#D4AF37" stop-opacity=".06"/>
+                        <stop offset="70%" stop-color="#D4AF37" stop-opacity=".02"/>
+                        <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+                    </radialGradient>
+                    <radialGradient id="gemCore" cx="42%" cy="38%" r="58%">
+                        <stop offset="0%" stop-color="#FFFEF5"/>
+                        <stop offset="25%" stop-color="#FFFDE8"/>
+                        <stop offset="50%" stop-color="#F5E6A3"/>
+                        <stop offset="100%" stop-color="#D4AF37"/>
+                    </radialGradient>
+                    <radialGradient id="crownCore" cx="48%" cy="32%" r="55%">
+                        <stop offset="0%" stop-color="#FFFEF5"/>
+                        <stop offset="30%" stop-color="#FFFDE8"/>
+                        <stop offset="55%" stop-color="#F5E6A3"/>
+                        <stop offset="100%" stop-color="#E8C94A"/>
+                    </radialGradient>
+                    <radialGradient id="panGlow" cx="50%" cy="40%" r="60%">
+                        <stop offset="0%" stop-color="#D4AF37" stop-opacity=".12"/>
+                        <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+                    </radialGradient>
+                    <!-- الفلاتر المحسّنة -->
+                    <filter id="gl"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <filter id="glBig"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <filter id="glSoft"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <filter id="glWarm"><feGaussianBlur stdDeviation="14" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <!-- ظل داخلي للعمق -->
+                    <filter id="innerGlow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+                        <feFlood flood-color="#FFFDE8" flood-opacity=".15"/>
+                        <feComposite in2="blur" operator="in"/>
+                        <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                </defs>
+
+                <!-- ═══════════════════════════════════════════ -->
+                <!-- ═══ الطبقة 1: الهالة الكونية الخارجية ═══ -->
+                <!-- ═══════════════════════════════════════════ -->
+                <circle cx="200" cy="200" r="198" fill="url(#g2r)"/>
+                <circle cx="200" cy="200" r="195" stroke="url(#g2)" stroke-width=".3" fill="none" opacity=".05" stroke-dasharray="2 6"/>
+                <circle cx="200" cy="200" r="190" stroke="url(#g2)" stroke-width=".4" fill="none" opacity=".06" stroke-dasharray="4 12"/>
+
+                <!-- ═══ الطبقة 2: الإطار الزخرفي المزدوج ═══ -->
+                <circle cx="200" cy="200" r="184" stroke="url(#g2)" stroke-width="2" fill="none" opacity=".2"/>
+                <circle cx="200" cy="200" r="181" stroke="url(#g2)" stroke-width=".5" fill="none" opacity=".07"/>
+                <circle cx="200" cy="200" r="178" stroke="url(#g2)" stroke-width=".3" fill="none" opacity=".04" stroke-dasharray="1 3"/>
+                <!-- زخرفة نقطية على الإطار (12 نقطة = أشهر السنة) -->
+                <circle cx="200" cy="16" r="2.5" fill="url(#g2v)" opacity=".3"/>
+                <circle cx="300" cy="27" r="2" fill="url(#g2)" opacity=".18"/>
+                <circle cx="373" cy="100" r="2" fill="url(#g2)" opacity=".18"/>
+                <circle cx="384" cy="200" r="2.5" fill="url(#g2)" opacity=".2"/>
+                <circle cx="373" cy="300" r="2" fill="url(#g2)" opacity=".18"/>
+                <circle cx="300" cy="373" r="2" fill="url(#g2)" opacity=".18"/>
+                <circle cx="200" cy="384" r="2.5" fill="url(#g2)" opacity=".2"/>
+                <circle cx="100" cy="373" r="2" fill="url(#g2)" opacity=".18"/>
+                <circle cx="27" cy="300" r="2" fill="url(#g2)" opacity=".18"/>
+                <circle cx="16" cy="200" r="2.5" fill="url(#g2)" opacity=".2"/>
+                <circle cx="27" cy="100" r="2" fill="url(#g2)" opacity=".18"/>
+                <circle cx="100" cy="27" r="2" fill="url(#g2)" opacity=".18"/>
+
+                <!-- ═══ الطبقة 3: النجمة الثمانية الخارجية — الإتقان الإلهي ═══ -->
+                <rect x="80" y="80" width="240" height="240" rx="5" fill="url(#g2)" opacity=".035" transform="rotate(0 200 200)"/>
+                <rect x="80" y="80" width="240" height="240" rx="5" stroke="url(#g2)" stroke-width="1.3" fill="none" opacity=".17" transform="rotate(0 200 200)"/>
+                <rect x="80" y="80" width="240" height="240" rx="5" fill="url(#g2)" opacity=".025" transform="rotate(45 200 200)"/>
+                <rect x="80" y="80" width="240" height="240" rx="5" stroke="url(#g2)" stroke-width="1.3" fill="none" opacity=".17" transform="rotate(45 200 200)"/>
+
+                <!-- ═══ الطبقة 4: النجمة الثمانية الداخلية — التناسق ═══ -->
+                <rect x="118" y="118" width="164" height="164" rx="3" fill="url(#g2)" opacity=".025" transform="rotate(0 200 200)"/>
+                <rect x="118" y="118" width="164" height="164" rx="3" stroke="url(#g2)" stroke-width=".9" fill="none" opacity=".11" transform="rotate(0 200 200)"/>
+                <rect x="118" y="118" width="164" height="164" rx="3" fill="url(#g2)" opacity=".018" transform="rotate(45 200 200)"/>
+                <rect x="118" y="118" width="164" height="164" rx="3" stroke="url(#g2)" stroke-width=".9" fill="none" opacity=".11" transform="rotate(45 200 200)"/>
+
+                <!-- ═══ الطبقة 5: الحلقة المركزية المقدسة ═══ -->
+                <circle cx="200" cy="200" r="86" stroke="url(#g2)" stroke-width="1.2" fill="none" opacity=".1"/>
+                <circle cx="200" cy="200" r="80" stroke="url(#g2)" stroke-width=".4" fill="none" opacity=".04" stroke-dasharray="2 5"/>
+
+                <!-- ═══════════════════════════════════════════ -->
+                <!-- ═══ الميزان النبوي — قلب الشعار ═══ -->
+                <!-- ═══════════════════════════════════════════ -->
+
+                <!-- عمود الميزان الرئيسي — مُتقَن بعمق -->
+                <rect x="196" y="74" width="8" height="240" rx="4" fill="url(#gPillar)" opacity=".68"/>
+                <!-- خط مركزي بريق (انعكاس الضوء) -->
+                <rect x="199" y="78" width="2.5" height="232" rx="1.25" fill="#FFFDE8" opacity=".1"/>
+                <!-- خط ظل أيمن -->
+                <rect x="202" y="78" width="1" height="232" rx=".5" fill="#8B7224" opacity=".06"/>
+
+                <!-- ═══ تاج الحكمة — أعلى العمود — مُحسّن ═══ -->
+                <!-- الهالة الخارجية الواسعة -->
+                <circle cx="200" cy="64" r="32" fill="url(#crownCore)" filter="url(#glWarm)" opacity=".12"/>
+                <!-- الهالة المتوسطة -->
+                <circle cx="200" cy="64" r="24" fill="url(#crownCore)" filter="url(#glSoft)" opacity=".22"/>
+                <!-- الجسم الرئيسي -->
+                <circle cx="200" cy="64" r="20" fill="url(#crownCore)" filter="url(#glBig)" opacity=".95"/>
+                <!-- الحلقة الداخلية -->
+                <circle cx="200" cy="64" r="12" fill="#070c16" opacity=".35"/>
+                <!-- الجوهرة الداخلية -->
+                <circle cx="200" cy="64" r="7" fill="url(#gemCore)" filter="url(#gl)" opacity=".85"/>
+                <!-- بريق التاج (نقطة ضوء) — أكثر وضوحاً -->
+                <circle cx="195" cy="59" r="2.8" fill="#fff" opacity=".38"/>
+                <circle cx="202" cy="61" r="1.3" fill="#fff" opacity=".2"/>
+                <circle cx="198" cy="62" r=".8" fill="#fff" opacity=".45"/>
+                <!-- خطوط إشعاع التاج — V4 مُحسّنة -->
+                <line x1="200" y1="42" x2="200" y2="32" stroke="url(#g2v)" stroke-width="1.2" opacity=".2">
+                    <animate attributeName="opacity" values=".12;.25;.12" dur="4s" repeatCount="indefinite"/>
+                </line>
+                <line x1="216" y1="50" x2="224" y2="42" stroke="url(#g2)" stroke-width=".9" opacity=".12"/>
+                <line x1="184" y1="50" x2="176" y2="42" stroke="url(#g2)" stroke-width=".9" opacity=".12"/>
+                <!-- إشعاعات إضافية قطرية -->
+                <line x1="210" y1="46" x2="216" y2="38" stroke="url(#g2)" stroke-width=".5" opacity=".06"/>
+                <line x1="190" y1="46" x2="184" y2="38" stroke="url(#g2)" stroke-width=".5" opacity=".06"/>
+                <!-- هالة نور التاج النابضة -->
+                <circle cx="200" cy="64" r="20" fill="none" stroke="url(#crownCore)" stroke-width=".6" opacity="0">
+                    <animate attributeName="r" values="20;28;36" dur="4s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values=".12;.04;0" dur="4s" repeatCount="indefinite"/>
+                </circle>
+                <!-- زخرفة أسفل التاج (شكل V مزدوج) -->
+                <path d="M184,86 L200,96 L216,86" stroke="url(#g2)" stroke-width="1.8" fill="none" opacity=".3"/>
+                <path d="M189,90 L200,97 L211,90" stroke="url(#g2)" stroke-width="1" fill="none" opacity=".14"/>
+                <path d="M194,93 L200,97 L206,93" stroke="url(#g2)" stroke-width=".6" fill="none" opacity=".08"/>
+
+                <!-- ═══ ذراع الميزان — الامتداد الأفقي ═══ -->
+                <rect x="82" y="157" width="236" height="8" rx="4" fill="url(#gArm)" opacity=".62"/>
+                <!-- بريق وسط الذراع -->
+                <rect x="140" y="159.5" width="120" height="2.5" rx="1.25" fill="#FFFDE8" opacity=".08"/>
+                <!-- خطوط ظل -->
+                <rect x="82" y="163" width="236" height="1" rx=".5" fill="#8B7224" opacity=".05"/>
+                <!-- نقطة الارتكاز المركزية -->
+                <circle cx="200" cy="161" r="10" fill="url(#g2v)" opacity=".62"/>
+                <circle cx="200" cy="161" r="6" fill="#070c16" opacity=".28"/>
+                <circle cx="200" cy="161" r="3" fill="url(#gemCore)" opacity=".45"/>
+                <circle cx="198" cy="159" r="1" fill="#fff" opacity=".15"/>
+
+                <!-- ═══ الكفة اليمنى — كفة العدل ═══ -->
+                <!-- الخيوط الخارجية -->
+                <line x1="104" y1="162" x2="90" y2="228" stroke="url(#g2)" stroke-width="2" opacity=".48"/>
+                <line x1="158" y1="162" x2="172" y2="228" stroke="url(#g2)" stroke-width="2" opacity=".48"/>
+                <!-- الخيوط الداخلية (أدقّ) -->
+                <line x1="118" y1="162" x2="110" y2="222" stroke="url(#g2)" stroke-width=".8" opacity=".18"/>
+                <line x1="144" y1="162" x2="152" y2="222" stroke="url(#g2)" stroke-width=".8" opacity=".18"/>
+                <!-- حبل الأمانة المركزي -->
+                <line x1="131" y1="162" x2="131" y2="220" stroke="url(#g2)" stroke-width=".6" opacity=".12" stroke-dasharray="2 4"/>
+                <!-- شكل الكفة المحسّن -->
+                <ellipse cx="131" cy="228" rx="46" ry="6" fill="url(#panGlow)"/>
+                <path d="M82,228 C90,260 131,270 131,270 C131,270 172,260 180,228 Z" fill="rgba(212,175,55,.07)" stroke="url(#g2)" stroke-width="2.2" opacity=".52"/>
+                <!-- زخرفة داخل الكفة -->
+                <path d="M96,234 C106,252 131,260 131,260 C131,260 156,252 166,234" stroke="url(#g2)" stroke-width=".8" fill="none" opacity=".18"/>
+                <path d="M108,238 C114,248 131,254 131,254 C131,254 148,248 154,238" stroke="url(#g2)" stroke-width=".5" fill="none" opacity=".08"/>
+                <!-- نقاط التعليق -->
+                <circle cx="104" cy="162" r="3" fill="url(#g2v)" opacity=".35"/>
+                <circle cx="158" cy="162" r="3" fill="url(#g2v)" opacity=".35"/>
+
+                <!-- ═══ الكفة اليسرى — كفة القسط ═══ -->
+                <!-- الخيوط الخارجية -->
+                <line x1="242" y1="162" x2="228" y2="228" stroke="url(#g2)" stroke-width="2" opacity=".48"/>
+                <line x1="296" y1="162" x2="310" y2="228" stroke="url(#g2)" stroke-width="2" opacity=".48"/>
+                <!-- الخيوط الداخلية -->
+                <line x1="256" y1="162" x2="248" y2="222" stroke="url(#g2)" stroke-width=".8" opacity=".18"/>
+                <line x1="282" y1="162" x2="290" y2="222" stroke="url(#g2)" stroke-width=".8" opacity=".18"/>
+                <!-- حبل الأمانة المركزي -->
+                <line x1="269" y1="162" x2="269" y2="220" stroke="url(#g2)" stroke-width=".6" opacity=".12" stroke-dasharray="2 4"/>
+                <!-- شكل الكفة المحسّن -->
+                <ellipse cx="269" cy="228" rx="46" ry="6" fill="url(#panGlow)"/>
+                <path d="M220,228 C228,260 269,270 269,270 C269,270 310,260 318,228 Z" fill="rgba(212,175,55,.07)" stroke="url(#g2)" stroke-width="2.2" opacity=".52"/>
+                <!-- زخرفة داخل الكفة -->
+                <path d="M234,234 C244,252 269,260 269,260 C269,260 294,252 304,234" stroke="url(#g2)" stroke-width=".8" fill="none" opacity=".18"/>
+                <path d="M246,238 C252,248 269,254 269,254 C269,254 286,248 292,238" stroke="url(#g2)" stroke-width=".5" fill="none" opacity=".08"/>
+                <!-- نقاط التعليق -->
+                <circle cx="242" cy="162" r="3" fill="url(#g2v)" opacity=".35"/>
+                <circle cx="296" cy="162" r="3" fill="url(#g2v)" opacity=".35"/>
+
+                <!-- ═══ الجوهرة المركزية — قلب المعادن النفيسة ═══ -->
+                <!-- الإطار الخارجي للماسة -->
+                <polygon points="200,124 238,200 200,276 162,200" fill="rgba(212,175,55,.05)" stroke="url(#g2)" stroke-width="2.2" opacity=".42"/>
+                <!-- أضلاع الانكسار العلوية -->
+                <line x1="200" y1="124" x2="162" y2="200" stroke="url(#g2)" stroke-width="1" opacity=".12"/>
+                <line x1="200" y1="124" x2="238" y2="200" stroke="url(#g2)" stroke-width="1" opacity=".12"/>
+                <!-- أضلاع الانكسار السفلية -->
+                <line x1="200" y1="276" x2="162" y2="200" stroke="url(#g2)" stroke-width=".7" opacity=".08"/>
+                <line x1="200" y1="276" x2="238" y2="200" stroke="url(#g2)" stroke-width=".7" opacity=".08"/>
+                <!-- الطبقة الوسطى -->
+                <polygon points="200,148 222,200 200,252 178,200" fill="rgba(212,175,55,.05)" stroke="url(#g2)" stroke-width="1.2" opacity=".28"/>
+                <!-- الطبقة الداخلية -->
+                <polygon points="200,168 210,200 200,232 190,200" fill="rgba(212,175,55,.04)" stroke="url(#g2)" stroke-width=".7" opacity=".15"/>
+                <!-- خط الأفق الوسطي -->
+                <line x1="162" y1="200" x2="238" y2="200" stroke="url(#g2)" stroke-width=".5" opacity=".08"/>
+                <!-- خطوط انكسار إضافية -->
+                <line x1="200" y1="124" x2="200" y2="276" stroke="url(#g2)" stroke-width=".4" opacity=".05"/>
+                <line x1="181" y1="162" x2="219" y2="238" stroke="url(#g2)" stroke-width=".3" opacity=".04"/>
+                <line x1="219" y1="162" x2="181" y2="238" stroke="url(#g2)" stroke-width=".3" opacity=".04"/>
+
+                <!-- النواة المتوهجة — نور العلم والأمانة — مُحسّنة -->
+                <circle cx="200" cy="200" r="28" fill="url(#gemCore)" filter="url(#glWarm)" opacity=".12"/>
+                <circle cx="200" cy="200" r="22" fill="url(#gemCore)" filter="url(#glSoft)" opacity=".18"/>
+                <circle cx="200" cy="200" r="18" fill="url(#gemCore)" filter="url(#glBig)" opacity=".95"/>
+                <circle cx="200" cy="200" r="12" fill="#FFFDE8" opacity=".42"/>
+                <circle cx="200" cy="200" r="6" fill="#FFFEF5" opacity=".25"/>
+                <!-- بريق النواة — أكثر إشراقاً -->
+                <circle cx="194" cy="193" r="4.5" fill="#fff" opacity=".28"/>
+                <circle cx="204" cy="196" r="2.2" fill="#fff" opacity=".14"/>
+                <circle cx="198" cy="198" r="1" fill="#fff" opacity=".35"/>
+
+                <!-- ═══ القاعدة — الأساس الراسخ (الكتاب والسنة) ═══ -->
+                <!-- العمود السفلي -->
+                <rect x="196" y="314" width="8" height="16" rx="3" fill="url(#g2)" opacity=".48"/>
+                <!-- المنصة العلوية -->
+                <rect x="152" y="330" width="96" height="8" rx="4" fill="url(#gPillarH)" opacity=".55"/>
+                <rect x="172" y="332" width="56" height="2.5" rx="1.25" fill="#FFFDE8" opacity=".07"/>
+                <!-- القاعدة الكبرى -->
+                <rect x="136" y="342" width="128" height="7" rx="3.5" fill="url(#g2)" opacity=".38"/>
+                <rect x="160" y="344" width="80" height="2" rx="1" fill="#FFFDE8" opacity=".05"/>
+                <!-- الأرجل المتينة -->
+                <line x1="164" y1="338" x2="148" y2="349" stroke="url(#g2)" stroke-width="2.2" opacity=".28"/>
+                <line x1="236" y1="338" x2="252" y2="349" stroke="url(#g2)" stroke-width="2.2" opacity=".28"/>
+                <!-- نقاط القاعدة -->
+                <circle cx="148" cy="349" r="2" fill="url(#g2)" opacity=".15"/>
+                <circle cx="252" cy="349" r="2" fill="url(#g2)" opacity=".15"/>
+
+                <!-- ═══ نقاط البوصلة — الشمول العالمي ═══ -->
+                <!-- الاتجاهات الأربع الرئيسية -->
+                <circle cx="200" cy="6" r="5.5" fill="url(#g2v)" filter="url(#gl)" opacity=".42"/>
+                <circle cx="200" cy="394" r="5" fill="url(#g2)" filter="url(#gl)" opacity=".25"/>
+                <circle cx="6" cy="200" r="5" fill="url(#g2)" filter="url(#gl)" opacity=".25"/>
+                <circle cx="394" cy="200" r="5" fill="url(#g2)" filter="url(#gl)" opacity=".25"/>
+                <!-- الاتجاهات الفرعية -->
+                <circle cx="52" cy="52" r="3.5" fill="url(#g2)" opacity=".14"/>
+                <circle cx="348" cy="52" r="3.5" fill="url(#g2)" opacity=".14"/>
+                <circle cx="52" cy="348" r="3.5" fill="url(#g2)" opacity=".14"/>
+                <circle cx="348" cy="348" r="3.5" fill="url(#g2)" opacity=".14"/>
+                <!-- خطوط ربط خفيفة (بوصلة) -->
+                <line x1="200" y1="12" x2="200" y2="46" stroke="url(#g2)" stroke-width=".4" opacity=".05"/>
+                <line x1="200" y1="354" x2="200" y2="389" stroke="url(#g2)" stroke-width=".4" opacity=".05"/>
+                <line x1="12" y1="200" x2="46" y2="200" stroke="url(#g2)" stroke-width=".4" opacity=".05"/>
+                <line x1="354" y1="200" x2="389" y2="200" stroke="url(#g2)" stroke-width=".4" opacity=".05"/>
+
+                <!-- ═══ حرف الشين — هوية شيخة في القلب — V4 مُحسّن ═══ -->
+                <!-- هالة خارجية واسعة متوهجة -->
+                <circle cx="200" cy="200" r="42" fill="url(#gemCore)" filter="url(#glWarm)" opacity=".06"/>
+                <!-- هالة متوسطة نابضة -->
+                <circle cx="200" cy="200" r="36" fill="url(#gemCore)" filter="url(#glSoft)" opacity=".08">
+                    <animate attributeName="opacity" values=".06;.12;.06" dur="5s" repeatCount="indefinite"/>
+                    <animate attributeName="r" values="36;38;36" dur="5s" repeatCount="indefinite"/>
+                </circle>
+                <!-- حلقة زخرفية حول الشين -->
+                <circle cx="200" cy="200" r="34" stroke="url(#g2)" stroke-width=".8" fill="none" opacity=".12" stroke-dasharray="3 2"/>
+                <!-- هالة داخلية مركّزة -->
+                <circle cx="200" cy="200" r="30" fill="url(#gemCore)" opacity=".1"/>
+                <!-- ظل ناعم خلف الحرف -->
+                <text x="201" y="214" font-family="'Amiri','Cairo','Tajawal',serif" font-size="44" fill="#8B7224" text-anchor="middle" opacity=".15" font-weight="700" letter-spacing="3" filter="url(#glSoft)">ش</text>
+                <!-- الحرف الرئيسي — أكبر وأوضح -->
+                <text x="200" y="213" font-family="'Amiri','Cairo','Tajawal',serif" font-size="44" fill="url(#gemCore)" text-anchor="middle" opacity=".9" font-weight="700" filter="url(#glBig)" letter-spacing="3">ش</text>
+                <!-- طبقة بريق فوق الحرف -->
+                <text x="200" y="213" font-family="'Amiri','Cairo','Tajawal',serif" font-size="44" fill="#FFFEF5" text-anchor="middle" opacity=".18" font-weight="700" letter-spacing="3">ش</text>
+                <!-- نقاط الإعجام الثلاث مُبرَزة (شين = ثلاث نقاط) -->
+                <circle cx="189" cy="191" r="2.2" fill="url(#gemCore)" opacity=".65">
+                    <animate attributeName="opacity" values=".5;.8;.5" dur="3s" repeatCount="indefinite" begin="0s"/>
+                </circle>
+                <circle cx="200" cy="188" r="2.2" fill="url(#gemCore)" opacity=".65">
+                    <animate attributeName="opacity" values=".5;.8;.5" dur="3s" repeatCount="indefinite" begin="1s"/>
+                </circle>
+                <circle cx="211" cy="191" r="2.2" fill="url(#gemCore)" opacity=".65">
+                    <animate attributeName="opacity" values=".5;.8;.5" dur="3s" repeatCount="indefinite" begin="2s"/>
+                </circle>
+
+                <!-- ═══ حلقة البسملة الخارجية — V4 ═══ -->
+                <g opacity=".1">
+                    <path id="basmalahPath" d="M200,25 A175,175 0 1,1 199.9,25" fill="none"/>
+                    <text font-family="'Amiri',serif" font-size="11" fill="#D4AF37" font-weight="700">
+                        <textPath href="#basmalahPath" startOffset="5%">بسم الله الرحمن الرحيم ۞ لا إله إلا الله محمد رسول الله ۞ وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا ۞ إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ</textPath>
+                    </text>
+                </g>
+
+                <!-- ═══ حلقة الآية القرآنية الداخلية — V4 مُحسّنة ═══ -->
+                <g opacity=".1">
+                    <path id="versePath" d="M200,110 A90,90 0 1,1 199.9,110" fill="none"/>
+                    <text font-family="'Amiri',serif" font-size="9.5" fill="#D4AF37">
+                        <textPath href="#versePath" startOffset="0%">﴿ وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ ﴾ ۞ ﴿ وَأَنزَلْنَا الْحَدِيدَ فِيهِ بَأْسٌ شَدِيدٌ وَمَنَافِعُ لِلنَّاسِ ﴾</textPath>
+                    </text>
+                </g>
+
+                <!-- ═══ زخرفة هندسية إسلامية دقيقة — V4 ═══ -->
+                <!-- نجمة سداسية دقيقة بين النجمتين الثمانيتين -->
+                <polygon points="200,132 212,152 212,172 200,192 188,172 188,152" stroke="url(#g2)" stroke-width=".5" fill="none" opacity=".06" transform="rotate(30 200 200)"/>
+                <polygon points="200,132 212,152 212,172 200,192 188,172 188,152" stroke="url(#g2)" stroke-width=".5" fill="none" opacity=".06" transform="rotate(-30 200 200)"/>
+
+                <!-- أقواس زخرفية عند الاتجاهات الأربع -->
+                <path d="M182,60 Q200,52 218,60" stroke="url(#g2)" stroke-width=".6" fill="none" opacity=".08"/>
+                <path d="M182,340 Q200,348 218,340" stroke="url(#g2)" stroke-width=".6" fill="none" opacity=".08"/>
+                <path d="M60,182 Q52,200 60,218" stroke="url(#g2)" stroke-width=".6" fill="none" opacity=".08"/>
+                <path d="M340,182 Q348,200 340,218" stroke="url(#g2)" stroke-width=".6" fill="none" opacity=".08"/>
+
+                <!-- ═══ الجسيمات الذهبية المتحركة ═══ -->
+                <circle cx="120" cy="120" r="1.5" fill="#F5E6A3" opacity="0">
+                    <animate attributeName="opacity" values="0;.6;0" dur="4s" repeatCount="indefinite" begin="0s"/>
+                    <animate attributeName="r" values="0;2;0" dur="4s" repeatCount="indefinite" begin="0s"/>
+                </circle>
+                <circle cx="280" cy="140" r="1.5" fill="#D4AF37" opacity="0">
+                    <animate attributeName="opacity" values="0;.5;0" dur="5s" repeatCount="indefinite" begin="1.5s"/>
+                    <animate attributeName="r" values="0;1.8;0" dur="5s" repeatCount="indefinite" begin="1.5s"/>
+                </circle>
+                <circle cx="160" cy="280" r="1.5" fill="#E8C94A" opacity="0">
+                    <animate attributeName="opacity" values="0;.4;0" dur="6s" repeatCount="indefinite" begin="3s"/>
+                    <animate attributeName="r" values="0;2.2;0" dur="6s" repeatCount="indefinite" begin="3s"/>
+                </circle>
+                <circle cx="260" cy="260" r="1.5" fill="#F5E6A3" opacity="0">
+                    <animate attributeName="opacity" values="0;.5;0" dur="4.5s" repeatCount="indefinite" begin="2s"/>
+                    <animate attributeName="r" values="0;1.6;0" dur="4.5s" repeatCount="indefinite" begin="2s"/>
+                </circle>
+                <circle cx="140" cy="180" r="1" fill="#FFFDE8" opacity="0">
+                    <animate attributeName="opacity" values="0;.7;0" dur="3.5s" repeatCount="indefinite" begin="0.5s"/>
+                    <animate attributeName="r" values="0;1.5;0" dur="3.5s" repeatCount="indefinite" begin="0.5s"/>
+                </circle>
+                <circle cx="270" cy="180" r="1" fill="#D4AF37" opacity="0">
+                    <animate attributeName="opacity" values="0;.45;0" dur="5.5s" repeatCount="indefinite" begin="2.5s"/>
+                    <animate attributeName="r" values="0;1.8;0" dur="5.5s" repeatCount="indefinite" begin="2.5s"/>
+                </circle>
+
+                <!-- ═══ نبض النواة المركزية ═══ -->
+                <circle cx="200" cy="200" r="18" fill="none" stroke="url(#gemCore)" stroke-width=".8" opacity="0">
+                    <animate attributeName="r" values="18;30;45" dur="3s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values=".25;.08;0" dur="3s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="200" cy="200" r="18" fill="none" stroke="url(#gemCore)" stroke-width=".5" opacity="0">
+                    <animate attributeName="r" values="18;35;50" dur="3s" repeatCount="indefinite" begin="1.5s"/>
+                    <animate attributeName="opacity" values=".15;.05;0" dur="3s" repeatCount="indefinite" begin="1.5s"/>
+                </circle>
+
+                <!-- ═══ نقاط البوصلة — نبض حي ═══ -->
+                <circle cx="200" cy="6" r="3" fill="url(#g2v)" opacity="0">
+                    <animate attributeName="opacity" values=".15;.5;.15" dur="4s" repeatCount="indefinite"/>
+                    <animate attributeName="r" values="3;5;3" dur="4s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="394" cy="200" r="3" fill="url(#g2)" opacity="0">
+                    <animate attributeName="opacity" values=".15;.4;.15" dur="4s" repeatCount="indefinite" begin="1s"/>
+                    <animate attributeName="r" values="3;4.5;3" dur="4s" repeatCount="indefinite" begin="1s"/>
+                </circle>
+                <circle cx="200" cy="394" r="3" fill="url(#g2)" opacity="0">
+                    <animate attributeName="opacity" values=".15;.4;.15" dur="4s" repeatCount="indefinite" begin="2s"/>
+                    <animate attributeName="r" values="3;4.5;3" dur="4s" repeatCount="indefinite" begin="2s"/>
+                </circle>
+                <circle cx="6" cy="200" r="3" fill="url(#g2)" opacity="0">
+                    <animate attributeName="opacity" values=".15;.4;.15" dur="4s" repeatCount="indefinite" begin="3s"/>
+                    <animate attributeName="r" values="3;4.5;3" dur="4s" repeatCount="indefinite" begin="3s"/>
+                </circle>
+
+                <!-- ═══ التوقيع — شيخة ═══ -->
+                <text x="200" y="380" font-family="'Amiri','Cairo','Tajawal',serif" font-size="20" fill="url(#g2)" text-anchor="middle" opacity=".22" font-weight="700" letter-spacing="6">شيخة</text>
+                <text x="200" y="395" font-family="'Cairo','Tajawal',sans-serif" font-size="8" fill="url(#g2)" text-anchor="middle" opacity=".1" font-weight="800" letter-spacing="4">SHEIKHA</text>
+            </svg>
+        </div></div>
+        <div class="badge"><span class="dot"></span> على نهج سوق المدينة المنورة الذي أسسه النبي ﷺ</div>
+        <h1 class="hero-t"><span class="g">شيخة</span><br>أول سوق إسلامي رقمي للمعادن</h1>
+        <p class="hero-verse amiri">﴿ وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا ﴾ — البقرة ٢٧٥</p>
+        <p class="hero-sub">منظومة وسوق عالمي مبني على مبادئ سوق المدينة المنورة الذي أسسه النبي ﷺ — أول مركز اقتصادي إسلامي رقمي متخصص بالمعادن الأساسية والثمينة والنادرة والسكراب</p>
+        <!-- «بُعِثتُ بجوامعِ الكَلِم» — صحيح البخاري ٧٢٧٣ وصحيح مسلم ٥٢٣ -->
+        <p class="amiri" style="margin-top:1.5rem;font-size:.92rem;color:var(--gold);line-height:2.2;max-width:580px;margin-left:auto;margin-right:auto;text-align:center;opacity:.85;border-bottom:1px solid rgba(212,175,55,.08);padding-bottom:14px">«لا ضَرَرَ ولا ضِرار» · «مَن غَشَّنا فليسَ مِنّا» · «البَيِّعانِ بالخِيار»</p>
+        <div class="btns">
+            <a href="/تسجيل-الدخول.html?tab=register&type=trader" class="btn bp">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                سجّل كتاجر
+            </a>
+            <a href="/سوق-شيخة.html" class="btn bo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                تصفّح السوق
+            </a>
+                            </div>
+                            </div>
+</section>
+
+<!-- ═══ TRUST ═══ -->
+<div class="trust"><div class="trust-in">
+    <div class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span>التزام بالكتاب والسنة</span></div>
+    <div class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span><strong>+2,400</strong> تاجر</span></div>
+    <div class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg><span><strong>+5,100</strong> منتج</span></div>
+    <div class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span><strong>42</strong> دولة</span></div>
+</div></div>
+
+<!-- ═══ TICKER ═══ -->
+<div class="ticker"><div class="tt" id="tk"></div></div>
+
+<!-- ═══ جوامع الكلم في التجارة — «بُعِثتُ بجوامعِ الكَلِم» البخاري ٧٢٧٣ ═══ -->
+<!-- الهيكل الإداري: كما أسّس النبي ﷺ سوق المدينة وعيّن المحتسب، وكما نظّم عمر بن الخطاب رضي الله عنه الدواوين -->
+<!-- «عليكم بسنّتي وسنّة الخلفاء الراشدين المهديين» — أبو داود ٤٦٠٧ والترمذي ٢٦٧٦ -->
+<section class="sec">
+    <div class="sh c">
+        <div class="sb amiri">«بُعِثتُ بجوامعِ الكَلِم» — البخاري</div>
+        <h2 class="st">سنّة <span class="g">سوق المدينة</span></h2>
+    </div>
+    <div class="found-grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">
+        <!-- ١. لا ضرر — جامعة الكلم الأولى في المعاملات -->
+        <div class="found">
+            <div class="found-num"><span>١</span> لا ضرر</div>
+            <h3>«لا ضَرَرَ ولا ضِرار»</h3>
+            <p>أصل من أصول الفقه الإسلامي. كل معاملة في شيخة تُفحَص: لا يُقبل ما يضرّ بائعاً أو مشترياً.</p>
+            <div class="src">رواه ابن ماجه ٢٣٤٠ · الدارقطني · مالك في الموطأ</div>
+        </div>
+        <!-- ٢. الصدق — جامعة الكلم في صفة التاجر -->
+        <div class="found">
+            <div class="found-num"><span>٢</span> الصدق</div>
+            <h3>«التَّاجِرُ الصَّدُوقُ الأَمِينُ مَعَ النَّبِيِّينَ»</h3>
+            <p>وقال ﷺ: «مَن غَشَّنا فليسَ مِنّا». تقييم ذكي لكل تاجر بصدقه وأمانته.</p>
+            <div class="src">رواه الترمذي ١٢٠٩ · مسلم ١٠٢</div>
+        </div>
+        <!-- ٣. التراضي — جامعة الكلم في العقد -->
+        <div class="found">
+            <div class="found-num"><span>٣</span> التراضي</div>
+            <h3>«إنَّما البَيعُ عَن تَراضٍ»</h3>
+            <p>و«البَيِّعانِ بالخِيار ما لم يَتَفَرَّقا». عقود رقمية تضمن حقّ الخيار والتراجع.</p>
+            <div class="src">رواه ابن ماجه ٢١٨٥ · البخاري ٢١١٠ · مسلم ١٥٣١</div>
+        </div>
+        <!-- ٤. القسط — جامعة الكلم في الميزان -->
+        <div class="found">
+            <div class="found-num"><span>٤</span> القسط</div>
+            <h3>﴿ وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ ﴾</h3>
+            <p>«لا يَحتَكِرُ إلّا خاطِئ». سوق حر — والله هو المسعّر — لا احتكار ولا تطفيف.</p>
+            <div class="src">الرحمن ٩ · مسلم ١٦٠٥ · أبو داود ٣٤٥١</div>
+        </div>
+        <!-- ٥. الحسبة — سنّة النبي ﷺ وعمر رضي الله عنه في الإدارة -->
+        <div class="found">
+            <div class="found-num"><span>٥</span> الحِسبة</div>
+            <h3>رقابة السوق — سنّة نبوية</h3>
+            <p>عيّن ﷺ سعيد بن سعيد محتسباً، وعمر رضي الله عنه فتّش الأسواق بنفسه. في شيخة: رقابة ذكية ٢٤/٧.</p>
+            <div class="src">صحيح البخاري · طبقات ابن سعد · تاريخ الطبري</div>
+        </div>
+        <!-- ٦. السوق الحر — جامعة الكلم في حرية التجارة -->
+        <div class="found">
+            <div class="found-num"><span>٦</span> الحرية</div>
+            <h3>«هذا سوقُكُم لا يُنقَص ولا يُضرَب عليه خَراج»</h3>
+            <p>تسجيل مجاني، عرض مجاني، لا رسوم خفية — كما أسّسه ﷺ.</p>
+            <div class="src">سنن البيهقي · السيرة النبوية</div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ WISDOM — جوامع الكلم ═══ -->
+<div class="wisdom">
+    <div class="wisdom-line"></div>
+    <q class="amiri">عليكم بسُنَّتي وسُنَّةِ الخلفاءِ الراشدينَ المهديِّينَ، عَضُّوا عليها بالنَّواجِذ</q>
+    <cite>— رواه أبو داود ٤٦٠٧ والترمذي ٢٦٧٦ وقال: حديث حسن صحيح</cite>
+</div>
+
+<!-- ══════ محتوى تفصيلي — يُعرض في صفحات مستقلة (سوق المدينة / هوية السوق) ══════ -->
+<!--
+    فلسفة التصميم والأسواق النبوية والرؤية والمنظومة والتطبيق
+    نُقلت إلى صفحاتها المخصصة: سوق-المدينة.html / هوية-السوق.html
+    تطبيقاً لحديث: «بُعِثتُ بجوامع الكلم» — الصفحة الرئيسية جامعة مختصرة
+-->
+            </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px">
+        <!-- المواصفة ١ -->
+        <div class="hov-card" style="position:relative;overflow:hidden">
+            <div style="position:absolute;top:0;right:0;left:0;height:3px;background:linear-gradient(90deg,#D4AF37,transparent);opacity:0;transition:.3s"></div>
+            <div style="font-size:.65rem;font-weight:800;color:var(--gold);letter-spacing:.12em;margin-bottom:12px">مواصفة ٠١ — الفضاء المفتوح</div>
+            <h3 style="font-size:1.08rem;font-weight:800;margin-bottom:8px">سوق بلا جدران — لا حواجز</h3>
+            <p style="color:var(--t2);font-size:.86rem;line-height:1.7">النبي ﷺ اختار أرضاً فضاء مفتوحة — لا جدران ولا أبواب تحجب. في شيخة: واجهة مفتوحة، لا تسجيل للتصفح، لا حواجز تقنية — السوق مفتوح للجميع.</p>
+            <div style="margin-top:10px;padding:8px 14px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.08);border-radius:10px;font-size:.75rem;color:#10b981;direction:rtl">✅ وصول مفتوح — بلا حواجز — بلا اشتراط تسجيل</div>
+                </div>
+        <!-- المواصفة ٢ -->
+        <div class="hov-card">
+            <div style="font-size:.65rem;font-weight:800;color:var(--gold);letter-spacing:.12em;margin-bottom:12px">مواصفة ٠٢ — صفر ضرائب</div>
+            <h3 style="font-size:1.08rem;font-weight:800;margin-bottom:8px">«لا يُضرَب عليه خَراج»</h3>
+            <p style="color:var(--t2);font-size:.86rem;line-height:1.7">السوق النبوي بلا ضرائب على التاجر — تشجيع للتجارة الحرة. في شيخة: تسجيل مجاني، عرض المنتجات مجاني، لا رسوم خفية.</p>
+            <div style="margin-top:10px;padding:8px 14px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.08);border-radius:10px;font-size:.75rem;color:#10b981;direction:rtl">✅ صفر خراج — تسجيل مجاني — لا رسوم خفية</div>
+            </div>
+        <!-- المواصفة ٣ -->
+        <div class="hov-card">
+            <div style="font-size:.65rem;font-weight:800;color:var(--gold);letter-spacing:.12em;margin-bottom:12px">مواصفة ٠٣ — شفافية الأسعار</div>
+            <h3 style="font-size:1.08rem;font-weight:800;margin-bottom:8px">العرض والطلب — الله هو المسعّر</h3>
+            <p style="color:var(--t2);font-size:.86rem;line-height:1.7">رفض النبي ﷺ التسعير الجبري — الأسعار حرة. في شيخة: أسعار لحظية من البورصات العالمية (LME/COMEX/LBMA) — شفافية كاملة.</p>
+            <div style="margin-top:10px;padding:8px 14px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.08);border-radius:10px;font-size:.75rem;color:#10b981;direction:rtl">✅ تسعير حر — بيانات لحظية — شفافية كاملة</div>
+                </div>
+        <!-- المواصفة ٤ -->
+        <div class="hov-card">
+            <div style="font-size:.65rem;font-weight:800;color:var(--gold);letter-spacing:.12em;margin-bottom:12px">مواصفة ٠٤ — رقابة الحسبة</div>
+            <h3 style="font-size:1.08rem;font-weight:800;margin-bottom:8px">المحتسب الرقمي — رقابة ٢٤/٧</h3>
+            <p style="color:var(--t2);font-size:.86rem;line-height:1.7">عيّن النبي ﷺ محتسباً يراقب السوق. في شيخة: ذكاء اصطناعي يراقب كل عملية — يكشف الغش ويحمي الحقوق آلياً بلا توقف.</p>
+            <div style="margin-top:10px;padding:8px 14px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.08);border-radius:10px;font-size:.75rem;color:#10b981;direction:rtl">✅ حسبة ذكية — رقابة مستمرة — حماية آلية</div>
+            </div>
+        <!-- المواصفة ٥ -->
+        <div class="hov-card">
+            <div style="font-size:.65rem;font-weight:800;color:var(--gold);letter-spacing:.12em;margin-bottom:12px">مواصفة ٠٥ — المساواة في الفرص</div>
+            <h3 style="font-size:1.08rem;font-weight:800;margin-bottom:8px">«لا يُنقَص» — كلكم سواء</h3>
+            <p style="color:var(--t2);font-size:.86rem;line-height:1.7">لا يُنقص أحد من حقه — كل التجار سواء. في شيخة: لا تمييز بين كبير وصغير — نفس الأدوات والفرص للجميع.</p>
+            <div style="margin-top:10px;padding:8px 14px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.08);border-radius:10px;font-size:.75rem;color:#10b981;direction:rtl">✅ مساواة كاملة — فرص متكافئة — لا تمييز</div>
+                </div>
+        <!-- المواصفة ٦ -->
+        <div class="hov-card">
+            <div style="font-size:.65rem;font-weight:800;color:var(--gold);letter-spacing:.12em;margin-bottom:12px">مواصفة ٠٦ — اللغة والثقافة</div>
+            <h3 style="font-size:1.08rem;font-weight:800;margin-bottom:8px">عربي الأصل — عالمي الأثر</h3>
+            <p style="color:var(--t2);font-size:.86rem;line-height:1.7">سوق المدينة استقبل العرب والأعاجم معاً. في شيخة: العربية أصل + ترجمة لـ١٤ لغة — كل مستخدم يتفاعل بلغته والمحتوى يُترجم تلقائياً.</p>
+            <div style="margin-top:10px;padding:8px 14px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.08);border-radius:10px;font-size:.75rem;color:#10b981;direction:rtl">✅ العربية أصل — ١٤ لغة — ترجمة تلقائية</div>
+            </div>
+                </div>
+    <!-- الرابط لصفحة الهوية المكانية -->
+    <div style="text-align:center;margin-top:2.5rem">
+        <a href="/هوية-السوق.html" class="hov-link" style="display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:14px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.12);color:var(--gold);text-decoration:none;font-weight:700;font-size:.92rem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            اقرأ الرواية الكاملة — قصة سوق المدينة المنورة
+        </a>
+        </div>
+    </section>
+
+<!-- ═══ CULTURAL SPREAD ═══ -->
+<section class="sec">
+    <div class="sh c">
+        <div class="sb">نشر الثقافة</div>
+        <h2 class="st">نشر ثقافة <span class="g">التجارة النبوية</span> — محلياً وعالمياً</h2>
+        <p class="sd">شيخة ليست مجرد سوق — هي حركة ثقافية تُعيد للعالم نموذج التجارة الإسلامية العادلة</p>
+        </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px">
+        <div class="hov-card hov-card--sm">
+            <div style="font-size:.7rem;font-weight:800;color:#10b981;letter-spacing:.1em;margin-bottom:10px">🇸🇦 محلياً</div>
+            <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:8px">المملكة العربية السعودية — الخبر</h3>
+            <p style="color:var(--t2);font-size:.86rem;line-height:1.75">إحياء ثقافة السوق النبوي في قلب المنطقة الشرقية — ربط تجار المعادن والسكراب بمنصة رقمية تحترم القيم الإسلامية — تعليم جيل جديد مبادئ التجارة الشرعية.</p>
+                </div>
+        <div class="hov-card hov-card--sm">
+            <div style="font-size:.7rem;font-weight:800;color:#818cf8;letter-spacing:.1em;margin-bottom:10px">🌍 عالمياً</div>
+            <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:8px">للعالم أجمع — بكل لغة</h3>
+            <p style="color:var(--t2);font-size:.86rem;line-height:1.75">تقديم نموذج اقتصادي إسلامي حقيقي للعالم — إثبات أن مبادئ سوق المدينة تبني أعدل الأسواق وأنجحها — ترجمة المحتوى لـ١٤ لغة لنشر الثقافة التجارية الإسلامية.</p>
+                </div>
+        <div class="hov-card hov-card--sm">
+            <div style="font-size:.7rem;font-weight:800;color:var(--gold);letter-spacing:.1em;margin-bottom:10px">📖 تعليمياً</div>
+            <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:8px">أكاديمية شيخة التجارية</h3>
+            <p style="color:var(--t2);font-size:.86rem;line-height:1.75">تعليم أصول التجارة الشرعية — أحكام البيوع والعقود — الفقه المالي الإسلامي — دورات متخصصة في المعادن والسكراب — شهادات معتمدة.</p>
+                </div>
+        <div class="hov-card hov-card--sm">
+            <div style="font-size:.7rem;font-weight:800;color:#f59e0b;letter-spacing:.1em;margin-bottom:10px">🤝 تجربة التعايش</div>
+            <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:8px">عِش تجربة السوق النبوي رقمياً</h3>
+            <p style="color:var(--t2);font-size:.86rem;line-height:1.75">تجربة غامرة تحاكي أجواء سوق المدينة المنورة — التعامل بالصدق والأمانة — الإحساس بقيم التجارة النبوية في كل نقرة وكل صفقة.</p>
+            </div>
+        </div>
+    </section>
+
+<!-- ═══ MARKETS VISITED ═══ -->
+<section class="sec">
+    <div class="sh c">
+        <div class="sb">التراث التجاري النبوي</div>
+        <h2 class="st">أسواق زارها وأسسها <span class="g">النبي ﷺ</span></h2>
+        <p class="sd">شيخة ترث تجربة تجارية عريقة — من أسواق مكة التي تاجر فيها النبي ﷺ إلى سوق المدينة الذي أسسه</p>
+        </div>
+    <div class="markets">
+        <div class="mkt">
+            <div class="mkt-ic" style="background:rgba(212,175,55,.08)"><svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <h3>سوق المدينة</h3>
+            <div class="loc">المدينة المنورة — أسسه ﷺ</div>
+            <p>أول سوق حر إسلامي — بلا ضرائب ولا احتكار. أساس منظومة شيخة.</p>
+                </div>
+        <div class="mkt">
+            <div class="mkt-ic" style="background:rgba(184,115,51,.08)"><svg viewBox="0 0 24 24" fill="none" stroke="#B87333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+            <h3>سوق عكاظ</h3>
+            <div class="loc">الطائف — تاجر فيه ﷺ</div>
+            <p>أشهر أسواق العرب — ٢٠ يوماً من العلم والتجارة والأدب. زاره ﷺ وهو يُشرف على تجارة خديجة رضي الله عنها.</p>
+            </div>
+        <div class="mkt">
+            <div class="mkt-ic" style="background:rgba(129,140,248,.08)"><svg viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+            <h3>سوق مجنة</h3>
+            <div class="loc">شمال مكة — الجموم</div>
+            <p>سوق العشر الأخيرة من ذي القعدة — تبادل تجاري بين قبائل العرب.</p>
+                </div>
+        <div class="mkt">
+            <div class="mkt-ic" style="background:rgba(34,197,94,.08)"><svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <h3>سوق ذي المجاز</h3>
+            <div class="loc">شرق مكة — قبل الحج</div>
+            <p>آخر أسواق العرب قبل دخول مناسك الحج — ﴿ ليس عليكم جناح أن تبتغوا فضلاً من ربكم ﴾</p>
+            </div>
+                </div>
+</section>
+
+<!-- ══════ نهاية الأقسام المخفية ══════ -->
+            </div>
+
+<!-- ═══ MARKET CATEGORIES ═══ -->
+<section class="sec">
+    <div class="sh c">
+        <div class="sb">سوق شيخة</div>
+        <h2 class="st">أربعة أقسام — <span class="g">تصنيف HS Code عالمي</span></h2>
+        <p class="sd">كل معدن مصنّف بدقة وفق النظام الجمركي الدولي — من المواد الخام إلى المنتجات المعالجة</p>
+                </div>
+    <div class="cats">
+        <a href="/سوق-شيخة.html?cat=base" class="cat">
+            <div class="ic" style="background:rgba(148,163,184,.07)"><svg viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 12h16"/><path d="M12 4v16"/></svg></div>
+            <div class="hs">HS 72–83</div>
+            <h3>المعادن الأساسية</h3>
+            <p>حديد، نحاس، ألمنيوم، زنك، نيكل</p>
+        </a>
+        <a href="/سوق-شيخة.html?cat=precious" class="cat">
+            <div class="ic" style="background:rgba(212,175,55,.07)"><svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M2 9h20"/></svg></div>
+            <div class="hs">HS 7106–7118</div>
+            <h3>المعادن الثمينة</h3>
+            <p>ذهب، فضة، بلاتين، بلاديوم</p>
+        </a>
+        <a href="/سوق-شيخة.html?cat=rare" class="cat">
+            <div class="ic" style="background:rgba(129,140,248,.07)"><svg viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/></svg></div>
+            <div class="hs">HS 2846 / 8112</div>
+            <h3>المعادن النادرة</h3>
+            <p>ليثيوم، كوبالت، تنجستن</p>
+        </a>
+        <a href="/سوق-شيخة.html?cat=scrap" class="cat">
+            <div class="ic" style="background:rgba(34,197,94,.07)"><svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+            <div class="hs">HS 7204 / 7404 / 7602</div>
+            <h3>السكراب والتدوير</h3>
+            <p>خردة حديد، نحاس، كابلات</p>
+        </a>
+        </div>
+    </section>
+
+<!-- ══════ أقسام ثانوية مخفية مؤقتاً ══════ -->
+<div style="display:none">
+<!-- ═══ VISION & GOALS ═══ -->
+<section class="sec">
+    <div class="sh c">
+        <div class="sb">الرؤية والأهداف</div>
+        <h2 class="st">من <span class="g">المدينة المنورة</span> إلى العالم</h2>
+        <p class="sd">رؤية متدرجة — نبدأ بأول سوق إسلامي للمعادن، ثم نتوسع للعالم العربي، ثم للعالم أجمع</p>
+        </div>
+    <div class="vision-grid">
+        <div class="vis">
+            <div class="phase">المرحلة الأولى</div>
+            <h3>أول سوق إسلامي رقمي للمعادن</h3>
+            <p>تأسيس أول مركز اقتصادي إسلامي رقمي متخصص بالمعادن والسكراب والمعادن الثمينة — مبني على مبادئ سوق المدينة المنورة بالتزام شرعي كامل.</p>
+            </div>
+        <div class="vis">
+            <div class="phase">المرحلة الثانية</div>
+            <h3>سوق العالم العربي والإسلامي</h3>
+            <p>التوسع ليصبح السوق المرجعي للمعادن في العالم العربي والإسلامي — ربط التجار من ٥٧ دولة إسلامية في منظومة واحدة آمنة وموثوقة.</p>
+                </div>
+        <div class="vis">
+            <div class="phase">المرحلة الثالثة</div>
+            <h3>المنظومة العالمية — للعالم أجمع</h3>
+            <p>أن تصبح شيخة المنصة العالمية المرجعية لتجارة المعادن — نموذج اقتصادي يثبت أن مبادئ الإسلام تبني أفضل الأسواق للبشرية جمعاء.</p>
+            </div>
+        </div>
+    </section>
+
+<!-- ═══ ECOSYSTEM ═══ -->
+<section class="sec">
+    <div class="sh c">
+        <div class="sb">المنظومة</div>
+        <h2 class="st">كل ما يحتاجه <span class="g">التاجر</span></h2>
+        </div>
+    <div class="eco">
+        <div class="ec"><div class="ec-ic" style="background:rgba(212,175,55,.07)"><svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/></svg></div><div><h3>مستشار AI متخصص</h3><p>تسعير ذكي، تحليل سوق، استشارات مخصصة لنشاطك</p></div></div>
+        <div class="ec"><div class="ec-ic" style="background:rgba(59,130,246,.07)"><svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div><h3>تحليل شامل للشركات</h3><p>بيانات مفتوحة، قوائم مالية، هيكل إداري كامل</p></div></div>
+        <div class="ec"><div class="ec-ic" style="background:rgba(245,158,11,.07)"><svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.8"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div><h3>لوجستيات وسلاسل إمداد</h3><p>تتبع، مستودعات، شركات نقل — من المصدر للتسليم</p></div></div>
+        <div class="ec"><div class="ec-ic" style="background:rgba(16,185,129,.07)"><svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div><h3>التحقق والمشروعية</h3><p>تحقق آلي من السجلات والوثائق لكل دولة حسب قوانينها</p></div></div>
+        <div class="ec"><div class="ec-ic" style="background:rgba(168,85,247,.07)"><svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><h3>ريادة أعمال ذكية</h3><p>خطة عمل، دراسة جدوى، ربط مع مستثمرين</p></div></div>
+        <div class="ec"><div class="ec-ic" style="background:rgba(129,140,248,.07)"><svg viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div><div><h3>المجتمع العلمي والتجاري</h3><p>منتدى، مختبر بحث وتطوير، فتاوى تجارية</p></div></div>
+        </div>
+    </section>
+
+<!-- ═══ APP DOWNLOAD ═══ -->
+<section class="sec" style="padding:60px 20px">
+    <div class="sh c">
+        <div class="sb" style="color:#10b981">التطبيق</div>
+        <h2 class="st">حمّل <span class="g">تطبيق شيخة</span></h2>
+        <p style="color:var(--t3);max-width:600px;margin:10px auto 0;font-size:.95rem;line-height:1.8">التطبيق متوفر على جميع الأجهزة — حمّله الآن وابدأ التداول في أول سوق إسلامي رقمي للمعادن</p>
+        </div>
+    <div style="display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;margin-top:32px">
+        <!-- PWA Install Button -->
+        <button id="pwaInstallBtn" style="display:none;padding:16px 32px;background:linear-gradient(135deg,#D4AF37,#b8942f);color:#000;border:none;border-radius:14px;font-family:'Tajawal',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:all .3s;box-shadow:0 4px 24px rgba(212,175,55,.3)">
+            <span style="display:flex;align-items:center;gap:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> تثبيت التطبيق مباشرة</span>
+        </button>
+                </div>
+
+    <!-- Store Badges -->
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:28px">
+        <!-- Google Play -->
+        <a href="https://play.google.com/store/apps/details?id=sa.sheikha.market" target="_blank" class="store-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92z" fill="#4285F4"/><path d="M17.556 8.248l-3.764 3.751 3.764 3.752 4.243-2.399a1.004 1.004 0 000-1.704l-4.243-2.4z" fill="#FBBC04"/><path d="M3.609 1.814L14.425 8.7l-3.397 3.3L3.61 1.814z" fill="#34A853"/><path d="M14.425 15.3L3.609 22.186l7.419-10.187 3.397 3.3z" fill="#EA4335"/></svg>
+            <div><div style="font-size:.65rem;opacity:.8">GET IT ON</div><div style="font-size:1rem;font-weight:700;letter-spacing:.5px">Google Play</div></div>
+        </a>
+        <!-- Apple App Store -->
+        <a href="https://apps.apple.com/app/sheikha-market/id000000000" target="_blank" class="store-badge">
+            <svg width="24" height="28" viewBox="0 0 384 512" fill="#fff"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5c0 26.2 4.8 53.3 14.4 81.2 12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-62.1 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+            <div><div style="font-size:.65rem;opacity:.8">Download on the</div><div style="font-size:1rem;font-weight:700;letter-spacing:.5px">App Store</div></div>
+        </a>
+        <!-- Huawei AppGallery -->
+        <a href="https://appgallery.huawei.com" target="_blank" class="store-badge">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#ff0000" stroke-width="1.5"/><path d="M7 12a5 5 0 0110 0" stroke="#ff0000" stroke-width="2" fill="none"/><circle cx="12" cy="8" r="2" fill="#ff0000"/></svg>
+            <div><div style="font-size:.65rem;opacity:.8">EXPLORE IT ON</div><div style="font-size:1rem;font-weight:700;letter-spacing:.5px">AppGallery</div></div>
+        </a>
+            </div>
+
+    <!-- App Features -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:900px;margin:36px auto 0">
+        <div style="text-align:center;padding:20px">
+            <div style="width:50px;height:50px;border-radius:14px;background:rgba(212,175,55,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:4px">آمن وموثوق</div>
+            <div style="font-size:.78rem;color:var(--t3)">تشفير كامل — حماية بياناتك</div>
+                </div>
+        <div style="text-align:center;padding:20px">
+            <div style="width:50px;height:50px;border-radius:14px;background:rgba(16,185,129,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:4px">يعمل بدون إنترنت</div>
+            <div style="font-size:.78rem;color:var(--t3)">تصفح المنتجات أوفلاين</div>
+            </div>
+        <div style="text-align:center;padding:20px">
+            <div style="width:50px;height:50px;border-radius:14px;background:rgba(59,130,246,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:4px">كل الأجهزة</div>
+            <div style="font-size:.78rem;color:var(--t3)">iOS — Android — الويب</div>
+                </div>
+        <div style="text-align:center;padding:20px">
+            <div style="width:50px;height:50px;border-radius:14px;background:rgba(168,85,247,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:4px">إشعارات فورية</div>
+            <div style="font-size:.78rem;color:var(--t3)">تنبيهات الأسعار والطلبات</div>
+            </div>
+                </div>
+
+    <!-- QR Code -->
+    <div style="text-align:center;margin-top:30px">
+        <div style="display:inline-block;padding:20px;background:#fff;border-radius:16px;margin-bottom:12px">
+            <svg width="140" height="140" viewBox="0 0 140 140">
+                <!-- Simplified QR pattern representing sheikha.top -->
+                <rect width="140" height="140" fill="#fff"/>
+                <rect x="10" y="10" width="30" height="30" fill="#030712" rx="2"/><rect x="14" y="14" width="22" height="22" fill="#fff" rx="1"/><rect x="18" y="18" width="14" height="14" fill="#030712" rx="1"/>
+                <rect x="100" y="10" width="30" height="30" fill="#030712" rx="2"/><rect x="104" y="14" width="22" height="22" fill="#fff" rx="1"/><rect x="108" y="18" width="14" height="14" fill="#030712" rx="1"/>
+                <rect x="10" y="100" width="30" height="30" fill="#030712" rx="2"/><rect x="14" y="104" width="22" height="22" fill="#fff" rx="1"/><rect x="18" y="108" width="14" height="14" fill="#030712" rx="1"/>
+                <!-- Data modules -->
+                <rect x="50" y="10" width="6" height="6" fill="#030712"/><rect x="60" y="10" width="6" height="6" fill="#030712"/><rect x="74" y="10" width="6" height="6" fill="#030712"/>
+                <rect x="50" y="20" width="6" height="6" fill="#030712"/><rect x="68" y="20" width="6" height="6" fill="#030712"/><rect x="82" y="20" width="6" height="6" fill="#030712"/>
+                <rect x="50" y="30" width="6" height="6" fill="#030712"/><rect x="60" y="30" width="6" height="6" fill="#030712"/><rect x="74" y="34" width="6" height="6" fill="#030712"/>
+                <rect x="10" y="50" width="6" height="6" fill="#030712"/><rect x="24" y="50" width="6" height="6" fill="#030712"/><rect x="50" y="50" width="6" height="6" fill="#030712"/><rect x="68" y="50" width="6" height="6" fill="#030712"/><rect x="82" y="50" width="6" height="6" fill="#030712"/><rect x="110" y="50" width="6" height="6" fill="#030712"/>
+                <rect x="10" y="60" width="6" height="6" fill="#030712"/><rect x="34" y="60" width="6" height="6" fill="#030712"/><rect x="60" y="60" width="6" height="6" fill="#030712"/><rect x="74" y="60" width="6" height="6" fill="#030712"/><rect x="96" y="60" width="6" height="6" fill="#030712"/><rect x="120" y="60" width="6" height="6" fill="#030712"/>
+                <rect x="20" y="70" width="6" height="6" fill="#030712"/><rect x="50" y="70" width="6" height="6" fill="#030712"/><rect x="68" y="70" width="6" height="6" fill="#030712"/><rect x="82" y="70" width="6" height="6" fill="#030712"/><rect x="104" y="70" width="6" height="6" fill="#030712"/>
+                <rect x="10" y="80" width="6" height="6" fill="#030712"/><rect x="30" y="80" width="6" height="6" fill="#030712"/><rect x="60" y="82" width="6" height="6" fill="#030712"/><rect x="74" y="82" width="6" height="6" fill="#030712"/><rect x="110" y="80" width="6" height="6" fill="#030712"/>
+                <rect x="50" y="96" width="6" height="6" fill="#030712"/><rect x="68" y="96" width="6" height="6" fill="#030712"/><rect x="82" y="96" width="6" height="6" fill="#030712"/><rect x="96" y="96" width="6" height="6" fill="#030712"/>
+                <rect x="50" y="108" width="6" height="6" fill="#030712"/><rect x="60" y="108" width="6" height="6" fill="#030712"/><rect x="74" y="110" width="6" height="6" fill="#030712"/><rect x="108" y="110" width="6" height="6" fill="#030712"/><rect x="120" y="108" width="6" height="6" fill="#030712"/>
+                <rect x="50" y="120" width="6" height="6" fill="#030712"/><rect x="68" y="120" width="6" height="6" fill="#030712"/><rect x="96" y="120" width="6" height="6" fill="#030712"/><rect x="110" y="120" width="6" height="6" fill="#030712"/>
+                <!-- Gold center logo -->
+                <rect x="52" y="52" width="36" height="36" rx="6" fill="#D4AF37"/>
+                <text x="70" y="78" text-anchor="middle" fill="#030712" font-size="24" font-weight="900" font-family="Arial">ش</text>
+            </svg>
+            </div>
+        <div style="font-size:.82rem;color:var(--t3)">امسح الرمز لفتح التطبيق — <span style="color:var(--gold);font-weight:700">sheikha.top</span></div>
+        </div>
+    </section>
+
+<!-- ══════ نهاية الأقسام الثانوية المخفية ══════ -->
+            </div>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta"><div class="cta-box">
+    <h2>سبحان الله وبحمده — ابدأ تجارتك</h2>
+    <p>مكانك بين التجار الصادقين الأمناء — سجّل واحصل على لوحة تحكم مخصصة لنشاطك</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="/تسجيل-الدخول.html?tab=register&type=trader" class="btn bp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> سجّل كتاجر</a>
+        <a href="/سوق-شيخة.html" class="btn bo">تصفّح السوق</a>
+            </div>
+</div></section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer><div class="fi">
+    <div class="ft">
+        <div class="fb">
+            <a href="/" class="logo" style="margin-bottom:10px;display:inline-flex">
+                <div class="logo-mark" style="width:32px;height:32px"><svg viewBox="0 0 200 200" fill="none"><defs><linearGradient id="g3" x1="20%" y1="0%" x2="80%" y2="100%"><stop offset="0%" stop-color="#FBF0C8"/><stop offset="30%" stop-color="#E8C94A"/><stop offset="60%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#A8882B"/></linearGradient><radialGradient id="g3c" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFFDE8"/><stop offset="100%" stop-color="#D4AF37"/></radialGradient></defs><polygon points="100,12 120,80 188,80 132,120 152,188 100,148 48,188 68,120 12,80 80,80" fill="url(#g3)" opacity=".06"/><polygon points="100,12 120,80 188,80 132,120 152,188 100,148 48,188 68,120 12,80 80,80" stroke="url(#g3)" stroke-width="2" fill="none" opacity=".3"/><rect x="97" y="42" width="6" height="108" rx="3" fill="url(#g3)" opacity=".4"/><circle cx="100" cy="40" r="7" fill="url(#g3)" opacity=".5"/><rect x="48" y="78" width="104" height="4" rx="2" fill="url(#g3)" opacity=".35"/><polygon points="100,68 118,100 100,132 82,100" fill="rgba(212,175,55,.04)" stroke="url(#g3)" stroke-width="1" opacity=".3"/><circle cx="100" cy="100" r="8" fill="url(#g3c)" opacity=".65"/><rect x="76" y="150" width="48" height="4" rx="2" fill="url(#g3)" opacity=".35"/><rect x="68" y="158" width="64" height="3" rx="1.5" fill="url(#g3)" opacity=".2"/></svg></div>
+                <div class="logo-text"><span class="ar">شيخة</span><span class="en">SHEIKHA</span></div>
+            </a>
+            <p>أول سوق إسلامي رقمي للمعادن — مبني على مبادئ سوق المدينة المنورة الذي أسسه النبي ﷺ</p>
+            <p style="margin-top:10px;color:var(--t3,#64748b);line-height:1.9">
+                مبدأ تسارع الإنجاز في شيخة: نعمل بمنهج التشبّه التقريبي في الإنتاجية، فنضغط الزمن بالتركيز والأتمتة والقياس؛
+                ليكون أثر الساعة كبيرًا، واليوم مضاعفًا، والأسبوع نوعيًا — لا مساواة حرفية، بل تقارب في النتائج بسرعة وجودة.
+            </p>
+                </div>
+        <div class="fls">
+            <div class="fc"><h4>السوق</h4><a href="/سوق-شيخة.html?cat=steel">الحديد والصلب</a><a href="/سوق-شيخة.html?cat=precious">المعادن الثمينة</a><a href="/سوق-شيخة.html?cat=rare">المعادن النادرة</a><a href="/سوق-شيخة.html?cat=scrap">السكراب</a></div>
+            <div class="fc"><h4>المنظومة</h4><a href="/تسجيل-الدخول.html?tab=register&type=trader">سجّل كتاجر</a><a href="/المجتمع.html">المجتمع</a><a href="/الشريعة-الاسلامية.html">الشريعة</a><a href="/هوية-السوق.html">هوية السوق</a><a href="/سوق-المدينة.html">سوق المدينة</a><a href="/تسجيل-الدخول.html">تسجيل الدخول</a></div>
+            <div class="fc"><h4>اكتشف المزيد</h4><a href="/بنك-شيخة.html">بنك شيخة</a><a href="/العاصمة-الاقتصادية.html">العاصمة الاقتصادية</a><a href="/آيات-التجارة.html">آيات التجارة</a><a href="/معايير-الأحاديث.html">معايير الأحاديث</a><a href="/منظومة-البركة.html">منظومة البركة</a><a href="/SHEIKHA-SMART-DIGITAL.html">المعمارية الرقمية الذكية</a><a href="/SHEIKHA-MARKET-SYSTEM.html">منظومة السوق</a><a href="/SHEIKHA-DIGITAL-IDENTITY.html">الهوية الرقمية</a><a href="/SHEIKHA-COMMUNICATIONS.html">منظومة الاتصالات</a><a href="https://saudipedia.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px">🇸🇦 سعوديبيديا</a><a href="https://ar.wikipedia.org" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px">📖 ويكيبيديا</a></div>
+            <div class="fc"><h4>القانونية</h4><a href="/الشروط-والسياسات.html">الشروط والأحكام</a><a href="/سياسة-الخصوصية.html">سياسة الخصوصية</a><a href="/SHEIKHA-LIVE-EVALUATION-v2.html">تقرير التقييم الحي</a></div>
+            <div class="fc"><h4>تواصل معنا</h4><a href="mailto:market@sheikha.top">market@sheikha.top</a><a href="https://wa.me/966554942904" target="_blank">واتساب: 0554942904</a><a href="https://sheikha.top">sheikha.top</a></div>
+            <div class="fc"><h4>حمّل التطبيق</h4><a href="https://play.google.com/store/apps/details?id=sa.sheikha.market" target="_blank">Google Play</a><a href="https://apps.apple.com/app/sheikha-market/id000000000" target="_blank">App Store</a><a href="https://appgallery.huawei.com" target="_blank">AppGallery</a><a href="#" id="homeInstallPwaLink">تثبيت التطبيق (PWA)</a></div>
+            </div>
+            </div>
+    <div class="fbot" style="flex-direction:column;gap:6px">
+        <span class="cp">&copy; 2026 SHEIKHA — أول سوق إسلامي رقمي للمعادن — جميع الحقوق محفوظة</span>
+        <span style="font-size:.72rem;color:var(--t3,#64748b)">ملكية فكرية وتجارية محفوظة لـ سلمان أحمد بن سلمان الراجح — سجل تجاري / هوية وطنية — المملكة العربية السعودية</span>
+        <span class="pr amiri">﴿ سُبْحَانَ رَبِّكَ رَبِّ الْعِزَّةِ عَمَّا يَصِفُونَ ﴾</span>
+            </div>
+</div></footer>
+
+    <script>
+window.addEventListener('scroll',()=>document.getElementById('nb').classList.toggle('s',scrollY>40));
+const m=[
+    {n:'الذهب XAU',p:'2,342.50',c:'+1.2%',u:1},{n:'الفضة XAG',p:'24.85',c:'+0.8%',u:1},
+    {n:'النحاس HG',p:'8,720',c:'-0.3%',u:0},{n:'الألمنيوم AL',p:'2,380',c:'+0.5%',u:1},
+    {n:'البلاتين PT',p:'985',c:'-0.1%',u:0},{n:'حديد HMS1',p:'320',c:'+1.5%',u:1},
+    {n:'الزنك ZN',p:'2,850',c:'+0.9%',u:1},{n:'سكراب نحاس',p:'7,950',c:'+1.1%',u:1},
+    {n:'بلاديوم PD',p:'1,045',c:'+0.6%',u:1},{n:'ليثيوم Li',p:'14,200',c:'+2.1%',u:1},
+    {n:'كوبالت Co',p:'28,400',c:'-0.4%',u:0},{n:'نيكل Ni',p:'16,850',c:'+0.7%',u:1}
+];
+document.getElementById('tk').innerHTML=[...m,...m].map(i=>`<div class="tm"><span class="n">${i.n}</span><span class="p">$${i.p}</span><span class="c ${i.u?'up':'dn'}">${i.c}</span></div>`).join('');
+const ob=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.08,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.found,.mkt,.cat,.vis,.ec').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(28px)';el.style.transition='all .65s ease';ob.observe(el)});
+
+// ═══ PWA Install Prompt ═══
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const btn = document.getElementById('pwaInstallBtn');
+    if (btn) btn.style.display = 'inline-flex';
+});
+
+function installPWA() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((r) => {
+            if (r.outcome === 'accepted') {
+                document.getElementById('pwaInstallBtn').style.display = 'none';
+            }
+            deferredPrompt = null;
+        });
+                } else {
+        // Fallback: show instructions
+        const ua = navigator.userAgent;
+        if (/iPhone|iPad/.test(ua)) {
+            alert('لتثبيت التطبيق على iPhone:\n\n1. اضغط على زر المشاركة (⬆️)\n2. اختر "إضافة إلى الشاشة الرئيسية"\n3. اضغط "إضافة"');
+        } else {
+            alert('لتثبيت التطبيق:\n\n1. افتح القائمة (⋮)\n2. اختر "تثبيت التطبيق" أو "إضافة إلى الشاشة الرئيسية"');
+        }
+    }
+}
+
+window.addEventListener('appinstalled', () => {
+    const btn = document.getElementById('pwaInstallBtn');
+    if (btn) btn.style.display = 'none';
+    deferredPrompt = null;
+});
+
+// ═══ Service Worker Registration ═══
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then((reg) => {
+            console.log('[SHEIKHA] Service Worker registered — scope:', reg.scope);
+        }).catch((err) => {
+            console.log('[SHEIKHA] SW registration failed:', err);
+        });
+    });
+}
+
+// Show install button if not in standalone mode and not showing native prompt
+if (!window.matchMedia('(display-mode: standalone)').matches && !navigator.standalone) {
+    setTimeout(() => {
+        const btn = document.getElementById('pwaInstallBtn');
+        if (btn && btn.style.display === 'none') btn.style.display = 'inline-flex';
+    }, 3000);
+}
+
+// ═══ ربط التفاعلات الحرجة بدون onclick لضمان العمل مع CSP ═══
+(function bindHomeUiActions() {
+    var mobileToggle = document.getElementById('homeMobileToggle');
+    var navList = document.querySelector('.nl');
+    if (mobileToggle && navList) {
+        mobileToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            navList.classList.toggle('mob-open');
+        });
+    }
+    var registerDrop = document.getElementById('nav-register-btn');
+    var userDrop = document.getElementById('nav-user-menu');
+    [registerDrop, userDrop].forEach(function(drop) {
+        if (!drop) return;
+        var trigger = drop.querySelector('.nav-drop-trigger');
+        if (!trigger) return;
+        trigger.addEventListener('click', function(e) {
+            if (!(navList && navList.classList.contains('mob-open'))) return;
+            e.preventDefault();
+            drop.classList.toggle('mob-exp');
+        });
+    });
+    var pwaBtn = document.getElementById('pwaInstallBtn');
+    if (pwaBtn) {
+        pwaBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            installPWA();
+        });
+    }
+    var pwaLink = document.getElementById('homeInstallPwaLink');
+    if (pwaLink) {
+        pwaLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            installPWA();
+        });
+    }
+    var logoutLink = document.getElementById('homeLogoutLink');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof window.sheikhaLogout === 'function') window.sheikhaLogout();
+            else if (typeof window.logout === 'function') window.logout();
+        });
+    }
+})();
+
+// ═══ Initialize Language System ═══
+        document.addEventListener('DOMContentLoaded', () => {
+    if (typeof SheikhaI18n !== 'undefined') {
+        SheikhaI18n.init('langBar');
+    }
+        });
+
+// ═══ بوابة المدير السرية — نقر الشعار 5 مرات ═══
+(function() {
+    var _ac = 0, _at = 0;
+    var logoEl = document.querySelector('nav .logo-mark') || document.querySelector('nav .logo');
+    if (!logoEl) return;
+    logoEl.style.cursor = 'pointer';
+    logoEl.addEventListener('click', function(e) {
+        // لا تتداخل مع الرابط العادي إلا عند النقر السريع
+        var now = Date.now();
+        if (now - _at > 2000) _ac = 0; // إعادة تعيين إذا تأخر أكثر من ثانيتين
+        _at = now;
+        _ac++;
+        if (_ac >= 5) {
+            e.preventDefault();
+            e.stopPropagation();
+            _ac = 0;
+            // تحقق من أنه مدير
+            var role = localStorage.getItem('sheikha_role');
+            if (role === 'admin') {
+                window.location.href = '/_admin/sheikha-command-center.html';
+            }
+        }
+    });
+})();
+    </script>
+</body>
+</html>

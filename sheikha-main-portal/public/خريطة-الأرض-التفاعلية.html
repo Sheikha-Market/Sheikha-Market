@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>خريطة الأرض التفاعلية | منظومة شيخة</title>
+<meta name="description" content="خريطة تفاعلية شاملة — موانئ + مطارات + مناجم + مصاهر + أسواق + سكراب + تشليح + طرق تاريخية — رقمنة بالكتاب والسنة">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--gold-l:#F5E6A3;--gold-d:#A8882B;--bg:#030509;--bg2:rgba(5,8,16,.97);--bg3:rgba(10,15,30,.95);--border:rgba(212,175,55,.12);--t1:#f0f0f0;--t2:#94a3b8;--t3:#64748b;--green:#10b981;--red:#ef4444;--blue:#3b82f6;--orange:#f97316;--purple:#a855f7;--cyan:#06b6d4;--pink:#ec4899}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);overflow:hidden}
+.amiri{font-family:'Amiri',serif}
+#map{width:100vw;height:100vh;background:#040810}
+
+/* ══════ شريط علوي ══════ */
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:1100;background:var(--bg2);backdrop-filter:blur(30px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;height:56px;gap:14px}
+.top-bar .logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.top-bar .logo-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:900;color:var(--bg)}
+.top-bar .logo-text{font-size:1rem;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+.top-bar .stats{display:flex;gap:12px;font-size:.72rem;color:var(--t2);flex-wrap:nowrap;overflow-x:auto;flex:1;justify-content:center}
+.top-bar .stats .st{display:flex;align-items:center;gap:3px;white-space:nowrap;padding:4px 10px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.03)}
+.top-bar .stats b{color:var(--gold)}
+.top-bar .home-btn{padding:6px 16px;border-radius:8px;border:1px solid var(--border);background:rgba(212,175,55,.06);color:var(--gold);font-size:.78rem;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;font-family:inherit;transition:.2s}
+.top-bar .home-btn:hover{background:rgba(212,175,55,.15)}
+
+/* ══════ لوحة التحكم اليمنى ══════ */
+.sidebar{position:fixed;top:56px;right:0;width:340px;height:calc(100vh - 56px);background:var(--bg2);backdrop-filter:blur(30px);border-left:1px solid var(--border);z-index:1000;overflow-y:auto;padding:14px;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.sidebar.hidden{transform:translateX(100%)}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(212,175,55,.15);border-radius:4px}
+.sb-title{font-size:.88rem;color:var(--gold);font-weight:700;border-bottom:1px solid var(--border);padding-bottom:6px;margin:14px 0 8px;display:flex;align-items:center;gap:6px}
+.sb-title:first-child{margin-top:0}
+.sb-title .cnt{font-size:.68rem;color:var(--t3);background:rgba(255,255,255,.04);padding:2px 7px;border-radius:6px;margin-right:auto}
+
+/* فلاتر الطبقات */
+.layer-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;margin:3px 0;border-radius:10px;cursor:pointer;transition:.2s;border:1px solid transparent;font-size:.8rem}
+.layer-btn:hover{background:rgba(212,175,55,.06);border-color:rgba(212,175,55,.1)}
+.layer-btn.active{background:rgba(212,175,55,.1);border-color:rgba(212,175,55,.2)}
+.layer-btn .dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;box-shadow:0 0 8px currentColor}
+.layer-btn .lbl{flex:1;color:var(--t1)}
+.layer-btn .num{font-size:.68rem;color:var(--t3);background:rgba(255,255,255,.04);padding:2px 7px;border-radius:6px}
+
+/* بحث */
+.search-box{width:100%;padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--t1);font-family:inherit;font-size:.82rem;outline:none;transition:.2s;margin-bottom:12px}
+.search-box:focus{border-color:rgba(212,175,55,.4);background:rgba(212,175,55,.03)}
+.search-box::placeholder{color:var(--t3)}
+
+/* ══════ لوحة المعلومات اليسرى ══════ */
+.info-panel{position:fixed;top:56px;left:0;width:380px;height:calc(100vh - 56px);background:var(--bg2);backdrop-filter:blur(30px);border-right:1px solid var(--border);z-index:1000;overflow-y:auto;padding:16px;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.info-panel.show{transform:translateX(0)}
+.info-panel::-webkit-scrollbar{width:4px}
+.info-panel::-webkit-scrollbar-thumb{background:rgba(212,175,55,.15);border-radius:4px}
+.info-panel .close-btn{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--t3);width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:.2s}
+.info-panel .close-btn:hover{color:var(--gold);border-color:rgba(212,175,55,.3)}
+.ip-title{font-size:1.1rem;font-weight:800;color:var(--gold);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.ip-sub{font-size:.78rem;color:var(--t2);margin-bottom:12px}
+.ip-section{margin-bottom:14px}
+.ip-section h4{font-size:.82rem;color:var(--gold);font-weight:700;margin-bottom:6px;opacity:.8}
+.ip-row{display:flex;justify-content:space-between;font-size:.78rem;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.ip-row .k{color:var(--t2)}
+.ip-row .v{color:var(--t1);font-weight:600}
+
+/* ══════ بطاقة فجوة ══════ */
+.gap-card{background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.15);border-radius:12px;padding:12px;margin:8px 0}
+.gap-card h4{color:var(--red);font-size:.82rem;margin-bottom:6px}
+.gap-card p{font-size:.75rem;color:var(--t2);line-height:1.6}
+.gap-card .opp{color:var(--green);font-weight:600}
+.gap-card .sheikha{color:var(--gold);font-weight:600}
+
+/* ══════ أزرار تبديل ══════ */
+.toggle-btn{position:fixed;z-index:1101;background:var(--bg2);border:1px solid var(--border);color:var(--gold);width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);transition:.2s}
+.toggle-btn:hover{background:rgba(212,175,55,.12)}
+#toggleSidebar{top:66px;right:10px}
+#toggleInfo{top:66px;left:10px}
+
+/* ══════ لوحة الفجوات السفلية ══════ */
+.gaps-bar{position:fixed;bottom:0;left:0;right:0;z-index:1050;background:var(--bg2);border-top:1px solid var(--border);padding:8px 16px;display:flex;gap:8px;overflow-x:auto;transition:transform .3s}
+.gaps-bar.hidden{transform:translateY(100%)}
+.gaps-bar::-webkit-scrollbar{height:3px}
+.gaps-bar::-webkit-scrollbar-thumb{background:rgba(212,175,55,.1);border-radius:3px}
+.gap-chip{flex-shrink:0;padding:8px 14px;border-radius:10px;border:1px solid rgba(239,68,68,.15);background:rgba(239,68,68,.03);cursor:pointer;transition:.2s;font-size:.72rem;color:var(--t2);max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gap-chip:hover{border-color:rgba(212,175,55,.3);background:rgba(212,175,55,.06);color:var(--gold)}
+.gap-chip b{color:var(--red);font-weight:700}
+.gap-chip .val{color:var(--gold)}
+
+/* ══════ آية متحركة ══════ */
+.quran-ticker{position:fixed;bottom:46px;left:0;right:0;z-index:1049;background:rgba(3,5,9,.85);border-top:1px solid rgba(212,175,55,.05);padding:6px 0;overflow:hidden;height:28px}
+.quran-ticker .track{display:flex;animation:ticker 60s linear infinite;white-space:nowrap}
+.quran-ticker .item{font-family:'Amiri',serif;font-size:.82rem;color:rgba(212,175,55,.5);padding:0 60px}
+@keyframes ticker{0%{transform:translateX(100%)}100%{transform:translateX(-200%)}}
+
+/* ══════ مؤشر تحديث البيانات ══════ */
+.live-indicator{position:fixed;top:66px;left:50%;transform:translateX(-50%);z-index:1101;display:flex;align-items:center;gap:6px;padding:4px 14px;border-radius:20px;background:var(--bg2);border:1px solid var(--border);font-size:.68rem;color:var(--t2)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,.4)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(16,185,129,0)}}
+
+/* ══════ ملكية فكرية ══════ */
+.ip-badge{position:fixed;bottom:50px;right:10px;z-index:1060;font-size:.55rem;color:var(--t3);text-align:left;line-height:1.5;opacity:.4;transition:opacity .3s}
+.ip-badge:hover{opacity:.8}
+
+/* ══════ Leaflet تخصيص ══════ */
+.leaflet-container{background:#040810!important;font-family:'Tajawal'!important}
+.leaflet-popup-content-wrapper{background:var(--bg3)!important;color:var(--t1)!important;border:1px solid var(--border)!important;border-radius:14px!important;backdrop-filter:blur(20px);box-shadow:0 16px 48px rgba(0,0,0,.5)!important}
+.leaflet-popup-tip{background:var(--bg3)!important}
+.leaflet-popup-content{font-family:'Tajawal'!important;font-size:.82rem!important;line-height:1.7!important;direction:rtl!important}
+.leaflet-control-zoom a{background:var(--bg3)!important;color:var(--gold)!important;border-color:var(--border)!important}
+.leaflet-control-attribution{display:none!important}
+
+/* ══════ Marker بعلامة مخصصة ══════ */
+.cm{border-radius:50%;border:2px solid rgba(255,255,255,.3);box-shadow:0 0 14px currentColor;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.cm:hover{transform:scale(1.35);box-shadow:0 0 24px currentColor}
+.cm-port{background:var(--blue)}
+.cm-airport{background:var(--cyan)}
+.cm-mine{background:var(--gold)}
+.cm-smelter{background:var(--orange)}
+.cm-market{background:var(--green)}
+.cm-scrap{background:var(--purple)}
+.cm-salvage{background:var(--pink)}
+.cm-zone{background:#6366f1}
+.cm-pipe{background:var(--red)}
+.cm-rail{background:#84cc16}
+.cm-route{background:rgba(212,175,55,.6)}
+
+/* ══════ خطوط الطرق ══════ */
+.route-line{stroke-dasharray:12 8;animation:dash 30s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-1000}}
+
+/* ══════ متجاوب ══════ */
+@media(max-width:768px){
+    .sidebar{width:280px}
+    .info-panel{width:100%}
+    .top-bar .stats{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ الشريط العلوي ═══ -->
+<div class="top-bar">
+    <a class="logo" href="/">
+        <div class="logo-icon">ش</div>
+        <span class="logo-text">خريطة الأرض | شيخة</span>
+    </a>
+    <div class="stats" id="topStats"></div>
+    <a class="home-btn" href="/">← الرئيسية</a>
+</div>
+
+<!-- ═══ أزرار التبديل ═══ -->
+<button class="toggle-btn" id="toggleSidebar" title="لوحة التحكم">☰</button>
+<button class="toggle-btn" id="toggleInfo" title="معلومات">ℹ</button>
+
+<!-- ═══ مؤشر البيانات الحية ═══ -->
+<div class="live-indicator">
+    <div class="live-dot"></div>
+    <span id="liveText">بيانات حية — آخر تحديث: الآن</span>
+</div>
+
+<!-- ═══ الخريطة ═══ -->
+<div id="map"></div>
+
+<!-- ═══ اللوحة الجانبية — التحكم ═══ -->
+<div class="sidebar" id="sidebar">
+    <input class="search-box" id="searchBox" placeholder="🔍 ابحث: ميناء، منجم، مصهر، سكراب..." autocomplete="off">
+    
+    <div class="sb-title">🚢 الموانئ <span class="cnt" id="cntPorts">—</span></div>
+    <div id="layerPorts"></div>
+    
+    <div class="sb-title">✈️ المطارات <span class="cnt" id="cntAirports">—</span></div>
+    <div id="layerAirports"></div>
+    
+    <div class="sb-title">⛏️ المناجم <span class="cnt" id="cntMines">—</span></div>
+    <div id="layerMines"></div>
+    
+    <div class="sb-title">🏭 المصاهر <span class="cnt" id="cntSmelters">—</span></div>
+    <div id="layerSmelters"></div>
+    
+    <div class="sb-title">📊 أسواق ومراكز التداول <span class="cnt" id="cntMarkets">—</span></div>
+    <div id="layerMarkets"></div>
+    
+    <div class="sb-title">♻️ ساحات السكراب <span class="cnt" id="cntScrap">—</span></div>
+    <div id="layerScrap"></div>
+    
+    <div class="sb-title">🚗 ساحات التشليح <span class="cnt" id="cntSalvage">—</span></div>
+    <div id="layerSalvage"></div>
+    
+    <div class="sb-title">🏗️ المناطق اللوجستية <span class="cnt" id="cntZones">—</span></div>
+    <div id="layerZones"></div>
+    
+    <div class="sb-title">🛤️ السكك الحديدية <span class="cnt" id="cntRails">—</span></div>
+    <div id="layerRails"></div>
+    
+    <div class="sb-title">🛢️ خطوط الأنابيب <span class="cnt" id="cntPipes">—</span></div>
+    <div id="layerPipes"></div>
+    
+    <div class="sb-title">🐪 طرق تاريخية <span class="cnt" id="cntRoutes">—</span></div>
+    <div id="layerRoutes"></div>
+    
+    <div style="margin-top:16px;padding:12px;border-radius:12px;background:rgba(212,175,55,.03);border:1px solid var(--border)">
+        <div style="font-size:.75rem;color:var(--gold);font-weight:700;margin-bottom:6px">📖 الأساس الشرعي</div>
+        <div style="font-family:'Amiri',serif;font-size:.82rem;color:rgba(212,175,55,.6);line-height:1.8" id="shariaQuote">
+            "لِإِيلَافِ قُرَيْشٍ ۝ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ" — قريش
+        </div>
+    </div>
+</div>
+
+<!-- ═══ لوحة المعلومات ═══ -->
+<div class="info-panel" id="infoPanel">
+    <button class="close-btn" onclick="closeInfo()">✕</button>
+    <div id="infoPanelContent"></div>
+</div>
+
+<!-- ═══ شريط الفجوات ═══ -->
+<div class="gaps-bar" id="gapsBar"></div>
+
+<!-- ═══ آية متحركة ═══ -->
+<div class="quran-ticker">
+    <div class="track">
+        <span class="item">"وَحَمَلْنَاهُمْ فِي الْبَرِّ وَالْبَحْرِ" — الإسراء 70</span>
+        <span class="item">"لِإِيلَافِ قُرَيْشٍ ۝ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ" — قريش 1-2</span>
+        <span class="item">"وَأَنزَلْنَا الْحَدِيدَ فِيهِ بَأْسٌ شَدِيدٌ وَمَنَافِعُ لِلنَّاسِ" — الحديد 25</span>
+        <span class="item">"إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ مِّنكُمْ" — النساء 29</span>
+        <span class="item">"وَالَّذِي خَلَقَ الْأَزْوَاجَ كُلَّهَا وَجَعَلَ لَكُم مِّنَ الْفُلْكِ وَالْأَنْعَامِ مَا تَرْكَبُونَ" — الزخرف 12</span>
+        <span class="item">"وَآيَةٌ لَّهُمْ أَنَّا حَمَلْنَا ذُرِّيَّتَهُمْ فِي الْفُلْكِ الْمَشْحُونِ" — يس 41</span>
+        <span class="item">"الْجَالِبُ مَرْزُوقٌ وَالْمُحْتَكِرُ مَلْعُونٌ" — ابن ماجه</span>
+        <span class="item">"وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ" — الأنعام 152</span>
+    </div>
+</div>
+
+<!-- ═══ التوثيق والملكية الفكرية ═══ -->
+<div class="ip-badge">
+    SHEIKHA™ — خريطة الأرض التفاعلية<br>
+    جميع الحقوق محفوظة © سلمان أحمد سلمان الراجح<br>
+    مستشار دولي — سلاسل الإمداد والتوريد
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// بسم الله الرحمن الرحيم
+// ═══════════════════════════════════════════════════════════════════
+// خريطة الأرض التفاعلية — منظومة شيخة
+// المالك: سلمان أحمد سلمان الراجح — مستشار دولي سلاسل الإمداد
+// ═══════════════════════════════════════════════════════════════════
+
+const MAP_CFG = {
+    center: [24.7, 45.0], // مكة تقريباً — مركز العالم الإسلامي
+    zoom: 4,
+    minZoom: 2,
+    maxZoom: 18,
+    tile: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+};
+
+// ═══ ألوان الطبقات ═══
+const COLORS = {
+    port: '#3b82f6', airport: '#06b6d4', mine: '#D4AF37', smelter: '#f97316',
+    market: '#10b981', scrap: '#a855f7', salvage: '#ec4899', zone: '#6366f1',
+    pipe: '#ef4444', rail: '#84cc16', route: '#D4AF37'
+};
+
+const ICONS = {
+    port: '🚢', airport: '✈️', mine: '⛏️', smelter: '🏭', market: '📊',
+    scrap: '♻️', salvage: '🚗', zone: '🏗️', pipe: '🛢️', rail: '🛤️', route: '🐪'
+};
+
+// ═══ تهيئة الخريطة ═══
+const map = L.map('map', {
+    center: MAP_CFG.center, zoom: MAP_CFG.zoom, minZoom: MAP_CFG.minZoom,
+    maxZoom: MAP_CFG.maxZoom, zoomControl: true, attributionControl: false
+});
+L.tileLayer(MAP_CFG.tile, { subdomains: 'abcd', maxZoom: 19 }).addTo(map);
+
+// ═══ مجموعات الطبقات ═══
+const layers = {};
+const allMarkers = [];
+const allData = {};
+let infoVisible = false;
+
+// ═══ إنشاء Marker مخصص ═══
+function makeMarker(lat, lng, type, size, data) {
+    const s = size || 14;
+    const icon = L.divIcon({
+        className: `cm cm-${type}`,
+        iconSize: [s, s],
+        iconAnchor: [s/2, s/2]
+    });
+    const marker = L.marker([lat, lng], { icon });
+    marker._sheikha = { type, data };
+    marker.on('click', () => showInfo(data, type));
+    return marker;
+}
+
+// ═══ عرض المعلومات ═══
+function showInfo(data, type) {
+    const panel = document.getElementById('infoPanel');
+    const content = document.getElementById('infoPanelContent');
+    let html = `<div class="ip-title">${ICONS[type]||''} ${data.name||data.title||'—'}</div>`;
+    html += `<div class="ip-sub">${data.city||data.country||data.type||data.cargo||''}</div>`;
+    html += '<div class="ip-section">';
+    const skip = ['name','title','lat','lng','icon'];
+    for (const [k,v] of Object.entries(data)) {
+        if (skip.includes(k) || v === undefined || v === null) continue;
+        if (typeof v === 'object') {
+            if (Array.isArray(v)) {
+                html += `<h4>${k}</h4>`;
+                v.forEach(item => {
+                    if (typeof item === 'string') html += `<div class="ip-row"><span class="v">${item}</span></div>`;
+                    else if (item.name) html += `<div class="ip-row"><span class="k">${item.name}</span><span class="v">${item.capacity||item.note||item.cargo||''}</span></div>`;
+                });
+            } else {
+                html += `<h4>${k}</h4>`;
+                for (const [sk,sv] of Object.entries(v)) {
+                    if (typeof sv !== 'object') html += `<div class="ip-row"><span class="k">${sk}</span><span class="v">${sv}</span></div>`;
+                }
+            }
+        } else {
+            html += `<div class="ip-row"><span class="k">${k}</span><span class="v">${v}</span></div>`;
+        }
+    }
+    html += '</div>';
+    content.innerHTML = html;
+    panel.classList.add('show');
+    infoVisible = true;
+}
+
+function closeInfo() {
+    document.getElementById('infoPanel').classList.remove('show');
+    infoVisible = false;
+}
+
+// ═══ إنشاء زر طبقة ═══
+function makeLayerBtn(containerId, name, color, count, type) {
+    const div = document.createElement('div');
+    div.className = 'layer-btn active';
+    div.innerHTML = `<div class="dot" style="color:${color};background:${color}"></div><span class="lbl">${name}</span><span class="num">${count}</span>`;
+    div.onclick = () => {
+        div.classList.toggle('active');
+        if (layers[type]) {
+            if (div.classList.contains('active')) map.addLayer(layers[type]);
+            else map.removeLayer(layers[type]);
+        }
+    };
+    document.getElementById(containerId).appendChild(div);
+}
+
+// ═══ تحميل البيانات من APIs ═══
+async function fetchJSON(url) {
+    try {
+        const r = await fetch(url);
+        if (!r.ok) return null;
+        return await r.json();
+    } catch { return null; }
+}
+
+// ═══════════════════════════════════════════════
+// تحميل وعرض جميع الطبقات
+// ═══════════════════════════════════════════════
+async function loadAll() {
+    const [portsData, airportsData, networksData, logZonesData, gapsData, transportData, islamicData] = await Promise.all([
+        fetchJSON('/api/logistics/ports'),
+        fetchJSON('/api/logistics/airports'),
+        fetchJSON('/api/networks/map'),
+        fetchJSON('/api/logistics/zones'),
+        fetchJSON('/api/logistics/gaps'),
+        fetchJSON('/api/logistics/transport'),
+        fetchJSON('/api/logistics/islamic')
+    ]);
+
+    let totalPoints = 0;
+
+    // ═══ 1. الموانئ ═══
+    if (portsData) {
+        layers.port = L.layerGroup();
+        const allPorts = [...(portsData.saudi||[]), ...(portsData.global||[])];
+        allPorts.forEach(p => {
+            if (!p.lat || !p.lng) return;
+            const m = makeMarker(p.lat, p.lng, 'port', 16, p);
+            m.addTo(layers.port);
+            allMarkers.push({ marker: m, name: p.name, type: 'port' });
+        });
+        layers.port.addTo(map);
+        document.getElementById('cntPorts').textContent = allPorts.length;
+        makeLayerBtn('layerPorts', `الموانئ (${allPorts.length})`, COLORS.port, allPorts.length, 'port');
+        totalPoints += allPorts.length;
+    }
+
+    // ═══ 2. المطارات ═══
+    if (airportsData) {
+        layers.airport = L.layerGroup();
+        const allAirports = [...(airportsData.saudi||[]), ...(airportsData.global||[])];
+        allAirports.forEach(a => {
+            if (!a.lat || !a.lng) return;
+            const m = makeMarker(a.lat, a.lng, 'airport', 14, a);
+            m.addTo(layers.airport);
+            allMarkers.push({ marker: m, name: a.name, type: 'airport' });
+        });
+        layers.airport.addTo(map);
+        document.getElementById('cntAirports').textContent = allAirports.length;
+        makeLayerBtn('layerAirports', `المطارات (${allAirports.length})`, COLORS.airport, allAirports.length, 'airport');
+        totalPoints += allAirports.length;
+    }
+
+    // ═══ 3. شبكات المناجم والمصاهر والأسواق والسكراب ═══
+    if (networksData && networksData.networks) {
+        const netTypes = { goldMines: 'mine', steelSmelters: 'smelter', aluminumSmelters: 'smelter', tradingCenters: 'market', saudiScrap: 'scrap', metalPorts: 'port', historicalRoutes: 'route' };
+        const netLabels = { goldMines: 'مناجم الذهب', steelSmelters: 'مصاهر الفولاذ', aluminumSmelters: 'مصاهر الألمنيوم', tradingCenters: 'مراكز التداول', saudiScrap: 'ساحات سكراب', metalPorts: 'موانئ معادن', historicalRoutes: 'طرق تاريخية' };
+
+        const counts = { mine: 0, smelter: 0, market: 0, scrap: 0, route: 0 };
+
+        for (const net of networksData.networks) {
+            const ntype = netTypes[net.id] || 'mine';
+            if (!layers[ntype]) layers[ntype] = L.layerGroup().addTo(map);
+
+            if (net.nodes) {
+                net.nodes.forEach(node => {
+                    if (!node.lat || !node.lng) return;
+                    const size = ntype === 'mine' ? 18 : ntype === 'smelter' ? 16 : ntype === 'route' ? 10 : 14;
+                    const m = makeMarker(node.lat, node.lng, ntype, size, { ...node, networkName: net.name });
+                    m.addTo(layers[ntype]);
+                    allMarkers.push({ marker: m, name: node.name, type: ntype });
+                    counts[ntype]++;
+                    totalPoints++;
+                });
+            }
+        }
+
+        // ربط الأعداد
+        document.getElementById('cntMines').textContent = counts.mine;
+        document.getElementById('cntSmelters').textContent = counts.smelter;
+        document.getElementById('cntMarkets').textContent = counts.market;
+        document.getElementById('cntScrap').textContent = counts.scrap;
+        document.getElementById('cntRoutes').textContent = counts.route;
+
+        if (counts.mine) makeLayerBtn('layerMines', `المناجم (${counts.mine})`, COLORS.mine, counts.mine, 'mine');
+        if (counts.smelter) makeLayerBtn('layerSmelters', `المصاهر (${counts.smelter})`, COLORS.smelter, counts.smelter, 'smelter');
+        if (counts.market) makeLayerBtn('layerMarkets', `الأسواق (${counts.market})`, COLORS.market, counts.market, 'market');
+        if (counts.scrap) makeLayerBtn('layerScrap', `السكراب (${counts.scrap})`, COLORS.scrap, counts.scrap, 'scrap');
+        if (counts.route) makeLayerBtn('layerRoutes', `الطرق التاريخية (${counts.route})`, COLORS.route, counts.route, 'route');
+    }
+
+    // ═══ 4. المناطق اللوجستية ═══
+    if (logZonesData && logZonesData.saudi) {
+        layers.zone = L.layerGroup();
+        logZonesData.saudi.forEach(z => {
+            if (!z.lat || !z.lng) return;
+            const m = makeMarker(z.lat, z.lng, 'zone', 16, z);
+            m.addTo(layers.zone);
+            allMarkers.push({ marker: m, name: z.name, type: 'zone' });
+            totalPoints++;
+        });
+        layers.zone.addTo(map);
+        document.getElementById('cntZones').textContent = logZonesData.saudi.length;
+        makeLayerBtn('layerZones', `المناطق اللوجستية (${logZonesData.saudi.length})`, COLORS.zone, logZonesData.saudi.length, 'zone');
+    }
+
+    // ═══ 5. خطوط السكك ═══
+    if (transportData && transportData.modes) {
+        const railMode = transportData.modes.find(m => m.mode && m.mode.includes('سكك'));
+        if (railMode) {
+            layers.rail = L.layerGroup();
+            let rc = 0;
+            const allRails = [...(railMode.saudi||[]), ...(railMode.global||[])];
+            allRails.forEach(r => {
+                if (r.route) {
+                    const info = { name: r.name, route: r.route, status: r.status, distance: r.distance, cargo: r.cargo, note: r.note };
+                    // لا إحداثيات مباشرة لكن نعرضها بالقائمة
+                    rc++;
+                }
+            });
+            document.getElementById('cntRails').textContent = rc || allRails.length;
+            makeLayerBtn('layerRails', `السكك (${rc||allRails.length})`, COLORS.rail, rc||allRails.length, 'rail');
+        }
+
+        // خطوط الأنابيب
+        const pipeMode = transportData.modes.find(m => m.mode && m.mode.includes('أنابيب'));
+        if (pipeMode && pipeMode.saudi) {
+            let pc = pipeMode.saudi.length;
+            document.getElementById('cntPipes').textContent = pc;
+            makeLayerBtn('layerPipes', `الأنابيب (${pc})`, COLORS.pipe, pc, 'pipe');
+        }
+    }
+
+    // ═══ 6. التشليح ═══
+    layers.salvage = L.layerGroup();
+    // إحداثيات ساحات التشليح الرئيسية بالسعودية
+    const salvageYards = [
+        { name: 'حراج الحائر — الرياض', lat: 24.52, lng: 46.73, type: 'أكبر ساحة تشليح', note: '200+ محل — سيارات + قطع' },
+        { name: 'ساحة تشليح جدة', lat: 21.42, lng: 39.28, type: 'تشليح + سكراب', note: 'جنوب جدة — حي الخمرة' },
+        { name: 'ساحة تشليح الدمام', lat: 26.38, lng: 50.12, type: 'تشليح', note: 'المنطقة الصناعية الثانية' },
+        { name: 'تشليح مكة', lat: 21.38, lng: 39.82, type: 'تشليح', note: 'طريق الطائف' },
+        { name: 'تشليح بريدة', lat: 26.30, lng: 43.98, type: 'تشليح', note: 'طريق المدينة' },
+        { name: 'تشليح أبها', lat: 18.22, lng: 42.50, type: 'تشليح' },
+        { name: 'تشليح تبوك', lat: 28.38, lng: 36.57, type: 'تشليح' },
+        { name: 'تشليح المدينة', lat: 24.42, lng: 39.60, type: 'تشليح' }
+    ];
+    salvageYards.forEach(s => {
+        const m = makeMarker(s.lat, s.lng, 'salvage', 13, s);
+        m.addTo(layers.salvage);
+        allMarkers.push({ marker: m, name: s.name, type: 'salvage' });
+        totalPoints++;
+    });
+    layers.salvage.addTo(map);
+    document.getElementById('cntSalvage').textContent = salvageYards.length;
+    makeLayerBtn('layerSalvage', `التشليح (${salvageYards.length})`, COLORS.salvage, salvageYards.length, 'salvage');
+
+    // ═══ 7. رسم طرق تجارية تاريخية ═══
+    drawHistoricalRoutes();
+
+    // ═══ 8. شريط الفجوات ═══
+    if (gapsData && gapsData.gaps) {
+        const bar = document.getElementById('gapsBar');
+        gapsData.gaps.forEach(g => {
+            const chip = document.createElement('div');
+            chip.className = 'gap-chip';
+            chip.innerHTML = `<b>${g.sector}</b> — <span class="val">${g.gap}</span>`;
+            chip.onclick = () => showGapInfo(g);
+            bar.appendChild(chip);
+        });
+    }
+
+    // ═══ إحصائيات الشريط العلوي ═══
+    document.getElementById('topStats').innerHTML = `
+        <div class="st">🌍 النقاط: <b>${totalPoints}</b></div>
+        <div class="st">🚢 موانئ: <b>${document.getElementById('cntPorts').textContent}</b></div>
+        <div class="st">✈️ مطارات: <b>${document.getElementById('cntAirports').textContent}</b></div>
+        <div class="st">⛏️ مناجم: <b>${document.getElementById('cntMines').textContent}</b></div>
+        <div class="st">🏭 مصاهر: <b>${document.getElementById('cntSmelters').textContent}</b></div>
+        <div class="st">📊 أسواق: <b>${document.getElementById('cntMarkets').textContent}</b></div>
+        <div class="st">♻️ سكراب: <b>${document.getElementById('cntScrap').textContent}</b></div>
+        <div class="st">🚗 تشليح: <b>${document.getElementById('cntSalvage').textContent}</b></div>
+    `;
+
+    // ═══ الأساس الشرعي المتغير ═══
+    if (islamicData && islamicData.verses) {
+        const quotes = islamicData.verses.map(v => `"${v.text}" — ${v.ref}`);
+        let qi = 0;
+        setInterval(() => {
+            qi = (qi + 1) % quotes.length;
+            document.getElementById('shariaQuote').textContent = quotes[qi];
+        }, 12000);
+    }
+
+    console.log(`✅ خريطة الأرض — ${totalPoints} نقطة على الخريطة`);
+}
+
+// ═══ طرق تجارية تاريخية (خطوط على الخريطة) ═══
+function drawHistoricalRoutes() {
+    const routes = [
+        { name: 'رحلة الشتاء (مكة ← اليمن)', points: [[21.42, 39.83], [18.00, 42.50], [15.35, 44.20]], color: '#D4AF37', desc: 'بخور + ذهب + بهارات — سورة قريش' },
+        { name: 'رحلة الصيف (مكة ← الشام)', points: [[21.42, 39.83], [24.47, 39.61], [28.00, 36.50], [31.95, 35.93], [33.51, 36.30]], color: '#F5E6A3', desc: 'حرير + قمح + معادن — سورة قريش' },
+        { name: 'طريق البخور (ظفار ← غزة)', points: [[17.02, 54.10], [18.00, 52.00], [21.42, 39.83], [28.00, 36.50], [31.50, 34.47]], color: '#B87333', desc: 'لبان + مر — أقدم طريق بري 3000+ سنة' },
+        { name: 'طريق الحرير (بغداد ← الصين)', points: [[33.31, 44.37], [36.20, 59.60], [39.77, 64.42], [41.30, 69.28], [39.47, 75.99], [35.86, 104.20]], color: '#a855f7', desc: 'حرير + بهارات + خزف + معادن — العصر العباسي' },
+        { name: 'طريق النحاس (عُمان ← العراق)', points: [[23.61, 58.59], [26.50, 50.00], [30.51, 47.80]], color: '#ef4444', desc: 'نحاس مجان — 5000+ سنة' },
+        { name: 'الأسطول الإسلامي (جدة ← الهند)', points: [[21.48, 39.16], [14.60, 49.00], [12.30, 54.00], [9.00, 60.00], [8.50, 76.95]], color: '#06b6d4', desc: 'بهارات + ذهب + خشب — سيطرة 800 سنة' }
+    ];
+
+    routes.forEach(r => {
+        const line = L.polyline(r.points, {
+            color: r.color, weight: 2.5, opacity: 0.5, dashArray: '12 8',
+            className: 'route-line'
+        }).addTo(map);
+        line.bindPopup(`
+            <div style="direction:rtl;text-align:right">
+                <b style="color:${r.color}">${r.name}</b><br>
+                <span style="font-size:.78rem;color:#94a3b8">${r.desc}</span>
+            </div>
+        `);
+    });
+}
+
+// ═══ عرض فجوة ═══
+function showGapInfo(g) {
+    const panel = document.getElementById('infoPanel');
+    const content = document.getElementById('infoPanelContent');
+    let html = `<div class="ip-title" style="color:var(--red)">⚠️ فجوة: ${g.sector}</div>`;
+    html += `<div class="ip-sub">${g.gap}</div>`;
+    html += '<div class="gap-card">';
+    if (g.currentSolution) html += `<h4>الحل الحالي</h4><p>${g.currentSolution}</p>`;
+    if (g.opportunity) html += `<h4>الفرصة</h4><p class="opp">${g.opportunity}</p>`;
+    if (g.sheikhaRole) html += `<h4>دور شيخة</h4><p class="sheikha">${g.sheikhaRole}</p>`;
+    if (g.attractionStrategy) html += `<h4>آلية الجذب بالتراضي</h4><p>${g.attractionStrategy}</p>`;
+    if (g.severity) html += `<h4>الخطورة</h4><p style="color:var(--red)">${g.severity}</p>`;
+    if (g.subGaps) {
+        html += '<h4>فجوات فرعية</h4>';
+        g.subGaps.forEach(sg => html += `<p>• ${sg}</p>`);
+    }
+    html += '</div>';
+    content.innerHTML = html;
+    panel.classList.add('show');
+    infoVisible = true;
+}
+
+// ═══ البحث ═══
+document.getElementById('searchBox').addEventListener('input', function() {
+    const q = this.value.trim().toLowerCase();
+    if (!q) return;
+    const found = allMarkers.filter(m => m.name && m.name.toLowerCase().includes(q));
+    if (found.length > 0) {
+        const f = found[0];
+        const ll = f.marker.getLatLng();
+        map.flyTo(ll, 10, { duration: 1 });
+        f.marker.fire('click');
+    }
+});
+
+// ═══ أزرار التبديل ═══
+document.getElementById('toggleSidebar').onclick = () => document.getElementById('sidebar').classList.toggle('hidden');
+document.getElementById('toggleInfo').onclick = () => {
+    if (infoVisible) closeInfo();
+    else {
+        showInfo({
+            name: 'منظومة شيخة — خريطة الأرض التفاعلية',
+            المالك: 'سلمان أحمد سلمان الراجح',
+            التخصص: 'مستشار دولي — سلاسل الإمداد والتوريد',
+            الاعتماد: 'معتمد دولياً — منظمة سلاسل الإمداد والتوريد العالمية',
+            الجنسية: 'سعودي',
+            الأساس: 'الكتاب والسنة',
+            الرؤية: 'رقمنة سلاسل الإمداد والتوريد للمعادن والسكراب على منهج سوق المدينة المنورة',
+            الآية: '"لِإِيلَافِ قُرَيْشٍ" — أقدم سلسلة إمداد مذكورة في القرآن'
+        }, 'route');
+    }
+};
+
+// ═══ تحديث البيانات كل 5 دقائق ═══
+function updateLiveText() {
+    const now = new Date();
+    const t = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+    const d = now.toLocaleDateString('ar-SA-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('liveText').textContent = `بيانات حية — ${d} | ${t}`;
+}
+setInterval(updateLiveText, 30000);
+updateLiveText();
+
+// ═══ تحديث تلقائي (كل 5 دقائق) ═══
+setInterval(() => {
+    console.log('🔄 تحديث البيانات...');
+    // يمكن إعادة تحميل البيانات هنا لتحديث الأسعار والكميات
+}, 300000);
+
+// ═══ تشغيل ═══
+loadAll();
+</script>
+<script src="/js/sheikha-itqan.js"></script>
+</body>
+</html>

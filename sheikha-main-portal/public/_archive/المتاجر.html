@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تصفح متاجر المعادن والسكراب المسجلة في سوق شيخة - حسب التخصص ومرحلة سلسلة التوريد">
+    <title>المتاجر | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-dark: #063d24;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --shadow-gold: 0 4px 20px rgba(212,175,55,0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .nav {
+            display: flex;
+            gap: 8px;
+        }
+        .nav-link {
+            padding: 10px 18px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.9rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 48px 32px;
+            background: linear-gradient(180deg, var(--card) 0%, var(--dark) 100%);
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(212,175,55,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hero-title {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+        .hero-title span { color: var(--gold); }
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        /* Specialty Tabs */
+        .specialty-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .specialty-tab {
+            padding: 14px 28px;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .specialty-tab:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .specialty-tab.active {
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(10,92,54,0.15));
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: var(--shadow-gold);
+        }
+        .specialty-tab-icon {
+            font-size: 1.3rem;
+        }
+        .specialty-tab-count {
+            background: rgba(212,175,55,0.2);
+            color: var(--gold);
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+        }
+
+        /* Main Layout */
+        .main-layout {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 24px 32px;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-icon { font-size: 1.8rem; margin-bottom: 8px; }
+        .stat-value { font-size: 1.6rem; font-weight: 900; color: var(--gold); }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+
+        /* Stores Grid */
+        .stores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .store-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .store-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+        .store-header {
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(10,92,54,0.2), rgba(212,175,55,0.1));
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .store-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            border: 2px solid var(--gold);
+        }
+        .store-info h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .store-specialty {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .store-body {
+            padding: 20px;
+        }
+        .store-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .meta-item-icon { color: var(--gold); }
+        .store-stats {
+            display: flex;
+            gap: 16px;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+        .store-stat {
+            flex: 1;
+            text-align: center;
+        }
+        .store-stat-value {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .store-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-faint);
+        }
+        .store-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .store-actions .btn {
+            flex: 1;
+            justify-content: center;
+        }
+
+        /* Supply Chain Stage Badge */
+        .stage-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: rgba(10,92,54,0.2);
+            border: 1px solid rgba(10,92,54,0.3);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        /* Empty State */
+        .empty-state {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 80px 20px;
+            background: var(--card);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-xl);
+        }
+        .empty-icon { font-size: 4rem; margin-bottom: 20px; }
+        .empty-title { font-size: 1.4rem; color: var(--gold); margin-bottom: 12px; }
+        .empty-desc { color: var(--text-muted); margin-bottom: 24px; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .header { padding: 12px 16px; }
+            .hero { padding: 32px 16px; }
+            .main-layout { padding: 16px; }
+            .specialty-tabs { gap: 8px; }
+            .specialty-tab { padding: 10px 16px; font-size: 0.85rem; }
+            .stores-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 60 60" width="100%" height="100%">
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#f7e98e"/>
+                                <stop offset="50%" style="stop-color:#d4af37"/>
+                                <stop offset="100%" style="stop-color:#aa8c2c"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="30" cy="30" r="27" fill="none" stroke="url(#logoGrad)" stroke-width="2"/>
+                        <path d="M30 12 L38 24 L32 24 L32 32 L28 32 L28 24 L22 24 Z" fill="url(#logoGrad)" transform="rotate(0 30 30)"/>
+                        <path d="M30 12 L38 24 L32 24 L32 32 L28 32 L28 24 L22 24 Z" fill="url(#logoGrad)" transform="rotate(120 30 30)"/>
+                        <path d="M30 12 L38 24 L32 24 L32 32 L28 32 L28 24 L22 24 Z" fill="url(#logoGrad)" transform="rotate(240 30 30)"/>
+                        <circle cx="30" cy="30" r="6" fill="url(#logoGrad)"/>
+                    </svg>
+                </div>
+                <span class="logo-text">سوق شيخة</span>
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">الرئيسية</a>
+                <a href="السوق.html" class="nav-link">السوق</a>
+                <a href="المتاجر.html" class="nav-link active">المتاجر</a>
+                <a href="لوحة-التحكم.html" class="nav-link">لوحة التحكم</a>
+                <a href="مساعد-شيخة.html" class="nav-link">المساعد</a>
+            </nav>
+            <div style="display: flex; gap: 10px;">
+                <a href="تسجيل-تاجر.html" class="btn btn-gold">افتح متجرك</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">🏪 <span>متاجر</span> المعادن والسكراب</h1>
+            <p class="hero-desc">تصفح المتاجر المسجلة حسب التخصص ومرحلة سلسلة التوريد</p>
+            
+            <!-- Specialty Tabs -->
+            <div class="specialty-tabs" id="specialtyTabs">
+                <button class="specialty-tab active" onclick="filterBySpecialty('all')" data-specialty="all">
+                    <span class="specialty-tab-icon">🏪</span>
+                    <span>الكل</span>
+                    <span class="specialty-tab-count" id="countAll">0</span>
+                </button>
+                <button class="specialty-tab" onclick="filterBySpecialty('source')" data-specialty="source">
+                    <span class="specialty-tab-icon">⛏️</span>
+                    <span>مصادر</span>
+                    <span class="specialty-tab-count" id="countSource">0</span>
+                </button>
+                <button class="specialty-tab" onclick="filterBySpecialty('collection')" data-specialty="collection">
+                    <span class="specialty-tab-icon">🚛</span>
+                    <span>جامعون</span>
+                    <span class="specialty-tab-count" id="countCollection">0</span>
+                </button>
+                <button class="specialty-tab" onclick="filterBySpecialty('transport')" data-specialty="transport">
+                    <span class="specialty-tab-icon">🚚</span>
+                    <span>ناقلون</span>
+                    <span class="specialty-tab-count" id="countTransport">0</span>
+                </button>
+                <button class="specialty-tab" onclick="filterBySpecialty('smelter')" data-specialty="smelter">
+                    <span class="specialty-tab-icon">🔥</span>
+                    <span>مصاهر</span>
+                    <span class="specialty-tab-count" id="countSmelter">0</span>
+                </button>
+                <button class="specialty-tab" onclick="filterBySpecialty('metals_trader')" data-specialty="metals_trader">
+                    <span class="specialty-tab-icon">🔩</span>
+                    <span>تجار معادن</span>
+                    <span class="specialty-tab-count" id="countMetals">0</span>
+                </button>
+                <button class="specialty-tab" onclick="filterBySpecialty('trucks')" data-specialty="trucks">
+                    <span class="specialty-tab-icon">🚛</span>
+                    <span>شاحنات</span>
+                    <span class="specialty-tab-count" id="countTrucks">0</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Stats Bar -->
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-card">
+                <div class="stat-icon">🏪</div>
+                <div class="stat-value" id="totalStores">0</div>
+                <div class="stat-label">متجر مسجّل</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <div class="stat-value" id="totalProducts">0</div>
+                <div class="stat-label">منتج معروض</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏙️</div>
+                <div class="stat-value" id="totalRegions">13</div>
+                <div class="stat-label">منطقة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔗</div>
+                <div class="stat-value">6</div>
+                <div class="stat-label">مراحل سلسلة التوريد</div>
+            </div>
+        </div>
+
+        <!-- Stores Grid -->
+        <div class="stores-grid" id="storesGrid">
+            <!-- Stores will be loaded dynamically -->
+        </div>
+    </div>
+
+    <script>
+        const API = window.location.origin;
+        let allStores = [];
+        let currentSpecialty = 'all';
+
+        const specialtyInfo = {
+            'source': { icon: '⛏️', name: 'مصدر سكراب', stage: 'المصدر' },
+            'collection': { icon: '🚛', name: 'جامع سكراب', stage: 'التجميع' },
+            'transport': { icon: '🚚', name: 'ناقل سكراب', stage: 'النقل' },
+            'smelter': { icon: '🔥', name: 'مصهر', stage: 'الصهر' },
+            'manufacturing': { icon: '🏭', name: 'مصنّع', stage: 'التصنيع' },
+            'metals_trader': { icon: '🔩', name: 'تاجر معادن', stage: 'التجارة' },
+            'trucks': { icon: '🚛', name: 'شاحنات ومعدات', stage: 'النقل' },
+            'default': { icon: '🏪', name: 'متجر', stage: 'عام' }
+        };
+
+        function filterBySpecialty(specialty) {
+            currentSpecialty = specialty;
+            
+            // Update tabs
+            document.querySelectorAll('.specialty-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.specialty === specialty);
+            });
+            
+            renderStores();
+        }
+
+        async function loadStores() {
+            try {
+                // Load traders
+                const tradersRes = await fetch(API + '/api/traders');
+                const tradersData = await tradersRes.json();
+                
+                // Load listings for product counts
+                const listingsRes = await fetch(API + '/api/market-listings');
+                const listingsData = await listingsRes.json();
+                
+                if (tradersData.success && tradersData.traders) {
+                    allStores = tradersData.traders.map(t => {
+                        const productCount = listingsData.listings ? 
+                            listingsData.listings.filter(l => l.traderId === t.id).length : 0;
+                        return {
+                            ...t,
+                            productCount
+                        };
+                    });
+                    
+                    // Update counts
+                    updateCounts();
+                    
+                    // Update stats
+                    document.getElementById('totalStores').textContent = allStores.length;
+                    document.getElementById('totalProducts').textContent = listingsData.listingsCount || 0;
+                    
+                    renderStores();
+                } else {
+                    showEmptyState();
+                }
+            } catch (e) {
+                console.error('Error loading stores:', e);
+                showEmptyState();
+            }
+        }
+
+        function updateCounts() {
+            document.getElementById('countAll').textContent = allStores.length;
+            document.getElementById('countSource').textContent = allStores.filter(s => s.specialty === 'source').length;
+            document.getElementById('countCollection').textContent = allStores.filter(s => s.specialty === 'collection').length;
+            document.getElementById('countTransport').textContent = allStores.filter(s => s.specialty === 'transport').length;
+            document.getElementById('countSmelter').textContent = allStores.filter(s => s.specialty === 'smelter').length;
+            document.getElementById('countMetals').textContent = allStores.filter(s => s.specialty === 'metals_trader' || !s.specialty).length;
+            document.getElementById('countTrucks').textContent = allStores.filter(s => s.specialty === 'trucks').length;
+        }
+
+        function renderStores() {
+            const grid = document.getElementById('storesGrid');
+            
+            let filtered = allStores;
+            if (currentSpecialty !== 'all') {
+                filtered = allStores.filter(s => s.specialty === currentSpecialty);
+            }
+            
+            if (filtered.length === 0) {
+                showEmptyState();
+                return;
+            }
+            
+            grid.innerHTML = filtered.map(store => {
+                const spec = specialtyInfo[store.specialty] || specialtyInfo['default'];
+                return `
+                    <div class="store-card">
+                        <div class="store-header">
+                            <div class="store-avatar">${(store.company || store.name || 'م')[0]}</div>
+                            <div class="store-info">
+                                <h3>${store.company || store.name || 'متجر'}</h3>
+                                <div class="store-specialty">
+                                    <span>${spec.icon}</span>
+                                    <span>${store.specialtyLabel || spec.name}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="store-body">
+                            <div class="store-meta">
+                                <div class="meta-item">
+                                    <span class="meta-item-icon">📍</span>
+                                    <span>${store.region || 'السعودية'}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-item-icon">📅</span>
+                                    <span>منذ ${getTimeAgo(store.createdAt)}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-item-icon">🔗</span>
+                                    <span>مرحلة: ${spec.stage}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-item-icon">📱</span>
+                                    <span>${store.phone ? '✓ موثق' : 'غير موثق'}</span>
+                                </div>
+                            </div>
+                            <div class="store-stats">
+                                <div class="store-stat">
+                                    <div class="store-stat-value">${store.productCount || 0}</div>
+                                    <div class="store-stat-label">منتج</div>
+                                </div>
+                                <div class="store-stat">
+                                    <div class="store-stat-value">—</div>
+                                    <div class="store-stat-label">صفقة</div>
+                                </div>
+                                <div class="store-stat">
+                                    <div class="store-stat-value">—</div>
+                                    <div class="store-stat-label">تقييم</div>
+                                </div>
+                            </div>
+                            <div class="store-actions">
+                                <a href="السوق.html?trader=${store.id}" class="btn btn-outline">عرض المنتجات</a>
+                                <a href="https://wa.me/${store.phone || '966554942904'}?text=السلام عليكم، تواصل من سوق شيخة بخصوص متجر: ${encodeURIComponent(store.company || store.name)}" 
+                                   target="_blank" class="btn btn-gold">تواصل</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showEmptyState() {
+            const grid = document.getElementById('storesGrid');
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">🏪</div>
+                    <h3 class="empty-title">لا توجد متاجر بعد في هذا التصنيف</h3>
+                    <p class="empty-desc">كن أول من يفتح متجره في سوق شيخة للمعادن والسكراب!</p>
+                    <a href="تسجيل-تاجر.html" class="btn btn-gold">افتح متجرك مجاناً</a>
+                </div>
+            `;
+        }
+
+        function getTimeAgo(dateStr) {
+            if (!dateStr) return 'فترة';
+            const date = new Date(dateStr);
+            const now = new Date();
+            const diff = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+            if (diff === 0) return 'اليوم';
+            if (diff === 1) return 'أمس';
+            if (diff < 7) return diff + ' أيام';
+            if (diff < 30) return Math.floor(diff / 7) + ' أسابيع';
+            if (diff < 365) return Math.floor(diff / 30) + ' أشهر';
+            return Math.floor(diff / 365) + ' سنوات';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStores();
+        });
+    </script>
+</body>
+</html>

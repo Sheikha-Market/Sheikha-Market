@@ -1,0 +1,363 @@
+/* ==================== نظام القوائم الموحد - شيخة ==================== */
+
+/* Main Header */
+.sheikha-header {
+    background: rgba(13, 20, 36, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+/* Logo */
+.sheikha-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-symbol {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #f0d060, #d4af37);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #0a0f1a;
+    box-shadow: 0 4px 20px rgba(212,175,55,0.3);
+}
+
+.logo-info h1 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #d4af37;
+    line-height: 1.2;
+}
+
+.logo-info p {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+/* Navigation */
+.sheikha-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    padding: 10px 16px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #d4af37;
+    background: rgba(212,175,55,0.1);
+}
+
+.nav-link .arrow {
+    font-size: 0.65rem;
+    transition: transform 0.3s;
+    opacity: 0.6;
+}
+
+.nav-item:hover .arrow {
+    transform: rotate(180deg);
+}
+
+/* Dropdown */
+.nav-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 300px;
+    background: #0d1424;
+    border: 1px solid #1e3a5f;
+    border-radius: 16px;
+    padding: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.nav-item:hover .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-section {
+    padding: 8px 0;
+}
+
+.dropdown-section + .dropdown-section {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    margin-top: 8px;
+    padding-top: 12px;
+}
+
+.dropdown-title {
+    font-size: 0.7rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 12px 8px;
+    font-weight: 700;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    color: #94a3b8;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.2s;
+}
+
+.dropdown-item:hover {
+    background: rgba(212,175,55,0.1);
+    color: #d4af37;
+}
+
+.dropdown-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(10,92,54,0.15));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.dropdown-text h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.dropdown-text p {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* Header Actions */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    font-family: 'Tajawal', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.btn-gold {
+    background: linear-gradient(135deg, #f0d060, #d4af37);
+    color: #0a0f1a;
+    box-shadow: 0 4px 20px rgba(212,175,55,0.25);
+}
+
+.btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(212,175,55,0.4);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0d7a47, #0a5c36);
+    color: #fff;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #1e3a5f;
+    color: #94a3b8;
+}
+
+.btn-outline:hover {
+    border-color: #d4af37;
+    color: #d4af37;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+}
+
+/* Mobile Menu */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    background: #0d1424;
+    border-left: 1px solid #1e3a5f;
+    padding: 20px;
+    z-index: 2000;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s;
+}
+
+.mobile-nav.open {
+    transform: translateX(0);
+}
+
+.mobile-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #1e3a5f;
+    margin-bottom: 20px;
+}
+
+.mobile-nav-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.mobile-nav-section {
+    margin-bottom: 24px;
+}
+
+.mobile-nav-title {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    padding: 0 12px;
+}
+
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    color: #94a3b8;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-bottom: 4px;
+}
+
+.mobile-nav-link:hover {
+    background: rgba(212,175,55,0.1);
+    color: #d4af37;
+}
+
+.mobile-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1500;
+}
+
+.mobile-overlay.open {
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .sheikha-nav {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .mobile-nav {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        padding: 10px 16px;
+    }
+    
+    .logo-symbol {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .logo-info h1 {
+        font-size: 1rem;
+    }
+    
+    .header-actions .btn:not(.btn-gold) {
+        display: none;
+    }
+}

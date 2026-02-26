@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تسجيل شركات النقل والشحن في سوق شيخة - انضم لشبكة ناقلي المعادن والسكراب">
+    <title>تسجيل شركة نقل | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-dark: #063d24;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --shadow-gold: 0 4px 20px rgba(212,175,55,0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+        .back-link:hover { color: var(--gold); }
+
+        /* Main */
+        .main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .hero-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(10,92,54,0.2));
+            border: 2px solid var(--gold);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+        }
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Benefits */
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .benefit {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .benefit-icon { font-size: 2rem; margin-bottom: 12px; }
+        .benefit-title { font-weight: 700; margin-bottom: 4px; }
+        .benefit-desc { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Form */
+        .form-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+        }
+        .form-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-section {
+            margin-bottom: 32px;
+        }
+        .form-section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group.full { grid-column: 1/-1; }
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        .form-label .required { color: var(--danger); }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+        }
+        .form-textarea { min-height: 100px; resize: vertical; }
+        .form-select { cursor: pointer; }
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--text-faint);
+            margin-top: 6px;
+        }
+
+        /* Checkboxes */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .checkbox-item:hover { border-color: var(--gold); }
+        .checkbox-item input { display: none; }
+        .checkbox-item.checked {
+            background: rgba(212,175,55,0.1);
+            border-color: var(--gold);
+        }
+        .checkbox-icon {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .checkbox-item.checked .checkbox-icon {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--dark);
+        }
+        .checkbox-label { font-weight: 600; font-size: 0.9rem; }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .btn-lg { padding: 16px 40px; font-size: 1.05rem; }
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .form-actions .btn { flex: 1; }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(16,185,129,0.15);
+            border: 3px solid var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 24px;
+        }
+        .success-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--success);
+            margin-bottom: 12px;
+        }
+        .success-desc {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main { padding: 24px 16px; }
+            .form-card { padding: 20px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-actions { flex-direction: column; }
+            .benefits { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">ش</div>
+                <span class="logo-text">سوق شيخة</span>
+            </a>
+            <a href="index.html" class="back-link">→ العودة للرئيسية</a>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main">
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-icon">🚛</div>
+            <h1>سجّل <span>شركة النقل</span></h1>
+            <p>انضم لشبكة ناقلي المعادن والسكراب في سوق شيخة واحصل على طلبات شحن مستمرة</p>
+        </div>
+
+        <!-- Benefits -->
+        <div class="benefits">
+            <div class="benefit">
+                <div class="benefit-icon">📦</div>
+                <div class="benefit-title">طلبات مستمرة</div>
+                <div class="benefit-desc">استقبل طلبات شحن من التجار والمصاهر</div>
+            </div>
+            <div class="benefit">
+                <div class="benefit-icon">💰</div>
+                <div class="benefit-title">أسعار تنافسية</div>
+                <div class="benefit-desc">حدد أسعارك وتفاوض مباشرة</div>
+            </div>
+            <div class="benefit">
+                <div class="benefit-icon">🔒</div>
+                <div class="benefit-title">ضمان الدفع</div>
+                <div class="benefit-desc">نظام Escrow لحماية حقوقك</div>
+            </div>
+            <div class="benefit">
+                <div class="benefit-icon">📱</div>
+                <div class="benefit-title">لوحة تحكم</div>
+                <div class="benefit-desc">تتبع شحناتك وإيراداتك</div>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="form-card" id="formCard">
+            <h2 class="form-title">🚛 بيانات شركة النقل</h2>
+            
+            <form id="transporterForm">
+                <!-- معلومات الشركة -->
+                <div class="form-section">
+                    <h3 class="form-section-title">معلومات الشركة</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">اسم الشركة <span class="required">*</span></label>
+                            <input type="text" class="form-input" name="company" required placeholder="مثال: شركة النقل السريع">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">رقم السجل التجاري</label>
+                            <input type="text" class="form-input" name="crNumber" placeholder="اختياري">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">اسم المسؤول <span class="required">*</span></label>
+                            <input type="text" class="form-input" name="contactName" required placeholder="الاسم الكامل">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">المنصب</label>
+                            <input type="text" class="form-input" name="position" placeholder="مثال: مدير العمليات">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- معلومات التواصل -->
+                <div class="form-section">
+                    <h3 class="form-section-title">معلومات التواصل</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">رقم الجوال <span class="required">*</span></label>
+                            <input type="tel" class="form-input" name="phone" required placeholder="05XXXXXXXX" pattern="[0-9]{10}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">واتساب</label>
+                            <input type="tel" class="form-input" name="whatsapp" placeholder="نفس الرقم أو رقم آخر">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-input" name="email" placeholder="example@company.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">المنطقة الرئيسية <span class="required">*</span></label>
+                            <select class="form-select" name="region" required>
+                                <option value="">اختر المنطقة</option>
+                                <option value="riyadh">الرياض</option>
+                                <option value="makkah">مكة المكرمة</option>
+                                <option value="madinah">المدينة المنورة</option>
+                                <option value="eastern">المنطقة الشرقية</option>
+                                <option value="qassim">القصيم</option>
+                                <option value="asir">عسير</option>
+                                <option value="tabuk">تبوك</option>
+                                <option value="hail">حائل</option>
+                                <option value="northern">الحدود الشمالية</option>
+                                <option value="jizan">جازان</option>
+                                <option value="najran">نجران</option>
+                                <option value="baha">الباحة</option>
+                                <option value="jouf">الجوف</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الأسطول والخدمات -->
+                <div class="form-section">
+                    <h3 class="form-section-title">الأسطول والخدمات</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">أنواع الشاحنات المتوفرة <span class="required">*</span></label>
+                        <div class="checkbox-group" id="truckTypes">
+                            <label class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="truckTypes" value="pickup">
+                                <span class="checkbox-icon"></span>
+                                <span class="checkbox-label">🚐 بكب</span>
+                            </label>
+                            <label class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="truckTypes" value="small_truck">
+                                <span class="checkbox-icon"></span>
+                                <span class="checkbox-label">🚚 شاحنة صغيرة</span>
+                            </label>
+                            <label class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="truckTypes" value="medium_truck">
+                                <span class="checkbox-icon"></span>
+                                <span class="checkbox-label">🚛 شاحنة متوسطة</span>
+                            </label>
+                            <label class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="truckTypes" value="large_truck">
+                                <span class="checkbox-icon"></span>
+                                <span class="checkbox-label">🚛 شاحنة كبيرة</span>
+                            </label>
+                            <label class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="truckTypes" value="trailer">
+                                <span class="checkbox-icon"></span>
+                                <span class="checkbox-label">🚛 تريلا</span>
+                            </label>
+                            <label class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="truckTypes" value="container">
+                                <span class="checkbox-icon"></span>
+                                <span class="checkbox-label">📦 حاوية</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">عدد الشاحنات</label>
+                            <input type="number" class="form-input" name="fleetSize" min="1" placeholder="عدد الشاحنات في الأسطول">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">الحمولة القصوى (طن)</label>
+                            <input type="number" class="form-input" name="maxCapacity" min="1" placeholder="أقصى حمولة للشاحنة الواحدة">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">نطاق الخدمة</label>
+                        <div class="checkbox-group" id="serviceArea">
+                            <label class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="serviceArea" value="local">
+                                <span class="checkbox-icon"></span>
+                                <span class="checkbox-label">📍 محلي</span>
+                            </label>
+                            <label class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="serviceArea" value="regional">
+                                <span class="checkbox-icon"></span>
+                                <span class="checkbox-label">🏙️ إقليمي</span>
+                            </label>
+                            <label class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="serviceArea" value="national">
+                                <span class="checkbox-icon"></span>
+                                <span class="checkbox-label">🇸🇦 وطني</span>
+                            </label>
+                            <label class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" name="serviceArea" value="international">
+                                <span class="checkbox-icon"></span>
+                                <span class="checkbox-label">🌍 دولي</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group full">
+                        <label class="form-label">ملاحظات إضافية</label>
+                        <textarea class="form-textarea" name="notes" placeholder="أي معلومات إضافية عن خدماتك..."></textarea>
+                    </div>
+                </div>
+
+                <!-- الأسعار -->
+                <div class="form-section">
+                    <h3 class="form-section-title">الأسعار التقريبية</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">سعر الكيلومتر (ريال)</label>
+                            <input type="number" class="form-input" name="pricePerKm" step="0.5" placeholder="مثال: 3.5">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">الحد الأدنى للرحلة (ريال)</label>
+                            <input type="number" class="form-input" name="minPrice" placeholder="مثال: 500">
+                        </div>
+                    </div>
+                    <p class="form-hint">هذه أسعار استرشادية. يمكنك التفاوض على السعر النهائي مع كل عميل.</p>
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="window.location.href='index.html'">إلغاء</button>
+                    <button type="submit" class="btn btn-gold btn-lg">🚛 سجّل شركتك الآن</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+            <div class="success-icon">✅</div>
+            <h2 class="success-title">تم التسجيل بنجاح!</h2>
+            <p class="success-desc">شكراً لتسجيلك. سيتم مراجعة بياناتك وتفعيل حسابك قريباً. ستصلك رسالة على الواتساب.</p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <a href="لوحة-التحكم.html" class="btn btn-gold">لوحة التحكم</a>
+                <a href="index.html" class="btn btn-outline">الرئيسية</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API = window.location.origin;
+
+        function toggleCheckbox(item) {
+            const checkbox = item.querySelector('input');
+            checkbox.checked = !checkbox.checked;
+            item.classList.toggle('checked', checkbox.checked);
+            
+            // Update icon
+            const icon = item.querySelector('.checkbox-icon');
+            icon.innerHTML = checkbox.checked ? '✓' : '';
+        }
+
+        document.getElementById('transporterForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {
+                type: 'transporter',
+                specialty: 'transport',
+                company: formData.get('company'),
+                crNumber: formData.get('crNumber'),
+                contactName: formData.get('contactName'),
+                position: formData.get('position'),
+                phone: formData.get('phone'),
+                whatsapp: formData.get('whatsapp') || formData.get('phone'),
+                email: formData.get('email'),
+                region: formData.get('region'),
+                truckTypes: Array.from(document.querySelectorAll('input[name="truckTypes"]:checked')).map(c => c.value),
+                fleetSize: formData.get('fleetSize'),
+                maxCapacity: formData.get('maxCapacity'),
+                serviceArea: Array.from(document.querySelectorAll('input[name="serviceArea"]:checked')).map(c => c.value),
+                pricePerKm: formData.get('pricePerKm'),
+                minPrice: formData.get('minPrice'),
+                notes: formData.get('notes'),
+                createdAt: new Date().toISOString()
+            };
+
+            // Validate required fields
+            if (!data.company || !data.contactName || !data.phone || !data.region) {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+
+            if (data.truckTypes.length === 0) {
+                alert('يرجى اختيار نوع واحد على الأقل من الشاحنات');
+                return;
+            }
+
+            try {
+                // Try to register as trader with transport specialty
+                const res = await fetch(API + '/api/traders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: data.contactName,
+                        company: data.company,
+                        phone: data.phone,
+                        whatsapp: data.whatsapp,
+                        email: data.email,
+                        region: data.region,
+                        specialty: 'transport',
+                        specialtyLabel: 'شركة نقل',
+                        crNumber: data.crNumber,
+                        fleetSize: data.fleetSize,
+                        truckTypes: data.truckTypes,
+                        serviceArea: data.serviceArea,
+                        pricePerKm: data.pricePerKm,
+                        minPrice: data.minPrice,
+                        notes: data.notes
+                    })
+                });
+
+                const result = await res.json();
+                
+                if (result.success) {
+                    document.getElementById('formCard').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                    
+                    // Save to localStorage for dashboard
+                    localStorage.setItem('transporterData', JSON.stringify(data));
+                } else {
+                    alert(result.error || 'حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                // Show success anyway for demo (data saved locally)
+                localStorage.setItem('transporterData', JSON.stringify(data));
+                document.getElementById('formCard').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

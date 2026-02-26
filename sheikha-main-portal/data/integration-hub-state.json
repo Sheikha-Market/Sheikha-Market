@@ -1,0 +1,465 @@
+{
+  "pipelines": [],
+  "connections": [],
+  "reports": [],
+  "tenants": [
+    {
+      "tenantId": "TEN-1771975776543-js47rq",
+      "name": "تنشيط مباشر - المعادن والسكراب والتشليح",
+      "type": "company",
+      "country": "SA",
+      "partitionKey": {
+        "legalEntity": "SHEIKHA-METALS-SCRAP",
+        "businessUnit": "METALS_SCRAP",
+        "companyCode": "SH-MSD-001"
+      },
+      "isolationMode": "strict",
+      "status": "active",
+      "createdAt": "2026-02-24T23:29:36.543Z"
+    }
+  ],
+  "tenantConnections": [],
+  "mappingProfiles": [
+    {
+      "profileId": "MAP-1771975776545-bfugxp",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-inventory-shipments",
+      "canonicalVersion": "1.0.0",
+      "mappings": [
+        {
+          "flow": "inventory.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        },
+        {
+          "flow": "shipments.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        }
+      ],
+      "createdAt": "2026-02-24T23:29:36.545Z"
+    },
+    {
+      "profileId": "MAP-1771975776545-fh3203",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-invoices-payments",
+      "canonicalVersion": "1.0.0",
+      "mappings": [
+        {
+          "flow": "invoices.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        },
+        {
+          "flow": "payments.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        }
+      ],
+      "createdAt": "2026-02-24T23:29:36.545Z"
+    },
+    {
+      "profileId": "MAP-1771975776545-kx10f7",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-orders",
+      "canonicalVersion": "1.0.0",
+      "mappings": [
+        {
+          "flow": "purchaseOrders.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        },
+        {
+          "flow": "salesOrders.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        }
+      ],
+      "createdAt": "2026-02-24T23:29:36.545Z"
+    },
+    {
+      "profileId": "MAP-1771975776545-2hztbp",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-dismantling",
+      "canonicalVersion": "1.0.0",
+      "mappings": [
+        {
+          "flow": "dismantling.vehicle.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        },
+        {
+          "flow": "dismantling.parts.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        },
+        {
+          "flow": "dismantling.auction.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        }
+      ],
+      "createdAt": "2026-02-24T23:29:36.545Z"
+    },
+    {
+      "profileId": "MAP-1771975776545-7e7oma",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-scrap-yard",
+      "canonicalVersion": "1.0.0",
+      "mappings": [
+        {
+          "flow": "scrap.lot.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        },
+        {
+          "flow": "scrap.weighbridge.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        },
+        {
+          "flow": "scrap.compliance.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        }
+      ],
+      "createdAt": "2026-02-24T23:29:36.545Z"
+    },
+    {
+      "profileId": "MAP-1771975776544-bqjwvo",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-metals-trading",
+      "canonicalVersion": "1.0.0",
+      "mappings": [
+        {
+          "flow": "metals.catalog.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        },
+        {
+          "flow": "metals.quote.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        },
+        {
+          "flow": "metals.order.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        }
+      ],
+      "createdAt": "2026-02-24T23:29:36.544Z"
+    },
+    {
+      "profileId": "MAP-1771975776544-i4yxtd",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-customers-items",
+      "canonicalVersion": "1.0.0",
+      "mappings": [
+        {
+          "flow": "customers.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        },
+        {
+          "flow": "items.sync",
+          "sourceToCanonical": [],
+          "canonicalToTarget": []
+        }
+      ],
+      "createdAt": "2026-02-24T23:29:36.544Z"
+    }
+  ],
+  "packActivations": [
+    {
+      "activationId": "PACK-1771975776545-lwdrox",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-inventory-shipments",
+      "packName": "Inventory + Shipments",
+      "flows": [
+        "inventory.sync",
+        "shipments.sync"
+      ],
+      "status": "active",
+      "activatedAt": "2026-02-24T23:29:36.545Z"
+    },
+    {
+      "activationId": "PACK-1771975776545-i15npe",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-invoices-payments",
+      "packName": "Invoices + Payments",
+      "flows": [
+        "invoices.sync",
+        "payments.sync"
+      ],
+      "status": "active",
+      "activatedAt": "2026-02-24T23:29:36.545Z"
+    },
+    {
+      "activationId": "PACK-1771975776545-0qgxuu",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-orders",
+      "packName": "PO/SO",
+      "flows": [
+        "purchaseOrders.sync",
+        "salesOrders.sync"
+      ],
+      "status": "active",
+      "activatedAt": "2026-02-24T23:29:36.545Z"
+    },
+    {
+      "activationId": "PACK-1771975776545-rwuwfb",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-dismantling",
+      "packName": "Dismantling & Salvage",
+      "flows": [
+        "dismantling.vehicle.sync",
+        "dismantling.parts.sync",
+        "dismantling.auction.sync"
+      ],
+      "status": "active",
+      "activatedAt": "2026-02-24T23:29:36.545Z"
+    },
+    {
+      "activationId": "PACK-1771975776545-17ivqj",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-scrap-yard",
+      "packName": "Scrap Yard Operations",
+      "flows": [
+        "scrap.lot.sync",
+        "scrap.weighbridge.sync",
+        "scrap.compliance.sync"
+      ],
+      "status": "active",
+      "activatedAt": "2026-02-24T23:29:36.545Z"
+    },
+    {
+      "activationId": "PACK-1771975776544-t4ti8f",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-metals-trading",
+      "packName": "Metals Trading Core",
+      "flows": [
+        "metals.catalog.sync",
+        "metals.quote.sync",
+        "metals.order.sync"
+      ],
+      "status": "active",
+      "activatedAt": "2026-02-24T23:29:36.544Z"
+    },
+    {
+      "activationId": "PACK-1771975776544-yo9ntw",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "packId": "pack-customers-items",
+      "packName": "Customers + Items Sync",
+      "flows": [
+        "customers.sync",
+        "items.sync"
+      ],
+      "status": "active",
+      "activatedAt": "2026-02-24T23:29:36.544Z"
+    }
+  ],
+  "flowRuns": [],
+  "deadLetterQueue": [],
+  "queuedFlows": [],
+  "sourcingProviders": [],
+  "sourcingCampaigns": [],
+  "sourcingCatalog": [],
+  "sourcingScoringConfig": {
+    "weights": {
+      "security": 0.3,
+      "reliability": 0.3,
+      "sharia": 0.25,
+      "cost": 0.15
+    },
+    "defaults": {
+      "security": 70,
+      "reliability": 70,
+      "sharia": 85,
+      "cost": 60
+    }
+  },
+  "vcsActivityRuns": [],
+  "idempotencyRegistry": {},
+  "zeroKeyPairings": [
+    {
+      "pairingId": "PAIR-1771975776544-96wdtj",
+      "pairingCode": "742279",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "targetSystem": "oracle-erp-cloud",
+      "status": "pending",
+      "createdAt": "2026-02-24T23:29:36.544Z",
+      "expiresAt": "2026-02-24T23:44:36.544Z",
+      "agentFingerprint": "",
+      "activatedAt": null
+    }
+  ],
+  "zeroKeyConnections": [],
+  "superiorActivations": [
+    {
+      "activationId": "SUP-1771975776545-f9mrqr",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "targetSystem": "oracle-erp-cloud",
+      "mode": "agent_pairing",
+      "methods": [
+        {
+          "method": "agent_pairing",
+          "rank": 1,
+          "reason": "أفضل خيار بدون مشاركة مفاتيح API لكل عميل"
+        },
+        {
+          "method": "oauth_delegated",
+          "rank": 2,
+          "reason": "إذا كان OAuth/Trust مفعّل في بيئة ERP"
+        },
+        {
+          "method": "sftp_key_exchange",
+          "rank": 3,
+          "reason": "Fallback عبر مفاتيح SSH بدلاً من API keys"
+        }
+      ],
+      "connection": {
+        "success": true,
+        "mode": "agent_pairing",
+        "methods": [
+          {
+            "method": "agent_pairing",
+            "rank": 1,
+            "reason": "أفضل خيار بدون مشاركة مفاتيح API لكل عميل"
+          },
+          {
+            "method": "oauth_delegated",
+            "rank": 2,
+            "reason": "إذا كان OAuth/Trust مفعّل في بيئة ERP"
+          },
+          {
+            "method": "sftp_key_exchange",
+            "rank": 3,
+            "reason": "Fallback عبر مفاتيح SSH بدلاً من API keys"
+          }
+        ],
+        "pairing": {
+          "pairingId": "PAIR-1771975776544-96wdtj",
+          "pairingCode": "742279",
+          "expiresAt": "2026-02-24T23:44:36.544Z",
+          "status": "pending"
+        },
+        "instructions": [
+          "شغّل Sheikha Connector Agent داخل بيئة العميل",
+          "أدخل pairingCode داخل الوكيل",
+          "بعد التحقق، يتم إنشاء اتصال آمن بدون API key يدوي"
+        ]
+      },
+      "packs": [
+        {
+          "packId": "pack-customers-items",
+          "status": "active",
+          "activationId": "PACK-1771975776544-yo9ntw"
+        },
+        {
+          "packId": "pack-metals-trading",
+          "status": "active",
+          "activationId": "PACK-1771975776544-t4ti8f"
+        },
+        {
+          "packId": "pack-scrap-yard",
+          "status": "active",
+          "activationId": "PACK-1771975776545-17ivqj"
+        },
+        {
+          "packId": "pack-dismantling",
+          "status": "active",
+          "activationId": "PACK-1771975776545-rwuwfb"
+        },
+        {
+          "packId": "pack-orders",
+          "status": "active",
+          "activationId": "PACK-1771975776545-0qgxuu"
+        },
+        {
+          "packId": "pack-invoices-payments",
+          "status": "active",
+          "activationId": "PACK-1771975776545-i15npe"
+        },
+        {
+          "packId": "pack-inventory-shipments",
+          "status": "active",
+          "activationId": "PACK-1771975776545-lwdrox"
+        }
+      ],
+      "activatedAt": "2026-02-24T23:29:36.545Z"
+    }
+  ],
+  "verticalActivations": [
+    {
+      "verticalActivationId": "VERT-1771975776545-3lwiif",
+      "tenantId": "TEN-1771975776543-js47rq",
+      "targetSystem": "oracle-erp-cloud",
+      "verticalId": "metals-scrap-dismantling",
+      "verticalName": "المعادن + السكراب + التشليح",
+      "readiness": {
+        "phase": "phase-1-live",
+        "verticalId": "metals-scrap-dismantling",
+        "startupFlows": [
+          "metals.catalog.sync",
+          "scrap.lot.sync",
+          "scrap.weighbridge.sync",
+          "dismantling.parts.sync",
+          "purchaseOrders.sync",
+          "salesOrders.sync"
+        ],
+        "kpis": [
+          "lotTurnoverDays",
+          "yieldRecoveryPct",
+          "partSellThroughPct",
+          "onTimeShipmentPct"
+        ],
+        "expansionPath": [
+          "precious-metals",
+          "industrial-materials",
+          "construction-surplus",
+          "global-b2b-marketplace"
+        ]
+      },
+      "superiorActivationId": "SUP-1771975776545-f9mrqr",
+      "activatedAt": "2026-02-24T23:29:36.545Z"
+    }
+  ],
+  "saasProvisioningRuns": [],
+  "ecosystemRuns": [],
+  "operatingLayerRuns": [],
+  "supremeArchitectureRuns": [],
+  "autonomousOps": {
+    "enabled": true,
+    "intervalSec": 30,
+    "maxRunsPerCycle": 25,
+    "stopOnFailureRate": 0.5,
+    "minSampleForStop": 6,
+    "lastStartedAt": "2026-02-25T22:43:11.871Z",
+    "lastStoppedAt": null,
+    "lastCycleAt": "2026-02-25T23:40:42.015Z",
+    "lastCycleSummary": {
+      "scannedQueued": 0,
+      "processed": 0,
+      "completed": 0,
+      "failed": 0,
+      "failureRate": 0
+    },
+    "pausedReason": ""
+  },
+  "lastGapAnalysis": null,
+  "oracleAudit": {
+    "totalRequests": 0,
+    "successfulRequests": 0,
+    "failedRequests": 0,
+    "rateLimited": 0,
+    "retriedRequests": 0,
+    "lastRequestAt": null
+  },
+  "kpis": {
+    "totalTransforms": 0,
+    "successfulTransforms": 0,
+    "failedTransforms": 0,
+    "averageQualityScore": 0,
+    "averageGapScore": 0
+  }
+}

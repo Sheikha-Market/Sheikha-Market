@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شيخة — المعمارية الرقمية الذكية | SHEIKHA Smart Digital Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@200;300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--g3:#D4AF37;--bg:#020306;--bg2:#070b14;--bg3:#0d1320;--t1:#f0e6d0;--t2:#b8a880;--t3:#706850;--t4:#484030;--grn:#00e89d;--red:#ff4d6a;--blu:#3d8eff;--ylw:#ffb020;--pur:#9d6aff;--cyan:#00d8ff;--pnk:#ff5ca0;--org:#ff7a30;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background:linear-gradient(rgba(0,232,157,0.006) 1px,transparent 1px),linear-gradient(90deg,rgba(0,232,157,0.006) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;}
+.w{max-width:1100px;margin:0 auto;padding:0 20px;position:relative;z-index:1;}
+
+.top{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(0,232,157,0.03);}
+.top .l{display:flex;align-items:center;gap:8px;}
+.top .ic{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--grn),var(--cyan));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;color:#000;}
+.top .lt{font-family:'Outfit';font-size:9px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;}
+.top .st{font-size:8px;color:var(--grn);display:flex;align-items:center;gap:4px;}
+.top .st::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 6px var(--grn);animation:b 2s infinite;}
+@keyframes b{0%,100%{opacity:1}50%{opacity:.3}}
+
+.hero{padding:40px 0 24px;text-align:center;}
+.hero::after{content:'';display:block;width:30%;margin:16px auto 0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,232,157,0.06),transparent);}
+.chip{display:inline-block;padding:3px 12px;border-radius:16px;font-family:'Outfit';font-size:7px;letter-spacing:4px;text-transform:uppercase;border:1px solid rgba(0,232,157,0.08);color:var(--grn);margin-bottom:10px;}
+.hero h1{font-size:clamp(20px,4vw,36px);font-weight:900;line-height:1.3;}
+.gd{background:linear-gradient(135deg,var(--grn),var(--cyan),var(--blu));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.gg{background:linear-gradient(135deg,#FFF8E1,var(--g3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero .sub{font-size:11px;color:var(--t4);margin-top:4px;}
+
+/* 3 Pillars */
+.pil{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0;}
+@media(max-width:700px){.pil{grid-template-columns:1fr;}}
+.pi{padding:16px;border-radius:14px;text-align:center;position:relative;overflow:hidden;}
+.pi::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;border-radius:50%;opacity:0.03;pointer-events:none;}
+.pi .pi-i{font-size:28px;margin-bottom:4px;}
+.pi .pi-t{font-size:14px;font-weight:900;margin-bottom:3px;}
+.pi .pi-d{font-size:9px;color:var(--t3);line-height:2;}
+.pi .pi-s{font-family:'Outfit';font-size:22px;font-weight:900;margin-top:6px;}
+
+.pi-1{background:linear-gradient(135deg,rgba(0,232,157,0.03),transparent);border:1px solid rgba(0,232,157,0.05);}
+.pi-1::before{background:radial-gradient(circle,var(--grn),transparent);}
+.pi-1 .pi-t{color:var(--grn);}
+.pi-1 .pi-s{color:var(--grn);}
+
+.pi-2{background:linear-gradient(135deg,rgba(157,106,255,0.03),transparent);border:1px solid rgba(157,106,255,0.05);}
+.pi-2::before{background:radial-gradient(circle,var(--pur),transparent);}
+.pi-2 .pi-t{color:var(--pur);}
+.pi-2 .pi-s{color:var(--pur);}
+
+.pi-3{background:linear-gradient(135deg,rgba(0,216,255,0.03),transparent);border:1px solid rgba(0,216,255,0.05);}
+.pi-3::before{background:radial-gradient(circle,var(--cyan),transparent);}
+.pi-3 .pi-t{color:var(--cyan);}
+.pi-3 .pi-s{color:var(--cyan);}
+
+.sec{margin:28px 0;}
+.sh{text-align:center;margin-bottom:14px;}
+.sh h2{font-size:clamp(15px,2.5vw,22px);font-weight:900;margin:2px 0;}
+.sh .d{font-size:9px;color:var(--t4);}
+
+/* Smart Items */
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:8px;}
+.si{padding:14px;border-radius:12px;background:var(--bg2);border:1px solid rgba(255,255,255,0.02);transition:all .2s;}
+.si:hover{border-color:rgba(255,255,255,0.04);transform:translateY(-1px);}
+.si-h{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.si-i{font-size:18px;}
+.si-t{font-size:12px;font-weight:800;}
+.si-tag{font-size:7px;padding:2px 6px;border-radius:4px;font-weight:700;}
+.si-d{font-size:9px;color:var(--t3);line-height:2;}
+.si-f{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px;}
+.si-ft{font-size:7px;padding:2px 6px;border-radius:3px;font-weight:600;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:var(--t3);}
+
+/* Before After Mini */
+.ba2{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;margin:4px 0;padding:8px;border-radius:8px;background:rgba(0,0,0,0.15);font-size:8px;}
+.ba2 .old{color:var(--red);text-decoration:line-through;opacity:0.5;}
+.ba2 .ar{color:var(--g3);font-size:12px;}
+.ba2 .new{color:var(--grn);font-weight:700;}
+
+/* Cmd */
+.cmd{background:#080d16;border:1px solid rgba(0,232,157,0.04);border-radius:12px;padding:14px;margin:10px 0;position:relative;}
+.cmd-l{position:absolute;top:5px;left:7px;font-family:'Outfit';font-size:6px;letter-spacing:2px;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:rgba(0,232,157,0.05);color:var(--grn);}
+.cmd pre{font-family:'IBM Plex Mono';font-size:9.5px;line-height:1.85;color:#b0bec5;white-space:pre-wrap;word-break:break-all;direction:ltr;text-align:left;}
+.cmd .c{color:#546e7a;}.cmd .k{color:#ff7b72;}.cmd .s{color:#a5d6ff;}.cmd .f{color:#d2a8ff;}.cmd .v{color:#79c0ff;}.cmd .g{color:#7ee787;}
+
+.ft{text-align:center;padding:24px;border-top:1px solid rgba(0,232,157,0.02);margin-top:24px;}
+.ft p{font-size:7px;color:var(--t4);line-height:2.5;}
+</style>
+</head>
+<body>
+<div class="w">
+
+<div class="top">
+  <div class="l"><a href="/" style="color:var(--g3);text-decoration:none;font-weight:800;font-size:12px;">← الرئيسية</a><div class="ic">ذ</div><span class="lt">SHEIKHA Digital Intelligence</span></div>
+  <div class="st">SMART DIGITAL MODE</div>
+</div>
+
+<div class="hero">
+  <div class="chip">◆ Smart Digital Architecture ◆</div>
+  <h1><span class="gd">المعمارية الرقمية الذكية</span></h1>
+  <div class="sub">كل شيء رقمي · كل شيء ذكي · كل شيء يتعلم ويتكيّف تلقائياً</div>
+</div>
+
+<!-- 3 PILLARS -->
+<div class="pil">
+  <div class="pi pi-1">
+    <div class="pi-i">🏗</div>
+    <div class="pi-t">المعمارية الذكية</div>
+    <div class="pi-d">تتكيّف · تُعالج نفسها · تنمو تلقائياً</div>
+    <div class="pi-s">Smart Architecture</div>
+  </div>
+  <div class="pi pi-2">
+    <div class="pi-i">🌐</div>
+    <div class="pi-t">الشبكات الذكية</div>
+    <div class="pi-d">توجّه · تحمي · تتوازن ذاتياً</div>
+    <div class="pi-s">Smart Networks</div>
+  </div>
+  <div class="pi pi-3">
+    <div class="pi-i">🔷</div>
+    <div class="pi-t">الهياكل الذكية</div>
+    <div class="pi-d">تُركَّب · تتفكّك · تتحوّل حسب الحاجة</div>
+    <div class="pi-s">Smart Structures</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- PILLAR 1: SMART ARCHITECTURE -->
+<!-- ═══════════════════════════════════════ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip" style="border-color:rgba(0,232,157,0.08);">Pillar 1 — Smart Architecture</div>
+    <h2><span class="gd">المعمارية الذكية — تُعالج نفسها وتنمو تلقائياً</span></h2>
+    <div class="d">بدلاً من معمارية ثابتة — معمارية حيّة تتعلم وتتكيّف مثل الكائن الحي</div>
+  </div>
+  <div class="sg">
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">🔄</div><div class="si-t" style="color:var(--grn);">Self-Healing — الشفاء الذاتي</div><div class="si-tag" style="background:rgba(0,232,157,0.06);color:var(--grn);">ذكي</div></div>
+      <div class="si-d">إذا سقط محرك — يُعاد تشغيله تلقائياً. إذا بطؤ API — يُعاد توجيه الطلبات. إذا امتلأت الذاكرة — يُنظّف الـ Cache. لا تدخّل بشري.</div>
+      <div class="ba2"><span class="old">يدوي: انتظر المبرمج يصلح</span><span class="ar">→</span><span class="new">ذكي: يكتشف ويصلح في 3 ثوانٍ</span></div>
+      <div class="si-f"><span class="si-ft">Health Monitor</span><span class="si-ft">Auto-Restart</span><span class="si-ft">Circuit Breaker</span><span class="si-ft">Graceful Degradation</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">📈</div><div class="si-t" style="color:var(--grn);">Auto-Scale — التوسع الذاتي</div><div class="si-tag" style="background:rgba(0,232,157,0.06);color:var(--grn);">ذكي</div></div>
+      <div class="si-d">إذا زاد الضغط — يُفعّل محركات إضافية. إذا قلّ — يُطفئها لتوفير الموارد. يتنبأ بالذروة قبل حدوثها من أنماط الاستخدام السابقة.</div>
+      <div class="ba2"><span class="old">ثابت: 21 محرك دائماً</span><span class="ar">→</span><span class="new">ذكي: 21-134 محرك حسب الحاجة</span></div>
+      <div class="si-f"><span class="si-ft">Predictive Scaling</span><span class="si-ft">Load Prediction</span><span class="si-ft">Resource Optimizer</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">🧬</div><div class="si-t" style="color:var(--grn);">Composable — التركيب الذاتي</div><div class="si-tag" style="background:rgba(0,232,157,0.06);color:var(--grn);">ذكي</div></div>
+      <div class="si-d">المحركات مثل قطع LEGO — تتركّب وتتفكّك حسب المهمة. طلب معادن؟ يُركَّب: Metals + Sharia + Pricing. طلب عقد؟ يُركَّب: Contracts + Legal + Sharia.</div>
+      <div class="ba2"><span class="old">ثابت: كل المحركات محمّلة</span><span class="ar">→</span><span class="new">ذكي: يُركَّب حسب المهمة</span></div>
+      <div class="si-f"><span class="si-ft">Engine Composer</span><span class="si-ft">Task Pipeline</span><span class="si-ft">Dynamic Assembly</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">🎯</div><div class="si-t" style="color:var(--grn);">Intent-Based — نية المستخدم</div><div class="si-tag" style="background:rgba(0,232,157,0.06);color:var(--grn);">ذكي</div></div>
+      <div class="si-d">المستخدم يقول "أريد بيع نحاس" — النظام يفهم النية ← يُجهّز: صفحة البيع + التسعير + الشريعة + العقد + اللوجستيات — تلقائياً بدون نقرات.</div>
+      <div class="ba2"><span class="old">يدوي: 7 صفحات للوصول</span><span class="ar">→</span><span class="new">ذكي: نية واحدة = كل شيء جاهز</span></div>
+      <div class="si-f"><span class="si-ft">Intent Classifier</span><span class="si-ft">29 نية</span><span class="si-ft">Auto-Pipeline</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">📊</div><div class="si-t" style="color:var(--grn);">Self-Learning — التعلّم الذاتي</div><div class="si-tag" style="background:rgba(0,232,157,0.06);color:var(--grn);">ذكي</div></div>
+      <div class="si-d">يتعلم من كل طلب: أي محرك أسرع؟ أي مسار أكفأ؟ أي مزوّد Cloud أدق؟ يُحسّن نفسه كل يوم بدون تدخّل — مثل Kaizen الرقمي.</div>
+      <div class="ba2"><span class="old">ثابت: نفس الأداء دائماً</span><span class="ar">→</span><span class="new">ذكي: يتحسّن 1% يومياً تلقائياً</span></div>
+      <div class="si-f"><span class="si-ft">Performance Logger</span><span class="si-ft">Pattern Analyzer</span><span class="si-ft">Auto-Optimize</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">☪</div><div class="si-t" style="color:var(--grn);">Sharia-Aware — الوعي الشرعي</div><div class="si-tag" style="background:rgba(0,232,157,0.06);color:var(--grn);">ذكي</div></div>
+      <div class="si-d">المعمارية نفسها واعية شرعياً — ترفض أي عملية ربوية قبل أن تصل للمحرك. الفحص الشرعي ليس طبقة — بل جزء من DNA النظام.</div>
+      <div class="ba2"><span class="old">يدوي: فحص بعد التنفيذ</span><span class="ar">→</span><span class="new">ذكي: فحص قبل وأثناء وبعد</span></div>
+      <div class="si-f"><span class="si-ft">Sharia DNA</span><span class="si-ft">Pre-Check</span><span class="si-ft">Post-Audit</span><span class="si-ft">Real-time</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- PILLAR 2: SMART NETWORKS -->
+<!-- ═══════════════════════════════════════ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip" style="border-color:rgba(157,106,255,0.08);color:var(--pur);">Pillar 2 — Smart Networks</div>
+    <h2><span style="background:linear-gradient(135deg,var(--pur),var(--pnk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">الشبكات الذكية — تتنبأ وتحمي وتوازن ذاتياً</span></h2>
+    <div class="d">شبكات لا تنقل البيانات فقط — بل تفكّر وتقرر وتحمي</div>
+  </div>
+  <div class="sg">
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">🧭</div><div class="si-t" style="color:var(--pur);">AI Router — التوجيه الذكي</div><div class="si-tag" style="background:rgba(157,106,255,0.06);color:var(--pur);">شبكة</div></div>
+      <div class="si-d">كل طلب يُحلَّل فورياً: ما نوعه؟ ما حساسيته؟ ما أفضل مسار؟ يُوجَّه تلقائياً: محلي (70%) · سحابة خاصة (15%) · سحابة عامة (15%).</div>
+      <div class="si-f"><span class="si-ft">3-Tier Routing</span><span class="si-ft">Privacy-Aware</span><span class="si-ft">Cost-Optimal</span><span class="si-ft">Latency-First</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">🔗</div><div class="si-t" style="color:var(--pur);">Mesh Network — الشبكة المتشابكة</div><div class="si-tag" style="background:rgba(157,106,255,0.06);color:var(--pur);">شبكة</div></div>
+      <div class="si-d">المحركات تتواصل مع بعضها مباشرة — لا تحتاج وسيط. Metals يسأل Sharia مباشرة. Contracts يسأل Legal مباشرة. شبكة P2P بين المحركات.</div>
+      <div class="ba2"><span class="old">خطي: Client→Server→Engine</span><span class="ar">→</span><span class="new">شبكي: Engine↔Engine مباشر</span></div>
+      <div class="si-f"><span class="si-ft">Event Bus</span><span class="si-ft">Engine-to-Engine</span><span class="si-ft">Pub/Sub</span><span class="si-ft">Zero Middleware</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">🛡</div><div class="si-t" style="color:var(--pur);">AI Firewall — الجدار الذكي</div><div class="si-tag" style="background:rgba(157,106,255,0.06);color:var(--pur);">شبكة</div></div>
+      <div class="si-d">يتعلم أنماط الهجوم — يحظر تلقائياً. يكتشف الطلبات المشبوهة بالذكاء لا بالقواعد الثابتة. يتكيّف مع هجمات جديدة فوراً.</div>
+      <div class="ba2"><span class="old">قواعد: 50 قاعدة ثابتة</span><span class="ar">→</span><span class="new">ذكي: يتعلم ويتكيّف لحظياً</span></div>
+      <div class="si-f"><span class="si-ft">ML Anomaly</span><span class="si-ft">Auto-Block</span><span class="si-ft">Pattern Learning</span><span class="si-ft">Zero-Day</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">⚡</div><div class="si-t" style="color:var(--pur);">Smart Load Balancer — التوازن الذكي</div><div class="si-tag" style="background:rgba(157,106,255,0.06);color:var(--pur);">شبكة</div></div>
+      <div class="si-d">لا يوزّع بالتساوي — يوزّع بالذكاء. المحرك المشغول يأخذ أقل. المحرك السريع يأخذ أكثر. يتنبأ بالذروة ويُجهّز مسبقاً.</div>
+      <div class="si-f"><span class="si-ft">Weighted AI</span><span class="si-ft">Health-Aware</span><span class="si-ft">Predictive</span><span class="si-ft">Geo-Aware</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">📡</div><div class="si-t" style="color:var(--pur);">Telemetry — القياس اللحظي</div><div class="si-tag" style="background:rgba(157,106,255,0.06);color:var(--pur);">شبكة</div></div>
+      <div class="si-d">كل محرك يرسل نبضة كل 5 ثوانٍ: حالته · سرعته · حمله · أخطاؤه. لوحة مركزية تعرض صحة النظام بالكامل لحظياً.</div>
+      <div class="si-f"><span class="si-ft">Heartbeat 5s</span><span class="si-ft">Metrics Stream</span><span class="si-ft">Dashboard</span><span class="si-ft">Alerts</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">🔒</div><div class="si-t" style="color:var(--pur);">Zero Trust — صفر ثقة</div><div class="si-tag" style="background:rgba(157,106,255,0.06);color:var(--pur);">شبكة</div></div>
+      <div class="si-d">لا أحد موثوق — كل طلب يُتحقَّق منه. حتى المحركات الداخلية تُصادق بعضها بـ JWT. كل اتصال مُشفَّر حتى داخل الشبكة المحلية.</div>
+      <div class="si-f"><span class="si-ft">mTLS</span><span class="si-ft">JWT Internal</span><span class="si-ft">RBAC</span><span class="si-ft">Audit Log</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- PILLAR 3: SMART STRUCTURES -->
+<!-- ═══════════════════════════════════════ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip" style="border-color:rgba(0,216,255,0.08);color:var(--cyan);">Pillar 3 — Smart Structures</div>
+    <h2><span style="background:linear-gradient(135deg,var(--cyan),var(--blu));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">الهياكل الذكية — تتشكّل وتتحوّل حسب المهمة</span></h2>
+    <div class="d">هياكل ليست ثابتة — بل تتركّب وتتفكّك مثل خلايا الجسم</div>
+  </div>
+  <div class="sg">
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">🏛</div><div class="si-t" style="color:var(--cyan);">Digital Org — الهيكل الرقمي</div><div class="si-tag" style="background:rgba(0,216,255,0.06);color:var(--cyan);">هيكل</div></div>
+      <div class="si-d">الـ 7 قطاعات و 34 إدارة و 197 موظف — كلها رقمية. كل موظف له وكيل AI يساعده. كل إدارة لها Dashboard ذكي. الهيكل يتغيّر حسب المشروع.</div>
+      <div class="ba2"><span class="old">ثابت: 7 قطاعات دائمة</span><span class="ar">→</span><span class="new">ذكي: فِرق مؤقتة حسب المشروع</span></div>
+      <div class="si-f"><span class="si-ft">Digital Twin</span><span class="si-ft">AI Assistant</span><span class="si-ft">Role-Based</span><span class="si-ft">Project Teams</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">📊</div><div class="si-t" style="color:var(--cyan);">Smart Dashboard — اللوحات الذكية</div><div class="si-tag" style="background:rgba(0,216,255,0.06);color:var(--cyan);">هيكل</div></div>
+      <div class="si-d">18 لوحة و 108 ويدجت — كلها تتكيّف. المدير يرى ما يهمه. التاجر يرى ما يهمه. الحكومي يرى ما يهمه. لا أحد يرى ما لا يخصّه.</div>
+      <div class="ba2"><span class="old">ثابت: نفس اللوحة للجميع</span><span class="ar">→</span><span class="new">ذكي: لوحة مخصصة لكل دور</span></div>
+      <div class="si-f"><span class="si-ft">5 أدوار</span><span class="si-ft">Auto-Layout</span><span class="si-ft">Priority Widgets</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">🔄</div><div class="si-t" style="color:var(--cyan);">Digital Workflows — مسارات رقمية</div><div class="si-tag" style="background:rgba(0,216,255,0.06);color:var(--cyan);">هيكل</div></div>
+      <div class="si-d">كل عملية لها مسار رقمي: تسجيل تاجر → تحقق هوية → فحص شرعي → موافقة → تفعيل. كل خطوة تلقائية — لا ورق ولا انتظار.</div>
+      <div class="si-f"><span class="si-ft">Auto-Approval</span><span class="si-ft">Digital KYC</span><span class="si-ft">Sharia Gate</span><span class="si-ft">Instant</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">🤖</div><div class="si-t" style="color:var(--cyan);">AI Agents — وكلاء ذكيون</div><div class="si-tag" style="background:rgba(0,216,255,0.06);color:var(--cyan);">هيكل</div></div>
+      <div class="si-d">5 وكلاء يعملون 24/7: وكيل السوق يراقب الأسعار. وكيل الشريعة يفحص العمليات. وكيل الأمان يحمي. وكيل التجار يساعد. وكيل الأدمن يُبلّغ.</div>
+      <div class="si-f"><span class="si-ft">Market Agent</span><span class="si-ft">Sharia Agent</span><span class="si-ft">Security Agent</span><span class="si-ft">Support Agent</span><span class="si-ft">Admin Agent</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">💎</div><div class="si-t" style="color:var(--cyan);">Digital Assets — الأصول الرقمية</div><div class="si-tag" style="background:rgba(0,216,255,0.06);color:var(--cyan);">هيكل</div></div>
+      <div class="si-d">كل معدن له Digital Twin: بيانات لحظية · تاريخ السعر · مواصفات · HS Code · شهادات · مصدر. أصول رقمية قابلة للتتبع والتحقق.</div>
+      <div class="si-f"><span class="si-ft">Digital Twin</span><span class="si-ft">Traceability</span><span class="si-ft">Certificate</span><span class="si-ft">HS Code</span></div>
+    </div>
+
+    <div class="si">
+      <div class="si-h"><div class="si-i">📜</div><div class="si-t" style="color:var(--cyan);">Smart Contracts — العقود الذكية</div><div class="si-tag" style="background:rgba(0,216,255,0.06);color:var(--cyan);">هيكل</div></div>
+      <div class="si-d">10 أنواع عقود تتنفّذ تلقائياً: الشروط تُفحص → الطرفان يوافقان → الدفع يُحوَّل → التسليم يُتتبَّع → النزاع يُحل — كل شيء رقمي.</div>
+      <div class="si-f"><span class="si-ft">Auto-Execute</span><span class="si-ft">Escrow</span><span class="si-ft">Dispute AI</span><span class="si-ft">9 مراحل</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CURSOR COMMAND -->
+<!-- ═══════════════════════════════════════ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip" style="border-color:rgba(212,175,55,0.08);color:var(--g3);">Implementation</div>
+    <h2><span class="gg">أمر Cursor — تفعيل الذكاء الرقمي</span></h2>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-l">CURSOR CHAT — الأمر الرئيسي</div>
+    <pre>
+<span class="c">/* ═══ تحويل شيخة إلى منظومة رقمية ذكية ═══ */</span>
+
+أنشئ 3 ملفات جديدة في مجلد المحركات:
+
+<span class="k">═══ الملف 1: sheikha-smart-architecture.js ═══</span>
+
+<span class="f">class SheikhaSmartArchitecture {</span>
+
+  <span class="c">// 1. Self-Healing — الشفاء الذاتي</span>
+  <span class="v">healthMonitor()</span> {
+    - كل 10 ثوانٍ: تحقق من كل محرك نشط
+    - إذا محرك لا يستجيب → أعد تشغيله تلقائياً
+    - إذا فشل 3 مرات → أرسل تنبيه للأدمن + فعّل البديل
+    - سجّل كل حدث في /api/health/log
+  }
+
+  <span class="c">// 2. Auto-Scale — التوسع الذاتي</span>
+  <span class="v">autoScale()</span> {
+    - راقب CPU + Memory + Request Count
+    - إذا CPU > 70% → فعّل محركات Lazy إضافية
+    - إذا CPU < 20% → أطفئ محركات غير مستخدمة
+    - إذا Requests > 100/sec → فعّل كل المحركات
+  }
+
+  <span class="c">// 3. Composable Engines — التركيب الذاتي</span>
+  <span class="v">composeForTask(intent)</span> {
+    - "buy_metal" → [Metals, Sharia, Pricing, Contracts, Logistics]
+    - "ask_sharia" → [Sharia, QuranSunnah, RAG, Taqwa]
+    - "manage_admin" → [Dashboard, Security, Legal, Org]
+    - يُركَّب pipeline مخصص لكل نية
+  }
+
+  <span class="c">// 4. Self-Learning — التعلّم الذاتي</span>
+  <span class="v">learnFromUsage()</span> {
+    - كل طلب: سجّل الوقت + المحرك + النتيجة
+    - كل ساعة: حلل الأنماط
+    - كل يوم: حسّن ترتيب المحركات والمسارات
+    - خزّن في /data/learning/patterns.json
+  }
+}
+
+<span class="g">APIs:</span>
+GET  /api/smart/health      → صحة كل المحركات
+GET  /api/smart/scale       → حالة التوسع
+POST /api/smart/compose     → تركيب pipeline مخصص
+GET  /api/smart/learning    → أنماط التعلم
+GET  /api/smart/dashboard   → لوحة الذكاء
+
+<span class="k">═══ الملف 2: sheikha-smart-network.js ═══</span>
+
+<span class="f">class SheikhaSmartNetwork {</span>
+
+  <span class="c">// 1. Event Bus — ناقل الأحداث</span>
+  <span class="v">eventBus</span> = new EventEmitter()
+  - المحركات تتواصل عبر أحداث لا طلبات HTTP
+  - metals.emit('price_changed', {gold: 2650})
+  - sharia.on('price_changed', (d) => checkHalal(d))
+  - أسرع 10x من HTTP الداخلي
+
+  <span class="c">// 2. AI Firewall — الجدار الذكي</span>
+  <span class="v">aiFirewall(req)</span> {
+    - حلل النمط: IP + Headers + Body + Timing
+    - إذا مشبوه (score > 0.8) → حظر + سجّل
+    - تعلّم من الهجمات السابقة
+    - Rate limit ذكي حسب السلوك لا العدد فقط
+  }
+
+  <span class="c">// 3. Telemetry — القياس اللحظي</span>
+  <span class="v">telemetry()</span> {
+    - كل محرك يرسل: {status, latency, load, errors}
+    - كل 5 ثوانٍ → تُجمع في /api/telemetry/live
+    - تنبيه فوري إذا latency > 1000ms
+    - تنبيه فوري إذا errors > 5/min
+  }
+
+  <span class="c">// 4. Smart Load Balancer</span>
+  <span class="v">balanceLoad(request)</span> {
+    - لا round-robin — بل weighted بالذكاء
+    - المحرك الأسرع يأخذ طلبات أكثر
+    - المحرك المثقل يأخذ أقل
+    - يتعلم من الأداء السابق
+  }
+}
+
+<span class="g">APIs:</span>
+GET  /api/network/telemetry  → بيانات لحظية
+GET  /api/network/topology   → خريطة الشبكة
+GET  /api/network/firewall   → سجل الحماية
+GET  /api/network/events     → آخر الأحداث
+WS   /ws/live-telemetry      → WebSocket لحظي
+
+<span class="k">═══ الملف 3: sheikha-smart-structure.js ═══</span>
+
+<span class="f">class SheikhaSmartStructure {</span>
+
+  <span class="c">// 1. Digital Org — الهيكل الرقمي</span>
+  <span class="v">digitalOrg</span> = {
+    sectors: 7,    // قطاعات ذكية
+    departments: 34, // إدارات رقمية
+    employees: 197,  // موظفون رقميون
+    agents: 5,       // وكلاء AI
+    <span class="c">// كل موظف له: role + permissions + AI assistant</span>
+  }
+
+  <span class="c">// 2. Smart Dashboard Generator</span>
+  <span class="v">generateDashboard(role)</span> {
+    - admin → 18 لوحة كاملة
+    - trader → المنتجات + الأسعار + الصفقات
+    - company → العروض + العقود + اللوجستيات
+    - government → التراخيص + الامتثال + التقارير
+    - visitor → السوق + التسجيل
+  }
+
+  <span class="c">// 3. Digital Workflow Engine</span>
+  <span class="v">workflow(type)</span> {
+    - "register_trader" → [KYC→Sharia→Approve→Activate]
+    - "create_order" → [Validate→Price→Contract→Pay→Ship]
+    - "dispute" → [Receive→Analyze→AI_Judge→Resolve]
+    - كل خطوة تلقائية مع بوابات شرعية
+  }
+
+  <span class="c">// 4. Digital Assets</span>
+  <span class="v">digitalTwin(metalId)</span> {
+    - اسم المعدن + رمزه + HS Code
+    - السعر اللحظي + التاريخ
+    - المواصفات + الشهادات
+    - المصدر + سلسلة التوريد
+    - الحالة الشرعية (حلال/حرام/مكروه)
+  }
+}
+
+<span class="g">APIs:</span>
+GET  /api/structure/org         → الهيكل الرقمي
+GET  /api/structure/dashboard/:role → لوحة حسب الدور
+POST /api/structure/workflow     → تشغيل مسار عمل
+GET  /api/structure/twin/:id    → التوأم الرقمي
+GET  /api/structure/agents      → حالة الوكلاء</pre>
+  </div>
+</div>
+
+<!-- SCORE -->
+<div style="display:flex;align-items:center;justify-content:center;gap:16px;padding:18px;margin:16px 0;border-radius:14px;background:linear-gradient(135deg,rgba(0,232,157,0.02),rgba(0,216,255,0.02));border:1px solid rgba(0,232,157,0.04);">
+  <div style="text-align:center;"><div style="font-family:'Outfit';font-size:26px;font-weight:900;color:var(--t3);">85</div><div style="font-size:7px;color:var(--t4);">الحالي</div></div>
+  <div style="font-size:20px;color:var(--g3);">→</div>
+  <div style="text-align:center;"><div style="font-family:'Outfit';font-size:26px;font-weight:900;"><span class="gd">95+</span></div><div style="font-size:7px;color:var(--t4);">بعد الذكاء الرقمي</div></div>
+  <div style="font-size:9px;color:var(--t2);text-align:right;">
+    <div>+3 Smart Architecture (شفاء + توسع + تعلم)</div>
+    <div>+3 Smart Networks (توجيه + حماية + قياس)</div>
+    <div>+4 Smart Structures (هيكل + workflows + twins)</div>
+  </div>
+</div>
+
+</div>
+
+<div class="ft">
+  <p style="font-size:10px;color:var(--t2);">بسم الله توكلنا على الله — إن الله لا يُضيع أجر من أحسن عملاً</p>
+  <p>SHEIKHA Smart Digital Architecture v1.0 — 22 فبراير 2026</p>
+  <p>3 Pillars: Smart Architecture + Smart Networks + Smart Structures</p>
+  <p>Self-Healing · Auto-Scale · Composable · Intent-Based · Self-Learning · Sharia-Aware</p>
+</div>
+
+</body>
+</html>
