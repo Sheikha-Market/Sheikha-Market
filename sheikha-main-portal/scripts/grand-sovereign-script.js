@@ -9,7 +9,6 @@
 'use strict';
 
 const path = require('path');
-const fs   = require('fs');
 
 // ─── تحميل متغيرات البيئة ─────────────────────────────────────────────────────
 require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
@@ -53,39 +52,37 @@ const SheikhaUniverse = {
     activateCloudAI: async () => {
         log('🚀', 'بسم الله.. ربط إمكانيات Google الكونية بمحراب شيخة.');
 
-        const keyPath = path.join(__dirname, '..', 'service-account-key.json');
-        const keyExists = fs.existsSync(keyPath);
-
-        if (!keyExists) {
-            log('⚠️', 'service-account-key.json غير موجود — Google Cloud في وضع الانتظار.');
-            log('📋', 'لتفعيله: ضع ملف service-account-key.json في مجلد المشروع.');
-            return {
-                cloud:   'Pending_Key',
-                vertexAI: 'Pending_Key',
-                note:    'أضف service-account-key.json لتفعيل Google Cloud كاملاً'
-            };
-        }
-
         if (!SheikhaCloud) {
             return { cloud: 'Module_Unavailable' };
         }
 
         try {
-            const cloud = new SheikhaCloud();
-            cloud.init();
-            const storageOk  = await cloud.testStorageConnection().catch(() => false);
-            const bigqueryOk = await cloud.testBigQueryConnection().catch(() => false);
-            const pubsubOk   = await cloud.testPubSubConnection().catch(() => false);
+            const initialized = SheikhaCloud.init();
+
+            if (!initialized) {
+                return {
+                    cloud: 'Pending_Auth',
+                    vertexAI: 'Pending_Auth',
+                    note: 'فعّل ADC عبر gcloud auth application-default login أو استخدم GOOGLE_APPLICATION_CREDENTIALS'
+                };
+            }
+
+            const checks = await SheikhaCloud.checkAllConnections();
+            const storageOk = checks?.connections?.storage?.success || false;
+            const bigqueryOk = checks?.connections?.bigquery?.success || false;
+            const pubsubOk = checks?.connections?.pubsub?.success || false;
+            const status = SheikhaCloud.getStatus();
 
             const result = {
                 cloud:    storageOk  ? 'Storage_Connected ✅'  : 'Storage_Pending',
                 bigquery: bigqueryOk ? 'BigQuery_Connected ✅' : 'BigQuery_Pending',
                 pubsub:   pubsubOk   ? 'PubSub_Connected ✅'   : 'PubSub_Pending',
                 vertexAI: 'Anti_Poverty_Impact_Model_Queued',
-                project:  process.env.GOOGLE_CLOUD_PROJECT || '224557279528'
+                project: status.projectId,
+                authMode: status.authMode
             };
 
-            log('✅', `Google Cloud — Storage:${storageOk ? '✓' : '✗'} BigQuery:${bigqueryOk ? '✓' : '✗'} PubSub:${pubsubOk ? '✓' : '✗'}`);
+            log('✅', `Google Cloud — Auth:${status.authMode} | Storage:${storageOk ? '✓' : '✗'} BigQuery:${bigqueryOk ? '✓' : '✗'} PubSub:${pubsubOk ? '✓' : '✗'}`);
             return result;
 
         } catch (err) {

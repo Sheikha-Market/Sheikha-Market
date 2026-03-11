@@ -7,7 +7,7 @@ set -euo pipefail
 #   2) --apply: تنفيذ فعلي
 
 ORG_ID="${ORG_ID:-224557279528}"
-PROD_PROJECT="${PROD_PROJECT:-sheikha-empire}"
+PROD_PROJECT="${PROD_PROJECT:-sheikha-marketplace}"
 DEV_PROJECT="${DEV_PROJECT:-sheikha-core}"
 TEST_PROJECT="${TEST_PROJECT:-sheikha-test}"
 BILLING_ACCOUNT="${BILLING_ACCOUNT:-}"
@@ -66,6 +66,22 @@ run_cmd() {
     fi
 }
 
+run_cmd_soft() {
+    local cmd="$*"
+    if [[ "$MODE" == "dry-run" ]]; then
+        log "[DRY-RUN] $cmd"
+        return 0
+    fi
+
+    log "[APPLY] $cmd"
+    if ! eval "$cmd"; then
+        log "⚠️ فشل غير حرج: $cmd"
+        return 1
+    fi
+
+    return 0
+}
+
 ensure_cmd() {
     local cmd="$1"
     if ! command -v "$cmd" >/dev/null 2>&1; then
@@ -89,11 +105,20 @@ project_exists() {
 
 enable_apis() {
     local project_id="$1"
-    local apis=()
+    local failed_apis=()
+
     for api in "${API_LIST[@]}"; do
-        apis+=("$api")
+        if ! run_cmd_soft "gcloud services enable $api --project=$project_id"; then
+            failed_apis+=("$api")
+        fi
     done
-    run_cmd "gcloud services enable ${apis[*]} --project=$project_id"
+
+    if [[ ${#failed_apis[@]} -gt 0 ]]; then
+        log "⚠️ تعذر تفعيل بعض الخدمات في $project_id (غالبًا بسبب Billing/صلاحيات):"
+        for api in "${failed_apis[@]}"; do
+            log "   - $api"
+        done
+    fi
 }
 
 create_or_verify_project() {

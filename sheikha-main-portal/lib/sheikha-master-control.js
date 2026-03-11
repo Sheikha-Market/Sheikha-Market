@@ -15,6 +15,7 @@
  */
 
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 
 // الربط بمحرك Google Cloud الحقيقي
@@ -32,6 +33,7 @@ const SovereignMaster = {
     config: {
         // 🔐 حماية المفتاح
         keyPath: path.join(__dirname, '..', 'service-account-key.json'),
+        adcPath: path.join(os.homedir(), '.config', 'gcloud', 'application_default_credentials.json'),
 
         // 📋 البيانات الأساسية
         orgID: '224557279528',
@@ -102,15 +104,24 @@ const SovereignMaster = {
     // ═══════════════════════════════════════════════════════════════════════════════
 
     healthCheck: async function () {
-        console.log('   📋 فحص ملف المفتاح...');
+        console.log('   📋 فحص الاعتماد السحابي (Key/ADC)...');
 
-        if (!fs.existsSync(this.config.keyPath)) {
-            console.log(`   ⚠️ ملف المفتاح غير موجود في: ${this.config.keyPath}`);
-            console.log('   📝 الحل: احصل على service-account-key.json من Google Cloud Console');
+        const explicitKeyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+        const explicitKeyExists = explicitKeyPath && fs.existsSync(explicitKeyPath);
+        const localKeyExists = fs.existsSync(this.config.keyPath);
+        const adcExists = fs.existsSync(this.config.adcPath);
+
+        if (!explicitKeyExists && !localKeyExists && !adcExists) {
+            console.log(`   ⚠️ لا يوجد اعتماد سحابي صالح.`);
+            console.log('   📝 الحل: شغّل gcloud auth application-default login أو أضف service-account-key.json');
             return false;
         }
 
-        console.log(`   ✅ ملف المفتاح موجود`);
+        if (explicitKeyExists || localKeyExists) {
+            console.log('   ✅ تم العثور على Key File');
+        } else {
+            console.log('   ✅ تم العثور على ADC');
+        }
 
         // إضافة فحوصات أخرى
         console.log('   📋 فحص الحزم المثبتة...');

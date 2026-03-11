@@ -9,15 +9,18 @@ const { BigQuery } = require('@google-cloud/bigquery');
 const { PubSub } = require('@google-cloud/pubsub');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 
 class SheikhaGoogleCloud {
     constructor() {
-        this.projectId = '224557279528';
+        this.projectId = process.env.GOOGLE_CLOUD_PROJECT || 'sheikha-marketplace';
         this.keyPath = path.join(__dirname, '..', 'service-account-key.json');
+        this.adcPath = path.join(os.homedir(), '.config', 'gcloud', 'application_default_credentials.json');
         this.storage = null;
         this.bigquery = null;
         this.pubsub = null;
         this.isConnected = false;
+        this.authMode = 'none';
     }
 
     /**
@@ -25,30 +28,36 @@ class SheikhaGoogleCloud {
      */
     init() {
         try {
-            // التحقق من وجود مفتاح خدمة Google Cloud
-            if (!fs.existsSync(this.keyPath)) {
-                console.warn('⚠️ ملف مفتاح Google Cloud غير موجود في:', this.keyPath);
-                console.warn(
-                    '   لتفعيل الاتصال الحقيقي، ضع ملف service-account-key.json في مجلد المشروع.'
-                );
+            const explicitKeyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+            const explicitKeyExists = explicitKeyPath && fs.existsSync(explicitKeyPath);
+            const localKeyExists = fs.existsSync(this.keyPath);
+            const adcExists = fs.existsSync(this.adcPath);
+
+            if (!explicitKeyExists && !localKeyExists && !adcExists) {
+                console.warn('⚠️ لا يوجد اعتماد Google Cloud صالح (Key/ADC).');
+                console.warn('   فعّل أحد الخيارين:');
+                console.warn('   1) gcloud auth application-default login (ADC)');
+                console.warn('   2) service-account-key.json أو GOOGLE_APPLICATION_CREDENTIALS');
                 return false;
             }
 
+            const keyFilename = explicitKeyExists ? explicitKeyPath : (localKeyExists ? this.keyPath : undefined);
+
+            this.authMode = keyFilename ? 'service-account-key' : 'application-default-credentials';
+
+            const clientOptions = {
+                projectId: this.projectId,
+                ...(keyFilename ? { keyFilename } : {})
+            };
+
             // إنشاء عملاء الاتصال
-            this.storage = new Storage({
-                projectId: this.projectId,
-                keyFilename: this.keyPath
-            });
+            this.storage = new Storage(clientOptions);
 
-            this.bigquery = new BigQuery({
-                projectId: this.projectId,
-                keyFilename: this.keyPath
-            });
+            this.bigquery = new BigQuery(clientOptions);
 
-            this.pubsub = new PubSub({
-                projectId: this.projectId,
-                keyFilename: this.keyPath
-            });
+            this.pubsub = new PubSub(clientOptions);
+
+            console.log(`🛡️ وضع المصادقة السحابي: ${this.authMode}`);
 
             return true;
         } catch (error) {
@@ -187,6 +196,7 @@ class SheikhaGoogleCloud {
         return {
             connected: this.isConnected,
             projectId: this.projectId,
+            authMode: this.authMode,
             storageAvailable: !!this.storage,
             bigqueryAvailable: !!this.bigquery,
             pubsubAvailable: !!this.pubsub
@@ -207,8 +217,8 @@ if (require.main === module) {
 
         if (!sheikhaCloud.init()) {
             console.log('\n⚠️ لم تتمكن من الاتصال. تأكد من:');
-            console.log('1. وجود ملف service-account-key.json في مجلد المشروع');
-            console.log('2. صحة المفتاح وصلاحياته');
+            console.log('1. تشغيل: gcloud auth application-default login');
+            console.log('2. أو توفير service-account-key.json / GOOGLE_APPLICATION_CREDENTIALS');
             console.log('3. تفعيل Google Cloud APIs المطلوبة\n');
             process.exit(1);
         }
