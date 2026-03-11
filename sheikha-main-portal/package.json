@@ -12,6 +12,8 @@
         "sovereign:start": "node scripts/grand-sovereign-script.js",
         "sovereign:ignite": "node scripts/sheikha-final-launch.js",
         "sovereign:registry": "node scripts/sheikha-official-registry.js",
+        "sovereign:security": "node scripts/sheikha-security-empire.js",
+        "sovereign:ultimate": "node scripts/sheikha-ultimate-sovereignty.js",
         "stop": "node scripts/kill-port.js",
         "restart": "npm run stop; sleep 1; npm start",
         "dev": "node --watch server.js",
