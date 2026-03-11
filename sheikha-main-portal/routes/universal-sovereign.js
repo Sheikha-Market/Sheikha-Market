@@ -23,14 +23,26 @@ const router = express.Router();
 router.get('/status', async (req, res) => {
     try {
         const isReady = await UniversalSovereign.verifySystem();
+        const cloudReady = sheikhaCloud.init();
+        const cloudStatus = cloudReady ? sheikhaCloud.getStatus() : { connected: false, authMode: 'none' };
+        const cloudConnected =
+            cloudStatus.connected ||
+            (cloudStatus.storageAvailable && cloudStatus.bigqueryAvailable && cloudStatus.pubsubAvailable);
+        const sovereigntyStatus = cloudStatus.connected || cloudStatus.authMode !== 'none' ? '💻 نشط' : '💻 قيد البناء';
+
         res.json({
             system: 'Universal Sovereign Integration',
             status: isReady ? 'ready' : 'pending',
             engines: {
                 logistics: '🛡️ نشط',
                 poverty: '🌿 نشط',
-                sovereignty: '💻 قيد البناء',
+                sovereignty: sovereigntyStatus,
                 trade: '🕌 نشط'
+            },
+            cloud: {
+                connected: !!cloudConnected,
+                authMode: cloudStatus.authMode || 'none',
+                projectId: cloudStatus.projectId || process.env.GOOGLE_CLOUD_PROJECT || 'sheikha-marketplace'
             },
             organization: UniversalSovereign.config.organizationEmail,
             timestamp: new Date()
