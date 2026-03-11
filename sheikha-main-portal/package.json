@@ -9,6 +9,9 @@
     "scripts": {
         "start": "node server.js",
         "start:proxy": "node scripts/proxy-8081.js",
+        "sovereign:start": "node scripts/grand-sovereign-script.js",
+        "sovereign:ignite": "node scripts/sheikha-final-launch.js",
+        "sovereign:registry": "node scripts/sheikha-official-registry.js",
         "stop": "node scripts/kill-port.js",
         "restart": "npm run stop; sleep 1; npm start",
         "dev": "node --watch server.js",
