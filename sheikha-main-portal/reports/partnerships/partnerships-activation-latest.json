@@ -1,0 +1,116 @@
+{
+  "timestamp": "2026-03-10T00:39:57.339Z",
+  "summary": {
+    "total": 3,
+    "ready": 1,
+    "partiallyReady": 0,
+    "notReady": 2,
+    "documentsGenerated": 1
+  },
+  "partnerships": [
+    {
+      "id": "PARTNER-2026-001",
+      "partnerId": "google",
+      "partnerName": "Google Cloud Platform",
+      "status": "pending-activation",
+      "documents": {
+        "nda": {
+          "exists": true,
+          "sha256": "44460e5e47e1c2a119986d8a1238683ea08346b14f1d603608562fef719d444a",
+          "path": "/workspaces/sheikha/sheikha-main-portal/docs/legal/partnerships/NDA-GOOGLE-2026-001.md"
+        },
+        "mou": {
+          "exists": true,
+          "sha256": "0b115c8c93b2f4265de4f359389cfe95a57317b0b83cd1af0dfb429d395b847b",
+          "path": "/workspaces/sheikha/sheikha-main-portal/docs/legal/partnerships/MOU-GOOGLE-2026-001.md"
+        }
+      },
+      "readiness": {
+        "score": 80,
+        "maxScore": 100,
+        "criteriaChecks": {
+          "ndaExists": true,
+          "mouExists": true,
+          "shaikhaContactsComplete": true,
+          "integrationScopeDefined": true,
+          "prerequisitesMet": "0/4",
+          "shariaCompliant": true
+        },
+        "status": "ready",
+        "blockers": [
+          "متطلبات تقنية مفقودة: gcloudSdk, activeAccount, billingAccount, creditCard"
+        ]
+      }
+    },
+    {
+      "id": "PARTNER-2026-002",
+      "partnerId": "github",
+      "partnerName": "GitHub",
+      "status": "active",
+      "documents": {
+        "nda": {
+          "exists": false,
+          "sha256": null,
+          "path": null
+        },
+        "mou": {
+          "exists": false,
+          "sha256": null,
+          "path": null
+        }
+      },
+      "readiness": {
+        "score": 35,
+        "maxScore": 100,
+        "criteriaChecks": {
+          "ndaExists": false,
+          "mouExists": false,
+          "shaikhaContactsComplete": false,
+          "integrationScopeDefined": true,
+          "prerequisitesMet": "2/2",
+          "shariaCompliant": false
+        },
+        "status": "not-ready",
+        "blockers": [
+          "NDA غير موجودة",
+          "MOU غير موجودة"
+        ]
+      }
+    },
+    {
+      "id": "PARTNER-2026-003",
+      "partnerId": "vercel",
+      "partnerName": "Vercel",
+      "status": "active",
+      "documents": {
+        "nda": {
+          "exists": false,
+          "sha256": null,
+          "path": null
+        },
+        "mou": {
+          "exists": false,
+          "sha256": null,
+          "path": null
+        }
+      },
+      "readiness": {
+        "score": 35,
+        "maxScore": 100,
+        "criteriaChecks": {
+          "ndaExists": false,
+          "mouExists": false,
+          "shaikhaContactsComplete": false,
+          "integrationScopeDefined": true,
+          "prerequisitesMet": "1/1",
+          "shariaCompliant": false
+        },
+        "status": "not-ready",
+        "blockers": [
+          "NDA غير موجودة",
+          "MOU غير موجودة"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-02-26T00:00:00.000Z",
+  "integrations": [
+    {
+      "id": "stripe",
+      "name": "Stripe",
+      "nameAr": "سترايب",
+      "category": "payment",
+      "purpose": "بوابة الدفع الإلكتروني — مدى، بطاقات، اشتراكات",
+      "envVars": [
+        "STRIPE_SECRET_KEY",
+        "STRIPE_PUBLISHABLE_KEY",
+        "STRIPE_WEBHOOK_SECRET"
+      ],
+      "docs": "https://stripe.com/docs/api"
+    },
+    {
+      "id": "figma",
+      "name": "Figma",
+      "nameAr": "فيجما",
+      "category": "design",
+      "purpose": "تصميم الواجهات وتصدير الأصول — تكامل مع التطوير",
+      "envVars": [
+        "FIGMA_ACCESS_TOKEN"
+      ],
+      "docs": "https://www.figma.com/developers/api"
+    },
+    {
+      "id": "nvidia",
+      "name": "NVIDIA NIM",
+      "nameAr": "إنفيديا",
+      "category": "ai",
+      "purpose": "نماذج ذكاء اصطناعي — NIM API",
+      "envVars": [
+        "NVIDIA_API_KEY"
+      ],
+      "docs": "https://build.nvidia.com"
+    },
+    {
+      "id": "sentry",
+      "name": "Sentry",
+      "nameAr": "سينتري",
+      "category": "observability",
+      "purpose": "تتبع الأخطاء ومراقبة الأداء — بديل Datadog",
+      "envVars": [
+        "SENTRY_DSN"
+      ],
+      "docs": "https://docs.sentry.io/platforms/javascript/guides/node"
+    },
+    {
+      "id": "linear",
+      "name": "Linear",
+      "nameAr": "لينيير",
+      "category": "project-management",
+      "purpose": "إدارة المهام والمشاريع — Issues، Cycles، Roadmaps",
+      "envVars": [
+        "LINEAR_API_KEY"
+      ],
+      "docs": "https://developers.linear.app",
+      "keySource": "Workspace settings → API → Create new API key (Personal API key — ليس OAuth ولا Webhook)"
+    },
+    {
+      "id": "adobe",
+      "name": "Adobe",
+      "nameAr": "أدوبي",
+      "category": "creative",
+      "purpose": "Creative Cloud، PDF، تصميم — OAuth",
+      "envVars": [
+        "ADOBE_CLIENT_ID",
+        "ADOBE_CLIENT_SECRET"
+      ],
+      "docs": "https://developer.adobe.com"
+    },
+    {
+      "id": "ramp",
+      "name": "Ramp",
+      "nameAr": "رامب",
+      "category": "finance",
+      "purpose": "إدارة النفقات والبطاقات",
+      "envVars": [
+        "RAMP_API_KEY"
+      ],
+      "docs": "https://docs.ramp.com"
+    },
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "nameAr": "أوبن إيه آي",
+      "category": "ai",
+      "purpose": "المحادثة والتحليل الذكي — GPT",
+      "envVars": [
+        "OPENAI_API_KEY"
+      ],
+      "docs": "https://platform.openai.com/docs"
+    }
+  ]
+}

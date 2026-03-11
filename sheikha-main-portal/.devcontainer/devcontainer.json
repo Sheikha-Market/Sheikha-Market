@@ -1,0 +1,25 @@
+{
+    "name": "Sheikha Dev",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "eamodio.gitlens",
+                "ms-vscode.vscode-node-azure-pack",
+                "github.copilot"
+            ],
+            "settings": {
+                "editor.tabSize": 4,
+                "editor.insertSpaces": true
+            }
+        }
+    },
+    "forwardPorts": [8080, 8081, 9229],
+    "postCreateCommand": "npm install",
+    "remoteUser": "node"
+}

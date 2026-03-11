@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏗️ لوحة إدارة المشاريع والبناء والتطوير | SHEIKHA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #050810 0%, #0f1419 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #D4AF37, #B87333);
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.15);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #050810;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #050810;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background: #1e293b;
+            color: #94a3b8;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            background: #334155;
+            color: #f8fafc;
+        }
+
+        .tab-btn.active {
+            background: #D4AF37;
+            color: #050810;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: #D4AF37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            color: #D4AF37;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #334155;
+            color: #94a3b8;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            margin-left: 5px;
+        }
+
+        .badge.role-exec {
+            background: rgba(212, 175, 55, 0.2);
+            color: #D4AF37;
+        }
+
+        .badge.role-manager {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .badge.role-supervisor {
+            background: rgba(34, 197, 94, 0.2);
+            color: #86efac;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background: #D4AF37;
+            color: #050810;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .button:hover {
+            background: #F5E6A3;
+            transform: translateY(-2px);
+        }
+
+        .button.secondary {
+            background: #334155;
+            color: #f8fafc;
+            margin-left: 10px;
+        }
+
+        .button.secondary:hover {
+            background: #475569;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #1e293b;
+            border-left: 4px solid #D4AF37;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .stat-box h4 {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .stat-box .number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #D4AF37;
+        }
+
+        .org-chart {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .org-level {
+            margin-bottom: 20px;
+        }
+
+        .org-level h4 {
+            color: #D4AF37;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .org-item {
+            background: #0f1419;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            border-right: 3px solid #D4AF37;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #334155;
+            border-top-color: #D4AF37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #7f1d1d;
+            border: 1px solid #991b1b;
+            color: #fecaca;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: #1b4332;
+            border: 1px solid #2d6a4f;
+            color: #95d5b2;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            color: #D4AF37;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #cbd5e1;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            background: #0f1419;
+            border: 1px solid #334155;
+            color: #f8fafc;
+            border-radius: 6px;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #D4AF37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏗️ لوحة إدارة المشاريع والبناء والتطوير</h1>
+        <p>منظومة وكلاء متكاملة لإدارة المشاريع الإنشائية والتطويرية الشاملة</p>
+    </div>
+
+    <div class="container">
+        <!-- رسائل النجاح والخطأ -->
+        <div id="messageContainer"></div>
+
+        <!-- علامات التبويب -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('overview')">📊 نظرة عامة</button>
+            <button class="tab-btn" onclick="switchTab('agents')">👥 الوكلاء</button>
+            <button class="tab-btn" onclick="switchTab('hierarchy')">🏢 الهيكل التنظيمي</button>
+            <button class="tab-btn" onclick="switchTab('activate')">⚡ التفعيل</button>
+            <button class="tab-btn" onclick="switchTab('specializations')">🔧 التخصصات</button>
+        </div>
+
+        <!-- نظرة عامة -->
+        <div id="overview" class="tab-content active">
+            <div class="stats-grid" id="statsContainer"></div>
+
+            <div class="org-chart">
+                <h3 style="color: #D4AF37; margin-bottom: 20px;">📋 ملخص الهيكل التنظيمي</h3>
+                <div id="organizationSummary"></div>
+            </div>
+        </div>
+
+        <!-- الوكلاء -->
+        <div id="agents" class="tab-content">
+            <div style="margin-bottom: 20px;">
+                <input type="text" id="agentSearch" placeholder="🔍 ابحث عن وكيل..."
+                    style="width: 100%; padding: 12px; background: #1e293b; border: 1px solid #334155;
+                    color: #f8fafc; border-radius: 8px; font-family: 'Tajawal', sans-serif;">
+            </div>
+            <div class="grid" id="agentsGrid"></div>
+        </div>
+
+        <!-- الهيكل التنظيمي -->
+        <div id="hierarchy" class="tab-content">
+            <div class="org-chart" id="hierarchyContainer"></div>
+        </div>
+
+        <!-- التفعيل -->
+        <div id="activate" class="tab-content">
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>⚡ تفعيل الوكلاء</h3>
+                <form onsubmit="activateAgents(event)">
+                    <div class="form-group">
+                        <label>نوع التفعيل:</label>
+                        <select id="activationType" onchange="updateActivationForm()">
+                            <option value="all">تفعيل الكل</option>
+                            <option value="single">تفعيل وكيل واحد</option>
+                            <option value="role">تفعيل حسب الدور</option>
+                        </select>
+                    </div>
+
+                    <div id="singleAgentField" style="display: none;">
+                        <div class="form-group">
+                            <label>اختر الوكيل:</label>
+                            <select id="agentSelect"></select>
+                        </div>
+                    </div>
+
+                    <div id="roleField" style="display: none;">
+                        <div class="form-group">
+                            <label>اختر الدور:</label>
+                            <select id="roleSelect">
+                                <option value="EXECUTIVE_LEADER">المديرون التنفيذيون</option>
+                                <option value="DEPARTMENT_HEAD">رؤساء الأقسام</option>
+                                <option value="SUPERVISOR">المشرفون</option>
+                                <option value="SPECIALIST">المهندسون</option>
+                                <option value="TECHNICIAN">الفنيون والعمال</option>
+                                <option value="ADMINISTRATIVE">الإدارة والدعم</option>
+                                <option value="STRATEGIC_DEVELOPMENT">البحث والتطوير</option>
+                                <option value="BUILDER">البنائون المتخصصون</option>
+                                <option value="PRODUCTION_WORKER">عمال الإنتاج المتخصصون</option>
+                                <option value="QUALITY_ASSURANCE">وكلاء جودة الإدارة والإنتاج</option>
+                                <option value="METHODOLOGY_EXPERT">خبراء المنهجيات والمعايير</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>اسم المشروع (اختياري):</label>
+                        <input type="text" id="projectName" placeholder="مثال: مشروع البرج A">
+                    </div>
+
+                    <button type="submit" class="button">تفعيل الآن</button>
+                </form>
+            </div>
+
+            <div id="activationResult"></div>
+        </div>
+
+        <!-- التخصصات -->
+        <div id="specializations" class="tab-content">
+            <div class="grid" id="specializationsGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = '/api/construction-agents';
+        let allAgents = [];
+
+        // تبديل التبويبات
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'overview') loadOverview();
+            else if (tabName === 'agents') loadAgents();
+            else if (tabName === 'hierarchy') loadHierarchy();
+            else if (tabName === 'specializations') loadSpecializations();
+        }
+
+        // عرض الرسائل
+        function showMessage(message, type = 'success') {
+            const container = document.getElementById('messageContainer');
+            const msgEl = document.createElement('div');
+            msgEl.className = type === 'success' ? 'success' : 'error';
+            msgEl.textContent = message;
+            container.appendChild(msgEl);
+            setTimeout(() => msgEl.remove(), 5000);
+        }
+
+        // تحميل البيانات الأساسية
+        async function loadAgents() {
+            try {
+                const response = await fetch(`${BASE_URL}/list`);
+                const result = await response.json();
+                allAgents = result.data.agents;
+
+                // ملء اختيار الوكيل
+                const agentSelect = document.getElementById('agentSelect');
+                agentSelect.innerHTML = '';
+                allAgents.forEach(agent => {
+                    const option = document.createElement('option');
+                    option.value = agent.id;
+                    option.textContent = `${agent.nameAr} (${agent.id})`;
+                    agentSelect.appendChild(option);
+                });
+
+                displayAgents(allAgents);
+            } catch (error) {
+                showMessage('خطأ في تحميل الوكلاء: ' + error.message, 'error');
+            }
+        }
+
+        // عرض الوكلاء
+        function displayAgents(agents) {
+            const grid = document.getElementById('agentsGrid');
+            grid.innerHTML = agents.map(agent => `
+                <div class="card">
+                    <h3>${agent.nameAr}</h3>
+                    <p><small>${agent.nameEn}</small></p>
+                    <p class="badge role-${agent.role.toLowerCase()}">${agent.role}</p>
+                    ${agent.responsibilities ? `
+                        <p><strong>المسؤوليات:</strong></p>
+                        <ul style="margin-right: 15px; color: #cbd5e1; font-size: 0.85rem;">
+                            ${agent.responsibilities.slice(0, 3).map(r => `<li>${r}</li>`).join('')}
+                        </ul>
+                    ` : ''}
+                    <button class="button" style="font-size: 0.8rem; margin-top: 10px;"
+                        onclick="activateSingleAgent('${agent.id}')">تفعيل</button>
+                </div>
+            `).join('');
+        }
+
+        // تحميل النظرة العامة
+        async function loadOverview() {
+            try {
+                const response = await fetch(`${BASE_URL}/project-summary`);
+                const result = await response.json();
+                const data = result.data;
+
+                // عرض الإحصائيات
+                const statsContainer = document.getElementById('statsContainer');
+                statsContainer.innerHTML = `
+                    <div class="stat-box">
+                        <h4>إجمالي الوكلاء</h4>
+                        <div class="number">65</div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>المديرون</h4>
+                        <div class="number">1</div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>رؤساء الأقسام</h4>
+                        <div class="number">3</div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>المشرفون</h4>
+                        <div class="number">6</div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>المهندسون</h4>
+                        <div class="number">8</div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>الفنيون</h4>
+                        <div class="number">8</div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>البنائون</h4>
+                        <div class="number">6</div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>عمال الإنتاج</h4>
+                        <div class="number">9</div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>وكلاء الجودة</h4>
+                        <div class="number">9</div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>خبراء المنهجيات</h4>
+                        <div class="number">7</div>
+                    </div>
+                `;
+
+                // عرض ملخص الهيكل
+                const summary = document.getElementById('organizationSummary');
+                summary.innerHTML = `
+                    <div class="org-level">
+                        <h4>1️⃣ المستوى التنفيذي</h4>
+                        ${data.hierarchy.executives.agents.map(a => `
+                            <div class="org-item">
+                                <span>${a.nameAr}</span>
+                                <span style="font-size: 0.8rem; color: #94a3b8;">${a.id}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="org-level">
+                        <h4>2️⃣ مستوى رؤساء الأقسام (${data.hierarchy.departmentHeads.count})</h4>
+                        ${data.hierarchy.departmentHeads.departments.map(d => `
+                            <div class="org-item">
+                                <span>${d.nameAr}</span>
+                                <span style="font-size: 0.8rem; color: #94a3b8;">${d.id}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="org-level">
+                        <h4>3️⃣ المشرفون والمتخصصون (${data.hierarchy.supervisors.count + data.hierarchy.engineers.count})</h4>
+                        <p style="color: #cbd5e1;">وجود ${data.hierarchy.supervisors.count} مشرف متخصص و${data.hierarchy.engineers.count} مهندس في مختلف التخصصات</p>
+                    </div>
+                    <div class="org-level">
+                        <h4>4️⃣ الفنيون والعمال (8)</h4>
+                        <p style="color: #cbd5e1;">فنيون وعمال متخصصون في مختلف المجالات الإنشائية والإنتاجية</p>
+                    </div>
+                    <div class="org-level">
+                        <h4>5️⃣ البنائون المتخصصون (6)</h4>
+                        <p style="color: #cbd5e1;">
+                            • بناء سكني | • بناء تجاري | • بناء صناعي | • بنية تحتية | • تجديد وترميم | • مشاريع ساحلية
+                        </p>
+                    </div>
+                    <div class="org-level">
+                        <h4>6️⃣ عمال الإنتاج المتخصصون (9)</h4>
+                        <p style="color: #cbd5e1;">
+                            • إنتاج خرسانة | • إنتاج حديد | • إنتاج طوب وبلاط | • إنتاج زجاج | • إنتاج دهانات | • أدوات سباكة | • مكونات كهربائية | • معدات HVAC | • منتجات خشب
+                        </p>
+                    </div>
+                    <div class="org-level">
+                        <h4>7️⃣ وكلاء جودة الإدارة والإنتاج (9) ✅</h4>
+                        <p style="color: #D4AF37; font-weight: bold;">جودة متكاملة ـ إدارة شاملة ـ إنتاج خالي من العيوب</p>
+                        <p style="color: #cbd5e1;">
+                            • مدير الجودة الإداري | • مدير جودة البناء والسلامة | • مدير جودة الإنتاج والمخزون | • مدقق الجودة الداخلي | • متخصص اختبار المواد | • منسق تحسين العمليات | • متخصص التوثيق | • متخصص المتطلبات | • مدير رضا العملاء
+                        </p>
+                    </div>
+                    <div class="org-level">
+                        <h4>8️⃣ خبراء المنهجيات والمعايير (7) 📚</h4>
+                        <p style="color: #F5E6A3; font-weight: bold;">المنهجيات العالمية + المبادئ الإسلامية</p>
+                        <p style="color: #cbd5e1;">
+                            • PMP/PMI | • ISO | • Lean & Six Sigma | • Agile/Scrum | • SISCC | • البحث والابتكار | • الحوكمة الإسلامية
+                        </p>
+                    </div>
+                `;
+            } catch (error) {
+                showMessage('خطأ في تحميل النظرة العامة: ' + error.message, 'error');
+            }
+        }
+
+        // تحميل الهيكل التنظيمي
+        async function loadHierarchy() {
+            try {
+                const response = await fetch(`${BASE_URL}/list`);
+                const result = await response.json();
+                const agents = result.data.agents;
+
+                const container = document.getElementById('hierarchyContainer');
+                const roles = {
+                    'EXECUTIVE_LEADER': '👔 المستوى التنفيذي (General Managers)',
+                    'DEPARTMENT_HEAD': '🏢 رؤساء الأقسام (Departments)',
+                    'SUPERVISOR': '👨‍💼 المشرفون (Supervisors)',
+                    'SPECIALIST': '👨‍🔧 المهندسون والمتخصصون (Engineers)',
+                    'ADMINISTRATIVE': '📋 الإدارة والدعم (Admin)',
+                    'STRATEGIC_DEVELOPMENT': '🔬 البحث والتطوير (R&D)',
+                    'BUILDER': '🏗️ البنائون المتخصصون (Builders)',
+                    'PRODUCTION_WORKER': '🏭 عمال الإنتاج (Production)',
+                    'QUALITY_ASSURANCE': '✅ وكلاء الجودة (QA)',
+                    'METHODOLOGY_EXPERT': '📚 خبراء المنهجيات (Methodology)'
+                };
+
+                let html = '<h3 style="color: #D4AF37; margin-bottom: 20px;">📊 الهيكل التنظيمي الشامل</h3>';
+
+                for (const [role, title] of Object.entries(roles)) {
+                    const roleAgents = agents.filter(a => a.role === role);
+                    html += `
+                        <div class="org-level">
+                            <h4>${title} (${roleAgents.length})</h4>
+                            ${roleAgents.map(a => `
+                                <div class="org-item">
+                                    <div>
+                                        <strong>${a.nameAr}</strong><br>
+                                        <small style="color: #94a3b8;">${a.nameEn}</small>
+                                    </div>
+                                    <button class="button" style="font-size: 0.75rem; padding: 5px 10px;"
+                                        onclick="activateSingleAgent('${a.id}')">تفعيل</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
+                container.innerHTML = html;
+            } catch (error) {
+                showMessage('خطأ في تحميل الهيكل: ' + error.message, 'error');
+            }
+        }
+
+        // تحميل التخصصات
+        async function loadSpecializations() {
+            try {
+                const grid = document.getElementById('specializationsGrid');
+                grid.innerHTML = `
+                    <!-- المنهجيات -->
+                    <div class="card">
+                        <h3>📚 PMP & PMI</h3>
+                        <p>إدارة المشاريع الاحترافية</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">النطاق • الوقت • الميزانية • الجودة • المخاطر</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+                    <div class="card">
+                        <h3>📊 ISO Standards</h3>
+                        <p>معايير الجودة والامتثال</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">ISO 9001 • ISO 45001 • ISO 14001</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+                    <div class="card">
+                        <h3>⚙️ Lean & Six Sigma</h3>
+                        <p>تحسين العمليات والكفاءة</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">تقليل الهدر • جودة • كفاءة</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+                    <div class="card">
+                        <h3>🔄 Agile & Scrum</h3>
+                        <p>المرونة والتكيف السريع</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">مرونة • سرعة • تعاون</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+                    <div class="card">
+                        <h3>🔗 SISCC</h3>
+                        <p>التكامل الشامل للأنظمة</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">تكامل • واجهات • رقابة</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+                    <div class="card">
+                        <h3>💡 البحث والابتكار</h3>
+                        <p>التطوير والابتكار المستمر</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">براءات • ابتكار • R&D</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+                    <div class="card">
+                        <h3>☪️ الحوكمة الإسلامية</h3>
+                        <p>الامتثال الشرعي والأخلاقي</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">شريعة • عدل • أمانة</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+
+                    <!-- أنواع المشاريع -->
+                    <div class="card">
+                        <h3>🏢 مشاريع تجارية</h3>
+                        <p>المراكز والمحلات والمكاتب</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">تصميم • تشييد • تسليم</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+                    <div class="card">
+                        <h3>🏠 مشاريع سكنية</h3>
+                        <p>فلل • عمارات • مستودعات</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">جودة • أمان • راحة</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+                    <div class="card">
+                        <h3>🏭 مشاريع صناعية</h3>
+                        <p>مصانع • مستودعات • معالجة</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">كفاءة • سلامة • إنتاج</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+                    <div class="card">
+                        <h3>🌉 مشاريع بنية تحتية</h3>
+                        <p>طرق • جسور • أنفاق</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">هندسة • دقة • أمان</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+                    <div class="card">
+                        <h3>✅ جودة الإدارة</h3>
+                        <p>فحص • تدقيق • امتثال</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">معايير • توثيق • تحسين</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+                    <div class="card">
+                        <h3>⚙️ جودة الإنتاج</h3>
+                        <p>فحص المنتجات والمعايير</p>
+                        <p style="color: #D4AF37; font-weight: bold; font-size: 0.85rem;">خلو عيوب • متطابق • آمن</p>
+                        <button class="button" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">عرض التفاصيل</button>
+                    </div>
+                `;
+            } catch (error) {
+                showMessage('خطأ في تحميل التخصصات: ' + error.message, 'error');
+            }
+        }
+
+        // تحديث نموذج التفعيل
+        function updateActivationForm() {
+            const type = document.getElementById('activationType').value;
+            document.getElementById('singleAgentField').style.display = type === 'single' ? 'block' : 'none';
+            document.getElementById('roleField').style.display = type === 'role' ? 'block' : 'none';
+        }
+
+        // تفعيل وكيل واحد
+        async function activateSingleAgent(agentId) {
+            try {
+                const response = await fetch(`${BASE_URL}/activate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ agentId })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    showMessage(`✅ تم تفعيل: ${result.data.nameAr}`, 'success');
+                } else {
+                    showMessage('❌ فشل التفعيل: ' + result.message, 'error');
+                }
+            } catch (error) {
+                showMessage('خطأ: ' + error.message, 'error');
+            }
+        }
+
+        // تفعيل الوكلاء
+        async function activateAgents(event) {
+            event.preventDefault();
+            const type = document.getElementById('activationType').value;
+            const projectName = document.getElementById('projectName').value;
+
+            try {
+                let response, url = BASE_URL, body = { projectName };
+
+                if (type === 'single') {
+                    const agentId = document.getElementById('agentSelect').value;
+                    url += '/activate';
+                    body.agentId = agentId;
+                } else if (type === 'role') {
+                    const role = document.getElementById('roleSelect').value;
+                    url += '/activate-by-role';
+                    body.role = role;
+                } else {
+                    url += '/activate-all';
+                }
+
+                response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+
+                const result = await response.json();
+                const resultDiv = document.getElementById('activationResult');
+
+                if (result.success) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <h3>✅ تم التفعيل بنجاح</h3>
+                            <p>${result.message}</p>
+                            ${result.data.summary ? `
+                                <p>• عدد الوكلاء المُفعّلة: <strong>${result.data.summary.totalActivated}</strong></p>
+                                <p>• المشروع: <strong>${result.data.summary.projectName}</strong></p>
+                                <p>• الوقت: <strong>${new Date(result.data.summary.activationTime).toLocaleString('ar-SA')}</strong></p>
+                            ` : ''}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ ${result.message}</div>`;
+                }
+            } catch (error) {
+                document.getElementById('activationResult').innerHTML = `
+                    <div class="error">خطأ: ${error.message}</div>
+                `;
+            }
+        }
+
+        // التهيئة الأولية
+        window.addEventListener('load', () => {
+            loadOverview();
+            loadAgents();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,517 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-02-21",
+    "description": "علم النباتات الكامل — أوقات النمو والغرس والثمار والعناية والمحافظة وأماكن النمو — رقمنة بالكتاب والسنة",
+    "quranRef": "وَأَنزَلَ مِنَ السَّمَاءِ مَاءً فَأَخْرَجْنَا بِهِ أَزْوَاجًا مِّن نَّبَاتٍ شَتَّىٰ — طه ٥٣",
+    "totalPlants": 16
+  },
+  "plantTypes": {
+    "gharsa": { "id": "gharsa", "nameAr": "غرسة", "nameEn": "Seedling/Transplant", "description": "نبات يُغرس من شتلة أو بذرة" },
+    "thamra": { "id": "thamra", "nameAr": "ثمرة", "nameEn": "Fruit", "description": "نبات ينتج ثماراً صالحة للأكل" },
+    "nabta": { "id": "nabta", "nameAr": "نبتة", "nameEn": "Plant", "description": "نبات عشبي أو شجري" },
+    "jathr": { "id": "jathr", "nameAr": "جذر", "nameEn": "Root/Tuber", "description": "نبات يُؤكل جذره أو درنته" }
+  },
+  "plants": [
+    {
+      "id": "nakheel",
+      "nameAr": "النخيل",
+      "nameEn": "Date Palm",
+      "type": ["gharsa", "thamra"],
+      "quranRef": "وَالنَّخْلَ ذَاتَ الْأَكْمَامِ — الرحمن ١١",
+      "growth": {
+        "seedlingToPlant": { "minDays": 365, "maxDays": 730, "unit": "يوم", "note": "من البذرة إلى الشتلة القابلة للغرس" },
+        "plantToFirstFruit": { "minDays": 1825, "maxDays": 2555, "unit": "يوم", "note": "5-7 سنوات حتى أول ثمر" },
+        "fullProduction": { "minDays": 3650, "maxDays": 5475, "unit": "يوم", "note": "10-15 سنة للإنتاج الكامل" },
+        "fruitRipening": { "minDays": 90, "maxDays": 180, "unit": "يوم", "note": "من الطلع إلى الرطب/التمر" }
+      },
+      "care": {
+        "watering": "ري منتظم — أسبوعي في الصيف، أقل في الشتاء",
+        "fertilizer": "سماد عضوي + NPK — مرتين سنوياً",
+        "pruning": "تقليم السعف الجاف سنوياً",
+        "pestControl": "مكافحة سوسة النخيل، حشرة الدوباس"
+      },
+      "bestPractices": {
+        "taste": "اختيار الأصناف المحلية (سكري، خلاص، برحي) — التلقيح اليدوي — الحصاد عند النضج الكامل",
+        "value": "التجفيف الصحيح — التخزين بارد وجاف — التعبئة المحكمة",
+        "properties": "غني بالألياف والبوتاسيوم — مضاد أكسدة — طاقة عالية"
+      },
+      "growthLocations": {
+        "regions": ["الجزيرة العربية", "وادي النيل", "المغرب العربي", "العراق", "إيران", "وادي السند"],
+        "climate": "حار جاف — معتدل",
+        "soil": "رملية جيدة التصريف — تحمل الملوحة",
+        "saudiRegions": ["الأحساء", "القطيف", "الرياض", "القصيم", "المدينة المنورة", "تبوك"]
+      }
+    },
+    {
+      "id": "zaitoon",
+      "nameAr": "الزيتون",
+      "nameEn": "Olive",
+      "type": ["gharsa", "thamra"],
+      "quranRef": "وَالتِّينِ وَالزَّيْتُونِ — التين ١",
+      "growth": {
+        "seedlingToPlant": { "minDays": 180, "maxDays": 365, "unit": "يوم" },
+        "plantToFirstFruit": { "minDays": 1095, "maxDays": 1825, "unit": "يوم", "note": "3-5 سنوات" },
+        "fullProduction": { "minDays": 2555, "maxDays": 3650, "unit": "يوم", "note": "7-10 سنوات" },
+        "fruitRipening": { "minDays": 150, "maxDays": 210, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري بالتنقيط — معتدل",
+        "fertilizer": "سماد فوسفاتي وبوتاسي — خريفاً",
+        "pruning": "تقليم خفيف سنوياً — إزالة الفروع الميتة",
+        "pestControl": "ذبابة الزيتون — حشرات القشر"
+      },
+      "bestPractices": {
+        "taste": "حصاد مبكر للزيتون الأخضر — متأخر للأسود — عصر بارد للزيت",
+        "value": "زيت بكر ممتاز — تخزين بعيد عن الضوء والحرارة",
+        "properties": "غني بفيتامين E — أوميغا 9 — مضاد التهاب"
+      },
+      "growthLocations": {
+        "regions": ["حوض البحر المتوسط", "الشام", "المغرب", "إسبانيا", "إيطاليا", "تركيا"],
+        "climate": "متوسطي — معتدل",
+        "soil": "طينية جيدة التصريف — قلوية خفيفة",
+        "saudiRegions": ["تبوك", "الجوف", "عسير", "الباحة"]
+      }
+    },
+    {
+      "id": "teen",
+      "nameAr": "التين",
+      "nameEn": "Fig",
+      "type": ["gharsa", "thamra"],
+      "quranRef": "وَالتِّينِ وَالزَّيْتُونِ — التين ١",
+      "growth": {
+        "seedlingToPlant": { "minDays": 90, "maxDays": 180, "unit": "يوم" },
+        "plantToFirstFruit": { "minDays": 365, "maxDays": 730, "unit": "يوم", "note": "1-2 سنة" },
+        "fullProduction": { "minDays": 1095, "maxDays": 1825, "unit": "يوم" },
+        "fruitRipening": { "minDays": 90, "maxDays": 120, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري معتدل — يتحمل الجفاف",
+        "fertilizer": "سماد عضوي — ربيعاً",
+        "pruning": "تقليم خفيف — إزالة الأغصان الميتة",
+        "pestControl": "ذبابة التين — حشرات القشر"
+      },
+      "bestPractices": {
+        "taste": "حصاد عند النضج الكامل — تجفيف للتين المجفف",
+        "value": "أصناف محلية عالية الجودة — تجفيف طبيعي",
+        "properties": "غني بالألياف — بوتاسيوم — مضاد أكسدة"
+      },
+      "growthLocations": {
+        "regions": ["حوض المتوسط", "الشرق الأوسط", "آسيا الوسطى"],
+        "climate": "معتدل — حار جاف",
+        "soil": "جيدة التصريف — تتحمل الملوحة",
+        "saudiRegions": ["تبوك", "المدينة المنورة", "الطائف", "عسير"]
+      }
+    },
+    {
+      "id": "inab",
+      "nameAr": "العنب",
+      "nameEn": "Grape",
+      "type": ["gharsa", "thamra"],
+      "quranRef": "وَجَنَّاتٌ مِّنْ أَعْنَابٍ — الرعد ٤",
+      "growth": {
+        "seedlingToPlant": { "minDays": 90, "maxDays": 180, "unit": "يوم" },
+        "plantToFirstFruit": { "minDays": 365, "maxDays": 730, "unit": "يوم" },
+        "fullProduction": { "minDays": 1095, "maxDays": 1825, "unit": "يوم" },
+        "fruitRipening": { "minDays": 90, "maxDays": 150, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري منتظم — تقليل قبل الحصاد",
+        "fertilizer": "NPK — بوتاسيوم قبل الإثمار",
+        "pruning": "تقليم شتوي ضروري — تربية على تعريشات",
+        "pestControl": "العنكبوت الأحمر — البياض الدقيقي"
+      },
+      "bestPractices": {
+        "taste": "حصاد عند اكتمال السكر — تقليم صحيح لتحسين النكهة",
+        "value": "أصناف طاولة وزبيب — تخزين بارد",
+        "properties": "ريسفيراترول — فيتامينات — مضاد أكسدة"
+      },
+      "growthLocations": {
+        "regions": ["حوض المتوسط", "الشرق الأوسط", "أوروبا", "أمريكا"],
+        "climate": "معتدل — صيف حار",
+        "soil": "عميقة جيدة التصريف",
+        "saudiRegions": ["الطائف", "الباحة", "عسير", "تبوك"]
+      }
+    },
+    {
+      "id": "rumman",
+      "nameAr": "الرمان",
+      "nameEn": "Pomegranate",
+      "type": ["gharsa", "thamra"],
+      "quranRef": "فِيهِمَا فَاكِهَةٌ وَنَخْلٌ وَرُمَّانٌ — الرحمن ٦٨",
+      "growth": {
+        "seedlingToPlant": { "minDays": 90, "maxDays": 180, "unit": "يوم" },
+        "plantToFirstFruit": { "minDays": 730, "maxDays": 1095, "unit": "يوم", "note": "2-3 سنوات" },
+        "fullProduction": { "minDays": 1825, "maxDays": 2555, "unit": "يوم" },
+        "fruitRipening": { "minDays": 150, "maxDays": 210, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري معتدل — يتحمل الجفاف",
+        "fertilizer": "سماد عضوي — فوسفات",
+        "pruning": "تقليم خفيف — إزالة المصاصات",
+        "pestControl": "ذبابة الفاكهة — حشرات القشر"
+      },
+      "bestPractices": {
+        "taste": "حصاد عند تغير لون القشرة — أصناف حلوة (وادي الرمان)",
+        "value": "عصير — حبوب — قشر للدباغة",
+        "properties": "مضاد أكسدة قوي — فيتامين C — بونيكالاجين"
+      },
+      "growthLocations": {
+        "regions": ["إيران", "الهند", "الشرق الأوسط", "حوض المتوسط"],
+        "climate": "معتدل — حار جاف",
+        "soil": "جيدة التصريف — قلوية",
+        "saudiRegions": ["تبوك", "الطائف", "الباحة", "عسير"]
+      }
+    },
+    {
+      "id": "tamata",
+      "nameAr": "الطماطم",
+      "nameEn": "Tomato",
+      "type": ["nabta", "thamra"],
+      "growth": {
+        "seedlingToPlant": { "minDays": 25, "maxDays": 35, "unit": "يوم" },
+        "plantToFirstFruit": { "minDays": 50, "maxDays": 70, "unit": "يوم" },
+        "fullProduction": { "minDays": 70, "maxDays": 90, "unit": "يوم" },
+        "fruitRipening": { "minDays": 20, "maxDays": 30, "unit": "يوم", "note": "من الإزهار للنضج" }
+      },
+      "care": {
+        "watering": "ري منتظم — تجنب الري على الأوراق",
+        "fertilizer": "NPK — بوتاسيوم عند الإثمار",
+        "pruning": "إزالة الفروع الجانبية — تربية على أوتاد",
+        "pestControl": "ذبابة بيضاء — حشرات المن — اللفحة"
+      },
+      "bestPractices": {
+        "taste": "شمس كافية — تربة غنية — حصاد عند النضج",
+        "value": "بيوت محمية — أصناف هجينة عالية الإنتاج",
+        "properties": "ليكوبين — فيتامين C — مضاد أكسدة"
+      },
+      "growthLocations": {
+        "regions": ["جميع المناطق المعتدلة والحارة"],
+        "climate": "دافئ — 18-28°C",
+        "soil": "غنية عضوية — جيدة التصريف",
+        "saudiRegions": ["الرياض", "الشرقية", "القصيم", "تبوك", "جازان"]
+      }
+    },
+    {
+      "id": "khiar",
+      "nameAr": "الخيار",
+      "nameEn": "Cucumber",
+      "type": ["nabta", "thamra"],
+      "quranRef": "وَقَالُوا لَن نَّؤْمِنَ حَتَّىٰ نُؤْتَىٰ مِثْلَ مَا أُوتِيَ رُسُلُ اللَّهِ — إشارة لقصة بني إسرائيل والقثاء",
+      "growth": {
+        "seedlingToPlant": { "minDays": 15, "maxDays": 25, "unit": "يوم" },
+        "plantToFirstFruit": { "minDays": 35, "maxDays": 50, "unit": "يوم" },
+        "fullProduction": { "minDays": 50, "maxDays": 70, "unit": "يوم" },
+        "fruitRipening": { "minDays": 8, "maxDays": 12, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري يومي — رطوبة عالية",
+        "fertilizer": "نيتروجين — سماد سائل أسبوعي",
+        "pruning": "تربية على تعريشات — إزالة الأوراق السفلى",
+        "pestControl": "حشرات المن — البياض الزغبي"
+      },
+      "bestPractices": {
+        "taste": "حصاد صغير — طازج — تبريد سريع",
+        "value": "بيوت محمية — إنتاج مستمر",
+        "properties": "ماء 95% — فيتامين K — مرطّب"
+      },
+      "growthLocations": {
+        "regions": ["جميع المناطق"],
+        "climate": "دافئ رطب — 20-30°C",
+        "soil": "غنية — رطبة",
+        "saudiRegions": ["جميع المناطق — بيوت محمية"]
+      }
+    },
+    {
+      "id": "batata",
+      "nameAr": "البطاطس",
+      "nameEn": "Potato",
+      "type": ["jathr", "nabta"],
+      "growth": {
+        "seedlingToPlant": { "minDays": 0, "maxDays": 0, "unit": "يوم", "note": "تُزرع من درنات" },
+        "plantToFirstFruit": { "minDays": 0, "maxDays": 0, "unit": "يوم" },
+        "fullProduction": { "minDays": 70, "maxDays": 120, "unit": "يوم" },
+        "tuberFormation": { "minDays": 45, "maxDays": 60, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري منتظم — تقليل قبل الحصاد",
+        "fertilizer": "بوتاسيوم — فوسفات — نيتروجين معتدل",
+        "pruning": "تكديس التربة حول الساق (الترقيد)",
+        "pestControl": "خنفساء البطاطس — اللفحة المتأخرة"
+      },
+      "bestPractices": {
+        "taste": "تربة خفيفة — حصاد عند جفاف القمم",
+        "value": "تخزين بارد مظلم — أصناف متعددة الاستخدام",
+        "properties": "نشا — بوتاسيوم — فيتامين C"
+      },
+      "growthLocations": {
+        "regions": ["جميع المناطق المعتدلة والباردة"],
+        "climate": "بارد معتدل — 15-20°C",
+        "soil": "خفيفة رملية — جيدة التصريف",
+        "saudiRegions": ["تبوك", "عسير", "الباحة", "الطائف"]
+      }
+    },
+    {
+      "id": "jazar",
+      "nameAr": "الجزر",
+      "nameEn": "Carrot",
+      "type": ["jathr", "nabta"],
+      "growth": {
+        "seedlingToPlant": { "minDays": 14, "maxDays": 21, "unit": "يوم" },
+        "plantToFirstFruit": { "minDays": 0, "maxDays": 0, "unit": "يوم" },
+        "fullProduction": { "minDays": 70, "maxDays": 120, "unit": "يوم" },
+        "rootMaturity": { "minDays": 70, "maxDays": 90, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري منتظم — تجنب الجفاف (تشقق الجذر)",
+        "fertilizer": "بوتاسيوم — فوسفات — نيتروجين قليل",
+        "pruning": "ترقيق الشتلات — إزالة الأعشاب",
+        "pestControl": "ذبابة الجزر — النيماتودا"
+      },
+      "bestPractices": {
+        "taste": "تربة عميقة خفيفة — حصاد عند الحجم المطلوب",
+        "value": "أصناف ملونة — عصير — مجفف",
+        "properties": "بيتا كاروتين — فيتامين A — ألياف"
+      },
+      "growthLocations": {
+        "regions": ["جميع المناطق المعتدلة"],
+        "climate": "بارد معتدل — 15-25°C",
+        "soil": "عميقة رملية — خالية من الحصى",
+        "saudiRegions": ["تبوك", "عسير", "الطائف", "القصيم"]
+      }
+    },
+    {
+      "id": "basal",
+      "nameAr": "البصل",
+      "nameEn": "Onion",
+      "type": ["jathr", "nabta"],
+      "quranRef": "وَقَالُوا إِنَّا طَعِمْنَا الْعَذَابَ مِن قَبْلُ وَإِذَا قِيلَ لَهُمْ وَكُلُوا مِمَّا رَزَقَكُمُ اللَّهُ — إشارة لبني إسرائيل والبصل",
+      "growth": {
+        "seedlingToPlant": { "minDays": 30, "maxDays": 45, "unit": "يوم" },
+        "plantToFirstFruit": { "minDays": 0, "maxDays": 0, "unit": "يوم" },
+        "fullProduction": { "minDays": 100, "maxDays": 150, "unit": "يوم" },
+        "bulbFormation": { "minDays": 60, "maxDays": 90, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري منتظم — إيقاف قبل الحصاد بأسبوعين",
+        "fertilizer": "نيتروجين — كبريت",
+        "pruning": "إزالة الأعشاب — لا تقليم",
+        "pestControl": "ذبابة البصل — التربس"
+      },
+      "bestPractices": {
+        "taste": "أصناف حلوة — تجفيف جيد بعد الحصاد",
+        "value": "تخزين بارد جاف — أصناف تخزين طويلة",
+        "properties": "كبريت — كيرسيتين — مضاد بكتيريا"
+      },
+      "growthLocations": {
+        "regions": ["جميع المناطق"],
+        "climate": "معتدل — يتحمل البرودة",
+        "soil": "خفيفة جيدة التصريف",
+        "saudiRegions": ["القصيم", "تبوك", "الرياض", "الشرقية"]
+      }
+    },
+    {
+      "id": "qamh",
+      "nameAr": "القمح",
+      "nameEn": "Wheat",
+      "type": ["nabta"],
+      "quranRef": "وَمِنَ الْحَبِّ الْحَبِّ — الأنعام ٩٩",
+      "growth": {
+        "seedlingToPlant": { "minDays": 7, "maxDays": 14, "unit": "يوم" },
+        "plantToFirstFruit": { "minDays": 0, "maxDays": 0, "unit": "يوم" },
+        "fullProduction": { "minDays": 120, "maxDays": 180, "unit": "يوم" },
+        "grainRipening": { "minDays": 90, "maxDays": 120, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري حسب الصنف — المطر أو الري التكميلي",
+        "fertilizer": "نيتروجين — فوسفات — بوتاسيوم",
+        "pruning": "لا تقليم — إدارة الأعشاب",
+        "pestControl": "صدأ القمح — السوس — الجراد"
+      },
+      "bestPractices": {
+        "taste": "أصناف محلية — حصاد عند النضج الكامل",
+        "value": "تخزين جاف — مكافحة الآفات",
+        "properties": "نشا — بروتين — ألياف — فيتامينات ب"
+      },
+      "growthLocations": {
+        "regions": ["الشرق الأوسط", "أوروبا", "آسيا", "أمريكا"],
+        "climate": "معتدل — بارد رطب",
+        "soil": "طينية خصبة",
+        "saudiRegions": ["حائل", "القصيم", "تبوك", "الجوف"]
+      }
+    },
+    {
+      "id": "shaaeer",
+      "nameAr": "الشعير",
+      "nameEn": "Barley",
+      "type": ["nabta"],
+      "quranRef": "وَإِن كَانَ مِثْقَالَ حَبَّةٍ مِّنْ خَرْدَلٍ — إشارة للحبوب",
+      "growth": {
+        "seedlingToPlant": { "minDays": 5, "maxDays": 10, "unit": "يوم" },
+        "fullProduction": { "minDays": 90, "maxDays": 120, "unit": "يوم" },
+        "grainRipening": { "minDays": 80, "maxDays": 100, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "يتحمل الجفاف أكثر من القمح",
+        "fertilizer": "نيتروجين معتدل — فوسفات",
+        "pestControl": "صدأ — حشرات الحبوب"
+      },
+      "bestPractices": {
+        "taste": "علف — مالت — غذاء",
+        "value": "تحمل ملوحة وجفاف — زراعة بعلية",
+        "properties": "ألياف — بيتا جلوكان — معادن"
+      },
+      "growthLocations": {
+        "regions": ["الشرق الأوسط", "أوروبا", "أفريقيا"],
+        "climate": "بارد معتدل — يتحمل الجفاف",
+        "soil": "متنوعة — تتحمل الملوحة",
+        "saudiRegions": ["حائل", "القصيم", "تبوك", "الجوف"]
+      }
+    },
+    {
+      "id": "adas",
+      "nameAr": "العدس",
+      "nameEn": "Lentil",
+      "type": ["nabta"],
+      "quranRef": "وَإِذْ قُلْتُمْ يَا مُوسَىٰ لَن نَّصْبِرَ عَلَىٰ طَعَامٍ وَاحِدٍ — طلب بني إسرائيل (عدس وبصل)",
+      "growth": {
+        "seedlingToPlant": { "minDays": 7, "maxDays": 14, "unit": "يوم" },
+        "fullProduction": { "minDays": 80, "maxDays": 110, "unit": "يوم" },
+        "podRipening": { "minDays": 70, "maxDays": 90, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري معتدل — يتحمل الجفاف",
+        "fertilizer": "فوسفات — بكتيريا عقيدية",
+        "pestControl": "حشرات المن — الدودة القارضة"
+      },
+      "bestPractices": {
+        "taste": "أصناف حمراء وخضراء — طبخ صحيح",
+        "value": "بروتين نباتي — تخزين جاف",
+        "properties": "بروتين — حديد — ألياف"
+      },
+      "growthLocations": {
+        "regions": ["الشرق الأوسط", "الهند", "كندا", "تركيا"],
+        "climate": "بارد معتدل",
+        "soil": "جيدة التصريف",
+        "saudiRegions": ["تبوك", "القصيم", "حائل"]
+      }
+    },
+    {
+      "id": "yqtin",
+      "nameAr": "اليقطين",
+      "nameEn": "Pumpkin/Gourd",
+      "type": ["nabta", "thamra"],
+      "quranRef": "وَأَنبَتْنَا عَلَيْهِ شَجَرَةً مِّن يَقْطِينٍ — الصافات ١٤٦ — نبات يونس عليه السلام",
+      "growth": {
+        "seedlingToPlant": { "minDays": 10, "maxDays": 20, "unit": "يوم" },
+        "plantToFirstFruit": { "minDays": 50, "maxDays": 70, "unit": "يوم" },
+        "fullProduction": { "minDays": 90, "maxDays": 120, "unit": "يوم" },
+        "fruitRipening": { "minDays": 30, "maxDays": 60, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري منتظم — ماء وفير",
+        "fertilizer": "سماد عضوي — NPK",
+        "pruning": "تربية على تعريشات — تقليم للتحكم",
+        "pestControl": "حشرات المن — البياض الدقيقي"
+      },
+      "bestPractices": {
+        "taste": "حصاد عند النضج — تخزين بارد جاف",
+        "value": "غذاء — بذور — زينة",
+        "properties": "بيتا كاروتين — فيتامين A — ألياف"
+      },
+      "growthLocations": {
+        "regions": ["جميع المناطق المعتدلة والحارة"],
+        "climate": "دافئ — 20-30°C",
+        "soil": "غنية عضوية",
+        "saudiRegions": ["جميع المناطق"]
+      }
+    },
+    {
+      "id": "rayhan",
+      "nameAr": "الريحان",
+      "nameEn": "Basil",
+      "type": ["nabta"],
+      "quranRef": "فَرَوْحٌ وَرَيْحَانٌ — الواقعة ٨٩",
+      "growth": {
+        "seedlingToPlant": { "minDays": 7, "maxDays": 14, "unit": "يوم" },
+        "plantToFirstHarvest": { "minDays": 40, "maxDays": 60, "unit": "يوم" },
+        "fullProduction": { "minDays": 60, "maxDays": 90, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري منتظم — تجنب الإفراط",
+        "fertilizer": "سماد سائل خفيف",
+        "pruning": "قص القمم لتحفيز التفرع",
+        "pestControl": "حشرات المن — الذبابة البيضاء"
+      },
+      "bestPractices": {
+        "taste": "حصاد قبل الإزهار — تجفيف أو تجميد",
+        "value": "طازج — مجفف — زيت عطري",
+        "properties": "مضاد أكسدة — مضاد بكتيريا — عطري"
+      },
+      "growthLocations": {
+        "regions": ["حوض المتوسط", "الشرق الأوسط", "آسيا"],
+        "climate": "دافئ — شمس كاملة",
+        "soil": "جيدة التصريف",
+        "saudiRegions": ["جميع المناطق — بيوت محمية أو حدائق"]
+      }
+    },
+    {
+      "id": "seder",
+      "nameAr": "السدر",
+      "nameEn": "Christ's Thorn / Sidr",
+      "type": ["gharsa", "nabta", "thamra"],
+      "quranRef": "فِي سِدْرٍ مَّخْضُودٍ — الواقعة ٢٨",
+      "growth": {
+        "seedlingToPlant": { "minDays": 90, "maxDays": 180, "unit": "يوم" },
+        "plantToFirstFruit": { "minDays": 730, "maxDays": 1095, "unit": "يوم" },
+        "fullProduction": { "minDays": 1825, "maxDays": 2555, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "يتحمل الجفاف — ري قليل",
+        "fertilizer": "قليل — يكتفي بالطبيعة",
+        "pruning": "تقليم خفيف",
+        "pestControl": "مقاوم طبيعي"
+      },
+      "bestPractices": {
+        "taste": "ثمر حلو — عسل السدر المشهور",
+        "value": "عسل — ثمر — خشب — ورق",
+        "properties": "مضاد أكسدة — غذاء النحل — طبي"
+      },
+      "growthLocations": {
+        "regions": ["الجزيرة العربية", "اليمن", "عمان", "الهند"],
+        "climate": "حار جاف — جبلي",
+        "soil": "صخرية — جبلية",
+        "saudiRegions": ["عسير", "الباحة", "الطائف", "اليمن المجاور"]
+      }
+    },
+    {
+      "id": "zanjabil",
+      "nameAr": "الزنجبيل",
+      "nameEn": "Ginger",
+      "type": ["jathr", "nabta"],
+      "quranRef": "وَيُسْقَوْنَ فِيهَا كَأْسًا كَانَ مِزَاجُهَا زَنجَبِيلًا — الإنسان ١٧",
+      "growth": {
+        "seedlingToPlant": { "minDays": 0, "maxDays": 0, "unit": "يوم", "note": "من rhizome" },
+        "fullProduction": { "minDays": 240, "maxDays": 300, "unit": "يوم", "note": "8-10 أشهر" },
+        "rhizomeMaturity": { "minDays": 210, "maxDays": 270, "unit": "يوم" }
+      },
+      "care": {
+        "watering": "ري منتظم — رطوبة عالية",
+        "fertilizer": "سماد عضوي — بوتاسيوم",
+        "pruning": "إزالة الأوراق الميتة",
+        "pestControl": "الديدان — الفطريات"
+      },
+      "bestPractices": {
+        "taste": "حصاد عند اصفرار الأوراق — تجفيف أو طازج",
+        "value": "توابل — طبي — مشروبات",
+        "properties": "جينجيرول — مضاد التهاب — هضمي"
+      },
+      "growthLocations": {
+        "regions": ["الهند", "الصين", "جنوب شرق آسيا", "أفريقيا"],
+        "climate": "استوائي — رطب دافئ",
+        "soil": "غنية عضوية — رطبة",
+        "saudiRegions": ["جازان — بيوت محمية"]
+      }
+    }
+  ]
+}

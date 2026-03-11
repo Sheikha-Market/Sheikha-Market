@@ -1,0 +1,314 @@
+{
+  "title": "تقرير تفعيل محركات Google",
+  "owner": "سلمان أحمد بن سلمان الراجح",
+  "organization": "منظومة شيخة",
+  "email": "market@sheikha.top",
+  "date": "2026-03-10T05:07:28.595Z",
+  "results": {
+    "total": 8,
+    "active": 0,
+    "partial": 2,
+    "inactive": 6,
+    "errors": []
+  },
+  "engines": {
+    "auth": {
+      "name": "Google OAuth 2.0",
+      "status": "partial",
+      "apis": [
+        "OAuth 2.0 Authorization",
+        "Google Sign-In",
+        "OpenID Connect"
+      ],
+      "endpoints": {
+        "auth": "https://accounts.google.com/o/oauth2/v2/auth",
+        "token": "https://oauth2.googleapis.com/token",
+        "userinfo": "https://www.googleapis.com/oauth2/v2/userinfo"
+      },
+      "integration": "/api/auth/google",
+      "requiredEnv": [
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET"
+      ],
+      "features": [
+        "تسجيل دخول بحساب Google",
+        "ربط حساب Gmail",
+        "Single Sign-On (SSO)"
+      ]
+    },
+    "ai": {
+      "name": "Google Gemini AI",
+      "status": "inactive",
+      "apis": [
+        "Vertex AI API",
+        "Generative Language API",
+        "Gemini Pro Model",
+        "Gemini Pro Vision"
+      ],
+      "endpoints": {
+        "vertexAI": "https://aiplatform.googleapis.com",
+        "genAI": "https://generativelanguage.googleapis.com"
+      },
+      "integration": "/api/ai/gemini",
+      "requiredEnv": [
+        "GOOGLE_AI_API_KEY",
+        "GOOGLE_PROJECT_ID"
+      ],
+      "features": [
+        "تحليل أسعار المعادن بالذكاء الاصطناعي",
+        "توقعات السوق",
+        "كشف الاحتيال",
+        "المراجعة الشرعية التلقائية",
+        "السياق الموحد عبر AIs"
+      ]
+    },
+    "cloud": {
+      "name": "Google Cloud Platform",
+      "status": "inactive",
+      "apis": [
+        "Cloud Run API",
+        "Cloud Functions API",
+        "Cloud Storage API",
+        "BigQuery API",
+        "Cloud Pub/Sub API"
+      ],
+      "endpoints": {
+        "run": "https://run.googleapis.com",
+        "storage": "https://storage.googleapis.com",
+        "bigquery": "https://bigquery.googleapis.com"
+      },
+      "integration": "/api/cloud",
+      "requiredEnv": [
+        "GOOGLE_CLOUD_PROJECT",
+        "GOOGLE_APPLICATION_CREDENTIALS"
+      ],
+      "features": [
+        "نشر APIs على Cloud Run",
+        "تخزين صور المنتجات",
+        "تحليل البيانات الضخمة",
+        "معالجة الأحداث (Pub/Sub)"
+      ]
+    },
+    "maps": {
+      "name": "Google Maps & Geolocation",
+      "status": "inactive",
+      "apis": [
+        "Maps JavaScript API",
+        "Geolocation API",
+        "Places API",
+        "Geocoding API"
+      ],
+      "endpoints": {
+        "maps": "https://maps.googleapis.com/maps/api",
+        "places": "https://places.googleapis.com"
+      },
+      "integration": "/api/maps",
+      "requiredEnv": [
+        "GOOGLE_MAPS_API_KEY"
+      ],
+      "features": [
+        "عرض مواقع التجار والمستودعات",
+        "تتبع GPS للمنتجات",
+        "البحث الجغرافي",
+        "حساب المسافات والتكاليف"
+      ]
+    },
+    "analytics": {
+      "name": "Google Analytics 4",
+      "status": "inactive",
+      "apis": [
+        "Google Analytics 4",
+        "Google Tag Manager",
+        "Data API"
+      ],
+      "endpoints": {
+        "analytics": "https://www.google-analytics.com",
+        "tagManager": "https://www.googletagmanager.com"
+      },
+      "integration": "/api/analytics",
+      "requiredEnv": [
+        "GA4_MEASUREMENT_ID"
+      ],
+      "features": [
+        "تتبع سلوك المستخدمين",
+        "تحليل معدل التحويل",
+        "مراقبة الأداء",
+        "تقارير مخصصة"
+      ]
+    },
+    "gmail": {
+      "name": "Gmail API",
+      "status": "inactive",
+      "apis": [
+        "Gmail API",
+        "Gmail Send",
+        "Gmail Read"
+      ],
+      "endpoints": {
+        "gmail": "https://gmail.googleapis.com"
+      },
+      "integration": "/api/email",
+      "requiredEnv": [
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET"
+      ],
+      "features": [
+        "إرسال إشعارات عبر Gmail",
+        "قراءة رسائل الدعم",
+        "ربط بريد @sheikha.top مع Gmail"
+      ]
+    },
+    "pay": {
+      "name": "Google Pay",
+      "status": "inactive",
+      "apis": [
+        "Google Pay API",
+        "Google Wallet API"
+      ],
+      "endpoints": {
+        "pay": "https://pay.google.com/gp/w"
+      },
+      "integration": "/api/payment/googlepay",
+      "requiredEnv": [
+        "GOOGLE_PAY_MERCHANT_ID"
+      ],
+      "features": [
+        "الدفع عبر Google Pay",
+        "المحفظة الرقمية",
+        "المدفوعات السريعة"
+      ]
+    },
+    "search": {
+      "name": "Google Search Console",
+      "status": "partial",
+      "apis": [
+        "Search Console API",
+        "Custom Search API",
+        "Programmable Search Engine"
+      ],
+      "endpoints": {
+        "searchConsole": "https://searchconsole.googleapis.com",
+        "customSearch": "https://customsearch.googleapis.com"
+      },
+      "integration": "/api/seo",
+      "requiredEnv": [
+        "GOOGLE_SEARCH_CONSOLE_KEY",
+        "GOOGLE_CSE_ID"
+      ],
+      "features": [
+        "مراقبة SEO",
+        "بحث مخصص في السوق",
+        "تحليل الكلمات المفتاحية"
+      ]
+    }
+  },
+  "activationPlan": {
+    "title": "خطة تفعيل محركات Google",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "date": "2026-03-10T05:07:28.496Z",
+    "steps": [
+      {
+        "step": 1,
+        "title": "إنشاء Google Cloud Project",
+        "duration": "15 دقيقة",
+        "actions": [
+          "اذهب إلى: https://console.cloud.google.com",
+          "أنشئ مشروع جديد باسم \"Sheikha Marketplace\"",
+          "سجل Project ID: sheikha-marketplace",
+          "فعّل Billing (يمكن استخدام Free Tier)"
+        ]
+      },
+      {
+        "step": 2,
+        "title": "تفعيل Google APIs",
+        "duration": "20 دقيقة",
+        "actions": [
+          "اذهب إلى: APIs & Services > Library",
+          "ابحث وفعّل كل API:",
+          "  • OAuth 2.0 Authorization",
+          "  • Google Sign-In",
+          "  • OpenID Connect",
+          "  • Vertex AI API",
+          "  • Generative Language API",
+          "  • Gemini Pro Model",
+          "  • Gemini Pro Vision",
+          "  • Cloud Run API",
+          "  • Cloud Functions API",
+          "  • Cloud Storage API",
+          "  • BigQuery API",
+          "  • Cloud Pub/Sub API",
+          "  • Maps JavaScript API",
+          "  • Geolocation API",
+          "  • Places API",
+          "  • Geocoding API",
+          "  • Google Analytics 4",
+          "  • Google Tag Manager",
+          "  • Data API",
+          "  • Gmail API",
+          "  • Gmail Send",
+          "  • Gmail Read",
+          "  • Google Pay API",
+          "  • Google Wallet API",
+          "  • Search Console API",
+          "  • Custom Search API",
+          "  • Programmable Search Engine"
+        ]
+      },
+      {
+        "step": 3,
+        "title": "إنشاء Credentials",
+        "duration": "30 دقيقة",
+        "actions": [
+          "اذهب إلى: APIs & Services > Credentials",
+          "أنشئ OAuth 2.0 Client ID:",
+          "  • Application type: Web application",
+          "  • Authorized redirect URIs:",
+          "    - http://localhost:8080/api/auth/google/callback",
+          "    - https://sheikha.top/api/auth/google/callback",
+          "أنشئ API Key للـ AI و Maps",
+          "أنشئ Service Account لـ Cloud Services"
+        ]
+      },
+      {
+        "step": 4,
+        "title": "تحديث المتغيرات البيئية",
+        "duration": "10 دقائق",
+        "actions": [
+          "أنشئ ملف .env في المشروع:",
+          "",
+          "GOOGLE_CLIENT_ID=YOUR_VALUE_HERE",
+          "GOOGLE_CLIENT_SECRET=YOUR_VALUE_HERE",
+          "GOOGLE_AI_API_KEY=YOUR_VALUE_HERE",
+          "GOOGLE_PROJECT_ID=YOUR_VALUE_HERE",
+          "GOOGLE_CLOUD_PROJECT=YOUR_VALUE_HERE",
+          "GOOGLE_APPLICATION_CREDENTIALS=YOUR_VALUE_HERE",
+          "GOOGLE_MAPS_API_KEY=YOUR_VALUE_HERE",
+          "GA4_MEASUREMENT_ID=YOUR_VALUE_HERE",
+          "GOOGLE_PAY_MERCHANT_ID=YOUR_VALUE_HERE",
+          "GOOGLE_SEARCH_CONSOLE_KEY=YOUR_VALUE_HERE",
+          "GOOGLE_CSE_ID=YOUR_VALUE_HERE",
+          "",
+          "احفظ الملف وأعد تشغيل السيرفر"
+        ]
+      },
+      {
+        "step": 5,
+        "title": "اختبار التكامل",
+        "duration": "15 دقيقة",
+        "actions": [
+          "شغّل اختبار Google Integration:",
+          "  node scripts/google-integration-test.js",
+          "",
+          "تحقق من تسجيل الدخول بـ Google:",
+          "  http://localhost:8080/api/auth/google",
+          "",
+          "اختبر Gemini AI:",
+          "  http://localhost:8080/api/ai/gemini",
+          "",
+          "تحقق من الخرائط:",
+          "  http://localhost:8080/api/maps"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0",
+  "description": "Figma MCP clients — مرقمنة بالكتاب والسنة | التكامل الأمثل لشيخة: Cursor",
+  "recommendedForSheikha": "Cursor",
+  "reason": "شيخة تُبنى في Cursor — Figma MCP يضيف سياق التصميم مباشرة لتحويل التصاميم إلى كود",
+  "quranRef": "البقرة:282",
+  "quranText": "يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا تَدَايَنتُم بِدَيْنٍ إِلَىٰ أَجَلٍ مُّسَمًّى فَاكْتُبُوهُ",
+  "principle": "التوثيق والكتابة — التصميم يُوثّق ويُحوّل إلى كود صحيح",
+  "clients": [
+    { "id": "vscode", "name": "VS Code", "supports": ["Figma Design", "Figma Make", "FigJam"], "server": "Remote and local", "rank": 1, "quranRef": "العلق:1-5", "principle": "اقرأ — الكود والتوثيق في IDE" },
+    { "id": "cursor", "name": "Cursor", "supports": ["Figma Design", "Figma Make", "FigJam"], "server": "Remote and local", "rank": 1, "quranRef": "البقرة:282", "principle": "فاكتبوه — التصميم إلى كود في شيخة" },
+    { "id": "claude-code", "name": "Claude Code", "supports": ["Figma Design", "Figma Make", "FigJam"], "server": "Remote and local", "rank": 2, "quranRef": "العلق:1-5", "principle": "اقرأ — توليد كود من التصميم" },
+    { "id": "claude", "name": "Claude", "supports": ["Figma Design", "Figma Make", "FigJam"], "server": "Remote and local", "rank": 2, "quranRef": "البقرة:269", "principle": "الحكمة — مراجعة شرعية وتصميم" },
+    { "id": "windsurf", "name": "Windsurf", "supports": ["Figma Design", "Figma Make", "FigJam"], "server": "Remote and local", "rank": 2, "quranRef": "النساء:29", "principle": "التراضي — تصميم عن رضا" },
+    { "id": "replit", "name": "Replit", "supports": ["Figma Design", "FigJam"], "server": "Remote only", "rank": 3, "quranRef": "البقرة:275", "principle": "البيع — بناء سريع" },
+    { "id": "codex", "name": "Codex by OpenAI", "supports": ["Figma Design", "FigJam"], "server": "Remote and local", "rank": 2, "quranRef": "العلق:1-5", "principle": "اقرأ — توليد من التصميم" },
+    { "id": "gemini", "name": "Google Gemini CLI", "supports": ["Figma Design", "FigJam"], "server": "Remote and local", "rank": 2, "quranRef": "الإسراء:36", "principle": "العلم — لا تقف ما ليس لك به علم" },
+    { "id": "android-studio", "name": "Android Studio", "supports": ["Figma Design", "FigJam"], "server": "Remote and local", "rank": 3, "quranRef": "البقرة:282", "principle": "التوثيق — تطبيقات موبايل" },
+    { "id": "kiro", "name": "Kiro (Amazon)", "supports": ["Figma Design", "FigJam"], "server": "Remote and local", "rank": 3, "quranRef": "الحجرات:13", "principle": "التعارف — تكامل AWS" },
+    { "id": "amazon-q", "name": "Amazon Q", "supports": ["Figma Design", "FigJam"], "server": "Local only", "rank": 3, "quranRef": "البقرة:282", "principle": "التوثيق — مساعد AWS" },
+    { "id": "openhands", "name": "OpenHands", "supports": ["Figma Design", "FigJam"], "server": "Local only", "rank": 3, "quranRef": "المطففين:1-3", "principle": "العدل — تنفيذ عادل" },
+    { "id": "warp", "name": "Warp", "supports": ["Figma Design", "FigJam"], "server": "Remote and local", "rank": 2, "quranRef": "النساء:29", "principle": "التراضي — تصميم-كود" },
+    { "id": "zed", "name": "Zed", "supports": ["Figma Design", "FigJam"], "server": "Local only", "rank": 3, "quranRef": "البقرة:282", "principle": "الكتابة — محرر سريع" },
+    { "id": "atlassian-studio", "name": "Atlassian Studio", "supports": ["Figma Design", "FigJam"], "server": "Remote and local (coming soon)", "rank": 3, "quranRef": "الشورى:38", "principle": "الشورى — تعاون Atlassian" },
+    { "id": "servicenow", "name": "ServiceNow Build Agent", "supports": ["Figma Design"], "server": "Remote only", "rank": 3, "quranRef": "البقرة:282", "principle": "التوثيق — منصات Enterprise" }
+  ],
+  "serverUrl": "https://mcp.figma.com/mcp",
+  "installGuide": "https://help.figma.com/hc/en-us/articles/32132100833559",
+  "devMode": "ربط Figma MCP بـ Dev Mode لنتائج أصق",
+  "codeConnect": "ربط الكودbase عبر Code Connect لاستخدام المكونات الفعلية",
+  "installForCursor": "إضافة في .cursor/mcp.json: figma {\"url\":\"https://mcp.figma.com/mcp\",\"type\":\"http\"}"
+}

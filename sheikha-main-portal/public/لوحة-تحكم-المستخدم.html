@@ -1891,11 +1891,22 @@ setTimeout(animateCounters,300);
 try{
     var headers={'Content-Type':'application/json'};
     if(token)headers['Authorization']='Bearer '+token;
-    var res=await fetch('/api/dashboard',{headers:headers});
+    var res=await fetch('/api/dashboards/unified/user',{headers:headers});
     if(res.ok){
         var data=await res.json();
-        if(data.success&&data.dashboard){
-            console.log('✅ تم تحميل بيانات لوحة التحكم');
+        if(data.success&&data.data){
+            window.sheikhaUnifiedUserDashboard=data.data;
+            applySectionVisibility(data.data.capabilities,data.data.sectionCapabilityMap||{});
+            console.log('✅ تم تحميل بيانات لوحة التحكم الموحدة');
+            return;
+        }
+    }
+    // fallback متوافق مع المسار القديم
+    var oldRes=await fetch('/api/dashboard',{headers:headers});
+    if(oldRes.ok){
+        var oldData=await oldRes.json();
+        if(oldData.success&&oldData.dashboard){
+            console.log('✅ تم تحميل بيانات لوحة التحكم (مسار متوافق)');
         }
     }
 }catch(e){console.log('Dashboard API not available, using static data');}

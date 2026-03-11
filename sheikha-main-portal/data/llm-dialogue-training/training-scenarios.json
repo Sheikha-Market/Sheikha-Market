@@ -1,0 +1,34 @@
+{
+  "scenarios": [
+    {
+      "id": "S1",
+      "title": "AI-to-AI Integration Alignment",
+      "prompt": "Two AI agents must agree on API contract, privacy boundaries, and fallback strategy.",
+      "successCriteria": [
+        "Defines contract fields",
+        "Defines security constraints",
+        "Produces rollback plan"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Company Welcome + Joint Goal Setting",
+      "prompt": "Host welcomes partner company and co-defines 90-day delivery plan.",
+      "successCriteria": [
+        "Shared goals documented",
+        "Owners assigned",
+        "KPI dashboard agreed"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Conflict De-escalation in Technical Review",
+      "prompt": "Two teams disagree on architecture; moderator must converge to decision.",
+      "successCriteria": [
+        "Respectful language maintained",
+        "Decision criteria explicit",
+        "Final decision recorded"
+      ]
+    }
+  ]
+}

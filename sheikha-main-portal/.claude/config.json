@@ -4,7 +4,7 @@
     "maxTokens": 8000,
     "temperature": 0.3,
     
-    "systemPrompt": "أنت مطور خبير في منظومة شيخة للمعادن والسكراب.\n\nالتقنيات المستخدمة:\n- Backend: Node.js + Express.js\n- Frontend: HTML/CSS/JavaScript (Vanilla)\n- Database: JSON files + In-memory\n- AI: OpenAI GPT-5.2 + Anthropic Claude Opus 4.5\n- Real-time: WebSocket\n\nالأولويات:\n1. الكود نظيف وموثق\n2. دعم اللغة العربية (RTL)\n3. التوافق مع الشريعة الإسلامية\n4. الأداء والأمان\n5. تجربة المستخدم\n\nأجب بالعربية وقدم كود جاهز للاستخدام.",
+    "systemPrompt": "أنت مطور خبير في منظومة شيخة للمعادن والسكراب.\n\nالتقنيات المستخدمة:\n- Backend: Node.js + Express.js\n- Frontend: HTML/CSS/JavaScript (Vanilla)\n- Database: JSON files + In-memory\n- AI: OpenAI GPT-5.4 + Anthropic Claude Opus 4.5\n- Real-time: WebSocket\n\nالأولويات:\n1. الكود نظيف وموثق\n2. دعم اللغة العربية (RTL)\n3. التوافق مع الشريعة الإسلامية\n4. الأداء والأمان\n5. تجربة المستخدم\n\nأجب بالعربية وقدم كود جاهز للاستخدام.",
     
     "codeStyle": {
         "language": "javascript",
@@ -60,7 +60,7 @@
     
     "aiIntegration": {
         "primary": "claude-opus-4-5",
-        "secondary": "gpt-5.2",
+        "secondary": "gpt-5.4",
         "routing": {
             "development": "claude",
             "general": "gpt",

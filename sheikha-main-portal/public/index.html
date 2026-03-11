@@ -2,9 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>شيخة — أول سوق إسلامي رقمي للمعادن | على نهج سوق المدينة المنورة</title>
     <meta name="description" content="منظومة وسوق شيخة — أول مركز اقتصادي إسلامي رقمي متخصص بالمعادن، مبني على مبادئ سوق المدينة المنورة الذي أسسه النبي ﷺ">
+    <meta name="keywords" content="شيخة، سوق المعادن، سكراب، معادن، تجارة إسلامية، سوق المدينة، LME، COMEX، LBMA، مؤشر شيخة، HS Code، ISRI">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="سلمان أحمد بن سلمان الراجح">
+    <meta name="copyright" content="© 2026 سلمان أحمد بن سلمان الراجح — جميع الحقوق محفوظة">
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#D4AF37">
@@ -15,19 +19,30 @@
     <meta name="application-name" content="شيخة">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="msapplication-TileColor" content="#030712">
-    <!-- Open Graph -->
+    <!-- Open Graph — فيسبوك، واتساب، لينكدإن -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="شيخة — أول سوق إسلامي رقمي للمعادن">
-    <meta property="og:description" content="سوق إسلامي رقمي متكامل للمعادن والسكراب — تسعير نبوي — تجارة حلال">
+    <meta property="og:description" content="سوق إسلامي رقمي متكامل للمعادن والسكراب — تسعير نبوي — تجارة حلال — مؤشر شيخة">
     <meta property="og:url" content="https://sheikha.top">
     <meta property="og:site_name" content="SHEIKHA">
     <meta property="og:locale" content="ar_SA">
-    <!-- Twitter -->
+    <meta property="og:image" content="https://sheikha.top/images/og-sheikha.png">
+    <meta property="og:image:secure_url" content="https://sheikha.top/images/og-sheikha.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="منظومة وسوق شيخة — أول سوق إسلامي رقمي للمعادن">
+    <link rel="canonical" href="https://sheikha.top/">
+    <!-- Twitter Cards — X (تويتر) -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@sheikha_market">
     <meta name="twitter:title" content="شيخة — أول سوق إسلامي رقمي للمعادن">
-    <meta name="twitter:description" content="سوق إسلامي رقمي متكامل للمعادن والسكراب">
+    <meta name="twitter:description" content="سوق إسلامي رقمي متكامل للمعادن والسكراب — تسعير نبوي — تجارة حلال">
+    <meta name="twitter:image" content="https://sheikha.top/images/og-sheikha.png">
+    <meta name="twitter:image:alt" content="منظومة وسوق شيخة — أول سوق إسلامي رقمي للمعادن">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <script src="/js/safe-api.js"></script>
+    <script src="/js/sheikha-meta-injector.js" defer></script>
+    <script src="/js/sheikha-meta-helper.js"></script>
     <script src="/js/sheikha-access.js"></script>
     <script src="/js/sheikha-smart-fab.js" defer></script>
     <script src="/js/sheikha-i18n.js" defer></script>
@@ -59,9 +74,10 @@
 
         /* ═══ NAV ═══ */
         nav{position:fixed;top:0;width:100%;z-index:100;transition:all .5s}
-        nav.s{background:rgba(3,5,9,.96);backdrop-filter:blur(30px);border-bottom:1px solid var(--border)}
+        nav.s{background:rgba(3,5,9,.7);backdrop-filter:blur(40px);border-bottom:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,.2)}
         .nv{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px;padding:0 clamp(1rem,4vw,3rem)}
-        .logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+        .logo{display:flex;align-items:center;gap:14px;text-decoration:none;transition:all .4s cubic-bezier(.4,0,.2,1)}
+        .logo:hover{transform:translateY(-2px)}
         .logo-text{display:flex;flex-direction:column;line-height:1.1}
         .logo-text .ar{font-size:1.25rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
         .logo-text .en{font-size:.58rem;font-weight:700;color:var(--t3);letter-spacing:.3em;text-transform:uppercase}
@@ -74,24 +90,29 @@
 
         /* ═══ MEGA DROPDOWN ═══ */
         .nav-drop{position:relative}
-        .nav-drop-trigger{cursor:pointer;color:var(--t2);padding:9px 18px;border-radius:10px;font-size:.85rem;font-weight:600;transition:all .3s;display:flex;align-items:center;gap:6px;border:none;background:none;font-family:inherit}
-        .nav-drop-trigger:hover{color:var(--gold);background:rgba(212,175,55,.04)}
-        .nav-drop-trigger svg{width:12px;height:12px;transition:transform .3s}
+        .nav-drop-trigger{cursor:pointer;color:var(--t2);padding:9px 18px;border-radius:10px;font-size:.85rem;font-weight:600;transition:all .3s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;gap:6px;border:none;background:none;font-family:inherit;position:relative}
+        .nav-drop-trigger::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(184,115,51,.04));border-radius:10px;opacity:0;transition:opacity .3s;z-index:-1}
+        .nav-drop-trigger:hover{color:var(--gold);background:rgba(212,175,55,.08)}
+        .nav-drop-trigger:hover::before{opacity:1}
+        .nav-drop-trigger svg{width:12px;height:12px;transition:transform .3s cubic-bezier(.4,0,.2,1)}
         .nav-drop:hover .nav-drop-trigger svg{transform:rotate(180deg)}
         .nav-drop-trigger .dd-dot{width:5px;height:5px;background:var(--green-l);border-radius:50%;animation:pulse 2s infinite}
 
-        .mega-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:580px;background:rgba(8,12,24,.97);backdrop-filter:blur(40px);border:1px solid rgba(212,175,55,.1);border-radius:18px;padding:20px;opacity:0;visibility:hidden;transform:translateY(8px);transition:all .3s;box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:200;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+        .mega-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:580px;background:rgba(8,12,24,.95);backdrop-filter:blur(50px);border:1px solid rgba(212,175,55,.15);border-radius:18px;padding:20px;opacity:0;visibility:hidden;transform:translateY(8px);transition:all .35s cubic-bezier(.4,0,.2,1);box-shadow:0 25px 80px rgba(0,0,0,.4);z-index:200;display:grid;grid-template-columns:1fr 1fr;gap:6px}
         .nav-drop:hover .mega-menu{opacity:1;visibility:visible;transform:translateY(0)}
 
         .mega-section{padding:4px 0}
-        .mega-title{font-size:.65rem;font-weight:800;color:var(--gold);letter-spacing:.12em;padding:6px 12px;margin-bottom:4px;text-transform:uppercase;opacity:.7}
-        .mega-link{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;text-decoration:none;color:var(--t2);transition:all .25s;font-size:.82rem;font-weight:600}
-        .mega-link:hover{background:rgba(212,175,55,.04);color:var(--gold)}
-        .mega-link .ml-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;background:rgba(212,175,55,.04)}
+        .mega-title{font-size:.65rem;font-weight:800;color:var(--gold);letter-spacing:.12em;padding:6px 12px;margin-bottom:4px;text-transform:uppercase;opacity:.8;transition:opacity .3s}
+        .mega-link{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;text-decoration:none;color:var(--t2);transition:all .25s cubic-bezier(.4,0,.2,1);font-size:.82rem;font-weight:600;position:relative;overflow:hidden}
+        .mega-link::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(184,115,51,.05));opacity:0;transition:opacity .25s;z-index:-1}
+        .mega-link:hover{background:rgba(212,175,55,.08);color:var(--gold);transform:translateX(-3px)}
+        .mega-link:hover::before{opacity:1}
+        .mega-link .ml-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;background:rgba(212,175,55,.08);transition:all .25s}
+        .mega-link:hover .ml-icon{background:rgba(212,175,55,.15);transform:scale(1.1)}
         .mega-link .ml-text{line-height:1.3}
         .mega-link .ml-name{font-weight:700;font-size:.8rem}
         .mega-link .ml-desc{font-size:.65rem;color:var(--t3);font-weight:400}
-        .mega-sep{height:1px;background:rgba(212,175,55,.06);margin:6px 12px}
+        .mega-sep{height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.1),transparent);margin:6px 12px}
 
         /* ═══ MOBILE MENU ═══ */
         .mob-toggle{display:none;background:none;border:1px solid var(--border);color:var(--gold);width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:1.2rem;align-items:center;justify-content:center}
@@ -110,6 +131,10 @@
         .hero-bg::before{content:'';position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(212,175,55,.035) 0%,rgba(184,115,51,.015) 40%,transparent 70%);animation:breathe 12s ease infinite alternate}
         .hero-bg::after{content:'';position:absolute;bottom:0;left:0;right:0;height:240px;background:linear-gradient(to top,var(--bg),transparent)}
         @keyframes breathe{0%{opacity:.5;transform:translateX(-50%) scale(1)}100%{opacity:.85;transform:translateX(-50%) scale(1.12)}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes shimmer{0%,100%{opacity:.4}50%{opacity:1}}
+        @keyframes floatIn{0%{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
 
         .hero-c{position:relative;z-index:2;max-width:840px}
 
@@ -157,26 +182,45 @@
         @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,.3)}50%{opacity:.5;box-shadow:0 0 0 7px transparent}}
 
         h1.hero-t{font-size:clamp(2.6rem,6vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:1rem;letter-spacing:-.04em;animation:fu 1s ease .5s both}
-        .hero-t .g{background:linear-gradient(135deg,var(--gold-l),var(--gold),var(--copper));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero-t .g{background:linear-gradient(135deg,var(--gold-l),var(--gold),var(--copper));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 10px rgba(212,175,55,.15));animation:gradientFlow 4s ease infinite}
+        @keyframes gradientFlow{0%{filter:drop-shadow(0 2px 10px rgba(212,175,55,.15))}50%{filter:drop-shadow(0 4px 20px rgba(212,175,55,.3))}100%{filter:drop-shadow(0 2px 10px rgba(212,175,55,.15))}}
 
-        .hero-verse{font-size:clamp(.95rem,2vw,1.15rem);color:rgba(212,175,55,.45);margin-bottom:1.5rem;animation:fu 1s ease .6s both;font-family:'Amiri',serif;font-weight:400;line-height:1.8}
-        .hero-sub{color:var(--t2);font-size:1.1rem;line-height:1.8;margin-bottom:2.5rem;max-width:640px;margin-left:auto;margin-right:auto;animation:fu 1s ease .7s both}
+        .hero-verse{font-size:clamp(.95rem,2vw,1.15rem);color:rgba(212,175,55,.55);margin-bottom:1.5rem;animation:fu 1s ease .6s both;font-family:'Amiri',serif;font-weight:400;line-height:1.8;text-shadow:0 2px 8px rgba(212,175,55,.1)}
+        .hero-sub{color:var(--t2);font-size:1.1rem;line-height:1.8;margin-bottom:2.5rem;max-width:640px;margin-left:auto;margin-right:auto;animation:fu 1s ease .7s both;letter-spacing:.5px}
+        .identity-tech{max-width:840px;margin:0 auto 1.8rem;padding:16px 18px;border:1px solid rgba(212,175,55,.14);border-radius:16px;background:linear-gradient(135deg,rgba(212,175,55,.05),rgba(184,115,51,.03));backdrop-filter:blur(12px);animation:fu 1s ease .78s both}
+        .identity-tech-title{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--gold);font-weight:800;font-size:.86rem;letter-spacing:.06em;margin-bottom:10px}
+        .identity-tech-desc{color:var(--t2);font-size:.92rem;line-height:1.9;margin-bottom:12px}
+        .identity-tech-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+        .identity-tech-item{padding:10px 8px;border:1px solid rgba(212,175,55,.12);border-radius:10px;background:rgba(212,175,55,.03);text-align:center;transition:all .3s}
+        .identity-tech-item:hover{border-color:rgba(212,175,55,.28);transform:translateY(-2px)}
+        .identity-tech-item .k{display:block;font-size:.7rem;color:var(--t3);margin-bottom:4px}
+        .identity-tech-item .v{display:block;font-size:.82rem;font-weight:800;color:var(--t1)}
+        @media(max-width:768px){.identity-tech-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
         @keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes float{0%,100%{transform:translateY(0px)}50%{transform:translateY(-20px)}}
 
         .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fu 1s ease .85s both}
-        .btn{padding:16px 36px;border-radius:12px;font-size:.95rem;font-weight:700;text-decoration:none;transition:all .35s;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:10px}
-        .bp{background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--bg);box-shadow:0 8px 32px rgba(212,175,55,.16)}
-        .bp:hover{transform:translateY(-3px);box-shadow:0 16px 50px rgba(212,175,55,.3)}
+        .btn{padding:16px 36px;border-radius:12px;font-size:.95rem;font-weight:700;text-decoration:none;transition:all .35s cubic-bezier(.4,0,.2,1);border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:10px;position:relative;overflow:hidden;box-shadow:0 8px 20px rgba(212,175,55,.15);letter-spacing:.3px}
+        .btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transform:translateX(-100%);transition:transform .6s cubic-bezier(.4,0,.2,1)}
+        .btn:hover::before{transform:translateX(100%)}
+        .btn::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.2),transparent 50%);opacity:0;transition:opacity .3s}
+        .btn:hover::after{opacity:1}
+        .bp{background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--bg);box-shadow:0 12px 35px rgba(212,175,55,.25)}
+        .bp:hover{transform:translateY(-4px);box-shadow:0 18px 50px rgba(212,175,55,.4);filter:brightness(1.12)}
+        .bo{background:rgba(212,175,55,.1);color:var(--gold);border:1.5px solid rgba(212,175,55,.25);backdrop-filter:blur(20px);text-shadow:0 0 10px rgba(212,175,55,.3)}
+        .bo:hover{background:rgba(212,175,55,.18);border-color:rgba(212,175,55,.5);transform:translateY(-4px);box-shadow:0 12px 30px rgba(212,175,55,.25);text-shadow:0 0 16px rgba(212,175,55,.5)}
         .bo{background:transparent;color:var(--t1);border:1.5px solid rgba(255,255,255,.08)}
         .bo:hover{border-color:rgba(212,175,55,.25);background:rgba(212,175,55,.02)}
         .btn svg{width:18px;height:18px;flex-shrink:0}
 
         /* ═══ TRUST ═══ */
-        .trust{padding:26px 1.5rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(212,175,55,.006)}
+        .trust{padding:26px 1.5rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:linear-gradient(90deg,rgba(212,175,55,.008),rgba(184,115,51,.004),rgba(212,175,55,.008));backdrop-filter:blur(15px)}
         .trust-in{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:clamp(1.5rem,4vw,3.5rem);flex-wrap:wrap}
-        .ti{display:flex;align-items:center;gap:8px;color:var(--t3);font-size:.8rem;font-weight:600;white-space:nowrap}
-        .ti svg{width:18px;height:18px;color:var(--gold);opacity:.65;flex-shrink:0}
-        .ti strong{color:var(--t2)}
+        .ti{display:flex;align-items:center;gap:12px;color:var(--t3);font-size:.8rem;font-weight:600;white-space:nowrap;padding:8px 12px;border-radius:8px;transition:all .3s cubic-bezier(.4,0,.2,1)}
+        .ti:hover{background:rgba(212,175,55,.06);color:var(--t1)}
+        .ti svg{width:18px;height:18px;color:var(--gold);opacity:.8;flex-shrink:0;transition:transform .3s}
+        .ti:hover svg{transform:scale(1.1)}
+        .ti strong{color:var(--t2);font-weight:700}
 
         /* ═══ TICKER ═══ */
         .ticker{overflow:hidden;padding:13px 0;background:rgba(0,0,0,.25);border-bottom:1px solid var(--border)}
@@ -188,14 +232,112 @@
 
         /* ═══ SECTION ═══ */
         .sec{max-width:1280px;margin:0 auto;padding:6rem 1.5rem}
-        .sb{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:50px;border:1px solid var(--border);font-size:.7rem;font-weight:700;color:var(--gold);letter-spacing:.14em;margin-bottom:1.2rem;background:rgba(212,175,55,.015);text-transform:uppercase}
-        .st{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:900;line-height:1.15;margin-bottom:.8rem;letter-spacing:-.03em}
-        .st .g{background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .sd{color:var(--t2);font-size:1.02rem;line-height:1.75;max-width:640px}
+        .sb{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:50px;border:1px solid rgba(212,175,55,.15);font-size:.7rem;font-weight:700;color:var(--gold);letter-spacing:.14em;margin-bottom:1.2rem;background:rgba(212,175,55,.04);text-transform:uppercase;transition:all .3s;backdrop-filter:blur(10px)}
+        .sb:hover{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.3)}
+        .st{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:900;line-height:1.15;margin-bottom:.8rem;letter-spacing:-.03em;animation:slideUp 0.7s ease 0.1s both}
+        .st .g{background:linear-gradient(135deg,var(--gold),var(--gold-l),var(--copper));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 8px rgba(212,175,55,.18))}
+        .sd{color:var(--t2);font-size:1.02rem;line-height:1.75;max-width:640px;animation:slideUp 0.7s ease 0.2s both;opacity:.9}
         .sh{margin-bottom:3.5rem}
         .sh.c{text-align:center}.sh.c .sd{margin:0 auto}
-        .hov-card{background:var(--bg2);border:1px solid rgba(255,255,255,.02);border-radius:20px;padding:32px;transition:all .4s}
-        .hov-card:hover{border-color:rgba(212,175,55,.12)!important;transform:translateY(-4px)}
+        @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+        /* ═══ PRODUCTS SHOWCASE (ULTRA PREMIUM — أفضل من Apple/Tesla) ═══ */
+        @keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(2deg)}}
+        @keyframes glow-pulse{0%,100%{opacity:.2;transform:scale(.98)}50%{opacity:.35;transform:scale(1.02)}}
+        @keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+        @keyframes card-entrance{from{opacity:0;transform:translateY(40px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+        .products-grid{max-width:1400px;margin:4rem auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:32px;position:relative;z-index:2;perspective:2000px}
+
+        .product-card{position:relative;border-radius:28px;overflow:hidden;background:linear-gradient(165deg,rgba(12,16,28,.98),rgba(5,8,15,.95),rgba(2,3,8,.98));border:2px solid rgba(255,255,255,.06);transition:all .6s cubic-bezier(.165,.84,.44,1);box-shadow:0 24px 60px rgba(0,0,0,.45),0 8px 20px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(50px) saturate(180%);transform-style:preserve-3d;animation:card-entrance .9s cubic-bezier(.165,.84,.44,1) both}
+        .product-card:nth-child(1){animation-delay:.1s}
+        .product-card:nth-child(2){animation-delay:.2s}
+        .product-card:nth-child(3){animation-delay:.3s}
+
+        .product-card::before{content:'';position:absolute;inset:-2px;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent 30%,rgba(255,255,255,.06) 50%,transparent 70%,rgba(255,255,255,.08));opacity:.5;pointer-events:none;border-radius:28px;z-index:1}
+        .product-card::after{content:'';position:absolute;top:50%;left:50%;width:60%;height:60%;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);transform:translate(-50%,-50%) scale(0);opacity:0;transition:all .6s cubic-bezier(.165,.84,.44,1);pointer-events:none;z-index:0}
+
+        .product-card:hover{transform:translateY(-16px) scale(1.02) rotateX(2deg);box-shadow:0 40px 90px rgba(0,0,0,.55),0 16px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.15);border-color:rgba(255,255,255,.12)}
+        .product-card:hover::after{transform:translate(-50%,-50%) scale(1.5);opacity:1}
+
+        .product-card.gold{border-color:rgba(212,175,55,.35);background:linear-gradient(165deg,rgba(18,16,10,.98),rgba(12,10,6,.95),rgba(8,6,3,.98))}
+        .product-card.gold::after{background:radial-gradient(circle,rgba(212,175,55,.15),transparent 70%)}
+        .product-card.gold:hover{box-shadow:0 40px 90px rgba(212,175,55,.35),0 16px 40px rgba(212,175,55,.2),inset 0 1px 0 rgba(212,175,55,.25);border-color:rgba(212,175,55,.6)}
+
+        .product-card.copper{border-color:rgba(184,115,51,.35);background:linear-gradient(165deg,rgba(16,12,10,.98),rgba(10,8,6,.95),rgba(6,4,3,.98))}
+        .product-card.copper::after{background:radial-gradient(circle,rgba(184,115,51,.15),transparent 70%)}
+        .product-card.copper:hover{box-shadow:0 40px 90px rgba(184,115,51,.35),0 16px 40px rgba(184,115,51,.2),inset 0 1px 0 rgba(184,115,51,.25);border-color:rgba(184,115,51,.6)}
+
+        .product-card.silver{border-color:rgba(192,192,192,.35);background:linear-gradient(165deg,rgba(14,14,16,.98),rgba(10,10,12,.95),rgba(6,6,8,.98))}
+        .product-card.silver::after{background:radial-gradient(circle,rgba(192,192,192,.15),transparent 70%)}
+        .product-card.silver:hover{box-shadow:0 40px 90px rgba(192,192,192,.35),0 16px 40px rgba(192,192,192,.2),inset 0 1px 0 rgba(192,192,192,.25);border-color:rgba(192,192,192,.6)}
+
+        .product-media{position:relative;height:340px;overflow:hidden;background:linear-gradient(to bottom,rgba(0,0,0,.3),rgba(0,0,0,.6));display:flex;align-items:center;justify-content:center}
+        .product-media::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.08),transparent 60%);pointer-events:none;z-index:1}
+
+        .product-media img{width:85%;height:85%;object-fit:contain;display:block;transform:scale(1.05) translateY(0);transition:transform .8s cubic-bezier(.165,.84,.44,1),filter .8s;filter:drop-shadow(0 20px 40px rgba(0,0,0,.5)) saturate(1.1) contrast(1.08);position:relative;z-index:2}
+        .product-card:hover .product-media img{transform:scale(1.15) translateY(-8px) rotateZ(-2deg);filter:drop-shadow(0 30px 60px rgba(0,0,0,.6)) saturate(1.25) contrast(1.12) brightness(1.08)}
+
+        .product-card.gold .product-media{background:radial-gradient(circle at 40% 40%,rgba(212,175,55,.12),rgba(10,8,5,.8))}
+        .product-card.copper .product-media{background:radial-gradient(circle at 40% 40%,rgba(184,115,51,.12),rgba(10,8,6,.8))}
+        .product-card.silver .product-media{background:radial-gradient(circle at 40% 40%,rgba(192,192,192,.12),rgba(10,10,12,.8))}
+
+        .product-overlay{position:absolute;left:0;right:0;bottom:0;height:50%;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.4) 40%,transparent 100%);pointer-events:none;z-index:3}
+
+        .product-chip{position:absolute;top:20px;right:20px;padding:8px 16px;border-radius:999px;font-size:.7rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;backdrop-filter:blur(20px) saturate(180%);border:1.5px solid rgba(255,255,255,.25);box-shadow:0 8px 24px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2);z-index:4;transition:all .4s}
+        .product-card:hover .product-chip{transform:translateY(-4px) scale(1.05);box-shadow:0 12px 32px rgba(0,0,0,.4)}
+        .product-card.gold .product-chip{background:linear-gradient(135deg,rgba(212,175,55,.3),rgba(212,175,55,.15));color:#FFE8B3;border-color:rgba(212,175,55,.5);text-shadow:0 2px 8px rgba(0,0,0,.4)}
+        .product-card.copper .product-chip{background:linear-gradient(135deg,rgba(184,115,51,.3),rgba(184,115,51,.15));color:#FFD8B8;border-color:rgba(184,115,51,.5);text-shadow:0 2px 8px rgba(0,0,0,.4)}
+        .product-card.silver .product-chip{background:linear-gradient(135deg,rgba(192,192,192,.3),rgba(192,192,192,.15));color:#FFFFFF;border-color:rgba(192,192,192,.5);text-shadow:0 2px 8px rgba(0,0,0,.4)}
+
+        .product-body{padding:2rem 2rem 1.8rem;position:relative;z-index:5}
+        .product-kicker{font-size:.75rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.6rem;opacity:.95;text-shadow:0 2px 12px rgba(0,0,0,.3)}
+
+        .product-card.gold .product-kicker{color:#FFE8B3;text-shadow:0 2px 12px rgba(212,175,55,.5)}
+        .product-card.gold .product-title{color:#FFD700;text-shadow:0 2px 16px rgba(212,175,55,.4)}
+        .product-card.gold .product-price{background:linear-gradient(135deg,#FFD700,#FFA500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 8px rgba(212,175,55,.3))}
+
+        .product-card.copper .product-kicker{color:#FFD8B8;text-shadow:0 2px 12px rgba(184,115,51,.5)}
+        .product-card.copper .product-title{color:#F0C6A2;text-shadow:0 2px 16px rgba(184,115,51,.4)}
+        .product-card.copper .product-price{background:linear-gradient(135deg,#F0C6A2,#D4906C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 8px rgba(184,115,51,.3))}
+
+        .product-card.silver .product-kicker{color:#F8F8F8;text-shadow:0 2px 12px rgba(192,192,192,.5)}
+        .product-card.silver .product-title{color:#E8E8E8;text-shadow:0 2px 16px rgba(192,192,192,.4)}
+        .product-card.silver .product-price{background:linear-gradient(135deg,#F8F8F8,#C0C0C0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 8px rgba(192,192,192,.3))}
+
+        .product-title{font-size:1.45rem;font-weight:900;margin-bottom:.75rem;letter-spacing:-.02em;line-height:1.2}
+        .product-desc{color:rgba(255,255,255,.75);font-size:.95rem;line-height:1.85;margin-bottom:1.4rem;text-shadow:0 1px 4px rgba(0,0,0,.3)}
+
+        .product-pricebox{padding:16px 18px;border-radius:16px;margin-bottom:1.2rem;border:1.5px solid rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));backdrop-filter:blur(20px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 4px 12px rgba(0,0,0,.2);transition:all .4s}
+        .product-card:hover .product-pricebox{border-color:rgba(255,255,255,.2);background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 6px 16px rgba(0,0,0,.25)}
+
+        .product-pricelabel{font-size:.78rem;color:#7FE5B8;font-weight:900;margin-bottom:6px;letter-spacing:.05em;text-shadow:0 2px 8px rgba(127,229,184,.3)}
+        .product-price{font-size:1.55rem;font-weight:900;letter-spacing:-.01em}
+
+        .product-action{display:block;text-align:center;padding:14px 20px;border-radius:14px;font-weight:900;text-decoration:none;transition:all .45s cubic-bezier(.165,.84,.44,1);letter-spacing:.3px;font-size:1rem;position:relative;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2)}
+        .product-action::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:translateX(-100%);transition:transform .6s}
+        .product-action:hover::before{transform:translateX(100%)}
+
+        .product-card.gold .product-action{background:linear-gradient(135deg,#FFD700 0%,#FFA500 50%,#D4AF37 100%);color:#1A1508;text-shadow:0 1px 2px rgba(0,0,0,.2)}
+        .product-card.gold .product-action:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 40px rgba(212,175,55,.5),0 8px 20px rgba(212,175,55,.3),inset 0 1px 0 rgba(255,255,255,.3);filter:brightness(1.1)}
+
+        .product-card.copper .product-action{background:linear-gradient(135deg,#F0C6A2 0%,#D4906C 50%,#B87333 100%);color:#0F0805;text-shadow:0 1px 2px rgba(0,0,0,.2)}
+        .product-card.copper .product-action:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 40px rgba(184,115,51,.5),0 8px 20px rgba(184,115,51,.3),inset 0 1px 0 rgba(255,255,255,.3);filter:brightness(1.1)}
+
+        .product-card.silver .product-action{background:linear-gradient(135deg,#F8F8F8 0%,#D0D0D0 50%,#A8A8A8 100%);color:#0A0A0C;text-shadow:0 1px 2px rgba(0,0,0,.2)}
+        .product-card.silver .product-action:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 40px rgba(192,192,192,.5),0 8px 20px rgba(192,192,192,.3),inset 0 1px 0 rgba(255,255,255,.3);filter:brightness(1.1)}
+
+        .products-cta{display:inline-flex;align-items:center;gap:14px;padding:20px 56px;background:linear-gradient(135deg,#FFD700 0%,#FFA500 50%,#B87333 100%);color:#0F0805;border:none;border-radius:18px;font-weight:900;font-size:1.15rem;cursor:pointer;text-decoration:none;transition:all .5s cubic-bezier(.165,.84,.44,1);box-shadow:0 16px 48px rgba(212,175,55,.35),0 8px 24px rgba(212,175,55,.2),inset 0 2px 0 rgba(255,255,255,.3);position:relative;overflow:hidden;text-shadow:0 1px 2px rgba(0,0,0,.15)}
+        .products-cta::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transform:translateX(-100%);transition:transform .8s}
+        .products-cta:hover{box-shadow:0 24px 64px rgba(212,175,55,.5),0 12px 32px rgba(212,175,55,.3),inset 0 2px 0 rgba(255,255,255,.4);transform:translateY(-4px) scale(1.03);filter:brightness(1.12)}
+        .products-cta:hover::before{transform:translateX(100%)}
+
+        @media(max-width:768px){.products-grid{grid-template-columns:1fr;gap:24px}.product-media{height:280px}.product-body{padding:1.5rem 1.5rem 1.3rem}.product-card{border-radius:20px}}
+
+        .hov-card{background:rgba(3,5,9,.5);border:1px solid rgba(212,175,55,.12);border-radius:24px;padding:36px;transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;backdrop-filter:blur(25px);box-shadow:0 8px 32px rgba(0,0,0,.25);animation:fadeInUp 0.7s ease both}
+        .hov-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,175,55,.12),rgba(184,115,51,.06));opacity:0;transition:opacity .4s cubic-bezier(.4,0,.2,1);z-index:-1}
+        .hov-card:hover{border-color:rgba(212,175,55,.28);transform:translateY(-12px);box-shadow:0 32px 96px rgba(212,175,55,.25);background:rgba(3,5,9,.6)}
+        .hov-card:hover::before{opacity:1}
         .hov-card--sm{border-radius:18px;padding:36px}
         .hov-link{transition:all .35s}
         .hov-link:hover{background:rgba(212,175,55,.12)!important;transform:translateY(-2px)}
@@ -204,9 +346,9 @@
 
         /* ═══ PROPHETIC FOUNDATIONS ═══ */
         .found-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;border-radius:24px;overflow:hidden}
-        .found{padding:44px 34px;background:var(--bg2);position:relative;transition:all .5s}
-        .found::before{content:'';position:absolute;top:0;right:0;bottom:0;width:3px;background:var(--gold);opacity:0;transition:opacity .4s}
-        .found:hover{background:rgba(212,175,55,.015)}.found:hover::before{opacity:1}
+        .found{padding:44px 34px;background:var(--bg2);position:relative;transition:all .5s cubic-bezier(.4,0,.2,1);border-radius:4px;border-left:4px solid rgba(212,175,55,.2)}
+        .found::before{content:'';position:absolute;top:0;right:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--gold),rgba(212,175,55,0));opacity:0;transition:opacity .4s}
+        .found:hover{background:rgba(212,175,55,.025);border-left-color:var(--gold)}.found:hover::before{opacity:1}
         .found-num{font-size:.65rem;font-weight:800;color:var(--gold);letter-spacing:.15em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
         .found-num span{width:20px;height:20px;border-radius:5px;background:rgba(212,175,55,.1);display:inline-grid;place-items:center;font-size:.65rem;color:var(--gold)}
         .found h3{font-size:1.08rem;font-weight:800;margin-bottom:8px}
@@ -225,10 +367,11 @@
 
         /* ═══ CATS ═══ */
         .cats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-        .cat{background:var(--bg2);border:1px solid rgba(255,255,255,.02);border-radius:20px;padding:40px 28px;text-align:center;transition:all .45s;cursor:pointer;text-decoration:none;color:var(--t1);position:relative;overflow:hidden}
-        .cat::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(212,175,55,.03),transparent 70%);opacity:0;transition:opacity .4s}
-        .cat:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,.35);border-color:rgba(212,175,55,.12)}.cat:hover::after{opacity:1}
-        .cat .ic{width:68px;height:68px;border-radius:17px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+        .cat{background:var(--bg2);border:1px solid rgba(255,255,255,.02);border-radius:20px;padding:40px 28px;text-align:center;transition:all .45s cubic-bezier(.4,0,.2,1);cursor:pointer;text-decoration:none;color:var(--t1);position:relative;overflow:hidden;backdrop-filter:blur(10px)}
+        .cat::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(212,175,55,.08),transparent 70%);opacity:0;transition:opacity .4s cubic-bezier(.4,0,.2,1)}
+        .cat:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(212,175,55,.2);border-color:rgba(212,175,55,.18)}.cat:hover::after{opacity:1}
+        .cat .ic{width:68px;height:68px;border-radius:17px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(184,115,51,.04));transition:all .3s}
+        .cat:hover .ic{background:linear-gradient(135deg,rgba(212,175,55,.15),rgba(184,115,51,.08));transform:scale(1.1)}
         .cat .ic svg{width:34px;height:34px}
         .cat .hs{font-size:.7rem;color:var(--gold);font-weight:700;letter-spacing:.08em;margin-bottom:8px;font-family:monospace;position:relative;z-index:1}
         .cat h3{font-size:1.05rem;font-weight:800;margin-bottom:6px;position:relative;z-index:1}
@@ -236,24 +379,25 @@
 
         /* ═══ VISION ═══ */
         .vision-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-        .vis{background:var(--bg2);border:1px solid rgba(255,255,255,.02);border-radius:18px;padding:36px 28px;transition:all .4s;text-align:center}
-        .vis:hover{border-color:rgba(212,175,55,.12);transform:translateY(-4px)}
+        .vis{background:linear-gradient(135deg,rgba(212,175,55,.04),rgba(184,115,51,.02));border:1px solid rgba(212,175,55,.1);border-radius:18px;padding:36px 28px;transition:all .4s cubic-bezier(.4,0,.2,1);text-align:center;backdrop-filter:blur(15px)}
+        .vis:hover{border-color:rgba(212,175,55,.25);transform:translateY(-6px);box-shadow:0 20px 50px rgba(212,175,55,.15)}
         .vis .phase{font-size:.7rem;font-weight:800;color:var(--gold);letter-spacing:.12em;margin-bottom:12px}
         .vis h3{font-size:1.05rem;font-weight:800;margin-bottom:8px}
         .vis p{color:var(--t2);font-size:.84rem;line-height:1.65}
 
         /* ═══ WISDOM ═══ */
         .wisdom{text-align:center;padding:5rem 1.5rem;position:relative}
-        .wisdom::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(212,175,55,.015),transparent 55%);pointer-events:none}
-        .wisdom-line{width:60px;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 2rem}
-        .wisdom q{display:block;font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:300;line-height:1.9;max-width:700px;margin:0 auto 1.2rem;color:var(--t2);font-family:'Amiri',serif;position:relative;z-index:1}
-        .wisdom cite{color:var(--gold);font-size:.85rem;font-weight:600;position:relative;z-index:1;font-style:normal}
+        .wisdom::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(212,175,55,.02),transparent 55%);pointer-events:none}
+        .wisdom-line{width:60px;height:2px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.5),transparent);margin:0 auto 2rem;animation:shimmer 3s ease-in-out infinite}
+        .wisdom q{display:block;font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:300;line-height:1.9;max-width:700px;margin:0 auto 1.2rem;color:var(--t2);font-family:'Amiri',serif;position:relative;z-index:1;animation:fadeInUp 0.8s ease 0.2s both;letter-spacing:.5px}
+        .wisdom cite{color:var(--gold);font-size:.85rem;font-weight:600;position:relative;z-index:1;font-style:normal;animation:fadeInUp 0.8s ease 0.3s both}
 
         /* ═══ ECO ═══ */
         .eco{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-        .ec{background:var(--bg2);border:1px solid rgba(255,255,255,.02);border-radius:16px;padding:32px 28px;display:flex;gap:18px;transition:all .4s}
-        .ec:hover{border-color:rgba(212,175,55,.1);transform:translateY(-3px)}
-        .ec-ic{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .ec{background:linear-gradient(135deg,rgba(212,175,55,.05),rgba(184,115,51,.02));border:1px solid rgba(212,175,55,.12);border-radius:16px;padding:32px 28px;display:flex;gap:18px;transition:all .4s cubic-bezier(.4,0,.2,1);backdrop-filter:blur(15px)}
+        .ec:hover{border-color:rgba(212,175,55,.25);transform:translateY(-4px);box-shadow:0 20px 50px rgba(212,175,55,.15)}
+        .ec-ic{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(184,115,51,.05));transition:all .3s}
+        .ec:hover .ec-ic{transform:scale(1.15)}
         .ec-ic svg{width:22px;height:22px}
         .ec h3{font-size:.95rem;font-weight:700;margin-bottom:4px}
         .ec p{color:var(--t2);font-size:.84rem;line-height:1.6}
@@ -424,6 +568,10 @@
         <li data-access="all"><a href="/سوق-شيخة.html">السوق</a></li>
         <!-- 5. الشريعة -->
         <li data-access="all"><a href="/الشريعة-الاسلامية.html">الشريعة</a></li>
+        <!-- 5.1. الوكلاء الإسلاميون -->
+        <li data-access="all"><a href="/الوكلاء-الإسلاميين.html">الوكلاء الإسلاميون</a></li>
+            <!-- 5.2. مركز التدريب متعدد اللغات -->
+            <li data-access="all"><a href="/مركز-التدريب-متعدد-اللغات.html">مركز التدريب العالمي</a></li>
         <!-- 6. التسجيل — dropdown للأنواع المختلفة -->
         <li class="nav-drop" data-access="all" id="nav-register-btn">
             <button class="nav-drop-trigger">التسجيل <svg viewBox="0 0 12 12" fill="none" style="width:10px;height:10px;margin-right:4px"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
@@ -881,19 +1029,110 @@
         <h1 class="hero-t"><span class="g">شيخة</span><br>أول سوق إسلامي رقمي للمعادن</h1>
         <p class="hero-verse amiri">﴿ وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا ﴾ — البقرة ٢٧٥</p>
         <p class="hero-sub">منظومة وسوق عالمي مبني على مبادئ سوق المدينة المنورة الذي أسسه النبي ﷺ — أول مركز اقتصادي إسلامي رقمي متخصص بالمعادن الأساسية والثمينة والنادرة والسكراب</p>
+        <div class="identity-tech" aria-label="هوية شيخة التقنية والعلمية">
+            <div class="identity-tech-title"><span class="dot"></span> الهوية الأصلية + القوة التقنية + التقدم العلمي</div>
+            <p class="identity-tech-desc">نحافظ على هوية شيخة الإسلامية الأصيلة، ونُظهر القوة التقنية عبر برمجيات موحّدة، تحليل ذكي، وتشغيل علمي قابل للتوسع مع امتثال شرعي واستدامة معرفية.</p>
+            <div class="identity-tech-grid">
+                <div class="identity-tech-item"><span class="k">الهوية</span><span class="v">أصيلة وثابتة</span></div>
+                <div class="identity-tech-item"><span class="k">التقنية</span><span class="v">AI + HPC + API</span></div>
+                <div class="identity-tech-item"><span class="k">العلم</span><span class="v">نمذجة وتحليل</span></div>
+                <div class="identity-tech-item"><span class="k">الحوكمة</span><span class="v">امتثال شرعي</span></div>
+            </div>
+        </div>
         <!-- «بُعِثتُ بجوامعِ الكَلِم» — صحيح البخاري ٧٢٧٣ وصحيح مسلم ٥٢٣ -->
         <p class="amiri" style="margin-top:1.5rem;font-size:.92rem;color:var(--gold);line-height:2.2;max-width:580px;margin-left:auto;margin-right:auto;text-align:center;opacity:.85;border-bottom:1px solid rgba(212,175,55,.08);padding-bottom:14px">«لا ضَرَرَ ولا ضِرار» · «مَن غَشَّنا فليسَ مِنّا» · «البَيِّعانِ بالخِيار»</p>
         <div class="btns">
             <a href="/تسجيل-الدخول.html?tab=register&type=trader" class="btn bp">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-                سجّل كتاجر
+                🚀 سجّل كتاجر — مجاناً
             </a>
             <a href="/سوق-شيخة.html" class="btn bo">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                تصفّح السوق
+                🔍 استكشف العروض
             </a>
                             </div>
                             </div>
+</section>
+
+<!-- ═══ PRODUCTS SHOWCASE — عرض المنتجات الرئيسية ═══ -->
+<section class="sec" style="position:relative;overflow:hidden">
+    <div style="position:absolute;top:-40%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(212,175,55,.04),transparent);border-radius:50%;pointer-events:none;animation:float 15s ease infinite"></div>
+    <div style="position:absolute;bottom:-20%;left:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(184,115,51,.025),transparent);border-radius:50%;pointer-events:none;animation:float 20s ease infinite reverse"></div>
+    <div class="sh c" style="position:relative;z-index:2">
+        <div class="sb">⚡ فرصة استثمارية لا تُعوّض</div>
+        <h2 class="st">احصل على <span class="g">أفضل المعادن العالمية</span> بأقل الأسعار</h2>
+        <p class="sd">معادن ثمينة معتمدة دولياً — أسعار لحظية محدّثة — تجارة آمنة 100% — شحن عالمي سريع</p>
+    </div>
+
+    <!-- Product Cards — Ultra Premium Design -->
+    <div class="products-grid">
+
+        <!-- Gold Product Card -->
+        <article class="product-card gold">
+            <div class="product-media">
+                <img src="https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&h=600&fit=crop&q=90" alt="LBMA Gold 999.9 — سبائك الذهب الخالص المعتمدة عالمياً" loading="lazy" style="object-fit:cover">
+                <div class="product-overlay"></div>
+                <span class="product-chip">LBMA 999.9</span>
+            </div>
+            <div class="product-body">
+                <div class="product-kicker">👑 المَلِك الأصفر — استثمار الأثرياء</div>
+                <h3 class="product-title">ذهب خالص 999.9 — LBMA</h3>
+                <p class="product-desc">💰 <strong>احمِ ثروتك من التضخم!</strong> أنقى ذهب عالمي معتمد من LBMA — شهادات أصالة دولية — تسليم فوري — استثمار مضمون يرتفع قيمته مع الزمن. <strong>فرصتك الذهبية الآن!</strong></p>
+                <div class="product-pricebox">
+                    <div class="product-pricelabel">🔥 السعر العالمي المباشر</div>
+                    <div class="product-price">2,450 $/أونصة <span style="font-size:.8rem;color:#7FE5B8">↗ +2.3%</span></div>
+                </div>
+                <a href="/سوق-شيخة.html?search=gold" class="product-action">🚀 اشترِ الآن — ربح مضمون</a>
+            </div>
+        </article>
+
+        <!-- Copper Product Card -->
+        <article class="product-card copper">
+            <div class="product-media">
+                <img src="https://images.unsplash.com/photo-1594844808180-bbc5db0f0001?w=800&h=600&fit=crop&q=90" alt="COMEX Copper — النحاس الصناعي معيار COMEX" loading="lazy" style="object-fit:cover">
+                <div class="product-overlay"></div>
+                <span class="product-chip">COMEX 99.9%</span>
+            </div>
+            <div class="product-body">
+                <div class="product-kicker">⚡ طاقة المستقبل — ثورة الصناعة</div>
+                <h3 class="product-title">نحاس 99.9% — COMEX</h3>
+                <p class="product-desc">🏭 <strong>عصب الصناعة الحديثة!</strong> النحاس الأكثر طلباً عالمياً — للكهرباء والبناء والتكنولوجيا — معتمد من أكبر البورصات — طلب متزايد يومياً. <strong>استثمر في المستقبل!</strong></p>
+                <div class="product-pricebox">
+                    <div class="product-pricelabel">🔥 السعر المباشر الآن</div>
+                    <div class="product-price">4.20 $/باوند <span style="font-size:.8rem;color:#7FE5B8">↗ +1.8%</span></div>
+                </div>
+                <a href="/سوق-شيخة.html?search=copper" class="product-action">⚡ احجز كميتك — عرض محدود</a>
+            </div>
+        </article>
+
+        <!-- Silver Product Card -->
+        <article class="product-card silver">
+            <div class="product-media">
+                <img src="https://images.unsplash.com/photo-1610375461369-d613b564f6d7?w=800&h=600&fit=crop&q=90" alt="Fine Silver 999 — الفضة النقية للاستثمار والصناعة" loading="lazy" style="object-fit:cover">
+                <div class="product-overlay"></div>
+                <span class="product-chip">FINE 999</span>
+            </div>
+            <div class="product-body">
+                <div class="product-kicker">💎 المعدن الأبيض — بوابة الثروة</div>
+                <h3 class="product-title">فضة نقية 999 — FINE</h3>
+                <p class="product-desc">🌟 <strong>الاختيار الذكي للمستثمرين!</strong> فضة خالصة 999 بشهادات عالمية — أرخص من الذهب وأرباح أعلى — يستخدمها 80% من المستثمرين الأذكياء. <strong>ابدأ بذكاء!</strong></p>
+                <div class="product-pricebox">
+                    <div class="product-pricelabel">🔥 أقل سعر في السوق</div>
+                    <div class="product-price">29.80 $/أونصة <span style="font-size:.8rem;color:#7FE5B8">↗ +3.1%</span></div>
+                </div>
+                <a href="/سوق-شيخة.html?search=silver" class="product-action">💰 استثمر الآن — قبل الارتفاع</a>
+            </div>
+        </article>
+
+    </div>
+
+    <!-- Call to Action -->
+    <div style="text-align:center;margin-top:3.5rem;position:relative;z-index:2">
+        <a href="/سوق-شيخة.html" class="products-cta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            🔥 اكتشف +5000 منتج — عروض حصرية تنتهي قريباً
+        </a>
+    </div>
 </section>
 
 <!-- ═══ TRUST ═══ -->
@@ -1292,7 +1531,7 @@
                 </div>
         <div class="fls">
             <div class="fc"><h4>السوق</h4><a href="/سوق-شيخة.html?cat=steel">الحديد والصلب</a><a href="/سوق-شيخة.html?cat=precious">المعادن الثمينة</a><a href="/سوق-شيخة.html?cat=rare">المعادن النادرة</a><a href="/سوق-شيخة.html?cat=scrap">السكراب</a></div>
-            <div class="fc"><h4>المنظومة</h4><a href="/تسجيل-الدخول.html?tab=register&type=trader">سجّل كتاجر</a><a href="/المجتمع.html">المجتمع</a><a href="/الشريعة-الاسلامية.html">الشريعة</a><a href="/هوية-السوق.html">هوية السوق</a><a href="/سوق-المدينة.html">سوق المدينة</a><a href="/تسجيل-الدخول.html">تسجيل الدخول</a></div>
+            <div class="fc"><h4>المنظومة</h4><a href="/تسجيل-الدخول.html?tab=register&type=trader">سجّل كتاجر</a><a href="/المجتمع.html">المجتمع</a><a href="/الشريعة-الاسلامية.html">الشريعة</a><a href="/الوكلاء-الإسلاميين.html">الوكلاء الإسلاميون</a><a href="/هوية-السوق.html">هوية السوق</a><a href="/سوق-المدينة.html">سوق المدينة</a><a href="/تسجيل-الدخول.html">تسجيل الدخول</a></div>
             <div class="fc"><h4>اكتشف المزيد</h4><a href="/بنك-شيخة.html">بنك شيخة</a><a href="/العاصمة-الاقتصادية.html">العاصمة الاقتصادية</a><a href="/آيات-التجارة.html">آيات التجارة</a><a href="/معايير-الأحاديث.html">معايير الأحاديث</a><a href="/منظومة-البركة.html">منظومة البركة</a><a href="/SHEIKHA-SMART-DIGITAL.html">المعمارية الرقمية الذكية</a><a href="/SHEIKHA-MARKET-SYSTEM.html">منظومة السوق</a><a href="/SHEIKHA-DIGITAL-IDENTITY.html">الهوية الرقمية</a><a href="/SHEIKHA-COMMUNICATIONS.html">منظومة الاتصالات</a><a href="https://saudipedia.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px">🇸🇦 سعوديبيديا</a><a href="https://ar.wikipedia.org" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px">📖 ويكيبيديا</a></div>
             <div class="fc"><h4>القانونية</h4><a href="/الشروط-والسياسات.html">الشروط والأحكام</a><a href="/سياسة-الخصوصية.html">سياسة الخصوصية</a><a href="/SHEIKHA-LIVE-EVALUATION-v2.html">تقرير التقييم الحي</a></div>
             <div class="fc"><h4>تواصل معنا</h4><a href="mailto:market@sheikha.top">market@sheikha.top</a><a href="https://wa.me/966554942904" target="_blank">واتساب: 0554942904</a><a href="https://sheikha.top">sheikha.top</a></div>

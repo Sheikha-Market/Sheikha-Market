@@ -72,7 +72,7 @@ class SheikhaDevPlatformEngine {
             id: 'SHEIKHA-MCP-001',
             name: 'Sheikha MCP Server',
             nameAr: 'جسر شيخة–Cursor',
-            version: '2.0.0',
+            version: '2.1.0',
             status: 'active',
             transport: 'stdio',
             tools: [
@@ -90,7 +90,15 @@ class SheikhaDevPlatformEngine {
                 { name: 'sheikha_quran_wisdom', desc: 'آيات وأحاديث' },
                 { name: 'sheikha_learning_report', desc: 'تقرير التعلّم' },
                 { name: 'sheikha_suggest_improvements', desc: 'اقتراح تحسينات' },
-                { name: 'sheikha_translate', desc: 'ترجمة بـ 22 لغة' }
+                { name: 'sheikha_translate', desc: 'ترجمة بـ 22 لغة' },
+                { name: 'sheikha_pilot_status', desc: 'حالة منظومة الطيار' },
+                { name: 'sheikha_rfq', desc: 'طلبات عروض الأسعار' },
+                { name: 'sheikha_dev_integration', desc: 'تكامل بيئة التطوير' },
+                { name: 'sheikha_scaffold', desc: 'إنشاء هيكل/صفحة' },
+                { name: 'sheikha_listings', desc: 'قوائم المنتجات' },
+                { name: 'sheikha_zakat', desc: 'حاسبة الزكاة' },
+                { name: 'sheikha_model_integrations', desc: 'تكاملات النماذج AI' },
+                { name: 'sheikha_web_fetch', desc: 'جلب محتوى من URL' }
             ],
             resources: [
                 { uri: 'sheikha://system/status', name: 'حالة المنظومة' },
@@ -100,7 +108,9 @@ class SheikhaDevPlatformEngine {
                 { uri: 'sheikha://sharia/principles', name: 'المبادئ الشرعية' },
                 { uri: 'sheikha://docs/api', name: 'توثيق API' },
                 { uri: 'sheikha://learning/memory', name: 'ذاكرة التعلّم' },
-                { uri: 'sheikha://cursorrules', name: 'قواعد Cursor' }
+                { uri: 'sheikha://cursorrules', name: 'قواعد Cursor' },
+                { uri: 'sheikha://pilot/status', name: 'حالة الطيار' },
+                { uri: 'sheikha://dev/vscode-config', name: 'إعدادات VS Code' }
             ],
             configFile: '.cursor/mcp.json',
             serverFile: 'mcp-servers/sheikha-mcp-server.js'

@@ -1,0 +1,99 @@
+<svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <!-- معادن نحاسية حقيقية -->
+        <radialGradient id="copperMetallic" cx="30%" cy="30%" r="70%">
+            <stop offset="0%" style="stop-color:#FFB366;stop-opacity:1" />
+            <stop offset="15%" style="stop-color:#FFA855;stop-opacity:1" />
+            <stop offset="35%" style="stop-color:#E8954D;stop-opacity:1" />
+            <stop offset="55%" style="stop-color:#C97633;stop-opacity:1" />
+            <stop offset="75%" style="stop-color:#A85C1F;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#6B3E1A;stop-opacity:0.9" />
+        </radialGradient>
+
+        <!-- ظل متقدم -->
+        <filter id="copperShadow">
+            <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity="0.5" />
+            <feDropShadow dx="3" dy="5" stdDeviation="5" flood-color="#000" flood-opacity="0.3" />
+        </filter>
+
+        <!-- بريق واقعي -->
+        <filter id="copperShine">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+            <feOffset dx="1" dy="-2" result="offsetblur" />
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.4" />
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+
+        <!-- خلفية -->
+        <linearGradient id="copperBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#1f1410;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#2a1810;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#1f1410;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+
+    <rect width="600" height="500" fill="url(#copperBg)" />
+
+    <!-- توهج خلفية النحاس -->
+    <ellipse cx="300" cy="220" rx="350" ry="280" fill="url(#copperMetallic)" opacity="0.06"
+        filter="url(#copperShine)" />
+
+    <!-- اسطوانة نحاسية ملفوفة (الأمام) -->
+    <g filter="url(#copperShadow)">
+        <!-- الشكل الأساسي -->
+        <ellipse cx="180" cy="200" rx="70" ry="110" fill="url(#copperMetallic)" />
+
+        <!-- انعكاسات جانبية -->
+        <ellipse cx="140" cy="160" rx="25" ry="45" fill="#FFB366" opacity="0.3"
+            filter="url(#copperShine)" />
+        <ellipse cx="145" cy="250" rx="20" ry="35" fill="#FFB366" opacity="0.2" />
+
+        <!-- خطوط ملفوفة -->
+        <path d="M 120 140 Q 180 130 240 145" stroke="#FFB366" stroke-width="2" fill="none"
+            opacity="0.25" />
+        <path d="M 115 180 Q 180 175 245 190" stroke="#FFB366" stroke-width="2" fill="none"
+            opacity="0.2" />
+        <path d="M 125 220 Q 180 220 235 235" stroke="#FFB366" stroke-width="2" fill="none"
+            opacity="0.2" />
+        <path d="M 135 260 Q 180 270 240 285" stroke="#FFB366" stroke-width="2" fill="none"
+            opacity="0.18" />
+    </g>
+
+    <!-- اسطوانة نحاسية ملفوفة (الوسط) -->
+    <g filter="url(#copperShadow)" transform="translate(140, 0)">
+        <ellipse cx="180" cy="200" rx="70" ry="110" fill="url(#copperMetallic)" />
+        <ellipse cx="140" cy="160" rx="25" ry="45" fill="#FFB366" opacity="0.3"
+            filter="url(#copperShine)" />
+        <ellipse cx="145" cy="250" rx="20" ry="35" fill="#FFB366" opacity="0.2" />
+
+        <path d="M 120 140 Q 180 130 240 145" stroke="#FFB366" stroke-width="2" fill="none"
+            opacity="0.25" />
+        <path d="M 115 180 Q 180 175 245 190" stroke="#FFB366" stroke-width="2" fill="none"
+            opacity="0.2" />
+        <path d="M 125 220 Q 180 220 235 235" stroke="#FFB366" stroke-width="2" fill="none"
+            opacity="0.2" />
+    </g>
+
+    <!-- قاعدة معدنية -->
+    <rect x="40" y="360" width="520" height="70" rx="12" fill="#1a0f0a" stroke="#8B5C1F"
+        stroke-width="2" opacity="0.7" />
+    <ellipse cx="300" cy="360" rx="260" ry="12" fill="url(#copperMetallic)" opacity="0.25" />
+
+    <!-- نقاط انعكاس رئيسية -->
+    <g opacity="0.4" filter="url(#copperShine)">
+        <circle cx="145" cy="155" r="10" fill="#fff" />
+        <circle cx="325" cy="165" r="11" fill="#fff" />
+    </g>
+
+    <!-- نص معلومات -->
+    <text x="300" y="440" font-family="Amiri, serif" font-size="48" font-weight="700" fill="#B87333"
+        text-anchor="middle" opacity="0.75">النحاس الأحمر</text>
+    <text x="300" y="485" font-family="Tajawal, sans-serif" font-size="18" font-weight="600"
+        fill="#8B5C1F" text-anchor="middle" opacity="0.65">درجة صناعية — COMEX معتمد</text>
+</svg>

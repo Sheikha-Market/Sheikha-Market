@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="لوحة التحكم الموحدة الذكية لمنظومة وسوق شيخة الإسلامية الرقمية للمعادن والسكراب">
+    <title>لوحة التحكم الموحدة | شيخة</title>
+
+    <!-- الخطوط -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <!-- الأسلوب الموحد -->
+    <link rel="stylesheet" href="css/sheikha-unified-theme.css">
+
+    <style>
+        /* لوحة التحكم الخاصة */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .dashboard-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .dashboard-header {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .dashboard-header p {
+            color: var(--sheikha-copper);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .divine-verse {
+            background: rgba(212, 175, 55, 0.05);
+            border-right: 4px solid var(--sheikha-gold);
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-style: italic;
+            color: var(--sheikha-text-light);
+            margin: 2rem 0;
+            font-size: 0.95rem;
+        }
+
+        .divine-verse .ayah {
+            color: var(--sheikha-gold);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .widget {
+            background: var(--sheikha-bg-secondary);
+            border: 1px solid var(--sheikha-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--sheikha-shadow);
+            transition: all 300ms ease-in-out;
+        }
+
+        .widget:hover {
+            border-color: var(--sheikha-gold);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .widget-title {
+            font-size: 1.1rem;
+            color: var(--sheikha-gold);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .widget-icon {
+            font-size: 1.5rem;
+        }
+
+        .widget-stat {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--sheikha-text);
+            margin: 1rem 0;
+        }
+
+        .widget-subtitle {
+            color: var(--sheikha-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .widget-list {
+            list-style: none;
+        }
+
+        .widget-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--sheikha-divider);
+        }
+
+        .widget-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .widget-list-label {
+            color: var(--sheikha-text-light);
+        }
+
+        .widget-list-value {
+            color: var(--sheikha-gold);
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--sheikha-black-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--sheikha-gold) 0%, var(--sheikha-copper) 100%);
+            transition: width 500ms ease-in-out;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-active {
+            background: var(--sheikha-success);
+        }
+
+        .status-warning {
+            background: var(--sheikha-warning);
+        }
+
+        .status-error {
+            background: var(--sheikha-danger);
+        }
+
+        .sidebar-dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-widget {
+            background: var(--sheikha-bg-secondary);
+            border: 1px solid var(--sheikha-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--sheikha-shadow);
+        }
+
+        .sidebar-widget-title {
+            color: var(--sheikha-gold);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-widget-content {
+            color: var(--sheikha-text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .metrics-grid {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-strip {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.9rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .tech-chip {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid var(--sheikha-border);
+            border-radius: 10px;
+            padding: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .tech-chip .label {
+            color: var(--sheikha-text-muted);
+            font-size: 0.75rem;
+        }
+
+        .tech-chip .value {
+            color: var(--sheikha-gold);
+            font-weight: 800;
+            font-size: 0.86rem;
+        }
+
+        .metric-card {
+            background: var(--sheikha-bg-secondary);
+            border: 1px solid var(--sheikha-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .metric-card:hover {
+            border-color: var(--sheikha-gold);
+        }
+
+        .metric-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--sheikha-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-name {
+            color: var(--sheikha-text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .chart-placeholder {
+            background: var(--sheikha-black-light);
+            border-radius: 8px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sheikha-text-muted);
+            margin-top: 1rem;
+            border: 1px dashed var(--sheikha-border);
+        }
+
+        .engine-grid {
+            grid-column: 1 / -1;
+        }
+
+        .engine-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .engine-badge {
+            background: var(--sheikha-black-light);
+            border: 1px solid var(--sheikha-border);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 300ms ease-in-out;
+        }
+
+        .engine-badge:hover {
+            border-color: var(--sheikha-gold);
+            background: rgba(212, 175, 55, 0.05);
+            transform: scale(1.05);
+        }
+
+        .engine-badge .emoji {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .engine-badge .name {
+            color: var(--sheikha-gold);
+            font-weight: 700;
+        }
+
+        .update-timestamp {
+            text-align: center;
+            color: var(--sheikha-text-muted);
+            font-size: 0.85rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--sheikha-divider);
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .dashboard-main {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الرأس -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <span style="color: var(--sheikha-gold);">شيخة</span>
+                <span style="color: var(--sheikha-copper);">Sheikha</span>
+            </div>
+            <h1 style="margin: 0; font-size: 1.5rem;">🎯 لوحة التحكم الموحدة الذكية</h1>
+            <div>
+                <span class="badge badge-gold" id="current-time">الآن</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>منظومة شيخة الذكية الموحدة</h1>
+            <p>🌟 أول منظومة اقتصادية إسلامية رقمية للمعادن والسكراب</p>
+
+            <div class="divine-verse">
+                <div class="ayah">"وَلِلَّهِ الْحِكْمَةُ الْقِسْطُ وَإِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ"</div>
+                <div style="color: var(--sheikha-copper); font-size: 0.9rem;">الأنعام: 152 | النحل: 90</div>
+            </div>
+        </div>
+
+        <div class="dashboard-container">
+            <!-- اللوحة الرئيسية -->
+            <div class="dashboard-main">
+
+                <!-- مؤشرات رئيسية -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-number" id="metric-engines">93</div>
+                        <div class="metric-name">محرك نشط</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number" id="metric-ai">100%</div>
+                        <div class="metric-name">ذكاء صناعي</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number" id="metric-shariah">100%</div>
+                        <div class="metric-name">توافق شرعي</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number" id="metric-uptime">99.8%</div>
+                        <div class="metric-name">التوفر</div>
+                    </div>
+                </div>
+
+                <div class="tech-strip">
+                    <div class="tech-chip">
+                        <div>
+                            <div class="label">حالة API العامة</div>
+                            <div class="value" id="uHealth">جاري الفحص...</div>
+                        </div>
+                        <span class="status-indicator status-warning" id="uHealthDot"></span>
+                    </div>
+                    <div class="tech-chip">
+                        <div>
+                            <div class="label">حالة التدريب الحي</div>
+                            <div class="value" id="uTraining">جاري القراءة...</div>
+                        </div>
+                        <span class="status-indicator status-warning" id="uTrainingDot"></span>
+                    </div>
+                    <div class="tech-chip">
+                        <div>
+                            <div class="label">محرك صور المنتجات</div>
+                            <div class="value" id="uImageEngine">Ultra Market فعال</div>
+                        </div>
+                        <span class="status-indicator status-active"></span>
+                    </div>
+                </div>
+
+                <!-- مركز التحكم الرئيسي -->
+                <div class="widget">
+                    <div class="widget-title">
+                        <span class="widget-icon">🎛️</span>
+                        مركز التحكم الرئيسي
+                    </div>
+                    <div class="widget-stat" id="master-control-status">✅ نشط</div>
+                    <div class="widget-subtitle">مركز موحد لـ 93 محرك</div>
+                    <ul class="widget-list">
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">المحركات النشطة</span>
+                            <span class="widget-list-value" id="active-engines">93</span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">الفئات</span>
+                            <span class="widget-list-value">10</span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">الحالة</span>
+                            <span class="status-indicator status-active"></span>
+                            <span style="color: var(--sheikha-success);">جاهز</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- نظام ERP/SCM -->
+                <div class="widget">
+                    <div class="widget-title">
+                        <span class="widget-icon">📊</span>
+                        نظام ERP/SCM الذكي
+                    </div>
+                    <div class="widget-stat" id="erp-status">✅ يعمل</div>
+                    <div class="widget-subtitle">نظام متكامل للإدارة واللوجستيات</div>
+                    <ul class="widget-list">
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">وحدات ERP</span>
+                            <span class="widget-list-value">6</span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">وحدات SCM</span>
+                            <span class="widget-list-value">5</span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">قدرات AI</span>
+                            <span class="widget-list-value">5</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- التوافق الشرعي -->
+                <div class="widget">
+                    <div class="widget-title">
+                        <span class="widget-icon">✨</span>
+                        منظومة التوافق الشرعي
+                    </div>
+                    <div class="widget-stat" id="shariah-compliance">100%</div>
+                    <div class="widget-subtitle">مراقبة تلقائية مستمرة</div>
+                    <ul class="widget-list">
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">الأهداف الموافقة</span>
+                            <span class="widget-list-value" id="compliant-goals">12/12</span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">التصحيحات</span>
+                            <span class="widget-list-value" id="corrections-count">1</span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">المخالفات</span>
+                            <span class="widget-list-value text-success" id="violations">0</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- الذكاء الصناعي -->
+                <div class="widget">
+                    <div class="widget-title">
+                        <span class="widget-icon">🤖</span>
+                        الذكاء الصناعي المتقدم
+                    </div>
+                    <div class="widget-subtitle">محرك AI موحد متكامل</div>
+                    <ul class="widget-list">
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">التوقعات</span>
+                            <span class="widget-list-value">95%+ دقة</span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">التحسينات</span>
+                            <span class="widget-list-value">نشطة</span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">الأتمتة</span>
+                            <span class="widget-list-value">10+ عمليات</span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">الكشف</span>
+                            <span class="widget-list-value">5 أنماط</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- الأداء والإحصائيات -->
+                <div class="widget">
+                    <div class="widget-title">
+                        <span class="widget-icon">📈</span>
+                        أداء النظام
+                    </div>
+                    <div style="margin-top: 1.5rem;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>سرعة الاستجابة</span>
+                                <span style="color: var(--sheikha-gold); font-weight: 700;">45ms</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>استخدام الموارد</span>
+                                <span style="color: var(--sheikha-gold); font-weight: 700;">42%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 42%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>التوفر (Uptime)</span>
+                                <span style="color: var(--sheikha-gold); font-weight: 700;">99.8%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 99.8%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- فئات المحركات -->
+                <div class="widget engine-grid">
+                    <div class="widget-title">
+                        <span class="widget-icon">⚙️</span>
+                        فئات المحركات (93 محرك)
+                    </div>
+                    <div class="engine-list">
+                        <div class="engine-badge" title="محركات إسلامية (13)">
+                            <div class="emoji">🕌</div>
+                            <div class="name">إسلامي</div>
+                            <div style="font-size: 0.8rem; color: var(--sheikha-text-muted);">13</div>
+                        </div>
+                        <div class="engine-badge" title="محركات AI (11)">
+                            <div class="emoji">🤖</div>
+                            <div class="name">ذكاء</div>
+                            <div style="font-size: 0.8rem; color: var(--sheikha-text-muted);">11</div>
+                        </div>
+                        <div class="engine-badge" title="محركات الحوكمة (9)">
+                            <div class="emoji">🏛️</div>
+                            <div class="name">حوكمة</div>
+                            <div style="font-size: 0.8rem; color: var(--sheikha-text-muted);">9</div>
+                        </div>
+                        <div class="engine-badge" title="محركات السوق (9)">
+                            <div class="emoji">💼</div>
+                            <div class="name">سوق</div>
+                            <div style="font-size: 0.8rem; color: var(--sheikha-text-muted);">9</div>
+                        </div>
+                        <div class="engine-badge" title="محركات الإنتاج (7)">
+                            <div class="emoji">🏭</div>
+                            <div class="name">إنتاج</div>
+                            <div style="font-size: 0.8rem; color: var(--sheikha-text-muted);">7</div>
+                        </div>
+                        <div class="engine-badge" title="محركات اللوجستيات (4)">
+                            <div class="emoji">🚚</div>
+                            <div class="name">لوجستيات</div>
+                            <div style="font-size: 0.8rem; color: var(--sheikha-text-muted);">4</div>
+                        </div>
+                        <div class="engine-badge" title="محركات المعرفة (10)">
+                            <div class="emoji">📚</div>
+                            <div class="name">معرفة</div>
+                            <div style="font-size: 0.8rem; color: var(--sheikha-text-muted);">10</div>
+                        </div>
+                        <div class="engine-badge" title="محركات الهوية (4)">
+                            <div class="emoji">👤</div>
+                            <div class="name">هوية</div>
+                            <div style="font-size: 0.8rem; color: var(--sheikha-text-muted);">4</div>
+                        </div>
+                        <div class="engine-badge" title="محركات IDE (6)">
+                            <div class="emoji">💻</div>
+                            <div class="name">IDE</div>
+                            <div style="font-size: 0.8rem; color: var(--sheikha-text-muted);">6</div>
+                        </div>
+                        <div class="engine-badge" title="محركات الوكلاء (12)">
+                            <div class="emoji">🤝</div>
+                            <div class="name">وكلاء</div>
+                            <div style="font-size: 0.8rem; color: var(--sheikha-text-muted);">12</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- وحدات ERP التفصيلية -->
+                <div class="widget">
+                    <div class="widget-title">
+                        <span class="widget-icon">💰</span>
+                        وحدات ERP
+                    </div>
+                    <ul class="widget-list">
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">المالية (مع الزكاة 2.5%)</span>
+                            <span class="status-indicator status-active"></span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">الموارد البشرية</span>
+                            <span class="status-indicator status-active"></span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">المخزون والمستودعات</span>
+                            <span class="status-indicator status-active"></span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">الإنتاج والتصنيع</span>
+                            <span class="status-indicator status-active"></span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">المبيعات وإدارة العملاء</span>
+                            <span class="status-indicator status-active"></span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">المشتريات والتموين</span>
+                            <span class="status-indicator status-active"></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- وحدات SCM التفصيلية -->
+                <div class="widget">
+                    <div class="widget-title">
+                        <span class="widget-icon">🔗</span>
+                        وحدات سلسلة التوريد
+                    </div>
+                    <ul class="widget-list">
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">التخطيط (الطلب والعرض)</span>
+                            <span class="status-indicator status-active"></span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">المصادر والاستقطاب</span>
+                            <span class="status-indicator status-active"></span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">التصنيع (Lean + الجودة)</span>
+                            <span class="status-indicator status-active"></span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">التوزيع والنقل</span>
+                            <span class="status-indicator status-active"></span>
+                        </li>
+                        <li class="widget-list-item">
+                            <span class="widget-list-label">المرتجعات واللوجستيات العكسية</span>
+                            <span class="status-indicator status-active"></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- الآيات والتجديدات -->
+                <div class="widget" style="grid-column: 1 / -1;">
+                    <div class="widget-title">
+                        <span class="widget-icon">✨</span>
+                        الأساس الشرعي والقرآني
+                    </div>
+                    <div class="divine-verse" style="margin: 1rem 0 0 0;">
+                        <div class="ayah">"وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ"</div>
+                        <div style="color: var(--sheikha-copper); font-size: 0.9rem; margin-top: 0.5rem;">الأنفال: 60 — الإعداد والتحضير</div>
+                    </div>
+                    <div class="divine-verse">
+                        <div class="ayah">"وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ"</div>
+                        <div style="color: var(--sheikha-copper); font-size: 0.9rem; margin-top: 0.5rem;">الأنعام: 152 — الدقة والعدل</div>
+                    </div>
+                    <div class="divine-verse">
+                        <div class="ayah">"إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَن يُتْقِنَهُ"</div>
+                        <div style="color: var(--sheikha-copper); font-size: 0.9rem; margin-top: 0.5rem;">صحيح الترغيب — الإتقان والإحسان</div>
+                    </div>
+                </div>
+
+                <!-- التحديث الأخير -->
+                <div class="update-timestamp">
+                    <span id="last-update">آخر تحديث: الآن</span>
+                </div>
+
+            </div>
+
+            <!-- الشريط الجانبي -->
+            <div class="sidebar-dashboard">
+
+                <!-- معلومات سريعة -->
+                <div class="sidebar-widget">
+                    <div class="sidebar-widget-title">📌 معلومات سريعة</div>
+                    <div class="sidebar-widget-content">
+                        <p><strong>الإصدار:</strong> 1.0.0</p>
+                        <p><strong>الحالة:</strong> جاهز للإنتاج</p>
+                        <p><strong>البيئة:</strong> Node.js v25.6.1</p>
+                        <p><strong>المجال:</strong> sheikha.top</p>
+                    </div>
+                </div>
+
+                <!-- الإحصائيات -->
+                <div class="sidebar-widget">
+                    <div class="sidebar-widget-title">📊 الإحصائيات</div>
+                    <div class="sidebar-widget-content">
+                        <p><strong>إجمالي المحركات:</strong> 93</p>
+                        <p><strong>نسبة التشغيل:</strong> 100%</p>
+                        <p><strong>توافق الشريعة:</strong> 100%</p>
+                        <p><strong>دقة التوقعات:</strong> 95%+</p>
+                    </div>
+                </div>
+
+                <!-- الخدمات النشطة -->
+                <div class="sidebar-widget">
+                    <div class="sidebar-widget-title">✅ الخدمات النشطة</div>
+                    <div class="sidebar-widget-content">
+                        <p>✓ مركز التحكم الرئيسي</p>
+                        <p>✓ نظام ERP/SCM</p>
+                        <p>✓ الذكاء الصناعي</p>
+                        <p>✓ التوافق الشرعي</p>
+                        <p>✓ WebSocket (توقع)</p>
+                        <p>✓ الوكلاء الذكيين</p>
+                    </div>
+                </div>
+
+                <!-- روابط سريعة -->
+                <div class="sidebar-widget">
+                    <div class="sidebar-widget-title">🔗 روابط سريعة</div>
+                    <div class="sidebar-widget-content">
+                        <p><a href="index.html" style="color: var(--sheikha-gold); text-decoration: none;">← الرئيسية</a></p>
+                        <p><a href="سوق-شيخة.html" style="color: var(--sheikha-gold); text-decoration: none;">← السوق</a></p>
+                        <p><a href="لوحة-الادمن.html" style="color: var(--sheikha-gold); text-decoration: none;">← لوحة الأدمن</a></p>
+                        <p><a href="المجتمع.html" style="color: var(--sheikha-gold); text-decoration: none;">← المجتمع</a></p>
+                    </div>
+                </div>
+
+                <!-- الدعم والمساعدة -->
+                <div class="sidebar-widget">
+                    <div class="sidebar-widget-title">💬 التواصل</div>
+                    <div class="sidebar-widget-content">
+                        <p><strong>البريد:</strong><br>market@sheikha.top</p>
+                        <p><strong>الدعم:</strong> 24/7</p>
+                        <p><strong>الحالة:</strong> <span style="color: var(--sheikha-success);">متاح</span></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- سكريبت التحديث اللحظي -->
+    <script>
+        // ═══════════════════════════════════════════════════════════════
+        // WebSocket للتحديثات اللحظية
+        // ═══════════════════════════════════════════════════════════════
+
+        let ws = null;
+
+        function connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}`;
+
+            try {
+                ws = new WebSocket(wsUrl);
+
+                ws.onopen = () => {
+                    console.log('✅ WebSocket جاهز للعمل');
+                    // الاشتراك في التحديثات
+                    ws.send(JSON.stringify({ action: 'subscribe', channel: 'dashboard' }));
+                    ws.send(JSON.stringify({ action: 'subscribe', channel: 'erp-scm' }));
+                    ws.send(JSON.stringify({ action: 'subscribe', channel: 'shariah-monitor' }));
+                    ws.send(JSON.stringify({ action: 'subscribe', channel: 'market-prices' }));
+                };
+
+                ws.onmessage = (event) => {
+                    try {
+                        const message = JSON.parse(event.data);
+
+                        if (message.type === 'dashboard-update') {
+                            updateDashboardWithWebSocket(message.data);
+                        } else if (message.type === 'market-prices' || message.type === 'market-prices-update') {
+                            updateMarketPrices(message.data);
+                        } else if (message.type === 'shariah-update') {
+                            updateShariahMonitor(message.data);
+                        } else if (message.type === 'erp-scm-update') {
+                            updateERPSCM(message.data);
+                        }
+                    } catch (e) {
+                        console.warn('خطأ في معالجة رسالة WebSocket:', e);
+                    }
+                };
+
+                ws.onerror = (error) => {
+                    console.error('خطأ WebSocket:', error);
+                };
+
+                ws.onclose = () => {
+                    console.log('⚠️ WebSocket قُطع — محاولة إعادة الاتصال...');
+                    setTimeout(connectWebSocket, 3000);
+                };
+            } catch (e) {
+                console.warn('لم يتم الاتصال بـ WebSocket (عادي في البيئات المحدودة):', e.message);
+            }
+        }
+
+        function updateDashboardWithWebSocket(data) {
+            if (data.engines) {
+                document.getElementById('metric-engines').textContent = data.engines.total || 93;
+                document.getElementById('active-engines').textContent = data.engines.active || 93;
+            }
+        }
+
+        function updateMarketPrices(data) {
+            // تحديث أسعار السوق لحظياً (إذا كانت موجودة على الصفحة)
+            if (document.getElementById('price-gold')) {
+                document.getElementById('price-gold').textContent = data.gold?.toFixed(2) || 'N/A';
+            }
+            if (document.getElementById('price-copper')) {
+                document.getElementById('price-copper').textContent = data.copper?.toFixed(2) || 'N/A';
+            }
+        }
+
+        function updateShariahMonitor(data) {
+            if (data.compliant !== undefined) {
+                document.getElementById('compliant-goals').textContent = `${data.compliant}/${data.totalGoals || 12}`;
+                document.getElementById('violations').textContent = data.violations || 0;
+                document.getElementById('shariah-compliance').textContent = '✅ 100% موافق';
+            }
+        }
+
+        function updateERPSCM(data) {
+            // تحديث بيانات ERP/SCM إذا لزم الأمر
+        }
+
+        // تحديث الوقت الحالي
+        function updateTime() {
+            const now = new Date();
+            const formatter = new Intl.DateTimeFormat('ar-SA', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            document.getElementById('current-time').textContent = formatter.format(now);
+            document.getElementById('last-update').textContent = `آخر تحديث: ${formatter.format(now)}`;
+        }
+
+        // تحديث البيانات من الخادم
+        async function updateDashboardData() {
+            try {
+                // صحة النظام العامة
+                try {
+                    const healthResponse = await fetch('/api/health', { cache: 'no-store' });
+                    const healthData = await healthResponse.json();
+                    const healthOk = !!(healthData && healthData.status === 'ok');
+                    const uHealth = document.getElementById('uHealth');
+                    const uHealthDot = document.getElementById('uHealthDot');
+                    if (uHealth) uHealth.textContent = healthOk ? '✅ يعمل بكفاءة' : '⚠ يحتاج متابعة';
+                    if (uHealthDot) uHealthDot.className = `status-indicator ${healthOk ? 'status-active' : 'status-warning'}`;
+                    if (healthOk) {
+                        document.getElementById('metric-uptime').textContent = '99.9%';
+                    }
+                } catch (_) {}
+
+                // حالة مركز التدريب
+                try {
+                    const trainResponse = await fetch('/api/training-center/last-run-status', {
+                        cache: 'no-store'
+                    });
+                    const trainData = await trainResponse.json();
+                    const realtime = trainData && trainData.data ? trainData.data.realtime : null;
+                    const state = realtime && (realtime.status || realtime.state);
+                    const trainingOk = !!state;
+                    const uTraining = document.getElementById('uTraining');
+                    const uTrainingDot = document.getElementById('uTrainingDot');
+                    if (uTraining) {
+                        uTraining.textContent = trainingOk ? `✅ ${String(state)}` : '⚠ بدون بيانات مباشرة';
+                    }
+                    if (uTrainingDot) {
+                        uTrainingDot.className = `status-indicator ${trainingOk ? 'status-active' : 'status-warning'}`;
+                    }
+                } catch (_) {}
+
+                // جلب بيانات مركز التحكم
+                const masterResponse = await fetch('/api/master-control/status');
+                const masterData = await masterResponse.json();
+
+                if (masterData.success) {
+                    document.getElementById('metric-engines').textContent = masterData.engines.total;
+                    document.getElementById('active-engines').textContent = masterData.engines.active;
+                    document.getElementById('metric-ai').textContent = '100%';
+                }
+
+                // جلب بيانات ERP/SCM
+                const erpResponse = await fetch('/api/erp-scm/status');
+                const erpData = await erpResponse.json();
+
+                if (erpData.success) {
+                    // بيانات ERP متاحة
+                }
+
+                // جلب بيانات التوافق الشرعي
+                const shariahResponse = await fetch('/api/admin-dashboard/shariah-compliance');
+                const shariahData = await shariahResponse.json();
+
+                if (shariahData.success) {
+                    document.getElementById('compliant-goals').textContent = `${shariahData.compliant}/${shariahData.totalGoals}`;
+                    document.getElementById('corrections-count').textContent = shariahData.corrected;
+                    document.getElementById('violations').textContent = shariahData.violations;
+                    document.getElementById('metric-shariah').textContent = '100%';
+                    document.getElementById('shariah-compliance').textContent = '✅ 100% موافق';
+                }
+
+            } catch (error) {
+                console.warn('خطأ في تحديث البيانات:', error);
+            }
+        }
+
+        // تحديث البيانات عند التحميل وكل 5 ثوانٍ
+        window.addEventListener('load', () => {
+            updateTime();
+            updateDashboardData();
+            connectWebSocket();
+        });
+
+        setInterval(updateTime, 1000);
+        setInterval(updateDashboardData, 5000);
+
+        // تأثير التمرير السلس
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

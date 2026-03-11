@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هوية شيخة — من سوق النبي ﷺ إلى السوق الرقمي العالمي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --copper: #B87333;
+            --dark: #0a0a0a;
+            --light: #f5f5f5;
+            --forest: #1a3a2a;
+            --accent: #ff6b35;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--forest) 100%);
+            color: #white;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(45deg, rgba(10,10,10,0.95), rgba(26,58,42,0.9)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="%23D4AF37" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="1200" height="600" fill="url(%23grid)"/></svg>');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            padding: 2rem;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(212,175,55,0.3);
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        .ayah {
+            font-size: 1.3rem;
+            color: #fff;
+            background: rgba(212,175,55,0.1);
+            padding: 2rem;
+            border-right: 4px solid var(--gold);
+            margin: 2rem 0;
+            border-radius: 8px;
+            font-style: italic;
+        }
+
+        .ayah-source {
+            color: var(--copper);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--gold);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--copper));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Timeline */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .timeline-item {
+            background: rgba(212,175,55,0.05);
+            border-left: 4px solid var(--gold);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            background: rgba(212,175,55,0.1);
+            transform: translateX(-10px);
+            border-left-color: var(--copper);
+        }
+
+        .timeline-item h3 {
+            color: var(--copper);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-item .date {
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Pillars Grid */
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pillar {
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(184,115,51,0.05));
+            border: 1px solid rgba(212,175,55,0.3);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--copper));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .pillar:hover {
+            transform: translateY(-10px);
+            border-color: var(--copper);
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(184,115,51,0.1));
+        }
+
+        .pillar:hover::before {
+            transform: scaleX(1);
+        }
+
+        .pillar-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--copper);
+            margin-bottom: 1rem;
+        }
+
+        .pillar-title {
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .pillar-subtitle {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .pillar-hadith {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-benefit {
+            background: rgba(212,175,55,0.1);
+            padding: 0.8rem;
+            border-radius: 6px;
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Identity Pillars */
+        .identity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .identity-card {
+            background: rgba(26,58,42,0.8);
+            border: 2px solid var(--gold);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .identity-card h3 {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .identity-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Evidence Section */
+        .evidence {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--copper);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .evidence h4 {
+            color: var(--copper);
+            margin-bottom: 1rem;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(184,115,51,0.05));
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            color: var(--dark);
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(212,175,55,0.3);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(212,175,55,0.5);
+        }
+
+        /* Feature Showcase */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-box {
+            background: rgba(10,10,10,0.6);
+            border: 1px solid var(--gold);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-box h4 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .feature-box ul {
+            list-style: none;
+            color: #ddd;
+        }
+
+        .feature-box li {
+            margin-bottom: 0.8rem;
+            padding-right: 1.5rem;
+            position: relative;
+        }
+
+        .feature-box li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--copper);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0,0,0,0.9);
+            border-top: 2px solid var(--gold);
+            padding: 3rem;
+            text-align: center;
+            color: #999;
+        }
+
+        footer .owner {
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        section {
+            animation: slideIn 0.8s ease backwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🕌 شيخة</h1>
+            <div class="hero-subtitle">من سوق المدينة المنورة<br>إلى أول سوق إسلامي رقمي عالمي</div>
+            <div class="ayah">
+                <p>﴿ وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا ﴾</p>
+                <div class="ayah-source">— البقرة ٢٧٥</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الرواية التاريخية -->
+    <section style="background: rgba(26,58,42,0.3);">
+        <div class="section-title">📘 الرواية المكانية: من المدينة إلى الخبر</div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="date">السنة الأولى للهجرة — ٦٢٢م</div>
+                <h3>🕌 الهجرة وبناء المسجد</h3>
+                <p>وصل النبي ﷺ إلى المدينة المنورة. أول ما بناه المسجد — مركز العبادة والعلم والحكم. ثم التفت إلى ما يحتاجه المسلمون: سوقٌ حرٌّ عادل.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="date">السوق القديم — بني قينقاع</div>
+                <h3>🏪 رفض السوق القائم</h3>
+                <p>كان سوق بني قينقاع هو السوق الرئيسي — لكنه تحت سيطرة اليهود، يفرضون ضرائب وشروط. النبي ﷺ أراد للمسلمين سوقاً حراً مستقلاً.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="date">لحظة التأسيس التاريخية</div>
+                <h3>⚖️ « هذا سوقكم »</h3>
+                <p>ذهب النبي ﷺ إلى أرض فضاء، ضربها برجله وقال: « هذا سوقكم، فلا يُنقَص ولا يُضرَب عليه خَراج ». ثلاث كلمات غيّرت التاريخ: حرية — عدل — سهولة.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="date">١٤٠٠+ سنة بعدها</div>
+                <h3>🌐 شيخة — إحياء السوق رقمياً</h3>
+                <p>في ١٤٤٧هـ / ٢٠٢٦م، نُحيي تلك المبادئ في شيخة — أول سوق إسلامي رقمي عالمي للمعادن. نفس المبادئ، لكن بتقنيات الذكاء الاصطناعي والبلوكتشين.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- الهوية المكانية -->
+    <section>
+        <div class="section-title">🗺️ الهوية المكانية: من النبي إلى الحداثة</div>
+
+        <div class="identity-grid">
+            <div class="identity-card">
+                <div class="identity-icon">🕌</div>
+                <h3>الجذر: سوق المدينة</h3>
+                <p>أول سوق حر إسلامي — المبادئ والقيم الشرعية التي وضعها النبي ﷺ هي أساس كل عملية تجارية في شيخة.</p>
+                <p style="margin-top: 1rem; color: var(--gold); font-weight: bold;">لا ربا — لا غش — لا احتكار</p>
+            </div>
+
+            <div class="identity-card">
+                <div class="identity-icon">🏗️</div>
+                <h3>المقر: الخبر</h3>
+                <p>المنطقة الشرقية — قلب الصناعة والطاقة والمعادن في المملكة. الخبر مدينة التجارة والاقتصاد المعرفي.</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">المكان المثالي لسوق رقمي عالمي للمعادن</p>
+            </div>
+
+            <div class="identity-card">
+                <div class="identity-icon">⚖️</div>
+                <h3>المنهج: الكتاب والسنة</h3>
+                <p>كل قانون وضابط وشرط في المنظومة مُستمد من الكتاب والسنة. ١٠ قوانين عليا، ٨ مجالات مواصفات، ٤٢+ شرط شرعي.</p>
+                <p style="margin-top: 1rem; color: var(--copper); font-weight: bold;">مراقبة آلية ٢٤/٧</p>
+            </div>
+
+            <div class="identity-card">
+                <div class="identity-icon">🌍</div>
+                <h3>الأثر: عالمي بلسان عربي</h3>
+                <p>شيخة عربية الأصل — عالمية الأثر. اللغة العربية الأساس، والمحتوى يُترجم لكل لغات العالم.</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">التاجر العربي والأجنبي معاً</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- الأركان الثمانية -->
+    <section style="background: rgba(26,58,42,0.4);">
+        <div class="section-title">🏛️ أركان السوق النبوي: مُرقمنة في شيخة</div>
+
+        <div class="pillars">
+            <div class="pillar">
+                <div class="pillar-number">١</div>
+                <div class="pillar-title">لا ضرر ولا ضرار</div>
+                <div class="pillar-subtitle">عدم الإضرار</div>
+                <div class="pillar-hadith">« لا ضرر ولا ضرار »<br><small>حديث نبوي — رواه ابن ماجه</small></div>
+                <div class="pillar-benefit">✅ كل معاملة يتحقق منها النظام آلياً</div>
+            </div>
+
+            <div class="pillar">
+                <div class="pillar-number">٢</div>
+                <div class="pillar-title">التاجر الصدوق الأمين</div>
+                <div class="pillar-subtitle">الصدق والأمانة</div>
+                <div class="pillar-hadith">« التاجر الصدوق الأمين »<br><small>رواه الترمذي</small></div>
+                <div class="pillar-benefit">✅ تقييم ذكي لكل تاجر</div>
+            </div>
+
+            <div class="pillar">
+                <div class="pillar-number">٣</div>
+                <div class="pillar-title">من غشّنا فليس منا</div>
+                <div class="pillar-subtitle">مكافحة الغش</div>
+                <div class="pillar-hadith">« من غشّنا فليس منا »<br><small>رواه مسلم</small></div>
+                <div class="pillar-benefit">✅ فحص غش آلي بالذكاء الاصطناعي</div>
+            </div>
+
+            <div class="pillar">
+                <div class="pillar-number">٤</div>
+                <div class="pillar-title">لا يحتكر إلا خاطئ</div>
+                <div class="pillar-subtitle">منع الاحتكار</div>
+                <div class="pillar-hadith">« لا يحتكر إلا خاطئ »<br><small>رواه مسلم</small></div>
+                <div class="pillar-benefit">✅ منع الاحتكار تلقائياً</div>
+            </div>
+
+            <div class="pillar">
+                <div class="pillar-number">٥</div>
+                <div class="pillar-title">البيع عن تراضٍ</div>
+                <div class="pillar-subtitle">التراضي الكامل</div>
+                <div class="pillar-hadith">« البيع عن تراضٍ »<br><small>رواه ابن ماجه</small></div>
+                <div class="pillar-benefit">✅ عقود ذكية رقمية</div>
+            </div>
+
+            <div class="pillar">
+                <div class="pillar-number">٦</div>
+                <div class="pillar-title">الوزن بالقسط</div>
+                <div class="pillar-subtitle">العدل في الموازين</div>
+                <div class="pillar-hadith">« أقيموا الوزن بالقسط »<br><small>الرحمن ٩</small></div>
+                <div class="pillar-benefit">✅ أوزان مُوثّقة بـ IoT</div>
+            </div>
+
+            <div class="pillar">
+                <div class="pillar-number">٧</div>
+                <div class="pillar-title">حرية التسعير</div>
+                <div class="pillar-subtitle">السوق الحر</div>
+                <div class="pillar-hadith">« إن الله هو المسعّر »<br><small>رواه أبو داود</small></div>
+                <div class="pillar-benefit">✅ تسعير بالعرض والطلب</div>
+            </div>
+
+            <div class="pillar">
+                <div class="pillar-number">٨</div>
+                <div class="pillar-title">الحسبة</div>
+                <div class="pillar-subtitle">المحتسب الرقمي</div>
+                <div class="pillar-hadith">« عيّن محتسباً على السوق »<br><small>السيرة النبوية</small></div>
+                <div class="pillar-benefit">✅ رقابة رقمية ٢٤/٧</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- المميزات الرقمية -->
+    <section>
+        <div class="section-title">⚡ المميزات الرقمية: تقنيات الحداثة مع أخلاقيات النبي</div>
+
+        <div class="feature-grid">
+            <div class="feature-box">
+                <div class="feature-icon">🤖</div>
+                <h4>الذكاء الاصطناعي والفحص الآلي</h4>
+                <ul>
+                    <li>كشف الغش بـ Computer Vision</li>
+                    <li>تقييم جودة تلقائي</li>
+                    <li>تصنيف المعادن والسكراب</li>
+                    <li>رصد الاحتكار الفوري</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon">⛓️</div>
+                <h4>البلوكتشين والعقود الذكية</h4>
+                <ul>
+                    <li>سجل transaction غير قابل للتعديل</li>
+                    <li>عقود موثّقة رقمياً</li>
+                    <li>دفع آمن فوري</li>
+                    <li>إثبات الملكية والجودة</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon">📡</div>
+                <h4>الإنترنت الصناعي (IoT)</h4>
+                <ul>
+                    <li>أجهزة وزن موصولة</li>
+                    <li>مستشعرات جودة</li>
+                    <li>توثيق لحظي للعمليات</li>
+                    <li>موثوقية عالية</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon">📊</div>
+                <h4>البيانات والتحليلات</h4>
+                <ul>
+                    <li>مؤشرات سوق لحظية</li>
+                    <li>أسعار عادلة شفافة</li>
+                    <li>سجل تاريخي كامل</li>
+                    <li>تقارير دورية</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon">🔒</div>
+                <h4>الأمان والخصوصية</h4>
+                <ul>
+                    <li>تشفير بنك مركزي</li>
+                    <li>حماية بيانات العملاء</li>
+                    <li>امتثال GDPR</li>
+                    <li>مراجعة أمنية مستمرة</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon">🌐</div>
+                <h4>الوصول العالمي</h4>
+                <ul>
+                    <li>منصة متعددة اللغات</li>
+                    <li>واجهات للويب والموبايل</li>
+                    <li>API للتكامل</li>
+                    <li>دعم 24/7</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- دعوة للعمل -->
+    <section class="cta-section">
+        <h2 style="color: var(--gold); font-size: 2rem; margin-bottom: 2rem;">
+            🚀 انضم إلى ثورة التجارة الإسلامية الرقمية
+        </h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #ddd;">
+            كن جزءاً من سوق يحترم الأمانة والعدل والشفافية<br>
+            من الخبر إلى العالم
+        </p>
+        <a href="/سوق-شيخة.html" class="cta-button">ادخل السوق الآن</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="owner">
+            🏢 المالك: سلمان أحمد بن سلمان الراجح<br>
+            📍 الخبر — المنطقة الشرقية — المملكة العربية السعودية
+        </div>
+        <p style="margin-top: 1.5rem; font-style: italic; color: var(--gold);">
+            « هذا سوقكم لا يُنقَص ولا يُضرَب عليه خَراج »<br>
+            — النبي محمد ﷺ — عند تأسيس سوق المدينة المنورة
+        </p>
+        <p style="margin-top: 2rem; font-size: 0.9rem;">
+            منظومة وسوق شيخة — SHEIKHA<br>
+            أول سوق إسلامي رقمي عالمي للمعادن والسكراب
+        </p>
+    </footer>
+</body>
+</html>

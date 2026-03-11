@@ -1,0 +1,107 @@
+{
+  "timestamp": "2026-03-10T19:57:36.948Z",
+  "requestedBy": "market@sheikha.top",
+  "channel": "gemini",
+  "mode": "report",
+  "privacy": {
+    "localOnly": true,
+    "autoSendExternalChats": false,
+    "note": "لا يتم إرسال أي محتوى تلقائياً إلى Gemini أو أي مزود خارجي بدون إجراء صريح."
+  },
+  "workspace": {
+    "root": "/workspaces/sheikha/sheikha-main-portal",
+    "package": {
+      "name": "sheikha-enterprise-al-portal",
+      "version": "1.0.0",
+      "scripts": [
+        "start",
+        "stop",
+        "restart",
+        "dev",
+        "dev:vscode:doctor",
+        "dev:scaffold:app",
+        "dev:scaffold:app:help",
+        "start:safe",
+        "ops:readiness",
+        "ops:gov:readiness",
+        "ops:gov:auto",
+        "ops:gov:auto:fix",
+        "ops:gov:procedures",
+        "ops:gov:procedures:fix",
+        "ops:readiness:fix",
+        "ops:gcloud:alliance:dry",
+        "ops:gcloud:alliance:apply",
+        "ops:gcloud:alliance:apply:enterprise",
+        "ops:gcloud:alliance:auto:once",
+        "ops:gcloud:alliance:auto:watch",
+        "ops:gcloud:alliance:auto:pm2:start",
+        "ops:gcloud:alliance:auto:pm2:stop",
+        "ops:gcloud:alliance:auto:pm2:status",
+        "ops:gcloud:alliance:auto:pm2:logs",
+        "ops:cntext:handoff",
+        "ops:chat:sync",
+        "ops:chat:open",
+        "ops:chat:report",
+        "ops:chat:gemini",
+        "ops:alliance:superior",
+        "ops:auth:readiness",
+        "ops:bg-guard",
+        "ops:bg-guard:loop",
+        "ops:bg-guard:pm2:start",
+        "ops:bg-guard:pm2:stop",
+        "ops:ai-guard",
+        "ops:ai-guard:loop",
+        "ops:ai-guard:pm2:start",
+        "ops:ai-guard:pm2:stop",
+        "ops:ollama:plan",
+        "ops:ollama:apply",
+        "ops:ip:proof",
+        "ops:ip:proof:strict",
+        "ops:ip:proof:loop",
+        "ops:ip:proof:loop:strict",
+        "ops:ip:alert:test",
+        "ops:ip:proof:pm2:start",
+        "ops:ip:proof:pm2:start:strict",
+        "ops:ip:proof:pm2:stop",
+        "ops:agent:identity",
+        "ops:agent:mesh",
+        "ops:activate:secure",
+        "nvidia:auto",
+        "nvidia:nsys",
+        "nvidia:ncu",
+        "release:validate",
+        "release:deb"
+      ],
+      "dependenciesCount": 18,
+      "devDependenciesCount": 1
+    }
+  },
+  "latestGoogleActivation": {
+    "file": "/workspaces/sheikha/sheikha-main-portal/reports/google-engines-activation-1773172094886.json",
+    "summary": {
+      "total": 8,
+      "active": 1,
+      "partial": 6,
+      "inactive": 1,
+      "errors": []
+    }
+  },
+  "contextSnapshot": {
+    "error": "ContextIntegrationEngine is not a constructor"
+  },
+  "operatorMessage": "",
+  "operatorNote": "",
+  "previousState": {
+    "lastRequestedChannel": "gemini",
+    "lastReport": {
+      "json": "/workspaces/sheikha/sheikha-main-portal/reports/synchronization/chat-war-room-2026-03-10T19-55-21-777Z.json",
+      "markdown": "/workspaces/sheikha/sheikha-main-portal/reports/synchronization/chat-war-room-2026-03-10T19-55-21-777Z.md",
+      "timestamp": "2026-03-10T19:55:21.777Z"
+    },
+    "sessionsCount": 2
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "hash": "32cebfee44d2068bc63e773b99f294b323b054b8990125a3300bbab2301accb6"
+  }
+}

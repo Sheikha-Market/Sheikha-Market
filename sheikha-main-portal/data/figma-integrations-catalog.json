@@ -1,0 +1,79 @@
+{
+  "version": "1.0.0",
+  "description": "تكاملات Figma — MCP clients و Plugins — مرقمنة بالكتاب والسنة",
+  "categories": {
+    "research": {
+      "name": "البحث والمستخدم",
+      "quranRef": "الإسراء:36",
+      "quranText": "وَلَا تَقْفُ مَا لَيْسَ لَكَ بِهِ عِلْمٌ",
+      "integrations": [
+        { "id": "sprig", "name": "Sprig", "value": "بحث عالي التأثير مع المستخدمين طوال دورة حياة المنتج", "quranRef": "البقرة:269", "principle": "الحكمة والعلم — البحث قبل البناء" },
+        { "id": "maze", "name": "Maze", "value": "اختبار نماذج Figma مع مستخدمين حقيقيين، مقاييس قابلية الاستخدام", "quranRef": "الشورى:38", "principle": "الشورى — استشارة المستخدم قبل الإطلاق" },
+        { "id": "uxtweak", "name": "UXtweak", "value": "اختبار المستخدم مباشرة على نماذج Figma", "quranRef": "النساء:29", "principle": "التراضي — تجربة المستخدم عن رضا" },
+        { "id": "usertesting", "name": "UserTesting", "value": "ملاحظات المستخدم من النماذج إلى التصور", "quranRef": "الحجرات:13", "principle": "التقوى والمعرفة — فهم المستخدم" },
+        { "id": "dscout", "name": "dscout", "value": "نماذج Figma في اختبارات dscout مع خرائط حرارية ونقرات", "quranRef": "البقرة:282", "principle": "التوثيق — توثيق سلوك المستخدم" }
+      ]
+    },
+    "prototyping": {
+      "name": "النماذج والتفاعل",
+      "quranRef": "البقرة:275",
+      "quranText": "وَأَحَلَّ اللَّهُ الْبَيْعَ",
+      "integrations": [
+        { "id": "protopie", "name": "ProtoPie", "value": "تحويل تصاميم Figma إلى نماذج تفاعلية وحركات", "quranRef": "الروم:30", "principle": "الفطرة — واجهة طبيعية للمستخدم" },
+        { "id": "principle", "name": "Principle", "value": "نماذج Figma متحركة وتفاعلية", "quranRef": "المطففين:1-3", "principle": "العدل — وضوح التفاعل" },
+        { "id": "framer", "name": "Framer Web", "value": "استيراد Figma إلى Framer لنماذج متقدمة", "quranRef": "الإسراء:84", "principle": "القول الحق — واجهة صادقة" },
+        { "id": "bubble", "name": "Bubble", "value": "تحويل التصاميم إلى تطبيقات ويب بدون كود", "quranRef": "النساء:29", "principle": "التجارة عن تراضٍ — بناء سهل" },
+        { "id": "axure", "name": "Axure", "value": "نسخ إطارات Figma إلى Axure RP أو Axure Cloud", "quranRef": "البقرة:282", "principle": "الكتابة — توثيق التصميم" }
+      ]
+    },
+    "feedback": {
+      "name": "الملاحظات والتحسين",
+      "quranRef": "الشورى:38",
+      "quranText": "وَأَمْرُهُمْ شُورَىٰ بَيْنَهُمْ",
+      "integrations": [
+        { "id": "pendo", "name": "Pendo", "value": "رسائل داخل التطبيق لمشاركة النماذج والحصول على ملاحظات", "quranRef": "النحل:125", "principle": "الحكمة والموعظة — تواصل هادف" },
+        { "id": "mixpanel", "name": "Mixpanel", "value": "تقارير Mixpanel مضمّنة في FigJam للتعاون على البيانات", "quranRef": "البقرة:282", "principle": "التوثيق — قياس وتوثيق" }
+      ]
+    },
+    "developer": {
+      "name": "تسليم المطور",
+      "quranRef": "البقرة:282",
+      "quranText": "فَاكْتُبُوهُ",
+      "integrations": [
+        { "id": "vscode", "name": "Visual Studio Code", "value": "إشعارات عند تغيّر التصاميم، إكمال كود داخل IDE", "quranRef": "العلق:1-5", "principle": "اقرأ — الكود والتوثيق" },
+        { "id": "storybook", "name": "Storybook", "value": "قصص مضمّنة في Figma للمرجع المباشر للتنفيذ", "quranRef": "يوسف:3", "principle": "أحسن القصص — توثيق المكونات" },
+        { "id": "aws-amplify", "name": "AWS Amplify Studio", "value": "من Figma إلى تطبيقات ويب كاملة على AWS", "quranRef": "النساء:29", "principle": "التجارة — بناء سريع" },
+        { "id": "gitlab", "name": "GitLab", "value": "رفع التصاميم من Figma إلى GitLab issues", "quranRef": "البقرة:282", "principle": "الكتابة — تتبع المهام" },
+        { "id": "zeplin", "name": "Zeplin", "value": "تصدير إطارات Figma إلى Zeplin للمواصفات والأصول", "quranRef": "المطففين:1-3", "principle": "العدل — مواصفات دقيقة" },
+        { "id": "zeroheight", "name": "zeroheight", "value": "مزامنة أنماط ومكونات Figma لأدلة أنماط محدثة", "quranRef": "البقرة:282", "principle": "التوثيق — دليل موحد" },
+        { "id": "frontify", "name": "Frontify", "value": "استيراد مكونات Figma لنظام تصميم حي", "quranRef": "الإسراء:36", "principle": "العلم — نظام معرفي" },
+        { "id": "lens-studio", "name": "Lens Studio", "value": "تحويل تصاميم Figma إلى AR ونشرها على Snapchat", "quranRef": "الروم:30", "principle": "الفطرة — تجربة طبيعية" }
+      ]
+    },
+    "collaboration": {
+      "name": "التعاون والإنتاجية",
+      "quranRef": "الحجرات:13",
+      "quranText": "لِتَعَارَفُوا",
+      "integrations": [
+        { "id": "chatgpt", "name": "ChatGPT", "value": "إنشاء مخططات FigJam من ChatGPT وفتحها في FigJam — تكامل مباشر بين الحسابين", "quranRef": "العلق:1-5", "principle": "اقرأ — توليد الأفكار", "note": "تكامل مفعّل في الحساب" },
+        { "id": "zapier", "name": "Zapier", "value": "ربط Figma بأدوات أخرى عبر Zapier بدون كود", "quranRef": "النساء:29", "principle": "التراضي — أتمتة عن رضا" },
+        { "id": "google-workspace", "name": "Google Workspace", "value": "تكامل مع Google للتعاون على ملفات Figma", "quranRef": "الشورى:38", "principle": "الشورى — تعاون" },
+        { "id": "microsoft-teams", "name": "Microsoft Teams", "value": "ربط Figma بـ Teams لإضافة ملفات للاجتماعات", "quranRef": "المائدة:2", "principle": "التعاون على البر — تعاون" },
+        { "id": "zoom", "name": "Zoom", "value": "ربط Figma بـ Zoom للتعاون والملاحظات الفورية", "quranRef": "الحجرات:13", "principle": "التعارف — تواصل" },
+        { "id": "slack", "name": "Slack", "value": "إشعارات Figma في Slack", "quranRef": "النور:63", "principle": "التناصح — إبلاغ الفريق" },
+        { "id": "notion", "name": "Notion", "value": "تضمين ملفات Figma مباشرة في Notion", "quranRef": "البقرة:282", "principle": "التوثيق — مرجع واحد" },
+        { "id": "asana", "name": "Asana", "value": "تضمين Figma في مشاريع Asana", "quranRef": "الصف:4", "principle": "الصف — تنظيم العمل" },
+        { "id": "lingo", "name": "Lingo", "value": "تنظيم وإدارة ومشاركة أصول العلامة", "quranRef": "الحجرات:13", "principle": "التعارف — أصول موحدة" },
+        { "id": "p2", "name": "P2", "value": "تضمين Figma في كتل P2", "quranRef": "الشورى:38", "principle": "الشورى — مشاركة" },
+        { "id": "dropbox", "name": "Dropbox", "value": "تضمين Figma في Dropbox Paper", "quranRef": "البقرة:282", "principle": "الكتابة — حفظ ومشاركة" },
+        { "id": "trello", "name": "Trello", "value": "تضمين Figma ونماذجها في لوحات Trello", "quranRef": "الصف:4", "principle": "الصف — تتبع المهام" },
+        { "id": "coda", "name": "Coda", "value": "تضمين Figma في Coda", "quranRef": "البقرة:282", "principle": "التوثيق — وثائق حية" },
+        { "id": "jira", "name": "Jira", "value": "تضمين Figma في لوحات Jira", "quranRef": "البقرة:282", "principle": "التوثيق — ربط التصميم بالمهام" },
+        { "id": "confluence", "name": "Confluence", "value": "تضمين Figma في Confluence", "quranRef": "البقرة:282", "principle": "التوثيق — معرفة موحدة" },
+        { "id": "storiesonboard", "name": "StoriesOnBoard", "value": "تضمين Figma في بطاقات StoriesOnBoard", "quranRef": "يوسف:3", "principle": "القصص — ربط التصميم بالقصة" },
+        { "id": "qatalog", "name": "Qatalog", "value": "ملفات Figma كموارد في Qatalog", "quranRef": "الحجرات:13", "principle": "التعارف — فهرسة الموارد" },
+        { "id": "productboard", "name": "Productboard", "value": "تضمين Figma في محرر Productboard", "quranRef": "الشورى:38", "principle": "الشورى — قرارات المنتج" }
+      ]
+    }
+  }
+}

@@ -51,8 +51,8 @@
     "twoFactorMethod": "sheikha_auth",
     "twoFactorSecret": null,
     "passwordChangedAt": null,
-    "failedLoginAttempts": 5,
-    "accountLockedUntil": "2026-02-23T13:41:50.538Z",
+    "failedLoginAttempts": 7,
+    "accountLockedUntil": "2026-02-27T21:32:08.372Z",
     "securityLog": [
       {
         "action": "account_created",
@@ -146,10 +146,22 @@
         "action": "password_reset_requested",
         "at": "2026-02-23T14:28:29.935Z",
         "identifier": "mark***"
+      },
+      {
+        "action": "account_locked",
+        "at": "2026-02-27T21:01:21.994Z",
+        "reason": "too_many_failed_attempts",
+        "count": 6
+      },
+      {
+        "action": "account_locked",
+        "at": "2026-02-27T21:17:08.372Z",
+        "reason": "too_many_failed_attempts",
+        "count": 7
       }
     ],
     "createdAt": "2026-02-14T06:58:03.107Z",
-    "updatedAt": "2026-02-23T00:25:56.063Z",
+    "updatedAt": "2026-02-28T23:52:10.844Z",
     "lastLoginAt": "2026-02-19T07:15:04.778Z",
     "contact": {
       "primaryEmail": "market@sheikha.top",
@@ -165,8 +177,8 @@
       "region": "المنطقة الشرقية",
       "country": "المملكة العربية السعودية"
     },
-    "provider": "microsoft",
-    "providerId": "7d33e0c7-5711-45e4-845f-f54ca1934ddc",
+    "provider": "google",
+    "providerId": "109874206867490578561",
     "oauthProviders": {
       "microsoft": {
         "providerId": "7d33e0c7-5711-45e4-845f-f54ca1934ddc",
@@ -174,7 +186,7 @@
       },
       "google": {
         "providerId": "109874206867490578561",
-        "linkedAt": "2026-02-21T21:36:13.651Z"
+        "linkedAt": "2026-02-28T23:52:10.844Z"
       }
     }
   },

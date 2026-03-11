@@ -1,8 +1,8 @@
 # بسم الله الرحمن الرحيم
 
-# ☪️ سوق ومنظومة شيخة — SHEIKHA
+# ☪️ شيخة — SHEIKHA ENTERPRISE AL PORTAL
 
-**أول سوق إسلامي رقمي للمعادن الثمينة**
+**البوابة المؤسسية الرسمية: Sheikha Enterprise AL Portal**
 
 **المالك:** سلمان أحمد بن سلمان الراجح
 
@@ -25,22 +25,38 @@
 
 ## المحركات
 
-| المحرك | الوظيفة |
-|--------|---------|
-| sheikha-pilot-engine | التشغيل التجريبي والإنتاج الذكي |
+| المحرك                    | الوظيفة                         |
+| ------------------------- | ------------------------------- |
+| sheikha-pilot-engine      | التشغيل التجريبي والإنتاج الذكي |
 | sheikha-excellence-engine | التقدم العلمي والتجاري والإتقان |
-| sheikha-marketing-engine | التسويق الرقمي |
-| sheikha-ai-engine | الذكاء الخوارزمي |
-| sheikha-ai | مساعد الذكاء |
-| sharia-compliance | التدقيق الشرعي |
-| sheikha-navigator | التنقل الذكي |
-| development-engine | إدارة التطوير |
-| arabic-language-engine | معالجة اللغة العربية |
-| arabic-parser-engine | تحليل النصوص العربية |
+| sheikha-marketing-engine  | التسويق الرقمي                  |
+| sheikha-ai-engine         | الذكاء الخوارزمي                |
+| sheikha-ai                | مساعد الذكاء                    |
+| sharia-compliance         | التدقيق الشرعي                  |
+| sheikha-navigator         | التنقل الذكي                    |
+| development-engine        | إدارة التطوير                   |
+| arabic-language-engine    | معالجة اللغة العربية            |
+| arabic-parser-engine      | تحليل النصوص العربية            |
 
 ## الوضع الحالي
 
 **OPERATIONAL-PILOT** — وضع تجريبي آمن بلا مخاطر مالية.
+
+## مكتبة Sheikha AI Core
+
+ضمن مكونات المشروع تم تطوير مكتبة مستقلة تعمل كأساس للذكاء الاصطناعي:
+
+- `lib/sheikha/llmProvider.js` للتعامل الموحد مع أي موفر LLM.
+- `lib/sheikha/chatSheikha.js` لبناء حوارات ذكية قابلة للتدريب.
+
+تُستخدم هذه المكتبة في محركات الذكاء (`sheikha-ai-engine` و`sheikha-ai`) وفي أي تطبيق آخر.
+صُممت لتكون **ضخمة بأفكارها** و**ضيقة غير إسرافية** في استهلاك الموارد.
+
+```bash
+cd lib/sheikha
+npm install
+OPENAI_API_KEY=... npm test
+```
 
 ## الحاكمية
 

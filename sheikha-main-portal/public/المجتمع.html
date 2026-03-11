@@ -2,11 +2,34 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مجتمع شيخة | SHEIKHA Community</title>
-<meta name="description" content="مجتمع شيخة — مجتمع قائم على الصدق والإتقان والتعاون على الخير">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>مجتمع شيخة — الصدق والإتقان والتعاون | SHEIKHA Community</title>
+<meta name="description" content="مجتمع شيخة — مجتمع قائم على الصدق والإتقان والتعاون على الخير — منتدى ومختبرات ابتكار لتجار المعادن">
+<meta name="keywords" content="مجتمع شيخة، منتدى المعادن، مختبرات ابتكار، تجارة حلال، شيخة">
+<meta name="robots" content="index, follow">
+<meta name="author" content="سلمان أحمد بن سلمان الراجح">
+<meta name="copyright" content="© 2026 سلمان أحمد بن سلمان الراجح — جميع الحقوق محفوظة">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#D4AF37">
+<script src="/js/sheikha-meta-injector.js" defer></script>
+<script src="/js/sheikha-meta-helper.js"></script>
+<meta property="og:type" content="website">
+<meta property="og:title" content="مجتمع شيخة — الصدق والإتقان والتعاون">
+<meta property="og:description" content="مجتمع قائم على الصدق والإتقان والتعاون على الخير — منتدى ومختبرات ابتكار">
+<meta property="og:url" content="https://sheikha.top/المجتمع.html">
+<meta property="og:site_name" content="SHEIKHA">
+<meta property="og:locale" content="ar_SA">
+<meta property="og:image" content="https://sheikha.top/images/og-sheikha.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="مجتمع شيخة">
+<link rel="canonical" href="https://sheikha.top/المجتمع.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@sheikha_market">
+<meta name="twitter:title" content="مجتمع شيخة">
+<meta name="twitter:description" content="مجتمع قائم على الصدق والإتقان والتعاون على الخير">
+<meta name="twitter:image" content="https://sheikha.top/images/og-sheikha.png">
+<meta name="twitter:image:alt" content="مجتمع شيخة">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{--gold:#D4AF37;--gold-l:#F5E6A3;--gold-d:#A8882B;--copper:#B87333;--bg:#030509;--bg2:#0a0e18;--bg3:#111827;--t1:#f4f4f5;--t2:#a1a1aa;--t3:#71717a;--border:rgba(212,175,55,.07);--green:#006c35;--green-l:#10b981}
@@ -109,6 +132,45 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center}
 .fbot a{color:var(--t3);font-size:.75rem;transition:color .2s}
 .fbot a:hover{color:var(--gold)}
 .f-links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:8px}
+
+/* ═══ لوحة المتابعة التعليمية ═══ */
+.learning-dashboard{background:linear-gradient(135deg,rgba(212,175,55,.02),rgba(212,175,55,.005));padding:32px 24px;border-radius:20px;border:1px solid rgba(212,175,55,.08)}
+.dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.dash-title{font-size:1.1rem;font-weight:900;color:var(--gold)}
+.dash-sync{font-size:.7rem;color:var(--t3);display:flex;align-items:center;gap:6px}
+.dash-sync .pulse{width:6px;height:6px;background:var(--green-l);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.2)}}
+.progress-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:24px}
+.progress-card{background:var(--bg2);border:1px solid rgba(212,175,55,.08);border-radius:14px;padding:18px;position:relative;overflow:hidden}
+.progress-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--gold),var(--copper));transform:scaleX(var(--progress,0));transform-origin:left;transition:transform .6s ease}
+.pc-label{font-size:.78rem;color:var(--t3);margin-bottom:8px;font-weight:600}
+.pc-value{font-size:1.6rem;font-weight:900;color:var(--gold);margin-bottom:4px}
+.pc-progress{width:100%;height:6px;background:rgba(212,175,55,.08);border-radius:10px;overflow:hidden;margin-top:10px}
+.pc-progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--copper));border-radius:10px;transition:width .6s ease}
+.pc-detail{font-size:.7rem;color:var(--t2);margin-top:6px}
+
+/* ═══ التقييم الأسبوعي للفرق ═══ */
+.weekly-assessment{margin-top:28px}
+.wa-title{font-size:1rem;font-weight:800;margin-bottom:16px;color:var(--t1);display:flex;align-items:center;gap:8px}
+.wa-title .badge{font-size:.65rem;background:rgba(212,175,55,.1);color:var(--gold);padding:4px 10px;border-radius:8px;font-weight:700}
+.teams-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.team-card{background:var(--bg2);border:1px solid rgba(212,175,55,.06);border-radius:14px;padding:20px;transition:all .3s}
+.team-card:hover{border-color:rgba(212,175,55,.2);transform:translateY(-2px)}
+.team-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.team-name{font-size:.92rem;font-weight:800;color:var(--t1)}
+.team-rank{width:32px;height:32px;border-radius:10px;background:rgba(212,175,55,.08);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem;color:var(--gold)}
+.team-rank.top{background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--bg)}
+.team-metrics{display:flex;flex-direction:column;gap:8px}
+.metric-row{display:flex;align-items:center;justify-content:space-between;font-size:.78rem}
+.metric-label{color:var(--t3)}
+.metric-value{font-weight:700;color:var(--gold)}
+.team-members{display:flex;align-items:center;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(212,175,55,.06)}
+.tm-count{font-size:.7rem;color:var(--t3)}
+.tm-avatars{display:flex;margin-right:auto}
+.tm-avatar{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--copper));border:2px solid var(--bg2);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--bg)}
+.loading-state{text-align:center;padding:40px;color:var(--t3);font-size:.85rem}
+.loading-spinner{width:40px;height:40px;border:3px solid rgba(212,175,55,.1);border-top-color:var(--gold);border-radius:50%;margin:0 auto 12px;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -246,7 +308,50 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center}
 
 <div class="sep"></div>
 
-<!-- ═══ القسم 4: ميثاق المجتمع ═══ -->
+<!-- ═══ القسم 4: لوحة المتابعة التعليمية والتقييم الأسبوعي ═══ -->
+<section class="section">
+    <div class="section-title">
+        <h2>لوحة <span>المتابعة التعليمية</span></h2>
+        <p>متابعة التقدم الأسبوعي والتقييم المباشر للفرق من داخل النظام — بيانات حية محدّثة</p>
+    </div>
+    
+    <div class="learning-dashboard" id="learningDashboard">
+        <!-- رأس اللوحة -->
+        <div class="dash-header">
+            <div class="dash-title">📊 البيانات المباشرة — الأسبوع الحالي</div>
+            <div class="dash-sync">
+                <span class="pulse"></span>
+                <span id="lastSync">يتم التحميل...</span>
+            </div>
+        </div>
+
+        <!-- بطاقات التقدم -->
+        <div class="progress-cards" id="progressCards">
+            <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <p>جارٍ تحميل البيانات من النظام...</p>
+            </div>
+        </div>
+
+        <!-- التقييم الأسبوعي للفرق -->
+        <div class="weekly-assessment">
+            <div class="wa-title">
+                🏆 التقييم الأسبوعي للفرق
+                <span class="badge" id="weekBadge">الأسبوع 1</span>
+            </div>
+            <div class="teams-grid" id="teamsGrid">
+                <div class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>جارٍ تحميل تقييمات الفرق...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══ القسم 5: ميثاق المجتمع ═══ -->
 <section class="section">
     <div class="section-title">
         <h2>ميثاق <span>المجتمع</span></h2>
@@ -279,7 +384,7 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center}
 
 <div class="sep"></div>
 
-<!-- ═══ القسم 5: مصادر المعرفة — سعوديبيديا وويكيبيديا ═══ -->
+<!-- ═══ القسم 6: مصادر المعرفة — سعوديبيديا وويكيبيديا ═══ -->
 <section class="section">
     <div class="section-title">
         <h2>مصادر <span>المعرفة</span></h2>
@@ -324,7 +429,7 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center}
 
 <div class="sep"></div>
 
-<!-- ═══ القسم 6: الانضمام ═══ -->
+<!-- ═══ القسم 7: الانضمام ═══ -->
 <section class="join">
     <h2>انضم إلى مجتمع <span>شيخة</span></h2>
     <p>مكانك بين التجار الصادقين الأمناء — سجّل واحصل على عضوية في أول مجتمع تجاري إسلامي رقمي</p>
@@ -380,7 +485,126 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center}
                 window.location.href = '/تسجيل-الدخول.html?tab=register';
             });
         }
+
+        // ═══ تحميل لوحة المتابعة التعليمية والتقييم الأسبوعي ═══
+        loadLearningDashboard();
     })();
+
+    // دالة تحميل لوحة المتابعة التعليمية
+    async function loadLearningDashboard() {
+        try {
+            const response = await fetch('/api/community/learning-dashboard', {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            });
+            
+            if (!response.ok) throw new Error('فشل تحميل البيانات');
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                renderProgressCards(data.progress);
+                renderTeamsAssessment(data.teams, data.currentWeek);
+                updateSyncTime();
+            } else {
+                showError('تعذر تحميل البيانات');
+            }
+        } catch (error) {
+            console.error('خطأ في تحميل لوحة المتابعة:', error);
+            showError('تعذر الاتصال بالنظام. يرجى المحاولة لاحقاً.');
+        }
+    }
+
+    // عرض بطاقات التقدم
+    function renderProgressCards(progress) {
+        const container = document.getElementById('progressCards');
+        if (!progress || progress.length === 0) {
+            container.innerHTML = '<div class="loading-state"><p>لا توجد بيانات متاحة حالياً</p></div>';
+            return;
+        }
+
+        container.innerHTML = progress.map(card => `
+            <div class="progress-card" style="--progress:${card.percentage / 100}">
+                <div class="pc-label">${card.label}</div>
+                <div class="pc-value">${card.value}</div>
+                <div class="pc-progress">
+                    <div class="pc-progress-bar" style="width:${card.percentage}%"></div>
+                </div>
+                <div class="pc-detail">${card.percentage}% من الهدف (${card.target})</div>
+            </div>
+        `).join('');
+    }
+
+    // عرض التقييم الأسبوعي للفرق
+    function renderTeamsAssessment(teams, currentWeek) {
+        const container = document.getElementById('teamsGrid');
+        const weekBadge = document.getElementById('weekBadge');
+        
+        if (weekBadge) weekBadge.textContent = `الأسبوع ${currentWeek || 1}`;
+        
+        if (!teams || teams.length === 0) {
+            container.innerHTML = '<div class="loading-state"><p>لا توجد فرق مسجلة حالياً</p></div>';
+            return;
+        }
+
+        container.innerHTML = teams.map((team, index) => `
+            <div class="team-card">
+                <div class="team-header">
+                    <div class="team-name">${team.name}</div>
+                    <div class="team-rank ${index < 3 ? 'top' : ''}">${index + 1}</div>
+                </div>
+                <div class="team-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">النقاط الكلية:</span>
+                        <span class="metric-value">${team.totalPoints}</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">المهام المكتملة:</span>
+                        <span class="metric-value">${team.completedTasks}/${team.totalTasks}</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">معدل الإنجاز:</span>
+                        <span class="metric-value">${team.completionRate}%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">الحضور:</span>
+                        <span class="metric-value">${team.attendanceRate}%</span>
+                    </div>
+                </div>
+                <div class="team-members">
+                    <span class="tm-count">${team.members.length} أعضاء</span>
+                    <div class="tm-avatars">
+                        ${team.members.slice(0, 4).map((m, i) => 
+                            `<div class="tm-avatar" title="${m.name}">${m.initial || (i+1)}</div>`
+                        ).join('')}
+                        ${team.members.length > 4 ? `<div class="tm-avatar">+${team.members.length - 4}</div>` : ''}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // تحديث وقت المزامنة
+    function updateSyncTime() {
+        const syncEl = document.getElementById('lastSync');
+        if (syncEl) {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('ar-SA', {hour: '2-digit', minute: '2-digit'});
+            syncEl.textContent = `آخر تحديث: ${timeStr}`;
+        }
+    }
+
+    // عرض رسالة خطأ
+    function showError(message) {
+        const progressContainer = document.getElementById('progressCards');
+        const teamsContainer = document.getElementById('teamsGrid');
+        const errorHTML = `<div class="loading-state"><p style="color:var(--t3)">⚠️ ${message}</p></div>`;
+        if (progressContainer) progressContainer.innerHTML = errorHTML;
+        if (teamsContainer) teamsContainer.innerHTML = errorHTML;
+    }
+
+    // تحديث تلقائي كل 5 دقائق
+    setInterval(loadLearningDashboard, 300000);
 </script>
 </body>
 </html>

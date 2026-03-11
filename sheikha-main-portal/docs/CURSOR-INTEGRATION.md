@@ -46,17 +46,33 @@ npm install
 2. أضف الإعداد من `.cursor/mcp.json`
 3. أعد تشغيل Cursor
 
-#### الأدوات المتاحة عبر MCP:
+#### الأدوات المتاحة عبر MCP (23 أداة):
 
 | الأداة | الوصف | مثال الاستخدام |
 |--------|-------|----------------|
-| `analyze_company` | تحليل شركة سعودية | "حلل شركة معادن" |
-| `search_market` | بحث في السوق | "ابحث عن موردي الحديد" |
-| `get_supply_chain` | سلسلة التوريد | "سلسلة توريد الذهب" |
-| `analyze_concept` | تحليل لغوي | "حلل مفهوم النمو" |
-| `generate_api_code` | إنشاء API | "أنشئ API للمنتجات" |
-| `get_gaps_solutions` | الفجوات والحلول | "فجوات شركة لازوردي" |
-| `create_component` | مكون UI | "أنشئ بطاقة منتج" |
+| `sheikha_status` | حالة المنظومة الشاملة | "ما حالة شيخة؟" |
+| `sheikha_engines` | عرض المحركات (65+) | "اعرض المحركات" |
+| `sheikha_sharia_check` | فحص شرعي للكود | "افحص هذا الكود شرعياً" |
+| `sheikha_learn` | تعليم شيخة معرفة | "علّم شيخة عن..." |
+| `sheikha_search_code` | بحث في الكود | "ابحث عن api في الكود" |
+| `sheikha_analyze_company` | تحليل شركة | "حلل شركة معادن" |
+| `sheikha_market_prices` | أسعار المعادن الحية | "أسعار الذهب والنحاس" |
+| `sheikha_generate` | إنشاء كود | "أنشئ API للمنتجات" |
+| `sheikha_health` | فحص صحة النظام | "افحص صحة المنظومة" |
+| `sheikha_apis` | خريطة 200+ API | "اعرض واجهات API" |
+| `sheikha_pages` | صفحات الموقع | "قائمة الصفحات" |
+| `sheikha_quran_wisdom` | آيات وأحاديث | "آيات عن التجارة" |
+| `sheikha_learning_report` | تقرير التعلّم | "تقرير ذكاء شيخة" |
+| `sheikha_suggest_improvements` | اقتراح تحسينات | "اقترح تحسينات" |
+| `sheikha_translate` | ترجمة 22 لغة | "ترجم النص للإنجليزية" |
+| `sheikha_pilot_status` | حالة الطيار | "حالة منظومة الطيار" |
+| `sheikha_rfq` | طلبات عروض الأسعار | "طلبات RFQ" |
+| `sheikha_dev_integration` | تكامل بيئة التطوير | "افحص VS Code Doctor" |
+| `sheikha_scaffold` | إنشاء هيكل/صفحة | "أنشئ صفحة جديدة" |
+| `sheikha_listings` | قوائم المنتجات | "قوائم المعادن" |
+| `sheikha_zakat` | حاسبة الزكاة | "احسب زكاة الذهب" |
+| `sheikha_model_integrations` | تكاملات النماذج AI | "نماذج الذكاء" |
+| `sheikha_web_fetch` | جلب محتوى من URL | "اجلب محتوى الرابط" |
 
 ### 2. .cursorrules - قواعد المشروع
 

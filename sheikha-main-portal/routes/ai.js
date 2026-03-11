@@ -10,6 +10,8 @@
 
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
+const path = require('path');
 const config = require('../config/config');
 const SheikhaOllamaOrchestrator = require('../lib/sheikha-ollama-orchestrator');
 
@@ -305,6 +307,219 @@ router.get('/model-router/status', (req, res) => {
             recommendation,
             policy: SheikhaOllamaOrchestrator.policy()
         },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── إدارة تكاملات النماذج (Model Registry) ───────────────────────────────────
+const modelRegistryPath = path.join(__dirname, '..', 'data', 'ai-model-integrations.json');
+
+function defaultModelRegistry() {
+    return {
+        autoRefreshEnabled: true,
+        autoRefreshIntervalHours: 24,
+        lastRefreshedAt: null,
+        integrations: [
+            {
+                id: 'openai-primary',
+                name: 'OpenAI Primary',
+                provider: 'openai',
+                model: config.ai?.openai?.model || 'gpt-5.2',
+                llmLanguage: 'ar',
+                devLanguage: 'javascript',
+                baseUrl: 'https://api.openai.com/v1',
+                apiKeyEnv: 'OPENAI_API_KEY',
+                active: !!config.ai?.openai?.apiKey,
+                autoUpgrade: true,
+                notes: 'مسار المحادثة العامة والتحليلات',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            },
+            {
+                id: 'claude-development',
+                name: 'Claude Development',
+                provider: 'anthropic',
+                model: config.ai?.anthropic?.model || 'claude-opus-4-6-20260205',
+                llmLanguage: 'ar',
+                devLanguage: 'javascript',
+                baseUrl: 'https://api.anthropic.com/v1',
+                apiKeyEnv: 'ANTHROPIC_API_KEY',
+                active: !!config.ai?.anthropic?.apiKey,
+                autoUpgrade: true,
+                notes: 'أولوية المهام العميقة والتطوير',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            },
+            {
+                id: 'ollama-local',
+                name: 'Ollama Local',
+                provider: 'ollama',
+                model: config.ai?.ollama?.defaultModel || 'qwen2.5-coder:14b',
+                llmLanguage: 'ar',
+                devLanguage: 'javascript',
+                baseUrl: config.ai?.ollama?.host || 'http://127.0.0.1:11434',
+                apiKeyEnv: '',
+                active: !!config.ai?.ollama?.enabled,
+                autoUpgrade: false,
+                notes: 'تشغيل محلي وسيادة بيانات',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            }
+        ]
+    };
+}
+
+function loadModelRegistry() {
+    try {
+        if (!fs.existsSync(modelRegistryPath)) {
+            const seed = defaultModelRegistry();
+            fs.writeFileSync(modelRegistryPath, JSON.stringify(seed, null, 2), 'utf8');
+            return seed;
+        }
+        const raw = fs.readFileSync(modelRegistryPath, 'utf8');
+        const parsed = JSON.parse(raw || '{}');
+        if (!Array.isArray(parsed.integrations)) parsed.integrations = [];
+        return parsed;
+    } catch (_) {
+        return defaultModelRegistry();
+    }
+}
+
+function saveModelRegistry(state) {
+    fs.writeFileSync(modelRegistryPath, JSON.stringify(state, null, 2), 'utf8');
+}
+
+function buildModelRecommendations() {
+    const resources = ollamaOrchestrator.detectResources();
+    const ollamaRec = ollamaOrchestrator.recommendedModels(resources);
+    return {
+        openai: { recommended: 'gpt-5.3', reason: 'أداء أعلى في التخطيط والتطوير متعدد الخطوات' },
+        anthropic: { recommended: 'claude-opus-4-6-20260205', reason: 'تحليل عميق واستدلال قوي' },
+        ollama: { recommended: ollamaRec.bestModel, reason: 'موصى به حسب موارد الخادم الحالية' }
+    };
+}
+
+router.get('/model-integrations', (req, res) => {
+    const registry = loadModelRegistry();
+    const recommendations = buildModelRecommendations();
+    return res.json({
+        success: true,
+        data: {
+            ...registry,
+            recommendations
+        },
+        message: 'تم جلب سجل تكاملات النماذج',
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.post('/model-integrations', (req, res) => {
+    const {
+        name,
+        provider,
+        model,
+        baseUrl = '',
+        apiKeyEnv = '',
+        llmLanguage = 'ar',
+        devLanguage = 'javascript',
+        autoUpgrade = true,
+        notes = ''
+    } = req.body || {};
+
+    if (!name || !provider || !model) {
+        return res.status(400).json({
+            success: false,
+            message: 'الحقول المطلوبة: name, provider, model',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    const registry = loadModelRegistry();
+    const id = `${String(provider).toLowerCase()}-${Date.now()}`;
+    registry.integrations.push({
+        id,
+        name: String(name).trim(),
+        provider: String(provider).trim().toLowerCase(),
+        model: String(model).trim(),
+        llmLanguage: String(llmLanguage).trim(),
+        devLanguage: String(devLanguage).trim(),
+        baseUrl: String(baseUrl).trim(),
+        apiKeyEnv: String(apiKeyEnv).trim(),
+        active: false,
+        autoUpgrade: !!autoUpgrade,
+        notes: String(notes).trim(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    });
+    saveModelRegistry(registry);
+
+    return res.json({
+        success: true,
+        data: { id },
+        message: 'تمت إضافة نموذج جديد إلى سجل التكامل',
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.patch('/model-integrations/:id', (req, res) => {
+    const id = String(req.params.id || '');
+    const { active, autoUpgrade, model, llmLanguage, devLanguage, notes } = req.body || {};
+    const registry = loadModelRegistry();
+    const target = registry.integrations.find(item => item.id === id);
+    if (!target) {
+        return res.status(404).json({
+            success: false,
+            message: 'النموذج غير موجود',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    if (typeof active === 'boolean') target.active = active;
+    if (typeof autoUpgrade === 'boolean') target.autoUpgrade = autoUpgrade;
+    if (typeof model === 'string' && model.trim()) target.model = model.trim();
+    if (typeof llmLanguage === 'string' && llmLanguage.trim()) target.llmLanguage = llmLanguage.trim();
+    if (typeof devLanguage === 'string' && devLanguage.trim()) target.devLanguage = devLanguage.trim();
+    if (typeof notes === 'string') target.notes = notes.trim();
+    target.updatedAt = new Date().toISOString();
+
+    saveModelRegistry(registry);
+    return res.json({
+        success: true,
+        data: target,
+        message: 'تم تحديث إعداد النموذج بنجاح',
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.post('/model-integrations/auto-refresh', (req, res) => {
+    const registry = loadModelRegistry();
+    const recommendations = buildModelRecommendations();
+    let upgradedCount = 0;
+
+    registry.integrations = registry.integrations.map(item => {
+        if (!item.autoUpgrade) return item;
+        const rec = recommendations[item.provider];
+        if (rec && rec.recommended && rec.recommended !== item.model) {
+            upgradedCount += 1;
+            return {
+                ...item,
+                model: rec.recommended,
+                updatedAt: new Date().toISOString()
+            };
+        }
+        return item;
+    });
+
+    registry.lastRefreshedAt = new Date().toISOString();
+    saveModelRegistry(registry);
+
+    return res.json({
+        success: true,
+        data: {
+            upgradedCount,
+            lastRefreshedAt: registry.lastRefreshedAt
+        },
+        message: `تم تحديث السجل تلقائياً — عدد النماذج المحدثة: ${upgradedCount}`,
         timestamp: new Date().toISOString()
     });
 });

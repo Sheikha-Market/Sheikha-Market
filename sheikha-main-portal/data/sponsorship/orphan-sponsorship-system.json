@@ -1,0 +1,227 @@
+{
+  "systemId": "ORPHAN-SPONSORSHIP-SYSTEM-2026-001",
+  "timestamp": "2026-03-10T00:55:37.297Z",
+  "types": {
+    "orphan": {
+      "nameAr": "كفالة يتيم",
+      "nameEn": "Orphan Sponsorship",
+      "monthlyAmount": 1000,
+      "currency": "SAR",
+      "duration": "حتى سن 18",
+      "benefits": [
+        "مصروف شهري للأسرة",
+        "رسوم دراسية",
+        "رعاية صحية",
+        "ملابس موسمية",
+        "هدية العيدين"
+      ],
+      "shariaCompliant": true
+    },
+    "family": {
+      "nameAr": "كفالة أسرة",
+      "nameEn": "Family Sponsorship",
+      "monthlyAmount": 2000,
+      "currency": "SAR",
+      "duration": "حسب الحاجة",
+      "benefits": [
+        "مصروف شهري للأسرة",
+        "سلة غذائية",
+        "رسوم دراسية للأبناء",
+        "رعاية صحية",
+        "دعم مشاريع صغيرة"
+      ],
+      "shariaCompliant": true
+    },
+    "educational": {
+      "nameAr": "منحة تعليمية",
+      "nameEn": "Educational Grant",
+      "monthlyAmount": 1500,
+      "currency": "SAR",
+      "duration": "حتى التخرج",
+      "benefits": [
+        "رسوم جامعية",
+        "مصروف شهري",
+        "كتب ومراجع",
+        "دورات تدريبية",
+        "تدريب تعاوني"
+      ],
+      "shariaCompliant": true
+    },
+    "microfinance": {
+      "nameAr": "تمويل مشروع صغير",
+      "nameEn": "Microfinance Project",
+      "amount": 10000,
+      "currency": "SAR",
+      "duration": "قرض حسن",
+      "benefits": [
+        "رأس مال حلال",
+        "تدريب إدارة المشاريع",
+        "متابعة ميدانية",
+        "دعم تسويقي",
+        "ربط بسوق شيخة"
+      ],
+      "shariaCompliant": true,
+      "repayment": "على دفعات بلا فائدة"
+    }
+  },
+  "statistics": {
+    "activeSponsorships": 3,
+    "totalBeneficiaries": 13,
+    "monthlyAmount": 4500,
+    "currency": "SAR"
+  },
+  "blockchain": {
+    "records": 3,
+    "disbursements": 3,
+    "verifications": 3
+  },
+  "ledger": [
+    {
+      "id": "SPONS-1773104137300-tr4tiw",
+      "timestamp": "2026-03-10T00:55:37.300Z",
+      "type": "orphan",
+      "sponsor": {
+        "id": "DONOR-001",
+        "name": "محسن سعودي",
+        "contact": null
+      },
+      "beneficiary": {
+        "id": "1d3a8f2304768688",
+        "familySize": 5,
+        "city": "الرياض",
+        "needLevel": "high"
+      },
+      "financial": {
+        "amount": 1000,
+        "currency": "SAR",
+        "frequency": "monthly",
+        "startDate": "2026-03-10",
+        "endDate": null
+      },
+      "status": "active",
+      "disbursements": [
+        {
+          "id": "DISB-1773104137301",
+          "sponsorshipId": "SPONS-1773104137300-tr4tiw",
+          "timestamp": "2026-03-10T00:55:37.301Z",
+          "amount": 1000,
+          "method": "bank_transfer",
+          "status": "completed",
+          "verifiedBy": "SHEIKHA-SYSTEM",
+          "notes": "الصرف الشهري الأول",
+          "hash": "2cdc1d1cc9dcacd0cf1521321c391157f7ac627cc6872971b99d80f26054afb0"
+        }
+      ],
+      "verifications": [
+        {
+          "id": "VERIF-1773104137301",
+          "sponsorshipId": "SPONS-1773104137300-tr4tiw",
+          "timestamp": "2026-03-10T00:55:37.301Z",
+          "verifiedBy": "مركز الملك سلمان للإغاثة",
+          "status": "verified",
+          "notes": "تم التحقق من استلام المبلغ والتأكد من وصوله للمستفيد",
+          "hash": "7178b6ff02cdab05fa2a8470036d03755e71afe3d176255e2c5d5ee52ac42011"
+        }
+      ],
+      "hash": "33e9f3d6667eb9769d42a9625b65bf5a735c06f01dffdf33ce11660ea75856ea"
+    },
+    {
+      "id": "SPONS-1773104137301-6j5uk",
+      "timestamp": "2026-03-10T00:55:37.301Z",
+      "type": "family",
+      "sponsor": {
+        "id": "DONOR-002",
+        "name": "محسنة خليجية",
+        "contact": null
+      },
+      "beneficiary": {
+        "id": "35901bb9610516f1",
+        "familySize": 7,
+        "city": "جدة",
+        "needLevel": "critical"
+      },
+      "financial": {
+        "amount": 2000,
+        "currency": "SAR",
+        "frequency": "monthly",
+        "startDate": "2026-03-10",
+        "endDate": null
+      },
+      "status": "active",
+      "disbursements": [
+        {
+          "id": "DISB-1773104137301",
+          "sponsorshipId": "SPONS-1773104137301-6j5uk",
+          "timestamp": "2026-03-10T00:55:37.301Z",
+          "amount": 2000,
+          "method": "bank_transfer",
+          "status": "completed",
+          "verifiedBy": "SHEIKHA-SYSTEM",
+          "notes": "الصرف الشهري الأول",
+          "hash": "c26cdb163bd2ada0f08941868ce084820c0e20715344e31788230966d1993466"
+        }
+      ],
+      "verifications": [
+        {
+          "id": "VERIF-1773104137301",
+          "sponsorshipId": "SPONS-1773104137301-6j5uk",
+          "timestamp": "2026-03-10T00:55:37.301Z",
+          "verifiedBy": "مركز الملك سلمان للإغاثة",
+          "status": "verified",
+          "notes": "تم التحقق من استلام المبلغ والتأكد من وصوله للمستفيد",
+          "hash": "3869d040211d1cd11e44c74ef5a633a1f2ed6cd070bb03b0cd8fe8a270e044b6"
+        }
+      ],
+      "hash": "c30bade4d07f9c3aeb9d9bd8c72e6a38504182333a7b4cfac35ab97ef46b8e69"
+    },
+    {
+      "id": "SPONS-1773104137301-6gs3bs",
+      "timestamp": "2026-03-10T00:55:37.301Z",
+      "type": "educational",
+      "sponsor": {
+        "id": "UNIVERSITY-001",
+        "name": "جامعة سعودية",
+        "contact": null
+      },
+      "beneficiary": {
+        "id": "3f376f57ca0eefe1",
+        "familySize": 1,
+        "city": "الدمام",
+        "needLevel": "medium"
+      },
+      "financial": {
+        "amount": 1500,
+        "currency": "SAR",
+        "frequency": "monthly",
+        "startDate": "2026-03-10",
+        "endDate": "2030-06-30"
+      },
+      "status": "active",
+      "disbursements": [
+        {
+          "id": "DISB-1773104137301",
+          "sponsorshipId": "SPONS-1773104137301-6gs3bs",
+          "timestamp": "2026-03-10T00:55:37.301Z",
+          "amount": 1500,
+          "method": "bank_transfer",
+          "status": "completed",
+          "verifiedBy": "SHEIKHA-SYSTEM",
+          "notes": "الصرف الشهري الأول",
+          "hash": "c61ca183af5153e40db61471cea046f5cb4218ee81aea9323bb7159ad396e697"
+        }
+      ],
+      "verifications": [
+        {
+          "id": "VERIF-1773104137301",
+          "sponsorshipId": "SPONS-1773104137301-6gs3bs",
+          "timestamp": "2026-03-10T00:55:37.301Z",
+          "verifiedBy": "مركز الملك سلمان للإغاثة",
+          "status": "verified",
+          "notes": "تم التحقق من استلام المبلغ والتأكد من وصوله للمستفيد",
+          "hash": "fe776512a2af7beb4d6ba367e264304ea9c66a9ca4860df819c466d2d0e87666"
+        }
+      ],
+      "hash": "1115c64de42c3e4ff37d4e9c59b2bb750bfd7e32d48169dd4b473993117da826"
+    }
+  ]
+}

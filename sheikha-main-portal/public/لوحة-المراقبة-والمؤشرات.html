@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📡 لوحة المراقبة والمؤشرات الذكية</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', Arial;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0f2027 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الرأس */
+        /* ═══════════════════════════════════════════════════════ */
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #b87333 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .header-left h1 {
+            color: #000;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header-left p {
+            color: #333;
+            font-size: 13px;
+        }
+
+        .header-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .realtime-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .realtime-chip {
+            background: rgba(20, 30, 40, 0.72);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .realtime-chip .label {
+            color: #99a0a7;
+            font-size: 11px;
+        }
+
+        .realtime-chip .value {
+            color: #d4af37;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            color: #000;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .stat-label {
+            color: #333;
+            font-size: 10px;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الشبكات */
+        /* ═══════════════════════════════════════════════════════ */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .grid-full {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* البطاقات */
+        /* ═══════════════════════════════════════════════════════ */
+        .card {
+            background: rgba(20, 30, 40, 0.8);
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .card-title {
+            color: #d4af37;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* مؤشرات الأداء الرئيسية */
+        /* ═══════════════════════════════════════════════════════ */
+        .kpi-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: rgba(212, 175, 55, 0.08);
+            border-radius: 8px;
+        }
+
+        .kpi-info h3 {
+            color: #d4af37;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .kpi-info p {
+            color: #99a0a7;
+            font-size: 10px;
+        }
+
+        .kpi-value {
+            text-align: center;
+        }
+
+        .kpi-number {
+            color: #d4af37;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .kpi-unit {
+            color: #99a0a7;
+            font-size: 9px;
+        }
+
+        .kpi-trend {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-top: 3px;
+        }
+
+        .kpi-up {
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+        }
+
+        .kpi-down {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* نقاط الصحة */
+        /* ═══════════════════════════════════════════════════════ */
+        .health-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .health-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .health-healthy {
+            background: #4ade80;
+            box-shadow: 0 0 8px #4ade80;
+        }
+
+        .health-warning {
+            background: #fb923c;
+            box-shadow: 0 0 8px #fb923c;
+        }
+
+        .health-critical {
+            background: #ef4444;
+            box-shadow: 0 0 8px #ef4444;
+        }
+
+        .health-info {
+            flex: 1;
+        }
+
+        .health-name {
+            color: #d4af37;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .health-detail {
+            color: #99a0a7;
+            font-size: 9px;
+        }
+
+        .health-value {
+            color: #d4af37;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* أشرطة التقدم */
+        /* ═══════════════════════════════════════════════════════ */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4ade80, #d4af37);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الرسوم البيانية */
+        /* ═══════════════════════════════════════════════════════ */
+        .chart-container {
+            position: relative;
+            height: 280px;
+            margin-top: 15px;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الجداول */
+        /* ═══════════════════════════════════════════════════════ */
+        .data-table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+            padding: 8px;
+            text-align: right;
+            font-size: 10px;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .data-table td {
+            padding: 8px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            font-size: 11px;
+        }
+
+        .data-table tr:hover {
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الأزرار والعناصر التفاعلية */
+        /* ═══════════════════════════════════════════════════════ */
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+            background: transparent;
+            color: #d4af37;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* التنبيهات */
+        /* ═══════════════════════════════════════════════════════ */
+        .alert {
+            padding: 12px;
+            border-left: 4px solid;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 11px;
+        }
+
+        .alert-success {
+            background: rgba(74, 222, 128, 0.1);
+            border-left-color: #4ade80;
+            color: #4ade80;
+        }
+
+        .alert-warning {
+            background: rgba(251, 146, 60, 0.1);
+            border-left-color: #fb923c;
+            color: #fb923c;
+        }
+
+        .alert-critical {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: #ef4444;
+            color: #ef4444;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* متجاوب */
+        /* ═══════════════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .header {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-4, .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- الرأس -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="header">
+            <div>
+                <h1>📡 لوحة المراقبة والمؤشرات الذكية</h1>
+                <p>مراقبة شاملة للنظام والأداء مع مؤشرات ذكية في الوقت الفعلي</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="uptime">99.8%</div>
+                    <div class="stat-label">جاهزية النظام</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="activeUsers">2,450</div>
+                    <div class="stat-label">مستخدمين نشطين</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="transactions">15.2K</div>
+                    <div class="stat-label">معاملات/ساعة</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="avgLatency">42ms</div>
+                    <div class="stat-label">متوسط التأخير</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="realtime-strip">
+            <div class="realtime-chip">
+                <div>
+                    <div class="label">حالة واجهة النظام</div>
+                    <div class="value" id="rtHealth">جاري الفحص...</div>
+                </div>
+                <span class="health-dot health-warning" id="rtHealthDot"></span>
+            </div>
+            <div class="realtime-chip">
+                <div>
+                    <div class="label">مركز التدريب اللحظي</div>
+                    <div class="value" id="rtTraining">جاري القراءة...</div>
+                </div>
+                <span class="health-dot health-warning" id="rtTrainingDot"></span>
+            </div>
+            <div class="realtime-chip">
+                <div>
+                    <div class="label">الاستجابة الحية</div>
+                    <div class="value" id="rtLatency">-- ms</div>
+                </div>
+                <span class="health-dot health-healthy"></span>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- مؤشرات الأداء الرئيسية -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="grid-4">
+            <!-- مؤشرات النظام -->
+            <div class="card">
+                <div class="card-title">🖥️ مؤشرات النظام</div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>استخدام CPU</h3>
+                        <p>المعالج الرئيسي</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">65%</div>
+                        <div class="kpi-trend kpi-up">↑ +5%</div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 65%"></div>
+                </div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>استخدام الذاكرة</h3>
+                        <p>RAM المتاح</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">72%</div>
+                        <div class="kpi-trend kpi-up">↑ +2%</div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 72%"></div>
+                </div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>استخدام القرص</h3>
+                        <p>التخزين</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">48%</div>
+                        <div class="kpi-trend kpi-down">↓ -1%</div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 48%"></div>
+                </div>
+            </div>
+
+            <!-- مؤشرات قاعدة البيانات -->
+            <div class="card">
+                <div class="card-title">💾 قاعدة البيانات</div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>الاتصالات النشطة</h3>
+                        <p>عدد الاتصالات</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">342</div>
+                        <div class="kpi-unit">من 500</div>
+                    </div>
+                </div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>وقت القراءة</h3>
+                        <p>متوسط الاستجابة</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">8ms</div>
+                        <div class="kpi-trend kpi-up">↑ سريع</div>
+                    </div>
+                </div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>وقت الكتابة</h3>
+                        <p>متوسط الاستجابة</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">12ms</div>
+                        <div class="kpi-trend kpi-up">↑ سريع</div>
+                    </div>
+                </div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>طول الطابور</h3>
+                        <p>الاستعلامات المعلقة</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">12</div>
+                        <div class="kpi-trend kpi-down">↓ منخفض</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- مؤشرات الشبكة -->
+            <div class="card">
+                <div class="card-title">🌐 مؤشرات الشبكة</div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>الحزم الواردة</h3>
+                        <p>المدخلات</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">2.4M</div>
+                        <div class="kpi-unit">/دقيقة</div>
+                    </div>
+                </div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>الحزم الصادرة</h3>
+                        <p>المخرجات</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">1.8M</div>
+                        <div class="kpi-unit">/دقيقة</div>
+                    </div>
+                </div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>معدل الأخطاء</h3>
+                        <p>الحزم المفقودة</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">0.02%</div>
+                        <div class="kpi-trend kpi-up">↑ ممتاز</div>
+                    </div>
+                </div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>عرض الحزمة</h3>
+                        <p>الإنتاجية</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">8.5Gbps</div>
+                        <div class="kpi-unit">من 10Gbps</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- مؤشرات التطبيق -->
+            <div class="card">
+                <div class="card-title">📊 مؤشرات التطبيق</div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>معدل الخطأ</h3>
+                        <p>الأخطاء التطبيقية</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">0.8%</div>
+                        <div class="kpi-trend kpi-up">↑ مقبول</div>
+                    </div>
+                </div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>وقت الاستجابة</h3>
+                        <p>المتوسط</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">145ms</div>
+                        <div class="kpi-trend kpi-up">↑ جيد</div>
+                    </div>
+                </div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>الطلبات/الثانية</h3>
+                        <p>الإنتاجية</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">4,250</div>
+                        <div class="kpi-unit">req/s</div>
+                    </div>
+                </div>
+
+                <div class="kpi-indicator">
+                    <div class="kpi-info">
+                        <h3>معدل الـ Cache</h3>
+                        <p>الضرب/الفشل</p>
+                    </div>
+                    <div class="kpi-value">
+                        <div class="kpi-number">92%</div>
+                        <div class="kpi-trend kpi-up">↑ عالي</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- حالة صحة الخوادم والخدمات -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">🏥 صحة الخوادم</div>
+
+                <div class="health-indicator">
+                    <div class="health-dot health-healthy"></div>
+                    <div class="health-info">
+                        <div class="health-name">خادم الويب الرئيسي</div>
+                        <div class="health-detail">Chicago, USA</div>
+                    </div>
+                    <div class="health-value">✓ سليم</div>
+                </div>
+
+                <div class="health-indicator">
+                    <div class="health-dot health-healthy"></div>
+                    <div class="health-info">
+                        <div class="health-name">خادم قاعدة البيانات</div>
+                        <div class="health-detail">Frankfurt, Germany</div>
+                    </div>
+                    <div class="health-value">✓ سليم</div>
+                </div>
+
+                <div class="health-indicator">
+                    <div class="health-dot health-warning"></div>
+                    <div class="health-info">
+                        <div class="health-name">خادم الذاكرة المؤقتة</div>
+                        <div class="health-detail">Singapore, SG</div>
+                    </div>
+                    <div class="health-value">⚠ تحذير</div>
+                </div>
+
+                <div class="health-indicator">
+                    <div class="health-dot health-healthy"></div>
+                    <div class="health-info">
+                        <div class="health-name">خادم الملفات</div>
+                        <div class="health-detail">Tokyo, Japan</div>
+                    </div>
+                    <div class="health-value">✓ سليم</div>
+                </div>
+
+                <div class="health-indicator">
+                    <div class="health-dot health-healthy"></div>
+                    <div class="health-info">
+                        <div class="health-name">خادم البحث</div>
+                        <div class="health-detail">Sydney, Australia</div>
+                    </div>
+                    <div class="health-value">✓ سليم</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🔔 حالة الخدمات</div>
+
+                <div class="health-indicator">
+                    <div class="health-dot health-healthy"></div>
+                    <div class="health-info">
+                        <div class="health-name">خدمة المصادقة</div>
+                        <div class="health-detail">جميع المناطق</div>
+                    </div>
+                    <div class="health-value">فعال</div>
+                </div>
+
+                <div class="health-indicator">
+                    <div class="health-dot health-healthy"></div>
+                    <div class="health-info">
+                        <div class="health-name">خدمة الدفع</div>
+                        <div class="health-detail">جميع البوابات</div>
+                    </div>
+                    <div class="health-value">فعال</div>
+                </div>
+
+                <div class="health-indicator">
+                    <div class="health-dot health-warning"></div>
+                    <div class="health-info">
+                        <div class="health-name">خدمة البريد الإلكتروني</div>
+                        <div class="health-detail">تأخير القائمة الانتظار</div>
+                    </div>
+                    <div class="health-value">⚠ معلق</div>
+                </div>
+
+                <div class="health-indicator">
+                    <div class="health-dot health-healthy"></div>
+                    <div class="health-info">
+                        <div class="health-name">خدمة التقارير</div>
+                        <div class="health-detail">معالجة الدُفعات</div>
+                    </div>
+                    <div class="health-value">فعال</div>
+                </div>
+
+                <div class="health-indicator">
+                    <div class="health-dot health-healthy"></div>
+                    <div class="health-info">
+                        <div class="health-name">خدمة التحليلات</div>
+                        <div class="health-detail">جمع البيانات</div>
+                    </div>
+                    <div class="health-value">فعال</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- الرسوم البيانية والتحليلات -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">📈 الأداء الساعي للنظام</div>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🎯 توزيع الأخطاء</div>
+                <div class="chart-container">
+                    <canvas id="errorsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- التنبيهات والمشاكل -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="grid-full">
+            <div class="card">
+                <div class="card-title">⚠️ التنبيهات والمشاكل النشطة</div>
+
+                <div class="alert alert-success">
+                    ✅ <strong>استعادة ناجحة:</strong> تمت استعادة خادم الذاكرة المؤقتة في Singapore قبل 15 دقيقة
+                </div>
+
+                <div class="alert alert-warning">
+                    ⚠️ <strong>تحذير:</strong> استخدام CPU على خادم البحث قد يتجاوز 80% في الساعة القادمة
+                </div>
+
+                <div class="alert alert-success">
+                    ✅ <strong>إشعار:</strong> اكتمل النسخ الاحتياطي اليومي بنجاح في 02:30 صباحاً
+                </div>
+
+                <div class="alert alert-critical">
+                    🔴 <strong>حرج:</strong> تأخير في قائمة انتظار خدمة البريد الإلكتروني - 2,450 بريد معلق
+                </div>
+
+                <div class="alert alert-warning">
+                    ⚠️ <strong>تحذير أمني:</strong> عدد فشل محاولات تسجيل الدخول مرتفع من منطقة غير معروفة
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- جدول المشاكل والحوادث -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title">📋 سجل الحوادث الأخيرة</div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>الوقت</th>
+                        <th>النوع</th>
+                        <th>المخادم/الخدمة</th>
+                        <th>الوضع</th>
+                        <th>المدة</th>
+                        <th>الإجراء</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-02-16 14:32</td>
+                        <td>عطل جزئي</td>
+                        <td>خادم الذاكرة المؤقتة</td>
+                        <td><span style="color: #4ade80;">✓ محلول</span></td>
+                        <td>12 دقيقة</td>
+                        <td><a href="#" style="color: #3b82f6;">عرض التفاصيل</a></td>
+                    </tr>
+                    <tr>
+                        <td>2024-02-16 13:15</td>
+                        <td>استهلاك عالي</td>
+                        <td>خدمة البريد الإلكتروني</td>
+                        <td><span style="color: #fb923c;">⚠ جاري</span></td>
+                        <td>77 دقيقة</td>
+                        <td><a href="#" style="color: #3b82f6;">مراقبة</a></td>
+                    </tr>
+                    <tr>
+                        <td>2024-02-16 12:00</td>
+                        <td>خطأ قاعدة بيانات</td>
+                        <td>خادم الويب الرئيسي</td>
+                        <td><span style="color: #4ade80;">✓ محلول</span></td>
+                        <td>3 دقائق</td>
+                        <td><a href="#" style="color: #3b82f6;">عرض السجل</a></td>
+                    </tr>
+                    <tr>
+                        <td>2024-02-16 10:45</td>
+                        <td>تحديث نظام</td>
+                        <td>جميع الخوادم</td>
+                        <td><span style="color: #4ade80;">✓ مكتمل</span></td>
+                        <td>45 دقيقة</td>
+                        <td><a href="#" style="color: #3b82f6;">عرض التقرير</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="btn-group">
+                <button class="btn">🔄 تحديث</button>
+                <button class="btn">📥 تصدير السجل</button>
+                <button class="btn">⚙️ إعدادات التنبيهات</button>
+                <button class="btn">📞 الاتصال بالدعم</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchRealtimeStatus() {
+            const healthEl = document.getElementById('rtHealth');
+            const trainingEl = document.getElementById('rtTraining');
+            const latencyEl = document.getElementById('rtLatency');
+            const healthDot = document.getElementById('rtHealthDot');
+            const trainingDot = document.getElementById('rtTrainingDot');
+
+            const started = performance.now();
+            try {
+                const healthResponse = await fetch('/api/health', { cache: 'no-store' });
+                const healthData = await healthResponse.json();
+                const latency = Math.max(1, Math.round(performance.now() - started));
+
+                if (healthData && healthData.status === 'ok') {
+                    healthEl.textContent = '✅ يعمل بكفاءة';
+                    healthDot.className = 'health-dot health-healthy';
+                    document.getElementById('uptime').textContent = '99.9%';
+                } else {
+                    healthEl.textContent = '⚠ يحتاج متابعة';
+                    healthDot.className = 'health-dot health-warning';
+                }
+
+                latencyEl.textContent = `${latency}ms`;
+                document.getElementById('avgLatency').textContent = `${latency}ms`;
+            } catch (_) {
+                healthEl.textContent = '❌ غير متاح حالياً';
+                healthDot.className = 'health-dot health-critical';
+            }
+
+            try {
+                const trResponse = await fetch('/api/training-center/last-run-status', {
+                    cache: 'no-store'
+                });
+                const trData = await trResponse.json();
+                const rt = trData && trData.data && trData.data.realtime ? trData.data.realtime : null;
+                if (rt && (rt.status || rt.state)) {
+                    const txt = String(rt.status || rt.state);
+                    trainingEl.textContent = `✅ ${txt}`;
+                    trainingDot.className = 'health-dot health-healthy';
+                } else {
+                    trainingEl.textContent = '⚠ بدون بيانات مباشرة';
+                    trainingDot.className = 'health-dot health-warning';
+                }
+            } catch (_) {
+                trainingEl.textContent = '⚠ تعذر جلب الحالة';
+                trainingDot.className = 'health-dot health-warning';
+            }
+        }
+
+        // ═════════════════════════════════════════════════════════
+        // تحديث الإحصائيات الحية
+        // ═════════════════════════════════════════════════════════
+        function updateStats() {
+            document.getElementById('uptime').textContent = (99.7 + Math.random() * 0.3).toFixed(1) + '%';
+            const users = 2400 + Math.floor(Math.random() * 100);
+            document.getElementById('activeUsers').textContent = users.toLocaleString();
+            const txn = 15000 + Math.floor(Math.random() * 2000);
+            document.getElementById('transactions').textContent = (txn / 1000).toFixed(1) + 'K';
+            const latency = 40 + Math.floor(Math.random() * 10);
+            document.getElementById('avgLatency').textContent = latency + 'ms';
+        }
+
+        // تحديث كل 5 ثواني
+        setInterval(updateStats, 5000);
+        updateStats();
+        fetchRealtimeStatus();
+        setInterval(fetchRealtimeStatus, 7000);
+
+        // ═════════════════════════════════════════════════════════
+        // الرسوم البيانية
+        // ═════════════════════════════════════════════════════════
+        const perfCtx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(perfCtx, {
+            type: 'line',
+            data: {
+                labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+                datasets: [
+                    {
+                        label: 'استخدام CPU',
+                        data: [32, 38, 45, 52, 58, 62, 68, 72, 70, 68, 65, 58],
+                        borderColor: '#d4af37',
+                        backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'استخدام الذاكرة',
+                        data: [45, 48, 50, 55, 60, 65, 70, 75, 72, 70, 72, 68],
+                        borderColor: '#4ade80',
+                        backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#d4af37' } }
+                },
+                scales: {
+                    y: {
+                        grid: { color: 'rgba(212, 175, 55, 0.1)' },
+                        ticks: { color: '#d4af37', max: 100 }
+                    },
+                    x: {
+                        grid: { color: 'rgba(212, 175, 55, 0.1)' },
+                        ticks: { color: '#d4af37' }
+                    }
+                }
+            }
+        });
+
+        const errorsCtx = document.getElementById('errorsChart').getContext('2d');
+        new Chart(errorsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['خطأ 500', 'خطأ 404', 'خطأ 403', 'خطأ 429', 'أخرى'],
+                datasets: [{
+                    data: [35, 25, 18, 15, 7],
+                    backgroundColor: ['#ef4444', '#fb923c', '#3b82f6', '#d4af37', '#99a0a7'],
+                    borderColor: '#1a1a2e',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#d4af37' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

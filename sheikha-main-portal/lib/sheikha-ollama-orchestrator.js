@@ -17,6 +17,8 @@ class SheikhaOllamaOrchestrator {
         this.enabled = String(process.env.OLLAMA_ENABLED || 'true') === 'true';
         this.allowPull = String(process.env.OLLAMA_ALLOW_PULL || 'false') === 'true';
         this.defaultProfile = process.env.OLLAMA_PROFILE || 'auto';
+        this.bestModelOverride = process.env.OLLAMA_BEST_MODEL || '';
+        this.preferLatestInstalled = String(process.env.OLLAMA_PREFER_LATEST_INSTALLED || 'true') === 'true';
         this._timer = null;
     }
 
@@ -116,7 +118,48 @@ class SheikhaOllamaOrchestrator {
         return 'lite';
     }
 
-    recommendedModels(resources = this.detectResources()) {
+    _parseModelSizeB(modelName) {
+        const m = String(modelName || '').toLowerCase().match(/:(\d+(?:\.\d+)?)b\b/);
+        return m ? Number(m[1]) : null;
+    }
+
+    _profileMaxSize(profile) {
+        if (profile === 'ultra') return 120;
+        if (profile === 'vps16') return 16;
+        if (profile === 'vps8') return 8;
+        return 4;
+    }
+
+    _familyWeight(modelName) {
+        const m = String(modelName || '').toLowerCase();
+        if (m.includes('qwen')) return 100;
+        if (m.includes('mistral')) return 90;
+        if (m.includes('llama')) return 80;
+        if (m.includes('phi')) return 70;
+        return 50;
+    }
+
+    _pickBestInstalledModel(installed, profile) {
+        if (!Array.isArray(installed) || installed.length === 0) return null;
+        const maxSize = this._profileMaxSize(profile);
+        const scored = installed
+            .map(name => {
+                const size = this._parseModelSizeB(name);
+                const sizeScore = size == null ? 0 : (size <= maxSize ? size : -1000);
+                const q4Bonus = String(name).includes('q4_') ? 2 : 0;
+                return {
+                    name,
+                    score: this._familyWeight(name) + sizeScore + q4Bonus
+                };
+            })
+            .sort((a, b) => b.score - a.score);
+
+        const best = scored[0];
+        if (!best || best.score < 0) return null;
+        return best.name;
+    }
+
+    recommendedModels(resources = this.detectResources(), installed = []) {
         const profile = this.selectProfile(resources);
         const catalog = SheikhaOllamaOrchestrator.modelCatalog();
         let selected;
@@ -130,9 +173,16 @@ class SheikhaOllamaOrchestrator {
             selected = catalog.filter(m => m.tier === 'light');
         }
 
-        const best = profile === 'vps16'
+        let best = profile === 'vps16'
             ? 'qwen2.5:14b-instruct-q4_K_M'
             : (profile === 'ultra' ? 'llama3.3:70b-instruct-q4_K_M' : 'llama3.1:8b-instruct-q4_K_M');
+
+        if (this.bestModelOverride) {
+            best = this.bestModelOverride;
+        } else if (this.preferLatestInstalled) {
+            const detectedBest = this._pickBestInstalledModel(installed, profile);
+            if (detectedBest) best = detectedBest;
+        }
 
         return { profile, bestModel: best, models: selected };
     }
@@ -149,8 +199,8 @@ class SheikhaOllamaOrchestrator {
 
     syncModels({ dryRun = true } = {}) {
         const resources = this.detectResources();
-        const plan = this.recommendedModels(resources);
         const installed = this.listInstalledModels();
+        const plan = this.recommendedModels(resources, installed);
 
         const toPull = plan.models.filter(m => {
             const names = [m.id].concat(m.aliases || []);

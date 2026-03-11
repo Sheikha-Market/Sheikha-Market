@@ -1,0 +1,30 @@
+{
+  "id": "schedule-1772499204486",
+  "agentId": "agent-life-preservation-1772498688867",
+  "scheduleType": "DAILY",
+  "schedule": {
+    "name": "يومي",
+    "frequency": "daily",
+    "batchSize": 500,
+    "ideal": "أفضل توازن"
+  },
+  "config": {
+    "allLanguages": true,
+    "sourceFamilies": [
+      "HumanLanguages",
+      "NLP",
+      "LLM"
+    ],
+    "sourceScope": "global_and_cosmic_symbolic",
+    "technique": "QLORA",
+    "pipeline": {
+      "nlp": true,
+      "llm": true
+    },
+    "batchSize": 32,
+    "epochs": 3
+  },
+  "status": "scheduled",
+  "nextRun": "2026-03-04T00:53:24.486Z",
+  "createdAt": "2026-03-03T00:53:24.486Z"
+}

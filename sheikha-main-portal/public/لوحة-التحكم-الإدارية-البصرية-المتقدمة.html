@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم الإدارية البصرية المتقدمة - نظام شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #D4AF37;
+            --secondary-copper: #B87333;
+            --dark-bg: #0f0f1e;
+            --card-bg: #1a1a2e;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border: #2a2a3e;
+            --accent: #8b7355;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a2e 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ===== Navigation ===== */
+        .navbar {
+            background: rgba(15, 15, 30, 0.95);
+            border-bottom: 2px solid var(--primary-gold);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .navbar-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-gold);
+        }
+
+        .navbar-brand i {
+            font-size: 2rem;
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .navbar-menu li a {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .navbar-menu li a:hover,
+        .navbar-menu li a.active {
+            color: var(--primary-gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* ===== Main Layout ===== */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            margin-bottom: 3rem;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .header-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* ===== Dashboard Grid ===== */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-grid.wide {
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+        }
+
+        /* ===== Cards ===== */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover {
+            border-color: var(--primary-gold);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+        }
+
+        .card-title i {
+            font-size: 1.5rem;
+        }
+
+        .card-badge {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--primary-gold);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* ===== KPI Cards ===== */
+        .kpi-card {
+            text-align: center;
+        }
+
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-gold);
+            margin: 0.5rem 0;
+        }
+
+        .kpi-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .kpi-change {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .kpi-change.positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .kpi-change.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        /* ===== Progress Bars ===== */
+        .progress-item {
+            margin-bottom: 1rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-gold), var(--secondary-copper));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* ===== Team List ===== */
+        .team-member {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid var(--primary-gold);
+        }
+
+        .member-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .member-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-copper));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--dark-bg);
+        }
+
+        .member-details h4 {
+            color: var(--primary-gold);
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .member-details p {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .member-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+
+        /* ===== Project Cards ===== */
+        .project-card {
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 4px solid var(--primary-gold);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-name {
+            font-weight: 700;
+            color: var(--primary-gold);
+        }
+
+        .project-status {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== Chart Placeholder ===== */
+        .chart-container {
+            position: relative;
+            height: 250px;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 1rem;
+            gap: 0.5rem;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(180deg, var(--primary-gold), var(--secondary-copper));
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .chart-bar:hover {
+            filter: brightness(1.2);
+        }
+
+        .chart-bar-label {
+            position: absolute;
+            bottom: -30px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            white-space: nowrap;
+            transform: translateX(-50%);
+            left: 50%;
+        }
+
+        /* ===== Stats Grid ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-box {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-box i {
+            font-size: 2rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== Islamic Verse ===== */
+        .islamic-verse {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(184, 115, 51, 0.1));
+            border: 1px solid var(--primary-gold);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .verse-text {
+            font-size: 1.1rem;
+            color: var(--primary-gold);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .verse-source {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-copper));
+            color: var(--dark-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-gold);
+        }
+
+        /* ===== Sections ===== */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            font-size: 1.5rem;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .navbar-menu {
+                gap: 1rem;
+            }
+
+            .dashboard-grid,
+            .dashboard-grid.wide {
+                grid-template-columns: 1fr;
+            }
+
+            .header-title {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        /* ===== Animations ===== */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        /* ===== Loading States ===== */
+        .skeleton {
+            background: linear-gradient(90deg, var(--card-bg) 0%, var(--border) 50%, var(--card-bg) 100%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* ===== Modal ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--primary-gold);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--primary-gold);
+        }
+
+        /* ===== Form ===== */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: 'Tajawal', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        /* ===== Tabs ===== */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            padding: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-gold);
+            border-bottom-color: var(--primary-gold);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        /* ===== Real-time Updates ===== */
+        .live-badge {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            animation: pulse 2s infinite;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ===== Role Badge ===== */
+        .role-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        .role-admin {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .role-manager {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .role-user {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== Navigation ===== -->
+<nav class="navbar">
+    <div class="navbar-content">
+        <div class="navbar-brand">
+            <i class="fas fa-crown"></i>
+            شيخة - لوحة التحكم الإدارية
+            <span class="live-badge"></span>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="#" class="nav-link active" data-section="overview">نظرة عامة</a></li>
+            <li><a href="#" class="nav-link" data-section="projects">المشاريع</a></li>
+            <li><a href="#" class="nav-link" data-section="team">الفريق</a></li>
+            <li><a href="#" class="nav-link" data-section="performance">الأداء</a></li>
+            <li><a href="#" class="nav-link" data-section="settings">الإعدادات</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ===== Main Content ===== -->
+<div class="container">
+    <!-- ===== Header ===== -->
+    <div class="header">
+        <h1 class="header-title">لوحة التحكم الإدارية المتقدمة</h1>
+        <p class="header-subtitle">نظام الإدارة الشاملة لمنصة شيخة - مراقبة، تحليل، وتحسين العمليات</p>
+    </div>
+
+    <!-- ===== Islamic Verse ===== -->
+    <div class="islamic-verse">
+        <div class="verse-text">
+            "وَأَنْ لَوِ اسْتَقَامُوا عَلَى الطَّرِيقَةِ لَأَسْقَيْنَاهُمْ مَاءً غَدَقًا"
+        </div>
+        <div class="verse-source">سورة الجن، الآية 16</div>
+    </div>
+
+    <!-- ===== Dashboard Tabs ===== -->
+    <div class="section">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="overview">📊 النظرة العامة</button>
+            <button class="tab-btn" data-tab="performance">📈 الأداء</button>
+            <button class="tab-btn" data-tab="resources">🎯 الموارد</button>
+            <button class="tab-btn" data-tab="quality">✓ الجودة</button>
+            <button class="tab-btn" data-tab="compliance">⚖️ الالتزام</button>
+        </div>
+
+        <!-- ===== Tab 1: Overview ===== -->
+        <div class="tab-content active" data-tab="overview">
+            <!-- KPI Cards -->
+            <div class="dashboard-grid">
+                <div class="card kpi-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-chart-line"></i> إجمالي الإيرادات
+                        </div>
+                    </div>
+                    <div class="kpi-value">2.4M</div>
+                    <div class="kpi-label">ريال سعودي</div>
+                    <div class="kpi-change positive">
+                        <i class="fas fa-arrow-up"></i> نمو 24% هذا الشهر
+                    </div>
+                </div>
+
+                <div class="card kpi-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-users"></i> المستخدمين النشطين
+                        </div>
+                    </div>
+                    <div class="kpi-value">1,847</div>
+                    <div class="kpi-label">مستخدم</div>
+                    <div class="kpi-change positive">
+                        <i class="fas fa-arrow-up"></i> زيادة 15% هذا الأسبوع
+                    </div>
+                </div>
+
+                <div class="card kpi-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-tasks"></i> المشاريع النشطة
+                        </div>
+                    </div>
+                    <div class="kpi-value">47</div>
+                    <div class="kpi-label">مشروع</div>
+                    <div class="kpi-change positive">
+                        <i class="fas fa-arrow-up"></i> 8 مشاريع جديدة
+                    </div>
+                </div>
+
+                <div class="card kpi-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-flag-checkered"></i> نسبة الإنجاز
+                        </div>
+                    </div>
+                    <div class="kpi-value">94%</div>
+                    <div class="kpi-label">معدل الإكمال</div>
+                    <div class="kpi-change positive">
+                        <i class="fas fa-arrow-up"></i> 6% أعلى من الهدف
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="section" style="margin-top: 2rem;">
+                <h3 class="section-title">
+                    <i class="fas fa-tachometer-alt"></i> مؤشرات الأداء الرئيسية (KPIs)
+                </h3>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-star"></i> جودة الخدمة
+                            </div>
+                            <span class="card-badge">99.2%</span>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>الرضا العام</span>
+                                <span>99.2%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 99.2%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>الأمان والسلامة</span>
+                                <span>98.7%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 98.7%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>الابتكار والتطوير</span>
+                                <span>96.5%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 96.5%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-cogs"></i> كفاءة التشغيل
+                            </div>
+                            <span class="card-badge">97.3%</span>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>استخدام الموارد</span>
+                                <span>94.2%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 94.2%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>سرعة المعالجة</span>
+                                <span>99.8%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 99.8%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>الاستقرار والموثوقية</span>
+                                <span>99.9%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 99.9%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-leaf"></i> الاستدامة والنمو
+                            </div>
+                            <span class="card-badge">95.6%</span>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>النمو المستدام</span>
+                                <span>97.1%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 97.1%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>الكفاءة المالية</span>
+                                <span>92.8%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 92.8%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>المسؤولية الاجتماعية</span>
+                                <span>98.3%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 98.3%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Statistics -->
+            <div class="section" style="margin-top: 2rem;">
+                <h3 class="section-title">
+                    <i class="fas fa-server"></i> إحصائيات النظام
+                </h3>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <i class="fas fa-database"></i>
+                        <div class="stat-value">156.4 GB</div>
+                        <div class="stat-label">حجم البيانات</div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fas fa-code"></i>
+                        <div class="stat-value">412</div>
+                        <div class="stat-label">واجهة برمجية</div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fas fa-bolt"></i>
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-label">توفر الخدمة</div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fas fa-lock"></i>
+                        <div class="stat-value">256-bit</div>
+                        <div class="stat-label">تشفير البيانات</div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fas fa-network-wired"></i>
+                        <div class="stat-value">2.5 Gbps</div>
+                        <div class="stat-label">معدل النقل</div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fas fa-hourglass-end"></i>
+                        <div class="stat-value">45ms</div>
+                        <div class="stat-label">متوسط التأخير</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== Tab 2: Performance ===== -->
+        <div class="tab-content" data-tab="performance">
+            <div class="dashboard-grid wide">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-lg fa-chart-bar"></i> مقارنة الأداء الشهرية
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-bar" style="height: 35%;">
+                            <div class="chart-bar-label">يناير</div>
+                        </div>
+                        <div class="chart-bar" style="height: 45%;">
+                            <div class="chart-bar-label">فبراير</div>
+                        </div>
+                        <div class="chart-bar" style="height: 60%;">
+                            <div class="chart-bar-label">مارس</div>
+                        </div>
+                        <div class="chart-bar" style="height: 72%;">
+                            <div class="chart-bar-label">أبريل</div>
+                        </div>
+                        <div class="chart-bar" style="height: 85%;">
+                            <div class="chart-bar-label">مايو</div>
+                        </div>
+                        <div class="chart-bar" style="height: 95%;">
+                            <div class="chart-bar-label">يونيو</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-ring"></i> توزيع المهام
+                        </div>
+                    </div>
+                    <div style="text-align: center; padding: 2rem 0;">
+                        <svg width="200" height="200" viewBox="0 0 200 200" style="margin: 0 auto; display: block;">
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="#D4AF37" stroke-width="40" stroke-dasharray="201 314" transform="rotate(-90 100 100)"/>
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="#B87333" stroke-width="40" stroke-dasharray="63 314" stroke-dashoffset="-201" transform="rotate(-90 100 100)"/>
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="#10b981" stroke-width="40" stroke-dasharray="50 314" stroke-dashoffset="-264" transform="rotate(-90 100 100)"/>
+                        </svg>
+                        <div style="margin-top: 1rem;">
+                            <div><span style="color: #D4AF37;">●</span> تطوير - 64%</div>
+                            <div><span style="color: #B87333;">●</span> اختبار - 20%</div>
+                            <div><span style="color: #10b981;">●</span> صيانة - 16%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" style="margin-top: 2rem;">
+                <h3 class="section-title">
+                    <i class="fas fa-history"></i> سجل الأداء التاريخي
+                </h3>
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span><strong>أداء الموقع</strong></span>
+                                <span>96.8%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 96.8%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span><strong>سرعة التحميل</strong></span>
+                                <span>94.2%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 94.2%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span><strong>استقرار الخادم</strong></span>
+                                <span>99.7%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 99.7%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span><strong>جودة البيانات</strong></span>
+                                <span>98.5%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 98.5%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span><strong>الأمان الرقمي</strong></span>
+                                <span>99.9%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 99.9%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span><strong>رضا المستخدمين</strong></span>
+                                <span>97.3%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 97.3%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== Tab 3: Resources ===== -->
+        <div class="tab-content" data-tab="resources">
+            <div class="section">
+                <h3 class="section-title">
+                    <i class="fas fa-cube"></i> إدارة الموارد
+                </h3>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-microchip"></i> الموارد التقنية
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>استخدام المعالج</span>
+                                <span>42%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 42%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>استخدام الذاكرة</span>
+                                <span>67%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 67%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>استخدام التخزين</span>
+                                <span>78%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 78%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-dollar-sign"></i> الموارد المالية
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>الميزانية المستخدمة</span>
+                                <span>62%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 62%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>تكاليف التشغيل</span>
+                                <span>45%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 45%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>الأرباح المتوقعة</span>
+                                <span>88%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 88%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-people-carry"></i> الموارد البشرية
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>استخدام الطاقة العاملة</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>رضا الموظفين</span>
+                                <span>92%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 92%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>التطور المهني</span>
+                                <span>76%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 76%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== Tab 4: Quality ===== -->
+        <div class="tab-content" data-tab="quality">
+            <div class="section">
+                <h3 class="section-title">
+                    <i class="fas fa-check-circle"></i> ضمان الجودة
+                </h3>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-stethoscope"></i> معايير الجودة ISO
+                            </div>
+                            <span class="card-badge">الموافقة</span>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>ISO 9001 - إدارة الجودة</span>
+                                <span>✓</span>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>ISO 27001 - الأمان المعلوماتي</span>
+                                <span>✓</span>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>ISO 45001 - سلامة وصحة العاملين</span>
+                                <span>✓</span>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>ISO 26001 - المسؤولية الاجتماعية</span>
+                                <span>✓</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-bug"></i> الاختبارات والتدقيق
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>اختبارات الأداء</span>
+                                <span>98.7%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 98.7%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>اختبارات الأمان</span>
+                                <span>99.2%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 99.2%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>اختبارات الاستقرار</span>
+                                <span>99.8%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 99.8%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-chart-pie"></i> معدلات العيوب
+                            </div>
+                        </div>
+                        <div style="padding: 1rem 0;">
+                            <div style="text-align: center; margin-bottom: 1rem;">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--success);">0.12%</div>
+                                <div style="color: var(--text-secondary);">نسبة العيوب المكتشفة</div>
+                            </div>
+                            <div style="background: var(--dark-bg); padding: 1rem; border-radius: 6px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>عيوب حرجة</span>
+                                    <span style="color: var(--danger); font-weight: 700;">0</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>عيوب عالية</span>
+                                    <span style="color: var(--warning); font-weight: 700;">2</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>عيوب منخفضة</span>
+                                    <span style="color: var(--success); font-weight: 700;">8</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== Tab 5: Compliance ===== -->
+        <div class="tab-content" data-tab="compliance">
+            <div class="section">
+                <h3 class="section-title">
+                    <i class="fas fa-balance-scale"></i> الامتثال والالتزام الشرعي
+                </h3>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-quran"></i> الالتزام الشرعي
+                            </div>
+                            <span class="card-badge">99.9%</span>
+                        </div>
+                        <div style="padding: 1rem 0;">
+                            <div style="margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span><strong>تجنب الربا</strong></span>
+                                    <span style="color: var(--success);">✓ موافق</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span><strong>تجنب الغرر</strong></span>
+                                    <span style="color: var(--success);">✓ موافق</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span><strong>الشفافية والصدق</strong></span>
+                                    <span style="color: var(--success);">✓ موافق</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span><strong>عدم الاحتكار</strong></span>
+                                    <span style="color: var(--success);">✓ موافق</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span><strong>العدل والمساواة</strong></span>
+                                    <span style="color: var(--success);">✓ موافق</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-gavel"></i> الالتزام القانوني
+                            </div>
+                            <span class="card-badge">100%</span>
+                        </div>
+                        <div style="padding: 1rem 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                                <span>نظام التجارة الإلكترونية</span>
+                                <span style="color: var(--success);">✓</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                                <span>حماية البيانات الشخصية</span>
+                                <span style="color: var(--success);">✓</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                                <span>حقوق الملكية الفكرية</span>
+                                <span style="color: var(--success);">✓</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>سياسات المنافسة العادلة</span>
+                                <span style="color: var(--success);">✓</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-certificate"></i> الشهادات والموافقات
+                            </div>
+                        </div>
+                        <div style="padding: 1rem 0;">
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--primary-gold); text-align: center; margin-bottom: 1rem;">24</div>
+                            <div style="text-align: center; color: var(--text-secondary);">شهادة موافقة نشطة</div>
+                            <div style="margin-top: 1rem; background: var(--dark-bg); padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; color: var(--text-secondary);">
+                                آخر تدقيق: 2 مارس 2026
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Projects Section ===== -->
+    <div class="section">
+        <h3 class="section-title">
+            <i class="fas fa-project-diagram"></i> المشاريع الجارية
+        </h3>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">نظام الذكاء الاصطناعي المتقدم</div>
+                        <div class="project-status">جارٍ</div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>التقدم</span>
+                            <span>78%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 78%;"></div>
+                        </div>
+                    </div>
+                    <div class="project-meta">
+                        <span>الفريق: 12 عضو</span>
+                        <span>الموعد: 15 أبريل 2026</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">تحسين تجربة المستخدم</div>
+                        <div class="project-status">جارٍ</div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>التقدم</span>
+                            <span>56%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 56%;"></div>
+                        </div>
+                    </div>
+                    <div class="project-meta">
+                        <span>الفريق: 8 أعضاء</span>
+                        <span>الموعد: 30 مايو 2026</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">توسع السوق العالمي</div>
+                        <div class="project-status">جارٍ</div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>التقدم</span>
+                            <span>42%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 42%;"></div>
+                        </div>
+                    </div>
+                    <div class="project-meta">
+                        <span>الفريق: 15 عضو</span>
+                        <span>الموعد: 30 يونيو 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Team Section ===== -->
+    <div class="section">
+        <h3 class="section-title">
+            <i class="fas fa-users-cog"></i> فريق الإدارة
+        </h3>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="team-member">
+                    <div class="member-info">
+                        <div class="member-avatar">أ</div>
+                        <div class="member-details">
+                            <h4>أحمد محمد علي</h4>
+                            <p>مدير عام <span class="role-badge role-admin">إدارة</span></p>
+                        </div>
+                    </div>
+                    <div class="member-status"></div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-info">
+                        <div class="member-avatar">ف</div>
+                        <div class="member-details">
+                            <h4>فاطمة عبدالله سالم</h4>
+                            <p>مدير الموارد <span class="role-badge role-manager">مدير</span></p>
+                        </div>
+                    </div>
+                    <div class="member-status"></div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-info">
+                        <div class="member-avatar">خ</div>
+                        <div class="member-details">
+                            <h4>خالد عمر حسن</h4>
+                            <p>مهندس رئيسي <span class="role-badge role-manager">مدير فني</span></p>
+                        </div>
+                    </div>
+                    <div class="member-status"></div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-info">
+                        <div class="member-avatar">س</div>
+                        <div class="member-details">
+                            <h4>سارة إبراهيم محمد</h4>
+                            <p>محللة أداء <span class="role-badge role-user">محلل</span></p>
+                        </div>
+                    </div>
+                    <div class="member-status"></div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-info">
+                        <div class="member-avatar">م</div>
+                        <div class="member-details">
+                            <h4>محمود سليم زكي</h4>
+                            <p>مسؤول الأمان <span class="role-badge role-manager">مدير أمان</span></p>
+                        </div>
+                    </div>
+                    <div class="member-status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center;">
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+            لوحة التحكم الإدارية المتقدمة - نظام شيخة المتكامل
+        </p>
+        <p style="color: var(--text-secondary); font-size: 0.85rem;">
+            © 2026 منظومة شيخة - جميع الحقوق محفوظة | آخر تحديث: 5 مارس 2026
+        </p>
+    </div>
+</div>
+
+<!-- ===== Scripts ===== -->
+<script>
+    // Tab Navigation
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabName = btn.getAttribute('data-tab');
+
+            // Remove active class from all
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            // Add active class to clicked tab
+            btn.classList.add('active');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+        });
+    });
+
+    // NavBar Active Link
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
+
+    // Real-time Data Updates (WebSocket simulation)
+    setInterval(() => {
+        // Simulate real-time updates
+        const kpiValues = document.querySelectorAll('.kpi-value');
+        if (Math.random() > 0.8) {
+            // Occasionally update KPI values
+            const randomIndex = Math.floor(Math.random() * kpiValues.length);
+            const currentValue = parseInt(kpiValues[randomIndex].textContent);
+            // Small random change
+            if(currentValue) {
+                kpiValues[randomIndex].textContent = (currentValue + Math.floor(Math.random() * 5)).toString() + (kpiValues[randomIndex].textContent.includes('.') ? 'M' : '');
+            }
+        }
+    }, 5000);
+
+    // Chart Bar Animation
+    const chartBars = document.querySelectorAll('.chart-bar');
+    chartBars.forEach((bar, index) => {
+        const height = bar.style.height;
+        bar.style.height = '0';
+        setTimeout(() => {
+            bar.style.height = height;
+        }, index * 100);
+    });
+
+    // Console message
+    console.log('%c🕋 نظام شيخة - لوحة التحكم الإدارية', 'color: #D4AF37; font-size: 20px; font-weight: bold;');
+    console.log('%c منظومة إدارية إسلامية متقدمة للعمليات والمشاريع والفرق', 'color: #B87333; font-size: 14px;');
+</script>
+
+</body>
+</html>

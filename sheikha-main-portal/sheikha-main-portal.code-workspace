@@ -1,0 +1,156 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "🚀 Sheikha: Enterprise AI Portal"
+		}
+	],
+	"settings": {
+		"[javascript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode",
+			"editor.formatOnSave": true,
+			"editor.codeActionsOnSave": {}
+		},
+		"editor.formatOnSave": true,
+		"editor.inlineSuggest.enabled": true,
+		"editor.inlineSuggest.showToolbar": "onHover",
+		"editor.quickSuggestions": {
+			"other": true,
+			"comments": false,
+			"strings": true
+		},
+		"github.copilot.enable": {
+			"*": true,
+			"plaintext": false,
+			"markdown": false
+		},
+		"github.copilot.chat.localeOverride": "ar",
+		"editor.codeActionsOnSave": {},
+		"rome.enable": false
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "📦 Install Dependencies",
+				"type": "shell",
+				"command": "npm",
+				"args": ["install"],
+				"group": {
+					"kind": "build",
+					"isDefault": true
+				}
+			},
+			{
+				"label": "🚀 Start Development Server",
+				"type": "shell",
+				"command": "npm",
+				"args": ["run", "dev"],
+				"isBackground": true,
+				"problemMatcher": {
+					"pattern": {
+						"regexp": "^.*$",
+						"file": 1,
+						"location": 2,
+						"message": 3
+					},
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": "^.*listening.*",
+						"endsPattern": "^.*ready.*"
+					}
+				}
+			},
+			{
+				"label": "🔧 Run Scripts Check",
+				"type": "shell",
+				"command": "npm",
+				"args": ["run", "ops:readiness"],
+				"group": "test"
+			},
+			{
+				"label": "🎯 Run VSCode Doctor",
+				"type": "shell",
+				"command": "bash",
+				"args": [
+					"-lc",
+					"source \"$HOME/.nvm/nvm.sh\" >/dev/null 2>&1 || true; if command -v nvm >/dev/null 2>&1; then nvm exec 25.6.1 npm run dev:vscode:doctor || npm run dev:vscode:doctor; else npm run dev:vscode:doctor; fi"
+				],
+				"group": "test"
+			},
+			{
+				"label": "🟢 Start Dev (No Cursor)",
+				"type": "shell",
+				"command": "bash",
+				"args": [
+					"-lc",
+					"source \"$HOME/.nvm/nvm.sh\" >/dev/null 2>&1 || true; export NODE_ENV=development SECURITY_STRICT_SECRETS=false; if command -v nvm >/dev/null 2>&1; then nvm exec 25.6.1 npm start || npm start; else npm start; fi"
+				],
+				"isBackground": true,
+				"problemMatcher": []
+			},
+			{
+				"label": "🛡️ Full Secure Activate",
+				"type": "shell",
+				"command": "bash",
+				"args": [
+					"-lc",
+					"source \"$HOME/.nvm/nvm.sh\" >/dev/null 2>&1 || true; nvm use 25.6.1 >/dev/null 2>&1 || true; npm run ops:activate:secure"
+				],
+				"problemMatcher": []
+			}
+		]
+	},
+	"extensions": {
+		"recommendations": [
+			"GitHub.Copilot",
+			"GitHub.Copilot-Chat",
+			"eamodio.gitlens",
+			"dbaeumer.vscode-eslint",
+			"esbenp.prettier-vscode",
+			"ms-python.python",
+			"ms-python.vscode-pylance",
+			"ms-vscode.cpptools",
+			"ms-toolsai.jupyter",
+			"ms-vscode-remote.remote-ssh",
+			"ms-vscode-remote.remote-containers",
+			"usernamehw.errorlens",
+			"streetsidesoftware.code-spell-checker",
+			"aaron-bond.better-comments",
+			"sonarsource.sonarlint-vscode",
+			"VisualStudioExptTeam.vscodeintellicode"
+		],
+		"unwantedRecommendations": [
+			"anysphere.cursor",
+			"cursor.cursor",
+			"cursor.cursor-vscode",
+			"rome.rome",
+			"biomejs.biome"
+		]
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "🟢 Sheikha: Launch Dev (No Cursor)",
+				"type": "node",
+				"request": "launch",
+				"program": "${workspaceFolder}/server.js",
+				"cwd": "${workspaceFolder}",
+				"env": {
+					"NODE_ENV": "development",
+					"SECURITY_STRICT_SECRETS": "false"
+				},
+				"console": "integratedTerminal"
+			},
+			{
+				"name": "🚀 Sheikha: Launch Server (NVIDIA-first)",
+				"type": "node",
+				"request": "launch",
+				"program": "${workspaceFolder}/server.js",
+				"cwd": "${workspaceFolder}",
+				"console": "integratedTerminal"
+			}
+		]
+	}
+}

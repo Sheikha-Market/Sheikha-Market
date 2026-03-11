@@ -37,7 +37,8 @@ function rateLimit(options = {}) {
                 success: false,
                 message: 'تم تجاوز الحد المسموح من الطلبات. حاول لاحقاً.',
                 code: 'RATE_LIMIT_EXCEEDED',
-                retryAfter: Math.ceil(windowMs / 1000)
+                retryAfter: Math.ceil(windowMs / 1000),
+                timestamp: new Date().toISOString()
             });
         }
 
@@ -67,6 +68,11 @@ function securityHeaders(req, res, next) {
     
     // سياسة أمان المحتوى
     res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:;");
+    // تقييد ميزات المتصفح
+    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    // عزل أقوى للمصادر
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+    res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
     
     // HSTS (فقط في الإنتاج)
     if (config.isProduction()) {

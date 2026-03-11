@@ -1,0 +1,82 @@
+{
+  "id": "ent-002",
+  "name": "Green Circular Factory",
+  "email": "raed2@sheikha.top",
+  "sector": "recycling",
+  "projectName": "green-circular-factory",
+  "targetRegion": "gcc",
+  "needs": [
+    "iot",
+    "quality-control",
+    "analytics"
+  ],
+  "projectId": "sheikha-green-circular-facto",
+  "orgId": "224557279528",
+  "ideProfiles": {
+    "cursor": {
+      "workspaceName": "Green Circular Factory-cursor-workspace",
+      "recommendedExtensions": [
+        "ms-vscode.vscode-json",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ],
+      "env": {
+        "SHEIKHA_ORG_ID": "224557279528",
+        "SHEIKHA_PROJECT_ID": "sheikha-green-circular-facto",
+        "SHEIKHA_ENTREPRENEUR_ID": "ent-002"
+      }
+    },
+    "vscode": {
+      "workspaceName": "Green Circular Factory-vscode-workspace",
+      "tasks": [
+        "npm run dev",
+        "npm run ops:readiness",
+        "npm run ops:auth:readiness"
+      ],
+      "env": {
+        "SHEIKHA_ORG_ID": "224557279528",
+        "SHEIKHA_PROJECT_ID": "sheikha-green-circular-facto",
+        "SHEIKHA_ENTREPRENEUR_ID": "ent-002"
+      }
+    },
+    "generic": {
+      "gitRepo": "https://git.sheikha.top/entrepreneurs/ent-002/sheikha-green-circular-facto",
+      "branchModel": [
+        "main",
+        "develop",
+        "release"
+      ],
+      "ciCd": "pipeline-required-before-production"
+    }
+  },
+  "provisioning": {
+    "mode": "institutional-automation",
+    "commands": [
+      "gcloud projects create sheikha-green-circular-facto --organization=224557279528",
+      "gcloud beta billing projects link sheikha-green-circular-facto --billing-account=REQUIRED-BILLING-ACCOUNT",
+      "gcloud services enable run.googleapis.com aiplatform.googleapis.com bigquery.googleapis.com storage.googleapis.com cloudfunctions.googleapis.com monitoring.googleapis.com --project=sheikha-green-circular-facto",
+      "gcloud projects add-iam-policy-binding sheikha-green-circular-facto --member=user:raed2@sheikha.top --role=roles/viewer",
+      "gcloud projects add-iam-policy-binding sheikha-green-circular-facto --member=user:raed2@sheikha.top --role=roles/run.developer",
+      "gcloud projects add-iam-policy-binding sheikha-green-circular-facto --member=user:raed2@sheikha.top --role=roles/serviceusage.serviceUsageConsumer",
+      "gcloud projects add-iam-policy-binding sheikha-green-circular-facto --member=user:raed2@sheikha.top --role=roles/storage.objectUser"
+    ]
+  },
+  "supportCatalog": {
+    "managedServices": [
+      "cloud-run",
+      "cloud-functions",
+      "monitoring",
+      "security-baseline"
+    ],
+    "dataAi": [
+      "bigquery",
+      "vertex-ai",
+      "dashboards"
+    ],
+    "enablement": [
+      "starter-template",
+      "mentoring",
+      "weekly-tech-review"
+    ]
+  }
+}

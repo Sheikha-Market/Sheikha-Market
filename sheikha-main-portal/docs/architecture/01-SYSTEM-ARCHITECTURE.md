@@ -487,6 +487,10 @@ sheikha-main-portal/
 
 راجع الملف المنفصل: [02-SHARIA-FRAMEWORK.md](./02-SHARIA-FRAMEWORK.md)
 
+## 8. تكامل NVIDIA {#تكامل-nvidia}
+
+راجع الملف المنفصل: [05-NVIDIA-INTEGRATION-SHEIKHA.md](./05-NVIDIA-INTEGRATION-SHEIKHA.md) — الأقوى والأفضل، مرقمن بالكتاب والسنة.
+
 ---
 
 ## 📊 ملخص المنظومة

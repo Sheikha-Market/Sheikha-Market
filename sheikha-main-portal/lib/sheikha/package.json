@@ -1,0 +1,14 @@
+{
+  "name": "sheikha-ai-core",
+  "version": "0.1.0",
+  "description": "Core libraries for Sheikha AI platform - providers and chat engine",
+  "main": "chatSheikha.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node ../../examples/simpleChat.js"
+  },
+  "dependencies": {
+    "openai": "^6.22.0",
+    "@anthropic-ai/sdk": "^0.78.0"
+  }
+}

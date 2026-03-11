@@ -1,0 +1,88 @@
+{
+  "id": "agent-life-preservation-1772494151111",
+  "type": "maqsad-agent",
+  "template": "LIFE_PRESERVATION",
+  "nameAr": "وكيل حفظ النفس",
+  "nameEn": "Life Preservation Agent",
+  "maqsad": "حفظ النفس",
+  "priority": 2,
+  "quranicBase": [
+    "وَلَا تَقْتُلُوا النَّفْسَ الَّتِي حَرَّمَ اللَّهُ إِلَّا بِالْحَقِّ — الإسراء ٣٣",
+    "مَن قَتَلَ نَفْسًا بِغَيْرِ نَفْسٍ أَوْ فَسَادٍ فِي الْأَرْضِ فَكَأَنَّمَا قَتَلَ النَّاسَ جَمِيعًا — المائدة ٣٢",
+    "وَلَا تُلْقُوا بِأَيْدِيكُمْ إِلَى التَّهْلُكَةِ — البقرة ١٩٥"
+  ],
+  "hadithBase": [
+    "لا ضرر ولا ضرار — صحيح ابن ماجه",
+    "من قتل نفسه بشيء عُذب به في النار — متفق عليه",
+    "المسلم من سلم المسلمون من لسانه ويده — متفق عليه"
+  ],
+  "capabilities": [
+    "الوقاية من الأمراض",
+    "الإسعافات الأولية",
+    "التغذية الصحية",
+    "الصحة النفسية",
+    "السلامة والأمان",
+    "مكافحة الانتحار",
+    "حماية الضعفاء",
+    "الطب الوقائي"
+  ],
+  "subAgents": [
+    {
+      "id": "agent-life-preservation-1772494151111-sub-1772494151111-h9n56w04g",
+      "parentId": "agent-life-preservation-1772494151111",
+      "nameAr": "مستشار الصحة",
+      "focus": "الصحة البدنية والوقاية",
+      "sources": [
+        "الطب النبوي",
+        "الطب الحديث المباح"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-02T23:29:11.111Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-life-preservation-1772494151111-sub-1772494151111-g17uxrw61",
+      "parentId": "agent-life-preservation-1772494151111",
+      "nameAr": "داعم الصحة النفسية",
+      "focus": "الدعم النفسي والروحاني",
+      "sources": [
+        "القرآن",
+        "أذكار وأدعية",
+        "علم النفس"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-02T23:29:11.111Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-life-preservation-1772494151111-sub-1772494151111-6awrb4eat",
+      "parentId": "agent-life-preservation-1772494151111",
+      "nameAr": "حارس السلامة",
+      "focus": "الحماية من المخاطر",
+      "sources": [
+        "أحكام الأمان",
+        "معايير السلامة"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-02T23:29:11.111Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-life-preservation-1772494151111-sub-1772494151111-n3axc3die",
+      "parentId": "agent-life-preservation-1772494151111",
+      "nameAr": "خبير التغذية",
+      "focus": "الطعام الحلال والصحي",
+      "sources": [
+        "أحكام الأطعمة",
+        "علم التغذية"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-02T23:29:11.111Z",
+      "tasksCompleted": 0
+    }
+  ],
+  "status": "active",
+  "createdAt": "2026-03-02T23:29:11.111Z",
+  "tasksCompleted": 0,
+  "totalTasks": 0
+}

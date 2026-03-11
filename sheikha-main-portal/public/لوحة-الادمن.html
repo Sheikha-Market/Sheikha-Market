@@ -1213,6 +1213,20 @@ select.filter-select:focus { border-color: var(--gold); }
             </div>
         </div>
 
+        <!-- 3. الهوية والقيم -->
+        <div class="nav-group">
+            <div class="nav-group-title" onclick="toggleGroup(this)">
+                الهوية والقيم
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+            </div>
+            <div class="nav-group-items">
+                <div class="nav-item" onclick="window.open('/SHEIKHA-DIGITAL-IDENTITY.html','_blank')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a9.99 9.99 0 00-7.071 2.929A9.99 9.99 0 002 12a9.99 9.99 0 002.929 7.071A9.99 9.99 0 0012 22a9.99 9.99 0 007.071-2.929A9.99 9.99 0 0022 12a9.99 9.99 0 00-2.929-7.071A9.99 9.99 0 0012 2zm0 3a4 4 0 110 8 4 4 0 010-8zm0 12c-2.667 0-5.333-1.333-6-4h12c-.667 2.667-3.333 4-6 4z"/></svg>
+                    عرض الهوية الرقمية
+                </div>
+            </div>
+        </div>
+
         <!-- 3. السوق والأسعار -->
         <div class="nav-group">
             <div class="nav-group-title" onclick="toggleGroup(this)">
@@ -1360,6 +1374,10 @@ select.filter-select:focus { border-color: var(--gold); }
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 014 4c0 1.95-2 3-2 8h-4c0-5-2-6.05-2-8a4 4 0 014-4z"/><path d="M10 14h4"/><path d="M10 18h4"/><path d="M11 22h2"/></svg>
                     شيخة AI
                 </div>
+                <div class="nav-item" data-section="nvidia-cuda">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+                    NVIDIA + CUDA
+                </div>
                 <div class="nav-item" data-section="api">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                     API والتكامل
@@ -1398,7 +1416,7 @@ select.filter-select:focus { border-color: var(--gold); }
                 </div>
             </div>
         </div>
-
+quick
     </nav>
 </aside>
 
@@ -1464,6 +1482,194 @@ select.filter-select:focus { border-color: var(--gold); }
         <div class="stat-card">
             <div class="stat-label">تقييم المنصة</div>
             <div class="stat-value" id="stat-rating">0<small style="font-size:0.6em">/5</small></div>
+        </div>
+    </div>
+
+    <!-- حوكمة المؤسسة الرقمية — Enterprise Governance -->
+    <div class="card" id="enterpriseGovernanceCard">
+        <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            حوكمة المؤسسة الرقمية — رقمنة بالكتاب والسنة
+        </div>
+        <div id="egReadinessStatus" style="margin-bottom:10px;font-size:.78rem;color:var(--text-muted)">جاري تحميل الحوكمة...</div>
+
+        <!-- مؤشر الجاهزية المؤسسية الكلي -->
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;background:var(--bg3);border-radius:12px;padding:12px 16px;border:1px solid var(--border)">
+            <div style="flex:1">
+                <div style="font-size:.72rem;color:var(--text-muted);margin-bottom:4px">مؤشر الجاهزية المؤسسية الشاملة</div>
+                <div style="display:flex;align-items:center;gap:10px">
+                    <div id="egScoreValue" style="font-size:2rem;font-weight:900;color:var(--gold)">—</div>
+                    <div>
+                        <div id="egScoreLabel" style="font-size:.75rem;font-weight:700;color:var(--green)">جاري الحساب...</div>
+                        <div style="font-size:.65rem;color:var(--text-muted);font-style:italic">إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَن يُتْقِنَهُ</div>
+                    </div>
+                </div>
+                <div id="egProgressBar" style="margin-top:8px;height:6px;background:var(--bg2);border-radius:4px;overflow:hidden">
+                    <div id="egProgressFill" style="height:100%;width:0%;background:linear-gradient(90deg,#D4AF37,#B87333);border-radius:4px;transition:width .8s ease"></div>
+                </div>
+            </div>
+            <div id="egWatermarkBadge" style="padding:6px 12px;border-radius:8px;border:1px solid rgba(212,175,55,.3);background:rgba(212,175,55,.08);text-align:center">
+                <div style="font-size:.6rem;color:var(--text-muted)">البصمة الرقمية</div>
+                <div id="egWatermarkSig" style="font-size:.62rem;color:var(--gold);font-family:monospace;word-break:break-all;max-width:90px">—</div>
+            </div>
+        </div>
+
+        <!-- أقسام الحوكمة الثلاثة -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+            <!-- الأمان -->
+            <div style="background:var(--bg3);border-radius:10px;padding:10px;border:1px solid var(--border)">
+                <div style="font-size:.68rem;color:var(--text-muted);margin-bottom:6px">🛡️ طبقات الأمان الشرعي</div>
+                <div id="egSecurityScore" style="font-size:1.4rem;font-weight:800;color:var(--green)">—</div>
+                <div style="font-size:.62rem;color:var(--text-muted);margin-top:2px" id="egSecurityLayers">جاري التحقق...</div>
+                <div id="egSecurityBar" style="margin-top:6px;height:4px;background:var(--bg2);border-radius:3px;overflow:hidden">
+                    <div id="egSecurityFill" style="height:100%;width:0%;background:#22c55e;border-radius:3px;transition:width .7s"></div>
+                </div>
+            </div>
+            <!-- الجودة -->
+            <div style="background:var(--bg3);border-radius:10px;padding:10px;border:1px solid var(--border)">
+                <div style="font-size:.68rem;color:var(--text-muted);margin-bottom:6px">✅ معايير الإتقان</div>
+                <div id="egQualityScore" style="font-size:1.4rem;font-weight:800;color:var(--gold)">—</div>
+                <div style="font-size:.62rem;color:var(--text-muted);margin-top:2px" id="egQualityPassed">جاري التحقق...</div>
+                <div id="egQualityBar" style="margin-top:6px;height:4px;background:var(--bg2);border-radius:3px;overflow:hidden">
+                    <div id="egQualityFill" style="height:100%;width:0%;background:#D4AF37;border-radius:3px;transition:width .7s"></div>
+                </div>
+            </div>
+            <!-- الوحدات -->
+            <div style="background:var(--bg3);border-radius:10px;padding:10px;border:1px solid var(--border)">
+                <div style="font-size:.68rem;color:var(--text-muted);margin-bottom:6px">🧩 الوحدات المعيارية</div>
+                <div id="egModulesScore" style="font-size:1.4rem;font-weight:800;color:#60a5fa">—</div>
+                <div style="font-size:.62rem;color:var(--text-muted);margin-top:2px" id="egModulesCount">جاري التحقق...</div>
+                <div id="egModulesBar" style="margin-top:6px;height:4px;background:var(--bg2);border-radius:3px;overflow:hidden">
+                    <div id="egModulesFill" style="height:100%;width:0%;background:#60a5fa;border-radius:3px;transition:width .7s"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- سلامة سلسلة التدقيق -->
+        <div id="egAuditChainBadge" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;background:var(--bg3);border:1px solid var(--border);margin-bottom:14px;font-size:.72rem">
+            <span id="egChainIcon">⏳</span>
+            <span id="egChainLabel" style="color:var(--text-muted)">جاري التحقق من سلسلة التدقيق...</span>
+            <span id="egChainSize" style="margin-right:auto;color:var(--text-muted)"></span>
+        </div>
+
+        <!-- جدول الوحدات المعيارية -->
+        <div style="overflow-x:auto">
+            <table style="width:100%;font-size:.7rem;border-collapse:collapse" id="egModulesTable">
+                <thead>
+                    <tr style="border-bottom:1px solid var(--border);color:var(--text-muted)">
+                        <th style="text-align:right;padding:5px 8px">الوحدة</th>
+                        <th style="text-align:right;padding:5px 8px">الدور الشرعي</th>
+                        <th style="text-align:center;padding:5px 8px">الحالة</th>
+                    </tr>
+                </thead>
+                <tbody id="egModulesBody">
+                    <tr><td colspan="3" style="text-align:center;padding:12px;color:var(--text-muted)">جاري تحميل الوحدات...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="egUpdatedAt" style="margin-top:8px;font-size:.65rem;color:var(--text-muted)"></div>
+    </div>
+
+    <!-- حاسبة التوزيع المالي الشرعي الدقيق -->
+    <div class="card" id="shariaFinancialCard">
+        <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            الحساب المالي الشرعي الدقيق — وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ
+        </div>
+        <div style="font-size:.72rem;color:var(--text-muted);margin-bottom:12px">أفضل دقة محاسبية — لا ربا لا غرر لا غش — دقة عشرية كاملة بلا خسارة كسور</div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
+            <div>
+                <label style="font-size:.68rem;color:var(--text-muted);display:block;margin-bottom:4px">المبلغ الإجمالي (ريال)</label>
+                <input id="sfTotalAmount" type="number" min="1" placeholder="10000" style="width:100%;padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.8rem">
+            </div>
+            <div>
+                <label style="font-size:.68rem;color:var(--text-muted);display:block;margin-bottom:4px">نسبة العمولة ٪</label>
+                <input id="sfCommission" type="number" min="0" max="50" step="0.5" placeholder="5" style="width:100%;padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.8rem">
+            </div>
+            <div>
+                <label style="font-size:.68rem;color:var(--text-muted);display:block;margin-bottom:4px">زكاة واجبة؟</label>
+                <select id="sfZakat" style="width:100%;padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.8rem">
+                    <option value="false">لا (دون نصاب)</option>
+                    <option value="true">نعم — احسب الزكاة ٢.٥٪</option>
+                </select>
+            </div>
+        </div>
+
+        <button onclick="runShariaFinancialSplit()" style="padding:8px 20px;border-radius:10px;background:linear-gradient(135deg,#D4AF37,#B87333);border:none;color:#000;font-weight:700;font-size:.78rem;cursor:pointer;margin-bottom:14px">
+            احسب التوزيع الشرعي الدقيق ▶
+        </button>
+
+        <div id="sfResult" style="display:none;background:var(--bg3);border-radius:10px;padding:12px;border:1px solid var(--border)">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px" id="sfResultGrid"></div>
+            <div id="sfChecksumBadge" style="margin-top:10px;font-size:.68rem"></div>
+            <div id="sfQRef" style="margin-top:6px;font-size:.65rem;color:var(--text-muted);font-style:italic"></div>
+        </div>
+    </div>
+
+    <!-- Sheikha Summit Indices -->
+    <div class="card">
+        <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18"/><path d="M5 20V10l7-6 7 6v10"/></svg>
+            مؤشرات قمة شيخة — تكامل دولي + ضبط شرعي
+        </div>
+        <div id="sheikhaSummitStatus" style="margin-bottom:12px;font-size:.78rem;color:var(--text-muted)">جاري تحميل المؤشرات...</div>
+        <div class="stats-row">
+            <div class="stat-card" id="idx-compute-card">
+                <div class="stat-label">ComputePowerIndex</div>
+                <div class="stat-value" id="idx-compute">0</div>
+            </div>
+            <div class="stat-card" id="idx-global-card">
+                <div class="stat-label">GlobalReachIndex</div>
+                <div class="stat-value" id="idx-global">0</div>
+            </div>
+            <div class="stat-card" id="idx-governance-card">
+                <div class="stat-label">GovernanceComplianceIndex</div>
+                <div class="stat-value" id="idx-governance">0</div>
+            </div>
+            <div class="stat-card" id="idx-research-card">
+                <div class="stat-label">ResearchInnovationIndex</div>
+                <div class="stat-value" id="idx-research">0</div>
+            </div>
+            <div class="stat-card" id="idx-sharia-card">
+                <div class="stat-label">ShariaComplianceIndex</div>
+                <div class="stat-value" id="idx-sharia">0</div>
+            </div>
+            <div class="stat-card" id="idx-summit-card">
+                <div class="stat-label">SheikhaSummitIndex</div>
+                <div class="stat-value gold" id="idx-summit">0</div>
+            </div>
+        </div>
+        <div id="sheikhaSummitUpdatedAt" style="margin-top:10px;font-size:.72rem;color:var(--text-muted)"></div>
+        <div style="margin-top:14px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <div style="font-size:.8rem;font-weight:700;color:var(--gold)">اتجاه SheikhaSummitIndex</div>
+                <div style="display:flex;align-items:center;gap:6px">
+                    <button id="summitRange24Btn" onclick="setSummitHistoryRange(24)" style="padding:4px 10px;border-radius:8px;border:1px solid rgba(212,175,55,.35);background:rgba(212,175,55,.18);color:var(--gold);font-size:.7rem;cursor:pointer">24h</button>
+                    <button id="summitRange7dBtn" onclick="setSummitHistoryRange(168)" style="padding:4px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text-muted);font-size:.7rem;cursor:pointer">7d</button>
+                    <button onclick="loadSheikhaSummitIndices()" style="padding:4px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text-muted);font-size:.7rem;cursor:pointer">تحديث الآن</button>
+                </div>
+                <div id="summitHistoryMeta" style="font-size:.7rem;color:var(--text-muted)">جاري التحميل...</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <div style="display:flex;align-items:center;gap:8px;font-size:.72rem;color:var(--text-muted)">
+                    <span>خط الهدف (Target): <span id="summitTargetValue" style="color:var(--gold);font-weight:700">85</span></span>
+                    <select id="summitTargetSelect" onchange="setSummitTargetFromSelect()" style="padding:3px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text-muted);font-size:.7rem">
+                        <option value="80">80</option>
+                        <option value="85" selected>85</option>
+                        <option value="90">90</option>
+                        <option value="95">95</option>
+                    </select>
+                    <input id="summitTargetInput" type="number" min="50" max="100" step="1" placeholder="هدف مخصص" style="width:88px;padding:3px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text-muted);font-size:.7rem">
+                    <button onclick="setSummitTargetCustom()" style="padding:3px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text-muted);font-size:.7rem;cursor:pointer">تطبيق</button>
+                </div>
+                <div id="summitTargetAlert" style="font-size:.72rem;color:var(--green)">الحالة: ضمن الهدف ✓</div>
+            </div>
+            <div id="summitHistoryBars" style="position:relative;height:120px;display:flex;align-items:flex-end;gap:4px">
+                <div id="summitTargetLine" style="position:absolute;left:0;right:0;height:0;border-top:1px dashed rgba(212,175,55,.65);bottom:85%;pointer-events:none"></div>
+            </div>
+            <div id="layoutReadinessBadge" style="margin-top:8px;font-size:.7rem;color:var(--text-muted)">فحص الجاهزية: جاري التحقق...</div>
         </div>
     </div>
 
@@ -1563,6 +1769,14 @@ select.filter-select:focus { border-color: var(--gold); }
             <a href="_admin/نظام-شيخة-الذكي.html" class="link-card">
                 <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 014 4c0 1.95-2 3-2 8h-4c0-5-2-6.05-2-8a4 4 0 014-4z"/><path d="M10 18h4M11 22h2"/></svg></div>
                 <span class="link-text">شيخة AI الذكي</span>
+            </a>
+            <a href="/الوكلاء-الإسلاميين.html" class="link-card">
+                <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+                <span class="link-text">منظومة الوكلاء الإسلاميين</span>
+                        <a href="/مركز-التدريب-متعدد-اللغات.html" class="link-card">
+                            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7v9c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/><path d="M12 12a3 3 0 100-6 3 3 0 000 6z"/><path d="M8 21c.5-2 2-3 4-3s3.5 1 4 3"/></svg></div>
+                            <span class="link-text">مركز التدريب متعدد اللغات</span>
+                        </a>
             </a>
             <a href="_admin/تسجيل-تاجر.html" class="link-card">
                 <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg></div>
@@ -2022,40 +2236,226 @@ select.filter-select:focus { border-color: var(--gold); }
 <div class="section" id="section-logistics">
     <div class="section-title">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        إدارة اللوجستيات والنقل
+        منظومة شيخة للتميّز اللوجستي المتقن
     </div>
-    <p class="section-desc">إدارة الأسطول والمسارات والسائقين</p>
+    <p class="section-desc">حلول التخزين والتوزيع والنقل والتخليص الجمركي وتوثيق الموارد الحية</p>
 
-    <div class="stats-row" style="grid-template-columns: repeat(4, 1fr);">
-        <div class="stat-card"><div class="stat-label">إجمالي المركبات</div><div class="stat-value">0</div></div>
-        <div class="stat-card"><div class="stat-label">مركبات نشطة</div><div class="stat-value" style="color:var(--green)">0</div></div>
-        <div class="stat-card"><div class="stat-label">رحلات اليوم</div><div class="stat-value" style="color:var(--blue)">0</div></div>
-        <div class="stat-card"><div class="stat-label">السائقين</div><div class="stat-value">0</div></div>
+    <!-- لوحة قياس الأثر -->
+    <div class="card" style="margin-bottom:24px;background:linear-gradient(135deg,rgba(212,175,55,0.05),rgba(212,175,55,0.02))">
+        <div class="card-title" style="display:flex;align-items:center;gap:8px">
+            📊 لوحة قياس الأثر والتميز
+            <span id="logistics-excellence-status" style="font-size:0.75rem;padding:4px 10px;background:rgba(34,197,94,0.15);border-radius:6px;color:var(--green);font-weight:600">● مفعّل</span>
+        </div>
+        <div class="stats-row" style="grid-template-columns: repeat(4, 1fr);" id="impact-dashboard-container">
+            <div class="stat-card"><div class="stat-label">⏳ جاري التحميل...</div><div class="stat-value">-</div></div>
+            <div class="stat-card"><div class="stat-label">⏳ جاري التحميل...</div><div class="stat-value">-</div></div>
+            <div class="stat-card"><div class="stat-label">⏳ جاري التحميل...</div><div class="stat-value">-</div></div>
+            <div class="stat-card"><div class="stat-label">⏳ جاري التحميل...</div><div class="stat-value">-</div></div>
+        </div>
     </div>
 
-    <div class="grid-2">
+    <!-- التخزين والتوزيع -->
+    <div class="card" style="margin-bottom:24px">
+        <div class="card-title" style="display:flex;align-items:center;gap:8px">
+            📦 التميّز في خدمات التخزين والتوزيع
+            <span style="font-size:0.7rem;padding:3px 8px;background:rgba(129,140,248,0.15);border-radius:5px;color:#818cf8;font-weight:600">15 خدمة</span>
+        </div>
+        <div id="storage-services-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px">
+            <div style="padding:16px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:10px;text-align:center">⏳ جاري تحميل الخدمات...</div>
+        </div>
+    </div>
+
+    <!-- النقل متعدد الوسائط -->
+    <div class="grid-2" style="margin-bottom:24px">
         <div class="card">
-            <div class="card-title">المسارات النشطة</div>
-            <div class="map-placeholder">
-                <div style="text-align:center">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 10-16 0c0 3 2.7 7 8 11.7z"/></svg>
-                    <div>خريطة المسارات — سيتم الربط بنظام التتبع</div>
-                </div>
+            <div class="card-title">🚁 الشحن الجوي Express</div>
+            <div id="air-freight-content" style="font-size:0.85rem;line-height:1.8;color:var(--text-muted)">
+                ⏳ جاري التحميل...
             </div>
         </div>
         <div class="card">
-            <div class="card-title">إدارة السائقين</div>
-            <div class="table-wrap">
-                <table>
-                    <thead><tr><th>الاسم</th><th>المركبة</th><th>المسار</th><th>الحالة</th></tr></thead>
-                    <tbody>
-                        <tr><td colspan="4" style="text-align:center;padding:30px;color:var(--text-faint)">لا يوجد سائقين مسجلين</td></tr>
-                    </tbody>
-                </table>
+            <div class="card-title">🚢 الشحن البحري</div>
+            <div id="sea-freight-content" style="font-size:0.85rem;line-height:1.8;color:var(--text-muted)">
+                ⏳ جاري التحميل...
             </div>
+        </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:24px">
+        <div class="card">
+            <div class="card-title">🚚 النقل البري</div>
+            <div id="land-freight-content" style="font-size:0.85rem;line-height:1.8;color:var(--text-muted)">
+                ⏳ جاري التحميل...
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">⚠️ الشحنات المتخصصة</div>
+            <div id="specialized-cargo-content" style="font-size:0.85rem;line-height:1.8;color:var(--text-muted)">
+                ⏳ جاري التحميل...
+            </div>
+        </div>
+    </div>
+
+    <!-- الامتثال الجمركي -->
+    <div class="card" style="margin-bottom:24px">
+        <div class="card-title" style="display:flex;align-items:center;gap:8px">
+            🛂 التميّز في التخليص الجمركي والامتثال
+            <span id="customs-license-status" style="font-size:0.7rem;padding:3px 8px;background:rgba(251,191,36,0.15);border-radius:5px;color:var(--gold);font-weight:600">رقمي</span>
+        </div>
+        <div id="customs-compliance-content" style="margin-top:16px">
+            <div style="text-align:center;padding:20px;color:var(--text-faint)">⏳ جاري تحميل الامتثال الجمركي...</div>
+        </div>
+    </div>
+
+    <!-- توثيق الموارد الحية -->
+    <div class="card">
+        <div class="card-title">🐄 التميّز في توثيق الموارد الحية</div>
+        <div id="living-resources-content" style="margin-top:16px">
+            <div style="text-align:center;padding:20px;color:var(--text-faint)">⏳ جاري تحميل خدمات التوثيق...</div>
         </div>
     </div>
 </div>
+
+<script>
+// تحميل منظومة التميز اللوجستي
+(async function loadLogisticsExcellence() {
+    try {
+        // 1. لوحة قياس الأثر
+        const impactRes = await fetch('/api/logistics/intelligence/impact');
+        const impactData = await impactRes.json();
+        if (impactData.success && impactData.data) {
+            const container = document.getElementById('impact-dashboard-container');
+            const impacts = [impactData.data.productionImpact, impactData.data.environmentalImpact,
+                           impactData.data.economicImpact, impactData.data.charityImpact];
+            container.innerHTML = impacts.map(imp => `
+                <div class="stat-card" style="border-right:4px solid ${imp.visual.colorHex}">
+                    <div class="stat-label" style="display:flex;align-items:center;gap:6px">
+                        <span style="font-size:1.2rem">${imp.visual.icon}</span>
+                        ${imp.title}
+                    </div>
+                    <div class="stat-value" style="color:${imp.visual.colorHex}">${imp.index}<small style="font-size:0.5em">/100</small></div>
+                    <div style="font-size:0.7rem;color:var(--text-muted);margin-top:4px;font-weight:600">${imp.band}</div>
+                </div>
+            `).join('');
+        }
+
+        // 2. خدمات التخزين والتوزيع
+        const storageRes = await fetch('/api/logistics/excellence/storage-distribution');
+        const storageData = await storageRes.json();
+        if (storageData.success && storageData.data.services) {
+            const grid = document.getElementById('storage-services-grid');
+            grid.innerHTML = storageData.data.services.map(svc => `
+                <div style="padding:14px;background:rgba(129,140,248,0.04);border:1px solid rgba(129,140,248,0.1);border-radius:10px">
+                    <div style="font-size:0.7rem;color:#818cf8;font-weight:700;margin-bottom:6px">${svc.id}</div>
+                    <div style="font-size:0.85rem;font-weight:700;color:var(--text);margin-bottom:6px">${svc.name}</div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.6">${svc.value}</div>
+                </div>
+            `).join('');
+        }
+
+        // 3. النقل متعدد الوسائط
+        const transportRes = await fetch('/api/logistics/excellence/transport');
+        const transportData = await transportRes.json();
+        if (transportData.success && transportData.data) {
+            const t = transportData.data;
+
+            // جوي
+            if (t.airFreight) {
+                document.getElementById('air-freight-content').innerHTML = `
+                    <div style="margin-bottom:10px"><strong style="color:var(--gold)">⚡ ${t.airFreight.duration}</strong></div>
+                    <div style="margin-bottom:8px"><strong>الخدمات:</strong></div>
+                    <ul style="margin:0;padding-right:20px">
+                        ${t.airFreight.services.map(s => `<li>${s}</li>`).join('')}
+                    </ul>
+                `;
+            }
+
+            // بحري
+            if (t.seaFreight) {
+                document.getElementById('sea-freight-content').innerHTML = `
+                    <div style="margin-bottom:10px"><strong style="color:var(--blue)">🌊 ${t.seaFreight.duration}</strong></div>
+                    <div style="margin-bottom:8px"><strong>الأنواع:</strong></div>
+                    <ul style="margin:0;padding-right:20px">
+                        ${t.seaFreight.types.map(s => `<li>${s}</li>`).join('')}
+                    </ul>
+                `;
+            }
+
+            // بري
+            if (t.landFreight) {
+                document.getElementById('land-freight-content').innerHTML = `
+                    <div style="margin-bottom:10px"><strong style="color:var(--green)">🛣️ ${t.landFreight.coverage}</strong></div>
+                    <div style="margin-bottom:8px"><strong>الأسطول:</strong></div>
+                    <ul style="margin:0;padding-right:20px">
+                        ${t.landFreight.fleet.map(s => `<li>${s}</li>`).join('')}
+                    </ul>
+                `;
+            }
+
+            // متخصص
+            if (t.specializedCargo) {
+                document.getElementById('specialized-cargo-content').innerHTML = `
+                    <ul style="margin:0;padding-right:20px">
+                        ${t.specializedCargo.capabilities.map(s => `<li>${s}</li>`).join('')}
+                    </ul>
+                `;
+            }
+        }
+
+        // 4. الامتثال الجمركي
+        const customsRes = await fetch('/api/logistics/excellence/customs-compliance');
+        const customsData = await customsRes.json();
+        if (customsData.success && customsData.data) {
+            const c = customsData.data;
+            document.getElementById('customs-compliance-content').innerHTML = `
+                <div style="padding:14px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.12);border-radius:10px;margin-bottom:14px">
+                    <div style="font-size:0.8rem;font-weight:700;color:var(--gold);margin-bottom:8px">🎯 برنامج الرخصة الجمركية</div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.7">${c.customsLicenseProgram.status}</div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                    <div>
+                        <div style="font-size:0.85rem;font-weight:700;margin-bottom:10px;color:var(--text)">التغطية الجمركية</div>
+                        <ul style="margin:0;padding-right:20px;font-size:0.8rem;line-height:2;color:var(--text-muted)">
+                            ${c.complianceCoverage.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div>
+                        <div style="font-size:0.85rem;font-weight:700;margin-bottom:10px;color:var(--text)">القدرات الرقمية</div>
+                        <ul style="margin:0;padding-right:20px;font-size:0.8rem;line-height:2;color:var(--text-muted)">
+                            ${c.digitalCapabilities.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 5. توثيق الموارد الحية
+        const livingRes = await fetch('/api/logistics/excellence/documentation-living-resources');
+        const livingData = await livingRes.json();
+        if (livingData.success && livingData.data) {
+            const l = livingData.data;
+            document.getElementById('living-resources-content').innerHTML = `
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px">
+                    ${l.services.map((svc, idx) => `
+                        <div style="padding:12px;background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.1);border-radius:8px">
+                            <div style="font-size:0.75rem;color:var(--green);font-weight:700;margin-bottom:6px">خدمة ${idx + 1}</div>
+                            <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.6">${svc}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div style="margin-top:16px;padding:12px;background:rgba(129,140,248,0.04);border:1px solid rgba(129,140,248,0.1);border-radius:8px">
+                    <div style="font-size:0.8rem;font-weight:700;color:#818cf8;margin-bottom:8px">📋 الحوكمة</div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.7">${l.governance.compliance}</div>
+                </div>
+            `;
+        }
+
+        console.log('✅ تم تحميل منظومة التميز اللوجستي بنجاح');
+    } catch (err) {
+        console.error('❌ خطأ في تحميل منظومة التميز:', err);
+    }
+})();
+</script>
 
 <!-- ============================================================
      SECTION: WAREHOUSE — المخازن
@@ -2670,6 +3070,71 @@ select.filter-select:focus { border-color: var(--gold); }
 </div>
 
 <!-- ============================================================
+     SECTION: NVIDIA + CUDA — التكامل الكامل
+     ============================================================ -->
+<div class="section" id="section-nvidia-cuda">
+    <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+        NVIDIA + CUDA — التكامل الكامل
+    </div>
+    <p class="section-desc">تكامل NVIDIA و CUDA و CUDA Toolkit مع شيخة — مرقمن بالكتاب والسنة</p>
+
+    <div class="stats-row" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="stat-card" id="nc-stat-nim"><div class="stat-label">NVIDIA NIM</div><div class="stat-value" style="font-size:0.9rem">—</div></div>
+        <div class="stat-card" id="nc-stat-cuda"><div class="stat-label">CUDA Toolkit</div><div class="stat-value" style="font-size:0.9rem">—</div></div>
+        <div class="stat-card"><div class="stat-label">الكتالوجات</div><div class="stat-value" style="font-size:0.9rem">2</div></div>
+        <div class="stat-card"><div class="stat-label">APIs</div><div class="stat-value" style="font-size:0.9rem">5</div></div>
+    </div>
+
+    <div class="grid-2">
+        <div class="card" style="border-right:3px solid #76b900">
+            <div class="card-title">حالة التكامل</div>
+            <div id="nc-status" style="display:flex;flex-direction:column;gap:10px;font-size:.85rem">
+                <div class="ip-row"><span class="ip-label">NVIDIA NIM API</span><span class="ip-value" id="nc-nim-status">جاري التحميل...</span></div>
+                <div class="ip-row"><span class="ip-label">CUDA / PyTorch GPU</span><span class="ip-value" id="nc-cuda-status">جاري التحميل...</span></div>
+                <div class="ip-row"><span class="ip-label">وضع التوجيه</span><span class="ip-value" id="nc-routing-status">جاري التحميل...</span></div>
+                <div class="ip-row"><span class="ip-label">المبدأ الشرعي</span><span class="ip-value" style="color:var(--gold)">ولا حول ولا قوة إلا بالله</span></div>
+            </div>
+        </div>
+        <div class="card" style="border-right:3px solid var(--gold)">
+            <div class="card-title">APIs المتاحة</div>
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:.82rem">
+                <a href="/api/nvidia-cuda/capabilities" target="_blank" style="color:var(--gold);text-decoration:none">GET /api/nvidia-cuda/capabilities</a>
+                <a href="/api/cuda/verify" target="_blank" style="color:var(--gold);text-decoration:none">GET /api/cuda/verify</a>
+                <a href="/api/nvidia/integration-catalog" target="_blank" style="color:var(--gold);text-decoration:none">GET /api/nvidia/integration-catalog</a>
+                <a href="/api/cuda/integration-catalog" target="_blank" style="color:var(--gold);text-decoration:none">GET /api/cuda/integration-catalog</a>
+                <a href="/api/nvidia-cuda/integration-plan" target="_blank" style="color:var(--gold);text-decoration:none">GET /api/nvidia-cuda/integration-plan</a>
+                <a href="/api/sheikha/architecture-superior" target="_blank" style="color:var(--gold);text-decoration:none">GET /api/sheikha/architecture-superior</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;border-right:3px solid #8b5cf6">
+        <div class="card-title">مراجع شرعية — التكامل مع الكتاب والسنة</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;font-size:.82rem">
+            <div style="padding:10px;background:var(--bg3);border-radius:8px"><strong>الإتقان</strong> — إن الله يحب إذا عمل أحدكم عملاً أن يتقنه</div>
+            <div style="padding:10px;background:var(--bg3);border-radius:8px"><strong>العلم قبل العمل</strong> — ولا تقف ما ليس لك به علم — الإسراء:36</div>
+            <div style="padding:10px;background:var(--bg3);border-radius:8px"><strong>التوثيق</strong> — فاكتبوه — البقرة:282</div>
+            <div style="padding:10px;background:var(--bg3);border-radius:8px"><strong>الشورى</strong> — وأمرهم شورى بينهم — الشورى:38</div>
+            <div style="padding:10px;background:var(--bg3);border-radius:8px"><strong>اقرأ</strong> — اقرأ وربك الأكرم — العلق:1-5</div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+        <div class="card-title">وثائق التكامل</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <a href="docs/guides/CUDA-Sheikha.md" target="_blank" class="btn btn-sm btn-ghost">CUDA-Sheikha.md</a>
+            <a href="docs/guides/CUDA-تثبيت-Pop-OS-وشيخة.md" target="_blank" class="btn btn-sm btn-ghost">تثبيت CUDA على Pop!_OS</a>
+            <a href="docs/architecture/05-NVIDIA-INTEGRATION-SHEIKHA.md" target="_blank" class="btn btn-sm btn-ghost">NVIDIA Integration</a>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+            <button class="btn btn-sm" style="background:#76b900;color:#fff" onclick="enableNvidiaFirstMode()">تفعيل NVIDIA-first</button>
+            <button class="btn btn-sm btn-ghost" onclick="disableNvidiaFirstMode()">تعطيل NVIDIA-first</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
      SECTION: DEVOPS — DevOps والنشر
      ============================================================ -->
 <div class="section" id="section-devops">
@@ -2807,7 +3272,7 @@ select.filter-select:focus { border-color: var(--gold); }
         <p style="font-size:.78rem;color:var(--text-muted);line-height:1.8;margin-bottom:10px">
             هذا المركز يتيح تشغيل شيخة بوضع مستقل (بدون اعتماد خارجي)، أو وضع هجين/متعدد مع التحكم الكامل بمن يعمل ومن يتوقف وتوزيع المهام بينهم.
         </p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px">
             <div style="padding:12px;background:var(--bg3);border:1px solid rgba(34,197,94,.2);border-radius:10px">
                 <div style="font-size:.72rem;color:var(--text-muted)">وضع شيخة الأساسي</div>
                 <div id="coreModeStatus" style="font-size:.84rem;font-weight:800;color:var(--green);margin-top:4px">مستقل — Local Core</div>
@@ -2817,8 +3282,12 @@ select.filter-select:focus { border-color: var(--gold); }
                 <div id="coreGptStatus" style="font-size:.84rem;font-weight:800;color:var(--orange);margin-top:4px">متوقف</div>
             </div>
             <div style="padding:12px;background:var(--bg3);border:1px solid rgba(16,185,129,.2);border-radius:10px">
-                <div style="font-size:.72rem;color:var(--text-muted)">Codex</div>
+                <div style="font-size:.72rem;color:var(--text-muted)">Codex 5.3</div>
                 <div id="coreCodexStatus" style="font-size:.84rem;font-weight:800;color:var(--orange);margin-top:4px">متوقف</div>
+            </div>
+            <div style="padding:12px;background:var(--bg3);border:1px solid rgba(168,85,247,.25);border-radius:10px">
+                <div style="font-size:.72rem;color:var(--text-muted)">Claude Coder</div>
+                <div id="coreClaudeStatus" style="font-size:.84rem;font-weight:800;color:var(--orange);margin-top:4px">متوقف</div>
             </div>
             <div style="padding:12px;background:var(--bg3);border:1px solid rgba(139,92,246,.2);border-radius:10px">
                 <div style="font-size:.72rem;color:var(--text-muted)">Cloud AI</div>
@@ -2831,12 +3300,34 @@ select.filter-select:focus { border-color: var(--gold); }
             <button class="btn btn-sm btn-ghost" onclick="setCoreAiMode('hybrid')">تشغيل هجين</button>
             <button class="btn btn-sm btn-ghost" onclick="setCoreAiMode('multi')">تشغيل متعدد</button>
             <button class="btn btn-sm btn-outline" onclick="toggleCoreNode('gpt')">تشغيل/إيقاف GPT</button>
-            <button class="btn btn-sm btn-outline" onclick="toggleCoreNode('codex')">تشغيل/إيقاف Codex</button>
+            <button class="btn btn-sm btn-outline" onclick="toggleCoreNode('codex')">تشغيل/إيقاف Codex 5.3</button>
+            <button class="btn btn-sm btn-ghost" onclick="activateCodex53()">تفعيل Codex 5.3</button>
+            <button class="btn btn-sm btn-outline" onclick="toggleCoreNode('claude')">تشغيل/إيقاف Claude Coder</button>
             <button class="btn btn-sm btn-outline" onclick="toggleCoreNode('cloud')">تشغيل/إيقاف Cloud</button>
             <button class="btn btn-sm btn-ghost" onclick="applyCoreTaskDistribution('balanced')">توزيع متوازن</button>
             <button class="btn btn-sm btn-ghost" onclick="applyCoreTaskDistribution('dev-first')">توزيع تطويري</button>
             <button class="btn btn-sm btn-ghost" onclick="applyCoreTaskDistribution('ops-first')">توزيع تشغيلي</button>
             <button class="btn btn-sm btn-ghost" onclick="shutdownExternalAiNodes()">إيقاف كل الذكاءات الخارجية</button>
+        </div>
+
+        <div style="margin-top:12px;padding:12px;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.25);border-radius:10px">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+                <div style="font-weight:800;color:#c4b5fd;font-size:.84rem">تكامل Claude Coder حسب أولوية الأقسام</div>
+                <span id="claudePriorityMode" style="font-size:.72rem;color:var(--text-muted)">النمط: متوازن</span>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+                <button class="btn btn-sm btn-ghost" onclick="applyClaudePriorityPreset('balanced')">متوازن</button>
+                <button class="btn btn-sm btn-ghost" onclick="applyClaudePriorityPreset('architecture-first')">أولوية المعمارية</button>
+                <button class="btn btn-sm btn-ghost" onclick="applyClaudePriorityPreset('structure-first')">أولوية الهيكل</button>
+                <button class="btn btn-sm btn-ghost" onclick="applyClaudePriorityPreset('dashboard-first')">أولوية لوحة التحكم</button>
+                <button class="btn btn-sm btn-ghost" onclick="applyClaudePriorityPreset('development-first')">أولوية التطوير</button>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px">
+                <div style="padding:9px;background:var(--bg3);border-radius:8px"><span style="font-size:.72rem;color:var(--text-muted)">المعمارية</span><div id="claudePriorityArchitecture" style="font-size:.8rem;font-weight:800;color:#c4b5fd">50%</div></div>
+                <div style="padding:9px;background:var(--bg3);border-radius:8px"><span style="font-size:.72rem;color:var(--text-muted)">الهيكل</span><div id="claudePriorityStructure" style="font-size:.8rem;font-weight:800;color:#c4b5fd">50%</div></div>
+                <div style="padding:9px;background:var(--bg3);border-radius:8px"><span style="font-size:.72rem;color:var(--text-muted)">لوحة التحكم</span><div id="claudePriorityDashboard" style="font-size:.8rem;font-weight:800;color:#c4b5fd">50%</div></div>
+                <div style="padding:9px;background:var(--bg3);border-radius:8px"><span style="font-size:.72rem;color:var(--text-muted)">التطوير</span><div id="claudePriorityDevelopment" style="font-size:.8rem;font-weight:800;color:#c4b5fd">50%</div></div>
+            </div>
         </div>
 
         <textarea id="coreKnowledgeFeed" placeholder="أضف تغذية معرفية وتقنية شاملة لتقوية شيخة (مفاهيم، مواصفات، سياسات، بيانات تشغيل...)" style="margin-top:10px;width:100%;min-height:86px;background:var(--bg2);border:1px solid rgba(139,92,246,.22);border-radius:10px;padding:10px 12px;color:var(--text-primary);font-family:inherit;font-size:.8rem;outline:none"></textarea>
@@ -2875,6 +3366,107 @@ select.filter-select:focus { border-color: var(--gold); }
         <button class="btn btn-sm btn-ghost" onclick="setProductionCenterMode('safe')">وضع آمن</button>
         <button class="btn btn-sm btn-ghost" onclick="stopProductionCenter()">إيقاف المركز</button>
         <button class="btn btn-sm btn-ghost" onclick="sendProductionCenterPlanToChat()">إرسال خطة التشغيل للشات</button>
+    </div>
+</div>
+
+<div class="card" style="margin-top:16px;border:1.5px solid rgba(59,130,246,.24)">
+    <div class="card-title" style="color:#60a5fa">☁️ Cloud Coder + تغذية شيخة التطويرية</div>
+    <p style="font-size:.78rem;color:var(--text-muted);line-height:1.8;margin-bottom:10px">
+        طبقة ذكاء تطويري لتقوية شيخة عبر تحسين جودة الكود، فحص الأمان، تسريع المراجعة، ومواءمة لغة الـ LLM مع لغة التطوير حسب أولوية الأقسام.
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px">
+        <div style="padding:12px;background:var(--bg3);border:1px solid rgba(59,130,246,.2);border-radius:10px">
+            <div style="font-size:.72rem;color:var(--text-muted)">حالة Cloud Coder</div>
+            <div id="cloudCoderStatus" style="font-size:.84rem;font-weight:800;color:var(--orange);margin-top:4px">متوقف</div>
+        </div>
+        <div style="padding:12px;background:var(--bg3);border:1px solid rgba(16,185,129,.2);border-radius:10px">
+            <div style="font-size:.72rem;color:var(--text-muted)">مستوى التقوية</div>
+            <div id="cloudCoderStrength" style="font-size:.84rem;font-weight:800;color:var(--green);margin-top:4px">متوازن</div>
+        </div>
+        <div style="padding:12px;background:var(--bg3);border:1px solid rgba(245,158,11,.2);border-radius:10px">
+            <div style="font-size:.72rem;color:var(--text-muted)">لغة LLM</div>
+            <div id="cloudCoderLlmLangBadge" style="font-size:.84rem;font-weight:800;color:var(--gold);margin-top:4px">العربية</div>
+        </div>
+        <div style="padding:12px;background:var(--bg3);border:1px solid rgba(168,85,247,.25);border-radius:10px">
+            <div style="font-size:.72rem;color:var(--text-muted)">لغة التطوير</div>
+            <div id="cloudCoderDevLangBadge" style="font-size:.84rem;font-weight:800;color:#c4b5fd;margin-top:4px">JavaScript</div>
+        </div>
+    </div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn btn-sm btn-outline" onclick="setCloudCoderEnabled(true)">تشغيل Cloud Coder</button>
+        <button class="btn btn-sm btn-ghost" onclick="setCloudCoderEnabled(false)">إيقاف Cloud Coder</button>
+        <button class="btn btn-sm btn-ghost" onclick="applyCloudCoderStrength('balanced')">تقوية متوازنة</button>
+        <button class="btn btn-sm btn-ghost" onclick="applyCloudCoderStrength('security-first')">تقوية أمنية</button>
+        <button class="btn btn-sm btn-ghost" onclick="applyCloudCoderStrength('velocity-first')">تقوية سرعة التطوير</button>
+        <button class="btn btn-sm btn-ghost" onclick="applyCloudCoderStrength('quality-first')">تقوية الجودة</button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px">
+        <div>
+            <label style="display:block;font-size:.72rem;color:var(--text-muted);margin-bottom:6px">لغة LLM</label>
+            <select id="cloudCoderLlmLang" class="filter-select" onchange="saveCloudCoderLanguageProfile()">
+                <option value="ar">العربية</option>
+                <option value="en">English</option>
+                <option value="mixed">مختلط (AR/EN)</option>
+            </select>
+        </div>
+        <div>
+            <label style="display:block;font-size:.72rem;color:var(--text-muted);margin-bottom:6px">لغة التطوير</label>
+            <select id="cloudCoderDevLang" class="filter-select" onchange="saveCloudCoderLanguageProfile()">
+                <option value="javascript">JavaScript</option>
+                <option value="typescript">TypeScript</option>
+                <option value="python">Python</option>
+                <option value="mixed">متعدد اللغات</option>
+            </select>
+        </div>
+    </div>
+
+    <textarea id="cloudCoderKnowledgeFeed" placeholder="أضف تغذية تطويرية لشيخة: معايير الكود، سياسات الأمن، نمط الـ APIs، قواعد الاختبار، ومواصفات LLM." style="margin-top:10px;width:100%;min-height:88px;background:var(--bg2);border:1px solid rgba(59,130,246,.24);border-radius:10px;padding:10px 12px;color:var(--text-primary);font-family:inherit;font-size:.8rem;outline:none"></textarea>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+        <button class="btn btn-sm btn-gold" onclick="saveCloudCoderKnowledgeFeed()">حفظ التغذية التطويرية</button>
+        <button class="btn btn-sm btn-outline" onclick="sendCloudCoderPlanToChat()">إرسال خطة Cloud Coder للشات</button>
+    </div>
+</div>
+
+<div class="card" style="margin-top:16px;border:1.5px solid rgba(16,185,129,.22)">
+    <div class="card-title" style="color:#34d399">🔁 إدارة تكامل النماذج (Auto Integration)</div>
+    <p style="font-size:.78rem;color:var(--text-muted);line-height:1.8;margin-bottom:10px">
+        تجديد النماذج تلقائياً للأفضل، وإضافة أي نموذج/تقنية ذكاء اصطناعي من لوحة التحكم بسهولة، مع تفعيل/تعطيل فوري لكل تكامل.
+    </p>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-sm btn-outline" onclick="refreshModelIntegrations()">تحديث قائمة النماذج</button>
+        <button class="btn btn-sm btn-ghost" onclick="runModelAutoRefresh()">تجديد تلقائي للأفضل</button>
+        <button class="btn btn-sm btn-ghost" onclick="sendModelIntegrationPlanToChat()">إرسال خطة التكامل للشات</button>
+        <span id="modelRegistryMeta" style="font-size:.72rem;color:var(--text-muted);align-self:center">آخر تحديث: —</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-top:10px">
+        <input id="newModelName" placeholder="اسم التكامل (مثال: Gemini Production)" style="background:var(--bg2);border:1px solid rgba(52,211,153,.25);border-radius:8px;padding:9px 10px;color:var(--text-primary);font-size:.76rem;outline:none">
+        <input id="newModelProvider" placeholder="المزوّد (openai/anthropic/ollama/gemini)" style="background:var(--bg2);border:1px solid rgba(52,211,153,.25);border-radius:8px;padding:9px 10px;color:var(--text-primary);font-size:.76rem;outline:none">
+        <input id="newModelValue" placeholder="اسم النموذج (مثال: gpt-5.3)" style="background:var(--bg2);border:1px solid rgba(52,211,153,.25);border-radius:8px;padding:9px 10px;color:var(--text-primary);font-size:.76rem;outline:none">
+        <input id="newModelBaseUrl" placeholder="Base URL (اختياري)" style="background:var(--bg2);border:1px solid rgba(52,211,153,.25);border-radius:8px;padding:9px 10px;color:var(--text-primary);font-size:.76rem;outline:none">
+        <input id="newModelApiEnv" placeholder="متغير المفتاح (مثال: GEMINI_API_KEY)" style="background:var(--bg2);border:1px solid rgba(52,211,153,.25);border-radius:8px;padding:9px 10px;color:var(--text-primary);font-size:.76rem;outline:none">
+        <button class="btn btn-sm btn-gold" onclick="addModelIntegration()" style="height:38px">إضافة النموذج</button>
+    </div>
+
+    <div class="table-wrap" style="margin-top:12px">
+        <table id="modelIntegrationTable">
+            <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>المزوّد</th>
+                    <th>النموذج</th>
+                    <th>التحديث التلقائي</th>
+                    <th>الحالة</th>
+                    <th>إجراء</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="6" style="text-align:center;color:var(--text-muted)">جارٍ تحميل التكاملات...</td></tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </div>
@@ -3288,6 +3880,8 @@ select.filter-select:focus { border-color: var(--gold); }
         <a href="../الشروط-والسياسات.html" class="link-card" style="padding:18px;text-decoration:none"><div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div><div class="link-text" style="font-size:.9rem">الشروط والأحكام</div><div style="font-size:.7rem;color:var(--text-muted);margin-top:2px">شروط استخدام المنصة</div></div></a>
         <a href="../سياسة-الخصوصية.html" class="link-card" style="padding:18px;text-decoration:none"><div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><div><div class="link-text" style="font-size:.9rem">سياسة الخصوصية</div><div style="font-size:.7rem;color:var(--text-muted);margin-top:2px">حماية البيانات</div></div></a>
         <a href="../الشريعة-الاسلامية.html" class="link-card" style="padding:18px;text-decoration:none"><div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg></div><div><div class="link-text" style="font-size:.9rem">الالتزام الشرعي</div><div style="font-size:.7rem;color:var(--text-muted);margin-top:2px">الضوابط الإسلامية</div></div></a>
+        <a href="../الوكلاء-الإسلاميين.html" class="link-card" style="padding:18px;text-decoration:none"><div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div><div><div class="link-text" style="font-size:.9rem">الوكلاء الإسلاميون</div><div style="font-size:.7rem;color:var(--text-muted);margin-top:2px">تشغيل وإدارة وكلاء المقاصد</div></div></a>
+            <a href="../مركز-التدريب-متعدد-اللغات.html" class="link-card" style="padding:18px;text-decoration:none"><div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div><div><div class="link-text" style="font-size:.9rem">مركز التدريب العالمي</div><div style="font-size:.7rem;color:var(--text-muted);margin-top:2px">تدريب بـ 150+ لغة</div></div></a>
         <a href="_admin/اللوائح-والقوانين-والاجراءات.html" class="link-card" style="padding:18px;text-decoration:none"><div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="link-text" style="font-size:.9rem">اللوائح والإجراءات</div><div style="font-size:.7rem;color:var(--text-muted);margin-top:2px">اللوائح الداخلية</div></div></a>
     </div>
 
@@ -4213,6 +4807,7 @@ select.filter-select:focus { border-color: var(--gold); }
                 <button onclick="document.getElementById('adminChatInput').value='انشر محتوى على جميع المنصات';sendAdminChat()" style="padding:6px 12px;background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.15);border-radius:8px;font-size:.7rem;font-weight:600;color:#8b5cf6;cursor:pointer;font-family:inherit">نشر محتوى</button>
                 <button onclick="checkTechnicalPorts()" style="padding:6px 12px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:8px;font-size:.7rem;font-weight:700;color:#22c55e;cursor:pointer;font-family:inherit">فحص 8080 / 3030</button>
                 <button onclick="activateStrategyPreset('ai')" style="padding:6px 12px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.22);border-radius:8px;font-size:.7rem;font-weight:700;color:#f59e0b;cursor:pointer;font-family:inherit">تفعيل استراتيجية AI</button>
+                <button onclick="requestDevIntegrationConsent()" style="padding:6px 12px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.22);border-radius:8px;font-size:.7rem;font-weight:700;color:#60a5fa;cursor:pointer;font-family:inherit">تكامل بيئة التطوير</button>
             </div>
         </div>
     </div>
@@ -6507,6 +7102,7 @@ const sectionTitles = {
     community: 'المجتمع والمنتدى',
     api: 'API والتكامل',
     ai: 'شيخة AI',
+    'nvidia-cuda': 'NVIDIA + CUDA',
     devops: 'DevOps والنشر',
     'dev-full': 'مركز التطوير الكامل',
     logs: 'السجلات',
@@ -6552,6 +7148,44 @@ function showSection(sectionId) {
     }
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // تحميل بيانات NVIDIA/CUDA عند فتح القسم
+    if (sectionId === 'nvidia-cuda') loadNvidiaCudaCapabilities();
+}
+async function loadNvidiaCudaCapabilities() {
+    const elNim = document.getElementById('nc-nim-status');
+    const elCuda = document.getElementById('nc-cuda-status');
+    const elRouting = document.getElementById('nc-routing-status');
+    const statNim = document.querySelector('#nc-stat-nim .stat-value');
+    const statCuda = document.querySelector('#nc-stat-cuda .stat-value');
+    if (!elNim) return;
+    try {
+        const r = await fetch('/api/nvidia-cuda/capabilities', { cache: 'no-store' });
+        const j = await r.json();
+        if (j.success && j.data) {
+            const s = j.data.status || {};
+            elNim.textContent = s.nvidiaNim ? 'مفعّل ✓' : 'غير مفعّل — أضف NVIDIA_API_KEY في .env';
+            elNim.style.color = s.nvidiaNim ? 'var(--green)' : 'var(--text-muted)';
+            if (statNim) statNim.textContent = s.nvidiaNim ? 'مفعّل' : 'غير مفعّل';
+            if (elCuda) {
+                elCuda.textContent = s.cudaAvailable ? `مفعّل ✓ — ${s.cudaDevice || 'GPU'}` : (s.cudaToolkit || 'جاهزية');
+                elCuda.style.color = s.cudaAvailable ? 'var(--green)' : 'var(--text-muted)';
+            }
+            if (statCuda) statCuda.textContent = s.cudaAvailable ? (s.cudaDevice || 'GPU') : 'جاهزية';
+            const nvidiaFirst = getNvidiaFirstEnabled();
+            if (elRouting) {
+                elRouting.textContent = nvidiaFirst ? 'NVIDIA-first ✓ (أداء عالي)' : 'متوازن';
+                elRouting.style.color = nvidiaFirst ? 'var(--green)' : 'var(--text-muted)';
+            }
+        } else {
+            elNim.textContent = 'تعذّر التحميل';
+            if (elCuda) elCuda.textContent = '—';
+            if (elRouting) elRouting.textContent = '—';
+        }
+    } catch (_) {
+        elNim.textContent = 'خطأ في الاتصال';
+        if (elCuda) elCuda.textContent = '—';
+        if (elRouting) elRouting.textContent = '—';
+    }
 }
 
 navItems.forEach(item => {
@@ -6679,6 +7313,13 @@ async function sendAdminChat(){
     var msg = (input && input.value) ? input.value.trim() : '';
     if (!msg) return;
 
+    var devIntegrationTriggers = /تكامل بيئة التطوير|فعّل تكامل التطوير|تكامل مع vs code|تكامل مع بيئة التطوير/i;
+    if (devIntegrationTriggers.test(msg)) {
+        if (input) input.value = '';
+        requestDevIntegrationConsent();
+        return;
+    }
+
     _shkAppendBubble('user', _shkEscapeHtml(msg));
     if (input) input.value = '';
 
@@ -6690,9 +7331,9 @@ async function sendAdminChat(){
     if (!token) token = _shkGetTokenFromQuery();
     if (token) _shkSyncTokenCookie(token);
 
-    // history خفيف لنتائج أدق
+    // history — لا قيود للأدمن (100 رسالة)
     _shkAdminChatHistory.push({ role: 'user', content: msg });
-    _shkAdminChatHistory = _shkAdminChatHistory.slice(-12);
+    _shkAdminChatHistory = _shkAdminChatHistory.slice(-100);
 
     try {
         var res = await fetch('/api/ai/chat', {
@@ -6899,6 +7540,54 @@ async function checkTechnicalPorts() {
     }
 
     appendTechnicalLog('تم تنفيذ فحص المنافذ 8080 و3030.');
+}
+
+function requestDevIntegrationConsent() {
+    const modal = document.getElementById('devIntegrationConsentModal');
+    if (modal) {
+        modal.style.display = 'flex';
+    }
+}
+
+function closeDevIntegrationModal() {
+    const modal = document.getElementById('devIntegrationConsentModal');
+    if (modal) modal.style.display = 'none';
+}
+
+async function applyDevIntegration() {
+    const btn = document.getElementById('devIntegrationApproveBtn');
+    if (btn) { btn.disabled = true; btn.textContent = 'جارٍ التنفيذ...'; }
+    const token = localStorage.getItem('sheikha_token') || '';
+    try {
+        const res = await fetch('/api/admin/dev-integration/apply', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': token ? 'Bearer ' + token : '' },
+            body: JSON.stringify({ action: 'upgrade-devcontainer', approved: true })
+        });
+        const data = await res.json().catch(() => ({}));
+        closeDevIntegrationModal();
+        const body = document.getElementById('adminChatBody');
+        if (body) {
+            const el = document.createElement('div');
+            el.style.cssText = 'max-width:85%;padding:12px 16px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);border-radius:14px 14px 4px 14px;font-size:.82rem;line-height:1.8;align-self:flex-end';
+            el.innerHTML = data.success
+                ? '✅ تم تكامل بيئة التطوير بنجاح.<br>DevContainer محدّث إلى Node.js 24.<br>شغّل: <code>cd sheikha-main-portal && npm run dev:vscode:doctor</code>'
+                : ('❌ ' + (data.message || 'فشل التنفيذ'));
+            body.appendChild(el);
+            body.scrollTop = body.scrollHeight;
+        }
+        if (data.success) appendTechnicalLog('تم تكامل بيئة التطوير بموافقة الأدمن.');
+    } catch (e) {
+        closeDevIntegrationModal();
+        const body = document.getElementById('adminChatBody');
+        if (body) {
+            const el = document.createElement('div');
+            el.style.cssText = 'max-width:85%;padding:12px 16px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:14px;font-size:.82rem;align-self:flex-end';
+            el.textContent = '❌ تعذر الاتصال: ' + (e.message || 'خطأ شبكي');
+            body.appendChild(el);
+        }
+    }
+    if (btn) { btn.disabled = false; btn.textContent = 'موافق'; }
 }
 
 function activateStrategyPreset(mode) {
@@ -7112,6 +7801,38 @@ function setIntegrationMode(mode) {
     appendInfraLog(`تم تفعيل ${modeMap[mode] || mode}.`);
 }
 
+const NVIDIA_FIRST_KEY = 'sheikha_nvidia_first_v1';
+
+function getNvidiaFirstEnabled() {
+    return localStorage.getItem(NVIDIA_FIRST_KEY) === 'true';
+}
+
+function renderNvidiaFirstStatus() {
+    const elRouting = document.getElementById('nc-routing-status');
+    if (!elRouting) return;
+    const enabled = getNvidiaFirstEnabled();
+    elRouting.textContent = enabled ? 'NVIDIA-first ✓ (أداء عالي)' : 'متوازن';
+    elRouting.style.color = enabled ? 'var(--green)' : 'var(--text-muted)';
+}
+
+function enableNvidiaFirstMode() {
+    localStorage.setItem(NVIDIA_FIRST_KEY, 'true');
+    setIntegrationMode('high-performance');
+    const badge = document.getElementById('devFullModeBadge');
+    if (badge) badge.textContent = 'NVIDIA-first (أداء عالي)';
+    renderNvidiaFirstStatus();
+    appendInfraLog('تم تفعيل NVIDIA-first من لوحة NVIDIA + CUDA.');
+}
+
+function disableNvidiaFirstMode() {
+    localStorage.setItem(NVIDIA_FIRST_KEY, 'false');
+    setIntegrationMode('balanced');
+    const badge = document.getElementById('devFullModeBadge');
+    if (badge) badge.textContent = 'متوازن';
+    renderNvidiaFirstStatus();
+    appendInfraLog('تم تعطيل NVIDIA-first والرجوع للوضع المتوازن.');
+}
+
 function pushInfrastructureContextToChat() {
     const api = document.getElementById('infraApiStatus')?.textContent || 'غير معروف';
     const ssh = document.getElementById('infraSshStatus')?.textContent || 'غير معروف';
@@ -7133,6 +7854,8 @@ function pushInfrastructureContextToChat() {
 }
 
 runInfrastructureReadinessCheck();
+localStorage.setItem(NVIDIA_FIRST_KEY, 'true');
+renderNvidiaFirstStatus();
 
 function getInfraProfiles() {
     try {
@@ -7211,9 +7934,29 @@ function sendQueuedDevCommandToChat() {
 
 function getCoreState() {
     try {
-        return JSON.parse(localStorage.getItem(CORE_CTRL_KEY) || '{}');
+        const state = JSON.parse(localStorage.getItem(CORE_CTRL_KEY) || '{}');
+        // تفعيل افتراضي قوي لأول تشغيل: تكامل متعدد بكامل العقد.
+        if (!state.mode && typeof state.gpt === 'undefined' && typeof state.codex === 'undefined' &&
+            typeof state.claude === 'undefined' && typeof state.cloud === 'undefined') {
+            return {
+                mode: 'multi',
+                gpt: true,
+                codex: true,
+                claude: true,
+                cloud: true,
+                distribution: 'balanced'
+            };
+        }
+        return state;
     } catch (_) {
-        return {};
+        return {
+            mode: 'multi',
+            gpt: true,
+            codex: true,
+            claude: true,
+            cloud: true,
+            distribution: 'balanced'
+        };
     }
 }
 
@@ -7242,6 +7985,7 @@ function renderCoreState() {
     if (modeEl) modeEl.textContent = modeText;
     setTxt('coreGptStatus', !!st.gpt);
     setTxt('coreCodexStatus', !!st.codex);
+    setTxt('coreClaudeStatus', !!st.claude);
     setTxt('coreCloudStatus', !!st.cloud);
 }
 
@@ -7249,7 +7993,7 @@ function setCoreAiMode(mode) {
     const st = getCoreState();
     st.mode = mode;
     if (mode === 'standalone') {
-        st.gpt = false; st.codex = false; st.cloud = false;
+        st.gpt = false; st.codex = false; st.claude = false; st.cloud = false;
     }
     saveCoreState(st);
     renderCoreState();
@@ -7265,12 +8009,22 @@ function toggleCoreNode(node) {
     appendCoreLog(`${st[node] ? 'تم تشغيل' : 'تم إيقاف'} ${node.toUpperCase()}.`);
 }
 
+function activateCodex53() {
+    const st = getCoreState();
+    st.codex = true;
+    st.mode = st.mode === 'standalone' ? 'hybrid' : (st.mode || 'hybrid');
+    st.distribution = st.distribution || 'dev-first';
+    saveCoreState(st);
+    renderCoreState();
+    appendCoreLog('تم تفعيل Codex 5.3 بنجاح.');
+}
+
 function applyCoreTaskDistribution(preset) {
     const st = getCoreState();
     st.distribution = preset;
-    if (preset === 'balanced') { st.gpt = true; st.codex = true; st.cloud = true; st.mode = 'multi'; }
-    if (preset === 'dev-first') { st.gpt = true; st.codex = true; st.cloud = false; st.mode = 'hybrid'; }
-    if (preset === 'ops-first') { st.gpt = true; st.codex = false; st.cloud = true; st.mode = 'hybrid'; }
+    if (preset === 'balanced') { st.gpt = true; st.codex = true; st.claude = true; st.cloud = true; st.mode = 'multi'; }
+    if (preset === 'dev-first') { st.gpt = true; st.codex = true; st.claude = true; st.cloud = false; st.mode = 'hybrid'; }
+    if (preset === 'ops-first') { st.gpt = true; st.codex = false; st.claude = true; st.cloud = true; st.mode = 'hybrid'; }
     saveCoreState(st);
     renderCoreState();
     appendCoreLog(`تم تطبيق توزيع المهام: ${preset}.`);
@@ -7278,7 +8032,7 @@ function applyCoreTaskDistribution(preset) {
 
 function shutdownExternalAiNodes() {
     const st = getCoreState();
-    st.gpt = false; st.codex = false; st.cloud = false; st.mode = 'standalone';
+    st.gpt = false; st.codex = false; st.claude = false; st.cloud = false; st.mode = 'standalone';
     saveCoreState(st);
     renderCoreState();
     appendCoreLog('تم إيقاف جميع الذكاءات الخارجية وتشغيل شيخة بشكل مستقل.');
@@ -7296,6 +8050,7 @@ function injectKnowledgeToCore() {
 
 function sendCoreControlPlanToChat() {
     const st = getCoreState();
+    const cp = getClaudePriorityState();
     const input = document.getElementById('adminChatInput');
     if (!input) return;
     input.value =
@@ -7303,14 +8058,72 @@ function sendCoreControlPlanToChat() {
         `- الوضع: ${st.mode || 'standalone'}\n` +
         `- GPT: ${st.gpt ? 'on' : 'off'}\n` +
         `- Codex: ${st.codex ? 'on' : 'off'}\n` +
+        `- Claude Coder: ${st.claude ? 'on' : 'off'}\n` +
         `- Cloud: ${st.cloud ? 'on' : 'off'}\n` +
         `- توزيع المهام: ${st.distribution || 'manual'}\n` +
+        `- أولوية Claude Coder: ${cp.preset || 'balanced'}\n` +
+        `- نسب الأقسام: المعمارية ${cp.architecture || 50}% | الهيكل ${cp.structure || 50}% | لوحة التحكم ${cp.dashboard || 50}% | التطوير ${cp.development || 50}%\n` +
         `المطلوب: تنفيذ خطة تشغيل وتوزيع مهام واضحة مع نقاط توقف/تشغيل لكل ذكاء.`;
     sendAdminChat();
     appendCoreLog('تم إرسال خطة التحكم إلى الشات.');
 }
 
+const CLAUDE_PRIORITY_KEY = 'sheikha_claude_priority_v1';
+
+function getClaudePriorityState() {
+    try {
+        return JSON.parse(localStorage.getItem(CLAUDE_PRIORITY_KEY) || '{}');
+    } catch (_) {
+        return {};
+    }
+}
+
+function saveClaudePriorityState(state) {
+    localStorage.setItem(CLAUDE_PRIORITY_KEY, JSON.stringify(state));
+}
+
+function renderClaudePriorityState() {
+    const st = getClaudePriorityState();
+    const modeMap = {
+        balanced: 'متوازن',
+        'architecture-first': 'أولوية المعمارية',
+        'structure-first': 'أولوية الهيكل',
+        'dashboard-first': 'أولوية لوحة التحكم',
+        'development-first': 'أولوية التطوير'
+    };
+    const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = `${val || 50}%`;
+    };
+    const modeEl = document.getElementById('claudePriorityMode');
+    if (modeEl) modeEl.textContent = `النمط: ${modeMap[st.preset || 'balanced'] || 'متوازن'}`;
+    setVal('claudePriorityArchitecture', st.architecture);
+    setVal('claudePriorityStructure', st.structure);
+    setVal('claudePriorityDashboard', st.dashboard);
+    setVal('claudePriorityDevelopment', st.development);
+}
+
+function applyClaudePriorityPreset(preset) {
+    const st = getClaudePriorityState();
+    st.preset = preset;
+    if (preset === 'architecture-first') { st.architecture = 90; st.structure = 70; st.dashboard = 45; st.development = 55; }
+    else if (preset === 'structure-first') { st.architecture = 70; st.structure = 90; st.dashboard = 50; st.development = 55; }
+    else if (preset === 'dashboard-first') { st.architecture = 60; st.structure = 55; st.dashboard = 90; st.development = 70; }
+    else if (preset === 'development-first') { st.architecture = 65; st.structure = 60; st.dashboard = 70; st.development = 95; }
+    else { st.architecture = 50; st.structure = 50; st.dashboard = 50; st.development = 50; st.preset = 'balanced'; }
+    saveClaudePriorityState(st);
+    renderClaudePriorityState();
+
+    const core = getCoreState();
+    core.claude = true;
+    if ((core.mode || 'standalone') === 'standalone') core.mode = 'hybrid';
+    saveCoreState(core);
+    renderCoreState();
+    appendCoreLog(`تم تفعيل Claude Coder وتطبيق أولوية الأقسام: ${st.preset}.`);
+}
+
 renderCoreState();
+renderClaudePriorityState();
 
 const PROD_CENTER_KEY = 'sheikha_prod_center_v1';
 
@@ -7389,6 +8202,297 @@ if (!localStorage.getItem(PROD_CENTER_KEY)) {
     appendInfraLog('تم التشغيل الافتراضي لمركز الإنتاج (أول تفعيل).');
 }
 renderProdCenterState();
+
+const CLOUD_CODER_KEY = 'sheikha_cloud_coder_v1';
+
+function getCloudCoderState() {
+    try {
+        return JSON.parse(localStorage.getItem(CLOUD_CODER_KEY) || '{}');
+    } catch (_) {
+        return {};
+    }
+}
+
+function saveCloudCoderState(state) {
+    localStorage.setItem(CLOUD_CODER_KEY, JSON.stringify(state));
+}
+
+function renderCloudCoderState() {
+    const st = getCloudCoderState();
+    const statusEl = document.getElementById('cloudCoderStatus');
+    const strengthEl = document.getElementById('cloudCoderStrength');
+    const llmBadge = document.getElementById('cloudCoderLlmLangBadge');
+    const devBadge = document.getElementById('cloudCoderDevLangBadge');
+    const llmSel = document.getElementById('cloudCoderLlmLang');
+    const devSel = document.getElementById('cloudCoderDevLang');
+
+    const enabled = !!st.enabled;
+    const strength = st.strength || 'balanced';
+    const llmLang = st.llmLang || 'ar';
+    const devLang = st.devLang || 'javascript';
+
+    const strengthMap = {
+        balanced: 'متوازن',
+        'security-first': 'أمني أولاً',
+        'velocity-first': 'سرعة التطوير',
+        'quality-first': 'جودة أولاً'
+    };
+    const llmMap = { ar: 'العربية', en: 'English', mixed: 'مختلط (AR/EN)' };
+    const devMap = { javascript: 'JavaScript', typescript: 'TypeScript', python: 'Python', mixed: 'متعدد اللغات' };
+
+    if (statusEl) {
+        statusEl.textContent = enabled ? 'نشط ✓' : 'متوقف';
+        statusEl.style.color = enabled ? 'var(--green)' : 'var(--orange)';
+    }
+    if (strengthEl) strengthEl.textContent = strengthMap[strength] || 'متوازن';
+    if (llmBadge) llmBadge.textContent = llmMap[llmLang] || 'العربية';
+    if (devBadge) devBadge.textContent = devMap[devLang] || 'JavaScript';
+    if (llmSel && llmSel.value !== llmLang) llmSel.value = llmLang;
+    if (devSel && devSel.value !== devLang) devSel.value = devLang;
+}
+
+function setCloudCoderEnabled(flag) {
+    const st = getCloudCoderState();
+    st.enabled = !!flag;
+    st.updatedAt = new Date().toISOString();
+    saveCloudCoderState(st);
+    renderCloudCoderState();
+
+    const core = getCoreState();
+    core.claude = !!flag || !!core.claude;
+    if (flag && (core.mode || 'standalone') === 'standalone') core.mode = 'hybrid';
+    saveCoreState(core);
+    renderCoreState();
+    appendCoreLog(flag ? 'تم تشغيل Cloud Coder.' : 'تم إيقاف Cloud Coder.');
+}
+
+function applyCloudCoderStrength(mode) {
+    const st = getCloudCoderState();
+    st.strength = mode || 'balanced';
+    st.enabled = true;
+    st.updatedAt = new Date().toISOString();
+    saveCloudCoderState(st);
+    renderCloudCoderState();
+
+    const core = getCoreState();
+    core.claude = true;
+    if ((core.mode || 'standalone') === 'standalone') core.mode = 'hybrid';
+    saveCoreState(core);
+    renderCoreState();
+    appendCoreLog(`تم تطبيق نمط تقوية Cloud Coder: ${mode}.`);
+}
+
+function saveCloudCoderLanguageProfile() {
+    const st = getCloudCoderState();
+    const llmSel = document.getElementById('cloudCoderLlmLang');
+    const devSel = document.getElementById('cloudCoderDevLang');
+    st.llmLang = llmSel ? llmSel.value : (st.llmLang || 'ar');
+    st.devLang = devSel ? devSel.value : (st.devLang || 'javascript');
+    st.updatedAt = new Date().toISOString();
+    saveCloudCoderState(st);
+    renderCloudCoderState();
+    appendCoreLog('تم حفظ ملف اللغة لـ Cloud Coder.');
+}
+
+function saveCloudCoderKnowledgeFeed() {
+    const st = getCloudCoderState();
+    const txt = (document.getElementById('cloudCoderKnowledgeFeed')?.value || '').trim();
+    if (!txt) return;
+    st.knowledge = txt;
+    st.knowledgeSize = txt.length;
+    st.knowledgeUpdatedAt = new Date().toISOString();
+    st.enabled = true;
+    saveCloudCoderState(st);
+    renderCloudCoderState();
+    appendCoreLog(`تم تغذية Cloud Coder تطويرياً (${txt.length} حرف).`);
+}
+
+function sendCloudCoderPlanToChat() {
+    const st = getCloudCoderState();
+    const input = document.getElementById('adminChatInput');
+    if (!input) return;
+    const modeMap = {
+        balanced: 'متوازن',
+        'security-first': 'أمني أولاً',
+        'velocity-first': 'سرعة التطوير',
+        'quality-first': 'جودة أولاً'
+    };
+    const llmMap = { ar: 'العربية', en: 'English', mixed: 'مختلط (AR/EN)' };
+    const devMap = { javascript: 'JavaScript', typescript: 'TypeScript', python: 'Python', mixed: 'متعدد اللغات' };
+    const cp = getClaudePriorityState();
+
+    input.value =
+        `خطة تقوية شيخة عبر Cloud Coder:\n` +
+        `- الحالة: ${st.enabled ? 'active' : 'stopped'}\n` +
+        `- نمط التقوية: ${modeMap[st.strength || 'balanced']}\n` +
+        `- لغة LLM: ${llmMap[st.llmLang || 'ar']}\n` +
+        `- لغة التطوير: ${devMap[st.devLang || 'javascript']}\n` +
+        `- أولوية الأقسام: المعمارية ${cp.architecture || 50}% | الهيكل ${cp.structure || 50}% | لوحة التحكم ${cp.dashboard || 50}% | التطوير ${cp.development || 50}%\n` +
+        `- معرفة تطويرية: ${(st.knowledge || '').slice(0, 180) || 'لا يوجد'}\n` +
+        `المطلوب: خطة تنفيذ API-first مع فحوص جودة/أمان واختبارات آلية وتقليل fallback.`;
+    sendAdminChat();
+    appendCoreLog('تم إرسال خطة Cloud Coder للشات.');
+}
+
+if (!localStorage.getItem(CLOUD_CODER_KEY)) {
+    saveCloudCoderState({ enabled: false, strength: 'balanced', llmLang: 'ar', devLang: 'javascript' });
+}
+renderCloudCoderState();
+
+let modelIntegrationCache = [];
+
+function setModelRegistryMeta(text) {
+    const meta = document.getElementById('modelRegistryMeta');
+    if (meta) meta.textContent = text || 'آخر تحديث: —';
+}
+
+function renderModelIntegrationTable() {
+    const tbody = document.querySelector('#modelIntegrationTable tbody');
+    if (!tbody) return;
+    if (!Array.isArray(modelIntegrationCache) || modelIntegrationCache.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted)">لا توجد نماذج مضافة حالياً.</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = modelIntegrationCache.map(item => {
+        const activeBadge = item.active
+            ? '<span class="status status-active">نشط</span>'
+            : '<span class="status status-pending">متوقف</span>';
+        const autoBadge = item.autoUpgrade
+            ? '<span class="status status-info">مفعّل</span>'
+            : '<span class="status status-suspended">متوقف</span>';
+        const toggleLabel = item.active ? 'إيقاف' : 'تفعيل';
+        return `
+            <tr>
+                <td>${item.name || '-'}</td>
+                <td style="font-family:var(--font-mono);font-size:.74rem">${item.provider || '-'}</td>
+                <td style="font-family:var(--font-mono);font-size:.74rem">${item.model || '-'}</td>
+                <td>${autoBadge}</td>
+                <td>${activeBadge}</td>
+                <td>
+                    <button class="btn btn-sm btn-ghost" onclick="toggleModelIntegration('${item.id}', ${item.active ? 'false' : 'true'})">${toggleLabel}</button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+async function refreshModelIntegrations() {
+    try {
+        const res = await fetch('/api/ai-core/model-integrations');
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+            throw new Error(data.message || `HTTP ${res.status}`);
+        }
+        modelIntegrationCache = data.data.integrations || [];
+        renderModelIntegrationTable();
+        const last = data.data.lastRefreshedAt ? new Date(data.data.lastRefreshedAt).toLocaleString('ar-SA') : 'غير متوفر';
+        setModelRegistryMeta(`آخر تحديث: ${last}`);
+        appendCoreLog('تم تحديث قائمة تكاملات النماذج.');
+    } catch (e) {
+        setModelRegistryMeta('آخر تحديث: تعذر التحميل');
+        appendCoreLog(`تعذر تحديث تكاملات النماذج: ${e.message}`);
+    }
+}
+
+async function runModelAutoRefresh() {
+    try {
+        const res = await fetch('/api/ai-core/model-integrations/auto-refresh', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({})
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+            throw new Error(data.message || `HTTP ${res.status}`);
+        }
+        appendCoreLog(`تم التجديد التلقائي للنماذج. عدد المحدث: ${data.data.upgradedCount}.`);
+        await refreshModelIntegrations();
+    } catch (e) {
+        appendCoreLog(`تعذر التجديد التلقائي: ${e.message}`);
+    }
+}
+
+async function addModelIntegration() {
+    const name = (document.getElementById('newModelName')?.value || '').trim();
+    const provider = (document.getElementById('newModelProvider')?.value || '').trim();
+    const model = (document.getElementById('newModelValue')?.value || '').trim();
+    const baseUrl = (document.getElementById('newModelBaseUrl')?.value || '').trim();
+    const apiKeyEnv = (document.getElementById('newModelApiEnv')?.value || '').trim();
+    if (!name || !provider || !model) {
+        appendCoreLog('أدخل الاسم + المزوّد + النموذج قبل الإضافة.');
+        return;
+    }
+
+    try {
+        const cloudState = getCloudCoderState();
+        const res = await fetch('/api/ai-core/model-integrations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name,
+                provider,
+                model,
+                baseUrl,
+                apiKeyEnv,
+                llmLanguage: cloudState.llmLang || 'ar',
+                devLanguage: cloudState.devLang || 'javascript',
+                autoUpgrade: true,
+                notes: 'إضافة من لوحة التحكم'
+            })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+            throw new Error(data.message || `HTTP ${res.status}`);
+        }
+        appendCoreLog(`تمت إضافة التكامل: ${name}.`);
+        ['newModelName', 'newModelProvider', 'newModelValue', 'newModelBaseUrl', 'newModelApiEnv'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = '';
+        });
+        await refreshModelIntegrations();
+    } catch (e) {
+        appendCoreLog(`تعذر إضافة النموذج: ${e.message}`);
+    }
+}
+
+async function toggleModelIntegration(id, active) {
+    try {
+        const res = await fetch(`/api/ai-core/model-integrations/${encodeURIComponent(id)}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ active: !!active })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+            throw new Error(data.message || `HTTP ${res.status}`);
+        }
+        appendCoreLog(`تم ${active ? 'تفعيل' : 'إيقاف'} النموذج: ${data.data.name || id}.`);
+        await refreshModelIntegrations();
+    } catch (e) {
+        appendCoreLog(`تعذر تحديث حالة النموذج: ${e.message}`);
+    }
+}
+
+function sendModelIntegrationPlanToChat() {
+    const input = document.getElementById('adminChatInput');
+    if (!input) return;
+    const active = modelIntegrationCache.filter(item => item.active);
+    const cloudState = getCloudCoderState();
+    const lines = active.map(item => `- ${item.provider}/${item.model}`);
+    input.value =
+        `خطة تكامل النماذج لشيخة:\n` +
+        `- عدد التكاملات: ${modelIntegrationCache.length}\n` +
+        `- التكاملات النشطة: ${active.length}\n` +
+        `- لغة LLM: ${cloudState.llmLang || 'ar'}\n` +
+        `- لغة التطوير: ${cloudState.devLang || 'javascript'}\n` +
+        `${lines.length ? lines.join('\n') + '\n' : ''}` +
+        `المطلوب: تنفيذ مسار API-first لتوجيه المهام على النماذج النشطة مع fallback للطوارئ فقط.`;
+    sendAdminChat();
+    appendCoreLog('تم إرسال خطة تكامل النماذج إلى الشات.');
+}
+
+refreshModelIntegrations();
 
 // ===== DIGITAL CONSULTING CONTROL =====
 const CONSULTING_STORAGE_KEY = 'sheikha_consulting_preset_v1';
@@ -7786,8 +8890,567 @@ setInterval(function() {
     var el = document.getElementById('lastAutoCheck');
     if (el) el.textContent = new Date().toLocaleTimeString('ar-SA');
 }, 30000);
+
+function summitLevelColor(score) {
+    var n = Number(score || 0);
+    if (n >= 90) return '#22c55e';
+    if (n >= 75) return '#3b82f6';
+    if (n >= 60) return '#f59e0b';
+    return '#ef4444';
+}
+
+function setSummitCardVisual(cardId, valueId, score) {
+    var card = document.getElementById(cardId);
+    var value = document.getElementById(valueId);
+    var color = summitLevelColor(score);
+    if (card) card.style.borderTop = '3px solid ' + color;
+    if (value) {
+        value.style.color = color;
+        value.textContent = String(Number(score || 0));
+    }
+}
+
+var summitHistoryLimit = 24;
+var summitTargetScore = 85;
+var summitTargetStorageKey = 'sheikha_summit_target_score';
+
+function applySummitTargetUi() {
+    var targetValueEl = document.getElementById('summitTargetValue');
+    var targetSelect = document.getElementById('summitTargetSelect');
+    var targetInput = document.getElementById('summitTargetInput');
+    if (targetValueEl) targetValueEl.textContent = String(summitTargetScore);
+    if (targetSelect) targetSelect.value = String(summitTargetScore);
+    if (targetInput) targetInput.value = String(summitTargetScore);
+}
+
+function loadSummitTargetFromStorage() {
+    try {
+        var raw = localStorage.getItem(summitTargetStorageKey);
+        var parsed = Number(raw || summitTargetScore);
+        if (!isNaN(parsed) && parsed >= 50 && parsed <= 100) {
+            summitTargetScore = parsed;
+        }
+    } catch (_) {}
+    applySummitTargetUi();
+}
+
+function setSummitTargetFromSelect() {
+    var targetSelect = document.getElementById('summitTargetSelect');
+    if (!targetSelect) return;
+    var selected = Number(targetSelect.value || 85);
+    summitTargetScore = Math.max(50, Math.min(100, selected));
+    try {
+        localStorage.setItem(summitTargetStorageKey, String(summitTargetScore));
+    } catch (_) {}
+    applySummitTargetUi();
+    loadSheikhaSummitHistory();
+}
+
+function setSummitTargetCustom() {
+    var targetInput = document.getElementById('summitTargetInput');
+    if (!targetInput) return;
+    var selected = Number(targetInput.value || summitTargetScore);
+    if (isNaN(selected)) return;
+    summitTargetScore = Math.max(50, Math.min(100, Math.round(selected)));
+    try {
+        localStorage.setItem(summitTargetStorageKey, String(summitTargetScore));
+    } catch (_) {}
+    applySummitTargetUi();
+    loadSheikhaSummitHistory();
+}
+
+function setSummitHistoryRange(limit) {
+    summitHistoryLimit = Number(limit || 24);
+    var btn24 = document.getElementById('summitRange24Btn');
+    var btn7d = document.getElementById('summitRange7dBtn');
+    if (btn24) {
+        var active24 = summitHistoryLimit === 24;
+        btn24.style.borderColor = active24 ? 'rgba(212,175,55,.35)' : 'var(--border)';
+        btn24.style.background = active24 ? 'rgba(212,175,55,.18)' : 'var(--bg2)';
+        btn24.style.color = active24 ? 'var(--gold)' : 'var(--text-muted)';
+    }
+    if (btn7d) {
+        var active7d = summitHistoryLimit === 168;
+        btn7d.style.borderColor = active7d ? 'rgba(212,175,55,.35)' : 'var(--border)';
+        btn7d.style.background = active7d ? 'rgba(212,175,55,.18)' : 'var(--bg2)';
+        btn7d.style.color = active7d ? 'var(--gold)' : 'var(--text-muted)';
+    }
+    loadSheikhaSummitHistory();
+}
+
+function renderSummitHistoryBars(points) {
+    var wrap = document.getElementById('summitHistoryBars');
+    var meta = document.getElementById('summitHistoryMeta');
+    if (!wrap) return;
+    applySummitTargetUi();
+    wrap.innerHTML = '';
+    var targetLine = document.getElementById('summitTargetLine');
+    if (targetLine) {
+        targetLine.style.bottom = Math.max(0, Math.min(100, summitTargetScore)) + '%';
+        wrap.appendChild(targetLine);
+    }
+    if (!Array.isArray(points) || points.length === 0) {
+        if (meta) meta.textContent = 'لا توجد بيانات تاريخية بعد.';
+        return;
+    }
+    var max = 100;
+    var min = 0;
+    var belowTargetCount = 0;
+    points.forEach(function(point) {
+        var score = Number(point.score || 0);
+        var bar = document.createElement('div');
+        var h = Math.max(6, Math.round(((score - min) / (max - min || 1)) * 100));
+        bar.style.height = h + '%';
+        bar.style.flex = '1';
+        bar.style.borderRadius = '4px 4px 0 0';
+        var belowTarget = score < summitTargetScore;
+        if (belowTarget) {
+            belowTargetCount += 1;
+            bar.style.background = 'rgba(239,68,68,0.55)';
+            bar.style.border = '1px solid rgba(239,68,68,0.8)';
+        } else {
+            bar.style.background = summitLevelColor(score);
+        }
+        bar.title = 'المؤشر: ' + score + ' | الوقت: ' + (point.at || '-');
+        wrap.appendChild(bar);
+    });
+
+    var latest = Number(points[points.length - 1].score || 0);
+    var first = Number(points[0].score || 0);
+    var delta = latest - first;
+    if (meta) {
+        var trend = delta > 0 ? '↑ صاعد' : (delta < 0 ? '↓ هابط' : '→ ثابت');
+        meta.textContent = 'الحالي: ' + latest + ' | التغير: ' + (delta >= 0 ? '+' : '') + delta + ' | الاتجاه: ' + trend + ' | تحت الهدف: ' + belowTargetCount;
+    }
+
+    var alertEl = document.getElementById('summitTargetAlert');
+    if (alertEl) {
+        if (latest < summitTargetScore) {
+            alertEl.textContent = 'تنبيه: المؤشر دون الهدف (' + latest + ' < ' + summitTargetScore + ')';
+            alertEl.style.color = '#ef4444';
+        } else {
+            alertEl.textContent = 'الحالة: ضمن الهدف ✓';
+            alertEl.style.color = '#22c55e';
+        }
+    }
+}
+
+async function loadSheikhaSummitHistory() {
+    try {
+        var token = localStorage.getItem('sheikha_token') || '';
+        if (!token) return;
+        var res = await fetch('/api/system/indices/history?limit=' + summitHistoryLimit, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        if (!res.ok) return;
+        var payload = await res.json();
+        if (!payload || !payload.success || !Array.isArray(payload.data)) return;
+        var points = payload.data
+            .slice()
+            .reverse()
+            .map(function(row) {
+                return {
+                    score: Number((((row || {}).data || {}).indices || {}).sheikhaSummitIndex || 0),
+                    at: row.at || ''
+                };
+            });
+        renderSummitHistoryBars(points);
+    } catch (_) {}
+}
+
+function updateLayoutReadinessBadge() {
+    var badge = document.getElementById('layoutReadinessBadge');
+    if (!badge) return;
+    var viewportOk = !!document.querySelector('meta[name="viewport"][content*="width=device-width"]');
+    var gridOk = !!(window.CSS && CSS.supports && CSS.supports('display', 'grid'));
+    var flexOk = !!(window.CSS && CSS.supports && CSS.supports('display', 'flex'));
+    var result = (viewportOk && gridOk && flexOk) ? 'جاهز قوي' : 'جاهزية متوسطة';
+    badge.textContent = 'فحص الجاهزية: Viewport ' + (viewportOk ? '✓' : '✗') + ' | Grid ' + (gridOk ? '✓' : '✗') + ' | Flex ' + (flexOk ? '✓' : '✗') + ' — ' + result;
+}
+
+async function loadSheikhaSummitIndices() {
+    try {
+        var token = localStorage.getItem('sheikha_token') || '';
+        if (!token) return;
+        var res = await fetch('/api/system/indices', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        if (!res.ok) return;
+        var payload = await res.json();
+        if (!payload || !payload.success || !payload.data || !payload.data.indices) return;
+
+        var idx = payload.data.indices;
+        setSummitCardVisual('idx-compute-card', 'idx-compute', idx.computePowerIndex);
+        setSummitCardVisual('idx-global-card', 'idx-global', idx.globalReachIndex);
+        setSummitCardVisual('idx-governance-card', 'idx-governance', idx.governanceComplianceIndex);
+        setSummitCardVisual('idx-research-card', 'idx-research', idx.researchInnovationIndex);
+        setSummitCardVisual('idx-sharia-card', 'idx-sharia', idx.shariaComplianceIndex);
+        setSummitCardVisual('idx-summit-card', 'idx-summit', idx.sheikhaSummitIndex);
+
+        var summitStatus = document.getElementById('sheikhaSummitStatus');
+        if (summitStatus) {
+            var s = Number(idx.sheikhaSummitIndex || 0);
+            summitStatus.textContent = s >= 90 ? 'الحالة: قمة تشغيلية ممتازة.' : (s >= 75 ? 'الحالة: أداء قوي ومستقر.' : (s >= 60 ? 'الحالة: نمو جيد ويحتاج تحسينات.' : 'الحالة: يحتاج رفع الجاهزية.'));
+        }
+        var updated = document.getElementById('sheikhaSummitUpdatedAt');
+        if (updated) {
+            updated.textContent = 'آخر تحديث: ' + new Date().toLocaleString('ar-SA');
+        }
+        await loadSheikhaSummitHistory();
+    } catch (_) {}
+}
+
+// تحميل بيانات اللوحة الموحدة (معمارية الخدمة الجديدة)
+(async function loadUnifiedAdminDashboard() {
+    try {
+        var token = localStorage.getItem('sheikha_token') || '';
+        if (!token) return;
+        var res = await fetch('/api/dashboards/unified/admin', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        if (!res.ok) return;
+        var data = await res.json();
+        if (data.success && data.data) {
+            window.sheikhaUnifiedAdminDashboard = data.data;
+            console.log('✅ تم تحميل لوحة الإدارة الموحدة');
+        }
+    } catch (_) {}
+})();
+
+loadSummitTargetFromStorage();
+loadSheikhaSummitIndices();
+setSummitHistoryRange(24);
+updateLayoutReadinessBadge();
+setInterval(loadSheikhaSummitIndices, 60000);
+
+// ══════════════════════════════════════════════════════════
+// حوكمة المؤسسة الرقمية — Enterprise Governance JS
+// ══════════════════════════════════════════════════════════
+function egColorByScore(score) {
+    if (score >= 90) return '#22c55e';
+    if (score >= 75) return '#D4AF37';
+    if (score >= 60) return '#f97316';
+    return '#ef4444';
+}
+
+async function loadEnterpriseGovernance() {
+    const statusEl = document.getElementById('egReadinessStatus');
+    if (statusEl) statusEl.textContent = 'جاري تحميل بيانات الحوكمة...';
+    try {
+        const token = localStorage.getItem('sheikha_token') || '';
+        const res = await fetch('/api/enterprise/dashboard', { headers: { Authorization: 'Bearer ' + token } });
+        if (!res.ok) { if (statusEl) statusEl.textContent = 'يتطلب صلاحية أدمن.'; return; }
+        const json = await res.json();
+        if (!json.success) return;
+        const d = json.data;
+
+        // المؤشر الكلي
+        const score = d.enterpriseReadinessScore || 0;
+        const scoreEl = document.getElementById('egScoreValue');
+        const labelEl = document.getElementById('egScoreLabel');
+        const fillEl = document.getElementById('egProgressFill');
+        if (scoreEl) { scoreEl.textContent = score; scoreEl.style.color = egColorByScore(score); }
+        if (labelEl) { labelEl.textContent = d.status || ''; labelEl.style.color = egColorByScore(score); }
+        if (fillEl) { fillEl.style.width = score + '%'; fillEl.style.background = 'linear-gradient(90deg,' + egColorByScore(score) + ',#B87333)'; }
+        if (statusEl) statusEl.textContent = 'مؤشر الجاهزية المؤسسية الشاملة — رقمنة بالكتاب والسنة';
+
+        // البصمة الرقمية
+        const wmEl = document.getElementById('egWatermarkSig');
+        if (wmEl && d.ipWatermark) wmEl.textContent = (d.ipWatermark.signature || '').substring(0, 16) + '…';
+
+        // الأمان
+        const sec = d.security || {};
+        const secScore = sec.score || 0;
+        const secScoreEl = document.getElementById('egSecurityScore');
+        const secLayersEl = document.getElementById('egSecurityLayers');
+        const secFill = document.getElementById('egSecurityFill');
+        if (secScoreEl) { secScoreEl.textContent = secScore + '%'; secScoreEl.style.color = egColorByScore(secScore); }
+        if (secLayersEl) secLayersEl.textContent = (sec.activeLayersCount || 0) + ' من ' + (sec.totalLayers || 0) + ' طبقة نشطة';
+        if (secFill) secFill.style.width = secScore + '%';
+
+        // الجودة
+        const qual = d.quality || {};
+        const qualScore = qual.score || 0;
+        const qualEl = document.getElementById('egQualityScore');
+        const qualPass = document.getElementById('egQualityPassed');
+        const qualFill = document.getElementById('egQualityFill');
+        if (qualEl) { qualEl.textContent = qualScore + '%'; qualEl.style.color = egColorByScore(qualScore); }
+        if (qualPass) qualPass.textContent = (qual.passed || 0) + '/' + (qual.total || 0) + ' معيار إتقان';
+        if (qualFill) qualFill.style.width = qualScore + '%';
+
+        // الوحدات
+        const mods = d.modules || {};
+        const modPct = mods.total > 0 ? Math.round((mods.live / mods.total) * 100) : 0;
+        const modEl = document.getElementById('egModulesScore');
+        const modCount = document.getElementById('egModulesCount');
+        const modFill = document.getElementById('egModulesFill');
+        if (modEl) { modEl.textContent = modPct + '%'; modEl.style.color = egColorByScore(modPct); }
+        if (modCount) modCount.textContent = (mods.live || 0) + '/' + (mods.total || 0) + ' وحدة نشطة';
+        if (modFill) modFill.style.width = modPct + '%';
+
+        // سلسلة التدقيق
+        const chain = d.auditChain || {};
+        const chainIcon = document.getElementById('egChainIcon');
+        const chainLabel = document.getElementById('egChainLabel');
+        const chainSize = document.getElementById('egChainSize');
+        if (chainIcon) chainIcon.textContent = chain.valid ? '🔗' : '⚠️';
+        if (chainLabel) { chainLabel.textContent = chain.valid ? ('سلسلة التدقيق سليمة — ' + (chain.message || '')) : (chain.message || 'تحذير: تلاعب في السجل'); chainLabel.style.color = chain.valid ? 'var(--green)' : '#ef4444'; }
+        if (chainSize) chainSize.textContent = 'حجم السجل: ' + (d.auditChain?.size || 0);
+
+        // جدول الوحدات
+        const tbody = document.getElementById('egModulesBody');
+        if (tbody && mods.map && mods.map.length > 0) {
+            tbody.innerHTML = mods.map.map((m) =>
+                '<tr style="border-bottom:1px solid var(--border)">' +
+                '<td style="padding:5px 8px;font-weight:600">' + (m.nameAr || m.id) + '</td>' +
+                '<td style="padding:5px 8px;color:var(--text-muted);font-size:.65rem">' + (m.shariaRole || '') + '</td>' +
+                '<td style="padding:5px 8px;text-align:center">' +
+                '<span style="padding:2px 8px;border-radius:6px;font-size:.65rem;background:' + (m.isLive ? 'rgba(34,197,94,.15)' : 'rgba(239,68,68,.12)') + ';color:' + (m.isLive ? '#22c55e' : '#ef4444') + '">' +
+                (m.isLive ? 'نشط ✓' : 'معلّق') + '</span></td>' +
+                '</tr>'
+            ).join('');
+        }
+
+        const updEl = document.getElementById('egUpdatedAt');
+        if (updEl) updEl.textContent = 'آخر تحديث: ' + new Date(d.timestamp).toLocaleTimeString('ar-SA');
+    } catch (e) {
+        if (statusEl) statusEl.textContent = 'خطأ في تحميل الحوكمة.';
+    }
+}
+
+// حاسبة التوزيع المالي الشرعي
+async function runShariaFinancialSplit() {
+    const amount = document.getElementById('sfTotalAmount')?.value;
+    const commission = document.getElementById('sfCommission')?.value || 0;
+    const zakat = document.getElementById('sfZakat')?.value === 'true';
+    const resultDiv = document.getElementById('sfResult');
+    const gridDiv = document.getElementById('sfResultGrid');
+    const checksumEl = document.getElementById('sfChecksumBadge');
+    const qRefEl = document.getElementById('sfQRef');
+    if (!amount || isNaN(amount) || Number(amount) <= 0) { alert('أدخل مبلغاً صحيحاً.'); return; }
+    try {
+        const token = localStorage.getItem('sheikha_token') || '';
+        const res = await fetch('/api/enterprise/financial-split', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+            body: JSON.stringify({ totalAmount: Number(amount), commissionRate: Number(commission), zakatApplicable: zakat })
+        });
+        const json = await res.json();
+        if (!json.success) { alert('خطأ: ' + json.message); return; }
+        const d = json.data;
+        const items = [
+            { label: 'المبلغ الإجمالي', value: d.total, color: 'var(--gold)' },
+            { label: 'ضريبة القيمة المضافة ١٥٪', value: d.vat?.amount, color: '#f97316' },
+            { label: 'المبلغ بعد الضريبة', value: d.amountAfterVat, color: '#60a5fa' },
+            { label: 'عمولة المندوب', value: d.commission?.amount, color: '#a78bfa' },
+            { label: 'احتياطي الطوارئ ٢٪', value: d.reserve?.amount, color: '#fb923c' },
+            { label: 'الزكاة الواجبة ٢.٥٪', value: d.zakat?.amount, color: '#34d399' },
+            { label: 'صافي الربح النهائي', value: d.netProfit, color: '#22c55e' }
+        ];
+        if (gridDiv) {
+            gridDiv.innerHTML = items.map((item) =>
+                '<div style="background:var(--bg2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)">' +
+                '<div style="font-size:.62rem;color:var(--text-muted)">' + item.label + '</div>' +
+                '<div style="font-size:1rem;font-weight:800;color:' + item.color + '">' + Number(item.value || 0).toLocaleString('ar-SA', {minimumFractionDigits:2,maximumFractionDigits:2}) + '</div>' +
+                '</div>'
+            ).join('');
+        }
+        if (checksumEl) {
+            checksumEl.innerHTML = d.checksumValid
+                ? '<span style="color:#22c55e">✓ سلامة الحساب مؤكدة — وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ</span>'
+                : '<span style="color:#ef4444">⚠️ تحذير: خطأ في توازن الأرقام</span>';
+        }
+        if (qRefEl) qRefEl.textContent = d.quranRef + ' | ' + (d.shariaCompliance?.label || '');
+        if (resultDiv) resultDiv.style.display = 'block';
+    } catch (e) {
+        alert('خطأ في الاتصال بالخادم.');
+    }
+}
+
+// تحميل عند البداية وتحديث دوري
+loadEnterpriseGovernance();
+setInterval(loadEnterpriseGovernance, 120000);
+
+// ══════════════════════════════════════════════════════════
+// إصدار التوكن من داخل الصفحة (للتحقق السريع)
+// ══════════════════════════════════════════════════════════
+function setTokenIssuerState() {
+    var stateEl = document.getElementById('tokenIssuerState');
+    if (!stateEl) return;
+    var token = localStorage.getItem('sheikha_token') || '';
+    stateEl.textContent = token ? 'التوكن موجود ✓' : 'لا يوجد توكن';
+    stateEl.style.color = token ? 'var(--green)' : 'var(--text-muted)';
+}
+
+function openTokenIssuerModal() {
+    var m = document.getElementById('tokenIssuerModal');
+    if (m) m.style.display = 'flex';
+    setTokenIssuerState();
+    var tokenField = document.getElementById('tokenIssuerToken');
+    if (tokenField) tokenField.value = localStorage.getItem('sheikha_token') || '';
+}
+
+function closeTokenIssuerModal() {
+    var m = document.getElementById('tokenIssuerModal');
+    if (m) m.style.display = 'none';
+}
+
+async function copyTokenFromStorage() {
+    var token = localStorage.getItem('sheikha_token') || '';
+    if (!token) {
+        alert('لا يوجد توكن حالياً. سجّل الدخول أولاً ثم اضغط نسخ.');
+        return;
+    }
+    try {
+        await navigator.clipboard.writeText(token);
+        alert('تم نسخ التوكن بنجاح.');
+    } catch (_) {
+        alert('تعذر النسخ التلقائي. انسخه يدوياً من الحقل.');
+    }
+}
+
+function goToLoginPage() {
+    window.location.href = '/تسجيل-الدخول.html';
+}
+
+async function issueTokenFromPage() {
+    // أمنيًا: لا يُسمح بإصدار توكن بدون تسجيل دخول مسبق.
+    // زر الإصدار هنا مخصص لعرض/نسخ التوكن الحالي فقط.
+    var statusEl = document.getElementById('tokenIssuerStatus');
+    var tokenField = document.getElementById('tokenIssuerToken');
+    var token = localStorage.getItem('sheikha_token') || '';
+    if (!token) {
+        if (statusEl) {
+            statusEl.textContent = 'لا يوجد توكن حالي. يلزم تسجيل الدخول أولاً.';
+            statusEl.style.color = '#ef4444';
+        }
+        return;
+    }
+    if (tokenField) tokenField.value = token;
+    try { await navigator.clipboard.writeText(token); } catch (_) {}
+    if (statusEl) {
+        statusEl.textContent = 'تم نسخ التوكن الحالي ✓';
+        statusEl.style.color = 'var(--green)';
+    }
+}
+
+setTokenIssuerState();
 </script>
 <script src="/js/sheikha-smart-fab.js" defer></script>
 <script src="/js/sheikha-itqan.js"></script>
+<!-- نافذة موافقة تكامل بيئة التطوير -->
+<div id="devIntegrationConsentModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center;padding:20px">
+    <div style="max-width:420px;background:var(--bg2);border:1px solid rgba(59,130,246,.3);border-radius:16px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.4)">
+        <div style="font-weight:800;font-size:1.05rem;color:#60a5fa;margin-bottom:12px">تكامل بيئة التطوير</div>
+        <p style="font-size:.85rem;color:var(--text-muted);line-height:1.8;margin-bottom:20px">
+            سأقوم بتحديث إعدادات بيئة التطوير (DevContainer Node 24، فحص الجاهزية). هذا يتطلب موافقتك صراحة.
+        </p>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+            <button onclick="closeDevIntegrationModal()" style="padding:10px 18px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;color:var(--text-muted);cursor:pointer;font-weight:600">إلغاء</button>
+            <button id="devIntegrationApproveBtn" onclick="applyDevIntegration()" style="padding:10px 18px;background:#3b82f6;color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:700">موافق</button>
+        </div>
+    </div>
+</div>
+
+<!-- إصدار التوكن من الصفحة -->
+<button onclick="openTokenIssuerModal()" style="position:fixed;left:16px;bottom:16px;z-index:9998;padding:10px 14px;border-radius:10px;background:linear-gradient(135deg,#D4AF37,#B87333);color:#000;border:none;font-weight:800;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.35)">
+    🔐 إصدار توكن
+</button>
+
+<div id="tokenIssuerModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9999;align-items:center;justify-content:center;padding:20px">
+    <div style="width:min(560px,100%);background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px 16px 14px;box-shadow:0 20px 60px rgba(0,0,0,.45)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div style="font-weight:800;color:var(--gold)">نسخ التوكن الحالي (آمن)</div>
+            <button onclick="closeTokenIssuerModal()" style="background:transparent;border:none;color:var(--text-muted);font-size:1rem;cursor:pointer">✕</button>
+        </div>
+        <div id="tokenIssuerState" style="font-size:.72rem;margin-bottom:10px;color:var(--text-muted)">لا يوجد توكن</div>
+        <div style="font-size:.72rem;color:var(--text-muted);margin-bottom:8px">
+            لأسباب الأمان والامتثال الشرعي لا يتم إصدار توكن بدون تسجيل دخول. إذا كنت مسجلاً الدخول بالفعل، اضغط نسخ مباشرة.
+        </div>
+        <textarea id="tokenIssuerToken" readonly placeholder="سيظهر التوكن هنا بعد الإصدار..." style="margin-top:8px;width:100%;min-height:72px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text-muted);font-size:.72rem;direction:ltr"></textarea>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
+            <button onclick="goToLoginPage()" style="padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text);cursor:pointer">تسجيل الدخول</button>
+            <button onclick="copyTokenFromStorage()" style="padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text);cursor:pointer">نسخ التوكن</button>
+            <button onclick="issueTokenFromPage()" style="padding:8px 12px;border-radius:8px;border:none;background:#22c55e;color:#fff;cursor:pointer;font-weight:700">نسخ مباشر</button>
+        </div>
+        <div id="tokenIssuerStatus" style="margin-top:8px;font-size:.72rem;color:var(--text-muted)"></div>
+    </div>
+</div>
+
+
+    <!-- AI Chat Toggle (إضافي) -->
+    <button class="ai-toggle" onclick="toggleAiChat()" style="position:fixed;bottom:24px;left:24px;z-index:10000;padding:12px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.25)">
+        <svg class="si" width="28" height="28" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+    </button>
+
+    <!-- AI Chat Window -->
+    <div class="ai-chat" id="aiChat" style="display:none;flex-direction:column;position:fixed;bottom:80px;left:24px;width:320px;height:420px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.5);z-index:10000;overflow:hidden">
+        <div class="ai-chat-header" style="background:var(--gold);color:#000;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;font-weight:700;">
+            <span>شيخة – مساعد الذكاء</span>
+            <button onclick="toggleAiChat()" style="background:none;border:none;cursor:pointer;color:#000;font-size:1.1rem;">✕</button>
+        </div>
+        <div class="ai-chat-body" id="aiChatBody" style="flex:1;padding:10px;overflow-y:auto;color:var(--text);font-size:0.85rem"></div>
+        <div class="ai-chat-input" style="display:flex;padding:8px;border-top:1px solid var(--border)">
+            <input type="text" id="aiInput" placeholder="...اكتب رسالتك" style="flex:1;padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:0.85rem" onkeypress="if(event.key==='Enter')sendAiMessage()">
+            <button class="btn btn-primary" onclick="sendAiMessage()" style="margin-left:6px;">إرسال</button>
+        </div>
+    </div>
+
+    <style>
+        .ai-suggestions { display:flex;flex-wrap:wrap;gap:6px;margin-top:8px; }
+        .ai-suggestion-btn { background:var(--gold);color:#000;border:none;border-radius:6px;padding:4px 8px;font-size:0.78rem;cursor:pointer;transition:background 0.2s; }
+        .ai-suggestion-btn:hover { background:var(--gold-dark); }
+        .ai-toggle:hover { transform:scale(1.1); }
+    </style>
+
+    <script>
+        const API_BASE = '';
+        function toggleAiChat() {
+            const chat = document.getElementById('aiChat');
+            if (chat.style.display === 'flex') chat.style.display = 'none';
+            else chat.style.display = 'flex';
+        }
+        async function sendAiMessage() {
+            const input = document.getElementById('aiInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+            const chatBody = document.getElementById('aiChatBody');
+            chatBody.innerHTML += `<div class="ai-message user" style="text-align:right;margin:4px 0;padding:4px 8px;background:var(--bg3);border-radius:6px;">${msg}</div>`;
+            input.value = '';
+            chatBody.scrollTop = chatBody.scrollHeight;
+            try {
+                const res = await fetch(`${API_BASE}/api/ai/chat`, {
+                    method:'POST',
+                    headers:{'Content-Type':'application/json'},
+                    body: JSON.stringify({message:msg, context:{isAdmin:true}})
+                });
+                const data = await res.json();
+                chatBody.innerHTML += `<div class="ai-message bot" style="text-align:left;margin:4px 0;padding:4px 8px;background:var(--bg4);border-radius:6px;">${data.reply||'خطأ'}</div>`;
+                if (data.suggestions && data.suggestions.length) {
+                    let sugHtml = '<div class="ai-suggestions">';
+                    data.suggestions.forEach(s => { sugHtml += `<button class="ai-suggestion-btn" onclick="sendAiMessageFromSuggestion('${s.replace(/'/g,"\\'")}')">${s}</button>`; });
+                    sugHtml += '</div>';
+                    chatBody.innerHTML += sugHtml;
+                }
+            } catch(e) {
+                chatBody.innerHTML += `<div class="ai-message bot" style="text-align:left;margin:4px 0;padding:4px 8px;background:var(--bg4);border-radius:6px;">تعذر الاتصال</div>`;
+            }
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+        function sendAiMessageFromSuggestion(text) { document.getElementById('aiInput').value = text; sendAiMessage(); }
+    </script>
+
 </body>
 </html>

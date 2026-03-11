@@ -66,7 +66,7 @@ class SheikhaMasterCatalog {
                 layer: 'الحوكمة والقانون',
                 status: 'active',
                 specs: { saudiLawCategories: 12, saudiLaws: 54, intlLawBranches: 7, intlOrgs: 20, treaties: 29 },
-                apis: ['/api/legal/dashboard', '/api/legal/saudi', '/api/legal/international', '/api/legal/organizations', '/api/legal/treaties']
+                apis: ['/api/legal/dashboard', '/api/legal/saudi', '/api/legal/international', '/api/legal/organizations', '/api/legal/treaties', '/api/legal/independence']
             },
             {
                 id: 5, code: 'SEC', file: 'sheikha-security-engine.js',

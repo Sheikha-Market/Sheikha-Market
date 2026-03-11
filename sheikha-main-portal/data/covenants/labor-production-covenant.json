@@ -1,0 +1,60 @@
+{
+  "id": "LABOR-COVENANT-2026-001",
+  "name": "ميثاق العمل والإنتاج",
+  "status": "active",
+  "initiatedAt": "2026-03-10T00:50:35.390Z",
+  "target": 10000,
+  "enrolled": 0,
+  "selfSufficient": 0,
+  "principles": [
+    "العمل شرف والرزق من الله",
+    "لا ضرر ولا ضرار",
+    "الصدق والأمانة",
+    "هيبة المملكة",
+    "عز بني تميم",
+    "صدق الإسلام"
+  ],
+  "phases": [
+    {
+      "phase": "enrollment",
+      "duration": "0-7 days",
+      "status": "active"
+    },
+    {
+      "phase": "training",
+      "duration": "7-30 days",
+      "status": "pending"
+    },
+    {
+      "phase": "funding",
+      "duration": "30-60 days",
+      "status": "pending"
+    },
+    {
+      "phase": "production",
+      "duration": "60+ days",
+      "status": "pending"
+    }
+  ],
+  "kpis": {
+    "targetProducers": 10000,
+    "selfSufficiencyRate": {
+      "target": 0.8,
+      "current": 0
+    },
+    "averageMonthlyIncome": {
+      "target": 5000,
+      "current": 0,
+      "currency": "SAR"
+    },
+    "successfulTransactions": {
+      "target": 0.95,
+      "current": 0
+    },
+    "satisfaction": {
+      "target": 4.5,
+      "current": 0,
+      "scale": 5
+    }
+  }
+}

@@ -6,6 +6,15 @@
  */
 
 require('dotenv').config();
+const crypto = require('crypto');
+
+const isProductionEnv = String(process.env.NODE_ENV || 'development') === 'production';
+const runtimeDevJwtSecret = crypto.createHash('sha256')
+    .update('sheikha-dev:' + String(process.pid) + ':' + String(Date.now()))
+    .digest('hex');
+const generatedFallbackEncryptionKey = crypto.createHash('sha256')
+    .update(String(process.env.HOSTNAME || 'sheikha') + String(process.pid))
+    .digest('hex');
 
 const config = {
     // ─── إعدادات الخادم ───────────────────────────────────────────────────────
@@ -50,6 +59,14 @@ const config = {
             model: process.env.AI_LLM_MODEL || 'gpt-5.2',
             maxTokens: 4000
         },
+        humain: {
+            apiKey: process.env.HUMAIN_API_KEY,
+            hfApiKey: process.env.HUGGINGFACE_API_KEY,
+            model: process.env.HUMAIN_MODEL || 'humain-ai/ALLaM-7B-Instruct-preview',
+            baseUrl: process.env.HUMAIN_BASE_URL || 'https://api-inference.huggingface.co',
+            maxTokens: parseInt(process.env.HUMAIN_MAX_TOKENS) || 2048,
+            notes: 'هيوماين — PIF | شراكات: AWS، NVIDIA، AMD | نموذج ALLaM عربي'
+        },
         anthropic: {
             apiKey: process.env.ANTHROPIC_API_KEY,
             model: process.env.ANTHROPIC_MODEL || 'claude-opus-4-6-20260205',
@@ -86,10 +103,22 @@ const config = {
 
     // ─── إعدادات الأمان ───────────────────────────────────────────────────────
     security: {
+        strictSecrets: process.env.SECURITY_STRICT_SECRETS === 'true',
         jwt: {
-            secret: process.env.JWT_SECRET || 'sheikha-secure-secret-key-2026',
+            secret: process.env.JWT_SECRET || runtimeDevJwtSecret,
+            minSecretLength: 32,
             expiresIn: '24h',
             refreshExpiresIn: '7d'
+        },
+        tls: {
+            enforceHttps: process.env.SECURITY_ENFORCE_HTTPS === 'true',
+            hstsEnabled: process.env.SECURITY_HSTS_ENABLED === 'true' || process.env.HSTS_ENABLED === 'true',
+            hstsMaxAge: parseInt(process.env.HSTS_MAX_AGE || '31536000', 10)
+        },
+        encryption: {
+            algorithm: process.env.DATA_ENCRYPTION_ALGORITHM || 'aes-256-gcm',
+            key: process.env.DATA_ENCRYPTION_KEY || process.env.DATA_ENCRYPTION_KEY_HEX || generatedFallbackEncryptionKey,
+            keyVersion: process.env.DATA_ENCRYPTION_KEY_VERSION || 'v1'
         },
         bcrypt: {
             saltRounds: 12
@@ -99,8 +128,14 @@ const config = {
             max: 100 // حد الطلبات
         },
         cors: {
-            origin: process.env.CORS_ORIGIN || '*',
+            origin: process.env.CORS_ORIGIN || (isProductionEnv ? 'https://www.sheikha.top' : '*'),
             credentials: true
+        },
+        malwareScan: {
+            enabled: process.env.MALWARE_SCAN_ENABLED === 'true',
+            host: process.env.MALWARE_SCAN_HOST || '127.0.0.1',
+            port: parseInt(process.env.MALWARE_SCAN_PORT || '3310', 10),
+            quarantineDir: process.env.MALWARE_SCAN_QUARANTINE_DIR || './quarantine'
         }
     },
 
@@ -147,6 +182,88 @@ const config = {
         }
     },
 
+    // ─── تكاملات التطوير (Adobe, Figma, NVIDIA, Sentry, Linear, OpenAI, Stripe, Ramp) ───
+    developmentIntegrations: {
+        catalog: 'data/development-integrations-catalog.json',
+        figma: { apiKey: process.env.FIGMA_ACCESS_TOKEN, baseUrl: 'https://api.figma.com/v1' },
+        sentry: { dsn: process.env.SENTRY_DSN },
+        linear: { apiKey: process.env.LINEAR_API_KEY, baseUrl: 'https://api.linear.app/graphql' },
+        stripe: {
+            secretKey: process.env.STRIPE_SECRET_KEY,
+            publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+            webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+            apiVersion: process.env.STRIPE_API_VERSION || '2025-03-31.basil',
+            // Include-dependent response values (API v2) — خصائص تُرجع null افتراضياً لتقليل حجم الاستجابة
+            v2IncludeDefaults: ['identity', 'configuration.customer'],
+            sdkLanguagesCatalog: 'data/stripe-sdk-languages.json'
+        },
+        ramp: { apiKey: process.env.RAMP_API_KEY },
+        nvidia: { apiKey: process.env.NVIDIA_API_KEY },
+        adobe: { clientId: process.env.ADOBE_CLIENT_ID, clientSecret: process.env.ADOBE_CLIENT_SECRET },
+        // بديل Adobe Sign — توقيع إلكتروني
+        dropboxSign: { apiKey: process.env.DROPBOX_SIGN_API_KEY, baseUrl: 'https://api.hellosign.com/v3' },
+        // بديل Adobe Stock — صور مجانية
+        pexels: { apiKey: process.env.PEXELS_API_KEY, baseUrl: 'https://api.pexels.com' }
+    },
+
+    // ─── تكاملات التطوير (Adobe, Figma, NVIDIA, Sentry, Linear, OpenAI, Stripe, Ramp) ─
+    devIntegrations: {
+        stripe: {
+            enabled: !!(process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY.length > 10),
+            secretKey: process.env.STRIPE_SECRET_KEY,
+            publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+            webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+            purpose: 'بوابة الدفع الإلكتروني',
+            apiVersion: process.env.STRIPE_API_VERSION || '2025-03-31.basil',
+            v2IncludeDefaults: ['identity', 'configuration.customer']
+        },
+        figma: {
+            enabled: !!(process.env.FIGMA_ACCESS_TOKEN && process.env.FIGMA_ACCESS_TOKEN.length > 10),
+            accessToken: process.env.FIGMA_ACCESS_TOKEN,
+            purpose: 'تصميم الواجهات وتصدير الأصول'
+        },
+        nvidia: {
+            enabled: !!(process.env.NVIDIA_API_KEY && process.env.NVIDIA_API_KEY.length > 10),
+            apiKey: process.env.NVIDIA_API_KEY,
+            purpose: 'NIM / AI inference — نماذج ذكاء اصطناعي'
+        },
+        sentry: {
+            enabled: !!(process.env.SENTRY_DSN && process.env.SENTRY_DSN.length > 20),
+            dsn: process.env.SENTRY_DSN,
+            purpose: 'تتبع الأخطاء ومراقبة الأداء — بديل Datadog'
+        },
+        linear: {
+            enabled: !!(process.env.LINEAR_API_KEY && process.env.LINEAR_API_KEY.length > 10),
+            apiKey: process.env.LINEAR_API_KEY,
+            purpose: 'إدارة المهام والمشاريع'
+        },
+        adobe: {
+            enabled: !!(process.env.ADOBE_CLIENT_ID && process.env.ADOBE_CLIENT_SECRET),
+            clientId: process.env.ADOBE_CLIENT_ID,
+            clientSecret: process.env.ADOBE_CLIENT_SECRET,
+            purpose: 'Creative Cloud / PDF / تصميم'
+        },
+        dropboxSign: {
+            enabled: !!(process.env.DROPBOX_SIGN_API_KEY && process.env.DROPBOX_SIGN_API_KEY.length > 10),
+            apiKey: process.env.DROPBOX_SIGN_API_KEY,
+            purpose: 'توقيع إلكتروني — بديل Adobe Sign'
+        },
+        pexels: {
+            enabled: !!(process.env.PEXELS_API_KEY && process.env.PEXELS_API_KEY.length > 10),
+            apiKey: process.env.PEXELS_API_KEY,
+            purpose: 'صور مجانية عالية الجودة — بديل Adobe Stock'
+        },
+        ramp: {
+            enabled: !!(process.env.RAMP_API_KEY && process.env.RAMP_API_KEY.length > 10),
+            apiKey: process.env.RAMP_API_KEY,
+            purpose: 'إدارة النفقات والبطاقات'
+        },
+        openai: {
+            enabled: !!(process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY.length > 10),
+            purpose: 'المحادثة والتحليل الذكي'
+        }
+    },
+
     // ─── إعدادات التخزين ──────────────────────────────────────────────────────
     storage: {
         uploads: './uploads',
@@ -173,7 +290,9 @@ const config = {
         version: '2.0.0',
         buildDate: new Date().toISOString(),
         author: 'فريق شيخة',
-        website: 'https://sheikha.top'
+        website: 'https://sheikha.top',
+        // حماية شاملة — استقلالية وملكية فكرية (لا انتماء لمعادن/هيوماين/أرامكو/PIF)
+        independenceDoc: 'docs/حماية-شاملة-واستثمارات-الدولة.md'
     }
 };
 
@@ -201,6 +320,13 @@ config.get = function(path, defaultValue = null) {
 config.isDevelopment = () => config.server.env === 'development';
 config.isProduction = () => config.server.env === 'production';
 config.isTest = () => config.server.env === 'test';
+
+if (isProductionEnv && !process.env.JWT_SECRET) {
+    console.warn('⚠️ [SECURITY] JWT_SECRET غير مضبوط في بيئة الإنتاج.');
+}
+if (isProductionEnv && !process.env.DATA_ENCRYPTION_KEY) {
+    console.warn('⚠️ [SECURITY] DATA_ENCRYPTION_KEY غير مضبوط في بيئة الإنتاج.');
+}
 
 /**
  * طباعة الإعدادات (للتطوير)

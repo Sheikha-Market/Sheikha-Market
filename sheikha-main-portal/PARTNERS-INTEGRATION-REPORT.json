@@ -1,0 +1,676 @@
+{
+  "timestamp": "2026-03-09T23:40:29.144Z",
+  "summary": {
+    "totalPartners": 6,
+    "ready": 2,
+    "blocked": 1,
+    "planned": 3,
+    "partial": 0
+  },
+  "strategicPartners": [
+    {
+      "partnerId": "google",
+      "partnerName": "Google Cloud Platform",
+      "status": "active",
+      "timestamp": "2026-03-09T23:40:29.144Z",
+      "services": [
+        {
+          "serviceId": "vertex-ai",
+          "name": "Vertex AI",
+          "purpose": "التدقيق الشرعي الآلي والذكاء الاصطناعي",
+          "status": "ready",
+          "priority": "high",
+          "ready": true
+        },
+        {
+          "serviceId": "cloud-run",
+          "name": "Cloud Run",
+          "purpose": "استضافة الخدمات بدون خادم",
+          "status": "ready",
+          "priority": "high",
+          "ready": true
+        },
+        {
+          "serviceId": "firestore",
+          "name": "Cloud Firestore",
+          "purpose": "قاعدة بيانات لحظية للمعاملات",
+          "status": "ready",
+          "priority": "high",
+          "ready": true
+        },
+        {
+          "serviceId": "cloud-storage",
+          "name": "Cloud Storage",
+          "purpose": "تخزين الوثائق والصور",
+          "status": "ready",
+          "priority": "medium",
+          "ready": true
+        },
+        {
+          "serviceId": "cloud-functions",
+          "name": "Cloud Functions",
+          "purpose": "وظائف سحابية آلية",
+          "status": "ready",
+          "priority": "medium",
+          "ready": true
+        },
+        {
+          "serviceId": "secret-manager",
+          "name": "Secret Manager",
+          "purpose": "إدارة المفاتيح والأسرار",
+          "status": "ready",
+          "priority": "high",
+          "ready": true
+        }
+      ],
+      "prerequisites": {
+        "total": 4,
+        "met": [],
+        "missing": [
+          "gcloudSdk",
+          "activeAccount",
+          "billingAccount",
+          "creditCard"
+        ],
+        "details": {
+          "gcloudSdk": {
+            "installed": false,
+            "required": true
+          },
+          "activeAccount": {
+            "configured": false,
+            "required": true
+          },
+          "billingAccount": {
+            "linked": false,
+            "required": true
+          },
+          "creditCard": {
+            "available": false,
+            "required": true
+          }
+        }
+      },
+      "readiness": "blocked"
+    },
+    {
+      "partnerId": "microsoft",
+      "partnerName": "Microsoft Azure",
+      "status": "planned",
+      "timestamp": "2026-03-09T23:40:29.146Z",
+      "services": [
+        {
+          "serviceId": "azure-openai",
+          "name": "Azure OpenAI",
+          "purpose": "الذكاء الاصطناعي المتقدم",
+          "status": "planned",
+          "priority": "medium",
+          "ready": false
+        },
+        {
+          "serviceId": "azure-functions",
+          "name": "Azure Functions",
+          "purpose": "وظائف سحابية",
+          "status": "planned",
+          "priority": "low",
+          "ready": false
+        },
+        {
+          "serviceId": "cosmos-db",
+          "name": "Cosmos DB",
+          "purpose": "قاعدة بيانات عالمية",
+          "status": "planned",
+          "priority": "low",
+          "ready": false
+        }
+      ],
+      "prerequisites": {
+        "total": 2,
+        "met": [],
+        "missing": [],
+        "details": {
+          "azureCli": {
+            "installed": false,
+            "required": false
+          },
+          "subscription": {
+            "active": false,
+            "required": false
+          }
+        }
+      },
+      "readiness": "planned"
+    },
+    {
+      "partnerId": "nafath",
+      "partnerName": "نفاذ (Nafath)",
+      "status": "planned",
+      "timestamp": "2026-03-09T23:40:29.147Z",
+      "services": [
+        {
+          "serviceId": "authentication",
+          "name": "مصادقة نفاذ",
+          "purpose": "تسجيل دخول المواطنين والمقيمين",
+          "status": "planned",
+          "priority": "high",
+          "ready": false
+        }
+      ],
+      "prerequisites": {
+        "total": 2,
+        "met": [],
+        "missing": [
+          "registration",
+          "clientId"
+        ],
+        "details": {
+          "registration": {
+            "completed": false,
+            "required": true
+          },
+          "clientId": {
+            "obtained": false,
+            "required": true
+          }
+        }
+      },
+      "readiness": "planned"
+    }
+  ],
+  "operationalPartners": [
+    {
+      "partnerId": "github",
+      "partnerName": "GitHub",
+      "status": "active",
+      "timestamp": "2026-03-09T23:40:29.146Z",
+      "services": [
+        {
+          "serviceId": "repositories",
+          "name": "GitHub Repositories",
+          "purpose": "إدارة الشفرة المصدرية",
+          "status": "active",
+          "priority": "high",
+          "ready": true
+        },
+        {
+          "serviceId": "actions",
+          "name": "GitHub Actions",
+          "purpose": "CI/CD الآلي",
+          "status": "active",
+          "priority": "high",
+          "ready": true
+        },
+        {
+          "serviceId": "copilot",
+          "name": "GitHub Copilot",
+          "purpose": "مساعد البرمجة بالذكاء الاصطناعي",
+          "status": "active",
+          "priority": "medium",
+          "ready": true
+        }
+      ],
+      "prerequisites": {
+        "total": 2,
+        "met": [
+          "gitInstalled",
+          "sshKeys"
+        ],
+        "missing": [],
+        "details": {
+          "gitInstalled": {
+            "installed": true,
+            "required": true
+          },
+          "sshKeys": {
+            "configured": true,
+            "required": true
+          }
+        }
+      },
+      "readiness": "ready"
+    },
+    {
+      "partnerId": "vercel",
+      "partnerName": "Vercel",
+      "status": "active",
+      "timestamp": "2026-03-09T23:40:29.147Z",
+      "services": [
+        {
+          "serviceId": "serverless-functions",
+          "name": "Serverless Functions",
+          "purpose": "وظائف بدون خادم",
+          "status": "active",
+          "priority": "medium",
+          "ready": true
+        },
+        {
+          "serviceId": "edge-functions",
+          "name": "Edge Functions",
+          "purpose": "وظائف على حافة الشبكة",
+          "status": "active",
+          "priority": "low",
+          "ready": true
+        }
+      ],
+      "prerequisites": {
+        "total": 1,
+        "met": [
+          "account"
+        ],
+        "missing": [],
+        "details": {
+          "account": {
+            "configured": true,
+            "required": true
+          }
+        }
+      },
+      "readiness": "ready"
+    },
+    {
+      "partnerId": "elm",
+      "partnerName": "علم (ELM)",
+      "status": "planned",
+      "timestamp": "2026-03-09T23:40:29.147Z",
+      "services": [
+        {
+          "serviceId": "employee-verification",
+          "name": "التحقق من الموظفين",
+          "purpose": "التحقق من بيانات الموظفين",
+          "status": "planned",
+          "priority": "medium",
+          "ready": false
+        }
+      ],
+      "prerequisites": {
+        "total": 1,
+        "met": [],
+        "missing": [
+          "apiKey"
+        ],
+        "details": {
+          "apiKey": {
+            "obtained": false,
+            "required": true
+          }
+        }
+      },
+      "readiness": "planned"
+    }
+  ],
+  "allResults": [
+    {
+      "partnerId": "google",
+      "partnerName": "Google Cloud Platform",
+      "status": "active",
+      "timestamp": "2026-03-09T23:40:29.144Z",
+      "services": [
+        {
+          "serviceId": "vertex-ai",
+          "name": "Vertex AI",
+          "purpose": "التدقيق الشرعي الآلي والذكاء الاصطناعي",
+          "status": "ready",
+          "priority": "high",
+          "ready": true
+        },
+        {
+          "serviceId": "cloud-run",
+          "name": "Cloud Run",
+          "purpose": "استضافة الخدمات بدون خادم",
+          "status": "ready",
+          "priority": "high",
+          "ready": true
+        },
+        {
+          "serviceId": "firestore",
+          "name": "Cloud Firestore",
+          "purpose": "قاعدة بيانات لحظية للمعاملات",
+          "status": "ready",
+          "priority": "high",
+          "ready": true
+        },
+        {
+          "serviceId": "cloud-storage",
+          "name": "Cloud Storage",
+          "purpose": "تخزين الوثائق والصور",
+          "status": "ready",
+          "priority": "medium",
+          "ready": true
+        },
+        {
+          "serviceId": "cloud-functions",
+          "name": "Cloud Functions",
+          "purpose": "وظائف سحابية آلية",
+          "status": "ready",
+          "priority": "medium",
+          "ready": true
+        },
+        {
+          "serviceId": "secret-manager",
+          "name": "Secret Manager",
+          "purpose": "إدارة المفاتيح والأسرار",
+          "status": "ready",
+          "priority": "high",
+          "ready": true
+        }
+      ],
+      "prerequisites": {
+        "total": 4,
+        "met": [],
+        "missing": [
+          "gcloudSdk",
+          "activeAccount",
+          "billingAccount",
+          "creditCard"
+        ],
+        "details": {
+          "gcloudSdk": {
+            "installed": false,
+            "required": true
+          },
+          "activeAccount": {
+            "configured": false,
+            "required": true
+          },
+          "billingAccount": {
+            "linked": false,
+            "required": true
+          },
+          "creditCard": {
+            "available": false,
+            "required": true
+          }
+        }
+      },
+      "readiness": "blocked"
+    },
+    {
+      "partnerId": "microsoft",
+      "partnerName": "Microsoft Azure",
+      "status": "planned",
+      "timestamp": "2026-03-09T23:40:29.146Z",
+      "services": [
+        {
+          "serviceId": "azure-openai",
+          "name": "Azure OpenAI",
+          "purpose": "الذكاء الاصطناعي المتقدم",
+          "status": "planned",
+          "priority": "medium",
+          "ready": false
+        },
+        {
+          "serviceId": "azure-functions",
+          "name": "Azure Functions",
+          "purpose": "وظائف سحابية",
+          "status": "planned",
+          "priority": "low",
+          "ready": false
+        },
+        {
+          "serviceId": "cosmos-db",
+          "name": "Cosmos DB",
+          "purpose": "قاعدة بيانات عالمية",
+          "status": "planned",
+          "priority": "low",
+          "ready": false
+        }
+      ],
+      "prerequisites": {
+        "total": 2,
+        "met": [],
+        "missing": [],
+        "details": {
+          "azureCli": {
+            "installed": false,
+            "required": false
+          },
+          "subscription": {
+            "active": false,
+            "required": false
+          }
+        }
+      },
+      "readiness": "planned"
+    },
+    {
+      "partnerId": "github",
+      "partnerName": "GitHub",
+      "status": "active",
+      "timestamp": "2026-03-09T23:40:29.146Z",
+      "services": [
+        {
+          "serviceId": "repositories",
+          "name": "GitHub Repositories",
+          "purpose": "إدارة الشفرة المصدرية",
+          "status": "active",
+          "priority": "high",
+          "ready": true
+        },
+        {
+          "serviceId": "actions",
+          "name": "GitHub Actions",
+          "purpose": "CI/CD الآلي",
+          "status": "active",
+          "priority": "high",
+          "ready": true
+        },
+        {
+          "serviceId": "copilot",
+          "name": "GitHub Copilot",
+          "purpose": "مساعد البرمجة بالذكاء الاصطناعي",
+          "status": "active",
+          "priority": "medium",
+          "ready": true
+        }
+      ],
+      "prerequisites": {
+        "total": 2,
+        "met": [
+          "gitInstalled",
+          "sshKeys"
+        ],
+        "missing": [],
+        "details": {
+          "gitInstalled": {
+            "installed": true,
+            "required": true
+          },
+          "sshKeys": {
+            "configured": true,
+            "required": true
+          }
+        }
+      },
+      "readiness": "ready"
+    },
+    {
+      "partnerId": "vercel",
+      "partnerName": "Vercel",
+      "status": "active",
+      "timestamp": "2026-03-09T23:40:29.147Z",
+      "services": [
+        {
+          "serviceId": "serverless-functions",
+          "name": "Serverless Functions",
+          "purpose": "وظائف بدون خادم",
+          "status": "active",
+          "priority": "medium",
+          "ready": true
+        },
+        {
+          "serviceId": "edge-functions",
+          "name": "Edge Functions",
+          "purpose": "وظائف على حافة الشبكة",
+          "status": "active",
+          "priority": "low",
+          "ready": true
+        }
+      ],
+      "prerequisites": {
+        "total": 1,
+        "met": [
+          "account"
+        ],
+        "missing": [],
+        "details": {
+          "account": {
+            "configured": true,
+            "required": true
+          }
+        }
+      },
+      "readiness": "ready"
+    },
+    {
+      "partnerId": "nafath",
+      "partnerName": "نفاذ (Nafath)",
+      "status": "planned",
+      "timestamp": "2026-03-09T23:40:29.147Z",
+      "services": [
+        {
+          "serviceId": "authentication",
+          "name": "مصادقة نفاذ",
+          "purpose": "تسجيل دخول المواطنين والمقيمين",
+          "status": "planned",
+          "priority": "high",
+          "ready": false
+        }
+      ],
+      "prerequisites": {
+        "total": 2,
+        "met": [],
+        "missing": [
+          "registration",
+          "clientId"
+        ],
+        "details": {
+          "registration": {
+            "completed": false,
+            "required": true
+          },
+          "clientId": {
+            "obtained": false,
+            "required": true
+          }
+        }
+      },
+      "readiness": "planned"
+    },
+    {
+      "partnerId": "elm",
+      "partnerName": "علم (ELM)",
+      "status": "planned",
+      "timestamp": "2026-03-09T23:40:29.147Z",
+      "services": [
+        {
+          "serviceId": "employee-verification",
+          "name": "التحقق من الموظفين",
+          "purpose": "التحقق من بيانات الموظفين",
+          "status": "planned",
+          "priority": "medium",
+          "ready": false
+        }
+      ],
+      "prerequisites": {
+        "total": 1,
+        "met": [],
+        "missing": [
+          "apiKey"
+        ],
+        "details": {
+          "apiKey": {
+            "obtained": false,
+            "required": true
+          }
+        }
+      },
+      "readiness": "planned"
+    }
+  ],
+  "integrationPlan": {
+    "immediate": [
+      {
+        "partnerId": "github",
+        "partnerName": "GitHub",
+        "readiness": "ready",
+        "actions": [
+          "تفعيل الخدمات والبدء بالاستخدام"
+        ]
+      },
+      {
+        "partnerId": "vercel",
+        "partnerName": "Vercel",
+        "readiness": "ready",
+        "actions": [
+          "تفعيل الخدمات والبدء بالاستخدام"
+        ]
+      }
+    ],
+    "shortTerm": [
+      {
+        "partnerId": "google",
+        "partnerName": "Google Cloud Platform",
+        "readiness": "blocked",
+        "actions": [
+          "إكمال: gcloudSdk",
+          "إكمال: activeAccount",
+          "إكمال: billingAccount",
+          "إكمال: creditCard"
+        ]
+      }
+    ],
+    "mediumTerm": [],
+    "longTerm": [
+      {
+        "partnerId": "microsoft",
+        "partnerName": "Microsoft Azure",
+        "readiness": "planned",
+        "actions": [
+          "دراسة الجدوى وتحديد الأولويات"
+        ]
+      },
+      {
+        "partnerId": "nafath",
+        "partnerName": "نفاذ (Nafath)",
+        "readiness": "planned",
+        "actions": [
+          "دراسة الجدوى وتحديد الأولويات"
+        ]
+      },
+      {
+        "partnerId": "elm",
+        "partnerName": "علم (ELM)",
+        "readiness": "planned",
+        "actions": [
+          "دراسة الجدوى وتحديد الأولويات"
+        ]
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": "critical",
+      "partner": "Google Cloud",
+      "action": "الحصول على بطاقة ائتمان (ليس mada) لربط حساب الفوترة",
+      "impact": "يفتح 6 خدمات استراتيجية شاملة الذكاء الاصطناعي"
+    },
+    {
+      "priority": "critical",
+      "partner": "Google Cloud",
+      "action": "تثبيت gcloud SDK والمصادقة",
+      "impact": "يتيح إدارة المشاريع والموارد آلياً"
+    },
+    {
+      "priority": "high",
+      "partner": "نفاذ",
+      "action": "التسجيل في منصة نفاذ والحصول على Client ID",
+      "impact": "يمكّن المواطنين والمقيمين من تسجيل الدخول بهوياتهم الرسمية"
+    },
+    {
+      "priority": "medium",
+      "partner": "عام",
+      "action": "تكوين سجلات DNS (MX, SPF, DKIM) لنطاق sheikha.top",
+      "impact": "يتيح استقبال وإرسال البريد من market@sheikha.top"
+    }
+  ]
+}

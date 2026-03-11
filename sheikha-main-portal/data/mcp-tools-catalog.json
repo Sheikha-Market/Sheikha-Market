@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "description": "أدوات MCP حسب الأهمية والتكامل الفعّال — مرقمنة بالكتاب والسنة",
+  "browseMCP": {
+    "id": "fetch",
+    "name": "Browse / Fetch",
+    "status": "مفعّل",
+    "config": "docker mcp/fetch",
+    "quranRef": "الإسراء:36",
+    "principle": "ولا تقف ما ليس لك به علم — جلب المحتوى قبل الحكم"
+  },
+  "tools": [
+    { "rank": 1, "id": "slack", "name": "Slack", "ar": "سلاك", "category": "تواصل", "quranRef": "النور:63", "principle": "التناصح — إبلاغ الفريق والتعاون", "mcp": "@modelcontextprotocol/server-slack", "env": "SLACK_BOT_TOKEN" },
+    { "rank": 2, "id": "linear", "name": "Linear", "ar": "لينير", "category": "مهام", "quranRef": "الصف:4", "principle": "الصف — تنظيم المهام والمشاريع", "mcp": "community", "env": "LINEAR_API_KEY" },
+    { "rank": 3, "id": "stripe", "name": "Stripe", "ar": "سترايب", "category": "مدفوعات", "quranRef": "البقرة:282", "principle": "فاكتبوه — توثيق المعاملات", "mcp": "مدمج في sheikha", "env": "STRIPE_SECRET_KEY" },
+    { "rank": 4, "id": "notion", "name": "Notion", "ar": "نوشن", "category": "توثيق", "quranRef": "البقرة:282", "principle": "الكتابة — توثيق المعرفة", "mcp": "@notionhq/notion-mcp-server", "env": "NOTION_API_KEY" },
+    { "rank": 5, "id": "huggingface", "name": "Hugging Face", "ar": "هجنج فيس", "category": "AI", "quranRef": "العلق:1-5", "principle": "اقرأ — نماذج ومعرفة", "mcp": "community", "env": "HUGGINGFACE_TOKEN" },
+    { "rank": 6, "id": "posthog", "name": "PostHog", "ar": "بوست هوغ", "category": "تحليلات", "quranRef": "البقرة:282", "principle": "التوثيق — تتبع المنتج", "mcp": "community", "env": "POSTHOG_API_KEY" },
+    { "rank": 7, "id": "clickhouse", "name": "ClickHouse", "ar": "كليك هاوس", "category": "بيانات", "quranRef": "البقرة:282", "principle": "فاكتبوه — تحليلات ضخمة", "mcp": "community", "env": "CLICKHOUSE_URL" },
+    { "rank": 8, "id": "monday", "name": "Monday.com", "ar": "ماندي", "category": "مهام", "quranRef": "الشورى:38", "principle": "الشورى — إدارة الفريق", "mcp": "community", "env": "MONDAY_API_KEY" },
+    { "rank": 9, "id": "atlassian", "name": "Atlassian", "ar": "أتلسيان", "category": "مهام", "quranRef": "الصف:4", "principle": "الصف — جيرا وكونفلونس", "mcp": "community", "env": "ATLASSIAN_API_TOKEN" },
+    { "rank": 10, "id": "clerk", "name": "Clerk", "ar": "كليرك", "category": "مصادقة", "quranRef": "البقرة:283", "principle": "واتقوا الله — أمان الهوية", "mcp": "community", "env": "CLERK_SECRET_KEY" },
+    { "rank": 11, "id": "phantom", "name": "Phantom", "ar": "فانتوم", "category": "محفظة", "quranRef": "البقرة:282", "principle": "التوثيق — محفظة ويب 3", "mcp": "community", "env": null },
+    { "rank": 12, "id": "supabase", "name": "Supabase", "ar": "سوبابيس", "category": "قاعدة بيانات", "quranRef": "البقرة:282", "principle": "فاكتبوه — Postgres + Auth", "mcp": "@supabase/mcp-server-supabase", "env": "SUPABASE_URL" },
+    { "rank": 13, "id": "postgres", "name": "PostgreSQL", "ar": "بوستجرس", "category": "قاعدة بيانات", "quranRef": "البقرة:282", "principle": "الكتابة — البيانات المنظمة", "mcp": "@supabase/mcp-server-postgrest", "env": "DATABASE_URL" },
+    { "rank": 14, "id": "snowflake", "name": "Snowflake", "ar": "سنوفليك", "category": "بيانات", "quranRef": "البقرة:282", "principle": "التوثيق — مستودع بيانات", "mcp": "community", "env": "SNOWFLAKE_ACCOUNT" },
+    { "rank": 15, "id": "hex", "name": "Hex", "ar": "هيكس", "category": "تحليلات", "quranRef": "الإسراء:36", "principle": "العلم — تحليلات بيانات", "mcp": "community", "env": "HEX_API_KEY" },
+    { "rank": 16, "id": "aws", "name": "AWS", "ar": "أمازون ويب سيرفس", "category": "سحابة", "quranRef": "البقرة:282", "principle": "التوثيق — بنية سحابية", "mcp": "modelcontextprotocol/server-aws", "env": "AWS_ACCESS_KEY_ID" },
+    { "rank": 17, "id": "sentry", "name": "Sentry", "ar": "سينتري", "category": "مراقبة", "quranRef": "البقرة:282", "principle": "التوثيق — تتبع الأخطاء", "mcp": "modelcontextprotocol/server-sentry", "env": "SENTRY_AUTH_TOKEN" },
+    { "rank": 18, "id": "cloudflare", "name": "Cloudflare", "ar": "كلاود فلير", "category": "بنية", "quranRef": "البقرة:283", "principle": "واتقوا الله — أمان الشبكة", "mcp": "community", "env": "CLOUDFLARE_API_TOKEN" },
+    { "rank": 19, "id": "prisma", "name": "Prisma", "ar": "بريزما", "category": "ORM", "quranRef": "البقرة:282", "principle": "فاكتبوه — مخطط البيانات", "mcp": "مدمج في الكود", "env": null }
+  ]
+}

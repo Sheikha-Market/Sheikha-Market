@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-03-10T06:53:51.256Z",
+  "attempt": 503,
+  "intervalSeconds": 60,
+  "maxAttempts": 0,
+  "organizationId": "224557279528",
+  "billingAccount": "missing",
+  "operatorPrincipal": "user:market@sheikha.top",
+  "readiness": {
+    "ready": false,
+    "checks": {
+      "gcloudInstalled": {
+        "ok": false,
+        "output": "",
+        "error": "Command failed: command -v gcloud"
+      },
+      "activeAccount": {
+        "ok": false,
+        "output": "",
+        "error": "/bin/sh: 1: gcloud: not found"
+      },
+      "orgAccess": {
+        "ok": false,
+        "output": "",
+        "error": "/bin/sh: 1: gcloud: not found"
+      },
+      "billingProvided": {
+        "ok": false,
+        "output": "missing"
+      },
+      "operatorProvided": {
+        "ok": true,
+        "output": "user:market@sheikha.top"
+      }
+    }
+  }
+}

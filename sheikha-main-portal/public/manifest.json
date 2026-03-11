@@ -5,14 +5,23 @@
   "start_url": "/",
   "id": "/",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
   "background_color": "#030712",
   "theme_color": "#D4AF37",
   "orientation": "any",
   "scope": "/",
   "lang": "ar",
   "dir": "rtl",
-  "categories": ["business", "shopping", "productivity", "finance"],
+  "categories": [
+    "business",
+    "shopping",
+    "productivity",
+    "finance"
+  ],
   "iarc_rating_id": "",
   "icons": [
     {
@@ -45,7 +54,12 @@
       "short_name": "السوق",
       "description": "تصفح عروض المعادن والسكراب",
       "url": "/سوق-شيخة.html",
-      "icons": [{"src": "/icons/icon-192.svg", "sizes": "192x192"}]
+      "icons": [
+        {
+          "src": "/icons/icon-192.svg",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "لوحة التحكم",
@@ -112,11 +126,21 @@
       "title": "title",
       "text": "text",
       "url": "url",
-      "files": [{"name": "images", "accept": ["image/*"]}]
+      "files": [
+        {
+          "name": "images",
+          "accept": [
+            "image/*"
+          ]
+        }
+      ]
     }
   },
   "protocol_handlers": [
-    {"protocol": "web+sheikha", "url": "/protocol?type=%s"}
+    {
+      "protocol": "web+sheikha",
+      "url": "/protocol?type=%s"
+    }
   ],
   "launch_handler": {
     "client_mode": "navigate-existing"

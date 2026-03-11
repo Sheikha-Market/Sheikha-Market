@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <!-- تدرجات فضية فاخرة -->
+    <radialGradient id="silverShine" cx="40%" cy="30%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1"/>
+      <stop offset="20%" style="stop-color:#E8E8E8;stop-opacity:1"/>
+      <stop offset="45%" style="stop-color:#C0C0C0;stop-opacity:1"/>
+      <stop offset="70%" style="stop-color:#A8A8A8;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#808080;stop-opacity:1"/>
+    </radialGradient>
+
+    <linearGradient id="silverReflection" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F8F8F8;stop-opacity:0.95"/>
+      <stop offset="25%" style="stop-color:#D0D0D0;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#C0C0C0;stop-opacity:1"/>
+      <stop offset="75%" style="stop-color:#909090;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#707070;stop-opacity:1"/>
+    </linearGradient>
+
+    <radialGradient id="silverHighlight" cx="35%" cy="35%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9"/>
+      <stop offset="40%" style="stop-color:#E0E0E0;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#C0C0C0;stop-opacity:0"/>
+    </radialGradient>
+
+    <filter id="silverGlow">
+      <feGaussianBlur stdDeviation="10" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="shadow3D">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="15"/>
+      <feOffset dx="0" dy="20" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.5"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- خلفية -->
+  <rect width="800" height="800" fill="#0A0E1A"/>
+
+  <!-- وهج خلفي -->
+  <circle cx="400" cy="350" r="320" fill="url(#silverHighlight)" opacity="0.15" filter="url(#silverGlow)"/>
+
+  <!-- عملات فضية متراصة -->
+  <g filter="url(#shadow3D)">
+    <!-- العملة الخلفية -->
+    <ellipse cx="420" cy="420" rx="140" ry="140"
+             fill="url(#silverReflection)"
+             stroke="#A8A8A8" stroke-width="3" opacity="0.7"/>
+
+    <!-- العملة الوسطى -->
+    <ellipse cx="380" cy="380" rx="150" ry="150"
+             fill="url(#silverShine)"
+             stroke="#C0C0C0" stroke-width="3"/>
+
+    <!-- العملة الأمامية -->
+    <ellipse cx="340" cy="340" rx="160" ry="160"
+             fill="url(#silverReflection)"
+             stroke="#E8E8E8" stroke-width="4"/>
+
+    <!-- تفاصيل العملة الأمامية -->
+    <circle cx="340" cy="340" r="145"
+            fill="none" stroke="#F8F8F8" stroke-width="2" opacity="0.6"/>
+    <circle cx="340" cy="340" r="130"
+            fill="none" stroke="#D0D0D0" stroke-width="1" opacity="0.5"/>
+
+    <!-- نقش مركزي -->
+    <text x="340" y="350"
+          font-family="'Palatino', serif"
+          font-size="72"
+          font-weight="bold"
+          fill="#808080"
+          text-anchor="middle"
+          opacity="0.6">Ag</text>
+
+    <!-- دائرة زخرفية -->
+    <circle cx="340" cy="340" r="100"
+            fill="none" stroke="#A8A8A8" stroke-width="2" opacity="0.4"/>
+
+    <!-- نجوم زخرفية -->
+    <g opacity="0.5" fill="#C0C0C0">
+      <polygon points="340,250 345,265 360,265 350,275 355,290 340,280 325,290 330,275 320,265 335,265"
+               transform="translate(0, 0)"/>
+      <polygon points="340,250 345,265 360,265 350,275 355,290 340,280 325,290 330,275 320,265 335,265"
+               transform="translate(0, 140) scale(0.8)"/>
+    </g>
+
+    <!-- نص تحت المركز -->
+    <text x="340" y="400"
+          font-family="'Times New Roman', serif"
+          font-size="18"
+          fill="#909090"
+          text-anchor="middle"
+          opacity="0.6">FINE SILVER 999</text>
+
+    <!-- انعكاسات ضوئية قوية -->
+    <ellipse cx="290" cy="290" rx="60" ry="100"
+             fill="#FFFFFF" opacity="0.35"
+             transform="rotate(-25 290 290)"/>
+    <ellipse cx="380" cy="320" rx="40" ry="80"
+             fill="#FFFFFF" opacity="0.25"
+             transform="rotate(15 380 320)"/>
+
+    <!-- حافة لامعة -->
+    <path d="M 240 280 Q 260 260, 300 250"
+          fill="none" stroke="#FFFFFF" stroke-width="8"
+          opacity="0.4" stroke-linecap="round"/>
+  </g>
+
+  <!-- وهج أمامي -->
+  <ellipse cx="310" cy="310" rx="100" ry="80"
+           fill="#FFFFFF" opacity="0.15"
+           filter="url(#silverGlow)"/>
+</svg>

@@ -29,6 +29,7 @@ const {
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
+const https = require('https');
 
 // ─── مسارات البيانات ─────────────────────────────────────────────────────────
 const ROOT = path.join(__dirname, '..');
@@ -106,7 +107,7 @@ function listPages() {
 const server = new Server(
     {
         name: 'sheikha-cursor-bridge',
-        version: '2.0.0',
+        version: '2.1.0',
         description: 'جسر شيخة–Cursor | تقوية الذكاء وتطوير المنظومة بالكتاب والسنة'
     },
     {
@@ -240,6 +241,124 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                     text: { type: 'string', description: 'النص المراد ترجمته' },
                     targetLang: { type: 'string', description: 'اللغة الهدف (en, fr, es, de, tr, ur, id, ms, zh, ja, ko...)' }
                 }, required: ['text', 'targetLang'] }
+            },
+            // ─── ١٦. حالة الطيار ────────────────────────────────────────
+            {
+                name: 'sheikha_pilot_status',
+                description: 'حالة منظومة الطيار (Pilot) — KPIs، SMI، الصحة، المؤشرات',
+                inputSchema: { type: 'object', properties: {}, required: [] }
+            },
+            // ─── ١٧. طلبات عروض الأسعار (RFQ) ───────────────────────────
+            {
+                name: 'sheikha_rfq',
+                description: 'طلبات عروض الأسعار — إنشاء أو استعلام RFQ في سوق شيخة',
+                inputSchema: { type: 'object', properties: {
+                    action: { type: 'string', description: 'الإجراء', enum: ['list', 'create', 'status'] },
+                    metal: { type: 'string', description: 'المعدن (للإنشاء)' },
+                    quantity: { type: 'number', description: 'الكمية (للإنشاء)' }
+                }, required: [] }
+            },
+            // ─── ١٨. تكامل بيئة التطوير ───────────────────────────────────
+            {
+                name: 'sheikha_dev_integration',
+                description: 'تكامل بيئة التطوير — فحص VS Code Doctor، DevContainer، إعدادات Cursor',
+                inputSchema: { type: 'object', properties: {
+                    action: { type: 'string', description: 'الإجراء', enum: ['doctor', 'status', 'config'] }
+                }, required: [] }
+            },
+            // ─── ١٩. إنشاء هيكل/صفحة (Scaffold) ─────────────────────────────
+            {
+                name: 'sheikha_scaffold',
+                description: 'إنشاء هيكل صفحة أو مكوّن أو تطبيق إلكتروني بمعايير شيخة',
+                inputSchema: { type: 'object', properties: {
+                    type: { type: 'string', description: 'النوع', enum: ['page', 'component', 'api', 'electronic-app'] },
+                    name: { type: 'string', description: 'الاسم' },
+                    description: { type: 'string', description: 'الوصف' }
+                }, required: ['type', 'name'] }
+            },
+            // ─── ٢٠. قوائم المنتجات ──────────────────────────────────────
+            {
+                name: 'sheikha_listings',
+                description: 'قوائم المنتجات والمعادن في سوق شيخة — HS codes، فلاتر',
+                inputSchema: { type: 'object', properties: {
+                    filter: { type: 'string', description: 'فلتر (معدن، فئة، HS)' }
+                }, required: [] }
+            },
+            // ─── ٢١. حاسبة الزكاة ────────────────────────────────────────
+            {
+                name: 'sheikha_zakat',
+                description: 'حاسبة الزكاة الشرعية — ذهب، فضة، نقود، أسهم',
+                inputSchema: { type: 'object', properties: {
+                    type: { type: 'string', description: 'نوع المال', enum: ['gold', 'silver', 'cash', 'stocks'] },
+                    amount: { type: 'number', description: 'المبلغ أو الوزن' },
+                    unit: { type: 'string', description: 'الوحدة (gram, sar, usd)' }
+                }, required: ['type', 'amount'] }
+            },
+            // ─── ٢٢. تكاملات النماذج (AI Models) ────────────────────────
+            {
+                name: 'sheikha_model_integrations',
+                description: 'تكاملات نماذج الذكاء الاصطناعي — OpenAI، Claude، Ollama',
+                inputSchema: { type: 'object', properties: {
+                    action: { type: 'string', description: 'الإجراء', enum: ['list', 'refresh'] }
+                }, required: [] }
+            },
+            // ─── ٢٣. جلب محتوى من الويب ──────────────────────────────────
+            {
+                name: 'sheikha_web_fetch',
+                description: 'جلب محتوى من عنوان URL — للمراجع والتوثيق',
+                inputSchema: { type: 'object', properties: {
+                    url: { type: 'string', description: 'العنوان الكامل (https://...)' }
+                }, required: ['url'] }
+            },
+            // ─── ٢٤. SDK كامل — وحدات وأدوات شيخة ────────────────────────────────────
+            {
+                name: 'sheikha_sdk',
+                description: 'SDK شيخة الكامل — 8 وحدات (core, market, ai, sharia, auth, data, ui, i18n) مع ربط الدوال بـ APIs',
+                inputSchema: { type: 'object', properties: {
+                    module: { type: 'string', description: 'وحدة اختيارية (core, market, ai, sharia, auth, data, ui, i18n)' }
+                }, required: [] }
+            },
+            // ─── ٢٥. تكاملات التطوير (Stripe, Figma, Datadog, Linear, Adobe, Ramp) ───
+            {
+                name: 'sheikha_dev_integrations',
+                description: 'حالة تكاملات التطوير — Stripe، Figma، NVIDIA، Datadog، Linear، Adobe، Ramp، OpenAI',
+                inputSchema: { type: 'object', properties: {}, required: [] }
+            },
+            // ─── ٢٥. إقرار الاستقلالية ────────────────────────────────────
+            {
+                name: 'sheikha_independence',
+                description: 'إقرار استقلالية شيخة — لا انتماء لمعادن أو هيوماين أو أرامكو — حماية الملكية الفكرية',
+                inputSchema: { type: 'object', properties: {}, required: [] }
+            },
+            // ─── ٢٦. قاعدة شرعية موسعة (الكتاب والسنة) ────────────────────
+            {
+                name: 'sheikha_sharia_foundation',
+                description: 'قاعدة شرعية موسعة — آيات وأحاديث وأصول للتطوير والتجارة — الكتاب والسنة',
+                inputSchema: { type: 'object', properties: {
+                    topic: { type: 'string', description: 'الموضوع', enum: ['تجارة', 'أمانة', 'إتقان', 'تعاون', 'صدق', 'علم', 'عدل', 'زكاة', 'عقود', 'كل'] }
+                }, required: [] }
+            },
+            // ─── ٢٧. أدوات رقمية شيخة ───────────────────────────────────────
+            {
+                name: 'sheikha_digital_tools',
+                description: 'حالة الأدوات الرقمية — MCP، VS Code، APIs، Cloud Coder، DevContainer',
+                inputSchema: { type: 'object', properties: {}, required: [] }
+            },
+            // ─── ٢٨. إنشاء مهمة Linear (عند الاتصال) ────────────────────────
+            {
+                name: 'sheikha_linear_task',
+                description: 'إنشاء أو استعلام مهمة في Linear — يتطلب LINEAR_API_KEY',
+                inputSchema: { type: 'object', properties: {
+                    action: { type: 'string', description: 'الإجراء', enum: ['list', 'create', 'status'] },
+                    title: { type: 'string', description: 'عنوان المهمة (للإنشاء)' },
+                    description: { type: 'string', description: 'وصف المهمة (للإنشاء)' }
+                }, required: [] }
+            },
+            // ─── ٢٩. معمارية شيخة — أفضل من NVIDIA و CUDA ─────────────────────
+            {
+                name: 'sheikha_architecture',
+                description: 'معمارية شيخة — منظومة، شبكة، سوق — أفضل من NVIDIA و CUDA — مرقمن بالكتاب والسنة',
+                inputSchema: { type: 'object', properties: {}, required: [] }
             }
         ]
     };
@@ -276,6 +395,21 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             case 'sheikha_learning_report': return await toolLearningReport();
             case 'sheikha_suggest_improvements': return await toolSuggestImprovements(args.area);
             case 'sheikha_translate': return await toolTranslate(args.text, args.targetLang);
+            case 'sheikha_pilot_status': return await toolPilotStatus();
+            case 'sheikha_rfq': return await toolRFQ(args.action, args.metal, args.quantity);
+            case 'sheikha_dev_integration': return await toolDevIntegration(args.action);
+            case 'sheikha_scaffold': return await toolScaffold(args.type, args.name, args.description);
+            case 'sheikha_listings': return await toolListings(args.filter);
+            case 'sheikha_zakat': return await toolZakat(args.type, args.amount, args.unit);
+            case 'sheikha_model_integrations': return await toolModelIntegrations(args.action);
+            case 'sheikha_web_fetch': return await toolWebFetch(args.url);
+            case 'sheikha_sdk': return await toolSdk(args.module);
+            case 'sheikha_dev_integrations': return await toolDevIntegrations();
+            case 'sheikha_independence': return await toolIndependence();
+            case 'sheikha_sharia_foundation': return await toolShariaFoundation(args.topic);
+            case 'sheikha_digital_tools': return await toolDigitalTools();
+            case 'sheikha_linear_task': return await toolLinearTask(args.action, args.title, args.description);
+            case 'sheikha_architecture': return await toolArchitecture();
             default:
                 return { content: [{ type: 'text', text: `أداة غير معروفة: ${name}` }], isError: true };
         }
@@ -798,9 +932,270 @@ async function toolSuggestImprovements(area) {
 
 // ─── ١٥. الترجمة ────────────────────────────────────────────────────────────
 async function toolTranslate(text, targetLang) {
-    const result = await callSheikhaAPI(`/api/translation/translate`);
-    // fallback بسيط
-    return { content: [{ type: 'text', text: `# ترجمة\n\n**النص:** ${text}\n**اللغة:** ${targetLang}\n\n> استخدم API الترجمة: POST /api/translation/translate مع body: { text, targetLang: "${targetLang}" }` }] };
+    const result = await callSheikhaAPI(`/api/i18n/translate?text=${encodeURIComponent(text)}&target=${targetLang || 'en'}`);
+    if (result.error) {
+        return { content: [{ type: 'text', text: `# ترجمة\n\n**النص:** ${text}\n**اللغة:** ${targetLang}\n\n> API: POST /api/translation/translate أو /api/i18n/translate مع body: { text, targetLang: "${targetLang}" }` }] };
+    }
+    const translated = result.translated || result.text || result.data?.translated || JSON.stringify(result);
+    return { content: [{ type: 'text', text: `# ترجمة\n\n**الأصل:** ${text}\n**النتيجة:** ${translated}` }] };
+}
+
+// ─── ١٦. حالة الطيار ────────────────────────────────────────────────────────
+async function toolPilotStatus() {
+    const [status, kpis, smi, health] = await Promise.all([
+        callSheikhaAPI('/api/pilot/status'),
+        callSheikhaAPI('/api/pilot/kpis'),
+        callSheikhaAPI('/api/pilot/smi'),
+        callSheikhaAPI('/api/pilot/health')
+    ]);
+    let text = `# حالة منظومة الطيار (Pilot)\n\n`;
+    if (status.error && kpis.error && smi.error) {
+        text += `⚠️ الخادم غير متاح. تأكد من تشغيل \`npm start\` على المنفذ 8080.\n\n`;
+        text += `**APIs المتوقعة:**\n- GET /api/pilot/status\n- GET /api/pilot/kpis\n- GET /api/pilot/smi\n- GET /api/pilot/health`;
+    } else {
+        if (!status.error) text += `## الحالة\n${JSON.stringify(status, null, 2)}\n\n`;
+        if (!kpis.error) text += `## KPIs\n${JSON.stringify(kpis, null, 2)}\n\n`;
+        if (!smi.error) text += `## SMI\n${JSON.stringify(smi, null, 2)}\n\n`;
+        if (!health.error) text += `## الصحة\n${JSON.stringify(health, null, 2)}`;
+    }
+    return { content: [{ type: 'text', text }] };
+}
+
+// ─── ١٧. طلبات عروض الأسعار (RFQ) ───────────────────────────────────────────
+async function toolRFQ(action, metal, quantity) {
+    const act = action || 'list';
+    if (act === 'list' || act === 'status') {
+        const data = await callSheikhaAPI('/api/rfq');
+        if (data.error) return { content: [{ type: 'text', text: `# RFQ\n\n⚠️ ${data.error}\n\nAPI: GET /api/rfq` }] };
+        let text = `# طلبات عروض الأسعار\n\n`;
+        const items = data.data || data.rfqs || data.items || [];
+        if (Array.isArray(items) && items.length > 0) {
+            items.slice(0, 10).forEach((r, i) => { text += `${i + 1}. ${r.metal || r.product || '-'} — ${r.quantity || '-'} — ${r.status || '-'}\n`; });
+        } else text += `لا توجد طلبات حالياً.`;
+        return { content: [{ type: 'text', text }] };
+    }
+    return { content: [{ type: 'text', text: `# RFQ — إنشاء\n\nاستخدم POST /api/rfq مع body: { metal: "${metal || 'copper'}", quantity: ${quantity || 100} }` }] };
+}
+
+// ─── ١٨. تكامل بيئة التطوير ─────────────────────────────────────────────────
+async function toolDevIntegration(action) {
+    const act = action || 'status';
+    if (act === 'doctor') {
+        try {
+            const { execSync } = require('child_process');
+            const out = execSync('npm run dev:vscode:doctor', { cwd: ROOT, encoding: 'utf8', timeout: 15000 });
+            return { content: [{ type: 'text', text: `# فحص جاهزية VS Code\n\n\`\`\`\n${out}\n\`\`\`` }] };
+        } catch (e) {
+            return { content: [{ type: 'text', text: `# فحص VS Code\n\n⚠️ ${e.message}\n\nتأكد من وجود \`scripts/vscode-doctor.js\` و \`npm run dev:vscode:doctor\`` }] };
+        }
+    }
+    const configs = [];
+    const vscodeDir = path.join(ROOT, '.vscode');
+    const cursorDir = path.join(ROOT, '.cursor');
+    ['settings.json', 'tasks.json', 'launch.json', 'extensions.json'].forEach(f => {
+        const p = path.join(vscodeDir, f);
+        configs.push({ file: `.vscode/${f}`, exists: fs.existsSync(p) });
+    });
+    configs.push({ file: '.cursor/mcp.json', exists: fs.existsSync(path.join(cursorDir, 'mcp.json')) });
+    let text = `# تكامل بيئة التطوير\n\n| الملف | الحالة |\n|-------|--------|\n`;
+    configs.forEach(c => { text += `| ${c.file} | ${c.exists ? '✅' : '❌'} |\n`; });
+    text += `\n**الأوامر:**\n- \`npm run dev:vscode:doctor\` — فحص الجاهزية\n- \`npm run dev\` — تشغيل مع auto-reload`;
+    return { content: [{ type: 'text', text }] };
+}
+
+// ─── ١٩. إنشاء هيكل (Scaffold) ──────────────────────────────────────────────
+async function toolScaffold(type, name, description) {
+    const desc = description || name;
+    let code = '';
+    if (type === 'electronic-app') {
+        try {
+            const { execSync } = require('child_process');
+            execSync(`node scripts/scaffold-electronic-app.js --name "${name}" --title "${desc}"`, { cwd: ROOT, encoding: 'utf8', timeout: 10000 });
+            code = `تم إنشاء تطبيق إلكتروني: ${name} في generated-apps/${name}`;
+        } catch (e) {
+            code = `# إنشاء تطبيق إلكتروني\n\n\`npm run dev:scaffold:app -- --name "${name}" --title "${desc}"\`\n\n⚠️ ${e.message}`;
+        }
+    } else if (type === 'page') {
+        code = `<!DOCTYPE html>\n<html lang="ar" dir="rtl">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1.0">\n<title>${name} | شيخة</title>\n<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700;800&display=swap" rel="stylesheet">\n</head>\n<body>\n<h1>${name}</h1>\n<p>${desc}</p>\n</body>\n</html>`;
+    } else if (type === 'api') {
+        code = `app.get('/api/${name}', async (req, res) => {\n    res.json({ success: true, data: {}, timestamp: new Date().toISOString() });\n});`;
+    } else {
+        code = `<div class="${name}-component" dir="rtl">\n<h3>${name}</h3>\n<p>${desc}</p>\n</div>`;
+    }
+    return { content: [{ type: 'text', text: `# Scaffold: ${type} — ${name}\n\n\`\`\`\n${code}\n\`\`\`` }] };
+}
+
+// ─── ٢٠. قوائم المنتجات ────────────────────────────────────────────────────
+async function toolListings(filter) {
+    const data = await callSheikhaAPI('/api/market/listings' + (filter ? `?filter=${encodeURIComponent(filter)}` : ''));
+    if (data.error) {
+        const preloaded = await callSheikhaAPI('/api/market/preloaded');
+        let text = `# قوائم المنتجات\n\n`;
+        if (preloaded.error) text += `⚠️ الخادم غير متاح.\n\n**APIs:** GET /api/market/listings, /api/market/preloaded`;
+        else text += JSON.stringify(preloaded, null, 2);
+        return { content: [{ type: 'text', text }] };
+    }
+    return { content: [{ type: 'text', text: `# قوائم المنتجات\n\n${JSON.stringify(data, null, 2)}` }] };
+}
+
+// ─── ٢١. حاسبة الزكاة ──────────────────────────────────────────────────────
+async function toolZakat(type, amount, unit) {
+    const data = await callSheikhaAPI(`/api/sharia/zakat?type=${type || 'cash'}&amount=${amount}&unit=${unit || 'sar'}`);
+    if (data.error) {
+        const nisabGold = 85; const nisabSilver = 595;
+        const rate = 0.025;
+        let zakatable = amount;
+        if (type === 'gold') zakatable = amount >= nisabGold ? amount : 0;
+        else if (type === 'silver') zakatable = amount >= nisabSilver ? amount : 0;
+        const zakat = zakatable * rate;
+        let text = `# حاسبة الزكاة\n\n**النوع:** ${type}\n**المبلغ/الوزن:** ${amount} ${unit || ''}\n**نصاب الذهب:** 85 غرام | **نصاب الفضة:** 595 غرام\n**نسبة الزكاة:** 2.5%\n\n**الزكاة المستحقة:** ${zakat.toFixed(2)} ${unit || ''}\n\n«وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ» — البقرة ٤٣`;
+        return { content: [{ type: 'text', text }] };
+    }
+    return { content: [{ type: 'text', text: `# حاسبة الزكاة\n\n${JSON.stringify(data, null, 2)}` }] };
+}
+
+// ─── ٢٢. تكاملات النماذج ────────────────────────────────────────────────────
+async function toolModelIntegrations(action) {
+    const data = await callSheikhaAPI('/api/ai-core/model-integrations');
+    if (data.error) return { content: [{ type: 'text', text: `# تكاملات النماذج\n\n⚠️ ${data.error}\n\nGET /api/ai-core/model-integrations` }] };
+    const d = data.data || data;
+    let text = `# تكاملات نماذج الذكاء\n\n`;
+    (d.integrations || []).forEach(i => {
+        text += `- **${i.name}** (${i.provider}/${i.model}) — ${i.active ? '✅ نشط' : '⏸️ غير نشط'}\n`;
+    });
+    return { content: [{ type: 'text', text }] };
+}
+
+// ─── ٢٣. جلب محتوى من الويب ──────────────────────────────────────────────────
+async function toolWebFetch(url) {
+    if (!url || !url.startsWith('http')) {
+        return { content: [{ type: 'text', text: 'أدخل عنوان URL صحيح يبدأ بـ https://' }], isError: true };
+    }
+    const client = url.startsWith('https') ? https : http;
+    return new Promise((resolve) => {
+        const req = client.get(url, { timeout: 10000 }, (res) => {
+            let data = '';
+            res.on('data', chunk => data += chunk);
+            res.on('end', () => {
+                const raw = data.toString('utf8').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+                const text = raw.length > 8000 ? raw.substring(0, 8000) + '\n\n... (مقتطف)' : raw;
+                resolve({ content: [{ type: 'text', text: `# محتوى: ${url}\n\n${text}` }] });
+            });
+        });
+        req.on('error', (e) => resolve({ content: [{ type: 'text', text: `⚠️ خطأ: ${e.message}` }], isError: true }));
+        req.on('timeout', () => { req.destroy(); resolve({ content: [{ type: 'text', text: 'انتهت مهلة الاتصال' }], isError: true }); });
+    });
+}
+
+// ─── ٢٤. SDK كامل ────────────────────────────────────────────────────────────
+async function toolSdk(module) {
+    const data = await callSheikhaAPI('/api/sdk');
+    if (data.error) {
+        try {
+            const catalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'sdk-catalog.json'), 'utf8'));
+            const mod = module ? catalog.modules.find(m => m.id === module || m.name === module || m.name.includes(module)) : null;
+            let text = `# Sheikha SDK\n\n**${catalog.nameAr}** — ${catalog.modules.length} وحدة\n\n`;
+            (mod ? [mod] : catalog.modules).forEach(m => {
+                text += `## ${m.nameAr} (${m.name})\n${m.desc}\n`;
+                (m.functions || []).forEach(f => { text += `- \`${f.fn}\` → ${f.api}\n`; });
+                text += '\n';
+            });
+            return { content: [{ type: 'text', text }] };
+        } catch (e) {
+            return { content: [{ type: 'text', text: `# SDK\n\n⚠️ ${e.message}` }] };
+        }
+    }
+    const catalog = data.data || data;
+    const mod = module ? catalog.modules.find(m => m.id === module || m.name === module || m.name.includes(module)) : null;
+    let text = `# Sheikha SDK\n\n**${catalog.nameAr}** — ${catalog.modules.length} وحدة | MCP: ${catalog.tools?.mcp || 23} أداة\n\n`;
+    (mod ? [mod] : catalog.modules).forEach(m => {
+        text += `## ${m.nameAr} (${m.name})\n${m.desc}\n`;
+        (m.functions || []).forEach(f => { text += `- \`${f.fn}\` → ${f.api}\n`; });
+        text += '\n';
+    });
+    return { content: [{ type: 'text', text }] };
+}
+
+// ─── ٢٥. تكاملات التطوير ────────────────────────────────────────────────────
+async function toolDevIntegrations() {
+    const data = await callSheikhaAPI('/api/integrations/development/status');
+    if (data.error) {
+        return { content: [{ type: 'text', text: `# تكاملات التطوير\n\n⚠️ ${data.error}\n\nGET /api/integrations/development/status` }] };
+    }
+    const int = data.integrations || {};
+    let text = `# تكاملات التطوير\n\n| التكامل | الحالة | الأولوية |\n|---------|--------|----------|\n`;
+    Object.entries(int).forEach(([k, v]) => { text += `| ${v.name} | ${v.status} | ${v.priority} |\n`; });
+    text += `\n**متصل:** ${data.summary?.connected || 0} / ${data.summary?.total || 8}`;
+    return { content: [{ type: 'text', text }] };
+}
+
+// ─── ٢٦. إقرار الاستقلالية ───────────────────────────────────────────────────
+async function toolIndependence() {
+    const data = await callSheikhaAPI('/api/legal/independence');
+    if (data.error) {
+        return { content: [{ type: 'text', text: `# إقرار الاستقلالية\n\nشيخة مشروع مستقل — ليست مملوكة ولا تابعة لأي جهة حكومية أو استثمارات دولة. لا علاقة رسمية مع معادن، هيوماين، أرامكو، أو أي كيان حكومي.` }] };
+    }
+    const d = data.data || data;
+    let text = `# إقرار الاستقلالية\n\n- **المالك:** ${d.owner}\n- **الكيان:** ${d.entity}\n- **السجل:** ${d.cr}\n- **الاستقلال:** ${d.independence ? '✅' : '❌'}\n- **إقرار:** ${d.disclaimer}\n`;
+    if (d.noAffiliation) text += `\n**لا انتماء:** ${d.noAffiliation.join('، ')}`;
+    return { content: [{ type: 'text', text }] };
+}
+
+// ─── ٢٧. قاعدة شرعية موسعة ───────────────────────────────────────────────────
+async function toolShariaFoundation(topic) {
+    return await toolQuranWisdom(topic || 'تجارة');
+}
+
+// ─── ٢٨. الأدوات الرقمية ─────────────────────────────────────────────────────
+async function toolDigitalTools() {
+    const configs = [];
+    ['mcp.json', '.vscode/settings.json', '.vscode/tasks.json', '.devcontainer/devcontainer.json'].forEach(f => {
+        const p = path.join(ROOT, f.startsWith('.') ? f : '.cursor/' + f);
+        configs.push({ file: f, exists: fs.existsSync(p) });
+    });
+    let text = `# الأدوات الرقمية — شيخة\n\n| الملف | الحالة |\n|-------|--------|\n`;
+    configs.forEach(c => { text += `| ${c.file} | ${c.exists ? '✅' : '❌'} |\n`; });
+    text += `\n**MCP:** sheikha (28 أداة) + fetch (Browse)\n**APIs:** GET /api/sdk, /api/integrations/development/status`;
+    return { content: [{ type: 'text', text }] };
+}
+
+// ─── ٢٩. مهمة Linear ──────────────────────────────────────────────────────────
+async function toolLinearTask(action, title, description) {
+    if (!process.env.LINEAR_API_KEY) {
+        return { content: [{ type: 'text', text: '# Linear\n\n⚠️ LINEAR_API_KEY غير مضمّن في .env — أضف المفتاح لتفعيل' }] };
+    }
+    return { content: [{ type: 'text', text: `# Linear\n\nاستخدم POST إلى GraphQL API مع LINEAR_API_KEY.\n**إنشاء:** mutation { issueCreate(...) }\n**الاستعلام:** query { issues(...) }` }] };
+}
+
+// ─── ٣٠. معمارية شيخة — أفضل من NVIDIA و CUDA ─────────────────────────────────
+async function toolArchitecture() {
+    const data = await callSheikhaAPI('/api/sheikha/architecture-superior');
+    if (data.error || !data.success) {
+        try {
+            const archPath = path.join(dataPath, 'sheikha-architecture-superior.json');
+            const raw = JSON.parse(fs.readFileSync(archPath, 'utf8'));
+            return { content: [{ type: 'text', text: formatArchitectureText(raw) }] };
+        } catch (e) {
+            return { content: [{ type: 'text', text: `# معمارية شيخة\n\n⚠️ ${data.error || 'الخادم غير متاح'}\n\n**API:** GET /api/sheikha/architecture-superior` }] };
+        }
+    }
+    return { content: [{ type: 'text', text: formatArchitectureText(data.data) }] };
+}
+function formatArchitectureText(d) {
+    let t = `# معمارية شيخة — أفضل من NVIDIA و CUDA\n\n**${d.title}** — ${d.principle}\n\n`;
+    if (d.comparison?.rows) {
+        t += `## المقارنة\n| البعد | شيخة | NVIDIA | CUDA | المرجع |\n|-------|------|--------|------|--------|\n`;
+        d.comparison.rows.forEach(r => { t += `| ${r.dimension} | ${r.sheikha} | ${r.nvidia} | ${r.cuda} | ${r.quranRef} |\n`; });
+    }
+    if (d.sheikhaArchitecture?.layers) {
+        t += `\n## طبقات شيخة\n`;
+        d.sheikhaArchitecture.layers.forEach(l => { t += `- **${l.order}.** ${l.name}: ${l.content}\n`; });
+    }
+    if (d.sheikhaArchitecture?.betterThanBecause) {
+        t += `\n## لماذا أفضل\n`;
+        d.sheikhaArchitecture.betterThanBecause.forEach(b => { t += `- ${b}\n`; });
+    }
+    return t;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -817,7 +1212,10 @@ server.setRequestHandler(ListResourcesRequestSchema, async () => {
             { uri: 'sheikha://sharia/principles', name: 'المبادئ الشرعية', description: 'أصول الشريعة في المنظومة', mimeType: 'text/markdown' },
             { uri: 'sheikha://docs/api', name: 'توثيق API', description: 'توثيق واجهات شيخة', mimeType: 'text/markdown' },
             { uri: 'sheikha://learning/memory', name: 'ذاكرة التعلّم', description: 'ما تعلّمته شيخة من Cursor', mimeType: 'application/json' },
-            { uri: 'sheikha://cursorrules', name: 'قواعد Cursor', description: 'قواعد التطوير المعتمدة', mimeType: 'text/markdown' }
+            { uri: 'sheikha://cursorrules', name: 'قواعد Cursor', description: 'قواعد التطوير المعتمدة', mimeType: 'text/markdown' },
+            { uri: 'sheikha://pilot/status', name: 'حالة الطيار', description: 'KPIs و SMI ومنظومة الطيار', mimeType: 'application/json' },
+            { uri: 'sheikha://dev/vscode-config', name: 'إعدادات VS Code', description: 'إعدادات بيئة التطوير', mimeType: 'application/json' },
+            { uri: 'sheikha://sdk/catalog', name: 'كتالوج SDK', description: 'وحدات وأدوات Sheikha SDK', mimeType: 'application/json' }
         ]
     };
 });
@@ -869,7 +1267,27 @@ server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
             } catch (e) {
                 return { contents: [{ uri, mimeType: 'text/markdown', text: 'لم يُعثر على .cursorrules' }] };
             }
-        
+
+        case 'sheikha://pilot/status':
+            const pilot = await callSheikhaAPI('/api/pilot/status');
+            return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify(pilot, null, 2) }] };
+
+        case 'sheikha://dev/vscode-config':
+            const vscode = {};
+            ['settings.json', 'tasks.json', 'launch.json'].forEach(f => {
+                const p = path.join(ROOT, '.vscode', f);
+                try { vscode[f] = fs.readFileSync(p, 'utf8'); } catch (_) { vscode[f] = null; }
+            });
+            return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify(vscode, null, 2) }] };
+
+        case 'sheikha://sdk/catalog':
+            try {
+                const catalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'sdk-catalog.json'), 'utf8'));
+                return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify(catalog, null, 2) }] };
+            } catch (e) {
+                return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify({ error: e.message }) }] };
+            }
+
         default:
             throw new Error(`مورد غير معروف: ${uri}`);
     }
@@ -898,7 +1316,7 @@ function getAPIDocumentation() {
 async function main() {
     const transport = new StdioServerTransport();
     await server.connect(transport);
-    console.error('[Sheikha MCP v2.0] ✅ جسر شيخة–Cursor جاهز | 15 أداة | 8 موارد | بالكتاب والسنة');
+    console.error('[Sheikha MCP v2.2] ✅ جسر شيخة–Cursor جاهز | 28 أداة | 11 مورد | SDK كامل | بالكتاب والسنة');
     console.error('[Sheikha MCP v2.0] 🎯 الأهداف: تقوية الذكاء + تطوير المنظومة + نشر الخير + حماية الأمانة');
 }
 
