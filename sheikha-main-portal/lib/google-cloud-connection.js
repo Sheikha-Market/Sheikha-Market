@@ -28,7 +28,9 @@ class SheikhaGoogleCloud {
             // التحقق من وجود مفتاح خدمة Google Cloud
             if (!fs.existsSync(this.keyPath)) {
                 console.warn('⚠️ ملف مفتاح Google Cloud غير موجود في:', this.keyPath);
-                console.warn('   لتفعيل الاتصال الحقيقي، ضع ملف service-account-key.json في مجلد المشروع.');
+                console.warn(
+                    '   لتفعيل الاتصال الحقيقي، ضع ملف service-account-key.json في مجلد المشروع.'
+                );
                 return false;
             }
 
@@ -202,7 +204,7 @@ module.exports = sheikhaCloud;
 if (require.main === module) {
     (async () => {
         console.log('🚀 بسم الله.. اختبار الاتصال بـ Google Cloud\n');
-        
+
         if (!sheikhaCloud.init()) {
             console.log('\n⚠️ لم تتمكن من الاتصال. تأكد من:');
             console.log('1. وجود ملف service-account-key.json في مجلد المشروع');

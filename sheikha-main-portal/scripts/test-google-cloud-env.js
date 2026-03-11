@@ -15,7 +15,7 @@ console.log('📋 التحقق من البيئة:');
 
 const checks = {
     'Node.js': process.version,
-    'Platform': process.platform,
+    Platform: process.platform,
     'NPM Version': require('child_process').execSync('npm -v', { encoding: 'utf-8' }).trim()
 };
 
@@ -94,16 +94,16 @@ const requiredPorts = [8080];
 requiredPorts.forEach(port => {
     const net = require('net');
     const server = net.createServer();
-    
+
     server.once('error', () => {
         console.log(`   ⚠️ المنفذ ${port}: قد يكون قيد الاستخدام`);
     });
-    
+
     server.once('listening', () => {
         console.log(`   ✅ المنفذ ${port}: متاح`);
         server.close();
     });
-    
+
     server.listen(port);
 });
 

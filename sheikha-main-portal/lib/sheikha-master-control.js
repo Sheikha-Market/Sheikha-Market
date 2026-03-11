@@ -4,12 +4,12 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  * إمبراطورية شيخة - المحرك الشامل والتام (Master Orchestrator)
  * ═══════════════════════════════════════════════════════════════════════════════
- * 
+ *
  * المالك: سلمان أحمد بن سلمان الراجح - الملك الحكيم
  * البريد: market@sheikha.top
  * المنظمة: 224557279528
  * الرؤية: إعمار الأرض بعدل - منع الفقر - السيادة التقنية الإسلامية
- * 
+ *
  * القاعدة الشرعية: لا ربا - لا غرر - لا غش - لا احتكار - لا نجش
  * ═══════════════════════════════════════════════════════════════════════════════
  */
@@ -25,41 +25,40 @@ const sheikhaCloud = require('./google-cloud-connection');
  * يقوم بتنسيق جميع الخدمات والعمليات
  */
 const SovereignMaster = {
-    
     // ═══════════════════════════════════════════════════════════════════════════════
     // المرحلة 1️⃣: التكوين والإعدادات
     // ═══════════════════════════════════════════════════════════════════════════════
-    
+
     config: {
         // 🔐 حماية المفتاح
         keyPath: path.join(__dirname, '..', 'service-account-key.json'),
-        
+
         // 📋 البيانات الأساسية
-        orgID: "224557279528",
-        orgEmail: "market@sheikha.top",
-        domainName: "sheikha.top",
-        
+        orgID: '224557279528',
+        orgEmail: 'market@sheikha.top',
+        domainName: 'sheikha.top',
+
         // 🎯 الأهداف الاستراتيجية
         strategicGoals: [
-            "إعمار الأرض بالعدل",
-            "منع الفقر والعوز",
-            "السيادة التقنية الإسلامية",
-            "العدل اللوجستي والتجاري"
+            'إعمار الأرض بالعدل',
+            'منع الفقر والعوز',
+            'السيادة التقنية الإسلامية',
+            'العدل اللوجستي والتجاري'
         ],
-        
+
         // 🔧 معايير الصحة
         healthThresholds: {
-            uptime: 99.5,           // النسبة المطلوبة للعمل
-            responseTime: 500,      // ميلي ثانية
-            errorRate: 0.01         // 1% كحد أقصى
+            uptime: 99.5, // النسبة المطلوبة للعمل
+            responseTime: 500, // ميلي ثانية
+            errorRate: 0.01 // 1% كحد أقصى
         }
     },
 
     // ═══════════════════════════════════════════════════════════════════════════════
     // المرحلة 2️⃣: تشغيل المنظومة (System Ignition)
     // ═══════════════════════════════════════════════════════════════════════════════
-    
-    ignite: async function() {
+
+    ignite: async function () {
         console.log('\n' + '═'.repeat(75));
         console.log('🚀 بسم الله الرحمن الرحيم');
         console.log('⚡ تشغيل المحرك الشامل لإمبراطورية شيخة الاقتصادية');
@@ -69,10 +68,12 @@ const SovereignMaster = {
             // ✅ الخطوة 1: التحقق من الجاهزية
             console.log('1️⃣ فحص جاهزية النظام...\n');
             const isReady = await this.healthCheck();
-            
+
             if (!isReady) {
                 console.log('\n⚠️ تنبيه: النظام غير جاهز بالكامل.');
-                console.log('   👉 يرجى إضافة ملف service-account-key.json لتفعيل القوة الكاملة.\n');
+                console.log(
+                    '   👉 يرجى إضافة ملف service-account-key.json لتفعيل القوة الكاملة.\n'
+                );
                 return;
             }
 
@@ -90,7 +91,6 @@ const SovereignMaster = {
             console.log('\n' + '═'.repeat(75));
             console.log('✅ تم تشغيل المحرك بنجاح!');
             console.log('═'.repeat(75) + '\n');
-
         } catch (error) {
             console.error('\n❌ خطأ في التشغيل:', error.message);
             console.error('   📍 التفاصيل:', error.stack);
@@ -100,10 +100,10 @@ const SovereignMaster = {
     // ═══════════════════════════════════════════════════════════════════════════════
     // الفحص الصحي (Health Check)
     // ═══════════════════════════════════════════════════════════════════════════════
-    
-    healthCheck: async function() {
+
+    healthCheck: async function () {
         console.log('   📋 فحص ملف المفتاح...');
-        
+
         if (!fs.existsSync(this.config.keyPath)) {
             console.log(`   ⚠️ ملف المفتاح غير موجود في: ${this.config.keyPath}`);
             console.log('   📝 الحل: احصل على service-account-key.json من Google Cloud Console');
@@ -143,15 +143,15 @@ const SovereignMaster = {
     // ═══════════════════════════════════════════════════════════════════════════════
     // الالتحام بخدمات Google Cloud (Cloud Services Connection)
     // ═══════════════════════════════════════════════════════════════════════════════
-    
-    connectToCloudServices: async function() {
+
+    connectToCloudServices: async function () {
         try {
             // استدعاء فحص الاتصالات من محرك Google Cloud
             const connections = await sheikhaCloud.checkAllConnections();
-            
+
             console.log('   ✅ تم الالتحام بنجاح');
             console.log(`   📊 الخدمات المتصلة: ${3}/${3}`);
-            
+
             return true;
         } catch (error) {
             console.log(`   ⚠️ لم يتمكن من الالتحام: ${error.message}`);
@@ -163,10 +163,10 @@ const SovereignMaster = {
     // ═══════════════════════════════════════════════════════════════════════════════
     // المهمة التجارية واللوجستية (Trade & Logistics Mission)
     // ═══════════════════════════════════════════════════════════════════════════════
-    
-    executeTradeMission: async function() {
+
+    executeTradeMission: async function () {
         console.log('   🛒 بدء مهمة السوق والتجارة...');
-        
+
         try {
             const missionData = {
                 timestamp: new Date(),
@@ -183,13 +183,14 @@ const SovereignMaster = {
             console.log('   📝 بيانات المهمة:');
             console.log(`      - النوع: تجارة المعادن والسكراب`);
             console.log(`      - الامتثال الشرعي: ✅ نعم`);
-            console.log(`      - المحافظ المطلوبة: ${missionData.shariahCompliance.prohibition.join(', ')}`);
-            
+            console.log(
+                `      - المحافظ المطلوبة: ${missionData.shariahCompliance.prohibition.join(', ')}`
+            );
+
             // في بيئة الإنتاج، سيتم حفظ هذا في BigQuery
             console.log('   ✅ اكتملت مهمة السوق');
-            
-            return missionData;
 
+            return missionData;
         } catch (error) {
             console.log(`   ❌ خطأ في تنفيذ المهمة: ${error.message}`);
             throw error;
@@ -199,10 +200,10 @@ const SovereignMaster = {
     // ═══════════════════════════════════════════════════════════════════════════════
     // قياس البركة والأثر (Impact & Barakah Measurement)
     // ═══════════════════════════════════════════════════════════════════════════════
-    
-    measureBarakah: async function() {
+
+    measureBarakah: async function () {
         console.log('   🌿 قياس أثر البركة والنتائج الميدانية...');
-        
+
         try {
             const barakhMetrics = {
                 timestamp: new Date(),
@@ -220,11 +221,10 @@ const SovereignMaster = {
             console.log('      - إعمار الأرض: ✅ نشط');
             console.log('      - السيادة التقنية: 🔨 قيد البناء');
             console.log('      - العدل اللوجستي: 📈 مقيس');
-            
-            console.log('   ✅ اكتمل قياس البركة');
-            
-            return barakhMetrics;
 
+            console.log('   ✅ اكتمل قياس البركة');
+
+            return barakhMetrics;
         } catch (error) {
             console.log(`   ❌ خطأ في القياس: ${error.message}`);
             throw error;
@@ -234,11 +234,11 @@ const SovereignMaster = {
     // ═══════════════════════════════════════════════════════════════════════════════
     // تقرير الحالة والأداء (Status Report)
     // ═══════════════════════════════════════════════════════════════════════════════
-    
-    reportStatus: async function() {
+
+    reportStatus: async function () {
         console.log('\n📋 تقرير الحالة:');
         console.log('─'.repeat(75));
-        
+
         const status = {
             systemName: 'إمبراطورية شيخة الاقتصادية',
             owner: 'جلالة الملك الحكيم سلمان الراجح',
@@ -269,18 +269,18 @@ const SovereignMaster = {
 
 بسم الله الرحمن الرحيم 🕌
 `);
-        
+
         console.log('─'.repeat(75));
     },
 
     // ═══════════════════════════════════════════════════════════════════════════════
     // إرسال الأوامر (Command Interface)
     // ═══════════════════════════════════════════════════════════════════════════════
-    
-    executeCommand: async function(command, args = {}) {
+
+    executeCommand: async function (command, args = {}) {
         console.log(`\n🎯 تنفيذ الأمر: ${command}`);
-        
-        switch(command.toLowerCase()) {
+
+        switch (command.toLowerCase()) {
             case 'status':
                 await this.reportStatus();
                 break;

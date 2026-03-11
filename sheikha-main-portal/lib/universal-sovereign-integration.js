@@ -4,20 +4,20 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  * إمبراطورية شيخة - محرك التكامل الشامل والفتح المبين
  * ═══════════════════════════════════════════════════════════════════════════════
- * 
+ *
  * بسم الله الرحمن الرحيم - الحمد لله رب العالمين
- * 
+ *
  * المالك: سلمان أحمد بن سلمان الراجح - الملك الحكيم المفوّل
  * الرؤية: إعمار الأرض بالعدل - منع الفقر - السيادة التقنية الإسلامية
  * المنظمة: 224557279528
  * البريد: market@sheikha.top
- * 
+ *
  * المحتوى:
  * - محرك حوكمة سلاسل الإمداد (Supply Chain Governance)
  * - محرك القضاء على الفقر (Poverty Eradication Engine)
  * - محرك اللوجستيات العادلة (Justice Logistics Engine)
  * - محرك التجارة الحلال (Halal Trade Engine)
- * 
+ *
  * المبادئ: لا ربا - لا غرر - لا غش - لا احتكار - لا نجش
  * ═══════════════════════════════════════════════════════════════════════════════
  */
@@ -35,7 +35,6 @@ const performanceOptimizer = require('./performance-optimizer');
  * Universal Sovereign Integration Engine
  */
 const UniversalSovereign = {
-
     // ═══════════════════════════════════════════════════════════════════════════════
     // المرحلة 1: التكوين الإمبراطوري
     // ═══════════════════════════════════════════════════════════════════════════════
@@ -47,16 +46,16 @@ const UniversalSovereign = {
         organizationID: '224557279528',
         organizationEmail: 'market@sheikha.top',
         domain: 'sheikha.top',
-        
+
         // 🔐 المصادقة
         keyFilePath: path.join(__dirname, '..', 'service-account-key.json'),
-        
+
         // 📊 بيانات Google Cloud الفعلية
         googleCloud: {
-            projectId: '224557279528',  // Organization ID الحقيقي
+            projectId: '224557279528', // Organization ID الحقيقي
             keyFile: path.join(__dirname, '..', 'service-account-key.json')
         },
-        
+
         // 🎯 الأهداف الاستراتيجية
         strategicObjectives: {
             logistics: 'حوكمة سلاسل الإمداد في المعادن والسكراب',
@@ -64,7 +63,7 @@ const UniversalSovereign = {
             sovereignty: 'بناء السيادة التقنية الإسلامية',
             trade: 'توفير تجارة عادلة وحلال'
         },
-        
+
         // 🌍 نطاق العمل
         scope: {
             primary: 'Saudi Arabia',
@@ -79,19 +78,19 @@ const UniversalSovereign = {
 
     logisticsGovernanceEngine: {
         name: '🛡️ محرك حوكمة سلاسل الإمداد',
-        
-        activate: async function() {
+
+        activate: async function () {
             console.log('\n' + '━'.repeat(75));
             console.log(this.name);
             console.log('━'.repeat(75));
-            
+
             try {
                 console.log('📝 بدء تنظيم سلاسل الإمداد:');
                 console.log('   ├─ نوع السلعة: المعادن والسكراب');
                 console.log('   ├─ النطاق المكاني: السعودية والخليج');
                 console.log('   ├─ المعايير الشرعية: ✅ ممتثلة');
                 console.log('   └─ الامتثال الدولي: 🔄 قيد المراجعة');
-                
+
                 // البيانات الفعلية
                 const logisticsData = {
                     timestamp: new Date(),
@@ -106,10 +105,9 @@ const UniversalSovereign = {
                         complianceScore: 'pending_data'
                     }
                 };
-                
+
                 console.log('\n   ✅ تم تحضير محرك الحوكمة');
                 return logisticsData;
-                
             } catch (error) {
                 console.log(`   ❌ خطأ: ${error.message}`);
                 throw error;
@@ -123,19 +121,19 @@ const UniversalSovereign = {
 
     povertyEradicationEngine: {
         name: '🌿 محرك القضاء على الفقر',
-        
-        activate: async function() {
+
+        activate: async function () {
             console.log('\n' + '━'.repeat(75));
             console.log(this.name);
             console.log('━'.repeat(75));
-            
+
             try {
                 console.log('📊 نظام تحليل احتياجات الفقراء:');
                 console.log('   ├─ المؤشرات: دخل منخفض، عدم كفاية الموارد');
                 console.log('   ├─ الحل: توفير فرص عمل وتدريب');
                 console.log('   ├─ التقنية: تحليل بيانات عبر BigQuery');
                 console.log('   └─ الهدف: تحسين جودة الحياة');
-                
+
                 const povertyMetrics = {
                     timestamp: new Date(),
                     focus: 'poverty_reduction',
@@ -151,10 +149,9 @@ const UniversalSovereign = {
                         incomeImprovement: 'measuring'
                     }
                 };
-                
+
                 console.log('\n   ✅ تم تفعيل محرك القضاء على الفقر');
                 return povertyMetrics;
-                
             } catch (error) {
                 console.log(`   ❌ خطأ: ${error.message}`);
                 throw error;
@@ -168,19 +165,19 @@ const UniversalSovereign = {
 
     technicalSovereigntyEngine: {
         name: '💻 محرك السيادة التقنية الإسلامية',
-        
-        activate: async function() {
+
+        activate: async function () {
             console.log('\n' + '━'.repeat(75));
             console.log(this.name);
             console.log('━'.repeat(75));
-            
+
             try {
                 console.log('🔬 بناء القدرات التقنية الذاتية:');
                 console.log('   ├─ التكنولوجيا: Node.js, Google Cloud, BigQuery');
                 console.log('   ├─ البيانات: تحليل ذكي وآمن');
                 console.log('   ├─ الأمان: حماية البيانات والخصوصية');
                 console.log('   └─ الاستقلالية: عدم الاعتماد على أطراف ثالثة');
-                
+
                 const sovereigntyMetrics = {
                     timestamp: new Date(),
                     focus: 'technical_independence',
@@ -198,10 +195,9 @@ const UniversalSovereign = {
                     },
                     status: 'building_phase'
                 };
-                
+
                 console.log('\n   ✅ تم تفعيل محرك السيادة التقنية');
                 return sovereigntyMetrics;
-                
             } catch (error) {
                 console.log(`   ❌ خطأ: ${error.message}`);
                 throw error;
@@ -215,12 +211,12 @@ const UniversalSovereign = {
 
     halalTradeEngine: {
         name: '🕌 محرك التجارة العادلة والحلال',
-        
-        activate: async function() {
+
+        activate: async function () {
             console.log('\n' + '━'.repeat(75));
             console.log(this.name);
             console.log('━'.repeat(75));
-            
+
             try {
                 console.log('⚖️ نظام المراقبة الشرعية للتجارة:');
                 console.log('   ├─ المحرمات الممنوعة:');
@@ -231,7 +227,7 @@ const UniversalSovereign = {
                 console.log('   │  └─ الغش (Cheating)');
                 console.log('   ├─ المبادئ المطلوبة: صدق القول، دقة الوزن');
                 console.log('   └─ الأساس الشرعي: القرآن والسنة');
-                
+
                 const tradeCompliance = {
                     timestamp: new Date(),
                     focus: 'shariah_compliant_trade',
@@ -251,10 +247,9 @@ const UniversalSovereign = {
                     foundation: 'quran_and_sunnah',
                     status: 'active_monitoring'
                 };
-                
+
                 console.log('\n   ✅ تم تفعيل محرك التجارة الحلال');
                 return tradeCompliance;
-                
             } catch (error) {
                 console.log(`   ❌ خطأ: ${error.message}`);
                 throw error;
@@ -266,7 +261,7 @@ const UniversalSovereign = {
     // التشغيل المركزي (Central Orchestration)
     // ═══════════════════════════════════════════════════════════════════════════════
 
-    launch: async function() {
+    launch: async function () {
         console.log('\n\n' + '═'.repeat(75));
         console.log('🚀 بسم الله الرحمن الرحيم - الحمد لله رب العالمين');
         console.log('═'.repeat(75));
@@ -276,7 +271,7 @@ const UniversalSovereign = {
             // التحقق من الجاهزية
             console.log('1️⃣ فحص جاهزية النظام الموحد...\n');
             const isReady = await this.verifySystem();
-            
+
             if (!isReady) {
                 console.log('\n⚠️ النظام في انتظار البيانات الكاملة.\n');
                 return;
@@ -284,7 +279,7 @@ const UniversalSovereign = {
 
             // تشغيل المحركات الأربعة
             console.log('\n2️⃣ تشغيل المحركات الأربعة بالتتابع...\n');
-            
+
             const logistics = await this.logisticsGovernanceEngine.activate();
             const poverty = await this.povertyEradicationEngine.activate();
             const sovereignty = await this.technicalSovereigntyEngine.activate();
@@ -302,7 +297,6 @@ const UniversalSovereign = {
             console.log('\n' + '═'.repeat(75));
             console.log('✅ تمّ تشغيل منظومة شيخة الموحدة بنجاح');
             console.log('═'.repeat(75) + '\n');
-
         } catch (error) {
             console.error('\n❌ حدث خطأ:', error.message);
             process.exit(1);
@@ -313,7 +307,7 @@ const UniversalSovereign = {
     // التحقق من صحة النظام
     // ═══════════════════════════════════════════════════════════════════════════════
 
-    verifySystem: async function() {
+    verifySystem: async function () {
         console.log('   📋 التحقق من المتطلبات:\n');
 
         let allGood = true;
@@ -378,13 +372,13 @@ const UniversalSovereign = {
     // التقرير الموحد
     // ═══════════════════════════════════════════════════════════════════════════════
 
-    generateUnifiedReport: async function(data) {
+    generateUnifiedReport: async function (data) {
         const report = {
             title: '📊 التقرير الموحد لمنظومة شيخة',
             timestamp: new Date().toLocaleString('ar-SA'),
             owner: 'جلالة الملك الحكيم سلمان الراجح',
             organization: this.config.organizationID,
-            
+
             strategies: {
                 logistics: {
                     name: data.logistics.scope,
@@ -407,7 +401,7 @@ const UniversalSovereign = {
                     compliance: 'ممتثلة'
                 }
             },
-            
+
             vision: 'إعمار الأرض بالعدل - منع الفقر - السيادة التقنية الإسلامية',
             foundation: 'القرآن والسنة - المبادئ الإسلامية'
         };
@@ -443,9 +437,8 @@ module.exports = UniversalSovereign;
 
 // إذا تم الاستدعاء مباشرة من Terminal
 if (require.main === module) {
-    UniversalSovereign.launch()
-        .catch(error => {
-            console.error('\n❌ خطأ فادح:', error);
-            process.exit(1);
-        });
+    UniversalSovereign.launch().catch(error => {
+        console.error('\n❌ خطأ فادح:', error);
+        process.exit(1);
+    });
 }

@@ -18,12 +18,12 @@ const proxy = http.createServer((req, res) => {
         headers: req.headers
     };
 
-    const proxyReq = http.request(options, (proxyRes) => {
+    const proxyReq = http.request(options, proxyRes => {
         res.writeHead(proxyRes.statusCode, proxyRes.headers);
         proxyRes.pipe(res, { end: true });
     });
 
-    proxyReq.on('error', (err) => {
+    proxyReq.on('error', err => {
         res.writeHead(502);
         res.end(JSON.stringify({ error: 'proxy_error', message: err.message }));
     });

@@ -17,7 +17,7 @@ const SheikhaSovereignGit = {
 
         const githubToken = process.env.GITHUB_TOKEN;
         const headers = {
-            'Accept': 'application/vnd.github+json',
+            Accept: 'application/vnd.github+json',
             'User-Agent': 'sheikha-sovereign-git-engine'
         };
 
@@ -34,7 +34,10 @@ const SheikhaSovereignGit = {
 
         const orgInfo = await orgResponse.json();
 
-        const reposResponse = await fetch(`https://api.github.com/orgs/${this.org}/repos?per_page=100`, { headers });
+        const reposResponse = await fetch(
+            `https://api.github.com/orgs/${this.org}/repos?per_page=100`,
+            { headers }
+        );
         if (!reposResponse.ok) {
             const errorText = await reposResponse.text();
             throw new Error(`فشل جلب المستودعات (${reposResponse.status}): ${errorText}`);
@@ -45,10 +48,14 @@ const SheikhaSovereignGit = {
         let cloudStatus = { connected: false, note: 'Google Cloud not initialized' };
         if (sheikhaCloud.init()) {
             const checks = await sheikhaCloud.checkAllConnections();
-            const anyConnected = Object.values(checks.connections || {}).some((conn) => conn?.success);
+            const anyConnected = Object.values(checks.connections || {}).some(
+                conn => conn?.success
+            );
             cloudStatus = {
                 connected: anyConnected,
-                note: anyConnected ? 'Google Cloud connectivity verified' : 'Google Cloud connectivity failed',
+                note: anyConnected
+                    ? 'Google Cloud connectivity verified'
+                    : 'Google Cloud connectivity failed',
                 connections: checks.connections
             };
         }
@@ -62,7 +69,7 @@ const SheikhaSovereignGit = {
                 reposCount: repos.length,
                 twoFactorRequirement: this.auth2fa
             },
-            repositories: repos.map((repo) => ({
+            repositories: repos.map(repo => ({
                 name: repo.name,
                 private: repo.private,
                 defaultBranch: repo.default_branch,

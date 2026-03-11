@@ -11,7 +11,7 @@ class PerformanceOptimizer {
         // ذاكرة تخزين مؤقتة للملفات (Cache)
         this.fileCache = new Map();
         this.cacheTTL = 30000; // 30 ثانية
-        
+
         // تجميع كتابات الملفات (Batching)
         this.writeBatch = new Map();
         this.batchDelay = 2000; // 2 ثانية
@@ -23,8 +23,8 @@ class PerformanceOptimizer {
     readFileOptimized(filePath) {
         const now = Date.now();
         const cached = this.fileCache.get(filePath);
-        
-        if (cached && (now - cached.timestamp) < this.cacheTTL) {
+
+        if (cached && now - cached.timestamp < this.cacheTTL) {
             return cached.data;
         }
 
@@ -54,10 +54,10 @@ class PerformanceOptimizer {
      */
     saveJsonOptimized(filePath, payload) {
         this.ensureDir(path.dirname(filePath));
-        
+
         // تجميع الكتابات
         this.writeBatch.set(filePath, payload);
-        
+
         // إنهاء التجميع فوراً للملفات الحرجة
         if (filePath.includes('sync-log') || filePath.includes('errors')) {
             this.flushBatch();

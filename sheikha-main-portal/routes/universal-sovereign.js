@@ -1,6 +1,6 @@
 /**
  * Router Integration - Universal Sovereign Integration مع Express
- * 
+ *
  * ملف مثال يوضح كيفية دمج منظومة شيخة الموحدة مع Express Router
  */
 
@@ -48,8 +48,8 @@ router.post('/launch', async (req, res) => {
     try {
         console.log('🚀 تشغيل منظومة شيخة من API...');
         await UniversalSovereign.launch();
-        res.json({ 
-            success: true, 
+        res.json({
+            success: true,
             message: 'تمّ تشغيل منظومة شيخة بنجاح',
             timestamp: new Date()
         });
@@ -285,11 +285,11 @@ router.get('/trade/shariah', (req, res) => {
  */
 router.post('/trade/check', (req, res) => {
     const { transaction } = req.body;
-    
+
     if (!transaction) {
         return res.status(400).json({ error: 'Transaction required' });
     }
-    
+
     const compliance = {
         transaction_id: transaction.id || 'unknown',
         check_date: new Date(),
@@ -302,7 +302,7 @@ router.post('/trade/check', (req, res) => {
         overall_status: 'HALAL_COMPLIANT',
         notes: 'هذه معاملة حلال وممتثلة للشريعة'
     };
-    
+
     res.json(compliance);
 });
 
@@ -370,9 +370,10 @@ router.get('/health', async (req, res) => {
                 keyFilePath,
                 cloud: cloudChecks
             },
-            message: isHealthy && cloudHealthy
-                ? 'النظام مكتمل وجاهز للتشغيل الكامل.'
-                : 'النظام يعمل لكن يحتاج استكمال المتطلبات (راجع checks).',
+            message:
+                isHealthy && cloudHealthy
+                    ? 'النظام مكتمل وجاهز للتشغيل الكامل.'
+                    : 'النظام يعمل لكن يحتاج استكمال المتطلبات (راجع checks).',
             nextAction: !hasKeyFile
                 ? 'أضف ملف service-account-key.json في جذر المشروع ثم أعد تشغيل الخادم.'
                 : 'إن فشل cloud checks: فعّل Google APIs المطلوبة وتأكد من صلاحيات حساب الخدمة.',
