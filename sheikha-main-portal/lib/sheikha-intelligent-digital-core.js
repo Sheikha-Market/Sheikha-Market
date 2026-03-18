@@ -229,6 +229,80 @@ class SheikhaIntelligentDigitalCore extends EventEmitter {
         };
 
         // ═══════════════════════════════════════════════════════════════
+        // شيخة الحيوية (مجاز: نظام حي نابض بالأثر)
+        // ═══════════════════════════════════════════════════════════════
+        this.vitality = {
+            enabled: config.vitalityEnabled === true,
+            mode: 'metaphorical',
+            pulse: {
+                internal: 0,
+                external: 0,
+                networks: 0,
+                impact: 0,
+                selfReliance: 0,
+                confidence: 0,
+                overall: 0,
+                label: 'ابتدائي'
+            },
+            goals: {
+                khair: [
+                    {
+                        id: 'khair-1',
+                        title: 'زيادة أثر الخير على الناس',
+                        progress: 0,
+                        target: 100,
+                        status: 'active'
+                    },
+                    {
+                        id: 'khair-2',
+                        title: 'تمكين التجارة العادلة والشفافة',
+                        progress: 0,
+                        target: 100,
+                        status: 'active'
+                    }
+                ],
+                tijari: [
+                    {
+                        id: 'tijari-1',
+                        title: 'تحقيق نمو ربحي مستدام',
+                        progress: 0,
+                        target: 100,
+                        status: 'active'
+                    },
+                    {
+                        id: 'tijari-2',
+                        title: 'رفع الكفاءة وتقليل الهدر',
+                        progress: 0,
+                        target: 100,
+                        status: 'active'
+                    }
+                ]
+            },
+            impact: {
+                peopleHelped: 0,
+                tradeValueEnabled: 0,
+                jobsEnabled: 0,
+                charitableActions: 0,
+                educationalTransfers: 0
+            },
+            liveNetworks: {
+                internal: {
+                    digitalRoot: false,
+                    aiCore: false,
+                    universalOS: false,
+                    governance: false
+                },
+                external: {
+                    partners: 0,
+                    clients: 0,
+                    markets: 0,
+                    citiesConnected: 0
+                }
+            },
+            lastUpdate: Date.now()
+        };
+
+        // ═══════════════════════════════════════════════════════════════
         // القدرات المدمجة (Integrated Capabilities)
         // ═══════════════════════════════════════════════════════════════
         this.capabilities = {
@@ -506,6 +580,7 @@ class SheikhaIntelligentDigitalCore extends EventEmitter {
             this.metrics.islamicViolations === 0;
 
         this.state.healthy = healthy;
+        this._refreshVitality();
 
         if (!healthy) {
             this.emit('unhealthy', {
@@ -574,6 +649,18 @@ class SheikhaIntelligentDigitalCore extends EventEmitter {
                 (this.metrics.averageLatency * (this.metrics.totalRequests - 1) + latency) /
                 this.metrics.totalRequests;
 
+            this.recordVitalPulse({
+                channel: 'internal',
+                score: 2,
+                type: request.type || 'request_success',
+                impact: {
+                    peopleHelped: request.peopleHelped || 0,
+                    tradeValueEnabled: request.tradeValue || 0,
+                    charitableActions: request.charityAction ? 1 : 0,
+                    educationalTransfers: request.teachingTransfer ? 1 : 0
+                }
+            });
+
             return {
                 success: true,
                 result,
@@ -583,6 +670,11 @@ class SheikhaIntelligentDigitalCore extends EventEmitter {
             };
         } catch (error) {
             this.metrics.failedRequests++;
+            this.recordVitalPulse({
+                channel: 'internal',
+                score: -2,
+                type: 'request_failed'
+            });
             throw error;
         }
     }
@@ -649,6 +741,236 @@ class SheikhaIntelligentDigitalCore extends EventEmitter {
     }
 
     /**
+     * تفعيل شيخة الحيوية (تشبيه حي)
+     */
+    activateVitalityMode(options = {}) {
+        this.vitality.enabled = true;
+        this.vitality.mode = 'metaphorical';
+
+        if (Array.isArray(options.khairGoals)) {
+            this.vitality.goals.khair = options.khairGoals.map((goal, index) => ({
+                id: goal.id || `khair-custom-${index + 1}`,
+                title: goal.title || 'هدف خير',
+                progress: Number(goal.progress || 0),
+                target: Number(goal.target || 100),
+                status: goal.status || 'active'
+            }));
+        }
+
+        if (Array.isArray(options.tijariGoals)) {
+            this.vitality.goals.tijari = options.tijariGoals.map((goal, index) => ({
+                id: goal.id || `tijari-custom-${index + 1}`,
+                title: goal.title || 'هدف تجاري',
+                progress: Number(goal.progress || 0),
+                target: Number(goal.target || 100),
+                status: goal.status || 'active'
+            }));
+        }
+
+        this._refreshVitality();
+        return this.getVitalityReport();
+    }
+
+    /**
+     * تحديث نبض الحيوية
+     */
+    recordVitalPulse(entry = {}) {
+        if (!this.vitality.enabled) {
+            return this.getVitalityReport();
+        }
+
+        const channel = entry.channel || 'internal';
+        const delta = Number(entry.score || 0);
+
+        if (channel === 'internal') {
+            this.vitality.pulse.internal = this._clamp(
+                this.vitality.pulse.internal + delta,
+                0,
+                100
+            );
+        } else if (channel === 'external') {
+            this.vitality.pulse.external = this._clamp(
+                this.vitality.pulse.external + delta,
+                0,
+                100
+            );
+        } else if (channel === 'network') {
+            this.vitality.pulse.networks = this._clamp(
+                this.vitality.pulse.networks + delta,
+                0,
+                100
+            );
+        }
+
+        if (entry.impact) {
+            this.vitality.impact.peopleHelped += Number(entry.impact.peopleHelped || 0);
+            this.vitality.impact.tradeValueEnabled += Number(entry.impact.tradeValueEnabled || 0);
+            this.vitality.impact.jobsEnabled += Number(entry.impact.jobsEnabled || 0);
+            this.vitality.impact.charitableActions += Number(entry.impact.charitableActions || 0);
+            this.vitality.impact.educationalTransfers += Number(
+                entry.impact.educationalTransfers || 0
+            );
+        }
+
+        this._refreshVitality();
+        return this.getVitalityReport();
+    }
+
+    /**
+     * تحديث هدف حيوي
+     */
+    updateVitalGoal(goalId, progressDelta = 0) {
+        const allGoals = [...this.vitality.goals.khair, ...this.vitality.goals.tijari];
+        const goal = allGoals.find(g => g.id === goalId);
+        if (!goal) {
+            return { updated: false, message: `الهدف ${goalId} غير موجود` };
+        }
+
+        goal.progress = this._clamp(
+            goal.progress + Number(progressDelta || 0),
+            0,
+            goal.target || 100
+        );
+        goal.status = goal.progress >= goal.target ? 'achieved' : 'active';
+        this._refreshVitality();
+
+        return { updated: true, goal, vitality: this.getVitalityReport() };
+    }
+
+    _refreshVitality() {
+        const liveInternal = {
+            digitalRoot: this.state.digitalRootActive,
+            aiCore: this.state.aiCoreActive,
+            universalOS: this.state.universalOSActive,
+            governance: this.state.islamicGovernanceActive
+        };
+        this.vitality.liveNetworks.internal = liveInternal;
+
+        const activeInternal = Object.values(liveInternal).filter(Boolean).length;
+        const baseInternal = activeInternal * 25;
+
+        const successRate =
+            this.metrics.totalRequests > 0
+                ? (this.metrics.successfulRequests / this.metrics.totalRequests) * 100
+                : 100;
+        const latencyScore =
+            this.metrics.averageLatency > 0
+                ? this._clamp(100 - Math.round(this.metrics.averageLatency / 20), 20, 100)
+                : 80;
+
+        const khairProgress = this._average(
+            this.vitality.goals.khair.map(g => (g.progress / (g.target || 100)) * 100)
+        );
+        const tijariProgress = this._average(
+            this.vitality.goals.tijari.map(g => (g.progress / (g.target || 100)) * 100)
+        );
+
+        const impactScore = this._clamp(
+            Math.round(
+                this.vitality.impact.peopleHelped / 50 +
+                    this.vitality.impact.charitableActions * 2 +
+                    this.vitality.impact.educationalTransfers * 2 +
+                    this.vitality.impact.jobsEnabled / 20
+            ),
+            0,
+            100
+        );
+
+        const selfReliance = this._assessSelfReliance();
+        const confidence = this._clamp(
+            Math.round(successRate * 0.4 + selfReliance * 0.3 + latencyScore * 0.3),
+            0,
+            100
+        );
+
+        this.vitality.pulse.internal = this._clamp(
+            Math.round(this.vitality.pulse.internal * 0.5 + baseInternal * 0.5),
+            0,
+            100
+        );
+        this.vitality.pulse.external = this._clamp(
+            Math.round(
+                this.vitality.pulse.external * 0.6 + ((khairProgress + tijariProgress) / 2) * 0.4
+            ),
+            0,
+            100
+        );
+        this.vitality.pulse.networks = this._clamp(
+            Math.round(this.vitality.pulse.networks * 0.6 + (activeInternal / 4) * 100 * 0.4),
+            0,
+            100
+        );
+        this.vitality.pulse.impact = impactScore;
+        this.vitality.pulse.selfReliance = selfReliance;
+        this.vitality.pulse.confidence = confidence;
+
+        const overall = Math.round(
+            this.vitality.pulse.internal * 0.2 +
+                this.vitality.pulse.external * 0.15 +
+                this.vitality.pulse.networks * 0.15 +
+                this.vitality.pulse.impact * 0.2 +
+                this.vitality.pulse.selfReliance * 0.2 +
+                this.vitality.pulse.confidence * 0.1
+        );
+
+        this.vitality.pulse.overall = this._clamp(overall, 0, 100);
+        this.vitality.pulse.label = this._vitalityLabel(this.vitality.pulse.overall);
+        this.vitality.lastUpdate = Date.now();
+    }
+
+    _assessSelfReliance() {
+        let score = 40;
+
+        if (this.config.offlineFirst) score += 20;
+        if (this.config.privacyFirst) score += 10;
+        if (this.capabilities?.ai?.edge?.enabled) score += 10;
+        if (this.capabilities?.ai?.federated?.enabled) score += 8;
+
+        const hasLocalModel =
+            Array.isArray(this.capabilities?.ai?.llm?.models) &&
+            this.capabilities.ai.llm.models.includes('local');
+        if (hasLocalModel) score += 12;
+
+        return this._clamp(score, 0, 100);
+    }
+
+    _vitalityLabel(score) {
+        if (score >= 90) return 'نابضة جداً';
+        if (score >= 75) return 'حيوية قوية';
+        if (score >= 60) return 'حيوية مستقرة';
+        if (score >= 40) return 'حيوية متوسطة';
+        return 'تحتاج تنشيط';
+    }
+
+    _average(values = []) {
+        if (!values.length) return 0;
+        return values.reduce((sum, value) => sum + Number(value || 0), 0) / values.length;
+    }
+
+    _clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+    }
+
+    getVitalityReport() {
+        this._refreshVitality();
+        return {
+            enabled: this.vitality.enabled,
+            mode: this.vitality.mode,
+            pulse: this.vitality.pulse,
+            goals: this.vitality.goals,
+            impact: this.vitality.impact,
+            liveNetworks: this.vitality.liveNetworks,
+            tawakkul: {
+                message:
+                    'الأخذ بالأسباب مع التوكل على الله — قوة داخلية واستقلالية مع تمكّن تكاملي',
+                selfReliance: this.vitality.pulse.selfReliance,
+                confidence: this.vitality.pulse.confidence
+            },
+            timestamp: this.vitality.lastUpdate
+        };
+    }
+
+    /**
      * الحصول على حالة النظام الكاملة
      */
     getStatus() {
@@ -691,6 +1013,7 @@ class SheikhaIntelligentDigitalCore extends EventEmitter {
                 violations: this.metrics.islamicViolations,
                 status: this.metrics.islamicViolations === 0 ? '✅ ممتثل' : '⚠️ انتهاكات'
             },
+            vitality: this.getVitalityReport(),
             capabilities: this.capabilities,
             intelligentSeed: {
                 verified: this.intelligentSeed.verified,
@@ -742,6 +1065,8 @@ class SheikhaIntelligentDigitalCore extends EventEmitter {
                 averageLatency: this.metrics.averageLatency.toFixed(2) + 'ms',
                 aiInferences: this.metrics.aiInferences
             },
+
+            vitality: status.vitality,
 
             recommendations: this._generateRecommendations(),
 

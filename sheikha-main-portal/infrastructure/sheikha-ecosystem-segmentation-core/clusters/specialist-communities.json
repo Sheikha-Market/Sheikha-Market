@@ -1,0 +1,699 @@
+{
+    "generatedAt": "2026-03-13T22:17:09.491Z",
+    "strategy": "sector-first-then-market",
+    "communities": [
+        {
+            "id": 1,
+            "key": "energy-and-oil-gas__local",
+            "sector": "energy-and-oil-gas",
+            "market": "local",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 2,
+            "key": "energy-and-oil-gas__regional",
+            "sector": "energy-and-oil-gas",
+            "market": "regional",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 3,
+            "key": "energy-and-oil-gas__global",
+            "sector": "energy-and-oil-gas",
+            "market": "global",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 4,
+            "key": "metals-and-mining__local",
+            "sector": "metals-and-mining",
+            "market": "local",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 5,
+            "key": "metals-and-mining__regional",
+            "sector": "metals-and-mining",
+            "market": "regional",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 6,
+            "key": "metals-and-mining__global",
+            "sector": "metals-and-mining",
+            "market": "global",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 7,
+            "key": "manufacturing-and-industry__local",
+            "sector": "manufacturing-and-industry",
+            "market": "local",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 8,
+            "key": "manufacturing-and-industry__regional",
+            "sector": "manufacturing-and-industry",
+            "market": "regional",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 9,
+            "key": "manufacturing-and-industry__global",
+            "sector": "manufacturing-and-industry",
+            "market": "global",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 10,
+            "key": "semiconductors-and-electronics__local",
+            "sector": "semiconductors-and-electronics",
+            "market": "local",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 11,
+            "key": "semiconductors-and-electronics__regional",
+            "sector": "semiconductors-and-electronics",
+            "market": "regional",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 12,
+            "key": "semiconductors-and-electronics__global",
+            "sector": "semiconductors-and-electronics",
+            "market": "global",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 13,
+            "key": "ai-cloud-and-compute__local",
+            "sector": "ai-cloud-and-compute",
+            "market": "local",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 14,
+            "key": "ai-cloud-and-compute__regional",
+            "sector": "ai-cloud-and-compute",
+            "market": "regional",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 15,
+            "key": "ai-cloud-and-compute__global",
+            "sector": "ai-cloud-and-compute",
+            "market": "global",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 16,
+            "key": "logistics-and-supply-chain__local",
+            "sector": "logistics-and-supply-chain",
+            "market": "local",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 17,
+            "key": "logistics-and-supply-chain__regional",
+            "sector": "logistics-and-supply-chain",
+            "market": "regional",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 18,
+            "key": "logistics-and-supply-chain__global",
+            "sector": "logistics-and-supply-chain",
+            "market": "global",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 19,
+            "key": "finance-and-fintech__local",
+            "sector": "finance-and-fintech",
+            "market": "local",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 20,
+            "key": "finance-and-fintech__regional",
+            "sector": "finance-and-fintech",
+            "market": "regional",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 21,
+            "key": "finance-and-fintech__global",
+            "sector": "finance-and-fintech",
+            "market": "global",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 22,
+            "key": "healthcare-and-pharma__local",
+            "sector": "healthcare-and-pharma",
+            "market": "local",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 23,
+            "key": "healthcare-and-pharma__regional",
+            "sector": "healthcare-and-pharma",
+            "market": "regional",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 24,
+            "key": "healthcare-and-pharma__global",
+            "sector": "healthcare-and-pharma",
+            "market": "global",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 25,
+            "key": "retail-and-ecommerce__local",
+            "sector": "retail-and-ecommerce",
+            "market": "local",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 26,
+            "key": "retail-and-ecommerce__regional",
+            "sector": "retail-and-ecommerce",
+            "market": "regional",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 27,
+            "key": "retail-and-ecommerce__global",
+            "sector": "retail-and-ecommerce",
+            "market": "global",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 28,
+            "key": "education-research-and-training__local",
+            "sector": "education-research-and-training",
+            "market": "local",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 29,
+            "key": "education-research-and-training__regional",
+            "sector": "education-research-and-training",
+            "market": "regional",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 30,
+            "key": "education-research-and-training__global",
+            "sector": "education-research-and-training",
+            "market": "global",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 31,
+            "key": "public-sector-and-regulators__local",
+            "sector": "public-sector-and-regulators",
+            "market": "local",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 32,
+            "key": "public-sector-and-regulators__regional",
+            "sector": "public-sector-and-regulators",
+            "market": "regional",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        },
+        {
+            "id": 33,
+            "key": "public-sector-and-regulators__global",
+            "sector": "public-sector-and-regulators",
+            "market": "global",
+            "entityTypes": [
+                "companies",
+                "organizations",
+                "universities",
+                "authorities",
+                "associations"
+            ],
+            "communityTypes": [
+                "knowledge-community",
+                "industry-community",
+                "research-community",
+                "training-community",
+                "integration-community"
+            ],
+            "status": "activated"
+        }
+    ]
+}

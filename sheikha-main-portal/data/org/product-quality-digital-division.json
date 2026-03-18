@@ -1,0 +1,86 @@
+{
+  "_meta": {
+    "title": "قسم إدارة جودة المنتجات الرقمية — شيخة",
+    "version": "1.0.0",
+    "createdAt": "2026-03-12",
+    "principle": "وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ — الأنعام:152",
+    "deptCode": "SHK-DEPT-021-PROD"
+  },
+  "governance": {
+    "managerRole": "مدير جودة المنتجات",
+    "ownerDepartment": "SHK-DEPT-021",
+    "shariaControl": "SHK-BOT-001",
+    "qualityLeadBot": "SHK-BOT-020"
+  },
+  "structure": {
+    "units": [
+      {
+        "num": "SHK-QA-UNIT-001",
+        "nameAr": "وحدة ضمان جودة المنتجات",
+        "responsibilities": ["خطط الاختبار", "قبول الإصدارات", "تحليل العيوب"],
+        "staff": ["QA Lead", "QA Engineer", "Test Automation Engineer"],
+        "bot": "SHK-BOT-020"
+      },
+      {
+        "num": "SHK-QA-UNIT-002",
+        "nameAr": "وحدة القياس الرقمي للجودة",
+        "responsibilities": ["تعريف مؤشرات الجودة", "قياس حي", "تقارير الجودة التنفيذية"],
+        "staff": ["Quality Analyst", "Data Quality Engineer"],
+        "bot": "SHK-BOT-011"
+      },
+      {
+        "num": "SHK-QA-UNIT-003",
+        "nameAr": "وحدة الأتمتة والاختبارات الذكية",
+        "responsibilities": ["اختبارات API/UI آلية", "اختبارات الأداء", "اختبارات الانحدار"],
+        "staff": ["Automation Engineer", "Performance Engineer"],
+        "bot": "SHK-BOT-009"
+      },
+      {
+        "num": "SHK-QA-UNIT-004",
+        "nameAr": "وحدة الامتثال والجودة الشرعية",
+        "responsibilities": ["قياس التوافق الشرعي", "منع التضليل", "تدقيق المحتوى التجاري"],
+        "staff": ["Compliance Auditor", "Sharia Quality Reviewer"],
+        "bot": "SHK-BOT-001"
+      }
+    ]
+  },
+  "digitalTools": {
+    "qualityMeasurement": [
+      "Automated Test Runner",
+      "SLA/SLO Monitor",
+      "Defect Density Dashboard",
+      "Synthetic Monitoring",
+      "User Journey Quality Metrics"
+    ],
+    "automation": [
+      "CI/CD Quality Gates",
+      "Auto Regression",
+      "Canary Quality Checks",
+      "Rollback on Quality Failure"
+    ],
+    "dataAndArchiving": [
+      "Quality Events Stream",
+      "Defect Registry",
+      "Evidence Archive",
+      "Audit Trail Immutable Logs"
+    ]
+  },
+  "kpis": [
+    { "id": "SHK-QA-KPI-001", "name": "Defect Escape Rate", "target": "<= 1%" },
+    { "id": "SHK-QA-KPI-002", "name": "Automated Coverage", "target": ">= 85%" },
+    { "id": "SHK-QA-KPI-003", "name": "Release Pass Rate", "target": ">= 95%" },
+    { "id": "SHK-QA-KPI-004", "name": "Mean Time To Quality Recovery", "target": "<= 30 min" },
+    { "id": "SHK-QA-KPI-005", "name": "Sharia Compliance Quality", "target": "100%" }
+  ],
+  "workflow": [
+    "SHK-QWF-001 Define Quality Criteria",
+    "SHK-QWF-002 Automate Tests",
+    "SHK-QWF-003 Continuous Measurement",
+    "SHK-QWF-004 Quality Decision Gate",
+    "SHK-QWF-005 Archive Evidence",
+    "SHK-QWF-006 Improvement Loop"
+  ],
+  "mermaid": {
+    "qualityFlow": "flowchart TD\n  REQ[متطلبات المنتج] --> QC[معايير الجودة]\n  QC --> AUTO[اختبارات آلية]\n  AUTO --> METRICS[قياس رقمي]\n  METRICS --> GATE{بوابة الجودة}\n  GATE -->|Pass| RELEASE[إطلاق]\n  GATE -->|Fail| FIX[تصحيح]\n  FIX --> AUTO\n  METRICS --> ARCH[أرشفة الأدلة]"
+  }
+}

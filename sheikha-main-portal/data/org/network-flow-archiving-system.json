@@ -1,0 +1,108 @@
+{
+  "_meta": {
+    "title": "نظام الشبكات والتدفقات والأرشفة المؤسسية — شيخة",
+    "version": "1.0.0",
+    "createdAt": "2026-03-12",
+    "principle": "وَكُلَّ شَيْءٍ أَحْصَيْنَاهُ كِتَابًا — النبأ:29",
+    "scope": "الشبكات الداخلية والخارجية + تدفقات المعلومات + الفهرسة والرقمنة والأرشفة"
+  },
+  "networkArchitecture": {
+    "internalNetwork": {
+      "num": "SHK-NET-INT-001",
+      "zones": [
+        { "id": "SHK-ZONE-001", "name": "Admin Zone", "assets": ["ERP", "MIS", "HR", "Finance"] },
+        { "id": "SHK-ZONE-002", "name": "Engineering Zone", "assets": ["Git", "CI/CD", "Dev Servers", "Observability"] },
+        { "id": "SHK-ZONE-003", "name": "Operations Zone", "assets": ["SCM", "WMS", "Logistics", "Contracts"] },
+        { "id": "SHK-ZONE-004", "name": "Data Zone", "assets": ["BigQuery", "Data Lake", "ETL", "Archive Index"] }
+      ],
+      "securityModel": ["Zero Trust", "Least Privilege", "Network Segmentation", "MFA"]
+    },
+    "externalNetwork": {
+      "num": "SHK-NET-EXT-001",
+      "channels": [
+        { "id": "SHK-CH-001", "name": "Trader Portal", "type": "HTTPS API Gateway" },
+        { "id": "SHK-CH-002", "name": "Government Integrations", "type": "Secure B2G APIs" },
+        { "id": "SHK-CH-003", "name": "Cloud Services", "type": "Private Peering / VPN" },
+        { "id": "SHK-CH-004", "name": "Partner EDI", "type": "B2B Secure Exchange" }
+      ],
+      "controls": ["WAF", "DDoS Protection", "API Rate Limit", "Payload Validation", "Audit Logging"]
+    },
+    "relationship": {
+      "type": "Dual Core (Internal Core + External Edge)",
+      "rules": [
+        "كل اتصال خارجي يمر عبر API Gateway",
+        "لا وصول مباشر من external إلى Data Zone",
+        "جميع الحزم الحساسة تُشفّر أثناء النقل والتخزين"
+      ]
+    }
+  },
+  "informationFlows": {
+    "flowTypes": [
+      {
+        "num": "SHK-FLOW-T-001",
+        "type": "Structured",
+        "definition": "بيانات منظمة بجداول وحقول ثابتة",
+        "examples": ["ERP transactions", "CRM contacts", "SCM orders", "WMS inventory"],
+        "storage": ["BigQuery", "Operational DB"],
+        "indexing": ["Primary Key", "Composite Index", "Partition by Date"]
+      },
+      {
+        "num": "SHK-FLOW-T-002",
+        "type": "Semi-Structured",
+        "definition": "بيانات بصيغة JSON/Logs/Events قابلة للتفكيك",
+        "examples": ["API logs", "event streams", "IoT telemetry"],
+        "storage": ["Object Storage", "Event Store", "JSON Columns"],
+        "indexing": ["Metadata Index", "Tag Index", "Schema Registry"]
+      },
+      {
+        "num": "SHK-FLOW-T-003",
+        "type": "Unstructured",
+        "definition": "مستندات وصور وفيديو وتسجيلات",
+        "examples": ["Contracts PDF", "inspection images", "voice calls", "emails"],
+        "storage": ["Document Archive", "Blob Storage"],
+        "indexing": ["OCR Index", "Semantic Embeddings", "Content Tags"]
+      }
+    ],
+    "flowCatalog": [
+      { "id": "SHK-FLOW-001", "name": "Admin Management Flow", "class": "Structured", "owner": "SHK-DEPT-012", "source": "MIS", "target": "CEO Dashboard" },
+      { "id": "SHK-FLOW-002", "name": "Engineering Telemetry Flow", "class": "Semi-Structured", "owner": "SHK-DEPT-010", "source": "CI/CD & App Logs", "target": "Observability" },
+      { "id": "SHK-FLOW-003", "name": "Legal Documents Flow", "class": "Unstructured", "owner": "SHK-DEPT-008", "source": "Contracts", "target": "Archive + OCR" },
+      { "id": "SHK-FLOW-004", "name": "Supply & Warehouse Flow", "class": "Structured", "owner": "SHK-DEPT-006", "source": "SCM/WMS", "target": "Data Zone" },
+      { "id": "SHK-FLOW-005", "name": "Customer Interaction Flow", "class": "Semi-Structured", "owner": "SHK-DEPT-019", "source": "CRM conversations", "target": "Insights" }
+    ]
+  },
+  "digitizationAndIndexing": {
+    "digitizationPipeline": [
+      "SHK-DIG-001 Ingest",
+      "SHK-DIG-002 Classify",
+      "SHK-DIG-003 Enrich Metadata",
+      "SHK-DIG-004 Index",
+      "SHK-DIG-005 Retain/Archive",
+      "SHK-DIG-006 Access Governance"
+    ],
+    "metadataStandard": {
+      "requiredFields": ["docId", "source", "ownerDept", "classification", "createdAt", "retentionPolicy", "sensitivityLevel"],
+      "optionalFields": ["tags", "market", "contractNo", "relatedProject", "botAgentId"]
+    }
+  },
+  "archivingSystem": {
+    "num": "SHK-ARC-001",
+    "name": "Sheikha Unified Archive System",
+    "principles": ["Tamper-Evident", "Versioned", "Searchable", "Retention-Compliant"],
+    "tiers": [
+      { "id": "SHK-ARC-T1", "name": "Hot Archive", "duration": "0-90 days", "use": "عمليات يومية" },
+      { "id": "SHK-ARC-T2", "name": "Warm Archive", "duration": "3-24 months", "use": "تقارير وإثباتات" },
+      { "id": "SHK-ARC-T3", "name": "Cold Archive", "duration": "2-7 years", "use": "امتثال قانوني وتدقيق" }
+    ],
+    "retentionPolicies": [
+      { "class": "Structured", "retention": "7 years" },
+      { "class": "Semi-Structured", "retention": "3 years" },
+      { "class": "Unstructured", "retention": "5 years" }
+    ],
+    "compliance": ["Audit Trail", "Access Logs", "Legal Hold", "Immutable Snapshots"]
+  },
+  "mermaid": {
+    "internalExternalNetwork": "flowchart LR\n  INT[Internal Core] --> GATE[API Gateway]\n  EXT[External Channels] --> GATE\n  GATE --> OPS[Operations Zone]\n  GATE --> ADM[Admin Zone]\n  OPS --> DATA[Data Zone]\n  ADM --> DATA\n  DATA --> ARC[Archive System]\n  ARC --> IDX[Index & Search]",
+    "flowClassification": "flowchart TD\n  SRC[Sources] --> C{Classify}\n  C --> S[Structured]\n  C --> SS[Semi-Structured]\n  C --> U[Unstructured]\n  S --> BQ[BigQuery]\n  SS --> EVT[Event Store]\n  U --> BLOB[Blob Archive]\n  BQ --> IDX[Index]\n  EVT --> IDX\n  BLOB --> OCR[OCR+Semantic]\n  OCR --> IDX"
+  }
+}

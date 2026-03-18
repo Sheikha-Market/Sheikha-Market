@@ -10,15 +10,35 @@ unset npm_config_devdir NPM_CONFIG_DEVDIR npm_config_tmp NPM_CONFIG_TMP || true
 source "$HOME/.nvm/nvm.sh" >/dev/null 2>&1 || true
 nvm use 25.6.1 >/dev/null 2>&1 || true
 
+# تحميل متغيرات البيئة المحلية بشكل آمن دون تنفيذ أوامر من .env
+load_env_file() {
+	local env_file="$1"
+	[ -f "$env_file" ] || return 0
+
+	while IFS= read -r line || [ -n "$line" ]; do
+		# تجاهل السطور الفارغة والتعليقات
+		[[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
+		# تصدير الأسطر المطابقة لصيغة KEY=VALUE فقط
+		[[ "$line" =~ ^[A-Za-z_][A-Za-z0-9_]*= ]] || continue
+		export "$line"
+	done < "$env_file"
+}
+
+load_env_file "$ROOT_DIR/.env"
+
 echo "==> [1/6] VS Code doctor"
 npm run dev:vscode:doctor || true
 
 echo "==> [2/6] CUDA verify (auto-heal)"
 bash scripts/vscode-cuda-verify.sh || true
 
-echo "==> [3/6] PM2 start/restart sheikha-main-portal"
+echo "==> [3/6] PM2 start/restart sheikha-api"
 npx pm2 delete sheikha-main-portal >/dev/null 2>&1 || true
-npx pm2 start npm --name sheikha-main-portal -- start
+if npx pm2 describe sheikha-api >/dev/null 2>&1; then
+	npx pm2 restart sheikha-api --update-env
+else
+	npx pm2 start ecosystem.config.js --only sheikha-api
+fi
 
 echo "==> [4/6] PM2 start/restart sheikha-bg-guard"
 npm run ops:bg-guard:pm2:start || true

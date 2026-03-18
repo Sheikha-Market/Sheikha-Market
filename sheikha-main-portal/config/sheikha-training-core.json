@@ -1,0 +1,117 @@
+{
+    "core": "sheikha-training-core",
+    "version": "1.0.0",
+    "title": "نواة التدريب الذكي لمنصة شيخة",
+    "description": "منظومة تدريب شاملة للنماذج الذكية والمحركات وRAG — مؤصّلة بالكتاب والسنة",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "activatedAt": "2026-03-13",
+    "governancePolicy": "quran-and-sunnah",
+
+    "trainingPhilosophy": {
+        "principle": "التعلم المستمر المؤسَّس على الحق والصواب",
+        "sources": ["القرآن الكريم", "السنة النبوية", "العلم التجريبي الموثق", "البيانات الحقيقية المتحقق منها"],
+        "forbiddenPatterns": ["تدريب على بيانات مغشوشة", "تدريب على ربا أو غرر", "تدريب على مخالفات شرعية"],
+        "methodology": ["جمع البيانات", "التنقية الشرعية", "التدريب الموجّه", "التقييم الموضوعي", "المراجعة الشرعية"]
+    },
+
+    "trainingPipeline": {
+        "stages": [
+            {
+                "id": "data-collection",
+                "nameAr": "جمع البيانات",
+                "description": "تجميع المجموعات التدريبية من مصادر موثوقة",
+                "sources": ["الذاكرة التاريخية للمنصة", "بيانات السوق الحلال", "المصادر الإسلامية الرقمية", "المعادن والسكراب الحقيقية"],
+                "filters": ["استبعاد البيانات المشبوهة", "التحقق من المصدر", "التنقية الشرعية"]
+            },
+            {
+                "id": "preprocessing",
+                "nameAr": "المعالجة المسبقة",
+                "description": "تنقية البيانات وتنظيمها وترميزها",
+                "steps": ["إزالة التكرار", "معيارة النصوص العربية", "ترميز السياق الشرعي", "تصنيف المجالات"]
+            },
+            {
+                "id": "fine-tuning",
+                "nameAr": "الضبط الدقيق",
+                "description": "ضبط النماذج الأساسية لخصائص منصة شيخة",
+                "targets": ["sheikha-rag-reasoner-v1", "branch-autogenesis-model", "sharia-compliance-classifier", "market-intelligence-model"],
+                "techniques": ["supervised-fine-tuning", "instruction-tuning", "sharia-aware-rlhf", "domain-adaptation"]
+            },
+            {
+                "id": "evaluation",
+                "nameAr": "التقييم",
+                "description": "قياس الأداء على المعايير الشرعية والتقنية",
+                "metrics": ["دقة الفتاوى", "صحة الاستشهاد بالأدلة", "جودة الإجابات السوقية", "سلامة التوصيات المالية"]
+            },
+            {
+                "id": "sharia-review",
+                "nameAr": "المراجعة الشرعية",
+                "description": "مراجعة مخرجات النموذج شرعياً قبل الترقية",
+                "checks": ["لا ربا في التوصيات", "لا غرر في التحليل", "صدق البيان", "دقة الاستشهاد القرآني"]
+            },
+            {
+                "id": "promotion",
+                "nameAr": "الترقية للإنتاج",
+                "description": "نقل النموذج المدرَّب والمعتمَد إلى بيئة الإنتاج",
+                "requirements": ["درجة تقييم ≥ 90%", "اجتياز المراجعة الشرعية", "اختبار smoke-test ناجح"]
+            }
+        ]
+    },
+
+    "trainingDatasets": {
+        "domains": [
+            {
+                "id": "metals-scrap-market",
+                "nameAr": "سوق المعادن والسكراب",
+                "description": "بيانات الأسعار والعقود والتقييمات لسوق شيخة",
+                "size": "dynamic",
+                "updateFrequency": "real-time"
+            },
+            {
+                "id": "sharia-sciences",
+                "nameAr": "العلوم الشرعية",
+                "description": "النصوص القرآنية والأحاديث النبوية وكتب الفقه المعتمدة",
+                "size": "large",
+                "updateFrequency": "on-new-scholarly-review"
+            },
+            {
+                "id": "arabic-nlp",
+                "nameAr": "معالجة اللغة العربية",
+                "description": "نصوص العربية الفصحى والمصطلحات الاقتصادية والتقنية",
+                "size": "medium",
+                "updateFrequency": "monthly"
+            },
+            {
+                "id": "science-integration",
+                "nameAr": "التكامل العلمي القرآني",
+                "description": "حالات التأمل القرآني وتكاملات العلوم الطبيعية",
+                "size": "growing",
+                "updateFrequency": "as-new-insights"
+            }
+        ]
+    },
+
+    "trainingSessionConfig": {
+        "defaultEpochs": 10,
+        "batchSize": 32,
+        "learningRateSchedule": "cosine-warmup",
+        "checkpointFrequency": "per-epoch",
+        "earlyStoppingPatience": 3,
+        "mixedPrecision": true,
+        "computeBackend": "sheikha-advanced-computing-core",
+        "distributedTraining": true
+    },
+
+    "modelRegistry": {
+        "path": "infrastructure/sheikha-training-core/registry/",
+        "versioning": "semantic",
+        "retentionPolicy": "keep-last-5-versions-per-model",
+        "promotionGates": ["evaluation-score", "sharia-review", "smoke-test"]
+    },
+
+    "continuousLearning": {
+        "enabled": true,
+        "trigger": "weekly-or-on-data-drift",
+        "feedbackLoop": ["user-corrections", "sharia-board-review", "market-accuracy-signals"],
+        "safeguards": ["no-regression-on-sharia-checks", "no-accuracy-drop-over-5pct"]
+    }
+}

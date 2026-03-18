@@ -1,0 +1,198 @@
+{
+  "system": "Sheikha OS Cloud",
+  "version": "1.0.0-cloud",
+  "bootedAt": "2026-03-12T18:27:04.154Z",
+  "finishedAt": "2026-03-12T18:27:04.178Z",
+  "owner": "سلمان أحمد بن سلمان الراجح",
+  "domain": "sheikha.top",
+  "status": "PARTIAL",
+  "overallScore": 77,
+  "grade": "C",
+  "barakahScore": 96,
+  "barakahGrade": "A+",
+  "modules": {
+    "kernel": {
+      "status": "RUNNING",
+      "score": 100,
+      "cpuCores": 22,
+      "totalRamGB": "15.1",
+      "freeRamGB": "1.4",
+      "platform": "linux",
+      "nodeVersion": "v25.6.1",
+      "systemUptime": "264 دقيقة",
+      "pid": 8398,
+      "osVersion": "6.17.9-76061709-generic",
+      "hostname": "66710435f57e",
+      "arch": "x64"
+    },
+    "security": {
+      "status": "SECURED",
+      "score": 100,
+      "checks": {
+        "noRiba": true,
+        "noGharar": true,
+        "noGhish": true,
+        "noIhtikar": true,
+        "noNajash": true,
+        "biTaradhin": true,
+        "sadaqAlQawl": true,
+        "diqqatAlWazn": true,
+        "aaoifiCertified": true,
+        "shariaBoard": true
+      },
+      "passedChecks": 10,
+      "totalChecks": 10,
+      "integrityToken": "7fb2671fd3c61f9e",
+      "shariaCompliance": "AAOIFI + Quran + Sunnah",
+      "certifiedBy": "Sheikha Sharia Board",
+      "auditMode": "ACTIVE"
+    },
+    "partnerships": {
+      "status": "ACTIVE",
+      "score": 100,
+      "contractCount": 40,
+      "signedCount": 40,
+      "verifyStatus": "UNKNOWN",
+      "tier1": 0,
+      "tier2": 0,
+      "tier3": 0,
+      "visionLoaded": true,
+      "frameworkLoaded": true,
+      "model": "مضاربة + مشاركة (Mudharabah / Musharaka)"
+    },
+    "contracts": {
+      "status": "INIT",
+      "score": 0
+    },
+    "saas": {
+      "status": "ACTIVE",
+      "score": 91,
+      "regions": [
+        "Riyadh",
+        "Jeddah",
+        "Dubai"
+      ],
+      "tiers": 3,
+      "model": "Freemium + Professional + Enterprise",
+      "provider": "Vercel + GCP + Self-Hosted",
+      "pwa": true,
+      "websocket": true,
+      "apiVersion": "v3.0"
+    },
+    "ai": {
+      "status": "ACTIVE",
+      "score": 85,
+      "models": [
+        {
+          "name": "Ollama",
+          "status": "OFFLINE",
+          "type": "local"
+        },
+        {
+          "name": "OpenAI GPT-4",
+          "status": "KEY_MISSING",
+          "type": "cloud"
+        },
+        {
+          "name": "Anthropic Claude",
+          "status": "KEY_MISSING",
+          "type": "cloud"
+        },
+        {
+          "name": "Google Gemini",
+          "status": "KEY_MISSING",
+          "type": "cloud"
+        }
+      ],
+      "activeModels": 0,
+      "totalModels": 4,
+      "localAIFoundation": true,
+      "arabicNLP": true,
+      "shariaCheck": true,
+      "iraabEngine": true
+    },
+    "barakah": {
+      "status": "CALCULATED",
+      "score": 96,
+      "grade": "A+",
+      "breakdown": {
+        "shariaCompliance": 100,
+        "transparencyScore": 95,
+        "partnerGrowth": 100,
+        "communityImpact": 85,
+        "dataIntegrity": 100,
+        "systemReliability": 91
+      },
+      "weights": {
+        "shariaCompliance": 0.3,
+        "transparencyScore": 0.2,
+        "partnerGrowth": 0.15,
+        "communityImpact": 0.15,
+        "dataIntegrity": 0.1,
+        "systemReliability": 0.1
+      },
+      "meaning": "النمو الطيب بإذن الله",
+      "hijriDate": "٢٣‏/٩‏/١٤٤٧ هـ"
+    },
+    "market": {
+      "status": "ACTIVE",
+      "score": 100,
+      "listingsCount": 10,
+      "tradersCount": 4,
+      "domain": "sheikha.top",
+      "email": "market@sheikha.top",
+      "hsCodes": true,
+      "rfqEnabled": true,
+      "sheikhahIndex": true,
+      "metals": [
+        "حديد",
+        "ألومنيوم",
+        "نحاس",
+        "فولاذ",
+        "سكراب"
+      ],
+      "currencies": [
+        "SAR",
+        "USD",
+        "EUR",
+        "AED",
+        "KWD"
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "rtlSupport": true
+    },
+    "zakat": {
+      "status": "ACTIVE",
+      "score": 100,
+      "rate": "2.5%",
+      "nisabSAR": 21250,
+      "nisabUSD": 5667,
+      "autoDeduct": true,
+      "distribution": {
+        "fuqara": "12.5%",
+        "masakin": "12.5%",
+        "amileen": "12.5%",
+        "muallafa": "12.5%",
+        "riqab": "12.5%",
+        "gharimin": "12.5%",
+        "sabilAllah": "12.5%",
+        "ibn_sabil": "12.5%"
+      },
+      "basis": "فقه الزكاة — الشافعي + الحنبلي",
+      "authority": "هيئة الزكاة والضريبة والجمارك"
+    },
+    "audit": {
+      "status": "PARTIAL",
+      "score": 77,
+      "auditHash": "a1411394b62c1d43a56f8a8c6f7499b3926c682c15b1525c51d85204bd7fa414",
+      "overallGrade": "C",
+      "timestamp": "2026-03-12T18:27:04.177Z",
+      "signedBy": "Sheikha OS Cloud Engine v1.0.0-cloud"
+    }
+  },
+  "auditHash": "a1411394b62c1d43a56f8a8c6f7499b3926c682c15b1525c51d85204bd7fa414",
+  "islamicBasis": "القرآن الكريم + السنة النبوية — سوق المدينة المنورة"
+}

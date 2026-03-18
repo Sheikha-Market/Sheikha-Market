@@ -179,7 +179,8 @@ function buildUnsplashUrl(photoId, options = {}) {
     auto: opts.auto,
     sat: opts.sat,
     con: opts.con,
-    sharp: opts.sharp
+    sharp: opts.sharp,
+    v: IMAGE_ENGINE_VERSION
   });
   
   return `https://images.unsplash.com/${photoId}?${params.toString()}`;
@@ -197,8 +198,29 @@ function getDefaultUnsplashImage() {
    الفصل الثالث: نظام التخزين المؤقت الذكي — Smart Cache
    ═══════════════════════════════════════════════════════════════════════════ */
 
-const CACHE_KEY = 'sheikha_smart_images_cache_v1';
+const IMAGE_ENGINE_VERSION = '2026.03.14.1';
+const CACHE_KEY = 'sheikha_smart_images_cache_v2';
+const LEGACY_CACHE_KEYS = [
+  'sheikha_smart_images_cache_v1',
+  'sheikha_smart_image_cache'
+];
 const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 أيام
+
+/**
+ * مسح مفاتيح الكاش القديمة عند ترقية المحرك
+ */
+function clearLegacyImageCaches() {
+  try {
+    LEGACY_CACHE_KEYS.forEach((key) => {
+      if (localStorage.getItem(key)) {
+        localStorage.removeItem(key);
+        console.log(`[Sheikha Cache] تم حذف كاش قديم: ${key}`);
+      }
+    });
+  } catch (e) {
+    console.warn('[Sheikha Cache] فشل حذف الكاش القديم:', e);
+  }
+}
 
 /**
  * حفظ الصورة في ذاكرة التخزين المؤقت
@@ -314,6 +336,9 @@ function processProductsBatch(products) {
  */
 function initSmartImageEngine(products) {
   console.log('[Sheikha Smart Engine] بدء التشغيل...');
+
+  // حذف الكاش القديم لضمان ظهور التصميم/الصور الجديدة
+  clearLegacyImageCaches();
   
   // نظف الذاكرة المؤقتة
   cleanExpiredCache();
@@ -339,6 +364,9 @@ if (typeof window !== 'undefined') {
     resolveSmartUnsplashImage,
     getCachedProductImage,
     cleanExpiredCache,
+    clearLegacyImageCaches,
+    cacheKey: CACHE_KEY,
+    version: IMAGE_ENGINE_VERSION,
     UNSPLASH_METALS_LIBRARY
   };
   

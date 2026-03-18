@@ -1,0 +1,55 @@
+{
+  "title": "Sheikha Handoff Report",
+  "savedAt": "2026-03-12T18:50:00.000Z",
+  "purpose": "حفظ الحالة الكاملة قبل ترقية الرام إلى 64GB",
+  "system": {
+    "name": "Sheikha OS Cloud",
+    "version": "1.0.0-cloud",
+    "status": "PASS",
+    "overallScore": 97,
+    "grade": "A+",
+    "barakahScore": 96,
+    "barakahGrade": "A+",
+    "domain": "sheikha.top",
+    "owner": "سلمان أحمد بن سلمان الراجح"
+  },
+  "currentMachine": {
+    "platform": "linux",
+    "cpuCores": 22,
+    "totalRamGB": "15.1",
+    "freeRamGB": "0.3",
+    "nodeVersion": "v25.6.1"
+  },
+  "verifiedAssets": {
+    "contractsTotal": 49,
+    "contractsSigned": 49,
+    "partnershipVerification": "PASS",
+    "marketListings": 10,
+    "marketTraders": 4
+  },
+  "keyFiles": {
+    "osReport": "reports/os/sheikha-os-report-latest.json",
+    "osEngine": "scripts/sheikha-os-cloud-engine.js",
+    "osDashboard": "scripts/sheikha-os-dashboard.js",
+    "osBoot": "scripts/sheikha-os-boot.sh",
+    "packageJson": "package.json"
+  },
+  "commandsReady": [
+    "npm run -s ops:os:engine",
+    "npm run -s ops:os:dashboard",
+    "npm run -s ops:os:boot",
+    "npm run -s ops:os:verify",
+    "npm run -s ops:os:max-power"
+  ],
+  "importantOperationalNote": {
+    "cloudState": "الطبقة السحابية الداخلية جاهزة داخل المشروع، لكن تكامل GCP الخارجي ما زال يحتاج إعادة مصادقة لأن التقارير التشغيلية الأخيرة تظهر invalid_grant/invalid_rapt.",
+    "afterRamUpgrade": [
+      "تشغيل npm run -s ops:dev:tune",
+      "تشغيل npm run -s ops:os:boot",
+      "إعادة ربط Google Cloud بالحساب التشغيلي market@sheikha.top",
+      "إعادة تشغيل تحقق الصحة npm run -s ops:health:check:dry"
+    ]
+  },
+  "resumePoint": "ابدأ من تشغيل ops:os:boot ثم أكمل ربط السحابة الخارجية بعد ترقية الرام.",
+  "savedBy": "GitHub Copilot GPT-5.4"
+}

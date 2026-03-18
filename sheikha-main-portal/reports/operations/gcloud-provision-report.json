@@ -1,0 +1,44 @@
+{
+  "title": "تقرير تزويد Google Cloud Resources",
+  "timestamp": "2026-03-12T02:02:34.292Z",
+  "projectId": "sheikha-market-ops",
+  "location": "ME-CENTRAL2",
+  "applied": true,
+  "buckets": [
+    {
+      "name": "sheikha-market-data",
+      "status": "error",
+      "error": "Permission denied on 'locations/me-central2' (or it may not exist)."
+    },
+    {
+      "name": "sheikha-market-reports",
+      "status": "error",
+      "error": "Permission denied on 'locations/me-central2' (or it may not exist)."
+    },
+    {
+      "name": "sheikha-market-backups",
+      "status": "error",
+      "error": "Permission denied on 'locations/me-central2' (or it may not exist)."
+    }
+  ],
+  "datasets": [
+    {
+      "id": "sheikha_market",
+      "status": "already-exists"
+    },
+    {
+      "id": "sheikha_analytics",
+      "status": "already-exists"
+    },
+    {
+      "id": "sheikha_operations",
+      "status": "already-exists"
+    }
+  ],
+  "summary": {
+    "bucketsCreated": 0,
+    "datasetsCreated": 0,
+    "alreadyExisting": 3,
+    "errors": 3
+  }
+}

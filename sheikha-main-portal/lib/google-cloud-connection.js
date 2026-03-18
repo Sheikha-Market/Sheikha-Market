@@ -15,7 +15,12 @@ class SheikhaGoogleCloud {
     constructor() {
         this.projectId = process.env.GOOGLE_CLOUD_PROJECT || 'sheikha-marketplace';
         this.keyPath = path.join(__dirname, '..', 'service-account-key.json');
-        this.adcPath = path.join(os.homedir(), '.config', 'gcloud', 'application_default_credentials.json');
+        this.adcPath = path.join(
+            os.homedir(),
+            '.config',
+            'gcloud',
+            'application_default_credentials.json'
+        );
         this.storage = null;
         this.bigquery = null;
         this.pubsub = null;
@@ -41,7 +46,11 @@ class SheikhaGoogleCloud {
                 return false;
             }
 
-            const keyFilename = explicitKeyExists ? explicitKeyPath : (localKeyExists ? this.keyPath : undefined);
+            const keyFilename = explicitKeyExists
+                ? explicitKeyPath
+                : localKeyExists
+                  ? this.keyPath
+                  : undefined;
 
             this.authMode = keyFilename ? 'service-account-key' : 'application-default-credentials';
 

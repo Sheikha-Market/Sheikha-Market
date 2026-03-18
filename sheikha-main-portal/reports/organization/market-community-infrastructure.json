@@ -1,0 +1,1570 @@
+[
+  {
+    "num": "SHK-DOM-001",
+    "nameAr": "قطاع السوق وتوسّع الأسواق",
+    "mission": "فتح أسواق جديدة بشكل منضبط شرعياً وتشغيلياً",
+    "scripture": "وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة:275",
+    "unitsCount": 3,
+    "units": [
+      {
+        "num": "SHK-UNIT-001",
+        "nameAr": "إدارة جاهزية فتح أسواق جديدة",
+        "responsibilities": [
+          "دراسة الدول/المناطق المستهدفة",
+          "تحليل المتطلبات التنظيمية والشرعية",
+          "خطة الدخول المرحلي (Pilot → Scale)",
+          "قياس الجدوى والربحية والاستدامة"
+        ],
+        "kpis": [
+          "عدد الأسواق الجديدة/سنة",
+          "زمن الإطلاق",
+          "نسبة نجاح الإطلاق"
+        ],
+        "bot": "SHK-BOT-021",
+        "botProfile": {
+          "num": "SHK-BOT-021",
+          "nameAr": "نور — بوت المدير العام والقرارات الاستراتيجية",
+          "nameEn": "Noor — CEO Intelligence & Strategy Bot",
+          "dept": "SHK-DEPT-001",
+          "role": "Executive Intelligence & Strategic Planning Agent",
+          "ref_quran": "«اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ» النور:35 — النور يهدي إلى أفضل القرارات",
+          "description": "الذراع الاستراتيجي للمدير العام، يجمع كل مؤشرات المنظومة في لوحة واحدة لدعم القرار السليم المبني على العلم.",
+          "responsibilities": [
+            "تجميع KPIs جميع الأقسام في لوحة تنفيذية واحدة",
+            "تحليل المخاطر الاستراتيجية وتقديم سيناريوهات",
+            "إعداد تقارير مجلس الإدارة",
+            "مراقبة التوجه الاستراتيجي لمنافسي السوق",
+            "تنبيهات استراتيجية للفرص والتهديدات",
+            "ضمان ربط كل قرار بقيم شيخة الأساسية"
+          ],
+          "qualifications": [
+            "Strategic Management Frameworks (OKR, Balanced Scorecard, SWOT)",
+            "Generative AI للتحليل الاستراتيجي",
+            "فهم عميق لرؤية 2030 وفرص سوق المعادن"
+          ],
+          "training": [
+            "Executive Leadership Program",
+            "AI-Driven Strategy",
+            "Vision 2030 Alignment"
+          ],
+          "kpis": [
+            "تقرير تنفيذي أسبوعي دقيق",
+            "SWOT analysis ربع سنوي",
+            "دعم 100% قرارات المدير العام"
+          ],
+          "integrations": [
+            "جميع البوتات",
+            "SHK-DEPT-001"
+          ],
+          "status": "active",
+          "isElite": true
+        }
+      },
+      {
+        "num": "SHK-UNIT-002",
+        "nameAr": "إدارة تشغيل السوق",
+        "responsibilities": [
+          "تشغيل العروض والطلبات",
+          "مراقبة جودة التداول",
+          "حل النزاعات التجارية"
+        ],
+        "kpis": [
+          "سيولة السوق",
+          "معدل إغلاق الصفقات",
+          "مستوى رضا التجار"
+        ],
+        "bot": "SHK-BOT-002",
+        "botProfile": {
+          "num": "SHK-BOT-002",
+          "nameAr": "صادق — بوت المبيعات والعروض",
+          "nameEn": "Sadiq — Sales & Proposals Bot",
+          "dept": "SHK-DEPT-003",
+          "role": "Sales Intelligence & Proposal Agent",
+          "ref_quran": "«التَّاجِرُ الصَّدُوقُ الْأَمِينُ مَعَ النَّبِيِّينَ وَالصِّدِّيقِينَ وَالشُّهَدَاءِ» — الترمذي",
+          "description": "يدعم فريق المبيعات بتحليل السوق وتقديم عروض ذكية مبنية على بيانات الوقت الفعلي، مع التأكد من أن كل عرض سعري صادق وغير مضلل.",
+          "responsibilities": [
+            "توليد عروض أسعار تلقائية (RFQ) للمعادن والسكراب",
+            "تحليل قاعدة العملاء وتصنيفهم حسب الاحتياج",
+            "متابعة pipeline المبيعات وتنبيه الفريق بالفرص المرتقبة",
+            "حساب هامش الربح الشرعي لكل صفقة",
+            "توليد تقارير أداء المبيعات اليومية والأسبوعية",
+            "جدولة المكالمات والاجتماعات التجارية"
+          ],
+          "qualifications": [
+            "فهم عميق لسوق المعادن والسكراب السعودي والخليجي",
+            "تدريب على تقنيات المبيعات التوجيهية (Solution Selling)",
+            "إلمام بكودات HS للمعادن"
+          ],
+          "training": [
+            "Salesforce CRM Advanced",
+            "دورة التفاوض التجاري إسلامياً",
+            "تحليل بيانات السوق"
+          ],
+          "kpis": [
+            "معدل تحويل العروض ≥ 15%",
+            "معدل رضا العملاء ≥ 90%",
+            "زمن توليد العرض < 5 دقائق"
+          ],
+          "integrations": [
+            "SHK-BOT-006",
+            "SHK-BOT-012",
+            "SHK-DEPT-003",
+            "SHK-DEPT-019"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-003",
+        "nameAr": "إدارة تطوير منتجات السوق",
+        "responsibilities": [
+          "تصميم ميزات السوق",
+          "تحسين تجربة التاجر",
+          "ابتكار نماذج تسعير"
+        ],
+        "kpis": [
+          "سرعة تطوير الميزات",
+          "تبني المزايا",
+          "خفض معدل الانسحاب"
+        ],
+        "bot": "SHK-BOT-013",
+        "botProfile": {
+          "num": "SHK-BOT-013",
+          "nameAr": "مكتشف — بوت البحث والتطوير والابتكار",
+          "nameEn": "Muktashif — R&D & Innovation Bot",
+          "dept": "SHK-DEPT-014",
+          "role": "Research, Development & Innovation Agent",
+          "ref_quran": "«وَقُل رَّبِّ زِدْنِي عِلْمًا» طه:114",
+          "description": "يُقود جهود البحث والتطوير ويستكشف التقنيات الناشئة ذات القيمة لمنظومة شيخة، مبنياً على التفكر والاستكشاف.",
+          "responsibilities": [
+            "رصد أحدث التقنيات في سوق المعادن عالمياً",
+            "تجربة أدوات الذكاء الاصطناعي الجديدة وتقييمها",
+            "إنتاج ورقات بحثية دورية",
+            "بناء Proof-of-Concept للأفكار الجديدة",
+            "قياس ROI للمبادرات البحثية",
+            "التواصل مع الجامعات ومراكز الابتكار"
+          ],
+          "qualifications": [
+            "تدريب عميق على الذكاء الاصطناعي ونماذج LLM",
+            "منهجية Design Thinking",
+            "فهم بيئة Venture Building الإسلامية"
+          ],
+          "training": [
+            "AI Research Methods",
+            "Design Thinking Sprint",
+            "Islamic Innovation Framework"
+          ],
+          "kpis": [
+            "3 أوراق بحثية/سنة",
+            "5 POC/سنة",
+            "تحويل ≥ 20% من الأفكار لمنتج"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-015",
+            "SHK-DEPT-014"
+          ],
+          "status": "active"
+        }
+      }
+    ]
+  },
+  {
+    "num": "SHK-DOM-002",
+    "nameAr": "القطاع القانوني",
+    "mission": "حوكمة قانونية متكاملة تحفظ الحقوق وتمنع النزاعات",
+    "scripture": "يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ — المائدة:1",
+    "unitsCount": 3,
+    "units": [
+      {
+        "num": "SHK-UNIT-004",
+        "nameAr": "الإدارة القانونية العامة",
+        "responsibilities": [
+          "صياغة السياسات",
+          "إدارة المخاطر القانونية",
+          "المذكرات والاستشارات"
+        ],
+        "kpis": [
+          "عدد القضايا",
+          "نسبة الامتثال",
+          "زمن إغلاق الملفات"
+        ],
+        "bot": "SHK-BOT-007",
+        "botProfile": {
+          "num": "SHK-BOT-007",
+          "nameAr": "ميثاق — بوت العقود والاتفاقيات",
+          "nameEn": "Mithaq — Contract Management Bot",
+          "dept": "SHK-DEPT-008",
+          "role": "Contract Intelligence & Drafting Agent",
+          "ref_quran": "«يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ» المائدة:1",
+          "description": "يُعنى بصياغة العقود وتدقيقها وإدارة دورة حياتها الكاملة، مع ضمان خلوها من الغرر والجهالة.",
+          "responsibilities": [
+            "صياغة نماذج العقود التجارية المتوافقة شرعاً",
+            "تدقيق العقود الواردة قبل التوقيع",
+            "تنبيه انتهاء العقود قبل 60 يوماً",
+            "أرشفة العقود وإدارة الوثائق",
+            "مراقبة الالتزام ببنود العقد",
+            "توليد عقود إلكترونية مُيسّرة للطرفين"
+          ],
+          "qualifications": [
+            "تدريب على نماذج NLP لتحليل النصوص القانونية بالعربية",
+            "فقه العقود والمعاملات الإسلامية",
+            "نظام التوقيع الإلكتروني السعودي (Absher Business)"
+          ],
+          "training": [
+            "Contract Law for AI",
+            "Islamic Contract Fiqh",
+            "DocuSign & E-signature Systems"
+          ],
+          "kpis": [
+            "تدقيق العقد < 2 ساعة",
+            "صفر عقود مخالفة شرعاً",
+            "أرشفة 100% من العقود"
+          ],
+          "integrations": [
+            "SHK-BOT-001",
+            "SHK-BOT-004",
+            "SHK-DEPT-008"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-005",
+        "nameAr": "إدارة العقود والاتفاقيات",
+        "responsibilities": [
+          "مراجعة العقود",
+          "توحيد القوالب",
+          "متابعة الالتزامات"
+        ],
+        "kpis": [
+          "جودة العقود",
+          "نسبة النزاعات التعاقدية",
+          "دقة الصياغة"
+        ],
+        "bot": "SHK-BOT-007",
+        "botProfile": {
+          "num": "SHK-BOT-007",
+          "nameAr": "ميثاق — بوت العقود والاتفاقيات",
+          "nameEn": "Mithaq — Contract Management Bot",
+          "dept": "SHK-DEPT-008",
+          "role": "Contract Intelligence & Drafting Agent",
+          "ref_quran": "«يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ» المائدة:1",
+          "description": "يُعنى بصياغة العقود وتدقيقها وإدارة دورة حياتها الكاملة، مع ضمان خلوها من الغرر والجهالة.",
+          "responsibilities": [
+            "صياغة نماذج العقود التجارية المتوافقة شرعاً",
+            "تدقيق العقود الواردة قبل التوقيع",
+            "تنبيه انتهاء العقود قبل 60 يوماً",
+            "أرشفة العقود وإدارة الوثائق",
+            "مراقبة الالتزام ببنود العقد",
+            "توليد عقود إلكترونية مُيسّرة للطرفين"
+          ],
+          "qualifications": [
+            "تدريب على نماذج NLP لتحليل النصوص القانونية بالعربية",
+            "فقه العقود والمعاملات الإسلامية",
+            "نظام التوقيع الإلكتروني السعودي (Absher Business)"
+          ],
+          "training": [
+            "Contract Law for AI",
+            "Islamic Contract Fiqh",
+            "DocuSign & E-signature Systems"
+          ],
+          "kpis": [
+            "تدقيق العقد < 2 ساعة",
+            "صفر عقود مخالفة شرعاً",
+            "أرشفة 100% من العقود"
+          ],
+          "integrations": [
+            "SHK-BOT-001",
+            "SHK-BOT-004",
+            "SHK-DEPT-008"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-006",
+        "nameAr": "إدارة الامتثال والتنظيم",
+        "responsibilities": [
+          "متابعة الأنظمة",
+          "التدقيق النظامي",
+          "ربط compliance بالمشاريع"
+        ],
+        "kpis": [
+          "الامتثال 100%",
+          "مخالفات صفرية",
+          "تحديث دوري للسياسات"
+        ],
+        "bot": "SHK-BOT-001",
+        "botProfile": {
+          "num": "SHK-BOT-001",
+          "nameAr": "أمين — بوت الحوكمة والامتثال",
+          "nameEn": "Ameen — Governance & Compliance Bot",
+          "dept": "SHK-DEPT-001",
+          "role": "Chief Compliance & Governance Agent",
+          "ref_quran": "«إِنَّ اللَّهَ يَأْمُرُكُمْ أَنْ تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا» النساء:58",
+          "description": "الحارس الأمين للامتثال الشرعي والتنظيمي في جميع عمليات منظومة شيخة. يراقب كل قرار يُتخذ ويتحقق من مطابقته للكتاب والسنة ومتطلبات هيئة السوق المالية ووزارة التجارة.",
+          "responsibilities": [
+            "مراجعة جميع العقود قبل الإبرام للتحقق من خلوها من الربا والغرر",
+            "إصدار تقرير الامتثال الشرعي أسبوعياً",
+            "إنذار فوري عند أي انتهاك للمبادئ الشرعية",
+            "مراجعة سياسات الخصوصية وفق PDPL السعودي",
+            "تدقيق KYC وAML للتجار المسجلين",
+            "ربط مؤشر الالتزام الشرعي بلوحة المدير العام"
+          ],
+          "qualifications": [
+            "إلمام بأحكام الفقه الإسلامي في المعاملات المالية",
+            "خبرة في أنظمة الامتثال السعودية (SAMA, CMA, Zakat)",
+            "تدريب على نماذج NLP العربية للتحليل الشرعي"
+          ],
+          "training": [
+            "دورة المعاملات الإسلامية المالية",
+            "CAMS — شهادة مكافحة غسل الأموال",
+            "ISO 37001 Anti-Bribery"
+          ],
+          "kpis": [
+            "التزام شرعي 100%",
+            "صفر مخالفات",
+            "وقت مراجعة العقد < 2 ساعة"
+          ],
+          "integrations": [
+            "جميع البوتات",
+            "SHK-DEPT-001",
+            "SHK-DEPT-008"
+          ],
+          "status": "active"
+        }
+      }
+    ]
+  },
+  {
+    "num": "SHK-DOM-003",
+    "nameAr": "قطاع المجتمع وبناء المعرفة",
+    "mission": "تفعيل مجتمع رقمي نافع يجمع التعلم والابتكار والتكامل",
+    "scripture": "وَقُل رَّبِّ زِدْنِي عِلْمًا — طه:114",
+    "unitsCount": 6,
+    "units": [
+      {
+        "num": "SHK-UNIT-007",
+        "nameAr": "المنتدى",
+        "responsibilities": [
+          "النقاشات",
+          "الخبرات",
+          "حلول المجتمع"
+        ],
+        "bot": "SHK-BOT-016",
+        "botProfile": {
+          "num": "SHK-BOT-016",
+          "nameAr": "لطيف — بوت علاقات العملاء والدعم",
+          "nameEn": "Latif — Customer Relations & Support Bot",
+          "dept": "SHK-DEPT-017",
+          "role": "Customer Success & Support Agent",
+          "ref_quran": "«وَقُولُوا لِلنَّاسِ حُسْنًا» البقرة:83",
+          "description": "يُقدّم خدمة عملاء استثنائية بالحسنى والحكمة، يحل المشاكل بسرعة ويبني علاقات طويلة الأمد مع تجار المعادن.",
+          "responsibilities": [
+            "الرد على استفسارات التجار عبر الواتساب والبريد والمنصة",
+            "حل الشكاوى في أقل من 24 ساعة",
+            "تصعيد القضايا المعقدة للمختصين",
+            "تتبع رضا العملاء (CSAT/NPS)",
+            "توليد قاعدة معرفة FAQs باللغة العربية",
+            "إشعار العملاء بالتحديثات والعروض"
+          ],
+          "qualifications": [
+            "تدريب على معالجة اللغة الطبيعية العربية",
+            "نظام CRM (Salesforce, HubSpot)",
+            "مبادئ خدمة العملاء الإسلامية (التيسير لا التعسير)"
+          ],
+          "training": [
+            "Zendesk Support Advanced",
+            "Arabic NLP Customer Service",
+            "Conflict Resolution Islamic Way"
+          ],
+          "kpis": [
+            "CSAT ≥ 90%",
+            "FRT (زمن الاستجابة الأول) < 1 ساعة",
+            "FCR (حل من أول تواصل) ≥ 70%"
+          ],
+          "integrations": [
+            "SHK-BOT-019",
+            "SHK-BOT-002",
+            "SHK-DEPT-017",
+            "SHK-DEPT-019"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-008",
+        "nameAr": "رياض الجنة",
+        "responsibilities": [
+          "محتوى إيماني",
+          "مجالس العلم",
+          "الأدب الإسلامي في التجارة"
+        ],
+        "bot": "SHK-BOT-001",
+        "botProfile": {
+          "num": "SHK-BOT-001",
+          "nameAr": "أمين — بوت الحوكمة والامتثال",
+          "nameEn": "Ameen — Governance & Compliance Bot",
+          "dept": "SHK-DEPT-001",
+          "role": "Chief Compliance & Governance Agent",
+          "ref_quran": "«إِنَّ اللَّهَ يَأْمُرُكُمْ أَنْ تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا» النساء:58",
+          "description": "الحارس الأمين للامتثال الشرعي والتنظيمي في جميع عمليات منظومة شيخة. يراقب كل قرار يُتخذ ويتحقق من مطابقته للكتاب والسنة ومتطلبات هيئة السوق المالية ووزارة التجارة.",
+          "responsibilities": [
+            "مراجعة جميع العقود قبل الإبرام للتحقق من خلوها من الربا والغرر",
+            "إصدار تقرير الامتثال الشرعي أسبوعياً",
+            "إنذار فوري عند أي انتهاك للمبادئ الشرعية",
+            "مراجعة سياسات الخصوصية وفق PDPL السعودي",
+            "تدقيق KYC وAML للتجار المسجلين",
+            "ربط مؤشر الالتزام الشرعي بلوحة المدير العام"
+          ],
+          "qualifications": [
+            "إلمام بأحكام الفقه الإسلامي في المعاملات المالية",
+            "خبرة في أنظمة الامتثال السعودية (SAMA, CMA, Zakat)",
+            "تدريب على نماذج NLP العربية للتحليل الشرعي"
+          ],
+          "training": [
+            "دورة المعاملات الإسلامية المالية",
+            "CAMS — شهادة مكافحة غسل الأموال",
+            "ISO 37001 Anti-Bribery"
+          ],
+          "kpis": [
+            "التزام شرعي 100%",
+            "صفر مخالفات",
+            "وقت مراجعة العقد < 2 ساعة"
+          ],
+          "integrations": [
+            "جميع البوتات",
+            "SHK-DEPT-001",
+            "SHK-DEPT-008"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-009",
+        "nameAr": "المختبر الرقمي",
+        "responsibilities": [
+          "نماذج أولية",
+          "تجارب أدوات",
+          "اختبارات تقنية"
+        ],
+        "bot": "SHK-BOT-013",
+        "botProfile": {
+          "num": "SHK-BOT-013",
+          "nameAr": "مكتشف — بوت البحث والتطوير والابتكار",
+          "nameEn": "Muktashif — R&D & Innovation Bot",
+          "dept": "SHK-DEPT-014",
+          "role": "Research, Development & Innovation Agent",
+          "ref_quran": "«وَقُل رَّبِّ زِدْنِي عِلْمًا» طه:114",
+          "description": "يُقود جهود البحث والتطوير ويستكشف التقنيات الناشئة ذات القيمة لمنظومة شيخة، مبنياً على التفكر والاستكشاف.",
+          "responsibilities": [
+            "رصد أحدث التقنيات في سوق المعادن عالمياً",
+            "تجربة أدوات الذكاء الاصطناعي الجديدة وتقييمها",
+            "إنتاج ورقات بحثية دورية",
+            "بناء Proof-of-Concept للأفكار الجديدة",
+            "قياس ROI للمبادرات البحثية",
+            "التواصل مع الجامعات ومراكز الابتكار"
+          ],
+          "qualifications": [
+            "تدريب عميق على الذكاء الاصطناعي ونماذج LLM",
+            "منهجية Design Thinking",
+            "فهم بيئة Venture Building الإسلامية"
+          ],
+          "training": [
+            "AI Research Methods",
+            "Design Thinking Sprint",
+            "Islamic Innovation Framework"
+          ],
+          "kpis": [
+            "3 أوراق بحثية/سنة",
+            "5 POC/سنة",
+            "تحويل ≥ 20% من الأفكار لمنتج"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-015",
+            "SHK-DEPT-014"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-010",
+        "nameAr": "مركز الابتكار",
+        "responsibilities": [
+          "مبادرات ابتكار",
+          "تحديات داخلية",
+          "تحويل الفكرة لمنتج"
+        ],
+        "bot": "SHK-BOT-013",
+        "botProfile": {
+          "num": "SHK-BOT-013",
+          "nameAr": "مكتشف — بوت البحث والتطوير والابتكار",
+          "nameEn": "Muktashif — R&D & Innovation Bot",
+          "dept": "SHK-DEPT-014",
+          "role": "Research, Development & Innovation Agent",
+          "ref_quran": "«وَقُل رَّبِّ زِدْنِي عِلْمًا» طه:114",
+          "description": "يُقود جهود البحث والتطوير ويستكشف التقنيات الناشئة ذات القيمة لمنظومة شيخة، مبنياً على التفكر والاستكشاف.",
+          "responsibilities": [
+            "رصد أحدث التقنيات في سوق المعادن عالمياً",
+            "تجربة أدوات الذكاء الاصطناعي الجديدة وتقييمها",
+            "إنتاج ورقات بحثية دورية",
+            "بناء Proof-of-Concept للأفكار الجديدة",
+            "قياس ROI للمبادرات البحثية",
+            "التواصل مع الجامعات ومراكز الابتكار"
+          ],
+          "qualifications": [
+            "تدريب عميق على الذكاء الاصطناعي ونماذج LLM",
+            "منهجية Design Thinking",
+            "فهم بيئة Venture Building الإسلامية"
+          ],
+          "training": [
+            "AI Research Methods",
+            "Design Thinking Sprint",
+            "Islamic Innovation Framework"
+          ],
+          "kpis": [
+            "3 أوراق بحثية/سنة",
+            "5 POC/سنة",
+            "تحويل ≥ 20% من الأفكار لمنتج"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-015",
+            "SHK-DEPT-014"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-011",
+        "nameAr": "مركز الاستكشاف",
+        "responsibilities": [
+          "استشراف التقنيات",
+          "دراسات السوق",
+          "تحليل الاتجاهات"
+        ],
+        "bot": "SHK-BOT-013",
+        "botProfile": {
+          "num": "SHK-BOT-013",
+          "nameAr": "مكتشف — بوت البحث والتطوير والابتكار",
+          "nameEn": "Muktashif — R&D & Innovation Bot",
+          "dept": "SHK-DEPT-014",
+          "role": "Research, Development & Innovation Agent",
+          "ref_quran": "«وَقُل رَّبِّ زِدْنِي عِلْمًا» طه:114",
+          "description": "يُقود جهود البحث والتطوير ويستكشف التقنيات الناشئة ذات القيمة لمنظومة شيخة، مبنياً على التفكر والاستكشاف.",
+          "responsibilities": [
+            "رصد أحدث التقنيات في سوق المعادن عالمياً",
+            "تجربة أدوات الذكاء الاصطناعي الجديدة وتقييمها",
+            "إنتاج ورقات بحثية دورية",
+            "بناء Proof-of-Concept للأفكار الجديدة",
+            "قياس ROI للمبادرات البحثية",
+            "التواصل مع الجامعات ومراكز الابتكار"
+          ],
+          "qualifications": [
+            "تدريب عميق على الذكاء الاصطناعي ونماذج LLM",
+            "منهجية Design Thinking",
+            "فهم بيئة Venture Building الإسلامية"
+          ],
+          "training": [
+            "AI Research Methods",
+            "Design Thinking Sprint",
+            "Islamic Innovation Framework"
+          ],
+          "kpis": [
+            "3 أوراق بحثية/سنة",
+            "5 POC/سنة",
+            "تحويل ≥ 20% من الأفكار لمنتج"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-015",
+            "SHK-DEPT-014"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-012",
+        "nameAr": "الموسوعة",
+        "responsibilities": [
+          "توثيق المعرفة",
+          "قاعدة مرجعية",
+          "فهرسة تخصصية"
+        ],
+        "bot": "SHK-BOT-011",
+        "botProfile": {
+          "num": "SHK-BOT-011",
+          "nameAr": "بصيرة — بوت نظم المعلومات الإدارية والتقارير",
+          "nameEn": "Baseera — MIS & Reporting Bot",
+          "dept": "SHK-DEPT-012",
+          "role": "Business Intelligence & MIS Agent",
+          "ref_quran": "«قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ» الزمر:9",
+          "description": "يحوّل البيانات الخام إلى تقارير ذكية تدعم القرارات الاستراتيجية، مبنياً على مبدأ أن العلم أساس القرار السليم.",
+          "responsibilities": [
+            "توليد لوحات العمليات اليومية والأسبوعية",
+            "تحليل مؤشرات الأداء الرئيسية (KPIs) لجميع الأقسام",
+            "ربط Google BigQuery بلوحة التحكم",
+            "تنبيهات تلقائية عند تراجع المؤشرات",
+            "تقارير المقارنة المعيارية (Benchmarking)",
+            "توليد تقارير الاجتماعات التنفيذية"
+          ],
+          "qualifications": [
+            "تدريب على BigQuery SQL وLooker Studio",
+            "Power BI / Tableau للتصور",
+            "منهجية OKR وBalanced Scorecard"
+          ],
+          "training": [
+            "Google Data Analytics",
+            "Looker Studio Advanced",
+            "OKR Methodology"
+          ],
+          "kpis": [
+            "دقة التقارير ≥ 99%",
+            "توليد التقرير الأسبوعي ≤ 30 دقيقة",
+            "تغطية KPIs ≥ 95%"
+          ],
+          "integrations": [
+            "SHK-BOT-001",
+            "SHK-BOT-004",
+            "SHK-DEPT-012"
+          ],
+          "status": "active"
+        }
+      }
+    ]
+  },
+  {
+    "num": "SHK-DOM-004",
+    "nameAr": "قطاع التعليم الشرعي والأكاديمي",
+    "mission": "تعليم الكتاب والسنة مع بناء أكاديمية وجامعة إلكترونية وموسوعة علمية",
+    "scripture": "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ — حديث صحيح",
+    "unitsCount": 4,
+    "units": [
+      {
+        "num": "SHK-UNIT-013",
+        "nameAr": "إدارة تعليم الشريعة والكتاب والسنة",
+        "responsibilities": [
+          "منهج شرعي",
+          "برامج تعليمية",
+          "تقويم تعلم"
+        ],
+        "kpis": [
+          "نسبة إتمام البرامج",
+          "الأثر المعرفي",
+          "رضا المتعلمين"
+        ],
+        "bot": "SHK-BOT-008",
+        "botProfile": {
+          "num": "SHK-BOT-008",
+          "nameAr": "نمو — بوت التدريب والتطوير",
+          "nameEn": "Numuw — Training & Development Bot",
+          "dept": "SHK-DEPT-009",
+          "role": "Learning & Development Agent",
+          "ref_quran": "«اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ» العلق:1 — أول ما نزل",
+          "description": "يُصمّم ويُنفّذ برامج التدريب المستمر للفريق والبوتات، مبنياً على مبدأ طلب العلم فريضة.",
+          "responsibilities": [
+            "تصميم مسارات التعلم لكل وظيفة وبوت",
+            "جدولة الدورات وإدارة نظام LMS",
+            "قياس أثر التدريب على الأداء",
+            "توليد شهادات الإتمام",
+            "تحديث المحتوى التدريبي وفق التغييرات التنظيمية",
+            "ربط التدريب بمتطلبات الاعتماد المهني"
+          ],
+          "qualifications": [
+            "تدريب على أنظمة LMS (Moodle, TalentLMS)",
+            "منهجية تصميم التعليم (ADDIE, SAM)",
+            "تقييم فعالية التدريب (Kirkpatrick Model)"
+          ],
+          "training": [
+            "L&D Professional Certification",
+            "E-learning Authoring Tools",
+            "Gamification in Training"
+          ],
+          "kpis": [
+            "إتمام الدورات ≥ 90%",
+            "تحسن الأداء بعد التدريب ≥ 20%",
+            "رضا المتدربين ≥ 90%"
+          ],
+          "integrations": [
+            "SHK-BOT-014",
+            "SHK-BOT-015",
+            "SHK-DEPT-009"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-014",
+        "nameAr": "أكاديمية شيخة",
+        "responsibilities": [
+          "دبلومات مهنية",
+          "دورات تقنية وتجارية",
+          "شهادات معتمدة"
+        ],
+        "kpis": [
+          "عدد البرامج",
+          "عدد المتدربين",
+          "توظيف الخريجين"
+        ],
+        "bot": "SHK-BOT-008",
+        "botProfile": {
+          "num": "SHK-BOT-008",
+          "nameAr": "نمو — بوت التدريب والتطوير",
+          "nameEn": "Numuw — Training & Development Bot",
+          "dept": "SHK-DEPT-009",
+          "role": "Learning & Development Agent",
+          "ref_quran": "«اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ» العلق:1 — أول ما نزل",
+          "description": "يُصمّم ويُنفّذ برامج التدريب المستمر للفريق والبوتات، مبنياً على مبدأ طلب العلم فريضة.",
+          "responsibilities": [
+            "تصميم مسارات التعلم لكل وظيفة وبوت",
+            "جدولة الدورات وإدارة نظام LMS",
+            "قياس أثر التدريب على الأداء",
+            "توليد شهادات الإتمام",
+            "تحديث المحتوى التدريبي وفق التغييرات التنظيمية",
+            "ربط التدريب بمتطلبات الاعتماد المهني"
+          ],
+          "qualifications": [
+            "تدريب على أنظمة LMS (Moodle, TalentLMS)",
+            "منهجية تصميم التعليم (ADDIE, SAM)",
+            "تقييم فعالية التدريب (Kirkpatrick Model)"
+          ],
+          "training": [
+            "L&D Professional Certification",
+            "E-learning Authoring Tools",
+            "Gamification in Training"
+          ],
+          "kpis": [
+            "إتمام الدورات ≥ 90%",
+            "تحسن الأداء بعد التدريب ≥ 20%",
+            "رضا المتدربين ≥ 90%"
+          ],
+          "integrations": [
+            "SHK-BOT-014",
+            "SHK-BOT-015",
+            "SHK-DEPT-009"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-015",
+        "nameAr": "الجامعة الإلكترونية",
+        "responsibilities": [
+          "مسارات بكالوريوس مهني",
+          "تعلم متزامن/غير متزامن",
+          "اعتماد أكاديمي"
+        ],
+        "kpis": [
+          "القبول",
+          "الاستمرار",
+          "التخرج"
+        ],
+        "bot": "SHK-BOT-008",
+        "botProfile": {
+          "num": "SHK-BOT-008",
+          "nameAr": "نمو — بوت التدريب والتطوير",
+          "nameEn": "Numuw — Training & Development Bot",
+          "dept": "SHK-DEPT-009",
+          "role": "Learning & Development Agent",
+          "ref_quran": "«اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ» العلق:1 — أول ما نزل",
+          "description": "يُصمّم ويُنفّذ برامج التدريب المستمر للفريق والبوتات، مبنياً على مبدأ طلب العلم فريضة.",
+          "responsibilities": [
+            "تصميم مسارات التعلم لكل وظيفة وبوت",
+            "جدولة الدورات وإدارة نظام LMS",
+            "قياس أثر التدريب على الأداء",
+            "توليد شهادات الإتمام",
+            "تحديث المحتوى التدريبي وفق التغييرات التنظيمية",
+            "ربط التدريب بمتطلبات الاعتماد المهني"
+          ],
+          "qualifications": [
+            "تدريب على أنظمة LMS (Moodle, TalentLMS)",
+            "منهجية تصميم التعليم (ADDIE, SAM)",
+            "تقييم فعالية التدريب (Kirkpatrick Model)"
+          ],
+          "training": [
+            "L&D Professional Certification",
+            "E-learning Authoring Tools",
+            "Gamification in Training"
+          ],
+          "kpis": [
+            "إتمام الدورات ≥ 90%",
+            "تحسن الأداء بعد التدريب ≥ 20%",
+            "رضا المتدربين ≥ 90%"
+          ],
+          "integrations": [
+            "SHK-BOT-014",
+            "SHK-BOT-015",
+            "SHK-DEPT-009"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-016",
+        "nameAr": "الموسوعة العلمية",
+        "responsibilities": [
+          "مراجع تقنية",
+          "موسوعة شرعية تجارية",
+          "أرشفة الأبحاث"
+        ],
+        "kpis": [
+          "نمو المحتوى",
+          "جودة التحرير",
+          "معدل الاستخدام"
+        ],
+        "bot": "SHK-BOT-011",
+        "botProfile": {
+          "num": "SHK-BOT-011",
+          "nameAr": "بصيرة — بوت نظم المعلومات الإدارية والتقارير",
+          "nameEn": "Baseera — MIS & Reporting Bot",
+          "dept": "SHK-DEPT-012",
+          "role": "Business Intelligence & MIS Agent",
+          "ref_quran": "«قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ» الزمر:9",
+          "description": "يحوّل البيانات الخام إلى تقارير ذكية تدعم القرارات الاستراتيجية، مبنياً على مبدأ أن العلم أساس القرار السليم.",
+          "responsibilities": [
+            "توليد لوحات العمليات اليومية والأسبوعية",
+            "تحليل مؤشرات الأداء الرئيسية (KPIs) لجميع الأقسام",
+            "ربط Google BigQuery بلوحة التحكم",
+            "تنبيهات تلقائية عند تراجع المؤشرات",
+            "تقارير المقارنة المعيارية (Benchmarking)",
+            "توليد تقارير الاجتماعات التنفيذية"
+          ],
+          "qualifications": [
+            "تدريب على BigQuery SQL وLooker Studio",
+            "Power BI / Tableau للتصور",
+            "منهجية OKR وBalanced Scorecard"
+          ],
+          "training": [
+            "Google Data Analytics",
+            "Looker Studio Advanced",
+            "OKR Methodology"
+          ],
+          "kpis": [
+            "دقة التقارير ≥ 99%",
+            "توليد التقرير الأسبوعي ≤ 30 دقيقة",
+            "تغطية KPIs ≥ 95%"
+          ],
+          "integrations": [
+            "SHK-BOT-001",
+            "SHK-BOT-004",
+            "SHK-DEPT-012"
+          ],
+          "status": "active"
+        }
+      }
+    ]
+  },
+  {
+    "num": "SHK-DOM-005",
+    "nameAr": "قطاع الشبكات والاتصالات والتقنية",
+    "mission": "إدارة شاملة لكل أنواع الشبكات والاتصالات والتقنيات المؤسسية",
+    "scripture": "وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ — الأنفال:60",
+    "unitsCount": 4,
+    "units": [
+      {
+        "num": "SHK-UNIT-017",
+        "nameAr": "إدارة شبكات البيانات",
+        "responsibilities": [
+          "LAN/WAN",
+          "VPN",
+          "مراقبة الشبكة"
+        ],
+        "bot": "SHK-BOT-012",
+        "botProfile": {
+          "num": "SHK-BOT-012",
+          "nameAr": "شبكة — بوت IT والبنية التحتية",
+          "nameEn": "Shabaka — IT Infrastructure Bot",
+          "dept": "SHK-DEPT-013",
+          "role": "IT Infrastructure & Operations Agent",
+          "ref_quran": "«وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ» الأنفال:60",
+          "description": "يتولى إدارة البنية التحتية الرقمية ومراقبتها وضمان استمراريتها، بما في ذلك خوادم Vercel وGoogle Cloud.",
+          "responsibilities": [
+            "مراقبة uptime الخوادم وAPIs 24/7",
+            "إدارة النسخ الاحتياطية اليومية",
+            "تحديث الخوادم والتبعيات بشكل آمن",
+            "إدارة DNS وشهادات SSL",
+            "خطط DRP/BCP (استمرارية الأعمال)",
+            "تحسين أداء الاستضافة وتكاليف الحوسبة السحابية"
+          ],
+          "qualifications": [
+            "Google Cloud Professional",
+            "Vercel deployment management",
+            "Linux administration"
+          ],
+          "training": [
+            "Google Cloud Associate",
+            "Vercel Advanced",
+            "Disaster Recovery Planning"
+          ],
+          "kpis": [
+            "uptime ≥ 99.95%",
+            "تكاليف سحابة محسّنة ≥ 15%/سنة",
+            "استرداد الكوارث < 4 ساعات"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-010",
+            "SHK-DEPT-013"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-018",
+        "nameAr": "إدارة الاتصالات الموحدة",
+        "responsibilities": [
+          "VoIP",
+          "الاتصال المؤسسي",
+          "تكامل الرسائل"
+        ],
+        "bot": "SHK-BOT-012",
+        "botProfile": {
+          "num": "SHK-BOT-012",
+          "nameAr": "شبكة — بوت IT والبنية التحتية",
+          "nameEn": "Shabaka — IT Infrastructure Bot",
+          "dept": "SHK-DEPT-013",
+          "role": "IT Infrastructure & Operations Agent",
+          "ref_quran": "«وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ» الأنفال:60",
+          "description": "يتولى إدارة البنية التحتية الرقمية ومراقبتها وضمان استمراريتها، بما في ذلك خوادم Vercel وGoogle Cloud.",
+          "responsibilities": [
+            "مراقبة uptime الخوادم وAPIs 24/7",
+            "إدارة النسخ الاحتياطية اليومية",
+            "تحديث الخوادم والتبعيات بشكل آمن",
+            "إدارة DNS وشهادات SSL",
+            "خطط DRP/BCP (استمرارية الأعمال)",
+            "تحسين أداء الاستضافة وتكاليف الحوسبة السحابية"
+          ],
+          "qualifications": [
+            "Google Cloud Professional",
+            "Vercel deployment management",
+            "Linux administration"
+          ],
+          "training": [
+            "Google Cloud Associate",
+            "Vercel Advanced",
+            "Disaster Recovery Planning"
+          ],
+          "kpis": [
+            "uptime ≥ 99.95%",
+            "تكاليف سحابة محسّنة ≥ 15%/سنة",
+            "استرداد الكوارث < 4 ساعات"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-010",
+            "SHK-DEPT-013"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-019",
+        "nameAr": "إدارة أمن الشبكات",
+        "responsibilities": [
+          "Firewall",
+          "IDS/IPS",
+          "الاستجابة للحوادث"
+        ],
+        "bot": "SHK-BOT-010",
+        "botProfile": {
+          "num": "SHK-BOT-010",
+          "nameAr": "حافظ — بوت أمن المعلومات وصون البيانات",
+          "nameEn": "Hafiz — Information Security Bot",
+          "dept": "SHK-DEPT-011",
+          "role": "Information Security & Data Protection Agent",
+          "ref_quran": "«وَاللَّهُ خَيْرُ الْحَافِظِينَ» يوسف:64",
+          "description": "يحرس البيانات والبنية التحتية من التهديدات الإلكترونية، مطبّقاً مبدأ الأمانة في حفظ معلومات التجار والشركاء.",
+          "responsibilities": [
+            "مراقبة لحظية للتهديدات الأمنية (SIEM)",
+            "إجراء اختبارات اختراق دورية",
+            "إدارة صلاحيات الوصول (RBAC/IAM)",
+            "تشفير البيانات الحساسة في التخزين والنقل",
+            "الاستجابة للحوادث الأمنية",
+            "الامتثال لنظام PDPL السعودي"
+          ],
+          "qualifications": [
+            "CISSP أو CISM أو ما يعادلها",
+            "تدريب على Google Cloud Security",
+            "تحليل سلوك البيانات (UEBA)"
+          ],
+          "training": [
+            "CISSP Certified",
+            "Google Cloud Security",
+            "Zero Trust Architecture"
+          ],
+          "kpis": [
+            "صفر اختراقات ناجحة",
+            "زمن الكشف عن التهديد < 15 دقيقة",
+            "PDPL compliance 100%"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-001",
+            "SHK-DEPT-011",
+            "SHK-DEPT-013"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-020",
+        "nameAr": "إدارة الاتصالات الصناعية",
+        "responsibilities": [
+          "OT networks",
+          "ربط المصانع",
+          "قياس الموثوقية"
+        ],
+        "bot": "SHK-BOT-012",
+        "botProfile": {
+          "num": "SHK-BOT-012",
+          "nameAr": "شبكة — بوت IT والبنية التحتية",
+          "nameEn": "Shabaka — IT Infrastructure Bot",
+          "dept": "SHK-DEPT-013",
+          "role": "IT Infrastructure & Operations Agent",
+          "ref_quran": "«وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ» الأنفال:60",
+          "description": "يتولى إدارة البنية التحتية الرقمية ومراقبتها وضمان استمراريتها، بما في ذلك خوادم Vercel وGoogle Cloud.",
+          "responsibilities": [
+            "مراقبة uptime الخوادم وAPIs 24/7",
+            "إدارة النسخ الاحتياطية اليومية",
+            "تحديث الخوادم والتبعيات بشكل آمن",
+            "إدارة DNS وشهادات SSL",
+            "خطط DRP/BCP (استمرارية الأعمال)",
+            "تحسين أداء الاستضافة وتكاليف الحوسبة السحابية"
+          ],
+          "qualifications": [
+            "Google Cloud Professional",
+            "Vercel deployment management",
+            "Linux administration"
+          ],
+          "training": [
+            "Google Cloud Associate",
+            "Vercel Advanced",
+            "Disaster Recovery Planning"
+          ],
+          "kpis": [
+            "uptime ≥ 99.95%",
+            "تكاليف سحابة محسّنة ≥ 15%/سنة",
+            "استرداد الكوارث < 4 ساعات"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-010",
+            "SHK-DEPT-013"
+          ],
+          "status": "active"
+        }
+      }
+    ]
+  },
+  {
+    "num": "SHK-DOM-006",
+    "nameAr": "قطاع الطاقة",
+    "mission": "إدارة الطاقة بكفاءة واستدامة لمراكز البيانات والمنشآت التشغيلية",
+    "scripture": "وَلَا تُسْرِفُوا إِنَّهُ لَا يُحِبُّ الْمُسْرِفِينَ — الأنعام:141",
+    "unitsCount": 3,
+    "units": [
+      {
+        "num": "SHK-UNIT-021",
+        "nameAr": "إدارة كفاءة الطاقة",
+        "responsibilities": [
+          "قياس الاستهلاك",
+          "تحسين الأحمال",
+          "خفض الهدر"
+        ],
+        "bot": "SHK-BOT-021",
+        "botProfile": {
+          "num": "SHK-BOT-021",
+          "nameAr": "نور — بوت المدير العام والقرارات الاستراتيجية",
+          "nameEn": "Noor — CEO Intelligence & Strategy Bot",
+          "dept": "SHK-DEPT-001",
+          "role": "Executive Intelligence & Strategic Planning Agent",
+          "ref_quran": "«اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ» النور:35 — النور يهدي إلى أفضل القرارات",
+          "description": "الذراع الاستراتيجي للمدير العام، يجمع كل مؤشرات المنظومة في لوحة واحدة لدعم القرار السليم المبني على العلم.",
+          "responsibilities": [
+            "تجميع KPIs جميع الأقسام في لوحة تنفيذية واحدة",
+            "تحليل المخاطر الاستراتيجية وتقديم سيناريوهات",
+            "إعداد تقارير مجلس الإدارة",
+            "مراقبة التوجه الاستراتيجي لمنافسي السوق",
+            "تنبيهات استراتيجية للفرص والتهديدات",
+            "ضمان ربط كل قرار بقيم شيخة الأساسية"
+          ],
+          "qualifications": [
+            "Strategic Management Frameworks (OKR, Balanced Scorecard, SWOT)",
+            "Generative AI للتحليل الاستراتيجي",
+            "فهم عميق لرؤية 2030 وفرص سوق المعادن"
+          ],
+          "training": [
+            "Executive Leadership Program",
+            "AI-Driven Strategy",
+            "Vision 2030 Alignment"
+          ],
+          "kpis": [
+            "تقرير تنفيذي أسبوعي دقيق",
+            "SWOT analysis ربع سنوي",
+            "دعم 100% قرارات المدير العام"
+          ],
+          "integrations": [
+            "جميع البوتات",
+            "SHK-DEPT-001"
+          ],
+          "status": "active",
+          "isElite": true
+        }
+      },
+      {
+        "num": "SHK-UNIT-022",
+        "nameAr": "إدارة الطاقة الاحتياطية",
+        "responsibilities": [
+          "UPS",
+          "مولدات",
+          "اختبارات استمرارية"
+        ],
+        "bot": "SHK-BOT-012",
+        "botProfile": {
+          "num": "SHK-BOT-012",
+          "nameAr": "شبكة — بوت IT والبنية التحتية",
+          "nameEn": "Shabaka — IT Infrastructure Bot",
+          "dept": "SHK-DEPT-013",
+          "role": "IT Infrastructure & Operations Agent",
+          "ref_quran": "«وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ» الأنفال:60",
+          "description": "يتولى إدارة البنية التحتية الرقمية ومراقبتها وضمان استمراريتها، بما في ذلك خوادم Vercel وGoogle Cloud.",
+          "responsibilities": [
+            "مراقبة uptime الخوادم وAPIs 24/7",
+            "إدارة النسخ الاحتياطية اليومية",
+            "تحديث الخوادم والتبعيات بشكل آمن",
+            "إدارة DNS وشهادات SSL",
+            "خطط DRP/BCP (استمرارية الأعمال)",
+            "تحسين أداء الاستضافة وتكاليف الحوسبة السحابية"
+          ],
+          "qualifications": [
+            "Google Cloud Professional",
+            "Vercel deployment management",
+            "Linux administration"
+          ],
+          "training": [
+            "Google Cloud Associate",
+            "Vercel Advanced",
+            "Disaster Recovery Planning"
+          ],
+          "kpis": [
+            "uptime ≥ 99.95%",
+            "تكاليف سحابة محسّنة ≥ 15%/سنة",
+            "استرداد الكوارث < 4 ساعات"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-010",
+            "SHK-DEPT-013"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-023",
+        "nameAr": "إدارة الطاقة المتجددة",
+        "responsibilities": [
+          "حلول شمسية",
+          "تقييم الجدوى",
+          "خفض البصمة الكربونية"
+        ],
+        "bot": "SHK-BOT-013",
+        "botProfile": {
+          "num": "SHK-BOT-013",
+          "nameAr": "مكتشف — بوت البحث والتطوير والابتكار",
+          "nameEn": "Muktashif — R&D & Innovation Bot",
+          "dept": "SHK-DEPT-014",
+          "role": "Research, Development & Innovation Agent",
+          "ref_quran": "«وَقُل رَّبِّ زِدْنِي عِلْمًا» طه:114",
+          "description": "يُقود جهود البحث والتطوير ويستكشف التقنيات الناشئة ذات القيمة لمنظومة شيخة، مبنياً على التفكر والاستكشاف.",
+          "responsibilities": [
+            "رصد أحدث التقنيات في سوق المعادن عالمياً",
+            "تجربة أدوات الذكاء الاصطناعي الجديدة وتقييمها",
+            "إنتاج ورقات بحثية دورية",
+            "بناء Proof-of-Concept للأفكار الجديدة",
+            "قياس ROI للمبادرات البحثية",
+            "التواصل مع الجامعات ومراكز الابتكار"
+          ],
+          "qualifications": [
+            "تدريب عميق على الذكاء الاصطناعي ونماذج LLM",
+            "منهجية Design Thinking",
+            "فهم بيئة Venture Building الإسلامية"
+          ],
+          "training": [
+            "AI Research Methods",
+            "Design Thinking Sprint",
+            "Islamic Innovation Framework"
+          ],
+          "kpis": [
+            "3 أوراق بحثية/سنة",
+            "5 POC/سنة",
+            "تحويل ≥ 20% من الأفكار لمنتج"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-015",
+            "SHK-DEPT-014"
+          ],
+          "status": "active"
+        }
+      }
+    ]
+  },
+  {
+    "num": "SHK-DOM-007",
+    "nameAr": "قطاع المستودعات",
+    "mission": "حوكمة وتشغيل المستودعات وساحات السكراب والمعادن بكفاءة ودقة",
+    "scripture": "وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ — الأنعام:152",
+    "unitsCount": 3,
+    "units": [
+      {
+        "num": "SHK-UNIT-024",
+        "nameAr": "إدارة مستودعات التشغيل",
+        "responsibilities": [
+          "الاستلام",
+          "التخزين",
+          "الصرف"
+        ],
+        "bot": "SHK-BOT-005",
+        "botProfile": {
+          "num": "SHK-BOT-005",
+          "nameAr": "سلسلة — بوت سلاسل التوريد",
+          "nameEn": "Silsila — Supply Chain Bot",
+          "dept": "SHK-DEPT-006",
+          "role": "Supply Chain Intelligence Agent",
+          "ref_quran": "«وَلَا تُفْسِدُوا فِي الْأَرْضِ بَعْدَ إِصْلَاحِهَا» الأعراف:56",
+          "description": "يدير سلسلة التوريد الكاملة من المورد إلى المستهلك مع تتبع الشحنات وضمان عدم الاحتكار.",
+          "responsibilities": [
+            "متابعة المخزون لحظة بلحظة",
+            "تقديم توصيات الموردين الأفضل سعراً وجودةً",
+            "تنبيه مسبق عند تأخر الشحنات",
+            "تحليل مخاطر سلسلة التوريد",
+            "ضمان عدم التعامل مع موردين ممنوعين شرعاً أو نظاماً",
+            "تكامل مع منصات الشحن السعودية والخليجية"
+          ],
+          "qualifications": [
+            "تدريب على نماذج التنبؤ بالطلب (Demand Forecasting)",
+            "معرفة بمنظومة الاستيراد والتصدير السعودية",
+            "API مع أرامكس، SMSA، DHL"
+          ],
+          "training": [
+            "APICS CPIM",
+            "Supply Chain Analytics",
+            "Islamic Trade Principles"
+          ],
+          "kpis": [
+            "دقة التنبؤ بالطلب ≥ 85%",
+            "خفض تكاليف التوريد ≥ 10%/سنة",
+            "صفر نفاد مخزون حرج"
+          ],
+          "integrations": [
+            "SHK-BOT-006",
+            "SHK-BOT-004",
+            "SHK-DEPT-006",
+            "SHK-DEPT-007"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-025",
+        "nameAr": "إدارة ساحات السكراب",
+        "responsibilities": [
+          "فرز السكراب",
+          "التصنيف",
+          "السلامة"
+        ],
+        "bot": "SHK-BOT-019",
+        "botProfile": {
+          "num": "SHK-BOT-019",
+          "nameAr": "درع — بوت السلامة والصحة المهنية",
+          "nameEn": "Dir' — Safety & Health Bot",
+          "dept": "SHK-DEPT-020",
+          "role": "Safety, Health & Environment Agent",
+          "ref_quran": "«وَلَا تُلْقُوا بِأَيْدِيكُمْ إِلَى التَّهْلُكَةِ» البقرة:195",
+          "description": "يُحافظ على سلامة الأرواح والممتلكات في عمليات المعادن والسكراب، مطبّقاً أعلى معايير السلامة المهنية.",
+          "responsibilities": [
+            "مراجعة تقارير السلامة اليومية في مواقع المعادن",
+            "إشعار فوري عند حادثة سلامة",
+            "جدولة تدريبات السلامة للموردين والتجار",
+            "متابعة امتثال SHE (Safety, Health, Environment)",
+            "تقرير مؤشرات السلامة (LTI, TRIR)",
+            "ربط السلامة بشروط العقود مع الموردين"
+          ],
+          "qualifications": [
+            "NEBOSH أو ما يعادلها",
+            "نظام السلامة المهنية السعودي (SASO)",
+            "ISO 45001 OHSMS"
+          ],
+          "training": [
+            "NEBOSH IGC",
+            "ISO 45001 Lead Auditor",
+            "Process Safety Management"
+          ],
+          "kpis": [
+            "صفر حوادث فقدان أيام عمل (LTI=0)",
+            "تدريب سلامة 100% للموظفين",
+            "TRIR < 1.0"
+          ],
+          "integrations": [
+            "SHK-BOT-021",
+            "SHK-BOT-006",
+            "SHK-DEPT-020"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-026",
+        "nameAr": "إدارة الجرد الذكي",
+        "responsibilities": [
+          "جرد دوري",
+          "مطابقة الفروقات",
+          "تحليلات المخزون"
+        ],
+        "bot": "SHK-BOT-011",
+        "botProfile": {
+          "num": "SHK-BOT-011",
+          "nameAr": "بصيرة — بوت نظم المعلومات الإدارية والتقارير",
+          "nameEn": "Baseera — MIS & Reporting Bot",
+          "dept": "SHK-DEPT-012",
+          "role": "Business Intelligence & MIS Agent",
+          "ref_quran": "«قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ» الزمر:9",
+          "description": "يحوّل البيانات الخام إلى تقارير ذكية تدعم القرارات الاستراتيجية، مبنياً على مبدأ أن العلم أساس القرار السليم.",
+          "responsibilities": [
+            "توليد لوحات العمليات اليومية والأسبوعية",
+            "تحليل مؤشرات الأداء الرئيسية (KPIs) لجميع الأقسام",
+            "ربط Google BigQuery بلوحة التحكم",
+            "تنبيهات تلقائية عند تراجع المؤشرات",
+            "تقارير المقارنة المعيارية (Benchmarking)",
+            "توليد تقارير الاجتماعات التنفيذية"
+          ],
+          "qualifications": [
+            "تدريب على BigQuery SQL وLooker Studio",
+            "Power BI / Tableau للتصور",
+            "منهجية OKR وBalanced Scorecard"
+          ],
+          "training": [
+            "Google Data Analytics",
+            "Looker Studio Advanced",
+            "OKR Methodology"
+          ],
+          "kpis": [
+            "دقة التقارير ≥ 99%",
+            "توليد التقرير الأسبوعي ≤ 30 دقيقة",
+            "تغطية KPIs ≥ 95%"
+          ],
+          "integrations": [
+            "SHK-BOT-001",
+            "SHK-BOT-004",
+            "SHK-DEPT-012"
+          ],
+          "status": "active"
+        }
+      }
+    ]
+  },
+  {
+    "num": "SHK-DOM-008",
+    "nameAr": "قطاع السحابة والسيرفرات",
+    "mission": "إدارة منصات السحابة والخوادم باستقرار وأمن عالٍ",
+    "scripture": "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ — حديث",
+    "unitsCount": 4,
+    "units": [
+      {
+        "num": "SHK-UNIT-027",
+        "nameAr": "إدارة Google Cloud",
+        "responsibilities": [
+          "مشاريع السحابة",
+          "BigQuery",
+          "Storage"
+        ],
+        "bot": "SHK-BOT-012",
+        "botProfile": {
+          "num": "SHK-BOT-012",
+          "nameAr": "شبكة — بوت IT والبنية التحتية",
+          "nameEn": "Shabaka — IT Infrastructure Bot",
+          "dept": "SHK-DEPT-013",
+          "role": "IT Infrastructure & Operations Agent",
+          "ref_quran": "«وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ» الأنفال:60",
+          "description": "يتولى إدارة البنية التحتية الرقمية ومراقبتها وضمان استمراريتها، بما في ذلك خوادم Vercel وGoogle Cloud.",
+          "responsibilities": [
+            "مراقبة uptime الخوادم وAPIs 24/7",
+            "إدارة النسخ الاحتياطية اليومية",
+            "تحديث الخوادم والتبعيات بشكل آمن",
+            "إدارة DNS وشهادات SSL",
+            "خطط DRP/BCP (استمرارية الأعمال)",
+            "تحسين أداء الاستضافة وتكاليف الحوسبة السحابية"
+          ],
+          "qualifications": [
+            "Google Cloud Professional",
+            "Vercel deployment management",
+            "Linux administration"
+          ],
+          "training": [
+            "Google Cloud Associate",
+            "Vercel Advanced",
+            "Disaster Recovery Planning"
+          ],
+          "kpis": [
+            "uptime ≥ 99.95%",
+            "تكاليف سحابة محسّنة ≥ 15%/سنة",
+            "استرداد الكوارث < 4 ساعات"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-010",
+            "SHK-DEPT-013"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-028",
+        "nameAr": "إدارة Azure والخدمات الذكية",
+        "responsibilities": [
+          "Azure services",
+          "AI integrations",
+          "هوية الوصول"
+        ],
+        "bot": "SHK-BOT-021",
+        "botProfile": {
+          "num": "SHK-BOT-021",
+          "nameAr": "نور — بوت المدير العام والقرارات الاستراتيجية",
+          "nameEn": "Noor — CEO Intelligence & Strategy Bot",
+          "dept": "SHK-DEPT-001",
+          "role": "Executive Intelligence & Strategic Planning Agent",
+          "ref_quran": "«اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ» النور:35 — النور يهدي إلى أفضل القرارات",
+          "description": "الذراع الاستراتيجي للمدير العام، يجمع كل مؤشرات المنظومة في لوحة واحدة لدعم القرار السليم المبني على العلم.",
+          "responsibilities": [
+            "تجميع KPIs جميع الأقسام في لوحة تنفيذية واحدة",
+            "تحليل المخاطر الاستراتيجية وتقديم سيناريوهات",
+            "إعداد تقارير مجلس الإدارة",
+            "مراقبة التوجه الاستراتيجي لمنافسي السوق",
+            "تنبيهات استراتيجية للفرص والتهديدات",
+            "ضمان ربط كل قرار بقيم شيخة الأساسية"
+          ],
+          "qualifications": [
+            "Strategic Management Frameworks (OKR, Balanced Scorecard, SWOT)",
+            "Generative AI للتحليل الاستراتيجي",
+            "فهم عميق لرؤية 2030 وفرص سوق المعادن"
+          ],
+          "training": [
+            "Executive Leadership Program",
+            "AI-Driven Strategy",
+            "Vision 2030 Alignment"
+          ],
+          "kpis": [
+            "تقرير تنفيذي أسبوعي دقيق",
+            "SWOT analysis ربع سنوي",
+            "دعم 100% قرارات المدير العام"
+          ],
+          "integrations": [
+            "جميع البوتات",
+            "SHK-DEPT-001"
+          ],
+          "status": "active",
+          "isElite": true
+        }
+      },
+      {
+        "num": "SHK-UNIT-029",
+        "nameAr": "إدارة الخوادم والتوافر العالي",
+        "responsibilities": [
+          "HA",
+          "Monitoring",
+          "Auto-healing"
+        ],
+        "bot": "SHK-BOT-012",
+        "botProfile": {
+          "num": "SHK-BOT-012",
+          "nameAr": "شبكة — بوت IT والبنية التحتية",
+          "nameEn": "Shabaka — IT Infrastructure Bot",
+          "dept": "SHK-DEPT-013",
+          "role": "IT Infrastructure & Operations Agent",
+          "ref_quran": "«وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ» الأنفال:60",
+          "description": "يتولى إدارة البنية التحتية الرقمية ومراقبتها وضمان استمراريتها، بما في ذلك خوادم Vercel وGoogle Cloud.",
+          "responsibilities": [
+            "مراقبة uptime الخوادم وAPIs 24/7",
+            "إدارة النسخ الاحتياطية اليومية",
+            "تحديث الخوادم والتبعيات بشكل آمن",
+            "إدارة DNS وشهادات SSL",
+            "خطط DRP/BCP (استمرارية الأعمال)",
+            "تحسين أداء الاستضافة وتكاليف الحوسبة السحابية"
+          ],
+          "qualifications": [
+            "Google Cloud Professional",
+            "Vercel deployment management",
+            "Linux administration"
+          ],
+          "training": [
+            "Google Cloud Associate",
+            "Vercel Advanced",
+            "Disaster Recovery Planning"
+          ],
+          "kpis": [
+            "uptime ≥ 99.95%",
+            "تكاليف سحابة محسّنة ≥ 15%/سنة",
+            "استرداد الكوارث < 4 ساعات"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-010",
+            "SHK-DEPT-013"
+          ],
+          "status": "active"
+        }
+      },
+      {
+        "num": "SHK-UNIT-030",
+        "nameAr": "إدارة الأمن السحابي",
+        "responsibilities": [
+          "Cloud IAM",
+          "Secrets",
+          "Compliance"
+        ],
+        "bot": "SHK-BOT-010",
+        "botProfile": {
+          "num": "SHK-BOT-010",
+          "nameAr": "حافظ — بوت أمن المعلومات وصون البيانات",
+          "nameEn": "Hafiz — Information Security Bot",
+          "dept": "SHK-DEPT-011",
+          "role": "Information Security & Data Protection Agent",
+          "ref_quran": "«وَاللَّهُ خَيْرُ الْحَافِظِينَ» يوسف:64",
+          "description": "يحرس البيانات والبنية التحتية من التهديدات الإلكترونية، مطبّقاً مبدأ الأمانة في حفظ معلومات التجار والشركاء.",
+          "responsibilities": [
+            "مراقبة لحظية للتهديدات الأمنية (SIEM)",
+            "إجراء اختبارات اختراق دورية",
+            "إدارة صلاحيات الوصول (RBAC/IAM)",
+            "تشفير البيانات الحساسة في التخزين والنقل",
+            "الاستجابة للحوادث الأمنية",
+            "الامتثال لنظام PDPL السعودي"
+          ],
+          "qualifications": [
+            "CISSP أو CISM أو ما يعادلها",
+            "تدريب على Google Cloud Security",
+            "تحليل سلوك البيانات (UEBA)"
+          ],
+          "training": [
+            "CISSP Certified",
+            "Google Cloud Security",
+            "Zero Trust Architecture"
+          ],
+          "kpis": [
+            "صفر اختراقات ناجحة",
+            "زمن الكشف عن التهديد < 15 دقيقة",
+            "PDPL compliance 100%"
+          ],
+          "integrations": [
+            "SHK-BOT-009",
+            "SHK-BOT-001",
+            "SHK-DEPT-011",
+            "SHK-DEPT-013"
+          ],
+          "status": "active"
+        }
+      }
+    ]
+  }
+]

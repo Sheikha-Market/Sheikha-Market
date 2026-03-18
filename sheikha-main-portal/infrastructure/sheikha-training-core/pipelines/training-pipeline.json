@@ -1,0 +1,106 @@
+{
+    "generatedAt": "2026-03-13T23:54:18.663Z",
+    "pipeline": {
+        "stages": [
+            {
+                "id": "data-collection",
+                "nameAr": "جمع البيانات",
+                "description": "تجميع المجموعات التدريبية من مصادر موثوقة",
+                "sources": [
+                    "الذاكرة التاريخية للمنصة",
+                    "بيانات السوق الحلال",
+                    "المصادر الإسلامية الرقمية",
+                    "المعادن والسكراب الحقيقية"
+                ],
+                "filters": [
+                    "استبعاد البيانات المشبوهة",
+                    "التحقق من المصدر",
+                    "التنقية الشرعية"
+                ]
+            },
+            {
+                "id": "preprocessing",
+                "nameAr": "المعالجة المسبقة",
+                "description": "تنقية البيانات وتنظيمها وترميزها",
+                "steps": [
+                    "إزالة التكرار",
+                    "معيارة النصوص العربية",
+                    "ترميز السياق الشرعي",
+                    "تصنيف المجالات"
+                ]
+            },
+            {
+                "id": "fine-tuning",
+                "nameAr": "الضبط الدقيق",
+                "description": "ضبط النماذج الأساسية لخصائص منصة شيخة",
+                "targets": [
+                    "sheikha-rag-reasoner-v1",
+                    "branch-autogenesis-model",
+                    "sharia-compliance-classifier",
+                    "market-intelligence-model"
+                ],
+                "techniques": [
+                    "supervised-fine-tuning",
+                    "instruction-tuning",
+                    "sharia-aware-rlhf",
+                    "domain-adaptation"
+                ]
+            },
+            {
+                "id": "evaluation",
+                "nameAr": "التقييم",
+                "description": "قياس الأداء على المعايير الشرعية والتقنية",
+                "metrics": [
+                    "دقة الفتاوى",
+                    "صحة الاستشهاد بالأدلة",
+                    "جودة الإجابات السوقية",
+                    "سلامة التوصيات المالية"
+                ]
+            },
+            {
+                "id": "sharia-review",
+                "nameAr": "المراجعة الشرعية",
+                "description": "مراجعة مخرجات النموذج شرعياً قبل الترقية",
+                "checks": [
+                    "لا ربا في التوصيات",
+                    "لا غرر في التحليل",
+                    "صدق البيان",
+                    "دقة الاستشهاد القرآني"
+                ]
+            },
+            {
+                "id": "promotion",
+                "nameAr": "الترقية للإنتاج",
+                "description": "نقل النموذج المدرَّب والمعتمَد إلى بيئة الإنتاج",
+                "requirements": [
+                    "درجة تقييم ≥ 90%",
+                    "اجتياز المراجعة الشرعية",
+                    "اختبار smoke-test ناجح"
+                ]
+            }
+        ]
+    },
+    "config": {
+        "defaultEpochs": 10,
+        "batchSize": 32,
+        "learningRateSchedule": "cosine-warmup",
+        "checkpointFrequency": "per-epoch",
+        "earlyStoppingPatience": 3,
+        "mixedPrecision": true,
+        "computeBackend": "sheikha-advanced-computing-core",
+        "distributedTraining": true
+    },
+    "continuousLearning": {
+        "enabled": true,
+        "trigger": "weekly-or-on-data-drift",
+        "feedbackLoop": [
+            "user-corrections",
+            "sharia-board-review",
+            "market-accuracy-signals"
+        ],
+        "safeguards": [
+            "no-regression-on-sharia-checks",
+            "no-accuracy-drop-over-5pct"
+        ]
+    }
+}

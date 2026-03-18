@@ -1,0 +1,86 @@
+{
+  "title": "تقرير دورة السلامة التشغيلية الرقمية",
+  "generatedAt": "2026-03-12T14:35:27.443Z",
+  "protocol": {
+    "title": "بروتوكول السلامة والتشغيل الرقمي — محاضر وتعليمات",
+    "version": "1.0.0",
+    "createdAt": "2026-03-12",
+    "principle": "وَلَا تُلْقُوا بِأَيْدِيكُمْ إِلَى التَّهْلُكَةِ — البقرة:195",
+    "protocolId": "SHK-SAFE-OPS-001"
+  },
+  "issuerReceiverFlagModel": [
+    {
+      "id": "SHK-SAFE-BOT-ISSUER",
+      "name": "Issuer Bot",
+      "assignedBot": "SHK-BOT-019",
+      "responsibility": "إصدار المحاضر والتعليمات"
+    },
+    {
+      "id": "SHK-SAFE-BOT-RECEIVER",
+      "name": "Receiver Bot",
+      "assignedBot": "SHK-BOT-025",
+      "responsibility": "استلام وتأكيد التنفيذ"
+    },
+    {
+      "id": "SHK-SAFE-BOT-FLAG",
+      "name": "Flag Bot",
+      "assignedBot": "SHK-BOT-010",
+      "responsibility": "تصنيف الخطورة ورفع الإنذارات"
+    },
+    {
+      "id": "SHK-SAFE-BOT-PATROL",
+      "name": "Patrol Bot",
+      "assignedBot": "SHK-BOT-024",
+      "responsibility": "تنفيذ الجولات الأمنية الرقمية"
+    }
+  ],
+  "minutes": [
+    {
+      "sectionId": "SHK-SAFE-001",
+      "minuteId": "SHK-SAFE-001-1773326127443",
+      "issuer": "SHK-SAFE-BOT-ISSUER",
+      "receiver": "SHK-SAFE-BOT-RECEIVER",
+      "flag": "FLAG-GREEN",
+      "createdAt": "2026-03-12T14:35:27.443Z",
+      "status": "recorded"
+    },
+    {
+      "sectionId": "SHK-SAFE-002",
+      "minuteId": "SHK-SAFE-002-1773326127443",
+      "issuer": "SHK-SAFE-BOT-ISSUER",
+      "receiver": "SHK-SAFE-BOT-RECEIVER",
+      "flag": "FLAG-GREEN",
+      "createdAt": "2026-03-12T14:35:27.443Z",
+      "status": "recorded"
+    },
+    {
+      "sectionId": "SHK-SAFE-003",
+      "minuteId": "SHK-SAFE-003-1773326127443",
+      "issuer": "SHK-SAFE-BOT-ISSUER",
+      "receiver": "SHK-SAFE-BOT-RECEIVER",
+      "flag": "FLAG-GREEN",
+      "createdAt": "2026-03-12T14:35:27.443Z",
+      "status": "recorded"
+    },
+    {
+      "sectionId": "SHK-SAFE-004",
+      "minuteId": "SHK-SAFE-004-1773326127443",
+      "issuer": "SHK-SAFE-BOT-ISSUER",
+      "receiver": "SHK-SAFE-BOT-RECEIVER",
+      "flag": "FLAG-GREEN",
+      "createdAt": "2026-03-12T14:35:27.443Z",
+      "status": "recorded"
+    }
+  ],
+  "summary": {
+    "totalMinutes": 4,
+    "greenFlags": 4,
+    "nonGreenFlags": 0,
+    "patrolsExecuted": 1
+  },
+  "actions": [
+    "اعتماد المحاضر في الأرشيف الرسمي",
+    "مراجعة مدير السلامة لكل Flag غير أخضر",
+    "إرفاق الأدلة الفنية لكل جولة أمنية رقمية"
+  ]
+}

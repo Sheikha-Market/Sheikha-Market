@@ -1,0 +1,362 @@
+{
+    "name": "sheikha-copilot",
+    "displayName": "Sheikha Copilot",
+    "description": "مساعد البرمجة الذكي — Sheikha AI-powered coding assistant with inline suggestions, chat, agent mode & sharia guardrails",
+    "version": "1.0.1",
+    "publisher": "sheikha",
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": [
+        "AI",
+        "Programming Languages",
+        "Machine Learning",
+        "Data Science",
+        "Education",
+        "Snippets",
+        "Linters",
+        "Notebooks",
+        "Other"
+    ],
+    "keywords": [
+        "sheikha",
+        "copilot",
+        "ai",
+        "ai toolkit",
+        "sdk",
+        "ide",
+        "github",
+        "machine learning",
+        "deep learning",
+        "neural network",
+        "data science",
+        "code suggestions",
+        "inline completions",
+        "code completion",
+        "chat",
+        "agent mode",
+        "code review",
+        "refactoring",
+        "debugging",
+        "unit testing",
+        "arabic",
+        "RTL",
+        "sharia",
+        "intelligent coding",
+        "javascript",
+        "typescript",
+        "python",
+        "nodejs",
+        "react",
+        "vue",
+        "angular",
+        "css",
+        "html",
+        "backend",
+        "frontend",
+        "fullstack",
+        "devops",
+        "azure",
+        "aws",
+        "docker",
+        "kubernetes",
+        "git",
+        "security",
+        "api",
+        "rest",
+        "graphql",
+        "database",
+        "sql",
+        "nosql",
+        "snippets",
+        "linter",
+        "formatter",
+        "productivity",
+        "developer tools",
+        "islamic",
+        "arabic programming"
+    ],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./extension.js",
+    "files": [
+        "extension.js",
+        "package.json",
+        "images/**",
+        "scripts/auto-release-cycle.js",
+        "release-policy.json",
+        "README.md",
+        "USAGE.md",
+        "INSTALLATION.md",
+        "DEVELOPMENT.md",
+        "END-TO-END.md",
+        "LICENSE.md",
+        "build-vsix.sh",
+        "node_modules/node-fetch/**",
+        "node_modules/tr46/**",
+        "node_modules/webidl-conversions/**",
+        "node_modules/whatwg-url/**"
+    ],
+    "contributes": {
+        "commands": [
+            {
+                "command": "sheikha.openChat",
+                "title": "Sheikha: فتح المحادثة الذكية",
+                "category": "Sheikha Copilot"
+            },
+            {
+                "command": "sheikha.triggerCompletion",
+                "title": "Sheikha: اقتراح الكود",
+                "category": "Sheikha Copilot"
+            },
+            {
+                "command": "sheikha.startAgent",
+                "title": "Sheikha: تشغيل وضع الوكيل",
+                "category": "Sheikha Copilot"
+            },
+            {
+                "command": "sheikha.inlineChat",
+                "title": "Sheikha: محادثة مضمّنة",
+                "category": "Sheikha Copilot"
+            },
+            {
+                "command": "sheikha.showStatus",
+                "title": "Sheikha: حالة النظام",
+                "category": "Sheikha Copilot"
+            },
+            {
+                "command": "sheikha.nextEditSuggestion",
+                "title": "Sheikha NES: اقتراح التعديل التالي",
+                "category": "Sheikha Copilot"
+            },
+            {
+                "command": "sheikha.signIn",
+                "title": "Sheikha: تسجيل الدخول",
+                "category": "Sheikha Account"
+            },
+            {
+                "command": "sheikha.signOut",
+                "title": "Sheikha: تسجيل الخروج",
+                "category": "Sheikha Account"
+            },
+            {
+                "command": "sheikha.manageAccount",
+                "title": "Sheikha: إدارة الحساب",
+                "category": "Sheikha Account"
+            },
+            {
+                "command": "sheikha.syncIntegrations",
+                "title": "Sheikha: مزامنة تكامل الإضافات",
+                "category": "Sheikha Account"
+            },
+            {
+                "command": "sheikha.openIntegrationsDashboard",
+                "title": "Sheikha: فتح لوحة التكاملات",
+                "category": "Sheikha Account"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "sheikha.openChat",
+                "key": "ctrl+shift+i",
+                "mac": "cmd+shift+i"
+            },
+            {
+                "command": "sheikha.inlineChat",
+                "key": "ctrl+i",
+                "mac": "cmd+i",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "sheikha.nextEditSuggestion",
+                "key": "tab",
+                "when": "sheikha.nesActive && editorTextFocus"
+            }
+        ],
+        "configuration": {
+            "title": "Sheikha Copilot",
+            "properties": {
+                "sheikha.copilot.enable": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "تفعيل Sheikha Copilot"
+                },
+                "sheikha.copilot.serverUrl": {
+                    "type": "string",
+                    "default": "http://localhost:8080",
+                    "description": "عنوان خادم Sheikha"
+                },
+                "sheikha.copilot.enableInlineCompletions": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "تفعيل الاقتراحات المضمّنة أثناء الكتابة"
+                },
+                "sheikha.copilot.enableChat": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "تفعيل المحادثة الذكية"
+                },
+                "sheikha.copilot.enableAgentMode": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "تفعيل وضع الوكيل"
+                },
+                "sheikha.copilot.enableNES": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "تفعيل اقتراحات التعديل التالي (NES)"
+                },
+                "sheikha.copilot.shariaGuardrails": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "تفعيل الحارس الشرعي (لا ربا، لا غش، لا قمار)"
+                },
+                "sheikha.copilot.defaultModel": {
+                    "type": "string",
+                    "default": "sheikha-copilot-base",
+                    "enum": [
+                        "sheikha-copilot-base",
+                        "sheikha-copilot-chat",
+                        "sheikha-copilot-agent",
+                        "sheikha-copilot-sharia-safe"
+                    ],
+                    "description": "النموذج الافتراضي لـ Sheikha Copilot"
+                },
+                "sheikha.copilot.completionDelay": {
+                    "type": "number",
+                    "default": 150,
+                    "description": "تأخير الاقتراحات (مللي ثانية)"
+                },
+                "sheikha.copilot.maxCompletions": {
+                    "type": "number",
+                    "default": 3,
+                    "description": "الحد الأقصى لعدد الاقتراحات"
+                },
+                "sheikha.copilot.arabicComments": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "تفعيل التعليقات بالعربية"
+                },
+                "sheikha.copilot.autoStartBackend": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "تشغيل خادم شيخة تلقائياً عند الحاجة"
+                },
+                "sheikha.copilot.backendStartupRetries": {
+                    "type": "number",
+                    "default": 8,
+                    "description": "عدد محاولات انتظار الخادم عند التشغيل التلقائي"
+                },
+                "sheikha.copilot.dashboardRefreshSeconds": {
+                    "type": "number",
+                    "default": 15,
+                    "description": "فاصل تحديث لوحة التكاملات بالثواني"
+                }
+            }
+        },
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "sheikha.inlineChat",
+                    "group": "sheikha@1",
+                    "when": "editorHasSelection"
+                },
+                {
+                    "command": "sheikha.openChat",
+                    "group": "sheikha@2"
+                }
+            ],
+            "commandPalette": [
+                {
+                    "command": "sheikha.openChat"
+                },
+                {
+                    "command": "sheikha.triggerCompletion"
+                },
+                {
+                    "command": "sheikha.startAgent"
+                },
+                {
+                    "command": "sheikha.inlineChat"
+                },
+                {
+                    "command": "sheikha.showStatus"
+                },
+                {
+                    "command": "sheikha.nextEditSuggestion"
+                },
+                {
+                    "command": "sheikha.signIn"
+                },
+                {
+                    "command": "sheikha.signOut"
+                },
+                {
+                    "command": "sheikha.manageAccount"
+                },
+                {
+                    "command": "sheikha.syncIntegrations"
+                },
+                {
+                    "command": "sheikha.openIntegrationsDashboard"
+                }
+            ]
+        },
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "sheikha-copilot",
+                    "title": "Sheikha Copilot",
+                    "icon": "images/sheikha-icon.svg"
+                }
+            ]
+        },
+        "views": {
+            "sheikha-copilot": [
+                {
+                    "type": "webview",
+                    "id": "sheikha.chatView",
+                    "name": "Sheikha Chat",
+                    "icon": "images/sheikha-icon.svg"
+                },
+                {
+                    "id": "sheikha.statusView",
+                    "name": "حالة النظام",
+                    "icon": "images/sheikha-icon.svg"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "echo 'Sheikha Copilot ready'",
+        "compile": "node -e \"console.log('Sheikha Copilot compile check OK')\"",
+        "test": "jest --runInBand --verbose",
+        "test:watch": "jest --watch",
+        "release:plan": "node scripts/auto-release-cycle.js",
+        "release:apply": "node scripts/auto-release-cycle.js --apply",
+        "release:apply:new-tech": "node scripts/auto-release-cycle.js --apply --new-tech",
+        "release:apply:new-extension": "node scripts/auto-release-cycle.js --apply --new-extension",
+        "release:apply:innovation": "node scripts/auto-release-cycle.js --apply --innovation-goal",
+        "package": "bash build-vsix.sh",
+        "package:best": "npm run -s release:plan && bash build-vsix.sh"
+    },
+    "dependencies": {
+        "node-fetch": "^2.7.0"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.85.0",
+        "@vscode/vsce": "^2.22.0",
+        "@jest/globals": "^29.7.0",
+        "jest": "^29.7.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sheikha/sheikha-copilot"
+    },
+    "license": "UNLICENSED",
+    "homepage": "https://sheikha.top",
+    "bugs": {
+        "url": "mailto:market@sheikha.top"
+    }
+}

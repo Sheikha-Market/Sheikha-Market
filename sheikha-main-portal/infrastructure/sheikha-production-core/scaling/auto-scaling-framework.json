@@ -1,0 +1,21 @@
+{
+    "generatedAt": "2026-03-18T04:56:59.679Z",
+    "autoScaling": {
+        "enabled": true,
+        "minInstances": 1,
+        "maxInstances": 10,
+        "scaleTrigger": "cpu > 70% OR memory > 80% OR rps > 40",
+        "halalLoadBalancing": {
+            "strategy": "least-connections",
+            "healthGating": true,
+            "fairDistribution": true
+        }
+    },
+    "disasterRecovery": {
+        "backupFrequency": "daily",
+        "backupRetentionDays": 30,
+        "rpo": "1 hour",
+        "rto": "4 hours",
+        "geographicRedundancy": "GCC-region-first"
+    }
+}

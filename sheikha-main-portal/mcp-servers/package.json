@@ -4,8 +4,21 @@
     "description": "خوادم MCP لتكامل منظومة شيخة مع Cursor IDE",
     "type": "commonjs",
     "scripts": {
+        "activate:ai": "node activate-sheikha-ai.js",
+        "start:ai": "node sheikha-vision-mcp.js",
+        "start:vision": "node sheikha-vision-mcp.js",
         "start:sheikha": "node sheikha-mcp-server.js",
-        "start:market": "node market-mcp-server.js"
+        "start:market": "node sheikha-mcp-server.js",
+        "sheikha:ei": "npm run activate:ai",
+        "sheikha:mcp": "npm run start:sheikha",
+        "sheikha:sdk": "npm run sheikha:doctor",
+        "sheikha:ide": "npm run sheikha:hub",
+        "sheikha:coder": "npm run start:ai",
+        "sheikha:doctor": "node sheikha-doctor.js",
+        "sheikha:vscode": "npm run sheikha:hub",
+        "sheikha:hub": "node sheikha-hub.js",
+        "sheikha:hob": "node sheikha-hub.js",
+        "shikha:lab": "npm run start:ai"
     },
     "dependencies": {
         "@modelcontextprotocol/sdk": "^1.0.0"

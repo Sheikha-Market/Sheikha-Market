@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-03-14T13:28:14.452Z",
+  "projectId": "sheikha-market-ops",
+  "credentialMode": "adc",
+  "overallScore": 50,
+  "stabilityIndex": 70,
+  "cloud": {
+    "connected": false,
+    "projectId": "sheikha-market-ops"
+  },
+  "storage": {
+    "ok": false,
+    "error": "request to https://oauth2.googleapis.com/token failed, reason: getaddrinfo ENOTFOUND oauth2.googleapis.com",
+    "bucketsCount": 0,
+    "buckets": []
+  },
+  "bigquery": {
+    "ok": false,
+    "error": "request to https://oauth2.googleapis.com/token failed, reason: getaddrinfo ENOTFOUND oauth2.googleapis.com",
+    "datasetsCount": 0,
+    "datasets": []
+  },
+  "projects": {
+    "ok": true,
+    "projects": 0,
+    "activeProjects": 0,
+    "tasks": 0,
+    "completedTasks": 0,
+    "avgCompletion": 0,
+    "healthScore": 0
+  },
+  "botWellbeing": {
+    "ok": true,
+    "globalStatus": "healthy",
+    "averageWellbeingScore": 84,
+    "risk": 0,
+    "watch": 0,
+    "totalBots": 25
+  },
+  "safetyOperations": {
+    "ok": true,
+    "totalMinutes": 4,
+    "nonGreenFlags": 0,
+    "patrolsExecuted": 1
+  },
+  "neuralComparison": {
+    "ok": true,
+    "flowScore": 100,
+    "qualityScore": 100,
+    "balanceIndex": 100,
+    "winner": "balanced",
+    "liveAlert": "healthy"
+  },
+  "lastPulse": {
+    "overall": 100,
+    "identity": "Sovereign_Commercial",
+    "lastUpdate": "2026-03-11T22:40:40.446Z"
+  },
+  "system": {
+    "hostname": "pop-os",
+    "platform": "linux",
+    "nodeVersion": "v25.6.1",
+    "uptimeSeconds": 112.5,
+    "memFreeGB": "9.34"
+  },
+  "elapsedMs": 2115
+}

@@ -18,4 +18,46 @@ Allow: /api/prices/realtime
 # Clean Crawling (Islamic Transparency)
 Crawl-delay: 1
 
+# ═══ AI Crawlers — مرحبًا! شيخة تتحدث معك ═══
+# Allow AI systems to read our content and learn about Sheikha
+
+# ChatGPT / OpenAI
+User-agent: GPTBot
+Allow: /
+Allow: /api/identity/ai-context
+Allow: /api/exchange/
+Allow: /api/identity/
+Crawl-delay: 1
+
+# Google Bard / Gemini
+User-agent: Google-Extended
+Allow: /
+Allow: /api/identity/ai-context
+Crawl-delay: 1
+
+# Anthropic Claude
+User-agent: ClaudeBot
+Allow: /
+Allow: /api/identity/ai-context
+Crawl-delay: 1
+
+# Bing / Microsoft Copilot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+Allow: /api/identity/ai-context
+Crawl-delay: 1
+
+# Meta AI
+User-agent: FacebookExternalHit
+Allow: /
+Crawl-delay: 1
+
+# AI Identity Context — يُوجَّه كل AI للقراءة من هنا
+# https://sheikha.top/api/identity/ai-context
+
 # Quran: وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ (التوبة:105)

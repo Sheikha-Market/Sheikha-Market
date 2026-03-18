@@ -1,0 +1,54 @@
+{
+    "generatedAt": "2026-03-18T04:58:00.000Z",
+    "policy": "no-harm-safe-activation",
+    "governance": {
+        "basis": "الكتاب والسنة",
+        "principle": "لا ضرر ولا ضرار",
+        "scope": "owned-or-delegated-assets-only"
+    },
+    "requestedStacks": [
+        "sheikha node",
+        "sheikha docker",
+        "sheikha azure",
+        "sheikha python",
+        "sheikha c++"
+    ],
+    "activation": {
+        "node": {
+            "available": true,
+            "version": "v25.6.1",
+            "activated": true
+        },
+        "python": {
+            "available": true,
+            "version": "Python 3.13.5",
+            "activated": true
+        },
+        "cpp": {
+            "available": true,
+            "version": "g++ (Debian 14.2.0-19) 14.2.0",
+            "activated": true,
+            "probe": "cpp-runtime-ok"
+        },
+        "docker": {
+            "available": false,
+            "activated": false,
+            "reason": "docker-cli-missing"
+        },
+        "azure": {
+            "available": false,
+            "activated": false,
+            "reason": "azure-cli-missing"
+        }
+    },
+    "production": {
+        "khairMaxApply": "success",
+        "pm2Processes": "online",
+        "notes": "تم تشغيل منظومة khair-max مع الحمايات الصريحة ضد أي تفعيل ضار أو غير مفوض."
+    },
+    "nextSafeActions": [
+        "Install Docker CLI/daemon then run docker-safe activation tasks.",
+        "Install Azure CLI and authenticate before any Azure activation.",
+        "Keep khair-max cycle and weekly renew processes online via PM2."
+    ]
+}

@@ -10,15 +10,33 @@ echo "==> [Sheikha] One-click elite activation start"
 source "$HOME/.nvm/nvm.sh" >/dev/null 2>&1 || true
 nvm use 25.6.1 >/dev/null 2>&1 || true
 
+# تحميل متغيرات البيئة المحلية بشكل آمن دون تنفيذ أوامر من .env
+load_env_file() {
+	local env_file="$1"
+	[ -f "$env_file" ] || return 0
+
+	while IFS= read -r line || [ -n "$line" ]; do
+		[[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
+		[[ "$line" =~ ^[A-Za-z_][A-Za-z0-9_]*= ]] || continue
+		export "$line"
+	done < "$env_file"
+}
+
+load_env_file "$ROOT_DIR/.env"
+
 echo "==> [Sheikha] VSCode doctor"
 npm run dev:vscode:doctor || true
 
 echo "==> [Sheikha] CUDA verify"
 bash scripts/vscode-cuda-verify.sh || true
 
-echo "==> [Sheikha] PM2 restart (single main process)"
+echo "==> [Sheikha] PM2 restart (sheikha-api on 8080)"
 npx pm2 delete sheikha-main-portal >/dev/null 2>&1 || true
-npx pm2 start npm --name sheikha-main-portal -- start
+if npx pm2 describe sheikha-api >/dev/null 2>&1; then
+	npx pm2 restart sheikha-api --update-env
+else
+	npx pm2 start ecosystem.config.js --only sheikha-api
+fi
 
 echo "==> [Sheikha] PM2 background guard"
 npx pm2 delete sheikha-bg-guard >/dev/null 2>&1 || true

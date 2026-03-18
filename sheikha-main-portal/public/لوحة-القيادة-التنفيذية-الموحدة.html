@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شيخة | لوحة القيادة التنفيذية الموحدة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050913;
+            --bg2: #0d1422;
+            --bg3: #162235;
+            --gold: #D4AF37;
+            --copper: #B87333;
+            --txt: #f8fafc;
+            --muted: #9ca3af;
+            --ok: #10b981;
+            --warn: #f59e0b;
+            --critical: #ef4444;
+            --border: rgba(212, 175, 55, 0.22);
+            --radius: 12px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: radial-gradient(circle at 12% -5%, rgba(212, 175, 55, 0.12), transparent 28%),
+                        radial-gradient(circle at 90% 0%, rgba(184, 115, 51, 0.1), transparent 26%),
+                        var(--bg);
+            color: var(--txt);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1280px; margin: 0 auto; }
+        .header {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), rgba(184, 115, 51, 0.16));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+            margin-bottom: 16px;
+        }
+        .header h1 { font-size: 1.7rem; font-weight: 900; margin-bottom: 4px; }
+        .header p { color: #e5e7eb; font-size: 0.95rem; }
+        .links {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .link-btn {
+            color: var(--txt);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            background: rgba(13, 20, 34, 0.65);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.86rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+        .card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px;
+        }
+        .card h2 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+        .list { display: grid; gap: 8px; }
+        .item {
+            background: var(--bg3);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+        .meta { color: var(--muted); font-size: 0.82rem; margin-top: 6px; }
+        .badge {
+            display: inline-block;
+            font-size: 0.73rem;
+            padding: 3px 9px;
+            border-radius: 999px;
+            margin-inline-start: 6px;
+        }
+        .b-critical { background: rgba(239, 68, 68, 0.2); color: #fecaca; }
+        .b-high, .b-warn { background: rgba(245, 158, 11, 0.2); color: #fde68a; }
+        .b-medium { background: rgba(59, 130, 246, 0.2); color: #bfdbfe; }
+        .security {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .security .item strong { color: #fef3c7; }
+        .section-title {
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        .form-wrap {
+            margin-top: 14px;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        input, textarea, select, button {
+            width: 100%;
+            background: var(--bg3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--txt);
+            border-radius: 10px;
+            padding: 10px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.9rem;
+        }
+        textarea { min-height: 86px; resize: vertical; }
+        button {
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            color: #111827;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .status {
+            margin-top: 8px;
+            font-size: 0.86rem;
+            color: #d1fae5;
+            min-height: 22px;
+        }
+        @media (max-width: 700px) {
+            body { padding: 14px; }
+            .header h1 { font-size: 1.35rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>لوحة القيادة التنفيذية الموحدة</h1>
+            <p>ربط مباشر بين الملخص التنفيذي، الإنذار المبكر، أولويات التشغيل، وجاهزية أمن المعلومات وسرية البيانات.</p>
+            <div class="links">
+                <a class="link-btn" href="/لوحة-المراقبة-والمؤشرات.html" target="_blank" rel="noopener">لوحة المراقبة والمؤشرات</a>
+                <a class="link-btn" href="/gov-dashboard.html" target="_blank" rel="noopener">لوحة التحكم الحكومية</a>
+                <a class="link-btn" href="/لوحة-الادمن.html" target="_blank" rel="noopener">لوحة الإدارة العليا</a>
+            </div>
+        </div>
+
+        <div class="grid">
+            <section class="card">
+                <h2>الملخص التنفيذي</h2>
+                <div id="executiveBrief" class="list"></div>
+            </section>
+
+            <section class="card">
+                <h2>الإنذار المبكر</h2>
+                <div id="earlyWarning" class="list"></div>
+            </section>
+
+            <section class="card">
+                <h2>أولوية التشغيل</h2>
+                <div id="priorityFeed" class="list"></div>
+            </section>
+        </div>
+
+        <section class="card" style="margin-bottom: 14px;">
+            <h2>جاهزية الأمن الداخلي وسرية المعلومات</h2>
+            <div id="securityReadiness" class="security"></div>
+        </section>
+
+        <div class="grid">
+            <section class="card">
+                <h2>نظام الرؤى والبرامج</h2>
+                <div id="visionProgramsSystem" class="list"></div>
+            </section>
+
+            <section class="card">
+                <h2>فجوات التخصصات النادرة</h2>
+                <div id="rareGapIntelligence" class="list"></div>
+            </section>
+
+            <section class="card">
+                <h2>تفعيل المحيط الأزرق</h2>
+                <div id="blueOceanActivation" class="list"></div>
+            </section>
+
+            <section class="card">
+                <h2>بوابة جودة الشبكة العصبية</h2>
+                <div id="neuralQualityGate" class="list"></div>
+            </section>
+        </div>
+
+        <div class="grid">
+            <section class="card">
+                <h2>القوة التقنية بمنهج القيمة-الخير</h2>
+                <div id="competitivePower" class="list"></div>
+            </section>
+
+            <section class="card">
+                <h2>جاهزية التجارة الإلكترونية القيمية</h2>
+                <div id="ecommerceReadiness" class="list"></div>
+            </section>
+
+            <section class="card">
+                <h2>مختبرات القيمة المضافة</h2>
+                <div id="valueAddedLabs" class="list"></div>
+            </section>
+        </div>
+
+        <div class="grid">
+            <section class="card">
+                <h2>المحيط الأزرق الآمن</h2>
+                <div id="blueOceanKhairValue" class="list"></div>
+            </section>
+
+            <section class="card">
+                <h2>تحليل الفجوات الاقتصادية</h2>
+                <div id="economyGapAnalysis" class="list"></div>
+            </section>
+
+            <section class="card">
+                <h2>دليل التسعير السوقي العادل</h2>
+                <div id="propheticPricingGuidance" class="list"></div>
+            </section>
+
+            <section class="card">
+                <h2>إطار السوق الشرعي للفئات</h2>
+                <div id="shariaMarketFramework" class="list"></div>
+            </section>
+
+            <section class="card">
+                <h2>تنظيم المحتوى الإسلامي</h2>
+                <div id="islamicContentGovernance" class="list"></div>
+            </section>
+        </div>
+
+        <section class="form-wrap">
+            <h2 style="color: var(--gold); margin-bottom: 10px;">حفظ برنامج التشريع والتنفيذ (نسخ/إصدارات)</h2>
+            <div class="form-grid">
+                <input id="programName" placeholder="اسم البرنامج" value="برنامج تشريع وتنفيذ آمن">
+                <input id="programId" placeholder="program-id اختياري" value="">
+                <select id="confidentialityLevel">
+                    <option value="internal">internal</option>
+                    <option value="confidential" selected>confidential</option>
+                    <option value="sovereign">sovereign</option>
+                </select>
+            </div>
+            <textarea id="scope" placeholder="نطاق البرنامج (افصل بفاصلة)">التشريع, التنفيذ, المواءمة الحكومية, التحسين المستمر</textarea>
+            <div class="form-grid" style="margin-top: 10px;">
+                <button id="saveProgramBtn">حفظ نسخة جديدة</button>
+                <button id="refreshProgramsBtn" type="button">تحديث قائمة الإصدارات</button>
+            </div>
+            <div id="saveStatus" class="status"></div>
+        </section>
+
+        <section class="card" style="margin-top: 14px;">
+            <h2>الإصدارات المحفوظة</h2>
+            <div id="programVersions" class="list"></div>
+        </section>
+
+        <section class="form-wrap">
+            <h2 class="section-title">ربط الفجوات بخطط تنفيذ محفوظة</h2>
+            <div class="form-grid">
+                <select id="gapEntityType">
+                    <option value="state" selected>state</option>
+                    <option value="organization">organization</option>
+                    <option value="authority">authority</option>
+                </select>
+                <input id="gapEntityName" placeholder="اسم الدولة أو المنظمة" value="Saudi Arabia">
+                <input id="gapPlanName" placeholder="اسم خطة التنفيذ" value="خطة إغلاق الفجوات السيادية">
+                <input id="gapMinimumScore" type="number" placeholder="الحد الأدنى لدرجة الجودة العصبية" value="85">
+            </div>
+            <textarea id="gapFocusAreas" placeholder="محاور التنفيذ (افصل بفاصلة)">التشغيل التنفيذي, إغلاق الفجوات, قياس الأثر, التحسين المستمر</textarea>
+            <textarea id="gapSourceRefs" placeholder="مصادر الفجوات (افصل بفاصلة)">rare-gap-intelligence, blue-ocean-activation, neural-network-sharia-quality-gate</textarea>
+            <div class="form-grid" style="margin-top: 10px;">
+                <button id="saveGapPlanBtn">حفظ خطة تنفيذ الفجوات</button>
+                <button id="refreshGapPlansBtn" type="button">تحديث خطط التنفيذ</button>
+            </div>
+            <div id="gapPlanStatus" class="status"></div>
+        </section>
+
+        <section class="card" style="margin-top: 14px;">
+            <h2>خطط التنفيذ المرتبطة بالفجوات</h2>
+            <div id="gapExecutionPlans" class="list"></div>
+        </section>
+    </div>
+
+<script>
+    const endpoints = {
+        brief: '/api/sheikha/management/executive-brief',
+        warning: '/api/sheikha/management/early-warning',
+        priority: '/api/sheikha/management/operational-priority-feed',
+        security: '/api/sheikha/security/internal-readiness',
+        visionSystem: '/api/sheikha/governance/vision-programs-system',
+        rareGaps: '/api/sheikha/specializations/rare-gap-intelligence',
+        blueOcean: '/api/sheikha/specializations/blue-ocean-activation',
+        neuralGate: '/api/sheikha/ai/neural-network-sharia-quality-gate',
+        competitivePower: '/api/sheikha/technology/competitive-power',
+        ecommerceReadiness: '/api/sheikha/trade-ecommerce/competitive-readiness',
+        valueAddedLabs: '/api/sheikha/market/value-added-labs',
+        blueOceanKhairValue: '/api/sheikha/blue-ocean/khair-value-framework',
+        economyGapAnalysis: '/api/sheikha/economy/gap-analysis',
+        propheticPricingGuidance: '/api/sheikha/pricing/prophetic-market-guidance',
+        shariaMarketFramework: '/api/sheikha/market/sharia-audience-framework',
+        islamicContentGovernance: '/api/sheikha/content/islamic-governance',
+        saveProgram: '/api/sheikha/background/legislative-execution-program/save',
+        listPrograms: '/api/sheikha/background/legislative-execution-programs',
+        saveGapPlan: '/api/sheikha/governance/gap-execution-plan/save',
+        listGapPlans: '/api/sheikha/governance/gap-execution-plans'
+    };
+
+    function escapeHtml(value) {
+        return String(value || '')
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#39;');
+    }
+
+    function badgeClass(level) {
+        const key = String(level || '').toLowerCase();
+        if (key === 'critical') return 'b-critical';
+        if (key === 'high') return 'b-high';
+        if (key === 'medium') return 'b-medium';
+        return 'b-warn';
+    }
+
+    async function safeFetch(url, method = 'GET', payload) {
+        const options = {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            cache: 'no-store'
+        };
+        if (payload) options.body = JSON.stringify(payload);
+        const response = await fetch(url, options);
+        const data = await response.json();
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || ('HTTP ' + response.status));
+        }
+        return data;
+    }
+
+    async function loadExecutiveBrief() {
+        const box = document.getElementById('executiveBrief');
+        const data = await safeFetch(endpoints.brief);
+        const summary = data.data && data.data.executiveSummary ? data.data.executiveSummary : {};
+        const actions = Array.isArray(data.data && data.data.topActions) ? data.data.topActions : [];
+        box.innerHTML = [
+            '<div class="item"><strong>مجالات استراتيجية:</strong><div class="meta">' + escapeHtml((summary.strategicDomains || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>التركيز الحرج:</strong><div class="meta">' + escapeHtml((summary.criticalFocus || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>منفعة عامة:</strong><div class="meta">' + escapeHtml(summary.publicBenefit || '-') + '</div></div>',
+            '<div class="item"><strong>إجراءات قيادية:</strong><div class="meta">' + escapeHtml(actions.join(' | ')) + '</div></div>'
+        ].join('');
+    }
+
+    async function loadEarlyWarning() {
+        const box = document.getElementById('earlyWarning');
+        const data = await safeFetch(endpoints.warning);
+        const alerts = Array.isArray(data.data && data.data.alerts) ? data.data.alerts : [];
+        box.innerHTML = alerts.slice(0, 6).map((alert) => {
+            return '<div class="item">'
+                + '<strong>' + escapeHtml(alert.domain || alert.id) + '</strong>'
+                + '<span class="badge ' + badgeClass(alert.severity) + '">' + escapeHtml(alert.severity || 'warning') + '</span>'
+                + '<div class="meta">' + escapeHtml(alert.signal || '-') + '</div>'
+                + '<div class="meta">إجراء: ' + escapeHtml(alert.action || alert.requiredAction || '-') + '</div>'
+                + '</div>';
+        }).join('');
+    }
+
+    async function loadPriorityFeed() {
+        const box = document.getElementById('priorityFeed');
+        const data = await safeFetch(endpoints.priority);
+        const priorities = Array.isArray(data.data && data.data.priorities) ? data.data.priorities : [];
+        box.innerHTML = priorities.slice(0, 6).map((item) => {
+            return '<div class="item">'
+                + '<strong>' + escapeHtml(item.area || item.id) + '</strong>'
+                + '<span class="badge ' + badgeClass(item.importance) + '">' + escapeHtml(item.importance || 'high') + '</span>'
+                + '<div class="meta">' + escapeHtml(item.action || '-') + '</div>'
+                + '</div>';
+        }).join('');
+    }
+
+    async function loadSecurityReadiness() {
+        const box = document.getElementById('securityReadiness');
+        const data = await safeFetch(endpoints.security);
+        const security = data.data || {};
+        const controls = Array.isArray(security.preventiveControls) ? security.preventiveControls.join(' | ') : '-';
+        const tracks = Array.isArray(security.advisoryTracks) ? security.advisoryTracks.join(' | ') : '-';
+        box.innerHTML = [
+            '<div class="item"><strong>سياسة السرية:</strong><div class="meta">' + escapeHtml((security.confidentiality || {}).policy || '-') + '</div></div>',
+            '<div class="item"><strong>تشفير النقل:</strong><div class="meta">' + escapeHtml((security.encryption || {}).inTransit || '-') + '</div></div>',
+            '<div class="item"><strong>تشفير التخزين:</strong><div class="meta">' + escapeHtml((security.encryption || {}).atRest || '-') + '</div></div>',
+            '<div class="item"><strong>ضوابط وقائية:</strong><div class="meta">' + escapeHtml(controls) + '</div></div>',
+            '<div class="item"><strong>مسارات استشارية:</strong><div class="meta">' + escapeHtml(tracks) + '</div></div>'
+        ].join('');
+    }
+
+    async function loadVisionProgramsSystem() {
+        const box = document.getElementById('visionProgramsSystem');
+        const data = await safeFetch(endpoints.visionSystem);
+        const system = data.data || {};
+        const model = system.operatingModel || {};
+        box.innerHTML = [
+            '<div class="item"><strong>المرجعيات:</strong><div class="meta">' + escapeHtml(((system.foundations || {}).references || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>قيم الجودة:</strong><div class="meta">' + escapeHtml(((system.foundations || {}).qualityValues || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>دورة التشغيل:</strong><div class="meta">' + escapeHtml((model.lifecycle || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>الأدوات الرقمية:</strong><div class="meta">' + escapeHtml((model.digitalTooling || []).join(' | ')) + '</div></div>'
+        ].join('');
+    }
+
+    async function loadRareGapIntelligence() {
+        const box = document.getElementById('rareGapIntelligence');
+        const data = await safeFetch(endpoints.rareGaps);
+        const items = Array.isArray(data.data && data.data.rareSpecializations) ? data.data.rareSpecializations : [];
+        box.innerHTML = items.map((item) => {
+            return '<div class="item">'
+                + '<strong>' + escapeHtml(item.id) + '</strong>'
+                + '<span class="badge ' + badgeClass(item.rarity) + '">' + escapeHtml(item.rarity) + '</span>'
+                + '<div class="meta">الفجوة: ' + escapeHtml(item.gap) + '</div>'
+                + '<div class="meta">النضج الحالي: ' + escapeHtml(item.currentMaturity) + '%</div>'
+                + '</div>';
+        }).join('');
+    }
+
+    async function loadBlueOceanActivation() {
+        const box = document.getElementById('blueOceanActivation');
+        const data = await safeFetch(endpoints.blueOcean);
+        const gapMap = Array.isArray(data.data && data.data.gapMap) ? data.data.gapMap : [];
+        box.innerHTML = gapMap.map((gap) => {
+            return '<div class="item">'
+                + '<strong>' + escapeHtml(gap.area || gap.id) + '</strong>'
+                + '<span class="badge ' + badgeClass(gap.severity) + '">' + escapeHtml(gap.severity || 'high') + '</span>'
+                + '<div class="meta">الحل: ' + escapeHtml(gap.resolution || '-') + '</div>'
+                + '</div>';
+        }).join('');
+    }
+
+    async function loadNeuralQualityGate() {
+        const box = document.getElementById('neuralQualityGate');
+        const data = await safeFetch(endpoints.neuralGate);
+        const neural = data.data || {};
+        const quality = neural.quality || {};
+        box.innerHTML = [
+            '<div class="item"><strong>النتيجة الكلية:</strong><div class="meta">' + escapeHtml(neural.overallScore) + ' | ' + escapeHtml(neural.readiness || '-') + '</div></div>',
+            '<div class="item"><strong>الاتساق الشرعي:</strong><div class="meta">' + escapeHtml(quality.shariaAlignmentScore) + '</div></div>',
+            '<div class="item"><strong>سلامة التحيز:</strong><div class="meta">' + escapeHtml(quality.biasSafetyScore) + '</div></div>',
+            '<div class="item"><strong>الإجراءات المطلوبة:</strong><div class="meta">' + escapeHtml((neural.requiredActions || []).join(' | ')) + '</div></div>'
+        ].join('');
+    }
+
+    async function loadCompetitivePower() {
+        const box = document.getElementById('competitivePower');
+        const data = await safeFetch(endpoints.competitivePower);
+        const competitive = data.data || {};
+        const pillars = Array.isArray(competitive.khairValuePillars) ? competitive.khairValuePillars : [];
+        const targets = competitive.khairValueTargets || {};
+        box.innerHTML = [
+            '<div class="item"><strong>الرؤية:</strong><div class="meta">' + escapeHtml(competitive.vision || '-') + '</div></div>',
+            '<div class="item"><strong>مرتكزات القيمة-الخير:</strong><div class="meta">' + escapeHtml(pillars.map((item) => item.name).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>مكاسب تشغيلية:</strong><div class="meta">رفع التحويل ' + escapeHtml(targets.conversionLiftPercent) + '% | تقليل دورة الطلب ' + escapeHtml(targets.orderCycleReductionPercent) + '%</div></div>',
+            '<div class="item"><strong>منفعة عامة:</strong><div class="meta">مواءمة النفع العام ' + escapeHtml(targets.publicBenefitAlignmentPercent) + '% | تقليل النزاعات ' + escapeHtml(targets.qualityDisputeReductionPercent) + '%</div></div>'
+        ].join('');
+    }
+
+    async function loadEcommerceReadiness() {
+        const box = document.getElementById('ecommerceReadiness');
+        const data = await safeFetch(endpoints.ecommerceReadiness);
+        const ecommerce = data.data || {};
+        const strength = ecommerce.ecommerceStrength || {};
+        box.innerHTML = [
+            '<div class="item"><strong>عمق العرض الرقمي:</strong><div class="meta">' + escapeHtml(strength.digitalCatalogDepthPercent) + '%</div></div>',
+            '<div class="item"><strong>وضوح رحلة المشتري:</strong><div class="meta">' + escapeHtml(strength.buyerJourneyClarityPercent) + '%</div></div>',
+            '<div class="item"><strong>دعم التفاوض الذكي:</strong><div class="meta">' + escapeHtml(strength.smartNegotiationSupportPercent) + '%</div></div>',
+            '<div class="item"><strong>أهداف النفع العام:</strong><div class="meta">' + escapeHtml((ecommerce.publicBenefitGoals || []).join(' | ')) + '</div></div>'
+        ].join('');
+    }
+
+    async function loadValueAddedLabs() {
+        const box = document.getElementById('valueAddedLabs');
+        const data = await safeFetch(endpoints.valueAddedLabs);
+        const labs = Array.isArray(data.data && data.data.labs) ? data.data.labs : [];
+        box.innerHTML = labs.map((lab) => {
+            return '<div class="item">'
+                + '<strong>' + escapeHtml(lab.name || lab.id) + '</strong>'
+                + '<div class="meta">' + escapeHtml(lab.objective || '-') + '</div>'
+                + '<div class="meta">مؤشر القياس: ' + escapeHtml(lab.kpi || '-') + '</div>'
+                + '</div>';
+        }).join('');
+    }
+
+    async function loadBlueOceanKhairValue() {
+        const box = document.getElementById('blueOceanKhairValue');
+        const data = await safeFetch(endpoints.blueOceanKhairValue);
+        const model = data.data || {};
+        const antiMonopoly = model.antiMonopoly || {};
+        box.innerHTML = [
+            '<div class="item"><strong>التسمية المعتمدة:</strong><div class="meta">' + escapeHtml((model.naming || {}).currentTerm || 'القيمة-الخير') + '</div></div>',
+            '<div class="item"><strong>رسالة المحيط الأزرق:</strong><div class="meta">' + escapeHtml(model.mission || '-') + '</div></div>',
+            '<div class="item"><strong>منع الاحتكار:</strong><div class="meta">' + escapeHtml((antiMonopoly.controls || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>آلية البقاء الآمن:</strong><div class="meta">' + escapeHtml((model.blueOceanSafeMechanism || []).join(' | ')) + '</div></div>'
+        ].join('');
+    }
+
+    async function loadEconomyGapAnalysis() {
+        const box = document.getElementById('economyGapAnalysis');
+        const data = await safeFetch(endpoints.economyGapAnalysis);
+        const gapDomains = Array.isArray(data.data && data.data.gapDomains) ? data.data.gapDomains : [];
+        box.innerHTML = gapDomains.map((gap) => {
+            return '<div class="item">'
+                + '<strong>' + escapeHtml(gap.name || gap.id) + '</strong>'
+                + '<span class="badge ' + badgeClass(gap.severity) + '">' + escapeHtml(gap.severity || 'high') + '</span>'
+                + '<div class="meta">فرصة: ' + escapeHtml(gap.opportunity || '-') + '</div>'
+                + '</div>';
+        }).join('');
+    }
+
+    async function loadPropheticPricingGuidance() {
+        const box = document.getElementById('propheticPricingGuidance');
+        const data = await safeFetch(endpoints.propheticPricingGuidance);
+        const notes = (((data.data || {}).guidance || {}).notes) || [];
+        box.innerHTML = [
+            '<div class="item"><strong>نموذج التسعير:</strong><div class="meta">' + escapeHtml((((data.data || {}).guidance || {}).model) || '-') + '</div></div>',
+            '<div class="item"><strong>ضوابط السوق العادل:</strong><div class="meta">' + escapeHtml(notes.join(' | ')) + '</div></div>',
+            '<div class="item"><strong>مرجعية:</strong><div class="meta">' + escapeHtml(((data.data || {}).references || []).join(' | ')) + '</div></div>'
+        ].join('');
+    }
+
+    async function loadShariaMarketFramework() {
+        const box = document.getElementById('shariaMarketFramework');
+        const data = await safeFetch(endpoints.shariaMarketFramework);
+        const framework = data.data || {};
+        const policy = framework.marketPolicy || {};
+        const handling = framework.userHandling || {};
+        const zones = Array.isArray(framework.pageContentZones) ? framework.pageContentZones : [];
+        box.innerHTML = [
+            '<div class="item"><strong>المرجعية:</strong><div class="meta">' + escapeHtml((policy.basis || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>قواعد السوق:</strong><div class="meta">' + escapeHtml((policy.rules || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>تعامل مع المسلمين:</strong><div class="meta">' + escapeHtml((handling.muslimUsers || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>تعامل مع غير المسلمين:</strong><div class="meta">' + escapeHtml((handling.nonMuslimUsers || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>مناطق المحتوى:</strong><div class="meta">' + escapeHtml(zones.map((zone) => zone.name || zone.id).join(' | ')) + '</div></div>'
+        ].join('');
+    }
+
+    async function loadIslamicContentGovernance() {
+        const box = document.getElementById('islamicContentGovernance');
+        const data = await safeFetch(endpoints.islamicContentGovernance);
+        const content = data.data || {};
+        const foundation = content.foundation || {};
+        const structure = content.contentStructure || {};
+        const audience = Array.isArray(content.audienceSegments) ? content.audienceSegments : [];
+        box.innerHTML = [
+            '<div class="item"><strong>أساس التنظيم:</strong><div class="meta">' + escapeHtml((foundation.basis || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>مبادئ الخطاب:</strong><div class="meta">' + escapeHtml((foundation.principles || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>منهج الدعوة:</strong><div class="meta">' + escapeHtml((foundation.guidanceMethod || []).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>شرائح الجمهور:</strong><div class="meta">' + escapeHtml(audience.map((segment) => segment.name || segment.id).join(' | ')) + '</div></div>',
+            '<div class="item"><strong>هيكل المحتوى:</strong><div class="meta">' + escapeHtml((structure.layers || []).join(' | ')) + '</div></div>'
+        ].join('');
+    }
+
+    async function loadProgramVersions() {
+        const box = document.getElementById('programVersions');
+        const data = await safeFetch(endpoints.listPrograms);
+        const latestPrograms = Array.isArray(data.data && data.data.latestPrograms) ? data.data.latestPrograms : [];
+        if (!latestPrograms.length) {
+            box.innerHTML = '<div class="item">لا توجد إصدارات محفوظة حتى الآن.</div>';
+            return;
+        }
+        box.innerHTML = latestPrograms.map((program) => {
+            return '<div class="item">'
+                + '<strong>' + escapeHtml(program.programName || program.programId) + '</strong>'
+                + '<div class="meta">المعرف: ' + escapeHtml(program.programId) + '</div>'
+                + '<div class="meta">الإصدار: ' + escapeHtml(program.versionTag || '-') + ' | الرقم: ' + escapeHtml(program.versionNumber || '-') + '</div>'
+                + '<div class="meta">السرية: ' + escapeHtml(program.confidentialityLevel || '-') + '</div>'
+                + '</div>';
+        }).join('');
+    }
+
+    async function loadGapExecutionPlans() {
+        const box = document.getElementById('gapExecutionPlans');
+        const data = await safeFetch(endpoints.listGapPlans);
+        const latestPlans = Array.isArray(data.data && data.data.latestPlans) ? data.data.latestPlans : [];
+        if (!latestPlans.length) {
+            box.innerHTML = '<div class="item">لا توجد خطط تنفيذ فجوات محفوظة حتى الآن.</div>';
+            return;
+        }
+        box.innerHTML = latestPlans.map((plan) => {
+            return '<div class="item">'
+                + '<strong>' + escapeHtml(plan.planName || plan.planId) + '</strong>'
+                + '<div class="meta">الكيان: ' + escapeHtml(plan.entityType || '-') + ' | ' + escapeHtml(plan.entityName || plan.entityId || '-') + '</div>'
+                + '<div class="meta">المحاور: ' + escapeHtml((plan.focusAreas || []).join(' | ')) + '</div>'
+                + '<div class="meta">الإصدار: ' + escapeHtml(plan.versionTag || '-') + ' | الحد الأدنى العصبي: ' + escapeHtml(plan.minimumNeuralScore || '-') + '</div>'
+                + '</div>';
+        }).join('');
+    }
+
+    async function saveProgram() {
+        const status = document.getElementById('saveStatus');
+        status.textContent = 'جار الحفظ...';
+        try {
+            const scope = document.getElementById('scope').value
+                .split(',')
+                .map((item) => item.trim())
+                .filter(Boolean);
+
+            const payload = {
+                programName: document.getElementById('programName').value.trim(),
+                programId: document.getElementById('programId').value.trim(),
+                confidentialityLevel: document.getElementById('confidentialityLevel').value,
+                scope
+            };
+
+            const data = await safeFetch(endpoints.saveProgram, 'POST', payload);
+            status.textContent = 'تم الحفظ بنجاح: ' + (data.data.versionTag || 'v?');
+            await loadProgramVersions();
+        } catch (error) {
+            status.textContent = 'تعذر الحفظ: ' + error.message;
+        }
+    }
+
+    async function saveGapExecutionPlan() {
+        const status = document.getElementById('gapPlanStatus');
+        status.textContent = 'جار حفظ خطة التنفيذ...';
+        try {
+            const payload = {
+                entityType: document.getElementById('gapEntityType').value,
+                entityName: document.getElementById('gapEntityName').value.trim(),
+                planName: document.getElementById('gapPlanName').value.trim(),
+                minimumNeuralScore: Number(document.getElementById('gapMinimumScore').value || 85),
+                focusAreas: document.getElementById('gapFocusAreas').value.split(',').map((item) => item.trim()).filter(Boolean),
+                sourceRefs: document.getElementById('gapSourceRefs').value.split(',').map((item) => item.trim()).filter(Boolean)
+            };
+
+            const data = await safeFetch(endpoints.saveGapPlan, 'POST', payload);
+            status.textContent = 'تم الحفظ بنجاح: ' + (data.data.versionTag || 'v?');
+            await loadGapExecutionPlans();
+        } catch (error) {
+            status.textContent = 'تعذر الحفظ: ' + error.message;
+        }
+    }
+
+    async function bootstrap() {
+        await Promise.all([
+            loadExecutiveBrief(),
+            loadEarlyWarning(),
+            loadPriorityFeed(),
+            loadSecurityReadiness(),
+            loadVisionProgramsSystem(),
+            loadRareGapIntelligence(),
+            loadBlueOceanActivation(),
+            loadNeuralQualityGate(),
+            loadCompetitivePower(),
+            loadEcommerceReadiness(),
+            loadValueAddedLabs(),
+            loadBlueOceanKhairValue(),
+            loadEconomyGapAnalysis(),
+            loadPropheticPricingGuidance(),
+            loadShariaMarketFramework(),
+            loadIslamicContentGovernance(),
+            loadProgramVersions(),
+            loadGapExecutionPlans()
+        ]);
+    }
+
+    document.getElementById('saveProgramBtn').addEventListener('click', saveProgram);
+    document.getElementById('refreshProgramsBtn').addEventListener('click', loadProgramVersions);
+    document.getElementById('saveGapPlanBtn').addEventListener('click', saveGapExecutionPlan);
+    document.getElementById('refreshGapPlansBtn').addEventListener('click', loadGapExecutionPlans);
+    bootstrap().catch((error) => {
+        document.getElementById('saveStatus').textContent = 'خطأ تحميل اللوحة: ' + error.message;
+        document.getElementById('gapPlanStatus').textContent = 'خطأ تحميل الخطط: ' + error.message;
+    });
+</script>
+</body>
+</html>

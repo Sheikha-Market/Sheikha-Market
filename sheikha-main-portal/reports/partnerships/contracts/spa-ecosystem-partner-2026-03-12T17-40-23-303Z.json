@@ -1,0 +1,475 @@
+{
+  "metadata": {
+    "contractId": "SHK-SPA-2026-03-12-ecosystem-partner",
+    "createdAt": "2026-03-12T17:40:23.300Z",
+    "owner": "Salman Ahmed bin Salman Al-Rajhi",
+    "organization": "Sheikha Technology Imperium",
+    "documentType": "Digital Strategic Partnership Package",
+    "status": "draft-ready-for-signature",
+    "classification": "confidential",
+    "integrityHash": "db703bdd9d0ba8ddb69ded1ff91d799c762703208a030d943ad605f8a5e93b8b"
+  },
+  "partnerProfile": {
+    "name": "Ecosystem-Partner",
+    "tier": "tier_3",
+    "type": "distribution",
+    "country": "Saudi-Arabia",
+    "legalContact": "legal@partner.example"
+  },
+  "strategicAlignment": {
+    "visionStatement": "بناء منظومة ديجيتال إسلامية عالمية تحقق العدل الاقتصادي والابتكار التقني بأمانة وشفافية",
+    "corePillars": [
+      {
+        "name": "Al-Amanah (التأمين)",
+        "meaning": "Trust & Reliability"
+      },
+      {
+        "name": "Al-Adl (العدل)",
+        "meaning": "Justice & Fairness"
+      },
+      {
+        "name": "Al-Itqan (الإتقان)",
+        "meaning": "Excellence"
+      },
+      {
+        "name": "At-Taraddi (التراضي)",
+        "meaning": "Mutual Consent"
+      },
+      {
+        "name": "Al-Kahf (الكهف)",
+        "meaning": "Sovereignty"
+      }
+    ],
+    "selectedGoal": {
+      "goal_id": "SG-001",
+      "objective": "Establish 50+ Strategic Partnerships",
+      "yardstick": "Partnerships across: Tech (Google, Microsoft, Apple), Finance (Banks, Fintechs), Commerce (E-commerce, Logistics), Government (Saudi, GCC regulators)",
+      "kpi": "Partner satisfaction ≥ 90%, contract closure rate ≥ 85%, integration success ≥ 95%"
+    }
+  },
+  "legalFramework": {
+    "governingLaw": "Saudi Arabia",
+    "supportingJurisdictions": [
+      "United Arab Emirates",
+      "Qatar",
+      "Kuwait",
+      "Bahrain"
+    ],
+    "disputeModel": [
+      {
+        "level": "1 - Operational",
+        "timeline": "5 business days",
+        "process": "Direct discussion between team leads, documented in writing",
+        "resolution": "Email confirmation of agreed resolution"
+      },
+      {
+        "level": "2 - Managerial",
+        "timeline": "10 business days",
+        "process": "Director-level discussion with legal review",
+        "resolution": "Signed agreement or escalation to next level"
+      },
+      {
+        "level": "3 - Islamic Mediation (Tahkim)",
+        "timeline": "30 business days",
+        "process": "Mutually-agreed Islamic mediator (Qadi or scholar), conducted in Arabic",
+        "resolution": "Binding mediation decision (Sulh), documented in Arabic & English"
+      },
+      {
+        "level": "4 - Executive Escalation",
+        "timeline": "15 business days",
+        "process": "CEO-to-CEO or Board-level discussion, final attempt at mutual resolution",
+        "resolution": "Binding settlement or proceed to arbitration"
+      },
+      {
+        "level": "5 - Arbitration",
+        "timeline": "90-120 days",
+        "process": "Binding arbitration under Saudi Arbitration Law or GCC Arbitration Center",
+        "arbitrator": "Single for < $2M disputes, Three-arbitrator panel for ≥ $2M",
+        "resolution": "Arbitration award (legally enforceable)"
+      }
+    ],
+    "ndaStandard": {
+      "standard_id": "DNDA-2026",
+      "standard_name": "Sheikha Digital Non-Disclosure Agreement Standard",
+      "effective_date": "2026-03-12",
+      "enforceability": "Legally binding in Saudi Arabia, UAE, Qatar, Kuwait, Bahrain"
+    },
+    "confidentialitySummary": {
+      "obligations": {
+        "obligation_1": {
+          "title": "Protection of Confidential Information",
+          "description": "Receiving Party shall protect Confidential Information with the same degree of care it uses to protect its own confidential information, but in no case less than reasonable care",
+          "technical_measures": [
+            "Encryption of all digital records (AES-256 minimum)",
+            "Access control with multi-factor authentication",
+            "Secure deletion protocols (DOD 5220.22-M standard or better)",
+            "Regular security audits and penetration testing",
+            "Network security (firewalls, IDS/IPS systems)",
+            "Data segregation and isolation"
+          ]
+        },
+        "obligation_2": {
+          "title": "Limited Disclosure",
+          "description": "Receiving Party shall disclose Confidential Information only to Authorized Personnel who have a legitimate need-to-know and who are bound by written confidentiality obligations",
+          "enforcement": "Receiving Party shall maintain a register of all Authorized Personnel with access to Confidential Information and provide audit reports quarterly"
+        },
+        "obligation_3": {
+          "title": "Permitted Use Only",
+          "description": "Confidential Information shall be used solely for the stated Permitted Use. Any other use is prohibited.",
+          "prohibited_uses": [
+            "Competitive use (creating competing products/services)",
+            "Reverse engineering or decompilation (especially for AI models, source code)",
+            "Disclosure to third parties without written consent",
+            "Commercial use beyond the Permitted Use",
+            "Sharing with government bodies unless legally compelled"
+          ]
+        },
+        "obligation_4": {
+          "title": "Digital Watermarking & Tracking",
+          "description": "For sensitive AI models, source code, and trade secrets: Receiving Party shall implement digital watermarking and access logging to track if Confidential Information is accessed, by whom, when, and for how long",
+          "technology": "Blockchain-verifiable audit trails, cryptographic signatures, timestamp-certified logs"
+        },
+        "obligation_5": {
+          "title": "Data Privacy & Islamic Principles",
+          "description": "Receiving Party shall comply with all applicable data protection laws and Islamic principles of trust (Amanah) and secrecy (Sirr)",
+          "requirements": [
+            "No use of Confidential Information for surveillance or unethical purposes",
+            "Respect user privacy (if Confidential Information includes personal data)",
+            "Comply with Saudi DPA, GDPR (if applicable), and Sharia principles",
+            "No profiling or manipulation of data for commercial advantage at users' expense"
+          ]
+        }
+      },
+      "termDuration": {
+        "agreement_duration": {
+          "initial_term": "3 years from the Effective Date",
+          "renewal": "May be renewed for additional 3-year periods by mutual written consent",
+          "termination_by_either_party": "Either party may terminate with 30 days' written notice"
+        },
+        "confidentiality_survive": {
+          "duration_after_termination": "Confidentiality obligations survive termination for an additional 5 years",
+          "trade_secrets": "Trade secret information remains confidential perpetually or until it becomes public through no fault of Receiving Party"
+        }
+      },
+      "returnAndDestruction": {
+        "requirement": "Within 30 days of termination or request, Receiving Party shall either: (A) Return all Confidential Information to Disclosing Party, or (B) Permanently destroy it",
+        "destruction_process": [
+          "Physical destruction: Shredding, incineration, or degaussing (for data storage)",
+          "Digital destruction: Secure deletion using NIST standards (Gutmann method or overwrite 7+ times)",
+          "Cloud data: Verified deletion from all servers and backup systems",
+          "Blockchain records: If applicable, archival with privacy-preserving hashing"
+        ],
+        "certification": "Receiving Party shall provide written certification of destruction signed by authorized officer"
+      }
+    }
+  },
+  "technicalAndDataFlows": {
+    "integrationPatterns": [
+      {
+        "pattern_id": "TIP-001",
+        "pattern_name": "API-based Integration",
+        "description": "RESTful APIs or GraphQL for data exchange and service calls",
+        "use_case": "Payment partners, fintech APIs, analytics platforms",
+        "documentation": "OpenAPI 3.0 specification required"
+      },
+      {
+        "pattern_id": "TIP-002",
+        "pattern_name": "Event-Driven Integration",
+        "description": "Webhooks, message queues, event streaming for real-time data",
+        "use_case": "Transactions, user actions, system events",
+        "documentation": "AsyncAPI specification required"
+      },
+      {
+        "pattern_id": "TIP-003",
+        "pattern_name": "File-based Integration",
+        "description": "Batch file transfers (SFTP, S3) for periodic data exchange",
+        "use_case": "Daily reconciliation, reporting, bulk operations",
+        "documentation": "File format schema and transfer SLA"
+      },
+      {
+        "pattern_id": "TIP-004",
+        "pattern_name": "Database Replication",
+        "description": "Direct DB connections for real-time data sync (if allowed)",
+        "use_case": "Regulatory reporting systems, internal data warehouse",
+        "documentation": "Data sync agent configuration and monitoring"
+      }
+    ],
+    "informationFlows": {
+      "flow_1": {
+        "flow_id": "IF-001",
+        "flow_name": "User Data & Privacy Flows",
+        "source": "Sheikha Platform",
+        "destinations": [
+          "Partner Systems",
+          "Analytics Platform",
+          "Regulatory Bodies"
+        ],
+        "data_types": [
+          "User profiles",
+          "Transaction logs",
+          "Usage metadata"
+        ],
+        "frequency": "Real-time / Daily / On-demand",
+        "security_level": "Encrypted, Tokenized, Subject to consent agreements",
+        "compliance": "GDPR, Saudi DPA, Islamic data principles",
+        "flow_owner": "Data Privacy Officer"
+      },
+      "flow_2": {
+        "flow_id": "IF-002",
+        "flow_name": "Financial & Transaction Flows",
+        "source": "Payment Partner / Bank",
+        "destinations": [
+          "Sheikha Finance",
+          "Partner Finance",
+          "Regulatory Reports"
+        ],
+        "data_types": [
+          "Transactions",
+          "Settlements",
+          "Reconciliation data"
+        ],
+        "frequency": "Real-time / Daily settlement",
+        "security_level": "Encrypted (TLS 1.3), PCI-DSS compliant",
+        "compliance": "Banking regulation, Zakat compliance, Anti-money laundering",
+        "flow_owner": "CFO / Finance Director"
+      },
+      "flow_3": {
+        "flow_id": "IF-003",
+        "flow_name": "API & Integration Flows",
+        "source": "Sheikha API Gateway",
+        "destinations": [
+          "Tech Partner Systems",
+          "ISV Ecosystem",
+          "Third-party Apps"
+        ],
+        "data_types": [
+          "API requests/responses",
+          "webhooks",
+          "real-time events"
+        ],
+        "frequency": "Real-time (sub-millisecond)",
+        "security_level": "OAuth 2.0, JWT tokens, rate limiting",
+        "compliance": "API security standards, data residency rules",
+        "flow_owner": "CTO / API Director"
+      },
+      "flow_4": {
+        "flow_id": "IF-004",
+        "flow_name": "Governance & Audit Flows",
+        "source": "Compliance & Audit Systems",
+        "destinations": [
+          "Partners",
+          "Regulators",
+          "Internal Stakeholders"
+        ],
+        "data_types": [
+          "Audit reports",
+          "Compliance certifications",
+          "Security assessments"
+        ],
+        "frequency": "Monthly / Quarterly / Annually",
+        "security_level": "Signed, immutable, cryptographically verified",
+        "compliance": "ISO 27001, SOC 2, Islamic governance standards",
+        "flow_owner": "Chief Privacy & Compliance Officer"
+      }
+    },
+    "apiGovernance": {
+      "versioning": "Semantic versioning (v1, v2, v3...)",
+      "deprecation_period": "12 months notice before deprecating API versions",
+      "rate_limiting": "Tiered by partner tier (Tier 1: 100k req/day, Tier 2: 50k, Tier 3: 10k)",
+      "sla_target": "99.9% uptime with guaranteed response times",
+      "documentation": "Auto-generated from code, maintained in developer portal"
+    },
+    "dataGovernance": {
+      "data_ownership": {
+        "user_data": "User owns their data. Sheikha processes on user's behalf. Partners can only access with explicit consent.",
+        "partner_data": "Partner owns their data. Sheikha processes and protects on partner's behalf.",
+        "transactional_data": "Shared ownership. Both parties have legal rights to use for agreed purposes."
+      },
+      "data_residency": "Data must reside in Saudi Arabia or GCC region. No transfer to Western servers without explicit partner consent.",
+      "data_retention": {
+        "user_data": "Retained per user request. Deletion within 30 days of request.",
+        "transaction_data": "Retained 7 years for regulatory compliance, then archived.",
+        "audit_logs": "Retained minimum 3 years for compliance audits"
+      },
+      "data_sharing_rules": {
+        "rule_1": "Explicit consent required for any data sharing",
+        "rule_2": "Data minimization: Share only necessary fields",
+        "rule_3": "Purpose limitation: Data used only for agreed purposes",
+        "rule_4": "Pseudonymization: Personal data anonymized when possible"
+      }
+    }
+  },
+  "commercialModel": {
+    "tierTerms": {
+      "tier": "Ecosystem & Growth Partners",
+      "partnership_duration": "2 years renewable",
+      "revenue_share": "15% of net profit or flat fee (negotiated)",
+      "governance": "Quarterly community calls, self-service portal",
+      "support_level": "Community forums, online documentation, email support (48-hour SLA)"
+    },
+    "coreFinancialPolicy": {
+      "policy_id": "POL-PART-002",
+      "policy_name": "Financial Terms & Revenue Sharing",
+      "goal": "Define transparent financial arrangements aligned with Islamic principles",
+      "policy_statements": [
+        "All revenue sharing models must comply with Islamic Mudharabah (venture/profit-sharing) or Musharaka (partnership) models, NOT interest-based (Riba)",
+        "Revenue share models: Tier 1 partners 40% of net profit, Tier 2 partners 25%, Tier 3 partners 15%",
+        "All payments settled monthly within 45 days of invoice. Late payments accrue 2% monthly penalty (equivalent to Islamic penalty, NOT interest)",
+        "Zakat is calculated and paid by Sheikha on behalf of shared proceeds (2.5% of profits after operational costs)",
+        "All financial data encrypted, audited quarterly, and subject to both secular audit and Sharia board review"
+      ],
+      "enforcement": "Financial terms are non-negotiable. Deviations require Board approval. Non-payment triggers default provisions."
+    },
+    "serviceLevels": {
+      "policy_id": "POL-PART-006",
+      "policy_name": "Service Level Agreements (SLAs)",
+      "goal": "Define performance expectations and ensure service quality",
+      "standard_slas": [
+        {
+          "metric": "Availability",
+          "target": "99.9% uptime (per month)",
+          "measurement": "Continuous uptime monitoring, 3rd-party verification",
+          "penalty": "1% of monthly fees credit per 0.1% below target"
+        },
+        {
+          "metric": "Response Time (API)",
+          "target": "< 200ms median, < 1000ms p95",
+          "measurement": "Synthetic monitoring from multiple geographic regions",
+          "penalty": "0.5% of monthly fees credit if SLA breached"
+        },
+        {
+          "metric": "Error Rate",
+          "target": "< 0.1% (1 error per 1000 requests)",
+          "measurement": "Application performance monitoring (APM)",
+          "penalty": "Escalation to technical escalation path, possible service suspension"
+        },
+        {
+          "metric": "Support Response",
+          "target": "Critical: 1 hour, High: 4 hours, Medium: 24 hours",
+          "measurement": "Ticket tracking system with timestamp logs",
+          "penalty": "Service credit or alternative remediation"
+        }
+      ],
+      "enforcement": "SLA breaches tracked. 3+ consecutive breaches in quarter triggers contract review."
+    }
+  },
+  "islamicCompliance": {
+    "certification": {
+      "certification_standard": "All partnership policies comply with Islamic Sharia principles",
+      "certification_body": "Sheikha Sharia Board & AAOIFI Standards",
+      "certification_date": "2026-03-12",
+      "certification_status": "✓ APPROVED",
+      "certified_by": "Dr. [Sharia Scholar Name], Head of Sheikha Sharia Board",
+      "certificate_validity": "Valid for 12 months, renewable annually",
+      "islamic_principles_confirmed": [
+        "✓ No Riba (interest) - Mudharabah/Musharaka revenue models only",
+        "✓ No Gharar (deception) - Full transparency in all terms",
+        "✓ Taraddi (mutual consent) - All terms negotiated fairly",
+        "✓ Al-Amanah (trust) - Confidentiality and data security upheld",
+        "✓ Al-Adl (justice) - Fair treatment, transparent dispute resolution",
+        "✓ Zakat compliance - 2.5% calculated and paid on profits"
+      ]
+    },
+    "guidingPrinciples": {
+      "principle_1": "كل متعاقد ملتزم بالأمانة وحفظ السر",
+      "principle_1_en": "Every partner is bound by trust and confidentiality",
+      "principle_2": "لا يجوز التعامل على أساس غرر أو غش أو احتيال",
+      "principle_2_en": "No deception, fraud, or hidden terms are permitted",
+      "principle_3": "الشرط الحرام يلغي العقد أو ينقصه",
+      "principle_3_en": "Unlawful conditions void or diminish contracts",
+      "principle_4": "العدل واجب حتى مع الخصم",
+      "principle_4_en": "Justice is mandated even with adversaries",
+      "principle_5": "كل اتفاقية تخضع للمراجعة الشرعية والقانونية",
+      "principle_5_en": "All agreements undergo Islamic legal and regulatory review"
+    },
+    "ndaIslamicBasis": "Amana (Trust), Sirr (Secrecy), Amanah as-Sirr (Secret Trusting)"
+  },
+  "digitalExecution": {
+    "signingMethod": "qualified-electronic-signature",
+    "dualFactorApproval": true,
+    "signingSequence": [
+      "partner-legal-signature",
+      "sheikha-legal-signature",
+      "sheikha-sharia-review-signature",
+      "final-owner-approval"
+    ],
+    "automationFeatures": {
+      "ndaEnforcement": {
+        "automation_feature_1": {
+          "feature_id": "ANE-001",
+          "feature_name": "Digital Watermarking & Tracking",
+          "description": "Automatically embed digital watermarks in all Confidential Information files with metadata: creator, date, recipient, expiry",
+          "implementation": "Python PIL library for images, PDF stamp for documents, Git metadata for code",
+          "monitoring": "Automated system checks if watermarked files appear in unauthorized locations"
+        },
+        "automation_feature_2": {
+          "feature_id": "ANE-002",
+          "feature_name": "Access Logging & SIEM Integration",
+          "description": "Every access to Confidential Information logged with: who accessed, when, from where (IP/device), duration, what they accessed",
+          "implementation": "Elasticsearch for indexing, Kibana for visualization, real-time alerts for suspicious access",
+          "retention": "Logs retained minimum 3 years"
+        },
+        "automation_feature_3": {
+          "feature_id": "ANE-003",
+          "feature_name": "Automated Deletion Scheduler",
+          "description": "On agreement expiration, automatically trigger secure deletion of all Confidential Information from receiving party's systems",
+          "implementation": "Scheduled jobs, secure deletion protocol (7-pass overwrite), blockchain-certified proof of deletion",
+          "confirmation": "Automated email confirmation to Disclosing Party with deletion certificate"
+        },
+        "automation_feature_4": {
+          "feature_id": "ANE-004",
+          "feature_name": "AI-Powered Anomaly Detection",
+          "description": "ML model trained to detect suspicious access patterns: bulk downloads, unusual times, geographic anomalies, copy/paste activities",
+          "implementation": "Isolation Forest algorithm, continuous learning from historical access patterns",
+          "alerts": "Real-time alerts to both parties, escalation to legal team if high-risk activity detected"
+        },
+        "automation_feature_5": {
+          "feature_id": "ANE-005",
+          "feature_name": "Smart NDA Renewal & Alerts",
+          "description": "Automatically notify parties 90 days before NDA expiration with renewal options or destruction procedures",
+          "implementation": "Scheduled notifications, automated renewal documents with pre-filled terms",
+          "outcome": "Prevent accidental lapse of confidentiality"
+        },
+        "automation_feature_6": {
+          "feature_id": "ANE-006",
+          "feature_name": "Blockchain Audit Trail",
+          "description": "Store cryptographic hashes of NDA, access logs, and key events on blockchain for immutable verification",
+          "implementation": "Ethereum smart contracts with event logging, Hyperledger for private networks",
+          "benefit": "Legally admissible evidence of compliance in court proceedings"
+        }
+      },
+      "policyAutomation": {
+        "automation_1": {
+          "id": "DA-001",
+          "automation_name": "Smart Contract Enforcement (Blockchain)",
+          "description": "Key agreement terms (financial thresholds, SLA metrics, termination triggers) encoded as smart contracts on blockchain with automatic enforcement: e.g., if uptime < 99.8%, funds automatically withheld and held in escrow for dispute resolution",
+          "benefit": "Removes need for constant manual monitoring, ensures objective enforcement, reduces disputes"
+        },
+        "automation_2": {
+          "id": "DA-002",
+          "automation_name": "Automated KPI Dashboards",
+          "description": "Real-time dashboards feeding from partner APIs, cloud monitoring, and financial systems. KPIs auto-calculated and flagged if below threshold. Alerts sent to relevant stakeholders.",
+          "benefit": "Early warning system, transparency, objective performance visibility"
+        },
+        "automation_3": {
+          "id": "DA-003",
+          "automation_name": "Automated Compliance Scanning",
+          "description": "Monthly automated compliance checks: Is partner still certified ISO 27001? Are they on OFAC sanctions list? Do they have required insurance? Automated reports generated.",
+          "benefit": "Continuous compliance verification, risk reduction"
+        },
+        "automation_4": {
+          "id": "DA-004",
+          "automation_name": "Dynamic NDA Renewal",
+          "description": "90 days before NDA expiration, automated notification to both parties. Renewal terms pre-filled. E-signature workflow auto-triggered. New NDA effective immediately upon e-signature.",
+          "benefit": "No lapse in confidentiality protection, reduced administrative burden"
+        },
+        "automation_5": {
+          "id": "DA-005",
+          "automation_name": "Automated Revenue Reconciliation & Zakat Calculation",
+          "description": "Monthly financial data feeds directly from partner systems into Sheikha financial system. Revenue calculated automatically, Zakat (2.5%) calculated, settled within 45 days. Blockchain receipt retained.",
+          "benefit": "Transparent, rapid payment, Islamic compliance automated, audit trail permanent"
+        }
+      }
+    }
+  }
+}

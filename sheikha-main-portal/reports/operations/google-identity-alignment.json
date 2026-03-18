@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-03-11T20:29:24.662Z",
+  "title": "Google Identity Alignment Report",
+  "identity": {
+    "policy": {
+      "personalAccount": "salman.alrajrh@gmail.com",
+      "commercialAccount": "market@sheikha.top",
+      "automationIdentity": "service-account-key.json",
+      "operatorEmail": "market@sheikha.top"
+    },
+    "state": {
+      "adcExists": true,
+      "adcType": "authorized_user",
+      "adcQuotaProject": null,
+      "serviceAccountKeyExists": false,
+      "serviceAccountEmail": null,
+      "serviceAccountProject": null,
+      "envProject": "sheikha-marketplace",
+      "envCredentials": null
+    },
+    "recommendedMode": "adc-commercial-browser"
+  },
+  "guidance": {
+    "rules": [
+      "استخدم الحساب الشخصي للتصفح العام فقط.",
+      "استخدم market@sheikha.top للدخول على Google Cloud Console وGoogle Workspace المرتبط بالمشروع.",
+      "استخدم service account للتشغيل الآلي داخل التطبيق والسكريبتات.",
+      "لا تعتمد على الحساب الشخصي في الإنتاج أو الخلفية.",
+      "افصل المتصفح إلى Profile شخصي وProfile تجاري."
+    ],
+    "browserProfiles": {
+      "personal": "Chrome Profile: Salman Personal",
+      "commercial": "Chrome Profile: Sheikha Business"
+    },
+    "projectSetup": [
+      "ضع GOOGLE_CLOUD_PROJECT على project_id الفعلي للمشروع.",
+      "إذا وُجد service-account-key.json فاجعله المسار المعتمد للتشغيل الآلي.",
+      "اجعل market@sheikha.top هو البريد التشغيلي المرجعي في البيئة."
+    ],
+    "runbook": [
+      "أعد login في gcloud باستخدام الحساب التجاري فقط.",
+      "وافق على صلاحية cloud-platform كاملة.",
+      "شغّل npm run sovereign:global-pulse:fix"
+    ]
+  },
+  "summary": {
+    "score": 50,
+    "level": "needs-alignment",
+    "preferredIdentity": "market@sheikha.top",
+    "automationMode": "adc-commercial-browser"
+  }
+}

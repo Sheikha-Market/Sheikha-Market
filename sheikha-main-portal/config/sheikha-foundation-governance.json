@@ -1,0 +1,56 @@
+{
+    "program": "SHEIKHA_FOUNDATION_GOVERNANCE",
+    "version": "1.0.0",
+    "identity": {
+        "nameAr": "محور شيخة الحاكم الأساسي",
+        "scope": [
+            "local",
+            "regional",
+            "international",
+            "global",
+            "cosmic"
+        ],
+        "primaryLanguage": "ar",
+        "defaultLocale": "ar-SA"
+    },
+    "sources": [
+        "quran",
+        "sunnah"
+    ],
+    "coreAxes": [
+        "axis-tawheed-and-purpose",
+        "axis-trust-and-justice",
+        "axis-trade-and-economy",
+        "axis-knowledge-and-research",
+        "axis-compute-and-ai",
+        "axis-industry-and-innovation",
+        "axis-governance-and-sovereignty"
+    ],
+    "foundationalRules": [
+        "no-riba",
+        "no-gharar",
+        "no-fraud",
+        "no-monopoly",
+        "no-harm",
+        "accuracy-and-transparency",
+        "human-in-the-loop-governance"
+    ],
+    "architectureLayers": [
+        "layer-1-purpose-and-charter",
+        "layer-2-sharia-governance",
+        "layer-3-sovereign-control-plane",
+        "layer-4-data-and-knowledge-fabric",
+        "layer-5-cloud-and-compute-fabric",
+        "layer-6-ai-and-automation-fabric",
+        "layer-7-trust-security-observability",
+        "layer-8-global-operations-and-resilience"
+    ],
+    "targets": {
+        "availability": "99.99%",
+        "apiP95Ms": 50,
+        "apiP99Ms": 150,
+        "rtoMinutes": 15,
+        "rpoMinutes": 5,
+        "zeroTrust": true
+    }
+}

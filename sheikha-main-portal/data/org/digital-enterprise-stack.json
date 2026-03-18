@@ -1,0 +1,67 @@
+{
+  "_meta": {
+    "title": "المعمارية الرقمية المتكاملة للمؤسسة — Bot-Native Enterprise",
+    "version": "1.0.0",
+    "createdAt": "2026-03-12",
+    "principle": "وَشَاوِرْهُمْ فِي الْأَمْرِ — آل عمران:159"
+  },
+  "corePlatforms": [
+    {
+      "num": "SHK-PLT-001",
+      "name": "ERP",
+      "scope": ["Finance", "Procurement", "Contracts", "Assets", "HR"],
+      "botControl": ["SHK-BOT-004", "SHK-BOT-007", "SHK-BOT-015"],
+      "integration": ["SCM", "CRM", "WMS", "MIS"]
+    },
+    {
+      "num": "SHK-PLT-002",
+      "name": "CRM",
+      "scope": ["Leads", "Accounts", "Support", "Retention"],
+      "botControl": ["SHK-BOT-016", "SHK-BOT-018", "SHK-BOT-002"],
+      "integration": ["ERP", "Commerce", "Contact Center"]
+    },
+    {
+      "num": "SHK-PLT-003",
+      "name": "SCM",
+      "scope": ["Planning", "Sourcing", "Supplier Performance", "Replenishment"],
+      "botControl": ["SHK-BOT-005", "SHK-BOT-006"],
+      "integration": ["ERP", "WMS", "Logistics"]
+    },
+    {
+      "num": "SHK-PLT-004",
+      "name": "WMS",
+      "scope": ["Receiving", "Putaway", "Picking", "Cycle Count"],
+      "botControl": ["SHK-BOT-005", "SHK-BOT-019"],
+      "integration": ["SCM", "Logistics", "Quality"]
+    },
+    {
+      "num": "SHK-PLT-005",
+      "name": "Digital Logistics",
+      "scope": ["Fleet", "Route", "Shipment Tracking", "Proof of Delivery"],
+      "botControl": ["SHK-BOT-006"],
+      "integration": ["WMS", "SCM", "Marketplace"]
+    },
+    {
+      "num": "SHK-PLT-006",
+      "name": "E-Commerce Core",
+      "scope": ["Catalog", "Pricing", "Cart", "Order", "Settlement"],
+      "botControl": ["SHK-BOT-002", "SHK-BOT-003", "SHK-BOT-020"],
+      "integration": ["CRM", "ERP", "Payments", "Sharia Engine"]
+    }
+  ],
+  "technologyBackbone": {
+    "application": ["Node.js", "Express", "WebSocket", "PWA"],
+    "data": ["BigQuery", "JSON Data Stores", "Event Logs"],
+    "security": ["JWT", "OAuth", "IAM", "Audit Logs"],
+    "operations": ["PM2", "Health Monitoring", "Self-Healing", "Backup/DR"],
+    "intelligence": ["AI Agents", "RAG", "Anomaly Detection", "Decision Support"]
+  },
+  "operatingModel": {
+    "mode": "Bot-First with Human Governance",
+    "decisionFlow": ["Bot Recommend", "Policy Check", "Human Approval (when required)", "Automated Execution", "Post-Execution Audit"],
+    "targetKPIs": [">99.95% availability", "<10 min MTTR", ">90% automation coverage", ">95 quality score"]
+  },
+  "mermaid": {
+    "stack": "flowchart TD\n  ERP --> SCM\n  ERP --> CRM\n  SCM --> WMS\n  WMS --> LOG[Digital Logistics]\n  CRM --> ECOM[E-Commerce Core]\n  ERP --> ECOM\n  ECOM --> SHARIA[Sharia Engine]\n  ALL[AI Bot Layer] --> ERP\n  ALL --> CRM\n  ALL --> SCM\n  ALL --> WMS\n  ALL --> LOG\n  ALL --> ECOM\n  GOV[Human Governance] --> ALL"
+  }
+}

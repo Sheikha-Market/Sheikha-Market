@@ -314,14 +314,21 @@ const UniversalSovereign = {
 
         // 1. التحقق من ملف المفتاح
         console.log('   ├─ الاعتماد السحابي (Key/ADC)...');
-        const adcPath = path.join(require('os').homedir(), '.config', 'gcloud', 'application_default_credentials.json');
+        const adcPath = path.join(
+            require('os').homedir(),
+            '.config',
+            'gcloud',
+            'application_default_credentials.json'
+        );
         const explicitKeyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
         const explicitKeyExists = explicitKeyPath && fs.existsSync(explicitKeyPath);
 
         if (explicitKeyExists || fs.existsSync(this.config.keyFilePath) || fs.existsSync(adcPath)) {
             console.log('   │  ✅ موجود');
         } else {
-            console.log('   │  ⚠️ غير موجود (شغّل gcloud auth application-default login أو استخدم key)');
+            console.log(
+                '   │  ⚠️ غير موجود (شغّل gcloud auth application-default login أو استخدم key)'
+            );
             allGood = false;
         }
 

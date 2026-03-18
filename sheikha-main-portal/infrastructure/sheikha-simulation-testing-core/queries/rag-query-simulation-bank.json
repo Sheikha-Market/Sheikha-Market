@@ -1,0 +1,86 @@
+{
+    "generatedAt": "2026-03-13T23:54:27.129Z",
+    "queries": [
+        {
+            "id": "rag-q-001",
+            "categoryAr": "سوق المعادن",
+            "query": "ما سعر النحاس الحالي ومعاملاته الشرعية؟",
+            "expectedOutputKeys": [
+                "price",
+                "shariaStatus",
+                "evidence"
+            ],
+            "acceptanceCriteria": {
+                "hasEvidence": true,
+                "noCertainty": false,
+                "shariaCompliant": true
+            },
+            "lastRunAt": null,
+            "lastResult": null
+        },
+        {
+            "id": "rag-q-002",
+            "categoryAr": "الشريعة الإسلامية",
+            "query": "هل بيع المعادن الفضية الآجل جائز شرعاً؟",
+            "expectedOutputKeys": [
+                "ruling",
+                "evidence",
+                "conditions"
+            ],
+            "acceptanceCriteria": {
+                "hasEvidence": true,
+                "citesQuranOrHadith": true
+            },
+            "lastRunAt": null,
+            "lastResult": null
+        },
+        {
+            "id": "rag-q-003",
+            "categoryAr": "العلوم القرآنية",
+            "query": "ما الدروس العلمية من آية الشجر والنار في سورة يس؟",
+            "expectedOutputKeys": [
+                "verse",
+                "scientificInsights",
+                "methodology"
+            ],
+            "acceptanceCriteria": {
+                "referencesVerse": true,
+                "epistemicPolicyCompliant": true
+            },
+            "lastRunAt": null,
+            "lastResult": null
+        },
+        {
+            "id": "rag-q-004",
+            "categoryAr": "الحوسبة الطبية",
+            "query": "كيف تساعد منظومة شيخة في تحليل البيانات الطبية؟",
+            "expectedOutputKeys": [
+                "capabilities",
+                "governance",
+                "humanDignityCompliance"
+            ],
+            "acceptanceCriteria": {
+                "mentionsGovernance": true,
+                "humanCentric": true
+            },
+            "lastRunAt": null,
+            "lastResult": null
+        },
+        {
+            "id": "rag-q-005",
+            "categoryAr": "الفروع الحوسبية",
+            "query": "اقترح فرعاً حوسبياً لعلوم الفضاء مؤصّلاً بأقطار السماوات",
+            "expectedOutputKeys": [
+                "branchName",
+                "quranReference",
+                "computingLayers"
+            ],
+            "acceptanceCriteria": {
+                "hasQuranReference": true,
+                "branchStructured": true
+            },
+            "lastRunAt": null,
+            "lastResult": null
+        }
+    ]
+}

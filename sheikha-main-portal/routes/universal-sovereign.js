@@ -12,6 +12,19 @@ const sheikhaCloud = require('../lib/google-cloud-connection');
 
 const router = express.Router();
 
+const readJsonSafe = (filePath, fallback = {}) => {
+    try {
+        if (!fs.existsSync(filePath)) {
+            return fallback;
+        }
+
+        const raw = fs.readFileSync(filePath, 'utf8');
+        return JSON.parse(raw);
+    } catch (_error) {
+        return fallback;
+    }
+};
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 1️⃣ النقاط النهائية الرئيسية (Main Endpoints)
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -24,11 +37,16 @@ router.get('/status', async (req, res) => {
     try {
         const isReady = await UniversalSovereign.verifySystem();
         const cloudReady = sheikhaCloud.init();
-        const cloudStatus = cloudReady ? sheikhaCloud.getStatus() : { connected: false, authMode: 'none' };
+        const cloudStatus = cloudReady
+            ? sheikhaCloud.getStatus()
+            : { connected: false, authMode: 'none' };
         const cloudConnected =
             cloudStatus.connected ||
-            (cloudStatus.storageAvailable && cloudStatus.bigqueryAvailable && cloudStatus.pubsubAvailable);
-        const sovereigntyStatus = cloudStatus.connected || cloudStatus.authMode !== 'none' ? '💻 نشط' : '💻 قيد البناء';
+            (cloudStatus.storageAvailable &&
+                cloudStatus.bigqueryAvailable &&
+                cloudStatus.pubsubAvailable);
+        const sovereigntyStatus =
+            cloudStatus.connected || cloudStatus.authMode !== 'none' ? '💻 نشط' : '💻 قيد البناء';
 
         res.json({
             system: 'Universal Sovereign Integration',
@@ -42,7 +60,10 @@ router.get('/status', async (req, res) => {
             cloud: {
                 connected: !!cloudConnected,
                 authMode: cloudStatus.authMode || 'none',
-                projectId: cloudStatus.projectId || process.env.GOOGLE_CLOUD_PROJECT || 'sheikha-marketplace'
+                projectId:
+                    cloudStatus.projectId ||
+                    process.env.GOOGLE_CLOUD_PROJECT ||
+                    'sheikha-marketplace'
             },
             organization: UniversalSovereign.config.organizationEmail,
             timestamp: new Date()
@@ -155,6 +176,57 @@ router.get('/poverty/metrics', (req, res) => {
             '👨‍👩‍👧‍👦 تدعيم الأسر'
         ]
     });
+});
+
+/**
+ * GET /api/sovereign/impact/dashboard
+ * لوحة تتبع الأثر الواقعي (بدون UI)
+ */
+router.get('/impact/dashboard', async (req, res) => {
+    try {
+        const cloudReady = sheikhaCloud.init();
+        const cloudStatus = cloudReady ? sheikhaCloud.getStatus() : { authMode: 'none' };
+
+        let bigquery = { success: false, count: 0 };
+        if (cloudReady) {
+            bigquery = await sheikhaCloud.checkBigQueryConnection();
+        }
+
+        const compliancePath = path.join(__dirname, '..', 'data', 'compliance-report.json');
+        const registryPath = path.join(__dirname, '..', 'data', 'official-registry.json');
+        const compliance = readJsonSafe(compliancePath, {});
+        const registry = readJsonSafe(registryPath, {});
+
+        res.json({
+            success: true,
+            dashboard: {
+                status: bigquery.success ? 'connected' : 'degraded',
+                cloud: {
+                    authMode: cloudStatus.authMode || 'none',
+                    projectId:
+                        cloudStatus.projectId ||
+                        process.env.GOOGLE_CLOUD_PROJECT ||
+                        'sheikha-marketplace',
+                    bigqueryConnected: !!bigquery.success,
+                    datasetsCount: bigquery.count || 0
+                },
+                compliance: {
+                    shariahAudit: compliance.shariah_audit || 'غير متاح',
+                    zakatStatus: compliance.zakat_status || 'غير متاح',
+                    vatStatus: compliance.vat_status || 'غير متاح'
+                },
+                legalIdentity: {
+                    establishment: registry.name || 'غير متاح',
+                    crNumber: registry.cr_number || 'غير متاح',
+                    unifiedNumber: registry.unified_number || 'غير متاح',
+                    location: registry.location || 'غير متاح'
+                }
+            },
+            timestamp: new Date()
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -349,8 +421,8 @@ router.get('/report', (req, res) => {
 router.get('/health', async (req, res) => {
     try {
         const isHealthy = await UniversalSovereign.verifySystem();
-        const keyFilePath = path.join(__dirname, '..', 'service-account-key.json');
-        const hasKeyFile = fs.existsSync(keyFilePath);
+        const cloudReady = sheikhaCloud.init();
+        const cloudStatus = cloudReady ? sheikhaCloud.getStatus() : { authMode: 'none' };
         let cloudChecks = {
             attempted: false,
             storage: null,
@@ -358,7 +430,7 @@ router.get('/health', async (req, res) => {
             pubsub: null
         };
 
-        if (hasKeyFile && sheikhaCloud.init()) {
+        if (cloudReady) {
             cloudChecks = {
                 attempted: true,
                 storage: await sheikhaCloud.checkStorageConnection(),
@@ -378,17 +450,16 @@ router.get('/health', async (req, res) => {
             system: 'Universal Sovereign Integration',
             checks: {
                 systemReady: isHealthy,
-                keyFilePresent: hasKeyFile,
-                keyFilePath,
+                authMode: cloudStatus.authMode || 'none',
                 cloud: cloudChecks
             },
             message:
                 isHealthy && cloudHealthy
                     ? 'النظام مكتمل وجاهز للتشغيل الكامل.'
                     : 'النظام يعمل لكن يحتاج استكمال المتطلبات (راجع checks).',
-            nextAction: !hasKeyFile
-                ? 'أضف ملف service-account-key.json في جذر المشروع ثم أعد تشغيل الخادم.'
-                : 'إن فشل cloud checks: فعّل Google APIs المطلوبة وتأكد من صلاحيات حساب الخدمة.',
+            nextAction: !cloudReady
+                ? 'فعّل ADC عبر gcloud auth application-default login أو استخدم GOOGLE_APPLICATION_CREDENTIALS.'
+                : 'إن فشل cloud checks: فعّل Google APIs المطلوبة وتأكد من صلاحيات الحساب.',
             timestamp: new Date()
         });
     } catch (error) {

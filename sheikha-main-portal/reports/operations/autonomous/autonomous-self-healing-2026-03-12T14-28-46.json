@@ -1,0 +1,88 @@
+{
+  "title": "تقرير التشغيل الذاتي والتعافي الآلي",
+  "timestamp": "2026-03-12T14:28:46.396Z",
+  "frameworkRef": "SHK-AUTO-000",
+  "shariaAnchors": [
+    {
+      "num": "SHK-AUTO-SH-001",
+      "topic": "الاستعداد والقوة التشغيلية",
+      "evidence": "وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ — الأنفال:60",
+      "operationalMeaning": "بناء جاهزية دائمة للمنصة والبنية التحتية ومنع التعطل"
+    },
+    {
+      "num": "SHK-AUTO-SH-002",
+      "topic": "عدم الإفساد وتخفيف الضرر",
+      "evidence": "وَلَا تُفْسِدُوا فِي الْأَرْضِ بَعْدَ إِصْلَاحِهَا — الأعراف:56",
+      "operationalMeaning": "الاستجابة السريعة للحوادث التقنية وتقليل أثرها على المستخدمين"
+    },
+    {
+      "num": "SHK-AUTO-SH-003",
+      "topic": "الإتقان والاستمرارية",
+      "evidence": "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ — حديث",
+      "operationalMeaning": "دورة تحسين مستمر بعد كل حادثة (RCA + CAPA)"
+    }
+  ],
+  "readiness": {
+    "weighted": 68,
+    "status": "needs-hardening"
+  },
+  "metrics": {
+    "mttdMinutes": 3.9,
+    "mttrMinutes": 14.8,
+    "autoRecoverySuccessRate": 74,
+    "recurrenceRisk": "medium",
+    "recommendedMode": "semi-auto"
+  },
+  "decision": {
+    "mode": "semi-auto",
+    "severity": "S2-high",
+    "summary": "تم اعتماد نمط شبه ذاتي مع مراجعة بشرية."
+  },
+  "playbookExecution": [
+    {
+      "id": "SHK-PB-001",
+      "action": "Restart Service",
+      "executed": true,
+      "timestamp": "2026-03-12T14:28:46.396Z",
+      "status": "applied"
+    },
+    {
+      "id": "SHK-PB-003",
+      "action": "Switch to Safe Mode",
+      "executed": true,
+      "timestamp": "2026-03-12T14:28:46.396Z",
+      "status": "applied"
+    },
+    {
+      "id": "SHK-PB-004",
+      "action": "Cache Fallback",
+      "executed": true,
+      "timestamp": "2026-03-12T14:28:46.396Z",
+      "status": "applied"
+    },
+    {
+      "id": "SHK-PB-006",
+      "action": "DB Read-Only Protection",
+      "executed": true,
+      "timestamp": "2026-03-12T14:28:46.396Z",
+      "status": "applied"
+    }
+  ],
+  "nextActions": [
+    "تحديث قواعد الاكتشاف الذاتي كل 24 ساعة",
+    "اختبار سيناريو انقطاع API أسبوعياً",
+    "تحديث مصفوفة المخاطر لكل سوق جديد",
+    "ربط نتائج التعافي مع لوحة الإدارة العليا"
+  ],
+  "readinessForNewMarkets": {
+    "num": "SHK-AUTO-MKT-001",
+    "objective": "ضمان جاهزية بنية التشغيل لفتح أسواق جديدة دون تعطيل",
+    "checklist": [
+      "قابلية التوسع الأفقي validated",
+      "سياسات multi-region جاهزة",
+      "النسخ الاحتياطي واختبارات الاسترداد ناجحة",
+      "توافق الأنظمة المحلية للمنطقة المستهدفة",
+      "لوحات متابعة مستقلة لكل سوق جديد"
+    ]
+  }
+}

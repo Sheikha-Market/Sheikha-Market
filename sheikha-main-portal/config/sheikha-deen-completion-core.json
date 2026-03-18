@@ -1,0 +1,46 @@
+{
+    "program": "SHEIKHA_DEEN_COMPLETION_CORE",
+    "version": "1.0.0",
+    "identity": {
+        "nameAr": "شيخة إكمال الدين",
+        "mission": "تفعيل مرجعية اكتمال الدين في الحوكمة والتشغيل",
+        "primaryLanguage": "ar",
+        "defaultLocale": "ar-SA"
+    },
+    "reference": {
+        "quranAyah": "اليوم أكملت لكم دينكم وأتممت عليكم نعمتي ورضيت لكم الإسلام دينا",
+        "source": [
+            "quran",
+            "sunnah"
+        ]
+    },
+    "governance": {
+        "controls": [
+            "no-riba",
+            "no-gharar",
+            "no-fraud",
+            "no-harm"
+        ],
+        "values": [
+            "tawheed",
+            "amanah",
+            "adl",
+            "ihsan",
+            "rahmah"
+        ]
+    },
+    "completionLayers": [
+        "layer-complete-guidance",
+        "layer-complete-ethics",
+        "layer-complete-governance",
+        "layer-complete-operations",
+        "layer-complete-resilience"
+    ],
+    "targets": {
+        "availability": "99.99%",
+        "apiP95Ms": 50,
+        "apiP99Ms": 150,
+        "rtoMinutes": 15,
+        "rpoMinutes": 5
+    }
+}

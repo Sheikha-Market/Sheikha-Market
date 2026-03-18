@@ -1,0 +1,63 @@
+{
+  "_meta": {
+    "title": "نظام جودة الحياة الرقمية للبوتات — شيخة",
+    "version": "1.0.0",
+    "createdAt": "2026-03-12",
+    "principle": "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا — البقرة:286",
+    "systemId": "SHK-BOT-WELL-001"
+  },
+  "vision": "ضمان تشغيل مستدام للبوتات بجودة عالية وتوازن حمولة ومعرفة محدثة واستقرار تشغيلي.",
+  "dimensions": [
+    {
+      "id": "SHK-WELL-DIM-001",
+      "name": "Workload Balance",
+      "weight": 0.25,
+      "description": "توازن المهام وعدم تحميل البوت فوق الطاقة التشغيلية"
+    },
+    {
+      "id": "SHK-WELL-DIM-002",
+      "name": "Quality Stability",
+      "weight": 0.25,
+      "description": "استقرار جودة النتائج وتقليل الانحراف"
+    },
+    {
+      "id": "SHK-WELL-DIM-003",
+      "name": "Learning Freshness",
+      "weight": 0.20,
+      "description": "حداثة المعرفة والتدريب والتغذية الراجعة"
+    },
+    {
+      "id": "SHK-WELL-DIM-004",
+      "name": "Compliance Safety",
+      "weight": 0.15,
+      "description": "الالتزام بالسياسات والضوابط الشرعية والتنظيمية"
+    },
+    {
+      "id": "SHK-WELL-DIM-005",
+      "name": "Recovery Health",
+      "weight": 0.15,
+      "description": "القدرة على التعافي من الأخطاء واستعادة الأداء"
+    }
+  ],
+  "statusBands": [
+    { "name": "flourishing", "min": 90, "max": 100, "color": "green" },
+    { "name": "stable", "min": 80, "max": 89, "color": "teal" },
+    { "name": "watch", "min": 70, "max": 79, "color": "yellow" },
+    { "name": "risk", "min": 0, "max": 69, "color": "red" }
+  ],
+  "interventions": {
+    "flourishing": ["مكافأة معرفية", "رفع صلاحيات تنفيذ محددة"],
+    "stable": ["استمرار التشغيل الطبيعي", "مراجعة أسبوعية بسيطة"],
+    "watch": ["تخفيف الأحمال", "إعادة تدريب مركّز", "مراجعة بشرية"],
+    "risk": ["تعليق جزئي", "تحقيق جذري RCA", "خطة إنعاش تشغيلية"]
+  },
+  "kpis": [
+    { "id": "SHK-WELL-KPI-001", "name": "Average Wellbeing Score", "target": ">= 85" },
+    { "id": "SHK-WELL-KPI-002", "name": "Bots in Risk", "target": "<= 2" },
+    { "id": "SHK-WELL-KPI-003", "name": "Weekly Learning Coverage", "target": ">= 95%" },
+    { "id": "SHK-WELL-KPI-004", "name": "Recovery Success", "target": ">= 90%" }
+  ],
+  "mermaid": {
+    "wellbeingLoop": "flowchart LR\n  OBS[Observe Metrics] --> SCORE[Compute Wellbeing]\n  SCORE --> BAND{Band}\n  BAND -->|flourishing/stable| KEEP[Keep & Reward]\n  BAND -->|watch| TUNE[Retune & Retrain]\n  BAND -->|risk| RESCUE[Rescue Plan]\n  KEEP --> OBS\n  TUNE --> OBS\n  RESCUE --> OBS"
+  }
+}

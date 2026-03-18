@@ -1,17 +1,17 @@
 // Service Worker — منظومة شيخة للمعادن والسكراب
 // © 2026 SHEIKHA — ملكية فكرية محفوظة لـ سلمان أحمد بن سلمان الراجح
-// v5 — وضع PILOT: الشبكة أولاً دائماً — لا تخزين يعترض التنقل
-const CACHE_NAME = 'sheikha-cache-v5';
+// v6 — وضع PILOT: الشبكة أولاً دائماً — لا تخزين يعترض التنقل
+const CACHE_NAME = 'sheikha-cache-v6';
 
 // Install — فوري بدون تخزين مسبق في وضع PILOT
 self.addEventListener('install', (event) => {
-    console.log('[SW] Installing Sheikha Service Worker v5 (PILOT mode)...');
+    console.log('[SW] Installing Sheikha Service Worker v6 (PILOT mode)...');
     self.skipWaiting();
 });
 
 // Activate — حذف كل الكاش القديم فوراً
 self.addEventListener('activate', (event) => {
-    console.log('[SW] Activating v5 — clearing ALL old caches...');
+    console.log('[SW] Activating v6 — clearing ALL old caches...');
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
@@ -21,6 +21,12 @@ self.addEventListener('activate', (event) => {
                 })
             );
         }).then(() => self.clients.claim())
+          .then(() => self.clients.matchAll({ type: 'window', includeUncontrolled: true }))
+          .then((clientsList) => {
+              clientsList.forEach((client) => {
+                  client.postMessage({ type: 'SHEIKHA_FORCE_REFRESH', version: CACHE_NAME });
+              });
+          })
     );
 });
 

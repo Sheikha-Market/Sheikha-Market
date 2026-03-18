@@ -9,7 +9,7 @@ const LOG_DIR = path.join(ROOT, 'logs');
 const LOG_FILE = path.join(LOG_DIR, 'background-processes.log');
 
 const DEFAULTS = {
-  mainName: process.env.SHEIKHA_MAIN_NAME || 'sheikha-main-portal',
+  mainName: process.env.SHEIKHA_MAIN_NAME || 'sheikha-api',
   marketName: process.env.SHEIKHA_MARKET_NAME || 'sheikha-market-3030',
   mainPort: Number(process.env.SHEIKHA_MAIN_PORT || 8080),
   marketPort: Number(process.env.SHEIKHA_MARKET_PORT || 3030),
@@ -151,8 +151,23 @@ function hardRestart(name, port, dryRun = false) {
   runShell(`PORT=${port} NODE_ENV=production pm2 start server.js --name "${name}" --time --update-env`, dryRun);
 }
 
+function cleanupLegacyMain(opts) {
+  const legacyName = 'sheikha-main-portal';
+  if (opts.mainName === legacyName) return false;
+
+  const pm2List = readPm2List(opts.dryRun);
+  const legacyProc = findProcess(pm2List, legacyName);
+  if (!legacyProc) return false;
+
+  log(`CLEANUP: deleting legacy process ${legacyName}`);
+  runShell(`pm2 delete "${legacyName}"`, opts.dryRun);
+  return true;
+}
+
 async function runCycle(opts) {
   let changed = false;
+
+  changed = cleanupLegacyMain(opts) || changed;
 
   changed = ensureProcessRunning(opts.mainName, opts.mainPort, opts.dryRun) || changed;
   changed = ensureProcessRunning(opts.marketName, opts.marketPort, opts.dryRun) || changed;

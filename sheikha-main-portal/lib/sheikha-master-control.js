@@ -33,7 +33,12 @@ const SovereignMaster = {
     config: {
         // 🔐 حماية المفتاح
         keyPath: path.join(__dirname, '..', 'service-account-key.json'),
-        adcPath: path.join(os.homedir(), '.config', 'gcloud', 'application_default_credentials.json'),
+        adcPath: path.join(
+            os.homedir(),
+            '.config',
+            'gcloud',
+            'application_default_credentials.json'
+        ),
 
         // 📋 البيانات الأساسية
         orgID: '224557279528',
@@ -113,7 +118,9 @@ const SovereignMaster = {
 
         if (!explicitKeyExists && !localKeyExists && !adcExists) {
             console.log(`   ⚠️ لا يوجد اعتماد سحابي صالح.`);
-            console.log('   📝 الحل: شغّل gcloud auth application-default login أو أضف service-account-key.json');
+            console.log(
+                '   📝 الحل: شغّل gcloud auth application-default login أو أضف service-account-key.json'
+            );
             return false;
         }
 

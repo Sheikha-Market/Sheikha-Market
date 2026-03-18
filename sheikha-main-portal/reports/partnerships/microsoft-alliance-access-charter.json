@@ -1,0 +1,72 @@
+{
+  "timestamp": "2026-03-11T19:08:05.603Z",
+  "owner": {
+    "name": "Salman Ahmed bin Salman AlRajih",
+    "auth": "market@sheikha.top",
+    "crNumber": "2051263653",
+    "consultantId": "ciscc2250603061"
+  },
+  "charterId": "MS-ACCESS-2026-03-11",
+  "scope": "Microsoft/Windows Strategic Partnership Governance",
+  "policy": {
+    "leastPrivilege": true,
+    "separationOfDuties": true,
+    "mandatoryAuditTrail": true,
+    "quarterlyAccessReview": true
+  },
+  "roleMatrix": [
+    {
+      "role": "Alliance Executive Sponsor",
+      "permissions": [
+        "approve-strategy",
+        "approve-budget",
+        "approve-risk-exception"
+      ],
+      "constraints": [
+        "no-direct-secrets-access"
+      ]
+    },
+    {
+      "role": "Security & Compliance Lead",
+      "permissions": [
+        "review-access",
+        "enforce-controls",
+        "approve-rotation-policy"
+      ],
+      "constraints": [
+        "no-commercial-contract-signature"
+      ]
+    },
+    {
+      "role": "Platform Integration Lead",
+      "permissions": [
+        "manage-ci-cd",
+        "manage-app-center",
+        "manage-webhook-integration"
+      ],
+      "constraints": [
+        "requires-change-request-ticket"
+      ]
+    },
+    {
+      "role": "Operations Observer",
+      "permissions": [
+        "read-kpi-dashboard",
+        "read-audit-logs"
+      ],
+      "constraints": [
+        "read-only"
+      ]
+    }
+  ],
+  "sharedControls": [
+    "عدم مشاركة أي أسرار تشغيلية خارج القنوات المعتمدة",
+    "توثيق كل صلاحية وصول وفق أقل امتياز",
+    "اشتراط المراجعة الدورية للامتثال والأمن"
+  ],
+  "enforcement": {
+    "incidentEscalationHours": 4,
+    "keyRotationDays": 90,
+    "mandatoryMfaForAdmin": true
+  }
+}

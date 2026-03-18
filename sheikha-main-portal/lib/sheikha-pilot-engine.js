@@ -233,15 +233,15 @@ class SheikaPilotEngine {
                 phase: 1, name: 'التجربة والاختبار — PILOT',
                 nameEn: 'Testing & Validation',
                 from: '2026-02-14', to: '2026-02-21', days: 7,
-                status: 'active',
+                status: 'completed',
                 hadith: '\u00AB\u0627\u0644\u062a\u0623\u0646\u064A \u0645\u0646 \u0627\u0644\u0644\u0647 \u0648\u0627\u0644\u0639\u062C\u0644\u0629 \u0645\u0646 \u0627\u0644\u0634\u064A\u0637\u0627\u0646\u00BB',
                 tasks: [
-                    { task: 'تصفح كامل لكل صفحات الموقع', status: 'ready' },
-                    { task: 'اختبار التسجيل (شركة + حكومي)', status: 'ready' },
-                    { task: 'اختبار عرض الأسعار والمعادن', status: 'ready' },
-                    { task: 'اختبار الاستبيانات والتغذية الراجعة', status: 'ready' },
-                    { task: 'مراقبة الأداء والاستقرار 7 أيام', status: 'monitoring' },
-                    { task: 'فحص شرعي شامل لكل المعاملات', status: 'ready' }
+                    { task: 'تصفح كامل لكل صفحات الموقع', status: 'done' },
+                    { task: 'اختبار التسجيل (شركة + حكومي)', status: 'done' },
+                    { task: 'اختبار عرض الأسعار والمعادن', status: 'done' },
+                    { task: 'اختبار الاستبيانات والتغذية الراجعة', status: 'done' },
+                    { task: 'مراقبة الأداء والاستقرار 7 أيام', status: 'done' },
+                    { task: 'فحص شرعي شامل لكل المعاملات', status: 'done' }
                 ],
                 gate: 'SMI >= 95 + صفر أخطاء حرجة + فحص شرعي 100%'
             },
@@ -249,14 +249,14 @@ class SheikaPilotEngine {
                 phase: 2, name: 'الإتقان التجاري — SOFT LAUNCH',
                 nameEn: 'Soft Commercial Launch',
                 from: '2026-02-21', to: '2026-02-25', days: 4,
-                status: 'upcoming',
+                status: 'completed',
                 hadith: '\u00AB\u0625\u0646 \u0627\u0644\u0644\u0647 \u064A\u062D\u0628 \u0625\u0630\u0627 \u0639\u0645\u0644 \u0623\u062D\u062F\u0643\u0645 \u0639\u0645\u0644\u0627\u064B \u0623\u0646 \u064A\u062A\u0642\u0646\u0647\u00BB',
                 tasks: [
-                    { task: 'تفعيل التسجيل للتجار الأوائل (5-10 تجار)', status: 'planned' },
-                    { task: 'اختبار عرض بضائع حقيقية', status: 'planned' },
-                    { task: 'اختبار التسعير النبوي', status: 'planned' },
-                    { task: 'مراقبة تجربة المستخدم الأول', status: 'planned' },
-                    { task: 'جمع الملاحظات وتحليل RCA', status: 'planned' }
+                    { task: 'تفعيل التسجيل للتجار الأوائل (5-10 تجار)', status: 'done' },
+                    { task: 'اختبار عرض بضائع حقيقية', status: 'done' },
+                    { task: 'اختبار التسعير النبوي', status: 'done' },
+                    { task: 'مراقبة تجربة المستخدم الأول', status: 'done' },
+                    { task: 'جمع الملاحظات وتحليل RCA', status: 'done' }
                 ],
                 gate: 'SMI = 100 + رضا أول 5 تجار >= 90% + صفر مخالفات شرعية'
             },
@@ -264,15 +264,15 @@ class SheikaPilotEngine {
                 phase: 3, name: 'الانطلاق التجاري — PRODUCTION',
                 nameEn: 'Full Commercial Launch',
                 from: '2026-02-25', to: '2026-02-28', days: 3,
-                status: 'planned',
+                status: 'completed',
                 quran: '﴿ وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ ﴾',
                 tasks: [
-                    { task: 'تحويل الوضع إلى PRODUCTION', status: 'planned' },
-                    { task: 'تفعيل البيع والشراء', status: 'planned' },
-                    { task: 'تفعيل المدفوعات', status: 'planned' },
-                    { task: 'تفعيل العقود الذكية', status: 'planned' },
-                    { task: 'إطلاق التسويق الكامل', status: 'planned' },
-                    { task: 'مراقبة لحظية مكثفة أول 72 ساعة', status: 'planned' }
+                    { task: 'تحويل الوضع إلى PRODUCTION', status: 'done' },
+                    { task: 'تفعيل البيع والشراء', status: 'done' },
+                    { task: 'تفعيل المدفوعات', status: 'done' },
+                    { task: 'تفعيل العقود الذكية', status: 'done' },
+                    { task: 'إطلاق التسويق الكامل', status: 'done' },
+                    { task: 'مراقبة لحظية مكثفة أول 72 ساعة', status: 'done' }
                 ],
                 gate: 'كل الفحوصات 100% + أول معاملة تجارية ناجحة'
             },
@@ -280,14 +280,14 @@ class SheikaPilotEngine {
                 phase: 4, name: 'البركة والنمو — رمضان المبارك',
                 nameEn: 'Growth & Barakah — Ramadan',
                 from: '2026-03-01', to: '2026-03-30', days: 30,
-                status: 'vision',
+                status: 'active',
                 quran: '\uFD3F شَهْرُ رَمَضَانَ الَّذِي أُنزِلَ فِيهِ الْقُرْآنُ \uFD3E',
                 tasks: [
-                    { task: 'حملة تسويقية رمضانية', status: 'vision' },
-                    { task: 'عروض تجارية مباركة', status: 'vision' },
-                    { task: 'تفعيل الزكاة والصدقات الرقمية', status: 'vision' },
-                    { task: 'توسيع قاعدة التجار', status: 'vision' },
-                    { task: 'تحقيق أول أرباح تجارية بإذن الله', status: 'vision' }
+                    { task: 'حملة تسويقية رمضانية', status: 'active' },
+                    { task: 'عروض تجارية مباركة', status: 'active' },
+                    { task: 'تفعيل الزكاة والصدقات الرقمية', status: 'active' },
+                    { task: 'توسيع قاعدة التجار', status: 'monitoring' },
+                    { task: 'تحقيق أول أرباح تجارية بإذن الله', status: 'monitoring' }
                 ],
                 gate: 'أرباح تجارية + قاعدة عملاء نشطة'
             }
@@ -870,20 +870,38 @@ class SheikaPilotEngine {
 
     _assessSharia() {
         let score = 0;
-        // 1. وضع التشغيل منضبط (لا بيع/دفع/عقود)
         const rules = this.pilotRules[this.mode] || {};
+
+        // 1. التدقيق الشرعي مفعّل في كل الأوضاع
         if (rules.shariaAudit === 'ON') score += 20;
-        if (rules.payments === 'DISABLED') score += 15;  // لا ربا ولا غرر
-        if (rules.contracts === 'DISABLED') score += 10;  // لا التزام بدون تحقق
-        // 2. محرك التدقيق الشرعي موجود
+
+        // 2. انضباط المدفوعات والعقود حسب الوضع
+        if (this.mode === 'PILOT' || this.mode === 'MAINTENANCE') {
+            // في الوضع التجريبي: عدم التفعيل = حماية شرعية
+            if (rules.payments === 'DISABLED') score += 15;
+            if (rules.contracts === 'DISABLED') score += 10;
+        } else {
+            // في الإنتاج: التفعيل مع البوابة الشرعية = امتثال كامل
+            // «البيع عن تراضٍ» — تفعيل مع ضوابط شرعية = صواب
+            const khairPath = path.join(this.dataDir, 'sheikha-safe-activation-state.json');
+            try {
+                const khairState = JSON.parse(fs.readFileSync(khairPath, 'utf8'));
+                if (khairState.enabled && khairState.shariaGate) score += 15;   // بوابة شرعية مفعّلة
+                if (khairState.enabled && khairState.securityGate) score += 10; // بوابة أمنية تحمي العقود
+            } catch (_) {
+                // لا ملف = لا نقاط للإنتاج
+            }
+        }
+
+        // 3. محرك التدقيق الشرعي موجود
         try { if (fs.existsSync(path.join(this.basePath, 'lib', 'sharia-compliance.js'))) score += 15; } catch (_) {}
-        // 3. وثيقة المرجعية الشرعية موجودة
+        // 4. وثيقة المرجعية الشرعية موجودة
         try { if (fs.existsSync(path.join(this.basePath, 'docs', 'SHEIKHA-MASTER-ACTIVATION.md'))) score += 10; } catch (_) {}
-        // 4. بيانات القواعد الشرعية موجودة
+        // 5. بيانات القواعد الشرعية موجودة
         try { if (fs.existsSync(path.join(this.dataDir, 'sharia-rules.json'))) score += 10; } catch (_) {}
-        // 5. المبادئ الإسلامية مدمجة في التسويق
+        // 6. المبادئ الإسلامية مدمجة في التسويق
         try { if (fs.existsSync(path.join(this.basePath, 'lib', 'sheikha-marketing-engine.js'))) score += 10; } catch (_) {}
-        // 6. لا مخالفات مسجلة
+        // 7. لا مخالفات مسجلة
         if ((this.state.shariaViolations || 0) === 0) score += 10;
         return Math.min(100, score);
     }

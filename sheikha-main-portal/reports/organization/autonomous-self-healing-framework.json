@@ -1,0 +1,243 @@
+{
+  "_meta": {
+    "title": "منظومة شيخة — التشغيل الذاتي والتعافي الآلي",
+    "version": "1.0.0",
+    "createdAt": "2026-03-12",
+    "principle": "إِنَّ مَعَ الْعُسْرِ يُسْرًا — الشرح:6",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "frameworkId": "SHK-AUTO-000"
+  },
+  "shariaAnchors": [
+    {
+      "num": "SHK-AUTO-SH-001",
+      "topic": "الاستعداد والقوة التشغيلية",
+      "evidence": "وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ — الأنفال:60",
+      "operationalMeaning": "بناء جاهزية دائمة للمنصة والبنية التحتية ومنع التعطل"
+    },
+    {
+      "num": "SHK-AUTO-SH-002",
+      "topic": "عدم الإفساد وتخفيف الضرر",
+      "evidence": "وَلَا تُفْسِدُوا فِي الْأَرْضِ بَعْدَ إِصْلَاحِهَا — الأعراف:56",
+      "operationalMeaning": "الاستجابة السريعة للحوادث التقنية وتقليل أثرها على المستخدمين"
+    },
+    {
+      "num": "SHK-AUTO-SH-003",
+      "topic": "الإتقان والاستمرارية",
+      "evidence": "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ — حديث",
+      "operationalMeaning": "دورة تحسين مستمر بعد كل حادثة (RCA + CAPA)"
+    }
+  ],
+  "architecture": {
+    "model": "Hierarchical + Event-Driven + Self-Healing Mesh",
+    "layers": [
+      {
+        "num": "SHK-AUTO-L1",
+        "nameAr": "طبقة الرصد والاستشعار",
+        "purpose": "جمع مؤشرات الصحة من API, DB, Queue, Infra",
+        "sources": [
+          "API Health",
+          "CPU/RAM",
+          "Latency",
+          "Error Rate",
+          "Queue Depth",
+          "Cloud Auth",
+          "BigQuery"
+        ]
+      },
+      {
+        "num": "SHK-AUTO-L2",
+        "nameAr": "طبقة التحليل والتنبؤ",
+        "purpose": "تحليل الانحرافات واكتشاف الشذوذ والتنبؤ بالأعطال",
+        "engines": [
+          "Rules Engine",
+          "Anomaly Detection",
+          "Trend Forecast",
+          "Risk Scoring"
+        ]
+      },
+      {
+        "num": "SHK-AUTO-L3",
+        "nameAr": "طبقة القرار الذاتي",
+        "purpose": "اختيار خطة التعافي المثلى حسب شدة الحادث",
+        "decisionModes": [
+          "auto",
+          "semi-auto",
+          "manual-escalation"
+        ],
+        "severity": [
+          "S1-critical",
+          "S2-high",
+          "S3-medium",
+          "S4-low"
+        ]
+      },
+      {
+        "num": "SHK-AUTO-L4",
+        "nameAr": "طبقة التنفيذ والتعافي",
+        "purpose": "تنفيذ playbooks: restart, failover, rollback, isolate",
+        "playbooks": [
+          "SHK-PB-001 Restart Service",
+          "SHK-PB-002 Rotate Credentials",
+          "SHK-PB-003 Switch to Safe Mode",
+          "SHK-PB-004 Cache Fallback",
+          "SHK-PB-005 Queue Drain",
+          "SHK-PB-006 DB Read-Only Protection"
+        ]
+      },
+      {
+        "num": "SHK-AUTO-L5",
+        "nameAr": "طبقة التعلم والتحسين",
+        "purpose": "تحديث قواعد الاستجابة من نتائج الحوادث تلقائياً",
+        "learningLoop": [
+          "Postmortem",
+          "RCA",
+          "CAPA",
+          "Prompt/Rule Tuning",
+          "KPI Recalibration"
+        ]
+      }
+    ]
+  },
+  "operationsSections": [
+    {
+      "num": "SHK-AUTO-OPS-001",
+      "nameAr": "إدارة مراقبة التشغيل الذاتي",
+      "ownerDept": "SHK-DEPT-013",
+      "primaryBot": "SHK-BOT-012",
+      "tasks": [
+        "مراقبة 24/7",
+        "تنبيه ذكي",
+        "تصنيف الحوادث",
+        "SLA tracking"
+      ]
+    },
+    {
+      "num": "SHK-AUTO-OPS-002",
+      "nameAr": "إدارة التعافي الآلي للحوادث",
+      "ownerDept": "SHK-DEPT-010",
+      "primaryBot": "SHK-BOT-009",
+      "tasks": [
+        "تنفيذ playbooks",
+        "اختبارات الاسترداد",
+        "قياس MTTR",
+        "تقليل downtime"
+      ]
+    },
+    {
+      "num": "SHK-AUTO-OPS-003",
+      "nameAr": "إدارة أمن التعافي والاستمرارية",
+      "ownerDept": "SHK-DEPT-011",
+      "primaryBot": "SHK-BOT-010",
+      "tasks": [
+        "عزل الحوادث",
+        "تدوير مفاتيح",
+        "تحقق الصلاحيات",
+        "تدقيق الأثر الأمني"
+      ]
+    },
+    {
+      "num": "SHK-AUTO-OPS-004",
+      "nameAr": "إدارة الحوكمة الشرعية للتشغيل",
+      "ownerDept": "SHK-DEPT-001",
+      "primaryBot": "SHK-BOT-001",
+      "tasks": [
+        "مراجعة القرارات الآلية",
+        "منع الضرر",
+        "اعتماد سياسات التشغيل",
+        "تدقيق الامتثال"
+      ]
+    }
+  ],
+  "autonomousAgents": [
+    {
+      "num": "SHK-AUTO-AG-001",
+      "nameAr": "وكيل الحارس التشغيلي",
+      "botId": "SHK-BOT-012",
+      "role": "Operational Guardian",
+      "responsibilities": [
+        "جمع القياسات",
+        "كشف الانقطاع",
+        "إطلاق إنذار أولي"
+      ]
+    },
+    {
+      "num": "SHK-AUTO-AG-002",
+      "nameAr": "وكيل طبيب المنصة",
+      "botId": "SHK-BOT-009",
+      "role": "Self-Healing Executor",
+      "responsibilities": [
+        "تشخيص السبب المرجح",
+        "تشغيل playbook",
+        "التحقق بعد الإصلاح"
+      ]
+    },
+    {
+      "num": "SHK-AUTO-AG-003",
+      "nameAr": "وكيل الدرع الأمني",
+      "botId": "SHK-BOT-010",
+      "role": "Security Isolation Agent",
+      "responsibilities": [
+        "عزل الجلسات الخطرة",
+        "تدوير المفاتيح",
+        "رفع تنبيه امتثال"
+      ]
+    },
+    {
+      "num": "SHK-AUTO-AG-004",
+      "nameAr": "وكيل الحكمة التنفيذية",
+      "botId": "SHK-BOT-021",
+      "role": "Executive Decision Agent",
+      "responsibilities": [
+        "تحديد نمط القرار auto/semi-auto",
+        "ترتيب الأولويات",
+        "تصعيد للمدير العام عند الحالات الحرجة"
+      ]
+    }
+  ],
+  "kpis": [
+    {
+      "num": "SHK-AUTO-KPI-001",
+      "name": "Availability",
+      "target": ">= 99.95%"
+    },
+    {
+      "num": "SHK-AUTO-KPI-002",
+      "name": "MTTD",
+      "target": "<= 2 minutes"
+    },
+    {
+      "num": "SHK-AUTO-KPI-003",
+      "name": "MTTR",
+      "target": "<= 10 minutes"
+    },
+    {
+      "num": "SHK-AUTO-KPI-004",
+      "name": "Auto-Recovery Success",
+      "target": ">= 90%"
+    },
+    {
+      "num": "SHK-AUTO-KPI-005",
+      "name": "Incident Recurrence",
+      "target": "<= 5%"
+    }
+  ],
+  "incidentLifecycle": [
+    "SHK-IL-001 Detect",
+    "SHK-IL-002 Classify",
+    "SHK-IL-003 Decide",
+    "SHK-IL-004 Recover",
+    "SHK-IL-005 Validate",
+    "SHK-IL-006 Learn"
+  ],
+  "readinessForNewMarkets": {
+    "num": "SHK-AUTO-MKT-001",
+    "objective": "ضمان جاهزية بنية التشغيل لفتح أسواق جديدة دون تعطيل",
+    "checklist": [
+      "قابلية التوسع الأفقي validated",
+      "سياسات multi-region جاهزة",
+      "النسخ الاحتياطي واختبارات الاسترداد ناجحة",
+      "توافق الأنظمة المحلية للمنطقة المستهدفة",
+      "لوحات متابعة مستقلة لكل سوق جديد"
+    ]
+  }
+}

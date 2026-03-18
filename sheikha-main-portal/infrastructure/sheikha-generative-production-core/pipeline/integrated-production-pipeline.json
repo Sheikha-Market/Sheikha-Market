@@ -1,0 +1,86 @@
+{
+    "generatedAt": "2026-03-18T04:56:59.789Z",
+    "pipeline": {
+        "name": "sheikha-integrated-production-pipeline",
+        "description": "خط أنابيب الإنتاج الكامل من البيانات إلى النتيجة",
+        "stages": [
+            {
+                "id": "stage-0-data-ingestion",
+                "nameAr": "استيعاب البيانات",
+                "description": "استقبال البيانات من جميع المصادر في الوقت الفعلي",
+                "throughput": "unlimited",
+                "latencyTarget": "< 1ms",
+                "sources": [
+                    "سوق المعادن",
+                    "قاعدة الشريعة",
+                    "العلوم القرآنية",
+                    "الشبكات الخارجية"
+                ],
+                "parallelism": "infinite-fan-in"
+            },
+            {
+                "id": "stage-1-preprocessing",
+                "nameAr": "المعالجة المتوازية",
+                "description": "تنقية وترميز البيانات بكل الشبكات في آنٍ واحد",
+                "processor": "neural-quantum-hybrid",
+                "latencyTarget": "< 5ms",
+                "parallelWorkers": "auto-scale"
+            },
+            {
+                "id": "stage-2-training-loop",
+                "nameAr": "حلقة التدريب المستمر",
+                "description": "تحديث النماذج بشكل مستمر بدون توقف الإنتاج",
+                "strategy": "online-learning-with-shadow-model",
+                "promotionGate": "eval-score >= 0.92 AND sharia-check = PASS",
+                "latencyImpact": "zero — shadow model trains in background"
+            },
+            {
+                "id": "stage-3-simulation-gate",
+                "nameAr": "بوابة المحاكاة",
+                "description": "اختبار آلي قبل كل ترقية إنتاجية",
+                "regressionMinPassRate": 98,
+                "shariaComplianceRequired": true,
+                "autoBlock": true
+            },
+            {
+                "id": "stage-4-generative-inference",
+                "nameAr": "الاستنتاج التوليدي",
+                "description": "توليد الإجابات والتوصيات والتحليلات",
+                "engine": "sheikha-rag-reasoner + neural-production-engine",
+                "modes": [
+                    "strict-grounded",
+                    "creative-grounded",
+                    "balanced-grounded"
+                ],
+                "latencyTarget": "< 200ms P95",
+                "qualityGates": [
+                    "citation-required",
+                    "sharia-check",
+                    "hallucination-detector"
+                ]
+            },
+            {
+                "id": "stage-5-validation-and-bayan",
+                "nameAr": "التحقق والبيان",
+                "description": "التحقق من صحة الإجابة وإرسالها مع البيان الكامل",
+                "checks": [
+                    "evidence-completeness",
+                    "sharia-alignment",
+                    "factual-consistency"
+                ],
+                "outputFormat": "answer + sources + confidence + sharia-status + timestamp"
+            },
+            {
+                "id": "stage-6-feedback-loop",
+                "nameAr": "حلقة التغذية الراجعة",
+                "description": "تحسين النماذج من نتائج الإنتاج",
+                "signals": [
+                    "user-corrections",
+                    "sharia-board-feedback",
+                    "market-accuracy"
+                ],
+                "updateCycle": "continuous"
+            }
+        ]
+    }
+}

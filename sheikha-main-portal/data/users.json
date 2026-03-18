@@ -51,8 +51,8 @@
     "twoFactorMethod": "sheikha_auth",
     "twoFactorSecret": null,
     "passwordChangedAt": null,
-    "failedLoginAttempts": 7,
-    "accountLockedUntil": "2026-02-27T21:32:08.372Z",
+    "failedLoginAttempts": 8,
+    "accountLockedUntil": "2026-03-17T21:29:17.511Z",
     "securityLog": [
       {
         "action": "account_created",
@@ -158,6 +158,12 @@
         "at": "2026-02-27T21:17:08.372Z",
         "reason": "too_many_failed_attempts",
         "count": 7
+      },
+      {
+        "action": "account_locked",
+        "at": "2026-03-17T21:14:17.512Z",
+        "reason": "too_many_failed_attempts",
+        "count": 8
       }
     ],
     "createdAt": "2026-02-14T06:58:03.107Z",

@@ -1,0 +1,47 @@
+{
+  "title": "تقرير تجربة الشبكة العصبية: التدفقات مقابل الجودة",
+  "generatedAt": "2026-03-12T15:37:51.875Z",
+  "rootArchitecture": {
+    "model": "Neural Governance Graph",
+    "principle": "القياس ثم المقارنة ثم التحسين المستمر",
+    "orgScale": {
+      "departments": 25,
+      "bots": 25
+    }
+  },
+  "flowMetrics": {
+    "internalZones": 4,
+    "externalChannels": 4,
+    "flowTypes": 3,
+    "flowCatalog": 5,
+    "archiveTiers": 3,
+    "flowReadinessScore": 100
+  },
+  "qualityMetrics": {
+    "qualityUnits": 4,
+    "qualityKpisCount": 5,
+    "kpiTargetScore": 73,
+    "botAvg": 81,
+    "healthyBots": 25,
+    "totalBots": 25,
+    "healthyRatioScore": 100,
+    "qualityReadinessScore": 100
+  },
+  "comparison": {
+    "flowScore": 100,
+    "qualityScore": 100,
+    "delta": 0,
+    "winner": "balanced",
+    "balanceIndex": 100,
+    "recommendation": "التوازن جيد: استمر في التحسين المتوازي للتدفقات والجودة."
+  },
+  "mermaid": {
+    "neuralTopology": "flowchart LR\n    R[\"الجذر التشغيلي\"]\n    I1[\"طبقة إدخال التدفقات\"]\n    I2[\"طبقة إدخال الجودة\"]\n    H1[\"عقدة تحليل الشبكات\"]\n    H2[\"عقدة تصنيف البيانات\"]\n    H3[\"عقدة قياس الجودة\"]\n    H4[\"عقدة تقييم البوتات\"]\n    O1[\"مخرجات تدفقات: 100/100\"]\n    O2[\"مخرجات جودة: 100/100\"]\n    O3[\"مؤشر التوازن: 100/100\"]\n    R --> I1\n    R --> I2\n    I1 --> H1\n    I1 --> H2\n    I2 --> H3\n    I2 --> H4\n    H1 --> O1\n    H2 --> O1\n    H3 --> O2\n    H4 --> O2\n    O1 --> O3\n    O2 --> O3"
+  },
+  "nextActions": [
+    "رفع flowCatalog وربط جميع التدفقات ببيانات ميتاداتا إلزامية.",
+    "تحويل جميع KPIs الجودة إلى قياس لحظي مع تنبيهات SLA.",
+    "إضافة بوابة قبول جودة تلقائية قبل أي إصدار إنتاجي.",
+    "ربط نتائج تقييم البوتات بخطط تدريب أسبوعية إلزامية."
+  ]
+}

@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<title>سوق شيخة — أول سوق إسلامي رقمي للمعادن والسكراب | SHEIKHA</title>
+<title>سوق شيخة — إحياء سوق المدينة رقميا | أول سوق إسلامي رقمي للمعادن | SHEIKHA</title>
 <!-- SEO -->
-<meta name="description" content="سوق شيخة — أول سوق إسلامي رقمي للمعادن والسكراب في السعودية والعالم — أسعار لحظية LME/COMEX/LBMA — تصنيف ISRI + HS Code — مؤشر شيخة">
+<meta name="description" content="شيخة تحيي وترث سوق المدينة رقميا — منظومة سوق المدينة المنورة مُرقمنة بالكتاب والسنة — أول سوق إسلامي رقمي عالمي للمعادن والسكراب">
 <meta name="keywords" content="سوق شيخة، المعادن، السكراب، LME، COMEX، LBMA، مؤشر شيخة، ISRI، HS Code، تجارة حلال">
 <meta name="robots" content="index, follow">
 <meta name="author" content="سلمان أحمد بن سلمان الراجح">
@@ -39,7 +39,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="/js/safe-api.js"></script>
 <!-- ⚡ محرك الصور الذكي — قوة شيخة التقنية في العمل -->
-<script src="/js/sheikha-smart-image-engine.js"></script>
+<script src="/js/sheikha-smart-image-engine.js?v=20260314-1"></script>
 <script src="/js/sheikha-meta-injector.js" defer></script>
 <script src="/js/sheikha-meta-helper.js"></script>
 <script src="/js/sheikha-i18n.js" defer></script>
@@ -382,6 +382,19 @@ input[type=range]::-moz-range-track{height:6px;background:var(--bdr);border-radi
 .p-q-chip.real{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);color:#93c5fd}
 .p-q-chip.verified{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.22);color:#86efac}
 .p-q-chip.tier-a{background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.2);color:#f5e6a3}
+.p-glass-panel{margin:0 0 14px;padding:12px;border-radius:12px;background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(148,163,184,.05));border:1px solid rgba(148,163,184,.22);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 20px rgba(2,6,23,.22)}
+.p-glass-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.p-glass-title b{font-size:.64rem;color:#dbeafe;letter-spacing:.04em}
+.p-fingerprint{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;background:rgba(30,64,175,.16);border:1px solid rgba(96,165,250,.25);color:#bfdbfe;font-size:.58rem;font-weight:800}
+.p-fingerprint svg{width:11px;height:11px;stroke:currentColor}
+.p-glass-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.p-glass-kpi{padding:7px 6px;border-radius:9px;background:rgba(2,6,23,.45);border:1px solid rgba(148,163,184,.14);text-align:center}
+.p-glass-kpi .k{font-size:.56rem;color:#94a3b8;display:block;margin-bottom:3px}
+.p-glass-kpi .v{font-size:.68rem;color:#f8fafc;font-weight:900}
+.p-eco-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.p-eco-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:999px;font-size:.58rem;font-weight:800;border:1px solid transparent}
+.p-eco-chip.water{background:rgba(14,116,144,.16);border-color:rgba(56,189,248,.28);color:#bae6fd}
+.p-eco-chip.air{background:rgba(22,163,74,.15);border-color:rgba(74,222,128,.26);color:#bbf7d0}
 .p-value-proposition{display:grid;grid-template-columns:1fr;gap:6px;margin:0 0 12px}
 .p-value-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.16)}
 .p-value-k{font-size:.64rem;color:#cbd5e1;font-weight:700}
@@ -708,6 +721,44 @@ input[type=range]::-moz-range-track{height:6px;background:var(--bdr);border-radi
 .inco-chip:hover{border-color:var(--bdr2);color:var(--t1)}
 .inco-chip.active{border-color:#818cf8;color:#818cf8;background:rgba(129,140,248,.08)}
 </style>
+
+    <!-- Schema.org JSON-LD — سوق شيخة للمعادن -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FinancialService",
+      "name": "سوق شيخة للمعادن — Sheikha Metal Market",
+      "description": "بورصة إسلامية رقمية عالمية لتداول المعادن الثمينة والصناعية والسكراب — أسعار لحظية — مؤشر شيخة — HS Codes — Incoterms 2020",
+      "url": "https://sheikha.top/سوق-شيخة.html",
+      "provider": {
+        "@type": "Organization",
+        "name": "شيخة — Sheikha",
+        "url": "https://sheikha.top"
+      },
+      "serviceType": "Islamic Metal Trading Platform",
+      "areaServed": "Global",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "serviceUrl": "https://sheikha.top/سوق-شيخة.html"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "أسعار المعادن اللحظية — Sheikha Live Metal Prices",
+      "description": "أسعار الذهب والفضة والبلاتين والنحاس والألمنيوم والسكراب في الوقت الفعلي",
+      "url": "https://sheikha.top/api/exchange/prices/live",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "ذهب Gold (XAU)", "url": "https://sheikha.top/api/exchange/gold"},
+        {"@type": "ListItem", "position": 2, "name": "فضة Silver (XAG)", "url": "https://sheikha.top/api/exchange/silver"},
+        {"@type": "ListItem", "position": 3, "name": "نحاس Copper", "url": "https://sheikha.top/api/exchange/prices/copper"},
+        {"@type": "ListItem", "position": 4, "name": "ألمنيوم Aluminum", "url": "https://sheikha.top/api/exchange/prices/aluminum"},
+        {"@type": "ListItem", "position": 5, "name": "خردة Scrap Metal (ISRI)", "url": "https://sheikha.top/api/exchange/scrap"}
+      ]
+    }
+    </script>
 </head>
 <body>
 
@@ -774,6 +825,23 @@ input[type=range]::-moz-range-track{height:6px;background:var(--bdr);border-radi
 
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
 <main class="main-content">
+  <!-- ═══════════ REVIVAL IDENTITY STRIP ═══════════ -->
+  <section style="margin-bottom:16px;padding:18px;border-radius:16px;border:1px solid rgba(212,175,55,.2);background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(3,5,9,.92));display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+    <div style="min-width:260px;flex:1">
+      <div style="font-size:.72rem;font-weight:800;color:#D4AF37;letter-spacing:.06em">منظومة سوق المدينة المنورة — مُرقمنة بالكتاب والسنة</div>
+      <div style="font-size:1rem;font-weight:900;color:#f8fafc;line-height:1.7;margin-top:4px">شيخة تحيي وترث سوق المدينة رقميا</div>
+      <div style="font-family:'Amiri',serif;font-size:.92rem;color:rgba(212,175,55,.9);margin-top:2px">﴿ هذا سوقكم لا يُنقَص ولا يُضرَب عليه خَراج ﴾</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <span style="padding:7px 10px;border-radius:10px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);color:#86efac;font-size:.72rem;font-weight:800">٨ أركان</span>
+      <span style="padding:7px 10px;border-radius:10px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);color:#bfdbfe;font-size:.72rem;font-weight:800">١٢ حكم شرعي</span>
+      <span style="padding:7px 10px;border-radius:10px;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.25);color:#fde68a;font-size:.72rem;font-weight:800">٨ مواصفات</span>
+      <span style="padding:7px 10px;border-radius:10px;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.25);color:#e9d5ff;font-size:.72rem;font-weight:800">٦ أسواق تاريخية</span>
+      <span style="padding:7px 10px;border-radius:10px;background:rgba(244,63,94,.12);border:1px solid rgba(244,63,94,.25);color:#fecdd3;font-size:.72rem;font-weight:800">٥٢ قاعدة رقمية</span>
+    </div>
+    <a href="/سوق-المدينة.html" style="text-decoration:none;padding:10px 14px;border-radius:10px;border:1px solid rgba(212,175,55,.28);background:rgba(212,175,55,.12);color:#f5e6a3;font-size:.78rem;font-weight:800">افتح رواية الإحياء الكاملة</a>
+  </section>
+
   <div class="cat-tabs" id="catTabs"></div>
   <div class="sub-filters" id="subFilters"></div>
   <div id="supplyChainHub"></div>
@@ -918,6 +986,106 @@ input[type=range]::-moz-range-track{height:6px;background:var(--bdr);border-radi
     </div>
   </div>
 
+  <!-- ═══════════ SHEIKHA SHARIA FRAMEWORK LIVE ═══════════ -->
+  <section id="sheikhaShariaFrameworkSection" style="margin-bottom:24px;padding:18px;border-radius:16px;border:1px solid rgba(212,175,55,.2);background:linear-gradient(135deg,rgba(2,6,23,.88),rgba(15,23,42,.92))">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+      <div>
+        <div style="font-size:.72rem;font-weight:800;color:#D4AF37;letter-spacing:.05em">إطار السوق الشرعي المباشر</div>
+        <div style="font-size:.95rem;font-weight:900;color:#f8fafc;line-height:1.7;margin-top:3px">تنظيم التعامل للمسلم وغير المسلم بالعدل والوضوح</div>
+      </div>
+      <span id="sheikhaFrameworkStatus" style="padding:6px 10px;border-radius:999px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);font-size:.68rem;color:#86efac;font-weight:800">قيد التحميل...</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:10px">
+      <article style="padding:10px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(148,163,184,.18)">
+        <div style="font-size:.72rem;font-weight:800;color:#D4AF37;margin-bottom:6px">قواعد السوق</div>
+        <ul id="sheikhaMarketRules" style="margin:0;padding-inline-start:18px;color:#cbd5e1;font-size:.76rem;line-height:1.9">
+          <li>لا ربا</li>
+          <li>لا غرر</li>
+          <li>لا غش</li>
+        </ul>
+      </article>
+
+      <article style="padding:10px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(148,163,184,.18)">
+        <div style="font-size:.72rem;font-weight:800;color:#D4AF37;margin-bottom:6px">التعامل مع الفئات</div>
+        <ul id="sheikhaAudienceHandling" style="margin:0;padding-inline-start:18px;color:#cbd5e1;font-size:.76rem;line-height:1.9">
+          <li>عدل في المعاملة</li>
+          <li>وضوح الشروط</li>
+          <li>حفظ الحقوق</li>
+        </ul>
+      </article>
+
+      <article style="padding:10px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(148,163,184,.18)">
+        <div style="font-size:.72rem;font-weight:800;color:#D4AF37;margin-bottom:6px">مناطق المحتوى</div>
+        <ul id="sheikhaContentZones" style="margin:0;padding-inline-start:18px;color:#cbd5e1;font-size:.76rem;line-height:1.9">
+          <li>مبادئ السوق الشرعي</li>
+          <li>رسالة الأخلاق الإسلامية</li>
+          <li>دعوة معرفية</li>
+        </ul>
+      </article>
+    </div>
+
+    <div id="sheikhaIslamicGuidanceStrip" style="padding:10px 12px;border-radius:10px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);font-size:.76rem;color:#dcfce7;line-height:1.8">
+      يجري تحميل مسار تنظيم المحتوى الإسلامي...
+    </div>
+  </section>
+
+  <!-- ═══════════ PLACE IDENTITY MANIFESTO ═══════════ -->
+  <section style="margin-bottom:24px;padding:26px;border-radius:20px;border:1px solid rgba(212,175,55,.18);background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(10,15,26,.95));position:relative;overflow:hidden">
+    <div style="position:absolute;inset:auto auto -60px -60px;width:180px;height:180px;background:radial-gradient(circle,rgba(212,175,55,.12),transparent 65%);pointer-events:none"></div>
+    <div style="position:absolute;inset:-50px -50px auto auto;width:140px;height:140px;background:radial-gradient(circle,rgba(34,197,94,.12),transparent 70%);pointer-events:none"></div>
+
+    <div style="position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:1px solid rgba(212,175,55,.3);background:rgba(212,175,55,.08);font-size:.68rem;font-weight:800;color:#D4AF37">رواية الهوية المكانية</div>
+        <h2 style="margin-top:10px;font-size:1.55rem;font-weight:900;line-height:1.45;color:#f8fafc">من سوق المدينة المنورة إلى أول سوق إسلامي رقمي عالمي</h2>
+        <p style="margin-top:6px;font-family:'Amiri',serif;font-size:1rem;color:rgba(212,175,55,.85)">﴿ وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا ﴾ — البقرة ٢٧٥</p>
+      </div>
+      <div style="padding:10px 14px;border-radius:12px;border:1px solid rgba(34,197,94,.25);background:rgba(34,197,94,.08);min-width:220px">
+        <div style="font-size:.7rem;color:#86efac;font-weight:800">الهوية الرسمية</div>
+        <div style="font-size:.8rem;color:#dcfce7;line-height:1.7;margin-top:4px">المالك: سلمان أحمد بن سلمان الراجح<br>المقر: الخبر — المنطقة الشرقية — المملكة العربية السعودية</div>
+      </div>
+    </div>
+
+    <p style="position:relative;z-index:1;font-size:.9rem;line-height:2;color:#cbd5e1;margin-bottom:14px">
+      عندما هاجر النبي محمد ﷺ إلى المدينة المنورة، لم يبنِ المسجد فحسب، بل أسّس سوقًا حرًا نظيفًا عادلًا، وقال: «هذا سوقكم، لا يُنقَص ولا يُضرَب عليه خَراج».
+      اليوم نرث هذا النموذج في شيخة ونحوّله إلى حلول رقمية عالمية: حوكمة، توثيق، شفافية، وعدالة في كل معاملة.
+    </p>
+
+    <div style="position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:12px">
+      <article style="padding:14px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.12)">
+        <div style="font-size:.74rem;font-weight:800;color:#D4AF37;margin-bottom:4px">الرسالة</div>
+        <div style="font-size:.86rem;color:#e2e8f0;line-height:1.8">نقل نموذج سوق المدينة من التاريخ إلى الواقع الرقمي: سوق واضح، موثّق، عادل، يحارب الفساد ويخدم الإنسان والعمران.</div>
+      </article>
+      <article style="padding:14px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.12)">
+        <div style="font-size:.74rem;font-weight:800;color:#D4AF37;margin-bottom:4px">الغايات</div>
+        <div style="font-size:.86rem;color:#e2e8f0;line-height:1.8">تنمية اقتصادية وأثر حضاري: رفع كفاءة تجارة المعادن، فتح فرص عادلة، وتقديم نموذج سعودي إسلامي عالمي في الإدارة والتقنية.</div>
+      </article>
+      <article style="padding:14px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.12)">
+        <div style="font-size:.74rem;font-weight:800;color:#D4AF37;margin-bottom:4px">محاربة الفساد</div>
+        <div style="font-size:.86rem;color:#e2e8f0;line-height:1.8">مسار تدقيق رقمي لكل معاملة، مؤشرات إنذار لمخاطر الغش والاحتكار، وسجل امتثال قابل للمراجعة والمساءلة.</div>
+      </article>
+      <article style="padding:14px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.12)">
+        <div style="font-size:.74rem;font-weight:800;color:#D4AF37;margin-bottom:4px">الاستشارات الرقمية</div>
+        <div style="font-size:.86rem;color:#e2e8f0;line-height:1.8">استشارات شرعية وتجارية وتقنية مدعومة بالأدلة والبيانات السوقية لرفع جودة القرار لدى الأفراد والشركات والجهات.</div>
+      </article>
+    </div>
+
+    <div style="position:relative;z-index:1;padding:12px;border-radius:14px;background:rgba(2,6,23,.45);border:1px solid rgba(148,163,184,.18)">
+      <div style="font-size:.76rem;font-weight:800;color:#f8fafc;margin-bottom:8px">أركان السوق النبوي — مرقمنة في شيخة</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span style="padding:6px 10px;border-radius:999px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);color:#86efac;font-size:.72rem;font-weight:700">لا ضرر ولا ضرار</span>
+        <span style="padding:6px 10px;border-radius:999px;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.25);color:#f5e6a3;font-size:.72rem;font-weight:700">التاجر الصدوق الأمين</span>
+        <span style="padding:6px 10px;border-radius:999px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);color:#fecaca;font-size:.72rem;font-weight:700">من غشّنا فليس منا</span>
+        <span style="padding:6px 10px;border-radius:999px;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.25);color:#fde68a;font-size:.72rem;font-weight:700">لا يحتكر إلا خاطئ</span>
+        <span style="padding:6px 10px;border-radius:999px;background:rgba(129,140,248,.12);border:1px solid rgba(129,140,248,.25);color:#c7d2fe;font-size:.72rem;font-weight:700">البيع عن تراض</span>
+        <span style="padding:6px 10px;border-radius:999px;background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.25);color:#bae6fd;font-size:.72rem;font-weight:700">الوزن بالقسط</span>
+        <span style="padding:6px 10px;border-radius:999px;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.25);color:#e9d5ff;font-size:.72rem;font-weight:700">حرية التسعير</span>
+        <span style="padding:6px 10px;border-radius:999px;background:rgba(244,63,94,.12);border:1px solid rgba(244,63,94,.25);color:#fecdd3;font-size:.72rem;font-weight:700">الحسبة الرقمية</span>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════════ AI MARKET INTELLIGENCE ═══════════ -->
   <div class="ai-panel" id="aiPanel">
     <div class="ai-title">
@@ -1027,6 +1195,47 @@ input[type=range]::-moz-range-track{height:6px;background:var(--bdr);border-radi
         <option value="DDP">DDP — تسليم مع رسوم جمركية</option>
       </select>
     </div>
+  </div>
+  <div class="rfq-row">
+    <div class="rfq-field"><label class="rfq-label">دولة المستخدم</label>
+      <select class="rfq-select" id="rfqCountry" onchange="updateRfqTreatyGuidance()">
+        <option value="SA">السعودية</option>
+        <option value="AE">الإمارات</option>
+        <option value="EG">مصر</option>
+        <option value="JO">الأردن</option>
+        <option value="US">الولايات المتحدة</option>
+        <option value="GB">المملكة المتحدة</option>
+        <option value="CN">الصين</option>
+        <option value="IN">الهند</option>
+      </select>
+    </div>
+    <div class="rfq-field"><label class="rfq-label">نوع المستخدم</label>
+      <select class="rfq-select" id="rfqUserType" onchange="updateRfqTreatyGuidance()">
+        <option value="muslim">مسلم</option>
+        <option value="non-muslim">غير مسلم</option>
+        <option value="treaty">معاهد</option>
+      </select>
+    </div>
+  </div>
+  <div class="rfq-row">
+    <div class="rfq-field"><label class="rfq-label">دولة التعاقد المستهدفة</label>
+      <select class="rfq-select" id="rfqTargetCountry" onchange="updateRfqTreatyGuidance()">
+        <option value="SA">السعودية</option>
+        <option value="AE">الإمارات</option>
+        <option value="EG">مصر</option>
+        <option value="JO">الأردن</option>
+        <option value="US">الولايات المتحدة</option>
+        <option value="GB">المملكة المتحدة</option>
+        <option value="CN">الصين</option>
+        <option value="IN">الهند</option>
+      </select>
+    </div>
+    <div class="rfq-field"><label class="rfq-label">نطاق التطبيق</label>
+      <input class="rfq-input" value="داخلي/خارجي تلقائي" readonly>
+    </div>
+  </div>
+  <div id="rfqTreatyGuidance" style="margin-top:8px;padding:10px;border-radius:10px;background:rgba(15,23,42,.7);border:1px solid rgba(148,163,184,.2);font-size:.72rem;line-height:1.8;color:#cbd5e1">
+    جاري تحميل قواعد المعاهدات والامتثال الشرعي...
   </div>
   <div class="rfq-row">
     <div class="rfq-field"><label class="rfq-label">ميناء / مدينة الوصول</label><input class="rfq-input" id="rfqPort" placeholder="مثال: ميناء جدة الإسلامي"></div>
@@ -4209,6 +4418,7 @@ const REAL_IMAGE_CULTURE={
   marketMedina:'/assets/market-real/culture/souq-madinah-heritage.jpg',
   museum:'/assets/market-real/culture/athar-museum-hall.jpg'
 };
+const REAL_IMAGE_ASSET_VERSION='20260314-luxury-real-1';
 const REAL_IMAGE_FALLBACK_BY_CAT={
   ores:'https://images.unsplash.com/photo-1610737241336-371badac3b66?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
   steel:'https://images.unsplash.com/photo-1565610222536-ef125c59da2e?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
@@ -4221,20 +4431,56 @@ const REAL_IMAGE_FALLBACK_BY_CAT={
   general:'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2'
 };
 const REAL_IMAGE_DIRECT_BY_SVG={
+  // Precious
   goldBar:'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1920&h=1280&q=88&dpr=2',
   silverBar:'https://images.unsplash.com/photo-1574607383476-f517f260d30b?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
   platBar:'https://images.unsplash.com/photo-1589307357824-96b0e4c44670?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+
+  // Copper / aluminum / steel specific
   copperCathode:'https://images.unsplash.com/photo-1605001011156-cbf0b0f67a51?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  copperWire:REAL_IMAGE_FALLBACK_BY_CAT.copper,
+  brass:REAL_IMAGE_FALLBACK_BY_CAT.copper,
   alIngot:'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  alCoil:REAL_IMAGE_FALLBACK_BY_CAT.aluminum,
   steelPlate:'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  steelPipe:REAL_IMAGE_FALLBACK_BY_CAT.steel,
+  steelCoil:REAL_IMAGE_FALLBACK_BY_CAT.steel,
+  steelRebar:REAL_IMAGE_FALLBACK_BY_CAT.steel,
+  iBeam:REAL_IMAGE_FALLBACK_BY_CAT.steel,
+  pigIron:REAL_IMAGE_FALLBACK_BY_CAT.steel,
+  ferroAlloy:REAL_IMAGE_FALLBACK_BY_CAT.steel,
+  wheelSteel:REAL_IMAGE_FALLBACK_BY_CAT.steel,
+
+  // Ores / raw materials
+  ironOre:REAL_IMAGE_FALLBACK_BY_CAT.ores,
+  copperOre:REAL_IMAGE_FALLBACK_BY_CAT.ores,
+  bauxite:REAL_IMAGE_FALLBACK_BY_CAT.ores,
+  chromite:REAL_IMAGE_FALLBACK_BY_CAT.ores,
+
+  // Rare / battery metals
   zincIngot:'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
-  scrapCopper:'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
-  scrapLight:'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
-  scrapPile:'https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
-  pcb:'https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  tinIngot:REAL_IMAGE_FALLBACK_BY_CAT.rare,
+  leadIngot:REAL_IMAGE_FALLBACK_BY_CAT.rare,
+  nickelCathode:REAL_IMAGE_FALLBACK_BY_CAT.rare,
+  tungstenPowder:REAL_IMAGE_FALLBACK_BY_CAT.rare,
+  rareEarth:REAL_IMAGE_FALLBACK_BY_CAT.rare,
   lithiumPowder:'https://images.unsplash.com/photo-1624628639856-100bf817fd35?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
   cobaltCathode:'https://images.unsplash.com/photo-1624628639856-100bf817fd35?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
   titaniumSponge:'https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+
+  // Scrap / recycling
+  scrapCopper:'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  scrapBrass:REAL_IMAGE_FALLBACK_BY_CAT.scrap,
+  scrapHeavy:REAL_IMAGE_FALLBACK_BY_CAT.scrap,
+  scrapLight:'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  scrapPile:'https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  pcb:'https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
+  cable:REAL_IMAGE_FALLBACK_BY_CAT.scrap,
+  cableAl:REAL_IMAGE_FALLBACK_BY_CAT.scrap,
+  battery:REAL_IMAGE_FALLBACK_BY_CAT.scrap,
+  batteryLi:REAL_IMAGE_FALLBACK_BY_CAT.rare,
+
+  // Salvage
   engine:'https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
   carDoor:'https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
   carBody:'https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1920&h=1280&q=84&dpr=2',
@@ -4253,14 +4499,16 @@ function resolveRealImage(p){
   };
   const bucket=catMap[p.cat]||'general';
   const key=String(p.svg||'product').replace(/[^a-zA-Z0-9_-]/g,'');
+  const rev = '20260314-real-2';
   return {
-    avif:`${REAL_IMAGE_BASE}/${bucket}/${key}.avif`,
-    webp:`${REAL_IMAGE_BASE}/${bucket}/${key}.webp`,
-    jpg:`${REAL_IMAGE_BASE}/${bucket}/${key}.jpg`
+    avif:`${REAL_IMAGE_BASE}/${bucket}/${key}.avif?v=${rev}`,
+    webp:`${REAL_IMAGE_BASE}/${bucket}/${key}.webp?v=${rev}`,
+    jpg:`${REAL_IMAGE_BASE}/${bucket}/${key}.jpg?v=${rev}`
   };
 }
 
-const SHEIKHA_NO_SOULS_STRICT = true;
+const _marketParams = new URLSearchParams(window.location.search);
+const SHEIKHA_NO_SOULS_STRICT = _marketParams.get('noSouls') === '1';
 
 function buildPermissibleTreeSvgDataUri(productName){
   const safeName = String(productName || 'منتج مباح').replace(/[<>&"']/g, '');
@@ -4303,6 +4551,18 @@ function resolveRemoteFallbackImage(p){
     return resolvePermissibleNatureImage(p);
   }
 
+  const merchantSet=getMerchantImageSet(p.id);
+  if(merchantSet && merchantSet.cover) return merchantSet.cover;
+
+  const svgKey=String(p.svg||'').trim();
+  if(svgKey && REAL_IMAGE_DIRECT_BY_SVG[svgKey]) return REAL_IMAGE_DIRECT_BY_SVG[svgKey]+'&v=real2027';
+
+  const svgLocal=LOCAL_REAL_IMAGE_LIBRARY.bySvg[svgKey];
+  if(svgLocal) return withRealAssetVersion(svgLocal);
+
+  const catLocal=LOCAL_REAL_IMAGE_LIBRARY.byCategory[String(p.cat||'general').toLowerCase()]||LOCAL_REAL_IMAGE_LIBRARY.byCategory.general;
+  if(catLocal) return withRealAssetVersion(catLocal);
+
   // ⚡ المحرك الذكي الجديد — أولوية قصوى
   if (window.SheikhaSArtEngine && window.SheikhaSArtEngine.getSmartProductImage) {
     try {
@@ -4314,16 +4574,37 @@ function resolveRemoteFallbackImage(p){
   }
 
   // النظام القديم كاحتياطي
-  const merchantSet=getMerchantImageSet(p.id);
-  if(merchantSet && merchantSet.cover) return merchantSet.cover;
-  const svgLocal=LOCAL_REAL_IMAGE_LIBRARY.bySvg[String(p.svg||'').trim()];
-  if(svgLocal) return svgLocal;
-  const catLocal=LOCAL_REAL_IMAGE_LIBRARY.byCategory[String(p.cat||'general').toLowerCase()]||LOCAL_REAL_IMAGE_LIBRARY.byCategory.general;
-  if(catLocal) return catLocal;
-  const svgKey=String(p.svg||'').trim();
-  if(svgKey && REAL_IMAGE_DIRECT_BY_SVG[svgKey]) return REAL_IMAGE_DIRECT_BY_SVG[svgKey]+'&v=real2027';
   const key=String(p.cat||'general').toLowerCase();
   return (REAL_IMAGE_FALLBACK_BY_CAT[key]||REAL_IMAGE_FALLBACK_BY_CAT.general)+'&v=real2027';
+}
+
+function withRealAssetVersion(url){
+  if(!url || /^https?:\/\//i.test(url) || /^data:/i.test(url)) return url;
+  return `${url}${url.includes('?') ? '&' : '?'}v=${REAL_IMAGE_ASSET_VERSION}`;
+}
+
+function buildExistingRealSourceSet(p){
+  const merchantSet=getMerchantImageSet(p.id);
+  if(merchantSet && merchantSet.cover){
+    return { avif: merchantSet.cover, webp: merchantSet.cover, jpg: merchantSet.cover };
+  }
+
+  const svgKey=String(p.svg||'').trim();
+  if(svgKey && REAL_IMAGE_DIRECT_BY_SVG[svgKey]){
+    const direct=REAL_IMAGE_DIRECT_BY_SVG[svgKey]+'&v=real2027';
+    return { avif: direct, webp: direct, jpg: direct };
+  }
+
+  const svgLocal=LOCAL_REAL_IMAGE_LIBRARY.bySvg[svgKey];
+  if(svgLocal){
+    const versioned=withRealAssetVersion(svgLocal);
+    return { avif: versioned, webp: versioned, jpg: versioned };
+  }
+
+  const catKey=String(p.cat||'general').toLowerCase();
+  const catLocal=LOCAL_REAL_IMAGE_LIBRARY.byCategory[catKey]||LOCAL_REAL_IMAGE_LIBRARY.byCategory.general;
+  const versioned=withRealAssetVersion(catLocal);
+  return { avif: versioned, webp: versioned, jpg: versioned };
 }
 
 function sheikhaHandleImageFallback(imgEl){
@@ -4445,27 +4726,16 @@ function resolveGalleryImages(p){
       detail:{avif:detailJpg,webp:detailJpg,jpg:detailJpg}
     };
   }
-  const catMap={
-    ores:'raw-materials',
-    steel:'steel',
-    copper:'copper',
-    aluminum:'aluminum',
-    rare:'rare',
-    precious:'precious',
-    scrap:'scrap',
-    salvage:'salvage'
-  };
-  const bucket=catMap[p.cat]||'general';
-  const key=String(p.svg||'product').replace(/[^a-zA-Z0-9_-]/g,'');
-  const build=(slot)=>({
-    avif:`${REAL_IMAGE_BASE}/${bucket}/${key}-${slot}.avif`,
-    webp:`${REAL_IMAGE_BASE}/${bucket}/${key}-${slot}.webp`,
-    jpg:`${REAL_IMAGE_BASE}/${bucket}/${key}-${slot}.jpg`
+  const fallbackSet=buildExistingRealSourceSet(p);
+  const build=()=>({
+    avif:fallbackSet.avif,
+    webp:fallbackSet.webp,
+    jpg:fallbackSet.jpg
   });
   return {
-    front:build('front'),
-    side:build('side'),
-    detail:build('detail')
+    front:build(),
+    side:build(),
+    detail:build()
   };
 }
 
@@ -4634,6 +4904,31 @@ function calcProductValue(p){
   return{totalValue,totalFormatted,grade,gradeLabel,gradeColor,barWidth,zakatFormatted,pricePerKg,unitPrice,qtyNum};
 }
 
+function deriveTrustScore(product,ratingNumber,topMatch){
+  const verifiedBoost=product.verified?12:0;
+  const hsBoost=String(product.hs||'').length>=4?6:2;
+  const base=(ratingNumber*16)+(topMatch*0.45)+verifiedBoost+hsBoost;
+  return Math.max(55,Math.min(99,Math.round(base)));
+}
+
+function deriveQualityGrade(trustScore,verified){
+  if(verified&&trustScore>=95) return 'A+';
+  if(trustScore>=90) return 'A';
+  if(trustScore>=82) return 'B+';
+  if(trustScore>=74) return 'B';
+  return 'C';
+}
+
+function deriveWaterAirIndex(product){
+  const cat=String(product.cat||'all');
+  const catFactor={precious:68,copper:76,steel:74,aluminum:78,scrap:84,salvage:80,ores:70,rare:72,all:75};
+  const originBonus=product.origin==='السعودية'?4:0;
+  const verifiedBonus=product.verified?3:0;
+  const waterIndex=Math.max(55,Math.min(98,(catFactor[cat]||75)+originBonus+verifiedBonus));
+  const airIndex=Math.max(58,Math.min(99,(catFactor[cat]||75)+2+verifiedBonus));
+  return { waterIndex, airIndex };
+}
+
 /* ═══ نظام الترقيم — Pagination ═══ */
 let currentPage=1;
 const ITEMS_PER_PAGE=24;
@@ -4671,10 +4966,11 @@ function renderProducts(){
     const smartSources=(window.SheikhaSArtEngine && window.SheikhaSArtEngine.getSmartProductSources)
       ? window.SheikhaSArtEngine.getSmartProductSources(p,{profile:'ultra-market'})
       : null;
+    const existingRealSources=buildExistingRealSourceSet(p);
     const strictNoSouls = SHEIKHA_NO_SOULS_STRICT;
-    const primaryJpg=(smartSources&&smartSources.jpg)||realImage.jpg;
-    const primaryWebp=(smartSources&&smartSources.webp)||realImage.webp;
-    const primaryAvif=(smartSources&&smartSources.avif)||realImage.avif;
+    const primaryJpg=(smartSources&&smartSources.jpg)||existingRealSources.jpg||realImage.jpg;
+    const primaryWebp=(smartSources&&smartSources.webp)||existingRealSources.webp||realImage.webp;
+    const primaryAvif=(smartSources&&smartSources.avif)||existingRealSources.avif||realImage.avif;
     const displayJpg=strictNoSouls?remoteImage:primaryJpg;
     const displayWebp=strictNoSouls?remoteImage:primaryWebp;
     const displayAvif=strictNoSouls?remoteImage:primaryAvif;
@@ -4713,6 +5009,11 @@ function renderProducts(){
       ? 'بيانات المنتج معتمدة من المورد الموثق، ويُنصح بمعاينة نهائية قبل الإغلاق.'
       : 'المنتج معروض مبدئيًا بسعر ومواصفات أولية، واعتماد نهائي عند التثبيت.';
     const smartTraders=getSmartTradersForProduct(p);
+    const topMatch=smartTraders[0]?smartTraders[0].matchScore:60;
+    const ratingNumber=parseFloat(rating);
+    const trustScore=deriveTrustScore(p,ratingNumber,topMatch);
+    const qualityGrade=deriveQualityGrade(trustScore,p.verified);
+    const ecoIndexes=deriveWaterAirIndex(p);
     /* Incoterm for international products */
     const isIntl=p.unit&&p.unit.includes('USD');
     const incoLabel=isIntl?'<span class="p-incoterm">FOB</span>':'';
@@ -4740,7 +5041,7 @@ function renderProducts(){
     </div>
     <div class="p-real-overlay"></div>
     <div class="p-img-studio"></div>
-    <div class="p-badges">${p.verified?'<span class="p-badge badge-v"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>موثّق</span>':''}${scrapBadge}${salvageBadge}<span class="p-sharia-badge"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>حلال</span></div>
+    <div class="p-badges">${p.verified?'<span class="p-badge badge-v"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>موثّق</span>':''}${scrapBadge}${salvageBadge}${(ramadanUiState.active&&ramadanUiState.features&&ramadanUiState.features.specialPricing)?'<span class="p-badge" style="background:rgba(34,197,94,.15);color:#86efac;border-color:rgba(34,197,94,.35)">🌙 عرض رمضان</span>':''}<span class="p-sharia-badge"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>حلال</span></div>
     <span class="p-hs">HS ${p.hs}</span>
     <div class="metal-scene">${art.html}</div>
     <div class="p-img-grain"></div>
@@ -4771,6 +5072,21 @@ function renderProducts(){
       <span class="p-q-chip real">خامة واضحة</span>
       ${p.verified?'<span class="p-q-chip verified">موثوق ومطابق</span>':''}
       <span class="p-q-chip tier-a">${qualityTier}</span>
+    </div>
+    <div class="p-glass-panel">
+      <div class="p-glass-title">
+        <b>تقنية الزجاجة الذكية</b>
+        <span class="p-fingerprint"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 11a4 4 0 0 1 4 4v4"/><path d="M8 13v4a4 4 0 0 0 8 0v-2"/><path d="M6 13v3a6 6 0 0 0 12 0v-1"/></svg>بصمة ثقة</span>
+      </div>
+      <div class="p-glass-grid">
+        <div class="p-glass-kpi"><span class="k">Trust Score</span><span class="v">${trustScore}%</span></div>
+        <div class="p-glass-kpi"><span class="k">Quality Grade</span><span class="v">${qualityGrade}</span></div>
+        <div class="p-glass-kpi"><span class="k">Smart Match</span><span class="v">${topMatch}</span></div>
+      </div>
+      <div class="p-eco-row">
+        <span class="p-eco-chip water">💧 الماء ${ecoIndexes.waterIndex}%</span>
+        <span class="p-eco-chip air">🌬️ الهواء ${ecoIndexes.airIndex}%</span>
+      </div>
     </div>
     <div class="p-compliance">
       <div class="p-compliance-row"><span>شهادة المطابقة</span><b>${certRef}</b></div>
@@ -4937,6 +5253,7 @@ function readURLParams(){
   buildSubFilters();
   buildCountryFilter();
   renderProducts();
+  loadSheikhaShariaFramework();
 })();
 
 /* ═══════════════════════════════════════════
@@ -4959,6 +5276,32 @@ function openRFQ(productId){
   if(hsEl)hsEl.textContent=p.hs;
   var idEl=document.getElementById('rfqProductId');
   if(idEl)idEl.value=productId;
+  updateRfqTreatyGuidance();
+}
+
+async function updateRfqTreatyGuidance(){
+  var country=document.getElementById('rfqCountry')?.value||'SA';
+  var userType=document.getElementById('rfqUserType')?.value||'muslim';
+  var targetCountry=document.getElementById('rfqTargetCountry')?.value||'SA';
+  var guideEl=document.getElementById('rfqTreatyGuidance');
+  if(!guideEl)return;
+  guideEl.textContent='جاري تحليل المعاهدات والتشريعات بالامتثال الشرعي...';
+  try{
+    var url='/api/sheikha/compliance/treaty-resolution?homeCountry=SA&userCountry='+encodeURIComponent(country)+'&targetCountry='+encodeURIComponent(targetCountry)+'&userType='+encodeURIComponent(userType);
+    var r=await fetch(url,{cache:'no-store'});
+    var d=await r.json();
+    if(!d||!d.success||!d.data){
+      guideEl.textContent='تعذر تحميل التوجيه التنظيمي الآن.';
+      return;
+    }
+    var x=d.data;
+    var treaties=(x.treaties||[]).join(' | ')||'لا توجد معاهدة مسجلة حالياً';
+    var requirements=(x.legalRequirements||[]).slice(0,4).join(' | ')||'توثيق أساسي';
+    var sharia=(x.shariaValidation&&x.shariaValidation.status==='approved')?'✅ متوافق شرعياً':'⚠️ يحتاج مراجعة شرعية';
+    guideEl.textContent='النطاق: '+(x.mode==='domestic'?'داخلي':'خارجي')+' | المعاهدات: '+treaties+' | متطلبات: '+requirements+' | الحالة: '+sharia;
+  }catch(_){
+    guideEl.textContent='تعذر تحليل المعاهدات حالياً — استمر مع مراجعة قانونية/شرعية يدوية.';
+  }
 }
 
 function closeRFQ(){
@@ -4970,6 +5313,9 @@ function submitRFQ(){
   var productId=document.getElementById('rfqProductId')?.value;
   var qty=document.getElementById('rfqQty')?.value||'';
   var notes=document.getElementById('rfqNotes')?.value||'';
+  var userCountry=document.getElementById('rfqCountry')?.value||'SA';
+  var userType=document.getElementById('rfqUserType')?.value||'muslim';
+  var targetCountry=document.getElementById('rfqTargetCountry')?.value||'SA';
   var p=products.find(x=>x.id==productId);
   if(!p){alert('اختر منتجاً');return;}
 
@@ -4977,12 +5323,21 @@ function submitRFQ(){
   fetch('/api/rfq',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({productId:productId,quantity:qty,notes:notes})
+    body:JSON.stringify({
+      productId:productId,
+      quantity:qty,
+      notes:notes,
+      homeCountry:'SA',
+      userCountry:userCountry,
+      targetCountry:targetCountry,
+      userType:userType
+    })
   }).then(function(r){return r.json();}).then(function(data){
     if(data.success){
-      alert('تم إرسال طلب عرض السعر بنجاح\n\nالمنتج: '+p.name+'\nالكمية: '+(qty||'غير محدد')+'\nرقم الطلب: '+(data.rfq&&data.rfq.id||'')+'\n\nسيتم الرد خلال 24 ساعة بإذن الله');
+      var scope=((data.rfq&&data.rfq.compliance&&data.rfq.compliance.mode)==='domestic')?'داخلي':'خارجي';
+      alert('تم إرسال طلب عرض السعر بنجاح\n\nالمنتج: '+p.name+'\nالكمية: '+(qty||'غير محدد')+'\nرقم الطلب: '+(data.rfq&&data.rfq.id||'')+'\nالنطاق: '+scope+'\n\nسيتم الرد خلال 24 ساعة بإذن الله');
     } else {
-      alert('تم إرسال الطلب\n\nالمنتج: '+p.name+'\nسيتم الرد خلال 24 ساعة بإذن الله');
+      alert((data&&data.message)?data.message:('تعذر إرسال الطلب للمنتج: '+p.name));
     }
   }).catch(function(){
     alert('تم إرسال الطلب\n\nالمنتج: '+p.name+'\nسيتم الرد خلال 24 ساعة بإذن الله');
@@ -5007,6 +5362,7 @@ function addToCart(productId){
 
 /* ═══ المقارنة ═══ */
 var compareList=[];
+var ramadanUiState={active:false,features:{specialPricing:false,charityOffers:false,ramadanBanner:false,zakatCalculator:true}};
 function compareProduct(productId){
   var p=products.find(x=>x.id===productId);
   if(!p)return;
@@ -5101,7 +5457,13 @@ function openProductDetail(productId, event){
   var similar=products.filter(function(x){return x.id!==p.id&&x.cat===p.cat;}).slice(0,4);
   var offersHtml='';
   if(similar.length>0){
-    offersHtml='<div style="margin-top:16px"><div style="font-size:.85rem;font-weight:800;color:#D4AF37;margin-bottom:10px">عروض تجار آخرين لنفس الفئة</div>';
+    var ramadanOffersTitle=(ramadanUiState.active&&ramadanUiState.features&&ramadanUiState.features.specialPricing)
+      ?'عروض رمضان المبارك لنفس الفئة'
+      :'عروض تجار آخرين لنفس الفئة';
+    offersHtml='<div style="margin-top:16px"><div style="font-size:.85rem;font-weight:800;color:#D4AF37;margin-bottom:10px">'+ramadanOffersTitle+'</div>';
+    if(ramadanUiState.active&&ramadanUiState.features&&ramadanUiState.features.charityOffers){
+      offersHtml+='<div style="font-size:.66rem;color:#86efac;margin:-4px 0 10px">مبادرة رمضان: 1% صدقة اختيارية من قيمة الصفقة</div>';
+    }
     similar.forEach(function(s){
       var sRating=s.verified?(4+((s.id*7+13)%100)/100).toFixed(1):(3+((s.id*7+13)%100)/66).toFixed(1);
       offersHtml+='<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px;margin-bottom:6px;cursor:pointer" onclick="closeProductDetail();setTimeout(function(){openProductDetail('+s.id+')},200)">';
@@ -5241,6 +5603,110 @@ function closeProductDetail(){
   if(overlay){overlay.remove();document.body.style.overflow='';}
 }
 
+function applyRamadanUi(state){
+  ramadanUiState=state||ramadanUiState;
+  if(!ramadanUiState.active) return;
+
+  var banner=document.querySelector('.islamic-banner');
+  if(!banner) return;
+
+  var titleEl=banner.querySelector('div[style*="font-size:1rem"][style*="color:#D4AF37"]');
+  if(titleEl){
+    titleEl.textContent='سوق شيخة — وضع رمضان المبارك مفعّل';
+  }
+
+  var descEl=banner.querySelector('div[style*="font-size:.78rem"][style*="line-height:1.7"]');
+  if(descEl){
+    descEl.textContent=(state.message||'رمضان كريم')+' • عروض مباركة • زكاة وصدقات • التزام شرعي كامل';
+  }
+
+  if(!document.getElementById('ramadanModeBadge')){
+    var modeBadge=document.createElement('div');
+    modeBadge.id='ramadanModeBadge';
+    modeBadge.style.cssText='margin-top:10px;padding:8px 12px;border-radius:10px;background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.2);font-size:.72rem;color:#86efac;font-weight:700';
+    modeBadge.textContent='🌙 رمضان مفعّل: عروض خاصة + مبادرة صدقة اختيارية + حاسبة زكاة';
+    banner.appendChild(modeBadge);
+  }
+
+  renderProducts();
+}
+
+async function loadRamadanUiMode(){
+  try{
+    var res=await fetch('/api/activation/ramadan/status',{cache:'no-store'});
+    var data=await res.json();
+    if(data&&data.success&&data.state&&data.state.active){
+      applyRamadanUi(data.state);
+    }
+  }catch(_){
+    // يبقى السوق يعمل بوضعه الافتراضي عند تعذر قراءة حالة رمضان
+  }
+}
+
+async function safeFetchJson(url){
+  try{
+    const r=await fetch(url,{cache:'no-store'});
+    if(!r.ok) return null;
+    return await r.json();
+  }catch(_){
+    return null;
+  }
+}
+
+function renderListToElement(elementId, items, maxItems){
+  const el=document.getElementById(elementId);
+  if(!el) return;
+  const list=(Array.isArray(items)?items:[]).slice(0,maxItems||4);
+  if(!list.length) return;
+  el.innerHTML=list.map((item)=>`<li>${String(item)}</li>`).join('');
+}
+
+async function loadSheikhaShariaFramework(){
+  const statusEl=document.getElementById('sheikhaFrameworkStatus');
+  const marketData=await safeFetchJson('/api/sheikha/market/sharia-audience-framework');
+  const contentData=await safeFetchJson('/api/sheikha/content/islamic-governance');
+
+  const marketOk=marketData&&marketData.success&&marketData.data;
+  const contentOk=contentData&&contentData.success&&contentData.data;
+
+  if(statusEl){
+    if(marketOk||contentOk){
+      statusEl.textContent='نشط';
+      statusEl.style.background='rgba(34,197,94,.12)';
+      statusEl.style.borderColor='rgba(34,197,94,.25)';
+      statusEl.style.color='#86efac';
+    }else{
+      statusEl.textContent='وضع افتراضي';
+      statusEl.style.background='rgba(148,163,184,.12)';
+      statusEl.style.borderColor='rgba(148,163,184,.25)';
+      statusEl.style.color='#cbd5e1';
+    }
+  }
+
+  if(marketOk){
+    const d=marketData.data;
+    const rules=(d.marketPolicy&&d.marketPolicy.rules)||[];
+    const handling=[]
+      .concat((d.userHandling&&d.userHandling.muslimUsers)||[])
+      .concat((d.userHandling&&d.userHandling.nonMuslimUsers)||[])
+      .concat((d.userHandling&&d.userHandling.commonExperience)||[]);
+    const zones=((d.pageContentZones)||[]).map((z)=>z&&z.name?z.name:'').filter(Boolean);
+    renderListToElement('sheikhaMarketRules',rules,6);
+    renderListToElement('sheikhaAudienceHandling',handling,6);
+    renderListToElement('sheikhaContentZones',zones,6);
+  }
+
+  if(contentOk){
+    const c=contentData.data;
+    const strip=document.getElementById('sheikhaIslamicGuidanceStrip');
+    if(strip){
+      const ref=((c.contentStructure&&c.contentStructure.keyReferences)||[])[0]||'ادع إلى سبيل ربك بالحكمة والموعظة الحسنة';
+      const method=((c.foundation&&c.foundation.guidanceMethod)||[]).slice(0,3).join(' • ')||'الدعوة بالحكمة • الموعظة الحسنة • حسن الخلق';
+      strip.textContent='منهج المحتوى: '+method+' | مرجع: '+ref;
+    }
+  }
+}
+
 // ═══ Initialize Language System for Market ═══
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof SheikhaI18n !== 'undefined') {
@@ -5262,6 +5728,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn('[Sheikha] ⚠️ فشل تشغيل محرك الصور الذكي:', e);
         }
     }
+
+      // تحميل وضع رمضان تلقائياً من الخادم
+      loadRamadanUiMode();
 });
 
 window.addEventListener('message',(event)=>{
@@ -5277,58 +5746,57 @@ window.addEventListener('message',(event)=>{
 </script>
 
 <!-- ═══════════════════════════════════════════════════════════════════════════
-     ⚡ SHEIKHA TECHNICAL POWER DASHBOARD — لوحة القوة التقنية الحية
-     "وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ" — الأنفال: 60
-     ═══════════════════════════════════════════════════════════════════════════ -->
+  لوحة متابعة داخلية مخفية عن الواجهة العامة
+  ═══════════════════════════════════════════════════════════════════════════ -->
 
 <!-- زر الفتح العائم -->
-<button class="tpp-open-btn" id="tppOpenBtn" onclick="openTechPowerPanel()" aria-label="عرض القوة التقنية">
+<button class="tpp-open-btn" id="tppOpenBtn" onclick="openTechPowerPanel()" aria-label="عرض مؤشرات التشغيل الداخلية" hidden style="display:none">
   ⚡
 </button>
 
 <!-- اللوحة الرئيسية -->
-<div class="tech-power-panel" id="techPowerPanel">
+<div class="tech-power-panel" id="techPowerPanel" hidden style="display:none">
   <div class="tpp-header">
     <div class="tpp-title">
       <div class="tpp-icon">⚡</div>
-      <div>قوة شيخة التقنية</div>
+      <div>مؤشرات التشغيل الداخلية</div>
     </div>
     <button class="tpp-toggle" onclick="closeTechPowerPanel()">إغلاق</button>
   </div>
 
   <div class="tpp-body">
-    <!-- محرك الصور الذكي -->
+    <!-- خدمة تشغيل داخلية -->
     <div class="tpp-stat">
       <div class="tpp-stat-label">
         <span class="tpp-stat-emoji">🧠</span>
-        <span>محرك الصور الذكي</span>
+        <span>خدمة تشغيل داخلية</span>
       </div>
       <div class="tpp-stat-value green" id="tppSmartEngineStatus">نشط</div>
     </div>
 
-    <!-- المنتجات المعالجة -->
+    <!-- العناصر المعالجة -->
     <div class="tpp-stat">
       <div class="tpp-stat-label">
         <span class="tpp-stat-emoji">📦</span>
-        <span>منتجات معالجة</span>
+        <span>عناصر معالجة</span>
       </div>
       <div class="tpp-stat-value" id="tppProcessedProducts">0</div>
     </div>
 
-    <!-- كفاءة الذاكرة المؤقتة -->
+    <!-- كفاءة التخزين المؤقت -->
     <div class="tpp-stat">
       <div class="tpp-stat-label">
         <span class="tpp-stat-emoji">⚙️</span>
-        <span>كفاءة Cache</span>
+        <span>كفاءة التخزين المؤقت</span>
       </div>
       <div class="tpp-stat-value blue" id="tppCacheEfficiency">0%</div>
     </div>
 
-    <!-- مكتبة الصور -->
+    <!-- عناصر الوسائط -->
     <div class="tpp-stat">
       <div class="tpp-stat-label">
         <span class="tpp-stat-emoji">🖼️</span>
-        <span>صور Unsplash</span>
+        <span>عناصر الوسائط</span>
       </div>
       <div class="tpp-stat-value purple" id="tppImageLibrary">40+</div>
     </div>
@@ -5353,21 +5821,29 @@ window.addEventListener('message',(event)=>{
   </div>
 
   <div class="tpp-footer">
-    <strong>قوة حقيقية</strong> — خوارزميات ذكية | معالجة لحظية | تصميم احترافي
+    <strong>تشغيل مستقر</strong> — متابعة تلقائية في الخلفية
   </div>
 </div>
 
 <script>
 // ═══════════════════════════════════════════════════════════════════════════
-// ⚡ SHEIKHA TECHNICAL POWER DASHBOARD — JavaScript Logic
+// لوحة متابعة داخلية مخفية عن الواجهة العامة
 // ═══════════════════════════════════════════════════════════════════════════
 
 let techPowerPanelOpen = false;
 
+function allowInternalTechPanel() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('internal') === '1' || params.get('scope') === 'internal';
+}
+
 function openTechPowerPanel() {
+  if (!allowInternalTechPanel()) return;
   const panel = document.getElementById('techPowerPanel');
   const btn = document.getElementById('tppOpenBtn');
   if (panel && btn) {
+    panel.hidden = false;
+    panel.style.display = '';
     panel.classList.add('visible');
     btn.classList.add('hidden');
     techPowerPanelOpen = true;
@@ -5376,6 +5852,7 @@ function openTechPowerPanel() {
 }
 
 function closeTechPowerPanel() {
+  if (!allowInternalTechPanel()) return;
   const panel = document.getElementById('techPowerPanel');
   const btn = document.getElementById('tppOpenBtn');
   if (panel && btn) {
@@ -5386,6 +5863,7 @@ function closeTechPowerPanel() {
 }
 
 function updateTechPowerStats() {
+  if (!allowInternalTechPanel()) return;
   // جمع البيانات من محرك الصور الذكي
   if (window.SheikhaSArtEngine) {
     // عدد المنتجات المعالجة
@@ -5397,7 +5875,8 @@ function updateTechPowerStats() {
 
     // حساب كفاءة Cache (محاكاة — في الإنتاج يأتي من localStorage)
     try {
-      const cacheData = localStorage.getItem('sheikha_smart_image_cache');
+      const smartEngineKey = (window.SheikhaSArtEngine && window.SheikhaSArtEngine.cacheKey) ? window.SheikhaSArtEngine.cacheKey : 'sheikha_smart_images_cache_v2';
+      const cacheData = localStorage.getItem(smartEngineKey);
       if (cacheData) {
         const cache = JSON.parse(cacheData);
         const cachedCount = Object.keys(cache).length;
@@ -5432,6 +5911,29 @@ function updateTechPowerStats() {
 
 // فتح اللوحة تلقائياً بعد 3 ثوانٍ من تحميل الصفحة (demo)
 window.addEventListener('load', () => {
+  const panel = document.getElementById('techPowerPanel');
+  const btn = document.getElementById('tppOpenBtn');
+  if (!allowInternalTechPanel()) {
+    if (panel) {
+      panel.hidden = true;
+      panel.style.display = 'none';
+    }
+    if (btn) {
+      btn.hidden = true;
+      btn.style.display = 'none';
+    }
+    return;
+  }
+
+  if (panel) {
+    panel.hidden = false;
+    panel.style.display = '';
+  }
+  if (btn) {
+    btn.hidden = false;
+    btn.style.display = '';
+  }
+
   setTimeout(() => {
     openTechPowerPanel();
     // إغلاقها تلقائياً بعد 8 ثوانٍ
@@ -5444,5 +5946,41 @@ window.addEventListener('load', () => {
 
 <script src="/js/sheikha-smart-fab.js" defer></script>
 <script src="/js/sheikha-itqan.js"></script>
+<script>
+// فرض تحديث أصول السوق عند تغيير الإصدار (حل مشكلة الصور القديمة)
+(function forceMarketAssetRefresh() {
+  const ASSET_VERSION = '2026.03.14.2';
+  const VERSION_KEY = 'sheikha_market_asset_version';
+  const currentVersion = localStorage.getItem(VERSION_KEY);
+
+  if (currentVersion !== ASSET_VERSION) {
+    const staleKeys = [
+      'sheikha_smart_image_cache',
+      'sheikha_smart_images_cache_v1',
+      'sheikha_smart_images_cache_v2'
+    ];
+    staleKeys.forEach((k) => localStorage.removeItem(k));
+    localStorage.setItem(VERSION_KEY, ASSET_VERSION);
+
+    if (!sessionStorage.getItem('sheikha_market_refreshed_once')) {
+      sessionStorage.setItem('sheikha_market_refreshed_once', '1');
+      const url = new URL(window.location.href);
+      url.searchParams.set('v', ASSET_VERSION);
+      window.location.replace(url.toString());
+      return;
+    }
+  }
+
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker.addEventListener('message', (event) => {
+      if (event && event.data && event.data.type === 'SHEIKHA_FORCE_REFRESH') {
+        const url = new URL(window.location.href);
+        url.searchParams.set('swv', String(event.data.version || 'sheikha-cache-v6'));
+        window.location.replace(url.toString());
+      }
+    });
+  }
+})();
+</script>
 </body>
 </html>

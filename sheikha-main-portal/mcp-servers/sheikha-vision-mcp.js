@@ -11,7 +11,7 @@ const { StdioServerTransport } = require('@modelcontextprotocol/sdk/server/stdio
 const { Server } = require('@modelcontextprotocol/sdk/server/index.js');
 const {
     CallToolRequestSchema,
-    TextContent,
+    ListToolsRequestSchema,
     ErrorCode,
     McpError
 } = require('@modelcontextprotocol/sdk/types.js');
@@ -20,15 +20,116 @@ const SheikhaVisionSystem = require('/workspaces/sheikha/sheikha-main-portal/lib
 class SheikhaVisionMCPServer {
     constructor() {
         this.visionSystem = new SheikhaVisionSystem();
-        this.server = new Server({
-            name: 'sheikha-vision-mcp',
-            version: '1.0.0'
-        });
+        this.server = new Server(
+            {
+                name: 'sheikha-vision-mcp',
+                version: '1.1.0'
+            },
+            {
+                capabilities: {
+                    tools: {}
+                }
+            }
+        );
 
         this.setupHandlers();
     }
 
     setupHandlers() {
+        this.server.setRequestHandler(ListToolsRequestSchema, async () => {
+            return {
+                tools: [
+                    {
+                        name: 'analyze_page',
+                        description: 'Analyze a webpage HTML and extract structural, SEO, and risk insights.',
+                        inputSchema: {
+                            type: 'object',
+                            properties: {
+                                url: { type: 'string' },
+                                htmlContent: { type: 'string' }
+                            },
+                            required: ['url', 'htmlContent']
+                        }
+                    },
+                    {
+                        name: 'analyze_image',
+                        description: 'Analyze an image URL/data for OCR, objects, and quality signals.',
+                        inputSchema: {
+                            type: 'object',
+                            properties: {
+                                imageUrl: { type: 'string' },
+                                imageData: { type: 'string' }
+                            },
+                            required: ['imageUrl']
+                        }
+                    },
+                    {
+                        name: 'analyze_video',
+                        description: 'Analyze video metadata and extracted semantics.',
+                        inputSchema: {
+                            type: 'object',
+                            properties: {
+                                videoUrl: { type: 'string' },
+                                metadata: { type: 'object' }
+                            },
+                            required: ['videoUrl']
+                        }
+                    },
+                    {
+                        name: 'generate_logic',
+                        description: 'Generate logic, workflows, and APIs from a previously analyzed page.',
+                        inputSchema: {
+                            type: 'object',
+                            properties: {
+                                urlToAnalyze: { type: 'string' }
+                            },
+                            required: ['urlToAnalyze']
+                        }
+                    },
+                    {
+                        name: 'build_semantic_graph',
+                        description: 'Build semantic graph from analyzed entities and relationships.',
+                        inputSchema: {
+                            type: 'object',
+                            properties: {},
+                            required: []
+                        }
+                    },
+                    {
+                        name: 'validate_islamic_compliance',
+                        description: 'Run Islamic compliance checks for analyzed content.',
+                        inputSchema: {
+                            type: 'object',
+                            properties: {
+                                urlToValidate: { type: 'string' }
+                            },
+                            required: ['urlToValidate']
+                        }
+                    },
+                    {
+                        name: 'generate_comprehensive_report',
+                        description: 'Generate a comprehensive report for all analyzed artifacts.',
+                        inputSchema: {
+                            type: 'object',
+                            properties: {
+                                title: { type: 'string' }
+                            },
+                            required: []
+                        }
+                    },
+                    {
+                        name: 'get_vision_status',
+                        description: 'Return current status and analysis counters for Sheikha Vision MCP.',
+                        inputSchema: {
+                            type: 'object',
+                            properties: {},
+                            required: []
+                        }
+                    }
+                ]
+            };
+        });
+
         // 📊 تحليل الصفحات
         this.server.setRequestHandler(CallToolRequestSchema, async request => {
             if (request.params.name === 'analyze_page') {

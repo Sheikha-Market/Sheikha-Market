@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تكامل شيخة الذكي — EI × VS Code × RAG | SHEIKHA</title>
+<meta name="description" content="التكامل الكامل بين Sheikha EI ومحرر VS Code ونظام RAG الشرعي — منظومة ذكاء اصطناعي إسلامية متكاملة">
+<meta name="robots" content="index, follow">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#D4AF37">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold: #D4AF37; --gold-l: #F5E6A3; --gold-d: #A8882B;
+    --copper: #B87333;
+    --bg: #030712; --bg2: #0a0e1a; --bg3: #111827;
+    --card: rgba(212,175,55,.03); --border: rgba(212,175,55,.1);
+    --t1: #f4f4f5; --t2: #a1a1aa; --t3: #71717a;
+    --green: #10b981; --blue: #3b82f6; --purple: #a855f7;
+    --radius: 16px; --mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t1); line-height: 1.7; min-height: 100vh; }
+
+/* NAV */
+nav { position: sticky; top: 0; z-index: 100; background: rgba(3,7,18,.96); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+.nv { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 clamp(1rem,4vw,2.5rem); }
+.logo { font-size: 1.2rem; font-weight: 900; background: linear-gradient(135deg,var(--gold),var(--gold-l)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+.nav-links { display: flex; gap: 6px; list-style: none; }
+.nav-links a { color: var(--t2); padding: 7px 14px; border-radius: 10px; font-size: .84rem; font-weight: 600; transition: all .25s; text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--gold); background: rgba(212,175,55,.05); }
+@media(max-width:860px){ .nav-links { display: none; } }
+
+/* HERO */
+.hero { text-align: center; padding: 72px 24px 48px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(212,175,55,.07) 0%, transparent 65%); pointer-events: none; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 18px; background: rgba(212,175,55,.07); border: 1px solid rgba(212,175,55,.15); border-radius: 100px; font-size: .78rem; color: var(--gold); font-weight: 700; margin-bottom: 20px; }
+.hero-badge .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+.hero h1 { font-size: clamp(2rem,5vw,3rem); font-weight: 900; margin-bottom: 16px; position: relative; }
+.hero h1 .g { background: linear-gradient(135deg,var(--gold),var(--gold-l)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--t2); max-width: 680px; margin: 0 auto 36px; font-size: 1.05rem; }
+.hero-tags { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.htag { padding: 6px 16px; border-radius: 100px; font-size: .8rem; font-weight: 700; border: 1px solid; }
+.htag.ei { color: var(--gold); border-color: rgba(212,175,55,.3); background: rgba(212,175,55,.06); }
+.htag.vsc { color: var(--blue); border-color: rgba(59,130,246,.3); background: rgba(59,130,246,.06); }
+.htag.rag { color: var(--purple); border-color: rgba(168,85,247,.3); background: rgba(168,85,247,.06); }
+.htag.sharia { color: var(--green); border-color: rgba(16,185,129,.3); background: rgba(16,185,129,.06); }
+
+/* ARCHITECTURE DIAGRAM */
+.arch { max-width: 1100px; margin: 0 auto; padding: 0 24px 56px; }
+.arch-title { text-align: center; margin-bottom: 32px; }
+.arch-title h2 { font-size: 1.4rem; font-weight: 800; color: var(--gold); }
+.arch-title h2::after { content: ''; display: block; width: 50px; height: 3px; background: var(--gold); margin: 10px auto 0; border-radius: 2px; }
+.arch-diagram { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 40px; position: relative; }
+.arch-layers { display: flex; flex-direction: column; gap: 16px; }
+.arch-layer { display: flex; align-items: stretch; gap: 12px; }
+.layer-label { writing-mode: vertical-lr; text-align: center; font-size: .68rem; font-weight: 800; color: var(--t3); text-transform: uppercase; letter-spacing: .1em; padding: 8px 6px; background: rgba(255,255,255,.02); border-radius: 8px; flex-shrink: 0; }
+.layer-nodes { flex: 1; display: flex; gap: 10px; flex-wrap: wrap; }
+.arch-node { flex: 1; min-width: 130px; padding: 14px 16px; border-radius: 12px; border: 1px solid; position: relative; transition: transform .25s; }
+.arch-node:hover { transform: translateY(-2px); }
+.arch-node.gold { background: rgba(212,175,55,.05); border-color: rgba(212,175,55,.2); }
+.arch-node.blue { background: rgba(59,130,246,.05); border-color: rgba(59,130,246,.2); }
+.arch-node.purple { background: rgba(168,85,247,.05); border-color: rgba(168,85,247,.2); }
+.arch-node.green { background: rgba(16,185,129,.05); border-color: rgba(16,185,129,.2); }
+.arch-node.copper { background: rgba(184,115,51,.05); border-color: rgba(184,115,51,.2); }
+.node-icon { font-size: 1.3rem; margin-bottom: 6px; }
+.node-name { font-size: .82rem; font-weight: 800; }
+.node-desc { font-size: .7rem; color: var(--t3); margin-top: 3px; }
+.node-badge { display: inline-block; font-size: .58rem; padding: 2px 8px; border-radius: 6px; font-weight: 700; margin-top: 6px; }
+.node-badge.active { background: rgba(16,185,129,.1); color: var(--green); }
+.node-badge.sync { background: rgba(59,130,246,.1); color: var(--blue); }
+.node-badge.ai { background: rgba(168,85,247,.1); color: var(--purple); }
+.arch-arrow { display: flex; align-items: center; justify-content: center; color: var(--t3); font-size: .9rem; padding: 4px 0; }
+
+/* STATS LIVE */
+.stats-section { max-width: 1100px; margin: 0 auto; padding: 0 24px 56px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
+.stat-val { font-size: 1.8rem; font-weight: 900; }
+.stat-val.gold { color: var(--gold); }
+.stat-val.blue { color: var(--blue); }
+.stat-val.purple { color: var(--purple); }
+.stat-val.green { color: var(--green); }
+.stat-lbl { font-size: .72rem; color: var(--t3); margin-top: 4px; }
+.stat-sub { font-size: .65rem; color: var(--t3); margin-top: 2px; font-family: var(--mono); }
+
+/* COMPONENTS GRID */
+.comp-section { max-width: 1100px; margin: 0 auto; padding: 0 24px 56px; }
+.section-hdr { text-align: center; margin-bottom: 36px; }
+.section-hdr h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+.section-hdr h2 span { background: linear-gradient(135deg,var(--gold),var(--gold-l)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.section-hdr p { color: var(--t3); font-size: .9rem; }
+.logic-box { max-width: 1100px; margin: 0 auto 26px; padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: rgba(10,14,24,.9); }
+.logic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 10px; }
+.logic-item { border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.02); border-radius: 10px; padding: 10px; font-size: .82rem; color: var(--t2); }
+.logic-item strong { color: var(--t1); display: block; margin-bottom: 4px; }
+.icon-legend { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 8px; }
+.icon-chip { border: 1px solid rgba(255,255,255,.13); border-radius: 999px; padding: 3px 9px; font-size: .72rem; color: var(--t2); }
+.comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+.comp-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
+.comp-head { padding: 20px 24px 14px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--border); }
+.comp-icon-wrap { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+.comp-icon-wrap.gold { background: rgba(212,175,55,.1); }
+.comp-icon-wrap.blue { background: rgba(59,130,246,.12); }
+.comp-icon-wrap.purple { background: rgba(168,85,247,.1); }
+.comp-title { font-size: 1rem; font-weight: 800; }
+.comp-sub { font-size: .75rem; color: var(--t3); }
+.comp-status { margin-right: auto; font-size: .65rem; padding: 3px 10px; border-radius: 10px; font-weight: 700; }
+.comp-status.on { background: rgba(16,185,129,.1); color: var(--green); }
+.comp-status.sync { background: rgba(59,130,246,.1); color: var(--blue); }
+.comp-body { padding: 20px 24px; }
+.comp-features { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.comp-features li { display: flex; align-items: flex-start; gap: 10px; font-size: .84rem; color: var(--t2); }
+.comp-features li .fi { font-size: .9rem; flex-shrink: 0; margin-top: 2px; }
+.comp-features li strong { color: var(--t1); }
+.comp-code { margin-top: 16px; background: var(--bg); border: 1px solid rgba(255,255,255,.05); border-radius: 10px; padding: 14px; font-family: var(--mono); font-size: .72rem; color: #7dd3fc; overflow-x: auto; white-space: pre; line-height: 1.8; }
+.comp-code .comment { color: var(--t3); }
+.comp-code .key { color: #93c5fd; }
+.comp-code .str { color: #86efac; }
+.comp-code .num { color: #fda4af; }
+
+/* INTEGRATION FLOW */
+.flow-section { max-width: 1100px; margin: 0 auto; padding: 0 24px 56px; }
+.flow-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 36px; }
+.flow-steps { display: flex; align-items: flex-start; gap: 0; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 8px; }
+.flow-step { flex: 1; min-width: 160px; text-align: center; position: relative; }
+.flow-step:not(:last-child)::after { content: ''; position: absolute; top: 28px; left: 50%; right: -50%; height: 2px; background: linear-gradient(90deg, rgba(212,175,55,.4), rgba(212,175,55,.1)); }
+.step-circle { width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; border: 2px solid; position: relative; z-index: 1; background: var(--bg2); }
+.step-circle.s1 { border-color: var(--gold); box-shadow: 0 0 20px rgba(212,175,55,.15); }
+.step-circle.s2 { border-color: var(--blue); box-shadow: 0 0 20px rgba(59,130,246,.12); }
+.step-circle.s3 { border-color: var(--purple); box-shadow: 0 0 20px rgba(168,85,247,.12); }
+.step-circle.s4 { border-color: var(--green); box-shadow: 0 0 20px rgba(16,185,129,.12); }
+.step-circle.s5 { border-color: var(--copper); box-shadow: 0 0 20px rgba(184,115,51,.12); }
+.step-name { font-size: .82rem; font-weight: 800; margin-bottom: 4px; }
+.step-desc { font-size: .7rem; color: var(--t3); line-height: 1.5; max-width: 120px; margin: 0 auto; }
+
+/* RAG KNOWLEDGE BASE */
+.rag-section { max-width: 1100px; margin: 0 auto; padding: 0 24px 56px; }
+.rag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.rag-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+.rag-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.rag-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.rag-icon.q { background: rgba(168,85,247,.12); }
+.rag-icon.h { background: rgba(212,175,55,.1); }
+.rag-icon.s { background: rgba(16,185,129,.1); }
+.rag-icon.m { background: rgba(59,130,246,.1); }
+.rag-icon.f { background: rgba(245,158,11,.1); }
+.rag-name { font-size: .9rem; font-weight: 800; }
+.rag-count { font-size: .65rem; color: var(--t3); }
+.rag-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.rag-tag { font-size: .62rem; padding: 2px 9px; border-radius: 6px; background: rgba(212,175,55,.05); border: 1px solid rgba(212,175,55,.08); color: var(--t2); }
+.rag-bar { margin-top: 12px; }
+.rag-bar-track { width: 100%; height: 5px; background: rgba(255,255,255,.05); border-radius: 10px; overflow: hidden; }
+.rag-bar-fill { height: 100%; border-radius: 10px; }
+.rag-bar-label { font-size: .65rem; color: var(--t3); margin-top: 4px; display: flex; justify-content: space-between; }
+
+/* VSCODE EXTENSION */
+.vsc-section { max-width: 1100px; margin: 0 auto; padding: 0 24px 56px; }
+.vsc-demo { background: var(--bg3); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; overflow: hidden; }
+.vsc-titlebar { background: #1e1e1e; padding: 10px 16px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,.06); }
+.vsc-dot { width: 12px; height: 12px; border-radius: 50%; }
+.vsc-title { font-size: .75rem; color: var(--t3); margin-right: auto; font-family: var(--mono); }
+.vsc-tabs { background: #252526; padding: 0 16px; display: flex; gap: 1px; border-bottom: 1px solid #000; }
+.vsc-tab { padding: 8px 20px; font-size: .72rem; font-family: var(--mono); color: #969696; border-bottom: 2px solid transparent; cursor: default; }
+.vsc-tab.active { color: var(--t1); border-bottom-color: var(--blue); background: #1e1e1e; }
+.vsc-body { display: grid; grid-template-columns: 1fr 1fr; min-height: 320px; }
+.vsc-editor { padding: 20px; font-family: var(--mono); font-size: .72rem; line-height: 1.9; border-left: 1px solid rgba(255,255,255,.04); }
+.vsc-sidebar { background: #252526; padding: 16px; }
+.vsc-panel-title { font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; color: var(--t3); margin-bottom: 12px; font-family: var(--mono); }
+.vsc-suggest { background: #252526; border: 1px solid #454545; border-radius: 6px; overflow: hidden; }
+.vsc-suggest-item { padding: 7px 12px; font-size: .72rem; font-family: var(--mono); cursor: default; display: flex; align-items: center; gap: 8px; transition: background .15s; }
+.vsc-suggest-item:hover, .vsc-suggest-item.sel { background: #094771; }
+.vsc-suggest-item .kind { font-size: .6rem; padding: 1px 6px; border-radius: 4px; font-weight: 700; flex-shrink: 0; }
+.vsc-suggest-item .kind.func { background: #d7ba7d30; color: #d7ba7d; }
+.vsc-suggest-item .kind.class { background: #4ec9b030; color: #4ec9b0; }
+.vsc-suggest-item .kind.var { background: #9cdcfe30; color: #9cdcfe; }
+.vsc-suggest-item .detail { font-size: .65rem; color: #969696; margin-right: auto; }
+.line-kw { color: #569cd6; }
+.line-fn { color: #dcdcaa; }
+.line-str { color: #ce9178; }
+.line-num { color: #b5cea8; }
+.line-cmt { color: #6a9955; }
+.line-cls { color: #4ec9b0; }
+.line-prop { color: #9cdcfe; }
+@media(max-width:700px){ .vsc-body { grid-template-columns: 1fr; } }
+
+/* EI ENGINES */
+.ei-section { max-width: 1100px; margin: 0 auto; padding: 0 24px 56px; }
+.ei-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.ei-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; align-items: flex-start; gap: 12px; transition: border-color .3s; }
+.ei-card:hover { border-color: rgba(212,175,55,.2); }
+.ei-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+.ei-dot.on { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.ei-dot.ai { background: var(--purple); box-shadow: 0 0 8px var(--purple); }
+.ei-dot.sync { background: var(--blue); box-shadow: 0 0 8px var(--blue); }
+.ei-name { font-size: .84rem; font-weight: 700; }
+.ei-type { font-size: .68rem; color: var(--t3); font-family: var(--mono); }
+
+/* CTA */
+.cta-section { text-align: center; padding: 48px 24px 80px; }
+.cta-box { max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, rgba(212,175,55,.05), rgba(59,130,246,.03)); border: 1px solid rgba(212,175,55,.15); border-radius: 24px; padding: 48px 36px; }
+.cta-box h2 { font-size: 1.4rem; font-weight: 900; margin-bottom: 10px; }
+.cta-box p { color: var(--t2); font-size: .9rem; margin-bottom: 28px; line-height: 1.8; }
+.cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-prime { padding: 12px 28px; background: linear-gradient(135deg,var(--gold),var(--copper)); color: #000; font-weight: 800; font-size: .92rem; border-radius: 12px; text-decoration: none; transition: all .3s; font-family: 'Tajawal', sans-serif; }
+.btn-prime:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,.25); }
+.btn-sec { padding: 12px 28px; border: 1px solid rgba(59,130,246,.4); color: var(--blue); font-weight: 700; font-size: .92rem; border-radius: 12px; text-decoration: none; transition: all .25s; }
+.btn-sec:hover { background: rgba(59,130,246,.07); }
+.btn-ghost { padding: 12px 28px; border: 1px solid rgba(212,175,55,.2); color: var(--gold); font-weight: 700; font-size: .92rem; border-radius: 12px; text-decoration: none; transition: all .25s; }
+.btn-ghost:hover { background: rgba(212,175,55,.05); }
+
+footer { border-top: 1px solid var(--border); padding: 28px 24px; text-align: center; }
+.fbot { max-width: 1100px; margin: 0 auto; }
+.flinks { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-bottom: 10px; }
+.flinks a { color: var(--t3); font-size: .75rem; text-decoration: none; transition: color .2s; }
+.flinks a:hover { color: var(--gold); }
+.fcp { font-size: .72rem; color: var(--t3); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+<div class="nv">
+    <a href="/" class="logo">شيخة</a>
+    <ul class="nav-links">
+        <li><a href="/">الرئيسية</a></li>
+        <li><a href="/sheikha-ide.html">Sheikha IDE</a></li>
+        <li><a href="/سوق-شيخة.html">السوق</a></li>
+        <li><a href="/الشريعة-الاسلامية.html">الشريعة</a></li>
+        <li><a href="/تكامل-شيخة-الذكي.html" class="active">التكامل الذكي</a></li>
+        <li><a href="/لوحة-تكامل-شيخة-الموحدة.html">لوحة التكامل</a></li>
+        <li><a href="/منطق-الصفحات-والايقونات.html">منطق الصفحات</a></li>
+        <li><a href="/تسجيل-الدخول.html" style="background:linear-gradient(135deg,var(--gold),var(--copper));color:#000;padding:8px 20px;border-radius:10px;font-weight:800">ادخل</a></li>
+    </ul>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-badge">
+        <span class="dot"></span>
+        التكامل الكامل — نظام حي
+    </div>
+    <h1>
+        <span class="g">شيخة EI</span> × <span class="g">VS Code</span> × <span class="g">RAG</span>
+    </h1>
+    <p>منظومة ذكاء اصطناعي إسلامية متكاملة — يجمعها الكتاب والسنة ويُشغّلها أحدث تقنيات الحاضر</p>
+    <div class="hero-tags">
+        <span class="htag ei">⚡ Sheikha EI</span>
+        <span class="htag vsc">🖥️ VS Code Integration</span>
+        <span class="htag rag">🧠 RAG Engine</span>
+        <span class="htag sharia">📖 Sharia Knowledge Base</span>
+    </div>
+</section>
+
+<section class="logic-box" aria-label="منطق الصفحة">
+    <div class="section-hdr" style="margin-bottom:0;text-align:right">
+        <h2 style="font-size:1.1rem;margin-bottom:0">منطق هذه الصفحة</h2>
+    </div>
+    <div class="logic-grid">
+        <div class="logic-item"><strong>الهدف</strong>توحيد مسار EI + VS Code + RAG ضمن رحلة تشغيل واحدة واضحة.</div>
+        <div class="logic-item"><strong>المستخدم</strong>فريق التطوير ومنسق التكامل ومدير المنتج.</div>
+        <div class="logic-item"><strong>الإجراء الأساسي</strong>تشغيل التكامل ثم التحقق من الجاهزية عبر APIs الحية.</div>
+        <div class="logic-item"><strong>مؤشر النجاح</strong>نسبة نجاح النداءات وزمن الوصول لحالة Ready.</div>
+    </div>
+    <div class="icon-legend" aria-label="معاني الايقونات">
+        <span class="icon-chip">🧩 = تكامل</span>
+        <span class="icon-chip">🧠 = ذكاء/استدلال</span>
+        <span class="icon-chip">🛡️ = حماية وامتثال</span>
+        <span class="icon-chip">📡 = اتصال API</span>
+        <span class="icon-chip">📊 = قياس أداء</span>
+    </div>
+</section>
+
+<!-- ARCHITECTURE DIAGRAM -->
+<div class="arch">
+    <div class="arch-title">
+        <h2>مخطط التكامل المعماري</h2>
+    </div>
+    <div class="arch-diagram">
+        <div class="arch-layers">
+            <!-- طبقة الواجهة -->
+            <div class="arch-layer">
+                <div class="layer-label">الواجهة</div>
+                <div class="layer-nodes">
+                    <div class="arch-node blue">
+                        <div class="node-icon">🖥️</div>
+                        <div class="node-name">Sheikha VS Code</div>
+                        <div class="node-desc">Monaco Editor + AI Autocomplete</div>
+                        <span class="node-badge active">مفعّل</span>
+                    </div>
+                    <div class="arch-node gold">
+                        <div class="node-icon">🌐</div>
+                        <div class="node-name">بوابة شيخة الرقمية</div>
+                        <div class="node-desc">14 صفحة HTML — PWA</div>
+                        <span class="node-badge active">Online</span>
+                    </div>
+                    <div class="arch-node copper">
+                        <div class="node-icon">📱</div>
+                        <div class="node-name">تطبيق شيخة</div>
+                        <div class="node-desc">iOS + Android — 2027</div>
+                        <span class="node-badge sync">قادم</span>
+                    </div>
+                </div>
+            </div>
+            <div class="arch-arrow">↕ REST API + WebSocket ↕</div>
+            <!-- طبقة EI -->
+            <div class="arch-layer">
+                <div class="layer-label">EI</div>
+                <div class="layer-nodes">
+                    <div class="arch-node gold">
+                        <div class="node-icon">⚡</div>
+                        <div class="node-name">Sheikha EI Core</div>
+                        <div class="node-desc">Enterprise Intelligence Engine</div>
+                        <span class="node-badge active">يعمل</span>
+                    </div>
+                    <div class="arch-node purple">
+                        <div class="node-icon">🧠</div>
+                        <div class="node-name">AI Orchestrator</div>
+                        <div class="node-desc">ذكاء + تسعير + تحليل</div>
+                        <span class="node-badge ai">AI</span>
+                    </div>
+                    <div class="arch-node green">
+                        <div class="node-icon">📖</div>
+                        <div class="node-name">RAG + Sharia Layer</div>
+                        <div class="node-desc">استرجاع معرفي إسلامي</div>
+                        <span class="node-badge active">مفعّل</span>
+                    </div>
+                </div>
+            </div>
+            <div class="arch-arrow">↕ محركات 200+ API إسلامية ↕</div>
+            <!-- طبقة المحركات -->
+            <div class="arch-layer">
+                <div class="layer-label">المحركات</div>
+                <div class="layer-nodes">
+                    <div class="arch-node gold">
+                        <div class="node-icon">⚖️</div>
+                        <div class="node-name">محرك الشريعة</div>
+                        <div class="node-desc">Sharia Engine</div>
+                        <span class="node-badge active">نشط</span>
+                    </div>
+                    <div class="arch-node gold">
+                        <div class="node-icon">🏪</div>
+                        <div class="node-name">محرك السوق</div>
+                        <div class="node-desc">Market Engine</div>
+                        <span class="node-badge active">نشط</span>
+                    </div>
+                    <div class="arch-node gold">
+                        <div class="node-icon">💰</div>
+                        <div class="node-name">محرك التسعير</div>
+                        <div class="node-desc">Pricing Engine</div>
+                        <span class="node-badge ai">AI</span>
+                    </div>
+                    <div class="arch-node gold">
+                        <div class="node-icon">🔐</div>
+                        <div class="node-name">محرك الأمن</div>
+                        <div class="node-desc">Security Engine</div>
+                        <span class="node-badge active">نشط</span>
+                    </div>
+                </div>
+            </div>
+            <div class="arch-arrow">↕ بيانات JSON — تخزين محلي ↕</div>
+            <!-- طبقة البيانات -->
+            <div class="arch-layer">
+                <div class="layer-label">البيانات</div>
+                <div class="layer-nodes">
+                    <div class="arch-node purple">
+                        <div class="node-icon">📚</div>
+                        <div class="node-name">قاعدة الأحاديث</div>
+                        <div class="node-desc">48+ حديث صحيح مفهرس</div>
+                        <span class="node-badge ai">RAG</span>
+                    </div>
+                    <div class="arch-node purple">
+                        <div class="node-icon">📖</div>
+                        <div class="node-name">قاعدة الآيات</div>
+                        <div class="node-desc">بيانات قرآنية مفهرسة</div>
+                        <span class="node-badge ai">RAG</span>
+                    </div>
+                    <div class="arch-node purple">
+                        <div class="node-icon">🏷️</div>
+                        <div class="node-name">بيانات السوق</div>
+                        <div class="node-desc">مستخدمون + تجار + شركات</div>
+                        <span class="node-badge sync">JSON</span>
+                    </div>
+                    <div class="arch-node purple">
+                        <div class="node-icon">💎</div>
+                        <div class="node-name">بيانات المعادن</div>
+                        <div class="node-desc">أسعار + HS codes + إحصاء</div>
+                        <span class="node-badge active">حي</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LIVE STATS -->
+<div class="stats-section">
+    <div class="section-hdr">
+        <h2><span>إحصائيات</span> التكامل المباشرة</h2>
+    </div>
+    <div class="stats-grid" id="statsGrid">
+        <div class="stat-card"><div class="stat-val gold" id="st1">200+</div><div class="stat-lbl">API Endpoint</div><div class="stat-sub">منظومة 200+ مسار</div></div>
+        <div class="stat-card"><div class="stat-val blue" id="st2">48</div><div class="stat-lbl">حديث مفهرس</div><div class="stat-sub">RAG-indexed</div></div>
+        <div class="stat-card"><div class="stat-val purple" id="st3">20+</div><div class="stat-lbl">محرك EI</div><div class="stat-sub">نشط في الخلفية</div></div>
+        <div class="stat-card"><div class="stat-val green" id="st4">100%</div><div class="stat-lbl">امتثال شرعي</div><div class="stat-sub">Sharia Compliant</div></div>
+        <div class="stat-card"><div class="stat-val gold" id="st5">42</div><div class="stat-lbl">دولة مستهدفة</div><div class="stat-sub">Global Coverage</div></div>
+        <div class="stat-card"><div class="stat-val blue" id="st6">VS Code</div><div class="stat-lbl">محرك التطوير</div><div class="stat-sub">Monaco Engine</div></div>
+    </div>
+</div>
+
+<!-- THREE COMPONENTS -->
+<div class="comp-section">
+    <div class="section-hdr">
+        <h2>مكونات <span>التكامل</span> الثلاثة</h2>
+        <p>كل مكوّن يعزّز الآخرين — نظام متكامل لا يتجزأ</p>
+    </div>
+    <div class="comp-grid">
+
+        <!-- EI -->
+        <div class="comp-card">
+            <div class="comp-head">
+                <div class="comp-icon-wrap gold">⚡</div>
+                <div>
+                    <div class="comp-title">Sheikha EI</div>
+                    <div class="comp-sub">Enterprise Intelligence — الذكاء التشغيلي</div>
+                </div>
+                <span class="comp-status on">مفعّل</span>
+            </div>
+            <div class="comp-body">
+                <ul class="comp-features">
+                    <li><span class="fi">🧠</span><div><strong>20+ محرك ذكاء</strong> تعمل في الخلفية بشكل متوازٍ — شريعة، أمن، سوق، تسعير، تحليل</div></li>
+                    <li><span class="fi">📊</span><div><strong>مؤشر شيخة</strong> للأسعار — محسوب لحظياً من بيانات السوق العالمية</div></li>
+                    <li><span class="fi">🔐</span><div><strong>JWT + OAuth5</strong> — Google, Microsoft, Apple, Nafath — مصادقة متعددة</div></li>
+                    <li><span class="fi">⚡</span><div><strong>WebSocket</strong> — أسعار وإشعارات لحظية بدون تحديث الصفحة</div></li>
+                    <li><span class="fi">📖</span><div><strong>رقابة شرعية</strong> تلقائية — كل معاملة خاضعة للتحقق قبل الإتمام</div></li>
+                </ul>
+                <div class="comp-code"><span class="comment">// EI API استدعاء</span>
+<span class="key">const</span> status = <span class="key">await</span> fetch(<span class="str">'/api/sheikha/status'</span>);
+<span class="key">const</span> { engines, shariaScore } = <span class="key">await</span> status.json();
+<span class="comment">// يعود: { success: true, engines: 20+, shariaScore: 100 }</span></div>
+            </div>
+        </div>
+
+        <!-- VS CODE -->
+        <div class="comp-card">
+            <div class="comp-head">
+                <div class="comp-icon-wrap blue">🖥️</div>
+                <div>
+                    <div class="comp-title">Sheikha VS Code</div>
+                    <div class="comp-sub">Monaco Engine — محرر الكود الذكي</div>
+                </div>
+                <span class="comp-status on">مفعّل</span>
+            </div>
+            <div class="comp-body">
+                <ul class="comp-features">
+                    <li><span class="fi">✍️</span><div><strong>AI Autocomplete</strong> — اكتمال تلقائي للكود يفهم سياق شيخة والأنماط الإسلامية</div></li>
+                    <li><span class="fi">🖼️</span><div><strong>Image to Code</strong> — تحويل صور التصاميم لكود HTML/CSS مباشرة</div></li>
+                    <li><span class="fi">🔍</span><div><strong>AI Search</strong> — بحث دلالي في قاعدة بيانات شيخة والأحاديث</div></li>
+                    <li><span class="fi">🐛</span><div><strong>Bug Detection</strong> — كشف الأخطاء تلقائياً مدعوم بـ RAG</div></li>
+                    <li><span class="fi">📝</span><div><strong>Code Explain</strong> — شرح الكود بالعربية مع مراجع شرعية</div></li>
+                </ul>
+                <div class="comp-code"><span class="comment">// تفعيل شيخة VS Code</span>
+<span class="key">import</span> { SheikhaVS } <span class="key">from</span> <span class="str">'@sheikha/vscode-ext'</span>;
+<span class="key">const</span> ide = <span class="key">new</span> <span class="key">SheikhaVS</span>({
+  ragEndpoint: <span class="str">'/api/rag/query'</span>,
+  eiEndpoint: <span class="str">'/api/sheikha/status'</span>,
+  shariaCheck: <span class="key">true</span>,
+  lang: <span class="str">'ar'</span>
+});</div>
+            </div>
+        </div>
+
+        <!-- RAG -->
+        <div class="comp-card">
+            <div class="comp-head">
+                <div class="comp-icon-wrap purple">🧠</div>
+                <div>
+                    <div class="comp-title">RAG Engine</div>
+                    <div class="comp-sub">Retrieval-Augmented Generation — الاسترجاع الذكي</div>
+                </div>
+                <span class="comp-status sync">نشط</span>
+            </div>
+            <div class="comp-body">
+                <ul class="comp-features">
+                    <li><span class="fi">📚</span><div><strong>قاعدة معرفة إسلامية</strong> — أحاديث + آيات + فتاوى + AAOIFI مُفهرسة semantically</div></li>
+                    <li><span class="fi">🔎</span><div><strong>بحث دلالي</strong> — يفهم السؤال ويعيد السياق الشرعي الأدق</div></li>
+                    <li><span class="fi">⚡</span><div><strong>تكامل مع EI</strong> — كل قرار تجاري يُراجَع ضد قاعدة المعرفة قبل التنفيذ</div></li>
+                    <li><span class="fi">🖥️</span><div><strong>يغذّي VS Code</strong> — الاقتراحات والشروحات مدعومة بمراجع شرعية حقيقية</div></li>
+                    <li><span class="fi">📖</span><div><strong>مبدأ لا ربا / لا غرر</strong> — محقّق تلقائياً في كل استعلام</div></li>
+                </ul>
+                <div class="comp-code"><span class="comment">// RAG استعلام</span>
+<span class="key">const</span> result = <span class="key">await</span> fetch(<span class="str">'/api/rag/query'</span>, {
+  method: <span class="str">'POST'</span>,
+  body: JSON.stringify({
+    query: <span class="str">'حكم بيع الذهب بالذهب'</span>,
+    sources: [<span class="str">'quran'</span>, <span class="str">'hadith'</span>, <span class="str">'fiqh'</span>]
+  })
+});
+<span class="comment">// → يعود بالحديث: «الذهب بالذهب...»</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FLOW OF INTEGRATION -->
+<div class="flow-section">
+    <div class="section-hdr">
+        <h2>كيف يعمل <span>التكامل</span>؟</h2>
+        <p>5 خطوات من الكود للقرار الشرعي المعتمد</p>
+    </div>
+    <div class="flow-box">
+        <div class="flow-steps">
+            <div class="flow-step">
+                <div class="step-circle s1">🖥️</div>
+                <div class="step-name">المطوّر يكتب</div>
+                <div class="step-desc">في Sheikha VS Code — مع autocomplete ذكي</div>
+            </div>
+            <div class="flow-step">
+                <div class="step-circle s2">🧠</div>
+                <div class="step-name">RAG يسترجع</div>
+                <div class="step-desc">يبحث في قاعدة الأحاديث والآيات ذات الصلة</div>
+            </div>
+            <div class="flow-step">
+                <div class="step-circle s3">⚡</div>
+                <div class="step-name">EI يحلّل</div>
+                <div class="step-desc">يمرّر على 20+ محرك للتحقق من السلامة الشرعية</div>
+            </div>
+            <div class="flow-step">
+                <div class="step-circle s4">⚖️</div>
+                <div class="step-name">الشريعة تحكم</div>
+                <div class="step-desc">التحقق من: لا ربا / لا غرر / لا غش / لا احتكار</div>
+            </div>
+            <div class="flow-step">
+                <div class="step-circle s5">✅</div>
+                <div class="step-name">القرار يُنفَّذ</div>
+                <div class="step-desc">المعاملة مكتملة — مباركة — موثّقة</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VS CODE LIVE DEMO -->
+<div class="vsc-section">
+    <div class="section-hdr">
+        <h2><span>Sheikha VS Code</span> — محاكاة حية</h2>
+        <p>صورة عن تجربة التطوير داخل منظومة شيخة</p>
+    </div>
+    <div class="vsc-demo">
+        <div class="vsc-titlebar">
+            <div class="vsc-dot" style="background:#ff5f57"></div>
+            <div class="vsc-dot" style="background:#ffbd2e"></div>
+            <div class="vsc-dot" style="background:#28c840"></div>
+            <div class="vsc-title">trade-validator.js — Sheikha EI</div>
+        </div>
+        <div class="vsc-tabs">
+            <div class="vsc-tab active">trade-validator.js</div>
+            <div class="vsc-tab">sharia-check.js</div>
+            <div class="vsc-tab">rag-query.js</div>
+        </div>
+        <div class="vsc-body">
+            <div class="vsc-editor">
+<span class="line-cmt">// ╔══════════════════════════════════════╗</span>
+<span class="line-cmt">// ║  Sheikha Trade Validator             ║</span>
+<span class="line-cmt">// ║  مدعوم بـ RAG + Sharia Engine        ║</span>
+<span class="line-cmt">// ╚══════════════════════════════════════╝</span>
+
+<span class="line-kw">async function</span> <span class="line-fn">validateTrade</span>(trade) {
+  <span class="line-cmt">// 1. استعلام RAG للحكم الشرعي</span>
+  <span class="line-kw">const</span> <span class="line-prop">rag</span> = <span class="line-kw">await</span> <span class="line-fn">queryRAG</span>({
+    query: <span class="line-str">`حكم بيع ${trade.metal}`</span>,
+    sources: [<span class="line-str">'hadith'</span>, <span class="line-str">'fiqh'</span>]
+  });
+
+  <span class="line-cmt">// 2. تمرير على EI للتحليل</span>
+  <span class="line-kw">const</span> <span class="line-prop">ei</span> = <span class="line-kw">await</span> <span class="line-fn">sheikhaEI</span>.analyze({
+    trade, shariaContext: rag.<span class="line-prop">result</span>
+  });
+
+  <span class="line-kw">return</span> {
+    valid: ei.<span class="line-prop">shariaScore</span> &gt;= <span class="line-num">80</span>,
+    score: ei.<span class="line-prop">shariaScore</span>,
+    ref: rag.<span class="line-prop">hadith</span>        <span class="line-cmt">// المرجع الحديثي</span>
+  };
+}
+            </div>
+            <div class="vsc-sidebar">
+                <div class="vsc-panel-title">💡 Sheikha Autocomplete</div>
+                <div class="vsc-suggest">
+                    <div class="vsc-suggest-item sel">
+                        <span class="kind func">fn</span>
+                        <span>validateTrade</span>
+                        <span class="detail">شيخة: تحقق شرعي</span>
+                    </div>
+                    <div class="vsc-suggest-item">
+                        <span class="kind class">cls</span>
+                        <span>SheikhaEI</span>
+                        <span class="detail">Enterprise Intelligence</span>
+                    </div>
+                    <div class="vsc-suggest-item">
+                        <span class="kind func">fn</span>
+                        <span>queryRAG</span>
+                        <span class="detail">RAG: استرجاع إسلامي</span>
+                    </div>
+                    <div class="vsc-suggest-item">
+                        <span class="kind var">var</span>
+                        <span>shariaScore</span>
+                        <span class="detail">نتيجة الامتثال الشرعي</span>
+                    </div>
+                    <div class="vsc-suggest-item">
+                        <span class="kind func">fn</span>
+                        <span>checkRiba</span>
+                        <span class="detail">تفعيل: لا ربا ولا غرر</span>
+                    </div>
+                </div>
+                <div style="margin-top:14px">
+                    <div class="vsc-panel-title">📖 RAG Reference</div>
+                    <div style="background:rgba(168,85,247,.05);border:1px solid rgba(168,85,247,.15);border-radius:8px;padding:10px;font-size:.68rem;color:#c4b5fd;line-height:1.8;font-family:'Amiri',serif">
+                        «الذَّهَبُ بِالذَّهَبِ مِثْلًا بِمِثْلٍ يَدًا بِيَدٍ»<br>
+                        <span style="color:var(--t3);font-family:'Tajawal',sans-serif;font-family:'Tajawal',sans-serif">مسلم — صحيح</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RAG KNOWLEDGE BASE -->
+<div class="rag-section">
+    <div class="section-hdr">
+        <h2>قاعدة معرفة <span>RAG</span> الإسلامية</h2>
+        <p>مصادر مفهرسة ومتاحة للاسترجاع الدلالي في كل وقت</p>
+    </div>
+    <div class="rag-grid">
+        <div class="rag-card">
+            <div class="rag-header">
+                <div class="rag-icon q">📖</div>
+                <div>
+                    <div class="rag-name">آيات التجارة القرآنية</div>
+                    <div class="rag-count">34+ آية مفهرسة</div>
+                </div>
+            </div>
+            <div class="rag-tags">
+                <span class="rag-tag">البيع والشراء</span>
+                <span class="rag-tag">الميزان</span>
+                <span class="rag-tag">الأمانة</span>
+                <span class="rag-tag">الإنفاق</span>
+            </div>
+            <div class="rag-bar">
+                <div class="rag-bar-track"><div class="rag-bar-fill" style="width:92%;background:linear-gradient(90deg,var(--purple),#7c3aed)"></div></div>
+                <div class="rag-bar-label"><span>دقة الفهرسة</span><span>92%</span></div>
+            </div>
+        </div>
+        <div class="rag-card">
+            <div class="rag-header">
+                <div class="rag-icon h">📜</div>
+                <div>
+                    <div class="rag-name">الأحاديث النبوية التجارية</div>
+                    <div class="rag-count">48 حديث صحيح</div>
+                </div>
+            </div>
+            <div class="rag-tags">
+                <span class="rag-tag">الصدق</span>
+                <span class="rag-tag">الغش</span>
+                <span class="rag-tag">الربا</span>
+                <span class="rag-tag">الاحتكار</span>
+                <span class="rag-tag">الميزان</span>
+            </div>
+            <div class="rag-bar">
+                <div class="rag-bar-track"><div class="rag-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--gold),var(--copper))"></div></div>
+                <div class="rag-bar-label"><span>اكتمال القاعدة</span><span>100%</span></div>
+            </div>
+        </div>
+        <div class="rag-card">
+            <div class="rag-header">
+                <div class="rag-icon s">⚖️</div>
+                <div>
+                    <div class="rag-name">الفقه الإسلامي المالي</div>
+                    <div class="rag-count">AAOIFI + مجامع فقهية</div>
+                </div>
+            </div>
+            <div class="rag-tags">
+                <span class="rag-tag">المرابحة</span>
+                <span class="rag-tag">الإجارة</span>
+                <span class="rag-tag">المضاربة</span>
+                <span class="rag-tag">الصكوك</span>
+            </div>
+            <div class="rag-bar">
+                <div class="rag-bar-track"><div class="rag-bar-fill" style="width:85%;background:linear-gradient(90deg,var(--green),#059669)"></div></div>
+                <div class="rag-bar-label"><span>التغطية الفقهية</span><span>85%</span></div>
+            </div>
+        </div>
+        <div class="rag-card">
+            <div class="rag-header">
+                <div class="rag-icon m">🏷️</div>
+                <div>
+                    <div class="rag-name">بيانات المعادن والأسعار</div>
+                    <div class="rag-count">HS codes + بورصات عالمية</div>
+                </div>
+            </div>
+            <div class="rag-tags">
+                <span class="rag-tag">نحاس</span>
+                <span class="rag-tag">حديد</span>
+                <span class="rag-tag">ألومنيوم</span>
+                <span class="rag-tag">ذهب</span>
+                <span class="rag-tag">سكراب</span>
+            </div>
+            <div class="rag-bar">
+                <div class="rag-bar-track"><div class="rag-bar-fill" style="width:78%;background:linear-gradient(90deg,var(--blue),#1d4ed8)"></div></div>
+                <div class="rag-bar-label"><span>تغطية الأسواق</span><span>42 دولة</span></div>
+            </div>
+        </div>
+        <div class="rag-card">
+            <div class="rag-header">
+                <div class="rag-icon f">🔬</div>
+                <div>
+                    <div class="rag-name">قاعدة أبحاث شيخة</div>
+                    <div class="rag-count">رياض الجنة + مختبرات الابتكار</div>
+                </div>
+            </div>
+            <div class="rag-tags">
+                <span class="rag-tag">R&D</span>
+                <span class="rag-tag">ابتكار</span>
+                <span class="rag-tag">نماذج AI</span>
+            </div>
+            <div class="rag-bar">
+                <div class="rag-bar-track"><div class="rag-bar-fill" style="width:60%;background:linear-gradient(90deg,#f59e0b,#d97706)"></div></div>
+                <div class="rag-bar-label"><span>تراكم المعرفة</span><span>نمو مستمر</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EI ENGINES STATUS -->
+<div class="ei-section">
+    <div class="section-hdr">
+        <h2>محركات <span>Sheikha EI</span></h2>
+        <p>تعمل في الخلفية — مخفية عن الواجهة العامة — دائمة التشغيل</p>
+    </div>
+    <div class="ei-grid" id="eiEnginesGrid">
+        <div class="ei-card"><div class="ei-dot on"></div><div><div class="ei-name">محرك الشريعة</div><div class="ei-type">sharia-engine</div></div></div>
+        <div class="ei-card"><div class="ei-dot on"></div><div><div class="ei-name">محرك الأمن</div><div class="ei-type">security-engine</div></div></div>
+        <div class="ei-card"><div class="ei-dot ai"></div><div><div class="ei-name">محرك الذكاء</div><div class="ei-type">ai-engine + RAG</div></div></div>
+        <div class="ei-card"><div class="ei-dot on"></div><div><div class="ei-name">محرك السوق</div><div class="ei-type">market-engine</div></div></div>
+        <div class="ei-card"><div class="ei-dot on"></div><div><div class="ei-name">محرك المعادن</div><div class="ei-type">metals-engine</div></div></div>
+        <div class="ei-card"><div class="ei-dot ai"></div><div><div class="ei-name">محرك التسعير</div><div class="ei-type">pricing-engine + AI</div></div></div>
+        <div class="ei-card"><div class="ei-dot on"></div><div><div class="ei-name">محرك البنك</div><div class="ei-type">banking-engine</div></div></div>
+        <div class="ei-card"><div class="ei-dot sync"></div><div><div class="ei-name">محرك اللوجستيات</div><div class="ei-type">logistics-engine</div></div></div>
+        <div class="ei-card"><div class="ei-dot ai"></div><div><div class="ei-name">محرك الإعراب AI</div><div class="ei-type">arabic-nlp-engine</div></div></div>
+        <div class="ei-card"><div class="ei-dot on"></div><div><div class="ei-name">محرك التداول</div><div class="ei-type">trade-engine</div></div></div>
+        <div class="ei-card"><div class="ei-dot on"></div><div><div class="ei-name">محرك المنتدى</div><div class="ei-type">community-engine</div></div></div>
+        <div class="ei-card"><div class="ei-dot sync"></div><div><div class="ei-name">محرك الهوية</div><div class="ei-type">identity-engine</div></div></div>
+        <div class="ei-card"><div class="ei-dot ai"></div><div><div class="ei-name">محرك الصور AI</div><div class="ei-type">vision-engine + LMM</div></div></div>
+        <div class="ei-card"><div class="ei-dot on"></div><div><div class="ei-name">محرك لوحة التحكم</div><div class="ei-type">dashboard-engine</div></div></div>
+        <div class="ei-card"><div class="ei-dot on"></div><div><div class="ei-name">محرك الأدمن</div><div class="ei-type">admin-blueprint</div></div></div>
+        <div class="ei-card"><div class="ei-dot on"></div><div><div class="ei-name">محرك الأحاديث</div><div class="ei-type">hadith-standards</div></div></div>
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+    <div class="cta-box">
+        <h2>ابدأ مع <span style="background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent">التكامل الذكي</span></h2>
+        <p>افتح Sheikha IDE وابدأ التطوير — كل سطر كود مراجَع شرعياً، مدعوم بـ RAG، ومُشغَّل بـ EI</p>
+        <div class="cta-btns">
+            <a href="/sheikha-ide.html" class="btn-prime">⚡ فتح Sheikha IDE</a>
+            <a href="/رياض-الجنة-الباحثين.html" class="btn-sec">🔬 مختبرات البحث</a>
+            <a href="/الشريعة-الاسلامية.html" class="btn-ghost">📖 مرجع الشريعة</a>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="fbot">
+    <div class="flinks">
+        <a href="/">الرئيسية</a>
+        <a href="/sheikha-ide.html">Sheikha IDE</a>
+        <a href="/سوق-شيخة.html">السوق</a>
+        <a href="/الشريعة-الاسلامية.html">الشريعة</a>
+        <a href="/لوحة-تكامل-شيخة-الموحدة.html">لوحة التكامل</a>
+        <a href="/منطق-الصفحات-والايقونات.html">منطق الصفحات والايقونات</a>
+        <a href="/معايير-الأحاديث.html">الأحاديث</a>
+        <a href="/منظومة-البركة.html">البركة</a>
+        <a href="/العاصمة-الاقتصادية.html">الرؤية</a>
+        <a href="/المجتمع.html">المجتمع</a>
+    </div>
+    <div class="fcp">© 2026 SHEIKHA — التكامل الذكي: EI × VS Code × RAG — جميع الحقوق محفوظة لسلمان أحمد بن سلمان الراجح</div>
+</div>
+</footer>
+
+<script src="/js/safe-api.js"></script>
+<script>
+(function() {
+    // تحميل الإحصائيات الحية
+    async function loadStats() {
+        try {
+            const r = await fetch('/api/sheikha/status');
+            if (!r.ok) return;
+            const d = await r.json();
+            if (d && d.success) {
+                const s = d.summary || d;
+                if (s.engineCount) document.getElementById('st3').textContent = s.engineCount + '+';
+                if (s.apiCount) document.getElementById('st1').textContent = s.apiCount + '+';
+            }
+        } catch(e) {}
+
+        try {
+            const r = await fetch('/api/systems-status');
+            if (!r.ok) return;
+            const d = await r.json();
+            if (d && d.success) {
+                const ov = d.overview || {};
+                if (ov.totalSystems) document.getElementById('st3').textContent = ov.totalSystems + '+';
+            }
+        } catch(e) {}
+    }
+
+    loadStats();
+    // تحديث كل 30 ثانية
+    setInterval(loadStats, 30000);
+})();
+</script>
+</body>
+</html>

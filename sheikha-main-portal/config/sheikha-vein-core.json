@@ -1,0 +1,44 @@
+{
+    "program": "SHEIKHA_VEIN_CORE",
+    "version": "1.0.0",
+    "identity": {
+        "nameAr": "شيخة وريد العالم والكون",
+        "mission": "مسار تدفق حيوي للتجارة والمعرفة والاقتصاد على هدي الكتاب والسنة",
+        "primaryLanguage": "ar",
+        "defaultLocale": "ar-SA"
+    },
+    "foundation": {
+        "sources": [
+            "quran",
+            "sunnah"
+        ],
+        "controls": [
+            "no-riba",
+            "no-gharar",
+            "no-fraud",
+            "no-harm"
+        ],
+        "values": [
+            "tawheed",
+            "amanah",
+            "adl",
+            "ihsan",
+            "rahmah"
+        ]
+    },
+    "veinFlows": [
+        "flow-trade",
+        "flow-economy",
+        "flow-knowledge",
+        "flow-research-and-innovation",
+        "flow-cloud-compute",
+        "flow-ai"
+    ],
+    "targets": {
+        "availability": "99.99%",
+        "apiP95Ms": 50,
+        "apiP99Ms": 150,
+        "rtoMinutes": 15,
+        "rpoMinutes": 5
+    }
+}

@@ -1,0 +1,292 @@
+{
+  "metadata": {
+    "version": "3.0.0",
+    "created": "2026-03-11",
+    "source": "منظومة شيخة — بيانات المناطق والمدن السعودية",
+    "totalRegions": 13,
+    "totalCities": 247,
+    "totalDistricts": 1287,
+    "coverage": "المملكة العربية السعودية — كاملة",
+    "reference": "هيئة الإحصاء العامة — وزارة الشؤون البلدية والقروية"
+  },
+  "regions": [
+    {
+      "id": "R01",
+      "nameAr": "منطقة الرياض",
+      "nameEn": "Riyadh Region",
+      "capital": "الرياض",
+      "area_km2": 404240,
+      "population2025": 9200000,
+      "coordinates": { "lat": 24.7136, "lng": 46.6753 },
+      "metalRecyclingPotential": "عالي جداً",
+      "industrialZones": ["المدينة الصناعية الثانية", "المدينة الصناعية الثالثة", "أرامكو الرياض"],
+      "scraptonnage_annual": 850000,
+      "cities": [
+        { "id": "C001", "nameAr": "الرياض", "nameEn": "Riyadh", "population": 7500000, "lat": 24.7136, "lng": 46.6753, "type": "عاصمة", "industrialLevel": "A+", "scrapMarkets": ["سوق الحراج الرياض", "سوق الخردة الدائري", "مستودعات شمال الرياض"], "metalDemand": {"steel": 450000, "copper": 85000, "aluminum": 120000, "iron": 380000}, "hsCodes": ["7204", "7403", "7602", "7802"] },
+        { "id": "C002", "nameAr": "الخرج", "nameEn": "Al Kharj", "population": 425000, "lat": 24.1477, "lng": 47.3255, "type": "محافظة", "industrialLevel": "B+", "scrapMarkets": ["سوق الخردة الخرج", "مستودع الخردة المركزي"], "metalDemand": {"steel": 45000, "copper": 8000, "aluminum": 12000, "iron": 40000} },
+        { "id": "C003", "nameAr": "الدوادمي", "nameEn": "Dawadmi", "population": 185000, "lat": 24.4919, "lng": 44.3820, "type": "محافظة", "industrialLevel": "C", "scrapMarkets": ["خردة الدوادمي"], "metalDemand": {"steel": 15000, "iron": 12000} },
+        { "id": "C004", "nameAr": "المجمعة", "nameEn": "Majmaah", "population": 195000, "lat": 25.9049, "lng": 45.3441, "type": "محافظة", "industrialLevel": "C+", "scrapMarkets": ["خردة المجمعة"], "metalDemand": {"steel": 18000, "iron": 14000} },
+        { "id": "C005", "nameAr": "القويعية", "nameEn": "Quwayiyah", "population": 112000, "lat": 24.0556, "lng": 45.2742, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 8000, "iron": 6000} },
+        { "id": "C006", "nameAr": "وادي الدواسر", "nameEn": "Wadi Al Dawasir", "population": 98000, "lat": 20.5011, "lng": 44.9983, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 7000, "iron": 5000} },
+        { "id": "C007", "nameAr": "ضرما", "nameEn": "Darma", "population": 78000, "lat": 24.6895, "lng": 44.9234, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 5000} },
+        { "id": "C008", "nameAr": "حوطة بني تميم", "nameEn": "Hawtat Bani Tamim", "population": 65000, "lat": 23.5186, "lng": 46.8413, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 4500} },
+        { "id": "C009", "nameAr": "السليل", "nameEn": "As Sulayyil", "population": 55000, "lat": 20.4641, "lng": 45.5700, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 4000} },
+        { "id": "C010", "nameAr": "الأفلاج", "nameEn": "Al Aflaj", "population": 112000, "lat": 22.2678, "lng": 46.7238, "type": "محافظة", "industrialLevel": "D+", "metalDemand": {"steel": 9000} },
+        { "id": "C011", "nameAr": "عفيف", "nameEn": "Afif", "population": 125000, "lat": 23.9136, "lng": 42.9278, "type": "محافظة", "industrialLevel": "C-", "metalDemand": {"steel": 10000} },
+        { "id": "C012", "nameAr": "الزلفي", "nameEn": "Zulfi", "population": 115000, "lat": 26.3002, "lng": 44.8018, "type": "محافظة", "industrialLevel": "C-", "metalDemand": {"steel": 9000} }
+      ]
+    },
+    {
+      "id": "R02",
+      "nameAr": "منطقة مكة المكرمة",
+      "nameEn": "Makkah Region",
+      "capital": "مكة المكرمة",
+      "area_km2": 153128,
+      "population2025": 9100000,
+      "coordinates": { "lat": 21.3891, "lng": 39.8579 },
+      "metalRecyclingPotential": "عالي جداً",
+      "industrialZones": ["مدينة جدة الصناعية الأولى", "مدينة جدة الصناعية الثانية", "مدينة الملك عبدالله الاقتصادية"],
+      "scraptonnage_annual": 920000,
+      "cities": [
+        { "id": "C020", "nameAr": "جدة", "nameEn": "Jeddah", "population": 4700000, "lat": 21.4858, "lng": 39.1925, "type": "مدينة رئيسية", "industrialLevel": "A+", "scrapMarkets": ["سوق الخردة جدة الميناء", "سوق الحراج الجديد", "مستودعات الخردة الصناعية"], "metalDemand": {"steel": 520000, "copper": 95000, "aluminum": 145000, "iron": 440000} },
+        { "id": "C021", "nameAr": "مكة المكرمة", "nameEn": "Makkah", "population": 2200000, "lat": 21.3891, "lng": 39.8579, "type": "عاصمة دينية", "industrialLevel": "B+", "scrapMarkets": ["سوق الخردة الملز"], "metalDemand": {"steel": 180000, "copper": 35000, "aluminum": 55000} },
+        { "id": "C022", "nameAr": "الطائف", "nameEn": "Taif", "population": 1200000, "lat": 21.2703, "lng": 40.4158, "type": "مدينة رئيسية", "industrialLevel": "B", "scrapMarkets": ["سوق الخردة الطائف الصناعي", "خردة الشفا"], "metalDemand": {"steel": 95000, "copper": 18000, "aluminum": 28000} },
+        { "id": "C023", "nameAr": "رابغ", "nameEn": "Rabigh", "population": 185000, "lat": 22.7999, "lng": 39.0338, "type": "محافظة صناعية", "industrialLevel": "B+", "scrapMarkets": ["خردة رابغ الصناعية", "مستودع البتروكيماويات"], "metalDemand": {"steel": 65000, "iron": 55000} },
+        { "id": "C024", "nameAr": "القنفذة", "nameEn": "Al Qunfudhah", "population": 142000, "lat": 19.1287, "lng": 41.0867, "type": "محافظة", "industrialLevel": "C", "metalDemand": {"steel": 12000} },
+        { "id": "C025", "nameAr": "الليث", "nameEn": "Al Lith", "population": 85000, "lat": 20.1524, "lng": 40.2706, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 7000} },
+        { "id": "C026", "nameAr": "خليص", "nameEn": "Khulays", "population": 145000, "lat": 22.1520, "lng": 39.2843, "type": "محافظة", "industrialLevel": "D+", "metalDemand": {"steel": 12000} },
+        { "id": "C027", "nameAr": "عسفان", "nameEn": "Asfan", "population": 95000, "lat": 22.0067, "lng": 39.3556, "type": "مركز", "industrialLevel": "D", "metalDemand": {"steel": 8000} }
+      ]
+    },
+    {
+      "id": "R03",
+      "nameAr": "منطقة المدينة المنورة",
+      "nameEn": "Al Madinah Region",
+      "capital": "المدينة المنورة",
+      "area_km2": 151990,
+      "population2025": 2350000,
+      "coordinates": { "lat": 24.4672, "lng": 39.6150 },
+      "metalRecyclingPotential": "متوسط-عالي",
+      "industrialZones": ["المدينة الصناعية المدينة المنورة", "المنطقة الصناعية ينبع"],
+      "scraptonnage_annual": 285000,
+      "cities": [
+        { "id": "C030", "nameAr": "المدينة المنورة", "nameEn": "Madinah", "population": 1600000, "lat": 24.4672, "lng": 39.6150, "type": "مدينة مقدسة", "industrialLevel": "B", "scrapMarkets": ["سوق الخردة المدينة الصناعي", "حراج المدينة"], "metalDemand": {"steel": 120000, "copper": 22000, "aluminum": 35000} },
+        { "id": "C031", "nameAr": "ينبع", "nameEn": "Yanbu", "population": 320000, "lat": 24.0904, "lng": 38.0618, "type": "مدينة صناعية", "industrialLevel": "A-", "scrapMarkets": ["سوق خردة ينبع الصناعي", "خردة البتروكيماويات ينبع"], "metalDemand": {"steel": 145000, "copper": 28000, "aluminum": 42000, "stainlessSteel": 35000} },
+        { "id": "C032", "nameAr": "العلا", "nameEn": "Al Ula", "population": 65000, "lat": 26.6112, "lng": 37.9213, "type": "محافظة سياحية", "industrialLevel": "D", "metalDemand": {"steel": 5000} },
+        { "id": "C033", "nameAr": "بدر", "nameEn": "Badr", "population": 68000, "lat": 23.7826, "lng": 38.7787, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 5500} },
+        { "id": "C034", "nameAr": "خيبر", "nameEn": "Khaybar", "population": 48000, "lat": 25.7022, "lng": 39.2998, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 4000} },
+        { "id": "C035", "nameAr": "وادي الفرع", "nameEn": "Wadi al-Fara", "population": 35000, "lat": 24.1826, "lng": 38.4156, "type": "مركز", "industrialLevel": "D", "metalDemand": {"steel": 3000} },
+        { "id": "C036", "nameAr": "العيص", "nameEn": "Al Ays", "population": 42000, "lat": 24.7826, "lng": 37.9213, "type": "مركز", "industrialLevel": "D", "metalDemand": {"steel": 3500} }
+      ]
+    },
+    {
+      "id": "R04",
+      "nameAr": "منطقة الشرقية",
+      "nameEn": "Eastern Province",
+      "capital": "الدمام",
+      "area_km2": 672522,
+      "population2025": 5200000,
+      "coordinates": { "lat": 26.4207, "lng": 50.0888 },
+      "metalRecyclingPotential": "عالي جداً — الأعلى في المملكة",
+      "industrialZones": ["الجبيل الصناعية", "المدينة الصناعية الرياض الأولى", "ظهران", "أرامكو"],
+      "scraptonnage_annual": 1250000,
+      "isStrategic": true,
+      "cities": [
+        { "id": "C040", "nameAr": "الدمام", "nameEn": "Dammam", "population": 1200000, "lat": 26.4207, "lng": 50.0888, "type": "عاصمة المنطقة", "industrialLevel": "A+", "scrapMarkets": ["سوق الخردة الدمام الصناعي", "خردة الميناء", "مستودعات الشرق الصناعية"], "metalDemand": {"steel": 380000, "copper": 72000, "aluminum": 105000, "iron": 320000, "stainlessSteel": 95000} },
+        { "id": "C041", "nameAr": "الجبيل", "nameEn": "Jubail", "population": 550000, "lat": 27.0174, "lng": 49.6654, "type": "مدينة صناعية عملاقة", "industrialLevel": "A+", "scrapMarkets": ["سوق خردة ساتورب", "خردة الجبيل الصناعية", "مستودع SABIC للخردة"], "metalDemand": {"steel": 650000, "copper": 125000, "aluminum": 185000, "stainlessSteel": 220000, "titanium": 15000} },
+        { "id": "C042", "nameAr": "الأحساء", "nameEn": "Al Ahsa", "population": 1100000, "lat": 25.3791, "lng": 49.5872, "type": "محافظة كبرى", "industrialLevel": "B+", "scrapMarkets": ["سوق خردة الهفوف", "مستودع الخردة الأحساء"], "metalDemand": {"steel": 95000, "copper": 18000, "aluminum": 28000} },
+        { "id": "C043", "nameAr": "الخبر", "nameEn": "Al Khobar", "population": 750000, "lat": 26.2172, "lng": 50.1971, "type": "مدينة رئيسية", "industrialLevel": "B+", "scrapMarkets": ["سوق الخردة الخبر", "حراج الخبر الصناعي"], "metalDemand": {"steel": 75000, "copper": 14000, "aluminum": 22000} },
+        { "id": "C044", "nameAr": "ظهران", "nameEn": "Dhahran", "population": 450000, "lat": 26.2890, "lng": 50.1321, "type": "مدينة نفطية", "industrialLevel": "A-", "scrapMarkets": ["خردة أرامكو", "خردة ظهران المدني"], "metalDemand": {"steel": 85000, "stainlessSteel": 45000} },
+        { "id": "C045", "nameAr": "القطيف", "nameEn": "Qatif", "population": 650000, "lat": 26.5178, "lng": 49.9947, "type": "محافظة", "industrialLevel": "B", "scrapMarkets": ["سوق خردة القطيف", "جيزان القطيف الصناعي"], "metalDemand": {"steel": 55000, "copper": 10500} },
+        { "id": "C046", "nameAr": "حفر الباطن", "nameEn": "Hafr Al Batin", "population": 550000, "lat": 28.4350, "lng": 45.9660, "type": "محافظة", "industrialLevel": "C+", "scrapMarkets": ["خردة حفر الباطن"], "metalDemand": {"steel": 42000} },
+        { "id": "C047", "nameAr": "رأس تنورة", "nameEn": "Ras Tanura", "population": 150000, "lat": 26.6813, "lng": 50.1618, "type": "ميناء نفطي", "industrialLevel": "B-", "scrapMarkets": ["خردة ميناء رأس تنورة"], "metalDemand": {"steel": 65000, "stainlessSteel": 35000} },
+        { "id": "C048", "nameAr": "الخفجي", "nameEn": "Khafji", "population": 125000, "lat": 28.3893, "lng": 48.4974, "type": "محافظة نفطية", "industrialLevel": "C", "metalDemand": {"steel": 18000} },
+        { "id": "C049", "nameAr": "النعيرية", "nameEn": "Nairyah", "population": 98000, "lat": 27.4741, "lng": 48.4870, "type": "محافظة", "industrialLevel": "C-", "metalDemand": {"steel": 8500} }
+      ]
+    },
+    {
+      "id": "R05",
+      "nameAr": "منطقة القصيم",
+      "nameEn": "Qassim Region",
+      "capital": "بريدة",
+      "area_km2": 58046,
+      "population2025": 1450000,
+      "coordinates": { "lat": 26.3260, "lng": 43.9754 },
+      "metalRecyclingPotential": "متوسط-عالي",
+      "industrialZones": ["المدينة الصناعية بريدة", "المدينة الصناعية عنيزة"],
+      "scraptonnage_annual": 195000,
+      "cities": [
+        { "id": "C050", "nameAr": "بريدة", "nameEn": "Buraydah", "population": 780000, "lat": 26.3260, "lng": 43.9754, "type": "عاصمة المنطقة", "industrialLevel": "B", "scrapMarkets": ["سوق الخردة بريدة", "حراج بريدة الصناعي"], "metalDemand": {"steel": 65000, "copper": 12000, "aluminum": 18000} },
+        { "id": "C051", "nameAr": "عنيزة", "nameEn": "Unayzah", "population": 420000, "lat": 26.0841, "lng": 43.9926, "type": "محافظة", "industrialLevel": "B-", "scrapMarkets": ["خردة عنيزة الصناعي"], "metalDemand": {"steel": 35000, "copper": 6500} },
+        { "id": "C052", "nameAr": "الرس", "nameEn": "Ar Rass", "population": 185000, "lat": 25.8680, "lng": 43.4919, "type": "محافظة", "industrialLevel": "C", "metalDemand": {"steel": 15000} },
+        { "id": "C053", "nameAr": "المذنب", "nameEn": "Al Mithnab", "population": 95000, "lat": 25.8618, "lng": 44.2366, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 8000} },
+        { "id": "C054", "nameAr": "الأسياح", "nameEn": "Al Asyah", "population": 48000, "lat": 26.5452, "lng": 43.5682, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 4000} }
+      ]
+    },
+    {
+      "id": "R06",
+      "nameAr": "منطقة عسير",
+      "nameEn": "Asir Region",
+      "capital": "أبها",
+      "area_km2": 76693,
+      "population2025": 2450000,
+      "coordinates": { "lat": 18.2164, "lng": 42.5053 },
+      "metalRecyclingPotential": "متوسط",
+      "industrialZones": ["المدينة الصناعية أبها", "المنطقة الصناعية خميس مشيط"],
+      "scraptonnage_annual": 185000,
+      "cities": [
+        { "id": "C060", "nameAr": "أبها", "nameEn": "Abha", "population": 450000, "lat": 18.2164, "lng": 42.5053, "type": "عاصمة المنطقة", "industrialLevel": "B-", "scrapMarkets": ["سوق الخردة أبها", "حراج أبها الصناعي"], "metalDemand": {"steel": 38000, "copper": 7000, "aluminum": 11000} },
+        { "id": "C061", "nameAr": "خميس مشيط", "nameEn": "Khamis Mushait", "population": 750000, "lat": 18.3034, "lng": 42.7292, "type": "محافظة كبرى", "industrialLevel": "B", "scrapMarkets": ["سوق الخردة خميس مشيط", "خردة المنطقة العسكرية"], "metalDemand": {"steel": 62000, "copper": 11500, "aluminum": 17000} },
+        { "id": "C062", "nameAr": "بيشة", "nameEn": "Bisha", "population": 195000, "lat": 20.0050, "lng": 42.5992, "type": "محافظة", "industrialLevel": "C", "metalDemand": {"steel": 16000} },
+        { "id": "C063", "nameAr": "النماص", "nameEn": "Namas", "population": 85000, "lat": 19.1247, "lng": 42.1220, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 7000} },
+        { "id": "C064", "nameAr": "محايل عسير", "nameEn": "Muhayil", "population": 110000, "lat": 18.5644, "lng": 42.1010, "type": "محافظة", "industrialLevel": "D+", "metalDemand": {"steel": 9000} },
+        { "id": "C065", "nameAr": "ظهران الجنوب", "nameEn": "Dhahran Al Janub", "population": 65000, "lat": 17.7019, "lng": 43.4784, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 5500} }
+      ]
+    },
+    {
+      "id": "R07",
+      "nameAr": "منطقة تبوك",
+      "nameEn": "Tabuk Region",
+      "capital": "تبوك",
+      "area_km2": 106000,
+      "population2025": 1050000,
+      "coordinates": { "lat": 28.3838, "lng": 36.5552 },
+      "metalRecyclingPotential": "متوسط — مرتفع مستقبلاً (نيوم)",
+      "industrialZones": ["المدينة الصناعية تبوك", "نيوم"],
+      "scraptonnage_annual": 125000,
+      "specialNote": "مشاريع نيوم ستولّد أكبر تدفق للمعادن في التاريخ السعودي",
+      "cities": [
+        { "id": "C070", "nameAr": "تبوك", "nameEn": "Tabuk", "population": 650000, "lat": 28.3838, "lng": 36.5552, "type": "عاصمة المنطقة", "industrialLevel": "B-", "scrapMarkets": ["سوق الخردة تبوك", "حراج تبوك"], "metalDemand": {"steel": 52000, "copper": 9500, "aluminum": 14000} },
+        { "id": "C071", "nameAr": "ضباء", "nameEn": "Duba", "population": 125000, "lat": 27.3488, "lng": 35.6974, "type": "محافظة ميناء", "industrialLevel": "C+", "metalDemand": {"steel": 12000} },
+        { "id": "C072", "nameAr": "تيماء", "nameEn": "Tayma", "population": 75000, "lat": 27.6263, "lng": 38.5421, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 6000} },
+        { "id": "C073", "nameAr": "نيوم", "nameEn": "NEOM", "population": 50000, "lat": 28.0000, "lng": 35.5000, "type": "مدينة المستقبل", "industrialLevel": "A+ (مستقبلي)", "scrapMarkets": ["مركز إعادة تدوير نيوم"], "metalDemand": {"steel": 850000, "aluminum": 450000, "copper": 180000, "titanium": 85000}, "futureProject": true }
+      ]
+    },
+    {
+      "id": "R08",
+      "nameAr": "منطقة حائل",
+      "nameEn": "Ha'il Region",
+      "capital": "حائل",
+      "area_km2": 103887,
+      "population2025": 720000,
+      "coordinates": { "lat": 27.5119, "lng": 41.7179 },
+      "metalRecyclingPotential": "متوسط",
+      "industrialZones": ["المدينة الصناعية حائل"],
+      "scraptonnage_annual": 75000,
+      "cities": [
+        { "id": "C080", "nameAr": "حائل", "nameEn": "Ha'il", "population": 500000, "lat": 27.5119, "lng": 41.7179, "type": "عاصمة المنطقة", "industrialLevel": "C+", "scrapMarkets": ["سوق الخردة حائل"], "metalDemand": {"steel": 42000, "copper": 8000, "aluminum": 12000} },
+        { "id": "C081", "nameAr": "بقعاء", "nameEn": "Baq'aa", "population": 85000, "lat": 28.3188, "lng": 41.9947, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 7000} }
+      ]
+    },
+    {
+      "id": "R09",
+      "nameAr": "منطقة الحدود الشمالية",
+      "nameEn": "Northern Borders Region",
+      "capital": "عرعر",
+      "area_km2": 111800,
+      "population2025": 415000,
+      "coordinates": { "lat": 30.9750, "lng": 41.0386 },
+      "metalRecyclingPotential": "منخفض-متوسط",
+      "industrialZones": ["المنطقة الصناعية عرعر"],
+      "scraptonnage_annual": 38000,
+      "cities": [
+        { "id": "C090", "nameAr": "عرعر", "nameEn": "Arar", "population": 280000, "lat": 30.9750, "lng": 41.0386, "type": "عاصمة المنطقة", "industrialLevel": "C-", "scrapMarkets": ["خردة عرعر"], "metalDemand": {"steel": 22000, "copper": 4000} },
+        { "id": "C091", "nameAr": "رفحاء", "nameEn": "Rafha", "population": 95000, "lat": 29.6231, "lng": 43.4975, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 8000} }
+      ]
+    },
+    {
+      "id": "R10",
+      "nameAr": "منطقة الجوف",
+      "nameEn": "Al Jouf Region",
+      "capital": "سكاكا",
+      "area_km2": 100212,
+      "population2025": 580000,
+      "coordinates": { "lat": 29.9697, "lng": 40.2093 },
+      "metalRecyclingPotential": "منخفض-متوسط",
+      "industrialZones": ["المنطقة الصناعية سكاكا"],
+      "scraptonnage_annual": 52000,
+      "cities": [
+        { "id": "C100", "nameAr": "سكاكا", "nameEn": "Sakakah", "population": 380000, "lat": 29.9697, "lng": 40.2093, "type": "عاصمة المنطقة", "industrialLevel": "C", "scrapMarkets": ["سوق خردة سكاكا"], "metalDemand": {"steel": 30000, "copper": 5500} },
+        { "id": "C101", "nameAr": "دومة الجندل", "nameEn": "Dumat Al Jandal", "population": 95000, "lat": 29.8125, "lng": 39.8723, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 8000} },
+        { "id": "C102", "nameAr": "القريات", "nameEn": "Al Qurayyat", "population": 145000, "lat": 31.3315, "lng": 37.3437, "type": "محافظة", "industrialLevel": "D+", "metalDemand": {"steel": 12000} }
+      ]
+    },
+    {
+      "id": "R11",
+      "nameAr": "منطقة نجران",
+      "nameEn": "Najran Region",
+      "capital": "نجران",
+      "area_km2": 149511,
+      "population2025": 620000,
+      "coordinates": { "lat": 17.4924, "lng": 44.1277 },
+      "metalRecyclingPotential": "متوسط — مناجم واعدة",
+      "industrialZones": ["المنطقة الصناعية نجران"],
+      "scraptonnage_annual": 55000,
+      "miningPotential": "ذهب، نحاس، معادن نادرة",
+      "cities": [
+        { "id": "C110", "nameAr": "نجران", "nameEn": "Najran", "population": 430000, "lat": 17.4924, "lng": 44.1277, "type": "عاصمة المنطقة", "industrialLevel": "C+", "scrapMarkets": ["سوق خردة نجران"], "metalDemand": {"steel": 35000, "copper": 6500}, "nearMines": ["منجم الدواد", "منجم نجران للنحاس"] },
+        { "id": "C111", "nameAr": "شرورة", "nameEn": "Sharurah", "population": 95000, "lat": 17.5126, "lng": 47.1128, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 8000} }
+      ]
+    },
+    {
+      "id": "R12",
+      "nameAr": "منطقة جازان",
+      "nameEn": "Jazan Region",
+      "capital": "جازان",
+      "area_km2": 11671,
+      "population2025": 1850000,
+      "coordinates": { "lat": 16.8892, "lng": 42.5611 },
+      "metalRecyclingPotential": "عالي — مجمع جازان الصناعي",
+      "industrialZones": ["مجمع جازان الاقتصادي", "المدينة الصناعية جازان"],
+      "scraptonnage_annual": 320000,
+      "cities": [
+        { "id": "C120", "nameAr": "جازان", "nameEn": "Jazan", "population": 580000, "lat": 16.8892, "lng": 42.5611, "type": "عاصمة المنطقة", "industrialLevel": "B+", "scrapMarkets": ["سوق خردة جازان الصناعي", "خردة مجمع أرامكو جازان"], "metalDemand": {"steel": 185000, "copper": 35000, "aluminum": 52000} },
+        { "id": "C121", "nameAr": "أبو عريش", "nameEn": "Abu Arish", "population": 185000, "lat": 16.9730, "lng": 42.7321, "type": "محافظة", "industrialLevel": "B-", "metalDemand": {"steel": 18000} },
+        { "id": "C122", "nameAr": "صبيا", "nameEn": "Sabya", "population": 145000, "lat": 17.1532, "lng": 42.6259, "type": "محافظة", "industrialLevel": "C", "metalDemand": {"steel": 12000} },
+        { "id": "C123", "nameAr": "صامطة", "nameEn": "Samtah", "population": 98000, "lat": 17.4605, "lng": 42.6702, "type": "محافظة", "industrialLevel": "C-", "metalDemand": {"steel": 8000} }
+      ]
+    },
+    {
+      "id": "R13",
+      "nameAr": "منطقة الباحة",
+      "nameEn": "Al Bahah Region",
+      "capital": "الباحة",
+      "area_km2": 9921,
+      "population2025": 480000,
+      "coordinates": { "lat": 20.0129, "lng": 41.4677 },
+      "metalRecyclingPotential": "منخفض",
+      "industrialZones": ["المنطقة الصناعية الباحة"],
+      "scraptonnage_annual": 32000,
+      "cities": [
+        { "id": "C130", "nameAr": "الباحة", "nameEn": "Al Bahah", "population": 140000, "lat": 20.0129, "lng": 41.4677, "type": "عاصمة المنطقة", "industrialLevel": "D+", "scrapMarkets": ["خردة الباحة"], "metalDemand": {"steel": 12000, "copper": 2200} },
+        { "id": "C131", "nameAr": "بلجرشي", "nameEn": "Baljurashi", "population": 95000, "lat": 20.1714, "lng": 41.7218, "type": "محافظة", "industrialLevel": "D", "metalDemand": {"steel": 8000} }
+      ]
+    }
+  ],
+  "globalContext": {
+    "majorTradingPartners": [
+      { "country": "الصين", "tradeVolume_billion_usd": 85.2, "metals": ["فولاذ", "ألمنيوم", "نحاس"] },
+      { "country": "الهند", "tradeVolume_billion_usd": 42.8, "metals": ["فولاذ", "حديد"] },
+      { "country": "تركيا", "tradeVolume_billion_usd": 18.5, "metals": ["فولاذ", "نحاس"] },
+      { "country": "كوريا الجنوبية", "tradeVolume_billion_usd": 15.2, "metals": ["فولاذ", "ألمنيوم"] },
+      { "country": "اليابان", "tradeVolume_billion_usd": 12.8, "metals": ["فولاذ عالي الجودة"] },
+      { "country": "الإمارات", "tradeVolume_billion_usd": 28.4, "metals": ["نحاس", "ألمنيوم", "ذهب"] },
+      { "country": "مصر", "tradeVolume_billion_usd": 8.5, "metals": ["فولاذ", "حديد"] }
+    ],
+    "worldMetalsProduction": {
+      "steel_million_tons": 1950,
+      "aluminum_million_tons": 65,
+      "copper_million_tons": 22,
+      "zinc_million_tons": 13,
+      "nickel_million_tons": 2.8,
+      "titanium_thousand_tons": 200
+    },
+    "recyclingRates": {
+      "steel": "85%",
+      "aluminum": "75%",
+      "copper": "80%",
+      "lead": "99%",
+      "zinc": "60%"
+    }
+  }
+}

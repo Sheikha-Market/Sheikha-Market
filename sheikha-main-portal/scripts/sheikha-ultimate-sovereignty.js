@@ -67,7 +67,7 @@ async function runUltimateSovereignty() {
 }
 
 if (require.main === module) {
-    runUltimateSovereignty().catch((error) => {
+    runUltimateSovereignty().catch(error => {
         console.error('❌ خطأ في تشغيل السيادة الكونية:', error.message);
         process.exit(1);
     });

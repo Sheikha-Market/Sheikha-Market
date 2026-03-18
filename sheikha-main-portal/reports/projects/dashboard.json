@@ -1,0 +1,408 @@
+{
+  "title": "شيخة — لوحة إدارة المشاريع",
+  "generatedAt": "2026-03-12T02:02:46.159Z",
+  "owner": "سلمان أحمد بن سلمان الراجح",
+  "principle": "إن الله يحب إذا عمل أحدكم عملاً أن يتقنه",
+  "globalStats": {
+    "totalProjects": 6,
+    "activeProjects": 6,
+    "completedProjects": 0,
+    "criticalProjects": 3,
+    "totalTasks": 8,
+    "completedTasks": 0,
+    "overdueTasksGlobal": 0,
+    "avgCompletionRate": 0,
+    "globalHealthScore": 0
+  },
+  "projects": [
+    {
+      "id": "sheikha-market-ops",
+      "nameAr": "عمليات سوق شيخة",
+      "nameEn": "Sheikha Market Operations",
+      "type": "operational",
+      "status": "active",
+      "priority": "critical",
+      "owner": "سلمان الراجح",
+      "team": [],
+      "gcloudProject": "sheikha-market-ops",
+      "gcloudBucket": "sheikha-market-data",
+      "bqDataset": "sheikha_market",
+      "tags": [
+        "cloud",
+        "market",
+        "google-cloud"
+      ],
+      "phases": [
+        {
+          "id": 1,
+          "nameAr": "البنية التحتية",
+          "nameEn": "Infrastructure",
+          "status": "active"
+        },
+        {
+          "id": 2,
+          "nameAr": "المعالجة",
+          "nameEn": "Processing",
+          "status": "pending"
+        },
+        {
+          "id": 3,
+          "nameAr": "التحليل",
+          "nameEn": "Analytics",
+          "status": "pending"
+        }
+      ],
+      "createdAt": "2026-03-12T02:02:43.072Z",
+      "updatedAt": "2026-03-12T02:02:43.072Z",
+      "kpi": {
+        "tasksTotal": 8,
+        "tasksCompleted": 0,
+        "tasksInProgress": 0,
+        "tasksPending": 8,
+        "tasksBlocked": 0,
+        "tasksOverdue": 0,
+        "completionRate": 0,
+        "healthScore": 0,
+        "overallScore": 0
+      },
+      "cloudSync": {
+        "projectId": "sheikha-market-ops",
+        "gcloudProject": "sheikha-market-ops",
+        "storage": {
+          "status": "not-found",
+          "bucketName": "sheikha-market-data",
+          "exists": false
+        },
+        "bigquery": {
+          "status": "exists",
+          "dataset": "sheikha_market",
+          "exists": true
+        },
+        "timestamp": "2026-03-12T02:02:43.074Z",
+        "overallCloudStatus": "connected"
+      }
+    },
+    {
+      "id": "sheikha-portal",
+      "nameAr": "بوابة شيخة الرئيسية",
+      "nameEn": "Sheikha Main Portal",
+      "type": "strategic",
+      "status": "active",
+      "priority": "critical",
+      "owner": "سلمان الراجح",
+      "team": [],
+      "gcloudProject": null,
+      "gcloudBucket": null,
+      "bqDataset": null,
+      "tags": [
+        "portal",
+        "web",
+        "pwa"
+      ],
+      "phases": [
+        {
+          "id": 1,
+          "nameAr": "البنية الأساسية",
+          "nameEn": "Core",
+          "status": "completed"
+        },
+        {
+          "id": 2,
+          "nameAr": "الاندماج",
+          "nameEn": "Integration",
+          "status": "active"
+        },
+        {
+          "id": 3,
+          "nameAr": "الإطلاق",
+          "nameEn": "Launch",
+          "status": "pending"
+        }
+      ],
+      "createdAt": "2026-03-12T02:02:43.072Z",
+      "updatedAt": "2026-03-12T02:02:43.072Z",
+      "kpi": {
+        "tasksTotal": 0,
+        "tasksCompleted": 0,
+        "tasksInProgress": 0,
+        "tasksPending": 0,
+        "tasksBlocked": 0,
+        "tasksOverdue": 0,
+        "completionRate": 0,
+        "healthScore": 0,
+        "overallScore": 0
+      },
+      "cloudSync": {
+        "projectId": "sheikha-portal",
+        "gcloudProject": null,
+        "storage": {
+          "status": "no-gcloud-project",
+          "bucketName": null
+        },
+        "bigquery": {
+          "status": "no-gcloud-project",
+          "dataset": null
+        },
+        "timestamp": "2026-03-12T02:02:43.227Z"
+      }
+    },
+    {
+      "id": "sheikha-scrap-market",
+      "nameAr": "سوق المعادن والسكراب",
+      "nameEn": "Scrap & Metals Market",
+      "type": "strategic",
+      "status": "active",
+      "priority": "high",
+      "owner": "سلمان الراجح",
+      "team": [],
+      "gcloudProject": null,
+      "gcloudBucket": null,
+      "bqDataset": null,
+      "tags": [
+        "market",
+        "metals",
+        "scrap",
+        "halal"
+      ],
+      "phases": [
+        {
+          "id": 1,
+          "nameAr": "قوائم المنتجات",
+          "nameEn": "Listings",
+          "status": "active"
+        },
+        {
+          "id": 2,
+          "nameAr": "طلبات الشراء",
+          "nameEn": "RFQ",
+          "status": "active"
+        },
+        {
+          "id": 3,
+          "nameAr": "مؤشر شيخة",
+          "nameEn": "Index",
+          "status": "active"
+        },
+        {
+          "id": 4,
+          "nameAr": "المدفوعات",
+          "nameEn": "Payments",
+          "status": "pending"
+        }
+      ],
+      "createdAt": "2026-03-12T02:02:43.072Z",
+      "updatedAt": "2026-03-12T02:02:43.072Z",
+      "kpi": {
+        "tasksTotal": 0,
+        "tasksCompleted": 0,
+        "tasksInProgress": 0,
+        "tasksPending": 0,
+        "tasksBlocked": 0,
+        "tasksOverdue": 0,
+        "completionRate": 0,
+        "healthScore": 0,
+        "overallScore": 0
+      },
+      "cloudSync": {
+        "projectId": "sheikha-scrap-market",
+        "gcloudProject": null,
+        "storage": {
+          "status": "no-gcloud-project",
+          "bucketName": null
+        },
+        "bigquery": {
+          "status": "no-gcloud-project",
+          "dataset": null
+        },
+        "timestamp": "2026-03-12T02:02:43.227Z"
+      }
+    },
+    {
+      "id": "sheikha-google-alliance",
+      "nameAr": "تحالف Google Cloud",
+      "nameEn": "Google Cloud Alliance",
+      "type": "partnership",
+      "status": "active",
+      "priority": "high",
+      "owner": "سلمان الراجح",
+      "team": [],
+      "gcloudProject": "sheikha-market-ops",
+      "gcloudBucket": null,
+      "bqDataset": null,
+      "tags": [
+        "google",
+        "cloud",
+        "alliance"
+      ],
+      "phases": [
+        {
+          "id": 1,
+          "nameAr": "المصادقة",
+          "nameEn": "Auth & Identity",
+          "status": "completed"
+        },
+        {
+          "id": 2,
+          "nameAr": "الموارد",
+          "nameEn": "Resources",
+          "status": "active"
+        },
+        {
+          "id": 3,
+          "nameAr": "التحليلات",
+          "nameEn": "Analytics",
+          "status": "pending"
+        }
+      ],
+      "createdAt": "2026-03-12T02:02:43.073Z",
+      "updatedAt": "2026-03-12T02:02:43.073Z",
+      "kpi": {
+        "tasksTotal": 0,
+        "tasksCompleted": 0,
+        "tasksInProgress": 0,
+        "tasksPending": 0,
+        "tasksBlocked": 0,
+        "tasksOverdue": 0,
+        "completionRate": 0,
+        "healthScore": 0,
+        "overallScore": 0
+      },
+      "cloudSync": {
+        "projectId": "sheikha-google-alliance",
+        "gcloudProject": "sheikha-market-ops",
+        "storage": {
+          "status": "skipped",
+          "bucketName": null
+        },
+        "bigquery": {
+          "status": "skipped",
+          "dataset": null
+        },
+        "timestamp": "2026-03-12T02:02:43.227Z",
+        "overallCloudStatus": "connected"
+      }
+    },
+    {
+      "id": "sheikha-microsoft-alliance",
+      "nameAr": "تحالف Microsoft",
+      "nameEn": "Microsoft Alliance",
+      "type": "partnership",
+      "status": "active",
+      "priority": "high",
+      "owner": "سلمان الراجح",
+      "team": [],
+      "gcloudProject": null,
+      "gcloudBucket": null,
+      "bqDataset": null,
+      "tags": [
+        "microsoft",
+        "azure",
+        "alliance"
+      ],
+      "phases": [
+        {
+          "id": 1,
+          "nameAr": "الحوكمة",
+          "nameEn": "Governance",
+          "status": "active"
+        },
+        {
+          "id": 2,
+          "nameAr": "التكامل",
+          "nameEn": "Integration",
+          "status": "pending"
+        }
+      ],
+      "createdAt": "2026-03-12T02:02:43.073Z",
+      "updatedAt": "2026-03-12T02:02:43.073Z",
+      "kpi": {
+        "tasksTotal": 0,
+        "tasksCompleted": 0,
+        "tasksInProgress": 0,
+        "tasksPending": 0,
+        "tasksBlocked": 0,
+        "tasksOverdue": 0,
+        "completionRate": 0,
+        "healthScore": 0,
+        "overallScore": 0
+      },
+      "cloudSync": {
+        "projectId": "sheikha-microsoft-alliance",
+        "gcloudProject": null,
+        "storage": {
+          "status": "no-gcloud-project",
+          "bucketName": null
+        },
+        "bigquery": {
+          "status": "no-gcloud-project",
+          "dataset": null
+        },
+        "timestamp": "2026-03-12T02:02:43.227Z"
+      }
+    },
+    {
+      "id": "sheikha-shariah-engine",
+      "nameAr": "محرك الشريعة الإسلامية",
+      "nameEn": "Shariah Compliance Engine",
+      "type": "r&d",
+      "status": "active",
+      "priority": "critical",
+      "owner": "سلمان الراجح",
+      "team": [],
+      "gcloudProject": null,
+      "gcloudBucket": null,
+      "bqDataset": null,
+      "tags": [
+        "shariah",
+        "halal",
+        "compliance"
+      ],
+      "phases": [
+        {
+          "id": 1,
+          "nameAr": "مرجع الأحكام",
+          "nameEn": "Reference",
+          "status": "active"
+        },
+        {
+          "id": 2,
+          "nameAr": "حاسبة الزكاة",
+          "nameEn": "Zakat Calc",
+          "status": "active"
+        },
+        {
+          "id": 3,
+          "nameAr": "الفتوى الذكية",
+          "nameEn": "Smart Fatwa",
+          "status": "pending"
+        }
+      ],
+      "createdAt": "2026-03-12T02:02:43.073Z",
+      "updatedAt": "2026-03-12T02:02:43.073Z",
+      "kpi": {
+        "tasksTotal": 0,
+        "tasksCompleted": 0,
+        "tasksInProgress": 0,
+        "tasksPending": 0,
+        "tasksBlocked": 0,
+        "tasksOverdue": 0,
+        "completionRate": 0,
+        "healthScore": 0,
+        "overallScore": 0
+      },
+      "cloudSync": {
+        "projectId": "sheikha-shariah-engine",
+        "gcloudProject": null,
+        "storage": {
+          "status": "no-gcloud-project",
+          "bucketName": null
+        },
+        "bigquery": {
+          "status": "no-gcloud-project",
+          "dataset": null
+        },
+        "timestamp": "2026-03-12T02:02:43.227Z"
+      }
+    }
+  ]
+}

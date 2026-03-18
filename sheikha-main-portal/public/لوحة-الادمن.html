@@ -1608,6 +1608,34 @@ quick
         </div>
     </div>
 
+    <!-- إطار السوق الشرعي + تنظيم المحتوى الإسلامي (إداري) -->
+    <div class="card" id="adminShariaAudienceCard">
+        <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 4.5v6c0 5.25-3.75 8.25-9 9.5-5.25-1.25-9-4.25-9-9.5v-6L12 3z"/></svg>
+            إطار السوق الشرعي وتنظيم المحتوى (إداري)
+        </div>
+        <div id="adminShariaAudienceStatus" style="margin-bottom:10px;font-size:.78rem;color:var(--text-muted)">جاري تحميل إطار التعامل الشرعي...</div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:10px">
+            <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px">
+                <div style="font-size:.68rem;color:var(--text-muted);margin-bottom:6px">قواعد السوق الشرعي</div>
+                <div id="adminShariaRules" style="font-size:.74rem;line-height:1.9;color:var(--text2)">—</div>
+            </div>
+            <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px">
+                <div style="font-size:.68rem;color:var(--text-muted);margin-bottom:6px">تعامل الفئات</div>
+                <div id="adminShariaAudience" style="font-size:.74rem;line-height:1.9;color:var(--text2)">—</div>
+            </div>
+            <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px">
+                <div style="font-size:.68rem;color:var(--text-muted);margin-bottom:6px">منهج المحتوى</div>
+                <div id="adminIslamicGuidance" style="font-size:.74rem;line-height:1.9;color:var(--text2)">—</div>
+            </div>
+        </div>
+
+        <div id="adminIslamicReferences" style="font-size:.7rem;color:var(--text-muted);line-height:1.9;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px">
+            المراجع: —
+        </div>
+    </div>
+
     <!-- Sheikha Summit Indices -->
     <div class="card">
         <div class="card-title">
@@ -9279,9 +9307,51 @@ async function runShariaFinancialSplit() {
     }
 }
 
+async function loadAdminShariaAudienceFramework() {
+    const statusEl = document.getElementById('adminShariaAudienceStatus');
+    const rulesEl = document.getElementById('adminShariaRules');
+    const audienceEl = document.getElementById('adminShariaAudience');
+    const guidanceEl = document.getElementById('adminIslamicGuidance');
+    const refsEl = document.getElementById('adminIslamicReferences');
+    if (!statusEl || !rulesEl || !audienceEl || !guidanceEl || !refsEl) return;
+
+    statusEl.textContent = 'جاري تحميل إطار التعامل الشرعي...';
+    try {
+        const marketRes = await fetch('/api/sheikha/market/sharia-audience-framework', { cache: 'no-store' });
+        const contentRes = await fetch('/api/sheikha/content/islamic-governance', { cache: 'no-store' });
+
+        const marketJson = marketRes.ok ? await marketRes.json() : null;
+        const contentJson = contentRes.ok ? await contentRes.json() : null;
+
+        const marketData = marketJson && marketJson.success ? (marketJson.data || {}) : {};
+        const contentData = contentJson && contentJson.success ? (contentJson.data || {}) : {};
+
+        const rules = (marketData.marketPolicy && marketData.marketPolicy.rules) || [];
+        const handling = []
+            .concat((marketData.userHandling && marketData.userHandling.muslimUsers) || [])
+            .concat((marketData.userHandling && marketData.userHandling.nonMuslimUsers) || [])
+            .concat((marketData.userHandling && marketData.userHandling.commonExperience) || []);
+        const guidance = (contentData.foundation && contentData.foundation.guidanceMethod) || [];
+        const refs = (contentData.contentStructure && contentData.contentStructure.keyReferences) || [];
+
+        rulesEl.textContent = rules.length ? rules.join(' | ') : 'لا ربا | لا غرر | لا غش | لا احتكار';
+        audienceEl.textContent = handling.length ? handling.slice(0, 6).join(' | ') : 'عدل المعاملة | وضوح الشروط | حفظ الحقوق';
+        guidanceEl.textContent = guidance.length ? guidance.join(' | ') : 'الدعوة بالحكمة | الموعظة الحسنة | حسن الخلق';
+        refsEl.textContent = 'المراجع: ' + (refs.length ? refs.slice(0, 3).join(' | ') : 'ادع إلى سبيل ربك بالحكمة والموعظة الحسنة | لا إكراه في الدين');
+
+        statusEl.textContent = 'تم التفعيل الإداري لإطار السوق الشرعي وتنظيم المحتوى الإسلامي.';
+        statusEl.style.color = 'var(--green)';
+    } catch (_) {
+        statusEl.textContent = 'تعذر تحميل الإطار حاليًا — تم إبقاء آخر نسخة مرئية.';
+        statusEl.style.color = 'var(--orange)';
+    }
+}
+
 // تحميل عند البداية وتحديث دوري
 loadEnterpriseGovernance();
+loadAdminShariaAudienceFramework();
 setInterval(loadEnterpriseGovernance, 120000);
+setInterval(loadAdminShariaAudienceFramework, 180000);
 
 // ══════════════════════════════════════════════════════════
 // إصدار التوكن من داخل الصفحة (للتحقق السريع)

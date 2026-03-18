@@ -19,6 +19,8 @@ const SheikhaOllamaOrchestrator = require('../lib/sheikha-ollama-orchestrator');
 let SheikaAIEngine = null;
 let DevelopmentEngine = null;
 let localMind = null;
+const enableLocalMindBoot = String(process.env.SHEIKHA_LOCALMIND_BOOT || '').toLowerCase() === '1' ||
+    String(process.env.SHEIKHA_LOCALMIND_BOOT || '').toLowerCase() === 'true';
 
 try { SheikaAIEngine = require('../lib/sheikha-ai-engine'); } catch (e) {
     console.warn('⚠️ محرك ذكاء شيخة غير متوفر');
@@ -28,16 +30,21 @@ try { DevelopmentEngine = require('../lib/development-engine'); } catch (e) {
 }
 
 // ─── العقل المحلي المستقل (Neural + Lexicon + Language Model) ────────────────
-try {
-    const { SheikhaLocalMind } = require('../lib/sheikha-local-mind');
-    localMind = new SheikhaLocalMind();
-    localMind.initialize().then(() => {
-        console.log('✅ [LocalMind] عقل شيخة المحلي — جاهز ومُدرَّب | بدون API خارجي');
-    }).catch(e => {
-        console.warn('⚠️ [LocalMind] خطأ في التهيئة:', e.message);
-    });
-} catch (e) {
-    console.warn('⚠️ [LocalMind] العقل المحلي غير متوفر:', e.message);
+// ملاحظة: الإقلاع الافتراضي بدون تدريب LocalMind لتقليل استهلاك الذاكرة في بيئات التطوير.
+if (enableLocalMindBoot) {
+    try {
+        const { SheikhaLocalMind } = require('../lib/sheikha-local-mind');
+        localMind = new SheikhaLocalMind();
+        localMind.initialize().then(() => {
+            console.log('✅ [LocalMind] عقل شيخة المحلي — جاهز ومُدرَّب | بدون API خارجي');
+        }).catch(e => {
+            console.warn('⚠️ [LocalMind] خطأ في التهيئة:', e.message);
+        });
+    } catch (e) {
+        console.warn('⚠️ [LocalMind] العقل المحلي غير متوفر:', e.message);
+    }
+} else {
+    console.log('⏸️ [LocalMind] تهيئة الإقلاع معطّلة (اضبط SHEIKHA_LOCALMIND_BOOT=true للتفعيل)');
 }
 
 // ─── استيراد منظومة RAG والوكلاء ─────────────────────────────────────────────
