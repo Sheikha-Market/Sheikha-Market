@@ -34,3 +34,8 @@ build/
 .cursor/
 .vscode/
 *.swp
+
+# Runtime investment reports
+reports/state-investments/*.json
+!reports/state-investments/*latest.json
+!reports/state-investments/.gitkeep
