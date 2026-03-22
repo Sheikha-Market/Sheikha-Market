@@ -1,0 +1,95 @@
+{
+  "timestamp": "2026-03-20T17:51:26.278Z",
+  "projectId": "sheikha-market-ops",
+  "credentialMode": "adc",
+  "overallScore": 100,
+  "stabilityIndex": 100,
+  "cloud": {
+    "connected": true,
+    "projectId": "sheikha-market-ops"
+  },
+  "storage": {
+    "ok": true,
+    "bucketsCount": 0,
+    "buckets": []
+  },
+  "bigquery": {
+    "ok": true,
+    "datasetsCount": 3,
+    "datasets": [
+      {
+        "id": "sheikha_analytics",
+        "tablesCount": 3,
+        "tables": [
+          "kpi_snapshots",
+          "market_index",
+          "user_activity"
+        ]
+      },
+      {
+        "id": "sheikha_market",
+        "tablesCount": 5,
+        "tables": [
+          "listings",
+          "prices",
+          "rfq",
+          "traders",
+          "transactions"
+        ]
+      },
+      {
+        "id": "sheikha_operations",
+        "tablesCount": 3,
+        "tables": [
+          "api_events",
+          "audit_log",
+          "errors"
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "ok": true,
+    "projects": 0,
+    "activeProjects": 0,
+    "tasks": 0,
+    "completedTasks": 0,
+    "avgCompletion": 0,
+    "healthScore": 0
+  },
+  "botWellbeing": {
+    "ok": true,
+    "globalStatus": "healthy",
+    "averageWellbeingScore": 84,
+    "risk": 0,
+    "watch": 0,
+    "totalBots": 25
+  },
+  "safetyOperations": {
+    "ok": true,
+    "totalMinutes": 4,
+    "nonGreenFlags": 0,
+    "patrolsExecuted": 1
+  },
+  "neuralComparison": {
+    "ok": true,
+    "flowScore": 100,
+    "qualityScore": 100,
+    "balanceIndex": 100,
+    "winner": "balanced",
+    "liveAlert": "healthy"
+  },
+  "lastPulse": {
+    "overall": 100,
+    "identity": "Sovereign_Commercial",
+    "lastUpdate": "2026-03-11T22:40:40.446Z"
+  },
+  "system": {
+    "hostname": "66710435f57e",
+    "platform": "linux",
+    "nodeVersion": "v25.6.1",
+    "uptimeSeconds": 151552.32,
+    "memFreeGB": "1.11"
+  },
+  "elapsedMs": 5254
+}

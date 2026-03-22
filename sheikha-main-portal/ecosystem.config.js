@@ -1,21 +1,14 @@
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
-
-const dataEncryptionKey = process.env.DATA_ENCRYPTION_KEY || '';
-
 module.exports = {
     apps: [
         /* ─── الخادم الرئيسي ─────────────────────────────── */
         {
             name: 'sheikha-api',
-            cwd: __dirname,
             script: './server.js',
             instances: 'max',
             exec_mode: 'cluster',
             env: {
                 NODE_ENV: 'production',
-                PORT: 8080,
-                DATA_ENCRYPTION_KEY: dataEncryptionKey
+                PORT: 8080
             },
             watch: false,
             max_memory_restart: '1G',
@@ -31,7 +24,6 @@ module.exports = {
         /* ─── مراقبة يومية: Health Check + KPI Snapshot ── */
         {
             name: 'sheikha-health-monitor',
-            cwd: __dirname,
             script: './scripts/health-check-kpi.js',
             instances: 1,
             autorestart: false, // لا يُعاد تشغيله تلقائياً
@@ -46,6 +38,206 @@ module.exports = {
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
             max_restarts: 0
+        },
+
+        /* ─── موصلات أكاديمية/ذكاء بالخلفية ───────────── */
+        {
+            name: 'Sheikha-NotebookKLM',
+            script: './scripts/sheikha-academic-connectors-loop.js',
+            instances: 1,
+            autorestart: true,
+            watch: false,
+            env: {
+                NODE_ENV: 'production',
+                CONNECTOR_NAME: 'Sheikha-NotebookKLM',
+                CONNECTOR_DISPLAY_NAME: 'NotebookKLM',
+                CONNECTOR_CODE: 'ACD-001',
+                CONNECTOR_TYPE: 'knowledge-platform',
+                CONNECTOR_INTERVAL_SECONDS: 60
+            },
+            error_file: './logs/notebookklm-error.log',
+            out_file: './logs/notebookklm-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 5,
+            min_uptime: '10s'
+        },
+        {
+            name: 'Sheikha-NYU',
+            script: './scripts/sheikha-academic-connectors-loop.js',
+            instances: 1,
+            autorestart: true,
+            watch: false,
+            env: {
+                NODE_ENV: 'production',
+                CONNECTOR_NAME: 'Sheikha-NYU',
+                CONNECTOR_DISPLAY_NAME: 'NYU',
+                CONNECTOR_CODE: 'ACD-002',
+                CONNECTOR_TYPE: 'university',
+                CONNECTOR_INTERVAL_SECONDS: 60
+            },
+            error_file: './logs/nyu-error.log',
+            out_file: './logs/nyu-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 5,
+            min_uptime: '10s'
+        },
+        {
+            name: 'Sheikha-Stanford',
+            script: './scripts/sheikha-academic-connectors-loop.js',
+            instances: 1,
+            autorestart: true,
+            watch: false,
+            env: {
+                NODE_ENV: 'production',
+                CONNECTOR_NAME: 'Sheikha-Stanford',
+                CONNECTOR_DISPLAY_NAME: 'Stanford',
+                CONNECTOR_CODE: 'ACD-003',
+                CONNECTOR_TYPE: 'university',
+                CONNECTOR_INTERVAL_SECONDS: 60
+            },
+            error_file: './logs/stanford-error.log',
+            out_file: './logs/stanford-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 5,
+            min_uptime: '10s'
+        },
+        {
+            name: 'Sheikha-AL-Google-AI-Studio',
+            script: './scripts/sheikha-academic-connectors-loop.js',
+            instances: 1,
+            autorestart: true,
+            watch: false,
+            env: {
+                NODE_ENV: 'production',
+                CONNECTOR_NAME: 'Sheikha-AL-Google-AI-Studio',
+                CONNECTOR_DISPLAY_NAME: 'AL Google AI Studio',
+                CONNECTOR_CODE: 'ACD-004',
+                CONNECTOR_TYPE: 'ai-studio',
+                CONNECTOR_INTERVAL_SECONDS: 60
+            },
+            error_file: './logs/al-google-ai-studio-error.log',
+            out_file: './logs/al-google-ai-studio-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 5,
+            min_uptime: '10s'
+        },
+        {
+            name: 'Sheikha-Harfourd',
+            script: './scripts/sheikha-academic-connectors-loop.js',
+            instances: 1,
+            autorestart: true,
+            watch: false,
+            env: {
+                NODE_ENV: 'production',
+                CONNECTOR_NAME: 'Sheikha-Harfourd',
+                CONNECTOR_DISPLAY_NAME: 'Harfourd',
+                CONNECTOR_CODE: 'ACD-005',
+                CONNECTOR_TYPE: 'university',
+                CONNECTOR_INTERVAL_SECONDS: 60,
+                ACADEMIC_MAX_UNIVERSITIES: 1000
+            },
+            error_file: './logs/harfourd-error.log',
+            out_file: './logs/harfourd-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 5,
+            min_uptime: '10s'
+        },
+
+        /* ─── استثمارات الدولة والشركات التابعة بالخلفية ─ */
+        {
+            name: 'Sheikha-PIF',
+            script: './scripts/sheikha-state-company-loop.js',
+            instances: 1,
+            autorestart: true,
+            watch: false,
+            env: {
+                NODE_ENV: 'production',
+                STATE_COMPANY_NAME: 'Sheikha-PIF',
+                STATE_COMPANY_INTERVAL_SECONDS: 90
+            },
+            error_file: './logs/sheikha-pif-error.log',
+            out_file: './logs/sheikha-pif-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 5,
+            min_uptime: '10s'
+        },
+        {
+            name: 'Sheikha-Aramco',
+            script: './scripts/sheikha-state-company-loop.js',
+            instances: 1,
+            autorestart: true,
+            watch: false,
+            env: {
+                NODE_ENV: 'production',
+                STATE_COMPANY_NAME: 'Sheikha-Aramco',
+                STATE_COMPANY_INTERVAL_SECONDS: 90
+            },
+            error_file: './logs/sheikha-aramco-error.log',
+            out_file: './logs/sheikha-aramco-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 5,
+            min_uptime: '10s'
+        },
+        {
+            name: 'Sheikha-Sabic',
+            script: './scripts/sheikha-state-company-loop.js',
+            instances: 1,
+            autorestart: true,
+            watch: false,
+            env: {
+                NODE_ENV: 'production',
+                STATE_COMPANY_NAME: 'Sheikha-Sabic',
+                STATE_COMPANY_INTERVAL_SECONDS: 90
+            },
+            error_file: './logs/sheikha-sabic-error.log',
+            out_file: './logs/sheikha-sabic-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 5,
+            min_uptime: '10s'
+        },
+        {
+            name: 'Sheikha-CNTXT',
+            script: './scripts/sheikha-state-company-loop.js',
+            instances: 1,
+            autorestart: true,
+            watch: false,
+            env: {
+                NODE_ENV: 'production',
+                STATE_COMPANY_NAME: 'Sheikha-CNTXT',
+                STATE_COMPANY_INTERVAL_SECONDS: 90
+            },
+            error_file: './logs/sheikha-cntxt-error.log',
+            out_file: './logs/sheikha-cntxt-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 5,
+            min_uptime: '10s'
+        },
+        {
+            name: 'Sheikha-Humain',
+            script: './scripts/sheikha-state-company-loop.js',
+            instances: 1,
+            autorestart: true,
+            watch: false,
+            env: {
+                NODE_ENV: 'production',
+                STATE_COMPANY_NAME: 'Sheikha-Humain',
+                STATE_COMPANY_INTERVAL_SECONDS: 90
+            },
+            error_file: './logs/sheikha-humain-error.log',
+            out_file: './logs/sheikha-humain-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 5,
+            min_uptime: '10s'
         }
     ]
 };

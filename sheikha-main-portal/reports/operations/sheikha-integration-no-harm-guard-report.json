@@ -1,0 +1,56 @@
+{
+    "generatedAt": "2026-03-21T20:11:04.515Z",
+    "title": "تقرير حارس التكامل - حفظ المعلومات ولا ضرر",
+    "passed": true,
+    "controls": {
+        "informationPreservation": "وجود الملفات + صلاحية JSON + بصمة SHA256",
+        "noHarm": "وجود عناصر لا ضرر ولا ضرار/منع الإساءة"
+    },
+    "results": [
+        {
+            "file": "data/sheikha-faith-communities-registry.json",
+            "exists": true,
+            "validJson": true,
+            "requireNoHarm": true,
+            "hasNoHarmControl": true,
+            "hash": "da9c78e820d199cd708fe1fa90602960ad6a8afd664c8f005b312f61be85406b",
+            "errorMessage": null
+        },
+        {
+            "file": "data/sheikha-arabian-gulf-identity-system.json",
+            "exists": true,
+            "validJson": true,
+            "requireNoHarm": true,
+            "hasNoHarmControl": true,
+            "hash": "c2780f0637f425d7fa60da530abbafae92fc18db21e3ce302fb9fd26d8f5ccec",
+            "errorMessage": null
+        },
+        {
+            "file": "data/sheikha-arabian-organization-governance.json",
+            "exists": true,
+            "validJson": true,
+            "requireNoHarm": true,
+            "hasNoHarmControl": true,
+            "hash": "600a073c6ba9bc2f26f5704362d095de04ffe91d3cbc7666310a60cc7361f651",
+            "errorMessage": null
+        },
+        {
+            "file": "data/sheikha-global-consultative-system.json",
+            "exists": true,
+            "validJson": true,
+            "requireNoHarm": false,
+            "hasNoHarmControl": true,
+            "hash": "ff3371ab993551f8ddc7a8831afc9caa1134658457ac5f9d4de248c5d16e9b49",
+            "errorMessage": null
+        },
+        {
+            "file": "data/sheikha-global-unified-objectives.json",
+            "exists": true,
+            "validJson": true,
+            "requireNoHarm": false,
+            "hasNoHarmControl": true,
+            "hash": "594881a77830efe83df515007a047c0c9db5cb3f1346f5346e9af4410f12caf9",
+            "errorMessage": null
+        }
+    ]
+}

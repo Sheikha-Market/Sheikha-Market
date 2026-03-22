@@ -19,6 +19,10 @@ warn()  { echo -e "${YELLOW}[⚠]${NC} $1"; }
 error() { echo -e "${RED}[✗]${NC} $1"; }
 info()  { echo -e "${CYAN}[ℹ]${NC} $1"; }
 
+is_code_server_running() {
+    ss -tln 2>/dev/null | grep -q ':8443 '
+}
+
 cmd_start() {
     if [ ! -f "$CONFIG_FILE" ]; then
         error "لم يتم الإعداد بعد!"
@@ -26,7 +30,7 @@ cmd_start() {
         exit 1
     fi
 
-    if pgrep -x "code-server" &>/dev/null; then
+    if is_code_server_running; then
         warn "code-server يعمل بالفعل"
         cmd_status
         return
@@ -35,11 +39,11 @@ cmd_start() {
     PROJECT_DIR="$(dirname "$(dirname "${BASH_SOURCE[0]}")")"
     mkdir -p "$(dirname "$LOG_FILE")"
 
-    nohup code-server --config "$CONFIG_FILE" "$PROJECT_DIR" >> "$LOG_FILE" 2>&1 &
+    nohup env -u VSCODE_IPC_HOOK_CLI code-server --config "$CONFIG_FILE" "$PROJECT_DIR" >> "$LOG_FILE" 2>&1 &
     echo $! > "$PID_FILE"
     sleep 2
 
-    if pgrep -x "code-server" &>/dev/null; then
+    if is_code_server_running; then
         LOCAL_IP=$(hostname -I 2>/dev/null | awk '{print $1}')
         log "code-server يعمل"
         info "الرابط: http://${LOCAL_IP}:${PORT}"
@@ -50,8 +54,8 @@ cmd_start() {
 }
 
 cmd_stop() {
-    if pgrep -x "code-server" &>/dev/null; then
-        pkill -x "code-server" || true
+    if is_code_server_running; then
+        pkill -f "code-server.*$CONFIG_FILE" || pkill -f "/usr/lib/code-server/bin/code-server" || true
         rm -f "$PID_FILE"
         log "تم إيقاف code-server"
     else
@@ -63,8 +67,9 @@ cmd_status() {
     LOCAL_IP=$(hostname -I 2>/dev/null | awk '{print $1}')
     echo ""
     echo -e "${BOLD}حالة code-server:${NC}"
-    if pgrep -x "code-server" &>/dev/null; then
-        PID=$(pgrep -x "code-server" | head -1)
+    if is_code_server_running; then
+        PID=$(ss -tlnp 2>/dev/null | awk '/:8443 / { print; exit }' | sed -n 's/.*pid=\([0-9]\+\).*/\1/p')
+        [ -n "$PID" ] || PID=$(pgrep -f "code-server" | head -1)
         echo -e "  الحالة  : ${GREEN}يعمل (PID: $PID)${NC}"
         echo -e "  الرابط  : ${CYAN}http://${LOCAL_IP}:${PORT}${NC}"
         echo -e "  السجلات : $LOG_FILE"

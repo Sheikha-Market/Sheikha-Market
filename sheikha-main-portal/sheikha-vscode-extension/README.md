@@ -327,6 +327,27 @@ code --extensionDevelopmentPath=$(pwd) .
 
 Press `F5` to attach debugger.
 
+## Resources
+
+Helpful resources to get maximum benefit from Sheikha Copilot:
+
+- **Main website**: https://sheikha.top
+- **Community**: https://sheikha.top/community
+- **Quick usage guide**: [USAGE.md](./USAGE.md)
+- **Installation guide**: [INSTALLATION.md](./INSTALLATION.md)
+- **Development guide**: [DEVELOPMENT.md](./DEVELOPMENT.md)
+- **End-to-end guide**: [END-TO-END.md](./END-TO-END.md)
+- **API quick start**: [QUICK-START-API.md](../QUICK-START-API.md)
+- **Project README**: [README.md](../README.md)
+- **Privacy policy**: https://sheikha.top/privacy
+- **Support email**: market@sheikha.top
+
+For enterprise and operations context:
+
+- [INTEGRATION-GUIDE.md](../INTEGRATION-GUIDE.md)
+- [OPERATIONS-AGENTS-GUIDE.md](../OPERATIONS-AGENTS-GUIDE.md)
+- [ENTERPRISE-AI-DEVELOPER-GUIDE.md](../ENTERPRISE-AI-DEVELOPER-GUIDE.md)
+
 ## Contributing
 
 Contributions are welcome! Please:

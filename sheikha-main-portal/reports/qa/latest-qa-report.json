@@ -1,0 +1,34 @@
+{
+    "startedAt": "2026-03-22T15:36:29.253Z",
+    "steps": [
+        {
+            "key": "unit",
+            "command": "npm run -s qa:unit",
+            "ok": true,
+            "exitCode": 0,
+            "softFail": false,
+            "stdout": "\n RUN  v2.1.8 /workspaces/sheikha/sheikha-main-portal\n\n ✓ tests/unit/sanity.unit.test.js (2 tests) 1ms\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  15:36:30\n   Duration  421ms (transform 21ms, setup 0ms, collect 7ms, tests 1ms, environment 0ms, prepare 100ms)\n\n",
+            "stderr": ""
+        },
+        {
+            "key": "ui",
+            "command": "npm run -s qa:ui",
+            "ok": true,
+            "exitCode": 0,
+            "softFail": false,
+            "stdout": "{\n    \"success\": true,\n    \"baseUrl\": \"http://127.0.0.1:8080\",\n    \"message\": \"UI smoke test passed\",\n    \"timestamp\": \"2026-03-22T15:36:30.757Z\"\n}\n",
+            "stderr": ""
+        },
+        {
+            "key": "load",
+            "command": "npm run -s qa:load",
+            "ok": false,
+            "exitCode": 1,
+            "softFail": false,
+            "stdout": "{\n    \"success\": false,\n    \"baseUrl\": \"http://127.0.0.1:8080\",\n    \"totalRequests\": 120,\n    \"concurrency\": 4,\n    \"requests\": 120,\n    \"ok\": 71,\n    \"failed\": 49,\n    \"successRate\": 59.17,\n    \"avgLatencyMs\": 1.52,\n    \"timestamp\": \"2026-03-22T15:36:30.954Z\"\n}\n",
+            "stderr": ""
+        }
+    ],
+    "finishedAt": "2026-03-22T15:36:30.968Z",
+    "success": false
+}

@@ -1,0 +1,453 @@
+{
+    "success": true,
+    "data": {
+        "covenant": {
+            "title": "ميثاق شيخة لتوحيد الخوادم",
+            "basis": "الكتاب والسنة",
+            "declaration": "التشغيل داخل البيئة المتاحة فقط، بلا ضرر ولا اعتداء ولا ادعاء تحكم عالمي.",
+            "principles": [
+                {
+                    "id": "QS-001",
+                    "name": "الأمانة",
+                    "evidence": "النساء:58"
+                },
+                {
+                    "id": "QS-002",
+                    "name": "العدل",
+                    "evidence": "النحل:90"
+                },
+                {
+                    "id": "QS-003",
+                    "name": "الإتقان",
+                    "evidence": "حديث: إن الله يحب إذا عمل أحدكم عملا أن يتقنه"
+                },
+                {
+                    "id": "QS-004",
+                    "name": "لا ضرر",
+                    "evidence": "حديث: لا ضرر ولا ضرار"
+                },
+                {
+                    "id": "QS-005",
+                    "name": "الصدق والشفافية",
+                    "evidence": "الأحزاب:70"
+                }
+            ]
+        },
+        "niyyahCovenant": {
+            "hadith": "إنما الأعمال بالنيات وإنما لكل امرئ ما نوى",
+            "source": "متفق عليه",
+            "declaration": "توجيه جميع أعمال التشغيل والتطوير إلى الله ورسوله صلى الله عليه وسلم، التزامًا بالأمانة والعدل والإحسان.",
+            "operationalIntents": [
+                {
+                    "id": "NIYYAH-001",
+                    "title": "الإخلاص",
+                    "measure": "توثيق نية العمل النافع في كل دورة تشغيل شهرية"
+                },
+                {
+                    "id": "NIYYAH-002",
+                    "title": "الإحسان والإتقان",
+                    "measure": "الحفاظ على جودة تشغيل 100/100 مع تدقيق مستمر"
+                },
+                {
+                    "id": "NIYYAH-003",
+                    "title": "المنفعة العامة",
+                    "measure": "تقديم خدمة مستقرة وآمنة للمستخدمين بلا ضرر"
+                }
+            ]
+        },
+        "servers": [
+            {
+                "code": "SRV-001",
+                "name": "sheikha-api",
+                "port": 8080,
+                "role": "الخادم الرئيسي للمنصة",
+                "principleId": "QS-001",
+                "goalId": "GOAL-001",
+                "goal": "تمكين خدمات المنفعة العامة بشكل موثوق",
+                "cooperationNeeds": [
+                    "SRV-002",
+                    "SRV-003",
+                    "SRV-004",
+                    "SRV-006"
+                ],
+                "state": "active",
+                "portListening": true,
+                "pid": "636827",
+                "pm2Status": "online"
+            },
+            {
+                "code": "SRV-002",
+                "name": "sheikha-health-monitor",
+                "port": 0,
+                "role": "مراقبة الصحة والتقارير",
+                "principleId": "QS-003",
+                "goalId": "GOAL-002",
+                "goal": "التحقق المستمر من الجاهزية ورفع الإنذار المبكر",
+                "cooperationNeeds": [
+                    "SRV-001",
+                    "SRV-005"
+                ],
+                "state": "active",
+                "portListening": false,
+                "pid": "637490",
+                "pm2Status": "online"
+            },
+            {
+                "code": "SRV-003",
+                "name": "sheikha-bg-guard",
+                "port": 0,
+                "role": "حارس العمليات الخلفية",
+                "principleId": "QS-004",
+                "goalId": "GOAL-003",
+                "goal": "استمرارية المهام الآلية بلا تعارض أو ضرر",
+                "cooperationNeeds": [
+                    "SRV-001",
+                    "SRV-002",
+                    "SRV-005"
+                ],
+                "state": "active",
+                "portListening": false,
+                "pid": "637503",
+                "pm2Status": "unknown"
+            },
+            {
+                "code": "SRV-004",
+                "name": "sheikha-ai-guard",
+                "port": 0,
+                "role": "حارس الأسرار والذكاء",
+                "principleId": "QS-001",
+                "goalId": "GOAL-004",
+                "goal": "حوكمة الذكاء والأسرار بما يحقق الأمانة والعدل",
+                "cooperationNeeds": [
+                    "SRV-001",
+                    "SRV-005",
+                    "SRV-006"
+                ],
+                "state": "active",
+                "portListening": false,
+                "pid": "637516",
+                "pm2Status": "unknown"
+            },
+            {
+                "code": "SRV-005",
+                "name": "sheikha-protection-watch",
+                "port": 0,
+                "role": "مراقبة الحماية المستمرة",
+                "principleId": "QS-004",
+                "goalId": "GOAL-005",
+                "goal": "تقليل المخاطر ومنع الانحراف التشغيلي",
+                "cooperationNeeds": [
+                    "SRV-001",
+                    "SRV-002",
+                    "SRV-003",
+                    "SRV-004"
+                ],
+                "state": "active",
+                "portListening": false,
+                "pid": "637529",
+                "pm2Status": "unknown"
+            },
+            {
+                "code": "SRV-006",
+                "name": "gcloud-adc-watch",
+                "port": 0,
+                "role": "مراقبة اعتماد ADC",
+                "principleId": "QS-005",
+                "goalId": "GOAL-006",
+                "goal": "ضمان اعتماد موثوق وشفاف للخدمات السحابية المصرح بها",
+                "cooperationNeeds": [
+                    "SRV-001",
+                    "SRV-004"
+                ],
+                "state": "active",
+                "portListening": false,
+                "pid": "637542",
+                "pm2Status": "unknown"
+            }
+        ],
+        "summary": {
+            "active": 6,
+            "total": 6,
+            "ratio": 100
+        },
+        "qualityAssessment": {
+            "averageScore": 100,
+            "qualityGate": {
+                "reliability": "pass",
+                "transparency": "pass",
+                "safety": "pass"
+            },
+            "perServer": [
+                {
+                    "serverCode": "SRV-001",
+                    "serverName": "sheikha-api",
+                    "goalId": "GOAL-001",
+                    "score": 100,
+                    "qualityLevel": "excellent",
+                    "status": "active",
+                    "notes": []
+                },
+                {
+                    "serverCode": "SRV-002",
+                    "serverName": "sheikha-health-monitor",
+                    "goalId": "GOAL-002",
+                    "score": 100,
+                    "qualityLevel": "excellent",
+                    "status": "active",
+                    "notes": []
+                },
+                {
+                    "serverCode": "SRV-003",
+                    "serverName": "sheikha-bg-guard",
+                    "goalId": "GOAL-003",
+                    "score": 100,
+                    "qualityLevel": "excellent",
+                    "status": "active",
+                    "notes": []
+                },
+                {
+                    "serverCode": "SRV-004",
+                    "serverName": "sheikha-ai-guard",
+                    "goalId": "GOAL-004",
+                    "score": 100,
+                    "qualityLevel": "excellent",
+                    "status": "active",
+                    "notes": []
+                },
+                {
+                    "serverCode": "SRV-005",
+                    "serverName": "sheikha-protection-watch",
+                    "goalId": "GOAL-005",
+                    "score": 100,
+                    "qualityLevel": "excellent",
+                    "status": "active",
+                    "notes": []
+                },
+                {
+                    "serverCode": "SRV-006",
+                    "serverName": "gcloud-adc-watch",
+                    "goalId": "GOAL-006",
+                    "score": 100,
+                    "qualityLevel": "excellent",
+                    "status": "active",
+                    "notes": []
+                }
+            ],
+            "improvementActions": [
+                {
+                    "serverCode": "ALL",
+                    "priority": "medium",
+                    "action": "الاستمرار على تدقيق يومي للختم والتحقق مع اختبار تعافي أسبوعي",
+                    "expectedBenefit": "الحفاظ على الجودة ومنع التراجع"
+                }
+            ],
+            "publicBenefitIndex": 100,
+            "maqasidAlignment": {
+                "noHarm": "pass",
+                "trust": "pass",
+                "continuity": "pass"
+            }
+        },
+        "sharedGoals": [
+            {
+                "id": "SG-001",
+                "title": "الاستمرارية",
+                "measurableBy": "نسبة الخوادم النشطة"
+            },
+            {
+                "id": "SG-002",
+                "title": "السلامة",
+                "measurableBy": "نتائج الحماية والاختبارات اليومية"
+            },
+            {
+                "id": "SG-003",
+                "title": "الشفافية",
+                "measurableBy": "توفر تقارير الختم والتحقق"
+            },
+            {
+                "id": "SG-004",
+                "title": "المنفعة العامة",
+                "measurableBy": "استقرار الخدمات الأساسية للمستخدمين"
+            }
+        ],
+        "collaborationMatrix": [
+            {
+                "serverCode": "SRV-001",
+                "goalId": "GOAL-001",
+                "collaboratesWith": [
+                    "SRV-002",
+                    "SRV-003",
+                    "SRV-004",
+                    "SRV-006"
+                ],
+                "cooperationPath": [
+                    {
+                        "peerCode": "SRV-002",
+                        "purpose": "تنسيق SRV-001 مع SRV-002 لتحقيق GOAL-001"
+                    },
+                    {
+                        "peerCode": "SRV-003",
+                        "purpose": "تنسيق SRV-001 مع SRV-003 لتحقيق GOAL-001"
+                    },
+                    {
+                        "peerCode": "SRV-004",
+                        "purpose": "تنسيق SRV-001 مع SRV-004 لتحقيق GOAL-001"
+                    },
+                    {
+                        "peerCode": "SRV-006",
+                        "purpose": "تنسيق SRV-001 مع SRV-006 لتحقيق GOAL-001"
+                    }
+                ]
+            },
+            {
+                "serverCode": "SRV-002",
+                "goalId": "GOAL-002",
+                "collaboratesWith": [
+                    "SRV-001",
+                    "SRV-005"
+                ],
+                "cooperationPath": [
+                    {
+                        "peerCode": "SRV-001",
+                        "purpose": "تنسيق SRV-002 مع SRV-001 لتحقيق GOAL-002"
+                    },
+                    {
+                        "peerCode": "SRV-005",
+                        "purpose": "تنسيق SRV-002 مع SRV-005 لتحقيق GOAL-002"
+                    }
+                ]
+            },
+            {
+                "serverCode": "SRV-003",
+                "goalId": "GOAL-003",
+                "collaboratesWith": [
+                    "SRV-001",
+                    "SRV-002",
+                    "SRV-005"
+                ],
+                "cooperationPath": [
+                    {
+                        "peerCode": "SRV-001",
+                        "purpose": "تنسيق SRV-003 مع SRV-001 لتحقيق GOAL-003"
+                    },
+                    {
+                        "peerCode": "SRV-002",
+                        "purpose": "تنسيق SRV-003 مع SRV-002 لتحقيق GOAL-003"
+                    },
+                    {
+                        "peerCode": "SRV-005",
+                        "purpose": "تنسيق SRV-003 مع SRV-005 لتحقيق GOAL-003"
+                    }
+                ]
+            },
+            {
+                "serverCode": "SRV-004",
+                "goalId": "GOAL-004",
+                "collaboratesWith": [
+                    "SRV-001",
+                    "SRV-005",
+                    "SRV-006"
+                ],
+                "cooperationPath": [
+                    {
+                        "peerCode": "SRV-001",
+                        "purpose": "تنسيق SRV-004 مع SRV-001 لتحقيق GOAL-004"
+                    },
+                    {
+                        "peerCode": "SRV-005",
+                        "purpose": "تنسيق SRV-004 مع SRV-005 لتحقيق GOAL-004"
+                    },
+                    {
+                        "peerCode": "SRV-006",
+                        "purpose": "تنسيق SRV-004 مع SRV-006 لتحقيق GOAL-004"
+                    }
+                ]
+            },
+            {
+                "serverCode": "SRV-005",
+                "goalId": "GOAL-005",
+                "collaboratesWith": [
+                    "SRV-001",
+                    "SRV-002",
+                    "SRV-003",
+                    "SRV-004"
+                ],
+                "cooperationPath": [
+                    {
+                        "peerCode": "SRV-001",
+                        "purpose": "تنسيق SRV-005 مع SRV-001 لتحقيق GOAL-005"
+                    },
+                    {
+                        "peerCode": "SRV-002",
+                        "purpose": "تنسيق SRV-005 مع SRV-002 لتحقيق GOAL-005"
+                    },
+                    {
+                        "peerCode": "SRV-003",
+                        "purpose": "تنسيق SRV-005 مع SRV-003 لتحقيق GOAL-005"
+                    },
+                    {
+                        "peerCode": "SRV-004",
+                        "purpose": "تنسيق SRV-005 مع SRV-004 لتحقيق GOAL-005"
+                    }
+                ]
+            },
+            {
+                "serverCode": "SRV-006",
+                "goalId": "GOAL-006",
+                "collaboratesWith": [
+                    "SRV-001",
+                    "SRV-004"
+                ],
+                "cooperationPath": [
+                    {
+                        "peerCode": "SRV-001",
+                        "purpose": "تنسيق SRV-006 مع SRV-001 لتحقيق GOAL-006"
+                    },
+                    {
+                        "peerCode": "SRV-004",
+                        "purpose": "تنسيق SRV-006 مع SRV-004 لتحقيق GOAL-006"
+                    }
+                ]
+            }
+        ],
+        "activationFramework": {
+            "technicalMeans": [
+                {
+                    "id": "TECH-001",
+                    "name": "حوكمة رقمية موحدة",
+                    "description": "تقارير موحدة + ختم رقمي + تحقق تلقائي لكل دورة تشغيل."
+                },
+                {
+                    "id": "TECH-002",
+                    "name": "تشغيل موجه بالمهام",
+                    "description": "تنفيذ مركزي عبر npm/VS Code Tasks مع مراقبة حالة الخوادم."
+                },
+                {
+                    "id": "TECH-003",
+                    "name": "استدامة ومرونة",
+                    "description": "PM2 + حراسة الخلفية + إنذار مبكر للحفاظ على الاستمرارية."
+                }
+            ],
+            "partnershipModel": [
+                {
+                    "id": "PARTNER-001",
+                    "type": "شراكة تشغيل",
+                    "objective": "تنسيق تشغيل API والمراقبة والحماية ضمن حدود الصلاحيات المصرح بها."
+                },
+                {
+                    "id": "PARTNER-002",
+                    "type": "شراكة ثقة وتدقيق",
+                    "objective": "مشاركة أختام التحقق وتقارير السلامة لضمان الشفافية والمساءلة."
+                },
+                {
+                    "id": "PARTNER-003",
+                    "type": "شراكة منفعة عامة",
+                    "objective": "ربط الأهداف التقنية بنتائج نافعة للمستخدمين والمجتمع دون ضرر."
+                }
+            ]
+        },
+        "scope": "local-environment-only"
+    },
+    "message": "Unified server covenant generated successfully",
+    "timestamp": "2026-03-21T20:11:00.050Z"
+}
