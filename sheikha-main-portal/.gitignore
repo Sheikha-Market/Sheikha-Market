@@ -24,6 +24,8 @@ credentials/
 data/*.bak
 data/*.tmp
 data/monitor-state.json
+data/finance-ledger.json
+data/backups/finance/
 
 # Build
 dist/
@@ -61,3 +63,6 @@ reports/education/*.json
 # academy connectors
 reports/servers/academy-connectors/*.json
 !reports/servers/academy-connectors/*latest.json
+
+/var/sheikha/
+/tmp/sheikha/
