@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "node server.js",
+      "build": "echo 'Vercel build complete'",
     "start:proxy": "node scripts/proxy-8081.js",
     "sovereign:start": "node scripts/grand-sovereign-script.js",
     "sovereign:ignite": "node scripts/sheikha-final-launch.js",

@@ -42,7 +42,9 @@ function renderSummary() {
     document.getElementById('kpi-profit').textContent = formatUsd(summary.totals.tradeRevenueUsd);
     document.getElementById('kpi-charity').textContent = formatUsd(summary.totals.charityFundUsd);
     document.getElementById('kpi-victory').textContent = formatUsd(summary.totals.victorySupplyUsd);
-    document.getElementById('updated-at').textContent = new Date(summary.updatedAt).toLocaleString('ar-SA');
+    document.getElementById('updated-at').textContent = new Date(summary.updatedAt).toLocaleString(
+        'ar-SA'
+    );
 }
 
 function renderRates() {
@@ -63,13 +65,15 @@ function renderRates() {
 function renderAnalytics() {
     const analytics = financeState.analytics;
     document.getElementById('momentum-chip').textContent = `زخم التداول: ${analytics.momentum}`;
-    document.getElementById('top-category').textContent = `${analytics.topCategory.name} | ${formatUsd(analytics.topCategory.volumeUsd)}`;
-    document.getElementById('top-currency').textContent = `${analytics.topCurrency.code} | ${formatUsd(analytics.topCurrency.volumeUsd)}`;
+    document.getElementById('top-category').textContent =
+        `${analytics.topCategory.name} | ${formatUsd(analytics.topCategory.volumeUsd)}`;
+    document.getElementById('top-currency').textContent =
+        `${analytics.topCurrency.code} | ${formatUsd(analytics.topCurrency.volumeUsd)}`;
 
     const container = document.getElementById('algorithms-list');
     container.innerHTML = '';
 
-    analytics.algorithms.forEach((algorithm) => {
+    analytics.algorithms.forEach(algorithm => {
         const item = document.createElement('article');
         item.className = 'finance-algorithm';
         item.innerHTML = `
@@ -85,7 +89,7 @@ function renderSales() {
     const tableBody = document.getElementById('sales-body');
     tableBody.innerHTML = '';
 
-    financeState.sales.forEach((sale) => {
+    financeState.sales.forEach(sale => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${sale.clientName}</td>
@@ -162,4 +166,4 @@ document.getElementById('backup-button').addEventListener('click', createBackup)
 
 loadFinanceState()
     .then(() => setStatus('تم تحميل منظومة التمويل والتداول'))
-    .catch((error) => setStatus(error.message, true));
+    .catch(error => setStatus(error.message, true));

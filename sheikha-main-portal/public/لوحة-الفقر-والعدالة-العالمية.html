@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>لوحة الفقر والعدالة العالمية - شيخة</title>
+    <link rel="stylesheet" href="/css/sheikha-global-poverty-dashboard.css" />
+</head>
+<body>
+    <header class="hero">
+        <h1>لوحة شيخة العالمية للفقر والعدالة والتسارع</h1>
+        <p>متابعة حيّة لمؤشرات 195 دولة: التسارع، الفقر، العدالة السوقية، التشغيل، والمساعدات.</p>
+        <div class="hero-actions">
+            <button id="refreshBtn">تحديث الآن</button>
+            <span id="lastUpdated">آخر تحديث: --</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="cards" id="summaryCards"></section>
+
+        <section class="panel two-col">
+            <div>
+                <h2>أفضل 10 في التسارع</h2>
+                <ul id="topAcceleration"></ul>
+            </div>
+            <div>
+                <h2>أعلى 10 في خطر الفقر</h2>
+                <ul id="topPoverty"></ul>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>شبكات التدخل الشهرية</h2>
+            <div id="networkSnapshots" class="network-grid"></div>
+        </section>
+
+        <section class="panel">
+            <h2>المرجع الشرعي لأسباب الفقر (الكتاب والسنة)</h2>
+            <div class="two-col">
+                <div>
+                    <h3>آيات</h3>
+                    <ul id="quranRefs"></ul>
+                </div>
+                <div>
+                    <h3>أحاديث</h3>
+                    <ul id="sunnahRefs"></ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>بحث دولة + سيناريو تدخل تنفيذي</h2>
+            <div class="search-row">
+                <input id="countryInput" placeholder="اكتب اسم الدولة بالعربية (مثال: مصر)" />
+                <button id="countrySearchBtn">عرض</button>
+            </div>
+            <div id="countryDetails" class="result-box"></div>
+        </section>
+
+        <section class="panel">
+            <h2>جدول الدول (قابل للفرز)</h2>
+            <div class="search-row">
+                <select id="sortBy">
+                    <option value="accelerationIndex">التسارع</option>
+                    <option value="povertyIndex">الفقر</option>
+                    <option value="shariaMarketJusticeIndex">العدالة</option>
+                    <option value="population">السكان</option>
+                    <option value="unemploymentRate">البطالة</option>
+                    <option value="aidAmountUsd">قيمة المساعدات</option>
+                </select>
+                <select id="sortOrder">
+                    <option value="desc">تنازلي</option>
+                    <option value="asc">تصاعدي</option>
+                </select>
+                <button id="loadCountriesBtn">تحديث الجدول</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الدولة</th>
+                            <th>القارة</th>
+                            <th>التسارع</th>
+                            <th>الفقر</th>
+                            <th>العدالة</th>
+                            <th>البطالة%</th>
+                            <th>الموظفون</th>
+                            <th>العاطلون</th>
+                            <th>المساعدات $</th>
+                        </tr>
+                    </thead>
+                    <tbody id="countriesTable"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="/js/sheikha-global-poverty-dashboard.js"></script>
+</body>
+</html>
