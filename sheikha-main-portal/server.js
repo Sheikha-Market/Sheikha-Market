@@ -3290,11 +3290,210 @@ app.use('/reports', express.static(path.join(__dirname, 'reports')));
 app.get('/admin', (req, res) => res.redirect('/لوحة-الادمن.html'));
 app.get('/dashboard', (req, res) => res.redirect('/لوحة-تحكم-المستخدم.html'));
 app.get('/goals-dashboard', (req, res) => res.redirect('/لوحة-الأهداف-المتقدمة.html'));
+app.get('/global-poverty-dashboard', (req, res) => res.redirect('/لوحة-الفقر-والعدالة-العالمية.html'));
 app.get('/login', (req, res) => res.redirect('/تسجيل-الدخول.html'));
 
 const PORT = process.env.PORT || 8080;
 const DATA_DIR = path.join(__dirname, 'data');
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌍 Full Spectrum Global APIs — الفقر/العدالة/التسارع
+// ═══════════════════════════════════════════════════════════════════════════════
+const FULL_SPECTRUM_FILE = path.join(DATA_DIR, 'sheikha-global-full-spectrum-analysis.json');
+const NETWORK_DASHBOARD_FILE = path.join(DATA_DIR, 'sheikha-global-monthly-network-dashboard.json');
+
+function readJsonSafe(filePath, fallback = {}) {
+    try {
+        if (!fs.existsSync(filePath)) {
+            return fallback;
+        }
+        return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    } catch (_) {
+        return fallback;
+    }
+}
+
+function apiReply(res, data, message, statusCode = 200) {
+    return res.status(statusCode).json({
+        success: statusCode < 400,
+        data,
+        message,
+        timestamp: new Date().toISOString()
+    });
+}
+
+function pickSortValue(profile, sortBy) {
+    switch (sortBy) {
+        case 'population':
+            return Number(profile?.socioEconomicStats?.population || 0);
+        case 'unemploymentRate':
+            return Number(profile?.socioEconomicStats?.unemploymentRate || 0);
+        case 'aidAmountUsd':
+            return Number(profile?.socioEconomicStats?.aidAmountUsd || 0);
+        case 'povertyIndex':
+            return Number(profile?.povertyIndex || 0);
+        case 'shariaMarketJusticeIndex':
+            return Number(profile?.shariaMarketJusticeIndex || 0);
+        case 'accelerationIndex':
+        default:
+            return Number(profile?.accelerationIndex || 0);
+    }
+}
+
+app.get('/api/sheikha/global/overview', (req, res) => {
+    const full = readJsonSafe(FULL_SPECTRUM_FILE, {});
+    if (!full.summary) {
+        return apiReply(res, {}, 'التحليل العالمي غير متوفر. شغّل أمر full-spectrum أولاً.', 404);
+    }
+
+    return apiReply(res, {
+        summary: full.summary,
+        globalAggregates: full.globalAggregates || {},
+        ethics: full.ethics || {},
+        islamicPovertyKnowledgeBase: full.islamicPovertyKnowledgeBase || {}
+    }, 'تم جلب نظرة عامة شاملة');
+});
+
+app.get('/api/sheikha/global/countries', (req, res) => {
+    const full = readJsonSafe(FULL_SPECTRUM_FILE, {});
+    const profiles = Array.isArray(full.countryProfiles) ? full.countryProfiles : [];
+    if (!profiles.length) {
+        return apiReply(res, { total: 0, items: [] }, 'لا توجد بيانات دول حالياً', 404);
+    }
+
+    const q = String(req.query.q || '').trim();
+    const continent = String(req.query.continent || '').trim();
+    const sortBy = String(req.query.sortBy || 'accelerationIndex');
+    const order = String(req.query.order || 'desc').toLowerCase() === 'asc' ? 'asc' : 'desc';
+    const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+    const pageSize = Math.min(200, Math.max(1, parseInt(req.query.pageSize, 10) || 25));
+
+    let filtered = profiles;
+    if (q) {
+        filtered = filtered.filter((item) => String(item.countryAr || '').includes(q));
+    }
+    if (continent) {
+        filtered = filtered.filter((item) => String(item.continentAr || '') === continent);
+    }
+
+    filtered = filtered.sort((a, b) => {
+        const av = pickSortValue(a, sortBy);
+        const bv = pickSortValue(b, sortBy);
+        return order === 'asc' ? av - bv : bv - av;
+    });
+
+    const total = filtered.length;
+    const start = (page - 1) * pageSize;
+    const items = filtered.slice(start, start + pageSize);
+
+    return apiReply(res, {
+        total,
+        page,
+        pageSize,
+        sortBy,
+        order,
+        items
+    }, 'تم جلب قائمة الدول');
+});
+
+app.get('/api/sheikha/global/countries/:country', (req, res) => {
+    const full = readJsonSafe(FULL_SPECTRUM_FILE, {});
+    const profiles = Array.isArray(full.countryProfiles) ? full.countryProfiles : [];
+    const target = decodeURIComponent(req.params.country || '').trim();
+    const profile = profiles.find((item) => String(item.countryAr || '') === target);
+
+    if (!profile) {
+        return apiReply(res, {}, 'الدولة المطلوبة غير موجودة في التحليل الحالي', 404);
+    }
+
+    return apiReply(res, profile, 'تم جلب تفاصيل الدولة');
+});
+
+app.get('/api/sheikha/global/networks/dashboard', (req, res) => {
+    const dashboard = readJsonSafe(NETWORK_DASHBOARD_FILE, {});
+    if (!dashboard.month) {
+        return apiReply(res, {}, 'لوحة الشبكات الشهرية غير متوفرة', 404);
+    }
+    return apiReply(res, dashboard, 'تم جلب لوحة الشبكات الشهرية');
+});
+
+app.get('/api/sheikha/global/interventions/:country', (req, res) => {
+    const full = readJsonSafe(FULL_SPECTRUM_FILE, {});
+    const profiles = Array.isArray(full.countryProfiles) ? full.countryProfiles : [];
+    const target = decodeURIComponent(req.params.country || '').trim();
+    const profile = profiles.find((item) => String(item.countryAr || '') === target);
+
+    if (!profile) {
+        return apiReply(res, {}, 'لا يوجد سيناريو تدخل لهذه الدولة', 404);
+    }
+
+    return apiReply(res, {
+        countryAr: profile.countryAr,
+        povertyIndex: profile.povertyIndex,
+        rootCauseAnalysis: profile.rootCauseAnalysis || [],
+        redesignPriorities: profile.redesignPriorities || [],
+        interventionScenario: profile.interventionScenario || {},
+        reasonsNotWorking: profile?.socioEconomicStats?.reasonsNotWorking || []
+    }, 'تم جلب سيناريو التدخل التنفيذي');
+});
+
+app.get('/api/sheikha/global/interventions/network/:networkId', (req, res) => {
+    const dashboard = readJsonSafe(NETWORK_DASHBOARD_FILE, {});
+    const full = readJsonSafe(FULL_SPECTRUM_FILE, {});
+    const profiles = Array.isArray(full.countryProfiles) ? full.countryProfiles : [];
+    const networkId = String(req.params.networkId || '').trim();
+    const snapshot = (dashboard.networkSnapshots || []).find((item) => String(item.networkId || '') === networkId);
+
+    if (!snapshot) {
+        return apiReply(res, {}, 'الشبكة المطلوبة غير موجودة في لوحة الشهر الحالية', 404);
+    }
+
+    const vulnerableCountries = (snapshot.vulnerableCountries || []).map((v) => {
+        const profile = profiles.find((p) => p.countryAr === v.countryAr);
+        return {
+            countryAr: v.countryAr,
+            povertyIndex: v.povertyIndex,
+            topRootCause: profile?.rootCauseAnalysis?.[0] || null,
+            interventionScenario: profile?.interventionScenario || null
+        };
+    });
+
+    return apiReply(res, {
+        networkId: snapshot.networkId,
+        nameAr: snapshot.nameAr,
+        month: snapshot.month,
+        strategicActions: snapshot.strategicActions || [],
+        vulnerableCountries,
+        leaders: snapshot.leaderCountries || []
+    }, 'تم جلب تدخلات الشبكة');
+});
+
+app.get('/api/sheikha/global/islamic/poverty-causes', (req, res) => {
+    const full = readJsonSafe(FULL_SPECTRUM_FILE, {});
+    return apiReply(res, full.islamicPovertyKnowledgeBase || {}, 'تم جلب المرجعية الشرعية لأسباب الفقر');
+});
+
+app.get('/api/sheikha/global/labor-aid-statistics', (req, res) => {
+    const full = readJsonSafe(FULL_SPECTRUM_FILE, {});
+    const profiles = Array.isArray(full.countryProfiles) ? full.countryProfiles : [];
+
+    const topUnemployment = [...profiles]
+        .sort((a, b) => Number(b?.socioEconomicStats?.unemploymentRate || 0) - Number(a?.socioEconomicStats?.unemploymentRate || 0))
+        .slice(0, 20)
+        .map((item) => ({
+            countryAr: item.countryAr,
+            unemploymentRate: item?.socioEconomicStats?.unemploymentRate || 0,
+            notAssistedPeople: item?.socioEconomicStats?.notAssistedPeople || 0,
+            aidAmountUsd: item?.socioEconomicStats?.aidAmountUsd || 0
+        }));
+
+    return apiReply(res, {
+        globalAggregates: full.globalAggregates || {},
+        topUnemployment,
+        note: 'هذه مؤشرات تشغيلية نمذجية وليست إحصاءً رسميًا ميدانيًا نهائيًا.'
+    }, 'تم جلب إحصاءات العمل والمساعدات');
+});
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📊 خطة العمل التفصيلية - Business Plan
@@ -19012,6 +19211,15 @@ try {
     console.log('✅ [CUDA/NVIDIA] مسارات التحقق مُفعّلة على /api/cuda/verify و /api/nvidia-cuda/capabilities');
 } catch (e) {
     console.warn('⚠️ [CUDA/NVIDIA] لم يتم تحميل مسارات CUDA:', e.message);
+}
+
+try {
+    const financeRouter = require('./routes/finance');
+    app.use('/api/finance', financeRouter);
+    console.log('✅ [Finance] منظومة التمويل والتدفقات مُفعّلة على /api/finance');
+    console.log('   📡 Finance APIs: /api/finance/status, /summary, /rates, /sales, /analytics/trading, /backups, /restore');
+} catch (e) {
+    console.warn('⚠️ [Finance] لم يتم تحميل مسارات التمويل:', e.message);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════

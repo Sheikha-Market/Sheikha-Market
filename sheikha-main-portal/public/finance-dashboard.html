@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>لوحة التمويل السيادي | شيخة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/sheikha-finance-dashboard.css" />
+</head>
+<body>
+    <div class="finance-shell">
+        <section class="finance-hero">
+            <article class="finance-card">
+                <p class="finance-chip">Sovereign Finance Engine</p>
+                <h1 class="finance-title">لوحة التمويل والتدفقات متعددة العملات</h1>
+                <p class="finance-subtitle">
+                    إدارة العقود التجارية، التوزيع المالي، تحليلات التداول، والنسخ الاحتياطي المحلي
+                    من واجهة واحدة مرتبطة مباشرة بـ API التمويل.
+                </p>
+                <div class="finance-actions">
+                    <a href="/dashboard.html"><button type="button" class="finance-secondary-button">العودة للوحة الرئيسية</button></a>
+                    <button type="button" id="backup-button">إنشاء نسخة احتياطية</button>
+                </div>
+                <div id="finance-status" class="finance-status"></div>
+            </article>
+            <article class="finance-card">
+                <p class="finance-muted">آخر تحديث</p>
+                <h2 id="updated-at" class="finance-title" style="font-size:2rem;">-</h2>
+                <p class="finance-muted">التوزيع الحالي ثابت على 75% ربح تجاري، 15% فعل خير، 10% دعم وتشغيل.</p>
+            </article>
+        </section>
+
+        <section class="finance-kpis">
+            <article class="finance-kpi">
+                <span class="finance-kpi-label">إجمالي التدفق</span>
+                <strong id="kpi-gross" class="finance-kpi-value">$0</strong>
+            </article>
+            <article class="finance-kpi">
+                <span class="finance-kpi-label">صافي الربح</span>
+                <strong id="kpi-profit" class="finance-kpi-value">$0</strong>
+            </article>
+            <article class="finance-kpi">
+                <span class="finance-kpi-label">فعل الخير</span>
+                <strong id="kpi-charity" class="finance-kpi-value">$0</strong>
+            </article>
+            <article class="finance-kpi">
+                <span class="finance-kpi-label">الدعم والتشغيل</span>
+                <strong id="kpi-victory" class="finance-kpi-value">$0</strong>
+            </article>
+        </section>
+
+        <section class="finance-grid">
+            <div class="finance-stack">
+                <article class="finance-card">
+                    <h2>تنفيذ عقد جديد</h2>
+                    <form id="sale-form" class="finance-form-grid">
+                        <label>
+                            اسم العميل
+                            <input name="clientName" required placeholder="Global Alliance Partners" />
+                        </label>
+                        <label>
+                            قيمة العقد
+                            <input name="contractValue" type="number" min="1" step="0.01" required placeholder="50000000" />
+                        </label>
+                        <label>
+                            العملة
+                            <select name="currency">
+                                <option value="USD">USD</option>
+                                <option value="SAR">SAR</option>
+                                <option value="EUR">EUR</option>
+                                <option value="GBP">GBP</option>
+                            </select>
+                        </label>
+                        <label>
+                            الفئة
+                            <select name="category">
+                                <option value="SaaS">SaaS</option>
+                                <option value="Cloud">Cloud</option>
+                                <option value="Metals">Metals</option>
+                                <option value="Logistics">Logistics</option>
+                            </select>
+                        </label>
+                        <label class="full">
+                            قناة البيع
+                            <select name="channel">
+                                <option value="direct">Direct</option>
+                                <option value="partner">Partner</option>
+                                <option value="marketplace">Marketplace</option>
+                            </select>
+                        </label>
+                        <button type="submit" class="full">تنفيذ العقد وتحديث السجل</button>
+                    </form>
+                </article>
+
+                <article class="finance-card">
+                    <h2>آخر العقود</h2>
+                    <table class="finance-table">
+                        <thead>
+                            <tr>
+                                <th>العميل</th>
+                                <th>القيمة الأصلية</th>
+                                <th>القيمة بالدولار</th>
+                                <th>الفئة</th>
+                                <th>التاريخ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sales-body"></tbody>
+                    </table>
+                </article>
+            </div>
+
+            <div class="finance-stack">
+                <article class="finance-card">
+                    <div class="finance-actions" style="justify-content:space-between;align-items:center;">
+                        <h2 style="margin:0;">تحليلات التداول</h2>
+                        <span id="momentum-chip" class="finance-chip">زخم التداول: -</span>
+                    </div>
+                    <p><strong>أعلى فئة:</strong> <span id="top-category">-</span></p>
+                    <p><strong>أعلى عملة:</strong> <span id="top-currency">-</span></p>
+                    <div id="algorithms-list" class="finance-algorithms"></div>
+                </article>
+
+                <article class="finance-card">
+                    <h2>أسعار العملات إلى الدولار</h2>
+                    <table class="finance-table">
+                        <thead>
+                            <tr>
+                                <th>العملة</th>
+                                <th>إلى USD</th>
+                                <th>USD إلى العملة</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rates-body"></tbody>
+                    </table>
+                </article>
+            </div>
+        </section>
+    </div>
+
+    <script src="/js/sheikha-finance-dashboard.js"></script>
+</body>
+</html>
