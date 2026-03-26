@@ -38,31 +38,53 @@ build/
 *.swp
 
 # Runtime investment reports
-reports/state-investments/*.json
-!reports/state-investments/*latest.json
-!reports/state-investments/.gitkeep
-
-# Runtime investment reports
-reports/state-investments/*.json
-!reports/state-investments/*latest.json
-!reports/state-investments/.gitkeep
-
 # =========================================
-# Sheikha Runtime Reports (CRITICAL FIX)
+# Sheikha Runtime Reports
 # =========================================
 
-# state investments
+# state investments — runtime only
 reports/state-investments/*.json
 !reports/state-investments/*latest.json
 !reports/state-investments/.gitkeep
 
-# education
+# education — runtime only
 reports/education/*.json
 !reports/education/*latest.json
 
-# academy connectors
+# academy connectors — runtime only
 reports/servers/academy-connectors/*.json
 !reports/servers/academy-connectors/*latest.json
 
+# IP/architecture reports — runtime only
+reports/ip/
+reports/architecture/
+
+# operations/organization runtime snapshots
+reports/operations/kpi-snapshots/*.json
+!reports/operations/kpi-snapshots/*latest.json
+reports/organization/neural-flow-quality-comparison-*.json
+!reports/organization/*latest.json
+
+# =========================================
+# Server Backup Files (لا تُرفع في git)
+# =========================================
+server.js.backup*
+
+# Archive/Backup bundles
+backups/*.tar.gz
+backups/*.sha256
+*.tar.gz
+*.zip
+
+# Runtime/deploy generated folders
+runtime/
+deploy/
+
+# Temporary save copies
+*.save
+*.save.*
+
 /var/sheikha/
 /tmp/sheikha/
+.vercel
+.env*.local
