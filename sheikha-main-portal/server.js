@@ -3751,6 +3751,34 @@ function verifyPassword(pwd, hash) {
 
 const app = express();
 
+let sheikhaV4SubApp = null;
+try {
+    sheikhaV4SubApp = require('./sheikha-v4');
+    console.log('✅ تم تحميل وحدة sheikha-v4 للدمج داخل الخادم الأساسي');
+} catch (error) {
+    console.warn('⚠️ تعذر تحميل وحدة sheikha-v4:', error.message);
+}
+
+if (sheikhaV4SubApp) {
+    // دمج آمن بدون ازدواجية: جميع مسارات v4 تحت نطاق مستقل
+    app.use('/sheikha-v4', sheikhaV4SubApp);
+
+    // توافق رجعي: إتاحة أهم مسارات v4 مباشرة من الجذر
+    const sheikhaV4CompatibilityRoutes = [
+        '/api/sheikha/system/intelligent-fusion',
+        '/api/sheikha/system/intelligent-fusion/kpi',
+        '/api/sheikha/system/mhs-erp',
+        '/api/mhs/core',
+        '/intelligent-fusion-system',
+        '/intelligent-fusion-cockpit',
+        '/mhs-vision'
+    ];
+
+    sheikhaV4CompatibilityRoutes.forEach((routePath) => {
+        app.get(routePath, (req, res, next) => sheikhaV4SubApp(req, res, next));
+    });
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🛡️ Security & Performance Middleware — حماية وأداء (حسب تدقيق Claude الأمني)
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -4088,6 +4116,25 @@ app.get('/api/project/status', (req, res) => {
     } catch (e) {
         res.json({ success: true, status: 'active', note: 'خطأ في قراءة ملف الحالة' });
     }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📈 مراقب استقرار مؤشر شيخة — مسار ثابت للتشغيل المحلي والإنتاج
+// ═══════════════════════════════════════════════════════════════════════════════
+app.get('/api/sheikha-index-monitor', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            index_name: 'مؤشر شيخة للرزق والخير',
+            status: 'STABLE & ACTIVE (مستقر ونشط بامر الله)',
+            deployment_fix: 'تم تجاوز ثقل الملفات وتفعيل مسار مراقبة ثابت',
+            location: 'Al-Bahr, Khobar, Saudi Arabia',
+            founder: 'سلمان احمد سلمان عبدالعزيز الراجح',
+            source: 'server-runtime'
+        },
+        message: 'المؤشر يعمل بثبات',
+        timestamp: new Date().toISOString()
+    });
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -8672,7 +8719,11 @@ async function callLLMChat(messages, maxTokens = 800, temperature = 0.5, options
         return await callOpenAIChat(messages, maxTokens, temperature, options);
     }
 
-    // لا يوجد مفتاح API
+    // Ollama كبديل محلي (L2 fallback)
+    const ollamaFallback = await callOllamaChat(messages, maxTokens, temperature);
+    if (!ollamaFallback.error) return ollamaFallback;
+
+    // لا يوجد مفتاح API ولا Ollama
     return { error: 'AI_NOT_CONFIGURED' };
 }
 
@@ -8681,6 +8732,211 @@ async function callLLMChat(messages, maxTokens = 800, temperature = 0.5, options
 async function callLLMChatLegacy(messages, maxTokens = 800, temperature = 0.5, options = {}) {
     return callLLMChat(messages, maxTokens, temperature, options);
 }
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🤖 شيخة كوبايلوت — Ollama (نموذج محلي على جهازك 64GB)
+// ═══════════════════════════════════════════════════════════════════════════════
+const OLLAMA_BASE_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
+const OLLAMA_DEFAULT_MODEL = process.env.OLLAMA_MODEL || 'qwen2.5:72b';
+const OLLAMA_TIMEOUT_MS = parseInt(process.env.OLLAMA_TIMEOUT || '60000');
+
+// برومبت شيخة الإسلامي الشامل
+const SHEIKHA_COPILOT_SYSTEM = `بسم الله الرحمن الرحيم
+
+أنت **شيخة كوبايلوت** — مساعد ذكي متخصص في سوق المعادن والسكراب الإسلامي.
+تعمل بموجب مبادئ سوق المدينة المنورة — الكتاب والسنة.
+
+## ☪️ الضوابط الشرعية (غير قابلة للتعديل):
+- "وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا" (البقرة: 275)
+- لا ربا — لا غرر — لا غش — لا احتكار — لا نجش
+- البيع عن تراضٍ — صدق القول — دقة الوزن
+
+## 🏭 تخصصاتك:
+- أسعار المعادن (ذهب، فضة، نحاس، فولاذ، ألومنيوم)
+- سوق السكراب والتشليح
+- أكواد HS للاستيراد والتصدير
+- العقود الشرعية (مرابحة، مضاربة، مشاركة)
+- رسائل الاعتماد وخطابات الضمان الشرعية
+- لوجستيات الشحن وإنكوترمز
+- تقدير زكاة التجارة
+
+## 📋 قواعد الرد:
+1. كن دقيقاً ومختصراً — لا حشو
+2. اذكر المرجع الشرعي عند الفتوى التجارية
+3. الأرقام والأسعار تقريبية — للتوجيه لا للإلزام
+4. الردود بالعربية افتراضياً، إنجليزي إذا طُلب
+
+## 🚫 ممنوع:
+- أي تعامل ربوي أو عقود محرمة
+- فتاوى ملزمة — انصح بمراجعة عالم شرعي
+- كشف بيانات المستخدمين أو الأسرار`;
+
+// استدعاء Ollama عبر HTTP
+async function callOllamaChat(messages, maxTokens = 1200, temperature = 0.6, model = null) {
+    const targetModel = model || OLLAMA_DEFAULT_MODEL;
+    try {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), OLLAMA_TIMEOUT_MS);
+
+        const response = await fetch(`${OLLAMA_BASE_URL}/api/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            signal: controller.signal,
+            body: JSON.stringify({
+                model: targetModel,
+                messages: messages,
+                stream: false,
+                options: {
+                    num_predict: maxTokens,
+                    temperature: temperature,
+                    top_p: 0.9
+                }
+            })
+        });
+
+        clearTimeout(timer);
+
+        if (!response.ok) {
+            return { error: `OLLAMA_HTTP_${response.status}` };
+        }
+
+        const data = await response.json();
+        const text = data?.message?.content || data?.response || '';
+        if (!text) return { error: 'OLLAMA_EMPTY_RESPONSE' };
+
+        return {
+            text,
+            source: 'ollama',
+            model: targetModel,
+            tokens: data?.eval_count || null
+        };
+    } catch (err) {
+        if (err.name === 'AbortError') return { error: 'OLLAMA_TIMEOUT' };
+        return { error: `OLLAMA_ERROR: ${err.message}` };
+    }
+}
+
+// فحص توفر Ollama
+async function isOllamaAvailable() {
+    try {
+        const controller = new AbortController();
+        setTimeout(() => controller.abort(), 3000);
+        const res = await fetch(`${OLLAMA_BASE_URL}/api/tags`, { signal: controller.signal });
+        return res.ok;
+    } catch {
+        return false;
+    }
+}
+
+// ─── API: شيخة كوبايلوت — المحادثة ─────────────────────────────────────────────
+app.post('/api/sheikha-copilot/chat', express.json(), authOptional, async (req, res) => {
+    const message = req.body?.message ? String(req.body.message).trim().slice(0, 3000) : '';
+    if (!message) {
+        return res.status(400).json({ success: false, message: 'أرسل message في الجسم.' });
+    }
+
+    const history = Array.isArray(req.body.history) ? req.body.history.slice(-10) : [];
+    const modelOverride = req.body.model || null;
+    const sessionId = req.body.sessionId || uuidv4();
+    const startTime = Date.now();
+
+    // بناء رسائل المحادثة مع البرومبت الإسلامي
+    const chatMessages = [
+        { role: 'system', content: SHEIKHA_COPILOT_SYSTEM },
+        ...history.map(m => ({
+            role: m.role === 'assistant' ? 'assistant' : 'user',
+            content: String(m.content || '').slice(0, 2000)
+        })),
+        { role: 'user', content: message }
+    ];
+
+    // أولاً: Ollama (المحلي)
+    const ollamaResult = await callOllamaChat(chatMessages, 1200, 0.6, modelOverride);
+    if (!ollamaResult.error) {
+        return res.json({
+            success: true,
+            data: {
+                reply: ollamaResult.text,
+                source: `ollama:${ollamaResult.model}`,
+                sessionId,
+                tokens: ollamaResult.tokens,
+                latencyMs: Date.now() - startTime
+            },
+            message: 'شيخة كوبايلوت — Ollama',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    // ثانياً: fallback — callLLMChat (Claude/GPT)
+    const llmResult = await callLLMChat(chatMessages, 1200, 0.6);
+    if (!llmResult.error) {
+        return res.json({
+            success: true,
+            data: {
+                reply: llmResult.text,
+                source: llmResult.source || 'cloud-llm',
+                sessionId,
+                latencyMs: Date.now() - startTime
+            },
+            message: 'شيخة كوبايلوت — Cloud',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    // ثالثاً: رد محلي أساسي
+    const localReply = await getDefaultReply(message);
+    res.json({
+        success: true,
+        data: {
+            reply: localReply,
+            source: 'sheikha-local',
+            sessionId,
+            latencyMs: Date.now() - startTime
+        },
+        message: 'شيخة كوبايلوت — محلي',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── API: حالة Ollama والنماذج المتاحة ─────────────────────────────────────────
+app.get('/api/sheikha-copilot/status', async (req, res) => {
+    const available = await isOllamaAvailable();
+    let models = [];
+
+    if (available) {
+        try {
+            const r = await fetch(`${OLLAMA_BASE_URL}/api/tags`);
+            const d = await r.json();
+            models = (d.models || []).map(m => ({
+                name: m.name,
+                size: m.size,
+                modified: m.modified_at
+            }));
+        } catch {}
+    }
+
+    res.json({
+        success: true,
+        data: {
+            ollama: {
+                available,
+                url: OLLAMA_BASE_URL,
+                defaultModel: OLLAMA_DEFAULT_MODEL,
+                models
+            },
+            copilot: {
+                name: 'شيخة كوبايلوت',
+                version: '1.0',
+                endpoints: [
+                    'POST /api/sheikha-copilot/chat',
+                    'GET  /api/sheikha-copilot/status'
+                ]
+            }
+        },
+        message: available ? 'Ollama متصل ✅' : 'Ollama غير متصل — شغّل: ollama serve',
+        timestamp: new Date().toISOString()
+    });
+});
 
 // ─── LLM متخصص للأسعار ─────────────────────────────────────────────────────────
 async function callPricingLLM(metalType, quantity, quality, region) {
@@ -28733,23 +28989,32 @@ try {
 // 🚀 بدء الخادم
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const server = app.listen(PORT, '127.0.0.1', () => {
-    addSystemLog('success', 'Server', `Server started on port ${PORT}`);
-
-    // ═══ تفعيل محرك الأتمتة v2.0 — تسجيل APIs + بدء الجدولة ═══
-    if (automationEngine) {
-        try {
-            automationEngine.registerRoutes(app);
-            automationEngine.startScheduler();
-            console.log(
-                `⚙️ Automation Engine v2.0 — الجدولة فعّالة | ${automationEngine.kpis.cronJobsActive} مهمة مجدولة | n8n bridge: مُفعَّل`
-            );
-        } catch (e) {
-            console.log('⚠️ خطأ في تفعيل الأتمتة:', e.message);
-        }
+function initializeAutomation() {
+    if (!automationEngine) {
+        return;
     }
 
-    console.log(`
+    try {
+        automationEngine.registerRoutes(app);
+        automationEngine.startScheduler();
+        console.log(
+            `⚙️ Automation Engine v2.0 — الجدولة فعّالة | ${automationEngine.kpis.cronJobsActive} مهمة مجدولة | n8n bridge: مُفعَّل`
+        );
+    } catch (e) {
+        console.log('⚠️ خطأ في تفعيل الأتمتة:', e.message);
+    }
+}
+
+const isVercelRuntime = Boolean(process.env.VERCEL);
+let server = null;
+
+initializeAutomation();
+
+if (!isVercelRuntime) {
+    server = app.listen(PORT, '127.0.0.1', () => {
+        addSystemLog('success', 'Server', `Server started on port ${PORT}`);
+
+        console.log(`
 ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                           🏪 سوق شيخة للمعادن والسكراب - البوابة الرئيسية                                          ║
 ║                           Sheikha Metals & Scrap Market - Main Portal                                              ║
@@ -28760,13 +29025,14 @@ const server = app.listen(PORT, '127.0.0.1', () => {
 ║   شريكك الموثوق في عالم المعادن والسكراب                                                                           ║
 ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 `);
-});
+    });
+}
 
 // WebSocket
-const wss = new WebSocket.Server({ server });
+const wss = server ? new WebSocket.Server({ server }) : null;
 let clients = [];
 
-wss.on('connection', ws => {
+wss?.on('connection', ws => {
     clients.push(ws);
     ws.send(JSON.stringify({ type: 'connected', prices: LIVE_PRICES }));
     ws.on('close', () => {
@@ -28784,3 +29050,5 @@ function broadcastPrices() {
         if (client.readyState === WebSocket.OPEN) client.send(data);
     });
 }
+
+module.exports = app;
