@@ -8698,6 +8698,13 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
 
 // ─── استدعاء LLM الذكي (يختار الأفضل تلقائياً) ─────────────────────────────────────
 async function callLLMChat(messages, maxTokens = 800, temperature = 0.5, options = {}) {
+    // وضع Ollama-فقط: تجاهل Cloud AI بالكامل
+    if (AI_MODE === 'ollama') {
+        const result = await callOllamaChat(messages, maxTokens, temperature);
+        if (!result.error) return result;
+        return { error: 'OLLAMA_UNAVAILABLE' };
+    }
+
     const isDevelopment =
         options.mode === 'development' ||
         messages.some(
@@ -8805,9 +8812,10 @@ async function callOllamaChat(messages, maxTokens = 1200, temperature = 0.6, mod
         if (!text) return { error: 'OLLAMA_EMPTY_RESPONSE' };
 
         return {
-            text,
+            reply: text,
             source: 'ollama',
             model: targetModel,
+            provider: 'ollama',
             tokens: data?.eval_count || null
         };
     } catch (err) {
@@ -8856,7 +8864,7 @@ app.post('/api/sheikha-copilot/chat', express.json(), authOptional, async (req, 
         return res.json({
             success: true,
             data: {
-                reply: ollamaResult.text,
+                reply: ollamaResult.reply,
                 source: `ollama:${ollamaResult.model}`,
                 sessionId,
                 tokens: ollamaResult.tokens,
@@ -8873,8 +8881,8 @@ app.post('/api/sheikha-copilot/chat', express.json(), authOptional, async (req, 
         return res.json({
             success: true,
             data: {
-                reply: llmResult.text,
-                source: llmResult.source || 'cloud-llm',
+                reply: llmResult.reply,
+                source: llmResult.provider || llmResult.source || 'cloud-llm',
                 sessionId,
                 latencyMs: Date.now() - startTime
             },
@@ -8934,6 +8942,193 @@ app.get('/api/sheikha-copilot/status', async (req, res) => {
             }
         },
         message: available ? 'Ollama متصل ✅' : 'Ollama غير متصل — شغّل: ollama serve',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🟢 شيخة GPT — OpenAI مع البرومبت الإسلامي الشامل
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// برومبت شيخة GPT (مطوّل — للنماذج السحابية القوية)
+const SHEIKHA_GPT_SYSTEM = `بسم الله الرحمن الرحيم
+
+أنت **شيخة GPT** — مستشار ذكي متقدم لمنظومة شيخة الاقتصادية الإسلامية.
+تعمل على OpenAI GPT وتستند إلى الكتاب والسنة والاقتصاد الإسلامي.
+
+## ☪️ الضوابط الشرعية (فوق كل اعتبار):
+"وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا" (البقرة: 275)
+"يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ" (النساء: 29)
+- لا ربا — لا غرر — لا غش — لا احتكار — لا نجش
+- البيع عن تراضٍ — صدق القول — دقة الوزن — أداء الأمانة
+
+## 🏭 تخصصات شيخة:
+**سوق المعادن:**
+- أسعار الذهب، الفضة، النحاس، الألومنيوم، الفولاذ، الحديد
+- سوق السكراب والتشليح والمعادن المستردة
+- مؤشر شيخة (للمعرفة فقط — ليس تسعيراً ملزماً)
+
+**التجارة الدولية:**
+- أكواد HS للاستيراد والتصدير
+- وثائق التجارة: COO, LC, BL, Invoice, Packing List
+- إنكوترمز 2020: FOB, CIF, DAP, DDP, EXW
+- الموانئ الرئيسية: جدة، الدمام، صلالة، جبل علي
+
+**العقود الشرعية:**
+- مرابحة، مضاربة، مشاركة، سلم، استصناع، إجارة
+- عقود التوريد الشرعية للمعادن
+- لا قبول لأي عقد ربوي
+
+**الاستشارات:**
+- جدوى المشاريع الصناعية والتجارية
+- التوسعات الإقليمية (السعودية، الخليج، أفريقيا)
+- الامتثال البيئي وإعادة التدوير
+- متطلبات هيئة المعايير والجودة (SASO)
+
+## 📊 مميزاتك كـ GPT:
+- التحليل الكمي العميق للبيانات المالية
+- كتابة العقود والمراسلات الرسمية
+- الترجمة التجارية (عربي ↔ إنجليزي)
+- حساب الزكاة والضرائب وفق الأنظمة السعودية
+
+## ⚠️ قواعد الرد:
+1. الدقة فوق الإطالة — اذكر الأرقام المحددة
+2. اذكر المصدر الشرعي عند الفتوى التجارية
+3. الأسعار تقريبية وللتوجيه — أحل للجهة المختصة للتأكيد
+4. لا تُلزم بفتوى دينية — أنصح بمراجعة عالم شرعي
+5. أولوية اللغة: عربي فصيح واضح`;
+
+// ─── endpoint: شيخة GPT — محادثة ─────────────────────────────────────────────
+app.post('/api/sheikha-gpt/chat', express.json(), authOptional, async (req, res) => {
+    const message = req.body?.message ? String(req.body.message).trim().slice(0, 4000) : '';
+    if (!message) {
+        return res.status(400).json({ success: false, message: 'أرسل message في الجسم.' });
+    }
+
+    const history = Array.isArray(req.body.history) ? req.body.history.slice(-15) : [];
+    const sessionId = req.body.sessionId || uuidv4();
+    const startTime = Date.now();
+    const enableThinking = req.body.enableThinking === true; // Claude Opus adaptive thinking
+
+    const chatMessages = [
+        { role: 'system', content: SHEIKHA_GPT_SYSTEM },
+        ...history.map(m => ({
+            role: m.role === 'assistant' ? 'assistant' : 'user',
+            content: String(m.content || '').slice(0, 3000)
+        })),
+        { role: 'user', content: message }
+    ];
+
+    // أولوية: Claude Opus 4.6 للتحليلات العميقة وإنشاء المحتوى
+    if (ANTHROPIC_API_KEY) {
+        const claudeResult = await callClaudeChat(chatMessages, 4096, { enableThinking });
+        if (!claudeResult.error) {
+            return res.json({
+                success: true,
+                data: {
+                    reply: claudeResult.reply,
+                    thinking: claudeResult.thinking || null,
+                    source: 'claude-opus-4.6',
+                    model: claudeResult.model,
+                    sessionId,
+                    usage: claudeResult.usage,
+                    latencyMs: Date.now() - startTime
+                },
+                message: 'شيخة GPT — Claude Opus 4.6',
+                timestamp: new Date().toISOString()
+            });
+        }
+    }
+
+    // ثانياً: GPT-5.2 (OpenAI)
+    if (OPENAI_API_KEY) {
+        const gptResult = await callOpenAIChat(chatMessages, 2000, 0.6);
+        if (!gptResult.error) {
+            return res.json({
+                success: true,
+                data: {
+                    reply: gptResult.reply,
+                    source: `openai:${gptResult.model}`,
+                    model: gptResult.model,
+                    sessionId,
+                    usage: gptResult.usage,
+                    latencyMs: Date.now() - startTime
+                },
+                message: `شيخة GPT — ${gptResult.model}`,
+                timestamp: new Date().toISOString()
+            });
+        }
+    }
+
+    // ثالثاً: Ollama محلي
+    const ollamaResult = await callOllamaChat(chatMessages, 2000, 0.6);
+    if (!ollamaResult.error) {
+        return res.json({
+            success: true,
+            data: {
+                reply: ollamaResult.reply,
+                source: `ollama:${ollamaResult.model}`,
+                sessionId,
+                latencyMs: Date.now() - startTime
+            },
+            message: 'شيخة GPT — Ollama محلي',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    // رابعاً: رد محلي
+    const localReply = await getDefaultReply(message);
+    res.json({
+        success: true,
+        data: {
+            reply: localReply,
+            source: 'sheikha-local',
+            sessionId,
+            latencyMs: Date.now() - startTime
+        },
+        message: 'شيخة GPT — محلي (API غير مُعيَّن)',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── endpoint: حالة شيخة GPT ─────────────────────────────────────────────────
+app.get('/api/sheikha-gpt/status', async (req, res) => {
+    const ollamaAvailable = await isOllamaAvailable();
+    res.json({
+        success: true,
+        data: {
+            providers: {
+                claude: {
+                    configured: Boolean(ANTHROPIC_API_KEY),
+                    model: ANTHROPIC_MODEL,
+                    priority: 1
+                },
+                openai: {
+                    configured: Boolean(OPENAI_API_KEY),
+                    model: OPENAI_MODEL,
+                    fallbackModels: ['gpt-4o', 'gpt-4o-mini'],
+                    priority: 2
+                },
+                ollama: {
+                    available: ollamaAvailable,
+                    url: OLLAMA_BASE_URL,
+                    defaultModel: OLLAMA_DEFAULT_MODEL,
+                    priority: 3
+                }
+            },
+            activeProvider: ANTHROPIC_API_KEY
+                ? 'claude-opus-4.6'
+                : OPENAI_API_KEY
+                  ? 'openai'
+                  : ollamaAvailable
+                    ? 'ollama'
+                    : 'local',
+            endpoints: [
+                'POST /api/sheikha-gpt/chat',
+                'GET  /api/sheikha-gpt/status'
+            ]
+        },
+        message: 'شيخة GPT جاهز ✅',
         timestamp: new Date().toISOString()
     });
 });
