@@ -1390,6 +1390,10 @@ select.filter-select:focus { border-color: var(--gold); }
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                     تدفق البيانات
                 </div>
+                <div class="nav-item" data-section="architecture-ops">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 9v12"/><path d="M14 14h5"/><path d="M14 18h5"/></svg>
+                    مركز المعمارية والشبكات
+                </div>
                 <div class="nav-item" data-section="devops">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
                     DevOps والنشر
@@ -6320,6 +6324,90 @@ quick
 <div class="section-header">
     <div>
         <h2>المهام الإدارية</h2>
+
+    <!-- ============================================================
+         SECTION: ARCHITECTURE OPS — مركز المعمارية والشبكات
+         ============================================================ -->
+    <div class="section" id="section-architecture-ops">
+        <div class="section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 9v12"/><path d="M14 14h5"/><path d="M14 18h5"/></svg>
+            مركز التشغيل المعماري الموحد
+        </div>
+        <p class="section-desc">صفحة تشغيل واحدة للمخططات والهياكل والشبكات الفنية + مصفوفة تنفيذ Domain-by-Domain</p>
+
+        <div class="stats-row" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="stat-card"><div class="stat-label">عدد المخططات</div><div class="stat-value">4</div></div>
+            <div class="stat-card"><div class="stat-label">عدد الـ Domains</div><div class="stat-value">10</div></div>
+            <div class="stat-card"><div class="stat-label">حالة التفعيل</div><div class="stat-value" style="color:var(--green)">نشط ✓</div></div>
+            <div class="stat-card"><div class="stat-label">نمط البنية</div><div class="stat-value" style="font-size:.95rem">Modular Core + Edge</div></div>
+        </div>
+
+        <div class="card" style="margin-bottom:16px;border-right:3px solid var(--gold)">
+            <div class="card-title">المرجع المعماري المركزي</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px">
+                <a href="/docs/architecture/06-WORLD-CLASS-REFERENCE-ARCHITECTURE.md" target="_blank" class="btn btn-sm btn-ghost" style="justify-content:flex-start">الهيكل المرجعي العالمي</a>
+                <a href="/docs/architecture/diagrams/sheikha-system-context.mmd" target="_blank" class="btn btn-sm btn-ghost" style="justify-content:flex-start">مخطط سياق النظام</a>
+                <a href="/docs/architecture/diagrams/sheikha-network-topology.mmd" target="_blank" class="btn btn-sm btn-ghost" style="justify-content:flex-start">مخطط الشبكة الفنية</a>
+                <a href="/docs/architecture/diagrams/sheikha-runtime-flow.mmd" target="_blank" class="btn btn-sm btn-ghost" style="justify-content:flex-start">مخطط التدفق التشغيلي</a>
+            </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:16px">
+            <div class="card" style="border-right:3px solid #3b82f6">
+                <div class="card-title">شبكة التشغيل الفنية (مختصر)</div>
+                <div style="display:flex;flex-direction:column;gap:8px;font-size:.82rem">
+                    <div class="ip-row"><span class="ip-label">Public Zone</span><span class="ip-value">CDN + WAF + Edge</span></div>
+                    <div class="ip-row"><span class="ip-label">App Zone</span><span class="ip-value">API Gateway + App Core + Workers</span></div>
+                    <div class="ip-row"><span class="ip-label">Data Zone</span><span class="ip-value">DB + Cache + Search + Warehouse</span></div>
+                    <div class="ip-row"><span class="ip-label">Mgmt Zone</span><span class="ip-value">CI/CD + Secrets + Observability</span></div>
+                    <div class="ip-row"><span class="ip-label">Security</span><span class="ip-value">Least Privilege + MFA + Audit</span></div>
+                </div>
+            </div>
+            <div class="card" style="border-right:3px solid #10b981">
+                <div class="card-title">مؤشرات الاعتمادية المستهدفة</div>
+                <div style="display:flex;flex-direction:column;gap:8px;font-size:.82rem">
+                    <div class="ip-row"><span class="ip-label">Availability</span><span class="ip-value">99.95%+</span></div>
+                    <div class="ip-row"><span class="ip-label">Latency (P95)</span><span class="ip-value">&lt; 300ms</span></div>
+                    <div class="ip-row"><span class="ip-label">RTO</span><span class="ip-value">&lt; 30 min</span></div>
+                    <div class="ip-row"><span class="ip-label">RPO</span><span class="ip-value">&lt; 5 min</span></div>
+                    <div class="ip-row"><span class="ip-label">Release Gate</span><span class="ip-value">Lint + Test + Smoke</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border-right:3px solid #8b5cf6">
+            <div class="card-title">مصفوفة تنفيذ Domains على الهيكل الجديد</div>
+            <div style="overflow-x:auto">
+                <table class="table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>الطبقة المعمارية</th>
+                            <th>منطقة الشبكة</th>
+                            <th>مكونات حالية</th>
+                            <th>أولوية التنفيذ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>auth</td><td>Gateway + Security</td><td>Public/App</td><td>JWT + OAuth + Nafath</td><td><span class="status status-active">عالية</span></td></tr>
+                        <tr><td>market</td><td>Application Core</td><td>App</td><td>سوق شيخة + RFQ + Listings</td><td><span class="status status-active">عالية</span></td></tr>
+                        <tr><td>finance</td><td>Application + Data</td><td>App/Data</td><td>routes/finance.js + finance engine</td><td><span class="status status-active">عالية</span></td></tr>
+                        <tr><td>api-integration</td><td>Gateway + Integration</td><td>Public/App</td><td>REST APIs + Edge endpoints</td><td><span class="status status-active">عالية</span></td></tr>
+                        <tr><td>logistics</td><td>Application + Async</td><td>App</td><td>الشحن + التتبع + warehouse</td><td><span class="status status-pending">متوسطة</span></td></tr>
+                        <tr><td>analytics</td><td>Data + BI</td><td>Data/Mgmt</td><td>dashboards + reports JSON</td><td><span class="status status-pending">متوسطة</span></td></tr>
+                        <tr><td>ai</td><td>Intelligence Layer</td><td>App/Mgmt</td><td>Sheikha AI + advisors</td><td><span class="status status-pending">متوسطة</span></td></tr>
+                        <tr><td>security-compliance</td><td>Security Layer</td><td>All Zones</td><td>policies + audit + IP</td><td><span class="status status-active">عالية</span></td></tr>
+                        <tr><td>devops</td><td>Operations Layer</td><td>Mgmt</td><td>Vercel deploy + monitoring</td><td><span class="status status-pending">متوسطة</span></td></tr>
+                        <tr><td>community-education</td><td>Experience + Content</td><td>App</td><td>المجتمع + المختبرات + المحتوى</td><td><span class="status status-pending">منخفضة</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-top:10px;font-size:.75rem;color:var(--text-muted)">
+                هذه المصفوفة تربط المجالات الحالية مباشرة بطبقات المعمارية والشبكات، لتسهيل التنفيذ المرحلي دون كسر السلوك الحالي.
+            </div>
+        </div>
+    </div>
+
         <p>نظام إدارة المهام الرقمي لجميع الأقسام الإدارية — تتبع وتنظيم وإنجاز</p>
     </div>
     <button class="add-task-btn" onclick="document.getElementById('addTaskForm').classList.toggle('show')">
@@ -7140,6 +7228,7 @@ const sectionTitles = {
     policies: 'الشروط والسياسات',
     blueprint: 'مخطط المنظومة',
     dataflow: 'تدفق المعلومات',
+    'architecture-ops': 'مركز المعمارية والشبكات',
     'admin-tasks': 'المهام الإدارية',
     tenders: 'المناقصات',
     qualification: 'تأهيل الموردين',
