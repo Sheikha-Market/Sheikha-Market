@@ -7,6 +7,10 @@
       "use": "@vercel/node"
     },
     {
+      "src": "api/supreme-64gb.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "api/sheikha-edge-daemon.js",
       "use": "@vercel/node"
     },
@@ -19,6 +23,10 @@
     {
       "src": "/api/sovereign-cloud",
       "dest": "/api/sovereign-cloud.js"
+    },
+    {
+      "src": "/api/supreme-64gb",
+      "dest": "/api/supreme-64gb.js"
     },
     {
       "src": "/api/sheikha-edge-daemon",
