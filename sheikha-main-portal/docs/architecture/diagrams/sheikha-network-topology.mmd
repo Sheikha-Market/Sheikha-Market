@@ -1,0 +1,42 @@
+flowchart TB
+    subgraph Internet
+        U[Browsers and Mobile Clients]
+    end
+
+    subgraph Public_Zone
+        WAF[WAF and CDN]
+        EDGE[Edge Endpoints]
+    end
+
+    subgraph App_Zone
+        GW[API Gateway]
+        APP[Application Core]
+        JOB[Async Workers]
+    end
+
+    subgraph Data_Zone
+        DB[(Transactional DB)]
+        REDIS[(Cache)]
+        SRCH[(Search)]
+        WH[(Warehouse)]
+    end
+
+    subgraph Mgmt_Zone
+        OBS[Logs Metrics Traces]
+        SEC[Secrets and Keys]
+        CICD[CI CD Pipeline]
+    end
+
+    U --> WAF
+    WAF --> EDGE
+    EDGE --> GW
+    GW --> APP
+    APP --> DB
+    APP --> REDIS
+    APP --> SRCH
+    APP --> WH
+    APP --> JOB
+    APP --> OBS
+    JOB --> OBS
+    CICD --> APP
+    SEC --> APP

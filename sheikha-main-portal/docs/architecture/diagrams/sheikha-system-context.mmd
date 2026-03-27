@@ -1,0 +1,12 @@
+flowchart LR
+    A[Users and Companies] --> B[Edge and CDN]
+    B --> C[API Gateway]
+    C --> D[Sheikha App Core]
+    D --> E[(Primary Data Store)]
+    D --> F[(Cache)]
+    D --> G[(Search Index)]
+    D --> H[(Analytics Warehouse)]
+    D --> I[Event Bus and Queues]
+    I --> J[Async Workers]
+    D --> K[Auth and Policy]
+    D --> L[Observability Stack]
