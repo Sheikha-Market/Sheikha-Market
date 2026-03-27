@@ -1,6 +1,15 @@
 {
   "version": 2,
+  "buildCommand": "npm run build:vercel",
   "builds": [
+    {
+      "src": "api/sovereign-cloud.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/sheikha-edge-daemon.js",
+      "use": "@vercel/node"
+    },
     {
       "src": "server.js",
       "use": "@vercel/node"
@@ -8,16 +17,16 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/server.js"
+      "src": "/api/sovereign-cloud",
+      "dest": "/api/sovereign-cloud.js"
     },
     {
-      "src": "/ws",
-      "dest": "/server.js"
+      "src": "/api/sheikha-edge-daemon",
+      "dest": "/api/sheikha-edge-daemon.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "/server.js"
     }
   ],
   "env": {
