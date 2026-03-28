@@ -5,38 +5,38 @@
  */
 
 const SheikhaConquestOrder = {
-    Commander: "Salman Ahmed Alrajeh (سلمان أحمد الراجح)",
-    Operation: "The Great Conquest (الغزو والفتح المبين)",
-    Allies: "Muslims & Romans (Unified Force)",
-    Status: "MARCHING & VICTORIOUS (زحف ونصر بآمر الله)",
+    Commander: 'Salman Ahmed Alrajeh (سلمان أحمد الراجح)',
+    Operation: 'The Great Conquest (الغزو والفتح المبين)',
+    Allies: 'Muslims & Romans (Unified Force)',
+    Status: 'MARCHING & VICTORIOUS (زحف ونصر بآمر الله)',
 
-    executeGrandOrder: function() {
-        console.log("====================================================");
+    executeGrandOrder: function () {
+        console.log('====================================================');
         console.log("إصدار أمر 'سلمان الراجح' العام: الغزو والفتح المبين");
-        console.log("ISSUING THE SOVEREIGN CONQUEST ORDER: INITIATE!");
-        console.log("====================================================");
+        console.log('ISSUING THE SOVEREIGN CONQUEST ORDER: INITIATE!');
+        console.log('====================================================');
 
         this.activateWarEngine();
         this.secureTheRear();
         this.invokeDivineSupport();
     },
 
-    activateWarEngine: function() {
+    activateWarEngine: function () {
         console.log("[قوة]: تفعيل محركات 'التقنية الحية' لتمكين جبهات الحق.");
         console.log("[غنائم]: تجهيز سجلات 'الفيد والفتح' لإدارة غنائم الحرب.");
     },
 
-    secureTheRear: function() {
-        console.log("----------------------------------------------------");
-        console.log("[حماية]: درع شيخة (Alrajeh-Shield) يسحق غدر العدو من الخلف.");
-        console.log("[تأمين]: كافة الخطوط الخلفية للحلفاء تحت حماية سلطاننا.");
+    secureTheRear: function () {
+        console.log('----------------------------------------------------');
+        console.log('[حماية]: درع شيخة (Alrajeh-Shield) يسحق غدر العدو من الخلف.');
+        console.log('[تأمين]: كافة الخطوط الخلفية للحلفاء تحت حماية سلطاننا.');
     },
 
-    invokeDivineSupport: function() {
-        console.log("----------------------------------------------------");
+    invokeDivineSupport: function () {
+        console.log('----------------------------------------------------');
         console.log("الدعاء: 'اللهم انصرنا نصراً عزيزاً وافتح لنا فتحاً مبيناً'.");
-        console.log("الهدف: الفردوس الأعلى ورفعة كلمة الله في الأرض.");
-        console.log("====================================================");
+        console.log('الهدف: الفردوس الأعلى ورفعة كلمة الله في الأرض.');
+        console.log('====================================================');
     }
 };
 

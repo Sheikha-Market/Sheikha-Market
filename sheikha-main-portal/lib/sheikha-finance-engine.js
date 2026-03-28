@@ -4,8 +4,10 @@ const { randomUUID } = require('crypto');
 
 class SheikhaFinanceEngine {
     constructor(options = {}) {
-        this.ledgerPath = options.ledgerPath || path.join(__dirname, '..', 'data', 'finance-ledger.json');
-        this.backupDir = options.backupDir || path.join(__dirname, '..', 'data', 'backups', 'finance');
+        this.ledgerPath =
+            options.ledgerPath || path.join(__dirname, '..', 'data', 'finance-ledger.json');
+        this.backupDir =
+            options.backupDir || path.join(__dirname, '..', 'data', 'backups', 'finance');
         this.baseCurrency = 'USD';
         this.exchangeRates = {
             USD: 1,
@@ -16,7 +18,7 @@ class SheikhaFinanceEngine {
         this.allocations = {
             tradeRevenue: 0.75,
             charityFund: 0.15,
-            victorySupply: 0.10
+            victorySupply: 0.1
         };
 
         this.ensureStorage();
@@ -85,7 +87,9 @@ class SheikhaFinanceEngine {
     }
 
     normalizeCurrency(currency) {
-        const normalized = String(currency || this.baseCurrency).trim().toUpperCase();
+        const normalized = String(currency || this.baseCurrency)
+            .trim()
+            .toUpperCase();
 
         if (!this.exchangeRates[normalized]) {
             throw new Error(`العملة غير مدعومة: ${normalized}`);
@@ -105,7 +109,13 @@ class SheikhaFinanceEngine {
         return Number((numericAmount * this.exchangeRates[normalizedCurrency]).toFixed(2));
     }
 
-    executeSale({ clientName, contractValue, currency = 'USD', category = 'SaaS', channel = 'direct' }) {
+    executeSale({
+        clientName,
+        contractValue,
+        currency = 'USD',
+        category = 'SaaS',
+        channel = 'direct'
+    }) {
         if (!clientName || typeof clientName !== 'string') {
             throw new Error('اسم العميل مطلوب');
         }
@@ -136,10 +146,18 @@ class SheikhaFinanceEngine {
         };
 
         ledger.sales.unshift(sale);
-        ledger.totals.grossVolumeUsd = Number((ledger.totals.grossVolumeUsd + amountUsd).toFixed(2));
-        ledger.totals.tradeRevenueUsd = Number((ledger.totals.tradeRevenueUsd + netProfitUsd).toFixed(2));
-        ledger.totals.charityFundUsd = Number((ledger.totals.charityFundUsd + charityUsd).toFixed(2));
-        ledger.totals.victorySupplyUsd = Number((ledger.totals.victorySupplyUsd + victoryUsd).toFixed(2));
+        ledger.totals.grossVolumeUsd = Number(
+            (ledger.totals.grossVolumeUsd + amountUsd).toFixed(2)
+        );
+        ledger.totals.tradeRevenueUsd = Number(
+            (ledger.totals.tradeRevenueUsd + netProfitUsd).toFixed(2)
+        );
+        ledger.totals.charityFundUsd = Number(
+            (ledger.totals.charityFundUsd + charityUsd).toFixed(2)
+        );
+        ledger.totals.victorySupplyUsd = Number(
+            (ledger.totals.victorySupplyUsd + victoryUsd).toFixed(2)
+        );
         ledger.totals.salesCount += 1;
 
         this.writeLedger(ledger);
@@ -198,15 +216,30 @@ class SheikhaFinanceEngine {
         const previous = sales.slice(3, 6);
 
         for (const sale of sales) {
-            categoryTotals[sale.category] = Number(((categoryTotals[sale.category] || 0) + sale.amountUsd).toFixed(2));
-            currencyTotals[sale.currency] = Number(((currencyTotals[sale.currency] || 0) + sale.amountUsd).toFixed(2));
+            categoryTotals[sale.category] = Number(
+                ((categoryTotals[sale.category] || 0) + sale.amountUsd).toFixed(2)
+            );
+            currencyTotals[sale.currency] = Number(
+                ((currencyTotals[sale.currency] || 0) + sale.amountUsd).toFixed(2)
+            );
         }
 
-        const topCategory = Object.entries(categoryTotals).sort((a, b) => b[1] - a[1])[0] || ['SaaS', 0];
-        const topCurrency = Object.entries(currencyTotals).sort((a, b) => b[1] - a[1])[0] || ['USD', 0];
+        const topCategory = Object.entries(categoryTotals).sort((a, b) => b[1] - a[1])[0] || [
+            'SaaS',
+            0
+        ];
+        const topCurrency = Object.entries(currencyTotals).sort((a, b) => b[1] - a[1])[0] || [
+            'USD',
+            0
+        ];
         const recentVolume = recent.reduce((sum, sale) => sum + sale.amountUsd, 0);
         const previousVolume = previous.reduce((sum, sale) => sum + sale.amountUsd, 0);
-        const momentum = recentVolume > previousVolume ? 'متسارع' : recentVolume < previousVolume ? 'متباطئ' : 'مستقر';
+        const momentum =
+            recentVolume > previousVolume
+                ? 'متسارع'
+                : recentVolume < previousVolume
+                  ? 'متباطئ'
+                  : 'مستقر';
 
         return {
             momentum,
@@ -222,13 +255,15 @@ class SheikhaFinanceEngine {
                 {
                     key: 'capital-preservation',
                     title: 'حفظ رأس المال',
-                    description: 'رفع أولوية العقود ذات العائد الدولاري الثابت وتخفيف التذبذب عند تباطؤ الزخم.',
+                    description:
+                        'رفع أولوية العقود ذات العائد الدولاري الثابت وتخفيف التذبذب عند تباطؤ الزخم.',
                     signal: momentum === 'متباطئ' ? 'نشط' : 'مراقبة'
                 },
                 {
                     key: 'currency-diversification',
                     title: 'تنويع العملات',
-                    description: 'تنويع التدفقات بين الدولار والريال واليورو والجنيه لتقليل التركّز وتحسين السيولة.',
+                    description:
+                        'تنويع التدفقات بين الدولار والريال واليورو والجنيه لتقليل التركّز وتحسين السيولة.',
                     signal: Object.keys(currencyTotals).length >= 3 ? 'جيد' : 'يحتاج تنويع'
                 },
                 {
@@ -263,11 +298,12 @@ class SheikhaFinanceEngine {
     }
 
     listBackups() {
-        const files = fs.readdirSync(this.backupDir, 'utf8')
-            .filter((fileName) => fileName.endsWith('.json'))
+        const files = fs
+            .readdirSync(this.backupDir, 'utf8')
+            .filter(fileName => fileName.endsWith('.json'))
             .sort()
             .reverse()
-            .map((fileName) => {
+            .map(fileName => {
                 const fullPath = path.join(this.backupDir, fileName);
                 const stats = fs.statSync(fullPath);
                 return {

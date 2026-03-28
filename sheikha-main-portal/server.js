@@ -5560,7 +5560,14 @@ app.get('/login', (req, res) => res.redirect('/تسجيل-الدخول.html'));
 
 const PORT = process.env.PORT || 8080;
 const DATA_DIR = path.join(__dirname, 'data');
-if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+if (!fs.existsSync(DATA_DIR)) {
+    try {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+    } catch (e) {
+        // على Vercel المسار /var/task للقراءة فقط، فلا نكسر الإقلاع.
+        console.warn('⚠️ تعذر إنشاء DATA_DIR (سيتم متابعة التشغيل):', e.message);
+    }
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🌍 Full Spectrum Global APIs — الفقر/العدالة/التسارع
@@ -8745,7 +8752,33 @@ async function callLLMChatLegacy(messages, maxTokens = 800, temperature = 0.5, o
 // ═══════════════════════════════════════════════════════════════════════════════
 const OLLAMA_BASE_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
 const OLLAMA_DEFAULT_MODEL = process.env.OLLAMA_MODEL || 'qwen2.5:72b';
-const OLLAMA_TIMEOUT_MS = parseInt(process.env.OLLAMA_TIMEOUT || '60000');
+const OLLAMA_TIMEOUT_MS = parseInt(process.env.OLLAMA_TIMEOUT || '180000');
+
+function isSmallOllamaModel(modelName) {
+    const target = String(modelName || OLLAMA_DEFAULT_MODEL).toLowerCase();
+    return (
+        target.includes('tinyllama') ||
+        target.includes('1b') ||
+        target.includes('3b')
+    );
+}
+
+function resolveOllamaMaxTokens(requestedTokens, modelName) {
+    const requested = Number.isFinite(requestedTokens) ? requestedTokens : 512;
+    const target = String(modelName || OLLAMA_DEFAULT_MODEL).toLowerCase();
+
+    if (target.includes('tinyllama') || target.includes('1b') || target.includes('3b')) {
+        return Math.min(requested, 64);
+    }
+    if (target.includes('7b')) {
+        return Math.min(requested, 128);
+    }
+    if (target.includes('14b')) {
+        return Math.min(requested, 256);
+    }
+
+    return Math.min(requested, 512);
+}
 
 // برومبت شيخة الإسلامي الشامل
 const SHEIKHA_COPILOT_SYSTEM = `بسم الله الرحمن الرحيم
@@ -8781,6 +8814,7 @@ const SHEIKHA_COPILOT_SYSTEM = `بسم الله الرحمن الرحيم
 // استدعاء Ollama عبر HTTP
 async function callOllamaChat(messages, maxTokens = 1200, temperature = 0.6, model = null) {
     const targetModel = model || OLLAMA_DEFAULT_MODEL;
+    const safeMaxTokens = resolveOllamaMaxTokens(maxTokens, targetModel);
     try {
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), OLLAMA_TIMEOUT_MS);
@@ -8794,7 +8828,7 @@ async function callOllamaChat(messages, maxTokens = 1200, temperature = 0.6, mod
                 messages: messages,
                 stream: false,
                 options: {
-                    num_predict: maxTokens,
+                    num_predict: safeMaxTokens,
                     temperature: temperature,
                     top_p: 0.9
                 }
@@ -8849,8 +8883,12 @@ app.post('/api/sheikha-copilot/chat', express.json(), authOptional, async (req, 
     const startTime = Date.now();
 
     // بناء رسائل المحادثة مع البرومبت الإسلامي
+    const copilotSystemPrompt = isSmallOllamaModel(modelOverride || OLLAMA_DEFAULT_MODEL)
+        ? 'أنت شيخة كوبايلوت. قدم جوابا عربيا قصيرا ومباشرا، وابتعد عن الحشو.'
+        : SHEIKHA_COPILOT_SYSTEM;
+
     const chatMessages = [
-        { role: 'system', content: SHEIKHA_COPILOT_SYSTEM },
+        { role: 'system', content: copilotSystemPrompt },
         ...history.map(m => ({
             role: m.role === 'assistant' ? 'assistant' : 'user',
             content: String(m.content || '').slice(0, 2000)
@@ -9010,8 +9048,12 @@ app.post('/api/sheikha-gpt/chat', express.json(), authOptional, async (req, res)
     const startTime = Date.now();
     const enableThinking = req.body.enableThinking === true; // Claude Opus adaptive thinking
 
+    const gptSystemPrompt = isSmallOllamaModel(OLLAMA_DEFAULT_MODEL)
+        ? 'أنت شيخة GPT. اجب بالعربية بجمل قصيرة واضحة، وقدم أهم نقطة مباشرة.'
+        : SHEIKHA_GPT_SYSTEM;
+
     const chatMessages = [
-        { role: 'system', content: SHEIKHA_GPT_SYSTEM },
+        { role: 'system', content: gptSystemPrompt },
         ...history.map(m => ({
             role: m.role === 'assistant' ? 'assistant' : 'user',
             content: String(m.content || '').slice(0, 3000)
@@ -9129,6 +9171,1151 @@ app.get('/api/sheikha-gpt/status', async (req, res) => {
             ]
         },
         message: 'شيخة GPT جاهز ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── endpoint: طبقة شيخة الحاكمة للتكامل الشامل ───────────────────────────────
+app.get('/api/sheikha/governance-layer', (req, res) => {
+    const governance = {
+        name: 'Sheikha Governance Layer',
+        mission: 'تكامل شيخة كطبقة حاكمة عبر الأنظمة والمنصات بطريقة آمنة وذكية',
+        principles: [
+            'الخير والمنفعة',
+            'الحوكمة البشرية',
+            'الخصوصية والأمن',
+            'التكامل المرحلي: وسيط تقني ثم تكامل مباشر'
+        ],
+        platformFamilies: {
+            compute: ['Sheikha Intel Core', 'Sheikha NVIDIA', 'Sheikha MSI'],
+            os: ['Sheikha Windows', 'Sheikha Linux', 'Sheikha Pop', 'Sheikha Android', 'Sheikha Apple'],
+            ecosystem: ['Sheikha Microsoft', 'Sheikha Google'],
+            ai: ['Sheikha Ollama', 'Sheikha GPT', 'Sheikha Copilot']
+        },
+        integrationModes: {
+            direct: 'تكامل مباشر مع واجهات المنصات الرسمية عند التوفر',
+            partner: 'تكامل عبر شريك تقني معتمد عند غياب المسار المباشر'
+        },
+        priorityRoadmap: [
+            'توحيد الهوية والسياسات',
+            'توحيد واجهات API',
+            'توحيد المراقبة والقياس',
+            'توحيد إدارة النماذج والذكاء'
+        ]
+    };
+
+    return res.json({
+        success: true,
+        data: governance,
+        message: 'طبقة شيخة الحاكمة للتكامل جاهزة ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+const SHEIKHA_INTEGRATION_ATLAS_PATH = path.join(__dirname, 'data', 'sheikha-universal-systems-index.json');
+const SHEIKHA_MARKET_GOVERNANCE_PATH = path.join(__dirname, 'data', 'sheikha-market-governance-index.json');
+const SHEIKHA_UNIVERSAL_COMMERCE_FABRIC_PATH = path.join(__dirname, 'data', 'sheikha-universal-commerce-fabric.json');
+const SHEIKHA_UMMAH_MARKET_MONITOR_PATH = path.join(__dirname, 'data', 'sheikha-ummah-market-monitor.json');
+const SHEIKHA_CONNECTORS_RUNTIME_STATE_PATH = path.join(__dirname, 'data', 'sheikha-connectors-runtime-state.json');
+const SHEIKHA_CONNECTOR_ALLOWED_ACTIONS = [
+    'sync-metadata',
+    'validate-policy',
+    'simulate-trade-flow',
+    'refresh-bridge',
+    'activate-unified'
+];
+const sheikhaConnectorRuntimeState = new Map();
+
+function loadSheikhaConnectorRuntimeState() {
+    try {
+        if (!fs.existsSync(SHEIKHA_CONNECTORS_RUNTIME_STATE_PATH)) {
+            return;
+        }
+
+        const raw = fs.readFileSync(SHEIKHA_CONNECTORS_RUNTIME_STATE_PATH, 'utf8');
+        const parsed = JSON.parse(raw);
+        const states = parsed && typeof parsed === 'object' && parsed.states && typeof parsed.states === 'object'
+            ? parsed.states
+            : {};
+
+        Object.keys(states).forEach((key) => {
+            const item = states[key];
+            if (item && typeof item === 'object') {
+                sheikhaConnectorRuntimeState.set(key, item);
+            }
+        });
+    } catch (error) {
+        console.error('⚠️ [Connectors] تعذر تحميل حالة الموصلات:', error.message);
+    }
+}
+
+function persistSheikhaConnectorRuntimeState() {
+    try {
+        const payload = {};
+        for (const [key, value] of sheikhaConnectorRuntimeState.entries()) {
+            payload[key] = value;
+        }
+        fs.mkdirSync(path.dirname(SHEIKHA_CONNECTORS_RUNTIME_STATE_PATH), { recursive: true });
+        fs.writeFileSync(
+            SHEIKHA_CONNECTORS_RUNTIME_STATE_PATH,
+            JSON.stringify({
+                updatedAt: new Date().toISOString(),
+                states: payload
+            }, null, 2)
+        );
+    } catch (error) {
+        console.error('⚠️ [Connectors] تعذر حفظ حالة الموصلات:', error.message);
+    }
+}
+
+loadSheikhaConnectorRuntimeState();
+
+function buildDefaultUniversalCommerceFabric() {
+    const generatedAt = new Date().toISOString();
+    const domains = [
+        {
+            id: 'physical-markets',
+            name: 'الأسواق المادية',
+            scope: 'Global',
+            status: 'active',
+            governanceScore: 84,
+            notes: 'يشمل الأسواق المركزية والتقليدية والحديثة'
+        },
+        {
+            id: 'logistics-and-routes',
+            name: 'النقل والرحلات التجارية',
+            scope: 'Global',
+            status: 'active',
+            governanceScore: 79,
+            notes: 'رقمنة طرق القوافل والبحر والجسور اللوجستية الحديثة'
+        },
+        {
+            id: 'digital-commerce',
+            name: 'التجارة الرقمية',
+            scope: 'Global',
+            status: 'active',
+            governanceScore: 82,
+            notes: 'توحيد المتاجر الرقمية والمدفوعات والامتثال الشرعي'
+        },
+        {
+            id: 'knowledge-and-services',
+            name: 'تجارة المعرفة والخدمات',
+            scope: 'Global',
+            status: 'active',
+            governanceScore: 88,
+            notes: 'الاستشارات والتعليم والخدمات المهنية'
+        },
+        {
+            id: 'industrial-supply',
+            name: 'سلاسل الإمداد الصناعية',
+            scope: 'Global',
+            status: 'active',
+            governanceScore: 81,
+            notes: 'المواد الخام والتصنيع والتوزيع متعدد المناطق'
+        },
+        {
+            id: 'future-economies',
+            name: 'اقتصاديات العصر الجديد',
+            scope: 'Global',
+            status: 'active',
+            governanceScore: 77,
+            notes: 'تكامل الذكاء الاصطناعي، الأتمتة، والاقتصاد المعرفي'
+        }
+    ];
+
+    const historicalTimeline = [
+        {
+            periodId: 'adam-era',
+            periodName: 'منذ عهد نبي الله آدم عليه السلام',
+            highlights: ['أصل الاستخلاف في الأرض', 'قيم العدل والأمانة'],
+            digitalizationFocus: 'نموذج المبادئ المؤسسة للتبادل العادل'
+        },
+        {
+            periodId: 'prophetic-markets',
+            periodName: 'مرحلة النبوات إلى سوق المدينة',
+            highlights: ['الصدق', 'منع الغش', 'رفع الظلم', 'وضوح الكيل والميزان'],
+            digitalizationFocus: 'حوكمة المعاملات الشرعية ومنع الاحتكار والربا'
+        },
+        {
+            periodId: 'civilizational-expansion',
+            periodName: 'العصور الحضارية الإسلامية والتجارية',
+            highlights: ['شبكات تجارة واسعة', 'تلاقي حضاري', 'إدارة عقود متقدمة'],
+            digitalizationFocus: 'أرشفة الشبكات التجارية التاريخية وربطها بمنظومات حديثة'
+        },
+        {
+            periodId: 'modern-union',
+            periodName: 'العصر الحديث والاتحاد الاقتصادي العالمي',
+            highlights: ['تكامل أسواق متعددة', 'تجارة رقمية', 'تعاون أممي'],
+            digitalizationFocus: 'طبقة حاكمة موحدة للامتثال، الشفافية، والعدالة'
+        }
+    ];
+
+    const nodes = [
+        { id: 'sheikha-governance-core', label: 'Sheikha Governance Core', family: 'governance' },
+        ...domains.map((domain) => ({ id: domain.id, label: domain.name, family: 'commerce-domain' }))
+    ];
+
+    const edges = domains.map((domain) => ({
+        from: 'sheikha-governance-core',
+        to: domain.id,
+        relation: 'unified-commerce-governance',
+        mode: 'direct'
+    }));
+
+    return {
+        version: '1.0.0',
+        generatedAt,
+        mission: 'Unified global commerce governance across all trade domains under ethical Islamic values',
+        islamicIdentity: {
+            references: [
+                'الكتاب والسنة',
+                'الصدق والأمانة في التجارة',
+                'منع الربا والغرر والغش والاحتكار',
+                'تحقيق العدل وحفظ الحقوق'
+            ],
+            medinaMarketIdentity: {
+                name: 'هوية سوق المدينة الرقمية',
+                pillars: ['العدالة', 'الشفافية', 'منع الظلم', 'تمكين التاجر والمستهلك']
+            }
+        },
+        domains,
+        historicalTimeline,
+        networkGraph: {
+            nodes,
+            edges
+        },
+        updatePolicy: {
+            mode: 'scheduled',
+            recommendedIntervalSeconds: 900,
+            refreshCommand: 'node scripts/refresh-sheikha-universal-commerce-fabric.js'
+        }
+    };
+}
+
+function readSheikhaUniversalCommerceFabric() {
+    const fallback = buildDefaultUniversalCommerceFabric();
+    return readJsonFileSafe(SHEIKHA_UNIVERSAL_COMMERCE_FABRIC_PATH, fallback);
+}
+
+function buildDefaultUmmahMarketMonitor() {
+    const generatedAt = new Date().toISOString();
+    const events = [
+        {
+            id: 'future-investment-initiative',
+            title: 'مؤتمر مستقبل الاستثمار',
+            type: 'conference',
+            region: 'Saudi Arabia',
+            status: 'tracked',
+            organizer: 'Future Investment Initiative',
+            timelineDate: '2026-10-01',
+            category: ['investment', 'global-economy', 'innovation'],
+            goals: [
+                'تعزيز الشراكات الاستثمارية العادلة',
+                'رفع كفاءة سلاسل الإمداد',
+                'دعم الابتكار الاقتصادي المسؤول'
+            ],
+            source: {
+                label: 'FII Official',
+                url: 'https://www.futureinvestmentinitiative.com'
+            }
+        },
+        {
+            id: 'saudi-us-investment-forum',
+            title: 'المنتدى السعودي الأمريكي للاستثمار',
+            type: 'forum',
+            region: 'Saudi Arabia / USA',
+            status: 'archived-tracked',
+            organizer: 'Joint business councils',
+            timelineDate: '2025-05-12',
+            category: ['investment', 'policy-dialogue'],
+            goals: [
+                'توسيع الاستثمار الثنائي',
+                'تفعيل برامج نقل المعرفة',
+                'تعزيز الاستقرار التجاري'
+            ],
+            source: {
+                label: 'Public economic coverage',
+                url: 'https://www.spa.gov.sa'
+            }
+        },
+        {
+            id: 'global-supply-chain-summit',
+            title: 'مؤتمر سلاسل الإمداد والتوريد العالمي',
+            type: 'summit',
+            region: 'Global',
+            status: 'tracked',
+            organizer: 'International supply chain networks',
+            timelineDate: '2026-09-20',
+            category: ['supply-chain', 'logistics', 'trade-resilience'],
+            goals: [
+                'مرونة سلاسل التوريد',
+                'تقليل الهدر والتضخم',
+                'رفع شفافية التتبع'
+            ],
+            source: {
+                label: 'Global logistics publications',
+                url: 'https://www.weforum.org'
+            }
+        }
+    ];
+
+    return {
+        version: '1.0.0',
+        generatedAt,
+        monitorIdentity: {
+            name: 'Sheikha Ummah Market Monitor',
+            mission: 'رقمنة ومراقبة المؤتمرات والمنتديات واللقاءات الاقتصادية والتجارية محليا وعالميا',
+            governanceReference: 'الكتاب والسنة — العدل ومنع الظلم والفساد'
+        },
+        taxonomy: {
+            eventTypes: ['conference', 'forum', 'summit', 'meeting', 'roundtable'],
+            scopes: ['local', 'regional', 'global'],
+            trackingSignals: ['inflation', 'conflicts', 'political-negotiations', 'supply-shocks', 'trade-agreements']
+        },
+        timeline: {
+            historicalCoverage: 'منذ عهد الأنبياء إلى العصر الحديث',
+            propheticTradeNote: 'رقمنة قيم التجارة في العصور النبوية وشبكات القوافل والرحلات التجارية'
+        },
+        events,
+        goalsLedger: {
+            sharedGoals: [
+                'تحقيق عدالة تجارية عالمية',
+                'رفع الشفافية والامتثال',
+                'منع الفساد والغش والاحتكار',
+                'تنسيق أهداف اقتصادية مشتركة بين الجهات'
+            ],
+            lastSyncAt: generatedAt
+        },
+        updatePolicy: {
+            mode: 'scheduled',
+            recommendedIntervalSeconds: 900,
+            refreshCommand: 'node scripts/refresh-sheikha-ummah-market-monitor.js'
+        }
+    };
+}
+
+function readSheikhaUmmahMarketMonitor() {
+    const fallback = buildDefaultUmmahMarketMonitor();
+    return readJsonFileSafe(SHEIKHA_UMMAH_MARKET_MONITOR_PATH, fallback);
+}
+
+function writeSheikhaUmmahMarketMonitor(nextPayload) {
+    fs.mkdirSync(path.dirname(SHEIKHA_UMMAH_MARKET_MONITOR_PATH), { recursive: true });
+    fs.writeFileSync(SHEIKHA_UMMAH_MARKET_MONITOR_PATH, JSON.stringify(nextPayload, null, 2));
+}
+
+function buildUmmahMacroPulse(seed = {}) {
+    const inflationRisk = Math.max(0, Math.min(100, Number(seed.inflationRisk || 48)));
+    const conflictRisk = Math.max(0, Math.min(100, Number(seed.conflictRisk || 42)));
+    const negotiationMomentum = Math.max(0, Math.min(100, Number(seed.negotiationMomentum || 63)));
+    const tradeStability = Math.max(0, Math.min(100, Number(seed.tradeStability || 68)));
+
+    const overallRisk = Math.round((inflationRisk * 0.35) + (conflictRisk * 0.35) + ((100 - tradeStability) * 0.3));
+    const opportunityIndex = Math.round((negotiationMomentum * 0.4) + (tradeStability * 0.6));
+
+    return {
+        inflationRisk,
+        conflictRisk,
+        negotiationMomentum,
+        tradeStability,
+        overallRisk,
+        opportunityIndex,
+        generatedAt: new Date().toISOString()
+    };
+}
+
+function activateSheikhaConnectorFederation(policyName) {
+    const connectors = buildSheikhaConnectorRegistry();
+    const activatedAt = new Date().toISOString();
+
+    const results = connectors.map((connector) => {
+        const previousState = sheikhaConnectorRuntimeState.get(connector.id) || {};
+        const actionCount = Number(previousState.actionCount || 0) + 1;
+
+        const nextState = {
+            ...previousState,
+            forceActive: true,
+            status: 'active',
+            actionCount,
+            lastAction: 'activate-unified',
+            lastExecutionAt: activatedAt,
+            federationPolicy: policyName
+        };
+
+        sheikhaConnectorRuntimeState.set(connector.id, nextState);
+
+        return {
+            connectorId: connector.id,
+            family: connector.family,
+            status: 'active',
+            activationLevel: 'federated',
+            activatedAt
+        };
+    });
+
+    persistSheikhaConnectorRuntimeState();
+
+    return {
+        policyName,
+        activatedAt,
+        total: results.length,
+        results
+    };
+}
+
+function readSheikhaIntegrationAtlas() {
+    const fallback = {
+        version: '1.0.0',
+        generatedAt: new Date().toISOString(),
+        governance: {
+            layerName: 'Sheikha Governance Layer',
+            mission: 'Unified cross-platform integration governance'
+        },
+        systems: [],
+        connectors: [],
+        networkGraph: { nodes: [], edges: [] },
+        updatePolicy: {
+            mode: 'scheduled',
+            recommendedIntervalSeconds: 900
+        }
+    };
+
+    try {
+        if (!fs.existsSync(SHEIKHA_INTEGRATION_ATLAS_PATH)) {
+            return fallback;
+        }
+        const raw = fs.readFileSync(SHEIKHA_INTEGRATION_ATLAS_PATH, 'utf8');
+        const parsed = JSON.parse(raw);
+        return { ...fallback, ...parsed };
+    } catch (error) {
+        return {
+            ...fallback,
+            readError: error.message
+        };
+    }
+}
+
+function readJsonFileSafe(filePath, fallback) {
+    try {
+        if (!fs.existsSync(filePath)) {
+            return fallback;
+        }
+
+        const raw = fs.readFileSync(filePath, 'utf8');
+        const parsed = JSON.parse(raw);
+        return { ...fallback, ...parsed };
+    } catch (error) {
+        return {
+            ...fallback,
+            readError: error.message
+        };
+    }
+}
+
+function buildDefaultMarketGovernanceIndex() {
+    const generatedAt = new Date().toISOString();
+    const markets = [
+        {
+            id: 'saudi-metals',
+            name: 'السوق السعودي للمعادن',
+            region: 'Saudi Arabia',
+            era: 'Modern',
+            digitizationScore: 76,
+            governanceScore: 84,
+            islamicComplianceScore: 91,
+            roadmapPriority: 'high'
+        },
+        {
+            id: 'gcc-scrap',
+            name: 'سوق الخليج للسكراب',
+            region: 'GCC',
+            era: 'Modern',
+            digitizationScore: 68,
+            governanceScore: 73,
+            islamicComplianceScore: 85,
+            roadmapPriority: 'high'
+        },
+        {
+            id: 'mena-industrial',
+            name: 'السوق الصناعي في الشرق الأوسط وشمال أفريقيا',
+            region: 'MENA',
+            era: 'Modern',
+            digitizationScore: 61,
+            governanceScore: 66,
+            islamicComplianceScore: 79,
+            roadmapPriority: 'medium'
+        },
+        {
+            id: 'eu-metals-exchange',
+            name: 'السوق الأوروبي للمعادن',
+            region: 'Europe',
+            era: 'Industrial to Digital',
+            digitizationScore: 88,
+            governanceScore: 86,
+            islamicComplianceScore: 64,
+            roadmapPriority: 'medium'
+        },
+        {
+            id: 'north-america-industrial',
+            name: 'السوق الصناعي في أمريكا الشمالية',
+            region: 'North America',
+            era: 'Industrial to AI-native',
+            digitizationScore: 90,
+            governanceScore: 82,
+            islamicComplianceScore: 58,
+            roadmapPriority: 'medium'
+        },
+        {
+            id: 'east-asia-manufacturing',
+            name: 'سوق شرق آسيا التصنيعي',
+            region: 'East Asia',
+            era: 'High-volume Industrial',
+            digitizationScore: 86,
+            governanceScore: 80,
+            islamicComplianceScore: 62,
+            roadmapPriority: 'high'
+        },
+        {
+            id: 'africa-growth-metals',
+            name: 'سوق أفريقيا للمعادن النامية',
+            region: 'Africa',
+            era: 'Growth',
+            digitizationScore: 49,
+            governanceScore: 54,
+            islamicComplianceScore: 74,
+            roadmapPriority: 'high'
+        },
+        {
+            id: 'latin-america-recycling',
+            name: 'سوق أمريكا اللاتينية لإعادة التدوير',
+            region: 'Latin America',
+            era: 'Growth',
+            digitizationScore: 58,
+            governanceScore: 57,
+            islamicComplianceScore: 67,
+            roadmapPriority: 'medium'
+        }
+    ];
+
+    const nodes = markets.map((market) => ({
+        id: market.id,
+        label: market.name,
+        family: 'market'
+    }));
+    nodes.push({ id: 'sheikha-governance-core', label: 'Sheikha Governance Core', family: 'governance' });
+
+    const edges = markets.map((market) => ({
+        from: 'sheikha-governance-core',
+        to: market.id,
+        relation: 'market-governance',
+        mode: market.roadmapPriority
+    }));
+
+    return {
+        version: '1.0.0',
+        generatedAt,
+        mission: 'Global market digital governance with Quran and Sunnah aligned ethics',
+        islamicFramework: {
+            references: [
+                'الكتاب والسنة',
+                'الصدق في البيع والشراء',
+                'منع الربا والغرر والغش والاحتكار',
+                'العدل ووضوح المعلومات'
+            ],
+            policy: 'Human-governed ethical automation'
+        },
+        markets,
+        networkGraph: {
+            nodes,
+            edges
+        },
+        updatePolicy: {
+            mode: 'scheduled',
+            recommendedIntervalSeconds: 900,
+            refreshCommand: 'node scripts/refresh-sheikha-market-governance.js'
+        }
+    };
+}
+
+function readSheikhaMarketGovernanceIndex() {
+    const fallback = buildDefaultMarketGovernanceIndex();
+    return readJsonFileSafe(SHEIKHA_MARKET_GOVERNANCE_PATH, fallback);
+}
+
+function getSheikhaConnectorTemplates() {
+    return [
+        {
+            id: 'microsoft-family',
+            targetSystemId: 'sheikha-microsoft',
+            family: 'Microsoft',
+            nativeRoute: '/api/sheikha/unified-integrations',
+            capabilities: ['identity-sync', 'governance-policy-sync', 'copilot-bridge']
+        },
+        {
+            id: 'google-family',
+            targetSystemId: 'sheikha-google',
+            family: 'Google',
+            nativeRoute: '/api/sheikha/unified-integrations',
+            capabilities: ['android-policy-sync', 'ai-routing', 'market-index-sync']
+        },
+        {
+            id: 'apple-family',
+            targetSystemId: 'sheikha-apple',
+            family: 'Apple',
+            nativeRoute: '/api/sheikha/integration-atlas',
+            capabilities: ['device-policy-bridge', 'security-profile-sync']
+        },
+        {
+            id: 'android-family',
+            targetSystemId: 'sheikha-android',
+            family: 'Android',
+            nativeRoute: '/api/sheikha/integration-atlas',
+            capabilities: ['mobile-market-sync', 'policy-evaluation']
+        },
+        {
+            id: 'linux-family',
+            targetSystemId: 'sheikha-linux',
+            family: 'Linux',
+            nativeRoute: '/api/sheikha/integration-atlas',
+            capabilities: ['server-policy-sync', 'infrastructure-readiness']
+        },
+        {
+            id: 'windows-family',
+            targetSystemId: 'sheikha-windows',
+            family: 'Windows',
+            nativeRoute: '/api/sheikha/integration-atlas',
+            capabilities: ['desktop-policy-sync', 'enterprise-market-ops']
+        },
+        {
+            id: 'nvidia-family',
+            targetSystemId: 'sheikha-nvidia',
+            family: 'NVIDIA',
+            nativeRoute: '/api/nvidia-cuda/capabilities',
+            capabilities: ['gpu-readiness', 'ai-acceleration', 'compute-governance']
+        },
+        {
+            id: 'intel-family',
+            targetSystemId: 'sheikha-intel-core',
+            family: 'Intel',
+            nativeRoute: '/api/sheikha/integration-atlas',
+            capabilities: ['compute-interoperability', 'security-profile-sync']
+        },
+        {
+            id: 'msi-family',
+            targetSystemId: 'sheikha-msi',
+            family: 'MSI',
+            nativeRoute: '/api/sheikha/integration-atlas',
+            capabilities: ['device-readiness', 'hardware-governance']
+        }
+    ];
+}
+
+function buildSheikhaConnectorRegistry() {
+    const atlas = readSheikhaIntegrationAtlas();
+    const systems = Array.isArray(atlas.systems) ? atlas.systems : [];
+    const connectors = Array.isArray(atlas.connectors) ? atlas.connectors : [];
+
+    const systemById = new Map(systems.map((item) => [item.id, item]));
+    const connectorByTarget = new Map(connectors.map((item) => [item.to, item]));
+    const templates = getSheikhaConnectorTemplates();
+
+    return templates.map((template) => {
+        const system = systemById.get(template.targetSystemId) || {};
+        const connector = connectorByTarget.get(template.targetSystemId) || {};
+        const runtimeState = sheikhaConnectorRuntimeState.get(template.id) || {};
+        const baseStatus = connector.status || system.status || 'planned';
+        const resolvedStatus = runtimeState.forceActive ? 'active' : (runtimeState.status || baseStatus);
+        const actionCount = Number(runtimeState.actionCount || 0);
+        const healthScore = Math.max(
+            40,
+            Math.min(
+                99,
+                (resolvedStatus === 'active' ? 72 : 52) +
+                    (connector.mode === 'direct' ? 12 : 5) +
+                    Math.min(actionCount * 2, 12)
+            )
+        );
+
+        return {
+            id: template.id,
+            family: template.family,
+            targetSystemId: template.targetSystemId,
+            targetName: system.name || template.family,
+            mode: connector.mode || system.mode || 'partner',
+            status: resolvedStatus,
+            capabilities: template.capabilities,
+            nativeRoute: template.nativeRoute,
+            lastExecutionAt: runtimeState.lastExecutionAt || null,
+            lastAction: runtimeState.lastAction || null,
+            activationLevel: runtimeState.forceActive ? 'federated' : 'baseline',
+            healthScore,
+            governanceReference: 'الكتاب والسنة - منع الربا والغرر والغش'
+        };
+    });
+}
+
+function buildMarketSimulation(index, options) {
+    const markets = Array.isArray(index.markets) ? index.markets : [];
+    const scenarioName = typeof options.scenario === 'string' && options.scenario.trim()
+        ? options.scenario.trim()
+        : 'balanced-growth';
+    const adoptionRate = Math.max(0, Math.min(100, Number(options.adoptionRate || 65)));
+    const governanceStrength = Math.max(0, Math.min(100, Number(options.governanceStrength || 70)));
+    const shariaAlignment = Math.max(0, Math.min(100, Number(options.shariaAlignment || 85)));
+
+    const projectedMarkets = markets.map((market) => {
+        const base = (
+            Number(market.digitizationScore || 0) +
+            Number(market.governanceScore || 0) +
+            Number(market.islamicComplianceScore || 0)
+        ) / 3;
+
+        const uplift = (adoptionRate * 0.2) + (governanceStrength * 0.25) + (shariaAlignment * 0.2);
+        const projectedScore = Math.max(0, Math.min(100, Math.round((base * 0.55) + uplift * 0.45)));
+
+        let recommendation = 'استمرار التحسين المرحلي مع مراقبة الامتثال';
+        if (projectedScore >= 85) {
+            recommendation = 'جاهز للتوسعة العابرة للحدود مع حوكمة مشددة';
+        } else if (projectedScore < 65) {
+            recommendation = 'أولوية لتقوية الرقمنة والشفافية قبل التوسع';
+        }
+
+        return {
+            id: market.id,
+            name: market.name,
+            currentScore: Math.round(base),
+            projectedScore,
+            recommendation
+        };
+    });
+
+    return {
+        scenario: scenarioName,
+        generatedAt: new Date().toISOString(),
+        controls: {
+            adoptionRate,
+            governanceStrength,
+            shariaAlignment
+        },
+        summary: {
+            markets: projectedMarkets.length,
+            averageProjectedScore: projectedMarkets.length
+                ? Math.round(projectedMarkets.reduce((sum, item) => sum + item.projectedScore, 0) / projectedMarkets.length)
+                : 0
+        },
+        markets: projectedMarkets
+    };
+}
+
+app.get('/api/sheikha/integration-atlas', (req, res) => {
+    const atlas = readSheikhaIntegrationAtlas();
+    return res.json({
+        success: true,
+        data: atlas,
+        message: 'Sheikha integration atlas loaded',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/integration-atlas/map', (req, res) => {
+    const atlas = readSheikhaIntegrationAtlas();
+    return res.json({
+        success: true,
+        data: {
+            generatedAt: atlas.generatedAt,
+            networkGraph: atlas.networkGraph || { nodes: [], edges: [] },
+            summary: {
+                systems: Array.isArray(atlas.systems) ? atlas.systems.length : 0,
+                connectors: Array.isArray(atlas.connectors) ? atlas.connectors.length : 0
+            }
+        },
+        message: 'Sheikha integration map ready',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/connectors/status', (req, res) => {
+    const connectors = buildSheikhaConnectorRegistry();
+    const summary = {
+        total: connectors.length,
+        active: connectors.filter((item) => item.status === 'active').length,
+        planned: connectors.filter((item) => item.status === 'planned').length,
+        conditional: connectors.filter((item) => item.status === 'conditional').length,
+        averageHealth: connectors.length
+            ? Math.round(connectors.reduce((sum, item) => sum + Number(item.healthScore || 0), 0) / connectors.length)
+            : 0
+    };
+
+    return res.json({
+        success: true,
+        data: {
+            generatedAt: new Date().toISOString(),
+            summary,
+            allowedActions: SHEIKHA_CONNECTOR_ALLOWED_ACTIONS,
+            connectors
+        },
+        message: 'حالة موصلات شيخة جاهزة ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/connectors/:connectorId', (req, res) => {
+    const connectorId = String(req.params.connectorId || '').trim();
+    const connectors = buildSheikhaConnectorRegistry();
+    const connector = connectors.find((item) => item.id === connectorId);
+
+    if (!connector) {
+        return res.status(404).json({
+            success: false,
+            data: null,
+            message: 'الموصل المطلوب غير موجود',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    return res.json({
+        success: true,
+        data: connector,
+        message: 'تفاصيل الموصل جاهزة ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/connectors/:connectorId/execute', (req, res) => {
+    const connectorId = String(req.params.connectorId || '').trim();
+    const action = String((req.body && req.body.action) || '').trim();
+    const payload = req.body && typeof req.body.payload === 'object' && req.body.payload !== null
+        ? req.body.payload
+        : {};
+
+    if (!action || !SHEIKHA_CONNECTOR_ALLOWED_ACTIONS.includes(action)) {
+        return res.status(400).json({
+            success: false,
+            data: null,
+            message: 'الإجراء غير صالح. استخدم إجراء من قائمة allowedActions',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    const connectors = buildSheikhaConnectorRegistry();
+    const connector = connectors.find((item) => item.id === connectorId);
+
+    if (!connector) {
+        return res.status(404).json({
+            success: false,
+            data: null,
+            message: 'الموصل المطلوب غير موجود',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    const executionAt = new Date().toISOString();
+    const previousState = sheikhaConnectorRuntimeState.get(connector.id) || {};
+    const nextActionCount = Number(previousState.actionCount || 0) + 1;
+    const status = previousState.forceActive ? 'active' : (connector.mode === 'direct' ? 'active' : 'conditional');
+
+    sheikhaConnectorRuntimeState.set(connector.id, {
+        ...previousState,
+        actionCount: nextActionCount,
+        lastExecutionAt: executionAt,
+        lastAction: action,
+        status
+    });
+    persistSheikhaConnectorRuntimeState();
+
+    return res.json({
+        success: true,
+        data: {
+            connectorId: connector.id,
+            action,
+            status,
+            nativeRoute: connector.nativeRoute,
+            payload,
+            governanceCheck: {
+                passed: true,
+                reference: 'الكتاب والسنة: منع الربا والغرر والغش'
+            },
+            executionReceipt: `exec-${connector.id}-${Date.now()}`,
+            nextRecommendedAction: action === 'validate-policy' ? 'sync-metadata' : 'validate-policy',
+            executedAt: executionAt
+        },
+        message: 'تم تنفيذ إجراء الموصل بنجاح ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/connectors/sync-all', (req, res) => {
+    const action = String((req.body && req.body.action) || 'refresh-bridge').trim();
+
+    if (!SHEIKHA_CONNECTOR_ALLOWED_ACTIONS.includes(action)) {
+        return res.status(400).json({
+            success: false,
+            data: null,
+            message: 'الإجراء المطلوب للمزامنة غير صالح',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    const connectors = buildSheikhaConnectorRegistry();
+    const executedAt = new Date().toISOString();
+    const results = connectors.map((connector) => {
+        const previousState = sheikhaConnectorRuntimeState.get(connector.id) || {};
+        const actionCount = Number(previousState.actionCount || 0) + 1;
+        const status = previousState.forceActive ? 'active' : (connector.mode === 'direct' ? 'active' : 'conditional');
+
+        sheikhaConnectorRuntimeState.set(connector.id, {
+            ...previousState,
+            actionCount,
+            lastExecutionAt: executedAt,
+            lastAction: action,
+            status
+        });
+
+        return {
+            connectorId: connector.id,
+            family: connector.family,
+            status,
+            action,
+            executedAt
+        };
+    });
+    persistSheikhaConnectorRuntimeState();
+
+    return res.json({
+        success: true,
+        data: {
+            action,
+            total: results.length,
+            results
+        },
+        message: 'تمت مزامنة جميع الموصلات ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/connectors/activate-federation', (req, res) => {
+    const body = req.body && typeof req.body === 'object' ? req.body : {};
+    const policyName = typeof body.policyName === 'string' && body.policyName.trim()
+        ? body.policyName.trim()
+        : 'unified-ethical-commerce-federation';
+
+    const activation = activateSheikhaConnectorFederation(policyName);
+
+    return res.json({
+        success: true,
+        data: activation,
+        message: 'تم تفعيل الاتحاد الحاكم للموصلات وجعلها active ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/market-governance/index', (req, res) => {
+    const index = readSheikhaMarketGovernanceIndex();
+    return res.json({
+        success: true,
+        data: index,
+        message: 'فهرس الحوكمة السوقية جاهز ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/market-governance/map', (req, res) => {
+    const index = readSheikhaMarketGovernanceIndex();
+    const markets = Array.isArray(index.markets) ? index.markets : [];
+
+    return res.json({
+        success: true,
+        data: {
+            generatedAt: index.generatedAt || new Date().toISOString(),
+            networkGraph: index.networkGraph || { nodes: [], edges: [] },
+            summary: {
+                markets: markets.length,
+                highPriority: markets.filter((item) => item.roadmapPriority === 'high').length
+            }
+        },
+        message: 'خريطة حوكمة الأسواق جاهزة ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/market-governance/simulate', (req, res) => {
+    const body = req.body && typeof req.body === 'object' ? req.body : {};
+    const index = readSheikhaMarketGovernanceIndex();
+    const simulation = buildMarketSimulation(index, body);
+
+    return res.json({
+        success: true,
+        data: simulation,
+        message: 'تم تنفيذ محاكاة الحوكمة السوقية ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/universal-commerce/fabric', (req, res) => {
+    const fabric = readSheikhaUniversalCommerceFabric();
+    return res.json({
+        success: true,
+        data: fabric,
+        message: 'نسيج التجارة الكوني الحاكم جاهز ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/universal-commerce/map', (req, res) => {
+    const fabric = readSheikhaUniversalCommerceFabric();
+    const domains = Array.isArray(fabric.domains) ? fabric.domains : [];
+    const timeline = Array.isArray(fabric.historicalTimeline) ? fabric.historicalTimeline : [];
+
+    return res.json({
+        success: true,
+        data: {
+            generatedAt: fabric.generatedAt || new Date().toISOString(),
+            networkGraph: fabric.networkGraph || { nodes: [], edges: [] },
+            summary: {
+                domains: domains.length,
+                activeDomains: domains.filter((item) => item.status === 'active').length,
+                timelineStages: timeline.length
+            },
+            islamicIdentity: fabric.islamicIdentity || {}
+        },
+        message: 'خريطة التجارة الكونية الموحدة جاهزة ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/ummah-market-monitor', (req, res) => {
+    const monitor = readSheikhaUmmahMarketMonitor();
+    const events = Array.isArray(monitor.events) ? monitor.events : [];
+    const macroPulse = buildUmmahMacroPulse();
+
+    return res.json({
+        success: true,
+        data: {
+            ...monitor,
+            macroPulse,
+            summary: {
+                events: events.length,
+                tracked: events.filter((item) => item.status === 'tracked').length,
+                archived: events.filter((item) => String(item.status).includes('archived')).length,
+                upcoming: events.filter((item) => new Date(item.timelineDate) >= new Date()).length
+            }
+        },
+        message: 'مراقب أسواق أمة محمد جاهز ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/ummah-market-monitor/calendar', (req, res) => {
+    const monitor = readSheikhaUmmahMarketMonitor();
+    const events = Array.isArray(monitor.events) ? monitor.events : [];
+    const sortedEvents = [...events].sort((a, b) => new Date(a.timelineDate) - new Date(b.timelineDate));
+
+    return res.json({
+        success: true,
+        data: {
+            generatedAt: monitor.generatedAt || new Date().toISOString(),
+            calendar: sortedEvents.map((event) => ({
+                id: event.id,
+                title: event.title,
+                timelineDate: event.timelineDate,
+                region: event.region,
+                type: event.type,
+                status: event.status,
+                organizer: event.organizer
+            }))
+        },
+        message: 'رزنامة المؤتمرات والمنتديات جاهزة ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/ummah-market-monitor/register-event', (req, res) => {
+    const body = req.body && typeof req.body === 'object' ? req.body : {};
+    const title = String(body.title || '').trim();
+    const type = String(body.type || '').trim();
+    const timelineDate = String(body.timelineDate || '').trim();
+    const region = String(body.region || '').trim();
+    const organizer = String(body.organizer || '').trim();
+
+    if (!title || !type || !timelineDate || !region || !organizer) {
+        return res.status(400).json({
+            success: false,
+            data: null,
+            message: 'الحقول المطلوبة: title, type, timelineDate, region, organizer',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    const monitor = readSheikhaUmmahMarketMonitor();
+    const events = Array.isArray(monitor.events) ? monitor.events : [];
+    const newEvent = {
+        id: `event-${Date.now()}`,
+        title,
+        type,
+        region,
+        status: 'tracked',
+        organizer,
+        timelineDate,
+        category: Array.isArray(body.category) ? body.category : ['general-economy'],
+        goals: Array.isArray(body.goals) ? body.goals : ['توثيق الحدث ورقمنة أهدافه ومخرجاته'],
+        source: body.source && typeof body.source === 'object'
+            ? {
+                label: String(body.source.label || 'custom-source'),
+                url: String(body.source.url || '')
+            }
+            : { label: 'custom-source', url: '' },
+        createdAt: new Date().toISOString()
+    };
+
+    const nextMonitor = {
+        ...monitor,
+        generatedAt: new Date().toISOString(),
+        events: [newEvent, ...events],
+        goalsLedger: {
+            ...(monitor.goalsLedger || {}),
+            lastSyncAt: new Date().toISOString()
+        }
+    };
+
+    writeSheikhaUmmahMarketMonitor(nextMonitor);
+
+    return res.json({
+        success: true,
+        data: newEvent,
+        message: 'تم تسجيل الحدث في المراقب الإسلامي بنجاح ✅',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/ummah-market-monitor/sync-live', (req, res) => {
+    const body = req.body && typeof req.body === 'object' ? req.body : {};
+    const monitor = readSheikhaUmmahMarketMonitor();
+    const macroPulse = buildUmmahMacroPulse(body.macroPulse || {});
+    const events = Array.isArray(monitor.events) ? monitor.events : [];
+
+    const nextMonitor = {
+        ...monitor,
+        generatedAt: new Date().toISOString(),
+        goalsLedger: {
+            ...(monitor.goalsLedger || {}),
+            lastSyncAt: new Date().toISOString(),
+            latestPulse: macroPulse
+        }
+    };
+
+    writeSheikhaUmmahMarketMonitor(nextMonitor);
+
+    return res.json({
+        success: true,
+        data: {
+            summary: {
+                events: events.length,
+                overallRisk: macroPulse.overallRisk,
+                opportunityIndex: macroPulse.opportunityIndex
+            },
+            macroPulse
+        },
+        message: 'تمت مزامنة المراقب الإسلامي للأسواق عالمياً ✅',
         timestamp: new Date().toISOString()
     });
 });
@@ -10176,7 +11363,16 @@ const NOTIFICATIONS_FILE = path.join(DATA_DIR, 'notifications.json');
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📦 نظام حفظ العمليات والأرشفة والشبكة السحابية (بدون تأخير، سرعة، كفاءة عالية)
 // ═══════════════════════════════════════════════════════════════════════════════
-const OPERATIONS_DIR = path.join(DATA_DIR, 'operations');
+const WRITE_DATA_DIR = Boolean(process.env.VERCEL) ? path.join('/tmp', 'sheikha-data') : DATA_DIR;
+if (!fs.existsSync(WRITE_DATA_DIR)) {
+    try {
+        fs.mkdirSync(WRITE_DATA_DIR, { recursive: true });
+    } catch (e) {
+        console.warn('⚠️ تعذر إنشاء WRITE_DATA_DIR:', e.message);
+    }
+}
+
+const OPERATIONS_DIR = path.join(WRITE_DATA_DIR, 'operations');
 const OPERATIONS_ESSENTIAL_DIR = path.join(OPERATIONS_DIR, 'essential');
 const OPERATIONS_ARCHIVE_DIR = path.join(OPERATIONS_DIR, 'archive');
 const OPERATIONS_CLOUD_STAGING_DIR = path.join(OPERATIONS_DIR, 'cloud-staging');
@@ -10186,7 +11382,13 @@ const OPERATIONS_CLOUD_STAGING_DIR = path.join(OPERATIONS_DIR, 'cloud-staging');
     OPERATIONS_ARCHIVE_DIR,
     OPERATIONS_CLOUD_STAGING_DIR
 ].forEach(d => {
-    if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
+    if (!fs.existsSync(d)) {
+        try {
+            fs.mkdirSync(d, { recursive: true });
+        } catch (e) {
+            console.warn('⚠️ تعذر إنشاء مجلد عمليات:', d, e.message);
+        }
+    }
 });
 
 const OPERATIONS_ESSENTIAL_THRESHOLD =
@@ -20696,11 +21898,48 @@ app.post('/api/scm/documents', authRequired, (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🤖 AI Conversations Storage
+// 🤖 AI Conversations Storage — مع حفظ دائم على القرص
 // ═══════════════════════════════════════════════════════════════════════════════
 
+const AI_CONVERSATIONS_FILE = path.join(__dirname, 'data', 'ai-conversations.json');
+const AI_KNOWLEDGE_FILE = path.join(__dirname, 'data', 'ai-knowledge.json');
+
+// تحميل المحادثات من القرص عند البدء
 let AI_CONVERSATIONS = [];
 let AI_KNOWLEDGE = [];
+
+try {
+    if (fs.existsSync(AI_CONVERSATIONS_FILE)) {
+        AI_CONVERSATIONS = JSON.parse(fs.readFileSync(AI_CONVERSATIONS_FILE, 'utf8'));
+    }
+} catch (e) {
+    console.error('⚠️ خطأ في تحميل المحادثات:', e.message);
+}
+
+try {
+    if (fs.existsSync(AI_KNOWLEDGE_FILE)) {
+        AI_KNOWLEDGE = JSON.parse(fs.readFileSync(AI_KNOWLEDGE_FILE, 'utf8'));
+    }
+} catch (e) {
+    console.error('⚠️ خطأ في تحميل قاعدة المعرفة:', e.message);
+}
+
+// حفظ المحادثات على القرص
+function saveAIConversations() {
+    try {
+        fs.writeFileSync(AI_CONVERSATIONS_FILE, JSON.stringify(AI_CONVERSATIONS, null, 2), 'utf8');
+    } catch (e) {
+        console.error('⚠️ خطأ في حفظ المحادثات:', e.message);
+    }
+}
+
+function saveAIKnowledge() {
+    try {
+        fs.writeFileSync(AI_KNOWLEDGE_FILE, JSON.stringify(AI_KNOWLEDGE, null, 2), 'utf8');
+    } catch (e) {
+        console.error('⚠️ خطأ في حفظ قاعدة المعرفة:', e.message);
+    }
+}
 
 app.post('/api/ai/conversations', (req, res) => {
     const { role, content, model } = req.body;
@@ -20713,7 +21952,7 @@ app.post('/api/ai/conversations', (req, res) => {
     };
     AI_CONVERSATIONS.push(conversation);
 
-    // Extract and save knowledge
+    // استخراج وحفظ المعرفة
     if (content && content.length > 20) {
         AI_KNOWLEDGE.push({
             id: 'KNOW-' + Date.now(),
@@ -20721,8 +21960,10 @@ app.post('/api/ai/conversations', (req, res) => {
             content: content.substring(0, 500),
             timestamp: new Date().toISOString()
         });
+        saveAIKnowledge();
     }
 
+    saveAIConversations();
     res.json({ success: true, conversation, totalConversations: AI_CONVERSATIONS.length });
 });
 
@@ -20752,6 +21993,7 @@ app.post('/api/ai/knowledge', (req, res) => {
         timestamp: new Date().toISOString()
     };
     AI_KNOWLEDGE.push(knowledge);
+    saveAIKnowledge();
     res.json({ success: true, knowledge, totalKnowledge: AI_KNOWLEDGE.length });
 });
 

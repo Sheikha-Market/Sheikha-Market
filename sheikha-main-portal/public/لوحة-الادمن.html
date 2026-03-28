@@ -6342,6 +6342,28 @@ quick
             <div class="stat-card"><div class="stat-label">نمط البنية</div><div class="stat-value" style="font-size:.95rem">Modular Core + Edge</div></div>
         </div>
 
+        <div class="card" style="margin-bottom:16px;border-right:3px solid #22c55e">
+            <div class="card-title">فحص حي لحالة الذكاء (كل 10 ثوان)</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px">
+                <div style="padding:12px;background:var(--bg3);border-radius:10px">
+                    <div style="font-size:.72rem;color:var(--text-muted)">OpenAI</div>
+                    <div id="live-openai-status" style="font-size:.86rem;font-weight:800;color:var(--orange);margin-top:4px">جاري الفحص...</div>
+                </div>
+                <div style="padding:12px;background:var(--bg3);border-radius:10px">
+                    <div style="font-size:.72rem;color:var(--text-muted)">Ollama</div>
+                    <div id="live-ollama-status" style="font-size:.86rem;font-weight:800;color:var(--orange);margin-top:4px">جاري الفحص...</div>
+                </div>
+                <div style="padding:12px;background:var(--bg3);border-radius:10px">
+                    <div style="font-size:.72rem;color:var(--text-muted)">المزوّد النشط</div>
+                    <div id="live-active-provider" style="font-size:.86rem;font-weight:800;color:var(--gold);margin-top:4px">—</div>
+                </div>
+                <div style="padding:12px;background:var(--bg3);border-radius:10px">
+                    <div style="font-size:.72rem;color:var(--text-muted)">آخر تحديث</div>
+                    <div id="live-ai-last-check" style="font-size:.82rem;font-weight:700;color:var(--text2);margin-top:4px">—</div>
+                </div>
+            </div>
+        </div>
+
         <div class="card" style="margin-bottom:16px;border-right:3px solid var(--gold)">
             <div class="card-title">المرجع المعماري المركزي</div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px">
@@ -7267,6 +7289,43 @@ function showSection(sectionId) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     // تحميل بيانات NVIDIA/CUDA عند فتح القسم
     if (sectionId === 'nvidia-cuda') loadNvidiaCudaCapabilities();
+    if (sectionId === 'architecture-ops') loadLiveAiProviderStatus();
+}
+
+async function loadLiveAiProviderStatus() {
+    const openaiEl = document.getElementById('live-openai-status');
+    const ollamaEl = document.getElementById('live-ollama-status');
+    const activeEl = document.getElementById('live-active-provider');
+    const lastCheckEl = document.getElementById('live-ai-last-check');
+    if (!openaiEl || !ollamaEl || !activeEl || !lastCheckEl) return;
+
+    try {
+        const r = await fetch('/api/sheikha-gpt/status', { cache: 'no-store' });
+        const j = await r.json();
+        const providers = (j && j.data && j.data.providers) ? j.data.providers : {};
+
+        const openaiOn = !!(providers.openai && providers.openai.configured);
+        const ollamaOn = !!(providers.ollama && providers.ollama.available);
+        const active = (j && j.data && j.data.activeProvider) ? j.data.activeProvider : 'unknown';
+
+        openaiEl.textContent = openaiOn ? '🟢 متصل' : '🔴 غير مفعّل';
+        openaiEl.style.color = openaiOn ? 'var(--green)' : 'var(--red)';
+
+        ollamaEl.textContent = ollamaOn ? '🟢 متصل' : '🔴 غير متاح';
+        ollamaEl.style.color = ollamaOn ? 'var(--green)' : 'var(--red)';
+
+        activeEl.textContent = active;
+        activeEl.style.color = active === 'openai' || active === 'ollama' ? 'var(--green)' : 'var(--orange)';
+        lastCheckEl.textContent = new Date().toLocaleTimeString('ar-SA');
+    } catch (_) {
+        openaiEl.textContent = '🔴 خطأ اتصال';
+        ollamaEl.textContent = '🔴 خطأ اتصال';
+        activeEl.textContent = 'unknown';
+        lastCheckEl.textContent = new Date().toLocaleTimeString('ar-SA');
+        openaiEl.style.color = 'var(--red)';
+        ollamaEl.style.color = 'var(--red)';
+        activeEl.style.color = 'var(--red)';
+    }
 }
 async function loadNvidiaCudaCapabilities() {
     const elNim = document.getElementById('nc-nim-status');
@@ -7327,6 +7386,9 @@ function toggleGroup(el) {
 document.querySelectorAll('.nav-group-items').forEach(g => {
     g.style.maxHeight = g.scrollHeight + 'px';
 });
+
+loadLiveAiProviderStatus();
+setInterval(loadLiveAiProviderStatus, 10000);
 
 // ===== MOBILE SIDEBAR =====
 function toggleSidebar() {

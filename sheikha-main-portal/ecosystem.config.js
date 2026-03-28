@@ -1,50 +1,98 @@
+const fs = require('fs');
+const path = require('path');
+
+const defaultRuntimeBase = '/var/sheikha/runtime';
+const fallbackRuntimeBase = '/workspaces/sheikha/sheikha-main-portal/runtime';
+
+function resolveRuntimeBase() {
+    const configuredBase = process.env.SHEIKHA_RUNTIME_BASE;
+    if (configuredBase) {
+        fs.mkdirSync(path.join(configuredBase, 'logs'), { recursive: true });
+        return configuredBase;
+    }
+
+    try {
+        fs.mkdirSync(path.join(defaultRuntimeBase, 'logs'), { recursive: true });
+        return defaultRuntimeBase;
+    } catch (error) {
+        fs.mkdirSync(path.join(fallbackRuntimeBase, 'logs'), { recursive: true });
+        return fallbackRuntimeBase;
+    }
+}
+
+const runtimeBase = resolveRuntimeBase();
+const logPath = fileName => path.join(runtimeBase, 'logs', fileName);
+
 module.exports = {
     apps: [
-        /* ─── الخادم الرئيسي ─────────────────────────────── */
+        /* ───────────────────────────────
+       الخادم الرئيسي
+    ─────────────────────────────── */
         {
             name: 'sheikha-api',
+            cwd: '/workspaces/sheikha/sheikha-main-portal',
             script: './server.js',
-            instances: 'max',
-            exec_mode: 'cluster',
+            instances: 1,
+            exec_mode: 'fork',
             env: {
                 NODE_ENV: 'production',
                 PORT: 8080
             },
             watch: false,
-            max_memory_restart: '1G',
-            error_file: './logs/sheikha-error.log',
-            out_file: './logs/sheikha-out.log',
+            autorestart: true,
+            max_memory_restart: '500M',
+            node_args: '--max-old-space-size=768',
+            error_file: logPath('sheikha-api-error.log'),
+            out_file: logPath('sheikha-api-out.log'),
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
-            max_restarts: 3,
+            time: true,
+            max_restarts: 5,
             min_uptime: '10s',
-            gracefulShutdown: true
+            restart_delay: 3000,
+            kill_timeout: 5000,
+            listen_timeout: 8000,
+            exp_backoff_restart_delay: 100
         },
 
-        /* ─── مراقبة يومية: Health Check + KPI Snapshot ── */
+        /* ───────────────────────────────
+       مراقبة يومية: Health Check + KPI Snapshot
+    ─────────────────────────────── */
         {
             name: 'sheikha-health-monitor',
+            cwd: '/workspaces/sheikha/sheikha-main-portal',
             script: './scripts/health-check-kpi.js',
             instances: 1,
-            autorestart: false, // لا يُعاد تشغيله تلقائياً
-            cron_restart: '0 6 * * *', // كل يوم الساعة 06:00 (توقيت الخادم)
+            exec_mode: 'fork',
+            autorestart: false,
+            cron_restart: '0 6 * * *',
             watch: false,
             env: {
                 NODE_ENV: 'production',
                 GOOGLE_CLOUD_PROJECT: 'sheikha-market-ops'
             },
-            error_file: './logs/health-monitor-error.log',
-            out_file: './logs/health-monitor-out.log',
+            max_memory_restart: '500M',
+            error_file: logPath('health-monitor-error.log'),
+            out_file: logPath('health-monitor-out.log'),
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
-            max_restarts: 0
+            time: true,
+            max_restarts: 0,
+            restart_delay: 3000,
+            kill_timeout: 5000,
+            listen_timeout: 8000,
+            exp_backoff_restart_delay: 100
         },
 
-        /* ─── موصلات أكاديمية/ذكاء بالخلفية ───────────── */
+        /* ───────────────────────────────
+       موصلات أكاديمية/ذكاء بالخلفية
+    ─────────────────────────────── */
         {
             name: 'Sheikha-NotebookKLM',
+            cwd: '/workspaces/sheikha/sheikha-main-portal',
             script: './scripts/sheikha-academic-connectors-loop.js',
             instances: 1,
+            exec_mode: 'fork',
             autorestart: true,
             watch: false,
             env: {
@@ -55,17 +103,21 @@ module.exports = {
                 CONNECTOR_TYPE: 'knowledge-platform',
                 CONNECTOR_INTERVAL_SECONDS: 60
             },
-            error_file: './logs/notebookklm-error.log',
-            out_file: './logs/notebookklm-out.log',
+            error_file: logPath('notebookklm-error.log'),
+            out_file: logPath('notebookklm-out.log'),
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
+            time: true,
             max_restarts: 5,
-            min_uptime: '10s'
+            min_uptime: '10s',
+            restart_delay: 3000
         },
         {
             name: 'Sheikha-NYU',
+            cwd: '/workspaces/sheikha/sheikha-main-portal',
             script: './scripts/sheikha-academic-connectors-loop.js',
             instances: 1,
+            exec_mode: 'fork',
             autorestart: true,
             watch: false,
             env: {
@@ -76,17 +128,21 @@ module.exports = {
                 CONNECTOR_TYPE: 'university',
                 CONNECTOR_INTERVAL_SECONDS: 60
             },
-            error_file: './logs/nyu-error.log',
-            out_file: './logs/nyu-out.log',
+            error_file: logPath('nyu-error.log'),
+            out_file: logPath('nyu-out.log'),
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
+            time: true,
             max_restarts: 5,
-            min_uptime: '10s'
+            min_uptime: '10s',
+            restart_delay: 3000
         },
         {
             name: 'Sheikha-Stanford',
+            cwd: '/workspaces/sheikha/sheikha-main-portal',
             script: './scripts/sheikha-academic-connectors-loop.js',
             instances: 1,
+            exec_mode: 'fork',
             autorestart: true,
             watch: false,
             env: {
@@ -97,17 +153,21 @@ module.exports = {
                 CONNECTOR_TYPE: 'university',
                 CONNECTOR_INTERVAL_SECONDS: 60
             },
-            error_file: './logs/stanford-error.log',
-            out_file: './logs/stanford-out.log',
+            error_file: logPath('stanford-error.log'),
+            out_file: logPath('stanford-out.log'),
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
+            time: true,
             max_restarts: 5,
-            min_uptime: '10s'
+            min_uptime: '10s',
+            restart_delay: 3000
         },
         {
             name: 'Sheikha-AL-Google-AI-Studio',
+            cwd: '/workspaces/sheikha/sheikha-main-portal',
             script: './scripts/sheikha-academic-connectors-loop.js',
             instances: 1,
+            exec_mode: 'fork',
             autorestart: true,
             watch: false,
             env: {
@@ -118,17 +178,21 @@ module.exports = {
                 CONNECTOR_TYPE: 'ai-studio',
                 CONNECTOR_INTERVAL_SECONDS: 60
             },
-            error_file: './logs/al-google-ai-studio-error.log',
-            out_file: './logs/al-google-ai-studio-out.log',
+            error_file: logPath('al-google-ai-studio-error.log'),
+            out_file: logPath('al-google-ai-studio-out.log'),
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
+            time: true,
             max_restarts: 5,
-            min_uptime: '10s'
+            min_uptime: '10s',
+            restart_delay: 3000
         },
         {
             name: 'Sheikha-Harfourd',
+            cwd: '/workspaces/sheikha/sheikha-main-portal',
             script: './scripts/sheikha-academic-connectors-loop.js',
             instances: 1,
+            exec_mode: 'fork',
             autorestart: true,
             watch: false,
             env: {
@@ -140,19 +204,25 @@ module.exports = {
                 CONNECTOR_INTERVAL_SECONDS: 60,
                 ACADEMIC_MAX_UNIVERSITIES: 1000
             },
-            error_file: './logs/harfourd-error.log',
-            out_file: './logs/harfourd-out.log',
+            error_file: logPath('harfourd-error.log'),
+            out_file: logPath('harfourd-out.log'),
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
+            time: true,
             max_restarts: 5,
-            min_uptime: '10s'
+            min_uptime: '10s',
+            restart_delay: 3000
         },
 
-        /* ─── استثمارات الدولة والشركات التابعة بالخلفية ─ */
+        /* ───────────────────────────────
+       استثمارات الدولة والشركات التابعة بالخلفية
+    ─────────────────────────────── */
         {
             name: 'Sheikha-PIF',
+            cwd: '/workspaces/sheikha/sheikha-main-portal',
             script: './scripts/sheikha-state-company-loop.js',
             instances: 1,
+            exec_mode: 'fork',
             autorestart: true,
             watch: false,
             env: {
@@ -160,17 +230,21 @@ module.exports = {
                 STATE_COMPANY_NAME: 'Sheikha-PIF',
                 STATE_COMPANY_INTERVAL_SECONDS: 90
             },
-            error_file: './logs/sheikha-pif-error.log',
-            out_file: './logs/sheikha-pif-out.log',
+            error_file: logPath('sheikha-pif-error.log'),
+            out_file: logPath('sheikha-pif-out.log'),
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
+            time: true,
             max_restarts: 5,
-            min_uptime: '10s'
+            min_uptime: '10s',
+            restart_delay: 3000
         },
         {
             name: 'Sheikha-Aramco',
+            cwd: '/workspaces/sheikha/sheikha-main-portal',
             script: './scripts/sheikha-state-company-loop.js',
             instances: 1,
+            exec_mode: 'fork',
             autorestart: true,
             watch: false,
             env: {
@@ -178,17 +252,21 @@ module.exports = {
                 STATE_COMPANY_NAME: 'Sheikha-Aramco',
                 STATE_COMPANY_INTERVAL_SECONDS: 90
             },
-            error_file: './logs/sheikha-aramco-error.log',
-            out_file: './logs/sheikha-aramco-out.log',
+            error_file: logPath('sheikha-aramco-error.log'),
+            out_file: logPath('sheikha-aramco-out.log'),
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
+            time: true,
             max_restarts: 5,
-            min_uptime: '10s'
+            min_uptime: '10s',
+            restart_delay: 3000
         },
         {
             name: 'Sheikha-Sabic',
+            cwd: '/workspaces/sheikha/sheikha-main-portal',
             script: './scripts/sheikha-state-company-loop.js',
             instances: 1,
+            exec_mode: 'fork',
             autorestart: true,
             watch: false,
             env: {
@@ -196,17 +274,21 @@ module.exports = {
                 STATE_COMPANY_NAME: 'Sheikha-Sabic',
                 STATE_COMPANY_INTERVAL_SECONDS: 90
             },
-            error_file: './logs/sheikha-sabic-error.log',
-            out_file: './logs/sheikha-sabic-out.log',
+            error_file: logPath('sheikha-sabic-error.log'),
+            out_file: logPath('sheikha-sabic-out.log'),
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
+            time: true,
             max_restarts: 5,
-            min_uptime: '10s'
+            min_uptime: '10s',
+            restart_delay: 3000
         },
         {
             name: 'Sheikha-CNTXT',
+            cwd: '/workspaces/sheikha/sheikha-main-portal',
             script: './scripts/sheikha-state-company-loop.js',
             instances: 1,
+            exec_mode: 'fork',
             autorestart: true,
             watch: false,
             env: {
@@ -214,17 +296,21 @@ module.exports = {
                 STATE_COMPANY_NAME: 'Sheikha-CNTXT',
                 STATE_COMPANY_INTERVAL_SECONDS: 90
             },
-            error_file: './logs/sheikha-cntxt-error.log',
-            out_file: './logs/sheikha-cntxt-out.log',
+            error_file: logPath('sheikha-cntxt-error.log'),
+            out_file: logPath('sheikha-cntxt-out.log'),
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
+            time: true,
             max_restarts: 5,
-            min_uptime: '10s'
+            min_uptime: '10s',
+            restart_delay: 3000
         },
         {
             name: 'Sheikha-Humain',
+            cwd: '/workspaces/sheikha/sheikha-main-portal',
             script: './scripts/sheikha-state-company-loop.js',
             instances: 1,
+            exec_mode: 'fork',
             autorestart: true,
             watch: false,
             env: {
@@ -232,12 +318,14 @@ module.exports = {
                 STATE_COMPANY_NAME: 'Sheikha-Humain',
                 STATE_COMPANY_INTERVAL_SECONDS: 90
             },
-            error_file: './logs/sheikha-humain-error.log',
-            out_file: './logs/sheikha-humain-out.log',
+            error_file: logPath('sheikha-humain-error.log'),
+            out_file: logPath('sheikha-humain-out.log'),
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
+            time: true,
             max_restarts: 5,
-            min_uptime: '10s'
+            min_uptime: '10s',
+            restart_delay: 3000
         }
     ]
 };

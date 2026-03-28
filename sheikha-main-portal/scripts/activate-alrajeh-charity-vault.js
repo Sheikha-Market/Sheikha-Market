@@ -9,7 +9,7 @@ const AlrajehDivineSuccess = {
     Motto: 'خالصاً لله، طاعةً لله، واجتناباً لنواهيه',
     Status: 'الفتح المبين والرزق الأكرم (Active)',
 
-    activateBlessing: function() {
+    activateBlessing: function () {
         console.log('====================================================');
         console.log("تفعيل محرك 'البركة والرزق الأكرم' لسيادة سلمان الراجح");
         console.log('Divine Barakah & Supreme Success: ONLINE');
@@ -19,12 +19,12 @@ const AlrajehDivineSuccess = {
         this.secureEternalLegacy();
     },
 
-    purifyWealth: function() {
+    purifyWealth: function () {
         console.log('[صلاح]: تصفية كافة الأرباح لتكون حلالاً طيباً مباركاً.');
         console.log("[تقوى]: النظام يلتزم بالصدق والأمانة في كل 'بايت' تقني.");
     },
 
-    secureEternalLegacy: function() {
+    secureEternalLegacy: function () {
         console.log('----------------------------------------------------');
         console.log("الدعاء: 'اللهم هب لي الغنى والأكرم والأتقى واجعله شفيعاً لي'.");
         console.log('الهدف: تجارة رابحة في الدنيا، وفردوس أعلى في الآخرة.');

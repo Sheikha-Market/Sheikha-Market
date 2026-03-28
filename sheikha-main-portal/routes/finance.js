@@ -23,21 +23,25 @@ function sendError(res, statusCode, message) {
 }
 
 router.get('/status', (req, res) => {
-    return sendSuccess(res, {
-        service: 'sheikha-finance-core',
-        summary: financeEngine.getSummary(),
-        endpoints: [
-            'GET /api/finance/status',
-            'GET /api/finance/summary',
-            'GET /api/finance/rates',
-            'GET /api/finance/sales?limit=25',
-            'POST /api/finance/sales',
-            'GET /api/finance/analytics/trading',
-            'POST /api/finance/backups',
-            'GET /api/finance/backups',
-            'POST /api/finance/restore'
-        ]
-    }, 'تم تحميل حالة منظومة التمويل');
+    return sendSuccess(
+        res,
+        {
+            service: 'sheikha-finance-core',
+            summary: financeEngine.getSummary(),
+            endpoints: [
+                'GET /api/finance/status',
+                'GET /api/finance/summary',
+                'GET /api/finance/rates',
+                'GET /api/finance/sales?limit=25',
+                'POST /api/finance/sales',
+                'GET /api/finance/analytics/trading',
+                'POST /api/finance/backups',
+                'GET /api/finance/backups',
+                'POST /api/finance/restore'
+            ]
+        },
+        'تم تحميل حالة منظومة التمويل'
+    );
 });
 
 router.get('/summary', (req, res) => {
@@ -91,7 +95,11 @@ router.post('/backups', (req, res) => {
 router.post('/restore', (req, res) => {
     try {
         const fileName = req.body && req.body.fileName;
-        return sendSuccess(res, financeEngine.restoreBackup(fileName), 'تمت استعادة النسخة الاحتياطية');
+        return sendSuccess(
+            res,
+            financeEngine.restoreBackup(fileName),
+            'تمت استعادة النسخة الاحتياطية'
+        );
     } catch (error) {
         return sendError(res, 400, error.message || 'تعذرت الاستعادة');
     }

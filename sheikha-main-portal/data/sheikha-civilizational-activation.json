@@ -1,0 +1,332 @@
+{
+    "success": true,
+    "data": {
+        "coreProgram": "SHEIKHA_CIVILIZATIONAL_ARCHITECTURE_CORE",
+        "version": "1.0.0",
+        "generatedAt": "2026-03-22T21:31:40.863Z",
+        "identity": {
+            "nameAr": "البنية الحضارية الشاملة لشيخة",
+            "mission": "هيكلة المنظومة الإسلامية والعربية والسعودية والخليجية والآسيوية والعالمية والكونية ضمن إطار نافع للدنيا والآخرة",
+            "primaryLanguage": "ar",
+            "defaultLocale": "ar-SA"
+        },
+        "foundations": {
+            "references": [
+                "quran",
+                "sunnah"
+            ],
+            "principles": [
+                "لا ضرر ولا ضرار",
+                "العدل",
+                "الإحسان",
+                "الأمانة",
+                "العمران النافع"
+            ],
+            "governance": [
+                "لا ربا",
+                "لا غش",
+                "لا احتكار",
+                "حماية الكرامة الإنسانية",
+                "التكامل الحضاري"
+            ]
+        },
+        "activation": {
+            "separateScopes": [
+                {
+                    "id": "scope-muslim",
+                    "nameAr": "المستوى الإسلامي",
+                    "type": "faith-civilization",
+                    "activationPriority": 1,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-arab",
+                    "nameAr": "المستوى العربي",
+                    "type": "language-civilization",
+                    "activationPriority": 2,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-saudi-local",
+                    "nameAr": "السعودي المحلي",
+                    "type": "national-local",
+                    "activationPriority": 3,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-gulf",
+                    "nameAr": "الخليجي",
+                    "type": "regional",
+                    "activationPriority": 4,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-arabian-peninsula",
+                    "nameAr": "جزيرة العرب",
+                    "type": "geo-historical",
+                    "activationPriority": 5,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-arabian-gulf",
+                    "nameAr": "الخليج العربي",
+                    "type": "geo-economic",
+                    "activationPriority": 6,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-asia",
+                    "nameAr": "آسيا",
+                    "type": "continental",
+                    "activationPriority": 7,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-g20",
+                    "nameAr": "دول مجموعة العشرين",
+                    "type": "geo-economic-governance",
+                    "activationPriority": 8,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-asian",
+                    "nameAr": "الآسيوي",
+                    "type": "regional-civilizational",
+                    "activationPriority": 9,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-global",
+                    "nameAr": "الدولي العالمي",
+                    "type": "global",
+                    "activationPriority": 10,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-cosmic",
+                    "nameAr": "الكوني",
+                    "type": "cosmic",
+                    "activationPriority": 11,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-earthly",
+                    "nameAr": "الأرضي",
+                    "type": "planetary",
+                    "activationPriority": 12,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-space",
+                    "nameAr": "الفضائي",
+                    "type": "space-civilization",
+                    "activationPriority": 13,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-dunya",
+                    "nameAr": "الدنيا",
+                    "type": "life-operations",
+                    "activationPriority": 14,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                },
+                {
+                    "id": "scope-akhira",
+                    "nameAr": "الآخرة",
+                    "type": "ethical-outcome",
+                    "activationPriority": 15,
+                    "status": "activated",
+                    "activationMode": "separate-activation"
+                }
+            ],
+            "unifiedScope": {
+                "id": "scope-all-unified",
+                "nameAr": "المستوى الموحد الشامل",
+                "composition": "all-scopes",
+                "outcome": "تكامل حضاري شامل نافع للدنيا والآخرة",
+                "status": "activated",
+                "activationMode": "full-unified-activation",
+                "linkedScopes": [
+                    "scope-muslim",
+                    "scope-arab",
+                    "scope-saudi-local",
+                    "scope-gulf",
+                    "scope-arabian-peninsula",
+                    "scope-arabian-gulf",
+                    "scope-asia",
+                    "scope-g20",
+                    "scope-asian",
+                    "scope-global",
+                    "scope-cosmic",
+                    "scope-earthly",
+                    "scope-space",
+                    "scope-dunya",
+                    "scope-akhira"
+                ]
+            },
+            "communities": [
+                {
+                    "id": "domain-faith",
+                    "nameAr": "المجتمعات الإيمانية والقيمية",
+                    "totalTypes": 5,
+                    "types": [
+                        "علماء",
+                        "دعاة",
+                        "طلبة علم",
+                        "جهات وقفية وخيرية",
+                        "أسر ومجتمعات تربوية"
+                    ],
+                    "status": "activated"
+                },
+                {
+                    "id": "domain-language-culture",
+                    "nameAr": "المجتمعات اللغوية والثقافية",
+                    "totalTypes": 4,
+                    "types": [
+                        "مجتمع اللغة العربية",
+                        "مجتمع الترجمة",
+                        "مجتمع التراث والمعرفة",
+                        "مجتمع المحتوى الثقافي"
+                    ],
+                    "status": "activated"
+                },
+                {
+                    "id": "domain-economic",
+                    "nameAr": "المجتمعات الاقتصادية والتجارية",
+                    "totalTypes": 5,
+                    "types": [
+                        "تجار المعادن والسكراب",
+                        "مجتمع سلاسل الإمداد",
+                        "مجتمع التصنيع",
+                        "مجتمع ريادة الأعمال",
+                        "مجتمع المستثمرين"
+                    ],
+                    "status": "activated"
+                },
+                {
+                    "id": "domain-science-education",
+                    "nameAr": "المجتمعات العلمية والتعليمية",
+                    "totalTypes": 5,
+                    "types": [
+                        "جامعات",
+                        "مراكز بحث",
+                        "مجتمع الابتكار",
+                        "مجتمع التدريب والتأهيل",
+                        "مجتمع العلوم التطبيقية"
+                    ],
+                    "status": "activated"
+                },
+                {
+                    "id": "domain-public-governance",
+                    "nameAr": "المجتمعات الحكومية والتنظيمية",
+                    "totalTypes": 5,
+                    "types": [
+                        "قطاع حكومي",
+                        "جهات تنظيمية",
+                        "قطاع بلدي",
+                        "قطاع سيادي",
+                        "جهات دولية تعاونية"
+                    ],
+                    "status": "activated"
+                },
+                {
+                    "id": "domain-social",
+                    "nameAr": "المجتمعات الاجتماعية والإنسانية",
+                    "totalTypes": 5,
+                    "types": [
+                        "الشباب",
+                        "المرأة",
+                        "الأسرة",
+                        "المجتمع التطوعي",
+                        "المجتمع الإنساني والإغاثي"
+                    ],
+                    "status": "activated"
+                },
+                {
+                    "id": "domain-digital-tech",
+                    "nameAr": "المجتمعات الرقمية والتقنية",
+                    "totalTypes": 5,
+                    "types": [
+                        "مطورون",
+                        "ذكاء اصطناعي",
+                        "أمن سيبراني",
+                        "بيانات وتحليلات",
+                        "منصات ومنتجات رقمية"
+                    ],
+                    "status": "activated"
+                },
+                {
+                    "id": "domain-space-future",
+                    "nameAr": "مجتمعات الفضاء والمستقبل",
+                    "totalTypes": 4,
+                    "types": [
+                        "مجتمع الفضاء",
+                        "مجتمع الاستدامة الكوكبية",
+                        "مجتمع الطاقة المستقبلية",
+                        "مجتمع البحث العابر للتخصصات"
+                    ],
+                    "status": "activated"
+                }
+            ],
+            "taxonomy": {
+                "classes": [
+                    "ديني",
+                    "لغوي",
+                    "حضاري",
+                    "اقتصادي",
+                    "علمي",
+                    "حكومي",
+                    "اجتماعي",
+                    "رقمي",
+                    "فضائي"
+                ],
+                "types": [
+                    "فرد",
+                    "مجتمع",
+                    "مؤسسة",
+                    "تحالف",
+                    "منظومة"
+                ],
+                "categories": [
+                    "محلي",
+                    "إقليمي",
+                    "قاري",
+                    "دولي",
+                    "كوني"
+                ]
+            },
+            "kpis": {
+                "scopeCoveragePercent": 100,
+                "communityDomainCoveragePercent": 100,
+                "taxonomyCoveragePercent": 100,
+                "integrationReadinessPercent": 100
+            },
+            "totals": {
+                "totalScopesSeparate": 15,
+                "totalScopesUnified": 1,
+                "totalCommunityDomains": 8,
+                "totalCommunityTypes": 38,
+                "totalTaxonomyClasses": 9,
+                "totalTaxonomyTypes": 5,
+                "totalTaxonomyCategories": 5
+            }
+        },
+        "digest": "6153c8ba6bfa3a23e9cfe4e9781abe54ff0c331f71f780f2494dd76f86182388"
+    },
+    "message": "تم تفعيل البنية الحضارية والمجتمعية الشاملة بنجاح",
+    "timestamp": "2026-03-22T21:31:40.863Z"
+}

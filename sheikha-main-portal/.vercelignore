@@ -1,0 +1,51 @@
+# === مجلدات ضخمة — مستثناة سيادياً ===
+node_modules
+.next
+.git
+.vercel
+.venv
+
+# مجلدات وقت التشغيل والسجلات (110GB + 10GB)
+runtime/
+logs/
+reports/
+backups/
+archives/
+exports/
+
+# ملفات data/ الضخمة المتولّدة في وقت التشغيل (Vercel read-only)
+data/healing-logs.ndjson
+data/notifications.ndjson
+data/operations/
+data/auth-session-audit.json
+data/audits.json
+
+# مجلدات البنية التحتية والتطوير
+infrastructure/
+infra/
+mcp-servers/
+sheikha-vscode-extension/
+docs/
+releases/
+.cursor/
+.cursor_rules/
+.checkpoints/
+
+# ملفات النسخ الاحتياطية
+server.js.backup*
+server.js.temp
+server.js.clean
+*.backup
+
+# الملفات المضغوطة الضخمة
+*.zip
+*.rar
+*.tgz
+*.tar
+*.tar.gz
+*.7z
+*.gz
+
+# ملفات السجلات
+*.log
+npm-debug.log*

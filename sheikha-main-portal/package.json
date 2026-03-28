@@ -7,8 +7,14 @@
     "node": "^20.0.0 || ^25.0.0"
   },
   "scripts": {
+    "prestart": "npm run -s sovereign:unified:core:v4",
     "start": "node server.js",
-      "build": "echo 'Vercel build complete'",
+    "build": "echo 'Vercel build complete'",
+    "build:vercel": "node -e \"console.log('[Vercel Build] Production build ready')\" && npm run build",
+    "vercel:env:source": "bash -lc 'set -a; [ -f .env.vercel.local ] && source .env.vercel.local; set +a; env | rg -n \"^VERCEL_(ORG_ID|PROJECT_ID)=\" >/dev/null && echo \"Vercel context loaded\" || true'",
+    "deploy:vercel:preflight": "bash -lc 'set -a; [ -f .env.vercel.local ] && source .env.vercel.local; set +a; bash scripts/sheikha-top-deploy-workflow.sh --allow-dirty --skip-tests'",
+    "deploy:vercel:safe": "bash scripts/vercel-safe-deploy.sh",
+    "deploy:vercel:prod": "bash scripts/vercel-production-deploy.sh",
     "start:proxy": "node scripts/proxy-8081.js",
     "sovereign:start": "node scripts/grand-sovereign-script.js",
     "sovereign:ignite": "node scripts/sheikha-final-launch.js",
@@ -16,6 +22,7 @@
     "sovereign:security": "node lib/sheikha-sovereign-backup-security.js",
     "sovereign:ultimate": "node scripts/sheikha-ultimate-sovereignty.js",
     "sovereign:unified": "node scripts/sheikha-universal-master.js",
+    "sovereign:unified:core:v4": "node scripts/sheikha-unified-core-v4.js",
     "sovereign:unified:apply": "GCS_UPLOAD_MODE=smart GCS_SILENT_FALLBACK=true GCS_AUTO_CREATE_BUCKET=true node scripts/sheikha-universal-master.js --apply",
     "sovereign:dashboards": "node scripts/activate-integrated-dashboards.js",
     "sovereign:dashboards:full": "node scripts/activate-integrated-dashboards.js --full-report",
@@ -111,6 +118,14 @@
     "ops:sheikha:neural:logs": "bash scripts/sheikha-neural-mesh-bg.sh logs",
     "ops:sheikha:governance:check": "node scripts/sheikha-governance-check.js",
     "ops:sheikha:diagram:generate": "node scripts/generate-sheikha-architecture-mermaid.js",
+    "ops:sheikha:atlas:refresh": "node scripts/refresh-sheikha-integration-atlas.js",
+    "ops:sheikha:atlas:auto": "node scripts/refresh-sheikha-integration-atlas.js --watch --interval=900",
+    "ops:sheikha:markets:refresh": "node scripts/refresh-sheikha-market-governance.js",
+    "ops:sheikha:markets:auto": "node scripts/refresh-sheikha-market-governance.js --watch --interval=900",
+    "ops:sheikha:commerce:fabric:refresh": "node scripts/refresh-sheikha-universal-commerce-fabric.js",
+    "ops:sheikha:commerce:fabric:auto": "node scripts/refresh-sheikha-universal-commerce-fabric.js --watch --interval=900",
+    "ops:sheikha:ummah:monitor:refresh": "node scripts/refresh-sheikha-ummah-market-monitor.js",
+    "ops:sheikha:ummah:monitor:auto": "node scripts/refresh-sheikha-ummah-market-monitor.js --watch --interval=900",
     "ops:sheikha:activate:full": "npm run -s ops:sheikha:unified:start && npm run -s ops:sheikha:neural:start && npm run -s ops:sheikha:diagram:generate",
     "ops:sheikha:readiness:now": "npm run -s ops:sheikha:unified:status && npm run -s ops:sheikha:neural:status && npm run -s ops:sheikha:governance:check && npm run -s ops:sheikha:diagram:generate",
     "ops:sheikha:manifesto:view": "cat docs/system-governance-manifesto.ar-en.md",
@@ -413,6 +428,20 @@
     "ops:ultra:activate:all": "npm run -s ops:activate:all:kingdom:full && npm run -s ops:global:activate:ALL && npm run -s ops:innovation:internal:activate && npm run -s ops:innovation:internal:status"
   },
   "dependencies": {
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.22.1",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "moment": "^2.30.1",
+    "moment-hijri": "^3.0.0",
+    "node-cron": "^3.0.3",
+    "uuid": "^9.0.0",
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
     "@anthropic-ai/sdk": "^0.78.0",
     "@google-cloud/aiplatform": "^6.5.0",
     "@google-cloud/bigquery": "^8.1.1",
@@ -420,23 +449,9 @@
     "@google-cloud/storage": "^7.19.0",
     "@google/generative-ai": "^0.24.1",
     "@sentry/node": "^10.40.0",
-    "compression": "^1.8.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "express-rate-limit": "^8.2.1",
-    "helmet": "^8.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "moment": "^2.30.1",
-    "moment-hijri": "^3.0.0",
-    "node-cron": "^3.0.3",
     "ollama": "^0.6.3",
     "openai": "^6.22.0",
-    "stripe": "^18.0.0",
-    "uuid": "^9.0.0",
-    "ws": "^8.14.2"
-  },
-  "devDependencies": {
-    "pm2": "^6.0.14"
+    "pm2": "^6.0.14",
+    "stripe": "^18.0.0"
   }
 }

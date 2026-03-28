@@ -95,6 +95,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 12px;
+            margin-bottom: 12px;
         }
         .card {
             background: var(--panel2);
@@ -181,6 +182,88 @@
             font-size: 0.8rem;
             text-align: center;
         }
+
+        .live-meta {
+            color: var(--muted);
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .live-map {
+            width: 100%;
+            min-height: 360px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: radial-gradient(circle at 20% 20%, rgba(212,175,55,0.12), rgba(2,6,23,0.92));
+        }
+
+        .node-label {
+            fill: #d1d5db;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .mode-direct {
+            color: var(--ok);
+        }
+
+        .mode-partner {
+            color: var(--warn);
+        }
+
+        .ops-box {
+            background: rgba(15, 23, 42, 0.72);
+            border: 1px solid rgba(212,175,55,0.22);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 14px;
+        }
+
+        .ops-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .ops-select {
+            min-width: 240px;
+            background: #0b1220;
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.16);
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-family: inherit;
+        }
+
+        .ops-btn {
+            border: 1px solid rgba(212,175,55,0.34);
+            background: linear-gradient(135deg, rgba(212,175,55,0.16), rgba(184,115,51,0.2));
+            color: var(--text);
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .ops-btn:hover {
+            border-color: rgba(212,175,55,0.58);
+        }
+
+        .ops-log {
+            margin-top: 10px;
+            max-height: 140px;
+            overflow: auto;
+            border-top: 1px dashed rgba(255,255,255,0.12);
+            padding-top: 8px;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .ops-log-item {
+            margin-bottom: 6px;
+        }
     </style>
 </head>
 <body>
@@ -234,18 +317,334 @@
         <h2 class="section-title">نماذج الاستدلال المنطقي</h2>
         <div class="grid" id="reasoning"></div>
 
+        <h2 class="section-title">الموصلات التنفيذية الحية</h2>
+        <section class="ops-box" aria-label="تشغيل الموصلات">
+            <div class="ops-row">
+                <select id="connectorSelect" class="ops-select"></select>
+                <button class="ops-btn" id="execConnectorBtn" type="button">تنفيذ Policy Check</button>
+                <button class="ops-btn" id="syncAllBtn" type="button">مزامنة جميع الموصلات</button>
+                <button class="ops-btn" id="federateAllBtn" type="button">تفعيل الاتحاد الحاكم (All Active)</button>
+                <button class="ops-btn" id="simulateMarketsBtn" type="button">تشغيل محاكاة الأسواق</button>
+                <button class="ops-btn" id="syncUmmahPulseBtn" type="button">مزامنة مراقب أمة محمد</button>
+            </div>
+            <div id="opsLog" class="ops-log" aria-live="polite"></div>
+        </section>
+        <div class="grid" id="connectors"></div>
+
+        <h2 class="section-title">خريطة الشبكة الحية</h2>
+        <section class="logic-box" aria-label="الخريطة الحية">
+            <div class="live-meta" id="liveMeta">جارٍ تحميل بيانات الخريطة...</div>
+            <svg id="liveMap" class="live-map" viewBox="0 0 960 420" preserveAspectRatio="xMidYMid meet"></svg>
+        </section>
+
+        <h2 class="section-title">حوكمة الأسواق العالمية</h2>
+        <div class="grid" id="markets"></div>
+
+        <h2 class="section-title">نسيج التجارة الكونية الموحد</h2>
+        <div class="grid" id="universalCommerce"></div>
+
+        <h2 class="section-title">مراقب أسواق أمة محمد</h2>
+        <section class="ops-box" aria-label="تسجيل مؤتمر أو منتدى">
+            <div class="ops-row">
+                <input id="eventTitleInput" class="ops-select" type="text" placeholder="اسم المؤتمر أو المنتدى">
+                <input id="eventDateInput" class="ops-select" type="date">
+                <button class="ops-btn" id="registerEventBtn" type="button">تسجيل حدث جديد</button>
+            </div>
+        </section>
+        <div class="grid" id="ummahMonitor"></div>
+
         <div class="footer">© 2026 SHEIKHA — لوحة تكامل المنظومة والسوق</div>
     </div>
 
     <script>
+        let connectorCache = [];
+
+        function statusClass(status) {
+            if (status === 'active' || status === 'enabled') return 'active';
+            if (status === 'configured' || status === 'conditional') return 'configured';
+            return 'planned';
+        }
+
+        function familyColor(family) {
+            const normalized = String(family || '').toLowerCase();
+            if (normalized.includes('governance')) return '#d4af37';
+            if (normalized.includes('ai')) return '#22d3ee';
+            if (normalized.includes('compute')) return '#38bdf8';
+            if (normalized.includes('os')) return '#f59e0b';
+            if (normalized.includes('ecosystem')) return '#34d399';
+            if (normalized.includes('market')) return '#f97316';
+            return '#a1a1aa';
+        }
+
+        function appendOpsLog(text) {
+            const log = document.getElementById('opsLog');
+            if (!log) return;
+            const ts = new Date().toLocaleTimeString('ar-SA');
+            const row = document.createElement('div');
+            row.className = 'ops-log-item';
+            row.textContent = `[${ts}] ${text}`;
+            log.prepend(row);
+            const maxRows = 12;
+            while (log.children.length > maxRows) {
+                log.removeChild(log.lastChild);
+            }
+        }
+
+        function renderConnectorControls(connectors) {
+            const select = document.getElementById('connectorSelect');
+            if (!select) return;
+
+            const previous = select.value;
+            select.innerHTML = connectors.map((connector) =>
+                `<option value="${connector.id}">${connector.family} | ${connector.status} | ${connector.mode}</option>`
+            ).join('');
+
+            if (previous && connectors.some((connector) => connector.id === previous)) {
+                select.value = previous;
+            }
+        }
+
+        async function executeConnectorAction() {
+            const select = document.getElementById('connectorSelect');
+            if (!select || !select.value) {
+                appendOpsLog('لا يوجد موصل محدد للتنفيذ.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/sheikha/connectors/${encodeURIComponent(select.value)}/execute`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'validate-policy', payload: { source: 'admin-live-panel' } })
+                });
+                const result = await response.json();
+                if (!result.success) {
+                    appendOpsLog(`فشل تنفيذ الموصل: ${result.message || 'unknown error'}`);
+                    return;
+                }
+                appendOpsLog(`تم تنفيذ ${select.value} بنجاح (${result.data.status}).`);
+                await loadUnified();
+            } catch (error) {
+                appendOpsLog(`خطأ في التنفيذ: ${error.message}`);
+            }
+        }
+
+        async function syncAllConnectors() {
+            try {
+                const response = await fetch('/api/sheikha/connectors/sync-all', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'refresh-bridge' })
+                });
+                const result = await response.json();
+                if (!result.success) {
+                    appendOpsLog(`فشل مزامنة الموصلات: ${result.message || 'unknown error'}`);
+                    return;
+                }
+                appendOpsLog(`تمت مزامنة ${result.data.total} موصلات.`);
+                await loadUnified();
+            } catch (error) {
+                appendOpsLog(`خطأ في المزامنة: ${error.message}`);
+            }
+        }
+
+        async function federateAllConnectors() {
+            try {
+                const response = await fetch('/api/sheikha/connectors/activate-federation', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ policyName: 'global-unified-commerce-governance' })
+                });
+                const result = await response.json();
+                if (!result.success) {
+                    appendOpsLog(`فشل التفعيل الاتحادي: ${result.message || 'unknown error'}`);
+                    return;
+                }
+                appendOpsLog(`تم تفعيل الاتحاد الحاكم: ${result.data.total} موصلات أصبحت active.`);
+                await loadUnified();
+            } catch (error) {
+                appendOpsLog(`خطأ في التفعيل الاتحادي: ${error.message}`);
+            }
+        }
+
+        async function simulateMarkets() {
+            try {
+                const response = await fetch('/api/sheikha/market-governance/simulate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        scenario: 'live-admin-simulation',
+                        adoptionRate: 78,
+                        governanceStrength: 84,
+                        shariaAlignment: 92
+                    })
+                });
+                const result = await response.json();
+                if (!result.success) {
+                    appendOpsLog(`فشل المحاكاة: ${result.message || 'unknown error'}`);
+                    return;
+                }
+                appendOpsLog(`اكتملت المحاكاة. متوسط النتيجة: ${result.data.summary.averageProjectedScore}%`);
+            } catch (error) {
+                appendOpsLog(`خطأ في المحاكاة: ${error.message}`);
+            }
+        }
+
+        function renderLiveMap(graph) {
+            const svg = document.getElementById('liveMap');
+            if (!svg) return;
+
+            const nodes = Array.isArray(graph.nodes) ? graph.nodes : [];
+            const edges = Array.isArray(graph.edges) ? graph.edges : [];
+            if (!nodes.length) {
+                svg.innerHTML = '';
+                return;
+            }
+
+            const width = 960;
+            const height = 420;
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const governanceNode = nodes.find((node) => String(node.id).includes('governance')) || nodes[0];
+            const ringNodes = nodes.filter((node) => node.id !== governanceNode.id);
+
+            const positions = new Map();
+            positions.set(governanceNode.id, { x: centerX, y: centerY });
+
+            ringNodes.forEach((node, index) => {
+                const angle = (Math.PI * 2 * index) / Math.max(ringNodes.length, 1);
+                const radius = 150 + (index % 3) * 32;
+                positions.set(node.id, {
+                    x: centerX + Math.cos(angle) * radius,
+                    y: centerY + Math.sin(angle) * radius
+                });
+            });
+
+            const edgeHtml = edges.map((edge) => {
+                const from = positions.get(edge.from);
+                const to = positions.get(edge.to);
+                if (!from || !to) return '';
+                const mode = edge.mode === 'direct' ? '#10b981' : '#f59e0b';
+                return `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="${mode}" stroke-opacity="0.65" stroke-width="1.5"></line>`;
+            }).join('');
+
+            const nodeHtml = nodes.map((node) => {
+                const pos = positions.get(node.id);
+                if (!pos) return '';
+                const fill = familyColor(node.family);
+                return `
+                    <g>
+                        <circle cx="${pos.x}" cy="${pos.y}" r="8" fill="${fill}"></circle>
+                        <text class="node-label" x="${pos.x + 10}" y="${pos.y + 4}">${node.label}</text>
+                    </g>
+                `;
+            }).join('');
+
+            svg.innerHTML = `
+                <defs>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="2.2" result="coloredBlur"></feGaussianBlur>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"></feMergeNode>
+                            <feMergeNode in="SourceGraphic"></feMergeNode>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <g filter="url(#glow)">${edgeHtml}${nodeHtml}</g>
+            `;
+        }
+
+        async function syncUmmahPulse() {
+            try {
+                const response = await fetch('/api/sheikha/ummah-market-monitor/sync-live', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        macroPulse: {
+                            inflationRisk: 47,
+                            conflictRisk: 38,
+                            negotiationMomentum: 69,
+                            tradeStability: 71
+                        }
+                    })
+                });
+                const result = await response.json();
+                if (!result.success) {
+                    appendOpsLog(`فشل مزامنة المراقب: ${result.message || 'unknown error'}`);
+                    return;
+                }
+                appendOpsLog(`تمت مزامنة المراقب. مستوى المخاطر: ${result.data.summary.overallRisk}`);
+                await loadUnified();
+            } catch (error) {
+                appendOpsLog(`خطأ مزامنة المراقب: ${error.message}`);
+            }
+        }
+
+        async function registerUmmahEvent() {
+            const titleInput = document.getElementById('eventTitleInput');
+            const dateInput = document.getElementById('eventDateInput');
+            const title = String(titleInput?.value || '').trim();
+            const timelineDate = String(dateInput?.value || '').trim();
+
+            if (!title || !timelineDate) {
+                appendOpsLog('أدخل اسم الحدث وتاريخه قبل التسجيل.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/sheikha/ummah-market-monitor/register-event', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title,
+                        type: 'conference',
+                        timelineDate,
+                        region: 'Global',
+                        organizer: 'Sheikha Global Monitor',
+                        goals: [
+                            'توحيد الأهداف الاقتصادية المشتركة',
+                            'رفع الشفافية ومنع الفساد',
+                            'تحليل أثر الحدث على الأسواق'
+                        ],
+                        source: {
+                            label: 'manual-registration',
+                            url: ''
+                        }
+                    })
+                });
+                const result = await response.json();
+                if (!result.success) {
+                    appendOpsLog(`فشل تسجيل الحدث: ${result.message || 'unknown error'}`);
+                    return;
+                }
+                appendOpsLog(`تم تسجيل الحدث: ${result.data.title}`);
+                titleInput.value = '';
+                await loadUnified();
+            } catch (error) {
+                appendOpsLog(`خطأ تسجيل الحدث: ${error.message}`);
+            }
+        }
+
         async function loadUnified() {
-            const [uRes, rRes] = await Promise.all([
+            const [uRes, rRes, cRes, atlasMapRes, marketRes, marketMapRes, universalRes, ummahRes] = await Promise.all([
                 fetch('/api/sheikha/unified-integrations'),
-                fetch('/api/sheikha/reasoning/models')
+                fetch('/api/sheikha/reasoning/models'),
+                fetch('/api/sheikha/connectors/status'),
+                fetch('/api/sheikha/integration-atlas/map'),
+                fetch('/api/sheikha/market-governance/index'),
+                fetch('/api/sheikha/market-governance/map'),
+                fetch('/api/sheikha/universal-commerce/fabric'),
+                fetch('/api/sheikha/ummah-market-monitor')
             ]);
 
             const unified = await uRes.json();
             const reasoning = await rRes.json();
+            const connectorsData = await cRes.json();
+            const atlasMap = await atlasMapRes.json();
+            const marketData = await marketRes.json();
+            const marketMap = await marketMapRes.json();
+            const universalData = await universalRes.json();
+            const ummahData = await ummahRes.json();
 
             if (!unified.success) return;
 
@@ -297,9 +696,120 @@
                     </article>
                 `).join('');
             }
+
+            if (connectorsData.success) {
+                const connectors = Array.isArray(connectorsData.data.connectors) ? connectorsData.data.connectors : [];
+                connectorCache = connectors;
+                renderConnectorControls(connectors);
+                document.getElementById('connectors').innerHTML = connectors.map((connector) => `
+                    <article class="card">
+                        <h3>
+                            <span>${connector.family} Connector</span>
+                            <span class="st ${statusClass(connector.status)}">${connector.status}</span>
+                        </h3>
+                        <div class="meta">${connector.targetName}</div>
+                        <div class="meta">الوضع: <span class="mode-${connector.mode}">${connector.mode}</span></div>
+                        <div class="meta">صحة الموصل: ${connector.healthScore}%</div>
+                        <div class="route">${connector.nativeRoute}</div>
+                    </article>
+                `).join('');
+            }
+
+            if (marketData.success) {
+                const markets = Array.isArray(marketData.data.markets) ? marketData.data.markets : [];
+                document.getElementById('markets').innerHTML = markets
+                    .sort((a, b) => (b.governanceScore || 0) - (a.governanceScore || 0))
+                    .slice(0, 8)
+                    .map((market) => `
+                        <article class="card">
+                            <h3>
+                                <span>${market.name}</span>
+                                <span class="st ${market.roadmapPriority === 'high' ? 'active' : 'configured'}">${market.roadmapPriority}</span>
+                            </h3>
+                            <div class="meta">${market.region} • ${market.era}</div>
+                            <div class="meta">الرقمنة: ${market.digitizationScore}%</div>
+                            <div class="meta">الحوكمة: ${market.governanceScore}%</div>
+                            <div class="meta">الامتثال الإسلامي: ${market.islamicComplianceScore}%</div>
+                        </article>
+                    `).join('');
+            }
+
+            if (universalData.success) {
+                const domains = Array.isArray(universalData.data.domains) ? universalData.data.domains : [];
+                document.getElementById('universalCommerce').innerHTML = domains.map((domain) => `
+                    <article class="card">
+                        <h3>
+                            <span>${domain.name}</span>
+                            <span class="st ${statusClass(domain.status)}">${domain.status}</span>
+                        </h3>
+                        <div class="meta">النطاق: ${domain.scope}</div>
+                        <div class="meta">الحوكمة: ${domain.governanceScore}%</div>
+                        <div class="meta">${domain.notes || ''}</div>
+                    </article>
+                `).join('');
+            }
+
+            if (ummahData.success) {
+                const events = Array.isArray(ummahData.data.events) ? ummahData.data.events : [];
+                const macroPulse = ummahData.data.macroPulse || {};
+                document.getElementById('ummahMonitor').innerHTML = events.slice(0, 8).map((event) => `
+                    <article class="card">
+                        <h3>
+                            <span>${event.title}</span>
+                            <span class="st ${statusClass(event.status)}">${event.status}</span>
+                        </h3>
+                        <div class="meta">${event.type} • ${event.region}</div>
+                        <div class="meta">التاريخ: ${event.timelineDate}</div>
+                        <div class="meta">المنظم: ${event.organizer}</div>
+                        <div class="meta">التضخم: ${macroPulse.inflationRisk ?? '-'} | النزاعات: ${macroPulse.conflictRisk ?? '-'}</div>
+                    </article>
+                `).join('');
+            }
+
+            const mapGraph = atlasMap.success
+                ? atlasMap.data.networkGraph
+                : marketMap.success
+                    ? marketMap.data.networkGraph
+                    : { nodes: [], edges: [] };
+
+            renderLiveMap(mapGraph);
+
+            const mapSummary = atlasMap.success ? atlasMap.data.summary : { systems: 0, connectors: 0 };
+            const marketSummary = marketMap.success ? marketMap.data.summary : { markets: 0, highPriority: 0 };
+            const generatedAt = atlasMap.success ? atlasMap.data.generatedAt : (marketMap.success ? marketMap.data.generatedAt : 'N/A');
+
+            document.getElementById('liveMeta').textContent =
+                `آخر تحديث: ${generatedAt} | الأنظمة: ${mapSummary.systems || 0} | الموصلات: ${mapSummary.connectors || 0} | الأسواق: ${marketSummary.markets || 0}`;
         }
 
+        document.getElementById('execConnectorBtn').addEventListener('click', () => {
+            executeConnectorAction().catch(console.error);
+        });
+
+        document.getElementById('syncAllBtn').addEventListener('click', () => {
+            syncAllConnectors().catch(console.error);
+        });
+
+        document.getElementById('federateAllBtn').addEventListener('click', () => {
+            federateAllConnectors().catch(console.error);
+        });
+
+        document.getElementById('simulateMarketsBtn').addEventListener('click', () => {
+            simulateMarkets().catch(console.error);
+        });
+
+        document.getElementById('syncUmmahPulseBtn').addEventListener('click', () => {
+            syncUmmahPulse().catch(console.error);
+        });
+
+        document.getElementById('registerEventBtn').addEventListener('click', () => {
+            registerUmmahEvent().catch(console.error);
+        });
+
         loadUnified().catch(console.error);
+        setInterval(() => {
+            loadUnified().catch(console.error);
+        }, 15000);
     </script>
 </body>
 </html>
