@@ -2970,6 +2970,7 @@ quick
                     <tr><td><span class="status status-info">POST</span></td><td style="font-family:var(--font-mono);font-size:0.75rem">/api/v1/merchants/register</td><td>تسجيل تاجر</td><td>Public</td><td><span class="status status-active">نشط</span></td></tr>
                     <tr><td><span class="status status-active">GET</span></td><td style="font-family:var(--font-mono);font-size:0.75rem">/api/v1/tracking/:id</td><td>تتبع شحنة</td><td>Bearer Token</td><td><span class="status status-active">نشط</span></td></tr>
                     <tr><td><span class="status status-info">POST</span></td><td style="font-family:var(--font-mono);font-size:0.75rem">/api/v1/ai/chat</td><td>شيخة AI</td><td>Bearer Token</td><td><span class="status status-active">نشط</span></td></tr>
+                    <tr><td><span class="status status-active">GET</span></td><td style="font-family:var(--font-mono);font-size:0.75rem">/api/instant-core</td><td>بوابة البرمجة اللحظية</td><td>Admin</td><td><span class="status status-active">نشط</span></td></tr>
                 </tbody>
             </table>
         </div>
@@ -2980,6 +2981,60 @@ quick
         <div class="toolbar" style="margin-bottom:0">
             <p style="font-size:0.82rem;color:var(--text-muted)">لا توجد مفاتيح API نشطة</p>
             <button class="btn btn-gold btn-sm">إنشاء مفتاح جديد</button>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;border-right:3px solid var(--gold)">
+        <div class="card-title">Instant Logic Core — البرمجة اللحظية والتمكين</div>
+        <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.8;margin-bottom:14px">
+            تشغيل مباشر لبوابة التلقي `Instant Logic Core` من داخل لوحة الأدمن، مع عرض الحالة، زمن الاستجابة، وملخص التنفيذ.
+        </p>
+
+        <div class="grid-2" style="margin-bottom:16px">
+            <div style="display:flex;flex-direction:column;gap:10px">
+                <div class="ip-row">
+                    <span class="ip-label">المسار</span>
+                    <span class="ip-value" style="font-family:var(--font-mono)">/api/instant-core</span>
+                </div>
+                <div class="ip-row">
+                    <span class="ip-label">الحالة</span>
+                    <span class="ip-value" id="instantCoreStatus" style="color:var(--text-muted)">جاهز للفحص</span>
+                </div>
+                <div class="ip-row">
+                    <span class="ip-label">زمن الاستجابة</span>
+                    <span class="ip-value" id="instantCoreLatency" style="font-family:var(--font-mono)">—</span>
+                </div>
+                <div class="ip-row">
+                    <span class="ip-label">آخر تحديث</span>
+                    <span class="ip-value" id="instantCoreCheckedAt" style="font-family:var(--font-mono)">—</span>
+                </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:10px">
+                <div class="ip-row">
+                    <span class="ip-label">المنفّذ</span>
+                    <span class="ip-value" id="instantCoreFounder">—</span>
+                </div>
+                <div class="ip-row">
+                    <span class="ip-label">التنفيذ</span>
+                    <span class="ip-value" id="instantCoreExecution">بانتظار التشغيل من اللوحة</span>
+                </div>
+                <div class="ip-row">
+                    <span class="ip-label">رابط السوق</span>
+                    <a id="instantCoreMarket" href="https://sheikha-main-portal.vercel.app" target="_blank" rel="noopener noreferrer" class="ip-value" style="color:var(--gold);text-decoration:none">فتح السوق</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+            <button class="btn btn-gold btn-sm" onclick="runInstantCoreProbe()">تشغيل فوري</button>
+            <button class="btn btn-outline btn-sm" onclick="window.open('/api/instant-core','_blank','noopener')">فتح الـ API</button>
+        </div>
+
+        <div id="instantCoreResponse" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;font-family:var(--font-mono);font-size:0.76rem;line-height:1.8;white-space:pre-wrap;color:var(--text2)">
+{
+    "status": "جاهز للفحص من لوحة الأدمن"
+}
         </div>
     </div>
 </div>
@@ -7290,6 +7345,62 @@ function showSection(sectionId) {
     // تحميل بيانات NVIDIA/CUDA عند فتح القسم
     if (sectionId === 'nvidia-cuda') loadNvidiaCudaCapabilities();
     if (sectionId === 'architecture-ops') loadLiveAiProviderStatus();
+    if (sectionId === 'api') runInstantCoreProbe();
+}
+
+async function runInstantCoreProbe() {
+    const statusEl = document.getElementById('instantCoreStatus');
+    const latencyEl = document.getElementById('instantCoreLatency');
+    const checkedAtEl = document.getElementById('instantCoreCheckedAt');
+    const founderEl = document.getElementById('instantCoreFounder');
+    const executionEl = document.getElementById('instantCoreExecution');
+    const marketEl = document.getElementById('instantCoreMarket');
+    const responseEl = document.getElementById('instantCoreResponse');
+
+    if (!statusEl || !latencyEl || !checkedAtEl || !founderEl || !executionEl || !marketEl || !responseEl) {
+        return;
+    }
+
+    statusEl.textContent = 'جاري الفحص...';
+    statusEl.style.color = 'var(--orange)';
+    latencyEl.textContent = '...';
+    checkedAtEl.textContent = new Date().toLocaleTimeString('ar-SA');
+
+    try {
+        const response = await fetch('/api/instant-core', { cache: 'no-store' });
+        const payload = await response.json();
+
+        if (!response.ok) {
+            throw new Error(payload && payload.message ? payload.message : `HTTP ${response.status}`);
+        }
+
+        statusEl.textContent = payload.status || 'نشط';
+        statusEl.style.color = 'var(--green)';
+        latencyEl.textContent = payload.latency || '—';
+        founderEl.textContent = payload.founder || '—';
+        executionEl.textContent = payload.execution || '—';
+        checkedAtEl.textContent = new Date().toLocaleTimeString('ar-SA');
+
+        if (payload.market) {
+            marketEl.href = payload.market;
+            marketEl.textContent = payload.market;
+        }
+
+        responseEl.textContent = JSON.stringify(payload, null, 2);
+    } catch (error) {
+        const message = error instanceof Error ? error.message : 'تعذر الاتصال ببوابة البرمجة اللحظية';
+
+        statusEl.textContent = 'تعذر الاتصال';
+        statusEl.style.color = 'var(--red)';
+        latencyEl.textContent = '—';
+        executionEl.textContent = message;
+        checkedAtEl.textContent = new Date().toLocaleTimeString('ar-SA');
+        responseEl.textContent = JSON.stringify({
+            success: false,
+            message,
+            endpoint: '/api/instant-core'
+        }, null, 2);
+    }
 }
 
 async function loadLiveAiProviderStatus() {

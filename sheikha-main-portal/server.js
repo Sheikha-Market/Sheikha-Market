@@ -4119,6 +4119,24 @@ app.get('/api/project/status', (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// ⚡ Instant Logic Core — تفعيل محلي متوافق مع Vercel endpoint
+// ═══════════════════════════════════════════════════════════════════════════════
+app.get('/api/instant-core', (req, res) => {
+    const startTime = Date.now();
+
+    res.set('Cache-Control', 'no-store');
+    res.set('Content-Type', 'application/json; charset=UTF-8');
+
+    res.status(200).send(JSON.stringify({
+        status: 'INSTANT_ACTIVE (البرمجة اللحظية نشطة)',
+        founder: 'سلمان أحمد سلمان عبدالعزيز الراجح (الخبر)',
+        execution: 'تم تحديث المشروع آلياً بناءً على أمركم الأخير',
+        latency: `${Date.now() - startTime}ms`,
+        market: 'https://sheikha-main-portal.vercel.app'
+    }));
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 📈 مراقب استقرار مؤشر شيخة — مسار ثابت للتشغيل المحلي والإنتاج
 // ═══════════════════════════════════════════════════════════════════════════════
 app.get('/api/sheikha-index-monitor', (req, res) => {
