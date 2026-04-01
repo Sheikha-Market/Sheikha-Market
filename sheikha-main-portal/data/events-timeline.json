@@ -1,53 +1,40 @@
 [
   {
-    "id": 1774673611853,
+    "id": 1774844491881,
     "sequence": 1,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T04:53:31.853Z",
-    "epochMs": 1774673611853,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:21:31.881Z",
+    "epochMs": 1774844491881,
     "payload": {
-      "cycle": 21,
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
       "readinessScore": 100,
-      "totalGaps": 0
+      "totalGaps": 0,
+      "durationMs": 0
     }
   },
   {
-    "id": 1774673654012,
+    "id": 1774844491890,
     "sequence": 2,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T04:54:14.012Z",
-    "epochMs": 1774673654012,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774673654012,
-    "sequence": 3,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T04:54:14.012Z",
-    "epochMs": 1774673654012,
+    "time": "2026-03-30T04:21:31.890Z",
+    "epochMs": 1774844491890,
     "payload": {
-      "cycle": 22,
+      "cycle": 297,
       "readinessScore": 100,
       "totalGaps": 0
     }
   },
   {
-    "id": 1774673654041,
-    "sequence": 4,
+    "id": 1774844525399,
+    "sequence": 3,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T04:54:14.041Z",
-    "epochMs": 1774673654041,
+    "time": "2026-03-30T04:22:05.399Z",
+    "epochMs": 1774844525399,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -58,12 +45,872 @@
     }
   },
   {
-    "id": 1774673654041,
-    "sequence": 5,
+    "id": 1774844525399,
+    "sequence": 4,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T04:54:14.041Z",
-    "epochMs": 1774673654041,
+    "time": "2026-03-30T04:22:05.399Z",
+    "epochMs": 1774844525399,
+    "payload": {
+      "cycle": 314,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844551881,
+    "sequence": 5,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:22:31.881Z",
+    "epochMs": 1774844551881,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844551881,
+    "sequence": 6,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:22:31.881Z",
+    "epochMs": 1774844551881,
+    "payload": {
+      "cycle": 315,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844551883,
+    "sequence": 7,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:22:31.883Z",
+    "epochMs": 1774844551883,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774844551892,
+    "sequence": 8,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:22:31.892Z",
+    "epochMs": 1774844551892,
+    "payload": {
+      "cycle": 298,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844585401,
+    "sequence": 9,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:23:05.401Z",
+    "epochMs": 1774844585401,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774844585401,
+    "sequence": 10,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:23:05.401Z",
+    "epochMs": 1774844585401,
+    "payload": {
+      "cycle": 315,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844611881,
+    "sequence": 11,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:23:31.881Z",
+    "epochMs": 1774844611881,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844611881,
+    "sequence": 12,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:23:31.881Z",
+    "epochMs": 1774844611881,
+    "payload": {
+      "cycle": 316,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844611884,
+    "sequence": 13,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:23:31.884Z",
+    "epochMs": 1774844611884,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844611884,
+    "sequence": 14,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:23:31.884Z",
+    "epochMs": 1774844611884,
+    "payload": {
+      "cycle": 299,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844645403,
+    "sequence": 15,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:24:05.403Z",
+    "epochMs": 1774844645403,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844645403,
+    "sequence": 16,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:24:05.403Z",
+    "epochMs": 1774844645403,
+    "payload": {
+      "cycle": 316,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844671883,
+    "sequence": 17,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:24:31.883Z",
+    "epochMs": 1774844671883,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844671884,
+    "sequence": 18,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:24:31.884Z",
+    "epochMs": 1774844671884,
+    "payload": {
+      "cycle": 317,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844671887,
+    "sequence": 19,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:24:31.887Z",
+    "epochMs": 1774844671887,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844671888,
+    "sequence": 20,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:24:31.888Z",
+    "epochMs": 1774844671888,
+    "payload": {
+      "cycle": 300,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844705403,
+    "sequence": 21,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:25:05.403Z",
+    "epochMs": 1774844705403,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774844705403,
+    "sequence": 22,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:25:05.403Z",
+    "epochMs": 1774844705403,
+    "payload": {
+      "cycle": 317,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844731885,
+    "sequence": 23,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:25:31.885Z",
+    "epochMs": 1774844731885,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844731886,
+    "sequence": 24,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:25:31.886Z",
+    "epochMs": 1774844731886,
+    "payload": {
+      "cycle": 318,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844731889,
+    "sequence": 25,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:25:31.889Z",
+    "epochMs": 1774844731889,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774844731896,
+    "sequence": 26,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:25:31.896Z",
+    "epochMs": 1774844731896,
+    "payload": {
+      "cycle": 301,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844765404,
+    "sequence": 27,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:26:05.404Z",
+    "epochMs": 1774844765404,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844765404,
+    "sequence": 28,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:26:05.404Z",
+    "epochMs": 1774844765404,
+    "payload": {
+      "cycle": 318,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844791887,
+    "sequence": 29,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:26:31.887Z",
+    "epochMs": 1774844791887,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844791887,
+    "sequence": 30,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:26:31.887Z",
+    "epochMs": 1774844791887,
+    "payload": {
+      "cycle": 319,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844791889,
+    "sequence": 31,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:26:31.889Z",
+    "epochMs": 1774844791889,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774844791890,
+    "sequence": 32,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:26:31.890Z",
+    "epochMs": 1774844791890,
+    "payload": {
+      "cycle": 302,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844825405,
+    "sequence": 33,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:27:05.405Z",
+    "epochMs": 1774844825405,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774844825405,
+    "sequence": 34,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:27:05.405Z",
+    "epochMs": 1774844825405,
+    "payload": {
+      "cycle": 319,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844851888,
+    "sequence": 35,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:27:31.888Z",
+    "epochMs": 1774844851888,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844851888,
+    "sequence": 36,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:27:31.888Z",
+    "epochMs": 1774844851888,
+    "payload": {
+      "cycle": 320,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844851891,
+    "sequence": 37,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:27:31.891Z",
+    "epochMs": 1774844851891,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844851891,
+    "sequence": 38,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:27:31.891Z",
+    "epochMs": 1774844851891,
+    "payload": {
+      "cycle": 303,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844885405,
+    "sequence": 39,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:28:05.405Z",
+    "epochMs": 1774844885405,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774844885405,
+    "sequence": 40,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:28:05.405Z",
+    "epochMs": 1774844885405,
+    "payload": {
+      "cycle": 320,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844911893,
+    "sequence": 41,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:28:31.893Z",
+    "epochMs": 1774844911893,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844911893,
+    "sequence": 42,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:28:31.893Z",
+    "epochMs": 1774844911893,
+    "payload": {
+      "cycle": 321,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844911895,
+    "sequence": 43,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T04:28:31.895Z",
+    "epochMs": 1774844911895,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774844911896,
+    "sequence": 44,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T04:28:31.896Z",
+    "epochMs": 1774844911896,
+    "payload": {
+      "cycle": 304,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774844920148,
+    "sequence": 45,
+    "type": "worker_stopped",
+    "source": "background-worker",
+    "time": "2026-03-30T04:28:40.148Z",
+    "epochMs": 1774844920148,
+    "payload": {
+      "stoppedAt": "2026-03-30T04:28:40.148Z",
+      "totalCycles": 321
+    }
+  },
+  {
+    "id": 1774844920619,
+    "sequence": 46,
+    "type": "worker_stopped",
+    "source": "background-worker",
+    "time": "2026-03-30T04:28:40.619Z",
+    "epochMs": 1774844920619,
+    "payload": {
+      "stoppedAt": "2026-03-30T04:28:40.618Z",
+      "totalCycles": 320
+    }
+  },
+  {
+    "id": 1774844920619,
+    "sequence": 47,
+    "type": "worker_stopped",
+    "source": "background-worker",
+    "time": "2026-03-30T04:28:40.619Z",
+    "epochMs": 1774844920619,
+    "payload": {
+      "stoppedAt": "2026-03-30T04:28:40.619Z",
+      "totalCycles": 304
+    }
+  },
+  {
+    "id": 1774902589152,
+    "sequence": 48,
+    "type": "worker_started",
+    "source": "background-worker",
+    "time": "2026-03-30T20:29:49.152Z",
+    "epochMs": 1774902589152,
+    "payload": {
+      "intervalMs": 60000,
+      "startedAt": "2026-03-30T20:29:49.151Z"
+    }
+  },
+  {
+    "id": 1774902589157,
+    "sequence": 49,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T20:29:49.157Z",
+    "epochMs": 1774902589157,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774902589158,
+    "sequence": 50,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T20:29:49.158Z",
+    "epochMs": 1774902589158,
+    "payload": {
+      "cycle": 1,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774902649155,
+    "sequence": 51,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T20:30:49.155Z",
+    "epochMs": 1774902649155,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774902649155,
+    "sequence": 52,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T20:30:49.155Z",
+    "epochMs": 1774902649155,
+    "payload": {
+      "cycle": 2,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774902709161,
+    "sequence": 53,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T20:31:49.161Z",
+    "epochMs": 1774902709161,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774902709161,
+    "sequence": 54,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T20:31:49.161Z",
+    "epochMs": 1774902709161,
+    "payload": {
+      "cycle": 3,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774902769161,
+    "sequence": 55,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T20:32:49.161Z",
+    "epochMs": 1774902769161,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774902769162,
+    "sequence": 56,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T20:32:49.162Z",
+    "epochMs": 1774902769162,
+    "payload": {
+      "cycle": 4,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774902829164,
+    "sequence": 57,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T20:33:49.164Z",
+    "epochMs": 1774902829164,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774902829164,
+    "sequence": 58,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T20:33:49.164Z",
+    "epochMs": 1774902829164,
+    "payload": {
+      "cycle": 5,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774902889162,
+    "sequence": 59,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T20:34:49.162Z",
+    "epochMs": 1774902889162,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774902889162,
+    "sequence": 60,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T20:34:49.162Z",
+    "epochMs": 1774902889162,
+    "payload": {
+      "cycle": 6,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774902949163,
+    "sequence": 61,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T20:35:49.163Z",
+    "epochMs": 1774902949163,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774902949163,
+    "sequence": 62,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T20:35:49.163Z",
+    "epochMs": 1774902949163,
+    "payload": {
+      "cycle": 7,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774903009167,
+    "sequence": 63,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T20:36:49.167Z",
+    "epochMs": 1774903009167,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774903009167,
+    "sequence": 64,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T20:36:49.167Z",
+    "epochMs": 1774903009167,
     "payload": {
       "cycle": 8,
       "readinessScore": 100,
@@ -71,12 +918,12 @@
     }
   },
   {
-    "id": 1774673714015,
-    "sequence": 6,
+    "id": 1774903069166,
+    "sequence": 65,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T04:55:14.015Z",
-    "epochMs": 1774673714015,
+    "time": "2026-03-30T20:37:49.166Z",
+    "epochMs": 1774903069166,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -87,41 +934,12 @@
     }
   },
   {
-    "id": 1774673714015,
-    "sequence": 7,
+    "id": 1774903069166,
+    "sequence": 66,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T04:55:14.015Z",
-    "epochMs": 1774673714015,
-    "payload": {
-      "cycle": 23,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774673714045,
-    "sequence": 8,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T04:55:14.045Z",
-    "epochMs": 1774673714045,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774673714045,
-    "sequence": 9,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T04:55:14.045Z",
-    "epochMs": 1774673714045,
+    "time": "2026-03-30T20:37:49.166Z",
+    "epochMs": 1774903069166,
     "payload": {
       "cycle": 9,
       "readinessScore": 100,
@@ -129,12 +947,12 @@
     }
   },
   {
-    "id": 1774673774015,
-    "sequence": 10,
+    "id": 1774903129169,
+    "sequence": 67,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T04:56:14.015Z",
-    "epochMs": 1774673774015,
+    "time": "2026-03-30T20:38:49.169Z",
+    "epochMs": 1774903129169,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -145,41 +963,12 @@
     }
   },
   {
-    "id": 1774673774015,
-    "sequence": 11,
+    "id": 1774903129170,
+    "sequence": 68,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T04:56:14.015Z",
-    "epochMs": 1774673774015,
-    "payload": {
-      "cycle": 24,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774673774047,
-    "sequence": 12,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T04:56:14.047Z",
-    "epochMs": 1774673774047,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 1
-    }
-  },
-  {
-    "id": 1774673774047,
-    "sequence": 13,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T04:56:14.047Z",
-    "epochMs": 1774673774047,
+    "time": "2026-03-30T20:38:49.170Z",
+    "epochMs": 1774903129170,
     "payload": {
       "cycle": 10,
       "readinessScore": 100,
@@ -187,41 +976,12 @@
     }
   },
   {
-    "id": 1774673834018,
-    "sequence": 14,
+    "id": 1774903189170,
+    "sequence": 69,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T04:57:14.018Z",
-    "epochMs": 1774673834018,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 1
-    }
-  },
-  {
-    "id": 1774673834018,
-    "sequence": 15,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T04:57:14.018Z",
-    "epochMs": 1774673834018,
-    "payload": {
-      "cycle": 25,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774673860681,
-    "sequence": 16,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T04:57:40.681Z",
-    "epochMs": 1774673860681,
+    "time": "2026-03-30T20:39:49.170Z",
+    "epochMs": 1774903189170,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -232,12 +992,12 @@
     }
   },
   {
-    "id": 1774673860681,
-    "sequence": 17,
+    "id": 1774903189170,
+    "sequence": 70,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T04:57:40.681Z",
-    "epochMs": 1774673860681,
+    "time": "2026-03-30T20:39:49.170Z",
+    "epochMs": 1774903189170,
     "payload": {
       "cycle": 11,
       "readinessScore": 100,
@@ -245,28 +1005,28 @@
     }
   },
   {
-    "id": 1774673899572,
-    "sequence": 18,
+    "id": 1774903249169,
+    "sequence": 71,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T04:58:19.572Z",
-    "epochMs": 1774673899572,
+    "time": "2026-03-30T20:40:49.169Z",
+    "epochMs": 1774903249169,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
       "liveSystems": 7,
       "readinessScore": 100,
       "totalGaps": 0,
-      "durationMs": 1
+      "durationMs": 0
     }
   },
   {
-    "id": 1774673899572,
-    "sequence": 19,
+    "id": 1774903249169,
+    "sequence": 72,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T04:58:19.572Z",
-    "epochMs": 1774673899572,
+    "time": "2026-03-30T20:40:49.169Z",
+    "epochMs": 1774903249169,
     "payload": {
       "cycle": 12,
       "readinessScore": 100,
@@ -274,12 +1034,12 @@
     }
   },
   {
-    "id": 1774673899596,
-    "sequence": 20,
+    "id": 1774903309169,
+    "sequence": 73,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T04:58:19.596Z",
-    "epochMs": 1774673899596,
+    "time": "2026-03-30T20:41:49.169Z",
+    "epochMs": 1774903309169,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -290,41 +1050,12 @@
     }
   },
   {
-    "id": 1774673899596,
-    "sequence": 21,
+    "id": 1774903309169,
+    "sequence": 74,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T04:58:19.596Z",
-    "epochMs": 1774673899596,
-    "payload": {
-      "cycle": 26,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774673959575,
-    "sequence": 22,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T04:59:19.575Z",
-    "epochMs": 1774673959575,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774673959575,
-    "sequence": 23,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T04:59:19.575Z",
-    "epochMs": 1774673959575,
+    "time": "2026-03-30T20:41:49.169Z",
+    "epochMs": 1774903309169,
     "payload": {
       "cycle": 13,
       "readinessScore": 100,
@@ -332,12 +1063,12 @@
     }
   },
   {
-    "id": 1774673959599,
-    "sequence": 24,
+    "id": 1774903369176,
+    "sequence": 75,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T04:59:19.599Z",
-    "epochMs": 1774673959599,
+    "time": "2026-03-30T20:42:49.176Z",
+    "epochMs": 1774903369176,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -348,41 +1079,12 @@
     }
   },
   {
-    "id": 1774673959599,
-    "sequence": 25,
+    "id": 1774903369176,
+    "sequence": 76,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T04:59:19.599Z",
-    "epochMs": 1774673959599,
-    "payload": {
-      "cycle": 27,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674019575,
-    "sequence": 26,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:00:19.575Z",
-    "epochMs": 1774674019575,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774674019575,
-    "sequence": 27,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:00:19.575Z",
-    "epochMs": 1774674019575,
+    "time": "2026-03-30T20:42:49.176Z",
+    "epochMs": 1774903369176,
     "payload": {
       "cycle": 14,
       "readinessScore": 100,
@@ -390,41 +1092,12 @@
     }
   },
   {
-    "id": 1774674019601,
-    "sequence": 28,
+    "id": 1774903429177,
+    "sequence": 77,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:00:19.601Z",
-    "epochMs": 1774674019601,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 1
-    }
-  },
-  {
-    "id": 1774674019601,
-    "sequence": 29,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:00:19.601Z",
-    "epochMs": 1774674019601,
-    "payload": {
-      "cycle": 28,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674079576,
-    "sequence": 30,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:01:19.576Z",
-    "epochMs": 1774674079576,
+    "time": "2026-03-30T20:43:49.177Z",
+    "epochMs": 1774903429177,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -435,12 +1108,12 @@
     }
   },
   {
-    "id": 1774674079576,
-    "sequence": 31,
+    "id": 1774903429178,
+    "sequence": 78,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:01:19.576Z",
-    "epochMs": 1774674079576,
+    "time": "2026-03-30T20:43:49.178Z",
+    "epochMs": 1774903429178,
     "payload": {
       "cycle": 15,
       "readinessScore": 100,
@@ -448,12 +1121,12 @@
     }
   },
   {
-    "id": 1774674079602,
-    "sequence": 32,
+    "id": 1774903489177,
+    "sequence": 79,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:01:19.602Z",
-    "epochMs": 1774674079602,
+    "time": "2026-03-30T20:44:49.177Z",
+    "epochMs": 1774903489177,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -464,70 +1137,12 @@
     }
   },
   {
-    "id": 1774674079602,
-    "sequence": 33,
+    "id": 1774903489177,
+    "sequence": 80,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:01:19.602Z",
-    "epochMs": 1774674079602,
-    "payload": {
-      "cycle": 29,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674158138,
-    "sequence": 34,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:02:38.138Z",
-    "epochMs": 1774674158138,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774674158138,
-    "sequence": 35,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:02:38.138Z",
-    "epochMs": 1774674158138,
-    "payload": {
-      "cycle": 30,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674158155,
-    "sequence": 36,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:02:38.155Z",
-    "epochMs": 1774674158155,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774674158155,
-    "sequence": 37,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:02:38.155Z",
-    "epochMs": 1774674158155,
+    "time": "2026-03-30T20:44:49.177Z",
+    "epochMs": 1774903489177,
     "payload": {
       "cycle": 16,
       "readinessScore": 100,
@@ -535,41 +1150,12 @@
     }
   },
   {
-    "id": 1774674199608,
-    "sequence": 38,
+    "id": 1774903549182,
+    "sequence": 81,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:03:19.608Z",
-    "epochMs": 1774674199608,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 1
-    }
-  },
-  {
-    "id": 1774674199608,
-    "sequence": 39,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:03:19.608Z",
-    "epochMs": 1774674199608,
-    "payload": {
-      "cycle": 31,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674218160,
-    "sequence": 40,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:03:38.160Z",
-    "epochMs": 1774674218160,
+    "time": "2026-03-30T20:45:49.182Z",
+    "epochMs": 1774903549182,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -580,12 +1166,12 @@
     }
   },
   {
-    "id": 1774674218161,
-    "sequence": 41,
+    "id": 1774903549183,
+    "sequence": 82,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:03:38.161Z",
-    "epochMs": 1774674218161,
+    "time": "2026-03-30T20:45:49.183Z",
+    "epochMs": 1774903549183,
     "payload": {
       "cycle": 17,
       "readinessScore": 100,
@@ -593,12 +1179,12 @@
     }
   },
   {
-    "id": 1774674259606,
-    "sequence": 42,
+    "id": 1774903609184,
+    "sequence": 83,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:04:19.606Z",
-    "epochMs": 1774674259606,
+    "time": "2026-03-30T20:46:49.184Z",
+    "epochMs": 1774903609184,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -609,41 +1195,12 @@
     }
   },
   {
-    "id": 1774674259606,
-    "sequence": 43,
+    "id": 1774903609185,
+    "sequence": 84,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:04:19.606Z",
-    "epochMs": 1774674259606,
-    "payload": {
-      "cycle": 32,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674278161,
-    "sequence": 44,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:04:38.161Z",
-    "epochMs": 1774674278161,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 1
-    }
-  },
-  {
-    "id": 1774674278161,
-    "sequence": 45,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:04:38.161Z",
-    "epochMs": 1774674278161,
+    "time": "2026-03-30T20:46:49.185Z",
+    "epochMs": 1774903609185,
     "payload": {
       "cycle": 18,
       "readinessScore": 100,
@@ -651,12 +1208,12 @@
     }
   },
   {
-    "id": 1774674319609,
-    "sequence": 46,
+    "id": 1774903669186,
+    "sequence": 85,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:05:19.609Z",
-    "epochMs": 1774674319609,
+    "time": "2026-03-30T20:47:49.186Z",
+    "epochMs": 1774903669186,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -667,41 +1224,12 @@
     }
   },
   {
-    "id": 1774674319609,
-    "sequence": 47,
+    "id": 1774903669187,
+    "sequence": 86,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:05:19.609Z",
-    "epochMs": 1774674319609,
-    "payload": {
-      "cycle": 33,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674338162,
-    "sequence": 48,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:05:38.162Z",
-    "epochMs": 1774674338162,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774674338163,
-    "sequence": 49,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:05:38.163Z",
-    "epochMs": 1774674338163,
+    "time": "2026-03-30T20:47:49.187Z",
+    "epochMs": 1774903669187,
     "payload": {
       "cycle": 19,
       "readinessScore": 100,
@@ -709,57 +1237,28 @@
     }
   },
   {
-    "id": 1774674379611,
-    "sequence": 50,
+    "id": 1774903729187,
+    "sequence": 87,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:06:19.611Z",
-    "epochMs": 1774674379611,
+    "time": "2026-03-30T20:48:49.187Z",
+    "epochMs": 1774903729187,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
       "liveSystems": 7,
       "readinessScore": 100,
       "totalGaps": 0,
-      "durationMs": 0
+      "durationMs": 1
     }
   },
   {
-    "id": 1774674379611,
-    "sequence": 51,
+    "id": 1774903729187,
+    "sequence": 88,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:06:19.611Z",
-    "epochMs": 1774674379611,
-    "payload": {
-      "cycle": 34,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674398166,
-    "sequence": 52,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:06:38.166Z",
-    "epochMs": 1774674398166,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774674398166,
-    "sequence": 53,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:06:38.166Z",
-    "epochMs": 1774674398166,
+    "time": "2026-03-30T20:48:49.187Z",
+    "epochMs": 1774903729187,
     "payload": {
       "cycle": 20,
       "readinessScore": 100,
@@ -767,12 +1266,12 @@
     }
   },
   {
-    "id": 1774674439612,
-    "sequence": 54,
+    "id": 1774903789188,
+    "sequence": 89,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:07:19.612Z",
-    "epochMs": 1774674439612,
+    "time": "2026-03-30T20:49:49.188Z",
+    "epochMs": 1774903789188,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -783,41 +1282,12 @@
     }
   },
   {
-    "id": 1774674439612,
-    "sequence": 55,
+    "id": 1774903789188,
+    "sequence": 90,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:07:19.612Z",
-    "epochMs": 1774674439612,
-    "payload": {
-      "cycle": 35,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674458166,
-    "sequence": 56,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:07:38.166Z",
-    "epochMs": 1774674458166,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774674458166,
-    "sequence": 57,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:07:38.166Z",
-    "epochMs": 1774674458166,
+    "time": "2026-03-30T20:49:49.188Z",
+    "epochMs": 1774903789188,
     "payload": {
       "cycle": 21,
       "readinessScore": 100,
@@ -825,12 +1295,12 @@
     }
   },
   {
-    "id": 1774674499612,
-    "sequence": 58,
+    "id": 1774903849189,
+    "sequence": 91,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:08:19.612Z",
-    "epochMs": 1774674499612,
+    "time": "2026-03-30T20:50:49.189Z",
+    "epochMs": 1774903849189,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -841,41 +1311,12 @@
     }
   },
   {
-    "id": 1774674499612,
-    "sequence": 59,
+    "id": 1774903849190,
+    "sequence": 92,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:08:19.612Z",
-    "epochMs": 1774674499612,
-    "payload": {
-      "cycle": 36,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674518168,
-    "sequence": 60,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:08:38.168Z",
-    "epochMs": 1774674518168,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 1
-    }
-  },
-  {
-    "id": 1774674518168,
-    "sequence": 61,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:08:38.168Z",
-    "epochMs": 1774674518168,
+    "time": "2026-03-30T20:50:49.190Z",
+    "epochMs": 1774903849190,
     "payload": {
       "cycle": 22,
       "readinessScore": 100,
@@ -883,41 +1324,12 @@
     }
   },
   {
-    "id": 1774674559615,
-    "sequence": 62,
+    "id": 1774903909191,
+    "sequence": 93,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:09:19.615Z",
-    "epochMs": 1774674559615,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 1
-    }
-  },
-  {
-    "id": 1774674559615,
-    "sequence": 63,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:09:19.615Z",
-    "epochMs": 1774674559615,
-    "payload": {
-      "cycle": 37,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674578172,
-    "sequence": 64,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:09:38.172Z",
-    "epochMs": 1774674578172,
+    "time": "2026-03-30T20:51:49.191Z",
+    "epochMs": 1774903909191,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -928,12 +1340,12 @@
     }
   },
   {
-    "id": 1774674578172,
-    "sequence": 65,
+    "id": 1774903909191,
+    "sequence": 94,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:09:38.172Z",
-    "epochMs": 1774674578172,
+    "time": "2026-03-30T20:51:49.191Z",
+    "epochMs": 1774903909191,
     "payload": {
       "cycle": 23,
       "readinessScore": 100,
@@ -941,12 +1353,12 @@
     }
   },
   {
-    "id": 1774674619615,
-    "sequence": 66,
+    "id": 1774903969194,
+    "sequence": 95,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:10:19.615Z",
-    "epochMs": 1774674619615,
+    "time": "2026-03-30T20:52:49.194Z",
+    "epochMs": 1774903969194,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -957,41 +1369,12 @@
     }
   },
   {
-    "id": 1774674619615,
-    "sequence": 67,
+    "id": 1774903969194,
+    "sequence": 96,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:10:19.615Z",
-    "epochMs": 1774674619615,
-    "payload": {
-      "cycle": 38,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674638174,
-    "sequence": 68,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:10:38.174Z",
-    "epochMs": 1774674638174,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774674638175,
-    "sequence": 69,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:10:38.175Z",
-    "epochMs": 1774674638175,
+    "time": "2026-03-30T20:52:49.194Z",
+    "epochMs": 1774903969194,
     "payload": {
       "cycle": 24,
       "readinessScore": 100,
@@ -999,28 +1382,28 @@
     }
   },
   {
-    "id": 1774674706689,
-    "sequence": 70,
+    "id": 1774904029195,
+    "sequence": 97,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:11:46.689Z",
-    "epochMs": 1774674706689,
+    "time": "2026-03-30T20:53:49.195Z",
+    "epochMs": 1774904029195,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
       "liveSystems": 7,
       "readinessScore": 100,
       "totalGaps": 0,
-      "durationMs": 1
+      "durationMs": 0
     }
   },
   {
-    "id": 1774674706689,
-    "sequence": 71,
+    "id": 1774904029195,
+    "sequence": 98,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:11:46.689Z",
-    "epochMs": 1774674706689,
+    "time": "2026-03-30T20:53:49.195Z",
+    "epochMs": 1774904029195,
     "payload": {
       "cycle": 25,
       "readinessScore": 100,
@@ -1028,12 +1411,12 @@
     }
   },
   {
-    "id": 1774674706691,
-    "sequence": 72,
+    "id": 1774904089197,
+    "sequence": 99,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:11:46.691Z",
-    "epochMs": 1774674706691,
+    "time": "2026-03-30T20:54:49.197Z",
+    "epochMs": 1774904089197,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1044,70 +1427,12 @@
     }
   },
   {
-    "id": 1774674706691,
-    "sequence": 73,
+    "id": 1774904089198,
+    "sequence": 100,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:11:46.691Z",
-    "epochMs": 1774674706691,
-    "payload": {
-      "cycle": 39,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674739623,
-    "sequence": 74,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:12:19.623Z",
-    "epochMs": 1774674739623,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 1
-    }
-  },
-  {
-    "id": 1774674739623,
-    "sequence": 75,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:12:19.623Z",
-    "epochMs": 1774674739623,
-    "payload": {
-      "cycle": 40,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674758175,
-    "sequence": 76,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:12:38.175Z",
-    "epochMs": 1774674758175,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774674758176,
-    "sequence": 77,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:12:38.176Z",
-    "epochMs": 1774674758176,
+    "time": "2026-03-30T20:54:49.198Z",
+    "epochMs": 1774904089198,
     "payload": {
       "cycle": 26,
       "readinessScore": 100,
@@ -1115,12 +1440,12 @@
     }
   },
   {
-    "id": 1774674799622,
-    "sequence": 78,
+    "id": 1774904149197,
+    "sequence": 101,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:13:19.622Z",
-    "epochMs": 1774674799622,
+    "time": "2026-03-30T20:55:49.197Z",
+    "epochMs": 1774904149197,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1131,41 +1456,12 @@
     }
   },
   {
-    "id": 1774674799622,
-    "sequence": 79,
+    "id": 1774904149198,
+    "sequence": 102,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:13:19.622Z",
-    "epochMs": 1774674799622,
-    "payload": {
-      "cycle": 41,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674818177,
-    "sequence": 80,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:13:38.177Z",
-    "epochMs": 1774674818177,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774674818178,
-    "sequence": 81,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:13:38.178Z",
-    "epochMs": 1774674818178,
+    "time": "2026-03-30T20:55:49.198Z",
+    "epochMs": 1774904149198,
     "payload": {
       "cycle": 27,
       "readinessScore": 100,
@@ -1173,12 +1469,12 @@
     }
   },
   {
-    "id": 1774674859624,
-    "sequence": 82,
+    "id": 1774904209196,
+    "sequence": 103,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:14:19.624Z",
-    "epochMs": 1774674859624,
+    "time": "2026-03-30T20:56:49.196Z",
+    "epochMs": 1774904209196,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1189,41 +1485,12 @@
     }
   },
   {
-    "id": 1774674859624,
-    "sequence": 83,
+    "id": 1774904209197,
+    "sequence": 104,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:14:19.624Z",
-    "epochMs": 1774674859624,
-    "payload": {
-      "cycle": 42,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674889279,
-    "sequence": 84,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:14:49.279Z",
-    "epochMs": 1774674889279,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774674889279,
-    "sequence": 85,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:14:49.279Z",
-    "epochMs": 1774674889279,
+    "time": "2026-03-30T20:56:49.197Z",
+    "epochMs": 1774904209197,
     "payload": {
       "cycle": 28,
       "readinessScore": 100,
@@ -1231,12 +1498,12 @@
     }
   },
   {
-    "id": 1774674919625,
-    "sequence": 86,
+    "id": 1774904269203,
+    "sequence": 105,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:15:19.625Z",
-    "epochMs": 1774674919625,
+    "time": "2026-03-30T20:57:49.203Z",
+    "epochMs": 1774904269203,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1247,41 +1514,12 @@
     }
   },
   {
-    "id": 1774674919625,
-    "sequence": 87,
+    "id": 1774904269203,
+    "sequence": 106,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:15:19.625Z",
-    "epochMs": 1774674919625,
-    "payload": {
-      "cycle": 43,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774674949280,
-    "sequence": 88,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:15:49.280Z",
-    "epochMs": 1774674949280,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774674949280,
-    "sequence": 89,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:15:49.280Z",
-    "epochMs": 1774674949280,
+    "time": "2026-03-30T20:57:49.203Z",
+    "epochMs": 1774904269203,
     "payload": {
       "cycle": 29,
       "readinessScore": 100,
@@ -1289,12 +1527,12 @@
     }
   },
   {
-    "id": 1774674979628,
-    "sequence": 90,
+    "id": 1774904329202,
+    "sequence": 107,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:16:19.628Z",
-    "epochMs": 1774674979628,
+    "time": "2026-03-30T20:58:49.202Z",
+    "epochMs": 1774904329202,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1305,41 +1543,12 @@
     }
   },
   {
-    "id": 1774674979628,
-    "sequence": 91,
+    "id": 1774904329203,
+    "sequence": 108,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:16:19.628Z",
-    "epochMs": 1774674979628,
-    "payload": {
-      "cycle": 44,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774675009281,
-    "sequence": 92,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:16:49.281Z",
-    "epochMs": 1774675009281,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774675009281,
-    "sequence": 93,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:16:49.281Z",
-    "epochMs": 1774675009281,
+    "time": "2026-03-30T20:58:49.203Z",
+    "epochMs": 1774904329203,
     "payload": {
       "cycle": 30,
       "readinessScore": 100,
@@ -1347,12 +1556,12 @@
     }
   },
   {
-    "id": 1774675039628,
-    "sequence": 94,
+    "id": 1774904389204,
+    "sequence": 109,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:17:19.628Z",
-    "epochMs": 1774675039628,
+    "time": "2026-03-30T20:59:49.204Z",
+    "epochMs": 1774904389204,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1363,41 +1572,12 @@
     }
   },
   {
-    "id": 1774675039629,
-    "sequence": 95,
+    "id": 1774904389205,
+    "sequence": 110,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:17:19.629Z",
-    "epochMs": 1774675039629,
-    "payload": {
-      "cycle": 45,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774675069283,
-    "sequence": 96,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:17:49.283Z",
-    "epochMs": 1774675069283,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 0
-    }
-  },
-  {
-    "id": 1774675069284,
-    "sequence": 97,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:17:49.284Z",
-    "epochMs": 1774675069284,
+    "time": "2026-03-30T20:59:49.205Z",
+    "epochMs": 1774904389205,
     "payload": {
       "cycle": 31,
       "readinessScore": 100,
@@ -1405,41 +1585,12 @@
     }
   },
   {
-    "id": 1774675099629,
-    "sequence": 98,
+    "id": 1774904449205,
+    "sequence": 111,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:18:19.629Z",
-    "epochMs": 1774675099629,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 1
-    }
-  },
-  {
-    "id": 1774675099629,
-    "sequence": 99,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:18:19.629Z",
-    "epochMs": 1774675099629,
-    "payload": {
-      "cycle": 46,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774675129285,
-    "sequence": 100,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:18:49.285Z",
-    "epochMs": 1774675129285,
+    "time": "2026-03-30T21:00:49.205Z",
+    "epochMs": 1774904449205,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1450,12 +1601,12 @@
     }
   },
   {
-    "id": 1774675129285,
-    "sequence": 101,
+    "id": 1774904449205,
+    "sequence": 112,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:18:49.285Z",
-    "epochMs": 1774675129285,
+    "time": "2026-03-30T21:00:49.205Z",
+    "epochMs": 1774904449205,
     "payload": {
       "cycle": 32,
       "readinessScore": 100,
@@ -1463,12 +1614,24 @@
     }
   },
   {
-    "id": 1774675159630,
-    "sequence": 102,
+    "id": 1774904468031,
+    "sequence": 113,
+    "type": "worker_started",
+    "source": "background-worker",
+    "time": "2026-03-30T21:01:08.031Z",
+    "epochMs": 1774904468031,
+    "payload": {
+      "intervalMs": 60000,
+      "startedAt": "2026-03-30T21:01:08.031Z"
+    }
+  },
+  {
+    "id": 1774904468034,
+    "sequence": 114,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:19:19.630Z",
-    "epochMs": 1774675159630,
+    "time": "2026-03-30T21:01:08.034Z",
+    "epochMs": 1774904468034,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1479,25 +1642,25 @@
     }
   },
   {
-    "id": 1774675159630,
-    "sequence": 103,
+    "id": 1774904468037,
+    "sequence": 115,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:19:19.630Z",
-    "epochMs": 1774675159630,
+    "time": "2026-03-30T21:01:08.037Z",
+    "epochMs": 1774904468037,
     "payload": {
-      "cycle": 47,
+      "cycle": 1,
       "readinessScore": 100,
       "totalGaps": 0
     }
   },
   {
-    "id": 1774675189288,
-    "sequence": 104,
+    "id": 1774904509210,
+    "sequence": 116,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:19:49.288Z",
-    "epochMs": 1774675189288,
+    "time": "2026-03-30T21:01:49.210Z",
+    "epochMs": 1774904509210,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1508,12 +1671,12 @@
     }
   },
   {
-    "id": 1774675189289,
-    "sequence": 105,
+    "id": 1774904509210,
+    "sequence": 117,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:19:49.289Z",
-    "epochMs": 1774675189289,
+    "time": "2026-03-30T21:01:49.210Z",
+    "epochMs": 1774904509210,
     "payload": {
       "cycle": 33,
       "readinessScore": 100,
@@ -1521,41 +1684,12 @@
     }
   },
   {
-    "id": 1774675219642,
-    "sequence": 106,
+    "id": 1774904528038,
+    "sequence": 118,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:20:19.642Z",
-    "epochMs": 1774675219642,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 4
-    }
-  },
-  {
-    "id": 1774675219643,
-    "sequence": 107,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:20:19.643Z",
-    "epochMs": 1774675219643,
-    "payload": {
-      "cycle": 48,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774675249293,
-    "sequence": 108,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:20:49.293Z",
-    "epochMs": 1774675249293,
+    "time": "2026-03-30T21:02:08.038Z",
+    "epochMs": 1774904528038,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1566,12 +1700,41 @@
     }
   },
   {
-    "id": 1774675249293,
-    "sequence": 109,
+    "id": 1774904528038,
+    "sequence": 119,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:20:49.293Z",
-    "epochMs": 1774675249293,
+    "time": "2026-03-30T21:02:08.038Z",
+    "epochMs": 1774904528038,
+    "payload": {
+      "cycle": 2,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774904569213,
+    "sequence": 120,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:02:49.213Z",
+    "epochMs": 1774904569213,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774904569213,
+    "sequence": 121,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:02:49.213Z",
+    "epochMs": 1774904569213,
     "payload": {
       "cycle": 34,
       "readinessScore": 100,
@@ -1579,12 +1742,12 @@
     }
   },
   {
-    "id": 1774675279633,
-    "sequence": 110,
+    "id": 1774904588041,
+    "sequence": 122,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:21:19.633Z",
-    "epochMs": 1774675279633,
+    "time": "2026-03-30T21:03:08.041Z",
+    "epochMs": 1774904588041,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1595,25 +1758,25 @@
     }
   },
   {
-    "id": 1774675279634,
-    "sequence": 111,
+    "id": 1774904588041,
+    "sequence": 123,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:21:19.634Z",
-    "epochMs": 1774675279634,
+    "time": "2026-03-30T21:03:08.041Z",
+    "epochMs": 1774904588041,
     "payload": {
-      "cycle": 49,
+      "cycle": 3,
       "readinessScore": 100,
       "totalGaps": 0
     }
   },
   {
-    "id": 1774675309294,
-    "sequence": 112,
+    "id": 1774904629212,
+    "sequence": 124,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:21:49.294Z",
-    "epochMs": 1774675309294,
+    "time": "2026-03-30T21:03:49.212Z",
+    "epochMs": 1774904629212,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1624,12 +1787,12 @@
     }
   },
   {
-    "id": 1774675309294,
-    "sequence": 113,
+    "id": 1774904629212,
+    "sequence": 125,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:21:49.294Z",
-    "epochMs": 1774675309294,
+    "time": "2026-03-30T21:03:49.212Z",
+    "epochMs": 1774904629212,
     "payload": {
       "cycle": 35,
       "readinessScore": 100,
@@ -1637,12 +1800,41 @@
     }
   },
   {
-    "id": 1774675339635,
-    "sequence": 114,
+    "id": 1774904648040,
+    "sequence": 126,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:22:19.635Z",
-    "epochMs": 1774675339635,
+    "time": "2026-03-30T21:04:08.040Z",
+    "epochMs": 1774904648040,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774904648041,
+    "sequence": 127,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:04:08.041Z",
+    "epochMs": 1774904648041,
+    "payload": {
+      "cycle": 4,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774904689213,
+    "sequence": 128,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:04:49.213Z",
+    "epochMs": 1774904689213,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1653,41 +1845,12 @@
     }
   },
   {
-    "id": 1774675339636,
-    "sequence": 115,
+    "id": 1774904689213,
+    "sequence": 129,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:22:19.636Z",
-    "epochMs": 1774675339636,
-    "payload": {
-      "cycle": 50,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774675369302,
-    "sequence": 116,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:22:49.302Z",
-    "epochMs": 1774675369302,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 3
-    }
-  },
-  {
-    "id": 1774675369303,
-    "sequence": 117,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:22:49.303Z",
-    "epochMs": 1774675369303,
+    "time": "2026-03-30T21:04:49.213Z",
+    "epochMs": 1774904689213,
     "payload": {
       "cycle": 36,
       "readinessScore": 100,
@@ -1695,70 +1858,12 @@
     }
   },
   {
-    "id": 1774675400736,
-    "sequence": 118,
+    "id": 1774904749214,
+    "sequence": 130,
     "type": "sync_cycle_completed",
     "source": "event-engine",
-    "time": "2026-03-28T05:23:20.736Z",
-    "epochMs": 1774675400736,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 8
-    }
-  },
-  {
-    "id": 1774675400739,
-    "sequence": 119,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:23:20.739Z",
-    "epochMs": 1774675400739,
-    "payload": {
-      "cycle": 51,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774675429299,
-    "sequence": 120,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:23:49.299Z",
-    "epochMs": 1774675429299,
-    "payload": {
-      "trigger": "background-worker",
-      "seededNow": false,
-      "liveSystems": 7,
-      "readinessScore": 100,
-      "totalGaps": 0,
-      "durationMs": 2
-    }
-  },
-  {
-    "id": 1774675429304,
-    "sequence": 121,
-    "type": "worker_heartbeat",
-    "source": "background-worker",
-    "time": "2026-03-28T05:23:49.304Z",
-    "epochMs": 1774675429304,
-    "payload": {
-      "cycle": 37,
-      "readinessScore": 100,
-      "totalGaps": 0
-    }
-  },
-  {
-    "id": 1774675464315,
-    "sequence": 122,
-    "type": "sync_cycle_completed",
-    "source": "event-engine",
-    "time": "2026-03-28T05:24:24.315Z",
-    "epochMs": 1774675464315,
+    "time": "2026-03-30T21:05:49.214Z",
+    "epochMs": 1774904749214,
     "payload": {
       "trigger": "background-worker",
       "seededNow": false,
@@ -1769,12 +1874,447 @@
     }
   },
   {
-    "id": 1774675464315,
-    "sequence": 123,
+    "id": 1774904749215,
+    "sequence": 131,
     "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:24:24.315Z",
-    "epochMs": 1774675464315,
+    "time": "2026-03-30T21:05:49.215Z",
+    "epochMs": 1774904749215,
+    "payload": {
+      "cycle": 37,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774904809214,
+    "sequence": 132,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:06:49.214Z",
+    "epochMs": 1774904809214,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774904809215,
+    "sequence": 133,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:06:49.215Z",
+    "epochMs": 1774904809215,
+    "payload": {
+      "cycle": 38,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774904869215,
+    "sequence": 134,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:07:49.215Z",
+    "epochMs": 1774904869215,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774904869215,
+    "sequence": 135,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:07:49.215Z",
+    "epochMs": 1774904869215,
+    "payload": {
+      "cycle": 39,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774904929219,
+    "sequence": 136,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:08:49.219Z",
+    "epochMs": 1774904929219,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774904929220,
+    "sequence": 137,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:08:49.220Z",
+    "epochMs": 1774904929220,
+    "payload": {
+      "cycle": 40,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774904989219,
+    "sequence": 138,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:09:49.219Z",
+    "epochMs": 1774904989219,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774904989220,
+    "sequence": 139,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:09:49.220Z",
+    "epochMs": 1774904989220,
+    "payload": {
+      "cycle": 41,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905049221,
+    "sequence": 140,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:10:49.221Z",
+    "epochMs": 1774905049221,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905049222,
+    "sequence": 141,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:10:49.222Z",
+    "epochMs": 1774905049222,
+    "payload": {
+      "cycle": 42,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905109225,
+    "sequence": 142,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:11:49.225Z",
+    "epochMs": 1774905109225,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905109225,
+    "sequence": 143,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:11:49.225Z",
+    "epochMs": 1774905109225,
+    "payload": {
+      "cycle": 43,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905169228,
+    "sequence": 144,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:12:49.228Z",
+    "epochMs": 1774905169228,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905169228,
+    "sequence": 145,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:12:49.228Z",
+    "epochMs": 1774905169228,
+    "payload": {
+      "cycle": 44,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905229231,
+    "sequence": 146,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:13:49.231Z",
+    "epochMs": 1774905229231,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905229232,
+    "sequence": 147,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:13:49.232Z",
+    "epochMs": 1774905229232,
+    "payload": {
+      "cycle": 45,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905289231,
+    "sequence": 148,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:14:49.231Z",
+    "epochMs": 1774905289231,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905289232,
+    "sequence": 149,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:14:49.232Z",
+    "epochMs": 1774905289232,
+    "payload": {
+      "cycle": 46,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905349235,
+    "sequence": 150,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:15:49.235Z",
+    "epochMs": 1774905349235,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905349236,
+    "sequence": 151,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:15:49.236Z",
+    "epochMs": 1774905349236,
+    "payload": {
+      "cycle": 47,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905409239,
+    "sequence": 152,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:16:49.239Z",
+    "epochMs": 1774905409239,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905409240,
+    "sequence": 153,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:16:49.240Z",
+    "epochMs": 1774905409240,
+    "payload": {
+      "cycle": 48,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905469242,
+    "sequence": 154,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:17:49.242Z",
+    "epochMs": 1774905469242,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905469242,
+    "sequence": 155,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:17:49.242Z",
+    "epochMs": 1774905469242,
+    "payload": {
+      "cycle": 49,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905529243,
+    "sequence": 156,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:18:49.243Z",
+    "epochMs": 1774905529243,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905529243,
+    "sequence": 157,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:18:49.243Z",
+    "epochMs": 1774905529243,
+    "payload": {
+      "cycle": 50,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905589242,
+    "sequence": 158,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:19:49.242Z",
+    "epochMs": 1774905589242,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905589242,
+    "sequence": 159,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:19:49.242Z",
+    "epochMs": 1774905589242,
+    "payload": {
+      "cycle": 51,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905649244,
+    "sequence": 160,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:20:49.244Z",
+    "epochMs": 1774905649244,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905649245,
+    "sequence": 161,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:20:49.245Z",
+    "epochMs": 1774905649245,
     "payload": {
       "cycle": 52,
       "readinessScore": 100,
@@ -1782,27 +2322,839 @@
     }
   },
   {
-    "id": 1774675483830,
-    "sequence": 124,
-    "type": "worker_stopped",
-    "source": "background-worker",
-    "time": "2026-03-28T05:24:43.830Z",
-    "epochMs": 1774675483830,
+    "id": 1774905709247,
+    "sequence": 162,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:21:49.247Z",
+    "epochMs": 1774905709247,
     "payload": {
-      "stoppedAt": "2026-03-28T05:24:43.829Z",
-      "totalCycles": 37
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
     }
   },
   {
-    "id": 1774675484307,
-    "sequence": 125,
-    "type": "worker_stopped",
+    "id": 1774905709247,
+    "sequence": 163,
+    "type": "worker_heartbeat",
     "source": "background-worker",
-    "time": "2026-03-28T05:24:44.307Z",
-    "epochMs": 1774675484307,
+    "time": "2026-03-30T21:21:49.247Z",
+    "epochMs": 1774905709247,
     "payload": {
-      "stoppedAt": "2026-03-28T05:24:44.307Z",
-      "totalCycles": 52
+      "cycle": 53,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905769249,
+    "sequence": 164,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:22:49.249Z",
+    "epochMs": 1774905769249,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905769250,
+    "sequence": 165,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:22:49.250Z",
+    "epochMs": 1774905769250,
+    "payload": {
+      "cycle": 54,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905829250,
+    "sequence": 166,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:23:49.250Z",
+    "epochMs": 1774905829250,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905829251,
+    "sequence": 167,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:23:49.251Z",
+    "epochMs": 1774905829251,
+    "payload": {
+      "cycle": 55,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905889250,
+    "sequence": 168,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:24:49.250Z",
+    "epochMs": 1774905889250,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905889251,
+    "sequence": 169,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:24:49.251Z",
+    "epochMs": 1774905889251,
+    "payload": {
+      "cycle": 56,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774905949254,
+    "sequence": 170,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:25:49.254Z",
+    "epochMs": 1774905949254,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774905949255,
+    "sequence": 171,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:25:49.255Z",
+    "epochMs": 1774905949255,
+    "payload": {
+      "cycle": 57,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906009256,
+    "sequence": 172,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:26:49.256Z",
+    "epochMs": 1774906009256,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906009257,
+    "sequence": 173,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:26:49.257Z",
+    "epochMs": 1774906009257,
+    "payload": {
+      "cycle": 58,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906069256,
+    "sequence": 174,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:27:49.256Z",
+    "epochMs": 1774906069256,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906069257,
+    "sequence": 175,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:27:49.257Z",
+    "epochMs": 1774906069257,
+    "payload": {
+      "cycle": 59,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906129260,
+    "sequence": 176,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:28:49.260Z",
+    "epochMs": 1774906129260,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906129260,
+    "sequence": 177,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:28:49.260Z",
+    "epochMs": 1774906129260,
+    "payload": {
+      "cycle": 60,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906189261,
+    "sequence": 178,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:29:49.261Z",
+    "epochMs": 1774906189261,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774906189261,
+    "sequence": 179,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:29:49.261Z",
+    "epochMs": 1774906189261,
+    "payload": {
+      "cycle": 61,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906249260,
+    "sequence": 180,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:30:49.260Z",
+    "epochMs": 1774906249260,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906249261,
+    "sequence": 181,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:30:49.261Z",
+    "epochMs": 1774906249261,
+    "payload": {
+      "cycle": 62,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906309267,
+    "sequence": 182,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:31:49.267Z",
+    "epochMs": 1774906309267,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906309267,
+    "sequence": 183,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:31:49.267Z",
+    "epochMs": 1774906309267,
+    "payload": {
+      "cycle": 63,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906369270,
+    "sequence": 184,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:32:49.270Z",
+    "epochMs": 1774906369270,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906369271,
+    "sequence": 185,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:32:49.271Z",
+    "epochMs": 1774906369271,
+    "payload": {
+      "cycle": 64,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906405873,
+    "sequence": 186,
+    "type": "worker_started",
+    "source": "background-worker",
+    "time": "2026-03-30T21:33:25.873Z",
+    "epochMs": 1774906405873,
+    "payload": {
+      "intervalMs": 60000,
+      "startedAt": "2026-03-30T21:33:25.873Z"
+    }
+  },
+  {
+    "id": 1774906405876,
+    "sequence": 187,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:33:25.876Z",
+    "epochMs": 1774906405876,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774906405876,
+    "sequence": 188,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:33:25.876Z",
+    "epochMs": 1774906405876,
+    "payload": {
+      "cycle": 1,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906426490,
+    "sequence": 189,
+    "type": "worker_started",
+    "source": "background-worker",
+    "time": "2026-03-30T21:33:46.490Z",
+    "epochMs": 1774906426490,
+    "payload": {
+      "intervalMs": 60000,
+      "startedAt": "2026-03-30T21:33:46.489Z"
+    }
+  },
+  {
+    "id": 1774906426492,
+    "sequence": 190,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:33:46.492Z",
+    "epochMs": 1774906426492,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774906426492,
+    "sequence": 191,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:33:46.492Z",
+    "epochMs": 1774906426492,
+    "payload": {
+      "cycle": 1,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906429270,
+    "sequence": 192,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:33:49.270Z",
+    "epochMs": 1774906429270,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906429270,
+    "sequence": 193,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:33:49.270Z",
+    "epochMs": 1774906429270,
+    "payload": {
+      "cycle": 65,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906465882,
+    "sequence": 194,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:34:25.882Z",
+    "epochMs": 1774906465882,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906465883,
+    "sequence": 195,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:34:25.883Z",
+    "epochMs": 1774906465883,
+    "payload": {
+      "cycle": 2,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906486498,
+    "sequence": 196,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:34:46.498Z",
+    "epochMs": 1774906486498,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774906486499,
+    "sequence": 197,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:34:46.499Z",
+    "epochMs": 1774906486499,
+    "payload": {
+      "cycle": 2,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906489271,
+    "sequence": 198,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:34:49.271Z",
+    "epochMs": 1774906489271,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906489271,
+    "sequence": 199,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:34:49.271Z",
+    "epochMs": 1774906489271,
+    "payload": {
+      "cycle": 66,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906525884,
+    "sequence": 200,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:35:25.884Z",
+    "epochMs": 1774906525884,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906525885,
+    "sequence": 201,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:35:25.885Z",
+    "epochMs": 1774906525885,
+    "payload": {
+      "cycle": 3,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906546497,
+    "sequence": 202,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:35:46.497Z",
+    "epochMs": 1774906546497,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774906546498,
+    "sequence": 203,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:35:46.498Z",
+    "epochMs": 1774906546498,
+    "payload": {
+      "cycle": 3,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906549275,
+    "sequence": 204,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:35:49.275Z",
+    "epochMs": 1774906549275,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906549275,
+    "sequence": 205,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:35:49.275Z",
+    "epochMs": 1774906549275,
+    "payload": {
+      "cycle": 67,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906585883,
+    "sequence": 206,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:36:25.883Z",
+    "epochMs": 1774906585883,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774906585884,
+    "sequence": 207,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:36:25.884Z",
+    "epochMs": 1774906585884,
+    "payload": {
+      "cycle": 4,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906606497,
+    "sequence": 208,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:36:46.497Z",
+    "epochMs": 1774906606497,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906606498,
+    "sequence": 209,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:36:46.498Z",
+    "epochMs": 1774906606498,
+    "payload": {
+      "cycle": 4,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906609279,
+    "sequence": 210,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:36:49.279Z",
+    "epochMs": 1774906609279,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774906609280,
+    "sequence": 211,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:36:49.280Z",
+    "epochMs": 1774906609280,
+    "payload": {
+      "cycle": 68,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906645883,
+    "sequence": 212,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:37:25.883Z",
+    "epochMs": 1774906645883,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906645884,
+    "sequence": 213,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:37:25.884Z",
+    "epochMs": 1774906645884,
+    "payload": {
+      "cycle": 5,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906666497,
+    "sequence": 214,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:37:46.497Z",
+    "epochMs": 1774906666497,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 1
+    }
+  },
+  {
+    "id": 1774906666498,
+    "sequence": 215,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:37:46.498Z",
+    "epochMs": 1774906666498,
+    "payload": {
+      "cycle": 5,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906669279,
+    "sequence": 216,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:37:49.279Z",
+    "epochMs": 1774906669279,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906669280,
+    "sequence": 217,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:37:49.280Z",
+    "epochMs": 1774906669280,
+    "payload": {
+      "cycle": 69,
+      "readinessScore": 100,
+      "totalGaps": 0
+    }
+  },
+  {
+    "id": 1774906705882,
+    "sequence": 218,
+    "type": "sync_cycle_completed",
+    "source": "event-engine",
+    "time": "2026-03-30T21:38:25.882Z",
+    "epochMs": 1774906705882,
+    "payload": {
+      "trigger": "background-worker",
+      "seededNow": false,
+      "liveSystems": 7,
+      "readinessScore": 100,
+      "totalGaps": 0,
+      "durationMs": 0
+    }
+  },
+  {
+    "id": 1774906705882,
+    "sequence": 219,
+    "type": "worker_heartbeat",
+    "source": "background-worker",
+    "time": "2026-03-30T21:38:25.882Z",
+    "epochMs": 1774906705882,
+    "payload": {
+      "cycle": 6,
+      "readinessScore": 100,
+      "totalGaps": 0
     }
   }
 ]
