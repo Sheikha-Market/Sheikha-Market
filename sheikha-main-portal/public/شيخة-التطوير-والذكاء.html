@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاكم نظام شيخة | التطوير والذكاء والتكامل</title>
+    <meta name="description" content="حاكم نظام شيخة يوحّد السوق وسلاسل الإمداد والمعادن والذكاء والتطوير: Microsoft, Azure, Windows, VS Code, Cursor, GitHub, GitLab, Ollama, Copilot.">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #071019;
+            --panel: rgba(10, 18, 32, 0.92);
+            --panel-2: rgba(15, 23, 42, 0.96);
+            --gold: #d4af37;
+            --copper: #b87333;
+            --ok: #10b981;
+            --warn: #f59e0b;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --border: rgba(212, 175, 55, 0.18);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background:
+                radial-gradient(circle at top right, rgba(212, 175, 55, 0.12), transparent 32%),
+                radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.12), transparent 28%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .wrap {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding: 16px 18px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .brand {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: var(--muted);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 7px 10px;
+            font-size: 0.84rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(17,24,39,0.84));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.7rem, 4vw, 2.3rem);
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 980px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .stats,
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 12px;
+        }
+
+        .stats { margin-bottom: 18px; }
+
+        .stat,
+        .card,
+        .diagram,
+        .note {
+            background: var(--panel-2);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .stat .value {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .stat .label,
+        .meta,
+        .muted {
+            color: var(--muted);
+            font-size: 0.84rem;
+        }
+
+        .section-title {
+            margin: 18px 0 10px;
+            font-size: 1.08rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .card h3 {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            align-items: center;
+            font-size: 0.96rem;
+            margin-bottom: 8px;
+        }
+
+        .state {
+            font-size: 0.72rem;
+            padding: 3px 9px;
+            border-radius: 999px;
+            font-weight: 800;
+        }
+
+        .state.active {
+            background: rgba(16,185,129,0.14);
+            color: var(--ok);
+        }
+
+        .state.planned {
+            background: rgba(245,158,11,0.14);
+            color: var(--warn);
+        }
+
+        .diagram {
+            margin-top: 12px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .action-btn {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, rgba(212,175,55,0.16), rgba(184,115,51,0.1));
+            color: var(--text);
+            padding: 10px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 700;
+        }
+
+        .action-btn.secondary {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        .log-box {
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #dbeafe;
+            background: rgba(2, 6, 23, 0.75);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 14px;
+            min-height: 120px;
+            direction: ltr;
+            text-align: left;
+            margin-top: 12px;
+        }
+
+        .flow {
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 8px;
+            font-size: 0.86rem;
+        }
+
+        .footer {
+            margin-top: 20px;
+            padding: 16px;
+            text-align: center;
+            color: var(--muted);
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="top">
+            <div class="brand">شيخة | حاكم النظام والتطوير والذكاء</div>
+            <div class="links">
+                <a href="/لوحة-تكامل-شيخة-الموحدة.html">لوحة التكامل الموحدة</a>
+                <a href="/فهرس-المنظومة.html">فهرس المنظومة</a>
+                <a href="/sheikha-ide.html">Sheikha IDE</a>
+                <a href="/سوق-شيخة.html">سوق شيخة</a>
+            </div>
+        </div>
+
+        <section class="hero">
+            <h1>حاكم نظام شيخة الموحد</h1>
+            <p>هذه الصفحة تعرض طبقة الحوكمة العليا في شيخة: سوق شيخة، سلاسل الإمداد، المعادن والسكراب، الذكاء، والتطوير والتشغيل في منظومة واحدة ظاهرة ومتصلة. كما تعرض طبقة Microsoft وAzure وWindows وVS Code وCursor وGitHub وGitLab وCopilot وOllama كممكنات تشغيل داخل هذا النظام الحاكم. الهدف هنا ليس العرض فقط، بل تشغيل بيئة تطويرية قوية وفعالة ونافعة بالخير، تظهر فيها القوة التقنية والتكامل الحقيقي بين الأنظمة.</p>
+            <div class="badges">
+                <span class="badge">توحيد الله فوق كل شيء</span>
+                <span class="badge">حاكم نظام شيخة</span>
+                <span class="badge">API-first</span>
+                <span class="badge">Local-first Privacy</span>
+                <span class="badge">Background Runtime</span>
+                <span class="badge">GitHub/GitLab/Azure Visibility</span>
+            </div>
+        </section>
+
+        <section class="note" id="governanceSummary"></section>
+
+        <section class="stats" id="stats"></section>
+
+        <h2 class="section-title">معمارية VS Coder</h2>
+        <section class="note" id="vscoderSummary"></section>
+        <section class="note" id="vscoderControls"></section>
+        <section class="grid" id="vscoderStructure"></section>
+
+        <h2 class="section-title">تقنيات VS Coder المستخدمة</h2>
+        <section class="grid" id="vscoderTechnologies"></section>
+
+        <h2 class="section-title">خدمات VS Coder الخلفية</h2>
+        <section class="grid" id="vscoderServices"></section>
+
+        <h2 class="section-title">إطلاقات VS Coder والـ Debug</h2>
+        <section class="grid" id="vscoderLaunches"></section>
+
+        <h2 class="section-title">سياسة الإضافات والامتدادات</h2>
+        <section class="grid" id="vscoderExtensions"></section>
+
+        <h2 class="section-title">التتبّع الحي وسجلات الخلفية</h2>
+        <section class="note">
+            <div id="vscoderDebug"></div>
+            <div class="log-box" id="vscoderLogs">جاري تحميل السجلات...</div>
+        </section>
+
+        <h2 class="section-title">تكامل الشات مع VS Coder (عربي أساس)</h2>
+        <section class="note" id="chatVSCoderSummary"></section>
+        <section class="note" id="chatVSCoderControls"></section>
+        <section class="grid" id="chatVSCoderModels"></section>
+
+        <h2 class="section-title">الأنظمة الجوهرية تحت الحاكم</h2>
+        <section class="grid" id="coreSystems"></section>
+
+        <h2 class="section-title">المنصات والأنظمة</h2>
+        <section class="grid" id="platforms"></section>
+
+        <h2 class="section-title">التراخيص والاشتراكات المؤسسية</h2>
+        <section class="note" id="licensingSummary"></section>
+        <section class="grid" id="licensingTiers"></section>
+
+        <h2 class="section-title">Git Sheikha</h2>
+        <section class="note" id="gitSheikhaSummary"></section>
+        <section class="grid" id="gitSheikhaProviders"></section>
+        <section class="grid" id="gitSheikhaRemotes"></section>
+        <section class="grid" id="gitSheikhaTopology"></section>
+
+        <h2 class="section-title">Sheikha Edge Native Cloud + Vercel</h2>
+        <section class="note" id="cloudRuntimeSummary"></section>
+        <section class="grid" id="cloudRuntimeServices"></section>
+        <section class="grid" id="cloudRuntimeCapabilities"></section>
+
+        <h2 class="section-title">أدوات التطوير والذكاء</h2>
+        <section class="grid" id="tools"></section>
+
+        <h2 class="section-title">قدرات شيخة للمطورين</h2>
+        <section class="grid" id="capabilityGroups"></section>
+
+        <h2 class="section-title">الخدمات الخلفية</h2>
+        <section class="grid" id="services"></section>
+
+        <h2 class="section-title">المعمارية والهيكلة</h2>
+        <section class="diagram">
+            <div class="grid" id="layers"></div>
+        </section>
+
+        <h2 class="section-title">تدفقات الشبكة والتكامل</h2>
+        <section class="diagram" id="flows"></section>
+
+        <h2 class="section-title">التكاملات والروابط</h2>
+        <section class="grid" id="integrations"></section>
+
+        <h2 class="section-title">صفحات التشغيل داخل شيخة</h2>
+        <section class="grid" id="pages"></section>
+
+        <section class="note" id="recommendation"></section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             قسم المقياس الكوني + المحاكاة الدكتورية + محرك الربح
+             ═══════════════════════════════════════════════════════════ -->
+        <h2 class="section-title">🏆 المقياس الكوني ومحرك الذكاء</h2>
+
+        <section id="ai-dashboard" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:20px">
+            <!-- سيتم ملؤها بالجافاسكريبت -->
+            <div style="color:var(--muted);padding:1rem">جاري التحميل...</div>
+        </section>
+
+        <div class="footer">© 2026 SHEIKHA — منظومة التطوير والذكاء — تعمل بالخلفية وتظهر داخل الأنظمة الداخلية</div>
+    </div>
+
+    <script>
+        async function runVSCoderAction(action) {
+            const response = await fetch('/api/sheikha/vscoder/control', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action })
+            });
+            const payload = await response.json();
+
+            if (!payload.success) {
+                throw new Error(payload.message || 'تعذر تنفيذ الإجراء');
+            }
+
+            const logsTarget = document.getElementById('vscoderLogs');
+            if (logsTarget) {
+                logsTarget.textContent = payload.data.output || 'تم التنفيذ';
+            }
+        }
+
+        async function loadVSCoderLogs() {
+            const response = await fetch('/api/sheikha/vscoder/logs');
+            const payload = await response.json();
+            const logsTarget = document.getElementById('vscoderLogs');
+            if (logsTarget) {
+                logsTarget.textContent = payload.success ? (payload.data.logs || 'لا توجد سجلات حالياً') : 'تعذر تحميل السجلات';
+            }
+        }
+
+        async function runCloudRuntimeAction(action) {
+            const response = await fetch('/api/sheikha/cloud-runtime/control', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action })
+            });
+            const payload = await response.json();
+            if (!payload.success) {
+                throw new Error(payload.message || 'تعذر تنفيذ الإجراء');
+            }
+            return payload;
+        }
+
+        async function saveChatVSCoderPreferences(preferences) {
+            const response = await fetch('/api/sheikha/chat-vscoder/preferences', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(preferences)
+            });
+            const payload = await response.json();
+            if (!payload.success) {
+                throw new Error(payload.message || 'تعذر حفظ الإعدادات');
+            }
+            return payload;
+        }
+
+        async function activateAllChatVSCoderLayers() {
+            const response = await fetch('/api/sheikha/chat-vscoder/activate-all', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'start' })
+            });
+            const payload = await response.json();
+            if (!payload.success) {
+                throw new Error(payload.message || 'تعذر تنفيذ التفعيل الكامل');
+            }
+            return payload;
+        }
+
+        function stateClass(value) {
+            return String(value || '').toLowerCase().includes('active') ? 'active' : 'planned';
+        }
+
+        function renderCards(targetId, items, mapper) {
+            const target = document.getElementById(targetId);
+            if (!target) return;
+            target.innerHTML = items.map(mapper).join('');
+        }
+
+        async function loadDevStack() {
+            const response = await fetch('/api/sheikha/dev-stack/status');
+            const payload = await response.json();
+            if (!payload.success) return;
+
+            const data = payload.data;
+            const governance = data.governance || { summary: {}, coreSystems: [], orchestration: [] };
+            const vscoder = data.vscoder || { structure: [], technologies: [], services: [], background: {}, remotes: {} };
+
+            const stats = [
+                { label: 'الرام', value: `${data.runtime.ramGb} GB` },
+                { label: 'النموذج المفضّل', value: data.runtime.preferredModel || '—' },
+                { label: 'الأنظمة النشطة', value: `${governance.summary.activeSystems || 0}/${governance.summary.totalSystems || 0}` },
+                { label: 'الخادم 8080', value: data.runtime.serverPid ? 'نشط' : 'غير نشط' },
+                { label: 'Ollama', value: data.runtime.ollamaProcess ? 'بالخلفية' : 'غير نشط' }
+            ];
+
+            renderCards('stats', stats, item => `
+                <article class="stat">
+                    <div class="value">${item.value}</div>
+                    <div class="label">${item.label}</div>
+                </article>
+            `);
+
+            const governanceSummary = document.getElementById('governanceSummary');
+            governanceSummary.innerHTML = `
+                <strong style="color:var(--gold);display:block;margin-bottom:8px;">${governance.title || 'حاكم نظام شيخة'}</strong>
+                <div class="meta">${governance.mission || ''}</div>
+                <div class="muted" style="margin-top:8px;">المبدأ: ${governance.principle || ''}</div>
+                <div class="muted" style="margin-top:8px;">مستوى الجاهزية: ${governance.summary.readiness || 'foundational'} | روابط التكامل: ${governance.summary.integrationLinks || 0}</div>
+            `;
+
+            const vscoderSummary = document.getElementById('vscoderSummary');
+            vscoderSummary.innerHTML = `
+                <strong style="color:var(--gold);display:block;margin-bottom:8px;">${vscoder.title || 'معمارية VS Coder'}</strong>
+                <div class="meta">${vscoder.summary || ''}</div>
+                <div class="muted" style="margin-top:8px;">الخلفية الموحدة: ${vscoder.background && vscoder.background.active ? 'مفعلة' : 'جزئية'} | git providers: ${((vscoder.remotes && vscoder.remotes.providers) || []).join(' / ') || 'none'}</div>
+            `;
+
+            const backgroundSnapshot = (vscoder.background && vscoder.background.snapshot) || {};
+            const vscoderControls = document.getElementById('vscoderControls');
+            vscoderControls.innerHTML = `
+                <strong style="color:var(--gold);display:block;margin-bottom:8px;">غرفة تحكم VS Coder</strong>
+                <div class="meta">Proxy 8081: ${backgroundSnapshot.proxy && backgroundSnapshot.proxy.running ? 'نشط' : 'متوقف'} | Professional 48480: ${backgroundSnapshot.professional && backgroundSnapshot.professional.running ? 'نشط' : 'متوقف'} | Enterprise 48481: ${backgroundSnapshot.enterprise && backgroundSnapshot.enterprise.running ? 'نشط' : 'متوقف'} | Runtime Guard: ${backgroundSnapshot.runtimeGuard && backgroundSnapshot.runtimeGuard.running ? 'نشط' : 'متوقف'}</div>
+                <div class="muted" style="margin-top:8px;">هذه الطبقة تجعل ظهور شيخة قويًا تقنيًا: تشغيل موحد، مراقبة مباشرة، وتحكم فوري من داخل الواجهة نفسها.</div>
+                <div class="controls">
+                    <button class="action-btn" data-action="start">تشغيل البيئة</button>
+                    <button class="action-btn secondary" data-action="restart">إعادة التشغيل</button>
+                    <button class="action-btn secondary" data-action="status">تحديث الحالة</button>
+                    <button class="action-btn secondary" data-action="logs">السجلات</button>
+                    <button class="action-btn secondary" data-action="stop">إيقاف البيئة</button>
+                </div>
+            `;
+
+            Array.from(vscoderControls.querySelectorAll('[data-action]')).forEach(button => {
+                button.onclick = async () => {
+                    button.disabled = true;
+                    try {
+                        await runVSCoderAction(button.dataset.action);
+                        await loadDevStack();
+                    } catch (error) {
+                        const logsTarget = document.getElementById('vscoderLogs');
+                        if (logsTarget) {
+                            logsTarget.textContent = error.message;
+                        }
+                    } finally {
+                        button.disabled = false;
+                    }
+                };
+            });
+
+            renderCards('vscoderStructure', vscoder.structure || [], item => `
+                <article class="card">
+                    <h3><span>${item.layer}</span><span class="state active">layer</span></h3>
+                    <div class="meta">${item.role}</div>
+                </article>
+            `);
+
+            renderCards('vscoderTechnologies', vscoder.technologies || [], item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.status)}">${item.status}</span>
+                    </h3>
+                    <div class="meta">${item.detail || ''}</div>
+                </article>
+            `);
+
+            renderCards('vscoderServices', vscoder.services || [], item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.status)}">${item.status}</span>
+                    </h3>
+                    <div class="meta">port: ${item.port}</div>
+                    <div class="meta" style="margin-top:8px;">${item.detail || ''}</div>
+                </article>
+            `);
+
+            const launchConfigs = (vscoder.launch && vscoder.launch.configurations) || [];
+            const launchCompounds = (vscoder.launch && vscoder.launch.compounds) || [];
+            const launchItems = launchConfigs.concat(launchCompounds.map(item => ({
+                name: item.name,
+                type: 'compound',
+                request: 'multi',
+                port: null,
+                program: (item.configurations || []).join(' + '),
+                summary: 'تشغيل مركب متعدد الطبقات'
+            })));
+            renderCards('vscoderLaunches', launchItems, item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.request === 'attach' || item.type === 'compound' ? 'active' : 'planned')}">${item.request || item.type}</span>
+                    </h3>
+                    <div class="meta">النوع: ${item.type || 'unknown'}${item.port ? ` | المنفذ: ${item.port}` : ''}</div>
+                    <div class="meta" style="margin-top:8px;">${item.program || ''}</div>
+                    <div class="muted" style="margin-top:8px;">${item.summary || ''}</div>
+                </article>
+            `);
+
+            const extensionPolicy = (vscoder.extensionPolicy && vscoder.extensionPolicy.recommendations) || [];
+            const unwantedRecommendations = (vscoder.extensionPolicy && vscoder.extensionPolicy.unwantedRecommendations) || [];
+            const extensionSummary = (vscoder.extensionPolicy && vscoder.extensionPolicy.summary) || {};
+            const extensionItems = [
+                {
+                    name: 'ملخص السياسة',
+                    status: 'active',
+                    detail: `موصى بها: ${extensionSummary.recommended || 0} | المثبت منها: ${extensionSummary.installedRecommended || 0} | المحظورة: ${extensionSummary.blocked || 0}`
+                },
+                ...extensionPolicy.slice(0, 12).map(item => ({
+                    name: item.id,
+                    status: item.installed ? 'active' : 'planned',
+                    detail: item.installed ? `مثبت${item.version ? ` @ ${item.version}` : ''}` : 'موصى به وغير مثبت'
+                })),
+                ...unwantedRecommendations.slice(0, 5).map(item => ({
+                    name: item,
+                    status: 'planned',
+                    detail: 'موجود ضمن unwantedRecommendations'
+                }))
+            ];
+            renderCards('vscoderExtensions', extensionItems, item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.status)}">${item.status}</span>
+                    </h3>
+                    <div class="meta">${item.detail || ''}</div>
+                </article>
+            `);
+
+            const liveDebug = vscoder.liveDebug || {};
+            const vscoderDebug = document.getElementById('vscoderDebug');
+            vscoderDebug.innerHTML = `
+                <strong style="color:var(--gold);display:block;margin-bottom:8px;">وضع Debug الحي</strong>
+                <div class="meta">Inspector 9229: ${liveDebug.inspectorActive ? 'نشط' : 'غير نشط'} | Attach configs: ${liveDebug.attachConfigurations || 0} | Profiling configs: ${liveDebug.profilingConfigurations || 0}</div>
+                <div class="muted" style="margin-top:8px;">Full Stack Debug: ${liveDebug.fullStackDebugAvailable ? 'متاح' : 'غير متاح'} | هذه الطبقة تدعم تشغيلًا تقنيًا أقوى ومراقبة أنظف لحالة الخادم والذكاء والمهام الخلفية.</div>
+            `;
+
+            renderCards('coreSystems', governance.coreSystems || [], item => `
+                <a class="card" href="${item.route}" style="text-decoration:none;color:inherit;display:block;">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.status)}">${item.status}</span>
+                    </h3>
+                    <div class="meta">${item.steward || ''}</div>
+                    <div class="meta" style="margin-top:8px;">${item.detail || ''}</div>
+                </a>
+            `);
+
+            renderCards('platforms', data.platforms || [], item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.status)}">${item.status}</span>
+                    </h3>
+                    <div class="meta">${item.detail || ''}</div>
+                </article>
+            `);
+
+            const licensing = data.licensing || { status: {}, tiers: [], activationFlow: [], governance: {} };
+            const licensingSummary = document.getElementById('licensingSummary');
+            licensingSummary.innerHTML = `
+                <strong style="color:var(--gold);display:block;margin-bottom:8px;">${licensing.title || 'منظومة تراخيص شيخة'}</strong>
+                <div class="meta">${licensing.principle || ''}</div>
+                <div class="muted" style="margin-top:8px;">المستويات: ${licensing.status.totalTiers || 0} | النشطة: ${licensing.status.activeTiers || 0} | فوترة مؤسسية: ${licensing.status.supportsInstitutionalBilling ? 'مدعومة' : 'غير مدعومة'} | تفعيل حكومي: ${licensing.status.supportsGovernmentActivation ? 'مدعوم' : 'غير مدعوم'}</div>
+                <div class="muted" style="margin-top:8px;">المسار: ${(licensing.activationFlow || []).join(' ← ')}</div>
+            `;
+
+            renderCards('licensingTiers', licensing.tiers || [], item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.status)}">${item.status}</span>
+                    </h3>
+                    <div class="meta">الفئة: ${item.audience}</div>
+                    <div class="meta" style="margin-top:8px;">الفوترة: ${item.billing}</div>
+                    <div class="meta" style="margin-top:8px;">المقاعد: ${item.seats}</div>
+                    <div class="meta" style="margin-top:8px;">الدعم: ${item.support}</div>
+                    <div class="muted" style="margin-top:8px;">الاستحقاق: ${item.entitlement}</div>
+                    <div class="muted" style="margin-top:8px;">التكاملات: ${(item.integrations || []).join(' | ')}</div>
+                </article>
+            `);
+
+            const gitSheikha = data.gitSheikha || { identity: {}, providers: [], remotes: { items: [] }, workflows: [], governance: {} };
+            const gitSheikhaSummary = document.getElementById('gitSheikhaSummary');
+            gitSheikhaSummary.innerHTML = `
+                <strong style="color:var(--gold);display:block;margin-bottom:8px;">${gitSheikha.title || 'Git Sheikha'}</strong>
+                <div class="meta">${gitSheikha.summary || ''}</div>
+                <div class="muted" style="margin-top:8px;">الهوية: ${gitSheikha.identity.name || '—'} | البريد: ${gitSheikha.identity.email || '—'} | الفرع الحالي: ${gitSheikha.identity.currentBranch || '—'} | الفرع الافتراضي: ${gitSheikha.identity.defaultBranch || '—'} | push default: ${gitSheikha.identity.pushDefault || '—'}</div>
+                <div class="muted" style="margin-top:8px;">التدفق: ${(gitSheikha.workflows || []).join(' ← ')}</div>
+            `;
+
+            renderCards('gitSheikhaProviders', gitSheikha.providers || [], item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.status)}">${item.status}</span>
+                    </h3>
+                    <div class="meta">المصادقة: ${item.auth}</div>
+                    <div class="meta" style="margin-top:8px;">${item.detail || ''}</div>
+                </article>
+            `);
+
+            renderCards('gitSheikhaRemotes', (gitSheikha.remotes && gitSheikha.remotes.items) || [], item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.role === 'primary-push' ? 'active' : 'planned')}">${item.role}</span>
+                    </h3>
+                    <div class="meta">المزود: ${item.provider}</div>
+                    <div class="meta" style="margin-top:8px;">${item.url}</div>
+                </article>
+            `);
+
+            const gitTopology = gitSheikha.topology || { controlPlane: {}, repositories: [], bootstrap: {} };
+            const gitTopologyItems = [];
+            if (gitTopology.controlPlane && gitTopology.controlPlane.name) {
+                gitTopologyItems.push({
+                    name: gitTopology.controlPlane.name,
+                    role: gitTopology.controlPlane.role || 'control-plane',
+                    provider: gitTopology.controlPlane.provider || 'github',
+                    path: gitTopology.controlPlane.path || '.',
+                    detail: gitTopology.controlPlane.description || ''
+                });
+            }
+            (gitTopology.repositories || []).forEach(item => {
+                gitTopologyItems.push({
+                    name: item.name,
+                    role: item.role,
+                    provider: item.provider,
+                    path: item.path,
+                    detail: item.description || ''
+                });
+            });
+
+            renderCards('gitSheikhaTopology', gitTopologyItems, item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.role === 'control-plane' ? 'active' : 'planned')}">${item.role}</span>
+                    </h3>
+                    <div class="meta">المزود: ${item.provider}</div>
+                    <div class="meta" style="margin-top:8px;">المسار: ${item.path}</div>
+                    <div class="muted" style="margin-top:8px;">${item.detail}</div>
+                </article>
+            `);
+
+            const cloudRuntime = data.cloudRuntime || { services: [], capabilities: [], monthlySubscriptions: { plans: [] }, background: {} };
+            const cloudRuntimeSummary = document.getElementById('cloudRuntimeSummary');
+            cloudRuntimeSummary.innerHTML = `
+                <strong style="color:var(--gold);display:block;margin-bottom:8px;">${cloudRuntime.title || 'Sheikha Edge Native Cloud + Vercel'}</strong>
+                <div class="meta">${cloudRuntime.summary || ''}</div>
+                <div class="muted" style="margin-top:8px;">Edge Native: ${cloudRuntime.background && cloudRuntime.background.edgeNative && cloudRuntime.background.edgeNative.running ? 'نشط' : 'متوقف'} | Vercel Dev: ${cloudRuntime.background && cloudRuntime.background.vercelDev && cloudRuntime.background.vercelDev.running ? 'نشط' : 'متوقف'}</div>
+                <div class="muted" style="margin-top:8px;">الاشتراكات الشهرية: ${((cloudRuntime.monthlySubscriptions && cloudRuntime.monthlySubscriptions.plans) || []).map(item => `${item.name} (${item.billingCycle})`).join(' | ')}</div>
+                <div class="controls">
+                    <button class="action-btn" data-cloud-action="start">تشغيل Edge + Vercel</button>
+                    <button class="action-btn secondary" data-cloud-action="restart">إعادة التشغيل</button>
+                    <button class="action-btn secondary" data-cloud-action="status">تحديث الحالة</button>
+                    <button class="action-btn secondary" data-cloud-action="logs">السجلات</button>
+                    <button class="action-btn secondary" data-cloud-action="stop">إيقاف Edge + Vercel</button>
+                </div>
+            `;
+
+            Array.from(cloudRuntimeSummary.querySelectorAll('[data-cloud-action]')).forEach(button => {
+                button.onclick = async () => {
+                    button.disabled = true;
+                    try {
+                        await runCloudRuntimeAction(button.dataset.cloudAction);
+                        await loadDevStack();
+                    } catch (error) {
+                        const logsTarget = document.getElementById('vscoderLogs');
+                        if (logsTarget) {
+                            logsTarget.textContent = error.message;
+                        }
+                    } finally {
+                        button.disabled = false;
+                    }
+                };
+            });
+
+            renderCards('cloudRuntimeServices', cloudRuntime.services || [], item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.status)}">${item.status}</span>
+                    </h3>
+                    <div class="meta">port: ${item.port}</div>
+                    <div class="meta" style="margin-top:8px;">${item.detail || ''}</div>
+                </article>
+            `);
+
+            renderCards('cloudRuntimeCapabilities', (cloudRuntime.capabilities || []).concat(((cloudRuntime.monthlySubscriptions && cloudRuntime.monthlySubscriptions.plans) || []).map(item => ({
+                name: `اشتراك ${item.name}`,
+                status: item.status,
+                detail: `${item.billingCycle} | ${item.detail}`
+            }))), item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.status)}">${item.status}</span>
+                    </h3>
+                    <div class="meta">${item.detail || ''}</div>
+                </article>
+            `);
+
+            const chatVSCoder = data.chatVSCoder || {
+                identity: {},
+                language: {},
+                modelSelection: {},
+                governance: {},
+                availableModels: [],
+                chatIntegration: {}
+            };
+
+            const chatVSCoderSummary = document.getElementById('chatVSCoderSummary');
+            chatVSCoderSummary.innerHTML = `
+                <strong style="color:var(--gold);display:block;margin-bottom:8px;">تكامل الشات والبرمجة</strong>
+                <div class="meta">النظام الأساسي: ${chatVSCoder.identity.primarySystem || 'شيخة'} | المرجعية: ${chatVSCoder.identity.basis || 'الكتاب والسنة'}</div>
+                <div class="muted" style="margin-top:8px;">الواجهة: ${chatVSCoder.language.uiPrimary || 'ar'} | لغة البرمجة الأساسية: ${chatVSCoder.language.codePrimary || 'ar'} | الترجمة التلقائية للمدخلات: ${chatVSCoder.language.autoTranslateForeignInputs ? 'مفعلة' : 'معطلة'} | الترجمة التلقائية للمخرجات: ${chatVSCoder.language.autoTranslateForeignOutputs ? 'مفعلة' : 'معطلة'}</div>
+                <div class="muted" style="margin-top:8px;">النموذج المفضل: ${chatVSCoder.modelSelection.preferredModel || 'sheikha-copilot-base'} | fallback: ${chatVSCoder.modelSelection.fallbackModel || 'sheikha-copilot-chat'} | النماذج العالمية: ${chatVSCoder.modelSelection.allowGlobalModels ? 'مسموح' : 'غير مسموح'}</div>
+            `;
+
+            const modelOptions = (chatVSCoder.availableModels || []).map(model => `
+                <option value="${model.id}" ${chatVSCoder.modelSelection.preferredModel === model.id ? 'selected' : ''}>
+                    ${model.name} — ${model.provider}
+                </option>
+            `).join('');
+
+            const fallbackOptions = (chatVSCoder.availableModels || []).map(model => `
+                <option value="${model.id}" ${chatVSCoder.modelSelection.fallbackModel === model.id ? 'selected' : ''}>
+                    ${model.name} — ${model.provider}
+                </option>
+            `).join('');
+
+            const chatVSCoderControls = document.getElementById('chatVSCoderControls');
+            chatVSCoderControls.innerHTML = `
+                <strong style="color:var(--gold);display:block;margin-bottom:8px;">ضبط التكامل</strong>
+                <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
+                    <label class="flow">النموذج المفضل<br><select id="prefModel" style="margin-top:6px;width:100%;padding:8px;border-radius:10px;background:#0b1220;color:#f8fafc;border:1px solid rgba(255,255,255,0.15);">${modelOptions}</select></label>
+                    <label class="flow">نموذج fallback<br><select id="fallbackModel" style="margin-top:6px;width:100%;padding:8px;border-radius:10px;background:#0b1220;color:#f8fafc;border:1px solid rgba(255,255,255,0.15);">${fallbackOptions}</select></label>
+                    <label class="flow">لغة الواجهة الأساسية<br><input id="uiPrimary" value="${chatVSCoder.language.uiPrimary || 'ar'}" style="margin-top:6px;width:100%;padding:8px;border-radius:10px;background:#0b1220;color:#f8fafc;border:1px solid rgba(255,255,255,0.15);"></label>
+                    <label class="flow">لغة البرمجة الأساسية<br><input id="codePrimary" value="${chatVSCoder.language.codePrimary || 'ar'}" style="margin-top:6px;width:100%;padding:8px;border-radius:10px;background:#0b1220;color:#f8fafc;border:1px solid rgba(255,255,255,0.15);"></label>
+                    <label class="flow">الترجمة إلى اللغة<br><input id="translationTarget" value="${chatVSCoder.language.translationTarget || 'ar'}" style="margin-top:6px;width:100%;padding:8px;border-radius:10px;background:#0b1220;color:#f8fafc;border:1px solid rgba(255,255,255,0.15);"></label>
+                    <label class="flow">نموذج عالمي مخصص (اختياري)<br><input id="customModel" value="${chatVSCoder.modelSelection.customModel || ''}" placeholder="provider:model" style="margin-top:6px;width:100%;padding:8px;border-radius:10px;background:#0b1220;color:#f8fafc;border:1px solid rgba(255,255,255,0.15);"></label>
+                </div>
+                <div class="controls">
+                    <label class="flow"><input type="checkbox" id="allowGlobalModels" ${chatVSCoder.modelSelection.allowGlobalModels ? 'checked' : ''}> السماح بالنماذج العالمية</label>
+                    <label class="flow"><input type="checkbox" id="autoTranslateInputs" ${chatVSCoder.language.autoTranslateForeignInputs ? 'checked' : ''}> ترجمة المدخلات الأعجمية للعربية</label>
+                    <label class="flow"><input type="checkbox" id="autoTranslateOutputs" ${chatVSCoder.language.autoTranslateForeignOutputs ? 'checked' : ''}> ترجمة المخرجات الأعجمية للعربية</label>
+                </div>
+                <div class="controls">
+                    <button class="action-btn" id="saveChatVSCoderBtn">حفظ الإعدادات</button>
+                    <button class="action-btn secondary" id="activateAllLayersBtn">فعل الكل (شات + VS + Edge + Vercel)</button>
+                </div>
+            `;
+
+            const saveButton = document.getElementById('saveChatVSCoderBtn');
+            if (saveButton) {
+                saveButton.onclick = async () => {
+                    saveButton.disabled = true;
+                    try {
+                        await saveChatVSCoderPreferences({
+                            language: {
+                                uiPrimary: document.getElementById('uiPrimary').value || 'ar',
+                                codePrimary: document.getElementById('codePrimary').value || 'ar',
+                                translationTarget: document.getElementById('translationTarget').value || 'ar',
+                                rtl: true,
+                                autoTranslateForeignInputs: document.getElementById('autoTranslateInputs').checked,
+                                autoTranslateForeignOutputs: document.getElementById('autoTranslateOutputs').checked
+                            },
+                            modelSelection: {
+                                preferredModel: document.getElementById('prefModel').value,
+                                fallbackModel: document.getElementById('fallbackModel').value,
+                                allowGlobalModels: document.getElementById('allowGlobalModels').checked,
+                                customModel: document.getElementById('customModel').value || ''
+                            },
+                            chatIntegration: {
+                                enabled: true,
+                                vscodeBridgeEnabled: true,
+                                backgroundActivation: true
+                            }
+                        });
+                        await loadDevStack();
+                    } catch (error) {
+                        const logsTarget = document.getElementById('vscoderLogs');
+                        if (logsTarget) {
+                            logsTarget.textContent = error.message;
+                        }
+                    } finally {
+                        saveButton.disabled = false;
+                    }
+                };
+            }
+
+            const activateButton = document.getElementById('activateAllLayersBtn');
+            if (activateButton) {
+                activateButton.onclick = async () => {
+                    activateButton.disabled = true;
+                    try {
+                        const payload = await activateAllChatVSCoderLayers();
+                        const logsTarget = document.getElementById('vscoderLogs');
+                        if (logsTarget) {
+                            logsTarget.textContent = `${payload.message}\n\nVS:\n${payload.data.vscoderOutput || ''}\n\nCloud:\n${payload.data.cloudOutput || ''}`;
+                        }
+                        await loadDevStack();
+                    } catch (error) {
+                        const logsTarget = document.getElementById('vscoderLogs');
+                        if (logsTarget) {
+                            logsTarget.textContent = error.message;
+                        }
+                    } finally {
+                        activateButton.disabled = false;
+                    }
+                };
+            }
+
+            renderCards('chatVSCoderModels', (chatVSCoder.availableModels || []).slice(0, 18), model => `
+                <article class="card">
+                    <h3>
+                        <span>${model.name}</span>
+                        <span class="state ${stateClass(model.id === chatVSCoder.modelSelection.preferredModel ? 'active' : 'planned')}">${model.provider}</span>
+                    </h3>
+                    <div class="meta">id: ${model.id}</div>
+                    <div class="muted" style="margin-top:8px;">النطاق: ${model.scope || 'unknown'}${model.contextWindow ? ` | context: ${model.contextWindow}` : ''}</div>
+                </article>
+            `);
+
+            renderCards('tools', data.tools || [], item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.status)}">${item.status}</span>
+                    </h3>
+                    <div class="meta">الإصدار: ${item.version || 'unknown'}</div>
+                </article>
+            `);
+
+            const capabilityGroups = (data.capabilities && data.capabilities.groups) || [];
+            renderCards('capabilityGroups', capabilityGroups, group => {
+                const activeCount = (group.items || []).filter(item => item.status === 'active').length;
+                const itemsMarkup = (group.items || []).map(item => `
+                    <div class="flow">
+                        <strong style="color:var(--text)">${item.name}</strong>
+                        <div class="meta" style="margin-top:6px;">${item.detail}</div>
+                        <div class="muted" style="margin-top:6px;">الحالة: ${item.status}</div>
+                    </div>
+                `).join('');
+
+                return `
+                    <article class="card">
+                        <h3>
+                            <span>${group.name}</span>
+                            <span class="state ${stateClass(activeCount === (group.items || []).length ? 'active' : 'planned')}">${activeCount}/${(group.items || []).length}</span>
+                        </h3>
+                        <div class="meta">${group.detail || ''}</div>
+                        <div class="muted" style="margin:8px 0 10px;">قدرات مفعلة: ${activeCount}</div>
+                        ${itemsMarkup}
+                    </article>
+                `;
+            });
+
+            renderCards('services', data.services || [], item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.status)}">${item.status}</span>
+                    </h3>
+                    <div class="meta">PID / Process: ${item.pid || '-'}</div>
+                </article>
+            `);
+
+            renderCards('layers', data.architecture.layers || [], item => `
+                <article class="card">
+                    <h3><span>${item.name}</span><span class="state active">layer</span></h3>
+                    <div class="meta">${item.role}</div>
+                </article>
+            `);
+
+            const flows = document.getElementById('flows');
+            flows.innerHTML = (governance.orchestration || []).map(flow => `<div class="flow">${flow}</div>`).join('') +
+                (governance.flows || []).map(item => `<div class="flow">${item.source} → ${item.target} | ${item.detail}</div>`).join('') +
+                (data.architecture.flows || []).map(flow => `<div class="flow">${flow}</div>`).join('') +
+                (data.architecture.network || []).map(item => `<div class="flow">${item.source} → ${item.target} | ${item.route}</div>`).join('');
+
+            const integrations = [
+                {
+                    name: 'GitHub',
+                    detail: data.integrations.github.active ? 'المصادقة فعالة' : 'المصادقة غير فعالة',
+                    status: data.integrations.github.active ? 'active' : 'planned'
+                },
+                {
+                    name: 'GitLab',
+                    detail: data.integrations.gitlab.active ? 'يوجد remote أو ربط تكاملي' : 'لا يوجد remote واضح',
+                    status: data.integrations.gitlab.active ? 'active' : 'planned'
+                },
+                {
+                    name: 'Ollama API',
+                    detail: `${data.integrations.ollamaApi.url} | largest-model-ready=${data.integrations.ollamaApi.canRunLargerModels}`,
+                    status: data.integrations.ollamaApi.active ? 'active' : 'planned'
+                }
+            ];
+
+            renderCards('integrations', integrations, item => `
+                <article class="card">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state ${stateClass(item.status)}">${item.status}</span>
+                    </h3>
+                    <div class="meta">${item.detail}</div>
+                </article>
+            `);
+
+            renderCards('pages', data.pages || [], item => `
+                <a class="card" href="${item.url}" style="text-decoration:none;color:inherit;display:block;">
+                    <h3>
+                        <span>${item.name}</span>
+                        <span class="state active">open</span>
+                    </h3>
+                    <div class="meta">${item.url}</div>
+                </a>
+            `);
+
+            const recommendation = document.getElementById('recommendation');
+            recommendation.innerHTML = `
+                <strong style="color:var(--gold);display:block;margin-bottom:8px;">التوصية التشغيلية</strong>
+                <div class="meta">${data.recommendation.statement}</div>
+                <div class="muted" style="margin-top:8px;">المرجعية: ${data.architecture.principle}</div>
+            `;
+
+            await loadVSCoderLogs();
+        }
+
+        loadDevStack().catch(console.error);
+        setInterval(() => loadDevStack().catch(console.error), 15000);
+
+        // ═══════════════════════════════════════════════════════════
+        // لوحة المقياس الكوني + المحاكاة الدكتورية + محرك الربح
+        // ═══════════════════════════════════════════════════════════
+        async function loadAIDashboard() {
+            const dash = document.getElementById('ai-dashboard');
+            if (!dash) return;
+
+            // جلب البيانات بالتوازي
+            const [speedRes, simRes, profitRes] = await Promise.allSettled([
+                fetch('/api/sheikha/simulation/speed').then(r => r.json()),
+                fetch('/api/sheikha/simulation/status').then(r => r.json()),
+                fetch('/api/sheikha/profit/market').then(r => r.json()),
+            ]);
+
+            const speedData  = speedRes.status  === 'fulfilled' ? (speedRes.value.data  || {}) : {};
+            const simData    = simRes.status    === 'fulfilled' ? (simRes.value.data    || {}) : {};
+            const profitData = profitRes.status === 'fulfilled' ? (profitRes.value.data || {}) : {};
+
+            const tl  = speedData.techLevel  || {};
+            const nb  = speedData.nextBarrier || {};
+            const cmp = speedData.comparison  || [];
+            const snap = speedData.snapshot   || {};
+            const hw   = snap.hardware        || {};
+            const comp = snap.compute         || {};
+            const ranked = (profitData.rankedByROI || []).slice(0, 5);
+
+            const score    = tl.cosmicScore  || 0;
+            const pctGoal  = Math.min(score / (tl.cosmicMax || 10000) * 100, 100).toFixed(1);
+            const bb       = tl.bonusBreakdown || {};
+
+            dash.innerHTML = `
+            <!-- بطاقة المقياس الكوني -->
+            <div class="card" style="border-color:rgba(212,175,55,.25);background:rgba(212,175,55,.03)">
+                <h3 style="color:var(--gold)">🏆 المقياس الكوني</h3>
+                <div style="font-size:2.8rem;font-weight:900;color:var(--gold);text-align:center;margin:12px 0;line-height:1">
+                    ${score.toLocaleString('ar')}
+                    <span style="font-size:1rem;color:var(--muted)">/ ${(tl.cosmicMax||10000).toLocaleString('ar')}</span>
+                </div>
+                <div style="height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;margin-bottom:10px">
+                    <div style="height:100%;width:${pctGoal}%;background:linear-gradient(90deg,#D4AF37,#F5E6A3);border-radius:4px;transition:width 1s"></div>
+                </div>
+                <div class="meta" style="text-align:center;margin-bottom:6px">${tl.level || '---'} — ${pctGoal}% من الهدف</div>
+                <div class="meta">الأساس: ${(tl.baseScore||0).toLocaleString('ar')} + محاكاة: +${bb.simulationBonus||0} + ربح: +${bb.profitBonus||0} + أجيال: +${bb.generationBonus||0}</div>
+                <div style="margin-top:10px;padding:8px;background:rgba(16,185,129,.07);border-radius:8px;border:1px solid rgba(16,185,129,.2)">
+                    <div style="font-size:.78rem;color:#34d399;font-weight:700">الحاجز التالي</div>
+                    <div class="meta">${nb.label || '---'} — ${nb.action || '---'}</div>
+                </div>
+            </div>
+
+            <!-- بطاقة المحاكاة الدكتورية -->
+            <div class="card" style="border-color:rgba(59,130,246,.2);background:rgba(59,130,246,.02)">
+                <h3 style="color:#60a5fa">🌐 محرك المحاكاة الدكتورية</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0">
+                    <div style="text-align:center;background:rgba(255,255,255,.03);border-radius:8px;padding:8px">
+                        <div style="font-size:1.6rem;font-weight:900;color:#60a5fa">${simData.generation || '--'}</div>
+                        <div style="font-size:.7rem;color:var(--muted)">الجيل</div>
+                    </div>
+                    <div style="text-align:center;background:rgba(255,255,255,.03);border-radius:8px;padding:8px">
+                        <div style="font-size:1.3rem;font-weight:900;color:#34d399">${(simData.totalKnowledge || 0).toLocaleString('ar')}</div>
+                        <div style="font-size:.7rem;color:var(--muted)">المعرفة</div>
+                    </div>
+                    <div style="text-align:center;background:rgba(255,255,255,.03);border-radius:8px;padding:8px">
+                        <div style="font-size:1.6rem;font-weight:900;color:var(--gold)">${simData.agents || '--'}</div>
+                        <div style="font-size:.7rem;color:var(--muted)">وكيل</div>
+                    </div>
+                </div>
+                <div class="meta">محاكاة كلية: ${(simData.totalSimulations||0).toLocaleString('ar')} | علاجات: ${(simData.totalHealings||0).toLocaleString('ar')}</div>
+                <div class="meta" style="margin-top:4px">التطور المستمر: <span style="color:${simData.evolving?'#34d399':'#ef4444'};font-weight:700">${simData.evolving ? '🟢 نشط' : '🔴 متوقف'}</span></div>
+                <div style="margin-top:8px;height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden">
+                    <div style="height:100%;width:${Math.min((simData.totalKnowledge||0)/100000*100,100).toFixed(0)}%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:3px;transition:width 1s"></div>
+                </div>
+                <div class="muted" style="font-size:.68rem;margin-top:3px">${((simData.totalKnowledge||0)/100000*100).toFixed(1)}% من 100,000 وحدة معرفة</div>
+            </div>
+
+            <!-- بطاقة محرك الربح -->
+            <div class="card" style="border-color:rgba(212,175,55,.2)">
+                <h3 style="color:var(--gold)">💰 محرك الربح والفرص</h3>
+                ${ranked.length ? ranked.map((m, i) => `
+                <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04)">
+                    <span style="width:22px;height:22px;background:rgba(212,175,55,.1);border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--gold);font-weight:700;flex-shrink:0">${i+1}</span>
+                    <span style="flex:1;font-size:.8rem">${m.material}</span>
+                    <span style="color:#34d399;font-weight:800;font-size:.85rem">${m.avgROI || '--'}%</span>
+                </div>`).join('') : '<div class="muted">لا توجد بيانات</div>'}
+                <div style="margin-top:10px;padding:8px;background:rgba(212,175,55,.06);border-radius:8px">
+                    <div class="meta">⚡ حوسبة: ${comp.opsPerMs ? Math.round(comp.opsPerMs).toLocaleString('ar') : '---'} عملية/ملي-ث</div>
+                    <div class="meta">🖥️ ${hw.cpu ? hw.cpu.slice(0,35) + '...' : '---'}</div>
+                </div>
+            </div>
+
+            <!-- بطاقة المنافسين -->
+            <div class="card">
+                <h3>📊 تجاوز المنافسين</h3>
+                ${cmp.map(c => `
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                    <div style="flex:1;font-size:.75rem;color:var(--muted)">${c.competitor}</div>
+                    <div style="font-size:.75rem;color:${c.ahead?'#34d399':'#ef4444'};font-weight:700;text-align:left;width:150px">${c.status}</div>
+                </div>`).join('')}
+            </div>
+            `;
+        }
+
+        loadAIDashboard().catch(console.error);
+        setInterval(() => loadAIDashboard().catch(console.error), 20000);
+    </script>
+</body>
+</html>

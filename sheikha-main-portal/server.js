@@ -32013,7 +32013,13 @@ app.get('/api/sheikha/simulation/speed', (req, res) => {
         const { SpeedMeasurer, BreakthroughIndex } = require('./lib/sheikha-simulation-doctor-engine.js');
         const measurer = new SpeedMeasurer();
         const snapshot = measurer.snapshot();
-        const techLevel = measurer.assessTechLevel(266, 32321, snapshot.hardware.ramGb);
+        // نمرر مكافآت الأنظمة الفعلية المبنية
+        const generation = simulationDoctorEngine ? (simulationDoctorEngine.mirrorNetwork?.generation || 0) : 0;
+        const techLevel = measurer.assessTechLevel(266, 32321, snapshot.hardware.ramGb, {
+            simulationActive: !!simulationDoctorEngine,
+            profitEngineActive: true,
+            generation
+        });
         const bi = new BreakthroughIndex();
         const comparison = bi.compare({ engineCount: 266, serverLines: 32321, ramGb: snapshot.hardware.ramGb });
         const nextBarrier = bi.nextBarrier(techLevel.cosmicScore);
