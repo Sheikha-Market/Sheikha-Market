@@ -6,6 +6,55 @@
 
 const sheikhaCloud = require('./google-cloud-connection');
 
+/**
+ * Fetch a GitHub API URL with automatic rate-limit–aware retry.
+ * Retries up to maxRetries times using exponential backoff when the server
+ * returns 403 (rate-limited) or 429 (too many requests).  On other non-OK
+ * responses it throws immediately.
+ */
+async function githubFetchWithRetry(url, options = {}, maxRetries = 3) {
+    let attempt = 0;
+    while (true) {
+        const response = await fetch(url, options);
+
+        const remaining = Number(response.headers.get('x-ratelimit-remaining') || NaN);
+        const resetAt = Number(response.headers.get('x-ratelimit-reset') || NaN);
+
+        if (response.ok) {
+            if (!Number.isNaN(remaining) && remaining < 10) {
+                console.warn(
+                    `⚠️ [SovereignGit] GitHub API rate limit low: ${remaining} remaining.`
+                );
+            }
+            return response;
+        }
+
+        const isRateLimited = response.status === 403 || response.status === 429;
+
+        if (!isRateLimited || attempt >= maxRetries) {
+            const errorText = await response.text();
+            throw new Error(`GitHub API error (${response.status}): ${errorText}`);
+        }
+
+        // Compute wait time: honour Retry-After / x-ratelimit-reset when present.
+        let waitMs;
+        const retryAfter = Number(response.headers.get('retry-after') || NaN);
+        if (!Number.isNaN(retryAfter) && retryAfter > 0) {
+            waitMs = retryAfter * 1000;
+        } else if (!Number.isNaN(resetAt) && resetAt > 0) {
+            waitMs = Math.max(0, (resetAt * 1000) - Date.now()) + 1000;
+        } else {
+            waitMs = Math.min(60000, 1000 * 2 ** attempt);
+        }
+
+        attempt += 1;
+        console.warn(
+            `⏳ [SovereignGit] Rate limited (${response.status}). Retrying in ${Math.round(waitMs / 1000)}s (attempt ${attempt}/${maxRetries}).`
+        );
+        await new Promise(resolve => setTimeout(resolve, waitMs));
+    }
+}
+
 const SheikhaSovereignGit = {
     org: 'Sheikha-top',
     auth2fa: 'Enabled_Sovereign_Shield',
@@ -25,23 +74,17 @@ const SheikhaSovereignGit = {
             headers.Authorization = `Bearer ${githubToken}`;
         }
 
-        const orgResponse = await fetch(`https://api.github.com/orgs/${this.org}`, { headers });
-
-        if (!orgResponse.ok) {
-            const errorText = await orgResponse.text();
-            throw new Error(`فشل الاتصال بـ GitHub Org (${orgResponse.status}): ${errorText}`);
-        }
+        const orgResponse = await githubFetchWithRetry(
+            `https://api.github.com/orgs/${this.org}`,
+            { headers }
+        );
 
         const orgInfo = await orgResponse.json();
 
-        const reposResponse = await fetch(
+        const reposResponse = await githubFetchWithRetry(
             `https://api.github.com/orgs/${this.org}/repos?per_page=100`,
             { headers }
         );
-        if (!reposResponse.ok) {
-            const errorText = await reposResponse.text();
-            throw new Error(`فشل جلب المستودعات (${reposResponse.status}): ${errorText}`);
-        }
 
         const repos = await reposResponse.json();
 

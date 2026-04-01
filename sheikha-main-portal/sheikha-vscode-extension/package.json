@@ -250,8 +250,9 @@
                 },
                 "sheikha.copilot.dashboardRefreshSeconds": {
                     "type": "number",
-                    "default": 15,
-                    "description": "فاصل تحديث لوحة التكاملات بالثواني"
+                    "default": 60,
+                    "minimum": 30,
+                    "description": "فاصل تحديث لوحة التكاملات بالثواني (الحد الأدنى 30 ثانية)"
                 }
             }
         },
