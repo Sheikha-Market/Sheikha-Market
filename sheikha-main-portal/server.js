@@ -1121,6 +1121,17 @@ try {
     console.log('⚠️ Metals Neural Universe غير متوفر:', e.message);
 }
 
+// ═══ محرك استخبارات سوق المعادن والسكراب ═══
+let marketIntelEngine;
+try {
+    const marketMod = require('./lib/sheikha-market-intelligence-engine.js');
+    marketIntelEngine = marketMod.engine;
+    marketMod.init();
+    console.log('✅ [ACTIVE] sheikha-market-intelligence-engine.js — استخبارات السوق تعمل');
+} catch (e) {
+    console.log('⚠️ Market Intelligence غير متوفر:', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // ☪️ بسم الله الرحمن الرحيم
 // نظام سوق شيخة - قائم على الكتاب والسنة
@@ -32041,10 +32052,13 @@ app.get('/api/sheikha/simulation/speed', (req, res) => {
         const snapshot = measurer.snapshot();
         // نمرر مكافآت الأنظمة الفعلية المبنية
         const generation = simulationDoctorEngine ? (simulationDoctorEngine.mirrorNetwork?.generation || 0) : 0;
-        const techLevel = measurer.assessTechLevel(266, 32321, snapshot.hardware.ramGb, {
-            simulationActive: !!simulationDoctorEngine,
+        const techLevel = measurer.assessTechLevel(270, 34000, snapshot.hardware.ramGb, {
+            simulationActive:  !!simulationDoctorEngine,
             profitEngineActive: true,
-            generation
+            generation,
+            metalsActive:      !!(metalsNeuralUniverse?.isInitialized),
+            neuralActive:      !!(infiniteNeuralEngine?.isInitialized),
+            marketIntelActive: !!(marketIntelEngine?.isInitialized),
         });
         const bi = new BreakthroughIndex();
         const comparison = bi.compare({ engineCount: 266, serverLines: 32321, ramGb: snapshot.hardware.ramGb });
@@ -32281,6 +32295,135 @@ app.post('/api/sheikha/neural/pulse', (req, res) => {
 });
 
 // ════════════════════════════════════════════════════════════
+// MARKET INTELLIGENCE — استخبارات سوق المعادن
+// ════════════════════════════════════════════════════════════
+
+// لوحة استخبارات السوق الشاملة
+app.get('/api/sheikha/market/dashboard', (req, res) => {
+    try {
+        if (!marketIntelEngine?.isInitialized) {
+            return res.status(503).json({ success: false, message: 'استخبارات السوق تتهيأ', timestamp: new Date().toISOString() });
+        }
+        const data = marketIntelEngine.getDashboard();
+        res.json({ success: true, data, message: '«التاجر الصدوق مع النبيين والصديقين والشهداء»', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// أسعار كل المعادن والسكراب
+app.get('/api/sheikha/market/prices', (req, res) => {
+    try {
+        if (!marketIntelEngine?.isInitialized) {
+            return res.status(503).json({ success: false, message: 'استخبارات السوق تتهيأ', timestamp: new Date().toISOString() });
+        }
+        const prices = marketIntelEngine.getAllPrices();
+        res.json({ success: true, data: prices, count: Object.keys(prices).length, message: 'أسعار لحظية إرشادية', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// إشارات التداول التقنية
+app.get('/api/sheikha/market/signals', (req, res) => {
+    try {
+        if (!marketIntelEngine?.isInitialized) {
+            return res.status(503).json({ success: false, message: 'استخبارات السوق تتهيأ', timestamp: new Date().toISOString() });
+        }
+        const signals = marketIntelEngine.getSignals();
+        res.json({ success: true, data: signals, message: '⚠️ للمعلومة فقط — ليست توصية استثمارية', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// فوارق السكراب vs المعدن النقي
+app.get('/api/sheikha/market/spreads', (req, res) => {
+    try {
+        if (!marketIntelEngine?.isInitialized) {
+            return res.status(503).json({ success: false, message: 'استخبارات السوق تتهيأ', timestamp: new Date().toISOString() });
+        }
+        const spreads = marketIntelEngine.getSpreads();
+        res.json({ success: true, data: spreads, message: 'فوارق السكراب — فرص المعالجة', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// مقارنة الأسواق الإقليمية
+app.get('/api/sheikha/market/regions/:sym', (req, res) => {
+    try {
+        if (!marketIntelEngine?.isInitialized) {
+            return res.status(503).json({ success: false, message: 'استخبارات السوق تتهيأ', timestamp: new Date().toISOString() });
+        }
+        const sym = String(req.params.sym).toUpperCase().slice(0, 10);
+        const data = marketIntelEngine.compareMarkets(sym);
+        if (!data) return res.status(404).json({ success: false, message: `الرمز ${sym} غير موجود`, timestamp: new Date().toISOString() });
+        res.json({ success: true, data, message: `أفضل سوق لـ ${sym}: ${data.bestMarket.desc}`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// تمويل إسلامي — مرابحة
+app.post('/api/sheikha/market/finance/murabaha', (req, res) => {
+    try {
+        const { principal, profitRate, months } = req.body || {};
+        if (!principal || !profitRate || !months) {
+            return res.status(400).json({ success: false, message: 'مطلوب: principal, profitRate, months', timestamp: new Date().toISOString() });
+        }
+        const result = (marketIntelEngine || new (require('./lib/sheikha-market-intelligence-engine.js').SheikhaMarketIntelligenceEngine)()).islamicFinance.murabaha({ principal: Number(principal), profitRate: Number(profitRate), months: Number(months) });
+        res.json({ success: true, data: result, message: '﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// تمويل إسلامي — زكاة
+app.post('/api/sheikha/market/finance/zakah', (req, res) => {
+    try {
+        const body = req.body || {};
+        const result = (marketIntelEngine || new (require('./lib/sheikha-market-intelligence-engine.js').SheikhaMarketIntelligenceEngine)()).islamicFinance.zakah({
+            goldGrams:      Number(body.goldGrams     || 0),
+            silverGrams:    Number(body.silverGrams   || 0),
+            cashSAR:        Number(body.cashSAR       || 0),
+            tradeStockSAR:  Number(body.tradeStockSAR || 0),
+            goldPriceSar:   Number(body.goldPriceSar  || 290),
+            silverPriceSar: Number(body.silverPriceSar|| 3.5),
+        });
+        res.json({ success: true, data: result, message: '﴿وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ﴾', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// تحليل المخاطر لمخزون معدن
+app.get('/api/sheikha/market/risk/:sym', (req, res) => {
+    try {
+        if (!marketIntelEngine?.isInitialized) {
+            return res.status(503).json({ success: false, message: 'استخبارات السوق تتهيأ', timestamp: new Date().toISOString() });
+        }
+        const sym = String(req.params.sym).toUpperCase().slice(0, 10);
+        const qty = Number(req.query.qty) || 10;
+        const data = marketIntelEngine.getRisk(sym, qty);
+        if (!data) return res.status(404).json({ success: false, message: `الرمز ${sym} غير موجود`, timestamp: new Date().toISOString() });
+        res.json({ success: true, data, message: '«لا غرر» — تقييم المخاطر واجب على التاجر', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// حالة محرك استخبارات السوق
+app.get('/api/sheikha/market/status', (req, res) => {
+    try {
+        const status = marketIntelEngine ? marketIntelEngine.getStatus() : { isInitialized: false, message: 'المحرك تهيأ' };
+        res.json({ success: true, data: status, message: 'حالة استخبارات السوق', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ════════════════════════════════════════════════════════════
 // METALS NEURAL UNIVERSE — كون الوكلاء المعدنيين العصبيين
 // ════════════════════════════════════════════════════════════
 
@@ -32392,6 +32535,7 @@ app.get('/api/sheikha/full-status', (req, res) => {
         const profitStatus = profitOpportunityEngine    ? profitOpportunityEngine.getStatus()    : null;
         const neuralStatus = infiniteNeuralEngine?.isInitialized ? infiniteNeuralEngine.getStatus() : null;
         const metalsStatus = metalsNeuralUniverse?.isInitialized ? metalsNeuralUniverse.getStatus() : null;
+        const marketStatus = marketIntelEngine?.isInitialized    ? marketIntelEngine.getStatus()    : null;
 
         const enginesLoaded = [
             securityEngine, shariaEngine, tradeEngine, bankingEngine,
@@ -32409,6 +32553,7 @@ app.get('/api/sheikha/full-status', (req, res) => {
                     profit: profitStatus ? { active: true, bestROI: profitStatus.bestROI, materials: profitStatus.activeMaterials } : null,
                     neural: neuralStatus ? { active: true, totalAgents: neuralStatus.network.totalAgents, cycles: neuralStatus.cycles, totalKnowledge: neuralStatus.network.totalKnowledge, avgHealth: neuralStatus.network.avgHealth, isEvolving: neuralStatus.isEvolving } : null,
                     metals: metalsStatus ? { active: true, totalAgents: metalsStatus.network.totalAgents, clusters: metalsStatus.network.clusters.length, cycles: metalsStatus.cycles, knowledge: metalsStatus.network.totalKnowledge, universe: metalsStatus.universe } : null,
+                    market: marketStatus ? { active: true, tickers: marketStatus.tickers, buySignals: marketStatus.metrics.buySignals, topSpreadMargin: marketStatus.metrics.topSpreadMargin, activeAlerts: marketStatus.metrics.activeAlerts } : null,
                 },
                 techLevel: simStatus?.techLevel || null,
                 github: topology ? { version: topology.version, accounts: topology.accounts.length, flows: topology.informationFlow.flows.length } : null,

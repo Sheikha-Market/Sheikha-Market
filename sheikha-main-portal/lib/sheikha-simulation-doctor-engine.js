@@ -93,10 +93,13 @@ class SpeedMeasurer {
         ];
         const level = levels.find(l => engineCount >= l.min && engineCount < l.max) || levels[0];
 
-        // نقاط المحاكاة المتبادلة (تُضاف فعلياً عند تفعيل النظام)
-        const simulationBonus  = extras.simulationActive  ? 400 : 0;
-        const profitBonus      = extras.profitEngineActive ? 200 : 0;
+        // نقاط المنظومة الكاملة — يُضاف كل نظام عند تفعيله فعلياً
+        const simulationBonus  = extras.simulationActive    ? 400 : 0;
+        const profitBonus      = extras.profitEngineActive  ? 200 : 0;
         const generationBonus  = extras.generation ? Math.min(Math.floor(extras.generation * 5), 400) : 0;
+        const metalsBonus      = extras.metalsActive        ? 500 : 0;   // كون 200 وكيل معدني + 8 كتل
+        const neuralBonus      = extras.neuralActive        ? 300 : 0;   // شبكة عصبية 15 تصنيف موحدة
+        const marketIntelBonus = extras.marketIntelActive   ? 300 : 0;   // استخبارات سوق المعادن
 
         // حساب نقاط المقياس الكوني
         const baseScore = Math.round(
@@ -105,7 +108,8 @@ class SpeedMeasurer {
             (ramGb * 2) +
             (process.version.replace('v','').split('.')[0] * 10)
         );
-        const score = baseScore + simulationBonus + profitBonus + generationBonus;
+        const score = baseScore + simulationBonus + profitBonus + generationBonus
+                    + metalsBonus + neuralBonus + marketIntelBonus;
 
         // الهدف: 10,000 نقطة
         const cosmicMax = 10000;
@@ -118,7 +122,7 @@ class SpeedMeasurer {
             ramGb,
             cosmicScore: score,
             baseScore,
-            bonusBreakdown: { simulationBonus, profitBonus, generationBonus },
+            bonusBreakdown: { simulationBonus, profitBonus, generationBonus, metalsBonus, neuralBonus, marketIntelBonus },
             cosmicMax,
             progressPct: Math.min(Math.round(score / cosmicMax * 100), 100),
             nextBreakthrough: score < 3000
@@ -616,12 +620,13 @@ class BreakthroughIndex {
     // الحاجز التالي — ما الذي يجب كسره للوصول للمستوى الأعلى
     nextBarrier(currentScore) {
         const barriers = [
-            { score: 500,   label: '✅ حاجز النمو — مكسور',       action: 'أضف 10 محركات جديدة',              done: true },
-            { score: 1000,  label: '✅ حاجز الانطلاق — مكسور',    action: 'فعّل الذكاء الاصطناعي المحلي',      done: true },
-            { score: 2000,  label: '✅ حاجز المنافسة — مكسور',    action: 'بُني نظام المحاكاة + محرك الربح',    done: true },
-            { score: 3000,  label: 'حاجز الريادة الإقليمية',      action: 'أطلق API عام وشراكات دولية' },
-            { score: 5000,  label: 'حاجز الذكاء المستقل',         action: 'فعّل نماذج Ollama AI المحلية' },
-            { score: 10000, label: 'حاجز السيادة الكونية',        action: 'أطلق البنية التحتية المستقلة الكاملة' },
+            { score: 500,   label: '✅ حاجز النمو — مكسور',           action: 'أضف 10 محركات جديدة',                done: true },
+            { score: 1000,  label: '✅ حاجز الانطلاق — مكسور',        action: 'فعّل الذكاء الاصطناعي المحلي',        done: true },
+            { score: 2000,  label: '✅ حاجز المنافسة — مكسور',        action: 'بُني نظام المحاكاة + محرك الربح',      done: true },
+            { score: 3000,  label: '✅ حاجز الريادة الإقليمية — مكسور', action: 'كون المعادن + شبكة عصبية + استخبارات السوق', done: true },
+            { score: 5000,  label: 'حاجز الذكاء المستقل',             action: 'فعّل نماذج Ollama AI — 5 نماذج متخصصة بالمعادن' },
+            { score: 7000,  label: 'حاجز الشبكة العالمية',            action: 'اربط السوق الإسلامي العالمي — 57 دولة' },
+            { score: 10000, label: 'حاجز السيادة الكونية',            action: 'أطلق البنية التحتية المستقلة الكاملة' },
         ];
         const next = barriers.find(b => !b.done && currentScore < b.score);
         return next || { label: 'القيادة العالمية 🏆', action: 'أنت في طليعة العالم — الريادة الكونية' };
