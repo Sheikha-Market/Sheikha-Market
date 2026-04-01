@@ -1095,6 +1095,19 @@ try {
     console.log('⚠️ Profit Opportunity Engine غير متوفر:', e.message);
 }
 
+// ═══ محرك الوكلاء العصبيين اللانهائيين — شبكة عصبية موحَّدة ═══
+let infiniteNeuralEngine;
+try {
+    const neuralMod = require('./lib/sheikha-infinite-neural-agents.js');
+    infiniteNeuralEngine = neuralMod.engine;
+    infiniteNeuralEngine.initialize().catch(e =>
+        console.warn('⚠️ Infinite Neural: تهيئة مؤجلة:', e.message)
+    );
+    console.log('✅ [ACTIVE] sheikha-infinite-neural-agents.js — شبكة الوكلاء اللانهائيين تتهيأ');
+} catch (e) {
+    console.log('⚠️ Infinite Neural Agents غير متوفر:', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // ☪️ بسم الله الرحمن الرحيم
 // نظام سوق شيخة - قائم على الكتاب والسنة
@@ -32102,6 +32115,158 @@ app.get('/api/sheikha/github-topology', (req, res) => {
 
 // ═══ تسجيل مسارات منظومة التطوير قبل 404 Handler ═══
 
+// ══════════════════════════════════════════════════════════════════════════
+// ☪️  API الوكلاء العصبيين اللانهائيين — شبكة موحَّدة لله
+// ══════════════════════════════════════════════════════════════════════════
+
+// الحالة الكاملة للشبكة العصبية
+app.get('/api/sheikha/neural/status', (req, res) => {
+    try {
+        if (!infiniteNeuralEngine || !infiniteNeuralEngine.isInitialized) {
+            return res.status(503).json({ success: false, message: 'الشبكة العصبية تتهيأ...', timestamp: new Date().toISOString() });
+        }
+        const status = infiniteNeuralEngine.getStatus();
+        res.json({ success: true, data: status, message: 'شبكة الوكلاء العصبيين اللانهائيين', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// تشغيل دورة تطور يدوية
+app.post('/api/sheikha/neural/cycle', async (req, res) => {
+    try {
+        if (!infiniteNeuralEngine || !infiniteNeuralEngine.isInitialized) {
+            return res.status(503).json({ success: false, message: 'الشبكة غير جاهزة بعد', timestamp: new Date().toISOString() });
+        }
+        const result = await infiniteNeuralEngine.runCycle();
+        res.json({ success: true, data: result, message: `دورة التطور #${result.cycle} اكتملت`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// استعلام عن وكلاء تصنيف محدد
+app.get('/api/sheikha/neural/agents/:classId', (req, res) => {
+    try {
+        if (!infiniteNeuralEngine || !infiniteNeuralEngine.isInitialized) {
+            return res.status(503).json({ success: false, message: 'الشبكة تتهيأ', timestamp: new Date().toISOString() });
+        }
+        const classId = req.params.classId.toUpperCase();
+        const agents  = infiniteNeuralEngine.getAgentsByClass(classId);
+        if (!agents.length) {
+            return res.status(404).json({ success: false, message: `لا يوجد وكلاء للتصنيف ${classId}`, timestamp: new Date().toISOString() });
+        }
+        res.json({ success: true, data: { classId, agents, count: agents.length }, message: `وكلاء تصنيف ${classId}`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// إرسال مهمة للشبكة — التوحيد يُوزِّع
+app.post('/api/sheikha/neural/dispatch', (req, res) => {
+    try {
+        const { classId, task, payload } = req.body || {};
+        if (!classId || !task) {
+            return res.status(400).json({ success: false, message: 'classId و task مطلوبان', timestamp: new Date().toISOString() });
+        }
+        if (!infiniteNeuralEngine || !infiniteNeuralEngine.isInitialized) {
+            return res.status(503).json({ success: false, message: 'الشبكة تتهيأ', timestamp: new Date().toISOString() });
+        }
+        const result = infiniteNeuralEngine.dispatch(classId.toUpperCase(), task, payload || {});
+        res.json({ success: true, data: result, message: `مهمة ${task} أُرسلت للتصنيف ${classId}`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// تقرير رقيب الضرر HarmGuard
+app.get('/api/sheikha/neural/harm-guard', (req, res) => {
+    try {
+        if (!infiniteNeuralEngine) {
+            return res.status(503).json({ success: false, message: 'الشبكة غير جاهزة', timestamp: new Date().toISOString() });
+        }
+        const report = infiniteNeuralEngine.harmGuard.report();
+        res.json({ success: true, data: report, message: 'تقرير رقيب «لا ضرر ولا ضرار»', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// قائمة التصنيفات الخمسة عشر
+app.get('/api/sheikha/neural/classifications', (req, res) => {
+    try {
+        const { AGENT_CLASSIFICATIONS: cls, TAWHEED_CONSTANTS: tc } = require('./lib/sheikha-infinite-neural-agents.js');
+        res.json({
+            success: true,
+            data: {
+                classifications: cls.map(c => ({
+                    id: c.id, name: c.name, family: c.family,
+                    goals: c.goals, functions: c.functions,
+                    breedRate: c.breedRate, ayah: c.ayah,
+                })),
+                ayat:    tc.ayat,
+                ahadith: tc.ahadith,
+                maqasid: tc.maqasid,
+                totalClassifications: cls.length,
+            },
+            message: 'تصنيفات الوكلاء ومرجعياتها الشرعية',
+            timestamp: new Date().toISOString(),
+        });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// إحصاء التكاثر الأسّي
+app.get('/api/sheikha/neural/breed-report', (req, res) => {
+    try {
+        if (!infiniteNeuralEngine) {
+            return res.status(503).json({ success: false, message: 'الشبكة غير جاهزة', timestamp: new Date().toISOString() });
+        }
+        const report  = infiniteNeuralEngine.breeder.report();
+        const byClass = {};
+        for (const cls of require('./lib/sheikha-infinite-neural-agents.js').AGENT_CLASSIFICATIONS) {
+            byClass[cls.id] = {
+                name: cls.name, breedRate: cls.breedRate,
+                count: infiniteNeuralEngine.getAgentsByClass(cls.id).length,
+            };
+        }
+        res.json({
+            success: true,
+            data: {
+                ...report,
+                byClass,
+                ayah: '﴿خُلِقَ مِن مَّاءٍ دَافِقٍ﴾ — التكاثر الأسّي',
+                law:  'N(t) = N₀ × r^t — r = معدل تكاثر التصنيف',
+            },
+            message: 'تقرير التكاثر الأسّي للوكلاء',
+            timestamp: new Date().toISOString(),
+        });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// نبض مركزي يدوي من TawheedCore
+app.post('/api/sheikha/neural/pulse', (req, res) => {
+    try {
+        if (!infiniteNeuralEngine || !infiniteNeuralEngine.isInitialized) {
+            return res.status(503).json({ success: false, message: 'الشبكة تتهيأ', timestamp: new Date().toISOString() });
+        }
+        const value = parseFloat(req.body?.value) || 1.0;
+        infiniteNeuralEngine.tawheedCore.pulse(value);
+        const core = infiniteNeuralEngine.tawheedCore.report();
+        res.json({
+            success: true,
+            data: { pulses: core.pulses, value, totalAgents: core.totalAgents, avgHealth: core.avgHealth },
+            message: `نبضة #${core.pulses} أُرسلت لـ ${core.totalAgents} وكيل`,
+            timestamp: new Date().toISOString(),
+        });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
 // الوضع الكامل للمنظومة — نقطة واحدة تجمع كل شيء
 app.get('/api/sheikha/full-status', (req, res) => {
     try {
@@ -32109,8 +32274,9 @@ app.get('/api/sheikha/full-status', (req, res) => {
         let topology = null;
         try { topology = JSON.parse(fs.readFileSync(topologyPath, 'utf8')); } catch (_) {}
 
-        const simStatus = simulationDoctorEngine ? simulationDoctorEngine.getStatus() : null;
-        const profitStatus = profitOpportunityEngine ? profitOpportunityEngine.getStatus() : null;
+        const simStatus    = simulationDoctorEngine    ? simulationDoctorEngine.getStatus()    : null;
+        const profitStatus = profitOpportunityEngine    ? profitOpportunityEngine.getStatus()    : null;
+        const neuralStatus = infiniteNeuralEngine?.isInitialized ? infiniteNeuralEngine.getStatus() : null;
 
         const enginesLoaded = [
             securityEngine, shariaEngine, tradeEngine, bankingEngine,
@@ -32123,9 +32289,10 @@ app.get('/api/sheikha/full-status', (req, res) => {
                 server: { status: 'online', port: 8080, uptime: Math.round(process.uptime()) + 's', nodeVersion: process.version },
                 engines: {
                     total: 266,
-                    loaded: enginesLoaded + 2, // +2 للمحركين الجديدين
+                    loaded: enginesLoaded + 3, // +3 للمحركات الجديدة
                     simulation: simStatus ? { active: simStatus.isInitialized, evolving: simStatus.isContinuousEvolution, generation: simStatus.network.generation, knowledge: simStatus.network.infiniteKnowledge.total } : null,
-                    profit: profitStatus ? { active: true, bestROI: profitStatus.bestROI, materials: profitStatus.activeMaterials } : null
+                    profit: profitStatus ? { active: true, bestROI: profitStatus.bestROI, materials: profitStatus.activeMaterials } : null,
+                    neural: neuralStatus ? { active: true, totalAgents: neuralStatus.network.totalAgents, cycles: neuralStatus.cycles, totalKnowledge: neuralStatus.network.totalKnowledge, avgHealth: neuralStatus.network.avgHealth, isEvolving: neuralStatus.isEvolving } : null,
                 },
                 techLevel: simStatus?.techLevel || null,
                 github: topology ? { version: topology.version, accounts: topology.accounts.length, flows: topology.informationFlow.flows.length } : null,
