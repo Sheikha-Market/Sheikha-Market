@@ -1108,6 +1108,19 @@ try {
     console.log('⚠️ Infinite Neural Agents غير متوفر:', e.message);
 }
 
+// ═══ كون الوكلاء المعدنيين العصبيين — معادن + سكراب + سلسلة إمداد + نقل ═══
+let metalsNeuralUniverse;
+try {
+    const metalsMod = require('./lib/sheikha-metals-neural-universe.js');
+    metalsNeuralUniverse = metalsMod.engine;
+    metalsMod.init().catch(e =>
+        console.warn('⚠️ Metals Universe: تهيئة مؤجلة:', e.message)
+    );
+    console.log('✅ [ACTIVE] sheikha-metals-neural-universe.js — كون الوكلاء المعدنيين يتهيأ');
+} catch (e) {
+    console.log('⚠️ Metals Neural Universe غير متوفر:', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // ☪️ بسم الله الرحمن الرحيم
 // نظام سوق شيخة - قائم على الكتاب والسنة
@@ -32267,6 +32280,107 @@ app.post('/api/sheikha/neural/pulse', (req, res) => {
     }
 });
 
+// ════════════════════════════════════════════════════════════
+// METALS NEURAL UNIVERSE — كون الوكلاء المعدنيين العصبيين
+// ════════════════════════════════════════════════════════════
+
+// الحالة الكاملة للكون المعدني
+app.get('/api/sheikha/metals/status', (req, res) => {
+    try {
+        if (!metalsNeuralUniverse || !metalsNeuralUniverse.isInitialized) {
+            return res.status(503).json({ success: false, message: 'كون المعادن يتهيأ...', timestamp: new Date().toISOString() });
+        }
+        const status = metalsNeuralUniverse.getStatus();
+        res.json({ success: true, data: status, message: '﴿وَأَنزَلْنَا الْحَدِيدَ فِيهِ بَأْسٌ شَدِيدٌ وَمَنَافِعُ لِلنَّاسِ﴾', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// استعلام عن معدن محدد
+app.get('/api/sheikha/metals/query/:metalId', (req, res) => {
+    try {
+        if (!metalsNeuralUniverse || !metalsNeuralUniverse.isInitialized) {
+            return res.status(503).json({ success: false, message: 'كون المعادن يتهيأ', timestamp: new Date().toISOString() });
+        }
+        const { metalId } = req.params;
+        const result = metalsNeuralUniverse.queryMetal(metalId);
+        res.json({ success: true, data: result, message: `نتائج وكلاء المعدن: ${metalId}`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// استعلام عن تصنيف سكراب
+app.get('/api/sheikha/metals/scrap/:code', (req, res) => {
+    try {
+        if (!metalsNeuralUniverse || !metalsNeuralUniverse.isInitialized) {
+            return res.status(503).json({ success: false, message: 'كون المعادن يتهيأ', timestamp: new Date().toISOString() });
+        }
+        const { code } = req.params;
+        const result = metalsNeuralUniverse.queryScrap(code);
+        res.json({ success: true, data: result, message: `تصنيف السكراب: ${code}`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// استعلام عن مرحلة إنتاج
+app.get('/api/sheikha/metals/process/:stageId', (req, res) => {
+    try {
+        if (!metalsNeuralUniverse || !metalsNeuralUniverse.isInitialized) {
+            return res.status(503).json({ success: false, message: 'كون المعادن يتهيأ', timestamp: new Date().toISOString() });
+        }
+        const { stageId } = req.params;
+        const result = metalsNeuralUniverse.queryProcess(stageId);
+        res.json({ success: true, data: result, message: `مرحلة الإنتاج: ${stageId}`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// استعلام عن وسيلة نقل
+app.get('/api/sheikha/metals/transport/:modeId', (req, res) => {
+    try {
+        if (!metalsNeuralUniverse || !metalsNeuralUniverse.isInitialized) {
+            return res.status(503).json({ success: false, message: 'كون المعادن يتهيأ', timestamp: new Date().toISOString() });
+        }
+        const { modeId } = req.params;
+        const result = metalsNeuralUniverse.queryTransport(modeId);
+        res.json({ success: true, data: result, message: `وسيلة النقل: ${modeId}`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// البحث الذكي عبر الكون المعدني
+app.get('/api/sheikha/metals/search', (req, res) => {
+    try {
+        if (!metalsNeuralUniverse || !metalsNeuralUniverse.isInitialized) {
+            return res.status(503).json({ success: false, message: 'كون المعادن يتهيأ', timestamp: new Date().toISOString() });
+        }
+        const keyword = String(req.query.q || '').trim().slice(0, 100);
+        if (!keyword) return res.status(400).json({ success: false, message: 'أدخل كلمة البحث q=...', timestamp: new Date().toISOString() });
+        const results = metalsNeuralUniverse.smartSearch(keyword);
+        res.json({ success: true, data: results, count: results.length, message: `نتائج البحث عن "${keyword}"`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// دورة تطور يدوية — metals
+app.post('/api/sheikha/metals/cycle', async (req, res) => {
+    try {
+        if (!metalsNeuralUniverse || !metalsNeuralUniverse.isInitialized) {
+            return res.status(503).json({ success: false, message: 'كون المعادن يتهيأ', timestamp: new Date().toISOString() });
+        }
+        const result = await metalsNeuralUniverse.runCycle();
+        res.json({ success: true, data: result, message: `دورة معدنية #${result.cycle} — ${result.totalAgents} وكيل`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
 // الوضع الكامل للمنظومة — نقطة واحدة تجمع كل شيء
 app.get('/api/sheikha/full-status', (req, res) => {
     try {
@@ -32277,6 +32391,7 @@ app.get('/api/sheikha/full-status', (req, res) => {
         const simStatus    = simulationDoctorEngine    ? simulationDoctorEngine.getStatus()    : null;
         const profitStatus = profitOpportunityEngine    ? profitOpportunityEngine.getStatus()    : null;
         const neuralStatus = infiniteNeuralEngine?.isInitialized ? infiniteNeuralEngine.getStatus() : null;
+        const metalsStatus = metalsNeuralUniverse?.isInitialized ? metalsNeuralUniverse.getStatus() : null;
 
         const enginesLoaded = [
             securityEngine, shariaEngine, tradeEngine, bankingEngine,
@@ -32289,10 +32404,11 @@ app.get('/api/sheikha/full-status', (req, res) => {
                 server: { status: 'online', port: 8080, uptime: Math.round(process.uptime()) + 's', nodeVersion: process.version },
                 engines: {
                     total: 266,
-                    loaded: enginesLoaded + 3, // +3 للمحركات الجديدة
+                    loaded: enginesLoaded + 4, // +4 للمحركات الجديدة
                     simulation: simStatus ? { active: simStatus.isInitialized, evolving: simStatus.isContinuousEvolution, generation: simStatus.network.generation, knowledge: simStatus.network.infiniteKnowledge.total } : null,
                     profit: profitStatus ? { active: true, bestROI: profitStatus.bestROI, materials: profitStatus.activeMaterials } : null,
                     neural: neuralStatus ? { active: true, totalAgents: neuralStatus.network.totalAgents, cycles: neuralStatus.cycles, totalKnowledge: neuralStatus.network.totalKnowledge, avgHealth: neuralStatus.network.avgHealth, isEvolving: neuralStatus.isEvolving } : null,
+                    metals: metalsStatus ? { active: true, totalAgents: metalsStatus.network.totalAgents, clusters: metalsStatus.network.clusters.length, cycles: metalsStatus.cycles, knowledge: metalsStatus.network.totalKnowledge, universe: metalsStatus.universe } : null,
                 },
                 techLevel: simStatus?.techLevel || null,
                 github: topology ? { version: topology.version, accounts: topology.accounts.length, flows: topology.informationFlow.flows.length } : null,
