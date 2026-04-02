@@ -3959,20 +3959,29 @@ if (compression) {
     console.log('✅ compression مفعّل — ضغط الاستجابات');
 }
 
-// 3. CORS — تقييد النطاقات المسموحة
+// 3. CORS — تقييد النطاقات المسموحة (ديناميكي لدعم كل نطاقات sheikha.top)
+const CORS_ALLOWED_ORIGINS = [
+    'https://sheikha.top',
+    'https://www.sheikha.top',
+    'https://public.sheikha.top',
+    'https://api.sheikha.top',
+    'https://market.sheikha.top',
+    'http://localhost:23000',
+    'http://localhost:8080',
+    'http://localhost:3000'
+];
 const corsOptions = {
-    origin: [
-        'https://sheikha.top',
-        'https://www.sheikha.top',
-        'https://public.sheikha.top',
-        'https://api.sheikha.top',
-        'https://market.sheikha.top',
-        'http://localhost:23000',
-        'http://localhost:8080',
-        'http://localhost:3000'
-    ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    origin: function(origin, callback) {
+        // طلبات بدون Origin (curl، server-to-server) — مسموح
+        if (!origin) return callback(null, true);
+        // أي نطاق فرعي من sheikha.top مسموح
+        if (origin.endsWith('.sheikha.top') || CORS_ALLOWED_ORIGINS.includes(origin)) {
+            return callback(null, true);
+        }
+        callback(new Error('CORS: نطاق غير مسموح — ' + origin));
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
     credentials: true,
     maxAge: 86400
 };
@@ -4086,6 +4095,45 @@ const GOV_PAGES = [
     '/gov-dashboard.html',
     '/الشركات-الحكومية.html'
 ];
+
+// الصفحات المسموحة فقط في نطاق public.sheikha.top
+const PUBLIC_ALLOWED_PAGES = [
+    '/', '/index.html',
+    '/سوق-شيخة.html',
+    '/الشريعة-الاسلامية.html',
+    '/المجتمع.html',
+    '/تسجيل-الدخول.html',
+    '/تسجيل-الشركات.html',
+    '/هوية-شيخة.html',
+    '/هوية-السوق.html',
+    '/الشروط-والسياسات.html',
+    '/آيات-التجارة.html',
+    '/verify.html'
+];
+
+// مساعد: هل الطلب من نطاق public.sheikha.top؟
+function isPublicDomain(req) {
+    const host = req.get('x-forwarded-host') || req.get('host') || '';
+    return host.includes('public.sheikha.top');
+}
+
+// Middleware: حجب الصفحات غير المصرّح بها من public.sheikha.top
+app.use((req, res, next) => {
+    if (!isPublicDomain(req)) return next();
+    // السماح لكل API calls
+    if (req.path.startsWith('/api/') || req.path.startsWith('/js/') ||
+        req.path.startsWith('/css/') || req.path.startsWith('/icons/') ||
+        req.path.startsWith('/assets/') || req.path.startsWith('/manifest')) return next();
+    // فقط الصفحات المسموحة
+    const pagePath = decodeURIComponent(req.path);
+    const allowed = PUBLIC_ALLOWED_PAGES.some(p => pagePath === p || pagePath === p + '/' ||
+        (p === '/' && (pagePath === '' || pagePath === '/index.html')));
+    if (!allowed && (pagePath.endsWith('.html') || pagePath === '/')) {
+        // إعادة توجيه للصفحة الرئيسية على النطاق العام
+        return res.redirect(302, '/');
+    }
+    next();
+});
 
 function verifyTokenRole(req) {
     try {
@@ -14385,12 +14433,29 @@ app.get('/api/auth/security-log', authRequired, (req, res) => {
 });
 
 // ─── تسجيل الدخول بنفاذ، جوجل، مايكروسوفت، أبل (OAuth) ─────────────────────────
+// النطاقات الموثوقة في شيخة — يُستخدم للتحقق من OAuth callbacks
+const SHEIKHA_TRUSTED_DOMAINS = [
+    'sheikha.top',
+    'www.sheikha.top',
+    'public.sheikha.top',
+    'api.sheikha.top',
+    'market.sheikha.top',
+    'localhost:8080',
+    'localhost:3000'
+];
+
 function getBaseUrl(req) {
-    const base = process.env.BASE_URL;
-    if (base) return base.replace(/\/$/, '');
-    const proto = req.get('x-forwarded-proto') || req.protocol || 'http';
-    const host = req.get('x-forwarded-host') || req.get('host') || 'localhost:8080';
-    return proto + '://' + host;
+    // استخدم النطاق الفعلي من الطلب دائماً (يدعم public.sheikha.top وغيره)
+    const proto = req.get('x-forwarded-proto') || req.protocol || 'https';
+    const host  = req.get('x-forwarded-host') || req.get('host') || 'sheikha.top';
+    // تحقق أن النطاق موثوق قبل استخدامه في OAuth callback
+    const hostOnly = host.split(':')[0];
+    const isTrusted = SHEIKHA_TRUSTED_DOMAINS.some(d => hostOnly === d || hostOnly.endsWith('.' + d));
+    if (isTrusted) return proto + '://' + host;
+    // fallback: BASE_URL من env إذا كان النطاق غير معروف
+    const baseEnv = process.env.BASE_URL;
+    if (baseEnv) return baseEnv.replace(/\/$/, '');
+    return 'https://sheikha.top';
 }
 function findOrCreateOAuthUser(provider, providerId, profile) {
     let user = USERS.find(

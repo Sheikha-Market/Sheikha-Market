@@ -12,11 +12,16 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "no-store, max-age=0" }
+        { "key": "Cache-Control", "value": "no-store, max-age=0" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
       ]
     }
   ],
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "BASE_URL": "https://sheikha.top",
+    "PUBLIC_URL": "https://public.sheikha.top",
+    "ADMIN_URL": "https://sheikha.top"
   }
 }
