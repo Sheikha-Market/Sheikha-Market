@@ -14,13 +14,6 @@
       "headers": [
         { "key": "Cache-Control", "value": "no-store, max-age=0" }
       ]
-    },
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "https://www.sheikha.top" },
-        { "key": "Access-Control-Allow-Credentials", "value": "true" }
-      ]
     }
   ],
   "env": {
