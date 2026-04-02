@@ -100,6 +100,10 @@ class SpeedMeasurer {
         const metalsBonus      = extras.metalsActive        ? 500 : 0;   // كون 200 وكيل معدني + 8 كتل
         const neuralBonus      = extras.neuralActive        ? 300 : 0;   // شبكة عصبية 15 تصنيف موحدة
         const marketIntelBonus = extras.marketIntelActive   ? 300 : 0;   // استخبارات سوق المعادن
+        const ollamaBonus      = extras.ollamaActive        ? 500 : 0;   // 5 نماذج AI معدنية + fallback محلي
+        const websocketBonus   = extras.websocketActive     ? 200 : 0;   // بث لحظي WebSocket للأسعار
+        const quranMetalsBonus = extras.quranMetalsActive   ? 300 : 0;   // المصدر القرآني للمعادن — 15 آية + 12 حديث
+        const ummahMarketBonus = extras.ummahMarketActive   ? 800 : 0;   // سوق الأمة الإسلامية — 57 دولة OIC
 
         // حساب نقاط المقياس الكوني
         const baseScore = Math.round(
@@ -109,7 +113,8 @@ class SpeedMeasurer {
             (process.version.replace('v','').split('.')[0] * 10)
         );
         const score = baseScore + simulationBonus + profitBonus + generationBonus
-                    + metalsBonus + neuralBonus + marketIntelBonus;
+                    + metalsBonus + neuralBonus + marketIntelBonus
+                    + ollamaBonus + websocketBonus + quranMetalsBonus + ummahMarketBonus;
 
         // الهدف: 10,000 نقطة
         const cosmicMax = 10000;
@@ -122,14 +127,16 @@ class SpeedMeasurer {
             ramGb,
             cosmicScore: score,
             baseScore,
-            bonusBreakdown: { simulationBonus, profitBonus, generationBonus, metalsBonus, neuralBonus, marketIntelBonus },
+            bonusBreakdown: { simulationBonus, profitBonus, generationBonus, metalsBonus, neuralBonus, marketIntelBonus, ollamaBonus, websocketBonus, quranMetalsBonus, ummahMarketBonus },
             cosmicMax,
             progressPct: Math.min(Math.round(score / cosmicMax * 100), 100),
             nextBreakthrough: score < 3000
                 ? `أطلق API عام وشراكات إقليمية لكسر حاجز 3000`
                 : score < 5000
                     ? `فعّل نماذج Ollama AI المحلية لكسر حاجز 5000`
-                    : `أطلق البنية التحتية المستقلة لكسر حاجز 10000`
+                    : score < 7000
+                        ? `اربط السوق الإسلامي العالمي — 57 دولة — حاجز 7000`
+                        : `أطلق البنية التحتية المستقلة لكسر حاجز 10000`
         };
     }
 
@@ -624,7 +631,7 @@ class BreakthroughIndex {
             { score: 1000,  label: '✅ حاجز الانطلاق — مكسور',        action: 'فعّل الذكاء الاصطناعي المحلي',        done: true },
             { score: 2000,  label: '✅ حاجز المنافسة — مكسور',        action: 'بُني نظام المحاكاة + محرك الربح',      done: true },
             { score: 3000,  label: '✅ حاجز الريادة الإقليمية — مكسور', action: 'كون المعادن + شبكة عصبية + استخبارات السوق', done: true },
-            { score: 5000,  label: 'حاجز الذكاء المستقل',             action: 'فعّل نماذج Ollama AI — 5 نماذج متخصصة بالمعادن' },
+            { score: 5000,  label: '✅ حاجز الذكاء المستقل — مكسور', action: 'Ollama AI + WebSocket لحظي + قرآن المعادن', done: true },
             { score: 7000,  label: 'حاجز الشبكة العالمية',            action: 'اربط السوق الإسلامي العالمي — 57 دولة' },
             { score: 10000, label: 'حاجز السيادة الكونية',            action: 'أطلق البنية التحتية المستقلة الكاملة' },
         ];

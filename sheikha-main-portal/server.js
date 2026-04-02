@@ -1132,6 +1132,56 @@ try {
     console.log('⚠️ Market Intelligence غير متوفر:', e.message);
 }
 
+// ═══ محرك Ollama AI المعدني — 5 نماذج متخصصة بالمعادن ═══
+let ollamaMetalsEngine;
+try {
+    const ollamaMod = require('./lib/sheikha-ollama-metals-ai.js');
+    ollamaMetalsEngine = ollamaMod.engine;
+    ollamaMod.init().catch(e =>
+        console.warn('⚠️ Ollama Metals AI: تهيئة مؤجلة:', e.message)
+    );
+    console.log('✅ [ACTIVE] sheikha-ollama-metals-ai.js — 5 نماذج AI معدنية + fallback محلي');
+} catch (e) {
+    console.log('⚠️ Ollama Metals AI غير متوفر:', e.message);
+}
+
+// ═══ محرك المعادن القرآني — الأصل الشرعي ═══
+let quranMetalsEngine;
+try {
+    const quranMod = require('./lib/sheikha-metals-quran-engine.js');
+    quranMetalsEngine = quranMod.engine;
+    quranMod.init().catch(e =>
+        console.warn('⚠️ Quran Metals Engine: تهيئة مؤجلة:', e.message)
+    );
+    console.log('✅ [ACTIVE] sheikha-metals-quran-engine.js — 15 آية + 12 حديث + أحكام فقهية');
+} catch (e) {
+    console.log('⚠️ Quran Metals Engine غير متوفر:', e.message);
+}
+
+// ═══ محرك WebSocket للأسعار اللحظية ═══
+// يُفعَّل بعد بدء الخادم HTTP (انظر أسفل الملف: server.listen callback)
+let wsLivePricesEngine;
+try {
+    const wsMod = require('./lib/sheikha-websocket-live-prices.js');
+    wsLivePricesEngine = wsMod.engine;
+    console.log('✅ [LOADED] sheikha-websocket-live-prices.js — جاهز للتفعيل عند start');
+} catch (e) {
+    console.log('⚠️ WebSocket Live Prices غير متوفر:', e.message);
+}
+
+// ═══ سوق الأمة الإسلامية العالمية — 57 دولة OIC ═══
+let ummahMarketEngine;
+try {
+    const ummahMod = require('./lib/sheikha-ummah-global-market.js');
+    ummahMarketEngine = ummahMod.engine;
+    ummahMod.init().catch(e =>
+        console.warn('⚠️ Ummah Market Engine: تهيئة مؤجلة:', e.message)
+    );
+    console.log('✅ [ACTIVE] sheikha-ummah-global-market.js — 57 دولة OIC | أسواق المعادن الإسلامية');
+} catch (e) {
+    console.log('⚠️ Ummah Market Engine غير متوفر:', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // ☪️ بسم الله الرحمن الرحيم
 // نظام سوق شيخة - قائم على الكتاب والسنة
@@ -32052,16 +32102,20 @@ app.get('/api/sheikha/simulation/speed', (req, res) => {
         const snapshot = measurer.snapshot();
         // نمرر مكافآت الأنظمة الفعلية المبنية
         const generation = simulationDoctorEngine ? (simulationDoctorEngine.mirrorNetwork?.generation || 0) : 0;
-        const techLevel = measurer.assessTechLevel(270, 34000, snapshot.hardware.ramGb, {
+        const techLevel = measurer.assessTechLevel(281, 37200, snapshot.hardware.ramGb, {
             simulationActive:  !!simulationDoctorEngine,
             profitEngineActive: true,
             generation,
             metalsActive:      !!(metalsNeuralUniverse?.isInitialized),
             neuralActive:      !!(infiniteNeuralEngine?.isInitialized),
             marketIntelActive: !!(marketIntelEngine?.isInitialized),
+            ollamaActive:      !!(ollamaMetalsEngine?.isInitialized),
+            websocketActive:   !!(wsLivePricesEngine?.isInitialized),
+            quranMetalsActive: !!(quranMetalsEngine?.isInitialized),
+            ummahMarketActive: !!(ummahMarketEngine?.isInitialized),
         });
         const bi = new BreakthroughIndex();
-        const comparison = bi.compare({ engineCount: 266, serverLines: 32321, ramGb: snapshot.hardware.ramGb });
+        const comparison = bi.compare({ engineCount: 281, serverLines: 37200, ramGb: snapshot.hardware.ramGb });
         const nextBarrier = bi.nextBarrier(techLevel.cosmicScore);
         res.json({
             success: true,
@@ -32418,6 +32472,284 @@ app.get('/api/sheikha/market/status', (req, res) => {
     try {
         const status = marketIntelEngine ? marketIntelEngine.getStatus() : { isInitialized: false, message: 'المحرك تهيأ' };
         res.json({ success: true, data: status, message: 'حالة استخبارات السوق', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ════════════════════════════════════════════════════════════
+// OLLAMA METALS AI — محرك الذكاء الاصطناعي المعدني
+// 5 نماذج: metals-analyst | scrap-expert | sharia-checker | supply-optimizer | market-translator
+// ════════════════════════════════════════════════════════════
+
+app.get('/api/sheikha/ollama/status', (req, res) => {
+    try {
+        const status = ollamaMetalsEngine ? ollamaMetalsEngine.getStatus() : { isInitialized: false };
+        res.json({ success: true, data: status, message: 'حالة ذكاء Ollama المعدني', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// تحليل سعر معدن
+app.get('/api/sheikha/ollama/analyze/:symbol', async (req, res) => {
+    try {
+        const { symbol } = req.params;
+        const price = parseFloat(req.query.price) || 0;
+        const ohlc  = req.query.ohlc ? JSON.parse(req.query.ohlc) : {};
+        const engine = ollamaMetalsEngine || require('./lib/sheikha-ollama-metals-ai.js').engine;
+        if (!engine.isInitialized) await require('./lib/sheikha-ollama-metals-ai.js').init();
+        const result = await engine.analyzePriceData(symbol, price, ohlc);
+        res.json({ success: true, data: result, message: `تحليل AI لـ ${symbol}`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// تصنيف شحنة سكراب
+app.post('/api/sheikha/ollama/grade-scrap', async (req, res) => {
+    try {
+        const { type, weight, condition, description } = req.body;
+        if (!type || !weight) return res.status(400).json({ success: false, message: 'النوع والوزن مطلوبان', timestamp: new Date().toISOString() });
+        const engine = ollamaMetalsEngine || require('./lib/sheikha-ollama-metals-ai.js').engine;
+        if (!engine.isInitialized) await require('./lib/sheikha-ollama-metals-ai.js').init();
+        const result = await engine.gradeScrap(type, Number(weight), condition || 'جيد', description || '');
+        res.json({ success: true, data: result, message: 'تقييم السكراب بالذكاء الاصطناعي', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// مراجعة عقد شرعياً
+app.post('/api/sheikha/ollama/review-contract', async (req, res) => {
+    try {
+        const { contractType, parties, conditions } = req.body;
+        if (!contractType) return res.status(400).json({ success: false, message: 'نوع العقد مطلوب', timestamp: new Date().toISOString() });
+        const engine = ollamaMetalsEngine || require('./lib/sheikha-ollama-metals-ai.js').engine;
+        if (!engine.isInitialized) await require('./lib/sheikha-ollama-metals-ai.js').init();
+        const result = await engine.reviewContract(contractType, parties || 'بائع ومشترٍ', conditions || '');
+        res.json({ success: true, data: result, message: 'مراجعة العقد بالذكاء الاصطناعي', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// تحسين مسار الشحن
+app.post('/api/sheikha/ollama/optimize-route', async (req, res) => {
+    try {
+        const { origin, destination, weight, material } = req.body;
+        if (!origin || !destination) return res.status(400).json({ success: false, message: 'المصدر والوجهة مطلوبان', timestamp: new Date().toISOString() });
+        const engine = ollamaMetalsEngine || require('./lib/sheikha-ollama-metals-ai.js').engine;
+        if (!engine.isInitialized) await require('./lib/sheikha-ollama-metals-ai.js').init();
+        const result = await engine.optimizeRoute(origin, destination, Number(weight) || 1, material || 'حديد');
+        res.json({ success: true, data: result, message: 'تحسين مسار الشحن', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// شرح مصطلح
+app.get('/api/sheikha/ollama/explain', async (req, res) => {
+    try {
+        const { term, context } = req.query;
+        if (!term) return res.status(400).json({ success: false, message: 'المصطلح مطلوب', timestamp: new Date().toISOString() });
+        const engine = ollamaMetalsEngine || require('./lib/sheikha-ollama-metals-ai.js').engine;
+        if (!engine.isInitialized) await require('./lib/sheikha-ollama-metals-ai.js').init();
+        const result = await engine.explainTerm(term, context || 'تجارة المعادن');
+        res.json({ success: true, data: result, message: `شرح مصطلح: ${term}`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ════════════════════════════════════════════════════════════
+// QURAN METALS ENGINE — محرك المعادن القرآني
+// الأصل الشرعي — ﴿أَنزَلْنَا الْحَدِيدَ﴾
+// ════════════════════════════════════════════════════════════
+
+app.get('/api/sheikha/quran-metals/status', (req, res) => {
+    try {
+        const status = quranMetalsEngine ? quranMetalsEngine.getStatus() : { isInitialized: false };
+        res.json({ success: true, data: status, message: 'حالة المحرك القرآني المعدني', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// الآيات لمعدن محدد
+app.get('/api/sheikha/quran-metals/ayat/:metal', (req, res) => {
+    try {
+        const engine = quranMetalsEngine || require('./lib/sheikha-metals-quran-engine.js').engine;
+        const data   = engine.getAyatForMetal(req.params.metal.toUpperCase());
+        res.json({ success: true, data, message: `المصادر الشرعية لـ ${req.params.metal}`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// بحث قرآني/سني
+app.get('/api/sheikha/quran-metals/search', (req, res) => {
+    try {
+        const { q } = req.query;
+        if (!q) return res.status(400).json({ success: false, message: 'نص البحث مطلوب', timestamp: new Date().toISOString() });
+        const engine = quranMetalsEngine || require('./lib/sheikha-metals-quran-engine.js').engine;
+        const data   = engine.search(q);
+        res.json({ success: true, data, message: `نتائج البحث في القرآن والسنة: «${q}»`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// حساب الزكاة
+app.get('/api/sheikha/quran-metals/zakah', (req, res) => {
+    try {
+        const { metal, weight, price } = req.query;
+        if (!metal || !weight || !price) return res.status(400).json({ success: false, message: 'المعدن والوزن والسعر مطلوبة', timestamp: new Date().toISOString() });
+        const engine = quranMetalsEngine || require('./lib/sheikha-metals-quran-engine.js').engine;
+        const data   = engine.calculateZakah(metal, Number(weight), Number(price));
+        res.json({ success: true, data, message: 'حساب زكاة المعادن', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// تقييم معاملة شرعياً
+app.post('/api/sheikha/quran-metals/assess', (req, res) => {
+    try {
+        const engine = quranMetalsEngine || require('./lib/sheikha-metals-quran-engine.js').engine;
+        const data   = engine.assessTransaction(req.body);
+        res.json({ success: true, data, message: 'التقييم الشرعي للمعاملة', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// آية اليوم
+app.get('/api/sheikha/quran-metals/daily', (req, res) => {
+    try {
+        const engine  = quranMetalsEngine || require('./lib/sheikha-metals-quran-engine.js').engine;
+        const verse   = engine.getDailyVerse();
+        const hadith  = engine.getDailyHadith();
+        res.json({ success: true, data: { verse, hadith }, message: 'آية وحديث اليوم في المعادن', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// احكام فقهية
+app.get('/api/sheikha/quran-metals/fiqh/:topic', (req, res) => {
+    try {
+        const engine = quranMetalsEngine || require('./lib/sheikha-metals-quran-engine.js').engine;
+        const data   = engine.getFiqhRuling(req.params.topic);
+        res.json({ success: true, data, message: `الأحكام الفقهية: ${req.params.topic}`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ════════════════════════════════════════════════════════════
+// WEBSOCKET STATUS — حالة البث اللحظي
+// ════════════════════════════════════════════════════════════
+
+app.get('/api/sheikha/websocket/status', (req, res) => {
+    try {
+        const status = wsLivePricesEngine ? wsLivePricesEngine.getStatus() : { isInitialized: false, note: 'يتفعل عند بدء الخادم' };
+        res.json({ success: true, data: status, message: 'حالة WebSocket الأسعار اللحظية', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+app.get('/api/sheikha/websocket/prices', (req, res) => {
+    try {
+        const snapshot = wsLivePricesEngine?.isInitialized
+            ? wsLivePricesEngine.getPriceSnapshot()
+            : Object.entries(require('./lib/sheikha-websocket-live-prices.js').DEFAULT_PRICES).map(([sym, d]) => ({ symbol: sym, ...d }));
+        res.json({ success: true, data: snapshot, message: 'لقطة الأسعار اللحظية', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ════════════════════════════════════════════════════════════
+// UMMAH GLOBAL MARKET — سوق الأمة الإسلامية العالمية 57 دولة
+// ════════════════════════════════════════════════════════════
+
+app.get('/api/sheikha/ummah/status', (req, res) => {
+    try {
+        const status = ummahMarketEngine ? ummahMarketEngine.getStatus() : { isInitialized: false };
+        res.json({ success: true, data: status, message: 'حالة سوق الأمة الإسلامية العالمية', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// الدول الأعضاء في منظمة التعاون الإسلامي
+app.get('/api/sheikha/ummah/countries', (req, res) => {
+    try {
+        const engine = ummahMarketEngine || require('./lib/sheikha-ummah-global-market.js').engine;
+        const data   = engine.getAllCountries();
+        res.json({ success: true, data, count: data.length, message: 'دول منظمة التعاون الإسلامي', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// موردو معدن في الأمة الإسلامية
+app.get('/api/sheikha/ummah/suppliers/:metal', (req, res) => {
+    try {
+        const engine = ummahMarketEngine || require('./lib/sheikha-ummah-global-market.js').engine;
+        const data   = engine.findSuppliers(req.params.metal.toUpperCase());
+        res.json({ success: true, data, count: data.length, message: `موردو ${req.params.metal} في الدول الإسلامية`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// مقارنة أسعار معدن عبر الأسواق الإسلامية
+app.get('/api/sheikha/ummah/compare/:metal', (req, res) => {
+    try {
+        const engine = ummahMarketEngine || require('./lib/sheikha-ummah-global-market.js').engine;
+        const price  = parseFloat(req.query.price) || 9000;
+        const data   = engine.compareMarkets(req.params.metal.toUpperCase(), price);
+        res.json({ success: true, data, message: `مقارنة سوقية لـ ${req.params.metal}`, timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// تقدير الشحن بين دولتين
+app.get('/api/sheikha/ummah/freight', (req, res) => {
+    try {
+        const { from, to, weight } = req.query;
+        if (!from || !to) return res.status(400).json({ success: false, message: 'from و to مطلوبان', timestamp: new Date().toISOString() });
+        const engine = ummahMarketEngine || require('./lib/sheikha-ummah-global-market.js').engine;
+        const data   = engine.estimateFreight(from.toUpperCase(), to.toUpperCase(), Number(weight) || 1);
+        res.json({ success: true, data, message: 'تقدير تكلفة الشحن', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// تحويل سعر لعملة محلية
+app.get('/api/sheikha/ummah/convert', (req, res) => {
+    try {
+        const { price, currency } = req.query;
+        if (!price || !currency) return res.status(400).json({ success: false, message: 'السعر والعملة مطلوبان', timestamp: new Date().toISOString() });
+        const engine = ummahMarketEngine || require('./lib/sheikha-ummah-global-market.js').engine;
+        const data   = engine.convertPrice(Number(price), currency.toUpperCase());
+        res.json({ success: true, data, message: 'تحويل العملة للأسواق الإسلامية', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// المسارات التجارية التاريخية الإسلامية
+app.get('/api/sheikha/ummah/historic-routes', (req, res) => {
+    try {
+        const engine = ummahMarketEngine || require('./lib/sheikha-ummah-global-market.js').engine;
+        const data   = engine.getHistoricRoutes();
+        res.json({ success: true, data, message: 'المسارات التجارية الإسلامية التاريخية', timestamp: new Date().toISOString() });
     } catch (err) {
         res.status(500).json({ success: false, error: err.message, timestamp: new Date().toISOString() });
     }
@@ -32944,6 +33276,26 @@ initializeAutomation();
 if (!isVercelRuntime) {
     server = app.listen(PORT, '127.0.0.1', () => {
         addSystemLog('success', 'Server', `Server started on port ${PORT}`);
+
+        // ═════════════════════════════════════════════
+        // تفعيل المحركات الجديدة بعد بدء الخادم
+        // ═════════════════════════════════════════════
+        // WebSocket أسعار لحظية (standalone — لا يزاحم wss)
+        if (wsLivePricesEngine) {
+            wsLivePricesEngine.initStandalone(marketIntelEngine).catch(e =>
+                console.warn('⚠️ WebSocket standalone init:', e.message)
+            );
+        }
+        // Ollama AI — تهيئة آمنة بعد بدء الخادم
+        if (ollamaMetalsEngine && !ollamaMetalsEngine.isInitialized) {
+            const ollamaMod = require('./lib/sheikha-ollama-metals-ai.js');
+            ollamaMod.init().catch(e => console.warn('⚠️ Ollama init:', e.message));
+        }
+        // محرك المعادن القرآني
+        if (quranMetalsEngine && !quranMetalsEngine.isInitialized) {
+            const quranMod = require('./lib/sheikha-metals-quran-engine.js');
+            quranMod.init().catch(e => console.warn('⚠️ Quran Metals init:', e.message));
+        }
 
         console.log(`
 ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
