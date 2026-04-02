@@ -3964,8 +3964,12 @@ const corsOptions = {
     origin: [
         'https://sheikha.top',
         'https://www.sheikha.top',
+        'https://public.sheikha.top',
+        'https://api.sheikha.top',
+        'https://market.sheikha.top',
         'http://localhost:23000',
-        'http://localhost:8080'
+        'http://localhost:8080',
+        'http://localhost:3000'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -4151,7 +4155,7 @@ if (pilotEngine) {
     console.log('🧪 Pilot Middleware — مفعّل | الوضع:', pilotEngine.mode);
 }
 
-app.use(cors());
+// ملاحظة: لا يجب تكرار cors() هنا — corsOptions المضبوط أعلاه يغطي جميع المسارات
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -13626,48 +13630,51 @@ app.post('/api/auth/login', (req, res) => {
 // ═══════════════════════════════════════════════════════════════
 // ══════ OAuth / Social Login — تسجيل الدخول بالحسابات الاجتماعية ══════
 // ═══════════════════════════════════════════════════════════════
+// مساعد: يتحقق أن قيمة env حقيقية وليست placeholder
+const isRealEnvValue = v => !!v && !v.startsWith('CHANGE_ME') && v !== 'YOUR_KEY' && v.trim().length > 8;
+
 const OAUTH_CONFIG = {
     google: {
         clientId: process.env.GOOGLE_CLIENT_ID || '',
         clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
         name: 'Google',
-        enabled: !!process.env.GOOGLE_CLIENT_ID
+        enabled: isRealEnvValue(process.env.GOOGLE_CLIENT_ID) && isRealEnvValue(process.env.GOOGLE_CLIENT_SECRET)
     },
     apple: {
         clientId: process.env.APPLE_CLIENT_ID || '',
         clientSecret: process.env.APPLE_CLIENT_SECRET || '',
         name: 'Apple',
-        enabled: !!process.env.APPLE_CLIENT_ID
+        enabled: isRealEnvValue(process.env.APPLE_CLIENT_ID) && isRealEnvValue(process.env.APPLE_CLIENT_SECRET)
     },
     microsoft: {
         clientId: process.env.MICROSOFT_CLIENT_ID || '',
         clientSecret: process.env.MICROSOFT_CLIENT_SECRET || '',
         name: 'Microsoft',
-        enabled: !!process.env.MICROSOFT_CLIENT_ID
+        enabled: isRealEnvValue(process.env.MICROSOFT_CLIENT_ID) && isRealEnvValue(process.env.MICROSOFT_CLIENT_SECRET)
     },
     twitter: {
         clientId: process.env.TWITTER_CLIENT_ID || '',
         clientSecret: process.env.TWITTER_CLIENT_SECRET || '',
         name: 'X (Twitter)',
-        enabled: !!process.env.TWITTER_CLIENT_ID
+        enabled: isRealEnvValue(process.env.TWITTER_CLIENT_ID) && isRealEnvValue(process.env.TWITTER_CLIENT_SECRET)
     },
     snapchat: {
         clientId: process.env.SNAPCHAT_CLIENT_ID || '',
         clientSecret: process.env.SNAPCHAT_CLIENT_SECRET || '',
         name: 'Snapchat',
-        enabled: !!process.env.SNAPCHAT_CLIENT_ID
+        enabled: isRealEnvValue(process.env.SNAPCHAT_CLIENT_ID)
     },
     instagram: {
         clientId: process.env.INSTAGRAM_CLIENT_ID || '',
         clientSecret: process.env.INSTAGRAM_CLIENT_SECRET || '',
         name: 'Instagram',
-        enabled: !!process.env.INSTAGRAM_CLIENT_ID
+        enabled: isRealEnvValue(process.env.INSTAGRAM_CLIENT_ID)
     },
     tiktok: {
         clientId: process.env.TIKTOK_CLIENT_ID || '',
         clientSecret: process.env.TIKTOK_CLIENT_SECRET || '',
         name: 'TikTok',
-        enabled: !!process.env.TIKTOK_CLIENT_ID
+        enabled: isRealEnvValue(process.env.TIKTOK_CLIENT_ID)
     }
 };
 
@@ -13797,7 +13804,11 @@ const OAUTH_CONFIG = {
 app.get('/api/auth/oauth/status', (req, res) => {
     const providers = {};
     for (const [k, v] of Object.entries(OAUTH_CONFIG)) {
-        providers[k] = { name: v.name, enabled: v.enabled, configured: !!v.clientId };
+        providers[k] = {
+            name: v.name,
+            enabled: v.enabled,
+            configured: v.enabled && isRealEnvValue(v.clientId)
+        };
     }
     res.json({
         success: true,
@@ -14445,7 +14456,8 @@ app.get('/api/auth/providers', (req, res) => {
 
 app.get('/api/auth/google', (req, res) => {
     const clientId = process.env.GOOGLE_CLIENT_ID;
-    if (!clientId)
+    const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+    if (!isRealEnvValue(clientId) || !isRealEnvValue(clientSecret))
         return res.redirect(
             '/تسجيل-الدخول.html?error=' +
                 encodeURIComponent('الدخول بجوجل غير مفعّل. راجع الإعدادات.')
@@ -14503,10 +14515,10 @@ app.get('/api/auth/google/callback', async (req, res) => {
 
 app.get('/api/auth/microsoft', (req, res) => {
     const clientId = process.env.MICROSOFT_CLIENT_ID;
-    if (!clientId)
+    if (!isRealEnvValue(clientId))
         return res.redirect(
             '/تسجيل-الدخول.html?error=' +
-                encodeURIComponent('الدخول بمايكروسوفت غير مفعّل. راجع الإعدادات.')
+                encodeURIComponent('الدخول بمايكروسوفت قيد الإعداد — استخدم البريد أو الجوال.')
         );
     const base = getBaseUrl(req);
     const redirectUri = base + '/api/auth/microsoft/callback';
@@ -14561,10 +14573,10 @@ app.get('/api/auth/microsoft/callback', async (req, res) => {
 
 app.get('/api/auth/apple', (req, res) => {
     const clientId = process.env.APPLE_CLIENT_ID;
-    if (!clientId)
+    if (!isRealEnvValue(clientId))
         return res.redirect(
             '/تسجيل-الدخول.html?error=' +
-                encodeURIComponent('الدخول بأبل غير مفعّل. راجع الإعدادات.')
+                encodeURIComponent('الدخول بأبل قيد الإعداد — استخدم البريد أو الجوال.')
         );
     const base = getBaseUrl(req);
     const redirectUri = base + '/api/auth/apple/callback';
