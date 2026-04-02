@@ -437,6 +437,24 @@ try {
     console.log('⚠️ Experience Engine غير متوفر:', e.message);
 }
 
+// ═══ NAFATH ENGINE — محرك النفاذ الوطني الموحد (SDAIA) ═══
+let nafathEngine = null;
+try {
+    nafathEngine = require('./lib/sheikha-nafath-engine.js');
+    console.log('✅ Nafath Engine — ' + (nafathEngine.isNafathConfigured() ? 'مفعّل ✔' : 'يحتاج CLIENT_ID من SDAIA'));
+} catch (e) {
+    console.log('⚠️ Nafath Engine:', e.message);
+}
+
+// ═══ SAUDI OPEN DATA ENGINE — محرك البيانات الحكومية السعودية ═══
+let saudiGovData = null;
+try {
+    saudiGovData = require('./lib/sheikha-saudi-opendata-engine.js');
+    console.log('✅ Saudi Gov Data Engine — open.data.gov.sa + SAMA + MC + ZATCA');
+} catch (e) {
+    console.log('⚠️ Saudi Gov Data Engine:', e.message);
+}
+
 // ═══ GOV ENGINE — محرك الأنظمة الحكومية الشامل (سعودي + دولي + شركات حكومية) ═══
 let govEngine = null;
 try {
@@ -14699,57 +14717,149 @@ app.get('/api/auth/nafath', (req, res) => {
         );
     const base = getBaseUrl(req);
     const redirectUri = base + '/api/auth/nafath/callback';
-    const nafathAuthUrl =
-        process.env.NAFATH_AUTH_URL || 'https://nafath.sdaia.gov.sa/oauth/authorize';
+    // لو محرك نفاذ متوفر استخدمه، وإلا استخدم العنوان المباشر
+    let nafathAuthUrl = process.env.NAFATH_AUTH_URL || 'https://nafath.api.gov.sa/oauth/authorize';
+    if (nafathEngine && nafathEngine.NAFATH_CONFIG && nafathEngine.NAFATH_CONFIG.authUrl) {
+        nafathAuthUrl = nafathEngine.NAFATH_CONFIG.authUrl;
+    }
+    const mode = req.query.mode || 'login';
+    const accountType = req.query.accountType || 'individual';
+    // CSRF protection — نحفظ state في cookie
+    const state = (nafathEngine && nafathEngine.generateState) ? nafathEngine.generateState() : (Math.random().toString(36).slice(2) + Date.now());
+    res.cookie('nafath_state', state, { httpOnly: true, secure: true, sameSite: 'Lax', maxAge: 10 * 60 * 1000 });
     const url =
         nafathAuthUrl +
         '?client_id=' +
         encodeURIComponent(clientId) +
         '&redirect_uri=' +
         encodeURIComponent(redirectUri) +
-        '&response_type=code&scope=openid';
+        '&response_type=code&scope=' + encodeURIComponent('openid profile email national_id phone') +
+        '&state=' + encodeURIComponent(state + ':' + mode + ':' + accountType);
     res.redirect(302, url);
 });
 app.get('/api/auth/nafath/callback', async (req, res) => {
-    const { code, error } = req.query || {};
+    const { code, error, state } = req.query || {};
     const base = getBaseUrl(req);
     if (error || !code) return redirectWithToken(res, base, null, 'فشل الدخول بنفاذ.');
     const clientId = process.env.NAFATH_CLIENT_ID;
     const clientSecret = process.env.NAFATH_CLIENT_SECRET;
     if (!clientId || !clientSecret)
         return redirectWithToken(res, base, null, 'إعدادات نفاذ ناقصة. راجع وثائق نفاذ.');
+    // التحقق من CSRF state
+    const cookieState = req.cookies && req.cookies.nafath_state;
+    if (cookieState && state) {
+        const stateBase = String(state).split(':')[0];
+        if (cookieState !== stateBase) {
+            return redirectWithToken(res, base, null, 'خطأ أمني في نفاذ — حاول مرة أخرى.');
+        }
+    }
+    // استخراج mode و accountType من state
+    const stateParts = String(state || '').split(':');
+    const mode = stateParts[1] || 'login';
+    const accountType = stateParts[2] || 'individual';
+
     const redirectUri = base + '/api/auth/nafath/callback';
-    const tokenUrl = process.env.NAFATH_TOKEN_URL || 'https://nafath.sdaia.gov.sa/oauth/token';
+    const tokenUrl = process.env.NAFATH_TOKEN_URL || 'https://nafath.api.gov.sa/oauth/token';
     try {
-        const tokenRes = await fetch(tokenUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-                code,
-                client_id: clientId,
-                client_secret: clientSecret,
-                redirect_uri: redirectUri,
-                grant_type: 'authorization_code'
-            })
-        });
-        const tokenData = await tokenRes.json();
+        const tokenData = nafathEngine
+            ? await nafathEngine.exchangeCodeForToken(code, redirectUri)
+            : await (async function() {
+                const r = await fetch(tokenUrl, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ code, client_id: clientId, client_secret: clientSecret, redirect_uri: redirectUri, grant_type: 'authorization_code' }) });
+                return r.json();
+            })();
         if (!tokenData.access_token)
             return redirectWithToken(res, base, null, 'فشل استلام رمز نفاذ.');
-        const userInfoUrl =
-            process.env.NAFATH_USERINFO_URL || 'https://nafath.sdaia.gov.sa/oauth/userinfo';
-        const userRes = await fetch(userInfoUrl, {
-            headers: { Authorization: 'Bearer ' + tokenData.access_token }
-        });
-        const userData = await userRes.json();
-        const sub = userData.sub || userData.id || userData.national_id;
-        const name = userData.name || userData.full_name || '';
-        const email = userData.email || '';
+
+        const userInfoUrl = process.env.NAFATH_USERINFO_URL || 'https://nafath.api.gov.sa/oauth/userinfo';
+        const rawUser = nafathEngine
+            ? await nafathEngine.fetchUserInfo(tokenData.access_token)
+            : await (async function() {
+                const r = await fetch(userInfoUrl, { headers: { 'Authorization': 'Bearer ' + tokenData.access_token } });
+                return r.json();
+            })();
+
+        const userData = (nafathEngine && nafathEngine.normalizeNafathUser)
+            ? nafathEngine.normalizeNafathUser(rawUser)
+            : { sub: rawUser.sub || rawUser.id, name: rawUser.name || '', email: rawUser.email || '', nationalId: rawUser.national_id || '' };
+
+        const sub = userData.sub;
         if (!sub) return redirectWithToken(res, base, null, 'فشل التحقق من نفاذ.');
-        const user = findOrCreateOAuthUser('nafath', sub, { name: name || sub, email });
+        const user = findOrCreateOAuthUser('nafath', sub, {
+            name: userData.name || sub,
+            email: userData.email || '',
+            phone: userData.phone || '',
+            nationalId: userData.nationalId || '',
+            nafathVerified: true,
+            accountType: accountType,
+        });
         const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
-        redirectWithToken(res, base, token);
+        res.clearCookie('nafath_state');
+        redirectWithToken(res, base, token, null, user.role || 'user');
     } catch (e) {
         redirectWithToken(res, base, null, 'خطأ في الاتصال بنفاذ.');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════
+// 🇸🇦 بيانات الحكومة السعودية — Saudi Government Data APIs
+// ═══════════════════════════════════════════════════════════════════════
+
+// حالة التكاملات الحكومية
+app.get('/api/gov/status', (req, res) => {
+    const status = saudiGovData ? saudiGovData.getIntegrationStatus() : {};
+    res.json({ success: true, data: status, timestamp: new Date().toISOString() });
+});
+
+// مؤشرات معادن السكراب (حكومي + مؤشري)
+app.get('/api/gov/metals-data', async (req, res) => {
+    try {
+        const data = saudiGovData ? await saudiGovData.getMetalsGovData() : { success: false, error: 'المحرك غير متوفر' };
+        res.json({ success: data.success, data, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في البيانات الحكومية', timestamp: new Date().toISOString() });
+    }
+});
+
+// أسعار الصرف (SAMA)
+app.get('/api/gov/exchange-rates', async (req, res) => {
+    try {
+        const data = saudiGovData ? await saudiGovData.getExchangeRates() : { success: false, error: 'المحرك غير متوفر' };
+        res.json({ success: data.success, data, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في بيانات أسعار الصرف', timestamp: new Date().toISOString() });
+    }
+});
+
+// التحقق من السجل التجاري (وزارة التجارة)
+app.get('/api/gov/verify-cr/:crNumber', async (req, res) => {
+    try {
+        const crNumber = String(req.params.crNumber || '').trim();
+        const data = saudiGovData ? await saudiGovData.verifyCRNumber(crNumber) : { success: false, error: 'المحرك غير متوفر' };
+        res.json({ success: data.success, data, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في التحقق من السجل التجاري', timestamp: new Date().toISOString() });
+    }
+});
+
+// البحث في البيانات المفتوحة
+app.get('/api/gov/open-data/search', async (req, res) => {
+    try {
+        const query = String(req.query.q || '').slice(0, 100);
+        const rows  = Math.min(parseInt(req.query.rows) || 10, 50);
+        const data = saudiGovData ? await saudiGovData.searchOpenDatasets(query, rows) : { success: false, datasets: [] };
+        res.json({ success: data.success, data, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في البحث', timestamp: new Date().toISOString() });
+    }
+});
+
+// قطاعات المنشآت
+app.get('/api/gov/monshaat-sectors', async (req, res) => {
+    try {
+        const data = saudiGovData ? await saudiGovData.getMonshaatSectors() : { success: false, error: 'المحرك غير متوفر' };
+        res.json({ success: data.success, data, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في بيانات المنشآت', timestamp: new Date().toISOString() });
     }
 });
 

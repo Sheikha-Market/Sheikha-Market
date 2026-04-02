@@ -1507,59 +1507,38 @@
             window.location.href = dest;
         }
 
-        // ===================== NAFATH Login =====================
-        var nafathTimer = null;
-        var nafathCountdown = null;
-
+        // ===================== NAFATH Login — OAuth حقيقي =====================
         function startNafath() {
-            var code = String(Math.floor(Math.random() * 90) + 10);
-            document.getElementById('nafathCodeDisplay').textContent = code;
-            document.getElementById('nafathCodeDisplay').style.color = '';
-            document.getElementById('nafathWaiting').style.display = 'block';
-            document.getElementById('nafathSuccessBlock').classList.remove('show');
-            document.getElementById('nafathStatusText').textContent = '\u0641\u064a \u0627\u0646\u062a\u0638\u0627\u0631 \u0627\u0644\u062a\u062d\u0642\u0642 \u0645\u0646 \u062a\u0637\u0628\u064a\u0642 \u0646\u0641\u0627\u0630...';
-            document.getElementById('nafathModal').classList.add('show');
+            var status = window.sheikhaOAuthStatus;
+            if (!status || !status.nafath || !status.nafath.enabled) {
+                showMsg('النفاذ الوطني قيد الإعداد — للتفعيل: سجّل في بوابة SDAIA واحصل على CLIENT_ID', 'error');
+                return;
+            }
+            var overlay = document.getElementById('sheikhaLoadingOverlay');
+            document.getElementById('sheikhaLoadingText').textContent = 'جاري الاتصال بالنفاذ الوطني...';
+            overlay.classList.add('show');
             document.body.style.overflow = 'hidden';
+            // redirect للـ OAuth الحقيقي
+            window.location.href = API + '/api/auth/nafath?mode=login';
+        }
 
-            // Countdown timer
-            var timerEl = document.getElementById('nafathTimer');
-            var seconds = 3;
-            timerEl.textContent = '';
-            nafathCountdown = setInterval(function() {
-                seconds--;
-                if (seconds > 0) {
-                    timerEl.textContent = '\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u062d\u0642\u0642... ' + seconds + 's';
-                } else {
-                    timerEl.textContent = '';
-                    clearInterval(nafathCountdown);
-                }
-            }, 1000);
-
-            nafathTimer = setTimeout(function() {
-                // Success
-                document.getElementById('nafathWaiting').style.display = 'none';
-                document.getElementById('nafathSuccessBlock').classList.add('show');
-                document.getElementById('nafathCodeDisplay').style.color = 'var(--green-light)';
-
-                // Store auth data
-                var simToken = 'nafath_' + Date.now() + '_' + Math.random().toString(36).substr(2);
-                setAuthSession(simToken, {
-                    name: '\u0645\u0633\u062a\u062e\u062f\u0645 \u0646\u0641\u0627\u0630',
-                    phone: '05XXXXXXXX',
-                    verified: true,
-                    method: 'nafath'
-                }, 'user');
-
-                setTimeout(function() {
-                    closeNafathModal();
-                    redirectToDashboard('user');
-                }, 1500);
-            }, 3000);
+        function startNafathRegister() {
+            var status = window.sheikhaOAuthStatus;
+            if (!status || !status.nafath || !status.nafath.enabled) {
+                showMsg('النفاذ الوطني قيد الإعداد — للتفعيل: سجّل في بوابة SDAIA واحصل على CLIENT_ID', 'error');
+                return;
+            }
+            var accountType = normalizeAccountTypeForApi(
+                (document.getElementById('regAccountType') && document.getElementById('regAccountType').value) || 'individual'
+            );
+            var overlay = document.getElementById('sheikhaLoadingOverlay');
+            document.getElementById('sheikhaLoadingText').textContent = 'جاري الاتصال بالنفاذ الوطني...';
+            overlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            window.location.href = API + '/api/auth/nafath?mode=register&accountType=' + encodeURIComponent(accountType);
         }
 
         function closeNafathModal() {
-            if (nafathTimer) { clearTimeout(nafathTimer); nafathTimer = null; }
-            if (nafathCountdown) { clearInterval(nafathCountdown); nafathCountdown = null; }
             document.getElementById('nafathModal').classList.remove('show');
             document.body.style.overflow = '';
         }
@@ -1755,71 +1734,6 @@
             if (govBtn) selectAccountType('government', govBtn);
         }
 
-        // ===================== Nafath Register =====================
-        function startNafathRegister() {
-            var accountType = normalizeAccountTypeForApi(document.getElementById('regAccountType').value || 'individual');
-            var code = String(Math.floor(Math.random() * 90) + 10);
-            document.getElementById('nafathCodeDisplay').textContent = code;
-            document.getElementById('nafathCodeDisplay').style.color = '';
-            document.getElementById('nafathWaiting').style.display = 'block';
-            document.getElementById('nafathSuccessBlock').classList.remove('show');
-            document.getElementById('nafathStatusText').textContent = 'في انتظار التحقق من تطبيق نفاذ...';
-            document.getElementById('nafathModal').classList.add('show');
-            document.body.style.overflow = 'hidden';
-
-            var timerEl = document.getElementById('nafathTimer');
-            var seconds = 3;
-            timerEl.textContent = '';
-            nafathCountdown = setInterval(function() {
-                seconds--;
-                if (seconds > 0) {
-                    timerEl.textContent = 'جاري التحقق... ' + seconds + 's';
-                } else {
-                    timerEl.textContent = '';
-                    clearInterval(nafathCountdown);
-                }
-            }, 1000);
-
-            nafathTimer = setTimeout(function() {
-                document.getElementById('nafathWaiting').style.display = 'none';
-                document.getElementById('nafathSuccessBlock').classList.add('show');
-                document.getElementById('nafathCodeDisplay').style.color = 'var(--green-light)';
-
-                // تسجيل حقيقي عبر API
-                var regData = {
-                    name: 'مستخدم نفاذ',
-                    phone: '05' + Math.floor(10000000 + Math.random() * 90000000),
-                    password: 'nafath_' + Date.now(),
-                    storeName: 'متجر نفاذ',
-                    region: 'الرياض',
-                    accountType: accountType
-                };
-                fetch(API + '/api/auth/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(regData)
-                }).then(function(r) { return r.json(); }).then(function(data) {
-                if (data.success && data.token) {
-                    setAuthSession(data.token, data.user || null, data.role || 'user');
-                        setTimeout(function() {
-                            closeNafathModal();
-                            redirectToDashboard(data.role || 'user');
-                        }, 1200);
-                } else {
-                        setTimeout(function() {
-                            closeNafathModal();
-                            showMsg('تم التحقق من النفاذ — يرجى إكمال البيانات يدوياً', 'success');
-                        }, 1200);
-                    }
-                }).catch(function() {
-                    setTimeout(function() {
-                        closeNafathModal();
-                        showMsg('تم التحقق — يرجى إكمال التسجيل يدوياً', 'success');
-                    }, 1200);
-                });
-            }, 3000);
-        }
-
         // ===================== OAuth / Social Login =====================
         var OAUTH_PROVIDERS = {
             google:    { name: 'Google',    color: '#4285F4', url: '/api/auth/google' },
@@ -1922,41 +1836,61 @@
             fetch(API + '/api/auth/oauth/status').then(function(r) { return r.json(); }).then(function(d) {
                 if (d.success && d.providers) {
                     window.sheikhaOAuthStatus = d.providers;
-                    var googleEnabled = d.providers.google && d.providers.google.enabled;
+                    var googleEnabled    = d.providers.google    && d.providers.google.enabled;
                     var microsoftEnabled = d.providers.microsoft && d.providers.microsoft.enabled;
-                    var appleEnabled = d.providers.apple && d.providers.apple.enabled;
-                    var hint = document.getElementById('oauthGoogleHint');
+                    var appleEnabled     = d.providers.apple     && d.providers.apple.enabled;
+                    var nafathEnabled    = d.providers.nafath    && d.providers.nafath.enabled;
+
+                    var hint   = document.getElementById('oauthGoogleHint');
                     var msHint = document.getElementById('oauthMicrosoftHint');
-                    var btns = document.querySelectorAll('button[data-oauth-provider="google"]');
-                    var msBtns = document.querySelectorAll('button[data-oauth-provider="microsoft"]');
-                    var appleBtns = document.querySelectorAll('button[data-oauth-provider="apple"]');
-                    if (!googleEnabled && hint) { hint.style.display = 'block'; }
-                    if (!microsoftEnabled && msHint) { msHint.style.display = 'block'; }
-                    btns.forEach(function(b) {
+
+                    // -- Google --
+                    var googleBtns = document.querySelectorAll('button[data-oauth-provider="google"]');
+                    if (!googleEnabled && hint) hint.style.display = 'block';
+                    googleBtns.forEach(function(b) {
                         if (!googleEnabled) {
                             b.setAttribute('title', 'قيد الإعداد — استخدم النفاذ أو البريد');
                             b.style.opacity = '0.55';
-                            b.style.cursor = 'not-allowed';
+                            b.style.cursor  = 'not-allowed';
                         }
                     });
+
+                    // -- Microsoft --
+                    var msBtns = document.querySelectorAll('button[data-oauth-provider="microsoft"]');
+                    if (!microsoftEnabled && msHint) msHint.style.display = 'block';
                     msBtns.forEach(function(b) {
                         if (!microsoftEnabled) {
                             b.setAttribute('title', 'قيد الإعداد — استخدم النفاذ أو البريد');
                             b.style.opacity = '0.55';
-                            b.style.cursor = 'not-allowed';
+                            b.style.cursor  = 'not-allowed';
                         }
                     });
+
+                    // -- Apple --
+                    var appleBtns = document.querySelectorAll('button[data-oauth-provider="apple"]');
                     appleBtns.forEach(function(b) {
                         if (!appleEnabled) {
                             b.setAttribute('title', 'قيد الإعداد — استخدم النفاذ أو البريد');
                             b.style.opacity = '0.55';
-                            b.style.cursor = 'not-allowed';
+                            b.style.cursor  = 'not-allowed';
                         }
                     });
-                    // إظهار تلميح موحد إذا كل providers معطّلة
-                    if (!googleEnabled && !microsoftEnabled && !appleEnabled) {
-                        var oauthSection = document.querySelector('.oauth-section-title');
-                        if (oauthSection) oauthSection.textContent = 'الدخول بالإيميل أو الجوال';
+
+                    // -- نفاذ: إظهار/إخفاء حسب الحالة الفعلية --
+                    var nafathLoginBtn    = document.getElementById('nafathBtn');
+                    var nafathRegisterBtn = document.getElementById('nafathRegisterBtn');
+                    if (nafathEnabled) {
+                        if (nafathLoginBtn)    nafathLoginBtn.style.display    = '';
+                        if (nafathRegisterBtn) nafathRegisterBtn.style.display = '';
+                    } else {
+                        if (nafathLoginBtn)    nafathLoginBtn.style.display    = 'none';
+                        if (nafathRegisterBtn) nafathRegisterBtn.style.display = 'none';
+                    }
+
+                    // تلميح موحد إذا كل providers معطّلة
+                    if (!googleEnabled && !microsoftEnabled && !appleEnabled && !nafathEnabled) {
+                        var oauthTitle = document.querySelector('.oauth-section-title');
+                        if (oauthTitle) oauthTitle.textContent = 'الدخول بالإيميل أو الجوال';
                     }
                 }
             }).catch(function() {});
