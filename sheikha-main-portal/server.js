@@ -12829,7 +12829,12 @@ const ADMIN_POSTAL_CODE = process.env.ADMIN_POSTAL_CODE || '34218';
 const ADMIN_CAPITAL = process.env.ADMIN_CAPITAL || '50';
 const ADMIN_BIRTH_YEAR_HIJRI = process.env.ADMIN_BIRTH_YEAR_HIJRI || '1407';
 const ADMIN_NAFATH_BUSINESS_ID = process.env.ADMIN_NAFATH_BUSINESS_ID || null;
-const ADMIN_INIT_PASSWORD = ADMIN_EMAIL; // كلمة المرور الأولية = الإيميل نفسه — يمكن تغييرها من لوحة التحكم
+// كلمة المرور الأولية — من .env أو فولباك يُولَّد تلقائياً (لا يُستخدم إذا كان المستخدم موجوداً بالفعل)
+const ADMIN_INIT_PASSWORD = process.env.ADMIN_INIT_PASSWORD || (() => {
+    const b = require('crypto').randomBytes(16).toString('hex');
+    console.warn('⚠️  ADMIN_INIT_PASSWORD غير محدد في .env — أُنشئت كلمة مرور عشوائية للإعداد الأول:', b);
+    return b;
+})();
 // ─── حالة التوثيق الحقيقية (من .env) ───
 const _hasNationalId = ADMIN_NATIONAL_ID && ADMIN_NATIONAL_ID !== 'CHANGE_ME';
 const _hasBusinessReg = ADMIN_BUSINESS_REGISTRY && ADMIN_BUSINESS_REGISTRY !== 'CHANGE_ME';
@@ -13741,6 +13746,13 @@ const OAUTH_CONFIG = {
         clientSecret: process.env.TIKTOK_CLIENT_SECRET || '',
         name: 'TikTok',
         enabled: isRealEnvValue(process.env.TIKTOK_CLIENT_ID)
+    },
+    // نفاذ الوطني — SDAIA
+    nafath: {
+        clientId: process.env.NAFATH_CLIENT_ID || '',
+        clientSecret: process.env.NAFATH_CLIENT_SECRET || '',
+        name: 'النفاذ الوطني',
+        enabled: isRealEnvValue(process.env.NAFATH_CLIENT_ID) && isRealEnvValue(process.env.NAFATH_CLIENT_SECRET)
     }
 };
 
@@ -13872,14 +13884,14 @@ app.get('/api/auth/oauth/status', (req, res) => {
     for (const [k, v] of Object.entries(OAUTH_CONFIG)) {
         providers[k] = {
             name: v.name,
-            enabled: v.enabled,
-            configured: v.enabled && isRealEnvValue(v.clientId)
+            enabled: v.enabled && isRealEnvValue(v.clientId),
+            configured: isRealEnvValue(v.clientId)
         };
     }
     res.json({
         success: true,
         providers,
-        totalConfigured: Object.values(OAUTH_CONFIG).filter(v => v.enabled).length
+        totalConfigured: Object.values(providers).filter(v => v.enabled).length
     });
 });
 
@@ -14475,19 +14487,54 @@ function getBaseUrl(req) {
     if (baseEnv) return baseEnv.replace(/\/$/, '');
     return 'https://sheikha.top';
 }
+// ════════════════════════════════════════════════════════
+// محرك مطابقة شيخة — Sheikha Identity Matching Engine
+// يربط حسابات OAuth بالحسابات الموجودة (بريد، هاتف، نفاذ)
+// ════════════════════════════════════════════════════════
+function sheikhaMatchUser(provider, providerId, profile) {
+    const email = (profile.email || '').trim().toLowerCase();
+    const name  = (profile.name  || '').trim();
+
+    // 1) مطابقة مباشرة بالـ provider+providerId
+    let user = USERS.find(u => u.provider === provider && String(u.providerId) === String(providerId));
+    if (user) return { user, matched: 'provider_id', linked: false };
+
+    // 2) مطابقة بالبريد الإلكتروني (إذا موثوق)
+    if (email) {
+        user = USERS.find(u => u.email && u.email.trim().toLowerCase() === email);
+        if (user) {
+            // ربط الحساب الموجود بالمزود الجديد
+            if (!user.linkedProviders) user.linkedProviders = [];
+            const already = user.linkedProviders.find(p => p.provider === provider);
+            if (!already) {
+                user.linkedProviders.push({ provider, providerId, linkedAt: new Date().toISOString() });
+                // تحديث authMethods
+                if (!user.authMethods) user.authMethods = [];
+                if (!user.authMethods.includes(provider)) user.authMethods.push(provider);
+                saveJSON(USERS_FILE, USERS);
+            }
+            return { user, matched: 'email', linked: true };
+        }
+    }
+
+    // 3) لا يوجد — إنشاء حساب جديد
+    return { user: null, matched: null, linked: false };
+}
+
 function findOrCreateOAuthUser(provider, providerId, profile) {
-    let user = USERS.find(
-        u => u.provider === provider && String(u.providerId) === String(providerId)
-    );
-    if (user) return user;
-    const id = uuidv4();
+    const { user: matched, matched: matchType, linked } = sheikhaMatchUser(provider, providerId, profile);
+    if (matched) return matched;
+
+    // إنشاء حساب جديد
+    const id   = uuidv4();
     const spec = getSpecialty('metals_trader');
-    const name = (profile.name || profile.email || providerId).trim().slice(0, 120);
+    const name  = (profile.name  || profile.email || providerId).trim().slice(0, 120);
     const email = (profile.email || '').trim().slice(0, 200);
-    user = {
+    const newUser = {
         id,
         provider,
         providerId,
+        linkedProviders: [{ provider, providerId, linkedAt: new Date().toISOString() }],
         phone: '',
         passwordHash: '',
         name,
@@ -14496,26 +14543,27 @@ function findOrCreateOAuthUser(provider, providerId, profile) {
         region: '',
         marketingEnabled: false,
         specialty: spec.id,
+        authMethods: [provider],
         createdAt: new Date().toISOString()
     };
-    USERS.push(user);
+    USERS.push(newUser);
     saveJSON(USERS_FILE, USERS);
     const trader = {
         id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        region: user.region,
-        company: user.storeName,
+        name: newUser.name,
+        email: newUser.email,
+        phone: newUser.phone,
+        region: newUser.region,
+        company: newUser.storeName,
         specialty: spec.id,
         specialtyLabel: spec.nameAr,
-        createdAt: user.createdAt
+        createdAt: newUser.createdAt
     };
     if (!TRADERS.find(t => t.id === id)) {
         TRADERS.push(trader);
         saveJSON(TRADERS_FILE, TRADERS);
     }
-    return user;
+    return newUser;
 }
 function redirectWithToken(res, baseUrl, token, error) {
     const target = error
@@ -14529,10 +14577,52 @@ app.get('/api/auth/providers', (req, res) => {
     res.json({
         success: true,
         providers: {
-            nafath: !!process.env.NAFATH_CLIENT_ID,
-            google: !!process.env.GOOGLE_CLIENT_ID,
-            microsoft: !!process.env.MICROSOFT_CLIENT_ID,
-            apple: !!process.env.APPLE_CLIENT_ID
+            nafath:    isRealEnvValue(process.env.NAFATH_CLIENT_ID),
+            google:    isRealEnvValue(process.env.GOOGLE_CLIENT_ID),
+            microsoft: isRealEnvValue(process.env.MICROSOFT_CLIENT_ID),
+            apple:     isRealEnvValue(process.env.APPLE_CLIENT_ID)
+        }
+    });
+});
+
+// ── وكيل مطابقة شيخة — تحقق من تطابق حسابات OAuth ──
+app.post('/api/auth/match', authRequired, (req, res) => {
+    const { provider, providerId, email } = req.body || {};
+    if (!provider || (!providerId && !email)) {
+        return res.status(400).json({ success: false, message: 'البيانات ناقصة — provider وproviderId أو email مطلوبان' });
+    }
+    const currentUser = USERS.find(u => u.id === req.user.id);
+    if (!currentUser) return res.status(404).json({ success: false, message: 'المستخدم غير موجود' });
+
+    // عدم السماح بتكرار الربط لنفس المزود
+    const existingLink = (currentUser.linkedProviders || []).find(p => p.provider === provider);
+    if (existingLink) {
+        return res.json({ success: true, message: 'الحساب مرتبط بالفعل', alreadyLinked: true });
+    }
+
+    // ربط المزود الجديد بالحساب الحالي
+    if (!currentUser.linkedProviders) currentUser.linkedProviders = [];
+    currentUser.linkedProviders.push({ provider, providerId: providerId || '', linkedAt: new Date().toISOString() });
+    if (!currentUser.authMethods) currentUser.authMethods = [];
+    if (!currentUser.authMethods.includes(provider)) currentUser.authMethods.push(provider);
+    currentUser.updatedAt = new Date().toISOString();
+    saveJSON(USERS_FILE, USERS);
+
+    res.json({ success: true, message: 'تم ربط الحساب بنجاح', provider, linkedMethods: currentUser.authMethods });
+});
+
+// ── وكيل التحقق من الهوية (Sheikha Identity Agent) ──
+app.get('/api/auth/identity-status', authRequired, (req, res) => {
+    const user = USERS.find(u => u.id === req.user.id);
+    if (!user) return res.status(404).json({ success: false, message: 'المستخدم غير موجود' });
+    res.json({
+        success: true,
+        identity: {
+            linkedProviders: user.linkedProviders || [],
+            authMethods:     user.authMethods || [],
+            nafathVerified:  user.nafathVerified || false,
+            twoFactorEnabled: user.twoFactorEnabled || false,
+            emailVerified:   user.verified || false
         }
     });
 });
@@ -14548,19 +14638,32 @@ app.get('/api/auth/google', (req, res) => {
     const base = getBaseUrl(req);
     const redirectUri = base + '/api/auth/google/callback';
     const scope = 'openid email profile';
+    const mode = req.query.mode || 'login';
+    // CSRF protection
+    const state = require('crypto').randomBytes(16).toString('hex');
+    res.cookie('google_oauth_state', state, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'Lax', maxAge: 10 * 60 * 1000 });
     const url =
         'https://accounts.google.com/o/oauth2/v2/auth?client_id=' +
         encodeURIComponent(clientId) +
         '&redirect_uri=' +
         encodeURIComponent(redirectUri) +
         '&response_type=code&scope=' +
-        encodeURIComponent(scope);
+        encodeURIComponent(scope) +
+        '&state=' + encodeURIComponent(state + ':' + mode);
     res.redirect(302, url);
 });
 app.get('/api/auth/google/callback', async (req, res) => {
-    const { code, error } = req.query || {};
+    const { code, error, state } = req.query || {};
     const base = getBaseUrl(req);
     if (error || !code) return redirectWithToken(res, base, null, 'فشل الدخول بجوجل.');
+    // التحقق من CSRF state
+    const cookieState = req.cookies && req.cookies.google_oauth_state;
+    if (cookieState && state) {
+        const stateBase = String(state).split(':')[0];
+        if (cookieState !== stateBase)
+            return redirectWithToken(res, base, null, 'خطأ أمني في جوجل — حاول مرة أخرى.');
+    }
+    res.clearCookie('google_oauth_state');
     const clientId = process.env.GOOGLE_CLIENT_ID;
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
     if (!clientId || !clientSecret)
@@ -14598,44 +14701,69 @@ app.get('/api/auth/google/callback', async (req, res) => {
 
 app.get('/api/auth/microsoft', (req, res) => {
     const clientId = process.env.MICROSOFT_CLIENT_ID;
-    if (!isRealEnvValue(clientId))
+    const clientSecret = process.env.MICROSOFT_CLIENT_SECRET;
+    if (!isRealEnvValue(clientId) || !isRealEnvValue(clientSecret))
         return res.redirect(
             '/تسجيل-الدخول.html?error=' +
-                encodeURIComponent('الدخول بمايكروسوفت قيد الإعداد — استخدم البريد أو الجوال.')
+                encodeURIComponent('الدخول بمايكروسوفت قيد الإعداد — أضف MICROSOFT_CLIENT_ID و MICROSOFT_CLIENT_SECRET في متغيرات البيئة.')
         );
     const base = getBaseUrl(req);
+    const mode = req.query.mode || 'login';
     const redirectUri = base + '/api/auth/microsoft/callback';
-    const scope = 'openid email profile';
+    // استخدام tenant المحدد أو common للسماح بكل الحسابات
+    const tenant = (process.env.MICROSOFT_TENANT_ID && isRealEnvValue(process.env.MICROSOFT_TENANT_ID))
+        ? process.env.MICROSOFT_TENANT_ID
+        : 'common';
+    const scope = 'openid email profile User.Read';
+    // CSRF protection
+    const state = require('crypto').randomBytes(16).toString('hex');
+    res.cookie('ms_oauth_state', state, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'Lax', maxAge: 10 * 60 * 1000 });
     const url =
-        'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=' +
+        'https://login.microsoftonline.com/' + encodeURIComponent(tenant) + '/oauth2/v2.0/authorize?client_id=' +
         encodeURIComponent(clientId) +
         '&response_type=code&redirect_uri=' +
         encodeURIComponent(redirectUri) +
         '&scope=' +
-        encodeURIComponent(scope);
+        encodeURIComponent(scope) +
+        '&state=' + encodeURIComponent(state + ':' + mode) +
+        '&response_mode=query';
     res.redirect(302, url);
 });
 app.get('/api/auth/microsoft/callback', async (req, res) => {
-    const { code, error } = req.query || {};
+    const { code, error, state } = req.query || {};
     const base = getBaseUrl(req);
     if (error || !code) return redirectWithToken(res, base, null, 'فشل الدخول بمايكروسوفت.');
+    // التحقق من CSRF state
+    const cookieState = req.cookies && req.cookies.ms_oauth_state;
+    if (cookieState && state) {
+        const stateBase = String(state).split(':')[0];
+        if (cookieState !== stateBase)
+            return redirectWithToken(res, base, null, 'خطأ أمني في مايكروسوفت — حاول مرة أخرى.');
+    }
+    res.clearCookie('ms_oauth_state');
     const clientId = process.env.MICROSOFT_CLIENT_ID;
     const clientSecret = process.env.MICROSOFT_CLIENT_SECRET;
-    if (!clientId || !clientSecret)
+    if (!isRealEnvValue(clientId) || !isRealEnvValue(clientSecret))
         return redirectWithToken(res, base, null, 'إعدادات مايكروسوفت ناقصة.');
+    const tenant = (process.env.MICROSOFT_TENANT_ID && isRealEnvValue(process.env.MICROSOFT_TENANT_ID))
+        ? process.env.MICROSOFT_TENANT_ID
+        : 'common';
     const redirectUri = base + '/api/auth/microsoft/callback';
     try {
-        const tokenRes = await fetch('https://login.microsoftonline.com/common/oauth2/v2.0/token', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-                code,
-                client_id: clientId,
-                client_secret: clientSecret,
-                redirect_uri: redirectUri,
-                grant_type: 'authorization_code'
-            })
-        });
+        const tokenRes = await fetch(
+            'https://login.microsoftonline.com/' + encodeURIComponent(tenant) + '/oauth2/v2.0/token',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    code,
+                    client_id: clientId,
+                    client_secret: clientSecret,
+                    redirect_uri: redirectUri,
+                    grant_type: 'authorization_code'
+                })
+            }
+        );
         const tokenData = await tokenRes.json();
         if (!tokenData.access_token)
             return redirectWithToken(res, base, null, 'فشل استلام رمز مايكروسوفت.');
@@ -14643,9 +14771,11 @@ app.get('/api/auth/microsoft/callback', async (req, res) => {
             headers: { Authorization: 'Bearer ' + tokenData.access_token }
         });
         const userData = await userRes.json();
+        if (!userData.id)
+            return redirectWithToken(res, base, null, 'فشل جلب بيانات مايكروسوفت.');
         const user = findOrCreateOAuthUser('microsoft', userData.id, {
-            name: userData.displayName || userData.userPrincipalName,
-            email: userData.mail || userData.userPrincipalName
+            name: userData.displayName || userData.userPrincipalName || userData.mail,
+            email: userData.mail || userData.userPrincipalName || ''
         });
         const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
         redirectWithToken(res, base, token);

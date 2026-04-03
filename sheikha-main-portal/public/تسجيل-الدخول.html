@@ -1846,25 +1846,41 @@
 
                     // -- Google --
                     var googleBtns = document.querySelectorAll('button[data-oauth-provider="google"]');
-                    if (!googleEnabled && hint) hint.style.display = 'block';
-                    googleBtns.forEach(function(b) {
-                        if (!googleEnabled) {
+                    if (googleEnabled) {
+                        if (hint) hint.style.display = 'none';
+                        googleBtns.forEach(function(b) {
+                            b.removeAttribute('title');
+                            b.style.opacity = '1';
+                            b.style.cursor  = 'pointer';
+                            b.removeAttribute('disabled');
+                        });
+                    } else {
+                        if (hint) hint.style.display = 'block';
+                        googleBtns.forEach(function(b) {
                             b.setAttribute('title', 'قيد الإعداد — استخدم النفاذ أو البريد');
                             b.style.opacity = '0.55';
                             b.style.cursor  = 'not-allowed';
-                        }
-                    });
+                        });
+                    }
 
                     // -- Microsoft --
                     var msBtns = document.querySelectorAll('button[data-oauth-provider="microsoft"]');
-                    if (!microsoftEnabled && msHint) msHint.style.display = 'block';
-                    msBtns.forEach(function(b) {
-                        if (!microsoftEnabled) {
+                    if (microsoftEnabled) {
+                        if (msHint) msHint.style.display = 'none';
+                        msBtns.forEach(function(b) {
+                            b.removeAttribute('title');
+                            b.style.opacity = '1';
+                            b.style.cursor  = 'pointer';
+                            b.removeAttribute('disabled');
+                        });
+                    } else {
+                        if (msHint) msHint.style.display = 'block';
+                        msBtns.forEach(function(b) {
                             b.setAttribute('title', 'قيد الإعداد — استخدم النفاذ أو البريد');
                             b.style.opacity = '0.55';
                             b.style.cursor  = 'not-allowed';
-                        }
-                    });
+                        });
+                    }
 
                     // -- Apple --
                     var appleBtns = document.querySelectorAll('button[data-oauth-provider="apple"]');
