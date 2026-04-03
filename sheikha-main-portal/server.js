@@ -1,5 +1,6 @@
 try {
-    require('dotenv').config();
+    // override: true — يُلغي قيم shell البيئية ويستخدم .env دائماً
+    require('dotenv').config({ override: true });
 } catch (_) {}
 const express = require('express');
 const cors = require('cors');
