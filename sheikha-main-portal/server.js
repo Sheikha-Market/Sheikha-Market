@@ -14479,9 +14479,12 @@ function getBaseUrl(req) {
     // استخدم النطاق الفعلي من الطلب دائماً (يدعم public.sheikha.top وغيره)
     const proto = req.get('x-forwarded-proto') || req.protocol || 'https';
     const host  = req.get('x-forwarded-host') || req.get('host') || 'sheikha.top';
-    // تحقق أن النطاق موثوق قبل استخدامه في OAuth callback
+    // تحقق أن النطاق موثوق — يقارن الـ host كاملاً (مع البورت) وبدونه
     const hostOnly = host.split(':')[0];
-    const isTrusted = SHEIKHA_TRUSTED_DOMAINS.some(d => hostOnly === d || hostOnly.endsWith('.' + d));
+    const isTrusted = SHEIKHA_TRUSTED_DOMAINS.some(d => {
+        const dOnly = d.split(':')[0];
+        return host === d || hostOnly === dOnly || hostOnly.endsWith('.' + dOnly);
+    });
     if (isTrusted) return proto + '://' + host;
     // fallback: BASE_URL من env إذا كان النطاق غير معروف
     const baseEnv = process.env.BASE_URL;
