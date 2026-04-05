@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المعمارية والهيكلة — منظومة شيخة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+    --gold:#D4AF37;--gold-l:#F5E6A3;--gold-d:#A8882B;
+    --bg:#030712;--bg2:#0a0f1e;--bg3:#0d1629;
+    --card:#111827;--card2:#1a2235;
+    --t1:#F9FAFB;--t2:#E5E7EB;--t3:#9CA3AF;--t4:#6B7280;
+    --green:#22c55e;--red:#ef4444;--blue:#3b82f6;
+    --orange:#f97316;--purple:#a855f7;--cyan:#06b6d4;
+    --radius:12px;--radius-sm:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;direction:rtl}
+a{text-decoration:none;color:inherit}
+
+/* ─── Top Nav ─── */
+.top-nav{
+    position:sticky;top:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:.9rem 2rem;
+    background:rgba(3,7,18,.92);backdrop-filter:blur(24px);
+    border-bottom:1px solid rgba(212,175,55,.12);
+}
+.top-nav .brand{display:flex;align-items:center;gap:.75rem;font-size:1.1rem;font-weight:700;color:var(--gold)}
+.top-nav .brand span{font-size:1.6rem}
+.nav-links{display:flex;gap:1rem;align-items:center}
+.nav-links a{color:var(--t3);font-size:.875rem;padding:.4rem .8rem;border-radius:var(--radius-sm);transition:.2s}
+.nav-links a:hover{color:var(--gold);background:rgba(212,175,55,.06)}
+.nav-links a.active{color:var(--gold);background:rgba(212,175,55,.1)}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ─── Hero ─── */
+.hero{
+    padding:3rem 2rem;text-align:center;
+    background:linear-gradient(135deg,rgba(212,175,55,.05) 0%,rgba(10,15,30,.0) 100%);
+    border-bottom:1px solid rgba(212,175,55,.08);
+    position:relative;overflow:hidden;
+}
+.hero::before{
+    content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);
+    width:600px;height:600px;border-radius:50%;
+    background:radial-gradient(circle,rgba(212,175,55,.06) 0%,transparent 70%);
+    pointer-events:none;
+}
+.hero h1{font-size:2.4rem;font-weight:900;color:var(--gold);margin-bottom:.5rem}
+.hero p{color:var(--t3);font-size:1rem;max-width:560px;margin:0 auto 1.5rem}
+.hero-badges{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .8rem;
+    border-radius:20px;font-size:.78rem;font-weight:600;border:1px solid}
+.badge.green{background:rgba(34,197,94,.1);color:var(--green);border-color:rgba(34,197,94,.2)}
+.badge.blue{background:rgba(59,130,246,.1);color:var(--blue);border-color:rgba(59,130,246,.2)}
+.badge.gold{background:rgba(212,175,55,.1);color:var(--gold);border-color:rgba(212,175,55,.2)}
+.badge.purple{background:rgba(168,85,247,.1);color:var(--purple);border-color:rgba(168,85,247,.2)}
+
+/* ─── Grid Layout ─── */
+.page{max-width:1400px;margin:0 auto;padding:2rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.section-title{font-size:1.25rem;font-weight:700;color:var(--gold);margin-bottom:1.25rem;
+    display:flex;align-items:center;gap:.5rem}
+.section-title::before{content:'';display:block;width:3px;height:20px;
+    background:var(--gold);border-radius:2px}
+
+/* ─── Cards ─── */
+.card{background:var(--card);border:1px solid rgba(212,175,55,.08);border-radius:var(--radius);padding:1.5rem}
+.card-sm{background:var(--card);border:1px solid rgba(212,175,55,.08);border-radius:var(--radius-sm);padding:1.25rem}
+
+/* ─── Stat Cards ─── */
+.stat-card{
+    background:var(--card);border:1px solid rgba(212,175,55,.08);
+    border-radius:var(--radius);padding:1.25rem;
+    display:flex;flex-direction:column;gap:.5rem;
+    transition:.2s;cursor:default;
+}
+.stat-card:hover{border-color:rgba(212,175,55,.2);transform:translateY(-2px)}
+.stat-card .icon{font-size:1.8rem}
+.stat-card .value{font-size:2rem;font-weight:800;color:var(--gold)}
+.stat-card .label{font-size:.82rem;color:var(--t3)}
+
+/* ─── Layer Diagram ─── */
+.arch-layers{display:flex;flex-direction:column;gap:.5rem}
+.layer-row{
+    display:flex;align-items:center;gap:1rem;
+    padding:1rem 1.25rem;border-radius:var(--radius-sm);
+    border:1px solid rgba(255,255,255,.05);
+    transition:.2s;
+}
+.layer-row:hover{background:rgba(212,175,55,.04);border-color:rgba(212,175,55,.12)}
+.layer-row .layer-icon{font-size:1.5rem;flex-shrink:0}
+.layer-row .layer-info{flex:1}
+.layer-row .layer-name{font-weight:700;font-size:.95rem;margin-bottom:.2rem}
+.layer-row .layer-tech{font-size:.77rem;color:var(--t3)}
+.layer-row .layer-status{
+    display:flex;align-items:center;gap:.4rem;
+    font-size:.75rem;font-weight:600;
+    padding:.25rem .6rem;border-radius:20px;
+}
+.layer-row .layer-status.active{color:var(--green);background:rgba(34,197,94,.1)}
+.layer-row .layer-status.partial{color:var(--orange);background:rgba(249,115,22,.1)}
+
+/* ─── Network Topology ─── */
+.network-map{
+    position:relative;min-height:320px;
+    background:var(--bg2);border-radius:var(--radius);
+    border:1px solid rgba(255,255,255,.06);overflow:hidden;padding:1.5rem;
+}
+.network-nodes{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-bottom:1rem}
+.net-node{
+    display:flex;flex-direction:column;align-items:center;gap:.35rem;
+    padding:.75rem 1rem;border-radius:var(--radius-sm);
+    border:1px solid;cursor:default;transition:.2s;min-width:90px;text-align:center;
+}
+.net-node:hover{transform:translateY(-3px)}
+.net-node.client{background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.2);color:var(--blue)}
+.net-node.gateway{background:rgba(168,85,247,.08);border-color:rgba(168,85,247,.2);color:var(--purple)}
+.net-node.server{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.2);color:var(--gold)}
+.net-node.service{background:rgba(6,182,212,.08);border-color:rgba(6,182,212,.2);color:var(--cyan)}
+.net-node.database{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.2);color:var(--green)}
+.net-node.external{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.2);color:var(--red)}
+.net-node.local{background:rgba(249,115,22,.08);border-color:rgba(249,115,22,.2);color:var(--orange)}
+.net-node .node-icon{font-size:1.4rem}
+.net-node .node-label{font-size:.72rem;font-weight:600;line-height:1.3}
+.net-flow{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;
+    padding:.75rem;background:rgba(255,255,255,.02);border-radius:var(--radius-sm);
+    font-size:.75rem;color:var(--t4)}
+.flow-item{display:flex;align-items:center;gap:.3rem}
+.flow-arrow{color:var(--gold)}
+
+/* ─── Integration Grid ─── */
+.integration-item{
+    display:flex;align-items:center;gap:.85rem;
+    padding:1rem;border-radius:var(--radius-sm);
+    border:1px solid rgba(255,255,255,.05);
+    transition:.2s;
+}
+.integration-item:hover{border-color:rgba(212,175,55,.12)}
+.integration-item .int-icon{font-size:1.5rem;flex-shrink:0}
+.integration-item .int-info{flex:1}
+.integration-item .int-name{font-weight:600;font-size:.9rem}
+.integration-item .int-type{font-size:.73rem;color:var(--t4)}
+.int-status{font-size:.72rem;font-weight:600;padding:.2rem .55rem;border-radius:20px}
+.int-status.connected{background:rgba(34,197,94,.1);color:var(--green)}
+.int-status.disconnected{background:rgba(239,68,68,.1);color:var(--red)}
+.int-status.available{background:rgba(249,115,22,.1);color:var(--orange)}
+
+/* ─── Engine Categories ─── */
+.engine-cat{
+    background:var(--card2);border:1px solid rgba(255,255,255,.05);
+    border-radius:var(--radius-sm);padding:1rem;
+    display:flex;align-items:center;justify-content:space-between;
+    transition:.2s;
+}
+.engine-cat:hover{border-color:rgba(212,175,55,.15)}
+.engine-cat .cat-name{font-size:.88rem;font-weight:600}
+.engine-cat .cat-count{font-size:1.3rem;font-weight:800;color:var(--gold)}
+.engine-cat .cat-status{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
+
+/* ─── Security ─── */
+.sec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem}
+.sec-item{
+    display:flex;align-items:center;gap:.75rem;
+    padding:.9rem;border-radius:var(--radius-sm);
+    border:1px solid rgba(255,255,255,.05);
+    background:rgba(10,15,30,.5);
+}
+.sec-item .sec-icon{font-size:1.25rem}
+.sec-item .sec-name{font-size:.85rem;font-weight:600}
+.sec-item .sec-ok{font-size:.7rem;color:var(--green);font-weight:700}
+.sec-item .sec-no{font-size:.7rem;color:var(--t4)}
+
+/* ─── Memory Bar ─── */
+.mem-bar-wrap{margin-top:.75rem}
+.mem-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--t3);margin-bottom:.3rem}
+.mem-bar{height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
+.mem-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold-d),var(--gold))}
+
+/* ─── Loading Skeleton ─── */
+.skeleton{background:linear-gradient(90deg,rgba(255,255,255,.05) 25%,rgba(255,255,255,.08) 50%,rgba(255,255,255,.05) 75%);
+    background-size:200% 100%;animation:shimmer 1.6s infinite;border-radius:6px;height:16px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ─── Refresh Button ─── */
+.refresh-btn{
+    display:inline-flex;align-items:center;gap:.4rem;
+    padding:.45rem .9rem;border-radius:var(--radius-sm);
+    background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.15);
+    color:var(--gold);font-size:.78rem;font-weight:600;cursor:pointer;
+    transition:.2s;font-family:inherit;
+}
+.refresh-btn:hover{background:rgba(212,175,55,.14)}
+.refresh-btn.spinning svg{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ─── Footer ─── */
+.footer{text-align:center;padding:2rem;color:var(--t4);font-size:.8rem;
+    border-top:1px solid rgba(255,255,255,.04);margin-top:3rem}
+
+/* ─── Responsive ─── */
+@media(max-width:900px){
+    .grid-2,.grid-3{grid-template-columns:1fr}
+    .grid-4{grid-template-columns:1fr 1fr}
+    .hero h1{font-size:1.7rem}
+}
+@media(max-width:540px){
+    .grid-4{grid-template-columns:1fr}
+    .top-nav{padding:.75rem 1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── Navigation ─── -->
+<nav class="top-nav">
+    <div class="brand">
+        <span>🏛️</span>
+        <span>المعمارية والهيكلة</span>
+    </div>
+    <div class="nav-links">
+        <a href="/">الرئيسية</a>
+        <a href="/github-hub.html">GitHub Hub</a>
+        <a href="/لوحة-الادمن.html">لوحة الإدارة</a>
+        <a href="/_admin/sheikha-command-center.html">مركز القيادة</a>
+        <div style="display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--t3)">
+            <div class="status-dot"></div>
+            <span id="sysStatus">يتصل…</span>
+        </div>
+    </div>
+</nav>
+
+<!-- ─── Hero ─── -->
+<div class="hero">
+    <h1>🏛️ المعمارية والهيكلة</h1>
+    <p>رؤية شاملة للبنية التقنية لمنظومة شيخة — طبقاتها، محركاتها، شبكتها، وتكاملاتها</p>
+    <div class="hero-badges">
+        <span class="badge green">🟢 <span id="b-uptime">جاري التحميل…</span></span>
+        <span class="badge blue">⚡ Node.js <span id="b-node">…</span></span>
+        <span class="badge gold">🔢 <span id="b-routes">500+</span> مسار</span>
+        <span class="badge purple">📦 <span id="b-engines">323</span> محرك</span>
+    </div>
+</div>
+
+<!-- ─── Page Content ─── -->
+<div class="page">
+
+    <!-- ─── KPI Stats ─── -->
+    <section style="margin-bottom:2.5rem">
+        <div class="section-title">📊 مؤشرات النظام الحية</div>
+        <div class="grid-4" id="kpiCards">
+            <div class="stat-card"><div class="icon">👥</div><div class="value skeleton" style="width:60px;height:36px">&nbsp;</div><div class="label">المستخدمون</div></div>
+            <div class="stat-card"><div class="icon">🏪</div><div class="value skeleton" style="width:60px;height:36px">&nbsp;</div><div class="label">التجار</div></div>
+            <div class="stat-card"><div class="icon">📋</div><div class="value skeleton" style="width:60px;height:36px">&nbsp;</div><div class="label">القوائم النشطة</div></div>
+            <div class="stat-card"><div class="icon">💰</div><div class="value skeleton" style="width:100px;height:36px">&nbsp;</div><div class="label">إجمالي القيمة (ر.س)</div></div>
+        </div>
+    </section>
+
+    <div class="grid-2" style="margin-bottom:2.5rem">
+
+        <!-- ─── Memory Usage ─── -->
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+                <div class="section-title" style="margin:0">🧠 استخدام الذاكرة</div>
+                <button class="refresh-btn" onclick="loadOverview()">
+                    <svg id="refSvg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    تحديث
+                </button>
+            </div>
+            <div id="memStats">
+                <div class="skeleton" style="margin-bottom:.5rem"></div>
+                <div class="skeleton" style="margin-bottom:.5rem;width:80%"></div>
+                <div class="skeleton" style="width:65%"></div>
+            </div>
+        </div>
+
+        <!-- ─── System Platform ─── -->
+        <div class="card">
+            <div class="section-title">⚙️ النظام الأساسي</div>
+            <div id="platformInfo" style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+                <div class="skeleton" style="height:48px"></div>
+                <div class="skeleton" style="height:48px"></div>
+                <div class="skeleton" style="height:48px"></div>
+                <div class="skeleton" style="height:48px"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Architecture Layers ─── -->
+    <section style="margin-bottom:2.5rem">
+        <div class="section-title">🗂️ طبقات المعمارية</div>
+        <div class="card">
+            <div class="arch-layers" id="archLayers">
+                <div class="skeleton" style="height:64px;margin-bottom:.5rem"></div>
+                <div class="skeleton" style="height:64px;margin-bottom:.5rem"></div>
+                <div class="skeleton" style="height:64px;margin-bottom:.5rem"></div>
+                <div class="skeleton" style="height:64px;margin-bottom:.5rem"></div>
+                <div class="skeleton" style="height:64px;margin-bottom:.5rem"></div>
+                <div class="skeleton" style="height:64px"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Network Topology + Security ─── -->
+    <div class="grid-2" style="margin-bottom:2.5rem">
+
+        <!-- Network Map -->
+        <div class="card">
+            <div class="section-title">🌐 طوبولوجيا الشبكة</div>
+            <div class="network-map">
+                <div class="network-nodes" id="networkNodes">
+                    <div class="skeleton" style="width:90px;height:80px;border-radius:8px"></div>
+                    <div class="skeleton" style="width:90px;height:80px;border-radius:8px"></div>
+                    <div class="skeleton" style="width:90px;height:80px;border-radius:8px"></div>
+                    <div class="skeleton" style="width:90px;height:80px;border-radius:8px"></div>
+                </div>
+                <div class="net-flow" id="networkFlow">
+                    <span>جاري تحميل مسار التدفق…</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security -->
+        <div class="card">
+            <div class="section-title">🔐 الأمان والحماية</div>
+            <div class="sec-grid" id="secGrid">
+                <div class="skeleton" style="height:55px"></div>
+                <div class="skeleton" style="height:55px"></div>
+                <div class="skeleton" style="height:55px"></div>
+                <div class="skeleton" style="height:55px"></div>
+                <div class="skeleton" style="height:55px"></div>
+                <div class="skeleton" style="height:55px"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Integrations ─── -->
+    <section style="margin-bottom:2.5rem">
+        <div class="section-title">🔗 التكاملات الخارجية</div>
+        <div class="grid-3" id="intGrid">
+            <div class="skeleton" style="height:72px;border-radius:8px"></div>
+            <div class="skeleton" style="height:72px;border-radius:8px"></div>
+            <div class="skeleton" style="height:72px;border-radius:8px"></div>
+            <div class="skeleton" style="height:72px;border-radius:8px"></div>
+            <div class="skeleton" style="height:72px;border-radius:8px"></div>
+            <div class="skeleton" style="height:72px;border-radius:8px"></div>
+        </div>
+    </section>
+
+    <!-- ─── Engines ─── -->
+    <section style="margin-bottom:2.5rem">
+        <div class="section-title">⚙️ محركات المنظومة</div>
+        <div id="enginesTotal" style="font-size:.9rem;color:var(--t3);margin-bottom:1rem">
+            يتم تحميل تفاصيل المحركات…
+        </div>
+        <div class="grid-3" id="enginesGrid">
+            <div class="skeleton" style="height:64px;border-radius:8px"></div>
+            <div class="skeleton" style="height:64px;border-radius:8px"></div>
+            <div class="skeleton" style="height:64px;border-radius:8px"></div>
+        </div>
+    </section>
+
+    <!-- ─── GitHub Status ─── -->
+    <section style="margin-bottom:2.5rem">
+        <div class="section-title">🐙 حالة GitHub + Copilot</div>
+        <div class="card" id="githubCard">
+            <div class="skeleton" style="height:80px"></div>
+        </div>
+    </section>
+
+</div>
+
+<div class="footer">
+    منظومة شيخة © 2026 — سلمان أحمد بن سلمان الراجح — المعمارية والهيكلة
+    <br>
+    <span id="lastRefresh" style="color:var(--t4);font-size:.72rem"></span>
+</div>
+
+<script>
+// ─── Layer Icons & Colours ───
+const LAYER_ICONS = {frontend:'🖥️', backend:'⚙️', data:'🗄️', ai:'🤖', auth:'🔐', github:'🐙'};
+const INT_ICONS = {
+    'GitHub API':'🐙','Google OAuth':'🔵','Microsoft OAuth':'🔷',
+    'OpenAI API':'🤖','Google Gemini':'♊','Ollama Local':'🦙','Google Cloud':'☁️'
+};
+
+async function loadOverview() {
+    const btn = document.querySelector('.refresh-btn');
+    if (btn) btn.classList.add('spinning');
+    try {
+        const [ov, net, eng] = await Promise.all([
+            fetch('/api/architecture/overview').then(r => r.json()),
+            fetch('/api/architecture/network').then(r => r.json()),
+            fetch('/api/architecture/engines').then(r => r.json())
+        ]);
+        if (ov.success) renderOverview(ov.data);
+        if (net.success) renderNetwork(net.data);
+        if (eng.success) renderEngines(eng.data);
+        document.getElementById('lastRefresh').textContent = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-SA');
+        document.getElementById('sysStatus').textContent = 'مشغّل';
+    } catch (e) {
+        document.getElementById('sysStatus').textContent = 'خطأ في التحميل';
+        console.error('Architecture load error:', e);
+    } finally {
+        if (btn) btn.classList.remove('spinning');
+    }
+}
+
+function renderOverview(d) {
+    // Badges
+    document.getElementById('b-uptime').textContent = d.platform.uptimeFormatted;
+    document.getElementById('b-node').textContent = d.platform.node;
+    document.getElementById('b-engines').textContent = d.engines.length + '+';
+
+    // KPI
+    const kpi = document.getElementById('kpiCards');
+    kpi.innerHTML = `
+        <div class="stat-card"><div class="icon">👥</div><div class="value">${d.data.users}</div><div class="label">المستخدمون</div></div>
+        <div class="stat-card"><div class="icon">🏪</div><div class="value">${d.data.traders}</div><div class="label">التجار</div></div>
+        <div class="stat-card"><div class="icon">📋</div><div class="value">${d.data.listings}</div><div class="label">القوائم النشطة</div></div>
+        <div class="stat-card"><div class="icon">💰</div><div class="value" style="font-size:1.4rem">${(d.data.listings * 295040).toLocaleString('ar')}</div><div class="label">إجمالي القيمة (ر.س)</div></div>
+    `;
+
+    // Memory
+    const pct = Math.round((d.memory.heapUsed / d.memory.heapTotal) * 100);
+    document.getElementById('memStats').innerHTML = `
+        <div class="mem-bar-wrap">
+            <div class="mem-label"><span>Heap المستخدم</span><span>${d.memory.heapUsed} MB / ${d.memory.heapTotal} MB</span></div>
+            <div class="mem-bar"><div class="mem-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div class="mem-bar-wrap">
+            <div class="mem-label"><span>RSS (النظام)</span><span>${d.memory.rss} MB</span></div>
+            <div class="mem-bar"><div class="mem-fill" style="width:${Math.min(100, Math.round(d.memory.rss/512*100))}%;background:var(--blue)"></div></div>
+        </div>
+        <div class="mem-bar-wrap">
+            <div class="mem-label"><span>External</span><span>${d.memory.external} MB</span></div>
+            <div class="mem-bar"><div class="mem-fill" style="width:${Math.min(100, d.memory.external)}%;background:var(--purple)"></div></div>
+        </div>
+    `;
+
+    // Platform
+    document.getElementById('platformInfo').innerHTML = `
+        <div class="card-sm" style="padding:.75rem">
+            <div style="font-size:.72rem;color:var(--t4)">المنفذ</div>
+            <div style="font-size:1.25rem;font-weight:700;color:var(--gold)">:${d.platform.port}</div>
+        </div>
+        <div class="card-sm" style="padding:.75rem">
+            <div style="font-size:.72rem;color:var(--t4)">Node.js</div>
+            <div style="font-size:1.1rem;font-weight:700;color:var(--blue)">${d.platform.node}</div>
+        </div>
+        <div class="card-sm" style="padding:.75rem">
+            <div style="font-size:.72rem;color:var(--t4)">PID</div>
+            <div style="font-size:1.1rem;font-weight:700;color:var(--cyan)">${d.platform.pid}</div>
+        </div>
+        <div class="card-sm" style="padding:.75rem">
+            <div style="font-size:.72rem;color:var(--t4)">وقت التشغيل</div>
+            <div style="font-size:.95rem;font-weight:700;color:var(--green)">${d.platform.uptimeFormatted}</div>
+        </div>
+    `;
+
+    // Layers
+    document.getElementById('archLayers').innerHTML = d.layers.map(l => `
+        <div class="layer-row">
+            <span class="layer-icon">${LAYER_ICONS[l.id] || '📦'}</span>
+            <div class="layer-info">
+                <div class="layer-name">${l.name}</div>
+                <div class="layer-tech">${l.tech}${l.pages ? ` — ${l.pages} صفحة` : ''}${l.routes ? ` — ${l.routes} مسار` : ''}${l.files ? ` — ${l.files} ملف` : ''}</div>
+            </div>
+            <span class="layer-status ${l.status}">${l.status === 'active' ? '✅ نشط' : '⚠️ جزئي'}</span>
+        </div>
+    `).join('');
+
+    // Security
+    const sec = d.security;
+    document.getElementById('secGrid').innerHTML = [
+        { icon:'🛡️', name:'Helmet', ok: sec.helmet },
+        { icon:'⏱️', name:'Rate Limit', ok: sec.rateLimit },
+        { icon:'🔑', name:'JWT', ok: sec.jwt },
+        { icon:'🔵', name:'Google OAuth', ok: sec.oauth.google },
+        { icon:'🔷', name:'Microsoft OAuth', ok: sec.oauth.microsoft },
+        { icon:'🐙', name:'GitHub OAuth', ok: sec.oauth.github },
+        { icon:'🍪', name:'Cookie Parser', ok: sec.cookieParser },
+        { icon:'🔒', name:'HTTPS', ok: sec.https },
+    ].map(s => `
+        <div class="sec-item">
+            <span class="sec-icon">${s.icon}</span>
+            <div>
+                <div class="sec-name">${s.name}</div>
+                <div class="${s.ok ? 'sec-ok' : 'sec-no'}">${s.ok ? '✅ مفعّل' : '— غير مفعّل'}</div>
+            </div>
+        </div>
+    `).join('');
+
+    // Integrations
+    document.getElementById('intGrid').innerHTML = d.integrations.map(i => `
+        <div class="integration-item">
+            <span class="int-icon">${INT_ICONS[i.name] || '🔗'}</span>
+            <div class="int-info">
+                <div class="int-name">${i.name}</div>
+                <div class="int-type">${i.type}</div>
+            </div>
+            <span class="int-status ${i.status}">${i.status === 'connected' ? 'متصل' : i.status === 'available' ? 'متاح' : 'غير متصل'}</span>
+        </div>
+    `).join('');
+
+    // GitHub Status
+    loadGitHubCard();
+}
+
+function renderNetwork(d) {
+    const typeMap = { client:'client', gateway:'gateway', server:'server', service:'service', database:'database', external:'external', local:'local' };
+    document.getElementById('networkNodes').innerHTML = d.nodes.map(n => `
+        <div class="net-node ${typeMap[n.type] || 'service'}">
+            <span class="node-icon">${n.type === 'client' ? '🖥️' : n.type === 'gateway' ? '🔀' : n.type === 'server' ? '⚡' : n.type === 'database' ? '🗄️' : n.type === 'external' ? '🌐' : n.type === 'local' ? '🦙' : '⚙️'}</span>
+            <span class="node-label">${n.label}</span>
+        </div>
+    `).join('');
+    document.getElementById('networkFlow').innerHTML = d.edges.slice(0,5).map(e => `
+        <span class="flow-item">${e.from} <span class="flow-arrow">→</span> ${e.to} <small style="color:var(--t4)">(${e.label})</small></span>
+    `).join(' &nbsp;│&nbsp; ');
+}
+
+function renderEngines(d) {
+    document.getElementById('enginesTotal').textContent = `إجمالي ${d.total} محرك مُحمَّل عند الطلب (Lazy Load)`;
+    document.getElementById('b-engines').textContent = d.total;
+    document.getElementById('enginesGrid').innerHTML = d.categories.map(c => `
+        <div class="engine-cat">
+            <div>
+                <div class="cat-name">${c.name}</div>
+                <div style="font-size:.72rem;color:var(--t4);margin-top:.2rem">نشط</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:.6rem">
+                <span class="cat-count">${c.count}</span>
+                <span class="cat-status"></span>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function loadGitHubCard() {
+    try {
+        const r = await fetch('/api/github/status').then(r => r.json());
+        if (!r.success) return;
+        const d = r.data;
+        document.getElementById('githubCard').innerHTML = `
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;text-align:center">
+                <div><div style="font-size:1.8rem;font-weight:800;color:var(--gold)">${d.repos}</div><div style="font-size:.78rem;color:var(--t3)">المستودعات</div></div>
+                <div><div style="font-size:1.8rem;font-weight:800;color:var(--blue)">${d.branches}</div><div style="font-size:.78rem;color:var(--t3)">الفروع</div></div>
+                <div><div style="font-size:1.8rem;font-weight:800;color:var(--cyan)">${d.commits}</div><div style="font-size:.78rem;color:var(--t3)">الـ Commits</div></div>
+                <div><div style="font-size:1.8rem;font-weight:800;color:var(--orange)">${d.issues}</div><div style="font-size:.78rem;color:var(--t3)">القضايا</div></div>
+                <div><div style="font-size:1.8rem;font-weight:800;color:${d.running ? 'var(--green)' : 'var(--red)'}">${d.running ? 'نشط' : 'متوقف'}</div><div style="font-size:.78rem;color:var(--t3)">GitHub Hub</div></div>
+            </div>
+            <div style="margin-top:1rem;padding:.75rem;background:rgba(255,255,255,.03);border-radius:8px;font-size:.8rem;color:var(--t3)">
+                المنظمة: <strong style="color:var(--t1)">${d.org || '—'}</strong> &nbsp;|&nbsp; 
+                المستودع: <strong style="color:var(--t1)">${d.repo || '—'}</strong> &nbsp;|&nbsp; 
+                آخر مزامنة: <strong style="color:var(--gold)">${d.lastSync ? new Date(d.lastSync).toLocaleString('ar-SA') : 'لم تتم بعد'}</strong>
+            </div>
+        `;
+    } catch (e) {}
+}
+
+// ─── Auto-load on start ───
+loadOverview();
+setInterval(loadOverview, 60000);
+</script>
+</body>
+</html>

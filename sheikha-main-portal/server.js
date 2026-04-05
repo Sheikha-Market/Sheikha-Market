@@ -34612,66 +34612,6 @@ app.get('/api/civilization/all', (req, res) => {
 });
 
 
-// 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
-// ═══════════════════════════════════════════════════════════════════════════════
-app.use((req, res) => {
-    if (req.path.startsWith('/api/')) {
-        return res.status(404).json({
-            success: false,
-            error: 'not_found',
-            message: 'المسار غير موجود — The requested API endpoint does not exist.',
-            path: req.path,
-            timestamp: new Date().toISOString()
-        });
-    }
-    res.status(404).send(`<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>404 — الصفحة غير موجودة | SHEIKHA</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Tajawal',sans-serif;background:#050810;color:#f8fafc;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
-.c{max-width:520px;padding:40px}
-h1{font-size:6rem;font-weight:900;background:linear-gradient(135deg,#D4AF37,#F5E6A3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
-h2{font-size:1.4rem;color:#D4AF37;margin:16px 0 8px}
-p{color:#94a3b8;font-size:1rem;margin-bottom:24px}
-a{display:inline-block;padding:14px 36px;background:linear-gradient(135deg,#D4AF37,#B87333);color:#050810;font-weight:700;border-radius:12px;text-decoration:none;font-size:1rem;transition:transform .2s}
-a:hover{transform:translateY(-2px)}
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
-<div class="c">
-<h1>404</h1>
-<h2>الصفحة غير موجودة</h2>
-<p>عذراً، الصفحة التي تبحث عنها غير متوفرة. قد تكون قد نُقلت أو حُذفت.</p>
-<a href="/">العودة للرئيسية</a>
-</div>
-</body>
-</html>`);
-});
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// ⚠️ Global Error Handler — معالج الأخطاء الآمن
-// ═══════════════════════════════════════════════════════════════════════════════
-app.use((err, req, res, _next) => {
-    console.error('🔴 خطأ:', {
-        message: err.message,
-        url: req.originalUrl,
-        method: req.method,
-        ip: req.ip,
-        timestamp: new Date().toISOString()
-    });
-    if (typeof addSystemLog === 'function') addSystemLog('error', 'Server', err.message);
-    const statusCode = err.statusCode || err.status || 500;
-    res.status(statusCode).json({
-        success: false,
-        error: 'internal_error',
-        message: statusCode === 500 ? 'حدث خطأ في الخادم. يرجى المحاولة لاحقاً.' : err.message,
-        timestamp: new Date().toISOString()
-    });
-});
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🧠 SHEIKHA LOCAL MIND APIs — العقل المحلي المستقل
@@ -35910,3 +35850,63 @@ function broadcastPrices() {
 }
 
 module.exports = app;
+// 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
+// ═══════════════════════════════════════════════════════════════════════════════
+app.use((req, res) => {
+    if (req.path.startsWith('/api/')) {
+        return res.status(404).json({
+            success: false,
+            error: 'not_found',
+            message: 'المسار غير موجود — The requested API endpoint does not exist.',
+            path: req.path,
+            timestamp: new Date().toISOString()
+        });
+    }
+    res.status(404).send(`<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>404 — الصفحة غير موجودة | SHEIKHA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#050810;color:#f8fafc;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
+.c{max-width:520px;padding:40px}
+h1{font-size:6rem;font-weight:900;background:linear-gradient(135deg,#D4AF37,#F5E6A3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+h2{font-size:1.4rem;color:#D4AF37;margin:16px 0 8px}
+p{color:#94a3b8;font-size:1rem;margin-bottom:24px}
+a{display:inline-block;padding:14px 36px;background:linear-gradient(135deg,#D4AF37,#B87333);color:#050810;font-weight:700;border-radius:12px;text-decoration:none;font-size:1rem;transition:transform .2s}
+a:hover{transform:translateY(-2px)}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="c">
+<h1>404</h1>
+<h2>الصفحة غير موجودة</h2>
+<p>عذراً، الصفحة التي تبحث عنها غير متوفرة. قد تكون قد نُقلت أو حُذفت.</p>
+<a href="/">العودة للرئيسية</a>
+</div>
+</body>
+</html>`);
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚠️ Global Error Handler — معالج الأخطاء الآمن
+// ═══════════════════════════════════════════════════════════════════════════════
+app.use((err, req, res, _next) => {
+    console.error('🔴 خطأ:', {
+        message: err.message,
+        url: req.originalUrl,
+        method: req.method,
+        ip: req.ip,
+        timestamp: new Date().toISOString()
+    });
+    if (typeof addSystemLog === 'function') addSystemLog('error', 'Server', err.message);
+    const statusCode = err.statusCode || err.status || 500;
+    res.status(statusCode).json({
+        success: false,
+        error: 'internal_error',
+        message: statusCode === 500 ? 'حدث خطأ في الخادم. يرجى المحاولة لاحقاً.' : err.message,
+        timestamp: new Date().toISOString()
+    });
+});

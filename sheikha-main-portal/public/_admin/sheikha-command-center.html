@@ -511,6 +511,9 @@
             <a class="sidebar-item" href="/الشريعة-الاسلامية.html" target="_blank">
                 <span class="sidebar-icon">📖</span> الشريعة الإسلامية
             </a>
+            <a class="sidebar-item" href="/الحضارة-الرقمية-الإسلامية.html" target="_blank">
+                <span class="sidebar-icon">🕌</span> الحضارة الرقمية الإسلامية
+            </a>
 
             <!-- ═══ ٦. المستخدمون والأمان ═══ -->
             <div class="sidebar-section">👤 المستخدمون والأمان</div>
@@ -530,8 +533,8 @@
                 <span class="sidebar-icon">📋</span> سجلات النظام
             </a>
 
-            <!-- ═══ ٧. الأساس الشرعي ═══ -->
-            <div class="sidebar-section" style="color:rgba(212,175,55,0.75)">📖 الأساس الشرعي</div>
+            <!-- ═══ ٧. الأساس الشرعي والحضارة ═══ -->
+            <div class="sidebar-section" style="color:rgba(212,175,55,0.75)">📖 الأساس الشرعي والحضارة</div>
             <a class="sidebar-item" onclick="showSection('sharia')">
                 <span class="sidebar-icon">📖</span> الكتاب والسنة — أساس المنظومة
             </a>
@@ -540,6 +543,12 @@
             </a>
             <a class="sidebar-item" onclick="showSection('museum')">
                 <span class="sidebar-icon">🏺</span> متحف التراث التقني
+            </a>
+            <a class="sidebar-item" onclick="showSection('civilization-preview')">
+                <span class="sidebar-icon">🏛️</span> الحضارة الرقمية الإسلامية
+            </a>
+            <a class="sidebar-item" href="/الحضارة-الرقمية-الإسلامية.html" target="_blank">
+                <span class="sidebar-icon">↗️</span> فتح صفحة الحضارة الكاملة
             </a>
 
             <!-- ═══ ٨. الإعدادات ═══ -->
@@ -2537,6 +2546,66 @@
                         ✦ لا ضرر ولا ضرار — النفع العام مقدّم<br>
                         ✦ الوصول الآمن لكل شيء — بلا منع غير شرعي<br>
                         ✦ التقدم العلمي بلا ضرر أو ضرار
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════ الحضارة الرقمية الإسلامية — معاينة ══════════════ -->
+            <div class="section" id="sec-civilization-preview">
+                <div class="section-header">
+                    <h1 class="section-title">🕌 <span>الحضارة الرقمية الإسلامية</span></h1>
+                    <a href="/الحضارة-الرقمية-الإسلامية.html" target="_blank" class="btn-sm" style="background:var(--gold);color:#000;padding:6px 16px;border-radius:6px;font-size:.85rem;text-decoration:none;font-weight:700;">
+                        ↗️ الصفحة الكاملة
+                    </a>
+                </div>
+
+                <div style="background:linear-gradient(135deg,#0a0a0a,#1a1200);border:1px solid rgba(212,175,55,0.3);border-radius:12px;padding:24px;margin-bottom:24px;text-align:center;">
+                    <div style="font-size:1.3rem;color:var(--gold);font-weight:800;margin-bottom:8px;">بسم الله الرحمن الرحيم</div>
+                    <div style="font-size:1rem;color:var(--text2);margin-bottom:12px;">إحياء سنة النبي ﷺ والخلفاء الراشدين المهديين رقمياً</div>
+                    <div style="font-size:.85rem;color:rgba(212,175,55,0.7);font-style:italic;">كُنتُمْ خَيْرَ أُمَّةٍ أُخْرِجَتْ لِلنَّاسِ — آل عمران 110</div>
+                    <div id="civStatusBadge" style="display:inline-flex;align-items:center;gap:8px;background:rgba(46,204,113,0.1);border:1px solid #2ecc71;border-radius:20px;padding:6px 16px;font-size:.8rem;color:#2ecc71;margin-top:14px;">
+                        <div style="width:8px;height:8px;background:#2ecc71;border-radius:50%;animation:pulse 2s infinite;"></div>
+                        جاري التحميل...
+                    </div>
+                </div>
+
+                <!-- KPIs -->
+                <div class="grid grid-4" style="margin-bottom:24px;" id="civKPIs">
+                    <div style="background:var(--bg-2);border:1px solid rgba(212,175,55,0.2);border-radius:10px;padding:16px;text-align:center;">
+                        <div style="font-size:1.4rem;font-weight:800;color:var(--gold);">8</div>
+                        <div style="font-size:.78rem;color:var(--text3);">أعمدة المنظومة</div>
+                    </div>
+                    <div style="background:var(--bg-2);border:1px solid rgba(212,175,55,0.2);border-radius:10px;padding:16px;text-align:center;">
+                        <div style="font-size:1.4rem;font-weight:800;color:var(--gold);">10</div>
+                        <div style="font-size:.78rem;color:var(--text3);">أداة مالية إسلامية</div>
+                    </div>
+                    <div style="background:var(--bg-2);border:1px solid rgba(212,175,55,0.2);border-radius:10px;padding:16px;text-align:center;">
+                        <div style="font-size:1.4rem;font-weight:800;color:var(--gold);">4</div>
+                        <div style="font-size:.78rem;color:var(--text3);">أنواع الوقف الرقمي</div>
+                    </div>
+                    <div style="background:var(--bg-2);border:1px solid rgba(212,175,55,0.2);border-radius:10px;padding:16px;text-align:center;">
+                        <div style="font-size:1.4rem;font-weight:800;color:var(--gold);">7</div>
+                        <div style="font-size:.78rem;color:var(--text3);">خدمات الأمة</div>
+                    </div>
+                </div>
+
+                <!-- أعمدة المنظومة -->
+                <div style="font-size:.85rem;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;">🏛️ أعمدة المنظومة الثمانية</div>
+                <div class="grid grid-4" id="civPillarsGrid" style="margin-bottom:24px;">
+                    <div style="background:var(--bg-2);border-radius:10px;padding:16px;border:1px solid rgba(212,175,55,0.15);text-align:center;color:var(--text3);">تحميل...</div>
+                </div>
+
+                <!-- كارتات البنية التحتية -->
+                <div style="font-size:.85rem;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;">🌐 بنية الاتصال الإسلامية</div>
+                <div class="grid grid-2" id="civInfraGrid" style="margin-bottom:24px;">
+                    <div style="background:var(--bg-2);border-radius:10px;padding:16px;border:1px solid rgba(212,175,55,0.15);color:var(--text3);">تحميل...</div>
+                </div>
+
+                <!-- سوق المدينة -->
+                <div style="background:var(--bg-2);border:1px solid rgba(212,175,55,0.2);border-radius:12px;padding:20px;margin-bottom:20px;">
+                    <div style="font-size:.95rem;font-weight:800;color:var(--gold);margin-bottom:14px;">🏪 سوق المدينة المنورة — مبادئ التطبيق الرقمي</div>
+                    <div class="grid grid-4" id="civMarketPrinciples">
+                        <div style="color:var(--text3);font-size:.85rem;">تحميل المبادئ...</div>
                     </div>
                 </div>
             </div>
