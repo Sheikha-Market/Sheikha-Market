@@ -283,6 +283,9 @@ class SheikhaIntegrationsDashboardProvider {
         this.view = webviewView;
         webviewView.webview.options = { enableScripts: true };
         webviewView.webview.html = getIntegrationsDashboardHtml();
+        webviewView.onDidDispose(() => {
+            this.view = null;
+        });
         webviewView.webview.onDidReceiveMessage(async message => {
             if (message.command === 'refresh') {
                 await this.onRefreshRequest('manual');
@@ -295,7 +298,7 @@ class SheikhaIntegrationsDashboardProvider {
         if (!this.view) {
             return;
         }
-        this.view.webview.postMessage({ command: 'state', data: this.getState() });
+        safePostWebviewMessage(this.view.webview, { command: 'state', data: this.getState() });
     }
 }
 
@@ -309,6 +312,9 @@ class SheikhaChatSidebarProvider {
         this.view = webviewView;
         webviewView.webview.options = { enableScripts: true };
         webviewView.webview.html = getSidebarChatHtml();
+        webviewView.onDidDispose(() => {
+            this.view = null;
+        });
 
         webviewView.webview.onDidReceiveMessage(async message => {
             if (message.command !== 'chat') {
@@ -320,7 +326,7 @@ class SheikhaChatSidebarProvider {
             const language = editor ? editor.document.languageId : 'auto';
 
             const responseData = await this.provider.chat(message.message, codeContext, language, []);
-            webviewView.webview.postMessage({ command: 'response', data: responseData });
+            safePostWebviewMessage(webviewView.webview, { command: 'response', data: responseData });
         });
     }
 }
@@ -361,9 +367,27 @@ async function activate(context) {
 
     const chatSidebarProvider = new SheikhaChatSidebarProvider(provider);
 
+    const inlineCompletionProvider = {
+        provideInlineCompletionItems: async (document, position) => {
+            if (!provider.config.enableInlineCompletions) {
+                return { items: [] };
+            }
+
+            const text = document.getText();
+            const linePrefix = document.lineAt(position.line).text.slice(0, position.character);
+            const completions = await provider.getCompletions(text, document.languageId, position.character, linePrefix);
+            const items = completions
+                .filter(item => item && item.text)
+                .map(item => new vscode.InlineCompletionItem(item.text, new vscode.Range(position, position)));
+
+            return { items };
+        }
+    };
+
     context.subscriptions.push(
         vscode.window.registerWebviewViewProvider('sheikha.statusView', dashboardProvider),
-        vscode.window.registerWebviewViewProvider('sheikha.chatView', chatSidebarProvider)
+        vscode.window.registerWebviewViewProvider('sheikha.chatView', chatSidebarProvider),
+        vscode.languages.registerInlineCompletionItemProvider({ pattern: '**' }, inlineCompletionProvider)
     );
 
     const updateAccountStatus = () => {
@@ -529,12 +553,6 @@ async function activate(context) {
 
     // ── أمر: فتح المحادثة ──
     const chatCommand = vscode.commands.registerCommand('sheikha.openChat', async () => {
-        const editor = vscode.window.activeTextEditor;
-        if (!editor) {
-            vscode.window.showWarningMessage('Sheikha: يرجى فتح ملف أولاً');
-            return;
-        }
-
         if (!copilotPanel) {
             copilotPanel = vscode.window.createWebviewPanel(
                 'sheikha-chat',
@@ -547,9 +565,11 @@ async function activate(context) {
 
             copilotPanel.webview.onDidReceiveMessage(async (msg) => {
                 if (msg.command === 'chat') {
-                    const langId = editor.document.languageId;
-                    const responseData = await provider.chat(msg.message, editor.document.getText(), langId, []);
-                    copilotPanel.webview.postMessage({ command: 'response', data: responseData });
+                    const editor = vscode.window.activeTextEditor;
+                    const codeContext = editor ? editor.document.getText() : '';
+                    const language = editor ? editor.document.languageId : 'auto';
+                    const responseData = await provider.chat(msg.message, codeContext, language, []);
+                    safePostWebviewMessage(copilotPanel && copilotPanel.webview, { command: 'response', data: responseData });
                 }
             });
         } else {
@@ -572,11 +592,14 @@ async function activate(context) {
             return;
         }
 
-        const items = completions.map(c => ({ label: c.label, description: c.text }));
+        const items = completions.map(c => ({ label: c.label || summarizeCompletion(c.text), description: c.text }));
         const selected = await vscode.window.showQuickPick(items, { placeHolder: 'اختر الاقتراح' });
 
         if (selected) {
-            const match = completions.find(c => c.label === selected.label);
+            const match = completions.find(c => (c.label || summarizeCompletion(c.text)) === selected.label);
+            if (!match) {
+                return;
+            }
             editor.edit(edit => {
                 edit.insert(position, match.text);
             });
@@ -858,6 +881,26 @@ function getChatHtml() {
 
 function deactivate() {
     console.log('Sheikha Copilot Extension deactivated');
+}
+
+function safePostWebviewMessage(webview, payload) {
+    if (!webview || typeof webview.postMessage !== 'function') {
+        return false;
+    }
+
+    try {
+        const result = webview.postMessage(payload);
+        if (result && typeof result.catch === 'function') {
+            result.catch(() => {});
+        }
+        return true;
+    } catch (_) {
+        return false;
+    }
+}
+
+function summarizeCompletion(text) {
+    return String(text || '').split('\n')[0].slice(0, 60) || 'Sheikha Suggestion';
 }
 
 module.exports = { activate, deactivate };

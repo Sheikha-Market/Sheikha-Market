@@ -1797,6 +1797,43 @@ if (!window.matchMedia('(display-mode: standalone)').matches && !navigator.stand
     }
         });
 
+// ═══ Live Status Bar ═══
+(function() {
+    var bar = document.createElement('div');
+    bar.id = 'sheikha-status-bar';
+    bar.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:9990;display:flex;align-items:center;justify-content:center;gap:1.5rem;padding:6px 1.5rem;background:rgba(3,7,18,.92);backdrop-filter:blur(20px);border-top:1px solid rgba(212,175,55,.1);font-family:inherit;font-size:.72rem;color:#9CA3AF;direction:rtl;flex-wrap:wrap;';
+    bar.innerHTML = '<span style="color:#D4AF37;font-weight:700">⚡ شيخة</span>' +
+        '<span id="sb-status">🟢 مشغّل</span>' +
+        '<span id="sb-traders">…</span>' +
+        '<span id="sb-listings">…</span>' +
+        '<span id="sb-uptime">…</span>' +
+        '<a href="/المعمارية-والهيكلة.html" style="color:#D4AF37;font-weight:600;text-decoration:none">🏛️ المعمارية</a>' +
+        '<a href="/github-hub.html" style="color:#9CA3AF;text-decoration:none">🐙 GitHub Hub</a>';
+    document.body.appendChild(bar);
+    document.body.style.paddingBottom = '36px';
+    function refreshBar() {
+        Promise.all([
+            fetch('/api/admin/stats').then(function(r){return r.json()}).catch(function(){return null}),
+            fetch('/api/server/health').then(function(r){return r.json()}).catch(function(){return null})
+        ]).then(function(results) {
+            var stats = results[0], health = results[1];
+            if (stats && stats.success !== false) {
+                var sd = stats.data || stats;
+                document.getElementById('sb-traders').textContent = '🏪 ' + (sd.traders || sd.tradersCount || '—') + ' تاجر';
+                document.getElementById('sb-listings').textContent = '📋 ' + (sd.listings || sd.activeListings || '—') + ' منتج';
+            }
+            if (health && health.success !== false) {
+                var hd = health.data || health;
+                var up = hd.uptime || hd.uptimeSeconds || 0;
+                var h = Math.floor(up/3600), m = Math.floor((up%3600)/60);
+                document.getElementById('sb-uptime').textContent = '⏱️ ' + h + 'س ' + m + 'د';
+            }
+        });
+    }
+    refreshBar();
+    setInterval(refreshBar, 60000);
+})();
+
 // ═══ بوابة المدير السرية — نقر الشعار 5 مرات ═══
 (function() {
     var _ac = 0, _at = 0;

@@ -274,6 +274,7 @@
                 <a href="/سوق-شيخة.html">سوق شيخة</a>
                 <a href="/تكامل-شيخة-الذكي.html">EI + VS Code + RAG</a>
                 <a href="/sheikha-ide.html">Sheikha IDE</a>
+                <a href="/شيخة-التطوير-والذكاء.html">منظومة التطوير والذكاء</a>
                 <a href="/منطق-الصفحات-والايقونات.html">منطق الصفحات والايقونات</a>
             </div>
         </div>
@@ -316,6 +317,9 @@
 
         <h2 class="section-title">نماذج الاستدلال المنطقي</h2>
         <div class="grid" id="reasoning"></div>
+
+        <h2 class="section-title">منظومة التطوير والذكاء</h2>
+        <div class="grid" id="devStack"></div>
 
         <h2 class="section-title">الموصلات التنفيذية الحية</h2>
         <section class="ops-box" aria-label="تشغيل الموصلات">
@@ -626,7 +630,7 @@
         }
 
         async function loadUnified() {
-            const [uRes, rRes, cRes, atlasMapRes, marketRes, marketMapRes, universalRes, ummahRes] = await Promise.all([
+            const [uRes, rRes, cRes, atlasMapRes, marketRes, marketMapRes, universalRes, ummahRes, devStackRes] = await Promise.all([
                 fetch('/api/sheikha/unified-integrations'),
                 fetch('/api/sheikha/reasoning/models'),
                 fetch('/api/sheikha/connectors/status'),
@@ -634,7 +638,8 @@
                 fetch('/api/sheikha/market-governance/index'),
                 fetch('/api/sheikha/market-governance/map'),
                 fetch('/api/sheikha/universal-commerce/fabric'),
-                fetch('/api/sheikha/ummah-market-monitor')
+                fetch('/api/sheikha/ummah-market-monitor'),
+                fetch('/api/sheikha/dev-stack/status')
             ]);
 
             const unified = await uRes.json();
@@ -645,6 +650,7 @@
             const marketMap = await marketMapRes.json();
             const universalData = await universalRes.json();
             const ummahData = await ummahRes.json();
+            const devStackData = await devStackRes.json();
 
             if (!unified.success) return;
 
@@ -693,6 +699,20 @@
                         </h3>
                         <div class="meta">${m.family}</div>
                         <div class="meta">${m.useCases.join(' | ')}</div>
+                    </article>
+                `).join('');
+            }
+
+            if (devStackData.success) {
+                const platforms = Array.isArray(devStackData.data.platforms) ? devStackData.data.platforms : [];
+                const tools = Array.isArray(devStackData.data.tools) ? devStackData.data.tools.slice(0, 4) : [];
+                document.getElementById('devStack').innerHTML = [...platforms.slice(0, 4), ...tools].map(item => `
+                    <article class="card">
+                        <h3>
+                            <span>${item.name}</span>
+                            <span class="st ${statusClass(item.status)}">${item.status}</span>
+                        </h3>
+                        <div class="meta">${item.detail || item.version || ''}</div>
                     </article>
                 `).join('');
             }

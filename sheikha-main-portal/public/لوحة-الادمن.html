@@ -1418,6 +1418,14 @@ select.filter-select:focus { border-color: var(--gold); }
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
                     المهام الإدارية
                 </div>
+                <div class="nav-item" data-section="github-hub">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    GitHub Hub
+                </div>
+                <div class="nav-item" data-section="copilot-ai">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/><path d="M22 12h-4M6 12H2M12 6V2M12 22v-4"/></svg>
+                    Copilot AI
+                </div>
             </div>
         </div>
 quick
@@ -7265,6 +7273,118 @@ quick
     </footer>
 </div><!-- end .main -->
 
+<!-- ═══ GitHub Hub Section ═══ -->
+<div class="section" id="section-github-hub" style="padding:2rem;max-width:1400px;margin:0 auto;">
+    <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub Hub — منظومة شيخة
+    </div>
+    <p class="section-desc">مراقبة المستودعات والـ Commits والـ Issues بشكل حي — خادم خلفي يعمل تلقائياً</p>
+
+    <!-- Status + Actions -->
+    <div style="display:flex;align-items:center;gap:12px;background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.2);border-radius:10px;padding:14px 18px;margin-bottom:24px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:7px;">
+            <span id="gha-dot" style="width:10px;height:10px;border-radius:50%;background:#f85149;flex-shrink:0;"></span>
+            <strong id="gha-running">جارٍ التحميل...</strong>
+        </div>
+        <div style="font-size:.85rem;color:var(--text-muted);">آخر مزامنة: <span id="gha-lastsync">—</span></div>
+        <div style="font-size:.85rem;color:var(--text-muted);">المستخدم: <span id="gha-user">—</span></div>
+        <div style="margin-right:auto;display:flex;gap:8px;">
+            <button onclick="ghaSync()" style="background:var(--gold);color:#000;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:700;font-family:inherit;font-size:.85rem;">🔄 مزامنة</button>
+            <a href="/github-hub.html" target="_blank" style="background:rgba(255,255,255,.06);color:inherit;border:1px solid rgba(255,255,255,.1);padding:8px 14px;border-radius:6px;font-size:.85rem;text-decoration:none;">↗ الصفحة الكاملة</a>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:28px;">
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:var(--gold);" id="gha-n-repos">—</div>
+            <div style="font-size:.8rem;color:var(--text-muted);margin-top:4px;">المستودعات</div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:#3fb950;" id="gha-n-branches">—</div>
+            <div style="font-size:.8rem;color:var(--text-muted);margin-top:4px;">الفروع</div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:#f85149;" id="gha-n-issues">—</div>
+            <div style="font-size:.8rem;color:var(--text-muted);margin-top:4px;">Issues مفتوحة</div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:#58a6ff;" id="gha-n-prs">—</div>
+            <div style="font-size:.8rem;color:var(--text-muted);margin-top:4px;">Pull Requests</div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:#d29922;" id="gha-n-api">—</div>
+            <div style="font-size:.8rem;color:var(--text-muted);margin-top:4px;">API Calls</div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:#a5a0f5;" id="gha-n-syncs">—</div>
+            <div style="font-size:.8rem;color:var(--text-muted);margin-top:4px;">مزامنات ناجحة</div>
+        </div>
+    </div>
+
+    <!-- Commits -->
+    <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px;margin-bottom:20px;">
+        <div style="font-weight:700;font-size:1rem;margin-bottom:14px;display:flex;align-items:center;gap:8px;">⚡ آخر الـ Commits <span id="gha-reponame" style="font-size:.8rem;color:var(--text-muted);font-weight:400;"></span></div>
+        <div id="gha-commits" style="overflow-x:auto;">
+            <div style="color:var(--text-muted);text-align:center;padding:1.5rem;">جارٍ التحميل...</div>
+        </div>
+    </div>
+
+    <!-- Repos -->
+    <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px;">
+        <div style="font-weight:700;font-size:1rem;margin-bottom:14px;">📁 المستودعات</div>
+        <div id="gha-repos" style="overflow-x:auto;">
+            <div style="color:var(--text-muted);text-align:center;padding:1.5rem;">جارٍ التحميل...</div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ Copilot AI Section ═══ -->
+<div class="section" id="section-copilot-ai" style="padding:2rem;max-width:1400px;margin:0 auto;">
+    <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+        Sheikha Copilot Bridge
+    </div>
+    <p class="section-desc">ذكاء اصطناعي متكامل — تحليل الكود + توليد رسائل Commit + مراجعة شرعية</p>
+
+    <!-- Copilot Status -->
+    <div style="display:flex;align-items:center;gap:12px;background:rgba(88,166,255,.07);border:1px solid rgba(88,166,255,.2);border-radius:10px;padding:14px 18px;margin-bottom:24px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:7px;">
+            <span id="cop2-dot" style="width:10px;height:10px;border-radius:50%;background:#f85149;flex-shrink:0;"></span>
+            <strong id="cop2-running">جارٍ التحميل...</strong>
+        </div>
+        <div style="font-size:.85rem;color:var(--text-muted);">Heartbeats: <span id="cop2-hb">—</span></div>
+        <div style="font-size:.85rem;color:var(--text-muted);">الطلبات: <span id="cop2-req">—</span></div>
+        <div style="font-size:.85rem;color:var(--text-muted);">Tokens: <span id="cop2-tok">—</span></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:20px;">
+        <!-- محلل الكود -->
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px;">
+            <div style="font-weight:700;margin-bottom:14px;">🔬 محلل الكود</div>
+            <select id="cop2-lang" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:inherit;padding:8px 12px;border-radius:6px;font-family:inherit;direction:ltr;margin-bottom:10px;width:auto;">
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+                <option value="typescript">TypeScript</option>
+                <option value="html">HTML</option>
+            </select>
+            <textarea id="cop2-code" rows="6" placeholder="// الصق الكود هنا..." style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:inherit;padding:12px;border-radius:6px;font-family:monospace;font-size:.82rem;resize:vertical;direction:ltr;display:block;margin-bottom:10px;"></textarea>
+            <button onclick="cop2Analyze()" style="background:var(--gold);color:#000;border:none;padding:9px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-family:inherit;">🔍 تحليل</button>
+            <div id="cop2-result" style="margin-top:12px;"></div>
+        </div>
+
+        <!-- توليد رسالة Commit -->
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px;">
+            <div style="font-weight:700;margin-bottom:14px;">✍️ رسالة Commit</div>
+            <input id="cop2-ctx" type="text" placeholder="سياق التعديل (اختياري)" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:inherit;padding:10px 12px;border-radius:6px;font-family:inherit;direction:rtl;margin-bottom:8px;display:block;">
+            <textarea id="cop2-diff" rows="6" placeholder="+Added line&#10;-Removed line" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:inherit;padding:12px;border-radius:6px;font-family:monospace;font-size:.82rem;resize:vertical;direction:ltr;display:block;margin-bottom:10px;"></textarea>
+            <button onclick="cop2CommitMsg()" style="background:rgba(88,166,255,.15);color:#58a6ff;border:1px solid rgba(88,166,255,.3);padding:9px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-family:inherit;">⚡ توليد</button>
+            <div id="cop2-commit-result" style="margin-top:12px;"></div>
+        </div>
+    </div>
+</div>
+
 <script src="/js/safe-api.js"></script>
 <script>
 /* ============================================
@@ -9782,6 +9902,110 @@ setTokenIssuerState();
             chatBody.scrollTop = chatBody.scrollHeight;
         }
         function sendAiMessageFromSuggestion(text) { document.getElementById('aiInput').value = text; sendAiMessage(); }
+
+    // ═══ GitHub Hub لوحة الأدمن ═══
+    function ghaEsc(str) {
+        if (typeof str !== 'string') return '';
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');
+    }
+
+    function ghaLoadStatus() {
+        fetch('/api/github/status').then(r => r.json()).then(d => {
+            if (!d.success) return;
+            const s = d.data;
+            const dot = document.getElementById('gha-dot');
+            if (dot) {
+                if (s.running) { dot.style.background = '#3fb950'; document.getElementById('gha-running').textContent = 'متصل — ' + s.org + '/' + s.repo; }
+                else { document.getElementById('gha-running').textContent = 'الخادم متوقف'; }
+                if (s.lastSync) { const ago = Math.floor((Date.now() - new Date(s.lastSync).getTime()) / 60000); document.getElementById('gha-lastsync').textContent = 'منذ ' + ago + ' دقيقة'; }
+                if (s.user) document.getElementById('gha-user').textContent = s.user.name || s.user.login;
+                document.getElementById('gha-n-repos').textContent = s.repos || '0';
+                document.getElementById('gha-n-branches').textContent = s.branches || '0';
+                document.getElementById('gha-n-issues').textContent = s.openIssues || '0';
+                document.getElementById('gha-n-prs').textContent = s.openPRs || '0';
+                document.getElementById('gha-n-api').textContent = (s.stats && s.stats.apiCalls) || '0';
+                document.getElementById('gha-n-syncs').textContent = (s.stats && s.stats.successfulSyncs) || '0';
+            }
+        }).catch(() => {});
+
+        fetch('/api/github/full').then(r => r.json()).then(d => {
+            if (!d.success || !d.data) return;
+            const data = d.data;
+            const tblStyle = 'width:100%;border-collapse:collapse;font-size:.85rem;';
+            const thStyle = 'text-align:right;padding:8px 10px;color:var(--text-muted);font-weight:500;border-bottom:1px solid rgba(255,255,255,.07);';
+            const tdStyle = 'padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.04);';
+            if (data.commits && data.commits.length > 0) {
+                if (data.status) document.getElementById('gha-reponame').textContent = '— ' + (data.status.org || '') + '/' + (data.status.repo || '');
+                const rows = data.commits.map(c => `<tr><td style="${tdStyle}"><code style="background:rgba(255,255,255,.06);padding:2px 6px;border-radius:3px;font-size:.8rem;">${ghaEsc(c.sha)}</code></td><td style="${tdStyle};max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${ghaEsc(c.message)}</td><td style="${tdStyle};color:var(--text-muted);font-size:.8rem;">${ghaEsc(c.author)}</td><td style="${tdStyle};color:var(--text-muted);font-size:.75rem;">${c.date ? new Date(c.date).toLocaleDateString('ar-SA') : '—'}</td></tr>`).join('');
+                document.getElementById('gha-commits').innerHTML = `<table style="${tblStyle}"><thead><tr><th style="${thStyle}">SHA</th><th style="${thStyle}">الرسالة</th><th style="${thStyle}">الكاتب</th><th style="${thStyle}">التاريخ</th></tr></thead><tbody>${rows}</tbody></table>`;
+            } else {
+                document.getElementById('gha-commits').innerHTML = '<div style="color:var(--text-muted);text-align:center;padding:1.5rem;">لا توجد commits</div>';
+            }
+            if (data.repos && data.repos.length > 0) {
+                const rrows = data.repos.map(r => `<tr><td style="${tdStyle}"><a href="${ghaEsc(r.url||'#')}" target="_blank" rel="noopener noreferrer" style="color:#58a6ff;">${ghaEsc(r.name)}</a></td><td style="${tdStyle};color:var(--text-muted);font-size:.8rem;">${ghaEsc(r.language||'—')}</td><td style="${tdStyle}">⭐ ${r.stars||0}</td><td style="${tdStyle};font-size:.8rem;">${r.isPrivate ? '<span style="color:#d29922;">خاص</span>' : '<span style="color:#3fb950;">عام</span>'}</td></tr>`).join('');
+                document.getElementById('gha-repos').innerHTML = `<table style="${tblStyle}"><thead><tr><th style="${thStyle}">الاسم</th><th style="${thStyle}">اللغة</th><th style="${thStyle}">النجوم</th><th style="${thStyle}">النوع</th></tr></thead><tbody>${rrows}</tbody></table>`;
+            }
+        }).catch(() => {});
+    }
+
+    function ghaSync() {
+        fetch('/api/github/sync', { method:'POST' }).then(r => r.json()).then(d => {
+            if (d.success) { ghaLoadStatus(); }
+        }).catch(() => {});
+    }
+
+    function ghaLoadCopilot() {
+        fetch('/api/github/copilot-bridge/status').then(r => r.json()).then(d => {
+            if (!d.success) return;
+            const s = d.data;
+            const dot = document.getElementById('cop2-dot');
+            if (!dot) return;
+            if (s.running) { dot.style.background = '#3fb950'; document.getElementById('cop2-running').textContent = 'Copilot Bridge يعمل'; }
+            document.getElementById('cop2-hb').textContent = s.heartbeatCount || '0';
+            document.getElementById('cop2-req').textContent = (s.stats && s.stats.totalRequests) || '0';
+            document.getElementById('cop2-tok').textContent = (s.stats && s.stats.totalTokens) || '0';
+        }).catch(() => {});
+    }
+
+    function cop2Analyze() {
+        const code = document.getElementById('cop2-code').value.trim();
+        const lang = document.getElementById('cop2-lang').value;
+        if (!code) return;
+        const res = document.getElementById('cop2-result');
+        res.innerHTML = '<div style="color:var(--text-muted);">جارٍ التحليل...</div>';
+        fetch('/api/github/copilot-bridge/analyze', {
+            method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({code,language:lang})
+        }).then(r => r.json()).then(d => {
+            if (!d.success) { res.innerHTML = '<div style="color:#f85149;">' + ghaEsc(d.message||'') + '</div>'; return; }
+            const data = d.data;
+            const col = data.score >= 80 ? '#3fb950' : data.score >= 50 ? '#d29922' : '#f85149';
+            const ihtml = data.issues.length > 0 ? data.issues.map(i => `<div style="display:flex;gap:8px;padding:7px;background:rgba(255,255,255,.04);border-radius:5px;margin-bottom:4px;font-size:.82rem;">${{'security':'🔴','quality':'🟡','cleanup':'🔵','islamic_quality':'🌙'}[i.type]||'⚠️'} ${ghaEsc(i.message)}</div>`).join('') : '<div style="color:#3fb950;font-size:.85rem;">لا توجد مشكلات ✅</div>';
+            res.innerHTML = `<div style="border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;margin-top:10px;"><div style="display:flex;justify-content:space-between;margin-bottom:8px;"><strong>النتيجة</strong><span style="font-size:1.2rem;font-weight:800;color:${col};">${data.score}/100</span></div><div style="background:rgba(255,255,255,.06);border-radius:3px;height:5px;margin-bottom:10px;"><div style="height:100%;width:${data.score}%;background:${col};border-radius:3px;"></div></div>${ihtml}<div style="margin-top:8px;font-size:.8rem;color:var(--text-muted);">${ghaEsc(data.recommendation)}</div></div>`;
+        }).catch(() => { res.innerHTML = '<div style="color:#f85149;">خطأ</div>'; });
+    }
+
+    function cop2CommitMsg() {
+        const diff = document.getElementById('cop2-diff').value.trim();
+        const ctx = document.getElementById('cop2-ctx').value.trim();
+        if (!diff) return;
+        const res = document.getElementById('cop2-commit-result');
+        res.innerHTML = '<div style="color:var(--text-muted);">جارٍ التوليد...</div>';
+        fetch('/api/github/copilot-bridge/commit-message', {
+            method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({diff,context:ctx})
+        }).then(r => r.json()).then(d => {
+            if (!d.success) { res.innerHTML = '<div style="color:#f85149;">' + ghaEsc(d.message||'') + '</div>'; return; }
+            const data = d.data;
+            res.innerHTML = `<div style="border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;margin-top:10px;"><div style="font-family:monospace;background:rgba(255,255,255,.05);padding:10px;border-radius:5px;margin-bottom:8px;direction:ltr;">${ghaEsc(data.message)}</div><div style="display:flex;gap:8px;font-size:.8rem;margin-bottom:8px;"><span style="background:rgba(88,166,255,.15);color:#58a6ff;padding:2px 8px;border-radius:10px;">${ghaEsc(data.type)}</span><span style="color:#3fb950;">+${(data.stats||{}).added||0}</span><span style="color:#f85149;">-${(data.stats||{}).removed||0}</span></div><div style="font-size:.8rem;color:var(--gold);">${ghaEsc(data.islamicNote||'')}</div></div>`;
+        }).catch(() => { res.innerHTML = '<div style="color:#f85149;">خطأ</div>'; });
+    }
+
+    // ربط showSection بالأقسام الجديدة
+    const _origShowSection = showSection;
+    window.showSection = function(id) {
+        _origShowSection(id);
+        if (id === 'github-hub') ghaLoadStatus();
+        if (id === 'copilot-ai') ghaLoadCopilot();
+    };
     </script>
 
 </body>
