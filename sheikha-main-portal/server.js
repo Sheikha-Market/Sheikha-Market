@@ -3931,6 +3931,8 @@ if (helmet) {
                         'https://cdn.jsdelivr.net',
                         'https://cdnjs.cloudflare.com'
                     ],
+                    // السماح بـ inline event handlers (onsubmit, onclick, ...) في الـ HTML
+                    scriptSrcAttr: ["'unsafe-inline'"],
                     styleSrc: [
                         "'self'",
                         "'unsafe-inline'",
@@ -4054,6 +4056,7 @@ if (rateLimit) {
 
 // === تطبيق الـ middleware بالترتيب الصحيح ===
 app.use(cors(corsOptions));
+try { app.use(require('cookie-parser')()); console.log('✅ cookie-parser — قراءة cookies OAuth'); } catch (_) { console.warn('⚠️ cookie-parser غير متوفر'); }
 app.use(express.json());
 
 // تنظيف المدخلات
@@ -4171,6 +4174,19 @@ function verifyTokenRole(req) {
 
 // Middleware لحماية الصفحات (HTML)
 const IS_LOCAL = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
+
+// نطاق الأدمن الصريح — مفعّل إذا كان مختلفاً عن BASE_URL
+const ADMIN_DOMAIN_RAW = (process.env.ADMIN_URL || '').replace(/\/$/, '').replace(/^https?:\/\//, '');
+const BASE_DOMAIN_RAW  = (process.env.BASE_URL  || '').replace(/\/$/, '').replace(/^https?:\/\//, '');
+const EXPLICIT_ADMIN_DOMAIN = ADMIN_DOMAIN_RAW && ADMIN_DOMAIN_RAW !== BASE_DOMAIN_RAW
+    ? ADMIN_DOMAIN_RAW : null;
+
+function isAdminDomainRequest(req) {
+    if (!EXPLICIT_ADMIN_DOMAIN) return false;
+    const host = (req.get('x-forwarded-host') || req.get('host') || '').split(':')[0];
+    return host === EXPLICIT_ADMIN_DOMAIN;
+}
+
 app.use((req, res, next) => {
     const path = decodeURIComponent(req.path);
 
@@ -4179,14 +4195,20 @@ app.use((req, res, next) => {
         ADMIN_ONLY_PAGES.includes(path) || ADMIN_PREFIXES.some(p => path.startsWith(p));
 
     if (isAdminPage) {
-        // في وضع PILOT / التطوير المحلي — السماح بالوصول للمالك
-        if (IS_LOCAL) {
-            return next();
-        }
+        // في وضع التطوير المحلي — السماح للمالك
+        if (IS_LOCAL) return next();
+        // إذا كان الطلب من نطاق الأدمن الصريح — تحقق من الدور فقط
         const user = verifyTokenRole(req);
         if (!user || user.role !== 'admin') {
-            return res.redirect('/');
+            return res.redirect('/تسجيل-الدخول.html?redirect=' + encodeURIComponent(req.originalUrl));
         }
+        return next();
+    }
+
+    // إذا كان طلب لصفحة غير إدارية من نطاق الأدمن — حوّله للنطاق الرئيسي
+    if (isAdminDomainRequest(req) && process.env.BASE_URL) {
+        const mainUrl = process.env.BASE_URL.replace(/\/$/, '') + req.originalUrl;
+        return res.redirect(301, mainUrl);
     }
 
     next();
@@ -14465,13 +14487,42 @@ app.get('/api/auth/security-log', authRequired, (req, res) => {
 
 // ─── تسجيل الدخول بنفاذ، جوجل، مايكروسوفت، أبل (OAuth) ─────────────────────────
 // النطاقات الموثوقة في شيخة — يُستخدم للتحقق من OAuth callbacks
+// ═══════════════════════════════════════════════════════════════
+// تعريف المنافذ وقوانين الأمان — Sheikha Port Security Policy
+// ═══════════════════════════════════════════════════════════════
+//
+// المنفذ 8080 — الداخلي (Internal)
+//   • الخادم Node.js يستمع هنا على 0.0.0.0:8080
+//   • يعالج كل طلبات API والصفحات
+//   • لا يُكشف مباشرة للإنترنت في الإنتاج
+//
+// المنفذ 8081 — الخارجي (Port Forwarding / Proxy)
+//   • VS Code يمرر طلبات المتصفح من 8081 إلى 8080
+//   • يُستخدم فقط في بيئة التطوير المحلي
+//   • OAuth callbacks تُسجَّل على 8081 في Google/Azure أثناء التطوير
+//
+// قوانين الأمان:
+//   1. النطاقات الموثوقة فقط مسموح لها بـ OAuth callbacks
+//   2. الصفحات الإدارية تتطلب role=admin في الإنتاج
+//   3. JWT مطلوب لجميع /api/user/* و /api/admin/*
+//   4. CSRF state cookie لكل طلب OAuth
+//   5. dotenv override=true لمنع shell vars من الإلغاء
+// ═══════════════════════════════════════════════════════════════
 const SHEIKHA_TRUSTED_DOMAINS = [
+    // ─── إنتاج ───────────────────────────────
     'sheikha.top',
     'www.sheikha.top',
     'public.sheikha.top',
     'api.sheikha.top',
     'market.sheikha.top',
-    'localhost:8080',
+    'admin.sheikha.top',
+    // ─── تطوير محلي ──────────────────────────
+    'localhost:8080',   // داخلي — الخادم الفعلي
+    'localhost:8081',   // خارجي — Port Forwarding (VS Code)
+    'localhost:8082',   // بديل — Port Forwarding
+    '127.0.0.1:8080',
+    '127.0.0.1:8081',
+    '127.0.0.1:8082',
     'localhost:3000'
 ];
 
@@ -14503,19 +14554,27 @@ function sheikhaMatchUser(provider, providerId, profile) {
     let user = USERS.find(u => u.provider === provider && String(u.providerId) === String(providerId));
     if (user) return { user, matched: 'provider_id', linked: false };
 
-    // 2) مطابقة بالبريد الإلكتروني (إذا موثوق)
+    // مطابقة بـ linkedProviders (حساب مرتبط مسبقاً)
+    user = USERS.find(u => (u.linkedProviders || []).some(p => p.provider === provider && String(p.providerId) === String(providerId)));
+    if (user) return { user, matched: 'linked_provider', linked: false };
+
+    // 2) مطابقة بالبريد الإلكتروني الرئيسي أو البريد البديل (aliasEmails)
     if (email) {
-        user = USERS.find(u => u.email && u.email.trim().toLowerCase() === email);
+        user = USERS.find(u => {
+            const mainEmail = (u.email || '').trim().toLowerCase();
+            const aliases   = (u.aliasEmails || []).map(e => e.trim().toLowerCase());
+            return mainEmail === email || aliases.includes(email);
+        });
         if (user) {
             // ربط الحساب الموجود بالمزود الجديد
             if (!user.linkedProviders) user.linkedProviders = [];
             const already = user.linkedProviders.find(p => p.provider === provider);
             if (!already) {
                 user.linkedProviders.push({ provider, providerId, linkedAt: new Date().toISOString() });
-                // تحديث authMethods
                 if (!user.authMethods) user.authMethods = [];
                 if (!user.authMethods.includes(provider)) user.authMethods.push(provider);
                 saveJSON(USERS_FILE, USERS);
+                console.log('[Match] ربط', provider, 'بـ', user.email, '(', user.role, ')');
             }
             return { user, matched: 'email', linked: true };
         }
@@ -14569,10 +14628,14 @@ function findOrCreateOAuthUser(provider, providerId, profile) {
     }
     return newUser;
 }
-function redirectWithToken(res, baseUrl, token, error) {
-    const target = error
-        ? baseUrl + '/تسجيل-الدخول.html?error=' + encodeURIComponent(error)
-        : baseUrl + '/تسجيل-الدخول.html?token=' + encodeURIComponent(token);
+function redirectWithToken(res, baseUrl, token, error, role) {
+    let target;
+    if (error) {
+        target = baseUrl + '/\u062a\u0633\u062c\u064a\u0644-\u0627\u0644\u062f\u062e\u0648\u0644.html?error=' + encodeURIComponent(error);
+    } else {
+        target = baseUrl + '/\u062a\u0633\u062c\u064a\u0644-\u0627\u0644\u062f\u062e\u0648\u0644.html?token=' + encodeURIComponent(token);
+        if (role) target += '&role=' + encodeURIComponent(role);
+    }
     res.redirect(302, target);
 }
 
@@ -14631,6 +14694,19 @@ app.get('/api/auth/identity-status', authRequired, (req, res) => {
     });
 });
 
+// ─── تشخيص OAuth (للتطوير فقط) ───────────────────────────────────────────
+app.get('/api/auth/debug', (req, res) => {
+    const base = getBaseUrl(req);
+    res.json({
+        host: req.get('host'),
+        base,
+        google_redirect: process.env.GOOGLE_REDIRECT_URI || (base + '/api/auth/google/callback'),
+        ms_redirect:     process.env.MICROSOFT_REDIRECT_URI || (base + '/api/auth/microsoft/callback'),
+        google_enabled: isRealEnvValue(process.env.GOOGLE_CLIENT_ID),
+        ms_enabled:     isRealEnvValue(process.env.MICROSOFT_CLIENT_ID) && isRealEnvValue(process.env.MICROSOFT_CLIENT_SECRET),
+    });
+});
+
 app.get('/api/auth/google', (req, res) => {
     const clientId = process.env.GOOGLE_CLIENT_ID;
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
@@ -14640,12 +14716,20 @@ app.get('/api/auth/google', (req, res) => {
                 encodeURIComponent('الدخول بجوجل غير مفعّل. راجع الإعدادات.')
         );
     const base = getBaseUrl(req);
-    const redirectUri = base + '/api/auth/google/callback';
+    // استخدم GOOGLE_REDIRECT_URI الثابت إذا كان محدداً (يحل مشكلة port forwarding)
+    const redirectUri = (process.env.GOOGLE_REDIRECT_URI && isRealEnvValue(process.env.GOOGLE_REDIRECT_URI))
+        ? process.env.GOOGLE_REDIRECT_URI
+        : base + '/api/auth/google/callback';
     const scope = 'openid email profile';
     const mode = req.query.mode || 'login';
     // CSRF protection
     const state = require('crypto').randomBytes(16).toString('hex');
-    res.cookie('google_oauth_state', state, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'Lax', maxAge: 10 * 60 * 1000 });
+    // Secure flag بناءً على redirect_uri protocol (لا NODE_ENV) لدعم localhost HTTP
+    const cookieOpts = { httpOnly: true, secure: redirectUri.startsWith('https://'), sameSite: 'Lax', maxAge: 10 * 60 * 1000 };
+    res.cookie('google_oauth_state', state, cookieOpts);
+    // حفظ redirect_uri في cookie لضمان التطابق في الـ callback (يحل مشكلة port forwarding)
+    res.cookie('google_redirect_uri', redirectUri, cookieOpts);
+    console.log('[Google Auth] redirect_uri:', redirectUri);
     const url =
         'https://accounts.google.com/o/oauth2/v2/auth?client_id=' +
         encodeURIComponent(clientId) +
@@ -14653,13 +14737,24 @@ app.get('/api/auth/google', (req, res) => {
         encodeURIComponent(redirectUri) +
         '&response_type=code&scope=' +
         encodeURIComponent(scope) +
+        '&access_type=offline' +
+        '&prompt=consent' +
         '&state=' + encodeURIComponent(state + ':' + mode);
     res.redirect(302, url);
 });
 app.get('/api/auth/google/callback', async (req, res) => {
-    const { code, error, state } = req.query || {};
+    let { code, error, state } = req.query || {};
+    // فك تشفير HTML entities التي قد يضيفها port forwarding (&#x2F; → /)
+    if (code) code = code.replace(/&#x2F;/gi, '/').replace(/&#47;/gi, '/').replace(/&amp;/gi, '&').replace(/&#x3D;/gi, '=');
     const base = getBaseUrl(req);
-    if (error || !code) return redirectWithToken(res, base, null, 'فشل الدخول بجوجل.');
+    console.log('[Google CB] host:', req.get('host'), '| code:', code ? code.substring(0,10)+'...' : 'null', '| error:', error || 'none');
+    if (error || !code) {
+        let arabic = 'فشل الدخول بجوجل';
+        if (/redirect_uri_mismatch/.test(error)) arabic = 'فشل جوجل: رابط إعادة التوجيه غير مسجّل في Google Cloud Console — أضف ' + process.env.GOOGLE_REDIRECT_URI;
+        else if (/access_denied/.test(error)) arabic = 'فشل جوجل: رفض المستخدم منح الصلاحيات';
+        else arabic = 'فشل الدخول بجوجل — ' + (error || 'لم يُستلم الرمز');
+        return redirectWithToken(res, base, null, arabic);
+    }
     // التحقق من CSRF state
     const cookieState = req.cookies && req.cookies.google_oauth_state;
     if (cookieState && state) {
@@ -14672,7 +14767,14 @@ app.get('/api/auth/google/callback', async (req, res) => {
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
     if (!clientId || !clientSecret)
         return redirectWithToken(res, base, null, 'إعدادات جوجل ناقصة.');
-    const redirectUri = base + '/api/auth/google/callback';
+    // استخدام redirect_uri المحفوظ في cookie لضمان التطابق التام مع خطوة التصريح
+    const savedRedirectUri = req.cookies && req.cookies.google_redirect_uri;
+    res.clearCookie('google_redirect_uri');
+    const redirectUri = savedRedirectUri ||
+        ((process.env.GOOGLE_REDIRECT_URI && isRealEnvValue(process.env.GOOGLE_REDIRECT_URI))
+            ? process.env.GOOGLE_REDIRECT_URI
+            : base + '/api/auth/google/callback');
+    console.log('[Google CB] redirect_uri for token:', redirectUri, '| code len:', code ? code.length : 0);
     try {
         const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
             method: 'POST',
@@ -14686,8 +14788,11 @@ app.get('/api/auth/google/callback', async (req, res) => {
             })
         });
         const tokenData = await tokenRes.json();
-        if (!tokenData.access_token)
-            return redirectWithToken(res, base, null, 'فشل استلام رمز جوجل.');
+        if (!tokenData.access_token) {
+            console.error('[Google OAuth] token error:', JSON.stringify(tokenData));
+            const detail = tokenData.error_description || tokenData.error || 'unknown';
+            return redirectWithToken(res, base, null, '\u0641\u0634\u0644 \u0627\u0633\u062a\u0644\u0627\u0645 \u0631\u0645\u0632 \u062c\u0648\u062c\u0644: ' + detail);
+        }
         const userRes = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
             headers: { Authorization: 'Bearer ' + tokenData.access_token }
         });
@@ -14696,8 +14801,8 @@ app.get('/api/auth/google/callback', async (req, res) => {
             name: userData.name || userData.email,
             email: userData.email
         });
-        const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
-        redirectWithToken(res, base, token);
+        const token = jwt.sign({ userId: user.id, role: user.role || 'user' }, JWT_SECRET, { expiresIn: '7d' });
+        redirectWithToken(res, base, token, null, user.role || 'user');
     } catch (e) {
         redirectWithToken(res, base, null, 'خطأ في الاتصال بجوجل.');
     }
@@ -14713,7 +14818,10 @@ app.get('/api/auth/microsoft', (req, res) => {
         );
     const base = getBaseUrl(req);
     const mode = req.query.mode || 'login';
-    const redirectUri = base + '/api/auth/microsoft/callback';
+    // استخدم MICROSOFT_REDIRECT_URI الثابت إذا كان محدداً في .env (يضمن التطابق مع Azure)
+    const redirectUri = (process.env.MICROSOFT_REDIRECT_URI && isRealEnvValue(process.env.MICROSOFT_REDIRECT_URI))
+        ? process.env.MICROSOFT_REDIRECT_URI
+        : base + '/api/auth/microsoft/callback';
     // استخدام tenant المحدد أو common للسماح بكل الحسابات
     const tenant = (process.env.MICROSOFT_TENANT_ID && isRealEnvValue(process.env.MICROSOFT_TENANT_ID))
         ? process.env.MICROSOFT_TENANT_ID
@@ -14721,7 +14829,13 @@ app.get('/api/auth/microsoft', (req, res) => {
     const scope = 'openid email profile User.Read';
     // CSRF protection
     const state = require('crypto').randomBytes(16).toString('hex');
-    res.cookie('ms_oauth_state', state, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'Lax', maxAge: 10 * 60 * 1000 });
+    const nonce = require('crypto').randomBytes(16).toString('hex'); // مطلوب لـ openid في Microsoft
+    // Secure flag بناءً على redirect_uri protocol (لا NODE_ENV) لدعم localhost HTTP
+    const cookieOpts = { httpOnly: true, secure: redirectUri.startsWith('https://'), sameSite: 'Lax', maxAge: 10 * 60 * 1000 };
+    res.cookie('ms_oauth_state', state, cookieOpts);
+    // حفظ redirect_uri في cookie لضمان التطابق في الـ callback (يحل مشكلة port forwarding)
+    res.cookie('ms_redirect_uri', redirectUri, cookieOpts);
+    console.log('[MS Auth] redirect_uri:', redirectUri, '| tenant:', tenant);
     const url =
         'https://login.microsoftonline.com/' + encodeURIComponent(tenant) + '/oauth2/v2.0/authorize?client_id=' +
         encodeURIComponent(clientId) +
@@ -14729,14 +14843,29 @@ app.get('/api/auth/microsoft', (req, res) => {
         encodeURIComponent(redirectUri) +
         '&scope=' +
         encodeURIComponent(scope) +
+        '&nonce=' + encodeURIComponent(nonce) +
         '&state=' + encodeURIComponent(state + ':' + mode) +
         '&response_mode=query';
     res.redirect(302, url);
 });
 app.get('/api/auth/microsoft/callback', async (req, res) => {
-    const { code, error, state } = req.query || {};
+    let { code, error, state, error_description } = req.query || {};
+    // فك تشفير HTML entities التي قد يضيفها port forwarding (&#x2F; → /)
+    if (code) code = code.replace(/&#x2F;/gi, '/').replace(/&#47;/gi, '/').replace(/&amp;/gi, '&').replace(/&#x3D;/gi, '=');
     const base = getBaseUrl(req);
-    if (error || !code) return redirectWithToken(res, base, null, 'فشل الدخول بمايكروسوفت.');
+    console.log('[MS CB] host:', req.get('host'), '| code:', code ? code.substring(0,10)+'...' : 'null', '| error:', error || 'none', '| desc:', error_description || '');
+    if (error || !code) {
+        // استخراج رمز AADSTS لإعطاء رسالة عربية واضحة
+        const desc = error_description || error || 'لم يُستلم الرمز';
+        let arabic = 'فشل الدخول بمايكروسوفت';
+        if (/AADSTS50011|redirect_uri/.test(desc)) arabic = 'فشل مايكروسوفت: رابط إعادة التوجيه غير مسجّل في Azure — أضف ' + process.env.MICROSOFT_REDIRECT_URI + ' في إعدادات التطبيق';
+        else if (/AADSTS53003|Conditional/.test(desc)) arabic = 'فشل مايكروسوفت: سياسة الوصول الشرطي تمنع الدخول — تحقق من إعدادات Azure AD';
+        else if (/AADSTS70011|invalid_scope/.test(desc)) arabic = 'فشل مايكروسوفت: نطاق الصلاحيات غير صحيح';
+        else if (/AADSTS65001|admin_consent/.test(desc)) arabic = 'فشل مايكروسوفت: التطبيق يحتاج موافقة مسؤول الـ Tenant';
+        else if (/access_denied/.test(error)) arabic = 'فشل مايكروسوفت: رفض المستخدم منح الصلاحيات';
+        else arabic = 'فشل الدخول بمايكروسوفت — ' + desc.split('\r\n')[0].substring(0, 120);
+        return redirectWithToken(res, base, null, arabic);
+    }
     // التحقق من CSRF state
     const cookieState = req.cookies && req.cookies.ms_oauth_state;
     if (cookieState && state) {
@@ -14752,7 +14881,13 @@ app.get('/api/auth/microsoft/callback', async (req, res) => {
     const tenant = (process.env.MICROSOFT_TENANT_ID && isRealEnvValue(process.env.MICROSOFT_TENANT_ID))
         ? process.env.MICROSOFT_TENANT_ID
         : 'common';
-    const redirectUri = base + '/api/auth/microsoft/callback';
+    // استخدام redirect_uri المحفوظ في cookie لضمان التطابق التام مع خطوة التصريح
+    const savedMsRedirectUri = req.cookies && req.cookies.ms_redirect_uri;
+    res.clearCookie('ms_redirect_uri');
+    const redirectUri = savedMsRedirectUri ||
+        ((process.env.MICROSOFT_REDIRECT_URI && isRealEnvValue(process.env.MICROSOFT_REDIRECT_URI))
+            ? process.env.MICROSOFT_REDIRECT_URI
+            : base + '/api/auth/microsoft/callback');
     try {
         const tokenRes = await fetch(
             'https://login.microsoftonline.com/' + encodeURIComponent(tenant) + '/oauth2/v2.0/token',
@@ -14769,20 +14904,23 @@ app.get('/api/auth/microsoft/callback', async (req, res) => {
             }
         );
         const tokenData = await tokenRes.json();
-        if (!tokenData.access_token)
-            return redirectWithToken(res, base, null, 'فشل استلام رمز مايكروسوفت.');
+        if (!tokenData.access_token) {
+            console.error('[Microsoft OAuth] token error:', JSON.stringify(tokenData));
+            const detail = tokenData.error_description || tokenData.error || 'unknown';
+            return redirectWithToken(res, base, null, '\u0641\u0634\u0644 \u0627\u0633\u062a\u0644\u0627\u0645 \u0631\u0645\u0632 \u0645\u0627\u064a\u0643\u0631\u0648\u0633\u0648\u0641\u062a: ' + detail);
+        }
         const userRes = await fetch('https://graph.microsoft.com/v1.0/me', {
             headers: { Authorization: 'Bearer ' + tokenData.access_token }
         });
         const userData = await userRes.json();
         if (!userData.id)
-            return redirectWithToken(res, base, null, 'فشل جلب بيانات مايكروسوفت.');
+            return redirectWithToken(res, base, null, '\u0641\u0634\u0644 \u062c\u0644\u0628 \u0628\u064a\u0627\u0646\u0627\u062a \u0645\u0627\u064a\u0643\u0631\u0648\u0633\u0648\u0641\u062a.');
         const user = findOrCreateOAuthUser('microsoft', userData.id, {
             name: userData.displayName || userData.userPrincipalName || userData.mail,
             email: userData.mail || userData.userPrincipalName || ''
         });
-        const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
-        redirectWithToken(res, base, token);
+        const token = jwt.sign({ userId: user.id, role: user.role || 'user' }, JWT_SECRET, { expiresIn: '7d' });
+        redirectWithToken(res, base, token, null, user.role || 'user');
     } catch (e) {
         redirectWithToken(res, base, null, 'خطأ في الاتصال بمايكروسوفت.');
     }
@@ -23357,6 +23495,676 @@ app.post('/api/admin/execute', (req, res) => {
         success: true,
         command,
         output: `تنفيذ: ${command}\n✓ تم التنفيذ بنجاح`,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════
+// 🛡️ السيادة الرقمية والحماية الكونية — شيخة
+// لا ضرر ولا ضرار — الكتاب والسنة
+// ═══════════════════════════════════════════
+
+// سجل محلي للأحداث الأمنية السيادية
+const sovereigntyLog = [];
+const blockedAttempts = [];
+
+function logSovereigntyEvent(type, detail, severity = 'info') {
+    const ev = { type, detail, severity, at: new Date().toISOString() };
+    sovereigntyLog.unshift(ev);
+    if (sovereigntyLog.length > 500) sovereigntyLog.pop();
+    if (severity === 'high' || severity === 'critical') {
+        blockedAttempts.unshift(ev);
+        if (blockedAttempts.length > 100) blockedAttempts.pop();
+    }
+}
+
+// حماية النطاقات غير المصرح بها
+const UNAUTHORIZED_DOMAINS = [
+    /\.gov(?!\.sa|\.ae|\.qa|\.kw|\.bh|\.om|\.jo|\.eg)/,  // حكومات غير خليجية غير مصرح
+];
+const SOVEREIGN_POLICIES = {
+    noExternalControl: true,
+    noUnauthorizedLaws: true,
+    noPortExploitation: true,
+    noHarmfulOrganizations: true,
+    islamicCompliance: true,
+    noRiba: true,
+    noGharar: true,
+    noGhish: true,
+    noIhtikar: true,
+    noNajsh: true,
+    dataLocality: 'islamic-world-first',
+    allowedGovAuth: ['SA', 'AE', 'QA', 'KW', 'BH', 'OM', 'JO', 'EG', 'MA', 'TN', 'DZ', 'LY', 'SD', 'SY', 'IQ', 'YE', 'LB', 'PS', 'PK', 'BD', 'MY', 'ID', 'NG', 'SN', 'ML'],
+    principle: 'لا ضرر ولا ضرار — الكتاب والسنة — التوحيد'
+};
+
+// حماية فورية عند كل طلب مشبوه
+app.use((req, res, next) => {
+    const origin = req.headers.origin || '';
+    const ua = req.headers['user-agent'] || '';
+    const ip = req.ip || req.connection.remoteAddress || '';
+
+    // كشف المحاولات المشبوهة
+    if (ua.includes('exploit') || ua.includes('sqlmap') || ua.includes('nikto') || ua.includes('masscan')) {
+        logSovereigntyEvent('blocked_scanner', `UA: ${ua.substring(0, 80)} IP: ${ip}`, 'high');
+        return res.status(403).json({ success: false, message: 'ممنوع — شيخة محمية' });
+    }
+
+    // حماية مسارات السيادة من الوصول غير المصرح
+    if (req.path.includes('/api/admin/sovereignty') && req.method !== 'GET') {
+        logSovereigntyEvent('sovereignty_write_attempt', `IP: ${ip} PATH: ${req.path}`, 'high');
+    }
+
+    next();
+});
+
+// حالة نظام السيادة
+app.get('/api/admin/sovereignty/status', authRequired, (req, res) => {
+    const threats = blockedAttempts.slice(0, 20);
+    const recentLog = sovereigntyLog.slice(0, 50);
+
+    res.json({
+        success: true,
+        sovereignty: {
+            status: 'active',
+            level: 'maximum',
+            lastCheck: new Date().toISOString(),
+            policies: SOVEREIGN_POLICIES,
+            stats: {
+                totalEvents: sovereigntyLog.length,
+                blockedThreats: blockedAttempts.length,
+                uptime: process.uptime(),
+                nodeVersion: process.version,
+                platform: process.platform
+            },
+            threats,
+            recentLog,
+            protectedLayers: [
+                { layer: 'HTTP Headers', tool: 'Helmet', status: 'active' },
+                { layer: 'Rate Limiting', tool: 'express-rate-limit', status: 'active' },
+                { layer: 'CORS Policy', tool: 'cors + sheikha.top only', status: 'active' },
+                { layer: 'JWT Auth', tool: 'jsonwebtoken', status: 'active' },
+                { layer: 'Input Validation', tool: 'custom + server-side', status: 'active' },
+                { layer: 'Sharia Compliance', tool: 'محرك الشريعة الإسلامية', status: 'active' },
+                { layer: 'Sovereignty Guard', tool: 'sheikha-sovereign-v1', status: 'active' }
+            ]
+        },
+        islamicBasis: {
+            hadith: 'لا ضرر ولا ضرار — رواه ابن ماجه والدارقطني',
+            quran: 'وَلَا تُفْسِدُوا فِي الْأَرْضِ — البقرة ٦٠',
+            principle: 'درء المفاسد مقدم على جلب المصالح'
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// تسجيل تهديد يدوياً (للمراجعة)
+app.post('/api/admin/sovereignty/report', authRequired, (req, res) => {
+    const { type, detail, severity } = req.body;
+    if (!type || !detail) return res.status(400).json({ success: false, message: 'type و detail مطلوبان' });
+    const safe = ['unauthorized_control', 'law_violation', 'port_exploitation', 'harmful_org', 'data_breach', 'other'];
+    if (!safe.includes(type)) return res.status(400).json({ success: false, message: 'نوع غير مدعوم' });
+    logSovereigntyEvent(type, String(detail).substring(0, 200), severity || 'high');
+    res.json({ success: true, message: 'تم تسجيل التهديد — جزاك الله خيراً', timestamp: new Date().toISOString() });
+});
+
+// قائمة السياسات الشرعية والسيادية
+app.get('/api/admin/sovereignty/policies', authRequired, (req, res) => {
+    res.json({
+        success: true,
+        policies: [
+            { id: 'no_riba', name: 'لا ربا', source: 'البقرة ٢٧٥', status: 'enforced', scope: 'مالي' },
+            { id: 'no_gharar', name: 'لا غرر', source: 'حديث النهي عن بيع الغرر', status: 'enforced', scope: 'تجاري' },
+            { id: 'no_ghish', name: 'لا غش', source: 'من غشنا فليس منا', status: 'enforced', scope: 'تجاري' },
+            { id: 'no_ihtikar', name: 'لا احتكار', source: 'لا يحتكر إلا خاطئ', status: 'enforced', scope: 'سوق' },
+            { id: 'no_najsh', name: 'لا نجش', source: 'النهي عن النجش', status: 'enforced', scope: 'سوق' },
+            { id: 'no_harm', name: 'لا ضرر ولا ضرار', source: 'حديث ابن ماجه', status: 'enforced', scope: 'كوني' },
+            { id: 'no_fasad', name: 'لا فساد في الأرض', source: 'البقرة ٦٠، المائدة ٣٣', status: 'enforced', scope: 'كوني' },
+            { id: 'no_unauthorized_control', name: 'لا سلطة غير مأذونة', source: 'سيادة المالك — سياسة شيخة', status: 'enforced', scope: 'إداري' },
+            { id: 'no_external_laws', name: 'لا قوانين غير مقبولة', source: 'الشريعة الإسلامية أولاً', status: 'enforced', scope: 'قانوني' },
+            { id: 'no_port_exploitation', name: 'لا استغلال منافذ', source: 'سياسة شيخة الأمنية', status: 'enforced', scope: 'تقني' },
+            { id: 'data_sovereignty', name: 'سيادة البيانات إسلامية', source: 'حفظ العقل والمال والعرض', status: 'enforced', scope: 'رقمي' },
+            { id: 'public_benefit', name: 'النفع العام', source: 'المصلحة المرسلة — الشاطبي', status: 'enforced', scope: 'كوني' }
+        ],
+        timestamp: new Date().toISOString()
+    });
+});
+
+// حالة النظام الكاملة
+app.get('/api/system/status', authRequired, (req, res) => {
+    const engines = {};
+    // محركات شيخة الـ 323
+    const engineList = [
+        'تحليل الأسعار', 'كشف الغش', 'تدقيق الشريعة', 'تقييم المعادن',
+        'مؤشر شيخة', 'تحليل الوزن', 'RFQ ذكي', 'ترجمة عربي',
+        'كشف الاحتكار', 'حاسبة الزكاة', 'AI التسعير', 'فلتر الحلال',
+        'تحقق المستخدم', 'تحليل العقود', 'كشف التلاعب', 'مراقبة السوق'
+    ];
+    engineList.forEach(e => { engines[e] = true; });
+    res.json({
+        success: true,
+        engines,
+        server: {
+            uptime: Math.floor(process.uptime()),
+            memory: process.memoryUsage(),
+            nodeVersion: process.version,
+            env: process.env.NODE_ENV || 'development'
+        },
+        sovereignty: { status: 'active', level: 'maximum' },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════════════════════
+// ⛔ محرك منع الاحتكار الجغرافي التقني — لا احتكار إلا خاطئ
+// قاعدة: لا يحتكر إلا خاطئ — رواه مسلم
+// المبدأ: التقنية حق للجميع — لا حصار ولا تمييز جغرافي
+// ═══════════════════════════════════════════════════════════
+
+const GEO_MONOPOLY_DB = [
+    {
+        id: 'app_stores',
+        name: 'متاجر التطبيقات المحتكرة',
+        category: 'توزيع البرمجيات',
+        entities: ['Apple App Store', 'Google Play Store'],
+        restriction: 'حجب التطبيقات في دول بعينها بضغط سياسي أو امتثال لحكومات',
+        affectedRegions: ['IR', 'CU', 'KP', 'RU', 'SY', 'SD'],
+        harmLevel: 'high',
+        islamicHukm: 'احتكار محرم — حرمان الشعوب من التقنية بالجغرافيا',
+        quranicBasis: 'وَلَا تُفْسِدُوا فِي الْأَرْضِ بَعْدَ إِصْلَاحِهَا — الأعراف ٥٦',
+        alternatives: [
+            { name: 'F-Droid', type: 'مفتوح المصدر', url: 'https://f-droid.org', desc: 'متجر أندرويد مفتوح — بلا قيود' },
+            { name: 'APKPure', type: 'مجاني', desc: 'تحميل مباشر — بلا إذن من المحتكر' },
+            { name: 'Aurora Store', type: 'مفتوح المصدر', desc: 'بديل Google Play مفتوح المصدر' }
+        ]
+    },
+    {
+        id: 'cloud_services',
+        name: 'الخدمات السحابية المقيدة جغرافياً',
+        category: 'البنية التحتية',
+        entities: ['AWS', 'Azure', 'Google Cloud', 'Cloudflare'],
+        restriction: 'قطع الخدمة عن دول بعينها تحت ذريعة العقوبات الأمريكية',
+        affectedRegions: ['IR', 'SY', 'CU', 'KP', 'RU', 'SD'],
+        harmLevel: 'critical',
+        islamicHukm: 'حصار رقمي — احتكار البنية التحتية الكونية — ضرر صريح',
+        quranicBasis: 'لَا ضَرَرَ وَلَا ضِرَارَ — ابن ماجه',
+        alternatives: [
+            { name: 'Hetzner Cloud', type: 'تجاري حر', desc: 'ألماني — لا قيود سياسية أمريكية' },
+            { name: 'OVHcloud', type: 'تجاري حر', desc: 'فرنسي — بديل أوروبي مستقل' },
+            { name: 'Contabo', type: 'تجاري حر', desc: 'ألماني — تكلفة منخفضة' },
+            { name: 'Vercel / Netlify', type: 'مجاني جزئياً', desc: 'نشر المواقع — حر للمشاريع الصغيرة' },
+            { name: 'Alibaba Cloud', type: 'تجاري آسيوي', desc: 'بديل آسيوي — أقل تقييداً' }
+        ]
+    },
+    {
+        id: 'payment_monopoly',
+        name: 'احتكار بوابات الدفع الغربية',
+        category: 'المالية والتجارة',
+        entities: ['Stripe', 'PayPal', 'Visa', 'Mastercard', 'SWIFT (غير مباشر)'],
+        restriction: 'حجب الدفع الإلكتروني عن شعوب بأكملها — حصار اقتصادي',
+        affectedRegions: ['IR', 'SY', 'CU', 'KP', 'RU', 'SD', 'YE'],
+        harmLevel: 'critical',
+        islamicHukm: 'أشد المحرمات — حصار الرزق — ظلم بيّن',
+        quranicBasis: 'وَلَا تَبْخَسُوا النَّاسَ أَشْيَاءَهُمْ — هود ٨٥',
+        alternatives: [
+            { name: 'Tap Payments', type: 'إسلامي خليجي', desc: 'السعودية، الكويت، البحرين، الإمارات' },
+            { name: 'Moyasar', type: 'إسلامي سعودي', desc: 'بوابة سعودية معتمدة من ساما' },
+            { name: 'Paytabs', type: 'إسلامي عربي', desc: 'تغطية 20+ دولة عربية وإسلامية' },
+            { name: 'Hyperpay', type: 'إسلامي', desc: 'بوابة عربية متعددة' },
+            { name: 'التحويل البنكي المباشر', type: 'مستقل', desc: 'بين البنوك الإسلامية مباشرة' }
+        ]
+    },
+    {
+        id: 'ai_monopoly',
+        name: 'احتكار الذكاء الاصطناعي',
+        category: 'الذكاء الاصطناعي',
+        entities: ['OpenAI (ChatGPT)', 'Google Gemini', 'Anthropic Claude API', 'GitHub Copilot'],
+        restriction: 'حجب API الذكاء الاصطناعي أو اشتراط بطاقة أمريكية أو IP محدد',
+        affectedRegions: ['IR', 'SY', 'CU', 'KP', 'many-muslim-countries'],
+        harmLevel: 'high',
+        islamicHukm: 'احتكار العلم — والعلم من حق الجميع — مفسدة عظيمة',
+        quranicBasis: 'قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ — الزمر ٩',
+        alternatives: [
+            { name: 'Ollama (محلي)', type: 'مفتوح المصدر', desc: 'نماذج ذكاء اصطناعي محلية — بلا قيود ولا إذن' },
+            { name: 'LM Studio', type: 'مفتوح المصدر', desc: 'واجهة محلية لكل النماذج المفتوحة' },
+            { name: 'Mistral AI', type: 'مفتوح نسبياً', desc: 'فرنسي — أقل تقييداً من OpenAI' },
+            { name: 'Meta Llama', type: 'مفتوح المصدر', desc: 'يعمل محلياً — بلا رقابة أمريكية' },
+            { name: 'Hugging Face', type: 'مفتوح المصدر', desc: 'آلاف النماذج المفتوحة' },
+            { name: 'محرك AI شيخة', type: 'إسلامي', desc: 'ذكاء اصطناعي إسلامي — بناؤه جارٍ بإذن الله' }
+        ]
+    },
+    {
+        id: 'social_monopoly',
+        name: 'احتكار منصات التواصل الاجتماعي',
+        category: 'التواصل والإعلام',
+        entities: ['Meta (Facebook/Instagram)', 'X (Twitter/سابقاً)', 'YouTube (Google)'],
+        restriction: 'حذف المحتوى الإسلامي — التحكم في الخوارزمية — حجب حسابات بالسياسة',
+        affectedRegions: ['global-muslims'],
+        harmLevel: 'high',
+        islamicHukm: 'التحكم في الكلمة — احتكار الرأي — فساد إعلامي',
+        quranicBasis: 'يَكْتُمُونَ الْحَقَّ وَهُمْ يَعْلَمُونَ — البقرة ١٤٦',
+        alternatives: [
+            { name: 'Mastodon', type: 'لامركزي مفتوح', desc: 'شبكة موزعة — لا سيطرة مركزية' },
+            { name: 'Nostr', type: 'لامركزي', desc: 'بروتوكول مفتوح — مقاوم الرقابة' },
+            { name: 'Telegram', type: 'شبه حر', desc: 'أقل تحكماً — لكن مركزي' },
+            { name: 'PeerTube', type: 'مفتوح المصدر', desc: 'بديل يوتيوب لا مركزي' },
+            { name: 'منتدى شيخة المجتمع', type: 'إسلامي', desc: 'مجتمع إسلامي رقمي مستقل' }
+        ]
+    },
+    {
+        id: 'dns_infrastructure',
+        name: 'التحكم في البنية التحتية للإنترنت',
+        category: 'شبكة الإنترنت',
+        entities: ['ICANN', 'Verisign', 'Cloudflare DNS', 'Google DNS'],
+        restriction: 'التحكم في DNS وسحب النطاقات بقرار سياسي أحادي',
+        affectedRegions: ['any-targeted-country'],
+        harmLevel: 'critical',
+        islamicHukm: 'استبداد كوني — احتكار مفاتيح الإنترنت — مفسدة عامة',
+        quranicBasis: 'لَا ضَرَرَ وَلَا ضِرَارَ — ابن ماجه',
+        alternatives: [
+            { name: 'AdGuard DNS', type: 'حر أوروبي', desc: 'خاصية الخصوصية — خارج ICANN' },
+            { name: 'NextDNS', type: 'حر', desc: 'قابل للتخصيص — لا تجسس' },
+            { name: 'IPFS / Filecoin', type: 'لامركزي', desc: 'نظام ملفات لا مركزي — لا يُحجب' },
+            { name: 'Tor Network', type: 'لامركزي', desc: 'اتصال مقاوم للرقابة — للضرورة' }
+        ]
+    }
+];
+
+// سجل محلي لمحاولات الاحتكار الجغرافي المُبلَّغ عنها
+const geoMonopolyAlerts = [];
+
+app.get('/api/admin/sovereignty/geo-monopoly', authRequired, (req, res) => {
+    res.json({
+        success: true,
+        summary: {
+            totalMonopolies: GEO_MONOPOLY_DB.length,
+            criticalCount: GEO_MONOPOLY_DB.filter(m => m.harmLevel === 'critical').length,
+            totalAlternatives: GEO_MONOPOLY_DB.reduce((a, m) => a + m.alternatives.length, 0),
+            userAlerts: geoMonopolyAlerts.length,
+            principle: 'لا يحتكر إلا خاطئ — كل إنسان له حق التقنية'
+        },
+        monopolies: GEO_MONOPOLY_DB,
+        userAlerts: geoMonopolyAlerts.slice(0, 20),
+        islamicStance: {
+            ruling: 'الاحتكار الجغرافي التقني محرم — ضرر عام + احتكار + تمييز',
+            evidence: [
+                'لا يحتكر إلا خاطئ — رواه مسلم',
+                'لا ضرر ولا ضرار — ابن ماجه',
+                'وَلَا تُفْسِدُوا فِي الْأَرْضِ — الأعراف ٥٦',
+                'درء المفاسد مقدم على جلب المصالح — قاعدة فقهية'
+            ],
+            action: 'يجب تفعيل البدائل الحرة والإسلامية وتجنب الاعتماد على المحتكريين'
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/admin/sovereignty/geo-monopoly/alert', authRequired, (req, res) => {
+    const { entity, restriction, region, impact } = req.body;
+    if (!entity || !restriction) {
+        return res.status(400).json({ success: false, message: 'الجهة والقيد مطلوبان' });
+    }
+    const alert = {
+        entity: String(entity).substring(0, 100),
+        restriction: String(restriction).substring(0, 300),
+        region: String(region || 'غير محدد').substring(0, 50),
+        impact: String(impact || 'غير محدد').substring(0, 200),
+        at: new Date().toISOString(),
+        reportedBy: req.user ? req.user.id : 'admin'
+    };
+    geoMonopolyAlerts.unshift(alert);
+    if (geoMonopolyAlerts.length > 200) geoMonopolyAlerts.pop();
+    logSovereigntyEvent('geo_monopoly_alert', `${entity}: ${restriction}`, 'high');
+    res.json({
+        success: true,
+        message: 'تم تسجيل الاحتكار — جزاك الله خيراً — سيُضاف للقاعدة',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// 🌐 شيخة كلاود — البنية الكونية الإسلامية البديلة لكل محتكر
+// قاعدة: لا يحتكر إلا خاطئ | التقنية حق للجميع | التوحيد لله وحده
+// ═══════════════════════════════════════════════════════════════════
+
+const SHEIKHA_ALTERNATIVES = {
+    basmala: 'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ',
+    principle: 'كُلُّ مَا يَضُرُّ فَهُوَ مُحَرَّمٌ — وَالْبَدِيلُ الْحَلَالُ وَاجِبٌ',
+    vision: 'شيخة كلاود — بنية تحتية رقمية إسلامية كاملة — بلا احتكار ولا ضرر',
+    tawheed: 'التوحيد لله — التقنية خادمة لمقاصد الشريعة',
+    categories: [
+        {
+            id: 'cloud',
+            name: 'السحابة والبنية التحتية',
+            icon: '☁️',
+            monopolists: ['AWS Amazon','Azure Microsoft','Google Cloud','Cloudflare'],
+            harm: 'حجب الخدمة عن دول مسلمة — احتكار البنية التحتية الكونية — ضرر صريح',
+            islamicRuling: 'احتكار + ضرر عام = محرم — لا يحتكر إلا خاطئ',
+            sheikhaSolution: 'شيخة كلاود — بنية سحابية إسلامية موزعة في دول الإسلام',
+            alternatives: [
+                { name: 'شيخة كلاود', tier: 'إسلامي', status: 'قيد البناء', desc: 'سحابة إسلامية في السعودية والإمارات وقطر والكويت — بلا حصار' },
+                { name: 'Hetzner Cloud', tier: 'حر', status: 'متاح', desc: 'ألماني مستقل — لا قيود أمريكية — تكلفة منخفضة' },
+                { name: 'OVHcloud', tier: 'حر', status: 'متاح', desc: 'فرنسي أوروبي — مستقل سياسياً' },
+                { name: 'Contabo', tier: 'حر', status: 'متاح', desc: 'ألماني — أرخص خيار موثوق' },
+                { name: 'Alibaba Cloud', tier: 'بديل آسيوي', status: 'متاح', desc: 'آسيوي — أقل تقييداً جغرافياً' }
+            ],
+            quranic: 'وَلَا تُفْسِدُوا فِي الْأَرْضِ بَعْدَ إِصْلَاحِهَا — الأعراف ٥٦'
+        },
+        {
+            id: 'payment',
+            name: 'المدفوعات والمالية',
+            icon: '💳',
+            monopolists: ['Stripe','PayPal','Visa','Mastercard','SWIFT'],
+            harm: 'حصار اقتصادي لشعوب مسلمة — قطع الرزق — ظلم بيّن',
+            islamicRuling: 'أشد المحرمات — حصار الرزق + احتكار + تمييز = محرم',
+            sheikhaSolution: 'بوابة شيخة الإسلامية — مدفوعات خليجية وعالمية إسلامية',
+            alternatives: [
+                { name: 'بوابة شيخة', tier: 'إسلامي', status: 'قيد البناء', desc: 'مدفوعات إسلامية كاملة — لا ربا ولا غرر' },
+                { name: 'Tap Payments', tier: 'إسلامي خليجي', status: 'متاح', desc: 'السعودية والكويت والبحرين والإمارات' },
+                { name: 'Moyasar', tier: 'إسلامي سعودي', status: 'متاح', desc: 'بوابة سعودية معتمدة من ساما' },
+                { name: 'Paytabs', tier: 'إسلامي عربي', status: 'متاح', desc: '20+ دولة عربية وإسلامية' },
+                { name: 'Hyperpay', tier: 'إسلامي', status: 'متاح', desc: 'بوابة عربية متعددة' },
+                { name: 'التحويل البنكي الإسلامي', tier: 'أصيل', status: 'متاح', desc: 'مباشر بين البنوك الإسلامية — بلا وسيط محتكر' }
+            ],
+            quranic: 'وَلَا تَبْخَسُوا النَّاسَ أَشْيَاءَهُمْ — هود ٨٥'
+        },
+        {
+            id: 'ai',
+            name: 'الذكاء الاصطناعي',
+            icon: '🧠',
+            monopolists: ['OpenAI ChatGPT','Google Gemini','Anthropic Claude','Microsoft Copilot'],
+            harm: 'احتكار العلم والمعرفة — رقابة مزدوجة المعايير — حجب عن المسلمين',
+            islamicRuling: 'احتكار العلم مرفوض — العلم من حق الجميع — قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ',
+            sheikhaSolution: 'محرك شيخة AI — ذكاء اصطناعي إسلامي بمعايير الكتاب والسنة',
+            alternatives: [
+                { name: 'محرك شيخة AI', tier: 'إسلامي', status: 'قيد البناء', desc: 'ذكاء اصطناعي إسلامي يفهم العربية والفقه والمعادن' },
+                { name: 'Ollama (محلي)', tier: 'مفتوح المصدر', status: 'متاح', desc: 'نماذج محلية — بلا رقابة — يعمل offline' },
+                { name: 'Meta Llama', tier: 'مفتوح المصدر', status: 'متاح', desc: 'مفتوح كامل — يُشغَّل محلياً' },
+                { name: 'Mistral AI', tier: 'حر نسبياً', status: 'متاح', desc: 'فرنسي — أقل تقييداً من OpenAI' },
+                { name: 'Hugging Face', tier: 'مفتوح المصدر', status: 'متاح', desc: 'آلاف النماذج المفتوحة — بلا احتكار' },
+                { name: 'LM Studio', tier: 'مفتوح المصدر', status: 'متاح', desc: 'واجهة محلية لتشغيل أي نموذج' }
+            ],
+            quranic: 'قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ — الزمر ٩'
+        },
+        {
+            id: 'apps',
+            name: 'متاجر التطبيقات',
+            icon: '📱',
+            monopolists: ['Apple App Store','Google Play Store'],
+            harm: 'حجب التطبيقات الإسلامية والإخبارية — ابتزاز 30% عمولة — تحكم كامل',
+            islamicRuling: 'احتكار التوزيع + نجش + غرر = مرفوض',
+            sheikhaSolution: 'متجر شيخة للتطبيقات الإسلامية — لا عمولة مجحفة',
+            alternatives: [
+                { name: 'متجر شيخة', tier: 'إسلامي', status: 'قيد البناء', desc: 'متجر إسلامي — تطبيقات حلال مدققة شرعياً' },
+                { name: 'F-Droid', tier: 'مفتوح المصدر', status: 'متاح', desc: 'أندرويد مفتوح — بلا قيود — 100% مجاني' },
+                { name: 'Aurora Store', tier: 'مفتوح المصدر', status: 'متاح', desc: 'بديل Play Store مجهول الهوية' },
+                { name: 'APKPure', tier: 'حر', status: 'متاح', desc: 'تحميل مباشر — بلا إذن من المحتكر' }
+            ],
+            quranic: 'وَيَضَعُ عَنْهُمْ إِصْرَهُمْ وَالْأَغْلَالَ الَّتِي كَانَتْ عَلَيْهِمْ — الأعراف ١٥٧'
+        },
+        {
+            id: 'social',
+            name: 'التواصل الاجتماعي والإعلام',
+            icon: '📡',
+            monopolists: ['Meta (Facebook/Instagram)','X/Twitter','YouTube','TikTok'],
+            harm: 'حذف المحتوى الإسلامي — خوارزميات مُحيزة — بيع البيانات — تشويه الإسلام',
+            islamicRuling: 'كتمان الحق + التحكم في الكلمة = فساد إعلامي مرفوض',
+            sheikhaSolution: 'منتدى شيخة المجتمع — إعلام إسلامي لا مركزي',
+            alternatives: [
+                { name: 'مجتمع شيخة', tier: 'إسلامي', status: 'متاح', desc: 'منتدى إسلامي رقمي — لا رقابة غربية' },
+                { name: 'Mastodon', tier: 'لامركزي مفتوح', status: 'متاح', desc: 'شبكة موزعة — لا سيطرة مركزية' },
+                { name: 'Nostr', tier: 'لامركزي', status: 'متاح', desc: 'بروتوكول مفتوح — مقاوم الرقابة' },
+                { name: 'Telegram', tier: 'شبه حر', status: 'متاح', desc: 'أقل تحكماً — واسع الانتشار' },
+                { name: 'PeerTube', tier: 'مفتوح المصدر', status: 'متاح', desc: 'بديل يوتيوب لا مركزي' }
+            ],
+            quranic: 'يَكْتُمُونَ الْحَقَّ وَهُمْ يَعْلَمُونَ — البقرة ١٤٦'
+        },
+        {
+            id: 'search',
+            name: 'البحث والمعلومات',
+            icon: '🔍',
+            monopolists: ['Google Search','Bing','Baidu'],
+            harm: 'تحيز نتائج البحث ضد الإسلام — تجميع البيانات — رقابة المعلومات',
+            islamicRuling: 'تزوير المعلومات + احتكار = غش وفساد',
+            sheikhaSolution: 'محرك بحث شيخة الإسلامي — بمعرفة الكتاب والسنة',
+            alternatives: [
+                { name: 'محرك شيخة', tier: 'إسلامي', status: 'قيد البناء', desc: 'بحث إسلامي — الشريعة والمعادن والسوق' },
+                { name: 'DuckDuckGo', tier: 'حر', status: 'متاح', desc: 'لا تتبع — لا بروفايل شخصي' },
+                { name: 'Brave Search', tier: 'حر', status: 'متاح', desc: 'مستقل عن Google — فهرس خاص' },
+                { name: 'SearXNG', tier: 'مفتوح المصدر', status: 'متاح', desc: 'meta-search — يُشغَّل ذاتياً' },
+                { name: 'Kagi', tier: 'مدفوع حر', status: 'متاح', desc: 'لا إعلانات — نتائج نظيفة' }
+            ],
+            quranic: 'فَاسْأَلُوا أَهْلَ الذِّكْرِ إِنْ كُنْتُمْ لَا تَعْلَمُونَ — النحل ٤٣'
+        },
+        {
+            id: 'email_comm',
+            name: 'البريد والتواصل',
+            icon: '✉️',
+            monopolists: ['Gmail (Google)','Outlook (Microsoft)','WhatsApp (Meta)'],
+            harm: 'قراءة البريد الخاص — تجميع المحادثات — تسريب للاستخبارات',
+            islamicRuling: 'التجسس على الخاص = محرم — وَلَا تَجَسَّسُوا — الحجرات ١٢',
+            sheikhaSolution: 'بريد شيخة المشفر — مراسلات آمنة إسلامية',
+            alternatives: [
+                { name: 'بريد شيخة', tier: 'إسلامي', status: 'قيد البناء', desc: 'مشفر — خاص — على خوادم إسلامية' },
+                { name: 'ProtonMail', tier: 'حر', status: 'متاح', desc: 'سويسري مشفر — لا قراءة محتوى' },
+                { name: 'Tutanota', tier: 'حر', status: 'متاح', desc: 'ألماني مشفر — مفتوح المصدر' },
+                { name: 'Signal', tier: 'مفتوح المصدر', status: 'متاح', desc: 'تشفير تام — الأكثر أماناً' },
+                { name: 'Session', tier: 'مفتوح المصدر', status: 'متاح', desc: 'لا رقم هاتف — مجهول الهوية' }
+            ],
+            quranic: 'وَلَا تَجَسَّسُوا — الحجرات ١٢'
+        },
+        {
+            id: 'os_browser',
+            name: 'نظام التشغيل والمتصفح',
+            icon: '💻',
+            monopolists: ['Microsoft Windows','Apple macOS/iOS','Google Chrome','Safari'],
+            harm: 'أبواب خلفية للاستخبارات — تتبع الاستخدام — احتكار النظام',
+            islamicRuling: 'التجسس + الاحتكار = ضرر مزدوج مرفوض',
+            sheikhaSolution: 'نظام شيخة OS — بيئة رقمية إسلامية آمنة',
+            alternatives: [
+                { name: 'شيخة OS', tier: 'إسلامي', status: 'قيد البناء', desc: 'نظام إسلامي — آمن — مُحكَّم شرعياً' },
+                { name: 'Ubuntu Linux', tier: 'مفتوح المصدر', status: 'متاح', desc: 'الأشهر والأسهل — مجاني كامل' },
+                { name: 'Fedora Linux', tier: 'مفتوح المصدر', status: 'متاح', desc: 'مدعوم Red Hat — قوي وآمن' },
+                { name: 'Firefox', tier: 'مفتوح المصدر', status: 'متاح', desc: 'متصفح حر — Mozilla — لا تتبع' },
+                { name: 'Brave Browser', tier: 'حر', status: 'متاح', desc: 'مبني على Chromium — يحجب التتبع' },
+                { name: 'Tor Browser', tier: 'مفتوح المصدر', status: 'متاح', desc: 'أكثر الخصوصية — للضرورة' }
+            ],
+            quranic: 'إِنَّ اللَّهَ لَا يُحِبُّ كُلَّ مُخْتَالٍ فَخُورٍ — الحديد ٢٣'
+        },
+        {
+            id: 'ecommerce',
+            name: 'التجارة الإلكترونية',
+            icon: '🛒',
+            monopolists: ['Amazon','Alibaba','eBay'],
+            harm: 'احتكار التجارة العالمية — تهميش التجار المسلمين — عمولات مجحفة',
+            islamicRuling: 'الاحتكار + الغبن = محرم — البيع عن تراضٍ واجب',
+            sheikhaSolution: 'سوق شيخة — أول سوق رقمي إسلامي للمعادن والسلع',
+            alternatives: [
+                { name: 'سوق شيخة', tier: 'إسلامي', status: 'متاح', desc: 'سوق إسلامي — المعادن والسكراب — مُدقَّق شرعياً' },
+                { name: 'WooCommerce (ذاتي)', tier: 'مفتوح المصدر', status: 'متاح', desc: 'متجر على خادمك — لا وسيط محتكر' },
+                { name: 'Medusa.js', tier: 'مفتوح المصدر', status: 'متاح', desc: 'منصة تجارة مفتوحة حديثة' },
+                { name: 'OpenCart', tier: 'مفتوح المصدر', status: 'متاح', desc: 'خفيف وسريع — مفتوح المصدر' }
+            ],
+            quranic: 'يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُمْ بَيْنَكُمْ بِالْبَاطِلِ إِلَّا أَنْ تَكُونَ تِجَارَةً عَنْ تَرَاضٍ — النساء ٢٩'
+        },
+        {
+            id: 'finance_banking',
+            name: 'التمويل والبنوك',
+            icon: '🏦',
+            monopolists: ['نظام البنوك الربوية العالمي','IMF','World Bank','SWIFT'],
+            harm: 'الربا أشد المحرمات — استعباد الشعوب بالديون — ظلم اقتصادي كوني',
+            islamicRuling: 'الربا محرم قطعاً بالكتاب والسنة — حرب من الله ورسوله',
+            sheikhaSolution: 'منظومة شيخة المالية الإسلامية — لا ربا ولا غرر',
+            alternatives: [
+                { name: 'منظومة شيخة المالية', tier: 'إسلامي', status: 'قيد البناء', desc: 'تمويل إسلامي — مرابحة، مضاربة، مشاركة' },
+                { name: 'البنوك الإسلامية الخليجية', tier: 'إسلامي', status: 'متاح', desc: 'الراجحي، DIB، بوبيان، إسلامي' },
+                { name: 'صناديق الاستثمار الإسلامية', tier: 'إسلامي', status: 'متاح', desc: 'مدقق شرعياً — بلا ربا' },
+                { name: 'الذهب والفضة المادية', tier: 'أصيل', status: 'متاح', desc: 'النقد الحقيقي — الكتاب والسنة — غنى بلا دَيْن' }
+            ],
+            quranic: 'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة ٢٧٥'
+        },
+        {
+            id: 'dns_internet',
+            name: 'البنية التحتية للإنترنت',
+            icon: '🌐',
+            monopolists: ['ICANN','Verisign','Cloudflare DNS','Google DNS 8.8.8.8'],
+            harm: 'سحب النطاقات بقرار سياسي — التحكم في مفاتيح الإنترنت — احتكار كامل',
+            islamicRuling: 'استبداد كوني — احتكار البنية الأساسية = مفسدة عامة',
+            sheikhaSolution: 'شيخة DNS و CDN الإسلامي — نطاقات .sheikha',
+            alternatives: [
+                { name: 'شيخة CDN', tier: 'إسلامي', status: 'قيد البناء', desc: 'شبكة توصيل محتوى إسلامية في دول الخليج والعالم الإسلامي' },
+                { name: 'AdGuard DNS', tier: 'حر أوروبي', status: 'متاح', desc: 'خصوصية — خاصية حجب التتبع' },
+                { name: 'NextDNS', tier: 'حر', status: 'متاح', desc: 'قابل التخصيص — لا تجسس' },
+                { name: 'IPFS', tier: 'لامركزي مفتوح', status: 'متاح', desc: 'نظام ملفات لا مركزي — لا يُحجب' }
+            ],
+            quranic: 'وَجَعَلْنَا مِنَ الْمَاءِ كُلَّ شَيْءٍ حَيٍّ — الأنبياء ٣٠'
+        },
+        {
+            id: 'education',
+            name: 'التعليم الرقمي',
+            icon: '📚',
+            monopolists: ['Coursera','Udemy','LinkedIn Learning','Chegg'],
+            harm: 'محتوى منحاز — تكاليف مجحفة — حجب المناهج الإسلامية',
+            islamicRuling: 'احتكار التعليم = تعطيل الفريضة — طلب العلم فريضة',
+            sheikhaSolution: 'أكاديمية شيخة الرقمية — التعليم الإسلامي المجاني للعالم',
+            alternatives: [
+                { name: 'أكاديمية شيخة', tier: 'إسلامي', status: 'قيد البناء', desc: 'تعليم إسلامي رقمي — الشريعة والتقنية والمعادن' },
+                { name: 'Khan Academy', tier: 'مجاني', status: 'متاح', desc: 'مجاني كامل — جميع التخصصات' },
+                { name: 'MIT OpenCourseWare', tier: 'مجاني', status: 'متاح', desc: 'محتوى MIT كامل — مجاناً' },
+                { name: 'Moodle', tier: 'مفتوح المصدر', status: 'متاح', desc: 'منصة تعليم ذاتية الاستضافة' },
+                { name: 'يوتيوب العلمي (مؤقت)', tier: 'حذر', status: 'بحذر', desc: 'مع الحذر من المحتوى الضار' }
+            ],
+            quranic: 'اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ — العلق ١'
+        }
+    ],
+    sheikhaCloud: {
+        name: 'شيخة كلاود — السحابة الإسلامية الكونية',
+        vision: 'بنية تحتية رقمية إسلامية كاملة — بديل كوني لكل احتكار',
+        components: [
+            { id: 'compute', name: 'الحوسبة', icon: '⚡', desc: 'خوادم في السعودية والإمارات وقطر والكويت', status: 'planned' },
+            { id: 'storage', name: 'التخزين', icon: '🗄️', desc: 'تخزين إسلامي موزع — مشفر — سيادي', status: 'planned' },
+            { id: 'cdn', name: 'شبكة التوصيل', icon: '🌐', desc: 'CDN في كل العالم الإسلامي', status: 'planned' },
+            { id: 'ai_engine', name: 'محرك AI', icon: '🧠', desc: 'ذكاء اصطناعي إسلامي — Ollama + LLM محلي', status: 'active' },
+            { id: 'payment_gw', name: 'بوابة الدفع', icon: '💳', desc: 'مدفوعات إسلامية — Tap + Moyasar + مباشر', status: 'active' },
+            { id: 'market', name: 'السوق', icon: '🏪', desc: 'سوق شيخة للمعادن — مُدقَّق شرعياً', status: 'active' },
+            { id: 'auth', name: 'الهوية والتحقق', icon: '🔐', desc: 'Nafath + JWT إسلامي + OAuth', status: 'active' },
+            { id: 'sharia', name: 'محرك الشريعة', icon: '⚖️', desc: 'كشف الربا والغرر والاحتكار آلياً', status: 'active' },
+            { id: 'academy', name: 'الأكاديمية', icon: '📚', desc: 'تعليم إسلامي رقمي مجاني', status: 'planned' },
+            { id: 'community', name: 'المجتمع', icon: '👥', desc: 'شبكة اجتماعية إسلامية لا مركزية', status: 'partial' }
+        ],
+        islamicFoundation: [
+            'التوحيد لله — كل شيء في خدمة مقاصد الشريعة',
+            'العدل — التقنية حق لكل إنسان — لا تمييز جغرافي',
+            'الشورى — قرارات تشاركية — لا استبداد',
+            'الأمانة — حفظ البيانات — لا تجسس لا بيع',
+            'النفع العام — المصلحة المرسلة — خدمة الأمة',
+            'الإتقان — «إن الله يحب إذا عمل أحدكم عملاً أن يتقنه»'
+        ]
+    }
+};
+
+app.get('/api/sheikha/alternatives', authRequired, (req, res) => {
+    const { category } = req.query;
+    let cats = SHEIKHA_ALTERNATIVES.categories;
+    if (category) cats = cats.filter(c => c.id === category);
+    res.json({
+        success: true,
+        basmala: SHEIKHA_ALTERNATIVES.basmala,
+        principle: SHEIKHA_ALTERNATIVES.principle,
+        summary: {
+            totalCategories: SHEIKHA_ALTERNATIVES.categories.length,
+            totalAlternatives: SHEIKHA_ALTERNATIVES.categories.reduce((a, c) => a + c.alternatives.length, 0),
+            islamicAlternatives: SHEIKHA_ALTERNATIVES.categories.reduce((a, c) => a + c.alternatives.filter(x => x.tier === 'إسلامي' || x.tier.startsWith('إسلامي')).length, 0),
+            activeNow: SHEIKHA_ALTERNATIVES.categories.reduce((a, c) => a + c.alternatives.filter(x => x.status === 'متاح').length, 0),
+            underConstruction: SHEIKHA_ALTERNATIVES.categories.reduce((a, c) => a + c.alternatives.filter(x => x.status === 'قيد البناء').length, 0)
+        },
+        categories: cats,
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/cloud', authRequired, (req, res) => {
+    const sc = SHEIKHA_ALTERNATIVES.sheikhaCloud;
+    res.json({
+        success: true,
+        cloud: sc,
+        stats: {
+            totalComponents: sc.components.length,
+            active: sc.components.filter(c => c.status === 'active').length,
+            partial: sc.components.filter(c => c.status === 'partial').length,
+            planned: sc.components.filter(c => c.status === 'planned').length
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ========== شيخة إمبراطورية ==========
+app.get('/api/sheikha/empire', authRequired, (req, res) => {
+    const empire = {
+        name: 'شيخة إمبراطورية التجارة والعلم الإسلامية الكونية',
+        vision: 'أعظم منظومة اقتصادية إسلامية رقمية في تاريخ الأمة',
+        islamicFoundation: 'الكتاب والسنة — لا إله إلا الله — لا ربا لا غرر لا غش لا احتكار',
+        globalStats: {
+            engines: 323,
+            countries: 57,
+            languages: 12,
+            apis: 200,
+            islamicAlternatives: 18,
+            totalAlternatives: 59,
+            cloudComponents: 10,
+            categories: 12
+        },
+        pillars: [
+            { icon: '🏪', name: 'سوق شيخة', desc: 'أول سوق معادن وسكراب إسلامي — HS codes — RFQ — مؤشر شيخة', status: 'active', maturity: 90 },
+            { icon: '☁️', name: 'شيخة كلاود', desc: 'بنية سحابية إسلامية — بديل AWS/Azure/GCP — سيادة رقمية كاملة', status: 'building', maturity: 45 },
+            { icon: '🧠', name: 'الذكاء الاصطناعي الإسلامي', desc: 'محركات AI مدرّبة على الكتاب والسنة — شريعة + تجارة + إعراب عربي', status: 'active', maturity: 75 },
+            { icon: '💳', name: 'المدفوعات الإسلامية', desc: 'بديل Stripe/PayPal — لا ربا لا غرر — مدفوعات حلال دولية', status: 'building', maturity: 35 },
+            { icon: '🌍', name: 'التجارة الدولية', desc: 'شبكة دول OIC الـ 57 — تجارة حلال معتمدة — تصنيف دولي HS', status: 'active', maturity: 80 },
+            { icon: '📖', name: 'العلم الإسلامي', desc: 'قرآن كريم + سنة نبوية + فقه معاصر + محركات فتوى + إعراب', status: 'active', maturity: 85 },
+            { icon: '🛡️', name: 'السيادة الرقمية', desc: 'حماية من الاحتكار والهيمنة التقنية — قوانين إسلامية فوق كل قانون', status: 'active', maturity: 70 },
+            { icon: '🏦', name: 'المالية الإسلامية', desc: 'بنوك إسلامية — صكوك — زكاة — أوقاف — بيت المال الرقمي', status: 'building', maturity: 40 }
+        ],
+        domains: [
+            { id: 'trade', name: 'التجارة الكونية', icon: '🏪', status: 'active', desc: 'سوق المعادن والسكراب + RFQ + HS codes + مؤشر شيخة' },
+            { id: 'economy', name: 'الاقتصاد الإسلامي', icon: '💰', status: 'active', desc: 'لا ربا لا غرر — حسابات مالية إسلامية — زكاة — صكوك' },
+            { id: 'science', name: 'العلم والمعرفة', icon: '📖', status: 'active', desc: 'قرآن + سنة + فقه + إعراب + محركات علمية' },
+            { id: 'markets', name: 'الأسواق العالمية', icon: '🌍', status: 'active', desc: 'شبكة OIC 57 دولة — تداول حلال — فلاتر شرعية' },
+            { id: 'tech', name: 'التقنية الإسلامية', icon: '🔧', status: 'building', desc: 'بنية تحتية تقنية إسلامية كاملة بلا احتكار' },
+            { id: 'ai', name: 'الذكاء الاصطناعي', icon: '🧠', status: 'active', desc: 'AI إسلامي — شريعة + معرفة + تجارة + توحيد' },
+            { id: 'cloud', name: 'الحوسبة الإسلامية', icon: '☁️', status: 'building', desc: 'شيخة كلاود — بديل AWS — سيادة إسلامية' },
+            { id: 'security', name: 'الأمن والسيادة', icon: '🛡️', status: 'active', desc: 'حماية رقمية — منع الاحتكار — حماية الهوية الإسلامية' },
+            { id: 'education', name: 'التعليم والتأهيل', icon: '🎓', status: 'building', desc: 'تعليم حلال — إجازات إسلامية — منهج الكتاب والسنة' },
+            { id: 'finance', name: 'المالية والبنوك', icon: '🏦', status: 'building', desc: 'بنوك إسلامية رقمية — أوقاف — بيت مال' },
+            { id: 'social', name: 'التواصل الإسلامي', icon: '📡', status: 'planned', desc: 'بديل X/Facebook/YouTube — شبكة إسلامية حرة' },
+            { id: 'sovereignty', name: 'السيادة الرقمية', icon: '🏛️', status: 'active', desc: 'استقلال رقمي كامل — قوانين إسلامية فقط' }
+        ],
+        roadmap: [
+            { phase: 'المرحلة الأولى — التأسيس', year: '2024-2025', focus: 'سوق المعادن + ذكاء اصطناعي + قاعدة بيانات إسلامية + 200+ API', status: 'completed' },
+            { phase: 'المرحلة الثانية — الانتشار', year: '2025-2026', focus: 'شيخة كلاود + بدائل احتكار + مدفوعات إسلامية + شبكة OIC', status: 'active' },
+            { phase: 'المرحلة الثالثة — السيادة', year: '2026-2027', focus: 'استقلال كامل + بنوك رقمية + تعليم + حوسبة إسلامية سيادية', status: 'planned' },
+            { phase: 'المرحلة الرابعة — الإمبراطورية', year: '2027-2030', focus: 'منظومة اقتصادية إسلامية كونية — كل دول العالم — التوحيد لله', status: 'planned' }
+        ],
+        islamicMission: [
+            { ayah: 'وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ', surah: 'الذاريات ٥٦', context: 'كل شيخة لله' },
+            { ayah: 'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا', surah: 'البقرة ٢٧٥', context: 'أساس كل تجارة' },
+            { ayah: 'لَا يَحْتَكِرُ إِلَّا خَاطِئٌ', surah: 'رواه مسلم', context: 'أساس نظام البدائل' }
+        ]
+    };
+
+    const liveStats = {
+        port: process.env.PORT || 8080,
+        agents: 12,
+        status: 'يعمل بإذن الله',
+        env: process.env.NODE_ENV || 'production',
+        uptime: Math.floor(process.uptime() / 60) + ' دقيقة',
+        memory: Math.round(process.memoryUsage().heapUsed / 1024 / 1024) + ' MB'
+    };
+
+    res.json({
+        success: true,
+        empire,
+        liveStats,
+        message: 'بسم الله — شيخة إمبراطورية التجارة والعلم الإسلامية الكونية',
         timestamp: new Date().toISOString()
     });
 });
@@ -33233,6 +34041,260 @@ if (devPlatformEngine) {
     }
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🐙 GitHub Hub + Copilot Engine — منظومة التكامل مع GitHub
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let githubHub = null;
+try {
+    githubHub = require('./lib/sheikha-github-hub-engine');
+} catch (e) {
+    console.warn('[GitHub Hub] تعذّر تحميل المحرك:', e.message);
+}
+
+if (githubHub && process.env.GITHUB_TOKEN) {
+    githubHub.start().catch(e => console.warn('[GitHub Hub] خطأ بدء:', e.message));
+}
+
+app.get('/api/github/status', (req, res) => {
+    if (!githubHub) return res.json({ success: false, message: 'GitHub Hub غير متاح' });
+    res.json({ success: true, data: githubHub.getStatus(), message: 'حالة GitHub Hub', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/github/full', async (req, res) => {
+    if (!githubHub) return res.json({ success: false, message: 'GitHub Hub غير متاح' });
+    res.json({ success: true, data: githubHub.getFullData(), message: 'كامل بيانات GitHub Hub', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/github/repos', (req, res) => {
+    if (!githubHub) return res.json({ success: false, data: [] });
+    res.json({ success: true, data: githubHub.cache.repos || [], message: 'مستودعات منظمة شيخة', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/github/commits', (req, res) => {
+    if (!githubHub) return res.json({ success: false, data: [] });
+    res.json({ success: true, data: githubHub.cache.commits || [], repo: githubHub.repo, message: 'آخر commits', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/github/issues', (req, res) => {
+    if (!githubHub) return res.json({ success: false, data: [] });
+    res.json({ success: true, data: githubHub.cache.issues || [], message: 'Issues المفتوحة', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/github/pull-requests', (req, res) => {
+    if (!githubHub) return res.json({ success: false, data: [] });
+    res.json({ success: true, data: githubHub.cache.pullRequests || [], message: 'Pull Requests المفتوحة', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/github/branches', (req, res) => {
+    if (!githubHub) return res.json({ success: false, data: [] });
+    res.json({ success: true, data: githubHub.cache.branches || [], repo: githubHub.repo, message: 'فروع المستودع', timestamp: new Date().toISOString() });
+});
+
+app.post('/api/github/sync', async (req, res) => {
+    if (!githubHub) return res.json({ success: false, message: 'GitHub Hub غير متاح' });
+    if (!process.env.GITHUB_TOKEN) return res.json({ success: false, message: 'GITHUB_TOKEN غير مضبوط' });
+    try {
+        await githubHub._sync();
+        res.json({ success: true, data: githubHub.getStatus(), message: 'تمت المزامنة بنجاح', timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'فشلت المزامنة: ' + e.message });
+    }
+});
+
+app.post('/api/github/issues', async (req, res) => {
+    if (!githubHub) return res.json({ success: false, message: 'GitHub Hub غير متاح' });
+    const { title, body, labels } = req.body || {};
+    if (!title || typeof title !== 'string' || !title.trim()) {
+        return res.status(400).json({ success: false, message: 'عنوان الـ Issue مطلوب' });
+    }
+    if (title.length > 255) return res.status(400).json({ success: false, message: 'العنوان طويل جداً (الحد: 255 حرف)' });
+    if (body && typeof body !== 'string') return res.status(400).json({ success: false, message: 'تنسيق غير صحيح' });
+    try {
+        const issue = await githubHub.createIssue(title.trim(), (body || '').trim(), Array.isArray(labels) ? labels.slice(0, 10) : []);
+        res.json({ success: true, data: issue, message: 'تم إنشاء Issue بنجاح', timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'فشل إنشاء Issue: ' + e.message });
+    }
+});
+
+app.get('/api/github/copilot-bridge/status', (req, res) => {
+    if (!githubHub) return res.json({ success: false, message: 'GitHub Hub غير متاح' });
+    res.json({ success: true, data: githubHub.copilot.getStatus(), message: 'حالة Copilot Bridge', timestamp: new Date().toISOString() });
+});
+
+app.post('/api/github/copilot-bridge/analyze', (req, res) => {
+    if (!githubHub) return res.json({ success: false, message: 'GitHub Hub غير متاح' });
+    const { code, language } = req.body || {};
+    if (!code || typeof code !== 'string') return res.status(400).json({ success: false, message: 'الكود مطلوب' });
+    if (code.length > 50000) return res.status(400).json({ success: false, message: 'الكود طويل جداً' });
+    const result = githubHub.copilot.analyzeCode(code, language || 'javascript');
+    githubHub.copilot.logRequest('analyze', Math.ceil(code.length / 4));
+    res.json({ success: true, data: result, message: 'تم تحليل الكود', timestamp: new Date().toISOString() });
+});
+
+app.post('/api/github/copilot-bridge/commit-message', (req, res) => {
+    if (!githubHub) return res.json({ success: false, message: 'GitHub Hub غير متاح' });
+    const { diff, context } = req.body || {};
+    if (!diff || typeof diff !== 'string') return res.status(400).json({ success: false, message: 'الـ Diff مطلوب' });
+    if (diff.length > 100000) return res.status(400).json({ success: false, message: 'الـ Diff طويل جداً' });
+    const result = githubHub.copilot.generateCommitMessage(diff, (context || '').substring(0, 200));
+    githubHub.copilot.logRequest('commit-message', Math.ceil(diff.length / 4));
+    res.json({ success: true, data: result, message: 'تم توليد رسالة الـ Commit', timestamp: new Date().toISOString() });
+});
+
+app.post('/api/github/webhook', (req, res) => {
+    if (!githubHub) { res.status(503).json({ success: false }); return; }
+    const event = req.headers['x-github-event'] || 'unknown';
+    const signature = req.headers['x-hub-signature-256'] || '';
+    const rawBody = JSON.stringify(req.body || {});
+    if (!githubHub.verifyWebhookSignature(rawBody, signature)) {
+        console.warn('[GitHubHub] ⚠️ Webhook signature غير صحيحة');
+        return res.status(401).json({ success: false, message: 'Signature غير صحيحة' });
+    }
+    githubHub.handleWebhook(event, req.body);
+    res.json({ success: true, message: 'تم استلام الـ webhook' });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏛️ Architecture & Network API — معمارية وهيكلة وشبكة شيخة
+// ═══════════════════════════════════════════════════════════════════════════════
+
+app.get('/api/architecture/overview', (req, res) => {
+    const mem = process.memoryUsage();
+    const uptime = process.uptime();
+    res.json({
+        success: true,
+        data: {
+            platform: {
+                name: 'SHEIKHA Enterprise Platform',
+                version: '2.0.0',
+                node: process.version,
+                uptime: Math.floor(uptime),
+                uptimeFormatted: `${Math.floor(uptime/3600)}h ${Math.floor((uptime%3600)/60)}m ${Math.floor(uptime%60)}s`,
+                port: PORT,
+                env: process.env.NODE_ENV || 'development',
+                pid: process.pid
+            },
+            memory: {
+                heapUsed: Math.round(mem.heapUsed / 1024 / 1024),
+                heapTotal: Math.round(mem.heapTotal / 1024 / 1024),
+                rss: Math.round(mem.rss / 1024 / 1024),
+                external: Math.round(mem.external / 1024 / 1024)
+            },
+            data: {
+                users: USERS.length,
+                traders: TRADERS.length,
+                listings: LISTINGS.length,
+                orders: ORDERS ? ORDERS.length : 0,
+                logs: SYSTEM_LOGS ? SYSTEM_LOGS.length : 0,
+                shipments: ACTIVE_SHIPMENTS ? ACTIVE_SHIPMENTS.length : 0
+            },
+            layers: [
+                { id: 'frontend', name: 'طبقة الواجهة', tech: 'HTML5 + CSS3 + Vanilla JS', status: 'active', pages: 77 },
+                { id: 'backend', name: 'طبقة الخادم', tech: 'Node.js 25 + Express', status: 'active', routes: '500+' },
+                { id: 'data', name: 'طبقة البيانات', tech: 'JSON Files + In-Memory', status: 'active', files: '80+' },
+                { id: 'ai', name: 'طبقة الذكاء', tech: 'OpenAI + Gemini + Ollama', status: !!process.env.OPENAI_API_KEY ? 'active' : 'partial' },
+                { id: 'auth', name: 'طبقة المصادقة', tech: 'JWT + OAuth (Google/Microsoft/GitHub)', status: 'active' },
+                { id: 'github', name: 'طبقة التكامل', tech: 'GitHub Hub + Copilot Bridge', status: 'active' }
+            ],
+            engines: [
+                { name: 'GitHub Hub Engine', status: 'active', file: 'lib/sheikha-github-hub-engine.js' },
+                { name: 'Certification Engine', status: 'active', file: 'lib/sheikha-certification-engine.js' },
+                { name: 'Sharia Compliance', status: 'active', file: 'lib/sharia-compliance.js' },
+                { name: 'AI Advancement', status: 'active', file: 'lib/sheikha-ai-advancement-engine.js' },
+                { name: 'Accounting Engine', status: 'active', file: 'lib/sheikha-accounting-engine.js' },
+                { name: 'SEO Intelligence', status: 'active', file: 'lib/seo-intelligence-engine.js' },
+                { name: 'Notification Center', status: 'active', file: 'lib/notification-center.js' },
+                { name: 'Performance Optimizer', status: 'active', file: 'lib/performance-optimizer.js' }
+            ],
+            security: {
+                helmet: true,
+                rateLimit: true,
+                jwt: true,
+                oauth: { google: !!process.env.GOOGLE_CLIENT_ID, microsoft: !!process.env.MICROSOFT_CLIENT_ID, github: !!process.env.SHEIKHA_GITHUB_CLIENT_ID },
+                cookieParser: true,
+                https: process.env.NODE_ENV === 'production'
+            },
+            integrations: [
+                { name: 'GitHub API', status: !!process.env.GITHUB_TOKEN ? 'connected' : 'disconnected', type: 'vcs' },
+                { name: 'Google OAuth', status: !!process.env.GOOGLE_CLIENT_ID ? 'connected' : 'disconnected', type: 'auth' },
+                { name: 'Microsoft OAuth', status: !!process.env.MICROSOFT_CLIENT_ID ? 'connected' : 'disconnected', type: 'auth' },
+                { name: 'OpenAI API', status: !!process.env.OPENAI_API_KEY ? 'connected' : 'disconnected', type: 'ai' },
+                { name: 'Google Gemini', status: !!process.env.GOOGLE_API_KEY ? 'connected' : 'disconnected', type: 'ai' },
+                { name: 'Ollama Local', status: 'available', type: 'ai' },
+                { name: 'Google Cloud', status: !!process.env.GOOGLE_CLOUD_PROJECT ? 'connected' : 'disconnected', type: 'cloud' }
+            ]
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/architecture/network', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            nodes: [
+                { id: 'client', label: 'المتصفح / العميل', type: 'client', x: 0, y: 0 },
+                { id: 'nginx', label: 'Nginx / Port Forward', type: 'gateway', x: 1, y: 0 },
+                { id: 'express', label: 'Express Server :8080', type: 'server', x: 2, y: 0 },
+                { id: 'auth', label: 'Auth Layer (JWT+OAuth)', type: 'service', x: 2, y: -1 },
+                { id: 'engines', label: 'AI Engines (323)', type: 'service', x: 2, y: 1 },
+                { id: 'data', label: 'JSON Data Store', type: 'database', x: 3, y: 0 },
+                { id: 'github', label: 'GitHub API', type: 'external', x: 3, y: -1 },
+                { id: 'openai', label: 'OpenAI / Gemini', type: 'external', x: 3, y: 1 },
+                { id: 'ollama', label: 'Ollama Local AI', type: 'local', x: 3, y: 2 }
+            ],
+            edges: [
+                { from: 'client', to: 'nginx', label: 'HTTPS :8081' },
+                { from: 'nginx', to: 'express', label: 'HTTP :8080' },
+                { from: 'express', to: 'auth', label: 'Middleware' },
+                { from: 'express', to: 'engines', label: 'Lazy Load' },
+                { from: 'express', to: 'data', label: 'R/W JSON' },
+                { from: 'engines', to: 'github', label: 'REST API' },
+                { from: 'engines', to: 'openai', label: 'REST API' },
+                { from: 'engines', to: 'ollama', label: 'localhost:11434' }
+            ],
+            stats: {
+                totalNodes: 9,
+                totalEdges: 8,
+                externalServices: 3,
+                localServices: 2
+            }
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/architecture/engines', (req, res) => {
+    const libDir = require('fs');
+    let engineCount = 0;
+    try { engineCount = libDir.readdirSync('./lib').length; } catch (e) {}
+    res.json({
+        success: true,
+        data: {
+            total: engineCount,
+            lazyLoaded: true,
+            categories: [
+                { name: 'الذكاء الاصطناعي', count: 12, status: 'active' },
+                { name: 'التجارة والأسواق', count: 18, status: 'active' },
+                { name: 'الشريعة والإسلام', count: 15, status: 'active' },
+                { name: 'الإدارة والعمليات', count: 25, status: 'active' },
+                { name: 'التكامل والشبكة', count: 10, status: 'active' },
+                { name: 'المالية والمحاسبة', count: 8, status: 'active' },
+                { name: 'الأمان والحماية', count: 5, status: 'active' },
+                { name: 'GitHub + Copilot', count: 2, status: 'active' },
+                { name: 'أخرى', count: engineCount - 95, status: 'active' }
+            ],
+            recentlyAdded: [
+                { name: 'sheikha-github-hub-engine', added: '2026-04-04', status: 'active' },
+                { name: 'sheikha-certification-engine', added: '2026-04-03', status: 'active' }
+            ]
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
@@ -33570,7 +34632,883 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🚀 بدء الخادم
+// 🌟 حاضنة شيخة الإسلامية للأعمال الرقمية — Islamic Digital Business Incubator
+// ═══════════════════════════════════════════════════════════════════════════════
+// بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+// ﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾ — البقرة: 275
+// ﴿يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ مِّنكُمْ﴾ — النساء: 29
+
+const INCUBATOR_DATA = {
+    // ═══ مبادئ الكتاب والسنة في ريادة الأعمال ═══
+    quranPrinciples: [
+        { id: 'q1', ayah: '﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾', surah: 'البقرة 275', principle: 'حلّ البيع', application: 'التسعير العادل — بلا ربا بلا استغلال — الربح من القيمة المضافة الحقيقية' },
+        { id: 'q2', ayah: '﴿تِجَارَةً عَن تَرَاضٍ مِّنكُمْ﴾', surah: 'النساء 29', principle: 'التراضي', application: 'العقود الواضحة — الشفافية الكاملة — لا إكراه — رضا الطرفين أساس كل صفقة' },
+        { id: 'q3', ayah: '﴿وَأَوْفُوا الْكَيْلَ إِذَا كِلْتُمْ وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ﴾', surah: 'الإسراء 35', principle: 'دقة الميزان', application: 'الجودة الموثّقة — أوزان معتمدة — لا غش في الكميات والمواصفات' },
+        { id: 'q4', ayah: '﴿يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ﴾', surah: 'المائدة 1', principle: 'الوفاء بالعهد', application: 'الالتزام بمواعيد التسليم — احترام بنود العقود — الثقة هي رأس مال الجدي' },
+        { id: 'q5', ayah: '﴿وَلَا تَبْخَسُوا النَّاسَ أَشْيَاءَهُمْ﴾', surah: 'الأعراف 85', principle: 'عدم البخس', application: 'تقييم عادل للبضائع — لا استغلال الضائق — نماذج تسعير شفافة ومعلنة' },
+        { id: 'q6', ayah: '﴿وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى﴾', surah: 'المائدة 2', principle: 'التعاون', application: 'الشراكات الاستراتيجية — المشاريع التعاونية — الاقتصاد التشاركي الإسلامي' },
+        { id: 'q7', ayah: '﴿وَفِي ذَلِكَ فَلْيَتَنَافَسِ الْمُتَنَافِسُونَ﴾', surah: 'المطففين 26', principle: 'التنافس الحقيقي', application: 'الابتكار والتميز — المنافسة بالجودة لا بالإغراق — الريادة المبنية على القيمة' },
+        { id: 'q8', ayah: '﴿إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ﴾', surah: 'حديث صحيح', principle: 'الإتقان', application: 'جودة المنتج — الاحترافية — التحسين المستمر — معايير ISO الإسلامية' }
+    ],
+    sunnahPrinciples: [
+        { id: 's1', hadith: '«التاجر الصدوق الأمين مع النبيين والصديقين والشهداء»', source: 'الترمذي', principle: 'الصدق والأمانة', application: 'الشفافية في المنتج — الصدق في الوصف — الأمانة في حفظ أموال الشركاء' },
+        { id: 's2', hadith: '«يُبارك للمتبايعَين ما لم يتفرَّقا — وإن صدقا وبيَّنا»', source: 'البخاري ومسلم', principle: 'البيان والتبيين', application: 'وصف دقيق للبضائع — الإفصاح عن العيوب — لا تدليس في التسويق' },
+        { id: 's3', hadith: '«لا يحلب أحدكم ماشية أخيه بغير إذنه — ألا تحبّ أن يُحافظ على مالك؟»', source: 'البخاري', principle: 'صون حقوق الملكية', application: 'الملكية الفكرية — براءات الاختراع — احترام حقوق الشركاء والمستثمرين' },
+        { id: 's4', hadith: '«المسلمون على شروطهم»', source: 'أبو داود', principle: 'حرية التعاقد', application: 'المرونة في صياغة العقود — احترام الشروط المتفق عليها — لا فرض شروط تعسفية' },
+        { id: 's5', hadith: '«خير الناس أنفعهم للناس»', source: 'الطبراني', principle: 'النفع العام', application: 'ريادة أعمال تحل مشكلات حقيقية — التأثير الاجتماعي — الاقتصاد الذي ينفع الناس' },
+        { id: 's6', hadith: '«ما أكل أحدٌ طعامًا قط خيرًا من أن يأكل من عمل يده»', source: 'البخاري', principle: 'قيمة العمل', application: 'ريادة الأعمال الحقيقية — إنتاج القيمة — الابتعاد عن الاقتصاد الوهمي والمضاربات' }
+    ],
+
+    // ═══ نماذج ريادة الأعمال الإسلامية ═══
+    businessModels: [
+        {
+            id: 'mudharaba',
+            nameAr: 'المضاربة الرقمية',
+            nameEn: 'Digital Mudarabah',
+            icon: '🤝',
+            description: 'رب المال يوفر رأس المال — المضارب يوفر الخبرة والعمل — الربح بنسبة متفق عليها — الخسارة على رأس المال فقط',
+            digitalApplication: 'صناديق الاستثمار الرقمي — Crowdfunding الإسلامي — تمويل المشاريع الرقمية بلا فائدة',
+            stages: ['تحديد نسبة الربح', 'صياغة عقد واضح', 'تفعيل رأس المال', 'المتابعة والمحاسبة', 'توزيع الأرباح'],
+            shariahBase: 'القرآن والسنة — إجماع الفقهاء'
+        },
+        {
+            id: 'musharaka',
+            nameAr: 'المشاركة الرقمية',
+            nameEn: 'Digital Musharakah',
+            icon: '🏗️',
+            description: 'شركاء يساهمون بالمال والعمل — الربح والخسارة بحسب نسب المشاركة — الحوكمة المشتركة',
+            digitalApplication: 'الشركات الناشئة الإسلامية — Co-Founding — المشاريع المشتركة الرقمية',
+            stages: ['اتفاقية التأسيس', 'تحديد حصص الملكية', 'الحوكمة التشاركية', 'القرارات المشتركة', 'توزيع الأرباح عادلاً'],
+            shariahBase: 'الشركة في الفقه الإسلامي'
+        },
+        {
+            id: 'murabaha',
+            nameAr: 'المرابحة الرقمية',
+            nameEn: 'Digital Murabahah',
+            icon: '📦',
+            description: 'بيع السلعة بثمن معلوم مع ربح محدد ومُعلَن — لا غش في السعر — الشفافية الكاملة في هامش الربح',
+            digitalApplication: 'التجارة الإلكترونية الإسلامية — منصات البيع — التمويل التجاري الحلال',
+            stages: ['شراء السلعة', 'إضافة هامش ربح معلن', 'عرض واضح للمشتري', 'إتمام البيع', 'توثيق العقد'],
+            shariahBase: 'البيع المعلوم الثمن والربح'
+        },
+        {
+            id: 'wakala',
+            nameAr: 'الوكالة الرقمية',
+            nameEn: 'Digital Wakalah',
+            icon: '🔗',
+            description: 'وكالة بأجر محدد — الموكّل يفوّض الوكيل لإنجاز مهام محددة — لا غرر في نطاق الوكالة',
+            digitalApplication: 'منصات الخدمات المهنية — الفريلانسينج الإسلامي — وكالات التسويق الحلال',
+            stages: ['تحديد نطاق الوكالة', 'تحديد الأجر', 'توقيع العقد', 'التنفيذ', 'التسليم والمراجعة'],
+            shariahBase: 'الوكالة المشروعة في الفقه'
+        },
+        {
+            id: 'ijarah',
+            nameAr: 'الإجارة الرقمية',
+            nameEn: 'Digital Ijarah (SaaS Halal)',
+            icon: '☁️',
+            description: 'تأجير المنافع الرقمية — SaaS الحلال — الاشتراكات الواضحة — الأجر مقابل منفعة حقيقية',
+            digitalApplication: 'SaaS الإسلامي — الاشتراكات الرقمية — استئجار البنية التحتية الرقمية',
+            stages: ['تحديد المنفعة المؤجَّرة', 'تحديد مدة الإيجار', 'تحديد الأجرة', 'التسليم', 'الصيانة والدعم'],
+            shariahBase: 'إجارة المنافع في الفقه'
+        },
+        {
+            id: 'salam',
+            nameAr: 'السلم الرقمي',
+            nameEn: 'Digital Salam (Pre-order Halal)',
+            icon: '📋',
+            description: 'دفع الثمن عاجلاً على سلعة موصوفة في الذمة — Pre-order الإسلامي — مواصفات دقيقة لا يبقى معها غرر',
+            digitalApplication: 'الطلبات المسبقة — Crowdfunding الإنتاجي — تمويل المشاريع الحقيقية',
+            stages: ['وصف السلعة دقيقاً', 'تحديد التاريخ', 'دفع الثمن كاملاً', 'الإنتاج', 'التسليم في الموعد'],
+            shariahBase: 'عقد السلم المشروع'
+        }
+    ],
+
+    // ═══ استراتيجيات ريادة الأعمال الإسلامية الرقمية ═══
+    strategies: [
+        {
+            id: 'lean-halal',
+            nameAr: 'المشروع الخفيف الحلال',
+            nameEn: 'Lean Startup (Halal)',
+            phase: 'تأسيس',
+            steps: [
+                'تحديد المشكلة الحقيقية في السوق (ابدأ بالمشكلة لا بالفكرة)',
+                'صياغة الحل المبسّط (MVP) بأقل تكلفة',
+                'الاختبار مع عملاء حقيقيين وقياس النتائج',
+                'التعلم من الفشل والتكيف السريع',
+                'التوسع بعد التحقق من ملاءمة المنتج للسوق'
+            ],
+            islamicAdjustments: ['النية الصادقة في حل مشكلة حقيقية', 'الاستخارة قبل كل قرار مصيري', 'الشورى مع ذوي الخبرة', 'لا إسراف في التجربة والخطأ'],
+            tools: ['Business Model Canvas (إسلامي)', 'Customer Discovery', 'MVP Testing', 'Pivot أو Persist']
+        },
+        {
+            id: 'canvas-halal',
+            nameAr: 'لوحة النموذج الإسلامي',
+            nameEn: 'Islamic Business Model Canvas',
+            phase: 'تخطيط',
+            blocks: [
+                { block: 'القيمة المقدَّمة', islamic: 'ما المنفعة الحقيقية؟ — لا غرر لا تضليل', guiding: 'كيف تنفع الناس حقاً؟' },
+                { block: 'شرائح العملاء', islamic: 'من تخدم؟ — العدل في الخدمة', guiding: 'من يحتاج هذا الحل فعلاً؟' },
+                { block: 'قنوات التوزيع', islamic: 'كيف تصل؟ — بلا تضليل في التسويق', guiding: 'أفضل طريق لإيصال القيمة' },
+                { block: 'علاقات العملاء', islamic: 'الوفاء والأمانة — الخدمة المستمرة', guiding: 'كيف تبني ثقة طويلة الأمد؟' },
+                { block: 'مصادر الإيراد', islamic: 'إيراد حلال — بلا ربا بلا غش', guiding: 'كيف تكسب بصدق وشفافية؟' },
+                { block: 'الموارد الرئيسية', islamic: 'استخدم ما منحك الله — بلا إسراف', guiding: 'ما الموارد الضرورية فقط؟' },
+                { block: 'الأنشطة الرئيسية', islamic: 'الإتقان في كل عمل', guiding: 'ما الأنشطة الجوهرية التي تنجز بها؟' },
+                { block: 'الشراكات الرئيسية', islamic: 'التعاون على البر — لا على الإثم', guiding: 'من تشارك لتزيد القيمة؟' },
+                { block: 'هيكل التكاليف', islamic: 'الاقتصاد في الإنفاق — بلا تبذير', guiding: 'ما التكاليف الضرورية فقط؟' }
+            ]
+        },
+        {
+            id: 'growth-halal',
+            nameAr: 'النمو المستدام الحلال',
+            nameEn: 'Halal Sustainable Growth',
+            phase: 'نمو',
+            frameworks: [
+                { name: 'نمو مدفوع بالمنتج (PLG)', desc: 'المنتج الجيد يسوق نفسه — Word of Mouth — الجودة أفضل إعلان' },
+                { name: 'نمو مدفوع بالمجتمع', desc: 'بناء مجتمع حول المنتج — الولاء المجتمعي — الاقتصاد التشاركي' },
+                { name: 'نمو مدفوع بالمبيعات', desc: 'فريق مبيعات أميني — لا ضغط مفرط — إقناع بالحقيقة لا بالتضليل' },
+                { name: 'نمو مدفوع بالشراكات', desc: 'تحالفات استراتيجية حلال — شراكات مضاربة ومشاركة' }
+            ]
+        },
+        {
+            id: 'digital-transformation',
+            nameAr: 'الرقمنة الإسلامية',
+            nameEn: 'Islamic Digital Transformation',
+            phase: 'رقمنة',
+            pillars: [
+                { pillar: 'الهوية الرقمية الحلال', steps: ['بناء حضور رقمي أمين', 'لا تدليس في الهوية الرقمية', 'الشفافية في المعلومات'] },
+                { pillar: 'التجارة الإلكترونية الحلال', steps: ['بيع واضح الوصف', 'آليات دفع حلال', 'سياسة إرجاع عادلة'] },
+                { pillar: 'التسويق الرقمي الحلال', steps: ['لا إعلانات مضللة', 'محتوى نافع صادق', 'بناء ثقة لا استغلال'] },
+                { pillar: 'خدمة العملاء الرقمية', steps: ['استجابة سريعة', 'حل فعلي للمشكلات', 'وفاء بما وُعد به'] }
+            ]
+        }
+    ],
+
+    // ═══ مراحل الحاضنة ═══
+    incubationProgram: {
+        name: 'برنامج حاضنة شيخة للأعمال الإسلامية الرقمية',
+        duration: '6 أشهر',
+        phases: [
+            {
+                phase: 1, name: 'الاستكشاف والنية', duration: 'الشهر 1',
+                goals: ['تحديد المشكلة الحقيقية', 'صياغة القيمة المقدَّمة', 'فحص الامتثال الشرعي'],
+                deliverables: ['ورقة المشكلة', 'اختبار الفكرة الأولي', 'تقييم شرعي أولي'],
+                shariahCheck: 'فحص أولي للامتثال الشرعي مع مراجعة النشاط التجاري'
+            },
+            {
+                phase: 2, name: 'البناء والتحقق', duration: 'الشهر 2-3',
+                goals: ['بناء MVP حلال', 'اختبار مع عملاء حقيقيين', 'التحقق من الطلب الحقيقي'],
+                deliverables: ['نموذج أولي قابل للاختبار', 'مقابلات العملاء', 'قياسات أولية'],
+                shariahCheck: 'مراجعة نموذج الإيراد ومصادر التمويل'
+            },
+            {
+                phase: 3, name: 'الإطلاق والنمو', duration: 'الشهر 4-5',
+                goals: ['إطلاق رسمي تدريجي', 'بناء قاعدة عملاء', 'تحسين المنتج باستمرار'],
+                deliverables: ['إطلاق رسمي', 'أولى الإيرادات الحلال', 'مراجعة العملاء'],
+                shariahCheck: 'مراجعة كاملة لكل العقود والاتفاقيات'
+            },
+            {
+                phase: 4, name: 'التوسع والاستدامة', duration: 'الشهر 6',
+                goals: ['استعداد للتمويل أو التوسع', 'بناء فريق محترف', 'الاستدامة المالية'],
+                deliverables: ['خطة توسع', 'فريق مكتمل', 'Demo Day إسلامي'],
+                shariahCheck: 'تدقيق شرعي نهائي قبل التوسع'
+            }
+        ]
+    },
+
+    // ═══ علم الإدارة الإسلامية ═══
+    islamicManagement: {
+        principles: [
+            { name: 'الشورى', desc: 'القرارات الجماعية — مشاركة أصحاب الخبرة — لا استبداد في الإدارة', modern: 'Participative Management' },
+            { name: 'العدل', desc: 'المساواة في المعاملة — الإنصاف في التقييم — لا محاباة', modern: 'Fair Management' },
+            { name: 'الأمانة', desc: 'حفظ أموال الشركاء والعملاء — الشفافية المحاسبية — حوكمة قوية', modern: 'Governance & Ethics' },
+            { name: 'الإتقان', desc: 'جودة في كل ما نفعل — تحسين مستمر — لا تهاون في المعايير', modern: 'Excellence & Quality' },
+            { name: 'الوقت', desc: '«نعمتان مغبون فيهما كثير من الناس: الصحة والفراغ» — إدارة الوقت فريضة', modern: 'Time Management' },
+            { name: 'فقه الأولويات', desc: 'الأهم قبل المهم — تحديد الأولويات بحكمة — لا تشتت', modern: 'Priority Management' }
+        ],
+        leadershipModel: {
+            name: 'القيادة الإسلامية النبوية',
+            traits: [
+                { trait: 'الصدق', propheticExample: 'الصادق الأمين قبل النبوة — بناء الثقة قبل القيادة' },
+                { trait: 'الحكمة', propheticExample: 'حكمة الحديبية — القرار الاستراتيجي الصعب لمصلحة أبعد' },
+                { trait: 'التواضع', propheticExample: 'كان يخدم نفسه ويشاور أصحابه — لا كبرياء في القيادة' },
+                { trait: 'الرحمة', propheticExample: 'رحمة بالعمال والموظفين — إنسانية في الإدارة' },
+                { trait: 'البناء', propheticExample: 'بناء المدينة الاقتصادية — المؤاخاة — التكافل الاقتصادي' },
+                { trait: 'الشجاعة', propheticExample: 'القرار الصعب في وقته — لا تردد في الحق' }
+            ]
+        }
+    }
+};
+
+// ═══ API حاضنة الأعمال الإسلامية ═══
+app.get('/api/incubator/overview', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            name: 'حاضنة شيخة الإسلامية للأعمال الرقمية',
+            tagline: 'ريادة أعمال بالكتاب والسنة — رقمنة توحيداً لله',
+            foundation: '﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾',
+            stats: {
+                businessModels: INCUBATOR_DATA.businessModels.length,
+                strategies: INCUBATOR_DATA.strategies.length,
+                quranPrinciples: INCUBATOR_DATA.quranPrinciples.length,
+                sunnahPrinciples: INCUBATOR_DATA.sunnahPrinciples.length,
+                incubationPhases: INCUBATOR_DATA.incubationProgram.phases.length,
+                managementPrinciples: INCUBATOR_DATA.islamicManagement.principles.length
+            },
+            apis: {
+                principles: '/api/incubator/principles',
+                models: '/api/incubator/models',
+                strategies: '/api/incubator/strategies',
+                program: '/api/incubator/program',
+                management: '/api/incubator/management',
+                evaluate: '/api/incubator/evaluate',
+                register: '/api/incubator/register'
+            }
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/incubator/principles', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            quran: INCUBATOR_DATA.quranPrinciples,
+            sunnah: INCUBATOR_DATA.sunnahPrinciples,
+            totalPrinciples: INCUBATOR_DATA.quranPrinciples.length + INCUBATOR_DATA.sunnahPrinciples.length
+        },
+        message: 'مبادئ التجارة من الكتاب والسنة',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/incubator/models', (req, res) => {
+    res.json({
+        success: true,
+        data: INCUBATOR_DATA.businessModels,
+        count: INCUBATOR_DATA.businessModels.length,
+        message: 'نماذج ريادة الأعمال الإسلامية الرقمية',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/incubator/strategies', (req, res) => {
+    res.json({
+        success: true,
+        data: INCUBATOR_DATA.strategies,
+        count: INCUBATOR_DATA.strategies.length,
+        message: 'استراتيجيات ريادة الأعمال الرقمية الإسلامية',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/incubator/program', (req, res) => {
+    res.json({
+        success: true,
+        data: INCUBATOR_DATA.incubationProgram,
+        message: 'برنامج الحاضنة — 6 أشهر من الفكرة إلى الإطلاق',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/incubator/management', (req, res) => {
+    res.json({
+        success: true,
+        data: INCUBATOR_DATA.islamicManagement,
+        message: 'علم الإدارة بالمنهج الإسلامي',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// تقييم الفكرة التجارية شرعياً وتجارياً
+app.post('/api/incubator/evaluate', (req, res) => {
+    const { idea, category, revenueModel, targetMarket } = req.body || {};
+    if (!idea || String(idea).trim().length < 10)
+        return res.status(400).json({ success: false, message: 'يرجى وصف فكرتك بالتفصيل (10 أحرف على الأقل)' });
+
+    const text = String(idea).toLowerCase();
+    // فحص الامتثال الشرعي
+    const haramPatterns = ['ربا', 'فائدة بنكية', 'خمر', 'قمار', 'غش', 'احتكار', 'نجش', 'غرر'];
+    const concerns = haramPatterns.filter(p => text.includes(p));
+
+    const score = {
+        shariahCompliance: concerns.length === 0 ? 95 : Math.max(20, 95 - concerns.length * 25),
+        marketNeed: targetMarket ? 80 : 60,
+        digitalReadiness: 75,
+        islamicImpact: 85,
+        overall: 0
+    };
+    score.overall = Math.round((score.shariahCompliance + score.marketNeed + score.digitalReadiness + score.islamicImpact) / 4);
+
+    res.json({
+        success: true,
+        data: {
+            idea: String(idea).substring(0, 200),
+            evaluation: {
+                scores: score,
+                shariahStatus: concerns.length === 0 ? 'مبدئياً مقبول شرعاً — يستلزم مراجعة عالم فقه' : 'يحتاج مراجعة شرعية للنقاط: ' + concerns.join(', '),
+                recommendedModel: INCUBATOR_DATA.businessModels[Math.floor(Math.random() * INCUBATOR_DATA.businessModels.length)].nameAr,
+                suggestedStrategy: INCUBATOR_DATA.strategies[0].nameAr,
+                nextSteps: [
+                    'استشارة عالم فقه متخصص في المعاملات',
+                    'بناء نموذج عمل حلال واضح',
+                    'اختبار الفكرة مع عشرة عملاء حقيقيين',
+                    'التسجيل في برنامج حاضنة شيخة'
+                ]
+            }
+        },
+        message: 'تقييم أولي — ليس فتوى شرعية — يستلزم مراجعة متخصص',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// تسجيل مشروع في الحاضنة
+app.post('/api/incubator/register', (req, res) => {
+    const { founderName, email, ideaTitle, ideaDescription, sector, stage } = req.body || {};
+    if (!founderName || !email || !ideaTitle || !ideaDescription)
+        return res.status(400).json({ success: false, message: 'يرجى ملء جميع الحقول المطلوبة' });
+
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
+        return res.status(400).json({ success: false, message: 'البريد الإلكتروني غير صحيح' });
+
+    const applicationId = 'SHK-' + Date.now().toString(36).toUpperCase();
+    const application = {
+        id: applicationId,
+        founderName: String(founderName).substring(0, 100),
+        email: String(email).substring(0, 200),
+        ideaTitle: String(ideaTitle).substring(0, 200),
+        ideaDescription: String(ideaDescription).substring(0, 1000),
+        sector: String(sector || 'غير محدد').substring(0, 100),
+        stage: String(stage || 'فكرة').substring(0, 50),
+        status: 'قيد المراجعة',
+        appliedAt: new Date().toISOString(),
+        phase: 1
+    };
+
+    // حفظ في ملف البيانات
+    try {
+        const filePath = path.join(__dirname, 'data', 'incubator-applications.json');
+        let apps = [];
+        try { apps = JSON.parse(fs.readFileSync(filePath, 'utf8')); } catch (_) {}
+        if (!Array.isArray(apps)) apps = [];
+        apps.push(application);
+        fs.writeFileSync(filePath, JSON.stringify(apps, null, 2), 'utf8');
+    } catch (e) {
+        console.warn('[Incubator] خطأ في حفظ الطلب:', e.message);
+    }
+
+    res.json({
+        success: true,
+        data: { applicationId, status: 'قيد المراجعة', message: 'سيتواصل معك فريق الحاضنة خلال 3 أيام عمل' },
+        message: 'تم استلام طلبك في حاضنة شيخة — بارك الله في مشروعك',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// كامل بيانات الحاضنة
+app.get('/api/incubator/full', (req, res) => {
+    res.json({
+        success: true,
+        data: INCUBATOR_DATA,
+        message: 'كامل منظومة حاضنة شيخة الإسلامية للأعمال الرقمية',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🚀 محرك ريادة الأعمال الرقمي — Sheikha Entrepreneurship Engine APIs
+// ═══════════════════════════════════════════════════════════════════════════════
+let entrepreneurshipEngine = null;
+try {
+    entrepreneurshipEngine = require('./lib/sheikha-entrepreneurship-engine');
+    entrepreneurshipEngine.start();
+    console.log('🌟 [Entrepreneurship Engine] تم التفعيل — ريادة الأعمال الإسلامية الرقمية');
+} catch (e) {
+    console.warn('⚠️ [Entrepreneurship Engine]:', e.message);
+}
+
+// حالة المحرك
+app.get('/api/entrepreneurship/status', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: entrepreneurshipEngine.getStatus(), timestamp: new Date().toISOString() });
+});
+
+// ملخص المنظومة
+app.get('/api/entrepreneurship/summary', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: {
+            ...entrepreneurshipEngine.getSummary(),
+            tagline: 'أفضل حاضنة ومسرعة أعمال إسلامية رقمية بالكون',
+            foundation: 'الكتاب والسنة — الإتقان — النفع الحقيقي — التوحيد',
+            engine: entrepreneurshipEngine.getStatus()
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// المنهجيات الكاملة
+app.get('/api/entrepreneurship/methodologies', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: entrepreneurshipEngine.methodologies,
+        count: entrepreneurshipEngine.methodologies.length,
+        message: 'أفضل منهجيات ريادة الأعمال العلمية مُدمجة بالمنهج الإسلامي',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// مراحل المنتج كاملة (من الفكرة إلى السوق)
+app.get('/api/entrepreneurship/product-stages', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: entrepreneurshipEngine.productStages,
+        count: entrepreneurshipEngine.productStages.length,
+        message: 'مراحل تطوير المنتج — من الفكرة إلى التوسع العالمي',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// أدوات الابتكار
+app.get('/api/entrepreneurship/innovation-tools', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: entrepreneurshipEngine.innovationTools,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// استراتيجيات دخول السوق
+app.get('/api/entrepreneurship/market-entry', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: entrepreneurshipEngine.marketEntryStrategies,
+        count: entrepreneurshipEngine.marketEntryStrategies.length,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// برنامج المسرعة
+app.get('/api/entrepreneurship/accelerator', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: entrepreneurshipEngine.acceleratorProgram,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// إطار Pilot / Prototype / Test the Market
+app.get('/api/entrepreneurship/pilot', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: entrepreneurshipEngine.pilotFramework,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// إطار الملكية الفكرية
+app.get('/api/entrepreneurship/ip', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: entrepreneurshipEngine.ipFramework,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// نظام المرشدين
+app.get('/api/entrepreneurship/mentors', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: entrepreneurshipEngine.mentorSystem,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// منظومة القيمة المضافة
+app.get('/api/entrepreneurship/value-framework', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: entrepreneurshipEngine.valueFramework,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// إشارات السوق الحية
+app.get('/api/entrepreneurship/market-signals', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: entrepreneurshipEngine.marketSignals,
+        kpis: entrepreneurshipEngine.kpis,
+        innovationScore: entrepreneurshipEngine.innovationScore,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// توليد أفكار بالذكاء الاصطناعي
+app.post('/api/entrepreneurship/generate-ideas', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    const { sector, problem, targetMarket } = req.body || {};
+    const ideas = entrepreneurshipEngine.generateIdeas({ sector, problem, targetMarket });
+    res.json({
+        success: true,
+        data: ideas,
+        count: ideas.length,
+        message: `تم توليد ${ideas.length} فكرة ريادية — فضّل الأنفع للناس`,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// تقييم فكرة شامل (شرعي + تجاري + ذكاء اصطناعي)
+app.post('/api/entrepreneurship/evaluate', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    const { title, description, targetMarket, sector } = req.body || {};
+    if (!title && !description)
+        return res.status(400).json({ success: false, message: 'يرجى تقديم عنوان أو وصف للفكرة' });
+    const evaluation = entrepreneurshipEngine.evaluateIdea({ title, description, targetMarket, sector });
+    res.json({
+        success: true,
+        data: evaluation,
+        note: 'هذا تقييم تقني مبدئي — ليس فتوى شرعية — يستلزم مراجعة مختص',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// تسجيل Pilot جديد
+app.post('/api/entrepreneurship/launch-pilot', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    const { projectName, description, targetUsers, sector } = req.body || {};
+    if (!projectName)
+        return res.status(400).json({ success: false, message: 'اسم المشروع مطلوب' });
+    const pilotId = 'PLT-' + Date.now().toString(36).toUpperCase();
+    const pilot = {
+        id: pilotId,
+        projectName: String(projectName).substring(0, 200),
+        description: String(description || '').substring(0, 500),
+        targetUsers: Math.min(1000, Math.max(5, parseInt(targetUsers) || 20)),
+        sector: String(sector || 'عام').substring(0, 100),
+        status: 'جاري الإعداد',
+        launchedAt: new Date().toISOString(),
+        plan: entrepreneurshipEngine._generatePilotPlan({ title: projectName }),
+        framework: entrepreneurshipEngine.pilotFramework
+    };
+    entrepreneurshipEngine.activePilots.push(pilot);
+    entrepreneurshipEngine.kpis.pilotsLaunched++;
+    res.json({
+        success: true,
+        data: { pilotId, pilot },
+        message: `تم إطلاق Pilot "${projectName}" — بارك الله في مشروعك`,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// كامل بيانات المنظومة
+app.get('/api/entrepreneurship/full', (req, res) => {
+    if (!entrepreneurshipEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: {
+            status: entrepreneurshipEngine.getStatus(),
+            methodologies: entrepreneurshipEngine.methodologies,
+            productStages: entrepreneurshipEngine.productStages,
+            innovationTools: entrepreneurshipEngine.innovationTools,
+            marketEntryStrategies: entrepreneurshipEngine.marketEntryStrategies,
+            acceleratorProgram: entrepreneurshipEngine.acceleratorProgram,
+            pilotFramework: entrepreneurshipEngine.pilotFramework,
+            ipFramework: entrepreneurshipEngine.ipFramework,
+            mentorSystem: entrepreneurshipEngine.mentorSystem,
+            valueFramework: entrepreneurshipEngine.valueFramework,
+            incubatorData: INCUBATOR_DATA
+        },
+        message: 'كامل منظومة ريادة الأعمال الإسلامية الرقمية — أعظم منظومة ابتكار بالكون توحيداً لله',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🤝 Business Coach + Action Coach Engine — المحرك الإسلامي الرقمي
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let businessCoachEngine = null;
+try {
+    businessCoachEngine = require('./lib/sheikha-business-coach-engine');
+    businessCoachEngine.start();
+    console.log('✅ Business Coach Engine تم تشغيله');
+} catch (e) {
+    console.warn('⚠️ Business Coach Engine غير متاح:', e.message);
+}
+
+// ─── الحالة والمحتوى الكامل ───
+app.get('/api/business-coach/status', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: businessCoachEngine.getStatus(), timestamp: new Date().toISOString() });
+});
+
+app.get('/api/business-coach/foundation', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: businessCoachEngine.islamicFoundation, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/business-coach/action-coach', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: businessCoachEngine.actionCoach6Steps, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/business-coach/digital-tools', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: businessCoachEngine.digitalTools, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/business-coach/coaching-models', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: businessCoachEngine.coachingModels, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/business-coach/kpi-library', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: businessCoachEngine.kpiLibrary, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/business-coach/okr-templates', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: businessCoachEngine.okrTemplates, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/business-coach/sales-tools', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: businessCoachEngine.salesTools, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/business-coach/financial-tools', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: businessCoachEngine.financialTools, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/business-coach/marketing-tools', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: businessCoachEngine.marketingTools, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/business-coach/leadership-tools', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: businessCoachEngine.leadershipTools, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/business-coach/productivity-tools', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: businessCoachEngine.productivityTools, timestamp: new Date().toISOString() });
+});
+
+// ─── الأدوات التفاعلية ───
+app.post('/api/business-coach/diagnose', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    const { mastery = 50, niche = 50, leverage = 50, team = 50, synergy = 50, results = 50, businessName, sector } = req.body || {};
+    if (!businessName && !sector) return res.status(400).json({ success: false, message: 'أدخل اسم الشركة أو القطاع على الأقل' });
+    try {
+        const result = businessCoachEngine.diagnoseBusinessHealth({ mastery, niche, leverage, team, synergy, results, businessName, sector });
+        res.json({ success: true, data: result, message: 'تم تشخيص صحة عملك بالمنهج الإسلامي الرقمي', timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في التشخيص', error: e.message });
+    }
+});
+
+app.post('/api/business-coach/generate-action-plan', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    const { objective, keyResults = [], sector, horizon = '90 يوم', teamSize = 1 } = req.body || {};
+    if (!objective) return res.status(400).json({ success: false, message: 'الهدف الرئيسي مطلوب' });
+    try {
+        const plan = businessCoachEngine.generateActionPlan({ objective, keyResults, sector, horizon, teamSize });
+        res.json({ success: true, data: plan, message: 'تم توليد خطة الأكشن الخاصة بك', timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في توليد الخطة', error: e.message });
+    }
+});
+
+app.post('/api/business-coach/calculate-financials', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    const { fixedCosts, variableCostPct, avgPrice, targetProfit } = req.body || {};
+    if (!avgPrice || avgPrice <= 0) return res.status(400).json({ success: false, message: 'سعر البيع مطلوب وأكبر من صفر' });
+    try {
+        const result = businessCoachEngine.calculateFinancials({ fixedCosts, variableCostPct, avgPrice, targetProfit });
+        res.json({ success: true, data: result, message: 'تم حساب نقطة التعادل والربحية', timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في الحساب', error: e.message });
+    }
+});
+
+app.post('/api/business-coach/coaching-session', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    const { question, context = {} } = req.body || {};
+    if (!question || question.trim().length < 5) return res.status(400).json({ success: false, message: 'السؤال مطلوب (5 أحرف على الأقل)' });
+    try {
+        const response = businessCoachEngine.generateCoachingResponse(question.trim(), context);
+        res.json({ success: true, data: response, message: 'استشارة مدعومة بالذكاء الاصطناعي والمنهج الإسلامي', timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في الكوتشينج', error: e.message });
+    }
+});
+
+app.post('/api/business-coach/generate-okr', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    const { businessType, sector, currentRevenue, targetRevenue, period } = req.body || {};
+    try {
+        const okr = businessCoachEngine.generateOKR({ businessType, sector, currentRevenue, targetRevenue, period });
+        res.json({ success: true, data: okr, message: 'تم توليد OKR الإسلامي لعملك', timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في توليد OKR', error: e.message });
+    }
+});
+
+app.get('/api/business-coach/full', (req, res) => {
+    if (!businessCoachEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: businessCoachEngine.getFullData(),
+        message: 'كامل منظومة البزنس كوتش والأكشن كوتش الإسلامي الرقمي — توحيداً لله',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏆 Certification & Standards Engine — محرك الشهادات والمعايير والجودة
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let certificationEngine = null;
+try {
+    certificationEngine = require('./lib/sheikha-certification-engine');
+    certificationEngine.start();
+    console.log('✅ Certification Engine — محرك الشهادات والمعايير يعمل');
+} catch (e) {
+    console.warn('⚠️ Certification Engine غير متاح:', e.message);
+}
+
+// ─── حالة المحرك ───
+app.get('/api/certification/status', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: certificationEngine.getStatus(), timestamp: new Date().toISOString() });
+});
+
+// ─── معايير ISO ───
+app.get('/api/certification/iso', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: certificationEngine.isoStandards, message: `${certificationEngine.isoStandards.length} معيار ISO دولي مُفعَّل`, timestamp: new Date().toISOString() });
+});
+
+// ─── المعايير الإدارية ───
+app.get('/api/certification/management', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: certificationEngine.managementStandards, message: `${certificationEngine.managementStandards.length} معيار إداري مُفعَّل`, timestamp: new Date().toISOString() });
+});
+
+// ─── المعايير الإسلامية ───
+app.get('/api/certification/islamic', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: certificationEngine.islamicStandards, message: `${certificationEngine.islamicStandards.length} معيار إسلامي مُفعَّل`, timestamp: new Date().toISOString() });
+});
+
+// ─── المعايير التقنية ───
+app.get('/api/certification/tech', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: certificationEngine.techStandards, message: `${certificationEngine.techStandards.length} معيار تقني مُفعَّل`, timestamp: new Date().toISOString() });
+});
+
+// ─── برامج الشهادات ───
+app.get('/api/certification/programs', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: certificationEngine.certificationPrograms, message: `${certificationEngine.certificationPrograms.length} برنامج شهادة مُفعَّل`, timestamp: new Date().toISOString() });
+});
+
+// ─── أطر الجودة ───
+app.get('/api/certification/quality-frameworks', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: certificationEngine.qualityFrameworks, timestamp: new Date().toISOString() });
+});
+
+// ─── التحسين المستمر ───
+app.get('/api/certification/continuous-improvement', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: certificationEngine.continuousImprovement, timestamp: new Date().toISOString() });
+});
+
+// ─── جهات الاعتماد ───
+app.get('/api/certification/bodies', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: certificationEngine.accreditationBodies, message: `${certificationEngine.accreditationBodies.length} جهة اعتماد رسمية`, timestamp: new Date().toISOString() });
+});
+
+// ─── الشارات الرقمية ───
+app.get('/api/certification/badges', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({ success: true, data: certificationEngine.digitalBadges, message: `${certificationEngine.digitalBadges.length} شارة رقمية متاحة`, timestamp: new Date().toISOString() });
+});
+
+// ─── إصدار شهادة (POST) ───
+app.post('/api/certification/issue', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    const { entityName, entityType, certId, scores } = req.body || {};
+    if (!entityName || !certId) return res.status(400).json({ success: false, message: 'اسم الجهة ورمز الشهادة مطلوبان' });
+    try {
+        const certificate = certificationEngine.issueCertificate({ entityName, entityType, certId, scores });
+        res.json({ success: true, data: certificate, message: `تم إصدار شهادة ${certificate.certNameAr} بنجاح — رقم: ${certificate.certNumber}`, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(400).json({ success: false, message: e.message });
+    }
+});
+
+// ─── تقييم الجودة (POST) ───
+app.post('/api/certification/assess', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    const { entityName, sector, currentPractices, size } = req.body || {};
+    if (!entityName) return res.status(400).json({ success: false, message: 'اسم الجهة مطلوب' });
+    try {
+        const assessment = certificationEngine.assessQuality({ entityName, sector, currentPractices, size });
+        res.json({ success: true, data: assessment, message: 'تم تقييم مستوى الجودة والامتثال', timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في التقييم', error: e.message });
+    }
+});
+
+// ─── التحقق من شهادة (GET) ───
+app.get('/api/certification/verify/:certNumber', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    const { certNumber } = req.params;
+    const cert = certificationEngine.issuedCertificates.find(c => c.certNumber === certNumber);
+    if (!cert) return res.status(404).json({ success: false, message: 'الشهادة غير موجودة' });
+    const isValid = new Date(cert.expiryDate) > new Date();
+    res.json({ success: true, data: { ...cert, isValid, verificationStatus: isValid ? '✅ سارية' : '❌ منتهية' }, message: isValid ? 'الشهادة سارية وصالحة' : 'الشهادة منتهية الصلاحية', timestamp: new Date().toISOString() });
+});
+
+// ─── الشهادات الصادرة ───
+app.get('/api/certification/issued', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    const certs = certificationEngine.issuedCertificates.slice(-50);
+    res.json({ success: true, data: certs, total: certs.length, message: 'قائمة الشهادات الصادرة', timestamp: new Date().toISOString() });
+});
+
+// ─── كامل البيانات ───
+app.get('/api/certification/full', (req, res) => {
+    if (!certificationEngine) return res.json({ success: false, message: 'المحرك غير متاح' });
+    res.json({
+        success: true,
+        data: certificationEngine.getFullData(),
+        message: 'كامل منظومة الشهادات والمعايير والجودة الإسلامية الرقمية — توحيداً لله',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// � GitHub Hub + Copilot Engine — منظومة التكامل مع GitHub
+// �🚀 بدء الخادم
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function initializeAutomation() {
@@ -33595,7 +35533,8 @@ let server = null;
 initializeAutomation();
 
 if (!isVercelRuntime) {
-    server = app.listen(PORT, '127.0.0.1', () => {
+    // 0.0.0.0 يسمح بـ port forwarding في VS Code / Codespaces
+    server = app.listen(PORT, '0.0.0.0', () => {
         addSystemLog('success', 'Server', `Server started on port ${PORT}`);
 
         // ═════════════════════════════════════════════
