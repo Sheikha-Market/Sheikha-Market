@@ -34295,6 +34295,323 @@ app.get('/api/architecture/engines', (req, res) => {
     });
 });
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🕌 الحضارة الرقمية الإسلامية — Islamic Digital Civilization Engine
+// بسم الله الرحمن الرحيم
+// إحياء سنة النبي ﷺ والخلفاء الراشدين المهديين رقمياً
+// القرآن الكريم + السنة النبوية الشريفة
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let islamicCivilizationEngine = null;
+try {
+    islamicCivilizationEngine = require('./lib/sheikha-islamic-civilization-engine');
+    console.log('✅ الحضارة الرقمية الإسلامية — 8 أعمدة + سنة النبي ﷺ + الخلفاء الراشدين');
+} catch (e) {
+    console.warn('⚠️ Islamic Civilization Engine غير متاح:', e.message);
+}
+
+// ─── حالة المنظومة ───
+app.get('/api/civilization/status', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.getStatus(), message: 'الحضارة الرقمية الإسلامية تعمل بإذن الله', timestamp: new Date().toISOString() });
+});
+
+// ─── نظرة عامة على المنظومة ───
+app.get('/api/civilization/overview', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.getOverview(), message: 'منصة شيخة للحضارة الرقمية الإسلامية', timestamp: new Date().toISOString() });
+});
+
+// ─── إحياء السنة النبوية ﷺ ───
+app.get('/api/civilization/sunnah', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.getPropheticSunnah(), message: 'السنة النبوية الاقتصادية والإدارية', timestamp: new Date().toISOString() });
+});
+
+// ─── سوق المدينة المنورة ───
+app.get('/api/civilization/sunnah/market', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.propheticSystem.madinaMarket, message: 'سوق المدينة المنورة — أول سوق إسلامي حر', timestamp: new Date().toISOString() });
+});
+
+// ─── بيت المال ───
+app.get('/api/civilization/sunnah/bayt-almal', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.propheticSystem.baytAlMal, message: 'بيت المال — الخزانة العامة الإسلامية', timestamp: new Date().toISOString() });
+});
+
+// ─── العقود النبوية ───
+app.get('/api/civilization/sunnah/contracts', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.propheticSystem.propheticContracts, message: 'العقود والمعاهدات النبوية', timestamp: new Date().toISOString() });
+});
+
+// ─── الخلفاء الراشدون المهديون ───
+app.get('/api/civilization/caliphs', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.getCaliphs(), message: 'سياسات الخلفاء الراشدين الاقتصادية والإدارية', timestamp: new Date().toISOString() });
+});
+
+// ─── الفاروق عمر — مؤسس الإدارة ───
+app.get('/api/civilization/caliphs/omar', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.caliphs.omar, message: 'عمر بن الخطاب رضي الله عنه — الفاروق', timestamp: new Date().toISOString() });
+});
+
+// ─── الأوقاف الإسلامية الرقمية ───
+app.get('/api/civilization/awqaf', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.getAwqaf(), message: 'منظومة الأوقاف الإسلامية الرقمية', timestamp: new Date().toISOString() });
+});
+
+// ─── أنواع الأوقاف ───
+app.get('/api/civilization/awqaf/types', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.awqaf.types, message: `${islamicCivilizationEngine.awqaf.types.length} أنواع الأوقاف الإسلامية`, timestamp: new Date().toISOString() });
+});
+
+// ─── الأوقاف التاريخية ───
+app.get('/api/civilization/awqaf/historical', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.awqaf.historicalAwqaf, message: 'الأوقاف التاريخية العظيمة', timestamp: new Date().toISOString() });
+});
+
+// ─── منصة الأوقاف الرقمية ───
+app.get('/api/civilization/awqaf/platform', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.awqaf.digitalAwqafPlatform, message: 'منصة الأوقاف الرقمية شيخة', timestamp: new Date().toISOString() });
+});
+
+// ─── أوقاف النبي ﷺ المفصّلة ───
+app.get('/api/civilization/awqaf/prophetic', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({
+        success: true,
+        data: islamicCivilizationEngine.awqaf.propheticAwqaf,
+        count: islamicCivilizationEngine.awqaf.propheticAwqaf.length,
+        message: `${islamicCivilizationEngine.awqaf.propheticAwqaf.length} أوقاف النبي ﷺ الموثقة من السنة`,
+        quran: 'لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ — الأحزاب 21',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── وقف بعينه من أوقاف النبي ﷺ ───
+app.get('/api/civilization/awqaf/prophetic/:id', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const waqf = islamicCivilizationEngine.awqaf.propheticAwqaf.find(w => w.id === req.params.id);
+    if (!waqf) return res.json({ success: false, message: 'الوقف غير موجود', available: islamicCivilizationEngine.awqaf.propheticAwqaf.map(w => w.id) });
+    res.json({ success: true, data: waqf, timestamp: new Date().toISOString() });
+});
+
+// ─── أوقاف الصحابة الكرام ───
+app.get('/api/civilization/awqaf/sahaba', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({
+        success: true,
+        data: islamicCivilizationEngine.awqaf.sahabaAwqaf,
+        count: islamicCivilizationEngine.awqaf.sahabaAwqaf.length,
+        message: `${islamicCivilizationEngine.awqaf.sahabaAwqaf.length} أوقاف الصحابة الكرام`,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── بئر رومة — وقف عثمان ───
+app.get('/api/civilization/awqaf/bir-ruma', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const birRuma = islamicCivilizationEngine.awqaf.sahabaAwqaf.find(w => w.id === 'birr_ruma');
+    res.json({
+        success: true,
+        data: birRuma,
+        message: 'بئر رومة — أعظم وقف مستمر في تاريخ الإسلام منذ 1400 سنة',
+        hadith: 'من يشتري بئر رومة فيجعلها للمسلمين فله الجنة — رواه الترمذي',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── الأوقاف الكلاسيكية ───
+app.get('/api/civilization/awqaf/classical', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({
+        success: true,
+        data: islamicCivilizationEngine.awqaf.classicalAwqaf,
+        message: 'أوقاف الحضارة الإسلامية الكلاسيكية',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── كل الأوقاف في مكان واحد ───
+app.get('/api/civilization/awqaf/all', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({
+        success: true,
+        data: {
+            meta: islamicCivilizationEngine.awqaf.meta,
+            propheticAwqaf: islamicCivilizationEngine.awqaf.propheticAwqaf,
+            sahabaAwqaf: islamicCivilizationEngine.awqaf.sahabaAwqaf,
+            classicalAwqaf: islamicCivilizationEngine.awqaf.classicalAwqaf,
+            types: islamicCivilizationEngine.awqaf.types,
+            platform: islamicCivilizationEngine.awqaf.digitalAwqafPlatform
+        },
+        stats: {
+            propheticCount: islamicCivilizationEngine.awqaf.propheticAwqaf.length,
+            sahabaCount: islamicCivilizationEngine.awqaf.sahabaAwqaf.length,
+            classicalCount: islamicCivilizationEngine.awqaf.classicalAwqaf.length,
+            total: islamicCivilizationEngine.awqaf.propheticAwqaf.length +
+                   islamicCivilizationEngine.awqaf.sahabaAwqaf.length +
+                   islamicCivilizationEngine.awqaf.classicalAwqaf.length
+        },
+        message: 'المنظومة الوقفية الإسلامية الكاملة — من النبي ﷺ إلى الرقمنة',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── الاقتصاد الإسلامي ───
+app.get('/api/civilization/economy', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.getEconomy(), message: 'المنظومة الاقتصادية الإسلامية الرقمية', timestamp: new Date().toISOString() });
+});
+
+// ─── الأدوات المالية الإسلامية ───
+app.get('/api/civilization/economy/instruments', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const instruments = islamicCivilizationEngine.economy.instruments;
+    res.json({ success: true, data: instruments, message: `${instruments.length} أداة مالية إسلامية مُفعَّلة`, timestamp: new Date().toISOString() });
+});
+
+// ─── المحرمات الاقتصادية ───
+app.get('/api/civilization/economy/prohibited', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.economy.prohibited, message: 'المحرمات الاقتصادية في الإسلام', timestamp: new Date().toISOString() });
+});
+
+// ─── حاسبة الزكاة ───
+app.get('/api/civilization/zakat/calculate', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const amount = parseFloat(req.query.amount) || 0;
+    const type = req.query.type || 'cash';
+    if (isNaN(amount) || amount < 0) {
+        return res.json({ success: false, message: 'المبلغ غير صحيح' });
+    }
+    const result = islamicCivilizationEngine.calculateZakat(amount, type);
+    res.json({ success: true, data: result, message: 'حاسبة الزكاة الإسلامية', timestamp: new Date().toISOString() });
+});
+
+// ─── مستحقو الزكاة ───
+app.get('/api/civilization/zakat/mustahiqoon', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.zakatCalculator.mustahiqoon, message: 'أصناف مستحقي الزكاة الثمانية', timestamp: new Date().toISOString() });
+});
+
+// ─── بنية الاتصال الإسلامية ───
+app.get('/api/civilization/infrastructure', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.getInfrastructure(), message: 'بنية الاتصال الإسلامية الشاملة', timestamp: new Date().toISOString() });
+});
+
+// ─── DNS الإسلامي ───
+app.get('/api/civilization/infrastructure/dns', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const dns = islamicCivilizationEngine.infrastructure.layers.find(l => l.id === 'dns_islamic');
+    res.json({ success: true, data: dns, message: 'Sheikh DNS — البنية التحتية للإنترنت الإسلامي', timestamp: new Date().toISOString() });
+});
+
+// ─── السحابة الإسلامية ───
+app.get('/api/civilization/infrastructure/cloud', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const cloud = islamicCivilizationEngine.infrastructure.layers.find(l => l.id === 'cloud_islamic');
+    res.json({ success: true, data: cloud, message: 'Sheikh Cloud — السحابة الإسلامية السيادية', timestamp: new Date().toISOString() });
+});
+
+// ─── بوابة الدفع الإسلامية ───
+app.get('/api/civilization/infrastructure/payment', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const payment = islamicCivilizationEngine.infrastructure.layers.find(l => l.id === 'payment_islamic');
+    res.json({ success: true, data: payment, message: 'درهم — بوابة الدفع الإسلامية', timestamp: new Date().toISOString() });
+});
+
+// ─── التواصل الاجتماعي الإسلامي ───
+app.get('/api/civilization/infrastructure/social', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const social = islamicCivilizationEngine.infrastructure.layers.find(l => l.id === 'social_islamic');
+    res.json({ success: true, data: social, message: 'وصال — التواصل الاجتماعي الإسلامي', timestamp: new Date().toISOString() });
+});
+
+// ─── المتجر الإسلامي ───
+app.get('/api/civilization/infrastructure/marketplace', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const marketplace = islamicCivilizationEngine.infrastructure.layers.find(l => l.id === 'marketplace_islamic');
+    res.json({ success: true, data: marketplace, message: 'بازار شيخة — المتجر الإسلامي الشامل', timestamp: new Date().toISOString() });
+});
+
+// ─── الذكاء الاصطناعي الإسلامي ───
+app.get('/api/civilization/infrastructure/ai', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.infrastructure.aiIntegration, message: 'الذكاء الاصطناعي الإسلامي — فقيه AI + محتسب AI + وقف AI', timestamp: new Date().toISOString() });
+});
+
+// ─── شبكة الأمة الإسلامية ───
+app.get('/api/civilization/ummah', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.getUmmahNetwork(), message: 'شبكة الأمة الإسلامية الرقمية — توحيد 1.9 مليار مسلم', timestamp: new Date().toISOString() });
+});
+
+// ─── خدمات الأمة ───
+app.get('/api/civilization/ummah/services', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.ummahNetwork.services, message: `${islamicCivilizationEngine.ummahNetwork.services.length} خدمة للأمة الإسلامية`, timestamp: new Date().toISOString() });
+});
+
+// ─── التاريخ الحضاري ───
+app.get('/api/civilization/history', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCivilizationEngine.getHistory(), message: 'الحضارة الإسلامية من الوحي إلى الرقمنة', timestamp: new Date().toISOString() });
+});
+
+// ─── التحقق الشرعي لمعاملة ───
+app.post('/api/civilization/sharia-check', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const { transactionType, amount, hasInterest, hasGharar, hasMonopoly } = req.body || {};
+    const violations = [];
+    if (hasInterest) violations.push({ violation: 'ربا', severity: 'محرم قطعاً', quran: 'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا' });
+    if (hasGharar) violations.push({ violation: 'غرر فاحش', severity: 'محرم', hadith: 'نهى رسول الله ﷺ عن بيع الغرر' });
+    if (hasMonopoly) violations.push({ violation: 'احتكار', severity: 'محرم', hadith: 'مَن احتكر فهو خاطئ' });
+    const isCompliant = violations.length === 0;
+    res.json({
+        success: true,
+        data: {
+            transactionType,
+            amount,
+            isCompliant,
+            violations,
+            verdict: isCompliant ? '✅ المعاملة جائزة شرعاً' : '❌ المعاملة تحتوي على مخالفات شرعية',
+            recommendation: isCompliant ? 'المضي في المعاملة بعد توثيقها' : 'يجب إزالة المخالفات قبل إتمام المعاملة'
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── كل APIs الحضارة في مكان واحد ───
+app.get('/api/civilization/all', (req, res) => {
+    if (!islamicCivilizationEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({
+        success: true,
+        data: {
+            platform: islamicCivilizationEngine.platform,
+            sunnah: islamicCivilizationEngine.getPropheticSunnah(),
+            caliphs: islamicCivilizationEngine.getCaliphs(),
+            awqaf: islamicCivilizationEngine.getAwqaf(),
+            economy: islamicCivilizationEngine.getEconomy(),
+            infrastructure: islamicCivilizationEngine.getInfrastructure(),
+            ummah: islamicCivilizationEngine.getUmmahNetwork(),
+            history: islamicCivilizationEngine.getHistory()
+        },
+        message: 'المنظومة الحضارية الإسلامية الرقمية الكاملة — بسم الله',
+        timestamp: new Date().toISOString()
+    });
+});
+
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
@@ -35506,9 +35823,7 @@ app.get('/api/certification/full', (req, res) => {
     });
 });
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// � GitHub Hub + Copilot Engine — منظومة التكامل مع GitHub
-// �🚀 بدء الخادم
+// 🚀 بدء الخادم
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function initializeAutomation() {
