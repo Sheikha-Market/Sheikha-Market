@@ -36962,6 +36962,128 @@ app.get('/api/cs/integration-diagram', (req, res) => {
 });
 
 // ════════════════════════════════════════════════════════════════════════
+// المرحلة ٢٤ — التعليم الرقمي الإسلامي الشامل
+// ﴿اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ﴾
+// ════════════════════════════════════════════════════════════════════════
+let islamicEdu = null;
+try { islamicEdu = require('./lib/sheikha-islamic-education-engine'); } catch(e) { console.error('Islamic Edu Engine error:', e.message); }
+
+app.get('/api/education/overview', (req, res) => {
+    if (!islamicEdu) return res.json({ success: false, message: 'محرك التعليم غير متاح' });
+    res.json({ success: true, data: islamicEdu.getOverview(), message: 'منظومة التعليم الإسلامي الرقمي', timestamp: new Date().toISOString() });
+});
+app.get('/api/education/pillars', (req, res) => {
+    if (!islamicEdu) return res.json({ success: false, message: 'محرك التعليم غير متاح' });
+    res.json({ success: true, data: islamicEdu.getPillars(), message: 'ركائز التعليم الإسلامي الشاملة', timestamp: new Date().toISOString() });
+});
+app.get('/api/education/levels', (req, res) => {
+    if (!islamicEdu) return res.json({ success: false, message: 'محرك التعليم غير متاح' });
+    res.json({ success: true, data: islamicEdu.getLevels(), message: 'مستويات التعليم', timestamp: new Date().toISOString() });
+});
+app.get('/api/education/programs', (req, res) => {
+    if (!islamicEdu) return res.json({ success: false, message: 'محرك التعليم غير متاح' });
+    res.json({ success: true, data: islamicEdu.getPrograms(), message: 'برامج شيخة التعليمية', timestamp: new Date().toISOString() });
+});
+app.get('/api/education/program/:id', (req, res) => {
+    if (!islamicEdu) return res.json({ success: false, message: 'محرك التعليم غير متاح' });
+    const prog = islamicEdu.getProgram(req.params.id);
+    if (!prog) return res.status(404).json({ success: false, message: 'البرنامج غير موجود' });
+    res.json({ success: true, data: prog, message: `برنامج: ${prog.name}`, timestamp: new Date().toISOString() });
+});
+app.get('/api/education/partners', (req, res) => {
+    if (!islamicEdu) return res.json({ success: false, message: 'محرك التعليم غير متاح' });
+    res.json({ success: true, data: islamicEdu.getPartners(), message: 'شراكات التعليم', timestamp: new Date().toISOString() });
+});
+app.get('/api/education/kpis', (req, res) => {
+    if (!islamicEdu) return res.json({ success: false, message: 'محرك التعليم غير متاح' });
+    res.json({ success: true, data: islamicEdu.getKPIs(), message: 'مؤشرات الأداء التعليمي', timestamp: new Date().toISOString() });
+});
+app.get('/api/education/level/:id', (req, res) => {
+    if (!islamicEdu) return res.json({ success: false, message: 'محرك التعليم غير متاح' });
+    const lvl = islamicEdu.getByLevel(req.params.id);
+    if (!lvl) return res.status(404).json({ success: false, message: 'المستوى غير موجود' });
+    res.json({ success: true, data: lvl, message: `مستوى التعليم: ${lvl.level.name}`, timestamp: new Date().toISOString() });
+});
+
+// ════════════════════════════════════════════════════════════════════════
+// المرحلة ٢٥ — الهوية السيادية الرقمية الإسلامية
+// ﴿وَلِلَّهِ الْعِزَّةُ وَلِرَسُولِهِ وَلِلْمُؤْمِنِينَ﴾
+// ════════════════════════════════════════════════════════════════════════
+let sovereignId = null;
+try { sovereignId = require('./lib/sheikha-sovereign-identity-engine'); } catch(e) { console.error('Sovereign Identity Engine error:', e.message); }
+
+app.get('/api/sovereign-id/overview', (req, res) => {
+    if (!sovereignId) return res.json({ success: false, message: 'محرك الهوية السيادية غير متاح' });
+    res.json({ success: true, data: sovereignId.getOverview(), message: 'الهوية السيادية الرقمية', timestamp: new Date().toISOString() });
+});
+app.get('/api/sovereign-id/layers', (req, res) => {
+    if (!sovereignId) return res.json({ success: false, message: 'محرك الهوية السيادية غير متاح' });
+    res.json({ success: true, data: sovereignId.getLayers(), message: 'طبقات الهوية السيادية', timestamp: new Date().toISOString() });
+});
+app.get('/api/sovereign-id/privacy', (req, res) => {
+    if (!sovereignId) return res.json({ success: false, message: 'محرك الهوية السيادية غير متاح' });
+    res.json({ success: true, data: sovereignId.getPrivacyPrinciples(), message: 'مبادئ الخصوصية الإسلامية', timestamp: new Date().toISOString() });
+});
+app.get('/api/sovereign-id/stats', (req, res) => {
+    if (!sovereignId) return res.json({ success: false, message: 'محرك الهوية السيادية غير متاح' });
+    res.json({ success: true, data: sovereignId.getStats(), message: 'إحصائيات الهوية السيادية', timestamp: new Date().toISOString() });
+});
+app.post('/api/sovereign-id/generate', (req, res) => {
+    if (!sovereignId) return res.json({ success: false, message: 'محرك الهوية السيادية غير متاح' });
+    const { name, type, country } = req.body || {};
+    if (!name) return res.status(400).json({ success: false, message: 'الاسم مطلوب' });
+    const result = sovereignId.issueIdentity(name, type || 'IND', country || 'SA');
+    res.json({ success: true, data: result, message: 'تم إصدار الهوية السيادية', timestamp: new Date().toISOString() });
+});
+app.get('/api/sovereign-id/verify/:sid', (req, res) => {
+    if (!sovereignId) return res.json({ success: false, message: 'محرك الهوية السيادية غير متاح' });
+    const result = sovereignId.verifySID(req.params.sid);
+    res.json({ success: result.valid, data: result, message: result.valid ? 'هوية صحيحة ✅' : 'هوية غير صحيحة ❌', timestamp: new Date().toISOString() });
+});
+app.get('/api/sovereign-id/components', (req, res) => {
+    if (!sovereignId) return res.json({ success: false, message: 'محرك الهوية السيادية غير متاح' });
+    res.json({ success: true, data: sovereignId.getComponents(), message: 'مكونات معيار SID', timestamp: new Date().toISOString() });
+});
+
+// ════════════════════════════════════════════════════════════════════════
+// المرحلة ٢٦ — الحوسبة السيادية الإسلامية عالية الأداء (HPC)
+// ﴿وَعَلَّمَكَ مَا لَمْ تَكُن تَعْلَمُ﴾
+// ════════════════════════════════════════════════════════════════════════
+let hpcSovereign = null;
+try { hpcSovereign = require('./lib/sheikha-hpc-sovereign-engine'); } catch(e) { console.error('HPC Sovereign Engine error:', e.message); }
+
+app.get('/api/hpc/overview', (req, res) => {
+    if (!hpcSovereign) return res.json({ success: false, message: 'محرك الحوسبة السيادية غير متاح' });
+    res.json({ success: true, data: hpcSovereign.getOverview(), message: 'الحوسبة السيادية الإسلامية', timestamp: new Date().toISOString() });
+});
+app.get('/api/hpc/tiers', (req, res) => {
+    if (!hpcSovereign) return res.json({ success: false, message: 'محرك الحوسبة السيادية غير متاح' });
+    res.json({ success: true, data: hpcSovereign.getTiers(), message: 'مستويات الحوسبة السيادية', timestamp: new Date().toISOString() });
+});
+app.get('/api/hpc/projects', (req, res) => {
+    if (!hpcSovereign) return res.json({ success: false, message: 'محرك الحوسبة السيادية غير متاح' });
+    res.json({ success: true, data: hpcSovereign.getProjects(), message: 'مشاريع ذكاء اصطناعي شيخة', timestamp: new Date().toISOString() });
+});
+app.get('/api/hpc/project/:id', (req, res) => {
+    if (!hpcSovereign) return res.json({ success: false, message: 'محرك الحوسبة السيادية غير متاح' });
+    const proj = hpcSovereign.getProject(req.params.id);
+    if (!proj) return res.status(404).json({ success: false, message: 'المشروع غير موجود' });
+    res.json({ success: true, data: proj, message: `مشروع: ${proj.name}`, timestamp: new Date().toISOString() });
+});
+app.get('/api/hpc/ethics', (req, res) => {
+    if (!hpcSovereign) return res.json({ success: false, message: 'محرك الحوسبة السيادية غير متاح' });
+    res.json({ success: true, data: hpcSovereign.getEthics(), message: 'أخلاقيات الحوسبة الإسلامية', timestamp: new Date().toISOString() });
+});
+app.get('/api/hpc/infrastructure', (req, res) => {
+    if (!hpcSovereign) return res.json({ success: false, message: 'محرك الحوسبة السيادية غير متاح' });
+    res.json({ success: true, data: hpcSovereign.getInfrastructure(), message: 'البنية التحتية الحوسبية', timestamp: new Date().toISOString() });
+});
+app.get('/api/hpc/capability-map', (req, res) => {
+    if (!hpcSovereign) return res.json({ success: false, message: 'محرك الحوسبة السيادية غير متاح' });
+    res.json({ success: true, data: hpcSovereign.getCapabilityMap(), message: 'خريطة قدرات منظومة شيخة', timestamp: new Date().toISOString() });
+});
+
+// ════════════════════════════════════════════════════════════════════════
 // المرحلة ٢٣ — مؤشر شيخة الشامل للجودة (Sheikha Universal Quality Index)
 // ﴿وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ﴾
 // ════════════════════════════════════════════════════════════════════════
