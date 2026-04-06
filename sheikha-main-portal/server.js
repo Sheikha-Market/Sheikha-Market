@@ -36760,6 +36760,38 @@ app.post('/api/cosmic/generate-dna', (req, res) => {
     res.json({ success: true, data: dna, message: 'بصمة جينية فريدة للمنتج', timestamp: new Date().toISOString() });
 });
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// المرحلة ١٨ — أعظم شبكة تجارية في التاريخ
+// "لِإِيلَافِ قُرَيْشٍ ۝ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ"
+// ═══════════════════════════════════════════════════════════════════════════════
+const GreatestTradeEngineClass = (() => { try { return require('./lib/sheikha-greatest-trade-engine.js'); } catch(e) { console.warn('⚠️ [GreatestTrade] فشل التحميل:', e.message); return null; } })();
+const greatestTrade = GreatestTradeEngineClass ? new GreatestTradeEngineClass() : null;
+
+app.get('/api/greatest-trade/dashboard', (req, res) => {
+    if (!greatestTrade) return res.json({ success: false, message: 'محرك أعظم التجارة غير متاح' });
+    res.json({ success: true, data: greatestTrade.getDashboard(), message: 'أعظم شبكة تجارية في التاريخ', timestamp: new Date().toISOString() });
+});
+app.get('/api/greatest-trade/prophets', (req, res) => {
+    if (!greatestTrade) return res.json({ success: false, message: 'محرك أعظم التجارة غير متاح' });
+    res.json({ success: true, data: greatestTrade.getPropheticTrade(), message: 'تجارة الأنبياء والرسل', timestamp: new Date().toISOString() });
+});
+app.get('/api/greatest-trade/silk-road', (req, res) => {
+    if (!greatestTrade) return res.json({ success: false, message: 'محرك أعظم التجارة غير متاح' });
+    res.json({ success: true, data: greatestTrade.getSilkRoadAnalysis(), message: 'طريق الحرير', timestamp: new Date().toISOString() });
+});
+app.get('/api/greatest-trade/indian-ocean', (req, res) => {
+    if (!greatestTrade) return res.json({ success: false, message: 'محرك أعظم التجارة غير متاح' });
+    res.json({ success: true, data: greatestTrade.getIndianOceanAnalysis(), message: 'الشبكة الإسلامية في المحيط الهندي', timestamp: new Date().toISOString() });
+});
+app.get('/api/greatest-trade/vision', (req, res) => {
+    if (!greatestTrade) return res.json({ success: false, message: 'محرك أعظم التجارة غير متاح' });
+    res.json({ success: true, data: greatestTrade.getSheikhVision(), message: 'رؤية شيخة للتجارة الكونية', timestamp: new Date().toISOString() });
+});
+app.get('/api/greatest-trade/background', (req, res) => {
+    if (!greatestTrade) return res.json({ success: false, message: 'محرك أعظم التجارة غير متاح' });
+    res.json({ success: true, data: greatestTrade.getBackgroundAndDisplay(), message: 'خلفية المحرك وعرضه', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
