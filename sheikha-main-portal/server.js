@@ -36961,6 +36961,91 @@ app.get('/api/cs/integration-diagram', (req, res) => {
     res.json({ success: true, data: csUniversal.getIntegrationDiagram(), message: 'مخطط التكامل الهرمي', timestamp: new Date().toISOString() });
 });
 
+// ════════════════════════════════════════════════════════════════════════
+// المرحلة ٢٣ — مؤشر شيخة الشامل للجودة (Sheikha Universal Quality Index)
+// ﴿وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ﴾
+// ════════════════════════════════════════════════════════════════════════
+let sqiEngine = null;
+try { sqiEngine = require('./lib/sheikha-quality-index-engine'); } catch(e) { console.error('SQI Engine error:', e.message); }
+
+// مؤشر شيخة الكلي (0-100)
+app.get('/api/sheikha-index/score', (req, res) => {
+    if (!sqiEngine) return res.json({ success: false, message: 'محرك مؤشر الجودة غير متاح' });
+    const force = req.query.refresh === '1';
+    const result = sqiEngine.getSQI(force);
+    res.json({ success: true, data: result, message: 'مؤشر شيخة الشامل للجودة', timestamp: new Date().toISOString() });
+});
+
+// نظرة عامة على المنظومة
+app.get('/api/sheikha-index/overview', (req, res) => {
+    if (!sqiEngine) return res.json({ success: false, message: 'محرك مؤشر الجودة غير متاح' });
+    res.json({ success: true, data: sqiEngine.getSystemHealth(), message: 'صحة منظومة شيخة', timestamp: new Date().toISOString() });
+});
+
+// أبعاد المؤشر الخمسة
+app.get('/api/sheikha-index/dimensions', (req, res) => {
+    if (!sqiEngine) return res.json({ success: false, message: 'محرك مؤشر الجودة غير متاح' });
+    res.json({ success: true, data: sqiEngine.getDimensions(), message: 'أبعاد مؤشر شيخة', timestamp: new Date().toISOString() });
+});
+
+// الشهادة الرقمية
+app.get('/api/sheikha-index/certificate', (req, res) => {
+    if (!sqiEngine) return res.json({ success: false, message: 'محرك مؤشر الجودة غير متاح' });
+    res.json({ success: true, data: sqiEngine.getCertificate(), message: 'شهادة الجودة الرقمية', timestamp: new Date().toISOString() });
+});
+
+// KPIs الحية — كل المحركات أو محرك بعينه
+app.get('/api/sheikha-index/kpis', (req, res) => {
+    if (!sqiEngine) return res.json({ success: false, message: 'محرك مؤشر الجودة غير متاح' });
+    const engineId = req.query.engine || null;
+    res.json({ success: true, data: sqiEngine.getLiveKPIs(engineId), message: 'مؤشرات الأداء الحية', timestamp: new Date().toISOString() });
+});
+
+// قائمة المحركات المُسجَّلة
+app.get('/api/sheikha-index/engines', (req, res) => {
+    if (!sqiEngine) return res.json({ success: false, message: 'محرك مؤشر الجودة غير متاح' });
+    res.json({ success: true, data: sqiEngine.getEngineRegistry(), message: 'محركات منظومة شيخة', timestamp: new Date().toISOString() });
+});
+
+// لوحة البيانات الحية — يجمع كل شيء
+app.get('/api/sheikha-index/live-dashboard', (req, res) => {
+    if (!sqiEngine) return res.json({ success: false, message: 'محرك مؤشر الجودة غير متاح' });
+    const sqi    = sqiEngine.getSQI(req.query.refresh === '1');
+    const cert   = sqiEngine.getCertificate();
+    const kpis   = sqiEngine.getLiveKPIs();
+    const health = sqiEngine.getSystemHealth();
+    res.json({
+        success: true,
+        data: { sqi, certificate: cert, live_kpis: kpis.all_engines, health },
+        message: 'لوحة مؤشر شيخة الحية',
+        timestamp: new Date().toISOString(),
+    });
+});
+
+// تقييم كيان / منتج / خدمة بعينها
+app.post('/api/sheikha-index/evaluate', (req, res) => {
+    const { entity_name, sector, notes } = req.body || {};
+    if (!entity_name) return res.status(400).json({ success: false, message: 'اسم الكيان مطلوب' });
+    if (!sqiEngine)   return res.json({ success: false, message: 'محرك مؤشر الجودة غير متاح' });
+    const sqi  = sqiEngine.getSQI();
+    const cert = sqiEngine.getCertificate();
+    res.json({
+        success: true,
+        data: {
+            entity:      entity_name,
+            sector:      sector || 'عام',
+            notes:       notes || '',
+            sqi_score:   sqi.sqi,
+            grade:       sqi.grade_ar,
+            sharia_seal: sqi.sharia_seal,
+            quality_dna: sqi.quality_dna,
+            cert_id:     cert.certificate_id,
+        },
+        message: `تقييم جودة: ${entity_name}`,
+        timestamp: new Date().toISOString(),
+    });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════

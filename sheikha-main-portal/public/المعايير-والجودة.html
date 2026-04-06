@@ -82,6 +82,37 @@
 </div>
 
 <main>
+  <!-- ── widget: مؤشر شيخة الشامل (Phase 23) ── -->
+  <div id="sqi-widget" style="
+    background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(184,115,51,.04));
+    border:1px solid rgba(212,175,55,.25);border-radius:16px;padding:1.2rem 1.5rem;
+    margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:1rem;">
+    <div style="display:flex;align-items:center;gap:1rem">
+      <div style="font-size:2.5rem">⚖️</div>
+      <div>
+        <div style="font-size:.78rem;color:var(--text2)">مؤشر شيخة الشامل للجودة — SQI</div>
+        <div id="sqi-score-val" style="font-size:2rem;font-weight:900;color:#D4AF37">...</div>
+        <div id="sqi-seal" style="font-size:.8rem;color:#27ae60;margin-top:.2rem"></div>
+      </div>
+    </div>
+    <a href="/مؤشر-الجودة-الحي.html" style="
+      background:linear-gradient(135deg,#D4AF37,#B87333);
+      color:#000;font-weight:700;font-size:.85rem;padding:.6rem 1.4rem;
+      border-radius:24px;text-decoration:none;white-space:nowrap;">
+      📊 لوحة المؤشر الحية
+    </a>
+  </div>
+  <script>
+  (function(){
+    fetch('/api/sheikha-index/overview').then(r=>r.json()).then(d=>{
+      if(!d.success) return;
+      document.getElementById('sqi-score-val').textContent = d.data.sqi_score + ' / 100 — ' + d.data.grade;
+      document.getElementById('sqi-seal').textContent = d.data.sharia_seal;
+    }).catch(()=>{});
+  })();
+  </script>
+
   <!-- نظرة عامة -->
   <div id="tab-overview" class="tab-panel active">
     <div class="verse-box">«إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ» — حديث شريف<br><small>الإتقان = ISO الإسلامي — الجودة واجب ديني قبل أن تكون تنافساً تجارياً</small></div>
