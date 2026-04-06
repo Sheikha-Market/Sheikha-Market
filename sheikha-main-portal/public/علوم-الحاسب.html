@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>علوم الحاسب والبنية الكونية — منظومة شيخة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#D4AF37;--copper:#B87333;--dark:#050508;--dark2:#0a0a10;--dark3:#111118;--text:#e8e8f0;--text2:#9090a8;--green:#27ae60;--blue:#2980b9;--teal:#16a085;--purple:#8e44ad;--red:#e74c3c;--orange:#d35400;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--dark);color:var(--text);font-family:'Tajawal',sans-serif;direction:rtl;}
+  .basmala{text-align:center;font-size:1.6rem;color:var(--gold);padding:1.2rem;letter-spacing:.04em;border-bottom:1px solid rgba(212,175,55,.18);}
+  header{background:linear-gradient(135deg,#050508 0%,#0a0a18 50%,#050508 100%);border-bottom:2px solid var(--gold);padding:1.5rem 2rem;}
+  .header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;}
+  .page-icon{font-size:3rem;}
+  .header-text h1{font-size:2rem;font-weight:900;color:var(--gold);}
+  .header-text p{color:var(--text2);font-size:.95rem;margin-top:.3rem;}
+  .tabs{max-width:1400px;margin:1.5rem auto 0;padding:0 2rem;display:flex;gap:.7rem;flex-wrap:wrap;}
+  .tab-btn{padding:.6rem 1.4rem;border-radius:8px;border:1px solid rgba(212,175,55,.3);background:var(--dark2);color:var(--text2);cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.92rem;transition:all .25s;}
+  .tab-btn.active,.tab-btn:hover{background:var(--gold);color:#000;border-color:var(--gold);font-weight:700;}
+  main{max-width:1400px;margin:2rem auto;padding:0 2rem;}
+  .tab-panel{display:none;animation:fadeIn .3s ease;}
+  .tab-panel.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .section-title{font-size:1.3rem;font-weight:700;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem;}
+  .section-title::before{content:'';display:block;width:4px;height:24px;background:var(--gold);border-radius:3px;}
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;}
+  .grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(460px,1fr));gap:1.2rem;}
+  .card{background:var(--dark2);border:1px solid rgba(212,175,55,.15);border-radius:14px;padding:1.4rem;transition:all .25s;}
+  .card:hover{border-color:rgba(212,175,55,.5);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
+  .card-title{font-size:1.05rem;font-weight:700;color:var(--gold);margin-bottom:.6rem;}
+  .card-sub{font-size:.85rem;color:var(--text2);line-height:1.7;}
+  .tag{display:inline-block;padding:.2rem .7rem;border-radius:12px;font-size:.78rem;margin:.2rem;font-weight:600;}
+  .tag-gold{background:rgba(212,175,55,.15);color:var(--gold);border:1px solid rgba(212,175,55,.3);}
+  .tag-teal{background:rgba(22,160,133,.15);color:var(--teal);border:1px solid rgba(22,160,133,.3);}
+  .tag-blue{background:rgba(41,128,185,.15);color:var(--blue);border:1px solid rgba(41,128,185,.3);}
+  .tag-green{background:rgba(39,174,96,.15);color:var(--green);border:1px solid rgba(39,174,96,.3);}
+  .tag-purple{background:rgba(142,68,173,.15);color:var(--purple);border:1px solid rgba(142,68,173,.3);}
+  .verse-box{background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(212,175,55,.03));border:1px solid rgba(212,175,55,.3);border-radius:12px;padding:1rem 1.4rem;margin:1rem 0;font-size:1.1rem;color:var(--gold);text-align:center;line-height:1.8;}
+  .loading{color:var(--text2);font-size:.9rem;padding:2rem;text-align:center;}
+  .stat-row{display:flex;flex-wrap:wrap;gap:1rem;margin:1.2rem 0;}
+  .stat-box{background:var(--dark3);border:1px solid rgba(212,175,55,.18);border-radius:10px;padding:.9rem 1.4rem;text-align:center;flex:1;min-width:130px;}
+  .stat-num{font-size:2.2rem;font-weight:900;color:var(--gold);}
+  .stat-label{font-size:.8rem;color:var(--text2);margin-top:.3rem;}
+  .branch-card{background:var(--dark2);border:1px solid rgba(212,175,55,.15);border-radius:12px;padding:1.2rem;cursor:pointer;transition:all .25s;}
+  .branch-card:hover,.branch-card.selected{border-color:var(--gold);background:#0d0d18;}
+  .branch-detail{background:var(--dark3);border:1px solid rgba(212,175,55,.2);border-radius:10px;padding:1.2rem;margin-top:1rem;display:none;}
+  .branch-detail.active{display:block;}
+  .sub-chip{display:inline-block;background:rgba(22,160,133,.1);border:1px solid rgba(22,160,133,.25);border-radius:8px;padding:.25rem .7rem;font-size:.78rem;color:var(--teal);margin:.2rem;}
+  .organ-row{display:flex;gap:1rem;align-items:flex-start;padding:.9rem;border-bottom:1px solid rgba(255,255,255,.05);}
+  .organ-icon{font-size:1.6rem;min-width:40px;}
+  .organ-name{font-weight:700;color:var(--gold);font-size:.95rem;}
+  .organ-eco{font-size:.82rem;color:var(--teal);margin:.2rem 0;}
+  .organ-flow{font-size:.78rem;color:var(--text2);}
+  .era-item{background:var(--dark3);border-right:4px solid var(--gold);border-radius:8px;padding:1rem 1.2rem;margin-bottom:.8rem;}
+  .era-year{font-size:.82rem;color:var(--copper);font-weight:700;}
+  .era-title{font-size:1rem;font-weight:700;color:var(--gold);margin:.2rem 0;}
+  .era-leap{font-size:.82rem;color:var(--teal);}
+  .network-item{background:var(--dark3);border:1px solid rgba(212,175,55,.12);border-radius:10px;padding:.9rem;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6rem;}
+  table{width:100%;border-collapse:collapse;}
+  th{background:rgba(212,175,55,.1);color:var(--gold);padding:.7rem;font-size:.85rem;text-align:right;}
+  td{border-bottom:1px solid rgba(255,255,255,.05);padding:.6rem;font-size:.83rem;color:var(--text2);}
+  td:first-child{color:var(--text);}
+  footer{text-align:center;padding:2rem;color:var(--text2);font-size:.85rem;border-top:1px solid rgba(212,175,55,.1);margin-top:3rem;}
+</style>
+</head>
+<body>
+<div class="basmala">بسم الله الرحمن الرحيم</div>
+
+<header>
+  <div class="header-inner">
+    <span class="page-icon">💻</span>
+    <div class="header-text">
+      <h1>علوم الحاسب والبنية الكونية الشاملة</html>
+      <p>١٤ فرع CS • ١٢ شبكة كونية • تشابه الجسد البشري • خريطة التطور الجيني للحضارة</p>
+    </div>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('overview')">📊 نظرة عامة</button>
+  <button class="tab-btn" onclick="showTab('branches')">🌿 فروع علوم الحاسب</button>
+  <button class="tab-btn" onclick="showTab('sciences')">🔬 العلوم الأخرى</button>
+  <button class="tab-btn" onclick="showTab('networks')">🌐 الشبكات الكونية</button>
+  <button class="tab-btn" onclick="showTab('sources')">⛏️ المصادر الكونية</button>
+  <button class="tab-btn" onclick="showTab('body')">🫀 جسد الأمة</button>
+  <button class="tab-btn" onclick="showTab('evolution')">🧬 التطور الجيني</button>
+  <button class="tab-btn" onclick="showTab('integration')">🔗 التكامل الشامل</button>
+</div>
+
+<main>
+  <!-- نظرة عامة -->
+  <div id="tab-overview" class="tab-panel active">
+    <div class="verse-box">﴿عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ﴾ — العلق ٥<br><small>الله علّم الإنسان الكتابة والعلم — علوم الحاسب امتداد لهذه النعمة</small></div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num">14</div><div class="stat-label">فرع علوم الحاسب</div></div>
+      <div class="stat-box"><div class="stat-num">12</div><div class="stat-label">علم غير حاسوبي</div></div>
+      <div class="stat-box"><div class="stat-num">12</div><div class="stat-label">شبكة كونية</div></div>
+      <div class="stat-box"><div class="stat-num">10</div><div class="stat-label">مصدر إنتاج ومعرفة</div></div>
+      <div class="stat-box"><div class="stat-num">7</div><div class="stat-label">حقبة تطور حضاري</div></div>
+    </div>
+    <div class="section-title">💡 المبادئ الكونية</div>
+    <div class="grid-3">
+      <div class="card"><div class="card-title">🧬 DNA المعرفة</div><p class="card-sub">كل فرع علمي له DNA خاص — خوارزميات + بيانات + شبكة + قيمة. منظومة شيخة تُرمّز DNA كل علم</p></div>
+      <div class="card"><div class="card-title">🫀 الجسد الاقتصادي</div><p class="card-sub">«مَثَل الأمة كمثل الجسد» — كل شبكة = عضو. القلب=مالية، الأعصاب=اتصالات، الدم=موارد</p></div>
+      <div class="card"><div class="card-title">🌐 التكامل الكوني</div><p class="card-sub">من الله ← شريعة ← علوم ← شبكات ← اقتصاد ← حضارة — كل طبقة تخدم التي فوقها</p></div>
+    </div>
+  </div>
+
+  <!-- فروع علوم الحاسب -->
+  <div id="tab-branches" class="tab-panel">
+    <div class="verse-box">﴿وَمَا أُوتِيتُم مِّنَ الْعِلْمِ إِلَّا قَلِيلًا﴾ — الإسراء ٨٥</div>
+    <div class="section-title">🌿 فروع علوم الحاسب — اضغط لتفاصيل كل فرع</div>
+    <div id="branches-data" class="loading">⏳ جاري التحميل...</div>
+    <div id="branch-detail" class="branch-detail"></div>
+  </div>
+
+  <!-- العلوم الأخرى -->
+  <div id="tab-sciences" class="tab-panel">
+    <div class="verse-box">﴿قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ﴾ — الزمر ٩</div>
+    <div class="section-title">🔬 العلوم غير الحاسوبية</div>
+    <div id="sciences-data" class="loading">⏳ جاري التحميل...</div>
+  </div>
+
+  <!-- الشبكات الكونية -->
+  <div id="tab-networks" class="tab-panel">
+    <div class="verse-box">﴿وَجَعَلْنَا مِنَ الْمَاءِ كُلَّ شَيْءٍ حَيٍّ﴾ — الأنبياء ٣٠<br><small>كل شبكة = ماء الحياة في مجالها</small></div>
+    <div class="section-title">🌐 ١٢ شبكة كونية</div>
+    <div id="networks-data" class="loading">⏳ جاري التحميل...</div>
+  </div>
+
+  <!-- المصادر الكونية -->
+  <div id="tab-sources" class="tab-panel">
+    <div class="verse-box">﴿وَفِي الْأَرْضِ قِطَعٌ مُّتَجَاوِرَاتٌ﴾ — الرعد ٤<br><small>الأرض كنز مفتوح — المصادر أمانة للإنسان</small></div>
+    <div class="section-title">⛏️ مصادر الإنتاج والمعرفة الكونية</div>
+    <div id="sources-data" class="loading">⏳ جاري التحميل...</div>
+  </div>
+
+  <!-- جسد الأمة -->
+  <div id="tab-body" class="tab-panel">
+    <div class="verse-box">«مَثَل الْمُؤْمِنِينَ فِي تَوَادِّهِمْ كَمَثَلِ الْجَسَدِ الْوَاحِدِ» — حديث صحيح<br><small>الأمة = جسد واحد — اقتصادها = أعضاؤه</small></div>
+    <div class="section-title">🫀 تشابه الجسد البشري مع الاقتصاد الإسلامي</div>
+    <div id="body-data" class="loading">⏳ جاري التحميل...</div>
+  </div>
+
+  <!-- التطور الجيني -->
+  <div id="tab-evolution" class="tab-panel">
+    <div class="verse-box">﴿وَلَقَدْ كَرَّمْنَا بَنِي آدَمَ﴾ — الإسراء ٧٠<br><small>التاريخ البشري = تطور متصاعد نحو الكمال الإلهي</small></div>
+    <div class="section-title">🧬 خريطة التطور الجيني للعلوم والحضارات</div>
+    <div id="evolution-data" class="loading">⏳ جاري التحميل...</div>
+  </div>
+
+  <!-- التكامل الشامل -->
+  <div id="tab-integration" class="tab-panel">
+    <div class="verse-box">﴿إِنَّ هَٰذِهِ أُمَّتُكُمْ أُمَّةً وَاحِدَةً وَأَنَا رَبُّكُمْ فَاعْبُدُونِ﴾ — الأنبياء ٩٢</div>
+    <div class="section-title">🔗 خريطة التكامل الكوني من الله إلى الحضارة</div>
+    <div id="integration-data" class="loading">⏳ جاري التحميل...</div>
+    <div class="section-title" style="margin-top:2rem;">📐 المخطط الهرمي للعلوم</div>
+    <div id="diagram-data" class="loading">⏳ جاري التحميل...</div>
+  </div>
+</main>
+
+<footer>
+  <p>منظومة شيخة • علوم الحاسب والبنية الكونية الشاملة</p>
+  <p style="color:rgba(212,175,55,.5);margin-top:.4rem;">﴿وَفِي أَنفُسِكُمْ أَفَلَا تُبْصِرُونَ﴾</p>
+</footer>
+
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if(id==='branches')loadBranches();
+  else if(id==='sciences')loadSciences();
+  else if(id==='networks')loadNetworks();
+  else if(id==='sources')loadSources();
+  else if(id==='body')loadBody();
+  else if(id==='evolution')loadEvolution();
+  else if(id==='integration'){loadIntegration();loadDiagram();}
+}
+
+async function fetchData(url){const r=await fetch(url);const d=await r.json();return d.data||d;}
+
+async function loadBranches(){
+  if(document.getElementById('branches-data').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/cs/branches');
+    const branches=d.branches||[];
+    document.getElementById('branches-data').innerHTML=`
+      <div class="grid-3">${branches.map(b=>`
+        <div class="branch-card" id="bc-${b.id}" onclick="showBranchDetail(${JSON.stringify(b).replace(/"/g,'&quot;')})">
+          <div class="card-title">${b.name}</div>
+          <div class="card-sub" style="font-size:.78rem;">${b.nameEn} ${b.father?'• أب: '+b.father:''}</div>
+          <div style="margin-top:.5rem;">${(b.subbranches||[]).slice(0,3).map(s=>`<span class="sub-chip">${s}</span>`).join('')}</div>
+        </div>`).join('')}
+      </div>`;
+  }catch(e){document.getElementById('branches-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+function showBranchDetail(b){
+  const el=document.getElementById('branch-detail');
+  el.classList.add('active');
+  el.innerHTML=`
+    <div class="card">
+      <div class="card-title">📖 ${b.name} — ${b.nameEn}</div>
+      ${b.father?`<p style="color:var(--teal);margin:.4rem 0;">👑 العالم الأب: ${b.father} ${b.founding?'('+b.founding+')':''}</p>`:''}
+      <p style="color:var(--gold);margin:.4rem 0;font-size:.88rem;">🕌 الرابط الإسلامي: ${b.islamic_link||'-'}</p>
+      <div style="margin:.8rem 0;">
+        <strong style="color:var(--text2);font-size:.85rem;">الفروع الفرعية:</strong><br>
+        ${(b.subbranches||[]).map(s=>`<span class="sub-chip">${s}</span>`).join('')}
+      </div>
+      ${b.kpis?`<div><strong style="color:var(--text2);font-size:.85rem;">مؤشرات KPI:</strong> ${b.kpis.map(k=>`<span class="tag tag-gold">${k}</span>`).join('')}</div>`:''}
+    </div>`;
+  el.scrollIntoView({behavior:'smooth'});
+}
+
+async function loadSciences(){
+  if(document.getElementById('sciences-data').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/cs/non-cs-sciences');
+    const sciences=d.sciences||[];
+    document.getElementById('sciences-data').innerHTML=`
+      <div class="grid-3">${sciences.map(s=>`
+        <div class="card">
+          <div class="card-title">${s.name}</div>
+          <div style="margin:.5rem 0;">${(s.areas||[]).map(a=>`<span class="sub-chip">${a}</span>`).join('')}</div>
+          <p style="font-size:.8rem;color:var(--gold);margin-top:.5rem;">🕌 ${s.islamic||''}</p>
+        </div>`).join('')}
+      </div>`;
+  }catch(e){document.getElementById('sciences-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function loadNetworks(){
+  if(document.getElementById('networks-data').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/cs/networks');
+    const nets=d.networks||[];
+    document.getElementById('networks-data').innerHTML=nets.map(n=>`
+      <div class="network-item">
+        <div>
+          <div style="font-weight:700;color:var(--gold);">${n.name}</div>
+          <div style="font-size:.82rem;color:var(--teal);margin:.2rem 0;">${n.tech}</div>
+          <div style="font-size:.78rem;color:var(--text2);">العقد: ${n.nodes}</div>
+        </div>
+        <span class="tag tag-blue">🫀 ${n.analogy}</span>
+      </div>`).join('');
+  }catch(e){document.getElementById('networks-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function loadSources(){
+  if(document.getElementById('sources-data').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/cs/sources');
+    const sources=d.sources||[];
+    document.getElementById('sources-data').innerHTML=`
+      <table><tr><th>المصدر</th><th>المنتجات</th><th>KPI</th><th>الرابط الإسلامي</th></tr>
+      ${sources.map(s=>`<tr>
+        <td><strong>${s.name}</strong></td>
+        <td>${(s.products||[]).slice(0,4).join(' • ')}</td>
+        <td><span class="tag tag-teal">${s.kpi}</span></td>
+        <td style="font-size:.78rem;color:var(--gold);">${(s.islamic||'').slice(0,80)}</td>
+      </tr>`).join('')}
+      </table>`;
+  }catch(e){document.getElementById('sources-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function loadBody(){
+  if(document.getElementById('body-data').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/cs/body-analogy');
+    const analogy=d.analogy||d;
+    const organs=analogy.organ_map||[];
+    document.getElementById('body-data').innerHTML=`
+      <div class="verse-box">${analogy.hadith||''}</div>
+      <div class="card">
+        ${organs.map(o=>`
+          <div class="organ-row">
+            <div class="organ-icon">🫀</div>
+            <div>
+              <div class="organ-name">${o.organ}</div>
+              <div class="organ-eco">الاقتصاد: ${o.economy}</div>
+              <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin:.2rem 0;">
+                <span class="tag tag-teal">${o.network}</span>
+                <span class="tag tag-blue">${o.flow}</span>
+              </div>
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="verse-box" style="margin-top:1rem;">${analogy.quran_verse||''}<br><small>${analogy.grand_design||''}</small></div>`;
+  }catch(e){document.getElementById('body-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function loadEvolution(){
+  if(document.getElementById('evolution-data').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/cs/evolution');
+    const map=d.map||[];
+    document.getElementById('evolution-data').innerHTML=map.map((e,i)=>`
+      <div class="era-item" style="border-color:${i===map.length-1?'var(--gold)':'rgba(212,175,55,.4)'};">
+        <div class="era-year">${e.year}</div>
+        <div class="era-title">${i===map.length-1?'🌟 ':''} ${e.era}</div>
+        <div style="margin:.3rem 0;">${(e.sciences||[]).map(s=>`<span class="sub-chip">${s}</span>`).join('')}</div>
+        <div class="era-leap">💡 الطفرة: ${e.leap}</div>
+      </div>`).join('');
+  }catch(e){document.getElementById('evolution-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function loadIntegration(){
+  if(document.getElementById('integration-data').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/cs/master-integration');
+    const map=d.map||d;
+    document.getElementById('integration-data').innerHTML=`
+      <div class="card">
+        <div class="card-title">🌌 ${map.title||''}</div>
+        ${Object.entries(map).filter(([k])=>k.startsWith('layer')||k==='center').map(([k,v])=>`
+          <div style="display:flex;gap:.7rem;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);">
+            <span class="tag tag-gold" style="min-width:100px;">${v.name||k}</span>
+            <div>${Array.isArray(v.nodes)?v.nodes.map(n=>`<span class="sub-chip">${n}</span>`).join(''):v.node?`<span style="color:var(--gold);">${v.node}</span>`:''}</div>
+          </div>`).join('')}
+        <div class="verse-box" style="margin-top:1rem;font-size:.9rem;">${map.cosmic_flow||''}</div>
+      </div>`;
+  }catch(e){document.getElementById('integration-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function loadDiagram(){
+  if(document.getElementById('diagram-data').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/cs/integration-diagram');
+    const diag=d.diagram||d;
+    document.getElementById('diagram-data').innerHTML=`
+      <div class="card">
+        <div class="card-title" style="text-align:center;font-size:1.2rem;">🌌 الجذر: ${diag.root||''}</div>
+        ${['tier1','tier2','tier3','tier4','tier5'].map(t=>diag[t]?`
+          <div style="margin:.6rem 0;padding:.6rem;background:var(--dark3);border-radius:8px;">
+            <div style="font-size:.78rem;color:var(--text2);margin-bottom:.3rem;">${t.replace('tier','المستوى ')}:</div>
+            <div>${(Array.isArray(diag[t])?diag[t]:[]).map(n=>`<span class="sub-chip">${n}</span>`).join('')}</div>
+          </div>`:''  ).join('')}
+        <div class="verse-box" style="font-size:.9rem;">${diag.unifying_verse||''}</div>
+      </div>`;
+  }catch(e){document.getElementById('diagram-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  // تحميل إحصائيات نظرة عامة
+  fetch('/api/cs/overview').then(r=>r.json()).then(d=>{
+    const data=d.data||d;
+    if(data.cs_branches) document.querySelector('.stat-num').textContent=data.cs_branches;
+  }).catch(()=>{});
+});
+</script>
+</body>
+</html>

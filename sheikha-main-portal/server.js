@@ -36868,6 +36868,99 @@ app.get('/api/supply-chain/gap-analysis', (req, res) => {
     res.json({ success: true, data: logisticsChain.getGapAnalysis(), message: 'تحليل الفجوات اللوجستية', timestamp: new Date().toISOString() });
 });
 
+// ═══════════════════════════════════════════════════════════════════════════
+// المرحلة ٢١ — محرك المعايير والجودة والـ KPI الشامل
+// ═══════════════════════════════════════════════════════════════════════════
+let standardsQuality;
+try {
+    standardsQuality = require('./lib/sheikha-standards-quality-engine');
+    console.log('✅ محرك المعايير والجودة مُهيَّأ');
+} catch(e) { console.error('⚠️ خطأ في تحميل محرك المعايير:', e.message); }
+
+app.get('/api/standards/overview', (req, res) => {
+    if (!standardsQuality) return res.json({ success: false, message: 'محرك المعايير غير متاح' });
+    res.json({ success: true, data: standardsQuality.getOverview(), message: 'نظرة عامة على المعايير والجودة', timestamp: new Date().toISOString() });
+});
+app.get('/api/standards/dimensions', (req, res) => {
+    if (!standardsQuality) return res.json({ success: false, message: 'محرك المعايير غير متاح' });
+    res.json({ success: true, data: standardsQuality.getQualityDimensions(), message: 'أبعاد الجودة الشاملة', timestamp: new Date().toISOString() });
+});
+app.get('/api/standards/frameworks', (req, res) => {
+    if (!standardsQuality) return res.json({ success: false, message: 'محرك المعايير غير متاح' });
+    res.json({ success: true, data: standardsQuality.getStandardsFrameworks(), message: 'أُطر المعايير الدولية والإسلامية', timestamp: new Date().toISOString() });
+});
+app.get('/api/standards/kpis', (req, res) => {
+    if (!standardsQuality) return res.json({ success: false, message: 'محرك المعايير غير متاح' });
+    const { sector } = req.query;
+    res.json({ success: true, data: standardsQuality.getSectorKPIs(sector), message: 'مؤشرات KPI القطاعية', timestamp: new Date().toISOString() });
+});
+app.get('/api/standards/kpi-schema', (req, res) => {
+    if (!standardsQuality) return res.json({ success: false, message: 'محرك المعايير غير متاح' });
+    res.json({ success: true, data: standardsQuality.getKPIDNASchema(), message: 'مخطط DNA لمؤشر KPI', timestamp: new Date().toISOString() });
+});
+app.get('/api/standards/integration', (req, res) => {
+    if (!standardsQuality) return res.json({ success: false, message: 'محرك المعايير غير متاح' });
+    res.json({ success: true, data: standardsQuality.getIntegrationMatrix(), message: 'مصفوفة التكامل بين القطاعات', timestamp: new Date().toISOString() });
+});
+app.get('/api/standards/islamic-boundaries', (req, res) => {
+    if (!standardsQuality) return res.json({ success: false, message: 'محرك المعايير غير متاح' });
+    res.json({ success: true, data: standardsQuality.getIslamicBoundaries(), message: 'حدود الجودة الإسلامية', timestamp: new Date().toISOString() });
+});
+app.get('/api/standards/report/:sector', (req, res) => {
+    if (!standardsQuality) return res.json({ success: false, message: 'محرك المعايير غير متاح' });
+    res.json({ success: true, data: standardsQuality.generateKPIReport(req.params.sector), message: 'تقرير KPI القطاع', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// المرحلة ٢٢ — محرك علوم الحاسب والبنية الكونية الشاملة
+// ═══════════════════════════════════════════════════════════════════════════
+let csUniversal;
+try {
+    csUniversal = require('./lib/sheikha-cs-universal-engine');
+    console.log('✅ محرك علوم الحاسب الكوني مُهيَّأ');
+} catch(e) { console.error('⚠️ خطأ في تحميل محرك CS:', e.message); }
+
+app.get('/api/cs/overview', (req, res) => {
+    if (!csUniversal) return res.json({ success: false, message: 'محرك علوم الحاسب غير متاح' });
+    res.json({ success: true, data: csUniversal.getOverview(), message: 'نظرة عامة على علوم الحاسب الكوني', timestamp: new Date().toISOString() });
+});
+app.get('/api/cs/branches', (req, res) => {
+    if (!csUniversal) return res.json({ success: false, message: 'محرك علوم الحاسب غير متاح' });
+    res.json({ success: true, data: csUniversal.getCSBranches(), message: '١٤ فرع علوم الحاسب', timestamp: new Date().toISOString() });
+});
+app.get('/api/cs/branch/:id', (req, res) => {
+    if (!csUniversal) return res.json({ success: false, message: 'محرك علوم الحاسب غير متاح' });
+    res.json({ success: true, data: csUniversal.getCSBranch(req.params.id), message: 'تفاصيل الفرع', timestamp: new Date().toISOString() });
+});
+app.get('/api/cs/non-cs-sciences', (req, res) => {
+    if (!csUniversal) return res.json({ success: false, message: 'محرك علوم الحاسب غير متاح' });
+    res.json({ success: true, data: csUniversal.getNonCSSciences(), message: 'العلوم غير الحاسوبية', timestamp: new Date().toISOString() });
+});
+app.get('/api/cs/networks', (req, res) => {
+    if (!csUniversal) return res.json({ success: false, message: 'محرك علوم الحاسب غير متاح' });
+    res.json({ success: true, data: csUniversal.getUniversalNetworks(), message: '١٢ الشبكة الكونية', timestamp: new Date().toISOString() });
+});
+app.get('/api/cs/sources', (req, res) => {
+    if (!csUniversal) return res.json({ success: false, message: 'محرك علوم الحاسب غير متاح' });
+    res.json({ success: true, data: csUniversal.getUniversalSources(), message: 'مصادر الإنتاج والمعرفة', timestamp: new Date().toISOString() });
+});
+app.get('/api/cs/body-analogy', (req, res) => {
+    if (!csUniversal) return res.json({ success: false, message: 'محرك علوم الحاسب غير متاح' });
+    res.json({ success: true, data: csUniversal.getBodyEconomyAnalogy(), message: 'جسد الأمة الاقتصادي', timestamp: new Date().toISOString() });
+});
+app.get('/api/cs/evolution', (req, res) => {
+    if (!csUniversal) return res.json({ success: false, message: 'محرك علوم الحاسب غير متاح' });
+    res.json({ success: true, data: csUniversal.getGeneticEvolutionMap(), message: 'خريطة التطور الجيني للحضارة', timestamp: new Date().toISOString() });
+});
+app.get('/api/cs/master-integration', (req, res) => {
+    if (!csUniversal) return res.json({ success: false, message: 'محرك علوم الحاسب غير متاح' });
+    res.json({ success: true, data: csUniversal.getMasterIntegrationMap(), message: 'خريطة التكامل الكوني', timestamp: new Date().toISOString() });
+});
+app.get('/api/cs/integration-diagram', (req, res) => {
+    if (!csUniversal) return res.json({ success: false, message: 'محرك علوم الحاسب غير متاح' });
+    res.json({ success: true, data: csUniversal.getIntegrationDiagram(), message: 'مخطط التكامل الهرمي', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
