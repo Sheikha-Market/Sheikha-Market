@@ -36708,6 +36708,58 @@ app.post('/api/purify/process', (req, res) => {
     res.json({ success: result.success, data: result, timestamp: new Date().toISOString() });
 });
 
+// ══════════════════════════════════════════════════════════════════
+// الشبكة العصبية الكونية — كل شيء شبكة ولله
+// ﴿وَفِي أَنفُسِكُمْ أَفَلَا تُبْصِرُونَ﴾ — الذاريات ٢١
+// ══════════════════════════════════════════════════════════════════
+const cosmicNeural = (() => { try { return require('./lib/sheikha-cosmic-neural-network-engine.js').start(); } catch(e) { console.warn('⚠️ [CosmicNeural] فشل التحميل:', e.message); return null; } })();
+
+app.get('/api/cosmic/overview', (req, res) => {
+    if (!cosmicNeural) return res.json({ success: false, message: 'محرك الشبكة الكونية غير متاح' });
+    res.json({ success: true, data: cosmicNeural.getOverview(), message: 'الشبكة العصبية الكونية — كل شيء متصل لله', timestamp: new Date().toISOString() });
+});
+app.get('/api/cosmic/layers', (req, res) => {
+    if (!cosmicNeural) return res.json({ success: false, message: 'محرك الشبكة الكونية غير متاح' });
+    res.json({ success: true, data: cosmicNeural.getLayers(), count: cosmicNeural.getLayers().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/cosmic/sciences', (req, res) => {
+    if (!cosmicNeural) return res.json({ success: false, message: 'محرك الشبكة الكونية غير متاح' });
+    const sciences = cosmicNeural.getSciences();
+    const total = Object.values(sciences).flat().length;
+    res.json({ success: true, data: sciences, total, timestamp: new Date().toISOString() });
+});
+app.get('/api/cosmic/sources', (req, res) => {
+    if (!cosmicNeural) return res.json({ success: false, message: 'محرك الشبكة الكونية غير متاح' });
+    res.json({ success: true, data: cosmicNeural.getSources(), count: cosmicNeural.getSources().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/cosmic/networks', (req, res) => {
+    if (!cosmicNeural) return res.json({ success: false, message: 'محرك الشبكة الكونية غير متاح' });
+    res.json({ success: true, data: cosmicNeural.getNetworks(), count: cosmicNeural.getNetworks().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/cosmic/evolution', (req, res) => {
+    if (!cosmicNeural) return res.json({ success: false, message: 'محرك الشبكة الكونية غير متاح' });
+    res.json({ success: true, data: cosmicNeural.getEvolutionMap(), count: cosmicNeural.getEvolutionMap().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/cosmic/integration', (req, res) => {
+    if (!cosmicNeural) return res.json({ success: false, message: 'محرك الشبكة الكونية غير متاح' });
+    res.json({ success: true, data: cosmicNeural.getIntegrationMap(), timestamp: new Date().toISOString() });
+});
+app.get('/api/cosmic/product-dna-schema', (req, res) => {
+    if (!cosmicNeural) return res.json({ success: false, message: 'محرك الشبكة الكونية غير متاح' });
+    res.json({ success: true, data: cosmicNeural.getProductDNASchema(), timestamp: new Date().toISOString() });
+});
+app.get('/api/cosmic/status', (req, res) => {
+    if (!cosmicNeural) return res.json({ success: false, message: 'محرك الشبكة الكونية غير متاح' });
+    res.json({ success: true, data: cosmicNeural.getStatus(), timestamp: new Date().toISOString() });
+});
+app.post('/api/cosmic/generate-dna', (req, res) => {
+    if (!cosmicNeural) return res.json({ success: false, message: 'محرك الشبكة الكونية غير متاح' });
+    const { sourceId, productType, country } = req.body;
+    if (!sourceId || !productType || !country) return res.json({ success: false, message: 'يلزم: sourceId, productType, country' });
+    const dna = cosmicNeural.generateProductDNA(sourceId, productType, country);
+    res.json({ success: true, data: dna, message: 'بصمة جينية فريدة للمنتج', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
