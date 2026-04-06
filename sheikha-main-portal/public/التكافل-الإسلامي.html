@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>التكافل الإسلامي — شيخة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--copper:#B87333;--dark:#0a0a0a;--dark2:#111;--dark3:#1a1a1a;--text:#e8e0d0;--text2:#b0a898;--green:#2ecc71;--blue:#3498db;--purple:#9b59b6;--teal:#1abc9c;--red:#e74c3c;--orange:#e67e22}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:var(--dark);color:var(--text);direction:rtl}
+.header{background:linear-gradient(135deg,#050b05,#0a150a,#020d02);border-bottom:2px solid var(--teal);padding:1.4rem 2rem;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--teal),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header .sub{font-size:.82rem;color:var(--text2);margin-top:.2rem}
+.ayah{font-size:.8rem;color:var(--teal);text-align:left}
+.nav-back{padding:.6rem 1.5rem;background:var(--dark2);border-bottom:1px solid #1e1e1e;font-size:.82rem;color:var(--text2)}
+.nav-back a{color:var(--gold);text-decoration:none}
+.tabs{display:flex;background:var(--dark2);border-bottom:1px solid #2a2a2a;overflow-x:auto;scrollbar-width:none;padding:0 .5rem;gap:.2rem}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:.7rem 1rem;cursor:pointer;white-space:nowrap;font-size:.82rem;color:var(--text2);border-bottom:3px solid transparent;transition:all .25s;flex-shrink:0}
+.tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+.content{display:none;padding:1.5rem 1.2rem;max-width:1400px;margin:0 auto}
+.content.active{display:block}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.8rem;margin-bottom:1.5rem}
+.stat{background:var(--dark3);border-radius:12px;padding:1rem;text-align:center;border:1px solid #2a2a2a}
+.stat-num{font-size:1.8rem;font-weight:900;color:var(--teal)}
+.stat-label{font-size:.72rem;color:var(--text2);margin-top:.2rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:1rem}
+.card{background:var(--dark3);border-radius:14px;padding:1.3rem;border:1px solid #2a2a2a;transition:border-color .3s}
+.card:hover{border-color:var(--teal)}
+.card-icon{font-size:2rem;margin-bottom:.5rem}
+.card-title{font-size:.95rem;font-weight:700;color:var(--teal);margin-bottom:.3rem}
+.card-desc{font-size:.78rem;color:var(--text2);margin-bottom:.8rem}
+.tags{display:flex;flex-wrap:wrap;gap:.3rem}
+.tag{padding:.2rem .5rem;border-radius:20px;font-size:.68rem;background:rgba(26,188,156,.1);color:var(--teal);border:1px solid rgba(26,188,156,.2)}
+.tag.blue{background:rgba(52,152,219,.1);color:var(--blue);border-color:rgba(52,152,219,.2)}
+.tag.green{background:rgba(46,204,113,.1);color:var(--green);border-color:rgba(46,204,113,.2)}
+.tag.gold{background:rgba(212,175,55,.1);color:var(--gold);border-color:rgba(212,175,55,.2)}
+.tag.red{background:rgba(231,76,60,.1);color:var(--red);border-color:rgba(231,76,60,.2)}
+.calc-form{background:var(--dark3);border-radius:14px;padding:1.5rem;border:1px solid #2a2a2a;margin-bottom:1rem}
+.calc-form h3{color:var(--teal);margin-bottom:1rem;font-size:.95rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem;margin-bottom:1rem}
+label{display:block;font-size:.75rem;color:var(--text2);margin-bottom:.3rem}
+input,select{width:100%;padding:.55rem .8rem;background:var(--dark2);border:1px solid #2a2a2a;border-radius:8px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:.85rem}
+input:focus,select:focus{outline:none;border-color:var(--teal)}
+.btn{padding:.7rem 1.5rem;background:linear-gradient(135deg,var(--teal),var(--green));color:#050505;font-weight:700;border:none;border-radius:10px;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.9rem;transition:opacity .2s}
+.btn:hover{opacity:.9}
+.result-box{background:var(--dark2);border-radius:10px;padding:1rem;margin-top:1rem;border:1px solid var(--teal);display:none}
+.principle-card{background:var(--dark3);border-right:4px solid var(--teal);border-radius:0 10px 10px 0;padding:1rem;margin-bottom:.8rem}
+.p-title{font-size:.88rem;font-weight:700;color:var(--teal);margin-bottom:.2rem}
+.p-quran{font-size:.78rem;color:var(--gold);margin-bottom:.3rem}
+.p-principle{font-size:.78rem;color:var(--text2)}
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="/">← الرئيسية</a> | سوق شيخة الإسلامي</div>
+<div class="header">
+    <div>
+        <h1>🤝 التكافل الإسلامي</h1>
+        <div class="sub">البديل الشرعي الحقيقي لنظام التأمين الربوي — المرحلة ١٤</div>
+    </div>
+    <div class="ayah">﴿وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى﴾</div>
+</div>
+<div class="tabs">
+    <div class="tab active" onclick="showTab('overview')">🌐 نظرة عامة</div>
+    <div class="tab" onclick="showTab('types')">📋 أنواع التكافل</div>
+    <div class="tab" onclick="showTab('models')">⚙️ النماذج الشرعية</div>
+    <div class="tab" onclick="showTab('principles')">📖 المبادئ</div>
+    <div class="tab" onclick="showTab('calculator')">🧮 حاسبة الاشتراك</div>
+    <div class="tab" onclick="showTab('market')">📊 السوق العالمي</div>
+</div>
+
+<div class="content active" id="tab-overview">
+    <div class="stat-row">
+        <div class="stat"><div class="stat-num">٣٥B</div><div class="stat-label">حجم السوق الحالي</div></div>
+        <div class="stat"><div class="stat-num">٣٥٠B</div><div class="stat-label">هدف ٢٠٣٥</div></div>
+        <div class="stat"><div class="stat-num">٦</div><div class="stat-label">أنواع التكافل</div></div>
+        <div class="stat"><div class="stat-num">١٢٠M</div><div class="stat-label">مشارك حالي</div></div>
+        <div class="stat"><div class="stat-num">١٤٪</div><div class="stat-label">فقط من المسلمين مغطى</div></div>
+        <div class="stat"><div class="stat-num">١٢.٧٪</div><div class="stat-label">نمو سنوي</div></div>
+    </div>
+    <div class="cards">
+        <div class="card">
+            <div class="card-icon">🆚</div>
+            <div class="card-title">التكافل مقابل التأمين</div>
+            <div class="card-desc">التكافل قائم على التعاون والتبرع — لا ربا ولا غرر ولا ميسر</div>
+            <div class="tags">
+                <span class="tag green">التكافل: تعاون</span>
+                <span class="tag red">التأمين: ربا + غرر</span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-icon">📊</div>
+            <div class="card-title">فجوة السوق الهائلة</div>
+            <div class="card-desc">١.٨ مليار مسلم دون أي تغطية تكافلية — الفجوة ٣١٥ مليار دولار</div>
+            <div class="tags">
+                <span class="tag">١.٨B مسلم</span>
+                <span class="tag blue">٣١٥B فجوة</span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🏆</div>
+            <div class="card-title">أكبر الأسواق</div>
+            <div class="card-desc">السعودية ٣٥٪ + ماليزيا ٢٤٪ + الإمارات ١٢٪ = ٧١٪ من السوق الإسلامي</div>
+            <div class="tags">
+                <span class="tag gold">🇸🇦 السعودية ١٢B</span>
+                <span class="tag blue">🇲🇾 ماليزيا ٨.٤B</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content" id="tab-types">
+    <h2 style="color:var(--teal);margin-bottom:1rem;">📋 أنواع التكافل الإسلامي — ٦ أنواع</h2>
+    <div class="cards" id="types-grid">
+        <div style="padding:1rem;color:var(--text2)">جاري التحميل...</div>
+    </div>
+</div>
+
+<div class="content" id="tab-models">
+    <h2 style="color:var(--teal);margin-bottom:1rem;">⚙️ النماذج الشرعية للتكافل</h2>
+    <div id="models-list"></div>
+</div>
+
+<div class="content" id="tab-principles">
+    <h2 style="color:var(--teal);margin-bottom:1rem;">📖 مبادئ التكافل الإسلامي</h2>
+    <div id="principles-list"></div>
+</div>
+
+<div class="content" id="tab-calculator">
+    <div class="calc-form">
+        <h3>🧮 حاسبة اشتراك التكافل التقديرية</h3>
+        <div class="form-row">
+            <div><label>نوع التكافل</label>
+            <select id="calc-type">
+                <option value="family_takaful">تكافل الأسرة</option>
+                <option value="general_takaful">التكافل العام</option>
+                <option value="health_takaful">تكافل الصحة</option>
+                <option value="agricultural_takaful">تكافل الزراعة</option>
+                <option value="trade_takaful">تكافل التجارة</option>
+            </select></div>
+            <div><label>مبلغ التغطية (دولار)</label>
+            <input type="number" id="calc-coverage" value="100000" min="1000"></div>
+            <div><label>العمر (سنة)</label>
+            <input type="number" id="calc-age" value="35" min="18" max="65"></div>
+            <div><label>المدة (سنوات)</label>
+            <input type="number" id="calc-years" value="5" min="1" max="30"></div>
+        </div>
+        <button class="btn" onclick="calcTakaful()">احسب الاشتراك</button>
+        <div class="result-box" id="takaful-result"></div>
+    </div>
+</div>
+
+<div class="content" id="tab-market">
+    <h2 style="color:var(--teal);margin-bottom:1rem;">📊 السوق العالمي للتكافل</h2>
+    <div id="market-list"></div>
+</div>
+
+<script>
+function showTab(id){
+    document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    event.target.classList.add('active');
+    if(id==='types') loadTypes();
+    if(id==='models') loadModels();
+    if(id==='principles') loadPrinciples();
+    if(id==='market') loadMarket();
+}
+
+async function loadTypes(){
+    const r = await fetch('/api/takaful/types');
+    const d = await r.json();
+    const types = (d.data||[]);
+    document.getElementById('types-grid').innerHTML = types.map(t=>`
+        <div class="card">
+            <div class="card-icon">${t.icon}</div>
+            <div class="card-title">${t.name}</div>
+            <div class="card-desc">${t.description}</div>
+            <div style="font-size:.75rem;color:var(--text2);margin-bottom:.5rem">
+                النموذج الشرعي: <span style="color:var(--teal)">${t.model}</span>
+            </div>
+            <div style="font-size:.75rem;color:var(--text2);margin-bottom:.5rem">
+                السوق: <span style="color:var(--gold)">${t.marketSizeUSD}</span> | نمو: <span style="color:var(--green)">${t.growth}</span>
+            </div>
+            <div class="tags">${(t.coverage||[]).map(c=>`<span class="tag">${c}</span>`).join('')}</div>
+        </div>`).join('');
+}
+
+async function loadModels(){
+    const r = await fetch('/api/takaful/models');
+    const d = await r.json();
+    const models = d.data || {};
+    document.getElementById('models-list').innerHTML = Object.entries(models).map(([k,m])=>`
+        <div class="card" style="margin-bottom:.8rem;max-width:100%;">
+            <div class="card-title">⚖️ ${m.name}</div>
+            <div class="card-desc">${m.description}</div>
+            <div style="font-size:.75rem;color:var(--gold);margin-bottom:.4rem">${m.sharia||''}</div>
+            <div class="tags">${(m.pros||[]).map(p=>`<span class="tag green">${p}</span>`).join('')}</div>
+        </div>`).join('');
+}
+
+async function loadPrinciples(){
+    const r = await fetch('/api/takaful/principles');
+    const d = await r.json();
+    document.getElementById('principles-list').innerHTML = (d.data||[]).map(p=>`
+        <div class="principle-card">
+            <div class="p-title">🔹 ${p.title}</div>
+            <div class="p-quran">${p.quran}</div>
+            <div class="p-principle">${p.principle}</div>
+            <div style="font-size:.73rem;color:var(--text2);margin-top:.3rem;border-right:2px solid #2a2a2a;padding-right:.5rem">${p.rule}</div>
+        </div>`).join('');
+}
+
+async function loadMarket(){
+    const r = await fetch('/api/takaful/market');
+    const d = await r.json();
+    const m = d.data || {};
+    const top = (m.topMarkets||[]).map(c=>`
+        <div class="card">
+            <div style="font-size:1.5rem">${c.flag}</div>
+            <div class="card-title">${c.country}</div>
+            <div style="font-size:.85rem;color:var(--gold)">${c.share}</div>
+            <div style="font-size:.75rem;color:var(--text2)">${c.size_bn} مليار $</div>
+        </div>`).join('');
+    document.getElementById('market-list').innerHTML = `
+        <div class="stat-row" style="margin-bottom:1.5rem">
+            <div class="stat"><div class="stat-num" style="color:var(--teal)">$${((m.totalSizeUSD||0)/1e9).toFixed(0)}B</div><div class="stat-label">الحجم الحالي</div></div>
+            <div class="stat"><div class="stat-num" style="color:var(--green)">$${((m.targetSizeUSD||0)/1e9).toFixed(0)}B</div><div class="stat-label">هدف ٢٠٣٥</div></div>
+            <div class="stat"><div class="stat-num" style="color:var(--gold)">${m.companies||322}</div><div class="stat-label">شركة تكافل</div></div>
+            <div class="stat"><div class="stat-num" style="color:var(--blue)">${m.countries||47}</div><div class="stat-label">دولة</div></div>
+        </div>
+        <h3 style="color:var(--teal);margin-bottom:.8rem">أكبر أسواق التكافل</h3>
+        <div class="cards">${top}</div>`;
+}
+
+function calcTakaful(){
+    const type = document.getElementById('calc-type').value;
+    const coverage = parseFloat(document.getElementById('calc-coverage').value);
+    const age = parseInt(document.getElementById('calc-age').value);
+    const years = parseInt(document.getElementById('calc-years').value);
+    if(!coverage||!age) return;
+    fetch('/api/takaful/calculate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({coverageType:type,coverageAmount:coverage,ageYears:age,durationYears:years})})
+    .then(r=>r.json()).then(d=>{
+        const data = d.data;
+        const box = document.getElementById('takaful-result');
+        box.style.display='block';
+        box.innerHTML = `
+            <h4 style="color:var(--teal);margin-bottom:.8rem">نتيجة الحساب (تقديري)</h4>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem;">
+                <div style="background:var(--dark3);padding:.7rem;border-radius:8px">
+                    <div style="font-size:.7rem;color:var(--text2)">الاشتراك السنوي</div>
+                    <div style="font-size:1.3rem;font-weight:900;color:var(--teal)">$${data.annual_contribution||0}</div>
+                </div>
+                <div style="background:var(--dark3);padding:.7rem;border-radius:8px">
+                    <div style="font-size:.7rem;color:var(--text2)">الاشتراك الشهري</div>
+                    <div style="font-size:1.3rem;font-weight:900;color:var(--green)">$${data.monthly_contribution||0}</div>
+                </div>
+                <div style="background:var(--dark3);padding:.7rem;border-radius:8px">
+                    <div style="font-size:.7rem;color:var(--text2)">حصة التبرع</div>
+                    <div style="font-size:1.3rem;font-weight:900;color:var(--gold)">$${data.tabarru_portion||0}</div>
+                </div>
+                <div style="background:var(--dark3);padding:.7rem;border-radius:8px">
+                    <div style="font-size:.7rem;color:var(--text2)">العائد المتوقع</div>
+                    <div style="font-size:1.3rem;font-weight:900;color:var(--blue)">$${data.expected_surplus_return||0}</div>
+                </div>
+            </div>
+            <p style="font-size:.73rem;color:var(--text2);margin-top:.8rem;">⚠️ ${data.note||''}</p>`;
+    });
+}
+</script>
+</body>
+</html>

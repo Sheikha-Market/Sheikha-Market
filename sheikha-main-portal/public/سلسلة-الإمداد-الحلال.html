@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سلسلة الإمداد الحلال — شيخة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--copper:#B87333;--dark:#0a0a0a;--dark2:#111;--dark3:#1a1a1a;--text:#e8e0d0;--text2:#b0a898;--green:#2ecc71;--blue:#3498db;--purple:#9b59b6;--teal:#1abc9c;--red:#e74c3c;--orange:#e67e22}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:var(--dark);color:var(--text);direction:rtl}
+.header{background:linear-gradient(135deg,#030a03,#060f06,#030a03);border-bottom:2px solid var(--green);padding:1.4rem 2rem;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--green),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header .sub{font-size:.82rem;color:var(--text2);margin-top:.2rem}
+.ayah{font-size:.8rem;color:var(--green);text-align:left}
+.nav-back{padding:.6rem 1.5rem;background:var(--dark2);border-bottom:1px solid #1e1e1e;font-size:.82rem;color:var(--text2)}
+.nav-back a{color:var(--gold);text-decoration:none}
+.tabs{display:flex;background:var(--dark2);border-bottom:1px solid #2a2a2a;overflow-x:auto;scrollbar-width:none;padding:0 .5rem;gap:.2rem}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:.7rem 1rem;cursor:pointer;white-space:nowrap;font-size:.82rem;color:var(--text2);border-bottom:3px solid transparent;transition:all .25s;flex-shrink:0}
+.tab.active{color:var(--green);border-bottom-color:var(--green)}
+.content{display:none;padding:1.5rem 1.2rem;max-width:1400px;margin:0 auto}
+.content.active{display:block}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.8rem;margin-bottom:1.5rem}
+.stat{background:var(--dark3);border-radius:12px;padding:1rem;text-align:center;border:1px solid #2a2a2a}
+.stat-num{font-size:1.8rem;font-weight:900;color:var(--green)}
+.stat-label{font-size:.72rem;color:var(--text2);margin-top:.2rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:1rem}
+.card{background:var(--dark3);border-radius:14px;padding:1.3rem;border:1px solid #2a2a2a;transition:border-color .3s}
+.card:hover{border-color:var(--green)}
+.card-icon{font-size:2rem;margin-bottom:.5rem}
+.card-title{font-size:.95rem;font-weight:700;color:var(--green);margin-bottom:.3rem}
+.card-desc{font-size:.78rem;color:var(--text2);margin-bottom:.8rem}
+.tags{display:flex;flex-wrap:wrap;gap:.3rem}
+.tag{padding:.2rem .5rem;border-radius:20px;font-size:.68rem;background:rgba(46,204,113,.1);color:var(--green);border:1px solid rgba(46,204,113,.2)}
+.tag.gold{background:rgba(212,175,55,.1);color:var(--gold);border-color:rgba(212,175,55,.2)}
+.tag.blue{background:rgba(52,152,219,.1);color:var(--blue);border-color:rgba(52,152,219,.2)}
+.step-card{display:flex;gap:1rem;background:var(--dark3);border-radius:12px;padding:1rem;margin-bottom:.7rem;border:1px solid #2a2a2a}
+.step-num{width:36px;height:36px;background:var(--green);color:#050505;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.9rem;flex-shrink:0;margin-top:.1rem}
+.step-body h4{font-size:.85rem;color:var(--green);margin-bottom:.2rem}
+.step-body p{font-size:.75rem;color:var(--text2);margin-bottom:.4rem}
+.calc-form{background:var(--dark3);border-radius:14px;padding:1.5rem;border:1px solid #2a2a2a}
+.calc-form h3{color:var(--green);margin-bottom:1rem;font-size:.95rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem;margin-bottom:1rem}
+label{display:block;font-size:.75rem;color:var(--text2);margin-bottom:.3rem}
+input,select{width:100%;padding:.55rem .8rem;background:var(--dark2);border:1px solid #2a2a2a;border-radius:8px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:.85rem}
+input:focus,select:focus{outline:none;border-color:var(--green)}
+.btn{padding:.7rem 1.5rem;background:linear-gradient(135deg,var(--green),var(--teal));color:#050505;font-weight:700;border:none;border-radius:10px;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.9rem;transition:opacity .2s}
+.btn:hover{opacity:.9}
+.result-box{background:var(--dark2);border-radius:10px;padding:1rem;margin-top:1rem;border:1px solid var(--green);display:none}
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="/">← الرئيسية</a> | سوق شيخة الإسلامي</div>
+<div class="header">
+    <div>
+        <h1>🌿 سلسلة الإمداد الحلال</h1>
+        <div class="sub">من المزرعة إلى المستهلك — ضمان الحلال في كل خطوة — المرحلة ١٦</div>
+    </div>
+    <div class="ayah">﴿يَا أَيُّهَا النَّاسُ كُلُوا مِمَّا فِي الْأَرْضِ حَلَالًا طَيِّبًا﴾</div>
+</div>
+<div class="tabs">
+    <div class="tab active" onclick="showTab('overview')">🌐 نظرة عامة</div>
+    <div class="tab" onclick="showTab('sectors')">🏭 القطاعات</div>
+    <div class="tab" onclick="showTab('steps')">✅ خطوات التحقق</div>
+    <div class="tab" onclick="showTab('calculator')">🧮 حاسبة الشهادة</div>
+</div>
+
+<div class="content active" id="tab-overview">
+    <div class="stat-row">
+        <div class="stat"><div class="stat-num">٧.٧T</div><div class="stat-label">السوق الحلال العالمي</div></div>
+        <div class="stat"><div class="stat-num">١٥T</div><div class="stat-label">هدف ٢٠٣٠</div></div>
+        <div class="stat"><div class="stat-num">٧</div><div class="stat-label">قطاعات رئيسية</div></div>
+        <div class="stat"><div class="stat-num">٧</div><div class="stat-label">خطوات تحقق</div></div>
+        <div class="stat"><div class="stat-num">٣٠٠</div><div class="stat-label">هيئة شهادات عالمية</div></div>
+        <div class="stat"><div class="stat-num">٦M</div><div class="stat-label">منتج حاصل على شهادة</div></div>
+    </div>
+    <div class="cards">
+        <div class="card">
+            <div class="card-icon">🔗</div>
+            <div class="card-title">أهمية سلسلة الإمداد</div>
+            <div class="card-desc">المنتج الحلال يحتاج سلسلة إمداد نظيفة في كل حلقة — التلوث في أي خطوة يُبطل الحلال</div>
+            <div class="tags"><span class="tag">من المصدر</span><span class="tag">حتى المستهلك</span><span class="tag gold">بلا تلوث</span></div>
+        </div>
+        <div class="card">
+            <div class="card-icon">📈</div>
+            <div class="card-title">السوق غير المستغل</div>
+            <div class="card-desc">فقط ١٧٪ من الغذاء العالمي حلال معتمد رغم أن ٢.٢ مليار مسلم يحتاجونه</div>
+            <div class="tags"><span class="tag blue">٢.٢B مستهلك</span><span class="tag">٨٣٪ فجوة</span></div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🏆</div>
+            <div class="card-title">غير المسلمين يختارون الحلال</div>
+            <div class="card-desc">٨٠٠ مليون غير مسلم يشترون منتجات حلال لأسباب الجودة والنظافة والمعالجة الأخلاقية</div>
+            <div class="tags"><span class="tag gold">٨٠٠M مستهلك إضافي</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="content" id="tab-sectors">
+    <h2 style="color:var(--green);margin-bottom:1rem;">🏭 قطاعات سلسلة الإمداد الحلال — ٧ قطاعات</h2>
+    <div class="cards" id="sectors-grid">جاري التحميل...</div>
+</div>
+
+<div class="content" id="tab-steps">
+    <h2 style="color:var(--green);margin-bottom:1rem;">✅ خطوات التحقق الشرعي — ٧ مستويات</h2>
+    <div id="steps-list">جاري التحميل...</div>
+</div>
+
+<div class="content" id="tab-calculator">
+    <div class="calc-form">
+        <h3>🧮 حاسبة تكلفة شهادة الحلال (تقديرية)</h3>
+        <div class="form-row">
+            <div><label>نوع المنتج</label>
+            <select id="calc-product">
+                <option value="food_beverage">الغذاء والمشروبات</option>
+                <option value="pharmaceuticals">الأدوية والمستحضرات</option>
+                <option value="cosmetics_personal">مستحضرات التجميل</option>
+                <option value="logistics_transport">اللوجستيات والشحن</option>
+                <option value="fashion_textiles">الأزياء والنسيج</option>
+                <option value="financial_products">المنتجات المالية</option>
+                <option value="media_entertainment">الإعلام والإنتاج</option>
+            </select></div>
+            <div><label>حجم الشركة</label>
+            <select id="calc-size">
+                <option value="startup">ناشئة</option>
+                <option value="sme" selected>منشأة متوسطة</option>
+                <option value="enterprise">شركة كبرى</option>
+            </select></div>
+            <div><label>الإيراد السنوي (دولار)</label>
+            <input type="number" id="calc-revenue" value="1000000" min="10000"></div>
+        </div>
+        <button class="btn" onclick="calcCert()">احسب التكلفة</button>
+        <div class="result-box" id="cert-result"></div>
+    </div>
+</div>
+
+<script>
+function showTab(id){
+    document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    event.target.classList.add('active');
+    if(id==='sectors') loadSectors();
+    if(id==='steps') loadSteps();
+}
+
+async function loadSectors(){
+    const r = await fetch('/api/halal-sc/sectors');
+    const d = await r.json();
+    document.getElementById('sectors-grid').innerHTML = (d.data||[]).map(s=>`
+        <div class="card">
+            <div class="card-icon">${s.icon}</div>
+            <div class="card-title">${s.name}</div>
+            <div class="card-desc">${s.islamicShare}</div>
+            <div style="font-size:.75rem;margin-bottom:.5rem;color:var(--text2)">
+                السوق: <span style="color:var(--gold)">$${(s.globalMarketUSD/1e9).toFixed(0)}B</span> |
+                نمو: <span style="color:var(--green)">${s.growth}</span>
+            </div>
+            <div class="tags">${(s.keyIssues||[]).map(i=>`<span class="tag">${i}</span>`).join('')}</div>
+            <div style="font-size:.7rem;color:var(--gold);margin-top:.5rem">${s.quran||''}</div>
+        </div>`).join('');
+}
+
+async function loadSteps(){
+    const r = await fetch('/api/halal-sc/verification-steps');
+    const d = await r.json();
+    document.getElementById('steps-list').innerHTML = (d.data||[]).map(s=>`
+        <div class="step-card">
+            <div class="step-num">${s.step}</div>
+            <div class="step-body">
+                <h4>${s.name}</h4>
+                <p>${s.desc}</p>
+                <div class="tags">${(s.checkpoints||[]).map(c=>`<span class="tag">${c}</span>`).join('')}</div>
+            </div>
+        </div>`).join('');
+}
+
+async function calcCert(){
+    const r = await fetch('/api/halal-sc/estimate-cert-cost',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+            productType: document.getElementById('calc-product').value,
+            companySize: document.getElementById('calc-size').value,
+            annualRevenue: parseFloat(document.getElementById('calc-revenue').value)
+        })
+    });
+    const d = await r.json();
+    const data = d.data||{};
+    const box = document.getElementById('cert-result');
+    box.style.display='block';
+    box.innerHTML = `
+        <h4 style="color:var(--green);margin-bottom:.8rem">تقدير تكاليف شهادة الحلال</h4>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;margin-bottom:.8rem">
+            <div style="background:var(--dark3);padding:.7rem;border-radius:8px"><div style="font-size:.7rem;color:var(--text2)">السنة الأولى</div><div style="font-size:1.3rem;font-weight:900;color:var(--green)">$${data.first_year_cost||0}</div></div>
+            <div style="background:var(--dark3);padding:.7rem;border-radius:8px"><div style="font-size:.7rem;color:var(--text2)">سنوي (تجديد)</div><div style="font-size:1.3rem;font-weight:900;color:var(--blue)">$${data.ongoing_annual||0}</div></div>
+            <div style="background:var(--dark3);padding:.7rem;border-radius:8px"><div style="font-size:.7rem;color:var(--text2)">٣ سنوات</div><div style="font-size:1.3rem;font-weight:900;color:var(--gold)">$${data.three_year_total||0}</div></div>
+            <div style="background:var(--dark3);padding:.7rem;border-radius:8px"><div style="font-size:.7rem;color:var(--text2)">العائد المتوقع</div><div style="font-size:1.3rem;font-weight:900;color:var(--teal)">+$${data.estimated_revenue_lift||0}</div></div>
+        </div>
+        <div style="font-size:.8rem;color:var(--green)">ROI خلال ٣ سنوات: <strong>${data.roi_3yr||0}٪</strong></div>
+        <p style="font-size:.73rem;color:var(--text2);margin-top:.5rem">⚠️ ${data.note||''}</p>`;
+}
+</script>
+</body>
+</html>

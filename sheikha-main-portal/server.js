@@ -36474,6 +36474,148 @@ app.post('/api/awqaf/estimate-impact', (req, res) => {
     res.json({ success: true, data: result, timestamp: new Date().toISOString() });
 });
 
+// ══════════════════════════════════════════════════════════════════
+// المرحلة ١٤ — التكافل الإسلامي
+// ══════════════════════════════════════════════════════════════════
+const islamicTakaful = (() => { try { return require('./lib/sheikha-islamic-takaful-engine.js').start(); } catch(e) { console.warn('⚠️ [Takaful] فشل التحميل:', e.message); return null; } })();
+
+app.get('/api/takaful/overview', (req, res) => {
+    if (!islamicTakaful) return res.json({ success: false, message: 'محرك التكافل غير متاح' });
+    res.json({ success: true, data: islamicTakaful.getOverview(), message: 'التكافل الإسلامي — التعاون على البر والتقوى', timestamp: new Date().toISOString() });
+});
+app.get('/api/takaful/types', (req, res) => {
+    if (!islamicTakaful) return res.json({ success: false, message: 'محرك التكافل غير متاح' });
+    res.json({ success: true, data: islamicTakaful.getTypes(), count: islamicTakaful.getTypes().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/takaful/models', (req, res) => {
+    if (!islamicTakaful) return res.json({ success: false, message: 'محرك التكافل غير متاح' });
+    res.json({ success: true, data: islamicTakaful.getModels(), timestamp: new Date().toISOString() });
+});
+app.get('/api/takaful/principles', (req, res) => {
+    if (!islamicTakaful) return res.json({ success: false, message: 'محرك التكافل غير متاح' });
+    res.json({ success: true, data: islamicTakaful.getPrinciples(), count: islamicTakaful.getPrinciples().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/takaful/market', (req, res) => {
+    if (!islamicTakaful) return res.json({ success: false, message: 'محرك التكافل غير متاح' });
+    res.json({ success: true, data: islamicTakaful.getMarket(), timestamp: new Date().toISOString() });
+});
+app.get('/api/takaful/status', (req, res) => {
+    if (!islamicTakaful) return res.json({ success: false, message: 'محرك التكافل غير متاح' });
+    res.json({ success: true, data: islamicTakaful.getStatus(), timestamp: new Date().toISOString() });
+});
+app.post('/api/takaful/calculate', (req, res) => {
+    if (!islamicTakaful) return res.json({ success: false, message: 'محرك التكافل غير متاح' });
+    const result = islamicTakaful.calculate(req.body);
+    res.json({ success: result.success, data: result, timestamp: new Date().toISOString() });
+});
+
+// ══════════════════════════════════════════════════════════════════
+// المرحلة ١٥ — الدرهم الرقمي والعملة الإسلامية
+// ══════════════════════════════════════════════════════════════════
+const islamicCurrency = (() => { try { return require('./lib/sheikha-islamic-currency-engine.js').start(); } catch(e) { console.warn('⚠️ [Currency] فشل التحميل:', e.message); return null; } })();
+
+app.get('/api/currency/overview', (req, res) => {
+    if (!islamicCurrency) return res.json({ success: false, message: 'محرك العملة غير متاح' });
+    res.json({ success: true, data: islamicCurrency.getStatus(), message: 'الدرهم الرقمي — عملة الأمة الإسلامية', timestamp: new Date().toISOString() });
+});
+app.get('/api/currency/status', (req, res) => {
+    if (!islamicCurrency) return res.json({ success: false, message: 'محرك العملة غير متاح' });
+    res.json({ success: true, data: islamicCurrency.getStatus(), timestamp: new Date().toISOString() });
+});
+app.get('/api/currency/rates', (req, res) => {
+    if (!islamicCurrency) return res.json({ success: false, message: 'محرك العملة غير متاح' });
+    const rates = islamicCurrency.exchangeRates || {};
+    res.json({ success: true, data: rates, count: Object.keys(rates).length, message: 'أسعار صرف الدرهم الرقمي', timestamp: new Date().toISOString() });
+});
+app.get('/api/currency/foundation', (req, res) => {
+    if (!islamicCurrency) return res.json({ success: false, message: 'محرك العملة غير متاح' });
+    const foundation = islamicCurrency.foundation || islamicCurrency.getStatus();
+    res.json({ success: true, data: foundation, message: 'أساس الدرهم — ذهب وفضة شرعي', timestamp: new Date().toISOString() });
+});
+app.post('/api/currency/convert', (req, res) => {
+    if (!islamicCurrency) return res.json({ success: false, message: 'محرك العملة غير متاح' });
+    const { amount, from, to } = req.body;
+    if (!amount || !from || !to) return res.json({ success: false, message: 'يلزم: amount, from, to' });
+    const result = islamicCurrency.convertCurrency(Number(amount), from, to);
+    res.json({ success: result.success !== false, data: result, timestamp: new Date().toISOString() });
+});
+app.post('/api/currency/zakat', (req, res) => {
+    if (!islamicCurrency) return res.json({ success: false, message: 'محرك العملة غير متاح' });
+    const { amount, assetType } = req.body;
+    if (!amount) return res.json({ success: false, message: 'يلزم: amount' });
+    const result = islamicCurrency.calculateZakat(Number(amount), assetType);
+    res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+});
+
+// ══════════════════════════════════════════════════════════════════
+// المرحلة ١٦ — سلسلة الإمداد الحلال
+// ══════════════════════════════════════════════════════════════════
+const halalSC = (() => { try { return require('./lib/sheikha-halal-supply-chain-engine.js').start(); } catch(e) { console.warn('⚠️ [HalalSC] فشل التحميل:', e.message); return null; } })();
+
+app.get('/api/halal-sc/overview', (req, res) => {
+    if (!halalSC) return res.json({ success: false, message: 'محرك سلسلة الإمداد غير متاح' });
+    res.json({ success: true, data: { status: halalSC.getStatus(), globalStats: halalSC.getGlobalStats() }, message: 'سلسلة الإمداد الحلال — من المزرعة للمستهلك', timestamp: new Date().toISOString() });
+});
+app.get('/api/halal-sc/sectors', (req, res) => {
+    if (!halalSC) return res.json({ success: false, message: 'محرك سلسلة الإمداد غير متاح' });
+    res.json({ success: true, data: halalSC.getSectors(), count: halalSC.getSectors().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/halal-sc/verification-steps', (req, res) => {
+    if (!halalSC) return res.json({ success: false, message: 'محرك سلسلة الإمداد غير متاح' });
+    res.json({ success: true, data: halalSC.getVerificationSteps(), count: halalSC.getVerificationSteps().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/halal-sc/global-stats', (req, res) => {
+    if (!halalSC) return res.json({ success: false, message: 'محرك سلسلة الإمداد غير متاح' });
+    res.json({ success: true, data: halalSC.getGlobalStats(), timestamp: new Date().toISOString() });
+});
+app.get('/api/halal-sc/status', (req, res) => {
+    if (!halalSC) return res.json({ success: false, message: 'محرك سلسلة الإمداد غير متاح' });
+    res.json({ success: true, data: halalSC.getStatus(), timestamp: new Date().toISOString() });
+});
+app.post('/api/halal-sc/estimate-cert-cost', (req, res) => {
+    if (!halalSC) return res.json({ success: false, message: 'محرك سلسلة الإمداد غير متاح' });
+    const result = halalSC.estimateCost(req.body);
+    res.json({ success: result.success, data: result, timestamp: new Date().toISOString() });
+});
+
+// ══════════════════════════════════════════════════════════════════
+// المرحلة ١٧ — الطاقة الإسلامية المتجددة
+// ﴿وَلَا تُفْسِدُوا فِي الْأَرْضِ بَعْدَ إِصْلَاحِهَا﴾
+// ══════════════════════════════════════════════════════════════════
+const islamicEnergy = (() => { try { return require('./lib/sheikha-islamic-energy-engine.js').start(); } catch(e) { console.warn('⚠️ [Energy] فشل التحميل:', e.message); return null; } })();
+
+app.get('/api/energy/overview', (req, res) => {
+    if (!islamicEnergy) return res.json({ success: false, message: 'محرك الطاقة غير متاح' });
+    res.json({ success: true, data: islamicEnergy.getOverview(), message: 'الطاقة الإسلامية المتجددة — طاقة نظيفة لكل مسلم', timestamp: new Date().toISOString() });
+});
+app.get('/api/energy/sources', (req, res) => {
+    if (!islamicEnergy) return res.json({ success: false, message: 'محرك الطاقة غير متاح' });
+    res.json({ success: true, data: islamicEnergy.getSources(), count: islamicEnergy.getSources().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/energy/principles', (req, res) => {
+    if (!islamicEnergy) return res.json({ success: false, message: 'محرك الطاقة غير متاح' });
+    res.json({ success: true, data: islamicEnergy.getPrinciples(), count: islamicEnergy.getPrinciples().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/energy/mega-projects', (req, res) => {
+    if (!islamicEnergy) return res.json({ success: false, message: 'محرك الطاقة غير متاح' });
+    res.json({ success: true, data: islamicEnergy.getMegaProjects(), count: islamicEnergy.getMegaProjects().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/energy/regions', (req, res) => {
+    if (!islamicEnergy) return res.json({ success: false, message: 'محرك الطاقة غير متاح' });
+    res.json({ success: true, data: islamicEnergy.getRegions(), timestamp: new Date().toISOString() });
+});
+app.get('/api/energy/status', (req, res) => {
+    if (!islamicEnergy) return res.json({ success: false, message: 'محرك الطاقة غير متاح' });
+    res.json({ success: true, data: islamicEnergy.getStatus(), timestamp: new Date().toISOString() });
+});
+app.post('/api/energy/calculate-roi', (req, res) => {
+    if (!islamicEnergy) return res.json({ success: false, message: 'محرك الطاقة غير متاح' });
+    const { investmentUsd, capacityGw, years, utilization } = req.body;
+    if (!investmentUsd || !capacityGw) return res.json({ success: false, message: 'يلزم: investmentUsd, capacityGw' });
+    const result = islamicEnergy.calculateProjectROI(Number(investmentUsd), Number(capacityGw), years, utilization);
+    res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
