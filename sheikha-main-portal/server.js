@@ -37168,6 +37168,154 @@ app.post('/api/sheikha-index/evaluate', (req, res) => {
     });
 });
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌍 المرحلة ٢٧ — تكامل منظمات العالم الإسلامي
+// ═══════════════════════════════════════════════════════════════════════════════
+const islamicWorldOrgs = require('./lib/sheikha-islamic-world-orgs-engine');
+
+app.get('/api/islamic-world/overview', (req, res) => {
+    res.json({ success: true, data: islamicWorldOrgs.getOverview(), message: 'منظمات العالم الإسلامي', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-world/organizations', (req, res) => {
+    const { tier } = req.query;
+    res.json({ success: true, data: islamicWorldOrgs.getOrganizations(tier), message: 'القائمة الكاملة للمنظمات', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-world/org/:id', (req, res) => {
+    const org = islamicWorldOrgs.getOrg(req.params.id);
+    if (!org) return res.status(404).json({ success: false, message: 'المنظمة غير موجودة', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: org, message: `منظمة: ${org.name}`, timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-world/tiers', (req, res) => {
+    res.json({ success: true, data: islamicWorldOrgs.getTiers(), message: 'تصنيفات المنظمات', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-world/excellence-plan', (req, res) => {
+    res.json({ success: true, data: islamicWorldOrgs.getExcellencePlan(), message: 'خطة التفوق والإحسان', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-world/integration-map', (req, res) => {
+    res.json({ success: true, data: islamicWorldOrgs.getIntegrationMap(), message: 'خريطة التكامل', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🕋 المرحلة ٣١ — الأهداف الإسلامية الشاملة (توحيد — دعوة — قضاء على الفقر)
+// ═══════════════════════════════════════════════════════════════════════════════
+const islamicGoals = require('./lib/sheikha-islamic-goals-engine');
+
+app.get('/api/islamic-goals/overview', (req, res) => {
+    res.json({ success: true, data: islamicGoals.getOverview(), message: 'الأهداف الإسلامية الشاملة', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-goals/goals', (req, res) => {
+    const { category } = req.query;
+    res.json({ success: true, data: islamicGoals.getGoals(category), message: 'قائمة الأهداف', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-goals/goal/:id', (req, res) => {
+    const goal = islamicGoals.getGoal(req.params.id);
+    if (!goal) return res.status(404).json({ success: false, message: 'الهدف غير موجود', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: goal, message: `الهدف: ${goal.name}`, timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-goals/progress', (req, res) => {
+    res.json({ success: true, data: islamicGoals.getProgress(), message: 'تقدم تحقيق الأهداف', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-goals/kpis', (req, res) => {
+    res.json({ success: true, data: islamicGoals.getKPIs(), message: 'مؤشرات الأداء الرئيسية', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-goals/top-goal', (req, res) => {
+    res.json({ success: true, data: islamicGoals.getTopGoal(), message: 'الهدف الأسمى — توحيد الله', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-goals/category-map', (req, res) => {
+    res.json({ success: true, data: islamicGoals.getCategoryMap(), message: 'خريطة الفئات', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🎨 المرحلة ٢٨ — محرك الجرافيك الحلال
+// ═══════════════════════════════════════════════════════════════════════════════
+const halalGraphics = require('./lib/sheikha-halal-graphics-engine');
+
+app.get('/api/graphics/overview', (req, res) => {
+    res.json({ success: true, data: halalGraphics.getOverview(), message: 'الجرافيك الحلال', timestamp: new Date().toISOString() });
+});
+app.get('/api/graphics/rules', (req, res) => {
+    res.json({ success: true, data: halalGraphics.getRules(), message: 'قواعد الجرافيك الحلال', timestamp: new Date().toISOString() });
+});
+app.get('/api/graphics/dimensions', (req, res) => {
+    res.json({ success: true, data: halalGraphics.getDimensions(), message: 'الأبعاد المدعومة', timestamp: new Date().toISOString() });
+});
+app.get('/api/graphics/patterns', (req, res) => {
+    res.json({ success: true, data: halalGraphics.getPatterns(), message: 'أنماط الجرافيك الحلال', timestamp: new Date().toISOString() });
+});
+app.get('/api/graphics/tech-stack', (req, res) => {
+    res.json({ success: true, data: halalGraphics.getTechStack(), message: 'حزمة التقنيات الجرافيكية', timestamp: new Date().toISOString() });
+});
+app.post('/api/graphics/check', (req, res) => {
+    const { content_type } = req.body || {};
+    if (!content_type) return res.status(400).json({ success: false, message: 'content_type مطلوب', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: halalGraphics.checkContent(content_type), message: 'فحص شرعي للمحتوى', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🤖 المرحلة ٢٩ — هيرمس + Manim + الفيديو الحلال
+// ═══════════════════════════════════════════════════════════════════════════════
+const hermesManimEngine = require('./lib/sheikha-hermes-manim-engine');
+
+app.get('/api/hermes/overview', (req, res) => {
+    res.json({ success: true, data: hermesManimEngine.getOverview(), message: 'هيرمس + Manim', timestamp: new Date().toISOString() });
+});
+app.get('/api/hermes/status', (req, res) => {
+    res.json({ success: true, data: hermesManimEngine.getStatus(), message: 'حالة خادم هيرمس', timestamp: new Date().toISOString() });
+});
+app.post('/api/hermes/start', (req, res) => {
+    res.json({ success: true, data: hermesManimEngine.startServer(), message: 'تشغيل خادم هيرمس', timestamp: new Date().toISOString() });
+});
+app.post('/api/hermes/stop', (req, res) => {
+    res.json({ success: true, data: hermesManimEngine.stopServer(), message: 'إيقاف خادم هيرمس', timestamp: new Date().toISOString() });
+});
+app.get('/api/hermes/manim/scenes', (req, res) => {
+    res.json({ success: true, data: hermesManimEngine.getScenes(), message: 'مشاهد Manim المتاحة', timestamp: new Date().toISOString() });
+});
+app.post('/api/hermes/manim/script', (req, res) => {
+    const { scene_id, params } = req.body || {};
+    if (!scene_id) return res.status(400).json({ success: false, message: 'scene_id مطلوب', timestamp: new Date().toISOString() });
+    const script = hermesManimEngine.generateScript(scene_id, params);
+    if (!script) return res.status(404).json({ success: false, message: 'المشهد غير موجود', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: { script, scene_id }, message: 'سكريبت Manim جاهز', timestamp: new Date().toISOString() });
+});
+app.get('/api/hermes/video/allowed-content', (req, res) => {
+    res.json({ success: true, data: hermesManimEngine.getAllowedContent(), message: 'المحتوى المسموح في الفيديو', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚛️ المرحلة ٣٠ — الحوسبة الكمية والأفعال المستمرة
+// ═══════════════════════════════════════════════════════════════════════════════
+const quantumEngine = require('./lib/sheikha-quantum-engine');
+
+app.get('/api/quantum/overview', (req, res) => {
+    res.json({ success: true, data: quantumEngine.getOverview(), message: 'محرك الحوسبة الكمية', timestamp: new Date().toISOString() });
+});
+app.get('/api/quantum/theories', (req, res) => {
+    res.json({ success: true, data: quantumEngine.getTheories(), message: 'النظريات الكمية', timestamp: new Date().toISOString() });
+});
+app.get('/api/quantum/applications', (req, res) => {
+    res.json({ success: true, data: quantumEngine.getApplications(), message: 'التطبيقات الكمية في شيخة', timestamp: new Date().toISOString() });
+});
+app.get('/api/quantum/continuous-actions', (req, res) => {
+    res.json({ success: true, data: quantumEngine.getContinuousActions(), message: 'الأفعال المستمرة', timestamp: new Date().toISOString() });
+});
+app.get('/api/quantum/loops', (req, res) => {
+    res.json({ success: true, data: quantumEngine.getActiveLoops(), message: 'حلقات العمل المستمر', timestamp: new Date().toISOString() });
+});
+app.post('/api/quantum/loop/start/:id', (req, res) => {
+    res.json({ success: true, data: quantumEngine.startLoop(req.params.id), message: 'تشغيل حلقة مستمرة', timestamp: new Date().toISOString() });
+});
+app.post('/api/quantum/loop/stop/:id', (req, res) => {
+    res.json({ success: true, data: quantumEngine.stopLoop(req.params.id), message: 'إيقاف حلقة', timestamp: new Date().toISOString() });
+});
+app.post('/api/quantum/optimize', (req, res) => {
+    const { options } = req.body || {};
+    if (!Array.isArray(options) || options.length === 0) {
+        return res.status(400).json({ success: false, message: 'options (مصفوفة) مطلوبة', timestamp: new Date().toISOString() });
+    }
+    res.json({ success: true, data: quantumEngine.optimize(options), message: 'تحسين كمي للخيارات', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
