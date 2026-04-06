@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الرعاية الصحية الإسلامية الرقمية — منظومة شيخة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold:#D4AF37; --dark:#050508; --dark2:#0a0a10; --dark3:#111118; --dark4:#18181f;
+    --text:#e8e8f0; --text2:#9090a8;
+    --green:#27ae60; --blue:#2980b9; --purple:#8e44ad;
+    --teal:#16a085; --red:#c0392b; --emerald:#1abc9c;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Tajawal',sans-serif; background:var(--dark); color:var(--text); direction:rtl; }
+
+.hero {
+    background:linear-gradient(160deg,#020b06,#050a0a,#050508);
+    border-bottom:2px solid rgba(26,188,156,.4);
+    padding:52px 20px 32px; text-align:center; position:relative;
+}
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 0%,rgba(26,188,156,.07) 0%,transparent 60%); }
+.basmala { font-size:clamp(1.2rem,3vw,1.75rem); color:var(--gold); margin-bottom:12px; font-weight:700; position:relative; }
+.hero-title {
+    font-size:clamp(1.5rem,4vw,2.5rem); font-weight:900; position:relative;
+    background:linear-gradient(135deg,var(--emerald),#fff,var(--gold),var(--emerald));
+    background-size:200%; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text; animation:shimmer 4s linear infinite; margin-bottom:10px;
+}
+@keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
+.hero-verse { font-size:clamp(.84rem,2vw,1rem); color:var(--emerald); opacity:.85; margin-bottom:6px; position:relative; }
+.hero-sub { font-size:.82rem; color:var(--text2); max-width:680px; margin:0 auto; line-height:1.8; position:relative; }
+
+nav { position:sticky; top:0; z-index:50; background:rgba(5,5,8,.93); backdrop-filter:blur(20px); border-bottom:1px solid rgba(26,188,156,.1); padding:0 12px; display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; }
+nav::-webkit-scrollbar { display:none; }
+nav a { padding:12px 13px; color:var(--text2); text-decoration:none; font-size:.77rem; white-space:nowrap; border-bottom:3px solid transparent; transition:all .2s; font-weight:600; }
+nav a.active, nav a:hover { color:var(--emerald); border-color:var(--emerald); }
+
+.container { max-width:1380px; margin:0 auto; padding:1.4rem 1.1rem; }
+.section { display:none; animation:fadeIn .35s; }
+.section.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.sec-title { font-size:1rem; font-weight:800; color:var(--emerald); margin:1.2rem 0 .8rem; }
+
+.verse-banner { background:linear-gradient(135deg,rgba(26,188,156,.07),rgba(212,175,55,.05)); border:1px solid rgba(26,188,156,.18); border-radius:12px; padding:.9rem 1.2rem; margin-bottom:1.1rem; font-size:.85rem; color:var(--emerald); text-align:center; line-height:1.9; }
+
+.stat-row { display:grid; grid-template-columns:repeat(auto-fill,minmax(128px,1fr)); gap:.65rem; margin-bottom:1.1rem; }
+.stat-box { background:var(--dark3); border-radius:10px; padding:.85rem; text-align:center; border:1px solid rgba(255,255,255,.04); }
+.stat-num { font-size:1.45rem; font-weight:900; line-height:1.1; }
+.stat-label { font-size:.66rem; color:var(--text2); margin-top:.2rem; }
+
+.card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:.85rem; }
+.card { background:var(--dark3); border-radius:12px; padding:1.1rem; border:1px solid rgba(255,255,255,.05); transition:all .22s; }
+.card:hover { border-color:rgba(26,188,156,.25); transform:translateY(-2px); }
+.card-icon { font-size:1.7rem; margin-bottom:.4rem; }
+.card-title { font-size:.9rem; font-weight:800; color:var(--emerald); margin-bottom:.3rem; }
+.card-desc { font-size:.75rem; color:var(--text2); line-height:1.7; }
+.card-verse { font-size:.72rem; color:var(--gold); opacity:.8; margin-top:.4rem; font-style:italic; background:rgba(212,175,55,.05); border-radius:6px; padding:.3rem .5rem; }
+
+.tag { display:inline-block; padding:.12rem .42rem; border-radius:8px; font-size:.63rem; font-weight:600; background:rgba(26,188,156,.1); color:var(--emerald); border:1px solid rgba(26,188,156,.15); margin:.15rem; }
+.tag-gold { background:rgba(212,175,55,.1); color:var(--gold); border-color:rgba(212,175,55,.15); }
+.tag-purple { background:rgba(142,68,173,.1); color:var(--purple); border-color:rgba(142,68,173,.15); }
+.tag-red { background:rgba(192,57,43,.1); color:var(--red); border-color:rgba(192,57,43,.15); }
+
+.ruqyah-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:.8rem; }
+.ruqyah-card { background:var(--dark3); border-radius:10px; padding:.95rem; border-right:3px solid var(--gold); }
+.r-title { font-size:.85rem; font-weight:800; color:var(--gold); margin-bottom:.3rem; }
+.r-text { font-size:.78rem; line-height:1.8; }
+.r-note { font-size:.7rem; color:var(--text2); margin-top:.3rem; font-style:italic; }
+
+.loading { text-align:center; padding:2rem; color:var(--text2); font-size:.85rem; }
+.nav-back { padding:.6rem 1.2rem; background:var(--dark2); border-bottom:1px solid rgba(255,255,255,.04); font-size:.78rem; color:var(--text2); }
+.nav-back a { color:var(--gold); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="/">← الرئيسية</a> &nbsp;|&nbsp; الرعاية الصحية الإسلامية الرقمية</div>
+
+<div class="hero">
+    <div class="basmala">بسم الله الرحمن الرحيم</div>
+    <h1 class="hero-title">🏥 الرعاية الصحية الإسلامية الرقمية</h1>
+    <div class="hero-verse">﴿وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ﴾ — الشعراء ٨٠</div>
+    <p class="hero-sub">
+        التداوي واجب — والشفاء من الله وحده<br>
+        AI + رقية شرعية + طب نبوي + دواء حلال + وكلاء أذكياء = منظومة الصحة الإسلامية الأولى في العالم
+    </p>
+</div>
+
+<nav>
+    <a href="#" class="active" onclick="show('overview',this)">🌿 نظرة عامة</a>
+    <a href="#" onclick="show('hospitals',this)">🏥 المستشفى الرقمي</a>
+    <a href="#" onclick="show('ruqyah',this)">📿 الرقية الشرعية</a>
+    <a href="#" onclick="show('doctor',this)">🤖 الطبيب الذكي</a>
+    <a href="#" onclick="show('medicine',this)">💊 الدواء الحلال</a>
+    <a href="#" onclick="show('immunity',this)">🛡️ المناعة والوقاية</a>
+    <a href="#" onclick="show('agents',this)">🧠 وكلاء AI</a>
+</nav>
+
+<!-- نظرة عامة -->
+<div class="section active container" id="overview">
+    <div class="verse-banner">
+        ﴿وَنُنَزِّلُ مِنَ الْقُرْآنِ مَا هُوَ شِفَاءٌ وَرَحْمَةٌ لِّلْمُؤْمِنِينَ﴾ — الإسراء ٨٢<br>
+        <span style="font-size:.75rem;opacity:.75;">«تَداوَوْا عِبادَ اللهِ، فإنَّ اللهَ لَمْ يَضَعْ داءً إلَّا وَضَعَ له شِفاءً» — حديث شريف</span>
+    </div>
+    <div class="stat-row" id="overviewStats">
+        <div class="stat-box"><div class="stat-num" style="color:var(--emerald);">٧</div><div class="stat-label">أقسام رئيسية</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--gold);">٣</div><div class="stat-label">آيات الشفاء</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--purple);">AI</div><div class="stat-label">وكلاء أذكياء</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--blue);">٢٤/٧</div><div class="stat-label">متاح دائماً</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--red);">حلال</div><div class="stat-label">كل الأدوية مرخّصة</div></div>
+    </div>
+    <div id="overviewContent" class="loading">جاري التحميل...</div>
+</div>
+
+<!-- المستشفى الرقمي -->
+<div class="section container" id="hospitals">
+    <div class="sec-title">🏥 مكونات المستشفى الإسلامي الرقمي</div>
+    <div class="card-grid" id="hospitalsGrid"><div class="loading">جاري التحميل...</div></div>
+</div>
+
+<!-- الرقية الشرعية -->
+<div class="section container" id="ruqyah">
+    <div class="sec-title">📿 نظام الرقية الشرعية — الشفاء بالقرآن</div>
+    <div class="verse-banner">
+        ﴿قُلْ هُوَ لِلَّذِينَ آمَنُوا هُدًى وَشِفَاءٌ﴾ — فصلت ٤٤<br>
+        <span style="font-size:.75rem;opacity:.75;">«اقرأوا سورة البقرة فإن أخذها بركة وتركها حسرة» — حديث شريف</span>
+    </div>
+    <div class="ruqyah-grid" id="ruqyahGrid"><div class="loading">جاري التحميل...</div></div>
+</div>
+
+<!-- الطبيب الذكي -->
+<div class="section container" id="doctor">
+    <div class="sec-title">🤖 الطبيب الذكي الإسلامي — AI + سنة نبوية</div>
+    <div id="doctorContent" class="loading">جاري التحميل...</div>
+</div>
+
+<!-- الدواء الحلال -->
+<div class="section container" id="medicine">
+    <div class="sec-title">💊 منظومة الدواء الحلال — لا حرام في علاج المسلم</div>
+    <div id="medicineContent" class="loading">جاري التحميل...</div>
+</div>
+
+<!-- المناعة والوقاية -->
+<div class="section container" id="immunity">
+    <div class="sec-title">🛡️ منظومة الوقاية والمناعة الإسلامية</div>
+    <div class="verse-banner">
+        ﴿وَكُلُوا وَاشْرَبُوا وَلَا تُسْرِفُوا﴾ — الأعراف ٣١<br>
+        <span style="font-size:.75rem;opacity:.75;">«المؤمن القوي خير وأحب إلى الله من المؤمن الضعيف» — حديث شريف</span>
+    </div>
+    <div id="immunityContent" class="loading">جاري التحميل...</div>
+</div>
+
+<!-- وكلاء AI -->
+<div class="section container" id="agents">
+    <div class="sec-title">🧠 شبكة وكلاء AI الصحيين</div>
+    <div id="agentsContent" class="loading">جاري التحميل...</div>
+</div>
+
+<script>
+const API = '/api/healthcare';
+
+async function loadAll() {
+    try {
+        const [overview, hospitals, ruqyah, doctor, medicine, immunity, agents] = await Promise.all([
+            fetch(`${API}/overview`).then(r=>r.json()),
+            fetch(`${API}/hospitals`).then(r=>r.json()),
+            fetch(`${API}/ruqyah`).then(r=>r.json()),
+            fetch(`${API}/doctor`).then(r=>r.json()),
+            fetch(`${API}/medicine`).then(r=>r.json()),
+            fetch(`${API}/immunity`).then(r=>r.json()),
+            fetch(`${API}/ai-agents`).then(r=>r.json()),
+        ]);
+        renderOverview(overview.data);
+        renderHospitals(hospitals.data);
+        renderRuqyah(ruqyah.data);
+        renderDoctor(doctor.data);
+        renderMedicine(medicine.data);
+        renderImmunity(immunity.data);
+        renderAgents(agents.data);
+    } catch(e) { console.error('خطأ:', e); }
+}
+
+function objToCards(obj, colorVar='--emerald') {
+    if (!obj || typeof obj !== 'object') return '';
+    return Object.entries(obj).filter(([k])=>k!=='بسم_الله'&&k!=='title'&&k!=='principle').map(([k,v]) => {
+        const val = typeof v === 'object' ? JSON.stringify(v, null, 0).substring(0,120) : String(v).substring(0,200);
+        return `<div class="card"><div class="card-title" style="color:var(${colorVar});">${k}</div><div class="card-desc">${val}</div></div>`;
+    }).join('');
+}
+
+function renderOverview(d) {
+    if (!d) return;
+    const el = document.getElementById('overviewContent');
+    const shariaF = d.shariaFoundation || {};
+    const verses = (shariaF.verses||[]).map(v => `
+        <div style="padding:.6rem .8rem;border-right:3px solid var(--emerald);margin:.4rem 0;background:rgba(26,188,156,.04);border-radius:0 8px 8px 0;">
+            <div style="font-size:.8rem;color:var(--emerald);font-weight:700;">${v.ref||''}</div>
+            <div style="font-size:.82rem;color:var(--gold);font-style:italic;">${v.text||''}</div>
+        </div>`).join('');
+    el.innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div style="background:var(--dark3);border-radius:12px;padding:1.1rem;border:1px solid rgba(26,188,156,.1);">
+                <div style="font-size:.9rem;font-weight:800;color:var(--emerald);margin-bottom:.6rem;">📖 الأساس الشرعي للتداوي</div>
+                <div style="font-size:.8rem;color:var(--gold);margin-bottom:.5rem;">${shariaF.principle||'التداوي بالأسباب والتوكل على الله'}</div>
+                ${verses}
+            </div>
+            <div style="background:var(--dark3);border-radius:12px;padding:1.1rem;border:1px solid rgba(212,175,55,.1);">
+                <div style="font-size:.9rem;font-weight:800;color:var(--gold);margin-bottom:.6rem;">🌿 الطب النبوي</div>
+                <div style="font-size:.78rem;color:var(--text2);line-height:1.9;">
+                    <div>الحبة السوداء — شفاء من كل داء إلا الموت</div>
+                    <div>العسل — شفاء للناس (القرآن الكريم)</div>
+                    <div>الحجامة — من أفضل ما تداويتم</div>
+                    <div>الصوم — والصوم جُنّة (الحديث)</div>
+                    <div>الماء الطاهر — وجعلنا من الماء كل شيء حي</div>
+                </div>
+            </div>
+        </div>`;
+}
+
+function renderHospitals(d) {
+    if (!d) return;
+    const items = Array.isArray(d) ? d : Object.entries(d).map(([k,v])=>({name:k,...(typeof v==='object'?v:{desc:v})}));
+    document.getElementById('hospitalsGrid').innerHTML = items.map(item => `
+        <div class="card">
+            <div class="card-icon">${item.icon||'🏥'}</div>
+            <div class="card-title">${item.name||item.title||''}</div>
+            ${item.desc||item.description ? `<div class="card-desc">${item.desc||item.description}</div>` : ''}
+            ${item.components ? `<div style="margin-top:.4rem;">${(item.components||[]).map(c=>`<span class="tag">${c}</span>`).join('')}</div>` : ''}
+            ${item.verse ? `<div class="card-verse">${item.verse}</div>` : ''}
+        </div>`).join('') || objToCards(d);
+}
+
+function renderRuqyah(d) {
+    if (!d) return;
+    const protocols = d.protocols || d.sessions || (Array.isArray(d) ? d : []);
+    document.getElementById('ruqyahGrid').innerHTML = (protocols.length ? protocols : Object.entries(d).filter(([k])=>k!=='بسم_الله'&&k!=='title').map(([k,v])=>({name:k,text:typeof v==='string'?v:JSON.stringify(v)}))).map(p => `
+        <div class="ruqyah-card">
+            <div class="r-title">📿 ${p.name||p.title||p.surah||''}</div>
+            <div class="r-text">${p.text||p.desc||p.description||p.purpose||''}</div>
+            ${p.note||p.benefit ? `<div class="r-note">💡 ${p.note||p.benefit}</div>` : ''}
+            ${p.verse ? `<div style="font-size:.7rem;color:var(--gold);margin-top:.3rem;font-style:italic;">${p.verse}</div>` : ''}
+        </div>`).join('');
+}
+
+function renderGeneric(id, d, colorVar='--emerald') {
+    const el = document.getElementById(id);
+    if (!d || !el) return;
+    if (Array.isArray(d)) {
+        el.innerHTML = `<div class="card-grid">${d.map(item=>`
+            <div class="card">
+                <div class="card-title" style="color:var(${colorVar});">${item.name||item.title||item.type||Object.keys(item)[0]}</div>
+                <div class="card-desc">${item.desc||item.description||item.purpose||item.function||''}</div>
+                ${item.verse ? `<div class="card-verse">${item.verse}</div>` : ''}
+            </div>`).join('')}</div>`;
+    } else {
+        el.innerHTML = `<div class="card-grid">${objToCards(d, colorVar)}</div>`;
+    }
+}
+
+function renderDoctor(d) { renderGeneric('doctorContent', d, '--blue'); }
+function renderMedicine(d) { renderGeneric('medicineContent', d, '--teal'); }
+function renderImmunity(d) { renderGeneric('immunityContent', d, '--green'); }
+function renderAgents(d) { renderGeneric('agentsContent', d, '--purple'); }
+
+function show(id, el) {
+    event.preventDefault();
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+    document.getElementById(id)?.classList.add('active');
+    el?.classList.add('active');
+}
+
+loadAll();
+</script>
+</body>
+</html>

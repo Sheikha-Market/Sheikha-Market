@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اللوجستيك وسلاسل الإمداد الإسلامية — منظومة شيخة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold:#D4AF37; --copper:#B87333; --dark:#050508; --dark2:#0a0a10;
+    --dark3:#111118; --text:#e8e8f0; --text2:#9090a8;
+    --green:#27ae60; --blue:#2980b9; --purple:#8e44ad;
+    --teal:#16a085; --orange:#d35400; --navy:#1a3a5c;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Tajawal',sans-serif; background:var(--dark); color:var(--text); direction:rtl; }
+
+.hero {
+    background:linear-gradient(160deg,#030509,#040810,#050508);
+    border-bottom:2px solid rgba(41,128,185,.45);
+    padding:52px 20px 32px; text-align:center; position:relative;
+}
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 0%,rgba(41,128,185,.07) 0%,transparent 60%); }
+.basmala { font-size:clamp(1.2rem,3vw,1.75rem); color:var(--gold); margin-bottom:12px; font-weight:700; position:relative; }
+.hero-title {
+    font-size:clamp(1.5rem,4vw,2.5rem); font-weight:900; position:relative;
+    background:linear-gradient(135deg,#5dade2,#fff,var(--copper),#5dade2);
+    background-size:200%; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text; animation:shimmer 4s linear infinite; margin-bottom:10px;
+}
+@keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
+.hero-verse { font-size:clamp(.84rem,2vw,1rem); color:#5dade2; opacity:.85; margin-bottom:6px; position:relative; }
+.hero-sub { font-size:.82rem; color:var(--text2); max-width:700px; margin:0 auto; line-height:1.8; position:relative; }
+
+nav { position:sticky; top:0; z-index:50; background:rgba(5,5,8,.93); backdrop-filter:blur(20px); border-bottom:1px solid rgba(41,128,185,.1); padding:0 12px; display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; }
+nav::-webkit-scrollbar { display:none; }
+nav a { padding:12px 13px; color:var(--text2); text-decoration:none; font-size:.77rem; white-space:nowrap; border-bottom:3px solid transparent; transition:all .2s; font-weight:600; }
+nav a.active, nav a:hover { color:var(--blue); border-color:var(--blue); }
+
+.container { max-width:1400px; margin:0 auto; padding:1.4rem 1.1rem; }
+.section { display:none; animation:fadeIn .35s; }
+.section.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+.verse-banner { background:linear-gradient(135deg,rgba(41,128,185,.07),rgba(212,175,55,.05)); border:1px solid rgba(41,128,185,.18); border-radius:12px; padding:.9rem 1.2rem; margin-bottom:1.1rem; font-size:.85rem; color:#5dade2; text-align:center; line-height:1.9; }
+.sec-title { font-size:1rem; font-weight:800; color:var(--blue); margin:1.2rem 0 .8rem; }
+
+.stat-row { display:grid; grid-template-columns:repeat(auto-fill,minmax(125px,1fr)); gap:.65rem; margin-bottom:1.1rem; }
+.stat-box { background:var(--dark3); border-radius:10px; padding:.85rem; text-align:center; border:1px solid rgba(255,255,255,.04); }
+.stat-num { font-size:1.4rem; font-weight:900; line-height:1.1; }
+.stat-label { font-size:.66rem; color:var(--text2); margin-top:.2rem; }
+
+.port-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(255px,1fr)); gap:.85rem; }
+.port-card { background:var(--dark3); border-radius:12px; padding:1.1rem; border:1px solid rgba(255,255,255,.05); transition:all .22s; }
+.port-card:hover { border-color:rgba(41,128,185,.28); transform:translateY(-2px); }
+.port-icon { font-size:1.7rem; margin-bottom:.4rem; }
+.port-name { font-size:.9rem; font-weight:800; color:var(--blue); }
+.port-loc { font-size:.72rem; color:var(--text2); margin:.25rem 0; }
+.port-cap { font-size:.75rem; color:var(--teal); }
+.port-role { font-size:.73rem; color:var(--text2); margin-top:.3rem; line-height:1.7; }
+.port-tag { display:inline-block; padding:.12rem .42rem; border-radius:8px; font-size:.63rem; font-weight:600; background:rgba(41,128,185,.1); color:var(--blue); border:1px solid rgba(41,128,185,.15); margin:.12rem; }
+
+.transport-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:.8rem; }
+.transport-card { background:var(--dark3); border-radius:11px; padding:.95rem; border-left:3px solid var(--copper); }
+.t-mode { font-size:.88rem; font-weight:800; color:var(--copper); margin-bottom:.3rem; }
+.t-desc { font-size:.75rem; color:var(--text2); line-height:1.7; }
+.t-verse { font-size:.7rem; color:var(--gold); margin-top:.35rem; font-style:italic; }
+
+.zone-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:.85rem; }
+.zone-card { background:var(--dark3); border-radius:12px; padding:1rem; border:1px solid rgba(255,255,255,.05); }
+.z-name { font-size:.88rem; font-weight:800; color:var(--orange); margin-bottom:.3rem; }
+.z-loc { font-size:.7rem; color:var(--text2); }
+.z-spec { font-size:.73rem; color:var(--teal); margin-top:.3rem; }
+
+.gap-list { display:flex; flex-direction:column; gap:.6rem; }
+.gap-item { background:var(--dark3); border-radius:10px; padding:.85rem 1rem; border:1px solid rgba(255,255,255,.04); display:flex; gap:.8rem; align-items:flex-start; }
+.gap-num { width:26px; height:26px; border-radius:50%; background:rgba(211,84,0,.15); color:var(--orange); font-size:.7rem; font-weight:900; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.gap-title { font-size:.82rem; font-weight:700; color:var(--orange); }
+.gap-desc { font-size:.73rem; color:var(--text2); margin-top:.2rem; line-height:1.6; }
+.gap-sol { font-size:.7rem; color:var(--green); margin-top:.25rem; }
+
+.loading { text-align:center; padding:2rem; color:var(--text2); font-size:.85rem; }
+.nav-back { padding:.6rem 1.2rem; background:var(--dark2); border-bottom:1px solid rgba(255,255,255,.04); font-size:.78rem; color:var(--text2); }
+.nav-back a { color:var(--gold); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="nav-back"><a href="/">← الرئيسية</a> &nbsp;|&nbsp; اللوجستيك وسلاسل الإمداد</div>
+
+<div class="hero">
+    <div class="basmala">بسم الله الرحمن الرحيم</div>
+    <h1 class="hero-title">🚢 اللوجستيك وسلاسل الإمداد الإسلامية</h1>
+    <div class="hero-verse">﴿لِإِيلَافِ قُرَيْشٍ ۝ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ﴾ — قريش ١–٢</div>
+    <p class="hero-sub">
+        الموانئ + المطارات + وسائل النقل + المناطق اللوجستية + تحليل الفجوات<br>
+        ١٨ ميناء · ١٢ مطار · ١٠ مناطق لوجستية · ٦ وسائل نقل — كلها خادمة لمنظومة شيخة
+    </p>
+</div>
+
+<nav>
+    <a href="#" class="active" onclick="show('overview',this)">📊 نظرة عامة</a>
+    <a href="#" onclick="show('ports',this)">⚓ الموانئ</a>
+    <a href="#" onclick="show('airports',this)">✈️ المطارات</a>
+    <a href="#" onclick="show('transport',this)">🚛 وسائل النقل</a>
+    <a href="#" onclick="show('zones',this)">🏭 المناطق اللوجستية</a>
+    <a href="#" onclick="show('gaps',this)">🔍 تحليل الفجوات</a>
+</nav>
+
+<!-- نظرة عامة -->
+<div class="section active container" id="overview">
+    <div class="verse-banner">
+        ﴿وَسَخَّرَ لَكُمُ الْفُلْكَ لِتَجْرِيَ فِي الْبَحْرِ بِأَمْرِهِ﴾ — إبراهيم ٣٢<br>
+        ﴿وَخَلَقَ الْأَنْعَامَ ۗ لَكُمْ فِيهَا دِفْءٌ وَمَنَافِعُ وَمِنْهَا تَأْكُلُونَ ۝ وَتَحْمِلُ أَثْقَالَكُمْ إِلَىٰ بَلَدٍ لَّمْ تَكُونُوا بَالِغِيهِ إِلَّا بِشِقِّ الْأَنفُسِ﴾ — النحل ٥–٧
+    </div>
+    <div class="stat-row" id="dashStats">
+        <div class="stat-box"><div class="stat-num" style="color:var(--blue);">١٨</div><div class="stat-label">ميناء استراتيجي</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--teal);">١٢</div><div class="stat-label">مطار دولي</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--orange);">١٠</div><div class="stat-label">منطقة لوجستية</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--copper);">٨</div><div class="stat-label">خط أنابيب</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--green);">١٥</div><div class="stat-label">شركة شحن بحري</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--purple);">١٢</div><div class="stat-label">فجوة لوجستية مُحلَّلة</div></div>
+    </div>
+    <div id="foundationContent" class="loading">جاري التحميل...</div>
+</div>
+
+<!-- الموانئ -->
+<div class="section container" id="ports">
+    <div class="sec-title">⚓ الموانئ الإسلامية الاستراتيجية</div>
+    <div class="port-grid" id="portsGrid"><div class="loading">جاري التحميل...</div></div>
+</div>
+
+<!-- المطارات -->
+<div class="section container" id="airports">
+    <div class="sec-title">✈️ المطارات الإسلامية الكبرى</div>
+    <div class="port-grid" id="airportsGrid"><div class="loading">جاري التحميل...</div></div>
+</div>
+
+<!-- وسائل النقل -->
+<div class="section container" id="transport">
+    <div class="sec-title">🚛 وسائل النقل والشحن — كل طريق يؤدي لشيخة</div>
+    <div class="transport-grid" id="transportGrid"><div class="loading">جاري التحميل...</div></div>
+</div>
+
+<!-- المناطق اللوجستية -->
+<div class="section container" id="zones">
+    <div class="sec-title">🏭 المناطق اللوجستية الإسلامية الاستراتيجية</div>
+    <div class="zone-grid" id="zonesGrid"><div class="loading">جاري التحميل...</div></div>
+</div>
+
+<!-- تحليل الفجوات -->
+<div class="section container" id="gaps">
+    <div class="sec-title">🔍 تحليل الفجوات اللوجستية — المشكلة والحل</div>
+    <div class="gap-list" id="gapsGrid"><div class="loading">جاري التحميل...</div></div>
+</div>
+
+<script>
+const API = '/api/supply-chain';
+
+async function loadAll() {
+    try {
+        const [dashboard, foundation, ports, airports, transport, zones, gaps] = await Promise.all([
+            fetch(`${API}/dashboard`).then(r=>r.json()),
+            fetch(`${API}/foundation`).then(r=>r.json()),
+            fetch(`${API}/ports`).then(r=>r.json()),
+            fetch(`${API}/airports`).then(r=>r.json()),
+            fetch(`${API}/transport`).then(r=>r.json()),
+            fetch(`${API}/zones`).then(r=>r.json()),
+            fetch(`${API}/gap-analysis`).then(r=>r.json()),
+        ]);
+        renderDashboard(dashboard.data);
+        renderFoundation(foundation.data);
+        renderPorts(ports.data, 'portsGrid', '⚓');
+        renderPorts(airports.data, 'airportsGrid', '✈️');
+        renderTransport(transport.data);
+        renderZones(zones.data);
+        renderGaps(gaps.data);
+    } catch(e) { console.error('خطأ:', e); }
+}
+
+function renderDashboard(d) {
+    if (!d || !d.stats) return;
+    const s = d.stats;
+    document.getElementById('dashStats').innerHTML = Object.entries(s).map(([k,v]) => `
+        <div class="stat-box"><div class="stat-num" style="color:var(--blue);">${v}</div><div class="stat-label">${k}</div></div>`).join('');
+}
+
+function renderFoundation(d) {
+    const el = document.getElementById('foundationContent');
+    if (!d) return;
+    const items = Array.isArray(d) ? d : Object.entries(d).filter(([k])=>k!=='بسم_الله').map(([k,v])=>({title:k,desc:typeof v==='string'?v:JSON.stringify(v)}));
+    el.innerHTML = `<div class="transport-grid">${items.map(item=>`
+        <div class="transport-card">
+            <div class="t-mode">${item.title||item.name||''}</div>
+            <div class="t-desc">${item.desc||item.description||item.principle||''}</div>
+            ${item.verse ? `<div class="t-verse">${item.verse}</div>` : ''}
+        </div>`).join('')}</div>`;
+}
+
+function renderPorts(d, targetId, icon='⚓') {
+    const el = document.getElementById(targetId);
+    if (!d) return;
+    const ports = Array.isArray(d) ? d : (d.ports || d.airports || d.main || Object.values(d).filter(v=>typeof v==='object'));
+    el.innerHTML = ports.map(p => `
+        <div class="port-card">
+            <div class="port-icon">${p.icon||icon}</div>
+            <div class="port-name">${p.name||p.port||p.airport||''}</div>
+            <div class="port-loc">📍 ${p.location||p.country||p.city||''}</div>
+            ${p.capacity||p.handling||p.throughput ? `<div class="port-cap">📦 ${p.capacity||p.handling||p.throughput}</div>` : ''}
+            <div class="port-role">${p.role||p.desc||p.description||p.specialization||''}</div>
+            ${(p.types||p.services||p.terminals||[]).map(t=>`<span class="port-tag">${t}</span>`).join('') || ''}
+            ${p.strategic ? `<span class="port-tag" style="background:rgba(212,175,55,.1);color:var(--gold);border-color:rgba(212,175,55,.2);">استراتيجي</span>` : ''}
+        </div>`).join('');
+}
+
+function renderTransport(d) {
+    const el = document.getElementById('transportGrid');
+    if (!d) return;
+    const modes = Array.isArray(d) ? d : (d.modes || d.transport || Object.entries(d).filter(([k])=>k!=='بسم_الله').map(([k,v])=>({mode:k,...(typeof v==='object'?v:{desc:v})})));
+    el.innerHTML = modes.map(m => `
+        <div class="transport-card">
+            <div class="t-mode">${m.icon||''} ${m.mode||m.name||m.type||''}</div>
+            <div class="t-desc">${m.desc||m.description||m.role||m.advantage||''}</div>
+            ${m.verse ? `<div class="t-verse">${m.verse}</div>` : ''}
+            ${m.sheikhUse||m.use ? `<div style="font-size:.7rem;color:var(--teal);margin-top:.25rem;">🔗 ${m.sheikhUse||m.use}</div>` : ''}
+        </div>`).join('');
+}
+
+function renderZones(d) {
+    const el = document.getElementById('zonesGrid');
+    if (!d) return;
+    const zones = Array.isArray(d) ? d : (d.zones || Object.values(d).filter(v=>typeof v==='object'));
+    el.innerHTML = zones.map(z => `
+        <div class="zone-card">
+            <div class="z-name">🏭 ${z.name||z.zone||''}</div>
+            <div class="z-loc">📍 ${z.location||z.country||z.region||''}</div>
+            <div class="z-spec">${z.specialization||z.focus||z.type||z.desc||''}</div>
+            ${z.capacity||z.size ? `<div style="font-size:.7rem;color:var(--text2);margin-top:.3rem;">📐 ${z.capacity||z.size}</div>` : ''}
+            ${z.advantages ? `<div style="margin-top:.4rem;">${(z.advantages||[]).map(a=>`<span class="port-tag" style="background:rgba(211,84,0,.08);color:var(--orange);border-color:rgba(211,84,0,.15);">${a}</span>`).join('')}</div>` : ''}
+        </div>`).join('');
+}
+
+function renderGaps(d) {
+    const el = document.getElementById('gapsGrid');
+    if (!d) return;
+    const gaps = Array.isArray(d) ? d : (d.gaps || d.issues || Object.entries(d).filter(([k])=>k!=='بسم_الله').map(([k,v],i)=>({num:i+1,title:k,desc:typeof v==='string'?v:JSON.stringify(v)})));
+    el.innerHTML = `<div class="gap-list">${gaps.map((g,i) => `
+        <div class="gap-item">
+            <div class="gap-num">${g.num||i+1}</div>
+            <div>
+                <div class="gap-title">${g.title||g.gap||g.name||''}</div>
+                <div class="gap-desc">${g.desc||g.description||g.problem||''}</div>
+                ${g.solution||g.sheikhSolution ? `<div class="gap-sol">✅ ${g.solution||g.sheikhSolution}</div>` : ''}
+            </div>
+        </div>`).join('')}</div>`;
+}
+
+function show(id, el) {
+    event.preventDefault();
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+    document.getElementById(id)?.classList.add('active');
+    el?.classList.add('active');
+}
+
+loadAll();
+</script>
+</body>
+</html>

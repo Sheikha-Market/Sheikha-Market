@@ -36792,6 +36792,82 @@ app.get('/api/greatest-trade/background', (req, res) => {
     res.json({ success: true, data: greatestTrade.getBackgroundAndDisplay(), message: 'خلفية المحرك وعرضه', timestamp: new Date().toISOString() });
 });
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// المرحلة ١٩ — الرعاية الصحية الإسلامية الرقمية
+// «وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ» — الشعراء ٨٠
+// ═══════════════════════════════════════════════════════════════════════════════
+const SheikhaDIHC = (() => { try { return require('./lib/sheikha-digital-islamic-healthcare.js'); } catch(e) { console.warn('⚠️ [DIHC] فشل التحميل:', e.message); return null; } })();
+const dihc = SheikhaDIHC ? new SheikhaDIHC() : null;
+
+app.get('/api/healthcare/overview', (req, res) => {
+    if (!dihc) return res.json({ success: false, message: 'محرك الصحة الإسلامية غير متاح' });
+    res.json({ success: true, data: dihc.getOverview(), message: 'نظرة عامة على الرعاية الصحية الإسلامية', timestamp: new Date().toISOString() });
+});
+app.get('/api/healthcare/hospitals', (req, res) => {
+    if (!dihc) return res.json({ success: false, message: 'محرك الصحة الإسلامية غير متاح' });
+    res.json({ success: true, data: dihc.getHospitalComponents(), message: 'مكونات المستشفى الإسلامي الرقمي', timestamp: new Date().toISOString() });
+});
+app.get('/api/healthcare/ruqyah', (req, res) => {
+    if (!dihc) return res.json({ success: false, message: 'محرك الصحة الإسلامية غير متاح' });
+    res.json({ success: true, data: dihc.getRuqyahSystem(), message: 'نظام الرقية الشرعية', timestamp: new Date().toISOString() });
+});
+app.get('/api/healthcare/doctor', (req, res) => {
+    if (!dihc) return res.json({ success: false, message: 'محرك الصحة الإسلامية غير متاح' });
+    res.json({ success: true, data: dihc.getDigitalDoctor(), message: 'الطبيب الذكي الإسلامي', timestamp: new Date().toISOString() });
+});
+app.get('/api/healthcare/medicine', (req, res) => {
+    if (!dihc) return res.json({ success: false, message: 'محرك الصحة الإسلامية غير متاح' });
+    res.json({ success: true, data: dihc.getMedicineSystem(), message: 'منظومة الدواء الحلال', timestamp: new Date().toISOString() });
+});
+app.get('/api/healthcare/ai-agents', (req, res) => {
+    if (!dihc) return res.json({ success: false, message: 'محرك الصحة الإسلامية غير متاح' });
+    res.json({ success: true, data: dihc.getAIAgentsNetwork(), message: 'شبكة وكلاء AI الصحيين', timestamp: new Date().toISOString() });
+});
+app.get('/api/healthcare/immunity', (req, res) => {
+    if (!dihc) return res.json({ success: false, message: 'محرك الصحة الإسلامية غير متاح' });
+    res.json({ success: true, data: dihc.getImmunityAndStrength(), message: 'منظومة الوقاية والمناعة الإسلامية', timestamp: new Date().toISOString() });
+});
+app.get('/api/healthcare/report', (req, res) => {
+    if (!dihc) return res.json({ success: false, message: 'محرك الصحة الإسلامية غير متاح' });
+    res.json({ success: true, data: dihc.getFullReport(), message: 'التقرير الكامل للمنظومة الصحية', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٢٠ — اللوجستيك وسلاسل الإمداد الإسلامية
+// "لِإِيلَافِ قُرَيْشٍ ۝ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ"
+// ═══════════════════════════════════════════════════════════════════════════════
+const SheikhaLogisticsSupplyChain = (() => { try { return require('./lib/sheikha-logistics-supply-chain.js'); } catch(e) { console.warn('⚠️ [Logistics] فشل التحميل:', e.message); return null; } })();
+const logisticsChain = SheikhaLogisticsSupplyChain ? new SheikhaLogisticsSupplyChain() : null;
+
+app.get('/api/supply-chain/dashboard', (req, res) => {
+    if (!logisticsChain) return res.json({ success: false, message: 'محرك اللوجستك غير متاح' });
+    res.json({ success: true, data: logisticsChain.getDashboard(), message: 'لوحة اللوجستيك وسلاسل الإمداد', timestamp: new Date().toISOString() });
+});
+app.get('/api/supply-chain/foundation', (req, res) => {
+    if (!logisticsChain) return res.json({ success: false, message: 'محرك اللوجستك غير متاح' });
+    res.json({ success: true, data: logisticsChain.getIslamicFoundation(), message: 'الأساس الإسلامي للوجستيك', timestamp: new Date().toISOString() });
+});
+app.get('/api/supply-chain/ports', (req, res) => {
+    if (!logisticsChain) return res.json({ success: false, message: 'محرك اللوجستك غير متاح' });
+    res.json({ success: true, data: logisticsChain.getPorts(), message: 'الموانئ الإسلامية الاستراتيجية', timestamp: new Date().toISOString() });
+});
+app.get('/api/supply-chain/airports', (req, res) => {
+    if (!logisticsChain) return res.json({ success: false, message: 'محرك اللوجستك غير متاح' });
+    res.json({ success: true, data: logisticsChain.getAirports(), message: 'المطارات الإسلامية الكبرى', timestamp: new Date().toISOString() });
+});
+app.get('/api/supply-chain/transport', (req, res) => {
+    if (!logisticsChain) return res.json({ success: false, message: 'محرك اللوجستك غير متاح' });
+    res.json({ success: true, data: logisticsChain.getTransportModes(), message: 'وسائل النقل والشحن', timestamp: new Date().toISOString() });
+});
+app.get('/api/supply-chain/zones', (req, res) => {
+    if (!logisticsChain) return res.json({ success: false, message: 'محرك اللوجستك غير متاح' });
+    res.json({ success: true, data: logisticsChain.getLogisticsZones(), message: 'المناطق اللوجستية الإسلامية', timestamp: new Date().toISOString() });
+});
+app.get('/api/supply-chain/gap-analysis', (req, res) => {
+    if (!logisticsChain) return res.json({ success: false, message: 'محرك اللوجستك غير متاح' });
+    res.json({ success: true, data: logisticsChain.getGapAnalysis(), message: 'تحليل الفجوات اللوجستية', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
