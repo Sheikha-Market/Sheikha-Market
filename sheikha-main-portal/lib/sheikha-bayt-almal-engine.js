@@ -210,6 +210,234 @@ const AI_BAYT_ALMAL_ENGINES = [
     { id: 'merchant_coach', name: 'المرشد التجاري المستمر', icon: '📈', desc: 'يُرافق التاجر الجديد ويُقدّم نصائح شخصية لنموه' },
 ];
 
+// ══ التغطية العالمية لبيت المال — جزيرة العرب وما وراءها ══
+const GLOBAL_MUSLIM_COVERAGE = {
+    title: 'بيت مال المسلمين في كل مكان',
+    total_muslims: '٢.٢ مليار مسلم في العالم',
+    quran: '﴿إِنَّ هَذِهِ أُمَّتُكُمْ أُمَّةً وَاحِدَةً﴾ — الأنبياء ٩٢',
+    hadith: '«مَثَلُ المؤمنين في توادهم وتراحمهم وتعاطفهم مثل الجسد» — البخاري ومسلم',
+
+    arabian_peninsula: {
+        name: 'جزيرة العرب — أصل الإسلام ومنطلقه',
+        icon: '🕋',
+        desc: 'قلب العالم الإسلامي — حرمان شريفان — أرض الإسلام الأولى',
+        quran: '﴿وَإِذْ جَعَلْنَا الْبَيْتَ مَثَابَةً لِّلنَّاسِ وَأَمْنًا﴾ — البقرة ١٢٥',
+        countries: [
+            { name: 'المملكة العربية السعودية', capital: 'الرياض', muslims: '35 مليون', priority: 'مركز + خادم الحرمين', programs: ['خدمة الحجاج', 'نشر الإسلام', 'رعاية العمال', 'توظيف الشباب'] },
+            { name: 'اليمن', capital: 'صنعاء', muslims: '33 مليون', priority: 'عاجل — أزمة إنسانية', programs: ['طعام + دواء فوري', 'بناء مساجد', 'إعادة تعليم', 'تمكين اقتصادي'] },
+            { name: 'سلطنة عُمان', capital: 'مسقط', muslims: '4.5 مليون', priority: 'تطوير + استقرار', programs: ['تجارة بحرية', 'استثمار سياحي حلال', 'تعليم'] },
+            { name: 'الإمارات العربية المتحدة', capital: 'أبوظبي', muslims: '3.5 مليون مواطن', priority: 'شراكة + تمويل', programs: ['مركز إسلامي مالي', 'رعاية العمال الوافدين', 'دعوة'] },
+            { name: 'قطر', capital: 'الدوحة', muslims: '300 ألف مواطن', priority: 'شريك استراتيجي', programs: ['تمويل إعلام إسلامي', 'مشاريع تعليم', 'رعاية الجاليات'] },
+            { name: 'البحرين', capital: 'المنامة', muslims: '700 ألف', priority: 'مركز مالي إسلامي', programs: ['صكوك إسلامية', 'تمكين اقتصادي'] },
+            { name: 'الكويت', capital: 'الكويت', muslims: '1.5 مليون مواطن', priority: 'شراكة تمويل', programs: ['بيت الزكاة الكويتي', 'صناديق وقف عالمية'] },
+        ],
+        key_focus: [
+            'صون هوية الجزيرة الإسلامية',
+            'خدمة الحجاج والمعتمرين من أفقر المسلمين',
+            'رعاية العمال الوافدين وضمان حقوقهم',
+            'إيجاد فرص عمل للشباب العربي',
+        ],
+    },
+
+    outside_arabia: {
+        name: 'خارج جزيرة العرب — الأمة الإسلامية الكبرى',
+        icon: '🌙',
+        desc: '٥٧ دولة OIC وأكثر — الجسد الواحد الممتد من المغرب إلى إندونيسيا',
+        quran: '﴿وَالْمُؤْمِنُونَ وَالْمُؤْمِنَاتُ بَعْضُهُمْ أَوْلِيَاءُ بَعْضٍ﴾ — التوبة ٧١',
+        regions: [
+            {
+                region: 'شمال أفريقيا وبلاد الشام',
+                countries: ['مصر', 'الأردن', 'سوريا', 'لبنان', 'فلسطين', 'العراق', 'المغرب', 'تونس', 'الجزائر', 'ليبيا'],
+                muslims: '٣٥٠ مليون',
+                priorities: ['فلسطين — فرض عين على كل مسلم', 'إعادة إعمار سوريا والعراق', 'توظيف شباب مصر والمغرب العربي'],
+                programs: ['صندوق نصرة فلسطين', 'إعادة إعمار إسلامية', 'تمكين اقتصادي شبابي'],
+            },
+            {
+                region: 'جنوب آسيا',
+                countries: ['باكستان', 'بنغلاديش', 'أفغانستان', 'المالديف'],
+                muslims: '٦٠٠ مليون',
+                priorities: ['الفقر المدقع في بنغلاديش', 'إعادة بناء أفغانستان', 'تحصين باكستان اقتصادياً'],
+                programs: ['بنية تحتية صناعية', 'تجارة نسيج حلال', 'تعليم وتكنولوجيا'],
+            },
+            {
+                region: 'جنوب شرق آسيا',
+                countries: ['إندونيسيا', 'ماليزيا', 'بروناي', 'بنغلاديش'],
+                muslims: '٣٠٠ مليون',
+                priorities: ['نموذج إسلامي ناجح — شراكة وتطوير'],
+                programs: ['صكوك ماليزيا', 'بنوك إسلامية', 'تجارة حلال'],
+            },
+            {
+                region: 'أفريقيا جنوب الصحراء',
+                countries: ['نيجيريا', 'السنغال', 'مالي', 'غينيا', 'النيجر', 'الصومال', 'إثيوبيا'],
+                muslims: '٢٥٠ مليون',
+                priorities: ['أعلى نسبة فقر في الأمة — أولوية قصوى'],
+                programs: ['بنية تحتية طاقة ومياه', 'زراعة وأمن غذائي', 'مساجد ومدارس'],
+            },
+            {
+                region: 'آسيا الوسطى والقوقاز',
+                countries: ['كازاخستان', 'أوزبكستان', 'تركمانستان', 'طاجيكستان', 'قيرغيزستان', 'أذربيجان'],
+                muslims: '٧٠ مليون',
+                priorities: ['إعادة البناء الإسلامي بعد الشيوعية'],
+                programs: ['تعليم إسلامي', 'مساجد', 'تمكين اقتصادي'],
+            },
+            {
+                region: 'تركيا وإيران ومحيطهما',
+                countries: ['تركيا', 'إيران', 'أذربيجان'],
+                muslims: '١٧٠ مليون',
+                priorities: ['شراكة ثقافية وتجارية إسلامية'],
+                programs: ['تجارة حلال', 'سياحة إسلامية', 'تبادل علمي'],
+            },
+        ],
+        urgent_cases: [
+            { country: 'فلسطين', status: 'احتلال + مجازر', action: 'أولوية عليا — دعم فوري ومستمر' },
+            { country: 'اليمن', status: 'أزمة إنسانية', action: 'طعام ودواء + بناء بنية تحتية' },
+            { country: 'الصومال', status: 'هشاشة + فقر', action: 'تأسيس بنية تحتية من الصفر' },
+            { country: 'أفغانستان', status: 'بناء دولة إسلامية', action: 'دعم اقتصادي + تعليم + تجارة' },
+        ],
+    },
+
+    diaspora_muslims: {
+        name: 'المسلمون في كل مكان — الأقليات الإسلامية',
+        icon: '🌍',
+        desc: 'مسلمو الغرب والصين والهند وسائر البلاد غير الإسلامية — جزء من الأمة لا يُنسى',
+        hadith: '«المسلم أخو المسلم لا يظلمه ولا يُسلمه» — البخاري ومسلم',
+        regions: [
+            { region: 'أوروبا', muslims: '٥٠ مليون', needs: ['هوية إسلامية', 'مساجد ومراكز', 'حماية من الإسلاموفوبيا', 'تمكين اقتصادي'] },
+            { region: 'الهند', muslims: '٢٠٠ مليون', needs: ['حماية الأقلية', 'تعليم إسلامي', 'تمكين اقتصادي', 'وحدة إسلامية'] },
+            { region: 'الصين', muslims: '٢٣ مليون', needs: ['حرية الشعائر', 'دعم الأويغور', 'صون الهوية'] },
+            { region: 'أمريكا الشمالية', muslims: '٦ مليون', needs: ['دعوة وتعريف بالإسلام', 'مراكز إسلامية', 'رعاية مسلمي السجون'] },
+            { region: 'أستراليا وأوقيانوسيا', muslims: '٨٠٠ ألف', needs: ['مساجد + مدارس', 'دعوة'] },
+            { region: 'أفريقيا غير المسلمة', muslims: '١٠٠ مليون أقلية', needs: ['حماية دينية', 'تمكين اقتصادي', 'مساجد'] },
+        ],
+        support_programs: [
+            { name: 'صندوق حماية المسلمين في الغرب', desc: 'دعم قانوني + ديني + اقتصادي للمسلمين في دول الأقليات' },
+            { name: 'شبكة المساجد العالمية', desc: 'مسجد في كل مدينة فيها مسلمون — برعاية بيت المال' },
+            { name: 'تعليم الأبناء في الغرب', desc: 'مدارس إسلامية أو برامج تكميلية لتعليم الهوية' },
+            { name: 'الدعوة الذكية في الغرب', desc: 'دعوة عبر الذكاء الاصطناعي والترجمة والوسائط الرقمية' },
+        ],
+    },
+};
+
+// ══ إطار الأمن الرباعي للمسلمين ══
+const SECURITY_FRAMEWORK = {
+    title: 'إطار الأمن الرباعي لبيت المال',
+    icon: '🛡️',
+    quran: '﴿الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ﴾ — قريش ٤',
+    pillars: [
+        {
+            id: 'financial_security',
+            name: 'الأمن المالي',
+            icon: '💰',
+            desc: 'لا مسلم يفقد ماله بسبب ربا أو اختلاس أو أزمات مالية',
+            mechanisms: [
+                'صكوك إسلامية محمية — لا ربا',
+                'تأمين إسلامي تكافلي على المدخرات',
+                'محرك الزكاة يحمي المال ويطهره',
+                'الصندوق السيادي يحفظ الثروة الجماعية',
+            ],
+            kpi: 'كل مسلم له حساب محمي في منظومة بيت المال',
+        },
+        {
+            id: 'livelihood_security',
+            name: 'الأمن المعيشي',
+            icon: '🌿',
+            desc: 'ضمان الاحتياجات الأساسية لكل مسلم في أي مكان',
+            mechanisms: [
+                'شبكة غذاء حلال عالمية — لا جائع بين المسلمين',
+                'سكن آمن مضمون — حق لكل مسلم',
+                'رعاية صحية شاملة بالأدوية الحلال',
+                'تعليم مضمون للأبناء',
+            ],
+            kpi: 'لا مسلم ينام جائعاً ولا مريض بلا دواء',
+        },
+        {
+            id: 'dignified_living',
+            name: 'الكرامة المعيشية',
+            icon: '✨',
+            desc: 'ليس البقاء فقط — بل العيش بكرامة ووقار يليق بالمسلم خليفة الله في الأرض',
+            mechanisms: [
+                'مستوى معيشي لائق فوق حد الكفاف',
+                'لا إذلال في طلب المساعدة — الحق لا الفضل',
+                'ملبس وسكن يناسب كرامة الإنسان',
+                'ترفيه حلال ورياضة وثقافة',
+            ],
+            hadith: '«إن الله جميل يحب الجمال» — مسلم',
+            kpi: 'كل مسلم يعيش بمستوى يليق بخليفة الله',
+        },
+        {
+            id: 'islamic_honor',
+            name: 'العزة للإسلام',
+            icon: '⚔️',
+            desc: 'قوة الأمة الاقتصادية = قوة الإسلام في العالم — لا يُهان مسلم بسبب ضعف اقتصادي',
+            quran: '﴿وَلِلَّهِ الْعِزَّةُ وَلِرَسُولِهِ وَلِلْمُؤْمِنِينَ﴾ — المنافقون ٨',
+            mechanisms: [
+                'الصندوق السيادي يجعل للمسلمين ثقلاً دولياً',
+                'لا مسلم يضطر للاستجداء من غير مسلم',
+                'التجارة الإسلامية تجعل العالم يحتاج المسلمين',
+                'العلم والتقنية الإسلامية تُقدّم الأمة للعالم',
+            ],
+            kpi: 'الإسلام قوة اقتصادية يحسب لها حساب في العالم',
+        },
+    ],
+};
+
+// ══ خطة فلسطين الخاصة ══
+const PALESTINE_PRIORITY = {
+    title: 'فلسطين — أولوية إسلامية فوق كل أولوية',
+    icon: '🇵🇸',
+    quran: '﴿سُبْحَانَ الَّذِي أَسْرَىٰ بِعَبْدِهِ لَيْلًا مِّنَ الْمَسْجِدِ الْحَرَامِ إِلَى الْمَسْجِدِ الْأَقْصَى﴾ — الإسراء ١',
+    basis: 'المسجد الأقصى بيت المقدس — قبلتنا الأولى وأرض الأنبياء',
+    allocations: [
+        { category: 'إغاثة فورية', percentage: '30%', desc: 'طعام + دواء + مياه + إيواء' },
+        { category: 'إعادة الإعمار', percentage: '40%', desc: 'منازل + مستشفيات + مدارس + بنية تحتية' },
+        { category: 'التعليم والهوية', percentage: '15%', desc: 'مدارس + مناهج إسلامية + ذاكرة الأمة' },
+        { category: 'الدعوة والتعريف بالقضية', percentage: '15%', desc: 'إعلام + قانون + مناصرة دولية' },
+    ],
+    commitment: 'نسبة ثابتة من إيرادات بيت المال لفلسطين — لا تتوقف ولا تُقطع',
+};
+
+// ══ المسلمون في الأقليات — برامج خاصة ══
+const MINORITY_MUSLIMS_PROGRAMS = [
+    {
+        id: 'legal_shield',
+        name: 'الدرع القانوني الإسلامي',
+        icon: '⚖️',
+        desc: 'محامون مسلمون يدافعون عن مسلمي الأقليات في المحاكم الغربية والآسيوية',
+        coverage: 'أوروبا — أمريكا — الهند — الصين',
+        funding: 'من بيت المال عبر صندوق حقوق المسلم',
+    },
+    {
+        id: 'masjid_builder',
+        name: 'شبكة بيت المال للمساجد العالمية',
+        icon: '🕌',
+        desc: 'في كل مدينة يعيش فيها ٥٠٠ مسلم أو أكثر — مسجد بتمويل بيت المال',
+        quran: '﴿إِنَّمَا يَعْمُرُ مَسَاجِدَ اللَّهِ مَنْ آمَنَ بِاللَّهِ﴾ — التوبة ١٨',
+        target: '١٠٠٠٠ مسجد عالمي في ١٠ سنوات',
+    },
+    {
+        id: 'education_preserve',
+        name: 'صون هوية أبناء المسلمين',
+        icon: '📚',
+        desc: 'مدارس إسلامية مستقلة أو برامج تكميلية — تُعلّم الأبناء دينهم ولغتهم وهويتهم',
+        coverage: '٥٠ مليون مسلم في أوروبا + ٢٠٠ مليون في الهند',
+        target: 'كل طفل مسلم في الغرب يتعلم الإسلام',
+    },
+    {
+        id: 'dawah_digital',
+        name: 'الدعوة الرقمية في غير البلاد الإسلامية',
+        icon: '📡',
+        desc: 'AI ومحتوى إسلامي بكل لغات العالم — نشر الإسلام بالحكمة والحسنى',
+        tools: ['مقاطع إسلامية مترجمة', 'كتب وترجمات القرآن', 'برامج ترحيب بالمسلمين الجدد'],
+    },
+    {
+        id: 'uyghur_support',
+        name: 'دعم الأويغور والمسلمين المضطهدين',
+        icon: '🤲',
+        desc: 'الأويغور في الصين + الروهينجا + كل مسلم مضطهد — حق ثابت في بيت المال',
+        hadith: '«من لم يهتم بأمر المسلمين فليس منهم» — طبراني',
+    },
+];
+
 class SheikhaIslamicBaytAlMal {
     constructor() {
         this.identity = BAYT_AL_MAL_IDENTITY;
@@ -219,6 +447,11 @@ class SheikhaIslamicBaytAlMal {
         this.prophecy = PROPHETIC_TARGET;
         this.managedSystem = MANAGED_INVESTMENT_SYSTEM;
         this.aiEngines = AI_BAYT_ALMAL_ENGINES;
+        // التوسع العالمي
+        this.globalCoverage = GLOBAL_MUSLIM_COVERAGE;
+        this.securityFramework = SECURITY_FRAMEWORK;
+        this.palestinePriority = PALESTINE_PRIORITY;
+        this.minorityPrograms = MINORITY_MUSLIMS_PROGRAMS;
         this.active = false;
         this.registeredBeneficiaries = 0;
         this.merchantsCreated = 0;
@@ -229,6 +462,7 @@ class SheikhaIslamicBaytAlMal {
         console.log('🏛️ [BaytAlMal] بيت مال الإسلام والمسلمين — يعمل');
         console.log('   الهدف: لا مسلم فقير — لا مسلم مسكين — حتى تُرفض الصدقة');
         console.log(`   الشرائح: ${this.segments.length} | التمويل: ${this.funding.length} قناة | AI: ${this.aiEngines.length} محرك`);
+        console.log('   التغطية: جزيرة العرب + ٥٧ دولة OIC + مسلمو العالم أجمع');
     }
 
     getStatus() {
@@ -242,6 +476,13 @@ class SheikhaIslamicBaytAlMal {
             zeroPovertyTarget: this.identity.zeroPovertryTarget,
             targetYear: this.identity.targetYear,
             propheticGoal: this.prophecy.hadith.substring(0, 80) + '...',
+            globalCoverage: {
+                arabianPeninsula: this.globalCoverage.arabian_peninsula.countries.length + ' دول',
+                outsideArabia: this.globalCoverage.outside_arabia.regions.length + ' مناطق',
+                diaspora: this.globalCoverage.diaspora_muslims.regions.length + ' تجمعات',
+                totalMuslims: this.globalCoverage.total_muslims,
+            },
+            securityPillars: this.securityFramework.pillars.length,
         };
     }
 
@@ -253,6 +494,17 @@ class SheikhaIslamicBaytAlMal {
         if (age >= 60) return { recommendation: 'managed_wealth', track: 'كبار السن', support: 'وكيل استثماري + راتب شهري' };
         if (!canWork) return { recommendation: 'sadaqa_welfare', track: 'كفاية كاملة', support: 'بيت المال يُكفل تماماً' };
         return { recommendation: 'workers', track: 'توظيف أو تأهيل تجاري', support: 'فرصة عمل + تدريب' };
+    }
+
+    getGlobalOverview() {
+        return {
+            identity: this.identity,
+            totalMuslims: this.globalCoverage.total_muslims,
+            arabianPeninsula: { name: this.globalCoverage.arabian_peninsula.name, countries: this.globalCoverage.arabian_peninsula.countries.length, focus: this.globalCoverage.arabian_peninsula.key_focus },
+            outsideArabia: { regions: this.globalCoverage.outside_arabia.regions.length, urgentCases: this.globalCoverage.outside_arabia.urgent_cases },
+            diaspora: { regions: this.globalCoverage.diaspora_muslims.regions.length, programs: this.globalCoverage.diaspora_muslims.support_programs.length },
+            security: this.securityFramework.pillars.map(p => ({ id: p.id, name: p.name, icon: p.icon })),
+        };
     }
 }
 

@@ -36166,6 +36166,172 @@ app.get('/api/sovereign-fund/targets', (req, res) => {
     res.json({ success: true, data: sovereignFund.targets, message: 'مراحل الصندوق السيادي 2026-2036', timestamp: new Date().toISOString() });
 });
 
+// ══════════════════════════════════════════════════════
+// 🏛️ بيت مال الإسلام والمسلمين — منظومة شيخة
+// بسم الله الرحمن الرحيم
+// الهدف: لا مسلم فقير — لا مسلم مسكين — لا ابن سبيل محتاج
+// «حتى يمشي الرجل بالصدقة فلا يجد أحداً يقبلها» — البخاري
+// ══════════════════════════════════════════════════════
+let baytAlMal;
+try {
+    baytAlMal = require('./lib/sheikha-bayt-almal-engine');
+    baytAlMal.start();
+} catch (e) {
+    console.error('⚠️ [BaytAlMal] فشل التحميل:', e.message);
+}
+
+// حالة بيت المال
+app.get('/api/bayt-almal/status', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.getStatus(), message: 'بيت مال الإسلام والمسلمين — يعمل لله', timestamp: new Date().toISOString() });
+});
+
+// شرائح الأمة وخطة كل شريحة
+app.get('/api/bayt-almal/segments', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.segments, count: baytAlMal.segments.length, message: 'شرائح الأمة — خطة لكل فرد', timestamp: new Date().toISOString() });
+});
+
+// مسار التوظيف وبناء البنية التحتية
+app.get('/api/bayt-almal/employment', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    const seg = baytAlMal.getSegment('workers');
+    res.json({ success: true, data: seg, message: 'مسار التوظيف — من يستطيع العمل يُمكَّن فوراً', timestamp: new Date().toISOString() });
+});
+
+// تعليم التجارة — تحويل الفقراء إلى تجار
+app.get('/api/bayt-almal/merchant-training', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    const seg = baytAlMal.getSegment('entrepreneurs_trainees');
+    res.json({ success: true, data: seg, message: 'مسار تاجر من الصفر — الفقير يصبح تاجراً', timestamp: new Date().toISOString() });
+});
+
+// كرامة كبار السن
+app.get('/api/bayt-almal/elderly-dignity', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    const seg = baytAlMal.getSegment('elderly_dignity');
+    res.json({ success: true, data: seg, message: 'كرامة كبار السن — شيبه شرف وسنه حكمة', timestamp: new Date().toISOString() });
+});
+
+// نظام الصدقة والكفاية الكاملة
+app.get('/api/bayt-almal/welfare', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    const seg = baytAlMal.getSegment('sadaqa_welfare');
+    res.json({ success: true, data: seg, message: 'الكفاية الكاملة — حق شرعي لا منّة', timestamp: new Date().toISOString() });
+});
+
+// ابن السبيل — المسافر المحتاج
+app.get('/api/bayt-almal/ibn-sabeel', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    const seg = baytAlMal.getSegment('ibn_sabeel');
+    res.json({ success: true, data: seg, message: 'ابن السبيل — له حق فوري في بيت المال', timestamp: new Date().toISOString() });
+});
+
+// نظام الوكالة الاستثمارية — الثروة المُدارة
+app.get('/api/bayt-almal/managed-wealth', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.managedSystem, message: 'نظام الوكالة — مدير يعمل عنك بأجر', timestamp: new Date().toISOString() });
+});
+
+// قنوات التمويل
+app.get('/api/bayt-almal/funding', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.funding, count: baytAlMal.funding.length, message: 'قنوات تمويل بيت المال', timestamp: new Date().toISOString() });
+});
+
+// مؤشرات القضاء على الفقر
+app.get('/api/bayt-almal/zero-poverty', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.kpis, message: 'خارطة طريق القضاء التام على الفقر', timestamp: new Date().toISOString() });
+});
+
+// النبوءة النبوية — الغاية الكبرى
+app.get('/api/bayt-almal/prophecy', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.prophecy, message: 'الغاية النبوية: لا يُجد فقير يقبل الصدقة', timestamp: new Date().toISOString() });
+});
+
+// محركات الذكاء الاصطناعي لبيت المال
+app.get('/api/bayt-almal/ai-engines', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.aiEngines, count: baytAlMal.aiEngines.length, message: 'محركات AI خدمة الأمة الإسلامية', timestamp: new Date().toISOString() });
+});
+
+// تقييم الحاجة وتوجيه المستفيد
+app.get('/api/bayt-almal/assess', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    const { segment, canWork, age } = req.query;
+    const result = baytAlMal.assessNeed(segment, canWork !== 'false', parseInt(age) || 30);
+    res.json({ success: true, data: result, message: 'تقييم الحاجة وتحديد المسار', timestamp: new Date().toISOString() });
+});
+
+// ══════════════════════════════════════════════
+// 🌍 بيت المال العالمي — جزيرة العرب وما وراءها
+// ﴿إِنَّ هَذِهِ أُمَّتُكُمْ أُمَّةً وَاحِدَةً﴾
+// ══════════════════════════════════════════════
+
+// نظرة عامة على التغطية العالمية
+app.get('/api/bayt-almal/global-overview', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.getGlobalOverview(), message: 'بيت المال — ٢.٢ مليار مسلم في رعايتنا', timestamp: new Date().toISOString() });
+});
+
+// جزيرة العرب — تفاصيل كاملة
+app.get('/api/bayt-almal/arabian-peninsula', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.globalCoverage.arabian_peninsula, message: 'جزيرة العرب — أصل الإسلام ومنطلقه', timestamp: new Date().toISOString() });
+});
+
+// خارج جزيرة العرب — ٥٧ دولة OIC
+app.get('/api/bayt-almal/outside-arabia', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.globalCoverage.outside_arabia, message: 'خارج جزيرة العرب — الأمة الإسلامية الكبرى', timestamp: new Date().toISOString() });
+});
+
+// مسلمو الأقليات في العالم
+app.get('/api/bayt-almal/diaspora', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.globalCoverage.diaspora_muslims, message: 'المسلمون في كل مكان — لا ننسى أحداً', timestamp: new Date().toISOString() });
+});
+
+// البيانات الجغرافية الكاملة
+app.get('/api/bayt-almal/global-coverage', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.globalCoverage, message: 'التغطية الكاملة — ٢.٢ مليار مسلم', timestamp: new Date().toISOString() });
+});
+
+// إطار الأمن الرباعي
+app.get('/api/bayt-almal/security-framework', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.securityFramework, message: 'إطار الأمن: مالي + معيشي + كرامة + عزة الإسلام', timestamp: new Date().toISOString() });
+});
+
+// الكرامة المعيشية تفصيلاً
+app.get('/api/bayt-almal/dignified-living', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    const pillar = baytAlMal.securityFramework.pillars.find(p => p.id === 'dignified_living');
+    res.json({ success: true, data: pillar, message: 'الكرامة المعيشية — حق كل مسلم لا منّة', timestamp: new Date().toISOString() });
+});
+
+// العزة للإسلام تفصيلاً
+app.get('/api/bayt-almal/islamic-honor', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    const pillar = baytAlMal.securityFramework.pillars.find(p => p.id === 'islamic_honor');
+    res.json({ success: true, data: pillar, message: '﴿وَلِلَّهِ الْعِزَّةُ وَلِرَسُولِهِ وَلِلْمُؤْمِنِينَ﴾', timestamp: new Date().toISOString() });
+});
+
+// فلسطين — أولوية قصوى
+app.get('/api/bayt-almal/palestine', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.palestinePriority, message: 'فلسطين — أولوية إسلامية فوق كل أولوية', timestamp: new Date().toISOString() });
+});
+
+// برامج مسلمي الأقليات
+app.get('/api/bayt-almal/minority-programs', (req, res) => {
+    if (!baytAlMal) return res.json({ success: false, message: 'بيت المال غير متاح' });
+    res.json({ success: true, data: baytAlMal.minorityPrograms, count: baytAlMal.minorityPrograms.length, message: 'برامج حماية ودعم مسلمي الأقليات', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
