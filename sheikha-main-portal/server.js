@@ -37327,6 +37327,54 @@ app.post('/api/quantum/optimize', (req, res) => {
     res.json({ success: true, data: quantumEngine.optimize(options), message: 'تحسين كمي للخيارات', timestamp: new Date().toISOString() });
 });
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٣٢ — رقمنة الأسواق الإسلامية الكونية
+// «وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة ٢٧٥
+// من سوق آدم عليه السلام إلى سوق شيخة الرقمي
+// ═══════════════════════════════════════════════════════════════════════════════
+const islamicMarketsEngine = require('./lib/sheikha-islamic-markets-engine');
+
+app.get('/api/islamic-markets/overview', (req, res) => {
+    res.json({ success: true, data: islamicMarketsEngine.getOverview(), message: 'نظرة عامة على الأسواق الإسلامية الكونية', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-markets/prophets', (req, res) => {
+    res.json({ success: true, data: islamicMarketsEngine.getProphetsMarkets(), message: 'أسواق الأنبياء', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-markets/pre-islamic', (req, res) => {
+    res.json({ success: true, data: islamicMarketsEngine.getPreIslamicMarkets(), message: 'أسواق العرب قبل الإسلام', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-markets/prophet-era', (req, res) => {
+    res.json({ success: true, data: islamicMarketsEngine.getProphetEraMarkets(), message: 'أسواق عهد النبي ﷺ', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-markets/madinah', (req, res) => {
+    res.json({ success: true, data: islamicMarketsEngine.getMadinahMarket(), message: 'سوق المدينة المنورة — أسس النبي ﷺ', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-markets/rashideen', (req, res) => {
+    res.json({ success: true, data: islamicMarketsEngine.getRashideenMarkets(), message: 'أسواق عهد الخلفاء الراشدين المهديين', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-markets/historical', (req, res) => {
+    res.json({ success: true, data: islamicMarketsEngine.getHistoricalMarkets(), message: 'الأسواق الإسلامية عبر التاريخ', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-markets/foreign-interactions', (req, res) => {
+    res.json({ success: true, data: islamicMarketsEngine.getForeignInteractions(), message: 'الأسواق الأجنبية والتفاعل الإسلامي — الروم والفرس وغيرهم', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-markets/charter', (req, res) => {
+    res.json({ success: true, data: islamicMarketsEngine.getCharter(), message: 'ميثاق سوق شيخة الإسلامي', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-markets/stats', (req, res) => {
+    res.json({ success: true, data: islamicMarketsEngine.getStats(), message: 'إحصائيات رقمنة الأسواق الإسلامية', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-markets/timeline', (req, res) => {
+    res.json({ success: true, data: islamicMarketsEngine.getTimeline(), message: 'خط زمني من آدم إلى اليوم', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-markets/search', (req, res) => {
+    const { q } = req.query;
+    if (!q || q.trim().length < 2) {
+        return res.status(400).json({ success: false, message: 'مطلوب معامل بحث q (حرفان على الأقل)', timestamp: new Date().toISOString() });
+    }
+    res.json({ success: true, data: islamicMarketsEngine.searchMarket(q.trim()), message: `نتائج البحث عن: ${q}`, timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
