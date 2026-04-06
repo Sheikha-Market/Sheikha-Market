@@ -35849,6 +35849,181 @@ function broadcastPrices() {
     });
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📡 SHEIKHA TELECOM + DNS APIS — منظومة الاتصالات والـDNS الإسلامي
+// ═══════════════════════════════════════════════════════════════════════════════
+let telecomDnsEngine;
+try {
+    telecomDnsEngine = require('./lib/sheikha-telecom-dns-engine');
+    telecomDnsEngine.start();
+} catch (e) { console.warn('⚠️ TelecomDNS:', e.message); }
+
+app.get('/api/telecom/status', (req, res) => {
+    if (!telecomDnsEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: telecomDnsEngine.getStatus(), message: 'منظومة الاتصالات والـDNS الإسلامي', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/telecom/assessment', (req, res) => {
+    if (!telecomDnsEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: telecomDnsEngine.getAssessment(), message: 'تقييم منظومة الاتصالات', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/telecom/dns', (req, res) => {
+    if (!telecomDnsEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: telecomDnsEngine.dns, message: 'Sheikha DNS — نظام الأسماء الإسلامي', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/telecom/dns/tlds', (req, res) => {
+    if (!telecomDnsEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: telecomDnsEngine.tlds, count: telecomDnsEngine.tlds.length, message: 'النطاقات الإسلامية المقترحة', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/telecom/dns/resolve', (req, res) => {
+    if (!telecomDnsEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const domain = (req.query.domain || '').trim();
+    if (!domain) return res.status(400).json({ success: false, message: 'يرجى إدخال نطاق ?domain=example.islam' });
+    res.json({ success: true, data: telecomDnsEngine.resolveDomain(domain), timestamp: new Date().toISOString() });
+});
+
+app.get('/api/telecom/layers', (req, res) => {
+    if (!telecomDnsEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: telecomDnsEngine.telecomLayers, count: telecomDnsEngine.telecomLayers.length, message: 'طبقات شبكة الاتصالات الإسلامية', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/telecom/oic-network', (req, res) => {
+    if (!telecomDnsEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: telecomDnsEngine.oicNetwork, message: 'شبكة OIC للاتصالات — 57 دولة', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 💬 WAIHABA APIS — ويحابة شيخة — المراسل الإسلامي
+// ═══════════════════════════════════════════════════════════════════════════════
+let waihabaEngine;
+try {
+    waihabaEngine = require('./lib/sheikha-waihaba-engine');
+    waihabaEngine.start();
+} catch (e) { console.warn('⚠️ Waihaba:', e.message); }
+
+app.get('/api/waihaba/status', (req, res) => {
+    if (!waihabaEngine) return res.json({ success: false, message: 'ويحابة غير متاحة' });
+    res.json({ success: true, data: waihabaEngine.getStatus(), message: 'ويحابة شيخة — المراسل الإسلامي', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/waihaba/features', (req, res) => {
+    if (!waihabaEngine) return res.json({ success: false, message: 'ويحابة غير متاحة' });
+    res.json({ success: true, data: waihabaEngine.features, count: waihabaEngine.features.length, message: `${waihabaEngine.features.length} ميزة إسلامية`, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/waihaba/comparison', (req, res) => {
+    if (!waihabaEngine) return res.json({ success: false, message: 'ويحابة غير متاحة' });
+    res.json({ success: true, data: waihabaEngine.getComparison(), message: 'مقارنة ويحابة مع التطبيقات الأخرى', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/waihaba/privacy', (req, res) => {
+    if (!waihabaEngine) return res.json({ success: false, message: 'ويحابة غير متاحة' });
+    const privacy = waihabaEngine.features.find(f => f.id === 'privacy');
+    res.json({ success: true, data: privacy, message: 'سياسة الخصوصية الشرعية', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⛓️ BLOCKCHAIN APIS — منظومة شيخة للبلوك شين الإسلامي
+// ═══════════════════════════════════════════════════════════════════════════════
+let blockchainEngine;
+try {
+    blockchainEngine = require('./lib/sheikha-blockchain-engine');
+    blockchainEngine.start();
+} catch (e) { console.warn('⚠️ Blockchain:', e.message); }
+
+app.get('/api/blockchain/status', (req, res) => {
+    if (!blockchainEngine) return res.json({ success: false, message: 'البلوك شين غير متاح' });
+    res.json({ success: true, data: blockchainEngine.getStatus(), message: 'البلوك شين الإسلامي — شيخة', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/blockchain/consensus', (req, res) => {
+    if (!blockchainEngine) return res.json({ success: false, message: 'البلوك شين غير متاح' });
+    res.json({ success: true, data: blockchainEngine.consensus, message: 'بروتوكول إثبات الجدارة (PoT)', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/blockchain/principles', (req, res) => {
+    if (!blockchainEngine) return res.json({ success: false, message: 'البلوك شين غير متاح' });
+    res.json({ success: true, data: blockchainEngine.principles, count: blockchainEngine.principles.length, message: 'مبادئ البلوك شين الإسلامي', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/blockchain/smart-contracts', (req, res) => {
+    if (!blockchainEngine) return res.json({ success: false, message: 'البلوك شين غير متاح' });
+    res.json({ success: true, data: blockchainEngine.smartContracts, count: blockchainEngine.smartContracts.length, message: 'العقود الذكية الإسلامية', timestamp: new Date().toISOString() });
+});
+
+app.post('/api/blockchain/deploy', (req, res) => {
+    if (!blockchainEngine) return res.json({ success: false, message: 'البلوك شين غير متاح' });
+    const { type } = req.body || {};
+    if (!type) return res.status(400).json({ success: false, message: 'يرجى تحديد نوع العقد' });
+    res.json({ ...blockchainEngine.deployContract(type), timestamp: new Date().toISOString() });
+});
+
+app.get('/api/blockchain/dapps', (req, res) => {
+    if (!blockchainEngine) return res.json({ success: false, message: 'البلوك شين غير متاح' });
+    res.json({ success: true, data: blockchainEngine.dapps, count: blockchainEngine.dapps.length, message: 'التطبيقات اللامركزية الإسلامية', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/blockchain/layers', (req, res) => {
+    if (!blockchainEngine) return res.json({ success: false, message: 'البلوك شين غير متاح' });
+    res.json({ success: true, data: blockchainEngine.layers, message: 'طبقات البلوك شين الإسلامي', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 💰 ISLAMIC CURRENCY APIS — منظومة الدرهم الرقمي الإسلامي الموحد
+// ═══════════════════════════════════════════════════════════════════════════════
+let islamicCurrencyEngine;
+try {
+    islamicCurrencyEngine = require('./lib/sheikha-islamic-currency-engine');
+    islamicCurrencyEngine.start();
+} catch (e) { console.warn('⚠️ IslamicCurrency:', e.message); }
+
+app.get('/api/dirham/status', (req, res) => {
+    if (!islamicCurrencyEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCurrencyEngine.getStatus(), message: 'الدرهم الرقمي الإسلامي الموحد', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/dirham/rates', (req, res) => {
+    if (!islamicCurrencyEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCurrencyEngine.exchangeRates, base: 'USD', message: 'أسعار تحويل الدرهم الرقمي', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/dirham/convert', (req, res) => {
+    if (!islamicCurrencyEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const { amount, from, to } = req.query;
+    if (!amount || !from || !to) return res.status(400).json({ success: false, message: 'يرجى تحديد ?amount=100&from=SAR&to=DHM' });
+    res.json({ success: true, data: islamicCurrencyEngine.convertCurrency(parseFloat(amount), from, to), timestamp: new Date().toISOString() });
+});
+
+app.get('/api/dirham/zakat', (req, res) => {
+    if (!islamicCurrencyEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    const { amount, type } = req.query;
+    if (!amount) return res.status(400).json({ success: false, message: 'يرجى تحديد ?amount=10000&type=cash' });
+    res.json({ success: true, data: islamicCurrencyEngine.calculateZakat(parseFloat(amount), type), timestamp: new Date().toISOString() });
+});
+
+app.get('/api/dirham/foundation', (req, res) => {
+    if (!islamicCurrencyEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCurrencyEngine.foundation, message: 'أسس الدرهم الرقمي الشرعية', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/dirham/services', (req, res) => {
+    if (!islamicCurrencyEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCurrencyEngine.services, count: islamicCurrencyEngine.services.length, message: 'خدمات الدرهم الرقمي الإسلامي', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/dirham/reserve', (req, res) => {
+    if (!islamicCurrencyEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCurrencyEngine.reserveBasket, message: 'تركيبة سلة الاحتياطي', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/dirham/governance', (req, res) => {
+    if (!islamicCurrencyEngine) return res.json({ success: false, message: 'المنظومة غير متاحة' });
+    res.json({ success: true, data: islamicCurrencyEngine.governance, message: 'حوكمة المجلس النقدي الإسلامي', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════

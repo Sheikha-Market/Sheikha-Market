@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الاتصالات والـDNS الإسلامي — شيخة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold:#D4AF37; --copper:#B87333; --dark:#0a0a0a; --dark2:#111; --dark3:#1a1a1a;
+    --dark4:#222; --text:#e8e0d0; --text2:#b0a898; --green:#2ecc71; --blue:#3498db;
+    --purple:#9b59b6; --teal:#1abc9c; --red:#e74c3c;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Tajawal',sans-serif; background:var(--dark); color:var(--text); min-height:100vh; overflow-x:hidden; }
+.hero { background:linear-gradient(135deg,#0a0a0a,#001a0a,#0a0a0a); border-bottom:2px solid var(--teal); padding:60px 24px 40px; text-align:center; }
+.basmala { font-size:clamp(1.4rem,3vw,2rem); color:var(--gold); margin-bottom:16px; font-weight:700; text-shadow:0 0 30px rgba(212,175,55,0.5); }
+.hero-title { font-size:clamp(1.6rem,4vw,2.8rem); font-weight:900; background:linear-gradient(135deg,var(--teal),#fff,var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-sub { color:var(--text2); margin-top:12px; font-size:1rem; }
+nav { background:var(--dark2); border-bottom:1px solid #333; padding:0 24px; display:flex; gap:4px; overflow-x:auto; }
+nav a { padding:14px 18px; color:var(--text2); text-decoration:none; font-size:0.9rem; white-space:nowrap; border-bottom:3px solid transparent; transition:.3s; }
+nav a.active, nav a:hover { color:var(--teal); border-color:var(--teal); }
+.container { max-width:1400px; margin:0 auto; padding:24px; }
+.section { display:none; animation:fadeIn .4s ease; }
+.section.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.section-title { font-size:1.3rem; font-weight:800; color:var(--teal); margin:28px 0 16px; display:flex; align-items:center; gap:10px; }
+.section-desc { color:var(--text2); margin-bottom:24px; line-height:1.7; }
+.grid-2 { display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:16px; }
+.grid-3 { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+.grid-4 { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+.card { background:var(--dark3); border:1px solid #333; border-radius:12px; padding:20px; transition:.3s; }
+.card:hover { border-color:var(--teal); transform:translateY(-2px); }
+.card-teal { border-color:rgba(26,188,156,0.3); background:linear-gradient(135deg,var(--dark3),rgba(26,188,156,0.05)); }
+.card-gold { border-color:rgba(212,175,55,0.3); background:linear-gradient(135deg,var(--dark3),rgba(212,175,55,0.05)); }
+.card-title { font-size:1rem; font-weight:700; color:var(--teal); margin-bottom:8px; }
+.card-desc { color:var(--text2); font-size:0.85rem; line-height:1.6; }
+.badge { display:inline-block; padding:2px 10px; border-radius:20px; font-size:0.75rem; margin:2px; }
+.badge-green { background:rgba(46,204,113,0.15); color:var(--green); }
+.badge-teal { background:rgba(26,188,156,0.15); color:var(--teal); }
+.badge-gold { background:rgba(212,175,55,0.15); color:var(--gold); }
+.badge-red { background:rgba(231,76,60,0.15); color:var(--red); }
+.score-bar { height:8px; border-radius:4px; background:#333; margin:6px 0; overflow:hidden; }
+.score-bar-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--teal),var(--gold)); transition:width 1s ease; }
+.loading { color:var(--text2); text-align:center; padding:40px; }
+.spinner { width:30px; height:30px; border:3px solid #333; border-top-color:var(--teal); border-radius:50%; animation:spin .8s linear infinite; margin:0 auto 12px; }
+@keyframes spin { to{transform:rotate(360deg)} }
+.compare-table { width:100%; border-collapse:collapse; margin-top:16px; }
+.compare-table th { background:var(--dark4); color:var(--teal); padding:12px; text-align:right; font-size:0.9rem; }
+.compare-table td { padding:10px 12px; border-bottom:1px solid #333; font-size:0.85rem; }
+.compare-table tr:hover td { background:var(--dark4); }
+.assessment-hero { background:linear-gradient(135deg,rgba(26,188,156,0.1),rgba(212,175,55,0.05)); border:2px solid var(--teal); border-radius:16px; padding:28px; text-align:center; margin-bottom:24px; }
+.score-big { font-size:4rem; font-weight:900; color:var(--teal); line-height:1; }
+.server-item { display:flex; align-items:center; gap:12px; padding:12px; background:var(--dark4); border-radius:8px; margin:6px 0; }
+.server-dot { width:10px; height:10px; border-radius:50%; background:var(--green); flex-shrink:0; }
+.tld-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; }
+.tld-card { background:var(--dark4); border-radius:10px; padding:14px; border-right:3px solid var(--teal); }
+.tld-main { font-size:1.1rem; font-weight:700; color:var(--teal); }
+.tld-arabic { font-size:1rem; color:var(--gold); }
+.tld-status-active { color:var(--green); font-size:0.75rem; }
+.tld-status-proposed { color:#f39c12; font-size:0.75rem; }
+.number { font-size:1.8rem; font-weight:900; color:var(--teal); }
+.stat-card { text-align:center; background:var(--dark3); border:1px solid #333; border-radius:10px; padding:20px; }
+@media (max-width:768px) { .grid-2,.grid-3,.grid-4 { grid-template-columns:1fr; } nav a { padding:10px 12px; font-size:0.8rem; } }
+</style>
+</head>
+<body>
+<div class="hero">
+    <div class="basmala">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div class="hero-title">📡 منظومة شيخة للاتصالات والـDNS الإسلامي</div>
+    <div class="hero-sub">أول بنية اتصالات إسلامية موحدة — تربط 57 دولة OIC — الأحق والأوفق للأمة</div>
+    <div style="margin-top:12px; color:var(--teal); font-style:italic;">﴿وَجَعَلْنَا مِنَ الْمَاءِ كُلَّ شَيْءٍ حَيٍّ﴾ — الأنبياء ٣٠</div>
+</div>
+
+<nav id="mainNav">
+    <a href="#" class="active" onclick="showSec('sec-assessment',this)">📊 التقييم الشامل</a>
+    <a href="#" onclick="showSec('sec-dns',this)">🌐 DNS الإسلامي</a>
+    <a href="#" onclick="showSec('sec-tlds',this)">🔤 النطاقات الإسلامية</a>
+    <a href="#" onclick="showSec('sec-layers',this)">🏗️ طبقات الشبكة</a>
+    <a href="#" onclick="showSec('sec-oic',this)">🌍 شبكة OIC</a>
+</nav>
+
+<div class="container">
+
+<!-- ══ التقييم الشامل ══ -->
+<div class="section active" id="sec-assessment">
+    <div id="assessmentHero" class="loading"><div class="spinner"></div></div>
+    <div class="grid-4" id="statsGrid"><div class="loading"><div class="spinner"></div></div></div>
+    <div class="section-title">📈 مؤشرات التقييم التفصيلية</div>
+    <div class="grid-3" id="assessmentCategories"><div class="loading"><div class="spinner"></div></div></div>
+    <div class="section-title">💪 نقاط القوة</div>
+    <div id="strengthsList"></div>
+    <div class="section-title">📌 الفجوات والتحديات</div>
+    <div id="gapsList"></div>
+</div>
+
+<!-- ══ DNS ══ -->
+<div class="section" id="sec-dns">
+    <div id="dnsStatus" class="loading"><div class="spinner"></div></div>
+    <div class="section-title">🖥️ خوادم الجذر الإسلامية</div>
+    <div id="rootServers"></div>
+    <div class="section-title">⚡ محلل شيخة DNS</div>
+    <div id="resolverInfo" class="card card-teal"><div class="loading"><div class="spinner"></div></div></div>
+    <div class="section-title">🌉 جسر الإنترنت العالمي</div>
+    <div id="globalBridge" class="card card-gold"><div class="loading"><div class="spinner"></div></div></div>
+    <div class="section-title">🔍 اختبر نطاقاً</div>
+    <div style="display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
+        <input type="text" id="domainInput" placeholder="اكتب نطاقاً مثل: sheikha.islam أو masjid.masjid" 
+               style="flex:1; min-width:250px; padding:12px 16px; background:var(--dark3); border:1px solid #333; border-radius:8px; color:var(--text); font-family:Tajawal,sans-serif; font-size:1rem;">
+        <button onclick="resolveDomain()" style="padding:12px 24px; background:var(--teal); color:#000; border:none; border-radius:8px; font-family:Tajawal,sans-serif; font-weight:700; cursor:pointer;">🔍 استعلام</button>
+    </div>
+    <div id="resolveResult"></div>
+</div>
+
+<!-- ══ TLDs ══ -->
+<div class="section" id="sec-tlds">
+    <div class="section-desc">النطاقات العليا الإسلامية — المُقترحة لـ ICANN والمعتمدة في شبكة شيخة</div>
+    <div class="tld-grid" id="tldGrid"><div class="loading"><div class="spinner"></div></div></div>
+</div>
+
+<!-- ══ طبقات الشبكة ══ -->
+<div class="section" id="sec-layers">
+    <div class="grid-2" id="layersGrid"><div class="loading"><div class="spinner"></div></div></div>
+</div>
+
+<!-- ══ شبكة OIC ══ -->
+<div class="section" id="sec-oic">
+    <div id="oicOverview" class="loading"><div class="spinner"></div></div>
+    <div class="section-title">🗺️ التغطية الجغرافية</div>
+    <div class="grid-3" id="oicCoverage"></div>
+    <div class="section-title">🤝 بروتوكولات التكامل</div>
+    <div class="grid-4" id="oicIntegration"></div>
+</div>
+
+</div>
+
+<script>
+const API = async (ep) => { try { const r = await fetch(ep); return r.ok ? r.json() : null; } catch { return null; } };
+
+function showSec(id, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+    const loaders = { 'sec-assessment': loadAssessment, 'sec-dns': loadDNS, 'sec-tlds': loadTLDs, 'sec-layers': loadLayers, 'sec-oic': loadOIC };
+    if (loaders[id]) loaders[id]();
+    return false;
+}
+
+async function loadAssessment() {
+    const [status, assessment] = await Promise.all([
+        API('/api/telecom/status'), API('/api/telecom/assessment')
+    ]);
+    if (status?.data) {
+        const d = status.data;
+        document.getElementById('statsGrid').innerHTML = [
+            { label: 'النطاقات الإسلامية', value: d.tldCount, icon: '🔤' },
+            { label: 'طبقات الشبكة', value: d.telecomLayers, icon: '🏗️' },
+            { label: 'خوادم الجذر', value: d.dnsRootServers, icon: '🖥️' },
+            { label: 'دول OIC', value: d.oicCountries, icon: '🌍' },
+            { label: 'الاتصالات النشطة', value: (d.activeConnections||0).toLocaleString(), icon: '📡' },
+            { label: 'الطلبات اليوم', value: (d.requestsToday||0).toLocaleString(), icon: '⚡' },
+            { label: 'تقييم عالمي', value: d.overallScore + '%', icon: '📊' },
+            { label: 'المحلل', value: d.resolver?.split('—')[0] || 'Sheikha DNS', icon: '🔍' },
+        ].map(s => `<div class="stat-card"><div style="font-size:1.5rem;">${s.icon}</div><div class="number">${s.value}</div><div style="color:var(--text2);font-size:0.82rem;">${s.label}</div></div>`).join('');
+    }
+    if (assessment?.data) {
+        const a = assessment.data;
+        document.getElementById('assessmentHero').innerHTML = `
+            <div class="assessment-hero">
+                <div class="score-big">${a.overall}%</div>
+                <div style="color:var(--teal);font-size:1.1rem;font-weight:700;margin:8px 0;">التقييم العالمي الشامل</div>
+                <div style="color:var(--text2);font-size:0.9rem;max-width:600px;margin:0 auto;">${a.verdict}</div>
+            </div>`;
+        document.getElementById('assessmentCategories').innerHTML = (a.categories||[]).map(c => `
+            <div class="card">
+                <div class="card-title">${c.name}</div>
+                <div class="score-bar"><div class="score-bar-fill" style="width:${c.score}%"></div></div>
+                <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-top:4px;">
+                    <span style="color:var(--text2);">${c.note}</span>
+                    <span style="color:var(--teal);font-weight:700;">${c.score}%</span>
+                </div>
+            </div>`).join('');
+        document.getElementById('strengthsList').innerHTML = `
+            <div class="card card-teal"><div style="display:flex;flex-wrap:wrap;gap:8px;">
+            ${(a.strengths||[]).map(s => `<span class="badge badge-teal">✅ ${s}</span>`).join('')}
+            </div></div>`;
+        document.getElementById('gapsList').innerHTML = `
+            <div class="card"><div style="display:flex;flex-wrap:wrap;gap:8px;">
+            ${(a.gaps||[]).map(g => `<span class="badge" style="background:rgba(243,156,18,0.15);color:#f39c12;">📌 ${g}</span>`).join('')}
+            </div></div>`;
+    }
+}
+
+async function loadDNS() {
+    const dns = await API('/api/telecom/dns');
+    if (!dns?.data) return;
+    const d = dns.data;
+    document.getElementById('rootServers').innerHTML = (d.rootServers||[]).map(s => `
+        <div class="server-item">
+            <div class="server-dot"></div>
+            <div style="flex:1">
+                <span style="color:var(--teal);font-weight:700;">Root-${s.id.toUpperCase()}</span>
+                — <span style="color:var(--text);">${s.location}</span>
+            </div>
+            <span style="color:var(--text2);font-size:0.8rem;">${s.role}</span>
+            <span class="badge badge-green">🟢 ${s.status}</span>
+        </div>`).join('');
+    document.getElementById('resolverInfo').innerHTML = `
+        <div class="card-title">⚡ ${d.resolver?.name || 'Sheikha Resolver'}</div>
+        <div class="card-desc" style="margin-bottom:12px;">DNS: <code style="color:var(--teal);">${d.resolver?.primaryDNS}</code> / Secondary: <code style="color:var(--gold);">${d.resolver?.secondaryDNS}</code></div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        ${(d.resolver?.features||[]).map(f => `<span class="badge badge-teal">✅ ${f}</span>`).join('')}
+        </div>
+        <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center;">
+            <div><div style="color:var(--teal);font-weight:700;">${d.resolver?.performance?.avgLatency||'12ms'}</div><div style="color:var(--text2);font-size:0.8rem;">متوسط الاستجابة</div></div>
+            <div><div style="color:var(--green);font-weight:700;">${d.resolver?.performance?.uptime||'99.99%'}</div><div style="color:var(--text2);font-size:0.8rem;">وقت التشغيل</div></div>
+            <div><div style="color:var(--gold);font-weight:700;">${d.resolver?.performance?.queries||'2.3B/day'}</div><div style="color:var(--text2);font-size:0.8rem;">استعلامات/يوم</div></div>
+        </div>`;
+    document.getElementById('globalBridge').innerHTML = `
+        <div class="card-title">🌉 ${d.globalBridge?.desc||''}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
+        ${(d.globalBridge?.peeringPoints||[]).map(p => `<span class="badge badge-gold">🔗 ${p}</span>`).join('')}
+        ${(d.globalBridge?.protocols||[]).map(p => `<span class="badge badge-teal">${p}</span>`).join('')}
+        </div>`;
+}
+
+async function resolveDomain() {
+    const domain = document.getElementById('domainInput').value.trim();
+    if (!domain) return;
+    const r = await API(`/api/telecom/dns/resolve?domain=${encodeURIComponent(domain)}`);
+    const res = r?.data;
+    document.getElementById('resolveResult').innerHTML = res ? `
+        <div class="card ${res.found ? 'card-teal' : ''}">
+            <div class="card-title">${res.found ? '✅ تم الحل بنجاح' : '⚠️ خارج شبكة شيخة'}</div>
+            <div class="card-desc">${res.message || ''}</div>
+            ${res.found ? `
+                <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;">
+                    <span class="badge badge-teal">${res.tld} — ${res.arabicTLD}</span>
+                    <span class="badge badge-gold">${res.purpose}</span>
+                    <span class="badge badge-green">${(res.registrations||0).toLocaleString()} مسجّل</span>
+                </div>` : ''}
+        </div>` : '<div class="card"><div class="card-desc">فشل الاستعلام</div></div>';
+}
+
+async function loadTLDs() {
+    const tlds = await API('/api/telecom/dns/tlds');
+    if (!tlds?.data) return;
+    document.getElementById('tldGrid').innerHTML = tlds.data.map(t => `
+        <div class="tld-card">
+            <div class="tld-main">${t.tld}</div>
+            <div class="tld-arabic">${t.arabic}</div>
+            <div style="color:var(--text2);font-size:0.8rem;margin:4px 0;">${t.purpose}</div>
+            <div class="${t.status==='active'?'tld-status-active':'tld-status-proposed'}">
+                ${t.status==='active'?'🟢 نشط':'🟡 مقترح'}
+            </div>
+            ${t.registrations ? `<div style="color:var(--text2);font-size:0.75rem;margin-top:4px;">${t.registrations.toLocaleString()} تسجيل</div>` : ''}
+        </div>`).join('');
+}
+
+async function loadLayers() {
+    const layers = await API('/api/telecom/layers');
+    if (!layers?.data) return;
+    document.getElementById('layersGrid').innerHTML = layers.data.map(l => `
+        <div class="card card-teal">
+            <div class="card-title">${l.name}</div>
+            <div class="card-desc" style="margin-bottom:12px;">${l.desc}</div>
+            ${l.generation ? `<span class="badge badge-gold">📶 ${l.generation}</span>` : ''}
+            ${l.tps ? `<span class="badge badge-green">⚡ ${l.tps} TPS</span>` : ''}
+            ${l.sharia ? `<div style="color:var(--teal);font-size:0.8rem;margin-top:10px;font-style:italic;">${l.sharia}</div>` : ''}
+            ${l.protocols ? `<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px;">${l.protocols.map(p=>`<span class="badge badge-teal">${p}</span>`).join('')}</div>` : ''}
+            ${l.nodes ? `<div style="margin-top:10px;">${l.nodes.slice(0,4).map(n=>`<div style="font-size:0.8rem;padding:4px 0;border-bottom:1px solid #333;"><span style="color:var(--gold);">📍 ${n.city}</span> — ${n.role}</div>`).join('')}</div>` : ''}
+        </div>`).join('');
+}
+
+async function loadOIC() {
+    const oic = await API('/api/telecom/oic-network');
+    if (!oic?.data) return;
+    const d = oic.data;
+    document.getElementById('oicOverview').innerHTML = `
+        <div class="card" style="border-color:var(--teal);background:linear-gradient(135deg,var(--dark3),rgba(26,188,156,0.05));text-align:center;padding:24px;">
+            <div style="font-size:2rem;">🌍</div>
+            <div style="font-size:1.3rem;font-weight:800;color:var(--teal);margin:8px 0;">${d.name}</div>
+            <div style="color:var(--text2);">الدول: <strong style="color:var(--gold);">${d.countries}</strong> | المستخدمون المحتملون: <strong style="color:var(--green);">${d.muslimUsers}</strong></div>
+        </div>`;
+    document.getElementById('oicCoverage').innerHTML = Object.entries(d.coverage||{}).map(([region, info]) => `
+        <div class="card">
+            <div class="card-title">🗺️ ${region==='middleEast'?'الشرق الأوسط':region==='africa'?'أفريقيا':'آسيا'}</div>
+            <div><span class="badge badge-gold">${info.countries} دولة</span> <span class="badge badge-teal">${info.popCoverage}</span></div>
+            <div style="margin-top:10px;">
+                <div style="font-size:0.8rem;color:var(--text2);">الاتصال الحالي</div>
+                <div class="score-bar"><div class="score-bar-fill" style="width:${info.currentConnectivity}"></div></div>
+                <div style="display:flex;justify-content:space-between;font-size:0.8rem;">
+                    <span style="color:var(--text2);">${info.currentConnectivity}</span>
+                    <span style="color:var(--green);">الهدف: ${info.sheikhaTarget}</span>
+                </div>
+            </div>
+        </div>`).join('');
+    document.getElementById('oicIntegration').innerHTML = (d.integration||[]).map(i => `
+        <div class="card">
+            <div class="card-title">🤝 ${i.name}</div>
+            <div class="card-desc">${i.desc}</div>
+            <span class="badge ${i.status==='active'?'badge-green':i.status==='draft'?'badge-gold':'badge-teal'}">${i.status==='active'?'🟢 نشط':i.status==='draft'?'📝 مسودة':'💡 مقترح'}</span>
+        </div>`).join('');
+}
+
+// Auto-load first section
+loadAssessment();
+</script>
+</body>
+</html>
