@@ -36024,6 +36024,59 @@ app.get('/api/dirham/governance', (req, res) => {
     res.json({ success: true, data: islamicCurrencyEngine.governance, message: 'حوكمة المجلس النقدي الإسلامي', timestamp: new Date().toISOString() });
 });
 
+// ══════════════════════════════════════════════════════════════
+// 🏛️ حوكمة شيخة — الملكية والهيكل المزدوج (خيري + تجاري)
+// بسم الله الرحمن الرحيم
+// النية: اللهم اعزَّ بي الإسلام وانفع أمة محمد ﷺ
+// ══════════════════════════════════════════════════════════════
+let governanceEngine;
+try {
+    governanceEngine = require('./lib/sheikha-governance-engine');
+    governanceEngine.start();
+} catch (e) { console.error('⚠️ Governance:', e.message); }
+
+// الحالة العامة
+app.get('/api/governance/status', (req, res) => {
+    if (!governanceEngine) return res.json({ success: false, message: 'الحوكمة غير متاحة' });
+    res.json({ success: true, data: governanceEngine.getStatus(), message: 'حوكمة شيخة — مملوكة لسلمان أحمد بن سلمان الراجح', timestamp: new Date().toISOString() });
+});
+
+// إعلان الملكية والنية
+app.get('/api/governance/owner', (req, res) => {
+    if (!governanceEngine) return res.json({ success: false, message: 'الحوكمة غير متاحة' });
+    res.json({ success: true, data: governanceEngine.getOwnership(), message: 'إعلان الملكية والنية الشرعية', timestamp: new Date().toISOString() });
+});
+
+// الهيكل المزدوج الكامل
+app.get('/api/governance/structure', (req, res) => {
+    if (!governanceEngine) return res.json({ success: false, message: 'الحوكمة غير متاحة' });
+    res.json({ success: true, data: governanceEngine.getStructure(), message: 'الهيكل المزدوج: خيري + تجاري', timestamp: new Date().toISOString() });
+});
+
+// الذراع الخيري والأوقاف
+app.get('/api/governance/charitable', (req, res) => {
+    if (!governanceEngine) return res.json({ success: false, message: 'الحوكمة غير متاحة' });
+    res.json({ success: true, data: governanceEngine.getCharitable(), message: 'ذراع الخير والأوقاف — شيخة الخيرية', timestamp: new Date().toISOString() });
+});
+
+// الذراع التجاري
+app.get('/api/governance/commercial', (req, res) => {
+    if (!governanceEngine) return res.json({ success: false, message: 'الحوكمة غير متاحة' });
+    res.json({ success: true, data: governanceEngine.getCommercial(), message: 'ذراع الأعمال التجارية — شيخة للأعمال', timestamp: new Date().toISOString() });
+});
+
+// نموذج تكامل الذراعين
+app.get('/api/governance/integration', (req, res) => {
+    if (!governanceEngine) return res.json({ success: false, message: 'الحوكمة غير متاحة' });
+    res.json({ success: true, data: governanceEngine.getIntegration(), message: 'نموذج الربط: ربح التجارة يغذي الخير', timestamp: new Date().toISOString() });
+});
+
+// المبادئ الحاكمة
+app.get('/api/governance/principles', (req, res) => {
+    if (!governanceEngine) return res.json({ success: false, message: 'الحوكمة غير متاحة' });
+    res.json({ success: true, data: governanceEngine.getPrinciples(), count: governanceEngine.principles.length, message: 'المبادئ الإسلامية الحاكمة', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
