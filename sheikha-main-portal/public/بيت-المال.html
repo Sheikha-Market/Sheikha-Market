@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بيت مال الإسلام والمسلمين — منظومة شيخة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold: #D4AF37;
+    --copper: #B87333;
+    --dark: #0a0a0a;
+    --dark2: #111;
+    --dark3: #1a1a1a;
+    --dark4: #222;
+    --text: #e8e0d0;
+    --text2: #b0a898;
+    --green: #2ecc71;
+    --blue: #3498db;
+    --purple: #9b59b6;
+    --teal: #1abc9c;
+    --red: #e74c3c;
+    --orange: #e67e22;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+    direction: rtl;
+}
+
+/* ══ الهيدر ══ */
+.header {
+    background: linear-gradient(160deg, #080e08 0%, #0a1400 40%, #050a00 100%);
+    border-bottom: 2px solid var(--green);
+    padding: 1.6rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center top, rgba(46,204,113,.1) 0%, transparent 65%);
+    pointer-events: none;
+}
+.header-icon { font-size: 3.5rem; margin-bottom: .4rem; }
+.header h1 {
+    font-size: 1.9rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--green), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: .3rem;
+}
+.header .subtitle { font-size: .9rem; color: var(--text2); margin-bottom: .6rem; }
+.header .hadith-header {
+    font-size: 1.05rem;
+    color: var(--gold);
+    font-style: italic;
+    line-height: 1.6;
+}
+
+/* ══ شريط التبويبات ══ */
+.tabs {
+    display: flex;
+    background: var(--dark2);
+    border-bottom: 1px solid #2a2a2a;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 .5rem;
+    gap: .2rem;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+    padding: .8rem 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: .84rem;
+    color: var(--text2);
+    border-bottom: 3px solid transparent;
+    transition: all .25s;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--green); border-bottom-color: var(--green); }
+
+/* ══ المحتوى ══ */
+.content { display: none; padding: 1.8rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+.content.active { display: block; }
+
+/* ══ بطاقات أساسية ══ */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.1rem; margin: 1.2rem 0; }
+.card {
+    background: var(--dark3);
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 1.3rem;
+    transition: border-color .3s, transform .2s;
+}
+.card:hover { border-color: var(--green); transform: translateY(-2px); }
+.card-icon { font-size: 1.8rem; margin-bottom: .5rem; }
+.card h3 { font-size: .95rem; color: var(--gold); margin-bottom: .4rem; }
+.card p { font-size: .83rem; color: var(--text2); line-height: 1.6; }
+.badge {
+    display: inline-block;
+    margin-top: .6rem;
+    padding: .18rem .65rem;
+    border-radius: 20px;
+    font-size: .74rem;
+    font-weight: 700;
+}
+.badge-green { background: rgba(46,204,113,.15); color: var(--green); border: 1px solid rgba(46,204,113,.3); }
+.badge-gold { background: rgba(212,175,55,.15); color: var(--gold); border: 1px solid rgba(212,175,55,.3); }
+.badge-blue { background: rgba(52,152,219,.15); color: var(--blue); border: 1px solid rgba(52,152,219,.3); }
+.badge-orange { background: rgba(230,126,34,.15); color: var(--orange); border: 1px solid rgba(230,126,34,.3); }
+
+/* ══ بطاقة الرؤية الكبرى ══ */
+.vision-hero {
+    background: linear-gradient(135deg, #060f06, #0a1a0a, #060f06);
+    border: 2px solid var(--green);
+    border-radius: 16px;
+    padding: 2rem 1.8rem;
+    text-align: center;
+    margin-bottom: 1.8rem;
+    position: relative;
+    overflow: hidden;
+}
+.vision-hero::before {
+    content: '🏛️';
+    font-size: 8rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    opacity: .04;
+    pointer-events: none;
+}
+.vision-hero h2 {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--green);
+    margin-bottom: .5rem;
+}
+.vision-hero .tagline {
+    font-size: 1.1rem;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: .8rem;
+}
+.vision-hero p { font-size: .9rem; color: var(--text2); line-height: 1.7; max-width: 700px; margin: 0 auto; }
+.vision-hero .hadith-box {
+    margin-top: 1.2rem;
+    padding: .9rem 1.2rem;
+    background: rgba(212,175,55,.08);
+    border: 1px solid rgba(212,175,55,.25);
+    border-radius: 10px;
+    font-size: .92rem;
+    color: var(--gold);
+    font-style: italic;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ══ شريحة الأمة ══ */
+.segment {
+    background: var(--dark3);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1.3rem;
+    border-right: 5px solid var(--green);
+    position: relative;
+}
+.segment.workers { border-right-color: var(--blue); }
+.segment.merchants { border-right-color: var(--orange); }
+.segment.managed { border-right-color: var(--purple); }
+.segment.welfare { border-right-color: var(--teal); }
+.segment.ibn-sabeel { border-right-color: var(--copper); }
+.segment.elderly { border-right-color: var(--gold); }
+.segment-header { display: flex; align-items: center; gap: .8rem; margin-bottom: .8rem; }
+.segment-icon { font-size: 2rem; }
+.segment-title { font-size: 1.1rem; font-weight: 700; color: var(--gold); }
+.segment-desc { font-size: .85rem; color: var(--text2); margin-bottom: .9rem; line-height: 1.6; }
+.segment-verse {
+    padding: .55rem .85rem;
+    background: rgba(212,175,55,.07);
+    border-right: 3px solid var(--gold);
+    border-radius: 5px;
+    font-size: .82rem;
+    color: var(--gold);
+    font-style: italic;
+    margin-bottom: .9rem;
+}
+.tracks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .6rem; }
+.track-item {
+    background: var(--dark4);
+    border-radius: 9px;
+    padding: .75rem .9rem;
+    border: 1px solid #2a2a2a;
+}
+.track-item:hover { border-color: var(--gold); }
+.track-name { font-size: .85rem; font-weight: 700; color: var(--text); margin-bottom: .3rem; }
+.track-desc { font-size: .78rem; color: var(--text2); line-height: 1.5; }
+.track-target {
+    display: inline-block;
+    margin-top: .4rem;
+    padding: .15rem .55rem;
+    background: rgba(46,204,113,.12);
+    color: var(--green);
+    border-radius: 8px;
+    font-size: .74rem;
+    font-weight: 700;
+}
+.immediate-action {
+    margin-top: .9rem;
+    padding: .6rem .9rem;
+    background: rgba(46,204,113,.08);
+    border-right: 3px solid var(--green);
+    border-radius: 6px;
+    font-size: .83rem;
+    color: var(--green);
+}
+
+/* ══ مسار التاجر ══ */
+.merchant-phases { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin: 1rem 0; }
+.phase-card {
+    background: var(--dark3);
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 1.2rem;
+    border-top: 3px solid var(--orange);
+}
+.phase-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: var(--orange);
+    color: #000;
+    border-radius: 50%;
+    font-weight: 900;
+    font-size: .9rem;
+    margin-bottom: .6rem;
+}
+.phase-title { font-size: .92rem; font-weight: 700; color: var(--gold); margin-bottom: .3rem; }
+.phase-duration { font-size: .77rem; color: var(--orange); margin-bottom: .6rem; }
+.phase-content { list-style: none; }
+.phase-content li {
+    font-size: .8rem;
+    color: var(--text2);
+    padding: .25rem 0;
+    border-bottom: 1px dashed #2a2a2a;
+}
+.phase-content li::before { content: '← '; color: var(--orange); }
+
+/* ══ نظام الوكيل ══ */
+.managed-steps { list-style: none; counter-reset: step; }
+.managed-steps li {
+    counter-increment: step;
+    display: flex;
+    gap: .8rem;
+    padding: .7rem 0;
+    border-bottom: 1px dashed #2a2a2a;
+    font-size: .85rem;
+    color: var(--text);
+    align-items: flex-start;
+}
+.managed-steps li::before {
+    content: counter(step);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.7rem;
+    height: 1.7rem;
+    background: rgba(155,89,182,.25);
+    color: var(--purple);
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: .82rem;
+    flex-shrink: 0;
+}
+.split-card {
+    background: var(--dark3);
+    border-radius: 12px;
+    padding: 1.3rem;
+    border: 1px solid rgba(155,89,182,.3);
+    margin-bottom: 1rem;
+}
+.split-title { font-size: .95rem; font-weight: 700; color: var(--purple); margin-bottom: .7rem; }
+.split-row { display: flex; justify-content: space-between; align-items: center; padding: .5rem 0; border-bottom: 1px dashed #2a2a2a; font-size: .85rem; }
+.split-label { color: var(--text2); }
+.split-value { color: var(--gold); font-weight: 700; }
+
+/* ══ حقوق كبار السن ══ */
+.rights-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .7rem; margin: .9rem 0; }
+.rights-list li {
+    background: var(--dark3);
+    padding: .75rem 1rem;
+    border-radius: 9px;
+    border-right: 3px solid var(--gold);
+    font-size: .85rem;
+    color: var(--text);
+}
+
+/* ══ مؤشرات الفقر ══ */
+.kpi-timeline { position: relative; padding-right: 1.5rem; }
+.kpi-timeline::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--green), var(--gold));
+}
+.kpi-item {
+    background: var(--dark3);
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    position: relative;
+    border: 1px solid #2a2a2a;
+}
+.kpi-item::before {
+    content: '';
+    position: absolute;
+    right: -1.9rem;
+    top: 1.3rem;
+    width: .8rem;
+    height: .8rem;
+    background: var(--green);
+    border-radius: 50%;
+    border: 2px solid var(--dark);
+}
+.kpi-item:last-child::before { background: var(--gold); }
+.kpi-year { font-size: .8rem; color: var(--teal); font-weight: 700; margin-bottom: .4rem; }
+.kpi-stats { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .5rem; }
+.kpi-stat {
+    padding: .2rem .7rem;
+    border-radius: 12px;
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+/* ══ النبوءة النبوية ══ */
+.prophecy-card {
+    background: linear-gradient(135deg, #1a1600, #0a1600);
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.prophecy-card .p-hadith {
+    font-size: 1.15rem;
+    color: var(--gold);
+    font-style: italic;
+    line-height: 1.8;
+    margin-bottom: .8rem;
+}
+.prophecy-card .p-source { font-size: .82rem; color: var(--text2); margin-bottom: 1rem; }
+.prophecy-card .p-meaning { font-size: .9rem; color: var(--text); line-height: 1.7; }
+.prophecy-card .p-niyya {
+    margin-top: 1rem;
+    padding: .8rem;
+    background: rgba(46,204,113,.08);
+    border-radius: 8px;
+    font-size: .88rem;
+    color: var(--green);
+    line-height: 1.6;
+}
+
+/* ══ قنوات التمويل ══ */
+.funding-card {
+    background: var(--dark3);
+    border-radius: 12px;
+    padding: 1.3rem;
+    border-right: 4px solid var(--teal);
+    display: flex;
+    gap: 1rem;
+    margin-bottom: .9rem;
+    align-items: flex-start;
+}
+.funding-icon { font-size: 2rem; flex-shrink: 0; }
+.funding-name { font-size: .95rem; font-weight: 700; color: var(--teal); margin-bottom: .3rem; }
+.funding-desc { font-size: .82rem; color: var(--text2); line-height: 1.5; }
+.funding-potential {
+    display: inline-block;
+    margin-top: .4rem;
+    padding: .18rem .65rem;
+    background: rgba(26,188,156,.12);
+    color: var(--teal);
+    border: 1px solid rgba(26,188,156,.3);
+    border-radius: 12px;
+    font-size: .77rem;
+    font-weight: 700;
+}
+
+/* ══ AI محركات ══ */
+.ai-row {
+    background: var(--dark3);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin-bottom: .7rem;
+    display: flex;
+    gap: .9rem;
+    align-items: flex-start;
+    border-right: 3px solid var(--purple);
+}
+.ai-row .ai-ico { font-size: 1.6rem; flex-shrink: 0; }
+.ai-row h4 { font-size: .9rem; color: var(--purple); margin-bottom: .2rem; }
+.ai-row p { font-size: .81rem; color: var(--text2); line-height: 1.5; }
+
+/* ══ الإسلامي ══ */
+.islamic-say {
+    background: linear-gradient(135deg, #080e08, #0a1000, #080e08);
+    border: 1px solid rgba(46,204,113,.3);
+    border-radius: 12px;
+    padding: 1.4rem;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+.islamic-say .big { font-size: 1.1rem; color: var(--green); font-weight: 700; margin-bottom: .4rem; }
+.islamic-say p { font-size: .88rem; color: var(--text2); line-height: 1.7; }
+
+/* ══ استجابة ══ */
+@media (max-width: 600px) {
+    .header h1 { font-size: 1.3rem; }
+    .vision-hero h2 { font-size: 1.2rem; }
+    .prophecy-card .p-hadith { font-size: .95rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ الهيدر ══ -->
+<div class="header">
+    <div class="header-icon">🏛️</div>
+    <h1>بيت مال الإسلام والمسلمين</h1>
+    <p class="subtitle">منظومة شيخة لتحقيق الغنى الكامل للأمة الإسلامية — لا مسلم مسكين ولا فقير</p>
+    <p class="hadith-header">«حتى يمشي الرجل بالصدقة من الذهب فلا يجد أحداً يقبلها» — البخاري</p>
+</div>
+
+<!-- ══ التبويبات ══ -->
+<div class="tabs">
+    <div class="tab active" onclick="showTab('vision')">🏛️ الرؤية</div>
+    <div class="tab" onclick="showTab('segments')">👥 شرائح الأمة</div>
+    <div class="tab" onclick="showTab('merchants')">🛒 تحويل الفقراء لتجار</div>
+    <div class="tab" onclick="showTab('managed')">🤝 نظام الوكيل</div>
+    <div class="tab" onclick="showTab('elderly')">👴 كبار السن</div>
+    <div class="tab" onclick="showTab('welfare')">🌙 الكفاية والصدقة</div>
+    <div class="tab" onclick="showTab('funding')">💰 قنوات التمويل</div>
+    <div class="tab" onclick="showTab('roadmap')">📊 خارطة القضاء على الفقر</div>
+    <div class="tab" onclick="showTab('prophecy')">🌟 النبوءة النبوية</div>
+</div>
+
+<!-- ══ الرؤية ══ -->
+<div class="content active" id="tab-vision">
+    <div class="vision-hero">
+        <h2>🏛️ بيت مال الإسلام والمسلمين</h2>
+        <p class="tagline">لا مسلم فقير — لا مسلم مسكين — لا ابن سبيل محتاج</p>
+        <p>منظومة رقمية مدمجة بالذكاء الاصطناعي مبنية على سنة عمر بن الخطاب رضي الله عنه — تُحوّل الفقراء إلى تجار، وتُكفل العاجزين بكرامة، وتُدير مال كبار السن بأمانة، وترفع مستوى الأمة حتى تُرفض الصدقة</p>
+        <div class="hadith-box">
+            ﴿وَفِي أَمْوَالِهِمْ حَقٌّ لِّلسَّائِلِ وَالْمَحْرُومِ﴾ — الذاريات ١٩<br>
+            ﴿كَيْ لَا يَكُونَ دُولَةً بَيْنَ الْأَغْنِيَاءِ مِنكُمْ﴾ — الحشر ٧
+        </div>
+    </div>
+
+    <div class="islamic-say">
+        <div class="big">المبدأ الحاكم لبيت المال</div>
+        <p>من يستطيع العمل → يُمكَّن فوراً<br>من يريد التجارة → يُعلَّم ويُموَّل<br>من لا يستطيع → يُوكَّل له مدير<br>من عجز تماماً → يُكفى بكرامة دون إذلال<br>كبير السن → يُحترم ويُوقَّر ويُرزق</p>
+    </div>
+
+    <div class="cards" id="vision-stats">
+        <div class="card">
+            <div class="card-icon">📊</div>
+            <h3>الهدف الأعلى</h3>
+            <p>القضاء التام على الفقر في الأمة الإسلامية — كل مسلم يعيش بكرامة وغنى</p>
+            <span class="badge badge-green">٠٪ فقر — ١٤٥٠هـ</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">👥</div>
+            <h3>المستفيدون</h3>
+            <p>٦٩٠ مليون مسلم تحت خط الفقر اليوم — كلهم مستهدفو بيت المال</p>
+            <span class="badge badge-gold">٦٩٠ مليون</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🛒</div>
+            <h3>تحويل الفقراء لتجار</h3>
+            <p>برنامج ٦ أشهر يُحوّل الفقير إلى تاجر مستقل لا يحتاج أحداً</p>
+            <span class="badge badge-orange">٢٠٠ مليون تاجر جديد</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🤝</div>
+            <h3>وكيل للعاجز</h3>
+            <p>كل عاجز عن العمل يُعيَّن له مدير يعمل باسمه ويكسب له دخلاً شهرياً</p>
+            <span class="badge badge-blue">وكالة شرعية</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">👴</div>
+            <h3>كرامة كبار السن</h3>
+            <p>شيبهم شرف — حكمتهم ثروة — رعايتهم فريضة — دخلهم مضمون</p>
+            <span class="badge badge-gold">صندوق الشيبة</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🌙</div>
+            <h3>ابن السبيل</h3>
+            <p>المسافر المحتاج يُستقبَل ويُكفل فوراً — استجابة خلال ٢٤ ساعة</p>
+            <span class="badge badge-green">فوري</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══ شرائح الأمة ══ -->
+<div class="content" id="tab-segments">
+    <h2 style="color:var(--gold);margin-bottom:1.5rem;">👥 شرائح الأمة — لكل شريحة خطتها</h2>
+
+    <!-- القادرون على العمل -->
+    <div class="segment workers">
+        <div class="segment-header">
+            <div class="segment-icon">💪</div>
+            <div class="segment-title">القادرون على العمل</div>
+        </div>
+        <p class="segment-desc">من يستطيع العمل — يُمكَّن فوراً من فرصة عمل حقيقية في بنية تحتية حلال</p>
+        <div class="segment-verse">﴿وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ﴾ — التوبة ١٠٥</div>
+        <div class="tracks-grid">
+            <div class="track-item">
+                <div class="track-name">🏗️ مشاريع البنية التحتية</div>
+                <div class="track-desc">طرق، موانئ، مبانٍ — توظيف مباشر بأجر عادل</div>
+                <span class="track-target">١٠ مليون وظيفة</span>
+            </div>
+            <div class="track-item">
+                <div class="track-name">🌾 القطاع الزراعي</div>
+                <div class="track-desc">إحياء الأرض الموات — من أحيا أرضاً فهي له</div>
+                <span class="track-target">٥ مليون فدان</span>
+            </div>
+            <div class="track-item">
+                <div class="track-name">🏭 الصناعة الإسلامية</div>
+                <div class="track-desc">مصانع وورش حلال — تُشغّل الأيدي وتُنتج</div>
+                <span class="track-target">٢ مليون صانع</span>
+            </div>
+            <div class="track-item">
+                <div class="track-name">💻 التجارة الرقمية</div>
+                <div class="track-desc">منصة شيخة — كل قادر يدخل دائرة التجارة</div>
+                <span class="track-target">٥ مليون تاجر</span>
+            </div>
+            <div class="track-item">
+                <div class="track-name">🎓 الخدمات المجتمعية</div>
+                <div class="track-desc">معلمون، أطباء، مهندسون — برواتب حلال من بيت المال</div>
+                <span class="track-target">٣ مليون موظف</span>
+            </div>
+        </div>
+        <div class="immediate-action">⚡ خطوة فورية: سجّل في بيت المال — تحصل على فرصة عمل في ٣٠ يوماً + دعم انتقالي ٣ أشهر</div>
+    </div>
+
+    <!-- المرشحون للتجارة -->
+    <div class="segment merchants">
+        <div class="segment-header">
+            <div class="segment-icon">🛒</div>
+            <div class="segment-title">المرشحون للتجارة — الفقير يُصبح تاجراً</div>
+        </div>
+        <p class="segment-desc">الفقير الذي يريد تعلم التجارة — يُعلَّم ويُموَّل ويُرافَق حتى يصبح تاجراً مستقلاً ناجحاً</p>
+        <div class="segment-verse">«عليكم بالتجارة فإن فيها تسعة أعشار الرزق» — التراث الإسلامي</div>
+        <div class="immediate-action" style="border-right-color:var(--orange);color:var(--orange);">🎯 الهدف: كل تاجر ناجح يُرشد فقيراً جديداً — دائرة لا تنتهي</div>
+    </div>
+
+    <!-- العجز وكبار السن -->
+    <div class="segment managed">
+        <div class="segment-header">
+            <div class="segment-icon">🤲</div>
+            <div class="segment-title">من لا يستطيع الإدارة — وكيل يعمل بدله</div>
+        </div>
+        <p class="segment-desc">كبير السن أو العاجز يُعيَّن له وكيل أمين يستثمر ماله — له الربح وللوكيل الأجر</p>
+        <div class="segment-verse">﴿فَابْعَثُوا أَحَدَكُم بِوَرِقِكُمْ هَذِهِ إِلَى الْمَدِينَةِ﴾ — الكهف ١٩ — جواز الوكالة</div>
+    </div>
+
+    <!-- العاجز تماماً -->
+    <div class="segment welfare">
+        <div class="segment-header">
+            <div class="segment-icon">🌙</div>
+            <div class="segment-title">العاجز تماماً — الكفاية حق شرعي لا منّة</div>
+        </div>
+        <p class="segment-desc">من لا يستطيع إطلاقاً — يُكفى من بيت المال كفاية تامة مع كرامة كاملة</p>
+        <div class="segment-verse">﴿إِنَّمَا الصَّدَقَاتُ لِلْفُقَرَاءِ وَالْمَسَاكِينِ﴾ — التوبة ٦٠ — حق ثابت بالقرآن</div>
+        <div class="immediate-action" style="border-right-color:var(--teal);color:var(--teal);">🌙 يُعطى بصمت وكرامة — بدون إذلال — بدون بيروقراطية — كما فعل عمر رضي الله عنه</div>
+    </div>
+
+    <!-- ابن السبيل -->
+    <div class="segment ibn-sabeel">
+        <div class="segment-header">
+            <div class="segment-icon">🛤️</div>
+            <div class="segment-title">ابن السبيل — المسافر المحتاج</div>
+        </div>
+        <p class="segment-desc">المسافر المنقطع له حق فوري — تُغطى تكاليف سفره وإيابه ومعيشته حتى يعود لأهله</p>
+        <div class="segment-verse">﴿وَابْنِ السَّبِيلِ﴾ — التوبة ٦٠ — مصرف صريح من مصارف الزكاة</div>
+        <div class="immediate-action" style="border-right-color:var(--copper);color:var(--copper);">⚡ استجابة في ٢٤ ساعة — بيت المال يصل لك لا أنت من يبحث عنه</div>
+    </div>
+</div>
+
+<!-- ══ مسار التاجر ══ -->
+<div class="content" id="tab-merchants">
+    <h2 style="color:var(--orange);margin-bottom:.5rem;">🛒 مسار تاجر من الصفر — ٦ أشهر</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">الفقير يدخل فقيراً — يخرج تاجراً مستقلاً — ثم يُعلّم غيره. دائرة مباركة لا تنتهي بإذن الله</p>
+
+    <div class="merchant-phases">
+        <div class="phase-card">
+            <div class="phase-num">١</div>
+            <div class="phase-title">تعليم مبادئ التجارة الإسلامية</div>
+            <div class="phase-duration">الشهر الأول والثاني</div>
+            <ul class="phase-content">
+                <li>مبادئ البيع والشراء</li>
+                <li>الحلال والحرام في التجارة</li>
+                <li>اختيار السلعة المناسبة</li>
+                <li>فن التفاوض الإسلامي</li>
+                <li>إدارة رأس المال البسيط</li>
+            </ul>
+        </div>
+        <div class="phase-card">
+            <div class="phase-num">٢</div>
+            <div class="phase-title">التطبيق الميداني</div>
+            <div class="phase-duration">الشهر الثالث والرابع</div>
+            <ul class="phase-content">
+                <li>اصطحاب تاجر ناجح ملازمة</li>
+                <li>إدارة سجل تجاري بسيط</li>
+                <li>التعامل مع الموردين</li>
+                <li>خدمة العملاء بأخلاق</li>
+                <li>الحسابات والأرباح</li>
+            </ul>
+        </div>
+        <div class="phase-card">
+            <div class="phase-num">٣</div>
+            <div class="phase-title">فتح المشروع والاستقلالية</div>
+            <div class="phase-duration">الشهر الخامس والسادس</div>
+            <ul class="phase-content">
+                <li>فتح المشروع برأس مال من بيت المال</li>
+                <li>المتابعة والإرشاد الشهري</li>
+                <li>الانضمام لشبكة تجار شيخة</li>
+                <li>التصدير والتوسع الرقمي</li>
+                <li>تأهيل فقير جديد بعد النجاح</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="islamic-say">
+        <div class="big" style="color:var(--orange);">نموذج تمويل مسار التاجر</div>
+        <p>رأس مال ابتدائي من بيت المال — قرض حسن يُردّ عند النجاح لتمويل التالي<br>
+        التاجر الجديد يُرشد فقيراً آخر — كل ناجح ينتج ناجحاً — تكاثر مبارك</p>
+    </div>
+
+    <h3 style="color:var(--gold);margin:1.5rem 0 1rem;">كبير السن والعاجز يتعلمان التجارة أيضاً</h3>
+    <div class="cards">
+        <div class="card" style="border-right:3px solid var(--gold);">
+            <div class="card-icon">💻</div>
+            <h3>تجارة إلكترونية من المنزل</h3>
+            <p>كبير السن يتعلم البيع والشراء الرقمي البسيط من منزله — بدون جهد بدني</p>
+        </div>
+        <div class="card" style="border-right:3px solid var(--gold);">
+            <div class="card-icon">🏦</div>
+            <h3>استثمار في صندوق شيخة</h3>
+            <p>يودع ماله في صندوق شيخة السيادي — يصله دخل شهري منتظم</p>
+        </div>
+        <div class="card" style="border-right:3px solid var(--gold);">
+            <div class="card-icon">🤝</div>
+            <h3>وكيل يعمل باسمه</h3>
+            <p>يُعيَّن له مدير موثوق يعمل ويكسب — ٨٠٪ للمالك ٢٠٪ للمدير</p>
+        </div>
+        <div class="card" style="border-right:3px solid var(--gold);">
+            <div class="card-icon">🕌</div>
+            <h3>وقف الأبناء الرابح</h3>
+            <p>تحويل جزء من ماله لوقف منتج يدر عليه دخلاً دائماً بعد موته</p>
+        </div>
+    </div>
+</div>
+
+<!-- ══ نظام الوكيل ══ -->
+<div class="content" id="tab-managed">
+    <h2 style="color:var(--purple);margin-bottom:.5rem;">🤝 نظام الوكالة الاستثمارية</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">من لا يستطيع إدارة ماله بنفسه — يُعيَّن له وكيل أمين. عقد الوكالة جائز بالإجماع ومذكور في الكتاب والسنة</p>
+
+    <div class="split-card">
+        <div class="split-title">📊 توزيع الربح بين المالك والوكيل</div>
+        <div class="split-row">
+            <span class="split-label">🤲 صاحب المال (الموكِّل)</span>
+            <span class="split-value">٨٠٪ من صافي الربح</span>
+        </div>
+        <div class="split-row">
+            <span class="split-label">💼 الوكيل المدير</span>
+            <span class="split-value">٢٠٪ من صافي الربح</span>
+        </div>
+        <div class="split-row">
+            <span class="split-label">⚖️ ضمان الأصل</span>
+            <span class="split-value">لا خسارة للأصل بغير إهمال</span>
+        </div>
+        <div class="split-row" style="border:none;">
+            <span class="split-label">🔍 رقابة بيت المال</span>
+            <span class="split-value">كل ٣ أشهر تدقيق كامل</span>
+        </div>
+    </div>
+
+    <h3 style="color:var(--purple);margin-bottom:.8rem;">كيف يعمل النظام — خطوة بخطوة</h3>
+    <ol class="managed-steps">
+        <li>يُسجَّل كبير السن أو العاجز في سجل بيت المال</li>
+        <li>يُقيَّم وضعه المالي ودرجة قدرته على الإدارة</li>
+        <li>يُختار له مدير موثوق من شبكة بيت المال المعتمدين</li>
+        <li>يُوقَّع عقد وكالة شرعي بينهما بنسبة ربح متفق عليها</li>
+        <li>المدير يستثمر المال في مشاريع شيخة الحلال المعتمدة</li>
+        <li>الدخل الشهري يصل مباشرة لحساب صاحبه تلقائياً</li>
+        <li>رقابة شرعية مستمرة + تقرير شهري مفصل للمالك</li>
+        <li>المالك له حق الفسخ الفوري في أي وقت بدون عقوبة</li>
+    </ol>
+
+    <div class="islamic-say" style="margin-top:1.5rem;">
+        <div class="big" style="color:var(--purple);">من يحق له الحصول على وكيل</div>
+        <p>كبار السن فوق ٦٠ سنة • أصحاب الأمراض المزمنة<br>
+        ذوو الاحتياجات الخاصة • الأرامل اللواتي يحتجن وكيلاً<br>
+        اليتامى دون سن الرشد</p>
+    </div>
+
+    <h3 style="color:var(--gold);margin:1.5rem 0 .8rem;">🧠 AI يحمي حق الموكِّل</h3>
+    <div class="ai-row">
+        <div class="ai-ico">⚖️</div>
+        <div>
+            <h4>مدقِّق الوكلاء الذكي</h4>
+            <p>AI يراقب عمل كل وكيل على مدار الساعة — يرصد أي شذوذ في الحسابات أو تأخر في المدفوعات — يُنبّه فوراً</p>
+        </div>
+    </div>
+</div>
+
+<!-- ══ كبار السن ══ -->
+<div class="content" id="tab-elderly">
+    <h2 style="color:var(--gold);margin-bottom:.5rem;">👴 كبار السن — الكرامة والوقار الإسلامي</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">شيبه شرف — سنّه حكمة — رعايته فريضة على الأمة</p>
+
+    <div class="prophecy-card" style="border-color:var(--gold);">
+        <p class="p-hadith">«من لم يرحم صغيرنا ويوقّر كبيرنا فليس منا»<br>«إن من إجلال الله إكرام ذي الشيبة المسلم»</p>
+        <p class="p-source">أبو داود والترمذي — صحيح</p>
+        <p class="p-meaning">كبير السن في الإسلام ليس عبئاً — بل كنز من الحكمة والتجربة، واحترامه من احترام الله تعالى</p>
+    </div>
+
+    <h3 style="color:var(--gold);margin-bottom:.8rem;">حقوق كبير السن المضمونة من بيت المال</h3>
+    <ul class="rights-list">
+        <li>📜 دخل شهري ثابت من بيت المال — لا انقطاع أبداً</li>
+        <li>🏠 سكن لائق مضمون حتى الوفاة</li>
+        <li>⚕️ رعاية صحية كاملة مجانية</li>
+        <li>🌙 خدمة منزلية إن احتاج</li>
+        <li>💼 وكيل استثماري يدير ماله ويُكثّره</li>
+        <li>📿 برامج روحية وعلمية — لا يُترك وحيداً</li>
+        <li>👨‍👩‍👧 زيارات أسرية مدعومة — صلة الرحم واجبة</li>
+        <li>🛒 تعليم التجارة الرقمية البسيطة إن أراد</li>
+    </ul>
+
+    <div class="islamic-say">
+        <div class="big">صندوق كرامة الشيبة</div>
+        <p>صندوق مخصص لكبار السن فوق ٦٠ سنة — يُموَّل من الزكاة والأوقاف والصندوق السيادي<br>
+        الكرامة ليست خياراً — هي حق شرعي ثابت أمام الله</p>
+    </div>
+
+    <div class="cards" style="margin-top:1.5rem;">
+        <div class="card" style="border-right:3px solid var(--gold);">
+            <div class="card-icon">💰</div>
+            <h3>كسب المال وهو جالس</h3>
+            <p>وكيله يعمل — الصكوك تكسب — الدرهم الرقمي يحفظ — والدخل يصله كل شهر</p>
+        </div>
+        <div class="card" style="border-right:3px solid var(--gold);">
+            <div class="card-icon">📱</div>
+            <h3>تجارة رقمية بسيطة</h3>
+            <p>تطبيق شيخة مبسّط خصيصاً لكبار السن — تجارة بنقرة واحدة</p>
+        </div>
+        <div class="card" style="border-right:3px solid var(--gold);">
+            <div class="card-icon">🕌</div>
+            <h3>وقف الأبناء</h3>
+            <p>يُحوَّل جزء من ماله لوقف منتج — الأولاد يعدّلون للآخرة وله الأجر</p>
+        </div>
+    </div>
+</div>
+
+<!-- ══ الكفاية والصدقة ══ -->
+<div class="content" id="tab-welfare">
+    <h2 style="color:var(--teal);margin-bottom:.5rem;">🌙 الكفاية والصدقة — حق شرعي لا منّة</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">من لا يستطيع العمل إطلاقاً — يُكفى بكرامة دون إذلال ودون بيروقراطية</p>
+
+    <div class="cards">
+        <div class="card" style="border-right:3px solid var(--teal);">
+            <div class="card-icon">🌿</div>
+            <h3>الكفاية</h3>
+            <p>تغطية الحاجات الأساسية: سكن + طعام + دواء + لباس — لا ينقص ولا يُهان</p>
+            <span class="badge badge-green">متغير حسب البلد</span>
+        </div>
+        <div class="card" style="border-right:3px solid var(--gold);">
+            <div class="card-icon">✨</div>
+            <h3>الكرامة فوق الكفاية</h3>
+            <p>مبلغ إضافي للوقار — لا يعيش في ضيق مذل — يخرج ويعيش كالناس</p>
+            <span class="badge badge-gold">٢٠٪ فوق الكفاية</span>
+        </div>
+        <div class="card" style="border-right:3px solid var(--blue);">
+            <div class="card-icon">💳</div>
+            <h3>الضمان والتوفير</h3>
+            <p>بيت المال يُوفّر له ادخاراً لمعالجة الطوارئ — لا يتفاجأ بمصروف</p>
+            <span class="badge badge-blue">اشتراك شهري تلقائي</span>
+        </div>
+    </div>
+
+    <div class="prophecy-card" style="border-color:var(--teal);margin-top:1.5rem;">
+        <p class="p-hadith">يُعطى بصمت وكرامة — لا إعلان — لا توثيق مهين<br>
+        كما حمل عمر رضي الله عنه الطعام على ظهره ليلاً للأرملة</p>
+        <p class="p-source">هدي النبي ﷺ وسنة عمر بن الخطاب رضي الله عنه</p>
+        <div class="p-niyya">«لا شروط مهينة — لا بيروقراطية — الحاجة وحدها تكفي»<br>
+        ﴿إِنَّمَا الصَّدَقَاتُ لِلْفُقَرَاءِ وَالْمَسَاكِينِ﴾ — التوبة ٦٠</div>
+    </div>
+
+    <h3 style="color:var(--gold);margin:1.5rem 0 1rem;">🛤️ ابن السبيل — المسافر المنقطع</h3>
+    <div class="cards">
+        <div class="card">
+            <div class="card-icon">🚀</div>
+            <h3>إعانة فورية</h3>
+            <p>يُستقبَل في أي نقطة بيت مال ويُعطى فوراً دون تعقيدات</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🎫</div>
+            <h3>تذكرة العودة</h3>
+            <p>بيت المال يُوفّر تذكرة العودة لبلده إن انقطع به السبيل</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🍽️</div>
+            <h3>الطعام والسكن المؤقت</h3>
+            <p>سكن مؤقت معتبر وطعام حتى يستقر أمره</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔗</div>
+            <h3>إعادة التأهيل</h3>
+            <p>عند العودة يُربط بفرص عمل أو تجارة في بلده — لا يعود فقيراً مجدداً</p>
+        </div>
+    </div>
+</div>
+
+<!-- ══ قنوات التمويل ══ -->
+<div class="content" id="tab-funding">
+    <h2 style="color:var(--teal);margin-bottom:1.5rem;">💰 قنوات تمويل بيت المال</h2>
+
+    <div class="funding-card">
+        <div class="funding-icon">🌙</div>
+        <div>
+            <div class="funding-name">الزكاة الرقمية</div>
+            <div class="funding-desc">الركن الثالث — ٢.٥٪ سنوياً + زكاة الفطر + الأصناف الثمانية — محرك الزكاة الرقمي يحسب ويوزع تلقائياً</div>
+            <span class="funding-potential">$300 مليار سنوياً من الأمة</span>
+        </div>
+    </div>
+    <div class="funding-card">
+        <div class="funding-icon">🕌</div>
+        <div>
+            <div class="funding-name">الأوقاف الإسلامية</div>
+            <div class="funding-desc">صناديق وقف منتجة تدر دخلاً دائماً لا ينقطع — كالجارية التي لا تنضب</div>
+            <span class="funding-potential">$50 مليار سنوياً</span>
+        </div>
+    </div>
+    <div class="funding-card">
+        <div class="funding-icon">🤲</div>
+        <div>
+            <div class="funding-name">الصدقات والهبات</div>
+            <div class="funding-desc">الصدقات التطوعية والوصايا والميراث الموقوف لله — طوق نجاة الأمة</div>
+            <span class="funding-potential">غير محدود بإذن الله</span>
+        </div>
+    </div>
+    <div class="funding-card" style="border-right-color:var(--gold);">
+        <div class="funding-icon">🏦</div>
+        <div>
+            <div class="funding-name">حصة الصندوق السيادي</div>
+            <div class="funding-desc">٢٠٪ من أرباح صندوق شيخة السيادي الرقمي الإسلامي تُحوَّل تلقائياً لبيت المال</div>
+            <span class="funding-potential" style="background:rgba(212,175,55,.12);color:var(--gold);border-color:rgba(212,175,55,.3);">$20 مليار سنوياً (المرحلة الثانية)</span>
+        </div>
+    </div>
+    <div class="funding-card" style="border-right-color:var(--orange);">
+        <div class="funding-icon">💼</div>
+        <div>
+            <div class="funding-name">الذراع التجاري لبيت المال</div>
+            <div class="funding-desc">بيت المال يستثمر ويتاجر ويُنتج — ربحه يعود للفقراء. نموذج عمر بن الخطاب رضي الله عنه</div>
+            <span class="funding-potential" style="background:rgba(230,126,34,.12);color:var(--orange);border-color:rgba(230,126,34,.3);">مستدام ذاتياً</span>
+        </div>
+    </div>
+    <div class="funding-card" style="border-right-color:var(--blue);">
+        <div class="funding-icon">🏛️</div>
+        <div>
+            <div class="funding-name">تخصيصات حكومية</div>
+            <div class="funding-desc">نسبة من الميزانية الحكومية مقابل إدارة بيت المال لعجز الحكومة بالصكوك الإسلامية</div>
+            <span class="funding-potential" style="background:rgba(52,152,219,.12);color:var(--blue);border-color:rgba(52,152,219,.3);">حسب شراكات الصندوق السيادي</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══ خارطة القضاء على الفقر ══ -->
+<div class="content" id="tab-roadmap">
+    <h2 style="color:var(--green);margin-bottom:.5rem;">📊 خارطة الطريق للقضاء على الفقر</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">من ٦٩٠ مليون مسلم فقير إلى صفر — بخطة علمية مدروسة — والله المستعان</p>
+
+    <div class="kpi-timeline">
+        <div class="kpi-item">
+            <div class="kpi-year">📍 خط الانطلاق — ٢٠٢٦م</div>
+            <p style="font-size:.85rem;color:var(--text2);">٦٩٠ مليون مسلم تحت خط الفقر — تغطية المنظومة ٠٪ — بيت المال الرقمي يبدأ</p>
+            <div class="kpi-stats">
+                <span class="kpi-stat" style="background:rgba(231,76,60,.15);color:var(--red);">٦٩٠ مليون فقير</span>
+                <span class="kpi-stat" style="background:rgba(52,152,219,.15);color:var(--blue);">يوم الإطلاق</span>
+            </div>
+        </div>
+
+        <div class="kpi-item">
+            <div class="kpi-year">🎯 المرحلة الأولى — ٢٠٢٨م</div>
+            <p style="font-size:.85rem;color:var(--text2);">تخفيض ٣٠٪ من الفقر — ٢٠٠ مليون مسلم تحت مظلة بيت المال</p>
+            <div class="kpi-stats">
+                <span class="kpi-stat badge-green">٣٠٪ تخفيض</span>
+                <span class="kpi-stat badge-orange">١٠ مليون تاجر جديد</span>
+                <span class="kpi-stat badge-gold">١٠٠٠ نقطة خدمة</span>
+            </div>
+        </div>
+
+        <div class="kpi-item">
+            <div class="kpi-year">🎯 المرحلة الثانية — ٢٠٣٠م</div>
+            <p style="font-size:.85rem;color:var(--text2);">تخفيض ٦٠٪ — نصف الأمة تحت الحماية — التجارة تنتشر كالنار في الهشيم</p>
+            <div class="kpi-stats">
+                <span class="kpi-stat badge-green">٦٠٪ تخفيض</span>
+                <span class="kpi-stat badge-orange">٥٠ مليون تاجر</span>
+                <span class="kpi-stat badge-gold">١٠٠٠٠ نقطة</span>
+            </div>
+        </div>
+
+        <div class="kpi-item">
+            <div class="kpi-year">🎯 المرحلة الثالثة — ٢٠٣٦م</div>
+            <p style="font-size:.85rem;color:var(--text2);">تخفيض ٩٠٪ — كل مسجد نقطة بيت مال — ٢٠٠ مليون تاجر مسلم في العالم</p>
+            <div class="kpi-stats">
+                <span class="kpi-stat badge-green">٩٠٪ تخفيض</span>
+                <span class="kpi-stat badge-orange">٢٠٠ مليون تاجر</span>
+                <span class="kpi-stat" style="background:rgba(26,188,156,.15);color:var(--teal);">كل مسجد = بيت مال</span>
+            </div>
+        </div>
+
+        <div class="kpi-item" style="border-top:2px solid var(--gold);">
+            <div class="kpi-year" style="color:var(--gold);">🌟 الهدف النهائي — بإذن الله</div>
+            <p style="font-size:.85rem;color:var(--text2);">تحقيق الحديث النبوي: لا يُجد فقير يقبل الصدقة</p>
+            <div class="kpi-stats">
+                <span class="kpi-stat badge-gold">١٠٠٪ تخفيض</span>
+                <span class="kpi-stat badge-green">الصدقة تُرفض</span>
+            </div>
+        </div>
+    </div>
+
+    <h3 style="color:var(--purple);margin:1.5rem 0 1rem;">🧠 محركات AI لبيت المال</h3>
+    <div id="ai-engines-container">
+        <div class="ai-row"><div class="ai-ico">🗺️</div><div><h4>خارطة الفقر الذكية</h4><p>AI يرسم خارطة الفقر في الأمة الإسلامية لحظة بلحظة — يضع الأولويات الجغرافية</p></div></div>
+        <div class="ai-row"><div class="ai-ico">🔍</div><div><h4>مُقيِّم الحاجة الآلي</h4><p>يُقيِّم حاجة كل مسجل في دقائق — بدون بيروقراطية ولا إهانة إنسانية</p></div></div>
+        <div class="ai-row"><div class="ai-ico">💼</div><div><h4>منسِّق الوظائف</h4><p>يُطابق القادر على العمل مع الفرصة المناسبة في ٢٤ ساعة</p></div></div>
+        <div class="ai-row"><div class="ai-ico">🛒</div><div><h4>المعلم التجاري الذكي</h4><p>يُعلِّم الفقير التجارة بلغته وبمستواه — متاح ٢٤ ساعة ٧ أيام</p></div></div>
+        <div class="ai-row"><div class="ai-ico">🌙</div><div><h4>موزِّع الزكاة الآلي</h4><p>يحسب الزكاة ويوزعها تلقائياً على المستحقين بالعدل والأمانة والشريعة</p></div></div>
+        <div class="ai-row"><div class="ai-ico">⚖️</div><div><h4>مدقِّق الوكلاء</h4><p>يراقب أداء مديري الاستثمار — يكتشف الإهمال أو الخيانة فوراً ويُبلِّغ</p></div></div>
+        <div class="ai-row"><div class="ai-ico">📈</div><div><h4>المرشد التجاري المستمر</h4><p>يُرافق التاجر الجديد ويُقدّم نصائح شخصية لنموه شهراً بشهر</p></div></div>
+    </div>
+</div>
+
+<!-- ══ النبوءة النبوية ══ -->
+<div class="content" id="tab-prophecy">
+    <h2 style="color:var(--gold);margin-bottom:1.5rem;">🌟 تحقيق النبوءة النبوية في آخر الزمان</h2>
+
+    <div class="prophecy-card">
+        <p class="p-hadith">«لا تقوم الساعة حتى يمشي الرجل بالصدقة من الذهب فلا يجد أحداً يقبلها وحتى تكون الأرض كلها كقاب قوس أحدكم»</p>
+        <p class="p-source">صحيح البخاري ١٤١٢ — صحيح مسلم</p>
+        <p class="p-meaning">من علامات الساعة أن يكثر المال وينتشر الغنى في الأمة حتى يُعطى الفقير الصدقة فيرفضها لعدم حاجته — بيت المال يعمل نحو هذا اليوم بإذن الله</p>
+        <div class="p-niyya">النية: نصر الله والإسلام والأمة — والأجر الأخروي على كل فقير اكتفى وكل جائع شبع وكل مسلم عاش بكرامة</div>
+    </div>
+
+    <div class="prophecy-card" style="border-color:var(--green);">
+        <p class="p-hadith" style="color:var(--green);">«حتى يُعطى المال ولا يُقبل»</p>
+        <p class="p-source">صحيح البخاري ١٤١٣</p>
+        <p class="p-meaning">هذا هو الهدف النهائي لبيت مال الإسلام والمسلمين — لا توقف حتى يتحقق هذا الحديث بإذن الله</p>
+        <div class="p-niyya" style="background:rgba(46,204,113,.08);color:var(--green);">
+            ﴿وَعَدَ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَعَمِلُوا الصَّالِحَاتِ لَيَسْتَخْلِفَنَّهُمْ فِي الْأَرْضِ﴾ — النور ٥٥
+        </div>
+    </div>
+
+    <div class="islamic-say">
+        <div class="big">دور شيخة في تحقيق هذه النبوءة</div>
+        <p>
+            🏛️ بيت المال الرقمي يحمل الفقراء حتى يصلوا للغنى<br>
+            🛒 برنامج التاجر يُحوّل كل فقير لمنتج مستقل<br>
+            🤝 نظام الوكيل يُكسب العاجز دون أن يتعب<br>
+            👴 صندوق الشيبة يُكرّم كبار السن بما يستحقون<br>
+            🌙 الزكاة الآلية تصل للمستحق في ساعات لا أيام<br>
+            🏦 الصندوق السيادي يُضخ في بيت المال دائماً<br><br>
+            كل هذا نسعى إليه ابتغاء وجه الله — لا فخراً ولا سمعة
+        </p>
+    </div>
+</div>
+
+<script>
+const API = async (ep) => {
+    try { const r = await fetch(ep); return r.ok ? r.json() : null; } catch { return null; }
+};
+
+function showTab(id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+    document.querySelector(`[onclick="showTab('${id}')"]`).classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+}
+
+// تحميل إحصائيات حية
+async function loadStats() {
+    const status = await API('/api/bayt-almal/status');
+    if (status && status.success && status.data) {
+        const d = status.data;
+        const cards = document.getElementById('vision-stats');
+        if (cards && d.segmentsCount) {
+            // تحديث عدد الشرائح
+            console.log('[BaytAlMal] محملة:', d.name);
+        }
+    }
+}
+
+loadStats();
+</script>
+</body>
+</html>
