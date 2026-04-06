@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صندوق شيخة السيادي الرقمي الإسلامي العالمي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold: #D4AF37;
+    --copper: #B87333;
+    --dark: #0a0a0a;
+    --dark2: #111;
+    --dark3: #1a1a1a;
+    --dark4: #222;
+    --text: #e8e0d0;
+    --text2: #b0a898;
+    --green: #2ecc71;
+    --blue: #3498db;
+    --purple: #9b59b6;
+    --teal: #1abc9c;
+    --red: #e74c3c;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+    direction: rtl;
+}
+
+/* ══ الهيدر ══ */
+.header {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1200 50%, #0a0a0a 100%);
+    border-bottom: 2px solid var(--gold);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(212,175,55,0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+.header-icon { font-size: 3rem; margin-bottom: .5rem; }
+.header h1 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--gold), var(--copper));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: .3rem;
+}
+.header .subtitle { font-size: .95rem; color: var(--text2); margin-bottom: .5rem; }
+.header .quran-verse {
+    font-size: 1rem;
+    color: var(--gold);
+    font-style: italic;
+    opacity: .9;
+}
+
+/* ══ التبويبات ══ */
+.tabs {
+    display: flex;
+    background: var(--dark2);
+    border-bottom: 1px solid #333;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 1rem;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+    padding: .8rem 1.2rem;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: .85rem;
+    color: var(--text2);
+    border-bottom: 3px solid transparent;
+    transition: all .3s;
+    font-weight: 500;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ══ المحتوى ══ */
+.content { display: none; padding: 2rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+.content.active { display: block; }
+
+/* ══ بطاقات ══ */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; margin: 1.5rem 0; }
+.card {
+    background: var(--dark3);
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1.4rem;
+    transition: border-color .3s, transform .2s;
+}
+.card:hover { border-color: var(--gold); transform: translateY(-2px); }
+.card-icon { font-size: 1.8rem; margin-bottom: .6rem; }
+.card h3 { font-size: 1rem; color: var(--gold); margin-bottom: .4rem; }
+.card p { font-size: .85rem; color: var(--text2); line-height: 1.6; }
+.card .tag {
+    display: inline-block;
+    margin-top: .7rem;
+    padding: .2rem .7rem;
+    border-radius: 20px;
+    font-size: .75rem;
+    font-weight: 700;
+    background: rgba(212,175,55,.15);
+    color: var(--gold);
+    border: 1px solid rgba(212,175,55,.3);
+}
+.card .tag.green { background: rgba(46,204,113,.15); color: var(--green); border-color: rgba(46,204,113,.3); }
+.card .tag.blue { background: rgba(52,152,219,.15); color: var(--blue); border-color: rgba(52,152,219,.3); }
+
+/* ══ بطاقة الرؤية ══ */
+.vision-hero {
+    background: linear-gradient(135deg, var(--dark3), #1a1200);
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.vision-hero .fund-name {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: .3rem;
+}
+.vision-hero .fund-symbol {
+    font-size: 2.5rem;
+    color: var(--copper);
+    font-weight: 900;
+    margin-bottom: .5rem;
+}
+.vision-hero p { color: var(--text2); font-size: .95rem; line-height: 1.7; }
+.vision-hero .verse {
+    margin-top: 1rem;
+    color: var(--gold);
+    font-size: 1rem;
+    font-style: italic;
+}
+
+/* ══ الأهداف ══ */
+.objectives { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .8rem; margin: 1rem 0; }
+.objectives li {
+    background: var(--dark3);
+    border-right: 3px solid var(--gold);
+    padding: .8rem 1rem;
+    border-radius: 8px;
+    font-size: .9rem;
+    color: var(--text);
+}
+.objectives li::before { content: '✦ '; color: var(--gold); }
+
+/* ══ جدول المحافظ ══ */
+.portfolio-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+.portfolio-table th {
+    background: rgba(212,175,55,.15);
+    color: var(--gold);
+    padding: .8rem;
+    text-align: right;
+    font-size: .85rem;
+    border-bottom: 1px solid var(--gold);
+}
+.portfolio-table td {
+    padding: .8rem;
+    font-size: .85rem;
+    border-bottom: 1px solid #2a2a2a;
+    color: var(--text);
+}
+.portfolio-table tr:hover td { background: rgba(255,255,255,.03); }
+.allocation-bar {
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+.allocation-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--copper));
+    border-radius: 3px;
+}
+
+/* ══ آليات التحويل ══ */
+.mechanism {
+    background: var(--dark3);
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1.4rem;
+    margin-bottom: 1rem;
+    border-right: 4px solid var(--teal);
+}
+.mechanism:hover { border-color: var(--teal); }
+.mechanism h3 { color: var(--teal); margin-bottom: .4rem; font-size: 1rem; }
+.mechanism p { font-size: .85rem; color: var(--text2); line-height: 1.6; }
+.mechanism .steps { margin-top: .8rem; }
+.mechanism .steps li {
+    font-size: .82rem;
+    color: var(--text);
+    padding: .3rem 0;
+    border-bottom: 1px dashed #333;
+    padding-right: 1rem;
+    position: relative;
+}
+.mechanism .steps li::before { content: '←'; position: absolute; right: 0; color: var(--gold); }
+.mechanism .saving {
+    display: inline-block;
+    margin-top: .7rem;
+    padding: .2rem .9rem;
+    background: rgba(46,204,113,.15);
+    color: var(--green);
+    border-radius: 20px;
+    font-size: .8rem;
+    font-weight: 700;
+    border: 1px solid rgba(46,204,113,.3);
+}
+
+/* ══ محركات AI ══ */
+.ai-engine {
+    background: var(--dark3);
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1.3rem;
+    margin-bottom: .9rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    border-right: 4px solid var(--purple);
+}
+.ai-engine:hover { border-color: var(--purple); }
+.ai-engine .ai-icon { font-size: 2rem; flex-shrink: 0; }
+.ai-engine h3 { color: var(--purple); margin-bottom: .3rem; font-size: .95rem; }
+.ai-engine p { font-size: .83rem; color: var(--text2); line-height: 1.5; }
+.ai-engine .ai-meta { font-size: .78rem; color: var(--text2); margin-top: .4rem; }
+.ai-engine .accuracy {
+    display: inline-block;
+    padding: .15rem .6rem;
+    background: rgba(155,89,182,.2);
+    color: var(--purple);
+    border-radius: 10px;
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+/* ══ أهداف الأثر الإسلامي ══ */
+.impact-card {
+    background: linear-gradient(135deg, var(--dark3), #0a1200);
+    border: 1px solid #2a3a2a;
+    border-radius: 12px;
+    padding: 1.4rem;
+    border-right: 4px solid var(--green);
+}
+.impact-card:hover { border-color: var(--green); }
+.impact-card h3 { color: var(--green); margin-bottom: .4rem; font-size: 1rem; }
+.impact-card p { font-size: .85rem; color: var(--text2); line-height: 1.6; }
+.impact-card .verse, .impact-card .hadith {
+    margin-top: .7rem;
+    padding: .6rem .8rem;
+    background: rgba(46,204,113,.08);
+    border-right: 3px solid var(--green);
+    border-radius: 4px;
+    font-size: .82rem;
+    color: var(--text);
+    font-style: italic;
+}
+.impact-card .programs { margin-top: .7rem; display: flex; flex-wrap: wrap; gap: .4rem; }
+.impact-card .programs span {
+    padding: .2rem .65rem;
+    background: rgba(46,204,113,.1);
+    border: 1px solid rgba(46,204,113,.3);
+    border-radius: 10px;
+    font-size: .78rem;
+    color: var(--green);
+}
+
+/* ══ إحصائيات المراحل ══ */
+.phases { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+.phase-card {
+    background: var(--dark3);
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+}
+.phase-title { font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 1rem; }
+.phase-stat { margin-bottom: .7rem; }
+.phase-stat .stat-value { font-size: 1.4rem; font-weight: 900; color: var(--gold); }
+.phase-stat .stat-label { font-size: .78rem; color: var(--text2); }
+
+/* ══ قسم الرؤية الإسلامية ══ */
+.islamic-banner {
+    background: linear-gradient(135deg, #1a1200, #0a0a0a, #001a0a);
+    border: 1px solid;
+    border-image: linear-gradient(135deg, var(--gold), var(--green)) 1;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+.islamic-banner .large-text { font-size: 1.2rem; color: var(--gold); font-weight: 700; margin-bottom: .5rem; }
+.islamic-banner p { font-size: .9rem; color: var(--text2); line-height: 1.7; }
+
+/* ══ تحميل ══ */
+.loading {
+    color: var(--gold);
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.1rem;
+}
+.loading::after { content: ' ...جاري التحميل'; animation: dots 1.5s infinite; }
+
+/* ══ قسم الهيكل الحكومي ══ */
+.govt-tier {
+    background: var(--dark3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+    border-right: 4px solid var(--copper);
+}
+.govt-tier h3 { color: var(--copper); font-size: 1.1rem; margin-bottom: .3rem; }
+.govt-tier .tier-desc { font-size: .85rem; color: var(--text2); margin-bottom: 1rem; }
+.govt-tier .tier-note {
+    font-size: .8rem;
+    color: var(--red);
+    padding: .4rem .8rem;
+    background: rgba(231,76,60,.08);
+    border-radius: 6px;
+    margin-bottom: .8rem;
+    border-right: 3px solid var(--red);
+}
+.investments-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .7rem; }
+.investment-item {
+    background: var(--dark4);
+    border-radius: 8px;
+    padding: .8rem;
+    border: 1px solid #2a2a2a;
+}
+.investment-item .inv-name { font-size: .85rem; font-weight: 700; color: var(--text); margin-bottom: .3rem; }
+.investment-item .inv-details { font-size: .78rem; color: var(--text2); }
+.investment-item .inv-return {
+    display: inline-block;
+    margin-top: .4rem;
+    padding: .15rem .5rem;
+    background: rgba(46,204,113,.15);
+    color: var(--green);
+    border-radius: 8px;
+    font-size: .75rem;
+    font-weight: 700;
+}
+.tier-quran {
+    margin-top: .8rem;
+    padding: .6rem .8rem;
+    background: rgba(212,175,55,.07);
+    border-right: 3px solid var(--gold);
+    border-radius: 4px;
+    font-size: .82rem;
+    color: var(--gold);
+    font-style: italic;
+}
+.tier-solution {
+    margin-top: .8rem;
+    padding: .5rem .8rem;
+    background: rgba(52,152,219,.08);
+    border-right: 3px solid var(--blue);
+    border-radius: 6px;
+    font-size: .82rem;
+    color: var(--blue);
+}
+
+/* ══ شريط الحوكمة ══ */
+.sharia-board {
+    background: linear-gradient(135deg, #1a1200, #0a0a0a);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.sharia-board h3 { color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem; text-align: center; }
+.sharia-principles { list-style: none; }
+.sharia-principles li {
+    padding: .6rem 0;
+    border-bottom: 1px dashed #333;
+    font-size: .88rem;
+    color: var(--text);
+}
+.sharia-principles li::before { content: '☑ '; color: var(--green); }
+
+.responsive-note { font-size: .85rem; color: var(--text2); font-style: italic; text-align: center; padding: .5rem; }
+</style>
+</head>
+<body>
+
+<!-- ══ الهيدر ══ -->
+<div class="header">
+    <div class="header-icon">🏦</div>
+    <h1>صندوق شيخة السيادي الرقمي الإسلامي العالمي</h1>
+    <p class="subtitle">Sheikha Islamic Sovereign Digital Fund (SISDF) — استثمار سيادي بالكتاب والسنة</p>
+    <p class="quran-verse">﴿وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ وَمِن رِّبَاطِ الْخَيْلِ﴾ — الأنفال ٦٠</p>
+</div>
+
+<!-- ══ التبويبات ══ -->
+<div class="tabs">
+    <div class="tab active" onclick="showTab('vision')">🏦 الرؤية</div>
+    <div class="tab" onclick="showTab('governments')">🌐 الحكومات</div>
+    <div class="tab" onclick="showTab('deficit')">🔄 تحويل العجز</div>
+    <div class="tab" onclick="showTab('portfolios')">📊 المحافظ</div>
+    <div class="tab" onclick="showTab('ai')">🧠 الذكاء الاصطناعي</div>
+    <div class="tab" onclick="showTab('impact')">☀️ الأثر الإسلامي</div>
+    <div class="tab" onclick="showTab('roadmap')">🗺️ خارطة الطريق</div>
+</div>
+
+<!-- ══ الرؤية ══ -->
+<div class="content active" id="tab-vision">
+    <div class="vision-hero">
+        <div class="fund-symbol">SISDF</div>
+        <div class="fund-name">صندوق شيخة السيادي الرقمي الإسلامي العالمي</div>
+        <p>أول صندوق سيادي رقمي إسلامي يدمج الذكاء الاصطناعي مع أحكام الكتاب والسنة — يستثمر في حكومات العالم لينشر الإسلام ويخدم الأمة ويسد العجز ويحول الديون إلى أرباح</p>
+        <p class="verse">﴿وَلِلَّهِ الْعِزَّةُ وَلِرَسُولِهِ وَلِلْمُؤْمِنِينَ﴾ — المنافقون ٨</p>
+    </div>
+
+    <div class="islamic-banner">
+        <div class="large-text">النية الخالصة لله</div>
+        <p>نشر الإسلام وعزه وتقويته • نشر العلم والتعليم لله • نصر الله والدين الإسلامي<br>تحويل الديون إلى أرباح بلا ربا • الاستثمار في الإنسانية</p>
+    </div>
+
+    <h2 style="color:var(--gold);margin-bottom:1rem;">أهداف الصندوق</h2>
+    <ul class="objectives" id="objectives-list">
+        <li>تغطية العجز وتحويل الديون إلى أرباح</li>
+        <li>الاستثمار في الحكومات والدول الإسلامية وغيرها</li>
+        <li>نشر الإسلام وتقويته ماليًا وتقنيًا</li>
+        <li>نشر العلم والتعليم الإسلامي لله</li>
+        <li>خلق ثروة سيادية مستدامة للأمة</li>
+        <li>بناء قوة اقتصادية إسلامية عالمية</li>
+    </ul>
+
+    <div class="sharia-board">
+        <h3>⚖️ هيئة الرقابة الشرعية</h3>
+        <ul class="sharia-principles">
+            <li>لا ربا — لا غرر — لا ميسر</li>
+            <li>الغنم بالغرم — المخاطرة الحقيقية</li>
+            <li>الاستثمار في إنتاج الخير ومنع الضرر</li>
+            <li>الشفافية الكاملة أمام المستثمرين والله</li>
+            <li>حق الانسحاب في أي وقت بدون عقوبة</li>
+            <li>تدقيق شرعي ومالي ربع سنوي علني</li>
+        </ul>
+    </div>
+
+    <div class="cards" id="fund-status-cards">
+        <div class="card">
+            <div class="card-icon">🏦</div>
+            <h3>اسم الصندوق</h3>
+            <p>صندوق شيخة السيادي الرقمي الإسلامي العالمي</p>
+            <span class="tag">SISDF</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🌍</div>
+            <h3>التغطية الجغرافية</h3>
+            <p>المملكة العربية السعودية + 57 دولة OIC + استثمارات دولية عالمية</p>
+            <span class="tag green">100+ دولة</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">📜</div>
+            <h3>الأدوات الإسلامية</h3>
+            <p>صكوك + مرابحة + مشاركة + مضاربة + إجارة + وقف</p>
+            <span class="tag">٦ أدوات</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🧠</div>
+            <h3>مدعوم بالذكاء الاصطناعي</h3>
+            <p>٦ محركات AI إسلامية: فاحص الحلال، محلل العجز، مولد الصكوك</p>
+            <span class="tag blue">AI Native</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══ الحكومات ══ -->
+<div class="content" id="tab-governments">
+    <h2 style="color:var(--gold);margin-bottom:1.5rem;">🌐 استراتيجية الاستثمار الحكومي</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">الصندوق يستثمر في ثلاثة مستويات حكومية: المملكة العربية السعودية أولاً، ثم ٥٧ دولة OIC، ثم الحكومات الدولية — كل بشروط حلال صارمة.</p>
+    <div id="govts-container">
+        <!-- الاستثمار المحلي -->
+        <div class="govt-tier">
+            <h3>🇸🇦 الاستثمار المحلي — المملكة العربية السعودية (الأولوية الأولى)</h3>
+            <p class="tier-desc">دعم رؤية 2030 وما بعدها بأدوات إسلامية — الخادم الأمين لأرض الحرمين</p>
+            <div class="investments-grid">
+                <div class="investment-item">
+                    <div class="inv-name">📜 صكوك حكومية سعودية</div>
+                    <div class="inv-details">نوع: صكوك | مخاطرة: منخفضة</div>
+                    <span class="inv-return">4.5-6%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">🏗️ مشاريع بنية تحتية</div>
+                    <div class="inv-details">نوع: مشاركة | مخاطرة: متوسطة</div>
+                    <span class="inv-return">7-12%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">💼 صندوق الاستثمارات العامة PIF</div>
+                    <div class="inv-details">نوع: مشاركة | مخاطرة: متوسطة</div>
+                    <span class="inv-return">8-15%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">⛏️ قطاع المعادن والتعدين</div>
+                    <div class="inv-details">نوع: إجارة+مرابحة | شيخة متخصصة</div>
+                    <span class="inv-return">10-18%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">📚 التعليم الإسلامي والجامعات</div>
+                    <div class="inv-details">نوع: وقف+استثمار | أجر+ربح</div>
+                    <span class="inv-return">5-8% + أجر</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">💻 الاقتصاد الرقمي والتقني</div>
+                    <div class="inv-details">نوع: مشاركة | مخاطرة: متوسطة-عالية</div>
+                    <span class="inv-return">12-25%</span>
+                </div>
+            </div>
+            <div class="tier-solution">💡 حل العجز: تحويل ديون الحكومة إلى صكوك سيادية متداولة — إعادة هيكلة بلا ربا</div>
+        </div>
+
+        <!-- الحكومات الإسلامية -->
+        <div class="govt-tier" style="border-right-color:var(--green);">
+            <h3>🌙 الحكومات الإسلامية — ٥٧ دولة OIC (الأولوية الثانية)</h3>
+            <p class="tier-desc">الاستثمار في الحكومات الإسلامية تقوية للأمة وعزًا للإسلام — التضامن الواجب</p>
+            <div class="investments-grid">
+                <div class="investment-item">
+                    <div class="inv-name">🇲🇾 صكوك ماليزيا السيادية</div>
+                    <div class="inv-details">نوع: صكوك | مخاطرة: منخفضة</div>
+                    <span class="inv-return">4-6%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">🇮🇩 سندات إندونيسيا الإسلامية</div>
+                    <div class="inv-details">نوع: صكوك | مخاطرة: منخفضة-متوسطة</div>
+                    <span class="inv-return">5-7%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">🌍 بنية تحتية أفريقيا الإسلامية</div>
+                    <div class="inv-details">نوع: مشاركة | فرص نمو عالية</div>
+                    <span class="inv-return">9-15%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">💙 الدول الإسلامية ذات العجز</div>
+                    <div class="inv-details">قرض حسن + صكوك | تضامن إسلامي</div>
+                    <span class="inv-return">أجر + 2-4%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">⚡ مشاريع طاقة الخليج</div>
+                    <div class="inv-details">نوع: إجارة | مخاطرة: منخفضة</div>
+                    <span class="inv-return">6-10%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">🏫 التعليم والصحة في OIC</div>
+                    <div class="inv-details">نوع: وقف+مشاركة | أثر اجتماعي</div>
+                    <span class="inv-return">أجر + 3-6%</span>
+                </div>
+            </div>
+            <div class="tier-quran">﴿وَالْمُؤْمِنُونَ وَالْمُؤْمِنَاتُ بَعْضُهُمْ أَوْلِيَاءُ بَعْضٍ﴾ — التوبة ٧١</div>
+            <div class="tier-solution">💡 حل العجز: إعادة هيكلة ديون الدول الإسلامية إلى صكوك تنموية — التضامن الإسلامي يغني عن الاقتراض الربوي</div>
+        </div>
+
+        <!-- الحكومات الدولية -->
+        <div class="govt-tier" style="border-right-color:var(--blue);">
+            <h3>🌍 الحكومات الدولية — غير الإسلامية (الأولوية الثالثة)</h3>
+            <p class="tier-desc">الاستثمار في الحكومات الدولية غير الإسلامية بأدوات حلال — الربح يُوجَّه لنشر الإسلام في تلك البلدان</p>
+            <div class="tier-note">⚠️ يشترط: لا ربا — لا استثمار في محرمات — لا دعم لمعادي الإسلام — كل ربح يخدم الدعوة</div>
+            <div class="investments-grid">
+                <div class="investment-item">
+                    <div class="inv-name">🏗️ بنية تحتية أوروبية (حلال)</div>
+                    <div class="inv-details">صكوك دولية | مخاطرة: منخفضة</div>
+                    <span class="inv-return">3-5%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">⚡ مشاريع طاقة متجددة عالمية</div>
+                    <div class="inv-details">مشاركة | حلال بلا تردد</div>
+                    <span class="inv-return">6-9%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">🏙️ مدن ذكية آسيا الحلال</div>
+                    <div class="inv-details">إجارة+مشاركة | فرص كبيرة</div>
+                    <span class="inv-return">7-12%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">🌾 قطاع الغذاء والزراعة العالمي</div>
+                    <div class="inv-details">مرابحة | ضروري وحلال</div>
+                    <span class="inv-return">5-8%</span>
+                </div>
+                <div class="investment-item">
+                    <div class="inv-name">📚 مشاريع تعليم دولية</div>
+                    <div class="inv-details">وقف+استثمار | دعوة مدمجة</div>
+                    <span class="inv-return">أجر + 4-7%</span>
+                </div>
+            </div>
+            <div class="tier-quran">«أحب الناس إلى الله أنفعهم للناس» — كل استثمار دولي يُوظَّف ربحه لتمويل الدعوة الإسلامية</div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ تحويل العجز ══ -->
+<div class="content" id="tab-deficit">
+    <h2 style="color:var(--teal);margin-bottom:.5rem;">🔄 محرك تحويل العجز إلى أرباح</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">﴿وَلَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ﴾ — تحويل الاقتراض الربوي إلى شراكة حقيقية ومشاركة منتجة</p>
+
+    <div class="cards" style="margin-bottom:2rem;">
+        <div class="card">
+            <div class="card-icon">💰</div>
+            <h3>توفير تكلفة الدين</h3>
+            <p>تحويل الصكوك يوفر ٤٠-٦٠٪ من تكلفة الدين الربوي</p>
+            <span class="tag green">40-60%</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">📊</div>
+            <h3>هدف تحويل الديون</h3>
+            <p>٥٠٠ مليار دولار من الديون الإسلامية قابلة للتحويل لصكوك</p>
+            <span class="tag">$500B</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🕌</div>
+            <h3>دخل الوقف المستدام</h3>
+            <p>هدف دخل وقفي سنوي مستدام لسد العجز الاجتماعي</p>
+            <span class="tag">$50B</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">📉</div>
+            <h3>تخفيض العجز</h3>
+            <p>هدف تخفيض العجز في الدول الإسلامية المشاركة</p>
+            <span class="tag green">30-50%</span>
+        </div>
+    </div>
+
+    <div id="mechanisms-container">
+        <div class="mechanism">
+            <h3>📜 تحويل الدين إلى صكوك</h3>
+            <p>إعادة هيكلة الديون الربوية إلى صكوك إسلامية — إلغاء الربا وتحويله لمشاركة حقيقية. الدائنون يصبحون شركاء لا مرابين.</p>
+            <ul class="steps">
+                <li>تقييم الدين الحالي وشروطه</li>
+                <li>تحديد الأصل الحقيقي المقابل للدين</li>
+                <li>إصدار صكوك مدعومة بالأصل</li>
+                <li>تسوية الدين القديم بحصيلة الصكوك</li>
+                <li>الدائنون يصبحون شركاء لا مرابين</li>
+            </ul>
+            <span class="saving">💚 توفير: 40-60% من تكلفة الدين الربوي</span>
+        </div>
+        <div class="mechanism" style="border-right-color:var(--gold);">
+            <h3>🕌 سد العجز بصناديق الوقف</h3>
+            <p>إنشاء صناديق وقف منتجة تغطي العجز المتكرر في الخدمات العامة — التعليم، الصحة، البنية التحتية، الطاقة</p>
+            <p style="margin-top:.5rem;color:var(--gold);font-size:.83rem;">نموذج: الوقف ينتج دخلًا سنويًا يغطي جزءًا من العجز — ثابت ومستدام إلى الأبد</p>
+        </div>
+        <div class="mechanism" style="border-right-color:var(--gold);">
+            <h3>🥇 ربط العملة بالذهب والمعادن</h3>
+            <p>تغطية العجز بإصدار درهم رقمي مدعوم بالذهب — قيمة حقيقية لا ورقية. الدينار ٤.٢٥ غرام ذهب، الدرهم ٢.٩٧٥ غرام فضة.</p>
+            <p style="margin-top:.5rem;color:var(--gold);font-size:.83rem;">لا تضخم — لا تلاعب — قيمة ثابتة أمام الله</p>
+        </div>
+        <div class="mechanism" style="border-right-color:var(--blue);">
+            <h3>🤝 المشاركة في الأرباح الحكومية</h3>
+            <p>بدلًا من الاقتراض، تشارك الحكومة شيخة في مشروع وتتقاسمان الربح — مضاربة شرعية. مشاريع التعدين، الطاقة، المدن الذكية، الموانئ.</p>
+            <p style="margin-top:.5rem;color:var(--blue);font-size:.83rem;">مضاربة شرعية — لا ضمان للربح — لكن لا ربا قطعًا</p>
+        </div>
+        <div class="mechanism" style="border-right-color:var(--green);">
+            <h3>🌙 نظام الزكاة لسد العجز الاجتماعي</h3>
+            <p>توجيه الزكاة الرقمية لسد العجز في قطاعات الفقراء والمساكين مباشرة — محرك الزكاة يحسب ويوزع تلقائياً عبر البلوك شين</p>
+            <p style="margin-top:.5rem;color:var(--green);font-size:.83rem;">فريضة واجبة + أثر اقتصادي = معادلة إسلامية مثلى</p>
+        </div>
+    </div>
+</div>
+
+<!-- ══ المحافظ ══ -->
+<div class="content" id="tab-portfolios">
+    <h2 style="color:var(--gold);margin-bottom:1.5rem;">📊 المحافظ الاستثمارية الإسلامية</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">خمس محافظ متوازنة — كل محفظة لها استراتيجية شرعية واضحة وهدف أثر إسلامي محدد.</p>
+
+    <div class="cards" id="portfolios-container">
+        <div class="card">
+            <div class="card-icon">📜</div>
+            <h3>محفظة الصكوك السيادية</h3>
+            <p>صكوك حكومية إسلامية من 57 دولة OIC — جودة عالية وعائد ثابت</p>
+            <div class="allocation-bar"><div class="allocation-fill" style="width:35%"></div></div>
+            <span class="tag green">35% | عائد: 5-7%</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🏗️</div>
+            <h3>محفظة البنية التحتية</h3>
+            <p>طرق وموانئ ومطارات وطاقة في الدول الإسلامية — عائد متوسط ومخاطرة متوسطة</p>
+            <div class="allocation-bar"><div class="allocation-fill" style="width:25%"></div></div>
+            <span class="tag">25% | عائد: 8-12%</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">📚</div>
+            <h3>محفظة التعليم والصحة</h3>
+            <p>الاستثمار في التعليم والصحة — لأجر الدنيا والآخرة</p>
+            <div class="allocation-bar"><div class="allocation-fill" style="width:20%"></div></div>
+            <span class="tag green">20% | أجر + 6-10%</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🧠</div>
+            <h3>محفظة التقنية الإسلامية</h3>
+            <p>الذكاء الاصطناعي الإسلامي، العملة الرقمية، البلوك شين — ثروة المستقبل</p>
+            <div class="allocation-bar"><div class="allocation-fill" style="width:15%"></div></div>
+            <span class="tag blue">15% | عائد: 15-30%</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🥇</div>
+            <h3>الاحتياطي الاستراتيجي</h3>
+            <p>ذهب وفضة وسلع إسلامية — الاحتياطي الصلب الذي لا يتآكل</p>
+            <div class="allocation-bar"><div class="allocation-fill" style="width:5%"></div></div>
+            <span class="tag">5% | عائد: 3-5%</span>
+        </div>
+    </div>
+
+    <div style="margin-top:2rem;">
+        <h3 style="color:var(--gold);margin-bottom:1rem;">الأدوات الإسلامية المستخدمة</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem;">
+            <span style="padding:.4rem 1rem;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);border-radius:20px;color:var(--gold);font-size:.88rem;">📜 صكوك إجارة</span>
+            <span style="padding:.4rem 1rem;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);border-radius:20px;color:var(--gold);font-size:.88rem;">🤝 مشاركة</span>
+            <span style="padding:.4rem 1rem;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);border-radius:20px;color:var(--gold);font-size:.88rem;">💼 مضاربة</span>
+            <span style="padding:.4rem 1rem;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);border-radius:20px;color:var(--gold);font-size:.88rem;">🏷️ مرابحة</span>
+            <span style="padding:.4rem 1rem;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);border-radius:20px;color:var(--gold);font-size:.88rem;">🕌 وقف منتج</span>
+            <span style="padding:.4rem 1rem;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);border-radius:20px;color:var(--gold);font-size:.88rem;">🌾 استصناع</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══ الذكاء الاصطناعي ══ -->
+<div class="content" id="tab-ai">
+    <h2 style="color:var(--purple);margin-bottom:.5rem;">🧠 محركات الذكاء الاصطناعي الإسلامي</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">٦ محركات AI متخصصة — مدربة على الكتاب والسنة — لا يمر قرار استثماري إلا بعد فحصها</p>
+    <div id="ai-container">
+        <div class="ai-engine">
+            <div class="ai-icon">🔍</div>
+            <div>
+                <h3>فاحص الحلال الذكي</h3>
+                <p>AI يفحص كل استثمار شرعيًا تلقائيًا — لا يمر حرام. مدمج مع قواعد بيانات شرعية وهيئة علماء مستقلة</p>
+                <div class="ai-meta">NLP + قواعد بيانات شرعية + هيئة علماء</div>
+                <span class="accuracy">دقة: 99.7%</span>
+            </div>
+        </div>
+        <div class="ai-engine">
+            <div class="ai-icon">📊</div>
+            <div>
+                <h3>محلل العجز الحكومي</h3>
+                <p>AI يحلل عجوزات الحكومات الإسلامية والدولية ويقترح حلولًا إسلامية خالية من الربا</p>
+                <div class="ai-meta">Time Series + Economic Modeling + Islamic Finance Rules</div>
+                <span class="accuracy">تغطية: 57 دولة OIC + 50 دولة دولية</span>
+            </div>
+        </div>
+        <div class="ai-engine">
+            <div class="ai-icon">📜</div>
+            <div>
+                <h3>مولد الصكوك الذكي</h3>
+                <p>AI يصمم هيكل الصك المثالي لكل مشروع حكومي — إجارة، مشاركة، مرابحة أو وقف</p>
+                <div class="ai-meta">صكوك إجارة | مشاركة | مرابحة | وقف</div>
+            </div>
+        </div>
+        <div class="ai-engine">
+            <div class="ai-icon">⚖️</div>
+            <div>
+                <h3>محرك المخاطر الإسلامي</h3>
+                <p>تقييم مخاطر الاستثمار وفق مبدأ: لا ضرر ولا ضرار — الغنم بالغرم</p>
+                <div class="ai-meta">من يتحمل المخاطرة الحقيقية يستحق الربح الحقيقي</div>
+            </div>
+        </div>
+        <div class="ai-engine">
+            <div class="ai-icon">🌍</div>
+            <div>
+                <h3>قياس الأثر الإسلامي</h3>
+                <p>AI يقيس أثر كل استثمار على نشر الإسلام والعلم والتعليم — تقرير تأثير سنوي علني</p>
+                <div class="ai-meta">مساجد مموّلة | طلاب مستفيدون | حصص علمية | نسبة نشر الإسلام</div>
+            </div>
+        </div>
+        <div class="ai-engine">
+            <div class="ai-icon">📖</div>
+            <div>
+                <h3>بوصلة الكتاب والسنة</h3>
+                <p>كل قرار استثماري يُقاس على القرآن والسنة قبل التنفيذ — الله شاهد على كل صفقة</p>
+                <div class="ai-meta">هل فيه ربا؟ هل فيه غرر؟ هل فيه ضرر؟ هل نيته خالصة لله؟</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ الأثر الإسلامي ══ -->
+<div class="content" id="tab-impact">
+    <h2 style="color:var(--green);margin-bottom:.5rem;">☀️ أهداف الأثر الإسلامي</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">كل ريال مستثمر في الصندوق يحمل نية الخدمة والعطاء — ليس الربح وحده بل الأجر الذي لا ينقطع</p>
+    <div class="cards">
+        <div class="impact-card">
+            <h3>☝️ نشر الإسلام عالميًا</h3>
+            <p>١٠٪ من أرباح الصندوق لتمويل الدعوة في كل دولة يُستثمر فيها</p>
+            <div class="verse">﴿ادْعُ إِلَىٰ سَبِيلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ﴾ — النحل ١٢٥</div>
+            <div class="programs">
+                <span>مراكز إسلامية</span>
+                <span>ترجمة القرآن</span>
+                <span>مواقع دعوية</span>
+                <span>مؤتمرات</span>
+            </div>
+        </div>
+        <div class="impact-card">
+            <h3>📚 نشر العلم والتعليم لله</h3>
+            <p>١٥٪ للتعليم الإسلامي — مدارس ومنح وجامعات وبحث علمي إسلامي</p>
+            <div class="hadith">«طلب العلم فريضة على كل مسلم» — ابن ماجه</div>
+            <div class="programs">
+                <span>منح دراسية</span>
+                <span>مدارس إسلامية</span>
+                <span>حفظ القرآن</span>
+                <span>أبحاث شرعية</span>
+            </div>
+        </div>
+        <div class="impact-card">
+            <h3>🕌 بناء المساجد ودور القرآن</h3>
+            <p>صندوق خاص لبناء مساجد في الدول التي لا توجد فيها — كل استثمار يُشيّد مسجدًا أو يجدد داراً للقرآن</p>
+            <div class="verse">﴿إِنَّمَا يَعْمُرُ مَسَاجِدَ اللَّهِ مَنْ آمَنَ بِاللَّهِ﴾ — التوبة ١٨</div>
+        </div>
+        <div class="impact-card">
+            <h3>💪 تقوية الأمة الإسلامية</h3>
+            <p>الاستثمار في الصناعة والتقنية الإسلامية لتحقيق الاستقلال الاقتصادي للأمة</p>
+            <div class="verse">﴿وَلِلَّهِ الْعِزَّةُ وَلِرَسُولِهِ وَلِلْمُؤْمِنِينَ﴾ — المنافقون ٨</div>
+        </div>
+        <div class="impact-card">
+            <h3>⚖️ العدل الاجتماعي الإسلامي</h3>
+            <p>القضاء على الفقر في العالم الإسلامي عبر الاستثمار الذكي والزكاة الآلية</p>
+            <div class="hadith">«ما آمن بي من بات شبعانًا وجاره جائع وهو يعلم» — البزار صحيح</div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ خارطة الطريق ══ -->
+<div class="content" id="tab-roadmap">
+    <h2 style="color:var(--gold);margin-bottom:1.5rem;">🗺️ خارطة الطريق 2026-2036</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">ثلاث مراحل للوصول إلى تريليون دولار — كل مرحلة توسع الخدمة الإسلامية</p>
+
+    <div class="phases">
+        <div class="phase-card" style="border-top:3px solid var(--blue);">
+            <div class="phase-title">🔵 المرحلة الأولى 2026-2028</div>
+            <div class="phase-stat">
+                <div class="stat-value">$10 مليار</div>
+                <div class="stat-label">حجم الأصول المدارة AUM</div>
+            </div>
+            <div class="phase-stat">
+                <div class="stat-value">20 دولة</div>
+                <div class="stat-label">الانتشار الجغرافي</div>
+            </div>
+            <div class="phase-stat">
+                <div class="stat-value">$2 مليار</div>
+                <div class="stat-label">العجز المغطى</div>
+            </div>
+            <div class="phase-stat">
+                <div class="stat-value" style="color:var(--green);">100 مسجد</div>
+                <div class="stat-label">مساجد مموّلة</div>
+            </div>
+            <div class="phase-stat">
+                <div class="stat-value" style="color:var(--teal);">50,000</div>
+                <div class="stat-label">طالب مستفيد</div>
+            </div>
+        </div>
+
+        <div class="phase-card" style="border-top:3px solid var(--gold);">
+            <div class="phase-title">🟡 المرحلة الثانية 2028-2031</div>
+            <div class="phase-stat">
+                <div class="stat-value">$100 مليار</div>
+                <div class="stat-label">حجم الأصول المدارة AUM</div>
+            </div>
+            <div class="phase-stat">
+                <div class="stat-value">40 دولة</div>
+                <div class="stat-label">الانتشار الجغرافي</div>
+            </div>
+            <div class="phase-stat">
+                <div class="stat-value">$20 مليار</div>
+                <div class="stat-label">العجز المغطى</div>
+            </div>
+            <div class="phase-stat">
+                <div class="stat-value" style="color:var(--green);">1,000 مسجد</div>
+                <div class="stat-label">مساجد مموّلة</div>
+            </div>
+            <div class="phase-stat">
+                <div class="stat-value" style="color:var(--teal);">500,000</div>
+                <div class="stat-label">طالب مستفيد</div>
+            </div>
+        </div>
+
+        <div class="phase-card" style="border-top:3px solid var(--green);">
+            <div class="phase-title">🟢 المرحلة الثالثة 2031-2036</div>
+            <div class="phase-stat">
+                <div class="stat-value">$1 تريليون</div>
+                <div class="stat-label">حجم الأصول المدارة AUM</div>
+            </div>
+            <div class="phase-stat">
+                <div class="stat-value">57 دولة</div>
+                <div class="stat-label">كامل دول OIC</div>
+            </div>
+            <div class="phase-stat">
+                <div class="stat-value">$200 مليار</div>
+                <div class="stat-label">العجز المغطى</div>
+            </div>
+            <div class="phase-stat">
+                <div class="stat-value" style="color:var(--green);">10,000 مسجد</div>
+                <div class="stat-label">مساجد مموّلة</div>
+            </div>
+            <div class="phase-stat">
+                <div class="stat-value" style="color:var(--teal);">5,000,000</div>
+                <div class="stat-label">طالب مستفيد</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="islamic-banner" style="margin-top:2rem;">
+        <div class="large-text">﴿إِن تَنصُرُوا اللَّهَ يَنصُرْكُمْ وَيُثَبِّتْ أَقْدَامَكُمْ﴾ — محمد ٧</div>
+        <p>كل ريال في هذا الصندوق هو جندي في سبيل الله — يبني للإسلام وللأمة</p>
+    </div>
+</div>
+
+<script>
+const API = async (ep) => {
+    try { const r = await fetch(ep); return r.ok ? r.json() : null; } catch { return null; }
+};
+
+function showTab(id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+    document.querySelector(`[onclick="showTab('${id}')"]`).classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+}
+
+// تحميل بيانات حية عند فتح الرؤية
+async function loadStatus() {
+    const data = await API('/api/sovereign-fund/status');
+    if (!data || !data.success) return;
+    const d = data.data;
+    const cards = document.getElementById('fund-status-cards');
+    if (!cards) return;
+    // تحديث عدد المحافظ والمحركات
+    cards.children[2].querySelector('p').textContent = `صكوك + مرابحة + مشاركة + مضاربة + إجارة + وقف — ${d.portfoliosCount || 5} محافظ`;
+    cards.children[3].querySelector('p').textContent = `${d.aiEngines || 6} محركات AI إسلامية لتحليل الاستثمارات`;
+}
+
+loadStatus();
+</script>
+</body>
+</html>

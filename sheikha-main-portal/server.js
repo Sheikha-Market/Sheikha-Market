@@ -36077,6 +36077,95 @@ app.get('/api/governance/principles', (req, res) => {
     res.json({ success: true, data: governanceEngine.getPrinciples(), count: governanceEngine.principles.length, message: 'المبادئ الإسلامية الحاكمة', timestamp: new Date().toISOString() });
 });
 
+// ══════════════════════════════════════════════
+// 🏦 صندوق شيخة السيادي الرقمي الإسلامي العالمي
+// بسم الله الرحمن الرحيم
+// ﴿وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ﴾
+// ══════════════════════════════════════════════
+let sovereignFund;
+try {
+    sovereignFund = require('./lib/sheikha-sovereign-fund-engine');
+    sovereignFund.start();
+} catch (e) {
+    console.error('⚠️ [SovereignFund] فشل التحميل:', e.message);
+}
+
+// حالة الصندوق السيادي
+app.get('/api/sovereign-fund/status', (req, res) => {
+    if (!sovereignFund) return res.json({ success: false, message: 'الصندوق السيادي غير متاح' });
+    res.json({ success: true, data: sovereignFund.getStatus(), message: 'صندوق شيخة السيادي الرقمي الإسلامي', timestamp: new Date().toISOString() });
+});
+
+// المحافظ الاستثمارية
+app.get('/api/sovereign-fund/portfolios', (req, res) => {
+    if (!sovereignFund) return res.json({ success: false, message: 'الصندوق السيادي غير متاح' });
+    res.json({ success: true, data: sovereignFund.portfolios, count: sovereignFund.portfolios.length, message: 'المحافظ الاستثمارية الإسلامية', timestamp: new Date().toISOString() });
+});
+
+// مستويات الاستثمار الحكومي
+app.get('/api/sovereign-fund/government-tiers', (req, res) => {
+    if (!sovereignFund) return res.json({ success: false, message: 'الصندوق السيادي غير متاح' });
+    res.json({ success: true, data: sovereignFund.governmentTiers, count: sovereignFund.governmentTiers.length, message: 'الاستثمار في الحكومات: محلي + إسلامي + دولي', timestamp: new Date().toISOString() });
+});
+
+// الاستثمار المحلي — المملكة العربية السعودية
+app.get('/api/sovereign-fund/domestic', (req, res) => {
+    if (!sovereignFund) return res.json({ success: false, message: 'الصندوق السيادي غير متاح' });
+    const domestic = sovereignFund.governmentTiers.find(t => t.id === 'domestic');
+    res.json({ success: true, data: domestic, message: 'الاستثمار المحلي — المملكة العربية السعودية', timestamp: new Date().toISOString() });
+});
+
+// الحكومات الإسلامية — 57 دولة OIC
+app.get('/api/sovereign-fund/islamic-govts', (req, res) => {
+    if (!sovereignFund) return res.json({ success: false, message: 'الصندوق السيادي غير متاح' });
+    const oic = sovereignFund.governmentTiers.find(t => t.id === 'oic_islamic');
+    res.json({ success: true, data: oic, message: 'الحكومات الإسلامية — 57 دولة OIC لعز الإسلام', timestamp: new Date().toISOString() });
+});
+
+// الحكومات الدولية غير الإسلامية
+app.get('/api/sovereign-fund/global-govts', (req, res) => {
+    if (!sovereignFund) return res.json({ success: false, message: 'الصندوق السيادي غير متاح' });
+    const global = sovereignFund.governmentTiers.find(t => t.id === 'global_non_islamic');
+    res.json({ success: true, data: global, message: 'الحكومات الدولية — استثمار بالحلال لنشر الإسلام', timestamp: new Date().toISOString() });
+});
+
+// محرك تحويل العجز إلى أرباح
+app.get('/api/sovereign-fund/deficit-engine', (req, res) => {
+    if (!sovereignFund) return res.json({ success: false, message: 'الصندوق السيادي غير متاح' });
+    res.json({ success: true, data: sovereignFund.deficitEngine, message: 'محرك تحويل العجز إلى أرباح — بلا ربا', timestamp: new Date().toISOString() });
+});
+
+// تحليل تحويل الدين (POST مع بيانات) أو GET عام
+app.get('/api/sovereign-fund/debt-conversion', (req, res) => {
+    if (!sovereignFund) return res.json({ success: false, message: 'الصندوق السيادي غير متاح' });
+    const mechanisms = sovereignFund.deficitEngine.mechanisms;
+    res.json({ success: true, data: { mechanisms, metrics: sovereignFund.deficitEngine.metrics }, message: 'آليات تحويل الديون إلى أرباح — الصكوك والمشاركة', timestamp: new Date().toISOString() });
+});
+
+// محركات الذكاء الاصطناعي الإسلامي
+app.get('/api/sovereign-fund/ai-engines', (req, res) => {
+    if (!sovereignFund) return res.json({ success: false, message: 'الصندوق السيادي غير متاح' });
+    res.json({ success: true, data: sovereignFund.aiEngines, count: sovereignFund.aiEngines.length, message: 'محركات AI الإسلامية للصندوق السيادي', timestamp: new Date().toISOString() });
+});
+
+// أهداف الأثر الإسلامي
+app.get('/api/sovereign-fund/islamic-impact', (req, res) => {
+    if (!sovereignFund) return res.json({ success: false, message: 'الصندوق السيادي غير متاح' });
+    res.json({ success: true, data: sovereignFund.islamicImpact, count: sovereignFund.islamicImpact.length, message: 'أهداف نشر الإسلام والعلم والتعليم', timestamp: new Date().toISOString() });
+});
+
+// الحوكمة الشرعية للصندوق
+app.get('/api/sovereign-fund/sharia-governance', (req, res) => {
+    if (!sovereignFund) return res.json({ success: false, message: 'الصندوق السيادي غير متاح' });
+    res.json({ success: true, data: sovereignFund.shariaGovernance, message: 'هيئة الرقابة الشرعية — صندوق شيخة السيادي', timestamp: new Date().toISOString() });
+});
+
+// الأهداف والمراحل الزمنية
+app.get('/api/sovereign-fund/targets', (req, res) => {
+    if (!sovereignFund) return res.json({ success: false, message: 'الصندوق السيادي غير متاح' });
+    res.json({ success: true, data: sovereignFund.targets, message: 'مراحل الصندوق السيادي 2026-2036', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
