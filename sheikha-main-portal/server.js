@@ -36332,6 +36332,148 @@ app.get('/api/bayt-almal/minority-programs', (req, res) => {
     res.json({ success: true, data: baytAlMal.minorityPrograms, count: baytAlMal.minorityPrograms.length, message: 'برامج حماية ودعم مسلمي الأقليات', timestamp: new Date().toISOString() });
 });
 
+// ══════════════════════════════════════════════════════════════════
+// المرحلة ١٠ — سوق التجارة الإسلامية العالمية
+// ══════════════════════════════════════════════════════════════════
+const islamicTrade = (() => { try { return require('./lib/sheikha-islamic-trade-engine.js').start(); } catch(e) { console.warn('⚠️ [IslamicTrade] فشل التحميل:', e.message); return null; } })();
+
+// نظرة عامة على السوق الإسلامي
+app.get('/api/islamic-trade/overview', (req, res) => {
+    if (!islamicTrade) return res.json({ success: false, message: 'محرك التجارة غير متاح' });
+    res.json({ success: true, data: islamicTrade.getMarketOverview(), message: 'السوق الإسلامي العالمي — ٣.١ تريليون دولار', timestamp: new Date().toISOString() });
+});
+
+// دول OIC الـ ٥٧
+app.get('/api/islamic-trade/oic-countries', (req, res) => {
+    if (!islamicTrade) return res.json({ success: false, message: 'محرك التجارة غير متاح' });
+    res.json({ success: true, data: islamicTrade.oicCountries, total: islamicTrade.oicCountries.total, message: '٥٧ دولة إسلامية في منظومة التجارة', timestamp: new Date().toISOString() });
+});
+
+// قطاعات HS الإسلامية
+app.get('/api/islamic-trade/hs-sectors', (req, res) => {
+    if (!islamicTrade) return res.json({ success: false, message: 'محرك التجارة غير متاح' });
+    res.json({ success: true, data: islamicTrade.hsCodeSectors, count: islamicTrade.hsCodeSectors.sectors.length, message: '١٢ قطاع حلال مصنف بـ HS', timestamp: new Date().toISOString() });
+});
+
+// تفاصيل قطاع محدد
+app.get('/api/islamic-trade/sector/:sectorId', (req, res) => {
+    if (!islamicTrade) return res.json({ success: false, message: 'محرك التجارة غير متاح' });
+    const sector = islamicTrade.getSectorDetails(req.params.sectorId);
+    if (!sector) return res.json({ success: false, message: 'القطاع غير موجود' });
+    res.json({ success: true, data: sector, timestamp: new Date().toISOString() });
+});
+
+// ممرات التجارة النشطة
+app.get('/api/islamic-trade/corridors', (req, res) => {
+    if (!islamicTrade) return res.json({ success: false, message: 'محرك التجارة غير متاح' });
+    res.json({ success: true, data: islamicTrade.getActiveCorridors(), message: 'ممرات التجارة الإسلامية النشطة', timestamp: new Date().toISOString() });
+});
+
+// مبادئ التجارة الإسلامية
+app.get('/api/islamic-trade/principles', (req, res) => {
+    if (!islamicTrade) return res.json({ success: false, message: 'محرك التجارة غير متاح' });
+    res.json({ success: true, data: islamicTrade.tradePrinciples, message: 'مبادئ التجارة من الكتاب والسنة', timestamp: new Date().toISOString() });
+});
+
+// فئات التجار الإسلاميين
+app.get('/api/islamic-trade/trader-categories', (req, res) => {
+    if (!islamicTrade) return res.json({ success: false, message: 'محرك التجارة غير متاح' });
+    res.json({ success: true, data: islamicTrade.traderCategories, count: islamicTrade.traderCategories.length, message: 'فئات التجار الإسلاميين', timestamp: new Date().toISOString() });
+});
+
+// حالة المحرك
+app.get('/api/islamic-trade/status', (req, res) => {
+    if (!islamicTrade) return res.json({ success: false, message: 'محرك التجارة غير متاح' });
+    res.json({ success: true, data: islamicTrade.getStatus(), timestamp: new Date().toISOString() });
+});
+
+// ══════════════════════════════════════════════════════════════════
+// المرحلة ١١ — محرك التمويل الإسلامي
+// ══════════════════════════════════════════════════════════════════
+const islamicFinance = (() => { try { return require('./lib/sheikha-islamic-finance-engine.js').start(); } catch(e) { console.warn('⚠️ [IslamicFinance] فشل التحميل:', e.message); return null; } })();
+
+// نظرة عامة على التمويل
+app.get('/api/islamic-finance/overview', (req, res) => {
+    if (!islamicFinance) return res.json({ success: false, message: 'محرك التمويل غير متاح' });
+    res.json({ success: true, data: islamicFinance.getStatus(), message: 'محرك التمويل الإسلامي — بلا ربا', timestamp: new Date().toISOString() });
+});
+
+// صيغ التمويل الشرعية
+app.get('/api/islamic-finance/modes', (req, res) => {
+    if (!islamicFinance) return res.json({ success: false, message: 'محرك التمويل غير متاح' });
+    res.json({ success: true, data: islamicFinance.getModes(), count: islamicFinance.getModes().modes.length, message: 'صيغ التمويل الإسلامي المعتمدة شرعاً', timestamp: new Date().toISOString() });
+});
+
+// الصناديق الإسلامية
+app.get('/api/islamic-finance/funds', (req, res) => {
+    if (!islamicFinance) return res.json({ success: false, message: 'محرك التمويل غير متاح' });
+    res.json({ success: true, data: islamicFinance.getFunds(), count: islamicFinance.getFunds().length, message: 'الصناديق الإسلامية المتخصصة', timestamp: new Date().toISOString() });
+});
+
+// حاسبة المرابحة
+app.post('/api/islamic-finance/calculate/murabaha', (req, res) => {
+    if (!islamicFinance) return res.json({ success: false, message: 'محرك التمويل غير متاح' });
+    const { cost, profitPct } = req.body;
+    if (!cost || !profitPct) return res.json({ success: false, message: 'يلزم: cost و profitPct' });
+    const result = islamicFinance.calculate('murabaha', { cost: Number(cost), profitPct: Number(profitPct) });
+    res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+});
+
+// حاسبة زكاة التجارة
+app.post('/api/islamic-finance/calculate/zakat-trade', (req, res) => {
+    if (!islamicFinance) return res.json({ success: false, message: 'محرك التمويل غير متاح' });
+    const { stock = 0, cash = 0, receivables = 0, liabilities = 0 } = req.body;
+    const result = islamicFinance.calculate('zakat', { stock: Number(stock), cash: Number(cash), receivables: Number(receivables), liabilities: Number(liabilities) });
+    res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+});
+
+// حاسبة المشاركة
+app.post('/api/islamic-finance/calculate/musharaka', (req, res) => {
+    if (!islamicFinance) return res.json({ success: false, message: 'محرك التمويل غير متاح' });
+    const { capital1, capital2, profitSplit1Pct } = req.body;
+    if (!capital1 || !capital2 || !profitSplit1Pct) return res.json({ success: false, message: 'يلزم: capital1 و capital2 و profitSplit1Pct' });
+    const result = islamicFinance.calculate('musharaka', { capital1: Number(capital1), capital2: Number(capital2), profitSplit1Pct: Number(profitSplit1Pct) });
+    res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+});
+
+// ══════════════════════════════════════════════════════════════════
+// المرحلة ١٣ — الأوقاف الرقمية الإسلامية
+// ══════════════════════════════════════════════════════════════════
+const digitalAwqaf = (() => { try { return require('./lib/sheikha-digital-awqaf-engine.js').start(); } catch(e) { console.warn('⚠️ [DigitalAwqaf] فشل التحميل:', e.message); return null; } })();
+
+// نظرة عامة على الأوقاف
+app.get('/api/awqaf/overview', (req, res) => {
+    if (!digitalAwqaf) return res.json({ success: false, message: 'محرك الأوقاف غير متاح' });
+    res.json({ success: true, data: digitalAwqaf.getStatus(), message: 'الأوقاف الرقمية — صدقة جارية لا تنقطع', timestamp: new Date().toISOString() });
+});
+
+// أنواع الأوقاف
+app.get('/api/awqaf/types', (req, res) => {
+    if (!digitalAwqaf) return res.json({ success: false, message: 'محرك الأوقاف غير متاح' });
+    res.json({ success: true, data: digitalAwqaf.getAllTypes(), count: digitalAwqaf.getAllTypes().types.length, timestamp: new Date().toISOString() });
+});
+
+// توزيع ريع الأوقاف
+app.get('/api/awqaf/revenue-distribution', (req, res) => {
+    if (!digitalAwqaf) return res.json({ success: false, message: 'محرك الأوقاف غير متاح' });
+    res.json({ success: true, data: digitalAwqaf.getRevenueDistribution(), message: 'توزيع ريع الأوقاف وفق الشريعة', timestamp: new Date().toISOString() });
+});
+
+// الأوقاف التاريخية الملهمة
+app.get('/api/awqaf/historic', (req, res) => {
+    if (!digitalAwqaf) return res.json({ success: false, message: 'محرك الأوقاف غير متاح' });
+    res.json({ success: true, data: digitalAwqaf.getHistoricInspirations(), message: 'الأوقاف التاريخية العظيمة — نحيي تراثها رقمياً', timestamp: new Date().toISOString() });
+});
+
+// تقدير أثر الوقف
+app.post('/api/awqaf/estimate-impact', (req, res) => {
+    if (!digitalAwqaf) return res.json({ success: false, message: 'محرك الأوقاف غير متاح' });
+    const { amount_usd, waqf_type_id, years = 10 } = req.body;
+    if (!amount_usd || !waqf_type_id) return res.json({ success: false, message: 'يلزم: amount_usd و waqf_type_id' });
+    const result = digitalAwqaf.estimateWaqfImpact(Number(amount_usd), waqf_type_id, Number(years));
+    res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════

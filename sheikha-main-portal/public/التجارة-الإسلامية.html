@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سوق التجارة الإسلامية العالمية — منظومة شيخة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold: #D4AF37; --copper: #B87333; --dark: #0a0a0a; --dark2: #111;
+    --dark3: #1a1a1a; --dark4: #222; --text: #e8e0d0; --text2: #b0a898;
+    --green: #2ecc71; --blue: #3498db; --purple: #9b59b6;
+    --teal: #1abc9c; --red: #e74c3c; --orange: #e67e22;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Tajawal', sans-serif; background: var(--dark); color: var(--text); min-height: 100vh; direction: rtl; }
+
+.header {
+    background: linear-gradient(160deg,#060a10 0%,#0a1020 40%,#050810 100%);
+    border-bottom: 2px solid var(--blue);
+    padding: 1.6rem 2rem; text-align: center;
+}
+.header-icon { font-size: 3.5rem; margin-bottom: .4rem; }
+.header h1 {
+    font-size: 1.9rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--blue), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: .3rem;
+}
+.header .subtitle { font-size: .9rem; color: var(--text2); margin-bottom: .6rem; }
+.header .verse { font-size: 1.05rem; color: var(--gold); font-style: italic; }
+
+.tabs {
+    display: flex; background: var(--dark2); border-bottom: 1px solid #2a2a2a;
+    overflow-x: auto; scrollbar-width: none; padding: 0 .5rem; gap: .2rem;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+    padding: .8rem 1.1rem; cursor: pointer; white-space: nowrap; font-size: .84rem;
+    color: var(--text2); border-bottom: 3px solid transparent; transition: all .25s; font-weight: 500; flex-shrink: 0;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+.content { display: none; padding: 1.8rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+.content.active { display: block; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.1rem; margin: 1.2rem 0; }
+.card { background: var(--dark3); border: 1px solid #2a2a2a; border-radius: 12px; padding: 1.3rem; transition: border-color .3s, transform .2s; }
+.card:hover { border-color: var(--blue); transform: translateY(-2px); }
+.card-icon { font-size: 1.8rem; margin-bottom: .5rem; }
+.card h3 { font-size: .95rem; color: var(--gold); margin-bottom: .4rem; }
+.card p { font-size: .83rem; color: var(--text2); line-height: 1.6; }
+.badge { display: inline-block; margin-top: .6rem; padding: .18rem .65rem; border-radius: 20px; font-size: .74rem; font-weight: 700; }
+.badge-blue { background: rgba(52,152,219,.15); color: var(--blue); border: 1px solid rgba(52,152,219,.3); }
+.badge-gold { background: rgba(212,175,55,.15); color: var(--gold); border: 1px solid rgba(212,175,55,.3); }
+.badge-green { background: rgba(46,204,113,.15); color: var(--green); border: 1px solid rgba(46,204,113,.3); }
+.badge-orange { background: rgba(230,126,34,.15); color: var(--orange); border: 1px solid rgba(230,126,34,.3); }
+.badge-red { background: rgba(231,76,60,.15); color: var(--red); border: 1px solid rgba(231,76,60,.3); }
+
+.hero {
+    background: linear-gradient(135deg,#060b12,#0a1228,#060b12);
+    border: 2px solid var(--blue); border-radius: 16px;
+    padding: 2rem 1.8rem; text-align: center; margin-bottom: 1.8rem;
+}
+.hero h2 { font-size: 1.6rem; font-weight: 900; color: var(--blue); margin-bottom: .5rem; }
+.hero .sub { font-size: 1.1rem; color: var(--gold); font-weight: 700; margin-bottom: .8rem; }
+.hero p { font-size: .9rem; color: var(--text2); line-height: 1.7; max-width: 700px; margin: 0 auto; }
+.verse-box {
+    margin-top: 1.2rem; padding: .9rem 1.2rem;
+    background: rgba(212,175,55,.08); border: 1px solid rgba(212,175,55,.25);
+    border-radius: 10px; font-size: .92rem; color: var(--gold); font-style: italic;
+    max-width: 700px; margin-left: auto; margin-right: auto;
+}
+
+.sector-row {
+    background: var(--dark3); border-radius: 12px; padding: 1.2rem 1.4rem;
+    margin-bottom: 1rem; border-right: 5px solid var(--blue);
+    display: flex; align-items: flex-start; gap: 1rem;
+}
+.sector-row.specialty { border-right-color: var(--gold); }
+.sector-ico { font-size: 1.8rem; flex-shrink: 0; margin-top: .1rem; }
+.sector-body h4 { font-size: .95rem; color: var(--gold); margin-bottom: .3rem; }
+.sector-body .meta { font-size: .78rem; color: var(--text2); margin-bottom: .4rem; }
+.sector-body .sharia-note { font-size: .75rem; color: var(--green); font-style: italic; }
+.vol-badge { padding: .16rem .55rem; border-radius: 20px; font-size: .7rem; font-weight: 700; background: rgba(52,152,219,.15); color: var(--blue); border: 1px solid rgba(52,152,219,.3); margin-right: .4rem; }
+.spec-badge { background: rgba(212,175,55,.15); color: var(--gold); border-color: rgba(212,175,55,.3); }
+
+.corridor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 1rem; margin: 1rem 0; }
+.corridor-card { background: var(--dark3); border: 1px solid #2a2a2a; border-radius: 10px; padding: 1rem; }
+.corridor-card h4 { font-size: .88rem; color: var(--teal); margin-bottom: .35rem; }
+.corridor-card .volume { font-size: 1.1rem; font-weight: 700; color: var(--gold); }
+.corridor-card .goods { font-size: .78rem; color: var(--text2); margin-top: .2rem; }
+
+.principle-row { background: var(--dark3); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: .75rem; border-right: 4px solid var(--teal); }
+.principle-row h4 { font-size: .9rem; color: var(--gold); margin-bottom: .25rem; }
+.principle-row .p-desc { font-size: .82rem; color: var(--text2); }
+.principle-row .arabic { font-size: .88rem; color: var(--teal); font-style: italic; margin-bottom: .25rem; }
+
+.stat-row { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+.stat-box { flex: 1; min-width: 140px; background: var(--dark3); border-radius: 10px; padding: 1rem; text-align: center; border: 1px solid #2a2a2a; }
+.stat-num { font-size: 1.6rem; font-weight: 900; color: var(--blue); }
+.stat-label { font-size: .75rem; color: var(--text2); margin-top: .2rem; }
+
+.nav-back { padding: .75rem 1.5rem; background: var(--dark2); border-bottom: 1px solid #1e1e1e; font-size: .83rem; color: var(--text2); }
+.nav-back a { color: var(--blue); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="nav-back">
+    <a href="/">← الرئيسية</a> &nbsp;|&nbsp; منظومة شيخة الاقتصادية الإسلامية
+</div>
+
+<div class="header">
+    <div class="header-icon">🌍</div>
+    <h1>سوق التجارة الإسلامية العالمية</h1>
+    <div class="subtitle">٥٧ دولة OIC • ١٢ قطاع حلال • ٣.١ تريليون دولار</div>
+    <div class="verse">﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾ — البقرة ٢٧٥</div>
+</div>
+
+<div class="tabs">
+    <div class="tab active" onclick="showTab('overview')">🌐 نظرة عامة</div>
+    <div class="tab" onclick="showTab('sectors')">🏭 القطاعات الـ ١٢</div>
+    <div class="tab" onclick="showTab('corridors')">🚢 ممرات التجارة</div>
+    <div class="tab" onclick="showTab('oic')">🕌 دول OIC الـ ٥٧</div>
+    <div class="tab" onclick="showTab('principles')">📜 ضوابط شرعية</div>
+    <div class="tab" onclick="showTab('traders')">👔 فئات التجار</div>
+</div>
+
+<!-- ══ نظرة عامة ══ -->
+<div class="content active" id="tab-overview">
+    <div class="hero">
+        <h2>السوق الإسلامي العالمي</h2>
+        <div class="sub">على نهج سوق المدينة المنورة — حرية + عدل + بلا ضرائب جائرة</div>
+        <p>بيّن النبي ﷺ سوق المدينة نموذجاً خالداً: لا احتكار، لا غش، لا ربا، لا إكراه. شيخة تُحيي هذا النموذج رقمياً لربط ٥٧ دولة إسلامية في سوق واحد عادل.</p>
+        <div class="verse-box">«النبي ﷺ خطّ سوق المدينة بيده وقال: هذا سوقكم فلا يُضيَّق ولا يُؤخذ منه خراج» — ابن ماجه</div>
+    </div>
+
+    <div class="stat-row">
+        <div class="stat-box"><div class="stat-num">٣.١T</div><div class="stat-label">حجم السوق بالدولار</div></div>
+        <div class="stat-box"><div class="stat-num">٥٧</div><div class="stat-label">دولة OIC مشاركة</div></div>
+        <div class="stat-box"><div class="stat-num">١٢</div><div class="stat-label">قطاع حلال</div></div>
+        <div class="stat-box"><div class="stat-num">٨.٣٪</div><div class="stat-label">معدل النمو السنوي</div></div>
+        <div class="stat-box"><div class="stat-num">٢.٨M</div><div class="stat-label">شركة حلال معتمدة</div></div>
+    </div>
+
+    <h3 style="color:var(--gold);margin:1.5rem 0 1rem;">أبرز القطاعات الاستراتيجية</h3>
+    <div class="cards">
+        <div class="card" style="border-right:4px solid var(--gold);">
+            <div class="card-icon">⚙️</div>
+            <h3>المعادن والسكراب — تخصص شيخة</h3>
+            <p>٨٥٠ مليار دولار — تجارة المعادن الخام والسكراب بين ٢٠+ دولة إسلامية</p>
+            <span class="badge badge-gold">تخصص شيخة الأول</span>
+        </div>
+        <div class="card" style="border-right:4px solid var(--green);">
+            <div class="card-icon">🍱</div>
+            <h3>الغذاء الحلال</h3>
+            <p>٢.١ تريليون دولار — أكبر سوق حلال في العالم — ماليزيا وإندونيسيا تقودانه</p>
+            <span class="badge badge-green">الأكبر عالمياً</span>
+        </div>
+        <div class="card" style="border-right:4px solid var(--blue);">
+            <div class="card-icon">📜</div>
+            <h3>المنتجات المالية الشرعية</h3>
+            <p>٢.٧ تريليون دولار — صكوك + مرابحة + إجارة — الأسرع نمواً في التمويل</p>
+            <span class="badge badge-blue">أسرع نمو</span>
+        </div>
+        <div class="card" style="border-right:4px solid var(--orange);">
+            <div class="card-icon">⛽</div>
+            <h3>الطاقة والنفط والغاز</h3>
+            <p>١.٢ تريليون دولار — الجزيرة العربية تتصدر + تحول نحو الطاقة المتجددة</p>
+            <span class="badge badge-orange">استراتيجي</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══ القطاعات الـ ١٢ ══ -->
+<div class="content" id="tab-sectors">
+    <h2 style="color:var(--blue);margin-bottom:.5rem;">🏭 القطاعات الـ ١٢ — رموز HS الإسلامية</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">كل قطاع مصنف بكود HS دولي مع ضوابطه الشرعية</p>
+
+    <div class="sector-row specialty">
+        <div class="sector-ico">⚙️</div>
+        <div class="sector-body">
+            <h4>المعادن والسكراب — HS: 7201–8548 <span class="badge badge-gold">تخصص شيخة</span></h4>
+            <div class="meta"><span class="vol-badge spec-badge">٨٥٠ مليار $</span> اللاعبون: SA TR EG MY NG</div>
+            <div class="sharia-note">✅ حلال — لا ربا في تجارة المعادن الفورية</div>
+        </div>
+    </div>
+    <div class="sector-row">
+        <div class="sector-ico">🍱</div>
+        <div class="sector-body">
+            <h4>الغذاء الحلال — HS: 0101–2403</h4>
+            <div class="meta"><span class="vol-badge">٢.١ تريليون $</span> اللاعبون: MY ID BR AU</div>
+            <div class="sharia-note">⚠️ شرط: ذبح شرعي + شهادة حلال معتمدة</div>
+        </div>
+    </div>
+    <div class="sector-row">
+        <div class="sector-ico">👗</div>
+        <div class="sector-body">
+            <h4>المنسوجات والملابس — HS: 5001–6310</h4>
+            <div class="meta"><span class="vol-badge">٣٦٠ مليار $</span> اللاعبون: BD TR PK ID EG</div>
+            <div class="sharia-note">✅ حلال — مع مراعاة الحشمة في التصميم</div>
+        </div>
+    </div>
+    <div class="sector-row">
+        <div class="sector-ico">💄</div>
+        <div class="sector-body">
+            <h4>مستحضرات التجميل الحلال — HS: 3001–3406</h4>
+            <div class="meta"><span class="vol-badge">١٢٠ مليار $</span> اللاعبون: MY SA TR EG ID</div>
+            <div class="sharia-note">⚠️ شرط: لا كحول + لا مشتقات خنزير</div>
+        </div>
+    </div>
+    <div class="sector-row specialty">
+        <div class="sector-ico">🏗️</div>
+        <div class="sector-body">
+            <h4>مواد البناء — HS: 2501–2815 <span class="badge badge-gold">تخصص شيخة</span></h4>
+            <div class="meta"><span class="vol-badge spec-badge">٢٢٠ مليار $</span> اللاعبون: SA AE TR EG MA</div>
+            <div class="sharia-note">✅ حلال — لإعمار الدول الإسلامية</div>
+        </div>
+    </div>
+    <div class="sector-row">
+        <div class="sector-ico">🌾</div>
+        <div class="sector-body">
+            <h4>الزراعة والمحاصيل — HS: 1001–1214</h4>
+            <div class="meta"><span class="vol-badge">٤٨٠ مليار $</span> اللاعبون: EG MA TR PK SD</div>
+            <div class="sharia-note">✅ حلال — مع مراعاة زكاة الزراعة</div>
+        </div>
+    </div>
+    <div class="sector-row">
+        <div class="sector-ico">⛽</div>
+        <div class="sector-body">
+            <h4>الطاقة والنفط والغاز — HS: 2701–2716</h4>
+            <div class="meta"><span class="vol-badge">١.٢ تريليون $</span> اللاعبون: SA AE IR KW QA</div>
+            <div class="sharia-note">✅ حلال — يُنصح بالطاقة المتجددة</div>
+        </div>
+    </div>
+    <div class="sector-row">
+        <div class="sector-ico">💻</div>
+        <div class="sector-body">
+            <h4>التقنية والمعدات — HS: 8471–8543</h4>
+            <div class="meta"><span class="vol-badge">٣٨٠ مليار $</span> اللاعبون: TR MY SA AE PK</div>
+            <div class="sharia-note">✅ حلال — مع تجنب تقنيات مراقبة المسلمين</div>
+        </div>
+    </div>
+    <div class="sector-row specialty">
+        <div class="sector-ico">📜</div>
+        <div class="sector-body">
+            <h4>المنتجات المالية الشرعية <span class="badge badge-gold">تخصص شيخة</span></h4>
+            <div class="meta"><span class="vol-badge spec-badge">٢.٧ تريليون $</span> اللاعبون: SA MY AE KW QA</div>
+            <div class="sharia-note">🔴 هيئة شرعية مستقلة واجبة — لا ربا بأي صورة</div>
+        </div>
+    </div>
+    <div class="sector-row">
+        <div class="sector-ico">🏥</div>
+        <div class="sector-body">
+            <h4>المعدات الطبية — HS: 9018–9027</h4>
+            <div class="meta"><span class="vol-badge">٩٥ مليار $</span> اللاعبون: TR MY SA AE EG</div>
+            <div class="sharia-note">✅ حلال — ضرورة شرعية</div>
+        </div>
+    </div>
+    <div class="sector-row">
+        <div class="sector-ico">📚</div>
+        <div class="sector-body">
+            <h4>التعليم والإعلام الإسلامي</h4>
+            <div class="meta"><span class="vol-badge">٧٥ مليار $</span> اللاعبون: SA EG TR MY QA</div>
+            <div class="sharia-note">✅ فرض كفاية — نشر العلم الشرعي واجب</div>
+        </div>
+    </div>
+    <div class="sector-row">
+        <div class="sector-ico">🕋</div>
+        <div class="sector-body">
+            <h4>السياحة والحج والعمرة</h4>
+            <div class="meta"><span class="vol-badge">١٥٠ مليار $</span> اللاعبون: SA TR MY MA JO</div>
+            <div class="sharia-note">✅ فريضة (الحج) + مستحب (السياحة الحلال)</div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ ممرات التجارة ══ -->
+<div class="content" id="tab-corridors">
+    <h2 style="color:var(--teal);margin-bottom:.5rem;">🚢 ممرات التجارة الإسلامية النشطة</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">خطوط تجارية تربط الأمة الإسلامية من المغرب إلى إندونيسيا</p>
+
+    <div class="corridor-grid">
+        <div class="corridor-card" style="border-right:4px solid var(--gold);">
+            <h4>🕋 جزيرة العرب ← جنوب آسيا</h4>
+            <div class="volume">٢٨٠ مليار $</div>
+            <div class="goods">طاقة ← نسيج | SA/QA/AE ↔ PK/BD</div>
+        </div>
+        <div class="corridor-card" style="border-right:4px solid var(--teal);">
+            <h4>🌴 جنوب شرق آسيا ← الشرق الأوسط</h4>
+            <div class="volume">١٩٥ مليار $</div>
+            <div class="goods">غذاء حلال ← نفط | MY/ID ↔ SA/AE</div>
+        </div>
+        <div class="corridor-card" style="border-right:4px solid var(--orange);">
+            <h4>🌍 أفريقيا ← الخليج</h4>
+            <div class="volume">٨٥ مليار $</div>
+            <div class="goods">مواد خام ← إنشاء | NG/SO ↔ SA/AE</div>
+        </div>
+        <div class="corridor-card" style="border-right:4px solid var(--blue);">
+            <h4>🌙 تركيا ← شمال أفريقيا</h4>
+            <div class="volume">١٢٠ مليار $</div>
+            <div class="goods">صناعة ← زراعة | TR ↔ EG/MA/DZ</div>
+        </div>
+        <div class="corridor-card" style="border-right:4px solid var(--purple);">
+            <h4>📜 ماليزيا ← الأمة كلها</h4>
+            <div class="volume">١٤٥ مليار $</div>
+            <div class="goods">صكوك + تمويل إسلامي | MY → OIC</div>
+        </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,var(--dark3),#0a1628);border:1px solid var(--blue);border-radius:12px;padding:1.4rem;margin-top:1.5rem;">
+        <h3 style="color:var(--blue);margin-bottom:.8rem;">📋 نظام طلب العروض الإسلامي (RFQ)</h3>
+        <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">نظام RFQ شفاف يضمن العدل والتراضي في كل صفقة</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem;">
+            <span class="badge badge-blue">١. نشر الطلب</span>
+            <span style="color:var(--text2)">←</span>
+            <span class="badge badge-gold">٢. استقبال العروض</span>
+            <span style="color:var(--text2)">←</span>
+            <span class="badge badge-green">٣. مقارنة شفافة</span>
+            <span style="color:var(--text2)">←</span>
+            <span class="badge" style="background:rgba(155,89,182,.15);color:var(--purple);border-color:rgba(155,89,182,.3);">٤. عقد شرعي</span>
+            <span style="color:var(--text2)">←</span>
+            <span class="badge badge-orange">٥. تسليم وتوثيق</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══ دول OIC ══ -->
+<div class="content" id="tab-oic">
+    <h2 style="color:var(--gold);margin-bottom:.5rem;">🕌 دول OIC الـ ٥٧ — مصنفة بالمنطقة</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">الأمة الإسلامية في ٦ مناطق — سوق واحد موحد</p>
+
+    <div class="cards">
+        <div class="card" style="border-right:4px solid var(--gold);">
+            <div class="card-icon">🕋</div>
+            <h3>جزيرة العرب — ٧ دول</h3>
+            <p>SA YE OM AE QA BH KW — قلب الإسلام | ناتج: ٢.١ تريليون $</p>
+            <span class="badge badge-gold">قوة تجارية: عالية</span>
+        </div>
+        <div class="card" style="border-right:4px solid var(--blue);">
+            <div class="card-icon">🌙</div>
+            <h3>شمال أفريقيا والشام — ١٠ دول</h3>
+            <p>EG MA DZ TN LY PS JO SY LB IQ | ناتج: ١.٢ تريليون $</p>
+            <span class="badge badge-blue">قوة تجارية: متوسطة-عالية</span>
+        </div>
+        <div class="card" style="border-right:4px solid var(--green);">
+            <div class="card-icon">🕌</div>
+            <h3>جنوب آسيا — ٤ دول</h3>
+            <p>PK BD AF MV — ٦٠٠ مليون مسلم | ناتج: ٩٠٠ مليار $</p>
+            <span class="badge badge-green">قوة تجارية: متوسطة</span>
+        </div>
+        <div class="card" style="border-right:4px solid var(--teal);">
+            <div class="card-icon">🌴</div>
+            <h3>جنوب شرق آسيا — ٣ دول</h3>
+            <p>ID MY BN — نموذج اقتصادي ناجح | ناتج: ١.٨ تريليون $</p>
+            <span class="badge" style="background:rgba(26,188,156,.15);color:var(--teal);border-color:rgba(26,188,156,.3);">قوة تجارية: عالية جداً</span>
+        </div>
+        <div class="card" style="border-right:4px solid var(--orange);">
+            <div class="card-icon">🌾</div>
+            <h3>أفريقيا جنوب الصحراء — ٢٢ دولة</h3>
+            <p>NG SN ML SO ET وغيرها — ٢٥٠ مليون | ناتج: ٧٥٠ مليار $</p>
+            <span class="badge badge-orange">قوة تجارية: متوسطة-منخفضة</span>
+        </div>
+        <div class="card" style="border-right:4px solid var(--purple);">
+            <div class="card-icon">🏔️</div>
+            <h3>آسيا الوسطى + تركيا + إيران — ٨ دول</h3>
+            <p>TR IR KZ UZ TM KG TJ AZ | ناتج: ١.٤ تريليون $</p>
+            <span class="badge" style="background:rgba(155,89,182,.15);color:var(--purple);border-color:rgba(155,89,182,.3);">قوة تجارية: متوسطة-عالية</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══ الضوابط الشرعية ══ -->
+<div class="content" id="tab-principles">
+    <h2 style="color:var(--gold);margin-bottom:.5rem;">📜 ضوابط التجارة الإسلامية من الكتاب والسنة</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">كل معاملة في سوق شيخة تخضع لهذه الضوابط الشرعية</p>
+
+    <div style="background:linear-gradient(135deg,#0a1000,#121e00);border:2px solid var(--gold);border-radius:14px;padding:1.4rem;text-align:center;margin-bottom:1.5rem;">
+        <div style="font-size:1.1rem;color:var(--gold);font-style:italic;">﴿يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ مِّنكُمْ﴾</div>
+        <div style="color:var(--text2);font-size:.82rem;margin-top:.4rem;">— النساء ٢٩</div>
+    </div>
+
+    <div class="principle-row">
+        <div class="arabic">«البيع عن تراضٍ»</div>
+        <h4>التراضي المتبادل</h4>
+        <div class="p-desc">لا بيع بإكراه — الرضا التام شرط صحة كل عقد في سوق شيخة</div>
+    </div>
+    <div class="principle-row">
+        <div class="arabic">«لا تدليس — لا غش»</div>
+        <h4>صدق القول والوصف</h4>
+        <div class="p-desc">«المسلم أخو المسلم لا يبيعه المعيب إلا بيّنه» — كل وصف بضاعة بالحق واجب</div>
+    </div>
+    <div class="principle-row">
+        <div class="arabic">﴿وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ﴾</div>
+        <h4>دقة الوزن والكيل</h4>
+        <div class="p-desc">الوزن الدقيق فريضة — ﴿وَيْلٌ لِّلْمُطَفِّفِينَ﴾ — كل معادن شيخة موزونة بالدقة</div>
+    </div>
+    <div class="principle-row">
+        <div class="arabic">﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾</div>
+        <h4>لا ربا في أي صورة</h4>
+        <div class="p-desc">التمويل عبر مرابحة + مشاركة + إجارة فقط — لا فائدة في أي معاملة</div>
+    </div>
+    <div class="principle-row">
+        <div class="arabic">«نهى النبي ﷺ عن بيع الغرر»</div>
+        <h4>لا غرر ولا جهالة</h4>
+        <div class="p-desc">الثمن + الكمية + الجودة + التسليم — كل شيء معلوم قبل التعاقد</div>
+    </div>
+    <div class="principle-row">
+        <div class="arabic">«لا يحتكر إلا خاطئ» — صحيح مسلم</div>
+        <h4>لا احتكار</h4>
+        <div class="p-desc">حبس البضاعة لرفع السعر محرم — السوق الحر الإسلامي يمنع الاحتكار</div>
+    </div>
+    <div class="principle-row">
+        <div class="arabic">«ربع العشر — ٢.٥٪»</div>
+        <h4>زكاة عروض التجارة</h4>
+        <div class="p-desc">كل بضاعة بلغت النصاب وحال عليها الحول فيها زكاة ٢.٥٪ — شيخة يذكّرك</div>
+    </div>
+</div>
+
+<!-- ══ فئات التجار ══ -->
+<div class="content" id="tab-traders">
+    <h2 style="color:var(--copper);margin-bottom:.5rem;">👔 فئات التجار في سوق شيخة</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">كل تاجر مسلم له مكانه في منظومة شيخة — من أصغر بائع إلى أكبر شركة</p>
+
+    <div class="cards">
+        <div class="card" style="border-right:4px solid var(--gold);">
+            <div class="card-icon">⚙️</div>
+            <h3>متخصص المعادن والسكراب</h3>
+            <p>ميدان شيخة الأول — خبير المعادن الخام والسكراب في الدول الإسلامية</p>
+            <span class="badge badge-gold">الحد الأدنى: ٥٠,٠٠٠ $ | بيت شيخة</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🍱</div>
+            <h3>تاجر الغذاء الحلال</h3>
+            <p>مصادر غذاء حلال معتمدة — بين ماليزيا وإندونيسيا والجزيرة العربية</p>
+            <span class="badge badge-green">الحد الأدنى: ٢٠,٠٠٠ $</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🏭</div>
+            <h3>صانع ومنتج إسلامي</h3>
+            <p>مصانع حلال — نسيج + غذاء + أدوية + بناء — صاحب إنتاج إسلامي</p>
+            <span class="badge badge-blue">الحد الأدنى: ١٠٠,٠٠٠ $</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">📦</div>
+            <h3>مستورد إسلامي</h3>
+            <p>يستورد ويوزع في سوقه المحلي — بضائع من ٥٧ دولة OIC</p>
+            <span class="badge badge-orange">الحد الأدنى: ٣٠,٠٠٠ $</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🚢</div>
+            <h3>مصدّر إسلامي</h3>
+            <p>يصدّر منتجاته لأسواق الأمة الإسلامية — شريان الاقتصاد</p>
+            <span class="badge badge-green">الحد الأدنى: ٣٠,٠٠٠ $</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🤝</div>
+            <h3>وسيط إسلامي حلال</h3>
+            <p>يربط البائع بالمشتري بعمولة شرعية معلومة — لا غرر في الوساطة</p>
+            <span class="badge badge-gold">الحد الأدنى: صفر</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">💼</div>
+            <h3>صاحب مشروع صغير</h3>
+            <p>باب مفتوح لكل مسلم — من أصغر مشروع يبدأ رحلته في الاقتصاد الإسلامي</p>
+            <span class="badge badge-green">الحد الأدنى: ٥,٠٠٠ $</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔌</div>
+            <h3>مدير وقف إنتاجي</h3>
+            <p>يدير أصول وقفية تجارية — ريعها يذهب لمصارف الخير الإسلامي</p>
+            <span class="badge badge-gold">الحد الأدنى: صفر</span>
+        </div>
+    </div>
+</div>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    const el = document.getElementById('tab-' + id);
+    if (el) el.classList.add('active');
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(t => { if (t.getAttribute('onclick') && t.getAttribute('onclick').includes(id)) t.classList.add('active'); });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الأوقاف الرقمية الإسلامية — منظومة شيخة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold: #D4AF37; --copper: #B87333; --dark: #0a0a0a; --dark2: #111;
+    --dark3: #1a1a1a; --dark4: #222; --text: #e8e0d0; --text2: #b0a898;
+    --green: #2ecc71; --blue: #3498db; --purple: #9b59b6;
+    --teal: #1abc9c; --red: #e74c3c; --orange: #e67e22;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Tajawal', sans-serif; background: var(--dark); color: var(--text); min-height: 100vh; direction: rtl; }
+
+.header {
+    background: linear-gradient(160deg,#0a0a08 0%,#1a1400 40%,#080800 100%);
+    border-bottom: 2px solid var(--gold); padding: 1.6rem 2rem; text-align: center;
+}
+.header-icon { font-size: 3.5rem; margin-bottom: .4rem; }
+.header h1 {
+    font-size: 1.9rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--gold), var(--copper));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: .3rem;
+}
+.header .subtitle { font-size: .9rem; color: var(--text2); margin-bottom: .6rem; }
+.header .hadith { font-size: 1rem; color: var(--gold); font-style: italic; }
+
+.tabs { display: flex; background: var(--dark2); border-bottom: 1px solid #2a2a2a; overflow-x: auto; scrollbar-width: none; padding: 0 .5rem; gap: .2rem; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { padding: .8rem 1.1rem; cursor: pointer; white-space: nowrap; font-size: .84rem; color: var(--text2); border-bottom: 3px solid transparent; transition: all .25s; font-weight: 500; flex-shrink: 0; }
+.tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+.content { display: none; padding: 1.8rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+.content.active { display: block; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px,1fr)); gap: 1.1rem; margin: 1.2rem 0; }
+.card { background: var(--dark3); border: 1px solid #2a2a2a; border-radius: 12px; padding: 1.3rem; transition: border-color .3s, transform .2s; }
+.card:hover { border-color: var(--gold); transform: translateY(-2px); }
+.card-icon { font-size: 1.8rem; margin-bottom: .5rem; }
+.card h3 { font-size: .95rem; color: var(--gold); margin-bottom: .4rem; }
+.card p { font-size: .83rem; color: var(--text2); line-height: 1.6; }
+.badge { display: inline-block; margin-top: .6rem; padding: .18rem .65rem; border-radius: 20px; font-size: .74rem; font-weight: 700; }
+.badge-gold { background: rgba(212,175,55,.15); color: var(--gold); border: 1px solid rgba(212,175,55,.3); }
+.badge-green { background: rgba(46,204,113,.15); color: var(--green); border: 1px solid rgba(46,204,113,.3); }
+.badge-blue { background: rgba(52,152,219,.15); color: var(--blue); border: 1px solid rgba(52,152,219,.3); }
+.badge-orange { background: rgba(230,126,34,.15); color: var(--orange); border: 1px solid rgba(230,126,34,.3); }
+.badge-red { background: rgba(231,76,60,.15); color: var(--red); border: 1px solid rgba(231,76,60,.3); }
+
+.waqf-card { background: var(--dark3); border-radius: 14px; padding: 1.4rem; margin-bottom: 1.2rem; border-right: 5px solid var(--gold); }
+.waqf-header { display: flex; align-items: center; gap: .8rem; margin-bottom: .7rem; }
+.waqf-ico { font-size: 1.8rem; }
+.waqf-title { font-size: 1rem; font-weight: 700; color: var(--gold); }
+.waqf-desc { font-size: .83rem; color: var(--text2); line-height: 1.6; margin-bottom: .5rem; }
+.waqf-digital { font-size: .8rem; color: var(--teal); font-style: italic; margin-bottom: .5rem; }
+.waqf-min { font-size: .78rem; color: var(--text2); }
+.waqf-deficit { font-size: .78rem; color: var(--orange); margin-top: .4rem; }
+
+.dist-bar-row { margin-bottom: .8rem; }
+.dist-label { display: flex; justify-content: space-between; font-size: .82rem; margin-bottom: .25rem; }
+.dist-name { color: var(--text); }
+.dist-pct { color: var(--gold); font-weight: 700; }
+.dist-bar { height: 8px; background: #2a2a2a; border-radius: 4px; overflow: hidden; }
+.dist-fill { height: 100%; border-radius: 4px; background: var(--gold); }
+
+.historic-card { background: var(--dark3); border: 1px solid #2a2a2a; border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: .75rem; }
+.historic-card h4 { font-size: .88rem; color: var(--gold); margin-bottom: .35rem; }
+.historic-card p { font-size: .8rem; color: var(--text2); }
+
+.calc-box { background: var(--dark3); border: 1px solid #2a2a2a; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.calc-row { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 1rem; align-items: flex-end; }
+.calc-field { flex: 1; min-width: 150px; }
+.calc-field label { display: block; font-size: .8rem; color: var(--text2); margin-bottom: .4rem; }
+.calc-field input, .calc-field select { width: 100%; padding: .55rem .8rem; background: var(--dark2); border: 1px solid #333; border-radius: 8px; color: var(--text); font-family: 'Tajawal',sans-serif; font-size: .9rem; }
+.calc-field input:focus, .calc-field select:focus { outline: none; border-color: var(--gold); }
+.calc-btn { padding: .55rem 1.4rem; background: var(--gold); color: #000; border: none; border-radius: 8px; cursor: pointer; font-family: 'Tajawal',sans-serif; font-size: .85rem; font-weight: 700; flex-shrink: 0; }
+.calc-result { background: var(--dark2); border: 1px solid rgba(212,175,55,.3); border-radius: 10px; padding: 1rem; margin-top: .8rem; display: none; }
+.result-row { display: flex; justify-content: space-between; padding: .35rem 0; border-bottom: 1px solid #1e1e1e; font-size: .85rem; }
+.result-row:last-child { border-bottom: none; font-weight: 700; color: var(--gold); }
+.result-label { color: var(--text2); }
+
+.nav-back { padding: .75rem 1.5rem; background: var(--dark2); border-bottom: 1px solid #1e1e1e; font-size: .83rem; color: var(--text2); }
+.nav-back a { color: var(--gold); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="nav-back">
+    <a href="/">← الرئيسية</a> &nbsp;|&nbsp; منظومة شيخة الاقتصادية الإسلامية
+</div>
+
+<div class="header">
+    <div class="header-icon">🔌</div>
+    <h1>الأوقاف الرقمية الإسلامية</h1>
+    <div class="subtitle">٧ أنواع وقف • صدقة جارية رقمية • ريع يتوزع تلقائياً</div>
+    <div class="hadith">«إِذَا مَاتَ الإِنسَانُ انقَطَعَ عَنهُ عَمَلُهُ إِلاَّ مِن ثَلاثَةٍ: إِلاَّ مِن صَدَقَةٍ جَارِيَةٍ» — صحيح مسلم</div>
+</div>
+
+<div class="tabs">
+    <div class="tab active" onclick="showTab('overview')">🔌 نظرة عامة</div>
+    <div class="tab" onclick="showTab('types')">📋 أنواع الوقف</div>
+    <div class="tab" onclick="showTab('distribution')">💰 توزيع الريع</div>
+    <div class="tab" onclick="showTab('historic')">📖 الأوقاف التاريخية</div>
+    <div class="tab" onclick="showTab('calculator')">🧮 أثر وقفك</div>
+</div>
+
+<!-- ══ نظرة عامة ══ -->
+<div class="content active" id="tab-overview">
+    <div style="background:linear-gradient(135deg,#0a0900,#1a1200,#0a0900);border:2px solid var(--gold);border-radius:16px;padding:2rem 1.8rem;text-align:center;margin-bottom:1.8rem;">
+        <div style="font-size:3rem;margin-bottom:.5rem;">🔌</div>
+        <h2 style="font-size:1.5rem;font-weight:900;color:var(--gold);margin-bottom:.5rem;">الصدقة الجارية في العصر الرقمي</h2>
+        <p style="font-size:.9rem;color:var(--text2);line-height:1.7;max-width:650px;margin:0 auto .8rem;">
+            الوقف الإسلامي موّل علماء الأزهر لأكثر من ١٠٠٠ عام — ابن طولون بنى مستشفى من وقفه لا يزال يُذكر — شيخة تُحيي هذا التراث رقمياً بلا أوراق ولا بيروقراطية
+        </p>
+        <div style="padding:.9rem 1.2rem;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.25);border-radius:10px;font-size:.92rem;color:var(--gold);font-style:italic;max-width:650px;margin:0 auto;">
+            ﴿لَن تَنَالُوا الْبِرَّ حَتَّىٰ تُنفِقُوا مِمَّا تُحِبُّونَ﴾ — آل عمران ٩٢
+        </div>
+    </div>
+
+    <div class="cards">
+        <div class="card" style="border-right:4px solid var(--gold);">
+            <div class="card-icon">🕌</div>
+            <h3>وقف المساجد — الأولوية الأولى</h3>
+            <p>مسجد بتمويل بيت المال في كل مدينة يعيش فيها ٥٠٠ مسلم</p>
+            <span class="badge badge-gold">هدف: ١٠,٠٠٠ مسجد</span>
+        </div>
+        <div class="card" style="border-right:4px solid var(--blue);">
+            <div class="card-icon">📚</div>
+            <h3>وقف التعليم</h3>
+            <p>٣٠٠ مليون مسلم بلا تعليم حلال — كل طالب يحمل رمزاً رقمياً يربطه بوقفه</p>
+            <span class="badge badge-blue">ألف مدرسة</span>
+        </div>
+        <div class="card" style="border-right:4px solid var(--green);">
+            <div class="card-icon">⚕️</div>
+            <h3>وقف الصحة</h3>
+            <p>مستشفيات إسلامية + دواء حلال — وقف طبي يتكاثر بكل علاج</p>
+            <span class="badge badge-green">صحة للجميع</span>
+        </div>
+        <div class="card" style="border-right:4px solid var(--teal);">
+            <div class="card-icon">💻</div>
+            <h3>الوقف الرقمي المباشر</h3>
+            <p>أقل ما تبدأ به: ١٠٠ دولار — تطبيقات إسلامية + محتوى قرآني + برامج دعوية</p>
+            <span class="badge badge-gold">من ١٠٠ $</span>
+        </div>
+    </div>
+
+    <div style="background:var(--dark3);border-radius:12px;padding:1.4rem;margin-top:1.5rem;text-align:center;">
+        <h3 style="color:var(--gold);margin-bottom:.8rem;">🔑 مزايا الوقف الرقمي في شيخة</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin-top:.8rem;">
+            <div style="background:var(--dark2);border-radius:8px;padding:.9rem;"><div style="font-size:1.3rem;margin-bottom:.3rem;">🌐</div><div style="font-size:.82rem;color:var(--teal);">شفافية كاملة — ترى وقفك يعمل</div></div>
+            <div style="background:var(--dark2);border-radius:8px;padding:.9rem;"><div style="font-size:1.3rem;margin-bottom:.3rem;">⚡</div><div style="font-size:.82rem;color:var(--gold);">توزيع الريع تلقائي فوري</div></div>
+            <div style="background:var(--dark2);border-radius:8px;padding:.9rem;"><div style="font-size:1.3rem;margin-bottom:.3rem;">📊</div><div style="font-size:.82rem;color:var(--blue);">تقارير أثر دورية للواقف</div></div>
+            <div style="background:var(--dark2);border-radius:8px;padding:.9rem;"><div style="font-size:1.3rem;margin-bottom:.3rem;">🔒</div><div style="font-size:.82rem;color:var(--green);">الأصل محفوظ — لا يُباع ولا يُهب</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ أنواع الوقف ══ -->
+<div class="content" id="tab-types">
+    <h2 style="color:var(--gold);margin-bottom:.5rem;">📋 أنواع الوقف الإسلامي الـ ٧</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">من وقف المسجد بمليون إلى الوقف الرقمي بمئة دولار — كل مسلم يستطيع</p>
+
+    <div class="waqf-card">
+        <div class="waqf-header"><div class="waqf-ico">🕌</div><div class="waqf-title">وقف المساجد — أفضل الوقف وأعلاه أجراً</div></div>
+        <div class="waqf-desc">بناء وصيانة المساجد في كل بقاع العالم — من أوروبا إلى الصين</div>
+        <div class="waqf-digital">💻 الشكل الرقمي: رمز رقمي لكل مسجد — المانح يرى مسجده يُبنى حجرة حجرة</div>
+        <div class="waqf-min">الحد الأدنى: ١,٠٠٠ $</div>
+        <div class="waqf-deficit">⚠️ العجز: مليارات المسلمين في الغرب بلا مساجد كافية</div>
+    </div>
+    <div class="waqf-card" style="border-right-color:var(--blue);">
+        <div class="waqf-header"><div class="waqf-ico">📚</div><div class="waqf-title">وقف التعليم</div></div>
+        <div class="waqf-desc">مدارس + جامعات إسلامية + تحفيظ القرآن + منح دراسية لأبناء المسلمين الفقراء</div>
+        <div class="waqf-digital">💻 كل طالب يحمل رمزاً رقمياً يربطه بواقفه — الواقف يرى نجاحات طلابه</div>
+        <div class="waqf-min">الحد الأدنى: ٥٠٠ $</div>
+        <div class="waqf-deficit">⚠️ العجز: ٣٠٠ مليون مسلم بلا تعليم حلال كافٍ</div>
+    </div>
+    <div class="waqf-card" style="border-right-color:var(--green);">
+        <div class="waqf-header"><div class="waqf-ico">⚕️</div><div class="waqf-title">وقف الصحة</div></div>
+        <div class="waqf-desc">مستشفيات إسلامية + دواء حلال + رعاية المرضى في الدول الفقيرة</div>
+        <div class="waqf-digital">💻 وقف طبي يتكاثر بكل علاج مدفوع من ريعه — ثواب بكل شفاء</div>
+        <div class="waqf-min">الحد الأدنى: ٥,٠٠٠ $</div>
+        <div class="waqf-deficit">⚠️ العجز: مئات الملايين بلا رعاية صحية لائقة</div>
+    </div>
+    <div class="waqf-card" style="border-right-color:var(--orange);">
+        <div class="waqf-header"><div class="waqf-ico">🌱</div><div class="waqf-title">وقف الماء والزراعة</div></div>
+        <div class="waqf-desc">آبار + مشاريع ري + زراعة مستدامة — أمن غذائي إسلامي</div>
+        <div class="waqf-digital">💻 كل بئر تُحفر تحمل fingerprint رقمية للواقف — يُذكر باسمه لكل من يشرب</div>
+        <div class="waqf-min">الحد الأدنى: ٢,٠٠٠ $</div>
+        <div class="waqf-deficit">⚠️ العجز: مليار مسلم يعيشون بشح الماء</div>
+    </div>
+    <div class="waqf-card" style="border-right-color:var(--purple);">
+        <div class="waqf-header"><div class="waqf-ico">🏭</div><div class="waqf-title">الوقف الإنتاجي</div></div>
+        <div class="waqf-desc">مصانع + شركات + أراضٍ تجارية — ريعها يذهب لمصارف الخير</div>
+        <div class="waqf-digital">💻 حصص وقفية رقمية في شركات حلال — الأقل انتشاراً والأعلى ريعاً</div>
+        <div class="waqf-min">الحد الأدنى: ١٠,٠٠٠ $</div>
+        <div class="waqf-deficit">⚠️ العجز: الوقف الإنتاجي شبه معدوم في الأمة اليوم</div>
+    </div>
+    <div class="waqf-card" style="border-right-color:var(--teal);">
+        <div class="waqf-header"><div class="waqf-ico">💻</div><div class="waqf-title">الوقف الرقمي المباشر</div></div>
+        <div class="waqf-desc">تطبيقات إسلامية + محتوى قرآني + برامج دعوية — وقف العصر الحديث</div>
+        <div class="waqf-digital">💻 كود مفتوح المصدر إسلامي — يُستخدم ملايين المرات والأجر للواقف</div>
+        <div class="waqf-min">الحد الأدنى: ١٠٠ $</div>
+        <div class="waqf-deficit">ℹ️ المحتوى الإسلامي الرقمي يحتاج تمويلاً مستداماً</div>
+    </div>
+    <div class="waqf-card" style="border-right-color:var(--copper);">
+        <div class="waqf-header"><div class="waqf-ico">📖</div><div class="waqf-title">وقف القرآن والدعوة</div></div>
+        <div class="waqf-desc">طباعة وتوزيع القرآن + ترجمته لكل لغات العالم + دعوة إسلامية</div>
+        <div class="waqf-digital">💻 قرآن رقمي موزع بالمليارات — كل من يقرأه يجري للواقف ثوابه</div>
+        <div class="waqf-min">الحد الأدنى: ٥٠ $</div>
+        <div class="waqf-deficit">ℹ️ مليارات يريدون القرآن بلغتهم ولم يصلهم بعد</div>
+    </div>
+</div>
+
+<!-- ══ توزيع الريع ══ -->
+<div class="content" id="tab-distribution">
+    <h2 style="color:var(--gold);margin-bottom:.5rem;">💰 توزيع ريع الأوقاف — وفق الشريعة</h2>
+    <p style="color:var(--text2);margin-bottom: .5rem;">الأصل محفوظ — الريع فقط يُوزَّع ويُصرَف</p>
+    <div style="font-size:.82rem;color:var(--teal);font-style:italic;margin-bottom:1.5rem;">«الوقف: حبس الأصل وتسبيل الثمرة» — تعريف العلماء</div>
+
+    <div style="background:var(--dark3);border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;">
+        <div class="dist-bar-row">
+            <div class="dist-label"><span class="dist-name">🤲 فقراء المسلمين</span><span class="dist-pct">٣٠٪</span></div>
+            <div class="dist-bar"><div class="dist-fill" style="width:30%;background:var(--green);"></div></div>
+        </div>
+        <div class="dist-bar-row">
+            <div class="dist-label"><span class="dist-name">📚 التعليم الإسلامي</span><span class="dist-pct">٢٥٪</span></div>
+            <div class="dist-bar"><div class="dist-fill" style="width:25%;background:var(--blue);"></div></div>
+        </div>
+        <div class="dist-bar-row">
+            <div class="dist-label"><span class="dist-name">⚕️ الرعاية الصحية</span><span class="dist-pct">١٥٪</span></div>
+            <div class="dist-bar"><div class="dist-fill" style="width:15%;background:var(--teal);"></div></div>
+        </div>
+        <div class="dist-bar-row">
+            <div class="dist-label"><span class="dist-name">🕌 المساجد والشعائر</span><span class="dist-pct">١٥٪</span></div>
+            <div class="dist-bar"><div class="dist-fill" style="width:15%;background:var(--gold);"></div></div>
+        </div>
+        <div class="dist-bar-row">
+            <div class="dist-label"><span class="dist-name">🇵🇸 فلسطين — أولوية ثابتة</span><span class="dist-pct">١٠٪</span></div>
+            <div class="dist-bar"><div class="dist-fill" style="width:10%;background:var(--red);"></div></div>
+        </div>
+        <div class="dist-bar-row">
+            <div class="dist-label"><span class="dist-name">📡 الدعوة والإعلام</span><span class="dist-pct">٥٪</span></div>
+            <div class="dist-bar"><div class="dist-fill" style="width:5%;background:var(--purple);"></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ الأوقاف التاريخية ══ -->
+<div class="content" id="tab-historic">
+    <h2 style="color:var(--copper);margin-bottom:.5rem;">📖 الأوقاف التاريخية العظيمة</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">وقفوا قبل ١٠٠٠ عام — ثوابهم لا يزال يجري — نحيي تراثهم رقمياً</p>
+
+    <div class="historic-card">
+        <h4>🕌 وقف عثمان بن عفان رضي الله عنه — بئر رومة</h4>
+        <p>أول وقف إسلامي موثق — بئر ماء في المدينة اشتراها وأوقفها للمسلمين — ولا يزال ثوابها يجري</p>
+    </div>
+    <div class="historic-card">
+        <h4>⚕️ وقف ابن طولون — مصر ٨٧٩م</h4>
+        <p>بنى مستشفى + مسجداً من ريع وقفه — قرون من الخدمة للمرضى والعلماء</p>
+    </div>
+    <div class="historic-card">
+        <h4>📚 أوقاف الأزهر الشريف</h4>
+        <p>موّل علماء الأمة لأكثر من ١٠٠٠ عام — وقف أراضٍ وعقارات ريعها لطلاب العلم</p>
+    </div>
+    <div class="historic-card">
+        <h4>🌾 وقف الخيرات — المغرب</h4>
+        <p>آلاف الأفدنة الزراعية موقوفة لخدمة العلماء والفقراء — نموذج الوقف الإنتاجي</p>
+    </div>
+    <div class="historic-card">
+        <h4>⚕️ أوقاف السلطان سليمان القانوني</h4>
+        <p>مستشفيات + مدارس + جسور + خانات — في كل أرجاء الدولة العثمانية — وقف موسوعي</p>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#0a0800,#1a1200);border:1px solid var(--gold);border-radius:12px;padding:1.4rem;margin-top:1.2rem;text-align:center;">
+        <div style="font-size:1rem;color:var(--gold);font-style:italic;margin-bottom:.5rem;">شيخة تُحيي هذا التراث في العصر الرقمي</div>
+        <p style="font-size:.83rem;color:var(--text2);">الرقمنة تُزيل البيروقراطية — كل مسلم في العالم يمكنه الوقف بنقرة واحدة والرؤية الفورية لأثر وقفه</p>
+    </div>
+</div>
+
+<!-- ══ حاسبة الأثر ══ -->
+<div class="content" id="tab-calculator">
+    <h2 style="color:var(--teal);margin-bottom:.5rem;">🧮 احسب أثر وقفك</h2>
+    <p style="color:var(--text2);margin-bottom:1.5rem;">اعرف كيف ينمو ويؤثر وقفك بمرور السنين</p>
+
+    <div class="calc-box">
+        <h3 style="color:var(--gold);">💰 حاسبة أثر الوقف</h3>
+        <p style="color:var(--text2);font-size:.83rem;margin-bottom:1rem;">الأصل محفوظ — ريع ٧٪ سنوياً تقريباً يُوزَّع على مصارف الوقف</p>
+        <div class="calc-row">
+            <div class="calc-field">
+                <label>مبلغ الوقف (بالدولار)</label>
+                <input type="number" id="w-amount" placeholder="مثال: 10000">
+            </div>
+            <div class="calc-field">
+                <label>نوع الوقف</label>
+                <select id="w-type">
+                    <option value="masjid">🕌 وقف المساجد</option>
+                    <option value="education">📚 وقف التعليم</option>
+                    <option value="healthcare">⚕️ وقف الصحة</option>
+                    <option value="agriculture_water">🌱 وقف الماء والزراعة</option>
+                    <option value="industrial_productive">🏭 الوقف الإنتاجي</option>
+                    <option value="digital_waqf">💻 الوقف الرقمي</option>
+                    <option value="quran_dawah">📖 وقف القرآن والدعوة</option>
+                </select>
+            </div>
+            <div class="calc-field">
+                <label>عدد السنوات</label>
+                <input type="number" id="w-years" placeholder="مثال: 20" value="10">
+            </div>
+            <button class="calc-btn" onclick="calcWaqf()">احسب الأثر</button>
+        </div>
+        <div class="calc-result" id="waqf-result"></div>
+    </div>
+</div>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    const el = document.getElementById('tab-' + id);
+    if (el) el.classList.add('active');
+    document.querySelectorAll('.tab').forEach(t => {
+        if (t.getAttribute('onclick') && t.getAttribute('onclick').includes("'" + id + "'")) t.classList.add('active');
+    });
+}
+function fmt(n) { return parseFloat(n).toLocaleString('ar-SA', { maximumFractionDigits: 0 }); }
+function calcWaqf() {
+    const amount = parseFloat(document.getElementById('w-amount').value);
+    const years = parseInt(document.getElementById('w-years').value) || 10;
+    const typeEl = document.getElementById('w-type');
+    const typeName = typeEl.options[typeEl.selectedIndex].text;
+    if (!amount) return alert('يرجى إدخال مبلغ الوقف');
+    const annualReturn = amount * 0.07;
+    const total = annualReturn * years;
+    const el = document.getElementById('waqf-result');
+    el.style.display = 'block';
+    el.innerHTML = [
+        ['نوع الوقف', typeName],
+        ['الأصل المحفوظ', fmt(amount) + ' $'],
+        ['الريع السنوي التقريبي (٧٪)', fmt(annualReturn) + ' $'],
+        ['مدة الإسقاط', years + ' سنة'],
+        ['إجمالي الريع الموزع', fmt(total) + ' $'],
+        ['صدقة جارية', '✅ نعم — يستمر الأجر بعد الوفاة']
+    ].map(r => `<div class="result-row"><span class="result-label">${r[0]}</span><span>${r[1]}</span></div>`).join('');
+}
+</script>
+</body>
+</html>
