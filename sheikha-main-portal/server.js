@@ -36616,6 +36616,98 @@ app.post('/api/energy/calculate-roi', (req, res) => {
     res.json({ success: true, data: result, timestamp: new Date().toISOString() });
 });
 
+// ══════════════════════════════════════════════════════════════════
+// الدينار والدرهم — عملة شيخة الإسلامية
+// ﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾
+// ══════════════════════════════════════════════════════════════════
+const dinarDirham = (() => { try { return require('./lib/sheikha-dinar-dirham-engine.js').start(); } catch(e) { console.warn('⚠️ [DinarDirham] فشل التحميل:', e.message); return null; } })();
+
+app.get('/api/dinar/overview', (req, res) => {
+    if (!dinarDirham) return res.json({ success: false, message: 'محرك الدينار والدرهم غير متاح' });
+    res.json({ success: true, data: dinarDirham.getStandards(), message: 'الدينار والدرهم — بالكتاب والسنة وسنة الخلفاء الراشدين', timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/standards', (req, res) => {
+    if (!dinarDirham) return res.json({ success: false, message: 'محرك الدينار والدرهم غير متاح' });
+    res.json({ success: true, data: dinarDirham.getStandards(), timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/caliphs', (req, res) => {
+    if (!dinarDirham) return res.json({ success: false, message: 'محرك الدينار والدرهم غير متاح' });
+    res.json({ success: true, data: dinarDirham.getCaliphs(), count: dinarDirham.getCaliphs().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/sharia-rules', (req, res) => {
+    if (!dinarDirham) return res.json({ success: false, message: 'محرك الدينار والدرهم غير متاح' });
+    res.json({ success: true, data: dinarDirham.getShariaRules(), count: dinarDirham.getShariaRules().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/blockchain', (req, res) => {
+    if (!dinarDirham) return res.json({ success: false, message: 'محرك الدينار والدرهم غير متاح' });
+    res.json({ success: true, data: dinarDirham.getBlockchainIntegration(), timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/metal-prices', (req, res) => {
+    if (!dinarDirham) return res.json({ success: false, message: 'محرك الدينار والدرهم غير متاح' });
+    res.json({ success: true, data: dinarDirham.getMetalPrices(), timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/status', (req, res) => {
+    if (!dinarDirham) return res.json({ success: false, message: 'محرك الدينار والدرهم غير متاح' });
+    res.json({ success: true, data: dinarDirham.getStatus(), timestamp: new Date().toISOString() });
+});
+app.post('/api/dinar/calculate-value', (req, res) => {
+    if (!dinarDirham) return res.json({ success: false, message: 'محرك الدينار والدرهم غير متاح' });
+    const { amount, currency, outputCurrency } = req.body;
+    if (!amount) return res.json({ success: false, message: 'يلزم: amount' });
+    const result = dinarDirham.calculateValue(Number(amount), currency || 'dinar', outputCurrency || 'usd');
+    res.json({ success: result.success, data: result, timestamp: new Date().toISOString() });
+});
+app.post('/api/dinar/calculate-zakat', (req, res) => {
+    if (!dinarDirham) return res.json({ success: false, message: 'محرك الدينار والدرهم غير متاح' });
+    const result = dinarDirham.calculateZakat(req.body);
+    res.json({ success: result.success, data: result, timestamp: new Date().toISOString() });
+});
+app.post('/api/dinar/convert', (req, res) => {
+    if (!dinarDirham) return res.json({ success: false, message: 'محرك الدينار والدرهم غير متاح' });
+    const { amount, from, to } = req.body;
+    if (!amount) return res.json({ success: false, message: 'يلزم: amount' });
+    const result = dinarDirham.convert(Number(amount), from || 'dinar', to || 'dirham');
+    res.json({ success: result.success, data: result, timestamp: new Date().toISOString() });
+});
+
+// ══════════════════════════════════════════════════════════════════
+// تطهير الشبكة — الفضلات والتجديد والحياة
+// ﴿وَاللَّهُ يُحِبُّ الْمُطَّهِّرِينَ﴾
+// ══════════════════════════════════════════════════════════════════
+const netPurify = (() => { try { return require('./lib/sheikha-network-purification-engine.js').start(); } catch(e) { console.warn('⚠️ [Purify] فشل التحميل:', e.message); return null; } })();
+
+app.get('/api/purify/overview', (req, res) => {
+    if (!netPurify) return res.json({ success: false, message: 'محرك التطهير غير متاح' });
+    res.json({ success: true, data: { status: netPurify.getStatus(), vitals: netPurify.getNetworkVitals() }, message: 'تطهير شبكة شيخة — كالجسم الحي', timestamp: new Date().toISOString() });
+});
+app.get('/api/purify/waste-types', (req, res) => {
+    if (!netPurify) return res.json({ success: false, message: 'محرك التطهير غير متاح' });
+    res.json({ success: true, data: netPurify.getWasteTypes(), count: netPurify.getWasteTypes().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/purify/stages', (req, res) => {
+    if (!netPurify) return res.json({ success: false, message: 'محرك التطهير غير متاح' });
+    res.json({ success: true, data: netPurify.getStages(), count: netPurify.getStages().length, timestamp: new Date().toISOString() });
+});
+app.get('/api/purify/network-vitals', (req, res) => {
+    if (!netPurify) return res.json({ success: false, message: 'محرك التطهير غير متاح' });
+    res.json({ success: true, data: netPurify.getNetworkVitals(), timestamp: new Date().toISOString() });
+});
+app.get('/api/purify/genetic-map', (req, res) => {
+    if (!netPurify) return res.json({ success: false, message: 'محرك التطهير غير متاح' });
+    res.json({ success: true, data: netPurify.getGeneticEvolutionMap(), timestamp: new Date().toISOString() });
+});
+app.get('/api/purify/status', (req, res) => {
+    if (!netPurify) return res.json({ success: false, message: 'محرك التطهير غير متاح' });
+    res.json({ success: true, data: netPurify.getStatus(), timestamp: new Date().toISOString() });
+});
+app.post('/api/purify/process', (req, res) => {
+    if (!netPurify) return res.json({ success: false, message: 'محرك التطهير غير متاح' });
+    const { wasteTypeId, description } = req.body;
+    if (!wasteTypeId) return res.json({ success: false, message: 'يلزم: wasteTypeId' });
+    const result = netPurify.processPurification(wasteTypeId, description);
+    res.json({ success: result.success, data: result, timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════

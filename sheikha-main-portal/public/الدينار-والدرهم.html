@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الدينار والدرهم — عملة شيخة الإسلامية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold:#D4AF37; --gold2:#F5E6A3; --copper:#B87333;
+    --dark:#0a0a0a; --dark2:#111; --dark3:#1a1a1a; --dark4:#222;
+    --text:#e8e0d0; --text2:#b0a898;
+    --green:#2ecc71; --blue:#3498db; --red:#e74c3c;
+    --teal:#1abc9c; --silver:#C0C0C0; --silver2:#E8E8E8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Tajawal',sans-serif;background:var(--dark);color:var(--text);direction:rtl;overflow-x:hidden;}
+
+.hero{background:linear-gradient(135deg,#0a0800,#1a1200,#0a0800);border-bottom:3px solid var(--gold);padding:52px 24px 36px;text-align:center;}
+.basmala{font-size:clamp(1.3rem,3vw,1.9rem);color:var(--gold);margin-bottom:12px;font-weight:700;}
+.hero-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold2),var(--silver));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
+.hero-verse{font-size:clamp(.9rem,2vw,1.1rem);color:var(--gold);margin-bottom:4px;}
+.hero-sub{font-size:.82rem;color:var(--text2);}
+
+nav{background:var(--dark2);border-bottom:1px solid #2a2a2a;padding:0 20px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+nav::-webkit-scrollbar{display:none;}
+nav a{padding:13px 15px;color:var(--text2);text-decoration:none;font-size:.82rem;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;font-weight:500;}
+nav a.active,nav a:hover{color:var(--gold);border-color:var(--gold);}
+
+.wrap{max-width:1400px;margin:0 auto;padding:1.4rem 1.2rem;}
+.sec{display:none;animation:fi .3s;}
+.sec.active{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══ بطاقات العملة ══ */
+.coin-pair{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.5rem;}
+@media(max-width:600px){.coin-pair{grid-template-columns:1fr;}}
+.coin-card{border-radius:16px;padding:1.5rem;text-align:center;border:2px solid;}
+.coin-gold{background:linear-gradient(135deg,#0a0800,#1e1500,#0a0800);border-color:var(--gold);}
+.coin-silver{background:linear-gradient(135deg,#080a0a,#121515,#080a0a);border-color:var(--silver);}
+.coin-icon{font-size:3rem;margin-bottom:.6rem;}
+.coin-name{font-size:1.2rem;font-weight:900;margin-bottom:.3rem;}
+.coin-weight{font-size:2rem;font-weight:900;line-height:1.1;margin:.4rem 0;}
+.coin-sub{font-size:.78rem;color:var(--text2);margin-bottom:.6rem;}
+.coin-hadith{font-size:.78rem;padding:.5rem .8rem;border-radius:8px;font-style:italic;margin-top:.6rem;}
+.h-gold{background:rgba(212,175,55,.08);color:var(--gold);border:1px solid rgba(212,175,55,.15);}
+.h-silver{background:rgba(192,192,192,.08);color:var(--silver);border:1px solid rgba(192,192,192,.15);}
+.nisab-row{display:flex;justify-content:space-around;margin-top:.8rem;gap:.5rem;flex-wrap:wrap;}
+.nisab-item{text-align:center;}
+.nisab-num{font-size:1.1rem;font-weight:800;}
+.nisab-label{font-size:.68rem;color:var(--text2);}
+
+/* ══ النسبة الكلاسيكية ══ */
+.ratio-box{background:linear-gradient(135deg,#100e00,#1a1800,#100e00);border:2px solid var(--gold);border-radius:14px;padding:1.3rem;margin-bottom:1.3rem;text-align:center;}
+.ratio-big{font-size:2.2rem;font-weight:900;color:var(--gold);margin:.4rem 0;}
+.ratio-sub{font-size:.84rem;color:var(--text2);}
+
+/* ══ الخلفاء ══ */
+.caliph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.9rem;margin-bottom:1.3rem;}
+.caliph-card{background:var(--dark3);border-radius:12px;padding:1.1rem;border:1px solid #2a2a2a;border-right:4px solid var(--gold);}
+.caliph-name{font-size:.92rem;font-weight:800;color:var(--gold);margin-bottom:.2rem;}
+.caliph-tenure{font-size:.72rem;color:var(--teal);margin-bottom:.4rem;}
+.caliph-legacy{font-size:.8rem;color:var(--text);}
+
+/* ══ الضوابط الشرعية ══ */
+.rule-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.9rem;}
+.rule-card{background:var(--dark3);border-radius:12px;padding:1.1rem;border:1px solid #2a2a2a;}
+.rule-name{font-size:.92rem;font-weight:700;color:var(--gold);}
+.rule-hadith{font-size:.78rem;color:var(--gold);font-style:italic;margin:.4rem 0;padding:.35rem .6rem;background:rgba(212,175,55,.06);border-radius:6px;border-right:3px solid var(--gold);}
+.rule-exp{font-size:.78rem;color:var(--text2);}
+.badge-wajib{display:inline-block;margin-top:.4rem;padding:.12rem .5rem;border-radius:10px;font-size:.68rem;font-weight:700;background:rgba(231,76,60,.1);color:var(--red);border:1px solid rgba(231,76,60,.2);}
+
+/* ══ البلوك تشين ══ */
+.chain-box{background:linear-gradient(135deg,#080a14,#0e1220,#080a14);border:1px solid rgba(52,152,219,.25);border-radius:14px;padding:1.3rem;margin-bottom:1rem;}
+.chain-title{font-size:1rem;font-weight:800;color:var(--blue);margin-bottom:1rem;}
+.chain-row{display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid #1e1e1e;font-size:.82rem;}
+.chain-row:last-child{border:none;}
+.chain-val{color:var(--teal);font-weight:600;}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem;margin-top:.8rem;}
+.cert-item{padding:.6rem .8rem;border-radius:8px;font-size:.75rem;border:1px solid #2a2a2a;background:var(--dark2);}
+
+/* ══ حاسبات ══ */
+.calc-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+.calc-box{background:var(--dark3);border-radius:14px;padding:1.3rem;border:1px solid #2a2a2a;}
+.calc-title{font-size:.92rem;font-weight:700;color:var(--gold);margin-bottom:1rem;}
+.frow{margin-bottom:.6rem;}
+.frow label{display:block;font-size:.75rem;color:var(--text2);margin-bottom:.2rem;}
+.frow input,
+.frow select{width:100%;background:var(--dark2);border:1px solid #333;border-radius:7px;padding:.45rem .7rem;color:var(--text);font-size:.85rem;font-family:inherit;}
+.frow input:focus,.frow select:focus{outline:none;border-color:var(--gold);}
+.cbtn{width:100%;margin-top:.5rem;background:linear-gradient(135deg,var(--gold),var(--copper));color:#050505;border:none;padding:.7rem;border-radius:9px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit;}
+.cres{background:var(--dark2);border-radius:8px;padding:.8rem;margin-top:.7rem;display:none;}
+.cres-row{display:flex;justify-content:space-between;font-size:.8rem;padding:.25rem 0;border-bottom:1px solid #1e1e1e;}
+.cres-row:last-child{border:none;}
+.cres-val{font-weight:700;color:var(--gold);}
+
+.sec-title{font-size:1.05rem;font-weight:700;color:var(--gold);margin:1.2rem 0 .8rem;}
+.nav-back{padding:.7rem 1.5rem;background:var(--dark2);border-bottom:1px solid #1e1e1e;font-size:.83rem;color:var(--text2);}
+.nav-back a{color:var(--gold);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="nav-back"><a href="/">← الرئيسية</a> &nbsp;|&nbsp; الدينار والدرهم — عملة شيخة الإسلامية</div>
+
+<div class="hero">
+    <div class="basmala">بسم الله الرحمن الرحيم</div>
+    <h1 class="hero-title">🪙 الدينار والدرهم</h1>
+    <div class="hero-verse">﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾ — البقرة ٢٧٥</div>
+    <div class="hero-sub">عملة شيخة — بالكتاب والسنة وسنة الخلفاء الراشدين المهديين</div>
+</div>
+
+<nav>
+    <a href="#" class="active" onclick="show('home',this)">🪙 المعايير</a>
+    <a href="#" onclick="show('caliphs',this)">👑 الخلفاء الراشدون</a>
+    <a href="#" onclick="show('rules',this)">📖 الضوابط الشرعية</a>
+    <a href="#" onclick="show('blockchain',this)">⛓️ البلوك تشين</a>
+    <a href="#" onclick="show('calc',this)">🧮 الحاسبات</a>
+</nav>
+
+<!-- ══ المعايير ══ -->
+<div class="sec active wrap" id="home">
+
+    <div class="ratio-box">
+        <div style="font-size:.9rem;color:var(--text2);margin-bottom:.3rem;">النسبة الكلاسيكية — الخلفاء الراشدون</div>
+        <div class="ratio-big">٧ دنانير = ١٠ دراهم</div>
+        <div class="ratio-sub">الإجماع — الخلفاء الراشدون — سنة ثابتة منذ عهد عمر رضي الله عنه</div>
+    </div>
+
+    <div class="coin-pair">
+        <div class="coin-card coin-gold">
+            <div class="coin-icon">🥇</div>
+            <div class="coin-name" style="color:var(--gold);">الدينار الذهبي</div>
+            <div class="coin-weight" style="color:var(--gold);">٤.٢٥ جرام</div>
+            <div class="coin-sub">ذهب ٢٢ قيراط — ٩١.٦٧٪ نقاء</div>
+            <div class="coin-sub">الذهب الخالص: ٣.٨٩ جرام</div>
+            <div class="coin-hadith h-gold">«الوَزْنُ وَزْنُ أَهْلِ مَكَّةَ» — أبو داود</div>
+            <div class="nisab-row">
+                <div class="nisab-item"><div class="nisab-num" style="color:var(--gold);">٢٠</div><div class="nisab-label">دينار نصاب الزكاة</div></div>
+                <div class="nisab-item"><div class="nisab-num" style="color:var(--gold);">٨٥ج</div><div class="nisab-label">جرام ذهب</div></div>
+                <div class="nisab-item"><div class="nisab-num" style="color:var(--green);">٢.٥٪</div><div class="nisab-label">ربع العُشر</div></div>
+            </div>
+        </div>
+        <div class="coin-card coin-silver">
+            <div class="coin-icon">🥈</div>
+            <div class="coin-name" style="color:var(--silver);">الدرهم الفضي</div>
+            <div class="coin-weight" style="color:var(--silver);">٢.٩٧٥ جرام</div>
+            <div class="coin-sub">فضة خالصة ٩٩٩</div>
+            <div class="coin-sub">معيار عمر بن الخطاب رضي الله عنه</div>
+            <div class="coin-hadith h-silver">«الدِّرْهَمُ اثنا عشر دانقًا» — ابن سعد</div>
+            <div class="nisab-row">
+                <div class="nisab-item"><div class="nisab-num" style="color:var(--silver);">٢٠٠</div><div class="nisab-label">درهم نصاب الزكاة</div></div>
+                <div class="nisab-item"><div class="nisab-num" style="color:var(--silver);">٥٩٥ج</div><div class="nisab-label">جرام فضة</div></div>
+                <div class="nisab-item"><div class="nisab-num" style="color:var(--green);">٢.٥٪</div><div class="nisab-label">ربع العُشر</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div style="background:var(--dark3);border-radius:12px;padding:1.2rem;border:1px solid #2a2a2a;">
+        <div style="color:var(--gold);font-weight:700;font-size:.95rem;margin-bottom:.8rem;">📊 القيمة التقريبية اليوم</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.7rem;">
+            <div style="background:var(--dark2);border-radius:8px;padding:.9rem;text-align:center;">
+                <div style="font-size:.78rem;color:var(--text2);">🥇 دينار / USD</div>
+                <div style="font-size:1.5rem;font-weight:900;color:var(--gold);">~$370</div>
+                <div style="font-size:.7rem;color:var(--text2);">٣.٨٩ج × $95/ج</div>
+            </div>
+            <div style="background:var(--dark2);border-radius:8px;padding:.9rem;text-align:center;">
+                <div style="font-size:.78rem;color:var(--text2);">🥈 درهم / USD</div>
+                <div style="font-size:1.5rem;font-weight:900;color:var(--silver);">~$2.95</div>
+                <div style="font-size:.7rem;color:var(--text2);">٢.٩٧٥ج × $0.99/ج</div>
+            </div>
+            <div style="background:var(--dark2);border-radius:8px;padding:.9rem;text-align:center;">
+                <div style="font-size:.78rem;color:var(--text2);">📊 نسبة الدينار للدرهم</div>
+                <div style="font-size:1.5rem;font-weight:900;color:var(--teal);">١:١٢٥</div>
+                <div style="font-size:.7rem;color:var(--text2);">تقريبي بأسعار اليوم</div>
+            </div>
+            <div style="background:var(--dark2);border-radius:8px;padding:.9rem;text-align:center;">
+                <div style="font-size:.78rem;color:var(--text2);">💰 نصاب الزكاة / USD</div>
+                <div style="font-size:1.5rem;font-weight:900;color:var(--green);">~$7,400</div>
+                <div style="font-size:.7rem;color:var(--text2);">٢٠ دينار تقريبًا</div>
+            </div>
+        </div>
+        <div style="font-size:.72rem;color:var(--text2);margin-top:.7rem;text-align:center;">للمعرفة فقط — الأسعار تتغير — الوزن ثابت بالشريعة</div>
+    </div>
+</div>
+
+<!-- ══ الخلفاء الراشدون ══ -->
+<div class="sec wrap" id="caliphs">
+    <div class="sec-title">👑 الخلفاء الراشدون — المرجع التشريعي للعملة الإسلامية</div>
+    <div class="caliph-grid">
+        <div class="caliph-card">
+            <div class="caliph-name">أبو بكر الصديق رضي الله عنه</div>
+            <div class="caliph-tenure">٦٣٢–٦٣٤م</div>
+            <div class="caliph-legacy">أقرّ المعيار النبوي للدينار والدرهم بلا تغيير — المال في زمانه مبني على ميزان النبي ﷺ</div>
+        </div>
+        <div class="caliph-card" style="border-color:var(--teal);">
+            <div class="caliph-name" style="color:var(--teal);">عمر بن الخطاب رضي الله عنه ★</div>
+            <div class="caliph-tenure" style="color:var(--teal);">٦٣٤–٦٤٤م — مرحلة التقنين</div>
+            <div class="caliph-legacy">وضع معيار الدرهم الإسلامي الرسمي: ٢.٩٧٥ جرام — نسبة ١٠:٧ — ضرب الدراهم الإسلامية الأولى</div>
+        </div>
+        <div class="caliph-card">
+            <div class="caliph-name">عثمان بن عفان رضي الله عنه</div>
+            <div class="caliph-tenure">٦٤٤–٦٥٦م</div>
+            <div class="caliph-legacy">طوّر سك العملة — الدرهم يُصنع في الأمصار — توسعة دور السك لخدمة الدولة الإسلامية الممتدة</div>
+        </div>
+        <div class="caliph-card">
+            <div class="caliph-name">علي بن أبي طالب رضي الله عنه</div>
+            <div class="caliph-tenure">٦٥٦–٦٦١م</div>
+            <div class="caliph-legacy">أكّد ثبات المعيار — «الكيل كيل المدينة والوزن وزن مكة» — المثقال والدرهم لا يتغيران</div>
+        </div>
+    </div>
+    <div style="background:linear-gradient(135deg,#0a0800,#111,#0a0800);border:1px solid rgba(212,175,55,.15);border-radius:12px;padding:1.2rem;text-align:center;">
+        <div style="font-size:.85rem;color:var(--gold);font-weight:700;margin-bottom:.4rem;">﴿وَالسَّابِقُونَ الْأَوَّلُونَ مِنَ الْمُهَاجِرِينَ وَالْأَنصَارِ﴾</div>
+        <div style="font-size:.8rem;color:var(--text2);">«عليكم بسنتي وسنة الخلفاء الراشدين المهديين — عضّوا عليها بالنواجذ» — أبو داود والترمذي</div>
+    </div>
+</div>
+
+<!-- ══ الضوابط الشرعية ══ -->
+<div class="sec wrap" id="rules">
+    <div class="sec-title">📖 الضوابط الشرعية — ٥ أحكام ثابتة لا تتغير</div>
+    <div class="rule-grid">
+        <div class="rule-card" style="border-right:4px solid var(--gold);">
+            <div class="rule-name">١ — يدًا بيد</div>
+            <div class="rule-hadith">«الذَّهَبُ بِالذَّهَبِ رِبًا إِلَّا هَاءَ وَهَاءَ» — متفق عليه</div>
+            <div class="rule-exp">التقابض الفوري في مجلس العقد — شرط لصحة صرف الذهب والفضة</div>
+            <span class="badge-wajib">واجب</span>
+        </div>
+        <div class="rule-card" style="border-right:4px solid var(--gold);">
+            <div class="rule-name">٢ — مثلاً بمثل</div>
+            <div class="rule-hadith">«لَا تَبِيعُوا الذَّهَبَ بِالذَّهَبِ إِلَّا مِثْلًا بِمِثْلٍ» — متفق عليه</div>
+            <div class="rule-exp">الذهب بالذهب — الفضة بالفضة — بلا زيادة ولا نقصان عند المبادلة بجنس واحد</div>
+            <span class="badge-wajib">واجب</span>
+        </div>
+        <div class="rule-card" style="border-right:4px solid var(--teal);">
+            <div class="rule-name">٣ — جواز التفاضل بين الجنسين</div>
+            <div class="rule-hadith">«إِذَا اخْتَلَفَ النَّوْعَانِ فَبِيعُوا كَيْفَ شِئْتُمْ» — مسلم</div>
+            <div class="rule-exp">الدينار بالدرهم جائز بأي نسبة يتراضى عليها الطرفان — لكن يدًا بيد</div>
+            <span class="badge-wajib">واجب</span>
+        </div>
+        <div class="rule-card" style="border-right:4px solid var(--red);">
+            <div class="rule-name">٤ — لا نسيئة</div>
+            <div class="rule-hadith">«لَا تَبِيعُوا الذَّهَبَ بِالذَّهَبِ نَسِيئَةً» — متفق عليه</div>
+            <div class="rule-exp">لا تأجيل في صرف الذهب والفضة — الصرف الآجل محرم إجماعًا — لا ائتمان في العملة المعدنية</div>
+            <span class="badge-wajib">واجب</span>
+        </div>
+        <div class="rule-card" style="border-right:4px solid var(--green);">
+            <div class="rule-name">٥ — الزكاة واجبة</div>
+            <div class="rule-hadith">«فِي الذَّهَبِ إِذَا بَلَغَ عِشْرِينَ مِثْقَالًا رُبُعُ الْعُشْرِ» — أبو داود وصحّحه</div>
+            <div class="rule-exp">شرطان: بلوغ النصاب + مرور الحول — ٢٠ دينار أو ٢٠٠ درهم — ٢.٥٪ زكاة كل سنة</div>
+            <span class="badge-wajib">واجب</span>
+        </div>
+    </div>
+    <div style="background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.15);border-radius:10px;padding:1rem;margin-top:1rem;font-size:.82rem;color:var(--gold);text-align:center;">
+        ﴿وَيْلٌ لِّلْمُطَفِّفِينَ — الَّذِينَ إِذَا اكْتَالُوا عَلَى النَّاسِ يَسْتَوْفُونَ — وَإِذَا كَالُوهُمْ أَو وَّزَنُوهُمْ يُخْسِرُونَ﴾ — المطففين ١-٣
+    </div>
+</div>
+
+<!-- ══ البلوك تشين ══ -->
+<div class="sec wrap" id="blockchain">
+    <div class="sec-title">⛓️ سلسلة كتلة الدينار الإسلامي — التقنية بخدمة الشريعة</div>
+    <div class="chain-box">
+        <div class="chain-title">⛓️ معايير سلسلة كتلة الدينار الرقمي</div>
+        <div class="chain-row"><span>الاسم</span><span class="chain-val">سلسلة كتلة الدينار الإسلامي</span></div>
+        <div class="chain-row"><span>المعيار</span><span class="chain-val">IDB-20 — Islamic Digital Bearer Standard</span></div>
+        <div class="chain-row"><span>الغطاء</span><span class="chain-val">١:١ — كل دينار رقمي مغطى بذهب مادي</span></div>
+        <div class="chain-row"><span>البصمة الجينية</span><span class="chain-val">DNA رقمي خالص لكل عملة — لا تزوير</span></div>
+        <div class="chain-row"><span>التسوية</span><span class="chain-val">يدًا بيد — آنية مضمونة شرعًا</span></div>
+        <div class="chain-row"><span>الشفافية</span><span class="chain-val">شجرة ميركل مكشوفة — الاحتياطي مرئي للجميع</span></div>
+        <div class="chain-row"><span>خزائن الذهب</span><span class="chain-val">مكة المكرمة • المدينة المنورة • القاهرة • إسطنبول</span></div>
+        <div class="chain-row"><span>دورة التدقيق</span><span class="chain-val">شرعي + مالي كل ٩٠ يومًا</span></div>
+        <div class="chain-row"><span>الحوكمة</span><span class="chain-val">مجلس علماء الشريعة + AAOIFI</span></div>
+    </div>
+    <div class="sec-title">🏛️ جهات الاعتماد والترخيص</div>
+    <div class="cert-grid">
+        <div class="cert-item" style="border-color:var(--green);"><span style="color:var(--green);">✅ </span>هيئة المحاسبة والمراجعة للمؤسسات المالية الإسلامية (AAOIFI)</div>
+        <div class="cert-item" style="border-color:var(--gold);"><span style="color:var(--gold);">⏳ </span>هيئة كبار العلماء — المملكة العربية السعودية</div>
+        <div class="cert-item" style="border-color:var(--gold);"><span style="color:var(--gold);">⏳ </span>دار الإفتاء المصرية</div>
+        <div class="cert-item" style="border-color:var(--gold);"><span style="color:var(--gold);">⏳ </span>المجلس الشرعي — بنك إندونيسيا</div>
+    </div>
+</div>
+
+<!-- ══ الحاسبات ══ -->
+<div class="sec wrap" id="calc">
+    <div class="sec-title">🧮 الحاسبات الشرعية</div>
+    <div class="calc-wrap">
+
+        <!-- حاسبة القيمة -->
+        <div class="calc-box">
+            <div class="calc-title">🪙 قيمة الدينار / الدرهم</div>
+            <div class="frow"><label>العدد</label><input type="number" id="v_amt" value="20" min="1"></div>
+            <div class="frow">
+                <label>النوع</label>
+                <select id="v_cur"><option value="dinar">دينار ذهبي</option><option value="dirham">درهم فضي</option></select>
+            </div>
+            <button class="cbtn" onclick="calcValue()">احسب القيمة</button>
+            <div class="cres" id="cres_val">
+                <div class="cres-row"><span>وزن المعدن الخالص</span><span class="cres-val" id="rv_metal">—</span></div>
+                <div class="cres-row"><span>القيمة بالدولار</span><span class="cres-val" id="rv_usd">—</span></div>
+                <div class="cres-row"><span>القيمة بالريال</span><span class="cres-val" id="rv_sar">—</span></div>
+            </div>
+        </div>
+
+        <!-- حاسبة الزكاة -->
+        <div class="calc-box">
+            <div class="calc-title">🌙 زكاة الذهب والفضة</div>
+            <div class="frow"><label>ذهب تملكه (جرام)</label><input type="number" id="z_gold" value="0" min="0"></div>
+            <div class="frow"><label>فضة تملكها (جرام)</label><input type="number" id="z_silver" value="0" min="0"></div>
+            <div class="frow"><label>دنانير تملكها</label><input type="number" id="z_dinar" value="20" min="0"></div>
+            <div class="frow"><label>دراهم تملكها</label><input type="number" id="z_dirham" value="0" min="0"></div>
+            <button class="cbtn" onclick="calcZakat()">احسب الزكاة</button>
+            <div class="cres" id="cres_zakat">
+                <div class="cres-row"><span>الذهب الإجمالي</span><span class="cres-val" id="rz_goldg">—</span></div>
+                <div class="cres-row"><span>النصاب بلغ؟</span><span class="cres-val" id="rz_goldok">—</span></div>
+                <div class="cres-row"><span>زكاة الذهب</span><span class="cres-val" id="rz_goldzakat">—</span></div>
+                <div class="cres-row"><span>الفضة الإجمالية</span><span class="cres-val" id="rz_silverg">—</span></div>
+                <div class="cres-row"><span>زكاة الفضة</span><span class="cres-val" id="rz_silverzakat">—</span></div>
+            </div>
+        </div>
+
+        <!-- حاسبة التحويل -->
+        <div class="calc-box">
+            <div class="calc-title">🔄 تحويل دينار ↔ درهم</div>
+            <div class="frow"><label>الكمية</label><input type="number" id="c_amt2" value="7" min="1"></div>
+            <div class="frow">
+                <label>من</label>
+                <select id="c_from"><option value="dinar">دينار</option><option value="dirham">درهم</option></select>
+            </div>
+            <div class="frow">
+                <label>إلى</label>
+                <select id="c_to"><option value="dirham">درهم</option><option value="dinar">دينار</option></select>
+            </div>
+            <button class="cbtn" onclick="calcConvert()">حوّل</button>
+            <div class="cres" id="cres_conv">
+                <div class="cres-row"><span>النتيجة</span><span class="cres-val" id="rc_result">—</span></div>
+                <div class="cres-row"><span>النسبة المستخدمة</span><span class="cres-val" id="rc_ratio">—</span></div>
+                <div style="font-size:.72rem;color:var(--text2);margin-top:.4rem;">بحسب نسبة الخلفاء الراشدين: ٧ دنانير = ١٠ دراهم</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// بيانات ثابتة (تعكس المعيار النبوي)
+const GOLD_G = 95.0; // USD/gram تقريبي
+const SILVER_G = 0.99;
+const DINAR_PURE = 3.89;
+const DIRHAM_PURE = 2.975;
+const USD_SAR = 3.75;
+
+function show(id, el) {
+    event.preventDefault();
+    document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+}
+
+function calcValue() {
+    const amt = parseFloat(document.getElementById('v_amt').value) || 0;
+    const cur = document.getElementById('v_cur').value;
+    const isDinar = cur === 'dinar';
+    const pureG = isDinar ? DINAR_PURE : DIRHAM_PURE;
+    const priceG = isDinar ? GOLD_G : SILVER_G;
+    const totalG = amt * pureG;
+    const usd = (totalG * priceG).toFixed(2);
+    const sar = (totalG * priceG * USD_SAR).toFixed(2);
+
+    document.getElementById('rv_metal').textContent = totalG.toFixed(3) + ' جرام ' + (isDinar ? 'ذهب' : 'فضة');
+    document.getElementById('rv_usd').textContent = '$' + usd;
+    document.getElementById('rv_sar').textContent = sar.toLocaleString('ar') + ' ريال';
+    document.getElementById('cres_val').style.display = 'block';
+}
+
+function calcZakat() {
+    const goldG = parseFloat(document.getElementById('z_gold').value) || 0;
+    const silverG = parseFloat(document.getElementById('z_silver').value) || 0;
+    const dinars = parseFloat(document.getElementById('z_dinar').value) || 0;
+    const dirhams = parseFloat(document.getElementById('z_dirham').value) || 0;
+
+    const totalGold = goldG + dinars * DINAR_PURE;
+    const totalSilver = silverG + dirhams * DIRHAM_PURE;
+
+    const goldOk = totalGold >= 85;
+    const silverOk = totalSilver >= 595;
+
+    const goldZakat = goldOk ? (totalGold * 0.025).toFixed(3) : 0;
+    const silverZakat = silverOk ? (totalSilver * 0.025).toFixed(3) : 0;
+
+    document.getElementById('rz_goldg').textContent = totalGold.toFixed(2) + ' جرام';
+    document.getElementById('rz_goldok').textContent = goldOk ? '✅ بلغ النصاب' : '❌ لم يبلغ (٨٥ج)';
+    document.getElementById('rz_goldok').style.color = goldOk ? 'var(--green)' : 'var(--red)';
+    document.getElementById('rz_goldzakat').textContent = goldOk ? goldZakat + ' جرام ≈ $' + (goldZakat * GOLD_G).toFixed(0) : 'لا زكاة';
+    document.getElementById('rz_silverg').textContent = totalSilver.toFixed(2) + ' جرام';
+    document.getElementById('rz_silverzakat').textContent = silverOk ? silverZakat + ' جرام ≈ $' + (silverZakat * SILVER_G).toFixed(0) : 'لا زكاة';
+
+    document.getElementById('cres_zakat').style.display = 'block';
+}
+
+function calcConvert() {
+    const amt = parseFloat(document.getElementById('c_amt2').value) || 0;
+    const from = document.getElementById('c_from').value;
+    const to = document.getElementById('c_to').value;
+    let result, ratio;
+
+    if (from === 'dinar' && to === 'dirham') {
+        result = (amt / 7) * 10;
+        ratio = '٧ دنانير = ١٠ دراهم';
+    } else if (from === 'dirham' && to === 'dinar') {
+        result = (amt / 10) * 7;
+        ratio = '١٠ دراهم = ٧ دنانير';
+    } else {
+        result = amt;
+        ratio = 'نفس الجنس';
+    }
+
+    document.getElementById('rc_result').textContent = result.toFixed(3) + ' ' + (to === 'dinar' ? 'دينار' : 'درهم');
+    document.getElementById('rc_ratio').textContent = ratio;
+    document.getElementById('cres_conv').style.display = 'block';
+}
+</script>
+</body>
+</html>
