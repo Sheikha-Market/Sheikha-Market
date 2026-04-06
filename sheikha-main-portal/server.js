@@ -37224,6 +37224,17 @@ app.get('/api/islamic-goals/top-goal', (req, res) => {
 app.get('/api/islamic-goals/category-map', (req, res) => {
     res.json({ success: true, data: islamicGoals.getCategoryMap(), message: 'خريطة الفئات', timestamp: new Date().toISOString() });
 });
+app.get('/api/islamic-goals/sunnah-foundation', (req, res) => {
+    res.json({ success: true, data: islamicGoals.getSunnahFoundation(), message: 'أساس السنة — الكتاب والسنة والخلفاء الراشدين', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-goals/rightly-guided-caliphs', (req, res) => {
+    res.json({ success: true, data: islamicGoals.getRightlyGuidedCaliphs(), message: 'سيرة الخلفاء الراشدين المهديين الأربعة', timestamp: new Date().toISOString() });
+});
+app.get('/api/islamic-goals/caliph/:id', (req, res) => {
+    const caliph = islamicGoals.getCaliph(req.params.id);
+    if (!caliph) return res.status(404).json({ success: false, message: 'الخليفة غير موجود — الأئمة: abu_bakr | umar | uthman | ali', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: caliph, message: `سيرة ${caliph.name}`, timestamp: new Date().toISOString() });
+});
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🎨 المرحلة ٢٨ — محرك الجرافيك الحلال
