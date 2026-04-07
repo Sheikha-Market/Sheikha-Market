@@ -37510,6 +37510,80 @@ app.get('/api/gold/live-rates', (req, res) => {
     res.json({ success: true, data: goldPricingEngine.getLiveExchangeRates(), message: 'أسعار الصرف اللحظية — الدينار بكل عملات الكون', timestamp: new Date().toISOString() });
 });
 
+// ══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٣٥ — محرك الاقتصاد الإسلامي الكوني
+// «إن الله هو المُسَعِّر» — الترمذي ١٣١٤
+// ══════════════════════════════════════════════════════════════════════════════
+const islamicEconomyEngine = require('./lib/sheikha-islamic-economy-engine');
+
+// الله هو المُسَعِّر — الأساس الشرعي
+app.get('/api/economy/allah-is-al-musaier', (req, res) => {
+    res.json({ success: true, data: islamicEconomyEngine.getAllahIsAlMusaier(), message: 'إن الله هو المُسَعِّر', timestamp: new Date().toISOString() });
+});
+
+// المعيار اليومي لعملة محددة
+app.get('/api/economy/daily-benchmark/:currency', (req, res) => {
+    const data = islamicEconomyEngine.getDailyBenchmark(req.params.currency.toUpperCase());
+    if (!data) return res.status(404).json({ success: false, message: 'عملة غير معروفة', timestamp: new Date().toISOString() });
+    res.json({ success: true, data, message: 'المعيار اليومي للذهب والفضة والمطعوم', timestamp: new Date().toISOString() });
+});
+
+// جميع المعايير اليومية بكل العملات
+app.get('/api/economy/all-benchmarks', (req, res) => {
+    res.json({ success: true, data: islamicEconomyEngine.getAllBenchmarks(), message: 'المعيار اليومي بكل عملات الكون', timestamp: new Date().toISOString() });
+});
+
+// مصفوفة الأسعار أفقياً وعمودياً
+app.get('/api/economy/price-matrix', (req, res) => {
+    res.json({ success: true, data: islamicEconomyEngine.getPriceMatrix(), message: 'مصفوفة مقارنة أسعار الذهب والفضة والمطعوم', timestamp: new Date().toISOString() });
+});
+
+// المعامل الرقمي لكل دولة
+app.get('/api/economy/digital-coefficients', (req, res) => {
+    res.json({ success: true, data: islamicEconomyEngine.getDigitalCoefficient(), message: 'المعامل الرقمي للدينار لكل دولة', timestamp: new Date().toISOString() });
+});
+
+// المبادلة العادلة بين المنتجات
+app.post('/api/economy/fair-exchange', (req, res) => {
+    const { prod1, qty1, prod2, currency } = req.body;
+    if (!prod1 || !qty1 || !prod2) return res.status(400).json({ success: false, message: 'prod1, qty1, prod2 مطلوبة', timestamp: new Date().toISOString() });
+    const data = islamicEconomyEngine.getFairExchange(prod1, +qty1, prod2, currency || 'SAR');
+    res.json({ success: true, data, message: 'المبادلة العادلة وفق الكتاب والسنة', timestamp: new Date().toISOString() });
+});
+
+// نموذج الزكاة والقضاء على الفقر
+app.get('/api/economy/zakat-poverty-model', (req, res) => {
+    res.json({ success: true, data: islamicEconomyEngine.getZakatPovertyModel(), message: 'نموذج الزكاة والقضاء على الفقر في العالم الإسلامي', timestamp: new Date().toISOString() });
+});
+
+// أحجام التجارة العالمية والإسلامية
+app.get('/api/economy/trade-volumes', (req, res) => {
+    res.json({ success: true, data: islamicEconomyEngine.getTradeVolumes(), message: 'أحجام التجارة العالمية والإسلامية', timestamp: new Date().toISOString() });
+});
+
+// الإنتاج العالمي والعرض والطلب
+app.get('/api/economy/production', (req, res) => {
+    res.json({ success: true, data: islamicEconomyEngine.getProductionData(), message: 'الإنتاج العالمي والعرض والطلب', timestamp: new Date().toISOString() });
+});
+
+// إنتاج منتج محدد
+app.get('/api/economy/production/:item', (req, res) => {
+    const data = islamicEconomyEngine.getProductionByItem(req.params.item);
+    if (!data) return res.status(404).json({ success: false, message: 'منتج غير معروف', timestamp: new Date().toISOString() });
+    res.json({ success: true, data, message: `إنتاج وعرض وطلب: ${req.params.item}`, timestamp: new Date().toISOString() });
+});
+
+// التقرير الاقتصادي اليومي الشامل
+app.get('/api/economy/daily-report', (req, res) => {
+    const currency = (req.query.currency || 'SAR').toUpperCase();
+    res.json({ success: true, data: islamicEconomyEngine.getDailyEconomicReport(currency), message: 'التقرير الاقتصادي الإسلامي اليومي الشامل', timestamp: new Date().toISOString() });
+});
+
+// العملات المدعومة
+app.get('/api/economy/currencies', (req, res) => {
+    res.json({ success: true, data: islamicEconomyEngine.getSupportedCurrencies(), message: 'العملات المدعومة في المحرك', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════

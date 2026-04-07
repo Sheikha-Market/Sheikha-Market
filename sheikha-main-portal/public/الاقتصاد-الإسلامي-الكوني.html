@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الاقتصاد الإسلامي الكوني — شيخة</title>
+<meta name="description" content="إن الله هو المُسَعِّر — معيار يومي للذهب والفضة والمطعوم + الزكاة + تجارة العالم الإسلامي">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Cairo:wght@400;600;700;900&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D4AF37;--gold-l:#F0D060;--gold-d:#A07820;--copper:#B87333;
+  --silver:#C0C0C0;--silver-l:#E8E8E8;--green:#10b981;--green-d:#059669;
+  --blue:#3b82f6;--purple:#8b5cf6;--red:#ef4444;--orange:#f59e0b;
+  --bg:#050810;--bg2:#0a1020;--bg3:#111827;--bg4:#1a2335;
+  --border:rgba(212,175,55,.2);--text:#e0e4ef;--text2:#8892a4;--text3:#4b5563;
+  --r:12px;--t:.3s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);direction:rtl}
+
+/* ═══ HDR ═══ */
+.hdr{background:linear-gradient(135deg,#060910 0%,#0b1525 60%,#070c18 100%);
+  border-bottom:2px solid var(--gold);padding:1.75rem 2rem;text-align:center;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(212,175,55,.08) 0%,transparent 65%);pointer-events:none}
+.hdr-badge{display:inline-block;padding:.3rem 1rem;background:rgba(212,175,55,.1);border:1px solid var(--gold);border-radius:50px;font-size:.75rem;color:var(--gold);margin-bottom:.75rem;letter-spacing:.08em}
+.hdr h1{font-family:'Cairo',sans-serif;font-size:clamp(1.5rem,4vw,2.6rem);font-weight:900;
+  background:linear-gradient(135deg,var(--gold),var(--gold-l),var(--copper));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.4rem}
+.hdr-hadith{margin-top:.75rem;padding:.8rem 1.5rem;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.25);border-radius:50px;display:inline-block;color:#6ee7b7;font-size:.87rem;max-width:700px}
+.hdr-verse{font-size:1rem;color:var(--gold);font-weight:600;margin-bottom:.4rem}
+
+/* ═══ TABS ═══ */
+.tabs{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;gap:.2rem;overflow-x:auto;scrollbar-width:none;position:sticky;top:0;z-index:50}
+.tabs::-webkit-scrollbar{display:none}
+.tab{background:none;border:none;padding:.85rem 1rem;color:var(--text2);font-family:'Tajawal',sans-serif;font-size:.83rem;font-weight:600;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:var(--t)}
+.tab:hover{color:var(--gold)}.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ═══ SECTIONS ═══ */
+.sec{display:none;padding:2rem 1.5rem;max-width:1400px;margin:0 auto}.sec.active{display:block}
+.s-hdr{text-align:center;margin-bottom:2rem}
+.s-hdr h2{font-size:1.6rem;font-weight:800;color:var(--gold);margin-bottom:.4rem}
+.s-hdr p{color:var(--text2);font-size:.88rem}
+
+/* ═══ CURRENCY SELECTOR ═══ */
+.cur-bar{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:1.5rem;padding:1rem;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r)}
+.cur-bar label{color:var(--text2);font-size:.85rem}
+.form-select{background:var(--bg4);border:1px solid var(--border);border-radius:8px;padding:.55rem .9rem;color:var(--text);font-family:'Tajawal',sans-serif;font-size:.9rem}
+.form-select:focus{outline:none;border-color:var(--gold)}
+.btn-gold{padding:.6rem 1.5rem;background:var(--gold);border:none;border-radius:8px;color:#000;font-family:'Tajawal',sans-serif;font-weight:700;cursor:pointer;font-size:.88rem;transition:var(--t)}
+.btn-gold:hover{background:var(--gold-l)}
+
+/* ═══ BENCHMARKS ═══ */
+.bench-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
+.bench-item{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;text-align:center;transition:var(--t)}
+.bench-item:hover{border-color:var(--gold);transform:translateY(-2px)}
+.bench-icon{font-size:1.6rem;margin-bottom:.25rem}
+.bench-name{font-size:.75rem;color:var(--text2);margin-bottom:.3rem}
+.bench-val{font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:900;color:var(--gold)}
+.bench-sub{font-size:.72rem;color:var(--text3);margin-top:.15rem}
+.bench-item.silver .bench-val{color:var(--silver-l)}
+.bench-item.green .bench-val{color:var(--green)}
+
+/* ═══ RATIO CARDS ═══ */
+.ratio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:1.5rem}
+.ratio-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;transition:var(--t)}
+.ratio-card:hover{border-color:var(--gold)}
+.ratio-label{font-size:.78rem;color:var(--text2);margin-bottom:.3rem}
+.ratio-val{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:900;color:var(--gold)}
+.ratio-unit{font-size:.72rem;color:var(--text3)}
+.ratio-badge{display:inline-block;margin-top:.4rem;padding:.15rem .7rem;border-radius:50px;font-size:.73rem;font-weight:700}
+.badge-warn{background:rgba(245,158,11,.1);color:var(--orange);border:1px solid rgba(245,158,11,.3)}
+.badge-ok{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+
+/* ═══ MATRIX TABLE ═══ */
+.tbl-wrap{overflow-x:auto;margin-bottom:1.5rem}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th{background:rgba(212,175,55,.08);color:var(--gold);padding:.65rem .8rem;border-bottom:1px solid var(--border);text-align:right;font-weight:700;white-space:nowrap}
+td{padding:.6rem .8rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text2);white-space:nowrap}
+tr:hover td{background:rgba(212,175,55,.03);color:var(--text)}
+.td-highlight{color:var(--gold);font-family:'Outfit';font-weight:700}
+.td-silver{color:var(--silver-l);font-family:'Outfit';font-weight:700}
+
+/* ═══ ZAKAT ═══ */
+.zakat-bar{background:linear-gradient(135deg,rgba(16,185,129,.06),rgba(5,150,105,.03));border:1px solid rgba(16,185,129,.25);border-radius:var(--r);padding:1.5rem;margin-bottom:1.5rem}
+.progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text2);margin-bottom:.4rem}
+.progress-track{background:rgba(255,255,255,.06);border-radius:50px;height:10px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(to right,var(--green-d),var(--green));border-radius:50px;transition:width 1s ease}
+.growth-table{width:100%;border-collapse:collapse}
+.growth-table th{text-align:right;padding:.55rem .85rem;font-size:.8rem;color:var(--green);background:rgba(16,185,129,.06);border-bottom:1px solid rgba(16,185,129,.15)}
+.growth-table td{padding:.55rem .85rem;font-size:.82rem;color:var(--text2);border-bottom:1px solid rgba(255,255,255,.04)}
+.growth-table tr:hover td{color:var(--text)}
+
+/* ═══ STAT CARDS ═══ */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;text-align:center}
+.stat-num{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:900;color:var(--gold)}
+.stat-label{color:var(--text2);font-size:.78rem;margin-top:.2rem}
+.stat.green .stat-num{color:var(--green)}
+.stat.blue .stat-num{color:var(--blue)}
+.stat.silver .stat-num{color:var(--silver-l)}
+
+/* ═══ CARDS ═══ */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
+.card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.4rem;transition:var(--t);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%;background:linear-gradient(to bottom,var(--gold),var(--copper));opacity:0;transition:var(--t)}
+.card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,175,55,.1)}
+.card:hover::before{opacity:1}
+.card-icon{font-size:1.8rem;margin-bottom:.4rem}
+.card-title{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:.3rem}
+.card-body{color:var(--text2);font-size:.85rem;line-height:1.7}
+.card-verse{margin-top:.7rem;padding:.5rem .75rem;background:rgba(212,175,55,.05);border-right:3px solid var(--gold);border-radius:0 6px 6px 0;font-size:.8rem;color:var(--gold-l);font-style:italic}
+
+/* ═══ BANNER ═══ */
+.banner{background:linear-gradient(135deg,rgba(212,175,55,.07),rgba(184,115,51,.04));border:1px solid var(--gold);border-radius:var(--r);padding:1.5rem;text-align:center;margin:1.25rem 0}
+.banner .verse{font-size:1.1rem;color:var(--gold);font-weight:600;margin-bottom:.4rem}
+.banner p{color:var(--text2);font-size:.86rem}
+
+/* ═══ FAIR EXCHANGE CALC ═══ */
+.calc-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;max-width:640px}
+.form-row{margin-bottom:.9rem}
+.form-label{display:block;color:var(--text2);font-size:.83rem;margin-bottom:.35rem}
+.form-input{width:100%;background:var(--bg4);border:1px solid var(--border);border-radius:8px;padding:.65rem .9rem;color:var(--text);font-family:'Tajawal',sans-serif;font-size:.92rem}
+.form-input:focus{outline:none;border-color:var(--gold)}
+.result-box{margin-top:1.1rem;padding:1.1rem;background:linear-gradient(135deg,rgba(212,175,55,.05),rgba(184,115,51,.03));border:1px solid var(--gold);border-radius:10px;display:none}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:.35rem 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.result-row:last-child{border:none;margin-top:.4rem;padding-top:.6rem}
+.result-key{color:var(--text2);font-size:.84rem}
+.result-val{font-family:'Outfit',sans-serif;font-weight:700;color:var(--gold);font-size:.95rem}
+
+/* ═══ PRODUCTION ═══ */
+.prod-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.prod-btn{padding:.45rem 1rem;background:rgba(212,175,55,.08);border:1px solid var(--border);border-radius:50px;color:var(--text2);cursor:pointer;font-size:.82rem;font-family:'Tajawal',sans-serif;transition:var(--t)}
+.prod-btn.active,.prod-btn:hover{background:rgba(212,175,55,.15);border-color:var(--gold);color:var(--gold)}
+
+/* ═══ SPINNER ═══ */
+.loading{text-align:center;padding:2.5rem;color:var(--text2)}
+.spinner{display:inline-block;width:36px;height:36px;border:3px solid rgba(212,175,55,.2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:.75rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.back-link{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.1rem;background:rgba(212,175,55,.07);border:1px solid var(--border);border-radius:8px;color:var(--gold);text-decoration:none;font-weight:600;font-size:.85rem;transition:var(--t);margin-bottom:1.25rem}
+.back-link:hover{background:rgba(212,175,55,.14)}
+@media(max-width:768px){.sec{padding:1.25rem .75rem}.bench-grid{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-badge">🌙 المرحلة ٣٥ | Phase 35</div>
+  <div class="hdr-verse">﴿وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ﴾ — الرحمن ٩</div>
+  <h1>الاقتصاد الإسلامي الكوني</h1>
+  <p style="color:var(--text2);font-size:.95rem;margin-bottom:.65rem">المعيار اليومي للذهب والفضة والمطعوم — الزكاة — التجارة العالمية — العرض والطلب</p>
+  <div class="hdr-hadith">
+    «إن الله هو المُسَعِّر، القابضُ، الباسطُ، الرازقُ» — رواه الترمذي (١٣١٤) — صحيح
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab active" onclick="showTab('bench')">📊 المعيار اليومي</button>
+  <button class="tab" onclick="showTab('matrix')">📐 مصفوفة المقارنة</button>
+  <button class="tab" onclick="showTab('coeffs')">🌍 المعامل الدولي</button>
+  <button class="tab" onclick="showTab('exchange')">⚖️ المبادلة العادلة</button>
+  <button class="tab" onclick="showTab('zakat')">💚 الزكاة والفقر</button>
+  <button class="tab" onclick="showTab('trade')">🌐 التجارة العالمية</button>
+  <button class="tab" onclick="showTab('prod')">🏭 الإنتاج والعرض والطلب</button>
+  <button class="tab" onclick="showTab('dua')">🤲 دعاء المُسَعِّر</button>
+</nav>
+
+<!-- المعيار اليومي -->
+<section id="tab-bench" class="sec active">
+  <a href="/" class="back-link">← الرئيسية</a>
+  <div class="s-hdr"><h2>📊 المعيار اليومي للذهب والفضة والمطعوم</h2><p>اختر العملة لعرض الأسعار الحقيقية مقابل الدينار والدرهم والمطعوم</p></div>
+
+  <div class="cur-bar">
+    <label>العملة:</label>
+    <select class="form-select" id="bench-cur" onchange="loadBenchmark()">
+      <option value="SAR">ريال سعودي — SAR</option>
+      <option value="USD">دولار — USD</option>
+      <option value="AED">درهم إماراتي — AED</option>
+      <option value="KWD">دينار كويتي — KWD</option>
+      <option value="QAR">ريال قطري — QAR</option>
+      <option value="EGP">جنيه مصري — EGP</option>
+      <option value="TRY">ليرة تركية — TRY</option>
+      <option value="EUR">يورو — EUR</option>
+      <option value="GBP">جنيه إسترليني — GBP</option>
+      <option value="JPY">ين ياباني — JPY</option>
+      <option value="CNY">يوان صيني — CNY</option>
+      <option value="INR">روبية هندية — INR</option>
+      <option value="IDR">روبية إندونيسية — IDR</option>
+      <option value="PKR">روبية باكستانية — PKR</option>
+      <option value="NGN">نيرة نيجيرية — NGN</option>
+      <option value="MAD">درهم مغربي — MAD</option>
+      <option value="TND">دينار تونسي — TND</option>
+      <option value="DZD">دينار جزائري — DZD</option>
+    </select>
+    <button class="btn-gold" onclick="loadBenchmark()">تحديث</button>
+    <a href="/الدينار-الإسلامي-الرقمي.html" style="color:var(--gold);font-size:.82rem;text-decoration:none;opacity:.8">← تفاصيل الدينار</a>
+  </div>
+
+  <div id="bench-content"><div class="loading"><div class="spinner"></div><br>جاري التحميل...</div></div>
+</section>
+
+<!-- مصفوفة المقارنة -->
+<section id="tab-matrix" class="sec">
+  <div class="s-hdr"><h2>📐 مصفوفة الأسعار أفقياً وعمودياً</h2><p>كل منتج × كل عملة — الفرق والنسبة بين الذهب والفضة والمطعوم</p></div>
+  <div id="matrix-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<!-- المعامل الدولي -->
+<section id="tab-coeffs" class="sec">
+  <div class="s-hdr"><h2>🌍 المعامل الرقمي للدينار لكل دولة</h2><p>كم دينار يملك المواطن؟ وهل يبلغ النصاب؟</p></div>
+  <div id="coeffs-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<!-- المبادلة العادلة -->
+<section id="tab-exchange" class="sec">
+  <div class="s-hdr"><h2>⚖️ المبادلة العادلة — «يداً بيد»</h2><p>احسب التبادل العادل بين أي منتجين وفق الكتاب والسنة</p></div>
+  <div class="banner" style="margin-top:0"><div class="verse">«إذا اختلفت الأجناس فبيعوا كيف شئتم إذا كان يداً بيد» — صحيح مسلم ١٥٨٧</div></div>
+
+  <div class="calc-box">
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:end">
+      <div>
+        <div class="form-row">
+          <label class="form-label">من (المنتج الأول)</label>
+          <select class="form-select" id="ex-prod1" style="width:100%">
+            <option value="gold_dinar">الدينار الذهبي (٤.٢٥ج)</option>
+            <option value="gold_gram">الذهب (جرام)</option>
+            <option value="silver_dirham">الدرهم الفضي (٢.٩٧٥ج)</option>
+            <option value="silver_gram">الفضة (جرام)</option>
+            <option value="wheat">القمح (كجم)</option>
+            <option value="barley">الشعير (كجم)</option>
+            <option value="dates">التمر (كجم)</option>
+            <option value="salt">الملح (كجم)</option>
+            <option value="rice">الأرز (كجم)</option>
+            <option value="olive_oil">زيت الزيتون (كجم)</option>
+            <option value="honey">العسل (كجم)</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label class="form-label">الكمية</label>
+          <input class="form-input" id="ex-qty1" type="number" min="0.001" step="0.001" value="1">
+        </div>
+      </div>
+      <div style="text-align:center;padding-bottom:1.5rem;font-size:1.4rem;color:var(--gold)">⇄</div>
+      <div>
+        <div class="form-row">
+          <label class="form-label">إلى (المنتج الثاني)</label>
+          <select class="form-select" id="ex-prod2" style="width:100%">
+            <option value="wheat">القمح (كجم)</option>
+            <option value="dates">التمر (كجم)</option>
+            <option value="barley">الشعير (كجم)</option>
+            <option value="rice">الأرز (كجم)</option>
+            <option value="gold_gram">الذهب (جرام)</option>
+            <option value="silver_gram">الفضة (جرام)</option>
+            <option value="olive_oil">زيت الزيتون (كجم)</option>
+            <option value="honey">العسل (كجم)</option>
+            <option value="salt">الملح (كجم)</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label class="form-label">العملة للعرض</label>
+          <select class="form-select" id="ex-cur" style="width:100%">
+            <option value="SAR">ريال — SAR</option>
+            <option value="USD">دولار — USD</option>
+            <option value="AED">درهم — AED</option>
+            <option value="EGP">جنيه — EGP</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <button class="btn-gold" style="width:100%" onclick="calcFairExchange()">احسب المبادلة العادلة</button>
+    <div class="result-box" id="ex-result"></div>
+  </div>
+</section>
+
+<!-- الزكاة والفقر -->
+<section id="tab-zakat" class="sec">
+  <div class="s-hdr"><h2>💚 الزكاة والقضاء على الفقر</h2><p>نموذج رياضي لتحرير كل فقراء المسلمين من الفقر</p></div>
+  <div id="zakat-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<!-- التجارة العالمية -->
+<section id="tab-trade" class="sec">
+  <div class="s-hdr"><h2>🌐 التجارة العالمية والإسلامية</h2><p>الحجم السنوي — المعاملات — أسواق الحلال</p></div>
+  <div id="trade-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<!-- الإنتاج -->
+<section id="tab-prod" class="sec">
+  <div class="s-hdr"><h2>🏭 الإنتاج العالمي والعرض والطلب</h2><p>كل منتج — من يُنتج — كم — الفائض والعجز</p></div>
+  <div class="prod-tabs" id="prod-tabs">
+    <button class="prod-btn active" onclick="loadProduction('gold','this')">🥇 الذهب</button>
+    <button class="prod-btn" onclick="loadProduction('silver','this')">🥈 الفضة</button>
+    <button class="prod-btn" onclick="loadProduction('wheat','this')">🌾 القمح</button>
+    <button class="prod-btn" onclick="loadProduction('dates','this')">🌴 التمر</button>
+    <button class="prod-btn" onclick="loadProduction('barley','this')">🌿 الشعير</button>
+    <button class="prod-btn" onclick="loadProduction('rice','this')">🍚 الأرز</button>
+  </div>
+  <div id="prod-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<!-- دعاء المُسَعِّر -->
+<section id="tab-dua" class="sec">
+  <div class="s-hdr"><h2>🤲 «الله هو المُسَعِّر»</h2><p>الأساس الشرعي لاقتصاد شيخة — الله هو المعطي والمانع والرازق</p></div>
+  <div id="dua-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<script>
+'use strict';
+const loaded = {};
+
+function showTab(name) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name)?.classList.add('active');
+  event?.currentTarget?.classList?.add('active');
+  if (!loaded[name]) { loaded[name] = true; loadTab(name); }
+}
+
+async function api(path, opts) {
+  const r = await fetch(path, opts);
+  const j = await r.json();
+  if (!j.success) throw new Error(j.message);
+  return j.data;
+}
+
+const fmt = (n, d=2) => (typeof n === 'number' ? n.toLocaleString('ar-SA', {maximumFractionDigits:d}) : n);
+const bigNum = n => {
+  if (n >= 1e12) return (n/1e12).toFixed(1) + ' تريليون';
+  if (n >= 1e9)  return (n/1e9).toFixed(0) + ' مليار';
+  if (n >= 1e6)  return (n/1e6).toFixed(1) + ' مليون';
+  return n?.toLocaleString();
+};
+
+// ── BENCHMARK ──
+async function loadBenchmark() {
+  const cur = document.getElementById('bench-cur').value;
+  document.getElementById('bench-content').innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  const d = await api('/api/economy/daily-benchmark/' + cur);
+
+  const foodItems = Object.entries(d.food);
+  const foodCards = foodItems.map(([k, f]) =>
+    `<div class="bench-item green"><div class="bench-icon">${{wheat:'🌾',barley:'🌿',dates:'🌴',salt:'🧂',rice:'🍚',olive_oil:'🫒',lentils:'🫘',honey:'🍯',milk:'🥛',camel:'🐪',sheep:'🐑'}[k]||'🌱'}</div>
+    <div class="bench-name">${f.name_ar}</div>
+    <div class="bench-val">${fmt(f.per_kg)}</div>
+    <div class="bench-sub">${cur} / كجم</div></div>`
+  ).join('');
+
+  document.getElementById('bench-content').innerHTML = `
+    <div class="banner" style="margin-top:0">
+      <div class="verse">${d.verse}</div>
+      <p>${d.hadith} — ${d.date}</p>
+    </div>
+    <h3 style="color:var(--gold);margin-bottom:.75rem">🌙 الذهب والدينار — ${cur}</h3>
+    <div class="bench-grid">
+      <div class="bench-item"><div class="bench-icon">🥇</div><div class="bench-name">الذهب / أوقية</div><div class="bench-val">${fmt(d.gold.per_oz)}</div><div class="bench-sub">${cur}</div></div>
+      <div class="bench-item"><div class="bench-icon">⚖️</div><div class="bench-name">الذهب / جرام</div><div class="bench-val">${fmt(d.gold.per_gram)}</div><div class="bench-sub">${cur} / ج</div></div>
+      <div class="bench-item"><div class="bench-icon">🌙</div><div class="bench-name">دينار (٤.٢٥ج)</div><div class="bench-val">${fmt(d.gold.per_dinar)}</div><div class="bench-sub">${cur}</div></div>
+      <div class="bench-item silver"><div class="bench-icon">🥈</div><div class="bench-name">الفضة / أوقية</div><div class="bench-val">${fmt(d.silver.per_oz)}</div><div class="bench-sub">${cur}</div></div>
+      <div class="bench-item silver"><div class="bench-icon">⚖️</div><div class="bench-name">الفضة / جرام</div><div class="bench-val">${fmt(d.silver.per_gram,4)}</div><div class="bench-sub">${cur} / ج</div></div>
+      <div class="bench-item silver"><div class="bench-icon">🪙</div><div class="bench-name">درهم (٢.٩٧٥ج)</div><div class="bench-val">${fmt(d.silver.per_dirham)}</div><div class="bench-sub">${cur}</div></div>
+    </div>
+    <h3 style="color:var(--gold);margin:.75rem 0">🌾 تسعير المطعوم — ${cur}</h3>
+    <div class="bench-grid">${foodCards}</div>
+    <h3 style="color:var(--gold);margin:.75rem 0">📊 النسب والفروقات</h3>
+    <div class="ratio-grid">
+      <div class="ratio-card"><div class="ratio-label">نسبة الذهب للفضة اليوم</div><div class="ratio-val">${d.ratios.gold_silver_gram_ratio}:١</div><div class="ratio-unit">تاريخياً: ١٠:١</div><span class="ratio-badge badge-warn">الفضة مقللة ${d.ratios.silver_undervalue_pct}%</span></div>
+      <div class="ratio-card"><div class="ratio-label">فرق الذهب عن الفضة (جرام)</div><div class="ratio-val">${fmt(d.diff.gold_vs_silver_pct)}%</div><div class="ratio-unit">نسبة اليوم</div></div>
+      <div class="ratio-card"><div class="ratio-label">دينار = كجم قمح</div><div class="ratio-val">${fmt(d.ratios.dinar_wheat_kg,0)}</div><div class="ratio-unit">كيلوجرام</div></div>
+      <div class="ratio-card"><div class="ratio-label">دينار = كجم تمر</div><div class="ratio-val">${fmt(d.ratios.dinar_dates_kg,0)}</div><div class="ratio-unit">كيلوجرام</div></div>
+      <div class="ratio-card"><div class="ratio-label">دينار = أيام معيشة</div><div class="ratio-val">${fmt(d.ratios.days_per_dinar,1)}</div><div class="ratio-unit">يوم</div><span class="ratio-badge badge-ok">قوة شرائية عالية</span></div>
+      <div class="ratio-card"><div class="ratio-label">درهم = أيام معيشة</div><div class="ratio-val">${fmt(d.ratios.days_per_dirham,2)}</div><div class="ratio-unit">يوم</div></div>
+    </div>`;
+}
+
+// ── MATRIX ──
+async function loadMatrix() {
+  const d = await api('/api/economy/price-matrix');
+  const curs = d.currencies;
+  const prodLabels = {gold_gram:'ذهب/ج',gold_dinar:'دينار',silver_gram:'فضة/ج',silver_dir:'درهم',wheat_kg:'قمح/كج',barley_kg:'شعير/كج',dates_kg:'تمر/كج',salt_kg:'ملح/كج',rice_kg:'أرز/كج',olive_oil_kg:'زيت/كج'};
+  const prods = d.products;
+
+  const headers = `<tr><th>العملة</th>${prods.map(p=>`<th>${prodLabels[p]||p}</th>`).join('')}<th>ذ/ف نسبة</th><th>دينار÷قمح</th></tr>`;
+  const rows = curs.map(cur => {
+    const m = d.matrix[cur];
+    return `<tr><td style="font-weight:700;color:var(--gold)">${cur}</td>
+      <td class="td-highlight">${fmt(m.gold_gram)}</td>
+      <td class="td-highlight">${fmt(m.gold_dinar)}</td>
+      <td class="td-silver">${fmt(m.silver_gram,4)}</td>
+      <td class="td-silver">${fmt(m.silver_dir)}</td>
+      <td>${fmt(m.wheat_kg,3)}</td>
+      <td>${fmt(m.barley_kg,3)}</td>
+      <td>${fmt(m.dates_kg)}</td>
+      <td>${fmt(m.salt_kg,3)}</td>
+      <td>${fmt(m.rice_kg)}</td>
+      <td>${fmt(m.olive_oil_kg)}</td>
+      <td style="color:var(--orange);font-family:'Outfit'">${m.gold_silver_ratio}</td>
+      <td style="color:var(--green);font-family:'Outfit'">${fmt(m.dinar_vs_wheat_ratio,0)}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('matrix-content').innerHTML = `
+    <div class="banner" style="margin-top:0">
+      <div class="verse">${d.verse}</div>
+      <p>${d.note} | ${d.date}</p>
+    </div>
+    <div class="tbl-wrap"><table><thead>${headers}</thead><tbody>${rows}</tbody></table></div>`;
+}
+
+// ── COEFFICIENTS ──
+async function loadCoeffs() {
+  const d = await api('/api/economy/digital-coefficients');
+  const rows = d.map(c => `
+    <tr>
+      <td style="font-weight:700">${c.name}</td>
+      <td style="color:var(--text3);font-size:.79rem">${c.code}</td>
+      <td style="font-family:'Outfit'">${c.gdp_per_cap.toLocaleString()}</td>
+      <td class="td-highlight">${fmt(c.dinars_per_capita,1)}</td>
+      <td>${fmt(c.gold_grams_per_capita,1)}</td>
+      <td style="color:${c.above_nisab?'var(--green)':'var(--red)'}">${c.above_nisab?'✅ يبلغ النصاب':'❌ دون النصاب'}</td>
+      <td>${c.wheat_kg_per_dinar.toLocaleString()}</td>
+      <td>${c.dates_kg_per_dinar.toLocaleString()}</td>
+    </tr>`).join('');
+
+  document.getElementById('coeffs-content').innerHTML = `
+    <div class="banner" style="margin-top:0">
+      <div class="verse">﴿وَفِي أَمْوَالِهِمْ حَقٌّ لِّلسَّائِلِ وَالْمَحْرُومِ﴾ — الذاريات ١٩</div>
+      <p>المعامل الرقمي يقيس قوة الدخل مقابل الدينار الإسلامي — مَن بلغ النصاب وجبت عليه الزكاة</p>
+    </div>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>الدولة</th><th>الرمز</th><th>دخل فرد/USD</th><th>دنانير/فرد</th><th>جرام ذهب/فرد</th><th>النصاب</th><th>قمح/دينار(كج)</th><th>تمر/دينار(كج)</th></tr></thead>
+      <tbody>${rows}</tbody></table>
+    </div>`;
+}
+
+// ── FAIR EXCHANGE ──
+async function calcFairExchange() {
+  const prod1 = document.getElementById('ex-prod1').value;
+  const qty1  = +document.getElementById('ex-qty1').value;
+  const prod2 = document.getElementById('ex-prod2').value;
+  const cur   = document.getElementById('ex-cur').value;
+  if (!qty1 || qty1 <= 0) return;
+  const d = await api('/api/economy/fair-exchange', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ prod1, qty1, prod2, currency: cur }),
+  });
+  const el = document.getElementById('ex-result');
+  el.style.display = 'block';
+  const sameStyle = d.same_genus ? 'color:var(--orange)' : 'color:var(--green)';
+  el.innerHTML = `
+    <div class="result-row"><span class="result-key">مِن</span><span class="result-val">${qty1} ${prod1}</span></div>
+    <div class="result-row"><span class="result-key">إلى</span><span class="result-val">${fmt(d.to.qty_needed,3)} ${prod2}</span></div>
+    <div class="result-row"><span class="result-key">القيمة الإجمالية</span><span class="result-val">${fmt(d.from.total_local)} ${cur}</span></div>
+    <div class="result-row"><span class="result-key">الحكم الشرعي</span><span class="result-val" style="${sameStyle}">${d.sharia_rule}</span></div>
+    <div class="result-row"><span class="result-key" style="color:var(--green);font-size:.8rem">${d.hadith}</span></div>`;
+}
+
+// ── ZAKAT ──
+async function loadZakat() {
+  const d = await api('/api/economy/zakat-poverty-model');
+  const growRows = d.growth_path.map(g => `
+    <tr>
+      <td>${g.year}</td>
+      <td>${g.collection_pct}%</td>
+      <td style="color:var(--green);font-family:'Outfit'">$${(g.collected_b).toLocaleString()}B</td>
+      <td style="color:${g.poverty_impact.includes('كامل')||g.poverty_impact.includes('زوال')?'var(--green)':g.poverty_impact.includes('كفي')?'var(--orange)':'var(--text2)'}">${g.poverty_impact}</td>
+    </tr>`).join('');
+
+  document.getElementById('zakat-content').innerHTML = `
+    <div class="banner" style="margin-top:0">
+      <div class="verse">${d.verse}</div>
+      <p>${d.hadith}</p>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">${bigNum(d.global_population)}</div><div class="stat-label">سكان الكرة الأرضية</div></div>
+      <div class="stat blue"><div class="stat-num">${bigNum(d.muslim_population)}</div><div class="stat-label">المسلمون عالمياً (${d.muslim_population_pct}%)</div></div>
+      <div class="stat"><div class="stat-num">${bigNum(d.global_extreme_poor)}</div><div class="stat-label">فقراء العالم (دون $٢.١٥/يوم)</div></div>
+      <div class="stat"><div class="stat-num">${bigNum(d.muslim_extreme_poor)}</div><div class="stat-label">الفقراء المسلمون</div></div>
+      <div class="stat green"><div class="stat-num">$${bigNum(d.potential_annual_zakat_usd)}</div><div class="stat-label">زكاة محتملة سنوياً</div></div>
+      <div class="stat green"><div class="stat-num">$${bigNum(d.cost_eliminate_muslim_poverty_usd)}</div><div class="stat-label">تكلفة القضاء على الفقر</div></div>
+    </div>
+
+    <div class="zakat-bar">
+      <div class="progress-label">
+        <span>نسبة جمع الزكاة الحالية — ${(d.collection_rate_current*100).toFixed(0)}% من المحتمل</span>
+        <span style="color:var(--green)">الهدف: ١٠٠%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="zakat-bar" style="width:0"></div></div>
+      <div style="margin-top:.5rem;font-size:.82rem;color:var(--text2)">
+        المجموع الحالي: <span style="color:var(--green)">$${bigNum(d.actual_collected_zakat_usd)}</span> |
+        الفجوة: <span style="color:var(--orange)">$${bigNum(d.collection_gap_usd)}</span>
+      </div>
+    </div>
+
+    <h3 style="color:var(--gold);margin-bottom:1rem">📈 خارطة النمو الإلزامي — للوصول لـ «لا فقير»</h3>
+    <div class="tbl-wrap">
+      <table class="growth-table"><thead><tr><th>السنة</th><th>نسبة الجمع</th><th>المبلغ</th><th>الأثر على الفقر</th></tr></thead>
+      <tbody>${growRows}</tbody></table>
+    </div>
+    <div class="banner">
+      <div class="verse">نصاب الزكاة = ٨٥ج ذهب = $${d.nisab_gold_usd.toLocaleString()} = ${d.nisab_gold_sar.toLocaleString()} ر</div>
+      <p>كل من يملك نصاباً وحال عليه الحول تجب عليه الزكاة = ٢.٥٪ — فريضة من الله</p>
+    </div>`;
+  setTimeout(() => { document.getElementById('zakat-bar').style.width = (d.collection_rate_current * 100) + '%'; }, 300);
+}
+
+// ── TRADE ──
+async function loadTrade() {
+  const d = await api('/api/economy/trade-volumes');
+  document.getElementById('trade-content').innerHTML = `
+    <div class="banner" style="margin-top:0">
+      <div class="verse">${d.verse}</div>
+      <p>${d.note}</p>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">$${bigNum(d.global_total_trade_usd)}</div><div class="stat-label">التجارة العالمية السنوية</div></div>
+      <div class="stat blue"><div class="stat-num">$${bigNum(d.oic_total_trade_usd)}</div><div class="stat-label">تجارة دول المنظمة OIC</div></div>
+      <div class="stat green"><div class="stat-num">$${bigNum(d.intra_oic_trade_usd)}</div><div class="stat-label">التجارة البينية الإسلامية</div></div>
+      <div class="stat"><div class="stat-num">${bigNum(d.global_annual_transactions_count)}</div><div class="stat-label">معاملة تجارية عالمياً/سنة</div></div>
+      <div class="stat green"><div class="stat-num">$${bigNum(d.halal_market_total)}</div><div class="stat-label">سوق الحلال العالمي</div></div>
+      <div class="stat blue"><div class="stat-num">$${bigNum(d.islamic_finance_assets)}</div><div class="stat-label">أصول التمويل الإسلامي</div></div>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="card-icon">🌍</div><div class="card-title">OIC — ٥٧ دولة إسلامية</div><div class="card-body">الناتج المحلي: $${bigNum(d.oic_gdp_usd)}<br>السكان: ${bigNum(d.oic_population)}<br>نسبة التجارة البينية: ${d.intra_oic_pct}%<br>الهدف: ${d.oic_target_intra_2025*100}% بحلول ٢٠٢٥</div></div>
+      <div class="card"><div class="card-icon">🍖</div><div class="card-title">سوق الحلال العالمي</div><div class="card-body">الغذاء الحلال: $${bigNum(d.halal_food_usd)}<br>الأزياء الحلال: $${bigNum(d.halal_fashion_usd)}<br>السياحة الحلال: $${bigNum(d.halal_travel_usd)}<br>الدواء الحلال: $${bigNum(d.halal_pharma_usd)}<br>النمو السنوي: ${(d.halal_growth_annual*100).toFixed(0)}%</div></div>
+      <div class="card"><div class="card-icon">🏦</div><div class="card-title">التمويل الإسلامي</div><div class="card-body">إجمالي الأصول: $${bigNum(d.islamic_finance_assets)}<br>الصكوك القائمة: $${bigNum(d.sukuk_outstanding_usd)}<br>التأمين التكافلي: $${bigNum(d.takaful_insurance_usd)}<br>النمو السنوي: ${(d.islamic_finance_growth*100).toFixed(0)}%</div><div class="card-verse">﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾</div></div>
+      <div class="card"><div class="card-icon">📱</div><div class="card-title">المعاملات اليومية في OIC</div><div class="card-body">يومياً: ${bigNum(d.daily_transactions_oic)} معاملة<br>متوسط قيمة المعاملة: $${d.avg_transaction_usd}<br>سنوياً: ${bigNum(d.oic_annual_transactions)}<br>التجارة الإلكترونية العالمية: $${bigNum(d.global_ecommerce_usd)}</div></div>
+    </div>`;
+}
+
+// ── PRODUCTION ──
+let currentProd = 'gold';
+async function loadProduction(item, btn) {
+  currentProd = item;
+  document.querySelectorAll('.prod-btn').forEach(b => b.classList.remove('active'));
+  if (btn && btn !== 'this') btn.classList.add('active');
+  else { const btns = document.querySelectorAll('.prod-btn');
+    btns.forEach(b => { if (b.textContent.toLowerCase().includes(item.slice(0,2))) b.classList.add('active'); }); }
+  document.getElementById('prod-content').innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  const d = await api('/api/economy/production/' + item);
+
+  const topRows = (d.top_producers || []).map(p => `
+    <tr><td style="font-weight:600">${p.country}</td>
+    <td style="color:var(--gold);font-family:'Outfit'">${(p.tons||p.mtons||0).toLocaleString()}</td>
+    <td style="color:var(--green)">${p.pct}</td></tr>`).join('');
+
+  const demandRows = d.demand ? Object.entries(d.demand).map(([k,v]) =>
+    `<tr><td>${k}</td><td style="color:var(--gold);font-family:'Outfit'">${v.toLocaleString()}</td><td>${d.unit||''}</td></tr>`
+  ).join('') : '';
+
+  const surplus = typeof d.surplus === 'number' || typeof d.surplus_tons === 'number';
+  const surplusVal = d.surplus || d.surplus_tons;
+
+  document.getElementById('prod-content').innerHTML = `
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">${(d.annual_production||d.annual_production_million_tons||0).toLocaleString()}</div><div class="stat-label">الإنتاج السنوي (${d.unit})</div></div>
+      ${d.recycling?`<div class="stat silver"><div class="stat-num">${d.recycling.toLocaleString()}</div><div class="stat-label">إعادة التدوير (${d.unit})</div></div>`:''}
+      ${d.total_supply?`<div class="stat"><div class="stat-num">${d.total_supply.toLocaleString()}</div><div class="stat-label">إجمالي العرض</div></div>`:''}
+      ${d.consumption?`<div class="stat blue"><div class="stat-num">${d.consumption.toLocaleString()}</div><div class="stat-label">الاستهلاك العالمي</div></div>`:''}
+      ${surplus?`<div class="stat green"><div class="stat-num">${surplusVal>0?'+':''}${surplusVal}</div><div class="stat-label">${surplusVal>=0?'الفائض':'العجز'}</div></div>`:''}
+      ${d.stocks?`<div class="stat"><div class="stat-num">${(d.stocks||d.world_stock_tons||0).toLocaleString()}</div><div class="stat-label">المخزون الإجمالي</div></div>`:''}
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+      <div>
+        <h3 style="color:var(--gold);margin-bottom:.75rem">🏆 أكبر المنتجين</h3>
+        <div class="tbl-wrap"><table><thead><tr><th>الدولة</th><th>الإنتاج</th><th>النسبة</th></tr></thead><tbody>${topRows}</tbody></table></div>
+        ${d.islamic_world_share_pct?`<div class="banner" style="padding:1rem;margin-top:.75rem"><div style="color:var(--green);font-size:.85rem">حصة العالم الإسلامي: <strong>${d.islamic_world_share_pct}%</strong></div></div>`:''}
+      </div>
+      ${d.demand?`<div><h3 style="color:var(--gold);margin-bottom:.75rem">📊 توزيع الطلب</h3><div class="tbl-wrap"><table><thead><tr><th>القطاع</th><th>الكمية</th><th>الوحدة</th></tr></thead><tbody>${demandRows}</tbody></table></div></div>`:''}
+    </div>`;
+}
+
+// ── DUA ──
+async function loadDua() {
+  const d = await api('/api/economy/allah-is-al-musaier');
+  document.getElementById('dua-content').innerHTML = `
+    <div class="banner" style="margin-top:0;padding:2rem">
+      <div class="verse" style="font-size:1.3rem">«إن الله هو المُسَعِّر، القابضُ، الباسطُ، الرازقُ»</div>
+      <p style="margin-top:.5rem;color:var(--text)">${d.narrator}</p>
+      <p style="margin-top:.25rem;color:var(--green);font-size:.85rem">${d.source}</p>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="card-icon">📖</div><div class="card-title">الآيات الكريمة</div>
+        <div class="card-verse">${d.verse_1}</div>
+        <div class="card-verse" style="margin-top:.5rem">${d.verse_2}</div>
+        <div class="card-verse" style="margin-top:.5rem">${d.verse_3}</div>
+      </div>
+      <div class="card"><div class="card-icon">🌙</div><div class="card-title">المبدأ الاقتصادي</div>
+        <div class="card-body">${d.principle}</div>
+      </div>
+      <div class="card" style="border-color:rgba(16,185,129,.3)"><div class="card-icon">🤲</div><div class="card-title">الدعاء</div>
+        <div class="card-body" style="color:var(--green);font-size:1rem;line-height:1.9;font-weight:500">${d.dua}</div>
+      </div>
+      <div class="card"><div class="card-icon">🕌</div><div class="card-title">البسملة</div>
+        <div class="card-body">${d.tasmia}</div>
+        <div class="card-verse">﴿وَيُعَلِّمُكُمُ اللَّهُ﴾ — البقرة ٢٨٢</div>
+      </div>
+    </div>`;
+}
+
+async function loadTab(name) {
+  try {
+    switch(name) {
+      case 'matrix':   await loadMatrix();   break;
+      case 'coeffs':   await loadCoeffs();   break;
+      case 'zakat':    await loadZakat();    break;
+      case 'trade':    await loadTrade();    break;
+      case 'prod':     await loadProduction('gold'); break;
+      case 'dua':      await loadDua();      break;
+    }
+  } catch(e) { console.error('tab error', name, e); }
+}
+
+// Boot
+(async () => {
+  loaded['bench'] = true;
+  await loadBenchmark();
+})();
+</script>
+</body>
+</html>
