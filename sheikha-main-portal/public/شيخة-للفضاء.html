@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="شيخة للفضاء — الهيئات السعودية والوزارات وأهداف التكامل الحلال">
+<title>شيخة للفضاء والهيئات السعودية 🛰️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold: #D4AF37;
+    --copper: #B87333;
+    --bg: #050810;
+    --bg2: #0a1020;
+    --bg3: #111827;
+    --green: #10b981;
+    --blue: #3b82f6;
+    --purple: #8b5cf6;
+    --teal: #14b8a6;
+    --red: #ef4444;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --border: #1e2d4a;
+    --card: #0d1b30;
+    --card2: #111827;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'Tajawal', sans-serif; direction: rtl; min-height: 100vh; }
+
+/* Header */
+.hero {
+    background: linear-gradient(135deg, #050810 0%, #0a1428 40%, #050a18 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 1.5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at top, rgba(212,175,55,0.08), transparent 70%);
+    pointer-events: none;
+}
+.stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.stars::before, .stars::after {
+    content: '✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧';
+    position: absolute;
+    color: rgba(212,175,55,0.2);
+    font-size: 10px;
+    white-space: nowrap;
+    letter-spacing: 18px;
+}
+.stars::before { top: 20px; left: 0; right: 0; }
+.stars::after { top: 50px; left: 0; right: 0; }
+.bismillah { color: var(--gold); font-size: 1rem; margin-bottom: 0.6rem; opacity: 0.9; }
+.hero-verse {
+    font-family: 'Cairo', serif;
+    font-size: 1.15rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    opacity: 0.95;
+    text-shadow: 0 0 20px rgba(212,175,55,0.3);
+}
+.hero-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--gold), #f5d571, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+.hero-sub { color: var(--text2); font-size: 0.95rem; }
+.halal-badge {
+    display: inline-block;
+    margin-top: 0.8rem;
+    background: rgba(16,185,129,0.12);
+    border: 1px solid rgba(16,185,129,0.3);
+    color: var(--green);
+    padding: 0.2rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+.nav-tab {
+    padding: 0.7rem 1rem;
+    color: var(--text2);
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+}
+.nav-tab:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+.nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); background: rgba(212,175,55,0.05); }
+
+/* Main Content */
+.main { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Section Title */
+.section-title {
+    font-size: 1.2rem; font-weight: 700;
+    color: var(--gold); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Stats Grid */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    transition: border-color 0.2s;
+}
+.stat-card:hover { border-color: var(--gold); }
+.stat-icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+.stat-value { font-size: 1.6rem; font-weight: 700; color: var(--gold); }
+.stat-label { font-size: 0.75rem; color: var(--text2); margin-top: 0.2rem; }
+
+/* Cards */
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover { border-color: rgba(212,175,55,0.3); transform: translateY(-1px); }
+.card-title {
+    font-size: 1rem; font-weight: 700; color: var(--gold);
+    display: flex; align-items: center; gap: 0.4rem;
+    margin-bottom: 0.7rem;
+}
+.card-verse { font-family: 'Cairo', serif; color: var(--copper); font-size: 0.85rem; margin: 0.4rem 0; }
+.card-mission { color: var(--text2); font-size: 0.88rem; margin-bottom: 0.7rem; }
+
+/* Goals List */
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+.goals-list li {
+    padding: 0.4rem 0.7rem;
+    background: rgba(255,255,255,0.03);
+    border-radius: 6px;
+    border-right: 2px solid var(--green);
+    font-size: 0.84rem;
+    color: var(--text);
+}
+.goals-list li::before { content: '✓ '; color: var(--green); }
+
+.forbidden-list li { border-right-color: var(--red); }
+.forbidden-list li::before { content: '✗ '; color: var(--red); }
+
+/* Grid 2-col */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+@media (max-width: 700px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+/* Ministry Grid */
+.ministries-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+.ministry-card {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.ministry-card:hover { border-color: var(--gold); background: rgba(212,175,55,0.03); }
+.ministry-icon { font-size: 1.6rem; margin-bottom: 0.4rem; }
+.ministry-name { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+.ministry-verse { font-size: 0.75rem; color: var(--copper); font-family: 'Cairo', serif; margin-bottom: 0.5rem; }
+.ministry-goals-count {
+    font-size: 0.75rem;
+    background: rgba(59,130,246,0.15);
+    color: var(--blue);
+    border-radius: 20px;
+    padding: 0.15rem 0.5rem;
+    display: inline-block;
+}
+
+/* Modal */
+.modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+.modal-close {
+    position: absolute; top: 1rem; left: 1rem;
+    background: rgba(255,255,255,0.1); border: none; color: var(--text);
+    border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 1rem;
+}
+.modal-title { color: var(--gold); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.7rem; }
+
+/* Tabs Badge */
+.tab-badge {
+    background: rgba(212,175,55,0.15);
+    color: var(--gold);
+    border-radius: 10px;
+    padding: 0.1rem 0.4rem;
+    font-size: 0.7rem;
+    margin-right: 3px;
+}
+
+/* Loading */
+.loading { text-align: center; padding: 3rem; color: var(--text2); }
+.spinner { width: 30px; height: 30px; border: 2px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Tags */
+.tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+.tag {
+    font-size: 0.72rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+    background: rgba(59,130,246,0.12);
+    color: var(--blue);
+    border: 1px solid rgba(59,130,246,0.2);
+}
+
+/* Alert */
+.alert {
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-size: 0.88rem;
+}
+.alert-green { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+.alert-gold { background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3); color: var(--gold); font-family: 'Cairo', serif; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="stars"></div>
+    <div class="bismillah">بسم الله الرحمن الرحيم</div>
+    <div class="hero-verse">﴿أَفَلَمْ يَنظُرُوا إِلَى السَّمَاءِ فَوْقَهُمْ كَيْفَ بَنَيْنَاهَا وَزَيَّنَّاهَا﴾ — ق ٦</div>
+    <h1 class="hero-title">🛰️ شيخة للفضاء والهيئات السعودية</h1>
+    <p class="hero-sub">شيخة ناصرة للإسلام — العلم والتقنية خدمةً لله ولعباده</p>
+    <div class="halal-badge">✓ أهداف حلال فقط — لا أهداف محرمة</div>
+</div>
+
+<nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('overview')">📊 نظرة عامة</button>
+    <button class="nav-tab" onclick="showTab('space')">🛰️ شيخة للفضاء</button>
+    <button class="nav-tab" onclick="showTab('digital')">🌐 الفضاء الرقمي</button>
+    <button class="nav-tab" onclick="showTab('kacst')">🔬 KACST</button>
+    <button class="nav-tab" onclick="showTab('saudi-space')">🚀 هيئة الفضاء</button>
+    <button class="nav-tab" onclick="showTab('innovation')">💡 الابتكار</button>
+    <button class="nav-tab" onclick="showTab('monshaat')">🏭 منشآت</button>
+    <button class="nav-tab" onclick="showTab('ministries')">🏛️ الوزارات <span class="tab-badge" id="min-count"></span></button>
+    <button class="nav-tab" onclick="showTab('authorities')">🏦 الهيئات</button>
+    <button class="nav-tab" onclick="showTab('goals')">🌙 الأهداف الموحدة</button>
+</nav>
+
+<div class="main">
+
+    <!-- نظرة عامة -->
+    <div id="tab-overview" class="tab-panel active">
+        <div id="stats-container"><div class="loading"><div class="spinner"></div>جارٍ التحميل...</div></div>
+        <div class="alert-gold alert" style="margin-top:1rem;">
+            ﴿إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَى أَهْلِهَا وَإِذَا حَكَمْتُم بَيْنَ النَّاسِ أَن تَحْكُمُوا بِالْعَدْلِ﴾ — النساء ٥٨
+        </div>
+        <div class="alert alert-green">
+            ✓ جميع الأهداف المبرمجة حلال — لا أهداف تتعلق بالمحتوى المحرم كالغناء أو الخمر أو الربا أو الفحش. الله على ما نقول شهيد.
+        </div>
+    </div>
+
+    <!-- شيخة للفضاء -->
+    <div id="tab-space" class="tab-panel">
+        <div id="space-container"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+
+    <!-- الفضاء الرقمي -->
+    <div id="tab-digital" class="tab-panel">
+        <div id="digital-container"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+
+    <!-- KACST -->
+    <div id="tab-kacst" class="tab-panel">
+        <div id="kacst-container"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+
+    <!-- الهيئة السعودية للفضاء -->
+    <div id="tab-saudi-space" class="tab-panel">
+        <div id="saudi-space-container"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+
+    <!-- الابتكار -->
+    <div id="tab-innovation" class="tab-panel">
+        <div id="innovation-container"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+
+    <!-- منشآت -->
+    <div id="tab-monshaat" class="tab-panel">
+        <div id="monshaat-container"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+
+    <!-- الوزارات -->
+    <div id="tab-ministries" class="tab-panel">
+        <div class="section-title">🏛️ الوزارات السعودية وأهداف شيخة الحلال</div>
+        <div id="ministries-grid" class="ministries-grid"></div>
+    </div>
+
+    <!-- الهيئات -->
+    <div id="tab-authorities" class="tab-panel">
+        <div id="authorities-container"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+
+    <!-- الأهداف الموحدة -->
+    <div id="tab-goals" class="tab-panel">
+        <div id="goals-container"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+
+</div>
+
+<!-- Modal للوزارة -->
+<div id="ministry-modal" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal">
+        <button class="modal-close" onclick="document.getElementById('ministry-modal').classList.remove('open')">✕</button>
+        <div id="modal-content"></div>
+    </div>
+</div>
+
+<script>
+let DATA = {};
+
+function showTab(name) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+    loadTab(name);
+}
+
+async function fetchAPI(endpoint) {
+    if (DATA[endpoint]) return DATA[endpoint];
+    const res = await fetch('/api/space/' + endpoint);
+    const json = await res.json();
+    DATA[endpoint] = json.data;
+    return json.data;
+}
+
+async function loadTab(name) {
+    try {
+        if (name === 'overview') await loadOverview();
+        else if (name === 'space') await loadSpace();
+        else if (name === 'digital') await loadDigital();
+        else if (name === 'kacst') await loadKacst();
+        else if (name === 'saudi-space') await loadSaudiSpace();
+        else if (name === 'innovation') await loadInnovation();
+        else if (name === 'monshaat') await loadMonshaat();
+        else if (name === 'ministries') await loadMinistries();
+        else if (name === 'authorities') await loadAuthorities();
+        else if (name === 'goals') await loadGoals();
+    } catch(e) { console.error(e); }
+}
+
+async function loadOverview() {
+    const stats = await fetchAPI('stats');
+    const el = document.getElementById('stats-container');
+    el.innerHTML = `
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-icon">🏛️</div><div class="stat-value">${stats.ministries_count}</div><div class="stat-label">وزارة سعودية</div></div>
+            <div class="stat-card"><div class="stat-icon">🏦</div><div class="stat-value">${stats.authorities_count}</div><div class="stat-label">هيئة ومؤسسة</div></div>
+            <div class="stat-card"><div class="stat-icon">🛰️</div><div class="stat-value">${stats.space_divisions}</div><div class="stat-label">تقسيم فضائي</div></div>
+            <div class="stat-card"><div class="stat-icon">✓</div><div class="stat-value">${stats.total_halal_goals}+</div><div class="stat-label">هدف حلال</div></div>
+            <div class="stat-card"><div class="stat-icon">🌙</div><div class="stat-value">${stats.total_entities}</div><div class="stat-label">إجمالي الجهات</div></div>
+        </div>
+    `;
+}
+
+async function loadSpace() {
+    const d = await fetchAPI('sheikha-space');
+    document.getElementById('space-container').innerHTML = `
+        <div class="section-title">🛰️ ${d.name_ar}</div>
+        <div class="card-verse">${d.verse}</div>
+        <p class="card-mission" style="margin:0.7rem 0;">${d.mission}</p>
+        <p style="color:var(--text2);font-size:0.85rem;margin-bottom:1rem;">${d.vision}</p>
+        <div class="grid-2">
+            <div>
+                <div class="section-title" style="font-size:0.95rem;">🎯 الأهداف الحلال</div>
+                <ul class="goals-list">${d.goals_halal.map(g => `<li>${g}</li>`).join('')}</ul>
+            </div>
+            <div>
+                <div class="section-title" style="font-size:0.95rem;">💼 الخدمات</div>
+                ${d.services.map(s => `
+                    <div class="card" style="margin-bottom:0.5rem;padding:0.7rem;">
+                        <div class="card-title">${s.name}</div>
+                        <div style="color:var(--green);font-weight:700;">${s.price_usd === 0 ? '🎁 مجاني لله' : `$${(s.price_usd_month || s.price_usd_hectare_year || s.price_usd_container || s.price_usd_report || s.price_usd)?.toLocaleString()}`}</div>
+                        <div style="color:var(--text2);font-size:0.75rem;">${s.unit}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+        <div class="section-title" style="font-size:0.95rem;margin-top:1rem;">🤝 الشركاء</div>
+        <div class="tags">${d.partners.map(p => `<span class="tag">${p}</span>`).join('')}</div>
+    `;
+}
+
+async function loadDigital() {
+    const d = await fetchAPI('digital');
+    document.getElementById('digital-container').innerHTML = `
+        <div class="section-title">🌐 ${d.name_ar}</div>
+        <div class="card-verse">${d.verse}</div>
+        <p class="card-mission" style="margin:0.7rem 0;">${d.mission}</p>
+        <p style="color:var(--text2);font-size:0.85rem;margin-bottom:1rem;">${d.vision}</p>
+        <div class="grid-2">
+            <div>
+                <div class="section-title" style="font-size:0.95rem;">🎯 الأهداف الحلال</div>
+                <ul class="goals-list">${d.goals_halal.map(g => `<li>${g}</li>`).join('')}</ul>
+            </div>
+            <div>
+                <div class="section-title" style="font-size:0.95rem;">🖥️ البنية التحتية</div>
+                ${d.infrastructure.map(i => `
+                    <div class="card" style="margin-bottom:0.5rem;padding:0.7rem;">
+                        <div class="card-title">${i.name}</div>
+                        <div style="color:var(--text2);font-size:0.82rem;">${i.location || (i.nodes ? `${i.nodes} عقدة / ${i.countries} دول` : '')} ${i.status ? '— ' + i.status : ''} ${i.standard ? '— ' + i.standard : ''}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+async function loadKacst() {
+    const d = await fetchAPI('kacst');
+    document.getElementById('kacst-container').innerHTML = `
+        <div class="section-title">🔬 ${d.name_ar}</div>
+        <div class="card-verse">${d.verse}</div>
+        <p class="card-mission" style="margin:0.7rem 0;">${d.mission_ar}</p>
+        <div class="grid-2">
+            <div>
+                <div class="section-title" style="font-size:0.95rem;">🎯 أهداف شراكة شيخة مع KACST</div>
+                <ul class="goals-list">${d.sheikha_partnership_goals.map(g => `<li>${g}</li>`).join('')}</ul>
+            </div>
+            <div>
+                <div class="section-title" style="font-size:0.95rem;">🧪 مجالات البحث</div>
+                <div class="tags" style="margin-bottom:1rem;">${d.research_areas.map(r => `<span class="tag">${r}</span>`).join('')}</div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-value">${d.budget_sar_billion}B</div>
+                    <div class="stat-label">ريال — الميزانية السنوية</div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+async function loadSaudiSpace() {
+    const d = await fetchAPI('saudi-space-authority');
+    document.getElementById('saudi-space-container').innerHTML = `
+        <div class="section-title">🚀 ${d.name_ar}</div>
+        <div class="card-verse">${d.verse}</div>
+        <div class="grid-2">
+            <div>
+                <div class="section-title" style="font-size:0.95rem;">🎯 استراتيجية الفضاء الوطنية</div>
+                <ul class="goals-list">${d.national_space_strategy.map(g => `<li>${g}</li>`).join('')}</ul>
+                <div class="section-title" style="font-size:0.95rem;margin-top:1rem;">🔗 تكامل مع شيخة</div>
+                <ul class="goals-list">${d.sheikha_integration.map(g => `<li>${g}</li>`).join('')}</ul>
+            </div>
+            <div>
+                <div class="section-title" style="font-size:0.95rem;">🛰️ الأقمار الصناعية</div>
+                ${d.satellites.map(s => `
+                    <div class="card" style="margin-bottom:0.5rem;padding:0.7rem;">
+                        <div class="card-title">${s.name} (${s.year})</div>
+                        <div style="color:var(--text2);font-size:0.82rem;">${s.purpose}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+async function loadInnovation() {
+    const d = await fetchAPI('innovation');
+    document.getElementById('innovation-container').innerHTML = `
+        <div class="section-title">💡 ${d.name_ar}</div>
+        <div class="card-verse">${d.verse}</div>
+        <div class="grid-2">
+            <div>
+                <div class="section-title" style="font-size:0.95rem;">🔧 مجالات التركيز</div>
+                <div class="tags" style="margin-bottom:1rem;">${d.focus_areas.map(f => `<span class="tag">${f}</span>`).join('')}</div>
+            </div>
+            <div>
+                <div class="section-title" style="font-size:0.95rem;">🔗 تكامل مع شيخة</div>
+                <ul class="goals-list">${d.sheikha_integration.map(g => `<li>${g}</li>`).join('')}</ul>
+            </div>
+        </div>
+    `;
+}
+
+async function loadMonshaat() {
+    const d = await fetchAPI('monshaat');
+    document.getElementById('monshaat-container').innerHTML = `
+        <div class="section-title">🏭 ${d.name_ar}</div>
+        <div class="card-verse">${d.verse}</div>
+        <p class="card-mission" style="margin:0.7rem 0;">${d.mission}</p>
+        <div class="stats-grid" style="margin-bottom:1rem;">
+            <div class="stat-card"><div class="stat-icon">🏪</div><div class="stat-value">${(d.sme_stats.total_smes/1e6).toFixed(1)}M</div><div class="stat-label">منشأة صغيرة ومتوسطة</div></div>
+            <div class="stat-card"><div class="stat-icon">📈</div><div class="stat-value">${d.sme_stats.gdp_contribution_percent}%</div><div class="stat-label">مساهمة في الناتج المحلي</div></div>
+            <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-value">${d.sme_stats.employment_percent}%</div><div class="stat-label">نسبة التوظيف</div></div>
+            <div class="stat-card"><div class="stat-icon">👩‍💼</div><div class="stat-value">${d.sme_stats.women_entrepreneurs_percent}%</div><div class="stat-label">رائدات أعمال</div></div>
+        </div>
+        <div class="grid-2">
+            <div>
+                <div class="section-title" style="font-size:0.95rem;">🤝 برامج التكامل مع شيخة</div>
+                ${d.programs.map(p => `
+                    <div class="card" style="margin-bottom:0.5rem;padding:0.7rem;">
+                        <div class="card-title">${p.name}</div>
+                        <p style="color:var(--text2);font-size:0.82rem;">${p.description}</p>
+                        <p style="color:var(--green);font-size:0.82rem;margin-top:0.3rem;">✓ ${p.benefit}</p>
+                    </div>
+                `).join('')}
+            </div>
+            <div>
+                <div class="section-title" style="font-size:0.95rem;">🎯 أهداف حلال</div>
+                <ul class="goals-list">${d.halal_goals.map(g => `<li>${g}</li>`).join('')}</ul>
+            </div>
+        </div>
+    `;
+}
+
+async function loadMinistries() {
+    const ministries = await fetchAPI('ministries');
+    const grid = document.getElementById('ministries-grid');
+    document.getElementById('min-count').textContent = ministries.length;
+    grid.innerHTML = ministries.map(m => `
+        <div class="ministry-card" onclick="showMinistry('${m.id}')">
+            <div class="ministry-icon">${m.icon}</div>
+            <div class="ministry-name">${m.name_ar}</div>
+            ${m.verse ? `<div class="ministry-verse">${m.verse}</div>` : ''}
+            <span class="ministry-goals-count">🎯 ${(m.sheikha_goals || m.halal_note || []).length} هدف حلال</span>
+        </div>
+    `).join('');
+}
+
+async function showMinistry(id) {
+    const ministries = await fetchAPI('ministries');
+    const m = ministries.find(x => x.id === id);
+    if (!m) return;
+    document.getElementById('modal-content').innerHTML = `
+        <div style="font-size:2rem;margin-bottom:0.5rem;">${m.icon}</div>
+        <div class="modal-title">${m.name_ar}</div>
+        ${m.verse ? `<div class="card-verse" style="margin-bottom:0.7rem;">${m.verse}</div>` : ''}
+        ${m.halal_note ? `<div class="alert alert-green" style="margin-bottom:0.7rem;">${Array.isArray(m.halal_note) ? m.halal_note.join('<br>') : m.halal_note}</div>` : ''}
+        <div class="section-title" style="font-size:0.9rem;margin-bottom:0.5rem;">🎯 أهداف شيخة مع هذه الوزارة</div>
+        <ul class="goals-list">${(m.sheikha_goals || []).map(g => `<li>${g}</li>`).join('')}</ul>
+        ${m.website ? `<div style="margin-top:0.8rem;font-size:0.8rem;color:var(--text2);">🌐 ${m.website}</div>` : ''}
+    `;
+    document.getElementById('ministry-modal').classList.add('open');
+}
+
+function closeModal(e) {
+    if (e.target === e.currentTarget) {
+        document.getElementById('ministry-modal').classList.remove('open');
+    }
+}
+
+async function loadAuthorities() {
+    const authorities = await fetchAPI('authorities');
+    const el = document.getElementById('authorities-container');
+    el.innerHTML = `
+        <div class="section-title">🏦 الهيئات والمؤسسات السعودية</div>
+        <div class="grid-3">
+        ${authorities.map(a => `
+            <div class="card">
+                <div class="card-title">${a.icon} ${a.name_ar}</div>
+                ${a.verse ? `<div class="card-verse">${a.verse}</div>` : ''}
+                ${a.vat_rate !== undefined ? `
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;margin:0.5rem 0;">
+                        <div class="stat-card" style="padding:0.4rem;"><div class="stat-value" style="font-size:1.1rem;">${(a.vat_rate*100)}%</div><div class="stat-label">ضريبة القيمة</div></div>
+                        <div class="stat-card" style="padding:0.4rem;"><div class="stat-value" style="font-size:1.1rem;">${(a.zakat_rate*100)}%</div><div class="stat-label">الزكاة</div></div>
+                    </div>
+                ` : ''}
+                ${a.ports ? `
+                    <div style="margin:0.5rem 0;">
+                    ${a.ports.map(p => `<div style="font-size:0.78rem;color:var(--text2);padding:0.2rem 0;">⚓ ${p.name} (${p.code})</div>`).join('')}
+                    </div>
+                ` : ''}
+                ${a.sheikha_goals ? `<ul class="goals-list" style="margin-top:0.5rem;">${a.sheikha_goals.slice(0,3).map(g => `<li>${g}</li>`).join('')}</ul>` : ''}
+                ${a.website ? `<div style="margin-top:0.5rem;font-size:0.75rem;color:var(--text2);">🌐 ${a.website}</div>` : ''}
+            </div>
+        `).join('')}
+        </div>
+    `;
+}
+
+async function loadGoals() {
+    const goals = await fetchAPI('unified-goals');
+    document.getElementById('goals-container').innerHTML = `
+        <div class="alert alert-gold">${goals.quran_basis}</div>
+        <div class="grid-2">
+            <div>
+                <div class="section-title">🎯 الأهداف الاستراتيجية الحلال</div>
+                <ul class="goals-list">${goals.strategic_goals.map(g => `<li>${g}</li>`).join('')}</ul>
+            </div>
+            <div>
+                <div class="section-title" style="color:var(--red);">✗ الأهداف المحرمة المحظورة</div>
+                <ul class="goals-list forbidden-list">${goals.forbidden_goals.map(g => `<li>${g}</li>`).join('')}</ul>
+            </div>
+        </div>
+        <div class="alert alert-green" style="margin-top:1rem;">
+            ✓ كل ما في شيخة حلال — والمحرم مرفوض مهما كانت الأرباح — الله على ما نُقِرّ شهيد
+        </div>
+    `;
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    loadOverview();
+});
+</script>
+</body>
+</html>

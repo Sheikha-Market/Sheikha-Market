@@ -37515,6 +37515,9 @@ app.get('/api/gold/live-rates', (req, res) => {
 // «إن الله هو المُسَعِّر» — الترمذي ١٣١٤
 // ══════════════════════════════════════════════════════════════════════════════
 const islamicEconomyEngine = require('./lib/sheikha-islamic-economy-engine');
+const metalsEngine = require('./lib/sheikha-metals-engine');
+const spaceEngine = require('./lib/sheikha-space-engine');
+const logisticsEngine = require('./lib/sheikha-logistics-engine');
 
 // الله هو المُسَعِّر — الأساس الشرعي
 app.get('/api/economy/allah-is-al-musaier', (req, res) => {
@@ -37582,6 +37585,194 @@ app.get('/api/economy/daily-report', (req, res) => {
 // العملات المدعومة
 app.get('/api/economy/currencies', (req, res) => {
     res.json({ success: true, data: islamicEconomyEngine.getSupportedCurrencies(), message: 'العملات المدعومة في المحرك', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٣٦ — محرك المعادن الكوني الشامل
+// ﴿وَأَنزَلْنَا الْحَدِيدَ فِيهِ بَأْسٌ شَدِيدٌ وَمَنَافِعُ لِلنَّاسِ﴾ — الحديد ٢٥
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// إحصاءات عامة للمعادن
+app.get('/api/metals/stats', (req, res) => {
+    res.json({ success: true, data: metalsEngine.getMetalsStats(), message: 'إحصاءات محرك المعادن الكوني', timestamp: new Date().toISOString() });
+});
+
+// المعادن الثمينة
+app.get('/api/metals/precious', (req, res) => {
+    res.json({ success: true, data: metalsEngine.getPreciousMetals(), message: 'المعادن الثمينة — ذهب وفضة وبلاتين وبلاديوم وروديوم وغيرها', timestamp: new Date().toISOString() });
+});
+
+// المعادن الصناعية والأساسية
+app.get('/api/metals/industrial', (req, res) => {
+    res.json({ success: true, data: metalsEngine.getIndustrialMetals(), message: 'المعادن الصناعية — نحاس وحديد وألومنيوم وغيرها', timestamp: new Date().toISOString() });
+});
+
+// المعادن النادرة والحرجة
+app.get('/api/metals/rare-earth', (req, res) => {
+    res.json({ success: true, data: metalsEngine.getRareEarthMetals(), message: 'المعادن النادرة والحرجة — ليثيوم ونيوديميوم وجاليوم وغيرها', timestamp: new Date().toISOString() });
+});
+
+// أسعار السكراب والخردة
+app.get('/api/metals/scrap', (req, res) => {
+    res.json({ success: true, data: metalsEngine.getScrapPrices(), message: 'أسعار السكراب والخردة — نحاس وألومنيوم وحديد وغيرها', timestamp: new Date().toISOString() });
+});
+
+// الجدول الكوني الشامل مرتب حسب القيمة
+app.get('/api/metals/universe', (req, res) => {
+    res.json({ success: true, data: metalsEngine.getUniversalMetalsTable(), message: 'كل معادن الكون مرتبة حسب القيمة', timestamp: new Date().toISOString() });
+});
+
+// الترتيب الاستراتيجي للمعادن
+app.get('/api/metals/strategic-ranking', (req, res) => {
+    res.json({ success: true, data: metalsEngine.getStrategicRanking(), message: 'الترتيب الاستراتيجي لأهم المعادن في الكون', timestamp: new Date().toISOString() });
+});
+
+// القيم الشرعية — نسب الدينار والدرهم
+app.get('/api/metals/sharia-values', (req, res) => {
+    res.json({ success: true, data: metalsEngine.getShariaMetalsValues(), message: 'قيم المعادن بالدينار والدرهم الإسلامي', timestamp: new Date().toISOString() });
+});
+
+// معدن محدد بالمعرّف
+app.get('/api/metals/:id', (req, res) => {
+    const metal = metalsEngine.getMetalById(req.params.id);
+    if (!metal) {
+        return res.status(404).json({ success: false, message: 'المعدن غير موجود', timestamp: new Date().toISOString() });
+    }
+    const analysis = metalsEngine.analyzeMetalByDinar(metal);
+    res.json({ success: true, data: { metal, analysis }, message: 'تحليل المعدن بالدينار الإسلامي', timestamp: new Date().toISOString() });
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٣٧أ — شيخة للفضاء والهيئات السعودية والوزارات
+// ﴿أَفَلَمْ يَنظُرُوا إِلَى السَّمَاءِ فَوْقَهُمْ كَيْفَ بَنَيْنَاهَا﴾ — ق ٦
+// ══════════════════════════════════════════════════════════════════════════════
+
+// إحصاءات عامة
+app.get('/api/space/stats', (req, res) => {
+    res.json({ success: true, data: spaceEngine.getSpaceStats(), message: 'إحصاءات منظومة شيخة للفضاء والهيئات', timestamp: new Date().toISOString() });
+});
+
+// شيخة للفضاء
+app.get('/api/space/sheikha-space', (req, res) => {
+    res.json({ success: true, data: spaceEngine.getSheikhaSpace(), message: 'شيخة للفضاء — أقمار صناعية وبيانات فضائية', timestamp: new Date().toISOString() });
+});
+
+// شيخة للفضاء الرقمي
+app.get('/api/space/digital', (req, res) => {
+    res.json({ success: true, data: spaceEngine.getSheikhaDigitalSpace(), message: 'شيخة للفضاء الرقمي الإسلامي', timestamp: new Date().toISOString() });
+});
+
+// مدينة الملك عبدالعزيز للعلوم والتقنية — KACST
+app.get('/api/space/kacst', (req, res) => {
+    res.json({ success: true, data: spaceEngine.getKacst(), message: 'مدينة الملك عبدالعزيز للعلوم والتقنية', timestamp: new Date().toISOString() });
+});
+
+// الهيئة السعودية للفضاء
+app.get('/api/space/saudi-space-authority', (req, res) => {
+    res.json({ success: true, data: spaceEngine.getSaudiSpaceAuthority(), message: 'الهيئة السعودية للفضاء', timestamp: new Date().toISOString() });
+});
+
+// هيئة الابتكار
+app.get('/api/space/innovation', (req, res) => {
+    res.json({ success: true, data: spaceEngine.getSaudiInnovationAuthority(), message: 'هيئة الابتكار والتقنية السعودية', timestamp: new Date().toISOString() });
+});
+
+// منشآت
+app.get('/api/space/monshaat', (req, res) => {
+    res.json({ success: true, data: spaceEngine.getMonshaat(), message: 'منشآت — الهيئة السعودية لريادة الأعمال', timestamp: new Date().toISOString() });
+});
+
+// الوزارات السعودية
+app.get('/api/space/ministries', (req, res) => {
+    res.json({ success: true, data: spaceEngine.getSaudiMinistries(), message: 'الوزارات السعودية وأهداف شيخة الحلال', timestamp: new Date().toISOString() });
+});
+
+// وزارة واحدة بالمعرف
+app.get('/api/space/ministries/:id', (req, res) => {
+    const ministry = spaceEngine.getMinistryById(req.params.id);
+    if (!ministry) return res.status(404).json({ success: false, message: 'الوزارة غير موجودة', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: ministry, message: ministry.name_ar, timestamp: new Date().toISOString() });
+});
+
+// الهيئات السعودية
+app.get('/api/space/authorities', (req, res) => {
+    res.json({ success: true, data: spaceEngine.getSaudiAuthorities(), message: 'الهيئات والمؤسسات السعودية', timestamp: new Date().toISOString() });
+});
+
+// الأهداف الموحدة
+app.get('/api/space/unified-goals', (req, res) => {
+    res.json({ success: true, data: spaceEngine.getUnifiedGoals(), message: 'أهداف شيخة الموحدة للهيئات السعودية — حلال فقط', timestamp: new Date().toISOString() });
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٣٧ب — محرك اللوجستيات والاقتصاد العالمي
+// ﴿وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ﴾ — الإسراء ٣٥
+// ══════════════════════════════════════════════════════════════════════════════
+
+// إحصاءات اللوجستيات
+app.get('/api/logistics/stats', (req, res) => {
+    res.json({ success: true, data: logisticsEngine.getLogisticsStats(), message: 'إحصاءات محرك اللوجستيات العالمي', timestamp: new Date().toISOString() });
+});
+
+// اليونكوتيرمز ٢٠٢٠
+app.get('/api/logistics/incoterms', (req, res) => {
+    res.json({ success: true, data: logisticsEngine.getIncoterms(), message: 'اليونكوتيرمز Incoterms 2020 — شروط التسليم الدولية', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/logistics/incoterms/:code', (req, res) => {
+    const term = logisticsEngine.getIncotermsById(req.params.code);
+    if (!term) return res.status(404).json({ success: false, message: 'كود اليونكوتيرمز غير موجود', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: term, message: `${term.code} — ${term.name_ar}`, timestamp: new Date().toISOString() });
+});
+
+// مسارات الشحن
+app.get('/api/logistics/routes', (req, res) => {
+    const { from, to } = req.query;
+    res.json({ success: true, data: logisticsEngine.getShippingRoutes(from, to), message: 'مسارات الشحن الدولي من الموانئ', timestamp: new Date().toISOString() });
+});
+
+// رسوم الموانئ
+app.get('/api/logistics/port-fees', (req, res) => {
+    const { country } = req.query;
+    res.json({ success: true, data: logisticsEngine.getPortFees(country), message: 'رسوم الموانئ الدولية', timestamp: new Date().toISOString() });
+});
+
+// الرسوم الجمركية بحسب الدولة
+app.get('/api/logistics/customs', (req, res) => {
+    const { country } = req.query;
+    res.json({ success: true, data: logisticsEngine.getCustomsByCountry(country), message: 'الرسوم الجمركية والضرائب لكل دولة', timestamp: new Date().toISOString() });
+});
+
+// الميزانيات الحكومية
+app.get('/api/logistics/budgets', (req, res) => {
+    const { country } = req.query;
+    res.json({ success: true, data: logisticsEngine.getCountryBudgets(country), message: 'الميزانيات الحكومية والعجز والفائض لكل دولة', timestamp: new Date().toISOString() });
+});
+
+// موارد الاقتصاد لكل دولة
+app.get('/api/logistics/economics', (req, res) => {
+    const { country } = req.query;
+    res.json({ success: true, data: logisticsEngine.getCountryEconomics(country), message: 'موارد الاقتصاد والسعر العادل لكل دولة', timestamp: new Date().toISOString() });
+});
+
+// نموذج سعر شحن شيخة
+app.get('/api/logistics/freight-model', (req, res) => {
+    res.json({ success: true, data: logisticsEngine.getFreightModel(), message: 'نموذج التسعير العادل لشحن شيخة — القسطاس المستقيم', timestamp: new Date().toISOString() });
+});
+
+// حساب سعر الشحن
+app.post('/api/logistics/calculate', (req, res) => {
+    const { cargo_value_usd, weight_kg, volume_cbm, origin_port, destination_port, incoterm, commodity } = req.body;
+    const result = logisticsEngine.calculateShippingPrice({
+        cargo_value_usd: +cargo_value_usd || 10000,
+        weight_kg: +weight_kg || 1000,
+        volume_cbm: +volume_cbm || 3,
+        origin_port: origin_port || 'SAJED',
+        destination_port: destination_port || 'NLRTM',
+        incoterm: incoterm || 'CIF',
+        commodity: commodity || 'metals',
+    });
+    res.json({ success: true, data: result, message: 'تم حساب سعر الشحن العادل بالقسطاس المستقيم', timestamp: new Date().toISOString() });
 });
 
 module.exports = app;

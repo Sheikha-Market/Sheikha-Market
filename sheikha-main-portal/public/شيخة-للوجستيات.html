@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="شيخة للوجستيات — أسعار الشحن الدولي والتسعير العادل والميزانيات والاقتصاد العالمي">
+<title>شيخة للوجستيات والتسعير العادل ⚖️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold: #D4AF37;
+    --copper: #B87333;
+    --bg: #050810;
+    --bg2: #0a1020;
+    --bg3: #111827;
+    --green: #10b981;
+    --blue: #3b82f6;
+    --purple: #8b5cf6;
+    --teal: #14b8a6;
+    --red: #ef4444;
+    --orange: #f59e0b;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --border: #1e2d4a;
+    --card: #0d1b30;
+    --card2: #111827;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'Tajawal', sans-serif; direction: rtl; min-height: 100vh; }
+.hero {
+    background: linear-gradient(135deg, #050810, #0a1428, #050a18);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 1.5rem 1.2rem;
+    text-align: center;
+    position: relative;
+}
+.hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at top, rgba(212,175,55,0.07), transparent 70%);
+    pointer-events: none;
+}
+.bismillah { color: var(--gold); font-size: 0.95rem; margin-bottom: 0.5rem; }
+.hero-verse { font-family: 'Cairo', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.8rem; opacity: 0.95; }
+.hero-title { font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 900; background: linear-gradient(135deg, var(--gold), #f5d571, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.4rem; }
+.hero-sub { color: var(--text2); font-size: 0.9rem; }
+.nav-tabs { background: var(--bg2); border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; position: sticky; top: 0; z-index: 50; }
+.nav-tab { padding: 0.65rem 0.9rem; color: var(--text2); cursor: pointer; border: none; background: none; font-family: 'Tajawal', sans-serif; font-size: 0.8rem; font-weight: 500; transition: all 0.2s; border-bottom: 2px solid transparent; white-space: nowrap; }
+.nav-tab:hover { color: var(--text); }
+.nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.main { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.section-title { font-size: 1.1rem; font-weight: 700; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.8rem; margin-bottom: 1.2rem; }
+.stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem; text-align: center; }
+.stat-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+.stat-value { font-size: 1.4rem; font-weight: 700; color: var(--gold); }
+.stat-label { font-size: 0.72rem; color: var(--text2); }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.95rem; font-weight: 700; color: var(--gold); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem; }
+@media (max-width: 700px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+.table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.table th { background: var(--bg2); color: var(--gold); padding: 0.5rem 0.7rem; text-align: right; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.table td { padding: 0.5rem 0.7rem; border-bottom: 1px solid rgba(30,45,74,0.5); color: var(--text); vertical-align: middle; }
+.table tr:hover td { background: rgba(212,175,55,0.03); }
+.badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.7rem; font-weight: 600; }
+.badge-green { background: rgba(16,185,129,0.15); color: #6ee7b7; }
+.badge-red { background: rgba(239,68,68,0.15); color: #fca5a5; }
+.badge-gold { background: rgba(212,175,55,0.15); color: var(--gold); }
+.badge-blue { background: rgba(59,130,246,0.15); color: #93c5fd; }
+.badge-orange { background: rgba(245,158,11,0.15); color: #fde68a; }
+.alert { padding: 0.7rem 1rem; border-radius: 8px; margin-bottom: 0.9rem; font-size: 0.85rem; }
+.alert-gold { background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3); color: var(--gold); font-family: 'Cairo', serif; }
+.alert-green { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+.loading { text-align: center; padding: 2.5rem; color: var(--text2); }
+.spinner { width: 28px; height: 28px; border: 2px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 0.8rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 1rem; }
+.incoterm-card { background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem; margin-bottom: 0.6rem; cursor: pointer; transition: border-color 0.2s; }
+.incoterm-card:hover { border-color: var(--gold); }
+.incoterm-code { font-size: 1.3rem; font-weight: 900; color: var(--gold); }
+.incoterm-name-ar { font-size: 0.9rem; font-weight: 700; }
+.incoterm-category { font-size: 0.72rem; color: var(--blue); margin: 0.2rem 0; }
+.calc-form { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem; margin-bottom: 1rem; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.8rem; margin-bottom: 1rem; }
+.form-group label { display: block; font-size: 0.78rem; color: var(--text2); margin-bottom: 0.3rem; }
+.form-group input, .form-group select { width: 100%; padding: 0.5rem 0.7rem; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'Tajawal', sans-serif; font-size: 0.85rem; }
+.form-group input:focus, .form-group select:focus { border-color: var(--gold); outline: none; }
+.btn-calc { background: linear-gradient(135deg, var(--gold), #b8942a); color: #050810; padding: 0.6rem 1.5rem; border: none; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
+.btn-calc:hover { opacity: 0.9; }
+.calc-result { background: var(--bg2); border: 1px solid rgba(212,175,55,0.3); border-radius: 10px; padding: 1rem; margin-top: 1rem; display: none; }
+.result-row { display: flex; justify-content: space-between; align-items: center; padding: 0.35rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+.result-row:last-child { border-bottom: none; font-weight: 700; color: var(--gold); font-size: 0.95rem; }
+.result-label { color: var(--text2); }
+.result-val { color: var(--green); font-weight: 600; }
+.budget-surplus { color: var(--green); }
+.budget-deficit { color: var(--red); }
+.tab-badge { background: rgba(212,175,55,0.15); color: var(--gold); border-radius: 8px; padding: 0.1rem 0.35rem; font-size: 0.68rem; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="bismillah">بسم الله الرحمن الرحيم</div>
+    <div class="hero-verse">﴿وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ﴾ — الإسراء ٣٥ | ﴿وَلَا تَبْخَسُوا النَّاسَ أَشْيَاءَهُمْ﴾ — هود ٨٥</div>
+    <h1 class="hero-title">⚖️ شيخة للوجستيات والتسعير العادل</h1>
+    <p class="hero-sub">اللهم هب لي التسعير العادل — السعر من الله لعبادك</p>
+</div>
+
+<nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('overview')">📊 إحصاءات</button>
+    <button class="nav-tab" onclick="showTab('incoterms')">📋 اليونكوتيرمز</button>
+    <button class="nav-tab" onclick="showTab('routes')">🚢 مسارات الشحن</button>
+    <button class="nav-tab" onclick="showTab('ports')">⚓ رسوم الموانئ</button>
+    <button class="nav-tab" onclick="showTab('customs')">🛃 الجمارك والضرائب</button>
+    <button class="nav-tab" onclick="showTab('budgets')">💰 الميزانيات الحكومية</button>
+    <button class="nav-tab" onclick="showTab('economics')">🌍 اقتصاد الدول</button>
+    <button class="nav-tab" onclick="showTab('freight')">📦 نموذج سعر شيخة</button>
+    <button class="nav-tab" onclick="showTab('calculator')">🔢 حساب سعر الشحن</button>
+</nav>
+
+<div class="main">
+
+    <!-- إحصاءات -->
+    <div id="tab-overview" class="tab-panel active">
+        <div id="stats-container"><div class="loading"><div class="spinner"></div>جارٍ التحميل...</div></div>
+    </div>
+
+    <!-- اليونكوتيرمز -->
+    <div id="tab-incoterms" class="tab-panel">
+        <div class="section-title">📋 اليونكوتيرمز 2020 — شروط التسليم الدولية</div>
+        <div class="alert alert-gold">﴿يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ﴾ — المائدة ١ — اتفق على شرط التسليم قبل العقد</div>
+        <div id="incoterms-list"></div>
+    </div>
+
+    <!-- مسارات الشحن -->
+    <div id="tab-routes" class="tab-panel">
+        <div class="section-title">🚢 مسارات الشحن الدولي من الموانئ السعودية</div>
+        <div class="grid-2" style="margin-bottom:1rem;">
+            <div class="form-group">
+                <label>فلتر من ميناء</label>
+                <select id="routes-from" onchange="filterRoutes()">
+                    <option value="">-- كل الموانئ --</option>
+                    <option value="SAJED">جدة</option>
+                    <option value="SATAB">الدمام</option>
+                    <option value="OEJN">جدة (جوي)</option>
+                    <option value="الرياض">الرياض (بري)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>نوع الشحن</label>
+                <select id="routes-type" onchange="filterRoutes()">
+                    <option value="">-- كل الأنواع --</option>
+                    <option value="بحري">بحري</option>
+                    <option value="جوي">جوي</option>
+                    <option value="بري">بري</option>
+                </select>
+            </div>
+        </div>
+        <div class="table-wrap"><table class="table">
+            <thead><tr>
+                <th>من</th><th>إلى</th><th>النوع</th><th>السعر</th><th>المدة</th>
+            </tr></thead>
+            <tbody id="routes-table"></tbody>
+        </table></div>
+    </div>
+
+    <!-- رسوم الموانئ -->
+    <div id="tab-ports" class="tab-panel">
+        <div class="section-title">⚓ رسوم الموانئ الدولية (USD / TEU)</div>
+        <div class="table-wrap"><table class="table">
+            <thead><tr>
+                <th>الدولة</th><th>الميناء</th><th>رسوم المناولة (THC)</th><th>الوثائق</th><th>التخليص</th><th>إجمالي نموذجي</th><th>العملة</th>
+            </tr></thead>
+            <tbody id="ports-table"></tbody>
+        </table></div>
+    </div>
+
+    <!-- الجمارك -->
+    <div id="tab-customs" class="tab-panel">
+        <div class="section-title">🛃 الرسوم الجمركية والضرائب لكل دولة</div>
+        <div class="table-wrap"><table class="table">
+            <thead><tr>
+                <th>الدولة</th><th>ضريبة القيمة %</th><th>جمارك عامة %</th><th>جمارك معادن %</th><th>جمارك سكراب %</th><th>ضريبة شركات %</th><th>اتفاقيات حرة</th>
+            </tr></thead>
+            <tbody id="customs-table"></tbody>
+        </table></div>
+    </div>
+
+    <!-- الميزانيات -->
+    <div id="tab-budgets" class="tab-panel">
+        <div class="section-title">💰 الميزانيات الحكومية والعجز والفائض 2026</div>
+        <div class="table-wrap"><table class="table">
+            <thead><tr>
+                <th>الدولة</th><th>الإيرادات ($B)</th><th>المصروفات ($B)</th><th>العجز/الفائض</th><th>الحالة</th><th>الناتج المحلي ($B)</th><th>نمو %</th><th>دين/GDP%</th><th>التصنيف</th>
+            </tr></thead>
+            <tbody id="budgets-table"></tbody>
+        </table></div>
+    </div>
+
+    <!-- اقتصاد الدول -->
+    <div id="tab-economics" class="tab-panel">
+        <div class="section-title">🌍 موارد الاقتصاد لكل دولة والسعر العادل</div>
+        <div id="economics-grid" class="grid-3"></div>
+    </div>
+
+    <!-- نموذج سعر شيخة -->
+    <div id="tab-freight" class="tab-panel">
+        <div id="freight-container"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+
+    <!-- حاسبة الشحن -->
+    <div id="tab-calculator" class="tab-panel">
+        <div class="section-title">🔢 حاسبة سعر الشحن العادل — القسطاس المستقيم</div>
+        <div class="alert alert-gold">﴿وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ﴾ — السعر شامل لا رسوم مخفية</div>
+        <div class="calc-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>قيمة البضاعة ($)</label>
+                    <input type="number" id="c-value" value="10000" min="1">
+                </div>
+                <div class="form-group">
+                    <label>الوزن (كجم)</label>
+                    <input type="number" id="c-weight" value="1000" min="1">
+                </div>
+                <div class="form-group">
+                    <label>الحجم (م³)</label>
+                    <input type="number" id="c-volume" value="3" min="0.1" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label>ميناء الشحن</label>
+                    <select id="c-origin">
+                        <option value="SAJED">جدة الإسلامي</option>
+                        <option value="SATAB">الدمام</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ميناء الوصول</label>
+                    <select id="c-dest">
+                        <option value="NLRTM">روتردام</option>
+                        <option value="CNSHA">شنغهاي</option>
+                        <option value="USLAX">لوس أنجلوس</option>
+                        <option value="AEDXB">دبي</option>
+                        <option value="EGPSD">بورسعيد</option>
+                        <option value="INBOM">مومباي</option>
+                        <option value="TRIST">إسطنبول</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>شرط التسليم</label>
+                    <select id="c-incoterm">
+                        <option value="FOB">FOB</option>
+                        <option value="CIF" selected>CIF</option>
+                        <option value="CFR">CFR</option>
+                        <option value="DDP">DDP</option>
+                        <option value="DAP">DAP</option>
+                        <option value="EXW">EXW</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-calc" onclick="calculateFreight()">⚖️ احسب السعر العادل</button>
+            <div class="calc-result" id="calc-result"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+let DATA = {};
+
+function showTab(name) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+    loadTab(name);
+}
+
+async function api(endpoint, params) {
+    const key = endpoint + JSON.stringify(params || {});
+    if (DATA[key]) return DATA[key];
+    const url = '/api/logistics/' + endpoint + (params ? '?' + new URLSearchParams(params) : '');
+    const res = await fetch(url);
+    const json = await res.json();
+    DATA[key] = json.data;
+    return json.data;
+}
+
+async function loadTab(name) {
+    try {
+        if (name === 'overview') await loadOverview();
+        else if (name === 'incoterms') await loadIncoterms();
+        else if (name === 'routes') await loadRoutes();
+        else if (name === 'ports') await loadPorts();
+        else if (name === 'customs') await loadCustoms();
+        else if (name === 'budgets') await loadBudgets();
+        else if (name === 'economics') await loadEconomics();
+        else if (name === 'freight') await loadFreight();
+    } catch(e) { console.error(e); }
+}
+
+async function loadOverview() {
+    const stats = await api('stats');
+    document.getElementById('stats-container').innerHTML = `
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-icon">📋</div><div class="stat-value">${stats.incoterms_count}</div><div class="stat-label">يونكوتيرمز 2020</div></div>
+            <div class="stat-card"><div class="stat-icon">🚢</div><div class="stat-value">${stats.shipping_routes_count}</div><div class="stat-label">مسار شحن دولي</div></div>
+            <div class="stat-card"><div class="stat-icon">⚓</div><div class="stat-value">${stats.ports_covered}</div><div class="stat-label">ميناء مشمول</div></div>
+            <div class="stat-card"><div class="stat-icon">🛃</div><div class="stat-value">${stats.countries_customs}</div><div class="stat-label">دولة — جمارك وضرائب</div></div>
+            <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-value">${stats.countries_budgets}</div><div class="stat-label">دولة — ميزانية حكومية</div></div>
+            <div class="stat-card"><div class="stat-icon">🌍</div><div class="stat-value">${stats.countries_economics}</div><div class="stat-label">دولة — تحليل اقتصادي</div></div>
+        </div>
+        <div class="alert alert-gold">${stats.verse}</div>
+        <p style="color:var(--text2);font-size:0.85rem;">${stats.principle}</p>
+    `;
+}
+
+async function loadIncoterms() {
+    const items = await api('incoterms');
+    const byType = { 'أي وسيلة نقل': [], 'بحري فقط': [] };
+    items.forEach(i => { (byType[i.category] || byType['أي وسيلة نقل']).push(i); });
+
+    let html = '';
+    for (const [cat, list] of Object.entries(byType)) {
+        if (!list.length) continue;
+        html += `<div class="section-title" style="font-size:0.9rem;margin-top:1rem;">${cat === 'بحري فقط' ? '🚢' : '🌐'} ${cat}</div>`;
+        html += list.map(i => `
+            <div class="incoterm-card">
+                <div style="display:flex;justify-content:space-between;align-items:start;">
+                    <div>
+                        <span class="incoterm-code">${i.code}</span>
+                        <span class="incoterm-name-ar" style="margin-right:0.5rem;color:var(--text)">${i.name_ar}</span>
+                        <div class="incoterm-category">${i.name_en}</div>
+                    </div>
+                    ${i.best_for ? `<span class="badge badge-green">⭐ موصى به</span>` : ''}
+                </div>
+                <div style="margin-top:0.5rem;display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;font-size:0.78rem;">
+                    <div><span style="color:var(--text2);">البائع: </span><span>${i.seller_obligation}</span></div>
+                    <div><span style="color:var(--text2);">المشتري: </span><span>${i.buyer_obligation}</span></div>
+                </div>
+                ${i.typical_hidden_costs ? `
+                    <div style="margin-top:0.4rem;font-size:0.75rem;color:var(--red);">
+                        ⚠️ تكاليف خفية: ${i.typical_hidden_costs.join(' | ')}
+                    </div>
+                ` : ''}
+                ${i.best_for ? `<div style="margin-top:0.3rem;font-size:0.78rem;color:var(--blue);">✓ ${i.best_for}</div>` : ''}
+            </div>
+        `).join('');
+    }
+    document.getElementById('incoterms-list').innerHTML = html;
+}
+
+let allRoutes = [];
+async function loadRoutes() {
+    allRoutes = await api('routes');
+    renderRoutes(allRoutes);
+}
+function filterRoutes() {
+    const from = document.getElementById('routes-from').value;
+    const type = document.getElementById('routes-type').value;
+    let filtered = allRoutes;
+    if (from) filtered = filtered.filter(r => r.from === from);
+    if (type) filtered = filtered.filter(r => r.type === type);
+    renderRoutes(filtered);
+}
+function renderRoutes(routes) {
+    const typeColor = { 'بحري': 'badge-blue', 'جوي': 'badge-gold', 'بري': 'badge-green' };
+    document.getElementById('routes-table').innerHTML = routes.map(r => `
+        <tr>
+            <td>${r.from_ar}</td>
+            <td>${r.to_ar}</td>
+            <td><span class="badge ${typeColor[r.type] || 'badge-blue'}">${r.type}</span></td>
+            <td style="color:var(--green);font-weight:600;">
+                ${r.usd_per_teu ? `$${r.usd_per_teu.toLocaleString()}/TEU` : r.usd_per_kg ? `$${r.usd_per_kg}/كجم` : `$${r.usd_per_ton}/طن`}
+            </td>
+            <td style="color:var(--text2);">${r.days ? r.days + ' يوم' : r.hours ? r.hours + ' ساعة' : '-'}</td>
+        </tr>
+    `).join('');
+}
+
+async function loadPorts() {
+    const ports = await api('port-fees');
+    document.getElementById('ports-table').innerHTML = ports.map(p => `
+        <tr>
+            <td>${p.country_ar}</td>
+            <td style="font-size:0.78rem;">${p.port} <span style="color:var(--text2);">(${p.code})</span></td>
+            <td style="color:var(--orange);">$${p.thc_usd}</td>
+            <td>$${p.documentation_usd}</td>
+            <td>$${p.customs_processing_usd}</td>
+            <td style="color:var(--gold);font-weight:700;">$${p.total_typical_usd}</td>
+            <td><span class="badge badge-blue">${p.currency}</span></td>
+        </tr>
+    `).join('');
+}
+
+async function loadCustoms() {
+    const items = await api('customs');
+    document.getElementById('customs-table').innerHTML = items.map(c => `
+        <tr>
+            <td>${c.country_ar}</td>
+            <td>${c.vat_percent || 0}%</td>
+            <td>${c.customs_general_percent || 0}%</td>
+            <td>${c.customs_metals_percent || 0}%</td>
+            <td>${c.customs_scrap_percent || 0}%</td>
+            <td>${c.corporate_tax_percent || 0}%</td>
+            <td style="font-size:0.72rem;color:var(--text2);">${(c.free_trade_agreements || []).join(', ')}</td>
+        </tr>
+    `).join('');
+}
+
+async function loadBudgets() {
+    const items = await api('budgets');
+    const deficitColor = b => b.surplus_deficit_usd_billion >= 0 ? 'budget-surplus' : 'budget-deficit';
+    document.getElementById('budgets-table').innerHTML = items.map(b => `
+        <tr>
+            <td><strong>${b.country_ar}</strong></td>
+            <td style="color:var(--green);">$${b.revenue_usd_billion}B</td>
+            <td style="color:var(--red);">$${b.expenditure_usd_billion}B</td>
+            <td class="${deficitColor(b)}" style="font-weight:700;">
+                ${b.surplus_deficit_usd_billion >= 0 ? '+' : ''}$${b.surplus_deficit_usd_billion}B
+            </td>
+            <td>
+                <span class="badge ${b.status.includes('فائض') ? 'badge-green' : b.status.includes('عجز كبير') || b.status.includes('ضخم') ? 'badge-red' : 'badge-orange'}">
+                    ${b.status}
+                </span>
+            </td>
+            <td>$${b.gdp_usd_billion?.toLocaleString()}B</td>
+            <td style="color:var(--green);">${b.gdp_growth_percent || '-'}%</td>
+            <td style="color:${(b.debt_to_gdp_percent||0) > 80 ? 'var(--red)' : 'var(--text2)'};">${b.debt_to_gdp_percent || '-'}%</td>
+            <td style="font-size:0.72rem;color:var(--text2);">${b.credit_rating || '-'}</td>
+        </tr>
+    `).join('');
+}
+
+async function loadEconomics() {
+    const items = await api('economics');
+    document.getElementById('economics-grid').innerHTML = items.map(e => `
+        <div class="card">
+            <div class="card-title">🌍 ${e.country_ar}</div>
+            <div style="margin-bottom:0.5rem;">
+                ${e.main_resources.map(r => `<div style="font-size:0.8rem;color:var(--text2);padding:0.2rem 0;">• ${r}</div>`).join('')}
+            </div>
+            ${e.fair_price_advantage ? `<div style="font-size:0.8rem;color:var(--green);padding:0.3rem 0;border-top:1px solid var(--border);">⚖️ ${e.fair_price_advantage}</div>` : ''}
+            ${e.sheikha_opportunity ? `<div style="font-size:0.8rem;color:var(--gold);padding:0.3rem 0;">🌙 ${e.sheikha_opportunity}</div>` : ''}
+            ${e.warning ? `<div style="font-size:0.78rem;color:var(--red);padding:0.3rem 0;">⚠️ ${e.warning}</div>` : ''}
+        </div>
+    `).join('');
+}
+
+async function loadFreight() {
+    const model = await api('freight-model');
+    document.getElementById('freight-container').innerHTML = `
+        <div class="section-title">📦 ${model.name_ar}</div>
+        <div class="alert alert-gold">${model.verse}</div>
+        <p style="color:var(--text2);font-size:0.85rem;margin-bottom:1rem;">${model.principle}</p>
+        <div class="grid-2">
+            <div>
+                <div class="section-title" style="font-size:0.9rem;">💵 مكونات السعر الكاملة</div>
+                ${model.components.map(c => `
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;border-bottom:1px solid var(--border);font-size:0.82rem;">
+                        <span>${c.item}</span>
+                        <span style="color:var(--gold);font-size:0.75rem;text-align:left;">
+                            ${c.typical_usd_teu ? `$${c.typical_usd_teu.min}–$${c.typical_usd_teu.max}/TEU` :
+                              c.typical_usd ? `$${c.typical_usd.min}–$${c.typical_usd.max}` :
+                              c.typical_percent ? `${c.typical_percent}%` :
+                              c.percent ? `${c.percent}% هامش حلال` :
+                              c.typical_usd_day ? `$${c.typical_usd_day.min}–$${c.typical_usd_day.max}/يوم` :
+                              c.typical_usd_ton ? `$${c.typical_usd_ton.min}–$${c.typical_usd_ton.max}/طن` :
+                              c.calculation || ''}
+                        </span>
+                    </div>
+                `).join('')}
+            </div>
+            <div>
+                <div class="section-title" style="font-size:0.9rem;color:var(--red);">⚠️ الرسوم المخفية التي يكشفها شيخة</div>
+                ${model.hidden_costs_exposed.map(h => `
+                    <div style="padding:0.35rem 0;border-bottom:1px solid var(--border);font-size:0.82rem;">
+                        <span style="color:var(--red);">✗ </span>${h}
+                    </div>
+                `).join('')}
+                <div class="section-title" style="font-size:0.9rem;color:var(--green);margin-top:1rem;">✓ وعد شيخة</div>
+                ${model.sheikha_promise.map(p => `
+                    <div style="padding:0.35rem 0;border-bottom:1px solid var(--border);font-size:0.82rem;color:var(--green);">✓ ${p}</div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+async function calculateFreight() {
+    const body = {
+        cargo_value_usd: document.getElementById('c-value').value,
+        weight_kg: document.getElementById('c-weight').value,
+        volume_cbm: document.getElementById('c-volume').value,
+        origin_port: document.getElementById('c-origin').value,
+        destination_port: document.getElementById('c-dest').value,
+        incoterm: document.getElementById('c-incoterm').value,
+    };
+    const res = await fetch('/api/logistics/calculate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+    });
+    const json = await res.json();
+    const d = json.data;
+    const resultEl = document.getElementById('calc-result');
+    resultEl.style.display = 'block';
+    resultEl.innerHTML = `
+        <div style="color:var(--gold);font-size:0.88rem;font-family:'Cairo',serif;margin-bottom:0.7rem;">${d.note}</div>
+        <div style="color:var(--text2);font-size:0.8rem;margin-bottom:0.7rem;">${d.route} — ${d.transit_days ? d.transit_days + ' يوم' : ''} — ${d.incoterm}</div>
+        ${Object.entries(d.breakdown).map(([k, v]) => `
+            <div class="result-row">
+                <span class="result-label">${translateKey(k)}</span>
+                <span class="result-val">$${(+v).toLocaleString('en', {minimumFractionDigits:2})}</span>
+            </div>
+        `).join('')}
+        <div class="result-row" style="margin-top:0.5rem;">
+            <span>💰 الإجمالي بالدولار</span>
+            <span>$${d.total_usd.toLocaleString('en', {minimumFractionDigits:2})}</span>
+        </div>
+        <div class="result-row">
+            <span>🇸🇦 الإجمالي بالريال السعودي</span>
+            <span style="color:var(--gold);">SAR ${d.total_sar.toLocaleString('en', {minimumFractionDigits:2})}</span>
+        </div>
+    `;
+}
+
+function translateKey(k) {
+    const map = {
+        ocean_freight_usd: '🚢 أجرة الشحن البحري',
+        origin_thc_usd: '⚓ رسوم ميناء الشحن (THC)',
+        dest_thc_usd: '⚓ رسوم ميناء الوصول (THC)',
+        documentation_usd: '📄 رسوم الوثائق',
+        baf_fuel_surcharge_usd: '⛽ رسوم الوقود (BAF)',
+        insurance_usd: '🛡️ تأمين البضاعة',
+        sheikha_halal_margin_usd: '🌙 هامش ربح شيخة الحلال',
+    };
+    return map[k] || k;
+}
+
+document.addEventListener('DOMContentLoaded', () => loadOverview());
+</script>
+</body>
+</html>
