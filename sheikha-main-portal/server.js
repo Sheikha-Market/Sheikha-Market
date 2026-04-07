@@ -38083,6 +38083,75 @@ app.get('/api/workspace/engine/activation', (req, res) => {
     res.json({ success: true, data, message: 'خطة تفعيل Google Workspace لشيخة — ٤ مراحل', timestamp: new Date().toISOString() });
 });
 
+// ─────────────────────────────────────────────────────────────
+// المرحلة ٤٠ — محرك منع الربا في اللوجستيات
+// Riba-Free Logistics Engine — Incoterms + التأمين + التمويل
+// ─────────────────────────────────────────────────────────────
+const ribaFreeEngine = require('./lib/sheikha-riba-free-logistics-engine');
+
+// إحصائيات المحرك
+app.get('/api/riba-free/stats', (req, res) => {
+    const data = ribaFreeEngine.getEngineStats();
+    res.json({ success: true, data, message: 'إحصائيات محرك منع الربا اللوجستي', timestamp: new Date().toISOString() });
+});
+
+// كل يونكوتيرمز
+app.get('/api/riba-free/incoterms', (req, res) => {
+    const data = ribaFreeEngine.getAllIncoterms();
+    res.json({ success: true, data, message: 'تحليل يونكوتيرمز 2020 شرعياً — ١١ شرط', timestamp: new Date().toISOString() });
+});
+
+// تحليل يونكوتيرم محدد
+app.get('/api/riba-free/incoterms/:code', (req, res) => {
+    const code = (req.params.code || '').toUpperCase().slice(0, 10);
+    if (!code) return res.status(400).json({ success: false, message: 'يرجى إدخال كود Incoterm صحيح', timestamp: new Date().toISOString() });
+    const data = ribaFreeEngine.evaluateIncoterm(code);
+    if (!data.success) return res.status(404).json({ success: false, message: data.message, timestamp: new Date().toISOString() });
+    res.json({ success: true, data, message: `تقييم ${code} شرعياً`, timestamp: new Date().toISOString() });
+});
+
+// يونكوتيرمز الحلال فقط
+app.get('/api/riba-free/incoterms/filter/halal', (req, res) => {
+    const data = ribaFreeEngine.getHalalIncoterms();
+    res.json({ success: true, data, message: 'يونكوتيرمز الجائزة شرعاً بدون تعديل', timestamp: new Date().toISOString() });
+});
+
+// تحليل التأمين
+app.get('/api/riba-free/insurance', (req, res) => {
+    const data = ribaFreeEngine.getInsuranceAnalysis();
+    res.json({ success: true, data, message: 'تحليل التأمين البحري — التجاري vs التكافل', timestamp: new Date().toISOString() });
+});
+
+// التمويل الحلال
+app.get('/api/riba-free/finance', (req, res) => {
+    const data = ribaFreeEngine.getHalalFinanceInstruments();
+    res.json({ success: true, data, message: 'أدوات التمويل التجاري الحلال — ٥ صيغ', timestamp: new Date().toISOString() });
+});
+
+// عقود النقل الحلال
+app.get('/api/riba-free/transport', (req, res) => {
+    const data = ribaFreeEngine.getHalalTransportContracts();
+    res.json({ success: true, data, message: 'عقود النقل الحلال وفق الشريعة', timestamp: new Date().toISOString() });
+});
+
+// دليل اختيار Incoterm
+app.get('/api/riba-free/decision', (req, res) => {
+    const data = ribaFreeEngine.getDecisionGuide();
+    res.json({ success: true, data, message: 'دليل اختيار Incoterm الأمثل لشيخة', timestamp: new Date().toISOString() });
+});
+
+// نموذج العقد
+app.get('/api/riba-free/contract', (req, res) => {
+    const data = ribaFreeEngine.getContractTemplate();
+    res.json({ success: true, data, message: 'نموذج عقد نقل إسلامي — شيخة', timestamp: new Date().toISOString() });
+});
+
+// الأسس الشرعية
+app.get('/api/riba-free/sharia', (req, res) => {
+    const data = ribaFreeEngine.getShariaBase();
+    res.json({ success: true, data, message: 'الأدلة الشرعية لتحريم الربا في اللوجستيات', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
