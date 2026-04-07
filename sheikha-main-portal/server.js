@@ -37518,6 +37518,7 @@ const islamicEconomyEngine = require('./lib/sheikha-islamic-economy-engine');
 const metalsEngine = require('./lib/sheikha-metals-engine');
 const spaceEngine = require('./lib/sheikha-space-engine');
 const logisticsEngine = require('./lib/sheikha-logistics-engine');
+const spaceWeatherEngine = require('./lib/sheikha-space-weather-engine');
 
 // الله هو المُسَعِّر — الأساس الشرعي
 app.get('/api/economy/allah-is-al-musaier', (req, res) => {
@@ -37773,6 +37774,64 @@ app.post('/api/logistics/calculate', (req, res) => {
         commodity: commodity || 'metals',
     });
     res.json({ success: true, data: result, message: 'تم حساب سعر الشحن العادل بالقسطاس المستقيم', timestamp: new Date().toISOString() });
+});
+
+// ============================================================
+// المرحلة ٣٨ — طقس الفضاء — القمر السعودي شمس — آرتميس ٢
+// ============================================================
+
+// إحصاءات محرك طقس الفضاء
+app.get('/api/space-weather/stats', (req, res) => {
+    const data = spaceWeatherEngine.getSpaceWeatherStats();
+    res.json({ success: true, data, message: 'إحصاءات محرك طقس الفضاء — القمر شمس', timestamp: new Date().toISOString() });
+});
+
+// معلومات القمر شمس الكاملة
+app.get('/api/space-weather/satellite', (req, res) => {
+    const data = spaceWeatherEngine.getShamsSatelliteInfo();
+    res.json({ success: true, data, message: 'معلومات القمر الصناعي شمس — مهمة آرتميس ٢ — وكالة الفضاء السعودية', timestamp: new Date().toISOString() });
+});
+
+// الحالة الآنية لطقس الفضاء
+app.get('/api/space-weather/current', (req, res) => {
+    const data = spaceWeatherEngine.getCurrentSpaceWeather();
+    res.json({ success: true, data, message: 'الحالة الآنية لطقس الفضاء من القمر شمس', timestamp: new Date().toISOString() });
+});
+
+// تنبؤ ٢٤ ساعة
+app.get('/api/space-weather/forecast', (req, res) => {
+    const data = spaceWeatherEngine.getSpaceWeatherForecast();
+    res.json({ success: true, data, message: 'تنبؤ طقس الفضاء لـ ٢٤ ساعة القادمة', timestamp: new Date().toISOString() });
+});
+
+// معلومات المستشعرات الأربعة
+app.get('/api/space-weather/sensors', (req, res) => {
+    const data = spaceWeatherEngine.getSensorsInfo();
+    res.json({ success: true, data, message: 'مستشعرات القمر شمس الأربعة', timestamp: new Date().toISOString() });
+});
+
+// مستويات التحذير
+app.get('/api/space-weather/alert-levels', (req, res) => {
+    const data = spaceWeatherEngine.getAlertLevels();
+    res.json({ success: true, data, message: 'مستويات تحذير طقس الفضاء', timestamp: new Date().toISOString() });
+});
+
+// تأثيرات طقس الفضاء على قطاعات شيخة
+app.get('/api/space-weather/sheikha-impact', (req, res) => {
+    const data = spaceWeatherEngine.getSheikhaImpacts();
+    res.json({ success: true, data, message: 'تأثيرات طقس الفضاء على عمليات شيخة', timestamp: new Date().toISOString() });
+});
+
+// الحالة التشغيلية لشيخة بناءً على مستوى التحذير
+app.get('/api/space-weather/operational-status/:level', (req, res) => {
+    const level = req.params.level.toLowerCase();
+    const validLevels = ['green', 'yellow', 'orange', 'red'];
+    if (!validLevels.includes(level)) {
+        return res.status(400).json({ success: false, message: 'مستوى غير صالح — اختر: green أو yellow أو orange أو red' });
+    }
+    const data = spaceWeatherEngine.getSheikhaOperationalStatus(level);
+    const recommendations = spaceWeatherEngine.getSheikhaRecommendations(level);
+    res.json({ success: true, data: { operational_status: data, recommendations }, message: `الحالة التشغيلية لشيخة عند مستوى ${level}`, timestamp: new Date().toISOString() });
 });
 
 module.exports = app;
