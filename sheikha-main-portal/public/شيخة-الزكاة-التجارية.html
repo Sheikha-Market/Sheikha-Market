@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شيخة — حاسبة الزكاة التجارية والمعادن</title>
+<meta name="description" content="حاسبة الزكاة الشرعية للمعادن والسكراب وعروض التجارة — منظومة شيخة الإسلامية">
+<link rel="icon" href="/icons/icon-192x192.png">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold: #D4AF37;
+    --gold-dark: #B8960C;
+    --copper: #B87333;
+    --dark: #080810;
+    --dark2: #0e0e1a;
+    --dark3: #1a1a2e;
+    --dark4: #16213e;
+    --green: #27ae60;
+    --green2: #2ecc71;
+    --red: #e74c3c;
+    --orange: #e67e22;
+    --blue: #3498db;
+    --white: #efefef;
+    --muted: #888;
+    --border: rgba(212,175,55,0.18);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--dark); color:var(--white); font-family:'Tajawal',sans-serif; min-height:100vh; }
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, var(--dark3), var(--dark4), #0a0a15);
+    border-bottom: 2px solid var(--gold);
+    padding: 36px 20px 28px;
+    text-align: center;
+    position: relative;
+}
+.hero::before {
+    content:'';
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.06) 0%, transparent 70%);
+    pointer-events:none;
+}
+.hero-badge { display:inline-block; background:rgba(39,174,96,0.15); border:1px solid var(--green); color:var(--green2); padding:5px 14px; border-radius:20px; font-size:13px; margin-bottom:14px; }
+.hero h1 { font-size:2rem; font-weight:900; color:var(--gold); margin-bottom:6px; }
+.hero .sub { font-size:1rem; color:var(--muted); margin-bottom:18px; }
+.verse { display:inline-block; background:rgba(212,175,55,0.07); border:1px solid var(--border); border-radius:10px; padding:12px 24px; font-size:1.1rem; color:var(--gold); }
+.verse-ref { font-size:11px; color:var(--muted); margin-top:4px; }
+
+/* Tabs */
+.tabs-nav {
+    background:var(--dark2); border-bottom:1px solid var(--border);
+    display:flex; flex-wrap:wrap; position:sticky; top:0; z-index:100;
+    overflow-x:auto;
+}
+.tab-btn {
+    background:none; border:none; color:var(--muted);
+    padding:13px 16px; cursor:pointer; font-family:'Tajawal',sans-serif;
+    font-size:14px; border-bottom:3px solid transparent; white-space:nowrap;
+    transition:all .2s;
+}
+.tab-btn:hover { color:var(--gold); }
+.tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
+
+/* Layout */
+.tab-content { display:none; padding:28px 16px; max-width:1100px; margin:0 auto; }
+.tab-content.active { display:block; }
+.grid-2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; }
+.grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
+.grid-4 { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
+
+/* Cards */
+.card { background:var(--dark2); border:1px solid var(--border); border-radius:14px; padding:20px; transition:border-color .2s; }
+.card:hover { border-color:rgba(212,175,55,.45); }
+.card.green-card { border-color:rgba(39,174,96,.35); }
+.card.red-card { border-color:rgba(231,76,60,.35); }
+.card-title { font-size:1rem; font-weight:700; color:var(--gold); margin-bottom:6px; }
+.card-sub { font-size:12px; color:var(--muted); }
+
+/* Calculator form */
+.calc-area {
+    background:var(--dark2); border:1px solid var(--border);
+    border-radius:16px; padding:26px;
+}
+.calc-title { font-size:1.2rem; font-weight:800; color:var(--gold); margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:10px; }
+.form-group { margin-bottom:16px; }
+.form-label { display:block; font-size:13px; color:var(--muted); margin-bottom:6px; }
+.form-input {
+    width:100%; background:rgba(0,0,0,.4); border:1px solid var(--border);
+    border-radius:10px; padding:11px 14px; color:var(--white);
+    font-family:'Tajawal',sans-serif; font-size:14px;
+    transition:border-color .2s;
+}
+.form-input:focus { outline:none; border-color:var(--gold); }
+.form-select { appearance:none; cursor:pointer; }
+.calc-btn {
+    width:100%; background:linear-gradient(135deg,var(--gold-dark),var(--gold));
+    border:none; border-radius:12px; padding:15px;
+    color:#000; font-family:'Tajawal',sans-serif; font-size:16px; font-weight:800;
+    cursor:pointer; margin-top:10px; transition:opacity .2s;
+}
+.calc-btn:hover { opacity:.9; }
+
+/* Result box */
+.result-box {
+    background:rgba(39,174,96,.08); border:2px solid rgba(39,174,96,.4);
+    border-radius:14px; padding:22px; margin-top:20px;
+    display:none;
+}
+.result-box.show { display:block; }
+.result-box.no-zakat { background:rgba(184,115,51,.08); border-color:rgba(184,115,51,.4); }
+.result-verdict { font-size:1.3rem; font-weight:800; margin-bottom:14px; }
+.result-verdict.yes { color:var(--green2); }
+.result-verdict.no { color:var(--copper); }
+.result-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.06); font-size:14px; }
+.result-row:last-child { border-bottom:none; }
+.result-label { color:var(--muted); }
+.result-val { color:var(--white); font-weight:600; }
+.result-zakat { color:var(--gold); font-size:1.1rem; font-weight:800; }
+
+/* Metal picker */
+.metals-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px; margin-bottom:14px; }
+.metal-item {
+    background:rgba(0,0,0,.3); border:1px solid var(--border);
+    border-radius:10px; padding:12px;
+}
+.metal-name { font-size:13px; color:var(--white); margin-bottom:6px; font-weight:600; }
+.metal-price { font-size:11px; color:var(--muted); margin-bottom:8px; }
+
+/* Section titles */
+.section-title { font-size:1.3rem; font-weight:800; color:var(--gold); margin-bottom:18px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+.section-desc { color:var(--muted); font-size:14px; line-height:1.8; margin-bottom:20px; }
+
+/* Stats bar */
+.stats-bar { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin-bottom:26px; }
+.stat-item { background:var(--dark2); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center; }
+.stat-num { font-size:1.8rem; font-weight:900; color:var(--gold); }
+.stat-label { font-size:11px; color:var(--muted); margin-top:3px; }
+
+/* Daleel blocks */
+.daleel { background:rgba(212,175,55,.05); border:1px solid var(--border); border-right:4px solid var(--gold); border-radius:10px; padding:14px; margin-bottom:10px; }
+.daleel-text { font-size:1.05rem; color:var(--gold); line-height:1.8; margin-bottom:5px; }
+.daleel-ref { font-size:11px; color:var(--muted); margin-bottom:3px; }
+.daleel-ctx { font-size:13px; color:#bbb; }
+
+/* Nisab display */
+.nisab-box { background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(184,115,51,.06)); border:1px solid var(--border); border-radius:14px; padding:20px; margin-bottom:22px; }
+.nisab-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.06); font-size:14px; }
+.nisab-row:last-child { border:none; }
+
+/* Distribution chart */
+.dist-bar { display:flex; height:14px; border-radius:7px; overflow:hidden; margin-bottom:12px; }
+.dist-seg { height:100%; transition:width .5s; }
+.dist-legend { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:6px; }
+.dist-item { display:flex; align-items:center; gap:6px; font-size:12px; color:#ccc; }
+.dist-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+
+/* Loading */
+.loading { text-align:center; padding:30px; color:var(--muted); }
+
+/* Hawl calendar */
+.hawl-status { border-radius:12px; padding:16px 20px; margin-top:12px; font-size:15px; font-weight:700; }
+.hawl-due { background:rgba(231,76,60,.12); border:1px solid rgba(231,76,60,.4); color:#ff6b6b; }
+.hawl-soon { background:rgba(230,126,34,.12); border:1px solid rgba(230,126,34,.4); color:#f0a500; }
+.hawl-ok { background:rgba(39,174,96,.12); border:1px solid rgba(39,174,96,.4); color:var(--green2); }
+
+/* scrollbar */
+::-webkit-scrollbar { width:5px; height:5px; }
+::-webkit-scrollbar-track { background:var(--dark); }
+::-webkit-scrollbar-thumb { background:var(--gold-dark); border-radius:3px; }
+
+@media(max-width:640px){
+    .hero h1 { font-size:1.5rem; }
+    .tab-btn { padding:10px 12px; font-size:13px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-badge">المرحلة ٤١ — الزكاة التجارية</div>
+    <h1>حاسبة الزكاة الشرعية</h1>
+    <p class="sub">معادن | سكراب | عروض التجارة | نقود | ذهب وفضة</p>
+    <div class="verse">خُذْ مِنْ أَمْوَالِهِمْ صَدَقَةً تُطَهِّرُهُمْ وَتُزَكِّيهِمْ بِهَا</div>
+    <p class="verse-ref">سورة التوبة — آية ١٠٣</p>
+</div>
+
+<!-- Tabs -->
+<nav class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('calc',this)">🧮 حاسبة الزكاة</button>
+    <button class="tab-btn" onclick="switchTab('metals',this)">⚙️ زكاة المعادن</button>
+    <button class="tab-btn" onclick="switchTab('hawl',this)">📅 تقويم الحول</button>
+    <button class="tab-btn" onclick="switchTab('distribution',this)">🤲 توزيع الزكاة</button>
+    <button class="tab-btn" onclick="switchTab('types',this)">📋 أنواع الزكاة</button>
+    <button class="tab-btn" onclick="switchTab('nisab',this)">⚖️ النصاب</button>
+    <button class="tab-btn" onclick="switchTab('sharia',this)">📖 الأدلة الشرعية</button>
+</nav>
+
+<!-- ===== حاسبة الزكاة ===== -->
+<div class="tab-content active" id="tab-calc">
+    <div class="stats-bar" id="stats-bar"></div>
+
+    <div class="grid-2">
+        <!-- حاسبة عروض التجارة -->
+        <div class="calc-area">
+            <div class="calc-title">🏪 زكاة عروض التجارة</div>
+            <div class="form-group">
+                <label class="form-label">قيمة البضاعة والمخزون (ريال)</label>
+                <input class="form-input" type="number" id="t-goods" placeholder="500000" min="0">
+            </div>
+            <div class="form-group">
+                <label class="form-label">النقود والأرصدة البنكية (ريال)</label>
+                <input class="form-input" type="number" id="t-cash" placeholder="100000" min="0">
+            </div>
+            <div class="form-group">
+                <label class="form-label">الذمم المدينة المؤكدة (ريال)</label>
+                <input class="form-input" type="number" id="t-rec" placeholder="50000" min="0">
+            </div>
+            <div class="form-group">
+                <label class="form-label">الديون الحالة المستحقة (تُطرح) (ريال)</label>
+                <input class="form-input" type="number" id="t-debts" placeholder="30000" min="0">
+            </div>
+            <div class="form-group">
+                <label class="form-label">النصاب المعتمد</label>
+                <select class="form-input form-select" id="t-nisab">
+                    <option value="silver">الفضة — الأنفع للفقراء (المعتمد في شيخة)</option>
+                    <option value="gold">الذهب</option>
+                </select>
+            </div>
+            <button class="calc-btn" onclick="calcTrade()">احسب الزكاة ⚡</button>
+            <div class="result-box" id="trade-result"></div>
+        </div>
+
+        <!-- حاسبة الذهب والفضة -->
+        <div class="calc-area">
+            <div class="calc-title">🥇 زكاة الذهب والفضة</div>
+            <div class="form-group">
+                <label class="form-label">وزن الذهب (جرام عيار 24)</label>
+                <input class="form-input" type="number" id="g-gold" placeholder="100" min="0" step="0.01">
+            </div>
+            <div class="form-group">
+                <label class="form-label">سعر الجرام من الذهب (ريال)</label>
+                <input class="form-input" type="number" id="g-gprice" value="290" min="0">
+            </div>
+            <div class="form-group">
+                <label class="form-label">وزن الفضة (جرام خالص)</label>
+                <input class="form-input" type="number" id="g-silver" placeholder="600" min="0" step="0.01">
+            </div>
+            <div class="form-group">
+                <label class="form-label">سعر الجرام من الفضة (ريال)</label>
+                <input class="form-input" type="number" id="g-sprice" value="3.5" min="0" step="0.01">
+            </div>
+            <button class="calc-btn" onclick="calcGold()">احسب الزكاة ⚡</button>
+            <div class="result-box" id="gold-result"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== زكاة المعادن ===== -->
+<div class="tab-content" id="tab-metals">
+    <h2 class="section-title">زكاة المعادن والسكراب</h2>
+    <p class="section-desc">
+        أدخل كميات المعادن التي تمتلكها للتجارة — يُحسب وعاء الزكاة بالقيمة السوقية التقديرية.
+        الأسعار المستخدمة تقديرية — يُعتمد السعر الفعلي يوم إتمام الحول.
+    </p>
+    <div class="metals-grid" id="metals-inputs"></div>
+    <button class="calc-btn" style="max-width:300px" onclick="calcMetals()">احسب زكاة المعادن ⚡</button>
+    <div class="result-box" id="metals-result" style="margin-top:20px;"></div>
+</div>
+
+<!-- ===== تقويم الحول ===== -->
+<div class="tab-content" id="tab-hawl">
+    <h2 class="section-title">📅 تقويم الحول الهجري</h2>
+    <p class="section-desc">
+        أدخل تاريخ امتلاك البضاعة أو المعدن لمعرفة تاريخ استحقاق الزكاة.
+        الحول: سنة هجرية كاملة = ٣٥٤ يوماً تقريباً.
+    </p>
+    <div class="calc-area" style="max-width:480px">
+        <div class="form-group">
+            <label class="form-label">تاريخ الشراء / الامتلاك (ميلادي)</label>
+            <input class="form-input" type="date" id="hawl-date">
+        </div>
+        <button class="calc-btn" onclick="calcHawl()">احسب موعد الحول ⚡</button>
+        <div id="hawl-result" style="margin-top:14px;"></div>
+    </div>
+
+    <!-- جدول متعدد -->
+    <div style="margin-top:28px;">
+        <h3 style="color:var(--gold); margin-bottom:14px; font-size:1rem;">متابعة مواعيد حول متعددة</h3>
+        <div id="hawl-tracker" class="grid-2"></div>
+        <button onclick="addHawlItem()" style="background:rgba(212,175,55,.1); border:1px solid var(--border); color:var(--gold); padding:10px 20px; border-radius:10px; cursor:pointer; font-family:'Tajawal',sans-serif; margin-top:12px; font-size:14px;">
+            + إضافة موعد حول
+        </button>
+    </div>
+</div>
+
+<!-- ===== توزيع الزكاة ===== -->
+<div class="tab-content" id="tab-distribution">
+    <h2 class="section-title">🤲 توزيع الزكاة على المصارف الثمانية</h2>
+    <p class="section-desc">
+        الزكاة لها ثمانية مصارف شرعية (التوبة:60) — الفقراء والمساكين أولاً.
+        أدخل مبلغ الزكاة لمعرفة التوزيع المقترح.
+    </p>
+    <div class="calc-area" style="max-width:400px; margin-bottom:28px;">
+        <div class="form-group">
+            <label class="form-label">مبلغ الزكاة الكلي (ريال)</label>
+            <input class="form-input" type="number" id="dist-amount" placeholder="13750" min="0">
+        </div>
+        <button class="calc-btn" onclick="calcDistribution()">احسب التوزيع ⚡</button>
+    </div>
+    <div id="dist-result"></div>
+
+    <!-- المصارف الثمانية -->
+    <h3 style="color:var(--gold); margin-bottom:16px;">المصارف الثمانية — التوبة:٦٠</h3>
+    <div class="grid-2" id="recipients-list"></div>
+</div>
+
+<!-- ===== أنواع الزكاة ===== -->
+<div class="tab-content" id="tab-types">
+    <h2 class="section-title">أنواع الزكاة في منظومة شيخة</h2>
+    <div id="zakat-types-list" class="loading">⏳ جاري التحميل...</div>
+</div>
+
+<!-- ===== النصاب ===== -->
+<div class="tab-content" id="tab-nisab">
+    <h2 class="section-title">⚖️ النصاب الشرعي</h2>
+    <p class="section-desc">
+        النصاب هو الحد الأدنى الذي إذا بلغه المال وجبت فيه الزكاة.
+        المعتمد في شيخة: نصاب الفضة — الأنفع للفقراء — وهو قول الجمهور المعاصر.
+    </p>
+
+    <div class="nisab-box" id="nisab-info">
+        <div class="nisab-row"><span style="color:var(--muted)">نصاب الذهب</span><span style="color:var(--gold)">85 جرام عيار 24</span></div>
+        <div class="nisab-row"><span style="color:var(--muted)">نصاب الفضة</span><span style="color:var(--gold)">595 جرام فضة</span></div>
+        <div class="nisab-row"><span style="color:var(--muted)">النصاب بالريال (ذهب)</span><span id="nisab-gold-sar" style="color:var(--white)">~24,650 ريال</span></div>
+        <div class="nisab-row"><span style="color:var(--muted)">النصاب بالريال (فضة)</span><span id="nisab-silver-sar" style="color:var(--white)">~2,082 ريال</span></div>
+        <div class="nisab-row"><span style="color:var(--muted)">المعتمد في شيخة</span><span style="color:var(--green2)">نصاب الفضة</span></div>
+        <div class="nisab-row"><span style="color:var(--muted)">نسبة الزكاة</span><span style="color:var(--gold)">2.5% (ربع العشر)</span></div>
+    </div>
+
+    <div class="grid-2">
+        <div class="card green-card">
+            <div class="card-title">لماذا نصاب الفضة؟</div>
+            <p style="font-size:14px; color:#ccc; line-height:1.7;">
+                نصاب الفضة أقل قيمةً من الذهب في عصرنا — مما يجعل <strong style="color:var(--gold)">أكثر الأموال</strong> خاضعةً للزكاة وأكثر الفقراء استفادةً.
+                اختاره الجمهور المعاصر لهذا السبب وهو الأنفع للمجتمع.
+            </p>
+        </div>
+        <div class="card">
+            <div class="card-title">القاعدة الفقهية</div>
+            <p style="font-size:14px; color:#ccc; line-height:1.7;">
+                "يُضم الذهب للفضة والفضة للذهب بالقيمة لتكميل النصاب" — مذهب الحنفية والمالكية.
+                <br><br>
+                إذا كان لديك ذهب وفضة تُجمع قيمتهما وتُقاس بنصاب الفضة.
+            </p>
+        </div>
+    </div>
+
+    <!-- حاسبة النصاب -->
+    <div class="calc-area" style="margin-top:22px; max-width:480px;">
+        <div class="calc-title">هل وصلت النصاب؟</div>
+        <div class="form-group">
+            <label class="form-label">إجمالي الأصول الزكوية (ريال)</label>
+            <input class="form-input" type="number" id="nisab-check" placeholder="5000" min="0">
+        </div>
+        <button class="calc-btn" onclick="checkNisab()">تحقق من النصاب</button>
+        <div id="nisab-check-result" style="margin-top:12px; font-size:15px; font-weight:700;"></div>
+    </div>
+</div>
+
+<!-- ===== الأدلة الشرعية ===== -->
+<div class="tab-content" id="tab-sharia">
+    <h2 class="section-title">الأدلة الشرعية لوجوب الزكاة</h2>
+    <h3 style="color:var(--gold); margin-bottom:14px; font-size:1rem;">آيات قرآنية كريمة</h3>
+    <div id="quran-list" class="loading">⏳ جاري التحميل...</div>
+    <h3 style="color:var(--gold); margin:24px 0 14px; font-size:1rem;">أحاديث شريفة</h3>
+    <div id="hadith-list" class="loading">⏳ جاري التحميل...</div>
+    <h3 style="color:var(--gold); margin:24px 0 14px; font-size:1rem;">إجماع الفقهاء</h3>
+    <div id="ijmaa-list" class="loading">⏳ جاري التحميل...</div>
+</div>
+
+<script>
+// ── Helpers ──
+function fmt(n) { return Math.round(n).toLocaleString('ar-SA'); }
+function q(id) { return document.getElementById(id); }
+function num(id) { return parseFloat(q(id).value) || 0; }
+
+// ── Tabs ──
+function switchTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    q('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+    lazyLoad(id);
+}
+
+const loaded = {};
+function lazyLoad(id) {
+    if (loaded[id]) return;
+    loaded[id] = true;
+    if (id === 'calc') loadStats();
+    if (id === 'metals') loadMetalsInputs();
+    if (id === 'distribution') loadRecipients();
+    if (id === 'types') loadTypes();
+    if (id === 'sharia') loadSharia();
+    if (id === 'nisab') loadNisab();
+    if (id === 'hawl') initHawl();
+}
+
+// ── Stats ──
+async function loadStats() {
+    try {
+        const r = await fetch('/api/zakat/stats');
+        const d = await r.json();
+        if (!d.success) return;
+        const s = d.data;
+        q('stats-bar').innerHTML = `
+            <div class="stat-item"><div class="stat-num">${s.zakat_types}</div><div class="stat-label">أنواع الزكاة</div></div>
+            <div class="stat-item"><div class="stat-num">${s.metal_types}</div><div class="stat-label">نوع معدن</div></div>
+            <div class="stat-item"><div class="stat-num">${s.recipients}</div><div class="stat-label">مصرف زكاة</div></div>
+            <div class="stat-item"><div class="stat-num" style="color:var(--green2)">2.5%</div><div class="stat-label">نسبة الزكاة</div></div>
+            <div class="stat-item"><div class="stat-num">${fmt(s.nisab_silver_sar)}</div><div class="stat-label">النصاب (ريال)</div></div>
+        `;
+    } catch(e) {}
+}
+
+// ── Trade Zakat ──
+async function calcTrade() {
+    const body = {
+        trade_goods_value: num('t-goods'),
+        cash: num('t-cash'),
+        receivables: num('t-rec'),
+        debts_due: num('t-debts'),
+        nisab_type: q('t-nisab').value
+    };
+    try {
+        const r = await fetch('/api/zakat/calculate/trade', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+        const d = await r.json();
+        if (d.success) renderTradeResult(d.data);
+    } catch(e) {
+        // fallback client-side
+        const gross = body.trade_goods_value + body.cash + body.receivables;
+        const net = Math.max(0, gross - body.debts_due);
+        const nisab = body.nisab_type === 'gold' ? 24650 : 2082;
+        const ok = net >= nisab;
+        const zakat = ok ? net * 0.025 : 0;
+        renderTradeResult({ calculation: { gross_assets: gross, debts_deducted: body.debts_due, net_zakatable: net, nisab_value: nisab, reaches_nisab: ok, zakat_amount: zakat }, verdict: ok ? `✅ تجب الزكاة — المقدار: ${fmt(zakat)} ريال` : `❌ لا تجب — لم يبلغ النصاب` });
+    }
+}
+function renderTradeResult(d) {
+    const c = d.calculation;
+    const ok = c.reaches_nisab;
+    const box = q('trade-result');
+    box.className = 'result-box show' + (ok ? '' : ' no-zakat');
+    box.innerHTML = `
+        <div class="result-verdict ${ok?'yes':'no'}">${d.verdict}</div>
+        <div class="result-row"><span class="result-label">الوعاء الإجمالي</span><span class="result-val">${fmt(c.gross_assets)} ريال</span></div>
+        <div class="result-row"><span class="result-label">الديون المطروحة</span><span class="result-val">${fmt(c.debts_deducted)} ريال</span></div>
+        <div class="result-row"><span class="result-label">الوعاء الصافي</span><span class="result-val">${fmt(c.net_zakatable)} ريال</span></div>
+        <div class="result-row"><span class="result-label">النصاب المعتمد</span><span class="result-val">${fmt(c.nisab_value)} ريال</span></div>
+        ${ok ? `<div class="result-row"><span class="result-label">مقدار الزكاة (2.5%)</span><span class="result-val result-zakat">${fmt(c.zakat_amount)} ريال</span></div>` : ''}
+        <p style="font-size:12px; color:var(--muted); margin-top:10px;">يُشترط حولان الحول الهجري — هذا الحساب تقديري للتخطيط</p>
+    `;
+}
+
+// ── Gold/Silver Zakat ──
+async function calcGold() {
+    const body = {
+        gold_grams: num('g-gold'),
+        silver_grams: num('g-silver'),
+        gold_price: num('g-gprice'),
+        silver_price: num('g-sprice')
+    };
+    try {
+        const r = await fetch('/api/zakat/calculate/precious', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+        const d = await r.json();
+        if (d.success) renderGoldResult(d.data);
+    } catch(e) {
+        const gv = body.gold_grams * body.gold_price;
+        const sv = body.silver_grams * body.silver_price;
+        const total = gv + sv;
+        const nisab_s = 595 * body.silver_price;
+        const ok = total >= nisab_s;
+        renderGoldResult({ gold:{value_sar:gv}, silver:{value_sar:sv}, total_sar:total, nisab_silver_sar:nisab_s, reaches_nisab_silver:ok, zakat_amount_sar: ok ? total*0.025 : 0, verdict: ok ? `✅ تجب الزكاة — ${fmt(total*0.025)} ريال` : '❌ لم تبلغ النصاب' });
+    }
+}
+function renderGoldResult(d) {
+    const ok = d.reaches_nisab_silver;
+    const box = q('gold-result');
+    box.className = 'result-box show' + (ok ? '' : ' no-zakat');
+    box.innerHTML = `
+        <div class="result-verdict ${ok?'yes':'no'}">${d.verdict}</div>
+        <div class="result-row"><span class="result-label">قيمة الذهب</span><span class="result-val">${fmt(d.gold.value_sar)} ريال</span></div>
+        <div class="result-row"><span class="result-label">قيمة الفضة</span><span class="result-val">${fmt(d.silver.value_sar)} ريال</span></div>
+        <div class="result-row"><span class="result-label">الإجمالي</span><span class="result-val">${fmt(d.total_sar)} ريال</span></div>
+        <div class="result-row"><span class="result-label">النصاب (فضة)</span><span class="result-val">${fmt(d.nisab_silver_sar)} ريال</span></div>
+        ${ok ? `<div class="result-row"><span class="result-label">مقدار الزكاة (2.5%)</span><span class="result-val result-zakat">${fmt(d.zakat_amount_sar)} ريال</span></div>` : ''}
+        ${d.recommendation ? `<p style="font-size:12px; color:#f0a500; margin-top:8px">${d.recommendation}</p>` : ''}
+    `;
+}
+
+// ── Metals Inputs ──
+const METALS = [
+    { id:'scrap_steel_heavy', name:'حديد سكراب ثقيل', price:'1,400 ريال/طن', unit:'طن' },
+    { id:'scrap_steel_light', name:'حديد سكراب خفيف', price:'1,200 ريال/طن', unit:'طن' },
+    { id:'copper_bare', name:'نحاس عاري', price:'38,000 ريال/طن', unit:'طن' },
+    { id:'copper_mixed', name:'نحاس مشكل', price:'30,000 ريال/طن', unit:'طن' },
+    { id:'aluminium_sheet', name:'ألومنيوم شيت', price:'8,500 ريال/طن', unit:'طن' },
+    { id:'aluminium_cast', name:'ألومنيوم مصهور', price:'7,500 ريال/طن', unit:'طن' },
+    { id:'brass', name:'نحاس أصفر/لاتون', price:'25,000 ريال/طن', unit:'طن' },
+    { id:'stainless_304', name:'ستانلس ستيل 304', price:'12,000 ريال/طن', unit:'طن' },
+    { id:'lead', name:'رصاص', price:'6,000 ريال/طن', unit:'طن' },
+    { id:'zinc', name:'زنك', price:'9,000 ريال/طن', unit:'طن' },
+    { id:'steel_rebar', name:'حديد تسليح مستعمل', price:'1,600 ريال/طن', unit:'طن' },
+    { id:'gold_24k', name:'ذهب 24 قيراط', price:'290 ريال/جرام', unit:'جرام' },
+    { id:'silver_pure', name:'فضة خالصة', price:'3.5 ريال/جرام', unit:'جرام' }
+];
+function loadMetalsInputs() {
+    const grid = q('metals-inputs');
+    grid.innerHTML = METALS.map(m => `
+        <div class="metal-item">
+            <div class="metal-name">${m.name}</div>
+            <div class="metal-price">${m.price}</div>
+            <input class="form-input" type="number" id="metal-${m.id}" placeholder="0" min="0" step="0.01"
+                style="padding:8px 12px; font-size:13px;"
+                data-unit="${m.unit}">
+            <div style="font-size:11px; color:var(--muted); margin-top:4px">${m.unit}</div>
+        </div>`).join('');
+}
+async function calcMetals() {
+    const metals = METALS.filter(m => num('metal-' + m.id) > 0).map(m => ({ metal_id: m.id, quantity: num('metal-' + m.id) }));
+    if (!metals.length) { alert('أدخل كمية معدن واحد على الأقل'); return; }
+    try {
+        const r = await fetch('/api/zakat/calculate/metals', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ metals }) });
+        const d = await r.json();
+        if (d.success) renderMetalsResult(d.data);
+    } catch(e) { renderMetalsResult({ total_value_sar:0, reaches_nisab:false, zakat_amount_sar:0, verdict:'تعذر الحساب' }); }
+}
+function renderMetalsResult(d) {
+    const ok = d.reaches_nisab;
+    const box = q('metals-result');
+    box.className = 'result-box show' + (ok ? '' : ' no-zakat');
+    const rows = (d.breakdown || []).map(b => `
+        <div class="result-row"><span class="result-label">${b.name || b.metal_id}</span><span class="result-val">${fmt(b.total_sar || 0)} ريال</span></div>`).join('');
+    box.innerHTML = `
+        <div class="result-verdict ${ok?'yes':'no'}">${d.verdict}</div>
+        ${rows}
+        <div class="result-row" style="border-top:1px solid rgba(255,255,255,.1); margin-top:6px; padding-top:10px;">
+            <span class="result-label">إجمالي القيمة</span><span class="result-val">${fmt(d.total_value_sar)} ريال</span>
+        </div>
+        ${ok ? `<div class="result-row"><span class="result-label">الزكاة (2.5%)</span><span class="result-val result-zakat">${fmt(d.zakat_amount_sar)} ريال</span></div>` : ''}
+        <p style="font-size:12px; color:var(--muted); margin-top:8px">الأسعار تقديرية — يُعتمد سعر السوق يوم الحول</p>
+    `;
+}
+
+// ── Hawl ──
+function initHawl() {
+    const today = new Date();
+    today.setFullYear(today.getFullYear() - 1);
+    q('hawl-date').valueAsDate = today;
+    loadHawlTracker();
+}
+async function calcHawl() {
+    const date = q('hawl-date').value;
+    if (!date) return;
+    try {
+        const r = await fetch('/api/zakat/hawl?date=' + date);
+        const d = await r.json();
+        if (d.success) renderHawl(d.data);
+    } catch(e) {
+        const HIJRI = 354.37;
+        const start = new Date(date);
+        const due = new Date(start.getTime() + HIJRI * 86400000);
+        const remain = Math.round((due - new Date()) / 86400000);
+        const status = remain <= 0 ? 'due' : remain <= 30 ? 'soon' : 'ok';
+        renderHawl({ purchase_date: date, zakat_due_date: due.toISOString().split('T')[0], days_remaining: remain, status: status === 'due' ? '🔴 الزكاة مستحقة الآن' : status === 'soon' ? `🟡 مستحقة خلال ${remain} يوم` : `🟢 مستحقة بعد ${remain} يوم`, is_due: remain <= 0 });
+    }
+}
+function renderHawl(d) {
+    const cls = d.is_due ? 'hawl-due' : d.days_remaining <= 30 ? 'hawl-soon' : 'hawl-ok';
+    q('hawl-result').innerHTML = `
+        <div class="hawl-status ${cls}">${d.status}</div>
+        <div style="margin-top:12px; font-size:13px; color:#ccc;">
+            <div>تاريخ الشراء: <strong>${d.purchase_date}</strong></div>
+            <div style="margin-top:4px">موعد الزكاة: <strong style="color:var(--gold)">${d.zakat_due_date}</strong></div>
+        </div>`;
+}
+
+// ── Hawl Tracker ──
+const hawlItems = [
+    { name:'مستودع الحديد', date:'2025-04-07' },
+    { name:'مخزون النحاس', date:'2025-01-15' }
+];
+async function loadHawlTracker() {
+    const container = q('hawl-tracker');
+    const HIJRI = 354.37;
+    const items = hawlItems.map(item => {
+        const start = new Date(item.date);
+        const due = new Date(start.getTime() + HIJRI * 86400000);
+        const remain = Math.round((due - new Date()) / 86400000);
+        const cls = remain <= 0 ? 'hawl-due' : remain <= 30 ? 'hawl-soon' : 'hawl-ok';
+        const statusText = remain <= 0 ? '🔴 مستحقة الآن' : remain <= 30 ? `🟡 خلال ${remain} يوم` : `🟢 بعد ${remain} يوم`;
+        return `<div class="card"><div class="card-title">${item.name}</div>
+            <div class="card-sub">تاريخ الشراء: ${item.date}</div>
+            <div class="hawl-status ${cls}" style="margin-top:10px; font-size:13px">${statusText}</div>
+            <div style="font-size:12px; color:var(--muted); margin-top:6px">موعد الحول: ${due.toISOString().split('T')[0]}</div>
+        </div>`;
+    }).join('');
+    container.innerHTML = items || '<p style="color:var(--muted)">لا توجد مواعيد محفوظة</p>';
+}
+function addHawlItem() {
+    const name = prompt('اسم البضاعة:');
+    const date = prompt('تاريخ الشراء (YYYY-MM-DD):');
+    if (name && date) { hawlItems.push({ name, date }); loadHawlTracker(); }
+}
+
+// ── Distribution ──
+const DIST_COLORS = ['#D4AF37','#2ecc71','#3498db','#e67e22','#9b59b6','#e74c3c'];
+async function calcDistribution() {
+    const amount = num('dist-amount');
+    if (!amount) return;
+    try {
+        const r = await fetch('/api/zakat/distribute', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ total_zakat_sar: amount }) });
+        const d = await r.json();
+        if (d.success) renderDistribution(d.data);
+    } catch(e) {
+        const dist = [
+            { name:'الفقراء', ratio:'40%', amount_sar: amount*0.4 },
+            { name:'المساكين', ratio:'25%', amount_sar: amount*0.25 },
+            { name:'الغارمون', ratio:'15%', amount_sar: amount*0.15 },
+            { name:'في سبيل الله', ratio:'10%', amount_sar: amount*0.1 },
+            { name:'ابن السبيل', ratio:'5%', amount_sar: amount*0.05 },
+            { name:'العاملون عليها', ratio:'5%', amount_sar: amount*0.05 }
+        ];
+        renderDistribution({ total_zakat_sar: amount, distribution: dist });
+    }
+}
+function renderDistribution(d) {
+    const segs = d.distribution.map((i, idx) => `<div class="dist-seg" style="width:${i.ratio}; background:${DIST_COLORS[idx]}"></div>`).join('');
+    const legend = d.distribution.map((i, idx) => `
+        <div class="dist-item">
+            <div class="dist-dot" style="background:${DIST_COLORS[idx]}"></div>
+            <span>${i.name} — ${i.ratio} — ${fmt(i.amount_sar)} ريال</span>
+        </div>`).join('');
+    q('dist-result').innerHTML = `
+        <div style="background:var(--dark2); border:1px solid var(--border); border-radius:14px; padding:20px; margin-bottom:20px;">
+            <div style="font-size:1.1rem; color:var(--gold); font-weight:800; margin-bottom:14px">إجمالي الزكاة: ${fmt(d.total_zakat_sar)} ريال</div>
+            <div class="dist-bar">${segs}</div>
+            <div class="dist-legend">${legend}</div>
+        </div>`;
+}
+async function loadRecipients() {
+    try {
+        const r = await fetch('/api/zakat/recipients');
+        const d = await r.json();
+        if (!d.success) return;
+        q('recipients-list').innerHTML = d.data.map((rec, i) => `
+            <div class="card">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                    <div style="width:28px; height:28px; background:${DIST_COLORS[i]||'var(--gold)'}; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; color:#000">${rec.priority}</div>
+                    <div class="card-title" style="margin:0">${rec.name}</div>
+                </div>
+                <div style="font-size:13px; color:#ccc">${rec.detail}</div>
+            </div>`).join('');
+    } catch(e) {}
+}
+
+// ── Types ──
+async function loadTypes() {
+    try {
+        const r = await fetch('/api/zakat/types');
+        const d = await r.json();
+        if (!d.success) throw new Error();
+        q('zakat-types-list').innerHTML = d.data.map(t => `
+            <div class="card" style="margin-bottom:16px;">
+                <div class="card-title">${t.name}</div>
+                <div class="card-sub" style="margin-bottom:12px">${t.name_en}</div>
+                <div class="grid-2">
+                    <div>
+                        <div style="font-size:12px; color:var(--muted); margin-bottom:4px">يسري على:</div>
+                        <ul style="list-style:none; font-size:13px; color:#ccc;">${t.applies_to.map(a=>`<li>• ${a}</li>`).join('')}</ul>
+                        <div style="font-size:12px; color:var(--muted); margin-top:8px">الأساس:</div>
+                        <div style="font-size:13px; color:var(--gold)">${t.basis}</div>
+                    </div>
+                    <div>
+                        <div style="font-size:12px; color:var(--muted); margin-bottom:4px">الشروط:</div>
+                        <ul style="list-style:none; font-size:13px; color:#ccc;">${t.conditions.map(c=>`<li>✓ ${c}</li>`).join('')}</ul>
+                        <div style="margin-top:8px; background:rgba(212,175,55,.07); border-radius:8px; padding:8px; font-size:12px; color:var(--gold)">📌 ${t.sheikha_note}</div>
+                    </div>
+                </div>
+            </div>`).join('');
+    } catch(e) { q('zakat-types-list').innerHTML = '<p style="color:var(--muted)">تعذر التحميل</p>'; }
+}
+
+// ── Nisab ──
+async function loadNisab() {
+    try {
+        const r = await fetch('/api/zakat/nisab');
+        const d = await r.json();
+        if (!d.success) return;
+        const n = d.data;
+        q('nisab-gold-sar').textContent = '~' + fmt(n.nisab_by_gold_sar) + ' ريال';
+        q('nisab-silver-sar').textContent = '~' + fmt(n.nisab_by_silver_sar) + ' ريال';
+    } catch(e) {}
+}
+function checkNisab() {
+    const val = num('nisab-check');
+    const nisab = 2082.5;
+    const nisab_gold = 24650;
+    const el = q('nisab-check-result');
+    if (val >= nisab) {
+        el.style.color = 'var(--green2)';
+        el.textContent = `✅ نعم — ${fmt(val)} ريال تجاوزت النصاب (${fmt(nisab)} ريال) — تجب الزكاة: ${fmt(val * 0.025)} ريال`;
+    } else {
+        el.style.color = 'var(--copper)';
+        el.textContent = `❌ لا — ${fmt(val)} ريال لم تبلغ النصاب (${fmt(nisab)} ريال) — لا تجب الزكاة`;
+    }
+}
+
+// ── Sharia ──
+async function loadSharia() {
+    try {
+        const r = await fetch('/api/zakat/sharia');
+        const d = await r.json();
+        if (!d.success) throw new Error();
+        const s = d.data;
+        q('quran-list').innerHTML = s.quran.map(v=>`
+            <div class="daleel">
+                <div class="daleel-text">${v.text}</div>
+                <div class="daleel-ref">📖 ${v.ref}</div>
+                <div class="daleel-ctx">${v.context}</div>
+            </div>`).join('');
+        q('hadith-list').innerHTML = s.hadith.map(h=>`
+            <div class="daleel">
+                <div class="daleel-text">"${h.text}"</div>
+                <div class="daleel-ref">📚 ${h.ref}</div>
+                <div class="daleel-ctx">${h.context}</div>
+            </div>`).join('');
+        q('ijmaa-list').innerHTML = `<div class="grid-2">${s.ijmaa.map(i=>`
+            <div class="card"><div style="font-size:14px; color:#ccc; line-height:1.7">⚖️ ${i}</div></div>`).join('')}
+        </div>`;
+    } catch(e) {
+        ['quran-list','hadith-list','ijmaa-list'].forEach(id => q(id).innerHTML = '<p style="color:var(--muted)">تعذر التحميل</p>');
+    }
+}
+
+// init
+document.addEventListener('DOMContentLoaded', () => {
+    loadStats();
+    lazyLoad('calc');
+});
+</script>
+</body>
+</html>

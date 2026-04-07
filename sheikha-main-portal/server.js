@@ -38152,6 +38152,89 @@ app.get('/api/riba-free/sharia', (req, res) => {
     res.json({ success: true, data, message: 'الأدلة الشرعية لتحريم الربا في اللوجستيات', timestamp: new Date().toISOString() });
 });
 
+// ─────────────────────────────────────────────────────────────
+// المرحلة ٤١ — محرك الزكاة التجارية والمعادن
+// Zakat Engine — عروض التجارة + معادن + ذهب + فضة + توزيع
+// ─────────────────────────────────────────────────────────────
+const zakatEngine = require('./lib/sheikha-zakat-engine');
+
+// إحصائيات المحرك
+app.get('/api/zakat/stats', (req, res) => {
+    res.json({ success: true, data: zakatEngine.getEngineStats(), message: 'إحصائيات محرك الزكاة', timestamp: new Date().toISOString() });
+});
+
+// النصاب
+app.get('/api/zakat/nisab', (req, res) => {
+    res.json({ success: true, data: zakatEngine.getNisab(), message: 'النصاب الشرعي للزكاة', timestamp: new Date().toISOString() });
+});
+
+// أنواع الزكاة
+app.get('/api/zakat/types', (req, res) => {
+    res.json({ success: true, data: zakatEngine.getZakatTypes(), message: 'أنواع الزكاة في منظومة شيخة', timestamp: new Date().toISOString() });
+});
+
+// المصارف الثمانية
+app.get('/api/zakat/recipients', (req, res) => {
+    res.json({ success: true, data: zakatEngine.getZakatRecipients(), message: 'مصارف الزكاة الثمانية', timestamp: new Date().toISOString() });
+});
+
+// أسعار المعادن
+app.get('/api/zakat/metals-prices', (req, res) => {
+    res.json({ success: true, data: zakatEngine.getMetalsPrices(), message: 'أسعار المعادن التقديرية لحساب الزكاة', timestamp: new Date().toISOString() });
+});
+
+// الأدلة الشرعية
+app.get('/api/zakat/sharia', (req, res) => {
+    res.json({ success: true, data: zakatEngine.getShariaBase(), message: 'الأدلة الشرعية لوجوب الزكاة', timestamp: new Date().toISOString() });
+});
+
+// حساب زكاة عروض التجارة
+app.post('/api/zakat/calculate/trade', (req, res) => {
+    const { trade_goods_value, cash, receivables, debts_due, nisab_type, gold_price_gram, silver_price_gram } = req.body || {};
+    if (trade_goods_value === undefined && cash === undefined && receivables === undefined) {
+        return res.status(400).json({ success: false, message: 'يرجى إدخال قيم الأصول الزكوية', timestamp: new Date().toISOString() });
+    }
+    const result = zakatEngine.calculateTradeZakat({ trade_goods_value: Number(trade_goods_value)||0, cash: Number(cash)||0, receivables: Number(receivables)||0, debts_due: Number(debts_due)||0, nisab_type: nisab_type || 'silver', gold_price_gram: Number(gold_price_gram)||undefined, silver_price_gram: Number(silver_price_gram)||undefined });
+    res.json({ success: true, data: result, message: 'حساب زكاة عروض التجارة', timestamp: new Date().toISOString() });
+});
+
+// حساب زكاة المعادن
+app.post('/api/zakat/calculate/metals', (req, res) => {
+    const { metals } = req.body || {};
+    if (!Array.isArray(metals) || metals.length === 0) {
+        return res.status(400).json({ success: false, message: 'يرجى إدخال قائمة المعادن', timestamp: new Date().toISOString() });
+    }
+    const result = zakatEngine.calculateMetalsZakat(metals);
+    res.json({ success: true, data: result, message: 'حساب زكاة المعادن والسكراب', timestamp: new Date().toISOString() });
+});
+
+// حساب زكاة الذهب والفضة
+app.post('/api/zakat/calculate/precious', (req, res) => {
+    const params = req.body || {};
+    const result = zakatEngine.calculatePreciousMetalsZakat({ gold_grams: Number(params.gold_grams)||0, silver_grams: Number(params.silver_grams)||0, gold_price: Number(params.gold_price)||undefined, silver_price: Number(params.silver_price)||undefined });
+    res.json({ success: true, data: result, message: 'حساب زكاة الذهب والفضة', timestamp: new Date().toISOString() });
+});
+
+// توزيع الزكاة على المصارف
+app.post('/api/zakat/distribute', (req, res) => {
+    const { total_zakat_sar, priorities } = req.body || {};
+    if (!total_zakat_sar || Number(total_zakat_sar) <= 0) {
+        return res.status(400).json({ success: false, message: 'يرجى إدخال مبلغ الزكاة', timestamp: new Date().toISOString() });
+    }
+    const result = zakatEngine.distributeZakat(Number(total_zakat_sar), priorities || {});
+    res.json({ success: true, data: result, message: 'توزيع الزكاة على المصارف الثمانية', timestamp: new Date().toISOString() });
+});
+
+// حساب تاريخ الحول
+app.get('/api/zakat/hawl', (req, res) => {
+    const date = req.query.date;
+    if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+        return res.status(400).json({ success: false, message: 'يرجى إدخال تاريخ صحيح (YYYY-MM-DD)', timestamp: new Date().toISOString() });
+    }
+    const result = zakatEngine.calculateHawlDate(date);
+    res.json({ success: true, data: result, message: 'حساب موعد الحول الهجري', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
