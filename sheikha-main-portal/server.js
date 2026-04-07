@@ -37375,6 +37375,141 @@ app.get('/api/islamic-markets/search', (req, res) => {
     res.json({ success: true, data: islamicMarketsEngine.searchMarket(q.trim()), message: `نتائج البحث عن: ${q}`, timestamp: new Date().toISOString() });
 });
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٣٣ — الدينار الإسلامي الرقمي الكوني
+// «وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ» — الإسراء ٣٥
+// أقوى عملة في الكون — منذ خلق الله إلى قيام الساعة
+// ═══════════════════════════════════════════════════════════════════════════════
+const dinarEngine = require('./lib/sheikha-dinar-engine');
+
+app.get('/api/dinar/overview', (req, res) => {
+    res.json({ success: true, data: dinarEngine.getOverview(), message: 'الدينار الإسلامي الرقمي — نظرة عامة', timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/history', (req, res) => {
+    res.json({ success: true, data: dinarEngine.getHistory(), message: 'تاريخ العملة الإسلامية — من الأموي إلى العثماني', timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/history/:id', (req, res) => {
+    const era = dinarEngine.getEra(req.params.id);
+    if (!era) return res.status(404).json({ success: false, message: 'الحقبة غير موجودة', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: era, message: `حقبة: ${era.era}`, timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/global-comparison', (req, res) => {
+    res.json({ success: true, data: dinarEngine.getGlobalComparison(), message: 'مقارنة الدينار الإسلامي بكل عملات التاريخ', timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/comparison-table', (req, res) => {
+    res.json({ success: true, data: dinarEngine.getComparisonTable(), message: 'جدول مقارنة العملات الإسلامية', timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/digital-dinar', (req, res) => {
+    res.json({ success: true, data: dinarEngine.getDigitalDinar(), message: 'دينار شيخة الرقمي الكوني — المواصفات الكاملة', timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/strength-analysis', (req, res) => {
+    res.json({ success: true, data: dinarEngine.getStrengthAnalysis(), message: 'تحليل قوة الدينار مقابل جميع العملات', timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/sharia-compliance', (req, res) => {
+    res.json({ success: true, data: dinarEngine.getShariaCompliance(), message: 'الامتثال الشرعي الكامل للدينار الإسلامي', timestamp: new Date().toISOString() });
+});
+app.get('/api/dinar/stats', (req, res) => {
+    res.json({ success: true, data: dinarEngine.getStats(), message: 'إحصائيات الدينار الإسلامي الرقمي', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٣٤ — محرك تسعير الذهب والفضة والمطعوم + البورصة الإسلامية + البنك المركزي
+// «الذَّهبُ بالذَّهبِ... مثلًا بمثلٍ، سواءً بسواءٍ، يدًا بيدٍ» — صحيح مسلم ١٥٨٧
+// ═══════════════════════════════════════════════════════════════════════════════
+const goldPricingEngine = require('./lib/sheikha-gold-pricing-engine');
+
+// أسعار المعادن اللحظية
+app.get('/api/gold/spot-prices', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getSpotPrices(), message: 'أسعار الذهب والفضة اللحظية', timestamp: new Date().toISOString() });
+});
+
+// المعايير الإسلامية للأوزان
+app.get('/api/gold/weight-standards', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getWeightStandards(), message: 'المعايير الإسلامية: الدينار ٤.٢٥ج — الدرهم ٢.٩٧٥ج', timestamp: new Date().toISOString() });
+});
+
+// الذهب بجميع عملات العالم
+app.get('/api/gold/by-currency', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getGoldByCurrency(), message: 'سعر الذهب بكل عملات العالم', timestamp: new Date().toISOString() });
+});
+
+// الفضة بجميع العملات
+app.get('/api/silver/by-currency', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getSilverByCurrency(), message: 'سعر الفضة بكل عملات العالم', timestamp: new Date().toISOString() });
+});
+
+// الاحتياطيات الذهبية العالمية
+app.get('/api/gold/global-reserves', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getGlobalReserves(), message: 'خزائن الذهب العالمية — ترتيب الدول', timestamp: new Date().toISOString() });
+});
+
+// مناجم الذهب العالمية
+app.get('/api/gold/mines', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getGlobalMines(), message: 'مناجم الذهب العالمية', timestamp: new Date().toISOString() });
+});
+
+// احتياطي الذهب فوق الأرض
+app.get('/api/gold/world-stock', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getWorldGoldStock(), message: 'إجمالي الذهب المستخرج في العالم', timestamp: new Date().toISOString() });
+});
+
+// أسعار المطعوم — الحديث الشريف
+app.get('/api/gold/food-prices', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getFoodPrices(), message: '«البر بالبر، التمر بالتمر، الشعير بالشعير، الملح بالملح»', timestamp: new Date().toISOString() });
+});
+
+// خوارزمية التسعير
+app.get('/api/gold/pricing-algorithm', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getPricingAlgorithm(), message: 'خوارزمية تسعير الدينار الإسلامي', timestamp: new Date().toISOString() });
+});
+
+// خوارزمية الصكوك الذهبية
+app.get('/api/gold/sukuk-algorithm', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getSukukAlgorithm(), message: 'خوارزمية الصكوك الذهبية الإسلامية', timestamp: new Date().toISOString() });
+});
+
+// قوانين البنك المركزي لسوق شيخة
+app.get('/api/gold/central-bank-laws', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getCentralBankLaws(), message: 'لوائح البنك المركزي لسوق شيخة الإسلامي', timestamp: new Date().toISOString() });
+});
+
+// البورصة الإسلامية للمعادن
+app.get('/api/gold/exchange', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getExchange(), message: 'بورصة شيخة الإسلامية للذهب والفضة والدينار', timestamp: new Date().toISOString() });
+});
+
+// احسب قيمة الدينار في أي عملة
+app.get('/api/gold/dinar-value/:currency', (req, res) => {
+    const val = goldPricingEngine.calculateDinarValue(req.params.currency);
+    if (!val) return res.status(404).json({ success: false, message: 'العملة غير مدعومة', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: val, message: `قيمة الدينار بالـ${req.params.currency.toUpperCase()}`, timestamp: new Date().toISOString() });
+});
+
+// احسب شراء الذهب مقابل مبلغ
+app.post('/api/gold/purchase-calc', (req, res) => {
+    const { amount, currency } = req.body || {};
+    if (!amount || isNaN(+amount) || +amount <= 0) {
+        return res.status(400).json({ success: false, message: 'المبلغ مطلوب وموجب', timestamp: new Date().toISOString() });
+    }
+    const result = goldPricingEngine.calculateGoldPurchase(+amount, currency || 'SAR');
+    res.json({ success: true, data: result, message: 'حساب شراء الذهب — الصكوك الذهبية', timestamp: new Date().toISOString() });
+});
+
+// تسعير المنتج بالدينار
+app.post('/api/gold/smart-price', (req, res) => {
+    const { product_type, amount, currency } = req.body || {};
+    if (!product_type || !amount || isNaN(+amount)) {
+        return res.status(400).json({ success: false, message: 'product_type و amount مطلوبان', timestamp: new Date().toISOString() });
+    }
+    const result = goldPricingEngine.smartProductPrice(product_type, +amount, currency || 'SAR');
+    res.json({ success: true, data: result, message: 'تسعير المنتج بالدينار الإسلامي', timestamp: new Date().toISOString() });
+});
+
+// أسعار الصرف اللحظية — الدينار مقابل كل عملة
+app.get('/api/gold/live-rates', (req, res) => {
+    res.json({ success: true, data: goldPricingEngine.getLiveExchangeRates(), message: 'أسعار الصرف اللحظية — الدينار بكل عملات الكون', timestamp: new Date().toISOString() });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════

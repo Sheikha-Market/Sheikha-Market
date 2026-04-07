@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الدينار الإسلامي الرقمي — شيخة</title>
+<meta name="description" content="أقوى عملة في الكون — مربوطة بالذهب الحقيقي وفق الكتاب والسنة — من خلق الله الكون إلى قيام الساعة">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Cairo:wght@400;600;700;900&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D4AF37; --gold-l:#F0D060; --gold-d:#A07820;
+  --copper:#B87333; --silver:#C0C0C0; --silver-l:#E8E8E8;
+  --bg:#050810; --bg2:#0a1020; --bg3:#111827; --bg4:#1a2335;
+  --border:rgba(212,175,55,.2); --border2:rgba(192,192,192,.2);
+  --green:#10b981; --blue:#3b82f6; --red:#ef4444; --purple:#8b5cf6;
+  --text:#e0e4ef; --text2:#8892a4; --text3:#4b5563;
+  --r:12px; --t:0.3s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;direction:rtl}
+
+/* ═══ HEADER ═══ */
+.hdr{
+  background:linear-gradient(135deg,#06080f 0%,#0c1628 50%,#080d1a 100%);
+  border-bottom:2px solid var(--gold);
+  padding:2rem;text-align:center;position:relative;overflow:hidden;
+}
+.hdr::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(212,175,55,.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hdr-badge{
+  display:inline-block;padding:.35rem 1.2rem;
+  background:rgba(212,175,55,.12);border:1px solid var(--gold);
+  border-radius:50px;font-size:.8rem;color:var(--gold);margin-bottom:1rem;
+  letter-spacing:.08em;
+}
+.hdr h1{
+  font-family:'Cairo',sans-serif;
+  font-size:clamp(1.8rem,5vw,3rem);font-weight:900;
+  background:linear-gradient(135deg,var(--gold),var(--gold-l),var(--copper));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:.5rem;
+}
+.hdr-verse{font-size:1.15rem;color:var(--gold);font-weight:600;margin-bottom:.5rem;text-shadow:0 0 20px rgba(212,175,55,.3)}
+.hdr-hadith{
+  margin-top:1rem;padding:.8rem 1.5rem;
+  background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.25);
+  border-radius:50px;display:inline-block;
+  color:#6ee7b7;font-size:.85rem;font-style:italic;max-width:700px;
+}
+
+/* ═══ TABS ═══ */
+.tabs{
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  padding:0 1.5rem;display:flex;gap:.2rem;overflow-x:auto;
+  scrollbar-width:none;position:sticky;top:0;z-index:50;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  background:none;border:none;padding:.9rem 1.1rem;
+  color:var(--text2);font-family:'Tajawal',sans-serif;
+  font-size:.85rem;font-weight:600;cursor:pointer;white-space:nowrap;
+  border-bottom:3px solid transparent;transition:var(--t);
+}
+.tab:hover{color:var(--gold)}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ═══ SECTIONS ═══ */
+.sec{display:none;padding:2rem 1.5rem;max-width:1400px;margin:0 auto}
+.sec.active{display:block}
+
+/* ═══ STAT CARDS ═══ */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
+.stat{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;text-align:center;transition:var(--t)}
+.stat:hover{border-color:var(--gold);transform:translateY(-2px)}
+.stat-num{font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:900;color:var(--gold)}
+.stat-label{color:var(--text2);font-size:.8rem;margin-top:.25rem}
+.stat.silver .stat-num{color:var(--silver-l)}
+
+/* ═══ LIVE PRICE BOARD ═══ */
+.price-board{
+  background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(184,115,51,.04));
+  border:1px solid var(--gold);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;
+}
+.price-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.price-item{text-align:center;padding:1rem;background:rgba(0,0,0,.2);border-radius:10px}
+.price-metal{font-size:.8rem;color:var(--text2);margin-bottom:.25rem}
+.price-val{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:900;color:var(--gold)}
+.price-unit{font-size:.75rem;color:var(--text2)}
+.price-val.silver{color:var(--silver-l)}
+.price-val.green{color:var(--green)}
+
+/* ═══ CARDS ═══ */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem}
+.card{
+  background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
+  padding:1.5rem;transition:var(--t);position:relative;overflow:hidden;
+}
+.card::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%;
+  background:linear-gradient(to bottom,var(--gold),var(--copper));opacity:0;transition:var(--t)}
+.card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,175,55,.1)}
+.card:hover::before{opacity:1}
+.card-icon{font-size:2rem;margin-bottom:.5rem}
+.card-title{font-size:1.05rem;font-weight:700;color:var(--gold);margin-bottom:.25rem}
+.card-body{color:var(--text2);font-size:.87rem;line-height:1.7}
+.card-verse{margin-top:.75rem;padding:.5rem .75rem;background:rgba(212,175,55,.06);
+  border-right:3px solid var(--gold);border-radius:0 6px 6px 0;font-size:.83rem;color:var(--gold-l);font-style:italic}
+.card-tag{display:inline-block;padding:.2rem .6rem;background:rgba(16,185,129,.1);
+  border:1px solid rgba(16,185,129,.3);border-radius:50px;font-size:.74rem;color:var(--green);margin-top:.5rem}
+
+/* ═══ TABLE ═══ */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.87rem}
+th{background:rgba(212,175,55,.08);color:var(--gold);padding:.75rem 1rem;border-bottom:1px solid var(--border);text-align:right;font-weight:700}
+td{padding:.65rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text2)}
+tr:hover td{background:rgba(212,175,55,.03);color:var(--text)}
+.score-bar{display:flex;align-items:center;gap:.5rem}
+.bar{height:8px;border-radius:4px;background:linear-gradient(to right,var(--gold),var(--gold-l))}
+.score-num{font-family:'Outfit',sans-serif;font-weight:700;color:var(--gold);font-size:.9rem;min-width:35px}
+
+/* ═══ CALCULATOR ═══ */
+.calc-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;max-width:600px}
+.form-row{margin-bottom:1rem}
+.form-label{display:block;color:var(--text2);font-size:.85rem;margin-bottom:.4rem}
+.form-input,.form-select{
+  width:100%;background:var(--bg4);border:1px solid var(--border);
+  border-radius:8px;padding:.7rem 1rem;color:var(--text);
+  font-family:'Tajawal',sans-serif;font-size:.95rem;
+}
+.form-input:focus,.form-select:focus{outline:none;border-color:var(--gold)}
+.btn-gold{padding:.75rem 2rem;background:var(--gold);border:none;border-radius:8px;
+  color:#000;font-family:'Tajawal',sans-serif;font-weight:700;cursor:pointer;font-size:.9rem;transition:var(--t)}
+.btn-gold:hover{background:var(--gold-l)}
+.result-box{
+  margin-top:1.25rem;padding:1.25rem;
+  background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(184,115,51,.04));
+  border:1px solid var(--gold);border-radius:10px;display:none;
+}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.result-row:last-child{border:none;margin-top:.5rem;padding-top:.75rem}
+.result-key{color:var(--text2);font-size:.87rem}
+.result-val{font-family:'Outfit',sans-serif;font-weight:700;color:var(--gold);font-size:1rem}
+
+/* ═══ RATES GRID ═══ */
+.rates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.75rem}
+.rate-item{
+  background:var(--bg3);border:1px solid var(--border);border-radius:10px;
+  padding:.85rem;text-align:center;transition:var(--t);
+}
+.rate-item:hover{border-color:var(--gold);transform:translateY(-1px)}
+.rate-cur{font-size:.75rem;color:var(--green);font-weight:700;letter-spacing:.05em}
+.rate-val{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;color:var(--gold);margin-top:.2rem}
+
+/* ═══ LAW CARDS ═══ */
+.law-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:.75rem;display:flex;gap:1rem;align-items:flex-start;transition:var(--t)}
+.law-card:hover{border-color:var(--gold)}
+.law-num{width:44px;height:44px;background:linear-gradient(135deg,var(--gold),var(--copper));border-radius:10px;display:flex;align-items:center;justify-content:center;color:#000;font-weight:900;font-size:.85rem;flex-shrink:0}
+.law-title{font-weight:700;color:var(--gold);font-size:.95rem;margin-bottom:.25rem}
+.law-text{color:var(--text2);font-size:.85rem;line-height:1.7}
+.law-ref{margin-top:.4rem;font-size:.8rem;color:var(--green);font-style:italic}
+
+/* ═══ RESERVE TABLE ═══ */
+.res-rank{width:36px;height:36px;background:rgba(212,175,55,.1);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold);font-size:.85rem}
+
+/* ═══ MISSION BANNER ═══ */
+.banner{
+  background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(184,115,51,.05));
+  border:1px solid var(--gold);border-radius:var(--r);padding:1.75rem;text-align:center;margin:1.5rem 0;
+}
+.banner .verse{font-size:1.25rem;color:var(--gold);font-weight:600;margin-bottom:.5rem}
+.banner p{color:var(--text2);font-size:.88rem}
+
+/* ═══ ROADMAP ═══ */
+.roadmap{position:relative;padding-right:2rem}
+.roadmap::before{content:'';position:absolute;right:.85rem;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--gold),transparent)}
+.rm-item{position:relative;margin-bottom:1.5rem;padding-right:1.5rem}
+.rm-item::before{content:'';position:absolute;right:-.3rem;top:.35rem;width:14px;height:14px;background:var(--gold);border-radius:50%;box-shadow:0 0 10px rgba(212,175,55,.4)}
+.rm-step{font-size:.72rem;color:var(--green);font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.rm-title{font-size:1rem;font-weight:700;color:var(--gold)}
+.rm-body{font-size:.85rem;color:var(--text2);margin-top:.2rem;line-height:1.6}
+.rm-status{display:inline-block;padding:.2rem .7rem;border-radius:50px;font-size:.75rem;font-weight:700;margin-top:.4rem}
+.rm-status.active{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.rm-status.planned{background:rgba(59,130,246,.1);color:var(--blue);border:1px solid rgba(59,130,246,.3)}
+.rm-status.target{background:rgba(212,175,55,.1);color:var(--gold);border:1px solid var(--border)}
+
+/* ═══ S-HEADER ═══ */
+.s-hdr{text-align:center;margin-bottom:2rem}
+.s-hdr h2{font-size:1.7rem;font-weight:800;color:var(--gold);margin-bottom:.4rem}
+.s-hdr p{color:var(--text2);font-size:.9rem}
+
+/* ═══ SPINNER ═══ */
+.loading{text-align:center;padding:3rem;color:var(--text2)}
+.spinner{display:inline-block;width:38px;height:38px;border:3px solid rgba(212,175,55,.2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ═══ NAV ═══ */
+.back-link{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.25rem;background:rgba(212,175,55,.08);border:1px solid var(--border);border-radius:8px;color:var(--gold);text-decoration:none;font-weight:600;font-size:.88rem;transition:var(--t);margin-bottom:1.5rem}
+.back-link:hover{background:rgba(212,175,55,.15)}
+
+@media(max-width:768px){.sec{padding:1.25rem .75rem}.cards{grid-template-columns:1fr}.rates-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-badge">🌙 المرحلتان ٣٣–٣٤ | Phase 33–34</div>
+  <div class="hdr-verse">﴿وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ﴾ — الإسراء ٣٥</div>
+  <h1>الدينار الإسلامي الرقمي الكوني</h1>
+  <p style="color:var(--text2);font-size:1rem;margin-bottom:.75rem">أقوى عملة منذ خلق الله الكون إلى قيام الساعة — مربوطة بالذهب الحقيقي وفق الكتاب والسنة</p>
+  <div class="hdr-hadith">
+    «الذَّهبُ بالذَّهبِ، والفضَّةُ بالفضَّةِ... مثلًا بمثلٍ، سواءً بسواءٍ، يدًا بيدٍ» — صحيح مسلم ١٥٨٧
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab active" onclick="showTab('live')">📊 الأسعار اللحظية</button>
+  <button class="tab" onclick="showTab('standards')">⚖️ معايير الدينار</button>
+  <button class="tab" onclick="showTab('calc')">🧮 الحاسبة الذكية</button>
+  <button class="tab" onclick="showTab('sukuk')">🏅 الصكوك الذهبية</button>
+  <button class="tab" onclick="showTab('exchange')">🏦 البورصة الإسلامية</button>
+  <button class="tab" onclick="showTab('reserves')">🗺️ خزائن الذهب العالمية</button>
+  <button class="tab" onclick="showTab('rates')">💱 أسعار الصرف</button>
+  <button class="tab" onclick="showTab('food')">🌾 تسعير المطعوم</button>
+  <button class="tab" onclick="showTab('laws')">📜 قوانين البنك المركزي</button>
+  <button class="tab" onclick="showTab('history')">📜 تاريخ العملة</button>
+</nav>
+
+<!-- ══════ LIVE PRICES ══════ -->
+<section id="tab-live" class="sec active">
+  <a href="/" class="back-link">← العودة للرئيسية</a>
+  <div class="s-hdr"><h2>📊 الأسعار اللحظية</h2><p>الذهب والفضة والدينار والدرهم — بناءً على LBMA Fix</p></div>
+
+  <div class="price-board" id="live-board">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+
+  <div class="stats-row" id="live-stats">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+
+  <div class="banner">
+    <div class="verse">﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾</div>
+    <p>الدينار = ٤.٢٥ جرام ذهب خالص — ثابت شرعياً لا يتغير منذ عهد عبد الملك بن مروان (٧٧هـ) حتى قيام الساعة</p>
+  </div>
+</section>
+
+<!-- ══════ STANDARDS ══════ -->
+<section id="tab-standards" class="sec">
+  <div class="s-hdr"><h2>⚖️ المعايير الإسلامية للأوزان</h2><p>الثوابت الشرعية للدينار والدرهم — إجماع العلماء</p></div>
+  <div id="standards-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<!-- ══════ CALCULATOR ══════ -->
+<section id="tab-calc" class="sec">
+  <div class="s-hdr"><h2>🧮 الحاسبة الذكية — تسعير الدينار</h2><p>احسب قيمة الدينار واشتر ذهباً حقيقياً أو سعّر منتجك بالدينار</p></div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem">
+    <!-- حاسبة الدينار -->
+    <div class="calc-box">
+      <h3 style="color:var(--gold);margin-bottom:1rem">💰 قيمة الدينار في عملتك</h3>
+      <div class="form-row">
+        <label class="form-label">اختر العملة</label>
+        <select class="form-select" id="calc-currency">
+          <option value="SAR">ريال سعودي — SAR</option>
+          <option value="USD">دولار أمريكي — USD</option>
+          <option value="AED">درهم إماراتي — AED</option>
+          <option value="KWD">دينار كويتي — KWD</option>
+          <option value="QAR">ريال قطري — QAR</option>
+          <option value="EGP">جنيه مصري — EGP</option>
+          <option value="TRY">ليرة تركية — TRY</option>
+          <option value="EUR">يورو — EUR</option>
+          <option value="GBP">جنيه إسترليني — GBP</option>
+          <option value="JPY">ين ياباني — JPY</option>
+          <option value="CNY">يوان صيني — CNY</option>
+          <option value="INR">روبية هندية — INR</option>
+          <option value="IDR">روبية إندونيسية — IDR</option>
+          <option value="PKR">روبية باكستانية — PKR</option>
+          <option value="MYR">رينغيت ماليزي — MYR</option>
+          <option value="NGN">نيرة نيجيرية — NGN</option>
+        </select>
+      </div>
+      <button class="btn-gold" onclick="calcDinarValue()">احسب قيمة الدينار</button>
+      <div class="result-box" id="dinar-result"></div>
+    </div>
+
+    <!-- حاسبة شراء الذهب -->
+    <div class="calc-box">
+      <h3 style="color:var(--gold);margin-bottom:1rem">🏅 كم تملك من الذهب؟</h3>
+      <div class="form-row">
+        <label class="form-label">المبلغ</label>
+        <input class="form-input" id="buy-amount" type="number" min="1" placeholder="١٠٠٠" value="1000">
+      </div>
+      <div class="form-row">
+        <label class="form-label">العملة</label>
+        <select class="form-select" id="buy-currency">
+          <option value="SAR">ريال سعودي — SAR</option>
+          <option value="USD">دولار أمريكي — USD</option>
+          <option value="AED">درهم إماراتي — AED</option>
+          <option value="EUR">يورو — EUR</option>
+          <option value="GBP">جنيه إسترليني — GBP</option>
+        </select>
+      </div>
+      <button class="btn-gold" onclick="calcGoldPurchase()">احسب الذهب المقابل</button>
+      <div class="result-box" id="buy-result"></div>
+    </div>
+
+    <!-- حاسبة تسعير المنتج -->
+    <div class="calc-box">
+      <h3 style="color:var(--gold);margin-bottom:1rem">⚖️ سعّر منتجك بالدينار</h3>
+      <div class="form-row">
+        <label class="form-label">نوع المنتج</label>
+        <select class="form-select" id="prod-type">
+          <option value="gold">الذهب والمجوهرات</option>
+          <option value="silver">الفضة</option>
+          <option value="metals">المعادن والسكراب</option>
+          <option value="wheat">القمح والحبوب</option>
+          <option value="dates">التمر</option>
+          <option value="other">منتج عام</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">السعر (ريال سعودي)</label>
+        <input class="form-input" id="prod-price" type="number" min="0.01" placeholder="٥٠٠" value="500">
+      </div>
+      <button class="btn-gold" onclick="calcProductPrice()">احسب بالدينار</button>
+      <div class="result-box" id="prod-result"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SUKUK ══════ -->
+<section id="tab-sukuk" class="sec">
+  <div class="s-hdr"><h2>🏅 الصكوك الذهبية الإسلامية</h2><p>من تملك الدينار تملَّك الذهب فعلاً — يداً بيد</p></div>
+  <div id="sukuk-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<!-- ══════ EXCHANGE ══════ -->
+<section id="tab-exchange" class="sec">
+  <div class="s-hdr"><h2>🏦 بورصة شيخة الإسلامية للمعادن</h2><p>أول بورصة إسلامية عالمية — لا ربا — لا غرر — لا احتكار</p></div>
+  <div id="exchange-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<!-- ══════ RESERVES ══════ -->
+<section id="tab-reserves" class="sec">
+  <div class="s-hdr"><h2>🗺️ خزائن الذهب العالمية</h2><p>احتياطيات الدول + مناجم الذهب عالمياً</p></div>
+  <div id="reserves-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<!-- ══════ RATES ══════ -->
+<section id="tab-rates" class="sec">
+  <div class="s-hdr"><h2>💱 أسعار الصرف اللحظية</h2><p>الدينار الإسلامي مقابل كل عملات الكون</p></div>
+  <div id="rates-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<!-- ══════ FOOD ══════ -->
+<section id="tab-food" class="sec">
+  <div class="s-hdr"><h2>🌾 تسعير المطعوم بالدينار</h2><p>«البر بالبر، والتمر بالتمر، والشعير بالشعير، والملح بالملح» — صحيح مسلم</p></div>
+  <div id="food-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<!-- ══════ LAWS ══════ -->
+<section id="tab-laws" class="sec">
+  <div class="s-hdr"><h2>📜 قوانين البنك المركزي لسوق شيخة</h2><p>الإطار التشريعي للدينار الإسلامي الرقمي</p></div>
+  <div id="laws-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<!-- ══════ HISTORY ══════ -->
+<section id="tab-history" class="sec">
+  <div class="s-hdr"><h2>📜 تاريخ العملة الإسلامية</h2><p>من الدينار الأموي إلى دينار شيخة الرقمي</p></div>
+  <div id="history-content"><div class="loading"><div class="spinner"></div></div></div>
+</section>
+
+<script>
+'use strict';
+const loaded = {};
+
+function showTab(name) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name)?.classList.add('active');
+  event?.currentTarget?.classList?.add('active');
+  if (!loaded[name]) { loaded[name] = true; loadTab(name); }
+}
+
+async function api(path, opts) {
+  const r = await fetch(path, opts);
+  const j = await r.json();
+  return j.data;
+}
+
+// ── LIVE PRICES ──
+async function loadLive() {
+  const d = await api('/api/gold/spot-prices');
+  document.getElementById('live-board').innerHTML = `
+    <h3 style="color:var(--gold);text-align:center;margin-bottom:1rem;font-size:1.1rem">
+      ⏱️ مرجع: LBMA · CME · ${new Date(d.last_updated).toLocaleString('ar-SA')}
+    </h3>
+    <div class="price-row">
+      <div class="price-item"><div class="price-metal">الذهب — أوقية تروي (31.1ج)</div><div class="price-val">$${d.gold_usd_per_oz.toLocaleString()}</div><div class="price-unit">دولار أمريكي</div></div>
+      <div class="price-item"><div class="price-metal">الذهب — جرام واحد</div><div class="price-val">$${d.gold_per_gram_usd}</div><div class="price-unit">دولار / جرام</div></div>
+      <div class="price-item"><div class="price-metal">🌙 الدينار الإسلامي (4.25ج)</div><div class="price-val">$${d.dinar_usd}</div><div class="price-unit">دولار — ${d.dinar_sar} ريال</div></div>
+      <div class="price-item"><div class="price-metal">الفضة — أوقية تروي</div><div class="price-val silver">$${d.silver_usd_per_oz}</div><div class="price-unit">دولار أمريكي</div></div>
+      <div class="price-item"><div class="price-metal">الفضة — جرام</div><div class="price-val silver">$${d.silver_per_gram_usd}</div><div class="price-unit">دولار / جرام</div></div>
+      <div class="price-item"><div class="price-metal">🪙 الدرهم الإسلامي (2.975ج فضة)</div><div class="price-val silver">$${d.dirham_usd}</div><div class="price-unit">دولار / درهم</div></div>
+    </div>`;
+
+  document.getElementById('live-stats').innerHTML = [
+    { num: '$' + d.gold_usd_per_oz.toLocaleString(), label: 'الذهب / أوقية' },
+    { num: '$' + d.dinar_usd, label: 'دينار إسلامي' },
+    { num: d.dinar_sar + ' ر', label: 'الدينار / ريال' },
+    { num: '$' + d.silver_usd_per_oz, label: 'الفضة / أوقية', silver: true },
+    { num: '$' + d.dirham_usd, label: 'درهم إسلامي', silver: true },
+  ].map(s => `<div class="stat${s.silver?' silver':''}"><div class="stat-num">${s.num}</div><div class="stat-label">${s.label}</div></div>`).join('');
+}
+
+// ── STANDARDS ──
+async function loadStandards() {
+  const d = await api('/api/gold/weight-standards');
+  document.getElementById('standards-content').innerHTML = `
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🌙</div>
+        <div class="card-title">${d.dinar.name}</div>
+        <div class="card-body">
+          <strong style="color:var(--gold-l)">الوزن:</strong> ${d.dinar.weight_grams} جرام ذهب خالص (${d.dinar.purity} قيراط)<br>
+          <strong style="color:var(--gold-l)">نصاب الزكاة:</strong> ${d.dinar.nisab_count} ديناراً = ${d.dinar.nisab_grams} جرام<br>
+          <strong style="color:var(--gold-l)">المرجع:</strong> ${d.dinar.authority}
+        </div>
+        <div class="card-verse">${d.dinar.hadith}</div>
+        <span class="card-tag">ثابت شرعياً — لا يتغير</span>
+      </div>
+      <div class="card" style="border-color:var(--border2)">
+        <div class="card-icon">🪙</div>
+        <div class="card-title">${d.dirham.name}</div>
+        <div class="card-body">
+          <strong style="color:var(--silver-l)">الوزن:</strong> ${d.dirham.weight_grams} جرام فضة خالصة<br>
+          <strong style="color:var(--silver-l)">نصاب الزكاة:</strong> ${d.dirham.nisab_count} درهماً = ${d.dirham.nisab_grams} جرام<br>
+          <strong style="color:var(--silver-l)">المرجع:</strong> ${d.dirham.authority}
+        </div>
+        <div class="card-verse" style="border-color:var(--silver)">${d.dirham.hadith}</div>
+        <span class="card-tag">سبعة دراهم في عشرة مثاقيل</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚖️</div>
+        <div class="card-title">نسبة الذهب للفضة</div>
+        <div class="card-body">
+          تاريخياً: ${d.ratio.gold_silver_classic} (دينار : درهم)<br>
+          ${d.ratio.note}
+        </div>
+        <div class="card-verse">﴿وَمِمَّا خَلَقْنَا لَهُمُ الذَّهَبَ وَالْفِضَّةَ﴾</div>
+      </div>
+    </div>`;
+}
+
+// ── CALC ──
+async function calcDinarValue() {
+  const cur = document.getElementById('calc-currency').value;
+  try {
+    const d = await api('/api/gold/dinar-value/' + cur);
+    const el = document.getElementById('dinar-result');
+    el.style.display = 'block';
+    el.innerHTML = `
+      <div class="result-row"><span class="result-key">١ دينار بالـ${cur}</span><span class="result-val">${d.dinar_value.toLocaleString()} ${cur}</span></div>
+      <div class="result-row"><span class="result-key">١ درهم بالـ${cur}</span><span class="result-val">${d.dirham_value?.toLocaleString() || '—'} ${cur}</span></div>
+      <div class="result-row"><span class="result-key">الذهب / جرام</span><span class="result-val">${d.gold_per_gram.toLocaleString()} ${cur}</span></div>
+      <div class="result-row"><span class="result-key">نصاب الزكاة (٨٥ج)</span><span class="result-val">${d.nisab_gold_value?.toLocaleString()} ${cur}</span></div>
+      <div class="result-row"><span class="result-key" style="color:var(--green)">${d.hadith}</span><span class="result-val" style="color:var(--green)">✅ شرعي</span></div>`;
+  } catch(e) { alert('خطأ في الحساب — تأكد من تشغيل الخادم'); }
+}
+
+async function calcGoldPurchase() {
+  const amount = +document.getElementById('buy-amount').value;
+  const currency = document.getElementById('buy-currency').value;
+  if (!amount || amount <= 0) return;
+  try {
+    const d = await api('/api/gold/purchase-calc', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({amount, currency}) });
+    const el = document.getElementById('buy-result');
+    el.style.display = 'block';
+    el.innerHTML = `
+      <div class="result-row"><span class="result-key">الذهب المقابل</span><span class="result-val">${d.gold_grams} جرام ذهب</span></div>
+      <div class="result-row"><span class="result-key">الدنانير الإسلامية</span><span class="result-val">${d.Islamic_dinars} دينار</span></div>
+      <div class="result-row"><span class="result-key">رسوم الحفظ السنوية</span><span class="result-val">${d.storage_fee_annual} ${currency}</span></div>
+      <div class="result-row"><span class="result-key">نصاب الزكاة؟</span><span class="result-val" style="color:${d.zakat_applicable?'var(--gold)':'var(--text2)'}"> ${d.zakat_applicable?'✅ نعم — الزكاة واجبة':'❌ دون النصاب'}</span></div>
+      ${d.zakat_applicable?`<div class="result-row"><span class="result-key">زكاة واجبة</span><span class="result-val">${d.zakat_grams} جرام</span></div>`:''}
+      <div class="result-row"><span class="result-key">نوع الصك</span><span class="result-val" style="color:var(--green)">${d.sukuk_type}</span></div>`;
+  } catch(e) { alert('خطأ — تأكد من تشغيل الخادم'); }
+}
+
+async function calcProductPrice() {
+  const product_type = document.getElementById('prod-type').value;
+  const amount = +document.getElementById('prod-price').value;
+  if (!amount || amount <= 0) return;
+  try {
+    const d = await api('/api/gold/smart-price', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({product_type, amount, currency:'SAR'}) });
+    const el = document.getElementById('prod-result');
+    el.style.display = 'block';
+    el.innerHTML = `
+      <div class="result-row"><span class="result-key">السعر بالدينار الإسلامي</span><span class="result-val">${d.dinar_equivalent} دينار</span></div>
+      <div class="result-row"><span class="result-key">المرجع الإسلامي</span><span class="result-val">${d.benchmark}</span></div>
+      <div class="result-row"><span class="result-key" style="color:var(--green)">${d.explanation}</span><span></span></div>`;
+  } catch(e) { alert('خطأ — تأكد من تشغيل الخادم'); }
+}
+
+// ── SUKUK ──
+async function loadSukuk() {
+  const d = await api('/api/gold/sukuk-algorithm');
+  const mechs = d.mechanism.map(m => `<li>${m}</li>`).join('');
+  const specs = Object.entries(d.gold_token_specs).map(([k,v]) => `
+    <div class="result-row"><span class="result-key">${k}</span><span class="result-val" style="font-size:.85rem">${v}</span></div>`).join('');
+  const forms = d.redemption.forms.map(f => `<span class="card-tag" style="margin:2px">${f}</span>`).join('');
+  const rules = d.smart_contract_rules.map(r => `<li style="color:var(--green);padding:.3rem 0">${r}</li>`).join('');
+  document.getElementById('sukuk-content').innerHTML = `
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🏅</div>
+        <div class="card-title">${d.name}</div>
+        <div class="card-body"><strong style="color:var(--gold)">النوع:</strong> ${d.type}</div>
+        <ul style="margin-top:.75rem;padding-right:1.25rem;color:var(--text2);font-size:.85rem;line-height:2">${mechs}</ul>
+        <div class="card-verse">${d.verse}</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <div class="card-title">مواصفات الرمز الذهبي SKD</div>
+        <div>${specs}</div>
+        <div style="margin-top:.75rem">${forms}</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">⛓️</div>
+        <div class="card-title">قواعد العقد الذكي — Blockchain</div>
+        <ul style="padding-right:1.25rem;font-size:.85rem;line-height:2">${rules}</ul>
+        <div class="card-verse">${d.sharia_compliance.hadith}</div>
+        <span class="card-tag">${d.sharia_compliance.school_consensus}</span>
+      </div>
+    </div>`;
+}
+
+// ── EXCHANGE ──
+async function loadExchange() {
+  const d = await api('/api/gold/exchange');
+  const instruments = d.instruments.map(i => `
+    <div class="rate-item">
+      <div class="rate-cur">${i.code}</div>
+      <div class="rate-val" style="font-size:.85rem">${i.name}</div>
+      <div style="font-size:.7rem;color:var(--green);margin-top:.25rem">${i.settling}</div>
+    </div>`).join('');
+  const rules = d.trading_rules.map(r => `<li style="padding:.3rem 0;color:var(--text2);font-size:.87rem">${r}</li>`).join('');
+  const intg = Object.entries(d.global_integration).map(([k,v]) =>
+    `<div style="margin-bottom:.5rem"><strong style="color:var(--gold-l)">${k}:</strong> <span style="color:var(--text2);font-size:.85rem">${Array.isArray(v)?v.join(' · '):v}</span></div>`
+  ).join('');
+  const roadmap = d.recognition_roadmap.map(s => `
+    <div class="rm-item">
+      <div class="rm-step">الخطوة ${s.step}</div>
+      <div class="rm-title">${s.title}</div>
+      <div class="rm-body">${s.body}</div>
+      <span class="rm-status ${s.status==='قيد التنفيذ'?'active':s.status==='مقرر'?'planned':'target'}">${s.status}</span>
+    </div>`).join('');
+
+  document.getElementById('exchange-content').innerHTML = `
+    <div class="banner"><div class="verse">${d.verse}</div><p>${d.tagline}</p></div>
+    <h3 style="color:var(--gold);margin-bottom:1rem">🪙 الأدوات المالية المتاحة</h3>
+    <div class="rates-grid" style="margin-bottom:2rem">${instruments}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+      <div class="card"><div class="card-title">📋 قواعد التداول الإسلامية</div><ul style="padding-right:1rem;margin-top:.5rem">${rules}</ul></div>
+      <div class="card"><div class="card-title">🌐 التكامل العالمي</div><div style="margin-top:.5rem">${intg}</div></div>
+    </div>
+    <h3 style="color:var(--gold);margin:2rem 0 1rem">🗓️ خارطة طريق الاعتماد الدولي</h3>
+    <div class="roadmap">${roadmap}</div>`;
+}
+
+// ── RESERVES ──
+async function loadReserves() {
+  const [res, mines, stock] = await Promise.all([
+    api('/api/gold/global-reserves'),
+    api('/api/gold/mines'),
+    api('/api/gold/world-stock'),
+  ]);
+  const rows = res.map(r => `
+    <tr>
+      <td><div class="res-rank">${r.rank}</div></td>
+      <td style="font-weight:600">${r.country}</td>
+      <td style="color:var(--gold);font-family:'Outfit';font-weight:700">${r.tons.toLocaleString()} طن</td>
+      <td>${r.pct_reserve}</td>
+      <td style="font-size:.8rem;color:var(--text3)">${r.vault}</td>
+    </tr>`).join('');
+  const mineRows = mines.map(m => `
+    <tr>
+      <td style="font-weight:600">${m.name}</td>
+      <td>${m.country}</td>
+      <td style="color:var(--gold);font-family:'Outfit'">${m.annual_tons} طن/سنة</td>
+      <td style="font-size:.82rem;color:var(--text2)">${m.operator}</td>
+    </tr>`).join('');
+
+  document.getElementById('reserves-content').innerHTML = `
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">${stock.total_tons.toLocaleString()}</div><div class="stat-label">طن ذهب فوق الأرض</div></div>
+      <div class="stat"><div class="stat-num">${stock.jewelry_tons.toLocaleString()}</div><div class="stat-label">طن مجوهرات</div></div>
+      <div class="stat"><div class="stat-num">${stock.central_banks_tons.toLocaleString()}</div><div class="stat-label">طن في البنوك المركزية</div></div>
+      <div class="stat"><div class="stat-num">${stock.private_invest_tons.toLocaleString()}</div><div class="stat-label">طن استثمار خاص</div></div>
+    </div>
+    <h3 style="color:var(--gold);margin-bottom:1rem">🏦 احتياطيات الدول — الترتيب العالمي</h3>
+    <div class="tbl-wrap" style="margin-bottom:2rem">
+      <table><thead><tr><th>#</th><th>الدولة</th><th>الذهب</th><th>% من الاحتياطي</th><th>مكان التخزين</th></tr></thead>
+      <tbody>${rows}</tbody></table>
+    </div>
+    <h3 style="color:var(--gold);margin-bottom:1rem">⛏️ أكبر مناجم الذهب العالمية</h3>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>اسم المنجم</th><th>الدولة</th><th>الإنتاج السنوي</th><th>المشغل</th></tr></thead>
+      <tbody>${mineRows}</tbody></table>
+    </div>`;
+}
+
+// ── RATES ──
+async function loadRates() {
+  const d = await api('/api/gold/live-rates');
+  const items = Object.entries(d.rates).map(([cur, val]) =>
+    `<div class="rate-item"><div class="rate-cur">${cur}</div><div class="rate-val">${val.toLocaleString(undefined,{maximumFractionDigits:4})}</div></div>`
+  ).join('');
+  document.getElementById('rates-content').innerHTML = `
+    <div class="banner" style="margin-top:0">
+      <div class="verse">١ دينار شيخة = ${4.25}ج ذهب خالص</div>
+      <p>${d.base_description} | ${d.total_currencies} عملة | ${new Date(d.last_updated).toLocaleString('ar-SA')}</p>
+    </div>
+    <h3 style="color:var(--gold);margin-bottom:1rem">💱 سعر الدينار بكل عملات الكون</h3>
+    <div class="rates-grid">${items}</div>`;
+}
+
+// ── FOOD ──
+async function loadFood() {
+  const d = await api('/api/gold/food-prices');
+  const cards = Object.entries(d).map(([key, f]) => `
+    <div class="card">
+      <div class="card-icon">${{wheat:'🌾',barley:'🌿',dates:'🌴',salt:'🧂',rice:'🍚',olive_oil:'🫒'}[key]||'🌱'}</div>
+      <div class="card-title">${f.name_ar}</div>
+      <div class="card-body">
+        <strong style="color:var(--gold)">عالمي: </strong>$${f.global_usd_per_kg || '—'} / كجم<br>
+        <strong style="color:var(--gold)">السعودية: </strong>${f.saudi_sar_per_kg || '—'} ريال / كجم<br>
+        ${f.premium_saudi_sar_per_kg ? `<strong style="color:var(--gold)">فاخر (عجوة): </strong>${f.premium_saudi_sar_per_kg} ريال / كجم<br>` : ''}
+        ${f.islamic_note ? `<span style="color:var(--green);font-size:.82rem">${f.islamic_note}</span>` : ''}
+      </div>
+      ${f.hadith_ref ? `<div class="card-verse">${f.hadith_ref}</div>` : ''}
+    </div>`).join('');
+  document.getElementById('food-content').innerHTML = `
+    <div class="banner" style="margin-top:0">
+      <div class="verse">«البُرُّ بالبُرِّ، والتَّمرُ بالتَّمرِ، والشَّعيرُ بالشَّعيرِ، والمِلحُ بالمِلحِ»</div>
+      <p>مثلاً بمثلٍ، سواءً بسواءٍ، يدًا بيدٍ — صحيح مسلم ١٥٨٧</p>
+    </div>
+    <div class="cards">${cards}</div>`;
+}
+
+// ── LAWS ──
+async function loadLaws() {
+  const d = await api('/api/gold/central-bank-laws');
+  const laws = d.laws.map(l => `
+    <div class="law-card">
+      <div class="law-num">${l.id.replace('CBL-','')}</div>
+      <div>
+        <div class="law-title">${l.title}</div>
+        <div class="law-text">${l.text}</div>
+        ${(l.verse||l.hadith||l.principle||l.standard) ? `<div class="law-ref">${l.verse||l.hadith||l.principle||l.standard}</div>` : ''}
+      </div>
+    </div>`).join('');
+  document.getElementById('laws-content').innerHTML = `
+    <div class="banner" style="margin-top:0">
+      <div class="verse">﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾</div>
+      <p>${d.authority}</p>
+    </div>
+    ${laws}`;
+}
+
+// ── HISTORY ──
+async function loadHistory() {
+  const [hist, comp] = await Promise.all([
+    api('/api/dinar/history'),
+    api('/api/dinar/comparison-table'),
+  ]);
+  const cards = hist.map(h => `
+    <div class="card">
+      <div class="card-icon">${h.icon||'📜'}</div>
+      <div class="card-title">${h.currency_name||h.era}</div>
+      <div class="card-era" style="color:var(--green);font-size:.8rem">${h.era} | ${h.year_ah||h.period||''}</div>
+      <div class="card-body" style="margin-top:.5rem">${h.significance||''}</div>
+      ${h.weight ? `<div style="margin-top:.5rem;font-size:.82rem;color:var(--gold-l)">⚖️ ${h.weight}</div>` : ''}
+      ${h.historical_impact ? `<div style="margin-top:.4rem;font-size:.82rem;color:var(--blue)">🌍 ${h.historical_impact}</div>` : ''}
+      ${h.verse ? `<div class="card-verse">${h.verse}</div>` : ''}
+      ${h.sheikha_principle ? `<span class="card-tag">${h.sheikha_principle}</span>` : ''}
+    </div>`).join('');
+
+  const tblRows = comp.map(c => `
+    <tr>
+      <td style="font-weight:700;color:${c.era.includes('شيخة')?'var(--gold)':'var(--text)'}">${c.era}</td>
+      <td>${c.feature}</td>
+      <td style="font-size:.82rem;color:var(--text2)">${c.famous}</td>
+      <td>
+        <div class="score-bar">
+          <div class="bar" style="width:${c.score}%"></div>
+          <span class="score-num">${c.score}</span>
+        </div>
+      </td>
+    </tr>`).join('');
+
+  document.getElementById('history-content').innerHTML = `
+    <h3 style="color:var(--gold);margin-bottom:1rem">📊 جدول مقارنة العملات الإسلامية عبر التاريخ</h3>
+    <div class="tbl-wrap" style="margin-bottom:2rem">
+      <table><thead><tr><th>العصر</th><th>السمة الغالبة</th><th>أشهر عملة</th><th>القوة /١٠٠</th></tr></thead>
+      <tbody>${tblRows}</tbody></table>
+    </div>
+    <h3 style="color:var(--gold);margin-bottom:1rem">🗂️ تفاصيل كل حقبة</h3>
+    <div class="cards">${cards}</div>`;
+}
+
+async function loadTab(name) {
+  try {
+    switch(name) {
+      case 'live':      await loadLive(); break;
+      case 'standards': await loadStandards(); break;
+      case 'sukuk':     await loadSukuk(); break;
+      case 'exchange':  await loadExchange(); break;
+      case 'reserves':  await loadReserves(); break;
+      case 'rates':     await loadRates(); break;
+      case 'food':      await loadFood(); break;
+      case 'laws':      await loadLaws(); break;
+      case 'history':   await loadHistory(); break;
+    }
+  } catch (e) {
+    console.error('tab error', name, e);
+  }
+}
+
+(function boot() {
+  loaded['live'] = true;
+  loadLive();
+})();
+</script>
+</body>
+</html>
