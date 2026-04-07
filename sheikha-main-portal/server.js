@@ -37519,6 +37519,8 @@ const metalsEngine = require('./lib/sheikha-metals-engine');
 const spaceEngine = require('./lib/sheikha-space-engine');
 const logisticsEngine = require('./lib/sheikha-logistics-engine');
 const spaceWeatherEngine = require('./lib/sheikha-space-weather-engine');
+const workspaceActivator = require('./lib/sheikha-workspace-activator');
+const workspaceEngine = require('./lib/sheikha-workspace-engine');
 
 // الله هو المُسَعِّر — الأساس الشرعي
 app.get('/api/economy/allah-is-al-musaier', (req, res) => {
@@ -37832,6 +37834,253 @@ app.get('/api/space-weather/operational-status/:level', (req, res) => {
     const data = spaceWeatherEngine.getSheikhaOperationalStatus(level);
     const recommendations = spaceWeatherEngine.getSheikhaRecommendations(level);
     res.json({ success: true, data: { operational_status: data, recommendations }, message: `الحالة التشغيلية لشيخة عند مستوى ${level}`, timestamp: new Date().toISOString() });
+});
+
+// ============================================================
+// المرحلة ٣٩ — Google Workspace Activation Routes
+// ============================================================
+
+// الحالة الكاملة لكل خدمات Google
+app.get('/api/workspace/status', (req, res) => {
+    const data = workspaceActivator.getFullActivationStatus();
+    res.json({ success: true, data, message: 'حالة تفعيل Google Workspace لشيخة', timestamp: new Date().toISOString() });
+});
+
+// ملخص سريع
+app.get('/api/workspace/summary', (req, res) => {
+    const status = workspaceActivator.getFullActivationStatus();
+    res.json({ success: true, data: status.summary, message: 'ملخص تفعيل Google Workspace', timestamp: new Date().toISOString() });
+});
+
+// قائمة كل الخدمات مع حالتها
+app.get('/api/workspace/services', (req, res) => {
+    const status = workspaceActivator.getFullActivationStatus();
+    const list = Object.entries(status.services).map(([id, srv]) => ({
+        id, name: srv.name, name_ar: srv.name_ar, icon: srv.icon,
+        category: srv.category, category_ar: srv.category_ar,
+        priority: srv.priority,
+        status: srv.evaluation.status,
+        status_ar: srv.evaluation.status_ar,
+        color: srv.evaluation.color,
+        score: srv.evaluation.score,
+        missing_vars: srv.evaluation.missing_vars,
+        console_url: srv.console_url,
+        required_for: srv.required_for
+    }));
+    res.json({ success: true, data: list, message: 'قائمة خدمات Google Workspace', timestamp: new Date().toISOString() });
+});
+
+// تفاصيل خدمة واحدة
+app.get('/api/workspace/service/:id', (req, res) => {
+    const status = workspaceActivator.getFullActivationStatus();
+    const srv = status.services[req.params.id];
+    if (!srv) return res.status(404).json({ success: false, message: 'الخدمة غير موجودة' });
+    res.json({ success: true, data: srv, message: `تفاصيل خدمة ${srv.name_ar}`, timestamp: new Date().toISOString() });
+});
+
+// الإجراءات ذات الأولوية
+app.get('/api/workspace/priority-actions', (req, res) => {
+    const status = workspaceActivator.getFullActivationStatus();
+    res.json({ success: true, data: status.priority_actions, message: 'الإجراءات العاجلة لتفعيل Workspace', timestamp: new Date().toISOString() });
+});
+
+// الخطوات التالية
+app.get('/api/workspace/next-steps', (req, res) => {
+    const status = workspaceActivator.getFullActivationStatus();
+    res.json({ success: true, data: status.next_steps, message: 'الخطوات التالية لتفعيل Google Workspace', timestamp: new Date().toISOString() });
+});
+
+// قالب ملف .env الكامل
+app.get('/api/workspace/env-template', (req, res) => {
+    const template = workspaceActivator.generateEnvTemplate();
+    res.json({ success: true, data: { template }, message: 'قالب ملف .env لكل خدمات Google', timestamp: new Date().toISOString() });
+});
+
+// APIs المطلوب تفعيلها في Cloud Console
+app.get('/api/workspace/required-apis', (req, res) => {
+    const apis = workspaceActivator.getAllRequiredAPIs();
+    const enableUrl = 'https://console.cloud.google.com/apis/library';
+    res.json({ success: true, data: { apis, total: apis.length, enable_url: enableUrl }, message: 'APIs المطلوب تفعيلها في Google Cloud Console', timestamp: new Date().toISOString() });
+});
+
+// ============================================================
+// المرحلة ٣٩ — Google Workspace الكامل | مزامنة market@sheikha.top
+// ============================================================
+
+// إحصاءات محرك Workspace
+app.get('/api/gworkspace/stats', (req, res) => {
+    const data = workspaceEngine.getWorkspaceStats();
+    res.json({ success: true, data, message: 'إحصاءات Google Workspace لمنظومة شيخة', timestamp: new Date().toISOString() });
+});
+
+// كل خدمات Workspace
+app.get('/api/gworkspace/services', (req, res) => {
+    const data = workspaceEngine.getAllServices();
+    res.json({ success: true, data, message: 'كل خدمات Google Workspace', timestamp: new Date().toISOString() });
+});
+
+// خدمة محددة
+app.get('/api/gworkspace/service/:id', (req, res) => {
+    const data = workspaceEngine.getServiceById(req.params.id);
+    if (!data) return res.status(404).json({ success: false, message: 'الخدمة غير موجودة' });
+    res.json({ success: true, data, message: `تفاصيل خدمة ${req.params.id}`, timestamp: new Date().toISOString() });
+});
+
+// خدمات حسب الفئة
+app.get('/api/gworkspace/category/:cat', (req, res) => {
+    const data = workspaceEngine.getServicesByCategory(req.params.cat);
+    res.json({ success: true, data, message: `خدمات فئة: ${req.params.cat}`, timestamp: new Date().toISOString() });
+});
+
+// كل الخطط والأسعار
+app.get('/api/gworkspace/plans', (req, res) => {
+    const data = workspaceEngine.getAllPlans();
+    res.json({ success: true, data, message: 'خطط Google Workspace والأسعار', timestamp: new Date().toISOString() });
+});
+
+// الخطة الموصى بها لشيخة
+app.get('/api/gworkspace/recommended-plan', (req, res) => {
+    const data = workspaceEngine.getRecommendedPlan();
+    res.json({ success: true, data, message: 'الخطة الموصى بها لشيخة: Business Standard', timestamp: new Date().toISOString() });
+});
+
+// قائمة التحقق الأمني
+app.get('/api/gworkspace/security-checklist', (req, res) => {
+    const data = workspaceEngine.getSecurityChecklist();
+    const critical = workspaceEngine.getCriticalSecurityItems();
+    res.json({ success: true, data: { all: data, critical }, message: 'قائمة التحقق الأمني الكاملة', timestamp: new Date().toISOString() });
+});
+
+// خطة التفعيل المرحلية لشيخة
+app.get('/api/gworkspace/activation-plan', (req, res) => {
+    const data = workspaceEngine.getActivationPlan();
+    res.json({ success: true, data, message: 'خطة تفعيل Google Workspace لشيخة — ٤ مراحل', timestamp: new Date().toISOString() });
+});
+
+// دليل مزامنة market@sheikha.top — DNS + MX + DKIM
+app.get('/api/gworkspace/sync-guide', (req, res) => {
+    const syncGuide = {
+        email: 'market@sheikha.top',
+        domain: 'sheikha.top',
+        status: 'يحتاج إعداد DNS لتوجيه البريد لـ Google Workspace',
+        steps: {
+            step1_verify_domain: {
+                title: 'التحقق من الدومين في Google Workspace',
+                url: 'https://admin.google.com/ac/domains/manage',
+                action: 'أضف سجل TXT في DNS دومين sheikha.top',
+                dns_record: { type: 'TXT', host: '@', value: 'google-site-verification=XXXXX', ttl: 3600 },
+                note: 'القيمة الفعلية تظهر في admin.google.com عند إضافة الدومين'
+            },
+            step2_mx_records: {
+                title: 'إعداد سجلات MX لاستقبال البريد',
+                url: 'https://admin.google.com/ac/apps/gmail/defaultrouting',
+                dns_records: [
+                    { priority: 1,  value: 'ASPMX.L.GOOGLE.COM',      ttl: 3600 },
+                    { priority: 5,  value: 'ALT1.ASPMX.L.GOOGLE.COM', ttl: 3600 },
+                    { priority: 5,  value: 'ALT2.ASPMX.L.GOOGLE.COM', ttl: 3600 },
+                    { priority: 10, value: 'ALT3.ASPMX.L.GOOGLE.COM', ttl: 3600 },
+                    { priority: 10, value: 'ALT4.ASPMX.L.GOOGLE.COM', ttl: 3600 }
+                ],
+                warning: 'احذف أي سجلات MX قديمة أولاً قبل إضافة هذه'
+            },
+            step3_spf: {
+                title: 'SPF — منع Spoofing البريد',
+                dns_record: { type: 'TXT', host: '@', value: 'v=spf1 include:_spf.google.com ~all', ttl: 3600 },
+                importance: 'يمنع انتحال هوية market@sheikha.top'
+            },
+            step4_dkim: {
+                title: 'DKIM — توقيع البريد رقمياً',
+                url: 'https://admin.google.com/ac/apps/gmail/authenticateemail',
+                action: 'Admin Console → Apps → Gmail → Authenticate Email → Generate DKIM Key → نسخ السجل → لصق في DNS',
+                dns_record: { type: 'TXT', host: 'google._domainkey', value: 'v=DKIM1; k=rsa; p=MIIBIjAN...', ttl: 3600 },
+                note: 'القيمة تُنسَخ من Admin Console مباشرة'
+            },
+            step5_dmarc: {
+                title: 'DMARC — سياسة الحماية الكاملة',
+                dns_record: { type: 'TXT', host: '_dmarc', value: 'v=DMARC1; p=quarantine; rua=mailto:market@sheikha.top; pct=100', ttl: 3600 },
+                importance: 'يأمر خوادم البريد برفض الرسائل المنتحلة لهويتك'
+            },
+            step6_create_account: {
+                title: 'إنشاء حساب market@sheikha.top في Workspace',
+                url: 'https://admin.google.com/ac/users',
+                action: 'Users → Add new user → First: Market → Last: Sheikha → Username: market → Domain: sheikha.top',
+                note: 'إذا كان الحساب موجوداً كـ Google Account شخصي → انتقل لـ Step 6b'
+            },
+            step6b_migrate_existing: {
+                title: 'إذا كان market@sheikha.top موجوداً كحساب Google شخصي',
+                options: [
+                    'Option A: استخدام Google Workspace Migration لنقل البيانات',
+                    'Option B: إنشاء الحساب في Workspace + نقل البيانات يدوياً',
+                    'Option C: نقل البريد عبر IMAP migration tool في Admin Console'
+                ],
+                migration_url: 'https://admin.google.com/ac/migration',
+                warning: '⚠️ النقل قد يستغرق ٢٤-٤٨ ساعة — لا تحذف الحساب القديم قبل اكتمال النقل'
+            },
+            step7_verify_test: {
+                title: 'اختبار التحقق الكامل',
+                tests: [
+                    'أرسل بريد اختبار من Gmail خارجي لـ market@sheikha.top',
+                    'تحقق من MX: mxtoolbox.com/SuperTool.aspx?action=mx:sheikha.top',
+                    'تحقق من SPF: mxtoolbox.com/SuperTool.aspx?action=spf:sheikha.top',
+                    'تحقق من DKIM: mail-tester.com',
+                    'تحقق من DMARC: mxtoolbox.com/SuperTool.aspx?action=dmarc:sheikha.top'
+                ],
+                tools: {
+                    mxtoolbox: 'https://mxtoolbox.com/SuperTool.aspx',
+                    mail_tester: 'https://www.mail-tester.com',
+                    google_admin: 'https://admin.google.com/ac/apps/gmail'
+                }
+            }
+        },
+        estimated_time: '٢-٤ ساعات (انتشار DNS يأخذ حتى ٤٨ ساعة)',
+        support: 'support.google.com/a/answer/140034 — دليل Google الرسمي للـ MX'
+    };
+    res.json({ success: true, data: syncGuide, message: 'دليل مزامنة market@sheikha.top مع Google Workspace', timestamp: new Date().toISOString() });
+});
+
+// ============================================================
+// routes محرك Workspace Engine الجديد
+// ============================================================
+app.get('/api/workspace/engine/stats', (req, res) => {
+    const data = workspaceEngine.getWorkspaceStats();
+    res.json({ success: true, data, message: 'إحصاءات Google Workspace لشيخة', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/workspace/engine/services', (req, res) => {
+    const data = workspaceEngine.getAllServices();
+    res.json({ success: true, data, message: 'كل خدمات Google Workspace — ١٦ خدمة', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/workspace/engine/services/:id', (req, res) => {
+    const data = workspaceEngine.getServiceById(req.params.id);
+    if (!data) return res.status(404).json({ success: false, message: 'الخدمة غير موجودة' });
+    res.json({ success: true, data, message: `تفاصيل خدمة: ${req.params.id}`, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/workspace/engine/category/:cat', (req, res) => {
+    const data = workspaceEngine.getServicesByCategory(req.params.cat);
+    res.json({ success: true, data, message: `خدمات تصنيف: ${req.params.cat}`, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/workspace/engine/plans', (req, res) => {
+    const data = workspaceEngine.getAllPlans();
+    res.json({ success: true, data, message: 'خطط Google Workspace وأسعارها', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/workspace/engine/plans/recommended', (req, res) => {
+    const data = workspaceEngine.getRecommendedPlan();
+    res.json({ success: true, data, message: 'الخطة الموصى بها لشيخة: Business Standard', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/workspace/engine/security', (req, res) => {
+    const data = workspaceEngine.getSecurityChecklist();
+    const critical = workspaceEngine.getCriticalSecurityItems();
+    res.json({ success: true, data, critical_count: critical.length, message: 'قائمة التحقق الأمني لـ market@sheikha.top', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/workspace/engine/activation', (req, res) => {
+    const data = workspaceEngine.getActivationPlan();
+    res.json({ success: true, data, message: 'خطة تفعيل Google Workspace لشيخة — ٤ مراحل', timestamp: new Date().toISOString() });
 });
 
 module.exports = app;
