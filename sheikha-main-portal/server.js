@@ -38662,6 +38662,157 @@ app.get('/api/card', (req, res) => {
     });
 });
 
+// ══════════════════════════════════════════════════════
+// المرحلة ٤٦ — Pilot + SEO + هوية حضارية + شراكات
+// بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+// ══════════════════════════════════════════════════════
+const pilotCompanies = require('./lib/sheikha-pilot-companies');
+const seoEngine      = require('./lib/sheikha-seo-engine');
+const identityEngine = require('./lib/sheikha-identity-engine');
+const partnersEngine = require('./lib/sheikha-partnerships-engine');
+
+// ── صفحة Pilot للشركات الكبرى ──────────────────────
+app.get('/بايلوت', (req, res) => {
+    res.sendFile('شيخة-بايلوت.html', { root: './public' });
+});
+app.get('/pilot', (req, res) => { res.redirect('/بايلوت'); });
+app.get('/تجربة', (req, res) => { res.redirect('/بايلوت'); });
+
+// ── صفحة الهوية الحضارية الجديدة ───────────────────
+app.get('/هوية', (req, res) => {
+    res.sendFile('شيخة-هويتي.html', { root: './public' });
+});
+app.get('/identity', (req, res) => { res.redirect('/هوية'); });
+app.get('/civilization', (req, res) => { res.redirect('/هوية'); });
+
+// ── sitemap.xml الديناميكي ──────────────────────────
+app.get('/sitemap.xml', (req, res) => {
+    res.set('Content-Type', 'application/xml');
+    res.send(seoEngine.generateSitemap('https://sheikha.top'));
+});
+
+// ── robots.txt ──────────────────────────────────────
+app.get('/robots.txt', (req, res) => {
+    res.set('Content-Type', 'text/plain');
+    res.send(seoEngine.generateRobotsTxt('https://sheikha.top'));
+});
+
+// ── API: Pilot Companies ────────────────────────────
+app.get('/api/pilot/companies', (req, res) => {
+    res.json({ success: true, data: pilotCompanies.getPilotCompanies(), message: 'شركات برنامج Pilot', timestamp: new Date().toISOString() });
+});
+app.get('/api/pilot/active', (req, res) => {
+    res.json({ success: true, data: pilotCompanies.getActivePilots(), message: 'شركات Pilot الفعَّالة', timestamp: new Date().toISOString() });
+});
+app.get('/api/pilot/companies/:id', (req, res) => {
+    const profile = pilotCompanies.getProfile(req.params.id);
+    if (!profile) return res.status(404).json({ success: false, message: 'الشركة غير موجودة', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: profile, message: `ملف شركة ${req.params.id}`, timestamp: new Date().toISOString() });
+});
+app.get('/api/pilot/erp', (req, res) => {
+    res.json({ success: true, data: pilotCompanies.getERPStrategies(), message: 'استراتيجيات تكامل ERP', timestamp: new Date().toISOString() });
+});
+app.get('/api/pilot/phases', (req, res) => {
+    res.json({ success: true, data: pilotCompanies.getPilotPhases(), message: 'مراحل برنامج Pilot', timestamp: new Date().toISOString() });
+});
+app.get('/api/pilot/stats', (req, res) => {
+    res.json({ success: true, data: pilotCompanies.getEngineStats(), message: 'إحصائيات Pilot', timestamp: new Date().toISOString() });
+});
+
+// ── UX Monitor API ───────────────────────────────────
+app.post('/api/pilot/ux/session/start', (req, res) => {
+    const { companyId, userId } = req.body || {};
+    if (!companyId || !userId) return res.status(400).json({ success: false, message: 'يلزم companyId و userId', timestamp: new Date().toISOString() });
+    const sessionId = pilotCompanies.startUXSession(companyId, userId);
+    res.json({ success: true, data: { sessionId }, message: 'تم بدء جلسة UX', timestamp: new Date().toISOString() });
+});
+app.post('/api/pilot/ux/step', (req, res) => {
+    const { sessionId, step, data } = req.body || {};
+    const entry = pilotCompanies.recordUXStep(sessionId, step, data);
+    res.json({ success: !!entry, data: entry, timestamp: new Date().toISOString() });
+});
+app.post('/api/pilot/ux/issue', (req, res) => {
+    const { sessionId, type, detail } = req.body || {};
+    const fix = pilotCompanies.reportUXIssue(sessionId, type, detail);
+    res.json({ success: true, data: { fix }, message: fix ? `إصلاح آلي: ${fix.action}` : 'تم تسجيل المشكلة', timestamp: new Date().toISOString() });
+});
+app.get('/api/pilot/ux/report', (req, res) => {
+    res.json({ success: true, data: pilotCompanies.getUXReport(), message: 'تقرير UX لحظي', timestamp: new Date().toISOString() });
+});
+
+// ── API: SEO ─────────────────────────────────────────
+app.get('/api/seo/structured-data', (req, res) => {
+    res.json({ success: true, data: seoEngine.getStructuredData(), message: 'البيانات الهيكلية لـ Google', timestamp: new Date().toISOString() });
+});
+app.get('/api/seo/meta/:page', (req, res) => {
+    res.json({ success: true, data: seoEngine.getMetaTags(req.params.page), message: `Meta tags — ${req.params.page}`, timestamp: new Date().toISOString() });
+});
+app.get('/api/seo/keywords', (req, res) => {
+    res.json({ success: true, data: seoEngine.getKeywordStrategy(), message: 'استراتيجية الكلمات المفتاحية', timestamp: new Date().toISOString() });
+});
+app.get('/api/seo/distribution', (req, res) => {
+    res.json({ success: true, data: seoEngine.getDistributionPlan(), message: 'خطة التوزيع والانتشار الرقمي', timestamp: new Date().toISOString() });
+});
+app.get('/api/seo/ai-strategy', (req, res) => {
+    res.json({ success: true, data: seoEngine.getAIContentStrategy(), message: 'استراتيجية الظهور في AI Engines', timestamp: new Date().toISOString() });
+});
+app.get('/api/seo/stats', (req, res) => {
+    res.json({ success: true, data: seoEngine.getEngineStats(), message: 'إحصائيات SEO', timestamp: new Date().toISOString() });
+});
+
+// ── API: Identity ─────────────────────────────────────
+app.get('/api/identity/full', (req, res) => {
+    res.json({ success: true, data: identityEngine.getFullIdentity(), message: 'الهوية الحضارية الكاملة', timestamp: new Date().toISOString() });
+});
+app.get('/api/identity/roots', (req, res) => {
+    res.json({ success: true, data: identityEngine.getCivilizationalRoots(), message: 'الجذور الحضارية', timestamp: new Date().toISOString() });
+});
+app.get('/api/identity/future', (req, res) => {
+    res.json({ success: true, data: identityEngine.getFutureVision(), message: 'رؤية المستقبل — الحلم الحضاري', timestamp: new Date().toISOString() });
+});
+app.get('/api/identity/stats', (req, res) => {
+    res.json({ success: true, data: identityEngine.getEngineStats(), message: 'إحصائيات محرك الهوية', timestamp: new Date().toISOString() });
+});
+
+// ── API: Partnerships ─────────────────────────────────
+app.get('/api/partnerships/strategic', (req, res) => {
+    res.json({ success: true, data: partnersEngine.getStrategicPartners(), message: 'الشركاء الاستراتيجيون', timestamp: new Date().toISOString() });
+});
+app.get('/api/partnerships/investment', (req, res) => {
+    res.json({ success: true, data: partnersEngine.getInvestmentPhases(), message: 'مراحل الاستثمار', timestamp: new Date().toISOString() });
+});
+app.get('/api/partnerships/sharia', (req, res) => {
+    res.json({ success: true, data: partnersEngine.getShariaPrinciples(), message: 'مبادئ الشراكة الشرعية', timestamp: new Date().toISOString() });
+});
+app.get('/api/partnerships/go-to-market', (req, res) => {
+    res.json({ success: true, data: partnersEngine.getGoToMarket(), message: 'استراتيجية دخول السوق', timestamp: new Date().toISOString() });
+});
+app.get('/api/partnerships/stats', (req, res) => {
+    res.json({ success: true, data: partnersEngine.getEngineStats(), message: 'إحصائيات محرك الشراكات', timestamp: new Date().toISOString() });
+});
+
+// ── إحصائيات المرحلة ٤٦ الشاملة ──────────────────────
+app.get('/api/phase46/stats', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            phase: 46,
+            title: 'Pilot + SEO + هوية حضارية + شراكات',
+            engines: {
+                pilot_companies: pilotCompanies.getEngineStats(),
+                seo: seoEngine.getEngineStats(),
+                identity: identityEngine.getEngineStats(),
+                partnerships: partnersEngine.getEngineStats()
+            },
+            new_pages: ['/بايلوت', '/هوية'],
+            new_routes: ['/sitemap.xml', '/robots.txt', '/api/pilot/*', '/api/seo/*', '/api/identity/*', '/api/partnerships/*'],
+            quran: 'وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ — التوبة:105'
+        },
+        message: 'المرحلة ٤٦: Pilot الشركات الكبرى + SEO + الهوية الحضارية + الشراكات الاستراتيجية',
+        timestamp: new Date().toISOString()
+    });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
