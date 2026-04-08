@@ -38235,6 +38235,349 @@ app.get('/api/zakat/hawl', (req, res) => {
     res.json({ success: true, data: result, message: 'حساب موعد الحول الهجري', timestamp: new Date().toISOString() });
 });
 
+// ============================================================
+// المرحلة ٤٢ — التكامل الرقمي الشامل
+// Google Cloud + Gemini + Notifications + Microsoft + Mobile
+// وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا — البقرة:31
+// ============================================================
+const gcpEngine = require('./lib/sheikha-google-cloud-engine');
+const geminiEngine = require('./lib/sheikha-gemini-engine');
+const notifEngine = require('./lib/sheikha-notifications-engine');
+const msEngine = require('./lib/sheikha-microsoft-engine');
+const mobileEngine = require('./lib/sheikha-mobile-hub-engine');
+
+// --- Google Cloud Platform ---
+app.get('/api/integration/gcp/stats', (req, res) => {
+    const stats = gcpEngine.getEngineStats();
+    const plan = gcpEngine.getActivationPlan();
+    const commands = gcpEngine.getActivationCommands();
+    const cost = gcpEngine.getCostEstimate(10);
+    res.json({ success: true, data: { stats, plan, commands, cost }, message: 'إحصائيات Google Cloud Platform', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/integration/gcp/services', (req, res) => {
+    const services = gcpEngine.getAllServices();
+    res.json({ success: true, data: { services }, message: 'خدمات Google Cloud', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/integration/gcp/workspace', (req, res) => {
+    const assessment = gcpEngine.getWorkspaceAssessment();
+    res.json({ success: true, data: assessment, message: 'تقييم Google Workspace Standard', timestamp: new Date().toISOString() });
+});
+
+// --- Gemini AI ---
+app.get('/api/integration/gemini/stats', (req, res) => {
+    const stats = geminiEngine.getEngineStats();
+    const models = geminiEngine.getAllModels();
+    const personas = geminiEngine.getAllPersonas();
+    const templates = geminiEngine.getPromptTemplates();
+    res.json({ success: true, data: { stats, models, personas, templates }, message: 'محرك Gemini AI', timestamp: new Date().toISOString() });
+});
+
+app.post('/api/integration/gemini/chat', async (req, res) => {
+    const { message, persona_id, model } = req.body || {};
+    if (!message || typeof message !== 'string' || message.trim().length === 0) {
+        return res.status(400).json({ success: false, message: 'يرجى إرسال رسالة', timestamp: new Date().toISOString() });
+    }
+    if (message.length > 2000) {
+        return res.status(400).json({ success: false, message: 'الرسالة طويلة جداً (الحد 2000 حرف)', timestamp: new Date().toISOString() });
+    }
+    try {
+        const result = await geminiEngine.callGemini({ user_message: message.trim(), persona_id, model });
+        res.json({ success: true, data: result, message: 'استجابة Gemini AI', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(502).json({ success: false, message: 'فشل الاتصال بـ Gemini — تأكد من GEMINI_API_KEY', timestamp: new Date().toISOString() });
+    }
+});
+
+// --- التنبيهات والإشعارات ---
+app.get('/api/integration/notifications/stats', (req, res) => {
+    const stats = notifEngine.getEngineStats();
+    const channels = notifEngine.getAllChannels();
+    const templates = notifEngine.getMessageTemplates();
+    res.json({ success: true, data: { stats, channels, templates }, message: 'محرك التنبيهات', timestamp: new Date().toISOString() });
+});
+
+app.post('/api/integration/notifications/otp/send', async (req, res) => {
+    const { phone } = req.body || {};
+    if (!phone || !/^\+\d{10,15}$/.test(phone)) {
+        return res.status(400).json({ success: false, message: 'يرجى إدخال رقم هاتف صحيح بصيغة +966XXXXXXXXX', timestamp: new Date().toISOString() });
+    }
+    try {
+        const result = await notifEngine.sendOTPSMS(phone);
+        res.json({ success: true, data: result, message: 'تم إرسال رمز التحقق', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(502).json({ success: false, message: 'فشل إرسال OTP — تأكد من إعداد SMS', timestamp: new Date().toISOString() });
+    }
+});
+
+app.post('/api/integration/notifications/otp/verify', (req, res) => {
+    const { phone, otp } = req.body || {};
+    if (!phone || !otp) {
+        return res.status(400).json({ success: false, message: 'يرجى إدخال الهاتف والرمز', timestamp: new Date().toISOString() });
+    }
+    const sanitizedOtp = String(otp).replace(/\D/g, '').slice(0, 8);
+    const result = notifEngine.verifyOTP(phone, sanitizedOtp);
+    res.json({ success: true, data: result, message: result.valid ? 'تم التحقق بنجاح' : 'فشل التحقق', timestamp: new Date().toISOString() });
+});
+
+// --- Microsoft & Apple ---
+app.get('/api/integration/microsoft/stats', (req, res) => {
+    const stats = msEngine.getEngineStats();
+    const matrix = msEngine.getIntegrationMatrix();
+    const m365 = msEngine.getMicrosoft365();
+    const apple = msEngine.getAppleIntegration();
+    res.json({ success: true, data: { stats, matrix, m365, apple }, message: 'محرك Microsoft & Apple', timestamp: new Date().toISOString() });
+});
+
+// --- Mobile & PWA ---
+app.get('/api/integration/mobile/stats', (req, res) => {
+    const stats = mobileEngine.getEngineStats();
+    const manifest = mobileEngine.getPWAManifest();
+    const checklist = mobileEngine.getPWAChecklist();
+    const twa = mobileEngine.getTWASteps();
+    const ksa = mobileEngine.getKSARequirements();
+    res.json({ success: true, data: { stats, manifest, checklist, twa, ksa }, message: 'محرك الجوال والمتاجر', timestamp: new Date().toISOString() });
+});
+
+// --- إحصائيات موحدة ---
+app.get('/api/integration/stats', (req, res) => {
+    const gcp = gcpEngine.getEngineStats();
+    const gem = geminiEngine.getEngineStats();
+    const notif = notifEngine.getEngineStats();
+    const ms = msEngine.getEngineStats();
+    const mob = mobileEngine.getEngineStats();
+    res.json({
+        success: true,
+        data: {
+            phase: 42,
+            engines: { gcp, gemini: gem, notifications: notif, microsoft: ms, mobile: mob },
+            summary: {
+                gcp_services: gcp.services_count,
+                ai_models: gem.models_available,
+                notif_channels: notif.channels,
+                auth_providers: ms.auth_providers,
+                mobile_stores: mob.play_stores
+            }
+        },
+        message: 'المرحلة ٤٢ — التكامل الرقمي الشامل',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// صفحة التكامل الرقمي
+app.get('/تكامل', (req, res) => {
+    res.sendFile('شيخة-التكامل-الرقمي.html', { root: './public' });
+});
+
+// ════════════════════════════════════════════════════════════════
+// المرحلة ٤٣ — الكون التقني: الأقمار الصناعية + شركات التقنية
+// وَفِي السَّمَاءِ رِزْقُكُمْ وَمَا تُوعَدُونَ — الذاريات:22
+// وَأَعِدُّوا لَهُمْ مَا اسْتَطَعْتُمْ مِنْ قُوَّةٍ — الأنفال:60
+// ════════════════════════════════════════════════════════════════
+const satellitesEngine = require('./lib/sheikha-satellites-engine');
+const techUniverseEngine = require('./lib/sheikha-tech-universe-engine');
+
+// ─ إحصائيات الأقمار الصناعية
+app.get('/api/satellites/stats', (req, res) => {
+    res.json({ success: true, data: satellitesEngine.getEngineStats(), message: 'إحصائيات محرك الأقمار الصناعية', timestamp: new Date().toISOString() });
+});
+
+// ─ جميع شبكات الأقمار (20 شبكة)
+app.get('/api/satellites/networks', (req, res) => {
+    const networks = satellitesEngine.getAllNetworks();
+    res.json({ success: true, data: { count: networks.length, networks }, message: `${networks.length} شبكة أقمار صناعية`, timestamp: new Date().toISOString() });
+});
+
+// ─ شبكة بالرقم
+app.get('/api/satellites/networks/:id', (req, res) => {
+    const network = satellitesEngine.getNetworkById(parseInt(req.params.id));
+    if (!network) return res.status(404).json({ success: false, message: 'شبكة غير موجودة', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: network, timestamp: new Date().toISOString() });
+});
+
+// ─ الفئات والمدارات
+app.get('/api/satellites/categories', (req, res) => {
+    res.json({ success: true, data: satellitesEngine.getCategories(), timestamp: new Date().toISOString() });
+});
+
+// ─ خدمات شيخة الفضائية
+app.get('/api/satellites/services', (req, res) => {
+    res.json({ success: true, data: satellitesEngine.getSheikhaServices(), message: 'خدمات شيخة الفضائية', timestamp: new Date().toISOString() });
+});
+
+// ─ الحزم الفضائية
+app.get('/api/satellites/bundles', (req, res) => {
+    res.json({ success: true, data: satellitesEngine.getBundles(), message: 'حزم شيخة للاتصال الفضائي', timestamp: new Date().toISOString() });
+});
+
+// ─ الشريعة والأقمار
+app.get('/api/satellites/sharia', (req, res) => {
+    res.json({ success: true, data: satellitesEngine.getShariaSatellite(), timestamp: new Date().toISOString() });
+});
+
+// ─ إحصائيات الشركات التقنية
+app.get('/api/tech/stats', (req, res) => {
+    res.json({ success: true, data: techUniverseEngine.getEngineStats(), message: 'إحصائيات محرك الشركات التقنية', timestamp: new Date().toISOString() });
+});
+
+// ─ جميع الشركات (11 شركة)
+app.get('/api/tech/companies', (req, res) => {
+    const companies = techUniverseEngine.getAllCompanies();
+    res.json({ success: true, data: { count: companies.length, companies }, message: `${companies.length} شركة تقنية كونية`, timestamp: new Date().toISOString() });
+});
+
+// ─ شركة بالرقم
+app.get('/api/tech/companies/:id', (req, res) => {
+    const company = techUniverseEngine.getCompanyById(parseInt(req.params.id));
+    if (!company) return res.status(404).json({ success: false, message: 'شركة غير موجودة', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: company, timestamp: new Date().toISOString() });
+});
+
+// ─ خوادم الخلفية
+app.get('/api/tech/background-services', (req, res) => {
+    res.json({ success: true, data: techUniverseEngine.getBackgroundServices(), message: 'خوادم شيخة الخلفية النشطة', timestamp: new Date().toISOString() });
+});
+
+// ─ الشريعة والتقنية
+app.get('/api/tech/sharia', (req, res) => {
+    res.json({ success: true, data: techUniverseEngine.getShariaTech(), timestamp: new Date().toISOString() });
+});
+
+// ─ إحصائيات المرحلة ٤٣ الموحدة
+app.get('/api/phase43/stats', (req, res) => {
+    const sat = satellitesEngine.getEngineStats();
+    const tech = techUniverseEngine.getEngineStats();
+    res.json({
+        success: true,
+        data: {
+            phase: 43,
+            title: 'الكون التقني — الأقمار الصناعية والشركات الكبرى',
+            quran: 'وَفِي السَّمَاءِ رِزْقُكُمْ وَمَا تُوعَدُونَ — الذاريات:22',
+            satellites: sat,
+            tech_universe: tech,
+            combined: {
+                satellite_networks: sat.satellite_networks,
+                tech_companies: tech.companies,
+                background_services: tech.background_services,
+                total_entities: sat.satellite_networks + tech.companies
+            }
+        },
+        message: `المرحلة ٤٣: ${sat.satellite_networks} شبكة + ${tech.companies} شركة تقنية`,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─ صفحة الكون التقني (نفس صفحة التكامل الرقمي الشاملة)
+app.get('/كون', (req, res) => {
+    res.sendFile('شيخة-التكامل-الرقمي.html', { root: './public' });
+});
+
+// ════════════════════════════════════════════════════════════════
+// المرحلة ٤٤ — الملكية الفكرية + Microsoft 365
+// وَقُل رَّبِّ زِدْنِي عِلْمًا — طه:114
+// وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى — المائدة:2
+// ════════════════════════════════════════════════════════════════
+const ipEngine = require('./lib/sheikha-ip-engine');
+const m365Engine = require('./lib/sheikha-m365-engine');
+
+// ─ إحصائيات الملكية الفكرية
+app.get('/api/ip/stats', (req, res) => {
+    res.json({ success: true, data: ipEngine.getEngineStats(), message: 'محرك الملكية الفكرية — شيخة', timestamp: new Date().toISOString() });
+});
+
+// ─ إعلان الملكية الكامل
+app.get('/api/ip/declaration', (req, res) => {
+    res.json({ success: true, data: ipEngine.getFullDocument(), message: 'وثيقة الملكية الفكرية الكاملة', timestamp: new Date().toISOString() });
+});
+
+// ─ حظر الهندسة العكسية
+app.get('/api/ip/anti-reverse-engineering', (req, res) => {
+    res.json({ success: true, data: ipEngine.getAntiReverseEngineering(), timestamp: new Date().toISOString() });
+});
+
+// ─ نموذج الشراكة
+app.get('/api/ip/partnership', (req, res) => {
+    res.json({ success: true, data: ipEngine.getPartnershipModel(), timestamp: new Date().toISOString() });
+});
+
+// ─ التحكم بالأجهزة بدون شريحة
+app.get('/api/ip/device-control', (req, res) => {
+    res.json({ success: true, data: ipEngine.getDeviceControl(), timestamp: new Date().toISOString() });
+});
+
+// ─ حراسة الـ APIs المجانية
+app.get('/api/ip/free-tier-guards', (req, res) => {
+    res.json({ success: true, data: ipEngine.getFreeTierGuards(), timestamp: new Date().toISOString() });
+});
+
+// ─ الشريعة والملكية الفكرية
+app.get('/api/ip/sharia', (req, res) => {
+    res.json({ success: true, data: ipEngine.getShariaIP(), timestamp: new Date().toISOString() });
+});
+
+// ─ بيانات حساب Microsoft 365
+app.get('/api/m365/profile', (req, res) => {
+    res.json({ success: true, data: m365Engine.getAccountProfile(), message: 'حساب شيخة على Microsoft 365', timestamp: new Date().toISOString() });
+});
+
+// ─ قنوات Teams
+app.get('/api/m365/teams', (req, res) => {
+    const config = m365Engine.getTeamsConfig();
+    res.json({ success: true, data: config, timestamp: new Date().toISOString() });
+});
+
+// ─ إرسال تنبيه لـ Teams
+app.post('/api/m365/teams/notify', async (req, res) => {
+    const { title, message, color } = req.body;
+    if (!title || !message) return res.status(400).json({ success: false, message: 'يجب توفير العنوان والرسالة', timestamp: new Date().toISOString() });
+    const result = await m365Engine.sendTeamsNotification(title, message, color);
+    res.json({ success: result.success, data: result, message: result.message, timestamp: new Date().toISOString() });
+});
+
+// ─ بيانات Exchange/البريد
+app.get('/api/m365/exchange', (req, res) => {
+    res.json({ success: true, data: m365Engine.getExchangeConfig(), timestamp: new Date().toISOString() });
+});
+
+// ─ SharePoint
+app.get('/api/m365/sharepoint', (req, res) => {
+    res.json({ success: true, data: m365Engine.getSharePointConfig(), timestamp: new Date().toISOString() });
+});
+
+// ─ قدرات المزامنة
+app.get('/api/m365/sync', (req, res) => {
+    res.json({ success: true, data: m365Engine.getSyncCapabilities(), timestamp: new Date().toISOString() });
+});
+
+// ─ خطوات التفعيل
+app.get('/api/m365/activation-steps', (req, res) => {
+    res.json({ success: true, data: m365Engine.getActivationSteps(), timestamp: new Date().toISOString() });
+});
+
+// ─ الإعداد الكامل Microsoft 365
+app.get('/api/m365/full-config', (req, res) => {
+    res.json({ success: true, data: m365Engine.getFullConfig(), message: 'إعداد Microsoft 365 الكامل', timestamp: new Date().toISOString() });
+});
+
+// ─ إحصائيات المرحلة ٤٤ الموحدة
+app.get('/api/phase44/stats', (req, res) => {
+    const ip = ipEngine.getEngineStats();
+    const m365 = m365Engine.getEngineStats();
+    res.json({
+        success: true,
+        data: {
+            phase: 44,
+            title: 'الملكية الفكرية + Microsoft 365',
+            ip_engine: ip,
+            m365_engine: m365,
+            ms_account: 'market@sheikhatop.onmicrosoft.com'
+        },
+        message: 'المرحلة ٤٤: الملكية الفكرية + تكامل Microsoft 365',
+        timestamp: new Date().toISOString()
+    });
+});
+
 module.exports = app;
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
