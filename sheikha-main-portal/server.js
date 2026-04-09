@@ -38670,6 +38670,8 @@ const pilotCompanies = require('./lib/sheikha-pilot-companies');
 const seoEngine      = require('./lib/sheikha-seo-engine');
 const identityEngine = require('./lib/sheikha-identity-engine');
 const partnersEngine = require('./lib/sheikha-partnerships-engine');
+const tradeJourney   = require('./lib/sheikha-trade-journey');
+const subscriptions  = require('./lib/sheikha-subscriptions');
 
 // ── صفحة Pilot للشركات الكبرى ──────────────────────
 app.get('/بايلوت', (req, res) => {
@@ -38809,6 +38811,106 @@ app.get('/api/phase46/stats', (req, res) => {
             quran: 'وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ — التوبة:105'
         },
         message: 'المرحلة ٤٦: Pilot الشركات الكبرى + SEO + الهوية الحضارية + الشراكات الاستراتيجية',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٤٧ — رحلة شيخة التجارية الكونية + اللوجستيات + الاشتراكات
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── صفحة اللوجستيات ─────────────────────────────────
+app.get('/لوجستيات', (req, res) => {
+    res.sendFile('شيخة-لوجستيات.html', { root: './public' });
+});
+app.get('/logistics', (req, res) => { res.redirect('/لوجستيات'); });
+app.get('/trade', (req, res) => { res.redirect('/لوجستيات'); });
+
+// ── Trade Journey APIs ───────────────────────────────
+app.get('/api/trade/profile', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getFullProfile(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/readiness', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getReadinessChecklist(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/carriers', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getCarriers(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/ports', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getPorts(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/labs', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getLabs(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/certificates', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getCertificates(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/platforms', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getPlatforms(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/documents', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getDocuments(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/hs-codes', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getHSCodes(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/containers', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getContainers(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/free-zones', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getFreeZones(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/indices', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getIndices(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/sharia', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getSharia(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/architecture', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getArchitecture(), timestamp: new Date().toISOString() });
+});
+app.get('/api/trade/stats', (req, res) => {
+    res.json({ success: true, data: tradeJourney.getEngineStats(), timestamp: new Date().toISOString() });
+});
+
+// ── Subscriptions APIs ───────────────────────────────
+app.get('/api/subscriptions', (req, res) => {
+    res.json({ success: true, data: subscriptions.getSubscriptions(), timestamp: new Date().toISOString() });
+});
+app.get('/api/subscriptions/urgent', (req, res) => {
+    res.json({ success: true, data: subscriptions.getUrgentPayments(), timestamp: new Date().toISOString() });
+});
+app.get('/api/subscriptions/calendar', (req, res) => {
+    res.json({ success: true, data: subscriptions.getPaymentCalendar(), timestamp: new Date().toISOString() });
+});
+app.get('/api/subscriptions/alternatives', (req, res) => {
+    res.json({ success: true, data: subscriptions.getHostingerAlternatives(), timestamp: new Date().toISOString() });
+});
+app.get('/api/subscriptions/migration', (req, res) => {
+    res.json({ success: true, data: subscriptions.getMigrationPlan(), timestamp: new Date().toISOString() });
+});
+app.get('/api/subscriptions/stats', (req, res) => {
+    res.json({ success: true, data: subscriptions.getEngineStats(), timestamp: new Date().toISOString() });
+});
+
+// ── Phase 47 Combined Status ─────────────────────────
+app.get('/api/phase47/stats', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            phase: 47,
+            title: 'رحلة التجارة الكونية + اللوجستيات + الاشتراكات',
+            engines: {
+                trade_journey: tradeJourney.getEngineStats(),
+                subscriptions: subscriptions.getEngineStats()
+            },
+            new_pages: ['/لوجستيات'],
+            new_routes: [
+                '/api/trade/*', '/api/subscriptions/*', '/api/phase47/*'
+            ],
+            quran: 'وَيُحِلُّ لَهُمُ الطَّيِّبَاتِ وَيُحَرِّمُ عَلَيْهِمُ الْخَبَائِثَ — الأعراف:157'
+        },
+        message: 'المرحلة ٤٧: رحلة التجارة الكونية + اللوجستيات الكاملة + الاشتراكات',
         timestamp: new Date().toISOString()
     });
 });

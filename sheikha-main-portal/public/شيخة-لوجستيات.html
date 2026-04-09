@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="رحلة شيخة التجارية الكونية — سلاسل الإمداد واللوجستيات والشحن والمعادن والسكراب وفق الكتاب والسنة">
+    <meta name="keywords" content="شيخة لوجستيات, رحلة تجارية, سلاسل إمداد, شحن معادن, موانئ سعودية, شريعة إسلامية">
+    <title>رحلة شيخة التجارية | شيخة — منظومة التجارة الإسلامية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════
+           المتغيرات والأساس
+        ═══════════════════════════════════════════ */
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5D96B;
+            --copper: #B87333;
+            --dark-bg: #050810;
+            --dark-card: #0A0F1E;
+            --dark-border: #1A2040;
+            --dark-surface: #0F1628;
+            --text-primary: #F0E8D5;
+            --text-muted: #8A9BBF;
+            --text-gold: #D4AF37;
+            --green: #2ECC71;
+            --red: #E74C3C;
+            --blue: #3498DB;
+            --font-main: 'Tajawal', sans-serif;
+            --font-quran: 'Scheherazade New', serif;
+            --radius: 12px;
+            --shadow: 0 4px 24px rgba(212,175,55,0.08);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-main);
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            direction: rtl;
+            line-height: 1.7;
+        }
+        /* ═══════════════════════════════════════════
+           هيدر شريط التنقل
+        ═══════════════════════════════════════════ */
+        .site-header {
+            position: fixed;
+            top: 0; right: 0; left: 0;
+            z-index: 100;
+            background: rgba(5,8,16,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212,175,55,0.15);
+            padding: 12px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .site-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .site-logo img { width: 36px; height: 36px; }
+        .site-logo span { font-size: 1.2rem; font-weight: 800; color: var(--gold); }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        /* ═══════════════════════════════════════════
+           هيرو - القسم الرئيسي
+        ═══════════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            background: radial-gradient(ellipse 80% 60% at 50% 20%, rgba(212,175,55,0.06) 0%, transparent 70%),
+                        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(184,115,51,0.04) 0%, transparent 60%),
+                        var(--dark-bg);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+        .hero-content { position: relative; max-width: 900px; }
+        .basmala {
+            font-family: var(--font-quran);
+            font-size: 2.2rem;
+            color: var(--gold-light);
+            margin-bottom: 20px;
+            text-shadow: 0 0 40px rgba(212,175,55,0.3);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 50px;
+            padding: 6px 20px;
+            font-size: 0.85rem;
+            color: var(--gold);
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--copper) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin: 0 auto 40px;
+        }
+        /* شارات العملاء */
+        .client-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        .client-badge {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .client-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+        /* أزرار الهيرو */
+        .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--copper) 100%);
+            color: #050810;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            color: var(--gold);
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 1px solid var(--gold);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-outline:hover { background: rgba(212,175,55,0.08); }
+        /* ═══════════════════════════════════════════
+           إحصاءات اللحظية
+        ═══════════════════════════════════════════ */
+        .live-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            max-width: 900px;
+            margin: 40px auto 0;
+        }
+        .stat-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--gold);
+            display: block;
+        }
+        .stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+        /* ═══════════════════════════════════════════
+           القسم العام
+        ═══════════════════════════════════════════ */
+        .section {
+            padding: 80px 24px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .section-tag {
+            display: inline-block;
+            background: rgba(212,175,55,0.1);
+            color: var(--gold);
+            border: 1px solid rgba(212,175,55,0.25);
+            border-radius: 50px;
+            padding: 4px 16px;
+            font-size: 0.78rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        .section-title span { color: var(--gold); }
+        .section-desc { color: var(--text-muted); font-size: 1rem; max-width: 680px; margin: 0 auto; }
+        /* ═══════════════════════════════════════════
+           أكورديون - قسم سلاسل الإمداد
+        ═══════════════════════════════════════════ */
+        .supply-layers { display: flex; flex-direction: column; gap: 12px; }
+        .layer-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .layer-card:hover { border-color: rgba(212,175,55,0.3); }
+        .layer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .layer-title-wrap { display: flex; align-items: center; gap: 16px; }
+        .layer-num {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.9rem; color: #050810;
+            flex-shrink: 0;
+        }
+        .layer-name { font-weight: 700; font-size: 1rem; color: var(--text-primary); }
+        .layer-en { font-size: 0.78rem; color: var(--text-muted); }
+        .layer-arrow { color: var(--text-muted); transition: transform 0.25s; font-size: 1.2rem; }
+        .layer-card.open .layer-arrow { transform: rotate(180deg); }
+        .layer-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+        .layer-card.open .layer-body { max-height: 600px; }
+        .layer-content { padding: 0 24px 24px; }
+        .layer-steps { display: flex; flex-wrap: wrap; gap: 8px; }
+        .layer-step {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+        .layer-step.gold-step { border-color: rgba(212,175,55,0.25); color: var(--gold); }
+        /* ═══════════════════════════════════════════
+           بطاقات الناقلين
+        ═══════════════════════════════════════════ */
+        .carriers-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; justify-content: center; }
+        .tab-btn {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 8px 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-size: 0.88rem;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: rgba(212,175,55,0.12);
+            border-color: var(--gold);
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .carriers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+        .carrier-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius);
+            padding: 20px;
+            transition: all 0.2s;
+        }
+        .carrier-card:hover {
+            border-color: rgba(212,175,55,0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        .carrier-name { font-weight: 700; font-size: 1rem; margin-bottom: 4px; color: var(--text-primary); }
+        .carrier-country { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; }
+        .carrier-code {
+            display: inline-block;
+            background: rgba(212,175,55,0.1);
+            color: var(--gold);
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+        .carrier-services { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 12px; }
+        .carrier-tag {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+        /* ═══════════════════════════════════════════
+           جدول الموانئ
+        ═══════════════════════════════════════════ */
+        .ports-table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--dark-border); }
+        table { width: 100%; border-collapse: collapse; }
+        thead { background: var(--dark-surface); }
+        thead th {
+            padding: 14px 20px;
+            text-align: right;
+            font-size: 0.82rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+        tbody tr { border-top: 1px solid var(--dark-border); transition: background 0.15s; }
+        tbody tr:hover { background: var(--dark-surface); }
+        tbody td { padding: 14px 20px; font-size: 0.88rem; color: var(--text-muted); }
+        tbody td:first-child { color: var(--text-primary); font-weight: 600; }
+        .badge-port {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            border: 1px solid;
+        }
+        .badge-port.saudi { color: var(--green); border-color: rgba(46,204,113,0.3); }
+        .badge-port.gcc { color: var(--blue); border-color: rgba(52,152,219,0.3); }
+        .badge-port.global { color: var(--gold); border-color: rgba(212,175,55,0.3); }
+        /* ═══════════════════════════════════════════
+           بطاقات الشهادات
+        ═══════════════════════════════════════════ */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
+        }
+        .cert-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius);
+            padding: 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .cert-icon {
+            width: 40px; height: 40px;
+            border-radius: 8px;
+            background: rgba(212,175,55,0.1);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .cert-name { font-weight: 700; font-size: 0.9rem; color: var(--text-primary); }
+        .cert-type { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+        .cert-issuer { font-size: 0.75rem; color: var(--gold); margin-top: 4px; }
+        /* ═══════════════════════════════════════════
+           مسار الوثائق
+        ═══════════════════════════════════════════ */
+        .docs-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            justify-content: center;
+            align-items: center;
+        }
+        .doc-step {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            text-align: center;
+            min-width: 140px;
+        }
+        .doc-step-icon { font-size: 1.8rem; margin-bottom: 8px; }
+        .doc-step-name { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
+        .doc-step-detail { font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; }
+        .doc-arrow {
+            color: var(--gold);
+            font-size: 1.4rem;
+            padding: 0 8px;
+        }
+        /* ═══════════════════════════════════════════
+           مؤشرات السوق اللحظية
+        ═══════════════════════════════════════════ */
+        .indices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .index-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius);
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+        .index-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--copper));
+        }
+        .index-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .index-name { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); }
+        .index-code { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.5px; }
+        .index-value { font-size: 2rem; font-weight: 800; color: var(--gold); }
+        .index-change {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 0.82rem;
+            margin-top: 4px;
+        }
+        .index-change.up { color: var(--green); }
+        .index-change.down { color: var(--red); }
+        .index-type { font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; }
+        /* ═══════════════════════════════════════════
+           قسم الشريعة
+        ═══════════════════════════════════════════ */
+        .sharia-section {
+            background: linear-gradient(135deg, rgba(212,175,55,0.06) 0%, rgba(5,8,16,0) 100%);
+            border: 1px solid rgba(212,175,55,0.15);
+            border-radius: 20px;
+            padding: 48px;
+            text-align: center;
+        }
+        .sharia-ayah {
+            font-family: var(--font-quran);
+            font-size: 1.8rem;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+            line-height: 1.8;
+        }
+        .sharia-ref { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 32px; }
+        .sharia-rules {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            text-align: right;
+        }
+        .sharia-rule {
+            background: var(--dark-card);
+            border-radius: var(--radius);
+            padding: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .sharia-rule-icon { font-size: 1.4rem; }
+        .sharia-rule-text { font-size: 0.85rem; color: var(--text-muted); }
+        .sharia-rule-text strong { display: block; color: var(--text-primary); margin-bottom: 2px; }
+        /* ═══════════════════════════════════════════
+           المناطق الحرة
+        ═══════════════════════════════════════════ */
+        .zones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+        .zone-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius);
+            padding: 22px;
+            transition: all 0.2s;
+        }
+        .zone-card:hover { border-color: rgba(212,175,55,0.3); box-shadow: var(--shadow); }
+        .zone-flag { font-size: 2rem; margin-bottom: 12px; }
+        .zone-name { font-weight: 700; font-size: 1rem; color: var(--text-primary); margin-bottom: 4px; }
+        .zone-ar { font-size: 0.82rem; color: var(--gold); margin-bottom: 12px; }
+        .zone-benefits { display: flex; flex-direction: column; gap: 6px; }
+        .zone-benefit { font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: flex-start; gap: 6px; }
+        .zone-benefit::before { content: '◈'; color: var(--gold); font-size: 0.7rem; margin-top: 2px; flex-shrink: 0; }
+        /* ═══════════════════════════════════════════
+           HS Codes
+        ═══════════════════════════════════════════ */
+        .hs-table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--dark-border); }
+        .hs-category-header {
+            background: var(--dark-surface);
+            padding: 10px 20px;
+            font-size: 0.82rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        /* ═══════════════════════════════════════════
+           قائمة الجاهزية
+        ═══════════════════════════════════════════ */
+        .readiness-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .readiness-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+        .readiness-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 16px;
+        }
+        .readiness-icon { font-size: 1.6rem; }
+        .readiness-title { font-weight: 700; font-size: 1rem; color: var(--text-primary); }
+        .readiness-subtitle { font-size: 0.78rem; color: var(--text-muted); }
+        .readiness-checklist { display: flex; flex-direction: column; gap: 8px; }
+        .readiness-item {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 0.82rem; color: var(--text-muted);
+        }
+        .readiness-item.done { color: var(--green); }
+        .readiness-item::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+        /* ═══════════════════════════════════════════
+           فوتر
+        ═══════════════════════════════════════════ */
+        .page-footer {
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            padding: 40px 24px;
+            text-align: center;
+        }
+        .footer-ayah {
+            font-family: var(--font-quran);
+            font-size: 1.2rem;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+        }
+        .footer-ref { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px; }
+        .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--gold); }
+        /* ═══════════════════════════════════════════
+           الفاصل المتوهج
+        ═══════════════════════════════════════════ */
+        .glow-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.4), transparent);
+            margin: 0 auto;
+            max-width: 600px;
+        }
+        /* ═══════════════════════════════════════════
+           المستجيب للجوال
+        ═══════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .site-header { padding: 12px 16px; }
+            .nav-links { display: none; }
+            .section { padding: 60px 16px; }
+            .sharia-section { padding: 32px 20px; }
+            .docs-flow { flex-direction: column; }
+            .doc-arrow { transform: rotate(90deg); }
+            .basmala { font-size: 1.6rem; }
+            .hero h1 { font-size: 2rem; }
+        }
+        /* لودر */
+        .loading-spinner {
+            display: inline-block;
+            width: 16px; height: 16px;
+            border: 2px solid rgba(212,175,55,0.2);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .live-dot {
+            display: inline-block;
+            width: 8px; height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══ الهيدر ═══ -->
+<header class="site-header">
+    <a href="/" class="site-logo">
+        <span>⚜ شيخة</span>
+    </a>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="/">الرئيسية</a></li>
+            <li><a href="/سوق-شيخة.html">السوق</a></li>
+            <li><a href="/لوجستيات" style="color:var(--gold)">اللوجستيات</a></li>
+            <li><a href="/الشريعة-الاسلامية.html">الشريعة</a></li>
+            <li><a href="/المجتمع.html">المجتمع</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- ═══ الهيرو ═══ -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="basmala">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+        <div class="hero-badge">
+            <span class="live-dot"></span>
+            رحلة تجارية كونية مكتملة — مرحلة ٤٧
+        </div>
+        <h1>رحلة شيخة التجارية الكونية</h1>
+        <p class="hero-subtitle">
+            سلاسل الإمداد الكاملة — اللوجستيات، الشحن، المختبرات، الشهادات، المنصات، المناطق الحرة<br>
+            مبنية على مبادئ سوق المدينة المنورة — الكتاب والسنة
+        </p>
+
+        <!-- شارات العملاء -->
+        <div class="client-badges">
+            <div class="client-badge"><span class="dot"></span> دول وحكومات</div>
+            <div class="client-badge"><span class="dot"></span> شركات حكومية وشبه حكومية</div>
+            <div class="client-badge"><span class="dot"></span> شركات ضخمة وكبيرة</div>
+            <div class="client-badge"><span class="dot"></span> شركات متوسطة وصغيرة</div>
+            <div class="client-badge"><span class="dot"></span> رواد أعمال</div>
+        </div>
+
+        <div class="hero-actions">
+            <a href="#trade-journey" class="btn-primary">ابدأ رحلتك التجارية</a>
+            <a href="#readiness" class="btn-outline">قائمة الجاهزية</a>
+        </div>
+
+        <!-- إحصاءات -->
+        <div class="live-stats" id="liveStats">
+            <div class="stat-card">
+                <span class="stat-value" id="stat-carriers">23</span>
+                <div class="stat-label">ناقل بحري وجوي وبري</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="stat-ports">25</span>
+                <div class="stat-label">ميناء سعودي وخليجي وعالمي</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="stat-certs">19</span>
+                <div class="stat-label">شهادة دولية وإلزامية</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="stat-platforms">24</span>
+                <div class="stat-label">منصة تجارية رقمية</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="stat-zones">12</span>
+                <div class="stat-label">منطقة حرة استراتيجية</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ═══ سلاسل الإمداد ═══ -->
+<section class="section" id="trade-journey">
+    <div class="section-header">
+        <div class="section-tag">SUPPLY CHAIN ARCHITECTURE</div>
+        <h2 class="section-title">معمارية سلاسل <span>الإمداد</span></h2>
+        <p class="section-desc">٧ طبقات متكاملة من المصدر إلى المستهلك — استكشف كل طبقة</p>
+    </div>
+    <div class="supply-layers" id="supplyLayers">
+
+        <div class="layer-card open">
+            <div class="layer-header" onclick="toggleLayer(this)">
+                <div class="layer-title-wrap">
+                    <div class="layer-num">١</div>
+                    <div>
+                        <div class="layer-name">الاستخراج والتوريد الأولي</div>
+                        <div class="layer-en">Raw Material Sourcing & Extraction</div>
+                    </div>
+                </div>
+                <div class="layer-arrow">▾</div>
+            </div>
+            <div class="layer-body">
+                <div class="layer-content">
+                    <div class="layer-steps">
+                        <span class="layer-step gold-step">منجم / مسبك / ورشة</span>
+                        <span class="layer-step">مناجم الذهب والفضة</span>
+                        <span class="layer-step">مصهر السكراب</span>
+                        <span class="layer-step">وحدات التكرير</span>
+                        <span class="layer-step">استيراد سبائك</span>
+                        <span class="layer-step gold-step">شهادة CoO (بلد المنشأ)</span>
+                        <span class="layer-step">شهادة CoA (تحليل كيميائي)</span>
+                        <span class="layer-step">تحقق SGS / BV</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card">
+            <div class="layer-header" onclick="toggleLayer(this)">
+                <div class="layer-title-wrap">
+                    <div class="layer-num">٢</div>
+                    <div>
+                        <div class="layer-name">معالجة الجودة والفرز</div>
+                        <div class="layer-en">Quality Processing & Classification</div>
+                    </div>
+                </div>
+                <div class="layer-arrow">▾</div>
+            </div>
+            <div class="layer-body">
+                <div class="layer-content">
+                    <div class="layer-steps">
+                        <span class="layer-step gold-step">مختبر SGS السعودية</span>
+                        <span class="layer-step gold-step">Bureau Veritas</span>
+                        <span class="layer-step gold-step">Intertek</span>
+                        <span class="layer-step">KAUST للأبحاث</span>
+                        <span class="layer-step">فرز حسب HS Code</span>
+                        <span class="layer-step">تحليل XRF</span>
+                        <span class="layer-step">اختبار الضغط</span>
+                        <span class="layer-step">شهادة ISRI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card">
+            <div class="layer-header" onclick="toggleLayer(this)">
+                <div class="layer-title-wrap">
+                    <div class="layer-num">٣</div>
+                    <div>
+                        <div class="layer-name">التخزين والتغليف</div>
+                        <div class="layer-en">Warehousing & Packaging</div>
+                    </div>
+                </div>
+                <div class="layer-arrow">▾</div>
+            </div>
+            <div class="layer-body">
+                <div class="layer-content">
+                    <div class="layer-steps">
+                        <span class="layer-step gold-step">مستودعات المناطق الحرة</span>
+                        <span class="layer-step">تغليف IMDG (متوافق)</span>
+                        <span class="layer-step">وضع Labels القانونية</span>
+                        <span class="layer-step">باركود HS Code</span>
+                        <span class="layer-step">حاويات 20DC / 40HC</span>
+                        <span class="layer-step">حاويات Open Top</span>
+                        <span class="layer-step">شحن Bulk / Break Bulk</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card">
+            <div class="layer-header" onclick="toggleLayer(this)">
+                <div class="layer-title-wrap">
+                    <div class="layer-num">٤</div>
+                    <div>
+                        <div class="layer-name">اللوجستيات والنقل</div>
+                        <div class="layer-en">Logistics & Transportation</div>
+                    </div>
+                </div>
+                <div class="layer-arrow">▾</div>
+            </div>
+            <div class="layer-body">
+                <div class="layer-content">
+                    <div class="layer-steps">
+                        <span class="layer-step gold-step">بحري: Bahri / MSC / CMA CGM</span>
+                        <span class="layer-step gold-step">جوي: Saudia Cargo / Air Arabia Cargo</span>
+                        <span class="layer-step gold-step">بري: NAQEL / DHL Freight</span>
+                        <span class="layer-step">موانئ جدة / الجبيل / الدمام</span>
+                        <span class="layer-step">منصة Fasah الجمركية</span>
+                        <span class="layer-step">Flexport / Freightos تتبع</span>
+                        <span class="layer-step">تتبع لحظي project44</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card">
+            <div class="layer-header" onclick="toggleLayer(this)">
+                <div class="layer-title-wrap">
+                    <div class="layer-num">٥</div>
+                    <div>
+                        <div class="layer-name">التخليص الجمركي والامتثال</div>
+                        <div class="layer-en">Customs Clearance & Compliance</div>
+                    </div>
+                </div>
+                <div class="layer-arrow">▾</div>
+            </div>
+            <div class="layer-body">
+                <div class="layer-content">
+                    <div class="layer-steps">
+                        <span class="layer-step gold-step">Fasah — نافذة الاستيراد الموحدة</span>
+                        <span class="layer-step gold-step">SABER — طاقة المنتجات</span>
+                        <span class="layer-step">بيان جمركي D.V.1</span>
+                        <span class="layer-step">ATA Carnet للعينات</span>
+                        <span class="layer-step">رسوم ضريبة القيمة المضافة</span>
+                        <span class="layer-step">تصريح KACST للإشعاع</span>
+                        <span class="layer-step">شهادة ضريبة زكاة</span>
+                        <span class="layer-step">وثيقة تأمين تكافلي</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card">
+            <div class="layer-header" onclick="toggleLayer(this)">
+                <div class="layer-title-wrap">
+                    <div class="layer-num">٦</div>
+                    <div>
+                        <div class="layer-name">التسوية المالية الشرعية</div>
+                        <div class="layer-en">Sharia-Compliant Financial Settlement</div>
+                    </div>
+                </div>
+                <div class="layer-arrow">▾</div>
+            </div>
+            <div class="layer-body">
+                <div class="layer-content">
+                    <div class="layer-steps">
+                        <span class="layer-step gold-step">T/T تحويل بنكي — الأفضل شرعاً</span>
+                        <span class="layer-step gold-step">D/P — سداد عند الشحن</span>
+                        <span class="layer-step gold-step">مرابحة إسلامية — بديل LC</span>
+                        <span class="layer-step" style="color:var(--red);border-color:rgba(231,76,60,0.3)">❌ محظور: LC بفائدة ربوية</span>
+                        <span class="layer-step">فاتورة تجارية</span>
+                        <span class="layer-step">قائمة التعبئة</span>
+                        <span class="layer-step">وثيقة التأمين التكافلي</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card">
+            <div class="layer-header" onclick="toggleLayer(this)">
+                <div class="layer-title-wrap">
+                    <div class="layer-num">٧</div>
+                    <div>
+                        <div class="layer-name">ذكاء السوق والتحليلات</div>
+                        <div class="layer-en">Market Intelligence & Analytics</div>
+                    </div>
+                </div>
+                <div class="layer-arrow">▾</div>
+            </div>
+            <div class="layer-body">
+                <div class="layer-content">
+                    <div class="layer-steps">
+                        <span class="layer-step gold-step">مؤشر شيخة (للمعرفة فقط)</span>
+                        <span class="layer-step gold-step">LME لندن للمعادن</span>
+                        <span class="layer-step gold-step">BDI مؤشر الشحن البحري</span>
+                        <span class="layer-step">Fastmarkets / Platts</span>
+                        <span class="layer-step">Argus Media</span>
+                        <span class="layer-step">تحليل الفجوة العرض والطلب</span>
+                        <span class="layer-step">تنبيهات التغير السعري</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ═══ الناقلون ═══ -->
+<section class="section" id="carriers">
+    <div class="section-header">
+        <div class="section-tag">SHIPPING CARRIERS</div>
+        <h2 class="section-title">ناقلو <span>الشحن</span></h2>
+        <p class="section-desc">شبكة متكاملة من شركات الشحن البحرية والجوية والبرية والسككية</p>
+    </div>
+
+    <div class="carriers-tabs">
+        <button class="tab-btn active" onclick="filterCarriers('sea', this)">🚢 بحري</button>
+        <button class="tab-btn" onclick="filterCarriers('air', this)">✈️ جوي</button>
+        <button class="tab-btn" onclick="filterCarriers('land', this)">🚛 بري</button>
+        <button class="tab-btn" onclick="filterCarriers('rail', this)">🚂 سككي</button>
+    </div>
+
+    <div class="carriers-grid" id="carriersGrid">
+        <!-- يتم ملؤها بـ JS -->
+    </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ═══ الموانئ ═══ -->
+<section class="section" id="ports">
+    <div class="section-header">
+        <div class="section-tag">PORTS & TERMINALS</div>
+        <h2 class="section-title">موانئ <span>شيخة</span></h2>
+        <p class="section-desc">الموانئ السعودية والخليجية والعالمية المتكاملة مع منصة شيخة</p>
+    </div>
+
+    <div class="ports-table-wrap">
+        <table id="portsTable">
+            <thead>
+                <tr>
+                    <th>الميناء</th>
+                    <th>المدينة</th>
+                    <th>الدولة</th>
+                    <th>الكود</th>
+                    <th>النوع</th>
+                    <th>طاقة (TEU/سنة)</th>
+                </tr>
+            </thead>
+            <tbody id="portsBody">
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ═══ الشهادات ═══ -->
+<section class="section" id="certificates">
+    <div class="section-header">
+        <div class="section-tag">CERTIFICATES & COMPLIANCE</div>
+        <h2 class="section-title">الشهادات <span>والامتثال</span></h2>
+        <p class="section-desc">الشهادات الإلزامية السعودية والدولية المطلوبة لإتمام أي صفقة</p>
+    </div>
+
+    <div class="certs-grid" id="certsGrid">
+    </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ═══ مسار الوثائق ═══ -->
+<section class="section" id="documents">
+    <div class="section-header">
+        <div class="section-tag">TRADE DOCUMENTS FLOW</div>
+        <h2 class="section-title">مسار <span>الوثائق</span></h2>
+        <p class="section-desc">المسار الكامل لوثائق الصفقة من التعاقد حتى التسليم</p>
+    </div>
+
+    <div class="docs-flow">
+        <div class="doc-step">
+            <div class="doc-step-icon">📋</div>
+            <div class="doc-step-name">العقد</div>
+            <div class="doc-step-detail">Sales Contract</div>
+        </div>
+        <div class="doc-arrow">←</div>
+        <div class="doc-step">
+            <div class="doc-step-icon">💰</div>
+            <div class="doc-step-name">الدفع</div>
+            <div class="doc-step-detail">T/T أو مرابحة</div>
+        </div>
+        <div class="doc-arrow">←</div>
+        <div class="doc-step">
+            <div class="doc-step-icon">🔬</div>
+            <div class="doc-step-name">التحليل</div>
+            <div class="doc-step-detail">CoA — SGS/BV</div>
+        </div>
+        <div class="doc-arrow">←</div>
+        <div class="doc-step">
+            <div class="doc-step-icon">📦</div>
+            <div class="doc-step-name">الشحن</div>
+            <div class="doc-step-detail">B/L أو AWB</div>
+        </div>
+        <div class="doc-arrow">←</div>
+        <div class="doc-step">
+            <div class="doc-step-icon">🛃</div>
+            <div class="doc-step-name">الجمارك</div>
+            <div class="doc-step-detail">Fasah / SABER</div>
+        </div>
+        <div class="doc-arrow">←</div>
+        <div class="doc-step">
+            <div class="doc-step-icon">🏭</div>
+            <div class="doc-step-name">التسليم</div>
+            <div class="doc-step-detail">D/O — Door</div>
+        </div>
+    </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ═══ مؤشرات السوق ═══ -->
+<section class="section" id="indices">
+    <div class="section-header">
+        <div class="section-tag">LIVE MARKET INDICES</div>
+        <h2 class="section-title">مؤشرات <span>السوق</span></h2>
+        <p class="section-desc">مؤشرات الشحن والمعادن — للمعرفة والتخطيط فقط، ليست توصية استثمارية</p>
+    </div>
+
+    <div class="indices-grid" id="indicesGrid">
+    </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ═══ المناطق الحرة ═══ -->
+<section class="section" id="free-zones">
+    <div class="section-header">
+        <div class="section-tag">FREE ZONES & SPECIAL ECONOMIC ZONES</div>
+        <h2 class="section-title">المناطق <span>الحرة</span></h2>
+        <p class="section-desc">أبرز المناطق الاقتصادية الحرة المتاحة لشيخة وعملائها</p>
+    </div>
+
+    <div class="zones-grid" id="zonesGrid">
+    </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ═══ قائمة الجاهزية ═══ -->
+<section class="section" id="readiness">
+    <div class="section-header">
+        <div class="section-tag">TRADE READINESS CHECKLIST</div>
+        <h2 class="section-title">قائمة <span>الجاهزية</span></h2>
+        <p class="section-desc">شيخة جاهزة للتعامل مع دول وحكومات وشركات وأفراد</p>
+    </div>
+
+    <div class="readiness-grid">
+        <div class="readiness-card">
+            <div class="readiness-header">
+                <div class="readiness-icon">🏛️</div>
+                <div>
+                    <div class="readiness-title">الدول والحكومات</div>
+                    <div class="readiness-subtitle">State & Government Clients</div>
+                </div>
+            </div>
+            <div class="readiness-checklist">
+                <div class="readiness-item done">عقود حكومية معتمدة</div>
+                <div class="readiness-item done">شهادات SASO للاستيراد</div>
+                <div class="readiness-item done">تكامل مع منصة Etimad</div>
+                <div class="readiness-item done">تقارير امتثال دولية</div>
+                <div class="readiness-item done">دعم مزدوج التسعير SAR/USD</div>
+            </div>
+        </div>
+
+        <div class="readiness-card">
+            <div class="readiness-header">
+                <div class="readiness-icon">🏢</div>
+                <div>
+                    <div class="readiness-title">الشركات الكبرى</div>
+                    <div class="readiness-subtitle">Enterprise Clients</div>
+                </div>
+            </div>
+            <div class="readiness-checklist">
+                <div class="readiness-item done">API متكامل للأنظمة</div>
+                <div class="readiness-item done">تقارير BI مخصصة</div>
+                <div class="readiness-item done">SLA مضمون</div>
+                <div class="readiness-item done">تكامل SAP / Oracle</div>
+                <div class="readiness-item done">Multi-currency</div>
+            </div>
+        </div>
+
+        <div class="readiness-card">
+            <div class="readiness-header">
+                <div class="readiness-icon">🏪</div>
+                <div>
+                    <div class="readiness-title">الشركات المتوسطة والصغيرة</div>
+                    <div class="readiness-subtitle">SME Clients</div>
+                </div>
+            </div>
+            <div class="readiness-checklist">
+                <div class="readiness-item done">واجهة سهلة الاستخدام</div>
+                <div class="readiness-item done">دعم بالعربية</div>
+                <div class="readiness-item done">حدود موردين منخفضة</div>
+                <div class="readiness-item done">تأمين تكافلي مدمج</div>
+                <div class="readiness-item done">دليل HS Codes</div>
+            </div>
+        </div>
+
+        <div class="readiness-card">
+            <div class="readiness-header">
+                <div class="readiness-icon">🚀</div>
+                <div>
+                    <div class="readiness-title">رواد الأعمال</div>
+                    <div class="readiness-subtitle">Entrepreneurs</div>
+                </div>
+            </div>
+            <div class="readiness-checklist">
+                <div class="readiness-item done">توجيه بداية مجاني</div>
+                <div class="readiness-item done">نموذج طلب عروض RFQ</div>
+                <div class="readiness-item done">خطوات التسجيل مبسطة</div>
+                <div class="readiness-item done">مجتمع رواد الأعمال</div>
+                <div class="readiness-item done">مختبرات الابتكار</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ═══ قسم الشريعة ═══ -->
+<section class="section">
+    <div class="sharia-section">
+        <div class="basmala" style="font-size:1.6rem;margin-bottom:12px">
+            وَيُحِلُّ لَهُمُ الطَّيِّبَاتِ وَيُحَرِّمُ عَلَيْهِمُ الْخَبَائِثَ
+        </div>
+        <div class="sharia-ref">الأعراف: ١٥٧</div>
+
+        <div class="sharia-rules">
+            <div class="sharia-rule">
+                <div class="sharia-rule-icon">✅</div>
+                <div class="sharia-rule-text">
+                    <strong>البيع عن تراضٍ</strong>
+                    لا إكراه ولا تدليس في أي صفقة عبر شيخة
+                </div>
+            </div>
+            <div class="sharia-rule">
+                <div class="sharia-rule-icon">✅</div>
+                <div class="sharia-rule-text">
+                    <strong>صدق القول ودقة الوزن</strong>
+                    وَأَوْفُوا الْكَيْلَ إِذَا كِلْتُمْ وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ
+                </div>
+            </div>
+            <div class="sharia-rule">
+                <div class="sharia-rule-icon">❌</div>
+                <div class="sharia-rule-text">
+                    <strong>لا ربا</strong>
+                    محظور: خطابات اعتماد بفائدة — بديل شرعي: مرابحة إسلامية
+                </div>
+            </div>
+            <div class="sharia-rule">
+                <div class="sharia-rule-icon">❌</div>
+                <div class="sharia-rule-text">
+                    <strong>لا غرر ولا غش</strong>
+                    التقييم الكيميائي إلزامي قبل كل صفقة
+                </div>
+            </div>
+            <div class="sharia-rule">
+                <div class="sharia-rule-icon">❌</div>
+                <div class="sharia-rule-text">
+                    <strong>لا احتكار</strong>
+                    مؤشر شيخة للمعرفة فقط — لا للتسعير الإلزامي
+                </div>
+            </div>
+            <div class="sharia-rule">
+                <div class="sharia-rule-icon">✅</div>
+                <div class="sharia-rule-text">
+                    <strong>التأمين التكافلي</strong>
+                    بديل إسلامي للتأمين التجاري التقليدي
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ HS Codes ═══ -->
+<section class="section" id="hs-codes">
+    <div class="section-header">
+        <div class="section-tag">HARMONIZED SYSTEM CODES</div>
+        <h2 class="section-title">أكواد <span>HS</span> للمعادن</h2>
+        <p class="section-desc">الأكواد الجمركية الدولية للمعادن الحديدية وغير الحديدية والثمينة والخامات</p>
+    </div>
+    <div class="hs-table-wrap">
+        <table id="hsTable">
+            <thead>
+                <tr>
+                    <th>كود HS</th>
+                    <th>الاسم</th>
+                    <th>الفئة</th>
+                    <th>رسوم الاستيراد السعودية</th>
+                </tr>
+            </thead>
+            <tbody id="hsBody"></tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ═══ الفوتر ═══ -->
+<footer class="page-footer">
+    <div class="footer-ayah">وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ</div>
+    <div class="footer-ref">التوبة: ١٠٥</div>
+    <div class="footer-links">
+        <a href="/">الرئيسية</a>
+        <a href="/سوق-شيخة.html">السوق</a>
+        <a href="/api/trade/profile">Trade API</a>
+        <a href="/api/trade/readiness">Readiness API</a>
+        <a href="/api/subscriptions/alerts">نظام التنبيهات</a>
+        <a href="mailto:market@sheikha.top">market@sheikha.top</a>
+    </div>
+    <div style="margin-top:16px;font-size:0.78rem;color:var(--text-muted)">
+        © شيخة — المرحلة ٤٧ | sheikha.top
+    </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════════
+// بيانات ثابتة للعرض الفوري (تُحدَّث من API)
+// ══════════════════════════════════════════════════════
+const CARRIERS_DATA = {
+    sea: [
+        { name: 'Bahri', ar: 'الناقلة الوطنية', country: 'المملكة العربية السعودية', code: 'BAHRI', services: ['خام فلزي', 'سكراب', 'سائب'] },
+        { name: 'MSC', ar: 'Mediterranean Shipping', country: 'سويسرا', code: 'MSC', services: ['حاويات', 'شحن عام'] },
+        { name: 'CMA CGM', ar: 'كما سي جي ام', country: 'فرنسا', code: 'CMACGM', services: ['حاويات', 'خدمات مميزة'] },
+        { name: 'Maersk', ar: 'ميرسك', country: 'الدنمارك', code: 'MAERSK', services: ['حاويات', 'لوجستيات'] },
+        { name: 'Evergreen', ar: 'إيفرجرين', country: 'تايوان', code: 'EVER', services: ['حاويات', 'آسيا'] },
+        { name: 'COSCO', ar: 'كوسكو', country: 'الصين', code: 'COSCO', services: ['حاويات', 'صين/خليج'] },
+        { name: 'Hapag-Lloyd', ar: 'هاباج لويد', country: 'ألمانيا', code: 'HLCL', services: ['أوروبا', 'حاويات'] },
+        { name: 'Pacific Basin', ar: 'باسيفيك بيسن', country: 'هونج كونج', code: 'PB', services: ['خام', 'سائب صغير'] },
+        { name: 'Star Bulk', ar: 'ستار بالك', country: 'اليونان', code: 'SBLK', services: ['كاب سايز', 'هاندي'] }
+    ],
+    air: [
+        { name: 'Saudia Cargo', ar: 'سعودية كارجو', country: 'السعودية', code: 'SV', services: ['شحن سريع', 'مستعجل'] },
+        { name: 'Air Arabia Cargo', ar: 'العربية للشحن', country: 'الإمارات', code: 'G9', services: ['خليج', 'شحن عام'] },
+        { name: 'Qatar Airways Cargo', ar: 'قطر للشحن الجوي', country: 'قطر', code: 'QR', services: ['شحن دولي', 'مميز'] },
+        { name: 'Emirates SkyCargo', ar: 'طيران الإمارات للشحن', country: 'الإمارات', code: 'EK', services: ['شبكة عالمية'] },
+        { name: 'Etihad Cargo', ar: 'الاتحاد للشحن', country: 'الإمارات', code: 'EY', services: ['فريدج', 'حساس'] },
+        { name: 'FedEx', ar: 'فيديكس', country: 'الأمريكية', code: 'FX', services: ['سريع', 'دولي'] },
+        { name: 'DHL Aviation', ar: 'دي اتش ال', country: 'ألمانيا', code: 'DH', services: ['باب لباب', 'عالمي'] }
+    ],
+    land: [
+        { name: 'NAQEL Express', ar: 'ناقل إكسبريس', country: 'السعودية', code: 'NAQEL', services: ['اللحظي', 'السعودية'] },
+        { name: 'Aramex', ar: 'أرامكس', country: 'الأردن', code: 'ARMX', services: ['خليج', 'دولي'] },
+        { name: 'DHL Freight', ar: 'دي اتش ال فريت', country: 'ألمانيا', code: 'DHL', services: ['برية خليجية'] },
+        { name: 'Agility Logistics', ar: 'أجيليتي لوجستيكس', country: 'الكويت', code: 'AGLTY', services: ['خليج', 'GCC'] },
+        { name: 'Al Futtaim Logistics', ar: 'الفطيم لوجستيكس', country: 'الإمارات', code: 'AFL', services: ['إمارات', 'خليج'] }
+    ],
+    rail: [
+        { name: 'Saudi Railway (SAR)', ar: 'الخطوط الحديدية السعودية', country: 'السعودية', code: 'SAR', services: ['جدة-الرياض', 'الدمام-الرياض'] },
+        { name: 'Etihad Rail', ar: 'الاتحاد للقطارات', country: 'الإمارات', code: 'ETIHADRAIL', services: ['الإمارات-السعودية قريباً'] }
+    ]
+};
+
+const PORTS_DATA = [
+    { name: 'ميناء جدة الإسلامي', city: 'جدة', country: 'السعودية', code: 'JEDDAH', type: 'saudi', capacity: '8.5M' },
+    { name: 'ميناء الجبيل الصناعي', city: 'الجبيل', country: 'السعودية', code: 'JUBAIL', type: 'saudi', capacity: '4.2M' },
+    { name: 'ميناء الدمام', city: 'الدمام', country: 'السعودية', code: 'DAMMAM', type: 'saudi', capacity: '3.5M' },
+    { name: 'ميناء ينبع', city: 'ينبع', country: 'السعودية', code: 'YANBU', type: 'saudi', capacity: '1.8M' },
+    { name: 'ميناء جيزان', city: 'جيزان', country: 'السعودية', code: 'JIZAN', type: 'saudi', capacity: '0.9M' },
+    { name: 'ميناء دوبا', city: 'دوبا', country: 'السعودية', code: 'DUBA', type: 'saudi', capacity: '0.4M' },
+    { name: 'ميناء جبل علي JAFZA', city: 'دبي', country: 'الإمارات', code: 'JEBELALي', type: 'gcc', capacity: '19.6M' },
+    { name: 'ميناء صحار', city: 'صحار', country: 'عُمان', code: 'SOHAR', type: 'gcc', capacity: '3.0M' },
+    { name: 'ميناء ميناء دمام المياه العميقة', city: 'دمام', country: 'السعودية', code: 'DMAM', type: 'saudi', capacity: '2.1M' },
+    { name: 'ميناء شنغهاي', city: 'شنغهاي', country: 'الصين', code: 'CNSHA', type: 'global', capacity: '47.3M' },
+    { name: 'ميناء سنغافورة', city: 'سنغافورة', country: 'سنغافورة', code: 'SGSIN', type: 'global', capacity: '37.5M' },
+    { name: 'ميناء روتردام', city: 'روتردام', country: 'هولندا', code: 'NLRTM', type: 'global', capacity: '15.3M' },
+    { name: 'ميناء أنتويرب', city: 'أنتويرب', country: 'بلجيكا', code: 'BEANR', type: 'global', capacity: '12.0M' },
+    { name: 'ميناء بورت كيلانج', city: 'كيلانج', country: 'ماليزيا', code: 'MYPKG', type: 'global', capacity: '13.7M' }
+];
+
+const CERTS_DATA = [
+    { icon: '🏢', name: 'سجل تجاري سعودي', type: 'إلزامي سعودي', issuer: 'وزارة التجارة' },
+    { icon: '🔰', name: 'SABER', type: 'طاقة المنتجات', issuer: 'هيئة المواصفات SASO' },
+    { icon: '🛃', name: 'تصريح جمركي', type: 'الهيئة العامة للجمارك', issuer: 'جمارك السعودية' },
+    { icon: '💰', name: 'شهادة ضريبة القيمة المضافة', type: 'ضريبة', issuer: 'هيئة الزكاة والضريبة' },
+    { icon: '🕌', name: 'شهادة الزكاة', type: 'ضريبة إسلامية', issuer: 'هيئة الزكاة' },
+    { icon: '🌿', name: 'تصريح بيئي', type: 'بيئة وحماية', issuer: 'وزارة البيئة' },
+    { icon: '☢️', name: 'تصريح الإشعاع', type: 'سلامة نووية', issuer: 'KACST' },
+    { icon: '⚙️', name: 'ISO 9001:2015', type: 'جودة دولي', issuer: 'ISO — متطلب دولي' },
+    { icon: '🌍', name: 'ISO 14001', type: 'بيئة دولي', issuer: 'ISO — بيئي' },
+    { icon: '♻️', name: 'ISRI Grades', type: 'تصنيف السكراب', issuer: 'ISRI الأمريكي' },
+    { icon: '✈️', name: 'AEO', type: 'مشغل اقتصادي معتمد', issuer: 'الجمارك العالمية WCO' },
+    { icon: '☠️', name: 'IMDG / MSDS', type: 'بضائع خطرة', issuer: 'IMO / شركة ناقل' },
+    { icon: '🥇', name: 'LME Brand', type: 'معادن مدرجة', issuer: 'بورصة لندن للمعادن' }
+];
+
+const INDICES_DATA = [
+    { name: 'مؤشر السفن السائبة', code: 'BDI', value: '1,847', change: '+2.1%', dir: 'up', type: 'مؤشر الشحن البحري العالمي' },
+    { name: 'مؤشر الحاويات شنغهاي', code: 'SCFI', value: '1,234', change: '-0.8%', dir: 'down', type: 'تكلفة الشحن من شنغهاي' },
+    { name: 'مؤشر الحاويات العالمي', code: 'WCI', value: '3,456', change: '+1.4%', dir: 'up', type: 'Drewry — أسعار الحاويات' },
+    { name: 'النحاس — LME', code: 'CU', value: '$9,812', change: '+0.6%', dir: 'up', type: 'لندن / طن متري' },
+    { name: 'الألومنيوم — LME', code: 'AL', value: '$2,456', change: '-0.3%', dir: 'down', type: 'لندن / طن متري' },
+    { name: 'الحديد الخام', code: 'FE', value: '$98.5', change: '+1.2%', dir: 'up', type: 'Fastmarkets / طن CFR' },
+    { name: 'مؤشر شيخة', code: 'SIX', value: '847', change: '+3.2%', dir: 'up', type: 'مؤشر معرفي — ليس تسعيراً إلزامياً' }
+];
+
+const ZONES_DATA = [
+    { flag: '🇸🇦', name: 'Jizan Economic City', ar: 'مدينة جيزان الاقتصادية', country: 'السعودية', benefits: ['100% ملكية أجنبية', 'إعفاء ضريبي 30 سنة', 'ميناء جيزان مباشرة', 'تكامل مع المنطقة الحرة'] },
+    { flag: '🇸🇦', name: 'NEOM', ar: 'نيوم', country: 'السعودية', benefits: ['تقنية قيد التطوير', 'بنية تحتية متطورة', 'تسهيلات استثمارية كاملة'] },
+    { flag: '🇸🇦', name: "Ras Al-Khair Industrial Area", ar: 'رأس الخير الصناعية', country: 'السعودية', benefits: ['أكبر منطقة تعدين', 'ما عدن + سبليت', 'ميناء صناعي'] },
+    { flag: '🇦🇪', name: 'JAFZA', ar: 'جافزا — جبل علي', country: 'الإمارات', benefits: ['أكبر منطقة حرة خليجياً', '19.6M TEU سنوياً', '100% ملكية أجنبية', 'لا ضريبة على الشركات'] },
+    { flag: '🇦🇪', name: 'DMCC', ar: 'مركز سلع دبي', country: 'الإمارات', benefits: ['متخصص بالسلع والمعادن', 'تسعير ذهب وفضة', 'تراخيص مرنة'] },
+    { flag: '🇴🇲', name: 'Sohar Free Zone', ar: 'منطقة صحار الحرة', country: 'عُمان', benefits: ['معادن وتعدين', 'وصول المحيط الهندي', 'رسوم منخفضة'] },
+    { flag: '🇳🇱', name: 'Rotterdam Free Zone', ar: 'منطقة روتردام الحرة', country: 'هولندا', benefits: ['بوابة أوروبا', 'إعادة التصدير', 'رسوم جمركية مؤجلة'] },
+    { flag: '🇸🇬', name: 'Singapore FTZ', ar: 'المنطقة الحرة سنغافورة', country: 'سنغافورة', benefits: ['بوابة آسيا', 'صفر رسوم على معظم البضائع', 'تسهيلات مصرفية'] }
+];
+
+const HS_DATA = [
+    { code: '7204', name: 'نفايات وفضلات الحديد والصلب (السكراب)', cat: 'حديدي', duty: '5%' },
+    { code: '7208', name: 'صفائح وألواح الحديد المدلفن على الساخن', cat: 'حديدي', duty: '5%' },
+    { code: '7213', name: 'قضبان الخردة المسطحة', cat: 'حديدي', duty: '5%' },
+    { code: '7403', name: 'نحاس مكرر وسبائك نحاس خام', cat: 'غير حديدي', duty: '5%' },
+    { code: '7404', name: 'نفايات وفضلات النحاس', cat: 'غير حديدي', duty: '5%' },
+    { code: '7601', name: 'ألومنيوم خام', cat: 'غير حديدي', duty: '12%' },
+    { code: '7602', name: 'نفايات وفضلات الألومنيوم', cat: 'غير حديدي', duty: '5%' },
+    { code: '7901', name: 'خارصين (زنك) خام', cat: 'غير حديدي', duty: '5%' },
+    { code: '7108', name: 'ذهب (خام وأشباه المُصنَّع)', cat: 'ثمين', duty: '0%' },
+    { code: '7106', name: 'فضة خام أو مسحوق فضة', cat: 'ثمين', duty: '0%' },
+    { code: '2601', name: 'خامات الحديد ومركزاتها', cat: 'خامات', duty: '0%' },
+    { code: '2603', name: 'خامات النحاس ومركزاتها', cat: 'خامات', duty: '0%' },
+    { code: '2606', name: 'خامات الألومنيوم ومركزاتها', cat: 'خامات', duty: '0%' }
+];
+
+// ══════════════════════════════════════════════════════
+// دوال التفعيل
+// ══════════════════════════════════════════════════════
+
+function toggleLayer(header) {
+    const card = header.parentElement;
+    const isOpen = card.classList.contains('open');
+    // أغلق الكل
+    document.querySelectorAll('.layer-card').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
+}
+
+function filterCarriers(type, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCarriers(type);
+}
+
+function renderCarriers(type) {
+    const grid = document.getElementById('carriersGrid');
+    const data = CARRIERS_DATA[type] || [];
+    grid.innerHTML = data.map(c => `
+        <div class="carrier-card">
+            <div class="carrier-name">${c.name}</div>
+            <div class="carrier-country">${c.ar} · ${c.country}</div>
+            <span class="carrier-code">${c.code}</span>
+            <div class="carrier-services">
+                ${c.services.map(s => `<span class="carrier-tag">${s}</span>`).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderPorts() {
+    const body = document.getElementById('portsBody');
+    body.innerHTML = PORTS_DATA.map(p => `
+        <tr>
+            <td>${p.name}</td>
+            <td>${p.city}</td>
+            <td>${p.country}</td>
+            <td>${p.code}</td>
+            <td><span class="badge-port ${p.type}">${p.type === 'saudi' ? 'سعودي' : p.type === 'gcc' ? 'خليجي' : 'عالمي'}</span></td>
+            <td>${p.capacity} TEU</td>
+        </tr>
+    `).join('');
+}
+
+function renderCerts() {
+    const grid = document.getElementById('certsGrid');
+    grid.innerHTML = CERTS_DATA.map(c => `
+        <div class="cert-card">
+            <div class="cert-icon">${c.icon}</div>
+            <div>
+                <div class="cert-name">${c.name}</div>
+                <div class="cert-type">${c.type}</div>
+                <div class="cert-issuer">${c.issuer}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderIndices() {
+    const grid = document.getElementById('indicesGrid');
+    grid.innerHTML = INDICES_DATA.map(i => `
+        <div class="index-card">
+            <div class="index-header">
+                <div class="index-name">${i.name}</div>
+                <div class="index-code">${i.code}</div>
+            </div>
+            <div class="index-value">${i.value}</div>
+            <div class="index-change ${i.dir}">${i.dir === 'up' ? '▲' : '▼'} ${i.change}</div>
+            <div class="index-type">${i.type}</div>
+        </div>
+    `).join('');
+}
+
+function renderZones() {
+    const grid = document.getElementById('zonesGrid');
+    grid.innerHTML = ZONES_DATA.map(z => `
+        <div class="zone-card">
+            <div class="zone-flag">${z.flag}</div>
+            <div class="zone-name">${z.name}</div>
+            <div class="zone-ar">${z.ar} — ${z.country}</div>
+            <div class="zone-benefits">
+                ${z.benefits.map(b => `<div class="zone-benefit">${b}</div>`).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderHSCodes() {
+    const body = document.getElementById('hsBody');
+    const categories = [...new Set(HS_DATA.map(h => h.cat))];
+    let html = '';
+    categories.forEach(cat => {
+        html += `<tr><td colspan="4" style="padding:0"><div class="hs-category-header">◆ ${cat}</div></td></tr>`;
+        HS_DATA.filter(h => h.cat === cat).forEach(h => {
+            html += `<tr>
+                <td style="font-family:monospace;letter-spacing:1px;color:var(--gold)">${h.code}</td>
+                <td>${h.name}</td>
+                <td>${h.cat}</td>
+                <td>${h.duty}</td>
+            </tr>`;
+        });
+    });
+    body.innerHTML = html;
+}
+
+// جلب البيانات من API إن توفر
+async function fetchFromAPI() {
+    try {
+        const r = await fetch('/api/trade/stats');
+        if (!r.ok) return;
+        const d = await r.json();
+        if (d.success && d.data) {
+            const s = d.data;
+            if (s.carriers_count) document.getElementById('stat-carriers').textContent = s.carriers_count;
+            if (s.ports_count) document.getElementById('stat-ports').textContent = s.ports_count;
+            if (s.certificates_count) document.getElementById('stat-certs').textContent = s.certificates_count;
+            if (s.platforms_count) document.getElementById('stat-platforms').textContent = s.platforms_count;
+            if (s.free_zones_count) document.getElementById('stat-zones').textContent = s.free_zones_count;
+        }
+    } catch {}
+}
+
+// تهيئة الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    renderCarriers('sea');
+    renderPorts();
+    renderCerts();
+    renderIndices();
+    renderZones();
+    renderHSCodes();
+    fetchFromAPI();
+});
+</script>
+
+</body>
+</html>
