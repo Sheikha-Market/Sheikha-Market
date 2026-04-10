@@ -118,13 +118,8 @@ resource containerApp 'Microsoft.App/containerApps@2023-05-01' = {
             latestRevision: true
           }
         ]
-        customDomains: [
-          {
-            name: 'sheikha.top'
-            bindingType: 'SniEnabled'
-            // certificateId: certificate.id  // فعّل بعد توجيه DNS
-          }
-        ]
+        // customDomains: يضاف بعد توجيه DNS وإصدار شهادة SSL
+        // az containerapp hostname add --hostname sheikha.top --resource-group sheikha-rg --name sheikha-portal
       }
       registries: [
         {
