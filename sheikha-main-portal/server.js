@@ -38816,6 +38816,229 @@ app.get('/api/phase46/stats', (req, res) => {
 });
 
 // ══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٤٩ — منظومة شيخة التقنية الشاملة: ERP + SCM + AI + DevTools + Compute
+// بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+// وَعَلَّمَ آدَمَ الأَسْمَاءَ كُلَّهَا — البقرة:31
+// ══════════════════════════════════════════════════════════════════════════════
+const {
+    SHEIKHA_ERP,
+    SHEIKHA_SCM,
+    SHEIKHA_MANAGEMENT,
+    SHEIKHA_COMPUTE,
+    SHEIKHA_DEVTOOLS,
+    TECH_SYSTEM,
+    devBackgroundServer
+} = require('./lib/sheikha-tech-ecosystem');
+
+// ── ERP APIs ──────────────────────────────────────────
+app.get('/api/erp/config',   (req, res) => res.json({ success: true, data: SHEIKHA_ERP.getConfig(), message: 'نظام ERP شيخة الكامل', timestamp: new Date().toISOString() }));
+app.get('/api/erp/modules',  (req, res) => res.json({ success: true, data: SHEIKHA_ERP.modules, message: 'وحدات ERP', timestamp: new Date().toISOString() }));
+app.get('/api/erp/finance',  (req, res) => res.json({ success: true, data: SHEIKHA_ERP.modules.finance, message: 'المالية والمحاسبة + الزكاة', timestamp: new Date().toISOString() }));
+app.get('/api/erp/procurement', (req, res) => res.json({ success: true, data: SHEIKHA_ERP.modules.procurement, message: 'المشتريات والتوريد', timestamp: new Date().toISOString() }));
+app.get('/api/erp/inventory', (req, res) => res.json({ success: true, data: SHEIKHA_ERP.modules.inventory, message: 'المخزون والمستودعات', timestamp: new Date().toISOString() }));
+app.get('/api/erp/sales',    (req, res) => res.json({ success: true, data: SHEIKHA_ERP.modules.sales, message: 'المبيعات + CRM', timestamp: new Date().toISOString() }));
+app.get('/api/erp/integrations', (req, res) => res.json({ success: true, data: SHEIKHA_ERP.erp_integrations, message: 'تكاملات ERP المدعومة', timestamp: new Date().toISOString() }));
+
+// ── SCM APIs ──────────────────────────────────────────
+app.get('/api/scm/config',      (req, res) => res.json({ success: true, data: SHEIKHA_SCM.getConfig(), message: 'سلاسل الإمداد الذكية', timestamp: new Date().toISOString() }));
+app.get('/api/scm/flows',       (req, res) => res.json({ success: true, data: SHEIKHA_SCM.supply_chain, message: 'تدفقات سلاسل الإمداد', timestamp: new Date().toISOString() }));
+app.get('/api/scm/visibility',  (req, res) => res.json({ success: true, data: SHEIKHA_SCM.visibility, message: 'رؤية سلاسل الإمداد اللحظية', timestamp: new Date().toISOString() }));
+app.get('/api/scm/risk',        (req, res) => res.json({ success: true, data: SHEIKHA_SCM.risk_engine, message: 'إدارة مخاطر سلاسل الإمداد', timestamp: new Date().toISOString() }));
+
+// ── Management APIs ───────────────────────────────────
+app.get('/api/management/config',   (req, res) => res.json({ success: true, data: SHEIKHA_MANAGEMENT.getConfig(), message: 'نظام الإدارة الذكي', timestamp: new Date().toISOString() }));
+app.get('/api/management/tools',    (req, res) => res.json({ success: true, data: SHEIKHA_MANAGEMENT.tools, message: 'أدوات الإدارة', timestamp: new Date().toISOString() }));
+app.get('/api/management/kpi',      (req, res) => res.json({ success: true, data: SHEIKHA_MANAGEMENT.tools.kpi_dashboard, message: 'مؤشرات الأداء الرئيسية', timestamp: new Date().toISOString() }));
+app.get('/api/management/okr',      (req, res) => res.json({ success: true, data: SHEIKHA_MANAGEMENT.tools.okr, message: 'الأهداف والنتائج الرئيسية OKR', timestamp: new Date().toISOString() }));
+app.get('/api/management/levels',   (req, res) => res.json({ success: true, data: SHEIKHA_MANAGEMENT.management_levels, message: 'مستويات الإدارة', timestamp: new Date().toISOString() }));
+
+// ── Compute & AI APIs ─────────────────────────────────
+app.get('/api/compute/config',      (req, res) => res.json({ success: true, data: SHEIKHA_COMPUTE.getConfig(), message: 'منظومة الحوسبة والذكاء', timestamp: new Date().toISOString() }));
+app.get('/api/compute/nvidia',      (req, res) => res.json({ success: true, data: SHEIKHA_COMPUTE.hardware.nvidia, message: 'NVIDIA GPU + CUDA', timestamp: new Date().toISOString() }));
+app.get('/api/compute/cuda',        (req, res) => res.json({ success: true, data: SHEIKHA_COMPUTE.hardware.cuda, message: 'CUDA — معمارية الحوسبة الموحدة', timestamp: new Date().toISOString() }));
+app.get('/api/compute/openai',      (req, res) => res.json({ success: true, data: SHEIKHA_COMPUTE.intelligence.openai, message: 'Sheikha OpenAI / GPT', timestamp: new Date().toISOString() }));
+app.get('/api/compute/google',      (req, res) => res.json({ success: true, data: SHEIKHA_COMPUTE.intelligence.google, message: 'Sheikha Google AI', timestamp: new Date().toISOString() }));
+app.get('/api/compute/tiers',       (req, res) => res.json({ success: true, data: SHEIKHA_COMPUTE.hardware.compute_tiers, message: 'طبقات الحوسبة', timestamp: new Date().toISOString() }));
+
+// ── DevTools APIs ─────────────────────────────────────
+app.get('/api/devtools/config',     (req, res) => res.json({ success: true, data: SHEIKHA_DEVTOOLS.getConfig(), message: 'منظومة شيخة للمطورين', timestamp: new Date().toISOString() }));
+app.get('/api/devtools/github',     (req, res) => res.json({ success: true, data: SHEIKHA_DEVTOOLS.platforms.github, message: 'Sheikha GitHub', timestamp: new Date().toISOString() }));
+app.get('/api/devtools/copilot',    (req, res) => res.json({ success: true, data: SHEIKHA_DEVTOOLS.platforms.copilot, message: 'Sheikha Copilot', timestamp: new Date().toISOString() }));
+app.get('/api/devtools/vscode',     (req, res) => res.json({ success: true, data: SHEIKHA_DEVTOOLS.platforms.vscode, message: 'Sheikha VS Code', timestamp: new Date().toISOString() }));
+app.get('/api/devtools/azure',      (req, res) => res.json({ success: true, data: SHEIKHA_DEVTOOLS.platforms.azure_devtools, message: 'Sheikha Azure', timestamp: new Date().toISOString() }));
+app.get('/api/devtools/microsoft',  (req, res) => res.json({ success: true, data: SHEIKHA_DEVTOOLS.platforms.microsoft, message: 'Sheikha Microsoft', timestamp: new Date().toISOString() }));
+app.get('/api/devtools/python',     (req, res) => res.json({ success: true, data: SHEIKHA_DEVTOOLS.languages.python, message: 'Sheikha Python', timestamp: new Date().toISOString() }));
+app.get('/api/devtools/utf8',       (req, res) => res.json({ success: true, data: SHEIKHA_DEVTOOLS.languages.utf8, message: 'Sheikha UTF-8 — دعم عربي كامل', timestamp: new Date().toISOString() }));
+app.get('/api/devtools/linux',      (req, res) => res.json({ success: true, data: SHEIKHA_DEVTOOLS.os.linux, message: 'Sheikha Linux', timestamp: new Date().toISOString() }));
+app.get('/api/devtools/windows',    (req, res) => res.json({ success: true, data: SHEIKHA_DEVTOOLS.os.windows, message: 'Sheikha Windows', timestamp: new Date().toISOString() }));
+app.get('/api/devtools/apple',      (req, res) => res.json({ success: true, data: SHEIKHA_DEVTOOLS.os.apple, message: 'Sheikha Apple', timestamp: new Date().toISOString() }));
+app.get('/api/devtools/summary',    (req, res) => res.json(SHEIKHA_DEVTOOLS.getSummary()));
+app.get('/api/devtools/background', (req, res) => res.json(devBackgroundServer.getStatus()));
+
+// ── Phase 49 Combined Status ──────────────────────────
+app.get('/api/phase49/stats', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            phase: 49,
+            title: 'منظومة شيخة التقنية الشاملة — ERP+SCM+AI+NVIDIA+CUDA+OpenAI+Google+GitHub+Copilot+Azure+Linux+Python',
+            stats: TECH_SYSTEM.getEngineStats(),
+            new_routes: [
+                '/api/erp/*', '/api/scm/*', '/api/management/*',
+                '/api/compute/*', '/api/devtools/*', '/api/phase49/*'
+            ],
+            quran: 'وَعَلَّمَ آدَمَ الأَسْمَاءَ كُلَّهَا — البقرة:31',
+            hadith: 'إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ'
+        },
+        message: 'المرحلة ٤٩: منظومة شيخة التقنية الشاملة مفعَّلة بإذن الله',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٤٨ — منظومة شيخة متعددة السحابات: SAP + Oracle + Hetzner + Multi-Cloud
+// بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+// وَلِلَّهِ الْمَشْرِقُ وَالْمَغْرِبُ — البقرة:115
+// ══════════════════════════════════════════════════════════════════════════════
+const {
+    SHEIKHA_MULTICLOUD,
+    SHEIKHA_SAP,
+    SHEIKHA_ORACLE,
+    SHEIKHA_HETZNER,
+    SHEIKHA_GLOBAL_SERVER,
+    MULTICLOUD_SYSTEM,
+    backgroundManager
+} = require('./lib/sheikha-multicloud');
+const sheikhaSys = require('./lib/sheikha-os');
+
+// ── Multi-Cloud Status ───────────────────────────────
+app.get('/api/multicloud/status', (req, res) => {
+    res.json(SHEIKHA_MULTICLOUD.getStatus());
+});
+app.get('/api/multicloud/full', (req, res) => {
+    res.json(MULTICLOUD_SYSTEM.getFullStatus());
+});
+app.get('/api/multicloud/stats', (req, res) => {
+    res.json({ success: true, data: MULTICLOUD_SYSTEM.getEngineStats(), timestamp: new Date().toISOString() });
+});
+app.get('/api/multicloud/nodes', (req, res) => {
+    res.json(SHEIKHA_GLOBAL_SERVER.getGlobalStatus());
+});
+app.get('/api/multicloud/health', (req, res) => {
+    res.json(backgroundManager.getStatus());
+});
+app.post('/api/multicloud/failover', (req, res) => {
+    const { from, to } = req.body || {};
+    if (!from || !to) return res.status(400).json({ success: false, message: 'يلزم from و to', timestamp: new Date().toISOString() });
+    res.json(backgroundManager.triggerFailover(from, to));
+});
+app.post('/api/multicloud/toggle', (req, res) => {
+    const { cloud, active } = req.body || {};
+    if (!cloud) return res.status(400).json({ success: false, message: 'يلزم cloud', timestamp: new Date().toISOString() });
+    res.json(backgroundManager.setActive(cloud, !!active));
+});
+
+// ── SAP APIs ─────────────────────────────────────────
+app.get('/api/sap/config', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_SAP.getConfig(), message: 'إعدادات SAP BTP + S/4HANA + Ariba', timestamp: new Date().toISOString() });
+});
+app.get('/api/sap/products', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_SAP.products, message: 'منتجات SAP المدعومة', timestamp: new Date().toISOString() });
+});
+app.get('/api/sap/integration', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_SAP.integrationStrategy, message: 'استراتيجية تكامل شيخة مع SAP', timestamp: new Date().toISOString() });
+});
+app.get('/api/sap/guide', (req, res) => {
+    res.json(SHEIKHA_SAP.getIntegrationGuide());
+});
+app.get('/api/sap/ariba', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_SAP.products.ariba, message: 'SAP Ariba — شبكة المشتريات العالمية', timestamp: new Date().toISOString() });
+});
+app.get('/api/sap/s4hana', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_SAP.products.s4hana, message: 'SAP S/4HANA — نواة ERP', timestamp: new Date().toISOString() });
+});
+app.get('/api/sap/btp', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_SAP.products.btp, message: 'SAP BTP — منصة التكامل', timestamp: new Date().toISOString() });
+});
+
+// ── Oracle Cloud APIs ─────────────────────────────────
+app.get('/api/oracle/config', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_ORACLE.getConfig(), message: 'إعدادات Oracle Cloud (OCI)', timestamp: new Date().toISOString() });
+});
+app.get('/api/oracle/services', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_ORACLE.services, message: 'خدمات Oracle Cloud', timestamp: new Date().toISOString() });
+});
+app.get('/api/oracle/erp', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_ORACLE.erp_integration, message: 'تكامل Oracle ERP Cloud', timestamp: new Date().toISOString() });
+});
+app.get('/api/oracle/free-tier', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_ORACLE.free_tier, message: 'Oracle Cloud Free Tier — الأقوى مجاناً', timestamp: new Date().toISOString() });
+});
+app.get('/api/oracle/setup', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_ORACLE.background_setup, message: 'دليل إعداد الخادم الخلفي على Oracle Cloud', timestamp: new Date().toISOString() });
+});
+
+// ── Hetzner APIs ──────────────────────────────────────
+app.get('/api/hetzner/config', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_HETZNER.getConfig(), message: 'إعدادات Hetzner Cloud', timestamp: new Date().toISOString() });
+});
+app.get('/api/hetzner/servers', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_HETZNER.servers, message: 'خوادم شيخة على Hetzner', timestamp: new Date().toISOString() });
+});
+app.get('/api/hetzner/services', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_HETZNER.services, message: 'خدمات Hetzner Cloud', timestamp: new Date().toISOString() });
+});
+app.get('/api/hetzner/setup', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_HETZNER.background_setup, message: 'دليل إعداد الخادم الخلفي على Hetzner', timestamp: new Date().toISOString() });
+});
+app.get('/api/hetzner/integration', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_HETZNER.integration, message: 'تكامل Hetzner مع منظومة شيخة', timestamp: new Date().toISOString() });
+});
+
+// ── Sheikha OS / Cloud / Edge / AI / Node / N8N (Phase 49) ───────────────
+app.get('/api/os/status',     (req, res) => res.json(sheikhaSys.SHEIKHA_SYSTEM.getSystemStatus()));
+app.get('/api/cloud/status',  (req, res) => res.json(sheikhaSys.SHEIKHA_CLOUD.getStatus()));
+app.get('/api/edge/nodes',    (req, res) => res.json({ success: true, data: sheikhaSys.SHEIKHA_EDGE.nodes, timestamp: new Date().toISOString() }));
+app.get('/api/ai/status',     (req, res) => res.json({ success: true, data: sheikhaSys.SHEIKHA_AI.engines, timestamp: new Date().toISOString() }));
+app.get('/api/node/status',   (req, res) => res.json(sheikhaSys.SHEIKHA_NODE.getNodeStatus()));
+app.get('/api/n8n/workflows', (req, res) => res.json(sheikhaSys.automation.list()));
+app.post('/api/n8n/run/:id',  async (req, res) => {
+    try {
+        const result = await sheikhaSys.automation.run(req.params.id, req.body);
+        res.json(result);
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'خطأ في تشغيل Workflow', timestamp: new Date().toISOString() });
+    }
+});
+
+// ── Phase 48 Combined Status ──────────────────────────
+app.get('/api/phase48/stats', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            phase: 48,
+            title: 'منظومة شيخة متعددة السحابات — SAP + Oracle + Hetzner + Multi-Cloud + OS',
+            engines: {
+                multicloud:  MULTICLOUD_SYSTEM.getEngineStats(),
+                sap_products: Object.keys(SHEIKHA_SAP.products).length,
+                oracle_services: Object.keys(SHEIKHA_ORACLE.services).length,
+                hetzner_nodes: Object.keys(SHEIKHA_HETZNER.servers).length,
+                global_nodes: SHEIKHA_GLOBAL_SERVER.nodes.length,
+                background_running: backgroundManager.started
+            },
+            new_routes: [
+                '/api/multicloud/*', '/api/sap/*', '/api/oracle/*', '/api/hetzner/*',
+                '/api/os/*', '/api/cloud/*', '/api/edge/*', '/api/ai/*', '/api/node/*', '/api/n8n/*'
+            ],
+            quran: 'وَلِلَّهِ الْمَشْرِقُ وَالْمَغْرِبُ فَأَيْنَمَا تُوَلُّوا فَثَمَّ وَجْهُ اللَّهِ — البقرة:115',
+            hadith: 'إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ'
+        },
+        message: 'المرحلة ٤٨: منظومة السحابات المتعددة الكاملة',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
 // المرحلة ٤٧ — رحلة شيخة التجارية الكونية + اللوجستيات + الاشتراكات
 // ══════════════════════════════════════════════════════════════════════════════
 
