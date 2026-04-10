@@ -24,6 +24,14 @@ echo "الاشتراك: $SUBSCRIPTION_ID"
 echo "المنطقة: $LOCATION (اﻹمارات — قريب للسعودية)"
 echo "══════════════════════════════════════════"
 
+# ═══ ٠. تثبيت Azure CLI إن لم يكن موجوداً ═══
+if ! command -v az &>/dev/null; then
+  echo ""
+  echo "تثبيت Azure CLI..."
+  curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+  echo "✅ Azure CLI مثبت"
+fi
+
 # ═══ ١. تسجيل الدخول وضبط الاشتراك ═══
 echo ""
 echo "١. ضبط اشتراك Azure..."
