@@ -38816,6 +38816,60 @@ app.get('/api/phase46/stats', (req, res) => {
 });
 
 // ══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٥٠ — منظومة شيخة الاستشارية الدولية الشاملة
+// بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+// وَشَاوِرْهُمْ فِي الأَمْرِ — آل عمران:159
+// ══════════════════════════════════════════════════════════════════════════════
+const {
+    CONSULTING_ARCHITECTURE,
+    CONSULTING_SERVICES,
+    CONSULTING_CLOUD,
+    CONSULTING_TOOLS,
+    CONSULTING_POLICIES,
+    CONSULTING_PARTNERSHIPS,
+    CONSULTING_SYSTEM,
+    consultingEngine
+} = require('./lib/sheikha-consulting');
+
+// ── Phase 50 Status ─────────────────────────────────────────────────────────
+app.get('/api/consulting/status', (req, res) => {
+    res.json({ success: true, data: CONSULTING_SYSTEM.getFullStatus(), message: 'المرحلة ٥٠: منظومة شيخة الاستشارية مفعَّلة بإذن الله', timestamp: new Date().toISOString() });
+});
+app.get('/api/consulting/architecture', (req, res) => {
+    res.json({ success: true, data: CONSULTING_ARCHITECTURE, timestamp: new Date().toISOString() });
+});
+app.get('/api/consulting/services', (req, res) => {
+    res.json({ success: true, data: CONSULTING_SERVICES, count: Object.keys(CONSULTING_SERVICES).length, timestamp: new Date().toISOString() });
+});
+app.get('/api/consulting/services/:category', (req, res) => {
+    const cat = CONSULTING_SERVICES[req.params.category];
+    if (!cat) return res.status(404).json({ success: false, message: 'الفئة غير موجودة' });
+    res.json({ success: true, data: cat, timestamp: new Date().toISOString() });
+});
+app.get('/api/consulting/cloud', (req, res) => {
+    res.json({ success: true, data: CONSULTING_CLOUD.getCloudMap(), timestamp: new Date().toISOString() });
+});
+app.get('/api/consulting/tools', (req, res) => {
+    res.json({ success: true, data: CONSULTING_TOOLS, summary: CONSULTING_TOOLS.getToolsSummary(), timestamp: new Date().toISOString() });
+});
+app.get('/api/consulting/policies', (req, res) => {
+    res.json({ success: true, data: CONSULTING_POLICIES, timestamp: new Date().toISOString() });
+});
+app.get('/api/consulting/partnerships', (req, res) => {
+    res.json({ success: true, data: CONSULTING_PARTNERSHIPS.getPartnershipMap(), timestamp: new Date().toISOString() });
+});
+app.post('/api/consulting/proposal', (req, res) => {
+    const { type, clientName } = req.body || {};
+    res.json({ success: true, data: consultingEngine.generateProposal(type, clientName), timestamp: new Date().toISOString() });
+});
+app.get('/api/consulting/engine', (req, res) => {
+    res.json({ success: true, data: consultingEngine.getStatus(), timestamp: new Date().toISOString() });
+});
+app.get('/api/phase50/stats', (req, res) => {
+    res.json({ success: true, data: CONSULTING_SYSTEM.getEngineStats(), message: 'Phase 50 — منظومة الاستشارات الدولية نشطة', timestamp: new Date().toISOString() });
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
 // المرحلة ٤٩ — منظومة شيخة التقنية الشاملة: ERP + SCM + AI + DevTools + Compute
 // بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
 // وَعَلَّمَ آدَمَ الأَسْمَاءَ كُلَّهَا — البقرة:31
