@@ -15,7 +15,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # ─── تثبيت التبعيات (إنتاجي فقط) ─────────────────────────────────────────────
-RUN npm ci --only=production && npm cache clean --force
+RUN npm install --omit=dev --no-audit --no-fund && npm cache clean --force
 
 # ─── نسخ كود المشروع ─────────────────────────────────────────────────────────
 COPY server.js ./
