@@ -16,7 +16,12 @@ const SUBSCRIPTIONS = [
         name: 'Hostinger Business Web Hosting',
         ar: 'هوستنجر — استضافة الأعمال',
         category: 'hosting',
-        status: 'active',
+        status: 'migrating',  // تم الدفع — جارٍ الهجرة لـ Azure
+        migration_target: 'azure_container_apps',
+        migration_status: 'in_progress',
+        paid_on: '2026-04-10',
+        domain_keep: 'sheikha.top',  // يبقى النطاق
+        email_migrating_to: 'microsoft_365',  // البريد → M365
         url: 'https://www.hostinger.com',
         dashboard: 'https://hpanel.hostinger.com',
         plan: 'Business Web Hosting',
@@ -31,14 +36,16 @@ const SUBSCRIPTIONS = [
             currency: 'USD',
             amount_usd: 95.88,
             amount_sar: 359.55,
-            next_due: '2026-04-15',
-            auto_renew: true,
+            next_due: '2027-04-15',  // تم الدفع بالكامل — محدّث
+            paid_date: '2026-04-10',
+            paid_status: 'PAID_FULL',
+            auto_renew: false,  // لن يتجدد — نهاجر قبل الانتهاء
             payment_method: 'بطاقة ائتمان',
-            alert_days_before: 30
+            alert_days_before: 60
         },
         sharia_note: 'خدمة استضافة — جائزة شرعاً بلا محظورات',
         rating: 7,
-        verdict: 'متوسط — مناسب للبداية ولكن يوجد بدائل أقوى'
+        verdict: 'تم الدفع — جارٍ الهجرة لـ Azure Container Apps (الأقوى)'
     },
     {
         id: 'github_copilot_enterprise',
@@ -84,7 +91,9 @@ const SUBSCRIPTIONS = [
         url: 'https://portal.azure.com',
         dashboard: 'https://portal.azure.com/#blade/Microsoft_Azure_Billing/SubscriptionsBlade',
         plan: 'Pay-As-You-Go',
-        subscription_id: 'YOUR_AZURE_SUBSCRIPTION_ID',
+        subscription_id: 'a7f53237-9f57-4530-af1d-c4b3751efde8',
+        tenant_id: 'Sheikha-top',
+        github_enterprise_linked: true,
         features: [
             '200+ خدمة سحابية',
             'AI + ML (Azure OpenAI)',
@@ -104,19 +113,69 @@ const SUBSCRIPTIONS = [
             is_free_trial: true,
             alert_days_before: 7,
             budget_alert_usd: 50,
-            auto_renew: true
+            auto_renew: true,
+            linked_to_github_enterprise: true,
+            next_billing_date: '2026-05-01'
         },
+        active_services: [
+            'Azure Container Apps: sheikha-portal (في التفعيل)',
+            'Azure Container Registry: sheikhaacr',
+            'Azure Key Vault: sheikha-production-kv',
+            'Azure DNS Zone: sheikha.top',
+            'Azure Application Insights: مراقبة كاملة',
+            'Azure Log Analytics: سجلات 30 يوم'
+        ],
         free_services: [
-            'Azure App Service (F1): مجاني دائم',
+            'Azure Container Apps (Consumption): مجاني للـ 2M طلب/شهر',
             'Azure Functions: مليون طلب/شهر مجاناً',
-            'Azure Static Web Apps: هوستنجر بديل فوري مجاني',
+            'Azure Static Web Apps: مجاني دائم',
             'Azure Blob Storage: 5 GB مجاناً للسنة الأولى',
             'Azure Cosmos DB: 400 RU/s مجاناً دائم',
             'Azure AI Services: $200 رصيد مبدئي'
         ],
         sharia_note: 'خدمة سحابية — جائزة شرعاً. استخدم فقط ما تحتاجه لتجنب الإسراف',
         rating: 10,
-        verdict: 'ممتاز — الأقوى والأكثر مرونة'
+        verdict: 'ممتاز — الأقوى والأكثر مرونة + Container Apps نشط'
+    },
+    {
+        id: 'microsoft_365',
+        name: 'Microsoft 365 Business Basic',
+        ar: 'Microsoft 365 — البريد الاحترافي + Office',
+        category: 'email_productivity',
+        status: 'recommended',  // بديل هوستنجر Email
+        url: 'https://www.microsoft.com/microsoft-365/business',
+        dashboard: 'https://admin.microsoft.com',
+        plan: 'Business Basic',
+        custom_domain_email: 'market@sheikha.top',
+        features: [
+            'Exchange Online — بريد احترافي @sheikha.top',
+            'Outlook Web + Desktop',
+            'Teams للتواصل الداخلي',
+            'SharePoint + OneDrive 1TB',
+            'Microsoft Forms + Planner',
+            'Entra ID للهوية والأمان',
+            'Anti-spam + Anti-phishing متقدم',
+            'تشفير رسائل E2E',
+            'توافق مع Azure AD'
+        ],
+        billing: {
+            cycle: 'شهري',
+            currency: 'USD',
+            amount_per_user: 6,
+            users: 1,
+            amount_usd: 6,
+            amount_sar: 22.5,
+            note: 'أرخص من هوستنجر Email بكثير',
+            alert_days_before: 7
+        },
+        dns_records: {
+            mx: 'sheikha-top.mail.protection.outlook.com',
+            spf: 'v=spf1 include:spf.protection.outlook.com -all',
+            autodiscover: 'autodiscover.outlook.com'
+        },
+        sharia_note: 'خدمة بريد واتصالات — جائزة شرعاً',
+        rating: 10,
+        verdict: 'الأفضل — بريد احترافي + تكامل كامل مع Azure'
     },
     {
         id: 'vercel',
@@ -158,24 +217,26 @@ const HOSTINGER_ALTERNATIVES = [
         ar: 'Azure — الحل الأمثل',
         cost_usd: 0,
         cost_sar: 0,
-        note: 'مجاني لشيخة! لديك اشتراك Azure نشط',
+        note: 'مجاني لشيخة! لديك اشتراك Azure نشط — ID: a7f53237',
         why_better: [
-            'مجاني بالكامل (Free Tier دائم)',
+            'مجاني بالكامل (Container Apps Consumption Free Tier)',
             'CDN عالمي Microsoft في 60+ منطقة',
-            'نشر تلقائي من GitHub',
-            'SSL + Custom Domain مجاني',
-            'أسرع من هوستنجر بكثير',
-            'Uptime 99.99%',
-            'دعم Node.js + API Functions مدمج',
-            'لا حد في عدد الطلبات'
+            'نشر تلقائي من GitHub Actions (يعمل الآن)',
+            'SSL + Custom Domain sheikha.top مجاني',
+            'Docker + Node.js كامل',
+            'Uptime 99.99% SLA مضمون',
+            'Auto-scaling 1 → 10 replicas',
+            'Key Vault للأسرار + Application Insights للمراقبة'
         ],
         migrate_steps: [
-            'تفعيل Azure Static Web Apps من البوابة',
-            'ربط GitHub repo: Sheikha-top/sheikha-enterprise-portal',
-            'توجيه sheikha.top DNS لـ Azure',
-            'إيقاف هوستنجر وتوفير ~$96/سنة'
+            '١. تشغيل: az group create --name sheikha-rg --location uaenorth',
+            '٢. تشغيل: az deployment group create --resource-group sheikha-rg --template-file infra/main.bicep',
+            '٣. رفع Docker: GitHub Actions تبني تلقائياً (/github/workflows/azure-deploy.yml جاهز)',
+            '٤. توجيه DNS في هوستينجر: CNAME sheikha.top → Azure FQDN',
+            '٥. نقل MX للبريد: outlook.com (Microsoft 365)',
+            '٦. إيقاف auto-renew هوستينجر — توفير $95.88/سنة'
         ],
-        action: 'MIGRATE_NOW',
+        action: 'IN_PROGRESS',
         savings_usd_year: 95.88,
         savings_sar_year: 359.55
     },
@@ -236,32 +297,42 @@ const PAYMENT_CALENDAR = {
     payments: [
         {
             month: 'أبريل 2026',
-            due_date: '2026-04-15',
-            days_remaining: 6,
+            due_date: '2026-04-10',
             subscription: 'hostinger',
             amount_usd: 95.88,
             amount_sar: 359.55,
-            status: 'URGENT',
-            alert: 'تجديد قادم خلال 6 أيام — هل ستجدد أم تهاجر لـ Azure؟'
+            status: 'PAID',
+            paid_date: '2026-04-10',
+            note: 'تم الدفع بالكامل — جاري الهجرة لـ Azure Container Apps'
         },
         {
             month: 'مايو 2026',
             due_date: '2026-05-01',
-            days_remaining: 22,
+            days_remaining: 21,
             subscription: 'github_copilot_enterprise',
             amount_usd: 39,
             amount_sar: 146.25,
             status: 'UPCOMING',
             alert: 'GitHub Copilot Enterprise — تجديد شهري تلقائي'
+        },
+        {
+            month: 'مايو 2026',
+            due_date: '2026-05-01',
+            days_remaining: 21,
+            subscription: 'microsoft_365',
+            amount_usd: 6,
+            amount_sar: 22.5,
+            status: 'RECOMMENDED',
+            note: 'اشتراك Microsoft 365 — بريد market@sheikha.top الاحترافي'
         }
     ],
     annual_summary: {
-        total_usd: 134.88,
-        total_sar: 505.80,
+        current_total_usd: 45,
+        after_m365_usd: 51,
+        before_migration_usd: 134.88,
+        savings_vs_hostinger_usd: 83.88,
         azure_cost_usd: 0,
-        vercel_cost_usd: 0,
-        potential_savings_usd: 95.88,
-        potential_savings_sar: 359.55
+        vercel_cost_usd: 0
     }
 };
 
