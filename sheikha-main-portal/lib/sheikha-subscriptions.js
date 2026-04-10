@@ -92,8 +92,16 @@ const SUBSCRIPTIONS = [
         dashboard: 'https://portal.azure.com/#blade/Microsoft_Azure_Billing/SubscriptionsBlade',
         plan: 'Pay-As-You-Go',
         subscription_id: 'a7f53237-9f57-4530-af1d-c4b3751efde8',
-        tenant_id: 'Sheikha-top',
+        tenant_id: '77674e3a-f595-499e-9061-45a485d22565',
+        tenant_domain: 'sheikha.top',
         github_enterprise_linked: true,
+        app_registration: {
+            client_id: '3298e7b2-567b-4e0f-be47-da854836dec3',
+            sp_object_id: '181e6f59-5007-4c19-accd-e43a7130a1f3',
+            name: 'sheikha-github-actions',
+            oidc_branches: ['main', 'review/safe-analysis'],
+            role: 'Contributor → sheikha-rg'
+        },
         features: [
             '200+ خدمة سحابية',
             'AI + ML (Azure OpenAI)',
@@ -118,12 +126,14 @@ const SUBSCRIPTIONS = [
             next_billing_date: '2026-05-01'
         },
         active_services: [
-            'Azure Container Apps: sheikha-portal (في التفعيل)',
-            'Azure Container Registry: sheikhaacr',
-            'Azure Key Vault: sheikha-production-kv',
-            'Azure DNS Zone: sheikha.top',
-            'Azure Application Insights: مراقبة كاملة',
-            'Azure Log Analytics: سجلات 30 يوم'
+            'Azure Container Apps: sheikha-portal ✅ منشور',
+            'Azure Container Registry: sheikhaacr ✅ نشط',
+            'Azure Key Vault: sheikha-production-kv ✅ نشط',
+            'Azure DNS Zone: sheikha.top ✅ نشط',
+            'Azure Application Insights: مراقبة كاملة ✅',
+            'Azure Log Analytics: سجلات 30 يوم ✅',
+            'GitHub Actions CI/CD: OIDC ✅ مفعّل',
+            'Resource Group: sheikha-rg (uaenorth) ✅'
         ],
         free_services: [
             'Azure Container Apps (Consumption): مجاني للـ 2M طلب/شهر',
