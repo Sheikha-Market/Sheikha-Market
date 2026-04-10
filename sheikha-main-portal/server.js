@@ -38816,6 +38816,180 @@ app.get('/api/phase46/stats', (req, res) => {
 });
 
 // ══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٥٢ — منظومة التوقيت الكوني الشامل | الهجري + كل التقاويم + الصلاة
+// بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+// يَسْأَلُونَكَ عَنِ الأَهِلَّةِ قُلْ هِيَ مَوَاقِيتُ لِلنَّاسِ وَالحَجِّ — البقرة:189
+// ══════════════════════════════════════════════════════════════════════════════
+const {
+    CALENDARS,
+    WORLD_TIMEZONES,
+    PRAYER_METHODS,
+    PRAYER_QURAN_REFS,
+    COSMIC_TIMELINE,
+    WORLD_LANGUAGES,
+    FUTURE_VISION,
+    timeEngine,
+    gregorianToHijri,
+    hijriToGregorian,
+    calcPrayerTimes,
+    getCurrentHijriDate,
+    getCosmicTimestamp,
+    getCurrentTimeAllCountries,
+    TIME_SYSTEM
+} = require('./lib/sheikha-time');
+
+// ── Phase 52: Cosmic Timestamp ───────────────────────────────────────────────
+app.get('/api/time/now', (req, res) => {
+    res.json({ success: true, data: getCosmicTimestamp(), message: 'التوقيت الكوني الشامل — كل التقاويم في آن', timestamp: new Date().toISOString() });
+});
+
+// ── الوقت الفعلي لكل دولة ───────────────────────────────────────────────────
+app.get('/api/time/countries', (req, res) => {
+    res.json({ success: true, data: getCurrentTimeAllCountries(), message: 'الوقت الفعلي لـ 43 دولة', timestamp: new Date().toISOString() });
+});
+app.get('/api/time/countries/:code', (req, res) => {
+    const all = getCurrentTimeAllCountries();
+    const code = req.params.code.toUpperCase();
+    if (!all[code]) return res.status(404).json({ success: false, message: 'الدولة غير موجودة', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: all[code], timestamp: new Date().toISOString() });
+});
+
+// ── التقويم الهجري ──────────────────────────────────────────────────────────
+app.get('/api/time/hijri', (req, res) => {
+    res.json({ success: true, data: getCurrentHijriDate(), message: 'التاريخ الهجري القمري الحالي', timestamp: new Date().toISOString() });
+});
+
+// ── تحويل التواريخ ──────────────────────────────────────────────────────────
+app.get('/api/time/convert/to-hijri', (req, res) => {
+    const { year, month, day } = req.query;
+    if (!year || !month || !day) return res.status(400).json({ success: false, message: 'مطلوب: year, month, day', timestamp: new Date().toISOString() });
+    const h = gregorianToHijri(parseInt(year), parseInt(month), parseInt(day));
+    const months = CALENDARS.hijri_lunar.months_ar;
+    res.json({ success: true, data: { ...h, month_ar: months[h.month-1], full_ar: `${h.day} ${months[h.month-1]} ${h.year} هـ` }, timestamp: new Date().toISOString() });
+});
+app.get('/api/time/convert/to-miladi', (req, res) => {
+    const { year, month, day } = req.query;
+    if (!year || !month || !day) return res.status(400).json({ success: false, message: 'مطلوب: year, month, day (هجري)', timestamp: new Date().toISOString() });
+    const g = hijriToGregorian(parseInt(year), parseInt(month), parseInt(day));
+    res.json({ success: true, data: g, timestamp: new Date().toISOString() });
+});
+
+// ── أوقات الصلاة ────────────────────────────────────────────────────────────
+app.get('/api/time/prayer', (req, res) => {
+    const lat = parseFloat(req.query.lat) || 21.3891; // مكة المكرمة افتراضياً
+    const lon = parseFloat(req.query.lon) || 39.8579;
+    const method = req.query.method || 'umm_al_qura';
+    const date = req.query.date ? new Date(req.query.date) : new Date();
+    if (isNaN(lat) || isNaN(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+        return res.status(400).json({ success: false, message: 'إحداثيات غير صالحة', timestamp: new Date().toISOString() });
+    }
+    const times = calcPrayerTimes(date, lat, lon, method);
+    res.json({ success: true, data: { times, refs: PRAYER_QURAN_REFS, method, lat, lon }, message: 'مواقيت الصلاة — الكتاب والسنة', timestamp: new Date().toISOString() });
+});
+
+// ── التقاويم الكاملة ─────────────────────────────────────────────────────────
+app.get('/api/time/calendars', (req, res) => {
+    res.json({ success: true, data: CALENDARS, message: `${Object.keys(CALENDARS).length} تقويم — من المصرية القديمة للهجري`, timestamp: new Date().toISOString() });
+});
+app.get('/api/time/calendars/:id', (req, res) => {
+    const cal = CALENDARS[req.params.id];
+    if (!cal) return res.status(404).json({ success: false, message: 'التقويم غير موجود', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: cal, timestamp: new Date().toISOString() });
+});
+
+// ── الجدول الزمني الكوني ─────────────────────────────────────────────────────
+app.get('/api/time/cosmic-timeline', (req, res) => {
+    res.json({ success: true, data: COSMIC_TIMELINE, message: 'من خلق الكون إلى يوم القيامة — بالكتاب والسنة', timestamp: new Date().toISOString() });
+});
+app.get('/api/time/cosmic-timeline/prophets', (req, res) => {
+    res.json({ success: true, data: COSMIC_TIMELINE.prophets_timeline, message: 'أنبياء الله ورسله — عليهم السلام', timestamp: new Date().toISOString() });
+});
+app.get('/api/time/cosmic-timeline/islamic-eras', (req, res) => {
+    res.json({ success: true, data: COSMIC_TIMELINE.islamic_eras, message: 'أحداث الحضارة الإسلامية', timestamp: new Date().toISOString() });
+});
+app.get('/api/time/cosmic-timeline/end-times', (req, res) => {
+    res.json({ success: true, data: COSMIC_TIMELINE.end_times, message: 'أشراط الساعة — بالكتاب والسنة — الغيب لله وحده', timestamp: new Date().toISOString() });
+});
+
+// ── اللغات ──────────────────────────────────────────────────────────────────
+app.get('/api/time/languages', (req, res) => {
+    res.json({ success: true, data: WORLD_LANGUAGES, message: `${Object.keys(WORLD_LANGUAGES).length} لغة — من السومرية إلى العربية`, timestamp: new Date().toISOString() });
+});
+
+// ── حالة المرحلة 52 ─────────────────────────────────────────────────────────
+app.get('/api/time/status', (req, res) => {
+    res.json({ success: true, data: TIME_SYSTEM.getFullStatus(), message: 'المرحلة ٥٢: منظومة التوقيت الكوني نشطة بإذن الله', timestamp: new Date().toISOString() });
+});
+app.get('/api/phase52/stats', (req, res) => {
+    res.json({
+        success: true,
+        data: { phase: 52, name: 'منظومة التوقيت الكوني الشامل', ...TIME_SYSTEM.getFullStatus() },
+        message: 'Phase 52 Active — بِسْمِ اللَّهِ',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
+// المرحلة ٥١ — منظومة الطفرة الشاملة | Visual Tech | Cosmic Network
+// بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+// وَقُل رَّبِّ زِدْنِي عِلْمًا — طه:114
+// ══════════════════════════════════════════════════════════════════════════════
+const {
+    VISUAL_TECH,
+    SHEIKHA_LEAP,
+    SHEIKHA_TECH_STACK,
+    SHEIKHA_COSMIC_NETWORK,
+    LEAP_SYSTEM,
+    leapEngine
+} = require('./lib/sheikha-leap');
+
+// ── Phase 51: Leap Status ────────────────────────────────────────────────────
+app.get('/api/leap/status', (req, res) => {
+    res.json({ success: true, data: LEAP_SYSTEM.getFullStatus(), message: 'المرحلة ٥١: منظومة الطفرة نشطة بإذن الله', timestamp: new Date().toISOString() });
+});
+app.get('/api/leap/domains', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_LEAP, message: 'مجالات منظومة الطفرة العشرة', timestamp: new Date().toISOString() });
+});
+app.get('/api/leap/domains/:domain', (req, res) => {
+    const d = SHEIKHA_LEAP[req.params.domain];
+    if (!d) return res.status(404).json({ success: false, message: 'المجال غير موجود', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: d, timestamp: new Date().toISOString() });
+});
+app.get('/api/visual/tech', (req, res) => {
+    res.json({ success: true, data: VISUAL_TECH, message: 'تقنيات البصريات: 2D/3D/360/VR/AR — شيخة الجيل الجديد', timestamp: new Date().toISOString() });
+});
+app.get('/api/visual/tech/:category', (req, res) => {
+    const cat = VISUAL_TECH[req.params.category];
+    if (!cat) return res.status(404).json({ success: false, message: 'الفئة غير موجودة', timestamp: new Date().toISOString() });
+    res.json({ success: true, data: cat, timestamp: new Date().toISOString() });
+});
+app.get('/api/network/cosmic', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_COSMIC_NETWORK, message: 'الشبكة الكونية — 12 عقدة عالمية', timestamp: new Date().toISOString() });
+});
+app.get('/api/tech-stack', (req, res) => {
+    res.json({ success: true, data: SHEIKHA_TECH_STACK, message: 'حزمة التقنيات الكاملة لمنظومة شيخة', timestamp: new Date().toISOString() });
+});
+app.get('/api/leap/engine', (req, res) => {
+    res.json({ success: true, data: leapEngine.stats, message: 'محرك الطفرة — إحصائيات', timestamp: new Date().toISOString() });
+});
+app.get('/api/phase51/stats', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            phase: 51,
+            name: 'منظومة الطفرة الشاملة',
+            domains: Object.keys(SHEIKHA_LEAP).length,
+            visualTech: Object.keys(VISUAL_TECH).length,
+            cosmicNodes: SHEIKHA_COSMIC_NETWORK.nodes.length,
+            techStack: Object.keys(SHEIKHA_TECH_STACK).length,
+            status: 'active'
+        },
+        message: 'Phase 51 — منظومة الطفرة بإذن الله',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
 // المرحلة ٥٠ — منظومة شيخة الاستشارية الدولية الشاملة
 // بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
 // وَشَاوِرْهُمْ فِي الأَمْرِ — آل عمران:159
