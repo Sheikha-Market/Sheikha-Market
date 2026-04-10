@@ -126,8 +126,9 @@ const SUBSCRIPTIONS = [
             next_billing_date: '2026-05-01'
         },
         active_services: [
-            'Azure Container Apps: sheikha-portal ✅ منشور',
-            'Azure Container Registry: sheikhaacr ✅ نشط',
+            'Azure Container Apps: sheikha-portal ✅ (FQDN جاهز)',
+            'Container App FQDN: sheikha-portal.happyrock-40c6617f.uaenorth.azurecontainerapps.io',
+            'Azure Container Registry: sheikhaacr ✅ نشط (build جارٍ)',
             'Azure Key Vault: sheikha-production-kv ✅ نشط',
             'Azure DNS Zone: sheikha.top ✅ نشط',
             'Azure Application Insights: مراقبة كاملة ✅',
