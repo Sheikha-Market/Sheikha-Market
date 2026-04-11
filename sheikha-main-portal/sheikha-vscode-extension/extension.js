@@ -765,7 +765,7 @@ async function activate(context) {
         } catch (_) {
             // تجاهل فشل التحديث الدوري
         }
-    }, Math.max(5, Number(provider.config.dashboardRefreshSeconds || 15)) * 1000);
+    }, Math.max(30, Number(provider.config.dashboardRefreshSeconds || 60)) * 1000);
 
     if (vscode.extensions && vscode.extensions.onDidChange) {
         context.subscriptions.push(vscode.extensions.onDidChange(async () => {

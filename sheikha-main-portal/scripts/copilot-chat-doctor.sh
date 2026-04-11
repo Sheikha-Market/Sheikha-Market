@@ -14,9 +14,18 @@ fi
 echo "[1] Checking extension installation"
 code --list-extensions | grep -E 'GitHub.copilot|GitHub.copilot-chat' || true
 
-echo "[2] Reinstall/refresh Copilot extensions"
-code --install-extension GitHub.copilot --force || true
-code --install-extension GitHub.copilot-chat --force || true
+echo "[2] Install Copilot extensions if not already present"
+INSTALLED_EXTENSIONS="$(code --list-extensions 2>/dev/null || true)"
+if echo "$INSTALLED_EXTENSIONS" | grep -qiFx 'GitHub.copilot'; then
+    echo "   GitHub.copilot already installed — skipping"
+else
+    code --install-extension GitHub.copilot || true
+fi
+if echo "$INSTALLED_EXTENSIONS" | grep -qiFx 'GitHub.copilot-chat'; then
+    echo "   GitHub.copilot-chat already installed — skipping"
+else
+    code --install-extension GitHub.copilot-chat || true
+fi
 
 echo "[3] Clear VS Code extension host cache (safe)"
 rm -rf "$HOME/.config/Code/CachedExtensionVSIXs" 2>/dev/null || true
