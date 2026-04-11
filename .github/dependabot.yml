@@ -1,0 +1,59 @@
+# ╔══════════════════════════════════════════════════════════╗
+# ║   🤖 DEPENDABOT — تحديثات أمنية تلقائية                ║
+# ║   «لا ضرر ولا ضرار»                                    ║
+# ╚══════════════════════════════════════════════════════════╝
+version: 2
+updates:
+
+  - package-ecosystem: "npm"
+    directory: "/sheikha-main-portal"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "03:00"
+      timezone: "Asia/Riyadh"
+    open-pull-requests-limit: 10
+    labels:
+      - "security"
+      - "dependencies"
+    commit-message:
+      prefix: "🔒 security"
+      prefix-development: "⬆️ deps-dev"
+    # السماح بتحديثات الأمان حتى للإصدارات الكبرى (major) — الأمان أولاً
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    ignore:
+      # تجاهل ترقيات major للمكتبات غير الأمنية فقط
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    # مجموعات التحديثات لتقليل عدد PRs
+    groups:
+      production-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      development-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "03:00"
+      timezone: "Asia/Riyadh"
+    open-pull-requests-limit: 5
+    labels:
+      - "security"
+      - "github-actions"
+    commit-message:
+      prefix: "⚙️ ci"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
