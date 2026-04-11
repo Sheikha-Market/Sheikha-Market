@@ -18,7 +18,7 @@
  */
 'use strict';
 
-class SheikhaМalahemUnionEngine {
+class SheikhaMalahemUnionEngine {
     constructor() {
         this.name    = 'محرك الملاحم والاتحاد — تثقيف شرعي معرفي';
         this.nameEn  = 'Sheikha Malahem Union Engine (Islamic Eschatological Knowledge)';
@@ -572,4 +572,4 @@ class SheikhaМalahemUnionEngine {
     }
 }
 
-module.exports = SheikhaМalahemUnionEngine;
+module.exports = SheikhaMalahemUnionEngine;

@@ -14,8 +14,8 @@ let _engine = null;
 
 function getEngine() {
     if (!_engine) {
-        const SheikhaМalahemUnionEngine = require('../lib/sheikha-malahem-union-engine.js');
-        _engine = new SheikhaМalahemUnionEngine();
+        const SheikhaMalahemUnionEngine = require('../lib/sheikha-malahem-union-engine.js');
+        _engine = new SheikhaMalahemUnionEngine();
         console.log('✅ [MALAHEM] محرك الملاحم والاتحاد — مُفعَّل (تثقيف شرعي معرفي)');
     }
     return _engine;
