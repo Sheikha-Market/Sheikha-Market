@@ -35004,6 +35004,47 @@ try {
     console.log('⚠️ [ALLIANCE] فشل تحميل مسارات التحالف:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔗 ENTERPRISE INTEGRATION ENGINE — التكامل المؤسسي الشامل
+// Fortune 500 + المنظمات الدولية + الحكومات + سلسلة الإمداد + 300M SME
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const enterpriseRoutes = require('./routes/enterprise.js');
+    app.use('/api/enterprise', enterpriseRoutes);
+    console.log('✅ [ENTERPRISE] محرك التكامل المؤسسي — مُفعَّل | 24 نقطة API');
+} catch (e) {
+    console.log('⚠️ [ENTERPRISE] فشل تحميل مسارات التكامل المؤسسي:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐 API GATEWAY — بوابة API الموحدة (metrics + correlation IDs + health)
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const apiGatewayRoutes = require('./routes/api-gateway.js');
+    app.use('/api/gateway', apiGatewayRoutes);
+    // تفعيل middleware البوابة على كل المسارات
+    const apiGateway = require('./lib/sheikha-api-gateway.js');
+    app.use('/api/', apiGateway.middleware());
+    console.log('✅ [API-GATEWAY] بوابة API الموحدة — مُفعَّلة | Correlation IDs + Metrics + Health');
+} catch (e) {
+    console.log('⚠️ [API-GATEWAY] فشل تحميل بوابة API:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🛡️ DB ENGINE — طبقة قاعدة البيانات (MongoDB-ready + JSON fallback)
+// أضف MONGODB_URI في .env لتفعيل MongoDB تلقائياً
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const sheikhaDB = require('./lib/sheikha-db-engine.js');
+    const dbStatus  = sheikhaDB.getStatus();
+    console.log(`✅ [DB-ENGINE] محرك قاعدة البيانات — مُفعَّل | وضع: ${dbStatus.mode} | Migration: ${dbStatus.migration.status}`);
+    // تأكد من فلوش البيانات عند الإغلاق
+    process.on('SIGTERM', () => { sheikhaDB.flushAll(); });
+    process.on('SIGINT',  () => { sheikhaDB.flushAll(); });
+} catch (e) {
+    console.log('⚠️ [DB-ENGINE] فشل تحميل محرك قاعدة البيانات:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
