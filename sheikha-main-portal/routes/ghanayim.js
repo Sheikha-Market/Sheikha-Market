@@ -73,23 +73,28 @@ router.get('/zakat-engine', (req, res) => {
 });
 
 // ── حاسبة الزكاة (GET بمعامل)
+// ملاحظة: الـ POST endpoint هو الموصى به لإخفاء المبالغ من سجلات الخادم
 router.get('/zakat-calculate', (req, res) => {
     const amount = parseFloat(req.query.amount);
     const type   = req.query.type || 'cash';
     if (!amount || amount <= 0) {
         return res.status(400).json({ success: false, message: 'يرجى إدخال مبلغ صحيح (amount > 0)' });
     }
-    res.json({ success: true, ...getEngine().calculateZakat(amount, type) });
+    const result = getEngine().calculateZakat(amount, type);
+    if (result.success === false) return res.status(400).json(result);
+    res.json({ success: true, ...result });
 });
 
-// ── حاسبة الزكاة (POST)
+// ── حاسبة الزكاة (POST) — الموصى به لحماية البيانات المالية من سجلات الخادم
 router.post('/zakat-calculate', express.json(), (req, res) => {
     const { amount, type } = req.body || {};
     const amt = parseFloat(amount);
     if (!amt || amt <= 0) {
         return res.status(400).json({ success: false, message: 'يرجى إدخال مبلغ صحيح (amount > 0)' });
     }
-    res.json({ success: true, ...getEngine().calculateZakat(amt, type || 'cash') });
+    const result = getEngine().calculateZakat(amt, type || 'cash');
+    if (result.success === false) return res.status(400).json(result);
+    res.json({ success: true, ...result });
 });
 
 // ── قطاعات الثروة

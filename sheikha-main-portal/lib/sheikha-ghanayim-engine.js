@@ -778,15 +778,25 @@ class SheikhaGhanayimEngine {
      */
     calculateZakat(amount, type = 'cash') {
         const rates = this._zakatEngine.rates;
-        const rateInfo = rates[type] || rates.cash;
-        const zakatAmount = amount * rateInfo.rate;
-        const remaining   = amount - zakatAmount;
+        const validTypes = Object.keys(rates);
+        if (!validTypes.includes(type)) {
+            return {
+                success: false,
+                error: 'INVALID_TYPE',
+                message: `نوع المال "${type}" غير مدعوم. الأنواع المتاحة: ${validTypes.join(', ')}`,
+                validTypes
+            };
+        }
+        const rateInfo    = rates[type];
+        // استخدام toFixed + parseFloat لتجنب أخطاء الفاصلة العائمة في الحسابات المالية
+        const zakatAmount = parseFloat((amount * rateInfo.rate).toFixed(2));
+        const remaining   = parseFloat((amount - zakatAmount).toFixed(2));
         return {
             بسم_الله: 'بسم الله الرحمن الرحيم',
             input: { amount, type },
             rateInfo,
-            zakatAmount: Math.round(zakatAmount * 100) / 100,
-            remaining: Math.round(remaining * 100) / 100,
+            zakatAmount,
+            remaining,
             blessing: 'مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ — رواه مسلم',
             note: 'الزكاة تُطهر المال وتُنميه بإذن الله',
             timestamp: new Date().toISOString()
