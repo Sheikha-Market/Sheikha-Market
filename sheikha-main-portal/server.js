@@ -35077,6 +35077,36 @@ try {
     console.log('⚠️ [GOOGLE] فشل تحميل تكامل Google:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// ☁️  SHEIKHA COSMIC CLOUD — أفضل سحابة كونية
+// Multi-Cloud · Edge · CDN · Storage · Compute · AI · Serverless · 16 endpoints
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const cosmicCloudRoutes = require('./routes/cloud.js');
+    app.use('/api/cloud/cosmic', cosmicCloudRoutes);
+
+    const cloudEngine = require('./lib/sheikha-cloud-engine.js');
+    const dashboard   = cloudEngine.getDashboard();
+    const configured  = dashboard.summary.configuredProviders;
+    const total       = dashboard.summary.totalProviders;
+
+    console.log(`✅ [SHEIKHA-CLOUD] سحابة شيخة الكونية — مُفعَّلة | ${configured}/${total} مزود سحابي مُهيَّأ`);
+    console.log('   ├─ /api/cloud/cosmic              — لوحة قيادة السحابة الكاملة');
+    console.log('   ├─ /api/cloud/cosmic/health        — فحص الصحة');
+    console.log('   ├─ /api/cloud/cosmic/providers     — مزودو السحابة (Google/Azure/AWS/Cloudflare)');
+    console.log('   ├─ /api/cloud/cosmic/platforms     — منصات شيخة');
+    console.log('   ├─ /api/cloud/cosmic/regions       — التغطية الجغرافية');
+    console.log('   ├─ /api/cloud/cosmic/cdn           — شبكة CDN');
+    console.log('   ├─ /api/cloud/cosmic/compute       — الحوسبة والـ Serverless');
+    console.log('   ├─ /api/cloud/cosmic/ai            — نماذج الذكاء الاصطناعي');
+    console.log('   ├─ /api/cloud/cosmic/route         — التوجيه الذكي');
+    console.log('   ├─ /api/cloud/cosmic/storage       — التخزين الكوني');
+    console.log('   ├─ /api/cloud/cosmic/usage         — إحصائيات الاستخدام');
+    console.log('   └─ /api/cloud/cosmic/log           — سجل العمليات');
+} catch (e) {
+    console.log('⚠️ [SHEIKHA-CLOUD] فشل تحميل سحابة شيخة الكونية:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
