@@ -35045,6 +35045,38 @@ try {
     console.log('⚠️ [DB-ENGINE] فشل تحميل محرك قاعدة البيانات:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐 GOOGLE FULL INTEGRATION — تكامل Google الكامل
+// Gemini AI + Cloud + Maps + Analytics (GA4) + Gmail + Google Pay + OAuth
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const {
+        geminiRouter,
+        cloudRouter,
+        mapsRouter,
+        analyticsRouter,
+        emailRouter,
+        googlePayRouter
+    } = require('./routes/google-integrations.js');
+
+    app.use('/api/ai/gemini',       geminiRouter);
+    app.use('/api/cloud',           cloudRouter);
+    app.use('/api/maps',            mapsRouter);
+    app.use('/api/analytics',       analyticsRouter);
+    app.use('/api/email',           emailRouter);
+    app.use('/api/payment/googlepay', googlePayRouter);
+
+    console.log('✅ [GOOGLE] تكامل Google الكامل — مُفعَّل');
+    console.log('   ├─ /api/ai/gemini          — Gemini AI (gemini-1.5-flash)');
+    console.log('   ├─ /api/cloud              — Google Cloud Storage / BigQuery / PubSub');
+    console.log('   ├─ /api/maps               — Google Maps + Geocoding + Places');
+    console.log('   ├─ /api/analytics          — Google Analytics GA4 (Measurement Protocol)');
+    console.log('   ├─ /api/email              — Gmail API (OAuth token-based send)');
+    console.log('   └─ /api/payment/googlepay  — Google Pay (tokenize + checkout)');
+} catch (e) {
+    console.log('⚠️ [GOOGLE] فشل تحميل تكامل Google:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
