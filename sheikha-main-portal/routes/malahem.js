@@ -78,9 +78,43 @@ router.get('/preparedness-guide', (req, res) => {
     res.json({ success: true, ...getEngine().getPreparednessGuide() });
 });
 
-// ── ملاحظات العلماء وضوابط الفهم
-router.get('/scholarly-notes', (req, res) => {
-    res.json({ success: true, ...getEngine().getScholarlyNotes() });
+// ── المسيح الدجال ونهايته (v2 endpoint)
+router.get('/dajjal-system', (req, res) => {
+    const e = getEngine();
+    const fn = e.getDajjalSystem ? e.getDajjalSystem.bind(e) : e.getDajjalEnd.bind(e);
+    res.json({ success: true, ...fn() });
+});
+
+// ── يأجوج ومأجوج
+router.get('/yajuj-majuj', (req, res) => {
+    res.json({ success: true, ...getEngine().getYajujMajuj() });
+});
+
+// ── علامات الساعة الكبرى
+router.get('/major-signs', (req, res) => {
+    res.json({ success: true, ...getEngine().getMajorSigns() });
+});
+
+// ── علامة كبرى محددة مثل: /major-sign/KS-04
+router.get('/major-sign/:id', (req, res) => {
+    const result = getEngine().getMajorSign(String(req.params.id).toUpperCase());
+    if (result.success === false) return res.status(404).json(result);
+    res.json({ success: true, ...result });
+});
+
+// ── علامات الساعة الصغرى
+router.get('/minor-signs', (req, res) => {
+    res.json({ success: true, ...getEngine().getMinorSigns() });
+});
+
+// ── اشراط الساعة من القران والسنة
+router.get('/ashrat-al-saah', (req, res) => {
+    res.json({ success: true, ...getEngine().getAshratAlSaah() });
+});
+
+// ── منظومة التواصل والاتحاد الامن
+router.get('/outreach', (req, res) => {
+    res.json({ success: true, ...getEngine().getOutreachSystem() });
 });
 
 module.exports = router;

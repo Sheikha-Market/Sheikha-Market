@@ -34985,9 +34985,23 @@ try {
 try {
     const malahemRoutes = require('./routes/malahem.js');
     app.use('/api/malahem', malahemRoutes);
-    console.log('✅ [MALAHEM] محرك الملاحم والاتحاد — مُفعَّل (تثقيف شرعي) | 12 نقطة API');
+    console.log('✅ [MALAHEM] محرك الملاحم والاتحاد — مُفعَّل (تثقيف شرعي) | 20+ نقطة API');
 } catch (e) {
     console.log('⚠️ [MALAHEM] فشل تحميل مسارات الملاحم:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌍 GLOBAL ALLIANCE ENGINE — محرك التحالف العالمي الشامل
+// القائد: سلمان احمد بن سلمان الراجح
+// "واعدوا لهم ما استطعتم من قوة ومن رباط الخيل" — الانفال:60
+// ولا حول ولا قوة الا بالله العلي العظيم
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const allianceRoutes = require('./routes/alliance.js');
+    app.use('/api/alliance', allianceRoutes);
+    console.log('✅ [ALLIANCE] محرك التحالف العالمي + الشبكة الاقتصادية — مُفعَّل | 25 نقطة API');
+} catch (e) {
+    console.log('⚠️ [ALLIANCE] فشل تحميل مسارات التحالف:', e.message);
 }
 
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
