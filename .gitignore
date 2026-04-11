@@ -21,7 +21,27 @@ __pycache__/
 *.pyc
 server.js.backup*
 *.backup-*
+*.backup
 *.token
 *.secret
 .git-credentials
 .config/sheikha_*
+
+# Crypto & TLS Keys
+*.pem
+*.key
+*.p12
+*.pfx
+*.p8
+*.jks
+*.keystore
+
+# Credential files
+credentials.json
+service-account*.json
+*service_account*.json
+.npmrc
+
+# Runtime
+*.pid
+pids/
