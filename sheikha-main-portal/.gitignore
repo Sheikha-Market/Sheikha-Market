@@ -17,8 +17,16 @@ logs/
 .env.*
 credentials/
 *.pem
+*.key
 *.p12
+*.pfx
+*.p8
+*.jks
+*.keystore
 *service-account*.json
+*service_account*.json
+credentials.json
+.npmrc
 
 # Data
 data/*.bak
@@ -64,3 +72,8 @@ __pycache__/
 # ═══ Runtime ═══
 *.pid
 pids/
+
+# ═══ Reports & Audits (generated) ═══
+audit-report.json
+coverage/
+.nyc_output/

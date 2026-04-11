@@ -1,0 +1,23 @@
+# ╔══════════════════════════════════════════════════════════╗
+# ║   👑 CODEOWNERS — حوكمة الكود / Code Ownership         ║
+# ║   منظومة شيخة™ — «لا ضرر ولا ضرار»                   ║
+# ╚══════════════════════════════════════════════════════════╝
+#
+# كل PR يتطلب موافقة المالك أو المراجع المعتمد
+# Every PR requires approval from owner or designated reviewer.
+
+# المالك الأساسي — يراجع جميع التغييرات
+* @Sheikha-Market
+
+# ملفات الأمان — مراجعة إلزامية
+.github/                                    @Sheikha-Market
+sheikha-main-portal/.github/workflows/      @Sheikha-Market
+sheikha-main-portal/SECURITY.md             @Sheikha-Market
+CHARTER.md                                  @Sheikha-Market
+.gitignore                                  @Sheikha-Market
+sheikha-main-portal/.gitignore              @Sheikha-Market
+
+# كود الخادم الأساسي
+sheikha-main-portal/server.js               @Sheikha-Market
+sheikha-main-portal/lib/                    @Sheikha-Market
+sheikha-main-portal/scripts/                @Sheikha-Market
