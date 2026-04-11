@@ -1,0 +1,62 @@
+{
+  "//": "سياسات أمان VSCode — منظمة شيخة — «لا ضرر ولا ضرار»",
+
+  "security.workspace.trust.enabled": true,
+  "security.workspace.trust.startupPrompt": "always",
+  "security.workspace.trust.emptyWindow": false,
+  "security.workspace.trust.banner": "always",
+
+  "git.confirmSync": true,
+  "git.confirmForcePush": true,
+  "git.enableSmartCommit": false,
+  "git.allowForcePush": false,
+  "git.autofetch": false,
+  "git.requireGitUserConfig": true,
+
+  "task.autoDetect": "off",
+  "npm.autoDetect": "off",
+
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/node_modules/**": true,
+    "**/.venv/**": true,
+    "**/logs/**": true,
+    "**/*.backup*": true,
+    "**/*.log": true
+  },
+
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.venv": true,
+    "**/logs": true,
+    "**/*.backup*": true,
+    "**/*.log": true,
+    "**/.env": true
+  },
+
+  "terminal.integrated.confirmOnExit": "hasChildProcesses",
+  "terminal.integrated.scrollback": 1000,
+
+  "extensions.autoCheckUpdates": true,
+  "extensions.autoUpdate": "onlyEnabledExtensions",
+
+  "editor.formatOnSave": true,
+  "editor.bracketPairColorization.enabled": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 3000,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": false,
+    "dotenv": false
+  },
+
+  "files.associations": {
+    "*.env": "dotenv",
+    "*.env.*": "dotenv"
+  }
+}

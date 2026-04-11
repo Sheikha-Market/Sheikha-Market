@@ -1,0 +1,33 @@
+# ╔══════════════════════════════════════════════════════════╗
+# ║   🤖 DEPENDABOT — تحديثات أمنية تلقائية                ║
+# ║   «لا ضرر ولا ضرار»                                    ║
+# ╚══════════════════════════════════════════════════════════╝
+version: 2
+updates:
+
+  - package-ecosystem: "npm"
+    directory: "/sheikha-main-portal"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "03:00"
+      timezone: "Asia/Riyadh"
+    open-pull-requests-limit: 5
+    labels:
+      - "security"
+      - "dependencies"
+    commit-message:
+      prefix: "🔒 security"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      timezone: "Asia/Riyadh"
+    labels:
+      - "security"
+      - "github-actions"

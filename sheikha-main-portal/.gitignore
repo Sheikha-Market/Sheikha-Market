@@ -32,5 +32,35 @@ build/
 
 # IDE
 .cursor/
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 *.swp
+
+# ═══ Sheikha Security — Backup Files ═══
+server.js.backup*
+server.js.clean
+server.js.temp
+server.js.broken*
+*.backup-*
+*.backup
+
+# ═══ Secrets & Credentials ═══
+.config/sheikha_*
+sheikha_token
+*.token
+*.secret
+.git-credentials
+secrets/
+vault/
+
+# ═══ Python venv ═══
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# ═══ Runtime ═══
+*.pid
+pids/

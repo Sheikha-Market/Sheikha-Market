@@ -1,0 +1,88 @@
+# ╔══════════════════════════════════════════════════════════╗
+# ║   🛡️  SHEIKHA SECURITY SCAN — فحص أمني تلقائي          ║
+# ║   «لا ضرر ولا ضرار»                                    ║
+# ╚══════════════════════════════════════════════════════════╝
+name: 🛡️ Sheikha Security Scan
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'sheikha-main-portal/**'
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+
+  dependency-audit:
+    name: 📦 npm Security Audit
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sheikha-main-portal
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install
+        run: npm ci --ignore-scripts
+      - name: 🛡️ npm audit
+        run: npm audit --audit-level=high
+        continue-on-error: true
+      - name: Save report
+        if: always()
+        run: npm audit --json > audit-report.json || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: npm-audit-report
+          path: sheikha-main-portal/audit-report.json
+          retention-days: 30
+
+  gitignore-check:
+    name: 📋 Sensitive Files Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check backup files NOT in git
+        run: |
+          BACKUPS=$(git ls-files 'sheikha-main-portal/server.js.backup*' \
+                                 'sheikha-main-portal/server.js.clean' \
+                                 'sheikha-main-portal/server.js.temp' \
+                                 'sheikha-main-portal/server.js.broken*' 2>/dev/null || true)
+          if [[ -n "$BACKUPS" ]]; then
+            echo "⚠️ WARNING: Backup files tracked: $BACKUPS"
+          else
+            echo "✅ No backup files exposed in git"
+          fi
+      - name: Check no .env in git
+        run: |
+          ENV_FILES=$(git ls-files '**/.env' '**/.env.production' 2>/dev/null || true)
+          if [[ -n "$ENV_FILES" ]]; then
+            echo "🔴 CRITICAL: .env files in git: $ENV_FILES"
+            exit 1
+          else
+            echo "✅ No .env files in repository"
+          fi
+
+  security-summary:
+    name: 📊 Security Summary
+    runs-on: ubuntu-latest
+    needs: [dependency-audit, gitignore-check]
+    if: always()
+    steps:
+      - name: Summary
+        run: |
+          echo "## 🛡️ Sheikha Security Report" >> $GITHUB_STEP_SUMMARY
+          echo "**﴿ وَاللَّهُ غَالِبٌ عَلَىٰ أَمْرِهِ ﴾**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| الفحص | النتيجة |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|---------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 📦 npm audit | ${{ needs.dependency-audit.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 📋 gitignore | ${{ needs.gitignore-check.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "_«لا ضرر ولا ضرار» — منظمة شيخة_" >> $GITHUB_STEP_SUMMARY
