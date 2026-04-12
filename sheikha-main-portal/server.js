@@ -35134,6 +35134,21 @@ try {
     console.log('⚠️ [SHEIKHA-CLOUD] فشل تحميل سحابة شيخة الكونية:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// ☁️🏆  SHEIKHA SOVEREIGN NETWORK — منظومة شيخة السيادية الموحدة
+// كل شيء باسم شيخة — في شبكتها — لا ضرر ولا ضرار
+// تحقيق النصر الجماعي والغنيمة الحلال
+// "وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا" — آل عمران:103
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const sovereignNet = require('./lib/sheikha-sovereign-network');
+    // wss متاح إن كان WebSocket server مُعرَّفاً قبل هذا السطر
+    const _wss = typeof wss !== 'undefined' ? wss : null;
+    sovereignNet.mountAll(app, { wss: _wss, noHarm: true, identityStamp: true, cloud: true, cronJobs: true });
+} catch (e) {
+    console.warn('⚠️ [SOVEREIGN-NET] فشل التحميل — الخادم يستمر بدونه:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
