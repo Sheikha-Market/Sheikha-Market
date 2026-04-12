@@ -1,16 +1,22 @@
 {
   "masterRootId": "master-2567e833d04af6c7",
   "metrics": {
-    "totalRoots": 8,
-    "activeRoots": 8,
+    "totalRoots": 14,
+    "activeRoots": 14,
     "revokedRoots": 0,
+    "expiredRoots": 0,
     "totalDerivations": 6,
     "totalDigitizations": 0,
-    "totalVerifications": 0,
-    "totalAIAnalyses": 0,
+    "totalVerifications": 1,
+    "totalRevocations": 0,
+    "totalRenewals": 1,
+    "totalDelegations": 1,
+    "totalBatchOps": 2,
+    "totalAIAnalyses": 2,
     "anomaliesDetected": 0,
     "systemsDigitized": 0,
-    "lastActivity": "2026-04-12T05:54:49.170Z"
+    "chainHeight": 7,
+    "lastActivity": "2026-04-12T07:16:59.266Z"
   },
   "roots": [
     {
@@ -383,8 +389,345 @@
         "recommendations": [],
         "anomalyFlags": []
       }
+    },
+    {
+      "id": "trade-93216d8cc3825ab0",
+      "did": "did:sheikha:trade:trade-93216d8cc3825ab0",
+      "type": "trade",
+      "typeInfo": {
+        "ar": "تجارة رقمية",
+        "en": "Digital Trade",
+        "level": 2,
+        "icon": "🛒",
+        "shariaScore": 92
+      },
+      "nameAr": "تجارة المعادن",
+      "nameEn": "Metals Trade",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "purpose": "تجارة المعادن الحلال",
+      "namespace": "sheikha://trade/تجارة-المعادن",
+      "status": "active",
+      "shariaCompliant": true,
+      "shariaScore": 97,
+      "createdAt": "2026-04-12T07:15:46.156Z",
+      "updatedAt": "2026-04-12T07:15:46.156Z",
+      "expiresAt": null,
+      "metadata": {},
+      "crypto": {
+        "ed25519": {
+          "publicKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAefOKTQ09QRglwAqU7U74kB5P9SbqD2/77DDvV4bJUfY=\n-----END PUBLIC KEY-----\n",
+          "algo": "Ed25519",
+          "signature": "WIJ2CU4WHBfnn9YJ7a7dnvU42pv81MONQkaJxQWRcv42zz6kek-3rZRQyEhqGUeBG4KXQdtvTl3c6tdxsXVaBw"
+        },
+        "ecdsa": {
+          "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEYUqmtEJc91ovypHiqd5VX0zoA/dv\nHue1d9qLWLVn+Jy5BkIeFfUHD+BErKkwYrtVV1m8Y0jpSMiBeb8SRQkGog==\n-----END PUBLIC KEY-----\n",
+          "algo": "ECDSA-P256",
+          "signature": "PF-wk_7bV5_opbk46IG8C1-1-DxBSJsk_Srz56RMP_emJpHt_KaYlaex061dT6FvXMIKjDHWnAfjNKgR0-BymQ"
+        },
+        "fingerprint": "90fd26bdf6205890a998c3c3eb622b805e1115c99b2e7c4eec51a0af70846033",
+        "_private_ed25519": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIOBehyQdfHlgnTZKyTCNeoLR0aM4TSqglGgQKgGlF0p0\n-----END PRIVATE KEY-----\n",
+        "_private_ecdsa": "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgGvh6xJdV5Cyes0Bq\nIHemLDEvd5XdZZ4OgtlM92cI1auhRANCAARhSqa0Qlz3Wi/KkeKp3lVfTOgD928e\n57V32otYtWf4nLkGQh4V9QcP4ESsqTBiu1VXWbxjSOlIyIF5vxJFCQai\n-----END PRIVATE KEY-----\n"
+      },
+      "hierarchy": {
+        "level": 2,
+        "parentId": null,
+        "children": [],
+        "path": "/trade-93216d8cc3825ab0",
+        "derivationIndex": 0
+      },
+      "aiMetrics": {
+        "healthScore": 100,
+        "securityScore": 100,
+        "usageScore": 0,
+        "lastAnalysis": "2026-04-12T07:15:46.161Z"
+      },
+      "chain": {
+        "blockHash": "fa5272791c7ca58d9ed4c434c07da8bacf17be4ba84dd867a9b397a57830ed20",
+        "blockHeight": 0
+      }
+    },
+    {
+      "id": "banking-558246ceaa3ee986",
+      "did": "did:sheikha:banking:banking-558246ceaa3ee986",
+      "type": "banking",
+      "typeInfo": {
+        "ar": "مصرفية إسلامية",
+        "en": "Islamic Banking",
+        "level": 2,
+        "icon": "🏦",
+        "shariaScore": 95
+      },
+      "nameAr": "بنك إسلامي",
+      "nameEn": "Islamic Bank",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "purpose": "",
+      "namespace": "sheikha://banking/بنك-إسلامي",
+      "status": "active",
+      "shariaCompliant": true,
+      "shariaScore": 98,
+      "createdAt": "2026-04-12T07:15:46.162Z",
+      "updatedAt": "2026-04-12T07:15:46.162Z",
+      "expiresAt": null,
+      "metadata": {},
+      "crypto": {
+        "ed25519": {
+          "publicKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAzfB/SrQ/TmeHdPwbWW9dnzEYwCbPGhBPMMmhmqj6bBA=\n-----END PUBLIC KEY-----\n",
+          "algo": "Ed25519",
+          "signature": "fqAh58VvrC-3JQLJn0ULev7iHSsQTpeUCVug6-R9NrW7MoML7xfHxMJmlC0MXiI_UfJNhOY6OWamyBux7bqbDg"
+        },
+        "ecdsa": {
+          "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEwBpVOKzEACOKw3kbspeaQVgu9ZPM\n8oAb3bSliJs1niUVLkf/vIyoJ6gi4F1LolkKbO11A78DdoDePKIKPwK2lA==\n-----END PUBLIC KEY-----\n",
+          "algo": "ECDSA-P256",
+          "signature": "2Js7AN1JyJRsleQZIaymCfIxRr-6kK3V3oCzqoQXqz-ATGfX3EF0_7V-FYm6wZ0xMe09n1_T6NMKXZb9FHs0kw"
+        },
+        "fingerprint": "0293e009e949c90b4a87c0a9971611bf26bfb1bcd2416b1514afe0803b7ee4c5",
+        "_private_ed25519": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIIV2yDs1W0MJHhtdlYU+Zv+jfI9iRSYZrN/FsGCpj0Sq\n-----END PRIVATE KEY-----\n",
+        "_private_ecdsa": "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgB06P7v3pr5P+vw/I\n5n5baPtGAcmGMRRpbivyISFXALehRANCAATAGlU4rMQAI4rDeRuyl5pBWC71k8zy\ngBvdtKWImzWeJRUuR/+8jKgnqCLgXUuiWQps7XUDvwN2gN48ogo/AraU\n-----END PRIVATE KEY-----\n"
+      },
+      "hierarchy": {
+        "level": 2,
+        "parentId": null,
+        "children": [],
+        "path": "/banking-558246ceaa3ee986",
+        "derivationIndex": 0
+      },
+      "aiMetrics": {
+        "healthScore": 100,
+        "securityScore": 100,
+        "usageScore": 0,
+        "lastAnalysis": null
+      },
+      "chain": {
+        "blockHash": "f54afc0bb3a3e0e77470c457c76a7f93ac932347d1cd405589c6dc9c52af8eb6",
+        "blockHeight": 1
+      }
+    },
+    {
+      "id": "education-69161b541c882ccf",
+      "did": "did:sheikha:education:education-69161b541c882ccf",
+      "type": "education",
+      "typeInfo": {
+        "ar": "تعليم رقمي",
+        "en": "Digital Education",
+        "level": 2,
+        "icon": "📚",
+        "shariaScore": 98
+      },
+      "nameAr": "مدرسة رقمية",
+      "nameEn": "Digital School",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "purpose": "",
+      "namespace": "sheikha://education/مدرسة-رقمية",
+      "status": "active",
+      "shariaCompliant": true,
+      "shariaScore": 100,
+      "createdAt": "2026-04-12T07:15:46.164Z",
+      "updatedAt": "2026-04-12T07:15:46.164Z",
+      "expiresAt": null,
+      "metadata": {},
+      "crypto": {
+        "ed25519": {
+          "publicKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA1dZqLxAn05xEx9i96f3OscG23h+IIjLENQKSOO5iCW8=\n-----END PUBLIC KEY-----\n",
+          "algo": "Ed25519",
+          "signature": "O1ExrEIBFwffBAvNNZdsUiyP3Jb8_wDbBpJB5TDHluiORAjHirhkD13s0DIqHFUOQQnu5C2Faruq4-b4cVVKBg"
+        },
+        "ecdsa": {
+          "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAENBy6n6PNdUfHTcq9BLhV7s1cHK7S\nz6/X+jZOnmIe4guGg7+Xg82abNjZBiZbFxqoV7dO2s3sdVx0+V3N0Yct4w==\n-----END PUBLIC KEY-----\n",
+          "algo": "ECDSA-P256",
+          "signature": "ifhqb0k-lEKr5EGYktps0IJw3BgIw4qxkOLA3jT_y_w1aypsoR9oZZQHyqizcGesztO5hXpNwRQ_jVFx1ucgww"
+        },
+        "fingerprint": "a2511ad732f44513d25f6fd1494390126c897e9c3dd51bca3e0635e07cb9d908",
+        "_private_ed25519": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIPs2MMbtX3lFPHrVfwknxU1qD+/Ka8KLoP3fsW31Cvuo\n-----END PRIVATE KEY-----\n",
+        "_private_ecdsa": "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgVRg5gY7cmImfuZch\n+NL6z+IZgy/F7/KGuC87kTGcgJuhRANCAAQ0HLqfo811R8dNyr0EuFXuzVwcrtLP\nr9f6Nk6eYh7iC4aDv5eDzZps2NkGJlsXGqhXt07azex1XHT5Xc3Rhy3j\n-----END PRIVATE KEY-----\n"
+      },
+      "hierarchy": {
+        "level": 2,
+        "parentId": null,
+        "children": [],
+        "path": "/education-69161b541c882ccf",
+        "derivationIndex": 0
+      },
+      "aiMetrics": {
+        "healthScore": 100,
+        "securityScore": 100,
+        "usageScore": 0,
+        "lastAnalysis": null
+      },
+      "chain": {
+        "blockHash": "63842814f916052e8c539bacd7423912acc25fbf5c0ba9c9b78b814c55a0b623",
+        "blockHeight": 2
+      }
+    },
+    {
+      "id": "contract-dcdb5e3e9e7f9d35",
+      "did": "did:sheikha:contract:contract-dcdb5e3e9e7f9d35",
+      "type": "contract",
+      "typeInfo": {
+        "ar": "عقد ذكي",
+        "en": "Smart Contract",
+        "level": 3,
+        "icon": "📜",
+        "shariaScore": 95
+      },
+      "nameAr": "عقد الاختبار",
+      "nameEn": "Test Contract",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "purpose": "",
+      "namespace": "sheikha://contract/عقد-الاختبار",
+      "status": "active",
+      "shariaCompliant": true,
+      "shariaScore": 98,
+      "createdAt": "2026-04-12T07:16:59.258Z",
+      "updatedAt": "2026-04-12T07:16:59.262Z",
+      "expiresAt": "2027-04-12T07:16:59.262Z",
+      "metadata": {},
+      "crypto": {
+        "ed25519": {
+          "publicKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAy9RjPRiZJPvuZsCUGNOZp01xkzH9H99lu5Q6HTMeVzI=\n-----END PUBLIC KEY-----\n",
+          "algo": "Ed25519",
+          "signature": "9X99RhldKh41RWhqaac1HtZj326nXsJ_FwWiOPaIxXRPugCJiU_aUOqnXJRIA5JIRjdi0HkwCnSJziFZ16a8BQ"
+        },
+        "ecdsa": {
+          "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEt2jRghINKalMrVf/EkO0LB82PTL5\np9ueWnEi15LaTgvuqABDI91A+mDCFiBUzuAB0CRhd77TgKaz5KQsJB7KSg==\n-----END PUBLIC KEY-----\n",
+          "algo": "ECDSA-P256",
+          "signature": "6wZslWGPyPWobs4nE0uS6IvR0u4sSZaWAF1Fx2_WwRcJBnZAqvwkRvUufsUXenbDBSMs2_RcsxVKGDRRvtG2_g"
+        },
+        "fingerprint": "4d321f823cb7fde79d913db4f72d4cb35ec99b4a0c028b5ffefa81d544a2d176",
+        "_private_ed25519": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIKyNx3l4bJ7FEClvixM1HR6qHQBJphWI6bL1R7ONEDBm\n-----END PRIVATE KEY-----\n",
+        "_private_ecdsa": "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgMCNzyxKDRQJPPYA5\nVYG50MwViMq9Q95VE91/WXqd32ehRANCAAS3aNGCEg0pqUytV/8SQ7QsHzY9Mvmn\n255acSLXktpOC+6oAEMj3UD6YMIWIFTO4AHQJGF3vtOAprPkpCwkHspK\n-----END PRIVATE KEY-----\n"
+      },
+      "hierarchy": {
+        "level": 3,
+        "parentId": null,
+        "children": [],
+        "path": "/contract-dcdb5e3e9e7f9d35",
+        "derivationIndex": 0
+      },
+      "aiMetrics": {
+        "healthScore": 100,
+        "securityScore": 100,
+        "usageScore": 0,
+        "lastAnalysis": "2026-04-12T07:16:59.263Z"
+      },
+      "chain": {
+        "blockHash": "443323015a7f4303c733ede45a297c206b6af1b55add6510e649d61ce981b9e7",
+        "blockHeight": 3
+      }
+    },
+    {
+      "id": "banking-c36ba800df3eb052",
+      "did": "did:sheikha:banking:banking-c36ba800df3eb052",
+      "type": "banking",
+      "typeInfo": {
+        "ar": "مصرفية إسلامية",
+        "en": "Islamic Banking",
+        "level": 2,
+        "icon": "🏦",
+        "shariaScore": 95
+      },
+      "nameAr": "بنك إسلامي",
+      "nameEn": "Islamic Bank",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "purpose": "",
+      "namespace": "sheikha://banking/بنك-إسلامي",
+      "status": "active",
+      "shariaCompliant": true,
+      "shariaScore": 98,
+      "createdAt": "2026-04-12T07:16:59.265Z",
+      "updatedAt": "2026-04-12T07:16:59.265Z",
+      "expiresAt": null,
+      "metadata": {},
+      "crypto": {
+        "ed25519": {
+          "publicKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAM2OE3ONv+kZnyWOblakM3CUwtzYNJWZne/T7YYdJB8c=\n-----END PUBLIC KEY-----\n",
+          "algo": "Ed25519",
+          "signature": "lIvq2IAkzT8L87Rv4RJkGMc_vxjTjpx8F1BjxFPLnt6q94eua3HE7JKf3yqihozIrlPAVVJfSD5IEQfSdBUiBQ"
+        },
+        "ecdsa": {
+          "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEKIVhClKaBMU/gZEjL0QQGk/l/Dnr\nZktsTmTV5WaCqXJsfIk4GrFYO2r1Yl3GjDIipFbyqjw2rjrqjoEfAqtkiQ==\n-----END PUBLIC KEY-----\n",
+          "algo": "ECDSA-P256",
+          "signature": "lQYgzNcctfhyRahytWMHXDMm9_5WnWc5YC0IFwA2haeztS7xdLAe3MiqmbtH0V-ojo-afwj-YBdFIEYIPtAiSg"
+        },
+        "fingerprint": "9c7507a8dffdc80aafb4de9843681b8d8e042006cc60464db35843ccb04c32fc",
+        "_private_ed25519": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIAz0w0dGctAYp0vHNkhKEJ+iay0ZCPN4w7XC20vEm//h\n-----END PRIVATE KEY-----\n",
+        "_private_ecdsa": "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg3ju0iu2Bpf7K2tX0\nF1Fag6Nr4pxjp1hO/ROJDOfcG4ShRANCAAQohWEKUpoExT+BkSMvRBAaT+X8Oetm\nS2xOZNXlZoKpcmx8iTgasVg7avViXcaMMiKkVvKqPDauOuqOgR8Cq2SJ\n-----END PRIVATE KEY-----\n"
+      },
+      "hierarchy": {
+        "level": 2,
+        "parentId": null,
+        "children": [],
+        "path": "/banking-c36ba800df3eb052",
+        "derivationIndex": 0
+      },
+      "aiMetrics": {
+        "healthScore": 100,
+        "securityScore": 100,
+        "usageScore": 0,
+        "lastAnalysis": null
+      },
+      "chain": {
+        "blockHash": "f04b3e9e4981a0d2562aee77bb5910afea5214c2cf804f463c028db33f04a2a0",
+        "blockHeight": 5
+      }
+    },
+    {
+      "id": "education-c3140b7a39e62585",
+      "did": "did:sheikha:education:education-c3140b7a39e62585",
+      "type": "education",
+      "typeInfo": {
+        "ar": "تعليم رقمي",
+        "en": "Digital Education",
+        "level": 2,
+        "icon": "📚",
+        "shariaScore": 98
+      },
+      "nameAr": "مدرسة ذكية",
+      "nameEn": "Smart School",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "purpose": "",
+      "namespace": "sheikha://education/مدرسة-ذكية",
+      "status": "active",
+      "shariaCompliant": true,
+      "shariaScore": 100,
+      "createdAt": "2026-04-12T07:16:59.266Z",
+      "updatedAt": "2026-04-12T07:16:59.266Z",
+      "expiresAt": null,
+      "metadata": {},
+      "crypto": {
+        "ed25519": {
+          "publicKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEABnRNRodgl/yvyG3QuvLX7HQM8lto73HClVRSS9uLzGQ=\n-----END PUBLIC KEY-----\n",
+          "algo": "Ed25519",
+          "signature": "5aZu4PqSYk2Vmm8Jna_BALXyXekqD2eGjpir29vdwKiHFodSrbNPJWnMEVQuCStv4UAxnsfiLsnZajOdEWieBQ"
+        },
+        "ecdsa": {
+          "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE9+3x1XIE8ySrVtSprdLVKe36pGE0\nIVxPUs9C7nCeqNCcX5yW+PUtVVSiZReeyXQ3uXm8FvHbvXMbU1feGy0s9g==\n-----END PUBLIC KEY-----\n",
+          "algo": "ECDSA-P256",
+          "signature": "cWILgi8gQrm29vZVJykOPKef9HPAIIfsIONEHnejmhe-4wcmkpzkRWxYmweuGq33_DYz18Vl8KahY_Sy7q40OA"
+        },
+        "fingerprint": "1fc8ac472dafbbdc280418cac7db11a05b2a595efd24e0060467fa1c68e55822",
+        "_private_ed25519": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIG7iGfaMfXeGlA13MBZqgDt2zR+/9LCOcwNic0PTEkaL\n-----END PRIVATE KEY-----\n",
+        "_private_ecdsa": "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgzboN39xDAXqZRfww\nIdxT/1Jv6mhKCePvp61B52j6fA+hRANCAAT37fHVcgTzJKtW1Kmt0tUp7fqkYTQh\nXE9Sz0LucJ6o0JxfnJb49S1VVKJlF57JdDe5ebwW8du9cxtTV94bLSz2\n-----END PRIVATE KEY-----\n"
+      },
+      "hierarchy": {
+        "level": 2,
+        "parentId": null,
+        "children": [],
+        "path": "/education-c3140b7a39e62585",
+        "derivationIndex": 0
+      },
+      "aiMetrics": {
+        "healthScore": 100,
+        "securityScore": 100,
+        "usageScore": 0,
+        "lastAnalysis": null
+      },
+      "chain": {
+        "blockHash": "427ce7ff80d2444ce6eb4ffa733bccf8f535cf4dec1c72c6193ec3a98faa7cad",
+        "blockHeight": 6
+      }
     }
   ],
-  "savedAt": "2026-04-12T05:54:49.170Z",
-  "copyright": "© 2024 منظومة شيخة — جميع الحقوق محفوظة"
+  "savedAt": "2026-04-12T07:16:59.268Z",
+  "version": "2.0.0",
+  "copyright": "© 2026 منظومة شيخة — جميع الحقوق محفوظة"
 }

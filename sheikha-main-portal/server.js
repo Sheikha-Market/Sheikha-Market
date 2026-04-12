@@ -35486,17 +35486,24 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🌳 الجذر الرقمي الذكي — ECDSA P-256 + DID + ذكاء اصطناعي (12 API)
+// 🌳 شيخة — الجذر الرقمي الذكي المتكامل v2.0
+//    Ed25519 + ECDSA-P256 + SHA3-256 + Merkle Chain + DID W3C v1.1 + 25 API
 // ═══════════════════════════════════════════════════════════════════════════════
 let smartDigitalRootEngine = null;
 try {
-    // P0-1: ACTIVATED - sheikha-smart-digital-root-engine
+    // P0-1: ACTIVATED - sheikha-smart-digital-root-engine v2.0
     const SheikhaSmartDigitalRootEngine = require('./lib/sheikha-smart-digital-root-engine');
-    console.log('⏸️ [LAZY] sheikha-smart-digital-root-engine — سيُحمّل عند الطلب');
-    smartDigitalRootEngine = new SheikhaSmartDigitalRootEngine();
+    smartDigitalRootEngine = new SheikhaSmartDigitalRootEngine({
+        broadcast: (msg) => {
+            // بث أحداث الجذر الرقمي عبر WebSocket لجميع العملاء
+            if (typeof clients !== 'undefined' && Array.isArray(clients)) {
+                clients.forEach(c => { try { if (c.readyState === 1) c.send(msg); } catch (_) { /* ignore */ } });
+            }
+        }
+    });
     smartDigitalRootEngine.registerRoutes(app);
     const rootStatus = smartDigitalRootEngine.getStatus();
-    console.log(`✅ [DigitalRoot] ${rootStatus.nameAr} — ${rootStatus.activeRoots} جذر نشط | ${rootStatus.systemsDigitized} منظومة مرقمنة | 12 API`);
+    console.log(`✅ [DigitalRoot v2.0] ${rootStatus.nameAr} | ${rootStatus.activeRoots} جذر نشط | ${rootStatus.chainHeight} كتلة | ${rootStatus.apis} API | ${rootStatus.algos.join(' + ')}`);
 } catch (e) {
     console.warn('⚠️ DigitalRoot:', e.message);
 }
