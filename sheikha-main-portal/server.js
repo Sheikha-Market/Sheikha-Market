@@ -35486,6 +35486,22 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🌳 الجذر الرقمي الذكي — ECDSA P-256 + DID + ذكاء اصطناعي (12 API)
+// ═══════════════════════════════════════════════════════════════════════════════
+let smartDigitalRootEngine = null;
+try {
+    // P0-1: ACTIVATED - sheikha-smart-digital-root-engine
+    const SheikhaSmartDigitalRootEngine = require('./lib/sheikha-smart-digital-root-engine');
+    console.log('⏸️ [LAZY] sheikha-smart-digital-root-engine — سيُحمّل عند الطلب');
+    smartDigitalRootEngine = new SheikhaSmartDigitalRootEngine();
+    smartDigitalRootEngine.registerRoutes(app);
+    const rootStatus = smartDigitalRootEngine.getStatus();
+    console.log(`✅ [DigitalRoot] ${rootStatus.nameAr} — ${rootStatus.activeRoots} جذر نشط | ${rootStatus.systemsDigitized} منظومة مرقمنة | 12 API`);
+} catch (e) {
+    console.warn('⚠️ DigitalRoot:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🚀 بدء الخادم

@@ -1,0 +1,390 @@
+{
+  "masterRootId": "master-2567e833d04af6c7",
+  "metrics": {
+    "totalRoots": 8,
+    "activeRoots": 8,
+    "revokedRoots": 0,
+    "totalDerivations": 6,
+    "totalDigitizations": 0,
+    "totalVerifications": 0,
+    "totalAIAnalyses": 0,
+    "anomaliesDetected": 0,
+    "systemsDigitized": 0,
+    "lastActivity": "2026-04-12T05:54:49.170Z"
+  },
+  "roots": [
+    {
+      "id": "master-2567e833d04af6c7",
+      "did": "did:sheikha:master:master-2567e833d04af6c7",
+      "type": "master",
+      "typeInfo": {
+        "ar": "الجذر الرئيسي",
+        "en": "Master Root",
+        "level": 0,
+        "icon": "🌳"
+      },
+      "nameAr": "شيخة — الجذر الرئيسي",
+      "nameEn": "Sheikha — Master Root",
+      "path": "sheikha://master",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "crypto": {
+        "algorithm": "ECDSA-P256",
+        "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEp8PCehwIH+UGY8LZh3lZz8BX7QGq\neN+Ac2ppRVXZmXNruD0fyvrE11MV6WOj+GGpzq0FrAwD6H9QEMHVmIGRCw==\n-----END PUBLIC KEY-----\n",
+        "privateKeyHash": "bc5a98c438a01264bcf42386e34ac8789afbc6f3b5abd8c01381021370a01e0d",
+        "signature": "MEUCIQCgmSsZQoZrUgez7AHzUC0hzRd4uNrq+zS74JT+whlTYAIgIrGxdpNodxv3S3CklZGLE5KAxStgSRZtAxLecgsvnFk=",
+        "fingerprint": "a8bd82cef8fd390fde69afd1fe54f5d0"
+      },
+      "hierarchy": {
+        "parentId": null,
+        "level": 0,
+        "children": [
+          "trade-3a338f830e4013b7",
+          "metals-16b02130bb5f42cf",
+          "banking-23846c5d67a562a1",
+          "identity-f2386fe6ecd71bf9",
+          "system-04786beda0270f9f",
+          "education-00a96ded2543d566",
+          "service-b1a189d3683210e2"
+        ],
+        "depth": 0
+      },
+      "status": "active",
+      "verified": true,
+      "shariaCompliant": true,
+      "metadata": {
+        "description": "الجذر الرئيسي لمنظومة شيخة الرقمية الذكية",
+        "version": "1.0.0",
+        "established": "2026-04-12T05:54:49.162Z",
+        "islamicPrinciple": "الجذر الثابت والفروع المتصاعدة",
+        "copyright": "© 2024 منظومة شيخة — جميع الحقوق محفوظة"
+      },
+      "createdAt": "2026-04-12T05:54:49.165Z",
+      "updatedAt": "2026-04-12T05:54:49.165Z",
+      "expiresAt": null,
+      "ai": {
+        "healthScore": 100,
+        "usageCount": 0,
+        "lastAnalysis": null,
+        "recommendations": [],
+        "anomalyFlags": []
+      }
+    },
+    {
+      "id": "trade-3a338f830e4013b7",
+      "did": "did:sheikha:trade:trade-3a338f830e4013b7",
+      "type": "trade",
+      "typeInfo": {
+        "ar": "تجارة رقمية",
+        "en": "Digital Trade",
+        "level": 2,
+        "icon": "🛒"
+      },
+      "nameAr": "منظومة التجارة الإسلامية",
+      "nameEn": "Islamic Trade System",
+      "path": "sheikha://master/منظومة التجارة الإسلامية",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "crypto": {
+        "algorithm": "ECDSA-P256",
+        "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE+7LsMociE4cjednG+ZmfMjxCGaxq\nSain7HQz7pgQ+dgvntZkGJPOL1ij9UQ8VoKnDfjjtc64mlahvHG4lxjZkg==\n-----END PUBLIC KEY-----\n",
+        "privateKeyHash": "dd6c9dfb503ba9cced3bd64542f2d814d95f851e0bea1c89f5a1460b881fc37b",
+        "signature": "MEQCIEr3dyPMZwLvIfPiYR9g9Y4+tdZhz8JpSY741bLzM5COAiAJSIRr/m/zRPk7qFhZDMIBalsTutMEjvber2KvyxYnAw==",
+        "fingerprint": "9210d8c1df28cab6f997e68d1cf55dc6"
+      },
+      "hierarchy": {
+        "parentId": "master-2567e833d04af6c7",
+        "level": 2,
+        "children": [],
+        "depth": 1
+      },
+      "status": "active",
+      "verified": true,
+      "shariaCompliant": true,
+      "metadata": {
+        "islamicPrinciple": "الجذر الثابت والفروع المتصاعدة",
+        "copyright": "© 2024 منظومة شيخة — جميع الحقوق محفوظة"
+      },
+      "createdAt": "2026-04-12T05:54:49.166Z",
+      "updatedAt": "2026-04-12T05:54:49.166Z",
+      "expiresAt": null,
+      "ai": {
+        "healthScore": 100,
+        "usageCount": 0,
+        "lastAnalysis": null,
+        "recommendations": [],
+        "anomalyFlags": []
+      }
+    },
+    {
+      "id": "metals-16b02130bb5f42cf",
+      "did": "did:sheikha:metals:metals-16b02130bb5f42cf",
+      "type": "metals",
+      "typeInfo": {
+        "ar": "معادن وسكراب",
+        "en": "Metals & Scrap",
+        "level": 2,
+        "icon": "⚗️"
+      },
+      "nameAr": "منظومة المعادن والسكراب",
+      "nameEn": "Metals & Scrap System",
+      "path": "sheikha://master/منظومة المعادن والسكراب",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "crypto": {
+        "algorithm": "ECDSA-P256",
+        "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEO2Znp1b0yEgi3vWcnSn02ZNTEpAT\nxB/s8JkVPTf0QEzXc+cEqh0MTXojNNUJRX9w0JuW5VvatDqnD8dWUkneFA==\n-----END PUBLIC KEY-----\n",
+        "privateKeyHash": "61249110b177ad504b9e528acfd1fb7149fa2cb999bcdb09696767d98c66bf8d",
+        "signature": "MEQCIA8cG3e2TV7ebdpT2KSJpAarOJ1VL/pbwooZXOEf0ou8AiBkZHdLoVVjT1XnewQj3MvqbNDsnrdmkUHOqMP3EGvTsg==",
+        "fingerprint": "31cf2525bd87f3ee1a79bad36841349b"
+      },
+      "hierarchy": {
+        "parentId": "master-2567e833d04af6c7",
+        "level": 2,
+        "children": [],
+        "depth": 1
+      },
+      "status": "active",
+      "verified": true,
+      "shariaCompliant": true,
+      "metadata": {
+        "islamicPrinciple": "الجذر الثابت والفروع المتصاعدة",
+        "copyright": "© 2024 منظومة شيخة — جميع الحقوق محفوظة"
+      },
+      "createdAt": "2026-04-12T05:54:49.167Z",
+      "updatedAt": "2026-04-12T05:54:49.167Z",
+      "expiresAt": null,
+      "ai": {
+        "healthScore": 100,
+        "usageCount": 0,
+        "lastAnalysis": null,
+        "recommendations": [],
+        "anomalyFlags": []
+      }
+    },
+    {
+      "id": "banking-23846c5d67a562a1",
+      "did": "did:sheikha:banking:banking-23846c5d67a562a1",
+      "type": "banking",
+      "typeInfo": {
+        "ar": "مصرفية إسلامية",
+        "en": "Islamic Banking",
+        "level": 2,
+        "icon": "🏦"
+      },
+      "nameAr": "منظومة المصرفية الإسلامية",
+      "nameEn": "Islamic Banking System",
+      "path": "sheikha://master/منظومة المصرفية الإسلامية",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "crypto": {
+        "algorithm": "ECDSA-P256",
+        "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEg33oqn+JCoYUStI4NLp6ehJ58Oji\nL9FXmOZLikdxWRijCj8pkz8Kt9W9D7W5eBvBZJfXKWq+Hhq9AcCStyRukg==\n-----END PUBLIC KEY-----\n",
+        "privateKeyHash": "ceb102d98f115dc7c9ea9005c398e2fb2afa1aae0db47599f694292ab710af88",
+        "signature": "MEYCIQCr61xaCSazsjFSaYovunahCz/AKA/DsOfE2Xb8/xfxQgIhAK7pLfGnTtKZXB9ML/NQshdkuwBdxYVlP6ok3uhAa70w",
+        "fingerprint": "e9cb96d097de3dab3e0ddc5aa3c252d2"
+      },
+      "hierarchy": {
+        "parentId": "master-2567e833d04af6c7",
+        "level": 2,
+        "children": [],
+        "depth": 1
+      },
+      "status": "active",
+      "verified": true,
+      "shariaCompliant": true,
+      "metadata": {
+        "islamicPrinciple": "الجذر الثابت والفروع المتصاعدة",
+        "copyright": "© 2024 منظومة شيخة — جميع الحقوق محفوظة"
+      },
+      "createdAt": "2026-04-12T05:54:49.167Z",
+      "updatedAt": "2026-04-12T05:54:49.167Z",
+      "expiresAt": null,
+      "ai": {
+        "healthScore": 100,
+        "usageCount": 0,
+        "lastAnalysis": null,
+        "recommendations": [],
+        "anomalyFlags": []
+      }
+    },
+    {
+      "id": "identity-f2386fe6ecd71bf9",
+      "did": "did:sheikha:identity:identity-f2386fe6ecd71bf9",
+      "type": "identity",
+      "typeInfo": {
+        "ar": "هوية رقمية",
+        "en": "Digital Identity",
+        "level": 2,
+        "icon": "🔑"
+      },
+      "nameAr": "منظومة الهوية الرقمية",
+      "nameEn": "Digital Identity System",
+      "path": "sheikha://master/منظومة الهوية الرقمية",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "crypto": {
+        "algorithm": "ECDSA-P256",
+        "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEiZ4iLAH+T6CH+ni3zTiKt03AHQ8i\niC5FLBkXrLjMeAZTAp/clvg9o2lt8vbRe3nWgfoOSJRXqfqacgDaSXdGhg==\n-----END PUBLIC KEY-----\n",
+        "privateKeyHash": "7ac40ec60bdd302630716f7ae016ec6015c5e2c0e2fe4e96c50f031f72741bb5",
+        "signature": "MEUCIEnsjgKRiP3OtPlKFS3C/QJZQvJN3dM/1nS3K8+AZnnPAiEA1ym1AMWqtMP2YOCaY/XzomZww4+gBBqBGlrjXWPmIfE=",
+        "fingerprint": "82101f0fdbb9f30b54b9e051169ee59b"
+      },
+      "hierarchy": {
+        "parentId": "master-2567e833d04af6c7",
+        "level": 2,
+        "children": [],
+        "depth": 1
+      },
+      "status": "active",
+      "verified": true,
+      "shariaCompliant": true,
+      "metadata": {
+        "islamicPrinciple": "الجذر الثابت والفروع المتصاعدة",
+        "copyright": "© 2024 منظومة شيخة — جميع الحقوق محفوظة"
+      },
+      "createdAt": "2026-04-12T05:54:49.168Z",
+      "updatedAt": "2026-04-12T05:54:49.168Z",
+      "expiresAt": null,
+      "ai": {
+        "healthScore": 100,
+        "usageCount": 0,
+        "lastAnalysis": null,
+        "recommendations": [],
+        "anomalyFlags": []
+      }
+    },
+    {
+      "id": "system-04786beda0270f9f",
+      "did": "did:sheikha:system:system-04786beda0270f9f",
+      "type": "system",
+      "typeInfo": {
+        "ar": "منظومة ذكية",
+        "en": "Smart System",
+        "level": 2,
+        "icon": "🤖"
+      },
+      "nameAr": "منظومة الذكاء الاصطناعي",
+      "nameEn": "AI System",
+      "path": "sheikha://master/منظومة الذكاء الاصطناعي",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "crypto": {
+        "algorithm": "ECDSA-P256",
+        "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWsvUvpZRMNR0rLrclLcu+OFoM2wF\njBNmhFS48r5rtX4ycJzvQux5u2gz8rofGVg2ebBycqKikH8QHs0PKKoiBg==\n-----END PUBLIC KEY-----\n",
+        "privateKeyHash": "ad0bce43bb6b56a384b292419a234175c4d3b9285a6bd162a9ece3e7c8d36188",
+        "signature": "MEYCIQCV2IoxIYhqqMH5v98eNXaU2t5Bwz8MqwtUvyCLwLzytwIhAJn4oUFez2ggJL/avnBiFyDdAgy+Dg7nATQTnKWeJdz2",
+        "fingerprint": "15bd90216aae418b5b2732df24ef514b"
+      },
+      "hierarchy": {
+        "parentId": "master-2567e833d04af6c7",
+        "level": 2,
+        "children": [],
+        "depth": 1
+      },
+      "status": "active",
+      "verified": true,
+      "shariaCompliant": true,
+      "metadata": {
+        "islamicPrinciple": "الجذر الثابت والفروع المتصاعدة",
+        "copyright": "© 2024 منظومة شيخة — جميع الحقوق محفوظة"
+      },
+      "createdAt": "2026-04-12T05:54:49.169Z",
+      "updatedAt": "2026-04-12T05:54:49.169Z",
+      "expiresAt": null,
+      "ai": {
+        "healthScore": 100,
+        "usageCount": 0,
+        "lastAnalysis": null,
+        "recommendations": [],
+        "anomalyFlags": []
+      }
+    },
+    {
+      "id": "education-00a96ded2543d566",
+      "did": "did:sheikha:education:education-00a96ded2543d566",
+      "type": "education",
+      "typeInfo": {
+        "ar": "تعليم رقمي",
+        "en": "Digital Education",
+        "level": 2,
+        "icon": "📚"
+      },
+      "nameAr": "منظومة التعليم الرقمي",
+      "nameEn": "Digital Education System",
+      "path": "sheikha://master/منظومة التعليم الرقمي",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "crypto": {
+        "algorithm": "ECDSA-P256",
+        "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAECNxxTv4VMpIlqAo0eRvMMN/f6rTo\nm9v9R+npzueJuCPndFllYVwJT2saBJIQ5wagFaD1wK+nOynvH827NXB9xA==\n-----END PUBLIC KEY-----\n",
+        "privateKeyHash": "54a8e317cb76384e0e809e23c8394719f9f687f5b3ef4b4d301aa9b72f830c3f",
+        "signature": "MEQCIDsu1wwQwe9wc0xjE12mDobUYGwNdbSkQatjZKm89CwTAiB9IxbN4A4THaVSa/iDIVnBc0PWmOQR5qIf8SF1CwkrCw==",
+        "fingerprint": "6a409a6a9fe855ace4dd6b6c761afcd6"
+      },
+      "hierarchy": {
+        "parentId": "master-2567e833d04af6c7",
+        "level": 2,
+        "children": [],
+        "depth": 1
+      },
+      "status": "active",
+      "verified": true,
+      "shariaCompliant": true,
+      "metadata": {
+        "islamicPrinciple": "الجذر الثابت والفروع المتصاعدة",
+        "copyright": "© 2024 منظومة شيخة — جميع الحقوق محفوظة"
+      },
+      "createdAt": "2026-04-12T05:54:49.169Z",
+      "updatedAt": "2026-04-12T05:54:49.169Z",
+      "expiresAt": null,
+      "ai": {
+        "healthScore": 100,
+        "usageCount": 0,
+        "lastAnalysis": null,
+        "recommendations": [],
+        "anomalyFlags": []
+      }
+    },
+    {
+      "id": "service-b1a189d3683210e2",
+      "did": "did:sheikha:service:service-b1a189d3683210e2",
+      "type": "service",
+      "typeInfo": {
+        "ar": "خدمة رقمية",
+        "en": "Digital Service",
+        "level": 2,
+        "icon": "⚙️"
+      },
+      "nameAr": "منظومة الخدمات الرقمية",
+      "nameEn": "Digital Services System",
+      "path": "sheikha://master/منظومة الخدمات الرقمية",
+      "owner": "سلمان أحمد بن سلمان الراجح",
+      "crypto": {
+        "algorithm": "ECDSA-P256",
+        "publicKey": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEAQWnMDZOlsdZ42lZFCDJ7PwPKB4i\niYJYaFz4kU/gwsepmQREP5RxvcWOUCU75jTPDnn+gTIlWbUxi2wEdXb6lw==\n-----END PUBLIC KEY-----\n",
+        "privateKeyHash": "92f27d4d2fadfee319c70fce48b5ce550d8a2515b4d57f64ee91db638672ae86",
+        "signature": "MEQCIGOMWuHxyc7i1bdMtw+vXVD4pUD14HuQdpeXFSJl41uPAiBMP0xA0bzJKbTKKG4eOSKApFgY0RusmTE2Quwl7CEl9A==",
+        "fingerprint": "11a06c64076b6ceb21b871bd0e80bd04"
+      },
+      "hierarchy": {
+        "parentId": "master-2567e833d04af6c7",
+        "level": 2,
+        "children": [],
+        "depth": 1
+      },
+      "status": "active",
+      "verified": true,
+      "shariaCompliant": true,
+      "metadata": {
+        "islamicPrinciple": "الجذر الثابت والفروع المتصاعدة",
+        "copyright": "© 2024 منظومة شيخة — جميع الحقوق محفوظة"
+      },
+      "createdAt": "2026-04-12T05:54:49.170Z",
+      "updatedAt": "2026-04-12T05:54:49.170Z",
+      "expiresAt": null,
+      "ai": {
+        "healthScore": 100,
+        "usageCount": 0,
+        "lastAnalysis": null,
+        "recommendations": [],
+        "anomalyFlags": []
+      }
+    }
+  ],
+  "savedAt": "2026-04-12T05:54:49.170Z",
+  "copyright": "© 2024 منظومة شيخة — جميع الحقوق محفوظة"
+}
