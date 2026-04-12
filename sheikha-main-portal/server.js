@@ -763,6 +763,29 @@ try {
     console.log('⚠️ Tech Computing Engine غير متوفر:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🚀 شيخة — مركز الابتكار التقني المتقدم والاستكشاف والبحث والتطوير v1.0
+//    25 مجال تقني | TRL 1-9 | Innovation Pipeline | Patent Registry | 22 API
+//    AI & ML | Quantum | Nanotech | Biotech | Space | Clean Energy | Robotics
+//    Cybersecurity | Blockchain | 6G | Edge | XR | Digital Twins | HealthTech ...
+// ═══════════════════════════════════════════════════════════════════════════════
+let techInnovationCenter = null;
+try {
+    const SheikhaAdvancedTechInnovationCenter = require('./lib/sheikha-advanced-tech-innovation-center');
+    techInnovationCenter = new SheikhaAdvancedTechInnovationCenter({
+        broadcast: (msg) => {
+            if (typeof clients !== 'undefined' && Array.isArray(clients)) {
+                clients.forEach(c => { try { if (c.readyState === 1) c.send(msg); } catch (_) { /* ignore */ } });
+            }
+        }
+    });
+    techInnovationCenter.registerRoutes(app);
+    const ticStatus = techInnovationCenter.getStatus();
+    console.log(`✅ [TechInnovation v1.0] ${ticStatus.nameAr} | ${ticStatus.totalDomains} مجال تقني | 22 API | 183+ تخصص`);
+} catch (e) {
+    console.warn('⚠️ TechInnovation:', e.message);
+}
+
 // ☪️ محرك التزامن والرزنامة — التاريخ الهجري أساسي
 let calendarEngine = null;
 try {
