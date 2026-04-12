@@ -746,6 +746,19 @@ try {
     console.log('⚠️ SheikhaCurrencyEngine غير متوفر:', e.message);
 }
 
+// 🌌 محرك الإمبراطورية الكبرى — SheikhGrandEmpireEngine
+let empireGrandEngine = null;
+try {
+    const SheikhGrandEmpireEngine = require('./lib/sheikha-empire-grand-engine');
+    empireGrandEngine = new SheikhGrandEmpireEngine({ app, wsClients: null });
+    const emp = empireGrandEngine.getStatus();
+    console.log(
+        `✅ [GrandEmpire v1.0] ${emp.nameAr} | ${emp.zones} إقليم | ${emp.continents} قارة | ${emp.indices} مؤشر بورصة | ${emp.cosmicLayers} طبقة كونية | ${emp.apis} API`
+    );
+} catch (e) {
+    console.log('⚠️ SheikhGrandEmpireEngine غير متوفر:', e.message);
+}
+
 // ☪️ محرك القوانين والأنظمة والمعاهدات
 let legalEngine = null;
 try {
@@ -5622,6 +5635,16 @@ app.get('/العملة', (req, res) => res.redirect('/شيخة-عملة-الكو
 app.get('/الدينار', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
 app.get('/الدرهم', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
 app.get('/زكاة', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
+
+// 🌌 الإمبراطورية الكبرى — Grand Empire
+app.get('/empire', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/الإمبراطورية', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/بورصة', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/exchange', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/البنك-المركزي', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/central-bank', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/العاصمة', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/شريان', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
 
 const PORT = process.env.PORT || 8080;
 const DATA_DIR = path.join(__dirname, 'data');
@@ -35689,6 +35712,8 @@ wss.on('connection', ws => {
 if (socialConnectEngine) { socialConnectEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
 // Wire WS clients into currency engine
 if (currencyEngine) { currencyEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
+// Wire WS clients into grand empire engine
+if (empireGrandEngine) { empireGrandEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
 
 function broadcastPrices() {
     const data = JSON.stringify({
