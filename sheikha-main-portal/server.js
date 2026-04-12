@@ -720,6 +720,19 @@ try {
     console.log('⚠️ Community Engine غير متوفر:', e.message);
 }
 
+// 🌐 محرك التواصل الاجتماعي الشامل — SheikhaSocialConnect
+let socialConnectEngine = null;
+try {
+    const SheikhaSocialConnectEngine = require('./lib/sheikha-social-connect-engine');
+    socialConnectEngine = new SheikhaSocialConnectEngine({ app, wsClients: null });
+    const scs = socialConnectEngine.getStatus();
+    console.log(
+        `✅ [SocialConnect v1.0] ${scs.nameAr} | ${scs.platforms} منصة تواصل | ${scs.mediaPlatforms} وسيلة إعلام | ${scs.communities} مجتمع | ${scs.apis} API`
+    );
+} catch (e) {
+    console.log('⚠️ SheikhaSocialConnect غير متوفر:', e.message);
+}
+
 // ☪️ محرك القوانين والأنظمة والمعاهدات
 let legalEngine = null;
 try {
@@ -5578,6 +5591,14 @@ app.get('/marketing-command', (req, res) => res.redirect('/شيخة-القياد
 app.get('/cosmic-marketing', (req, res) => res.redirect('/شيخة-القيادة-التسويقية.html'));
 app.get('/التسويق-الكوني', (req, res) => res.redirect('/شيخة-القيادة-التسويقية.html'));
 app.get('/مركز-التسويق', (req, res) => res.redirect('/شيخة-القيادة-التسويقية.html'));
+
+// 🌐 منصة التواصل الاجتماعي الشاملة
+app.get('/social', (req, res) => res.redirect('/شيخة-التواصل-الاجتماعي.html'));
+app.get('/community', (req, res) => res.redirect('/شيخة-التواصل-الاجتماعي.html'));
+app.get('/media', (req, res) => res.redirect('/شيخة-التواصل-الاجتماعي.html'));
+app.get('/التواصل', (req, res) => res.redirect('/شيخة-التواصل-الاجتماعي.html'));
+app.get('/الإعلام', (req, res) => res.redirect('/شيخة-التواصل-الاجتماعي.html'));
+app.get('/المجتمعات', (req, res) => res.redirect('/شيخة-التواصل-الاجتماعي.html'));
 
 const PORT = process.env.PORT || 8080;
 const DATA_DIR = path.join(__dirname, 'data');
@@ -35640,6 +35661,9 @@ wss.on('connection', ws => {
         clients = clients.filter(c => c !== ws);
     });
 });
+
+// Wire WS clients into social connect engine after clients array is ready
+if (socialConnectEngine) { socialConnectEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
 
 function broadcastPrices() {
     const data = JSON.stringify({
