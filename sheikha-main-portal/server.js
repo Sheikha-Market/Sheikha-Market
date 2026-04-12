@@ -35078,6 +35078,33 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🟠 SHEIKHA AWS — شيخة أمازون ويب سيرفيسز | أفضل سحابة كونية
+// 15 فئة · 100+ خدمة · Compute · Storage · DB · ML · Analytics · Security
+// S3 · DynamoDB · SQS · SNS · Lambda · Background Worker
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const awsRoutes = require('./routes/aws.js');
+    app.use('/api/aws', awsRoutes);
+
+    const awsEngine = require('./lib/sheikha-aws-engine.js');
+    const dash = awsEngine.getDashboard();
+
+    console.log(`✅ [SHEIKHA-AWS] شيخة AWS — مُفعَّلة | ${dash.stats.categories} فئة | ${dash.stats.totalServices} خدمة | وضع: ${dash.engine.mode}`);
+    console.log('   ├─ /api/aws              — لوحة القيادة الكاملة');
+    console.log('   ├─ /api/aws/health       — فحص الصحة');
+    console.log('   ├─ /api/aws/catalogue    — كتالوج 100+ خدمة');
+    console.log('   ├─ /api/aws/s3           — Sheikha Object Store (S3)');
+    console.log('   ├─ /api/aws/dynamodb     — Sheikha NoSQL (DynamoDB)');
+    console.log('   ├─ /api/aws/sqs          — Sheikha Queue (SQS)');
+    console.log('   ├─ /api/aws/sns          — Sheikha Notify (SNS)');
+    console.log('   ├─ /api/aws/lambda       — Sheikha Functions (Lambda)');
+    console.log('   ├─ /api/aws/search       — بحث في الخدمات');
+    console.log('   └─ /api/aws/background   — العامل الخلفي (يعمل تلقائياً)');
+} catch (e) {
+    console.log('⚠️ [SHEIKHA-AWS] فشل تحميل Sheikha AWS:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // ☁️  SHEIKHA COSMIC CLOUD — أفضل سحابة كونية
 // Multi-Cloud · Edge · CDN · Storage · Compute · AI · Serverless · 16 endpoints
 // ═══════════════════════════════════════════════════════════════════════════════
