@@ -786,6 +786,51 @@ try {
     console.warn('⚠️ TechInnovation:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🚀 شيخة — منظومة الانطلاق والتجارة والأرباح والتوسع الشامل v1.0
+//    سياسة الانطلاق × هدف "السوق لكل الأسواق" × تجارة لكل التجارات
+//    آلية المتاجرة × 5 مراحل انطلاق × سياسة الأرباح × خطة العمل × 50+ KPI
+// ═══════════════════════════════════════════════════════════════════════════════
+let launchCommerceEngine = null;
+try {
+    const SheikhaMarketLaunchCommerceEngine = require('./lib/sheikha-market-launch-commerce-engine');
+    launchCommerceEngine = new SheikhaMarketLaunchCommerceEngine({
+        broadcast: (msg) => {
+            if (typeof clients !== 'undefined' && Array.isArray(clients)) {
+                clients.forEach(c => { try { if (c.readyState === 1) c.send(msg); } catch (_) { /* ignore */ } });
+            }
+        }
+    });
+    launchCommerceEngine.registerRoutes(app);
+    const lceStatus = launchCommerceEngine.getStatus();
+    console.log(`✅ [LaunchCommerce v1.0] ${lceStatus.nameAr} | 5 مراحل انطلاق | ${lceStatus.kpis} KPI | 29 API`);
+} catch (e) {
+    console.warn('⚠️ LaunchCommerce:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌟 شيخة — منظومة التسويق والإعلان والترويج والمبيعات والتواصل الأقوى في الكون
+//    20 قناة تسويقية × 25 نوع إعلان × 15 نوع ترويج × 40 KPI
+//    مولّد الحملات AI × مولّد تقويم المحتوى × مولّد خطة الوسائط
+//    شبكة المؤثرين × 50+ قالب رسائل × صوت البراند الإسلامي × تواصل الأزمات
+// ═══════════════════════════════════════════════════════════════════════════════
+let cosmicMarketingEngine = null;
+try {
+    const SheikhaCosmicMarketingSupremacyEngine = require('./lib/sheikha-cosmic-marketing-supremacy-engine');
+    cosmicMarketingEngine = new SheikhaCosmicMarketingSupremacyEngine({
+        broadcast: (msg) => {
+            if (typeof clients !== 'undefined' && Array.isArray(clients)) {
+                clients.forEach(c => { try { if (c.readyState === 1) c.send(msg); } catch (_) { /* ignore */ } });
+            }
+        }
+    });
+    cosmicMarketingEngine.registerRoutes(app);
+    const cmsStatus = cosmicMarketingEngine.getStatus();
+    console.log(`✅ [CosmicMarketing v1.0] ${cmsStatus.nameAr} | ${cmsStatus.channels} قناة | ${cmsStatus.adFormats} نوع إعلان | ${cmsStatus.kpis} KPI | ${cmsStatus.apis} API`);
+} catch (e) {
+    console.warn('⚠️ CosmicMarketing:', e.message);
+}
+
 // ☪️ محرك التزامن والرزنامة — التاريخ الهجري أساسي
 let calendarEngine = null;
 try {
