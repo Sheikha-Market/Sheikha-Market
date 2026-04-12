@@ -5573,6 +5573,12 @@ app.get('/admin', (req, res) => res.redirect('/لوحة-الادمن.html'));
 app.get('/dashboard', (req, res) => res.redirect('/لوحة-تحكم-المستخدم.html'));
 app.get('/login', (req, res) => res.redirect('/تسجيل-الدخول.html'));
 
+// 🚀 مركز القيادة التسويقية الكونية
+app.get('/marketing-command', (req, res) => res.redirect('/شيخة-القيادة-التسويقية.html'));
+app.get('/cosmic-marketing', (req, res) => res.redirect('/شيخة-القيادة-التسويقية.html'));
+app.get('/التسويق-الكوني', (req, res) => res.redirect('/شيخة-القيادة-التسويقية.html'));
+app.get('/مركز-التسويق', (req, res) => res.redirect('/شيخة-القيادة-التسويقية.html'));
+
 const PORT = process.env.PORT || 8080;
 const DATA_DIR = path.join(__dirname, 'data');
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
