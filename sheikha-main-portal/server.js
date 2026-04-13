@@ -720,6 +720,58 @@ try {
     console.log('⚠️ Community Engine غير متوفر:', e.message);
 }
 
+// 🌐 محرك التواصل الاجتماعي الشامل — SheikhaSocialConnect
+let socialConnectEngine = null;
+try {
+    const SheikhaSocialConnectEngine = require('./lib/sheikha-social-connect-engine');
+    socialConnectEngine = new SheikhaSocialConnectEngine({ app, wsClients: null });
+    const scs = socialConnectEngine.getStatus();
+    console.log(
+        `✅ [SocialConnect v1.0] ${scs.nameAr} | ${scs.platforms} منصة تواصل | ${scs.mediaPlatforms} وسيلة إعلام | ${scs.communities} مجتمع | ${scs.apis} API`
+    );
+} catch (e) {
+    console.log('⚠️ SheikhaSocialConnect غير متوفر:', e.message);
+}
+
+// ⭐ محرك العملات الإسلامية — SheikhaCurrencyEngine (دينار · درهم · شيخة)
+let currencyEngine = null;
+try {
+    const SheikhaCurrencyEngine = require('./lib/sheikha-currency-engine');
+    currencyEngine = new SheikhaCurrencyEngine({ app, wsClients: null });
+    const cur = currencyEngine.getStatus();
+    console.log(
+        `✅ [Currency v1.0] ${cur.nameAr} | ${cur.currencies} عملة إسلامية (SHK·DGD·SDH) | ${cur.worldCurrencies} عملة عالمية | ${cur.ribawiItems} صنف ربوي | ${cur.wallets} محفظة | ${cur.apis} API`
+    );
+} catch (e) {
+    console.log('⚠️ SheikhaCurrencyEngine غير متوفر:', e.message);
+}
+
+// 🌌 محرك الإمبراطورية الكبرى — SheikhGrandEmpireEngine
+let empireGrandEngine = null;
+try {
+    const SheikhGrandEmpireEngine = require('./lib/sheikha-empire-grand-engine');
+    empireGrandEngine = new SheikhGrandEmpireEngine({ app, wsClients: null });
+    const emp = empireGrandEngine.getStatus();
+    console.log(
+        `✅ [GrandEmpire v1.0] ${emp.nameAr} | ${emp.zones} إقليم | ${emp.continents} قارة | ${emp.indices} مؤشر بورصة | ${emp.cosmicLayers} طبقة كونية | ${emp.apis} API`
+    );
+} catch (e) {
+    console.log('⚠️ SheikhGrandEmpireEngine غير متوفر:', e.message);
+}
+
+// ═══ META AI ENGINE — CAPI + WhatsApp Business API + Pixel + Commerce ═══
+let metaEngine = null;
+try {
+    const SheikhMetaEngine = require('./lib/sheikha-meta-engine');
+    metaEngine = new SheikhMetaEngine({ app, wsClients: null });
+    const meta = metaEngine.getStatus();
+    console.log(
+        `✅ [MetaAI v1.0] ${meta.nameAr} | ${meta.apis} API مسار | CAPI + WhatsApp + Pixel + Commerce`
+    );
+} catch (e) {
+    console.log('⚠️ SheikhMetaEngine غير متوفر:', e.message);
+}
+
 // ☪️ محرك القوانين والأنظمة والمعاهدات
 let legalEngine = null;
 try {
@@ -761,6 +813,74 @@ try {
     );
 } catch (e) {
     console.log('⚠️ Tech Computing Engine غير متوفر:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🚀 شيخة — مركز الابتكار التقني المتقدم والاستكشاف والبحث والتطوير v1.0
+//    25 مجال تقني | TRL 1-9 | Innovation Pipeline | Patent Registry | 22 API
+//    AI & ML | Quantum | Nanotech | Biotech | Space | Clean Energy | Robotics
+//    Cybersecurity | Blockchain | 6G | Edge | XR | Digital Twins | HealthTech ...
+// ═══════════════════════════════════════════════════════════════════════════════
+let techInnovationCenter = null;
+try {
+    const SheikhaAdvancedTechInnovationCenter = require('./lib/sheikha-advanced-tech-innovation-center');
+    techInnovationCenter = new SheikhaAdvancedTechInnovationCenter({
+        broadcast: (msg) => {
+            if (typeof clients !== 'undefined' && Array.isArray(clients)) {
+                clients.forEach(c => { try { if (c.readyState === 1) c.send(msg); } catch (_) { /* ignore */ } });
+            }
+        }
+    });
+    techInnovationCenter.registerRoutes(app);
+    const ticStatus = techInnovationCenter.getStatus();
+    console.log(`✅ [TechInnovation v1.0] ${ticStatus.nameAr} | ${ticStatus.totalDomains} مجال تقني | 22 API | 183+ تخصص`);
+} catch (e) {
+    console.warn('⚠️ TechInnovation:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🚀 شيخة — منظومة الانطلاق والتجارة والأرباح والتوسع الشامل v1.0
+//    سياسة الانطلاق × هدف "السوق لكل الأسواق" × تجارة لكل التجارات
+//    آلية المتاجرة × 5 مراحل انطلاق × سياسة الأرباح × خطة العمل × 50+ KPI
+// ═══════════════════════════════════════════════════════════════════════════════
+let launchCommerceEngine = null;
+try {
+    const SheikhaMarketLaunchCommerceEngine = require('./lib/sheikha-market-launch-commerce-engine');
+    launchCommerceEngine = new SheikhaMarketLaunchCommerceEngine({
+        broadcast: (msg) => {
+            if (typeof clients !== 'undefined' && Array.isArray(clients)) {
+                clients.forEach(c => { try { if (c.readyState === 1) c.send(msg); } catch (_) { /* ignore */ } });
+            }
+        }
+    });
+    launchCommerceEngine.registerRoutes(app);
+    const lceStatus = launchCommerceEngine.getStatus();
+    console.log(`✅ [LaunchCommerce v1.0] ${lceStatus.nameAr} | 5 مراحل انطلاق | ${lceStatus.kpis} KPI | 29 API`);
+} catch (e) {
+    console.warn('⚠️ LaunchCommerce:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌟 شيخة — منظومة التسويق والإعلان والترويج والمبيعات والتواصل الأقوى في الكون
+//    20 قناة تسويقية × 25 نوع إعلان × 15 نوع ترويج × 40 KPI
+//    مولّد الحملات AI × مولّد تقويم المحتوى × مولّد خطة الوسائط
+//    شبكة المؤثرين × 50+ قالب رسائل × صوت البراند الإسلامي × تواصل الأزمات
+// ═══════════════════════════════════════════════════════════════════════════════
+let cosmicMarketingEngine = null;
+try {
+    const SheikhaCosmicMarketingSupremacyEngine = require('./lib/sheikha-cosmic-marketing-supremacy-engine');
+    cosmicMarketingEngine = new SheikhaCosmicMarketingSupremacyEngine({
+        broadcast: (msg) => {
+            if (typeof clients !== 'undefined' && Array.isArray(clients)) {
+                clients.forEach(c => { try { if (c.readyState === 1) c.send(msg); } catch (_) { /* ignore */ } });
+            }
+        }
+    });
+    cosmicMarketingEngine.registerRoutes(app);
+    const cmsStatus = cosmicMarketingEngine.getStatus();
+    console.log(`✅ [CosmicMarketing v1.0] ${cmsStatus.nameAr} | ${cmsStatus.channels} قناة | ${cmsStatus.adFormats} نوع إعلان | ${cmsStatus.kpis} KPI | ${cmsStatus.apis} API`);
+} catch (e) {
+    console.warn('⚠️ CosmicMarketing:', e.message);
 }
 
 // ☪️ محرك التزامن والرزنامة — التاريخ الهجري أساسي
@@ -5504,6 +5624,40 @@ app.use('/docs', express.static(path.join(__dirname, 'docs')));
 app.get('/admin', (req, res) => res.redirect('/لوحة-الادمن.html'));
 app.get('/dashboard', (req, res) => res.redirect('/لوحة-تحكم-المستخدم.html'));
 app.get('/login', (req, res) => res.redirect('/تسجيل-الدخول.html'));
+
+// 🚀 مركز القيادة التسويقية الكونية
+app.get('/marketing-command', (req, res) => res.redirect('/شيخة-القيادة-التسويقية.html'));
+app.get('/cosmic-marketing', (req, res) => res.redirect('/شيخة-القيادة-التسويقية.html'));
+app.get('/التسويق-الكوني', (req, res) => res.redirect('/شيخة-القيادة-التسويقية.html'));
+app.get('/مركز-التسويق', (req, res) => res.redirect('/شيخة-القيادة-التسويقية.html'));
+
+// 🌐 منصة التواصل الاجتماعي الشاملة
+app.get('/social', (req, res) => res.redirect('/شيخة-التواصل-الاجتماعي.html'));
+app.get('/community', (req, res) => res.redirect('/شيخة-التواصل-الاجتماعي.html'));
+app.get('/media', (req, res) => res.redirect('/شيخة-التواصل-الاجتماعي.html'));
+app.get('/التواصل', (req, res) => res.redirect('/شيخة-التواصل-الاجتماعي.html'));
+app.get('/الإعلام', (req, res) => res.redirect('/شيخة-التواصل-الاجتماعي.html'));
+app.get('/المجتمعات', (req, res) => res.redirect('/شيخة-التواصل-الاجتماعي.html'));
+
+// ⭐ عملة شيخة — Sheikha Currency
+app.get('/currency', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
+app.get('/coin', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
+app.get('/dinar', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
+app.get('/dirham', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
+app.get('/العملة', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
+app.get('/الدينار', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
+app.get('/الدرهم', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
+app.get('/زكاة', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
+
+// 🌌 الإمبراطورية الكبرى — Grand Empire
+app.get('/empire', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/الإمبراطورية', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/بورصة', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/exchange', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/البنك-المركزي', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/central-bank', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/العاصمة', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+app.get('/شريان', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
 
 const PORT = process.env.PORT || 8080;
 const DATA_DIR = path.join(__dirname, 'data');
@@ -34964,6 +35118,191 @@ app.get('/api/sheikha/copilot/extensions-live', (req, res) => {
 
 console.log('✅ [Sheikha Copilot] نظام مساعد البرمجة الذكي — مُفعَّل | 10 نقاط API | شريعة: ✅');
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 💰 GHANAYIM ENGINE — محرك الغنائم والثروة الحلال
+// "فَكُلُوا مِمَّا غَنِمْتُمْ حَلَالًا طَيِّبًا ۚ وَاتَّقُوا اللَّهَ" — الأنفال:69
+// "وَابْتَغِ فِيمَا آتَاكَ اللَّهُ الدَّارَ الْآخِرَةَ وَلَا تَنسَ نَصِيبَكَ مِنَ الدُّنْيَا" — القصص:77
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const ghanayimRoutes = require('./routes/ghanayim.js');
+    app.use('/api/ghanayim', ghanayimRoutes);
+    console.log('✅ [GHANAYIM] محرك الغنائم والثروة الحلال — مُفعَّل | 15 نقطة API | ولا حول ولا قوة إلا بالله');
+} catch (e) {
+    console.log('⚠️ [GHANAYIM] فشل تحميل مسارات الغنائم:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚔️ MALAHEM UNION ENGINE — محرك الملاحم والاتحاد (تثقيف شرعي معرفي)
+// "وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ وَمِن رِّبَاطِ الْخَيْلِ" — الأنفال:60
+// ولا حول ولا قوة إلا بالله العلي العظيم
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const malahemRoutes = require('./routes/malahem.js');
+    app.use('/api/malahem', malahemRoutes);
+    console.log('✅ [MALAHEM] محرك الملاحم والاتحاد — مُفعَّل (تثقيف شرعي) | 20+ نقطة API');
+} catch (e) {
+    console.log('⚠️ [MALAHEM] فشل تحميل مسارات الملاحم:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌍 GLOBAL ALLIANCE ENGINE — محرك التحالف العالمي الشامل
+// القائد: سلمان احمد بن سلمان الراجح
+// "واعدوا لهم ما استطعتم من قوة ومن رباط الخيل" — الانفال:60
+// ولا حول ولا قوة الا بالله العلي العظيم
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const allianceRoutes = require('./routes/alliance.js');
+    app.use('/api/alliance', allianceRoutes);
+    console.log('✅ [ALLIANCE] محرك التحالف العالمي + الشبكة الاقتصادية — مُفعَّل | 25 نقطة API');
+} catch (e) {
+    console.log('⚠️ [ALLIANCE] فشل تحميل مسارات التحالف:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔗 ENTERPRISE INTEGRATION ENGINE — التكامل المؤسسي الشامل
+// Fortune 500 + المنظمات الدولية + الحكومات + سلسلة الإمداد + 300M SME
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const enterpriseRoutes = require('./routes/enterprise.js');
+    app.use('/api/enterprise', enterpriseRoutes);
+    console.log('✅ [ENTERPRISE] محرك التكامل المؤسسي — مُفعَّل | 24 نقطة API');
+} catch (e) {
+    console.log('⚠️ [ENTERPRISE] فشل تحميل مسارات التكامل المؤسسي:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐 API GATEWAY — بوابة API الموحدة (metrics + correlation IDs + health)
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const apiGatewayRoutes = require('./routes/api-gateway.js');
+    app.use('/api/gateway', apiGatewayRoutes);
+    // تفعيل middleware البوابة على كل المسارات
+    const apiGateway = require('./lib/sheikha-api-gateway.js');
+    app.use('/api/', apiGateway.middleware());
+    console.log('✅ [API-GATEWAY] بوابة API الموحدة — مُفعَّلة | Correlation IDs + Metrics + Health');
+} catch (e) {
+    console.log('⚠️ [API-GATEWAY] فشل تحميل بوابة API:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🛡️ DB ENGINE — طبقة قاعدة البيانات (MongoDB-ready + JSON fallback)
+// أضف MONGODB_URI في .env لتفعيل MongoDB تلقائياً
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const sheikhaDB = require('./lib/sheikha-db-engine.js');
+    const dbStatus  = sheikhaDB.getStatus();
+    console.log(`✅ [DB-ENGINE] محرك قاعدة البيانات — مُفعَّل | وضع: ${dbStatus.mode} | Migration: ${dbStatus.migration.status}`);
+    // تأكد من فلوش البيانات عند الإغلاق
+    process.on('SIGTERM', () => { sheikhaDB.flushAll(); });
+    process.on('SIGINT',  () => { sheikhaDB.flushAll(); });
+} catch (e) {
+    console.log('⚠️ [DB-ENGINE] فشل تحميل محرك قاعدة البيانات:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐 GOOGLE FULL INTEGRATION — تكامل Google الكامل
+// Gemini AI + Cloud + Maps + Analytics (GA4) + Gmail + Google Pay + OAuth
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const {
+        geminiRouter,
+        cloudRouter,
+        mapsRouter,
+        analyticsRouter,
+        emailRouter,
+        googlePayRouter
+    } = require('./routes/google-integrations.js');
+
+    app.use('/api/ai/gemini',       geminiRouter);
+    app.use('/api/cloud',           cloudRouter);
+    app.use('/api/maps',            mapsRouter);
+    app.use('/api/analytics',       analyticsRouter);
+    app.use('/api/email',           emailRouter);
+    app.use('/api/payment/googlepay', googlePayRouter);
+
+    console.log('✅ [GOOGLE] تكامل Google الكامل — مُفعَّل');
+    console.log('   ├─ /api/ai/gemini          — Gemini AI (gemini-1.5-flash)');
+    console.log('   ├─ /api/cloud              — Google Cloud Storage / BigQuery / PubSub');
+    console.log('   ├─ /api/maps               — Google Maps + Geocoding + Places');
+    console.log('   ├─ /api/analytics          — Google Analytics GA4 (Measurement Protocol)');
+    console.log('   ├─ /api/email              — Gmail API (OAuth token-based send)');
+    console.log('   └─ /api/payment/googlepay  — Google Pay (tokenize + checkout)');
+} catch (e) {
+    console.log('⚠️ [GOOGLE] فشل تحميل تكامل Google:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🟠 SHEIKHA AWS — شيخة أمازون ويب سيرفيسز | أفضل سحابة كونية
+// 15 فئة · 100+ خدمة · Compute · Storage · DB · ML · Analytics · Security
+// S3 · DynamoDB · SQS · SNS · Lambda · Background Worker
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const awsRoutes = require('./routes/aws.js');
+    app.use('/api/aws', awsRoutes);
+
+    const awsEngine = require('./lib/sheikha-aws-engine.js');
+    const dash = awsEngine.getDashboard();
+
+    console.log(`✅ [SHEIKHA-AWS] شيخة AWS — مُفعَّلة | ${dash.stats.categories} فئة | ${dash.stats.totalServices} خدمة | وضع: ${dash.engine.mode}`);
+    console.log('   ├─ /api/aws              — لوحة القيادة الكاملة');
+    console.log('   ├─ /api/aws/health       — فحص الصحة');
+    console.log('   ├─ /api/aws/catalogue    — كتالوج 100+ خدمة');
+    console.log('   ├─ /api/aws/s3           — Sheikha Object Store (S3)');
+    console.log('   ├─ /api/aws/dynamodb     — Sheikha NoSQL (DynamoDB)');
+    console.log('   ├─ /api/aws/sqs          — Sheikha Queue (SQS)');
+    console.log('   ├─ /api/aws/sns          — Sheikha Notify (SNS)');
+    console.log('   ├─ /api/aws/lambda       — Sheikha Functions (Lambda)');
+    console.log('   ├─ /api/aws/search       — بحث في الخدمات');
+    console.log('   └─ /api/aws/background   — العامل الخلفي (يعمل تلقائياً)');
+} catch (e) {
+    console.log('⚠️ [SHEIKHA-AWS] فشل تحميل Sheikha AWS:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ☁️  SHEIKHA COSMIC CLOUD — أفضل سحابة كونية
+// Multi-Cloud · Edge · CDN · Storage · Compute · AI · Serverless · 16 endpoints
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const cosmicCloudRoutes = require('./routes/cloud.js');
+    app.use('/api/cloud/cosmic', cosmicCloudRoutes);
+
+    const cloudEngine = require('./lib/sheikha-cloud-engine.js');
+    const dashboard   = cloudEngine.getDashboard();
+    const configured  = dashboard.summary.configuredProviders;
+    const total       = dashboard.summary.totalProviders;
+
+    console.log(`✅ [SHEIKHA-CLOUD] سحابة شيخة الكونية — مُفعَّلة | ${configured}/${total} مزود سحابي مُهيَّأ`);
+    console.log('   ├─ /api/cloud/cosmic              — لوحة قيادة السحابة الكاملة');
+    console.log('   ├─ /api/cloud/cosmic/health        — فحص الصحة');
+    console.log('   ├─ /api/cloud/cosmic/providers     — مزودو السحابة (Google/Azure/AWS/Cloudflare)');
+    console.log('   ├─ /api/cloud/cosmic/platforms     — منصات شيخة');
+    console.log('   ├─ /api/cloud/cosmic/regions       — التغطية الجغرافية');
+    console.log('   ├─ /api/cloud/cosmic/cdn           — شبكة CDN');
+    console.log('   ├─ /api/cloud/cosmic/compute       — الحوسبة والـ Serverless');
+    console.log('   ├─ /api/cloud/cosmic/ai            — نماذج الذكاء الاصطناعي');
+    console.log('   ├─ /api/cloud/cosmic/route         — التوجيه الذكي');
+    console.log('   ├─ /api/cloud/cosmic/storage       — التخزين الكوني');
+    console.log('   ├─ /api/cloud/cosmic/usage         — إحصائيات الاستخدام');
+    console.log('   └─ /api/cloud/cosmic/log           — سجل العمليات');
+} catch (e) {
+    console.log('⚠️ [SHEIKHA-CLOUD] فشل تحميل سحابة شيخة الكونية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ☁️🏆  SHEIKHA SOVEREIGN NETWORK — منظومة شيخة السيادية الموحدة
+// كل شيء باسم شيخة — في شبكتها — لا ضرر ولا ضرار
+// تحقيق النصر الجماعي والغنيمة الحلال
+// "وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا" — آل عمران:103
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const sovereignNet = require('./lib/sheikha-sovereign-network');
+    // wss متاح إن كان WebSocket server مُعرَّفاً قبل هذا السطر
+    const _wss = typeof wss !== 'undefined' ? wss : null;
+    sovereignNet.mountAll(app, { wss: _wss, noHarm: true, identityStamp: true, cloud: true, cronJobs: true });
+} catch (e) {
+    console.warn('⚠️ [SOVEREIGN-NET] فشل التحميل — الخادم يستمر بدونه:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
@@ -35301,6 +35640,29 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🌳 شيخة — الجذر الرقمي الذكي المتكامل v2.0
+//    Ed25519 + ECDSA-P256 + SHA3-256 + Merkle Chain + DID W3C v1.1 + 25 API
+// ═══════════════════════════════════════════════════════════════════════════════
+let smartDigitalRootEngine = null;
+try {
+    // P0-1: ACTIVATED - sheikha-smart-digital-root-engine v2.0
+    const SheikhaSmartDigitalRootEngine = require('./lib/sheikha-smart-digital-root-engine');
+    smartDigitalRootEngine = new SheikhaSmartDigitalRootEngine({
+        broadcast: (msg) => {
+            // بث أحداث الجذر الرقمي عبر WebSocket لجميع العملاء
+            if (typeof clients !== 'undefined' && Array.isArray(clients)) {
+                clients.forEach(c => { try { if (c.readyState === 1) c.send(msg); } catch (_) { /* ignore */ } });
+            }
+        }
+    });
+    smartDigitalRootEngine.registerRoutes(app);
+    const rootStatus = smartDigitalRootEngine.getStatus();
+    console.log(`✅ [DigitalRoot v2.0] ${rootStatus.nameAr} | ${rootStatus.activeRoots} جذر نشط | ${rootStatus.chainHeight} كتلة | ${rootStatus.apis} API | ${rootStatus.algos.join(' + ')}`);
+} catch (e) {
+    console.warn('⚠️ DigitalRoot:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🚀 بدء الخادم
@@ -35358,6 +35720,15 @@ wss.on('connection', ws => {
         clients = clients.filter(c => c !== ws);
     });
 });
+
+// Wire WS clients into social connect engine after clients array is ready
+if (socialConnectEngine) { socialConnectEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
+// Wire WS clients into currency engine
+if (currencyEngine) { currencyEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
+// Wire WS clients into grand empire engine
+if (empireGrandEngine) { empireGrandEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
+// Wire WS clients into meta engine
+if (metaEngine) { metaEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
 
 function broadcastPrices() {
     const data = JSON.stringify({

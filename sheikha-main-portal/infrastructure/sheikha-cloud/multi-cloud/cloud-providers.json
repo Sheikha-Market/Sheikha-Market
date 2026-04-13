@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "module": "SHEIKHA_MULTI_CLOUD_FABRIC",
+    "version": "1.0.0",
+    "generatedAt": "2026-04-12T00:00:00.000Z",
+    "description": "Multi-cloud abstraction layer — unified control plane across all public cloud providers"
+  },
+  "controlPlane": {
+    "orchestrator": "Kubernetes",
+    "version": "1.30+",
+    "federation": "KubeFed v2 / Cluster-API",
+    "serviceMesh": "Istio 1.22",
+    "ingressController": "Envoy Gateway",
+    "secretsManager": "HashiCorp Vault 1.16",
+    "policyEngine": "OPA Gatekeeper",
+    "identityProvider": "Keycloak 24"
+  },
+  "providers": [
+    {
+      "id": "aws-govcloud",
+      "name": "AWS GovCloud",
+      "type": "PUBLIC",
+      "sovereigntyLevel": "HIGH",
+      "regions": ["us-gov-west-1", "us-gov-east-1", "me-south-1"],
+      "services": ["EKS", "S3-GovCloud", "RDS", "KMS", "CloudHSM", "Route53"],
+      "useCase": ["disaster-recovery", "western-diaspora", "partner-integration"],
+      "costModel": "pay-as-you-go"
+    },
+    {
+      "id": "azure-sovereign",
+      "name": "Azure Sovereign / Government",
+      "type": "PUBLIC",
+      "sovereigntyLevel": "HIGH",
+      "regions": ["uaenorth", "uaecentral", "germanywestcentral"],
+      "services": ["AKS", "Azure Blob", "Azure AD", "Key Vault", "Defender for Cloud"],
+      "useCase": ["government-workloads", "microsoft-365-integration", "azure-openai"],
+      "costModel": "pay-as-you-go"
+    },
+    {
+      "id": "gcp-standard",
+      "name": "Google Cloud Platform",
+      "type": "PUBLIC",
+      "sovereigntyLevel": "MEDIUM",
+      "regions": ["me-west1", "asia-southeast1", "europe-west3"],
+      "services": ["GKE", "Cloud Storage", "BigQuery", "Vertex AI", "Cloud Armor"],
+      "useCase": ["ai-ml-workloads", "data-analytics", "translation-api"],
+      "costModel": "pay-as-you-go"
+    },
+    {
+      "id": "alibaba-cloud",
+      "name": "Alibaba Cloud",
+      "type": "PUBLIC",
+      "sovereigntyLevel": "MEDIUM",
+      "regions": ["ap-southeast-1", "me-east-1", "ap-south-1"],
+      "services": ["ACK", "OSS", "Lindorm", "PAI", "Anti-DDoS"],
+      "useCase": ["sea-traffic", "china-belt-road-partners", "cost-optimization"],
+      "costModel": "pay-as-you-go"
+    },
+    {
+      "id": "oracle-cloud",
+      "name": "Oracle Cloud Infrastructure",
+      "type": "PUBLIC",
+      "sovereigntyLevel": "HIGH",
+      "regions": ["me-jeddah-1", "me-dubai-1", "uk-london-1"],
+      "services": ["OKE", "Object Storage", "Autonomous DB", "OCI Vault"],
+      "useCase": ["database-workloads", "erp-government", "blockchain"],
+      "costModel": "pay-as-you-go"
+    },
+    {
+      "id": "sheikha-private",
+      "name": "Sheikha Private Cloud (OpenStack)",
+      "type": "PRIVATE",
+      "sovereigntyLevel": "ABSOLUTE",
+      "regions": ["mec-mecca", "ruh-riyadh", "ist-istanbul", "cai-cairo", "kul-kualalumpur"],
+      "services": ["Nova", "Neutron", "Cinder", "Swift", "Keystone", "Barbican"],
+      "useCase": ["classified-data", "sovereign-workloads", "bare-metal-government"],
+      "costModel": "capex"
+    }
+  ],
+  "multiCloudRouter": {
+    "tool": "Crossplane",
+    "version": "1.15",
+    "description": "Unified resource provisioning across all cloud providers via Kubernetes CRDs",
+    "policies": {
+      "dataResidency": "enforce — workloads run only in approved regions per country",
+      "costOptimization": "auto-placement based on cost and latency scoring",
+      "failover": "automatic cross-provider failover with RTO < 15 min"
+    }
+  },
+  "networking": {
+    "overlay": "Cilium CNI with eBPF",
+    "encryption": "WireGuard in-transit + mTLS via Istio",
+    "dns": "CoreDNS federated across clusters",
+    "loadBalancing": "Global Anycast via BGP ECMP"
+  },
+  "observability": {
+    "metrics": "Prometheus + Thanos (long-term)",
+    "tracing": "Jaeger via OpenTelemetry",
+    "logging": "Loki + Grafana",
+    "alerting": "Alertmanager → PagerDuty + Sheikha SOC"
+  }
+}
