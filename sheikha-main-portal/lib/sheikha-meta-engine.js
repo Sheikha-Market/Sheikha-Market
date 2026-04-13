@@ -183,6 +183,30 @@ class SheikhMetaEngine {
             end_user:       { nameAr: 'مستخدم نهائي',      supplyRole: 'use',       chainRange: [8,9], market: 'all' },
         };
 
+        // سجل الكيانات + تدفقات المواد — Sheikha Chain Ledger
+        // يعمل بالذاكرة مع حفظ دوري. يُغذَّى من CAPI events + ERP + تسجيل موردين.
+        this.chainLedger = {
+            entities: {},    // entity_id → { entity_id, entity_type, supply_role, market_segment, hs_chapters, country, grade_tier, active_status, registered_at, last_seen, return_rate_pct, total_flow_sar }
+            flows:    [],    // [ { flow_id, from_entity_id, to_entity_id, hs_chapter, material_form_from, material_form_to, process_stage, weight_kg, value_sar, timestamp, cycle_number } ]
+            // إحصاءات مجمعة — تُحدَّث عند كل flow + entity
+            _stats:   { total_entities: 0, total_flows: 0, total_value_sar: 0, g2g_count: 0, last_snapshot_at: null, sei_history: [] },
+        };
+        // قواعد الطيار الآلي — Autopilot Rules
+        this.autopilotRules = {
+            margin: [
+                { condition: { entity_type: 'ministry',       market_segment: 'precious' }, margin_pct: 22 },
+                { condition: { entity_type: 'sovereign_fund', market_segment: 'rare' },     margin_pct: 25 },
+                { condition: { entity_type: 'gov_company',    market_segment: 'metals' },   margin_pct: 18 },
+                { condition: { entity_type: 'factory',        market_segment: 'scrap' },    margin_pct: 12 },
+                { condition: { client_type: 'G2G' },                                        margin_pct: 28 },
+            ],
+            blacklistThreshold: { return_rate_pct: 2.0 },  // موردون تجاوزوا 2% يُوقف الإعلان عليهم
+            inventoryRoute: [
+                { condition: { market_segment: 'metals', region: 'sa_gcc' }, preferred_warehouse: 'nearest_sa_gcc' },
+                { condition: { market_segment: 'precious' },                 preferred_warehouse: 'vault_secure' },
+            ],
+        };
+
         // سجل التدقيق — Governance Audit Log
         this.auditLog = [];
         this.maxAuditLogSize = parseInt(process.env.META_AUDIT_LOG_SIZE) || 500;
@@ -717,7 +741,7 @@ class SheikhMetaEngine {
             regions: regionSummary,
             stats: this.stats,
             halalEvents: this.halalEvents,
-            apiCount: 140,
+            apiCount: 151,
             consent: { total: Object.keys(this.consentDB.consents).length },
             auditLog: { entries: this.auditLog.length, maxSize: this.maxAuditLogSize },
             alerts: this.checkAlerts(),
@@ -734,7 +758,7 @@ class SheikhMetaEngine {
         return {
             nameAr: 'شيخة Meta AI',
             version: this.version,
-            apis: 140,
+            apis: 151,
             stats: this.stats,
             markets: Object.keys(this.marketPixels),
             regions: Object.keys(this.regionConfig),
@@ -2470,7 +2494,176 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
             });
         });
 
-        console.log(`✅ [SheikhMetaEngine] 140 مسار API مُسجَّل | Base: ${base}`);
+        // ─── Sheikha Chain Census + SEI + Snapshot + Autopilot Routes ──────────
+
+        // تسجيل كيان جديد في سجل السلسلة
+        app.post(`${base}/chain/entity/register`, (req, res) => {
+            try {
+                const { entity_id, ...entityData } = req.body;
+                if (!entity_id) return res.status(400).json({ error: 'entity_id مطلوب' });
+                const entity = this.registerEntity(entity_id, entityData);
+                res.json({ registered: true, entity });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // إحصاء الكيانات النشطة حسب النوع / الدور / السوق
+        app.get(`${base}/chain/entities`, (req, res) => {
+            try {
+                const { entity_type, supply_role, market_segment, country, active } = req.query;
+                let entities = Object.values(this.chainLedger.entities);
+                if (entity_type)    entities = entities.filter(e => e.entity_type === entity_type);
+                if (supply_role)    entities = entities.filter(e => e.supply_role === supply_role);
+                if (market_segment) entities = entities.filter(e => e.market_segment === market_segment);
+                if (country)        entities = entities.filter(e => e.country === country.toLowerCase());
+                if (active !== undefined) entities = entities.filter(e => e.active_status === (active !== 'false'));
+
+                const countsByType = {};
+                for (const e of entities) countsByType[e.entity_type] = (countsByType[e.entity_type] || 0) + 1;
+
+                res.json({ total: entities.length, countsByType, totalRegistered: this.chainLedger._stats.total_entities });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // تسجيل حركة مادة في سجل التدفقات
+        app.post(`${base}/chain/flow/record`, async (req, res) => {
+            try {
+                const flow = this.recordMaterialFlow(req.body);
+                // أرسل حدث CAPI مرافق إذا وجد userData
+                let capiResult = null;
+                if (req.body.userData) {
+                    capiResult = await this.sendChainEvent('Material_Flow', req.body.userData, {
+                        entity_type:      req.body.from_entity_type || 'warehouse',
+                        market_segment:   req.body.market_segment || 'metals',
+                        hs_chapter:       req.body.hs_chapter,
+                        process_stage:    req.body.process_stage,
+                        material_form:    req.body.material_form_from,
+                        chain_position:   req.body.chain_position || 3,
+                        cycle_number:     req.body.cycle_number || 1,
+                        value:            req.body.value_sar || 0,
+                        internal_ref:     flow.flow_id,
+                    });
+                }
+                res.json({ recorded: true, flow_id: flow.flow_id, ...(capiResult ? { capi: capiResult } : {}) });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // عرض سجل التدفقات مع فلاتر
+        app.get(`${base}/chain/flows`, (req, res) => {
+            try {
+                const { hs_chapter, process_stage, from_entity_id, to_entity_id, limit = 50 } = req.query;
+                let flows = this.chainLedger.flows;
+                if (hs_chapter)       flows = flows.filter(f => f.hs_chapter === hs_chapter);
+                if (process_stage)    flows = flows.filter(f => f.process_stage === Number(process_stage));
+                if (from_entity_id)   flows = flows.filter(f => f.from_entity_id === from_entity_id);
+                if (to_entity_id)     flows = flows.filter(f => f.to_entity_id === to_entity_id);
+                flows = flows.slice(-Number(limit));
+                const totalValue = flows.reduce((s, f) => s + f.value_sar, 0);
+                const totalWeight = flows.reduce((s, f) => s + f.weight_kg, 0);
+                res.json({ count: flows.length, total_value_sar: totalValue, total_weight_kg: Math.round(totalWeight * 100) / 100, flows });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // بناء لقطة السلسلة (بدون إرسال)
+        app.get(`${base}/chain/snapshot`, (req, res) => {
+            try {
+                const snapshot = this.buildChainSnapshot();
+                this.chainLedger._stats.last_snapshot_at = new Date().toISOString();
+                res.json(snapshot);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // بناء وإرسال لقطة السلسلة لـ CAPI
+        app.post(`${base}/chain/snapshot/send`, async (req, res) => {
+            try {
+                const snapshot = this.buildChainSnapshot();
+                this.chainLedger._stats.last_snapshot_at = new Date().toISOString();
+                const result = await this.sendCAPIEventWithGeoRouting(
+                    snapshot.event_name,
+                    { country: req.body.country || 'sa' },
+                    snapshot.custom_data,
+                );
+                this._addAuditEntry('CHAIN_SNAPSHOT_SENT', null, { sei: snapshot.custom_data.sei });
+                res.json({ sent: true, snapshot_id: snapshot.custom_data.snapshot_id, sei: snapshot.custom_data.sei, capiResult: result });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // مؤشر التميز SEI
+        app.get(`${base}/chain/sei`, (req, res) => {
+            try {
+                const current = this.computeSEI();
+                const history = this.chainLedger._stats.sei_history.slice(-48); // آخر 48 قراءة
+                const trend = history.length >= 2
+                    ? (current.sei > history[history.length - 2].sei ? '↑ صاعد' : current.sei < history[history.length - 2].sei ? '↓ هابط' : '→ ثابت')
+                    : '— أول قراءة';
+                res.json({ current, trend, history_last_48: history, target: 10.0, gap: Math.round((10 - current.sei) * 10) / 10 });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // حدث فحص الجودة من المستودع
+        app.post(`${base}/chain/quality-check`, async (req, res) => {
+            try {
+                const { entity_id, return_rate_pct = 0, weight_kg, hs_chapter, userData = {} } = req.body;
+                // تحديث معدل الإرجاع في سجل الكيانات
+                if (entity_id && this.chainLedger.entities[entity_id]) {
+                    this.chainLedger.entities[entity_id].return_rate_pct = Number(return_rate_pct);
+                }
+                const result = await this.sendChainEvent('Quality_Check', {
+                    ...userData, ip: req.ip, userAgent: req.headers['user-agent'],
+                }, {
+                    entity_type:    'warehouse',
+                    market_segment: req.body.market_segment || 'metals',
+                    hs_chapter,
+                    chain_position: req.body.chain_position || 4,
+                    cycle_number:   req.body.cycle_number || 1,
+                    return_flag:    return_rate_pct > 0,
+                    value:          weight_kg ? weight_kg * 1000 : 0,
+                    internal_ref:   entity_id || `qc_${Date.now()}`,
+                });
+                this._addAuditEntry('QUALITY_CHECK', null, { entity_id, return_rate_pct });
+                const blacklisted = return_rate_pct > this.autopilotRules.blacklistThreshold.return_rate_pct;
+                res.json({ ...result, entity_id, return_rate_pct, blacklist_warning: blacklisted, blacklist_action: blacklisted ? 'توقف الإعلان على هذا المورد لين تحل المشكلة' : null });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // الحصول على قواعد الطيار الآلي
+        app.get(`${base}/chain/autopilot/rules`, (req, res) => {
+            res.json({ rules: this.autopilotRules, note: 'هذه القواعد تتحكم في الهامش التلقائي + توجيه المخزون + إيقاف إعلانات الموردين الضعيفين' });
+        });
+
+        // تقييم عقد بالطيار الآلي
+        app.post(`${base}/chain/autopilot/evaluate`, (req, res) => {
+            try {
+                const result = this.applyAutoPilotRules(req.body);
+                this._addAuditEntry('AUTOPILOT_EVALUATE', null, { client_type: req.body.client_type, market_segment: req.body.market_segment });
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // تعداد شامل — Census Dashboard
+        app.get(`${base}/chain/census`, (req, res) => {
+            try {
+                const entities = Object.values(this.chainLedger.entities);
+                const active = entities.filter(e => e.active_status);
+                const byRole = { source: 0, transform: 0, store: 0, transport: 0, gov: 0, use: 0 };
+                const byMarket = { metals: 0, scrap: 0, precious: 0, rare: 0, all: 0 };
+                for (const e of active) {
+                    if (byRole[e.supply_role] != null) byRole[e.supply_role]++;
+                    if (byMarket[e.market_segment] != null) byMarket[e.market_segment]++;
+                }
+                const sei = this.computeSEI();
+                const flows24h = this.chainLedger.flows.filter(f => new Date(f.timestamp).getTime() >= Date.now() - 86400000);
+                res.json({
+                    entities:          { total: active.length, byRole, byMarket, stores_and_vaults: (byRole.store || 0), end_users: (byRole.use || 0) },
+                    flows_24h:         { count: flows24h.length, total_value_sar: Math.round(flows24h.reduce((s, f) => s + f.value_sar, 0)), total_weight_kg: Math.round(flows24h.reduce((s, f) => s + f.weight_kg) * 100) / 100 },
+                    sei:               sei.sei,
+                    last_snapshot_at:  this.chainLedger._stats.last_snapshot_at,
+                    g2g_total:         this.chainLedger._stats.g2g_count,
+                    note:              'هذه الأرقام داخلية فقط — لا تُشارَك مع أي طرف خارجي',
+                });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        console.log(`✅ [SheikhMetaEngine] 151 مسار API مُسجَّل | Base: ${base}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -2599,6 +2792,243 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
             imageUrl: `https://www.sheikha.top/images/product-${i + 1}.jpg`,
             retailerId: `SHK-${i + 1}`,
         }));
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🏭 سجل الكيانات — Entity Ledger
+    // ═══════════════════════════════════════════════════════════════════════════
+    registerEntity(entityId, entityData = {}) {
+        const existing = this.chainLedger.entities[entityId];
+        const entityDef = this.entityTaxonomy[entityData.entity_type] || {};
+        this.chainLedger.entities[entityId] = {
+            entity_id:      entityId,
+            entity_type:    entityData.entity_type    || 'warehouse',
+            supply_role:    entityData.supply_role    || entityDef.supplyRole || 'store',
+            market_segment: entityData.market_segment || 'metals',
+            hs_chapters:    entityData.hs_chapters    || [],
+            country:        entityData.country        || 'sa',
+            grade_tier:     entityData.grade_tier     || 3,
+            active_status:  true,
+            registered_at:  existing ? existing.registered_at : new Date().toISOString(),
+            last_seen:      new Date().toISOString(),
+            return_rate_pct: entityData.return_rate_pct != null ? entityData.return_rate_pct : (existing ? existing.return_rate_pct : 0),
+            total_flow_sar: existing ? existing.total_flow_sar : 0,
+        };
+        if (!existing) this.chainLedger._stats.total_entities++;
+        this._addAuditEntry('ENTITY_REGISTER', null, { entityId, entity_type: entityData.entity_type });
+        return this.chainLedger.entities[entityId];
+    }
+
+    recordMaterialFlow(flowData = {}) {
+        const flowId = `FLOW-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
+        const flow = {
+            flow_id:           flowId,
+            from_entity_id:    flowData.from_entity_id    || null,
+            to_entity_id:      flowData.to_entity_id      || null,
+            hs_chapter:        flowData.hs_chapter         || null,
+            material_form_from: flowData.material_form_from || null,
+            material_form_to:  flowData.material_form_to   || null,
+            process_stage:     Number(flowData.process_stage) || null,
+            weight_kg:         Number(flowData.weight_kg)   || 0,
+            value_sar:         Number(flowData.value_sar)   || 0,
+            cycle_number:      Number(flowData.cycle_number) || 1,
+            client_type:       flowData.client_type         || 'B2B',
+            delivery_hours:    flowData.delivery_hours      != null ? Number(flowData.delivery_hours) : null,
+            return_flag:       Boolean(flowData.return_flag),
+            timestamp:         new Date().toISOString(),
+        };
+        this.chainLedger.flows.push(flow);
+        // حافظ على آخر 10000 تدفق فقط
+        if (this.chainLedger.flows.length > 10000) this.chainLedger.flows.splice(0, this.chainLedger.flows.length - 10000);
+
+        // تحديث إحصاءات
+        this.chainLedger._stats.total_flows++;
+        this.chainLedger._stats.total_value_sar += flow.value_sar;
+        if (flow.client_type === 'G2G') this.chainLedger._stats.g2g_count++;
+
+        // تحديث total_flow_sar للكيانات
+        if (flow.from_entity_id && this.chainLedger.entities[flow.from_entity_id]) {
+            this.chainLedger.entities[flow.from_entity_id].total_flow_sar += flow.value_sar;
+            this.chainLedger.entities[flow.from_entity_id].last_seen = flow.timestamp;
+        }
+        if (flow.to_entity_id && this.chainLedger.entities[flow.to_entity_id]) {
+            this.chainLedger.entities[flow.to_entity_id].total_flow_sar += flow.value_sar;
+            this.chainLedger.entities[flow.to_entity_id].last_seen = flow.timestamp;
+        }
+        return flow;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 📊 مؤشر التميز — Sheikha Excellence Index (SEI)
+    // SEI = (EMQ×0.3) + (avgCompetitiveScore×0.3) + (velocityScore×0.2) + (g2gRate×0.2)
+    // ═══════════════════════════════════════════════════════════════════════════
+    computeSEI() {
+        // EMQ من آخر 100 حدث
+        const recentEvents = (this.db.events || []).slice(-100);
+        const emq = recentEvents.length > 0
+            ? recentEvents.reduce((s, e) => s + (e.emq || 6.5), 0) / recentEvents.length
+            : 6.5;
+
+        // متوسط competitive_score من آخر 100 حدث
+        const scored = recentEvents.filter(e => e.customData && e.customData.competitive_score != null);
+        const avgCompetitiveScore = scored.length > 0
+            ? scored.reduce((s, e) => s + e.customData.competitive_score, 0) / scored.length
+            : 5.0;
+
+        // سرعة السلسلة — متوسط delivery_hours من آخر 50 تدفق له delivery_hours
+        const recentFlows = this.chainLedger.flows.slice(-50).filter(f => f.delivery_hours != null);
+        const avgDeliveryHours = recentFlows.length > 0
+            ? recentFlows.reduce((s, f) => s + f.delivery_hours, 0) / recentFlows.length
+            : 48;
+        // سرعة أفضل من 24 ساعة = 10، 48ساعة = 7، 96ساعة+ = 4
+        const velocityScore = Math.max(4, Math.min(10, 10 - (avgDeliveryHours - 24) / 12));
+
+        // نسبة G2G
+        const totalFlows = this.chainLedger._stats.total_flows || 1;
+        const g2gRate = Math.min(1, this.chainLedger._stats.g2g_count / totalFlows);
+        const g2gScore = g2gRate * 10;
+
+        const sei = (emq * 0.3) + (avgCompetitiveScore * 0.3) + (velocityScore * 0.2) + (g2gScore * 0.2);
+        const seiRounded = Math.min(10, Math.round(sei * 10) / 10);
+
+        const snapshot = { sei: seiRounded, emq: Math.round(emq * 100) / 100, avgCompetitiveScore: Math.round(avgCompetitiveScore * 100) / 100, velocityScore: Math.round(velocityScore * 100) / 100, g2gScore: Math.round(g2gScore * 100) / 100, avgDeliveryHours: Math.round(avgDeliveryHours * 10) / 10, computed_at: new Date().toISOString() };
+        this.chainLedger._stats.sei_history.push(snapshot);
+        if (this.chainLedger._stats.sei_history.length > 720) this.chainLedger._stats.sei_history.splice(0, this.chainLedger._stats.sei_history.length - 720);
+
+        return snapshot;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🎯 حساب النتيجة التنافسية — Competitive Score (0-10)
+    // ═══════════════════════════════════════════════════════════════════════════
+    calculateCompetitiveScore(contract = {}) {
+        let score = 5.0;
+
+        // مكافأة السيادة
+        if (contract.client_type === 'B2G')  score += 2.0;
+        if (contract.client_type === 'G2G')  score += 3.0;
+
+        // مكافأة الندرة
+        if (contract.market_segment === 'rare')       score += 1.5;
+        if (contract.material_grade === 'Au_9999')    score += 1.0;
+        if (contract.market_segment === 'precious')   score += 0.5;
+
+        // مكافأة السرعة
+        if (contract.delivery_hours != null && contract.delivery_hours < 24) score += 1.0;
+
+        // مكافأة إعادة التدوير (الاستدامة)
+        if (contract.cycle_number > 1) score += 0.5;
+
+        // مكافأة الحجم
+        if (Number(contract.value_sar || contract.value || 0) > 10_000_000) score += 1.0;
+
+        // مكافأة الشهادة الإسلامية
+        if (contract.halal_certified === true) score += 0.3;
+
+        return Math.min(10.0, Math.round(score * 10) / 10);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 📡 لقطة السلسلة — Sheikha_Chain_Snapshot (يُرسل كل ساعة لـ CAPI)
+    // لا يحتوي أي اسم شركة — مجمّعات فقط لحماية الريادة
+    // ═══════════════════════════════════════════════════════════════════════════
+    buildChainSnapshot() {
+        const now = Date.now();
+        const since24h = now - 24 * 60 * 60 * 1000;
+
+        const entities = Object.values(this.chainLedger.entities);
+        const recentFlows = this.chainLedger.flows.filter(f => new Date(f.timestamp).getTime() >= since24h);
+
+        // إحصاء الكيانات النشطة آخر 24 ساعة
+        const entityCounts = {};
+        for (const e of entities) {
+            if (!e.active_status) continue;
+            const key = `count_entity_${e.entity_type}_${e.supply_role}`;
+            entityCounts[key] = (entityCounts[key] || 0) + 1;
+        }
+
+        // تدفقات الوزن والقيمة مجمعة بـ hs_chapter + process_stage
+        const flowAgg = {};
+        for (const f of recentFlows) {
+            if (f.hs_chapter && f.process_stage != null) {
+                const weightKey = `flow_weight_kg_hs${f.hs_chapter}_stage${f.process_stage}`;
+                const valueKey  = `flow_value_sar_hs${f.hs_chapter}_stage${f.process_stage}`;
+                flowAgg[weightKey] = Math.round(((flowAgg[weightKey] || 0) + f.weight_kg) * 100) / 100;
+                flowAgg[valueKey]  = Math.round(((flowAgg[valueKey]  || 0) + f.value_sar) * 100) / 100;
+            }
+        }
+
+        // مؤشرات الريادة
+        const avgDelivery = recentFlows.filter(f => f.delivery_hours != null);
+        const chainVelocityHours = avgDelivery.length > 0
+            ? Math.round(avgDelivery.reduce((s, f) => s + f.delivery_hours, 0) / avgDelivery.length)
+            : null;
+        const preciousFlows = recentFlows.filter(f => f.hs_chapter && (f.hs_chapter.startsWith('71') || f.hs_chapter === '7112'));
+        const recycledPrecious = preciousFlows.filter(f => f.cycle_number > 1);
+        const recyclePctPrecious = preciousFlows.length > 0 ? Math.round(recycledPrecious.length / preciousFlows.length * 100) : 0;
+        const g2gToday = recentFlows.filter(f => f.client_type === 'G2G').length;
+
+        const sei = this.computeSEI();
+
+        const snapshotId = sha256(`snapshot::${Math.floor(now / 3_600_000)}::${process.env.SHEIKHA_CHAIN_SALT || 'default'}`);
+
+        return {
+            event_name:    'Sheikha_Chain_Snapshot',
+            event_time:    Math.floor(now / 1000),
+            action_source: 'system',
+            custom_data:   {
+                ...entityCounts,
+                ...flowAgg,
+                chain_velocity_hours:           chainVelocityHours,
+                recycle_rate_pct_precious:      recyclePctPrecious,
+                g2g_contracts_count:            g2gToday,
+                sei:                            sei.sei,
+                avg_competitive_score:          sei.avgCompetitiveScore,
+                total_entities_active:          entities.filter(e => e.active_status).length,
+                total_flows_24h:                recentFlows.length,
+                total_value_sar_24h:            Math.round(recentFlows.reduce((s, f) => s + f.value_sar, 0)),
+                snapshot_id:                    snapshotId,
+            },
+        };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🤖 الطيار الآلي — Autopilot Rules Evaluator
+    // ═══════════════════════════════════════════════════════════════════════════
+    applyAutoPilotRules(contract = {}) {
+        const recommendations = [];
+
+        // 1. الهامش الأمثل
+        for (const rule of this.autopilotRules.margin) {
+            const match = Object.entries(rule.condition).every(([k, v]) => contract[k] === v);
+            if (match) {
+                recommendations.push({ type: 'margin', suggested_margin_pct: rule.margin_pct, reason: `entity_type=${rule.condition.entity_type || 'any'} + market_segment=${rule.condition.market_segment || 'any'}` });
+                break;
+            }
+        }
+
+        // 2. توجيه المخزون
+        for (const rule of this.autopilotRules.inventoryRoute) {
+            const match = Object.entries(rule.condition).every(([k, v]) => contract[k] === v);
+            if (match) {
+                recommendations.push({ type: 'inventory_route', preferred_warehouse: rule.preferred_warehouse, reason: `market_segment=${rule.condition.market_segment}` });
+                break;
+            }
+        }
+
+        // 3. فحص القائمة السوداء
+        if (contract.supplier_entity_id) {
+            const entity = this.chainLedger.entities[contract.supplier_entity_id];
+            if (entity && entity.return_rate_pct > this.autopilotRules.blacklistThreshold.return_rate_pct) {
+                recommendations.push({ type: 'blacklist_warning', supplier_entity_id: contract.supplier_entity_id, return_rate_pct: entity.return_rate_pct, action: 'pause_ads_for_supplier' });
+            }
+        }
+
+        // 4. نتيجة تنافسية
+        const competitiveScore = this.calculateCompetitiveScore(contract);
+        recommendations.push({ type: 'competitive_score', score: competitiveScore, note: competitiveScore >= 9 ? 'صفقة ممتازة — أعطها أولوية الميزانية' : competitiveScore >= 7 ? 'صفقة جيدة' : 'صفقة عادية' });
+
+        return { contract_snapshot: { client_type: contract.client_type, market_segment: contract.market_segment, value: contract.value_sar || contract.value }, recommendations, evaluated_at: new Date().toISOString() };
     }
 }
 
