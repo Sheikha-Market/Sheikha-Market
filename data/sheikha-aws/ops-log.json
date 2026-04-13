@@ -1,0 +1,33 @@
+[
+  {
+    "type": "background-start",
+    "startedAt": "2026-04-12T03:11:39.295Z",
+    "region": "me-south-1",
+    "_ts": "2026-04-12T03:11:39.295Z"
+  },
+  {
+    "type": "s3-put",
+    "id": "8bf77836-76cc-47e1-a02c-e80b7404a6f6",
+    "op": "PUT",
+    "key": "test/hello.json",
+    "size": 19,
+    "bucket": "sheikha-default-bucket",
+    "mime": "application/octet-stream",
+    "mode": "local-fallback",
+    "timestamp": "2026-04-12T03:11:39.301Z",
+    "localPath": "/home/runner/work/Sheikha-Market/Sheikha-Market/data/sheikha-aws/s3-local/test__SLASH__hello.json",
+    "_ts": "2026-04-12T03:11:39.301Z"
+  },
+  {
+    "type": "sqs-send",
+    "queue": "orders",
+    "msgId": "dec497c5-9df0-4963-993f-fa30f01b8977",
+    "_ts": "2026-04-12T03:11:39.302Z"
+  },
+  {
+    "type": "lambda-invoke",
+    "functionName": "sheikha-process",
+    "invId": "b53aabc4-84fd-4a83-a0e0-efa33887ca9d",
+    "_ts": "2026-04-12T03:11:39.303Z"
+  }
+]

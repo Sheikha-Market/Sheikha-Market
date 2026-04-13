@@ -1,0 +1,157 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedNamespace
+metadata:
+  name: sheikha-cloud-system
+  namespace: sheikha-cloud-system
+spec:
+  placement:
+    clusterSelector:
+      matchLabels:
+        sheikha.io/sovereign: "true"
+---
+# Sheikha Cloud — Kubernetes Multi-Cluster Federation
+# Manages workload placement across all sovereign regions
+apiVersion: core.kubefed.io/v1beta1
+kind: KubeFedCluster
+metadata:
+  name: cluster-riyadh
+  namespace: kube-federation-system
+  labels:
+    sheikha.io/region: ruh-riyadh
+    sheikha.io/tier: primary
+    sheikha.io/sovereign: "true"
+    sheikha.io/country: SA
+spec:
+  apiEndpoint: "https://k8s.ruh.sheikha.cloud:6443"
+  caBundle: "" # injected via Vault
+  secretRef:
+    name: cluster-riyadh-secret
+---
+apiVersion: core.kubefed.io/v1beta1
+kind: KubeFedCluster
+metadata:
+  name: cluster-istanbul
+  namespace: kube-federation-system
+  labels:
+    sheikha.io/region: ist-istanbul
+    sheikha.io/tier: primary
+    sheikha.io/sovereign: "true"
+    sheikha.io/country: TR
+spec:
+  apiEndpoint: "https://k8s.ist.sheikha.cloud:6443"
+  caBundle: ""
+  secretRef:
+    name: cluster-istanbul-secret
+---
+apiVersion: core.kubefed.io/v1beta1
+kind: KubeFedCluster
+metadata:
+  name: cluster-cairo
+  namespace: kube-federation-system
+  labels:
+    sheikha.io/region: cai-cairo
+    sheikha.io/tier: primary
+    sheikha.io/sovereign: "true"
+    sheikha.io/country: EG
+spec:
+  apiEndpoint: "https://k8s.cai.sheikha.cloud:6443"
+  caBundle: ""
+  secretRef:
+    name: cluster-cairo-secret
+---
+apiVersion: core.kubefed.io/v1beta1
+kind: KubeFedCluster
+metadata:
+  name: cluster-kualalumpur
+  namespace: kube-federation-system
+  labels:
+    sheikha.io/region: kul-kualalumpur
+    sheikha.io/tier: primary
+    sheikha.io/sovereign: "true"
+    sheikha.io/country: MY
+spec:
+  apiEndpoint: "https://k8s.kul.sheikha.cloud:6443"
+  caBundle: ""
+  secretRef:
+    name: cluster-kualalumpur-secret
+---
+apiVersion: core.kubefed.io/v1beta1
+kind: KubeFedCluster
+metadata:
+  name: cluster-jakarta
+  namespace: kube-federation-system
+  labels:
+    sheikha.io/region: jkt-jakarta
+    sheikha.io/tier: secondary
+    sheikha.io/sovereign: "true"
+    sheikha.io/country: ID
+spec:
+  apiEndpoint: "https://k8s.jkt.sheikha.cloud:6443"
+  caBundle: ""
+  secretRef:
+    name: cluster-jakarta-secret
+---
+apiVersion: core.kubefed.io/v1beta1
+kind: KubeFedCluster
+metadata:
+  name: cluster-lagos
+  namespace: kube-federation-system
+  labels:
+    sheikha.io/region: lag-lagos
+    sheikha.io/tier: secondary
+    sheikha.io/sovereign: "true"
+    sheikha.io/country: NG
+spec:
+  apiEndpoint: "https://k8s.lag.sheikha.cloud:6443"
+  caBundle: ""
+  secretRef:
+    name: cluster-lagos-secret
+---
+# Global federated deployment for Sheikha API Gateway
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedDeployment
+metadata:
+  name: sheikha-api-gateway
+  namespace: sheikha-cloud-system
+spec:
+  template:
+    metadata:
+      labels:
+        app: sheikha-api-gateway
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          app: sheikha-api-gateway
+      template:
+        metadata:
+          labels:
+            app: sheikha-api-gateway
+        spec:
+          containers:
+            - name: gateway
+              image: sheikha/api-gateway:latest
+              ports:
+                - containerPort: 8080
+              resources:
+                requests:
+                  cpu: "500m"
+                  memory: "512Mi"
+                limits:
+                  cpu: "2"
+                  memory: "2Gi"
+  placement:
+    clusters:
+      - name: cluster-riyadh
+      - name: cluster-istanbul
+      - name: cluster-cairo
+      - name: cluster-kualalumpur
+  overrides:
+    - clusterName: cluster-riyadh
+      clusterOverrides:
+        - path: "/spec/replicas"
+          value: 5
+    - clusterName: cluster-istanbul
+      clusterOverrides:
+        - path: "/spec/replicas"
+          value: 4

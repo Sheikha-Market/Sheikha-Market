@@ -46,6 +46,49 @@ module.exports = {
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
             max_restarts: 0
+        },
+
+        /* ─── شيخة Meta AI — خادم الخلفية ─────────────── */
+        /* يعمل بالخلفية بشكل مستقل عن الخادم الرئيسي      */
+        {
+            name: 'sheikha-meta-background',
+            cwd: __dirname,
+            script: './scripts/sheikha-meta-background.js',
+            instances: 1,
+            exec_mode: 'fork',
+            autorestart: true,
+            watch: false,
+            max_memory_restart: '256M',
+            restart_delay: 5000,
+            env: {
+                NODE_ENV: 'production',
+                META_BACKGROUND_PORT: 8085,
+                META_PIXEL_ID:        process.env.META_PIXEL_ID        || '',
+                META_ACCESS_TOKEN:    process.env.META_ACCESS_TOKEN     || '',
+                META_WHATSAPP_TOKEN:  process.env.META_WHATSAPP_TOKEN   || '',
+                META_WA_PHONE_ID:     process.env.META_WA_PHONE_ID      || '',
+                META_WABA_ID:         process.env.META_WABA_ID          || '',
+                META_APP_ID:          process.env.META_APP_ID           || '',
+                META_GRAPH_VERSION:   process.env.META_GRAPH_VERSION    || 'v21.0',
+                META_WA_VERIFY_TOKEN: process.env.META_WA_VERIFY_TOKEN  || 'sheikha_verify',
+                // بيكسلات الأسواق الخمسة
+                META_PIXEL_ID_METALS:   process.env.META_PIXEL_ID_METALS   || '',
+                META_PIXEL_ID_SCRAP:    process.env.META_PIXEL_ID_SCRAP    || '',
+                META_PIXEL_ID_PRECIOUS: process.env.META_PIXEL_ID_PRECIOUS || '',
+                META_PIXEL_ID_RARE:     process.env.META_PIXEL_ID_RARE     || '',
+                META_PIXEL_ID_NOW:      process.env.META_PIXEL_ID_NOW      || '',
+                META_ACCESS_TOKEN_METALS:   process.env.META_ACCESS_TOKEN_METALS   || '',
+                META_ACCESS_TOKEN_SCRAP:    process.env.META_ACCESS_TOKEN_SCRAP    || '',
+                META_ACCESS_TOKEN_PRECIOUS: process.env.META_ACCESS_TOKEN_PRECIOUS || '',
+                META_ACCESS_TOKEN_RARE:     process.env.META_ACCESS_TOKEN_RARE     || '',
+                META_ACCESS_TOKEN_NOW:      process.env.META_ACCESS_TOKEN_NOW      || '',
+            },
+            error_file: './logs/meta-background-error.log',
+            out_file: './logs/meta-background-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 10,
+            min_uptime: '5s',
         }
     ]
 };
