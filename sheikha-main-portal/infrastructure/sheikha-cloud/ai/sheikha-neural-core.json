@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "module": "SHEIKHA_NEURAL_CORE",
+    "version": "1.0.0",
+    "generatedAt": "2026-04-12T00:00:00.000Z",
+    "nameAr": "نواة شيخة العصبية — طبقة الذكاء الاصطناعي",
+    "nameEn": "Sheikha Neural Core — AI Layer"
+  },
+  "sovereignLLM": {
+    "name": "Sheikha-LLM",
+    "architecture": "Transformer (decoder-only)",
+    "parameters": "70B+",
+    "trainingLanguages": ["ar", "ur", "ms", "tr", "en", "id", "fr", "sw", "ha", "bn"],
+    "trainingCorpora": [
+      "Quran + Tafseer (full)",
+      "Hadith collections (Sahih + Sunan)",
+      "Classical Islamic jurisprudence (Fiqh)",
+      "Modern Arabic literature",
+      "Scientific publications in Arabic/English",
+      "OIC member-state government documents",
+      "Economic data from 57 OIC states"
+    ],
+    "infrastructure": {
+      "framework": "PyTorch 2.3 + DeepSpeed ZeRO-3",
+      "serving": "vLLM on NVIDIA A100/H100 cluster",
+      "quantization": "GPTQ-4bit for inference",
+      "finetuning": "LoRA adapters per domain"
+    },
+    "sovereigntyGuarantees": [
+      "Weights stored in sovereign HSM-encrypted storage",
+      "No telemetry to external parties",
+      "On-premise or Sheikha Private Cloud only"
+    ]
+  },
+  "fatwaEngine": {
+    "name": "Sheikha Fatwa AI Engine",
+    "nameAr": "محرك الفتوى الذكي",
+    "pipeline": [
+      "Query pre-processing + intent classification",
+      "Retrieval from Fiqh knowledge graph (RAG)",
+      "Sheikha-LLM generation with Islamic context injection",
+      "Shariah compliance validation layer",
+      "Scholar review queue (human-in-the-loop for novel cases)",
+      "Response with full Quran + Hadith citations"
+    ],
+    "madhabs": ["Hanafi", "Maliki", "Shafi'i", "Hanbali"],
+    "supportedTopics": [
+      "Halal certification", "Zakat calculation", "Trade finance",
+      "Digital assets", "Insurance (Takaful)", "Banking (Islamic)",
+      "Food & products", "Marriage & family", "Criminal law guidance"
+    ],
+    "humanOversight": true,
+    "scholarsNetwork": "Partnered with 20+ Islamic universities"
+  },
+  "translationService": {
+    "name": "Sheikha Instant Translation",
+    "nameAr": "نظام الترجمة الفورية",
+    "languages": 57,
+    "languageList": ["ar", "tr", "ms", "id", "ur", "bn", "ha", "sw", "fr", "en", "fa", "so", "am", "yo", "ig", "ff", "wo", "az", "kk", "uz", "tg", "ky", "tk", "sq", "bs"],
+    "model": "Sheikha-NLLB (based on Meta NLLB-200 fine-tuned on Islamic corpus)",
+    "realtime": true,
+    "latencyMs": 200,
+    "useCases": ["government-portals", "marketplace-listings", "legal-documents", "ai-responses"]
+  },
+  "governanceAI": {
+    "name": "Sheikha Governance AI",
+    "nameAr": "الذكاء الاصطناعي للحوكمة",
+    "capabilities": [
+      {
+        "id": "fraud-detection",
+        "description": "Detects market manipulation, fake listings, and identity fraud",
+        "model": "GBM ensemble + graph-neural-network",
+        "latency": "< 100ms real-time scoring"
+      },
+      {
+        "id": "compliance-monitoring",
+        "description": "Continuous Shariah and SCSF compliance monitoring of all transactions",
+        "model": "Rule engine + Sheikha-LLM",
+        "latency": "< 500ms"
+      },
+      {
+        "id": "policy-analysis",
+        "description": "AI-assisted review and impact analysis of proposed governance policy changes",
+        "model": "Sheikha-LLM with legal fine-tuning",
+        "latency": "async — minutes"
+      }
+    ]
+  },
+  "economicForecastEngine": {
+    "name": "Sheikha Economic Intelligence",
+    "nameAr": "محرك التنبؤ الاقتصادي",
+    "dataSources": [
+      "OIC trade statistics", "Commodity price feeds", "Currency exchange rates",
+      "Central bank data from 57 states", "Satellite imagery (agricultural)",
+      "IoT sensor network", "Social sentiment analysis"
+    ],
+    "models": ["LSTM time-series", "Prophet", "Transformer-based macro forecasting"],
+    "outputs": [
+      "Commodity price forecasts (7/30/90 day)",
+      "Currency risk alerts",
+      "Trade flow predictions",
+      "Agricultural yield forecasts",
+      "Sovereign debt risk scoring"
+    ],
+    "updateFrequency": "hourly"
+  },
+  "kubeflow": {
+    "namespace": "sheikha-ai",
+    "pipelines": [
+      "llm-continual-training",
+      "fatwa-rag-indexing",
+      "economic-forecast-daily",
+      "fraud-model-retraining",
+      "translation-model-finetuning"
+    ]
+  }
+}
