@@ -214,6 +214,68 @@
       "timestamp": "2026-04-13T03:29:45.307Z",
       "contract_id": "CNT-FR-G20",
       "value": 200000000
+    },
+    {
+      "eid": "13e97c26-5f99-4781-bca8-68557ca7610e",
+      "eventName": "Purchase_Source",
+      "region": "sa_gcc",
+      "timestamp": "2026-04-13T03:47:26.526Z",
+      "userData": {
+        "email": "ops@mine-gold.sa"
+      },
+      "customData": {
+        "value": 25000000,
+        "currency": "SAR",
+        "market_segment": "precious",
+        "entity_type": "mine",
+        "entity_type_buyer": "refinery",
+        "supply_role": "source",
+        "chain_position": 1,
+        "cycle_number": 1,
+        "hs_chapter": "7108",
+        "process_stage": 1,
+        "material_form": "dore_bar",
+        "halal_certified": true,
+        "sheikha_internal_id": "44ad4901ee9f0a769a8c5d4a03e33a53047febce9c4e39ccfc6e233c9ae32ffa"
+      }
+    },
+    {
+      "eid": "382a1ceb-afab-4aed-8144-6b7aafe3f9cd",
+      "eventName": "Recycle_Initiate",
+      "region": "sa_gcc",
+      "timestamp": "2026-04-13T03:47:26.528Z",
+      "userData": {},
+      "customData": {
+        "value": 50000,
+        "market_segment": "scrap",
+        "entity_type": "scrap_yard",
+        "supply_role": "source",
+        "chain_position": 1,
+        "cycle_number": 2,
+        "hs_chapter": "7204",
+        "process_stage": 1,
+        "material_form": "cable_scrap",
+        "halal_certified": false,
+        "sheikha_internal_id": "0cf3ad1b22d02f3de0459414e455cfefca1e89254f914fce1adb9cd2259b8359"
+      }
+    },
+    {
+      "eid": "13cf9de6-ba36-4d6e-a4a7-fe7071d729ed",
+      "eventName": "Purchase_Source",
+      "region": "sa_gcc",
+      "timestamp": "2026-04-13T03:49:37.170Z",
+      "userData": {},
+      "customData": {
+        "value": 1000,
+        "market_segment": "precious",
+        "entity_type": "mine",
+        "supply_role": "source",
+        "chain_position": 1,
+        "cycle_number": 1,
+        "hs_chapter": "7108",
+        "halal_certified": false,
+        "sheikha_internal_id": "35ecc5eb7993a4dd0ccfed3eb3445c2453786f40bd1a896f5ee398616eb81748"
+      }
     }
   ],
   "audiences": [],

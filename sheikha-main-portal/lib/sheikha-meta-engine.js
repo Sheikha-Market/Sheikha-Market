@@ -126,10 +126,61 @@ class SheikhMetaEngine {
 
         // إعدادات المناطق الجغرافية — Multi-Region Geo-Routing
         this.regionConfig = {
-            sa_gcc:   { name: 'السعودية والخليج',  countries: ['sa','ae','kw','qa','bh','om','ye','jo','iq','sy','lb'], capiToken: process.env.META_CAPI_TOKEN_SA_GCC   || this.config.capiToken, currency: 'SAR' },
-            europe:   { name: 'أوروبا وبريطانيا',  countries: ['gb','de','fr','it','es','nl','be','ch','at','se','no','dk','pl','pt','ie','fi','cz','ro','hu'], capiToken: process.env.META_CAPI_TOKEN_EUROPE  || this.config.capiToken, currency: 'EUR', gdpr: true },
-            americas: { name: 'الأمريكيتان',        countries: ['us','ca','mx','br','ar','co','cl','pe','ve','ec'], capiToken: process.env.META_CAPI_TOKEN_AMERICAS || this.config.capiToken, currency: 'USD', ccpa: true },
-            asia:     { name: 'آسيا وأفريقيا',      countries: ['cn','jp','kr','in','sg','my','id','th','pk','ng','za','eg','tn','ma','dz','ly'], capiToken: process.env.META_CAPI_TOKEN_ASIA    || this.config.capiToken, currency: 'USD' },
+            sa_gcc:   { name: 'السعودية والخليج',  countries: ['sa','ae','kw','qa','bh','om','ye','jo','iq','sy','lb'], capiToken: process.env.META_CAPI_TOKEN_SA_GCC   || this.config.capiToken, currency: 'SAR', sovereignGateway: process.env.META_CAPIG_SA  || 'https://capig-sa.datah04.com' },
+            europe:   { name: 'أوروبا وبريطانيا',  countries: ['gb','de','fr','it','es','nl','be','ch','at','se','no','dk','pl','pt','ie','fi','cz','ro','hu'], capiToken: process.env.META_CAPI_TOKEN_EUROPE  || this.config.capiToken, currency: 'EUR', gdpr: true, sovereignGateway: process.env.META_CAPIG_EU  || 'https://capig-eu.datah04.com' },
+            americas: { name: 'الأمريكيتان',        countries: ['us','ca','mx','br','ar','co','cl','pe','ve','ec'], capiToken: process.env.META_CAPI_TOKEN_AMERICAS || this.config.capiToken, currency: 'USD', ccpa: true, sovereignGateway: process.env.META_CAPIG_US  || 'https://capig-us.datah04.com' },
+            asia:     { name: 'آسيا وأفريقيا',      countries: ['cn','jp','kr','in','sg','my','id','th','pk','ng','za','eg','tn','ma','dz','ly'], capiToken: process.env.META_CAPI_TOKEN_ASIA    || this.config.capiToken, currency: 'USD', sovereignGateway: process.env.META_CAPIG_AS  || 'https://capig-as.datah04.com' },
+        };
+        // بوابة "سوق الآن" الفورية — عابرة للمناطق
+        this.globalGateway = process.env.META_CAPIG_GLOBAL || 'https://capig-global.datah04.com';
+
+        // بروتوكول HS Chain — تصنيف HS Code + مراحل سلسلة الإمداد
+        this.hsChainConfig = {
+            // السكراب والخردة
+            scrap: {
+                chapters: { '7204': 'خردة حديد وصلب', '7404': 'خردة نحاس', '7602': 'خردة ألمنيوم', '7802': 'خردة رصاص', '7902': 'خردة زنك', '8002': 'خردة قصدير' },
+                stages: { 1: 'تجميع', 2: 'فرز وتصنيف', 3: 'كبس وتجهيز', 4: 'شحن', 5: 'صهر', 6: 'معالجة', 7: 'مخزن', 8: 'مستخدم' },
+            },
+            // معادن أساسية خام
+            metals_raw: {
+                chapters: { '2601': 'خامات حديد', '2603': 'خامات نحاس', '2604': 'خامات نيكل', '2605': 'خامات كوبالت', '2606': 'خامات ألمنيوم', '2608': 'خامات زنك', '2609': 'خامات قصدير' },
+                stages: { 1: 'استخراج', 2: 'تركيز', 3: 'شحن خام', 4: 'صهر أولي', 5: 'مصفاة', 6: 'تجهيز', 7: 'مخزن', 8: 'مصنع' },
+            },
+            // معادن أساسية مصنعة
+            metals: {
+                chapters: { '7201': 'حديد خام', '7207': 'شبه منتجات صلب', '7403': 'نحاس مكرر', '7407': 'قضبان نحاس', '7408': 'أسلاك نحاس', '7409': 'ألواح نحاس', '7601': 'سبائك ألمنيوم', '7604': 'قضبان ألمنيوم', '7606': 'ألواح ألمنيوم', '8544': 'كابلات كهربائية' },
+                stages: { 1: 'استخراج', 2: 'صهر', 3: 'تكرير', 4: 'درفلة', 5: 'سحب', 6: 'تشكيل', 7: 'مخزن', 8: 'مصنع', 9: 'مستخدم نهائي' },
+            },
+            // معادن ثمينة
+            precious: {
+                chapters: { '7108': 'ذهب خام وسبائك', '7106': 'فضة', '7110': 'بلاتين', '7111': 'بلاديوم وروديوم', '7112': 'كسر ومخلفات ثمينة', '7113': 'مجوهرات', '7114': 'أدوات ذهبية', '7118': 'عملات معدنية' },
+                stages: { 1: 'منجم استخراج', 2: 'تركيز Doré', 3: 'شحن مؤمن', 4: 'تكرير LBMA', 5: 'خزنة', 6: 'صائغ/مصنع', 7: 'تجزئة', 8: 'مستخدم نهائي', 9: 'رجوع كسر' },
+            },
+            // معادن نادرة
+            rare: {
+                chapters: { '2805': 'معادن قلوية وأرضية نادرة', '8101': 'تنغستن', '8102': 'موليبدينوم', '8103': 'تانتالوم', '8104': 'ماغنيسيوم', '8105': 'كوبالت', '8106': 'بزموت', '8107': 'كادميوم', '8108': 'تيتانيوم', '8109': 'زيركونيوم', '8110': 'أنتيمون', '8112': 'إنديوم وجاليوم' },
+                stages: { 1: 'استخراج', 2: 'تركيز', 3: 'فصل', 4: 'تنقية', 5: 'أكاسيد', 6: 'معادن نقية', 7: 'سبائك', 8: 'مصنع بطاريات/إلكترونيات', 9: 'مستخدم نهائي' },
+            },
+        };
+
+        // قاموس أنواع الكيانات في سلسلة الإمداد — Entity Taxonomy
+        this.entityTaxonomy = {
+            mine:           { nameAr: 'منجم',              supplyRole: 'source',    chainRange: [1,1], market: 'precious|metals|rare' },
+            scrap_yard:     { nameAr: 'ساحة سكراب',        supplyRole: 'source',    chainRange: [1,2], market: 'scrap' },
+            smelter:        { nameAr: 'مصهر',              supplyRole: 'transform', chainRange: [2,4], market: 'metals|scrap' },
+            refinery:       { nameAr: 'مصفاة/مكرر',        supplyRole: 'transform', chainRange: [3,5], market: 'precious|metals' },
+            warehouse:      { nameAr: 'مستودع',            supplyRole: 'store',     chainRange: [3,7], market: 'all' },
+            vault:          { nameAr: 'خزنة',              supplyRole: 'store',     chainRange: [4,6], market: 'precious|rare' },
+            shipping_co:    { nameAr: 'شركة شحن',          supplyRole: 'transport', chainRange: [1,9], market: 'all' },
+            port:           { nameAr: 'ميناء',             supplyRole: 'transport', chainRange: [1,9], market: 'all' },
+            customs:        { nameAr: 'تخليص جمركي',       supplyRole: 'transport', chainRange: [1,9], market: 'all' },
+            logistics_zone: { nameAr: 'منطقة لوجستية',    supplyRole: 'transport', chainRange: [1,9], market: 'all' },
+            ministry:       { nameAr: 'وزارة',             supplyRole: 'gov',       chainRange: [6,9], market: 'all' },
+            sovereign_fund: { nameAr: 'صندوق سيادي',       supplyRole: 'gov',       chainRange: [6,9], market: 'precious|rare' },
+            gov_company:    { nameAr: 'شركة حكومية',       supplyRole: 'gov',       chainRange: [5,9], market: 'metals|precious|rare' },
+            factory:        { nameAr: 'مصنع',              supplyRole: 'use',       chainRange: [7,9], market: 'metals|scrap' },
+            jeweler:        { nameAr: 'صائغ',              supplyRole: 'use',       chainRange: [6,8], market: 'precious' },
+            end_user:       { nameAr: 'مستخدم نهائي',      supplyRole: 'use',       chainRange: [8,9], market: 'all' },
         };
 
         // سجل التدقيق — Governance Audit Log
@@ -394,7 +445,7 @@ class SheikhMetaEngine {
                     client_type:    contract.client_type     || 'B2B',
                     // الممر التجاري ومستوى الدولة — للاستهداف G20 وعقود الحكومات
                     trade_corridor: contract.trade_corridor  || this._resolveTradeCorridor(
-                        this._getRegionForCountry(contract.country || 'sa'),
+                        contract.country ? this._getRegionForCountry(contract.country) : 'sa_gcc',
                         contract.country_tier,
                     ),
                     country_tier:   contract.country_tier   || null,
@@ -666,7 +717,7 @@ class SheikhMetaEngine {
             regions: regionSummary,
             stats: this.stats,
             halalEvents: this.halalEvents,
-            apiCount: 125,
+            apiCount: 140,
             consent: { total: Object.keys(this.consentDB.consents).length },
             auditLog: { entries: this.auditLog.length, maxSize: this.maxAuditLogSize },
             alerts: this.checkAlerts(),
@@ -683,7 +734,7 @@ class SheikhMetaEngine {
         return {
             nameAr: 'شيخة Meta AI',
             version: this.version,
-            apis: 125,
+            apis: 140,
             stats: this.stats,
             markets: Object.keys(this.marketPixels),
             regions: Object.keys(this.regionConfig),
@@ -2263,7 +2314,163 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
             } catch (e) { res.status(500).json({ error: e.message }); }
         });
 
-        console.log(`✅ [SheikhMetaEngine] 125 مسار API مُسجَّل | Base: ${base}`);
+        // ─── Sheikha HS Chain Protocol Routes ────────────────────────────────────
+
+        // حدث سلسلة كتلة كامل مع تثري تلقائي
+        app.post(`${base}/chain/event`, async (req, res) => {
+            try {
+                const { eventName, userData = {}, chainData = {} } = req.body;
+                if (!eventName) return res.status(400).json({ error: 'eventName مطلوب' });
+                const result = await this.sendChainEvent(
+                    eventName,
+                    { ...userData, ip: req.ip, userAgent: req.headers['user-agent'] },
+                    chainData,
+                );
+                this._addAuditEntry('CHAIN_EVENT', null, { eventName, entity_type: chainData.entity_type, chain_position: chainData.chain_position });
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // أحداث دورة حياة المستودعات والشحن
+        const lifecycleEvents = [
+            { path: 'warehouse-in',     eventName: 'Warehouse_In',       nameAr: 'دخول مستودع' },
+            { path: 'port-export',      eventName: 'Port_Export',         nameAr: 'تصدير من ميناء' },
+            { path: 'customs-clearance',eventName: 'Customs_Clearance',   nameAr: 'تخليص جمركي' },
+            { path: 'factory-delivery', eventName: 'Factory_Delivery',    nameAr: 'تسليم لمصنع' },
+            { path: 'recycle-initiate', eventName: 'Recycle_Initiate',    nameAr: 'بدء إعادة تدوير' },
+            { path: 'secure-shipping',  eventName: 'Secure_Shipping',     nameAr: 'شحن مؤمن (معادن ثمينة)' },
+            { path: 'purchase-source',  eventName: 'Purchase_Source',     nameAr: 'شراء من المنبع (منجم/ساحة)' },
+            { path: 'purchase-transform',eventName:'Purchase_Transform',  nameAr: 'شراء بعد تحويل (مصهر/مصفاة)' },
+            { path: 'purchase-refine',  eventName: 'Purchase_Refine',     nameAr: 'شراء بعد تكرير LBMA' },
+            { path: 'purchase-store',   eventName: 'Purchase_Store',      nameAr: 'شراء للتخزين (مخزن/خزنة)' },
+        ];
+
+        lifecycleEvents.forEach(({ path: p, eventName: evName }) => {
+            app.post(`${base}/chain/${p}`, async (req, res) => {
+                try {
+                    const { userData = {}, chainData = {} } = req.body;
+                    const result = await this.sendChainEvent(
+                        evName,
+                        { ...userData, ip: req.ip, userAgent: req.headers['user-agent'] },
+                        chainData,
+                    );
+                    this._addAuditEntry('CHAIN_LIFECYCLE', null, { eventName: evName, entity_type: chainData.entity_type });
+                    res.json({ ...result, eventName: evName });
+                } catch (e) { res.status(500).json({ error: e.message }); }
+            });
+        });
+
+        // رحلة المنتج الكاملة — محاكاة دورة حياة لغرض الاختبار
+        app.post(`${base}/chain/journey/:market`, async (req, res) => {
+            try {
+                const market = req.params.market; // scrap | precious | rare | metals
+                const { country = 'sa', value_per_stage = 1000000 } = req.body;
+                const journeys = {
+                    scrap:    [
+                        { ev: 'Lead_Source',       entity_type: 'scrap_yard',  chain_position: 1, process_stage: 1, material_form: 'cable_scrap' },
+                        { ev: 'ShippingInfo',       entity_type: 'shipping_co', chain_position: 2, process_stage: 4, material_form: 'baled_scrap' },
+                        { ev: 'Purchase_Transform', entity_type: 'smelter',     chain_position: 3, process_stage: 5, material_form: 'cathode' },
+                        { ev: 'Purchase',           entity_type: 'factory',     chain_position: 4, process_stage: 8, material_form: 'wire_rod' },
+                        { ev: 'Purchase',           entity_type: 'end_user',    chain_position: 5, process_stage: 9, material_form: 'electric_cable' },
+                        { ev: 'Recycle_Initiate',   entity_type: 'scrap_yard',  chain_position: 1, process_stage: 1, material_form: 'cable_scrap', cycle_number: 2 },
+                    ],
+                    precious: [
+                        { ev: 'Purchase_Source',    entity_type: 'mine',         chain_position: 1, process_stage: 1, material_form: 'dore_bar', hs_chapter: '7108', halal_certified: true },
+                        { ev: 'Secure_Shipping',    entity_type: 'shipping_co',  chain_position: 2, process_stage: 3, material_form: 'dore_bar', hs_chapter: '7108' },
+                        { ev: 'Purchase_Refine',    entity_type: 'refinery',     chain_position: 3, process_stage: 4, material_form: 'bar_9999_12.5kg', hs_chapter: '7108', halal_certified: true },
+                        { ev: 'Purchase_Store',     entity_type: 'vault',        chain_position: 4, process_stage: 5, material_form: 'bar_9999_1kg', hs_chapter: '7108' },
+                        { ev: 'Purchase',           entity_type: 'jeweler',      chain_position: 5, process_stage: 6, material_form: 'ring_21k', hs_chapter: '7113' },
+                        { ev: 'Purchase',           entity_type: 'end_user',     chain_position: 6, process_stage: 8, material_form: 'ring_21k', hs_chapter: '7113' },
+                        { ev: 'Recycle_Initiate',   entity_type: 'refinery',     chain_position: 1, process_stage: 9, material_form: 'scrap_21k', hs_chapter: '7112', cycle_number: 2 },
+                    ],
+                    rare:     [
+                        { ev: 'Purchase_Source',    entity_type: 'mine',         chain_position: 1, process_stage: 1, material_form: 'ore_concentrate', hs_chapter: '2805' },
+                        { ev: 'Purchase_Transform', entity_type: 'smelter',      chain_position: 2, process_stage: 3, material_form: 'oxide_mix', hs_chapter: '2805' },
+                        { ev: 'Purchase_Refine',    entity_type: 'refinery',     chain_position: 3, process_stage: 5, material_form: 'pure_oxide', hs_chapter: '2805' },
+                        { ev: 'Purchase_Store',     entity_type: 'warehouse',    chain_position: 4, process_stage: 7, material_form: 'ingot_99.9', hs_chapter: '8112' },
+                        { ev: 'Purchase',           entity_type: 'factory',      chain_position: 5, process_stage: 8, material_form: 'battery_material', hs_chapter: '8506' },
+                        { ev: 'Purchase',           entity_type: 'gov_company',  chain_position: 6, process_stage: 9, material_form: 'ev_battery', hs_chapter: '8507', client_type: 'B2G' },
+                    ],
+                    metals:   [
+                        { ev: 'Purchase_Source',    entity_type: 'mine',         chain_position: 1, process_stage: 1, material_form: 'ore', hs_chapter: '2603' },
+                        { ev: 'Purchase_Transform', entity_type: 'smelter',      chain_position: 2, process_stage: 2, material_form: 'blister_copper', hs_chapter: '7401' },
+                        { ev: 'Purchase_Refine',    entity_type: 'refinery',     chain_position: 3, process_stage: 3, material_form: 'cathode', hs_chapter: '7403' },
+                        { ev: 'Purchase_Store',     entity_type: 'warehouse',    chain_position: 4, process_stage: 7, material_form: 'rod', hs_chapter: '7407' },
+                        { ev: 'Purchase',           entity_type: 'factory',      chain_position: 5, process_stage: 8, material_form: 'wire', hs_chapter: '7408' },
+                        { ev: 'Purchase',           entity_type: 'end_user',     chain_position: 6, process_stage: 9, material_form: 'cable_assembly', hs_chapter: '8544' },
+                    ],
+                };
+                const journey = journeys[market];
+                if (!journey) return res.status(400).json({ error: `سوق غير معروف. المتاح: ${Object.keys(journeys).join(', ')}` });
+
+                const results = [];
+                for (const step of journey) {
+                    const { ev, ...cData } = step;
+                    const r = await this.sendChainEvent(ev, { country }, { ...cData, market_segment: market, value: value_per_stage, internal_ref: `journey_${market}_pos${cData.chain_position}` });
+                    results.push({ step: cData.chain_position, eventName: ev, entity_type: cData.entity_type, success: r.success, eventId: r.eventId });
+                }
+                res.json({ market, country, stepsCount: results.length, steps: results });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // كتالوج HS Code
+        app.get(`${base}/chain/hs-codes`, (req, res) => {
+            const { market } = req.query;
+            const data = market ? { [market]: this.hsChainConfig[market] } : this.hsChainConfig;
+            res.json({ hsCodes: data, markets: Object.keys(this.hsChainConfig), note: 'أرسل hs_chapter (أول 4 أرقام) فقط — تفاصيل HS الكاملة تبقى في ERP حقك مشفرة' });
+        });
+
+        // كتالوج أنواع الكيانات
+        app.get(`${base}/chain/entity-types`, (req, res) => {
+            res.json({
+                entities: Object.fromEntries(
+                    Object.entries(this.entityTaxonomy).map(([k, v]) => [k, { ...v, key: k }])
+                ),
+                count: Object.keys(this.entityTaxonomy).length,
+                supplyRoles: ['source', 'transform', 'store', 'transport', 'gov', 'use'],
+            });
+        });
+
+        // خريطة السحابة السيادية — Sovereign Cloud Map
+        app.get(`${base}/chain/sovereign-cloud`, (req, res) => {
+            const gateways = Object.fromEntries(
+                Object.entries(this.regionConfig).map(([k, v]) => [k, {
+                    name:             v.name,
+                    sovereignGateway: v.sovereignGateway,
+                    currency:         v.currency,
+                    gdpr:             !!v.gdpr,
+                    ccpa:             !!v.ccpa,
+                    countries:        v.countries.length,
+                }])
+            );
+            res.json({
+                gateways,
+                globalGateway: this.globalGateway,
+                activeGateway: 'https://capig.datah04.com',
+                note: 'كل بوابة تخزن بيانات مواطني منطقتها فقط — امتثال GDPR/PDPL/CCPA كامل',
+                deploymentStatus: {
+                    'capig-sa.datah04.com':     !!process.env.META_CAPIG_SA     ? 'configured' : 'pending_deployment',
+                    'capig-eu.datah04.com':     !!process.env.META_CAPIG_EU     ? 'configured' : 'pending_deployment',
+                    'capig-us.datah04.com':     !!process.env.META_CAPIG_US     ? 'configured' : 'pending_deployment',
+                    'capig-as.datah04.com':     !!process.env.META_CAPIG_AS     ? 'configured' : 'pending_deployment',
+                    'capig-global.datah04.com': !!process.env.META_CAPIG_GLOBAL ? 'configured' : 'pending_deployment',
+                    'capig.datah04.com':        'active ✅',
+                },
+            });
+        });
+
+        // مخطط حماية الريادة — Anti-Reverse-Engineering
+        app.get(`${base}/chain/protection-info`, (req, res) => {
+            res.json({
+                protection: 'sheikha_internal_id = SHA256(contract_id + SERVER_SALT)',
+                saltConfigured: !!process.env.SHEIKHA_CHAIN_SALT,
+                fieldsExposedToMeta: ['entity_type', 'supply_role', 'chain_position', 'hs_chapter', 'process_stage', 'material_form', 'market_segment'],
+                fieldsNeverExposed: ['contract_id', 'client_name', 'price_per_unit', 'supplier_details', 'full_hs_code'],
+                principle: 'ميتا تتعلم الأنماط بدون ما تعرف تفاصيل عقودك. منافسينك ما يقدرون يقلدون سلسلتك.',
+            });
+        });
+
+        console.log(`✅ [SheikhMetaEngine] 140 مسار API مُسجَّل | Base: ${base}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -2295,6 +2502,70 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
         if (countryTier === 'G20' && regionKey === 'europe') return 'GCC_EU_G20';
         if (countryTier === 'G20') return `${base}_G20`;
         return base;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🔗 بروتوكول سلسلة الكتلة — Sheikha HS Chain Protocol
+    // يُثري أي حدث CAPI بـ chain_position + hs_chapter + process_stage
+    // + sheikha_internal_id (مشفر لحماية الريادة ومنع الهندسة العكسية)
+    // ═══════════════════════════════════════════════════════════════════════════
+    sendChainEvent(eventName, userData = {}, chainData = {}) {
+        const {
+            entity_type        = 'warehouse',
+            entity_type_buyer  = null,
+            market_segment     = 'metals',
+            hs_chapter         = null,
+            process_stage      = null,
+            material_form      = null,
+            material_form_next = null,
+            chain_position     = 5,
+            cycle_number       = 1,
+            halal_certified    = false,
+            internal_ref       = null,  // contract_id أو order_id من ERP
+            ...rest
+        } = chainData;
+
+        const entityDef = this.entityTaxonomy[entity_type] || {};
+        const resolvedHsChapter = hs_chapter || this._resolveDefaultHsChapter(market_segment);
+
+        // sheikha_internal_id — SHA256(internal_ref + SERVER_SALT) لمنع الهندسة العكسية
+        // تحذير: إذا SHEIKHA_CHAIN_SALT غير مُضبوط، تُقلَّل الحماية. اضبطه في .env
+        const salt = process.env.SHEIKHA_CHAIN_SALT;
+        if (!salt) {
+            console.warn('[SheikhMetaEngine] ⚠️ SHEIKHA_CHAIN_SALT غير مُضبوط — حماية sheikha_internal_id ضعيفة. اضبطه في .env');
+        }
+        const effectiveSalt = salt || `sheikha-fallback-${this.config.pixelId || 'default'}`;
+        const internalId = internal_ref
+            ? sha256(`${String(internal_ref)}::${effectiveSalt}`)
+            : sha256(`chain::${chain_position}::${Date.now()}::${effectiveSalt}`);
+
+        const enrichedCustomData = {
+            ...rest,
+            market_segment,
+            entity_type,
+            ...(entity_type_buyer ? { entity_type_buyer } : {}),
+            supply_role:       entityDef.supplyRole || 'unknown',
+            chain_position:    Number(chain_position),
+            cycle_number:      Number(cycle_number),
+            ...(resolvedHsChapter ? { hs_chapter: resolvedHsChapter } : {}),
+            ...(process_stage     ? { process_stage: Number(process_stage) } : {}),
+            ...(material_form     ? { material_form } : {}),
+            ...(material_form_next ? { material_form_next } : {}),
+            halal_certified:   Boolean(halal_certified),
+            sheikha_internal_id: internalId,
+        };
+
+        return this.sendCAPIEventWithGeoRouting(eventName, userData, enrichedCustomData);
+    }
+
+    _resolveDefaultHsChapter(market_segment) {
+        const defaults = {
+            scrap:    '7204',
+            metals:   '7403',
+            precious: '7108',
+            rare:     '2805',
+        };
+        return defaults[market_segment] || null;
     }
 
     _aiGenerateMessage(behavior, productId) {

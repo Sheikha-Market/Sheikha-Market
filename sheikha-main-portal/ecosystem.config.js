@@ -103,6 +103,14 @@ module.exports = {
                 META_WA_PHONE_ID_EU_DE:    process.env.META_WA_PHONE_ID_EU_DE    || '',
                 META_WA_PHONE_ID_EU_FR:    process.env.META_WA_PHONE_ID_EU_FR    || '',
                 META_EXTERNAL_GATEWAY_URL: process.env.META_EXTERNAL_GATEWAY_URL || 'https://capig.datah04.com',
+                // Sovereign Cloud Gateways
+                META_CAPIG_SA:     process.env.META_CAPIG_SA     || 'https://capig-sa.datah04.com',
+                META_CAPIG_EU:     process.env.META_CAPIG_EU     || 'https://capig-eu.datah04.com',
+                META_CAPIG_US:     process.env.META_CAPIG_US     || 'https://capig-us.datah04.com',
+                META_CAPIG_AS:     process.env.META_CAPIG_AS     || 'https://capig-as.datah04.com',
+                META_CAPIG_GLOBAL: process.env.META_CAPIG_GLOBAL || 'https://capig-global.datah04.com',
+                // HS Chain Protocol anti-RE salt
+                SHEIKHA_CHAIN_SALT: process.env.SHEIKHA_CHAIN_SALT || '',
                 // حوكمة — Governance & Alerts
                 META_ALERT_MIN_EMQ:          process.env.META_ALERT_MIN_EMQ          || '6.0',
                 META_ALERT_MAX_DEDUP:        process.env.META_ALERT_MAX_DEDUP        || '0.30',
