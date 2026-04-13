@@ -120,10 +120,19 @@ class SheikhMetaEngine {
             FOUNDER_PHONE:     '+966554942904',
             FOUNDER_WHATSAPP:  'https://wa.me/966554942904',
             CONTACT_CHANNELS: {
-                primary_email:   'auto@sheikha.top',
+                primary_email:   'market@sheikha.top',
+                llama_dev:       'market@sheikha.top',
+                meta_business:   'market@sheikha.top',
                 primary_phone:   '+966554942904',
                 calendar:        'linked',
                 whatsapp:        process.env.WHATSAPP_BUSINESS_TOKEN ? 'active' : 'pending_activation',
+            },
+            AI_STACK: {
+                vibe_ai:      process.env.VIBES_API_KEY   ? 'active'      : 'pending_key',
+                meta_demos:   process.env.META_AI_KEY     ? 'active'      : 'pending_key',
+                llama_api:    process.env.LLAMA_API_KEY   ? 'active'      : 'pending_key',
+                azure_openai: process.env.AZURE_OPENAI_KEY ? 'active'     : 'pending_key',
+                cosmos_db:    process.env.COSMOS_CONNECTION_STRING ? 'active' : 'pending_key',
             },
             // توقيع SHA-256 يشمل الاسم + 11 اعتماد + التاريخ
             SIGNATURE: crypto.createHash('sha256')
@@ -378,6 +387,15 @@ class SheikhMetaEngine {
             ai_assets_generated: 0,
             automated_revenue_usd: 0,
             last_market_vibe: null,  // {hs_chapter, region, sentiment, confidence, timestamp}
+        };
+
+        // إحصاءات الذكاء السيادي — Llama + Azure OpenAI
+        this._llamaStats = {
+            contracts_analyzed:  0,
+            tenders_analyzed:    0,
+            emails_replied:      0,
+            chat_messages:       0,
+            last_model_used:     null,
         };
 
         // إحصاءات المساعد التنفيذي — Executive Assistant Stats
@@ -921,7 +939,7 @@ class SheikhMetaEngine {
             regions: regionSummary,
             stats: this.stats,
             halalEvents: this.halalEvents,
-            apiCount: 163,
+            apiCount: 177,
             consent: { total: Object.keys(this.consentDB.consents).length },
             auditLog: { entries: this.auditLog.length, maxSize: this.maxAuditLogSize },
             alerts: this.checkAlerts(),
@@ -938,7 +956,7 @@ class SheikhMetaEngine {
         return {
             nameAr: 'شيخة Meta AI',
             version: this.version,
-            apis: 163,
+            apis: 177,
             stats: this.stats,
             markets: Object.keys(this.marketPixels),
             regions: Object.keys(this.regionConfig),
@@ -1315,6 +1333,135 @@ class SheikhMetaEngine {
         const [, val, unit] = match;
         const ms = { h: 3600000, d: 86400000, m: 60000 };
         return parseInt(val) * (ms[unit] || 3600000);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🤖 Llama + Azure OpenAI — الذكاء السيادي
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    // مساعد داخلي: يختار أفضل نموذج متاح (Llama → Azure OpenAI → stub)
+    async _callSovereignAI(systemPrompt, userMessage, modelHint = 'strong') {
+        const LLAMA_KEY = process.env.LLAMA_API_KEY;
+        const AZURE_KEY = process.env.AZURE_OPENAI_KEY;
+        const AZURE_EP  = process.env.AZURE_OPENAI_ENDPOINT;
+        const AZURE_DEP = process.env.AZURE_OPENAI_DEPLOYMENT || 'gpt-4o';
+
+        const llamaModel = modelHint === 'strong' ? 'llama-4-405b' : 'llama-4-70b';
+
+        // الأولوية 1: Llama API (Meta Sovereign)
+        if (LLAMA_KEY) {
+            try {
+                const axios = require('axios');
+                const resp = await axios.post(
+                    'https://api.llama.meta.com/v1/chat/completions',
+                    {
+                        model: llamaModel,
+                        messages: [
+                            { role: 'system', content: systemPrompt },
+                            { role: 'user',   content: userMessage  },
+                        ],
+                    },
+                    { headers: { Authorization: `Bearer ${LLAMA_KEY}`, 'Content-Type': 'application/json' }, timeout: 60000 }
+                );
+                this._llamaStats.last_model_used = llamaModel;
+                return { content: resp.data.choices[0].message.content, model: llamaModel, provider: 'llama' };
+            } catch (e) {
+                this._addAuditEntry('LLAMA_ERROR', null, { error: e.message, model: llamaModel });
+            }
+        }
+
+        // الأولوية 2: Azure OpenAI
+        if (AZURE_KEY && AZURE_EP) {
+            try {
+                const axios = require('axios');
+                const resp = await axios.post(
+                    `${AZURE_EP}/openai/deployments/${AZURE_DEP}/chat/completions?api-version=2024-02-01`,
+                    {
+                        messages: [
+                            { role: 'system', content: systemPrompt },
+                            { role: 'user',   content: userMessage  },
+                        ],
+                    },
+                    { headers: { 'api-key': AZURE_KEY, 'Content-Type': 'application/json' }, timeout: 60000 }
+                );
+                this._llamaStats.last_model_used = AZURE_DEP;
+                return { content: resp.data.choices[0].message.content, model: AZURE_DEP, provider: 'azure_openai' };
+            } catch (e) {
+                this._addAuditEntry('AZURE_OPENAI_ERROR', null, { error: e.message, deployment: AZURE_DEP });
+            }
+        }
+
+        // stub — لا مفتاح متاح
+        return {
+            content: `النظام جاهز. للرد الكامل أضف LLAMA_API_KEY أو AZURE_OPENAI_KEY في .env — تواصل: ${this.SHEIKHA_AUTHORITY.FOUNDER_WHATSAPP}`,
+            model:   'stub',
+            provider: 'local_stub',
+            note:    'أضف LLAMA_API_KEY بعد الموافقة من https://llama.developer.meta.com',
+        };
+    }
+
+    // ── 1. تحليل العقود — Contract Analysis ──────────────────────────────────
+    async analyzeContract(contract_text = '') {
+        const systemPrompt = [
+            `أنت مستشار قانوني ومالي للقائد سلمان أحمد الراجح.`,
+            `خبرتك: سابك + KFUPM + سدايا. مبدأك: بلا ضرر ولا ضرار.`,
+            `حلل العقد واستخرج: (1) البنود الخطرة (2) الفرص (3) نقاط التفاوض (4) توصية نهائية.`,
+            `الأسلوب: سيادي مختصر. الختم: صناعة المجد لله.`,
+        ].join(' ');
+        const result = await this._callSovereignAI(systemPrompt, `حلل هذا العقد:\n${contract_text}`, 'strong');
+        this._llamaStats.contracts_analyzed++;
+        this._addAuditEntry('CONTRACT_ANALYZED', null, { chars: contract_text.length, model: result.model });
+        return result;
+    }
+
+    // ── 2. تحليل المناقصات — Tender Analysis ─────────────────────────────────
+    async analyzeTender(tender_text = '') {
+        const systemPrompt = [
+            `أنت محلل مناقصات سيادي للقائد سلمان أحمد الراجح.`,
+            `خبرتك: سابك + KFUPM + سدايا. مبدأك: بلا ضرر ولا ضرار.`,
+            `اقرأ المناقصة واستخرج: (1) الفرصة الرئيسية (2) متطلبات التأهيل (3) المخاطر (4) استراتيجية العطاء.`,
+            `الأسلوب: سيادي مختصر. الختم: صناعة المجد لله.`,
+        ].join(' ');
+        const result = await this._callSovereignAI(systemPrompt, `حلل هذه المناقصة:\n${tender_text}`, 'strong');
+        this._llamaStats.tenders_analyzed++;
+        this._addAuditEntry('TENDER_ANALYZED', null, { chars: tender_text.length, model: result.model });
+        return result;
+    }
+
+    // ── 3. الرد على الإيميلات — Email Reply ──────────────────────────────────
+    async replyEmail(email_body = '', context = {}) {
+        const systemPrompt = [
+            `اكتب رد رسمي باسم ${this.SHEIKHA_AUTHORITY.FOUNDER}.`,
+            `خبير جدوى معتمد من الدولة وسابك. مبدأك: بلا ضرر ولا ضرار.`,
+            `الأسلوب: سيادي مختصر. يبدأ بـ"بسم الله". يختم بـ"صناعة المجد لله".`,
+            context.recipient ? `المستلم: ${context.recipient}.` : '',
+            context.subject   ? `الموضوع: ${context.subject}.`   : '',
+        ].join(' ').trim();
+        const result = await this._callSovereignAI(systemPrompt, `العميل/الجهة كتبت:\n${email_body}\n\nاكتب ردًا رسميًا سياديًا باسم ${this.SHEIKHA_AUTHORITY.FOUNDER}.`, 'fast');
+        this._llamaStats.emails_replied++;
+        this._addAuditEntry('EMAIL_REPLIED', null, { subject: context.subject, model: result.model });
+        return result;
+    }
+
+    // ── 4. شات بوت شيخة — Sheikha Chat ──────────────────────────────────────
+    async chat(customer_message = '', lang = 'ar') {
+        const systemPrompt = lang === 'ar'
+            ? [
+                `أنت مساعد القائد سلمان أحمد الراجح في منظومة شيخة السيادية.`,
+                `خبير جدوى معتمد دولة وسابك وسدايا. مبدأك: بلا ضرر ولا ضرار.`,
+                `أجاوب باختصار سيادي. أختم بـ: صناعة المجد لله.`,
+                `للتواصل المباشر: ${this.SHEIKHA_AUTHORITY.FOUNDER_PHONE}`,
+              ].join(' ')
+            : [
+                `You are the assistant of ${this.SHEIKHA_AUTHORITY.FOUNDER} — Sheikha Sovereign Market.`,
+                `Expert in feasibility studies approved by Saudi State, SABIC, and SDAIA.`,
+                `Respond concisely and professionally. End with: For the glory of God.`,
+                `Direct contact: ${this.SHEIKHA_AUTHORITY.FOUNDER_PHONE}`,
+              ].join(' ');
+
+        const result = await this._callSovereignAI(systemPrompt, customer_message, 'fast');
+        this._llamaStats.chat_messages++;
+        return result;
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -3170,10 +3317,22 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
                         events_sent:  this.stats.eventsSent,
                         conversion_value: this.stats.conversionValue,
                     },
+                    // إحصاءات الذكاء السيادي — Llama + Azure OpenAI
+                    sovereign_ai: {
+                        label:              'Sovereign AI — تحليلات شيخة الذكية',
+                        contracts_analyzed: this._llamaStats.contracts_analyzed,
+                        tenders_analyzed:   this._llamaStats.tenders_analyzed,
+                        emails_replied:     this._llamaStats.emails_replied,
+                        chat_messages:      this._llamaStats.chat_messages,
+                        last_model_used:    this._llamaStats.last_model_used,
+                    },
                     // حالة التكاملات
                     integrations: {
                         vibes_ai:        !!process.env.VIBES_API_KEY ? 'active' : 'pending — أضف VIBES_API_KEY',
                         meta_ai_demos:   !!process.env.META_AI_KEY   ? 'active' : 'pending — أضف META_AI_KEY',
+                        llama_api:       !!process.env.LLAMA_API_KEY ? 'active' : 'pending — سجّل على llama.developer.meta.com',
+                        azure_openai:    !!(process.env.AZURE_OPENAI_KEY && process.env.AZURE_OPENAI_ENDPOINT) ? 'active' : 'pending — أضف AZURE_OPENAI_KEY + AZURE_OPENAI_ENDPOINT',
+                        cosmos_db:       !!process.env.COSMOS_CONNECTION_STRING ? 'active' : 'pending — أضف COSMOS_CONNECTION_STRING',
                         whatsapp:        !!(process.env.WHATSAPP_BUSINESS_TOKEN && process.env.WHATSAPP_PHONE_ID) ? 'active' : 'pending — أضف WHATSAPP_BUSINESS_TOKEN + WHATSAPP_PHONE_ID',
                         google_calendar: !!process.env.GOOGLE_OAUTH_TOKEN    ? 'active' : 'pending — أضف GOOGLE_OAUTH_TOKEN',
                         outlook:         !!process.env.OUTLOOK_OAUTH_TOKEN   ? 'active' : 'pending — أضف OUTLOOK_OAUTH_TOKEN',
@@ -3185,7 +3344,52 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
             } catch (e) { res.status(500).json({ error: e.message }); }
         });
 
-        console.log(`✅ [SheikhMetaEngine] 173 مسار API مُسجَّل | Base: ${base}`);
+        // ─── الذكاء السيادي — Sovereign AI Routes (Llama + Azure OpenAI) ────────────
+
+        // POST /core/chat — شات بوت شيخة (يرد على العملاء 24/7)
+        app.post(`${base}/core/chat`, async (req, res) => {
+            try {
+                const { message, lang = 'ar' } = req.body;
+                if (!message) return res.status(400).json({ error: 'message required' });
+                const result = await this.chat(message, lang);
+                res.json({ reply: result.content, model: result.model, provider: result.provider, doctrine: 'صناعة المجد لله' });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // POST /core/analyze-contract — تحليل العقود القانونية
+        app.post(`${base}/core/analyze-contract`, async (req, res) => {
+            try {
+                const { contract_text, contract } = req.body;
+                const text = contract_text || contract || '';
+                if (!text) return res.status(400).json({ error: 'contract_text required' });
+                const result = await this.analyzeContract(text);
+                res.json({ analysis: result.content, model: result.model, provider: result.provider, doctrine: 'صناعة المجد لله' });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // POST /core/analyze-tender — تحليل المناقصات
+        app.post(`${base}/core/analyze-tender`, async (req, res) => {
+            try {
+                const { tender_text, tender } = req.body;
+                const text = tender_text || tender || '';
+                if (!text) return res.status(400).json({ error: 'tender_text required' });
+                const result = await this.analyzeTender(text);
+                res.json({ analysis: result.content, model: result.model, provider: result.provider, doctrine: 'صناعة المجد لله' });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // POST /core/reply-email — الرد الآلي على الإيميلات بصيغة سيادية
+        app.post(`${base}/core/reply-email`, async (req, res) => {
+            try {
+                const { email_body, email, subject, recipient } = req.body;
+                const body = email_body || email || '';
+                if (!body) return res.status(400).json({ error: 'email_body required' });
+                const result = await this.replyEmail(body, { subject, recipient });
+                res.json({ reply: result.content, model: result.model, provider: result.provider, doctrine: 'صناعة المجد لله' });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        console.log(`✅ [SheikhMetaEngine] 177 مسار API مُسجَّل | Base: ${base}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
