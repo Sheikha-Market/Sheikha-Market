@@ -29,6 +29,85 @@
       "market": "metals",
       "timestamp": "2026-04-13T01:47:11.856Z",
       "order_id": "ORD-777"
+    },
+    {
+      "eid": "supply_VND-001_VendorRegistered",
+      "eventName": "Lead",
+      "source": "SupplyChain",
+      "supplyEvent": "VendorRegistered",
+      "market": "metals",
+      "timestamp": "2026-04-13T03:12:52.726Z",
+      "vendor_id": "VND-001"
+    },
+    {
+      "eid": "supply_VND-001_VendorApproved",
+      "eventName": "CompleteRegistration",
+      "source": "SupplyChain",
+      "supplyEvent": "VendorApproved",
+      "market": "metals",
+      "timestamp": "2026-04-13T03:12:52.727Z",
+      "vendor_id": "VND-001"
+    },
+    {
+      "eid": "supply_VND-002_FirstPurchaseOrder",
+      "eventName": "Purchase",
+      "source": "SupplyChain",
+      "supplyEvent": "FirstPurchaseOrder",
+      "market": "precious",
+      "timestamp": "2026-04-13T03:12:52.727Z",
+      "vendor_id": "VND-002"
+    },
+    {
+      "eid": "erp_CNT-001",
+      "eventName": "Purchase",
+      "source": "ERP",
+      "market": "metals",
+      "timestamp": "2026-04-13T03:12:52.728Z",
+      "contract_id": "CNT-001",
+      "value": 100000
+    },
+    {
+      "eid": "erp_CNT-002",
+      "eventName": "Purchase",
+      "source": "ERP",
+      "market": "precious",
+      "timestamp": "2026-04-13T03:12:52.728Z",
+      "contract_id": "CNT-002",
+      "value": 5000000
+    },
+    {
+      "eid": "2a086383-4d16-4987-b891-d89c6635bd9e",
+      "eventName": "ViewContent",
+      "timestamp": "2026-04-13T03:15:23.497Z",
+      "userData": {
+        "email": "test@test.com"
+      },
+      "customData": {
+        "currency": "EUR",
+        "value": 999,
+        "contentName": "Gold Bar",
+        "contentIds": [
+          "GOLD-001"
+        ]
+      }
+    },
+    {
+      "eid": "supply_VND-TEST_VendorApproved",
+      "eventName": "CompleteRegistration",
+      "source": "SupplyChain",
+      "supplyEvent": "VendorApproved",
+      "market": "scrap",
+      "timestamp": "2026-04-13T03:15:23.498Z",
+      "vendor_id": "VND-TEST"
+    },
+    {
+      "eid": "erp_C1",
+      "eventName": "Purchase",
+      "source": "ERP",
+      "market": "metals",
+      "timestamp": "2026-04-13T03:15:23.499Z",
+      "contract_id": "C1",
+      "value": 10000
     }
   ],
   "audiences": [],

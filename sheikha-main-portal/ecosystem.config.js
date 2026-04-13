@@ -104,6 +104,7 @@ module.exports = {
                 META_ALERT_MAX_DEDUP:        process.env.META_ALERT_MAX_DEDUP        || '0.30',
                 META_ALERT_MIN_WA_DELIVERY:  process.env.META_ALERT_MIN_WA_DELIVERY  || '0.90',
                 META_AUDIT_LOG_SIZE:         process.env.META_AUDIT_LOG_SIZE         || '500',
+                META_ERP_SYNC_INTERVAL_HOURS: process.env.META_ERP_SYNC_INTERVAL_HOURS || '6',
             },
             error_file: './logs/meta-background-error.log',
             out_file: './logs/meta-background-out.log',

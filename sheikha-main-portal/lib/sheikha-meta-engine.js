@@ -220,14 +220,14 @@ class SheikhMetaEngine {
                     fbc: userData.fbc || null,
                 },
                 custom_data: {
-                    currency: customData.currency || 'SAR',
-                    value: customData.value || 0,
-                    content_ids: customData.contentIds || [],
-                    content_type: customData.contentType || 'product',
-                    content_name: customData.contentName || 'سوق شيخة',
-                    num_items: customData.numItems || 1,
-                    order_id: customData.orderId || eid,
                     ...customData,
+                    currency:     customData.currency     || 'SAR',
+                    value:        customData.value        || 0,
+                    content_ids:  customData.contentIds   || [],
+                    content_type: customData.contentType  || 'product',
+                    content_name: customData.contentName  || 'سوق شيخة',
+                    num_items:    customData.numItems      || 1,
+                    order_id:     customData.orderId       || eid,
                 },
                 ...(this.config.testCode ? { test_event_code: this.config.testCode } : {}),
             }],
@@ -290,16 +290,16 @@ class SheikhMetaEngine {
                     fbc: userData.fbc || null,
                 },
                 custom_data: {
-                    currency: customData.currency || mkt.currency,
-                    value: customData.value || 0,
-                    content_ids: customData.contentIds || [],
-                    content_type: customData.contentType || 'product',
-                    content_name: customData.contentName || mkt.nameAr,
-                    num_items: customData.numItems || 1,
-                    order_id: customData.orderId || eid,
-                    market_segment: mkt.segment,
-                    market_key: marketKey,
                     ...customData,
+                    currency:     customData.currency     || mkt.currency,
+                    value:        customData.value        || 0,
+                    content_ids:  customData.contentIds   || [],
+                    content_type: customData.contentType  || 'product',
+                    content_name: customData.contentName  || mkt.nameAr,
+                    num_items:    customData.numItems      || 1,
+                    order_id:     customData.orderId       || eid,
+                    market_segment: mkt.segment,
+                    market_key:   marketKey,
                 },
                 ...(this.config.testCode ? { test_event_code: this.config.testCode } : {}),
             }],
@@ -480,6 +480,137 @@ class SheikhMetaEngine {
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
+    // 🏭 سلاسل الإمداد والتوريد — Supply Chain / Vendor Lifecycle Events
+    //
+    // event = {
+    //   event_type,      // VendorRegistered | VendorApproved | FirstPurchaseOrder | SupplyContractRenewed
+    //   vendor_id,       // معرّف المورد في النظام
+    //   vendor_email,    // إيميل المورد
+    //   vendor_phone,    // هاتف المورد (اختياري)
+    //   value,           // قيمة أمر التوريد / العقد
+    //   currency,        // SAR | USD …
+    //   market_segment,  // metals | scrap | precious | rare | now
+    //   country,         // رمز الدولة ISO 3166-1 alpha-2
+    //   fbc,             // (اختياري) فيسبوك كلِك كوكي من أول تسجيل المورد
+    // }
+    // ═══════════════════════════════════════════════════════════════════════════
+    async sendSupplyChainEvent(event) {
+        if (!event || !event.vendor_id) throw new Error('vendor_id مطلوب');
+
+        const SUPPLY_EVENT_MAP = {
+            VendorRegistered:       'Lead',
+            VendorApproved:         'CompleteRegistration',
+            FirstPurchaseOrder:     'Purchase',
+            SupplyContractRenewed:  'Purchase',
+        };
+
+        const allowedTypes = Object.keys(SUPPLY_EVENT_MAP);
+        if (!allowedTypes.includes(event.event_type)) {
+            throw new Error(`event_type غير صالح. المتاح: ${allowedTypes.join(', ')}`);
+        }
+
+        const metaEventName = SUPPLY_EVENT_MAP[event.event_type];
+        const eid = `supply_${event.vendor_id}_${event.event_type}`;
+
+        const userData = {
+            em:      event.vendor_email ? sha256(event.vendor_email) : undefined,
+            ph:      event.vendor_phone ? sha256(event.vendor_phone) : undefined,
+            country: event.country      ? sha256(event.country.toLowerCase()) : sha256('sa'),
+            external_id: sha256(String(event.vendor_id)),
+        };
+        if (event.fbc) userData.fbc = event.fbc;
+
+        const payload = {
+            data: [{
+                event_name: metaEventName,
+                event_time: Math.floor(Date.now() / 1000),
+                event_id: eid,
+                action_source: 'system_generated',
+                user_data: userData,
+                custom_data: {
+                    currency:        event.currency       || 'SAR',
+                    value:           Number(event.value)  || 0,
+                    order_id:        event.vendor_id,
+                    market_segment:  event.market_segment || 'metals',
+                    supply_event:    event.event_type,
+                    vendor_type:     event.vendor_type    || 'supplier',
+                },
+            }],
+            partner_agent: 'sheikha-meta-engine-v1',
+        };
+
+        this.db.events.push({
+            eid, eventName: metaEventName, source: 'SupplyChain',
+            supplyEvent: event.event_type, market: event.market_segment,
+            timestamp: new Date().toISOString(), vendor_id: event.vendor_id,
+        });
+        saveMetaDB(this.db);
+        this.stats.eventsSent++;
+        if (event.value) this.stats.conversionValue += Number(event.value);
+        this._addAuditEntry('SUPPLY_CHAIN_EVENT', null, { eventType: event.event_type, market: event.market_segment });
+
+        let metaResponse = null;
+        if (this.config.automationApproved) {
+            const mkt = this.marketPixels[event.market_segment] || null;
+            const pixelId = mkt ? mkt.pixelId : this.config.pixelId;
+            const token   = mkt ? mkt.accessToken : this.config.capiToken;
+            try {
+                metaResponse = await this._callMetaGraphAPI(pixelId, token, payload);
+            } catch (e) {
+                console.error('[SheikhMetaEngine] Supply chain event error:', e.message);
+            }
+        }
+
+        return {
+            success: true, eventId: eid, vendor_id: event.vendor_id,
+            eventType: event.event_type, metaEvent: metaEventName,
+            sentToMeta: this.config.automationApproved, metaResponse,
+        };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 📦 ERP Batch — رفع دفعة عقود من الـ ERP دفعة واحدة
+    //
+    // contracts: مصفوفة من نفس هيكل sendOfflineContract
+    // batchId:   معرّف الدفعة (اختياري — يُنشأ تلقائياً)
+    // ═══════════════════════════════════════════════════════════════════════════
+    async sendERPBatch(contracts = [], batchId = null) {
+        if (!Array.isArray(contracts) || contracts.length === 0) {
+            throw new Error('contracts يجب أن يكون مصفوفة غير فارغة');
+        }
+        if (contracts.length > 100) {
+            throw new Error('الحد الأقصى 100 عقد في الدفعة الواحدة');
+        }
+
+        const bid = batchId || `erp_batch_${Date.now()}`;
+        const results = [];
+        let sent = 0, failed = 0;
+
+        for (const contract of contracts) {
+            try {
+                const result = await this.sendOfflineContract(contract);
+                results.push({ contract_id: contract.contract_id, success: true, eventId: result.eventId });
+                sent++;
+            } catch (e) {
+                results.push({ contract_id: contract.contract_id, success: false, error: e.message });
+                failed++;
+            }
+        }
+
+        this._addAuditEntry('ERP_BATCH_SENT', null, { batchId: bid, total: contracts.length, sent, failed });
+
+        return {
+            success: true,
+            batchId: bid,
+            total: contracts.length,
+            sent,
+            failed,
+            results,
+            timestamp: new Date().toISOString(),
+        };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
     // 🔢 حساب Event Match Quality
     // ═══════════════════════════════════════════════════════════════════════════
     calculateEMQ(userData) {
@@ -522,7 +653,7 @@ class SheikhMetaEngine {
             regions: regionSummary,
             stats: this.stats,
             halalEvents: this.halalEvents,
-            apiCount: 100,
+            apiCount: 115,
             consent: { total: Object.keys(this.consentDB.consents).length },
             auditLog: { entries: this.auditLog.length, maxSize: this.maxAuditLogSize },
             alerts: this.checkAlerts(),
@@ -539,7 +670,7 @@ class SheikhMetaEngine {
         return {
             nameAr: 'شيخة Meta AI',
             version: this.version,
-            apis: 100,
+            apis: 115,
             stats: this.stats,
             markets: Object.keys(this.marketPixels),
             regions: Object.keys(this.regionConfig),
@@ -1665,7 +1796,213 @@ src="https://www.facebook.com/tr?id=${this.config.pixelId}&ev=PageView&noscript=
             });
         });
 
-        console.log(`✅ [SheikhMetaEngine] 100 مسار API مُسجَّل | Base: ${base}`);
+        // ─── Unified Public CAPI Gateway — /sheikha/track ────────────────────
+        // هذا المسار العام يُستدعى مباشرة من موقع www.sheikha.top
+        // يُغني عن كتابة كود خاص لكل سوق — سيرفر الموقع يرسل هنا
+        // ملاحظة: req.cookies يتطلب تثبيت cookie-parser middleware قبل هذا المسار
+        const _gatewayTrackHandler = async (req, res) => {
+            try {
+                const {
+                    market_path,      // '/metals' | '/scrap' | '/precious' | '/rare' | '/now'
+                    event_name,       // 'Purchase' | 'Lead' | 'ViewContent' | 'AddToCart' إلخ
+                    event_id,         // لازم يطابق event_id في fbq('track') بالمتصفح
+                    email,
+                    phone,
+                    value,
+                    currency = 'SAR',
+                    custom_data = {},
+                    user_data_extra = {},
+                } = req.body;
+
+                if (!event_name) return res.status(400).json({ error: 'event_name مطلوب' });
+
+                // تحويل market_path إلى مفتاح السوق: '/metals' → 'metals'
+                const marketKey = market_path
+                    ? String(market_path).replace(/^\//, '').toLowerCase()
+                    : 'metals';
+
+                const userData = {
+                    email,
+                    phone,
+                    ip:        req.ip || req.headers['x-forwarded-for'],
+                    userAgent: req.headers['user-agent'],
+                    // req.cookies تتطلب cookie-parser — تستخدم user_data_extra كبديل بدونه
+                    fbp:       (req.cookies && req.cookies._fbp) || user_data_extra.fbp || null,
+                    fbc:       (req.cookies && req.cookies._fbc) || user_data_extra.fbc || null,
+                    ...user_data_extra,
+                };
+
+                const customDataMerged = {
+                    value: parseFloat(value) || 0,
+                    currency,
+                    market_segment: marketKey,
+                    ...custom_data,
+                };
+
+                const result = await this.sendCAPIEventForMarket(
+                    marketKey, event_name, userData, customDataMerged, event_id,
+                );
+
+                this._addAuditEntry('GATEWAY_TRACK', null, { market: marketKey, event: event_name });
+
+                res.json({
+                    success: true,
+                    events_received: 1,
+                    market: result.market,
+                    pixel_used: result.pixelId,
+                    event_id: result.eventId,
+                    sent_to_meta: result.sentToMeta,
+                });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        };
+
+        app.post('/sheikha/track', _gatewayTrackHandler);
+        // مسار عربي مرادف — نفس المعالج
+        app.post('/شيخة/تتبع', _gatewayTrackHandler);
+
+        // ─── ERP Batch — رفع دفعات من الـ ERP ────────────────────────────────
+        app.post(`${base}/capi/erp/batch`, async (req, res) => {
+            try {
+                const { contracts = [], batchId } = req.body;
+                if (!contracts.length) return res.status(400).json({ error: 'contracts array مطلوب' });
+                const result = await this.sendERPBatch(contracts, batchId);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/capi/erp/دفعة`, async (req, res) => {
+            try {
+                const { contracts = [], batchId } = req.body;
+                if (!contracts.length) return res.status(400).json({ error: 'contracts array مطلوب' });
+                const result = await this.sendERPBatch(contracts, batchId);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // ERP sync status (shows last 20 ERP events from DB)
+        app.get(`${base}/erp/pending`, (req, res) => {
+            const erpEvents = this.db.events.filter(e => e.source === 'ERP').slice(-20).reverse();
+            res.json({
+                total: this.db.events.filter(e => e.source === 'ERP').length,
+                recent: erpEvents,
+                syncInterval: process.env.META_ERP_SYNC_INTERVAL_HOURS || '6',
+                note: 'يتم رفع العقود المكتملة تلقائياً كل ' + (process.env.META_ERP_SYNC_INTERVAL_HOURS || '6') + ' ساعات',
+            });
+        });
+
+        app.post(`${base}/erp/sync`, async (req, res) => {
+            // نقطة استدعاء يدوي للمزامنة — فريق ERP يستدعيها عند الحاجة
+            this._addAuditEntry('ERP_MANUAL_SYNC', req.ip, {});
+            res.json({
+                success: true,
+                message: 'طلب المزامنة اليدوية مُسجَّل',
+                note: 'استدعِ POST /api/شيخة-ميتا/capi/erp/دفعة مع contracts[] لرفع العقود',
+                timestamp: new Date().toISOString(),
+            });
+        });
+
+        // ─── Supply Chain / Vendor Events ─────────────────────────────────────
+        app.post(`${base}/سلاسل-الامداد/حدث`, async (req, res) => {
+            try {
+                const result = await this.sendSupplyChainEvent(req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/supply-chain/event`, async (req, res) => {
+            try {
+                const result = await this.sendSupplyChainEvent(req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/سلاسل-الامداد/تسجيل-مورد`, async (req, res) => {
+            try {
+                const result = await this.sendSupplyChainEvent({ ...req.body, event_type: 'VendorRegistered' });
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/سلاسل-الامداد/اعتماد-مورد`, async (req, res) => {
+            try {
+                const result = await this.sendSupplyChainEvent({ ...req.body, event_type: 'VendorApproved' });
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/سلاسل-الامداد/امر-توريد`, async (req, res) => {
+            try {
+                const result = await this.sendSupplyChainEvent({ ...req.body, event_type: 'FirstPurchaseOrder' });
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/سلاسل-الامداد/تجديد-عقد`, async (req, res) => {
+            try {
+                const result = await this.sendSupplyChainEvent({ ...req.body, event_type: 'SupplyContractRenewed' });
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.get(`${base}/سلاسل-الامداد/أنواع-الأحداث`, (req, res) => {
+            res.json({
+                events: [
+                    { type: 'VendorRegistered',      metaEvent: 'Lead',               nameAr: 'تسجيل مورد جديد',           useCase: 'مورد يسجل في بوابة الموردين' },
+                    { type: 'VendorApproved',         metaEvent: 'CompleteRegistration', nameAr: 'اعتماد المورد',            useCase: 'مورد أكمل أوراقه وتم اعتماده' },
+                    { type: 'FirstPurchaseOrder',     metaEvent: 'Purchase',           nameAr: 'أول أمر توريد',              useCase: 'أول صفقة فعلية مع المورد' },
+                    { type: 'SupplyContractRenewed',  metaEvent: 'Purchase',           nameAr: 'تجديد عقد توريد',            useCase: 'تجديد عقد سنوي أو دوري' },
+                ],
+                note: 'ميتا تتعلم: "إعلان X يجيب موردين معتمدين" وتُحسّن الاستهداف تلقائياً',
+            });
+        });
+
+        app.get(`${base}/supply-chain/event-types`, (req, res) => {
+            res.json({
+                events: ['VendorRegistered', 'VendorApproved', 'FirstPurchaseOrder', 'SupplyContractRenewed'],
+            });
+        });
+
+        // ─── Per-Market Pixel Snippets ─────────────────────────────────────────
+        app.get(`${base}/pixel/snippet/:market`, (req, res) => {
+            const marketKey = req.params.market.toLowerCase();
+            const mkt = this.marketPixels[marketKey];
+            if (!mkt) {
+                return res.status(404).json({ error: `السوق غير موجود: ${marketKey}. المتاح: ${Object.keys(this.marketPixels).join(', ')}` });
+            }
+            const pixelId = mkt.pixelId;
+            const snippet = `<!-- Sheikha Meta Pixel — ${mkt.nameAr} (${mkt.segment}) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '${pixelId}');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1"/></noscript>
+<!-- CAPI integration: send same event_id to POST /sheikha/track with market_path: '/${marketKey}' -->`;
+            res.json({ snippet, market: marketKey, pixelId, segment: mkt.segment, nameAr: mkt.nameAr, currency: mkt.currency });
+        });
+
+        app.get(`${base}/pixel/snippets/all`, (req, res) => {
+            const snippets = {};
+            for (const [marketKey, mkt] of Object.entries(this.marketPixels)) {
+                const pixelId = mkt.pixelId;
+                snippets[marketKey] = {
+                    nameAr:   mkt.nameAr,
+                    segment:  mkt.segment,
+                    currency: mkt.currency,
+                    pixelId,
+                    snippet: `<!-- ${mkt.nameAr} | ID: ${pixelId} -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${pixelId}');fbq('track','PageView');</script>`,
+                };
+            }
+            res.json({ markets: Object.keys(snippets).length, snippets });
+        });
+
+        console.log(`✅ [SheikhMetaEngine] 115 مسار API مُسجَّل | Base: ${base}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
