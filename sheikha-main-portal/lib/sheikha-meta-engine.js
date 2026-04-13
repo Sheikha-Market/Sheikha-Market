@@ -116,6 +116,15 @@ class SheikhMetaEngine {
             KFUPM_VERIFIED:    true,
             SABIC_VERIFIED:    true,
             CAN_UNLOCK_FUNDING: true,
+            // معلومات الاتصال السيادية
+            FOUNDER_PHONE:     '+966554942904',
+            FOUNDER_WHATSAPP:  'https://wa.me/966554942904',
+            CONTACT_CHANNELS: {
+                primary_email:   'auto@sheikha.top',
+                primary_phone:   '+966554942904',
+                calendar:        'linked',
+                whatsapp:        process.env.WHATSAPP_BUSINESS_TOKEN ? 'active' : 'pending_activation',
+            },
             // توقيع SHA-256 يشمل الاسم + 11 اعتماد + التاريخ
             SIGNATURE: crypto.createHash('sha256')
                 .update([
@@ -336,6 +345,20 @@ class SheikhMetaEngine {
             automated_revenue_usd: 0,
             last_market_vibe: null,  // {hs_chapter, region, sentiment, confidence, timestamp}
         };
+
+        // إحصاءات المساعد التنفيذي — Executive Assistant Stats
+        this._eaStats = {
+            emails_scanned:      0,
+            rfq_emails_replied:  0,
+            calendar_events_managed: 0,
+            whatsapp_sent:       0,
+            last_scan_at:        null,
+        };
+
+        // تشغيل المساعد التنفيذي آلياً إذا كان SHEIKHA_ULTRA_MODE مفعّلاً
+        if (process.env.SHEIKHA_ULTRA_MODE === 'true') {
+            this._startExecutiveAssistant();
+        }
 
         // تسجيل المسارات
         if (this.app) this._registerRoutes();
@@ -3010,7 +3033,48 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
             } catch (e) { res.status(500).json({ error: e.message }); }
         });
 
-        console.log(`✅ [SheikhMetaEngine] 167 مسار API مُسجَّل | Base: ${base}`);
+        // ─── Sheikha Executive Assistant — API Routes ──────────────────────────────
+
+        // GET /core/ea/status — حالة المساعد التنفيذي
+        app.get(`${base}/core/ea/status`, (req, res) => {
+            res.json({
+                mode:            process.env.SHEIKHA_ULTRA_MODE === 'true' ? 'ULTRA_AUTO' : 'MANUAL',
+                google_email:    !!process.env.GOOGLE_OAUTH_TOKEN,
+                outlook_email:   !!process.env.OUTLOOK_OAUTH_TOKEN,
+                whatsapp:        !!process.env.WHATSAPP_BUSINESS_TOKEN,
+                founder_phone:   this.SHEIKHA_AUTHORITY.FOUNDER_PHONE,
+                founder_whatsapp: this.SHEIKHA_AUTHORITY.FOUNDER_WHATSAPP,
+                stats:           this._eaStats,
+            });
+        });
+
+        // POST /core/ea/scan-email — تشغيل مسح البريد يدوياً
+        app.post(`${base}/core/ea/scan-email`, async (req, res) => {
+            try {
+                const result = await this.scanEmail();
+                res.json({ triggered: true, ...result });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // POST /core/ea/manage-calendar — تشغيل إدارة التقويم يدوياً
+        app.post(`${base}/core/ea/manage-calendar`, async (req, res) => {
+            try {
+                const result = await this.manageCalendar();
+                res.json({ triggered: true, ...result });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // POST /core/ea/welcome-whatsapp  { phone, name? }
+        app.post(`${base}/core/ea/welcome-whatsapp`, async (req, res) => {
+            try {
+                const { phone, name } = req.body;
+                if (!phone) return res.status(400).json({ error: 'phone required' });
+                const result = await this.welcomeViaWhatsApp(phone, name);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        console.log(`✅ [SheikhMetaEngine] 172 مسار API مُسجَّل | Base: ${base}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -3704,6 +3768,274 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
 
         this._vibesStats.ai_assets_generated++;
         return `https://sheikha.top/ai-assets/video-${Date.now()}.mp4?status=pending&meta_ai_key_required=true`;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 📧 Sheikha Executive Assistant — Email + Calendar + WhatsApp Automation
+    // يعمل كسكرتير سيادي: يقرأ الإيميلات، يدير التقويم، يرسل واتساب آلياً
+    // يحتاج: GOOGLE_OAUTH_TOKEN / OUTLOOK_OAUTH_TOKEN للبريد والتقويم
+    //        WHATSAPP_BUSINESS_TOKEN + WHATSAPP_PHONE_ID للواتساب
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    _startExecutiveAssistant() {
+        const INTERVAL_MS = 5 * 60 * 1000; // 5 دقائق
+        this._eaInterval = setInterval(async () => {
+            try { await this.scanEmail(); } catch (e) { this._addAuditEntry('EA_SCAN_EMAIL_ERROR', null, { error: e.message }); }
+            try { await this.manageCalendar(); } catch (e) { this._addAuditEntry('EA_CALENDAR_ERROR', null, { error: e.message }); }
+        }, INTERVAL_MS);
+        this._addAuditEntry('EA_STARTED', null, { interval_ms: INTERVAL_MS, mode: 'SHEIKHA_ULTRA' });
+    }
+
+    // ─── مسح البريد الإلكتروني وإرسال ردود تلقائية ──────────────────────────
+    async scanEmail() {
+        const GOOGLE_TOKEN  = process.env.GOOGLE_OAUTH_TOKEN;
+        const OUTLOOK_TOKEN = process.env.OUTLOOK_OAUTH_TOKEN;
+
+        // كلمات المفاتيح الخاصة بطلبات الشراء والمعادن
+        const KEYWORDS = ['"طلب عرض"', '"RFQ"', '"HS7108"', '"HS7403"', '"HS7102"', '"نحاس"', '"ذهب"', '"LME"', '"COMEX"', '"Gold"', '"Copper"'];
+
+        this._eaStats.last_scan_at = new Date().toISOString();
+        this._eaStats.emails_scanned++;
+
+        const processEmails = async (emails, provider) => {
+            for (const email of (emails || [])) {
+                if (!email.is_unread) continue;
+                try {
+                    // بناء توقيع البريد السيادي
+                    const signature = [
+                        '',
+                        '---',
+                        `${this.SHEIKHA_AUTHORITY.FOUNDER} | مزود دراسات جدوى معتمد | سابك والدولة`,
+                        `📞 ${this.SHEIKHA_AUTHORITY.FOUNDER_PHONE}  |  🌐 https://sheikha.top`,
+                        `صناعة المجد لله. نفع الخلق لله. بلا ضرر ولا ضرار.`,
+                    ].join('\n');
+
+                    const slot = this._getNextAvailableSlot();
+                    const replyBody = [
+                        `السلام عليكم ورحمة الله وبركاته،`,
+                        ``,
+                        `شكراً على تواصلك. استلمنا طلبك: "${email.subject}"`,
+                        ``,
+                        `مرفق دراسة جدوى أولية معتمدة من الدولة وسابك للمشروع المذكور.`,
+                        `للتوقيع والمتابعة، يرجى تحديد موعد:`,
+                        `📅 ${slot.date} — ${slot.time} (بتوقيت الرياض)`,
+                        `🔗 https://sheikha.top/schedule?ref=${email.id || Date.now()}`,
+                        ``,
+                        `بإمكانك أيضاً التواصل مباشرة عبر واتساب: ${this.SHEIKHA_AUTHORITY.FOUNDER_WHATSAPP}`,
+                        signature,
+                    ].join('\n');
+
+                    // أرسل الرد عبر provider المناسب (Google / Outlook)
+                    await this._sendEmailReply({ provider, email, body: replyBody, slot });
+                    this._eaStats.rfq_emails_replied++;
+                    this._addAuditEntry('EA_RFQ_REPLIED', null, { provider, subject: email.subject, from: email.from, slot: slot.date });
+                } catch (err) {
+                    this._addAuditEntry('EA_EMAIL_REPLY_ERROR', null, { error: err.message, subject: email.subject });
+                }
+            }
+        };
+
+        // Google Mail
+        if (GOOGLE_TOKEN) {
+            try {
+                const axios = require('axios');
+                const q = KEYWORDS.map(k => k.replace(/"/g, '')).join(' OR ');
+                const resp = await axios.get(
+                    `https://gmail.googleapis.com/gmail/v1/users/me/messages?q=${encodeURIComponent(q)}&maxResults=20`,
+                    { headers: { Authorization: `Bearer ${GOOGLE_TOKEN}` }, timeout: 10000 }
+                );
+                const messages = (resp.data.messages || []).map(m => ({ id: m.id, is_unread: true, subject: 'Gmail RFQ', from: 'unknown', provider: 'GOOGLE' }));
+                await processEmails(messages, 'GOOGLE');
+            } catch (e) {
+                this._addAuditEntry('EA_GMAIL_ERROR', null, { error: e.message });
+            }
+        }
+
+        // Outlook / Microsoft Graph
+        if (OUTLOOK_TOKEN) {
+            try {
+                const axios = require('axios');
+                const filter = KEYWORDS.map(k => `contains(subject,'${k.replace(/"/g, '')}')`).join(' or ');
+                const resp = await axios.get(
+                    `https://graph.microsoft.com/v1.0/me/messages?$filter=isRead eq false&$search="${KEYWORDS[1]}"&$top=20`,
+                    { headers: { Authorization: `Bearer ${OUTLOOK_TOKEN}` }, timeout: 10000 }
+                );
+                const messages = (resp.data.value || []).map(m => ({ id: m.id, is_unread: !m.isRead, subject: m.subject, from: m.from?.emailAddress?.address, provider: 'OUTLOOK' }));
+                await processEmails(messages.filter(m => m.is_unread), 'OUTLOOK');
+            } catch (e) {
+                this._addAuditEntry('EA_OUTLOOK_ERROR', null, { error: e.message });
+            }
+        }
+
+        return {
+            scanned: this._eaStats.emails_scanned,
+            replied: this._eaStats.rfq_emails_replied,
+            last_scan: this._eaStats.last_scan_at,
+            google_connected:  !!GOOGLE_TOKEN,
+            outlook_connected: !!OUTLOOK_TOKEN,
+        };
+    }
+
+    // ─── إدارة التقويم: تحضير ملخصات الاجتماعات ───────────────────────────────
+    async manageCalendar() {
+        const GOOGLE_TOKEN  = process.env.GOOGLE_OAUTH_TOKEN;
+        const OUTLOOK_TOKEN = process.env.OUTLOOK_OAUTH_TOKEN;
+        const HIGH_PRIORITY_KEYWORDS = ['ذهب', 'نحاس', 'صفقة', 'منجم', 'Gold', 'Copper', 'Mine', 'Deal', 'RFQ', 'دراسة جدوى'];
+
+        const processEvents = async (events, provider) => {
+            const managed = [];
+            for (const event of (events || [])) {
+                const title = event.title || event.subject || '';
+                const isHighPriority = HIGH_PRIORITY_KEYWORDS.some(kw => title.includes(kw));
+                if (isHighPriority) {
+                    this._eaStats.calendar_events_managed++;
+                    managed.push({ id: event.id, title, priority: 'HIGH', provider });
+                    this._addAuditEntry('EA_CALENDAR_HIGH_PRIORITY', null, { title, provider, event_id: event.id });
+                }
+            }
+            return managed;
+        };
+
+        let allManaged = [];
+
+        if (GOOGLE_TOKEN) {
+            try {
+                const axios = require('axios');
+                const now = new Date().toISOString();
+                const plus7d = new Date(Date.now() + 7 * 24 * 3600 * 1000).toISOString();
+                const resp = await axios.get(
+                    `https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${now}&timeMax=${plus7d}&singleEvents=true&orderBy=startTime`,
+                    { headers: { Authorization: `Bearer ${GOOGLE_TOKEN}` }, timeout: 10000 }
+                );
+                const events = (resp.data.items || []).map(e => ({ id: e.id, title: e.summary || '' }));
+                allManaged = allManaged.concat(await processEvents(events, 'GOOGLE'));
+            } catch (e) {
+                this._addAuditEntry('EA_GCAL_ERROR', null, { error: e.message });
+            }
+        }
+
+        if (OUTLOOK_TOKEN) {
+            try {
+                const axios = require('axios');
+                const now = new Date().toISOString();
+                const plus7d = new Date(Date.now() + 7 * 24 * 3600 * 1000).toISOString();
+                const resp = await axios.get(
+                    `https://graph.microsoft.com/v1.0/me/calendarView?startDateTime=${now}&endDateTime=${plus7d}`,
+                    { headers: { Authorization: `Bearer ${OUTLOOK_TOKEN}` }, timeout: 10000 }
+                );
+                const events = (resp.data.value || []).map(e => ({ id: e.id, title: e.subject || '' }));
+                allManaged = allManaged.concat(await processEvents(events, 'OUTLOOK'));
+            } catch (e) {
+                this._addAuditEntry('EA_OUTLOOK_CAL_ERROR', null, { error: e.message });
+            }
+        }
+
+        return {
+            events_managed: this._eaStats.calendar_events_managed,
+            high_priority: allManaged,
+            google_connected:  !!GOOGLE_TOKEN,
+            outlook_connected: !!OUTLOOK_TOKEN,
+        };
+    }
+
+    // ─── إرسال رسالة ترحيب عبر WhatsApp Business ──────────────────────────────
+    async welcomeViaWhatsApp(customer_phone, customer_name = null) {
+        const WA_TOKEN    = process.env.WHATSAPP_BUSINESS_TOKEN;
+        const WA_PHONE_ID = process.env.WHATSAPP_PHONE_ID;
+
+        const greeting = customer_name ? `حياك الله ${customer_name}،` : 'حياك الله،';
+        const message  = [
+            `${greeting}`,
+            ``,
+            `وعليكم السلام ورحمة الله.`,
+            `معك مكتب القائد ${this.SHEIKHA_AUTHORITY.FOUNDER} — شيخة السيادية.`,
+            ``,
+            `استلمنا طلبك. مرفق دراسة أولية معتمدة من الدولة وسابك.`,
+            `للتواصل المباشر: ${this.SHEIKHA_AUTHORITY.FOUNDER_PHONE}`,
+            ``,
+            `وش نوع المشروع اللي تبي له دراسة؟`,
+            `1️⃣ ذهب   2️⃣ نحاس   3️⃣ ألمنيوم   4️⃣ فضة   5️⃣ غيره`,
+            ``,
+            `اكتب رقم بس، وأرسل لك دراسة أولية + فيديو من المنجم خلال دقيقة.`,
+            `صناعة المجد لله.`,
+        ].join('\n');
+
+        if (WA_TOKEN && WA_PHONE_ID) {
+            try {
+                const axios = require('axios');
+                const resp = await axios.post(
+                    `https://graph.facebook.com/v18.0/${WA_PHONE_ID}/messages`,
+                    {
+                        messaging_product: 'whatsapp',
+                        to: customer_phone.replace(/\D/g, ''),
+                        type: 'text',
+                        text: { body: message },
+                    },
+                    { headers: { Authorization: `Bearer ${WA_TOKEN}`, 'Content-Type': 'application/json' }, timeout: 10000 }
+                );
+                this._eaStats.whatsapp_sent++;
+                this._addAuditEntry('EA_WHATSAPP_SENT', null, { to: `****${String(customer_phone).slice(-4)}`, message_id: resp.data?.messages?.[0]?.id });
+                return { sent: true, message_id: resp.data?.messages?.[0]?.id };
+            } catch (e) {
+                this._addAuditEntry('EA_WHATSAPP_ERROR', null, { error: e.message });
+                return { sent: false, error: e.message, fallback_url: `${this.SHEIKHA_AUTHORITY.FOUNDER_WHATSAPP}?text=${encodeURIComponent(message)}` };
+            }
+        }
+
+        // بدون مفتاح: أعد رابط واتساب مباشر جاهز للإرسال
+        this._eaStats.whatsapp_sent++;
+        return {
+            sent: false,
+            wa_token_required: true,
+            fallback_url: `${this.SHEIKHA_AUTHORITY.FOUNDER_WHATSAPP}?text=${encodeURIComponent(message)}`,
+            message_preview: message,
+            note: 'أضف WHATSAPP_BUSINESS_TOKEN + WHATSAPP_PHONE_ID في الـ .env لإرسال تلقائي',
+        };
+    }
+
+    // مساعد: يعيد أقرب وقت متاح في التقويم (stub منطقي)
+    _getNextAvailableSlot() {
+        const now   = new Date();
+        const start = new Date(now.getTime() + 2 * 24 * 3600 * 1000); // بعد يومين
+        // التحقق من وقت العمل: 9ص – 5م
+        start.setHours(10, 0, 0, 0);
+        if (start.getDay() === 5) start.setDate(start.getDate() + 2); // تخطى الجمعة
+        if (start.getDay() === 6) start.setDate(start.getDate() + 1); // تخطى السبت
+        return {
+            date: start.toLocaleDateString('ar-SA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+            time: '10:00 صباحاً',
+            iso:  start.toISOString(),
+        };
+    }
+
+    // مساعد: إرسال رد إيميل (stub — يتطلب OAuth token نشط)
+    async _sendEmailReply({ provider, email, body, slot }) {
+        const GOOGLE_TOKEN  = process.env.GOOGLE_OAUTH_TOKEN;
+        const OUTLOOK_TOKEN = process.env.OUTLOOK_OAUTH_TOKEN;
+
+        if (provider === 'GOOGLE' && GOOGLE_TOKEN) {
+            const axios = require('axios');
+            const raw = Buffer.from([
+                `To: ${email.from}`,
+                `Subject: Re: ${email.subject} — دراسة جدوى معتمدة | سلمان الراجح`,
+                `Content-Type: text/plain; charset=utf-8`,
+                ``,
+                body,
+            ].join('\r\n')).toString('base64url');
+            await axios.post(
+                `https://gmail.googleapis.com/gmail/v1/users/me/messages/send`,
+                { raw },
+                { headers: { Authorization: `Bearer ${GOOGLE_TOKEN}` }, timeout: 15000 }
+            );
+        } else if (provider === 'OUTLOOK' && OUTLOOK_TOKEN) {
+            const axios = require('axios');
+            await axios.post(
+                `https://graph.microsoft.com/v1.0/me/sendMail`,
+                { message: { subject: `Re: ${email.subject} — دراسة جدوى معتمدة | سلمان الراجح`, body: { contentType: 'Text', content: body }, toRecipients: [{ emailAddress: { address: email.from } }] } },
+                { headers: { Authorization: `Bearer ${OUTLOOK_TOKEN}`, 'Content-Type': 'application/json' }, timeout: 15000 }
+            );
+        }
+        // إذا لم يوجد token، تُسجَّل العملية فقط
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
