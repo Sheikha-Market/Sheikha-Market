@@ -327,6 +327,9 @@ class SheikhMetaEngine {
         // رسائل التسويق المجدولة — Scheduled Marketing Messages
         if (!this.db.scheduledMessages) this.db.scheduledMessages = [];
 
+        // بذور المصادر الكونية — Well-known global precious-metal sources pre-seeded
+        this._seedGlobalSources();
+
         // تسجيل المسارات
         if (this.app) this._registerRoutes();
 
@@ -3522,6 +3525,57 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
         if (entity.ready_to_sell === true) score += 0.2;
         return Math.min(10.0, Math.round(score * 10) / 10);
     }
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🌱 البذور الكونية — Pre-seed well-known precious-metal sources & markets
+    // ═══════════════════════════════════════════════════════════════════════════
+    _seedGlobalSources() {
+        // ── مناجم الذهب ─────────────────────────────────────────────────────────
+        const mines = [
+            { source_type:'mine', market_segment:'gold',   continent:'Africa',        country:'ZA', city:'Johannesburg', name:'Mponeng Gold Mine',       hs_chapters:['7108'], annual_capacity_kg:25000, grade:'900-950', certifications:['LBMA'], grade_tier:1 },
+            { source_type:'mine', market_segment:'gold',   continent:'Africa',        country:'GH', city:'Obuasi',       name:'Obuasi Gold Mine',         hs_chapters:['7108'], annual_capacity_kg:15000, grade:'850-900', certifications:['LBMA'], grade_tier:1 },
+            { source_type:'mine', market_segment:'gold',   continent:'Africa',        country:'TZ', city:'Mwanza',       name:'Geita Gold Mine',          hs_chapters:['7108'], annual_capacity_kg:13000, grade:'870-920', certifications:['LBMA'], grade_tier:2 },
+            { source_type:'mine', market_segment:'gold',   continent:'Australia',     country:'AU', city:'Kalgoorlie',   name:'Super Pit Gold Mine',      hs_chapters:['7108'], annual_capacity_kg:18000, grade:'900-940', certifications:['LBMA'], grade_tier:1 },
+            { source_type:'mine', market_segment:'gold',   continent:'North America', country:'CA', city:'Timmins',      name:'Hollinger Open Pit Mine',  hs_chapters:['7108'], annual_capacity_kg:10000, grade:'880-930', certifications:['LBMA'], grade_tier:2 },
+            { source_type:'mine', market_segment:'silver', continent:'South America', country:'PE', city:'Cerro de Pasco',name:'Cerro de Pasco Mine',     hs_chapters:['7106'], annual_capacity_kg:90000, grade:'999',     certifications:['LBMA'], grade_tier:1 },
+            { source_type:'mine', market_segment:'silver', continent:'North America', country:'MX', city:'Zacatecas',    name:'Fresnillo Silver Mine',    hs_chapters:['7106'], annual_capacity_kg:80000, grade:'999',     certifications:['LBMA'], grade_tier:1 },
+            { source_type:'mine', market_segment:'gold',   continent:'Asia',          country:'UZ', city:'Navoiy',       name:'Muruntau Gold Mine',       hs_chapters:['7108'], annual_capacity_kg:20000, grade:'900-950', certifications:['LBMA'], grade_tier:1 },
+            { source_type:'mine', market_segment:'gold',   continent:'Asia',          country:'CN', city:'Shandong',     name:'Shandong Gold Mine',       hs_chapters:['7108'], annual_capacity_kg:16000, grade:'870-920', certifications:['LBMA'], grade_tier:2 },
+            { source_type:'mine', market_segment:'gold',   continent:'South America', country:'BR', city:'Minas Gerais', name:'Córrego do Sítio Mine',    hs_chapters:['7108'], annual_capacity_kg:8000,  grade:'850-900', certifications:[],       grade_tier:2 },
+        ];
+        // ── مصافي ومكررات ────────────────────────────────────────────────────────
+        const refineries = [
+            { source_type:'refinery', market_segment:'gold',   continent:'Europe',        country:'CH', city:'Lugano',   name:'PAMP Suisse Refinery',     hs_chapters:['7108.12'], annual_capacity_kg:450000, grade:'9999', certifications:['LBMA'], grade_tier:1 },
+            { source_type:'refinery', market_segment:'gold',   continent:'Europe',        country:'CH', city:'Pforzheim',name:'Argor-Heraeus Refinery',   hs_chapters:['7108.12'], annual_capacity_kg:400000, grade:'9999', certifications:['LBMA'], grade_tier:1 },
+            { source_type:'refinery', market_segment:'gold',   continent:'Asia',          country:'AE', city:'Dubai',    name:'Emirates Gold Refinery',   hs_chapters:['7108.12'], annual_capacity_kg:200000, grade:'9999', certifications:['LBMA'], grade_tier:1 },
+            { source_type:'refinery', market_segment:'gold',   continent:'Asia',          country:'SG', city:'Singapore',name:'Singapore Precious Metals',hs_chapters:['7108.12'], annual_capacity_kg:150000, grade:'9999', certifications:['LBMA'], grade_tier:2 },
+        ];
+        // ── أسواق مجوهرات وبورصات ────────────────────────────────────────────────
+        const markets = [
+            { market_type:'souk',   market_segment:'jewelry', continent:'Asia',          country:'AE', city:'Dubai',     market_name:'Dubai Gold Souk',        hs_chapters_traded:['7113','7116'], daily_volume_kg:5000,  buyer_types:['retail','wholesale','export'], sheikha_integrated:true },
+            { market_type:'bourse', market_segment:'gold',    continent:'Asia',          country:'CN', city:'Shanghai',  market_name:'Shanghai Gold Exchange',  hs_chapters_traded:['7108.12','7108.13','7106.91'], daily_volume_kg:12000, buyer_types:['central_bank','jeweler','investor'] },
+            { market_type:'bourse', market_segment:'gold',    continent:'Europe',        country:'GB', city:'London',    market_name:'London Bullion Market',   hs_chapters_traded:['7108','7106'], daily_volume_kg:18000, buyer_types:['central_bank','investor','bank'], sheikha_integrated:true },
+            { market_type:'bourse', market_segment:'gold',    continent:'North America', country:'US', city:'New York',  market_name:'COMEX Gold',              hs_chapters_traded:['7108'], daily_volume_kg:15000, buyer_types:['investor','bank','hedge_fund'] },
+            { market_type:'souk',   market_segment:'jewelry', continent:'Asia',          country:'IN', city:'Mumbai',    market_name:'Zaveri Bazaar',           hs_chapters_traded:['7113','7116'], daily_volume_kg:3000,  buyer_types:['retail','wholesale','export'] },
+            { market_type:'souk',   market_segment:'jewelry', continent:'Asia',          country:'SA', city:'Riyadh',    market_name:'سوق الذهب الرياض',       hs_chapters_traded:['7113','7116'], daily_volume_kg:1500,  buyer_types:['retail','wholesale'], sheikha_integrated:true },
+            { market_type:'souk',   market_segment:'jewelry', continent:'Asia',          country:'SA', city:'Jeddah',    market_name:'سوق الذهب جدة',          hs_chapters_traded:['7113','7116'], daily_volume_kg:2000,  buyer_types:['retail','wholesale','export'], sheikha_integrated:true },
+            { market_type:'retail_hub', market_segment:'jewelry', continent:'Europe',   country:'IT', city:'Vicenza',   market_name:'Vicenza Oro',             hs_chapters_traded:['7113'], daily_volume_kg:800, buyer_types:['wholesale','export'] },
+            { market_type:'bourse', market_segment:'gold',    continent:'Asia',          country:'JP', city:'Tokyo',     market_name:'Tokyo Commodity Exchange', hs_chapters_traded:['7108'], daily_volume_kg:4000, buyer_types:['investor','bank'] },
+        ];
+        // ── شركات النقل المؤمن ────────────────────────────────────────────────────
+        const transport = [
+            { company_name:'Brinks Global Services',    continents_covered:['North America','Europe','Asia','Africa','South America'], countries_active:['US','GB','CH','AE','SG','ZA','BR'], service_types:['armored_air','vault_to_vault','mine_pickup'], hs_chapters_allowed:['7108','7106','7110','7113'], max_insurance_usd:500000000, grade_tier:1, certifications:['ISO9001'] },
+            { company_name:'Malca-Amit Global',         continents_covered:['Europe','Asia','North America','Africa'],                countries_active:['GB','CH','HK','US','AE','ZA'],      service_types:['armored_air','vault_to_vault'],                hs_chapters_allowed:['7108','7106','7113','7116'], max_insurance_usd:300000000, grade_tier:1, certifications:['TAPA'] },
+            { company_name:'Loomis International',      continents_covered:['Europe','North America'],                               countries_active:['SE','DE','FR','US','GB'],            service_types:['armored_ground','vault_to_vault'],            hs_chapters_allowed:['7108','7106'],              max_insurance_usd:200000000, grade_tier:2, certifications:['ISO9001'] },
+            { company_name:'Transguard Group',          continents_covered:['Asia'],                                                 countries_active:['AE','SA','KW','BH'],                 service_types:['armored_air','vault_to_vault','mine_pickup'], hs_chapters_allowed:['7108','7106','7110','7113'], max_insurance_usd:100000000, grade_tier:1, certifications:['ISO9001'] },
+            { company_name:'Ferrari International (GS)',continents_covered:['Europe','Asia','Africa'],                               countries_active:['IT','CH','AE','SG','ZA'],            service_types:['armored_air','door_to_door'],                 hs_chapters_allowed:['7108','7113'],              max_insurance_usd:150000000, grade_tier:2, certifications:['TAPA'] },
+        ];
+
+        for (const m of mines)      this.registerPreciousSource(m);
+        for (const r of refineries) this.registerPreciousSource(r);
+        for (const mkt of markets)  this.registerGlobalMarket(mkt);
+        for (const t of transport)  this.registerSecureTransport(t);
+    }
+
 }
 
 module.exports = SheikhMetaEngine;
