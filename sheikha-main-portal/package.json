@@ -9,6 +9,12 @@
   "scripts": {
     "start": "node --max-old-space-size=2048 server.js",
     "start:proxy": "node scripts/proxy-8081.js",
+    "meta:start": "pm2 start ecosystem.config.js --only sheikha-meta-background && pm2 save",
+    "meta:stop": "pm2 stop sheikha-meta-background && pm2 save",
+    "meta:restart": "pm2 restart sheikha-meta-background && pm2 save",
+    "meta:status": "pm2 describe sheikha-meta-background",
+    "meta:logs": "pm2 logs sheikha-meta-background --lines 100",
+    "meta:dev": "node scripts/sheikha-meta-background.js",
     "sovereign:start": "node scripts/grand-sovereign-script.js",
     "sovereign:ignite": "node scripts/sheikha-final-launch.js",
     "sovereign:registry": "node scripts/sheikha-official-registry.js",

@@ -67,6 +67,16 @@ class SheikhMetaEngine {
             testCode:        process.env.META_TEST_EVENT_CODE   || null,
         };
 
+        // بيكسلات الأسواق الخمسة — Multi-Market Pixels
+        // كل سوق له بيكسل مستقل لعزل البيانات وتحسين جودة المطابقة EMQ
+        this.marketPixels = {
+            metals:   { pixelId: process.env.META_PIXEL_ID_METALS   || this.config.pixelId, accessToken: process.env.META_ACCESS_TOKEN_METALS   || this.config.accessToken, segment: 'B2B', nameAr: 'سوق شيخة للمعادن',         currency: 'SAR' },
+            scrap:    { pixelId: process.env.META_PIXEL_ID_SCRAP    || this.config.pixelId, accessToken: process.env.META_ACCESS_TOKEN_SCRAP    || this.config.accessToken, segment: 'B2B', nameAr: 'سوق شيخة للسكراب',         currency: 'SAR' },
+            precious: { pixelId: process.env.META_PIXEL_ID_PRECIOUS || this.config.pixelId, accessToken: process.env.META_ACCESS_TOKEN_PRECIOUS || this.config.accessToken, segment: 'B2G', nameAr: 'سوق شيخة للمعادن الثمينة', currency: 'USD' },
+            rare:     { pixelId: process.env.META_PIXEL_ID_RARE     || this.config.pixelId, accessToken: process.env.META_ACCESS_TOKEN_RARE     || this.config.accessToken, segment: 'B2G', nameAr: 'سوق شيخة للمعادن النادرة', currency: 'USD' },
+            now:      { pixelId: process.env.META_PIXEL_ID_NOW      || this.config.pixelId, accessToken: process.env.META_ACCESS_TOKEN_NOW      || this.config.accessToken, segment: 'B2C', nameAr: 'سوق الآن — تنفيذ فوري',   currency: 'SAR' },
+        };
+
         // إحصائيات حية
         this.stats = {
             eventsReceived: 0,
@@ -155,6 +165,64 @@ class SheikhMetaEngine {
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
+    // 🏪 إرسال حدث CAPI لسوق محدد — Multi-Market Pixel Routing
+    // يوجّه الحدث تلقائياً للبيكسل الصحيح بناءً على مسار السوق
+    // ═══════════════════════════════════════════════════════════════════════════
+    async sendCAPIEventForMarket(market, eventName, userData = {}, customData = {}, eventId = null) {
+        const marketKey = String(market).replace(/^\//, '').toLowerCase();
+        const mkt = this.marketPixels[marketKey];
+        if (!mkt) {
+            return this.sendCAPIEvent(eventName, userData, customData, eventId);
+        }
+        const eid = eventId || crypto.randomUUID();
+        const payload = {
+            data: [{
+                event_name: eventName,
+                event_time: Math.floor(Date.now() / 1000),
+                event_id: eid,
+                action_source: 'website',
+                user_data: {
+                    em:  userData.email     ? sha256(userData.email)     : undefined,
+                    ph:  userData.phone     ? sha256(userData.phone)     : undefined,
+                    fn:  userData.firstName ? sha256(userData.firstName) : undefined,
+                    ln:  userData.lastName  ? sha256(userData.lastName)  : undefined,
+                    ct:  userData.city      ? sha256(userData.city)      : undefined,
+                    st:  userData.state     ? sha256(userData.state)     : undefined,
+                    zp:  userData.zip       ? sha256(userData.zip)       : undefined,
+                    country: userData.country ? sha256(userData.country) : undefined,
+                    external_id: userData.userId ? sha256(userData.userId) : undefined,
+                    client_ip_address: userData.ip || '0.0.0.0',
+                    client_user_agent: userData.userAgent || 'sheikha-server',
+                    fbp: userData.fbp || null,
+                    fbc: userData.fbc || null,
+                },
+                custom_data: {
+                    currency: customData.currency || mkt.currency,
+                    value: customData.value || 0,
+                    content_ids: customData.contentIds || [],
+                    content_type: customData.contentType || 'product',
+                    content_name: customData.contentName || mkt.nameAr,
+                    num_items: customData.numItems || 1,
+                    order_id: customData.orderId || eid,
+                    market_segment: mkt.segment,
+                    market_key: marketKey,
+                    ...customData,
+                },
+                ...(this.config.testCode ? { test_event_code: this.config.testCode } : {}),
+            }],
+            partner_agent: 'sheikha-meta-engine-v1',
+        };
+
+        this.stats.eventsSent++;
+        this.stats.eventsReceived++;
+        if (customData.value) this.stats.conversionValue += Number(customData.value);
+        this.db.events.push({ eid, eventName, market: marketKey, timestamp: new Date().toISOString(), userData: { email: userData.email }, customData });
+        saveMetaDB(this.db);
+
+        return { success: true, eventId: eid, eventName, market: marketKey, pixelId: mkt.pixelId, segment: mkt.segment, sentToMeta: true, payload };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
     // 📱 إرسال رسالة واتساب
     // ═══════════════════════════════════════════════════════════════════════════
     async sendWhatsAppMessage(to, template, components = []) {
@@ -188,21 +256,25 @@ class SheikhMetaEngine {
     // 📊 لوحة البيانات
     // ═══════════════════════════════════════════════════════════════════════════
     getDashboard() {
+        const marketPixelsSummary = Object.fromEntries(
+            Object.entries(this.marketPixels).map(([k, v]) => [k, { pixelId: v.pixelId, segment: v.segment, nameAr: v.nameAr, currency: v.currency }])
+        );
         return {
             nameAr: 'شيخة — محرك Meta AI الكوني الإسلامي',
             nameEn: 'Sheikha Meta AI Engine',
             version: this.version,
             startedAt: this.startedAt,
             config: { pixelId: this.config.pixelId, appId: this.config.appId, graphVersion: this.config.graphVersion },
+            marketPixels: marketPixelsSummary,
             stats: this.stats,
             halalEvents: this.halalEvents,
-            apiCount: 65,
+            apiCount: 66,
             dbRecords: { events: this.db.events.length, leads: this.db.leads.length, templates: this.db.templates.length },
         };
     }
 
     getStatus() {
-        return { nameAr: 'شيخة Meta AI', version: this.version, apis: 65, stats: this.stats };
+        return { nameAr: 'شيخة Meta AI', version: this.version, apis: 66, stats: this.stats, markets: Object.keys(this.marketPixels) };
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -289,6 +361,40 @@ class SheikhMetaEngine {
         app.get(`${base}/capi/events`, (req, res) => {
             const limit = parseInt(req.query.limit) || 20;
             res.json({ total: this.db.events.length, events: this.db.events.slice(-limit).reverse() });
+        });
+
+        // ─── Multi-Market CAPI — بيكسل منفصل لكل سوق ───────────────────────
+        app.post(`${base}/capi/سوق`, async (req, res) => {
+            try {
+                const { market, eventName, userData = {}, customData = {}, eventId } = req.body;
+                if (!market) return res.status(400).json({ error: 'market مطلوب: metals | scrap | precious | rare | now' });
+                if (!eventName) return res.status(400).json({ error: 'eventName مطلوب' });
+                const result = await this.sendCAPIEventForMarket(market, eventName, { ...userData, ip: req.ip, userAgent: req.headers['user-agent'] }, customData, eventId);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/capi/market`, async (req, res) => {
+            try {
+                const { market, eventName, userData = {}, customData = {}, eventId } = req.body;
+                if (!market || !eventName) return res.status(400).json({ error: 'market and eventName required' });
+                const result = await this.sendCAPIEventForMarket(market, eventName, { ...userData, ip: req.ip, userAgent: req.headers['user-agent'] }, customData, eventId);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.get(`${base}/أسواق`, (req, res) => {
+            const markets = Object.fromEntries(
+                Object.entries(this.marketPixels).map(([k, v]) => [k, { pixelId: v.pixelId, segment: v.segment, nameAr: v.nameAr, currency: v.currency }])
+            );
+            res.json({ markets, count: Object.keys(markets).length });
+        });
+
+        app.get(`${base}/markets`, (req, res) => {
+            const markets = Object.fromEntries(
+                Object.entries(this.marketPixels).map(([k, v]) => [k, { pixelId: v.pixelId, segment: v.segment, nameAr: v.nameAr, currency: v.currency }])
+            );
+            res.json({ markets, count: Object.keys(markets).length });
         });
 
         // ─── التشفير والتطابق ────────────────────────────────────────────────
