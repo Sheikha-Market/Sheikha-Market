@@ -214,7 +214,7 @@ class SheikhMetaEngine {
                     zp:  userData.zip     ? sha256(userData.zip)     : undefined,
                     country: userData.country ? sha256(userData.country) : undefined,
                     external_id: userData.userId ? sha256(userData.userId) : undefined,
-                    client_ip_address: userData.ip || '0.0.0.0',
+                    client_ip_address: userData.ip || undefined,
                     client_user_agent: userData.userAgent || 'sheikha-server',
                     fbp: userData.fbp || null,
                     fbc: userData.fbc || null,
@@ -284,7 +284,7 @@ class SheikhMetaEngine {
                     zp:  userData.zip       ? sha256(userData.zip)       : undefined,
                     country: userData.country ? sha256(userData.country) : undefined,
                     external_id: userData.userId ? sha256(userData.userId) : undefined,
-                    client_ip_address: userData.ip || '0.0.0.0',
+                    client_ip_address: userData.ip || undefined,
                     client_user_agent: userData.userAgent || 'sheikha-server',
                     fbp: userData.fbp || null,
                     fbc: userData.fbc || null,
@@ -590,13 +590,8 @@ class SheikhMetaEngine {
                     zp:  userData.zip       ? sha256(userData.zip)       : undefined,
                     country: userData.country ? sha256(userData.country) : undefined,
                     external_id: userData.userId ? sha256(userData.userId) : undefined,
-                    client_ip_address: userData.ip || '0.0.0.0',
+                    client_ip_address: userData.ip || undefined,
                     client_user_agent: userData.userAgent || 'sheikha-server',
-                    fbp: userData.fbp || null,
-                    fbc: userData.fbc || null,
-                },
-                custom_data: {
-                    currency: customData.currency || region.currency,
                     value: customData.value || 0,
                     content_ids: customData.contentIds || [],
                     content_type: customData.contentType || 'product',
@@ -715,7 +710,9 @@ class SheikhMetaEngine {
     _loadConsentDB() {
         try {
             if (fs.existsSync(this.consentDBPath)) return JSON.parse(fs.readFileSync(this.consentDBPath, 'utf8'));
-        } catch (_) {}
+        } catch (err) {
+            console.error('[SheikhMetaEngine] فشل تحميل قاعدة بيانات الموافقات:', err.message);
+        }
         return { consents: {} };
     }
 
@@ -746,7 +743,7 @@ class SheikhMetaEngine {
     }
 
     checkConsent(userId, purpose = 'advertising') {
-        if (!userId) return true; // anonymous users are not blocked
+        if (!userId) return true; // يُسمح بمرور الأحداث المجهولة (لا PII) — تحقق يُطبَّق فقط على مستخدمين معروفين
         const hashedId = sha256(String(userId));
         const consent = this.consentDB.consents[hashedId];
         if (!consent) return false;
@@ -767,12 +764,17 @@ class SheikhMetaEngine {
     // 📊 لوحة المقاييس التنفيذية — Executive KPI Dashboard
     // ═══════════════════════════════════════════════════════════════════════════
     getExecutiveKPIs() {
+        // ESTIMATED_COST_PER_EVENT_SAR: تقدير متحفظ لتكلفة الحدث بالريال السعودي
+        // يُستخدم للحسابات المبدئية فقط — يُستبدل ببيانات Meta Ads API الفعلية عند توفرها
+        const ESTIMATED_COST_PER_EVENT_SAR = parseFloat(process.env.META_KPI_COST_PER_EVENT) || 15;
+
         const dedupRate   = this.stats.eventsReceived > 0
             ? Math.round(this.stats.eventsDeduplicated / this.stats.eventsReceived * 100) : 0;
+        // EMQ مقياسه 0-10 → ضرب × 10 يحوّله لنسبة مئوية 0-100 لعرض matchRate
         const matchRate   = Math.min(100, Math.round(this.stats.emq * 10));
         const waConvRate  = this.stats.whatsappSent > 0
             ? Math.round((this.stats.leadsCaptures / this.stats.whatsappSent) * 100) : 0;
-        const estimatedSpend = this.stats.eventsSent * 15; // تقديري
+        const estimatedSpend = this.stats.eventsSent * ESTIMATED_COST_PER_EVENT_SAR;
         const roas = estimatedSpend > 0
             ? (this.stats.conversionValue / Math.max(1, estimatedSpend)).toFixed(2) : '0.00';
         const cpa  = this.stats.leadsCaptures > 0
@@ -854,7 +856,7 @@ class SheikhMetaEngine {
         };
         this.auditLog.unshift(entry);
         if (this.auditLog.length > this.maxAuditLogSize) {
-            this.auditLog = this.auditLog.slice(0, this.maxAuditLogSize);
+            this.auditLog.splice(this.maxAuditLogSize); // in-place trim: avoids allocating a new array
         }
         return entry;
     }
@@ -898,6 +900,7 @@ class SheikhMetaEngine {
 
     _parseDelay(delay) {
         if (!delay || delay === '0h') return 0;
+        // وحدات: h = ساعات، d = أيام، m = دقائق (minutes — وليس months)
         const match = String(delay).match(/^(\d+)(h|d|m)$/);
         if (!match) return 0;
         const [, val, unit] = match;
