@@ -921,7 +921,7 @@ class SheikhMetaEngine {
             regions: regionSummary,
             stats: this.stats,
             halalEvents: this.halalEvents,
-            apiCount: 162,
+            apiCount: 163,
             consent: { total: Object.keys(this.consentDB.consents).length },
             auditLog: { entries: this.auditLog.length, maxSize: this.maxAuditLogSize },
             alerts: this.checkAlerts(),
@@ -938,7 +938,7 @@ class SheikhMetaEngine {
         return {
             nameAr: 'شيخة Meta AI',
             version: this.version,
-            apis: 162,
+            apis: 163,
             stats: this.stats,
             markets: Object.keys(this.marketPixels),
             regions: Object.keys(this.regionConfig),
@@ -3127,7 +3127,65 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
             } catch (e) { res.status(500).json({ error: e.message }); }
         });
 
-        console.log(`✅ [SheikhMetaEngine] 172 مسار API مُسجَّل | Base: ${base}`);
+        // ─── مركز القيادة — Command Center (3 عدادات حية) ──────────────────────────
+        // GET /core/command-center — يعيد: Market Vibe + AI Assets Generated + Automated Revenue
+        app.get(`${base}/core/command-center`, async (req, res) => {
+            try {
+                const hs_chapter = req.query.hs_chapter || '7108';
+                const region     = req.query.region     || 'Global';
+
+                // نبضة السوق — تُعاد من الذاكرة إذا تم تحليلها سابقاً
+                const vibe = this._vibesStats.last_market_vibe
+                    ? { ...this._vibesStats.last_market_vibe }
+                    : await this.analyzeMarketVibe(hs_chapter, region);
+
+                res.json({
+                    command_center: 'Sheikha Sovereign Command Center',
+                    founder:        this.SHEIKHA_AUTHORITY.FOUNDER,
+                    timestamp:      new Date().toISOString(),
+                    // العداد 1: مزاج السوق
+                    market_vibe: {
+                        label:           'Market Vibe — مزاج السوق الآن',
+                        hs_chapter:      vibe.hs_chapter   || hs_chapter,
+                        region:          vibe.region        || region,
+                        metal:           vibe.metal         || `HS ${hs_chapter}`,
+                        sentiment:       vibe.sentiment,
+                        confidence:      vibe.confidence,
+                        risk:            vibe.risk,
+                        recommendation:  vibe.recommendation,
+                        best_time_to_sell: vibe.best_time_to_sell,
+                        last_updated:    vibe.timestamp     || new Date().toISOString(),
+                    },
+                    // العداد 2: الأصول الرقمية المولّدة اليوم
+                    ai_assets_generated: {
+                        label:  'AI Assets Generated — عروض وفيديوهات شيخة اليوم',
+                        count:  this._vibesStats.ai_assets_generated,
+                        vibes_key_active:   !!process.env.VIBES_API_KEY,
+                        meta_ai_key_active: !!process.env.META_AI_KEY,
+                    },
+                    // العداد 3: الإيرادات الآلية
+                    automated_revenue: {
+                        label:        'Automated Revenue — دخل الأتمتة',
+                        usd:          this._vibesStats.automated_revenue_usd,
+                        events_sent:  this.stats.eventsSent,
+                        conversion_value: this.stats.conversionValue,
+                    },
+                    // حالة التكاملات
+                    integrations: {
+                        vibes_ai:        !!process.env.VIBES_API_KEY ? 'active' : 'pending — أضف VIBES_API_KEY',
+                        meta_ai_demos:   !!process.env.META_AI_KEY   ? 'active' : 'pending — أضف META_AI_KEY',
+                        whatsapp:        !!(process.env.WHATSAPP_BUSINESS_TOKEN && process.env.WHATSAPP_PHONE_ID) ? 'active' : 'pending — أضف WHATSAPP_BUSINESS_TOKEN + WHATSAPP_PHONE_ID',
+                        google_calendar: !!process.env.GOOGLE_OAUTH_TOKEN    ? 'active' : 'pending — أضف GOOGLE_OAUTH_TOKEN',
+                        outlook:         !!process.env.OUTLOOK_OAUTH_TOKEN   ? 'active' : 'pending — أضف OUTLOOK_OAUTH_TOKEN',
+                        ultra_mode:      process.env.SHEIKHA_ULTRA_MODE === 'true' ? 'ACTIVE' : 'MANUAL',
+                        capi:            this.config.automationApproved ? 'LIVE → Meta Graph API' : 'LOCAL → set META_AUTOMATION_APPROVED=true للإنتاج',
+                    },
+                    doctrine: this.SHEIKHA_DOCTRINE.FOUNDER_OATH,
+                });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        console.log(`✅ [SheikhMetaEngine] 173 مسار API مُسجَّل | Base: ${base}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
