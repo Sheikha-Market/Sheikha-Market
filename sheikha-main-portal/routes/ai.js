@@ -12,8 +12,38 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios');
 const config = require('../config/config');
 const SheikhaOllamaOrchestrator = require('../lib/sheikha-ollama-orchestrator');
+
+const vibesApiBaseUrl = process.env.VIBES_API_BASE_URL || 'https://api.vibes.ai/v1';
+const metaAIDemosApiBaseUrl = process.env.META_AI_DEMOS_API_BASE_URL || 'https://www.aidemos.meta.com/api';
+
+function isUltraModeEnabled() {
+    const value = String(process.env.SHEIKHA_ULTRA_MODE || '').toLowerCase();
+    return value === 'true' || value === '1';
+}
+
+function integrationGuard(res) {
+    if (!isUltraModeEnabled()) {
+        res.status(403).json({
+            success: false,
+            message: 'SHEIKHA_ULTRA_MODE غير مفعّل',
+            code: 'ULTRA_MODE_DISABLED',
+            timestamp: new Date().toISOString()
+        });
+        return false;
+    }
+
+    return true;
+}
+
+function buildBearerHeader(token) {
+    return {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+}
 
 // ─── استيراد المحركات الأساسية ───────────────────────────────────────────────
 let SheikaAIEngine = null;
@@ -183,6 +213,207 @@ router.get('/status', (req, res) => {
         routing: config.ai.routing,
         mode: config.ai.mode
     });
+});
+
+router.get('/integrations/status', (req, res) => {
+    const ultraMode = isUltraModeEnabled();
+    const vibesConfigured = Boolean(process.env.VIBES_API_KEY);
+    const metaAIDemosConfigured = Boolean(process.env.META_AI_KEY);
+
+    res.json({
+        success: true,
+        data: {
+            ultraMode,
+            vibes: {
+                enabled: ultraMode && vibesConfigured,
+                baseUrl: vibesApiBaseUrl,
+                configured: vibesConfigured
+            },
+            metaAIDemos: {
+                enabled: ultraMode && metaAIDemosConfigured,
+                baseUrl: metaAIDemosApiBaseUrl,
+                configured: metaAIDemosConfigured
+            }
+        },
+        message: 'حالة التكاملات الخارجية',
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.post('/integrations/vibes/market-sentiment', async (req, res) => {
+    if (!integrationGuard(res)) return;
+
+    const apiKey = process.env.VIBES_API_KEY || '';
+    const { hs_chapter: hsChapter, region } = req.body || {};
+
+    if (!apiKey) {
+        return res.status(503).json({
+            success: false,
+            message: 'VIBES_API_KEY غير مضبوط',
+            code: 'VIBES_KEY_MISSING',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    if (!hsChapter || !region) {
+        return res.status(400).json({
+            success: false,
+            message: 'المدخلات ناقصة: hs_chapter و region مطلوبان',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    try {
+        const response = await axios.post(
+            `${vibesApiBaseUrl}/market-sentiment`,
+            {
+                query: `${hsChapter} market ${region}`,
+                source: 'Sheikha Sovereign Core'
+            },
+            {
+                headers: buildBearerHeader(apiKey),
+                timeout: 15000
+            }
+        );
+
+        const vibe = response.data || {};
+        const recommendation = vibe.sentiment === 'Bullish' && Number(vibe.confidence || 0) > 0.9
+            ? 'تنفيذ فوري'
+            : 'انتظار';
+
+        return res.json({
+            success: true,
+            data: {
+                marketVibe: vibe,
+                recommendation
+            },
+            message: 'تم تحليل مزاج السوق بنجاح',
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        return res.status(502).json({
+            success: false,
+            message: 'فشل الاتصال مع Vibes AI',
+            details: error.response?.data || error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
+router.post('/integrations/meta-ai/generate-deck', async (req, res) => {
+    if (!integrationGuard(res)) return;
+
+    const apiKey = process.env.META_AI_KEY || '';
+    const { project_name: projectName, capex = 'N/A', language = 'ar' } = req.body || {};
+
+    if (!apiKey) {
+        return res.status(503).json({
+            success: false,
+            message: 'META_AI_KEY غير مضبوط',
+            code: 'META_AI_KEY_MISSING',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    if (!projectName) {
+        return res.status(400).json({
+            success: false,
+            message: 'project_name مطلوب لتوليد العرض',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    try {
+        const response = await axios.post(
+            `${metaAIDemosApiBaseUrl}/generate-deck`,
+            {
+                prompt: `Create executive deck for bankable feasibility study. Project: ${projectName}. CAPEX: ${capex}. Doctrine: بلا ضرر ولا ضرار.`,
+                template: 'sovereign_investment',
+                branding: 'Sheikha',
+                language
+            },
+            {
+                headers: buildBearerHeader(apiKey),
+                timeout: 20000
+            }
+        );
+
+        return res.json({
+            success: true,
+            data: {
+                deck: response.data
+            },
+            message: 'تم توليد العرض التنفيذي',
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        return res.status(502).json({
+            success: false,
+            message: 'فشل الاتصال مع Meta AI Demos (Deck)',
+            details: error.response?.data || error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
+router.post('/integrations/meta-ai/create-video', async (req, res) => {
+    if (!integrationGuard(res)) return;
+
+    const apiKey = process.env.META_AI_KEY || '';
+    const {
+        mine_name: mineName,
+        country,
+        orientation = 'landscape',
+        reference_image_id: referenceImageId = null
+    } = req.body || {};
+
+    if (!apiKey) {
+        return res.status(503).json({
+            success: false,
+            message: 'META_AI_KEY غير مضبوط',
+            code: 'META_AI_KEY_MISSING',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    if (!mineName || !country) {
+        return res.status(400).json({
+            success: false,
+            message: 'mine_name و country مطلوبان',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    try {
+        const response = await axios.post(
+            `${metaAIDemosApiBaseUrl}/create_video`,
+            {
+                prompt: `Cinematic aerial view of ${mineName} mine in ${country}. Text overlay: معتمد من شبكة شيخة السيادية.`,
+                reference_image_id: referenceImageId,
+                orientation
+            },
+            {
+                headers: buildBearerHeader(apiKey),
+                timeout: 20000
+            }
+        );
+
+        return res.json({
+            success: true,
+            data: {
+                video: response.data
+            },
+            message: 'تم توليد الفيديو بنجاح',
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        return res.status(502).json({
+            success: false,
+            message: 'فشل الاتصال مع Meta AI Demos (Video)',
+            details: error.response?.data || error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
 });
 
 router.get('/model-strategy', (req, res) => {

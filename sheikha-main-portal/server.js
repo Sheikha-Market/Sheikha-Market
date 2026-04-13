@@ -170,18 +170,14 @@ console.log('⏸️ [LAZY] Navigator — سيُحمّل عند الطلب');
 // ═══ MARKETING ENGINE ═══
 // ═══ P0-1: LAZY — محرك تسويق (L2) ═══
 let marketingEngine = null;
-/* LAZY-DISABLED:
 try {
-    // P0-1: LAZY-DISABLED (UNKNOWN) - sheikha-marketing-engine.js
-    // const SheikaMarketingEngine = require('./lib/sheikha-marketing-engine.js');
-    console.log('⏸️ [LAZY] sheikha-marketing-engine.js — سيُحمّل عند الطلب');
+    const SheikaMarketingEngine = require('./lib/sheikha-marketing-engine.js');
     marketingEngine = new SheikaMarketingEngine(__dirname);
     console.log('✅ Marketing Engine — محرك التسويق الرقمي مفعّل');
 } catch (e) {
     console.log('⚠️ Marketing Engine غير متوفر:', e.message);
 }
-*/
-console.log('⏸️ [LAZY] Marketing Engine — سيُحمّل عند الطلب');
+console.log('✅ Marketing Engine — محرك التسويق الرقمي جاهز');
 
 // ═══ PILOT MODE ENGINE — نظام التشغيل التجريبي ═══
 // ✅ L0 CRITICAL — يُحمّل فوراً
@@ -787,9 +783,7 @@ try {
 // ☪️ محرك التزامن والرزنامة — التاريخ الهجري أساسي
 let calendarEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-calendar-engine.js
-    /*     const SheikhaCalendarEngine = require('./lib/sheikha-calendar-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-calendar-engine.js — سيُحمّل عند الطلب');
+    const SheikhaCalendarEngine = require('./lib/sheikha-calendar-engine.js');
     calendarEngine = new SheikhaCalendarEngine();
     const cal = calendarEngine.getDashboard();
     console.log(
@@ -19280,6 +19274,378 @@ app.post('/api/marketing/calculate-price', express.json(), (req, res) => {
     });
 });
 
+// ═══════════════════════════════════════════════════════════
+// حسابات التواصل الاجتماعي — Social Media Accounts API
+// بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+// ═══════════════════════════════════════════════════════════
+
+const SOCIAL_ACCOUNTS_PATH = path.join(__dirname, 'data', 'sheikha-social-media-accounts.json');
+let socialAccountsData = null;
+try {
+    socialAccountsData = JSON.parse(fs.readFileSync(SOCIAL_ACCOUNTS_PATH, 'utf8'));
+    console.log('✅ Social Media Accounts — حسابات التواصل الاجتماعي محملة:', Object.keys(socialAccountsData.accounts || {}).length, 'حساب');
+} catch (e) {
+    console.log('⚠️ Social Media Accounts — لم يُحمَّل:', e.message);
+    socialAccountsData = { accounts: {}, totals: { active_accounts: 0 } };
+}
+
+// جميع حسابات التواصل الاجتماعي
+app.get('/api/social/accounts', (req, res) => {
+    const platform = req.query.platform;
+    if (platform) {
+        const account = socialAccountsData.accounts?.[platform];
+        if (!account) return res.status(404).json({ success: false, message: 'المنصة غير موجودة' });
+        return res.json({ success: true, account, timestamp: new Date().toISOString() });
+    }
+    res.json({
+        success: true,
+        accounts: socialAccountsData.accounts || {},
+        totals: socialAccountsData.totals || {},
+        meta_ecosystem: socialAccountsData.meta_ecosystem || {},
+        sharia_compliance: socialAccountsData.sharia_compliance || {},
+        timestamp: new Date().toISOString()
+    });
+});
+
+// حالة تكامل المنصات
+app.get('/api/social/status', (req, res) => {
+    const accounts = socialAccountsData.accounts || {};
+    const status = Object.entries(accounts).map(([key, acc]) => ({
+        platform: key,
+        name: acc.platform_ar || acc.platform,
+        handle: acc.handle,
+        url: acc.url,
+        status: acc.status,
+        type: acc.type,
+        activatedAt: acc.activatedAt
+    }));
+    res.json({
+        success: true,
+        total: status.length,
+        active: status.filter(s => s.status === 'active').length,
+        accounts: status,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// قدرات التسويق الرقمي الكاملة
+app.get('/api/social/capabilities', (req, res) => {
+    const platform = req.query.platform;
+    const accounts = socialAccountsData.accounts || {};
+    if (platform) {
+        const acc = accounts[platform];
+        if (!acc) return res.status(404).json({ success: false, message: 'المنصة غير موجودة' });
+        return res.json({
+            success: true,
+            platform,
+            capabilities: acc.capabilities || [],
+            integration: acc.integration || {},
+            مرجع_شرعي: acc['مرجع_شرعي'] || ''
+        });
+    }
+    const allCapabilities = {};
+    Object.entries(accounts).forEach(([key, acc]) => {
+        allCapabilities[key] = {
+            name: acc.platform_ar || acc.platform,
+            capabilities: acc.capabilities || [],
+            مرجع_شرعي: acc['مرجع_شرعي'] || ''
+        };
+    });
+    res.json({ success: true, capabilities: allCapabilities, timestamp: new Date().toISOString() });
+});
+
+// منظومة Meta المتكاملة
+app.get('/api/social/meta-ecosystem', (req, res) => {
+    const managedFromConfig = socialAccountsData.meta_ecosystem?.platforms;
+    const managedPlatforms = Array.isArray(managedFromConfig) && managedFromConfig.length > 0
+        ? managedFromConfig
+        : ['facebook', 'instagram', 'whatsapp', 'threads', 'meta_horizon', 'linkedin'];
+
+    res.json({
+        success: true,
+        ecosystem: socialAccountsData.meta_ecosystem || {},
+        platforms: managedPlatforms.map(key => ({
+            key,
+            ...socialAccountsData.accounts?.[key]
+        })),
+        timestamp: new Date().toISOString()
+    });
+});
+
+// تكامل الذكاء الصناعي متعدد القنوات (Grok/OpenAI/Gemini/Claude)
+app.get('/api/social/ai-orchestration', (req, res) => {
+    const ai = socialAccountsData.marketing_capabilities?.ai_orchestration || {};
+    res.json({
+        success: true,
+        active: ai.active === true,
+        providers: ai.providers || [],
+        channels: ai.channels || [],
+        automation_mode: ai.automation_mode || 'unknown',
+        content_pipeline: ai.content_pipeline || [],
+        governance: ai.governance || {},
+        timestamp: new Date().toISOString()
+    });
+});
+
+// مؤشر جاهزية التسويق
+app.get('/api/social/marketing-readiness', (req, res) => {
+    const accounts = socialAccountsData.accounts || {};
+    const marketing = socialAccountsData.marketing_capabilities || {};
+    const totalPlatforms = Object.keys(accounts).length;
+    const activePlatforms = Object.values(accounts).filter(a => a.status === 'active').length;
+    const readiness = totalPlatforms > 0 ? Math.round((activePlatforms / totalPlatforms) * 100) : 0;
+    res.json({
+        success: true,
+        readiness_percent: readiness,
+        active_platforms: activePlatforms,
+        total_platforms: totalPlatforms,
+        marketing_capabilities: marketing,
+        sharia_compliance: socialAccountsData.sharia_compliance || {},
+        مرجع_شرعي: socialAccountsData.مرجع_شرعي || {},
+        last_updated: socialAccountsData.lastUpdated,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════════════════════
+// Meta Business Profile + Products + Integrations API
+// ═══════════════════════════════════════════════════════════
+const META_PROFILE_PATH = path.join(__dirname, 'data', 'sheikha-meta-business-profile.json');
+const META_PRODUCTS_PATH = path.join(__dirname, 'data', 'sheikha-meta-products-catalog.json');
+const META_INTEGRATIONS_PATH = path.join(__dirname, 'data', 'sheikha-meta-integrations.json');
+
+function readJsonSafe(filePath, fallback) {
+    try {
+        return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    } catch (e) {
+        return fallback;
+    }
+}
+
+app.get('/api/meta/profile', (req, res) => {
+    const profile = readJsonSafe(META_PROFILE_PATH, { status: 'missing' });
+    res.json({ success: true, data: profile, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/meta/products', (req, res) => {
+    const catalog = readJsonSafe(META_PRODUCTS_PATH, { products: [] });
+    res.json({ success: true, data: catalog, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/meta/integrations', (req, res) => {
+    const integrations = readJsonSafe(META_INTEGRATIONS_PATH, {});
+    res.json({ success: true, data: integrations, timestamp: new Date().toISOString() });
+});
+
+app.get('/api/meta/readiness', (req, res) => {
+    const profile = readJsonSafe(META_PROFILE_PATH, {});
+    const products = readJsonSafe(META_PRODUCTS_PATH, { products: [] });
+    const integrations = readJsonSafe(META_INTEGRATIONS_PATH, {});
+
+    const checklist = profile.profileChecklist || {};
+    const checklistKeys = Object.keys(checklist);
+    const checklistDone = checklistKeys.filter((k) => checklist[k] === true).length;
+    const checklistPercent = checklistKeys.length > 0 ? Math.round((checklistDone / checklistKeys.length) * 100) : 0;
+
+    const integrationFlags = [
+        integrations.pixel?.enabled,
+        integrations.conversionsApi?.enabled,
+        integrations.crm?.enabled,
+        integrations.automation?.enabled
+    ];
+    const integrationsDone = integrationFlags.filter(Boolean).length;
+    const integrationPercent = Math.round((integrationsDone / 4) * 100);
+
+    const productsCount = Array.isArray(products.products) ? products.products.length : 0;
+    const productsReady = productsCount > 0 ? 100 : 0;
+
+    const requiredEnv = [
+        integrations.pixel?.pixelIdEnv || 'META_PIXEL_ID',
+        integrations.conversionsApi?.accessTokenEnv || 'META_CAPI_ACCESS_TOKEN'
+    ];
+    const envStatus = requiredEnv.map((key) => ({
+        key,
+        configured: Boolean(process.env[key])
+    }));
+    const envPercent = requiredEnv.length > 0
+        ? Math.round((envStatus.filter((item) => item.configured).length / requiredEnv.length) * 100)
+        : 0;
+
+    const weighted = Math.round(((checklistPercent * 30) + (integrationPercent * 25) + (productsReady * 25) + (envPercent * 20)) / 100);
+
+    const readiness = weighted;
+
+    const nextActions = [];
+    if (productsCount === 0) nextActions.push('أضف منتجات للكتالوج قبل التفعيل الإعلاني');
+    if (!envStatus.find((x) => x.key === 'META_PIXEL_ID')?.configured) nextActions.push('أضف META_PIXEL_ID في البيئة السرية');
+    if (!envStatus.find((x) => x.key === 'META_CAPI_ACCESS_TOKEN')?.configured) nextActions.push('أضف META_CAPI_ACCESS_TOKEN في البيئة السرية');
+    if (nextActions.length === 0) nextActions.push('النظام جاهز: ابدأ اختبار حملة Leads مع تتبع Pixel+CAPI');
+
+    res.json({
+        success: true,
+        readiness_percent: readiness,
+        profile_checklist_percent: checklistPercent,
+        integrations_percent: integrationPercent,
+        env_percent: envPercent,
+        products_count: productsCount,
+        components: {
+            profile: profile.metaBusiness?.status || 'unknown',
+            catalog: products.catalog?.status || 'unknown',
+            pixel: integrations.pixel?.status || 'unknown',
+            conversions_api: integrations.conversionsApi?.status || 'unknown',
+            crm: integrations.crm?.status || 'unknown'
+        },
+        env: envStatus,
+        next_actions: nextActions,
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/meta/activation-plan', (req, res) => {
+    const profile = readJsonSafe(META_PROFILE_PATH, {});
+    const products = readJsonSafe(META_PRODUCTS_PATH, { products: [] });
+    const integrations = readJsonSafe(META_INTEGRATIONS_PATH, {});
+
+    const phases = integrations.activationPlan?.phases || [];
+    const productsCount = Array.isArray(products.products) ? products.products.length : 0;
+    const envRequired = integrations.activationPlan?.requiredEnv || ['META_PIXEL_ID', 'META_CAPI_ACCESS_TOKEN'];
+    const envChecks = envRequired.map((key) => ({ key, configured: Boolean(process.env[key]) }));
+
+    res.json({
+        success: true,
+        status: integrations.activationPlan?.status || 'planned',
+        goal: integrations.activationPlan?.goal || 'Meta activation plan',
+        owner: profile.brand?.owner || profile.metaBusiness?.manager || 'unknown',
+        checkpoints: {
+            products_count: productsCount,
+            catalog_status: products.catalog?.status || 'unknown',
+            pixel_enabled: integrations.pixel?.enabled === true,
+            capi_enabled: integrations.conversionsApi?.enabled === true,
+            crm_enabled: integrations.crm?.enabled === true,
+            env: envChecks
+        },
+        phases,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📜 ENTERPRISE LEGAL CHARTER — الميثاق القانوني والشرعي
+// ═══════════════════════════════════════════════════════════════════════════════
+// مؤسسة سلمان أحمد بن سلمان الراجح التجارية
+// الرقم الموحد: 7049031003
+// الأساس: القرآن والسنة والقوانين السعودية والدولية
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const ENTERPRISE_CHARTER_PATH = path.join(__dirname, 'data', 'sheikha-enterprise-legal-charter.json');
+
+app.get('/api/enterprise/legal-charter', (req, res) => {
+    try {
+        const charter = readJsonSafe(ENTERPRISE_CHARTER_PATH, {});
+        res.json({
+            success: true,
+            charter,
+            enforced: true,
+            jurisdiction: 'Saudi Arabia + International',
+            basis: ['القرآن الكريم', 'السنة النبوية', 'القانون السعودي', 'الاتفاقيات الدولية'],
+            effective_date: '2026-04-11',
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'خطأ في جلب الميثاق القانوني',
+            error: error.message
+        });
+    }
+});
+
+app.get('/api/enterprise/legal-charter/verify', (req, res) => {
+    try {
+        const charter = readJsonSafe(ENTERPRISE_CHARTER_PATH, {});
+        const unified_number = charter.legal_registration?.unified_number;
+        const is_valid = unified_number === '7049031003';
+        
+        const verification = {
+            success: true,
+            charter_active: is_valid,
+            unified_number,
+            enterprise_name: charter.enterprise?.name,
+            owner: charter.enterprise?.owner,
+            governance_framework: {
+                sharia_compliant: true,
+                saudi_law_compliant: true,
+                international_agreements: true,
+                enforcement_active: is_valid
+            },
+            operational_directives: charter.operational_directives || {},
+            verification_status: is_valid ? 'verified' : 'invalid',
+            verification_time: new Date().toISOString(),
+            timestamp: new Date().toISOString()
+        };
+
+        res.json(verification);
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            charter_active: false,
+            message: 'فشل التحقق من الميثاق',
+            error: error.message
+        });
+    }
+});
+
+app.get('/api/enterprise/governance', (req, res) => {
+    try {
+        const charter = readJsonSafe(ENTERPRISE_CHARTER_PATH, {});
+        const socialAccounts = readJsonSafe(path.join(__dirname, 'data', 'sheikha-social-media-accounts.json'), {});
+        
+        const governance = {
+            success: true,
+            enterprise: {
+                name: charter.enterprise?.name_en || 'Sheikha Institution',
+                name_ar: charter.enterprise?.name || 'مؤسسة شيخة',
+                owner: charter.enterprise?.owner,
+                unified_number: charter.legal_registration?.unified_number
+            },
+            legal_framework: {
+                primary_foundation: charter.governance_framework?.primary_foundation || [],
+                compliance_principles: charter.governance_framework?.compliance_principles || {},
+                jurisdictions: [
+                    'Kingdom of Saudi Arabia',
+                    'International Markets'
+                ]
+            },
+            operational_governance: {
+                sharia_compliance_enforced: true,
+                legal_compliance_enforced: true,
+                data_protection_enforced: true,
+                ai_governance_enforced: true,
+                social_media_governance_enforced: true
+            },
+            social_media_platforms: {
+                total_managed: Object.keys(socialAccounts.accounts || {}).length,
+                governance_status: 'active'
+            },
+            enforcement: {
+                responsible_party: charter.enforcement_and_accountability?.responsible_party,
+                oversight_bodies: charter.enforcement_and_accountability?.oversight_bodies || [],
+                breach_protocol: 'Immediate suspension and investigation'
+            },
+            effective_date: charter.digital_signature_and_verification?.charter_effective_date,
+            timestamp: new Date().toISOString()
+        };
+
+        res.json(governance);
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'خطأ في جلب بيانات الحكم',
+            error: error.message
+        });
+    }
+});
+
 // الهدف الموحد لشبكة شيخة
 app.get('/api/network/unified-goals', (req, res) => {
     res.json({
@@ -25648,10 +26014,7 @@ app.get('/api/sheikha/greeting/:companyName', (req, res) => {
 
 let ArabicEngine = null;
 try {
-    // P0-1: LAZY (L2) - arabic-language-engine.js
-    /*     ArabicEngine = require('./lib/arabic-language-engine.js'); */
-    console.log('⏸️ [LAZY] arabic-language-engine.js — سيُحمّل عند الطلب');
-    console.log('✅ محرك اللغة العربية الشامل - تم التحميل');
+    ArabicEngine = require('./lib/arabic-language-engine.js');
 } catch (e) {
     console.log('⚠️ محرك اللغة العربية غير متوفر:', e.message);
 }
@@ -25924,10 +26287,7 @@ app.get('/api/arabic/status', (req, res) => {
 
 let ArabicParserEngine = null;
 try {
-    // P0-1: LAZY (L2) - arabic-parser-engine.js
-    /*     ArabicParserEngine = require('./lib/arabic-parser-engine.js'); */
-    console.log('⏸️ [LAZY] arabic-parser-engine.js — سيُحمّل عند الطلب');
-    console.log('✅ محرك الإعراب والتحليل النحوي المتقدم - تم التحميل');
+    ArabicParserEngine = require('./lib/arabic-parser-engine.js');
 } catch (e) {
     console.log('⚠️ محرك الإعراب غير متوفر:', e.message);
 }
@@ -29670,6 +30030,18 @@ try {
     console.log('      GET  /api/ai-core/status — حالة المحركات');
 } catch (e) {
     console.warn('⚠️ [AI-Core] لم يتم تحميل منظومة RAG/Agents:', e.message);
+}
+
+try {
+    const sheikhaCoreRouter = require('./routes/sheikha-core');
+    app.use('/api/sheikha/core', sheikhaCoreRouter);
+    console.log('✅ [Sheikha-Core] مسارات السوق السيادي مفعلة على /api/sheikha/core');
+    console.log('   📡 GET  /api/sheikha/core/market-vibe?hs_chapter=7108&region=Asia');
+    console.log('   📡 POST /api/sheikha/core/market-vibe');
+    console.log('   📡 POST /api/sheikha/core/generate-ai-asset');
+    console.log('   📡 GET  /api/sheikha/core/source-stats');
+} catch (e) {
+    console.warn('⚠️ [Sheikha-Core] لم يتم تحميل مسارات Sheikha Core:', e.message);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -35763,6 +36135,126 @@ app.get('/api/certification/full', (req, res) => {
     });
 });
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// ☁️ AWS INTEGRATION ENDPOINTS
+// ═══════════════════════════════════════════════════════════════════════════════
+const AWS_CONFIG_PATH = path.join(__dirname, 'data', 'sheikha-aws-integration.json');
+
+app.get('/api/cloud/aws', (req, res) => {
+    try {
+        const awsConfig = readJsonSafe(AWS_CONFIG_PATH, {});
+        res.json({
+            success: true,
+            cloud_provider: 'AWS',
+            account: awsConfig.aws_account || {},
+            services_count: Object.keys(awsConfig.services_enabled || {}).length,
+            infrastructure_ready: true,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'AWS configuration error',
+            error: error.message
+        });
+    }
+});
+
+app.get('/api/cloud/aws/account', (req, res) => {
+    try {
+        const awsConfig = readJsonSafe(AWS_CONFIG_PATH, {});
+        const account = awsConfig.aws_account || {};
+        res.json({
+            success: true,
+            name: account.account_name,
+            id: account.account_id,
+            arn: account.account_arn,
+            email: account.primary_email,
+            joined: account.joined_date,
+            status: account.account_status,
+            organization: account.organization_id,
+            region: account.region_primary,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+app.get('/api/cloud/aws/services', (req, res) => {
+    try {
+        const awsConfig = readJsonSafe(AWS_CONFIG_PATH, {});
+        const services = awsConfig.services_enabled || {};
+        const servicesList = Object.entries(services).map(([key, svc]) => ({
+            key,
+            name: svc.name,
+            status: svc.status,
+            purpose: svc.purpose
+        }));
+        res.json({
+            success: true,
+            total_services: servicesList.length,
+            services: servicesList,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+app.get('/api/cloud/aws/infrastructure', (req, res) => {
+    try {
+        const awsConfig = readJsonSafe(AWS_CONFIG_PATH, {});
+        const infra = awsConfig.infrastructure_components || {};
+        res.json({
+            success: true,
+            infrastructure: {
+                databases: infra.databases || {},
+                storage: infra.storage || {},
+                compute: infra.compute || {},
+                networking: infra.networking || {}
+            },
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+app.get('/api/cloud/aws/security', (req, res) => {
+    try {
+        const awsConfig = readJsonSafe(AWS_CONFIG_PATH, {});
+        const security = awsConfig.security_configuration || {};
+        res.json({
+            success: true,
+            security: {
+                iam_roles: security.iam_roles || [],
+                encryption: security.encryption || {},
+                vpc_security: security.vpc_security || {}
+            },
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+app.get('/api/cloud/aws/integration-status', (req, res) => {
+    try {
+        const awsConfig = readJsonSafe(AWS_CONFIG_PATH, {});
+        const integration = awsConfig.integration_status || {};
+        res.json({
+            success: true,
+            with_sheikha: integration.with_sheikha_platform || { enabled: false },
+            with_meta: integration.with_meta_ecosystem || { enabled: false },
+            with_local: integration.with_local_services || { enabled: false },
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 // 🚀 بدء الخادم
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -38829,10 +39321,7 @@ const {
     WORLD_LANGUAGES,
     FUTURE_VISION,
     timeEngine,
-    gregorianToHijri,
-    hijriToGregorian,
     calcPrayerTimes,
-    getCurrentHijriDate,
     getCosmicTimestamp,
     getCurrentTimeAllCountries,
     TIME_SYSTEM
