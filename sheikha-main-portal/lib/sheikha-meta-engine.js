@@ -55,14 +55,25 @@ class SheikhMetaEngine {
         this.version = '1.0.0';
         this.startedAt = new Date().toISOString();
 
-        // سلطة شيخة — Sheikha Authority (توقيع المؤسس الرقمي ثلاثي الاعتماد)
+        // سلطة شيخة — Sheikha Authority (توقيع المؤسس الرقمي - السلطة السباعية الكاملة)
         const crypto = require('crypto');
         this.SHEIKHA_AUTHORITY = {
             FOUNDER:   'Salman Ahmed Al-Rajeh',
-            TITLE:     'International Supply Chain & AI Strategy Advisor',
+            TITLE:     'International Certified Executive Leader - Supply Chain, Procurement & AI Strategy',
+            ACADEMIC_BACKGROUND: {
+                degree:     'Bachelor of Business Administration',
+                university: 'Imam Abdulrahman Bin Faisal University',
+                country:    'Saudi Arabia',
+            },
+            LEADERSHIP_CERTIFICATIONS: [
+                'Executive Leadership Certification',
+                'Team Leadership & Management Certification',
+                'Initiative & Strategic Leadership Certification',
+            ],
             ACCREDITATIONS: {
-                supply_chain: [
-                    'Global Procurement and Supply Chain Organization (GPSCO)',
+                supply_chain_procurement: [
+                    'IPSCMI - International Purchasing and Supply Chain Management Institute',
+                    'GPSCO - Global Procurement and Supply Chain Organization',
                     'Blue Ocean Institute',
                 ],
                 artificial_intelligence: [
@@ -71,12 +82,15 @@ class SheikhMetaEngine {
                     'Microsoft Certified: Azure AI & Cloud Solutions',
                 ],
             },
-            DOCTRINE:  'Sheikha Core: The sovereign AI for global supply chains',
-            // توقيع SHA-256 يشمل الاسم + كل الاعتمادات + التاريخ
+            DOCTRINE:        'Sheikha Core: Academic rigor + Professional mastery + Sovereign AI',
+            AUTHORITY_LEVEL: 'SEPTA_CERTIFIED_LEADER',  // أكاديمي + 3 قيادة + 3 سلاسل/مشتريات + 3 تقني/ذكاء
+            COMMAND_AUTHORITY: true,
+            // توقيع SHA-256 يشمل الاسم + 6 اعتمادات + التاريخ
             SIGNATURE: crypto.createHash('sha256')
                 .update([
                     'Salman Ahmed Al-Rajeh',
-                    'GPSCO', 'BlueOcean', 'SDAIA', 'IBM', 'Microsoft',
+                    'IPSCMI', 'GPSCO', 'BlueOcean', 'SDAIA', 'IBM', 'Microsoft',
+                    'IAU-BBA', 'ExecutiveLeader',
                     'Sheikha', this.startedAt.slice(0, 10),
                 ].join('|'))
                 .digest('hex').slice(0, 24),
@@ -343,7 +357,9 @@ class SheikhMetaEngine {
                     num_items:    customData.numItems      || 1,
                     order_id:     customData.orderId       || eid,
                     authority_name:           this.SHEIKHA_AUTHORITY.FOUNDER,
-                    authority_tier:           'Triple_Certified',
+                    authority_tier:           'SEPTA_CERTIFIED_LEADER',
+                    ipscmi_verified:          true,
+                    gpsco_verified:           true,
                     sovereign_ai_endorsed:    'SDAIA',
                     tech_stack_certified:     'IBM, Microsoft',
                     authority_signature:      this.SHEIKHA_AUTHORITY.SIGNATURE,
