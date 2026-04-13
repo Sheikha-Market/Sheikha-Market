@@ -207,6 +207,14 @@ class SheikhMetaEngine {
             ],
         };
 
+        // سجل المصادر الثمينة العالمية — Precious Global Ledger
+        this.preciousLedger = {
+            sources:    {},   // source_id → PreciousSource (mine, refinery, souk, bourse, central_bank)
+            transport:  {},   // transport_id → SecureTransport (armored carriers)
+            markets:    {},   // market_id → GlobalMarket (bourse, souk, retail_hub, online_b2b)
+            _stats: { total_sources: 0, total_transport: 0, total_markets: 0, continents_covered: new Set(), last_updated: null },
+        };
+
         // سجل التدقيق — Governance Audit Log
         this.auditLog = [];
         this.maxAuditLogSize = parseInt(process.env.META_AUDIT_LOG_SIZE) || 500;
@@ -741,7 +749,7 @@ class SheikhMetaEngine {
             regions: regionSummary,
             stats: this.stats,
             halalEvents: this.halalEvents,
-            apiCount: 151,
+            apiCount: 159,
             consent: { total: Object.keys(this.consentDB.consents).length },
             auditLog: { entries: this.auditLog.length, maxSize: this.maxAuditLogSize },
             alerts: this.checkAlerts(),
@@ -758,7 +766,7 @@ class SheikhMetaEngine {
         return {
             nameAr: 'شيخة Meta AI',
             version: this.version,
-            apis: 151,
+            apis: 159,
             stats: this.stats,
             markets: Object.keys(this.marketPixels),
             regions: Object.keys(this.regionConfig),
@@ -2663,7 +2671,142 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
             } catch (e) { res.status(500).json({ error: e.message }); }
         });
 
-        console.log(`✅ [SheikhMetaEngine] 151 مسار API مُسجَّل | Base: ${base}`);
+        // ─── Sheikha Precious Sources + Global Onboarding + Global Matcher Routes ─
+
+        // تسجيل مصدر ثمين (منجم/سوق/مصفاة/بورصة/بنك مركزي) من أي قارة
+        app.post(`${base}/core/register-source`, async (req, res) => {
+            try {
+                const source = this.registerPreciousSource(req.body);
+                let capiResult = null;
+                if (req.body.contact_email) {
+                    capiResult = await this.sendChainEvent('CompleteRegistration', {
+                        email: req.body.contact_email, country: (req.body.country || 'sa').toLowerCase(),
+                        ip: req.ip, userAgent: req.headers['user-agent'],
+                    }, {
+                        entity_type:    source.source_type,
+                        supply_role:    'source',
+                        market_segment: source.market_segment,
+                        hs_chapter:     source.hs_chapters[0] || '7108',
+                        chain_position: 1,
+                        cycle_number:   1,
+                        value:          source.annual_capacity_kg * 65000,  // تقدير قيمة بـ SAR
+                        internal_ref:   source.source_id,
+                        competitive_score: source.onboarding_score,
+                    });
+                }
+                res.json({ registered: true, source, ...(capiResult ? { capi: capiResult } : {}) });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // تأهيل عالمي — شاحنين / مصانع / موردين من كل القارات
+        app.post(`${base}/core/entity/onboard`, async (req, res) => {
+            try {
+                const result = this.registerGlobalEntity(req.body);
+                let capiResult = null;
+                if (req.body.contact_email) {
+                    capiResult = await this.sendChainEvent('CompleteRegistration', {
+                        email: req.body.contact_email, country: (req.body.country || 'sa').toLowerCase(),
+                        ip: req.ip, userAgent: req.headers['user-agent'],
+                    }, {
+                        entity_type:       req.body.entity_type,
+                        supply_role:       result.entity.supply_role,
+                        market_segment:    result.entity.market_segment,
+                        hs_chapter:        (req.body.hs_chapters || ['7108'])[0],
+                        chain_position:    req.body.chain_position || 2,
+                        cycle_number:      1,
+                        value:             Number(req.body.capacity_tons_monthly || 100) * 1000 * 65,
+                        internal_ref:      result.entity.entity_id,
+                        competitive_score: result.onboarding_score,
+                    });
+                }
+                res.json({ registered: true, ...result, ...(capiResult ? { capi: capiResult } : {}) });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // تسجيل ناقل مؤمن
+        app.post(`${base}/core/secure-transport/register`, (req, res) => {
+            try {
+                const t = this.registerSecureTransport(req.body);
+                res.json({ registered: true, transport: t });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // تسجيل سوق عالمي
+        app.post(`${base}/core/global-markets/register`, (req, res) => {
+            try {
+                const m = this.registerGlobalMarket(req.body);
+                res.json({ registered: true, market: m });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // عرض المصادر الثمينة مع فلاتر
+        app.get(`${base}/core/precious-sources`, (req, res) => {
+            try {
+                const { continent, market_segment, source_type, country } = req.query;
+                let sources = Object.values(this.preciousLedger.sources);
+                if (continent)      sources = sources.filter(s => s.continent === continent);
+                if (market_segment) sources = sources.filter(s => s.market_segment === market_segment);
+                if (source_type)    sources = sources.filter(s => s.source_type === source_type);
+                if (country)        sources = sources.filter(s => s.country === country.toUpperCase());
+                const byContinent = {};
+                for (const s of sources) byContinent[s.continent] = (byContinent[s.continent] || 0) + 1;
+                res.json({ total: sources.length, byContinent, continents_covered: this.preciousLedger._stats.continents_covered.size, sources });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // عرض الناقلين المؤمنين
+        app.get(`${base}/core/secure-transport`, (req, res) => {
+            try {
+                const { continent, hs_chapter } = req.query;
+                const carriers = this.findSecureTransport(continent, hs_chapter ? [hs_chapter] : []);
+                res.json({ total: carriers.length, carriers });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // عرض الأسواق العالمية
+        app.get(`${base}/core/global-markets`, (req, res) => {
+            try {
+                const { continent, market_type, country } = req.query;
+                let markets = Object.values(this.preciousLedger.markets);
+                if (continent)   markets = markets.filter(m => m.continent === continent);
+                if (market_type) markets = markets.filter(m => m.market_type === market_type);
+                if (country)     markets = markets.filter(m => m.country === country.toUpperCase());
+                res.json({ total: markets.length, markets });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // مطابق عالمي — يربط المشتري بأفضل مصدر + ناقل + سوق
+        app.post(`${base}/core/global-match`, (req, res) => {
+            try {
+                const result = this.globalMatch(req.body);
+                this._addAuditEntry('GLOBAL_MATCH', null, { competitive_score: result.competitive_score });
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // إحصاءات شاملة — شبكة شيخة الكونية
+        app.get(`${base}/core/source-stats`, (req, res) => {
+            try {
+                const sources = Object.values(this.preciousLedger.sources);
+                const bySegment = {};
+                const byContinent = {};
+                for (const s of sources) {
+                    bySegment[s.market_segment]  = (bySegment[s.market_segment]  || 0) + 1;
+                    byContinent[s.continent]     = (byContinent[s.continent]     || 0) + 1;
+                }
+                const totalCapacityKg = sources.reduce((sum, s) => sum + s.annual_capacity_kg, 0);
+                res.json({
+                    sources:           { total: sources.length, bySegment, byContinent, total_annual_capacity_kg: totalCapacityKg },
+                    transport:         { total: this.preciousLedger._stats.total_transport },
+                    markets:           { total: this.preciousLedger._stats.total_markets },
+                    continents_covered: this.preciousLedger._stats.continents_covered.size,
+                    entities_onboarded: this.chainLedger._stats.total_entities,
+                    note:              'هذه الإحصاءات داخلية — لا تُشارَك مع أي طرف خارجي',
+                });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        console.log(`✅ [SheikhMetaEngine] 159 مسار API مُسجَّل | Base: ${base}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -3029,6 +3172,203 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
         recommendations.push({ type: 'competitive_score', score: competitiveScore, note: competitiveScore >= 9 ? 'صفقة ممتازة — أعطها أولوية الميزانية' : competitiveScore >= 7 ? 'صفقة جيدة' : 'صفقة عادية' });
 
         return { contract_snapshot: { client_type: contract.client_type, market_segment: contract.market_segment, value: contract.value_sar || contract.value }, recommendations, evaluated_at: new Date().toISOString() };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🌍 سجل المصادر الثمينة العالمية — Precious Sources, Secure Transport, Markets
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    /** أنواع المصادر المقبولة */
+    static get PRECIOUS_SOURCE_TYPES() {
+        return ['mine', 'refinery', 'jewelry_market', 'bourse', 'central_bank', 'vault', 'scrap_dealer', 'online_b2b'];
+    }
+
+    /** تسجيل مصدر ثمين (منجم، سوق، مصفاة، بورصة، بنك مركزي...) */
+    registerPreciousSource(sourceData = {}) {
+        const typePrefix = (sourceData.source_type || 'src').slice(0, 4).toUpperCase();
+        const country = (sourceData.country || 'XX').toUpperCase();
+        const sourceId = sourceData.source_id || `${typePrefix}-${country}-${String(Object.keys(this.preciousLedger.sources).length + 1).padStart(4, '0')}`;
+
+        const existing = this.preciousLedger.sources[sourceId];
+        this.preciousLedger.sources[sourceId] = {
+            source_id:            sourceId,
+            source_type:          sourceData.source_type    || 'mine',
+            market_segment:       sourceData.market_segment || 'gold',  // gold, silver, platinum, diamond, jewelry, rare
+            continent:            sourceData.continent       || 'Asia',
+            country:              country,
+            city:                 sourceData.city            || null,
+            name:                 sourceData.name            || null,
+            hs_chapters:          sourceData.hs_chapters     || ['7108'],
+            annual_capacity_kg:   Number(sourceData.annual_capacity_kg)   || 0,
+            daily_volume_kg:      Number(sourceData.daily_volume_kg)      || 0,
+            grade:                sourceData.grade           || null,
+            certifications:       sourceData.certifications  || [],
+            secure_logistics_req: sourceData.secure_logistics_req !== false,
+            buyer_types:          sourceData.buyer_types     || [],
+            contact_email:        sourceData.contact_email   || null,
+            grade_tier:           sourceData.grade_tier      || 3,
+            sheikha_status:       'active',
+            registered_at:        existing ? existing.registered_at : new Date().toISOString(),
+            last_updated:         new Date().toISOString(),
+            onboarding_score:     this.calculateOnboardingScore(sourceData),
+        };
+
+        if (!existing) {
+            this.preciousLedger._stats.total_sources++;
+            this.preciousLedger._stats.continents_covered.add(sourceData.continent || 'Asia');
+        }
+        this.preciousLedger._stats.last_updated = new Date().toISOString();
+        this._addAuditEntry('PRECIOUS_SOURCE_REGISTER', null, { sourceId, source_type: sourceData.source_type, continent: sourceData.continent });
+        return this.preciousLedger.sources[sourceId];
+    }
+
+    /** تسجيل شركة نقل مؤمن (Brinks, Malca-Amit…) */
+    registerSecureTransport(transportData = {}) {
+        const transportId = transportData.transport_id || `SEC-${(transportData.company_name || 'TRN').slice(0, 4).toUpperCase()}-${String(Object.keys(this.preciousLedger.transport).length + 1).padStart(3, '0')}`;
+        this.preciousLedger.transport[transportId] = {
+            transport_id:         transportId,
+            company_name:         transportData.company_name          || null,
+            continents_covered:   transportData.continents_covered    || [],
+            countries_active:     (transportData.countries_active || []).map(c => c.toUpperCase()),
+            service_types:        transportData.service_types         || ['armored_air'],
+            hs_chapters_allowed:  transportData.hs_chapters_allowed   || ['7108', '7106', '7110', '7113'],
+            max_insurance_usd:    Number(transportData.max_insurance_usd) || 50_000_000,
+            grade_tier:           transportData.grade_tier            || 2,
+            certifications:       transportData.certifications        || [],
+            contact_email:        transportData.contact_email         || null,
+            sheikha_status:       'active',
+            registered_at:        new Date().toISOString(),
+            onboarding_score:     this.calculateOnboardingScore({ ...transportData, supply_role: 'transport' }),
+        };
+        this.preciousLedger._stats.total_transport++;
+        (transportData.continents_covered || []).forEach(c => this.preciousLedger._stats.continents_covered.add(c));
+        this.preciousLedger._stats.last_updated = new Date().toISOString();
+        this._addAuditEntry('SECURE_TRANSPORT_REGISTER', null, { transportId, continents: transportData.continents_covered });
+        return this.preciousLedger.transport[transportId];
+    }
+
+    /** تسجيل سوق عالمي (بورصة شنغهاي، سوق دبي، زافيري بازار…) */
+    registerGlobalMarket(marketData = {}) {
+        const country = (marketData.country || 'XX').toUpperCase();
+        const marketId = marketData.market_id || `MKT-${(marketData.market_type || 'MKT').slice(0, 3).toUpperCase()}-${country}-${String(Object.keys(this.preciousLedger.markets).length + 1).padStart(3, '0')}`;
+        this.preciousLedger.markets[marketId] = {
+            market_id:            marketId,
+            market_name:          marketData.market_name         || null,
+            market_type:          marketData.market_type         || 'souk',   // bourse, souk, retail_hub, online_b2b
+            continent:            marketData.continent           || 'Asia',
+            country,
+            city:                 marketData.city                || null,
+            hs_chapters_traded:   marketData.hs_chapters_traded  || ['7108'],
+            daily_volume_kg:      Number(marketData.daily_volume_kg) || 0,
+            buyer_types:          marketData.buyer_types         || [],
+            sheikha_integrated:   Boolean(marketData.sheikha_integrated),
+            contact_email:        marketData.contact_email       || null,
+            sheikha_status:       'active',
+            registered_at:        new Date().toISOString(),
+            onboarding_score:     this.calculateOnboardingScore({ ...marketData, supply_role: 'use', entity_type: 'end_user' }),
+        };
+        this.preciousLedger._stats.total_markets++;
+        this.preciousLedger._stats.continents_covered.add(marketData.continent || 'Asia');
+        this.preciousLedger._stats.last_updated = new Date().toISOString();
+        this._addAuditEntry('GLOBAL_MARKET_REGISTER', null, { marketId, market_type: marketData.market_type, continent: marketData.continent });
+        return this.preciousLedger.markets[marketId];
+    }
+
+    /** نقطة تسجيل شاحن / مصنع / مورد بالطريقة الموحدة (Global Onboarding) */
+    registerGlobalEntity(entityData = {}) {
+        // يسجل في chainLedger + preciousLedger إذا كان مصدراً ثميناً
+        const entity = this.registerEntity(
+            entityData.entity_id || `${(entityData.entity_type || 'ENT').slice(0, 4).toUpperCase()}-${(entityData.country || 'XX').toUpperCase()}-${Date.now()}`,
+            entityData,
+        );
+        // إذا كان مصدر ثمين أيضاً
+        let precSource = null;
+        if (['mine', 'refinery', 'vault', 'jewelry_market', 'bourse'].includes(entityData.entity_type)) {
+            precSource = this.registerPreciousSource({ ...entityData, source_type: entityData.entity_type });
+        }
+        const onboardingScore = this.calculateOnboardingScore(entityData);
+        this._addAuditEntry('GLOBAL_ENTITY_ONBOARD', null, { entity_id: entity.entity_id, entity_type: entityData.entity_type, onboarding_score: onboardingScore });
+        return { entity, precSource, onboarding_score: onboardingScore };
+    }
+
+    /** إيجاد أنسب ناقل مؤمن لقارة وقائمة HS Chapters */
+    findSecureTransport(continent, hsChapters = []) {
+        const carriers = Object.values(this.preciousLedger.transport).filter(t => {
+            if (t.sheikha_status !== 'active') return false;
+            if (continent && !t.continents_covered.includes(continent)) return false;
+            if (hsChapters.length > 0) {
+                return hsChapters.some(h => t.hs_chapters_allowed.includes(h));
+            }
+            return true;
+        });
+        carriers.sort((a, b) => {
+            const tiers = a.grade_tier - b.grade_tier;
+            if (tiers !== 0) return tiers;
+            return b.max_insurance_usd - a.max_insurance_usd;
+        });
+        return carriers.slice(0, 5);
+    }
+
+    /** مطابقة طلب مشتري مع أفضل مصدر + ناقل مؤمن (Global Matcher) */
+    globalMatch(buyerRequest = {}) {
+        const { continent, hs_chapter, hs_chapters, market_segment, min_capacity_kg, max_distance_continents } = buyerRequest;
+        const hsFilter = hs_chapters || (hs_chapter ? [hs_chapter] : []);
+
+        // مصادر مطابقة
+        let sources = Object.values(this.preciousLedger.sources).filter(s => {
+            if (s.sheikha_status !== 'active') return false;
+            if (market_segment && s.market_segment !== market_segment) return false;
+            if (hsFilter.length > 0 && !hsFilter.some(h => s.hs_chapters.includes(h))) return false;
+            if (min_capacity_kg && s.annual_capacity_kg > 0 && s.annual_capacity_kg < min_capacity_kg * 12) return false;
+            return true;
+        });
+        sources.sort((a, b) => b.onboarding_score - a.onboarding_score);
+        sources = sources.slice(0, 10);
+
+        // نقل مؤمن مطابق
+        const transport = this.findSecureTransport(continent, hsFilter);
+
+        // أسواق مقصد مطابقة
+        let markets = Object.values(this.preciousLedger.markets).filter(m => {
+            if (m.sheikha_status !== 'active') return false;
+            if (continent && m.continent !== continent) return false;
+            if (hsFilter.length > 0 && !hsFilter.some(h => m.hs_chapters_traded.includes(h))) return false;
+            return true;
+        });
+        markets.sort((a, b) => b.daily_volume_kg - a.daily_volume_kg);
+        markets = markets.slice(0, 5);
+
+        const totalSources = Object.keys(this.preciousLedger.sources).length;
+        const continusCovered = this.preciousLedger._stats.continents_covered.size;
+        const competitiveScore = Math.min(10, 5 + (sources.length > 0 ? 1.5 : 0) + (transport.length > 0 ? 1.5 : 0) + (continusCovered >= 4 ? 1.5 : continusCovered >= 2 ? 0.8 : 0) + (totalSources >= 100 ? 0.5 : 0));
+
+        return {
+            matched_sources:    sources,
+            matched_transport:  transport,
+            matched_markets:    markets,
+            competitive_score:  Math.round(competitiveScore * 10) / 10,
+            sheikha_network:    { total_sources: totalSources, continents_covered: continusCovered, total_transport: Object.keys(this.preciousLedger.transport).length, total_markets: Object.keys(this.preciousLedger.markets).length },
+            matched_at:         new Date().toISOString(),
+        };
+    }
+
+    /** نتيجة التأهيل العالمي — Onboarding Score (0-10) */
+    calculateOnboardingScore(entity = {}) {
+        let score = 7.0;
+        // مكافأة الدرجة
+        if (entity.grade_tier === 1) score += 1.5;
+        else if (entity.grade_tier === 2) score += 0.75;
+        // مكافأة التغطية الجغرافية
+        const continents = entity.continents || entity.continents_covered || [];
+        if (continents.length >= 4) score += 1.0;
+        else if (continents.length >= 2) score += 0.5;
+        // مكافأة شهادة LBMA
+        if ((entity.certifications || []).includes('LBMA')) score += 0.5;
+        if ((entity.certifications || []).includes('RJC'))  score += 0.3;
+        if ((entity.certifications || []).includes('ISO9001')) score += 0.2;
+        // مكافأة جاهزية البيع
+        if (entity.ready_to_sell === true) score += 0.2;
+        return Math.min(10.0, Math.round(score * 10) / 10);
     }
 }
 
