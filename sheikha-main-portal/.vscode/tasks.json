@@ -1,0 +1,61 @@
+{
+  "//": "مهام VS Code — سوق شيخة | Ollama × Azure × شيخة كودكس",
+  "version": "2.0.0",
+  "tasks": [
+
+    {
+      "label": "🧠 Ollama — اختبار الاتصال (Azure VM)",
+      "type": "shell",
+      "command": "curl -sf \"${env:OLLAMA_AZURE_ENDPOINT:-${env:OLLAMA_HOST:-http://localhost:11434}}/api/tags\" | node -e \"const d=require('fs').readFileSync('/dev/stdin','utf8'); const j=JSON.parse(d); console.log('✅ Ollama متصل | النماذج:', j.models?.map(m=>m.name).join(', ') || 'لا يوجد نموذج محمّل');\" || echo '❌ تعذّر الاتصال — تحقق من OLLAMA_AZURE_ENDPOINT أو NSG في Azure'",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+
+    {
+      "label": "🧠 Ollama — تحميل نموذج شيخة (llama3.1:8b)",
+      "type": "shell",
+      "command": "curl -sf -X POST \"${env:OLLAMA_AZURE_ENDPOINT:-${env:OLLAMA_HOST:-http://localhost:11434}}/api/pull\" -d '{\"name\":\"llama3.1:8b\"}' | node -e \"process.stdin.pipe(process.stdout)\" || echo '❌ تعذّر التحميل'",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+
+    {
+      "label": "🧠 Ollama — اختبار توليد نص",
+      "type": "shell",
+      "command": "curl -sf -X POST \"${env:OLLAMA_AZURE_ENDPOINT:-${env:OLLAMA_HOST:-http://localhost:11434}}/api/generate\" -H 'Content-Type: application/json' -d '{\"model\":\"llama3.1:8b\",\"prompt\":\"مرحبا من سوق شيخة! عرّف عن نفسك بجملة واحدة.\",\"stream\":false}' | node -e \"const d=require('fs').readFileSync('/dev/stdin','utf8'); console.log('💬 الرد:', JSON.parse(d).response);\" || echo '❌ خطأ في التوليد'",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+
+    {
+      "label": "☁️ Azure — عرض IP الـ Ollama VM",
+      "type": "shell",
+      "command": "az vm show -d -g \"${env:AZURE_RESOURCE_GROUP:-Sheikha-Core-RG}\" -n sheikha-ollama-vm --query publicIps -o tsv 2>/dev/null || echo '💡 شغّل: az login أولاً، أو افتح portal.azure.com → Virtual Machines'",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+
+    {
+      "label": "🚀 شيخة — تشغيل الخادم (dev)",
+      "type": "shell",
+      "command": "npm run dev",
+      "group": { "kind": "build", "isDefault": true },
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": ["$node-sass", "$eslint-compact"]
+    },
+
+    {
+      "label": "🔍 شيخة — lint",
+      "type": "shell",
+      "command": "npm run lint 2>/dev/null || echo '⚠️ لا يوجد سكربت lint مُعرَّف'",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": ["$eslint-compact"]
+    }
+
+  ]
+}
