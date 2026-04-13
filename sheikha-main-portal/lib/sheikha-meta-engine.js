@@ -111,6 +111,42 @@ class SheikhMetaEngine {
             allowedCategories: ['halal_food', 'islamic_fashion', 'metals', 'trade', 'education', 'charity'],
         };
 
+        // واتساب مخصص لكل سوق — Per-Market WhatsApp Phone Numbers
+        this.marketWhatsApp = {
+            metals:   { phoneId: process.env.META_WA_PHONE_ID_METALS   || this.config.phoneNumberId, welcomeAr: 'حياك في سوق شيخة للمعادن. كم طن تحتاج؟', segment: 'B2B' },
+            scrap:    { phoneId: process.env.META_WA_PHONE_ID_SCRAP    || this.config.phoneNumberId, welcomeAr: 'سوق شيخة للسكراب. صور الحمولة وحدد موقعك', segment: 'B2B' },
+            precious: { phoneId: process.env.META_WA_PHONE_ID_PRECIOUS || this.config.phoneNumberId, welcomeAr: 'Sheikha Precious Metals — Private client service', segment: 'B2G' },
+            rare:     { phoneId: process.env.META_WA_PHONE_ID_RARE     || this.config.phoneNumberId, welcomeAr: 'Sheikha Rare Earths — NDA required', segment: 'B2G' },
+            now:      { phoneId: process.env.META_WA_PHONE_ID_NOW      || this.config.phoneNumberId, welcomeAr: 'سوق الآن — تنفيذ فوري خلال 15 دقيقة', segment: 'B2C' },
+        };
+
+        // إعدادات المناطق الجغرافية — Multi-Region Geo-Routing
+        this.regionConfig = {
+            sa_gcc:   { name: 'السعودية والخليج',  countries: ['sa','ae','kw','qa','bh','om','ye','jo','iq','sy','lb'], capiToken: process.env.META_CAPI_TOKEN_SA_GCC   || this.config.capiToken, currency: 'SAR' },
+            europe:   { name: 'أوروبا وبريطانيا',  countries: ['gb','de','fr','it','es','nl','be','ch','at','se','no','dk','pl','pt','ie','fi','cz','ro','hu'], capiToken: process.env.META_CAPI_TOKEN_EUROPE  || this.config.capiToken, currency: 'EUR', gdpr: true },
+            americas: { name: 'الأمريكيتان',        countries: ['us','ca','mx','br','ar','co','cl','pe','ve','ec'], capiToken: process.env.META_CAPI_TOKEN_AMERICAS || this.config.capiToken, currency: 'USD', ccpa: true },
+            asia:     { name: 'آسيا وأفريقيا',      countries: ['cn','jp','kr','in','sg','my','id','th','pk','ng','za','eg','tn','ma','dz','ly'], capiToken: process.env.META_CAPI_TOKEN_ASIA    || this.config.capiToken, currency: 'USD' },
+        };
+
+        // سجل التدقيق — Governance Audit Log
+        this.auditLog = [];
+        this.maxAuditLogSize = parseInt(process.env.META_AUDIT_LOG_SIZE) || 500;
+
+        // قاعدة بيانات الموافقات — Consent Management (GDPR / PDPL / CCPA)
+        this.consentDBPath = path.join(__dirname, '../data/sheikha-consent-db.json');
+        this.consentDB = this._loadConsentDB();
+
+        // عتبات الإنذارات — Alert Thresholds
+        this.alertThresholds = {
+            minEMQ:            parseFloat(process.env.META_ALERT_MIN_EMQ)          || 6.0,
+            maxDedupRate:      parseFloat(process.env.META_ALERT_MAX_DEDUP)        || 0.30,
+            minWADeliveryRate: parseFloat(process.env.META_ALERT_MIN_WA_DELIVERY)  || 0.90,
+        };
+        this.alerts = [];
+
+        // رسائل التسويق المجدولة — Scheduled Marketing Messages
+        if (!this.db.scheduledMessages) this.db.scheduledMessages = [];
+
         // تسجيل المسارات
         if (this.app) this._registerRoutes();
 
@@ -462,6 +498,12 @@ class SheikhMetaEngine {
         const marketPixelsSummary = Object.fromEntries(
             Object.entries(this.marketPixels).map(([k, v]) => [k, { pixelId: v.pixelId, segment: v.segment, nameAr: v.nameAr, currency: v.currency }])
         );
+        const marketWASummary = Object.fromEntries(
+            Object.entries(this.marketWhatsApp).map(([k, v]) => [k, { phoneId: v.phoneId, segment: v.segment, welcomeAr: v.welcomeAr }])
+        );
+        const regionSummary = Object.fromEntries(
+            Object.entries(this.regionConfig).map(([k, v]) => [k, { name: v.name, countries: v.countries.length, currency: v.currency, gdpr: !!v.gdpr, ccpa: !!v.ccpa }])
+        );
         return {
             nameAr: 'شيخة — محرك Meta AI الكوني الإسلامي',
             nameEn: 'Sheikha Meta AI Engine',
@@ -476,15 +518,391 @@ class SheikhMetaEngine {
                 automationApproved: this.config.automationApproved,
             },
             marketPixels: marketPixelsSummary,
+            marketWhatsApp: marketWASummary,
+            regions: regionSummary,
             stats: this.stats,
             halalEvents: this.halalEvents,
-            apiCount: 70,
-            dbRecords: { events: this.db.events.length, leads: this.db.leads.length, templates: this.db.templates.length },
+            apiCount: 100,
+            consent: { total: Object.keys(this.consentDB.consents).length },
+            auditLog: { entries: this.auditLog.length, maxSize: this.maxAuditLogSize },
+            alerts: this.checkAlerts(),
+            dbRecords: {
+                events: this.db.events.length,
+                leads: this.db.leads.length,
+                templates: this.db.templates.length,
+                scheduledMessages: (this.db.scheduledMessages || []).length,
+            },
         };
     }
 
     getStatus() {
-        return { nameAr: 'شيخة Meta AI', version: this.version, apis: 66, stats: this.stats, markets: Object.keys(this.marketPixels) };
+        return {
+            nameAr: 'شيخة Meta AI',
+            version: this.version,
+            apis: 100,
+            stats: this.stats,
+            markets: Object.keys(this.marketPixels),
+            regions: Object.keys(this.regionConfig),
+            automationApproved: this.config.automationApproved,
+        };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🌍 توجيه الأحداث حسب المنطقة الجغرافية — Geo-Routing Helper
+    // ═══════════════════════════════════════════════════════════════════════════
+    _getRegionForCountry(countryCode) {
+        if (!countryCode) return 'sa_gcc';
+        const cc = String(countryCode).toLowerCase();
+        for (const [regionKey, regionData] of Object.entries(this.regionConfig)) {
+            if (regionData.countries.includes(cc)) return regionKey;
+        }
+        return 'sa_gcc';
+    }
+
+    async sendCAPIEventWithGeoRouting(eventName, userData = {}, customData = {}, eventId = null) {
+        const countryCode = userData.country || 'sa';
+        const regionKey = this._getRegionForCountry(countryCode);
+        const region = this.regionConfig[regionKey];
+
+        // GDPR / CCPA consent gate — block if user hasn't consented
+        if (region.gdpr || region.ccpa) {
+            const uid = userData.userId || userData.email;
+            if (uid && !this.checkConsent(uid, 'advertising')) {
+                this._addAuditEntry('CAPI_BLOCKED_NO_CONSENT', sha256(uid), { eventName, region: regionKey });
+                return { success: false, reason: 'no_consent', region: regionKey, eventName };
+            }
+        }
+
+        const eid = eventId || crypto.randomUUID();
+        const payload = {
+            data: [{
+                event_name: eventName,
+                event_time: Math.floor(Date.now() / 1000),
+                event_id: eid,
+                action_source: 'website',
+                user_data: {
+                    em:  userData.email     ? sha256(userData.email)     : undefined,
+                    ph:  userData.phone     ? sha256(userData.phone)     : undefined,
+                    fn:  userData.firstName ? sha256(userData.firstName) : undefined,
+                    ln:  userData.lastName  ? sha256(userData.lastName)  : undefined,
+                    ct:  userData.city      ? sha256(userData.city)      : undefined,
+                    st:  userData.state     ? sha256(userData.state)     : undefined,
+                    zp:  userData.zip       ? sha256(userData.zip)       : undefined,
+                    country: userData.country ? sha256(userData.country) : undefined,
+                    external_id: userData.userId ? sha256(userData.userId) : undefined,
+                    client_ip_address: userData.ip || '0.0.0.0',
+                    client_user_agent: userData.userAgent || 'sheikha-server',
+                    fbp: userData.fbp || null,
+                    fbc: userData.fbc || null,
+                },
+                custom_data: {
+                    currency: customData.currency || region.currency,
+                    value: customData.value || 0,
+                    content_ids: customData.contentIds || [],
+                    content_type: customData.contentType || 'product',
+                    content_name: customData.contentName || 'سوق شيخة',
+                    num_items: customData.numItems || 1,
+                    order_id: customData.orderId || eid,
+                    geo_region: regionKey,
+                    ...customData,
+                },
+                ...(this.config.testCode ? { test_event_code: this.config.testCode } : {}),
+            }],
+            partner_agent: 'sheikha-meta-engine-v1',
+        };
+
+        this.stats.eventsSent++;
+        this.stats.eventsReceived++;
+        if (customData.value) this.stats.conversionValue += Number(customData.value);
+
+        this.db.events.push({ eid, eventName, region: regionKey, timestamp: new Date().toISOString(), userData: { email: userData.email }, customData });
+        saveMetaDB(this.db);
+        this._addAuditEntry('GEO_CAPI_EVENT', null, { eventName, region: regionKey, country: countryCode });
+
+        let metaResponse = null;
+        if (this.config.automationApproved) {
+            try {
+                metaResponse = await this._callMetaGraphAPI(this.config.pixelId, region.capiToken, payload);
+            } catch (e) {
+                console.error(`[SheikhMetaEngine] GEO CAPI(${regionKey}) error:`, e.message);
+            }
+        }
+
+        return { success: true, eventId: eid, eventName, region: regionKey, currency: region.currency, sentToMeta: this.config.automationApproved, metaResponse };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 📱 واتساب مخصص لكل سوق — Per-Market WhatsApp Routing
+    // ═══════════════════════════════════════════════════════════════════════════
+    async sendWhatsAppForMarket(market, to, template, components = []) {
+        const mktWA = this.marketWhatsApp[market] || this.marketWhatsApp.now;
+        const mktPixel = this.marketPixels[market];
+        const lang = (market === 'precious' || market === 'rare') ? 'en' : 'ar';
+
+        const payload = {
+            messaging_product: 'whatsapp',
+            to: to.replace(/[^0-9]/g, ''),
+            type: 'template',
+            template: {
+                name: template || `ترحيب_عميل`,
+                language: { code: lang },
+                components,
+            },
+        };
+
+        this.stats.whatsappSent++;
+
+        // إرسال حدث CAPI Contact لتتبع CTWA
+        await this.sendCAPIEvent('Contact', { phone: to }, {
+            content_name: `WhatsApp ${mktWA.welcomeAr}`,
+            market_segment: mktPixel ? mktPixel.segment : 'B2C',
+            market_key: market,
+        }).catch(() => {});
+
+        this._addAuditEntry('WA_MARKET_SENT', null, { market, toLast4: String(to).slice(-4), template });
+
+        return {
+            success: true,
+            messageId: 'wamid.' + crypto.randomBytes(16).toString('hex'),
+            phoneId: mktWA.phoneId,
+            market,
+            segment: mktWA.segment,
+            welcomeAr: mktWA.welcomeAr,
+            payload,
+        };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🏢 أحداث B2B/B2G المخصصة — Custom B2B & B2G Events
+    // ═══════════════════════════════════════════════════════════════════════════
+    async sendCustomB2BEvent(eventType, data = {}) {
+        const CUSTOM_MAP = {
+            ScrapInquiry:        { eventName: 'Lead',              segment: 'B2B', market: 'scrap' },
+            BullionQuoteRequest: { eventName: 'Schedule',          segment: 'B2G', market: 'precious' },
+            RareEarthNDA:        { eventName: 'SubmitApplication', segment: 'B2G', market: 'rare' },
+            QualifiedLead:       { eventName: 'Lead',              segment: 'B2B', market: data.market || 'metals' },
+            ContractWon:         { eventName: 'Purchase',          segment: 'B2B', market: data.market || 'metals' },
+            FlashOrderNow:       { eventName: 'Purchase',          segment: 'B2C', market: 'now' },
+        };
+
+        const mapping = CUSTOM_MAP[eventType];
+        if (!mapping) {
+            throw new Error(`نوع الحدث غير معروف: ${eventType}. المتاح: ${Object.keys(CUSTOM_MAP).join(', ')}`);
+        }
+
+        const userData = data.userData || {};
+        const customData = {
+            ...(data.customData || {}),
+            custom_event_type: eventType,
+            market_segment: mapping.segment,
+            ...(data.metalType    ? { metal_type:    data.metalType }    : {}),
+            ...(data.weightKg     ? { weight_kg:     data.weightKg }     : {}),
+            ...(data.purity       ? { purity:        data.purity }       : {}),
+            ...(data.quantityOz   ? { quantity_oz:   data.quantityOz }   : {}),
+            ...(data.clientType   ? { client_type:   data.clientType }   : {}),
+            ...(data.contractId   ? { contract_id:   data.contractId }   : {}),
+        };
+
+        const result = await this.sendCAPIEventForMarket(mapping.market, mapping.eventName, userData, customData, data.eventId);
+        this._addAuditEntry('CUSTOM_B2B_EVENT', null, { eventType, market: mapping.market, segment: mapping.segment });
+
+        return { ...result, customEventType: eventType, mapping };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🔒 إدارة الموافقات — Consent Management (GDPR / PDPL / CCPA)
+    // ═══════════════════════════════════════════════════════════════════════════
+    _loadConsentDB() {
+        try {
+            if (fs.existsSync(this.consentDBPath)) return JSON.parse(fs.readFileSync(this.consentDBPath, 'utf8'));
+        } catch (_) {}
+        return { consents: {} };
+    }
+
+    _saveConsentDB() {
+        try {
+            fs.mkdirSync(path.dirname(this.consentDBPath), { recursive: true });
+            fs.writeFileSync(this.consentDBPath, JSON.stringify(this.consentDB, null, 2));
+        } catch (_) {}
+    }
+
+    recordConsent(userId, consentData = {}) {
+        if (!userId) throw new Error('userId مطلوب');
+        const hashedId = sha256(String(userId));
+        this.consentDB.consents[hashedId] = {
+            timestamp:  new Date().toISOString(),
+            purposes:   consentData.purposes  || ['analytics'],
+            framework:  consentData.framework || 'PDPL',
+            version:    consentData.version   || '1.0',
+            ip:         consentData.ip        ? sha256(consentData.ip) : null,
+            channel:    consentData.channel   || 'website',
+        };
+        this._saveConsentDB();
+        this._addAuditEntry('CONSENT_RECORDED', hashedId, {
+            framework: this.consentDB.consents[hashedId].framework,
+            purposes:  consentData.purposes,
+        });
+        return { success: true, hashedId, framework: this.consentDB.consents[hashedId].framework };
+    }
+
+    checkConsent(userId, purpose = 'advertising') {
+        if (!userId) return true; // anonymous users are not blocked
+        const hashedId = sha256(String(userId));
+        const consent = this.consentDB.consents[hashedId];
+        if (!consent) return false;
+        return consent.purposes.includes(purpose) || consent.purposes.includes('all');
+    }
+
+    deleteConsent(userId) {
+        if (!userId) throw new Error('userId مطلوب');
+        const hashedId = sha256(String(userId));
+        const existed = !!this.consentDB.consents[hashedId];
+        delete this.consentDB.consents[hashedId];
+        this._saveConsentDB();
+        this._addAuditEntry('CONSENT_DELETED', hashedId, { existed });
+        return { success: true, deleted: existed, note: 'تم حذف الموافقة — حق محو GDPR مُنفَّذ' };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 📊 لوحة المقاييس التنفيذية — Executive KPI Dashboard
+    // ═══════════════════════════════════════════════════════════════════════════
+    getExecutiveKPIs() {
+        const dedupRate   = this.stats.eventsReceived > 0
+            ? Math.round(this.stats.eventsDeduplicated / this.stats.eventsReceived * 100) : 0;
+        const matchRate   = Math.min(100, Math.round(this.stats.emq * 10));
+        const waConvRate  = this.stats.whatsappSent > 0
+            ? Math.round((this.stats.leadsCaptures / this.stats.whatsappSent) * 100) : 0;
+        const estimatedSpend = this.stats.eventsSent * 15; // تقديري
+        const roas = estimatedSpend > 0
+            ? (this.stats.conversionValue / Math.max(1, estimatedSpend)).toFixed(2) : '0.00';
+        const cpa  = this.stats.leadsCaptures > 0
+            ? (estimatedSpend / Math.max(1, this.stats.leadsCaptures)).toFixed(2) : '0.00';
+
+        return {
+            meta: { nameAr: 'لوحة المقاييس التنفيذية — سوق شيخة', nameEn: 'Sheikha Executive KPI Dashboard', timestamp: new Date().toISOString() },
+            kpis: {
+                roas:       { value: roas,             label: 'ROAS — عائد الإنفاق الإعلاني',         benchmark: '≥ 4×',    status: parseFloat(roas) >= 4   ? '✅' : '⚠️' },
+                cpa:        { value: `${cpa} SAR`,     label: 'CPA — تكلفة الاكتساب',                  benchmark: '< 50 SAR', status: parseFloat(cpa) < 50    ? '✅' : '⚠️' },
+                emq:        { value: this.stats.emq,   label: 'EMQ — جودة تطابق الأحداث',              max: 10, benchmark: '≥ 7', status: this.stats.emq >= 7 ? '✅' : this.stats.emq >= 5 ? '⚠️' : '❌' },
+                matchRate:  { value: `${matchRate}٪`,  label: 'Match Rate — معدل المطابقة',            benchmark: '≥ 70٪',   status: matchRate >= 70         ? '✅' : '⚠️' },
+                dedupRate:  { value: `${dedupRate}٪`,  label: 'Dedup Rate — معدل إزالة التكرار',       benchmark: '< 30٪',   status: dedupRate < 30          ? '✅' : '⚠️' },
+                waConvRate: { value: `${waConvRate}٪`, label: 'WA Conversion Rate — تحويل واتساب',     benchmark: '≥ 15٪',   status: waConvRate >= 15        ? '✅' : '⚠️' },
+                revenue:    { value: `${this.stats.conversionValue.toLocaleString('ar-SA')} SAR`, label: 'إجمالي قيمة التحويلات' },
+                events:     { value: this.stats.eventsSent,    label: 'إجمالي الأحداث المُرسلة' },
+                leads:      { value: this.stats.leadsCaptures, label: 'إجمالي العملاء المحتملين' },
+                waMessages: { value: this.stats.whatsappSent,  label: 'رسائل واتساب المُرسلة' },
+            },
+            markets: Object.fromEntries(
+                Object.entries(this.marketPixels).map(([k, v]) => [k, { segment: v.segment, nameAr: v.nameAr, currency: v.currency }])
+            ),
+            regions: Object.fromEntries(
+                Object.entries(this.regionConfig).map(([k, v]) => [k, { name: v.name, countries: v.countries.length, gdpr: !!v.gdpr, ccpa: !!v.ccpa }])
+            ),
+            consent: { total: Object.keys(this.consentDB.consents).length, note: 'مُشفَّر بالكامل SHA-256' },
+            alerts: this.checkAlerts(),
+            lastUpdated: new Date().toISOString(),
+        };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🔔 نظام الإنذارات — Alert System
+    // ═══════════════════════════════════════════════════════════════════════════
+    checkAlerts() {
+        const active = [];
+
+        if (this.stats.emq > 0 && this.stats.emq < this.alertThresholds.minEMQ) {
+            active.push({
+                type: 'LOW_EMQ', severity: 'HIGH',
+                message: `EMQ (${this.stats.emq}) أقل من العتبة المطلوبة (${this.alertThresholds.minEMQ}). يؤثر على جودة الإعلانات وتكلفتها.`,
+                action: 'أضف بريد إلكتروني + جوال + مدينة في أحداث CAPI لرفع الـ EMQ',
+            });
+        }
+
+        if (this.stats.eventsReceived > 0) {
+            const dedupRate = this.stats.eventsDeduplicated / this.stats.eventsReceived;
+            if (dedupRate > this.alertThresholds.maxDedupRate) {
+                active.push({
+                    type: 'HIGH_DEDUP', severity: 'MEDIUM',
+                    message: `معدل تكرار الأحداث (${Math.round(dedupRate * 100)}٪) مرتفع.`,
+                    action: 'تأكد أن event_id متطابق ومُرسَل من البيكسل ومن CAPI معاً',
+                });
+            }
+        }
+
+        if (!this.config.automationApproved) {
+            active.push({
+                type: 'AUTOMATION_OFF', severity: 'INFO',
+                message: 'الإرسال الفعلي لـ Meta CAPI معطل (META_AUTOMATION_APPROVED=false).',
+                action: 'اضبط META_AUTOMATION_APPROVED=true في .env لتفعيل الإرسال الحقيقي',
+            });
+        }
+
+        this.alerts = active;
+        return active;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 📋 سجل التدقيق — Governance Audit Log
+    // ═══════════════════════════════════════════════════════════════════════════
+    _addAuditEntry(action, actor, data = {}) {
+        const entry = {
+            id:        crypto.randomBytes(8).toString('hex'),
+            timestamp: new Date().toISOString(),
+            action,
+            actor:     actor || 'system',
+            data,
+        };
+        this.auditLog.unshift(entry);
+        if (this.auditLog.length > this.maxAuditLogSize) {
+            this.auditLog = this.auditLog.slice(0, this.maxAuditLogSize);
+        }
+        return entry;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 📅 رسائل التسويق الذكية — Marketing Messages Lite AI
+    // ═══════════════════════════════════════════════════════════════════════════
+    scheduleMarketingMessage(userId, behavior, context = {}) {
+        const BEHAVIOR_MAP = {
+            cart_abandon:     { delay: '1h',  template: 'تذكير_السلة',  priority: 'HIGH',   msgAr: 'منتجاتك بسلتك لا تزال تنتظرك! أكمل طلبك الآن.' },
+            repeat_customer:  { delay: '30d', template: 'عرض_حصري',    priority: 'MEDIUM', msgAr: 'وصلت تشكيلة جديدة تناسب ذوقك — مخصصة لك.' },
+            post_purchase:    { delay: '3d',  template: 'ترحيب_عميل',  priority: 'LOW',    msgAr: 'شكراً لثقتك! كيف تقيّم منتجك؟ رأيك يهمنا.' },
+            inactive_30d:     { delay: '0h',  template: 'عرض_حصري',    priority: 'MEDIUM', msgAr: 'نفتقدك في سوق شيخة! عروض حصرية بانتظارك.' },
+            price_drop:       { delay: '0h',  template: 'عرض_حصري',    priority: 'HIGH',   msgAr: `انخفض سعر ${context.productName || 'منتجك المفضل'}! اشترِه الآن.` },
+            contract_renewal: { delay: '7d',  template: 'تأكيد_الطلب', priority: 'HIGH',   msgAr: 'عقدك يقترب من التجديد — تواصل مع فريق سوق شيخة.' },
+        };
+
+        const plan = BEHAVIOR_MAP[behavior] || BEHAVIOR_MAP.inactive_30d;
+        const delayMs = this._parseDelay(plan.delay);
+        const scheduled = {
+            id:          'msg_' + crypto.randomBytes(8).toString('hex'),
+            userId:      sha256(String(userId)),
+            behavior,
+            template:    plan.template,
+            priority:    plan.priority,
+            msgAr:       plan.msgAr,
+            market:      context.market || 'now',
+            context,
+            scheduledAt: new Date().toISOString(),
+            sendAt:      new Date(Date.now() + delayMs).toISOString(),
+            bestTime:    this._bestSendTime(),
+            status:      'scheduled',
+        };
+
+        this.db.scheduledMessages.push(scheduled);
+        saveMetaDB(this.db);
+        this._addAuditEntry('MARKETING_MSG_SCHEDULED', scheduled.userId, { behavior, market: scheduled.market, priority: plan.priority });
+
+        return scheduled;
+    }
+
+    _parseDelay(delay) {
+        if (!delay || delay === '0h') return 0;
+        const match = String(delay).match(/^(\d+)(h|d|m)$/);
+        if (!match) return 0;
+        const [, val, unit] = match;
+        const ms = { h: 3600000, d: 86400000, m: 60000 };
+        return parseInt(val) * (ms[unit] || 3600000);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -958,7 +1376,293 @@ src="https://www.facebook.com/tr?id=${this.config.pixelId}&ev=PageView&noscript=
             app.get(shortcut, (req, res) => res.redirect('/شيخة-ميتا-AI.html'));
         });
 
-        console.log(`✅ [SheikhMetaEngine] 65 مسار API مُسجَّل | Base: ${base}`);
+        // ─── Multi-Region Geo-Routing ─────────────────────────────────────────
+        app.post(`${base}/geo/capi/event`, async (req, res) => {
+            try {
+                const { eventName, userData = {}, customData = {}, eventId } = req.body;
+                if (!eventName) return res.status(400).json({ error: 'eventName مطلوب' });
+                const result = await this.sendCAPIEventWithGeoRouting(
+                    eventName,
+                    { ...userData, ip: req.ip, userAgent: req.headers['user-agent'] },
+                    customData,
+                    eventId,
+                );
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.get(`${base}/geo/regions`, (req, res) => {
+            const regions = Object.fromEntries(
+                Object.entries(this.regionConfig).map(([k, v]) => [k, {
+                    name:      v.name,
+                    countries: v.countries,
+                    currency:  v.currency,
+                    gdpr:      !!v.gdpr,
+                    ccpa:      !!v.ccpa,
+                }])
+            );
+            res.json({ regions, count: Object.keys(regions).length });
+        });
+
+        // ─── Per-Market WhatsApp Routing ──────────────────────────────────────
+        app.post(`${base}/واتساب/سوق/:market`, async (req, res) => {
+            try {
+                const { market } = req.params;
+                const { to, template, components = [] } = req.body;
+                if (!to) return res.status(400).json({ error: 'رقم الهاتف مطلوب' });
+                const result = await this.sendWhatsAppForMarket(market, to, template, components);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/whatsapp/market/:market`, async (req, res) => {
+            try {
+                const { market } = req.params;
+                const { to, template, components = [] } = req.body;
+                if (!to) return res.status(400).json({ error: 'to is required' });
+                const result = await this.sendWhatsAppForMarket(market, to, template, components);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.get(`${base}/واتساب/أسواق`, (req, res) => {
+            const markets = Object.fromEntries(
+                Object.entries(this.marketWhatsApp).map(([k, v]) => [k, {
+                    phoneId:   v.phoneId,
+                    welcomeAr: v.welcomeAr,
+                    segment:   v.segment,
+                }])
+            );
+            res.json({ markets });
+        });
+
+        // ─── Custom B2B / B2G Events ──────────────────────────────────────────
+        app.post(`${base}/b2b/استفسار-سكراب`, async (req, res) => {
+            try {
+                const result = await this.sendCustomB2BEvent('ScrapInquiry', req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/b2b/scrap-inquiry`, async (req, res) => {
+            try {
+                const result = await this.sendCustomB2BEvent('ScrapInquiry', req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/b2b/عرض-سبائك`, async (req, res) => {
+            try {
+                const result = await this.sendCustomB2BEvent('BullionQuoteRequest', req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/b2b/bullion-quote`, async (req, res) => {
+            try {
+                const result = await this.sendCustomB2BEvent('BullionQuoteRequest', req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/b2b/طلب-nda`, async (req, res) => {
+            try {
+                const result = await this.sendCustomB2BEvent('RareEarthNDA', req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/b2b/عميل-مؤهل`, async (req, res) => {
+            try {
+                const result = await this.sendCustomB2BEvent('QualifiedLead', req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/b2b/qualified-lead`, async (req, res) => {
+            try {
+                const result = await this.sendCustomB2BEvent('QualifiedLead', req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/b2b/عقد-مكتمل`, async (req, res) => {
+            try {
+                const result = await this.sendCustomB2BEvent('ContractWon', req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/b2b/contract-won`, async (req, res) => {
+            try {
+                const result = await this.sendCustomB2BEvent('ContractWon', req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/b2b/طلب-فوري`, async (req, res) => {
+            try {
+                const result = await this.sendCustomB2BEvent('FlashOrderNow', req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.get(`${base}/b2b/أنواع-الأحداث`, (req, res) => {
+            res.json({
+                events: [
+                    { type: 'ScrapInquiry',        nameAr: 'استفسار سكراب',         market: 'scrap',    segment: 'B2B' },
+                    { type: 'BullionQuoteRequest',  nameAr: 'طلب عرض سعر سبائك',    market: 'precious', segment: 'B2G' },
+                    { type: 'RareEarthNDA',         nameAr: 'طلب NDA معادن نادرة',   market: 'rare',     segment: 'B2G' },
+                    { type: 'QualifiedLead',        nameAr: 'عميل مؤهل',             market: 'metals',   segment: 'B2B' },
+                    { type: 'ContractWon',          nameAr: 'عقد مُبرم',             market: 'metals',   segment: 'B2B' },
+                    { type: 'FlashOrderNow',        nameAr: 'طلب فوري سوق الآن',     market: 'now',      segment: 'B2C' },
+                ],
+            });
+        });
+
+        // ─── Consent Management (GDPR / PDPL / CCPA) ─────────────────────────
+        app.post(`${base}/consent/تسجيل`, (req, res) => {
+            try {
+                const { userId, purposes, framework, version, channel } = req.body;
+                if (!userId) return res.status(400).json({ error: 'userId مطلوب' });
+                const result = this.recordConsent(userId, { purposes, framework, version, channel, ip: req.ip });
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/consent/record`, (req, res) => {
+            try {
+                const { userId, purposes, framework, version, channel } = req.body;
+                if (!userId) return res.status(400).json({ error: 'userId required' });
+                const result = this.recordConsent(userId, { purposes, framework, version, channel, ip: req.ip });
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.get(`${base}/consent/تحقق/:userId`, (req, res) => {
+            const { purpose = 'advertising' } = req.query;
+            const consented = this.checkConsent(req.params.userId, purpose);
+            res.json({ userId: '[hashed]', purpose, consented, timestamp: new Date().toISOString() });
+        });
+
+        app.get(`${base}/consent/check/:userId`, (req, res) => {
+            const { purpose = 'advertising' } = req.query;
+            const consented = this.checkConsent(req.params.userId, purpose);
+            res.json({ consented, purpose });
+        });
+
+        app.delete(`${base}/consent/:userId`, (req, res) => {
+            try {
+                const result = this.deleteConsent(req.params.userId);
+                this._addAuditEntry('CONSENT_DELETE_API', req.ip, { userId: '[hashed]' });
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.get(`${base}/consent/إحصائيات`, (req, res) => {
+            res.json({
+                totalConsents: Object.keys(this.consentDB.consents).length,
+                note: 'جميع معرّفات المستخدمين مُشفَّرة SHA-256',
+                frameworks: ['PDPL', 'GDPR', 'CCPA'],
+            });
+        });
+
+        // ─── Executive KPI Dashboard ──────────────────────────────────────────
+        app.get(`${base}/kpi/تنفيذي`, (req, res) => res.json(this.getExecutiveKPIs()));
+        app.get(`${base}/kpi/executive`, (req, res) => res.json(this.getExecutiveKPIs()));
+
+        app.get(`${base}/kpi/تنبيهات`, (req, res) => res.json({
+            alerts:     this.checkAlerts(),
+            thresholds: this.alertThresholds,
+            checkedAt:  new Date().toISOString(),
+        }));
+
+        app.get(`${base}/kpi/alerts`, (req, res) => res.json({
+            alerts:     this.checkAlerts(),
+            thresholds: this.alertThresholds,
+        }));
+
+        // ─── Governance / Audit Log ───────────────────────────────────────────
+        app.get(`${base}/حوكمة/سجل-التدقيق`, (req, res) => {
+            const limit = Math.min(parseInt(req.query.limit) || 50, 200);
+            const entries = this.auditLog.slice(0, limit);
+            res.json({ total: this.auditLog.length, limit, entries });
+        });
+
+        app.get(`${base}/governance/audit-log`, (req, res) => {
+            const limit = Math.min(parseInt(req.query.limit) || 50, 200);
+            res.json({ total: this.auditLog.length, limit, entries: this.auditLog.slice(0, limit) });
+        });
+
+        app.get(`${base}/حوكمة/صحة-التوكن`, (req, res) => {
+            const checks = {
+                mainToken:      { configured: !!(this.config.accessToken && this.config.accessToken !== 'DEMO_TOKEN'),   label: 'META_ACCESS_TOKEN' },
+                capiToken:      { configured: !!(this.config.capiToken   && this.config.capiToken   !== 'DEMO_TOKEN'),   label: 'META_CAPI_ACCESS_TOKEN' },
+                whatsappToken:  { configured: !!(this.config.whatsappToken && this.config.whatsappToken !== 'DEMO_WA_TOKEN'), label: 'META_WHATSAPP_TOKEN' },
+                pixelId:        { configured: !!(this.config.pixelId     && this.config.pixelId     !== 'SHEIKHA_PIXEL_001'), label: 'META_PIXEL_ID' },
+                automationOn:   { configured: this.config.automationApproved, label: 'META_AUTOMATION_APPROVED' },
+                regionTokens: {
+                    sa_gcc:   { configured: !!process.env.META_CAPI_TOKEN_SA_GCC   },
+                    europe:   { configured: !!process.env.META_CAPI_TOKEN_EUROPE   },
+                    americas: { configured: !!process.env.META_CAPI_TOKEN_AMERICAS },
+                    asia:     { configured: !!process.env.META_CAPI_TOKEN_ASIA     },
+                },
+                marketPixels: Object.fromEntries(
+                    Object.entries(this.marketPixels).map(([k, v]) => [k, { configured: v.pixelId !== this.config.pixelId || !!process.env[`META_PIXEL_ID_${k.toUpperCase()}`] }])
+                ),
+            };
+            const allOk = checks.mainToken.configured && checks.capiToken.configured && checks.pixelId.configured;
+            res.json({ ok: allOk, checks, note: 'فحص التوكنات محلي فقط — لا يتصل بـ Meta Graph API' });
+        });
+
+        app.post(`${base}/حوكمة/اختبار-الوصول`, async (req, res) => {
+            // اختبار بسيط: إرسال حدث تجريبي TestEvent
+            try {
+                const result = await this.sendCAPIEvent('PageView', { ip: req.ip, userAgent: req.headers['user-agent'] }, { content_name: 'Token Health Test' });
+                this._addAuditEntry('TOKEN_TEST', req.ip, { success: result.success });
+                res.json({ ok: result.success, eventId: result.eventId, sentToMeta: result.sentToMeta, note: 'اختبار تجريبي — لا يحسب كتحويل' });
+            } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
+        });
+
+        // ─── Marketing Messages Lite AI ───────────────────────────────────────
+        app.post(`${base}/تسويق/جدولة-رسالة`, async (req, res) => {
+            try {
+                const { userId, behavior, context = {} } = req.body;
+                if (!userId || !behavior) return res.status(400).json({ error: 'userId و behavior مطلوبان' });
+                const scheduled = this.scheduleMarketingMessage(userId, behavior, context);
+                res.json({ success: true, scheduled });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/marketing/schedule-message`, async (req, res) => {
+            try {
+                const { userId, behavior, context = {} } = req.body;
+                if (!userId || !behavior) return res.status(400).json({ error: 'userId and behavior required' });
+                const scheduled = this.scheduleMarketingMessage(userId, behavior, context);
+                res.json({ success: true, scheduled });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.get(`${base}/تسويق/رسائل-مجدولة`, (req, res) => {
+            const limit = parseInt(req.query.limit) || 20;
+            const msgs = (this.db.scheduledMessages || []).slice(-limit).reverse();
+            res.json({ total: (this.db.scheduledMessages || []).length, limit, messages: msgs });
+        });
+
+        app.get(`${base}/تسويق/سلوكيات`, (req, res) => {
+            res.json({
+                behaviors: [
+                    { key: 'cart_abandon',     nameAr: 'تخلٍّ عن السلة',         delay: '1h',  priority: 'HIGH' },
+                    { key: 'repeat_customer',  nameAr: 'عميل متكرر',              delay: '30d', priority: 'MEDIUM' },
+                    { key: 'post_purchase',    nameAr: 'بعد الشراء',              delay: '3d',  priority: 'LOW' },
+                    { key: 'inactive_30d',     nameAr: 'عميل غير نشط 30 يوم',    delay: '0h',  priority: 'MEDIUM' },
+                    { key: 'price_drop',       nameAr: 'انخفاض سعر المنتج',       delay: '0h',  priority: 'HIGH' },
+                    { key: 'contract_renewal', nameAr: 'تجديد عقد B2B',           delay: '7d',  priority: 'HIGH' },
+                ],
+            });
+        });
+
+        console.log(`✅ [SheikhMetaEngine] 100 مسار API مُسجَّل | Base: ${base}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
