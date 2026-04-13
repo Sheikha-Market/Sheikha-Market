@@ -12,6 +12,23 @@
         "value": 5000,
         "currency": "USD"
       }
+    },
+    {
+      "eid": "erp_TEST-001",
+      "eventName": "Purchase",
+      "source": "ERP",
+      "market": "precious",
+      "timestamp": "2026-04-13T01:47:11.855Z",
+      "contract_id": "TEST-001",
+      "value": 5000000
+    },
+    {
+      "eid": "logistics_ORD-777_DeliveredOrder",
+      "eventName": "DeliveredOrder",
+      "source": "Logistics",
+      "market": "metals",
+      "timestamp": "2026-04-13T01:47:11.856Z",
+      "order_id": "ORD-777"
     }
   ],
   "audiences": [],

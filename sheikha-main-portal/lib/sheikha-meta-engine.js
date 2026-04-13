@@ -57,14 +57,21 @@ class SheikhMetaEngine {
 
         // إعدادات Meta (تُقرأ من .env في الإنتاج)
         this.config = {
-            pixelId:         process.env.META_PIXEL_ID         || 'SHEIKHA_PIXEL_001',
-            accessToken:     process.env.META_ACCESS_TOKEN      || 'DEMO_TOKEN',
-            whatsappToken:   process.env.META_WHATSAPP_TOKEN    || 'DEMO_WA_TOKEN',
-            phoneNumberId:   process.env.META_WA_PHONE_ID       || 'DEMO_PHONE_ID',
-            wabaId:          process.env.META_WABA_ID           || 'DEMO_WABA_ID',
-            appId:           process.env.META_APP_ID            || 'DEMO_APP_ID',
-            graphVersion:    process.env.META_GRAPH_VERSION     || 'v21.0',
-            testCode:        process.env.META_TEST_EVENT_CODE   || null,
+            pixelId:           process.env.META_PIXEL_ID           || 'SHEIKHA_PIXEL_001',
+            accessToken:       process.env.META_ACCESS_TOKEN        || 'DEMO_TOKEN',
+            // توكن CAPI مخصص — يُستخدم لإرسال أحداث Conversions API فقط
+            capiToken:         process.env.META_CAPI_ACCESS_TOKEN   || process.env.META_ACCESS_TOKEN || 'DEMO_TOKEN',
+            adAccountId:       process.env.META_AD_ACCOUNT_ID       || '',
+            catalogId:         process.env.META_CATALOG_ID          || '',
+            catalogTestId:     process.env.META_CATALOG_TEST_ID     || '',
+            whatsappToken:     process.env.META_WHATSAPP_TOKEN      || 'DEMO_WA_TOKEN',
+            phoneNumberId:     process.env.META_WA_PHONE_ID         || 'DEMO_PHONE_ID',
+            wabaId:            process.env.META_WABA_ID             || 'DEMO_WABA_ID',
+            appId:             process.env.META_APP_ID              || 'DEMO_APP_ID',
+            graphVersion:      process.env.META_GRAPH_VERSION       || 'v21.0',
+            testCode:          process.env.META_TEST_EVENT_CODE     || null,
+            // true → ترسل فعلياً لـ Meta Graph API | false → تحفظ محلياً فقط
+            automationApproved: process.env.META_AUTOMATION_APPROVED === 'true',
         };
 
         // بيكسلات الأسواق الخمسة — Multi-Market Pixels
@@ -108,6 +115,46 @@ class SheikhMetaEngine {
         if (this.app) this._registerRoutes();
 
         console.log('✅ [SheikhMetaEngine v1.0] Meta AI Engine — CAPI + WhatsApp + Pixel + Commerce — 65 API مسار');
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🌐 مساعد HTTP — يرسل payload لـ Meta Graph API عبر HTTPS
+    // يُفعَّل فقط عندما تكون META_AUTOMATION_APPROVED=true
+    // ═══════════════════════════════════════════════════════════════════════════
+    _callMetaGraphAPI(pixelId, accessToken, payload) {
+        return new Promise((resolve, reject) => {
+            const body = JSON.stringify(payload);
+            const path = `/${this.config.graphVersion}/${encodeURIComponent(pixelId)}/events?access_token=${encodeURIComponent(accessToken)}`;
+            const options = {
+                hostname: 'graph.facebook.com',
+                port: 443,
+                path,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Length': Buffer.byteLength(body),
+                },
+            };
+            const req = https.request(options, (res) => {
+                let data = '';
+                res.on('data', (chunk) => { data += chunk; });
+                res.on('end', () => {
+                    try {
+                        const parsed = JSON.parse(data);
+                        if (res.statusCode >= 200 && res.statusCode < 300) {
+                            resolve(parsed);
+                        } else {
+                            reject(new Error(`Meta API ${res.statusCode}: ${JSON.stringify(parsed)}`));
+                        }
+                    } catch (e) {
+                        reject(new Error(`Meta API parse error: ${data}`));
+                    }
+                });
+            });
+            req.on('error', reject);
+            req.write(body);
+            req.end();
+        });
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -157,11 +204,21 @@ class SheikhMetaEngine {
         this.stats.eventsReceived++;
         if (customData.value) this.stats.conversionValue += Number(customData.value);
 
-        // حفظ محلياً
+        // حفظ محلياً دائماً
         this.db.events.push({ eid, eventName, timestamp: new Date().toISOString(), userData: { email: userData.email }, customData });
         saveMetaDB(this.db);
 
-        return { success: true, eventId: eid, eventName, sentToMeta: true, payload };
+        // إرسال فعلي لـ Meta عندما يكون الإنتاج مُفعَّلاً
+        let metaResponse = null;
+        if (this.config.automationApproved) {
+            try {
+                metaResponse = await this._callMetaGraphAPI(this.config.pixelId, this.config.capiToken, payload);
+            } catch (e) {
+                console.error('[SheikhMetaEngine] CAPI send error:', e.message);
+            }
+        }
+
+        return { success: true, eventId: eid, eventName, sentToMeta: this.config.automationApproved, metaResponse, payload };
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -219,7 +276,17 @@ class SheikhMetaEngine {
         this.db.events.push({ eid, eventName, market: marketKey, timestamp: new Date().toISOString(), userData: { email: userData.email }, customData });
         saveMetaDB(this.db);
 
-        return { success: true, eventId: eid, eventName, market: marketKey, pixelId: mkt.pixelId, segment: mkt.segment, sentToMeta: true, payload };
+        // إرسال فعلي لبيكسل السوق عندما يكون الإنتاج مُفعَّلاً
+        let metaResponse = null;
+        if (this.config.automationApproved) {
+            try {
+                metaResponse = await this._callMetaGraphAPI(mkt.pixelId, mkt.accessToken, payload);
+            } catch (e) {
+                console.error(`[SheikhMetaEngine] CAPI market(${marketKey}) send error:`, e.message);
+            }
+        }
+
+        return { success: true, eventId: eid, eventName, market: marketKey, pixelId: mkt.pixelId, segment: mkt.segment, sentToMeta: this.config.automationApproved, metaResponse, payload };
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -238,6 +305,142 @@ class SheikhMetaEngine {
         };
         this.stats.whatsappSent++;
         return { success: true, messageId: 'wamid.' + crypto.randomBytes(16).toString('hex'), payload };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🏢 ERP — إرسال عقد أوفلاين لـ Meta Offline Conversions API
+    // يُستدعى من نظام الـ ERP لما يُغلق عقد (B2B / B2G) في نظام الشركة
+    //
+    // contract = {
+    //   contract_id,        // معرّف العقد في الـ ERP
+    //   company_email,      // إيميل الشركة المشترية
+    //   company_phone,      // هاتف الشركة المشترية
+    //   contract_value,     // قيمة العقد بالأرقام
+    //   currency,           // SAR | USD | EUR …
+    //   contract_date,      // تاريخ العقد ISO 8601
+    //   market_segment,     // metals | scrap | precious | rare | now
+    //   client_type,        // B2B | B2G | B2C
+    //   fbc,                // (اختياري) فيسبوك كلِك كوكي — يربط العقد بالإعلان
+    //   country,            // (اختياري) رمز الدولة ISO 3166-1 alpha-2
+    // }
+    // ═══════════════════════════════════════════════════════════════════════════
+    async sendOfflineContract(contract) {
+        if (!contract || !contract.contract_id) throw new Error('contract_id مطلوب');
+
+        const eid = `erp_${contract.contract_id}`;
+        const eventTime = contract.contract_date
+            ? Math.floor(new Date(contract.contract_date).getTime() / 1000)
+            : Math.floor(Date.now() / 1000);
+
+        const userData = {
+            em: sha256(contract.company_email),
+            ph: sha256(contract.company_phone),
+            country: contract.country ? sha256(contract.country.toLowerCase()) : sha256('sa'),
+        };
+        if (contract.fbc) userData.fbc = contract.fbc;
+
+        const payload = {
+            data: [{
+                event_name: 'Purchase',
+                event_time: eventTime,
+                event_id: eid,
+                action_source: 'system_generated', // إشارة أوفلاين لـ Meta
+                user_data: userData,
+                custom_data: {
+                    currency: contract.currency || 'SAR',
+                    value: Number(contract.contract_value) || 0,
+                    order_id: contract.contract_id,
+                    market_segment: contract.market_segment || 'metals',
+                    client_type: contract.client_type || 'B2B',
+                },
+            }],
+            partner_agent: 'sheikha-meta-engine-v1',
+        };
+
+        // حفظ محلياً
+        this.db.events.push({ eid, eventName: 'Purchase', source: 'ERP', market: contract.market_segment, timestamp: new Date().toISOString(), contract_id: contract.contract_id, value: contract.contract_value });
+        saveMetaDB(this.db);
+        this.stats.eventsSent++;
+        this.stats.conversionValue += Number(contract.contract_value) || 0;
+
+        // الإرسال الفعلي لـ Meta
+        let metaResponse = null;
+        if (this.config.automationApproved) {
+            // استخدم بيكسل السوق المناسب إن وُجد
+            const mkt = this.marketPixels[contract.market_segment] || null;
+            const pixelId = mkt ? mkt.pixelId : this.config.pixelId;
+            const token = mkt ? mkt.accessToken : this.config.capiToken;
+            try {
+                metaResponse = await this._callMetaGraphAPI(pixelId, token, payload);
+            } catch (e) {
+                console.error('[SheikhMetaEngine] ERP contract send error:', e.message);
+            }
+        }
+
+        return { success: true, eventId: eid, contract_id: contract.contract_id, sentToMeta: this.config.automationApproved, metaResponse };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🚚 لوجستيك — إرسال حدث تسليم/شحن/إرجاع من المنظومة اللوجستية
+    //
+    // delivery = {
+    //   order_id,        // معرّف الطلب في نظام اللوجستك
+    //   event_type,      // ShippingInfo | DeliveredOrder | ReturnOrder
+    //   email,           // (اختياري)
+    //   phone,           // (اختياري)
+    //   value,           // قيمة الشحنة
+    //   currency,        // SAR | USD …
+    //   market_segment,  // metals | scrap | precious | rare | now
+    //   fbp,             // (اختياري) فيسبوك براوزر كوكي
+    // }
+    // ═══════════════════════════════════════════════════════════════════════════
+    async sendLogisticsEvent(delivery) {
+        if (!delivery || !delivery.order_id) throw new Error('order_id مطلوب');
+
+        const allowedTypes = ['ShippingInfo', 'DeliveredOrder', 'ReturnOrder'];
+        const eventName = allowedTypes.includes(delivery.event_type) ? delivery.event_type : 'ShippingInfo';
+        const eid = `logistics_${delivery.order_id}_${eventName}`;
+
+        const userData = {
+            em: delivery.email ? sha256(delivery.email) : undefined,
+            ph: delivery.phone ? sha256(delivery.phone) : undefined,
+        };
+        if (delivery.fbp) userData.fbp = delivery.fbp;
+
+        const payload = {
+            data: [{
+                event_name: eventName,
+                event_time: Math.floor(Date.now() / 1000),
+                event_id: eid,
+                action_source: 'system_generated',
+                user_data: userData,
+                custom_data: {
+                    currency: delivery.currency || 'SAR',
+                    value: Number(delivery.value) || 0,
+                    order_id: delivery.order_id,
+                    market_segment: delivery.market_segment || 'metals',
+                },
+            }],
+            partner_agent: 'sheikha-meta-engine-v1',
+        };
+
+        this.db.events.push({ eid, eventName, source: 'Logistics', market: delivery.market_segment, timestamp: new Date().toISOString(), order_id: delivery.order_id });
+        saveMetaDB(this.db);
+        this.stats.eventsSent++;
+
+        let metaResponse = null;
+        if (this.config.automationApproved) {
+            const mkt = this.marketPixels[delivery.market_segment] || null;
+            const pixelId = mkt ? mkt.pixelId : this.config.pixelId;
+            const token = mkt ? mkt.accessToken : this.config.capiToken;
+            try {
+                metaResponse = await this._callMetaGraphAPI(pixelId, token, payload);
+            } catch (e) {
+                console.error('[SheikhMetaEngine] Logistics event send error:', e.message);
+            }
+        }
+
+        return { success: true, eventId: eid, order_id: delivery.order_id, eventName, sentToMeta: this.config.automationApproved, metaResponse };
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -264,11 +467,18 @@ class SheikhMetaEngine {
             nameEn: 'Sheikha Meta AI Engine',
             version: this.version,
             startedAt: this.startedAt,
-            config: { pixelId: this.config.pixelId, appId: this.config.appId, graphVersion: this.config.graphVersion },
+            config: {
+                pixelId: this.config.pixelId,
+                appId: this.config.appId,
+                graphVersion: this.config.graphVersion,
+                adAccountId: this.config.adAccountId,
+                catalogId: this.config.catalogId,
+                automationApproved: this.config.automationApproved,
+            },
             marketPixels: marketPixelsSummary,
             stats: this.stats,
             halalEvents: this.halalEvents,
-            apiCount: 66,
+            apiCount: 70,
             dbRecords: { events: this.db.events.length, leads: this.db.leads.length, templates: this.db.templates.length },
         };
     }
@@ -379,6 +589,36 @@ class SheikhMetaEngine {
                 const { market, eventName, userData = {}, customData = {}, eventId } = req.body;
                 if (!market || !eventName) return res.status(400).json({ error: 'market and eventName required' });
                 const result = await this.sendCAPIEventForMarket(market, eventName, { ...userData, ip: req.ip, userAgent: req.headers['user-agent'] }, customData, eventId);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // ─── ERP — Offline Conversions (عقود B2B / B2G) ──────────────────────
+        app.post(`${base}/capi/erp/عقد`, async (req, res) => {
+            try {
+                const result = await this.sendOfflineContract(req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/capi/erp/contract`, async (req, res) => {
+            try {
+                const result = await this.sendOfflineContract(req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // ─── Logistics — Delivery Events (شحن / تسليم / إرجاع) ──────────────
+        app.post(`${base}/capi/logistics/تسليم`, async (req, res) => {
+            try {
+                const result = await this.sendLogisticsEvent(req.body);
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/capi/logistics/delivery`, async (req, res) => {
+            try {
+                const result = await this.sendLogisticsEvent(req.body);
                 res.json(result);
             } catch (e) { res.status(500).json({ error: e.message }); }
         });
