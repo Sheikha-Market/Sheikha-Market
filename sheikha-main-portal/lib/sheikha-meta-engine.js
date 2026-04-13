@@ -55,21 +55,49 @@ class SheikhMetaEngine {
         this.version = '1.0.0';
         this.startedAt = new Date().toISOString();
 
-        // سلطة شيخة — Sheikha Authority (توقيع المؤسس الرقمي - السلطة السباعية الكاملة)
+        // سلطة شيخة — Sheikha Authority (توقيع المؤسس الرقمي - السلطة الأحد عشرية السيادية المالية)
         const crypto = require('crypto');
         this.SHEIKHA_AUTHORITY = {
             FOUNDER:   'Salman Ahmed Al-Rajeh',
-            TITLE:     'International Certified Executive Leader - Supply Chain, Procurement & AI Strategy',
-            ACADEMIC_BACKGROUND: {
-                degree:     'Bachelor of Business Administration',
-                university: 'Imam Abdulrahman Bin Faisal University',
-                country:    'Saudi Arabia',
-            },
+            TITLE:     'Sovereign Financial & Industrial Leader - SABIC & State Approved Feasibility Authority',
+            ACADEMIC_BACKGROUND: [
+                {
+                    degree:     'Bachelor of Business Administration',
+                    university: 'Imam Abdulrahman Bin Faisal University',
+                    country:    'Saudi Arabia',
+                },
+                {
+                    certificate: 'Entrepreneurship & Business Leadership',
+                    institute:   'KFUPM Entrepreneurship Institute - معهد الريادة',
+                    university:  'King Fahd University of Petroleum & Minerals',
+                    country:     'Saudi Arabia',
+                },
+            ],
             LEADERSHIP_CERTIFICATIONS: [
                 'Executive Leadership Certification',
                 'Team Leadership & Management Certification',
                 'Initiative & Strategic Leadership Certification',
             ],
+            INDUSTRIAL_CERTIFICATION: {
+                issuer:   'SABIC',
+                programs: [
+                    'Nusaned Program - Local Content Development - نساند لتمكين المحتوى المحلي',
+                    'Approved Feasibility Study Provider - مزود معتمد لدراسات الجدوى',
+                ],
+                authority_scope: ['Industrial Projects', 'Local Content', 'Supply Chain Finance'],
+            },
+            FINANCIAL_AUTHORITY: {
+                sabic_feasibility_provider: true,
+                approved_by: [
+                    'SABIC',
+                    'Investment Funds - الصناديق الاستثمارية',
+                    'Commercial Banks - البنوك التجارية',
+                    'State Entities - جهات الدولة',
+                ],
+                status:           'BANKABLE_STUDY_ISSUER',
+                guarantee_level:  'SOVEREIGN_GRADE',
+                can_unlock_funding: ['PIF', 'SIDF', 'NDF', 'SNB', 'AlRajhi', 'SABB'],
+            },
             ACCREDITATIONS: {
                 supply_chain_procurement: [
                     'IPSCMI - International Purchasing and Supply Chain Management Institute',
@@ -82,15 +110,20 @@ class SheikhMetaEngine {
                     'Microsoft Certified: Azure AI & Cloud Solutions',
                 ],
             },
-            DOCTRINE:        'Sheikha Core: Academic rigor + Professional mastery + Sovereign AI',
-            AUTHORITY_LEVEL: 'SEPTA_CERTIFIED_LEADER',  // أكاديمي + 3 قيادة + 3 سلاسل/مشتريات + 3 تقني/ذكاء
+            DOCTRINE:          'Sheikha Core: From study to funding to execution in 72 hours — Founded by KFUPM Entrepreneur + SABIC Industrial + SDAIA AI',
+            AUTHORITY_LEVEL:   'HENDECA_SOVEREIGN_FINANCIAL',  // 11 محور: أكاديمي×2 + قيادي×3 + صناعي سابك×2 + مالي×1 + مهني دولي×3
             COMMAND_AUTHORITY: true,
-            // توقيع SHA-256 يشمل الاسم + 6 اعتمادات + التاريخ
+            KFUPM_VERIFIED:    true,
+            SABIC_VERIFIED:    true,
+            CAN_UNLOCK_FUNDING: true,
+            // توقيع SHA-256 يشمل الاسم + 11 اعتماد + التاريخ
             SIGNATURE: crypto.createHash('sha256')
                 .update([
                     'Salman Ahmed Al-Rajeh',
                     'IPSCMI', 'GPSCO', 'BlueOcean', 'SDAIA', 'IBM', 'Microsoft',
-                    'IAU-BBA', 'ExecutiveLeader',
+                    'IAU-BBA', 'KFUPM-Entrepreneurship',
+                    'SABIC-Nusaned', 'SABIC-Feasibility',
+                    'StateAndBanksApproved',
                     'Sheikha', this.startedAt.slice(0, 10),
                 ].join('|'))
                 .digest('hex').slice(0, 24),
@@ -357,13 +390,17 @@ class SheikhMetaEngine {
                     num_items:    customData.numItems      || 1,
                     order_id:     customData.orderId       || eid,
                     authority_name:           this.SHEIKHA_AUTHORITY.FOUNDER,
-                    authority_tier:           'SEPTA_CERTIFIED_LEADER',
+                    authority_tier:           'HENDECA_SOVEREIGN_FINANCIAL',
                     ipscmi_verified:          true,
                     gpsco_verified:           true,
+                    kfupm_verified:           true,
+                    sabic_nusaned_verified:   true,
+                    sabic_feasibility:        'BANKABLE_STUDY_ISSUER',
                     sovereign_ai_endorsed:    'SDAIA',
                     tech_stack_certified:     'IBM, Microsoft',
+                    financial_authority:      'SABIC+StateEntities+InvestmentFunds+CommercialBanks',
                     authority_signature:      this.SHEIKHA_AUTHORITY.SIGNATURE,
-                    doctrine:                 'Sheikha_Core_10/10',
+                    doctrine:                 'Sheikha_Core_11/11',
                 },
                 ...(this.config.testCode ? { test_event_code: this.config.testCode } : {}),
             }],

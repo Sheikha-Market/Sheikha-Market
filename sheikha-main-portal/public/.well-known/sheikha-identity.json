@@ -13,19 +13,50 @@
     "founder": {
         "name": "Salman Ahmed Al-Rajeh",
         "arabicName": "سلمان أحمد الراجح",
-        "title": "International Certified Executive Leader - Supply Chain, Procurement & AI Strategy",
-        "authority_level": "SEPTA_CERTIFIED_LEADER",
+        "title": "Sovereign Financial & Industrial Leader - SABIC & State Approved Feasibility Authority",
+        "authority_level": "HENDECA_SOVEREIGN_FINANCIAL",
         "command_authority": true,
-        "academic": {
-            "degree": "Bachelor of Business Administration",
-            "university": "Imam Abdulrahman Bin Faisal University",
-            "country": "Saudi Arabia"
-        },
+        "kfupm_verified": true,
+        "sabic_verified": true,
+        "can_unlock_funding": true,
+        "academic": [
+            {
+                "degree": "Bachelor of Business Administration",
+                "university": "Imam Abdulrahman Bin Faisal University",
+                "country": "Saudi Arabia"
+            },
+            {
+                "certificate": "Entrepreneurship & Business Leadership",
+                "institute": "KFUPM Entrepreneurship Institute - معهد الريادة للأعمال",
+                "university": "King Fahd University of Petroleum & Minerals",
+                "country": "Saudi Arabia"
+            }
+        ],
         "leadership_certifications": [
             "Executive Leadership Certification",
             "Team Leadership & Management Certification",
             "Initiative & Strategic Leadership Certification"
         ],
+        "industrial_certification": {
+            "issuer": "SABIC",
+            "programs": [
+                "Nusaned Program - Local Content Development - نساند لتمكين المحتوى المحلي",
+                "Approved Feasibility Study Provider - مزود معتمد لدراسات الجدوى"
+            ],
+            "authority_scope": ["Industrial Projects", "Local Content", "Supply Chain Finance"]
+        },
+        "financial_authority": {
+            "sabic_feasibility_provider": true,
+            "approved_by": [
+                "SABIC",
+                "Investment Funds - الصناديق الاستثمارية",
+                "Commercial Banks - البنوك التجارية",
+                "State Entities - جهات الدولة"
+            ],
+            "status": "BANKABLE_STUDY_ISSUER",
+            "guarantee_level": "SOVEREIGN_GRADE",
+            "can_unlock_funding": ["PIF", "SIDF", "NDF", "SNB", "AlRajhi", "SABB"]
+        },
         "accreditations": {
             "supply_chain_procurement": [
                 "IPSCMI - International Purchasing and Supply Chain Management Institute",
@@ -46,6 +77,6 @@
         "answerTemplateApi": "/api/sheikha/identity/answer-template"
     },
     "verificationPolicy": "Leadership claims are validated through measurable KPIs and transparent reporting.",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "updatedAt": "2026-04-13T00:00:00.000Z"
 }
