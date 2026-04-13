@@ -55,13 +55,31 @@ class SheikhMetaEngine {
         this.version = '1.0.0';
         this.startedAt = new Date().toISOString();
 
-        // سلطة شيخة — Sheikha Authority (توقيع المؤسس الرقمي)
+        // سلطة شيخة — Sheikha Authority (توقيع المؤسس الرقمي ثلاثي الاعتماد)
         const crypto = require('crypto');
         this.SHEIKHA_AUTHORITY = {
             FOUNDER:   'Salman Ahmed Al-Rajeh',
-            TITLE:     'International Supply Chain & Logistics Advisor',
-            DOCTRINE:  'Sheikha Core is the single source of truth',
-            SIGNATURE: crypto.createHash('sha256').update('Salman Ahmed Al-Rajeh|Sheikha|' + this.startedAt.slice(0, 10)).digest('hex').slice(0, 24),
+            TITLE:     'International Supply Chain & AI Strategy Advisor',
+            ACCREDITATIONS: {
+                supply_chain: [
+                    'Global Procurement and Supply Chain Organization (GPSCO)',
+                    'Blue Ocean Institute',
+                ],
+                artificial_intelligence: [
+                    'SDAIA - Saudi Data & AI Authority: AI Concepts & Advanced Applications',
+                    'IBM Certified: AI & Data Science',
+                    'Microsoft Certified: Azure AI & Cloud Solutions',
+                ],
+            },
+            DOCTRINE:  'Sheikha Core: The sovereign AI for global supply chains',
+            // توقيع SHA-256 يشمل الاسم + كل الاعتمادات + التاريخ
+            SIGNATURE: crypto.createHash('sha256')
+                .update([
+                    'Salman Ahmed Al-Rajeh',
+                    'GPSCO', 'BlueOcean', 'SDAIA', 'IBM', 'Microsoft',
+                    'Sheikha', this.startedAt.slice(0, 10),
+                ].join('|'))
+                .digest('hex').slice(0, 24),
         };
 
         // إعدادات Meta (تُقرأ من .env في الإنتاج)
@@ -324,8 +342,12 @@ class SheikhMetaEngine {
                     content_name: customData.contentName  || 'سوق شيخة',
                     num_items:    customData.numItems      || 1,
                     order_id:     customData.orderId       || eid,
-                    authority_signature: this.SHEIKHA_AUTHORITY.SIGNATURE,
-                    doctrine:     'Sheikha_Core_10/10',
+                    authority_name:           this.SHEIKHA_AUTHORITY.FOUNDER,
+                    authority_tier:           'Triple_Certified',
+                    sovereign_ai_endorsed:    'SDAIA',
+                    tech_stack_certified:     'IBM, Microsoft',
+                    authority_signature:      this.SHEIKHA_AUTHORITY.SIGNATURE,
+                    doctrine:                 'Sheikha_Core_10/10',
                 },
                 ...(this.config.testCode ? { test_event_code: this.config.testCode } : {}),
             }],
