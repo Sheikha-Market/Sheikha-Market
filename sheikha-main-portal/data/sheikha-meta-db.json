@@ -29,11 +29,372 @@
       "market": "metals",
       "timestamp": "2026-04-13T01:47:11.856Z",
       "order_id": "ORD-777"
+    },
+    {
+      "eid": "supply_VND-001_VendorRegistered",
+      "eventName": "Lead",
+      "source": "SupplyChain",
+      "supplyEvent": "VendorRegistered",
+      "market": "metals",
+      "timestamp": "2026-04-13T03:12:52.726Z",
+      "vendor_id": "VND-001"
+    },
+    {
+      "eid": "supply_VND-001_VendorApproved",
+      "eventName": "CompleteRegistration",
+      "source": "SupplyChain",
+      "supplyEvent": "VendorApproved",
+      "market": "metals",
+      "timestamp": "2026-04-13T03:12:52.727Z",
+      "vendor_id": "VND-001"
+    },
+    {
+      "eid": "supply_VND-002_FirstPurchaseOrder",
+      "eventName": "Purchase",
+      "source": "SupplyChain",
+      "supplyEvent": "FirstPurchaseOrder",
+      "market": "precious",
+      "timestamp": "2026-04-13T03:12:52.727Z",
+      "vendor_id": "VND-002"
+    },
+    {
+      "eid": "erp_CNT-001",
+      "eventName": "Purchase",
+      "source": "ERP",
+      "market": "metals",
+      "timestamp": "2026-04-13T03:12:52.728Z",
+      "contract_id": "CNT-001",
+      "value": 100000
+    },
+    {
+      "eid": "erp_CNT-002",
+      "eventName": "Purchase",
+      "source": "ERP",
+      "market": "precious",
+      "timestamp": "2026-04-13T03:12:52.728Z",
+      "contract_id": "CNT-002",
+      "value": 5000000
+    },
+    {
+      "eid": "2a086383-4d16-4987-b891-d89c6635bd9e",
+      "eventName": "ViewContent",
+      "timestamp": "2026-04-13T03:15:23.497Z",
+      "userData": {
+        "email": "test@test.com"
+      },
+      "customData": {
+        "currency": "EUR",
+        "value": 999,
+        "contentName": "Gold Bar",
+        "contentIds": [
+          "GOLD-001"
+        ]
+      }
+    },
+    {
+      "eid": "supply_VND-TEST_VendorApproved",
+      "eventName": "CompleteRegistration",
+      "source": "SupplyChain",
+      "supplyEvent": "VendorApproved",
+      "market": "scrap",
+      "timestamp": "2026-04-13T03:15:23.498Z",
+      "vendor_id": "VND-TEST"
+    },
+    {
+      "eid": "erp_C1",
+      "eventName": "Purchase",
+      "source": "ERP",
+      "market": "metals",
+      "timestamp": "2026-04-13T03:15:23.499Z",
+      "contract_id": "C1",
+      "value": 10000
+    },
+    {
+      "eid": "erp_CNT-IT-GOV-001",
+      "eventName": "Purchase",
+      "source": "ERP",
+      "market": "rare",
+      "timestamp": "2026-04-13T03:26:19.781Z",
+      "contract_id": "CNT-IT-GOV-001",
+      "value": 120000000
+    },
+    {
+      "eid": "06cd0257-761a-4587-a4c6-e77b3894a400",
+      "eventName": "Lead",
+      "region": "sa_gcc",
+      "timestamp": "2026-04-13T03:26:19.782Z",
+      "userData": {
+        "email": "trader@riyadh.sa"
+      },
+      "customData": {
+        "market_segment": "metals",
+        "value": 0
+      }
+    },
+    {
+      "eid": "e515dc44-bde3-40ca-90a3-988a3a49304f",
+      "eventName": "ViewContent",
+      "region": "europe",
+      "timestamp": "2026-04-13T03:27:30.093Z",
+      "userData": {},
+      "customData": {
+        "market_segment": "precious",
+        "country_tier": "G20",
+        "value": 0,
+        "currency": "EUR"
+      }
+    },
+    {
+      "eid": "8d7f2961-bbff-46cf-bf18-e2df964190ad",
+      "eventName": "Purchase",
+      "region": "europe",
+      "timestamp": "2026-04-13T03:27:30.095Z",
+      "userData": {
+        "email": "buyer-it-001@eu.com"
+      },
+      "customData": {
+        "value": 500000,
+        "currency": "EUR",
+        "market_segment": "precious",
+        "country_tier": "G20"
+      }
+    },
+    {
+      "eid": "d567815f-0b36-4b87-96a2-e888a5ca42f5",
+      "eventName": "Lead",
+      "region": "sa_gcc",
+      "timestamp": "2026-04-13T03:27:30.095Z",
+      "userData": {
+        "email": "trader@sa.com"
+      },
+      "customData": {
+        "market_segment": "metals"
+      }
+    },
+    {
+      "eid": "erp_CNT-DE-001",
+      "eventName": "Purchase",
+      "source": "ERP",
+      "market": "rare",
+      "timestamp": "2026-04-13T03:27:30.096Z",
+      "contract_id": "CNT-DE-001",
+      "value": 80000000
+    },
+    {
+      "eid": "442626b1-36fd-46a5-8872-017b9b009267",
+      "eventName": "ViewContent",
+      "region": "europe",
+      "timestamp": "2026-04-13T03:29:45.304Z",
+      "userData": {},
+      "customData": {
+        "value": 0,
+        "currency": "EUR"
+      }
+    },
+    {
+      "eid": "74385d10-8864-4a51-a04a-3a4b64c2caa0",
+      "eventName": "Purchase",
+      "region": "europe",
+      "timestamp": "2026-04-13T03:29:45.306Z",
+      "userData": {
+        "email": "user-eu-001@test.it"
+      },
+      "customData": {
+        "value": 250000,
+        "currency": "EUR",
+        "country_tier": "G20",
+        "market_segment": "precious"
+      }
+    },
+    {
+      "eid": "erp_CNT-FR-G20",
+      "eventName": "Purchase",
+      "source": "ERP",
+      "market": "precious",
+      "timestamp": "2026-04-13T03:29:45.307Z",
+      "contract_id": "CNT-FR-G20",
+      "value": 200000000
+    },
+    {
+      "eid": "13e97c26-5f99-4781-bca8-68557ca7610e",
+      "eventName": "Purchase_Source",
+      "region": "sa_gcc",
+      "timestamp": "2026-04-13T03:47:26.526Z",
+      "userData": {
+        "email": "ops@mine-gold.sa"
+      },
+      "customData": {
+        "value": 25000000,
+        "currency": "SAR",
+        "market_segment": "precious",
+        "entity_type": "mine",
+        "entity_type_buyer": "refinery",
+        "supply_role": "source",
+        "chain_position": 1,
+        "cycle_number": 1,
+        "hs_chapter": "7108",
+        "process_stage": 1,
+        "material_form": "dore_bar",
+        "halal_certified": true,
+        "sheikha_internal_id": "44ad4901ee9f0a769a8c5d4a03e33a53047febce9c4e39ccfc6e233c9ae32ffa"
+      }
+    },
+    {
+      "eid": "382a1ceb-afab-4aed-8144-6b7aafe3f9cd",
+      "eventName": "Recycle_Initiate",
+      "region": "sa_gcc",
+      "timestamp": "2026-04-13T03:47:26.528Z",
+      "userData": {},
+      "customData": {
+        "value": 50000,
+        "market_segment": "scrap",
+        "entity_type": "scrap_yard",
+        "supply_role": "source",
+        "chain_position": 1,
+        "cycle_number": 2,
+        "hs_chapter": "7204",
+        "process_stage": 1,
+        "material_form": "cable_scrap",
+        "halal_certified": false,
+        "sheikha_internal_id": "0cf3ad1b22d02f3de0459414e455cfefca1e89254f914fce1adb9cd2259b8359"
+      }
+    },
+    {
+      "eid": "13cf9de6-ba36-4d6e-a4a7-fe7071d729ed",
+      "eventName": "Purchase_Source",
+      "region": "sa_gcc",
+      "timestamp": "2026-04-13T03:49:37.170Z",
+      "userData": {},
+      "customData": {
+        "value": 1000,
+        "market_segment": "precious",
+        "entity_type": "mine",
+        "supply_role": "source",
+        "chain_position": 1,
+        "cycle_number": 1,
+        "hs_chapter": "7108",
+        "halal_certified": false,
+        "sheikha_internal_id": "35ecc5eb7993a4dd0ccfed3eb3445c2453786f40bd1a896f5ee398616eb81748"
+      }
+    },
+    {
+      "eid": "4535a91e-ebe5-4675-bf42-a15a1f0e4c75",
+      "eventName": "Purchase",
+      "timestamp": "2026-04-13T04:22:56.791Z",
+      "userData": {
+        "email": "test@sheikha.top"
+      },
+      "customData": {
+        "value": 100,
+        "currency": "SAR"
+      }
+    },
+    {
+      "eid": "be0b9ec9-977a-4ce6-b9cc-4f3c412f8f6d",
+      "eventName": "Material_Flow",
+      "region": "sa_gcc",
+      "timestamp": "2026-04-13T04:22:56.795Z",
+      "userData": {
+        "email": "flow@sheikha.top"
+      },
+      "customData": {
+        "value": 5000,
+        "market_segment": "metals",
+        "entity_type": "warehouse",
+        "supply_role": "store",
+        "chain_position": 2,
+        "cycle_number": 1,
+        "hs_chapter": "7403",
+        "halal_certified": false,
+        "sheikha_internal_id": "8586644a7fb3f3f442e9d057cacd34a6bbe5b6b3c97bb9d86e2d1f719a87cb3d"
+      }
+    },
+    {
+      "eid": "66ed7390-14fc-4af7-841d-b4d8079d0d5d",
+      "eventName": "Purchase",
+      "timestamp": "2026-04-13T04:23:22.419Z",
+      "userData": {
+        "email": "test@sheikha.top"
+      },
+      "customData": {
+        "value": 100,
+        "currency": "SAR"
+      }
+    },
+    {
+      "eid": "95d19b3c-520c-4e1f-99d4-33d9fabbc0f9",
+      "eventName": "CompleteRegistration",
+      "timestamp": "2026-04-13T04:23:22.421Z",
+      "userData": {
+        "email": "onboard@sheikha.top"
+      },
+      "customData": {
+        "value": 0,
+        "entity_type": "mine",
+        "supply_role": "source"
+      }
+    },
+    {
+      "eid": "17cfa1db-1d98-424c-a84f-1eefbf8f99bf",
+      "eventName": "Purchase",
+      "timestamp": "2026-04-13T04:37:48.432Z",
+      "userData": {
+        "email": "test@sheikha.top"
+      },
+      "customData": {
+        "value": 100
+      }
+    },
+    {
+      "eid": "1c3eb397-3efb-4e14-8e79-ad3071c00d10",
+      "eventName": "Purchase",
+      "timestamp": "2026-04-13T04:52:30.920Z",
+      "userData": {
+        "email": "salman@sheikha.top"
+      },
+      "customData": {
+        "value": 500
+      }
     }
   ],
   "audiences": [],
   "campaigns": [],
   "templates": [],
   "catalogs": [],
-  "leads": []
+  "leads": [],
+  "scheduledMessages": [
+    {
+      "id": "msg_059f5396678916d8",
+      "userId": "c670f7b23c1bf997ec890e9d23ea7c016e12b243bdbd151f08baf5f0b86a7c5e",
+      "behavior": "cart_abandon",
+      "template": "تذكير_السلة",
+      "priority": "HIGH",
+      "msgAr": "منتجاتك بسلتك لا تزال تنتظرك! أكمل طلبك الآن.",
+      "market": "metals",
+      "context": {
+        "market": "metals"
+      },
+      "scheduledAt": "2026-04-13T02:58:37.197Z",
+      "sendAt": "2026-04-13T03:58:37.197Z",
+      "bestTime": "08:00 اليوم",
+      "status": "scheduled"
+    },
+    {
+      "id": "msg_afb26fdaa17951e5",
+      "userId": "6ca202c88e549dff68c09bfafbfc60b2fac074debc1e6777e9ba4b6c703ed114",
+      "behavior": "price_drop",
+      "template": "عرض_حصري",
+      "priority": "HIGH",
+      "msgAr": "انخفض سعر سبائك ذهب! اشترِه الآن.",
+      "market": "precious",
+      "context": {
+        "market": "precious",
+        "productName": "سبائك ذهب"
+      },
+      "scheduledAt": "2026-04-13T03:04:25.030Z",
+      "sendAt": "2026-04-13T03:04:25.030Z",
+      "bestTime": "08:00 اليوم",
+      "status": "scheduled"
+    }
+  ]
 }
