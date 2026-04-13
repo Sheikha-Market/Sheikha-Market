@@ -129,6 +129,25 @@ class SheikhMetaEngine {
                 .digest('hex').slice(0, 24),
         };
 
+        // ميثاق شيخة — النية قبل النظام
+        this.SHEIKHA_DOCTRINE = {
+            CORE_INTENTION:  'لله رب العالمين',
+            FOUNDER_OATH:    'صناعة المجد لله. نفع الخلق لله. بلا ضرر ولا ضرار.',
+            MISSION:         'نفع نفسي وديني الإسلام ووطني وأمة محمد وجميع البشر بلا ضرر ولا ضرار',
+            PRINCIPLES: [
+                'تحويل الفقر إلى غنى بالعمل الشريف',
+                'تحويل الجهل إلى علم نافع',
+                'منع الأمراض بحفظ الأرزاق وسلاسل الإمداد',
+                'إعمار الأرض والكون بالخير',
+                'مساعدة كل إنسان بلا ضرر أو ضرار',
+            ],
+            ETHICAL_LAYER:  'HARM_PREVENTION_ACTIVE',
+            AUTO_REJECT_IF: ['ضرر', 'ضرار', 'فساد', 'احتكار ضار', 'weapon', 'harm'],
+            AUTO_APPROVE_IF: ['نفع_الناس', 'إعمار_الأرض', 'تحويل_فقر_لغنى', 'توظيف', 'تعليم'],
+            SIGNED_BY:      'Salman Ahmed Al-Rajeh',
+            WITNESSED_BY:   ['SABIC', 'SDAIA', 'KFUPM', 'IPSCMI', 'GPSCO'],
+        };
+
         // إعدادات Meta (تُقرأ من .env في الإنتاج)
         this.config = {
             pixelId:           process.env.META_PIXEL_ID           || 'SHEIKHA_PIXEL_001',
