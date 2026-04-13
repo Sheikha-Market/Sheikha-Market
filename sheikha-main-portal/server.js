@@ -759,6 +759,19 @@ try {
     console.log('⚠️ SheikhGrandEmpireEngine غير متوفر:', e.message);
 }
 
+// ═══ META AI ENGINE — CAPI + WhatsApp Business API + Pixel + Commerce ═══
+let metaEngine = null;
+try {
+    const SheikhMetaEngine = require('./lib/sheikha-meta-engine');
+    metaEngine = new SheikhMetaEngine({ app, wsClients: null });
+    const meta = metaEngine.getStatus();
+    console.log(
+        `✅ [MetaAI v1.0] ${meta.nameAr} | ${meta.apis} API مسار | CAPI + WhatsApp + Pixel + Commerce`
+    );
+} catch (e) {
+    console.log('⚠️ SheikhMetaEngine غير متوفر:', e.message);
+}
+
 // ☪️ محرك القوانين والأنظمة والمعاهدات
 let legalEngine = null;
 try {
@@ -35714,6 +35727,8 @@ if (socialConnectEngine) { socialConnectEngine.wsClients = { forEach: (fn) => cl
 if (currencyEngine) { currencyEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
 // Wire WS clients into grand empire engine
 if (empireGrandEngine) { empireGrandEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
+// Wire WS clients into meta engine
+if (metaEngine) { metaEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
 
 function broadcastPrices() {
     const data = JSON.stringify({

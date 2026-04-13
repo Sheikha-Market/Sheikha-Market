@@ -46,6 +46,38 @@ module.exports = {
             log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
             merge_logs: true,
             max_restarts: 0
+        },
+
+        /* ─── شيخة Meta AI — خادم الخلفية ─────────────── */
+        /* يعمل بالخلفية بشكل مستقل عن الخادم الرئيسي      */
+        {
+            name: 'sheikha-meta-background',
+            cwd: __dirname,
+            script: './scripts/sheikha-meta-background.js',
+            instances: 1,
+            exec_mode: 'fork',
+            autorestart: true,
+            watch: false,
+            max_memory_restart: '256M',
+            restart_delay: 5000,
+            env: {
+                NODE_ENV: 'production',
+                META_BACKGROUND_PORT: 8085,
+                META_PIXEL_ID:        process.env.META_PIXEL_ID        || '',
+                META_ACCESS_TOKEN:    process.env.META_ACCESS_TOKEN     || '',
+                META_WHATSAPP_TOKEN:  process.env.META_WHATSAPP_TOKEN   || '',
+                META_WA_PHONE_ID:     process.env.META_WA_PHONE_ID      || '',
+                META_WABA_ID:         process.env.META_WABA_ID          || '',
+                META_APP_ID:          process.env.META_APP_ID           || '',
+                META_GRAPH_VERSION:   process.env.META_GRAPH_VERSION    || 'v21.0',
+                META_WA_VERIFY_TOKEN: process.env.META_WA_VERIFY_TOKEN  || 'sheikha_verify',
+            },
+            error_file: './logs/meta-background-error.log',
+            out_file: './logs/meta-background-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 10,
+            min_uptime: '5s',
         }
     ]
 };
