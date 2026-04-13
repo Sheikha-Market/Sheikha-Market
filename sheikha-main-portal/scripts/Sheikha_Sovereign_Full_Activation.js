@@ -67,14 +67,14 @@ const SOVEREIGN_CONFIG = {
     AZURE_APP_NAME:       process.env.AZURE_APP_NAME          || 'sheikha-main-portal',
     AZURE_IMAGE:          process.env.AZURE_IMAGE             || 'sheikha.azurecr.io/sheikha-main-portal:latest',
     AZURE_LOCATION:       process.env.AZURE_LOCATION          || 'uaenorth',
-    // Google
-    GOOGLE_PROJECT:       process.env.GOOGLE_PROJECT_ID       || '',
+    // Google — يدعم كلا الاسمين: GOOGLE_PROJECT_ID و GOOGLE_CLOUD_PROJECT
+    GOOGLE_PROJECT:       process.env.GOOGLE_PROJECT_ID       || process.env.GOOGLE_CLOUD_PROJECT || '',
     GOOGLE_TOKEN:         process.env.GOOGLE_OAUTH_TOKEN      || '',
-    // Meta
+    // Meta — يدعم أسماء متغيرات .env.example الرسمية
     META_PIXEL:           process.env.META_PIXEL_ID           || '4383900581880844',
-    META_CAPI_TOKEN:      process.env.META_CAPI_ACCESS_TOKEN  || process.env.META_ACCESS_TOKEN || '',
-    WA_TOKEN:             process.env.WHATSAPP_BUSINESS_TOKEN || '',
-    WA_PHONE_ID:          process.env.WHATSAPP_PHONE_ID       || '',
+    META_CAPI_TOKEN:      process.env.META_CAPI_ACCESS_TOKEN  || process.env.META_ACCESS_TOKEN   || '',
+    WA_TOKEN:             process.env.META_WHATSAPP_TOKEN     || process.env.WHATSAPP_BUSINESS_TOKEN || '',
+    WA_PHONE_ID:          process.env.META_WA_PHONE_ID        || process.env.WHATSAPP_PHONE_ID   || '',
     // المؤسس
     FOUNDER:              'Salman Ahmed Al-Rajeh',
     FOUNDER_PHONE:        '+966554942904',
