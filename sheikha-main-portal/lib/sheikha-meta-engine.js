@@ -55,6 +55,15 @@ class SheikhMetaEngine {
         this.version = '1.0.0';
         this.startedAt = new Date().toISOString();
 
+        // سلطة شيخة — Sheikha Authority (توقيع المؤسس الرقمي)
+        const crypto = require('crypto');
+        this.SHEIKHA_AUTHORITY = {
+            FOUNDER:   'Salman Ahmed Al-Rajeh',
+            TITLE:     'International Supply Chain & Logistics Advisor',
+            DOCTRINE:  'Sheikha Core is the single source of truth',
+            SIGNATURE: crypto.createHash('sha256').update('Salman Ahmed Al-Rajeh|Sheikha|' + this.startedAt.slice(0, 10)).digest('hex').slice(0, 24),
+        };
+
         // إعدادات Meta (تُقرأ من .env في الإنتاج)
         this.config = {
             pixelId:           process.env.META_PIXEL_ID           || 'SHEIKHA_PIXEL_001',
@@ -315,6 +324,8 @@ class SheikhMetaEngine {
                     content_name: customData.contentName  || 'سوق شيخة',
                     num_items:    customData.numItems      || 1,
                     order_id:     customData.orderId       || eid,
+                    authority_signature: this.SHEIKHA_AUTHORITY.SIGNATURE,
+                    doctrine:     'Sheikha_Core_10/10',
                 },
                 ...(this.config.testCode ? { test_event_code: this.config.testCode } : {}),
             }],
@@ -749,7 +760,7 @@ class SheikhMetaEngine {
             regions: regionSummary,
             stats: this.stats,
             halalEvents: this.halalEvents,
-            apiCount: 159,
+            apiCount: 162,
             consent: { total: Object.keys(this.consentDB.consents).length },
             auditLog: { entries: this.auditLog.length, maxSize: this.maxAuditLogSize },
             alerts: this.checkAlerts(),
@@ -766,7 +777,7 @@ class SheikhMetaEngine {
         return {
             nameAr: 'شيخة Meta AI',
             version: this.version,
-            apis: 159,
+            apis: 162,
             stats: this.stats,
             markets: Object.keys(this.marketPixels),
             regions: Object.keys(this.regionConfig),
@@ -2806,7 +2817,53 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
             } catch (e) { res.status(500).json({ error: e.message }); }
         });
 
-        console.log(`✅ [SheikhMetaEngine] 159 مسار API مُسجَّل | Base: ${base}`);
+        // ─── مسارات التسجيل الكوني — Universe-Scale Registration ───────────────
+
+        // نقطة تسجيل أي مصدر في الكون (منجم/مصهر/بنك مركزي/سوق) — اسم كوني
+        app.post(`${base}/core/register-universe-source`, async (req, res) => {
+            try {
+                const body = { ...req.body, endorsed_by: req.body.endorsed_by || this.SHEIKHA_AUTHORITY.FOUNDER };
+                const source = this.registerPreciousSource(body);
+                let capiResult = null;
+                if (body.contact_email) {
+                    capiResult = await this.sendChainEvent('CompleteRegistration', {
+                        email: body.contact_email, country: (body.country || 'sa').toLowerCase(),
+                        ip: req.ip, userAgent: req.headers['user-agent'],
+                    }, {
+                        entity_type:    source.source_type,
+                        supply_role:    'source',
+                        market_segment: source.market_segment,
+                        hs_chapter:     (source.hs_chapters || ['7108'])[0],
+                        chain_position: 1,
+                        cycle_number:   1,
+                        value:          source.annual_capacity_kg * 65000,
+                        internal_ref:   source.source_id,
+                        competitive_score: source.onboarding_score,
+                        endorsed_by:    source.endorsed_by,
+                    });
+                }
+                const transport = this.findSecureTransport(source.continent, source.hs_chapters);
+                res.json({ registered: true, source, matched_transport: transport, ...(capiResult ? { capi: capiResult } : {}) });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // تسجيل مسار نقل مؤمن (ممر أمني بين قارتين أو أكثر)
+        app.post(`${base}/core/register-secure-lane`, (req, res) => {
+            try {
+                const t = this.registerSecureTransport(req.body);
+                res.json({ registered: true, transport: t, authority: this.SHEIKHA_AUTHORITY.FOUNDER });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // تسجيل سوق في أي قرية أو مدينة في الكون
+        app.post(`${base}/core/register-market`, (req, res) => {
+            try {
+                const m = this.registerGlobalMarket(req.body);
+                res.json({ registered: true, market: m, authority: this.SHEIKHA_AUTHORITY.FOUNDER });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        console.log(`✅ [SheikhMetaEngine] 162 مسار API مُسجَّل | Base: ${base}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -3211,6 +3268,7 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
             registered_at:        existing ? existing.registered_at : new Date().toISOString(),
             last_updated:         new Date().toISOString(),
             onboarding_score:     this.calculateOnboardingScore(sourceData),
+            endorsed_by:          sourceData.endorsed_by || this.SHEIKHA_AUTHORITY.FOUNDER,
         };
 
         if (!existing) {
