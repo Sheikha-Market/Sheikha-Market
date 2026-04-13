@@ -134,6 +134,19 @@ class SheikhMetaEngine {
                 azure_openai: process.env.AZURE_OPENAI_KEY ? 'active'     : 'pending_key',
                 cosmos_db:    process.env.COSMOS_CONNECTION_STRING ? 'active' : 'pending_key',
             },
+            // السحابة السيادية — Azure Infrastructure
+            AZURE_CLOUD: {
+                subscription_id: process.env.AZURE_SUBSCRIPTION_ID || 'a7f53237-9f57-4530-af1d-c4b3751efde8',
+                subscription_name: 'Azure Subscription 1 — Sheikha Market',
+                resource_group:  process.env.AZURE_RESOURCE_GROUP  || 'Sheikha-Core-RG',
+                location:        process.env.AZURE_LOCATION         || 'uaenorth',
+                services: {
+                    aks:       'sheikha-core-cluster',
+                    cosmos_db: 'sheikha-cosmos-db',
+                    openai:    'sheikha-openai',
+                    apim:      'sheikha-apim',
+                },
+            },
             // توقيع SHA-256 يشمل الاسم + 11 اعتماد + التاريخ
             SIGNATURE: crypto.createHash('sha256')
                 .update([
@@ -3339,6 +3352,7 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
                         ultra_mode:      process.env.SHEIKHA_ULTRA_MODE === 'true' ? 'ACTIVE' : 'MANUAL',
                         capi:            this.config.automationApproved ? 'LIVE → Meta Graph API' : 'LOCAL → set META_AUTOMATION_APPROVED=true للإنتاج',
                     },
+                    azure_cloud:  this.SHEIKHA_AUTHORITY.AZURE_CLOUD,
                     doctrine: this.SHEIKHA_DOCTRINE.FOUNDER_OATH,
                 });
             } catch (e) { res.status(500).json({ error: e.message }); }
