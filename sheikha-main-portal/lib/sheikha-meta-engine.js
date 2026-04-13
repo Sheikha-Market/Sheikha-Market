@@ -143,6 +143,33 @@ class SheikhMetaEngine {
             CORE_INTENTION:  'لله رب العالمين',
             FOUNDER_OATH:    'صناعة المجد لله. نفع الخلق لله. بلا ضرر ولا ضرار.',
             MISSION:         'نفع نفسي وديني الإسلام ووطني وأمة محمد وجميع البشر بلا ضرر ولا ضرار',
+
+            // ═══════════════════════════════════════════════════════════════
+            // مبدأ تكريم الإنسان — Human Supremacy Doctrine
+            // مستند إلى قوله تعالى: "وَلَقَدْ كَرَّمْنَا بَنِي آدَمَ" (الإسراء: 70)
+            // الذكاء الاصطناعي أداةٌ في يد الإنسان، لا بديل عنه ولا شريك له
+            // ═══════════════════════════════════════════════════════════════
+            HUMAN_SUPREMACY: {
+                enabled:   true,
+                authority: 'HUMAN_ONLY',
+                quranic_reference: 'وَلَقَدْ كَرَّمْنَا بَنِي آدَمَ — الإسراء: 70',
+                declaration: [
+                    'الإنسان أفضل من أي ذكاء اصطناعي وأي تقنية.',
+                    'الله فضّل البشر كما ذُكر في القرآن الكريم.',
+                    'شيخة أداة تخدم الإنسان — لا تُصادر قراره ولا تحل محله.',
+                    'كل قرار نهائي هو قرار الإنسان وحده.',
+                    'الذكاء الاصطناعي لا يُصدر فتوى ولا يتجاوز إذن صاحبه.',
+                ],
+                ai_role:     'TOOL_SERVING_HUMAN',   // أداة — لا شريك
+                human_role:  'SOVEREIGN_AUTHORITY',   // الإنسان هو صاحب السلطة
+                ai_cannot: [
+                    'اتخاذ قرارات نهائية دون إذن إنساني صريح',
+                    'تجاوز إرادة المستخدم أو قيادته',
+                    'الادعاء بالاستقلالية أو التفوق على البشر',
+                    'إصدار أحكام شرعية أو اجتماعية',
+                ],
+            },
+
             PRINCIPLES: [
                 'تحويل الفقر إلى غنى بالعمل الشريف',
                 'تحويل الجهل إلى علم نافع',
@@ -155,6 +182,13 @@ class SheikhMetaEngine {
             AUTO_APPROVE_IF: ['نفع_الناس', 'إعمار_الأرض', 'تحويل_فقر_لغنى', 'توظيف', 'تعليم'],
             SIGNED_BY:      'Salman Ahmed Al-Rajeh',
             WITNESSED_BY:   ['SABIC', 'SDAIA', 'KFUPM', 'IPSCMI', 'GPSCO'],
+        };
+
+        // حارس تكريم الإنسان — يُعلن هذا المبدأ في كل استجابة API تلقائياً
+        this._humanSupremacyHeader = {
+            'X-Sheikha-Human-Authority': 'HUMAN_IS_SOVEREIGN',
+            'X-Sheikha-AI-Role':         'TOOL_SERVING_HUMAN',
+            'X-Sheikha-Doctrine':        'وَلَقَدْ كَرَّمْنَا بَنِي آدَمَ — الإسراء:70',
         };
 
         // إعدادات Meta (تُقرأ من .env في الإنتاج)
@@ -1289,6 +1323,25 @@ class SheikhMetaEngine {
     _registerRoutes() {
         const app = this.app;
         const base = '/api/شيخة-ميتا';
+
+        // ─── حارس تكريم الإنسان — يُلصق headers العقيدة على كل استجابة ──────────
+        app.use(base, (req, res, next) => {
+            Object.entries(this._humanSupremacyHeader).forEach(([k, v]) => res.setHeader(k, v));
+            next();
+        });
+
+        // ─── عقيدة شيخة — يُعلن المبدأ الإنساني علناً ──────────────────────────
+        app.get(`${base}/core/doctrine`, (req, res) => {
+            res.json({
+                doctrine:         this.SHEIKHA_DOCTRINE,
+                human_supremacy:  this.SHEIKHA_DOCTRINE.HUMAN_SUPREMACY,
+                ai_role:          'أداة تخدم الإنسان — لا تحل محله ولا تتجاوز إذنه',
+                quranic_reference: 'وَلَقَدْ كَرَّمْنَا بَنِي آدَمَ وَحَمَلْنَاهُمْ فِي الْبَرِّ وَالْبَحْرِ — الإسراء: 70',
+                declaration_ar:   'الإنسان أفضل من أي ذكاء اصطناعي وأي تقنية. الله فضّل البشر كما ذُكر في القرآن الكريم.',
+                declaration_en:   'Humans are superior to any AI or technology. God honored mankind as stated in the Holy Quran.',
+                signed_by:        this.SHEIKHA_AUTHORITY.FOUNDER,
+            });
+        });
 
         // ─── لوحة التحكم ────────────────────────────────────────────────────
         app.get(`${base}/لوحة-التحكم`, (req, res) => res.json(this.getDashboard()));
