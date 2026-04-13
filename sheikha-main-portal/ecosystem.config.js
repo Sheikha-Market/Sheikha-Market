@@ -99,6 +99,10 @@ module.exports = {
                 META_WA_PHONE_ID_PRECIOUS: process.env.META_WA_PHONE_ID_PRECIOUS || '',
                 META_WA_PHONE_ID_RARE:     process.env.META_WA_PHONE_ID_RARE     || '',
                 META_WA_PHONE_ID_NOW:      process.env.META_WA_PHONE_ID_NOW      || '',
+                META_WA_PHONE_ID_EU_IT:    process.env.META_WA_PHONE_ID_EU_IT    || '',
+                META_WA_PHONE_ID_EU_DE:    process.env.META_WA_PHONE_ID_EU_DE    || '',
+                META_WA_PHONE_ID_EU_FR:    process.env.META_WA_PHONE_ID_EU_FR    || '',
+                META_EXTERNAL_GATEWAY_URL: process.env.META_EXTERNAL_GATEWAY_URL || 'https://capig.datah04.com',
                 // حوكمة — Governance & Alerts
                 META_ALERT_MIN_EMQ:          process.env.META_ALERT_MIN_EMQ          || '6.0',
                 META_ALERT_MAX_DEDUP:        process.env.META_ALERT_MAX_DEDUP        || '0.30',

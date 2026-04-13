@@ -118,6 +118,10 @@ class SheikhMetaEngine {
             precious: { phoneId: process.env.META_WA_PHONE_ID_PRECIOUS || this.config.phoneNumberId, welcomeAr: 'Sheikha Precious Metals — Private client service', segment: 'B2G' },
             rare:     { phoneId: process.env.META_WA_PHONE_ID_RARE     || this.config.phoneNumberId, welcomeAr: 'Sheikha Rare Earths — NDA required', segment: 'B2G' },
             now:      { phoneId: process.env.META_WA_PHONE_ID_NOW      || this.config.phoneNumberId, welcomeAr: 'سوق الآن — تنفيذ فوري خلال 15 دقيقة', segment: 'B2C' },
+            // أرقام أوروبية — EU-region WhatsApp numbers (GDPR-compliant, EU-hosted)
+            eu_it:    { phoneId: process.env.META_WA_PHONE_ID_EU_IT    || this.config.phoneNumberId, welcomeAr: 'Sheikha Metals Europe — Benvenuto! Come possiamo aiutarti?', segment: 'B2B', region: 'europe', countryCode: 'it' },
+            eu_de:    { phoneId: process.env.META_WA_PHONE_ID_EU_DE    || this.config.phoneNumberId, welcomeAr: 'Sheikha Metals Europa — Willkommen! Wie können wir helfen?', segment: 'B2B', region: 'europe', countryCode: 'de' },
+            eu_fr:    { phoneId: process.env.META_WA_PHONE_ID_EU_FR    || this.config.phoneNumberId, welcomeAr: 'Sheikha Métaux Europe — Bienvenue! Comment pouvons-nous vous aider?', segment: 'B2B', region: 'europe', countryCode: 'fr' },
         };
 
         // إعدادات المناطق الجغرافية — Multi-Region Geo-Routing
@@ -383,12 +387,21 @@ class SheikhMetaEngine {
                 action_source: 'system_generated', // إشارة أوفلاين لـ Meta
                 user_data: userData,
                 custom_data: {
-                    currency: contract.currency || 'SAR',
-                    value: Number(contract.contract_value) || 0,
-                    order_id: contract.contract_id,
-                    market_segment: contract.market_segment || 'metals',
-                    client_type: contract.client_type || 'B2B',
+                    currency:       contract.currency        || 'SAR',
+                    value:          Number(contract.contract_value) || 0,
+                    order_id:       contract.contract_id,
+                    market_segment: contract.market_segment  || 'metals',
+                    client_type:    contract.client_type     || 'B2B',
+                    // الممر التجاري ومستوى الدولة — للاستهداف G20 وعقود الحكومات
+                    trade_corridor: contract.trade_corridor  || this._resolveTradeCorridor(
+                        this._getRegionForCountry(contract.country || 'sa'),
+                        contract.country_tier,
+                    ),
+                    country_tier:   contract.country_tier   || null,
+                    deal_stage:     contract.deal_stage      || 'closed_won',
                 },
+                // يربط العقد بالإعلان الأصلي
+                ...(contract.fbc ? { attribution_data: { fbc: contract.fbc } } : {}),
             }],
             partner_agent: 'sheikha-meta-engine-v1',
         };
@@ -653,7 +666,7 @@ class SheikhMetaEngine {
             regions: regionSummary,
             stats: this.stats,
             halalEvents: this.halalEvents,
-            apiCount: 115,
+            apiCount: 125,
             consent: { total: Object.keys(this.consentDB.consents).length },
             auditLog: { entries: this.auditLog.length, maxSize: this.maxAuditLogSize },
             alerts: this.checkAlerts(),
@@ -670,7 +683,7 @@ class SheikhMetaEngine {
         return {
             nameAr: 'شيخة Meta AI',
             version: this.version,
-            apis: 115,
+            apis: 125,
             stats: this.stats,
             markets: Object.keys(this.marketPixels),
             regions: Object.keys(this.regionConfig),
@@ -695,22 +708,27 @@ class SheikhMetaEngine {
         const regionKey = this._getRegionForCountry(countryCode);
         const region = this.regionConfig[regionKey];
 
-        // GDPR / CCPA consent gate — block if user hasn't consented
+        // GDPR / CCPA consent gate — block if user contains PII and hasn't consented
+        // يُطبَّق على أي مستخدم معرَّف (بـ userId أو email أو phone) بغض النظر عن وجود userId صريح
         if (region.gdpr || region.ccpa) {
-            const uid = userData.userId || userData.email;
+            const uid = userData.userId || userData.email || userData.phone;
             if (uid && !this.checkConsent(uid, 'advertising')) {
-                this._addAuditEntry('CAPI_BLOCKED_NO_CONSENT', sha256(uid), { eventName, region: regionKey });
+                this._addAuditEntry('CAPI_BLOCKED_NO_CONSENT', sha256(String(uid)), { eventName, region: regionKey });
                 return { success: false, reason: 'no_consent', region: regionKey, eventName };
             }
         }
 
         const eid = eventId || crypto.randomUUID();
+
+        // تحديد الممر التجاري تلقائياً من المنطقة الجغرافية
+        const tradeCorridor = customData.trade_corridor || this._resolveTradeCorridor(regionKey, customData.country_tier);
+
         const payload = {
             data: [{
                 event_name: eventName,
                 event_time: Math.floor(Date.now() / 1000),
                 event_id: eid,
-                action_source: 'website',
+                action_source: customData.action_source || 'website',
                 user_data: {
                     em:  userData.email     ? sha256(userData.email)     : undefined,
                     ph:  userData.phone     ? sha256(userData.phone)     : undefined,
@@ -723,14 +741,19 @@ class SheikhMetaEngine {
                     external_id: userData.userId ? sha256(userData.userId) : undefined,
                     client_ip_address: userData.ip || undefined,
                     client_user_agent: userData.userAgent || 'sheikha-server',
-                    value: customData.value || 0,
-                    content_ids: customData.contentIds || [],
-                    content_type: customData.contentType || 'product',
-                    content_name: customData.contentName || 'سوق شيخة',
-                    num_items: customData.numItems || 1,
-                    order_id: customData.orderId || eid,
-                    geo_region: regionKey,
+                },
+                custom_data: {
                     ...customData,
+                    currency:       customData.currency       || region.currency,
+                    value:          Number(customData.value)  || 0,
+                    content_ids:    customData.contentIds     || [],
+                    content_type:   customData.contentType    || 'product',
+                    content_name:   customData.contentName    || 'سوق شيخة',
+                    num_items:      customData.numItems        || 1,
+                    order_id:       customData.orderId         || eid,
+                    geo_region:     regionKey,
+                    trade_corridor: tradeCorridor,
+                    country_tier:   customData.country_tier   || null,
                 },
                 ...(this.config.testCode ? { test_event_code: this.config.testCode } : {}),
             }],
@@ -2002,7 +2025,245 @@ src="https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1"/></noscri
             res.json({ markets: Object.keys(snippets).length, snippets });
         });
 
-        console.log(`✅ [SheikhMetaEngine] 115 مسار API مُسجَّل | Base: ${base}`);
+        // ─── Trade Corridors ───────────────────────────────────────────────────
+        app.get(`${base}/geo/trade-corridors`, (req, res) => {
+            res.json({
+                corridors: [
+                    { key: 'GCC_Internal',      regions: ['sa_gcc'],             desc: 'تجارة داخلية خليجية — B2B / B2G محلي' },
+                    { key: 'GCC_to_EU',          regions: ['sa_gcc','europe'],    desc: 'تصدير الخليج لأوروبا — معادن وموارد' },
+                    { key: 'GCC_EU_G20',         regions: ['sa_gcc','europe'],    desc: 'صفقات G20 الخليج-أوروبا — حكومات وصناديق سيادية' },
+                    { key: 'GCC_to_Americas',    regions: ['sa_gcc','americas'],  desc: 'تصدير للأمريكيتين — نادرة وبلاتين' },
+                    { key: 'GCC_to_Asia',        regions: ['sa_gcc','asia'],      desc: 'ممر آسيا — تجارة ضخمة مع الصين واليابان وكوريا' },
+                    { key: 'GCC_to_Americas_G20',regions: ['sa_gcc','americas'],  desc: 'G20 أمريكا — عقود حكومية دولارية' },
+                    { key: 'GCC_to_Asia_G20',    regions: ['sa_gcc','asia'],      desc: 'G20 آسيا — ممر الحزام والطريق والبديل الخليجي' },
+                ],
+                how_to_use: 'أضف "trade_corridor" في custom_data عند إرسال أي حدث ERP أو CAPI لتحسين استهداف ميتا',
+                example: { trade_corridor: 'GCC_EU_G20', country_tier: 'G20', client_type: 'B2G' },
+            });
+        });
+
+        // حدث جغرافي مع ممر تجاري صريح
+        app.post(`${base}/geo/capi/event/corridor`, async (req, res) => {
+            try {
+                const { eventName, userData = {}, customData = {}, eventId, trade_corridor, country_tier } = req.body;
+                if (!eventName) return res.status(400).json({ error: 'eventName مطلوب' });
+                const result = await this.sendCAPIEventWithGeoRouting(
+                    eventName,
+                    { ...userData, ip: req.ip, userAgent: req.headers['user-agent'] },
+                    { ...customData, trade_corridor, country_tier },
+                    eventId,
+                );
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.get(`${base}/geo/corridor-map`, (req, res) => {
+            res.json({
+                regionToDefaultCorridor: {
+                    sa_gcc:   'GCC_Internal',
+                    europe:   'GCC_to_EU',
+                    americas: 'GCC_to_Americas',
+                    asia:     'GCC_to_Asia',
+                },
+                g20Countries: ['de','fr','it','gb','us','ca','jp','kr','in','cn','br','mx','ar','sa','ae','tr','au','za','id','eu'],
+                note: 'أضف country_tier: "G20" في customData أو contract لترقية الممر تلقائياً',
+            });
+        });
+
+        // ─── Halal Certification Events ─────────────────────────────────────────
+        // Subscribe_Halal_Certified: عميل يطلب شهادة مطابقة شرعية
+        app.post(`${base}/halal/certified-purchase`, async (req, res) => {
+            try {
+                const { email, phone, value, currency = 'SAR', market_segment = 'precious',
+                        product_id, halal_cert_type = 'LBMA_Sharia', country = 'sa' } = req.body;
+                const result = await this.sendCAPIEventWithGeoRouting(
+                    'Purchase',
+                    { email, phone, country },
+                    {
+                        value, currency,
+                        market_segment,
+                        content_ids: product_id ? [product_id] : [],
+                        halal_certified: true,
+                        halal_cert_type,
+                        content_type: 'product',
+                    },
+                );
+                this._addAuditEntry('HALAL_CERTIFIED_PURCHASE', null, { market_segment, halal_cert_type });
+                res.json({ ...result, halal_certified: true, cert_type: halal_cert_type });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // Halal_Required: عميل اختار خيار "أرغب بشهادة مطابقة شرعية"
+        app.post(`${base}/halal/require-cert`, async (req, res) => {
+            try {
+                const { email, phone, market_segment = 'precious', country = 'sa' } = req.body;
+                const result = await this.sendCAPIEventWithGeoRouting(
+                    'Lead',
+                    { email, phone, country },
+                    { market_segment, halal_cert_required: true, content_name: 'Halal Certification Request' },
+                );
+                this._addAuditEntry('HALAL_CERT_REQUIRED', null, { market_segment });
+                res.json({ ...result, event: 'Halal_Required' });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // Subscribe_Halal_Certified: اشتراك في نشرة الشيخة للمعادن الحلال
+        app.post(`${base}/halal/subscribe`, async (req, res) => {
+            try {
+                const { email, phone, country = 'sa', newsletter_type = 'precious_halal' } = req.body;
+                if (!email) return res.status(400).json({ error: 'email مطلوب' });
+                const result = await this.sendCAPIEventWithGeoRouting(
+                    'Subscribe',
+                    { email, phone, country },
+                    { content_name: `Sheikha Halal ${newsletter_type}`, halal_newsletter: true, newsletter_type },
+                );
+                this._addAuditEntry('HALAL_SUBSCRIBE', null, { newsletter_type });
+                res.json({ ...result, event: 'Subscribe_Halal' });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.get(`${base}/halal/event-types`, (req, res) => {
+            res.json({
+                events: [
+                    { endpoint: 'POST /halal/certified-purchase', metaEvent: 'Purchase', desc: 'شراء منتج معادن بشهادة مطابقة شرعية' },
+                    { endpoint: 'POST /halal/require-cert',        metaEvent: 'Lead',     desc: 'عميل طلب شهادة LBMA Sharia أو AAOIFI' },
+                    { endpoint: 'POST /halal/subscribe',           metaEvent: 'Subscribe', desc: 'اشتراك في نشرة المعادن الحلال' },
+                ],
+                shariaFilter: this.shariaFilter,
+                note: 'ميتا تستخدم هذه الأحداث لبناء جمهور مشابه من المستثمرين المسلمين عالمياً',
+            });
+        });
+
+        // ─── Consent Mode V2 (Meta + Google) ──────────────────────────────────
+        // يُرجع مقتطف JavaScript جاهز للصق في موقع www.sheikha.top لأوروبا
+        app.get(`${base}/consent-mode/v2/snippet`, (req, res) => {
+            const pixelId = this.config.pixelId;
+            const snippet = `<!-- Sheikha Consent Mode V2 — للمواقع الأوروبية (GDPR) -->
+<!-- 1) حط هذا أعلى <head> قبل أي سكريبت إعلاني -->
+<script>
+// Meta Consent Mode V2 — Sheikha Market
+window.sheikhaConsentMode = {
+  version: '2.0',
+  pixelId: '${pixelId}',
+  capiGateway: 'https://capig.datah04.com',
+
+  // استدعِ هذا لما المستخدم يقبل الكوكيز
+  grant: function(categories) {
+    var defaults = { ad_storage: 'denied', analytics_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
+    var granted  = { ad_storage: 'granted', analytics_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' };
+    var state = categories && categories.advertising ? granted : defaults;
+    if (typeof fbq !== 'undefined') fbq('consent', categories && categories.advertising ? 'grant' : 'revoke');
+    if (typeof gtag !== 'undefined') { gtag('consent', 'update', state); }
+    // أرسل حالة الموافقة لـ CAPI Gateway
+    fetch(this.capiGateway + '/sheikha/consent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pixelId: this.pixelId, consent: categories, timestamp: Date.now() })
+    }).catch(function(){});
+    // احفظ محلياً
+    try { localStorage.setItem('sheikha_consent_v2', JSON.stringify({ consent: categories, ts: Date.now() })); } catch(e){}
+  },
+
+  // استدعِ عند تحميل الصفحة لإعادة تطبيق الموافقة المحفوظة
+  restore: function() {
+    try {
+      var saved = JSON.parse(localStorage.getItem('sheikha_consent_v2') || 'null');
+      if (saved && saved.consent) this.grant(saved.consent);
+    } catch(e){}
+  }
+};
+
+// تطبيق القيم الافتراضية (denied) قبل تحميل أي بيكسل — مطلوب قانونياً في أوروبا
+if (typeof gtag !== 'undefined') {
+  gtag('consent', 'default', { ad_storage:'denied', analytics_storage:'denied', ad_user_data:'denied', ad_personalization:'denied', wait_for_update: 500 });
+}
+
+// استعادة الموافقة المحفوظة تلقائياً
+window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMode.restore(); });
+</script>
+<!-- 2) زر القبول — مثال بسيط. استبدله بـ CMP متكامل (Cookiebot / OneTrust) -->
+<!-- <button onclick="window.sheikhaConsentMode.grant({advertising:true,analytics:true})">قبول الكل</button> -->
+<!-- <button onclick="window.sheikhaConsentMode.grant({advertising:false,analytics:false})">رفض</button> -->`;
+
+            res.json({
+                snippet,
+                pixelId,
+                capiGateway: 'https://capig.datah04.com',
+                gdprCompliant: true,
+                consentModeVersion: '2.0',
+                note: 'احفظ هذا المقتطف في قسم <head> لصفحات الأسواق الأوروبية فقط. لا تحتاجه في الخليج.',
+                frameworks: ['GDPR (EU)', 'ePrivacy Directive', 'Meta Consent Mode V2', 'Google Consent Mode V2'],
+            });
+        });
+
+        // نقطة استقبال إشارة الموافقة من المتصفح لـ capig.datah04.com
+        app.post(`${base}/consent/signal`, async (req, res) => {
+            try {
+                const { userId, consent = {}, country } = req.body;
+                if (!userId && !req.ip) return res.status(400).json({ error: 'userId أو IP مطلوب' });
+                const uid = userId || sha256(req.ip);
+                if (consent.advertising === true) {
+                    this.recordConsent(uid, { purposes: ['advertising', 'analytics'], framework: 'GDPR', channel: 'consent_mode_v2', ip: country });
+                } else if (consent.advertising === false) {
+                    this.deleteConsent(uid);
+                }
+                this._addAuditEntry('CONSENT_SIGNAL_V2', sha256(uid), { consent, country });
+                res.json({ success: true, consentRecorded: consent.advertising === true });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/موافقة/إشارة`, async (req, res) => {
+            // نفس معالج consent/signal
+            try {
+                const { userId, consent = {}, country } = req.body;
+                const uid = userId || sha256(req.ip || 'unknown');
+                if (consent.advertising === true) {
+                    this.recordConsent(uid, { purposes: ['advertising', 'analytics'], framework: 'GDPR', channel: 'consent_mode_v2', ip: country });
+                } else if (consent.advertising === false) {
+                    this.deleteConsent(uid);
+                }
+                this._addAuditEntry('CONSENT_SIGNAL_V2', sha256(uid), { consent, country });
+                res.json({ success: true, consentRecorded: consent.advertising === true });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // ─── EU WhatsApp Channels ─────────────────────────────────────────────
+        app.get(`${base}/واتساب/قنوات-أوروبا`, (req, res) => {
+            const euChannels = Object.fromEntries(
+                Object.entries(this.marketWhatsApp)
+                    .filter(([, v]) => v.region === 'europe')
+                    .map(([k, v]) => [k, { country: v.countryCode, welcome: v.welcomeAr, segment: v.segment, phoneConfigured: !!process.env[`META_WA_PHONE_ID_${k.toUpperCase()}`] }])
+            );
+            res.json({
+                channels: euChannels,
+                note: 'كل رقم EU يجب أن يكون مستضافاً على سيرفر داخل أوروبا (GDPR)',
+                setupGuide: 'أنشئ رقم WA عبر Unifonic أو 360dialog ثم أضف META_WA_PHONE_ID_EU_IT / EU_DE / EU_FR في .env',
+            });
+        });
+
+        app.get(`${base}/whatsapp/eu-channels`, (req, res) => {
+            const euChannels = Object.entries(this.marketWhatsApp)
+                .filter(([, v]) => v.region === 'europe')
+                .map(([k, v]) => ({ key: k, country: v.countryCode, segment: v.segment }));
+            res.json({ channels: euChannels });
+        });
+
+        // إرسال رسالة WA عبر قناة أوروبية محددة (IT / DE / FR)
+        app.post(`${base}/واتساب/أوروبا/رسالة`, async (req, res) => {
+            try {
+                const { to, country_code = 'it', template = 'hello_world', components = [] } = req.body;
+                if (!to) return res.status(400).json({ error: 'to (رقم الهاتف) مطلوب' });
+                const channelKey = `eu_${country_code.toLowerCase()}`;
+                const channel = this.marketWhatsApp[channelKey];
+                if (!channel) return res.status(400).json({ error: `قناة EU غير موجودة: ${channelKey}. المتاح: eu_it, eu_de, eu_fr` });
+                // استخدم رقم الـ EU المخصص
+                const result = await this.sendWhatsAppMessage(to, template, components, channel.phoneId);
+                this._addAuditEntry('WA_EU_MESSAGE', null, { country: country_code, template });
+                res.json({ ...result, euChannel: channelKey, country: country_code });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        console.log(`✅ [SheikhMetaEngine] 125 مسار API مُسجَّل | Base: ${base}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -2016,6 +2277,24 @@ src="https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1"/></noscri
         if (emq < 6) tips.push('أضف external_id (userId من قاعدة بياناتك)');
         if (emq >= 9) tips.push('🌟 ممتاز! EMQ مرتفع جداً — إعلاناتك ستكون أرخص 20٪');
         return tips;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🌐 تحديد الممر التجاري بناءً على المنطقة الجغرافية
+    // يُستدعى تلقائياً من sendCAPIEventWithGeoRouting
+    // ═══════════════════════════════════════════════════════════════════════════
+    _resolveTradeCorridor(regionKey, countryTier = null) {
+        const corridorMap = {
+            sa_gcc:   'GCC_Internal',
+            europe:   'GCC_to_EU',
+            americas: 'GCC_to_Americas',
+            asia:     'GCC_to_Asia',
+        };
+        const base = corridorMap[regionKey] || 'Global';
+        // رفع الممر لـ G20 لو المستوى محدد
+        if (countryTier === 'G20' && regionKey === 'europe') return 'GCC_EU_G20';
+        if (countryTier === 'G20') return `${base}_G20`;
+        return base;
     }
 
     _aiGenerateMessage(behavior, productId) {
