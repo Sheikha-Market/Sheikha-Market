@@ -1,0 +1,173 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  🚀 سوق شيخة — النشر على Azure Container Apps                              ║
+# ║  Sheikha Market — Deploy to Azure Container Apps                            ║
+# ║                                                                              ║
+# ║  المتطلبات — Required GitHub Secrets:                                       ║
+# ║   • AZURE_CREDENTIALS   — JSON لـ Service Principal (az ad sp create-for-rbac) ║
+# ║   • AZURE_SUBSCRIPTION_ID — معرّف الاشتراك                                  ║
+# ║   • AZURE_ACR_PASSWORD  — كلمة مرور Azure Container Registry                ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+name: Deploy — Azure Container Apps
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "sheikha-main-portal/**"
+      - ".github/workflows/deploy-azure.yml"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "بيئة النشر (production / staging)"
+        required: true
+        default: production
+        type: choice
+        options:
+          - production
+          - staging
+
+# ─── متغيرات البيئة ──────────────────────────────────────────────────────────
+env:
+  AZURE_RESOURCE_GROUP: Sheikha_Sovereign_RG
+  AZURE_CONTAINER_ENV: sheikha-env
+  AZURE_LOCATION: uaenorth
+  ACR_REGISTRY: sheikha.azurecr.io
+  APP_NAME: sheikha-main-portal
+  IMAGE_NAME: sheikha-main-portal
+  CONTAINER_PORT: "8080"
+
+jobs:
+  # ─── بناء الصورة ونشرها على ACR ──────────────────────────────────────────
+  build-and-push:
+    name: 🐳 Build & Push to ACR
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    outputs:
+      image-tag: ${{ steps.meta.outputs.version }}
+      image-full: ${{ env.ACR_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐳 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # ─── تسجيل الدخول إلى Azure ──────────────────────────────────────────
+      - name: 🔑 Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: false
+
+      # ─── تسجيل الدخول إلى ACR ────────────────────────────────────────────
+      - name: 🔐 Login to Azure Container Registry
+        run: |
+          az acr login --name $(echo "${{ env.ACR_REGISTRY }}" | cut -d'.' -f1)
+
+      # ─── توليد التاغ من commit SHA + تاريخ ───────────────────────────────
+      - name: 🏷️ Generate image metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.ACR_REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,prefix=sha-,format=short
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      # ─── بناء الصورة ونشرها ──────────────────────────────────────────────
+      - name: 🔨 Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: sheikha-main-portal
+          file: sheikha-main-portal/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: false
+
+  # ─── النشر على Azure Container Apps ─────────────────────────────────────
+  deploy:
+    name: 🚀 Deploy to Azure Container Apps
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: build-and-push
+    permissions:
+      contents: read
+    environment:
+      name: ${{ github.event.inputs.environment || 'production' }}
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔑 Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: false
+
+      # ─── التأكد من وجود Resource Group ──────────────────────────────────
+      - name: 🏗️ Ensure Resource Group exists
+        run: |
+          az group create \
+            --name "${{ env.AZURE_RESOURCE_GROUP }}" \
+            --location "${{ env.AZURE_LOCATION }}" \
+            --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}" \
+            --output none || true
+
+      # ─── التأكد من وجود Container Apps Environment ────────────────────
+      - name: 🌐 Ensure Container Apps Environment exists
+        run: |
+          ENV_EXISTS=$(az containerapp env show \
+            --name "${{ env.AZURE_CONTAINER_ENV }}" \
+            --resource-group "${{ env.AZURE_RESOURCE_GROUP }}" \
+            --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}" \
+            --query "name" -o tsv 2>/dev/null || echo "")
+          if [ -z "$ENV_EXISTS" ]; then
+            echo "Creating Container Apps Environment..."
+            az containerapp env create \
+              --name "${{ env.AZURE_CONTAINER_ENV }}" \
+              --resource-group "${{ env.AZURE_RESOURCE_GROUP }}" \
+              --location "${{ env.AZURE_LOCATION }}" \
+              --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}" \
+              --output none
+          else
+            echo "Container Apps Environment already exists: $ENV_EXISTS"
+          fi
+
+      # ─── النشر أو التحديث ────────────────────────────────────────────
+      - name: 🚀 Deploy to Azure Container Apps
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: sheikha-main-portal
+          acrName: ${{ env.ACR_REGISTRY }}
+          containerAppName: ${{ env.APP_NAME }}
+          resourceGroup: ${{ env.AZURE_RESOURCE_GROUP }}
+          containerAppEnvironment: ${{ env.AZURE_CONTAINER_ENV }}
+          targetPort: ${{ env.CONTAINER_PORT }}
+          ingress: external
+          imageToBuild: ${{ needs.build-and-push.outputs.image-full }}
+          dockerfilePath: Dockerfile
+
+      # ─── طباعة رابط التطبيق ──────────────────────────────────────────
+      - name: 🌍 Get Application URL
+        run: |
+          APP_URL=$(az containerapp show \
+            --name "${{ env.APP_NAME }}" \
+            --resource-group "${{ env.AZURE_RESOURCE_GROUP }}" \
+            --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}" \
+            --query "properties.configuration.ingress.fqdn" -o tsv 2>/dev/null || echo "")
+          if [ -n "$APP_URL" ]; then
+            echo "✅ Application deployed successfully!"
+            echo "🌐 URL: https://$APP_URL"
+            echo "APP_URL=https://$APP_URL" >> "$GITHUB_ENV"
+          fi
+
+      - name: 🔓 Azure Logout
+        if: always()
+        run: az logout
