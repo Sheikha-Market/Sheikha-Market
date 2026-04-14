@@ -473,6 +473,31 @@ class SheikhMetaEngine {
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
+    // 🔒 بناء user_data موحَّد — كل الحقول المدعومة من Meta CAPI
+    // em/ph → مصفوفة مطلوبة، بقية الحقول → قيمة مشفرة واحدة
+    // client_ip_address / client_user_agent / fbp / fbc → تُرسل نصاً خاماً
+    // ═══════════════════════════════════════════════════════════════════════════
+    _buildUserData(userData = {}) {
+        return {
+            em:  userData.email      ? [sha256(userData.email)]      : undefined,
+            ph:  userData.phone      ? [sha256(userData.phone)]      : undefined,
+            fn:  userData.firstName  ? sha256(userData.firstName)    : undefined,
+            ln:  userData.lastName   ? sha256(userData.lastName)     : undefined,
+            db:  userData.dob        ? sha256(userData.dob)          : undefined,
+            ge:  userData.gender     ? sha256(userData.gender.toLowerCase().charAt(0)) : undefined,
+            ct:  userData.city       ? sha256(userData.city)         : undefined,
+            st:  userData.state      ? sha256(userData.state)        : undefined,
+            zp:  userData.zip        ? sha256(userData.zip)          : undefined,
+            country: userData.country ? sha256(userData.country)     : undefined,
+            external_id: userData.userId ? sha256(userData.userId)   : undefined,
+            client_ip_address: userData.ip        || undefined,
+            client_user_agent: userData.userAgent || 'sheikha-server',
+            fbp: userData.fbp || undefined,
+            fbc: userData.fbc || undefined,
+        };
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
     // 📡 إرسال حدث لـ Conversions API
     // ═══════════════════════════════════════════════════════════════════════════
     async sendCAPIEvent(eventName, userData = {}, customData = {}, eventId = null) {
@@ -483,21 +508,8 @@ class SheikhMetaEngine {
                 event_time: Math.floor(Date.now() / 1000),
                 event_id: eid,
                 action_source: 'website',
-                user_data: {
-                    em:  userData.email   ? [sha256(userData.email)]   : undefined,
-                    ph:  userData.phone   ? [sha256(userData.phone)]   : undefined,
-                    fn:  userData.firstName ? sha256(userData.firstName) : undefined,
-                    ln:  userData.lastName  ? sha256(userData.lastName)  : undefined,
-                    ct:  userData.city    ? sha256(userData.city)    : undefined,
-                    st:  userData.state   ? sha256(userData.state)   : undefined,
-                    zp:  userData.zip     ? sha256(userData.zip)     : undefined,
-                    country: userData.country ? sha256(userData.country) : undefined,
-                    external_id: userData.userId ? sha256(userData.userId) : undefined,
-                    client_ip_address: userData.ip || undefined,
-                    client_user_agent: userData.userAgent || 'sheikha-server',
-                    fbp: userData.fbp || null,
-                    fbc: userData.fbc || null,
-                },
+                event_source_url: customData.sourceUrl || undefined,
+                user_data: this._buildUserData(userData),
                 custom_data: {
                     ...customData,
                     currency:     customData.currency     || 'SAR',
@@ -565,21 +577,8 @@ class SheikhMetaEngine {
                 event_time: Math.floor(Date.now() / 1000),
                 event_id: eid,
                 action_source: 'website',
-                user_data: {
-                    em:  userData.email     ? [sha256(userData.email)]     : undefined,
-                    ph:  userData.phone     ? [sha256(userData.phone)]     : undefined,
-                    fn:  userData.firstName ? sha256(userData.firstName) : undefined,
-                    ln:  userData.lastName  ? sha256(userData.lastName)  : undefined,
-                    ct:  userData.city      ? sha256(userData.city)      : undefined,
-                    st:  userData.state     ? sha256(userData.state)     : undefined,
-                    zp:  userData.zip       ? sha256(userData.zip)       : undefined,
-                    country: userData.country ? sha256(userData.country) : undefined,
-                    external_id: userData.userId ? sha256(userData.userId) : undefined,
-                    client_ip_address: userData.ip || undefined,
-                    client_user_agent: userData.userAgent || 'sheikha-server',
-                    fbp: userData.fbp || null,
-                    fbc: userData.fbc || null,
-                },
+                event_source_url: customData.sourceUrl || undefined,
+                user_data: this._buildUserData(userData),
                 custom_data: {
                     ...customData,
                     currency:     customData.currency     || mkt.currency,
@@ -617,8 +616,42 @@ class SheikhMetaEngine {
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // 📱 إرسال رسالة واتساب
+    // 🎯 Lead Event — أفضل من مثال ميتا الأساسي
+    // يشمل: lead_id، event_source_url، جميع حقول user_data، geo-routing تلقائي
     // ═══════════════════════════════════════════════════════════════════════════
+    async sendLeadEvent(userData = {}, customData = {}) {
+        const leadId = customData.leadId || crypto.randomUUID();
+        const market = customData.market || null;
+
+        const enriched = {
+            ...customData,
+            lead_id: leadId,
+            content_name: customData.contentName || 'سوق شيخة — Lead',
+            content_category: customData.contentCategory || 'B2B',
+            currency: customData.currency || 'SAR',
+            value: customData.value || 0,
+        };
+
+        const result = market
+            ? await this.sendCAPIEventForMarket(market, 'Lead', userData, enriched, leadId)
+            : await this.sendCAPIEventWithGeoRouting('Lead', userData, enriched, leadId);
+
+        // حفظ Lead في قاعدة البيانات المحلية
+        this.db.leads.push({
+            leadId,
+            timestamp: new Date().toISOString(),
+            email: userData.email,
+            phone: userData.phone,
+            market: market || 'global',
+            customData: enriched,
+        });
+        saveMetaDB(this.db);
+        this.stats.leadsCaptures++;
+
+        return { ...result, leadId };
+    }
+
+
     async sendWhatsAppMessage(to, template, components = []) {
         const payload = {
             messaging_product: 'whatsapp',
@@ -1016,19 +1049,8 @@ class SheikhMetaEngine {
                 event_time: Math.floor(Date.now() / 1000),
                 event_id: eid,
                 action_source: customData.action_source || 'website',
-                user_data: {
-                    em:  userData.email     ? [sha256(userData.email)]     : undefined,
-                    ph:  userData.phone     ? [sha256(userData.phone)]     : undefined,
-                    fn:  userData.firstName ? sha256(userData.firstName) : undefined,
-                    ln:  userData.lastName  ? sha256(userData.lastName)  : undefined,
-                    ct:  userData.city      ? sha256(userData.city)      : undefined,
-                    st:  userData.state     ? sha256(userData.state)     : undefined,
-                    zp:  userData.zip       ? sha256(userData.zip)       : undefined,
-                    country: userData.country ? sha256(userData.country) : undefined,
-                    external_id: userData.userId ? sha256(userData.userId) : undefined,
-                    client_ip_address: userData.ip || undefined,
-                    client_user_agent: userData.userAgent || 'sheikha-server',
-                },
+                event_source_url: customData.sourceUrl || undefined,
+                user_data: this._buildUserData(userData),
                 custom_data: {
                     ...customData,
                     currency:       customData.currency       || region.currency,
@@ -1552,11 +1574,11 @@ class SheikhMetaEngine {
 
         app.post(`${base}/capi/lead`, async (req, res) => {
             try {
-                const { userData = {} } = req.body;
-                const result = await this.sendCAPIEvent('Lead', { ...userData, ip: req.ip }, { content_name: 'Lead Sheikha Market' });
-                this.db.leads.push({ timestamp: new Date().toISOString(), email: userData.email, phone: userData.phone });
-                saveMetaDB(this.db);
-                this.stats.leadsCaptures++;
+                const { userData = {}, customData = {} } = req.body;
+                const result = await this.sendLeadEvent(
+                    { ...userData, ip: req.ip, userAgent: req.headers['user-agent'] },
+                    { ...customData, sourceUrl: req.headers.referer || req.headers.origin }
+                );
                 res.json(result);
             } catch (e) { res.status(500).json({ error: e.message }); }
         });
