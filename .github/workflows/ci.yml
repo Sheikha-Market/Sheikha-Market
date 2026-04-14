@@ -37,7 +37,7 @@ jobs:
         with:
           node-version-file: sheikha-main-portal/.nvmrc
           cache: npm
-          cache-dependency-path: sheikha-main-portal/package.json
+          cache-dependency-path: sheikha-main-portal/package-lock.json
 
       - name: 📦 Install dependencies
         run: |
