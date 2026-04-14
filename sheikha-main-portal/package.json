@@ -15,6 +15,7 @@
     "meta:status": "pm2 describe sheikha-meta-background",
     "meta:logs": "pm2 logs sheikha-meta-background --lines 100",
     "meta:dev": "node scripts/sheikha-meta-background.js",
+    "meta:test-capi": "node scripts/test-capi.js",
     "sovereign:start": "node scripts/grand-sovereign-script.js",
     "sovereign:ignite": "node scripts/sheikha-final-launch.js",
     "sovereign:registry": "node scripts/sheikha-official-registry.js",
