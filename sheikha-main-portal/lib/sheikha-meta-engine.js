@@ -812,10 +812,10 @@ class SheikhMetaEngine {
         const eid = `supply_${event.vendor_id}_${event.event_type}`;
 
         const userData = {
-            em:      event.vendor_email ? sha256(event.vendor_email) : undefined,
-            ph:      event.vendor_phone ? sha256(event.vendor_phone) : undefined,
-            country: event.country      ? sha256(event.country.toLowerCase()) : sha256('sa'),
-            external_id: sha256(String(event.vendor_id)),
+            em:          event.vendor_email ? [sha256(event.vendor_email)] : undefined,
+            ph:          event.vendor_phone ? [sha256(event.vendor_phone)] : undefined,
+            country:     event.country      ? sha256(event.country.toLowerCase()) : sha256('sa'),
+            external_id: [sha256(String(event.vendor_id))],
         };
         if (event.fbc) userData.fbc = event.fbc;
 
