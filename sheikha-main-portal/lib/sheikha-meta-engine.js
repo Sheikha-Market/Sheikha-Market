@@ -484,8 +484,8 @@ class SheikhMetaEngine {
                 event_id: eid,
                 action_source: 'website',
                 user_data: {
-                    em:  userData.email   ? sha256(userData.email)   : undefined,
-                    ph:  userData.phone   ? sha256(userData.phone)   : undefined,
+                    em:  userData.email   ? [sha256(userData.email)]   : undefined,
+                    ph:  userData.phone   ? [sha256(userData.phone)]   : undefined,
                     fn:  userData.firstName ? sha256(userData.firstName) : undefined,
                     ln:  userData.lastName  ? sha256(userData.lastName)  : undefined,
                     ct:  userData.city    ? sha256(userData.city)    : undefined,
@@ -566,8 +566,8 @@ class SheikhMetaEngine {
                 event_id: eid,
                 action_source: 'website',
                 user_data: {
-                    em:  userData.email     ? sha256(userData.email)     : undefined,
-                    ph:  userData.phone     ? sha256(userData.phone)     : undefined,
+                    em:  userData.email     ? [sha256(userData.email)]     : undefined,
+                    ph:  userData.phone     ? [sha256(userData.phone)]     : undefined,
                     fn:  userData.firstName ? sha256(userData.firstName) : undefined,
                     ln:  userData.lastName  ? sha256(userData.lastName)  : undefined,
                     ct:  userData.city      ? sha256(userData.city)      : undefined,
@@ -660,8 +660,8 @@ class SheikhMetaEngine {
             : Math.floor(Date.now() / 1000);
 
         const userData = {
-            em: sha256(contract.company_email),
-            ph: sha256(contract.company_phone),
+            em: [sha256(contract.company_email)],
+            ph: [sha256(contract.company_phone)],
             country: contract.country ? sha256(contract.country.toLowerCase()) : sha256('sa'),
         };
         if (contract.fbc) userData.fbc = contract.fbc;
@@ -738,8 +738,8 @@ class SheikhMetaEngine {
         const eid = `logistics_${delivery.order_id}_${eventName}`;
 
         const userData = {
-            em: delivery.email ? sha256(delivery.email) : undefined,
-            ph: delivery.phone ? sha256(delivery.phone) : undefined,
+            em: delivery.email ? [sha256(delivery.email)] : undefined,
+            ph: delivery.phone ? [sha256(delivery.phone)] : undefined,
         };
         if (delivery.fbp) userData.fbp = delivery.fbp;
 
@@ -813,8 +813,8 @@ class SheikhMetaEngine {
         const eid = `supply_${event.vendor_id}_${event.event_type}`;
 
         const userData = {
-            em:      event.vendor_email ? sha256(event.vendor_email) : undefined,
-            ph:      event.vendor_phone ? sha256(event.vendor_phone) : undefined,
+            em:      event.vendor_email ? [sha256(event.vendor_email)] : undefined,
+            ph:      event.vendor_phone ? [sha256(event.vendor_phone)] : undefined,
             country: event.country      ? sha256(event.country.toLowerCase()) : sha256('sa'),
             external_id: sha256(String(event.vendor_id)),
         };
@@ -1017,8 +1017,8 @@ class SheikhMetaEngine {
                 event_id: eid,
                 action_source: customData.action_source || 'website',
                 user_data: {
-                    em:  userData.email     ? sha256(userData.email)     : undefined,
-                    ph:  userData.phone     ? sha256(userData.phone)     : undefined,
+                    em:  userData.email     ? [sha256(userData.email)]     : undefined,
+                    ph:  userData.phone     ? [sha256(userData.phone)]     : undefined,
                     fn:  userData.firstName ? sha256(userData.firstName) : undefined,
                     ln:  userData.lastName  ? sha256(userData.lastName)  : undefined,
                     ct:  userData.city      ? sha256(userData.city)      : undefined,
