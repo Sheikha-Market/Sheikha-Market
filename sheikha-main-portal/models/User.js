@@ -23,6 +23,17 @@ class User {
         this.companyId = data.companyId || null;
         this.permissions = data.permissions || [];
         this.preferences = data.preferences || {};
+        this.culturalIdentity = data.culturalIdentity || {
+            origin: null,          // arab | ajam | mixed | other
+            ajamPeople: null,      // persian | turkish | urdu | amazigh | ...
+            tribe: null,           // معرّف القبيلة من cultural-identity-db
+            tribeName: null,       // اسم القبيلة بحرية
+            family: null,          // معرّف العائلة التجارية من cultural-identity-db
+            familyName: null,      // اسم العائلة بحرية
+            languages: [],         // ['ar','en','fa',...]
+            nationality: null,     // رمز الجنسية أو البلد
+            region: null           // المنطقة الجغرافية
+        };
         this.metadata = data.metadata || {};
         this.createdAt = data.createdAt || new Date().toISOString();
         this.updatedAt = data.updatedAt || new Date().toISOString();
