@@ -218,7 +218,7 @@ class SheikhMetaEngine {
             pixelId:           process.env.META_PIXEL_ID           || 'SHEIKHA_PIXEL_001',
             accessToken:       process.env.META_ACCESS_TOKEN        || 'DEMO_TOKEN',
             // توكن CAPI مخصص — يُستخدم لإرسال أحداث Conversions API فقط
-            capiToken:         process.env.META_CAPI_ACCESS_TOKEN   || process.env.META_ACCESS_TOKEN || 'DEMO_TOKEN',
+            capiToken:         process.env.META_CAPI_ACCESS_TOKEN   || process.env.META_CAPI_TOKEN || process.env.META_ACCESS_TOKEN || 'DEMO_TOKEN',
             adAccountId:       process.env.META_AD_ACCOUNT_ID       || '',
             catalogId:         process.env.META_CATALOG_ID          || '',
             catalogTestId:     process.env.META_CATALOG_TEST_ID     || '',
