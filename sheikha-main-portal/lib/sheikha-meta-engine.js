@@ -215,7 +215,7 @@ class SheikhMetaEngine {
 
         // إعدادات Meta (تُقرأ من .env في الإنتاج)
         this.config = {
-            pixelId:           process.env.META_PIXEL_ID           || 'SHEIKHA_PIXEL_001',
+            pixelId:           process.env.META_PIXEL_ID           || '1283625109854806',
             accessToken:       process.env.META_ACCESS_TOKEN        || 'DEMO_TOKEN',
             // توكن CAPI مخصص — يُستخدم لإرسال أحداث Conversions API فقط
             capiToken:         process.env.META_CAPI_ACCESS_TOKEN   || process.env.META_CAPI_TOKEN || process.env.META_ACCESS_TOKEN || 'DEMO_TOKEN',
@@ -226,6 +226,7 @@ class SheikhMetaEngine {
             phoneNumberId:     process.env.META_WA_PHONE_ID         || 'DEMO_PHONE_ID',
             wabaId:            process.env.META_WABA_ID             || 'DEMO_WABA_ID',
             appId:             process.env.META_APP_ID              || 'DEMO_APP_ID',
+            businessId:        process.env.META_BUSINESS_ID         || '1937609850219389',
             graphVersion:      process.env.META_GRAPH_VERSION       || 'v21.0',
             testCode:          process.env.META_TEST_EVENT_CODE     || null,
             // true → ترسل فعلياً لـ Meta Graph API | false → تحفظ محلياً فقط
@@ -2190,7 +2191,7 @@ src="https://www.facebook.com/tr?id=${this.config.pixelId}&ev=PageView&noscript=
                 mainToken:      { configured: !!(this.config.accessToken && this.config.accessToken !== 'DEMO_TOKEN'),   label: 'META_ACCESS_TOKEN' },
                 capiToken:      { configured: !!(this.config.capiToken   && this.config.capiToken   !== 'DEMO_TOKEN'),   label: 'META_CAPI_ACCESS_TOKEN' },
                 whatsappToken:  { configured: !!(this.config.whatsappToken && this.config.whatsappToken !== 'DEMO_WA_TOKEN'), label: 'META_WHATSAPP_TOKEN' },
-                pixelId:        { configured: !!(this.config.pixelId     && this.config.pixelId     !== 'SHEIKHA_PIXEL_001'), label: 'META_PIXEL_ID' },
+                pixelId:        { configured: !!(this.config.pixelId     && this.config.pixelId     !== 'SHEIKHA_PIXEL_001' && this.config.pixelId !== 'REPLACE_WITH_PIXEL_ID'), label: 'META_PIXEL_ID' },
                 automationOn:   { configured: this.config.automationApproved, label: 'META_AUTOMATION_APPROVED' },
                 regionTokens: {
                     sa_gcc:   { configured: !!process.env.META_CAPI_TOKEN_SA_GCC   },
