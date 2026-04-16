@@ -35367,6 +35367,28 @@ try {
     console.warn('⚠️ [SOVEREIGN-NET] فشل التحميل — الخادم يستمر بدونه:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌍 SGSC-OS — Sheikha Global Supply Chain OS Routes
+// نظام تشغيل سلاسل الإمداد العالمي — التعدين والمصاهر والسكراب واللوجستيات والتكامل
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const scmRoutes = require('./routes/scm.js');
+    app.use('/api/scm', scmRoutes);
+    console.log('✅ [SGSC-OS] نظام تشغيل سلاسل الإمداد العالمي — مُفعَّل');
+    console.log('   ├─ /api/scm/status                     — حالة النظام');
+    console.log('   ├─ /api/scm/markets                    — الأسواق العالمية (12 سوق)');
+    console.log('   ├─ /api/scm/hs-codes/search            — محرك البحث HS Code');
+    console.log('   ├─ /api/scm/logistics/pl-types         — خدمات PL Stack');
+    console.log('   ├─ /api/scm/integrations/connectors    — Oracle/SAP/Dynamics/EDI');
+    console.log('   ├─ /api/scm/ai/recommend-supplier      — توصية الموردين');
+    console.log('   ├─ /api/scm/ai/classify-scrap          — تصنيف السكراب');
+    console.log('   ├─ /api/scm/ai/optimize-route          — تحسين مسار النقل');
+    console.log('   ├─ /api/scm/control-tower              — برج التحكم');
+    console.log('   └─ /control-tower                      — واجهة برج التحكم');
+} catch (e) {
+    console.warn('⚠️ [SGSC-OS] فشل تحميل مسارات SCM:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
