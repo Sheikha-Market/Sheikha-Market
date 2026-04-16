@@ -37,7 +37,10 @@ const config = {
             saudiMarket: 'saudi-market-preloaded.json',
             shariaRules: 'sharia-rules.json',
             marketingServices: 'marketing-services.json',
-            aiLearning: 'ai-learning.json'
+            aiLearning: 'ai-learning.json',
+            // ─── منظومة المنظمات والأسواق ─────────────────────────────────────
+            organizations: 'organizations.json',   // سجل المنظمات (root + متخصصة)
+            marketUnits:   'market-units.json'     // سجل الأسواق (حقيقي + إلكتروني + رقمي)
         }
     },
 
