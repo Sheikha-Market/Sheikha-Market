@@ -221,20 +221,26 @@
 
         /**
          * حدث LandingPageView — عند وصول زائر من إعلان Instagram/Meta
-         * @param {object} [opts] — { placement, adId, adSetId, campaignId, value, currency }
+         * @param {object} [opts] — { placement, adId, adSetId, campaignId, utmCampaign, value, currency }
          */
         landingPageView: function (opts) {
             opts = opts || {};
             return fireEvent('LandingPageView', {
                 content_name: document.title || 'سوق شيخة',
             }, {
-                sourceUrl:  window.location.href,
-                placement:  opts.placement  || detectPlacement() || undefined,
-                adId:       opts.adId       || getParam('ad_id')       || undefined,
-                adSetId:    opts.adSetId    || getParam('adset_id')    || undefined,
-                campaignId: opts.campaignId || getParam('campaign_id') || undefined,
-                value:      opts.value      || 0,
-                currency:   opts.currency   || 'SAR',
+                sourceUrl:   window.location.href,
+                placement:   opts.placement   || detectPlacement() || undefined,
+                adId:        opts.adId        || getParam('ad_id')       || undefined,
+                adSetId:     opts.adSetId     || getParam('adset_id')    || undefined,
+                campaignId:  opts.campaignId  || getParam('campaign_id') || undefined,
+                // UTM الكاملة — اسم الحملة + المصدر + القناة
+                utmCampaign: opts.utmCampaign || getParam('utm_campaign') || undefined,
+                utmSource:   opts.utmSource   || getParam('utm_source')   || undefined,
+                utmMedium:   opts.utmMedium   || getParam('utm_medium')   || undefined,
+                utmContent:  opts.utmContent  || getParam('utm_content')  || undefined,
+                utmTerm:     opts.utmTerm     || getParam('utm_term')     || undefined,
+                value:       opts.value       || 0,
+                currency:    opts.currency    || 'SAR',
             });
         },
 

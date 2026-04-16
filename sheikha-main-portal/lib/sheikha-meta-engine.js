@@ -1062,7 +1062,7 @@ class SheikhMetaEngine {
         return {
             nameAr: 'شيخة Meta AI',
             version: this.version,
-            apis: 179,
+            apis: 181,
             stats: this.stats,
             markets: Object.keys(this.marketPixels),
             regions: Object.keys(this.regionConfig),
@@ -3510,7 +3510,64 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
             } catch (e) { res.status(500).json({ error: e.message }); }
         });
 
-        console.log(`✅ [SheikhMetaEngine] 179 مسار API مُسجَّل | Base: ${base}`);
+        // ─── Campaign Monitor — مراقبة الحملة الحية ─────────────────────────────
+        // GET  /campaign/monitor          ← ملخص أحداث الحملة الحية (آخر ساعة / يوم)
+        // GET  /campaign/monitor?hours=N  ← آخر N ساعة (افتراضي 1، أقصى 72)
+        app.get(`${base}/campaign/monitor`, (req, res) => {
+            try {
+                const hours   = Math.min(Math.max(parseInt(req.query.hours) || 1, 1), 72);
+                const since   = new Date(Date.now() - hours * 3600 * 1000);
+                const events  = (this.db.events || []).filter(ev => new Date(ev.timestamp) >= since);
+
+                // تجميع حسب نوع الحدث
+                const byType  = {};
+                events.forEach(ev => {
+                    const name = ev.eventName || 'unknown';
+                    byType[name] = (byType[name] || 0) + 1;
+                });
+
+                // تجميع حسب السوق
+                const byMarket = {};
+                events.forEach(ev => {
+                    const m = ev.market || 'global';
+                    byMarket[m] = (byMarket[m] || 0) + 1;
+                });
+
+                // تجميع حسب utm_campaign
+                const byCampaign = {};
+                events.forEach(ev => {
+                    const camp = (ev.customData && ev.customData.utmCampaign) || null;
+                    if (camp) byCampaign[camp] = (byCampaign[camp] || 0) + 1;
+                });
+
+                // أحدث 10 أحداث
+                const latest = events.slice(-10).reverse().map(ev => ({
+                    eventName:   ev.eventName,
+                    market:      ev.market || 'global',
+                    utmCampaign: (ev.customData && ev.customData.utmCampaign) || null,
+                    placement:   (ev.customData && ev.customData.placement)   || null,
+                    timestamp:   ev.timestamp,
+                }));
+
+                res.json({
+                    success:     true,
+                    windowHours: hours,
+                    since:       since.toISOString(),
+                    totals:      { events: events.length, byType, byMarket, byCampaign },
+                    latest,
+                    stats:       this.stats,
+                    doctrine:    'الإسناد الدقيق — صدق في القياس كصدق في التجارة',
+                });
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        // نفس المسار بالعربية
+        app.get(`${base}/campaign/مراقبة`, (req, res) => {
+            req.url = `${base}/campaign/monitor`;
+            res.redirect(307, `${base}/campaign/monitor${req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : ''}`);
+        });
+
+        console.log(`✅ [SheikhMetaEngine] 181 مسار API مُسجَّل | Base: ${base}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
