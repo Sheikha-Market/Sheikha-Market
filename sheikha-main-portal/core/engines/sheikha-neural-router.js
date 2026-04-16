@@ -14,6 +14,7 @@
 'use strict';
 
 const EventEmitter = require('events');
+const crypto       = require('crypto');
 const islamicDb    = require('../islamic-db');
 
 // ─── سجل المحركات ─────────────────────────────────────────────────────────────
@@ -109,7 +110,7 @@ class SheikhaIslamicNeuralRouter extends EventEmitter {
      */
     async route(request) {
         const { intent, entity = {}, data = {} } = request;
-        const traceId = `SHK-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+        const traceId = `SHK-${Date.now()}-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
 
         this.emit('request', { traceId, intent, entity });
 

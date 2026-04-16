@@ -61,7 +61,7 @@ for (const entry of ENGINE_MANIFEST) {
         registerEngine(entry.key, mod, { nameAr: entry.nameAr, maqsad: entry.maqsad });
         registered++;
     } catch (err) {
-        console.error(`[ENGINES-INDEX] ❌ خطأ في تحميل ${entry.file}:`, err.message);
+        console.error(`[ENGINES-INDEX] ❌ خطأ في تحميل ${entry.file}:`, err.stack || err.message);
     }
 }
 
