@@ -270,32 +270,97 @@ class SheikhaVisionAdvisoryEngine {
     }
 
     // ═══════════════════════════════════════════════════════════
-    // ⑧ واجهة الموجّه العصبي
+    // ⑧ واجهة الموجّه العصبي — تُعيد البيانات الخام فقط
     // ═══════════════════════════════════════════════════════════
 
     handle(request) {
         const { intent, data = {} } = request;
+        const rawDash = () => ({
+            engine: this.nameAr, consultant: this.consultant, tawheed: this.tawheed,
+            supremacy_creed: SUPREMACY_CREED,
+            stats: {
+                total_visions:     this._visions.size,
+                total_indicators:  this._indicators.size,
+                government_inds:   GOVERNMENT_INDICATORS.length,
+                non_gov_inds:      NON_GOVERNMENT_INDICATORS.length,
+                islamic_inds:      SHEIKHA_ISLAMIC_INDICATORS.length,
+                dominance_axes:    ETHICAL_DOMINANCE_AXES.length,
+                supremacy_targets: SUPREMACY_TARGETS.length,
+                roadmap_phases:    3,
+            },
+            accelerated_roadmap: {
+                phase1: { nameAr: ACCELERATED_ROADMAP.phase1.nameAr, duration: ACCELERATED_ROADMAP.phase1.duration },
+                phase2: { nameAr: ACCELERATED_ROADMAP.phase2.nameAr, duration: ACCELERATED_ROADMAP.phase2.duration },
+                phase3: { nameAr: ACCELERATED_ROADMAP.phase3.nameAr, duration: ACCELERATED_ROADMAP.phase3.duration },
+            },
+            top_verse: SUPREMACY_CREED.verse,
+            no_harm:   SUPREMACY_CREED.principle,
+        });
 
-        if (intent === 'vision.sheikha')       return Promise.resolve(this.getSheikhaVision());
-        if (intent === 'vision.get')           return Promise.resolve(this.getVision(data.id));
-        if (intent === 'vision.search')        return Promise.resolve(this.searchVisions(data.keyword));
-        if (intent === 'vision.list')          return Promise.resolve(this.listAllVisions());
-        if (intent === 'vision.compare')       return Promise.resolve(this.compareVisions(data.id1, data.id2));
-        if (intent === 'indicator.get')        return Promise.resolve(this.getIndicator(data.id));
-        if (intent === 'indicator.list')       return Promise.resolve(this.listIndicators({ type: data.type }));
-        if (intent === 'indicator.search')     return Promise.resolve(this.searchIndicators(data.keyword));
-        if (intent === 'dominance.calc')       return Promise.resolve(this.calcDominance(data.scores));
-        if (intent === 'dominance.axes')       return Promise.resolve(this.listDominanceAxes());
-        if (intent === 'supremacy.targets')    return Promise.resolve(this.listSupremacyTargets());
-        if (intent === 'roadmap.get')          return Promise.resolve(this.getRoadmap(data.phase ? String(data.phase) : null));
-        if (intent === 'advisory.plan')        return Promise.resolve(this.advise(data));
-        if (intent === 'advisory.enhance')     return Promise.resolve(this.enhanceVision(data));
-        if (intent === 'advisory.generate')    return Promise.resolve(this.generateVision(data));
-        if (intent === 'advisory.compare')     return Promise.resolve(this.compareVisions(data.id1, data.id2));
-        if (intent === 'vision.dashboard')     return Promise.resolve(this.dashboard());
+        if (intent === 'vision.sheikha')       return Promise.resolve(SHEIKHA_VISION);
+        if (intent === 'vision.get')           return Promise.resolve(this._visions.get(data.id) || null);
+        if (intent === 'vision.search')        return Promise.resolve(this._rawSearch(data.keyword));
+        if (intent === 'vision.list')          return Promise.resolve(this._rawList());
+        if (intent === 'vision.compare')       return Promise.resolve(this._rawCompare(data.id1, data.id2));
+        if (intent === 'indicator.get')        return Promise.resolve(this._indicators.get(data.id) || null);
+        if (intent === 'indicator.list')       return Promise.resolve(this._rawIndicators(data.type));
+        if (intent === 'indicator.search')     return Promise.resolve(this._rawSearchIndicators(data.keyword));
+        if (intent === 'dominance.calc')       return Promise.resolve(calcEthicalDominanceScore(data.scores || {}));
+        if (intent === 'dominance.axes')       return Promise.resolve(ETHICAL_DOMINANCE_AXES);
+        if (intent === 'supremacy.targets')    return Promise.resolve(SUPREMACY_TARGETS);
+        if (intent === 'roadmap.get')          return Promise.resolve(data.phase ? ACCELERATED_ROADMAP[`phase${data.phase}`] : ACCELERATED_ROADMAP);
+        if (intent === 'advisory.plan')        return Promise.resolve(generateAdvisoryActionPlan(data));
+        if (intent === 'advisory.enhance')     return Promise.resolve(enhanceVision(data));
+        if (intent === 'advisory.generate')    return Promise.resolve(buildEntityVision(data));
+        if (intent === 'advisory.compare')     return Promise.resolve(this._rawCompare(data.id1, data.id2));
+        if (intent === 'vision.dashboard')     return Promise.resolve(rawDash());
 
-        // الافتراضي: لوحة القيادة
-        return Promise.resolve(this.dashboard());
+        return Promise.resolve(rawDash());
+    }
+
+    _rawSearch(keyword = '') {
+        const kw = keyword.toLowerCase().trim();
+        return Array.from(this._visions.values()).filter((v) => {
+            const text = [v.nameAr || '', v.nameEn || '', (v.vision && (v.vision.nameAr || v.vision.textAr)) || ''].join(' ').toLowerCase();
+            return !kw || text.includes(kw);
+        });
+    }
+
+    _rawList() {
+        return Array.from(this._visions.values()).map((v) => ({
+            id: v.id, nameAr: v.nameAr, nameEn: v.nameEn,
+            visionTitle: (v.vision && (v.vision.nameAr || v.vision.textAr)) || '',
+        }));
+    }
+
+    _rawIndicators(type) {
+        if (type === 'government')     return GOVERNMENT_INDICATORS;
+        if (type === 'non-government') return NON_GOVERNMENT_INDICATORS;
+        if (type === 'islamic')        return SHEIKHA_ISLAMIC_INDICATORS;
+        return ALL_INDICATORS;
+    }
+
+    _rawSearchIndicators(keyword = '') {
+        const kw = keyword.toLowerCase().trim();
+        return ALL_INDICATORS.filter((ind) => {
+            const text = [ind.id, ind.nameAr || '', ind.nameEn || '', ind.domain || ''].join(' ').toLowerCase();
+            return !kw || text.includes(kw);
+        });
+    }
+
+    _rawCompare(id1, id2) {
+        const v1 = this._visions.get(id1);
+        const v2 = this._visions.get(id2);
+        if (!v1 || !v2) return { error: `رؤية غير موجودة: ${!v1 ? id1 : id2}` };
+        return {
+            entity1: { id: id1, nameAr: v1.nameAr, goals: (v1.goals || []).length, horizon: (v1.vision || {}).year },
+            entity2: { id: id2, nameAr: v2.nameAr, goals: (v2.goals || []).length, horizon: (v2.vision || {}).year },
+            advisory: {
+                consultant: this.consultant,
+                recommendation: 'الأفضل بأمر الله يتطلب ربط كل هدف بمقصد شرعي ومؤشر قياس واضح وخط زمني محدد',
+            },
+            no_harm_confirmed: true,
+        };
     }
 
     // ─── مساعدات الاستجابة ───────────────────────────────────────────────────

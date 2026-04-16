@@ -88,6 +88,40 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل محرك المعايير:', err.stack || err.message);
 }
 
+// ─── تسجيل محرك الرؤى والاستشارات الدولية ───────────────────────────────────
+
+try {
+    const { engine: visionEngine } = require('../visions');
+    registerEngine('vision', visionEngine, {
+        nameAr: 'محرك الرؤى والاستشارات الدولية',
+        maqsad: 'ARD',
+    });
+    registerRoute('vision',      'vision', 'ARD');
+    registerRoute('advisory',    'vision', 'ARD');
+    registerRoute('indicator',   'vision', 'ARD');
+    registerRoute('dominance',   'vision', 'DEEN');
+    registerRoute('supremacy',   'vision', 'DEEN');
+    registerRoute('roadmap',     'vision', 'ARD');
+    console.log('[ENGINES-INDEX] ✅ محرك الرؤى مسجّل');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل محرك الرؤى:', err.stack || err.message);
+}
+
+// ─── تسجيل محرك الاستشارات الكوني ───────────────────────────────────────────
+
+try {
+    const { engine: consultingEngine } = require('../consulting');
+    registerEngine('consulting', consultingEngine, {
+        nameAr: 'محرك شيخة للاستشارات الكونية',
+        maqsad: 'ARD',
+    });
+    registerRoute('consulting', 'consulting', 'ARD');
+    registerRoute('consult',    'consulting', 'ARD');
+    console.log('[ENGINES-INDEX] ✅ محرك الاستشارات مسجّل');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل محرك الاستشارات:', err.stack || err.message);
+}
+
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 module.exports = {
