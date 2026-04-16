@@ -763,22 +763,22 @@ class HSCodeEngine {
         this._buildHSIndex();
     }
 
+    _indexHSCode(code, obj, path) {
+        const clean = String(code).replace(/\./g, '');
+        this._hsIndex[clean] = { ...obj, _path: path };
+        // Also index 4-digit prefix if not already set
+        const prefix = clean.substring(0, 4);
+        if (!this._hsIndex[prefix]) this._hsIndex[prefix] = { ...obj, _path: path };
+    }
+
     _buildHSIndex() {
         this._hsIndex = {};
         const scan = (obj, path = '') => {
             if (!obj || typeof obj !== 'object') return;
             if (Array.isArray(obj.hs_codes)) {
-                obj.hs_codes.forEach(code => {
-                    const clean = String(code).replace(/\./g, '');
-                    this._hsIndex[clean] = { ...obj, _path: path };
-                    // Also index 4-digit prefix
-                    const prefix = clean.substring(0, 4);
-                    if (!this._hsIndex[prefix]) this._hsIndex[prefix] = { ...obj, _path: path };
-                });
-            }
-            if (typeof obj.hs_codes === 'string') {
-                const clean = obj.hs_codes.replace(/\./g, '');
-                this._hsIndex[clean] = { ...obj, _path: path };
+                obj.hs_codes.forEach(code => this._indexHSCode(code, obj, path));
+            } else if (typeof obj.hs_codes === 'string') {
+                this._indexHSCode(obj.hs_codes, obj, path);
             }
             Object.entries(obj).forEach(([key, val]) => {
                 if (typeof val === 'object' && val !== null && key !== 'hs_details') {

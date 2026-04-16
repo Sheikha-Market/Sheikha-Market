@@ -514,7 +514,7 @@ class SheikhaPLStackEngine extends EventEmitter {
      * إنشاء طلب شحنة جديدة
      */
     createShipmentRequest(data) {
-        const id = `SHP-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
+        const id = `SHP-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
         const shipment = {
             id,
             status: 'pending_assignment',

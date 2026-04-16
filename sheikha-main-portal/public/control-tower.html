@@ -691,8 +691,8 @@ const API_BASE = '/api/scm';
 
 // Live clock
 function updateTime() {
-  const now = new Date();
-  document.getElementById('liveTime').textContent = now.toLocaleTimeString('ar-SA');
+  const el = document.getElementById('liveTime');
+  if (el) el.textContent = new Date().toLocaleTimeString('ar-SA');
 }
 setInterval(updateTime, 1000);
 updateTime();

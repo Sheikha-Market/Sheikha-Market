@@ -265,7 +265,7 @@ class SheikhaGlobalSCMOS extends EventEmitter {
     // ─────────────────────────────────────────────────────────────────────────
 
     registerTenant(data) {
-        const tenantId = `TNT-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
+        const tenantId = `TNT-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
         const tenant = {
             id: tenantId,
             companyName: data.companyName,
@@ -303,7 +303,7 @@ class SheikhaGlobalSCMOS extends EventEmitter {
     // ─────────────────────────────────────────────────────────────────────────
 
     createRFQ(data) {
-        const rfqId = `RFQ-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
+        const rfqId = `RFQ-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
         const rfq = {
             id: rfqId,
             tenantId: data.tenantId,
@@ -379,7 +379,7 @@ class SheikhaGlobalSCMOS extends EventEmitter {
     // ─────────────────────────────────────────────────────────────────────────
 
     createOrder(data) {
-        const orderId = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
+        const orderId = `ORD-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
         const order = {
             id: orderId,
             tenantId: data.tenantId,
@@ -438,7 +438,7 @@ class SheikhaGlobalSCMOS extends EventEmitter {
     // ─────────────────────────────────────────────────────────────────────────
 
     createShipment(data) {
-        const shipmentId = `SHP-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
+        const shipmentId = `SHP-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
         const shipment = {
             id: shipmentId,
             orderId: data.orderId,
