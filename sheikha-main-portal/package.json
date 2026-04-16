@@ -16,6 +16,7 @@
     "meta:logs": "pm2 logs sheikha-meta-background --lines 100",
     "meta:dev": "node scripts/sheikha-meta-background.js",
     "meta:test-capi": "node scripts/test-capi.js",
+    "meta:test-landing-page-view": "META_TEST_EVENT_TYPE=LandingPageView node scripts/test-capi.js",
     "sovereign:start": "node scripts/grand-sovereign-script.js",
     "sovereign:ignite": "node scripts/sheikha-final-launch.js",
     "sovereign:registry": "node scripts/sheikha-official-registry.js",

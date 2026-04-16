@@ -12,7 +12,7 @@
  *
  * المالك والمؤسس: سلمان أحمد سلمان الراجح — منظمة شيخة — www.sheikha.top
  * الإصدار: 1.0.0 | التاريخ: ١٤٤٦ هـ / ٢٠٢٦ م
- * المسارات: 65 API Route
+ * المسارات: 67 API Route
  */
 
 const crypto = require('crypto');
@@ -261,7 +261,9 @@ class SheikhMetaEngine {
         this.halalEvents = [
             'Purchase', 'AddToCart', 'InitiateCheckout', 'ViewContent',
             'Lead', 'CompleteRegistration', 'Contact', 'FindLocation',
-            'Schedule', 'StartTrial', 'SubmitApplication'
+            'Schedule', 'StartTrial', 'SubmitApplication',
+            // أحداث الزيارات — Traffic & Landing Page Views
+            'PageView', 'LandingPageView',
         ];
 
         // خدمات التحقق الشرعي
@@ -429,7 +431,7 @@ class SheikhMetaEngine {
         // تسجيل المسارات
         if (this.app) this._registerRoutes();
 
-        console.log('✅ [SheikhMetaEngine v1.0] Meta AI Engine — CAPI + WhatsApp + Pixel + Commerce — 65 API مسار');
+        console.log('✅ [SheikhMetaEngine v1.0] Meta AI Engine — CAPI + WhatsApp + Pixel + Commerce — 67 API مسار');
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -651,6 +653,63 @@ class SheikhMetaEngine {
         return { ...result, leadId };
     }
 
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 📱 LandingPageView — حدث مشاهدة الصفحة المقصودة (هدف الزيارات Instagram)
+    // يُطلق عندما يضغط زائر على إعلان Instagram ويُحمَّل الموقع كاملاً
+    // يُعظّم أداء حملات Traffic → Landing Page Views ويرفع جودة الإسناد
+    //
+    // userData = { email, phone, firstName, lastName, city, country, ip, userAgent, fbp, fbc, userId }
+    // customData = {
+    //   sourceUrl,      // رابط الصفحة المقصودة — مطلوب لجودة الإسناد
+    //   placement,      // instagram_feed | instagram_stories | instagram_reels | instagram_explore
+    //   adId,           // معرّف الإعلان في Meta Ads Manager
+    //   adSetId,        // معرّف المجموعة الإعلانية
+    //   campaignId,     // معرّف الحملة
+    //   market,         // metals | scrap | precious | rare | now
+    //   contentName,    // اسم محتوى الصفحة
+    //   value,          // (اختياري) قيمة تقديرية للزيارة
+    //   currency,       // SAR (افتراضي)
+    // }
+    // ═══════════════════════════════════════════════════════════════════════════
+    async sendLandingPageViewEvent(userData = {}, customData = {}) {
+        const eventId = customData.eventId || crypto.randomUUID();
+        const market  = customData.market || null;
+
+        // رابط الصفحة المقصودة — Meta يعتمد عليه لربط الحدث بالإعلان
+        const sourceUrl = customData.sourceUrl
+            || `https://sheikha.top/${market ? market + '/' : ''}`;
+
+        // بيانات الإعلان — تُحسِّن الإسناد بربط الحدث بالحملة/المجموعة/الإعلان
+        const adMetadata = {};
+        if (customData.adId)       adMetadata.ad_id        = customData.adId;
+        if (customData.adSetId)    adMetadata.adset_id     = customData.adSetId;
+        if (customData.campaignId) adMetadata.campaign_id  = customData.campaignId;
+        if (customData.placement)  adMetadata.placement    = customData.placement;
+
+        const enriched = {
+            ...customData,
+            sourceUrl,
+            content_name:     customData.contentName || 'سوق شيخة — صفحة مقصودة',
+            content_category: customData.contentCategory || (market ? `سوق-${market}` : 'سوق-شيخة'),
+            currency:         customData.currency  || 'SAR',
+            value:            customData.value     || 0,
+            // بيانات Instagram placement لتحسين تطابق الحدث مع الإعلان
+            ...adMetadata,
+        };
+
+        const result = market
+            ? await this.sendCAPIEventForMarket(market, 'LandingPageView', userData, enriched, eventId)
+            : await this.sendCAPIEventWithGeoRouting('LandingPageView', userData, enriched, eventId);
+
+        this._addAuditEntry('LANDING_PAGE_VIEW', null, {
+            market:    market || 'global',
+            placement: customData.placement || 'unknown',
+            sourceUrl,
+        });
+
+        return { ...result, eventId, sourceUrl, placement: customData.placement || null };
+    }
 
     async sendWhatsAppMessage(to, template, components = []) {
         const payload = {
@@ -986,7 +1045,7 @@ class SheikhMetaEngine {
             regions: regionSummary,
             stats: this.stats,
             halalEvents: this.halalEvents,
-            apiCount: 177,
+            apiCount: 179,
             consent: { total: Object.keys(this.consentDB.consents).length },
             auditLog: { entries: this.auditLog.length, maxSize: this.maxAuditLogSize },
             alerts: this.checkAlerts(),
@@ -1003,7 +1062,7 @@ class SheikhMetaEngine {
         return {
             nameAr: 'شيخة Meta AI',
             version: this.version,
-            apis: 177,
+            apis: 179,
             stats: this.stats,
             markets: Object.keys(this.marketPixels),
             regions: Object.keys(this.regionConfig),
@@ -3426,7 +3485,32 @@ window.addEventListener('DOMContentLoaded', function(){ window.sheikhaConsentMod
             } catch (e) { res.status(500).json({ error: e.message }); }
         });
 
-        console.log(`✅ [SheikhMetaEngine] 177 مسار API مُسجَّل | Base: ${base}`);
+        // ─── LandingPageView — حدث زيارة الصفحة المقصودة (Instagram Traffic) ──
+        // يُطلق عند وصول الزائر من إعلان Instagram إلى الصفحة المقصودة
+        // يُحسِّن إسناد حملات Traffic → Landing Page Views ويخفض التكلفة/النتيجة
+        app.post(`${base}/capi/زيارة-الصفحة`, async (req, res) => {
+            try {
+                const { userData = {}, customData = {} } = req.body;
+                const result = await this.sendLandingPageViewEvent(
+                    { ...userData, ip: req.ip, userAgent: req.headers['user-agent'] },
+                    customData,
+                );
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        app.post(`${base}/capi/landing-page-view`, async (req, res) => {
+            try {
+                const { userData = {}, customData = {} } = req.body;
+                const result = await this.sendLandingPageViewEvent(
+                    { ...userData, ip: req.ip, userAgent: req.headers['user-agent'] },
+                    customData,
+                );
+                res.json(result);
+            } catch (e) { res.status(500).json({ error: e.message }); }
+        });
+
+        console.log(`✅ [SheikhMetaEngine] 179 مسار API مُسجَّل | Base: ${base}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
