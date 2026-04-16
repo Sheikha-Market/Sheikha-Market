@@ -759,6 +759,28 @@ try {
     console.log('⚠️ SheikhGrandEmpireEngine غير متوفر:', e.message);
 }
 
+// ═══ SHEIKHA ROOT — جذر المنظومة الرقمية ═══
+let sheikhaRoot = null;
+try {
+    const rootModule = require('./core/sheikha-root');
+    sheikhaRoot = rootModule;
+    rootModule.boot().catch(() => {});
+    console.log(`✅ [Sheikha Root] جذر المنظومة مفعّل — الطبقات: ${rootModule.SHEIKHA_ROOT.layers.length}`);
+} catch (e) {
+    console.log('⚠️ Sheikha Root غير متوفر:', e.message);
+}
+
+// ═══ SHEIKHA OS — طبقة نظام التشغيل ═══
+let sheikhaOS = null;
+try {
+    const osModule = require('./core/sheikha-os');
+    sheikhaOS = osModule;
+    if (typeof sheikhaOS.init === 'function') sheikhaOS.init().catch(() => {});
+    console.log(`✅ [Sheikha OS] نظام التشغيل مفعّل — v${(sheikhaOS.OS_ID || {}).version || '1.0.0'} | platform: ${(sheikhaOS.OS_ID || {}).platform || process.platform}`);
+} catch (e) {
+    console.log('⚠️ Sheikha OS غير متوفر:', e.message);
+}
+
 // ═══ META AI ENGINE — CAPI + WhatsApp Business API + Pixel + Commerce ═══
 let metaEngine = null;
 try {
@@ -10591,6 +10613,15 @@ app.post('/api/auth/register', (req, res) => {
                 phone: user.phone
             });
         } catch (_) {}
+
+    // ═══ Meta CAPI — Lead ═══
+    if (metaEngine)
+        try {
+            metaEngine.sendLeadEvent(
+                { email: user.email, phone: user.phone, firstName: user.name },
+                { contentName: 'تسجيل مستخدم — سوق شيخة', contentCategory: user.specialty || 'metals_trader', market: region || null }
+            ).catch(() => {});
+        } catch (_) {}
 });
 
 app.post('/api/auth/login', (req, res) => {
@@ -12900,6 +12931,16 @@ app.get('/api/products/:id', (req, res) => {
         similarOffers,
         totalSimilar: similarOffers.length
     });
+
+    // ═══ Meta CAPI — ViewContent ═══
+    if (metaEngine)
+        try {
+            const userReq = req.user || {};
+            metaEngine.sendCAPIEventWithGeoRouting('ViewContent',
+                { email: userReq.email, phone: userReq.phone, clientIpAddress: req.ip, clientUserAgent: req.headers['user-agent'] },
+                { contentIds: [String(listing.id)], contentName: listing.name, contentCategory: listing.categoryName || listing.category, contentType: 'product', value: Number(listing.price) || 0, currency: listing.currency || 'SAR' }
+            ).catch(() => {});
+        } catch (_) {}
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -31599,6 +31640,15 @@ app.post('/api/orders', express.json(), authRequired, (req, res) => {
         fs.writeFileSync(ORDERS_FILE, JSON.stringify(ORDERS, null, 2));
     } catch (_) {}
     res.json({ success: true, order, message: `تم إنشاء ${order.typeLabel} بنجاح` });
+
+    // ═══ Meta CAPI — Purchase (buy orders only) ═══
+    if (metaEngine && order.type === 'buy')
+        try {
+            metaEngine.sendCAPIEventWithGeoRouting('Purchase',
+                { email: user.email, phone: user.phone, clientIpAddress: req.ip, clientUserAgent: req.headers['user-agent'] },
+                { contentIds: [order.id], contentName: order.metalType || 'معدن', contentType: 'product', value: Number(order.price) || 0, currency: order.currency || 'SAR', orderId: order.id }
+            ).catch(() => {});
+        } catch (_) {}
 });
 
 // ═══ API: قائمة الطلبات ═══
