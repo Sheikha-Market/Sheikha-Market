@@ -1,0 +1,78 @@
+/**
+ * بسم الله الرحمن الرحيم
+ * ╔══════════════════════════════════════════════════════════════════════════════╗
+ * ║          SHEIKHA ENGINES INDEX — فهرس المحركات الموحدة                     ║
+ * ║     يجمع كل المحركات تحت واجهة واحدة ويربطها بالموجّه العصبي              ║
+ * ╚══════════════════════════════════════════════════════════════════════════════╝
+ *
+ * "وَأَنَّ إِلَىٰ رَبِّكَ الْمُنتَهَىٰ" — النجم:٤٢
+ *
+ * الاستخدام:
+ *   const { router } = require('./core/engines');
+ *   const res = await router.route({ intent: 'market', data: { ... } });
+ */
+
+'use strict';
+
+const path = require('path');
+const fs   = require('fs');
+
+const { router, registerEngine, registerRoute, listEngines } = require('./sheikha-neural-router');
+
+// ─── خريطة المحركات الجاهزة للتسجيل ─────────────────────────────────────────
+//
+// key        → مفتاح التوجيه (intent)
+// file       → مسار الملف نسبةً إلى مجلد lib/
+// nameAr     → الاسم العربي
+// maqsad     → المقصد الشرعي المرتبط
+//
+const ENGINE_MANIFEST = [
+    { key: 'sharia',    file: 'sheikha-sharia-engine.js',          nameAr: 'محرك الشريعة',           maqsad: 'DEEN' },
+    { key: 'agents',    file: 'sheikha-islamic-agents-engine.js',   nameAr: 'محرك الوكلاء الإسلاميين',maqsad: 'DEEN' },
+    { key: 'quran',     file: 'sheikha-quran-sunnah-engine.js',     nameAr: 'محرك القرآن والسنة',     maqsad: 'AQL'  },
+    { key: 'learning',  file: 'sheikha-learning-engine.js',         nameAr: 'محرك التعلم',            maqsad: 'AQL'  },
+    { key: 'knowledge', file: 'sheikha-knowledge-engine.js',        nameAr: 'محرك المعرفة',           maqsad: 'AQL'  },
+    { key: 'market',    file: 'sheikha-smart-market-engine.js',     nameAr: 'محرك السوق الذكي',       maqsad: 'MAL'  },
+    { key: 'trade',     file: 'sheikha-trade-engine.js',            nameAr: 'محرك التجارة',           maqsad: 'MAL'  },
+    { key: 'payments',  file: 'sheikha-payments-engine.js',         nameAr: 'محرك المدفوعات',         maqsad: 'MAL'  },
+    { key: 'zakat',     file: 'sheikha-barakah-engine.js',          nameAr: 'محرك البركة والزكاة',    maqsad: 'MAL'  },
+    { key: 'identity',  file: 'sheikha-digital-identity-engine.js', nameAr: 'محرك الهوية الرقمية',    maqsad: 'DEEN' },
+    { key: 'security',  file: 'sheikha-security-engine.js',         nameAr: 'محرك الأمان',            maqsad: 'NAFS' },
+    { key: 'medical',   file: 'sheikha-medical-engine.js',          nameAr: 'محرك الصحة',             maqsad: 'NAFS' },
+    { key: 'ai',        file: 'sheikha-ai-engine.js',               nameAr: 'محرك الذكاء الاصطناعي', maqsad: 'ARD'  },
+    { key: 'cloud',     file: 'sheikha-cloud-engine.js',            nameAr: 'محرك السحابة',           maqsad: 'ARD'  },
+    { key: 'lmm',       file: 'sheikha-lmm-engine.js',              nameAr: 'محرك نموذج اللغة',       maqsad: 'ARD'  },
+];
+
+// ─── تسجيل المحركات ───────────────────────────────────────────────────────────
+
+const libDir = path.resolve(__dirname, '../../lib');
+
+let registered = 0;
+
+for (const entry of ENGINE_MANIFEST) {
+    const filePath = path.join(libDir, entry.file);
+    if (!fs.existsSync(filePath)) {
+        console.warn(`[ENGINES-INDEX] ⚠️  لم يُعثر على: ${entry.file} — تخطّي`);
+        continue;
+    }
+    try {
+        const mod = require(filePath);
+        registerEngine(entry.key, mod, { nameAr: entry.nameAr, maqsad: entry.maqsad });
+        registered++;
+    } catch (err) {
+        console.error(`[ENGINES-INDEX] ❌ خطأ في تحميل ${entry.file}:`, err.message);
+    }
+}
+
+console.log(`[ENGINES-INDEX] 🚀 المحركات المسجّلة: ${registered}/${ENGINE_MANIFEST.length}`);
+
+// ─── Export ───────────────────────────────────────────────────────────────────
+
+module.exports = {
+    router,
+    registerEngine,
+    registerRoute,
+    listEngines,
+    ENGINE_MANIFEST,
+};
