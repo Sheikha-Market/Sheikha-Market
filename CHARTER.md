@@ -1,8 +1,12 @@
 # ميثاق منظومة شيخة (Sheikha Charter)
 
+> © 2025 سوق شيخة — جميع الحقوق محفوظة | All Rights Reserved  
+> راجع: [IP-CONFIDENTIALITY-CHARTER.md](./IP-CONFIDENTIALITY-CHARTER.md)
+
 ## المرجعية
 - كتاب الله
 - سنة النبي ﷺ
+- سنة الخلفاء الراشدين المهديين
 
 ## مواد إلزامية
 - لا ربا

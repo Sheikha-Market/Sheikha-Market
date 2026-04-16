@@ -39,8 +39,12 @@ const config = {
             marketingServices: 'marketing-services.json',
             aiLearning: 'ai-learning.json',
             // ─── منظومة المنظمات والأسواق ─────────────────────────────────────
-            organizations: 'organizations.json',   // سجل المنظمات (root + متخصصة)
-            marketUnits:   'market-units.json'     // سجل الأسواق (حقيقي + إلكتروني + رقمي)
+            organizations:       'organizations.json',         // سجل المنظمات (root + متخصصة)
+            marketUnits:         'market-units.json',          // سجل الأسواق (حقيقي + إلكتروني + رقمي)
+            // ─── الحوكمة والملكية الفكرية ──────────────────────────────────────
+            governance:          'governance-decisions.json',  // قرارات الحوكمة الشرعية
+            intellectualProperty:'intellectual-property.json', // سجل الأصول الفكرية
+            ipViolations:        'ip-violations.json'          // بلاغات انتهاك الملكية الفكرية
         }
     },
 

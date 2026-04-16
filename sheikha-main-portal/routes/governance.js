@@ -231,7 +231,7 @@ router.get('/architecture', (req, res) => {
 // ─── التحقق من الامتثال للحوكمة ──────────────────────────────────────────────
 
 router.post('/validate', (req, res) => {
-    const { action, entityType, data: entityData } = req.body;
+    const { action, entityType, entityData } = req.body;
 
     if (!action) {
         return res.status(400).json({
