@@ -50,7 +50,7 @@ const NETWORK_ARCHITECTURE = {
             components: [
                 { id: 'SCH', name: 'Sheikha Chain', nameAr: 'سلسلة شيخة', desc: 'بلوكشين إسلامي مصرح — ٥٧ عقدة — chainId: 1444' },
                 { id: 'POG', name: 'Proof of Goodness', nameAr: 'إثبات الخير', desc: 'آلية توافق إسلامية بدلاً من PoW الضار بالبيئة' },
-                { id: 'IHX', name: 'Islamic Hash (SHA-3+Quran)', nameAr: 'الهاش الإسلامي', desc: 'SHA-3 مبذور بالقرآن الكريم لحماية فائقة' },
+                { id: 'IHX', name: 'Islamic Hash (SHA-3+Quran)', nameAr: 'الهاش الإسلامي', desc: 'SHA-3 مبذور بالقرآن الكريم — لا يُقبل البلوك إلا بتوقيع قرآني' },
                 { id: 'SRC', name: 'SRC-20 Token Standard', nameAr: 'معيار الرمز SRC-20', desc: 'معيار ERC-20 إسلامي محوَّر لمنع الربا والغرر' }
             ],
             specs: { tps: 100000, blockTime: '0.8s', nodes: 57, finality: '< 2 ثانية' },

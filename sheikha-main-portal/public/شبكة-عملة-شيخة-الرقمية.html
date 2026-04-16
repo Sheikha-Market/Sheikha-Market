@@ -817,8 +817,13 @@ async function checkNetwork(){
     if(r.ok){
       const d = await r.json();
       if(d.success) toast('✅ شبكة عملة شيخة — فعّالة ونشطة | ' + d.data.chainId);
+      else toast('⚠️ الشبكة تعمل لكن أعادت حالة غير متوقعة');
+    } else {
+      toast('⚠️ تعذّر التحقق من حالة الشبكة — تأكد من تشغيل السيرفر');
     }
-  } catch(_){ /* server may not be running */ }
+  } catch(_){
+    toast('⚠️ تعذّر التحقق من حالة الشبكة — تأكد من تشغيل السيرفر');
+  }
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
