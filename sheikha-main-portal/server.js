@@ -165,20 +165,14 @@ try {
 console.log('⏸️ [LAZY] Navigator — سيُحمّل عند الطلب');
 
 // ═══ MARKETING ENGINE ═══
-// ═══ P0-1: LAZY — محرك تسويق (L2) ═══
 let marketingEngine = null;
-/* LAZY-DISABLED:
 try {
-    // P0-1: LAZY-DISABLED (UNKNOWN) - sheikha-marketing-engine.js
-    // const SheikaMarketingEngine = require('./lib/sheikha-marketing-engine.js');
-    console.log('⏸️ [LAZY] sheikha-marketing-engine.js — سيُحمّل عند الطلب');
+    const SheikaMarketingEngine = require('./lib/sheikha-marketing-engine.js');
     marketingEngine = new SheikaMarketingEngine(__dirname);
     console.log('✅ Marketing Engine — محرك التسويق الرقمي مفعّل');
 } catch (e) {
     console.log('⚠️ Marketing Engine غير متوفر:', e.message);
 }
-*/
-console.log('⏸️ [LAZY] Marketing Engine — سيُحمّل عند الطلب');
 
 // ═══ PILOT MODE ENGINE — نظام التشغيل التجريبي ═══
 // ✅ L0 CRITICAL — يُحمّل فوراً
@@ -881,6 +875,23 @@ try {
     console.log(`✅ [CosmicMarketing v1.0] ${cmsStatus.nameAr} | ${cmsStatus.channels} قناة | ${cmsStatus.adFormats} نوع إعلان | ${cmsStatus.kpis} KPI | ${cmsStatus.apis} API`);
 } catch (e) {
     console.warn('⚠️ CosmicMarketing:', e.message);
+}
+
+// ═══ CAMPAIGN AUTOMATION ENGINE — نظام إدارة الحملات الآلي الكامل ═══
+// الهوية · الصور/الكريتيف · السلوك الآلي · Meta CAPI · KPIs · التقارير
+let campaignAutomationEngine = null;
+try {
+    const SheikhaCAE = require('./lib/sheikha-campaign-automation-engine.js');
+    campaignAutomationEngine = new SheikhaCAE({
+        metaEngine: global.metaEngine || null,
+        tickMs:     60_000,   // فحص القواعد كل دقيقة
+        autoStart:  true,
+    });
+    campaignAutomationEngine.registerRoutes(app);
+    const caeStatus = campaignAutomationEngine.getStatus();
+    console.log(`✅ [CampaignAutomation v${caeStatus.version}] ${caeStatus.nameAr} | ${caeStatus.campaigns} حملة | ${caeStatus.templates} قالب | ${caeStatus.ruleTypes} نوع قاعدة | ${caeStatus.apis} API`);
+} catch (e) {
+    console.warn('⚠️ CampaignAutomation:', e.message);
 }
 
 // ☪️ محرك التزامن والرزنامة — التاريخ الهجري أساسي
