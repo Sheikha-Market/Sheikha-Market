@@ -207,7 +207,8 @@ function verifyCompliance(operation) {
         violations.push('غرر');
         references.push(getTradePrinciple('NO_GHARAR'));
     }
-    if (operation.hasMutualConsent === false) {
+    // undefined أو null تعني غياب التراضي — الأصل اشتراط التراضي الصريح
+    if (!operation.hasMutualConsent) {
         violations.push('غياب التراضي');
         references.push(getTradePrinciple('MUTUAL_CONSENT'));
     }

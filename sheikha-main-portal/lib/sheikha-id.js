@@ -54,7 +54,7 @@ const ENTITY_TYPES = Object.freeze({
 function generateDID(type = 'user') {
     const normalizedType = ENTITY_TYPES[type.toUpperCase()] || type.toLowerCase();
     const prefix = normalizedType.slice(0, 3);
-    const uniqueId = `${prefix}-${crypto.randomBytes(4).toString('hex')}`;
+    const uniqueId = `${prefix}-${crypto.randomBytes(8).toString('hex')}`;
     return `${DID_PREFIX}:${normalizedType}:${uniqueId}`;
 }
 

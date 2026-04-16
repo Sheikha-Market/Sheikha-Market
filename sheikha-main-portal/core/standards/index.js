@@ -206,6 +206,10 @@ class SheikhaStandardsEngine {
         const passed  = results.filter((r) => r.success).length;
         const failed  = results.length - passed;
 
+        // استخدام مقصد المعيار الأول في القائمة كمرجع شرعي للتقرير
+        const firstStd   = standardIds.length > 0 ? this.getById(standardIds[0]) : null;
+        const maqsadId   = (firstStd && firstStd.maqsad) || 'MAL';
+
         return this._response(failed === 0, {
             total: results.length,
             passed,
@@ -213,7 +217,7 @@ class SheikhaStandardsEngine {
             details: results,
         }, {
             entity: entityData.id || 'unknown',
-            sharia_ref: islamicDb.buildShariaRef('MAL'),
+            sharia_ref: islamicDb.buildShariaRef(maqsadId),
         });
     }
 

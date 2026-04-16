@@ -185,8 +185,10 @@ class SheikhaIslamicNeuralRouter extends EventEmitter {
     /** فلتر الشريعة الأولي بناءً على نوع الطلب والبيانات */
     _shariaFilter(intent, data) {
         const operation = {
-            hasRiba: Boolean(data.interest_rate || data.riba),
-            hasGharar: Boolean(data.unknown_quantity && data.unknown_price),
+            hasRiba:          Boolean(data.interest_rate || data.riba),
+            // الغرر يوجد إذا كانت الكمية أو السعر مجهولاً
+            hasGharar:        Boolean(data.unknown_quantity || data.unknown_price),
+            // التراضي يُفترض ما لم يُرفض صراحةً — للطلبات المعلوماتية يكون consent غائباً وهذا مقبول
             hasMutualConsent: data.consent !== false,
         };
         return islamicDb.verifyCompliance(operation);
@@ -203,7 +205,11 @@ class SheikhaIslamicNeuralRouter extends EventEmitter {
         if (dotIndex > 0) {
             const prefix = normalized.slice(0, dotIndex);
             if (_routeTable.has(prefix)) return _routeTable.get(prefix);
-            if (_engines.has(prefix)) return { engine: prefix, maqsad: 'ARD' };
+            if (_engines.has(prefix)) {
+                // استخدم مقصد المحرك المسجّل بدلاً من القيمة الافتراضية
+                const engineMeta = _engines.get(prefix).meta || {};
+                return { engine: prefix, maqsad: engineMeta.maqsad || 'ARD' };
+            }
         }
         return { engine: normalized, maqsad: 'ARD' };
     }

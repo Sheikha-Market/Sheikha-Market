@@ -53,7 +53,7 @@ let registered = 0;
 for (const entry of ENGINE_MANIFEST) {
     const filePath = path.join(libDir, entry.file);
     if (!fs.existsSync(filePath)) {
-        console.warn(`[ENGINES-INDEX] ⚠️  لم يُعثر على: ${entry.file} — تخطّي`);
+        console.warn(`[ENGINES-INDEX] ⚠️  لم يُعثر على: ${filePath} — تخطّي`);
         continue;
     }
     try {
