@@ -5649,6 +5649,51 @@ app.use((req, res, next) => {
 // ═══ P0-2: Health Check — للتحقق السريع من جاهزية الخادم ═══
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
+// ═══ محرك الاتصالات: مراقبة الحركة + التحكم بالوصول + القناة الآمنة ═══
+let commsEngine = null;
+try {
+    const commsModule = require('./core/comms');
+    commsEngine = commsModule.commsEngine;
+    // تركيب pipeline: DID + HMAC + ACL + TrafficMonitor + AuditLog
+    app.use(commsEngine.pipeline());
+    console.log('✅ Comms Engine — قناة آمنة | مراقبة حركة | تحكم وصول | خريطة شبكة');
+} catch (e) {
+    console.log('⚠️  Comms Engine غير متوفر:', e.message);
+}
+
+// ─── لوحة الاتصالات ─────────────────────────────────────────
+app.get('/api/comms', (req, res) => {
+    try {
+        res.json(commsEngine ? commsEngine.getDashboard() : { status: 'not_loaded' });
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/comms/traffic', (req, res) => {
+    try {
+        res.json(commsEngine ? commsEngine.traffic.getDashboard() : { status: 'not_loaded' });
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/comms/network', (req, res) => {
+    try {
+        const { getNetworkMap } = require('./core/comms');
+        res.json(getNetworkMap());
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/comms/channel', (req, res) => {
+    try {
+        res.json(commsEngine ? commsEngine.channel.getDashboard() : { status: 'not_loaded' });
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/comms/audit', (req, res) => {
+    try {
+        const limit = parseInt(req.query.limit || '50', 10);
+        res.json(commsEngine ? { entries: commsEngine.channel.audit.getRecent(limit) } : { status: 'not_loaded' });
+    } catch (e) { res.json({ error: e.message }); }
+});
+
 // ═══ سجل المنافذ والشبكة العصبية ═══
 app.get('/api/ports', (req, res) => {
     try {
