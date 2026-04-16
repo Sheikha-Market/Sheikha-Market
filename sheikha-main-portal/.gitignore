@@ -97,3 +97,14 @@ logs/
 *.zip
 
 repos/git-sheikha/sheikha-git-automation/
+
+# Sheikha Governance
+data/*.json
+data/**/*.json
+data/**/*.ndjson
+
+reports/**/sheikha-*-latest.json
+
+# Runtime
+node_modules/
+.env
