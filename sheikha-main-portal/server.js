@@ -35406,6 +35406,25 @@ try {
     console.warn('⚠️ [SGSC-OS] فشل تحميل مسارات SCM:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📡 منظومة شيخة للاتصالات والشبكات الكونية
+// Sheikha Telecom & Universal Networks
+// ﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾ — الأنفال: 60
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const telecomRoutes = require('./routes/telecom.js');
+    app.use('/api/telecom', telecomRoutes);
+    console.log('✅ [TELECOM] منظومة شيخة للاتصالات والشبكات الكونية — مُفعَّلة');
+    console.log('   ├─ GET  /api/telecom                      — ملخص البوابة الكونية');
+    console.log('   ├─ GET  /api/telecom/network-status       — حالة الشبكة الكونية');
+    console.log('   ├─ GET  /api/telecom/ai-nodes             — عقد الذكاء الاصطناعي');
+    console.log('   ├─ POST /api/telecom/connect              — ربط المستخدمين والتجار');
+    console.log('   ├─ POST /api/telecom/secure-channel       — قناة اتصال آمنة شرعياً');
+    console.log('   └─ GET  /api/telecom/knowledge-base       — قاعدة المعرفة الموحدة');
+} catch (e) {
+    console.warn('⚠️ [TELECOM] فشل تحميل مسارات الاتصالات:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
