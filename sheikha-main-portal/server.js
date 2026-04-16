@@ -746,6 +746,15 @@ try {
     console.log('⚠️ SheikhaCurrencyEngine غير متوفر:', e.message);
 }
 
+// 🌐 شبكة عملة شيخة الرقمية — SheikhaCurrencyNetwork (الهياكل والشبكات والمعماريات)
+try {
+    const SheikhaCurrencyNetwork = require('./lib/sheikha-currency-network');
+    const currencyNetwork = new SheikhaCurrencyNetwork({ app });
+    console.log('✅ [CurrencyNetwork v1.0] شبكة عملة شيخة الرقمية — ٦ طبقات | ٥٧ عقدة | ٧ عقود ذكية | ١٦ مسار');
+} catch (e) {
+    console.log('⚠️ SheikhaCurrencyNetwork غير متوفر:', e.message);
+}
+
 // 🌌 محرك الإمبراطورية الكبرى — SheikhGrandEmpireEngine
 let empireGrandEngine = null;
 try {
@@ -5670,6 +5679,14 @@ app.get('/العملة', (req, res) => res.redirect('/شيخة-عملة-الكو
 app.get('/الدينار', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
 app.get('/الدرهم', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
 app.get('/زكاة', (req, res) => res.redirect('/شيخة-عملة-الكون.html'));
+
+// 🌐 شبكة عملة شيخة الرقمية — الهياكل والشبكات والمعماريات الكاملة
+app.get('/currency-network', (req, res) => res.redirect('/شبكة-عملة-شيخة-الرقمية.html'));
+app.get('/شبكة-العملة', (req, res) => res.redirect('/شبكة-عملة-شيخة-الرقمية.html'));
+app.get('/معمارية-العملة', (req, res) => res.redirect('/شبكة-عملة-شيخة-الرقمية.html'));
+app.get('/blockchain', (req, res) => res.redirect('/شبكة-عملة-شيخة-الرقمية.html'));
+app.get('/البلوكشين', (req, res) => res.redirect('/شبكة-عملة-شيخة-الرقمية.html'));
+app.get('/شبكة-شيخة', (req, res) => res.redirect('/شبكة-عملة-شيخة-الرقمية.html'));
 
 // 🌌 الإمبراطورية الكبرى — Grand Empire
 app.get('/empire', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
