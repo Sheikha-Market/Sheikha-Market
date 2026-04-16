@@ -5694,6 +5694,69 @@ app.get('/api/comms/audit', (req, res) => {
     } catch (e) { res.json({ error: e.message }); }
 });
 
+// ═══════════════════════════════════════════════════════════════
+// 📡 منظمة شبكات الاتصالات — Terrestrial / Satellite / Logistics
+// ═══════════════════════════════════════════════════════════════
+app.get('/api/telecom', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        res.json(telecomOrg.getDashboard());
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/telecom/terrestrial', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        res.json(telecomOrg.getTerrestrial(req.query.id || null));
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/telecom/satellite', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        res.json(telecomOrg.getSatellite(req.query.id || null, req.query.type || 'sector'));
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/telecom/logistics', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        res.json(telecomOrg.getLogistics(req.query.section || null));
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/telecom/communities', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        res.json(telecomOrg.getCommunities(req.query.id || null));
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/telecom/integration', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        res.json(telecomOrg.getIntegrations(req.query.id || null));
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/telecom/search', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        const q = req.query.q || req.query.query || '';
+        if (!q) return res.json({ error: 'مطلوب: ?q=كلمة البحث' });
+        res.json(telecomOrg.search(q));
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/telecom/path', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        const { from, to } = req.query;
+        if (!from || !to) return res.json({ error: 'مطلوب: ?from=TERRESTRIAL&to=SATELLITE' });
+        res.json(telecomOrg.getPath(from, to));
+    } catch (e) { res.json({ error: e.message }); }
+});
+
 // ═══ سجل المنافذ والشبكة العصبية ═══
 app.get('/api/ports', (req, res) => {
     try {
