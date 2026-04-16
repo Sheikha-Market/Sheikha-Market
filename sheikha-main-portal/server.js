@@ -35812,6 +35812,24 @@ const server = app.listen(PORT, '127.0.0.1', () => {
 `);
 });
 
+// ═══ معالج أخطاء الخادم — تعارض المنفذ وغيره ═══
+server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+        console.error(`
+╔══════════════════════════════════════════════════════════════╗
+║  ⛔ المنفذ ${PORT} مشغول بعملية أخرى                             ║
+╠══════════════════════════════════════════════════════════════╣
+║  الحل:                                                       ║
+║  1) إذا يعمل عبر pm2:  pm2 restart sheikha                   ║
+║  2) لإيقاف العملية:   fuser -k ${PORT}/tcp                       ║
+║  3) أو:               kill $(lsof -t -i:${PORT})                  ║
+╚══════════════════════════════════════════════════════════════╝`);
+    } else {
+        console.error('🔴 خطأ في الخادم:', err.message);
+    }
+    process.exit(1);
+});
+
 // WebSocket
 const wss = new WebSocket.Server({ server });
 let clients = [];
