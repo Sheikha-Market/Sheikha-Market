@@ -610,6 +610,9 @@
                     <div class="card"><div class="stat-icon green">🏪</div><div class="card-title">التجار</div><div class="card-value green" id="statTraders">—</div></div>
                     <div class="card"><div class="stat-icon blue">📋</div><div class="card-title">القوائم النشطة</div><div class="card-value blue" id="statProducts">—</div></div>
                     <div class="card"><div class="stat-icon gold">🔐</div><div class="card-title">درجة الأمان</div><div class="card-value" id="statSecurity" style="color:var(--green)">98%</div></div>
+                    <div class="card"><div class="stat-icon purple">📈</div><div class="card-title">Market Vibe</div><div class="card-value" id="statMarketVibe" style="color:var(--gold)">—</div><div class="card-desc" id="statMarketVibeMeta">—</div></div>
+                    <div class="card"><div class="stat-icon blue">🎬</div><div class="card-title">AI Assets Generated</div><div class="card-value blue" id="statAiAssets">0</div></div>
+                    <div class="card"><div class="stat-icon green">💰</div><div class="card-title">Automated Revenue USD</div><div class="card-value green" id="statAutomatedRevenue">0</div></div>
                     <div class="kpi-card" style="border-color:rgba(212,175,55,0.2)"><div class="kpi-value" style="color:var(--gold)">⚙️ 323</div><div class="kpi-label">محرك نشط</div></div>
                     <div class="kpi-card" style="border-color:rgba(0,229,160,0.2)"><div class="kpi-value" style="color:var(--green)">📡 200+</div><div class="kpi-label">نقطة API</div></div>
                     <div class="kpi-card" style="border-color:rgba(79,142,247,0.2)"><div class="kpi-value" style="color:var(--blue)">🌍 57</div><div class="kpi-label">دولة OIC</div></div>
@@ -2724,6 +2727,27 @@
                 el.className = 'badge ' + (mode === 'PRODUCTION' ? 'badge-success' : 'badge-info');
             }
         }).catch(function() {});
+
+        fetch(API + '/api/sheikha/core/source-stats?hs_chapter=7108&region=Asia', { headers: headers() }).then(function(r) { return r.json(); }).then(function(d) {
+            if (!d.success || !d.data) return;
+
+            var vibe = d.data.market_vibe || {};
+            var aiAssets = Number(d.data.ai_assets_generated || 0);
+            var automatedRevenue = Number(d.data.automated_revenue_usd || 0);
+
+            var vibeLabel = (vibe.sentiment || 'Neutral') + ' ' + Math.round(Number(vibe.confidence || 0) * 100) + '%';
+            var vibeMeta = (vibe.region || '—') + ' • ' + (vibe.recommendation || '—');
+
+            var vibeEl = document.getElementById('statMarketVibe');
+            var vibeMetaEl = document.getElementById('statMarketVibeMeta');
+            var assetsEl = document.getElementById('statAiAssets');
+            var revenueEl = document.getElementById('statAutomatedRevenue');
+
+            if (vibeEl) vibeEl.textContent = vibeLabel;
+            if (vibeMetaEl) vibeMetaEl.textContent = vibeMeta;
+            if (assetsEl) assetsEl.textContent = aiAssets;
+            if (revenueEl) revenueEl.textContent = automatedRevenue.toLocaleString('en-US');
+        }).catch(function() {});
     }
 
     // ═══ Users ═══
@@ -3440,6 +3464,7 @@
 
     // Init
     loadOverview();
+    setInterval(loadOverview, 60000);
     </script>
 </body>
 </html>

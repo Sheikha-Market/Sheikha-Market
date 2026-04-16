@@ -130,7 +130,6 @@ function buildCAPIPayload(event) {
           event.event_source_url || config.SHEIKHA_BASE_URL,
         user_data: user_data,
         custom_data: capi_custom_data,
-        event_deduplication_id: event_id,
       },
     ],
     access_token: market_config.access_token,
@@ -159,15 +158,28 @@ async function sendToCAPI(event) {
 
     const payload = buildCAPIPayload(event);
 
-    const url = `https://graph.facebook.com/v20.0/${payload.pixel_id}/events`;
-    const params = {
-      access_token: payload.access_token,
-    };
+const url = `https://graph.facebook.com/v20.0/${payload.pixel_id}/events`;
+const params = {
+  access_token: payload.access_token,
+};
 
-    console.log(`[CAPI] إرسال حدث "${event.event_name}" للسوق "${market}"...`);
-    console.log(`[CAPI-PAYLOAD]`, JSON.stringify(payload.data, null, 2));
+console.log(`[CAPI] إرسال حدث "${event.event_name}" للسوق "${market}"...`);
+console.log(`[CAPI-PAYLOAD]`, JSON.stringify(payload.data, null, 2));
 
-    const response = await axios.post(url, payload.data[0], { params });
+const response = await axios.post(
+  url,
+  { data: payload.data },
+  { params }
+);
+
+return {
+  success: true,
+  market: market,
+  event_name: event.event_name,
+  event_id: event.event_id,
+  pixel_id: payload.pixel_id,
+  response: response.data,
+};
 
     return {
       success: true,

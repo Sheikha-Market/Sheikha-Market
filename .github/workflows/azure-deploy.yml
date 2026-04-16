@@ -86,20 +86,17 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Container Apps
-        uses: azure/container-apps-deploy-action@v1
-        with:
-          acrName: ${{ env.REGISTRY_NAME }}
-          containerAppName: ${{ env.AZURE_CONTAINER_APP_NAME }}
-          resourceGroup: ${{ env.AZURE_RESOURCE_GROUP }}
-          imageToDeploy: ${{ needs.build-and-push.outputs.image }}
-          targetPort: 8080
-          environmentVariables: |
-            NODE_ENV=production
-            BASE_URL=https://sheikha.top
-            PORT=8080
-          runtimeEnvironmentVariables: |
-            JWT_SECRET=secretref:jwt-secret
-            OPENAI_API_KEY=secretref:openai-api-key
+        run: |
+          az containerapp update \
+            --name ${{ env.AZURE_CONTAINER_APP_NAME }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+            --image ${{ needs.build-and-push.outputs.image }} \
+            --set-env-vars \
+              NODE_ENV=production \
+              BASE_URL=https://sheikha.top \
+              PORT=8080 \
+            -o none
+          echo "✅ Container App updated"
 
       - name: Verify deployment health
         run: |

@@ -5013,6 +5013,17 @@ function submitRFQ(){
   var p=products.find(x=>x.id==productId);
   if(!p){alert('اختر منتجاً');return;}
 
+  // حدث Contact — عميل يتواصل عبر RFQ
+  if(window.sheikhaTrackMetaEvent){
+    window.sheikhaTrackMetaEvent('Contact',{
+      content_name: p.name,
+      content_category: p.category || 'سوق-شيخة',
+      platform: 'شيخة',
+      value: p.price || 0,
+      currency: 'SAR'
+    });
+  }
+
   /* إرسال للخادم */
   fetch('/api/rfq',{
     method:'POST',
@@ -5125,6 +5136,19 @@ function openProductDetail(productId, event){
   if(event && event.target.closest&&(event.target.closest('button')||event.target.closest('.p-action-btn')||event.target.closest('.p-cta'))){return;}
   var p=products.find(function(x){return x.id===productId;});
   if(!p) return;
+  var topSeller=(getSmartTradersForProduct(p)[0])||null;
+
+  if(window.sheikhaTrackViewContent){
+    window.sheikhaTrackViewContent({
+      content_name: p.name + (topSeller ? ' - ' + topSeller.store : ''),
+      content_category: 'seller_page',
+      platform: 'شيخة',
+      seller: topSeller ? topSeller.store : 'شيخة',
+      seller_city: topSeller ? topSeller.city : undefined,
+      seller_country: topSeller ? topSeller.country : undefined,
+      dedupeKey: 'seller-page-' + String(p.id)
+    });
+  }
 
   /* حساب القيمة */
   var val=calcProductValue(p);

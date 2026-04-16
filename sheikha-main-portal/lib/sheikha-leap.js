@@ -338,11 +338,17 @@ class SheikhaLeapEngine extends EventEmitter {
   start() {
     if (this.started) return this;
     this.started = true;
-    // طفرة دورية كل ساعتين
-    this._intervals.push(setInterval(() => {
+    // طفرة دورية كل ساعتين مع unref حتى لا تحجز العملية عند الاستيراد أو الاختبارات
+    const leapInterval = setInterval(() => {
       this.metrics.leaps++;
       this.emit('leap', { count: this.metrics.leaps, quran: 'وَقُل رَّبِّ زِدْنِي عِلْمًا', ts: new Date().toISOString() });
-    }, 7200000));
+    }, 7200000);
+
+    if (typeof leapInterval.unref === 'function') {
+      leapInterval.unref();
+    }
+
+    this._intervals.push(leapInterval);
     this.emit('started', { message: 'بِسْمِ اللَّهِ — محرك الطفرة نشط', domains: Object.keys(SHEIKHA_LEAP.domains).length, ts: new Date().toISOString() });
     return this;
   }

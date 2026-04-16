@@ -44,7 +44,7 @@ const config = {
     ai: {
         ollama: {
             enabled: process.env.OLLAMA_ENABLED !== 'false',
-            host: process.env.OLLAMA_HOST || 'http://127.0.0.1:11434',
+            host: process.env.OLLAMA_AZURE_ENDPOINT || process.env.OLLAMA_HOST || 'http://127.0.0.1:11434',
             profile: process.env.OLLAMA_PROFILE || 'auto',
             autoUpdate: process.env.OLLAMA_AUTO_UPDATE !== 'false',
             updateIntervalHours: parseInt(process.env.OLLAMA_UPDATE_INTERVAL_HOURS || '24', 10),

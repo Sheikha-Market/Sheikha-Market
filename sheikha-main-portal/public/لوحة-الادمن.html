@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>لوحة الأدمن — الجيل الجديد | شيخة</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/sheikha-beta-banner.css">
+<script src="/js/sheikha-beta-banner.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
@@ -233,6 +235,10 @@ tr:hover td{background:rgba(212,175,55,.025)}
     <div class="nav-item" onclick="nav(this,'analytics')">
       <svg class="nav-icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>التحليلات المتقدمة
     </div>
+    <div class="nav-item" onclick="nav(this,'controltower')">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 3h18v6H3z"/><path d="M3 15h8v6H3z"/><path d="M13 15h8v6h-8z"/><path d="M7 9v6M17 9v6"/></svg>Control Tower المؤسسي
+      <span class="nb green">LIVE</span>
+    </div>
     <div class="nav-title">الشريعة والحوكمة</div>
     <div class="nav-item" onclick="nav(this,'sharia')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>حوكمة شيخة الشرعية
@@ -243,6 +249,9 @@ tr:hover td{background:rgba(212,175,55,.025)}
     <div class="nav-title">النظام</div>
     <div class="nav-item" onclick="nav(this,'cloud')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>السحابات وBuild
+    </div>
+    <div class="nav-item" onclick="nav(this,'social')">
+      <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>التواصل الاجتماعي
     </div>
     <div class="nav-item" onclick="nav(this,'logs')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>السجلات والتدقيق
@@ -453,8 +462,87 @@ tr:hover td{background:rgba(212,175,55,.025)}
 <div class="section" id="sec-rfq"><div class="topbar"><div class="tbar-title"><h1>طلبات العروض</h1></div></div><div class="tbl-card"><p style="color:var(--t3);text-align:center;padding:40px">يتم التحميل...</p></div></div>
 <div class="section" id="sec-ai"><div class="topbar"><div class="tbar-title"><h1>الذكاء الاصطناعي</h1><p>GPT-4o + Azure OpenAI + Gemini + Ollama</p></div></div><div class="tbl-card"><p style="color:var(--t3);text-align:center;padding:40px">محرك AI جاهز للاستخدام</p></div></div>
 <div class="section" id="sec-analytics"><div class="topbar"><div class="tbar-title"><h1>التحليلات المتقدمة</h1></div></div><div class="charts-grid"><div class="chart-card"><div class="ch-head"><div class="ch-title">مسار الزيارات 30 يوم</div></div><div class="ch-wrap tall"><canvas id="ch-analytics-main"></canvas></div></div></div></div>
+<div class="section" id="sec-controltower">
+  <div class="topbar">
+    <div class="tbar-title">
+      <h1>Enterprise Control Tower</h1>
+      <p>تشغيل مؤسسي متعدد الأطراف — RFQ → Orders → Shipments → AI</p>
+    </div>
+    <div class="tbar-right">
+      <button class="btn btn-outline btn-sm" onclick="window.location.href='/erp-integrations.html'">ERP Integrations</button>
+      <button class="btn btn-outline btn-sm" onclick="seedEnterpriseFlow()">⚙️ توليد سيناريو تشغيلي</button>
+      <button class="btn btn-gold btn-sm" onclick="loadEnterpriseControlTower()">⟳ تحديث</button>
+    </div>
+  </div>
+
+  <div class="tbl-card" style="margin-bottom:16px">
+    <div class="ch-head"><div><div class="ch-title">هوية العميل المؤسسي النشط</div><div class="ch-sub">Tenant Model — متعدد الأدوار</div></div><span class="tag tb" id="ct-tenant-country">—</span></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:12px">
+      <div style="background:var(--el);border:1px solid var(--b1);border-radius:10px;padding:10px"><strong style="color:var(--gold);font-size:.8rem">Tenant ID</strong><div id="ct-tenant-id" style="margin-top:6px;color:var(--t2);font-size:.84rem">—</div></div>
+      <div style="background:var(--el);border:1px solid var(--b1);border-radius:10px;padding:10px"><strong style="color:var(--gold);font-size:.8rem">الاسم</strong><div id="ct-tenant-name" style="margin-top:6px;color:var(--t2);font-size:.84rem">—</div></div>
+      <div style="background:var(--el);border:1px solid var(--b1);border-radius:10px;padding:10px"><strong style="color:var(--gold);font-size:.8rem">السوق</strong><div id="ct-tenant-market" style="margin-top:6px;color:var(--t2);font-size:.84rem">—</div></div>
+      <div style="background:var(--el);border:1px solid var(--b1);border-radius:10px;padding:10px"><strong style="color:var(--gold);font-size:.8rem">الخطة اللوجستية</strong><div id="ct-tenant-plan" style="margin-top:6px;color:var(--t2);font-size:.84rem">—</div></div>
+    </div>
+  </div>
+
+  <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))">
+    <div class="kpi gold"><div class="kpi-val g" id="ct-open-rfq">0</div><div class="kpi-lbl">RFQ مفتوح</div></div>
+    <div class="kpi green"><div class="kpi-val gr" id="ct-approved-orders">0</div><div class="kpi-lbl">طلبات معتمدة</div></div>
+    <div class="kpi blue"><div class="kpi-val b" id="ct-in-transit">0</div><div class="kpi-lbl">شحنات قيد النقل</div></div>
+    <div class="kpi red"><div class="kpi-val r" id="ct-risk">0</div><div class="kpi-lbl">شحنات عالية المخاطر</div></div>
+    <div class="kpi purple"><div class="kpi-val p" id="ct-value">0</div><div class="kpi-lbl">قيمة الأوامر</div></div>
+    <div class="kpi gold"><div class="kpi-val g" id="ct-events">0</div><div class="kpi-lbl">أحداث التكامل</div></div>
+  </div>
+
+  <div class="charts-grid" style="grid-template-columns:1fr 1fr">
+    <div class="chart-card">
+      <div class="ch-head"><div><div class="ch-title">توصيات الذكاء الصناعي</div><div class="ch-sub">قرارات تشغيلية قابلة للتنفيذ</div></div><span class="tag tgr">AI</span></div>
+      <div id="ct-ai-list" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div>
+    <div class="chart-card">
+      <div class="ch-head"><div><div class="ch-title">موصلات التكامل</div><div class="ch-sub">Oracle / SAP / Dynamics / Any ERP</div></div><span class="tag tp">Integration</span></div>
+      <div id="ct-connectors" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div>
+  </div>
+
+  <div class="tbl-card" style="margin-top:14px">
+    <div class="tbl-head"><div class="ch-title">آخر العمليات</div><button class="btn btn-outline btn-sm" onclick="loadEnterpriseControlTower()">تحديث</button></div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>النوع</th><th>المعرف</th><th>الحالة</th><th>المعلومة</th></tr></thead>
+        <tbody id="ct-latest-rows"><tr><td colspan="4" style="text-align:center;color:var(--t3);padding:18px">لا بيانات بعد</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
 <div class="section" id="sec-logs"><div class="topbar"><div class="tbar-title"><h1>السجلات والتدقيق</h1></div></div><div class="tbl-card"><div id="log-feed" style="font-family:monospace;font-size:.78rem;color:var(--green);max-height:400px;overflow-y:auto;padding:10px;background:#000;border-radius:8px">جار تحميل السجلات...</div></div></div>
 <div class="section" id="sec-settings"><div class="topbar"><div class="tbar-title"><h1>الإعدادات</h1></div></div><div class="tbl-card"><p style="color:var(--t3);text-align:center;padding:40px">إعدادات النظام</p></div></div>
+<div class="section" id="sec-social">
+  <div class="topbar"><div class="tbar-title"><h1>التواصل الاجتماعي والتسويق الرقمي</h1><span class="subtitle">بِسْمِ اللَّهِ — منظومة شيخة المتكاملة</span></div>
+    <button class="btn btn-gold" onclick="loadSocialAccounts()">🔄 تحديث</button>
+  </div>
+  <!-- جاهزية التسويق -->
+  <div class="stats-grid" id="social-readiness-grid" style="margin-bottom:16px">
+    <div class="stat-card"><div class="stat-val" id="social-total">—</div><div class="stat-lbl">إجمالي المنصات</div></div>
+    <div class="stat-card"><div class="stat-val" id="social-active" style="color:var(--green)">—</div><div class="stat-lbl">المنصات النشطة</div></div>
+    <div class="stat-card"><div class="stat-val" id="social-readiness" style="color:var(--gold)">—%</div><div class="stat-lbl">جاهزية التسويق</div></div>
+  </div>
+  <!-- شبكة حسابات التواصل -->
+  <div class="tbl-card">
+    <div class="ch-head"><div><div class="ch-title">حسابات التواصل الاجتماعي المفعّلة</div><div class="ch-sub">١٠ منصات — ١٠ أبريل ٢٠٢٦</div></div><span class="tag tg">نشط ✅</span></div>
+    <div id="social-accounts-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px"></div>
+  </div>
+  <!-- منظومة Meta المتكاملة -->
+  <div class="tbl-card" style="margin-top:14px">
+    <div class="ch-head"><div><div class="ch-title">منظومة Meta المتكاملة</div><div class="ch-sub">Facebook + Instagram + WhatsApp + Meta Horizon</div></div><span class="tag tp">Meta Business Suite</span></div>
+    <div id="meta-ecosystem-info" style="padding:14px;color:var(--t2);font-size:.88rem;line-height:1.8">جار التحميل...</div>
+  </div>
+  <!-- ضوابط شرعية -->
+  <div class="tbl-card" style="margin-top:14px">
+    <div class="ch-head"><div><div class="ch-title">الضوابط الشرعية للمحتوى التسويقي</div><div class="ch-sub">وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ — المائدة:2</div></div><span class="tag ta">شرعي</span></div>
+    <div id="sharia-compliance-list" style="padding:14px">جار التحميل...</div>
+  </div>
+</div>
 <div class="section" id="sec-traders"><div class="topbar"><div class="tbar-title"><h1>التجار والشركات</h1></div></div><div class="tbl-card"><p style="color:var(--t3);text-align:center;padding:40px">يتم التحميل...</p></div></div>
 </main>
 </div>
@@ -586,10 +674,62 @@ function nav(el,name){
   else { document.querySelectorAll('.nav-item').forEach(n=>{ if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes(`'${name}'`)) n.classList.add('active'); }); }
   if(name==='network') setTimeout(initCloud3D,100);
   if(name==='logs') loadLogs();
+  if(name==='social') loadSocialAccounts();
+  if(name==='controltower') loadEnterpriseControlTower();
   window.scrollTo(0,0);
 }
 
 // ══════ Load Data ══════
+
+// تحميل حسابات التواصل الاجتماعي
+const PLATFORM_ICONS = {
+  instagram:'📸', whatsapp:'💬', x:'🐦', facebook:'📘', meta_business_suite:'🏢',
+  meta_horizon:'🥽', snapchat:'👻', wikipedia:'📖', flickr:'📷', blogger:'📝'
+};
+function loadSocialAccounts(){
+  Promise.all([
+    fetch('/api/social/marketing-readiness').then(r=>r.ok?r.json():null),
+    fetch('/api/social/accounts').then(r=>r.ok?r.json():null)
+  ]).then(([readiness, data])=>{
+    // جاهزية التسويق
+    if(readiness){
+      const el=document.getElementById('social-total'); if(el) el.textContent=readiness.total_platforms||'—';
+      const el2=document.getElementById('social-active'); if(el2) el2.textContent=readiness.active_platforms||'—';
+      const el3=document.getElementById('social-readiness'); if(el3) el3.textContent=(readiness.readiness_percent||0)+'%';
+    }
+    // بطاقات الحسابات
+    const grid=document.getElementById('social-accounts-grid');
+    if(grid && data?.accounts){
+      grid.innerHTML = Object.entries(data.accounts).map(([key,acc])=>`
+        <div style="background:var(--s2);border:1px solid var(--bdr);border-radius:12px;padding:16px">
+          <div style="font-size:1.4rem;margin-bottom:8px">${PLATFORM_ICONS[key]||'🌐'} <strong style="color:var(--gold);font-size:.95rem">${acc.platform_ar||acc.platform}</strong></div>
+          <div style="font-size:.82rem;color:var(--t2);margin-bottom:6px">@${acc.handle||'—'}</div>
+          <div style="margin-bottom:10px"><span class="tag tg" style="font-size:.72rem">${acc.type}</span> <span class="status-badge status-active" style="font-size:.72rem">نشط</span></div>
+          ${acc['مرجع_شرعي']?`<div style="font-size:.75rem;color:var(--gold);border-top:1px solid var(--bdr);padding-top:8px;direction:rtl">🕋 ${acc['مرجع_شرعي']}</div>`:''}
+          <div style="margin-top:8px"><a href="${acc.url||'#'}" target="_blank" style="color:var(--t3);font-size:.75rem;text-decoration:none">🔗 ${acc.url||'—'}</a></div>
+        </div>`).join('');
+    }
+    // منظومة Meta
+    const metaEl=document.getElementById('meta-ecosystem-info');
+    if(metaEl && data?.meta_ecosystem){
+      const eco=data.meta_ecosystem;
+      metaEl.innerHTML=`
+        <div><strong>المسؤول:</strong> ${eco.manager||'—'} &nbsp;|&nbsp; <strong>التواصل:</strong> ${eco.contact||'—'}</div>
+        <div style="margin-top:8px"><strong>المنصات المدارة:</strong> ${(eco.platforms||[]).map(p=>`<span class="tag" style="margin-left:4px;margin-bottom:4px">${PLATFORM_ICONS[p]||''}${p}</span>`).join('')}</div>`;
+    }
+    // الضوابط الشرعية
+    const shariaEl=document.getElementById('sharia-compliance-list');
+    if(shariaEl && data?.sharia_compliance?.principles){
+      shariaEl.innerHTML=data.sharia_compliance.principles.map(p=>`
+        <div style="padding:6px 0;border-bottom:1px solid var(--bdr);color:var(--t2);font-size:.84rem">✅ ${p}</div>`).join('');
+    }
+  }).catch(e=>{
+    console.warn('Social accounts load error:', e.message);
+    const grid=document.getElementById('social-accounts-grid');
+    if(grid) grid.innerHTML='<p style="color:var(--t3);text-align:center;padding:20px">تعذّر تحميل البيانات</p>';
+  });
+}
+
 function loadStats(){
   Promise.all([
     fetch('/api/admin/stats').then(r=>r.ok?r.json():null),
@@ -650,6 +790,131 @@ function updatePrices(){
 }
 function checkCloudStatus(){ loadStats(); }
 function refreshAdmin(){ loadStats(); loadUsers(); }
+
+// ══════ Enterprise Control Tower ══════
+const ENTERPRISE_LOCAL_KEY = 'sheikha_enterprise_tenant_id';
+
+function enterpriseRequest(url, options){
+  return fetch(url, options).then(async (r)=>{
+    const j = await r.json().catch(()=>null);
+    if(!r.ok || !j || j.success===false){
+      throw new Error((j && j.message) || 'enterprise_request_failed');
+    }
+    return j;
+  });
+}
+
+async function ensureEnterpriseTenant(){
+  let tenantId = localStorage.getItem(ENTERPRISE_LOCAL_KEY);
+  const tenantsRes = await enterpriseRequest('/api/metals/enterprise/tenants');
+  const tenants = tenantsRes.data?.tenants || [];
+  let tenant = tenants.find(t=>t.id===tenantId);
+  if(!tenant){
+    tenant = tenants.find(t=>(t.tenantName||'').includes('Sheikha Global Prime'));
+  }
+  if(!tenant){
+    const created = await enterpriseRequest('/api/metals/enterprise/tenants', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({tenantName:'Sheikha Global Prime', country:'SA', marketFocus:'metals', plan:'4PL'})
+    });
+    tenant = created.data;
+  }
+  tenantId = tenant.id;
+  localStorage.setItem(ENTERPRISE_LOCAL_KEY, tenantId);
+  return tenant;
+}
+
+function renderEnterpriseTenant(tenant){
+  const set=(id,v)=>{const el=document.getElementById(id); if(el) el.textContent=v||'—';};
+  set('ct-tenant-id', tenant.id);
+  set('ct-tenant-name', tenant.tenantName);
+  set('ct-tenant-market', tenant.marketFocus);
+  set('ct-tenant-plan', tenant.plan);
+  set('ct-tenant-country', tenant.country || 'SA');
+}
+
+function renderControlTower(data){
+  const k = data?.kpis || {};
+  const set=(id,v)=>{const el=document.getElementById(id); if(el) el.textContent=v;};
+  set('ct-open-rfq', (k.openRfqs||0).toLocaleString('ar'));
+  set('ct-approved-orders', (k.approvedOrders||0).toLocaleString('ar'));
+  set('ct-in-transit', (k.inTransitShipments||0).toLocaleString('ar'));
+  set('ct-risk', (k.atRiskShipments||0).toLocaleString('ar'));
+  set('ct-value', (k.totalOrderValue||0).toLocaleString('ar'));
+  set('ct-events', (k.totalEvents||0).toLocaleString('ar'));
+
+  const rows = document.getElementById('ct-latest-rows');
+  if(rows){
+    const rfqs = data?.streams?.latestRfqs || [];
+    const orders = data?.streams?.latestOrders || [];
+    const shps = data?.streams?.latestShipments || [];
+    const merged = [
+      ...rfqs.map(x=>({type:'RFQ', id:x.id, status:x.status, info:(x.productName||'—')})),
+      ...orders.map(x=>({type:'ORDER', id:x.id, status:x.status, info:(x.supplierName||'—')})),
+      ...shps.map(x=>({type:'SHIPMENT', id:x.id, status:x.status, info:((x.origin||'—')+' → '+(x.destination||'—'))}))
+    ].slice(-12).reverse();
+    rows.innerHTML = merged.length ? merged.map(r=>`<tr><td>${r.type}</td><td>${r.id}</td><td><span class="status-badge status-active">${r.status||'—'}</span></td><td>${r.info||'—'}</td></tr>`).join('') : '<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:18px">لا بيانات بعد</td></tr>';
+  }
+}
+
+function renderAiRecommendations(data){
+  const list = document.getElementById('ct-ai-list');
+  if(!list) return;
+  const arr = data?.recommendations || [];
+  list.innerHTML = arr.length ? arr.map(x=>`<div style="background:var(--el);border:1px solid var(--b1);border-radius:10px;padding:12px"><div style="font-weight:800;color:var(--gold);font-size:.82rem">${x.type||'insight'} · ${(Math.round((x.confidence||0)*100))}%</div><div style="margin-top:6px;color:var(--t2);font-size:.84rem">${x.action||'—'}</div><div style="margin-top:4px;color:var(--t3);font-size:.76rem">${x.reason||''}</div></div>`).join('') : '<div style="color:var(--t3)">لا توصيات حالياً</div>';
+}
+
+function renderConnectors(data){
+  const list = document.getElementById('ct-connectors');
+  if(!list) return;
+  const arr = data?.connectors || [];
+  list.innerHTML = arr.length ? arr.map(c=>`<div style="background:var(--el);border:1px solid var(--b1);border-radius:10px;padding:12px"><div style="font-weight:800;color:var(--gold);font-size:.82rem">${c.system||'ERP'}</div><div style="margin-top:6px;color:var(--t2);font-size:.8rem">${(c.methods||[]).join(' · ')}</div></div>`).join('') : '<div style="color:var(--t3)">لا موصلات متاحة</div>';
+}
+
+async function seedEnterpriseFlow(){
+  try{
+    const tenant = await ensureEnterpriseTenant();
+    const rfq = await enterpriseRequest('/api/metals/enterprise/rfq', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({tenantId:tenant.id, market:tenant.marketFocus||'metals', hsCode:'740400', productName:'Copper Scrap Grade A', quantity:120, destinationCountry:'SA', incoterm:'CIF'})
+    });
+    const order = await enterpriseRequest('/api/metals/enterprise/orders', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({tenantId:tenant.id, rfqId:rfq.data.id, supplierName:'Global Copper Network', totalValue:875000, currency:'USD'})
+    });
+    await enterpriseRequest('/api/metals/enterprise/shipments', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({tenantId:tenant.id, orderId:order.data.id, mode:'sea', origin:'JEDDAH', destination:'DAMMAM', etaDays:5})
+    });
+    await enterpriseRequest('/api/metals/enterprise/integrations/events', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({tenantId:tenant.id, sourceSystem:'SAP Business Network', eventType:'order.updated', payload:{note:'Seeded from admin control tower'}})
+    });
+    loadEnterpriseControlTower();
+  }catch(e){
+    console.warn('seedEnterpriseFlow failed:', e.message);
+  }
+}
+
+async function loadEnterpriseControlTower(){
+  try{
+    const tenant = await ensureEnterpriseTenant();
+    renderEnterpriseTenant(tenant);
+    const [ct, ai, connectors] = await Promise.all([
+      enterpriseRequest('/api/metals/enterprise/control-tower?tenantId=' + encodeURIComponent(tenant.id)),
+      enterpriseRequest('/api/metals/enterprise/ai/recommendations?tenantId=' + encodeURIComponent(tenant.id) + '&market=' + encodeURIComponent(tenant.marketFocus || 'metals')),
+      enterpriseRequest('/api/metals/enterprise/integrations/connectors')
+    ]);
+    renderControlTower(ct.data || {});
+    renderAiRecommendations(ai.data || {});
+    renderConnectors(connectors.data || {});
+  }catch(e){
+    console.warn('loadEnterpriseControlTower failed:', e.message);
+  }
+}
+
+loadEnterpriseControlTower();
 
 // ══════ Clock ══════
 setInterval(()=>{const el=document.getElementById('s-time');if(el)el.textContent=new Date().toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});},1000);

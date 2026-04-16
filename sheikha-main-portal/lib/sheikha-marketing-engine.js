@@ -32,15 +32,28 @@ class SheikaMarketingEngine {
     this.campaigns = this._loadJSON(this.campaignsPath, []);
     this.leads = this._loadJSON(this.leadsPath, []);
 
-    // Marketing channels
+    // مسار بيانات حسابات التواصل الاجتماعي
+    this.socialAccountsPath = path.join(this.basePath, 'data', 'sheikha-social-media-accounts.json');
+    this.socialAccounts = this._loadJSON(this.socialAccountsPath, {});
+
+    // Marketing channels — المنصات المفعّلة كاملاً
     this.channels = {
       linkedin: { name: 'LinkedIn', type: 'social', active: true, audience: 'B2B/B2G' },
-      x: { name: 'X (Twitter)', type: 'social', active: true, audience: 'B2B/B2C' },
-      whatsapp: { name: 'WhatsApp Business', type: 'direct', active: true, audience: 'B2B/B2C' },
+      x: { name: 'X (Twitter)', type: 'social', active: true, audience: 'B2B/B2C', handle: '@Sheikha_top', url: 'https://x.com/Sheikha_top' },
+      whatsapp: { name: 'WhatsApp Business', type: 'direct', active: true, audience: 'B2B/B2C', handle: 'SheiKHA.top', integrated_with: 'instagram' },
       email: { name: 'Email Marketing', type: 'email', active: true, audience: 'all' },
       google: { name: 'Google Ads + SEO', type: 'search', active: true, audience: 'all' },
       youtube: { name: 'YouTube', type: 'video', active: true, audience: 'B2B/B2C' },
-      exhibitions: { name: 'المعارض والمؤتمرات', type: 'offline', active: true, audience: 'B2B/B2G' }
+      exhibitions: { name: 'المعارض والمؤتمرات', type: 'offline', active: true, audience: 'B2B/B2G' },
+      // حسابات التواصل الاجتماعي المفعّلة — ١٠ أبريل ٢٠٢٦
+      instagram: { name: 'Instagram', type: 'social', active: true, audience: 'B2B/B2C', handle: 'SheiKHA.top', url: 'https://www.instagram.com/SheiKHA.top', integration: ['whatsapp', 'facebook', 'meta_business_suite'] },
+      facebook: { name: 'Facebook', type: 'social', active: true, audience: 'B2B/B2C', handle: 'salman Alrajeh', url: 'https://www.facebook.com/SheiKHA.top', integration: ['instagram', 'whatsapp', 'meta_business_suite'] },
+      meta_business_suite: { name: 'Meta Business Suite', type: 'management', active: true, audience: 'all', manages: ['facebook', 'instagram', 'whatsapp', 'meta_horizon'] },
+      meta_horizon: { name: 'Meta Horizon', type: 'metaverse', active: true, audience: 'B2C', handle: 'sheikha.top', url: 'https://horizon.meta.com/sheikha' },
+      snapchat: { name: 'Snapchat', type: 'social', active: true, audience: 'B2C', handle: 'sheikha.top', url: 'https://www.snapchat.com/add/sheikha.top' },
+      wikipedia: { name: 'Wikipedia', type: 'reference', active: true, audience: 'all', handle: 'Sheikha.top', url: 'https://ar.wikipedia.org/wiki/Sheikha.top' },
+      flickr: { name: 'Flickr', type: 'photo', active: true, audience: 'all', handle: 'Sheikha.top', url: 'https://www.flickr.com/photos/sheikha-top' },
+      blogger: { name: 'Blogger', type: 'blog', active: true, audience: 'all', handle: 'sheikha-top.blogspot.com', url: 'https://sheikha-top.blogspot.com' }
     };
 
     // Marketing funnel stages

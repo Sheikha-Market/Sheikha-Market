@@ -1,3 +1,4 @@
+const { executeSheikhaCommand } = require('./core/sheikha-control-plane');
 try {
     // override: true — يُلغي قيم shell البيئية ويستخدم .env دائماً
     require('dotenv').config({ override: true });
@@ -14,6 +15,32 @@ const jwt = require('jsonwebtoken');
 const cron = require('node-cron');
 const WebSocket = require('ws');
 
+// ═══════════════════════════════════════════════
+// 🔷 SHEIKHA META TRACK FUNCTION (GLOBAL)
+// ═══════════════════════════════════════════════
+async function sheikhaTrackMeta(eventType, payload = {}) {
+  try {
+    if (eventType === 'lead') {
+      return await executeSheikhaCommand('track-lead', payload);
+    }
+
+    if (eventType === 'view') {
+      return await executeSheikhaCommand('track-view', payload);
+    }
+
+    return { success: false, error: 'UNKNOWN_EVENT_TYPE' };
+  } catch (error) {
+    console.error(
+      '[SHEIKHA META ERROR]',
+      error?.response?.data || error?.message || error
+    );
+
+    return { success: false };
+  }
+}
+
+
+// ─────────────────────────────────────────────
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📜 SHEIKHA CHARTER — Runtime Governance Switches
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -13542,11 +13569,6 @@ function validateEmail(email) {
         return { valid: false, message: 'صيغة البريد الإلكتروني غير صحيحة.' };
     if (e.length > 200) return { valid: false, message: 'البريد طويل جداً.' };
     return { valid: true, value: e };
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🔐 تسجيل الدخول والتسجيل — داشبورد مستخدم
-// ═══════════════════════════════════════════════════════════════════════════════
 app.post('/api/auth/register', (req, res) => {
     const {
         phone,
@@ -13557,21 +13579,41 @@ app.post('/api/auth/register', (req, res) => {
         region,
         specialty: specialtyId
     } = req.body || {};
-    if (!phone || !password || !name)
-        return res
-            .status(400)
-            .json({ success: false, message: 'الجوال وكلمة المرور والاسم مطلوبان.' });
+
+    if (!phone || !password || !name) {
+        return res.status(400).json({
+            success: false,
+            message: 'الجوال وكلمة المرور والاسم مطلوبان.'
+        });
+    }
+
     const nameCheck = validateName(name);
-    if (!nameCheck.valid)
-        return res.status(400).json({ success: false, message: nameCheck.message });
+    if (!nameCheck.valid) {
+        return res.status(400).json({
+            success: false,
+            message: nameCheck.message
+        });
+    }
+
     const emailCheck = validateEmail(email);
-    if (!emailCheck.valid)
-        return res.status(400).json({ success: false, message: emailCheck.message });
-    if (USERS.some(u => String(u.phone) === String(phone).trim()))
-        return res.status(400).json({ success: false, message: 'هذا الجوال مسجّل مسبقاً.' });
+    if (!emailCheck.valid) {
+        return res.status(400).json({
+            success: false,
+            message: emailCheck.message
+        });
+    }
+
+    if (USERS.some(u => String(u.phone) === String(phone).trim())) {
+        return res.status(400).json({
+            success: false,
+            message: 'هذا الجوال مسجّل مسبقاً.'
+        });
+    }
+
     const id = uuidv4();
     const specialtyKey = (specialtyId || '').trim() || 'metals_trader';
     const spec = getSpecialty(specialtyKey);
+
     const user = {
         id,
         phone: String(phone).trim(),
@@ -13585,12 +13627,20 @@ app.post('/api/auth/register', (req, res) => {
         role: 'user',
         verified: false,
         authMethods: ['phone'],
-        securityLog: [{ action: 'registered', at: new Date().toISOString(), method: 'phone' }],
+        securityLog: [
+            {
+                action: 'registered',
+                at: new Date().toISOString(),
+                method: 'phone'
+            }
+        ],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
     };
+
     USERS.push(user);
     saveJSON(USERS_FILE, USERS);
+
     const trader = {
         id,
         name: user.name,
@@ -13602,12 +13652,25 @@ app.post('/api/auth/register', (req, res) => {
         specialtyLabel: spec.nameAr,
         createdAt: user.createdAt
     };
+
     if (!TRADERS.find(t => t.id === id)) {
         TRADERS.push(trader);
         saveJSON(TRADERS_FILE, TRADERS);
     }
-    logOperation('user_register', 'user', { id, phone: user.phone, name: user.name }, user);
-    const token = jwt.sign({ userId: id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+
+    logOperation(
+        'user_register',
+        'user',
+        { id, phone: user.phone, name: user.name },
+        user
+    );
+
+    const token = jwt.sign(
+        { userId: id, role: user.role },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+    );
+
     const out = {
         id: user.id,
         phone: user.phone,
@@ -13618,25 +13681,63 @@ app.post('/api/auth/register', (req, res) => {
         marketingEnabled: user.marketingEnabled,
         role: user.role
     };
-    res.status(201).json({
+
+    sheikhaTrackMeta('lead', {
+        market: 'metals',
+        user: {
+            email: user.email,
+            phone: user.phone,
+            first_name: user.name,
+            last_name: '',
+            city: user.region || '',
+            state: user.region || ''
+        },
+        meta: {
+            value: 1,
+            currency: 'SAR',
+            content_name: 'Sheikha Registration Lead'
+        },
+        event_source_url: 'https://sheikha.top/register',
+        client_user_agent: req.headers['user-agent'],
+        client_ip_address:
+            req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+            req.socket.remoteAddress
+    }).catch((err) => {
+        console.error('[REGISTER META TRACK ERROR]', err?.message || err);
+    });
+
+    if (typeof automationEngine !== 'undefined' && automationEngine) {
+        try {
+            automationEngine.emit('user:registered', {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                storeName: user.storeName,
+                region: user.region,
+                specialty: user.specialty,
+                role: user.role,
+                createdAt: user.createdAt,
+                source: 'sheikha-register'
+            });
+
+            console.log('⚙️ [AUTOMATION] user:registered emitted', {
+                id: user.id,
+                phone: user.phone
+            });
+        } catch (err) {
+            console.error('❌ [AUTOMATION ERROR]', err?.message || err);
+        }
+    }
+
+    return res.status(201).json({
         success: true,
         user: out,
         token,
         role: user.role,
         message: 'تم التسجيل بنجاح. يمكنك الدخول إلى لوحة التحكم.'
     });
-    // ═══ إطلاق حدث الأتمتة — تسجيل مستخدم جديد ═══
-    if (automationEngine)
-        try {
-            automationEngine.emit('user:registered', {
-                id,
-                name: user.name,
-                email: user.email,
-                phone: user.phone
-            });
-        } catch (_) {}
 });
-
 app.post('/api/auth/login', (req, res) => {
     const { phone, password, email: loginEmail } = req.body || {};
     const identifier = (phone || loginEmail || '').trim();
@@ -30066,6 +30167,17 @@ try {
     );
 } catch (e) {
     console.warn('⚠️ [Finance] لم يتم تحميل مسارات التمويل:', e.message);
+}
+
+try {
+    const metalsRecyclingRouter = require('./routes/metals-recycling');
+    app.use('/api/metals', metalsRecyclingRouter);
+    console.log('✅ [Metals-Recycling] مسارات المعادن والسكراب المؤسسية مُفعّلة على /api/metals');
+    console.log('   📡 GET  /api/metals/enterprise/capabilities');
+    console.log('   📡 POST /api/metals/enterprise/tenants');
+    console.log('   📡 GET  /api/metals/enterprise/control-tower?tenantId=...');
+} catch (e) {
+    console.warn('⚠️ [Metals-Recycling] لم يتم تحميل مسارات metals-recycling:', e.message);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════

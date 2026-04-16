@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>لوحة التحكم الجيل الجديد | شيخة</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/sheikha-beta-banner.css">
+<script src="/js/sheikha-beta-banner.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
@@ -223,6 +225,13 @@ table{border-collapse:collapse;width:100%} th,td{padding:12px 15px;text-align:ri
     <div class="nav-group-title">التحليلات</div>
     <div class="nav-item" onclick="showSection('analytics')">
       <svg class="nav-icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>التحليلات المتقدمة
+    </div>
+    <div class="nav-item" onclick="showSection('controltower')">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 8h18"/><path d="M6 8V5h12v3"/><rect x="4" y="8" width="16" height="11" rx="2"/><path d="M9 12h6M9 15h3"/></svg>Control Tower
+      <span class="nav-badge">SGSC-OS</span>
+    </div>
+    <div class="nav-item" onclick="openErpIntegrationsPage()">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M7 7h10v10H7z"/><path d="M3 12h4M17 12h4M12 3v4M12 17v4"/></svg>ERP Integrations
     </div>
     <div class="nav-item" onclick="showSection('sharia')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>الفقه والشريعة
@@ -469,6 +478,59 @@ table{border-collapse:collapse;width:100%} th,td{padding:12px 15px;text-align:ri
     </div>
   </div>
 
+  <div class="section" id="sec-controltower">
+    <div class="topbar">
+      <div class="topbar-title">
+        <h1>SGSC-OS Control Tower</h1>
+        <p>متابعة سلسلة الإمداد العالمية لحظيًا: RFQ → Orders → Shipments → Integrations</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-outline btn-sm" onclick="seedUserEnterpriseFlow()">⚙️ توليد سيناريو</button>
+        <button class="btn btn-gold btn-sm" onclick="loadUserControlTower()">⟳ تحديث</button>
+      </div>
+    </div>
+
+    <div class="table-card" style="margin-bottom:16px">
+      <div class="table-header"><div class="chart-title">Tenant Identity</div><button class="btn btn-outline btn-sm" onclick="openErpIntegrationsPage()">فتح ERP Integrations</button></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px">
+        <div style="background:var(--el);border:1px solid var(--b1);border-radius:10px;padding:10px"><div style="font-size:.72rem;color:var(--t3)">Tenant ID</div><div id="uct-tenant-id" style="font-size:.86rem;color:var(--gold);margin-top:4px">—</div></div>
+        <div style="background:var(--el);border:1px solid var(--b1);border-radius:10px;padding:10px"><div style="font-size:.72rem;color:var(--t3)">الاسم</div><div id="uct-tenant-name" style="font-size:.86rem;color:var(--t1);margin-top:4px">—</div></div>
+        <div style="background:var(--el);border:1px solid var(--b1);border-radius:10px;padding:10px"><div style="font-size:.72rem;color:var(--t3)">السوق</div><div id="uct-tenant-market" style="font-size:.86rem;color:var(--t1);margin-top:4px">—</div></div>
+        <div style="background:var(--el);border:1px solid var(--b1);border-radius:10px;padding:10px"><div style="font-size:.72rem;color:var(--t3)">الخطة</div><div id="uct-tenant-plan" style="font-size:.86rem;color:var(--t1);margin-top:4px">—</div></div>
+      </div>
+    </div>
+
+    <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:16px">
+      <div class="kpi-card"><div class="kpi-val gold" id="uct-open-rfqs">0</div><div class="kpi-label">RFQ مفتوح</div></div>
+      <div class="kpi-card"><div class="kpi-val green" id="uct-orders">0</div><div class="kpi-label">طلبات معتمدة</div></div>
+      <div class="kpi-card"><div class="kpi-val blue" id="uct-shipments">0</div><div class="kpi-label">شحنات قيد النقل</div></div>
+      <div class="kpi-card"><div class="kpi-val purple" id="uct-events">0</div><div class="kpi-label">أحداث التكامل</div></div>
+      <div class="kpi-card"><div class="kpi-val copper" id="uct-risk">0</div><div class="kpi-label">شحنات معرضة للمخاطر</div></div>
+      <div class="kpi-card"><div class="kpi-val gold" id="uct-retry">0</div><div class="kpi-label">Retry Queue</div></div>
+    </div>
+
+    <div class="charts-grid" style="margin-bottom:16px">
+      <div class="chart-card">
+        <div class="chart-header"><div class="chart-title">AI Recommendations</div></div>
+        <div id="uct-ai-list" style="display:grid;gap:8px"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div class="chart-title">Connector Health</div></div>
+        <div id="uct-connectors" style="display:grid;gap:8px"></div>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-header"><div class="chart-title">Latest Operations Stream</div><button class="btn btn-outline btn-sm" onclick="loadUserControlTower()">تحديث</button></div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>النوع</th><th>المعرف</th><th>الحالة</th><th>المعلومة</th></tr></thead>
+          <tbody id="uct-stream-rows"><tr><td colspan="4" style="text-align:center;color:var(--t3);padding:14px">لا بيانات بعد</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══ OTHER SECTIONS (stubs) ═══ -->
   <div class="section" id="sec-rfq"><div class="topbar"><div class="topbar-title"><h1>طلبات العروض</h1><p>RFQ — Request for Quotation</p></div><div class="topbar-actions"><button class="btn btn-gold btn-sm">+ طلب جديد</button></div></div><div class="table-card"><p style="color:var(--t3);text-align:center;padding:40px">قيد التحميل...</p></div></div>
   <div class="section" id="sec-listings"><div class="topbar"><div class="topbar-title"><h1>قوائم المنتجات</h1><p>إعلاناتك في سوق شيخة</p></div><div class="topbar-actions"><button class="btn btn-gold btn-sm">+ إعلان جديد</button></div></div><div class="table-card"><p style="color:var(--t3);text-align:center;padding:40px">قيد التحميل...</p></div></div>
@@ -659,8 +721,147 @@ function showSection(name){
   const sec=document.getElementById(`sec-${name}`); if(sec) sec.classList.add('active');
   event.currentTarget.classList.add('active');
   if(name==='globe3d') setTimeout(initGlobe,100);
+  if(name==='controltower') loadUserControlTower();
   window.scrollTo(0,0);
 }
+
+const USER_ENTERPRISE_KEY = 'sheikha_user_enterprise_tenant';
+
+function enterpriseUserRequest(url, options){
+  return fetch(url, options).then(async (r)=>{
+    const j = await r.json().catch(()=>null);
+    if(!r.ok || !j || j.success===false){
+      throw new Error((j && j.message) || 'enterprise_user_request_failed');
+    }
+    return j;
+  });
+}
+
+function openErpIntegrationsPage(){
+  window.location.href = '/erp-integrations.html';
+}
+
+async function ensureUserEnterpriseTenant(){
+  let tenantId = localStorage.getItem(USER_ENTERPRISE_KEY);
+  const tenantsRes = await enterpriseUserRequest('/api/metals/enterprise/tenants');
+  const tenants = tenantsRes.data?.tenants || [];
+  let tenant = tenants.find(t=>t.id===tenantId);
+  if(!tenant){
+    tenant = tenants.find(t=>(t.tenantName||'').includes('Sheikha User Prime')) || null;
+  }
+  if(!tenant){
+    const created = await enterpriseUserRequest('/api/metals/enterprise/tenants', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({tenantName:'Sheikha User Prime', country:'SA', marketFocus:'metals', plan:'3PL'})
+    });
+    tenant = created.data;
+  }
+  localStorage.setItem(USER_ENTERPRISE_KEY, tenant.id);
+  return tenant;
+}
+
+function setText(id, value){
+  const el = document.getElementById(id);
+  if(el) el.textContent = value;
+}
+
+function renderUserTenant(tenant){
+  setText('uct-tenant-id', tenant.id || '—');
+  setText('uct-tenant-name', tenant.tenantName || '—');
+  setText('uct-tenant-market', tenant.marketFocus || 'metals');
+  setText('uct-tenant-plan', tenant.plan || '3PL');
+}
+
+function renderUserControlTowerData(controlTower, statusData){
+  const k = controlTower?.kpis || {};
+  const s = statusData?.summary || {};
+  setText('uct-open-rfqs', (k.openRfqs || 0).toLocaleString('ar-SA'));
+  setText('uct-orders', (k.approvedOrders || 0).toLocaleString('ar-SA'));
+  setText('uct-shipments', (k.inTransitShipments || 0).toLocaleString('ar-SA'));
+  setText('uct-events', (k.totalEvents || 0).toLocaleString('ar-SA'));
+  setText('uct-risk', (k.atRiskShipments || 0).toLocaleString('ar-SA'));
+  setText('uct-retry', (s.queued || 0).toLocaleString('ar-SA'));
+
+  const rows = document.getElementById('uct-stream-rows');
+  if(rows){
+    const merged = [
+      ...(controlTower?.streams?.latestRfqs || []).map(x=>({type:'RFQ',id:x.id,status:x.status,info:x.productName || '—'})),
+      ...(controlTower?.streams?.latestOrders || []).map(x=>({type:'ORDER',id:x.id,status:x.status,info:x.supplierName || '—'})),
+      ...(controlTower?.streams?.latestShipments || []).map(x=>({type:'SHIPMENT',id:x.id,status:x.status,info:(x.origin || '—') + ' → ' + (x.destination || '—')}))
+    ].slice(-12).reverse();
+
+    rows.innerHTML = merged.length
+      ? merged.map(r=>`<tr><td>${r.type}</td><td>${r.id || '—'}</td><td>${r.status || '—'}</td><td>${r.info || '—'}</td></tr>`).join('')
+      : '<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:14px">لا بيانات بعد</td></tr>';
+  }
+}
+
+function renderUserAiRecommendations(aiData){
+  const list = document.getElementById('uct-ai-list');
+  if(!list) return;
+  const arr = aiData?.recommendations || [];
+  list.innerHTML = arr.length
+    ? arr.map(x=>`<div style="background:var(--el);border:1px solid var(--b1);border-radius:10px;padding:10px"><div style="font-size:.8rem;color:var(--gold);font-weight:800">${x.type || 'insight'} · ${Math.round((x.confidence || 0) * 100)}%</div><div style="margin-top:5px;color:var(--t2);font-size:.82rem">${x.action || '—'}</div><div style="margin-top:4px;color:var(--t3);font-size:.74rem">${x.reason || ''}</div></div>`).join('')
+    : '<div style="color:var(--t3)">لا توصيات حالياً</div>';
+}
+
+function renderUserConnectors(statusData){
+  const list = document.getElementById('uct-connectors');
+  if(!list) return;
+  const arr = statusData?.connectors || [];
+  list.innerHTML = arr.length
+    ? arr.map(c=>`<div style="background:var(--el);border:1px solid var(--b1);border-radius:10px;padding:10px"><div style="font-size:.8rem;color:var(--gold);font-weight:800">${c.system || 'ERP Connector'}</div><div style="margin-top:5px;color:var(--t2);font-size:.78rem">Health: ${c.health || 'unknown'} | Retry backlog: ${(c.retryBacklog || 0).toLocaleString('ar-SA')}</div><div style="margin-top:4px;color:var(--t3);font-size:.74rem">${(c.methods || []).join(' · ')}</div></div>`).join('')
+    : '<div style="color:var(--t3)">لا موصلات متاحة</div>';
+}
+
+async function seedUserEnterpriseFlow(){
+  try{
+    const tenant = await ensureUserEnterpriseTenant();
+    const rfq = await enterpriseUserRequest('/api/metals/enterprise/rfq', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({tenantId: tenant.id, market: tenant.marketFocus || 'metals', hsCode:'720410', productName:'Steel Scrap HMS 1/2', quantity:95, destinationCountry:'SA', incoterm:'CFR'})
+    });
+    const order = await enterpriseUserRequest('/api/metals/enterprise/orders', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({tenantId: tenant.id, rfqId: rfq.data.id, supplierName:'SGSC Metals Network', totalValue: 620000, currency:'USD'})
+    });
+    await enterpriseUserRequest('/api/metals/enterprise/shipments', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({tenantId: tenant.id, orderId: order.data.id, mode:'sea', origin:'YANBU', destination:'JUBAIL', etaDays:4})
+    });
+    await enterpriseUserRequest('/api/metals/enterprise/integrations/events', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({tenantId: tenant.id, sourceSystem:'Microsoft Dynamics 365 SCM', eventType:'shipment.status.updated', payload:{source:'user-dashboard-seed'}})
+    });
+    await enterpriseUserRequest('/api/metals/enterprise/integrations/retry-queue', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({tenantId: tenant.id, connector:'SAP S/4HANA + SAP Business Network', operation:'syncOrderStatus', payload:{ref: order.data.id}, lastError:'Initial simulation for retry workflow'})
+    });
+    loadUserControlTower();
+  }catch(e){
+    console.warn('seedUserEnterpriseFlow failed:', e.message);
+  }
+}
+
+async function loadUserControlTower(){
+  try{
+    const tenant = await ensureUserEnterpriseTenant();
+    renderUserTenant(tenant);
+    const [ct, ai, status] = await Promise.all([
+      enterpriseUserRequest('/api/metals/enterprise/control-tower?tenantId=' + encodeURIComponent(tenant.id)),
+      enterpriseUserRequest('/api/metals/enterprise/ai/recommendations?tenantId=' + encodeURIComponent(tenant.id) + '&market=' + encodeURIComponent(tenant.marketFocus || 'metals')),
+      enterpriseUserRequest('/api/metals/enterprise/integrations/status')
+    ]);
+    renderUserControlTowerData(ct.data || {}, status.data || {});
+    renderUserAiRecommendations(ai.data || {});
+    renderUserConnectors(status.data || {});
+  }catch(e){
+    console.warn('loadUserControlTower failed:', e.message);
+  }
+}
+
+loadUserControlTower();
 
 // ══════════════════════════════════════════
 // حاسبة الزكاة
