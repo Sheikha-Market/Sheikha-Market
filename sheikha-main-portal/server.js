@@ -5757,6 +5757,50 @@ app.get('/api/telecom/path', (req, res) => {
     } catch (e) { res.json({ error: e.message }); }
 });
 
+// ═══════════════════════════════════════════════════════════════
+// 🧠 الشبكة العصبية لمنظمة الاتصالات — Neural Cell Networks
+// ═══════════════════════════════════════════════════════════════
+app.get('/api/telecom/neural', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        res.json(telecomOrg.getNeuralTopology());
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/telecom/neural/cell/:id', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        const cell = telecomOrg.getNeuralCell(req.params.id);
+        if (!cell) return res.status(404).json({ error: `خلية غير موجودة: ${req.params.id}` });
+        res.json(cell);
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/telecom/neural/domain/:domain', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        res.json({ domain: req.params.domain, cells: telecomOrg.getNeuralDomain(req.params.domain) });
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.post('/api/telecom/neural/signal', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        const { from, signal, depth } = req.body || {};
+        if (!from) return res.status(400).json({ error: 'مطلوب: { from: "CELL_FIBER", signal: {...}, depth: 3 }' });
+        res.json(telecomOrg.fireSignal(from, signal, depth));
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/telecom/neural/signal', (req, res) => {
+    try {
+        const { telecomOrg } = require('./core/comms/telecom-org');
+        const { from, type, depth } = req.query;
+        if (!from) return res.status(400).json({ error: 'مطلوب: ?from=CELL_FIBER&type=DATA&depth=3' });
+        res.json(telecomOrg.fireSignal(from, { type: type || 'ACTIVATION' }, depth));
+    } catch (e) { res.json({ error: e.message }); }
+});
+
 // ═══ سجل المنافذ والشبكة العصبية ═══
 app.get('/api/ports', (req, res) => {
     try {

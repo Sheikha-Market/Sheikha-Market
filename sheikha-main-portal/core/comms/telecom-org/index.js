@@ -5,6 +5,7 @@
  * ║                                                                              ║
  * ║  البنية الكاملة لتصنيف شبكات الاتصالات:                                     ║
  * ║  🗺️ أرضي   🛰️ فضائي   🌐 لوجستي   👥 مجتمعات   🔗 تكاملات                ║
+ * ║  🧠 خلايا عصبية (Neural Cells) — كل شبكة = خلية بمدخلات وأثر وناتج         ║
  * ╚══════════════════════════════════════════════════════════════════════════════╝
  *
  * الاستخدام:
@@ -16,6 +17,9 @@
  *   app.get('/api/telecom/logistics',   (req, res) => res.json(telecomOrg.getLogistics()));
  *   app.get('/api/telecom/communities', (req, res) => res.json(telecomOrg.getCommunities()));
  *   app.get('/api/telecom/integration', (req, res) => res.json(telecomOrg.getIntegrations()));
+ *   app.get('/api/telecom/neural',       (req, res) => res.json(telecomOrg.getNeuralTopology()));
+ *   app.get('/api/telecom/neural/:cell', (req, res) => res.json(telecomOrg.getNeuralCell(req.params.cell)));
+ *   app.post('/api/telecom/neural/signal',(req, res) => res.json(telecomOrg.fireSignal(req.body)));
  *
  * "وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا" — الحجرات:١٣
  */
@@ -63,6 +67,17 @@ const {
     getCompatibleNetworks,
 } = require('./integration');
 
+const {
+    ALL_CELLS,
+    TERRESTRIAL_CELLS,
+    SATELLITE_CELLS,
+    LOGISTICS_CELLS,
+    buildNeuralTopology,
+    propagateSignal,
+    getCell,
+    getCellsByDomain,
+} = require('./neural-cell-networks');
+
 // ═══════════════════════════════════════════════════════════════
 // محرك منظمة الاتصالات
 // ═══════════════════════════════════════════════════════════════
@@ -71,7 +86,7 @@ class TelecomOrganizationEngine {
     constructor() {
         this.nameAr  = 'منظمة شبكات الاتصالات — شيخة';
         this.nameEn  = 'Sheikha Telecom Organization Engine';
-        this.version = '1.0.0';
+        this.version = '2.0.0';   // v2 — الشبكة العصبية
         this.tawheed = 'لا إله إلا الله';
     }
 
@@ -101,11 +116,12 @@ class TelecomOrganizationEngine {
                 critical_links:       integrations.summary.critical_links,
             },
             domains: [
-                { id: 'TERRESTRIAL', nameAr: 'الأرضي',    icon: '🗺️', count: terrestrial.count },
-                { id: 'SATELLITE',   nameAr: 'الفضائي',   icon: '🛰️', count: satellite.orbits.length + satellite.sectors.length },
-                { id: 'LOGISTICS',   nameAr: 'اللوجستي',  icon: '🌐', count: Object.keys(AVIATION_NETWORKS).length + Object.keys(MARITIME_NETWORKS).length + Object.keys(LAND_LOGISTICS_NETWORKS).length },
-                { id: 'COMMUNITIES', nameAr: 'المجتمعات', icon: '👥', count: communities.count },
-                { id: 'INTEGRATION', nameAr: 'التكاملات', icon: '🔗', count: integrations.summary.bridges_count },
+                { id: 'TERRESTRIAL', nameAr: 'الأرضي',         icon: '🗺️', count: terrestrial.count },
+                { id: 'SATELLITE',   nameAr: 'الفضائي',        icon: '🛰️', count: satellite.orbits.length + satellite.sectors.length },
+                { id: 'LOGISTICS',   nameAr: 'اللوجستي',       icon: '🌐', count: Object.keys(AVIATION_NETWORKS).length + Object.keys(MARITIME_NETWORKS).length + Object.keys(LAND_LOGISTICS_NETWORKS).length },
+                { id: 'COMMUNITIES', nameAr: 'المجتمعات',      icon: '👥', count: communities.count },
+                { id: 'INTEGRATION', nameAr: 'التكاملات',      icon: '🔗', count: integrations.summary.bridges_count },
+                { id: 'NEURAL',      nameAr: 'الشبكة العصبية', icon: '🧠', count: Object.keys(ALL_CELLS).length },
             ],
             verse: { ref: 'الحجرات:١٣', text: 'وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا' },
         };
@@ -125,6 +141,18 @@ class TelecomOrganizationEngine {
     }
     getCommunities(id)        { return id ? getCommunity(id) : getCommunities(); }
     getIntegrations(id)       { return id ? getBridge(id) : getIntegrations(); }
+
+    // ─── الشبكة العصبية ───────────────────────────────────────
+    getNeuralTopology()       { return buildNeuralTopology(); }
+    getNeuralCell(id)         { return getCell(id.toUpperCase()); }
+    getNeuralDomain(domain)   { return getCellsByDomain(domain); }
+    fireSignal(from, signal, depth) {
+        return propagateSignal(
+            (from || '').toUpperCase(),
+            signal || { type: 'ACTIVATION' },
+            parseInt(depth || 3, 10)
+        );
+    }
 
     // ─── بحث عبر الكل ─────────────────────────────────────────
     search(query) {
@@ -193,6 +221,11 @@ module.exports = {
     TELECOM_COMMUNITIES,
     INTEGRATION_BRIDGES,
     COMPATIBILITY_MATRIX,
+    // الشبكة العصبية
+    ALL_CELLS,
+    TERRESTRIAL_CELLS,
+    SATELLITE_CELLS,
+    LOGISTICS_CELLS,
     getTerrestrialNetworks,
     getSatelliteNetworks,
     getLogisticsNetworks,
@@ -201,4 +234,8 @@ module.exports = {
     getCommunity,
     getBridge,
     getCompatibleNetworks,
+    buildNeuralTopology,
+    propagateSignal,
+    getCell,
+    getCellsByDomain,
 };
