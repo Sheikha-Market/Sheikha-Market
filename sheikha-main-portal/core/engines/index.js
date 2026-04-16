@@ -67,6 +67,27 @@ for (const entry of ENGINE_MANIFEST) {
 
 console.log(`[ENGINES-INDEX] 🚀 المحركات المسجّلة: ${registered}/${ENGINE_MANIFEST.length}`);
 
+// ─── تسجيل محرك المعايير المدمج مباشرةً ─────────────────────────────────────
+
+try {
+    const { engine: standardsEngine } = require('../standards');
+    registerEngine('standards', standardsEngine, {
+        nameAr: 'محرك المعايير والجودة والمقاييس',
+        maqsad: 'MAL',
+    });
+    // مسارات توجيه إضافية لمحرك المعايير
+    registerRoute('quality',    'standards', 'MAL');
+    registerRoute('compliance', 'standards', 'MAL');
+    registerRoute('iso',        'standards', 'MAL');
+    registerRoute('law',        'standards', 'DEEN');
+    registerRoute('legal',      'standards', 'DEEN');
+    registerRoute('treaty',     'standards', 'MAL');
+    registerRoute('halal',      'standards', 'DEEN');
+    console.log('[ENGINES-INDEX] ✅ محرك المعايير مسجّل');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل محرك المعايير:', err.stack || err.message);
+}
+
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 module.exports = {

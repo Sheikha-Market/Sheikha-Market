@@ -196,7 +196,16 @@ class SheikhaIslamicNeuralRouter extends EventEmitter {
     _resolveRoute(intent) {
         if (!intent) return { engine: 'ai', maqsad: 'ARD' };
         const normalized = String(intent).toLowerCase().trim();
-        return _routeTable.get(normalized) || { engine: normalized, maqsad: 'ARD' };
+        // بحث مباشر في جدول التوجيه
+        if (_routeTable.has(normalized)) return _routeTable.get(normalized);
+        // مطابقة البادئة: 'standards.stats' → engine='standards'
+        const dotIndex = normalized.indexOf('.');
+        if (dotIndex > 0) {
+            const prefix = normalized.slice(0, dotIndex);
+            if (_routeTable.has(prefix)) return _routeTable.get(prefix);
+            if (_engines.has(prefix)) return { engine: prefix, maqsad: 'ARD' };
+        }
+        return { engine: normalized, maqsad: 'ARD' };
     }
 
     /** بناء الاستجابة الموحدة بمعيار sheikha/v2 */
