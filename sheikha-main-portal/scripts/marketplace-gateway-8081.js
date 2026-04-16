@@ -59,6 +59,15 @@ const _requests = new Map();   // ip → { count, resetAt }
 const RATE_LIMIT = 1000;       // 1000 طلب / 15 دقيقة
 const RATE_WINDOW = 15 * 60 * 1000;
 
+// تنظيف دوري للإدخالات المنتهية الصلاحية — يمنع تسرب الذاكرة
+const _cleanInterval = setInterval(() => {
+    const now = Date.now();
+    for (const [ip, rec] of _requests) {
+        if (now > rec.resetAt) _requests.delete(ip);
+    }
+}, RATE_WINDOW);
+if (_cleanInterval.unref) _cleanInterval.unref();
+
 function checkRateLimit(ip) {
     const now = Date.now();
     const rec = _requests.get(ip);
