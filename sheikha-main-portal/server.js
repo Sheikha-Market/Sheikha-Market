@@ -894,6 +894,21 @@ try {
     console.warn('⚠️ CampaignAutomation:', e.message);
 }
 
+// ═══ VIDEO & CONTENT ENGINE — نظام توليد الفيديو وإدارة المحتوى الكامل ═══
+// السيناريو · HTML5 Preview · مكتبة الفيديو · CMS · تقويم النشر · Pipeline
+let videoContentEngine = null;
+try {
+    const SheikhaVCE = require('./lib/sheikha-video-content-engine.js');
+    videoContentEngine = new SheikhaVCE({
+        aiEngine: global.openaiClient || null,
+    });
+    videoContentEngine.registerRoutes(app);
+    const vceStatus = videoContentEngine.getStatus();
+    console.log(`✅ [VideoContent v${vceStatus.version}] ${vceStatus.nameAr} | ${vceStatus.scriptTemplates} قالب | ${vceStatus.contentTypes} نوع محتوى | ${vceStatus.pipelineStages} مرحلة | ${vceStatus.apis} API`);
+} catch (e) {
+    console.warn('⚠️ VideoContent:', e.message);
+}
+
 // ☪️ محرك التزامن والرزنامة — التاريخ الهجري أساسي
 let calendarEngine = null;
 try {
