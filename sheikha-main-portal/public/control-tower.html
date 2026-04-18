@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>برج التحكم العالمي — شيخة SGSC-OS</title>
+<meta name="description" content="برج التحكم العالمي لسلاسل الإمداد — شيخة Global Supply Chain Control Tower">
+<link rel="icon" href="/assets/sheikha-mark.svg">
+<style>
+:root {
+  --bg-dark: #0a0e1a;
+  --bg-card: #111827;
+  --bg-card2: #1a2235;
+  --border: #1e3a5f;
+  --accent: #0ea5e9;
+  --accent2: #10b981;
+  --accent3: #f59e0b;
+  --accent4: #ef4444;
+  --accent5: #8b5cf6;
+  --text: #e2e8f0;
+  --text-muted: #64748b;
+  --gold: #d4a853;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg-dark); color: var(--text); font-family: 'Segoe UI', Tahoma, Arial, sans-serif; min-height: 100vh; }
+
+/* Header */
+.ct-header {
+  background: linear-gradient(135deg, #0a1628 0%, #0f2142 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+.ct-logo { display: flex; align-items: center; gap: 12px; }
+.ct-logo img { width: 36px; height: 36px; }
+.ct-logo-text h1 { font-size: 1.1rem; color: var(--gold); font-weight: 700; }
+.ct-logo-text p { font-size: 0.7rem; color: var(--text-muted); }
+.ct-header-actions { display: flex; align-items: center; gap: 12px; }
+.pulse-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent2); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.2)} }
+.status-badge { background: rgba(16,185,129,0.1); border: 1px solid var(--accent2); color: var(--accent2); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; }
+.time-display { color: var(--text-muted); font-size: 0.8rem; font-family: monospace; }
+
+/* Navigation Tabs */
+.ct-nav { background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; gap: 4px; overflow-x: auto; }
+.ct-tab { padding: 12px 18px; color: var(--text-muted); cursor: pointer; font-size: 0.85rem; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+.ct-tab:hover { color: var(--text); }
+.ct-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* Main Layout */
+.ct-main { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 100px); }
+
+/* Sidebar */
+.ct-sidebar { background: var(--bg-card); border-left: 1px solid var(--border); padding: 16px; overflow-y: auto; }
+.sidebar-section { margin-bottom: 20px; }
+.sidebar-title { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.portal-link { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; color: var(--text); transition: all 0.2s; border: 1px solid transparent; text-decoration: none; margin-bottom: 4px; }
+.portal-link:hover { background: var(--bg-card2); border-color: var(--border); }
+.portal-link.active-portal { background: rgba(14,165,233,0.1); border-color: var(--accent); color: var(--accent); }
+.portal-icon { font-size: 1.1rem; }
+
+/* Content */
+.ct-content { padding: 20px; overflow-y: auto; }
+
+/* KPI Cards Row */
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.kpi-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; position: relative; overflow: hidden; }
+.kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.kpi-card.blue::before { background: var(--accent); }
+.kpi-card.green::before { background: var(--accent2); }
+.kpi-card.yellow::before { background: var(--accent3); }
+.kpi-card.red::before { background: var(--accent4); }
+.kpi-card.purple::before { background: var(--accent5); }
+.kpi-card.gold::before { background: var(--gold); }
+.kpi-label { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px; }
+.kpi-value { font-size: 1.8rem; font-weight: 700; font-family: monospace; }
+.kpi-card.blue .kpi-value { color: var(--accent); }
+.kpi-card.green .kpi-value { color: var(--accent2); }
+.kpi-card.yellow .kpi-value { color: var(--accent3); }
+.kpi-card.red .kpi-value { color: var(--accent4); }
+.kpi-card.purple .kpi-value { color: var(--accent5); }
+.kpi-card.gold .kpi-value { color: var(--gold); }
+.kpi-sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 6px; }
+.kpi-icon { position: absolute; top: 12px; left: 12px; font-size: 1.4rem; opacity: 0.3; }
+
+/* Grid Panels */
+.panels-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.panel-wide { grid-column: 1 / -1; }
+.panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.panel-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.panel-title { font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.panel-actions { display: flex; gap: 8px; }
+.panel-btn { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; cursor: pointer; transition: all 0.2s; }
+.panel-btn:hover { border-color: var(--accent); color: var(--accent); }
+.panel-body { padding: 16px; }
+
+/* Table */
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.data-table th { text-align: right; padding: 8px 12px; color: var(--text-muted); font-weight: 500; border-bottom: 1px solid var(--border); font-size: 0.72rem; text-transform: uppercase; }
+.data-table td { padding: 10px 12px; border-bottom: 1px solid rgba(30,58,95,0.3); }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: rgba(14,165,233,0.03); }
+
+/* Status badges */
+.badge { padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 500; }
+.badge-green { background: rgba(16,185,129,0.15); color: var(--accent2); }
+.badge-blue { background: rgba(14,165,233,0.15); color: var(--accent); }
+.badge-yellow { background: rgba(245,158,11,0.15); color: var(--accent3); }
+.badge-red { background: rgba(239,68,68,0.15); color: var(--accent4); }
+.badge-purple { background: rgba(139,92,246,0.15); color: var(--accent5); }
+.badge-gray { background: rgba(100,116,139,0.15); color: var(--text-muted); }
+
+/* Market Cards */
+.markets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+.market-card { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; cursor: pointer; transition: all 0.2s; text-align: center; }
+.market-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.market-icon { font-size: 1.6rem; margin-bottom: 6px; }
+.market-name { font-size: 0.75rem; color: var(--text); }
+.market-size { font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; }
+
+/* Alert items */
+.alert-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 0.82rem; }
+.alert-item.warn { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); }
+.alert-item.danger { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); }
+.alert-item.info { background: rgba(14,165,233,0.08); border: 1px solid rgba(14,165,233,0.2); }
+.alert-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.alert-text { color: var(--text); }
+.alert-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+
+/* System Layers */
+.layers-list { display: flex; flex-direction: column; gap: 8px; }
+.layer-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--bg-card2); border: 1px solid var(--border); border-radius: 8px; }
+.layer-num { width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.72rem; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+.layer-info { flex: 1; }
+.layer-name { font-size: 0.82rem; color: var(--text); }
+.layer-desc { font-size: 0.7rem; color: var(--text-muted); }
+.layer-status { font-size: 0.72rem; }
+
+/* PL Stack */
+.pl-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.pl-card { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; flex: 1; min-width: 100px; cursor: pointer; transition: all 0.2s; }
+.pl-card:hover { border-color: var(--accent); }
+.pl-card h4 { font-size: 0.85rem; color: var(--accent); margin-bottom: 4px; }
+.pl-card p { font-size: 0.7rem; color: var(--text-muted); }
+
+/* Integration grid */
+.integration-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.integration-card { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center; cursor: pointer; transition: all 0.2s; }
+.integration-card:hover { border-color: var(--accent); }
+.integration-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.integration-name { font-size: 0.78rem; color: var(--text); font-weight: 600; }
+.integration-desc { font-size: 0.65rem; color: var(--text-muted); margin-top: 3px; }
+.integration-badge { font-size: 0.62rem; padding: 2px 6px; border-radius: 4px; margin-top: 6px; display: inline-block; }
+
+/* AI Insight card */
+.ai-card { background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(14,165,233,0.1)); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+.ai-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.ai-card-title { font-size: 0.85rem; font-weight: 600; color: var(--accent5); }
+.ai-insight-text { font-size: 0.82rem; color: var(--text); line-height: 1.6; }
+.ai-bullets { list-style: none; font-size: 0.8rem; color: var(--text); }
+.ai-bullets li { padding: 4px 0; display: flex; align-items: flex-start; gap: 6px; }
+.ai-bullets li::before { content: '›'; color: var(--accent5); font-weight: 700; flex-shrink: 0; }
+
+/* Loading */
+.loading { display: flex; align-items: center; justify-content: center; padding: 40px; }
+.spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Search Bar */
+.search-bar { display: flex; gap: 8px; margin-bottom: 16px; }
+.search-input { flex: 1; background: var(--bg-card2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; color: var(--text); font-size: 0.85rem; outline: none; }
+.search-input:focus { border-color: var(--accent); }
+.search-btn { background: var(--accent); border: none; color: #fff; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ct-main { grid-template-columns: 1fr; }
+  .ct-sidebar { display: none; }
+  .panels-grid { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Quran verse */
+.quran-verse { background: linear-gradient(135deg, rgba(212,168,83,0.08), rgba(212,168,83,0.03)); border: 1px solid rgba(212,168,83,0.2); border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; text-align: center; }
+.quran-text { font-size: 1rem; color: var(--gold); font-weight: 600; line-height: 1.6; margin-bottom: 4px; }
+.quran-ref { font-size: 0.72rem; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="ct-header">
+  <div class="ct-logo">
+    <img src="/assets/sheikha-mark.svg" alt="شيخة" onerror="this.style.display='none'">
+    <div class="ct-logo-text">
+      <h1>🗼 برج التحكم العالمي</h1>
+      <p>Sheikha Global Supply Chain Control Tower — SGSC-OS v1.0</p>
+    </div>
+  </div>
+  <div class="ct-header-actions">
+    <span class="time-display" id="liveTime">--:--:--</span>
+    <div class="pulse-dot"></div>
+    <span class="status-badge">🟢 Online</span>
+  </div>
+</header>
+
+<!-- Navigation Tabs -->
+<nav class="ct-nav">
+  <div class="ct-tab active" onclick="showTab('overview')">📊 نظرة عامة</div>
+  <div class="ct-tab" onclick="showTab('markets')">🌍 الأسواق</div>
+  <div class="ct-tab" onclick="showTab('logistics')">🚢 اللوجستيات</div>
+  <div class="ct-tab" onclick="showTab('integrations')">🔗 التكامل</div>
+  <div class="ct-tab" onclick="showTab('ai')">🧠 الذكاء الاصطناعي</div>
+  <div class="ct-tab" onclick="showTab('operations')">⚙️ العمليات</div>
+  <div class="ct-tab" onclick="showTab('hscode')">🏷️ HS Code</div>
+</nav>
+
+<!-- Main Layout -->
+<div class="ct-main">
+
+  <!-- Sidebar -->
+  <aside class="ct-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">🏛️ البوابات المتخصصة</div>
+      <a class="portal-link active-portal" href="/control-tower" onclick="return false">
+        <span class="portal-icon">🗼</span> برج التحكم
+      </a>
+      <a class="portal-link" href="/portal/mining" onclick="return false">
+        <span class="portal-icon">⛏️</span> التعدين والمصاهر
+      </a>
+      <a class="portal-link" href="/portal/scrap" onclick="return false">
+        <span class="portal-icon">♻️</span> السكراب وإعادة التدوير
+      </a>
+      <a class="portal-link" href="/portal/logistics" onclick="return false">
+        <span class="portal-icon">🚢</span> اللوجستيات والنقل
+      </a>
+      <a class="portal-link" href="/portal/buyer" onclick="return false">
+        <span class="portal-icon">🛒</span> بوابة المشتري
+      </a>
+      <a class="portal-link" href="/portal/supplier" onclick="return false">
+        <span class="portal-icon">📦</span> بوابة المورد
+      </a>
+      <a class="portal-link" href="/portal/agent" onclick="return false">
+        <span class="portal-icon">🤝</span> بوابة الوكيل
+      </a>
+      <a class="portal-link" href="/portal/government" onclick="return false">
+        <span class="portal-icon">🏛️</span> بوابة الحكومة
+      </a>
+      <a class="portal-link" href="/portal/finance" onclick="return false">
+        <span class="portal-icon">💹</span> المالية والتقارير
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">🔗 طبقات SGSC-OS</div>
+      <div class="layers-list" id="systemLayers">
+        <div class="layer-item">
+          <div class="layer-num" style="background:#0ea5e9">1</div>
+          <div class="layer-info">
+            <div class="layer-name">Experience Layer</div>
+            <div class="layer-desc">بوابات العملاء والوكلاء</div>
+          </div>
+          <span class="layer-status badge badge-green">نشط</span>
+        </div>
+        <div class="layer-item">
+          <div class="layer-num" style="background:#10b981">2</div>
+          <div class="layer-info">
+            <div class="layer-name">Operations Layer</div>
+            <div class="layer-desc">الطلبات والشحنات والفواتير</div>
+          </div>
+          <span class="layer-status badge badge-green">نشط</span>
+        </div>
+        <div class="layer-item">
+          <div class="layer-num" style="background:#f59e0b">3</div>
+          <div class="layer-info">
+            <div class="layer-name">Integration Layer</div>
+            <div class="layer-desc">Oracle / SAP / EDI / API</div>
+          </div>
+          <span class="layer-status badge badge-green">نشط</span>
+        </div>
+        <div class="layer-item">
+          <div class="layer-num" style="background:#8b5cf6">4</div>
+          <div class="layer-info">
+            <div class="layer-name">Intelligence Layer</div>
+            <div class="layer-desc">AI • التوصيات • المخاطر</div>
+          </div>
+          <span class="layer-status badge badge-green">نشط</span>
+        </div>
+        <div class="layer-item">
+          <div class="layer-num" style="background:#d4a853">5</div>
+          <div class="layer-info">
+            <div class="layer-name">Governance Layer</div>
+            <div class="layer-desc">صلاحيات • امتثال • تدقيق</div>
+          </div>
+          <span class="layer-status badge badge-green">نشط</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main class="ct-content">
+
+    <!-- Overview Tab -->
+    <div id="tab-overview" class="tab-content">
+
+      <div class="quran-verse">
+        <div class="quran-text">"وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ"</div>
+        <div class="quran-ref">— الأنفال ٦٠ | أساس الإعداد والتخطيط الاستراتيجي</div>
+      </div>
+
+      <!-- KPI Row -->
+      <div class="kpi-row" id="kpiRow">
+        <div class="kpi-card blue">
+          <div class="kpi-icon">📦</div>
+          <div class="kpi-label">الطلبات النشطة</div>
+          <div class="kpi-value" id="kpi-orders">—</div>
+          <div class="kpi-sub">طلبات جارية</div>
+        </div>
+        <div class="kpi-card green">
+          <div class="kpi-icon">🚢</div>
+          <div class="kpi-label">الشحنات الجارية</div>
+          <div class="kpi-value" id="kpi-shipments">—</div>
+          <div class="kpi-sub">in transit</div>
+        </div>
+        <div class="kpi-card yellow">
+          <div class="kpi-icon">📋</div>
+          <div class="kpi-label">RFQ مفتوحة</div>
+          <div class="kpi-value" id="kpi-rfqs">—</div>
+          <div class="kpi-sub">بانتظار عروض</div>
+        </div>
+        <div class="kpi-card purple">
+          <div class="kpi-icon">🌍</div>
+          <div class="kpi-label">الأسواق المتاحة</div>
+          <div class="kpi-value" id="kpi-markets">12</div>
+          <div class="kpi-sub">سوق عالمي</div>
+        </div>
+        <div class="kpi-card gold">
+          <div class="kpi-icon">🏢</div>
+          <div class="kpi-label">بوابات تشغيل</div>
+          <div class="kpi-value">9</div>
+          <div class="kpi-sub">بوابة متخصصة</div>
+        </div>
+        <div class="kpi-card red">
+          <div class="kpi-icon">⚠️</div>
+          <div class="kpi-label">تنبيهات نشطة</div>
+          <div class="kpi-value" id="kpi-alerts">0</div>
+          <div class="kpi-sub">تحتاج متابعة</div>
+        </div>
+      </div>
+
+      <!-- AI Insight -->
+      <div class="ai-card">
+        <div class="ai-card-header">
+          <span>🧠</span>
+          <span class="ai-card-title">توصية ذكاء اصطناعي — تحديث فوري</span>
+        </div>
+        <ul class="ai-bullets">
+          <li>شحنات المعادن على طريق جنوب آسيا تشهد ارتفاعاً في BDI هذا الأسبوع — راجع عروض ناقليك</li>
+          <li>أسعار السكراب النحاسي منخفضة ±8% عن متوسط 30 يوم — فرصة شراء محتملة</li>
+          <li>3 موردين لديهم انتهاء شهادات قادم خلال 30 يوم — تحقق من الامتثال</li>
+        </ul>
+      </div>
+
+      <!-- Panels Grid -->
+      <div class="panels-grid">
+
+        <!-- System Status Panel -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">🔋 حالة الأنظمة</div>
+            <div class="panel-actions">
+              <button class="panel-btn" onclick="loadSystemStatus()">تحديث</button>
+            </div>
+          </div>
+          <div class="panel-body" id="systemStatusBody">
+            <div class="loading"><div class="spinner"></div></div>
+          </div>
+        </div>
+
+        <!-- Recent Alerts -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">🚨 تنبيهات سلسلة الإمداد</div>
+          </div>
+          <div class="panel-body">
+            <div class="alert-item warn">
+              <span class="alert-icon">⚠️</span>
+              <div>
+                <div class="alert-text">مورد نحاس — إنتاج منخفض هذا الشهر</div>
+                <div class="alert-sub">تشيلي — Codelco — تأثير محتمل على التسليم</div>
+              </div>
+            </div>
+            <div class="alert-item info">
+              <span class="alert-icon">ℹ️</span>
+              <div>
+                <div class="alert-text">تحديث رسوم جمركية — الاتحاد الأوروبي</div>
+                <div class="alert-sub">يؤثر على HS 7204 — سكراب الحديد</div>
+              </div>
+            </div>
+            <div class="alert-item danger">
+              <span class="alert-icon">🔴</span>
+              <div>
+                <div class="alert-text">ارتفاع أسعار شحن الحاويات</div>
+                <div class="alert-sub">SCFI +12% أسبوعياً — راجع عقود الشحن</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PL Stack Overview -->
+      <div class="panel" style="margin-bottom:16px">
+        <div class="panel-header">
+          <div class="panel-title">🚛 خدمات اللوجستيات المتاحة (PL Stack)</div>
+          <button class="panel-btn" onclick="showTab('logistics')">عرض التفاصيل</button>
+        </div>
+        <div class="panel-body">
+          <div class="pl-row">
+            <div class="pl-card" onclick="showPLDetail('2PL')">
+              <h4>2PL</h4><p>ناقل مباشر</p>
+            </div>
+            <div class="pl-card" onclick="showPLDetail('3PL')">
+              <h4>3PL</h4><p>طرف ثالث</p>
+            </div>
+            <div class="pl-card" onclick="showPLDetail('4PL')">
+              <h4>4PL</h4><p>مدير السلسلة</p>
+            </div>
+            <div class="pl-card" onclick="showPLDetail('5PL')">
+              <h4>5PL</h4><p>شبكة رقمية</p>
+            </div>
+            <div class="pl-card" onclick="showPLDetail('360PL')">
+              <h4>360PL</h4><p>رؤية كاملة</p>
+            </div>
+            <div class="pl-card" onclick="showPLDetail('3DPL')">
+              <h4>3DPL</h4><p>لوجستيات رقمية</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Markets Tab -->
+    <div id="tab-markets" class="tab-content" style="display:none">
+      <h2 style="margin-bottom:16px;font-size:1rem;color:var(--accent)">🌍 الأسواق العالمية الشاملة</h2>
+      <div class="search-bar">
+        <input class="search-input" id="marketSearch" placeholder="ابحث عن سوق أو منتج أو كود HS...">
+        <button class="search-btn" onclick="searchMarkets()">بحث</button>
+      </div>
+      <div class="markets-grid" id="marketsGrid">
+        <div class="loading"><div class="spinner"></div></div>
+      </div>
+      <div id="marketDetail" style="margin-top:20px;display:none"></div>
+    </div>
+
+    <!-- Logistics Tab -->
+    <div id="tab-logistics" class="tab-content" style="display:none">
+      <h2 style="margin-bottom:16px;font-size:1rem;color:var(--accent)">🚢 منظومة اللوجستيات الشاملة</h2>
+      <div class="panels-grid">
+        <div class="panel panel-wide">
+          <div class="panel-header">
+            <div class="panel-title">خدمات PL المتاحة</div>
+          </div>
+          <div class="panel-body" id="plTypesBody">
+            <div class="loading"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <div class="panel-header">
+          <div class="panel-title">📊 تقدير تكلفة الشحن</div>
+        </div>
+        <div class="panel-body">
+          <form id="costEstimateForm" onsubmit="estimateShipmentCost(event)" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <label style="font-size:.78rem;color:var(--text-muted);display:block;margin-bottom:4px">نقطة الانطلاق</label>
+              <input class="search-input" name="origin" placeholder="مثال: Dubai, UAE" style="width:100%">
+            </div>
+            <div>
+              <label style="font-size:.78rem;color:var(--text-muted);display:block;margin-bottom:4px">الوجهة</label>
+              <input class="search-input" name="destination" placeholder="مثال: Shanghai, China" style="width:100%">
+            </div>
+            <div>
+              <label style="font-size:.78rem;color:var(--text-muted);display:block;margin-bottom:4px">البضاعة</label>
+              <input class="search-input" name="commodity" placeholder="مثال: copper, scrap steel">
+            </div>
+            <div>
+              <label style="font-size:.78rem;color:var(--text-muted);display:block;margin-bottom:4px">الكمية (طن)</label>
+              <input class="search-input" name="quantity_mt" type="number" placeholder="100">
+            </div>
+            <div>
+              <label style="font-size:.78rem;color:var(--text-muted);display:block;margin-bottom:4px">وسيلة النقل</label>
+              <select class="search-input" name="transport_mode" style="width:100%">
+                <option value="sea">بحري 🚢</option>
+                <option value="air">جوي ✈️</option>
+                <option value="road">بري 🚛</option>
+                <option value="rail">قطار 🚂</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:.78rem;color:var(--text-muted);display:block;margin-bottom:4px">مستوى PL</label>
+              <select class="search-input" name="plType" style="width:100%">
+                <option value="3PL">3PL</option>
+                <option value="4PL">4PL</option>
+                <option value="2PL">2PL</option>
+                <option value="5PL">5PL</option>
+              </select>
+            </div>
+            <div style="grid-column:1/-1">
+              <button type="submit" class="search-btn" style="width:100%;padding:10px">احسب التكلفة التقديرية</button>
+            </div>
+          </form>
+          <div id="costEstimateResult" style="margin-top:16px;display:none"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integration Tab -->
+    <div id="tab-integrations" class="tab-content" style="display:none">
+      <h2 style="margin-bottom:16px;font-size:1rem;color:var(--accent)">🔗 مركز التكامل مع ERP العالمية</h2>
+      <div class="integration-grid" id="integrationGrid">
+        <div class="loading"><div class="spinner"></div></div>
+      </div>
+      <div id="connectorDetail" style="margin-top:20px;display:none"></div>
+    </div>
+
+    <!-- AI Tab -->
+    <div id="tab-ai" class="tab-content" style="display:none">
+      <h2 style="margin-bottom:16px;font-size:1rem;color:var(--accent5)">🧠 طبقة الذكاء الاصطناعي</h2>
+      <div class="panels-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">🤖 تصنيف السكراب</div>
+          </div>
+          <div class="panel-body">
+            <form onsubmit="classifyScrap(event)">
+              <input class="search-input" name="description" placeholder="وصف المادة (مثال: أسلاك نحاسية قديمة)" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="weight_kg" type="number" placeholder="الوزن بالكيلوغرام" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="source" placeholder="مصدر السكراب (مثال: مصنع سيارات)" style="width:100%;margin-bottom:8px">
+              <button type="submit" class="search-btn" style="width:100%">🔍 صنّف السكراب</button>
+            </form>
+            <div id="scrapResult" style="margin-top:12px;display:none"></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">📍 توصية المورد</div>
+          </div>
+          <div class="panel-body">
+            <form onsubmit="recommendSupplier(event)">
+              <input class="search-input" name="product" placeholder="المنتج (مثال: copper cathodes)" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="quantity" type="number" placeholder="الكمية (طن)" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="destination" placeholder="وجهة التسليم" style="width:100%;margin-bottom:8px">
+              <button type="submit" class="search-btn" style="width:100%">🎯 اقترح موردين</button>
+            </form>
+            <div id="supplierResult" style="margin-top:12px;display:none"></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">🗺️ تحسين مسار النقل</div>
+          </div>
+          <div class="panel-body">
+            <form onsubmit="optimizeRoute(event)">
+              <input class="search-input" name="origin" placeholder="مكان الانطلاق" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="destination" placeholder="الوجهة" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="commodity" placeholder="نوع البضاعة" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="quantity_mt" type="number" placeholder="الكمية (طن)" style="width:100%;margin-bottom:8px">
+              <button type="submit" class="search-btn" style="width:100%">🚀 حسّن المسار</button>
+            </form>
+            <div id="routeResult" style="margin-top:12px;display:none"></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">⚠️ تقييم المخاطر</div>
+          </div>
+          <div class="panel-body">
+            <form onsubmit="assessRisk(event)">
+              <input class="search-input" name="supplierId" placeholder="معرّف المورد (اختياري)" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="marketId" placeholder="السوق (مثال: base_metals)" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="concentration" type="number" placeholder="تركيز التوريد % (مثال: 70)" style="width:100%;margin-bottom:8px">
+              <button type="submit" class="search-btn" style="width:100%">🔎 قيّم المخاطر</button>
+            </form>
+            <div id="riskResult" style="margin-top:12px;display:none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Operations Tab -->
+    <div id="tab-operations" class="tab-content" style="display:none">
+      <h2 style="margin-bottom:16px;font-size:1rem;color:var(--accent)">⚙️ إدارة العمليات</h2>
+      <div class="panels-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">📋 إنشاء RFQ جديد</div>
+          </div>
+          <div class="panel-body">
+            <form onsubmit="createRFQ(event)">
+              <input class="search-input" name="title" placeholder="عنوان الطلب" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="product" placeholder="المنتج / الخدمة" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="hs_code" placeholder="كود HS (اختياري)" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="quantity" type="number" placeholder="الكمية" style="width:100%;margin-bottom:8px">
+              <select class="search-input" name="unit" style="width:100%;margin-bottom:8px">
+                <option value="MT">طن متري (MT)</option>
+                <option value="KG">كيلوغرام</option>
+                <option value="Units">قطعة</option>
+                <option value="Liters">لتر</option>
+              </select>
+              <input class="search-input" name="destination" placeholder="وجهة التسليم" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="deliveryDate" type="date" style="width:100%;margin-bottom:8px">
+              <button type="submit" class="search-btn" style="width:100%">إنشاء RFQ</button>
+            </form>
+            <div id="rfqResult" style="margin-top:12px;display:none"></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">🏢 تسجيل مستأجر (عميل مؤسسي)</div>
+          </div>
+          <div class="panel-body">
+            <form onsubmit="registerTenant(event)">
+              <input class="search-input" name="companyName" placeholder="اسم الشركة (English)" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="companyNameAr" placeholder="اسم الشركة (عربي)" style="width:100%;margin-bottom:8px">
+              <select class="search-input" name="type" style="width:100%;margin-bottom:8px">
+                <option value="buyer">مشتري</option>
+                <option value="supplier">مورد</option>
+                <option value="factory">مصنع / منجم</option>
+                <option value="agent">وكيل</option>
+                <option value="logistics_provider">شركة لوجستية</option>
+                <option value="gov_authority">جهة حكومية</option>
+              </select>
+              <input class="search-input" name="country" placeholder="الدولة (ISO: SA, AE, CN...)" style="width:100%;margin-bottom:8px">
+              <input class="search-input" name="industry" placeholder="القطاع (metals, logistics, energy...)" style="width:100%;margin-bottom:8px">
+              <button type="submit" class="search-btn" style="width:100%">تسجيل العميل</button>
+            </form>
+            <div id="tenantResult" style="margin-top:12px;display:none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HS Code Tab -->
+    <div id="tab-hscode" class="tab-content" style="display:none">
+      <h2 style="margin-bottom:16px;font-size:1rem;color:var(--accent)">🏷️ محرك HS Code — البحث الجمركي العالمي</h2>
+      <div class="search-bar">
+        <input class="search-input" id="hsInput" placeholder="أدخل كود HS (مثال: 7404) أو اسم منتج...">
+        <button class="search-btn" onclick="searchHS()">بحث</button>
+      </div>
+      <div id="hsResult" style="margin-top:16px;display:none"></div>
+      <div class="panel" style="margin-top:20px">
+        <div class="panel-header">
+          <div class="panel-title">📚 أمثلة HS Codes للمعادن والسكراب</div>
+        </div>
+        <div class="panel-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>كود HS</th>
+                <th>الوصف</th>
+                <th>السوق</th>
+                <th>بحث</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>7404</td><td>سكراب النحاس</td><td>Scrap</td><td><button class="panel-btn" onclick="quickHS('7404')">بحث</button></td></tr>
+              <tr><td>7602</td><td>سكراب الألمنيوم</td><td>Scrap</td><td><button class="panel-btn" onclick="quickHS('7602')">بحث</button></td></tr>
+              <tr><td>7204</td><td>سكراب الحديد والفولاذ</td><td>Scrap</td><td><button class="panel-btn" onclick="quickHS('7204')">بحث</button></td></tr>
+              <tr><td>7403</td><td>نحاس مكرر</td><td>Base Metals</td><td><button class="panel-btn" onclick="quickHS('7403')">بحث</button></td></tr>
+              <tr><td>7601</td><td>ألمنيوم خام</td><td>Base Metals</td><td><button class="panel-btn" onclick="quickHS('7601')">بحث</button></td></tr>
+              <tr><td>7108</td><td>ذهب خام</td><td>Precious Metals</td><td><button class="panel-btn" onclick="quickHS('7108')">بحث</button></td></tr>
+              <tr><td>2601</td><td>خام الحديد</td><td>Mining</td><td><button class="panel-btn" onclick="quickHS('2601')">بحث</button></td></tr>
+              <tr><td>2709</td><td>نفط خام</td><td>Energy</td><td><button class="panel-btn" onclick="quickHS('2709')">بحث</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const API_BASE = '/api/scm';
+
+// Live clock
+function updateTime() {
+  const el = document.getElementById('liveTime');
+  if (el) el.textContent = new Date().toLocaleTimeString('ar-SA');
+}
+setInterval(updateTime, 1000);
+updateTime();
+
+// Tab switching
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('.ct-tab').forEach(t => t.classList.remove('active'));
+  const target = document.getElementById('tab-' + tabId);
+  if (target) { target.style.display = 'block'; }
+  const tabs = ['overview','markets','logistics','integrations','ai','operations','hscode'];
+  const idx = tabs.indexOf(tabId);
+  if (idx >= 0) document.querySelectorAll('.ct-tab')[idx].classList.add('active');
+
+  if (tabId === 'overview') loadSystemStatus();
+  if (tabId === 'markets') loadMarkets();
+  if (tabId === 'logistics') loadPLTypes();
+  if (tabId === 'integrations') loadIntegrations();
+}
+
+// Load system status
+async function loadSystemStatus() {
+  try {
+    const res = await fetch(API_BASE + '/status');
+    const data = await res.json();
+    if (data.success) {
+      const s = data.data;
+      document.getElementById('kpi-markets').textContent = s.markets || 12;
+      const body = document.getElementById('systemStatusBody');
+      if (body) {
+        body.innerHTML = `
+          <div style="display:flex;flex-direction:column;gap:8px">
+            ${Object.entries(s.layers || {}).map(([k,v]) => `
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--bg-card2);border-radius:6px;font-size:.82rem">
+                <span style="color:var(--text)">${k.replace(/_/g,' ')}</span>
+                <span class="badge ${v.includes('✅') ? 'badge-green' : 'badge-red'}">${v}</span>
+              </div>
+            `).join('')}
+            <div style="margin-top:8px;padding:8px 12px;background:var(--bg-card2);border-radius:6px;font-size:.78rem;color:var(--text-muted)">
+              Uptime: <strong style="color:var(--accent)">${s.uptime || 'N/A'}</strong> | 
+              Version: <strong style="color:var(--accent)">${s.version || '1.0.0'}</strong>
+            </div>
+          </div>`;
+      }
+    }
+  } catch(e) {
+    const body = document.getElementById('systemStatusBody');
+    if (body) body.innerHTML = '<p style="color:var(--text-muted);font-size:.8rem;padding:10px">النظام يُحمَّل...</p>';
+  }
+}
+
+// Load markets
+async function loadMarkets() {
+  const grid = document.getElementById('marketsGrid');
+  try {
+    const res = await fetch(API_BASE + '/markets');
+    const data = await res.json();
+    if (data.success) {
+      grid.innerHTML = data.data.map(m => `
+        <div class="market-card" onclick="loadMarketDetail('${m.id}')">
+          <div class="market-icon">${m.icon || '📦'}</div>
+          <div class="market-name">${m.nameAr}</div>
+          <div class="market-size">${m.globalMarketSize || ''}</div>
+          <div class="market-size" style="margin-top:3px">${m.productsCount || 0} منتج</div>
+        </div>
+      `).join('');
+    }
+  } catch(e) {
+    grid.innerHTML = '<p style="color:var(--text-muted)">تعذّر تحميل الأسواق</p>';
+  }
+}
+
+async function loadMarketDetail(marketId) {
+  const detail = document.getElementById('marketDetail');
+  detail.style.display = 'block';
+  detail.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const res = await fetch(API_BASE + '/markets/' + marketId);
+    const data = await res.json();
+    if (data.success && data.data) {
+      const m = data.data;
+      const products = m.products ? Object.keys(m.products) : [];
+      detail.innerHTML = `
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">${m.icon || '📦'} ${m.nameAr} — ${m.nameEn}</div>
+            <button class="panel-btn" onclick="document.getElementById('marketDetail').style.display='none'">✕</button>
+          </div>
+          <div class="panel-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.82rem">
+              <div><strong style="color:var(--text-muted)">حجم السوق العالمي:</strong> <span style="color:var(--accent2)">${m.globalMarketSize || 'N/A'}</span></div>
+              <div><strong style="color:var(--text-muted)">عدد المنتجات:</strong> <span style="color:var(--accent)">${products.length}</span></div>
+              ${m.exchanges ? `<div style="grid-column:1/-1"><strong style="color:var(--text-muted)">البورصات:</strong> <span>${m.exchanges.join(' • ')}</span></div>` : ''}
+              ${m.islamicCompliance ? `<div style="grid-column:1/-1"><strong style="color:var(--gold)">الحكم الشرعي:</strong> <span>${m.islamicCompliance}</span></div>` : ''}
+            </div>
+            <div style="margin-top:12px">
+              <strong style="font-size:.78rem;color:var(--text-muted)">المنتجات:</strong>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">
+                ${products.map(p => `<span class="badge badge-blue" style="cursor:pointer" onclick="loadProductDetail('${marketId}','${p}')">${p.replace(/_/g,' ')}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }
+  } catch(e) {
+    detail.innerHTML = '<p style="color:var(--text-muted)">تعذّر تحميل بيانات السوق</p>';
+  }
+}
+
+async function loadProductDetail(marketId, productId) {
+  const detail = document.getElementById('marketDetail');
+  detail.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const res = await fetch(`${API_BASE}/markets/${marketId}/products/${productId}`);
+    const data = await res.json();
+    if (data.success) {
+      const p = data.data;
+      detail.innerHTML = `
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">${p.nameAr || productId} — ${p.nameEn || ''}</div>
+            <button class="panel-btn" onclick="loadMarketDetail('${marketId}')">← رجوع</button>
+          </div>
+          <div class="panel-body">
+            <pre style="font-size:.75rem;color:var(--text);overflow:auto;max-height:400px;white-space:pre-wrap">${JSON.stringify(p, null, 2)}</pre>
+          </div>
+        </div>`;
+    }
+  } catch(e) {}
+}
+
+// Load PL Types
+async function loadPLTypes() {
+  const body = document.getElementById('plTypesBody');
+  try {
+    const res = await fetch(API_BASE + '/logistics/pl-types');
+    const data = await res.json();
+    if (data.success) {
+      body.innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px">
+        ${data.data.map(pl => `
+          <div class="pl-card" style="padding:14px" onclick="showPLDetail('${pl.id}')">
+            <h4 style="font-size:1rem;margin-bottom:6px">${pl.id}</h4>
+            <p style="font-size:.82rem;color:var(--text);margin-bottom:4px">${pl.nameAr}</p>
+            <p style="font-size:.72rem;color:var(--text-muted)">${pl.description}</p>
+          </div>
+        `).join('')}
+      </div>`;
+    }
+  } catch(e) {
+    if (body) body.innerHTML = '<p style="color:var(--text-muted)">تعذّر تحميل أنواع PL</p>';
+  }
+}
+
+async function showPLDetail(plType) {
+  try {
+    const res = await fetch(`${API_BASE}/logistics/pl-types/${plType}`);
+    const data = await res.json();
+    if (data.success) {
+      alert(`${plType}\n${data.data.nameAr}\n\n${data.data.description}\n\nالدور في شيخة: ${data.data.sheikhaRole}`);
+    }
+  } catch(e) {}
+}
+
+// Load Integrations
+async function loadIntegrations() {
+  const grid = document.getElementById('integrationGrid');
+  try {
+    const res = await fetch(API_BASE + '/integrations/connectors');
+    const data = await res.json();
+    if (data.success) {
+      grid.innerHTML = data.data.map(c => `
+        <div class="integration-card" onclick="showConnectorDetail('${c.id}')">
+          <div class="integration-icon">${c.icon}</div>
+          <div class="integration-name">${c.nameEn}</div>
+          <div class="integration-desc">${c.description}</div>
+          <span class="integration-badge badge badge-green" style="margin-top:6px">متوفر</span>
+        </div>
+      `).join('');
+    }
+  } catch(e) {
+    grid.innerHTML = '<p style="color:var(--text-muted)">تعذّر تحميل الموصلات</p>';
+  }
+}
+
+async function showConnectorDetail(connectorId) {
+  try {
+    const res = await fetch(`${API_BASE}/integrations/connectors/${connectorId}`);
+    const data = await res.json();
+    if (data.success) {
+      const c = data.data;
+      const detail = document.getElementById('connectorDetail');
+      detail.style.display = 'block';
+      detail.innerHTML = `
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">${c.icon} ${c.nameEn}</div>
+            <button class="panel-btn" onclick="document.getElementById('connectorDetail').style.display='none'">✕</button>
+          </div>
+          <div class="panel-body">
+            <div style="font-size:.82rem;color:var(--text);margin-bottom:10px">${c.description}</div>
+            ${c.capabilities ? `<div><strong style="color:var(--text-muted);font-size:.75rem">القدرات:</strong><ul style="margin-top:6px;padding-right:16px;font-size:.78rem;color:var(--text)">${c.capabilities.map(cap => `<li style="margin-bottom:3px">${cap}</li>`).join('')}</ul></div>` : ''}
+          </div>
+        </div>`;
+    }
+  } catch(e) {}
+}
+
+// AI functions
+async function classifyScrap(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const params = Object.fromEntries(fd.entries());
+  const result = document.getElementById('scrapResult');
+  result.style.display = 'block';
+  result.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const res = await fetch(API_BASE + '/ai/classify-scrap', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(params) });
+    const data = await res.json();
+    if (data.success) {
+      const r = data.data;
+      result.innerHTML = `<div class="panel"><div class="panel-body">
+        <div style="font-size:.82rem">
+          <div style="margin-bottom:8px"><strong style="color:var(--accent5)">المعدن المكتشف:</strong> <span class="badge badge-purple">${r.detectedMetal}</span></div>
+          <div style="margin-bottom:4px"><strong style="color:var(--text-muted)">الدرجة المقترحة:</strong> ${r.suggestedGrade}</div>
+          <div style="margin-bottom:4px"><strong style="color:var(--text-muted)">النقاوة التقديرية:</strong> ${r.estimatedPurity}</div>
+          <div style="margin-bottom:4px"><strong style="color:var(--text-muted)">القيمة التقديرية:</strong> <span style="color:var(--accent2)">${r.estimatedValue}</span></div>
+          <div style="margin-bottom:4px"><strong style="color:var(--text-muted)">مرجع السعر:</strong> ${r.priceReference}</div>
+          <div style="margin-top:8px;padding:8px;background:rgba(212,168,83,0.08);border-radius:6px;font-size:.75rem;color:var(--gold)">${r.islamicNote}</div>
+        </div>
+      </div></div>`;
+    }
+  } catch(e2) { result.innerHTML = '<p style="color:var(--accent4)">خطأ في الاتصال</p>'; }
+}
+
+async function recommendSupplier(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const params = Object.fromEntries(fd.entries());
+  const result = document.getElementById('supplierResult');
+  result.style.display = 'block';
+  result.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const res = await fetch(API_BASE + '/ai/recommend-supplier', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(params) });
+    const data = await res.json();
+    if (data.success) {
+      const r = data.data;
+      result.innerHTML = `<div class="panel"><div class="panel-body">
+        ${r.recommendations.map(s => `
+          <div style="padding:10px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;font-size:.8rem">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+              <span class="badge badge-blue">#${s.rank}</span>
+              <strong style="color:var(--text)">${s.name}</strong>
+              <span class="badge badge-green">Score: ${s.score}</span>
+            </div>
+            <div style="color:var(--text-muted)">${s.country}</div>
+            <div style="margin-top:4px;color:var(--text-muted);font-size:.72rem">${s.aiNote}</div>
+          </div>
+        `).join('')}
+      </div></div>`;
+    }
+  } catch(e2) { result.innerHTML = '<p style="color:var(--accent4)">خطأ في الاتصال</p>'; }
+}
+
+async function optimizeRoute(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const params = Object.fromEntries(fd.entries());
+  const result = document.getElementById('routeResult');
+  result.style.display = 'block';
+  result.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const res = await fetch(API_BASE + '/ai/optimize-route', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(params) });
+    const data = await res.json();
+    if (data.success) {
+      const r = data.data;
+      result.innerHTML = `<div class="panel"><div class="panel-body">
+        ${r.routes.map(route => `
+          <div style="padding:10px;border:1px solid ${route.recommended ? 'var(--accent2)' : 'var(--border)'};border-radius:8px;margin-bottom:8px;font-size:.8rem">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+              <strong style="color:${route.recommended ? 'var(--accent2)' : 'var(--text)'}">${route.name}</strong>
+              ${route.recommended ? '<span class="badge badge-green">موصى به</span>' : ''}
+            </div>
+            <div style="display:flex;gap:16px;color:var(--text-muted)">
+              <span>⏱ ${route.transitTime}</span>
+              <span>💰 ${route.estimatedCost}</span>
+              <span>📊 ${route.reliability}</span>
+            </div>
+          </div>
+        `).join('')}
+        <div style="margin-top:8px;font-size:.75rem;color:var(--text-muted)">${r.aiInsight}</div>
+      </div></div>`;
+    }
+  } catch(e2) { result.innerHTML = '<p style="color:var(--accent4)">خطأ في الاتصال</p>'; }
+}
+
+async function assessRisk(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const params = Object.fromEntries(fd.entries());
+  const result = document.getElementById('riskResult');
+  result.style.display = 'block';
+  result.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const res = await fetch(API_BASE + '/ai/assess-risk', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(params) });
+    const data = await res.json();
+    if (data.success) {
+      const r = data.data;
+      const colorMap = { low: 'badge-green', medium: 'badge-yellow', high: 'badge-red' };
+      result.innerHTML = `<div class="panel"><div class="panel-body">
+        <div style="text-align:center;margin-bottom:12px">
+          <div style="font-size:2rem;font-weight:700;${r.riskLevel === 'low' ? 'color:var(--accent2)' : r.riskLevel === 'high' ? 'color:var(--accent4)' : 'color:var(--accent3)'}">${r.overallScore}</div>
+          <span class="badge ${colorMap[r.riskLevel]}">${r.riskLabel}</span>
+        </div>
+        ${r.risks.map(risk => `
+          <div class="alert-item ${risk.severity === 'high' ? 'danger' : 'warn'}">
+            <span class="alert-icon">${risk.severity === 'high' ? '🔴' : '⚠️'}</span>
+            <div>
+              <div class="alert-text">${risk.description}</div>
+              <div class="alert-sub">${risk.recommendation}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div></div>`;
+    }
+  } catch(e2) { result.innerHTML = '<p style="color:var(--accent4)">خطأ في الاتصال</p>'; }
+}
+
+async function createRFQ(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const params = { ...Object.fromEntries(fd.entries()), tenantId: 'demo-tenant' };
+  const result = document.getElementById('rfqResult');
+  result.style.display = 'block';
+  result.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const res = await fetch(API_BASE + '/rfq', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(params) });
+    const data = await res.json();
+    if (data.success) {
+      result.innerHTML = `<div class="alert-item info">
+        <span class="alert-icon">✅</span>
+        <div><div class="alert-text">تم إنشاء RFQ بنجاح</div>
+        <div class="alert-sub">المعرف: <strong>${data.data.id}</strong></div></div>
+      </div>`;
+    }
+  } catch(e2) { result.innerHTML = '<p style="color:var(--accent4)">خطأ في الاتصال</p>'; }
+}
+
+async function registerTenant(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const params = Object.fromEntries(fd.entries());
+  const result = document.getElementById('tenantResult');
+  result.style.display = 'block';
+  result.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const res = await fetch(API_BASE + '/tenants', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(params) });
+    const data = await res.json();
+    if (data.success) {
+      result.innerHTML = `<div class="alert-item info">
+        <span class="alert-icon">✅</span>
+        <div><div class="alert-text">تم تسجيل العميل بنجاح</div>
+        <div class="alert-sub">المعرف: <strong>${data.tenantId}</strong></div></div>
+      </div>`;
+    }
+  } catch(e2) { result.innerHTML = '<p style="color:var(--accent4)">خطأ في الاتصال</p>'; }
+}
+
+async function estimateShipmentCost(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const params = Object.fromEntries(fd.entries());
+  const result = document.getElementById('costEstimateResult');
+  result.style.display = 'block';
+  result.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const res = await fetch(API_BASE + '/logistics/estimate-cost', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(params) });
+    const data = await res.json();
+    if (data.success) {
+      const r = data.data;
+      result.innerHTML = `<div class="panel"><div class="panel-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:.82rem">
+          ${Object.entries(r.breakdown).map(([k,v]) => `
+            <div style="padding:8px;background:var(--bg-card2);border-radius:6px">
+              <div style="color:var(--text-muted);font-size:.7rem">${k.replace(/_/g,' ')}</div>
+              <div style="color:var(--accent);font-weight:600">${v}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div style="margin-top:10px;font-size:.72rem;color:var(--text-muted)">${r.disclaimer}</div>
+      </div></div>`;
+    }
+  } catch(e2) { result.innerHTML = '<p style="color:var(--accent4)">خطأ في الاتصال</p>'; }
+}
+
+function searchMarkets() {
+  const q = document.getElementById('marketSearch').value;
+  if (q.trim()) {
+    document.getElementById('hsInput').value = q;
+    showTab('hscode');
+    setTimeout(searchHS, 200);
+  }
+}
+
+function quickHS(code) {
+  document.getElementById('hsInput').value = code;
+  searchHS();
+}
+
+async function searchHS() {
+  const q = document.getElementById('hsInput').value.trim();
+  if (!q) return;
+  const result = document.getElementById('hsResult');
+  result.style.display = 'block';
+  result.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const isCode = /^\d/.test(q);
+    const url = isCode ? `${API_BASE}/hs-codes/search?code=${q}` : `${API_BASE}/hs-codes/search?q=${encodeURIComponent(q)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.success) {
+      result.innerHTML = `<div class="panel"><div class="panel-header"><div class="panel-title">نتيجة البحث: "${q}"</div></div><div class="panel-body">
+        <pre style="font-size:.75rem;color:var(--text);overflow:auto;max-height:300px;white-space:pre-wrap">${JSON.stringify(data.data, null, 2)}</pre>
+      </div></div>`;
+    }
+  } catch(e) {
+    result.innerHTML = '<p style="color:var(--accent4)">خطأ في الاتصال</p>';
+  }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  loadSystemStatus();
+});
+</script>
+</body>
+</html>

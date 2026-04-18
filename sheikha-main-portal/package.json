@@ -4,7 +4,8 @@
   "description": "البوابة الرسمية لمنظومة شيخة | Sheikha Enterprise AL Portal",
   "main": "server.js",
   "engines": {
-    "node": "^20.0.0 || ^25.0.0"
+    "node": "^20.0.0 || ^25.0.0",
+    "pm2": ">=6.0.0"
   },
   "scripts": {
     "start": "node --max-old-space-size=2048 server.js",
@@ -15,8 +16,6 @@
     "meta:status": "pm2 describe sheikha-meta-background",
     "meta:logs": "pm2 logs sheikha-meta-background --lines 100",
     "meta:dev": "node scripts/sheikha-meta-background.js",
-    "meta:test-capi": "node scripts/test-capi.js",
-    "meta:test-landing-page-view": "META_TEST_EVENT_TYPE=LandingPageView node scripts/test-capi.js",
     "sovereign:start": "node scripts/grand-sovereign-script.js",
     "sovereign:ignite": "node scripts/sheikha-final-launch.js",
     "sovereign:registry": "node scripts/sheikha-official-registry.js",
@@ -323,7 +322,8 @@
     "uuid": "^9.0.0",
     "ws": "^8.14.2"
   },
-  "devDependencies": {
-    "pm2": "^6.0.14"
+  "overrides": {
+    "teeny-request": ">=10.1.2",
+    "retry-request": ">=8.0.2"
   }
 }

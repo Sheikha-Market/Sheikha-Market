@@ -40,7 +40,12 @@ jobs:
           cache-dependency-path: sheikha-main-portal/package-lock.json
 
       - name: 📦 Install dependencies
-        run: npm ci --prefer-offline
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --prefer-offline
+          else
+            npm install --prefer-offline
+          fi
 
       - name: 🔒 Security audit
         run: npm audit --audit-level=moderate

@@ -20,7 +20,8 @@ const config = {
     // ─── إعدادات الخادم ───────────────────────────────────────────────────────
     server: {
         port: process.env.PORT || 8080,
-        host: process.env.HOST || 'localhost',
+        // 🛡️ الإنتاج → 0.0.0.0 (داخل الحاوية) | التطوير → 127.0.0.1 (محلي فقط)
+        host: process.env.HOST || (isProductionEnv ? '0.0.0.0' : '127.0.0.1'),
         env: process.env.NODE_ENV || 'development'
     },
 
@@ -36,7 +37,14 @@ const config = {
             saudiMarket: 'saudi-market-preloaded.json',
             shariaRules: 'sharia-rules.json',
             marketingServices: 'marketing-services.json',
-            aiLearning: 'ai-learning.json'
+            aiLearning: 'ai-learning.json',
+            // ─── منظومة المنظمات والأسواق ─────────────────────────────────────
+            organizations:       'organizations.json',         // سجل المنظمات (root + متخصصة)
+            marketUnits:         'market-units.json',          // سجل الأسواق (حقيقي + إلكتروني + رقمي)
+            // ─── الحوكمة والملكية الفكرية ──────────────────────────────────────
+            governance:          'governance-decisions.json',  // قرارات الحوكمة الشرعية
+            intellectualProperty:'intellectual-property.json', // سجل الأصول الفكرية
+            ipViolations:        'ip-violations.json'          // بلاغات انتهاك الملكية الفكرية
         }
     },
 

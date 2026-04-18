@@ -15,7 +15,11 @@ WORKDIR /app
 COPY package*.json ./
 
 # ─── تثبيت التبعيات (إنتاجي فقط) ─────────────────────────────────────────────
-RUN npm ci --only=production && npm cache clean --force
+RUN if [ -f package-lock.json ]; then \
+      npm ci --omit=dev && npm cache clean --force; \
+    else \
+      npm install --omit=dev && npm cache clean --force; \
+    fi
 
 # ─── نسخ كود المشروع ─────────────────────────────────────────────────────────
 COPY server.js ./
@@ -33,6 +37,7 @@ USER sheikha
 # ─── متغيرات البيئة الافتراضية ────────────────────────────────────────────────
 ENV NODE_ENV=production
 ENV PORT=8080
+ENV HOST=0.0.0.0
 
 # ─── الصحة ────────────────────────────────────────────────────────────────────
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
