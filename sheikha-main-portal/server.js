@@ -909,17 +909,8 @@ try {
     console.warn('⚠️ VideoContent:', e.message);
 }
 
-// ☪️ منظومة التسويق الشامل الموحد — UMB
+// ☪️ منظومة التسويق الشامل الموحد — UMB (مُعرَّفة هنا، تُسجَّل بعد app)
 let unifiedMarketingBrain = null;
-try {
-    const SheikhaUMB = require('./lib/sheikha-unified-marketing-brain.js');
-    unifiedMarketingBrain = new SheikhaUMB();
-    unifiedMarketingBrain.registerRoutes(app);
-    const umbStatus = unifiedMarketingBrain.getStatus();
-    console.log(`✅ [UMB v${umbStatus.version}] ${umbStatus.nameAr} | ${umbStatus.platforms} منصة | ${umbStatus.adChannels} قناة إعلانية | ${umbStatus.events} مناسبة`);
-} catch (e) {
-    console.warn('⚠️ UnifiedMarketingBrain:', e.message);
-}
 
 // ☪️ محرك التزامن والرزنامة — التاريخ الهجري أساسي
 let calendarEngine = null;
@@ -35353,6 +35344,17 @@ try {
     sovereignNet.mountAll(app, { wss: _wss, noHarm: true, identityStamp: true, cloud: true, cronJobs: true });
 } catch (e) {
     console.warn('⚠️ [SOVEREIGN-NET] فشل التحميل — الخادم يستمر بدونه:', e.message);
+}
+
+// ☪️ منظومة التسويق الشامل الموحد — UMB (قبل 404 handler)
+try {
+    const SheikhaUMB = require('./lib/sheikha-unified-marketing-brain.js');
+    unifiedMarketingBrain = new SheikhaUMB();
+    unifiedMarketingBrain.registerRoutes(app);
+    const umbStatus = unifiedMarketingBrain.getStatus();
+    console.log(`✅ [UMB v${umbStatus.version}] ${umbStatus.nameAr} | ${umbStatus.platforms} منصة | ${umbStatus.adChannels} قناة إعلانية | ${umbStatus.events} مناسبة`);
+} catch (e) {
+    console.warn('⚠️ UnifiedMarketingBrain:', e.message);
 }
 
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
