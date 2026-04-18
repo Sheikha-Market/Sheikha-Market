@@ -11324,6 +11324,211 @@ app.get('/api/auth/authenticator-status', authRequired, (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🔢 الرقم السري — PIN System
+// «وَأَوْفُوا بِالْعَهْدِ إِنَّ الْعَهْدَ كَانَ مَسْئُولًا» — الإسراء ٣٤
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const PIN_MAX_ATTEMPTS  = 5;           // أقصى عدد محاولات خاطئة
+const PIN_LOCKOUT_MS    = 15 * 60 * 1000; // 15 دقيقة إغلاق
+const PIN_PBKDF2_ITER   = 210000;      // تكرارات PBKDF2 (OWASP 2023)
+const PIN_PBKDF2_LEN    = 64;          // طول المفتاح بالبايت
+const PIN_PBKDF2_DIGEST = 'sha512';    // خوارزمية التجزئة
+
+/** تشفير الرقم السري بـ PBKDF2 مع ملح خاص بكل مستخدم */
+function hashPIN(pin, salt) {
+    return crypto.pbkdf2Sync(
+        String(pin), salt, PIN_PBKDF2_ITER, PIN_PBKDF2_LEN, PIN_PBKDF2_DIGEST
+    ).toString('hex');
+}
+
+/** التحقق من الرقم السري */
+function verifyPIN(pin, hash, salt) {
+    return hashPIN(pin, salt) === hash;
+}
+
+/** التحقق من صيغة الرقم السري: أرقام فقط، 4–6 خانات */
+function validatePINFormat(pin) {
+    return /^\d{4,6}$/.test(String(pin || ''));
+}
+
+// ─── تعيين الرقم السري ────────────────────────────────────────────────────────
+app.post('/api/auth/pin/set', express.json(), authRequired, (req, res) => {
+    const { pin, password } = req.body || {};
+    if (!pin || !password)
+        return res.status(400).json({ success: false, message: 'الرقم السري وكلمة المرور مطلوبان.' });
+    if (!validatePINFormat(pin))
+        return res.status(400).json({ success: false, message: 'الرقم السري يجب أن يكون 4–6 أرقام فقط.' });
+
+    const user = USERS.find(u => u.id === req.user.id);
+    if (!user) return res.status(404).json({ success: false, message: 'مستخدم غير موجود.' });
+
+    // التحقق من كلمة المرور الحالية قبل تعيين الرقم السري
+    if (!verifyPassword(password, user.passwordHash))
+        return res.status(401).json({ success: false, message: 'كلمة المرور غير صحيحة.' });
+
+    const pinSalt   = crypto.randomBytes(32).toString('hex');
+    user.pinHash    = hashPIN(pin, pinSalt);
+    user.pinSalt    = pinSalt;
+    user.pinEnabled = true;
+    user.pinFailedAttempts = 0;
+    user.pinLockedUntil    = null;
+    user.updatedAt  = new Date().toISOString();
+    if (!user.securityLog) user.securityLog = [];
+    user.securityLog.push({ action: 'pin_set', at: new Date().toISOString() });
+    saveJSON(USERS_FILE, USERS);
+
+    res.json({ success: true, message: 'تم تعيين الرقم السري بنجاح.' });
+});
+
+// ─── التحقق من الرقم السري ────────────────────────────────────────────────────
+app.post('/api/auth/pin/verify', express.json(), authRequired, (req, res) => {
+    const { pin } = req.body || {};
+    if (!pin)
+        return res.status(400).json({ success: false, message: 'الرقم السري مطلوب.' });
+
+    const user = USERS.find(u => u.id === req.user.id);
+    if (!user) return res.status(404).json({ success: false, message: 'مستخدم غير موجود.' });
+
+    if (!user.pinEnabled || !user.pinHash)
+        return res.status(400).json({ success: false, message: 'لم يتم تعيين رقم سري بعد.' });
+
+    // فحص الإغلاق
+    if (user.pinLockedUntil && Date.now() < user.pinLockedUntil) {
+        const remaining = Math.ceil((user.pinLockedUntil - Date.now()) / 60000);
+        return res.status(429).json({
+            success: false,
+            message: `الحساب مغلق مؤقتاً. حاول بعد ${remaining} دقيقة.`,
+            lockedUntil: user.pinLockedUntil
+        });
+    }
+
+    const correct = verifyPIN(pin, user.pinHash, user.pinSalt);
+
+    if (!correct) {
+        user.pinFailedAttempts = (user.pinFailedAttempts || 0) + 1;
+        if (user.pinFailedAttempts >= PIN_MAX_ATTEMPTS) {
+            user.pinLockedUntil = Date.now() + PIN_LOCKOUT_MS;
+            user.pinFailedAttempts = 0;
+            if (!user.securityLog) user.securityLog = [];
+            user.securityLog.push({ action: 'pin_locked', at: new Date().toISOString() });
+            saveJSON(USERS_FILE, USERS);
+            return res.status(429).json({
+                success: false,
+                message: 'تجاوزت الحد المسموح. تم إغلاق الرقم السري 15 دقيقة.'
+            });
+        }
+        saveJSON(USERS_FILE, USERS);
+        return res.status(401).json({
+            success: false,
+            message: 'رقم سري غير صحيح.',
+            attemptsLeft: PIN_MAX_ATTEMPTS - user.pinFailedAttempts
+        });
+    }
+
+    // نجاح التحقق
+    user.pinFailedAttempts = 0;
+    user.pinLockedUntil    = null;
+    user.pinLastUsed       = new Date().toISOString();
+    if (!user.securityLog) user.securityLog = [];
+    user.securityLog.push({ action: 'pin_verified', at: new Date().toISOString() });
+    saveJSON(USERS_FILE, USERS);
+
+    res.json({ success: true, message: 'تم التحقق من الرقم السري بنجاح.', verified: true });
+});
+
+// ─── تغيير الرقم السري ────────────────────────────────────────────────────────
+app.post('/api/auth/pin/change', express.json(), authRequired, (req, res) => {
+    const { oldPin, newPin } = req.body || {};
+    if (!oldPin || !newPin)
+        return res.status(400).json({ success: false, message: 'الرقم السري القديم والجديد مطلوبان.' });
+    if (!validatePINFormat(newPin))
+        return res.status(400).json({ success: false, message: 'الرقم السري الجديد يجب أن يكون 4–6 أرقام فقط.' });
+    if (oldPin === newPin)
+        return res.status(400).json({ success: false, message: 'الرقم السري الجديد يجب أن يختلف عن القديم.' });
+
+    const user = USERS.find(u => u.id === req.user.id);
+    if (!user) return res.status(404).json({ success: false, message: 'مستخدم غير موجود.' });
+
+    if (!user.pinEnabled || !user.pinHash)
+        return res.status(400).json({ success: false, message: 'لم يتم تعيين رقم سري بعد.' });
+
+    if (user.pinLockedUntil && Date.now() < user.pinLockedUntil) {
+        const remaining = Math.ceil((user.pinLockedUntil - Date.now()) / 60000);
+        return res.status(429).json({
+            success: false,
+            message: `الحساب مغلق مؤقتاً. حاول بعد ${remaining} دقيقة.`
+        });
+    }
+
+    if (!verifyPIN(oldPin, user.pinHash, user.pinSalt)) {
+        user.pinFailedAttempts = (user.pinFailedAttempts || 0) + 1;
+        if (user.pinFailedAttempts >= PIN_MAX_ATTEMPTS) {
+            user.pinLockedUntil = Date.now() + PIN_LOCKOUT_MS;
+            user.pinFailedAttempts = 0;
+            if (!user.securityLog) user.securityLog = [];
+            user.securityLog.push({ action: 'pin_locked', at: new Date().toISOString() });
+        }
+        saveJSON(USERS_FILE, USERS);
+        return res.status(401).json({ success: false, message: 'الرقم السري القديم غير صحيح.' });
+    }
+
+    const newSalt   = crypto.randomBytes(32).toString('hex');
+    user.pinHash    = hashPIN(newPin, newSalt);
+    user.pinSalt    = newSalt;
+    user.pinFailedAttempts = 0;
+    user.pinLockedUntil    = null;
+    user.updatedAt  = new Date().toISOString();
+    if (!user.securityLog) user.securityLog = [];
+    user.securityLog.push({ action: 'pin_changed', at: new Date().toISOString() });
+    saveJSON(USERS_FILE, USERS);
+
+    res.json({ success: true, message: 'تم تغيير الرقم السري بنجاح.' });
+});
+
+// ─── إعادة تعيين الرقم السري (بكلمة المرور) ─────────────────────────────────
+app.delete('/api/auth/pin/reset', express.json(), authRequired, (req, res) => {
+    const { password } = req.body || {};
+    if (!password)
+        return res.status(400).json({ success: false, message: 'كلمة المرور مطلوبة لإعادة التعيين.' });
+
+    const user = USERS.find(u => u.id === req.user.id);
+    if (!user) return res.status(404).json({ success: false, message: 'مستخدم غير موجود.' });
+
+    if (!verifyPassword(password, user.passwordHash))
+        return res.status(401).json({ success: false, message: 'كلمة المرور غير صحيحة.' });
+
+    user.pinHash           = null;
+    user.pinSalt           = null;
+    user.pinEnabled        = false;
+    user.pinFailedAttempts = 0;
+    user.pinLockedUntil    = null;
+    user.updatedAt  = new Date().toISOString();
+    if (!user.securityLog) user.securityLog = [];
+    user.securityLog.push({ action: 'pin_reset', at: new Date().toISOString() });
+    saveJSON(USERS_FILE, USERS);
+
+    res.json({ success: true, message: 'تم حذف الرقم السري. يمكنك تعيين رقم جديد.' });
+});
+
+// ─── حالة الرقم السري ─────────────────────────────────────────────────────────
+app.get('/api/auth/pin/status', authRequired, (req, res) => {
+    const user = USERS.find(u => u.id === req.user.id);
+    if (!user) return res.status(404).json({ success: false, message: 'مستخدم غير موجود.' });
+
+    const locked = !!(user.pinLockedUntil && Date.now() < user.pinLockedUntil);
+    res.json({
+        success: true,
+        pin: {
+            enabled:        !!user.pinEnabled,
+            locked,
+            lockedUntil:    locked ? user.pinLockedUntil : null,
+            attemptsLeft:   locked ? 0 : Math.max(0, PIN_MAX_ATTEMPTS - (user.pinFailedAttempts || 0)),
+            lastUsed:       user.pinLastUsed || null
+        }
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🏛️ توثيق المدير بالأحوال ونفاذ الأعمال والسجل التجاري
 // «يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَكُونُوا مَعَ الصَّادِقِينَ» — التوبة ١١٩
 // ═══════════════════════════════════════════════════════════════════════════════
