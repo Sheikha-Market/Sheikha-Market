@@ -36,6 +36,16 @@
 const EventEmitter = require('events');
 const crypto       = require('crypto');
 
+// ─── ثوابت الإعداد ────────────────────────────────────────────────────────────
+
+const CONFIG = {
+    MAX_LEARNINGS:      500,      // الحد الأقصى للتعلّمات المحفوظة في كل عقدة
+    CACHE_KEY_TEXT_LEN: 80,       // طول النص المستخدم في مفتاح الذاكرة المؤقتة
+    HEALTH_CHECK_MS:    30_000,   // فترة الفحص الدوري لصحة العقد (30 ثانية)
+    STATS_INTERVAL_MS:  60_000,   // فترة إحصاء الأداء (دقيقة واحدة)
+    FORBIDDEN_PATTERNS: [/ربا|قمار|خمر|كحول|فاحشة/u], // أنماط المحتوى المحرّم
+};
+
 // ─── معرفة إسلامية مضمّنة (Quran + Hadith + Trade) ───────────────────────────
 
 const ISLAMIC_KNOWLEDGE = {
@@ -135,6 +145,7 @@ class AINode extends EventEmitter {
 
             // تعلّم من الطلب
             this._learn(request, result);
+
 
             return result;
         } finally {
@@ -258,7 +269,7 @@ class AINode extends EventEmitter {
 
     /** التعلّم من الطلبات — تحديث الذاكرة والأنماط */
     _learn(request, result) {
-        if (this._learnings.length > 500) this._learnings.shift(); // دوران الذاكرة
+        if (this._learnings.length > CONFIG.MAX_LEARNINGS) this._learnings.shift(); // دوران الذاكرة
         this._learnings.push({
             intent:     result.intent,
             confidence: result.confidence,
@@ -267,7 +278,7 @@ class AINode extends EventEmitter {
     }
 
     _hashKey(text, intent) {
-        return crypto.createHash('md5').update(`${intent}:${text.substring(0, 80)}`).digest('hex');
+        return crypto.createHash('md5').update(`${intent}:${text.substring(0, CONFIG.CACHE_KEY_TEXT_LEN)}`).digest('hex');
     }
 
     getInfo() {
@@ -471,7 +482,7 @@ class SheikhaLiveAINetwork extends EventEmitter {
             if (deadNodes.length > 0) {
                 this.emit('health:degraded', { deadNodes: deadNodes.map(n => n.id) });
             }
-        }, 30_000);
+        }, CONFIG.HEALTH_CHECK_MS);
         if (this._healthTimer.unref) this._healthTimer.unref();
     }
 
@@ -488,15 +499,14 @@ class SheikhaLiveAINetwork extends EventEmitter {
                     topIntents:  this._getTopIntents(3),
                 });
             }
-        }, 60_000);
+        }, CONFIG.STATS_INTERVAL_MS);
         if (this._statsTimer.unref) this._statsTimer.unref();
     }
 
     // ─── حراسة شرعية بسيطة ────────────────────────────────────────────────
 
     _shariaGuard(text, _intent) {
-        const forbidden = [/ربا|قمار|خمر|كحول|فاحشة/u];
-        for (const re of forbidden) {
+        for (const re of CONFIG.FORBIDDEN_PATTERNS) {
             if (re.test(text)) {
                 return { pass: false, reason: 'الطلب يحتوي على محتوى محرّم شرعاً — لا ضرر ولا ضرار' };
             }
