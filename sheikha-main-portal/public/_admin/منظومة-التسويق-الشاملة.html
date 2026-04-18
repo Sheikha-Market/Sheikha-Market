@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎯 منظومة التسويق الشامل | شيخة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════ Design System */
+:root{
+  --bg:#030712;--bg2:#0a0f1a;--bg3:#111827;--card:#1f2937;
+  --green:#006c35;--green-l:#4ade80;
+  --gold:#c9a42c;--gold-l:#f0d060;--gold-d:#b8942f;
+  --blue:#1a5276;--blue-l:#3b82f6;
+  --red:#ef4444;--orange:#f59e0b;--purple:#8b5cf6;--cyan:#06b6d4;--pink:#ec4899;
+  --text:#f9fafb;--t2:#d1d5db;--t3:#9ca3af;--t4:#6b7280;
+  --brd:#1e293b;--brd2:#374151;--brd-g:rgba(201,164,44,.25);
+  --radius:10px;--tr:.22s ease;
+}
+*,::before,::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-d)}
+
+/* ═══ Layout */
+.app{display:flex;min-height:100vh}
+.sidebar{
+  position:fixed;top:0;right:0;bottom:0;width:260px;
+  background:linear-gradient(180deg,var(--bg2),var(--bg));
+  border-left:1px solid var(--brd);
+  display:flex;flex-direction:column;z-index:100;overflow:hidden;
+}
+.sb-head{padding:18px 14px 14px;border-bottom:1px solid var(--brd);text-align:center}
+.sb-logo{font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sb-sub{font-size:9px;color:var(--gold);letter-spacing:2px;opacity:.7;margin-top:2px}
+.sb-nav{flex:1;overflow-y:auto;padding:6px 0}
+.nav-sec{padding:10px 14px 3px;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;opacity:.6}
+.nav-item{
+  display:flex;align-items:center;gap:8px;padding:8px 14px;
+  font-size:12px;font-weight:500;color:var(--t3);cursor:pointer;
+  transition:all var(--tr);border-right:3px solid transparent
+}
+.nav-item:hover{color:var(--text);background:rgba(201,164,44,.06)}
+.nav-item.active{color:var(--gold);background:rgba(201,164,44,.1);border-right-color:var(--gold);font-weight:700}
+.nav-item .ic{width:18px;text-align:center;font-size:14px}
+.sb-foot{padding:10px 14px;border-top:1px solid var(--brd);font-size:10px;color:var(--t4);display:flex;gap:6px;align-items:center}
+.dot-pulse{width:6px;height:6px;border-radius:50%;background:var(--green-l);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.main{flex:1;margin-right:260px;min-height:100vh}
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(3,7,18,.94);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--brd);
+  padding:12px 28px;display:flex;align-items:center;gap:12px
+}
+.topbar h2{font-size:1.1rem;font-weight:800;flex:1}
+.topbar h2 span{color:var(--gold)}
+.badge-pill{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(201,164,44,.1);color:var(--gold);border:1px solid var(--brd-g)}
+
+.page{padding:24px 28px;display:none}
+.page.active{display:block}
+
+/* ═══ Stat Cards */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:22px}
+.stat-c{background:var(--card);border:1px solid var(--brd);border-radius:var(--radius);padding:18px;transition:all var(--tr)}
+.stat-c:hover{border-color:var(--gold);transform:translateY(-2px)}
+.stat-ico{font-size:26px;margin-bottom:8px}
+.stat-val{font-size:1.8rem;font-weight:900;line-height:1}
+.stat-lbl{font-size:11px;color:var(--t3);margin-top:4px}
+
+/* ═══ Panels */
+.panel{background:var(--card);border:1px solid var(--brd);border-radius:var(--radius);padding:22px;margin-bottom:22px}
+.panel-title{font-size:1rem;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid var(--brd)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+
+/* ═══ Forms */
+.fg{margin-bottom:14px}
+.fl{display:block;margin-bottom:5px;font-size:12px;font-weight:600;color:var(--t2)}
+.fi,.fs,.ft{width:100%;padding:10px 13px;background:var(--bg2);border:1px solid var(--brd);border-radius:var(--radius);color:var(--text);font-family:inherit;font-size:13px;transition:border var(--tr)}
+.fi:focus,.fs:focus,.ft:focus{outline:none;border-color:var(--gold)}
+.ft{resize:vertical;min-height:80px}
+.fs option{background:var(--bg2)}
+.vg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* ═══ Buttons */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border:none;border-radius:var(--radius);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all var(--tr)}
+.btn-gold{background:linear-gradient(135deg,var(--gold-l),var(--gold));color:#000}
+.btn-gold:hover{transform:scale(1.02);box-shadow:0 0 18px rgba(201,164,44,.4)}
+.btn-outline{background:transparent;border:1.5px solid var(--gold);color:var(--gold)}
+.btn-outline:hover{background:rgba(201,164,44,.1)}
+.btn-green{background:var(--green);color:#fff}
+.btn-blue{background:var(--blue-l);color:#fff}
+.btn-red{background:var(--red);color:#fff}
+.btn-sm{padding:6px 14px;font-size:12px}
+.btn-block{width:100%;justify-content:center}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+
+/* ═══ Tags */
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.tag-gold{background:rgba(201,164,44,.1);color:var(--gold);border:1px solid var(--brd-g)}
+.tag-green{background:rgba(0,108,53,.15);color:var(--green-l)}
+.tag-red{background:rgba(239,68,68,.1);color:var(--red)}
+.tag-blue{background:rgba(59,130,246,.1);color:var(--blue-l)}
+.tag-purple{background:rgba(139,92,246,.1);color:var(--purple)}
+.tag-cyan{background:rgba(6,182,212,.1);color:var(--cyan)}
+.tag-orange{background:rgba(245,158,11,.1);color:var(--orange)}
+
+/* ═══ Table */
+.twrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{padding:9px 13px;text-align:right;font-size:10px;font-weight:700;color:var(--gold);background:var(--bg2);border-bottom:1px solid var(--brd)}
+td{padding:10px 13px;border-bottom:1px solid var(--brd);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(201,164,44,.025)}
+
+/* ═══ Color Swatch */
+.swatch-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.swatch{width:70px;text-align:center}
+.swatch-circle{width:56px;height:56px;border-radius:50%;border:2px solid var(--brd);margin:0 auto 6px;cursor:pointer;transition:transform .2s}
+.swatch-circle:hover{transform:scale(1.1)}
+.swatch-name{font-size:10px;color:var(--t3)}
+.swatch-hex{font-size:10px;color:var(--t4);font-family:'JetBrains Mono',monospace}
+
+/* ═══ Platform Cards */
+.plat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.plat-card{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--radius);padding:16px;transition:all var(--tr);cursor:pointer}
+.plat-card:hover,.plat-card.sel{border-color:var(--gold);background:rgba(201,164,44,.06)}
+.plat-card.sel{box-shadow:0 0 0 2px var(--gold)}
+.plat-icon{font-size:24px;margin-bottom:8px}
+.plat-name{font-size:13px;font-weight:700}
+.plat-meta{font-size:11px;color:var(--t3);margin-top:4px}
+.plat-score{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(201,164,44,.1);color:var(--gold);margin-top:6px}
+
+/* ═══ Ad Channel Card */
+.ad-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.ad-card{background:var(--bg2);border:1.5px solid var(--brd);border-radius:var(--radius);padding:16px;transition:all var(--tr);cursor:pointer}
+.ad-card:hover,.ad-card.sel{border-color:var(--gold)}
+.ad-card.sel{background:rgba(201,164,44,.06);box-shadow:0 0 0 2px var(--gold)}
+.ad-card-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.ad-card-name{font-size:13px;font-weight:700}
+.ad-card-type{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600}
+.ad-card-cpm{font-size:11px;color:var(--gold);margin-top:6px}
+.ad-card-reach{font-size:11px;color:var(--t3);margin-top:2px}
+.ad-formats{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.digital{background:rgba(59,130,246,.12);color:var(--blue-l)}
+.direct{background:rgba(16,185,129,.12);color:var(--green-l)}
+.broadcast{background:rgba(245,158,11,.12);color:var(--orange)}
+.outdoor{background:rgba(139,92,246,.12);color:var(--purple)}
+.print{background:rgba(236,72,153,.12);color:var(--pink)}
+.social{background:rgba(6,182,212,.12);color:var(--cyan)}
+.audio{background:rgba(249,115,22,.12);color:#fb923c}
+
+/* ═══ Brand Identity */
+.pattern-row{display:flex;gap:10px;flex-wrap:wrap}
+.pattern-badge{padding:8px 16px;border:1px solid var(--brd-g);border-radius:var(--radius);font-size:12px;color:var(--gold);background:rgba(201,164,44,.06)}
+.brand-rules{list-style:none}
+.brand-rules li{padding:8px 0;border-bottom:1px solid var(--brd);font-size:13px;display:flex;align-items:flex-start;gap:8px}
+.brand-rules li:last-child{border-bottom:none}
+.brand-rules li::before{content:'✦';color:var(--gold);flex-shrink:0;margin-top:2px}
+
+/* ═══ Calendar */
+.cal-week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px}
+.cal-label{text-align:center;font-size:10px;color:var(--t3);padding:4px}
+.cal-day{min-height:72px;background:var(--bg2);border:1px solid var(--brd);border-radius:6px;padding:5px;font-size:10px}
+.cal-dn{font-weight:700;color:var(--t3);margin-bottom:3px}
+.cal-day.today .cal-dn{color:var(--gold)}
+.event-dot{padding:3px 6px;border-radius:4px;margin-bottom:2px;font-size:9px;font-weight:600;cursor:pointer}
+.ev-a{background:rgba(201,164,44,.2);color:var(--gold)}
+.ev-b{background:rgba(59,130,246,.2);color:var(--blue-l)}
+.ev-c{background:rgba(139,92,246,.2);color:var(--purple)}
+.ev-custom{background:rgba(6,182,212,.2);color:var(--cyan)}
+
+/* ═══ Image Preview */
+.img-kit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.img-card{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--radius);overflow:hidden;transition:all var(--tr)}
+.img-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.img-thumb{
+  width:100%;aspect-ratio:1;background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.5rem;position:relative;overflow:hidden
+}
+.img-thumb iframe{width:100%;height:100%;border:none;pointer-events:none}
+.img-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity var(--tr)}
+.img-card:hover .img-overlay{opacity:1}
+.img-info{padding:10px}
+.img-type{font-size:11px;font-weight:700;color:var(--gold)}
+.img-dim{font-size:10px;color:var(--t3)}
+
+/* ═══ Content Output Box */
+.content-out{
+  background:var(--bg2);border:1px solid var(--brd);border-radius:var(--radius);
+  padding:16px;margin-top:12px;white-space:pre-wrap;direction:rtl;text-align:right;
+  font-size:13px;line-height:1.8;color:var(--t2);min-height:80px
+}
+.content-out.empty{color:var(--t4);text-align:center;font-size:12px}
+
+/* ═══ Event Pills */
+.event-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.event-pill{
+  padding:8px 16px;border:1.5px solid var(--brd);border-radius:var(--radius);
+  font-size:12px;cursor:pointer;transition:all var(--tr);
+  display:flex;align-items:center;gap:6px
+}
+.event-pill:hover,.event-pill.sel{border-color:var(--gold);background:rgba(201,164,44,.1);color:var(--gold)}
+.event-pill .tier-a{color:var(--red);font-size:10px}
+.event-pill .tier-b{color:var(--orange);font-size:10px}
+.event-pill .tier-c{color:var(--t3);font-size:10px}
+
+/* ═══ Campaign Phase */
+.phase-bar{display:flex;gap:0;margin-bottom:16px;overflow:hidden;border-radius:var(--radius)}
+.phase-seg{flex:1;text-align:center;padding:8px 4px;font-size:10px;font-weight:700;color:var(--t4);background:var(--bg2);border:1px solid var(--brd)}
+.phase-seg.active{background:rgba(201,164,44,.15);color:var(--gold);border-color:var(--gold)}
+.phase-seg.done{background:rgba(0,108,53,.1);color:var(--green-l);border-color:var(--green-l)}
+
+/* ═══ Toast */
+#toast-c{position:fixed;bottom:22px;left:22px;z-index:999;display:flex;flex-direction:column;gap:7px}
+.toast{padding:12px 18px;border-radius:var(--radius);font-size:13px;font-weight:600;color:#fff;max-width:340px;animation:sli .3s ease}
+.toast.success{background:var(--green)}
+.toast.error{background:var(--red)}
+.toast.info{background:var(--blue-l)}
+@keyframes sli{from{transform:translateX(-30px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ═══ Modal */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--card);border:1px solid var(--brd);border-radius:var(--radius);padding:26px;max-width:640px;width:92%;max-height:90vh;overflow-y:auto}
+.modal-head{font-size:1.1rem;font-weight:800;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}
+.modal-x{background:none;border:none;color:var(--t3);font-size:20px;cursor:pointer}
+.modal-x:hover{color:var(--red)}
+
+/* ═══ Spinner */
+.spin{width:18px;height:18px;border:3px solid var(--brd2);border-top-color:var(--gold);border-radius:50%;animation:rot .7s linear infinite;display:inline-block}
+@keyframes rot{to{transform:rotate(360deg)}}
+
+/* ═══ Progress Bar */
+.prog-bar{height:6px;background:var(--bg2);border-radius:20px;overflow:hidden;margin-top:4px}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:20px;transition:width .5s ease}
+
+/* ═══ Resp */
+@media(max-width:900px){
+  .sidebar{transform:translateX(260px)}.sidebar.open{transform:translateX(0)}
+  .main{margin-right:0}
+  .two-col,.three-col,.four-col,.vg{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ═══════════ Sidebar ═══════════ -->
+<aside class="sidebar">
+  <div class="sb-head">
+    <div class="sb-logo">🎯 شيخة UMB</div>
+    <div class="sb-sub">Unified Marketing Brain</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="nav-sec">الرئيسية</div>
+    <div class="nav-item active" data-page="dashboard" onclick="nav(this)"><span class="ic">📊</span> لوحة القيادة الموحدة</div>
+
+    <div class="nav-sec">الهوية البصرية</div>
+    <div class="nav-item" data-page="brand" onclick="nav(this)"><span class="ic">🎨</span> الهوية والعلامة التجارية</div>
+    <div class="nav-item" data-page="images" onclick="nav(this)"><span class="ic">🖼️</span> توليد الصور المتناسقة</div>
+
+    <div class="nav-sec">المحتوى والجدولة</div>
+    <div class="nav-item" data-page="content-ai" onclick="nav(this)"><span class="ic">🤖</span> توليد المحتوى (AI)</div>
+    <div class="nav-item" data-page="social" onclick="nav(this)"><span class="ic">📱</span> وسائل التواصل + جدولة</div>
+    <div class="nav-item" data-page="calendar" onclick="nav(this)"><span class="ic">📅</span> الرزنامة والأحداث</div>
+
+    <div class="nav-sec">الحملات والدعاية</div>
+    <div class="nav-item" data-page="campaign-wizard" onclick="nav(this)"><span class="ic">🚀</span> إنشاء حملة كاملة</div>
+    <div class="nav-item" data-page="campaigns" onclick="nav(this)"><span class="ic">📣</span> إدارة الحملات</div>
+    <div class="nav-item" data-page="advertising" onclick="nav(this)"><span class="ic">📡</span> قنوات الدعاية الكاملة</div>
+
+    <div class="nav-sec">التحليلات</div>
+    <div class="nav-item" data-page="analytics" onclick="nav(this)"><span class="ic">📈</span> التقارير والأداء</div>
+
+    <div class="nav-sec">التنقل</div>
+    <div class="nav-item" onclick="location.href='/admin/لوحة-تحكم-الأدمن-متقدمة.html'"><span class="ic">🏠</span> لوحة الأدمن</div>
+  </nav>
+  <div class="sb-foot"><div class="dot-pulse"></div> UMB v1.0 — 60 API</div>
+</aside>
+
+<!-- ═══════════ Main ═══════════ -->
+<main class="main">
+  <div class="topbar">
+    <h2>🎯 منظومة التسويق <span>الشامل الموحد</span></h2>
+    <span class="badge-pill" id="top-badge">جارٍ التحميل…</span>
+    <button class="btn btn-gold btn-sm" onclick="refreshAll()">↺ تحديث</button>
+  </div>
+
+  <!-- ══════════════════════════════════
+       DASHBOARD
+  ══════════════════════════════════ -->
+  <div class="page active" id="page-dashboard">
+    <div class="stats-row" id="dash-stats"></div>
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">🎨 ألوان الهوية</div>
+        <div id="brand-colors-mini"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">📅 المناسبات القادمة</div>
+        <div id="upcoming-events"></div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">📣 آخر الحملات</div>
+        <div id="recent-campaigns"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">📡 قنوات الدعاية</div>
+        <div id="ad-channels-mini"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       BRAND
+  ══════════════════════════════════ -->
+  <div class="page" id="page-brand">
+    <div class="panel">
+      <div class="panel-title">🎨 الهوية البصرية الكاملة</div>
+      <div class="three-col">
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:10px">الألوان المعتمدة</div>
+          <div id="brand-colors-full"></div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:10px">الخطوط</div>
+          <div id="brand-fonts"></div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:10px">الأنماط</div>
+          <div id="brand-patterns"></div>
+        </div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">🔊 صوت العلامة التجارية</div>
+        <div id="brand-voice"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">☪️ الضوابط الشرعية</div>
+        <div id="brand-sharia"></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">📋 قواعد الهوية الملزمة</div>
+      <ul class="brand-rules" id="brand-rules"></ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       IMAGES
+  ══════════════════════════════════ -->
+  <div class="page" id="page-images">
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">🖼️ توليد صورة متناسقة مع الهوية</div>
+        <div class="fg">
+          <label class="fl">نوع الصورة</label>
+          <select class="fs" id="img-type">
+            <option value="post">بوست 1:1 (1080×1080)</option>
+            <option value="story">ستوري/ريل 9:16 (1080×1920)</option>
+            <option value="banner">بانر 1.91:1 (1200×630)</option>
+            <option value="ad">إعلان 1:1 (1080×1080)</option>
+            <option value="thumbnail">مصغرة 16:9 (1280×720)</option>
+            <option value="landscape">أفقي 16:9 (1280×720)</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">العنوان الرئيسي</label>
+          <input class="fi" id="img-title" placeholder="شيخة — سوق المعادن الذكي">
+        </div>
+        <div class="fg">
+          <label class="fl">العنوان الفرعي (اختياري)</label>
+          <input class="fi" id="img-subtitle" placeholder="منظومة تقنية إسلامية متكاملة">
+        </div>
+        <div class="vg">
+          <div class="fg">
+            <label class="fl">اللون الأساسي</label>
+            <select class="fs" id="img-color">
+              <option value="primary">أخضر شيخة (الأساسي)</option>
+              <option value="secondary">ذهبي شيخة</option>
+              <option value="accent">أزرق شيخة</option>
+              <option value="dark">كحلي شيخة</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl">ربط بمناسبة</label>
+            <select class="fs" id="img-event">
+              <option value="">بدون مناسبة</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-gold btn-block" id="gen-img-btn" onclick="generateImage()">🖼️ توليد الصورة</button>
+        <div style="margin-top:12px">
+          <button class="btn btn-outline btn-block" onclick="generateKit()">📦 توليد مجموعة كاملة (5 أحجام)</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">👁 معاينة</div>
+        <div id="img-preview" style="background:var(--bg2);border-radius:var(--radius);min-height:300px;display:flex;align-items:center;justify-content:center;color:var(--t4);font-size:13px;border:1px solid var(--brd)">
+          اختر خياراتك واضغط "توليد"
+        </div>
+        <div id="img-actions" style="display:none;margin-top:10px;display:none">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">🗂️ معرض الصور المولّدة <span style="margin-right:auto;font-size:12px;color:var(--t3)" id="imgs-count"></span></div>
+      <div class="img-kit-grid" id="imgs-gallery"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       CONTENT AI
+  ══════════════════════════════════ -->
+  <div class="page" id="page-content-ai">
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">🤖 توليد المحتوى بالذكاء الاصطناعي</div>
+
+        <div class="fg">
+          <label class="fl">نوع المحتوى</label>
+          <select class="fs" id="ct-type" onchange="updateContentForm()">
+            <option value="bio_brand">بايو — العلامة التجارية</option>
+            <option value="bio_merchant">بايو — تاجر</option>
+            <option value="bio_product">بايو — منتج</option>
+            <option value="caption_smi">تعليق — مؤشر SMI</option>
+            <option value="caption_product">تعليق — منتج</option>
+            <option value="caption_educational">تعليق — تعليمي</option>
+            <option value="caption_promo">تعليق — عرض ترويجي</option>
+            <option value="caption_event">تعليق — مناسبة</option>
+            <option value="title">عنوان (مقال/فيديو/بوست)</option>
+            <option value="hashtags">هاشتاقات</option>
+          </select>
+        </div>
+
+        <!-- Dynamic params -->
+        <div id="ct-params"></div>
+
+        <button class="btn btn-gold btn-block" id="ct-gen-btn" onclick="generateContentAI()">🤖 توليد المحتوى</button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">📋 المحتوى المُولَّد</div>
+        <div id="ct-output" class="content-out empty">المحتوى المولَّد سيظهر هنا…</div>
+        <div id="ct-tags" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:5px"></div>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap" id="ct-actions" style="display:none"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">📦 توليد مجموعة كاملة دفعة واحدة</div>
+      <div class="vg">
+        <div class="fg">
+          <label class="fl">الموضوع الرئيسي</label>
+          <input class="fi" id="batch-topic" placeholder="مثال: مؤشر المعادن اليوم">
+        </div>
+        <div class="fg">
+          <label class="fl">نوع المحتوى</label>
+          <select class="fs" id="batch-type">
+            <option value="smi">مؤشر SMI</option>
+            <option value="product">منتج</option>
+            <option value="promo">عرض ترويجي</option>
+            <option value="educational">تعليمي</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-gold" onclick="batchGenerate()">⚡ توليد: بايو + تعليق + عنوان + هاشتاقات</button>
+      <div id="batch-output" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SOCIAL
+  ══════════════════════════════════ -->
+  <div class="page" id="page-social">
+    <div class="panel">
+      <div class="panel-title">📱 منصات التواصل الاجتماعي المدعومة</div>
+      <div class="plat-grid" id="plat-grid"></div>
+    </div>
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">📤 جدولة منشور</div>
+        <div class="fg">
+          <label class="fl">اختر المنصات</label>
+          <div id="post-platforms" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px"></div>
+        </div>
+        <div class="fg">
+          <label class="fl">نوع المحتوى</label>
+          <select class="fs" id="post-ctype">
+            <option value="image">صورة</option>
+            <option value="reel">ريل/فيديو قصير</option>
+            <option value="story">ستوري</option>
+            <option value="text">نص</option>
+            <option value="carousel">كاروسيل</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">نص المنشور</label>
+          <textarea class="ft" id="post-text" rows="4" placeholder="اكتب المنشور هنا…"></textarea>
+        </div>
+        <div class="vg">
+          <div class="fg">
+            <label class="fl">تاريخ النشر</label>
+            <input class="fi" type="datetime-local" id="post-date">
+          </div>
+          <div class="fg">
+            <label class="fl">رقم الحملة (اختياري)</label>
+            <input class="fi" id="post-campaign" placeholder="UMB-CAM-…">
+          </div>
+        </div>
+        <button class="btn btn-gold btn-block" onclick="schedulePost()">📅 جدولة المنشور</button>
+      </div>
+      <div class="panel">
+        <div class="panel-title">🕐 أفضل أوقات النشر</div>
+        <div id="best-times"></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">
+        📋 المنشورات المجدولة
+        <button class="btn btn-green btn-sm" style="margin-right:auto" onclick="publishAll()">🚀 نشر الكل الآن</button>
+      </div>
+      <div class="twrap"><table><thead><tr>
+        <th>المنصات</th><th>النوع</th><th>المحتوى</th><th>الموعد</th><th>الحالة</th><th>إجراء</th>
+      </tr></thead><tbody id="posts-tbody"></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       CALENDAR
+  ══════════════════════════════════ -->
+  <div class="page" id="page-calendar">
+    <div class="panel">
+      <div class="panel-title">
+        📅 الرزنامة والأحداث الزمنية
+        <div style="display:flex;gap:8px;margin-right:auto">
+          <button class="btn btn-outline btn-sm" onclick="calPrev()">◀</button>
+          <span id="cal-label" style="font-size:13px;font-weight:700;align-self:center"></span>
+          <button class="btn btn-outline btn-sm" onclick="calNext()">▶</button>
+          <button class="btn btn-gold btn-sm" onclick="openAddEvent()">+ حدث</button>
+        </div>
+      </div>
+      <div class="cal-week" id="cal-week-headers"></div>
+      <div class="cal-week" id="cal-grid" style="grid-template-columns:repeat(7,1fr)"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">🌙 المناسبات الإسلامية والسعودية</div>
+      <div id="islamic-events-list"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       CAMPAIGN WIZARD
+  ══════════════════════════════════ -->
+  <div class="page" id="page-campaign-wizard">
+    <div class="panel" style="border-color:var(--gold)">
+      <div class="panel-title">🚀 إنشاء حملة تسويقية كاملة بنقرة واحدة</div>
+      <div style="font-size:12px;color:var(--t3);margin-bottom:20px">
+        يُنشئ النظام تلقائياً: الصور المتناسقة + المحتوى + البايو + الهاشتاقات + جدول النشر + خطة الإعلانات + سلوك الحملة
+      </div>
+
+      <div class="three-col">
+        <div class="fg">
+          <label class="fl">اسم الحملة</label>
+          <input class="fi" id="wiz-name" placeholder="حملة رمضان 2026">
+        </div>
+        <div class="fg">
+          <label class="fl">هدف الحملة</label>
+          <select class="fs" id="wiz-obj">
+            <option value="brand_awareness">تعزيز الوعي بالعلامة</option>
+            <option value="lead_generation">توليد عملاء محتملين</option>
+            <option value="sales">تحقيق مبيعات</option>
+            <option value="engagement">رفع التفاعل</option>
+            <option value="app_installs">تحميلات التطبيق</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">مدة الحملة (يوم)</label>
+          <input class="fi" type="number" id="wiz-days" value="30" min="1" max="365">
+        </div>
+      </div>
+
+      <div class="fg">
+        <label class="fl">وصف الحملة / العرض</label>
+        <textarea class="ft" id="wiz-desc" rows="2" placeholder="اكتب هنا ما تريد إيصاله للجمهور…"></textarea>
+      </div>
+
+      <div class="vg">
+        <div class="fg">
+          <label class="fl">الميزانية الإجمالية (ريال)</label>
+          <input class="fi" type="number" id="wiz-budget" value="10000">
+        </div>
+        <div class="fg">
+          <label class="fl">ربط بمناسبة</label>
+          <select class="fs" id="wiz-event">
+            <option value="">بدون مناسبة</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fg">
+        <label class="fl">المنصات المستهدفة (اختر ما تريد)</label>
+        <div id="wiz-platforms" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px"></div>
+      </div>
+
+      <div class="fg">
+        <label class="fl">قنوات الإعلان (اختر ما تريد)</label>
+        <div id="wiz-adchannels" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px"></div>
+      </div>
+
+      <div class="fg">
+        <label class="fl">نوع المحتوى للتعليقات</label>
+        <select class="fs" id="wiz-caption-type">
+          <option value="caption_promo">عرض ترويجي</option>
+          <option value="caption_smi">مؤشر SMI</option>
+          <option value="caption_product">منتج</option>
+          <option value="caption_educational">تعليمي</option>
+          <option value="caption_event">مناسبة</option>
+        </select>
+      </div>
+
+      <button class="btn btn-gold btn-block" id="wiz-btn" style="padding:14px" onclick="launchCampaign()">
+        🚀 إطلاق الحملة الكاملة — صور + محتوى + جدول + إعلانات
+      </button>
+    </div>
+
+    <div id="wiz-result" style="display:none">
+      <div class="panel" style="border-color:var(--green-l)">
+        <div class="panel-title" style="color:var(--green-l)">✅ تم إنشاء الحملة بنجاح</div>
+        <div id="wiz-result-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       CAMPAIGNS
+  ══════════════════════════════════ -->
+  <div class="page" id="page-campaigns">
+    <div class="panel">
+      <div class="panel-title">
+        📣 إدارة الحملات
+        <select class="fs" style="width:auto;margin-right:auto;font-size:12px" id="camp-filter" onchange="loadCampaigns()">
+          <option value="">جميع الحالات</option>
+          <option value="ready">جاهزة</option>
+          <option value="active">نشطة</option>
+          <option value="paused">موقوفة</option>
+          <option value="completed">مكتملة</option>
+        </select>
+      </div>
+      <div class="twrap"><table><thead><tr>
+        <th>الاسم</th><th>الهدف</th><th>المرحلة</th><th>الميزانية</th><th>الإنفاق</th><th>المشاهدات</th><th>الحالة</th><th>إجراءات</th>
+      </tr></thead><tbody id="camps-tbody"></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       ADVERTISING
+  ══════════════════════════════════ -->
+  <div class="page" id="page-advertising">
+    <div class="panel">
+      <div class="panel-title">
+        📡 قنوات الدعاية الشاملة
+        <select class="fs" style="width:auto;margin-right:auto;font-size:12px" id="ad-type-filter" onchange="loadAdChannels()">
+          <option value="">جميع الأنواع</option>
+          <option value="digital">رقمي</option>
+          <option value="direct">مباشر</option>
+          <option value="broadcast">بث (تلفزيون/راديو)</option>
+          <option value="outdoor">خارجي</option>
+          <option value="print">مطبوع</option>
+          <option value="social">مؤثرون</option>
+          <option value="audio">صوتي</option>
+        </select>
+      </div>
+      <div class="ad-grid" id="ad-channels-grid"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">💰 خطة الإعلان الذكية</div>
+      <div class="vg">
+        <div class="fg">
+          <label class="fl">الميزانية الإجمالية (ريال)</label>
+          <input class="fi" type="number" id="adplan-budget" value="10000">
+        </div>
+        <div class="fg">
+          <label class="fl">المدة (يوم)</label>
+          <input class="fi" type="number" id="adplan-days" value="30">
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">قنوات مختارة</label>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <button class="btn btn-outline btn-sm" onclick="adPlanSelectAll()">✅ تحديد الكل</button>
+          <button class="btn btn-outline btn-sm" onclick="adPlanClearAll()">❌ إلغاء الكل</button>
+          <span id="adplan-count" style="align-self:center;font-size:11px;color:var(--gold)"></span>
+        </div>
+        <div id="adplan-channels-sel" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"></div>
+      </div>
+      <button class="btn btn-gold" onclick="generateAdPlan()">💰 توليد خطة الإعلان</button>
+      <div id="adplan-result" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       ANALYTICS
+  ══════════════════════════════════ -->
+  <div class="page" id="page-analytics">
+    <div class="stats-row" id="analytics-stats"></div>
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">📊 أداء الحملات</div>
+        <div id="camp-analytics"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">📱 توزيع المنصات</div>
+        <div id="plat-analytics"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- ════ Modals ════ -->
+<div class="modal-bg" id="modal-add-event">
+  <div class="modal">
+    <div class="modal-head">
+      📅 إضافة حدث مخصص
+      <button class="modal-x" onclick="closeModal('modal-add-event')">✕</button>
+    </div>
+    <div class="fg"><label class="fl">اسم الحدث</label><input class="fi" id="ev-name" placeholder="عيد ميلاد المؤسس"></div>
+    <div class="vg">
+      <div class="fg"><label class="fl">التاريخ</label><input class="fi" type="date" id="ev-date"></div>
+      <div class="fg">
+        <label class="fl">الأهمية</label>
+        <select class="fs" id="ev-tier">
+          <option value="A">A — مهم جداً</option>
+          <option value="B">B — مهم</option>
+          <option value="C">C — عادي</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">ملاحظات</label><textarea class="ft" id="ev-notes" rows="2"></textarea></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-gold" style="flex:1" onclick="addCustomEvent()">✅ إضافة</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-add-event')">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-campaign-detail">
+  <div class="modal">
+    <div class="modal-head">
+      📊 تفاصيل الحملة
+      <button class="modal-x" onclick="closeModal('modal-campaign-detail')">✕</button>
+    </div>
+    <div id="camp-detail-body"></div>
+  </div>
+</div>
+
+<div id="toast-c"></div>
+
+<!-- ════ JS ════ -->
+<script>
+const API = '/api/umb';
+let dashData = null;
+let selPlatforms  = new Set(['instagram','whatsapp','twitter_x','telegram']);
+let selAdChannels = new Set(['google_ads','meta_ads','whatsapp_biz']);
+let selWizPlatforms  = new Set(['instagram','whatsapp','twitter_x','telegram','tiktok']);
+let selWizAdChannels = new Set(); // سيُملأ بكل القنوات عند التهيئة
+let calOffset = 0;
+
+const OBJ_AR = { brand_awareness:'وعي بالعلامة', lead_generation:'توليد عملاء', sales:'مبيعات', engagement:'تفاعل', app_installs:'تحميلات' };
+const STATUS_CLS = { ready:'tag-blue', active:'tag-green', paused:'tag-orange', completed:'tag-gold', cancelled:'tag-red' };
+const STATUS_AR = { ready:'جاهزة', active:'نشطة', paused:'موقوفة', completed:'مكتملة', cancelled:'ملغاة' };
+const TYPE_CLS = { digital:'digital', direct:'direct', broadcast:'broadcast', outdoor:'outdoor', print:'print', social:'social', audio:'audio' };
+
+// ── Nav ──────────────────────────────────────────────
+function nav(el) {
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  const pg = el.dataset.page;
+  document.getElementById('page-'+pg).classList.add('active');
+  const loaders = {
+    dashboard: refreshAll,
+    brand: loadBrand,
+    images: loadImages,
+    'content-ai': initContentForm,
+    social: loadSocial,
+    calendar: renderCalendar,
+    'campaign-wizard': initWizard,
+    campaigns: loadCampaigns,
+    advertising: loadAdChannels,
+    analytics: loadAnalytics,
+  };
+  if (loaders[pg]) loaders[pg]();
+}
+
+function toast(msg, type='success', dur=4000){
+  const c = document.getElementById('toast-c');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  c.appendChild(el);
+  setTimeout(()=>el.remove(), dur);
+}
+
+async function api(path, method='GET', body=null){
+  const opts = { method, headers:{'Content-Type':'application/json'} };
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch(API + path, opts);
+  return r.json();
+}
+
+// ── Dashboard ─────────────────────────────────────────
+async function refreshAll(){
+  document.getElementById('top-badge').textContent = '⏳ تحميل…';
+  try {
+    dashData = await api('/dashboard');
+    const {overview, brand, platforms, adChannels, upcomingEvents, recentCampaigns} = dashData;
+
+    // Stats
+    document.getElementById('dash-stats').innerHTML = [
+      {ico:'📣', val:overview.totalCampaigns,  lbl:'إجمالي الحملات', col:var_col('gold')},
+      {ico:'🚀', val:overview.activeCampaigns, lbl:'حملات نشطة',     col:var_col('green-l')},
+      {ico:'💰', val:'ر'+overview.totalBudget.toLocaleString(), lbl:'إجمالي الميزانيات', col:var_col('orange')},
+      {ico:'👁', val:overview.totalImpressions.toLocaleString(), lbl:'مشاهدات', col:var_col('blue-l')},
+      {ico:'🖼️', val:overview.totalImages,     lbl:'صور مولّدة',     col:var_col('purple')},
+      {ico:'📱', val:overview.totalPosts,       lbl:'منشورات مجدولة', col:var_col('cyan')},
+    ].map(s=>`<div class="stat-c"><div class="stat-ico">${s.ico}</div><div class="stat-val" style="color:${s.col}">${s.val}</div><div class="stat-lbl">${s.lbl}</div></div>`).join('');
+
+    // Brand colors mini
+    document.getElementById('brand-colors-mini').innerHTML = '<div class="swatch-row">' +
+      Object.entries(brand.colors).map(([k,v])=>`
+        <div class="swatch">
+          <div class="swatch-circle" style="background:${v.hex}" title="${v.name}" onclick="copyColor('${v.hex}')"></div>
+          <div class="swatch-name">${v.name.split(' ').slice(-1)[0]}</div>
+          <div class="swatch-hex">${v.hex}</div>
+        </div>`).join('') + '</div>';
+
+    // Upcoming events
+    document.getElementById('upcoming-events').innerHTML = upcomingEvents.slice(0,6).map(ev=>`
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--brd)">
+        <span style="font-size:12px">${ev.ar}</span>
+        <span class="tag tag-${ev.tier==='A'?'red':ev.tier==='B'?'orange':'blue'}">× ${ev.adBoost}</span>
+      </div>`).join('');
+
+    // Recent campaigns
+    document.getElementById('recent-campaigns').innerHTML = recentCampaigns.length
+      ? recentCampaigns.reverse().map(c=>`
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--brd)">
+            <span style="font-size:12px;font-weight:600">${c.name}</span>
+            <span class="tag ${STATUS_CLS[c.status]||'tag-blue'}">${STATUS_AR[c.status]||c.status}</span>
+          </div>`).join('')
+      : '<div style="color:var(--t4);font-size:12px;text-align:center;padding:20px">لا توجد حملات بعد</div>';
+
+    // Ad channels mini
+    document.getElementById('ad-channels-mini').innerHTML = adChannels.slice(0,8).map(ch=>`
+      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--brd)">
+        <span style="font-size:12px">${ch.ar}</span>
+        <span class="tag ${ch.type} ${TYPE_CLS[ch.type]||'tag-blue'}" style="font-size:10px">${ch.type}</span>
+      </div>`).join('');
+
+    document.getElementById('top-badge').textContent = `${overview.totalCampaigns} حملة | ${overview.totalImages} صورة`;
+  } catch(e) { toast('خطأ في الاتصال بالـ API','error'); }
+}
+function var_col(v){ return `var(--${v})`; }
+function copyColor(hex){ navigator.clipboard.writeText(hex); toast('✅ تم نسخ اللون: '+hex,'info'); }
+
+// ── Brand ──────────────────────────────────────────────
+async function loadBrand(){
+  const r = await api('/brand');
+  const b = r.brand;
+
+  document.getElementById('brand-colors-full').innerHTML = '<div class="swatch-row">' +
+    Object.entries(b.colors).map(([k,v])=>`
+      <div class="swatch">
+        <div class="swatch-circle" style="background:${v.hex}" onclick="copyColor('${v.hex}')"></div>
+        <div class="swatch-name">${v.name}</div>
+        <div class="swatch-hex">${v.hex}</div>
+      </div>`).join('') + '</div>';
+
+  document.getElementById('brand-fonts').innerHTML =
+    '<div style="font-size:12px;color:var(--gold);margin-bottom:6px">عربي</div>' +
+    b.typography.arabic.map(f=>`<div style="padding:5px 0;border-bottom:1px solid var(--brd);font-size:12px">${f}</div>`).join('') +
+    '<div style="font-size:12px;color:var(--gold);margin:8px 0 6px">إنجليزي</div>' +
+    b.typography.english.map(f=>`<div style="padding:5px 0;border-bottom:1px solid var(--brd);font-size:12px">${f}</div>`).join('');
+
+  document.getElementById('brand-patterns').innerHTML = '<div class="pattern-row">' +
+    b.patterns.map(p=>`<div class="pattern-badge">${p}</div>`).join('') + '</div>';
+
+  document.getElementById('brand-voice').innerHTML =
+    '<div style="font-size:12px;color:var(--gold);margin-bottom:8px">النبرة</div>' +
+    b.voice.tone.map(t=>`<div class="tag tag-blue" style="margin:3px">${t}</div>`).join('') +
+    '<div style="font-size:12px;color:var(--gold);margin:12px 0 6px">افعل ✅</div>' +
+    b.voice.doAr.map(d=>`<div style="font-size:12px;padding:4px 0;border-bottom:1px solid var(--brd)">✓ ${d}</div>`).join('') +
+    '<div style="font-size:12px;color:var(--red);margin:12px 0 6px">لا تفعل ❌</div>' +
+    b.voice.dontAr.map(d=>`<div style="font-size:12px;padding:4px 0;border-bottom:1px solid var(--brd)">✗ ${d}</div>`).join('');
+
+  document.getElementById('brand-sharia').innerHTML =
+    b.sharía.quran.map(q=>`<div style="font-size:13px;padding:8px;border-right:3px solid var(--gold);margin-bottom:8px;background:rgba(201,164,44,.05);border-radius:0 var(--radius) var(--radius) 0">${q}</div>`).join('') +
+    b.sharía.hadith.map(h=>`<div style="font-size:12px;color:var(--t3);padding:6px 0;border-bottom:1px solid var(--brd)">${h}</div>`).join('');
+
+  document.getElementById('brand-rules').innerHTML = [
+    'لا تغيير ألوان الشعار المعتمدة','لا تشويه أو تدوير الشعار','مساحة آمنة حول الشعار دائماً',
+    'لا صور ذوات أرواح أبداً — شرع وذوق','البسملة في كل وثيقة رسمية','اللغة العربية أولاً',
+    'استخدام الخطوط المعتمدة فقط','النجمة الثمانية كعنصر بصري إسلامي','الزخارف الهندسية فقط',
+  ].map(r=>`<li>${r}</li>`).join('');
+}
+
+// ── Images ────────────────────────────────────────────
+async function loadImages(){
+  // Populate event select
+  const evSel = document.getElementById('img-event');
+  if (evSel.options.length < 2 && dashData) {
+    dashData.upcomingEvents.forEach(ev=>{
+      const opt = document.createElement('option');
+      opt.value = ev.ar; opt.textContent = ev.ar;
+      evSel.appendChild(opt);
+    });
+  }
+  const r = await api('/images');
+  const imgs = r.images || [];
+  document.getElementById('imgs-count').textContent = `${imgs.length} صورة`;
+  document.getElementById('imgs-gallery').innerHTML = imgs.length
+    ? imgs.map(img=>`
+        <div class="img-card">
+          <div class="img-thumb">
+            <iframe src="${img.publicPath}" loading="lazy" style="width:100%;height:100%;border:none;pointer-events:none"></iframe>
+            <div class="img-overlay">
+              <a href="${img.publicPath}" target="_blank" class="btn btn-gold btn-sm">عرض</a>
+            </div>
+          </div>
+          <div class="img-info">
+            <div class="img-type">${img.type || '—'}</div>
+            <div class="img-dim">${img.dimensions?.label || ''}</div>
+            <div style="font-size:10px;color:var(--t4);margin-top:3px">${img.id}</div>
+          </div>
+        </div>`).join('')
+    : '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t4)">لا توجد صور مولّدة بعد</div>';
+}
+
+async function generateImage(){
+  const btn = document.getElementById('gen-img-btn');
+  btn.disabled = true; btn.innerHTML = '<div class="spin"></div> جارٍ التوليد…';
+  try {
+    const r = await api('/images/generate','POST',{
+      type:     document.getElementById('img-type').value,
+      title:    document.getElementById('img-title').value || 'شيخة',
+      subtitle: document.getElementById('img-subtitle').value,
+      color:    document.getElementById('img-color').value,
+      event:    document.getElementById('img-event').value || null,
+    });
+    if (r.success) {
+      const prev = document.getElementById('img-preview');
+      prev.innerHTML = `<iframe src="${r.image.publicPath}" style="width:100%;height:400px;border:none" loading="lazy"></iframe>`;
+      document.getElementById('img-actions').style.display = 'block';
+      document.getElementById('img-actions').querySelector('div').innerHTML =
+        `<a href="${r.image.publicPath}" target="_blank" class="btn btn-outline btn-sm">👁 فتح</a>
+         <span class="tag tag-gold">${r.image.dimensions?.label}</span>`;
+      toast('✅ تم توليد الصورة المتناسقة مع الهوية','success');
+      loadImages();
+    } else { toast(r.error||'خطأ','error'); }
+  } catch(e){ toast('خطأ: '+e.message,'error'); }
+  finally { btn.disabled=false; btn.innerHTML='🖼️ توليد الصورة'; }
+}
+
+async function generateKit(){
+  const title    = document.getElementById('img-title').value || 'شيخة';
+  const subtitle = document.getElementById('img-subtitle').value;
+  const color    = document.getElementById('img-color').value;
+  const event    = document.getElementById('img-event').value || null;
+  const r = await api('/images/generate-kit','POST',{ title, subtitle, color, event, types:['post','story','banner','ad','thumbnail'] });
+  if (r.success) { toast(`✅ تم توليد ${r.count} صورة متناسقة`,'success'); loadImages(); }
+  else { toast(r.error||'خطأ','error'); }
+}
+
+// ── Content AI ────────────────────────────────────────
+const CT_PARAMS = {
+  bio_brand:          [{ id:'name', lbl:'اسم العلامة', ph:'شيخة' }],
+  bio_merchant:       [{ id:'name', lbl:'اسم التاجر', ph:'محمد العمري' }],
+  bio_product:        [{ id:'name', lbl:'اسم المنتج', ph:'سبائك ذهب خالص' }, {id:'price',lbl:'السعر',ph:'اتصل للسعر'}],
+  caption_smi:        [{ id:'gold', lbl:'ذهب $/oz', ph:'2150' }, {id:'silver',lbl:'فضة $/oz',ph:'24.5'}, {id:'copper',lbl:'نحاس $/طن',ph:'8200'}, {id:'iron',lbl:'حديد $/طن',ph:'110'}],
+  caption_product:    [{ id:'name', lbl:'اسم المنتج', ph:'نحاس خالص' }, {id:'price',lbl:'السعر',ph:'1200 ريال/طن'}],
+  caption_educational:[{ id:'topic', lbl:'الموضوع', ph:'فائدة تنويم المعادن الثمينة' }, {id:'body',lbl:'الشرح',ph:'...'}],
+  caption_promo:      [{ id:'offer', lbl:'تفاصيل العرض', ph:'خصم 15% على النحاس' }, {id:'duration',lbl:'مدة العرض',ph:'48 ساعة'}],
+  caption_event:      [],
+  title:              [{ id:'topic', lbl:'الموضوع', ph:'تداول المعادن الثمينة' }],
+  hashtags:           [],
+};
+
+function initContentForm(){
+  updateContentForm();
+  if (dashData) {
+    // populate caption_event event selector
+  }
+}
+
+function updateContentForm(){
+  const type   = document.getElementById('ct-type').value;
+  const params = CT_PARAMS[type] || [];
+  document.getElementById('ct-params').innerHTML = params.map(p=>`
+    <div class="fg">
+      <label class="fl">${p.lbl}</label>
+      <input class="fi" id="ctp-${p.id}" placeholder="${p.ph}">
+    </div>`).join('');
+}
+
+async function generateContentAI(){
+  const type   = document.getElementById('ct-type').value;
+  const params = {};
+  (CT_PARAMS[type] || []).forEach(p => {
+    const el = document.getElementById('ctp-'+p.id);
+    if (el && el.value) params[p.id] = el.value;
+  });
+  const r = await api('/content/generate','POST',{ type, params });
+  if (!r.success) { toast(r.error||'خطأ','error'); return; }
+  const c = r.content;
+  const out = document.getElementById('ct-output');
+  out.classList.remove('empty');
+  let text = c.ar || c.hashtags?.join(' ') || JSON.stringify(c, null, 2);
+  if (c.article) text = `مقال: ${c.article}\nفيديو: ${c.video}\nبوست: ${c.post}\nنشرة: ${c.newsletter}`;
+  out.textContent = text;
+  const tags = (c.tags || c.hashtags || []);
+  document.getElementById('ct-tags').innerHTML = tags.map(t=>`<span class="tag tag-gold">${t}</span>`).join('');
+  document.getElementById('ct-actions').innerHTML = `
+    <button class="btn btn-outline btn-sm" onclick="copyText('${esc(text)}')">📋 نسخ النص</button>
+    <button class="btn btn-outline btn-sm" onclick="copyText('${esc(tags.join(' '))}')">🏷 نسخ الهاشتاقات</button>`;
+  document.getElementById('ct-actions').style.display = 'flex';
+  toast('✅ تم توليد المحتوى','success');
+}
+
+async function batchGenerate(){
+  const topic = document.getElementById('batch-topic').value || 'مؤشر المعادن';
+  const type  = document.getElementById('batch-type').value;
+  const captionType = 'caption_' + type;
+  const reqs = [
+    { type: 'bio_brand',  params: { name: 'شيخة' } },
+    { type: captionType,  params: { topic } },
+    { type: 'title',      params: { topic } },
+    { type: 'hashtags',   params: { metals: true, ksa: true, trading: true } },
+  ];
+  const r = await api('/content/batch','POST',{ requests: reqs });
+  if (!r.success) { toast(r.error||'خطأ','error'); return; }
+  document.getElementById('batch-output').innerHTML = r.results.map((res, i)=>`
+    <div class="panel" style="margin-bottom:12px;background:var(--bg2)">
+      <div style="font-size:11px;color:var(--gold);font-weight:700;margin-bottom:8px">${['بايو','تعليق','عنوان','هاشتاقات'][i]}</div>
+      <div style="white-space:pre-wrap;font-size:12px;direction:rtl;color:var(--t2)">${
+        res.content?.ar || res.content?.hashtags?.join(' ') ||
+        (res.content?.article ? res.content.article : JSON.stringify(res.content))
+      }</div>
+    </div>`).join('');
+  toast('✅ تم توليد المجموعة الكاملة','success');
+}
+
+function copyText(t){ navigator.clipboard.writeText(t.replace(/\\n/g,'\n')); toast('✅ تم النسخ','info'); }
+function esc(s){ return String(s||'').replace(/'/g,"\\'").replace(/\n/g,'\\n'); }
+
+// ── Social ────────────────────────────────────────────
+async function loadSocial(){
+  if (!dashData) await refreshAll();
+  const platforms = dashData.platforms;
+
+  // Platform grid
+  document.getElementById('plat-grid').innerHTML = platforms.map(p=>`
+    <div class="plat-card ${selPlatforms.has(p.id)?'sel':''}" onclick="toggleSocialPlat('${p.id}',this)">
+      <div class="plat-icon">${P_ICON[p.id]||'📱'}</div>
+      <div class="plat-name">${p.ar}</div>
+      <div class="plat-meta">حد الأحرف: ${p.maxChars.toLocaleString()}</div>
+      <div class="plat-score">إسلامي: ${p.islamicScore}%</div>
+    </div>`).join('');
+
+  // Post platform checkboxes
+  document.getElementById('post-platforms').innerHTML = platforms.map(p=>`
+    <label style="font-size:12px;display:flex;gap:5px;align-items:center;cursor:pointer">
+      <input type="checkbox" value="${p.id}" ${selPlatforms.has(p.id)?'checked':''} onchange="togglePostPlatform(this)">
+      ${p.ar}
+    </label>`).join('');
+
+  // Best times
+  document.getElementById('best-times').innerHTML = platforms.slice(0,6).map(p=>`
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--brd)">
+      <span style="font-size:12px">${p.ar}</span>
+      <span style="font-size:11px;color:var(--gold)">${p.bestTimes.join(' · ')}</span>
+    </div>`).join('');
+
+  loadScheduledPosts();
+}
+
+const P_ICON = { whatsapp:'💬', instagram:'📷', twitter_x:'🐦', tiktok:'🎵', snapchat:'👻', youtube:'▶️', linkedin:'💼', telegram:'✈️', facebook:'📘', threads:'🧵' };
+
+function toggleSocialPlat(id, el){
+  el.classList.toggle('sel');
+  if (selPlatforms.has(id)) selPlatforms.delete(id); else selPlatforms.add(id);
+}
+function togglePostPlatform(chk){ if(chk.checked) selPlatforms.add(chk.value); else selPlatforms.delete(chk.value); }
+
+async function loadScheduledPosts(){
+  const r = await api('/social/schedule');
+  const posts = r.posts || [];
+  document.getElementById('posts-tbody').innerHTML = posts.length
+    ? posts.map(p=>`<tr>
+        <td>${(p.platforms||[]).join(', ')}</td>
+        <td><span class="tag tag-blue">${p.contentType||p.content?.type||'—'}</span></td>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:rtl">${
+          (typeof p.content === 'string' ? p.content : p.content?.ar || p.content?.text || '—').slice(0,60)
+        }</td>
+        <td style="font-size:11px">${p.scheduledFor ? new Date(p.scheduledFor).toLocaleString('ar-SA',{dateStyle:'short',timeStyle:'short'}) : '—'}</td>
+        <td><span class="tag ${p.status==='published'?'tag-green':p.status==='failed'?'tag-red':'tag-gold'}">${p.status==='published'?'منشور':p.status==='failed'?'فشل':'مجدول'}</span></td>
+        <td>
+          ${p.status==='scheduled'?`<button class="btn btn-sm btn-green" onclick="publishPost('${p.id}')">🚀</button>`:''}
+        </td>
+      </tr>`).join('')
+    : '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--t3)">لا توجد منشورات مجدولة</td></tr>';
+}
+
+async function schedulePost(){
+  const text       = document.getElementById('post-text').value;
+  const ctype      = document.getElementById('post-ctype').value;
+  const scheduledFor = document.getElementById('post-date').value;
+  const campaignId = document.getElementById('post-campaign').value;
+  const platforms  = [...selPlatforms];
+  if (!text) { toast('أدخل نص المنشور','error'); return; }
+  const r = await api('/social/schedule','POST',{ content: text, contentType: ctype, platforms, scheduledFor: scheduledFor || null, campaignId: campaignId || null });
+  if (r.success) { toast('✅ تم جدولة المنشور','success'); loadScheduledPosts(); }
+  else { toast(r.error||'خطأ','error'); }
+}
+
+async function publishPost(id){
+  const r = await api(`/social/schedule/${id}/publish`,'PUT',{});
+  if (r.success) { toast('🚀 تم النشر!','success'); loadScheduledPosts(); }
+  else { toast(r.error||'خطأ','error'); }
+}
+
+async function publishAll(){
+  const r = await api('/social/publish-all','POST',{});
+  if (r.success) { toast(`🚀 تم نشر ${r.published} منشور`,'success'); loadScheduledPosts(); }
+  else { toast(r.error||'خطأ','error'); }
+}
+
+// ── Calendar ──────────────────────────────────────────
+const WEEK_DAYS = ['أحد','إثن','ثلث','أرب','خمس','جمعة','سبت'];
+
+async function renderCalendar(){
+  const now   = new Date();
+  const year  = now.getFullYear();
+  const month = now.getMonth() + calOffset;
+  const d = new Date(year, month, 1);
+  document.getElementById('cal-label').textContent = d.toLocaleString('ar-SA',{month:'long',year:'numeric'});
+  document.getElementById('cal-week-headers').innerHTML = WEEK_DAYS.map(w=>`<div class="cal-label">${w}</div>`).join('');
+
+  // Fetch events
+  const r = await api('/events');
+  const islamicEvs = r.islamicEvents || [];
+  const customEvs  = r.customEvents  || [];
+
+  const firstDow   = new Date(year, month, 1).getDay();
+  const daysInMonth= new Date(year, month+1, 0).getDate();
+  const today      = new Date();
+
+  let html = '';
+  for (let i = 0; i < firstDow; i++) html += '<div class="cal-day" style="opacity:.15"><div class="cal-dn"></div></div>';
+  for (let day = 1; day <= daysInMonth; day++){
+    const isToday = today.getDate()===day && today.getMonth()===month && today.getFullYear()===year;
+    // Match gregorian events
+    const dayEvs = islamicEvs.filter(ev => {
+      if (!ev.gregorian) return false;
+      const [m] = ev.gregorian.split('/').map(Number);
+      const [, dd] = ev.gregorian.split('/').map(Number);
+      return m === month+1 && dd === day;
+    });
+    const dayCustom = customEvs.filter(ev => {
+      if (!ev.date) return false;
+      const evD = new Date(ev.date);
+      return evD.getDate()===day && evD.getMonth()===month;
+    });
+    html += `<div class="cal-day ${isToday?'today':''}">
+      <div class="cal-dn">${day}</div>
+      ${dayEvs.map(e=>`<div class="event-dot ev-${e.tier?.toLowerCase()||'a'}" title="${e.ar}">${e.ar.slice(0,6)}</div>`).join('')}
+      ${dayCustom.map(e=>`<div class="event-dot ev-custom" title="${e.name}">${(e.name||'').slice(0,6)}</div>`).join('')}
+    </div>`;
+  }
+  document.getElementById('cal-grid').innerHTML = html;
+  document.getElementById('cal-grid').style.gridTemplateColumns = 'repeat(7,1fr)';
+
+  // Islamic events list
+  document.getElementById('islamic-events-list').innerHTML = islamicEvs.map(ev=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--brd)">
+      <span class="tag ${ev.tier==='A'?'tag-red':ev.tier==='B'?'tag-orange':'tag-blue'}">${ev.tier}</span>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700">${ev.ar}</div>
+        <div style="font-size:11px;color:var(--t3)">${ev.gregorian||ev.hijri||ev.note||''}</div>
+      </div>
+      <span style="font-size:12px;color:var(--gold);font-weight:700">× ${ev.adBoost}</span>
+    </div>`).join('');
+}
+
+function calPrev(){ calOffset--; renderCalendar(); }
+function calNext(){ calOffset++; renderCalendar(); }
+
+function openAddEvent(){
+  document.getElementById('modal-add-event').classList.add('open');
+  document.getElementById('ev-date').value = new Date().toISOString().split('T')[0];
+}
+
+async function addCustomEvent(){
+  const name = document.getElementById('ev-name').value;
+  const date = document.getElementById('ev-date').value;
+  const tier = document.getElementById('ev-tier').value;
+  const notes= document.getElementById('ev-notes').value;
+  if (!name || !date) { toast('أدخل الاسم والتاريخ','error'); return; }
+  const r = await api('/events','POST',{ name, date, tier, notes, adBoost: tier==='A'?3:tier==='B'?2:1 });
+  if (r.success) { toast('✅ تم إضافة الحدث','success'); closeModal('modal-add-event'); renderCalendar(); }
+  else { toast(r.error||'خطأ','error'); }
+}
+
+// ── Campaign Wizard ───────────────────────────────────
+async function initWizard(){
+  if (!dashData) await refreshAll();
+  const {platforms, adChannels, upcomingEvents} = dashData;
+
+  // Populate event select
+  const evSel = document.getElementById('wiz-event');
+  if (evSel.options.length < 2) {
+    upcomingEvents.forEach(ev=>{
+      const opt = document.createElement('option');
+      opt.value = ev.id; opt.textContent = `${ev.ar} (×${ev.adBoost})`;
+      evSel.appendChild(opt);
+    });
+  }
+  // Also populate img-event
+  const imgEvSel = document.getElementById('img-event');
+  if (imgEvSel.options.length < 2) {
+    upcomingEvents.forEach(ev=>{ const o=document.createElement('option'); o.value=ev.ar; o.textContent=ev.ar; imgEvSel.appendChild(o); });
+  }
+
+  // Wizard platforms
+  document.getElementById('wiz-platforms').innerHTML = platforms.map(p=>`
+    <label style="font-size:12px;display:flex;gap:5px;align-items:center;cursor:pointer;padding:5px 10px;border:1px solid ${selWizPlatforms.has(p.id)?'var(--gold)':'var(--brd)'};border-radius:var(--radius);background:${selWizPlatforms.has(p.id)?'rgba(201,164,44,.1)':'transparent'}">
+      <input type="checkbox" value="${p.id}" ${selWizPlatforms.has(p.id)?'checked':''} onchange="toggleWizPlat(this)">
+      ${p.ar}
+    </label>`).join('');
+
+  // Wizard ad channels — كل القنوات الـ 18
+  if (selWizAdChannels.size === 0) adChannels.forEach(c => selWizAdChannels.add(c.id)); // تحديد الكل افتراضياً
+  document.getElementById('wiz-adchannels').innerHTML =
+    `<div style="width:100%;display:flex;gap:8px;margin-bottom:8px">
+      <button class="btn btn-outline btn-sm" onclick="wizAdSelectAll()">✅ تحديد الكل (${adChannels.length})</button>
+      <button class="btn btn-outline btn-sm" onclick="wizAdClearAll()">❌ إلغاء الكل</button>
+      <span id="wiz-ad-count" style="align-self:center;font-size:11px;color:var(--gold)">${selWizAdChannels.size} محددة</span>
+    </div>` +
+    adChannels.map(c=>`
+    <label style="font-size:12px;display:flex;gap:5px;align-items:center;cursor:pointer;padding:5px 10px;border:1px solid ${selWizAdChannels.has(c.id)?'var(--gold)':'var(--brd)'};border-radius:var(--radius);background:${selWizAdChannels.has(c.id)?'rgba(201,164,44,.08)':'transparent'}">
+      <input type="checkbox" value="${c.id}" ${selWizAdChannels.has(c.id)?'checked':''} onchange="toggleWizAd(this)">
+      <span class="ad-card-type ${c.type}" style="font-size:9px;padding:1px 6px;border-radius:20px">${c.type}</span>
+      ${c.ar}
+    </label>`).join('');
+}
+
+function toggleWizPlat(chk){
+  chk.closest('label').style.borderColor = chk.checked ? 'var(--gold)':'var(--brd)';
+  chk.closest('label').style.background  = chk.checked ? 'rgba(201,164,44,.1)':'transparent';
+  if(chk.checked) selWizPlatforms.add(chk.value); else selWizPlatforms.delete(chk.value);
+}
+function toggleWizAd(chk){
+  chk.closest('label').style.borderColor = chk.checked ? 'var(--gold)':'var(--brd)';
+  chk.closest('label').style.background  = chk.checked ? 'rgba(201,164,44,.08)':'transparent';
+  if(chk.checked) selWizAdChannels.add(chk.value); else selWizAdChannels.delete(chk.value);
+  const cnt = document.getElementById('wiz-ad-count');
+  if(cnt) cnt.textContent = selWizAdChannels.size + ' محددة';
+}
+function wizAdSelectAll(){
+  document.querySelectorAll('#wiz-adchannels input[type=checkbox]').forEach(chk=>{
+    chk.checked=true; selWizAdChannels.add(chk.value);
+    chk.closest('label').style.borderColor='var(--gold)';
+    chk.closest('label').style.background='rgba(201,164,44,.08)';
+  });
+  const cnt=document.getElementById('wiz-ad-count'); if(cnt) cnt.textContent=selWizAdChannels.size+' محددة';
+}
+function wizAdClearAll(){
+  document.querySelectorAll('#wiz-adchannels input[type=checkbox]').forEach(chk=>{
+    chk.checked=false; selWizAdChannels.delete(chk.value);
+    chk.closest('label').style.borderColor='var(--brd)';
+    chk.closest('label').style.background='transparent';
+  });
+  const cnt=document.getElementById('wiz-ad-count'); if(cnt) cnt.textContent='0 محددة';
+}
+
+async function launchCampaign(){
+  const name        = document.getElementById('wiz-name').value;
+  const objective   = document.getElementById('wiz-obj').value;
+  const days        = parseInt(document.getElementById('wiz-days').value) || 30;
+  const description = document.getElementById('wiz-desc').value;
+  const budget      = parseFloat(document.getElementById('wiz-budget').value) || 10000;
+  const linkedEvent = document.getElementById('wiz-event').value;
+  const captionType = document.getElementById('wiz-caption-type').value;
+  if (!name) { toast('أدخل اسم الحملة','error'); return; }
+
+  const btn = document.getElementById('wiz-btn');
+  btn.disabled = true; btn.innerHTML = '<div class="spin"></div> جارٍ إنشاء الحملة الكاملة…';
+
+  try {
+    const r = await api('/quick/generate-all','POST',{
+      name, description, objective,
+      durationDays: days, totalBudget: budget,
+      linkedEvent: linkedEvent || null,
+      captionType,
+      platforms:   [...selWizPlatforms],
+      adChannels:  [...selWizAdChannels],
+    });
+
+    if (!r.success) { toast(r.error||'خطأ','error'); return; }
+    const c = r.campaign;
+
+    document.getElementById('wiz-result').style.display = 'block';
+    document.getElementById('wiz-result-body').innerHTML = `
+      <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:16px">🎉 ${r.message}</div>
+      <div class="four-col" style="margin-bottom:16px">
+        ${[
+          ['🆔 رقم الحملة', c.id],
+          ['📅 المدة', `${c.durationDays} يوم`],
+          ['💰 الميزانية', 'ر' + c.totalBudget.toLocaleString()],
+          ['📱 منصات', c.platforms.length],
+          ['📡 قنوات إعلانية', c.adChannels.length],
+          ['🖼️ صور مولّدة', Object.keys(r.images||{}).length],
+          ['📤 منشورات مجدولة', r.totalPostsScheduled],
+          ['🚀 دفعة الإعلانات', `×${c.adBoost}`],
+        ].map(([l,v])=>`<div style="background:var(--bg2);border-radius:var(--radius);padding:12px;text-align:center"><div style="font-size:11px;color:var(--t3)">${l}</div><div style="font-weight:900;color:var(--gold)">${v}</div></div>`).join('')}
+      </div>
+
+      <!-- Images Kit -->
+      <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:10px">🖼️ صور الحملة</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+        ${Object.entries(r.images||{}).map(([t,img])=>`
+          <a href="${img.publicPath}" target="_blank" class="btn btn-outline btn-sm">${t}: ${img.dimensions?.label}</a>`).join('')}
+      </div>
+
+      <!-- Content -->
+      <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:10px">📝 المحتوى المُولَّد</div>
+      <div style="background:var(--bg2);border-radius:var(--radius);padding:14px;direction:rtl;font-size:12px;white-space:pre-wrap;margin-bottom:16px">${
+        r.content?.caption?.ar || r.content?.caption?.text || '—'
+      }</div>
+
+      <!-- Ad Plan -->
+      <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:10px">📡 خطة الإعلانات</div>
+      <div class="twrap"><table><thead><tr><th>القناة</th><th>النوع</th><th>الميزانية</th><th>الوصول المتوقع</th></tr></thead><tbody>
+        ${(r.adPlan||[]).map(a=>`<tr>
+          <td>${a.nameAr}</td>
+          <td><span class="tag ${a.type} ${TYPE_CLS[a.type]||''}" style="font-size:10px">${a.type}</span></td>
+          <td style="color:var(--gold);font-weight:700">ر${a.allocatedBudget.toLocaleString()}</td>
+          <td>${a.estimatedReach.toLocaleString()}</td>
+        </tr>`).join('')}
+      </tbody></table></div>
+
+      <!-- Phase -->
+      <div style="font-size:12px;font-weight:700;color:var(--gold);margin:14px 0 10px">🔄 مراحل سلوك الحملة</div>
+      <div class="phase-bar">
+        ${(c.behavior.phases||[]).map((ph,i)=>`<div class="phase-seg ${i===0?'active':''}">${ph.name}</div>`).join('')}
+      </div>
+
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-gold" onclick="nav(document.querySelector('[data-page=campaigns]'))">📣 رؤية الحملة</button>
+        <button class="btn btn-outline" onclick="document.getElementById('wiz-result').style.display='none'">إخفاء النتيجة</button>
+      </div>`;
+
+    toast('🚀 تم إطلاق الحملة الكاملة بنجاح!','success');
+    refreshAll();
+  } catch(e){ toast('خطأ: '+e.message,'error'); }
+  finally { btn.disabled=false; btn.innerHTML='🚀 إطلاق الحملة الكاملة — صور + محتوى + جدول + إعلانات'; }
+}
+
+// ── Campaigns ────────────────────────────────────────
+async function loadCampaigns(){
+  const status = document.getElementById('camp-filter').value;
+  const r = await api('/campaigns' + (status ? '?status='+status : ''));
+  const camps = r.campaigns || [];
+  document.getElementById('camps-tbody').innerHTML = camps.length
+    ? camps.reverse().map(c=>`<tr>
+        <td>
+          <div style="font-weight:700">${c.name}</div>
+          <div style="font-size:10px;color:var(--t4)">${c.id}</div>
+        </td>
+        <td><span class="tag tag-blue" style="font-size:10px">${OBJ_AR[c.objective]||c.objective}</span></td>
+        <td><span class="tag tag-gold" style="font-size:10px">${c.behavior?.phase||'—'}</span></td>
+        <td style="color:var(--orange);font-weight:700">ر${(c.totalBudget||0).toLocaleString()}</td>
+        <td style="color:var(--red)">ر${(c.spent||0).toLocaleString()}</td>
+        <td style="color:var(--blue-l)">${(c.kpis?.impressions||0).toLocaleString()}</td>
+        <td><span class="tag ${STATUS_CLS[c.status]||'tag-blue'}">${STATUS_AR[c.status]||c.status}</span></td>
+        <td>
+          <div style="display:flex;gap:4px;flex-wrap:wrap">
+            ${c.status!=='active' ? `<button class="btn btn-sm btn-green" onclick="setCampStatus('${c.id}','active')">▶</button>` : ''}
+            ${c.status==='active' ? `<button class="btn btn-sm btn-outline" onclick="setCampStatus('${c.id}','paused')">⏸</button>` : ''}
+            <button class="btn btn-sm btn-blue" onclick="showCampDetail('${c.id}')">📊</button>
+          </div>
+        </td>
+      </tr>`).join('')
+    : '<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--t3)">لا توجد حملات بعد — أنشئ حملة من "إنشاء حملة كاملة"</td></tr>';
+}
+
+async function setCampStatus(id, status){
+  const r = await api(`/campaigns/${id}/status`,'PUT',{ status });
+  if (r.success) { toast(`✅ الحالة: ${STATUS_AR[status]}`,'success'); loadCampaigns(); }
+  else { toast(r.error||'خطأ','error'); }
+}
+
+async function showCampDetail(id){
+  const r = await api('/analytics/'+id);
+  if (!r.success) { toast('خطأ في جلب البيانات','error'); return; }
+  document.getElementById('camp-detail-body').innerHTML = `
+    <div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+      ${[['👁','مشاهدات',r.kpis.impressions],['📡','وصول',r.kpis.reach],['🖱','نقرات',r.kpis.clicks],
+         ['📞','عملاء',r.kpis.leads],['💰','إنفاق','ر'+r.spent],['📈','ROAS',r.roas+'x']
+        ].map(([i,l,v])=>`<div class="stat-c"><div class="stat-ico">${i}</div><div class="stat-val" style="font-size:1.4rem;color:var(--gold)">${typeof v==='number'?v.toLocaleString():v}</div><div class="stat-lbl">${l}</div></div>`).join('')}
+    </div>
+    <div style="font-size:12px;color:var(--gold);margin-bottom:8px">المرحلة الحالية: <strong>${r.phaseNow}</strong></div>
+    <div class="phase-bar">
+      ${['launch','grow','peak','maintain','wind-down'].map(ph=>`
+        <div class="phase-seg ${ph===r.phaseNow?'active':ph==='launch'||ph==='grow'?'done':''}">${ph}</div>`).join('')}
+    </div>
+    <button class="btn btn-outline btn-sm" style="margin-top:14px" onclick="closeModal('modal-campaign-detail')">إغلاق</button>`;
+  document.getElementById('modal-campaign-detail').classList.add('open');
+}
+
+// ── Advertising ──────────────────────────────────────
+let selAdPlanChannels = new Set(); // سيُملأ بكل القنوات عند التحميل
+
+async function loadAdChannels(){
+  if (!dashData) await refreshAll();
+  const type = document.getElementById('ad-type-filter').value;
+  let channels = dashData.adChannels;
+  if (type) channels = channels.filter(c => c.type === type);
+
+  if (selAdPlanChannels.size === 0) channels.forEach(c => selAdPlanChannels.add(c.id)); // تحديد الكل
+  document.getElementById('ad-channels-grid').innerHTML = channels.map(c=>`
+    <div class="ad-card ${selAdPlanChannels.has(c.id)?'sel':''}" onclick="toggleAdPlanChannel('${c.id}',this)">
+      <div class="ad-card-head">
+        <div class="ad-card-name">${c.ar}</div>
+        <span class="ad-card-type ${c.type}">${c.type}</span>
+      </div>
+      <div class="ad-card-cpm">CPM: $${c.cpm}</div>
+      <div class="ad-card-reach">📡 ${c.reach}</div>
+      <div class="ad-formats">${c.formats.map(f=>`<span class="tag tag-blue" style="font-size:10px">${f}</span>`).join('')}</div>
+    </div>`).join('');
+
+  renderAdPlanChannels();
+}
+
+function toggleAdPlanChannel(id, el){
+  el.classList.toggle('sel');
+  if (selAdPlanChannels.has(id)) selAdPlanChannels.delete(id); else selAdPlanChannels.add(id);
+  renderAdPlanChannels();
+}
+
+function renderAdPlanChannels(){
+  const cnt = document.getElementById('adplan-count');
+  if(cnt) cnt.textContent = selAdPlanChannels.size + ' قناة محددة من ' + (dashData?.adChannels?.length||18);
+  document.getElementById('adplan-channels-sel').innerHTML = [...selAdPlanChannels].map(id=>{
+    const ch = dashData?.adChannels?.find(c=>c.id===id);
+    return `<span class="tag tag-gold" style="cursor:pointer" onclick="toggleAdPlanChannel('${id}',null)" title="انقر للإلغاء">${ch?.ar||id} ✕</span>`;
+  }).join('');
+}
+function adPlanSelectAll(){
+  (dashData?.adChannels||[]).forEach(c => selAdPlanChannels.add(c.id));
+  document.querySelectorAll('#ad-channels-grid .ad-card').forEach(el => el.classList.add('sel'));
+  renderAdPlanChannels();
+}
+function adPlanClearAll(){
+  selAdPlanChannels.clear();
+  document.querySelectorAll('#ad-channels-grid .ad-card').forEach(el => el.classList.remove('sel'));
+  renderAdPlanChannels();
+}
+
+async function generateAdPlan(){
+  const budget   = parseFloat(document.getElementById('adplan-budget').value) || 10000;
+  const duration = parseInt(document.getElementById('adplan-days').value) || 30;
+  const r = await api('/ad/plan','POST',{
+    channels: [...selAdPlanChannels],
+    budget, duration, objective: 'awareness',
+  });
+  if (!r.success) { toast(r.error||'خطأ','error'); return; }
+  const plan = r.plan || [];
+  document.getElementById('adplan-result').innerHTML = `
+    <div class="twrap"><table><thead><tr>
+      <th>القناة</th><th>النوع</th><th>الميزانية</th><th>CPM</th><th>الوصول المتوقع</th><th>الأشكال</th>
+    </tr></thead><tbody>
+      ${plan.map(p=>`<tr>
+        <td><strong>${p.nameAr}</strong></td>
+        <td><span class="ad-card-type ${p.type}" style="font-size:10px;padding:2px 8px;border-radius:20px">${p.type}</span></td>
+        <td style="color:var(--gold);font-weight:700">ر${p.allocatedBudget.toLocaleString()}</td>
+        <td>$${p.cpm}</td>
+        <td style="color:var(--green-l)">${p.estimatedReach.toLocaleString()}</td>
+        <td style="font-size:10px">${p.formats.join(' · ')}</td>
+      </tr>`).join('')}
+    </tbody></table></div>
+    <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+      <span style="font-size:12px;color:var(--t3)">الميزانية: <strong style="color:var(--gold)">ر${budget.toLocaleString()}</strong></span>
+      <span style="font-size:12px;color:var(--t3)">المدة: ${duration} يوم</span>
+      <span style="font-size:12px;color:var(--t3)">القنوات: ${plan.length}</span>
+    </div>`;
+  toast('✅ تم توليد خطة الإعلان','success');
+}
+
+// ── Analytics ────────────────────────────────────────
+async function loadAnalytics(){
+  const r = await api('/analytics');
+  const k = r.kpis || {};
+  document.getElementById('analytics-stats').innerHTML = [
+    {ico:'👁', val:k.impressions?.toLocaleString()||0, lbl:'مشاهدات',     col:'blue-l'},
+    {ico:'📡', val:k.reach?.toLocaleString()||0,       lbl:'وصول',         col:'cyan'},
+    {ico:'🖱', val:k.clicks?.toLocaleString()||0,      lbl:'نقرات',         col:'gold'},
+    {ico:'📞', val:k.leads||0,                         lbl:'عملاء محتملين', col:'green-l'},
+    {ico:'💰', val:'ر'+(k.spent||0).toLocaleString(),  lbl:'إجمالي الإنفاق',col:'orange'},
+    {ico:'📈', val:(k.roas||0)+'x',                    lbl:'ROAS',          col:'purple'},
+    {ico:'🎯', val:(k.ctr||0)+'%',                     lbl:'CTR',           col:'gold'},
+    {ico:'💡', val:'ر'+(k.cpl||0),                     lbl:'تكلفة العميل',  col:'pink'},
+  ].map(s=>`<div class="stat-c"><div class="stat-ico">${s.ico}</div><div class="stat-val" style="color:var(--${s.col})">${s.val}</div><div class="stat-lbl">${s.lbl}</div></div>`).join('');
+
+  const camps = await api('/campaigns');
+  document.getElementById('camp-analytics').innerHTML = (camps.campaigns||[]).slice(0,8).map(c=>{
+    const pct = c.totalBudget > 0 ? Math.min(((c.spent||0)/c.totalBudget)*100,100) : 0;
+    return `<div style="padding:8px 0;border-bottom:1px solid var(--brd)">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:12px;font-weight:600">${c.name}</span>
+        <span style="font-size:11px;color:var(--gold)">ر${(c.spent||0).toLocaleString()} / ر${(c.totalBudget||0).toLocaleString()}</span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('') || '<div style="color:var(--t4);text-align:center;padding:20px">لا بيانات</div>';
+
+  // Platform distribution from campaigns
+  const platCount = {};
+  (camps.campaigns||[]).forEach(c => (c.platforms||[]).forEach(p => { platCount[p] = (platCount[p]||0)+1; }));
+  const maxPlatVal = Math.max(...Object.values(platCount), 1);
+  document.getElementById('plat-analytics').innerHTML = Object.entries(platCount).map(([p,v])=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--brd)">
+      <span style="font-size:12px;min-width:90px">${P_ICON[p]||'📱'} ${p}</span>
+      <div style="flex:1;background:var(--bg2);border-radius:20px;height:8px;overflow:hidden">
+        <div style="height:100%;background:var(--gold);border-radius:20px;width:${(v/maxPlatVal)*100}%"></div>
+      </div>
+      <span style="color:var(--gold);font-weight:700;min-width:20px">${v}</span>
+    </div>`).join('') || '<div style="color:var(--t4);text-align:center;padding:20px">لا بيانات</div>';
+}
+
+// ── Helpers ──────────────────────────────────────────
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+
+// ── Init ────────────────────────────────────────────
+(async () => {
+  await refreshAll();
+  updateContentForm();
+})();
+</script>
+</body>
+</html>
