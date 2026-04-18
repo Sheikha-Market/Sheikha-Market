@@ -909,6 +909,18 @@ try {
     console.warn('⚠️ VideoContent:', e.message);
 }
 
+// ☪️ منظومة التسويق الشامل الموحد — UMB
+let unifiedMarketingBrain = null;
+try {
+    const SheikhaUMB = require('./lib/sheikha-unified-marketing-brain.js');
+    unifiedMarketingBrain = new SheikhaUMB();
+    unifiedMarketingBrain.registerRoutes(app);
+    const umbStatus = unifiedMarketingBrain.getStatus();
+    console.log(`✅ [UMB v${umbStatus.version}] ${umbStatus.nameAr} | ${umbStatus.platforms} منصة | ${umbStatus.adChannels} قناة إعلانية | ${umbStatus.events} مناسبة`);
+} catch (e) {
+    console.warn('⚠️ UnifiedMarketingBrain:', e.message);
+}
+
 // ☪️ محرك التزامن والرزنامة — التاريخ الهجري أساسي
 let calendarEngine = null;
 try {
