@@ -701,6 +701,11 @@ tr:hover td{background:rgba(201,164,44,.025)}
       </div>
       <div class="fg">
         <label class="fl">قنوات مختارة</label>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <button class="btn btn-outline btn-sm" onclick="adPlanSelectAll()">✅ تحديد الكل</button>
+          <button class="btn btn-outline btn-sm" onclick="adPlanClearAll()">❌ إلغاء الكل</button>
+          <span id="adplan-count" style="align-self:center;font-size:11px;color:var(--gold)"></span>
+        </div>
         <div id="adplan-channels-sel" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"></div>
       </div>
       <button class="btn btn-gold" onclick="generateAdPlan()">💰 توليد خطة الإعلان</button>
@@ -774,7 +779,7 @@ let dashData = null;
 let selPlatforms  = new Set(['instagram','whatsapp','twitter_x','telegram']);
 let selAdChannels = new Set(['google_ads','meta_ads','whatsapp_biz']);
 let selWizPlatforms  = new Set(['instagram','whatsapp','twitter_x','telegram','tiktok']);
-let selWizAdChannels = new Set(['google_ads','meta_ads','whatsapp_biz','tiktok_ads','email_mkt']);
+let selWizAdChannels = new Set(); // سيُملأ بكل القنوات عند التهيئة
 let calOffset = 0;
 
 const OBJ_AR = { brand_awareness:'وعي بالعلامة', lead_generation:'توليد عملاء', sales:'مبيعات', engagement:'تفاعل', app_installs:'تحميلات' };
@@ -1249,10 +1254,18 @@ async function initWizard(){
       ${p.ar}
     </label>`).join('');
 
-  // Wizard ad channels
-  document.getElementById('wiz-adchannels').innerHTML = adChannels.slice(0,10).map(c=>`
-    <label style="font-size:12px;display:flex;gap:5px;align-items:center;cursor:pointer;padding:5px 10px;border:1px solid ${selWizAdChannels.has(c.id)?'var(--gold)':'var(--brd)'};border-radius:var(--radius)">
+  // Wizard ad channels — كل القنوات الـ 18
+  if (selWizAdChannels.size === 0) adChannels.forEach(c => selWizAdChannels.add(c.id)); // تحديد الكل افتراضياً
+  document.getElementById('wiz-adchannels').innerHTML =
+    `<div style="width:100%;display:flex;gap:8px;margin-bottom:8px">
+      <button class="btn btn-outline btn-sm" onclick="wizAdSelectAll()">✅ تحديد الكل (${adChannels.length})</button>
+      <button class="btn btn-outline btn-sm" onclick="wizAdClearAll()">❌ إلغاء الكل</button>
+      <span id="wiz-ad-count" style="align-self:center;font-size:11px;color:var(--gold)">${selWizAdChannels.size} محددة</span>
+    </div>` +
+    adChannels.map(c=>`
+    <label style="font-size:12px;display:flex;gap:5px;align-items:center;cursor:pointer;padding:5px 10px;border:1px solid ${selWizAdChannels.has(c.id)?'var(--gold)':'var(--brd)'};border-radius:var(--radius);background:${selWizAdChannels.has(c.id)?'rgba(201,164,44,.08)':'transparent'}">
       <input type="checkbox" value="${c.id}" ${selWizAdChannels.has(c.id)?'checked':''} onchange="toggleWizAd(this)">
+      <span class="ad-card-type ${c.type}" style="font-size:9px;padding:1px 6px;border-radius:20px">${c.type}</span>
       ${c.ar}
     </label>`).join('');
 }
@@ -1264,7 +1277,26 @@ function toggleWizPlat(chk){
 }
 function toggleWizAd(chk){
   chk.closest('label').style.borderColor = chk.checked ? 'var(--gold)':'var(--brd)';
+  chk.closest('label').style.background  = chk.checked ? 'rgba(201,164,44,.08)':'transparent';
   if(chk.checked) selWizAdChannels.add(chk.value); else selWizAdChannels.delete(chk.value);
+  const cnt = document.getElementById('wiz-ad-count');
+  if(cnt) cnt.textContent = selWizAdChannels.size + ' محددة';
+}
+function wizAdSelectAll(){
+  document.querySelectorAll('#wiz-adchannels input[type=checkbox]').forEach(chk=>{
+    chk.checked=true; selWizAdChannels.add(chk.value);
+    chk.closest('label').style.borderColor='var(--gold)';
+    chk.closest('label').style.background='rgba(201,164,44,.08)';
+  });
+  const cnt=document.getElementById('wiz-ad-count'); if(cnt) cnt.textContent=selWizAdChannels.size+' محددة';
+}
+function wizAdClearAll(){
+  document.querySelectorAll('#wiz-adchannels input[type=checkbox]').forEach(chk=>{
+    chk.checked=false; selWizAdChannels.delete(chk.value);
+    chk.closest('label').style.borderColor='var(--brd)';
+    chk.closest('label').style.background='transparent';
+  });
+  const cnt=document.getElementById('wiz-ad-count'); if(cnt) cnt.textContent='0 محددة';
 }
 
 async function launchCampaign(){
@@ -1403,7 +1435,7 @@ async function showCampDetail(id){
 }
 
 // ── Advertising ──────────────────────────────────────
-let selAdPlanChannels = new Set(['google_ads','meta_ads','whatsapp_biz']);
+let selAdPlanChannels = new Set(); // سيُملأ بكل القنوات عند التحميل
 
 async function loadAdChannels(){
   if (!dashData) await refreshAll();
@@ -1411,6 +1443,7 @@ async function loadAdChannels(){
   let channels = dashData.adChannels;
   if (type) channels = channels.filter(c => c.type === type);
 
+  if (selAdPlanChannels.size === 0) channels.forEach(c => selAdPlanChannels.add(c.id)); // تحديد الكل
   document.getElementById('ad-channels-grid').innerHTML = channels.map(c=>`
     <div class="ad-card ${selAdPlanChannels.has(c.id)?'sel':''}" onclick="toggleAdPlanChannel('${c.id}',this)">
       <div class="ad-card-head">
@@ -1432,8 +1465,22 @@ function toggleAdPlanChannel(id, el){
 }
 
 function renderAdPlanChannels(){
-  document.getElementById('adplan-channels-sel').innerHTML = [...selAdPlanChannels].map(id=>`
-    <span class="tag tag-gold">${dashData?.adChannels?.find(c=>c.id===id)?.ar||id}</span>`).join('');
+  const cnt = document.getElementById('adplan-count');
+  if(cnt) cnt.textContent = selAdPlanChannels.size + ' قناة محددة من ' + (dashData?.adChannels?.length||18);
+  document.getElementById('adplan-channels-sel').innerHTML = [...selAdPlanChannels].map(id=>{
+    const ch = dashData?.adChannels?.find(c=>c.id===id);
+    return `<span class="tag tag-gold" style="cursor:pointer" onclick="toggleAdPlanChannel('${id}',null)" title="انقر للإلغاء">${ch?.ar||id} ✕</span>`;
+  }).join('');
+}
+function adPlanSelectAll(){
+  (dashData?.adChannels||[]).forEach(c => selAdPlanChannels.add(c.id));
+  document.querySelectorAll('#ad-channels-grid .ad-card').forEach(el => el.classList.add('sel'));
+  renderAdPlanChannels();
+}
+function adPlanClearAll(){
+  selAdPlanChannels.clear();
+  document.querySelectorAll('#ad-channels-grid .ad-card').forEach(el => el.classList.remove('sel'));
+  renderAdPlanChannels();
 }
 
 async function generateAdPlan(){

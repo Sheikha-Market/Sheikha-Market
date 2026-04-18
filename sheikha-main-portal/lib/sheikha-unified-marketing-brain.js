@@ -404,7 +404,7 @@ function createFullCampaign(opts = {}) {
   const end = new Date(now.getTime() + (opts.durationDays || 30) * 86400000);
 
   const platforms  = opts.platforms  || PLATFORMS.map(p => p.id);
-  const adChannels = opts.adChannels || AD_CHANNELS.slice(0, 6).map(c => c.id);
+  const adChannels = opts.adChannels || AD_CHANNELS.map(c => c.id); // كل القنوات الـ 18
   const event      = opts.linkedEvent ? ISLAMIC_EVENTS.find(e => e.id === opts.linkedEvent) : null;
   const boost      = event ? event.adBoost : 1.0;
 
@@ -751,7 +751,7 @@ class SheikhaUnifiedMarketingBrain {
       res.json({ success: true, channels, total: channels.length });
     });
     P('/ad/plan', (req, res) => {
-      const { channels = AD_CHANNELS.slice(0,5).map(c=>c.id), budget = 10000, duration = 30, objective = 'awareness' } = req.body;
+      const { channels = AD_CHANNELS.map(c=>c.id), budget = 10000, duration = 30, objective = 'awareness' } = req.body; // كل القنوات
       const plan = channels.map(cid => {
         const ch  = AD_CHANNELS.find(c => c.id === cid);
         const alloc = +(budget / channels.length).toFixed(2);
