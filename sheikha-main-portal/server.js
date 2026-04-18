@@ -35875,6 +35875,31 @@ try {
     console.warn('⚠️ [TELECOM] فشل تحميل مسارات الاتصالات:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 شبكة الذكاء الاصطناعي الحية الداخلية — Sheikha Live AI Network
+// ذكاء صناعي يعمل داخلياً بلا APIs خارجية · ٤ عقد متخصصة · شريعة + تجارة + تحليل
+// "وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا" — البقرة:٣١
+// ═══════════════════════════════════════════════════════════════════════════════
+let liveAINetworkInstance = null;
+try {
+    const { liveAINetwork } = require('./lib/sheikha-live-ai-network');
+    liveAINetworkInstance = liveAINetwork;
+    // تشغيل الشبكة في الخلفية (non-blocking)
+    liveAINetwork.ignite().then(() => {
+        console.log('✅ [LIVE-AI] شبكة الذكاء الاصطناعي الحية — مُفعَّلة (٤ عقد)');
+        console.log('   ├─ POST /api/ai/live/ask      — استعلام ذكي عام');
+        console.log('   ├─ POST /api/ai/live/analyze  — تحليل بيانات');
+        console.log('   ├─ POST /api/ai/live/sharia   — استفسار شرعي');
+        console.log('   └─ GET  /api/ai/live/status   — حالة الشبكة');
+    }).catch(e => console.warn('⚠️ [LIVE-AI] خطأ في تشغيل الشبكة:', e.message));
+
+    const liveAIRoutes = require('./routes/live-ai');
+    app.use('/api/ai/live', liveAIRoutes);
+    console.log('✅ [LIVE-AI] مسارات الذكاء الاصطناعي الحي مسجّلة على /api/ai/live');
+} catch (e) {
+    console.warn('⚠️ [LIVE-AI] شبكة الذكاء الاصطناعي الحية غير متوفرة:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
