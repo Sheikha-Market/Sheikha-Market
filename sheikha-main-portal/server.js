@@ -13388,15 +13388,6 @@ app.get('/api/products/:id', (req, res) => {
         totalSimilar: similarOffers.length
     });
 
-    // ═══ Meta CAPI — ViewContent ═══
-    if (metaEngine)
-        try {
-            const userReq = req.user || {};
-            metaEngine.sendCAPIEventWithGeoRouting('ViewContent',
-                { email: userReq.email, phone: userReq.phone, clientIpAddress: req.ip, clientUserAgent: req.headers['user-agent'] },
-                { contentIds: [String(listing.id)], contentName: listing.name, contentCategory: listing.categoryName || listing.category, contentType: 'product', value: Number(listing.price) || 0, currency: listing.currency || 'SAR' }
-            ).catch(() => {});
-        } catch (_) {}
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -32096,15 +32087,6 @@ app.post('/api/orders', express.json(), authRequired, (req, res) => {
         fs.writeFileSync(ORDERS_FILE, JSON.stringify(ORDERS, null, 2));
     } catch (_) {}
     res.json({ success: true, order, message: `تم إنشاء ${order.typeLabel} بنجاح` });
-
-    // ═══ Meta CAPI — Purchase (buy orders only) ═══
-    if (metaEngine && order.type === 'buy')
-        try {
-            metaEngine.sendCAPIEventWithGeoRouting('Purchase',
-                { email: user.email, phone: user.phone, clientIpAddress: req.ip, clientUserAgent: req.headers['user-agent'] },
-                { contentIds: [order.id], contentName: order.metalType || 'معدن', contentType: 'product', value: Number(order.price) || 0, currency: order.currency || 'SAR', orderId: order.id }
-            ).catch(() => {});
-        } catch (_) {}
 });
 
 // ═══ API: قائمة الطلبات ═══

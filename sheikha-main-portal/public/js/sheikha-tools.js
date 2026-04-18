@@ -122,7 +122,6 @@ function injectToolbar() {
             <a class="st-share-btn" onclick="sheikhaTools.shareTelegram()"><div class="si">✈️</div><div class="sn">تيليجرام</div></a>
             <a class="st-share-btn" onclick="sheikhaTools.shareTwitter()"><div class="si">🐦</div><div class="sn">تويتر</div></a>
             <a class="st-share-btn" onclick="sheikhaTools.shareLinkedIn()"><div class="si">💼</div><div class="sn">لينكدإن</div></a>
-            <a class="st-share-btn" onclick="sheikhaTools.shareFacebook()"><div class="si">📘</div><div class="sn">فيسبوك</div></a>
             <a class="st-share-btn" onclick="sheikhaTools.email()"><div class="si">📧</div><div class="sn">بريد</div></a>
             <a class="st-share-btn" onclick="sheikhaTools.copyLink()"><div class="si">🔗</div><div class="sn">نسخ الرابط</div></a>
             <a class="st-share-btn" onclick="sheikhaTools.qrCode()"><div class="si">📱</div><div class="sn">QR</div></a>
@@ -312,9 +311,6 @@ window.sheikhaTools = {
     },
     shareLinkedIn: function() {
         window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href));
-    },
-    shareFacebook: function() {
-        window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href));
     },
     qrCode: function() {
         window.open('https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(window.location.href));

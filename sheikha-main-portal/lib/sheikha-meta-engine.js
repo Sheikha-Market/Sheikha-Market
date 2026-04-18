@@ -438,39 +438,8 @@ class SheikhMetaEngine {
     // يُفعَّل فقط عندما تكون META_AUTOMATION_APPROVED=true
     // ═══════════════════════════════════════════════════════════════════════════
     _callMetaGraphAPI(pixelId, accessToken, payload) {
-        return new Promise((resolve, reject) => {
-            const body = JSON.stringify(payload);
-            const path = `/${this.config.graphVersion}/${encodeURIComponent(pixelId)}/events?access_token=${encodeURIComponent(accessToken)}`;
-            const options = {
-                hostname: 'graph.facebook.com',
-                port: 443,
-                path,
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Content-Length': Buffer.byteLength(body),
-                },
-            };
-            const req = https.request(options, (res) => {
-                let data = '';
-                res.on('data', (chunk) => { data += chunk; });
-                res.on('end', () => {
-                    try {
-                        const parsed = JSON.parse(data);
-                        if (res.statusCode >= 200 && res.statusCode < 300) {
-                            resolve(parsed);
-                        } else {
-                            reject(new Error(`Meta API ${res.statusCode}: ${JSON.stringify(parsed)}`));
-                        }
-                    } catch (e) {
-                        reject(new Error(`Meta API parse error: ${data}`));
-                    }
-                });
-            });
-            req.on('error', reject);
-            req.write(body);
-            req.end();
-        });
+        // شيخة لا تتعامل مع Facebook — CAPI معطّل
+        return Promise.resolve({ ok: false, disabled: true, reason: 'Facebook Pixel CAPI disabled per owner policy' });
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -1756,30 +1725,10 @@ class SheikhMetaEngine {
             res.json({ emq, max: 10 });
         });
 
-        // ─── Pixel ───────────────────────────────────────────────────────────
-        app.get(`${base}/pixel/إعدادات`, (req, res) => res.json({
-            pixelId: this.config.pixelId,
-            appId: this.config.appId,
-            events: this.halalEvents,
-            advancedMatching: true,
-            autoConfig: true,
-        }));
-        app.get(`${base}/pixel/settings`, (req, res) => res.json({ pixelId: this.config.pixelId }));
-        app.get(`${base}/pixel/snippet`, (req, res) => {
-            const snippet = `<!-- شيخة Meta Pixel — حلال بالكامل -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '${this.config.pixelId}');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=${this.config.pixelId}&ev=PageView&noscript=1"/></noscript>`;
-            res.json({ snippet, pixelId: this.config.pixelId });
-        });
+        // ─── Pixel — معطّل (شيخة لا تتعامل مع Facebook) ─────────────────────
+        app.get(`${base}/pixel/إعدادات`, (req, res) => res.status(403).json({ error: 'Facebook Pixel غير مفعّل' }));
+        app.get(`${base}/pixel/settings`, (req, res) => res.status(403).json({ error: 'Facebook Pixel غير مفعّل' }));
+        app.get(`${base}/pixel/snippet`,  (req, res) => res.status(403).json({ error: 'Facebook Pixel غير مفعّل' }));
 
         // ─── WhatsApp Business API ────────────────────────────────────────────
         app.post(`${base}/واتساب/رسالة`, async (req, res) => {
@@ -2375,9 +2324,6 @@ src="https://www.facebook.com/tr?id=${this.config.pixelId}&ev=PageView&noscript=
                     phone,
                     ip:        req.ip || req.headers['x-forwarded-for'],
                     userAgent: req.headers['user-agent'],
-                    // req.cookies تتطلب cookie-parser — تستخدم user_data_extra كبديل بدونه
-                    fbp:       (req.cookies && req.cookies._fbp) || user_data_extra.fbp || null,
-                    fbc:       (req.cookies && req.cookies._fbc) || user_data_extra.fbc || null,
                     ...user_data_extra,
                 };
 
@@ -2512,44 +2458,9 @@ src="https://www.facebook.com/tr?id=${this.config.pixelId}&ev=PageView&noscript=
         });
 
         // ─── Per-Market Pixel Snippets ─────────────────────────────────────────
-        app.get(`${base}/pixel/snippet/:market`, (req, res) => {
-            const marketKey = req.params.market.toLowerCase();
-            const mkt = this.marketPixels[marketKey];
-            if (!mkt) {
-                return res.status(404).json({ error: `السوق غير موجود: ${marketKey}. المتاح: ${Object.keys(this.marketPixels).join(', ')}` });
-            }
-            const pixelId = mkt.pixelId;
-            const snippet = `<!-- Sheikha Meta Pixel — ${mkt.nameAr} (${mkt.segment}) -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '${pixelId}');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1"/></noscript>
-<!-- CAPI integration: send same event_id to POST /sheikha/track with market_path: '/${marketKey}' -->`;
-            res.json({ snippet, market: marketKey, pixelId, segment: mkt.segment, nameAr: mkt.nameAr, currency: mkt.currency });
-        });
-
-        app.get(`${base}/pixel/snippets/all`, (req, res) => {
-            const snippets = {};
-            for (const [marketKey, mkt] of Object.entries(this.marketPixels)) {
-                const pixelId = mkt.pixelId;
-                snippets[marketKey] = {
-                    nameAr:   mkt.nameAr,
-                    segment:  mkt.segment,
-                    currency: mkt.currency,
-                    pixelId,
-                    snippet: `<!-- ${mkt.nameAr} | ID: ${pixelId} -->
-<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${pixelId}');fbq('track','PageView');</script>`,
-                };
-            }
-            res.json({ markets: Object.keys(snippets).length, snippets });
-        });
+        // ─── Pixel per-market — معطّل (شيخة لا تتعامل مع Facebook) ───────────
+        app.get(`${base}/pixel/snippet/:market`, (req, res) => res.status(403).json({ error: 'Facebook Pixel غير مفعّل' }));
+        app.get(`${base}/pixel/snippets/all`,    (req, res) => res.status(403).json({ error: 'Facebook Pixel غير مفعّل' }));
 
         // ─── Trade Corridors ───────────────────────────────────────────────────
         app.get(`${base}/geo/trade-corridors`, (req, res) => {

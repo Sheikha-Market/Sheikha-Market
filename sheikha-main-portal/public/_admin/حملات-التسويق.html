@@ -297,9 +297,6 @@
                     <button class="social-btn social-twitter" onclick="sendVia('twitter')">
                         <span>🐦</span> تويتر
                     </button>
-                    <button class="social-btn social-facebook" onclick="sendVia('facebook')">
-                        <span>📘</span> فيسبوك
-                    </button>
                     <button class="social-btn social-instagram" onclick="sendVia('instagram')">
                         <span>📸</span> انستقرام
                     </button>
@@ -365,7 +362,7 @@
                 <div class="campaign-header">
                     <div class="campaign-icon">📸</div>
                     <div class="campaign-title">السوشيال ميديا</div>
-                    <div class="campaign-desc">إعلانات على فيسبوك وانستقرام وتويتر</div>
+                    <div class="campaign-desc">إعلانات على انستقرام وتويتر وسناب شات</div>
                 </div>
                 <div class="campaign-body">
                     <ul class="campaign-features">
@@ -375,7 +372,7 @@
                         <li>إعادة الاستهداف</li>
                         <li>قصص ورسائل مباشرة</li>
                     </ul>
-                    <a href="https://business.facebook.com" target="_blank" class="btn btn-gold">إطلاق حملة</a>
+                    <a href="https://business.instagram.com" target="_blank" class="btn btn-gold">إطلاق حملة</a>
                 </div>
             </div>
 
@@ -512,9 +509,6 @@
                     break;
                 case 'twitter':
                     url = `https://twitter.com/intent/tweet?text=${message}`;
-                    break;
-                case 'facebook':
-                    url = `https://www.facebook.com/sharer/sharer.php?quote=${message}`;
                     break;
                 case 'instagram':
                     // Instagram doesn't have direct share, copy message
