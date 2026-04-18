@@ -3,9 +3,939 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎯 حملات التسويق | شيخة</title>
+    <title>🎯 منظومة التسويق الذكي | شيخة</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --card2: #111827;
+            --text: #fff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --success: #10b981;
+            --radius: 12px;
+            --snap: #FFFC00;
+            --tiktok: #ff0050;
+            --google: #4285F4;
+            --twitter: #1DA1F2;
+            --linkedin: #0A66C2;
+            --telegram: #2AABEE;
+            --youtube: #FF0000;
+            --whatsapp: #25D366;
+            --sms: #7c3aed;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1300px; margin: 0 auto; }
+
+        /* ─── Header ─── */
+        .header {
+            text-align: center;
+            padding: 44px 24px 36px;
+            background: linear-gradient(135deg, var(--card), #091628);
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(212,175,55,.12) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .header h1 { font-size: 2.4rem; margin-bottom: 8px; position: relative; }
+        .header h1 span { color: var(--gold); }
+        .header p { color: var(--text-muted); font-size: 1.05rem; position: relative; }
+        .no-fb-badge {
+            display: inline-block;
+            margin-top: 14px;
+            background: rgba(239,68,68,.12);
+            border: 1px solid rgba(239,68,68,.3);
+            color: #f87171;
+            font-size: .75rem;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        /* ─── Stats Bar ─── */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .stat-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            transition: border-color .3s;
+        }
+        .stat-item:hover { border-color: var(--gold); }
+        .stat-value { font-size: 1.8rem; font-weight: 900; color: var(--gold); }
+        .stat-label { font-size: .8rem; color: var(--text-muted); margin-top: 4px; }
+
+        /* ─── Platform Power Header ─── */
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gold);
+        }
+        .section-title span { color: var(--text-muted); font-size: .85rem; font-weight: 400; }
+
+        /* ─── Why Better Banner ─── */
+        .why-better {
+            background: linear-gradient(135deg, #0a1628, #091220);
+            border: 1px solid rgba(16,185,129,.25);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+        .why-better h3 { color: var(--success); font-size: 1.1rem; margin-bottom: 16px; }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+        .why-item {
+            background: rgba(16,185,129,.06);
+            border: 1px solid rgba(16,185,129,.15);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: .85rem;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .why-item strong { color: var(--success); display: block; margin-bottom: 2px; }
+
+        /* ─── Quick Message ─── */
+        .quick-message {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 30px;
+        }
+        .quick-message h2 { font-size: 1.25rem; margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; font-weight: 700; margin-bottom: 10px; color: var(--text-muted); font-size: .9rem; }
+        .form-textarea {
+            width: 100%;
+            height: 140px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: .95rem;
+            resize: vertical;
+        }
+        .form-textarea:focus { outline: none; border-color: var(--gold); }
+        .templates { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+        .template {
+            flex: 1; min-width: 140px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .template:hover, .template.active { border-color: var(--gold); background: rgba(212,175,55,.06); }
+        .template-title { font-weight: 700; font-size: .85rem; margin-bottom: 4px; }
+        .template-preview { font-size: .72rem; color: var(--text-muted); }
+
+        /* ─── Send Buttons ─── */
+        .social-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+        .social-btn {
+            flex: 1; min-width: 120px;
+            padding: 11px 16px;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-weight: 700;
+            font-size: .88rem;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            transition: all .2s;
+        }
+        .social-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-snap     { background: var(--snap); color: #000; }
+        .btn-telegram { background: var(--telegram); color: #fff; }
+        .btn-twitter  { background: var(--twitter); color: #fff; }
+        .btn-whatsapp { background: var(--whatsapp); color: #fff; }
+        .btn-linkedin { background: var(--linkedin); color: #fff; }
+        .btn-email    { background: #EA4335; color: #fff; }
+        .btn-sms      { background: var(--sms); color: #fff; }
+
+        .result-box {
+            background: var(--dark);
+            border: 1px solid var(--success);
+            border-radius: var(--radius);
+            padding: 18px;
+            margin-top: 18px;
+            display: none;
+        }
+        .result-box.show { display: block; }
+        .result-box h3 { color: var(--success); margin-bottom: 10px; font-size: 1rem; }
+        .copy-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: var(--text);
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 10px;
+            font-size: .85rem;
+        }
+        .copy-btn:hover { border-color: var(--gold); }
+
+        /* ─── Campaigns Grid ─── */
+        .campaigns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 22px;
+            margin-bottom: 40px;
+        }
+        .campaign-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all .3s;
+        }
+        .campaign-card:hover { transform: translateY(-4px); }
+        .campaign-header {
+            padding: 22px 22px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .campaign-icon { font-size: 2rem; flex-shrink: 0; }
+        .campaign-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 4px; }
+        .campaign-desc { color: var(--text-muted); font-size: .82rem; }
+        .campaign-badge {
+            margin-right: auto;
+            margin-top: 2px;
+            font-size: .65rem;
+            font-weight: 800;
+            padding: 3px 9px;
+            border-radius: 20px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .badge-gold { background: rgba(212,175,55,.15); color: var(--gold); border: 1px solid rgba(212,175,55,.3); }
+        .badge-green { background: rgba(16,185,129,.12); color: var(--success); border: 1px solid rgba(16,185,129,.3); }
+        .badge-blue  { background: rgba(59,130,246,.12); color: #60a5fa; border: 1px solid rgba(59,130,246,.3); }
+        .badge-snap  { background: rgba(255,252,0,.15); color: var(--snap); border: 1px solid rgba(255,252,0,.3); }
+
+        .campaign-body { padding: 18px 22px 22px; }
+        .campaign-features { list-style: none; margin-bottom: 18px; }
+        .campaign-features li {
+            padding: 5px 0;
+            font-size: .88rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .campaign-features li::before { content: '✓'; color: var(--success); font-weight: 900; font-size: .8rem; }
+
+        /* ─── Highlight card for Snapchat ─── */
+        .card-snap { border-color: rgba(255,252,0,.25); }
+        .card-snap:hover { border-color: var(--snap); box-shadow: 0 0 24px rgba(255,252,0,.08); }
+        .card-google { border-color: rgba(66,133,244,.2); }
+        .card-google:hover { border-color: var(--google); }
+        .card-tiktok:hover { border-color: var(--tiktok); }
+        .card-twitter:hover { border-color: var(--twitter); }
+        .card-linkedin:hover { border-color: var(--linkedin); }
+        .card-telegram:hover { border-color: var(--telegram); }
+
+        /* ─── CTA Button ─── */
+        .btn {
+            display: inline-block;
+            padding: 11px 22px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: .9rem;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            transition: all .2s;
+            text-align: center;
+        }
+        .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+        .btn-gold    { background: var(--gold); color: #000; }
+        .btn-snap-c  { background: var(--snap); color: #000; }
+        .btn-google  { background: var(--google); color: #fff; }
+        .btn-tiktok  { background: var(--tiktok); color: #fff; }
+        .btn-twitter-c { background: var(--twitter); color: #fff; }
+        .btn-linkedin-c { background: var(--linkedin); color: #fff; }
+        .btn-telegram-c { background: var(--telegram); color: #fff; }
+        .btn-youtube { background: var(--youtube); color: #fff; }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+        .btn-outline:hover { border-color: var(--gold); }
+
+        /* ─── ROI Compare ─── */
+        .roi-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 30px;
+        }
+        .roi-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+        .roi-table th {
+            text-align: right;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--gold);
+            font-weight: 800;
+            background: var(--dark);
+        }
+        .roi-table td { padding: 10px 14px; border-bottom: 1px solid rgba(30,58,95,.5); color: var(--text-muted); }
+        .roi-table tr:hover td { background: rgba(212,175,55,.03); color: var(--text); }
+        .roi-good { color: var(--success) !important; font-weight: 700; }
+        .roi-great { color: var(--gold) !important; font-weight: 800; }
+        .roi-dead  { color: #ef4444 !important; text-decoration: line-through; opacity: .6; }
+
+        /* ─── Quick Links ─── */
+        .quick-links {
+            text-align: center;
+            padding: 36px 20px;
+            background: var(--card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+        .quick-links h3 { margin-bottom: 18px; }
+
+        @media (max-width: 768px) {
+            .campaigns-grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 1.8rem; }
+            .roi-table { font-size: .75rem; }
+            .roi-table th, .roi-table td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ══ Header ══ -->
+        <header class="header">
+            <h1>🎯 منظومة <span>التسويق الذكي</span></h1>
+            <p>قوة تسويقية بمراحل أعلى من فيسبوك — مصممة لسوق المعادن السعودي</p>
+            <div class="no-fb-badge">🚫 بدون فيسبوك أو أي تعامل مع شبكة Meta</div>
+        </header>
+
+        <!-- ══ Stats ══ -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" id="totalReach">48.2M</div>
+                <div class="stat-label">وصول محتمل (السعودية)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="campaignsSent">9</div>
+                <div class="stat-label">منصات نشطة</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="responseRate">3.8x</div>
+                <div class="stat-label">أقوى من فيسبوك</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="newLeads">0</div>
+                <div class="stat-label">عملاء جدد اليوم</div>
+            </div>
+        </div>
+
+        <!-- ══ Why Better ══ -->
+        <div class="why-better">
+            <h3>💡 لماذا هذه المنظومة أقوى من فيسبوك بمراحل لسوق المعادن؟</h3>
+            <div class="why-grid">
+                <div class="why-item">
+                    <span>🟡</span>
+                    <div><strong>سناب شات — الأول سعودياً</strong>المملكة رقم 1 عالمياً في نسبة استخدام سناب شات — 98% من الهواتف السعودية، CPM أرخص 40% من فيسبوك</div>
+                </div>
+                <div class="why-item">
+                    <span>🔍</span>
+                    <div><strong>Google Search — نية الشراء</strong>الزبون يبحث "شراء سكراب حديد" → إعلانك يظهر أمامه مباشرة. نية حقيقية للشراء لا تقارن بالتصفح العشوائي</div>
+                </div>
+                <div class="why-item">
+                    <span>💼</span>
+                    <div><strong>LinkedIn — استهداف B2B دقيق</strong>استهدف مدراء المشتريات وأصحاب المصانع بالاسم والمسمى الوظيفي مباشرة — لا يوجد هذا في فيسبوك</div>
+                </div>
+                <div class="why-item">
+                    <span>✈️</span>
+                    <div><strong>تيليجرام — صفر مشاركة بيانات</strong>قنوات وصول مباشرة بدون خوارزمية، بيانات العملاء لك أنت فقط، لا أحد يراقب</div>
+                </div>
+                <div class="why-item">
+                    <span>🎵</span>
+                    <div><strong>تيك توك — وصول ضخم</strong>80%+ من الشباب السعودي يستخدمه، معدل تفاعل 3x أعلى من أي منصة أخرى، تكلفة منخفضة</div>
+                </div>
+                <div class="why-item">
+                    <span>📊</span>
+                    <div><strong>لا بيانات تُسرَّب لفيسبوك</strong>جميع هذه المنصات مستقلة عن شبكة Meta — بياناتك وبيانات عملائك محمية بالكامل</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ Quick Message Sender ══ -->
+        <div class="quick-message">
+            <h2>📤 إرسال رسالة تسويقية سريعة</h2>
+
+            <div class="form-group">
+                <label class="form-label">اختر قالب الرسالة:</label>
+                <div class="templates">
+                    <div class="template active" onclick="selectTemplate(0)">
+                        <div class="template-title">🏪 دعوة للتسجيل</div>
+                        <div class="template-preview">سجّل متجرك في سوق شيخة مجاناً...</div>
+                    </div>
+                    <div class="template" onclick="selectTemplate(1)">
+                        <div class="template-title">🔥 عروض خاصة</div>
+                        <div class="template-preview">احصل على خصم 20% على أول معاملة...</div>
+                    </div>
+                    <div class="template" onclick="selectTemplate(2)">
+                        <div class="template-title">📈 أسعار اليوم</div>
+                        <div class="template-preview">أسعار المعادن المباشرة لهذا اليوم...</div>
+                    </div>
+                    <div class="template" onclick="selectTemplate(3)">
+                        <div class="template-title">🎁 برنامج الإحالة</div>
+                        <div class="template-preview">احصل على 100 ريال لكل صديق...</div>
+                    </div>
+                    <div class="template" onclick="selectTemplate(4)">
+                        <div class="template-title">🏭 دعوة B2B</div>
+                        <div class="template-preview">لأصحاب المصانع والمقاولين...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">نص الرسالة:</label>
+                <textarea class="form-textarea" id="messageText">🏪 سوق شيخة - أول منصة متخصصة للمعادن والسكراب في السعودية
+
+✅ سجّل متجرك مجاناً
+✅ اعرض بضاعتك بسهولة
+✅ تواصل مباشر مع المشترين
+✅ أسعار السوق المباشرة
+
+🎁 سجّل الآن واحصل على شهر مجاني!
+
+🔗 www.sheikha.top
+📞 966554942904</textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">أرسل عبر:</label>
+                <div class="social-buttons">
+                    <button class="social-btn btn-snap" onclick="sendVia('snapchat')">
+                        👻 سناب شات
+                    </button>
+                    <button class="social-btn btn-telegram" onclick="sendVia('telegram')">
+                        ✈️ تيليجرام
+                    </button>
+                    <button class="social-btn btn-twitter" onclick="sendVia('twitter')">
+                        🐦 تويتر
+                    </button>
+                    <button class="social-btn btn-whatsapp" onclick="sendVia('whatsapp')">
+                        📱 واتساب
+                    </button>
+                    <button class="social-btn btn-linkedin" onclick="sendVia('linkedin')">
+                        💼 لينكدإن
+                    </button>
+                    <button class="social-btn btn-email" onclick="sendVia('email')">
+                        📧 بريد
+                    </button>
+                    <button class="social-btn btn-sms" onclick="sendVia('sms')">
+                        💬 SMS
+                    </button>
+                </div>
+            </div>
+
+            <div class="result-box" id="resultBox">
+                <h3>✅ تم تجهيز الرسالة</h3>
+                <p id="resultText"></p>
+                <button class="copy-btn" onclick="copyMessage()">📋 نسخ الرسالة</button>
+            </div>
+        </div>
+
+        <!-- ══ Campaign Cards ══ -->
+        <div class="section-title">📊 منصات التسويق <span>— مرتبة حسب الفعالية للسوق السعودي</span></div>
+        <div class="campaigns-grid">
+
+            <!-- 1. Snapchat -->
+            <div class="campaign-card card-snap">
+                <div class="campaign-header">
+                    <div class="campaign-icon">👻</div>
+                    <div>
+                        <div class="campaign-title">سناب شات إعلانات</div>
+                        <div class="campaign-desc">المملكة رقم 1 عالمياً في استخدام سناب شات</div>
+                    </div>
+                    <span class="campaign-badge badge-snap">⭐ الأول سعودياً</span>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>98% من الهواتف السعودية — وصول لا مثيل له</li>
+                        <li>CPM أرخص 40% من فيسبوك</li>
+                        <li>استهداف بالموقع الجغرافي (المنطقة الصناعية)</li>
+                        <li>إعلانات Story + Collection + Dynamic</li>
+                        <li>Snap Pixel للتتبع — بدون فيسبوك</li>
+                        <li>جمهور B2B: أصحاب أعمال 25-45 سنة</li>
+                    </ul>
+                    <a href="https://forbusiness.snapchat.com" target="_blank" class="btn btn-snap-c">🚀 إطلاق حملة سناب شات</a>
+                </div>
+            </div>
+
+            <!-- 2. Google Ecosystem -->
+            <div class="campaign-card card-google">
+                <div class="campaign-header">
+                    <div class="campaign-icon">🔍</div>
+                    <div>
+                        <div class="campaign-title">منظومة Google الكاملة</div>
+                        <div class="campaign-desc">بحث + خرائط + يوتيوب + شبكة إعلانية</div>
+                    </div>
+                    <span class="campaign-badge badge-gold">🏆 أعلى ROI</span>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>بحث مدفوع: "شراء سكراب الرياض" → إعلانك أولاً</li>
+                        <li>خرائط Google: ظهور كمورد معادن محلي</li>
+                        <li>YouTube Ads: فيديو احترافي للمنتجات</li>
+                        <li>Google Display: ملايين المواقع الإخبارية</li>
+                        <li>Performance Max: ذكاء اصطناعي يُحسّن الحملة</li>
+                        <li>Google Analytics 4: تتبع كامل مستقل</li>
+                    </ul>
+                    <a href="https://ads.google.com" target="_blank" class="btn btn-google">🔍 إنشاء حملة Google</a>
+                </div>
+            </div>
+
+            <!-- 3. TikTok -->
+            <div class="campaign-card card-tiktok">
+                <div class="campaign-header">
+                    <div class="campaign-icon">🎵</div>
+                    <div>
+                        <div class="campaign-title">تيك توك إعلانات</div>
+                        <div class="campaign-desc">أسرع منصة نمواً — وصول ضخم بتكلفة منخفضة</div>
+                    </div>
+                    <span class="campaign-badge badge-blue">📈 أعلى تفاعل</span>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>80%+ من الشباب السعودي يستخدمه يومياً</li>
+                        <li>معدل تفاعل 3x أعلى من أي منصة أخرى</li>
+                        <li>In-Feed Ads في وسط المحتوى</li>
+                        <li>TikTok Pixel للتتبع — مستقل تماماً</li>
+                        <li>TopView: ظهور أول شيء عند فتح التطبيق</li>
+                        <li>محتوى فيديو لعرض المعادن والسكراب</li>
+                    </ul>
+                    <a href="https://ads.tiktok.com" target="_blank" class="btn btn-tiktok">🎵 إطلاق حملة تيك توك</a>
+                </div>
+            </div>
+
+            <!-- 4. Twitter/X -->
+            <div class="campaign-card card-twitter">
+                <div class="campaign-header">
+                    <div class="campaign-icon">🐦</div>
+                    <div>
+                        <div class="campaign-title">تويتر / X إعلانات</div>
+                        <div class="campaign-desc">السعودية ضمن أعلى 5 دول استخداماً لتويتر</div>
+                    </div>
+                    <span class="campaign-badge badge-blue">💼 صانعو القرار</span>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>وصول مباشر لأصحاب الأعمال والمديرين</li>
+                        <li>استهداف بالكلمات المفتاحية: سكراب، معادن، حديد</li>
+                        <li>Promoted Tweets في التغريدات</li>
+                        <li>Follower Campaigns: بناء جمهور متخصص</li>
+                        <li>Twitter Analytics: تقارير مفصلة</li>
+                        <li>استهداف متابعي المنافسين والصناعة</li>
+                    </ul>
+                    <a href="https://ads.twitter.com" target="_blank" class="btn btn-twitter-c">🐦 إطلاق حملة تويتر</a>
+                </div>
+            </div>
+
+            <!-- 5. LinkedIn -->
+            <div class="campaign-card card-linkedin">
+                <div class="campaign-header">
+                    <div class="campaign-icon">💼</div>
+                    <div>
+                        <div class="campaign-title">LinkedIn إعلانات B2B</div>
+                        <div class="campaign-desc">الأفضل لاستهداف الشركات والمصانع</div>
+                    </div>
+                    <span class="campaign-badge badge-gold">🏭 B2B مثالي</span>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>استهداف بالمسمى الوظيفي: مدير مشتريات، مقاول</li>
+                        <li>استهداف بحجم الشركة والصناعة</li>
+                        <li>InMail: رسالة مباشرة لصانع القرار</li>
+                        <li>Sponsored Content: محتوى موثوق في الفيد</li>
+                        <li>Lead Gen Forms: استمارات مدمجة</li>
+                        <li>تقارير Campaign Manager المفصلة</li>
+                    </ul>
+                    <a href="https://business.linkedin.com/marketing-solutions" target="_blank" class="btn btn-linkedin-c">💼 إطلاق حملة LinkedIn</a>
+                </div>
+            </div>
+
+            <!-- 6. Telegram -->
+            <div class="campaign-card card-telegram">
+                <div class="campaign-header">
+                    <div class="campaign-icon">✈️</div>
+                    <div>
+                        <div class="campaign-title">تيليجرام — قنوات وإعلانات</div>
+                        <div class="campaign-desc">بيانات صفرية لشركات خارجية — أمان كامل</div>
+                    </div>
+                    <span class="campaign-badge badge-green">🔒 خصوصية كاملة</span>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>قناة شيخة: نشر الأسعار والأخبار يومياً</li>
+                        <li>Telegram Ads: إعلانات في القنوات المشابهة</li>
+                        <li>مجموعات تجار المعادن والسكراب</li>
+                        <li>Bot تلقائي للرد على الاستفسارات</li>
+                        <li>صفر مشاركة بيانات مع أي شركة خارجية</li>
+                        <li>إشعارات فورية لعملائك المشتركين</li>
+                    </ul>
+                    <a href="https://telegram.org/blog/telegram-ads" target="_blank" class="btn btn-telegram-c">✈️ إنشاء قناة تيليجرام</a>
+                </div>
+            </div>
+
+            <!-- 7. YouTube -->
+            <div class="campaign-card">
+                <div class="campaign-header">
+                    <div class="campaign-icon">▶️</div>
+                    <div>
+                        <div class="campaign-title">يوتيوب — محتوى فيديو</div>
+                        <div class="campaign-desc">أكثر من 90% من السعوديين يستخدمون يوتيوب</div>
+                    </div>
+                    <span class="campaign-badge badge-blue">🎬 محتوى احترافي</span>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>فيديوهات أسعار المعادن اليومية</li>
+                        <li>Pre-roll Ads قبل فيديوهات الصناعة</li>
+                        <li>قناة YouTube Shorts (تعليمية)</li>
+                        <li>استهداف بالاهتمامات: البناء، التصنيع</li>
+                        <li>YouTube Analytics المتكامل مع Google</li>
+                        <li>بدون أي ارتباط بفيسبوك</li>
+                    </ul>
+                    <a href="https://studio.youtube.com" target="_blank" class="btn btn-youtube">▶️ إنشاء قناة يوتيوب</a>
+                </div>
+            </div>
+
+            <!-- 8. Email + SMS -->
+            <div class="campaign-card">
+                <div class="campaign-header">
+                    <div class="campaign-icon">📧</div>
+                    <div>
+                        <div class="campaign-title">بريد إلكتروني + SMS</div>
+                        <div class="campaign-desc">أعلى معدلات فتح وتحويل — تواصل مباشر</div>
+                    </div>
+                    <span class="campaign-badge badge-green">95% معدل وصول</span>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>SMS: معدل فتح 98% خلال 3 دقائق</li>
+                        <li>بريد: نشرة أسبوعية بأسعار المعادن</li>
+                        <li>أتمتة: رسائل ترحيب + متابعة + تذكير</li>
+                        <li>تقسيم القوائم: بائعين / مشترين / موردين</li>
+                        <li>A/B Testing للعناوين والمحتوى</li>
+                        <li>منصة Brevo (Sendinblue) — بدون فيسبوك</li>
+                    </ul>
+                    <a href="https://brevo.com" target="_blank" class="btn btn-gold">📧 إطلاق حملة بريدية</a>
+                </div>
+            </div>
+
+            <!-- 9. SEO + Referral -->
+            <div class="campaign-card">
+                <div class="campaign-header">
+                    <div class="campaign-icon">🎁</div>
+                    <div>
+                        <div class="campaign-title">SEO + برنامج الإحالة</div>
+                        <div class="campaign-desc">نمو عضوي مجاني + تحفيز التوصيات</div>
+                    </div>
+                    <span class="campaign-badge badge-gold">💰 مجاني وفعّال</span>
+                </div>
+                <div class="campaign-body">
+                    <ul class="campaign-features">
+                        <li>SEO: تصدر Google بكلمات "سكراب معادن السعودية"</li>
+                        <li>Google Business Profile: ظهور محلي مجاني</li>
+                        <li>100 ريال للمُحيل عند تسجيل صديق</li>
+                        <li>50 ريال خصم للمُحال عند أول عملية</li>
+                        <li>مقالات تعليمية: أسعار المعادن والسوق</li>
+                        <li>روابط إحالة فريدة وقابلة للتتبع</li>
+                    </ul>
+                    <button class="btn btn-gold" onclick="generateReferralLink()">🎁 إنشاء رابط إحالة</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ══ ROI Comparison Table ══ -->
+        <div class="roi-section">
+            <div class="section-title" style="margin-bottom: 16px;">📊 مقارنة القوة التسويقية <span>— شيخة vs فيسبوك</span></div>
+            <div style="overflow-x: auto;">
+            <table class="roi-table">
+                <thead>
+                    <tr>
+                        <th>المنصة</th>
+                        <th>الوصول في السعودية</th>
+                        <th>تكلفة CPM</th>
+                        <th>جودة الاستهداف</th>
+                        <th>مناسب لـ B2B</th>
+                        <th>الخصوصية</th>
+                        <th>التقييم</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>👻 سناب شات</td>
+                        <td class="roi-great">98% هواتف السعودية</td>
+                        <td class="roi-great">8-15 ريال</td>
+                        <td class="roi-good">ممتاز</td>
+                        <td class="roi-good">جيد جداً</td>
+                        <td class="roi-good">مستقل</td>
+                        <td class="roi-great">⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>🔍 Google Search</td>
+                        <td class="roi-great">نية شراء حقيقية</td>
+                        <td class="roi-good">CPC فقط عند نقر</td>
+                        <td class="roi-great">أفضل للـ B2B</td>
+                        <td class="roi-great">الأفضل عالمياً</td>
+                        <td class="roi-good">مستقل</td>
+                        <td class="roi-great">⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>🎵 تيك توك</td>
+                        <td class="roi-great">80%+ الشباب السعودي</td>
+                        <td class="roi-great">5-12 ريال</td>
+                        <td class="roi-good">ذكاء اصطناعي</td>
+                        <td>متوسط</td>
+                        <td class="roi-good">مستقل</td>
+                        <td class="roi-good">⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>💼 LinkedIn</td>
+                        <td>3M+ مهني سعودي</td>
+                        <td>40-80 ريال</td>
+                        <td class="roi-great">الأدق للـ B2B</td>
+                        <td class="roi-great">الأفضل</td>
+                        <td class="roi-good">مستقل</td>
+                        <td class="roi-great">⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>🐦 تويتر/X</td>
+                        <td class="roi-good">10M+ مستخدم سعودي</td>
+                        <td class="roi-good">12-25 ريال</td>
+                        <td class="roi-good">كلمات مفتاحية</td>
+                        <td class="roi-good">جيد</td>
+                        <td class="roi-good">مستقل</td>
+                        <td class="roi-good">⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>✈️ تيليجرام</td>
+                        <td>شبه مجاني</td>
+                        <td class="roi-great">مجاني تقريباً</td>
+                        <td class="roi-good">قنوات متخصصة</td>
+                        <td class="roi-good">ممتاز</td>
+                        <td class="roi-great">خصوصية كاملة</td>
+                        <td class="roi-great">⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td style="opacity:.5">❌ فيسبوك</td>
+                        <td class="roi-dead">تراجع في السعودية</td>
+                        <td class="roi-dead">25-60 ريال</td>
+                        <td class="roi-dead">خوارزمية ضعيفة</td>
+                        <td class="roi-dead">ضعيف</td>
+                        <td class="roi-dead">يبيع بياناتك</td>
+                        <td class="roi-dead">⭐</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <!-- ══ Quick Links ══ -->
+        <div class="quick-links">
+            <h3>🔗 روابط سريعة</h3>
+            <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+                <a href="/" class="btn btn-outline">🏠 الرئيسية</a>
+                <a href="/السوق.html" class="btn btn-outline">🛒 السوق</a>
+                <a href="/admin-dashboard.html" class="btn btn-outline">🔐 لوحة التحكم</a>
+                <a href="/app.html" class="btn btn-gold">📱 تحميل التطبيق</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const templates = [
+            `🏪 سوق شيخة - أول منصة متخصصة للمعادن والسكراب في السعودية
+
+✅ سجّل متجرك مجاناً
+✅ اعرض بضاعتك بسهولة
+✅ تواصل مباشر مع المشترين
+✅ أسعار السوق المباشرة
+
+🎁 سجّل الآن واحصل على شهر مجاني!
+
+🔗 www.sheikha.top
+📞 966554942904`,
+
+            `🔥 عروض خاصة من سوق شيخة!
+
+💰 خصم 20% على أول معاملة
+🚚 شحن مجاني للطلبات فوق 5000 ريال
+🎁 نقاط مكافآت على كل عملية
+
+سارع قبل انتهاء العرض!
+🔗 www.sheikha.top`,
+
+            `📈 أسعار المعادن اليوم - سوق شيخة
+
+🔸 الحديد: 2,500 ريال/طن
+🔸 النحاس: 28,000 ريال/طن
+🔸 الألمنيوم: 8,500 ريال/طن
+🔸 الذهب: 245 ريال/جرام
+
+تابع الأسعار المباشرة:
+🔗 www.sheikha.top`,
+
+            `🎁 اكسب 100 ريال مع برنامج الإحالة!
+
+👥 ادعُ أصدقاءك لسوق شيخة
+💰 احصل على 100 ريال لكل صديق يسجّل
+🎉 صديقك يحصل على خصم 50 ريال
+
+شارك رابطك الآن:
+🔗 www.sheikha.top/ref/YOUR_CODE`,
+
+            `🏭 سوق شيخة — للشركات والمصانع
+
+نحن نربطك بأكبر موردي المعادن والسكراب في المملكة:
+
+✅ حديد مسلح وخردة بالجملة
+✅ نحاس وألمنيوم للمصانع
+✅ أسعار تنافسية وعقود طويلة الأمد
+✅ شحن لجميع مناطق المملكة
+
+للاستفسار والتسعير:
+🔗 www.sheikha.top/b2b
+📧 market@sheikha.top`
+        ];
+
+        let currentTemplate = 0;
+
+        function selectTemplate(index) {
+            currentTemplate = index;
+            document.querySelectorAll('.template').forEach((t, i) => {
+                t.classList.toggle('active', i === index);
+            });
+            document.getElementById('messageText').value = templates[index];
+        }
+
+        function sendVia(platform) {
+            const rawText = document.getElementById('messageText').value;
+            const message = encodeURIComponent(rawText);
+            let url = '';
+
+            switch (platform) {
+                case 'snapchat':
+                    copyToClipboard(rawText);
+                    showResult('سناب شات', 'تم نسخ الرسالة! افتح سناب شات وأضف منشوراً جديداً ➡ الصق الرسالة.');
+                    return;
+                case 'telegram':
+                    url = `https://t.me/share/url?url=${encodeURIComponent('https://www.sheikha.top')}&text=${message}`;
+                    break;
+                case 'twitter':
+                    url = `https://twitter.com/intent/tweet?text=${message}`;
+                    break;
+                case 'whatsapp':
+                    url = `https://wa.me/?text=${message}`;
+                    break;
+                case 'linkedin':
+                    url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://www.sheikha.top')}&summary=${message}`;
+                    break;
+                case 'email':
+                    url = `mailto:?subject=${encodeURIComponent('دعوة للتسجيل في سوق شيخة')}&body=${message}`;
+                    break;
+                case 'sms':
+                    url = `sms:?body=${message}`;
+                    break;
+            }
+
+            if (url) window.open(url, '_blank');
+            showResult(platform, `تم فتح ${platform} لإرسال الرسالة`);
+            updateStats();
+        }
+
+        function showResult(platform, text) {
+            document.getElementById('resultBox').classList.add('show');
+            document.getElementById('resultText').textContent = text;
+        }
+
+        function copyMessage() {
+            copyToClipboard(document.getElementById('messageText').value);
+            alert('✅ تم نسخ الرسالة!');
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).catch(() => {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            });
+        }
+
+        function generateReferralLink() {
+            const code = 'REF' + Math.random().toString(36).substr(2, 6).toUpperCase();
+            const link = `www.sheikha.top/ref/${code}`;
+            copyToClipboard(link);
+            alert(`✅ تم إنشاء رابط الإحالة الخاص بك:\n\n${link}\n\nتم نسخه للحافظة!`);
+        }
+
+        function updateStats() {
+            const el = document.getElementById('newLeads');
+            el.textContent = parseInt(el.textContent || '0') + 1;
+        }
+    </script>
+</body>
+</html>
         :root {
             --gold: #d4af37;
             --gold-light: #f0d060;
