@@ -213,17 +213,32 @@ class SheikhMetaEngine {
             'X-Sheikha-Doctrine':        'وَلَقَدْ كَرَّمْنَا بَنِي آدَمَ — الإسراء:70',
         };
 
-        // إعدادات Meta — WhatsApp Business فقط (Facebook Pixel / CAPI محذوفان بقرار المالك)
+        // إعدادات Meta — Pixel API + CAPI + WhatsApp Business
+        // ملاحظة: Meta Pixel API مسموح. حسابات Facebook الشخصية ممنوعة.
         this.config = {
+            pixelId:           process.env.META_PIXEL_ID           || 'SHEIKHA_PIXEL_001',
+            accessToken:       process.env.META_ACCESS_TOKEN        || '',
+            capiToken:         process.env.META_CAPI_ACCESS_TOKEN   || process.env.META_ACCESS_TOKEN || '',
+            adAccountId:       process.env.META_AD_ACCOUNT_ID       || '',
+            catalogId:         process.env.META_CATALOG_ID          || '',
             whatsappToken:     process.env.META_WHATSAPP_TOKEN      || 'DEMO_WA_TOKEN',
             phoneNumberId:     process.env.META_WA_PHONE_ID         || 'DEMO_PHONE_ID',
             wabaId:            process.env.META_WABA_ID             || 'DEMO_WABA_ID',
             appId:             process.env.META_APP_ID              || 'DEMO_APP_ID',
             graphVersion:      process.env.META_GRAPH_VERSION       || 'v21.0',
+            testCode:          process.env.META_TEST_EVENT_CODE     || null,
+            // true → ترسل أحداث CAPI فعلياً | false → تحفظ محلياً فقط
+            automationApproved: process.env.META_AUTOMATION_APPROVED === 'true',
         };
 
-        // بيكسلات الأسواق — محذوفة (لا تتبع عبر Facebook)
-        this.marketPixels = {};
+        // بيكسلات الأسواق الخمسة — Multi-Market Pixels
+        this.marketPixels = {
+            metals:   { pixelId: process.env.META_PIXEL_ID_METALS   || this.config.pixelId, accessToken: process.env.META_ACCESS_TOKEN_METALS   || this.config.accessToken, segment: 'B2B', nameAr: 'سوق شيخة للمعادن',         currency: 'SAR' },
+            scrap:    { pixelId: process.env.META_PIXEL_ID_SCRAP    || this.config.pixelId, accessToken: process.env.META_ACCESS_TOKEN_SCRAP    || this.config.accessToken, segment: 'B2B', nameAr: 'سوق شيخة للسكراب',         currency: 'SAR' },
+            precious: { pixelId: process.env.META_PIXEL_ID_PRECIOUS || this.config.pixelId, accessToken: process.env.META_ACCESS_TOKEN_PRECIOUS || this.config.accessToken, segment: 'B2G', nameAr: 'سوق شيخة للمعادن الثمينة', currency: 'USD' },
+            rare:     { pixelId: process.env.META_PIXEL_ID_RARE     || this.config.pixelId, accessToken: process.env.META_ACCESS_TOKEN_RARE     || this.config.accessToken, segment: 'B2G', nameAr: 'سوق شيخة للمعادن النادرة', currency: 'USD' },
+            now:      { pixelId: process.env.META_PIXEL_ID_NOW      || this.config.pixelId, accessToken: process.env.META_ACCESS_TOKEN_NOW      || this.config.accessToken, segment: 'B2C', nameAr: 'سوق الآن — تنفيذ فوري',   currency: 'SAR' },
+        };
 
         // إحصائيات حية
         this.stats = {
@@ -267,9 +282,14 @@ class SheikhMetaEngine {
             eu_fr:    { phoneId: process.env.META_WA_PHONE_ID_EU_FR    || this.config.phoneNumberId, welcomeAr: 'Sheikha Métaux Europe — Bienvenue! Comment pouvons-nous vous aider?', segment: 'B2B', region: 'europe', countryCode: 'fr' },
         };
 
-        // إعدادات المناطق — محذوفة (لا CAPI geo-routing)
-        this.regionConfig = {};
-        this.globalGateway = null;
+        // إعدادات المناطق الجغرافية — Multi-Region Geo-Routing للـ CAPI
+        this.regionConfig = {
+            sa_gcc:   { name: 'السعودية والخليج',  countries: ['sa','ae','kw','qa','bh','om','ye','jo','iq','sy','lb'], capiToken: process.env.META_CAPI_TOKEN_SA_GCC   || this.config.capiToken, currency: 'SAR', sovereignGateway: process.env.META_CAPIG_SA  || 'https://capig-sa.datah04.com' },
+            europe:   { name: 'أوروبا وبريطانيا',  countries: ['gb','de','fr','it','es','nl','be','ch','at','se','no','dk','pl','pt','ie','fi','cz','ro','hu'], capiToken: process.env.META_CAPI_TOKEN_EUROPE  || this.config.capiToken, currency: 'EUR', gdpr: true, sovereignGateway: process.env.META_CAPIG_EU  || 'https://capig-eu.datah04.com' },
+            americas: { name: 'الأمريكيتان',        countries: ['us','ca','mx','br','ar','co','cl','pe','ve','ec'], capiToken: process.env.META_CAPI_TOKEN_AMERICAS || this.config.capiToken, currency: 'USD', ccpa: true, sovereignGateway: process.env.META_CAPIG_US  || 'https://capig-us.datah04.com' },
+            asia:     { name: 'آسيا وأفريقيا',      countries: ['cn','jp','kr','in','sg','my','id','th','pk','ng','za','eg','tn','ma','dz','ly'], capiToken: process.env.META_CAPI_TOKEN_ASIA    || this.config.capiToken, currency: 'USD', sovereignGateway: process.env.META_CAPIG_AS  || 'https://capig-as.datah04.com' },
+        };
+        this.globalGateway = process.env.META_CAPIG_GLOBAL || 'https://capig-global.datah04.com';
 
         // بروتوكول HS Chain — تصنيف HS Code + مراحل سلسلة الإمداد
         this.hsChainConfig = {
@@ -411,12 +431,48 @@ class SheikhMetaEngine {
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // 🌐 مساعد HTTP — يرسل payload لـ Meta Graph API عبر HTTPS
+    // 🌐 مساعد HTTP — يرسل payload لـ Meta Graph API (Pixel/CAPI) عبر HTTPS
+    // ملاحظة: Meta Pixel API مسموح. حسابات Facebook الشخصية ممنوعة.
     // يُفعَّل فقط عندما تكون META_AUTOMATION_APPROVED=true
     // ═══════════════════════════════════════════════════════════════════════════
     _callMetaGraphAPI(pixelId, accessToken, payload) {
-        // شيخة لا تتعامل مع Facebook — CAPI معطّل
-        return Promise.resolve({ ok: false, disabled: true, reason: 'Facebook Pixel CAPI disabled per owner policy' });
+        if (!this.config.automationApproved) {
+            return Promise.resolve({ ok: false, skipped: true, reason: 'META_AUTOMATION_APPROVED not set' });
+        }
+        if (!pixelId || !accessToken) {
+            return Promise.resolve({ ok: false, skipped: true, reason: 'pixelId or accessToken missing' });
+        }
+
+        const postData = JSON.stringify(payload);
+        const path     = `/${this.config.graphVersion}/${pixelId}/events`;
+        const testParam = this.config.testCode ? `?test_event_code=${this.config.testCode}` : '';
+
+        return new Promise((resolve) => {
+            const https = require('https');
+            const req = https.request({
+                hostname: 'graph.facebook.com',
+                path:     path + testParam,
+                method:   'POST',
+                headers:  {
+                    'Content-Type':   'application/json',
+                    'Content-Length': Buffer.byteLength(postData),
+                    'Authorization':  `Bearer ${accessToken}`,
+                },
+            }, (res) => {
+                let body = '';
+                res.on('data', chunk => { body += chunk; });
+                res.on('end', () => {
+                    try {
+                        resolve({ ok: res.statusCode < 400, statusCode: res.statusCode, body: JSON.parse(body) });
+                    } catch (_) {
+                        resolve({ ok: false, statusCode: res.statusCode, body });
+                    }
+                });
+            });
+            req.on('error', err => resolve({ ok: false, error: err.message }));
+            req.write(postData);
+            req.end();
+        });
     }
 
     // ═══════════════════════════════════════════════════════════════════════════

@@ -4077,6 +4077,17 @@ if (authLimiter) {
     app.use('/api/auth/login', authLimiter);
     app.use('/api/auth/register', authLimiter);
 }
+
+// ─── حظر تسجيل الدخول بحساب Facebook الشخصي ─────────────────────────────────
+// Meta Pixel / CAPI للإعلانات مسموح — الحساب الشخصي لفيسبوك ممنوع بقرار المالك
+app.use(['/api/auth/facebook', '/api/auth/oauth/facebook'], (req, res) => {
+    return res.status(403).json({
+        success: false,
+        error: 'تسجيل الدخول بحساب Facebook الشخصي غير مسموح. استخدم Google أو Apple أو Snapchat أو Instagram بدلاً منه.',
+        blocked: true,
+    });
+});
+// ─────────────────────────────────────────────────────────────────────────────
 if (aiLimiter) {
     app.use('/api/ai/', aiLimiter);
     app.use('/api/sheikha-ai/', aiLimiter);
@@ -10957,6 +10968,10 @@ app.post('/api/auth/login', (req, res) => {
 // ══════ OAuth / Social Login — تسجيل الدخول بالحسابات الاجتماعية ══════
 // ═══════════════════════════════════════════════════════════════
 const OAUTH_CONFIG = {
+    // ─── مزودو تسجيل الدخول المسموح بهم ───────────────────────────────────────
+    // ملاحظة: Facebook Personal Login ممنوع بقرار المالك.
+    //         Meta Pixel / CAPI للإعلانات: مسموح (sheikha-meta-engine.js).
+    // ──────────────────────────────────────────────────────────────────────────
     google: {
         clientId: process.env.GOOGLE_CLIENT_ID || '',
         clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
@@ -10999,6 +11014,7 @@ const OAUTH_CONFIG = {
         name: 'TikTok',
         enabled: !!process.env.TIKTOK_CLIENT_ID
     }
+    // facebook: ممنوع — لا يُضاف هنا. استخدم Instagram أو Snapchat بديلاً.
 };
 
 // OAuth endpoint لكل مزود

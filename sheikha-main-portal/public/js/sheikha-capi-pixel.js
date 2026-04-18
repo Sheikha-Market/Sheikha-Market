@@ -1,11 +1,10 @@
 /**
  * ╔══════════════════════════════════════════════════════════════════════════════╗
- * ║   📱 sheikha-analytics.js — مكتبة التتبع المستقلة لشيخة                    ║
- * ║   Sheikha Analytics: تتبع الأحداث عبر خادم شيخة — بدون Facebook            ║
+ * ║   📱 sheikha-capi-pixel.js — مكتبة Meta Pixel / CAPI للمتصفح               ║
+ * ║   Sheikha CAPI: Server-Side Events for Meta Ads (Instagram / Meta Business)  ║
  * ║                                                                              ║
  * ║   بسم الله الرحمن الرحيم                                                    ║
- * ║   ملاحظة: هذا الملف لا يرسل أي بيانات لفيسبوك أو Meta                     ║
- * ║   الأحداث تُرسل لخادم شيخة فقط → يُوجَّه لـ GA4 + Snapchat + TikTok      ║
+ * ║   ملاحظة: Meta Pixel API مسموح — حسابات Facebook الشخصية ممنوعة            ║
  * ╚══════════════════════════════════════════════════════════════════════════════╝
  *
  * الاستخدام:
@@ -13,8 +12,8 @@
  *      <script src="/js/sheikha-capi-pixel.js"></script>
  *
  *   2. شيخة تُطلق تلقائياً:
- *      - PageView      → عند كل صفحة
- *      - LandingPageView → عند القدوم من إعلان (utm_source موجود)
+ *      - PageView        → عند كل صفحة
+ *      - LandingPageView → عند القدوم من إعلان Instagram/Meta (utm_source)
  *
  *   3. لإطلاق حدث يدوياً:
  *      SheikhaPixel.track('Lead', { value: 0, currency: 'SAR' });
@@ -30,9 +29,9 @@
         || document.querySelector('script[src*="sheikha-capi-pixel"]');
     var cfg = window.SHEIKHA_CONFIG || {};
 
-    var PIXEL_ID   = '';  // غير مستخدم (لا بيكسل فيسبوك)
+    var PIXEL_ID   = (script && script.getAttribute('data-pixel-id'))   || cfg.pixelId   || '';
     var MARKET     = (script && script.getAttribute('data-market'))      || cfg.market     || '';
-    var API_BASE   = (script && script.getAttribute('data-api-base'))    || cfg.apiBase    || '/api/analytics';
+    var API_BASE   = (script && script.getAttribute('data-api-base'))    || cfg.apiBase    || '/api/شيخة-ميتا';
     var AUTO_FIRE  = (script && script.getAttribute('data-auto-fire'))   !== 'false';
     var DEBUG      = (script && script.getAttribute('data-debug'))       === 'true'
                      || cfg.debug === true;
