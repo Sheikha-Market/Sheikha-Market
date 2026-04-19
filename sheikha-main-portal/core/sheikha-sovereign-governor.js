@@ -103,6 +103,8 @@ const ISLAMIC_CONSTITUTION = {
         { id: 'fasad',     nameAr: 'الإفساد في الأرض',  ref: 'البقرة ١١',   severity: 'HARAM_QATI' },
         { id: 'kidhb',     nameAr: 'الكذب والتدليس',     ref: 'مسلم',         severity: 'HARAM_QATI' },
         { id: 'harm_data', nameAr: 'إيذاء البيانات الشخصية', ref: 'لا ضرر',  severity: 'HARAM_QATI' },
+        { id: 'khamr',     nameAr: 'الخمر والمسكرات',         ref: 'المائدة ٩٠', severity: 'HARAM_QATI' },
+        { id: 'khinzir',   nameAr: 'لحم الخنزير وما حُرِّم',  ref: 'البقرة ١٧٣', severity: 'HARAM_QATI' },
     ],
 };
 
@@ -225,10 +227,18 @@ class SheikhaSovereignGovernor extends EventEmitter {
         for (const prohibition of ISLAMIC_CONSTITUTION.absoluteProhibitions) {
             const markers = this._getProhibitionMarkers(prohibition.id);
             for (const marker of markers) {
-                if (
+                const markerLow = marker.toLowerCase();
+                const blocked =
+                    // فحص البيانات المباشرة (مفاتيح الكائن)
                     (data && typeof data === 'object' && (data[marker] || data[`has${marker}`])) ||
-                    intent.toLowerCase().includes(marker)
-                ) {
+                    // فحص النية
+                    intent.toLowerCase().includes(markerLow) ||
+                    // فحص العنصر / المنتج / الخدمة في البيانات
+                    (data && typeof data.item    === 'string' && data.item.toLowerCase().includes(markerLow)) ||
+                    (data && typeof data.product === 'string' && data.product.toLowerCase().includes(markerLow)) ||
+                    (data && typeof data.service === 'string' && data.service.toLowerCase().includes(markerLow)) ||
+                    (data && typeof data.category=== 'string' && data.category.toLowerCase().includes(markerLow));
+                if (blocked) {
                     this._recordViolation({ opId, subjectKey, intent, prohibition });
                     return {
                         allowed: false,
@@ -542,6 +552,8 @@ class SheikhaSovereignGovernor extends EventEmitter {
             fasad:     ['corruption', 'فساد'],
             kidhb:     ['fraud', 'deception', 'كذب', 'تدليس', 'غش'],
             harm_data: ['data_leak', 'spy', 'privacy_breach'],
+            khamr:     ['khamr', 'alcohol', 'wine', 'beer', 'liquor', 'spirit', 'خمر', 'كحول', 'مسكر', 'نبيذ'],
+            khinzir:   ['khinzir', 'pork', 'pig', 'swine', 'bacon', 'ham', 'خنزير', 'لحم خنزير'],
         };
         return map[prohibitionId] || [];
     }
