@@ -36081,7 +36081,101 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 📡 منظومة شيخة للاتصالات والشبكات الكونية
+// 🧠 الشبكة العصبية المتكاملة — ERP + SCM + الأدوات الإدارية
+// Integrated ERP-SCM-Admin Neural Network
+// "وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ" — المائدة: 2
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const neuralAdminRoutes = require('./routes/neural-erp-scm-admin.js');
+    app.use('/api/neural-admin', neuralAdminRoutes);
+    console.log('✅ [NEURAL-ADMIN] الشبكة العصبية المتكاملة ERP+SCM+Admin — مُفعَّلة');
+    console.log('   ├─ GET  /api/neural-admin/status              — حالة الشبكة الكاملة (25 شبكة)');
+    console.log('   ├─ GET  /api/neural-admin/summary             — ملخص سريع');
+    console.log('   ├─ POST /api/neural-admin/analyze             — تحليل متكامل (ERP+SCM+Admin → Sovereign)');
+    console.log('   ├─ POST /api/neural-admin/analyze/erp         — تحليل ERP (6 وحدات)');
+    console.log('   ├─ POST /api/neural-admin/analyze/scm         — تحليل SCM (6 وظائف)');
+    console.log('   ├─ POST /api/neural-admin/analyze/admin       — تحليل الأدوات الإدارية (8 أدوات)');
+    console.log('   ├─ POST /api/neural-admin/analyze/erp/:module — تحليل وحدة ERP واحدة');
+    console.log('   ├─ POST /api/neural-admin/analyze/scm/:module — تحليل وحدة SCM واحدة');
+    console.log('   ├─ POST /api/neural-admin/analyze/admin/:tool — تحليل أداة إدارية واحدة');
+    console.log('   └─ POST /api/neural-admin/train               — تدريب كامل');
+} catch (e) {
+    console.warn('⚠️ [NEURAL-ADMIN] فشل تحميل الشبكة العصبية المتكاملة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⛓️🧠 شبكة شيخة العصبية البلوكشين — الجيل الجديد
+// Sheikha Neural Blockchain — New Generation
+// "إِذَا تَدَايَنتُم بِدَيْنٍ إِلَىٰ أَجَلٍ مُّسَمًّى فَاكْتُبُوهُ" — البقرة: 282
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const blockchainRoutes = require('./routes/neural-blockchain.js');
+    app.use('/api/blockchain', blockchainRoutes);
+    console.log('✅ [NEURAL-BLOCKCHAIN] شبكة شيخة العصبية البلوكشين — الجيل الجديد — مُفعَّلة');
+    console.log('   ├─ GET  /api/blockchain/status              — حالة السلسلة (6 طبقات)');
+    console.log('   ├─ GET  /api/blockchain/chain               — عرض السلسلة');
+    console.log('   ├─ GET  /api/blockchain/validate            — التحقق من سلامة السلسلة');
+    console.log('   ├─ POST /api/blockchain/tx/submit           — إرسال معاملة (فلتر شرعي تلقائي)');
+    console.log('   ├─ POST /api/blockchain/mine                — تعدين كتلة (Proof-of-Neural)');
+    console.log('   ├─ GET  /api/blockchain/proof/:b/:tx        — إثبات ميركل (Merkle Proof)');
+    console.log('   ├─ POST /api/blockchain/contract/deploy     — نشر عقد ذكي إسلامي');
+    console.log('   ├─ POST /api/blockchain/zakat/calculate     — احتساب الزكاة');
+    console.log('   └─ POST /api/blockchain/shariah/check       — فحص شرعي للمعاملات');
+} catch (e) {
+    console.warn('⚠️ [NEURAL-BLOCKCHAIN] فشل تحميل البلوكشين العصبي:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⭐ عملة شيخة الرقمية — SHK العملة الأساسية (الجيل الجديد)
+// Sheikha Digital Currency — SHK as BASE Currency
+// «وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة: 275
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const shkRoutes = require('./routes/digital-currency.js');
+    app.use('/api/shk', shkRoutes);
+    console.log('✅ [SHK-CORE] عملة شيخة الرقمية — SHK العملة الأساسية — مُفعَّلة');
+    console.log('   ├─ SHK هي العملة الأساسية: كل تداول يمر عبرها (INPUT → SHK → OUTPUT)');
+    console.log('   ├─ GET  /api/shk/status              — الحالة الكاملة');
+    console.log('   ├─ GET  /api/shk/price               — سعر SHK المباشر (Neural Oracle)');
+    console.log('   ├─ GET  /api/shk/currencies          — 30+ عملة رقمية مدعومة');
+    console.log('   ├─ GET  /api/shk/rates               — كل الأسعار مقابل SHK');
+    console.log('   ├─ POST /api/shk/exchange/quote      — عرض سعر صرف (ANY → SHK → ANY)');
+    console.log('   ├─ POST /api/shk/exchange/execute    — تنفيذ تداول فعلي');
+    console.log('   ├─ POST /api/shk/wallet/create       — إنشاء محفظة on-chain');
+    console.log('   ├─ POST /api/shk/transfer            — تحويل SHK');
+    console.log('   ├─ POST /api/shk/mint                — سك SHK مقابل أصول');
+    console.log('   ├─ POST /api/shk/burn                — حرق SHK واسترداد أصول');
+    console.log('   ├─ POST /api/shk/stake               — تجميد SHK لمكافآت');
+    console.log('   └─ GET  /api/shk/oracle/assess       — تقييم عصبي للقيمة');
+} catch (e) {
+    console.warn('⚠️ [SHK-CORE] فشل تحميل عملة شيخة الرقمية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠⚙️ مركز عمليات شيخة العصبي — عملية شيخة شبكة عصبية
+// Sheikha Neural Operations Center
+// «وَشَاوِرْهُمْ فِي الْأَمْرِ» — آل عمران: 159
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const neuralOpsRoutes = require('./routes/neural-operations.js');
+    app.use('/api/neural-ops', neuralOpsRoutes);
+    console.log('✅ [NEURAL-OPS] مركز عمليات شيخة العصبي — مُفعَّل');
+    console.log('   ├─ خط الأنابيب: تصنيف → توجيه عصبي → قرار → شريعة → SHK → بلوكشين');
+    console.log('   ├─ GET  /api/neural-ops/status      — حالة النظام (ERP+SCM+Blockchain+SHK)');
+    console.log('   ├─ POST /api/neural-ops/process     — معالجة عملية (القرار العصبي الكامل)');
+    console.log('   ├─ POST /api/neural-ops/batch       — معالجة دُفعة من العمليات');
+    console.log('   ├─ POST /api/neural-ops/scan        — مسح سريع (شريعة + SHK)');
+    console.log('   ├─ POST /api/neural-ops/trade       — عملية تجارية');
+    console.log('   ├─ POST /api/neural-ops/payment     — معاملة مالية');
+    console.log('   ├─ POST /api/neural-ops/contract    — عقد ذكي إسلامي');
+    console.log('   ├─ POST /api/neural-ops/exchange    — تداول عملات (SHK الأساسية)');
+    console.log('   ├─ POST /api/neural-ops/analysis    — تحليل شامل للمنظومة');
+    console.log('   └─ POST /api/neural-ops/text        — تحليل نص عربي/إنجليزي');
+} catch (e) {
+    console.warn('⚠️ [NEURAL-OPS] فشل تحميل مركز العمليات العصبي:', e.message);
+}
+
+
 // Sheikha Telecom & Universal Networks
 // ﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾ — الأنفال: 60
 // ═══════════════════════════════════════════════════════════════════════════════
