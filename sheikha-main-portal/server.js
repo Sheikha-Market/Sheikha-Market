@@ -36073,6 +36073,29 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 الشبكة العصبية المتكاملة — ERP + SCM + الأدوات الإدارية
+// Integrated ERP-SCM-Admin Neural Network
+// "وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ" — المائدة: 2
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const neuralAdminRoutes = require('./routes/neural-erp-scm-admin.js');
+    app.use('/api/neural-admin', neuralAdminRoutes);
+    console.log('✅ [NEURAL-ADMIN] الشبكة العصبية المتكاملة ERP+SCM+Admin — مُفعَّلة');
+    console.log('   ├─ GET  /api/neural-admin/status              — حالة الشبكة الكاملة (25 شبكة)');
+    console.log('   ├─ GET  /api/neural-admin/summary             — ملخص سريع');
+    console.log('   ├─ POST /api/neural-admin/analyze             — تحليل متكامل (ERP+SCM+Admin → Sovereign)');
+    console.log('   ├─ POST /api/neural-admin/analyze/erp         — تحليل ERP (6 وحدات)');
+    console.log('   ├─ POST /api/neural-admin/analyze/scm         — تحليل SCM (6 وظائف)');
+    console.log('   ├─ POST /api/neural-admin/analyze/admin       — تحليل الأدوات الإدارية (8 أدوات)');
+    console.log('   ├─ POST /api/neural-admin/analyze/erp/:module — تحليل وحدة ERP واحدة');
+    console.log('   ├─ POST /api/neural-admin/analyze/scm/:module — تحليل وحدة SCM واحدة');
+    console.log('   ├─ POST /api/neural-admin/analyze/admin/:tool — تحليل أداة إدارية واحدة');
+    console.log('   └─ POST /api/neural-admin/train               — تدريب كامل');
+} catch (e) {
+    console.warn('⚠️ [NEURAL-ADMIN] فشل تحميل الشبكة العصبية المتكاملة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 📡 منظومة شيخة للاتصالات والشبكات الكونية
 // Sheikha Telecom & Universal Networks
 // ﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾ — الأنفال: 60
