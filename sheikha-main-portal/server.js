@@ -36129,6 +36129,32 @@ try {
     console.warn('⚠️ [VISION] منظومة الرؤية غير متوفرة:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🚚 شبكة شيخة العصبيل للوجستيات والنقل
+// Sheikha Al-Asabeel Logistics & Transport Network
+// ﴿ لِإِيلَافِ قُرَيْشٍ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ ﴾
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const asabeelRoutes = require('./routes/asabeel.js');
+    app.use('/api/asabeel', asabeelRoutes);
+    console.log('✅ [ASABEEL] شبكة العصبيل للوجستيات والنقل — مُفعَّلة');
+    console.log('   ├─ GET  /api/asabeel                      — ملخص الشبكة');
+    console.log('   ├─ GET  /api/asabeel/overview             — نظرة عامة شاملة');
+    console.log('   ├─ GET  /api/asabeel/network              — العقد والمراكز والممرات');
+    console.log('   ├─ GET  /api/asabeel/carriers             — الناقلون والأسطول');
+    console.log('   ├─ GET  /api/asabeel/transport-modes      — وسائل النقل');
+    console.log('   ├─ GET  /api/asabeel/warehouses           — شبكة المستودعات');
+    console.log('   ├─ GET  /api/asabeel/services             — الخدمات المتاحة');
+    console.log('   ├─ GET  /api/asabeel/ai                   — قدرات الذكاء الاصطناعي');
+    console.log('   ├─ GET  /api/asabeel/compliance           — الامتثال والوثائق');
+    console.log('   ├─ GET  /api/asabeel/islamic              — الأساس القرآني والشرعي');
+    console.log('   ├─ GET  /api/asabeel/statistics           — الإحصائيات الحية');
+    console.log('   ├─ POST /api/asabeel/quote                — عرض سعر شحنة');
+    console.log('   └─ GET  /api/asabeel/tracking/:id         — تتبع شحنة');
+} catch (e) {
+    console.warn('⚠️ [ASABEEL] فشل تحميل مسارات شبكة العصبيل:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
