@@ -63,7 +63,7 @@ class Matrix {
 
     // ضرب مصفوفات
     static multiply(a, b) {
-        if (a.cols !== b.rows) throw new Error(`أبعاد غير متوافقة: ${a.rows}x${a.cols} * ${b.rows}x${b.cols}`);
+        if (a.cols !== b.rows) throw new Error(`Matrix dimensions incompatible: ${a.rows}x${a.cols} * ${b.rows}x${b.cols}`);
         const out = new Matrix(a.rows, b.cols);
         for (let i = 0; i < a.rows; i++) {
             for (let k = 0; k < a.cols; k++) {
