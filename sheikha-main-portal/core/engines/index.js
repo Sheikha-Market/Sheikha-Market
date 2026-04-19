@@ -203,63 +203,6 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل المحرك العصبي الكوني:', err.stack || err.message);
 }
 
-// ─── تسجيل شبكة شيخة العصبية لسلاسل المداد والتوريد ─────────────────────────
-
-try {
-    const { neuralSCM } = require('../../lib/sheikha-neural-scm-engine');
-    registerEngine('neural_scm', neuralSCM, {
-        nameAr:  'شبكة شيخة العصبية لسلاسل المداد والتوريد',
-        nameEn:  'Sheikha Neural Supply Chain Engine',
-        maqsad:  'MAL',
-        version: 'v1',
-    });
-    registerRoute('scm',         'neural_scm', 'MAL');
-    registerRoute('supply',      'neural_scm', 'MAL');
-    registerRoute('procurement', 'neural_scm', 'MAL');
-    registerRoute('sourcing',    'neural_scm', 'MAL');
-    registerRoute('logistics',   'neural_scm', 'ARD');
-    registerRoute('inventory',   'neural_scm', 'MAL');
-    registerRoute('shipment',    'neural_scm', 'ARD');
-    registerRoute('forecast',    'neural_scm', 'AQL');
-    console.log('[ENGINES-INDEX] ✅ شبكة شيخة العصبية لسلاسل المداد مسجّلة');
-} catch (err) {
-    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل الشبكة العصبية لسلاسل المداد:', err.stack || err.message);
-}
-
-// ─── تسجيل الشبكة العصبية الكونية الجامعة — كل جنس/نوع/صنف/وسيلة/غاية ────────
-// "وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا" — البقرة ٣١
-
-try {
-    const { universalEntityNN } = require('../../lib/sheikha-universal-entity-neural-engine');
-    registerEngine('universal_entity', universalEntityNN, {
-        nameAr:  'شبكة شيخة العصبية الكونية الجامعة — لكل شيء',
-        nameEn:  'Sheikha Universal Entity Neural Engine',
-        maqsad:  'DEEN',
-        version: 'v1',
-    });
-    // مسارات التوجيه — كل جنس كيان وكل نية
-    registerRoute('entity',       'universal_entity', 'DEEN');
-    registerRoute('product',      'universal_entity', 'MAL');
-    registerRoute('factory',      'universal_entity', 'ARD');
-    registerRoute('organism',     'universal_entity', 'NAFS');
-    registerRoute('material',     'universal_entity', 'ARD');
-    registerRoute('service',      'universal_entity', 'MAL');
-    registerRoute('knowledge',    'universal_entity', 'AQL');
-    registerRoute('tool',         'universal_entity', 'ARD');
-    registerRoute('goal',         'universal_entity', 'DEEN');
-    registerRoute('place',        'universal_entity', 'ARD');
-    registerRoute('institution',  'universal_entity', 'DEEN');
-    registerRoute('time',         'universal_entity', 'AQL');
-    registerRoute('genus',        'universal_entity', 'AQL');
-    registerRoute('tawheed',      'universal_entity', 'DEEN');
-    registerRoute('maqasid',      'universal_entity', 'DEEN');
-    registerRoute('classify',     'universal_entity', 'AQL');
-    registerRoute('digitize',     'universal_entity', 'AQL');
-    console.log('[ENGINES-INDEX] ✅ الشبكة العصبية الكونية الجامعة مسجّلة — كل شيء موحَّد لله');
-} catch (err) {
-    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل الشبكة العصبية الكونية:', err.stack || err.message);
-}
-
 // ─── تسجيل شبكة شيخة العصبية للإنتاج ────────────────────────────────────────
 
 try {
@@ -315,8 +258,6 @@ if (_governor) {
             consulting:         'محرك الاستشارات الكونية',
             'live-ai':           'شبكة الذكاء الاصطناعي الحية',
             universal_networks:  'المحرك العصبي الكوني الشامل',
-            neural_scm:          'شبكة شيخة العصبية لسلاسل المداد والتوريد',
-            universal_entity:    'شبكة شيخة العصبية الكونية الجامعة — لكل شيء',
             production_neural:   'شبكة شيخة العصبية للإنتاج',
         };
         const allEngines = listEngines();
