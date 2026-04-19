@@ -11,12 +11,13 @@ const express = require('express');
 const router = express.Router();
 
 // تحميل المحركات
-let sgscOS, globalMarkets, plStack, erpHub, aiSCM;
+let sgscOS, globalMarkets, plStack, erpHub, aiSCM, neuralSCM;
 try { sgscOS = require('../lib/sheikha-global-scm-os'); } catch (e) { console.warn('sgscOS load error:', e.message); }
 try { globalMarkets = require('../lib/sheikha-global-markets-engine'); } catch (e) { console.warn('globalMarkets load error:', e.message); }
 try { plStack = require('../lib/sheikha-pl-stack-engine'); } catch (e) { console.warn('plStack load error:', e.message); }
 try { erpHub = require('../lib/sheikha-erp-integration-hub'); } catch (e) { console.warn('erpHub load error:', e.message); }
 try { aiSCM = require('../lib/sheikha-ai-scm-intelligence'); } catch (e) { console.warn('aiSCM load error:', e.message); }
+try { ({ neuralSCM } = require('../lib/sheikha-neural-scm-engine')); } catch (e) { console.warn('neuralSCM load error:', e.message); }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // System Status
@@ -654,6 +655,162 @@ router.get('/roles', (req, res) => {
         res.json({ success: true, data: roles });
     } catch (e) {
         res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// شبكة شيخة العصبية لسلاسل المداد والتوريد — Neural SCM Engine
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * GET /api/scm/neural/status
+ * حالة الشبكة العصبية لسلاسل المداد
+ */
+router.get('/neural/status', (req, res) => {
+    try {
+        if (!neuralSCM) return res.status(503).json({ success: false, error: 'الشبكة العصبية غير متوفرة' });
+        res.json({ success: true, data: neuralSCM.status() });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+/**
+ * POST /api/scm/neural/analyze
+ * تحليل شامل لسلسلة المداد عبر الشبكة العصبية
+ *
+ * Body: {
+ *   demandLevel, priceIndex, supplierScore, leadTimeDays, qualityRate,
+ *   inventoryLevel, logisticsCostPct, riskFactor, geoRisk,
+ *   complianceScore, marketVolatility, shariaCompliant,
+ *   historicalDemand[], demandFactors{}, supplier{}, inventoryParams{}, riskParams{}
+ * }
+ */
+router.post('/neural/analyze', (req, res) => {
+    try {
+        if (!neuralSCM) return res.status(503).json({ success: false, error: 'الشبكة العصبية غير متوفرة' });
+        const result = neuralSCM.analyze(req.body);
+        const status = result.success ? 200 : 422;
+        res.status(status).json(result);
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+/**
+ * POST /api/scm/neural/forecast-demand
+ * توقع الطلب بالشبكة العصبية (EWM + عوامل خارجية)
+ *
+ * Body: { historicalDemand: number[], factors: { seasonal, growth, risk } }
+ */
+router.post('/neural/forecast-demand', (req, res) => {
+    try {
+        if (!neuralSCM) return res.status(503).json({ success: false, error: 'الشبكة العصبية غير متوفرة' });
+        const { historicalDemand, factors } = req.body;
+        if (!Array.isArray(historicalDemand) || historicalDemand.length === 0) {
+            return res.status(400).json({ success: false, error: 'historicalDemand مطلوب كمصفوفة غير فارغة' });
+        }
+        const result = neuralSCM.forecastDemand(historicalDemand, factors || {});
+        res.json({ success: true, data: result });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+/**
+ * POST /api/scm/neural/score-supplier
+ * تسجيل مورد بمعايير متعددة
+ *
+ * Body: { id, qualityRate, otdRate, priceIndex, complianceScore, shariaCompliant }
+ */
+router.post('/neural/score-supplier', (req, res) => {
+    try {
+        if (!neuralSCM) return res.status(503).json({ success: false, error: 'الشبكة العصبية غير متوفرة' });
+        if (!req.body || Object.keys(req.body).length === 0) {
+            return res.status(400).json({ success: false, error: 'بيانات المورد مطلوبة' });
+        }
+        const result = neuralSCM.scoreSupplier(req.body);
+        res.json({ success: true, data: result });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+/**
+ * POST /api/scm/neural/optimize-inventory
+ * تحسين المخزون بنموذج EOQ
+ *
+ * Body: { annualDemand, orderCost, holdingCostPct, unitPrice, leadTimeDays, demandStdDev, serviceLevelZ }
+ */
+router.post('/neural/optimize-inventory', (req, res) => {
+    try {
+        if (!neuralSCM) return res.status(503).json({ success: false, error: 'الشبكة العصبية غير متوفرة' });
+        const result = neuralSCM.optimizeInventory(req.body || {});
+        res.json({ success: true, data: result });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+/**
+ * POST /api/scm/neural/assess-risk
+ * تقدير مخاطر سلسلة المداد
+ *
+ * Body: { supplierConcentration, geoPoliticalRisk, leadTimeVariability,
+ *         demandVolatility, qualityFailureRate, supplierFinancialHealth, complianceScore }
+ */
+router.post('/neural/assess-risk', (req, res) => {
+    try {
+        if (!neuralSCM) return res.status(503).json({ success: false, error: 'الشبكة العصبية غير متوفرة' });
+        const result = neuralSCM.assessRisk(req.body || {});
+        res.json({ success: true, data: result });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+/**
+ * POST /api/scm/neural/sharia-check
+ * فحص الامتثال الشرعي لمعاملة سلسلة مداد
+ *
+ * Body: { interestRate, riba, unknownQuantity, unknownPrice, consent,
+ *         prohibitedGoods, delayedGoldSilver, speculativeContract }
+ */
+router.post('/neural/sharia-check', (req, res) => {
+    try {
+        if (!neuralSCM) return res.status(503).json({ success: false, error: 'الشبكة العصبية غير متوفرة' });
+        const result = neuralSCM.shariaFilter(req.body || {});
+        res.json({ success: true, data: result });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+/**
+ * GET /api/scm/neural/weights/export
+ * تصدير أوزان الشبكة العصبية
+ */
+router.get('/neural/weights/export', (req, res) => {
+    try {
+        if (!neuralSCM) return res.status(503).json({ success: false, error: 'الشبكة العصبية غير متوفرة' });
+        const weights = neuralSCM.exportWeights();
+        res.json({ success: true, data: weights });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+/**
+ * POST /api/scm/neural/weights/import
+ * استيراد أوزان الشبكة العصبية
+ */
+router.post('/neural/weights/import', (req, res) => {
+    try {
+        if (!neuralSCM) return res.status(503).json({ success: false, error: 'الشبكة العصبية غير متوفرة' });
+        neuralSCM.importWeights(req.body);
+        res.json({ success: true, message: 'تم استيراد الأوزان بنجاح' });
+    } catch (e) {
+        res.status(400).json({ success: false, error: e.message });
     }
 });
 
