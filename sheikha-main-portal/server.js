@@ -432,9 +432,7 @@ try {
 // ═══ GOV ENGINE — محرك الأنظمة الحكومية الشامل (سعودي + دولي + شركات حكومية) ═══
 let govEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-gov-engine.js
-    /*     const SheikhaGovEngine = require('./lib/sheikha-gov-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-gov-engine.js — سيُحمّل عند الطلب');
+    const SheikhaGovEngine = require('./lib/sheikha-gov-engine.js');
     govEngine = new SheikhaGovEngine();
     console.log(
         `✅ Gov Engine — ${govEngine.saudiEntities.length} جهة سعودية | ${govEngine.countries.length} دولة | ${govEngine.govCompanies.length} شركة حكومية | ${govEngine.saudiRegulations.length} نظام/تشريع`
@@ -560,9 +558,7 @@ try {
 // ═══ ECONOMICS ENGINE — التجارة والاقتصاد السعودي والعالمي ═══
 let economicsEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-economics-engine.js
-    /*     const SheikhaEconomicsEngine = require('./lib/sheikha-economics-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-economics-engine.js — سيُحمّل عند الطلب');
+    const SheikhaEconomicsEngine = require('./lib/sheikha-economics-engine.js');
     economicsEngine = new SheikhaEconomicsEngine();
     const ec = economicsEngine.getDashboard();
     console.log(
@@ -702,9 +698,7 @@ try {
 // ☪️ محرك المجتمعات والمجموعات
 let communityEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-community-engine.js
-    /*     const SheikhaCommunityEngine = require('./lib/sheikha-community-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-community-engine.js — سيُحمّل عند الطلب');
+    const SheikhaCommunityEngine = require('./lib/sheikha-community-engine.js');
     communityEngine = new SheikhaCommunityEngine();
     const com = communityEngine.getDashboard();
     console.log(
@@ -938,6 +932,22 @@ try {
     console.log(`✅ [VideoContent v${vceStatus.version}] ${vceStatus.nameAr} | ${vceStatus.scriptTemplates} قالب | ${vceStatus.contentTypes} نوع محتوى | ${vceStatus.pipelineStages} مرحلة | ${vceStatus.apis} API`);
 } catch (e) {
     console.warn('⚠️ VideoContent:', e.message);
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// 🏘️ شيخة الحي الحي — نظام الحي الذكي المتكامل (حي · تنبض · تعقل · تتفكر)
+//    محلات الحي × نبض لحظي × تفكير ذكي × تأمل عميق × ربط المجتمع
+//    ١٣ مسار API | نبض كل ٥ ثوانٍ | تفكير كل ٣٠ ثانية | إسلامي ١٠٠٪
+// ════════════════════════════════════════════════════════════════════════════
+let hayEngine = null;
+try {
+    const SheikhaHayEngine = require('./lib/sheikha-hay-engine.js');
+    hayEngine = new SheikhaHayEngine();
+    hayEngine.registerRoutes(app);
+    const hayStatus = hayEngine.getStatus();
+    console.log(`✅ [HayEngine v${hayStatus.version}] ${hayStatus.nameAr} | ${hayStatus.apis} API | ${hayStatus.rhythm} rhythm | صحة الحي: ${hayStatus.healthScore}%`);
+} catch (e) {
+    console.warn('⚠️ HayEngine:', e.message);
 }
 
 // ☪️ منظومة التسويق الشامل الموحد — UMB (مُعرَّفة هنا، تُسجَّل بعد app)
@@ -31686,9 +31696,7 @@ try {
 
 // ═══ منظومة المجتمع الرقمي والأساسي الشاملة ═══
 try {
-    // P0-1: LAZY (L1) - sheikha-digital-community-ecosystem.js
-    /*     const communityEcosystem = require('./lib/sheikha-digital-community-ecosystem.js'); */
-    console.log('⏸️ [LAZY] sheikha-digital-community-ecosystem.js — سيُحمّل عند الطلب');
+    const communityEcosystem = require('./lib/sheikha-digital-community-ecosystem.js');
     communityEcosystem(app, {
         USERS,
         TRADERS,
@@ -36117,6 +36125,73 @@ try {
     console.log('✅ [LIVE-AI v2] مسارات الذكاء الاصطناعي الحي v2 مسجّلة على /api/ai/live');
 } catch (e) {
     console.warn('⚠️ [LIVE-AI v2] شبكة الذكاء الاصطناعي الحية غير متوفرة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 💚 شيخة الحيوية — النظام الحي النابض بالحياة
+//    نبض داخلي + نبض خارجي + أهداف خير + أهداف تجارة + أثر حضاري
+//    "وَجَعَلْنَا مِنَ الْمَاءِ كُلَّ شَيْءٍ حَيٍّ" — الأنبياء:٣٠
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const vitalityRoutes = require('./routes/sheikha-vitality');
+    app.use('/api/vitality', vitalityRoutes);
+    console.log('✅ [Vitality] شيخة الحيوية مفعلة — /api/vitality (health · activate · status · pulse · goals · networks · impact · community · environment)');
+} catch (e) {
+    console.warn('⚠️ [Vitality] شيخة الحيوية غير متوفرة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏆 شيخة برامج رؤية ٢٠٣٠ — ١١ برنامجاً استراتيجياً + المستهدفات الكبرى
+//    جودة الحياة · PIF · التحول الوطني · ضيوف الرحمن · القدرات البشرية
+//    ندلب · الصحة · الإسكان · القطاع المالي · التخصيص · الاستدامة المالية
+//    "إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ" — الرعد:١١
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const programsRoutes = require('./routes/sheikha-programs');
+    app.use('/api/programs', programsRoutes);
+    console.log('✅ [Programs] شيخة برامج رؤية ٢٠٣٠ مفعّلة — /api/programs (health · dashboard · list · :id · pillar · maqsad · targets · kpis · sheikha)');
+} catch (e) {
+    console.warn('⚠️ [Programs] شيخة برامج رؤية ٢٠٣٠ غير متوفرة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 👑 شيخة — قائدة رؤية ٢٠٣٠ + محرك الأثر الذكي
+//    ١١ برنامجاً باسم شيخة + قادة شيخة + أثر مجتمعي + قياس ملموس
+//    مرتبطة بأهداف خادم الحرمين الشريفين الملك سلمان
+//    "وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ" — التوبة:١٠٥
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const visionRoutes = require('./routes/sheikha-vision');
+    app.use('/api/vision', visionRoutes);
+    console.log('✅ [Vision] شيخة قائدة رؤية ٢٠٣٠ مفعّلة — /api/vision (health · dashboard · royal-mandate · leadership · programs · targets · impact · roadmap · sdg · live · first-place · national-report · national-integration · refresh)');
+} catch (e) {
+    console.warn('⚠️ [Vision] شيخة قائدة رؤية ٢٠٣٠ غير متوفرة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏦 صندوق شيخة للاستثمارات العامة (SPIF)
+//    ذراع استثماري ومحرك للنمو الاقتصادي — محافظ · مشاريع كبرى · KPIs · شريعة
+//    "مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ" — البقرة:٢٦١
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const spifRoutes = require('./routes/sheikha-spif');
+    app.use('/api/spif', spifRoutes);
+    console.log('✅ [SPIF] صندوق شيخة للاستثمارات العامة مفعّل — /api/spif (health · dashboard · identity · portfolios · mega-projects · kpis · partnerships · sharia · sheikha-role · report)');
+} catch (e) {
+    console.warn('⚠️ [SPIF] صندوق شيخة للاستثمارات العامة غير متوفر:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🇸🇦 شيخة وطن طموح — الركيزة الثالثة من رؤية ٢٠٣٠
+//    حوكمة · جهات سعودية · تشريعات · شركات وطنية · قيادة رشيدة
+//    "وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ" — الحشر:١٨
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const watanRoutes = require('./routes/sheikha-watan');
+    app.use('/api/watan', watanRoutes);
+    console.log('✅ [Watan] شيخة وطن طموح مفعّلة — /api/watan (health · dashboard · saudi · vision2030 · international · leadership · register)');
+} catch (e) {
+    console.warn('⚠️ [Watan] شيخة وطن طموح غير متوفرة:', e.message);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
