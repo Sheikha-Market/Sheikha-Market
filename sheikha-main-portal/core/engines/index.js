@@ -203,6 +203,42 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل المحرك العصبي الكوني:', err.stack || err.message);
 }
 
+// ─── تسجيل شبكة شيخة العصبية للطاقة ─────────────────────────────────────────
+// ﴿ اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ ﴾ — النور ٣٥
+
+try {
+    const { engine: energyNeuralEngine } = require('../../lib/sheikha-energy-neural-network');
+    registerEngine('energy', energyNeuralEngine, {
+        nameAr: 'شبكة شيخة العصبية للطاقة',
+        nameEn: 'Sheikha Energy Neural Network',
+        maqsad: 'ARD',
+    });
+    registerRoute('energy',              'energy', 'ARD');
+    registerRoute('energy.classify',     'energy', 'ARD');
+    registerRoute('energy.predict',      'energy', 'ARD');
+    registerRoute('energy.forecast',     'energy', 'ARD');
+    registerRoute('energy.optimize',     'energy', 'ARD');
+    registerRoute('energy.score',        'energy', 'ARD');
+    registerRoute('energy.evaluate',     'energy', 'ARD');
+    registerRoute('energy.trade',        'energy', 'MAL');
+    registerRoute('energy.market',       'energy', 'MAL');
+    registerRoute('energy.vision2030',   'energy', 'ARD');
+    registerRoute('energy.sharia',       'energy', 'DEEN');
+    registerRoute('energy.physics',      'energy', 'ARD');
+    registerRoute('energy.calc',         'energy', 'ARD');
+    registerRoute('energy.list',         'energy', 'ARD');
+    registerRoute('energy.info',         'energy', 'ARD');
+    registerRoute('renewable',           'energy', 'ARD');
+    registerRoute('solar',               'energy', 'ARD');
+    registerRoute('wind_energy',         'energy', 'ARD');
+    registerRoute('nuclear_energy',      'energy', 'ARD');
+    registerRoute('hydrogen_energy',     'energy', 'ARD');
+    registerRoute('smart_grid',          'energy', 'ARD');
+    console.log('[ENGINES-INDEX] ✅ شبكة شيخة العصبية للطاقة مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل شبكة الطاقة العصبية:', err.stack || err.message);
+}
+
 // ─── تسجيل كل المحركات تحت سيادة الحاكمة العليا ─────────────────────────────
 // بعد تسجيل الجميع، تفرض شيخة سيادتها على الكل
 // ﴿ وَفَوْقَ كُلِّ ذِي عِلْمٍ عَلِيمٌ ﴾ — يوسف ٧٦
@@ -231,6 +267,7 @@ if (_governor) {
             consulting:         'محرك الاستشارات الكونية',
             'live-ai':          'شبكة الذكاء الاصطناعي الحية',
             universal_networks: 'المحرك العصبي الكوني الشامل',
+            energy:             'شبكة شيخة العصبية للطاقة',
         };
         const allEngines = listEngines();
         for (const engineKey of allEngines) {
