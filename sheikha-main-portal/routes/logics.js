@@ -14,6 +14,15 @@
  *  GET  /api/logics/scope/:scopeId           → عرض نطاق عبر جميع المنطق
  *  POST /api/logics/:id/activate             → تسجيل تفعيل منطق لكيان
  *  GET  /api/logics/activations              → سجلات التفعيل
+ *
+ *  ── الشبكة العصبية لكل أنواع المنطق بالكون ─────────────────────────────────
+ *  POST /api/logics/neural/infer             → استدلال أي المنطقيات تنشط
+ *  GET  /api/logics/neural/state             → حالة الشبكة العصبية الحالية
+ *  GET  /api/logics/neural/map               → خريطة الاتصالات السينابتية
+ *  POST /api/logics/neural/train             → تدريب الشبكة على مثال جديد
+ *  POST /api/logics/neural/train/batch       → تدريب دُفعي
+ *  POST /api/logics/neural/save              → حفظ أوزان الشبكة
+ *  POST /api/logics/neural/reset             → إعادة ضبط الشبكة
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
@@ -34,6 +43,12 @@ const {
     getScopeView,
     getLogicsStats
 } = require('../models/SheikhaLogics');
+
+const {
+    getNetwork,
+    encodeContext,
+    N_LOGICS
+} = require('../models/LogicNeuralNetwork');
 
 // ─── قائمة المنطق الجامع ──────────────────────────────────────────────────────
 
@@ -367,6 +382,214 @@ router.post('/:id/activate', (req, res) => {
             icon:    logic.icon,
             scope:   logic.scopes[scopeId] || null
         }
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 الشبكة العصبية لكل أنواع المنطق بالكون
+//    "وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا" — البقرة: 31
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ─── استدلال: أي المنطقيات تنشط في السياق المعطى ─────────────────────────────
+
+router.post('/neural/infer', (req, res) => {
+    const { context = '', inputVector, scope } = req.body;
+
+    // بناء متجه الإدخال
+    let vec;
+    if (inputVector && Array.isArray(inputVector) && inputVector.length >= N_LOGICS) {
+        vec = inputVector.slice(0, N_LOGICS).map(v => Math.max(0, Math.min(1, Number(v) || 0)));
+    } else if (context) {
+        vec = encodeContext(context);
+    } else {
+        vec = new Array(N_LOGICS).fill(0.5);
+    }
+
+    const net    = getNetwork();
+    const result = net.infer(vec, context);
+
+    // فلترة حسب النطاق إن طُلب
+    let allResults = result.allResults;
+    if (scope && ['core', 'extended'].includes(scope)) {
+        allResults = allResults.filter(r => r.category === scope);
+    }
+
+    res.json({
+        success:      true,
+        bismillah:    'بسم الله الرحمن الرحيم',
+        tawheed:      'لَا إِلَٰهَ إِلَّا اللَّهُ — المنطق الأعلى الجامع',
+        inferenceId:  result.id,
+        context:      context || '(غير محدد)',
+        timestamp:    result.timestamp,
+        masterActivation: result.masterActivation,
+        masterFiring: result.masterFiring,
+        topLogics:    result.topLogics,
+        top5: allResults.slice(0, 5).map(r => ({
+            id:         r.id,
+            nameAr:     r.nameAr,
+            icon:       r.icon,
+            activation: r.activation,
+            rank:       r.rank,
+            firing:     r.neuronFiring
+        })),
+        allResults,
+        networkStats: {
+            totalInferences: net.totalInferences,
+            trainedSteps:    net.trainedSteps
+        }
+    });
+});
+
+// ─── حالة الشبكة العصبية ─────────────────────────────────────────────────────
+
+router.get('/neural/state', (req, res) => {
+    const net   = getNetwork();
+    const state = net.getState();
+
+    res.json({
+        success:      true,
+        bismillah:    'بسم الله الرحمن الرحيم',
+        title:        'الشبكة العصبية لكل أنواع المنطق بالكون',
+        description:  'شبكة عصبية حقيقية بجافاسكربت نقي — تجمع 21 منطقاً في منظومة عصبية واحدة',
+        architecture: state.architecture,
+        masterNeuron: state.masterNeuron,
+        neurons:      state.neurons,
+        trainedSteps: state.trainedSteps,
+        totalInferences: state.totalInferences,
+        masterShield: state.masterShield,
+        lastInference: state.lastInference,
+        layers: [
+            { name: 'InputLayer',  size: state.architecture.inputSize,   desc: 'طبقة الإدخال (21 بُعد — واحد لكل منطق)' },
+            { name: 'CoreLayer',   size: state.architecture.coreLayers,  desc: 'طبقة المنطق الأصلي السباعي' },
+            { name: 'ExtLayer',    size: state.architecture.extLayers,   desc: 'طبقة المنطق الموسّع' },
+            { name: 'SynthLayer',  size: state.architecture.synthLayers, desc: 'طبقة التكامل الكامل' },
+            { name: 'MasterLayer', size: state.architecture.masterUnits, desc: 'طبقة المنطق الأعلى — التوحيد' }
+        ]
+    });
+});
+
+// ─── خريطة الاتصالات السينابتية ──────────────────────────────────────────────
+
+router.get('/neural/map', (req, res) => {
+    const net = getNetwork();
+    const map = net.getSynapticMap();
+
+    res.json({
+        success:     true,
+        bismillah:   'بسم الله الرحمن الرحيم',
+        title:       'خريطة الاتصالات السينابتية للمنطق الكوني',
+        description: 'يُظهر اتصالات الشبكة العصبية بين كل منطقين — الوزن = قوة الارتباط الدلالي',
+        totalNodes:  map.totalNodes,
+        totalEdges:  map.totalEdges,
+        nodes:       map.nodes,
+        edges:       map.edges
+    });
+});
+
+// ─── تدريب الشبكة على مثال واحد ─────────────────────────────────────────────
+
+router.post('/neural/train', (req, res) => {
+    const { inputVector, targetVector, context = '', learningRate } = req.body;
+
+    if (!inputVector || !Array.isArray(inputVector)) {
+        return res.status(400).json({
+            success: false,
+            message: 'inputVector مطلوب — مصفوفة أرقام بطول 20'
+        });
+    }
+
+    if (!targetVector || !Array.isArray(targetVector)) {
+        return res.status(400).json({
+            success: false,
+            message: 'targetVector مطلوب — مصفوفة أرقام بطول 20 (قيم 0 أو 1)'
+        });
+    }
+
+    const lr    = Math.max(0.0001, Math.min(0.1, Number(learningRate) || 0.001));
+    const net   = getNetwork();
+    const loss  = net.train(
+        inputVector.map(v => Number(v) || 0),
+        targetVector.map(v => Number(v) || 0),
+        lr
+    );
+
+    res.json({
+        success:      true,
+        message:      'تم التدريب بنجاح — الشبكة تتعلم',
+        context:      context || '(غير محدد)',
+        loss,
+        trainedSteps: net.trainedSteps,
+        learningRate: lr
+    });
+});
+
+// ─── تدريب دُفعي ─────────────────────────────────────────────────────────────
+
+router.post('/neural/train/batch', (req, res) => {
+    const { samples, learningRate } = req.body;
+
+    if (!samples || !Array.isArray(samples) || samples.length === 0) {
+        return res.status(400).json({
+            success: false,
+            message: 'samples مطلوب — مصفوفة [{inputVector, targetVector}, ...]'
+        });
+    }
+
+    const lr      = Math.max(0.0001, Math.min(0.1, Number(learningRate) || 0.001));
+    const net     = getNetwork();
+    const losses  = [];
+    let   skipped = 0;
+
+    for (const sample of samples) {
+        if (!sample.inputVector || !sample.targetVector) { skipped++; continue; }
+        const loss = net.train(
+            sample.inputVector.map(v => Number(v) || 0),
+            sample.targetVector.map(v => Number(v) || 0),
+            lr
+        );
+        if (loss !== null) losses.push(loss);
+    }
+
+    const avgLoss = losses.length > 0
+        ? +(losses.reduce((a, b) => a + b, 0) / losses.length).toFixed(6)
+        : null;
+
+    res.json({
+        success:       true,
+        message:       `تم التدريب على ${losses.length} مثال`,
+        samplesTotal:  samples.length,
+        samplesUsed:   losses.length,
+        skipped,
+        avgLoss,
+        trainedSteps:  net.trainedSteps,
+        learningRate:  lr
+    });
+});
+
+// ─── حفظ أوزان الشبكة ────────────────────────────────────────────────────────
+
+router.post('/neural/save', (req, res) => {
+    const net    = getNetwork();
+    const saved  = net.save();
+
+    res.json({
+        success:      true,
+        message:      'تم حفظ أوزان الشبكة العصبية — الحمد لله',
+        trainedSteps: net.trainedSteps,
+        savedAt:      saved.savedAt
+    });
+});
+
+// ─── إعادة ضبط الشبكة ─────────────────────────────────────────────────────────
+
+router.post('/neural/reset', (req, res) => {
+    const net = getNetwork();
+    net.reset();
+
+    res.json({
+        success:  true,
+        message:  'تمت إعادة ضبط الشبكة العصبية — أوزان جديدة عشوائية',
+        warning:  'التدريب السابق ضاع — احفظ الأوزان قبل الإعادة'
     });
 });
 
