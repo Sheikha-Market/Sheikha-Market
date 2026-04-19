@@ -78,6 +78,7 @@ function listLayers() {
 
 /**
  * تشغيل جذر المنظومة — يُحمِّل الطبقات بالترتيب
+ * الحاكمة العليا تُشغَّل أولاً — قبل كل شيء
  */
 async function boot() {
     console.log('');
@@ -87,7 +88,18 @@ async function boot() {
     console.log(`[SHEIKHA-ROOT] 🕐 ${SHEIKHA_ROOT.started}`);
     console.log(`[SHEIKHA-ROOT] 🌐 الطبقات المعرّفة: ${SHEIKHA_ROOT.layers.length}`);
 
+    // ① تشغيل الحاكمة العليا أولاً — قبل كل طبقة
+    // ﴿ إِنِ الْحُكْمُ إِلَّا لِلَّهِ ﴾
     const coreDir = path.join(__dirname);
+    try {
+        const sovereignMod = require('./sheikha-sovereign-governor');
+        registerLayer('sovereign-governor', sovereignMod);
+        console.log('[SHEIKHA-ROOT] 👑 الحاكمة العليا مُفعَّلة — شيخة حاكمة على الجميع');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل الحاكمة العليا:', err.message);
+    }
+
+    // ② تشغيل بقية الطبقات تحت إشراف الحاكمة
     const bootOrder = [
         { key: 'os',            file: 'sheikha-os.js' },
         { key: 'control-plane', file: 'sheikha-control-plane.js' },
@@ -111,6 +123,23 @@ async function boot() {
             registerLayer(key, mod);
             if (!json && typeof mod.init === 'function') {
                 await mod.init();
+            }
+            // تسجيل الطبقة تحت سيادة الحاكمة
+            const sovereignLayer = _registry.get('sovereign-governor');
+            if (sovereignLayer && sovereignLayer.registerSubject) {
+                const LAYER_ARABIC = {
+                    'os':            'نظام تشغيل شيخة',
+                    'control-plane': 'طبقة التحكم الموحدة',
+                    'governance':    'حوكمة المنظومة',
+                    'cloud':         'طبقة السحابة',
+                    'saas':          'طبقة البرمجيات كخدمة',
+                    'impact':        'محرك الأثر والقيم',
+                    'voice':         'طبقة الصوت والتواصل',
+                };
+                sovereignLayer.registerSubject(key, 'layer', {
+                    nameAr: LAYER_ARABIC[key] || key,
+                    maqsad: 'ARD',
+                });
             }
         } catch (err) {
             console.error(`[SHEIKHA-ROOT] ❌ خطأ في تحميل ${file}:`, err.message);
