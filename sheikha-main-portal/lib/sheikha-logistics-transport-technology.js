@@ -1,7 +1,7 @@
 /**
  * بسم الله الرحمن الرحيم
  * ╔══════════════════════════════════════════════════════════════════════════════╗
- * ║        تكنلوجيا اللوجيستك والنقل — شيخة                                   ║
+ * ║        تكنولوجيا اللوجيستك والنقل — شيخة                                  ║
  * ║   SHEIKHA LOGISTICS & TRANSPORT TECHNOLOGY ENGINE                          ║
  * ╠══════════════════════════════════════════════════════════════════════════════╣
  * ║  "وَسَخَّرَ لَكُمُ الْفُلْكَ لِتَجْرِيَ فِي الْبَحْرِ بِأَمْرِهِ        ║
@@ -28,7 +28,7 @@
 
 class SheikhaLogisticsTransportTechnology {
     constructor() {
-        this.name = 'تكنلوجيا اللوجيستك والنقل — شيخة';
+        this.name = 'تكنولوجيا اللوجيستك والنقل — شيخة';
         this.nameEn = 'Sheikha Logistics & Transport Technology';
         this.version = '1.0.0';
         this.activatedAt = new Date().toISOString();

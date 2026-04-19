@@ -1,7 +1,7 @@
 // بسم الله الرحمن الرحيم
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * ⚙️ تكنلوجيا اللوجيستك والنقل — API Routes
+ * ⚙️ تكنولوجيا اللوجيستك والنقل — API Routes
  * SHEIKHA LOGISTICS & TRANSPORT TECHNOLOGY — API Routes
  * ═══════════════════════════════════════════════════════════════════════════════
  *
@@ -60,7 +60,7 @@ router.get('/', (req, res) => {
         const data = logTech ? logTech.summary : { status: 'loading' };
         res.json({
             success: true,
-            message: 'بسم الله الرحمن الرحيم — تكنلوجيا اللوجيستك والنقل | شيخة',
+            message: 'بسم الله الرحمن الرحيم — تكنولوجيا اللوجيستك والنقل | شيخة',
             data,
             endpoints: {
                 overview:       'GET /api/logistics-tech/overview',
