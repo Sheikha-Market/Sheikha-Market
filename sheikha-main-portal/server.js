@@ -432,9 +432,7 @@ try {
 // ═══ GOV ENGINE — محرك الأنظمة الحكومية الشامل (سعودي + دولي + شركات حكومية) ═══
 let govEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-gov-engine.js
-    /*     const SheikhaGovEngine = require('./lib/sheikha-gov-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-gov-engine.js — سيُحمّل عند الطلب');
+    const SheikhaGovEngine = require('./lib/sheikha-gov-engine.js');
     govEngine = new SheikhaGovEngine();
     console.log(
         `✅ Gov Engine — ${govEngine.saudiEntities.length} جهة سعودية | ${govEngine.countries.length} دولة | ${govEngine.govCompanies.length} شركة حكومية | ${govEngine.saudiRegulations.length} نظام/تشريع`
@@ -560,9 +558,7 @@ try {
 // ═══ ECONOMICS ENGINE — التجارة والاقتصاد السعودي والعالمي ═══
 let economicsEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-economics-engine.js
-    /*     const SheikhaEconomicsEngine = require('./lib/sheikha-economics-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-economics-engine.js — سيُحمّل عند الطلب');
+    const SheikhaEconomicsEngine = require('./lib/sheikha-economics-engine.js');
     economicsEngine = new SheikhaEconomicsEngine();
     const ec = economicsEngine.getDashboard();
     console.log(
@@ -36139,9 +36135,22 @@ try {
 try {
     const vitalityRoutes = require('./routes/sheikha-vitality');
     app.use('/api/vitality', vitalityRoutes);
-    console.log('✅ [Vitality] شيخة الحيوية مفعلة — /api/vitality (health · activate · status · pulse · goals · networks · impact)');
+    console.log('✅ [Vitality] شيخة الحيوية مفعلة — /api/vitality (health · activate · status · pulse · goals · networks · impact · community · environment)');
 } catch (e) {
     console.warn('⚠️ [Vitality] شيخة الحيوية غير متوفرة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🇸🇦 شيخة وطن طموح — الركيزة الثالثة من رؤية ٢٠٣٠
+//    حوكمة · جهات سعودية · تشريعات · شركات وطنية · قيادة رشيدة
+//    "وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ" — الحشر:١٨
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const watanRoutes = require('./routes/sheikha-watan');
+    app.use('/api/watan', watanRoutes);
+    console.log('✅ [Watan] شيخة وطن طموح مفعّلة — /api/watan (health · dashboard · saudi · vision2030 · international · leadership · register)');
+} catch (e) {
+    console.warn('⚠️ [Watan] شيخة وطن طموح غير متوفرة:', e.message);
 }
 
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
