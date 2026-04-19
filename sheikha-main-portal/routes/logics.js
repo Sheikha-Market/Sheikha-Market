@@ -23,6 +23,15 @@
  *  POST /api/logics/neural/train/batch       → تدريب دُفعي
  *  POST /api/logics/neural/save              → حفظ أوزان الشبكة
  *  POST /api/logics/neural/reset             → إعادة ضبط الشبكة
+ *
+ *  ── التحسين المستمر للنماذج — "وَقُل رَّبِّ زِدْنِي عِلْمًا" ─────────────
+ *  POST /api/logics/neural/feedback          → تغذية راجعة على استدلال (تصحيح)
+ *  POST /api/logics/neural/improve           → تشغيل دورة تحسين يدوياً
+ *  GET  /api/logics/neural/metrics           → مؤشرات الأداء (خسارة، دقة، اتجاه)
+ *  GET  /api/logics/neural/versions          → قائمة لقطات النموذج المحفوظة
+ *  POST /api/logics/neural/snapshot          → أخذ لقطة من النموذج الحالي
+ *  POST /api/logics/neural/restore/:version  → استرداد إصدار سابق
+ *  GET  /api/logics/neural/report            → تقرير التحسين المستمر الشامل
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
@@ -49,6 +58,10 @@ const {
     encodeContext,
     N_LOGICS
 } = require('../models/LogicNeuralNetwork');
+
+const {
+    getEngine
+} = require('../models/ContinuousImprovement');
 
 // ─── قائمة المنطق الجامع ──────────────────────────────────────────────────────
 
@@ -590,6 +603,154 @@ router.post('/neural/reset', (req, res) => {
         success:  true,
         message:  'تمت إعادة ضبط الشبكة العصبية — أوزان جديدة عشوائية',
         warning:  'التدريب السابق ضاع — احفظ الأوزان قبل الإعادة'
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔄 التحسين المستمر للنماذج والنموذج
+//    "وَقُل رَّبِّ زِدْنِي عِلْمًا" — طه: 114
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ─── 1. تغذية راجعة — تصحيح نتيجة استدلال ────────────────────────────────────
+
+router.post('/neural/feedback', (req, res) => {
+    const { inferenceId = '', context = '', inputVector, correctLogics, wrongLogics, importance } = req.body;
+
+    if (!correctLogics && !wrongLogics) {
+        return res.status(400).json({
+            success: false,
+            message: 'يجب تقديم correctLogics أو wrongLogics على الأقل',
+            example: {
+                context:       'تجارة حلال',
+                correctLogics: ['commercial', 'legislative'],
+                wrongLogics:   ['computational'],
+                importance:    3
+            }
+        });
+    }
+
+    const engine = getEngine();
+    const result = engine.addFeedback({
+        inferenceId,
+        context,
+        inputVector,
+        correctLogics: correctLogics || [],
+        wrongLogics:   wrongLogics   || [],
+        importance:    Math.max(1, Math.min(5, Number(importance) || 1))
+    });
+
+    res.status(201).json({
+        success:      true,
+        bismillah:    'بسم الله الرحمن الرحيم',
+        message:      'تم استقبال التغذية الراجعة — الشبكة تتعلم',
+        feedbackId:   result.feedbackId,
+        bufferSize:   result.bufferSize,
+        weight:       result.weight,
+        autoImproved: result.autoImproved,
+        cycleResult:  result.cycleResult
+    });
+});
+
+// ─── 2. تشغيل دورة تحسين يدوياً ─────────────────────────────────────────────
+
+router.post('/neural/improve', (req, res) => {
+    const { steps, batchSize } = req.body;
+    const engine = getEngine();
+
+    const s  = Math.max(1,  Math.min(200, Number(steps)     || 20));
+    const bs = Math.max(2,  Math.min(64,  Number(batchSize) || 8));
+
+    const result = engine.runImproveCycle(s, bs);
+
+    if (!result.success) {
+        return res.status(400).json({ success: false, ...result });
+    }
+
+    res.json({
+        success:   true,
+        bismillah: 'بسم الله الرحمن الرحيم',
+        message:   `دورة التحسين رقم ${result.cycleNumber} اكتملت`,
+        ...result
+    });
+});
+
+// ─── 3. مؤشرات الأداء ────────────────────────────────────────────────────────
+
+router.get('/neural/metrics', (req, res) => {
+    const engine  = getEngine();
+    const metrics = engine.getMetrics();
+
+    res.json({
+        success:        true,
+        bismillah:      'بسم الله الرحمن الرحيم',
+        title:          'مؤشرات أداء الشبكة العصبية',
+        ...metrics
+    });
+});
+
+// ─── 4. قائمة إصدارات النموذج ────────────────────────────────────────────────
+
+router.get('/neural/versions', (req, res) => {
+    const engine   = getEngine();
+    const versions = engine.listVersions();
+
+    res.json({
+        success:       true,
+        currentVersion: engine.versioning.currentVersion,
+        total:         versions.length,
+        versions
+    });
+});
+
+// ─── 5. أخذ لقطة من النموذج الحالي ──────────────────────────────────────────
+
+router.post('/neural/snapshot', (req, res) => {
+    const { label = '' } = req.body;
+    const engine = getEngine();
+    const snap   = engine.takeSnapshot(label);
+    engine.save();
+
+    res.status(201).json({
+        success:  true,
+        message:  `تم حفظ لقطة النموذج "${snap.version}"`,
+        ...snap
+    });
+});
+
+// ─── 6. استرداد إصدار سابق ───────────────────────────────────────────────────
+
+router.post('/neural/restore/:version', (req, res) => {
+    const { version } = req.params;
+    const engine = getEngine();
+    const ok     = engine.restoreVersion(version);
+
+    if (!ok) {
+        return res.status(404).json({
+            success:  false,
+            message:  `الإصدار "${version}" غير موجود`,
+            available: engine.listVersions().map(v => v.version)
+        });
+    }
+
+    res.json({
+        success:  true,
+        message:  `تم استرداد الإصدار "${version}" بنجاح`,
+        version
+    });
+});
+
+// ─── 7. تقرير التحسين المستمر الشامل ─────────────────────────────────────────
+
+router.get('/neural/report', (req, res) => {
+    const engine = getEngine();
+    const report = engine.getImprovementReport();
+
+    res.json({
+        success:   true,
+        bismillah: 'بسم الله الرحمن الرحيم',
+        ayah:      'وَقُل رَّبِّ زِدْنِي عِلْمًا — طه: 114',
+        title:     'تقرير التحسين المستمر للشبكة العصبية',
+        ...report
     });
 });
 
