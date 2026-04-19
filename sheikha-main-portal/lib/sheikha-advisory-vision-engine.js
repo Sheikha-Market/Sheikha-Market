@@ -31,10 +31,10 @@
 // ─── استيراد المحركات المُدارة ────────────────────────────────────────────────
 let NationalVisionsEngine, ComputerVisionEngine, EthicalAdvisorySystem, InternationalAdvisory;
 
-try { NationalVisionsEngine = require('./sheikha-national-visions-engine.js'); } catch (_) {}
-try { ComputerVisionEngine = require('./sheikha-computer-vision-engine.js'); } catch (_) {}
-try { EthicalAdvisorySystem = require('./SHEIKHA-ETHICAL-ADVISORY-SYSTEM.js'); } catch (_) {}
-try { InternationalAdvisory = require('./SHEIKHA-INTERNATIONAL-GOVERNMENT-ADVISORY.js'); } catch (_) {}
+try { NationalVisionsEngine = require('./sheikha-national-visions-engine.js'); } catch (e) { console.log('⚠️ [ADVISORY] NationalVisionsEngine غير متاح:', e.message); }
+try { ComputerVisionEngine = require('./sheikha-computer-vision-engine.js'); } catch (e) { console.log('⚠️ [ADVISORY] ComputerVisionEngine غير متاح:', e.message); }
+try { EthicalAdvisorySystem = require('./SHEIKHA-ETHICAL-ADVISORY-SYSTEM.js'); } catch (e) { console.log('⚠️ [ADVISORY] EthicalAdvisorySystem غير متاح:', e.message); }
+try { InternationalAdvisory = require('./SHEIKHA-INTERNATIONAL-GOVERNMENT-ADVISORY.js'); } catch (e) { console.log('⚠️ [ADVISORY] InternationalAdvisory غير متاح:', e.message); }
 
 // ─── مرجعية القرآن الكريم والسنة للاستشارات ─────────────────────────────────
 const ADVISORY_QURAN_REFERENCES = {
@@ -664,7 +664,7 @@ class SheikhaAdvisoryVisionEngine {
             includeNationalVisions = true
         } = request;
 
-        if (!subject) throw new Error('موضوع الاستشارة (subject) مطلوب');
+        if (!subject) throw new Error('موضوع الاستشارة (subject) مطلوب — Consultation subject is required');
 
         const consultationId = this._generateId('CONS');
         const startTime = Date.now();

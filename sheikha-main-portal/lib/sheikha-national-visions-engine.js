@@ -591,7 +591,7 @@ class SheikhaNationalVisionsEngine {
         for (const sector of vision.sectors) {
             const sectorLower = sector.toLowerCase();
             if (businessText.includes(sectorLower) ||
-                sectorLower.split('').some(w => businessText.includes(w))) {
+                sectorLower.split(/\s+/).some(w => w.length > 2 && businessText.includes(w))) {
                 matchedSectors.push(sector);
                 score += 20;
             }
