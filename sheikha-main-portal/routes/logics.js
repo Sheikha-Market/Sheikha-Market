@@ -1,12 +1,14 @@
 /**
  * بسم الله الرحمن الرحيم
  * ═══════════════════════════════════════════════════════════════════════════════
- *  🧠 مسارات المنطق السباعي — منظومة شيخة
- *  Seven Logics Routes — Sheikha Integrated Logic Systems
+ *  🧠 مسارات المنطق الجامع — منظومة شيخة
+ *  Universal Logics Routes — Sheikha Integrated Logic Systems
  *
- *  GET  /api/logics                          → قائمة المنطق السباعي
- *  GET  /api/logics/stats                    → إحصائيات المنطق السباعي
+ *  GET  /api/logics                          → قائمة المنطق (مع فلتر category)
+ *  GET  /api/logics/master                   → المنطق الأعلى الجامع
+ *  GET  /api/logics/stats                    → إحصائيات المنطق الجامع
  *  GET  /api/logics/scopes                   → قائمة النطاقات
+ *  GET  /api/logics/categories               → فئات المنطق (core/extended/master)
  *  GET  /api/logics/:id                      → تفاصيل منطق محدد
  *  GET  /api/logics/:id/scope/:scopeId       → تطبيق منطق في نطاق
  *  GET  /api/logics/scope/:scopeId           → عرض نطاق عبر جميع المنطق
@@ -21,7 +23,8 @@ const express = require('express');
 const router  = express.Router();
 
 const {
-    SEVEN_LOGICS,
+    ALL_LOGICS,
+    MASTER_LOGIC,
     LOGIC_TYPES,
     SCOPE_TYPES,
     LogicActivationRecord,
@@ -32,12 +35,14 @@ const {
     getLogicsStats
 } = require('../models/SheikhaLogics');
 
-// ─── قائمة المنطق السباعي ────────────────────────────────────────────────────
+// ─── قائمة المنطق الجامع ──────────────────────────────────────────────────────
 
 router.get('/', (req, res) => {
-    const { status } = req.query;
+    const { status, category } = req.query;
 
-    const allowedStatuses = ['active', 'suspended', 'review'];
+    const allowedStatuses    = ['active', 'suspended', 'review'];
+    const allowedCategories  = ['core', 'extended', 'all', 'master'];
+
     if (status && !allowedStatuses.includes(status)) {
         return res.status(400).json({
             success: false,
@@ -45,13 +50,23 @@ router.get('/', (req, res) => {
         });
     }
 
-    const logics = getAllLogics(status || null);
+    if (category && !allowedCategories.includes(category)) {
+        return res.status(400).json({
+            success: false,
+            message: `قيمة category غير صحيحة. المقبول: ${allowedCategories.join(' | ')}`
+        });
+    }
+
+    const logics = getAllLogics(status || null, category || null);
 
     res.json({
         success:    true,
         bismillah:  'بسم الله الرحمن الرحيم',
-        title:      'المنطق السباعي لمنظومة شيخة',
+        title:      'المنطق الجامع لمنظومة شيخة',
+        totalLogics: ALL_LOGICS.length,
+        masterLogic: MASTER_LOGIC.id,
         count:      logics.length,
+        category:   category || 'all',
         scopes:     Object.values(SCOPE_TYPES),
         logics:     logics.map(l => ({
             id:          l.id,
@@ -60,9 +75,10 @@ router.get('/', (req, res) => {
             icon:        l.icon,
             status:      l.status,
             version:     l.version,
+            category:    l.category || 'core',
             description: l.description,
-            principlesCount: l.principles.length,
-            scopesList:  Object.keys(l.scopes)
+            principlesCount: l.principles ? l.principles.length : l.supremePrinciples ? l.supremePrinciples.length : 0,
+            scopesList:  l.scopes ? Object.keys(l.scopes) : []
         }))
     });
 });
@@ -169,7 +185,58 @@ router.get('/scope/:scopeId', (req, res) => {
     });
 });
 
-// ─── تفاصيل منطق محدد ────────────────────────────────────────────────────────
+// ─── المنطق الأعلى الجامع ────────────────────────────────────────────────────
+
+router.get('/master', (req, res) => {
+    const activations = LogicActivationRecord.find({ logicId: MASTER_LOGIC.id });
+
+    res.json({
+        success:      true,
+        bismillah:    'بسم الله الرحمن الرحيم',
+        tawheed:      MASTER_LOGIC.declaration.arabic,
+        title:        'المنطق الأعلى الجامع — أقوى منطق في الوجود',
+        masterLogic:  MASTER_LOGIC,
+        activationsCount: activations.length,
+        note: 'تفعيل المنطق الأعلى يُفعِّل جميع المنطقيات الـ ' + ALL_LOGICS.length + ' تلقائياً'
+    });
+});
+
+// ─── فئات المنطق ──────────────────────────────────────────────────────────────
+
+router.get('/categories', (req, res) => {
+    res.json({
+        success: true,
+        title:   'فئات المنطق الجامع — منظومة شيخة',
+        count:   3,
+        categories: [
+            {
+                id:      'core',
+                nameAr:  'المنطق السباعي الأصلي',
+                nameEn:  'Core Seven Logics',
+                icon:    '🔷',
+                count:   7,
+                logics:  ['organizational', 'legislative', 'commercial', 'scientific', 'research', 'technical', 'technological']
+            },
+            {
+                id:      'extended',
+                nameAr:  'المنطق الموسّع',
+                nameEn:  'Extended Logics',
+                icon:    '🔶',
+                count:   ALL_LOGICS.length - 7,
+                logics:  ALL_LOGICS.slice(7).map(l => l.id)
+            },
+            {
+                id:      'master',
+                nameAr:  'المنطق الأعلى',
+                nameEn:  'Supreme Master Logic',
+                icon:    '☀️',
+                count:   1,
+                logics:  ['master']
+            }
+        ],
+        grandTotal: ALL_LOGICS.length + 1
+    });
+});
 
 router.get('/:id', (req, res) => {
     const logic = getLogicById(req.params.id);
