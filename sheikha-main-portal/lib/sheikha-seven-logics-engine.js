@@ -1,11 +1,15 @@
 /**
  * بسم الله الرحمن الرحيم
  * ╔══════════════════════════════════════════════════════════════════════════════╗
- * ║  SHEIKHA SEVEN LOGICS ENGINE — محرك المنطق السباعي الشامل                  ║
+ * ║  SHEIKHA COMPREHENSIVE LOGICS ENGINE — محرك المنطق الشامل (20 منطق)        ║
  * ║                                                                              ║
- * ║  المنطق التنظيمي   · المنطق التشريعي   · المنطق التجاري                    ║
- * ║  المنطق العلمي     · المنطق البحثي     · المنطق التقني                     ║
- * ║  المنطق التكنولوجي                                                          ║
+ * ║  المجموعة الأولى (7): التنظيمي · التشريعي · التجاري                        ║
+ * ║                        العلمي · البحثي · التقني · التكنولوجي                ║
+ * ║                                                                              ║
+ * ║  المجموعة الثانية (13): المنهجي · تنهيج المناهج · الجودة                   ║
+ * ║                          الإداري · الهيكلي · التخطيطي · الشبكي             ║
+ * ║                          التنفيذي · التطويري · التحسيني                     ║
+ * ║                          التكيفي · البيئي                                   ║
  * ║                                                                              ║
  * ║  مفعّل في: شيخة | منظمة شيخة | سوق شيخة                                   ║
  * ║  «وَفَوْقَ كُلِّ ذِي عِلْمٍ عَلِيمٌ» — يوسف ٧٦                            ║
@@ -354,21 +358,473 @@ const TECHNOLOGICAL_LOGIC = {
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// المحرك الرئيسي — SevenLogicsEngine
+// 8. المنطق المنهجي — Methodological Logic
+// ═══════════════════════════════════════════════════════════════════════════════
+const METHODOLOGICAL_LOGIC = {
+    id:          'methodological',
+    nameAr:      'المنطق المنهجي',
+    nameEn:      'Methodological Logic',
+    description: 'يحكم المنهجية الشاملة لشيخة: كيف تُصاغ الإجراءات، تُوثَّق المناهج، وتُطبَّق أساليب العمل بدقة واتساق',
+    scope:       ACTIVE_IN,
+    principles: [
+        { id: 'mth-1', ar: 'وضوح المنهج وقابلية التكرار',     en: 'Clear & Reproducible Methodology',   weight: 10 },
+        { id: 'mth-2', ar: 'التكامل بين المناهج المختلفة',     en: 'Cross-Methodology Integration',      weight: 9  },
+        { id: 'mth-3', ar: 'التوثيق الدقيق للإجراءات',        en: 'Precise Procedure Documentation',    weight: 9  },
+        { id: 'mth-4', ar: 'المرونة المنهجية والتكيف',         en: 'Methodological Flexibility',         weight: 8  },
+        { id: 'mth-5', ar: 'استناد المنهج للأدلة والبيانات',  en: 'Evidence-Based Methodology',         weight: 10 },
+        { id: 'mth-6', ar: 'قياس فاعلية المنهج وتقييمه',      en: 'Methodology Effectiveness Metrics',  weight: 8  },
+        { id: 'mth-7', ar: 'الترابط المنهجي عبر الوحدات',     en: 'Methodological Coherence Across Units',weight: 9},
+    ],
+    frameworks: [
+        { name: 'Agile / Scrum',           domain: 'تطوير البرمجيات',     applicability: 'فرق التقنية'    },
+        { name: 'PDCA (Plan-Do-Check-Act)',domain: 'الجودة والتحسين',      applicability: 'جميع الوحدات'  },
+        { name: 'Design Thinking',         domain: 'الابتكار وحل المشكلات', applicability: 'البحث والمنتج' },
+        { name: 'Six Sigma',               domain: 'تقليل الأخطاء',        applicability: 'العمليات'      },
+        { name: 'Balanced Scorecard',      domain: 'قياس الأداء',           applicability: 'الإدارة العليا'},
+        { name: 'Systems Thinking',        domain: 'تحليل الأنظمة المعقدة', applicability: 'القيادة'       },
+    ],
+    procedureLibrary: {
+        onboarding:     { steps: 7,  owner: 'HR',       documented: true },
+        productRelease: { steps: 12, owner: 'Engineering', documented: true },
+        incidentResponse:{steps: 9,  owner: 'DevOps',   documented: true },
+        auditProcess:   { steps: 8,  owner: 'Compliance', documented: true },
+        riskAssessment: { steps: 6,  owner: 'Strategy', documented: true },
+    },
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 9. منطق تنهيج المناهج — Curriculum & Methodology Design Logic
+// ═══════════════════════════════════════════════════════════════════════════════
+const CURRICULUM_LOGIC = {
+    id:          'curriculum',
+    nameAr:      'منطق تنهيج المناهج',
+    nameEn:      'Curriculum & Methodology Design Logic',
+    description: 'يحكم تصميم وتطوير مناهج التدريب، التأهيل، ونقل المعرفة داخل شيخة ومع شركائها',
+    scope:       ACTIVE_IN,
+    principles: [
+        { id: 'cur-1', ar: 'تصميم المناهج وفق الأهداف التعلمية', en: 'Outcome-Based Curriculum Design',   weight: 10 },
+        { id: 'cur-2', ar: 'التدرج والتسلسل في المحتوى',          en: 'Progressive Content Sequencing',    weight: 9  },
+        { id: 'cur-3', ar: 'التنوع في أساليب التعلم',             en: 'Diverse Learning Modalities',       weight: 8  },
+        { id: 'cur-4', ar: 'قياس الأثر التعلمي والتطوري',         en: 'Learning Impact Measurement',       weight: 9  },
+        { id: 'cur-5', ar: 'ربط المناهج بالتطبيق العملي',         en: 'Theory-Practice Integration',       weight: 10 },
+        { id: 'cur-6', ar: 'التحديث المستمر للمحتوى',             en: 'Continuous Content Refresh',        weight: 8  },
+        { id: 'cur-7', ar: 'التخصيص وفق مستوى المتعلم',          en: 'Adaptive Personalized Learning',    weight: 9  },
+    ],
+    curriculumTracks: [
+        { track: 'التجارة الرقمية والتصدير',   level: 'مبتدئ → متقدم', duration: '40 ساعة', format: 'هجين'   },
+        { track: 'الذكاء الاصطناعي التطبيقي',  level: 'متوسط → متقدم', duration: '60 ساعة', format: 'رقمي'   },
+        { track: 'الفقه الرقمي والاقتصاد الإسلامي', level: 'عام → متخصص', duration: '30 ساعة', format: 'هجين'},
+        { track: 'قيادة الفرق وإدارة المشاريع',level: 'متوسط',          duration: '24 ساعة', format: 'حضوري' },
+        { track: 'أمن المعلومات والسيبرانية', level: 'تقني',             duration: '48 ساعة', format: 'هجين'  },
+        { track: 'ريادة الأعمال والابتكار',   level: 'عام',              duration: '20 ساعة', format: 'رقمي'  },
+    ],
+    certificationFramework: {
+        provider:   'شيخة للتدريب والتطوير',
+        accreditation: 'معتمدة من هيئة تقويم التعليم والتدريب (ETEC)',
+        levels:     ['شهادة مشاركة', 'شهادة إتقان', 'شهادة احتراف', 'شهادة خبرة متقدمة'],
+        validity:   '3 سنوات مع تحديث دوري',
+    },
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 10. منطق الجودة — Quality Logic
+// ═══════════════════════════════════════════════════════════════════════════════
+const QUALITY_LOGIC = {
+    id:          'quality',
+    nameAr:      'منطق الجودة',
+    nameEn:      'Quality Logic',
+    description: 'يحكم معايير الجودة الشاملة في جميع منتجات وخدمات وعمليات شيخة',
+    scope:       ACTIVE_IN,
+    principles: [
+        { id: 'qlt-1', ar: 'الجودة من المصدر وليس الفحص اللاحق', en: 'Quality at Source',               weight: 10 },
+        { id: 'qlt-2', ar: 'الصفر عيوب كهدف',                    en: 'Zero Defects Target',             weight: 9  },
+        { id: 'qlt-3', ar: 'صوت العميل في تعريف الجودة',          en: 'Voice of Customer in Quality',    weight: 10 },
+        { id: 'qlt-4', ar: 'القياس المستمر ومؤشرات الجودة',       en: 'Continuous Quality Measurement',  weight: 9  },
+        { id: 'qlt-5', ar: 'التحسين المستمر للعمليات',            en: 'Continuous Process Improvement',  weight: 9  },
+        { id: 'qlt-6', ar: 'توثيق معايير الجودة ومراجعتها',       en: 'Quality Standards Documentation', weight: 8  },
+        { id: 'qlt-7', ar: 'ثقافة الجودة في المؤسسة كلها',        en: 'Organization-Wide Quality Culture',weight: 9 },
+    ],
+    standards: [
+        { standard: 'ISO 9001:2015',  domain: 'إدارة الجودة الشاملة',  status: 'مستهدف' },
+        { standard: 'ISO 27001',      domain: 'جودة أمن المعلومات',    status: 'مستهدف' },
+        { standard: 'CMMI Level 3',   domain: 'جودة البرمجيات',        status: 'مخطط'   },
+        { standard: 'Six Sigma Green',domain: 'تقليل العيوب',          status: 'مفعّل'  },
+    ],
+    kpis: [
+        { kpi: 'معدل رضا العملاء',         target: '≥4.7/5',     frequency: 'شهري'    },
+        { kpi: 'معدل العيوب في التطوير',    target: '≤0.5%',      frequency: 'لكل إصدار'},
+        { kpi: 'وقت الاستجابة للشكاوى',    target: '≤4 ساعات',   frequency: 'فوري'    },
+        { kpi: 'معدل حل المشكلات من أول مرة', target: '≥90%',    frequency: 'أسبوعي'  },
+        { kpi: 'معدل إعادة العمل',          target: '≤2%',        frequency: 'شهري'    },
+    ],
+    qaProcess: {
+        codeReview:      'مراجعة ثنائية لكل كود قبل الدمج',
+        testCoverage:    '≥80% وحدات + تكامل + E2E',
+        stagingPolicy:   'بيئة تجريبية كاملة قبل الإنتاج',
+        rollbackPolicy:  'استرجاع خلال 15 دقيقة عند اكتشاف عطل',
+    },
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 11. المنطق الإداري — Administrative Logic
+// ═══════════════════════════════════════════════════════════════════════════════
+const ADMINISTRATIVE_LOGIC = {
+    id:          'administrative',
+    nameAr:      'المنطق الإداري',
+    nameEn:      'Administrative Logic',
+    description: 'يحكم الإدارة اليومية لشيخة: الموارد البشرية، المالية، اللوجستيات، وإدارة العمليات',
+    scope:       ACTIVE_IN,
+    principles: [
+        { id: 'adm-1', ar: 'الكفاءة والفاعلية الإدارية',          en: 'Administrative Efficiency',        weight: 9  },
+        { id: 'adm-2', ar: 'الشفافية في القرارات الإدارية',        en: 'Administrative Transparency',      weight: 10 },
+        { id: 'adm-3', ar: 'توزيع الصلاحيات والتفويض الفعّال',    en: 'Effective Delegation',             weight: 9  },
+        { id: 'adm-4', ar: 'إدارة الموارد باحترافية',              en: 'Professional Resource Management', weight: 9  },
+        { id: 'adm-5', ar: 'الامتثال الإداري واللوائح الداخلية',   en: 'Internal Regulatory Compliance',   weight: 9  },
+        { id: 'adm-6', ar: 'الرقابة والتقييم المستمر',             en: 'Continuous Monitoring & Evaluation',weight: 8},
+        { id: 'adm-7', ar: 'تنمية الكفاءات البشرية',               en: 'Human Capacity Development',       weight: 9  },
+    ],
+    functions: {
+        hr: {
+            recruitment:   'منصة توظيف ذكية + مقابلات هيكلية',
+            performance:   'تقييم ربع سنوي + OKR فردية وجماعية',
+            training:      'خطة تطوير سنوية لكل موظف',
+            compensation:  'سلم رواتب موضوعي + حوافز أداء',
+        },
+        finance: {
+            budgeting:     'تخطيط سنوي + مراجعة ربع سنوية',
+            reporting:     'تقارير شهرية + سنوية معتمدة',
+            audit:         'مراجعة خارجية سنوية',
+            treasury:      'إدارة نقدية يومية + توقعات 13 أسبوع',
+        },
+        operations: {
+            sla:           'اتفاقيات مستوى خدمة داخلية موثقة',
+            reporting:     'لوحة معلومات تشغيلية يومية',
+            escalation:    'مصفوفة تصعيد واضحة لكل قسم',
+        },
+    },
+    adminKPIs: [
+        { kpi: 'وقت إنجاز الطلبات الإدارية',  target: '≤2 أيام عمل', frequency: 'أسبوعي' },
+        { kpi: 'معدل دوران الموظفين',         target: '≤10% سنوياً', frequency: 'ربع سنوي'},
+        { kpi: 'دقة التقارير المالية',         target: '100%',          frequency: 'شهري'  },
+        { kpi: 'رضا الموظفين',               target: '≥4.2/5',        frequency: 'نصف سنوي'},
+    ],
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 12. المنطق الهيكلي — Structural Logic
+// ═══════════════════════════════════════════════════════════════════════════════
+const STRUCTURAL_LOGIC = {
+    id:          'structural',
+    nameAr:      'المنطق الهيكلي',
+    nameEn:      'Structural Logic',
+    description: 'يحكم تصميم وبناء الهياكل التنظيمية والتقنية والمعلوماتية لشيخة بما يضمن المتانة والتكامل',
+    scope:       ACTIVE_IN,
+    principles: [
+        { id: 'str-1', ar: 'وضوح الهيكل وبساطته',                en: 'Structural Clarity & Simplicity',  weight: 9  },
+        { id: 'str-2', ar: 'الفصل بين المخاوف (Separation of Concerns)', en: 'Separation of Concerns',   weight: 10 },
+        { id: 'str-3', ar: 'التماسك الداخلي والاقتران المنخفض',  en: 'High Cohesion, Low Coupling',      weight: 10 },
+        { id: 'str-4', ar: 'قابلية التوسع الهيكلي',              en: 'Structural Scalability',           weight: 9  },
+        { id: 'str-5', ar: 'المرونة في التغيير الهيكلي',          en: 'Structural Flexibility',           weight: 8  },
+        { id: 'str-6', ar: 'التوثيق الهيكلي الشامل',             en: 'Comprehensive Structural Documentation',weight: 8},
+        { id: 'str-7', ar: 'التناسق بين الهياكل المختلفة',       en: 'Cross-Structure Alignment',        weight: 9  },
+    ],
+    structuralLayers: {
+        business: [
+            { name: 'طبقة القيادة الاستراتيجية',   components: ['رؤية','رسالة','قيم','أهداف']           },
+            { name: 'طبقة الحوكمة',               components: ['مجلس إدارة','لجان','سياسات']            },
+            { name: 'طبقة العمليات',               components: ['بيزنس بروسيس','KPIs','SLAs']            },
+        ],
+        technical: [
+            { name: 'طبقة الواجهة (Presentation)', components: ['Web UI','Mobile App','API Gateway']     },
+            { name: 'طبقة التطبيق (Application)',  components: ['Microservices','Business Logic','AI']   },
+            { name: 'طبقة البيانات (Data)',         components: ['PostgreSQL','MongoDB','Redis','S3']     },
+            { name: 'طبقة البنية التحتية (Infra)', components: ['Cloud','CDN','Load Balancer','Firewall']},
+        ],
+        information: [
+            { name: 'طبقة البيانات التشغيلية',   components: ['معاملات','سجلات','سجلات تدقيق'] },
+            { name: 'طبقة التحليل',              components: ['مستودع البيانات','BI','تقارير']  },
+            { name: 'طبقة الذكاء',               components: ['نماذج AI','توقعات','توصيات']    },
+        ],
+    },
+    designPatterns: ['Repository','Factory','Observer','Strategy','CQRS','Event Sourcing','Saga'],
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 13. المنطق التخطيطي — Planning Logic
+// ═══════════════════════════════════════════════════════════════════════════════
+const PLANNING_LOGIC = {
+    id:          'planning',
+    nameAr:      'المنطق التخطيطي',
+    nameEn:      'Planning Logic',
+    description: 'يحكم التخطيط الاستراتيجي والتشغيلي لشيخة: رسم الخرائط الزمنية، تحديد الأولويات، إدارة المخاطر',
+    scope:       ACTIVE_IN,
+    principles: [
+        { id: 'pln-1', ar: 'الوضوح في الأهداف والمخرجات',        en: 'Clear Goals & Deliverables',        weight: 10 },
+        { id: 'pln-2', ar: 'الواقعية في التقدير والجدولة',        en: 'Realistic Estimation & Scheduling', weight: 9  },
+        { id: 'pln-3', ar: 'إدارة المخاطر والسيناريوهات',         en: 'Risk & Scenario Management',        weight: 9  },
+        { id: 'pln-4', ar: 'مرونة الخطة وقابلية التكيف',          en: 'Plan Flexibility & Adaptability',   weight: 8  },
+        { id: 'pln-5', ar: 'ترتيب الأولويات بمنهجية',            en: 'Systematic Prioritization',         weight: 9  },
+        { id: 'pln-6', ar: 'تتبع التقدم والانحراف',               en: 'Progress Tracking & Variance',      weight: 9  },
+        { id: 'pln-7', ar: 'التخطيط التشاركي مع الأطراف المعنية', en: 'Participatory Planning',            weight: 8  },
+    ],
+    planningHorizons: {
+        strategic:   { horizon: '3-5 سنوات', frequency: 'سنوي',         tool: 'Balanced Scorecard + OKR' },
+        tactical:    { horizon: '1 سنة',     frequency: 'ربع سنوي',     tool: 'خارطة طريق + Gantt'      },
+        operational: { horizon: '3 أشهر',    frequency: 'شهري',          tool: 'Sprint Planning + Kanban' },
+        daily:       { horizon: '2 أسابيع',  frequency: 'أسبوعي',        tool: 'Stand-up + Task Board'   },
+    },
+    riskManagement: {
+        categories: ['مخاطر تقنية','مخاطر تجارية','مخاطر تشريعية','مخاطر سيبرانية','مخاطر تشغيلية'],
+        matrix:     'احتمال × أثر = درجة المخاطرة',
+        response:   ['تجنب','تخفيف','نقل','قبول'],
+        reviewCycle:'شهري للمخاطر العالية، ربع سنوي للمتوسطة',
+    },
+    prioritizationFramework: {
+        method: 'RICE Score (Reach × Impact × Confidence ÷ Effort)',
+        tieBreaker: 'أولوية الشريعة والأثر الاجتماعي',
+    },
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 14. المنطق الشبكي — Network Logic
+// ═══════════════════════════════════════════════════════════════════════════════
+const NETWORK_LOGIC = {
+    id:          'network',
+    nameAr:      'المنطق الشبكي',
+    nameEn:      'Network Logic',
+    description: 'يحكم بناء وإدارة الشبكات: شبكات الشركاء، التقنية، المعلومات، والعلاقات في منظومة شيخة',
+    scope:       ACTIVE_IN,
+    principles: [
+        { id: 'net-1', ar: 'قوة الشبكة من تنوع عقدها',            en: 'Network Strength from Node Diversity', weight: 9  },
+        { id: 'net-2', ar: 'اللامركزية والمرونة الشبكية',           en: 'Decentralization & Network Resilience', weight: 9 },
+        { id: 'net-3', ar: 'الثقة والشفافية في العلاقات الشبكية',  en: 'Trust & Transparency in Network',    weight: 10 },
+        { id: 'net-4', ar: 'تدفق المعلومات بلا احتكار',            en: 'Free Information Flow',              weight: 8  },
+        { id: 'net-5', ar: 'بروتوكولات تواصل موحدة',               en: 'Unified Communication Protocols',    weight: 9  },
+        { id: 'net-6', ar: 'حماية الشبكة وأمانها',                 en: 'Network Security & Protection',      weight: 10 },
+        { id: 'net-7', ar: 'قياس صحة الشبكة وأدائها',              en: 'Network Health Monitoring',          weight: 8  },
+    ],
+    networkTypes: {
+        partner: {
+            description: 'شبكة الموردين والمشترين والشركاء',
+            nodes:       ['موردون', 'مشترون', 'لوجستيون', 'بنوك', 'جهات حكومية'],
+            connectivity:'API + بوابة B2B + شبكة ثقة موثقة',
+        },
+        technical: {
+            description: 'الشبكة التقنية والبنية التحتية',
+            topology:    'Mesh + Hub-and-Spoke هجين',
+            protocols:   ['HTTP/2','WebSocket','gRPC','AMQP'],
+            security:    'Zero Trust + mTLS + VPN',
+        },
+        knowledge: {
+            description: 'شبكة المعرفة وتبادل المعلومات',
+            platform:    'مركز معرفة + API المعرفة + نشرة أسبوعية',
+            contributors:['باحثون','خبراء','شركاء أكاديميون'],
+        },
+        social: {
+            description: 'شبكة المجتمع والتواصل الاجتماعي',
+            channels:    ['منصات التواصل الاجتماعي','برامج الإحالة','مجتمع شيخة'],
+        },
+    },
+    networkKPIs: [
+        { kpi: 'عدد الشركاء النشطين',       target: '≥500 شريك',    frequency: 'ربع سنوي' },
+        { kpi: 'معدل النمو الشبكي',          target: '≥20% سنوياً', frequency: 'ربع سنوي' },
+        { kpi: 'وقت استجابة الشبكة التقنية',target: '≤50ms P95',    frequency: 'يومي'      },
+        { kpi: 'معدل توفر الشبكة',           target: '≥99.95%',      frequency: 'يومي'      },
+    ],
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 15. المنطق التنفيذي — Executive & Implementation Logic
+// ═══════════════════════════════════════════════════════════════════════════════
+const EXECUTIVE_LOGIC = {
+    id:          'executive',
+    nameAr:      'المنطق التنفيذي',
+    nameEn:      'Executive & Implementation Logic',
+    description: 'يحكم آليات التنفيذ والإنجاز في شيخة: من القرار إلى الأثر الملموس بكفاءة وسرعة',
+    scope:       ACTIVE_IN,
+    principles: [
+        { id: 'exc-1', ar: 'التنفيذ الدقيق للخطط المعتمدة',       en: 'Precise Plan Execution',            weight: 10 },
+        { id: 'exc-2', ar: 'السرعة في الإنجاز دون تفريط بالجودة', en: 'Speed Without Quality Compromise',  weight: 9  },
+        { id: 'exc-3', ar: 'وضوح المسؤوليات التنفيذية',           en: 'Clear Execution Ownership',         weight: 10 },
+        { id: 'exc-4', ar: 'قياس تقدم التنفيذ بمؤشرات واضحة',    en: 'Clear Execution KPIs',              weight: 9  },
+        { id: 'exc-5', ar: 'التصعيد الفوري للعقبات',               en: 'Immediate Blocker Escalation',      weight: 9  },
+        { id: 'exc-6', ar: 'التعلم من التنفيذ وتحسينه',            en: 'Execution Learning & Improvement',  weight: 8  },
+        { id: 'exc-7', ar: 'المرونة في تكييف التنفيذ',             en: 'Execution Flexibility',             weight: 8  },
+    ],
+    executionFramework: {
+        sprintCycle:   '2 أسبوع',
+        reviewCadence: 'يومي stand-up + أسبوعي sprint review + ربع سنوي OKR review',
+        ownershipModel:'RACI Matrix لكل مشروع (Responsible, Accountable, Consulted, Informed)',
+        blockerPolicy: 'رفع فوري + جلسة حل خلال 24 ساعة',
+        doneDefinition:'كود مختبر + موثق + مراجع + مُنشر في بيئة staging',
+    },
+    deliveryMetrics: [
+        { metric: 'معدل إنجاز Sprint',         target: '≥85%',       frequency: 'لكل sprint' },
+        { metric: 'وقت التسليم للسوق',         target: '≤6 أسابيع لـ MVP', frequency: 'لكل منتج' },
+        { metric: 'معدل العقبات المحلولة',      target: '≥95% خلال 48h',   frequency: 'أسبوعي'  },
+        { metric: 'دقة التقدير',               target: '±20%',             frequency: 'لكل sprint'},
+    ],
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 16. المنطق التطويري — Development Logic
+// ═══════════════════════════════════════════════════════════════════════════════
+const DEVELOPMENT_LOGIC = {
+    id:          'development',
+    nameAr:      'المنطق التطويري',
+    nameEn:      'Development Logic',
+    description: 'يحكم تطوير المنتجات والخدمات والكفاءات في شيخة بمنهجية مستدامة وقابلة للتوسع',
+    scope:       ACTIVE_IN,
+    principles: [
+        { id: 'dev-1', ar: 'التطوير المستمر والمتكرر',             en: 'Iterative & Continuous Development', weight: 10 },
+        { id: 'dev-2', ar: 'التركيز على قيمة المستخدم أولاً',      en: 'User Value First',                   weight: 10 },
+        { id: 'dev-3', ar: 'الكود النظيف والقابل للصيانة',         en: 'Clean & Maintainable Code',          weight: 9  },
+        { id: 'dev-4', ar: 'التكامل المستمر والنشر المستمر',        en: 'CI/CD Best Practices',               weight: 9  },
+        { id: 'dev-5', ar: 'التطوير المدفوع بالاختبار',            en: 'Test-Driven Development',            weight: 8  },
+        { id: 'dev-6', ar: 'الاستثمار في رفع كفاءة الفريق',        en: 'Team Capability Investment',         weight: 9  },
+        { id: 'dev-7', ar: 'الشفافية في عمليات التطوير',           en: 'Development Transparency',           weight: 8  },
+    ],
+    sdlc: {
+        model:     'Agile Scrum مع بوابات جودة صارمة',
+        phases:    ['استكشاف','تصميم','تطوير','اختبار','نشر','مراقبة'],
+        branching: 'Git Flow: main ← develop ← feature/fix',
+        review:    'PR مراجعة ثنائية إلزامية',
+        pipeline:  'GitHub Actions: lint → test → build → security scan → deploy',
+    },
+    devKPIs: [
+        { kpi: 'تغطية الاختبارات',           target: '≥80%',          frequency: 'لكل PR'      },
+        { kpi: 'وقت دورة التطوير',           target: '≤5 أيام/feature', frequency: 'أسبوعي'    },
+        { kpi: 'معدل فشل النشر',             target: '≤2%',            frequency: 'لكل نشر'    },
+        { kpi: 'وقت استرجاع النشر الفاشل',   target: '≤30 دقيقة',      frequency: 'عند الحدوث' },
+        { kpi: 'معدل الديون التقنية',         target: '≤5% من كود قاعدة',frequency: 'شهري'      },
+    ],
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 17. المنطق التحسيني — Improvement Logic
+// ═══════════════════════════════════════════════════════════════════════════════
+const IMPROVEMENT_LOGIC = {
+    id:          'improvement',
+    nameAr:      'المنطق التحسيني',
+    nameEn:      'Improvement Logic',
+    description: 'يحكم دورة التحسين المستمر في شيخة: قياس، تحليل، تحسين، ومراجعة دائمة',
+    scope:       ACTIVE_IN,
+    principles: [
+        { id: 'imp-1', ar: 'التحسين لا يتوقف أبداً',               en: 'Improvement Never Stops',           weight: 10 },
+        { id: 'imp-2', ar: 'المقيس يمكن تحسينه',                   en: 'What Gets Measured Gets Improved',  weight: 10 },
+        { id: 'imp-3', ar: 'المشاركة الجماعية في التحسين',          en: 'Collective Improvement Engagement', weight: 9  },
+        { id: 'imp-4', ar: 'الأولوية للتحسينات ذات الأثر الأكبر',  en: 'High-Impact Improvement Priority',  weight: 9  },
+        { id: 'imp-5', ar: 'التحسين المبني على البيانات',           en: 'Data-Driven Improvement',           weight: 10 },
+        { id: 'imp-6', ar: 'تثبيت التحسينات ومنع التراجع',         en: 'Improvement Sustainability',        weight: 8  },
+        { id: 'imp-7', ar: 'الاستفادة من أفضل الممارسات العالمية', en: 'Best Practice Benchmarking',        weight: 8  },
+    ],
+    improvementCycles: {
+        daily:     { mechanism: 'Daily Retrospective',     focus: 'عقبات ومشكلات يومية'           },
+        weekly:    { mechanism: 'Weekly Review',           focus: 'أداء Sprint ومؤشرات أسبوعية'   },
+        monthly:   { mechanism: 'Monthly KPI Review',     focus: 'مؤشرات الأداء الشاملة'          },
+        quarterly: { mechanism: 'OKR Review & Planning',  focus: 'الأهداف الفصلية والتعلم المؤسسي'},
+        annually:  { mechanism: 'Strategy Review',        focus: 'المسار الاستراتيجي والرؤية'     },
+    },
+    tools: ['PDCA','A3 Problem Solving','5 Whys','Fishbone Diagram','Pareto Analysis','Kaizen Blitz'],
+    cultureElements: [
+        'تشجيع رفع المشكلات بلا عقاب',
+        'مكافأة التحسينات المقترحة',
+        'تشارك التعلم من الإخفاقات',
+        'الشفافية في نشر نتائج التحسين',
+    ],
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 18. المنطق التكيفي — Adaptive Logic
+// ═══════════════════════════════════════════════════════════════════════════════
+const ADAPTIVE_LOGIC = {
+    id:          'adaptive',
+    nameAr:      'المنطق التكيفي',
+    nameEn:      'Adaptive Logic',
+    description: 'يحكم قدرة شيخة على التكيف مع التغيرات: السوق، التقنية، التشريعات، والبيئة الخارجية',
+    scope:       ACTIVE_IN,
+    principles: [
+        { id: 'adp-1', ar: 'الاستجابة السريعة للتغيير',            en: 'Rapid Change Response',             weight: 10 },
+        { id: 'adp-2', ar: 'الرصد المبكر للإشارات والاتجاهات',     en: 'Early Signal Detection',            weight: 9  },
+        { id: 'adp-3', ar: 'المرونة الهيكلية والتشغيلية',          en: 'Structural & Operational Flexibility',weight: 9},
+        { id: 'adp-4', ar: 'الذاكرة المؤسسية للتعلم من التكيف',    en: 'Institutional Adaptive Memory',     weight: 8  },
+        { id: 'adp-5', ar: 'التوازن بين الاستقرار والتكيف',        en: 'Stability-Adaptability Balance',    weight: 9  },
+        { id: 'adp-6', ar: 'التخطيط بالسيناريوهات المستقبلية',     en: 'Scenario-Based Planning',           weight: 8  },
+        { id: 'adp-7', ar: 'ثقافة الاستعداد للتغيير',              en: 'Change-Ready Culture',              weight: 9  },
+    ],
+    adaptationTriggers: [
+        { trigger: 'تغير تشريعي',          responseTime: '≤2 أسابيع',   mechanism: 'فريق امتثال سريع'         },
+        { trigger: 'تهديد سيبراني',         responseTime: '≤4 ساعات',    mechanism: 'خطة استجابة للحوادث'      },
+        { trigger: 'تحول في السوق',         responseTime: '≤4 أسابيع',   mechanism: 'جلسة استراتيجية طارئة'    },
+        { trigger: 'تقنية ناشئة تؤثر',      responseTime: '≤8 أسابيع',   mechanism: 'فريق استكشاف تقني'        },
+        { trigger: 'فرصة تجارية مفاجئة',   responseTime: '≤1 أسبوع',    mechanism: 'صلاحيات قرار سريع معتمدة' },
+        { trigger: 'اضطراب في سلسلة توريد',responseTime: '≤72 ساعة',    mechanism: 'خطة بديلة جاهزة'          },
+    ],
+    adaptiveCapabilities: {
+        sensing:      'رصد بيانات السوق + تنبيهات تشريعية + مراقبة منافسين',
+        interpreting: 'تحليل ذكاء اصطناعي + جلسات خبرة + استشارات خارجية',
+        deciding:     'لجنة قرار سريع + صلاحيات مفوضة للمدراء',
+        acting:       'خطط تكيف جاهزة + فرق متعددة الوظائف',
+        learning:     'توثيق دروس التكيف + نشرها في المؤسسة',
+    },
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 19. المنطق البيئي — Environmental Logic
+// ═══════════════════════════════════════════════════════════════════════════════
+const ENVIRONMENTAL_LOGIC = {
+    id:          'environmental',
+    nameAr:      'المنطق البيئي',
+    nameEn:      'Environmental Logic',
+    description: 'يحكم مسؤولية شيخة البيئية: الاستدامة، البصمة الكربونية، الاقتصاد الأخضر، وحماية الموارد الطبيعية',
+    scope:       ACTIVE_IN,
+    principles: [
+        { id: 'env-1', ar: 'الاستخلاف وحفظ البيئة فريضة',         en: 'Environmental Stewardship as Duty', weight: 10 },
+        { id: 'env-2', ar: 'تقليص البصمة الكربونية الرقمية',       en: 'Digital Carbon Footprint Reduction',weight: 9  },
+        { id: 'env-3', ar: 'الاقتصاد الدائري في العمليات',         en: 'Circular Economy Operations',       weight: 8  },
+        { id: 'env-4', ar: 'قياس الأثر البيئي والإفصاح عنه',       en: 'Environmental Impact Measurement',  weight: 9  },
+        { id: 'env-5', ar: 'ترجيح الشركاء البيئيين المسؤولين',     en: 'ESG Partner Preference',            weight: 8  },
+        { id: 'env-6', ar: 'الكفاءة في استهلاك الطاقة',            en: 'Energy Efficiency',                 weight: 9  },
+        { id: 'env-7', ar: 'دعم أهداف التنمية المستدامة SDGs',     en: 'UN SDGs Alignment',                 weight: 9  },
+    ],
+    sustainabilityTargets: [
+        { goal: 'خفض استهلاك الطاقة',          target: '-30% بحلول 2027',    measure: 'kWh/معاملة'             },
+        { goal: 'بصمة كربونية صافية صفرية',    target: 'حياد كربوني 2030',   measure: 'CO₂ equivalent'          },
+        { goal: 'الخوادم بالطاقة المتجددة',    target: '100% بحلول 2026',    measure: 'نسبة مئوية'              },
+        { goal: 'تقليل النفايات الإلكترونية',   target: '-50% بحلول 2027',    measure: 'كجم/موظف/سنة'            },
+    ],
+    esgFramework: {
+        environmental: { rating: 'نشط',  initiatives: ['طاقة شمسية','تعويض كربوني','سيرفرات خضراء'] },
+        social:        { rating: 'نشط',  initiatives: ['توظيف محلي','تدريب المجتمع','دعم الشباب']    },
+        governance:    { rating: 'نشط',  initiatives: ['شفافية','مكافحة فساد','تنوع القيادة']         },
+    },
+    sdgAlignment: [
+        { sdg: 'SDG 7',  title: 'طاقة نظيفة وبأسعار معقولة',  relevance: 'عالية' },
+        { sdg: 'SDG 8',  title: 'العمل اللائق والنمو الاقتصادي',relevance: 'عالية'},
+        { sdg: 'SDG 9',  title: 'الصناعة والابتكار والبنية التحتية',relevance: 'عالية'},
+        { sdg: 'SDG 12', title: 'الإنتاج والاستهلاك المسؤول',  relevance: 'متوسطة'},
+        { sdg: 'SDG 13', title: 'العمل المناخي',               relevance: 'متوسطة'},
+        { sdg: 'SDG 17', title: 'الشراكات لتحقيق الأهداف',     relevance: 'عالية' },
+    ],
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// المحرك الرئيسي — SevenLogicsEngine (موسَّع إلى 20 منطق)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 class SevenLogicsEngine {
 
     constructor() {
         this.version    = ENGINE_VERSION;
-        this.nameAr     = ENGINE_NAME_AR;
-        this.nameEn     = ENGINE_NAME;
+        this.nameAr     = 'محرك المنطق الشامل لشيخة (20 منطق)';
+        this.nameEn     = 'Sheikha Comprehensive Logics Engine (20 Logics)';
         this.governor   = GOVERNOR;
         this.activeIn   = ACTIVE_IN;
         this.activatedAt= new Date().toISOString();
 
-        // تسجيل المنطق السباعي
+        // ── المنطق السباعي الأصلي + 13 منطقاً جديداً = 20 منطقاً شاملاً ──────
         this._logics = new Map([
+            // المجموعة الأولى: الأصلية (7)
             ['organizational',  ORGANIZATIONAL_LOGIC ],
             ['legislative',     LEGISLATIVE_LOGIC    ],
             ['commercial',      COMMERCIAL_LOGIC     ],
@@ -376,7 +832,30 @@ class SevenLogicsEngine {
             ['research',        RESEARCH_LOGIC       ],
             ['technical',       TECHNICAL_LOGIC      ],
             ['technological',   TECHNOLOGICAL_LOGIC  ],
+            // المجموعة الثانية: الجديدة (13)
+            ['methodological',  METHODOLOGICAL_LOGIC ],
+            ['curriculum',      CURRICULUM_LOGIC     ],
+            ['quality',         QUALITY_LOGIC        ],
+            ['administrative',  ADMINISTRATIVE_LOGIC ],
+            ['structural',      STRUCTURAL_LOGIC     ],
+            ['planning',        PLANNING_LOGIC       ],
+            ['network',         NETWORK_LOGIC        ],
+            ['executive',       EXECUTIVE_LOGIC      ],
+            ['development',     DEVELOPMENT_LOGIC    ],
+            ['improvement',     IMPROVEMENT_LOGIC    ],
+            ['adaptive',        ADAPTIVE_LOGIC       ],
+            ['environmental',   ENVIRONMENTAL_LOGIC  ],
         ]);
+
+        // مجموعات المنطق لسهولة الاستعلام
+        this._groups = {
+            governance:    ['organizational','legislative','administrative','structural'],
+            knowledge:     ['scientific','research','methodological','curriculum'],
+            commerce:      ['commercial','network','executive'],
+            engineering:   ['technical','technological','development'],
+            excellence:    ['quality','planning','improvement','adaptive'],
+            sustainability:['environmental'],
+        };
     }
 
     // ── قائمة المنطق السباعي ──────────────────────────────────────────────────
