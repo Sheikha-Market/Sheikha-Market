@@ -5734,113 +5734,6 @@ app.get('/api/comms/audit', (req, res) => {
     } catch (e) { res.json({ error: e.message }); }
 });
 
-// ═══════════════════════════════════════════════════════════════
-// 📡 منظمة شبكات الاتصالات — Terrestrial / Satellite / Logistics
-// ═══════════════════════════════════════════════════════════════
-app.get('/api/telecom', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        res.json(telecomOrg.getDashboard());
-    } catch (e) { res.json({ error: e.message }); }
-});
-
-app.get('/api/telecom/terrestrial', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        res.json(telecomOrg.getTerrestrial(req.query.id || null));
-    } catch (e) { res.json({ error: e.message }); }
-});
-
-app.get('/api/telecom/satellite', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        res.json(telecomOrg.getSatellite(req.query.id || null, req.query.type || 'sector'));
-    } catch (e) { res.json({ error: e.message }); }
-});
-
-app.get('/api/telecom/logistics', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        res.json(telecomOrg.getLogistics(req.query.section || null));
-    } catch (e) { res.json({ error: e.message }); }
-});
-
-app.get('/api/telecom/communities', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        res.json(telecomOrg.getCommunities(req.query.id || null));
-    } catch (e) { res.json({ error: e.message }); }
-});
-
-app.get('/api/telecom/integration', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        res.json(telecomOrg.getIntegrations(req.query.id || null));
-    } catch (e) { res.json({ error: e.message }); }
-});
-
-app.get('/api/telecom/search', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        const q = req.query.q || req.query.query || '';
-        if (!q) return res.json({ error: 'مطلوب: ?q=كلمة البحث' });
-        res.json(telecomOrg.search(q));
-    } catch (e) { res.json({ error: e.message }); }
-});
-
-app.get('/api/telecom/path', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        const { from, to } = req.query;
-        if (!from || !to) return res.json({ error: 'مطلوب: ?from=TERRESTRIAL&to=SATELLITE' });
-        res.json(telecomOrg.getPath(from, to));
-    } catch (e) { res.json({ error: e.message }); }
-});
-
-// ═══════════════════════════════════════════════════════════════
-// 🧠 الشبكة العصبية لمنظمة الاتصالات — Neural Cell Networks
-// ═══════════════════════════════════════════════════════════════
-app.get('/api/telecom/neural', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        res.json(telecomOrg.getNeuralTopology());
-    } catch (e) { res.json({ error: e.message }); }
-});
-
-app.get('/api/telecom/neural/cell/:id', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        const cell = telecomOrg.getNeuralCell(req.params.id);
-        if (!cell) return res.status(404).json({ error: `خلية غير موجودة: ${req.params.id}` });
-        res.json(cell);
-    } catch (e) { res.json({ error: e.message }); }
-});
-
-app.get('/api/telecom/neural/domain/:domain', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        res.json({ domain: req.params.domain, cells: telecomOrg.getNeuralDomain(req.params.domain) });
-    } catch (e) { res.json({ error: e.message }); }
-});
-
-app.post('/api/telecom/neural/signal', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        const { from, signal, depth } = req.body || {};
-        if (!from) return res.status(400).json({ error: 'مطلوب: { from: "CELL_FIBER", signal: {...}, depth: 3 }' });
-        res.json(telecomOrg.fireSignal(from, signal, depth));
-    } catch (e) { res.json({ error: e.message }); }
-});
-
-app.get('/api/telecom/neural/signal', (req, res) => {
-    try {
-        const { telecomOrg } = require('./core/comms/telecom-org');
-        const { from, type, depth } = req.query;
-        if (!from) return res.status(400).json({ error: 'مطلوب: ?from=CELL_FIBER&type=DATA&depth=3' });
-        res.json(telecomOrg.fireSignal(from, { type: type || 'ACTIVATION' }, depth));
-    } catch (e) { res.json({ error: e.message }); }
-});
-
 // ═══ سجل المنافذ والشبكة العصبية ═══
 app.get('/api/ports', (req, res) => {
     try {
@@ -36081,12 +35974,24 @@ try {
     const telecomRoutes = require('./routes/telecom.js');
     app.use('/api/telecom', telecomRoutes);
     console.log('✅ [TELECOM] منظومة شيخة للاتصالات والشبكات الكونية — مُفعَّلة');
-    console.log('   ├─ GET  /api/telecom                      — ملخص البوابة الكونية');
+    console.log('   ├─ GET  /api/telecom                      — لوحة القيادة الكونية');
     console.log('   ├─ GET  /api/telecom/network-status       — حالة الشبكة الكونية');
     console.log('   ├─ GET  /api/telecom/ai-nodes             — عقد الذكاء الاصطناعي');
     console.log('   ├─ POST /api/telecom/connect              — ربط المستخدمين والتجار');
     console.log('   ├─ POST /api/telecom/secure-channel       — قناة اتصال آمنة شرعياً');
-    console.log('   └─ GET  /api/telecom/knowledge-base       — قاعدة المعرفة الموحدة');
+    console.log('   ├─ GET  /api/telecom/knowledge-base       — قاعدة المعرفة الموحدة');
+    console.log('   ├─ GET  /api/telecom/terrestrial          — الشبكات الأرضية');
+    console.log('   ├─ GET  /api/telecom/satellite            — الأقمار الصناعية');
+    console.log('   ├─ GET  /api/telecom/logistics            — الشبكات اللوجستية');
+    console.log('   ├─ GET  /api/telecom/communities          — مجتمعات الاتصالات');
+    console.log('   ├─ GET  /api/telecom/integration          — جسور التكامل');
+    console.log('   ├─ GET  /api/telecom/search               — البحث الشامل');
+    console.log('   ├─ GET  /api/telecom/path                 — مسار الاتصال بين نقطتين');
+    console.log('   ├─ GET  /api/telecom/neural               — 🧠 طوبولوجيا الشبكة العصبية');
+    console.log('   ├─ GET  /api/telecom/neural/cell/:id      — خلية عصبية محددة');
+    console.log('   ├─ GET  /api/telecom/neural/domain/:d     — خلايا نطاق معين');
+    console.log('   ├─ GET  /api/telecom/neural/signal        — إطلاق إشارة (GET)');
+    console.log('   └─ POST /api/telecom/neural/signal        — إطلاق إشارة عصبية');
 } catch (e) {
     console.warn('⚠️ [TELECOM] فشل تحميل مسارات الاتصالات:', e.message);
 }
