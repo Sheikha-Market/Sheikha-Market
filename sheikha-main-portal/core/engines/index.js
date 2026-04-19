@@ -203,6 +203,36 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل المحرك العصبي الكوني:', err.stack || err.message);
 }
 
+// ─── تسجيل صانعة شيخة الجيل الجديد — تكنولوجيا الصناعة ───────────────────────
+
+try {
+    const { engine: nextgenMfgEngine } = require('../../lib/sheikha-nextgen-manufacturer');
+    registerEngine('nextgen_manufacturer', nextgenMfgEngine, {
+        nameAr: 'صانعة شيخة — الجيل الجديد | تكنولوجيا الصناعة',
+        maqsad: 'ARD',
+    });
+    // مسارات التوجيه لصانعة الجيل الجديد
+    registerRoute('nextgen',                 'nextgen_manufacturer', 'ARD');
+    registerRoute('nextgen_manufacturer',    'nextgen_manufacturer', 'ARD');
+    registerRoute('nextgen_manufacturing',   'nextgen_manufacturer', 'ARD');
+    registerRoute('manufacturing_tech',      'nextgen_manufacturer', 'ARD');
+    registerRoute('industry5',               'nextgen_manufacturer', 'ARD');
+    registerRoute('industry5_0',             'nextgen_manufacturer', 'ARD');
+    registerRoute('quantum_manufacturing',   'nextgen_manufacturer', 'ARD');
+    registerRoute('nano_manufacturing',      'nextgen_manufacturer', 'ARD');
+    registerRoute('bio_manufacturing',       'nextgen_manufacturer', 'ARD');
+    registerRoute('space_manufacturing',     'nextgen_manufacturer', 'ARD');
+    registerRoute('generative_design',       'nextgen_manufacturer', 'ARD');
+    registerRoute('manufacturer_market',     'nextgen_manufacturer', 'MAL');
+    registerRoute('nextgen_materials',       'nextgen_manufacturer', 'ARD');
+    registerRoute('oee',                     'nextgen_manufacturer', 'ARD');
+    registerRoute('distributed_manufacturing','nextgen_manufacturer', 'ARD');
+    registerRoute('sharia_manufacturing',    'nextgen_manufacturer', 'DEEN');
+    console.log('[ENGINES-INDEX] ✅ صانعة شيخة الجيل الجديد مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل صانعة الجيل الجديد:', err.stack || err.message);
+}
+
 // ─── تسجيل شبكة شيخة العصبية للصناعة والمصانع والتصنيع والإنتاج الصناعي ──────
 
 try {
@@ -266,6 +296,7 @@ if (_governor) {
             'live-ai':          'شبكة الذكاء الاصطناعي الحية',
             universal_networks: 'المحرك العصبي الكوني الشامل',
             industrial_nn:      'شبكة شيخة العصبية للصناعة والمصانع والتصنيع والإنتاج الصناعي',
+            nextgen_manufacturer: 'صانعة شيخة — الجيل الجديد | تكنولوجيا الصناعة',
         };
         const allEngines = listEngines();
         for (const engineKey of allEngines) {
