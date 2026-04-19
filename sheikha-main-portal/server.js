@@ -35431,6 +35431,106 @@ function _pruneStaleSubServices() {
 }
 setInterval(_pruneStaleSubServices, 30_000);
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// محرك المنطق الشامل لشيخة (20 منطق) — Sheikha Comprehensive Logics Engine
+// ═══════════════════════════════════════════════════════════════════════════════
+let _logicsEngine = null;
+try {
+    const SevenLogicsEngine = require('./lib/sheikha-seven-logics-engine.js');
+    _logicsEngine = new SevenLogicsEngine();
+    console.log(`✅ [logics-engine] محرك المنطق الشامل مفعّل — ${_logicsEngine._logics.size} منطق`);
+} catch (e) {
+    console.warn('⏸️ [logics-engine] لم يُحمَّل:', e.message);
+}
+
+/** لوحة المنطق الشامل */
+app.get('/api/sheikha/logics', (req, res) => {
+    if (!_logicsEngine) return res.json({ success: false, message: 'محرك المنطق غير مفعّل' });
+    res.json(_logicsEngine.getDashboard());
+});
+
+/** قائمة جميع المنطق */
+app.get('/api/sheikha/logics/list', (req, res) => {
+    if (!_logicsEngine) return res.json({ success: false, message: 'محرك المنطق غير مفعّل' });
+    res.json({ success: true, count: _logicsEngine._logics.size, logics: _logicsEngine.listLogics(), timestamp: new Date().toISOString() });
+});
+
+/** الحصول على منطق بعينه */
+app.get('/api/sheikha/logics/:id', (req, res) => {
+    if (!_logicsEngine) return res.json({ success: false, message: 'محرك المنطق غير مفعّل' });
+    const { id } = req.params;
+    // مسار خاص: المنطق التنفيذي الكامل
+    if (id === 'executive') return res.json(_logicsEngine.getExecutiveLogicFull());
+    const logic = _logicsEngine.getLogic(id);
+    if (!logic) return res.json({ success: false, message: `المنطق "${id}" غير موجود` });
+    res.json({ success: true, logic, timestamp: new Date().toISOString() });
+});
+
+/** تقييم استعلام ضد منطق محدد */
+app.post('/api/sheikha/logics/:id/evaluate', express.json(), (req, res) => {
+    if (!_logicsEngine) return res.json({ success: false, message: 'محرك المنطق غير مفعّل' });
+    const { id } = req.params;
+    const { query } = req.body || {};
+    res.json(_logicsEngine.evaluate(id, query));
+});
+
+/** تقييم تقاطعي على كل المنطق */
+app.post('/api/sheikha/logics/cross/evaluate', express.json(), (req, res) => {
+    if (!_logicsEngine) return res.json({ success: false, message: 'محرك المنطق غير مفعّل' });
+    const { query } = req.body || {};
+    res.json(_logicsEngine.crossEvaluate(query));
+});
+
+/** ★ المنطق التنفيذي الأفضل عالمياً — نقطة وصول مخصصة */
+app.get('/api/sheikha/logics/executive/full', (req, res) => {
+    if (!_logicsEngine) return res.json({ success: false, message: 'محرك المنطق غير مفعّل' });
+    res.json(_logicsEngine.getExecutiveLogicFull());
+});
+
+/** ★ تقييم مهمة بالمنطق التنفيذي */
+app.post('/api/sheikha/logics/executive/evaluate-task', express.json(), (req, res) => {
+    if (!_logicsEngine) return res.json({ success: false, message: 'محرك المنطق غير مفعّل' });
+    const task = req.body || {};
+    res.json(_logicsEngine.evaluateTask(task));
+});
+
+/** ★ القواعد الذهبية للتنفيذ */
+app.get('/api/sheikha/logics/executive/golden-rules', (req, res) => {
+    if (!_logicsEngine) return res.json({ success: false, message: 'محرك المنطق غير مفعّل' });
+    const logic = _logicsEngine.getLogic('executive');
+    res.json({ success: true, goldenRules: logic.goldenRules, count: logic.goldenRules.length, timestamp: new Date().toISOString() });
+});
+
+/** ★ نظام OKR التنفيذي */
+app.get('/api/sheikha/logics/executive/okr', (req, res) => {
+    if (!_logicsEngine) return res.json({ success: false, message: 'محرك المنطق غير مفعّل' });
+    const logic = _logicsEngine.getLogic('executive');
+    res.json({ success: true, okrSystem: logic.okrSystem, timestamp: new Date().toISOString() });
+});
+
+/** ★ بروتوكول العقبات التنفيذي */
+app.get('/api/sheikha/logics/executive/blocker-protocol', (req, res) => {
+    if (!_logicsEngine) return res.json({ success: false, message: 'محرك المنطق غير مفعّل' });
+    const logic = _logicsEngine.getLogic('executive');
+    res.json({ success: true, blockerProtocol: logic.blockerProtocol, timestamp: new Date().toISOString() });
+});
+
+/** ★ تعريف الإنجاز (Definition of Done) */
+app.get('/api/sheikha/logics/executive/definition-of-done', (req, res) => {
+    if (!_logicsEngine) return res.json({ success: false, message: 'محرك المنطق غير مفعّل' });
+    const logic = _logicsEngine.getLogic('executive');
+    const type  = (req.query.type || 'software');
+    const dod   = logic.definitionOfDone[type] || logic.definitionOfDone.software;
+    res.json({ success: true, type, items: dod, count: dod.length, timestamp: new Date().toISOString() });
+});
+
+/** ★ إيقاع التنفيذ (Execution Cadence) */
+app.get('/api/sheikha/logics/executive/cadence', (req, res) => {
+    if (!_logicsEngine) return res.json({ success: false, message: 'محرك المنطق غير مفعّل' });
+    const logic = _logicsEngine.getLogic('executive');
+    res.json({ success: true, cadence: logic.executionCadence, timestamp: new Date().toISOString() });
+});
+
 /** تسجيل خدمة فرعية تحت شيخة */
 app.post('/api/sheikha/services/register', express.json(), (req, res) => {
     const body = req.body || {};

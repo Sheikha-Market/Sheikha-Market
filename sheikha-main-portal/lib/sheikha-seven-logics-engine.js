@@ -636,34 +636,323 @@ const NETWORK_LOGIC = {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 15. المنطق التنفيذي — Executive & Implementation Logic
 // ═══════════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════
+// 15. المنطق التنفيذي — Executive & Implementation Logic  ★ الأفضل عالمياً ★
+// ═══════════════════════════════════════════════════════════════════════════════
 const EXECUTIVE_LOGIC = {
     id:          'executive',
     nameAr:      'المنطق التنفيذي',
     nameEn:      'Executive & Implementation Logic',
-    description: 'يحكم آليات التنفيذ والإنجاز في شيخة: من القرار إلى الأثر الملموس بكفاءة وسرعة',
+    description: 'النظام التنفيذي الأفضل عالمياً لشيخة: يحوّل القرارات إلى أثر ملموس بأعلى كفاءة وأدق منهجية — من الفكرة إلى التسليم إلى الأثر الحضاري',
     scope:       ACTIVE_IN,
+    tier:        'WORLD_CLASS',
+
+    // ── المبادئ العشرة للتنفيذ المثالي ────────────────────────────────────────
     principles: [
-        { id: 'exc-1', ar: 'التنفيذ الدقيق للخطط المعتمدة',       en: 'Precise Plan Execution',            weight: 10 },
-        { id: 'exc-2', ar: 'السرعة في الإنجاز دون تفريط بالجودة', en: 'Speed Without Quality Compromise',  weight: 9  },
-        { id: 'exc-3', ar: 'وضوح المسؤوليات التنفيذية',           en: 'Clear Execution Ownership',         weight: 10 },
-        { id: 'exc-4', ar: 'قياس تقدم التنفيذ بمؤشرات واضحة',    en: 'Clear Execution KPIs',              weight: 9  },
-        { id: 'exc-5', ar: 'التصعيد الفوري للعقبات',               en: 'Immediate Blocker Escalation',      weight: 9  },
-        { id: 'exc-6', ar: 'التعلم من التنفيذ وتحسينه',            en: 'Execution Learning & Improvement',  weight: 8  },
-        { id: 'exc-7', ar: 'المرونة في تكييف التنفيذ',             en: 'Execution Flexibility',             weight: 8  },
+        { id: 'exc-1',  ar: 'التنفيذ الدقيق للخطط المعتمدة',          en: 'Precise Approved-Plan Execution',       weight: 10 },
+        { id: 'exc-2',  ar: 'السرعة مع الجودة — لا مساومة',           en: 'Speed with Zero Quality Compromise',    weight: 10 },
+        { id: 'exc-3',  ar: 'وضوح المسؤولية والملكية التنفيذية',       en: 'Crystal-Clear Ownership (RACI+)',        weight: 10 },
+        { id: 'exc-4',  ar: 'قياس التنفيذ بمؤشرات حية ودقيقة',        en: 'Real-Time Execution KPIs',              weight: 10 },
+        { id: 'exc-5',  ar: 'التصعيد الفوري وحل العقبات في 24 ساعة',  en: 'Immediate Escalation & 24h Resolution', weight: 10 },
+        { id: 'exc-6',  ar: 'التعلم المستمر من كل دورة تنفيذية',      en: 'Execution Learning Loop',               weight: 9  },
+        { id: 'exc-7',  ar: 'المرونة التكيفية في وجه المتغيرات',       en: 'Adaptive Execution Flexibility',        weight: 9  },
+        { id: 'exc-8',  ar: 'الشفافية الكاملة مع جميع الأطراف',       en: 'Full Stakeholder Transparency',         weight: 9  },
+        { id: 'exc-9',  ar: 'الربط الوثيق بين التنفيذ والاستراتيجية', en: 'Strategy-Execution Tight Coupling',      weight: 10 },
+        { id: 'exc-10', ar: 'الإنجاز المبني على القيم الإسلامية',     en: 'Values-Driven Execution',               weight: 10 },
     ],
-    executionFramework: {
-        sprintCycle:   '2 أسبوع',
-        reviewCadence: 'يومي stand-up + أسبوعي sprint review + ربع سنوي OKR review',
-        ownershipModel:'RACI Matrix لكل مشروع (Responsible, Accountable, Consulted, Informed)',
-        blockerPolicy: 'رفع فوري + جلسة حل خلال 24 ساعة',
-        doneDefinition:'كود مختبر + موثق + مراجع + مُنشر في بيئة staging',
+
+    // ── نموذج التنفيذ الشامل (من القرار إلى الأثر) ───────────────────────────
+    executionModel: {
+        name:        'نموذج شيخة التنفيذي الشامل (IDEA²)',
+        stages: [
+            {
+                code:    'I',
+                nameAr:  'الاستيعاب',
+                nameEn:  'Intake & Understand',
+                purpose: 'استيعاب القرار أو المهمة بعمق قبل أي خطوة',
+                actions: ['قراءة ووثيقة القرار كاملاً','تحديد المخرجات المطلوبة بدقة','تحديد الأطراف المعنية','رصد القيود والافتراضات'],
+                gate:    'وضوح 100% في المخرجات',
+                maxTime: '4 ساعات',
+            },
+            {
+                code:    'D',
+                nameAr:  'التصميم التنفيذي',
+                nameEn:  'Design the Execution',
+                purpose: 'تحويل المهمة إلى خطة تنفيذية مفصّلة قابلة للقياس',
+                actions: ['تفكيك المهمة إلى مهام صغيرة (WBS)','تعيين مالك واضح لكل مهمة','تحديد المواعيد النهائية','تحديد الموارد والميزانية','بناء مصفوفة RACI+'],
+                gate:    'خطة موافق عليها من صاحب الصلاحية',
+                maxTime: '1 يوم عمل للمشاريع الصغيرة / 3 أيام للكبيرة',
+            },
+            {
+                code:    'E',
+                nameAr:  'التنفيذ',
+                nameEn:  'Execute with Discipline',
+                purpose: 'تنفيذ الخطة بانضباط ودقة مع متابعة مستمرة',
+                actions: ['stand-up يومي 15 دقيقة','تحديث حالة المهام كل نهاية يوم','رفع العقبات فوراً','الالتزام بتعريف الإنجاز المتفق عليه'],
+                gate:    'إنجاز ≥85% من المخطط في الوقت المحدد',
+                maxTime: 'حسب خطة المشروع',
+            },
+            {
+                code:    'E²',
+                nameAr:  'التقييم والتحسين',
+                nameEn:  'Evaluate & Evolve',
+                purpose: 'قياس الأثر، استخلاص الدروس، وتحسين النموذج التنفيذي',
+                actions: ['قياس KPIs المتفق عليها','جلسة retrospective منظمة','توثيق دروس التنفيذ','تحديث الإجراءات بناءً على التعلم','مشاركة الدروس مع المؤسسة'],
+                gate:    'تقرير مكتمل + دروس موثقة + تحسينات مسجلة',
+                maxTime: '2 يوم بعد الإغلاق',
+            },
+            {
+                code:    'A',
+                nameAr:  'تعزيز الأثر',
+                nameEn:  'Amplify the Impact',
+                purpose: 'ضمان أن التنفيذ يترك أثراً مستداماً ويُبنى عليه',
+                actions: ['ربط النتائج بالأهداف الاستراتيجية','نشر النجاحات لتحفيز الفرق','ترسيخ التحسينات في الإجراءات الرسمية','تحديد فرص التوسع'],
+                gate:    'أثر قابل للقياس + إجراء رسمي محدّث',
+                maxTime: 'مستمر',
+            },
+        ],
     },
+
+    // ── إطار RACI+ المحسّن ────────────────────────────────────────────────────
+    ownershipModel: {
+        name:   'RACI+ Framework',
+        roles: {
+            R: { name: 'Responsible',  ar: 'المنفذ',     desc: 'من ينفذ المهمة فعلياً',              rule: 'شخص واحد دائماً'          },
+            A: { name: 'Accountable',  ar: 'المسؤول',    desc: 'من يتحمل المسؤولية النهائية',         rule: 'شخص واحد حصراً'           },
+            C: { name: 'Consulted',    ar: 'المستشار',   desc: 'من يُستشار قبل وأثناء التنفيذ',       rule: 'محدود ومحدد'              },
+            I: { name: 'Informed',     ar: 'المُبلَّغ',  desc: 'من يُبلَّغ بالتقدم والنتائج',         rule: 'فعال لا غارق'             },
+            S: { name: 'Support',      ar: 'الداعم',     desc: 'من يقدم دعماً تشغيلياً (زيادة RACI+)',rule: 'موارد جاهزة عند الطلب'    },
+            V: { name: 'Verify',       ar: 'المُتحقق',   desc: 'من يتحقق من جودة المخرج (زيادة RACI+)',rule: 'مستقل عن المنفذ'          },
+        },
+        rule: 'كل مهمة لها R واحد وA واحد — تعدد الـ R يُلغي المسؤولية',
+    },
+
+    // ── إدارة الأولويات بنظام ICE المحسّن ───────────────────────────────────
+    prioritizationEngine: {
+        method: 'ICE-S Score',
+        formula: '(Impact × Confidence × Ease × Strategic_Alignment) / Effort',
+        scales: {
+            Impact:             { min: 1, max: 10, desc: 'أثر المهمة على الأهداف الاستراتيجية'  },
+            Confidence:         { min: 1, max: 10, desc: 'مستوى اليقين من تحقيق الأثر'          },
+            Ease:               { min: 1, max: 10, desc: '10 = سهل جداً، 1 = صعب جداً'         },
+            Strategic_Alignment:{ min: 1, max: 10, desc: 'التوافق مع رؤية شيخة وأهدافها الكبرى'},
+            Effort:             { min: 1, max: 10, desc: 'الجهد المطلوب (10 = جهد ضخم)'         },
+        },
+        tiers: [
+            { name: 'P0 — حرجة',   score: '≥70', action: 'تنفيذ فوري — لا تأجيل'             },
+            { name: 'P1 — عالية',  score: '50-69',action: 'ضمن Sprint القادم'                  },
+            { name: 'P2 — متوسطة', score: '30-49',action: 'في الخارطة الزمنية الربع سنوية'    },
+            { name: 'P3 — منخفضة', score: '<30',  action: 'Backlog — إعادة تقييم ربع سنوي'   },
+        ],
+        overrides: ['أمر قيادة عليا','أزمة أو حادثة','متطلب تشريعي عاجل','ضرر وشيك بالعملاء'],
+    },
+
+    // ── نظام الإيقاع التنفيذي (Execution Cadence) ───────────────────────────
+    executionCadence: {
+        daily: {
+            name:      'Stand-up اليومي',
+            duration:  '15 دقيقة كحد أقصى',
+            format:    'ماذا أنجزت؟ ماذا سأنجز؟ ما العقبات؟',
+            rule:      'لا انحراف عن الـ 3 أسئلة — المناقشات تُرفع لاحقاً',
+            tool:      'Kanban Board مرئي + تقرير نصي موجز',
+        },
+        weekly: {
+            name:      'مراجعة أسبوعية',
+            duration:  '60 دقيقة',
+            agenda:    ['مراجعة KPIs','تقييم تقدم Sprint','حل العقبات المستمرة','تعديل الخطة إن لزم'],
+            output:    'تقرير حالة أسبوعي + قرارات مسجلة',
+        },
+        biweekly: {
+            name:      'Sprint Review + Retrospective',
+            duration:  '120 دقيقة',
+            agenda:    ['عرض المنجزات للأطراف المعنية','تقييم ما نجح وما لم ينجح','خطة Sprint القادم'],
+            output:    'Demo مُسجّل + دروس موثقة + Sprint Backlog محدّث',
+        },
+        monthly: {
+            name:      'مراجعة الأداء الشاملة',
+            duration:  '180 دقيقة',
+            agenda:    ['KPIs الشهرية','مراجعة المخاطر','مراجعة الميزانية التنفيذية','توافق مع OKRs'],
+            output:    'تقرير شهري تنفيذي + توصيات + قرارات تصحيحية',
+        },
+        quarterly: {
+            name:      'مراجعة OKR وتخطيط الربع',
+            duration:  'يوم كامل',
+            agenda:    ['قياس OKRs المنتهية','تحليل الفجوات','وضع OKRs الجديدة','مراجعة استراتيجية مصغّرة'],
+            output:    'OKR Sheet جديد + خارطة طريق محدّثة + موازنة معدّلة',
+        },
+    },
+
+    // ── بروتوكول العقبات وإدارة المخاطر التنفيذية ────────────────────────────
+    blockerProtocol: {
+        definition: 'أي عائق يمنع التقدم أو يهدد تسليم P0/P1 في موعده',
+        levels: [
+            {
+                level: 'L1 — طارئ',
+                condition: 'يوقف تسليماً حرجاً أو يؤثر على عملاء',
+                responseTime: '≤2 ساعة',
+                escalateTo:   'المدير التنفيذي مباشرة',
+                channel:      'اتصال هاتفي + رسالة فورية',
+            },
+            {
+                level: 'L2 — عالٍ',
+                condition: 'يؤخر Sprint أو يؤثر على SLA داخلي',
+                responseTime: '≤8 ساعات',
+                escalateTo:   'مدير القسم',
+                channel:      'قناة تواصل مخصصة + تذكرة رسمية',
+            },
+            {
+                level: 'L3 — متوسط',
+                condition: 'تأخير ≤2 يوم دون أثر على العميل',
+                responseTime: '≤24 ساعة',
+                escalateTo:   'قائد الفريق',
+                channel:      'Stand-up + تذكرة محدّثة',
+            },
+            {
+                level: 'L4 — منخفض',
+                condition: 'عائق لا يؤثر على الموعد النهائي',
+                responseTime: '≤72 ساعة',
+                escalateTo:   'الفريق ذاتياً',
+                channel:      'Kanban Board',
+            },
+        ],
+        resolutionLoop: ['رصد العقبة','تصنيفها','تصعيدها','حل مؤقت خلال 4h','حل جذري خلال 48h','توثيق الدرس'],
+    },
+
+    // ── تعريف الإنجاز (Definition of Done) ──────────────────────────────────
+    definitionOfDone: {
+        software: [
+            'الكود يعمل في بيئة staging بلا أخطاء',
+            'تغطية اختبارات ≥80%',
+            'مراجعة كود من شخصين',
+            'توثيق API/README محدّث',
+            'فحص أمني (OWASP) اجتاز',
+            'مراجعة أداء: response ≤200ms',
+            'لا warnings في ESLint/SonarQube',
+        ],
+        businessFeature: [
+            'تم قبول معايير الإنجاز (Acceptance Criteria) كلها',
+            'تم اختباره من مستخدم حقيقي أو ممثل العميل',
+            'التوثيق التشغيلي مكتمل',
+            'التدريب على الميزة منجز (إن لزم)',
+            'KPIs القياس محددة ومُفعّلة',
+        ],
+        process: [
+            'التقرير التنفيذي النهائي مكتوب',
+            'دروس التنفيذ موثقة',
+            'الإجراءات المحدّثة مُعتمدة',
+            'إغلاق رسمي مع الأطراف المعنية',
+        ],
+    },
+
+    // ── نظام OKR المتكامل ─────────────────────────────────────────────────────
+    okrSystem: {
+        philosophy: 'الأهداف تُلهم، النتائج الرئيسية تقيس — المحصلة تُغيّر الواقع',
+        structure: {
+            levels:    ['شيخة (مؤسسي)','منظمة شيخة','سوق شيخة','الفريق','الفرد'],
+            cascade:   'من أعلى لأسفل + مساهمة صاعدة من الفرق',
+            alignment: 'كل OKR فردي يدعم OKR مستوى أعلى',
+        },
+        scoring: {
+            scale:   '0.0 – 1.0',
+            targets: { stretch: '0.7', good: '0.8', excellent: '1.0' },
+            rule:    '1.0 دائماً يعني الهدف كان سهلاً — stretch goals الهدف',
+        },
+        cadence: {
+            set:     'أول أسبوع من الربع',
+            midCheck:'منتصف الربع — تعديل إن لزم',
+            review:  'آخر أسبوع من الربع',
+            reset:   'OKRs تُغلق ولا تُرحّل — كل ربع قصة جديدة',
+        },
+    },
+
+    // ── مؤشرات الأداء التنفيذي الشامل ───────────────────────────────────────
     deliveryMetrics: [
-        { metric: 'معدل إنجاز Sprint',         target: '≥85%',       frequency: 'لكل sprint' },
-        { metric: 'وقت التسليم للسوق',         target: '≤6 أسابيع لـ MVP', frequency: 'لكل منتج' },
-        { metric: 'معدل العقبات المحلولة',      target: '≥95% خلال 48h',   frequency: 'أسبوعي'  },
-        { metric: 'دقة التقدير',               target: '±20%',             frequency: 'لكل sprint'},
+        // أداء التسليم
+        { metric: 'معدل إنجاز Sprint',               target: '≥90%',           frequency: 'لكل sprint',   tier: 'core'     },
+        { metric: 'وقت التسليم لـ MVP',               target: '≤4 أسابيع',      frequency: 'لكل منتج',    tier: 'core'     },
+        { metric: 'دقة التقدير',                      target: '±15%',           frequency: 'لكل sprint',   tier: 'core'     },
+        { metric: 'معدل العقبات المحلولة في 24h',     target: '≥95%',           frequency: 'أسبوعي',       tier: 'core'     },
+        // جودة التنفيذ
+        { metric: 'معدل العيوب ما بعد التسليم',       target: '≤1%',            frequency: 'شهري',         tier: 'quality'  },
+        { metric: 'معدل الرجوع لإعادة العمل',         target: '≤3%',            frequency: 'لكل sprint',   tier: 'quality'  },
+        { metric: 'نسبة المهام المنجزة في موعدها',    target: '≥88%',           frequency: 'أسبوعي',       tier: 'quality'  },
+        // رضا الأطراف
+        { metric: 'رضا العملاء عن التسليم',            target: '≥4.6/5',         frequency: 'لكل تسليم',    tier: 'customer' },
+        { metric: 'رضا الفريق التنفيذي',              target: '≥4.3/5',         frequency: 'ربع سنوي',     tier: 'team'     },
+        // الكفاءة
+        { metric: 'الوقت الضائع في الاجتماعات',       target: '≤20% من وقت الفريق',frequency: 'أسبوعي',   tier: 'efficiency'},
+        { metric: 'معدل إعادة استخدام المكونات',       target: '≥40%',           frequency: 'لكل sprint',   tier: 'efficiency'},
+        // الاستراتيجي
+        { metric: 'نسبة OKRs المنجزة',                target: '≥70% بدرجة ≥0.7',frequency: 'ربع سنوي',    tier: 'strategic' },
+        { metric: 'توافق التنفيذ مع الاستراتيجية',    target: '≥90%',           frequency: 'شهري',         tier: 'strategic' },
     ],
+
+    // ── أدوات التنفيذ الموصى بها ─────────────────────────────────────────────
+    toolStack: {
+        projectManagement: ['Jira / Linear (تتبع المهام)', 'Confluence (توثيق)', 'Miro (رسم الخرائط)'],
+        communication:     ['Slack / Teams (تواصل فوري)', 'Email (رسمي)', 'Video (مراجعات عميقة)'],
+        monitoring:        ['Grafana (أداء تقني)', 'Datadog (مراقبة)', 'لوحة KPIs مباشرة (شيخة)'],
+        delivery:          ['GitHub Actions (CI/CD)', 'Docker + K8s (نشر)', 'Feature Flags (تحكم)'],
+        analytics:         ['Power BI / Metabase (تقارير)', 'Mixpanel (سلوك المستخدم)', 'BigQuery (بيانات)'],
+    },
+
+    // ── قواعد التنفيذ الذهبية العشر ──────────────────────────────────────────
+    goldenRules: [
+        { rule: 1,  ar: 'لا تبدأ مهمة بدون مالك واحد واضح',                         en: 'No task without a single clear owner'           },
+        { rule: 2,  ar: 'الخطة الجيدة اليوم أفضل من الخطة المثالية غداً',             en: 'Good plan today beats perfect plan tomorrow'    },
+        { rule: 3,  ar: 'العقبة المخفية كارثة — أبلغ فوراً',                         en: 'Hidden blocker is a disaster — report instantly' },
+        { rule: 4,  ar: 'القياس يسبق الحكم دائماً',                                  en: 'Measure before you judge — always'              },
+        { rule: 5,  ar: 'الاجتماع بدون قرارات مسجّلة وقت مهدر',                      en: 'Meeting without logged decisions is wasted time' },
+        { rule: 6,  ar: 'لا تقل "تقريباً جاهز" — الـ 90% ليست إنجازاً',             en: '"Almost done" is not done — 90% is 0%'          },
+        { rule: 7,  ar: 'تعلّم من الفشل، لا تعاقب عليه',                             en: 'Learn from failure, never punish it'            },
+        { rule: 8,  ar: 'الشفافية مع الجهة العليا تحمي الجميع',                       en: 'Upward transparency protects everyone'          },
+        { rule: 9,  ar: 'التنفيذ خدمة لصاحب المصلحة، لا إثبات للذات',               en: 'Execution serves the stakeholder, not the ego'  },
+        { rule: 10, ar: 'كل دورة تنفيذ يجب أن تترك النظام أفضل مما وجدته',           en: 'Leave the system better than you found it'      },
+    ],
+
+    // ── قاموس التنفيذ ─────────────────────────────────────────────────────────
+    glossary: {
+        MVP:       'الحد الأدنى من المنتج القابل للتحقق — أسرع طريق للتعلم الحقيقي',
+        Sprint:    'دورة تنفيذ قصيرة (2 أسبوع) بهدف محدد ومخرج قابل للقياس',
+        Blocker:   'عائق يمنع التقدم يجب رفعه فوراً',
+        WBS:       'تفكيك هيكل العمل — تحليل المهمة الكبيرة لمكونات صغيرة قابلة للتنفيذ والقياس',
+        OKR:       'هدف + نتيجة رئيسية قابلة للقياس',
+        RACI:      'مصفوفة المسؤوليات: Responsible · Accountable · Consulted · Informed',
+        KPI:       'مؤشر أداء رئيسي — رقم يقيس تحقيق الهدف',
+        Retrospective: 'جلسة تأمل بعد كل Sprint لتحسين طريقة العمل',
+        SLA:       'اتفاقية مستوى الخدمة — التزام موثق بالجودة والسرعة',
+        'Definition of Done': 'معايير واضحة يجب استيفاؤها قبل اعتبار أي مهمة منجزة',
+    },
+
+    // ── نظام الحوافز التنفيذية ───────────────────────────────────────────────
+    incentiveSystem: {
+        recognition: [
+            { award: 'نجم التنفيذ الشهري',  criteria: 'أعلى جودة تسليم + أسرع وقت + أقل عقبات', frequency: 'شهري'   },
+            { award: 'فريق ربع السنة',      criteria: 'أعلى OKR score + رضا العميل',             frequency: 'ربع سنوي'},
+            { award: 'مبتكر التنفيذ',        criteria: 'أفضل تحسين على إجراء قائم',               frequency: 'نصف سنوي'},
+        ],
+        monetary: {
+            bonusLinkedTo: 'OKR Score + KPIs التنفيذية',
+            formula:       'مكافأة = نسبة OKR × ضريب الكفاءة × الراتب الأساسي',
+        },
+        growth: {
+            fastTrack:   'المنفذون بـ OKR ≥0.85 لثلاثة أرباع متتالية مرشحون للترقية المسرّعة',
+            mentorship:  'أفضل المنفذين يُعيَّنون مرشدين للمنضمين الجدد',
+        },
+    },
+
+    // ── منظومة القرارات التنفيذية ────────────────────────────────────────────
+    decisionEngine: {
+        levels: [
+            { level: 'D1', name: 'قرار فوري',        authority: 'الفرد المنفذ',       threshold: 'أثر ≤ يوم عمل'     },
+            { level: 'D2', name: 'قرار فريق',        authority: 'قائد الفريق',        threshold: 'أثر ≤ Sprint'      },
+            { level: 'D3', name: 'قرار تشغيلي',      authority: 'مدير القسم',         threshold: 'أثر ≤ ربع سنة'    },
+            { level: 'D4', name: 'قرار استراتيجي',   authority: 'المجلس التنفيذي',    threshold: 'أثر > ربع سنة أو ميزانية > X'},
+        ],
+        principle: 'القرار يُتخذ على أدنى مستوى ممكن — التصعيد استثناء لا أصل',
+        timeout:   'إذا لم يُتخذ القرار خلال SLA — يُصعَّد تلقائياً للمستوى الأعلى',
+        documentation: 'كل قرار D3+ يُسجَّل: السياق، البدائل، المبررات، المسؤول، الأثر المتوقع',
+    },
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -946,6 +1235,74 @@ class SevenLogicsEngine {
             overallLevel:    avg >= 9 ? 'ممتاز' : avg >= 7 ? 'جيد جداً' : avg >= 5 ? 'جيد' : 'يحتاج مراجعة',
             perLogic:        results,
             timestamp:       new Date().toISOString(),
+        };
+    }
+
+    // ── الحصول على المنطق التنفيذي بكامل تفاصيله ─────────────────────────────
+    getExecutiveLogicFull() {
+        const logic = this._logics.get('executive');
+        if (!logic) return null;
+        return {
+            success:   true,
+            tier:      'WORLD_CLASS',
+            logic,
+            summary: {
+                principleCount: logic.principles.length,
+                avgWeight:      +(logic.principles.reduce((s, p) => s + p.weight, 0) / logic.principles.length).toFixed(2),
+                modelStages:    logic.executionModel.stages.length,
+                goldenRules:    logic.goldenRules.length,
+                kpiCount:       logic.deliveryMetrics.length,
+                blockerLevels:  logic.blockerProtocol.levels.length,
+                cadenceItems:   Object.keys(logic.executionCadence).length,
+                toolCategories: Object.keys(logic.toolStack).length,
+            },
+            message: 'المنطق التنفيذي — الأفضل عالمياً | نظام شيخة للتنفيذ المتكامل',
+            timestamp: new Date().toISOString(),
+        };
+    }
+
+    // ── تقييم مهمة بالمنطق التنفيذي ──────────────────────────────────────────
+    evaluateTask(taskObj) {
+        const logic = this._logics.get('executive');
+        const task  = taskObj || {};
+        const issues   = [];
+        const strengths= [];
+
+        if (!task.owner)       issues.push('⚠️ لا يوجد مالك واضح للمهمة (يخالف القاعدة الذهبية #1)');
+        else                   strengths.push(`✅ المالك محدد: ${task.owner}`);
+
+        if (!task.deadline)    issues.push('⚠️ لا يوجد موعد نهائي محدد');
+        else                   strengths.push(`✅ الموعد النهائي محدد: ${task.deadline}`);
+
+        if (!task.successCriteria && !task.kpis)
+            issues.push('⚠️ لا توجد معايير نجاح أو KPIs — القياس يسبق الحكم دائماً');
+        else
+            strengths.push('✅ معايير النجاح محددة');
+
+        const priorityScore = task.priorityScore || 0;
+        const priorityTier  = logic.prioritizationEngine.tiers.find(t => {
+            const [min, max] = t.score.replace('≥','').replace('<','').split('-').map(Number);
+            return isNaN(max) ? priorityScore >= min : (priorityScore >= min && priorityScore <= max);
+        });
+
+        const doneChecks = task.type === 'software'
+            ? logic.definitionOfDone.software
+            : logic.definitionOfDone.businessFeature;
+
+        return {
+            success:        true,
+            task,
+            readinessScore: Math.max(0, 10 - issues.length * 2),
+            issues,
+            strengths,
+            recommendedPriority: priorityTier ? priorityTier.name : 'قيّم الأولوية باستخدام ICE-S',
+            suggestedBlockerLevel: issues.length >= 3 ? 'L2 — عالٍ' : issues.length >= 1 ? 'L3 — متوسط' : 'لا عقبات',
+            definitionOfDoneChecklist: doneChecks,
+            applicableGoldenRules: logic.goldenRules.filter((_, i) => i < 5),
+            message: issues.length === 0
+                ? '✅ المهمة جاهزة للتنفيذ وفق المنطق التنفيذي الأفضل'
+                : `⚠️ ${issues.length} ملاحظة يجب معالجتها قبل التنفيذ`,
+            timestamp: new Date().toISOString(),
         };
     }
 }
