@@ -173,6 +173,42 @@ try {
 }
 
 try {
+    const { engine: specializedNeuralEngine } = require('../../lib/sheikha-specialized-neural-networks');
+    registerEngine('specialized_neural', specializedNeuralEngine, {
+        nameAr: 'محرك شيخة للشبكات العصبية المتخصصة',
+        nameEn: 'Sheikha Specialized Neural Networks Engine',
+        maqsad: 'ARD',
+    });
+    // الشبكات العصبية المتخصصة — مسارات التوجيه
+    registerRoute('computing',        'specialized_neural', 'ARD');
+    registerRoute('compute',          'specialized_neural', 'ARD');
+    registerRoute('hpc',              'specialized_neural', 'ARD');
+    registerRoute('computer_science', 'specialized_neural', 'AQL');
+    registerRoute('server',           'specialized_neural', 'ARD');
+    registerRoute('servers',          'specialized_neural', 'ARD');
+    registerRoute('cloud_server',     'specialized_neural', 'ARD');
+    registerRoute('technical',        'specialized_neural', 'ARD');
+    registerRoute('technology',       'specialized_neural', 'ARD');
+    registerRoute('tech',             'specialized_neural', 'ARD');
+    registerRoute('sciences',         'specialized_neural', 'AQL');
+    registerRoute('ai_neural',        'specialized_neural', 'AQL');
+    registerRoute('ml',               'specialized_neural', 'AQL');
+    registerRoute('deep_learning',    'specialized_neural', 'AQL');
+    registerRoute('commerce',         'specialized_neural', 'MAL');
+    registerRoute('economy',          'specialized_neural', 'MAL');
+    registerRoute('gold',             'specialized_neural', 'MAL');
+    registerRoute('silver',           'specialized_neural', 'MAL');
+    registerRoute('precious_metals',  'specialized_neural', 'MAL');
+    registerRoute('scrap',            'specialized_neural', 'ARD');
+    registerRoute('recycling',        'specialized_neural', 'ARD');
+    registerRoute('dismantling',      'specialized_neural', 'ARD');
+    registerRoute('auto_salvage',     'specialized_neural', 'ARD');
+    console.log('[ENGINES-INDEX] ✅ محرك الشبكات العصبية المتخصصة مسجّل — ١١ شبكة نشطة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل محرك الشبكات العصبية المتخصصة:', err.stack || err.message);
+}
+
+try {
     const { engine: universalNetworksEngine } = require('../../lib/sheikha-universal-networks-neural-engine');
     registerEngine('universal_networks', universalNetworksEngine, {
         nameAr: 'المحرك العصبي الكوني الشامل لكل أنواع الشبكات',
@@ -229,8 +265,9 @@ if (_governor) {
             standards:          'محرك المعايير والجودة',
             vision:             'محرك الرؤى والاستشارات',
             consulting:         'محرك الاستشارات الكونية',
-            'live-ai':          'شبكة الذكاء الاصطناعي الحية',
-            universal_networks: 'المحرك العصبي الكوني الشامل',
+            'live-ai':           'شبكة الذكاء الاصطناعي الحية',
+            universal_networks:  'المحرك العصبي الكوني الشامل',
+            specialized_neural:  'محرك شيخة للشبكات العصبية المتخصصة',
         };
         const allEngines = listEngines();
         for (const engineKey of allEngines) {
