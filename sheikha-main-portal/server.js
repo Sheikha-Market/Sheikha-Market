@@ -432,9 +432,7 @@ try {
 // ═══ GOV ENGINE — محرك الأنظمة الحكومية الشامل (سعودي + دولي + شركات حكومية) ═══
 let govEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-gov-engine.js
-    /*     const SheikhaGovEngine = require('./lib/sheikha-gov-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-gov-engine.js — سيُحمّل عند الطلب');
+    const SheikhaGovEngine = require('./lib/sheikha-gov-engine.js');
     govEngine = new SheikhaGovEngine();
     console.log(
         `✅ Gov Engine — ${govEngine.saudiEntities.length} جهة سعودية | ${govEngine.countries.length} دولة | ${govEngine.govCompanies.length} شركة حكومية | ${govEngine.saudiRegulations.length} نظام/تشريع`
@@ -560,9 +558,7 @@ try {
 // ═══ ECONOMICS ENGINE — التجارة والاقتصاد السعودي والعالمي ═══
 let economicsEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-economics-engine.js
-    /*     const SheikhaEconomicsEngine = require('./lib/sheikha-economics-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-economics-engine.js — سيُحمّل عند الطلب');
+    const SheikhaEconomicsEngine = require('./lib/sheikha-economics-engine.js');
     economicsEngine = new SheikhaEconomicsEngine();
     const ec = economicsEngine.getDashboard();
     console.log(
@@ -702,9 +698,7 @@ try {
 // ☪️ محرك المجتمعات والمجموعات
 let communityEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-community-engine.js
-    /*     const SheikhaCommunityEngine = require('./lib/sheikha-community-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-community-engine.js — سيُحمّل عند الطلب');
+    const SheikhaCommunityEngine = require('./lib/sheikha-community-engine.js');
     communityEngine = new SheikhaCommunityEngine();
     const com = communityEngine.getDashboard();
     console.log(
@@ -938,6 +932,22 @@ try {
     console.log(`✅ [VideoContent v${vceStatus.version}] ${vceStatus.nameAr} | ${vceStatus.scriptTemplates} قالب | ${vceStatus.contentTypes} نوع محتوى | ${vceStatus.pipelineStages} مرحلة | ${vceStatus.apis} API`);
 } catch (e) {
     console.warn('⚠️ VideoContent:', e.message);
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// 🏘️ شيخة الحي الحي — نظام الحي الذكي المتكامل (حي · تنبض · تعقل · تتفكر)
+//    محلات الحي × نبض لحظي × تفكير ذكي × تأمل عميق × ربط المجتمع
+//    ١٣ مسار API | نبض كل ٥ ثوانٍ | تفكير كل ٣٠ ثانية | إسلامي ١٠٠٪
+// ════════════════════════════════════════════════════════════════════════════
+let hayEngine = null;
+try {
+    const SheikhaHayEngine = require('./lib/sheikha-hay-engine.js');
+    hayEngine = new SheikhaHayEngine();
+    hayEngine.registerRoutes(app);
+    const hayStatus = hayEngine.getStatus();
+    console.log(`✅ [HayEngine v${hayStatus.version}] ${hayStatus.nameAr} | ${hayStatus.apis} API | ${hayStatus.rhythm} rhythm | صحة الحي: ${hayStatus.healthScore}%`);
+} catch (e) {
+    console.warn('⚠️ HayEngine:', e.message);
 }
 
 // ☪️ منظومة التسويق الشامل الموحد — UMB (مُعرَّفة هنا، تُسجَّل بعد app)
@@ -31686,9 +31696,7 @@ try {
 
 // ═══ منظومة المجتمع الرقمي والأساسي الشاملة ═══
 try {
-    // P0-1: LAZY (L1) - sheikha-digital-community-ecosystem.js
-    /*     const communityEcosystem = require('./lib/sheikha-digital-community-ecosystem.js'); */
-    console.log('⏸️ [LAZY] sheikha-digital-community-ecosystem.js — سيُحمّل عند الطلب');
+    const communityEcosystem = require('./lib/sheikha-digital-community-ecosystem.js');
     communityEcosystem(app, {
         USERS,
         TRADERS,
@@ -36073,7 +36081,101 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 📡 منظومة شيخة للاتصالات والشبكات الكونية
+// 🧠 الشبكة العصبية المتكاملة — ERP + SCM + الأدوات الإدارية
+// Integrated ERP-SCM-Admin Neural Network
+// "وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ" — المائدة: 2
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const neuralAdminRoutes = require('./routes/neural-erp-scm-admin.js');
+    app.use('/api/neural-admin', neuralAdminRoutes);
+    console.log('✅ [NEURAL-ADMIN] الشبكة العصبية المتكاملة ERP+SCM+Admin — مُفعَّلة');
+    console.log('   ├─ GET  /api/neural-admin/status              — حالة الشبكة الكاملة (25 شبكة)');
+    console.log('   ├─ GET  /api/neural-admin/summary             — ملخص سريع');
+    console.log('   ├─ POST /api/neural-admin/analyze             — تحليل متكامل (ERP+SCM+Admin → Sovereign)');
+    console.log('   ├─ POST /api/neural-admin/analyze/erp         — تحليل ERP (6 وحدات)');
+    console.log('   ├─ POST /api/neural-admin/analyze/scm         — تحليل SCM (6 وظائف)');
+    console.log('   ├─ POST /api/neural-admin/analyze/admin       — تحليل الأدوات الإدارية (8 أدوات)');
+    console.log('   ├─ POST /api/neural-admin/analyze/erp/:module — تحليل وحدة ERP واحدة');
+    console.log('   ├─ POST /api/neural-admin/analyze/scm/:module — تحليل وحدة SCM واحدة');
+    console.log('   ├─ POST /api/neural-admin/analyze/admin/:tool — تحليل أداة إدارية واحدة');
+    console.log('   └─ POST /api/neural-admin/train               — تدريب كامل');
+} catch (e) {
+    console.warn('⚠️ [NEURAL-ADMIN] فشل تحميل الشبكة العصبية المتكاملة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⛓️🧠 شبكة شيخة العصبية البلوكشين — الجيل الجديد
+// Sheikha Neural Blockchain — New Generation
+// "إِذَا تَدَايَنتُم بِدَيْنٍ إِلَىٰ أَجَلٍ مُّسَمًّى فَاكْتُبُوهُ" — البقرة: 282
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const blockchainRoutes = require('./routes/neural-blockchain.js');
+    app.use('/api/blockchain', blockchainRoutes);
+    console.log('✅ [NEURAL-BLOCKCHAIN] شبكة شيخة العصبية البلوكشين — الجيل الجديد — مُفعَّلة');
+    console.log('   ├─ GET  /api/blockchain/status              — حالة السلسلة (6 طبقات)');
+    console.log('   ├─ GET  /api/blockchain/chain               — عرض السلسلة');
+    console.log('   ├─ GET  /api/blockchain/validate            — التحقق من سلامة السلسلة');
+    console.log('   ├─ POST /api/blockchain/tx/submit           — إرسال معاملة (فلتر شرعي تلقائي)');
+    console.log('   ├─ POST /api/blockchain/mine                — تعدين كتلة (Proof-of-Neural)');
+    console.log('   ├─ GET  /api/blockchain/proof/:b/:tx        — إثبات ميركل (Merkle Proof)');
+    console.log('   ├─ POST /api/blockchain/contract/deploy     — نشر عقد ذكي إسلامي');
+    console.log('   ├─ POST /api/blockchain/zakat/calculate     — احتساب الزكاة');
+    console.log('   └─ POST /api/blockchain/shariah/check       — فحص شرعي للمعاملات');
+} catch (e) {
+    console.warn('⚠️ [NEURAL-BLOCKCHAIN] فشل تحميل البلوكشين العصبي:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⭐ عملة شيخة الرقمية — SHK العملة الأساسية (الجيل الجديد)
+// Sheikha Digital Currency — SHK as BASE Currency
+// «وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة: 275
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const shkRoutes = require('./routes/digital-currency.js');
+    app.use('/api/shk', shkRoutes);
+    console.log('✅ [SHK-CORE] عملة شيخة الرقمية — SHK العملة الأساسية — مُفعَّلة');
+    console.log('   ├─ SHK هي العملة الأساسية: كل تداول يمر عبرها (INPUT → SHK → OUTPUT)');
+    console.log('   ├─ GET  /api/shk/status              — الحالة الكاملة');
+    console.log('   ├─ GET  /api/shk/price               — سعر SHK المباشر (Neural Oracle)');
+    console.log('   ├─ GET  /api/shk/currencies          — 30+ عملة رقمية مدعومة');
+    console.log('   ├─ GET  /api/shk/rates               — كل الأسعار مقابل SHK');
+    console.log('   ├─ POST /api/shk/exchange/quote      — عرض سعر صرف (ANY → SHK → ANY)');
+    console.log('   ├─ POST /api/shk/exchange/execute    — تنفيذ تداول فعلي');
+    console.log('   ├─ POST /api/shk/wallet/create       — إنشاء محفظة on-chain');
+    console.log('   ├─ POST /api/shk/transfer            — تحويل SHK');
+    console.log('   ├─ POST /api/shk/mint                — سك SHK مقابل أصول');
+    console.log('   ├─ POST /api/shk/burn                — حرق SHK واسترداد أصول');
+    console.log('   ├─ POST /api/shk/stake               — تجميد SHK لمكافآت');
+    console.log('   └─ GET  /api/shk/oracle/assess       — تقييم عصبي للقيمة');
+} catch (e) {
+    console.warn('⚠️ [SHK-CORE] فشل تحميل عملة شيخة الرقمية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠⚙️ مركز عمليات شيخة العصبي — عملية شيخة شبكة عصبية
+// Sheikha Neural Operations Center
+// «وَشَاوِرْهُمْ فِي الْأَمْرِ» — آل عمران: 159
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const neuralOpsRoutes = require('./routes/neural-operations.js');
+    app.use('/api/neural-ops', neuralOpsRoutes);
+    console.log('✅ [NEURAL-OPS] مركز عمليات شيخة العصبي — مُفعَّل');
+    console.log('   ├─ خط الأنابيب: تصنيف → توجيه عصبي → قرار → شريعة → SHK → بلوكشين');
+    console.log('   ├─ GET  /api/neural-ops/status      — حالة النظام (ERP+SCM+Blockchain+SHK)');
+    console.log('   ├─ POST /api/neural-ops/process     — معالجة عملية (القرار العصبي الكامل)');
+    console.log('   ├─ POST /api/neural-ops/batch       — معالجة دُفعة من العمليات');
+    console.log('   ├─ POST /api/neural-ops/scan        — مسح سريع (شريعة + SHK)');
+    console.log('   ├─ POST /api/neural-ops/trade       — عملية تجارية');
+    console.log('   ├─ POST /api/neural-ops/payment     — معاملة مالية');
+    console.log('   ├─ POST /api/neural-ops/contract    — عقد ذكي إسلامي');
+    console.log('   ├─ POST /api/neural-ops/exchange    — تداول عملات (SHK الأساسية)');
+    console.log('   ├─ POST /api/neural-ops/analysis    — تحليل شامل للمنظومة');
+    console.log('   └─ POST /api/neural-ops/text        — تحليل نص عربي/إنجليزي');
+} catch (e) {
+    console.warn('⚠️ [NEURAL-OPS] فشل تحميل مركز العمليات العصبي:', e.message);
+}
+
+
 // Sheikha Telecom & Universal Networks
 // ﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾ — الأنفال: 60
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -36119,14 +36221,153 @@ try {
     console.warn('⚠️ [LIVE-AI v2] شبكة الذكاء الاصطناعي الحية غير متوفرة:', e.message);
 }
 
-// 🔮 رؤية شيخة الحاسوبية — Sheikha Computer Vision
+// ═══════════════════════════════════════════════════════════════════════════════
+// 💚 شيخة الحيوية — النظام الحي النابض بالحياة
+//    نبض داخلي + نبض خارجي + أهداف خير + أهداف تجارة + أثر حضاري
+//    "وَجَعَلْنَا مِنَ الْمَاءِ كُلَّ شَيْءٍ حَيٍّ" — الأنبياء:٣٠
 // ═══════════════════════════════════════════════════════════════════════════════
 try {
-    const visionRoutes = require('./routes/vision-system-routes.js');
-    app.use('/api/vision', visionRoutes);
-    console.log('✅ [VISION] منظومة الرؤية الحاسوبية مسجّلة على /api/vision');
+    const vitalityRoutes = require('./routes/sheikha-vitality');
+    app.use('/api/vitality', vitalityRoutes);
+    console.log('✅ [Vitality] شيخة الحيوية مفعلة — /api/vitality (health · activate · status · pulse · goals · networks · impact · community · environment)');
 } catch (e) {
-    console.warn('⚠️ [VISION] منظومة الرؤية غير متوفرة:', e.message);
+    console.warn('⚠️ [Vitality] شيخة الحيوية غير متوفرة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏆 شيخة برامج رؤية ٢٠٣٠ — ١١ برنامجاً استراتيجياً + المستهدفات الكبرى
+//    جودة الحياة · PIF · التحول الوطني · ضيوف الرحمن · القدرات البشرية
+//    ندلب · الصحة · الإسكان · القطاع المالي · التخصيص · الاستدامة المالية
+//    "إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ" — الرعد:١١
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const programsRoutes = require('./routes/sheikha-programs');
+    app.use('/api/programs', programsRoutes);
+    console.log('✅ [Programs] شيخة برامج رؤية ٢٠٣٠ مفعّلة — /api/programs (health · dashboard · list · :id · pillar · maqsad · targets · kpis · sheikha)');
+} catch (e) {
+    console.warn('⚠️ [Programs] شيخة برامج رؤية ٢٠٣٠ غير متوفرة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 👑 شيخة — قائدة رؤية ٢٠٣٠ + محرك الأثر الذكي
+//    ١١ برنامجاً باسم شيخة + قادة شيخة + أثر مجتمعي + قياس ملموس
+//    مرتبطة بأهداف خادم الحرمين الشريفين الملك سلمان
+//    "وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ" — التوبة:١٠٥
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const visionRoutes = require('./routes/sheikha-vision');
+    app.use('/api/vision', visionRoutes);
+    console.log('✅ [Vision] شيخة قائدة رؤية ٢٠٣٠ مفعّلة — /api/vision (health · dashboard · royal-mandate · leadership · programs · targets · impact · roadmap · sdg · live · first-place · national-report · national-integration · refresh)');
+} catch (e) {
+    console.warn('⚠️ [Vision] شيخة قائدة رؤية ٢٠٣٠ غير متوفرة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏦 صندوق شيخة للاستثمارات العامة (SPIF)
+//    ذراع استثماري ومحرك للنمو الاقتصادي — محافظ · مشاريع كبرى · KPIs · شريعة
+//    "مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ" — البقرة:٢٦١
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const spifRoutes = require('./routes/sheikha-spif');
+    app.use('/api/spif', spifRoutes);
+    console.log('✅ [SPIF] صندوق شيخة للاستثمارات العامة مفعّل — /api/spif (health · dashboard · identity · portfolios · mega-projects · kpis · partnerships · sharia · sheikha-role · report)');
+} catch (e) {
+    console.warn('⚠️ [SPIF] صندوق شيخة للاستثمارات العامة غير متوفر:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🇸🇦 شيخة وطن طموح — الركيزة الثالثة من رؤية ٢٠٣٠
+//    حوكمة · جهات سعودية · تشريعات · شركات وطنية · قيادة رشيدة
+//    "وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ" — الحشر:١٨
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const watanRoutes = require('./routes/sheikha-watan');
+    app.use('/api/watan', watanRoutes);
+    console.log('✅ [Watan] شيخة وطن طموح مفعّلة — /api/watan (health · dashboard · saudi · vision2030 · international · leadership · register)');
+} catch (e) {
+    console.warn('⚠️ [Watan] شيخة وطن طموح غير متوفرة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔮 ADVISORY VISION ENGINE — الرؤية الاستشارية (الطبقة الحاكمة العليا)
+// تجلس فوق جميع محركات الرؤية وتقدم استشارات متكاملة
+// "وَشَاوِرْهُمْ فِي الْأَمْرِ ۖ فَإِذَا عَزَمْتَ فَتَوَكَّلْ عَلَى اللَّهِ" — آل عمران: ١٥٩
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const advisoryVisionRoutes = require('./routes/advisory-vision-routes.js');
+    app.use('/api/advisory-vision', advisoryVisionRoutes);
+    console.log('✅ [ADVISORY-VISION] الرؤية الاستشارية — الطبقة الحاكمة مُفعَّلة | 8 وكلاء متخصصون');
+    console.log('   ├─ GET  /api/advisory-vision/status           — حالة الطبقة الحاكمة');
+    console.log('   ├─ GET  /api/advisory-vision/council          — مجلس المستشارين');
+    console.log('   ├─ GET  /api/advisory-vision/report           — التقرير الاستشاري الشامل');
+    console.log('   ├─ POST /api/advisory-vision/consult          — استشارة شاملة (كل الوكلاء)');
+    console.log('   ├─ POST /api/advisory-vision/trade            — استشارة تجارية');
+    console.log('   ├─ POST /api/advisory-vision/sharia           — استشارة شرعية');
+    console.log('   ├─ POST /api/advisory-vision/investment       — استشارة استثمارية');
+    console.log('   ├─ POST /api/advisory-vision/governance       — استشارة حوكمة');
+    console.log('   ├─ POST /api/advisory-vision/market           — استشارة سوقية');
+    console.log('   ├─ POST /api/advisory-vision/technology       — استشارة تقنية');
+    console.log('   ├─ POST /api/advisory-vision/risk             — تقييم المخاطر');
+    console.log('   ├─ POST /api/advisory-vision/legal            — استشارة قانونية');
+    console.log('   └─ POST /api/advisory-vision/evaluate-decision — تقييم قرار استراتيجي');
+} catch (e) {
+    console.log('⚠️ [ADVISORY-VISION] فشل تحميل مسارات الرؤية الاستشارية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌍 NATIONAL VISIONS ENGINE — محرك رؤية الدول الاستراتيجية
+// رؤية السعودية 2030 | الإمارات 2071 | قطر 2030 | الكويت 2035 | البحرين 2030 | عُمان 2040
+// "وَشَاوِرْهُمْ فِي الْأَمْرِ" — آل عمران: ١٥٩
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const nationalVisionsRoutes = require('./routes/national-visions-routes.js');
+    app.use('/api/national-visions', nationalVisionsRoutes);
+    console.log('✅ [NATIONAL-VISIONS] محرك رؤية الدول — مُفعَّل | SA+AE+QA+KW+BH+OM+EG+JO+MA+MY+TR+PK+CN+IN');
+    console.log('   ├─ GET  /api/national-visions              — جميع الرؤى');
+    console.log('   ├─ GET  /api/national-visions/country/:code — رؤية دولة بعينها');
+    console.log('   ├─ GET  /api/national-visions/region/:region — رؤى منطقة (gcc/arab/islamic/global)');
+    console.log('   ├─ GET  /api/national-visions/search?q=... — بحث في الرؤى');
+    console.log('   ├─ GET  /api/national-visions/progress     — تقرير التقدم');
+    console.log('   ├─ GET  /api/national-visions/opportunities — فرص الاستثمار');
+    console.log('   └─ POST /api/national-visions/align        — مواءمة الأعمال مع الرؤى');
+} catch (e) {
+    console.log('⚠️ [NATIONAL-VISIONS] فشل تحميل مسارات رؤية الدول:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 👁️ COMPUTER VISION ENGINE — محرك الرؤية الحاسوبية
+// OCR | كشف الأشياء | باركود QR | تحليل المستندات | فحص الجودة | كشف العيوب
+// "أَوَلَمْ يَنظُرُوا فِي مَلَكُوتِ السَّمَاوَاتِ وَالْأَرْضِ" — الأعراف: ١٨٥
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const computerVisionRoutes = require('./routes/computer-vision-routes.js');
+    app.use('/api/computer-vision', computerVisionRoutes);
+    console.log('✅ [COMPUTER-VISION] محرك الرؤية الحاسوبية — مُفعَّل | 12 قدرة');
+    console.log('   ├─ POST /api/computer-vision/ocr                — استخراج النصوص (OCR)');
+    console.log('   ├─ POST /api/computer-vision/detect-objects     — كشف الأشياء');
+    console.log('   ├─ POST /api/computer-vision/barcode            — قراءة الباركود وQR');
+    console.log('   ├─ POST /api/computer-vision/recognize-product  — التعرف على المنتجات');
+    console.log('   ├─ POST /api/computer-vision/quality-inspect    — فحص الجودة');
+    console.log('   ├─ POST /api/computer-vision/analyze-document   — تحليل المستندات');
+    console.log('   ├─ POST /api/computer-vision/analyze-colors     — تحليل الألوان');
+    console.log('   ├─ POST /api/computer-vision/sentiment          — تحليل المشاعر البصرية');
+    console.log('   ├─ POST /api/computer-vision/satellite          — تحليل صور الأقمار الصناعية');
+    console.log('   ├─ POST /api/computer-vision/detect-defects     — كشف عيوب التصنيع');
+    console.log('   ├─ POST /api/computer-vision/analyze-full       — تحليل شامل للصورة');
+    console.log('   └─ GET  /api/computer-vision/status             — حالة المحرك');
+} catch (e) {
+    console.log('⚠️ [COMPUTER-VISION] فشل تحميل مسارات الرؤية الحاسوبية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔮 VISION SYSTEM ROUTES — منظومة الرؤية الشاملة
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const visionSystemRoutes = require('./routes/vision-system-routes.js');
+    app.use('/api/vision', visionSystemRoutes);
+    console.log('✅ [VISION-SYSTEM] منظومة الرؤية الشاملة — مُفعَّلة على /api/vision');
+} catch (e) {
+    console.log('⚠️ [VISION-SYSTEM] فشل تحميل مسارات منظومة الرؤية:', e.message);
 }
 
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
