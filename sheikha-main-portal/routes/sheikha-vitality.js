@@ -20,6 +20,17 @@ function getCore() {
             islamicGovernanceStrict: true,
             vitalityEnabled: true
         });
+        // تفعيل الحيوية تلقائياً عند أول تهيئة — لا يحتاج POST يدوي
+        vitalityCore.activateVitalityMode({
+            khairGoals: [
+                { id: 'khair-1', title: 'زيادة أثر الخير على الناس', target: 100 },
+                { id: 'khair-2', title: 'تمكين التجارة العادلة والشفافة', target: 100 }
+            ],
+            tijariGoals: [
+                { id: 'tijari-1', title: 'تحقيق نمو ربحي مستدام', target: 100 },
+                { id: 'tijari-2', title: 'رفع الكفاءة وتقليل الهدر', target: 100 }
+            ]
+        });
     }
     return vitalityCore;
 }
