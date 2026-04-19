@@ -36143,8 +36143,31 @@ try {
     console.warn('⚠️ [SHK-CORE] فشل تحميل عملة شيخة الرقمية:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠⚙️ مركز عمليات شيخة العصبي — عملية شيخة شبكة عصبية
+// Sheikha Neural Operations Center
+// «وَشَاوِرْهُمْ فِي الْأَمْرِ» — آل عمران: 159
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const neuralOpsRoutes = require('./routes/neural-operations.js');
+    app.use('/api/neural-ops', neuralOpsRoutes);
+    console.log('✅ [NEURAL-OPS] مركز عمليات شيخة العصبي — مُفعَّل');
+    console.log('   ├─ خط الأنابيب: تصنيف → توجيه عصبي → قرار → شريعة → SHK → بلوكشين');
+    console.log('   ├─ GET  /api/neural-ops/status      — حالة النظام (ERP+SCM+Blockchain+SHK)');
+    console.log('   ├─ POST /api/neural-ops/process     — معالجة عملية (القرار العصبي الكامل)');
+    console.log('   ├─ POST /api/neural-ops/batch       — معالجة دُفعة من العمليات');
+    console.log('   ├─ POST /api/neural-ops/scan        — مسح سريع (شريعة + SHK)');
+    console.log('   ├─ POST /api/neural-ops/trade       — عملية تجارية');
+    console.log('   ├─ POST /api/neural-ops/payment     — معاملة مالية');
+    console.log('   ├─ POST /api/neural-ops/contract    — عقد ذكي إسلامي');
+    console.log('   ├─ POST /api/neural-ops/exchange    — تداول عملات (SHK الأساسية)');
+    console.log('   ├─ POST /api/neural-ops/analysis    — تحليل شامل للمنظومة');
+    console.log('   └─ POST /api/neural-ops/text        — تحليل نص عربي/إنجليزي');
+} catch (e) {
+    console.warn('⚠️ [NEURAL-OPS] فشل تحميل مركز العمليات العصبي:', e.message);
+}
 
-// 📡 منظومة شيخة للاتصالات والشبكات الكونية
+
 // Sheikha Telecom & Universal Networks
 // ﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾ — الأنفال: 60
 // ═══════════════════════════════════════════════════════════════════════════════
