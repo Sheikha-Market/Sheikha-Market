@@ -203,6 +203,39 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل المحرك العصبي الكوني:', err.stack || err.message);
 }
 
+// ─── تسجيل شبكة شيخة العصبية للموارد ────────────────────────────────────────
+
+try {
+    const { engine: resourcesNeuralEngine } = require('../../lib/sheikha-resources-neural-network');
+    registerEngine('resources', resourcesNeuralEngine, {
+        nameAr: 'شبكة شيخة العصبية للموارد',
+        nameEn: 'Sheikha Resources Neural Network',
+        maqsad: 'ARD',
+    });
+    // مسارات توجيه منظومة الموارد
+    registerRoute('resources',              'resources', 'ARD');
+    registerRoute('resource',               'resources', 'ARD');
+    registerRoute('resources.list',         'resources', 'ARD');
+    registerRoute('resources.analyze',      'resources', 'ARD');
+    registerRoute('resources.full',         'resources', 'ARD');
+    registerRoute('resources.forecast',     'resources', 'ARD');
+    registerRoute('resources.optimize',     'resources', 'ARD');
+    registerRoute('resources.info',         'resources', 'ARD');
+    registerRoute('resources.search',       'resources', 'ARD');
+    registerRoute('resources.status',       'resources', 'ARD');
+    registerRoute('natural_resources',      'resources', 'ARD');
+    registerRoute('energy_resources',       'resources', 'ARD');
+    registerRoute('human_resources',        'resources', 'NAFS');
+    registerRoute('financial_resources',    'resources', 'MAL');
+    registerRoute('agricultural_resources', 'resources', 'NAFS');
+    registerRoute('digital_resources',      'resources', 'ARD');
+    registerRoute('strategic_resources',    'resources', 'DEEN');
+    registerRoute('knowledge_resources',    'resources', 'AQL');
+    console.log('[ENGINES-INDEX] ✅ شبكة شيخة العصبية للموارد مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل شبكة الموارد العصبية:', err.stack || err.message);
+}
+
 // ─── تسجيل كل المحركات تحت سيادة الحاكمة العليا ─────────────────────────────
 // بعد تسجيل الجميع، تفرض شيخة سيادتها على الكل
 // ﴿ وَفَوْقَ كُلِّ ذِي عِلْمٍ عَلِيمٌ ﴾ — يوسف ٧٦
@@ -231,6 +264,7 @@ if (_governor) {
             consulting:         'محرك الاستشارات الكونية',
             'live-ai':          'شبكة الذكاء الاصطناعي الحية',
             universal_networks: 'المحرك العصبي الكوني الشامل',
+            resources:          'شبكة شيخة العصبية للموارد',
         };
         const allEngines = listEngines();
         for (const engineKey of allEngines) {
