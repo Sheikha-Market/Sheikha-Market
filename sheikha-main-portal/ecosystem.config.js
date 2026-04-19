@@ -28,6 +28,33 @@ module.exports = {
             gracefulShutdown: true
         },
 
+        /* ─── Sheikha Copilot Server — خادم MCP الخلفي ── */
+        /* يعمل دائماً في الخلفية كجسر بين GitHub Copilot  */
+        /* والسيرفرات عبر بروتوكول MCP على المنفذ 3091     */
+        {
+            name: 'sheikha-copilot',
+            cwd: __dirname,
+            script: './scripts/sheikha-copilot-server.js',
+            instances: 1,
+            exec_mode: 'fork',
+            autorestart: true,
+            watch: false,
+            max_memory_restart: '128M',
+            restart_delay: 3000,
+            env: {
+                NODE_ENV:             'production',
+                COPILOT_SERVER_PORT:  3091,
+                COPILOT_SERVER_HOST:  '0.0.0.0',
+                SHEIKHA_SERVER_URL:   'http://127.0.0.1:8080',
+            },
+            error_file: './logs/copilot-server-error.log',
+            out_file:   './logs/copilot-server-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 10,
+            min_uptime: '5s',
+        },
+
         /* ─── مراقبة يومية: Health Check + KPI Snapshot ── */
         {
             name: 'sheikha-health-monitor',

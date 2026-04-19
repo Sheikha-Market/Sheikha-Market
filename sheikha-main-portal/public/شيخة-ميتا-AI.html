@@ -369,7 +369,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:#f4f4f5;overflo
 
 <!-- TAB: CATALOG -->
 <div class="tpn" id="t-catalog">
-  <div class="sh"><div><h2>🗂️ كتالوج المنتجات — Commerce API</h2><p>٥,٧٠٠ منتج مدرج في Instagram Shop + Facebook Shop</p></div><span class="bdg">٥٧٠٠ منتج</span></div>
+  <div class="sh"><div><h2>🗂️ كتالوج المنتجات — Commerce API</h2><p>٥,٧٠٠ منتج مدرج في Instagram Shop</p></div><span class="bdg">٥٧٠٠ منتج</span></div>
   <div class="g2">
     <div>
       <div class="sh"><h2>➕ إضافة منتج للكتالوج</h2></div>
@@ -422,7 +422,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:#f4f4f5;overflo
     <div>
       <div class="sh"><h2>🔑 بيانات الربط</h2></div>
       <div class="fld"><label>Pixel ID</label><input id="set-pixel" placeholder="أدخل Pixel ID من Events Manager"></div>
-      <div class="fld"><label>App ID</label><input id="set-app" placeholder="Meta App ID من developers.facebook.com"></div>
+      <div class="fld"><label>App ID</label><input id="set-app" placeholder="Meta App ID من developers.meta.com"></div>
       <div class="fld"><label>Graph API Version</label>
         <select id="set-ver"><option>v21.0</option><option>v20.0</option><option>v19.0</option></select>
       </div>
@@ -702,12 +702,11 @@ async function loadSetup(){
   ].map(([l,cmd,c])=>`<div style="margin-bottom:8px;"><div style="font-size:.7rem;color:#71717a;margin-bottom:3px;">${l}</div><div style="display:flex;align-items:center;gap:6px;"><code style="background:var(--bg3);border:1px solid var(--bd);border-radius:6px;padding:6px 10px;font-size:.72rem;color:#4da3ff;flex:1;">${cmd}</code><button class="bts" style="padding:5px 10px;font-size:.65rem;" onclick="copyCmd(this,'${cmd}')">📋</button></div></div>`).join('');
   $('app-perms').innerHTML=['ads_management','business_management','pages_messaging','whatsapp_business_messaging','catalog_management','instagram_basic','pages_read_engagement'].map(p=>`<span class="tag tagb" style="font-size:.72rem;margin:3px;display:inline-block;">${p}</span>`).join('');
   $('integration-steps').innerHTML=[
-    {n:1,t:'إنشاء Meta App',d:'روح developers.facebook.com → أنشئ App → أضف Products: Pixel + CAPI + WhatsApp',done:true},
-    {n:2,t:'تثبيت Meta Pixel',d:'انسخ كود البيكسل من تبويب Pixel أعلاه وأضفه في <head> كل صفحة',done:true},
-    {n:3,t:'تفعيل Conversions API',d:'أنشئ System User بـ Access Token دائم → أضفه في ملف .env → Dual Tracking جاهز',done:true},
-    {n:4,t:'ربط WhatsApp Business API',d:'اطلب من BSP معتمد (Unifonic/360dialog) → أضف Phone Number ID في .env',done:false},
-    {n:5,t:'تشغيل الخادم بالخلفية',d:'npm install pm2 -g → pm2 start ecosystem.config.js → pm2 save',done:false},
-    {n:6,t:'اختبار التكامل',d:'استخدم Events Manager → اختبار الأحداث → ابدأ شراء تجريبي وتأكد يصلك حدثان مع "تمت إزالة التكرار"',done:false},
+    {n:1,t:'إنشاء Meta App',d:'روح developers.meta.com → أنشئ App → أضف Products: WhatsApp + Instagram',done:true},
+    {n:2,t:'تفعيل Instagram API',d:'أضف Instagram Graph API → اطلب الأذونات المطلوبة للنشر والإحصاءات',done:true},
+    {n:3,t:'ربط WhatsApp Business API',d:'اطلب من BSP معتمد (Unifonic/360dialog) → أضف Phone Number ID في .env',done:false},
+    {n:4,t:'تشغيل الخادم بالخلفية',d:'npm install pm2 -g → pm2 start ecosystem.config.js → pm2 save',done:false},
+    {n:5,t:'اختبار التكامل',d:'تأكد وصول رسائل WhatsApp وعمل Instagram API بشكل صحيح',done:false},
   ].map(s=>`<div style="display:flex;gap:12px;padding:12px;background:var(--bg2);border:1px solid ${s.done?'rgba(37,211,102,.2)':'var(--bd)'};border-radius:10px;margin-bottom:8px;"><div style="width:28px;height:28px;border-radius:50%;background:${s.done?'var(--grn)':'#3a3a3a'};display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;flex-shrink:0;">${s.done?'✓':s.n}</div><div><div style="font-weight:700;font-size:.85rem;">${s.t}</div><div style="font-size:.73rem;color:#71717a;margin-top:3px;line-height:1.6;">${s.d}</div></div></div>`).join('');
 }
 async function saveSettings(){

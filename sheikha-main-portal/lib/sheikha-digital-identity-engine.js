@@ -364,7 +364,6 @@ class SheikhaDigitalIdentityEngine {
                         { name: 'YouTube', url: 'https://studio.youtube.com', purpose: 'قناة' },
                         { name: 'TikTok', url: 'https://ads.tiktok.com', purpose: 'حساب أعمال' },
                         { name: 'Telegram', url: 'https://telegram.org', purpose: 'قناة ومجموعة' },
-                        { name: 'Facebook', url: 'https://business.facebook.com', purpose: 'صفحة أعمال' },
                         { name: 'Pinterest', url: 'https://business.pinterest.com', purpose: 'حساب أعمال' }
                     ]
                 },
