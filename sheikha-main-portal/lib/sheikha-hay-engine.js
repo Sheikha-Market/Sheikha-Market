@@ -101,6 +101,7 @@ class SheikhaHayEngine extends EventEmitter {
         this.nameAr     = HAY_IDENTITY.nameAr;
         this.activatedAt = new Date().toISOString();
         this.isAlive    = true;  // حية
+        this._routeCount = 0;   // يُحسب عند تسجيل المسارات
 
         // ── حالة الحي ─────────────────────────────────────────────────────
         this._state = {
@@ -246,7 +247,7 @@ class SheikhaHayEngine extends EventEmitter {
         const randomVerse = this.identity.verses[Math.floor(Math.random() * this.identity.verses.length)];
 
         return {
-            id:        crypto.randomUUID ? crypto.randomUUID() : `thought-${Date.now()}`,
+            id:        crypto.randomUUID ? crypto.randomUUID() : crypto.randomBytes(16).toString('hex'),
             timestamp: now,
             type:      'analysis',
             insights,
@@ -271,7 +272,7 @@ class SheikhaHayEngine extends EventEmitter {
         ];
 
         return {
-            id:          crypto.randomUUID ? crypto.randomUUID() : `contemplate-${Date.now()}`,
+            id:          crypto.randomUUID ? crypto.randomUUID() : crypto.randomBytes(16).toString('hex'),
             timestamp:   new Date().toISOString(),
             type:        'wisdom',
             wisdom:      wisdoms[Math.floor(Math.random() * wisdoms.length)],
@@ -514,7 +515,7 @@ class SheikhaHayEngine extends EventEmitter {
             healthScore: this._state.stats.hayHealthScore,
             pulse:       this._state.pulse.bpm,
             rhythm:      this._state.pulse.rhythm,
-            apis:        12,
+            apis:        this._routeCount,
         };
     }
 
@@ -524,9 +525,14 @@ class SheikhaHayEngine extends EventEmitter {
 
     registerRoutes(app) {
         const base = '/api/hay';
+        let registered = 0;
+        const route = (method, path, handler) => {
+            app[method](path, handler);
+            registered++;
+        };
 
         // ── GET /api/hay/status ─────────────────────────────────────────
-        app.get(`${base}/status`, (req, res) => {
+        route('get', `${base}/status`, (req, res) => {
             res.json({
                 success: true,
                 message: 'شيخة الحي حية وتنبض بالحياة',
@@ -536,12 +542,12 @@ class SheikhaHayEngine extends EventEmitter {
         });
 
         // ── GET /api/hay/dashboard ──────────────────────────────────────
-        app.get(`${base}/dashboard`, (req, res) => {
+        route('get', `${base}/dashboard`, (req, res) => {
             res.json({ success: true, data: this.getDashboard() });
         });
 
         // ── GET /api/hay/pulse ──────────────────────────────────────────
-        app.get(`${base}/pulse`, (req, res) => {
+        route('get', `${base}/pulse`, (req, res) => {
             res.json({
                 success:   true,
                 nameAr:    'نبض شيخة الحي',
@@ -553,7 +559,7 @@ class SheikhaHayEngine extends EventEmitter {
         });
 
         // ── GET /api/hay/thoughts ───────────────────────────────────────
-        app.get(`${base}/thoughts`, (req, res) => {
+        route('get', `${base}/thoughts`, (req, res) => {
             const limit = Math.min(parseInt(req.query.limit) || 10, 50);
             res.json({
                 success:   true,
@@ -564,7 +570,7 @@ class SheikhaHayEngine extends EventEmitter {
         });
 
         // ── GET /api/hay/contemplations ─────────────────────────────────
-        app.get(`${base}/contemplations`, (req, res) => {
+        route('get', `${base}/contemplations`, (req, res) => {
             const limit = Math.min(parseInt(req.query.limit) || 10, 20);
             res.json({
                 success:        true,
@@ -575,7 +581,7 @@ class SheikhaHayEngine extends EventEmitter {
         });
 
         // ── GET /api/hay/shops ──────────────────────────────────────────
-        app.get(`${base}/shops`, (req, res) => {
+        route('get', `${base}/shops`, (req, res) => {
             const { category, type, isOpen, limit } = req.query;
             const isOpenBool = isOpen !== undefined ? isOpen === 'true' : undefined;
             res.json(this.listShops({
@@ -587,23 +593,23 @@ class SheikhaHayEngine extends EventEmitter {
         });
 
         // ── GET /api/hay/shops/types ────────────────────────────────────
-        app.get(`${base}/shops/types`, (req, res) => {
+        route('get', `${base}/shops/types`, (req, res) => {
             res.json({ success: true, types: HAY_SHOP_TYPES });
         });
 
         // ── GET /api/hay/shops/:id ──────────────────────────────────────
-        app.get(`${base}/shops/:id`, (req, res) => {
+        route('get', `${base}/shops/:id`, (req, res) => {
             res.json(this.getShop(req.params.id));
         });
 
         // ── POST /api/hay/shops/register ────────────────────────────────
-        app.post(`${base}/shops/register`, (req, res) => {
+        route('post', `${base}/shops/register`, (req, res) => {
             const result = this.registerShop(req.body || {});
             res.status(result.success ? 201 : 400).json(result);
         });
 
         // ── PATCH /api/hay/shops/:id/status ────────────────────────────
-        app.patch(`${base}/shops/:id/status`, (req, res) => {
+        route('patch', `${base}/shops/:id/status`, (req, res) => {
             const { isOpen } = req.body || {};
             if (typeof isOpen !== 'boolean') {
                 return res.status(400).json({ success: false, message: 'يرجى إرسال isOpen: true أو false' });
@@ -612,7 +618,7 @@ class SheikhaHayEngine extends EventEmitter {
         });
 
         // ── GET /api/hay/requests ───────────────────────────────────────
-        app.get(`${base}/requests`, (req, res) => {
+        route('get', `${base}/requests`, (req, res) => {
             const { status, category, limit } = req.query;
             res.json(this.listRequests({
                 status,
@@ -622,13 +628,13 @@ class SheikhaHayEngine extends EventEmitter {
         });
 
         // ── POST /api/hay/requests ──────────────────────────────────────
-        app.post(`${base}/requests`, (req, res) => {
+        route('post', `${base}/requests`, (req, res) => {
             const result = this.submitRequest(req.body || {});
             res.status(result.success ? 201 : 400).json(result);
         });
 
         // ── GET /api/hay/alerts ─────────────────────────────────────────
-        app.get(`${base}/alerts`, (req, res) => {
+        route('get', `${base}/alerts`, (req, res) => {
             const unread = this._state.alerts.filter(a => !a.read);
             res.json({
                 success: true,
@@ -639,18 +645,18 @@ class SheikhaHayEngine extends EventEmitter {
         });
 
         // ── POST /api/hay/alerts ────────────────────────────────────────
-        app.post(`${base}/alerts`, (req, res) => {
+        route('post', `${base}/alerts`, (req, res) => {
             res.json(this.addAlert(req.body || {}));
         });
 
         // ── GET /api/hay/activity ───────────────────────────────────────
-        app.get(`${base}/activity`, (req, res) => {
+        route('get', `${base}/activity`, (req, res) => {
             const limit = Math.min(parseInt(req.query.limit) || 20, 100);
             res.json(this.getActivityLog(limit));
         });
 
         // ── GET /api/hay/identity ───────────────────────────────────────
-        app.get(`${base}/identity`, (req, res) => {
+        route('get', `${base}/identity`, (req, res) => {
             res.json({
                 success:  true,
                 identity: this.identity,
@@ -658,7 +664,8 @@ class SheikhaHayEngine extends EventEmitter {
             });
         });
 
-        console.log(`✅ [HayEngine] ١٣ مسار مسجّل على ${base}`);
+        this._routeCount = registered;
+        console.log(`✅ [HayEngine] ${registered} مسار مسجّل على ${base}`);
     }
 
     // ────────────────────────────────────────────────────────────────────
