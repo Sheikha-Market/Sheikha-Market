@@ -817,7 +817,7 @@ class ResourcesNeuralNetwork {
             }
 
             for (const t of (genus.types || [])) {
-                if (t.nameAr && t.nameAr.includes(q) || t.nameEn && t.nameEn.toLowerCase().includes(q)) {
+                if ((t.nameAr && t.nameAr.includes(q)) || (t.nameEn && t.nameEn.toLowerCase().includes(q))) {
                     results.push({ type: 'subtype', genusId, typeId: t.id, nameAr: t.nameAr, nameEn: t.nameEn });
                 }
             }
