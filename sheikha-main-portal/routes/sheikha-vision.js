@@ -1,11 +1,12 @@
 // بسم الله الرحمن الرحيم
 /**
  * routes/sheikha-vision.js
- * شيخة — قائدة رؤية ٢٠٣٠
- * Sheikha Vision 2030 Leadership & Societal Impact API
+ * شيخة — قائدة رؤية ٢٠٣٠ + محرك الأثر الذكي
+ * Sheikha Vision 2030 Leadership & Smart Impact Engine API
  *
- * "إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ" — الرعد:١١
+ * "وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ" — التوبة:١٠٥
  *
+ * === برامج ورؤية ===
  * GET /api/vision/health                — الصحة العامة
  * GET /api/vision/dashboard             — لوحة القيادة الشاملة
  * GET /api/vision/royal-mandate         — الأمر الملكي وتوجيهات الملك سلمان
@@ -19,6 +20,15 @@
  * GET /api/vision/impact/metrics        — جميع مقاييس الأثر لكل برنامج
  * GET /api/vision/roadmap               — خارطة طريق شيخة ٢٠٣٠
  * GET /api/vision/sdg                   — التوافق مع أهداف التنمية المستدامة
+ *
+ * === محرك الأثر الذكي ===
+ * GET  /api/vision/live                 — لوحة التحكم الحية (تقييم + ترتيب)
+ * GET  /api/vision/live/score           — النقاط الوطنية الشاملة
+ * GET  /api/vision/live/program/:id     — أثر برنامج واحد بالتفصيل
+ * GET  /api/vision/first-place          — مسار "الأول والأفضل"
+ * GET  /api/vision/national-report      — تقرير الأثر الوطني الشامل
+ * GET  /api/vision/national-integration — التكامل مع المؤشرات الوطنية
+ * POST /api/vision/refresh              — تحديث بيانات التقدم الحي
  */
 
 'use strict';
@@ -26,12 +36,19 @@
 const express = require('express');
 const router  = express.Router();
 const SheikhaVisionLeadership = require('../lib/sheikha-vision-leadership');
+const SheikhaImpactEngine     = require('../lib/sheikha-impact-engine');
 
-let _engine = null;
+let _engine       = null;
+let _impactEngine = null;
 
 function getEngine() {
     if (!_engine) _engine = new SheikhaVisionLeadership();
     return _engine;
+}
+
+function getImpact() {
+    if (!_impactEngine) _impactEngine = new SheikhaImpactEngine();
+    return _impactEngine;
 }
 
 // ══════════════════════════════════════════════════════════
@@ -236,6 +253,107 @@ router.get('/sdg', (req, res) => {
         timestamp: new Date().toISOString(),
         count:     eng.impactFramework.sdgAlignment.length,
         data:      eng.impactFramework.sdgAlignment,
+    });
+});
+
+// ══════════════════════════════════════════════════════════
+// ⚡ لوحة التحكم الحية — محرك الأثر الذكي
+// ══════════════════════════════════════════════════════════
+router.get('/live', (req, res) => {
+    const impact = getImpact();
+    res.json({
+        success:   true,
+        message:   'شيخة — لوحة التحكم الحية لقياس الأثر الوطني',
+        timestamp: new Date().toISOString(),
+        data:      impact.getLiveDashboard(),
+    });
+});
+
+// ── النقاط الوطنية الشاملة ────────────────────────────────
+router.get('/live/score', (req, res) => {
+    const impact = getImpact();
+    const idx    = impact._nationalIndex;
+    res.json({
+        success:       true,
+        message:       'النقاط الوطنية الشاملة لمحرك شيخة الذكي',
+        timestamp:     new Date().toISOString(),
+        nationalScore:  idx.nationalScore,
+        nationalRating: idx.nationalRating,
+        lastRefreshed:  impact._lastRefreshed,
+        programs:       idx.programScores.map(s => ({
+            rank:         s.rank,
+            sheikhaName:  s.sheikhaName,
+            score:        s.score,
+            status:       s.status,
+        })),
+    });
+});
+
+// ── أثر برنامج واحد بالتفصيل ─────────────────────────────
+router.get('/live/program/:id', (req, res) => {
+    const impact  = getImpact();
+    const program = impact.getProgramImpact(req.params.id.toUpperCase());
+    if (!program) {
+        return res.status(404).json({ success: false, message: `البرنامج غير موجود: ${req.params.id}` });
+    }
+    res.json({
+        success:   true,
+        message:   `أثر برنامج: ${program.sheikhaName}`,
+        timestamp: new Date().toISOString(),
+        data:      program,
+    });
+});
+
+// ══════════════════════════════════════════════════════════
+// 🏆 مسار "الأول والأفضل"
+// ══════════════════════════════════════════════════════════
+router.get('/first-place', (req, res) => {
+    const impact = getImpact();
+    res.json({
+        success:   true,
+        message:   'شيخة — مسار الأول والأفضل في تحقيق النتائج الوطنية',
+        timestamp: new Date().toISOString(),
+        data:      impact.getFirstPlaceRoadmap(),
+    });
+});
+
+// ══════════════════════════════════════════════════════════
+// 📊 تقرير الأثر الوطني الشامل
+// ══════════════════════════════════════════════════════════
+router.get('/national-report', (req, res) => {
+    const impact = getImpact();
+    res.json({
+        success:   true,
+        message:   'تقرير شيخة للأثر الوطني الشامل — رؤية ٢٠٣٠',
+        timestamp: new Date().toISOString(),
+        data:      impact.getNationalImpactReport(),
+    });
+});
+
+// ══════════════════════════════════════════════════════════
+// 🔗 التكامل مع المؤشرات الوطنية
+// ══════════════════════════════════════════════════════════
+router.get('/national-integration', (req, res) => {
+    const impact = getImpact();
+    res.json({
+        success:   true,
+        message:   'تكامل شيخة مع المؤشرات الوطنية لرؤية ٢٠٣٠',
+        timestamp: new Date().toISOString(),
+        data:      impact.getNationalIntegrationStatus(),
+    });
+});
+
+// ══════════════════════════════════════════════════════════
+// 🔄 تحديث بيانات التقدم الحي (POST)
+// ══════════════════════════════════════════════════════════
+router.post('/refresh', (req, res) => {
+    const impact = getImpact();
+    const result = impact.refresh(req.body || {});
+    res.json({
+        success:   true,
+        message:   'تم تحديث مؤشرات الأثر بنجاح',
+        timestamp: new Date().toISOString(),
+        data:      result,
     });
 });
 
