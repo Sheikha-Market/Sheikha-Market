@@ -35238,6 +35238,8 @@ const SHEIKHA_COPILOT_CONFIG = {
         publisher: 'sheikha',
         bridgeProtocol: 'MCP',
         serverUrl: 'http://localhost:8080',
+        mcpServerUrl: 'http://localhost:3091',       // خادم MCP الخلفي المستقل
+        mcpManifest: 'http://localhost:3091/.well-known/mcp.json',
         compatibleWith: 'Sheikha VS Code (latest)'
     },
     privacy: {
@@ -35509,7 +35511,43 @@ app.get('/api/sheikha/copilot/settings', (req, res) => {
 });
 
 app.get('/api/sheikha/copilot/vscode-bridge', (req, res) => {
-    res.json({ success: true, data: { bridge: { name: 'Sheikha Copilot ↔ VS Code Bridge', protocol: 'MCP', status: 'active', serverUrl: 'http://localhost:8080' }, features: [{ name: 'inlineCompletions', status: 'active' }, { name: 'chat', status: 'active' }, { name: 'agentMode', status: 'active' }, { name: 'nes', status: 'active' }, { name: 'inlineChat', status: 'active' }, { name: 'editMode', status: 'active' }], languageSupport: SHEIKHA_COPILOT_CONFIG.supportedLanguages.length + ' لغة برمجية', languageIndexing: 'مفهرسة بالكتاب والسنة', shariaGuardrails: 'مفعّلة' }, message: 'جسر Sheikha Copilot ↔ VS Code نشط', timestamp: new Date().toISOString() });
+    res.json({
+        success: true,
+        data: {
+            bridge: {
+                name:        'Sheikha Copilot ↔ VS Code Bridge',
+                protocol:    'MCP',
+                status:      'active',
+                serverUrl:   'http://localhost:8080',
+                mcpServerUrl:'http://localhost:3091',
+                mcpManifest: 'http://localhost:3091/.well-known/mcp.json',
+            },
+            features: [
+                { name: 'inlineCompletions', status: 'active' },
+                { name: 'chat',              status: 'active' },
+                { name: 'agentMode',         status: 'active' },
+                { name: 'nes',               status: 'active' },
+                { name: 'inlineChat',        status: 'active' },
+                { name: 'editMode',          status: 'active' },
+            ],
+            languageSupport:   SHEIKHA_COPILOT_CONFIG.supportedLanguages.length + ' لغة برمجية',
+            languageIndexing:  'مفهرسة بالكتاب والسنة',
+            shariaGuardrails:  'مفعّلة',
+            vsCodeSettings: {
+                'github.copilot.advanced': {
+                    'debug.useElectronFetcher': false,
+                    'debug.overrideProxyUrl':   'http://localhost:3091',
+                },
+                'mcp': {
+                    servers: {
+                        sheikha: { url: 'http://localhost:3091/.well-known/mcp.json' },
+                    },
+                },
+            },
+        },
+        message:   'جسر Sheikha Copilot ↔ VS Code نشط',
+        timestamp: new Date().toISOString(),
+    });
 });
 
 app.get('/api/sheikha/copilot/extensions-sync', (req, res) => {
