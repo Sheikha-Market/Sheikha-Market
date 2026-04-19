@@ -109,8 +109,18 @@ class Matrix {
 // 2. دوال التفعيل
 // ══════════════════════════════════════════════════════════════════════════════
 
+// حدود التشبع للـ Sigmoid — تمنع overflow في Math.exp
+const SIGMOID_CLAMP_MIN = -500;
+const SIGMOID_CLAMP_MAX =  500;
+
+// عتبات تقييم الموردين
+const GRADE_A_PLUS  = 90;
+const GRADE_A       = 80;
+const GRADE_B       = 70;
+const GRADE_C       = 60;
+
 const Activations = {
-    sigmoid:  x => 1 / (1 + Math.exp(-Math.max(-500, Math.min(500, x)))),
+    sigmoid:  x => 1 / (1 + Math.exp(-Math.max(SIGMOID_CLAMP_MIN, Math.min(SIGMOID_CLAMP_MAX, x)))),
     relu:     x => Math.max(0, x),
     tanh:     x => Math.tanh(x),
     softmax(arr) {
@@ -427,7 +437,7 @@ class SheikhaSupplyChainNeuralNetwork {
         }
 
         const pct = Math.round(total * 100);
-        const grade = pct >= 90 ? 'A+' : pct >= 80 ? 'A' : pct >= 70 ? 'B' : pct >= 60 ? 'C' : 'D';
+        const grade = pct >= GRADE_A_PLUS ? 'A+' : pct >= GRADE_A ? 'A' : pct >= GRADE_B ? 'B' : pct >= GRADE_C ? 'C' : 'D';
 
         const result = { score: pct, grade, details: scores, weights };
         this._supplierCache.set(s.id || `S-${Date.now()}`, result);
@@ -445,7 +455,7 @@ class SheikhaSupplyChainNeuralNetwork {
         const { annualDemand = 1000, orderCost = 50, holdingCostPct = 0.25, unitPrice = 10,
                 leadTimeDays = 14, demandStdDev = 50, serviceLevelZ = 1.65 } = params;
 
-        const holdingCost = holdingCostPct * unitPrice;
+        const holdingCost = Math.max(1e-6, holdingCostPct * unitPrice); // تجنب القسمة على صفر
         const eoq         = Math.sqrt((2 * annualDemand * orderCost) / holdingCost);
         const dailyDemand = annualDemand / 365;
         const safetyStock = serviceLevelZ * demandStdDev * Math.sqrt(leadTimeDays);
