@@ -63,7 +63,7 @@ class SheikhaAsabeelLogisticsNetwork {
                     application: 'تصميم مسارات النقل الموسمية وخطط الطاقة الاستيعابية'
                 },
                 {
-                    id: 'nahl-nahl',
+                    id: 'nahl-transport',
                     surah: 'النحل',
                     ayah: 8,
                     text: 'وَالْخَيْلَ وَالْبِغَالَ وَالْحَمِيرَ لِتَرْكَبُوهَا وَزِينَةً وَيَخْلُقُ مَا لَا تَعْلَمُونَ',
@@ -812,7 +812,7 @@ class SheikhaAsabeelLogisticsNetwork {
                 avgDeliveryTimeGCC: '18.5 ساعة',
                 avgDeliveryTimeIntl: '8.3 يوم',
                 costSavingsVsMarket: '23.4%',
-                co2ReducedMonthlykgTon: 2850
+                co2ReducedMonthlyTons: 2850
             },
             financial: {
                 revenueMonthly: '18,500,000 SAR',
