@@ -44,7 +44,10 @@ const config = {
             // ─── الحوكمة والملكية الفكرية ──────────────────────────────────────
             governance:          'governance-decisions.json',  // قرارات الحوكمة الشرعية
             intellectualProperty:'intellectual-property.json', // سجل الأصول الفكرية
-            ipViolations:        'ip-violations.json'          // بلاغات انتهاك الملكية الفكرية
+            ipViolations:        'ip-violations.json',          // بلاغات انتهاك الملكية الفكرية
+            // ─── الشبكة العصبية والتحسين المستمر ─────────────────────────────────
+            logicNeuralNetwork:  'logic-neural-network.json',   // أوزان الشبكة العصبية
+            continuousImprovement: 'continuous-improvement.json' // محرك التحسين المستمر
         }
     },
 
