@@ -239,6 +239,70 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل المحرك العصبي الكوني:', err.stack || err.message);
 }
 
+
+// ─── تسجيل صانعة شيخة الجيل الجديد — تكنولوجيا الصناعة ───────────────────────
+
+try {
+    const { engine: nextgenMfgEngine } = require('../../lib/sheikha-nextgen-manufacturer');
+    registerEngine('nextgen_manufacturer', nextgenMfgEngine, {
+        nameAr: 'صانعة شيخة — الجيل الجديد | تكنولوجيا الصناعة',
+        maqsad: 'ARD',
+    });
+    // مسارات التوجيه لصانعة الجيل الجديد
+    registerRoute('nextgen',                 'nextgen_manufacturer', 'ARD');
+    registerRoute('nextgen_manufacturer',    'nextgen_manufacturer', 'ARD');
+    registerRoute('nextgen_manufacturing',   'nextgen_manufacturer', 'ARD');
+    registerRoute('manufacturing_tech',      'nextgen_manufacturer', 'ARD');
+    registerRoute('industry5',               'nextgen_manufacturer', 'ARD');
+    registerRoute('industry5_0',             'nextgen_manufacturer', 'ARD');
+    registerRoute('quantum_manufacturing',   'nextgen_manufacturer', 'ARD');
+    registerRoute('nano_manufacturing',      'nextgen_manufacturer', 'ARD');
+    registerRoute('bio_manufacturing',       'nextgen_manufacturer', 'ARD');
+    registerRoute('space_manufacturing',     'nextgen_manufacturer', 'ARD');
+    registerRoute('generative_design',       'nextgen_manufacturer', 'ARD');
+    registerRoute('manufacturer_market',     'nextgen_manufacturer', 'MAL');
+    registerRoute('nextgen_materials',       'nextgen_manufacturer', 'ARD');
+    registerRoute('oee',                     'nextgen_manufacturer', 'ARD');
+    registerRoute('distributed_manufacturing','nextgen_manufacturer', 'ARD');
+    registerRoute('sharia_manufacturing',    'nextgen_manufacturer', 'DEEN');
+    console.log('[ENGINES-INDEX] ✅ صانعة شيخة الجيل الجديد مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل صانعة الجيل الجديد:', err.stack || err.message);
+}
+
+// ─── تسجيل شبكة شيخة العصبية للصناعة والمصانع والتصنيع والإنتاج الصناعي ──────
+
+try {
+    const { engine: industrialNNEngine } = require('../../lib/sheikha-industrial-neural-network');
+    registerEngine('industrial_nn', industrialNNEngine, {
+        nameAr: 'شبكة شيخة العصبية للصناعة والمصانع والتصنيع والإنتاج الصناعي',
+        maqsad: 'ARD',
+    });
+    // مسارات التوجيه الصناعية الشاملة
+    registerRoute('industry',            'industrial_nn', 'ARD');
+    registerRoute('industrial',          'industrial_nn', 'ARD');
+    registerRoute('factory',             'industrial_nn', 'ARD');
+    registerRoute('manufacturing',       'industrial_nn', 'ARD');
+    registerRoute('factory_monitor',     'industrial_nn', 'ARD');
+    registerRoute('production_plan',     'industrial_nn', 'ARD');
+    registerRoute('quality_control',     'industrial_nn', 'ARD');
+    registerRoute('predictive_maint',    'industrial_nn', 'ARD');
+    registerRoute('digital_twin',        'industrial_nn', 'ARD');
+    registerRoute('energy_optimize',     'industrial_nn', 'ARD');
+    registerRoute('robotics_auto',       'industrial_nn', 'ARD');
+    registerRoute('workforce_safety',    'industrial_nn', 'NAFS');
+    registerRoute('sector_analysis',     'industrial_nn', 'ARD');
+    registerRoute('standards_comply',    'industrial_nn', 'ARD');
+    registerRoute('industrial_general',  'industrial_nn', 'ARD');
+    registerRoute('industry4',           'industrial_nn', 'ARD');
+    registerRoute('smart_factory',       'industrial_nn', 'ARD');
+    registerRoute('iiot',                'industrial_nn', 'ARD');
+    registerRoute('industrial_supply_chain', 'industrial_nn', 'MAL');
+    console.log('[ENGINES-INDEX] ✅ شبكة شيخة العصبية للصناعة والمصانع مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل الشبكة العصبية الصناعية:', err.stack || err.message);
+}
+
 // ─── تسجيل شبكة شيخة العصبية للطاقة ─────────────────────────────────────────
 // ﴿ اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ ﴾ — النور ٣٥
 
@@ -316,7 +380,6 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل شبكة الموارد العصبية:', err.stack || err.message);
 }
 
-
 // ─── تسجيل شبكة شيخة العصبية للإنتاج ────────────────────────────────────────
 
 try {
@@ -370,12 +433,14 @@ if (_governor) {
             standards:          'محرك المعايير والجودة',
             vision:             'محرك الرؤى والاستشارات',
             consulting:         'محرك الاستشارات الكونية',
-            'live-ai':           'شبكة الذكاء الاصطناعي الحية',
-            universal_networks:  'المحرك العصبي الكوني الشامل',
-            specialized_neural:  'محرك شيخة للشبكات العصبية المتخصصة',
-            energy:              'شبكة شيخة العصبية للطاقة',
-            resources:           'شبكة شيخة العصبية للموارد (صناعة، جدوى، خطوط، لوجستيات)',
-            production_neural:   'شبكة شيخة العصبية للإنتاج',
+            'live-ai':            'شبكة الذكاء الاصطناعي الحية',
+            universal_networks:   'المحرك العصبي الكوني الشامل',
+            specialized_neural:   'محرك شيخة للشبكات العصبية المتخصصة',
+            industrial_nn:        'شبكة شيخة العصبية للصناعة والمصانع والتصنيع والإنتاج الصناعي',
+            nextgen_manufacturer: 'صانعة شيخة — الجيل الجديد | تكنولوجيا الصناعة',
+            energy:               'شبكة شيخة العصبية للطاقة',
+            resources:            'شبكة شيخة العصبية للموارد (صناعة، جدوى، خطوط، لوجستيات)',
+            production_neural:    'شبكة شيخة العصبية للإنتاج',
         };
         const allEngines = listEngines();
         for (const engineKey of allEngines) {
