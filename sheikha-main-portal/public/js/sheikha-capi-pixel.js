@@ -1,19 +1,19 @@
 /**
  * ╔══════════════════════════════════════════════════════════════════════════════╗
- * ║   📱 sheikha-capi-pixel.js — مكتبة Meta Pixel + CAPI المتصفح              ║
- * ║   Sheikha Dual-Fire: Browser Pixel ↔ Server CAPI (Deduplication)          ║
+ * ║   📱 sheikha-capi-pixel.js — مكتبة Meta Pixel / CAPI للمتصفح               ║
+ * ║   Sheikha CAPI: Server-Side Events for Meta Ads (Instagram / Meta Business)  ║
  * ║                                                                              ║
  * ║   بسم الله الرحمن الرحيم                                                    ║
- * ║   الإصدار: 1.0.0 — يعمل مع SheikhMetaEngine v1.0                          ║
+ * ║   ملاحظة: Meta Pixel API مسموح — حسابات Facebook الشخصية ممنوعة            ║
  * ╚══════════════════════════════════════════════════════════════════════════════╝
  *
  * الاستخدام:
- *   1. أضف هذا الملف في <head> بعد تحميل fbevents.js:
+ *   1. أضف هذا الملف في <head>:
  *      <script src="/js/sheikha-capi-pixel.js"></script>
  *
  *   2. شيخة تُطلق تلقائياً:
- *      - PageView      → عند كل صفحة
- *      - LandingPageView → عند القدوم من إعلان Instagram (fbc موجود)
+ *      - PageView        → عند كل صفحة
+ *      - LandingPageView → عند القدوم من إعلان Instagram/Meta (utm_source)
  *
  *   3. لإطلاق حدث يدوياً:
  *      SheikhaPixel.track('Lead', { value: 0, currency: 'SAR' });
@@ -64,8 +64,8 @@
     }
 
     /**
-     * تحديد placement من utm_source + utm_medium + fbclid
-     * instagram_feed | instagram_stories | instagram_reels | instagram_explore | facebook_feed | unknown
+     * تحديد placement من utm_source + utm_medium
+     * instagram_feed | instagram_stories | instagram_reels | instagram_explore
      */
     function detectPlacement() {
         var src    = (getParam('utm_source')  || '').toLowerCase();
@@ -78,34 +78,16 @@
             if (place.includes('explore'))                              return 'instagram_explore';
             return 'instagram_feed';
         }
-        if (src === 'facebook' || src.includes('fb')) {
-            if (place.includes('stories')) return 'facebook_stories';
-            return 'facebook_feed';
-        }
-        // fbclid موجود = من إعلان Meta (غير محدد placement)
-        if (getParam('fbclid')) return 'meta_ad';
+        // fbclid موجود = زيارة من إعلان Meta غير محدد
+        if (getParam('fbclid')) return null;
         return null;
     }
 
     /**
-     * هل الزيارة قادمة من إعلان Meta؟
-     * _fbc (فيسبوك كلِك كوكي) أو fbclid في الـ URL
+     * هل الزيارة قادمة من إعلان Instagram؟
      */
     function isFromMetaAd() {
-        return !!(getCookie('_fbc') || getParam('fbclid'));
-    }
-
-    /** تحديث _fbc من fbclid عند أول زيارة */
-    function refreshFbc() {
-        var fbclid = getParam('fbclid');
-        if (fbclid && !getCookie('_fbc')) {
-            var ts = Math.floor(Date.now() / 1000);
-            var fbc = 'fb.1.' + ts + '.' + fbclid;
-            // صلاحية 90 يوم — توافق Meta CAPI
-            var expires = new Date(Date.now() + 90 * 24 * 3600 * 1000).toUTCString();
-            document.cookie = '_fbc=' + encodeURIComponent(fbc)
-                + '; path=/; expires=' + expires + '; SameSite=Lax';
-        }
+        return !!(getParam('igshid') || (getParam('utm_source') || '').toLowerCase().includes('instagram'));
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -118,10 +100,7 @@
 
         var body = {
             eventId: eventId,
-            userData: {
-                fbp: getCookie('_fbp') || undefined,
-                fbc: getCookie('_fbc') || undefined,
-            },
+            userData: {},
             customData: Object.assign({
                 sourceUrl: window.location.href,
                 eventName: eventName,
@@ -158,13 +137,7 @@
     function fireEvent(eventName, browserParams, serverCustomData) {
         var eid = uuid();
 
-        // 1. Browser Pixel (fbq)
-        if (typeof window.fbq === 'function') {
-            window.fbq('track', eventName, browserParams || {}, { eventID: eid });
-            if (DEBUG) console.log('[SheikhaPixel] fbq →', eventName, browserParams, 'eventID:', eid);
-        }
-
-        // 2. Server CAPI — نفس event_id لإزالة التكرار
+        // Server CAPI (Instagram/Meta) فقط — بدون Facebook Pixel
         sendToServer(eventName, Object.assign({ eventId: eid }, serverCustomData || {}), eid);
 
         return eid;
@@ -181,7 +154,6 @@
          */
         init: function (pixelId) {
             PIXEL_ID = pixelId || PIXEL_ID;
-            refreshFbc();
 
             if (DEBUG) {
                 console.log('[SheikhaPixel] init | pixelId:', PIXEL_ID, '| market:', MARKET, '| apiBase:', API_BASE);

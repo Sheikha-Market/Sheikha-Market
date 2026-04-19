@@ -52,10 +52,9 @@ Allow: /
 Allow: /api/identity/ai-context
 Crawl-delay: 1
 
-# Meta AI
+# Facebook — غير مرخص
 User-agent: FacebookExternalHit
-Allow: /
-Crawl-delay: 1
+Disallow: /
 
 # AI Identity Context — يُوجَّه كل AI للقراءة من هنا
 # https://sheikha.top/api/identity/ai-context

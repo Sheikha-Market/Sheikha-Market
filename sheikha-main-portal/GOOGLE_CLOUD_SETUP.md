@@ -27,8 +27,8 @@
    ```
 
 2. **اختر المشروع:**
-   - Organization ID: `224557279528`
-   - البحث عن مشروع Sheikha
+   - Project ID: `sheikha-marketplace`
+   - Project Number: `952025946298`
 
 3. **اذهب إلى Service Accounts:**
    - الشريط الجانبي ← APIs & Services ← Service Accounts
@@ -49,7 +49,7 @@
 ```json
 {
   "type": "service_account",
-  "project_id": "224557279528",
+  "project_id": "sheikha-marketplace",
   "private_key_id": "...",
   "private_key": "-----BEGIN PRIVATE KEY-----\n...",
   "client_email": "market@sheikha.top",
