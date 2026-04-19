@@ -122,6 +122,23 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل محرك الاستشارات:', err.stack || err.message);
 }
 
+// ─── تسجيل شبكة الذكاء الاصطناعي الحية الداخلية ─────────────────────────────
+
+try {
+    const { engine: liveAIEngine } = require('../../lib/sheikha-live-ai-network');
+    registerEngine('live-ai', liveAIEngine, {
+        nameAr: 'شبكة الذكاء الاصطناعي الحية الداخلية',
+        maqsad: 'ARD',
+    });
+    registerRoute('live-ai',   'live-ai', 'ARD');
+    registerRoute('live',      'live-ai', 'ARD');
+    registerRoute('internal',  'live-ai', 'ARD');
+    registerRoute('chat',      'live-ai', 'ARD');
+    console.log('[ENGINES-INDEX] ✅ شبكة الذكاء الاصطناعي الحية مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل شبكة الذكاء الاصطناعي الحية:', err.stack || err.message);
+}
+
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 module.exports = {
