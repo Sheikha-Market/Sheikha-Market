@@ -36129,6 +36129,95 @@ try {
     console.warn('⚠️ [VISION] منظومة الرؤية غير متوفرة:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠🌌 SHEIKHA UNIVERSAL NETWORKS NEURAL ENGINE — الشبكة العصبية الكونية لكل شيء
+// "وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا" — البقرة ٣١
+// يشمل كل جنس ونوع وصفة لكل شبكة في الكون
+// ═══════════════════════════════════════════════════════════════════════════════
+let universalNeuralEngine = null;
+try {
+    const { engine: _une } = require('./lib/sheikha-universal-networks-neural-engine');
+    universalNeuralEngine = _une;
+
+    // ── حالة المحرك الكوني ──────────────────────────────────────────────────
+    app.get('/api/neural/cosmic/status', (req, res) => {
+        res.json({ success: true, data: universalNeuralEngine.status(), timestamp: new Date().toISOString() });
+    });
+
+    // ── قائمة كل أجناس الشبكات (أو جنس محدد عبر ?genus=...) ─────────────
+    app.get('/api/neural/cosmic/networks', (req, res) => {
+        const genusId = req.query.genus || null;
+        const data = universalNeuralEngine.listNetworks(genusId);
+        res.json({ success: true, data, timestamp: new Date().toISOString() });
+    });
+
+    // ── أنواع جنس شبكة محدد بالمسار ────────────────────────────────────────
+    app.get('/api/neural/cosmic/networks/:genus', (req, res) => {
+        const data = universalNeuralEngine.listNetworks(req.params.genus);
+        if (data.error) return res.status(404).json({ success: false, ...data, timestamp: new Date().toISOString() });
+        res.json({ success: true, data, timestamp: new Date().toISOString() });
+    });
+
+    // ── تصنيف ذكي لأي شبكة بالنص (POST body: { text }) ────────────────────
+    app.post('/api/neural/cosmic/classify', (req, res) => {
+        const text = (req.body && req.body.text) ? String(req.body.text).trim() : '';
+        if (!text) {
+            return res.status(400).json({ success: false, message: 'أرسل حقل text في جسم الطلب', timestamp: new Date().toISOString() });
+        }
+        const data = universalNeuralEngine.classifyNetwork(text);
+        res.json({ success: true, data, timestamp: new Date().toISOString() });
+    });
+
+    // ── GET بديل للتصنيف (query: ?text=...) ────────────────────────────────
+    app.get('/api/neural/cosmic/classify', (req, res) => {
+        const text = req.query.text ? String(req.query.text).trim() : '';
+        if (!text) {
+            return res.status(400).json({ success: false, message: 'أرسل معامل text في الرابط', timestamp: new Date().toISOString() });
+        }
+        const data = universalNeuralEngine.classifyNetwork(text);
+        res.json({ success: true, data, timestamp: new Date().toISOString() });
+    });
+
+    // ── المقاييس الرياضية للشبكات (اختياري: ?type=...) ─────────────────────
+    app.get('/api/neural/cosmic/metrics', (req, res) => {
+        const typeFilter = req.query.type || null;
+        const data = universalNeuralEngine.getMetrics(typeFilter);
+        res.json({ success: true, data, timestamp: new Date().toISOString() });
+    });
+
+    // ── مصفوفة التكامل بين الشبكات (اختياري: ?from=...&to=...) ─────────────
+    app.get('/api/neural/cosmic/integrations', (req, res) => {
+        const data = universalNeuralEngine.getIntegrations(req.query.from || null, req.query.to || null);
+        res.json({ success: true, data, timestamp: new Date().toISOString() });
+    });
+
+    // ── التوبولوجيات المدعومة ────────────────────────────────────────────────
+    app.get('/api/neural/cosmic/topologies', (req, res) => {
+        res.json({ success: true, data: universalNeuralEngine.getTopologies(), timestamp: new Date().toISOString() });
+    });
+
+    // ── تفاصيل نوع شبكة بالمعرّف ────────────────────────────────────────────
+    app.get('/api/neural/cosmic/type/:id', (req, res) => {
+        const data = universalNeuralEngine.getTypeById(req.params.id);
+        if (data.error) return res.status(404).json({ success: false, ...data, timestamp: new Date().toISOString() });
+        res.json({ success: true, data, timestamp: new Date().toISOString() });
+    });
+
+    const _s = universalNeuralEngine.status();
+    console.log(`✅ [COSMIC-NEURAL] الشبكة العصبية الكونية مُفعَّلة | ${_s.totalGenera} جنس | ${_s.totalTypes} نوع | ${_s.totalIntegrations} تكامل | عصبي: ${_s.neuralEnabled}`);
+    console.log('   ├─ GET  /api/neural/cosmic/status          — حالة الشبكة العصبية الكونية');
+    console.log('   ├─ GET  /api/neural/cosmic/networks        — قائمة كل أجناس الشبكات وأنواعها');
+    console.log('   ├─ GET  /api/neural/cosmic/networks/:genus — أنواع جنس شبكة محدد');
+    console.log('   ├─ POST /api/neural/cosmic/classify        — تصنيف ذكي لأي شبكة بالنص');
+    console.log('   ├─ GET  /api/neural/cosmic/classify?text=  — تصنيف ذكي (GET)');
+    console.log('   ├─ GET  /api/neural/cosmic/metrics         — المقاييس الرياضية');
+    console.log('   ├─ GET  /api/neural/cosmic/integrations    — مصفوفة التكامل');
+    console.log('   ├─ GET  /api/neural/cosmic/topologies      — التوبولوجيات');
+    console.log('   └─ GET  /api/neural/cosmic/type/:id        — تفاصيل نوع بالمعرّف');
+} catch (e) {
+    console.warn('⚠️ [COSMIC-NEURAL] فشل تحميل الشبكة العصبية الكونية:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
