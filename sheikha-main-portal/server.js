@@ -36091,6 +36091,34 @@ try {
     console.warn('⚠️ [TELECOM] فشل تحميل مسارات الاتصالات:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 شبكة الذكاء الاصطناعي الحية v2 — الأقوى · الأفضل · الأتقى · الأنفع
+// ٧ عقد متخصصة · Word2Vec · SelfAttention · Backprop · Batch · Semantic Sim
+// "وَقُل رَّبِّ زِدْنِي عِلْمًا" — طه:١١٤
+// ═══════════════════════════════════════════════════════════════════════════════
+let liveAINetworkInstance = null;
+try {
+    const { liveAINetwork } = require('./lib/sheikha-live-ai-network');
+    liveAINetworkInstance = liveAINetwork;
+    liveAINetwork.ignite().then(() => {
+        console.log('✅ [LIVE-AI v2] شبكة الذكاء الاصطناعي الحية — مُفعَّلة (٧ عقد)');
+        console.log('   ├─ POST /api/ai/live/ask          — استعلام ذكي عام');
+        console.log('   ├─ POST /api/ai/live/batch        — طلبات متعددة متوازية');
+        console.log('   ├─ POST /api/ai/live/similarity   — تشابه دلالي');
+        console.log('   ├─ POST /api/ai/live/embed        — متجه تضمين');
+        console.log('   ├─ POST /api/ai/live/deep-analyze — تحليل عصبي عميق');
+        console.log('   ├─ POST /api/ai/live/sharia       — استفسار شرعي');
+        console.log('   ├─ GET  /api/ai/live/knowledge    — قاعدة المعرفة');
+        console.log('   └─ GET  /api/ai/live/status       — حالة الشبكة');
+    }).catch(e => console.warn('⚠️ [LIVE-AI v2] خطأ في تشغيل الشبكة:', e.message));
+
+    const liveAIRoutes = require('./routes/live-ai');
+    app.use('/api/ai/live', liveAIRoutes);
+    console.log('✅ [LIVE-AI v2] مسارات الذكاء الاصطناعي الحي v2 مسجّلة على /api/ai/live');
+} catch (e) {
+    console.warn('⚠️ [LIVE-AI v2] شبكة الذكاء الاصطناعي الحية غير متوفرة:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {

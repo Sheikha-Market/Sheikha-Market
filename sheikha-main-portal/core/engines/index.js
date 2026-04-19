@@ -155,6 +155,22 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل الحاكمة العليا:', err.stack || err.message);
 }
 
+// ─── تسجيل شبكة الذكاء الاصطناعي الحية الداخلية ─────────────────────────────
+
+try {
+    const { engine: liveAIEngine } = require('../../lib/sheikha-live-ai-network');
+    registerEngine('live-ai', liveAIEngine, {
+        nameAr: 'شبكة الذكاء الاصطناعي الحية الداخلية',
+        maqsad: 'ARD',
+    });
+    registerRoute('live-ai',   'live-ai', 'ARD');
+    registerRoute('live',      'live-ai', 'ARD');
+    registerRoute('internal',  'live-ai', 'ARD');
+    registerRoute('chat',      'live-ai', 'ARD');
+    console.log('[ENGINES-INDEX] ✅ شبكة الذكاء الاصطناعي الحية مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل شبكة الذكاء الاصطناعي الحية:', err.stack || err.message);
+}
 
 try {
     const { engine: universalNetworksEngine } = require('../../lib/sheikha-universal-networks-neural-engine');
@@ -213,6 +229,7 @@ if (_governor) {
             standards:          'محرك المعايير والجودة',
             vision:             'محرك الرؤى والاستشارات',
             consulting:         'محرك الاستشارات الكونية',
+            'live-ai':          'شبكة الذكاء الاصطناعي الحية',
             universal_networks: 'المحرك العصبي الكوني الشامل',
         };
         const allEngines = listEngines();
