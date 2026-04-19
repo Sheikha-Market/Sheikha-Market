@@ -11,12 +11,23 @@
  * • استخراج البيانات والعلاقات
  * • تصور شامل للموقع
  * • وكلاء الذكاء الاصطناعي المتخصصين
+ * • رؤية الدول الاستراتيجية (Saudi 2030, UAE 2071, Qatar 2030...)
+ * • الرؤية الحاسوبية (OCR, كشف الأشياء, باركود, فحص جودة...)
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
+// استيراد المحركات الجديدة
+let NationalVisionsEngine, ComputerVisionEngine;
+try {
+    NationalVisionsEngine = require('./sheikha-national-visions-engine.js');
+} catch (_) {}
+try {
+    ComputerVisionEngine = require('./sheikha-computer-vision-engine.js');
+} catch (_) {}
+
 class SheikhaVisionSystem {
     constructor() {
-        this.version = '1.0.0';
+        this.version = '2.0.0';
         this.enabled = true;
 
         // 🕋 المبادئ الإسلامية الأساسية
@@ -38,6 +49,12 @@ class SheikhaVisionSystem {
             islamicValidator: new IslamicValidatorAgent()
         };
 
+        // 🌍 محرك رؤية الدول
+        this.nationalVisions = NationalVisionsEngine ? new NationalVisionsEngine() : null;
+
+        // 👁️ محرك الرؤية الحاسوبية
+        this.computerVision = ComputerVisionEngine ? new ComputerVisionEngine() : null;
+
         // 🎯 نماذج التحليل
         this.analysisModels = {
             pages: new Map(), // الصفحات المحللة
@@ -47,7 +64,59 @@ class SheikhaVisionSystem {
             semanticGraph: null // خريطة المعاني
         };
 
-        this.log('✅ منظومة الرؤية الشاملة مُفعّلة');
+        this.log('✅ منظومة الرؤية الشاملة v2.0 مُفعّلة');
+        if (this.nationalVisions) this.log('🌍 رؤية الدول: مُفعّلة');
+        if (this.computerVision) this.log('👁️ الرؤية الحاسوبية: مُفعّلة');
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🌍 رؤية الدول — National Visions
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    getNationalVisions(region) {
+        if (!this.nationalVisions) return null;
+        return region
+            ? this.nationalVisions.getVisionsByRegion(region)
+            : this.nationalVisions.getAllVisions();
+    }
+
+    getCountryVision(countryCode) {
+        if (!this.nationalVisions) return null;
+        return this.nationalVisions.getVisionByCountry(countryCode);
+    }
+
+    alignWithNationalVisions(businessProfile) {
+        if (!this.nationalVisions) return null;
+        return this.nationalVisions.alignBusinessWithVisions(businessProfile);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 👁️ الرؤية الحاسوبية — Computer Vision
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    async runOCR(imageInput, options) {
+        if (!this.computerVision) return { error: 'محرك الرؤية الحاسوبية غير متاح' };
+        return this.computerVision.extractText(imageInput, options);
+    }
+
+    async detectObjects(imageInput, options) {
+        if (!this.computerVision) return { error: 'محرك الرؤية الحاسوبية غير متاح' };
+        return this.computerVision.detectObjects(imageInput, options);
+    }
+
+    async readBarcode(imageInput, options) {
+        if (!this.computerVision) return { error: 'محرك الرؤية الحاسوبية غير متاح' };
+        return this.computerVision.readBarcode(imageInput, options);
+    }
+
+    async inspectQuality(imageInput, options) {
+        if (!this.computerVision) return { error: 'محرك الرؤية الحاسوبية غير متاح' };
+        return this.computerVision.inspectQuality(imageInput, options);
+    }
+
+    async analyzeDocument(imageInput, options) {
+        if (!this.computerVision) return { error: 'محرك الرؤية الحاسوبية غير متاح' };
+        return this.computerVision.analyzeDocument(imageInput, options);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════

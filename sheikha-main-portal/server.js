@@ -36119,6 +36119,62 @@ try {
     console.warn('⚠️ [LIVE-AI v2] شبكة الذكاء الاصطناعي الحية غير متوفرة:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌍 NATIONAL VISIONS ENGINE — محرك رؤية الدول الاستراتيجية
+// رؤية السعودية 2030 | الإمارات 2071 | قطر 2030 | الكويت 2035 | البحرين 2030 | عُمان 2040
+// "وَشَاوِرْهُمْ فِي الْأَمْرِ" — آل عمران: ١٥٩
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const nationalVisionsRoutes = require('./routes/national-visions-routes.js');
+    app.use('/api/national-visions', nationalVisionsRoutes);
+    console.log('✅ [NATIONAL-VISIONS] محرك رؤية الدول — مُفعَّل | SA+AE+QA+KW+BH+OM+EG+JO+MA+MY+TR+PK+CN+IN');
+    console.log('   ├─ GET  /api/national-visions              — جميع الرؤى');
+    console.log('   ├─ GET  /api/national-visions/country/:code — رؤية دولة بعينها');
+    console.log('   ├─ GET  /api/national-visions/region/:region — رؤى منطقة (gcc/arab/islamic/global)');
+    console.log('   ├─ GET  /api/national-visions/search?q=... — بحث في الرؤى');
+    console.log('   ├─ GET  /api/national-visions/progress     — تقرير التقدم');
+    console.log('   ├─ GET  /api/national-visions/opportunities — فرص الاستثمار');
+    console.log('   └─ POST /api/national-visions/align        — مواءمة الأعمال مع الرؤى');
+} catch (e) {
+    console.log('⚠️ [NATIONAL-VISIONS] فشل تحميل مسارات رؤية الدول:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 👁️ COMPUTER VISION ENGINE — محرك الرؤية الحاسوبية
+// OCR | كشف الأشياء | باركود QR | تحليل المستندات | فحص الجودة | كشف العيوب
+// "أَوَلَمْ يَنظُرُوا فِي مَلَكُوتِ السَّمَاوَاتِ وَالْأَرْضِ" — الأعراف: ١٨٥
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const computerVisionRoutes = require('./routes/computer-vision-routes.js');
+    app.use('/api/computer-vision', computerVisionRoutes);
+    console.log('✅ [COMPUTER-VISION] محرك الرؤية الحاسوبية — مُفعَّل | 12 قدرة');
+    console.log('   ├─ POST /api/computer-vision/ocr                — استخراج النصوص (OCR)');
+    console.log('   ├─ POST /api/computer-vision/detect-objects     — كشف الأشياء');
+    console.log('   ├─ POST /api/computer-vision/barcode            — قراءة الباركود وQR');
+    console.log('   ├─ POST /api/computer-vision/recognize-product  — التعرف على المنتجات');
+    console.log('   ├─ POST /api/computer-vision/quality-inspect    — فحص الجودة');
+    console.log('   ├─ POST /api/computer-vision/analyze-document   — تحليل المستندات');
+    console.log('   ├─ POST /api/computer-vision/analyze-colors     — تحليل الألوان');
+    console.log('   ├─ POST /api/computer-vision/sentiment          — تحليل المشاعر البصرية');
+    console.log('   ├─ POST /api/computer-vision/satellite          — تحليل صور الأقمار الصناعية');
+    console.log('   ├─ POST /api/computer-vision/detect-defects     — كشف عيوب التصنيع');
+    console.log('   ├─ POST /api/computer-vision/analyze-full       — تحليل شامل للصورة');
+    console.log('   └─ GET  /api/computer-vision/status             — حالة المحرك');
+} catch (e) {
+    console.log('⚠️ [COMPUTER-VISION] فشل تحميل مسارات الرؤية الحاسوبية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔮 VISION SYSTEM ROUTES — منظومة الرؤية الشاملة
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const visionSystemRoutes = require('./routes/vision-system-routes.js');
+    app.use('/api/vision', visionSystemRoutes);
+    console.log('✅ [VISION-SYSTEM] منظومة الرؤية الشاملة — مُفعَّلة على /api/vision');
+} catch (e) {
+    console.log('⚠️ [VISION-SYSTEM] فشل تحميل مسارات منظومة الرؤية:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
