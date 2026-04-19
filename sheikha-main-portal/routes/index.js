@@ -19,6 +19,7 @@ const organizationsRoutes    = require('./organizations');
 const marketsOfMarketsRoutes = require('./markets-of-markets');
 const governanceRoutes       = require('./governance');
 const ipRoutes               = require('./intellectual-property');
+const logicsRoutes           = require('./logics');
 
 // ─── المسارات الرئيسية ────────────────────────────────────────────────────────
 
@@ -55,6 +56,11 @@ router.use('/api/governance', governanceRoutes);
 
 // الملكية الفكرية الكاملة لسوق شيخة ©️
 router.use('/api/ip', ipRoutes);
+
+// ─── المنطق السباعي ──────────────────────────────────────────────────────────
+
+// المنطق التنظيمي / التشريعي / التجاري / العلمي / البحثي / التقني / التكنولوجي
+router.use('/api/logics', logicsRoutes);
 
 // ─── مسار الحالة ──────────────────────────────────────────────────────────────
 
