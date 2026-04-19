@@ -36276,6 +36276,59 @@ try {
     console.log('⚠️ [VISION-SYSTEM] فشل تحميل مسارات منظومة الرؤية:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚙️ تكنلوجيا اللوجيستك والنقل — Sheikha Logistics & Transport Technology
+// ﴿ وَسَخَّرَ لَكُمُ الْفُلْكَ لِتَجْرِيَ فِي الْبَحْرِ بِأَمْرِهِ ﴾ — إبراهيم ٣٢
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const logisticsTechRoutes = require('./routes/logistics-tech.js');
+    app.use('/api/logistics-tech', logisticsTechRoutes);
+    console.log('✅ [LOGISTICS-TECH] تكنلوجيا اللوجيستك والنقل — مُفعَّلة');
+    console.log('   ├─ GET  /api/logistics-tech                    — ملخص سريع');
+    console.log('   ├─ GET  /api/logistics-tech/overview           — نظرة عامة شاملة');
+    console.log('   ├─ GET  /api/logistics-tech/iot                — IoT والتيليماتيكس');
+    console.log('   ├─ GET  /api/logistics-tech/blockchain         — سلسلة الكتل');
+    console.log('   ├─ GET  /api/logistics-tech/ai                 — الذكاء الاصطناعي');
+    console.log('   ├─ GET  /api/logistics-tech/autonomous         — الأنظمة المستقلة');
+    console.log('   ├─ GET  /api/logistics-tech/smart-warehouse    — المستودعات الذكية');
+    console.log('   ├─ GET  /api/logistics-tech/platforms          — المنصات الرقمية');
+    console.log('   ├─ GET  /api/logistics-tech/connectivity       — الاتصالات والجيل الخامس');
+    console.log('   ├─ GET  /api/logistics-tech/green-tech         — التكنولوجيا الخضراء');
+    console.log('   ├─ GET  /api/logistics-tech/cybersecurity      — أمن المعلومات');
+    console.log('   ├─ GET  /api/logistics-tech/digital-docs       — الوثائق الرقمية');
+    console.log('   ├─ GET  /api/logistics-tech/integration        — التكامل مع الأنظمة');
+    console.log('   ├─ GET  /api/logistics-tech/roadmap            — خارطة الطريق 2026-2030');
+    console.log('   └─ POST /api/logistics-tech/assess-maturity    — تقييم نضج التكنولوجيا');
+} catch (e) {
+    console.warn('⚠️ [LOGISTICS-TECH] فشل تحميل مسارات تكنولوجيا اللوجيستك:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🚚 شبكة شيخة العصبيل للوجستيات والنقل
+// Sheikha Al-Asabeel Logistics & Transport Network
+// ﴿ لِإِيلَافِ قُرَيْشٍ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ ﴾
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const asabeelRoutes = require('./routes/asabeel.js');
+    app.use('/api/asabeel', asabeelRoutes);
+    console.log('✅ [ASABEEL] شبكة العصبيل للوجستيات والنقل — مُفعَّلة');
+    console.log('   ├─ GET  /api/asabeel                      — ملخص الشبكة');
+    console.log('   ├─ GET  /api/asabeel/overview             — نظرة عامة شاملة');
+    console.log('   ├─ GET  /api/asabeel/network              — العقد والمراكز والممرات');
+    console.log('   ├─ GET  /api/asabeel/carriers             — الناقلون والأسطول');
+    console.log('   ├─ GET  /api/asabeel/transport-modes      — وسائل النقل');
+    console.log('   ├─ GET  /api/asabeel/warehouses           — شبكة المستودعات');
+    console.log('   ├─ GET  /api/asabeel/services             — الخدمات المتاحة');
+    console.log('   ├─ GET  /api/asabeel/ai                   — قدرات الذكاء الاصطناعي');
+    console.log('   ├─ GET  /api/asabeel/compliance           — الامتثال والوثائق');
+    console.log('   ├─ GET  /api/asabeel/islamic              — الأساس القرآني والشرعي');
+    console.log('   ├─ GET  /api/asabeel/statistics           — الإحصائيات الحية');
+    console.log('   ├─ POST /api/asabeel/quote                — عرض سعر شحنة');
+    console.log('   └─ GET  /api/asabeel/tracking/:id         — تتبع شحنة');
+} catch (e) {
+    console.warn('⚠️ [ASABEEL] فشل تحميل مسارات شبكة العصبيل:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
