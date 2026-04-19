@@ -239,6 +239,111 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل المحرك العصبي الكوني:', err.stack || err.message);
 }
 
+// ─── تسجيل شبكة شيخة العصبية للطاقة ─────────────────────────────────────────
+// ﴿ اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ ﴾ — النور ٣٥
+
+try {
+    const { engine: energyNeuralEngine } = require('../../lib/sheikha-energy-neural-network');
+    registerEngine('energy', energyNeuralEngine, {
+        nameAr: 'شبكة شيخة العصبية للطاقة',
+        nameEn: 'Sheikha Energy Neural Network',
+        maqsad: 'ARD',
+    });
+    registerRoute('energy',              'energy', 'ARD');
+    registerRoute('energy.classify',     'energy', 'ARD');
+    registerRoute('energy.predict',      'energy', 'ARD');
+    registerRoute('energy.forecast',     'energy', 'ARD');
+    registerRoute('energy.optimize',     'energy', 'ARD');
+    registerRoute('energy.score',        'energy', 'ARD');
+    registerRoute('energy.evaluate',     'energy', 'ARD');
+    registerRoute('energy.trade',        'energy', 'MAL');
+    registerRoute('energy.market',       'energy', 'MAL');
+    registerRoute('energy.vision2030',   'energy', 'ARD');
+    registerRoute('energy.sharia',       'energy', 'DEEN');
+    registerRoute('energy.physics',      'energy', 'ARD');
+    registerRoute('energy.calc',         'energy', 'ARD');
+    registerRoute('energy.list',         'energy', 'ARD');
+    registerRoute('energy.info',         'energy', 'ARD');
+    registerRoute('renewable',           'energy', 'ARD');
+    registerRoute('solar',               'energy', 'ARD');
+    registerRoute('wind_energy',         'energy', 'ARD');
+    registerRoute('nuclear_energy',      'energy', 'ARD');
+    registerRoute('hydrogen_energy',     'energy', 'ARD');
+    registerRoute('smart_grid',          'energy', 'ARD');
+    console.log('[ENGINES-INDEX] ✅ شبكة شيخة العصبية للطاقة مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل شبكة الطاقة العصبية:', err.stack || err.message);
+}
+
+// ─── تسجيل شبكة شيخة العصبية للموارد ────────────────────────────────────────
+
+try {
+    const { engine: resourcesNeuralEngine } = require('../../lib/sheikha-resources-neural-network');
+    registerEngine('resources', resourcesNeuralEngine, {
+        nameAr: 'شبكة شيخة العصبية للموارد',
+        nameEn: 'Sheikha Resources Neural Network',
+        maqsad: 'ARD',
+    });
+    // مسارات توجيه منظومة الموارد
+    registerRoute('resources',              'resources', 'ARD');
+    registerRoute('resource',               'resources', 'ARD');
+    registerRoute('resources.list',         'resources', 'ARD');
+    registerRoute('resources.analyze',      'resources', 'ARD');
+    registerRoute('resources.full',         'resources', 'ARD');
+    registerRoute('resources.forecast',     'resources', 'ARD');
+    registerRoute('resources.optimize',     'resources', 'ARD');
+    registerRoute('resources.info',         'resources', 'ARD');
+    registerRoute('resources.search',       'resources', 'ARD');
+    registerRoute('resources.status',       'resources', 'ARD');
+    registerRoute('natural_resources',      'resources', 'ARD');
+    registerRoute('energy_resources',       'resources', 'ARD');
+    registerRoute('human_resources',        'resources', 'NAFS');
+    registerRoute('financial_resources',    'resources', 'MAL');
+    registerRoute('agricultural_resources', 'resources', 'NAFS');
+    registerRoute('digital_resources',      'resources', 'ARD');
+    registerRoute('strategic_resources',    'resources', 'DEEN');
+    registerRoute('knowledge_resources',    'resources', 'AQL');
+    registerRoute('industry_resources',     'resources', 'ARD');
+    registerRoute('supply_lines',           'resources', 'MAL');
+    registerRoute('logistics',              'resources', 'MAL');
+    registerRoute('logistics_networks',     'resources', 'MAL');
+    registerRoute('feasibility',            'resources', 'MAL');
+    registerRoute('feasibility_study',      'resources', 'MAL');
+    registerRoute('production_lines',       'resources', 'ARD');
+    registerRoute('industry_full',          'resources', 'ARD');
+    console.log('[ENGINES-INDEX] ✅ شبكة شيخة العصبية للموارد مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل شبكة الموارد العصبية:', err.stack || err.message);
+}
+
+
+// ─── تسجيل شبكة شيخة العصبية للإنتاج ────────────────────────────────────────
+
+try {
+    const { engine: productionNeuralEngine } = require('../../lib/sheikha-production-neural-network');
+    registerEngine('production_neural', productionNeuralEngine, {
+        nameAr: 'شبكة شيخة العصبية للإنتاج',
+        nameEn: 'Sheikha Production Neural Network',
+        maqsad: 'ARD',
+    });
+    registerRoute('production',              'production_neural', 'ARD');
+    registerRoute('production.infer',        'production_neural', 'ARD');
+    registerRoute('production.train',        'production_neural', 'ARD');
+    registerRoute('production.batch_train',  'production_neural', 'ARD');
+    registerRoute('production.status',       'production_neural', 'ARD');
+    registerRoute('production.export',       'production_neural', 'ARD');
+    registerRoute('production.import',       'production_neural', 'ARD');
+    registerRoute('production.reset',        'production_neural', 'ARD');
+    registerRoute('production.pipelines',    'production_neural', 'ARD');
+    registerRoute('production.encode',       'production_neural', 'ARD');
+    registerRoute('prod.infer',              'production_neural', 'ARD');
+    registerRoute('prod.train',              'production_neural', 'ARD');
+    registerRoute('prod.status',             'production_neural', 'ARD');
+    console.log('[ENGINES-INDEX] 🧠 شبكة شيخة العصبية للإنتاج مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل شبكة الإنتاج العصبية:', err.stack || err.message);
+}
+
 // ─── تسجيل كل المحركات تحت سيادة الحاكمة العليا ─────────────────────────────
 // بعد تسجيل الجميع، تفرض شيخة سيادتها على الكل
 // ﴿ وَفَوْقَ كُلِّ ذِي عِلْمٍ عَلِيمٌ ﴾ — يوسف ٧٦
@@ -268,6 +373,9 @@ if (_governor) {
             'live-ai':           'شبكة الذكاء الاصطناعي الحية',
             universal_networks:  'المحرك العصبي الكوني الشامل',
             specialized_neural:  'محرك شيخة للشبكات العصبية المتخصصة',
+            energy:              'شبكة شيخة العصبية للطاقة',
+            resources:           'شبكة شيخة العصبية للموارد (صناعة، جدوى، خطوط، لوجستيات)',
+            production_neural:   'شبكة شيخة العصبية للإنتاج',
         };
         const allEngines = listEngines();
         for (const engineKey of allEngines) {
