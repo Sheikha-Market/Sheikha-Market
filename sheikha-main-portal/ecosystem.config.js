@@ -75,6 +75,35 @@ module.exports = {
             max_restarts: 0
         },
 
+        /* ─── Sheikha Ollama Copilot — خادم الذكاء المحلي ─ */
+        /* يعمل دائماً في الخلفية كجسر بين Ollama والمنظومة */
+        /* Ollama → خادم محلي على المنفذ 3092              */
+        {
+            name: 'sheikha-ollama-copilot',
+            cwd: __dirname,
+            script: './scripts/sheikha-ollama-copilot.js',
+            instances: 1,
+            exec_mode: 'fork',
+            autorestart: true,
+            watch: false,
+            max_memory_restart: '256M',
+            restart_delay: 5000,
+            env: {
+                NODE_ENV:             'production',
+                OLLAMA_COPILOT_PORT:  3092,
+                OLLAMA_COPILOT_HOST:  '0.0.0.0',
+                OLLAMA_HOST:          process.env.OLLAMA_HOST          || 'http://127.0.0.1:11434',
+                OLLAMA_BEST_MODEL:    process.env.OLLAMA_BEST_MODEL    || '',
+                SHEIKHA_SERVER_URL:   'http://127.0.0.1:8080',
+            },
+            error_file: './logs/ollama-copilot-error.log',
+            out_file:   './logs/ollama-copilot-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 10,
+            min_uptime: '5s',
+        },
+
         /* ─── شيخة Meta AI — خادم الخلفية ─────────────── */
         /* يعمل بالخلفية بشكل مستقل عن الخادم الرئيسي      */
         {
