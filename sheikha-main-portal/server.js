@@ -702,9 +702,7 @@ try {
 // ☪️ محرك المجتمعات والمجموعات
 let communityEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-community-engine.js
-    /*     const SheikhaCommunityEngine = require('./lib/sheikha-community-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-community-engine.js — سيُحمّل عند الطلب');
+    const SheikhaCommunityEngine = require('./lib/sheikha-community-engine.js');
     communityEngine = new SheikhaCommunityEngine();
     const com = communityEngine.getDashboard();
     console.log(
@@ -31702,9 +31700,7 @@ try {
 
 // ═══ منظومة المجتمع الرقمي والأساسي الشاملة ═══
 try {
-    // P0-1: LAZY (L1) - sheikha-digital-community-ecosystem.js
-    /*     const communityEcosystem = require('./lib/sheikha-digital-community-ecosystem.js'); */
-    console.log('⏸️ [LAZY] sheikha-digital-community-ecosystem.js — سيُحمّل عند الطلب');
+    const communityEcosystem = require('./lib/sheikha-digital-community-ecosystem.js');
     communityEcosystem(app, {
         USERS,
         TRADERS,
