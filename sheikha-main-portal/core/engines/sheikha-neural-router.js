@@ -74,17 +74,8 @@ const _routeTable = new Map([
     ['lmm',         { engine: 'ai',       maqsad: 'ARD' }],
     ['agent',       { engine: 'agents',   maqsad: 'ARD' }],
     // الأمان
-    ['security',    { engine: 'security',   maqsad: 'NAFS' }],
-    ['audit',       { engine: 'security',   maqsad: 'NAFS' }],
-    // سلاسل المداد والتوريد — الشبكة العصبية
-    ['scm',         { engine: 'neural_scm', maqsad: 'MAL'  }],
-    ['supply',      { engine: 'neural_scm', maqsad: 'MAL'  }],
-    ['procurement', { engine: 'neural_scm', maqsad: 'MAL'  }],
-    ['sourcing',    { engine: 'neural_scm', maqsad: 'MAL'  }],
-    ['logistics',   { engine: 'neural_scm', maqsad: 'ARD'  }],
-    ['inventory',   { engine: 'neural_scm', maqsad: 'MAL'  }],
-    ['shipment',    { engine: 'neural_scm', maqsad: 'ARD'  }],
-    ['forecast',    { engine: 'neural_scm', maqsad: 'AQL'  }],
+    ['security',    { engine: 'security', maqsad: 'NAFS' }],
+    ['audit',       { engine: 'security', maqsad: 'NAFS' }],
 ]);
 
 /**
