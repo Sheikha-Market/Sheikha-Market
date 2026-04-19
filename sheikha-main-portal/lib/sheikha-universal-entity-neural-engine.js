@@ -1009,6 +1009,5 @@ module.exports = {
     ENTITY_INPUT_FEATURES,
     ASMA_AL_HUSNA,
     QURAN_ENTITY_BRIDGE,
-    SCM_SHARIA_REFS: {}, // للتوافق مع المشاريع المستوردة
     generateEntityId,
 };

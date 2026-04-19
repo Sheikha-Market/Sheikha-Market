@@ -119,6 +119,10 @@ const GRADE_A       = 80;
 const GRADE_B       = 70;
 const GRADE_C       = 60;
 
+// حد أدنى لتكلفة الاحتفاظ بالمخزون في نموذج EOQ — يمنع القسمة على صفر
+// (يُعادل جزءًا من دولار، وهو أصغر قيمة اقتصادية ممكنة)
+const MIN_HOLDING_COST = 1e-6;
+
 const Activations = {
     sigmoid:  x => 1 / (1 + Math.exp(-Math.max(SIGMOID_CLAMP_MIN, Math.min(SIGMOID_CLAMP_MAX, x)))),
     relu:     x => Math.max(0, x),
@@ -455,7 +459,7 @@ class SheikhaSupplyChainNeuralNetwork {
         const { annualDemand = 1000, orderCost = 50, holdingCostPct = 0.25, unitPrice = 10,
                 leadTimeDays = 14, demandStdDev = 50, serviceLevelZ = 1.65 } = params;
 
-        const holdingCost = Math.max(1e-6, holdingCostPct * unitPrice); // تجنب القسمة على صفر
+        const holdingCost = Math.max(MIN_HOLDING_COST, holdingCostPct * unitPrice); // تجنب القسمة على صفر
         const eoq         = Math.sqrt((2 * annualDemand * orderCost) / holdingCost);
         const dailyDemand = annualDemand / 365;
         const safetyStock = serviceLevelZ * demandStdDev * Math.sqrt(leadTimeDays);
