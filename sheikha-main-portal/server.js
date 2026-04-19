@@ -940,6 +940,22 @@ try {
     console.warn('⚠️ VideoContent:', e.message);
 }
 
+// ════════════════════════════════════════════════════════════════════════════
+// 🏘️ شيخة الحي الحي — نظام الحي الذكي المتكامل (حي · تنبض · تعقل · تتفكر)
+//    محلات الحي × نبض لحظي × تفكير ذكي × تأمل عميق × ربط المجتمع
+//    ١٣ مسار API | نبض كل ٥ ثوانٍ | تفكير كل ٣٠ ثانية | إسلامي ١٠٠٪
+// ════════════════════════════════════════════════════════════════════════════
+let hayEngine = null;
+try {
+    const SheikhaHayEngine = require('./lib/sheikha-hay-engine.js');
+    hayEngine = new SheikhaHayEngine();
+    hayEngine.registerRoutes(app);
+    const hayStatus = hayEngine.getStatus();
+    console.log(`✅ [HayEngine v${hayStatus.version}] ${hayStatus.nameAr} | ${hayStatus.apis} API | ${hayStatus.rhythm} rhythm | صحة الحي: ${hayStatus.healthScore}%`);
+} catch (e) {
+    console.warn('⚠️ HayEngine:', e.message);
+}
+
 // ☪️ منظومة التسويق الشامل الموحد — UMB (مُعرَّفة هنا، تُسجَّل بعد app)
 let unifiedMarketingBrain = null;
 
