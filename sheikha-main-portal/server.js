@@ -36120,6 +36120,32 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🔮 ADVISORY VISION ENGINE — الرؤية الاستشارية (الطبقة الحاكمة العليا)
+// تجلس فوق جميع محركات الرؤية وتقدم استشارات متكاملة
+// "وَشَاوِرْهُمْ فِي الْأَمْرِ ۖ فَإِذَا عَزَمْتَ فَتَوَكَّلْ عَلَى اللَّهِ" — آل عمران: ١٥٩
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const advisoryVisionRoutes = require('./routes/advisory-vision-routes.js');
+    app.use('/api/advisory-vision', advisoryVisionRoutes);
+    console.log('✅ [ADVISORY-VISION] الرؤية الاستشارية — الطبقة الحاكمة مُفعَّلة | 8 وكلاء متخصصون');
+    console.log('   ├─ GET  /api/advisory-vision/status           — حالة الطبقة الحاكمة');
+    console.log('   ├─ GET  /api/advisory-vision/council          — مجلس المستشارين');
+    console.log('   ├─ GET  /api/advisory-vision/report           — التقرير الاستشاري الشامل');
+    console.log('   ├─ POST /api/advisory-vision/consult          — استشارة شاملة (كل الوكلاء)');
+    console.log('   ├─ POST /api/advisory-vision/trade            — استشارة تجارية');
+    console.log('   ├─ POST /api/advisory-vision/sharia           — استشارة شرعية');
+    console.log('   ├─ POST /api/advisory-vision/investment       — استشارة استثمارية');
+    console.log('   ├─ POST /api/advisory-vision/governance       — استشارة حوكمة');
+    console.log('   ├─ POST /api/advisory-vision/market           — استشارة سوقية');
+    console.log('   ├─ POST /api/advisory-vision/technology       — استشارة تقنية');
+    console.log('   ├─ POST /api/advisory-vision/risk             — تقييم المخاطر');
+    console.log('   ├─ POST /api/advisory-vision/legal            — استشارة قانونية');
+    console.log('   └─ POST /api/advisory-vision/evaluate-decision — تقييم قرار استراتيجي');
+} catch (e) {
+    console.log('⚠️ [ADVISORY-VISION] فشل تحميل مسارات الرؤية الاستشارية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🌍 NATIONAL VISIONS ENGINE — محرك رؤية الدول الاستراتيجية
 // رؤية السعودية 2030 | الإمارات 2071 | قطر 2030 | الكويت 2035 | البحرين 2030 | عُمان 2040
 // "وَشَاوِرْهُمْ فِي الْأَمْرِ" — آل عمران: ١٥٩
