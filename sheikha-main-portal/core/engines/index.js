@@ -231,6 +231,14 @@ try {
     registerRoute('digital_resources',      'resources', 'ARD');
     registerRoute('strategic_resources',    'resources', 'DEEN');
     registerRoute('knowledge_resources',    'resources', 'AQL');
+    registerRoute('industry_resources',     'resources', 'ARD');
+    registerRoute('supply_lines',           'resources', 'MAL');
+    registerRoute('logistics',              'resources', 'MAL');
+    registerRoute('logistics_networks',     'resources', 'MAL');
+    registerRoute('feasibility',            'resources', 'MAL');
+    registerRoute('feasibility_study',      'resources', 'MAL');
+    registerRoute('production_lines',       'resources', 'ARD');
+    registerRoute('industry_full',          'resources', 'ARD');
     console.log('[ENGINES-INDEX] ✅ شبكة شيخة العصبية للموارد مسجّلة');
 } catch (err) {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل شبكة الموارد العصبية:', err.stack || err.message);
@@ -264,7 +272,7 @@ if (_governor) {
             consulting:         'محرك الاستشارات الكونية',
             'live-ai':          'شبكة الذكاء الاصطناعي الحية',
             universal_networks: 'المحرك العصبي الكوني الشامل',
-            resources:          'شبكة شيخة العصبية للموارد',
+            resources:          'شبكة شيخة العصبية للموارد (صناعة، جدوى، خطوط، لوجستيات)',
         };
         const allEngines = listEngines();
         for (const engineKey of allEngines) {

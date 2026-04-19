@@ -469,6 +469,328 @@ const RESOURCE_TAXONOMY = {
         ],
         metrics: ['أمن_غذائي_مؤشر', 'احتياطيات_أشهر_استهلاك', 'اكتفاء_ذاتي_%', 'انفاق_دفاع_%_GDP'],
     },
+
+    // ══════════════════════════════════════════════════════
+    // الجنس الحادي عشر: الصناعة الشاملة
+    // ══════════════════════════════════════════════════════
+    industry_full: {
+        id: 'industry_full',
+        nameAr: 'الصناعة الشاملة',
+        nameEn: 'Full Industry Sectors',
+        maqsad: 'ARD',
+        icon: '🏗️',
+        quranRef: '﴿ وَعَلَّمْنَاهُ صَنْعَةَ لَبُوسٍ لَّكُمْ لِتُحْصِنَكُم مِّن بَأْسِكُمْ ﴾ — الأنبياء ٨٠',
+        types: [
+            {
+                id: 'petrochemical', nameAr: 'البتروكيماويات والتكرير', nameEn: 'Petrochemicals & Refining', icon: '🛢️',
+                sectors: ['تكرير النفط', 'غاز إيثيلين وبروبيلين', 'بلاستيك وبوليمرات', 'أسمدة نيتروجينية وفوسفاتية', 'مواد تشحيم', 'إسفلت'],
+                saudiEntities: ['سابك (SABIC)', 'أرامكو سعودي (مجمعات التكرير)', 'شركة الجبيل والينبع'],
+                saudiCities: ['الجبيل الصناعية', 'ينبع الصناعية', 'رابغ'],
+                globalRole: 'السعودية ثاني أكبر مصدر للبتروكيماويات عالمياً',
+            },
+            {
+                id: 'metals_steel', nameAr: 'الحديد والصلب والمعادن', nameEn: 'Iron, Steel & Metals', icon: '⚙️',
+                products: ['حديد تسليح', 'فولاذ مسطح', 'أنابيب فولاذية', 'ألومنيوم', 'نحاس', 'سبائك خاصة'],
+                saudiEntities: ['حديد سابك', 'شركة الحديد والصلب السعودية (حديد)', 'ماعدن'],
+                technology: ['أفران قوس كهربائي EAF', 'أفران أكسجين قاعدي BOF', 'صهر مباشر DRI'],
+            },
+            {
+                id: 'construction', nameAr: 'البناء والتشييد', nameEn: 'Construction & Building', icon: '🏢',
+                sectors: [
+                    { nameAr: 'إسمنت وجص', nameEn: 'Cement & Gypsum', saudiCapacity: '80M طن/سنة' },
+                    { nameAr: 'حديد التسليح', nameEn: 'Rebar Steel' },
+                    { nameAr: 'زجاج ومواد عازلة', nameEn: 'Glass & Insulation' },
+                    { nameAr: 'بلاط وسيراميك', nameEn: 'Tiles & Ceramics' },
+                    { nameAr: 'مقاولات ومشاريع عملاقة', nameEn: 'Mega Projects', examples: ['نيوم', 'البحر الأحمر', 'درعة تطوير', 'قدية'] },
+                ],
+                vision2030: 'مشاريع التطوير العمراني — تريليونات الدولارات في البنية التحتية',
+            },
+            {
+                id: 'food_processing', nameAr: 'الصناعات الغذائية', nameEn: 'Food Processing Industry', icon: '🍽️',
+                categories: [
+                    { nameAr: 'تعبئة وتغليف', nameEn: 'Packaging' },
+                    { nameAr: 'زيوت ودهون', nameEn: 'Oils & Fats' },
+                    { nameAr: 'منتجات ألبان', nameEn: 'Dairy Products', saudiExample: 'شركة المراعي' },
+                    { nameAr: 'دواجن ومسالخ', nameEn: 'Poultry & Slaughterhouses', compliance: 'ذبح حلال وفق الشريعة' },
+                    { nameAr: 'مشروبات حلال', nameEn: 'Halal Beverages' },
+                    { nameAr: 'سكر وحلويات', nameEn: 'Sugar & Confectionery' },
+                    { nameAr: 'تجفيف وتعليب', nameEn: 'Drying & Canning' },
+                ],
+                saudiEntities: ['شركة المراعي', 'صافولا', 'الأليفة', 'وفرة'],
+                compliance: { note: 'شهادة حلال شرط لكل منتج غذائي — الهيئة السعودية للغذاء والدواء' },
+            },
+            {
+                id: 'pharmaceutical', nameAr: 'الصناعات الدوائية والطبية', nameEn: 'Pharmaceuticals & Medical', icon: '💊',
+                types: [
+                    { nameAr: 'أدوية جنيسة', nameEn: 'Generic Pharmaceuticals' },
+                    { nameAr: 'بيولوجيات ولقاحات', nameEn: 'Biologics & Vaccines' },
+                    { nameAr: 'أجهزة طبية', nameEn: 'Medical Devices' },
+                    { nameAr: 'طب تقليدي وعشبي', nameEn: 'Traditional & Herbal Medicine', compliance: 'العلاج بالحلال والطب النبوي' },
+                ],
+                saudiEntities: ['SPIMACO', 'Julphar', 'Tabuk Pharmaceuticals', 'HAAD'],
+                vision2030: 'بناء صناعة دوائية محلية — تقليل الاستيراد',
+            },
+            {
+                id: 'automotive', nameAr: 'السيارات والمركبات', nameEn: 'Automotive & Vehicles', icon: '🚗',
+                types: ['تجميع سيارات', 'مركبات كهربائية EV', 'مركبات ثقيلة وشاحنات', 'قطع غيار', 'إطارات'],
+                saudiProject: 'CEER — أول سيارة كهربائية سعودية (صندوق الاستثمارات العامة)',
+                technology: ['خطوط تجميع ذكية', 'روبوتات لحام', 'طلاء رقمي'],
+            },
+            {
+                id: 'electronics_tech', nameAr: 'الإلكترونيات والتقنية', nameEn: 'Electronics & Technology', icon: '💡',
+                types: [
+                    { nameAr: 'أشباه الموصلات', nameEn: 'Semiconductors' },
+                    { nameAr: 'أجهزة إلكترونية استهلاكية', nameEn: 'Consumer Electronics' },
+                    { nameAr: 'مكونات إلكترونية', nameEn: 'Electronic Components' },
+                    { nameAr: 'بطاريات ووحدات طاقة', nameEn: 'Batteries & Power Units' },
+                    { nameAr: 'معدات اتصالات', nameEn: 'Telecom Equipment' },
+                ],
+                saudiInitiative: 'برنامج صنع في السعودية — تطوير صناعات تقنية',
+            },
+            {
+                id: 'textiles', nameAr: 'المنسوجات والملابس', nameEn: 'Textiles & Apparel', icon: '👗',
+                types: ['غزل ونسيج', 'ملابس وأزياء', 'مفروشات وسجاد', 'ملابس عمل وأمان'],
+                compliance: { note: 'الملابس الشرعية المحتشمة — التزام بالقيم الإسلامية في التصميم' },
+            },
+            {
+                id: 'defense_industry', nameAr: 'الصناعات الدفاعية', nameEn: 'Defense Industry', icon: '🛡️',
+                types: ['أسلحة صغيرة', 'مركبات دفاعية', 'طيران عسكري', 'أنظمة إلكترونية دفاعية', 'ذخائر'],
+                saudiEntities: ['شركة المصانع العسكرية (SAMI)', 'صندوق الاستثمارات العامة (PIF)'],
+                vision2030: 'استهداف 50% من الإنفاق الدفاعي محلياً بحلول 2030',
+                compliance: { note: 'لا استخدام لأغراض العدوان — الدفاع عن النفس والأمة' },
+            },
+            {
+                id: 'renewable_energy_mfg', nameAr: 'تصنيع الطاقة المتجددة', nameEn: 'Renewable Energy Manufacturing', icon: '☀️',
+                types: ['ألواح شمسية PV', 'توربينات رياح', 'بطاريات تخزين', 'أنظمة هيدروجين أخضر'],
+                saudiProject: 'مشروع الشمس — ACWA Power، Vision Industries',
+            },
+            {
+                id: 'mining_processing', nameAr: 'التعدين والمعالجة', nameEn: 'Mining & Mineral Processing', icon: '⛏️',
+                minerals: ['الذهب (مشعل)', 'الفوسفات (مانيفة)', 'البوكسيت (العل)', 'النحاس (جبل صايد)', 'الزنك'],
+                saudiEntity: 'شركة ماعدن',
+                vision2030: 'هدف رفع قيمة قطاع التعدين إلى 240 مليار ريال سنوياً',
+            },
+        ],
+        metrics: ['إنتاج_وحدة/يوم', 'كفاءة_خط_إنتاج_%', 'تكلفة_وحدة_USD', 'جودة_PPM', 'توطين_%', 'انبعاثات_CO2/طن'],
+        saudiFramework: {
+            entities: ['الهيئة السعودية للمناطق الصناعية (مدن)', 'وزارة الصناعة', 'الهيئة العامة للاستثمار (MISA)'],
+            programs: ['صنع في السعودية', 'برنامج المحتوى المحلي', 'مبادرة الصناعات الاستراتيجية'],
+        },
+    },
+
+    // ══════════════════════════════════════════════════════
+    // الجنس الثاني عشر: خطوط الإمداد والإنتاج
+    // ══════════════════════════════════════════════════════
+    supply_lines: {
+        id: 'supply_lines',
+        nameAr: 'خطوط الإمداد والإنتاج',
+        nameEn: 'Supply Lines & Production Lines',
+        maqsad: 'MAL',
+        icon: '🔗',
+        quranRef: '﴿ وَجَعَلْنَا لَكُمْ فِيهَا مَعَايِشَ ﴾ — الأعراف ١٠',
+        types: [
+            {
+                id: 'production_lines', nameAr: 'خطوط الإنتاج', nameEn: 'Production Lines', icon: '⚙️',
+                types: [
+                    {
+                        id: 'assembly', nameAr: 'خطوط التجميع', nameEn: 'Assembly Lines',
+                        technologies: ['تجميع يدوي', 'تجميع شبه أوتوماتيكي', 'تجميع أوتوماتيكي بالكامل', 'روبوتات تجميع'],
+                        kpis: ['وحدات/ساعة (UPH)', 'معدل العيوب PPM', 'OEE Overall Equipment Effectiveness'],
+                    },
+                    {
+                        id: 'continuous_process', nameAr: 'خطوط العملية المستمرة', nameEn: 'Continuous Process Lines',
+                        examples: ['تكرير النفط', 'صناعة الأسمنت', 'معالجة المياه', 'توليد الكهرباء'],
+                        kpis: ['طاقة_إنتاجية_طن/يوم', 'كفاءة_%', 'وقت_توقف_ساعة/شهر'],
+                    },
+                    {
+                        id: 'batch_process', nameAr: 'خطوط الإنتاج بالدفعات', nameEn: 'Batch Process Lines',
+                        examples: ['صناعة الأدوية', 'صناعة الغذاء', 'تصنيع الكيماويات المتخصصة'],
+                        kpis: ['حجم_الدفعة', 'زمن_الدورة_cycle_time', 'اتساق_الجودة'],
+                    },
+                    {
+                        id: 'smart_line', nameAr: 'خطوط الإنتاج الذكية (Industry 4.0)', nameEn: 'Smart Production Lines',
+                        technologies: ['توأم رقمي Digital Twin', 'AI للتنبؤ بالأعطال Predictive Maintenance', 'IIoT', 'Cobots', 'Vision Systems'],
+                        kpis: ['OEE_%', 'انقطاع_خطط_%', 'جودة_أوتوماتيكية'],
+                    },
+                ],
+            },
+            {
+                id: 'oil_gas_pipelines', nameAr: 'خطوط أنابيب النفط والغاز', nameEn: 'Oil & Gas Pipelines', icon: '🛢️',
+                types: [
+                    { nameAr: 'خطوط نقل النفط الخام', nameEn: 'Crude Oil Transmission', examples: ['خط العقبة-ينبع 1,200 كم', 'خط المنطقة الشرقية-الغرب'] },
+                    { nameAr: 'خطوط الغاز الطبيعي', nameEn: 'Natural Gas Lines', examples: ['شبكة المسيل-ينبع', 'شبكة الغاز المحلية'] },
+                    { nameAr: 'خطوط المشتقات النفطية', nameEn: 'Petroleum Products Lines' },
+                    { nameAr: 'خطوط الغاز المسال LNG', nameEn: 'LNG Lines' },
+                ],
+                saudiOperator: 'أرامكو السعودية — أكبر شبكة أنابيب نفط في العالم',
+                technology: ['SCADA', 'مراقبة سلامة', 'حماية كاثودية', 'فحص بالموجات فوق الصوتية'],
+                compliance: { note: 'صيانة دورية وسلامة بيئية إلزامية' },
+            },
+            {
+                id: 'water_pipelines', nameAr: 'شبكات المياه وخطوط التحلية', nameEn: 'Water & Desalination Lines', icon: '💧',
+                types: [
+                    { nameAr: 'خطوط المياه المحلاة', nameEn: 'Desalinated Water Transmission', saudiNote: 'أطول خط مياه في العالم — من الخبر إلى الرياض (470 كم)' },
+                    { nameAr: 'شبكات توزيع المياه', nameEn: 'Water Distribution Networks' },
+                    { nameAr: 'خطوط الصرف الصحي', nameEn: 'Sewage Lines' },
+                    { nameAr: 'خطوط إعادة استخدام المياه', nameEn: 'Water Reuse Lines' },
+                ],
+                saudiEntity: 'شركة المياه الوطنية (NWC)، SWCC',
+            },
+            {
+                id: 'electricity_grid', nameAr: 'شبكة الكهرباء وخطوط النقل', nameEn: 'Electricity Grid & Transmission', icon: '⚡',
+                types: [
+                    { nameAr: 'خطوط النقل الفائق الجهد', nameEn: 'Extra-High Voltage Transmission', voltage: '380 kV, 230 kV' },
+                    { nameAr: 'شبكة التوزيع', nameEn: 'Distribution Grid', voltage: '33 kV, 13.8 kV, 380 V' },
+                    { nameAr: 'الشبكة الذكية Smart Grid', nameEn: 'Smart Grid', technologies: ['AMI', 'SCADA', 'DMS', 'EMS'] },
+                    { nameAr: 'الربط الكهربائي الإقليمي', nameEn: 'Regional Interconnections', examples: ['الربط الكهربائي الخليجي (GCCIA)', 'ربط مع الأردن ومصر'] },
+                ],
+                saudiEntity: 'شركة الكهرباء السعودية (SEC)، شركة الشبكة الوطنية',
+            },
+            {
+                id: 'supply_chain_lines', nameAr: 'خطوط سلاسل الإمداد', nameEn: 'Supply Chain Lines', icon: '🔄',
+                stages: [
+                    { stage: 1, nameAr: 'مصادر المواد الخام', nameEn: 'Raw Material Sourcing', activities: ['استخراج', 'شراء', 'تعاقد', 'فحص'] },
+                    { stage: 2, nameAr: 'الإمداد الداخلي', nameEn: 'Inbound Logistics', activities: ['نقل', 'استلام', 'فحص جودة', 'تخزين مواد خام'] },
+                    { stage: 3, nameAr: 'التصنيع والإنتاج', nameEn: 'Manufacturing', activities: ['تصنيع', 'تجميع', 'فحص', 'تغليف'] },
+                    { stage: 4, nameAr: 'الإمداد الخارجي', nameEn: 'Outbound Logistics', activities: ['تخزين منتجات نهائية', 'اختيار طلبات', 'شحن', 'توزيع'] },
+                    { stage: 5, nameAr: 'التوزيع والتسليم', nameEn: 'Distribution & Delivery', activities: ['مستودعات إقليمية', 'تسليم اليوم ذاته', 'آخر ميل'] },
+                    { stage: 6, nameAr: 'خدمة ما بعد البيع', nameEn: 'After-Sales Service', activities: ['إرجاع', 'صيانة', 'ضمان', 'إعادة تدوير'] },
+                ],
+                technologies: ['ERP Integration', 'Blockchain Traceability', 'AI Demand Forecasting', 'Digital Twin SCM', 'RFID/IoT Tracking'],
+                compliance: { note: 'الشفافية في سلسلة الإمداد أمانة — لا غش ولا تدليس' },
+            },
+            {
+                id: 'digital_pipelines', nameAr: 'خطوط البيانات الرقمية', nameEn: 'Data & Digital Pipelines', icon: '📡',
+                types: [
+                    { nameAr: 'كابلات بحرية تحت الماء', nameEn: 'Submarine Cables', note: 'أكثر من 400 كابل تحمل 99% من الإنترنت العالمي' },
+                    { nameAr: 'خطوط ألياف ضوئية برية', nameEn: 'Terrestrial Fiber Lines' },
+                    { nameAr: 'مسارات بيانات CDN', nameEn: 'Content Delivery Pipelines' },
+                    { nameAr: 'شبكات API والتكامل', nameEn: 'API & Integration Pipelines' },
+                ],
+            },
+        ],
+        metrics: ['إنتاجية_الخط_%', 'زمن_توقف_ساعة/شهر', 'تكلفة_الوحدة_USD', 'جودة_PPM', 'أمان_الخط_مستوى'],
+    },
+
+    // ══════════════════════════════════════════════════════
+    // الجنس الثالث عشر: شبكات اللوجستيات
+    // ══════════════════════════════════════════════════════
+    logistics_networks: {
+        id: 'logistics_networks',
+        nameAr: 'شبكات اللوجستيات',
+        nameEn: 'Logistics Networks',
+        maqsad: 'MAL',
+        icon: '🚚',
+        quranRef: '﴿ وَسَخَّرَ لَكُمُ الْفُلْكَ لِتَجْرِيَ فِي الْبَحْرِ بِأَمْرِهِ ﴾ — إبراهيم ٣٢',
+        types: [
+            {
+                id: 'land_transport', nameAr: 'النقل البري', nameEn: 'Land Transport', icon: '🚛',
+                modes: [
+                    { nameAr: 'شاحنات الشحن', nameEn: 'Freight Trucks', types: ['شاحنات عادية', 'شاحنات مبردة', 'شاحنات صهاريج', 'مقطورات مسطحة'] },
+                    { nameAr: 'سكك الحديد للبضائع', nameEn: 'Rail Freight', saudiProject: 'قطار الرياض-الجبيل-الدمام (SAR)، مشروع الجسر البري' },
+                    { nameAr: 'نقل مسافات قصيرة', nameEn: 'Last-Mile Delivery', technologies: ['دراجات كهربائية', 'روبوتات توصيل', 'طائرات توصيل'] },
+                ],
+                saudiNetwork: 'شبكة طرق تتجاوز 73,000 كم من الطرق المعبدة',
+            },
+            {
+                id: 'maritime', nameAr: 'الشحن البحري', nameEn: 'Maritime Shipping', icon: '🚢',
+                types: [
+                    { nameAr: 'ناقلات النفط', nameEn: 'Oil Tankers', classes: ['VLCC', 'Suezmax', 'Aframax'] },
+                    { nameAr: 'سفن الحاويات', nameEn: 'Container Ships', classes: ['ULCV', 'Panamax', 'Feeder'] },
+                    { nameAr: 'سفن الصب السائب', nameEn: 'Bulk Carriers', cargo: ['حبوب', 'معادن', 'فحم', 'أسمدة'] },
+                    { nameAr: 'سفن الغاز المسال', nameEn: 'LNG/LPG Carriers' },
+                    { nameAr: 'سفن الرورو', nameEn: 'RoRo Ships', cargo: ['سيارات', 'مركبات', 'آليات'] },
+                ],
+                saudiPorts: [
+                    { name: 'ميناء الملك عبدالعزيز — الدمام', type: 'تجاري', capacity: '8.8M TEU' },
+                    { name: 'ميناء جدة الإسلامي', type: 'تجاري', capacity: '6.5M TEU' },
+                    { name: 'ميناء الملك فهد — ينبع', type: 'صناعي' },
+                    { name: 'ميناء رأس تنورة', type: 'نفطي', operator: 'أرامكو' },
+                    { name: 'ميناء الملك خالد — جيزان', type: 'تجاري وصناعي' },
+                ],
+                compliance: { note: 'وَسَخَّرَ لَكُمُ الْفُلْكَ — استخدام البحر للتجارة المشروعة' },
+            },
+            {
+                id: 'air_freight', nameAr: 'الشحن الجوي', nameEn: 'Air Freight', icon: '✈️',
+                types: [
+                    { nameAr: 'طائرات شحن مخصصة', nameEn: 'Dedicated Freighters', examples: ['Boeing 747F', 'Airbus A330F', 'Antonov An-124'] },
+                    { nameAr: 'شحن في طائرات ركاب', nameEn: 'Belly Cargo' },
+                    { nameAr: 'طائرات بدون طيار للتوصيل', nameEn: 'Drone Delivery' },
+                ],
+                saudiAirports: [
+                    { name: 'مطار الملك خالد الدولي — الرياض', cargoCapacity: '700,000 طن/سنة' },
+                    { name: 'مطار الملك عبدالعزيز الدولي — جدة', status: 'بوابة الحج' },
+                    { name: 'مطار الملك فهد الدولي — الدمام' },
+                    { name: 'مطار نيوم تبوك — NEOM' },
+                ],
+                saudiCarrier: 'طيران السعودية للشحن (Saudia Cargo)',
+            },
+            {
+                id: 'warehousing', nameAr: 'التخزين والمستودعات', nameEn: 'Warehousing & Storage', icon: '🏪',
+                types: [
+                    { nameAr: 'مستودعات تقليدية', nameEn: 'Traditional Warehouses' },
+                    { nameAr: 'مستودعات مبردة', nameEn: 'Cold Storage', usedFor: ['أغذية', 'أدوية', 'مواد حساسة'] },
+                    { nameAr: 'مستودعات ذكية (أتمتة كاملة)', nameEn: 'Automated Warehouses (AS/RS)', technology: ['روبوتات رفع', 'ناقلات آلية AGV', 'WMS ذكي'] },
+                    { nameAr: 'مستودعات خطرة (المواد الكيميائية)', nameEn: 'Hazardous Materials Storage' },
+                    { nameAr: 'مناطق حرة وتخليص جمركي', nameEn: 'Free Zones & Bonded Warehouses' },
+                ],
+                saudiEntities: ['مستودعات شركة الدرع العربي', 'مستودعات سيمكو', 'مدن اللوجستية MODON'],
+                technologies: ['WMS — نظام إدارة المستودعات', 'RFID', 'Barcode', 'Drone Inventory', 'IoT Sensors'],
+            },
+            {
+                id: 'three_pl_four_pl', nameAr: 'مزودو اللوجستيات 3PL و4PL', nameEn: '3PL & 4PL Providers', icon: '🤝',
+                three_pl: {
+                    nameAr: 'اللوجستيات الطرف الثالث (3PL)',
+                    definition: 'الاستعانة بمزود خارجي لتشغيل جزء أو كل خدمات اللوجستيات',
+                    services: ['نقل', 'تخزين', 'توزيع', 'تخليص جمركي', 'إدارة مرتجعات'],
+                    globalProviders: ['DHL', 'Kuehne+Nagel', 'DB Schenker', 'UPS Supply Chain', 'XPO Logistics'],
+                    saudiProviders: ['أرامكس', 'الشركة السعودية للخدمات الأرضية', 'نقل'],
+                },
+                four_pl: {
+                    nameAr: 'اللوجستيات الطرف الرابع (4PL)',
+                    definition: 'إدارة شاملة لسلسلة التوريد الكاملة بما فيها إدارة مزودي 3PL',
+                    services: ['تصميم سلسلة التوريد', 'إدارة استراتيجية', 'تحسين مستمر', 'تكنولوجيا متقدمة'],
+                    technology: ['Control Tower', 'AI Analytics', 'Real-time Visibility Platform'],
+                },
+            },
+            {
+                id: 'customs_trade', nameAr: 'التخليص الجمركي والتجارة', nameEn: 'Customs & Trade Facilitation', icon: '🏛️',
+                services: [
+                    { nameAr: 'تخليص جمركي بري', nameEn: 'Land Customs Clearance', saudiPorts: ['منفذ الحديثة (العراق)', 'منفذ البطحاء (الكويت)', 'منفذ جلجل'] },
+                    { nameAr: 'تخليص جمركي بحري', nameEn: 'Sea Customs Clearance' },
+                    { nameAr: 'تخليص جمركي جوي', nameEn: 'Air Customs Clearance' },
+                    { nameAr: 'المناطق اللوجستية الاقتصادية', nameEn: 'Special Economic Logistics Zones', examples: ['مدينة الملك عبدالله الاقتصادية (KAEC)', 'مدينة جازان الاقتصادية'] },
+                ],
+                saudiEntity: 'الهيئة العامة للجمارك',
+                technology: ['نظام نافذة — بوابة الجمارك الذكية', 'نظام FASAH للشحن', 'الفاتورة الإلكترونية'],
+                compliance: { note: 'الصدق في الإقرارات الجمركية واجب شرعي — لا تهريب ولا غش' },
+            },
+            {
+                id: 'reverse_logistics', nameAr: 'اللوجستيات العكسية وإعادة التدوير', nameEn: 'Reverse Logistics & Recycling', icon: '♻️',
+                processes: ['استرجاع المنتجات', 'فحص وتصنيف', 'تجديد وإصلاح', 'إعادة تصنيع', 'إعادة تدوير', 'تصفية'],
+                saudiInitiative: 'مبادرة السعودية الخضراء — اقتصاد دائري',
+                compliance: { note: 'إعادة الاستخدام حفاظ على النعم — شكر لله على موارده' },
+            },
+            {
+                id: 'logistics_tech', nameAr: 'تقنيات اللوجستيات الذكية', nameEn: 'Smart Logistics Technologies', icon: '🤖',
+                technologies: [
+                    { nameAr: 'تتبع الشحنات في الوقت الفعلي', nameEn: 'Real-time Tracking', tech: ['GPS', 'IoT', 'RFID', 'NFC'] },
+                    { nameAr: 'الذكاء الاصطناعي في اللوجستيات', nameEn: 'AI in Logistics', uses: ['تحسين المسارات', 'تنبؤ الطلب', 'تخطيط التحميل'] },
+                    { nameAr: 'بلوكشين سلسلة الإمداد', nameEn: 'Blockchain SCM', benefits: ['شفافية', 'مكافحة تزوير', 'تتبع أصل المنتج'] },
+                    { nameAr: 'الطائرات بدون طيار لآخر ميل', nameEn: 'Drone Last-Mile Delivery' },
+                    { nameAr: 'الروبوتات اللوجستية', nameEn: 'Logistics Robots', types: ['AMR Mobile Robots', 'Conveyor AI', 'Picking Robots'] },
+                    { nameAr: 'التوأم الرقمي للسلسلة', nameEn: 'Digital Twin SCM' },
+                    { nameAr: 'المنصات اللوجستية الرقمية', nameEn: 'Digital Freight Platforms', examples: ['Flexport', 'Freightos', 'شيخة للوجستيات'] },
+                ],
+            },
+        ],
+        metrics: ['تكلفة_الشحن_USD/طن_كم', 'زمن_التسليم_يوم', 'دقة_التسليم_%', 'رضا_العملاء_%', 'استدامة_CO2/شحنة'],
+        saudiVision: {
+            target: 'Saudi Vision 2030 — رفع مساهمة اللوجستيات في GDP إلى 10%',
+            programs: ['مركز لوجستي إقليمي', 'برنامج الربط اللوجستي', 'نافذة اللوجستيات الوطنية'],
+            initiative: 'مركز شيخة اللوجستي — ربط الموارد بالأسواق بكفاءة وأمانة',
+        },
+    },
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -498,6 +820,9 @@ const RESOURCE_METRICS = {
         knowledge:    ['براءات_مسجلة', 'انفاق_بحث_%_GDP', 'تحويل_تجاري'],
         environmental:['انبعاثات_CO2_Mt', 'غطاء_حرجي_%', 'تنوع_بيولوجي'],
         strategic:    ['أمن_غذائي_%', 'احتياطيات_أشهر', 'اكتفاء_%'],
+        industry_full:     ['إنتاج_وحدة/يوم', 'كفاءة_خط_%', 'توطين_%'],
+        supply_lines:      ['إنتاجية_الخط_%', 'زمن_توقف_ساعة/شهر', 'أمان_مستوى'],
+        logistics_networks:['تكلفة_شحن_USD/طن', 'زمن_تسليم_يوم', 'دقة_تسليم_%'],
     },
 };
 
@@ -509,9 +834,9 @@ const RESOURCE_METRICS = {
  * شبكة عصبية متخصصة في تحليل الموارد وتصنيفها والتنبؤ بها
  *
  * البنية:
- *  • طبقة الإدخال  (10 خصائص — واحدة لكل جنس من الموارد)
- *  • طبقة مخفية 1 (20 خلية عصبية — تمثيل الخصائص المشتركة)
- *  • طبقة مخفية 2 (15 خلية عصبية — التحليل المتقدم)
+ *  • طبقة الإدخال  (13 خصائص — واحدة لكل جنس من الموارد)
+ *  • طبقة مخفية 1 (26 خلية عصبية — تمثيل الخصائص المشتركة)
+ *  • طبقة مخفية 2 (18 خلية عصبية — التحليل المتقدم)
  *  • طبقة الإخراج (6 خصائص — أبعاد تقييم الموارد)
  */
 class ResourcesNeuralNetwork {
@@ -534,9 +859,9 @@ class ResourcesNeuralNetwork {
         if (NeuralNetwork) {
             try {
                 this._nn = new NeuralNetwork([
-                    this.resourceGenera.length,   // 10 مدخلات
-                    20,                           // طبقة مخفية 1
-                    15,                           // طبقة مخفية 2
+                    this.resourceGenera.length,   // 13 مدخلات
+                    26,                           // طبقة مخفية 1
+                    18,                           // طبقة مخفية 2
                     this.evaluationDimensions.length, // 6 مخرجات
                 ]);
             } catch (_) { /* تعمل بدون شبكة عصبية حقيقية */ }
@@ -678,6 +1003,9 @@ class ResourcesNeuralNetwork {
             knowledge:      0.08,  // نمو معرفي
             environmental: -0.01,  // تدهور بيئي بطيء
             strategic:      0.01,  // نمو استراتيجي محدود
+            industry_full:      0.05,  // نمو صناعي شامل
+            supply_lines:       0.04,  // نمو خطوط الإمداد
+            logistics_networks: 0.07,  // نمو لوجستي سريع
         };
 
         const rate = growthRates[genusId] || 0.03;
@@ -754,6 +1082,362 @@ class ResourcesNeuralNetwork {
             allocations,
             islamicPrinciple: 'العدل في التوزيع — إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ — النحل ٩٠',
             timestamp: new Date().toISOString(),
+        };
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // E2. دراسة الجدوى المتكاملة
+    // ──────────────────────────────────────────────────────────────────────────
+
+    /**
+     * دراسة جدوى متكاملة لمشروع صناعي أو لوجستي
+     *
+     * @param {object} project
+     * @param {string} project.name          - اسم المشروع
+     * @param {string} [project.sector]      - القطاع (petrochemical | food | logistics | ...)
+     * @param {number} [project.investment]  - الاستثمار الإجمالي (USD)
+     * @param {number} [project.capacity]    - الطاقة الإنتاجية المستهدفة
+     * @param {string} [project.location]    - الموقع (المدينة / المنطقة)
+     * @param {number} [project.yearsPayback]- فترة الاسترداد المستهدفة (سنوات)
+     * @param {string} [project.financeType] - نوع التمويل (islamic | conventional)
+     * @returns {object}
+     */
+    feasibilityStudy(project = {}) {
+        const {
+            name         = 'مشروع غير مسمى',
+            sector       = 'industry_full',
+            investment   = 10_000_000,
+            capacity     = 1000,
+            location     = 'الرياض',
+            yearsPayback = 7,
+            financeType  = 'islamic',
+        } = project;
+
+        // ① الجدوى التسويقية
+        const marketStudy = this._marketFeasibility(sector, location);
+
+        // ② الجدوى الفنية
+        const technicalStudy = this._technicalFeasibility(sector, capacity);
+
+        // ③ الجدوى المالية
+        const financialStudy = this._financialFeasibility(investment, capacity, yearsPayback, financeType);
+
+        // ④ الجدوى البيئية
+        const envStudy = this._environmentalFeasibility(sector);
+
+        // ⑤ الجدوى القانونية والتنظيمية
+        const legalStudy = this._legalFeasibility(sector, location);
+
+        // ⑥ الجدوى الشرعية
+        const shariaStudy = this._shariaFeasibility(sector, financeType);
+
+        // ⑦ الدرجة الإجمالية
+        const scores = [
+            marketStudy.score,
+            technicalStudy.score,
+            financialStudy.score,
+            envStudy.score,
+            legalStudy.score,
+            shariaStudy.score,
+        ];
+        const overallScore = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length * 100) / 100;
+        const recommendation = overallScore >= 75 ? 'مشروع مجدٍ — يُوصى بالمضي قدماً'
+            : overallScore >= 55 ? 'مشروع مجدٍ جزئياً — يحتاج مراجعة وتعديل'
+            : 'مشروع غير مجدٍ حالياً — يحتاج إعادة هيكلة';
+
+        return {
+            schema:      'sheikha/feasibility/v1',
+            tawheed:     this.tawheed,
+            project:     { name, sector, investment, capacity, location, yearsPayback, financeType },
+            overallScore,
+            grade:       this._scoreToGrade(overallScore),
+            recommendation,
+            studies: {
+                market:      marketStudy,
+                technical:   technicalStudy,
+                financial:   financialStudy,
+                environmental: envStudy,
+                legal:       legalStudy,
+                sharia:      shariaStudy,
+            },
+            islamicGuidance: 'التخطيط قبل العمل سنة نبوية — اعقلها وتوكل',
+            quranRef: 'وَلَا تَنسَ نَصِيبَكَ مِنَ الدُّنْيَا — القصص ٧٧',
+            timestamp: new Date().toISOString(),
+        };
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // E3. تحليل خط إمداد أو إنتاج
+    // ──────────────────────────────────────────────────────────────────────────
+
+    /**
+     * تحليل شامل لخط إمداد أو خط إنتاج
+     *
+     * @param {object} line
+     * @param {string} line.type        - نوع الخط (production | pipeline | supply_chain | electricity | water)
+     * @param {string} [line.name]      - اسم الخط
+     * @param {number} [line.capacity]  - الطاقة الاستيعابية
+     * @param {number} [line.utilization] - نسبة الاستخدام الحالية %
+     * @param {number} [line.downtime]  - ساعات التوقف شهرياً
+     * @param {number} [line.defectRate] - معدل العيوب PPM
+     * @returns {object}
+     */
+    analyzeSupplyLine(line = {}) {
+        const {
+            type        = 'supply_chain',
+            name        = 'خط غير مسمى',
+            capacity    = 1000,
+            utilization = 75,
+            downtime    = 8,
+            defectRate  = 500,
+        } = line;
+
+        // مؤشرات أداء الخط
+        const oee = Math.min(100, Math.round(utilization * (1 - defectRate / 1_000_000) * (1 - downtime / (30 * 24)) * 100) / 100);
+        const availabilityScore = Math.max(0, 100 - downtime * 2);
+        const qualityScore      = Math.max(0, 100 - defectRate / 100);
+        const performanceScore  = utilization;
+        const overallScore      = Math.round((availabilityScore + qualityScore + performanceScore) / 3 * 100) / 100;
+
+        // نقاط الضعف والتوصيات
+        const issues = [];
+        const recommendations = [];
+
+        if (downtime > 20) {
+            issues.push({ severity: 'حرج', text: `وقت التوقف مرتفع جداً: ${downtime} ساعة/شهر` });
+            recommendations.push('تطبيق الصيانة الوقائية (PM) وتحليل سبب الجذر (RCA)');
+        }
+        if (defectRate > 1000) {
+            issues.push({ severity: 'عالٍ', text: `معدل العيوب مرتفع: ${defectRate} PPM` });
+            recommendations.push('مراجعة معايير الجودة وتفعيل Six Sigma / SPC');
+        }
+        if (utilization < 60) {
+            issues.push({ severity: 'متوسط', text: `استخدام الطاقة منخفض: ${utilization}%` });
+            recommendations.push('مراجعة الطلب وتحسين جدولة الإنتاج');
+        }
+        if (issues.length === 0) {
+            recommendations.push('الخط في وضع ممتاز — الاستمرار في مراقبة المؤشرات');
+        }
+
+        const lineTypeInfo = (this.taxonomy.supply_lines?.types || []).find(t => t.id === type);
+
+        return {
+            schema:     'sheikha/supply-line/v1',
+            tawheed:    this.tawheed,
+            line:       { type, name, capacity, utilization, downtime, defectRate },
+            lineTypeInfo,
+            kpis: {
+                oee:              oee + '%',
+                availability:     availabilityScore + '%',
+                quality:          qualityScore + '%',
+                performance:      performanceScore + '%',
+                overallScore,
+            },
+            grade: this._scoreToGrade(overallScore),
+            issues,
+            recommendations,
+            islamicPrinciple: 'الإتقان في العمل — إن الله يحب إذا عمل أحدكم عملاً أن يتقنه',
+            timestamp: new Date().toISOString(),
+        };
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // E4. تحليل شبكة لوجستية
+    // ──────────────────────────────────────────────────────────────────────────
+
+    /**
+     * تحليل شبكة لوجستية كاملة
+     *
+     * @param {object} network
+     * @param {string} [network.name]        - اسم الشبكة
+     * @param {string} [network.mode]        - وسيلة النقل (land | sea | air | multimodal)
+     * @param {number} [network.nodes]       - عدد العقد (مستودعات، موانئ، مراكز توزيع)
+     * @param {number} [network.routes]      - عدد المسارات
+     * @param {number} [network.onTimeRate]  - معدل التسليم في الوقت %
+     * @param {number} [network.costPerUnit] - تكلفة الوحدة (USD/طن)
+     * @param {number} [network.co2PerUnit]  - انبعاثات CO2 (kg/طن.كم)
+     * @returns {object}
+     */
+    analyzeLogisticsNetwork(network = {}) {
+        const {
+            name        = 'شبكة لوجستية',
+            mode        = 'multimodal',
+            nodes       = 10,
+            routes      = 25,
+            onTimeRate  = 85,
+            costPerUnit = 50,
+            co2PerUnit  = 0.15,
+        } = network;
+
+        // تقييم الأداء
+        const deliveryScore    = onTimeRate;
+        const costScore        = Math.max(0, 100 - costPerUnit / 2);
+        const sustainScore     = Math.max(0, 100 - co2PerUnit * 200);
+        const coverageScore    = Math.min(100, nodes * 5 + routes * 2);
+        const overallScore     = Math.round((deliveryScore + costScore + sustainScore + coverageScore) / 4 * 100) / 100;
+
+        // تحديد وسيلة النقل الأنسب
+        const modeAnalysis = {
+            land:       { nameAr: 'بري', bestFor: 'مسافات قصيرة-متوسطة، مرونة، تسليم باب-لباب', cost: 'متوسط', speed: 'متوسط', co2: 'متوسط-عالٍ' },
+            sea:        { nameAr: 'بحري', bestFor: 'كميات كبيرة، مسافات طويلة، تكلفة منخفضة', cost: 'منخفض', speed: 'بطيء', co2: 'منخفض' },
+            air:        { nameAr: 'جوي', bestFor: 'شحنات عاجلة، قيمة عالية، حجم صغير', cost: 'مرتفع جداً', speed: 'سريع جداً', co2: 'مرتفع جداً' },
+            multimodal: { nameAr: 'متعدد الوسائط', bestFor: 'الجمع بين مزايا وسائل متعددة', cost: 'متوسط', speed: 'مرن', co2: 'متوسط' },
+        };
+
+        // توصيات
+        const recommendations = [];
+        if (onTimeRate < 90) recommendations.push({ priority: 'عالٍ', text: 'تحسين معدل الدقة في التسليم — تبني تتبع فوري ومرونة مسارات' });
+        if (costPerUnit > 80) recommendations.push({ priority: 'عالٍ', text: 'خفض تكلفة النقل — مراجعة عقود 3PL وتحسين التحميل (Consolidation)' });
+        if (co2PerUnit > 0.2) recommendations.push({ priority: 'متوسط', text: 'تقليل البصمة الكربونية — وسائل نقل أنظف (كهربائية / بحري)' });
+        if (nodes < 5) recommendations.push({ priority: 'متوسط', text: 'توسيع الشبكة بمزيد من المستودعات والمراكز الإقليمية' });
+        if (recommendations.length === 0) recommendations.push({ priority: 'منخفض', text: 'الشبكة في وضع ممتاز — مراقبة مستمرة وتحسين مستدام' });
+
+        return {
+            schema:     'sheikha/logistics-network/v1',
+            tawheed:    this.tawheed,
+            network:    { name, mode, nodes, routes, onTimeRate, costPerUnit, co2PerUnit },
+            modeInfo:   modeAnalysis[mode] || modeAnalysis.multimodal,
+            kpis: {
+                deliveryScore:    deliveryScore + '%',
+                costScore:        Math.round(costScore) + '/100',
+                sustainScore:     Math.round(sustainScore) + '/100',
+                coverageScore:    Math.min(100, Math.round(coverageScore)) + '/100',
+                overallScore,
+            },
+            grade: this._scoreToGrade(overallScore),
+            recommendations,
+            islamicPrinciple: 'وَسَخَّرَ لَكُمُ الْفُلْكَ — تسخير وسائل النقل لخدمة التجارة المشروعة',
+            taxonomy: this.taxonomy.logistics_networks,
+            timestamp: new Date().toISOString(),
+        };
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // E5. عرض قائمة القطاعات الصناعية الكاملة
+    // ──────────────────────────────────────────────────────────────────────────
+
+    /**
+     * قائمة تفصيلية بكل القطاعات الصناعية مع بياناتها
+     * @returns {object}
+     */
+    listIndustrySectors() {
+        const genus = this.taxonomy.industry_full;
+        return {
+            nameAr:   genus.nameAr,
+            nameEn:   genus.nameEn,
+            icon:     genus.icon,
+            quranRef: genus.quranRef,
+            sectors:  genus.types,
+            saudiFramework: genus.saudiFramework,
+            count:    genus.types.length,
+        };
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // دوال مساعدة لدراسة الجدوى (خاصة)
+    // ──────────────────────────────────────────────────────────────────────────
+
+    _marketFeasibility(sector, location) {
+        const demandMap = {
+            petrochemical: 85, food_processing: 90, construction: 80,
+            pharmaceutical: 88, automotive: 70, electronics_tech: 82,
+            logistics: 87, industrial: 75,
+        };
+        const demand = demandMap[sector] || 70;
+        const competition = Math.round(Math.random() * 20 + 40);
+        const score = Math.round((demand * 0.6 + (100 - competition) * 0.4) * 100) / 100;
+        return {
+            nameAr: 'الجدوى التسويقية',
+            score,
+            demand: demand + '/100',
+            competition: competition + '/100',
+            targetMarket: `سوق ${location} والمنطقة`,
+            note: 'دراسة الطلب والعرض والمنافسة في السوق المستهدف',
+        };
+    }
+
+    _technicalFeasibility(sector, capacity) {
+        const complexityMap = { petrochemical: 0.6, food_processing: 0.8, logistics: 0.85, construction: 0.75 };
+        const base = (complexityMap[sector] || 0.7) * 100;
+        const capacityBonus = capacity > 500 ? 5 : -5;
+        const score = Math.min(100, Math.round(base + capacityBonus));
+        return {
+            nameAr: 'الجدوى الفنية والتقنية',
+            score,
+            availableTechnology: 'متاحة ومجربة',
+            requiredSkills: 'كوادر فنية متخصصة',
+            infrastructure: 'بنية تحتية مناسبة',
+            note: 'تقييم توفر التكنولوجيا والكوادر والبنية التحتية',
+        };
+    }
+
+    _financialFeasibility(investment, capacity, yearsPayback, financeType) {
+        const annualRevenue = investment * 0.18;
+        const operatingCost = investment * 0.10;
+        const netProfit = annualRevenue - operatingCost;
+        const paybackYears = investment / netProfit;
+        const roi = (netProfit / investment) * 100;
+        const score = Math.min(100, Math.max(0, Math.round(
+            (yearsPayback / paybackYears) * 50 + Math.min(50, roi)
+        )));
+        const isIslamicFinance = financeType === 'islamic';
+        return {
+            nameAr: 'الجدوى المالية',
+            score,
+            annualRevenue:  Math.round(annualRevenue),
+            operatingCost:  Math.round(operatingCost),
+            netProfit:      Math.round(netProfit),
+            paybackYears:   Math.round(paybackYears * 10) / 10,
+            roi:            Math.round(roi * 10) / 10 + '%',
+            financeType:    isIslamicFinance ? 'تمويل إسلامي (مرابحة/مشاركة/صكوك)' : 'تمويل تقليدي',
+            compliance:     isIslamicFinance ? '✅ متوافق شرعياً' : '⚠️ يجب مراجعة الفوائد',
+            note: 'تحليل العائد على الاستثمار وفترة الاسترداد والربحية',
+        };
+    }
+
+    _environmentalFeasibility(sector) {
+        const greenSectors = ['renewable_energy_mfg', 'food_processing', 'logistics'];
+        const highImpact   = ['petrochemical', 'metals_steel', 'mining_processing'];
+        let score = 75;
+        if (greenSectors.includes(sector)) score = 88;
+        if (highImpact.includes(sector))   score = 55;
+        return {
+            nameAr: 'الجدوى البيئية',
+            score,
+            carbonFootprint: highImpact.includes(sector) ? 'مرتفع' : 'متوسط-منخفض',
+            mitigations: ['التزام بمعايير ISO 14001', 'تقليل النفايات', 'كفاءة الطاقة', 'معالجة مياه الصرف'],
+            saudiRequirement: 'تقرير تقييم الأثر البيئي (EIA) إلزامي قبل الترخيص',
+            note: 'الالتزام بمعايير البيئة السعودية والدولية',
+        };
+    }
+
+    _legalFeasibility(sector, location) {
+        return {
+            nameAr: 'الجدوى القانونية والتنظيمية',
+            score: 80,
+            licenses: ['سجل تجاري', 'ترخيص بلدي', 'ترخيص بيئي', 'ترخيص وزارة الصناعة'],
+            entities: ['وزارة الصناعة والثروة المعدنية', 'الهيئة العامة للاستثمار (MISA)', 'هيئة المناطق الصناعية (مدن)'],
+            location: `منطقة ${location}`,
+            note: 'التأكد من الامتثال للوائح السعودية والاشتراطات القطاعية',
+        };
+    }
+
+    _shariaFeasibility(sector, financeType) {
+        const prohibitedSectors = ['خمور', 'قمار', 'ربا', 'تبغ'];
+        const isProhibited = prohibitedSectors.some(p => sector.includes(p));
+        const financeScore = financeType === 'islamic' ? 95 : 60;
+        const score = isProhibited ? 0 : financeScore;
+        return {
+            nameAr: 'الجدوى الشرعية الإسلامية',
+            score,
+            compliant: !isProhibited,
+            productHalal: !isProhibited,
+            financeHalal: financeType === 'islamic',
+            violations: isProhibited ? ['القطاع محرم شرعاً'] : [],
+            recommendations: isProhibited
+                ? ['تغيير القطاع إلى نشاط حلال']
+                : ['الاستمرار مع الالتزام بالضوابط الشرعية'],
+            principle: 'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة ٢٧٥',
         };
     }
 
@@ -864,6 +1548,9 @@ class ResourcesNeuralNetwork {
             knowledge:     { availability: 70, accessibility: 65, efficiency: 75, sustainability: 90, economic_value: 80, sharia_compliance: 95 },
             environmental: { availability: 50, accessibility: 55, efficiency: 40, sustainability: 35, economic_value: 60, sharia_compliance: 90 },
             strategic:     { availability: 55, accessibility: 50, efficiency: 60, sustainability: 65, economic_value: 70, sharia_compliance: 95 },
+            industry_full:      { availability: 70, accessibility: 65, efficiency: 65, sustainability: 55, economic_value: 80, sharia_compliance: 88 },
+            supply_lines:       { availability: 65, accessibility: 60, efficiency: 70, sustainability: 60, economic_value: 75, sharia_compliance: 90 },
+            logistics_networks: { availability: 70, accessibility: 68, efficiency: 65, sustainability: 58, economic_value: 78, sharia_compliance: 90 },
         };
         return (defaults[genusId] || {})[dimId] || 60;
     }
@@ -1062,6 +1749,29 @@ class ResourcesNeuralNetwork {
             case 'search':
                 return { results: this.searchResources(data.query || '') };
 
+            case 'feasibility':
+            case 'feasibility_study':
+            case 'jadwa':
+            case 'جدوى':
+                return this.feasibilityStudy(data.project || data);
+
+            case 'supply_line':
+            case 'supply_lines':
+            case 'line':
+            case 'production_line':
+                return this.analyzeSupplyLine(data.line || data);
+
+            case 'logistics':
+            case 'logistics_network':
+            case 'logistics_networks':
+            case 'loj':
+                return this.analyzeLogisticsNetwork(data.network || data);
+
+            case 'industry':
+            case 'industry_full':
+            case 'industries':
+                return this.listIndustrySectors();
+
             case 'status':
                 return this.status();
 
@@ -1073,7 +1783,8 @@ class ResourcesNeuralNetwork {
                 return {
                     success: false,
                     error: `قصد غير معروف: "${subIntent}"`,
-                    availableActions: ['list', 'analyze', 'full', 'forecast', 'optimize', 'info', 'search', 'status'],
+                    availableActions: ['list', 'analyze', 'full', 'forecast', 'optimize', 'info', 'search',
+                        'feasibility', 'supply_line', 'logistics', 'industry', 'status'],
                 };
         }
     }
@@ -1103,16 +1814,20 @@ const resourcesNeuralNetwork = new ResourcesNeuralNetwork();
 
 // واجهة المحرك الموحدة
 const engine = {
-    handle:             (req) => resourcesNeuralNetwork.handle(req),
-    execute:            (req) => resourcesNeuralNetwork.handle(req),
-    analyzeResource:    (...a) => resourcesNeuralNetwork.analyzeResource(...a),
-    fullAnalysis:       (...a) => resourcesNeuralNetwork.fullResourcesAnalysis(...a),
-    forecast:           (...a) => resourcesNeuralNetwork.forecastResource(...a),
-    optimizeAllocation: (...a) => resourcesNeuralNetwork.optimizeAllocation(...a),
-    getResourceInfo:    (...a) => resourcesNeuralNetwork.getResourceInfo(...a),
-    listAll:            ()    => resourcesNeuralNetwork.listAllResources(),
-    search:             (q)   => resourcesNeuralNetwork.searchResources(q),
-    status:             ()    => resourcesNeuralNetwork.status(),
+    handle:                  (req) => resourcesNeuralNetwork.handle(req),
+    execute:                 (req) => resourcesNeuralNetwork.handle(req),
+    analyzeResource:         (...a) => resourcesNeuralNetwork.analyzeResource(...a),
+    fullAnalysis:            (...a) => resourcesNeuralNetwork.fullResourcesAnalysis(...a),
+    forecast:                (...a) => resourcesNeuralNetwork.forecastResource(...a),
+    optimizeAllocation:      (...a) => resourcesNeuralNetwork.optimizeAllocation(...a),
+    getResourceInfo:         (...a) => resourcesNeuralNetwork.getResourceInfo(...a),
+    listAll:                 ()    => resourcesNeuralNetwork.listAllResources(),
+    listIndustrySectors:     ()    => resourcesNeuralNetwork.listIndustrySectors(),
+    search:                  (q)   => resourcesNeuralNetwork.searchResources(q),
+    feasibilityStudy:        (...a) => resourcesNeuralNetwork.feasibilityStudy(...a),
+    analyzeSupplyLine:       (...a) => resourcesNeuralNetwork.analyzeSupplyLine(...a),
+    analyzeLogisticsNetwork: (...a) => resourcesNeuralNetwork.analyzeLogisticsNetwork(...a),
+    status:                  ()    => resourcesNeuralNetwork.status(),
 };
 
 module.exports = {
