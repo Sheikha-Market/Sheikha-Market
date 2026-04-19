@@ -300,7 +300,7 @@ router.get('/neural/signal', (req, res) => {
     try {
         const { from, type, depth } = req.query;
         if (!from) return fail(res, 400, 'from_required', 'مطلوب: ?from=CELL_FIBER&type=DATA&depth=3');
-        res.json(telecomOrg.fireSignal(from, { type: type || 'ACTIVATION' }, depth));
+        res.json(telecomOrg.fireSignal(from, { type: type || 'ACTIVATION' }, depth ? parseInt(depth, 10) : 3));
     } catch (e) {
         fail(res, 500, 'neural_signal_error', 'حدث خطأ أثناء إطلاق الإشارة العصبية');
     }
@@ -336,7 +336,7 @@ router.post('/neural/signal', (req, res) => {
     try {
         const { from, signal, depth } = req.body || {};
         if (!from) return fail(res, 400, 'from_required', 'مطلوب: { from: "CELL_FIBER", signal: {...}, depth: 3 }');
-        res.json(telecomOrg.fireSignal(from, signal, depth));
+        res.json(telecomOrg.fireSignal(from, signal, depth !== undefined ? parseInt(depth, 10) : 3));
     } catch (e) {
         fail(res, 500, 'neural_signal_error', 'حدث خطأ أثناء إطلاق الإشارة العصبية');
     }
