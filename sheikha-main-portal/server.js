@@ -36255,7 +36255,7 @@ async function _startServer() {
     }
 
     // ② تشغيل الخادم على المنفذ الفعلي
-    const server = app.listen(actualPort, '127.0.0.1', () => {
+    const server = app.listen(actualPort, HOST, () => {
         PORT = actualPort;   // تحديث المتغير العالمي بالمنفذ الفعلي
         addSystemLog('success', 'Server', `Server started on port ${actualPort}`);
 
