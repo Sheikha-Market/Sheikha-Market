@@ -203,6 +203,40 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل المحرك العصبي الكوني:', err.stack || err.message);
 }
 
+// ─── تسجيل شبكة شيخة العصبية للصناعة والمصانع والتصنيع والإنتاج الصناعي ──────
+
+try {
+    const { engine: industrialNNEngine } = require('../../lib/sheikha-industrial-neural-network');
+    registerEngine('industrial_nn', industrialNNEngine, {
+        nameAr: 'شبكة شيخة العصبية للصناعة والمصانع والتصنيع والإنتاج الصناعي',
+        maqsad: 'ARD',
+    });
+    // مسارات التوجيه الصناعية الشاملة
+    registerRoute('industry',            'industrial_nn', 'ARD');
+    registerRoute('industrial',          'industrial_nn', 'ARD');
+    registerRoute('factory',             'industrial_nn', 'ARD');
+    registerRoute('manufacturing',       'industrial_nn', 'ARD');
+    registerRoute('production',          'industrial_nn', 'ARD');
+    registerRoute('factory_monitor',     'industrial_nn', 'ARD');
+    registerRoute('production_plan',     'industrial_nn', 'ARD');
+    registerRoute('quality_control',     'industrial_nn', 'ARD');
+    registerRoute('predictive_maint',    'industrial_nn', 'ARD');
+    registerRoute('digital_twin',        'industrial_nn', 'ARD');
+    registerRoute('energy_optimize',     'industrial_nn', 'ARD');
+    registerRoute('robotics_auto',       'industrial_nn', 'ARD');
+    registerRoute('workforce_safety',    'industrial_nn', 'NAFS');
+    registerRoute('sector_analysis',     'industrial_nn', 'ARD');
+    registerRoute('standards_comply',    'industrial_nn', 'ARD');
+    registerRoute('industrial_general',  'industrial_nn', 'ARD');
+    registerRoute('industry4',           'industrial_nn', 'ARD');
+    registerRoute('smart_factory',       'industrial_nn', 'ARD');
+    registerRoute('iiot',                'industrial_nn', 'ARD');
+    registerRoute('industrial_supply_chain', 'industrial_nn', 'MAL');
+    console.log('[ENGINES-INDEX] ✅ شبكة شيخة العصبية للصناعة والمصانع مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل الشبكة العصبية الصناعية:', err.stack || err.message);
+}
+
 // ─── تسجيل كل المحركات تحت سيادة الحاكمة العليا ─────────────────────────────
 // بعد تسجيل الجميع، تفرض شيخة سيادتها على الكل
 // ﴿ وَفَوْقَ كُلِّ ذِي عِلْمٍ عَلِيمٌ ﴾ — يوسف ٧٦
@@ -231,6 +265,7 @@ if (_governor) {
             consulting:         'محرك الاستشارات الكونية',
             'live-ai':          'شبكة الذكاء الاصطناعي الحية',
             universal_networks: 'المحرك العصبي الكوني الشامل',
+            industrial_nn:      'شبكة شيخة العصبية للصناعة والمصانع والتصنيع والإنتاج الصناعي',
         };
         const allEngines = listEngines();
         for (const engineKey of allEngines) {
