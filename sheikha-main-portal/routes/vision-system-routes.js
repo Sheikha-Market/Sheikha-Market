@@ -543,4 +543,297 @@ router.get('/export/:format', async (req, res) => {
     }
 });
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🛒 رؤية المنتجات — Computer Vision لمنتجات السوق
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// تحميل OpenAI للرؤية الحاسوبية المتقدمة
+let openaiClient = null;
+function getOpenAIClient() {
+    if (openaiClient) return openaiClient;
+    try {
+        const { default: OpenAI } = require('openai');
+        const apiKey = process.env.OPENAI_API_KEY;
+        if (!apiKey || apiKey.startsWith('REPLACE_')) return null;
+        openaiClient = new OpenAI({ apiKey });
+        return openaiClient;
+    } catch {
+        return null;
+    }
+}
+
+/**
+ * POST /api/vision/analyze-product
+ * تحليل صورة منتج للسوق: التعرف على النوع، الحالة، القيمة التقديرية
+ *
+ * body: { imageUrl?, imageBase64?, category? }
+ */
+router.post('/analyze-product', async (req, res) => {
+    try {
+        const { imageUrl, imageBase64, category } = req.body;
+
+        if (!imageUrl && !imageBase64) {
+            return res.status(400).json({
+                success: false,
+                message: 'imageUrl or imageBase64 is required',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        const client = getOpenAIClient();
+        if (!client) {
+            return res.status(503).json({
+                success: false,
+                message: 'خدمة الرؤية الحاسوبية غير متاحة — OpenAI API key مطلوب',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        const imageSource = imageBase64 || imageUrl;
+        const categoryHint = category ? `الفئة المقترحة: ${category}. ` : '';
+
+        const prompt = `أنت خبير تقييم منتجات في سوق شيخة للمعادن والسلع. ${categoryHint}حلّل هذه الصورة وأجب بـ JSON فقط بهذا الهيكل:
+{
+  "productType": "نوع المنتج",
+  "category": "فئة المنتج",
+  "subcategory": "فئة فرعية",
+  "condition": "جديد|مستعمل جيد|مستعمل|تالف",
+  "conditionScore": 0-100,
+  "estimatedWeight": "الوزن التقديري إذا تبيّن",
+  "material": "المادة الأساسية",
+  "color": "اللون الرئيسي",
+  "features": ["ميزة1","ميزة2"],
+  "defects": ["عيب1"],
+  "islamicCompliance": true,
+  "islamicNotes": "ملاحظة شرعية إن وجدت",
+  "marketValue": {
+    "currency": "SAR",
+    "min": 0,
+    "max": 0,
+    "unit": "للكيلو|للطن|للقطعة"
+  },
+  "confidence": 0.0-1.0,
+  "description": "وصف موجز للمنتج"
+}`;
+
+        const response = await client.chat.completions.create({
+            model: process.env.AI_LLM_MODEL || 'gpt-4o',
+            messages: [{
+                role: 'user',
+                content: [
+                    {
+                        type: 'image_url',
+                        image_url: { url: imageSource, detail: 'high' }
+                    },
+                    { type: 'text', text: prompt }
+                ]
+            }],
+            max_tokens: 1200,
+            response_format: { type: 'json_object' }
+        });
+
+        const content = response.choices[0]?.message?.content || '{}';
+        let productAnalysis;
+        try {
+            productAnalysis = JSON.parse(content);
+        } catch {
+            productAnalysis = { description: content, confidence: 0.5 };
+        }
+
+        res.json({
+            success: true,
+            data: {
+                imageUrl: imageUrl || null,
+                analysis: productAnalysis,
+                model: response.model,
+                usage: {
+                    promptTokens: response.usage?.prompt_tokens,
+                    completionTokens: response.usage?.completion_tokens
+                }
+            },
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        console.error('[Vision] خطأ في تحليل المنتج:', error.message);
+        res.status(500).json({
+            success: false,
+            error: error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
+/**
+ * POST /api/vision/classify-product
+ * تصنيف منتج من صورة ضمن فئات سوق شيخة
+ *
+ * body: { imageUrl?, imageBase64? }
+ */
+router.post('/classify-product', async (req, res) => {
+    try {
+        const { imageUrl, imageBase64 } = req.body;
+
+        if (!imageUrl && !imageBase64) {
+            return res.status(400).json({
+                success: false,
+                message: 'imageUrl or imageBase64 is required',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        const client = getOpenAIClient();
+        if (!client) {
+            return res.status(503).json({
+                success: false,
+                message: 'خدمة الرؤية الحاسوبية غير متاحة — OpenAI API key مطلوب',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        const imageSource = imageBase64 || imageUrl;
+
+        const prompt = `صنّف هذا المنتج ضمن فئات سوق شيخة للمعادن والسلع. أجب بـ JSON فقط:
+{
+  "primaryCategory": "اختر من: معادن|سكراب|بلاستيك|ورق|زجاج|إلكترونيات|أخشاب|نسيج|أخرى",
+  "secondaryCategory": "الفئة الفرعية الأدق",
+  "sheikhaMarketSection": "القسم المناسب في السوق",
+  "tags": ["وسم1","وسم2","وسم3"],
+  "isHalal": true,
+  "islamicCategory": "مباح|مكروه|محظور",
+  "suitableForExport": true,
+  "targetMarkets": ["السوق السعودي","الخليج","تصدير"],
+  "confidence": 0.0-1.0,
+  "classificationReason": "سبب التصنيف"
+}`;
+
+        const response = await client.chat.completions.create({
+            model: process.env.AI_LLM_MODEL || 'gpt-4o',
+            messages: [{
+                role: 'user',
+                content: [
+                    {
+                        type: 'image_url',
+                        image_url: { url: imageSource, detail: 'low' }
+                    },
+                    { type: 'text', text: prompt }
+                ]
+            }],
+            max_tokens: 600,
+            response_format: { type: 'json_object' }
+        });
+
+        const content = response.choices[0]?.message?.content || '{}';
+        let classification;
+        try {
+            classification = JSON.parse(content);
+        } catch {
+            classification = { classificationReason: content, confidence: 0.5 };
+        }
+
+        res.json({
+            success: true,
+            data: {
+                imageUrl: imageUrl || null,
+                classification,
+                model: response.model
+            },
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        console.error('[Vision] خطأ في تصنيف المنتج:', error.message);
+        res.status(500).json({
+            success: false,
+            error: error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
+/**
+ * POST /api/vision/verify-product-image
+ * التحقق من صورة المنتج: هل هي حقيقية؟ هل تطابق الوصف؟
+ *
+ * body: { imageUrl?, imageBase64?, productDescription? }
+ */
+router.post('/verify-product-image', async (req, res) => {
+    try {
+        const { imageUrl, imageBase64, productDescription } = req.body;
+
+        if (!imageUrl && !imageBase64) {
+            return res.status(400).json({
+                success: false,
+                message: 'imageUrl or imageBase64 is required',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        const client = getOpenAIClient();
+        if (!client) {
+            return res.status(503).json({
+                success: false,
+                message: 'خدمة الرؤية الحاسوبية غير متاحة — OpenAI API key مطلوب',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        const imageSource = imageBase64 || imageUrl;
+        const descHint = productDescription
+            ? `وصف البائع للمنتج: "${productDescription}". `
+            : '';
+
+        const prompt = `${descHint}تحقق من هذه الصورة وأجب بـ JSON فقط:
+{
+  "isAuthentic": true,
+  "matchesDescription": true,
+  "matchScore": 0-100,
+  "suspiciousIndicators": [],
+  "verificationNotes": "ملاحظات التحقق",
+  "recommendedAction": "قبول|مراجعة|رفض",
+  "islamicCompliance": true,
+  "islamicNote": ""
+}`;
+
+        const response = await client.chat.completions.create({
+            model: process.env.AI_LLM_MODEL || 'gpt-4o',
+            messages: [{
+                role: 'user',
+                content: [
+                    {
+                        type: 'image_url',
+                        image_url: { url: imageSource, detail: 'high' }
+                    },
+                    { type: 'text', text: prompt }
+                ]
+            }],
+            max_tokens: 600,
+            response_format: { type: 'json_object' }
+        });
+
+        const content = response.choices[0]?.message?.content || '{}';
+        let verification;
+        try {
+            verification = JSON.parse(content);
+        } catch {
+            verification = { verificationNotes: content };
+        }
+
+        res.json({
+            success: true,
+            data: {
+                imageUrl: imageUrl || null,
+                verification,
+                model: response.model
+            },
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        console.error('[Vision] خطأ في التحقق من الصورة:', error.message);
+        res.status(500).json({
+            success: false,
+            error: error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
 module.exports = router;
