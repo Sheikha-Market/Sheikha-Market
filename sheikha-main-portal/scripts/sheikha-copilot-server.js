@@ -32,6 +32,23 @@ const TAWHEED     = 'لا إله إلا الله';
 const NO_HARM     = 'لا ضرر ولا ضرار';
 const START_TIME  = Date.now();
 
+// ─── هوية الخدمة — تحت شيخة ──────────────────────────────────────────────────
+const SERVICE_IDENTITY = {
+    serviceKey: 'sheikha-copilot',
+    name:       'Sheikha Copilot Server',
+    nameAr:     'خادم شيخة كوبايلوت',
+    version:    '1.0.0',
+    port:       PORT,
+    baseUrl:    `http://localhost:${PORT}`,
+    protocol:   'MCP + HTTP',
+    authority:  'sheikha-api',   // الحاكم: شيخة
+    parent:     'Sheikha',
+    meta: {
+        mcpManifest: `http://localhost:${PORT}/.well-known/mcp.json`,
+        vsBridge:    `http://localhost:${PORT}/copilot/vscode-bridge`,
+    },
+};
+
 // ─── سجل الطلبات (ring buffer بسيط) ──────────────────────────────────────────
 const REQUEST_LOG_SIZE = 200;
 const requestLog       = [];   // { ts, method, path, status, ms }
@@ -122,6 +139,48 @@ function proxyToMain(targetPath, method, body, callback) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// التسجيل تحت شيخة — Sheikha Sub-Service Registration
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let _registrationOk = false;
+
+/** تسجيل الخادم كخدمة تابعة لشيخة */
+function registerWithSheikha(attempt) {
+    attempt = attempt || 1;
+    proxyToMain('/api/sheikha/services/register', 'POST', SERVICE_IDENTITY, (err, data) => {
+        if (err || !data || !data.success) {
+            const msg = err ? err.message : (data && data.message) || 'فشل';
+            console.warn(`[copilot-server] ⚠️ تسجيل تحت شيخة — محاولة ${attempt} فشلت: ${msg}`);
+            // إعادة المحاولة بعد 10 ثوان (max 5 محاولات ثم كل دقيقة)
+            const delay = attempt <= 5 ? 10_000 : 60_000;
+            setTimeout(() => registerWithSheikha(attempt + 1), delay);
+        } else {
+            _registrationOk = true;
+            console.log(`[copilot-server] ✅ تم التسجيل تحت شيخة — authority: ${data.data && data.data.authority}`);
+        }
+    });
+}
+
+/** نبضة دورية لإثبات الحياة للنظام الحاكم */
+function heartbeatToSheikha() {
+    if (!_registrationOk) return;
+    const payload = {
+        serviceKey: SERVICE_IDENTITY.serviceKey,
+        meta: {
+            uptime:   Math.floor((Date.now() - START_TIME) / 1000),
+            requests: requestLog.length,
+        },
+    };
+    proxyToMain('/api/sheikha/services/heartbeat', 'POST', payload, (err, data) => {
+        if (err || !data || !data.success) {
+            console.warn('[copilot-server] ⚠️ نبضة فشلت — سيُعاد التسجيل');
+            _registrationOk = false;
+            registerWithSheikha(1);
+        }
+    });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // تعريف مسارات MCP / REST
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -131,14 +190,30 @@ const ROUTES = {
     'GET /health': (req, res) => {
         const uptime = Math.floor((Date.now() - START_TIME) / 1000);
         send(res, 200, {
-            success: true,
-            service: 'sheikha-copilot-server',
-            port:    PORT,
+            success:        true,
+            service:        'sheikha-copilot-server',
+            authority:      'sheikha-api',
+            parent:         'Sheikha',
+            registeredWithSheikha: _registrationOk,
+            port:           PORT,
             uptime,
-            nodeEnv: NODE_ENV,
-            mainServer: MAIN_SERVER,
-            requests: requestLog.length,
-            message: 'Sheikha Copilot Server — يعمل بخير',
+            nodeEnv:        NODE_ENV,
+            mainServer:     MAIN_SERVER,
+            requests:       requestLog.length,
+            message:        'Sheikha Copilot Server — يعمل تحت شيخة',
+        });
+    },
+
+    // ── هوية الخادم وتبعيته لشيخة ────────────────────────────────────────────
+    'GET /identity': (req, res) => {
+        send(res, 200, {
+            success:   true,
+            identity:  SERVICE_IDENTITY,
+            governor:  'Sheikha',
+            hierarchy: 'sheikha-api → sheikha-copilot',
+            registeredWithSheikha: _registrationOk,
+            registryUrl: `${MAIN_SERVER}/api/sheikha/services`,
+            message:   'شيخة كوبايلوت — خادم فرعي تحت حوكمة شيخة',
         });
     },
 
@@ -345,9 +420,17 @@ server.listen(PORT, HOST, () => {
 ║  📌 أو عبر MCP settings:                                                     ║
 ║     { "mcp": { "servers": { "sheikha": {                                    ║
 ║       "url": "http://localhost:${PORT}/.well-known/mcp.json" } } } }         ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║  👑 الحاكم: Sheikha API (${MAIN_SERVER})                                     ║
+║  🔗 الهرمية: sheikha-api → sheikha-copilot                                   ║
+║  📡 سجل الخدمات: ${MAIN_SERVER}/api/sheikha/services                        ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
   ${TAWHEED} · ${NO_HARM}
 `);
+    // ── التسجيل تحت شيخة بعد 3 ثوان من الإقلاع ──────────────────────────────
+    setTimeout(() => registerWithSheikha(1), 3_000);
+    // ── نبضة دورية كل 30 ثانية ────────────────────────────────────────────────
+    setInterval(heartbeatToSheikha, 30_000);
 });
 
 // ─── إيقاف نظيف ─────────────────────────────────────────────────────────────

@@ -35412,6 +35412,85 @@ function sheikhaCopilotShariaCheck(prompt) {
     return { allowed: found.length === 0, blockedTerms: found };
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// سجل الخدمات التابعة لشيخة — Sheikha Sub-Services Registry
+// الحاكم: شيخة | كل خدمة فرعية تسجّل نفسها هنا وترسل نبضات دورية
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const _subServicesRegistry = new Map(); // key: serviceKey → { ...info, lastHeartbeat }
+const _SUB_SERVICE_TTL_MS  = 120_000;  // 2 دقيقة بدون نبضة → غير نشط
+
+/** تنظيف الخدمات المنتهية الصلاحية */
+function _pruneStaleSubServices() {
+    const now = Date.now();
+    for (const [key, info] of _subServicesRegistry) {
+        if (now - info.lastHeartbeat > _SUB_SERVICE_TTL_MS) {
+            _subServicesRegistry.set(key, { ...info, status: 'inactive' });
+        }
+    }
+}
+setInterval(_pruneStaleSubServices, 30_000);
+
+/** تسجيل خدمة فرعية تحت شيخة */
+app.post('/api/sheikha/services/register', express.json(), (req, res) => {
+    const body = req.body || {};
+    const key  = body.serviceKey || body.name;
+    if (!key) return res.json({ success: false, message: 'serviceKey مطلوب' });
+
+    const entry = {
+        serviceKey:   key,
+        name:         body.name         || key,
+        nameAr:       body.nameAr       || key,
+        version:      body.version      || '1.0.0',
+        port:         body.port         || null,
+        baseUrl:      body.baseUrl      || null,
+        protocol:     body.protocol     || 'HTTP',
+        authority:    'sheikha-api',                 // الحاكم دائماً شيخة
+        parent:       'Sheikha',
+        status:       'active',
+        registeredAt: new Date().toISOString(),
+        lastHeartbeat: Date.now(),
+        meta:         body.meta         || {},
+    };
+
+    _subServicesRegistry.set(key, entry);
+    console.log(`[services-registry] ✅ تسجيل: ${key} على المنفذ ${entry.port || 'غير محدد'}`);
+    res.json({ success: true, message: `تم تسجيل ${key} تحت شيخة`, data: entry, timestamp: new Date().toISOString() });
+});
+
+/** نبضة حياة من خدمة فرعية */
+app.post('/api/sheikha/services/heartbeat', express.json(), (req, res) => {
+    const key = (req.body || {}).serviceKey;
+    if (!key || !_subServicesRegistry.has(key)) {
+        return res.json({ success: false, message: 'خدمة غير مسجّلة — سجّل أولاً عبر /api/sheikha/services/register' });
+    }
+    const entry = _subServicesRegistry.get(key);
+    entry.lastHeartbeat = Date.now();
+    entry.status        = 'active';
+    if ((req.body || {}).meta) Object.assign(entry.meta, req.body.meta);
+    _subServicesRegistry.set(key, entry);
+    res.json({ success: true, message: `نبضة ${key} مستلمة`, timestamp: new Date().toISOString() });
+});
+
+/** قائمة الخدمات التابعة لشيخة */
+app.get('/api/sheikha/services', (req, res) => {
+    _pruneStaleSubServices();
+    const services = Array.from(_subServicesRegistry.values()).map(s => ({
+        ...s,
+        uptimeS: Math.floor((Date.now() - new Date(s.registeredAt).getTime()) / 1000),
+        lastHeartbeatAgo: Math.floor((Date.now() - s.lastHeartbeat) / 1000) + 's',
+    }));
+    res.json({
+        success:  true,
+        governor: 'Sheikha',
+        count:    services.length,
+        active:   services.filter(s => s.status === 'active').length,
+        services,
+        message:  'شيخة — الحاكم | قائمة الخدمات التابعة',
+        timestamp: new Date().toISOString(),
+    });
+});
+
 app.get('/api/sheikha/copilot/status', (req, res) => {
     res.json({ success: true, data: SHEIKHA_COPILOT_CONFIG, message: 'Sheikha Copilot مفعّل', timestamp: new Date().toISOString() });
 });
