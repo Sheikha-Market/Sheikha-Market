@@ -203,6 +203,29 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل المحرك العصبي الكوني:', err.stack || err.message);
 }
 
+// ─── تسجيل شبكة شيخة العصبية لسلاسل المداد والتوريد ─────────────────────────
+
+try {
+    const { neuralSCM } = require('../../lib/sheikha-neural-scm-engine');
+    registerEngine('neural_scm', neuralSCM, {
+        nameAr:  'شبكة شيخة العصبية لسلاسل المداد والتوريد',
+        nameEn:  'Sheikha Neural Supply Chain Engine',
+        maqsad:  'MAL',
+        version: 'v1',
+    });
+    registerRoute('scm',         'neural_scm', 'MAL');
+    registerRoute('supply',      'neural_scm', 'MAL');
+    registerRoute('procurement', 'neural_scm', 'MAL');
+    registerRoute('sourcing',    'neural_scm', 'MAL');
+    registerRoute('logistics',   'neural_scm', 'ARD');
+    registerRoute('inventory',   'neural_scm', 'MAL');
+    registerRoute('shipment',    'neural_scm', 'ARD');
+    registerRoute('forecast',    'neural_scm', 'AQL');
+    console.log('[ENGINES-INDEX] ✅ شبكة شيخة العصبية لسلاسل المداد مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل الشبكة العصبية لسلاسل المداد:', err.stack || err.message);
+}
+
 // ─── تسجيل كل المحركات تحت سيادة الحاكمة العليا ─────────────────────────────
 // بعد تسجيل الجميع، تفرض شيخة سيادتها على الكل
 // ﴿ وَفَوْقَ كُلِّ ذِي عِلْمٍ عَلِيمٌ ﴾ — يوسف ٧٦
@@ -231,6 +254,7 @@ if (_governor) {
             consulting:         'محرك الاستشارات الكونية',
             'live-ai':          'شبكة الذكاء الاصطناعي الحية',
             universal_networks: 'المحرك العصبي الكوني الشامل',
+            neural_scm:         'شبكة شيخة العصبية لسلاسل المداد والتوريد',
         };
         const allEngines = listEngines();
         for (const engineKey of allEngines) {

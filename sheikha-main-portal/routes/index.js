@@ -20,6 +20,7 @@ const marketsOfMarketsRoutes = require('./markets-of-markets');
 const governanceRoutes       = require('./governance');
 const ipRoutes               = require('./intellectual-property');
 const logicsRoutes           = require('./logics');
+const scmRoutes              = require('./scm');
 
 // ─── المسارات الرئيسية ────────────────────────────────────────────────────────
 
@@ -61,6 +62,9 @@ router.use('/api/ip', ipRoutes);
 
 // ─── المنطق الجامع (21 منطقاً: 7 أصلية + 13 موسّعة + المنطق الأعلى) ──────────
 router.use('/api/logics', logicsRoutes);
+
+// ─── سلاسل المداد والتوريد — شبكة شيخة العصبية ──────────────────────────────
+router.use('/api/scm', scmRoutes);
 
 // ─── مسار الحالة ──────────────────────────────────────────────────────────────
 
