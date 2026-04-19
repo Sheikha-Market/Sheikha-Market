@@ -226,6 +226,40 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل الشبكة العصبية لسلاسل المداد:', err.stack || err.message);
 }
 
+// ─── تسجيل الشبكة العصبية الكونية الجامعة — كل جنس/نوع/صنف/وسيلة/غاية ────────
+// "وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا" — البقرة ٣١
+
+try {
+    const { universalEntityNN } = require('../../lib/sheikha-universal-entity-neural-engine');
+    registerEngine('universal_entity', universalEntityNN, {
+        nameAr:  'شبكة شيخة العصبية الكونية الجامعة — لكل شيء',
+        nameEn:  'Sheikha Universal Entity Neural Engine',
+        maqsad:  'DEEN',
+        version: 'v1',
+    });
+    // مسارات التوجيه — كل جنس كيان وكل نية
+    registerRoute('entity',       'universal_entity', 'DEEN');
+    registerRoute('product',      'universal_entity', 'MAL');
+    registerRoute('factory',      'universal_entity', 'ARD');
+    registerRoute('organism',     'universal_entity', 'NAFS');
+    registerRoute('material',     'universal_entity', 'ARD');
+    registerRoute('service',      'universal_entity', 'MAL');
+    registerRoute('knowledge',    'universal_entity', 'AQL');
+    registerRoute('tool',         'universal_entity', 'ARD');
+    registerRoute('goal',         'universal_entity', 'DEEN');
+    registerRoute('place',        'universal_entity', 'ARD');
+    registerRoute('institution',  'universal_entity', 'DEEN');
+    registerRoute('time',         'universal_entity', 'AQL');
+    registerRoute('genus',        'universal_entity', 'AQL');
+    registerRoute('tawheed',      'universal_entity', 'DEEN');
+    registerRoute('maqasid',      'universal_entity', 'DEEN');
+    registerRoute('classify',     'universal_entity', 'AQL');
+    registerRoute('digitize',     'universal_entity', 'AQL');
+    console.log('[ENGINES-INDEX] ✅ الشبكة العصبية الكونية الجامعة مسجّلة — كل شيء موحَّد لله');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل الشبكة العصبية الكونية:', err.stack || err.message);
+}
+
 // ─── تسجيل كل المحركات تحت سيادة الحاكمة العليا ─────────────────────────────
 // بعد تسجيل الجميع، تفرض شيخة سيادتها على الكل
 // ﴿ وَفَوْقَ كُلِّ ذِي عِلْمٍ عَلِيمٌ ﴾ — يوسف ٧٦
@@ -255,6 +289,7 @@ if (_governor) {
             'live-ai':          'شبكة الذكاء الاصطناعي الحية',
             universal_networks: 'المحرك العصبي الكوني الشامل',
             neural_scm:         'شبكة شيخة العصبية لسلاسل المداد والتوريد',
+            universal_entity:   'شبكة شيخة العصبية الكونية الجامعة — لكل شيء',
         };
         const allEngines = listEngines();
         for (const engineKey of allEngines) {
