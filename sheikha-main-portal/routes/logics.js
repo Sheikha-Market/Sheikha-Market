@@ -83,14 +83,14 @@ router.get('/', (req, res) => {
     });
 });
 
-// ─── إحصائيات المنطق السباعي ──────────────────────────────────────────────────
+// ─── إحصائيات المنطق الجامع ───────────────────────────────────────────────────
 
 router.get('/stats', (req, res) => {
     const stats = getLogicsStats();
 
     res.json({
         success: true,
-        title:   'إحصائيات المنطق السباعي — منظومة شيخة',
+        title:   'إحصائيات المنطق الجامع — منظومة شيخة',
         stats
     });
 });
@@ -100,7 +100,7 @@ router.get('/stats', (req, res) => {
 router.get('/scopes', (req, res) => {
     res.json({
         success: true,
-        title:   'النطاقات الثلاثة للمنطق السباعي',
+        title:   'النطاقات الثلاثة للمنطق الجامع',
         count:   Object.keys(SCOPE_TYPES).length,
         scopes: [
             {
@@ -179,7 +179,7 @@ router.get('/scope/:scopeId', (req, res) => {
         success:  true,
         scopeId,
         scopeNameAr: scopeNames[scopeId] || scopeId,
-        title:    `المنطق السباعي في نطاق: ${scopeNames[scopeId] || scopeId}`,
+        title:    `المنطق الجامع في نطاق: ${scopeNames[scopeId] || scopeId}`,
         count:    view.length,
         logics:   view
     });
