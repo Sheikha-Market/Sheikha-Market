@@ -849,7 +849,7 @@ class ResourcesNeuralNetwork {
         this.startedAt = new Date().toISOString();
 
         // أجناس الموارد (مدخلات الشبكة)
-        this.resourceGenera = Object.keys(RESOURCE_TAXONOMY); // 10 أجناس
+        this.resourceGenera = Object.keys(RESOURCE_TAXONOMY); // 13 جنساً
 
         // أبعاد التقييم (مخرجات الشبكة)
         this.evaluationDimensions = RESOURCE_METRICS.dimensions.map(d => d.id); // 6 أبعاد
