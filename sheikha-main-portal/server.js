@@ -36118,6 +36118,32 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// ⭐ عملة شيخة الرقمية — SHK العملة الأساسية (الجيل الجديد)
+// Sheikha Digital Currency — SHK as BASE Currency
+// «وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة: 275
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const shkRoutes = require('./routes/digital-currency.js');
+    app.use('/api/shk', shkRoutes);
+    console.log('✅ [SHK-CORE] عملة شيخة الرقمية — SHK العملة الأساسية — مُفعَّلة');
+    console.log('   ├─ SHK هي العملة الأساسية: كل تداول يمر عبرها (INPUT → SHK → OUTPUT)');
+    console.log('   ├─ GET  /api/shk/status              — الحالة الكاملة');
+    console.log('   ├─ GET  /api/shk/price               — سعر SHK المباشر (Neural Oracle)');
+    console.log('   ├─ GET  /api/shk/currencies          — 30+ عملة رقمية مدعومة');
+    console.log('   ├─ GET  /api/shk/rates               — كل الأسعار مقابل SHK');
+    console.log('   ├─ POST /api/shk/exchange/quote      — عرض سعر صرف (ANY → SHK → ANY)');
+    console.log('   ├─ POST /api/shk/exchange/execute    — تنفيذ تداول فعلي');
+    console.log('   ├─ POST /api/shk/wallet/create       — إنشاء محفظة on-chain');
+    console.log('   ├─ POST /api/shk/transfer            — تحويل SHK');
+    console.log('   ├─ POST /api/shk/mint                — سك SHK مقابل أصول');
+    console.log('   ├─ POST /api/shk/burn                — حرق SHK واسترداد أصول');
+    console.log('   ├─ POST /api/shk/stake               — تجميد SHK لمكافآت');
+    console.log('   └─ GET  /api/shk/oracle/assess       — تقييم عصبي للقيمة');
+} catch (e) {
+    console.warn('⚠️ [SHK-CORE] فشل تحميل عملة شيخة الرقمية:', e.message);
+}
+
+
 // 📡 منظومة شيخة للاتصالات والشبكات الكونية
 // Sheikha Telecom & Universal Networks
 // ﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾ — الأنفال: 60

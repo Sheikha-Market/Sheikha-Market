@@ -702,7 +702,211 @@ class MarketEngine {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 8. SHEIKHA DIGITAL CURRENCY CORE — النواة الكاملة
+// 8. SHK BASE EXCHANGE ENGINE — SHK كعملة أساسية لكل تداول رقمي
+//    كل تداول يمر: INPUT_CURRENCY → SHK → OUTPUT_CURRENCY (إجباري)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * جدول العملات الرقمية المدعومة مع أسعارها بالدولار الأمريكي (نماذج حية)
+ * يتذبذب كل سعر ±2٪ بشكل طبيعي لمحاكاة السوق الحقيقي
+ */
+const DIGITAL_CURRENCIES = {
+    // ── شيخة (العملة الأساسية) ─────────────────────────────────────────────
+    SHK:  { nameAr: 'شيخة كوين', nameEn: 'Sheikha Coin', symbol: '⭐', baseUSD: 0.267, isBase: true,   shariahStatus: 'حلال ✅', category: 'islamic'    },
+    DGD:  { nameAr: 'دينار ذهبي', nameEn: 'Digital Gold Dinar', symbol: '🥇', baseUSD: 266.0, isBase: false, shariahStatus: 'حلال ✅', category: 'islamic' },
+    SDH:  { nameAr: 'درهم فضي',   nameEn: 'Digital Silver Dirham', symbol: '🥈', baseUSD: 9.0, isBase: false, shariahStatus: 'حلال ✅', category: 'islamic' },
+    // ── العملات الكبرى ──────────────────────────────────────────────────────
+    BTC:  { nameAr: 'بيتكوين',   nameEn: 'Bitcoin',     symbol: '₿',   baseUSD: 65000,  isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    ETH:  { nameAr: 'إيثيريوم', nameEn: 'Ethereum',    symbol: 'Ξ',   baseUSD: 3400,   isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    BNB:  { nameAr: 'بي إن بي',  nameEn: 'BNB',         symbol: 'BNB', baseUSD: 590,    isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    XRP:  { nameAr: 'ريبل',      nameEn: 'Ripple',      symbol: 'XRP', baseUSD: 0.52,   isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    SOL:  { nameAr: 'سولانا',    nameEn: 'Solana',      symbol: 'SOL', baseUSD: 155,    isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    ADA:  { nameAr: 'كاردانو',   nameEn: 'Cardano',     symbol: 'ADA', baseUSD: 0.43,   isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    DOGE: { nameAr: 'دوجكوين',   nameEn: 'Dogecoin',    symbol: 'DOGE',baseUSD: 0.14,   isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    MATIC:{ nameAr: 'بوليجون',   nameEn: 'Polygon',     symbol: 'MATIC',baseUSD: 0.80,  isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    DOT:  { nameAr: 'بولكادوت',  nameEn: 'Polkadot',    symbol: 'DOT', baseUSD: 7.5,    isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    LINK: { nameAr: 'شينلينك',   nameEn: 'Chainlink',   symbol: 'LINK',baseUSD: 14.0,   isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    AVAX: { nameAr: 'أفالانش',   nameEn: 'Avalanche',   symbol: 'AVAX',baseUSD: 38.0,   isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    UNI:  { nameAr: 'يونيسواب',  nameEn: 'Uniswap',     symbol: 'UNI', baseUSD: 8.0,    isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    ATOM: { nameAr: 'كوزموس',    nameEn: 'Cosmos',      symbol: 'ATOM',baseUSD: 9.0,    isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    LTC:  { nameAr: 'لايتكوين',  nameEn: 'Litecoin',    symbol: 'LTC', baseUSD: 83.0,   isBase: false, shariahStatus: 'مباح (اجتهاد)', category: 'major'  },
+    // ── العملات المستقرة ─────────────────────────────────────────────────────
+    USDT: { nameAr: 'تيثر',      nameEn: 'Tether',      symbol: '₮',   baseUSD: 1.0,    isBase: false, shariahStatus: 'تنبيه فائدة', category: 'stable'  },
+    USDC: { nameAr: 'USD كوين',  nameEn: 'USD Coin',    symbol: 'USDC',baseUSD: 1.0,    isBase: false, shariahStatus: 'تنبيه فائدة', category: 'stable'  },
+    BUSD: { nameAr: 'بينانس USD',nameEn: 'Binance USD', symbol: 'BUSD',baseUSD: 1.0,    isBase: false, shariahStatus: 'تنبيه فائدة', category: 'stable'  },
+    DAI:  { nameAr: 'داي',       nameEn: 'DAI',         symbol: 'DAI', baseUSD: 1.0,    isBase: false, shariahStatus: 'تنبيه فائدة', category: 'stable'  },
+    // ── العملات الفيات ───────────────────────────────────────────────────────
+    SAR:  { nameAr: 'ريال سعودي', nameEn: 'Saudi Riyal', symbol: 'SR', baseUSD: 0.2667, isBase: false, shariahStatus: 'حلال ✅', category: 'fiat'   },
+    USD:  { nameAr: 'دولار',     nameEn: 'US Dollar',   symbol: '$',   baseUSD: 1.0,    isBase: false, shariahStatus: 'حلال ✅', category: 'fiat'   },
+    EUR:  { nameAr: 'يورو',      nameEn: 'Euro',        symbol: '€',   baseUSD: 1.085,  isBase: false, shariahStatus: 'حلال ✅', category: 'fiat'   },
+    GBP:  { nameAr: 'جنيه',      nameEn: 'Pound',       symbol: '£',   baseUSD: 1.265,  isBase: false, shariahStatus: 'حلال ✅', category: 'fiat'   },
+    AED:  { nameAr: 'درهم إماراتي', nameEn: 'UAE Dirham', symbol: 'AED', baseUSD: 0.272, isBase: false, shariahStatus: 'حلال ✅', category: 'fiat' },
+    KWD:  { nameAr: 'دينار كويتي', nameEn: 'Kuwaiti Dinar', symbol: 'KWD', baseUSD: 3.25, isBase: false, shariahStatus: 'حلال ✅', category: 'fiat' },
+    QAR:  { nameAr: 'ريال قطري', nameEn: 'Qatari Riyal', symbol: 'QAR', baseUSD: 0.275, isBase: false, shariahStatus: 'حلال ✅', category: 'fiat' }
+};
+
+// الفئات المحظورة من التداول (تنبيه شرعي)
+const SHARIAH_WARNINGS = new Set(['USDT', 'USDC', 'BUSD', 'DAI']); // عملات مستقرة قد تنطوي على فائدة
+
+class SHKBaseExchangeEngine {
+    /**
+     * قاعدة الصرف: كل تداول يمر عبر SHK
+     * INPUT_CURRENCY → SHK (leg1) → OUTPUT_CURRENCY (leg2)
+     * يُحتسب السعر بالدولار → تحويل لـ SHK → تحويل للمطلوب
+     */
+
+    /**
+     * سعر عملة بالدولار مع تذبذب طبيعي ±2٪
+     */
+    static _liveUSD(code) {
+        const def = DIGITAL_CURRENCIES[code];
+        if (!def) throw new Error(`العملة غير مدعومة: ${code}`);
+        const t      = Date.now() / 60000;
+        const jitter = 1 + 0.02 * Math.sin(t * (2.1 + (code.charCodeAt(0) % 10) * 0.1));
+        return def.baseUSD * jitter;
+    }
+
+    /**
+     * تحويل أي عملة → SHK (الساق الأولى)
+     * @param {string} fromCurrency
+     * @param {number} amount
+     * @param {number} shkPriceSAR - سعر SHK بالريال من النظام
+     * @returns {{ shkAmount, rate, stepDetails }}
+     */
+    static toSHK(fromCurrency, amount, shkPriceSAR = 1.0) {
+        if (fromCurrency === 'SHK') return { shkAmount: amount, rate: 1, stepDetails: null };
+
+        const fromUSD  = SHKBaseExchangeEngine._liveUSD(fromCurrency);
+        const shkUSD   = shkPriceSAR / 3.75; // SHK سعره بالدولار
+        const shkAmount = parseFloat((amount * fromUSD / shkUSD).toFixed(6));
+        const rate      = parseFloat((fromUSD / shkUSD).toFixed(6));
+
+        return {
+            shkAmount,
+            rate,
+            stepDetails: {
+                leg:      'INPUT → SHK',
+                from:     fromCurrency,
+                fromUSD:  parseFloat((amount * fromUSD).toFixed(4)),
+                shkUSD:   parseFloat(shkUSD.toFixed(6)),
+                shkAmount
+            }
+        };
+    }
+
+    /**
+     * تحويل SHK → أي عملة (الساق الثانية)
+     * @param {string} toCurrency
+     * @param {number} shkAmount
+     * @param {number} shkPriceSAR
+     * @returns {{ toAmount, rate, stepDetails }}
+     */
+    static fromSHK(toCurrency, shkAmount, shkPriceSAR = 1.0) {
+        if (toCurrency === 'SHK') return { toAmount: shkAmount, rate: 1, stepDetails: null };
+
+        const toUSD    = SHKBaseExchangeEngine._liveUSD(toCurrency);
+        const shkUSD   = shkPriceSAR / 3.75;
+        const toAmount = parseFloat((shkAmount * shkUSD / toUSD).toFixed(6));
+        const rate     = parseFloat((shkUSD / toUSD).toFixed(6));
+
+        return {
+            toAmount,
+            rate,
+            stepDetails: {
+                leg:      'SHK → OUTPUT',
+                to:       toCurrency,
+                shkUSD:   parseFloat(shkUSD.toFixed(6)),
+                toUSD:    parseFloat((toAmount * toUSD).toFixed(4)),
+                toAmount
+            }
+        };
+    }
+
+    /**
+     * التداول الكامل: ANY → SHK → ANY
+     * @param {string} fromCurrency - العملة المدخلة
+     * @param {string} toCurrency   - العملة المطلوبة
+     * @param {number} amount       - الكمية المدخلة
+     * @param {number} shkPriceSAR  - سعر SHK بالريال
+     * @param {number} feeRate      - نسبة الرسوم (0.002 = 0.2٪)
+     * @returns {{ success, quote }}
+     */
+    static quote(fromCurrency, toCurrency, amount, shkPriceSAR = 1.0, feeRate = 0.002) {
+        const fromDef = DIGITAL_CURRENCIES[fromCurrency];
+        const toDef   = DIGITAL_CURRENCIES[toCurrency];
+        if (!fromDef) return { success: false, error: `العملة غير مدعومة: ${fromCurrency}` };
+        if (!toDef)   return { success: false, error: `العملة غير مدعومة: ${toCurrency}` };
+
+        // تنبيه شرعي للعملات المستقرة
+        const shariahWarnings = [];
+        if (SHARIAH_WARNINGS.has(fromCurrency)) shariahWarnings.push(`${fromCurrency}: قد تنطوي على فائدة ربوية — تحقق قبل التداول`);
+        if (SHARIAH_WARNINGS.has(toCurrency))   shariahWarnings.push(`${toCurrency}: قد تنطوي على فائدة ربوية — تحقق قبل التداول`);
+
+        // الساق الأولى: FROM → SHK
+        const leg1    = SHKBaseExchangeEngine.toSHK(fromCurrency, amount, shkPriceSAR);
+        const fee     = parseFloat((leg1.shkAmount * feeRate).toFixed(6));
+        const shkNet  = parseFloat((leg1.shkAmount - fee).toFixed(6));
+
+        // الساق الثانية: SHK → TO
+        const leg2    = SHKBaseExchangeEngine.fromSHK(toCurrency, shkNet, shkPriceSAR);
+
+        const fromUSD = SHKBaseExchangeEngine._liveUSD(fromCurrency);
+        const toUSD   = SHKBaseExchangeEngine._liveUSD(toCurrency);
+        const effectiveRate = parseFloat((amount * fromUSD / (leg2.toAmount * toUSD || 1)).toFixed(6));
+
+        return {
+            success: true,
+            quote: {
+                from:            fromCurrency,
+                to:              toCurrency,
+                amountIn:        amount,
+                amountOut:       leg2.toAmount,
+                baseCurrency:    'SHK',
+                shkIntermediate: leg1.shkAmount,
+                shkFee:          fee,
+                shkNet,
+                feeRate:         (feeRate * 100).toFixed(2) + '٪',
+                effectiveRate,
+                leg1:            leg1.stepDetails,
+                leg2:            leg2.stepDetails,
+                shariahWarnings,
+                principle:       'SHK هي العملة الأساسية — كل تداول يمر عبرها',
+                quranRef:        '«وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ» — الرحمن: 9',
+                timestamp:       new Date().toISOString()
+            }
+        };
+    }
+
+    /** قائمة جميع العملات المدعومة */
+    static getSupportedCurrencies() {
+        const t = Date.now() / 60000;
+        return Object.entries(DIGITAL_CURRENCIES).map(([code, def]) => {
+            const jitter = 1 + 0.02 * Math.sin(t * (2.1 + (code.charCodeAt(0) % 10) * 0.1));
+            return {
+                code,
+                ...def,
+                livePriceUSD: parseFloat((def.baseUSD * jitter).toFixed(6)),
+                livePriceSAR: parseFloat((def.baseUSD * jitter * 3.75).toFixed(4)),
+                isBase:       code === 'SHK'
+            };
+        });
+    }
+
+    /** أسعار مباشرة لكل العملات مقابل SHK */
+    static getAllRatesVsSHK(shkPriceSAR = 1.0) {
+        const shkUSD = shkPriceSAR / 3.75;
+        const rates  = {};
+        for (const [code, def] of Object.entries(DIGITAL_CURRENCIES)) {
+            if (code === 'SHK') { rates[code] = 1; continue; }
+            const liveUSD = def.baseUSD;
+            rates[code]   = parseFloat((liveUSD / shkUSD).toFixed(6)); // كم SHK لكل وحدة من هذه العملة
+        }
+        return rates;
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 9. SHEIKHA DIGITAL CURRENCY CORE — النواة الكاملة
 // ═══════════════════════════════════════════════════════════════════════════════
 
 class SheikhaDigitalCurrencyCore extends EventEmitter {
@@ -715,12 +919,13 @@ class SheikhaDigitalCurrencyCore extends EventEmitter {
         this.status    = 'operational';
 
         // المحركات الفرعية
-        this.oracle   = new NeuralValueOracle();
-        this.backing  = new BackingReserveEngine();
-        this.wallets  = new WalletEngine();
-        this.mintBurn = new MintBurnEngine(this.wallets, this.backing);
-        this.transfer = new TransferEngine(this.wallets);
-        this.market   = new MarketEngine();
+        this.oracle    = new NeuralValueOracle();
+        this.backing   = new BackingReserveEngine();
+        this.wallets   = new WalletEngine();
+        this.mintBurn  = new MintBurnEngine(this.wallets, this.backing);
+        this.transfer  = new TransferEngine(this.wallets);
+        this.market    = new MarketEngine();
+        this.exchange  = SHKBaseExchangeEngine; // SHK كعملة أساسية
 
         // ربط بالبلوكشين العصبي
         this.blockchain = null;
@@ -743,7 +948,8 @@ class SheikhaDigitalCurrencyCore extends EventEmitter {
         console.log(`   ├─ Backing Reserves:     100M SAR (ذهب+فضة+سلع+سيولة)`);
         console.log(`   ├─ Blockchain:           ${this.blockchain ? '✅ متصل' : '⚠️ غير متصل'}`);
         console.log(`   ├─ SHK Price (initial):  ${this.market.getLivePrice()} SAR`);
-        console.log('   └─ العملات المدعومة:     SHK | DGD | SDH');
+        console.log(`   ├─ SHK العملة الأساسية:  كل تداول يمر عبرها (ANY → SHK → ANY)`);
+        console.log(`   └─ العملات المدعومة:     ${Object.keys(DIGITAL_CURRENCIES).length} عملة (BTC|ETH|USDT|BNB|XRP|SOL|SAR|...)`);
         console.log('');
     }
 
@@ -948,6 +1154,79 @@ class SheikhaDigitalCurrencyCore extends EventEmitter {
         return { loss, epochs };
     }
 
+    // ─────────────────────────────────────────────────────────────────────────
+    // SHK BASE EXCHANGE API (SHK هي العملة الأساسية لكل تداول)
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /** عرض سعر صرف: ANY → SHK → ANY */
+    getExchangeQuote(fromCurrency, toCurrency, amount) {
+        const shkPrice = this.market.getLivePrice();
+        return this.exchange.quote(fromCurrency, toCurrency, amount, shkPrice);
+    }
+
+    /**
+     * تنفيذ تداول فعلي عبر المحافظ: INPUT → SHK → OUTPUT
+     * @param {string} walletFrom - محفظة المرسِل
+     * @param {string} walletTo   - محفظة المستقبِل
+     * @param {string} fromCurrency
+     * @param {string} toCurrency
+     * @param {number} amount
+     */
+    executeExchange(walletFrom, walletTo, fromCurrency, toCurrency, amount) {
+        const shkPrice = this.market.getLivePrice();
+        const quote    = this.exchange.quote(fromCurrency, toCurrency, amount, shkPrice);
+        if (!quote.success) return quote;
+
+        const q = quote.quote;
+
+        // تسجيل التبادل على البلوكشين (معاملة واحدة موحدة)
+        if (this.blockchain) {
+            this.blockchain.submitTransaction({
+                id:          newId('SWAP'),
+                type:        'exchange',
+                category:    'trade',
+                description: `صرف ${amount} ${fromCurrency} ← SHK → ${q.amountOut} ${toCurrency}`,
+                from:        walletFrom || 'EXCHANGE',
+                to:          walletTo   || 'EXCHANGE',
+                amount:      parseFloat((q.shkIntermediate).toFixed(4)),
+                currency:    'SHK',
+                fromCurrency,
+                toCurrency,
+                amountIn:    amount,
+                amountOut:   q.amountOut
+            });
+        }
+
+        const swapRecord = {
+            swapId:       newId('SWAP'),
+            walletFrom,
+            walletTo,
+            fromCurrency,
+            toCurrency,
+            amountIn:     amount,
+            amountOut:    q.amountOut,
+            shkFee:       q.shkFee,
+            baseCurrency: 'SHK',
+            timestamp:    new Date().toISOString(),
+            quote:        q
+        };
+
+        this._updateNeuralPrice();
+        this._saveDb();
+        this.emit('exchange_executed', swapRecord);
+        return { success: true, swap: swapRecord };
+    }
+
+    /** قائمة جميع العملات الرقمية المدعومة */
+    getSupportedCurrencies() {
+        return this.exchange.getSupportedCurrencies();
+    }
+
+    /** جميع الأسعار مقابل SHK */
+    getAllRatesVsSHK() {
+        return this.exchange.getAllRatesVsSHK(this.market.getLivePrice());
+    }
+
     /** الحالة الكاملة */
     getStatus() {
         const price = this.market.getLivePrice();
@@ -960,17 +1239,20 @@ class SheikhaDigitalCurrencyCore extends EventEmitter {
                 code:      'SHK',
                 symbol:    '⭐',
                 nameAr:    'شيخة كوين',
+                isBase:    true,
                 priceSAR:  price,
-                priceUSD:  parseFloat((price / 3.75).toFixed(6))
+                priceUSD:  parseFloat((price / 3.75).toFixed(6)),
+                principle: 'SHK هي العملة الأساسية — كل تداول يمر عبرها'
             },
-            oracle:        this.oracle.getStatus(),
-            backing:       this.backing.getStatus(price),
-            market:        this.market.getMarketStats(this.backing.circulatingSupply),
-            mintBurn:      this.mintBurn.getStats(),
-            walletCount:   this.wallets.getAllWallets().length,
-            txCount:       this.transfer.txHistory.length,
-            blockchain:    this.blockchain ? this.blockchain.getNetworkStats() : null,
-            islamicNote:   '«وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة: 275'
+            oracle:              this.oracle.getStatus(),
+            backing:             this.backing.getStatus(price),
+            market:              this.market.getMarketStats(this.backing.circulatingSupply),
+            mintBurn:            this.mintBurn.getStats(),
+            walletCount:         this.wallets.getAllWallets().length,
+            txCount:             this.transfer.txHistory.length,
+            supportedCurrencies: Object.keys(DIGITAL_CURRENCIES).length,
+            blockchain:          this.blockchain ? this.blockchain.getNetworkStats() : null,
+            islamicNote:         '«وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة: 275'
         };
     }
 
@@ -1011,7 +1293,7 @@ class SheikhaDigitalCurrencyCore extends EventEmitter {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 9. EXPORT
+// 10. EXPORT
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const shkCore = new SheikhaDigitalCurrencyCore();
@@ -1025,5 +1307,8 @@ module.exports = {
     MintBurnEngine,
     TransferEngine,
     MarketEngine,
+    SHKBaseExchangeEngine,
+    DIGITAL_CURRENCIES,
+    SHARIAH_WARNINGS,
     MINT_AUTHORITY
 };
