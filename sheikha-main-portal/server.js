@@ -36130,6 +36130,33 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// ⚙️ تكنلوجيا اللوجيستك والنقل — Sheikha Logistics & Transport Technology
+// ﴿ وَسَخَّرَ لَكُمُ الْفُلْكَ لِتَجْرِيَ فِي الْبَحْرِ بِأَمْرِهِ ﴾ — إبراهيم ٣٢
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const logisticsTechRoutes = require('./routes/logistics-tech.js');
+    app.use('/api/logistics-tech', logisticsTechRoutes);
+    console.log('✅ [LOGISTICS-TECH] تكنلوجيا اللوجيستك والنقل — مُفعَّلة');
+    console.log('   ├─ GET  /api/logistics-tech                    — ملخص سريع');
+    console.log('   ├─ GET  /api/logistics-tech/overview           — نظرة عامة شاملة');
+    console.log('   ├─ GET  /api/logistics-tech/iot                — IoT والتيليماتيكس');
+    console.log('   ├─ GET  /api/logistics-tech/blockchain         — سلسلة الكتل');
+    console.log('   ├─ GET  /api/logistics-tech/ai                 — الذكاء الاصطناعي');
+    console.log('   ├─ GET  /api/logistics-tech/autonomous         — الأنظمة المستقلة');
+    console.log('   ├─ GET  /api/logistics-tech/smart-warehouse    — المستودعات الذكية');
+    console.log('   ├─ GET  /api/logistics-tech/platforms          — المنصات الرقمية');
+    console.log('   ├─ GET  /api/logistics-tech/connectivity       — الاتصالات والجيل الخامس');
+    console.log('   ├─ GET  /api/logistics-tech/green-tech         — التكنولوجيا الخضراء');
+    console.log('   ├─ GET  /api/logistics-tech/cybersecurity      — أمن المعلومات');
+    console.log('   ├─ GET  /api/logistics-tech/digital-docs       — الوثائق الرقمية');
+    console.log('   ├─ GET  /api/logistics-tech/integration        — التكامل مع الأنظمة');
+    console.log('   ├─ GET  /api/logistics-tech/roadmap            — خارطة الطريق 2026-2030');
+    console.log('   └─ POST /api/logistics-tech/assess-maturity    — تقييم نضج التكنولوجيا');
+} catch (e) {
+    console.warn('⚠️ [LOGISTICS-TECH] فشل تحميل مسارات تكنولوجيا اللوجيستك:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🚚 شبكة شيخة العصبيل للوجستيات والنقل
 // Sheikha Al-Asabeel Logistics & Transport Network
 // ﴿ لِإِيلَافِ قُرَيْشٍ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ ﴾
