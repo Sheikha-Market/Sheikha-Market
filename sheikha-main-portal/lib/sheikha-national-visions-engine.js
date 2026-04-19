@@ -468,7 +468,7 @@ const NATIONAL_VISIONS_DB = {
 
 // ─── محرك رؤية الدول ──────────────────────────────────────────────────────────
 
-class SheikhanationalVisionsEngine {
+class SheikhaNationalVisionsEngine {
     constructor() {
         this.version = '1.0.0';
         this.visionsDB = NATIONAL_VISIONS_DB;
@@ -693,7 +693,7 @@ class SheikhanationalVisionsEngine {
     // ─── الحالة العامة للمحرك ─────────────────────────────────────────────────
     getStatus() {
         return {
-            engine: 'SheikhaationalVisionsEngine',
+            engine: 'SheikhaNationalVisionsEngine',
             version: this.version,
             status: 'active',
             totalVisions: Object.keys(this.visionsDB).length,
@@ -712,4 +712,4 @@ class SheikhanationalVisionsEngine {
     }
 }
 
-module.exports = SheikhanationalVisionsEngine;
+module.exports = SheikhaNationalVisionsEngine;
