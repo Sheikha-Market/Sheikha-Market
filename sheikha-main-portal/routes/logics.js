@@ -115,7 +115,7 @@ router.get('/scopes', (req, res) => {
 // ─── سجلات التفعيل ───────────────────────────────────────────────────────────
 
 router.get('/activations', (req, res) => {
-    const { logicId, scopeId, entityType, status } = req.query;
+    const { logicId, scopeId, entityType, status, limit, offset } = req.query;
 
     const query = {};
     if (logicId)     query.logicId    = logicId;
@@ -123,10 +123,17 @@ router.get('/activations', (req, res) => {
     if (entityType)  query.entityType = entityType;
     if (status)      query.status     = status;
 
-    const records = LogicActivationRecord.find(query);
+    const all = LogicActivationRecord.find(query);
+
+    const parsedOffset = Math.max(0, parseInt(offset, 10) || 0);
+    const parsedLimit  = Math.min(100, Math.max(1, parseInt(limit, 10) || 20));
+    const records      = all.slice(parsedOffset, parsedOffset + parsedLimit);
 
     res.json({
         success: true,
+        total:   all.length,
+        offset:  parsedOffset,
+        limit:   parsedLimit,
         count:   records.length,
         activations: records
     });
@@ -176,13 +183,19 @@ router.get('/:id', (req, res) => {
     }
 
     // سجلات التفعيل لهذا المنطق
-    const activations = LogicActivationRecord.find({ logicId: logic.id });
+    const allActivations = LogicActivationRecord.find({ logicId: logic.id });
+
+    const parsedOffset = Math.max(0, parseInt(req.query.offset, 10) || 0);
+    const parsedLimit  = Math.min(100, Math.max(1, parseInt(req.query.limit, 10) || 10));
+    const activations  = allActivations.slice(parsedOffset, parsedOffset + parsedLimit);
 
     res.json({
         success: true,
         logic,
-        activationsCount: activations.length,
-        activations: activations.slice(-10) // آخر 10 سجلات فقط
+        activationsTotal: allActivations.length,
+        offset:    parsedOffset,
+        limit:     parsedLimit,
+        activations
     });
 });
 
