@@ -36119,6 +36119,16 @@ try {
     console.warn('⚠️ [LIVE-AI v2] شبكة الذكاء الاصطناعي الحية غير متوفرة:', e.message);
 }
 
+// 🔮 رؤية شيخة الحاسوبية — Sheikha Computer Vision
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const visionRoutes = require('./routes/vision-system-routes.js');
+    app.use('/api/vision', visionRoutes);
+    console.log('✅ [VISION] منظومة الرؤية الحاسوبية مسجّلة على /api/vision');
+} catch (e) {
+    console.warn('⚠️ [VISION] منظومة الرؤية غير متوفرة:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
