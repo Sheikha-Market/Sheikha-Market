@@ -203,6 +203,33 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل المحرك العصبي الكوني:', err.stack || err.message);
 }
 
+// ─── تسجيل شبكة شيخة العصبية للإنتاج ────────────────────────────────────────
+
+try {
+    const { engine: productionNeuralEngine } = require('../../lib/sheikha-production-neural-network');
+    registerEngine('production_neural', productionNeuralEngine, {
+        nameAr: 'شبكة شيخة العصبية للإنتاج',
+        nameEn: 'Sheikha Production Neural Network',
+        maqsad: 'ARD',
+    });
+    registerRoute('production',              'production_neural', 'ARD');
+    registerRoute('production.infer',        'production_neural', 'ARD');
+    registerRoute('production.train',        'production_neural', 'ARD');
+    registerRoute('production.batch_train',  'production_neural', 'ARD');
+    registerRoute('production.status',       'production_neural', 'ARD');
+    registerRoute('production.export',       'production_neural', 'ARD');
+    registerRoute('production.import',       'production_neural', 'ARD');
+    registerRoute('production.reset',        'production_neural', 'ARD');
+    registerRoute('production.pipelines',    'production_neural', 'ARD');
+    registerRoute('production.encode',       'production_neural', 'ARD');
+    registerRoute('prod.infer',              'production_neural', 'ARD');
+    registerRoute('prod.train',              'production_neural', 'ARD');
+    registerRoute('prod.status',             'production_neural', 'ARD');
+    console.log('[ENGINES-INDEX] 🧠 شبكة شيخة العصبية للإنتاج مسجّلة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل شبكة الإنتاج العصبية:', err.stack || err.message);
+}
+
 // ─── تسجيل كل المحركات تحت سيادة الحاكمة العليا ─────────────────────────────
 // بعد تسجيل الجميع، تفرض شيخة سيادتها على الكل
 // ﴿ وَفَوْقَ كُلِّ ذِي عِلْمٍ عَلِيمٌ ﴾ — يوسف ٧٦
@@ -229,8 +256,9 @@ if (_governor) {
             standards:          'محرك المعايير والجودة',
             vision:             'محرك الرؤى والاستشارات',
             consulting:         'محرك الاستشارات الكونية',
-            'live-ai':          'شبكة الذكاء الاصطناعي الحية',
-            universal_networks: 'المحرك العصبي الكوني الشامل',
+            'live-ai':           'شبكة الذكاء الاصطناعي الحية',
+            universal_networks:  'المحرك العصبي الكوني الشامل',
+            production_neural:   'شبكة شيخة العصبية للإنتاج',
         };
         const allEngines = listEngines();
         for (const engineKey of allEngines) {
