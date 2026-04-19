@@ -473,8 +473,8 @@ class SheikhaIndustrialNeuralNetwork extends EventEmitter {
         if (/حديد|steel|ألمنيوم|aluminum|معادن/i.test(t)) features[19] = 1;
 
         // الميزة 20-23: اللغة والسياق
-        if (/\u0600-\u06ff/.test(t))                    features[20] = 1; // عربي
-        if (/english|en/.test(t) || !/[\u0600-\u06ff]/.test(t)) features[21] = 1; // إنجليزي
+        if (/[\u0600-\u06ff]/.test(t))                  features[20] = 1; // عربي
+        if (!/[\u0600-\u06ff]/.test(t))                 features[21] = 1; // غير عربي (إنجليزي أو غيره)
         if (t.length > 100)                             features[22] = 1; // نص طويل
         if (/كيف|how|what|ما هو|ماذا/i.test(t))        features[23] = 1; // استفسار
 
@@ -601,7 +601,7 @@ class SheikhaIndustrialNeuralNetwork extends EventEmitter {
             { id: 'automotive',    nameAr: 'سيارات',              pattern: /سيارة|automotive|vehicle|لوسيد|hyundai/i },
             { id: 'electronics',   nameAr: 'إلكترونيات',          pattern: /إلكترونيات|electronics|كابلات|cables/i },
             { id: 'textile',       nameAr: 'نسيج وملابس',         pattern: /نسيج|textile|ملابس|garment/i },
-            { id: 'mining',        nameAr: 'تعدين ومعادن',        pattern: /تعدين|mining|معادن|معادن|metals/i },
+            { id: 'mining',        nameAr: 'تعدين ومعادن',        pattern: /تعدين|mining|معادن|metals/i },
             { id: 'defense',       nameAr: 'دفاع وعسكري',         pattern: /دفاع|defense|military|sami|سامي/i },
             { id: 'water',         nameAr: 'مياه وتحلية',         pattern: /مياه|water|تحلية|desalination/i },
             { id: 'packaging',     nameAr: 'تغليف وتعبئة',        pattern: /تغليف|packaging|تعبئة/i },
