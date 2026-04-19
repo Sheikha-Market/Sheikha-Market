@@ -122,6 +122,39 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل محرك الاستشارات:', err.stack || err.message);
 }
 
+// ─── تسجيل المحرك العصبي الكوني الشامل لكل أنواع الشبكات ────────────────────
+
+try {
+    const { engine: universalNetworksEngine } = require('../../lib/sheikha-universal-networks-neural-engine');
+    registerEngine('universal_networks', universalNetworksEngine, {
+        nameAr: 'المحرك العصبي الكوني الشامل لكل أنواع الشبكات',
+        maqsad: 'ARD',
+    });
+    // مسارات التوجيه الشاملة للشبكات
+    registerRoute('network',              'universal_networks', 'ARD');
+    registerRoute('networks',             'universal_networks', 'ARD');
+    registerRoute('neural_network',       'universal_networks', 'AQL');
+    registerRoute('network.classify',     'universal_networks', 'ARD');
+    registerRoute('network.list',         'universal_networks', 'ARD');
+    registerRoute('network.metrics',      'universal_networks', 'ARD');
+    registerRoute('network.integration',  'universal_networks', 'ARD');
+    registerRoute('network.topology',     'universal_networks', 'ARD');
+    registerRoute('network.type',         'universal_networks', 'ARD');
+    registerRoute('network.info',         'universal_networks', 'ARD');
+    registerRoute('integration',          'universal_networks', 'ARD');
+    registerRoute('topology',             'universal_networks', 'ARD');
+    registerRoute('quantum_network',      'universal_networks', 'ARD');
+    registerRoute('biological_network',   'universal_networks', 'NAFS');
+    registerRoute('energy_network',       'universal_networks', 'ARD');
+    registerRoute('social_network',       'universal_networks', 'NAFS');
+    registerRoute('financial_network',    'universal_networks', 'MAL');
+    registerRoute('transport_network',    'universal_networks', 'MAL');
+    registerRoute('space_network',        'universal_networks', 'ARD');
+    console.log('[ENGINES-INDEX] ✅ المحرك العصبي الكوني الشامل مسجّل');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل المحرك العصبي الكوني:', err.stack || err.message);
+}
+
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 module.exports = {
