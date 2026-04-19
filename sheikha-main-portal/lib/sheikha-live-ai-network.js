@@ -671,7 +671,7 @@ class SheikhaLiveAINetwork extends EventEmitter {
         this._successCount  = 0;
         this._errorCount    = 0;
         this._batchCount    = 0;
-        this._intentStats   = new Map();
+        this._intentCounters = new Map();
     }
 
     // ─── ① تشغيل الشبكة v2 ─────────────────────────────────────────────────
@@ -986,11 +986,11 @@ class SheikhaLiveAINetwork extends EventEmitter {
     _isArabic(text) { return /[\u0600-\u06FF]/.test(text); }
 
     _trackIntent(intent) {
-        this._intentStats.set(intent, (this._intentStats.get(intent) || 0) + 1);
+        this._intentCounters.set(intent, (this._intentCounters.get(intent) || 0) + 1);
     }
 
     _getTopIntents(n) {
-        return Array.from(this._intentStats.entries())
+        return Array.from(this._intentCounters.entries())
             .sort((a, b) => b[1] - a[1])
             .slice(0, n)
             .map(([intent, count]) => ({ intent, count }));
@@ -1049,7 +1049,7 @@ class SheikhaLiveAINetwork extends EventEmitter {
     _printBanner() {
         console.log(`
 ╔══════════════════════════════════════════════════════════════╗
-║  🧠 شيخة · الأقوى · الأفضل · الأتقى · الأنفع · v${this.version}      ║
+║  🧠 شيخة · الأقوى · الأفضل · الأتقى · الأنفع · v2.0.0     ║
 ║                                                              ║
 ║  ✅ CORE       — عقدة الأساس          (سعة 200 طلب/ث)      ║
 ║  ✅ MARKET     — عقدة السوق والمعادن  (سعة 200 طلب/ث)      ║
