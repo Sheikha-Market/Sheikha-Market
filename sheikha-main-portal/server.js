@@ -36096,6 +36096,28 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// ⛓️🧠 شبكة شيخة العصبية البلوكشين — الجيل الجديد
+// Sheikha Neural Blockchain — New Generation
+// "إِذَا تَدَايَنتُم بِدَيْنٍ إِلَىٰ أَجَلٍ مُّسَمًّى فَاكْتُبُوهُ" — البقرة: 282
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const blockchainRoutes = require('./routes/neural-blockchain.js');
+    app.use('/api/blockchain', blockchainRoutes);
+    console.log('✅ [NEURAL-BLOCKCHAIN] شبكة شيخة العصبية البلوكشين — الجيل الجديد — مُفعَّلة');
+    console.log('   ├─ GET  /api/blockchain/status              — حالة السلسلة (6 طبقات)');
+    console.log('   ├─ GET  /api/blockchain/chain               — عرض السلسلة');
+    console.log('   ├─ GET  /api/blockchain/validate            — التحقق من سلامة السلسلة');
+    console.log('   ├─ POST /api/blockchain/tx/submit           — إرسال معاملة (فلتر شرعي تلقائي)');
+    console.log('   ├─ POST /api/blockchain/mine                — تعدين كتلة (Proof-of-Neural)');
+    console.log('   ├─ GET  /api/blockchain/proof/:b/:tx        — إثبات ميركل (Merkle Proof)');
+    console.log('   ├─ POST /api/blockchain/contract/deploy     — نشر عقد ذكي إسلامي');
+    console.log('   ├─ POST /api/blockchain/zakat/calculate     — احتساب الزكاة');
+    console.log('   └─ POST /api/blockchain/shariah/check       — فحص شرعي للمعاملات');
+} catch (e) {
+    console.warn('⚠️ [NEURAL-BLOCKCHAIN] فشل تحميل البلوكشين العصبي:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 📡 منظومة شيخة للاتصالات والشبكات الكونية
 // Sheikha Telecom & Universal Networks
 // ﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾ — الأنفال: 60
