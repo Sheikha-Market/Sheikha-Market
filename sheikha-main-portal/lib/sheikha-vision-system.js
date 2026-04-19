@@ -5,11 +5,19 @@
  * تحليل كامل الصفحات والصور وتحويلها لمنطق متكامل
  * بدون ضرر أو ضرار - قائمة على الكتاب والسنة
  *
+ * الهيكل الهرمي للرؤية:
+ * ┌─────────────────────────────────────────────────────────┐
+ * │  🔮 الرؤية الاستشارية — الطبقة الحاكمة (v3.0)           │
+ * ├─────────────────────────────────────────────────────────┤
+ * │  🌍 رؤية الدول  │  👁️ رؤية حاسوبية  │  📄 رؤية الصفحات  │
+ * └─────────────────────────────────────────────────────────┘
+ *
  * Features:
- * • تحليل PDF والصور والفيديو
- * • تحويل المحتوى لمنطق برمجي
- * • استخراج البيانات والعلاقات
- * • تصور شامل للموقع
+ * • 🔮 الرؤية الاستشارية — طبقة حاكمة تجمع كل الرؤى
+ * • 🌍 رؤية الدول الاستراتيجية (Saudi 2030, UAE 2071...)
+ * • 👁️ الرؤية الحاسوبية (OCR, كشف الأشياء, باركود...)
+ * • 📄 تحليل الصفحات والفيديوهات
+ * • 🧠 توليد المنطق البرمجي
  * • وكلاء الذكاء الاصطناعي المتخصصين
  * • رؤية حاسوبية متقدمة عبر GPT-4o Vision
  * ═══════════════════════════════════════════════════════════════════════════════
@@ -21,9 +29,21 @@ const OpenAI = (() => {
     try { return require('openai'); } catch { return null; }
 })();
 
+// ─── استيراد المحركات ──────────────────────────────────────────────────────
+let NationalVisionsEngine, ComputerVisionEngine, AdvisoryVisionEngine;
+try {
+    NationalVisionsEngine = require('./sheikha-national-visions-engine.js');
+} catch (_) {}
+try {
+    ComputerVisionEngine = require('./sheikha-computer-vision-engine.js');
+} catch (_) {}
+try {
+    AdvisoryVisionEngine = require('./sheikha-advisory-vision-engine.js');
+} catch (_) {}
+
 class SheikhaVisionSystem {
     constructor() {
-        this.version = '1.0.0';
+        this.version = '3.0.0';
         this.enabled = true;
 
         // 🕋 المبادئ الإسلامية الأساسية
@@ -35,7 +55,7 @@ class SheikhaVisionSystem {
             publicBenefit: 'المصلحة العامة'
         };
 
-        // 📊 الوكلاء المتخصصين
+        // 📊 الوكلاء المتخصصين (رؤية الصفحات)
         this.agents = {
             visual: new VisualAnalysisAgent(),
             semantic: new SemanticAnalysisAgent(),
@@ -44,6 +64,15 @@ class SheikhaVisionSystem {
             logicGeneration: new LogicGenerationAgent(),
             islamicValidator: new IslamicValidatorAgent()
         };
+
+        // 🌍 محرك رؤية الدول
+        this.nationalVisions = NationalVisionsEngine ? new NationalVisionsEngine() : null;
+
+        // 👁️ محرك الرؤية الحاسوبية
+        this.computerVision = ComputerVisionEngine ? new ComputerVisionEngine() : null;
+
+        // 🔮 الرؤية الاستشارية — الطبقة الحاكمة العليا
+        this.advisory = AdvisoryVisionEngine ? new AdvisoryVisionEngine() : null;
 
         // 🎯 نماذج التحليل
         this.analysisModels = {
@@ -54,7 +83,94 @@ class SheikhaVisionSystem {
             semanticGraph: null // خريطة المعاني
         };
 
-        this.log('✅ منظومة الرؤية الشاملة مُفعّلة');
+        this.log('✅ منظومة الرؤية الشاملة v3.0 مُفعّلة');
+        if (this.advisory)       this.log('🔮 الرؤية الاستشارية (الطبقة الحاكمة): مُفعّلة');
+        if (this.nationalVisions) this.log('🌍 رؤية الدول: مُفعّلة');
+        if (this.computerVision) this.log('👁️ الرؤية الحاسوبية: مُفعّلة');
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🔮 الرؤية الاستشارية — الطبقة الحاكمة
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    async consult(request) {
+        if (!this.advisory) return { error: 'محرك الرؤية الاستشارية غير متاح' };
+        return this.advisory.consult(request);
+    }
+
+    async getTradeAdvisory(subject, context) {
+        if (!this.advisory) return { error: 'محرك الرؤية الاستشارية غير متاح' };
+        return this.advisory.getTradeAdvisory(subject, context);
+    }
+
+    async getShariaAdvisory(subject, context) {
+        if (!this.advisory) return { error: 'محرك الرؤية الاستشارية غير متاح' };
+        return this.advisory.getShariaAdvisory(subject, context);
+    }
+
+    async getRiskAssessment(subject, context) {
+        if (!this.advisory) return { error: 'محرك الرؤية الاستشارية غير متاح' };
+        return this.advisory.getRiskAssessment(subject, context);
+    }
+
+    evaluateDecision(decision) {
+        if (!this.advisory) return { error: 'محرك الرؤية الاستشارية غير متاح' };
+        return this.advisory.evaluateDecision(decision);
+    }
+
+    getAdvisoryCouncil() {
+        if (!this.advisory) return { error: 'محرك الرؤية الاستشارية غير متاح' };
+        return this.advisory.getAdvisoryCouncil();
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🌍 رؤية الدول — National Visions
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    getNationalVisions(region) {
+        if (!this.nationalVisions) return null;
+        return region
+            ? this.nationalVisions.getVisionsByRegion(region)
+            : this.nationalVisions.getAllVisions();
+    }
+
+    getCountryVision(countryCode) {
+        if (!this.nationalVisions) return null;
+        return this.nationalVisions.getVisionByCountry(countryCode);
+    }
+
+    alignWithNationalVisions(businessProfile) {
+        if (!this.nationalVisions) return null;
+        return this.nationalVisions.alignBusinessWithVisions(businessProfile);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 👁️ الرؤية الحاسوبية — Computer Vision
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    async runOCR(imageInput, options) {
+        if (!this.computerVision) return { error: 'محرك الرؤية الحاسوبية غير متاح' };
+        return this.computerVision.extractText(imageInput, options);
+    }
+
+    async detectObjects(imageInput, options) {
+        if (!this.computerVision) return { error: 'محرك الرؤية الحاسوبية غير متاح' };
+        return this.computerVision.detectObjects(imageInput, options);
+    }
+
+    async readBarcode(imageInput, options) {
+        if (!this.computerVision) return { error: 'محرك الرؤية الحاسوبية غير متاح' };
+        return this.computerVision.readBarcode(imageInput, options);
+    }
+
+    async inspectQuality(imageInput, options) {
+        if (!this.computerVision) return { error: 'محرك الرؤية الحاسوبية غير متاح' };
+        return this.computerVision.inspectQuality(imageInput, options);
+    }
+
+    async analyzeDocument(imageInput, options) {
+        if (!this.computerVision) return { error: 'محرك الرؤية الحاسوبية غير متاح' };
+        return this.computerVision.analyzeDocument(imageInput, options);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
