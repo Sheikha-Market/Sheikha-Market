@@ -67,12 +67,15 @@ try {
 // Helper
 // ─────────────────────────────────────────────────────────────────────────────
 
+// القيمة الافتراضية المحايدة للمدخلات العصبية (منتصف المجال [0,1])
+const DEFAULT_INPUT_VALUE = 0.5;
+
 function normalizeInputs(raw, expectedSize) {
     if (!Array.isArray(raw) || raw.length === 0) {
-        return new Array(expectedSize).fill(0.5);
+        return new Array(expectedSize).fill(DEFAULT_INPUT_VALUE);
     }
-    const out = raw.map(v => (isFinite(Number(v)) ? Number(v) : 0.5));
-    while (out.length < expectedSize) out.push(0.5);
+    const out = raw.map(v => (isFinite(Number(v)) ? Number(v) : DEFAULT_INPUT_VALUE));
+    while (out.length < expectedSize) out.push(DEFAULT_INPUT_VALUE);
     return out.slice(0, expectedSize);
 }
 

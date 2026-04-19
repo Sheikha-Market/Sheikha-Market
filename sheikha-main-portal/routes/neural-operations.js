@@ -39,7 +39,7 @@ try {
     neuralOps = mod.neuralOps;
     OP_TYPES  = mod.OP_TYPES;
 } catch (e) {
-    console.warn('[NEURAL-OPS-ROUTES] ⚠️ Neural Operations غير متوفر:', e.message);
+    console.warn('[NEURAL-OPS-ROUTES] ⚠️ Neural Operations غير متوفر:', e.message, '— جميع المسارات ستعيد 503');
 }
 
 function notAvailable(res) {
