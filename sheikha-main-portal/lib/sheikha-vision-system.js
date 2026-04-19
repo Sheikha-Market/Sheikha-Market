@@ -461,12 +461,16 @@ class SheikhaVisionSystem {
             const tagRe = new RegExp(`<${tag}(\\s[^>]*)?>`, 'gi');
             const matches = html.match(tagRe) || [];
 
+            // إنشاء الـ RegExp مرة واحدة خارج الـ filter
+            const noAttrRe = noAttrMatch ? new RegExp(`\\s${noAttrMatch[1]}\\s*=`, 'i') : null;
+            const attrRe = attrMatch && !noAttrMatch ? new RegExp(`\\s${attrMatch[1]}\\s*=`, 'i') : null;
+
             return matches.filter(m => {
                 if (attrMatch && noAttrMatch) {
-                    return !new RegExp(`\\s${noAttrMatch[1]}\\s*=`, 'i').test(m);
+                    return !noAttrRe.test(m);
                 }
                 if (attrMatch && !noAttrMatch) {
-                    return new RegExp(`\\s${attrMatch[1]}\\s*=`, 'i').test(m);
+                    return attrRe.test(m);
                 }
                 return true;
             }).length;
@@ -683,9 +687,7 @@ class VisualAnalysisAgent {
         const client = this._getClient();
         if (!client || !imageData) return '';
         try {
-            const imageContent = imageData.startsWith('data:')
-                ? { type: 'image_url', image_url: { url: imageData, detail: 'high' } }
-                : { type: 'image_url', image_url: { url: imageData, detail: 'high' } };
+            const imageContent = { type: 'image_url', image_url: { url: imageData, detail: 'high' } };
 
             const response = await client.chat.completions.create({
                 model: process.env.AI_LLM_MODEL || 'gpt-4o',
@@ -847,7 +849,7 @@ class DataExtractionAgent {
         const urls = (text.match(/https?:\/\/[^\s"'<>]+/g) || [])
             .slice(0, 5)
             .map(u => ({ type: 'url', name: u, properties: {} }));
-        const phones = (text.match(/(\+?[0-9]{8,15})/g) || [])
+        const phones = (text.match(/(\+?(?:966|971|965|968|973|974|20|1)[0-9]{7,12})/g) || [])
             .slice(0, 5)
             .map(p => ({ type: 'phone', name: p, properties: {} }));
         return [...emails, ...urls, ...phones];
