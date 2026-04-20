@@ -36287,6 +36287,21 @@ try {
     console.log('⚠️ [VISION-SYSTEM] فشل تحميل مسارات منظومة الرؤية:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧭 SHEIKHA NAVIGATOR — الشبكة العصبية للنقل الذكي المركزي v3.0
+//    نقل كل شيء بكل وسيلة ولكل غاية بين أي شيء وأي شيء آخر
+// ═══════════════════════════════════════════════════════════════════════════════
+let neuralTransportNetwork = null;
+try {
+    const { create, registerNavigatorRoutes } = require('./lib/sheikha-neural-transport-network');
+    neuralTransportNetwork = create();
+    registerNavigatorRoutes(app, neuralTransportNetwork);
+    console.log(`✅ [SNTN ${neuralTransportNetwork.id}] الشبكة العصبية للنقل — مُفعَّلة`);
+    console.log(`   🌐 ${neuralTransportNetwork.stats.totalNodes} عقدة | ${neuralTransportNetwork.stats.totalEdges} رابط | 12 نوع نقل | 12 وسيلة | 12 API`);
+} catch (e) {
+    console.warn('⚠️ [SNTN] الشبكة العصبية للنقل:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
@@ -36644,24 +36659,6 @@ try {
     console.log(`✅ [DigitalRoot v2.0] ${rootStatus.nameAr} | ${rootStatus.activeRoots} جذر نشط | ${rootStatus.chainHeight} كتلة | ${rootStatus.apis} API | ${rootStatus.algos.join(' + ')}`);
 } catch (e) {
     console.warn('⚠️ DigitalRoot:', e.message);
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🧭 SHEIKHA NAVIGATOR — الشبكة العصبية للنقل الذكي المركزي v3.0
-//    نقل كل شيء بكل وسيلة ولكل غاية بين أي شيء وأي شيء آخر
-//    الأفضل بالكون والأقوى
-// ═══════════════════════════════════════════════════════════════════════════════
-let neuralTransportNetwork = null;
-try {
-    const { create, registerNavigatorRoutes } = require('./lib/sheikha-neural-transport-network');
-    neuralTransportNetwork = create();
-    registerNavigatorRoutes(app, neuralTransportNetwork);
-    console.log(`✅ [SNTN ${neuralTransportNetwork.id}] الشبكة العصبية للنقل — مُفعَّلة`);
-    console.log(`   🌐 ${neuralTransportNetwork.stats.totalNodes} عقدة | ${neuralTransportNetwork.stats.totalEdges} رابط | 12 نوع نقل | 12 وسيلة | 12 API`);
-} catch (e) {
-    console.warn('⚠️ [SNTN] الشبكة العصبية للنقل:', e.message);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
