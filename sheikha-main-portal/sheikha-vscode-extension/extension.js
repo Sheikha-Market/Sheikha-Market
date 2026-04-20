@@ -406,11 +406,14 @@ async function activate(context) {
 
     const tryStartBackendTask = async () => {
         const tasks = await vscode.tasks.fetchTasks();
-        const target = tasks.find(task => task.name === 'Sheikha: Start Dev (No Cursor)')
-            || tasks.find(task => task.name === 'Sheikha: Full Dev Power (No Cursor)')
-            || tasks.find(task => task.name === '🟢 Start Dev (No Cursor)')
-            || tasks.find(task => task.name === '🚀 شيخة — تشغيل الخادم (dev)')
-            || tasks.find(task => task.name === '🚀 Start Development Server');
+        const knownStartTaskNames = new Set([
+            'Sheikha: Start Dev (No Cursor)',
+            'Sheikha: Full Dev Power (No Cursor)',
+            '🟢 Start Dev (No Cursor)',
+            '🚀 شيخة — تشغيل الخادم (dev)',
+            '🚀 Start Development Server'
+        ]);
+        const target = tasks.find(task => knownStartTaskNames.has(task.name));
 
         if (!target) {
             return false;
