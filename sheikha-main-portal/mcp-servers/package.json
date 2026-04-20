@@ -1,7 +1,7 @@
 {
     "name": "sheikha-mcp-servers",
-    "version": "1.0.0",
-    "description": "خوادم MCP لتكامل منظومة شيخة مع Cursor IDE",
+    "version": "2.0.0",
+    "description": "خوادم MCP وSDK وIDE لمنظومة شيخة — Sheikha Neural Network Servers",
     "type": "commonjs",
     "scripts": {
         "activate:ai": "node activate-sheikha-ai.js",
@@ -9,15 +9,20 @@
         "start:vision": "node sheikha-vision-mcp.js",
         "start:sheikha": "node sheikha-mcp-server.js",
         "start:market": "node sheikha-mcp-server.js",
+        "start:sdk": "node sheikha-sdk-server.js",
+        "start:ide": "node sheikha-ide-server.js",
+        "start:all": "npm run start:sdk & npm run start:ide & npm run start:sheikha",
+        "start:all:win": "start npm run start:sdk && start npm run start:ide && npm run start:sheikha",
         "sheikha:ei": "npm run activate:ai",
         "sheikha:mcp": "npm run start:sheikha",
-        "sheikha:sdk": "npm run sheikha:doctor",
-        "sheikha:ide": "npm run sheikha:hub",
+        "sheikha:sdk": "npm run start:sdk",
+        "sheikha:ide": "npm run start:ide",
         "sheikha:coder": "npm run start:ai",
         "sheikha:doctor": "node sheikha-doctor.js",
         "sheikha:vscode": "npm run sheikha:hub",
         "sheikha:hub": "node sheikha-hub.js",
         "sheikha:hob": "node sheikha-hub.js",
+        "sheikha:neural": "npm run start:all",
         "shikha:lab": "npm run start:ai"
     },
     "dependencies": {

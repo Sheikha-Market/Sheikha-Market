@@ -20,21 +20,21 @@ function main() {
         },
         sheikhaMcp: {
             title: 'sheikha mcp',
-            purpose: 'Core MCP server',
+            purpose: 'Core MCP server (stdio — Cursor/Claude integration)',
             command: 'npm run start:sheikha',
             ready: check('sheikha-mcp-server.js')
         },
         sheikhaSdk: {
             title: 'sheikha sdk',
-            purpose: 'SDK health and integration checks',
-            command: 'npm run sheikha:sdk',
-            ready: check('node_modules/@modelcontextprotocol/sdk')
+            purpose: 'SDK HTTP server — REST API for developers (port 3001)',
+            command: 'npm run start:sdk',
+            ready: check('sheikha-sdk-server.js')
         },
         sheikhaIde: {
             title: 'sheikha ide',
-            purpose: 'IDE operation hub',
-            command: 'npm run sheikha:ide',
-            ready: true
+            purpose: 'IDE HTTP server — code analysis & file management (port 3002)',
+            command: 'npm run start:ide',
+            ready: check('sheikha-ide-server.js')
         },
         sheikhaCoder: {
             title: 'sheikha coder',

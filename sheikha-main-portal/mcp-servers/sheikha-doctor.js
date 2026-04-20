@@ -28,6 +28,8 @@ function main() {
     const checks = [
         { name: 'package.json', ok: exists('package.json') },
         { name: 'sheikha-mcp-server.js', ok: exists('sheikha-mcp-server.js') },
+        { name: 'sheikha-sdk-server.js', ok: exists('sheikha-sdk-server.js') },
+        { name: 'sheikha-ide-server.js', ok: exists('sheikha-ide-server.js') },
         { name: 'sheikha-vision-mcp.js', ok: exists('sheikha-vision-mcp.js') },
         { name: 'activate-sheikha-ai.js', ok: exists('activate-sheikha-ai.js') },
         { name: 'start-mcp.sh', ok: exists('start-mcp.sh') },
@@ -36,6 +38,8 @@ function main() {
 
     const syntax = [
         syntaxCheck('sheikha-mcp-server.js'),
+        syntaxCheck('sheikha-sdk-server.js'),
+        syntaxCheck('sheikha-ide-server.js'),
         syntaxCheck('sheikha-vision-mcp.js'),
         syntaxCheck('activate-sheikha-ai.js')
     ];
@@ -47,8 +51,9 @@ function main() {
     const commandMap = {
         sheikhaEi: 'npm run activate:ai',
         sheikhaMcp: 'npm run start:sheikha',
-        sheikhaSdk: 'npm run sheikha:sdk',
-        sheikhaIde: 'npm run sheikha:ide',
+        sheikhaSdk: 'npm run start:sdk',
+        sheikhaIde: 'npm run start:ide',
+        sheikhaNeural: 'npm run sheikha:neural',
         sheikhaCoder: 'npm run sheikha:coder',
         sheikhaDoctor: 'npm run sheikha:doctor',
         sheikhaVscode: 'npm run sheikha:vscode',
