@@ -35,5 +35,4 @@ const proxy = http.createServer((req, res) => {
 proxy.listen(PROXY_PORT, () => {
     console.log(`✅ Sheikha Proxy: container:${PROXY_PORT} → container:${TARGET_PORT}`);
     console.log(`   من جهازك المحلي: http://localhost:${PROXY_PORT}/api/sovereign/status`);
-    console.log(`   ملاحظة: المنفذ 8081 محجوز لخلية MARKETPLACE في الشبكة العصبية`);
 });

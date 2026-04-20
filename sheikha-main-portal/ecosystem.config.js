@@ -6,9 +6,9 @@ const dataEncryptionKey = process.env.DATA_ENCRYPTION_KEY || '';
 module.exports = {
     apps: [
         /* ─── الخادم الرئيسي ─────────────────────────────── */
-        /*  المنفذ 8080: الخادم الأساسي (MAIN Cell — الشبكة العصبية)   */
-        /*  المنفذ 8081: بوابة الأسواق الجامع (MARKETPLACE Cell)        */
-        /*  يُطلق server.js كلا المنفذين تلقائياً عبر _startMarketplaceGateway */
+        /*  المنفذ 8080: الخادم الأساسي (MAIN Cell — الشبكة العصبية)          */
+        /*  المنفذ 8081: بوابة الأسواق الجامع (MARKETPLACE Cell)               */
+        /*  server.js::_startMarketplaceGateway() يُطلق بوابة 8081 تلقائياً   */
         {
             name: 'sheikha-api',
             cwd: __dirname,
