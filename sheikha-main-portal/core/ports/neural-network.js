@@ -48,7 +48,8 @@ const NO_HARM = 'لا ضرر ولا ضرار';
 // العنوان المُستخدَم لاكتشاف المنافذ — يُقرأ من متغير البيئة HOST:
 //   0.0.0.0  → الإنتاج / Docker / GitHub Codespaces (الافتراضي)
 //   127.0.0.1 → التطوير المحلي فقط (ضع HOST=127.0.0.1 في .env)
-const _BIND_HOST = process.env.HOST || '0.0.0.0';
+// .trim() يحمي من قيمة HOST تحتوي مسافات أو فارغة تمامًا
+const _BIND_HOST = (process.env.HOST || '').trim() || '0.0.0.0';
 
 const DEFAULT_CELLS_CONFIG = [
     {
