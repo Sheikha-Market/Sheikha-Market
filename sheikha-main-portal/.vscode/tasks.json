@@ -4,6 +4,16 @@
   "tasks": [
 
     {
+      "label": "💾 شيخة — نسخ احتياطي لـ data/ (محلي)",
+      "type": "shell",
+      "command": "bash scripts/sovereign-backup.sh",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+      "problemMatcher": [],
+      "detail": "نسخ احتياطي محلي لمجلد data/ — يُحفظ في ~/sheikha-backups"
+    },
+
+    {
       "label": "🧠 Ollama — اختبار الاتصال (Azure VM)",
       "type": "shell",
       "command": "curl -sf \"${env:OLLAMA_AZURE_ENDPOINT:-${env:OLLAMA_HOST:-http://localhost:11434}}/api/tags\" | node -e \"const d=require('fs').readFileSync('/dev/stdin','utf8'); const j=JSON.parse(d); console.log('✅ Ollama متصل | النماذج:', j.models?.map(m=>m.name).join(', ') || 'لا يوجد نموذج محمّل');\" || echo '❌ تعذّر الاتصال — تحقق من OLLAMA_AZURE_ENDPOINT أو NSG في Azure'",
