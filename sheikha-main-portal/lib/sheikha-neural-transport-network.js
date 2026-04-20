@@ -29,6 +29,9 @@ const crypto = require('crypto');
 
 // ─── ثوابت النظام ─────────────────────────────────────────────────────────────
 
+const MAX_TRANSFER_HISTORY = 1000;
+const MS_PER_HOUR          = 3_600_000;
+
 const TRANSPORT_TYPES = {
     DATA:         { id: 'data',         nameAr: 'بيانات ومعلومات',     icon: '📊', weight: 1.0 },
     KNOWLEDGE:    { id: 'knowledge',    nameAr: 'معرفة وعلم',           icon: '📚', weight: 1.1 },
@@ -149,7 +152,7 @@ class SheikhaNeural_TransportNetwork extends EventEmitter {
         this._registerDefaultNodes();
 
         console.log(`✅ [SNTN ${this.id}] الشبكة العصبية للنقل — مُفعَّلة`);
-        console.log(`   📊 ${Object.keys(TRANSPORT_TYPES).length} نوع نقل | ${Object.keys(TRANSPORT_MEANS).length} وسيلة | 6 آيات شرعية`);
+        console.log(`   📊 ${Object.keys(TRANSPORT_TYPES).length} نوع نقل | ${Object.keys(TRANSPORT_MEANS).length} وسيلة | ${this.shariahFoundation.ayat.length} آيات شرعية`);
     }
 
     // ══════════════════════════════════════════════════════════════════════════
@@ -376,7 +379,7 @@ class SheikhaNeural_TransportNetwork extends EventEmitter {
             quality: transfer.qualityScore || 0,
             at:      new Date()
         });
-        if (this.neuralMemory.transferHistory.length > 1000) {
+        if (this.neuralMemory.transferHistory.length > MAX_TRANSFER_HISTORY) {
             this.neuralMemory.transferHistory.shift();
         }
 
@@ -416,7 +419,7 @@ class SheikhaNeural_TransportNetwork extends EventEmitter {
 
     getNetworkStatus() {
         const uptimeMs = Date.now() - this.createdAt.getTime();
-        const uptimeHours = (uptimeMs / 3_600_000).toFixed(2);
+        const uptimeHours = (uptimeMs / MS_PER_HOUR).toFixed(2);
 
         return {
             id:       this.id,
@@ -472,11 +475,13 @@ class SheikhaNeural_TransportNetwork extends EventEmitter {
     // ══════════════════════════════════════════════════════════════════════════
 
     _encrypt(text) {
-        const key = crypto.scryptSync('sheikha-neural-key', 'salt', 32);
-        const iv  = crypto.randomBytes(16);
+        const secret = process.env.SNTN_ENCRYPTION_KEY || 'sheikha-neural-default-key-change-in-prod';
+        const salt   = crypto.randomBytes(16);
+        const key    = crypto.scryptSync(secret, salt, 32);
+        const iv     = crypto.randomBytes(16);
         const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
         const encrypted = Buffer.concat([cipher.update(text, 'utf8'), cipher.final()]);
-        return `ENC:${iv.toString('hex')}:${encrypted.toString('hex')}`;
+        return `ENC:${salt.toString('hex')}:${iv.toString('hex')}:${encrypted.toString('hex')}`;
     }
 
     _estimateCostSavings(transfer) {
@@ -782,25 +787,29 @@ class ShariahGuardian {
     constructor(foundation) {
         this.foundation = foundation;
 
-        // محتوى محظور
-        this.prohibited = [
+        // محتوى محظور — مُجمَّع مرة واحدة كـ RegExp للكفاءة
+        this._prohibitedTerms = [
             'ربا', 'riba', 'interest', 'alcohol', 'gambling', 'pork', 'خمر', 'قمار',
             'خنزير', 'حرام', 'haram', 'forbidden', 'illegal', 'fraud', 'احتيال',
             'غش', 'deception', 'exploitation', 'استغلال', 'oppression', 'ظلم'
         ];
+        // بناء نمط RegExp واحد من كل المصطلحات المحظورة
+        this._prohibitedRegex = new RegExp(
+            this._prohibitedTerms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'),
+            'i'
+        );
     }
 
     verify(payload, type, options = {}) {
-        const text = JSON.stringify(payload).toLowerCase();
+        const text = JSON.stringify(payload);
 
-        for (const word of this.prohibited) {
-            if (text.includes(word.toLowerCase())) {
-                return {
-                    approved: false,
-                    reason:   `المحتوى يتعارض مع الشريعة الإسلامية — وجود مصطلح: "${word}"`,
-                    principle: 'لا ضرر ولا ضرار'
-                };
-            }
+        const match = this._prohibitedRegex.exec(text);
+        if (match) {
+            return {
+                approved: false,
+                reason:   `المحتوى يتعارض مع الشريعة الإسلامية — وجود مصطلح: "${match[0]}"`,
+                principle: 'لا ضرر ولا ضرار'
+            };
         }
 
         return {
@@ -842,7 +851,18 @@ function registerNavigatorRoutes(app, network) {
 
     // POST /api/navigator/neural/nodes — تسجيل عقدة جديدة
     app.post('/api/navigator/neural/nodes', express_json_middleware(), (req, res) => {
-        const node = network.registerNode(req.body || {});
+        const body = req.body || {};
+        // التحقق من المدخلات
+        if (body.id && typeof body.id !== 'string') {
+            return res.status(400).json({ success: false, error: 'id يجب أن يكون نصاً' });
+        }
+        if (body.name && typeof body.name !== 'string') {
+            return res.status(400).json({ success: false, error: 'name يجب أن يكون نصاً' });
+        }
+        if (body.category && !NODE_CATEGORIES.includes(body.category)) {
+            return res.status(400).json({ success: false, error: `category غير معروف. القيم المتاحة: ${NODE_CATEGORIES.join(', ')}` });
+        }
+        const node = network.registerNode(body);
         res.status(201).json({ success: true, node });
     });
 
@@ -855,7 +875,11 @@ function registerNavigatorRoutes(app, network) {
     // POST /api/navigator/neural/edges — إنشاء رابط جديد
     app.post('/api/navigator/neural/edges', express_json_middleware(), (req, res) => {
         const { from, to, ...config } = req.body || {};
-        if (!from || !to) return res.status(400).json({ success: false, error: 'from و to مطلوبان' });
+        if (!from || typeof from !== 'string') return res.status(400).json({ success: false, error: 'from مطلوب ويجب أن يكون نصاً' });
+        if (!to   || typeof to   !== 'string') return res.status(400).json({ success: false, error: 'to مطلوب ويجب أن يكون نصاً' });
+        if (config.means && !TRANSPORT_MEANS[config.means]) {
+            return res.status(400).json({ success: false, error: `means غير معروف. القيم المتاحة: ${Object.keys(TRANSPORT_MEANS).join(', ')}` });
+        }
         const edge = network.registerEdge(from, to, config);
         res.status(201).json({ success: true, edge });
     });
@@ -915,7 +939,7 @@ function registerNavigatorRoutes(app, network) {
         res.json({ success: true, from, to, type, prediction });
     });
 
-    console.log('✅ [SNTN] 12 مسار API مسجّل — الشبكة العصبية للنقل جاهزة');
+    console.log('✅ [SNTN] 13 مسار API مسجّل — الشبكة العصبية للنقل جاهزة');
 }
 
 // middleware مساعد لتحليل JSON (يُجنب تكرار express.json)
