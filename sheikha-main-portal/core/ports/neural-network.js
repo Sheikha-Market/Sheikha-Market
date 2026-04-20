@@ -45,6 +45,12 @@ const NO_HARM = 'لا ضرر ولا ضرار';
 // ═══════════════════════════════════════════════════════════════
 // تعريف خلايا الشبكة الافتراضية
 // ═══════════════════════════════════════════════════════════════
+// العنوان المُستخدَم لاكتشاف المنافذ — يُقرأ من متغير البيئة HOST:
+//   0.0.0.0  → الإنتاج / Docker / GitHub Codespaces (الافتراضي)
+//   127.0.0.1 → التطوير المحلي فقط (ضع HOST=127.0.0.1 في .env)
+// .trim() يحمي من قيمة HOST تحتوي مسافات أو فارغة تمامًا
+const _BIND_HOST = (process.env.HOST || '').trim() || '0.0.0.0';
+
 const DEFAULT_CELLS_CONFIG = [
     {
         id:            'MAIN',
@@ -53,7 +59,7 @@ const DEFAULT_CELLS_CONFIG = [
         preferredPort: 8080,
         rangeStart:    8080,
         rangeEnd:      8089,
-        bind:          '127.0.0.1',
+        bind:          _BIND_HOST,
         healDelay:     1500,
         critical:      true,            // يجب أن تكون حية دائماً
         quranic_ref:   { ref: 'النحل:٩٠', text: 'إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ' },
@@ -65,7 +71,7 @@ const DEFAULT_CELLS_CONFIG = [
         preferredPort: 8081,
         rangeStart:    8081,
         rangeEnd:      8091,
-        bind:          '0.0.0.0',
+        bind:          _BIND_HOST,
         healDelay:     2000,
         critical:      false,
         quranic_ref:   { ref: 'النساء:٢٩', text: 'إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ مِّنكُمْ' },
