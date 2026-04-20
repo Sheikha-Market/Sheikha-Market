@@ -147,7 +147,7 @@ function buildNoHarmMiddleware() {
 function buildIdentityStampMiddleware() {
     return function identityStamp(req, res, next) {
         // أضف headers هوية شيخة لكل استجابة
-        res.setHeader('X-Sheikha-Owner',    SHEIKHA_IDENTITY.owner);
+        res.setHeader('X-Sheikha-Owner',    SHEIKHA_IDENTITY.ownerEn);
         res.setHeader('X-Sheikha-Network',  SHEIKHA_IDENTITY.nameEn);
         res.setHeader('X-Sheikha-Version',  SHEIKHA_IDENTITY.version);
         res.setHeader('X-Sheikha-Principle', 'La-Darar-Wa-La-Dirar');

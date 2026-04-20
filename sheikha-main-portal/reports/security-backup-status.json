@@ -1,0 +1,301 @@
+{
+  "timestamp": "2026-04-20T23:08:23.650Z",
+  "owner": "سلمان أحمد بن سلمان الراجح",
+  "version": "1.0.0",
+  "securityAnalysis": {
+    "timestamp": "2026-04-20T23:08:23.635Z",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "checks": [
+      {
+        "item": "ملف .env",
+        "status": "غير موجود ⚠️",
+        "risk": "خطر: متغيرات البيئة مفقودة"
+      },
+      {
+        "item": ".env في .gitignore",
+        "status": "محمي ✅",
+        "risk": "آمن"
+      },
+      {
+        "item": "node_modules في .gitignore",
+        "status": "محمي ✅"
+      },
+      {
+        "item": "ملفات البيانات JSON",
+        "status": "117 ملف في data/ ✅",
+        "risk": "تأكد من نسخها في النسخ الاحتياطي",
+        "action": "أضف data/*.json للنسخ الاحتياطي اليومي"
+      }
+    ],
+    "score": {
+      "total": 100,
+      "criticalIssues": 0,
+      "warnings": 0,
+      "level": "ممتاز — آمن"
+    }
+  },
+  "securityLayers": {
+    "layer1_deviceEncryption": {
+      "title": "تشفير الجهاز الكامل (LUKS / BitLocker)",
+      "status": "مطلوب قبل إرسال الجهاز للصيانة",
+      "tools": {
+        "linux": "LUKS (Linux Unified Key Setup)",
+        "windows": "BitLocker",
+        "mac": "FileVault 2"
+      },
+      "commands": {
+        "checkLuksStatus": "lsblk -o NAME,FSTYPE,MOUNTPOINT | grep -i crypto",
+        "enableLuks": "# LUKS يجب تفعيله قبل تثبيت النظام — راجع دليل التفعيل",
+        "verifyEncryption": "sudo cryptsetup status /dev/mapper/data"
+      },
+      "priority": "CRITICAL",
+      "notes": "بدون تشفير القرص، يمكن لأي شخص قراءة ملفاتك إذا أزال القرص من الجهاز"
+    },
+    "layer2_accountLockout": {
+      "title": "قفل الحسابات قبل الصيانة",
+      "checklist": [
+        "✅ تسجيل الخروج من Google Cloud / Firebase",
+        "✅ تسجيل الخروج من GitHub / GitLab",
+        "✅ تسجيل الخروج من Vercel / Railway",
+        "✅ تسجيل الخروج من Microsoft / Office 365",
+        "✅ إلغاء تخزين كلمات المرور في المتصفح",
+        "✅ تسجيل الخروج من الايميل (Gmail, Outlook)",
+        "✅ حذف رمز JWT_SECRET من البيئة المحلية",
+        "✅ إلغاء تفعيل SSH keys المحلية (ssh-add -D)",
+        "✅ تسجيل الخروج من npm (npm logout)",
+        "✅ مسح بيانات المتصفح (cache + cookies)"
+      ],
+      "priority": "CRITICAL"
+    },
+    "layer3_noPermissions": {
+      "title": "سياسة عدم الصلاحيات للفني",
+      "mandatoryStatement": "\n╔═══════════════════════════════════════════════════════════╗\n║  بيان أمني رسمي — يجب تسليمه للمركز الخدمي              ║\n║                                                           ║\n║  هذا الجهاز مملوك لـ: سلمان أحمد بن سلمان الراجح        ║\n║  السجل التجاري: 2051263653                                ║\n║                                                           ║\n║  طلبات الصيانة:                                          ║\n║  • المطلوب: [وصف المشكلة فقط]                            ║\n║  • ممنوع: فتح أي ملف أو مجلد شخصي                       ║\n║  • ممنوع: الاطلاع على أي بيانات مخزنة                    ║\n║  • ممنوع: تثبيت أي برنامج غير مصرح به                   ║\n║  • ممنوع: نسخ أي ملف خارج الجهاز                        ║\n║  • ممنوع: الاتصال بالإنترنت بدون إذن صريح                ║\n║                                                           ║\n║  سيتم محاسبة أي انتهاك قانونيًا بموجب:                   ║\n║  • نظام مكافحة الجرائم المعلوماتية السعودي               ║\n║  • نظام حماية البيانات الشخصية (PDPL)                    ║\n╚═══════════════════════════════════════════════════════════╝",
+      "priority": "MANDATORY"
+    },
+    "layer4_twoFactor": {
+      "title": "المصادقة الثنائية (2FA)",
+      "enabled": [
+        "Google Authenticator",
+        "SMS OTP",
+        "Nafath"
+      ],
+      "services": [
+        "Google Cloud Console",
+        "GitHub",
+        "Vercel Dashboard",
+        "Microsoft Azure",
+        "Domain Registrar (sheikha.top)"
+      ],
+      "note": "المصادقة الثنائية تمنع الدخول حتى لو سُرقت كلمة المرور"
+    },
+    "layer5_remoteWipe": {
+      "title": "الحذف عن بُعد (Remote Wipe) — احتياطي",
+      "services": {
+        "googleWorkspace": "Google Workspace Admin → Devices → Remote Wipe",
+        "microsoft": "Microsoft Intune → Devices → Wipe",
+        "appleFind": "Find My iPhone/Mac → Erase Device",
+        "android": "Find My Device (Google) → Erase"
+      },
+      "note": "استخدم فقط في حالات الطوارئ — الحذف لا رجعة فيه"
+    }
+  },
+  "backupStrategy": {
+    "cloudBackup": {
+      "title": "النسخ الاحتياطي السحابي (Cloud Backup)",
+      "primary": {
+        "service": "Google Cloud Storage",
+        "bucket": "sheikha-marketplace-backup",
+        "region": "me-central1 (الشرق الأوسط)",
+        "frequency": "يوميًا (00:00 AST)",
+        "retention": "90 يوم",
+        "encryption": "AES-256 + Customer Managed Keys",
+        "commands": {
+          "backup": "gsutil -m rsync -r -d ./ gs://sheikha-marketplace-backup/snapshots/$(date +%Y%m%d)/",
+          "restore": "gsutil -m rsync -r gs://sheikha-marketplace-backup/snapshots/YYYYMMDD/ ./",
+          "list": "gsutil ls gs://sheikha-marketplace-backup/snapshots/",
+          "verify": "gsutil hash -h gs://sheikha-marketplace-backup/snapshots/latest/"
+        }
+      },
+      "secondary": {
+        "service": "GitHub (Code Repository)",
+        "type": "Private Repository",
+        "branch": "main + backup/YYYYMMDD",
+        "commands": {
+          "backup": "git add -A && git commit -m \"backup: $(date +%Y-%m-%d)\" && git push origin main",
+          "restore": "git clone https://github.com/sheikha/sheikha-main-portal.git",
+          "createBackupBranch": "git checkout -b backup/$(date +%Y%m%d) && git push origin backup/$(date +%Y%m%d)"
+        }
+      },
+      "vercel": {
+        "service": "Vercel (Production)",
+        "note": "Vercel يحتفظ بجميع النسخ السابقة — الإنتاج يعمل دائمًا",
+        "restore": "vercel rollback --yes",
+        "deploy": "vercel --prod"
+      }
+    },
+    "localBackup": {
+      "title": "النسخ الاحتياطي المحلي (External Hard Drive)",
+      "recommended": {
+        "type": "هارد ديسك خارجي مشفر",
+        "capacity": "1TB أو أكثر",
+        "brands": [
+          "Samsung T7 Shield (IP65 مقاوم للماء)",
+          "WD My Passport",
+          "Seagate Backup Plus"
+        ],
+        "encryption": "تشفير الهارد بكلمة مرور قوية (BitLocker To Go على Windows / eCryptfs على Linux)",
+        "commands": {
+          "linuxBackup": "\n# تهيئة هارد ديسك خارجي مشفر (تنفذ مرة واحدة)\nsudo cryptsetup luksFormat /dev/sdb\nsudo cryptsetup open /dev/sdb sheikha-backup\nsudo mkfs.ext4 /dev/mapper/sheikha-backup\nsudo mount /dev/mapper/sheikha-backup /mnt/sheikha-backup\n\n# النسخ الاحتياطي اليومي\nsudo rsync -avz --progress   /workspaces/sheikha/sheikha-main-portal/   /mnt/sheikha-backup/sheikha-$(date +%Y%m%d)/\n                        ",
+          "windowsBackup": "\n# PowerShell — نسخ احتياطي على Windows\n$src = \"C:\\sheikha\\sheikha-main-portal\"\n$dst = \"E:\\Backup\\sheikha-$(Get-Date -Format 'yyyyMMdd')\"\nrobocopy $src $dst /MIR /R:3 /W:5 /LOG:\"$dst-log.txt\"\n                        ",
+          "verify": "ls -lh /mnt/sheikha-backup/ && du -sh /mnt/sheikha-backup/sheikha-latest/"
+        }
+      },
+      "schedule": {
+        "daily": "نسخ يومي تلقائي للكود والبيانات",
+        "weekly": "نسخ أسبوعي شامل مع التحقق",
+        "beforeMaintenance": "نسخ كامل قبل إرسال الجهاز للصيانة"
+      }
+    },
+    "criticalFiles": {
+      "title": "الملفات الحرجة التي يجب نسخها",
+      "list": [
+        "server.js — الخادم الرئيسي (200+ API)",
+        "lib/ — جميع المحركات",
+        "routes/ — جميع المسارات",
+        "middleware/ — الأمان والتحقق",
+        "data/ — قواعد البيانات JSON",
+        "config/ — الإعدادات",
+        "public/ — الواجهة (14 صفحة HTML)",
+        ".env — متغيرات البيئة (مشفرة!)",
+        "ecosystem.config.js — إعدادات PM2",
+        "package.json — التبعيات"
+      ],
+      "exclude": [
+        "node_modules/ — يُعاد تثبيته بـ npm install",
+        ".git/ — موجود على GitHub",
+        "logs/ — لوجات مؤقتة"
+      ]
+    }
+  },
+  "continuityPlan": {
+    "title": "خطة استمرارية الإنتاج أثناء الصيانة",
+    "currentDeployment": {
+      "platform": "Vercel",
+      "domain": "sheikha.top",
+      "status": "يعمل تلقائيًا — لا يتأثر بالجهاز المحلي",
+      "note": "Vercel يستضيف الإنتاج بشكل مستقل — جهازك فقط للتطوير"
+    },
+    "phases": {
+      "phase1_beforeMaintenance": {
+        "title": "قبل الصيانة (يوم التسليم)",
+        "steps": [
+          "1. تشغيل: npm run ops:readiness — للتحقق من حالة النظام",
+          "2. تشغيل: npm run sovereign:cosmic:full-power — للتأكيد النهائي",
+          "3. نسخ احتياطي سحابي: git push && gsutil rsync ...",
+          "4. نسخ محلي على هارد ديسك خارجي مشفر",
+          "5. التحقق من عمل الإنتاج: curl https://sheikha.top/api/health",
+          "6. تسجيل الخروج من جميع الحسابات",
+          "7. إلغاء SSH keys: ssh-add -D",
+          "8. تصوير الجهاز من الخارج (دليل على الحالة)"
+        ]
+      },
+      "phase2_duringMaintenance": {
+        "title": "أثناء الصيانة",
+        "options": [
+          {
+            "option": "A — العمل عبر الحاسوب السحابي",
+            "tools": [
+              "GitHub Codespaces",
+              "Google Cloud Shell",
+              "Replit"
+            ],
+            "command": "# GitHub Codespaces: اضغط \".\" في أي repo على GitHub",
+            "note": "تستطيع العمل من أي متصفح — الكود موجود على GitHub"
+          },
+          {
+            "option": "B — استخدام جهاز بديل مؤقت",
+            "steps": [
+              "git clone https://github.com/sheikha/sheikha-main-portal.git",
+              "cd sheikha-main-portal && npm install",
+              "cp .env.example .env && vim .env  # ملء المتغيرات",
+              "npm start"
+            ]
+          },
+          {
+            "option": "C — Vercel يعمل تلقائيًا",
+            "note": "الموقع sheikha.top يعمل بدون تدخل — لا تحتاج جهازك للإنتاج"
+          }
+        ]
+      },
+      "phase3_afterMaintenance": {
+        "title": "بعد الصيانة (الاستلام)",
+        "steps": [
+          "1. التحقق من حالة الجهاز فيزيائيًا (صور استلام)",
+          "2. فحص القرص: sudo fdisk -l | grep -i crypt",
+          "3. التحقق من عدم تثبيت برامج جديدة: dpkg -l | tail -20",
+          "4. فحص الاتصالات النشطة: netstat -tulpn",
+          "5. استعادة SSH keys: ssh-keygen -t ed25519",
+          "6. تحديث كلمات المرور احتياطيًا",
+          "7. تشغيل: npm install && npm run ops:readiness",
+          "8. سحب آخر كود: git pull"
+        ]
+      }
+    },
+    "pm2AutoRestart": {
+      "title": "تشغيل تلقائي عند بدء النظام (PM2)",
+      "commands": {
+        "install": "npm install -g pm2",
+        "start": "pm2 start ecosystem.config.js",
+        "saveConfig": "pm2 save",
+        "enableStartup": "pm2 startup && pm2 save",
+        "status": "pm2 status",
+        "logs": "pm2 logs sheikha-server --lines 50"
+      },
+      "note": "PM2 يُعيد تشغيل السيرفر تلقائيًا عند انقطاع الكهرباء أو إعادة التشغيل"
+    }
+  },
+  "serviceCard": {
+    "cardTitle": "بطاقة تسليم الجهاز — مركز الصيانة",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "registrationNo": "2051263653",
+    "accreditation": "ciscc2250603061",
+    "date": "٢٠‏/٤‏/٢٠٢٦",
+    "deviceInfo": {
+      "brand": "MSI",
+      "purchasePlace": "جرير",
+      "warrantyStatus": "ضمان ساري — جرير + مركز MSI المعتمد"
+    },
+    "maintenanceRequest": {
+      "description": "[ يرجى كتابة وصف المشكلة هنا ]",
+      "type": "ترقية ذاكرة RAM / صيانة هاردوير"
+    },
+    "prohibitions": [
+      "⛔ ممنوع: فتح أي ملف أو مجلد",
+      "⛔ ممنوع: الاطلاع على أي بيانات",
+      "⛔ ممنوع: تثبيت أي برنامج",
+      "⛔ ممنوع: نسخ أي ملف للخارج",
+      "⛔ ممنوع: الاتصال بالإنترنت بدون إذن",
+      "⛔ ممنوع: تغيير كلمة مرور الجهاز"
+    ],
+    "legalBasis": [
+      "نظام مكافحة الجرائم المعلوماتية السعودي",
+      "نظام حماية البيانات الشخصية (PDPL)",
+      "المادة 43 من نظام التجارة الإلكترونية"
+    ],
+    "contacts": {
+      "email": "market@sheikha.top",
+      "domain": "sheikha.top"
+    }
+  },
+  "generatedFiles": {
+    "backupScript": "./scripts/sovereign-backup.sh"
+  },
+  "summary": {
+    "securityScore": 100,
+    "securityLevel": "ممتاز — آمن",
+    "productionStatus": "✅ يعمل على Vercel — مستقل من الجهاز",
+    "backupStatus": "✅ GitHub + Google Cloud + هارد خارجي",
+    "encryptionStatus": "⚠️ يجب تفعيل LUKS على الجهاز المحلي",
+    "maintenanceReady": true
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-11T20:11:22.206Z",
+  "timestamp": "2026-04-20T23:08:19.094Z",
   "engine": "Sheikha Environment Fix Engine",
   "version": "1.0.0",
   "auth": "market@sheikha.top",
@@ -11,8 +11,8 @@
       "globalPulseFile": true,
       "globalPulseScriptRegistered": true,
       "gratitudeScriptRegistered": true,
-      "adcReady": true,
-      "envFileExists": true,
+      "adcReady": false,
+      "envFileExists": false,
       "reportsDirReady": true
     },
     "professionalMappings": {
@@ -23,13 +23,14 @@
       "barakah": "impact-value",
       "noHarm": "compliance-and-safety"
     },
-    "score": 100,
+    "score": 75,
     "status": "Technical_Flow_Secured_By_Honesty ✅"
   },
   "flow": {
-    "zeroInterruption": true,
+    "zeroInterruption": false,
     "actions": [
-      "البيئة جاهزة؛ شغّل npm run sovereign:global-pulse ثم npm run sovereign:gratitude."
+      "فعّل ADC عبر gcloud auth application-default login.",
+      "أنشئ ملف .env من القيم المعتمدة قبل التشغيل."
     ],
     "recommendedRunbook": [
       "npm run sovereign:global-pulse",
@@ -39,7 +40,7 @@
     "status": "Technical_Flow_Secured_By_Honesty ✅"
   },
   "summary": {
-    "score": 100,
-    "level": "excellent"
+    "score": 75,
+    "level": "high"
   }
 }
