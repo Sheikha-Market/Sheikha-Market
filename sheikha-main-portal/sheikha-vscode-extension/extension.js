@@ -148,7 +148,7 @@ class SheikhaCopilotProvider {
             arabicComments: wsConfig.get('arabicComments', true),
             autoStartBackend: wsConfig.get('autoStartBackend', true),
             backendStartupRetries: wsConfig.get('backendStartupRetries', 8),
-            dashboardRefreshSeconds: wsConfig.get('dashboardRefreshSeconds', 15)
+            dashboardRefreshSeconds: wsConfig.get('dashboardRefreshSeconds', 60)
         };
     }
 
@@ -407,7 +407,10 @@ async function activate(context) {
     const tryStartBackendTask = async () => {
         const tasks = await vscode.tasks.fetchTasks();
         const target = tasks.find(task => task.name === 'Sheikha: Start Dev (No Cursor)')
-            || tasks.find(task => task.name === 'Sheikha: Full Dev Power (No Cursor)');
+            || tasks.find(task => task.name === 'Sheikha: Full Dev Power (No Cursor)')
+            || tasks.find(task => task.name === '🟢 Start Dev (No Cursor)')
+            || tasks.find(task => task.name === '🚀 شيخة — تشغيل الخادم (dev)')
+            || tasks.find(task => task.name === '🚀 Start Development Server');
 
         if (!target) {
             return false;
