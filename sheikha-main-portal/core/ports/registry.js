@@ -45,6 +45,7 @@ const PORTS = {
             'https://sheikha.top',
             'https://www.sheikha.top',
             'https://public.sheikha.top',
+            'https://admin.sheikha.top',
             'http://localhost:8080',
             'http://localhost:8081',
             'http://localhost:8082',

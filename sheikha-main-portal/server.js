@@ -4013,6 +4013,7 @@ const corsOptions = {
         'https://sheikha.top',
         'https://www.sheikha.top',
         'https://public.sheikha.top',   // البوابة العامة
+        'https://admin.sheikha.top',    // لوحة الإدارة
         'http://localhost:23000',
         'http://localhost:8080',
         'http://localhost:8081',    // سوق الأسواق الجامع — خلية الشبكة العصبية
