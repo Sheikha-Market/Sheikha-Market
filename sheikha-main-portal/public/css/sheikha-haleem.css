@@ -500,11 +500,11 @@
   pointer-events: none;
 }
 
-/* الألوان الدافئة */
-.h-cb-gold   { background: linear-gradient(160deg, #1A1100, #5C3D0A, #8B6C1A, #C9A84C, #E2C97E); }
-.h-cb-green  { background: linear-gradient(160deg, #040F08, #0F3320, #2D6B4A, #4A9B6E, #70C99A); }
-.h-cb-warm   { background: linear-gradient(160deg, #080808, #100D06, #1C180F, #2C261A, #342E20); }
-.h-cb-silver { background: linear-gradient(160deg, #1A2030, #3A4A60, #7A8AAA, #B0BBCC, #D0D8E8); }
+/* الألوان الدافئة — تدرجات من العمق إلى السطح باستخدام متغيرات الهوية */
+.h-cb-gold   { background: linear-gradient(160deg, #1A1100, #5C3D0A, var(--h-gold-d), var(--h-gold), var(--h-gold-l)); }
+.h-cb-green  { background: linear-gradient(160deg, #040F08, #0F3320, var(--h-green), var(--h-green-l), #70C99A); }
+.h-cb-warm   { background: linear-gradient(160deg, #080808, #100D06, var(--h-ink), var(--h-card), #342E20); }
+.h-cb-silver { background: linear-gradient(160deg, #1A2030, #3A4A60, #7A8AAA, var(--h-silver), #D0D8E8); }
 
 .h-color-content {
   position: relative;
