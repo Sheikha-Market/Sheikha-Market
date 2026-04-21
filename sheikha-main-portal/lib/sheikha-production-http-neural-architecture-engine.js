@@ -479,10 +479,10 @@ class ProductionHttpNeuralArchitectureEngine {
             const body = req.body || {};
             let inputVec = null;
             if (Array.isArray(body.inputVec)) {
-                // Validate all elements are finite numbers
+                // Validate: all elements must be finite numbers in [0, 1]
                 const validated = body.inputVec.map(v => {
                     const n = Number(v);
-                    return Number.isFinite(n) ? Math.max(-1e6, Math.min(1e6, n)) : 0;
+                    return Number.isFinite(n) ? Math.max(0, Math.min(1, n)) : 0;
                 });
                 inputVec = validated.length === 16 ? validated : null;
             }
