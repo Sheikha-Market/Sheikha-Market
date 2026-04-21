@@ -1,0 +1,694 @@
+/**
+ * ╔══════════════════════════════════════════════════════════════════════════════╗
+ * ║              SHEIKHA HALEEM — هوية الحليم                                   ║
+ * ║              الحليم: الصابر على الخطأ، الغني عن العجلة                      ║
+ * ╠══════════════════════════════════════════════════════════════════════════════╣
+ * ║  كل لون دافئ — كل حركة صبورة — كل مسافة تتنفس — كل خط يرتاح               ║
+ * ║                                                                              ║
+ * ║  الحليم لا يصرخ — الحليم لا يُسرع — الحليم يُسكّن ولا يُقلق               ║
+ * ║  «وَاللَّهُ غَفُورٌ حَلِيمٌ» — البقرة: 225                                ║
+ * ╚══════════════════════════════════════════════════════════════════════════════╝
+ */
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM TOKENS — متغيرات هوية الحليم
+   ══════════════════════════════════════════════════════════════════ */
+:root {
+
+  /* ── الذهب الدافئ — ليس حاداً، بل عميق وهادئ ── */
+  --h-gold:        #C9A84C;   /* عنبر دافئ — أكثر هدوءاً من الذهب الحاد */
+  --h-gold-l:      #E2C97E;   /* ضوء الفجر */
+  --h-gold-d:      #8B6C1A;   /* ذهب عميق كالتراب */
+  --h-gold-dust:   rgba(201,168,76,0.06);
+  --h-gold-veil:   rgba(201,168,76,0.10);
+  --h-gold-breath: rgba(201,168,76,0.18);
+
+  /* ── الخلفيات الدافئة — الحرارة تُسكّن ── */
+  --h-void:    #0C0A08;   /* أسود دافئ — ليس بارداً */
+  --h-deep:    #131009;   /* عمق الليل الدافئ */
+  --h-ink:     #1C180F;   /* حبر دافئ */
+  --h-surface: #241F15;   /* سطح رزين */
+  --h-card:    #2C261A;   /* بطاقة هادئة */
+  --h-lift:    #342E20;   /* ارتفاع خفيف */
+
+  /* ── الحدود — رقيقة وغير مزعجة ── */
+  --h-line:    rgba(201,168,76,0.07);
+  --h-border:  rgba(201,168,76,0.12);
+  --h-glow:    rgba(201,168,76,0.20);
+
+  /* ── النصوص الدافئة — لا بياض حاد ── */
+  --h-t1: #EDE8E0;   /* أبيض دافئ كالرمل */
+  --h-t2: #A89F92;   /* رمادي دافئ */
+  --h-t3: #7A7268;   /* رمادي عميق دافئ */
+  --h-t4: #4A4540;   /* صمت */
+
+  /* ── الأخضر الهادئ — خضرة الجنة لا صرخة الحياة ── */
+  --h-green:   #2D6B4A;   /* أخضر رزين أهدأ من الزمرد */
+  --h-green-l: #4A9B6E;   /* أخضر فاتح ناعم */
+
+  /* ── الفضة المعتدلة ── */
+  --h-silver:  #B0BBCC;
+
+  /* ── الحركة الصبورة — الحليم لا يستعجل ── */
+  --h-ease:    cubic-bezier(0.4, 0, 0.2, 1);  /* معيار Material — سلس لا وثّاب */
+  --h-ease-in: cubic-bezier(0.4, 0, 1, 1);    /* دخول هادئ */
+  --h-ease-out:cubic-bezier(0, 0, 0.2, 1);    /* خروج هادئ */
+
+  --h-dur-fast:   400ms;   /* سريع نسبياً — لكنه مؤدب */
+  --h-dur:        700ms;   /* الصبر */
+  --h-dur-slow:  1100ms;   /* تأمل */
+  --h-dur-breathe: 5s;     /* التنفس */
+
+  /* ── الخطوط — مساحة للتأمل ── */
+  --h-lh:        2.1;      /* ارتفاع السطر — تنفس واسع */
+  --h-lh-title:  1.2;      /* العنوان — رزين */
+  --h-lh-verse:  2.4;      /* الآية — تلاوة */
+
+  --h-ls-wide:   0.12em;   /* مسافة حروف واسعة */
+  --h-ls-title: -0.02em;   /* عناوين رزينة */
+
+  /* ── الزوايا — ليست حادة ── */
+  --h-r-sm:  6px;
+  --h-r-md: 12px;
+  --h-r-lg: 20px;
+  --h-r-xl: 32px;
+  --h-r-full: 9999px;
+
+  /* ── الظلال — خفيفة كالنسمة ── */
+  --h-shadow-sm:  0 2px 8px rgba(0,0,0,0.25);
+  --h-shadow:     0 8px 32px rgba(0,0,0,0.35);
+  --h-shadow-lg:  0 20px 60px rgba(0,0,0,0.45);
+  --h-shadow-gold:0 0 40px rgba(201,168,76,0.08);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM BODY — الجسد الهادئ
+   ══════════════════════════════════════════════════════════════════ */
+.haleem-canvas {
+  background: var(--h-void);
+  color: var(--h-t1);
+  font-family: 'Tajawal', 'Segoe UI', sans-serif;
+  line-height: var(--h-lh);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM TYPOGRAPHY — الطباعة الرزينة
+   ══════════════════════════════════════════════════════════════════ */
+.h-display {
+  font-size: clamp(3.5rem, 10vw, 10rem);
+  font-weight: 900;
+  letter-spacing: var(--h-ls-title);
+  line-height: var(--h-lh-title);
+  /* لون عنبر دافئ بدلاً من الذهب الصارخ */
+  background: linear-gradient(160deg,
+    var(--h-gold-d)  0%,
+    var(--h-gold)   45%,
+    var(--h-gold-l) 60%,
+    var(--h-gold)   80%,
+    var(--h-gold-d) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: h-gold-breathe var(--h-dur-breathe) var(--h-ease) infinite alternate;
+}
+
+@keyframes h-gold-breathe {
+  from { background-position: 0% 50%; filter: brightness(0.92); }
+  to   { background-position: 100% 50%; filter: brightness(1.06); }
+}
+
+.h-title {
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: var(--h-ls-title);
+  line-height: var(--h-lh-title);
+  color: var(--h-t1);
+}
+
+.h-title .accent { color: var(--h-gold); }
+
+.h-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 300;
+  color: var(--h-t2);
+  line-height: var(--h-lh);
+  letter-spacing: 0.01em;
+}
+
+.h-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: var(--h-ls-wide);
+  text-transform: uppercase;
+  color: var(--h-gold);
+  margin-bottom: 1.2rem;
+}
+
+.h-verse {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  color: var(--h-t2);
+  line-height: var(--h-lh-verse);
+  font-style: normal;
+}
+
+.h-verse strong, .h-verse em {
+  color: var(--h-gold);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.h-body {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  color: var(--h-t3);
+  line-height: var(--h-lh);
+}
+
+.h-caption {
+  font-size: 0.72rem;
+  color: var(--h-t4);
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM NAV — التنقل الهادئ
+   ══════════════════════════════════════════════════════════════════ */
+.h-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  background: rgba(12,10,8,0.88);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border-bottom: 1px solid var(--h-line);
+  transition: background var(--h-dur) var(--h-ease),
+              border-color var(--h-dur) var(--h-ease);
+}
+
+.h-nav.resting { background: rgba(12,10,8,0.97); }
+
+.h-nav-logo {
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  background: linear-gradient(120deg, var(--h-gold-d), var(--h-gold), var(--h-gold-l));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.h-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.h-nav-link {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--h-t4);
+  text-decoration: none;
+  transition: color var(--h-dur-fast) var(--h-ease);
+  letter-spacing: 0.02em;
+}
+.h-nav-link:hover,
+.h-nav-link.active { color: var(--h-gold); }
+
+.h-nav-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.4rem;
+  background: var(--h-gold);
+  color: #0C0A08;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: var(--h-r-full);
+  text-decoration: none;
+  transition: background var(--h-dur-fast) var(--h-ease),
+              transform var(--h-dur-fast) var(--h-ease),
+              box-shadow var(--h-dur-fast) var(--h-ease);
+}
+.h-nav-cta:hover {
+  background: var(--h-gold-l);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(201,168,76,0.25);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM BUTTONS — الأزرار المؤدبة
+   ══════════════════════════════════════════════════════════════════ */
+.h-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: var(--h-r-full);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all var(--h-dur-fast) var(--h-ease);
+}
+
+.h-btn-gold {
+  background: var(--h-gold);
+  color: #0C0A08;
+}
+.h-btn-gold:hover {
+  background: var(--h-gold-l);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(201,168,76,0.28);
+}
+
+.h-btn-outline {
+  background: transparent;
+  color: var(--h-t2);
+  border: 1px solid var(--h-border);
+}
+.h-btn-outline:hover {
+  color: var(--h-gold);
+  border-color: var(--h-glow);
+  background: var(--h-gold-dust);
+}
+
+.h-btn-ghost {
+  background: transparent;
+  color: var(--h-t3);
+}
+.h-btn-ghost:hover { color: var(--h-gold); }
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM CARDS — البطاقات الرزينة
+   ══════════════════════════════════════════════════════════════════ */
+.h-card {
+  background: var(--h-card);
+  border: 1px solid var(--h-line);
+  border-radius: var(--h-r-lg);
+  padding: 2rem;
+  transition: all var(--h-dur) var(--h-ease);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ضوء داخلي خفيف عند المرور */
+.h-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(201,168,76,0.04) 0%,
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity var(--h-dur) var(--h-ease);
+  pointer-events: none;
+}
+
+.h-card:hover { border-color: var(--h-border); }
+.h-card:hover::before { opacity: 1; }
+
+.h-card-warm {
+  background: linear-gradient(160deg, var(--h-deep) 0%, var(--h-ink) 100%);
+  border-color: var(--h-line);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM DIVIDER — الفاصل الهادئ
+   ══════════════════════════════════════════════════════════════════ */
+.h-rule {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--h-border),
+    transparent
+  );
+}
+
+.h-rule-short {
+  width: 36px;
+  height: 1px;
+  background: var(--h-gold);
+  opacity: 0.4;
+  margin: 2rem 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM SCROLL REVEAL — الظهور الصبور
+   ══════════════════════════════════════════════════════════════════ */
+.h-sr {
+  opacity: 0;
+  transform: translateY(20px);
+  /* انتقال صبور — 700ms بدلاً من 300ms */
+  transition:
+    opacity var(--h-dur) var(--h-ease),
+    transform var(--h-dur) var(--h-ease);
+}
+.h-sr.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* تأخيرات الترتيب */
+.h-sr-d1 { transition-delay: 100ms; }
+.h-sr-d2 { transition-delay: 200ms; }
+.h-sr-d3 { transition-delay: 300ms; }
+.h-sr-d4 { transition-delay: 400ms; }
+.h-sr-d5 { transition-delay: 500ms; }
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM PILL — التسمية الهادئة
+   ══════════════════════════════════════════════════════════════════ */
+.h-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--h-r-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--h-border);
+  background: var(--h-gold-dust);
+  color: var(--h-gold);
+  transition: all var(--h-dur-fast) var(--h-ease);
+}
+.h-pill:hover {
+  background: var(--h-gold-veil);
+  border-color: var(--h-glow);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM METRIC — الأرقام الرزينة
+   ══════════════════════════════════════════════════════════════════ */
+.h-metric-value {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--h-gold), var(--h-gold-l));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.h-metric-label {
+  font-size: 0.8rem;
+  color: var(--h-t3);
+  font-weight: 500;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM TICKER — الشريط الصبور
+   ══════════════════════════════════════════════════════════════════ */
+.h-ticker {
+  overflow: hidden;
+  border-top: 1px solid var(--h-line);
+  border-bottom: 1px solid var(--h-line);
+  padding: 0.85rem 0;
+  background: rgba(201,168,76,0.015);
+}
+
+.h-ticker-track {
+  display: flex;
+  gap: 5rem;
+  width: max-content;
+  /* 40s بدلاً من 30s — أبطأ وأهدأ */
+  animation: h-ticker 40s linear infinite;
+}
+.h-ticker:hover .h-ticker-track { animation-play-state: paused; }
+
+.h-ticker-item {
+  white-space: nowrap;
+  font-size: 0.73rem;
+  font-weight: 500;
+  color: var(--h-t4);
+  letter-spacing: 0.04em;
+}
+.h-ticker-item b { color: var(--h-gold); font-weight: 600; }
+
+@keyframes h-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM PROGRESS BAR — شريط التقدم الذهبي
+   ══════════════════════════════════════════════════════════════════ */
+.h-progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    var(--h-gold-d),
+    var(--h-gold),
+    var(--h-gold-l)
+  );
+  z-index: 200;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(0);
+  /* انتقال سلس لا مُصطنع */
+  transition: transform 0.15s var(--h-ease);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM COLOR BLOCKS — الألوان الكاملة التفاعلية
+   ══════════════════════════════════════════════════════════════════ */
+.h-color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  min-height: 480px;
+}
+
+.h-color-block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.5rem 2rem;
+  overflow: hidden;
+  cursor: default;
+  transition: flex-grow var(--h-dur) var(--h-ease);
+  flex-grow: 1;
+}
+.h-color-grid:hover .h-color-block { flex-grow: 0.6; }
+.h-color-grid:hover .h-color-block:hover { flex-grow: 2.2; }
+
+.h-color-block::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(12,10,8,0.72) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* الألوان الدافئة */
+.h-cb-gold   { background: linear-gradient(160deg, #1A1100, #5C3D0A, #8B6C1A, #C9A84C, #E2C97E); }
+.h-cb-green  { background: linear-gradient(160deg, #040F08, #0F3320, #2D6B4A, #4A9B6E, #70C99A); }
+.h-cb-warm   { background: linear-gradient(160deg, #080808, #100D06, #1C180F, #2C261A, #342E20); }
+.h-cb-silver { background: linear-gradient(160deg, #1A2030, #3A4A60, #7A8AAA, #B0BBCC, #D0D8E8); }
+
+.h-color-content {
+  position: relative;
+  z-index: 1;
+  transform: translateY(6px);
+  transition: transform var(--h-dur) var(--h-ease);
+}
+.h-color-block:hover .h-color-content { transform: translateY(0); }
+
+.h-color-num  { font-size: 0.65rem; color: rgba(255,255,255,0.35); letter-spacing: 0.2em; margin-bottom: 0.7rem; }
+.h-color-name { font-size: 1.5rem; font-weight: 900; color: #fff; letter-spacing: -0.02em; margin-bottom: 0.25rem; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+.h-color-hex  { font-size: 0.68rem; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; margin-bottom: 0.7rem; font-family: monospace; }
+.h-color-desc { font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.75; font-family: 'Amiri', serif; opacity: 0; transition: opacity var(--h-dur) var(--h-ease); max-width: 200px; }
+.h-color-block:hover .h-color-desc { opacity: 1; }
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM PILLAR LIST — قائمة الأعمدة الرزينة
+   ══════════════════════════════════════════════════════════════════ */
+.h-pillar {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--h-line);
+  transition: padding-right var(--h-dur) var(--h-ease),
+              border-color var(--h-dur-fast) var(--h-ease);
+  cursor: default;
+}
+.h-pillar:first-child { border-top: 1px solid var(--h-line); }
+.h-pillar:hover { padding-right: 0.8rem; border-bottom-color: var(--h-border); }
+.h-pillar:hover .h-pillar-num { color: var(--h-gold); }
+
+.h-pillar-num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--h-t4);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  transition: color var(--h-dur) var(--h-ease);
+  font-variant-numeric: tabular-nums;
+}
+.h-pillar-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--h-t1);
+  margin-bottom: 0.35rem;
+}
+.h-pillar-text {
+  font-size: 0.84rem;
+  color: var(--h-t3);
+  line-height: 1.8;
+}
+.h-pillar-verse {
+  font-size: 0.73rem;
+  color: var(--h-t4);
+  font-family: 'Amiri', serif;
+  max-width: 220px;
+  text-align: left;
+  line-height: 1.8;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM FOOTER — القدم الرزينة
+   ══════════════════════════════════════════════════════════════════ */
+.h-footer {
+  border-top: 1px solid var(--h-line);
+  padding: 3.5rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  background: var(--h-void);
+}
+
+.h-footer-logo {
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  background: linear-gradient(120deg, var(--h-gold-d), var(--h-gold), var(--h-gold-l));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.h-footer-verse {
+  font-family: 'Amiri', serif;
+  font-size: 0.78rem;
+  color: var(--h-t4);
+  max-width: 400px;
+  line-height: 2;
+  text-align: center;
+}
+
+.h-footer-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+.h-footer-links a {
+  font-size: 0.73rem;
+  color: var(--h-t4);
+  text-decoration: none;
+  transition: color var(--h-dur-fast) var(--h-ease);
+}
+.h-footer-links a:hover { color: var(--h-gold); }
+
+.h-footer-copy {
+  font-size: 0.68rem;
+  color: var(--h-t4);
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM ANIMATIONS — الأنيميشن الصبور
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ظهور من الأسفل — صبور */
+@keyframes h-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ظهور من الأسفل — بطيء */
+@keyframes h-rise-slow {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* فتح عرضي — كفتح الصفحة */
+@keyframes h-widen {
+  from { width: 0; opacity: 0; }
+  to   { opacity: 0.5; }
+}
+
+/* تنفس الضوء */
+@keyframes h-breathe {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%       { opacity: 1; transform: scale(1.08); }
+}
+
+/* نزول خيط التمرير */
+@keyframes h-drip {
+  0%, 100% { transform: scaleY(1) translateY(0); opacity: 0.35; }
+  50%       { transform: scaleY(1.2) translateY(5px); opacity: 0.7; }
+}
+
+/* scrollbar */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--h-void); }
+::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.15); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,0.3); }
+
+/* focus */
+:focus-visible {
+  outline: 2px solid var(--h-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* selection */
+::selection { background: rgba(201,168,76,0.18); color: var(--h-t1); }
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM RESPONSIVE — التجاوب الصبور
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .h-color-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .h-nav-links { display: none; }
+  .h-color-grid { grid-template-columns: 1fr; }
+  .h-color-block { min-height: 220px; flex-grow: unset; }
+  .h-color-grid:hover .h-color-block,
+  .h-color-grid:hover .h-color-block:hover { flex-grow: unset; }
+  .h-color-desc { opacity: 1; }
+  .h-pillar { grid-template-columns: 48px 1fr; }
+  .h-pillar-verse { display: none; }
+  .h-footer { flex-direction: column; text-align: center; }
+  .h-footer-verse { text-align: center; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HALEEM SIGNATURE
+   «وَاللَّهُ غَفُورٌ حَلِيمٌ» — البقرة: 225
+   ══════════════════════════════════════════════════════════════════ */
