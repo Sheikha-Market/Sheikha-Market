@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>Sheikha MCP — مركز ربط الأدوات والخدمات | SHEIKHA</title>
+<meta name="description" content="Sheikha MCP — مركز ربط الأدوات والخدمات: خريطة العقد، سجل الأدوات، الموصلات النشطة، الحالة الصحية، الصلاحيات، تدفق التنفيذ">
+<meta name="robots" content="index, follow">
+<meta name="author" content="سلمان أحمد بن سلمان الراجح">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#D4AF37">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   بسم الله الرحمن الرحيم
+   SHEIKHA MCP — مركز ربط الأدوات والخدمات
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#050810;--bg2:#0a0f1a;--bg3:#111827;--bg4:#1a2236;
+  --gold:#D4AF37;--gold2:#b8942f;--gold3:#f5d97e;
+  --t1:#f1f5f9;--t2:#94a3b8;--t3:#64748b;
+  --bdr:#1e293b;--bdr2:#334155;
+  --green:#22c55e;--blue:#3b82f6;--purple:#a855f7;--orange:#f97316;--red:#ef4444;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:3px}
+
+/* ═══ NAVBAR ═══ */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 32px;height:64px;display:flex;align-items:center;background:rgba(5,8,16,.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(30,41,59,.6)}
+.nav-inner{max-width:1400px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo-link{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-mark{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:20px;height:20px}
+.logo-text{font-size:1.25rem;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-a{padding:8px 16px;color:var(--t2);text-decoration:none;font-size:.88rem;font-weight:500;border-radius:8px;transition:all .25s}
+.nav-a:hover{color:var(--t1);background:rgba(255,255,255,.05)}
+.nav-a.active{color:var(--gold);background:rgba(212,175,55,.1)}
+.nav-cta{padding:9px 20px;background:rgba(212,175,55,.12);border:1px solid var(--gold);border-radius:10px;color:var(--gold);font-size:.86rem;font-weight:600;text-decoration:none;transition:all .25s}
+.nav-cta:hover{background:var(--gold);color:#050810}
+
+/* ═══ HERO ═══ */
+.hero{padding:120px 32px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(168,85,247,.07) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid rgba(168,85,247,.25);border-radius:20px;background:rgba(168,85,247,.06);margin-bottom:24px;font-size:.82rem;font-weight:600;color:var(--purple)}
+.hero-badge span{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.15;margin-bottom:20px}
+.hero h1 .grad{background:linear-gradient(135deg,var(--purple),#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.1rem;color:var(--t2);max-width:680px;margin:0 auto 36px;line-height:1.7}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{padding:14px 32px;background:linear-gradient(135deg,var(--purple),#9333ea);color:#fff;font-weight:700;border-radius:12px;text-decoration:none;font-size:.98rem;transition:all .25s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(168,85,247,.3)}
+.btn-secondary{padding:14px 32px;border:1px solid rgba(168,85,247,.3);color:var(--purple);border-radius:12px;text-decoration:none;font-size:.98rem;font-weight:600;transition:all .25s}
+.btn-secondary:hover{background:rgba(168,85,247,.08)}
+
+/* ═══ LAYOUT ═══ */
+.container{max-width:1400px;margin:0 auto;padding:0 32px}
+.section{padding:60px 32px}
+.section-title{font-size:1.8rem;font-weight:800;margin-bottom:8px}
+.section-sub{color:var(--t2);margin-bottom:40px;font-size:1rem}
+
+/* ═══ NODES MAP ═══ */
+.nodes-map{background:var(--bg2);border:1px solid var(--bdr);border-radius:16px;padding:32px;position:relative;overflow:hidden;min-height:340px}
+.nodes-map::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(168,85,247,.05) 0%,transparent 70%)}
+.nodes-title{font-size:1rem;font-weight:700;color:var(--t1);margin-bottom:24px;display:flex;align-items:center;gap:8px}
+.nodes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;position:relative;z-index:1}
+.node{background:var(--bg3);border:1px solid var(--bdr);border-radius:12px;padding:18px;text-align:center;transition:all .3s;cursor:pointer}
+.node:hover{border-color:rgba(168,85,247,.4);transform:translateY(-3px)}
+.node.active{border-color:var(--green);box-shadow:0 0 16px rgba(34,197,94,.15)}
+.node.warning{border-color:var(--orange)}
+.node.error{border-color:var(--red)}
+.node-icon{font-size:1.8rem;margin-bottom:8px}
+.node-name{font-size:.82rem;font-weight:600;color:var(--t1);margin-bottom:4px}
+.node-status{font-size:.72rem;display:flex;align-items:center;justify-content:center;gap:4px}
+.dot{width:5px;height:5px;border-radius:50%;display:inline-block}
+.dot.green{background:var(--green)}
+.dot.orange{background:var(--orange)}
+.dot.red{background:var(--red)}
+
+/* ═══ TOOLS REGISTRY ═══ */
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.tool-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:14px;padding:22px;transition:all .3s}
+.tool-card:hover{border-color:rgba(168,85,247,.3);transform:translateY(-2px)}
+.tool-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.tool-name{font-size:1rem;font-weight:700;color:var(--t1);display:flex;align-items:center;gap:10px}
+.tool-badge{padding:3px 10px;border-radius:6px;font-size:.72rem;font-weight:600;font-family:'JetBrains Mono',monospace}
+.badge-active{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.badge-beta{background:rgba(249,115,22,.12);color:var(--orange);border:1px solid rgba(249,115,22,.2)}
+.badge-plan{background:rgba(148,163,184,.08);color:var(--t3);border:1px solid var(--bdr)}
+.tool-desc{color:var(--t2);font-size:.87rem;line-height:1.6;margin-bottom:14px}
+.tool-meta{display:flex;gap:12px;flex-wrap:wrap}
+.tool-tag{padding:4px 10px;background:var(--bg3);border-radius:6px;font-size:.75rem;color:var(--t3)}
+
+/* ═══ HEALTH ═══ */
+.health-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.health-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:20px}
+.health-name{font-size:.85rem;font-weight:600;color:var(--t2);margin-bottom:12px}
+.health-val{font-size:1.6rem;font-weight:800;color:var(--t1);display:block}
+.health-bar{height:4px;background:var(--bdr2);border-radius:2px;margin-top:8px;overflow:hidden}
+.health-fill{height:100%;border-radius:2px;transition:width .5s}
+.fill-green{background:var(--green)}
+.fill-gold{background:var(--gold)}
+.fill-orange{background:var(--orange)}
+
+/* ═══ PERMISSIONS ═══ */
+.perms-table{width:100%;border-collapse:collapse}
+.perms-table th{padding:12px 16px;text-align:right;font-size:.8rem;font-weight:600;color:var(--t3);border-bottom:1px solid var(--bdr);background:var(--bg3)}
+.perms-table td{padding:12px 16px;font-size:.85rem;border-bottom:1px solid rgba(30,41,59,.4);vertical-align:middle}
+.perm-name{font-family:'JetBrains Mono',monospace;color:var(--purple);font-size:.82rem}
+.perm-allow{color:var(--green)}
+.perm-deny{color:var(--red)}
+.perm-scope{padding:3px 8px;background:rgba(59,130,246,.1);border-radius:4px;color:var(--blue);font-size:.75rem}
+
+/* ═══ EXECUTION STREAM ═══ */
+.stream{background:var(--bg3);border:1px solid var(--bdr);border-radius:12px;padding:20px;font-family:'JetBrains Mono',monospace;font-size:.8rem;max-height:280px;overflow-y:auto}
+.stream-line{padding:4px 0;border-bottom:1px solid rgba(30,41,59,.4);display:flex;gap:12px}
+.stream-time{color:var(--t3);min-width:80px}
+.stream-lvl{min-width:60px}
+.lvl-ok{color:var(--green)}
+.lvl-warn{color:var(--orange)}
+.lvl-err{color:var(--red)}
+.lvl-info{color:var(--blue)}
+.stream-msg{color:var(--t2)}
+
+/* ═══ STATS ═══ */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin:40px 0}
+.stat{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:20px;text-align:center}
+.stat-val{font-size:1.8rem;font-weight:800;color:var(--purple);display:block}
+.stat-lbl{font-size:.8rem;color:var(--t3);margin-top:4px}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.blink{animation:blink 1.5s infinite}
+
+/* ═══ FOOTER ═══ */
+.footer{background:var(--bg2);border-top:1px solid var(--bdr);padding:40px 32px;text-align:center;color:var(--t3);font-size:.85rem}
+.footer a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="/" class="logo-link">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#050810" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span class="logo-text">SHEIKHA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/" class="nav-a">الرئيسية</a></li>
+      <li><a href="/سوق-شيخة.html" class="nav-a">السوق</a></li>
+      <li><a href="/لوحة-التحكم-الموحدة.html" class="nav-a">لوحة التحكم</a></li>
+      <li><a href="/sdk.html" class="nav-a">SDK</a></li>
+      <li><a href="/sheikha-ide.html" class="nav-a">IDE</a></li>
+      <li><a href="/mcp.html" class="nav-a active">MCP</a></li>
+      <li><a href="/cli.html" class="nav-a">CLI</a></li>
+      <li><a href="/الحوكمة.html" class="nav-a">الحوكمة</a></li>
+    </ul>
+    <a href="/تسجيل-الدخول.html" class="nav-cta">دخول / تسجيل</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><span></span> MCP — نشط ومتصل</div>
+  <h1>مركز ربط الأدوات<br><span class="grad">Sheikha MCP</span></h1>
+  <p>Model Context Protocol — منصة الربط الموحدة بين أدوات الذكاء الاصطناعي وخدمات شيخة. عقد ذكية، موصلات حية، صلاحيات محكمة، وتدفق تنفيذي مُراقب.</p>
+  <div class="hero-actions">
+    <a href="#nodes" class="btn-primary">خريطة العقد</a>
+    <a href="#tools" class="btn-secondary">سجل الأدوات</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="container">
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-val">24</span><div class="stat-lbl">عقدة نشطة</div></div>
+    <div class="stat"><span class="stat-val">87</span><div class="stat-lbl">أداة مسجلة</div></div>
+    <div class="stat"><span class="stat-val">12</span><div class="stat-lbl">موصل حي</div></div>
+    <div class="stat"><span class="stat-val">99.7%</span><div class="stat-lbl">صحة النظام</div></div>
+    <div class="stat"><span class="stat-val">0</span><div class="stat-lbl">أخطاء حرجة</div></div>
+  </div>
+</div>
+
+<!-- NODES MAP -->
+<section class="section" id="nodes">
+  <div class="container">
+    <h2 class="section-title">خريطة العقد</h2>
+    <p class="section-sub">حالة عقد المنظومة الحية</p>
+    <div class="nodes-map">
+      <div class="nodes-title">
+        <span style="color:var(--green)">●</span> شبكة MCP — <span class="blink" style="color:var(--green)">متصلة</span>
+      </div>
+      <div class="nodes-grid">
+        <div class="node active">
+          <div class="node-icon">🏪</div>
+          <div class="node-name">Market Node</div>
+          <div class="node-status"><span class="dot green"></span><span style="color:var(--green);font-size:.72rem">نشط</span></div>
+        </div>
+        <div class="node active">
+          <div class="node-icon">📋</div>
+          <div class="node-name">Contract Node</div>
+          <div class="node-status"><span class="dot green"></span><span style="color:var(--green);font-size:.72rem">نشط</span></div>
+        </div>
+        <div class="node active">
+          <div class="node-icon">🔗</div>
+          <div class="node-name">Supply Node</div>
+          <div class="node-status"><span class="dot green"></span><span style="color:var(--green);font-size:.72rem">نشط</span></div>
+        </div>
+        <div class="node active">
+          <div class="node-icon">⚖️</div>
+          <div class="node-name">Governance Node</div>
+          <div class="node-status"><span class="dot green"></span><span style="color:var(--green);font-size:.72rem">نشط</span></div>
+        </div>
+        <div class="node active">
+          <div class="node-icon">🔐</div>
+          <div class="node-name">Auth Node</div>
+          <div class="node-status"><span class="dot green"></span><span style="color:var(--green);font-size:.72rem">نشط</span></div>
+        </div>
+        <div class="node active">
+          <div class="node-icon">📊</div>
+          <div class="node-name">Analytics Node</div>
+          <div class="node-status"><span class="dot green"></span><span style="color:var(--green);font-size:.72rem">نشط</span></div>
+        </div>
+        <div class="node active">
+          <div class="node-icon">🌐</div>
+          <div class="node-name">Git Node</div>
+          <div class="node-status"><span class="dot green"></span><span style="color:var(--green);font-size:.72rem">نشط</span></div>
+        </div>
+        <div class="node warning">
+          <div class="node-icon">💳</div>
+          <div class="node-name">Billing Node</div>
+          <div class="node-status"><span class="dot orange"></span><span style="color:var(--orange);font-size:.72rem">تحديث</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS REGISTRY -->
+<section class="section" id="tools" style="background:var(--bg2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)">
+  <div class="container">
+    <h2 class="section-title">سجل الأدوات</h2>
+    <p class="section-sub">الأدوات المسجلة والمتاحة في منظومة MCP</p>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-name">🔍 market_search</div>
+          <span class="tool-badge badge-active">نشط</span>
+        </div>
+        <p class="tool-desc">البحث في السوق عن المنتجات، الموردين، والعروض مع تصفية متقدمة.</p>
+        <div class="tool-meta">
+          <span class="tool-tag">Market SDK</span>
+          <span class="tool-tag">Read-only</span>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-name">💰 get_live_prices</div>
+          <span class="tool-badge badge-active">نشط</span>
+        </div>
+        <p class="tool-desc">جلب أسعار المعادن اللحظية من LME وCOMEX وLBMA.</p>
+        <div class="tool-meta">
+          <span class="tool-tag">Market SDK</span>
+          <span class="tool-tag">Real-time</span>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-name">📋 create_contract</div>
+          <span class="tool-badge badge-active">نشط</span>
+        </div>
+        <p class="tool-desc">إنشاء عقد رقمي جديد مع تطبيق القالب المناسب.</p>
+        <div class="tool-meta">
+          <span class="tool-tag">Contract SDK</span>
+          <span class="tool-tag">Write</span>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-name">✅ governance_check</div>
+          <span class="tool-badge badge-active">نشط</span>
+        </div>
+        <p class="tool-desc">التحقق من امتثال العملية للميثاق والسياسات التشغيلية.</p>
+        <div class="tool-meta">
+          <span class="tool-tag">Governance SDK</span>
+          <span class="tool-tag">Validation</span>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-name">🔗 supply_sync</div>
+          <span class="tool-badge badge-active">نشط</span>
+        </div>
+        <p class="tool-desc">مزامنة بيانات سلسلة الإمداد مع الموردين والمستودعات.</p>
+        <div class="tool-meta">
+          <span class="tool-tag">Supply SDK</span>
+          <span class="tool-tag">Sync</span>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-name">📊 analytics_report</div>
+          <span class="tool-badge badge-beta">تجريبي</span>
+        </div>
+        <p class="tool-desc">توليد تقارير تحليلية ذكية عن نشاط السوق والأداء.</p>
+        <div class="tool-meta">
+          <span class="tool-tag">Analytics SDK</span>
+          <span class="tool-tag">AI-powered</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HEALTH STATE -->
+<section class="section" id="health">
+  <div class="container">
+    <h2 class="section-title">الحالة الصحية</h2>
+    <p class="section-sub">مؤشرات أداء المنظومة الحية</p>
+    <div class="health-grid">
+      <div class="health-card">
+        <div class="health-name">وقت الاستجابة</div>
+        <span class="health-val">48ms</span>
+        <div class="health-bar"><div class="health-fill fill-green" style="width:92%"></div></div>
+      </div>
+      <div class="health-card">
+        <div class="health-name">الذاكرة المستخدمة</div>
+        <span class="health-val">3.2GB</span>
+        <div class="health-bar"><div class="health-fill fill-gold" style="width:64%"></div></div>
+      </div>
+      <div class="health-card">
+        <div class="health-name">معدل الطلبات / ث</div>
+        <span class="health-val">1.2K</span>
+        <div class="health-bar"><div class="health-fill fill-green" style="width:78%"></div></div>
+      </div>
+      <div class="health-card">
+        <div class="health-name">معدل النجاح</div>
+        <span class="health-val">99.7%</span>
+        <div class="health-bar"><div class="health-fill fill-green" style="width:99.7%"></div></div>
+      </div>
+      <div class="health-card">
+        <div class="health-name">الاتصالات النشطة</div>
+        <span class="health-val">847</span>
+        <div class="health-bar"><div class="health-fill fill-gold" style="width:70%"></div></div>
+      </div>
+      <div class="health-card">
+        <div class="health-name">وقت التشغيل</div>
+        <span class="health-val">99.9%</span>
+        <div class="health-bar"><div class="health-fill fill-green" style="width:99.9%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERMISSIONS -->
+<section class="section" style="background:var(--bg2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)">
+  <div class="container">
+    <h2 class="section-title">الصلاحيات</h2>
+    <p class="section-sub">نموذج الصلاحيات المُطبَّق — Deny by Default</p>
+    <div style="background:var(--bg3);border:1px solid var(--bdr);border-radius:14px;overflow:hidden">
+      <table class="perms-table">
+        <thead>
+          <tr>
+            <th>الأداة</th>
+            <th>النطاق</th>
+            <th>القراءة</th>
+            <th>الكتابة</th>
+            <th>التنفيذ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="perm-name">market_*</span></td>
+            <td><span class="perm-scope">market:read</span></td>
+            <td class="perm-allow">✓ مسموح</td>
+            <td class="perm-deny">✗ مقيد</td>
+            <td class="perm-deny">✗ مقيد</td>
+          </tr>
+          <tr>
+            <td><span class="perm-name">create_contract</span></td>
+            <td><span class="perm-scope">contracts:write</span></td>
+            <td class="perm-allow">✓ مسموح</td>
+            <td class="perm-allow">✓ مسموح</td>
+            <td class="perm-deny">✗ مقيد</td>
+          </tr>
+          <tr>
+            <td><span class="perm-name">governance_check</span></td>
+            <td><span class="perm-scope">governance:validate</span></td>
+            <td class="perm-allow">✓ مسموح</td>
+            <td class="perm-deny">✗ مقيد</td>
+            <td class="perm-allow">✓ مسموح</td>
+          </tr>
+          <tr>
+            <td><span class="perm-name">supply_sync</span></td>
+            <td><span class="perm-scope">supply:sync</span></td>
+            <td class="perm-allow">✓ مسموح</td>
+            <td class="perm-allow">✓ مسموح</td>
+            <td class="perm-allow">✓ مسموح</td>
+          </tr>
+          <tr>
+            <td><span class="perm-name">analytics_report</span></td>
+            <td><span class="perm-scope">analytics:read</span></td>
+            <td class="perm-allow">✓ مسموح</td>
+            <td class="perm-deny">✗ مقيد</td>
+            <td class="perm-allow">✓ مسموح</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- EXECUTION STREAM -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">تدفق التنفيذ</h2>
+    <p class="section-sub">سجل العمليات الحي</p>
+    <div class="stream" id="execStream">
+      <div class="stream-line">
+        <span class="stream-time">00:00:01</span>
+        <span class="stream-lvl lvl-ok">[OK]</span>
+        <span class="stream-msg">MCP Server initialized — 24 nodes registered</span>
+      </div>
+      <div class="stream-line">
+        <span class="stream-time">00:00:02</span>
+        <span class="stream-lvl lvl-ok">[OK]</span>
+        <span class="stream-msg">Market Node connected — live prices stream active</span>
+      </div>
+      <div class="stream-line">
+        <span class="stream-time">00:00:03</span>
+        <span class="stream-lvl lvl-ok">[OK]</span>
+        <span class="stream-msg">Governance check passed — Charter enforcement active</span>
+      </div>
+      <div class="stream-line">
+        <span class="stream-time">00:00:05</span>
+        <span class="stream-lvl lvl-info">[INFO]</span>
+        <span class="stream-msg">Contract Node processing request cnt_2026_x7a1b — parties verified</span>
+      </div>
+      <div class="stream-line">
+        <span class="stream-time">00:00:08</span>
+        <span class="stream-lvl lvl-ok">[OK]</span>
+        <span class="stream-msg">Supply sync completed — 3 suppliers updated, 0 conflicts</span>
+      </div>
+      <div class="stream-line">
+        <span class="stream-time">00:00:12</span>
+        <span class="stream-lvl lvl-info">[INFO]</span>
+        <span class="stream-msg">Analytics report generated — market_activity_2026Q1.pdf</span>
+      </div>
+      <div class="stream-line">
+        <span class="stream-time">00:00:15</span>
+        <span class="stream-lvl lvl-warn">[WARN]</span>
+        <span class="stream-msg">Billing Node: scheduled update in progress — temporary throttle</span>
+      </div>
+      <div class="stream-line">
+        <span class="stream-time">00:00:18</span>
+        <span class="stream-lvl lvl-ok">[OK]</span>
+        <span class="stream-msg">Auth Node: 847 active sessions validated</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2026 منظومة شيخة — <a href="/">sheikha.top</a> | MCP v1.0 | <a href="/sdk.html">SDK</a> | <a href="/cli.html">CLI</a> | <a href="/الحوكمة.html">الحوكمة</a></p>
+  <p style="margin-top:8px;font-size:.75rem">"وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ"</p>
+</footer>
+
+<script>
+// تحديث تدفق التنفيذ بشكل دوري
+const stream = document.getElementById('execStream');
+const msgs = [
+  {lvl:'ok', msg:'market_search executed — 42 results returned in 38ms'},
+  {lvl:'ok', msg:'get_live_prices: gold=285.40 SAR/g, silver=3.12 SAR/g'},
+  {lvl:'info', msg:'Governance check: contract terms validated — sharia compliant'},
+  {lvl:'ok', msg:'supply_sync: 7 items reconciled across 3 warehouses'},
+  {lvl:'info', msg:'Analytics: daily report scheduled for 23:59 UTC+3'},
+  {lvl:'ok', msg:'Auth token refreshed for session ses_a7x3k — 847 active'},
+];
+let msgIdx = 0;
+setInterval(() => {
+  const m = msgs[msgIdx % msgs.length]; msgIdx++;
+  const now = new Date();
+  const t = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+  const line = document.createElement('div');
+  line.className = 'stream-line';
+  line.innerHTML = `<span class="stream-time">${t}</span><span class="stream-lvl lvl-${m.lvl}">[${m.lvl.toUpperCase()}]</span><span class="stream-msg">${m.msg}</span>`;
+  stream.appendChild(line);
+  stream.scrollTop = stream.scrollHeight;
+  if(stream.children.length > 30) stream.removeChild(stream.firstChild);
+}, 3000);
+</script>
+</body>
+</html>

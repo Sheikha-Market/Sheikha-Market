@@ -36305,6 +36305,89 @@ try {
     console.warn('⚠️ [SNTN] الشبكة العصبية للنقل:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📋 CONTRACTS — العقود الرقمية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const contractsRoutes = require('./routes/contracts.js');
+    app.use('/api/contracts', contractsRoutes);
+    console.log('✅ [CONTRACTS] مسارات العقود الرقمية — مُفعَّلة على /api/contracts');
+} catch (e) {
+    console.warn('⚠️ [CONTRACTS] فشل تحميل مسارات العقود:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔗 SUPPLY — سلاسل الإمداد
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const supplyRoutes = require('./routes/supply.js');
+    app.use('/api/supply', supplyRoutes);
+    console.log('✅ [SUPPLY] مسارات الإمداد — مُفعَّلة على /api/supply');
+} catch (e) {
+    console.warn('⚠️ [SUPPLY] فشل تحميل مسارات الإمداد:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚡ SDK — مجموعة أدوات التطوير
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const sdkRoutes = require('./routes/sdk.js');
+    app.use('/api/sdk', sdkRoutes);
+    console.log('✅ [SDK] مسارات SDK — مُفعَّلة على /api/sdk');
+} catch (e) {
+    console.warn('⚠️ [SDK] فشل تحميل مسارات SDK:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔮 MCP — مركز ربط الأدوات
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const mcpRoutes = require('./routes/mcp.js');
+    app.use('/api/mcp', mcpRoutes);
+    console.log('✅ [MCP] مسارات MCP — مُفعَّلة على /api/mcp');
+} catch (e) {
+    console.warn('⚠️ [MCP] فشل تحميل مسارات MCP:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 💻 CLI — واجهة سطر الأوامر
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const cliRoutes = require('./routes/cli.js');
+    app.use('/api/cli', cliRoutes);
+    console.log('✅ [CLI] مسارات CLI — مُفعَّلة على /api/cli');
+} catch (e) {
+    console.warn('⚠️ [CLI] فشل تحميل مسارات CLI:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐 GIT — تكامل GitHub / GitLab
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const gitRoutes = require('./routes/git.js');
+    app.use('/api/git', gitRoutes);
+    console.log('✅ [GIT] مسارات Git — مُفعَّلة على /api/git');
+    console.log('   ├─ GET  /api/git/status    — حالة Git الكاملة');
+    console.log('   ├─ GET  /api/git/branches  — الفروع');
+    console.log('   ├─ GET  /api/git/activity  — نشاط التطوير');
+    console.log('   ├─ GET  /api/git/report    — تقرير نشاط Git');
+    console.log('   ├─ POST /api/git/sync      — مزامنة GitHub/GitLab');
+    console.log('   └─ POST /api/git/validate  — التحقق من الملفات الحرجة');
+} catch (e) {
+    console.warn('⚠️ [GIT] فشل تحميل مسارات Git:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📊 DASHBOARD — لوحة التحكم المركزية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const dashboardRoutes = require('./routes/dashboard.js');
+    app.use('/api/dashboard', dashboardRoutes);
+    console.log('✅ [DASHBOARD] مسارات لوحة التحكم — مُفعَّلة على /api/dashboard');
+} catch (e) {
+    console.warn('⚠️ [DASHBOARD] فشل تحميل مسارات لوحة التحكم:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
