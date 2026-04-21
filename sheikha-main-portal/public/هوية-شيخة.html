@@ -1,670 +1,722 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هوية شيخة — من سوق النبي ﷺ إلى السوق الرقمي العالمي</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>هوية شيخة — الحليم | من سوق النبي ﷺ إلى السوق الرقمي العالمي</title>
+<meta name="description" content="هوية شيخة الحليمة — أول سوق إسلامي رقمي للمعادن. مبني على مبادئ سوق المدينة المنورة. دافئ، رزين، شريف.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="سلمان أحمد بن سلمان الراجح">
+<meta name="copyright" content="© 2026 سلمان أحمد بن سلمان الراجح — جميع الحقوق محفوظة">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#C9A84C">
+<meta property="og:type" content="website">
+<meta property="og:title" content="هوية شيخة — الحليم">
+<meta property="og:description" content="من سوق المدينة المنورة إلى أول سوق إسلامي رقمي عالمي للمعادن">
+<meta property="og:url" content="https://sheikha.top/هوية-شيخة.html">
+<meta property="og:site_name" content="SHEIKHA">
+<meta property="og:image" content="https://sheikha.top/images/og-sheikha.png">
+<link rel="canonical" href="https://sheikha.top/هوية-شيخة.html">
 
-        :root {
-            --gold: #D4AF37;
-            --copper: #B87333;
-            --dark: #0a0a0a;
-            --light: #f5f5f5;
-            --forest: #1a3a2a;
-            --accent: #ff6b35;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Tajawal', 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, var(--dark) 0%, var(--forest) 100%);
-            color: #white;
-            line-height: 1.8;
-            overflow-x: hidden;
-        }
+<!-- هوية الحليم -->
+<link rel="stylesheet" href="/css/sheikha-neural-identity.css">
+<link rel="stylesheet" href="/css/sheikha-haleem.css">
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            background: linear-gradient(45deg, rgba(10,10,10,0.95), rgba(26,58,42,0.9)),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="%23D4AF37" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="1200" height="600" fill="url(%23grid)"/></svg>');
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Tajawal',sans-serif;
+  background:var(--h-void);
+  color:var(--h-t1);
+  line-height:var(--h-lh);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a { text-decoration:none; color:inherit; }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
+/* ── الخلفية الدافئة ── */
+.warm-bg {
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 15%, rgba(201,168,76,0.022) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(45,107,74,0.018) 0%, transparent 55%),
+    var(--h-void);
+}
 
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            max-width: 900px;
-            padding: 2rem;
-            animation: fadeInUp 1.2s ease;
-        }
+/* ── شريط الآية العلوي ── */
+.verse-bar {
+  position:relative; z-index:10;
+  background:rgba(201,168,76,0.04);
+  border-bottom:1px solid var(--h-line);
+  padding:.6rem 2rem;
+  text-align:center;
+}
+.verse-bar p {
+  font-family:'Amiri',serif;
+  font-size:.84rem;
+  color:var(--h-t4);
+  letter-spacing:.03em;
+}
+.verse-bar span { color:var(--h-gold); }
 
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--gold), var(--copper));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(212,175,55,0.3);
-            letter-spacing: 2px;
-        }
+/* ── NAV ── */
+.site-nav {
+  position:sticky; top:0; z-index:100;
+  height:66px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 2.5rem;
+  background:rgba(12,10,8,0.90);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--h-line);
+}
+.nav-logo {
+  font-size:1.1rem; font-weight:900;
+  background:linear-gradient(120deg,var(--h-gold-d),var(--h-gold),var(--h-gold-l));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.nav-links { display:flex; gap:2rem; list-style:none; }
+.nav-links a {
+  font-size:.83rem; font-weight:500; color:var(--h-t4);
+  transition:color var(--h-dur-fast) var(--h-ease);
+}
+.nav-links a:hover { color:var(--h-gold); }
+.nav-cta {
+  padding:.5rem 1.4rem;
+  background:var(--h-gold); color:#0C0A08;
+  font-size:.78rem; font-weight:700;
+  border-radius:var(--h-r-full);
+  transition:all var(--h-dur-fast) var(--h-ease);
+}
+.nav-cta:hover { background:var(--h-gold-l); transform:translateY(-1px); }
+@media(max-width:768px){
+  .nav-links{display:none}
+}
 
-        .hero-subtitle {
-            font-size: 1.8rem;
-            color: var(--gold);
-            margin-bottom: 2rem;
-            font-weight: 300;
-            line-height: 1.4;
-        }
+/* ════════════════════════════════════════════════════
+   HERO — هوية
+   ════════════════════════════════════════════════════ */
+.hero {
+  position:relative; z-index:1;
+  min-height:100svh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4rem;
+  align-items:center;
+  max-width:1100px;
+  margin:0 auto;
+  padding:6rem 2rem 5rem;
+}
 
-        .ayah {
-            font-size: 1.3rem;
-            color: #fff;
-            background: rgba(212,175,55,0.1);
-            padding: 2rem;
-            border-right: 4px solid var(--gold);
-            margin: 2rem 0;
-            border-radius: 8px;
-            font-style: italic;
-        }
+.hero-left {}
 
-        .ayah-source {
-            color: var(--copper);
-            font-size: 0.9rem;
-            margin-top: 1rem;
-        }
+.hero-eyebrow {
+  display:flex; align-items:center; gap:.8rem;
+  margin-bottom:2.5rem;
+  font-size:.68rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--h-gold);
+}
+.hero-eyebrow::before {
+  content:'';
+  display:inline-block; width:28px; height:1px;
+  background:var(--h-gold); opacity:.5;
+}
 
-        /* Sections */
-        section {
-            padding: 5rem 3rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+.hero-title {
+  font-size:clamp(3rem,7vw,6rem);
+  font-weight:900;
+  letter-spacing:-.035em;
+  line-height:var(--h-lh-title);
+  margin-bottom:1.5rem;
+  background:linear-gradient(155deg,
+    var(--h-gold-d) 0%,
+    var(--h-gold) 40%,
+    var(--h-gold-l) 58%,
+    var(--h-gold) 80%,
+    var(--h-gold-d) 100%
+  );
+  background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  animation:h-gold-breathe var(--h-dur-breathe) var(--h-ease) infinite alternate;
+}
 
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            color: var(--gold);
-            position: relative;
-            padding-bottom: 1rem;
-        }
+.hero-sub {
+  font-size:clamp(.95rem,2vw,1.15rem);
+  color:var(--h-t3);
+  line-height:var(--h-lh);
+  margin-bottom:2.5rem;
+  max-width:420px;
+}
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold), var(--copper));
-            margin: 1rem auto 0;
-            border-radius: 2px;
-        }
+.hero-verse {
+  font-family:'Amiri',serif;
+  font-size:1.02rem;
+  color:var(--h-gold);
+  line-height:var(--h-lh-verse);
+  margin-bottom:3rem;
+  padding-right:1.2rem;
+  border-right:2px solid rgba(201,168,76,.2);
+}
 
-        /* Timeline */
-        .timeline {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
+.hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
 
-        .timeline-item {
-            background: rgba(212,175,55,0.05);
-            border-left: 4px solid var(--gold);
-            padding: 2rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
+/* الجانب الأيسر — الشعار والشخصية */
+.hero-right {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2rem;
+}
 
-        .timeline-item:hover {
-            background: rgba(212,175,55,0.1);
-            transform: translateX(-10px);
-            border-left-color: var(--copper);
-        }
+/* الدائرة الذهبية الدافئة */
+.identity-circle {
+  position:relative;
+  width:320px; height:320px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.identity-circle::before {
+  content:'';
+  position:absolute; inset:0;
+  border:1px solid rgba(201,168,76,.12);
+  border-radius:50%;
+  animation:ic-spin 60s linear infinite;
+}
+.identity-circle::after {
+  content:'';
+  position:absolute; inset:24px;
+  border:1px solid rgba(201,168,76,.06);
+  border-radius:50%;
+  animation:ic-spin 40s linear infinite reverse;
+}
+@keyframes ic-spin { to { transform:rotate(360deg); } }
 
-        .timeline-item h3 {
-            color: var(--copper);
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
+.ic-core {
+  position:relative; z-index:1;
+  width:200px; height:200px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:.5rem;
+  background:var(--h-card);
+  border:1px solid var(--h-border);
+  border-radius:50%;
+  animation:h-breathe var(--h-dur-breathe) var(--h-ease) infinite alternate;
+}
+.ic-arabic {
+  font-size:3.5rem; font-weight:900; line-height:1;
+  background:linear-gradient(160deg,var(--h-gold-d),var(--h-gold),var(--h-gold-l));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.ic-latin {
+  font-size:.62rem; font-weight:700; letter-spacing:.28em;
+  text-transform:uppercase; color:var(--h-t4);
+}
 
-        .timeline-item .date {
-            color: var(--gold);
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
+/* نقاط الدائرة */
+.ic-dot {
+  position:absolute;
+  width:6px; height:6px;
+  border-radius:50%;
+  background:var(--h-gold);
+  opacity:.4;
+}
+.ic-dot:nth-child(1) { top:8px; left:50%; transform:translateX(-50%); }
+.ic-dot:nth-child(2) { bottom:8px; left:50%; transform:translateX(-50%); }
+.ic-dot:nth-child(3) { left:8px; top:50%; transform:translateY(-50%); }
+.ic-dot:nth-child(4) { right:8px; top:50%; transform:translateY(-50%); }
 
-        /* Pillars Grid */
-        .pillars {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
+/* أعمدة صغيرة تحت الدائرة */
+.ic-stats {
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+  gap:.5rem;
+  width:320px;
+}
+.ic-stat {
+  background:var(--h-card);
+  border:1px solid var(--h-line);
+  border-radius:var(--h-r-md);
+  padding:1rem .8rem;
+  text-align:center;
+  transition:border-color var(--h-dur-fast) var(--h-ease);
+}
+.ic-stat:hover { border-color:var(--h-border); }
+.ic-stat-v {
+  font-size:1.3rem; font-weight:900;
+  background:linear-gradient(135deg,var(--h-gold),var(--h-gold-l));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.ic-stat-l { font-size:.62rem; color:var(--h-t4); margin-top:.25rem; line-height:1.5; }
 
-        .pillar {
-            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(184,115,51,0.05));
-            border: 1px solid rgba(212,175,55,0.3);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+@media(max-width:900px){
+  .hero { grid-template-columns:1fr; padding-top:4rem; }
+  .hero-right { order:-1; }
+  .identity-circle { width:260px; height:260px; }
+  .ic-core { width:160px; height:160px; }
+  .ic-arabic { font-size:2.8rem; }
+  .ic-stats { width:260px; }
+}
 
-        .pillar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold), var(--copper));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
+/* ════════════════════════════════════════════════════
+   TIMELINE — من النبي ﷺ إلى شيخة
+   ════════════════════════════════════════════════════ */
+.timeline-section {
+  position:relative; z-index:1;
+  background:linear-gradient(180deg,var(--h-void) 0%,var(--h-deep) 50%,var(--h-void) 100%);
+  padding:8rem 2rem;
+}
+.timeline-inner {
+  max-width:760px; margin:0 auto;
+}
+.timeline-line {
+  position:absolute;
+  right:calc(50% - 0.5px);
+  top:0; bottom:0;
+  width:1px;
+  background:linear-gradient(to bottom,transparent,var(--h-border) 10%,var(--h-border) 90%,transparent);
+}
+.timeline-items { position:relative; }
+.tl-item {
+  display:grid;
+  grid-template-columns:1fr 48px 1fr;
+  gap:0 1.5rem;
+  align-items:start;
+  margin-bottom:4rem;
+}
+.tl-item:last-child { margin-bottom:0; }
 
-        .pillar:hover {
-            transform: translateY(-10px);
-            border-color: var(--copper);
-            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(184,115,51,0.1));
-        }
+.tl-left { text-align:left; padding-top:.3rem; }
+.tl-left.empty {}
+.tl-right { padding-top:.3rem; }
 
-        .pillar:hover::before {
-            transform: scaleX(1);
-        }
+/* النقطة المركزية */
+.tl-node {
+  width:48px; height:48px;
+  border-radius:50%;
+  background:var(--h-card);
+  border:2px solid var(--h-border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:.72rem; font-weight:700; color:var(--h-gold);
+  letter-spacing:.04em;
+  flex-shrink:0;
+  transition:border-color var(--h-dur) var(--h-ease),
+             background var(--h-dur) var(--h-ease);
+  position:relative; z-index:1;
+}
+.tl-item.right-side .tl-node { margin-right:auto; }
 
-        .pillar-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--copper);
-            margin-bottom: 1rem;
-        }
+.tl-year {
+  font-size:.68rem; font-weight:700; color:var(--h-t4);
+  letter-spacing:.12em; margin-bottom:.6rem;
+}
+.tl-name {
+  font-size:1.05rem; font-weight:700; color:var(--h-t1);
+  margin-bottom:.4rem;
+}
+.tl-desc {
+  font-size:.85rem; color:var(--h-t3);
+  line-height:1.9;
+}
 
-        .pillar-title {
-            font-size: 1.3rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-            font-weight: bold;
-        }
+/* ════════════════════════════════════════════════════
+   VALUES — القيم الستة
+   ════════════════════════════════════════════════════ */
+.values-section {
+  position:relative; z-index:1;
+  padding:8rem 2rem;
+  max-width:1100px;
+  margin:0 auto;
+}
+.values-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--h-line);
+  border:1px solid var(--h-line);
+  border-radius:var(--h-r-lg);
+  overflow:hidden;
+  margin-top:4rem;
+}
+.val-card {
+  background:var(--h-void);
+  padding:2.5rem 2rem;
+  transition:background var(--h-dur) var(--h-ease);
+  position:relative;
+  overflow:hidden;
+}
+.val-card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--h-gold-d),var(--h-gold),transparent);
+  transform:scaleX(0);
+  transition:transform var(--h-dur) var(--h-ease);
+}
+.val-card:hover { background:var(--h-deep); }
+.val-card:hover::before { transform:scaleX(1); }
 
-        .pillar-subtitle {
-            color: #ccc;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
+.val-num {
+  font-size:0.65rem; font-weight:700;
+  letter-spacing:.2em; color:var(--h-t4);
+  margin-bottom:1.2rem;
+}
+.val-icon {
+  font-size:1.8rem; margin-bottom:1.2rem;
+  display:block;
+  filter:saturate(0.8);
+  transition:filter var(--h-dur) var(--h-ease);
+}
+.val-card:hover .val-icon { filter:saturate(1); }
+.val-name {
+  font-size:1.1rem; font-weight:700; color:var(--h-t1);
+  margin-bottom:.7rem;
+}
+.val-text {
+  font-size:.85rem; color:var(--h-t3); line-height:1.95;
+}
+.val-verse {
+  margin-top:1rem;
+  font-family:'Amiri',serif;
+  font-size:.8rem; color:var(--h-t4);
+  line-height:2;
+  border-right:2px solid var(--h-line);
+  padding-right:.8rem;
+}
+@media(max-width:900px){
+  .values-grid { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:600px){
+  .values-grid { grid-template-columns:1fr; }
+}
 
-        .pillar-hadith {
-            background: rgba(0,0,0,0.3);
-            padding: 1rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            color: #ddd;
-            margin-bottom: 1rem;
-        }
+/* ════════════════════════════════════════════════════
+   FOUNDERS WORD — كلمة المؤسس
+   ════════════════════════════════════════════════════ */
+.founders-section {
+  position:relative; z-index:1;
+  background:var(--h-deep);
+  border-top:1px solid var(--h-line);
+  border-bottom:1px solid var(--h-line);
+  padding:8rem 2rem;
+}
+.founders-inner {
+  max-width:760px; margin:0 auto; text-align:center;
+}
+.founders-quote {
+  font-family:'Amiri',serif;
+  font-size:clamp(1.3rem,3vw,2.2rem);
+  color:var(--h-t1);
+  line-height:var(--h-lh-verse);
+  margin:2.5rem 0;
+}
+.founders-quote .gold { color:var(--h-gold); font-style:normal; }
+.founders-attr {
+  font-size:.8rem; color:var(--h-t4);
+  letter-spacing:.06em;
+}
+.founders-attr strong { color:var(--h-gold); display:block; margin-bottom:.2rem; font-size:.9rem; font-weight:700; }
 
-        .pillar-benefit {
-            background: rgba(212,175,55,0.1);
-            padding: 0.8rem;
-            border-radius: 6px;
-            color: var(--gold);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        /* Identity Pillars */
-        .identity-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .identity-card {
-            background: rgba(26,58,42,0.8);
-            border: 2px solid var(--gold);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .identity-card h3 {
-            color: var(--gold);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .identity-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Evidence Section */
-        .evidence {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid var(--copper);
-            padding: 2rem;
-            border-radius: 12px;
-            margin: 2rem 0;
-        }
-
-        .evidence h4 {
-            color: var(--copper);
-            margin-bottom: 1rem;
-        }
-
-        /* Call to Action */
-        .cta-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(184,115,51,0.05));
-            border-radius: 12px;
-            margin: 3rem 0;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--gold), var(--copper));
-            color: var(--dark);
-            padding: 1.2rem 3rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(212,175,55,0.3);
-        }
-
-        .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(212,175,55,0.5);
-        }
-
-        /* Feature Showcase */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature-box {
-            background: rgba(10,10,10,0.6);
-            border: 1px solid var(--gold);
-            padding: 2rem;
-            border-radius: 10px;
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-box h4 {
-            color: var(--gold);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .feature-box ul {
-            list-style: none;
-            color: #ddd;
-        }
-
-        .feature-box li {
-            margin-bottom: 0.8rem;
-            padding-right: 1.5rem;
-            position: relative;
-        }
-
-        .feature-box li::before {
-            content: '✓';
-            position: absolute;
-            right: 0;
-            color: var(--copper);
-            font-weight: bold;
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(0,0,0,0.9);
-            border-top: 2px solid var(--gold);
-            padding: 3rem;
-            text-align: center;
-            color: #999;
-        }
-
-        footer .owner {
-            color: var(--gold);
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        section {
-            animation: slideIn 0.8s ease backwards;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.3rem;
-            }
-
-            section {
-                padding: 3rem 1.5rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-        }
-    </style>
+/* ════════════════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════════════════ */
+footer {
+  position:relative; z-index:1;
+  border-top:1px solid var(--h-line);
+  padding:3rem 2.5rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1.5rem;
+}
+.footer-logo {
+  font-size:1rem; font-weight:900;
+  background:linear-gradient(120deg,var(--h-gold-d),var(--h-gold),var(--h-gold-l));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.footer-links { display:flex; gap:1.5rem; list-style:none; }
+.footer-links a {
+  font-size:.72rem; color:var(--h-t4);
+  transition:color var(--h-dur-fast) var(--h-ease);
+}
+.footer-links a:hover { color:var(--h-gold); }
+.footer-copy { font-size:.68rem; color:var(--h-t4); }
+@media(max-width:600px){
+  footer { flex-direction:column; text-align:center; align-items:center; }
+}
+</style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>🕌 شيخة</h1>
-            <div class="hero-subtitle">من سوق المدينة المنورة<br>إلى أول سوق إسلامي رقمي عالمي</div>
-            <div class="ayah">
-                <p>﴿ وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا ﴾</p>
-                <div class="ayah-source">— البقرة ٢٧٥</div>
-            </div>
+<div class="warm-bg" aria-hidden="true"></div>
+
+<!-- شريط الآية -->
+<div class="verse-bar">
+  <p>
+    <span>«وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ»</span>
+    — الرحمن: 9
+  </p>
+</div>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="nav-logo">شيخة</div>
+  <ul class="nav-links">
+    <li><a href="/index.html">الرئيسية</a></li>
+    <li><a href="/سوق-شيخة.html">السوق</a></li>
+    <li><a href="/الشبكة-العصبية-للهوية.html">الهوية</a></li>
+    <li><a href="/الشريعة-الاسلامية.html">الشريعة</a></li>
+  </ul>
+  <a href="/تسجيل-الشركات.html" class="nav-cta">ابدأ التجارة</a>
+</nav>
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero">
+
+  <!-- اليمين — النص -->
+  <div class="hero-left h-sr">
+    <p class="hero-eyebrow">هوية شيخة · Identity</p>
+
+    <h1 class="hero-title">شيخة</h1>
+
+    <p class="hero-sub">
+      أول منظومة تجارية إسلامية رقمية متخصصة بالمعادن —
+      مبنية على قيم سوق النبي ﷺ ومدعومة بالذكاء الاصطناعي.
+    </p>
+
+    <blockquote class="hero-verse">
+      «بنى النبي ﷺ سوق المدينة على ثلاثة: لا يُباع فيه ما لم يُملك،
+      ولا تضرب فيه الصدقة، ولا تُتخذ فيه السقائف»
+    </blockquote>
+
+    <div class="hero-btns">
+      <a href="/سوق-شيخة.html" class="h-btn h-btn-gold">ادخل السوق</a>
+      <a href="/الشبكة-العصبية-للهوية.html" class="h-btn h-btn-outline">تعمق في الهوية</a>
+    </div>
+  </div>
+
+  <!-- اليسار — الشعار الحي -->
+  <div class="hero-right h-sr h-sr-d2">
+    <div class="identity-circle">
+      <div class="ic-dot"></div>
+      <div class="ic-dot"></div>
+      <div class="ic-dot"></div>
+      <div class="ic-dot"></div>
+      <div class="ic-core">
+        <span class="ic-arabic">ش</span>
+        <span class="ic-latin">SHEIKHA</span>
+      </div>
+    </div>
+
+    <div class="ic-stats">
+      <div class="ic-stat">
+        <div class="ic-stat-v">١٤٤٥</div>
+        <div class="ic-stat-l">سنة التأسيس</div>
+      </div>
+      <div class="ic-stat">
+        <div class="ic-stat-v">٥٧+</div>
+        <div class="ic-stat-l">دولة إسلامية</div>
+      </div>
+      <div class="ic-stat">
+        <div class="ic-stat-v">١٠٠٪</div>
+        <div class="ic-stat-l">حلال مُعتمد</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════ TICKER ════════════ -->
+<div class="h-ticker" aria-hidden="true">
+  <div class="h-ticker-track">
+    <span class="h-ticker-item"><b>الصدق</b> — أساس كل معاملة</span>
+    <span class="h-ticker-item"><b>العدل</b> — في الوزن والسعر</span>
+    <span class="h-ticker-item"><b>الأمانة</b> — في الوصف والتسليم</span>
+    <span class="h-ticker-item"><b>البركة</b> — في النية والعمل</span>
+    <span class="h-ticker-item"><b>الحلم</b> — في القرار والحكم</span>
+    <span class="h-ticker-item"><b>الشفافية</b> — في السعر والمعلومة</span>
+    <span class="h-ticker-item"><b>SMI</b> — أول مؤشر إسلامي للمعادن</span>
+    <!-- dup -->
+    <span class="h-ticker-item"><b>الصدق</b> — أساس كل معاملة</span>
+    <span class="h-ticker-item"><b>العدل</b> — في الوزن والسعر</span>
+    <span class="h-ticker-item"><b>الأمانة</b> — في الوصف والتسليم</span>
+    <span class="h-ticker-item"><b>البركة</b> — في النية والعمل</span>
+    <span class="h-ticker-item"><b>الحلم</b> — في القرار والحكم</span>
+    <span class="h-ticker-item"><b>الشفافية</b> — في السعر والمعلومة</span>
+    <span class="h-ticker-item"><b>SMI</b> — أول مؤشر إسلامي للمعادن</span>
+  </div>
+</div>
+
+<!-- ════════════ TIMELINE ════════════ -->
+<section class="timeline-section">
+  <div class="timeline-inner">
+    <div style="max-width:480px;margin:0 auto 5rem;text-align:center;" class="h-sr">
+      <p class="h-label">الجذور</p>
+      <h2 class="h-title">من هناك <span class="accent">إلى هنا</span></h2>
+      <p class="h-subtitle" style="margin-top:.8rem">رحلة ١٤٠٠ سنة من التجارة الشريفة</p>
+    </div>
+
+    <div class="timeline-items" style="position:relative">
+      <div class="timeline-line" aria-hidden="true"></div>
+
+      <!-- يمين -->
+      <div class="tl-item h-sr">
+        <div class="tl-right">
+          <p class="tl-year">٦٢٢ م — ١ هـ</p>
+          <h3 class="tl-name">سوق المدينة المنورة</h3>
+          <p class="tl-desc">أسسه النبي ﷺ بقواعد ثلاث: لا احتكار، لا ضرائب على الصدقة، لا إقطاعات. أول سوق حر عادل في التاريخ.</p>
         </div>
-    </section>
+        <div class="tl-node">١هـ</div>
+        <div class="tl-left empty"></div>
+      </div>
 
-    <!-- الرواية التاريخية -->
-    <section style="background: rgba(26,58,42,0.3);">
-        <div class="section-title">📘 الرواية المكانية: من المدينة إلى الخبر</div>
-
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="date">السنة الأولى للهجرة — ٦٢٢م</div>
-                <h3>🕌 الهجرة وبناء المسجد</h3>
-                <p>وصل النبي ﷺ إلى المدينة المنورة. أول ما بناه المسجد — مركز العبادة والعلم والحكم. ثم التفت إلى ما يحتاجه المسلمون: سوقٌ حرٌّ عادل.</p>
-            </div>
-
-            <div class="timeline-item">
-                <div class="date">السوق القديم — بني قينقاع</div>
-                <h3>🏪 رفض السوق القائم</h3>
-                <p>كان سوق بني قينقاع هو السوق الرئيسي — لكنه تحت سيطرة اليهود، يفرضون ضرائب وشروط. النبي ﷺ أراد للمسلمين سوقاً حراً مستقلاً.</p>
-            </div>
-
-            <div class="timeline-item">
-                <div class="date">لحظة التأسيس التاريخية</div>
-                <h3>⚖️ « هذا سوقكم »</h3>
-                <p>ذهب النبي ﷺ إلى أرض فضاء، ضربها برجله وقال: « هذا سوقكم، فلا يُنقَص ولا يُضرَب عليه خَراج ». ثلاث كلمات غيّرت التاريخ: حرية — عدل — سهولة.</p>
-            </div>
-
-            <div class="timeline-item">
-                <div class="date">١٤٠٠+ سنة بعدها</div>
-                <h3>🌐 شيخة — إحياء السوق رقمياً</h3>
-                <p>في ١٤٤٧هـ / ٢٠٢٦م، نُحيي تلك المبادئ في شيخة — أول سوق إسلامي رقمي عالمي للمعادن. نفس المبادئ، لكن بتقنيات الذكاء الاصطناعي والبلوكتشين.</p>
-            </div>
+      <!-- يسار -->
+      <div class="tl-item h-sr h-sr-d1">
+        <div class="tl-right empty"></div>
+        <div class="tl-node">٩هـ</div>
+        <div class="tl-left">
+          <p class="tl-year">٦٣١ م — ٩ هـ</p>
+          <h3 class="tl-name">آيات المعادن في القرآن</h3>
+          <p class="tl-desc">«وَأَنزَلْنَا الْحَدِيدَ فِيهِ بَأْسٌ شَدِيدٌ وَمَنَافِعُ لِلنَّاسِ» — الحديد لم يكن يوماً مجرد معدن.</p>
         </div>
-    </section>
+      </div>
 
-    <!-- الهوية المكانية -->
-    <section>
-        <div class="section-title">🗺️ الهوية المكانية: من النبي إلى الحداثة</div>
-
-        <div class="identity-grid">
-            <div class="identity-card">
-                <div class="identity-icon">🕌</div>
-                <h3>الجذر: سوق المدينة</h3>
-                <p>أول سوق حر إسلامي — المبادئ والقيم الشرعية التي وضعها النبي ﷺ هي أساس كل عملية تجارية في شيخة.</p>
-                <p style="margin-top: 1rem; color: var(--gold); font-weight: bold;">لا ربا — لا غش — لا احتكار</p>
-            </div>
-
-            <div class="identity-card">
-                <div class="identity-icon">🏗️</div>
-                <h3>المقر: الخبر</h3>
-                <p>المنطقة الشرقية — قلب الصناعة والطاقة والمعادن في المملكة. الخبر مدينة التجارة والاقتصاد المعرفي.</p>
-                <p style="margin-top: 1rem; font-size: 0.9rem;">المكان المثالي لسوق رقمي عالمي للمعادن</p>
-            </div>
-
-            <div class="identity-card">
-                <div class="identity-icon">⚖️</div>
-                <h3>المنهج: الكتاب والسنة</h3>
-                <p>كل قانون وضابط وشرط في المنظومة مُستمد من الكتاب والسنة. ١٠ قوانين عليا، ٨ مجالات مواصفات، ٤٢+ شرط شرعي.</p>
-                <p style="margin-top: 1rem; color: var(--copper); font-weight: bold;">مراقبة آلية ٢٤/٧</p>
-            </div>
-
-            <div class="identity-card">
-                <div class="identity-icon">🌍</div>
-                <h3>الأثر: عالمي بلسان عربي</h3>
-                <p>شيخة عربية الأصل — عالمية الأثر. اللغة العربية الأساس، والمحتوى يُترجم لكل لغات العالم.</p>
-                <p style="margin-top: 1rem; font-size: 0.9rem;">التاجر العربي والأجنبي معاً</p>
-            </div>
+      <!-- يمين -->
+      <div class="tl-item h-sr h-sr-d2">
+        <div class="tl-right">
+          <p class="tl-year">٧٥٠ م — ١٣٢ هـ</p>
+          <h3 class="tl-name">عصر التجارة الإسلامية الذهبي</h3>
+          <p class="tl-desc">امتدت شبكة التجارة الإسلامية من الأندلس إلى الصين. نظام الحوالة والصكوك والقراض رسّخ التجارة الحلال.</p>
         </div>
-    </section>
+        <div class="tl-node">١٣٢</div>
+        <div class="tl-left empty"></div>
+      </div>
 
-    <!-- الأركان الثمانية -->
-    <section style="background: rgba(26,58,42,0.4);">
-        <div class="section-title">🏛️ أركان السوق النبوي: مُرقمنة في شيخة</div>
-
-        <div class="pillars">
-            <div class="pillar">
-                <div class="pillar-number">١</div>
-                <div class="pillar-title">لا ضرر ولا ضرار</div>
-                <div class="pillar-subtitle">عدم الإضرار</div>
-                <div class="pillar-hadith">« لا ضرر ولا ضرار »<br><small>حديث نبوي — رواه ابن ماجه</small></div>
-                <div class="pillar-benefit">✅ كل معاملة يتحقق منها النظام آلياً</div>
-            </div>
-
-            <div class="pillar">
-                <div class="pillar-number">٢</div>
-                <div class="pillar-title">التاجر الصدوق الأمين</div>
-                <div class="pillar-subtitle">الصدق والأمانة</div>
-                <div class="pillar-hadith">« التاجر الصدوق الأمين »<br><small>رواه الترمذي</small></div>
-                <div class="pillar-benefit">✅ تقييم ذكي لكل تاجر</div>
-            </div>
-
-            <div class="pillar">
-                <div class="pillar-number">٣</div>
-                <div class="pillar-title">من غشّنا فليس منا</div>
-                <div class="pillar-subtitle">مكافحة الغش</div>
-                <div class="pillar-hadith">« من غشّنا فليس منا »<br><small>رواه مسلم</small></div>
-                <div class="pillar-benefit">✅ فحص غش آلي بالذكاء الاصطناعي</div>
-            </div>
-
-            <div class="pillar">
-                <div class="pillar-number">٤</div>
-                <div class="pillar-title">لا يحتكر إلا خاطئ</div>
-                <div class="pillar-subtitle">منع الاحتكار</div>
-                <div class="pillar-hadith">« لا يحتكر إلا خاطئ »<br><small>رواه مسلم</small></div>
-                <div class="pillar-benefit">✅ منع الاحتكار تلقائياً</div>
-            </div>
-
-            <div class="pillar">
-                <div class="pillar-number">٥</div>
-                <div class="pillar-title">البيع عن تراضٍ</div>
-                <div class="pillar-subtitle">التراضي الكامل</div>
-                <div class="pillar-hadith">« البيع عن تراضٍ »<br><small>رواه ابن ماجه</small></div>
-                <div class="pillar-benefit">✅ عقود ذكية رقمية</div>
-            </div>
-
-            <div class="pillar">
-                <div class="pillar-number">٦</div>
-                <div class="pillar-title">الوزن بالقسط</div>
-                <div class="pillar-subtitle">العدل في الموازين</div>
-                <div class="pillar-hadith">« أقيموا الوزن بالقسط »<br><small>الرحمن ٩</small></div>
-                <div class="pillar-benefit">✅ أوزان مُوثّقة بـ IoT</div>
-            </div>
-
-            <div class="pillar">
-                <div class="pillar-number">٧</div>
-                <div class="pillar-title">حرية التسعير</div>
-                <div class="pillar-subtitle">السوق الحر</div>
-                <div class="pillar-hadith">« إن الله هو المسعّر »<br><small>رواه أبو داود</small></div>
-                <div class="pillar-benefit">✅ تسعير بالعرض والطلب</div>
-            </div>
-
-            <div class="pillar">
-                <div class="pillar-number">٨</div>
-                <div class="pillar-title">الحسبة</div>
-                <div class="pillar-subtitle">المحتسب الرقمي</div>
-                <div class="pillar-hadith">« عيّن محتسباً على السوق »<br><small>السيرة النبوية</small></div>
-                <div class="pillar-benefit">✅ رقابة رقمية ٢٤/٧</div>
-            </div>
+      <!-- يسار -->
+      <div class="tl-item h-sr h-sr-d1">
+        <div class="tl-right empty"></div>
+        <div class="tl-node">١٤٤٥</div>
+        <div class="tl-left">
+          <p class="tl-year">٢٠٢٤ م — ١٤٤٥ هـ</p>
+          <h3 class="tl-name">تأسيس شيخة</h3>
+          <p class="tl-desc">أول منظومة رقمية إسلامية للمعادن والسكراب. تمرشح شرعي تلقائي، مؤشر SMI، وذكاء اصطناعي يفكر بأخلاق التاجر المسلم.</p>
         </div>
-    </section>
+      </div>
 
-    <!-- المميزات الرقمية -->
-    <section>
-        <div class="section-title">⚡ المميزات الرقمية: تقنيات الحداثة مع أخلاقيات النبي</div>
+    </div>
+  </div>
+</section>
 
-        <div class="feature-grid">
-            <div class="feature-box">
-                <div class="feature-icon">🤖</div>
-                <h4>الذكاء الاصطناعي والفحص الآلي</h4>
-                <ul>
-                    <li>كشف الغش بـ Computer Vision</li>
-                    <li>تقييم جودة تلقائي</li>
-                    <li>تصنيف المعادن والسكراب</li>
-                    <li>رصد الاحتكار الفوري</li>
-                </ul>
-            </div>
+<!-- ════════════ VALUES ════════════ -->
+<section class="values-section">
+  <div class="h-sr" style="max-width:480px;margin-bottom:0">
+    <p class="h-label">القيم</p>
+    <h2 class="h-title">ستة قيم <span class="accent">لا تُفاوَض</span></h2>
+  </div>
 
-            <div class="feature-box">
-                <div class="feature-icon">⛓️</div>
-                <h4>البلوكتشين والعقود الذكية</h4>
-                <ul>
-                    <li>سجل transaction غير قابل للتعديل</li>
-                    <li>عقود موثّقة رقمياً</li>
-                    <li>دفع آمن فوري</li>
-                    <li>إثبات الملكية والجودة</li>
-                </ul>
-            </div>
+  <div class="values-grid">
 
-            <div class="feature-box">
-                <div class="feature-icon">📡</div>
-                <h4>الإنترنت الصناعي (IoT)</h4>
-                <ul>
-                    <li>أجهزة وزن موصولة</li>
-                    <li>مستشعرات جودة</li>
-                    <li>توثيق لحظي للعمليات</li>
-                    <li>موثوقية عالية</li>
-                </ul>
-            </div>
+    <div class="val-card h-sr">
+      <p class="val-num">01</p>
+      <span class="val-icon">⚖️</span>
+      <h3 class="val-name">العدل في الميزان</h3>
+      <p class="val-text">كل وزن في شيخة موثّق ومحدد وشفاف. لا تقريب يضر البائع أو المشتري.</p>
+      <p class="val-verse">«وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ»</p>
+    </div>
 
-            <div class="feature-box">
-                <div class="feature-icon">📊</div>
-                <h4>البيانات والتحليلات</h4>
-                <ul>
-                    <li>مؤشرات سوق لحظية</li>
-                    <li>أسعار عادلة شفافة</li>
-                    <li>سجل تاريخي كامل</li>
-                    <li>تقارير دورية</li>
-                </ul>
-            </div>
+    <div class="val-card h-sr h-sr-d1">
+      <p class="val-num">02</p>
+      <span class="val-icon">🤝</span>
+      <h3 class="val-name">الصدق في الوصف</h3>
+      <p class="val-text">كل منتج في شيخة يُوصف كما هو — لا تجميل، لا تلبيس. الصدق ليس ميزة تنافسية بل شرط وجود.</p>
+      <p class="val-verse">«إِنَّ الصِّدْقَ يَهْدِي إِلَى الْبِرِّ وَإِنَّ الْبِرَّ يَهْدِي إِلَى الْجَنَّةِ»</p>
+    </div>
 
-            <div class="feature-box">
-                <div class="feature-icon">🔒</div>
-                <h4>الأمان والخصوصية</h4>
-                <ul>
-                    <li>تشفير بنك مركزي</li>
-                    <li>حماية بيانات العملاء</li>
-                    <li>امتثال GDPR</li>
-                    <li>مراجعة أمنية مستمرة</li>
-                </ul>
-            </div>
+    <div class="val-card h-sr h-sr-d2">
+      <p class="val-num">03</p>
+      <span class="val-icon">🛡️</span>
+      <h3 class="val-name">الأمانة في التسليم</h3>
+      <p class="val-text">ما عُهد به إلى شيخة يُؤدَّى كاملاً. كل شحنة مؤمّنة، موثّقة، ومتتبَّعة من المصدر إلى الوجهة.</p>
+      <p class="val-verse">«إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَى أَهْلِهَا»</p>
+    </div>
 
-            <div class="feature-box">
-                <div class="feature-icon">🌐</div>
-                <h4>الوصول العالمي</h4>
-                <ul>
-                    <li>منصة متعددة اللغات</li>
-                    <li>واجهات للويب والموبايل</li>
-                    <li>API للتكامل</li>
-                    <li>دعم 24/7</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+    <div class="val-card h-sr h-sr-d3">
+      <p class="val-num">04</p>
+      <span class="val-icon">🌿</span>
+      <h3 class="val-name">البركة في النية</h3>
+      <p class="val-text">التجارة في شيخة تبدأ بنية التيسير لا الاحتكار، والبذل لا الاكتناز. البركة تحل حيث النية صالحة.</p>
+      <p class="val-verse">«وَالَّذِينَ يَبِيعُونَ بِالصِّدْقِ تُكْتَبُ لَهُمُ الْجَنَّةُ»</p>
+    </div>
 
-    <!-- دعوة للعمل -->
-    <section class="cta-section">
-        <h2 style="color: var(--gold); font-size: 2rem; margin-bottom: 2rem;">
-            🚀 انضم إلى ثورة التجارة الإسلامية الرقمية
-        </h2>
-        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #ddd;">
-            كن جزءاً من سوق يحترم الأمانة والعدل والشفافية<br>
-            من الخبر إلى العالم
-        </p>
-        <a href="/سوق-شيخة.html" class="cta-button">ادخل السوق الآن</a>
-    </section>
+    <div class="val-card h-sr h-sr-d1">
+      <p class="val-num">05</p>
+      <span class="val-icon">🔍</span>
+      <h3 class="val-name">الشفافية في السعر</h3>
+      <p class="val-text">مؤشر شيخة SMI مبني على LME وCOMEX ومصادر معتمدة — مرئي للجميع، محدّث لحظياً، لا يُخفى.</p>
+      <p class="val-verse">«وَلَا تَبْخَسُوا النَّاسَ أَشْيَاءَهُمْ»</p>
+    </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="owner">
-            🏢 المالك: سلمان أحمد بن سلمان الراجح<br>
-            📍 الخبر — المنطقة الشرقية — المملكة العربية السعودية
-        </div>
-        <p style="margin-top: 1.5rem; font-style: italic; color: var(--gold);">
-            « هذا سوقكم لا يُنقَص ولا يُضرَب عليه خَراج »<br>
-            — النبي محمد ﷺ — عند تأسيس سوق المدينة المنورة
-        </p>
-        <p style="margin-top: 2rem; font-size: 0.9rem;">
-            منظومة وسوق شيخة — SHEIKHA<br>
-            أول سوق إسلامي رقمي عالمي للمعادن والسكراب
-        </p>
-    </footer>
+    <div class="val-card h-sr h-sr-d2">
+      <p class="val-num">06</p>
+      <span class="val-icon">🌍</span>
+      <h3 class="val-name">الإتاحة للجميع</h3>
+      <p class="val-text">من البائع الصغير إلى الشركة الكبرى — شيخة للجميع. لا حواجز لغوية، لا تعقيدات تقنية، لا بيروقراطية.</p>
+      <p class="val-verse">«وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا»</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════ FOUNDER ════════════ -->
+<section class="founders-section">
+  <div class="founders-inner h-sr">
+    <p class="h-label" style="text-align:center;justify-content:center">كلمة المؤسس</p>
+    <blockquote class="founders-quote">
+      «شيخة لم تُبنَ لتكون شركة —<br>
+      بُنيت لتكون <span class="gold">سوقاً</span>.<br>
+      والسوق الحقيقي يبقى حيث <span class="gold">تبقى الأمانة</span>.»
+    </blockquote>
+    <p class="founders-attr">
+      <strong>سلمان أحمد بن سلمان الراجح</strong>
+      مؤسس شيخة — ١٤٤٥هـ
+    </p>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  <div class="footer-logo">شيخة · SHEIKHA</div>
+  <ul class="footer-links">
+    <li><a href="/سياسة-الخصوصية.html">الخصوصية</a></li>
+    <li><a href="/الشروط-والسياسات.html">الشروط</a></li>
+    <li><a href="/الشريعة-الاسلامية.html">الشريعة</a></li>
+    <li><a href="/تسجيل-الشركات.html">سجّل</a></li>
+  </ul>
+  <p class="footer-copy">© <span id="yr"></span> سلمان أحمد بن سلمان الراجح</p>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
+
+  /* scroll reveal */
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.h-sr').forEach(function(el){ obs.observe(el); });
+
+  /* nav shrink */
+  var nav = document.querySelector('.site-nav');
+  window.addEventListener('scroll',function(){
+    nav && nav.classList.toggle('resting', window.scrollY > 50);
+  },{passive:true});
+})();
+</script>
 </body>
 </html>

@@ -40,6 +40,10 @@
     <meta name="twitter:image" content="https://sheikha.top/images/og-sheikha.png">
     <meta name="twitter:image:alt" content="منظومة وسوق شيخة — أول سوق إسلامي رقمي للمعادن">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <!-- خلية الشبكة العصبية للتصميم والهوية -->
+    <link rel="stylesheet" href="/css/sheikha-neural-identity.css">
+    <!-- هوية الحليم — الدفء والصبر والرزانة -->
+    <link rel="stylesheet" href="/css/sheikha-haleem.css">
     <script src="/js/safe-api.js"></script>
     <script src="/js/sheikha-meta-injector.js" defer></script>
     <script src="/js/sheikha-meta-helper.js"></script>
@@ -61,12 +65,13 @@
         .lang-bar{position:fixed;top:76px;left:0;right:0;z-index:99;padding:6px 1.5rem;display:flex;justify-content:center;background:rgba(3,5,9,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,.05);transition:opacity .5s}
         .lang-bar.hidden{opacity:0;pointer-events:none}
         :root{
-            --gold:#D4AF37;--gold-l:#F5E6A3;--gold-d:#A8882B;
-            --copper:#B87333;--silver:#C0C0C0;
-            --bg:#030509;--bg2:#0a0e18;--bg3:#111827;
-            --card:rgba(212,175,55,.015);--border:rgba(212,175,55,.07);
-            --t1:#f4f4f5;--t2:#a1a1aa;--t3:#71717a;
-            --green:#006c35;--green-l:#10b981
+            /* هوية الحليم — ألوان دافئة */
+            --gold:#C9A84C;--gold-l:#E2C97E;--gold-d:#8B6C1A;
+            --copper:#B87333;--silver:#B0BBCC;
+            --bg:#0C0A08;--bg2:#131009;--bg3:#1C180F;
+            --card:rgba(201,168,76,.015);--border:rgba(201,168,76,.07);
+            --t1:#EDE8E0;--t2:#A89F92;--t3:#7A7268;
+            --green:#2D6B4A;--green-l:#4A9B6E
         }
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden;-webkit-font-smoothing:antialiased}
@@ -134,7 +139,7 @@
         /* ═══ HERO ═══ */
         .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 1.5rem 80px;position:relative}
         .hero-bg{position:absolute;inset:0;pointer-events:none}
-        .hero-bg::before{content:'';position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(212,175,55,.035) 0%,rgba(184,115,51,.015) 40%,transparent 70%);animation:breathe 12s ease infinite alternate}
+        .hero-bg::before{content:'';position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(201,168,76,.030) 0%,rgba(139,108,26,.012) 40%,transparent 70%);animation:breathe 14s ease infinite alternate}
         .hero-bg::after{content:'';position:absolute;bottom:0;left:0;right:0;height:240px;background:linear-gradient(to top,var(--bg),transparent)}
         @keyframes breathe{0%{opacity:.5;transform:translateX(-50%) scale(1)}100%{opacity:.85;transform:translateX(-50%) scale(1.12)}}
         @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
@@ -658,6 +663,8 @@
         <li data-access="all"><a href="/">الرئيسية</a></li>
         <!-- 2. هوية السوق — من نحن وقصة شيخة -->
         <li data-access="all"><a href="/هوية-السوق.html">هوية شيخة</a></li>
+        <!-- 2.1. خلية الشبكة العصبية للهوية -->
+        <li data-access="all"><a href="/الشبكة-العصبية-للهوية.html">⚡ الشبكة العصبية</a></li>
         <!-- 3. سوق المدينة — الأصل والمرجع -->
         <li data-access="all"><a href="/سوق-المدينة.html">سوق المدينة</a></li>
         <!-- 4. السوق (Read-Only) -->
@@ -1797,5 +1804,7 @@ if (!window.matchMedia('(display-mode: standalone)').matches && !navigator.stand
     });
 })();
     </script>
+    <!-- خلية الشبكة العصبية للتصميم والهوية -->
+    <script src="/js/sheikha-neural-design-engine.js" defer></script>
 </body>
 </html>
