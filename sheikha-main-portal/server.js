@@ -4012,9 +4012,12 @@ const corsOptions = {
     origin: [
         'https://sheikha.top',
         'https://www.sheikha.top',
+        'https://public.sheikha.top',   // البوابة العامة
+        'https://admin.sheikha.top',    // لوحة الإدارة
         'http://localhost:23000',
         'http://localhost:8080',
-        'http://localhost:8081',    // سوق الأسواق الجامع
+        'http://localhost:8081',    // سوق الأسواق الجامع — خلية الشبكة العصبية
+        'http://localhost:8082',    // البروكسي المحلي للتطوير
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -36666,6 +36669,59 @@ try {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🏪 بوابة سوق الأسواق — تكامل خلية الشبكة العصبية (MARKETPLACE Cell)
+// ═══════════════════════════════════════════════════════════════════════════════
+// تبدأ خادم HTTP خفيف على منفذ خلية MARKETPLACE المكتشف، يوجّه كل الطلبات
+// إلى الخادم الرئيسي مع إضافة ترويسة x-sheikha-gateway للتتبع.
+// يحمي من التعارض: إذا كان المنفذ مشغولاً تُسجّل تحذيراً فقط دون إيقاف.
+// ═══════════════════════════════════════════════════════════════════════════════
+function _startMarketplaceGateway(mainPort) {
+    if (!_portEngine) return;
+
+    const marketPort = _portEngine.marketplacePort;
+    if (!marketPort || marketPort === mainPort) return;
+
+    const http = require('http');
+
+    const gateway = http.createServer((req, res) => {
+        const options = {
+            hostname: '127.0.0.1',
+            port: mainPort,
+            path: req.url,
+            method: req.method,
+            headers: { ...req.headers, 'x-sheikha-gateway': 'marketplace', host: `127.0.0.1:${mainPort}` },
+        };
+
+        const proxyReq = http.request(options, (proxyRes) => {
+            res.writeHead(proxyRes.statusCode, proxyRes.headers);
+            proxyRes.pipe(res, { end: true });
+        });
+
+        proxyReq.on('error', (err) => {
+            if (!res.headersSent) {
+                res.writeHead(502, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: 'gateway_error', message: err.message }));
+            }
+        });
+
+        req.pipe(proxyReq, { end: true });
+    });
+
+    gateway.listen(marketPort, HOST, () => {
+        console.log(`🏪 [MARKETPLACE CELL] بوابة الأسواق الجامع: منفذ ${marketPort} ← ${mainPort} (خلية الشبكة العصبية)`);
+        addSystemLog('success', 'MarketplaceGateway', `Marketplace gateway started on port ${marketPort}`);
+    });
+
+    gateway.on('error', (err) => {
+        if (err.code === 'EADDRINUSE') {
+            console.log(`⚠️ [MARKETPLACE CELL] المنفذ ${marketPort} مشغول — بوابة الأسواق ستعمل عند الإعادة التالية`);
+        } else {
+            console.log(`⚠️ [MARKETPLACE CELL] خطأ في البوابة:`, err.message);
+        }
+    });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🚀 بدء الخادم — الشبكة العصبية تكتشف المنفذ الحر تلقائياً
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -36710,6 +36766,9 @@ async function _startServer() {
                 console.log('⚠️ خطأ في تفعيل منظومة التطوير:', e.message);
             }
         }
+
+        // ═══ تفعيل بوابة سوق الأسواق — خلية الشبكة العصبية ═══
+        _startMarketplaceGateway(actualPort);
 
         const relocated = actualPort !== _PORT_ENV ? `🔄 انتقل من ${_PORT_ENV} إلى ${actualPort}` : '✅ المنفذ المفضّل';
         console.log(`
