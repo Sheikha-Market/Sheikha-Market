@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>شيخة — التجربة التقنية للشعار</title>
+  <meta name="description" content="تجربة بصرية تقنية متقدمة تشرح معنى شعار شيخة: الميزان، العدل، الشمولية، والشبكة الحية." />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#020617;--bg2:#081121;--panel:rgba(255,255,255,.05);--line:rgba(255,255,255,.12);--text:#f8fafc;--muted:#cbd5e1;--soft:#94a3b8;--gold:#d4af37;--gold2:#fde68a;--cyan:#67e8f9;--emerald:#6ee7b7;--red:#fda4af}
+    *{box-sizing:border-box} html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}.wrap{max-width:1380px;margin:auto;padding:0 24px;position:relative;z-index:2}
+    .bg{position:fixed;inset:0;background:radial-gradient(circle at 18% 10%,rgba(212,175,55,.16),transparent 20%),radial-gradient(circle at 82% 18%,rgba(103,232,249,.12),transparent 18%),radial-gradient(circle at 50% 80%,rgba(110,231,183,.08),transparent 22%),linear-gradient(180deg,#020617 0%,#050b16 42%,#081121 100%);z-index:0}
+    .grid{position:fixed;inset:0;pointer-events:none;opacity:.14;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:36px 36px;z-index:1}
+    nav{position:sticky;top:0;z-index:50;background:rgba(2,6,23,.74);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px}.mark{width:48px;height:48px;border-radius:18px;background:linear-gradient(135deg,var(--gold),var(--gold2) 48%,var(--cyan));box-shadow:0 16px 40px rgba(212,175,55,.24)}.brand h1{margin:0;font-size:1.1rem}.brand p{margin:2px 0 0;color:var(--soft);font-size:.74rem}.links{display:flex;flex-wrap:wrap;gap:10px}.links a{padding:10px 14px;border-radius:12px;color:var(--muted)}.links a:hover{background:rgba(255,255,255,.05);color:var(--gold2)}
+    .hero{padding:88px 0 50px;position:relative}.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:34px;align-items:center}.badge{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.24);color:var(--gold2);font-size:.92rem}.badge .dot{width:8px;height:8px;border-radius:50%;background:var(--emerald);box-shadow:0 0 0 10px rgba(110,231,183,.08)}
+    h2{font-size:clamp(2.6rem,6vw,5.6rem);line-height:1.03;margin:18px 0 16px}.grad{background:linear-gradient(90deg,var(--gold2),var(--gold),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.lead{font-size:1.16rem;line-height:2;color:var(--muted);max-width:760px}.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}.btn{padding:16px 24px;border-radius:18px;font-weight:800;display:inline-flex;align-items:center;gap:10px;border:1px solid transparent}.btn.primary{background:linear-gradient(90deg,var(--gold2),var(--gold));color:#111827;box-shadow:0 22px 46px rgba(212,175,55,.24)}.btn.secondary{background:rgba(255,255,255,.04);border-color:var(--line)}
+    .hero-panel{border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:34px;padding:18px;backdrop-filter:blur(14px);box-shadow:0 28px 70px rgba(0,0,0,.35);overflow:hidden}
+    .video-shell{position:relative;height:560px;border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));overflow:hidden;border:1px solid rgba(255,255,255,.10)}
+    .video-overlay{position:absolute;inset:0;background:radial-gradient(circle at 50% 32%,rgba(212,175,55,.16),transparent 22%),radial-gradient(circle at 18% 70%,rgba(103,232,249,.10),transparent 18%),linear-gradient(180deg,rgba(2,6,23,.15),rgba(2,6,23,.55));z-index:2}
+    canvas#neural{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1}
+    .logo-center{position:absolute;inset:0;display:grid;place-items:center;z-index:3;pointer-events:none}.logo-ring{position:relative;width:330px;height:330px;border-radius:50%;border:1px solid rgba(212,175,55,.22);display:grid;place-items:center;box-shadow:0 0 0 18px rgba(212,175,55,.04),0 0 0 44px rgba(255,255,255,.015)}.logo-ring::before{content:'';position:absolute;inset:-24px;border-radius:50%;border:1px dashed rgba(103,232,249,.22);animation:spin 16s linear infinite}.logo-ring::after{content:'';position:absolute;inset:-52px;border-radius:50%;border:1px solid rgba(255,255,255,.08);animation:spin2 26s linear infinite reverse}
+    .logo-core{position:relative;width:200px;height:200px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,rgba(253,230,138,.18),rgba(212,175,55,.06) 55%,rgba(2,6,23,.2) 100%);box-shadow:0 0 90px rgba(212,175,55,.14)}
+    .balance-arm{position:absolute;top:84px;width:150px;height:4px;border-radius:999px;background:linear-gradient(90deg,transparent,var(--gold2),var(--gold),transparent);box-shadow:0 0 18px rgba(212,175,55,.45);animation:tilt 6s ease-in-out infinite}.balance-post{position:absolute;width:6px;height:116px;border-radius:999px;background:linear-gradient(180deg,var(--gold2),var(--gold));box-shadow:0 0 18px rgba(212,175,55,.3)}
+    .pan{position:absolute;top:90px;width:70px;height:46px;border:2px solid rgba(253,230,138,.55);border-top:none;border-radius:0 0 42px 42px;opacity:.92;box-shadow:inset 0 -14px 24px rgba(212,175,55,.08),0 0 18px rgba(212,175,55,.16)}.pan.left{left:28px}.pan.right{right:28px}.string{position:absolute;top:84px;width:2px;height:42px;background:linear-gradient(180deg,rgba(253,230,138,.75),rgba(253,230,138,.12))}.s1{left:60px}.s2{right:60px}
+    .center-dot{position:absolute;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle,var(--gold2),var(--gold));box-shadow:0 0 30px rgba(212,175,55,.7),0 0 80px rgba(212,175,55,.24)}
+    .sh-label{position:absolute;bottom:34px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:.82rem;color:var(--gold2)}
+    .stats{position:absolute;bottom:18px;left:18px;right:18px;z-index:4;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{background:rgba(2,6,23,.52);border:1px solid var(--line);border-radius:18px;padding:14px;backdrop-filter:blur(8px)}.stat small{display:block;color:var(--soft);margin-bottom:4px}.stat strong{color:var(--gold2);font-size:1rem}
+    section{padding:40px 0}.sec-head{text-align:center;max-width:900px;margin:0 auto 26px}.mini{display:inline-flex;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--cyan);font-size:.82rem}.sec-head h3{font-size:clamp(1.8rem,3vw,3.2rem);margin:12px 0}.sec-head p{color:var(--muted);line-height:1.95}
+    .meaning-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.meaning{border:1px solid var(--line);background:var(--panel);border-radius:26px;padding:24px;backdrop-filter:blur(12px)}.meaning .icon{width:52px;height:52px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(212,175,55,.16),rgba(103,232,249,.12));font-weight:900;color:var(--gold2);margin-bottom:14px}.meaning h4{margin:0 0 10px;font-size:1.14rem}.meaning p{margin:0;color:var(--muted);line-height:1.88}
+    .flow{display:grid;grid-template-columns:1fr 1fr;gap:22px}.flow-card{border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:30px;padding:26px}.flow-list{display:grid;gap:14px;margin-top:16px}.flow-step{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1px solid var(--line);background:rgba(2,6,23,.52);border-radius:18px}.flow-step b{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--cyan));color:#111827;flex-shrink:0}
+    .gallery{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}.shot{position:relative;min-height:280px;border-radius:28px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));padding:20px}.shot::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 60% 20%,rgba(212,175,55,.12),transparent 22%),radial-gradient(circle at 30% 80%,rgba(103,232,249,.10),transparent 18%)}.shot h5{position:relative;margin:0 0 8px;font-size:1.1rem}.shot p{position:relative;margin:0;color:var(--muted);line-height:1.85}.visual{position:absolute;inset:auto 18px 18px 18px;height:148px;border-radius:22px;border:1px solid rgba(255,255,255,.12);background:rgba(2,6,23,.58);overflow:hidden}.visual .bar{position:absolute;left:18px;right:18px;top:22px;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}.visual .ring{position:absolute;inset:18px auto auto 50%;width:82px;height:82px;border-radius:50%;transform:translateX(-50%);border:1px solid rgba(212,175,55,.26);box-shadow:0 0 0 14px rgba(212,175,55,.05)}.visual .pulse{position:absolute;left:50%;top:50%;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--gold));transform:translate(-50%,-50%);box-shadow:0 0 18px rgba(212,175,55,.55)}
+    .footer{padding:34px 0 70px;text-align:center;color:var(--soft)}
+    @keyframes spin{to{transform:rotate(360deg)}} @keyframes spin2{to{transform:rotate(-360deg)}} @keyframes tilt{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}
+    @media (max-width:1100px){.hero-grid,.flow,.gallery,.meaning-grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr 1fr}.video-shell{height:520px}}
+    @media (max-width:760px){.wrap{padding:0 16px}.hero-grid,.flow,.gallery,.meaning-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.video-shell{height:560px}.links{justify-content:center}.nav{flex-direction:column;padding:12px 0}.logo-ring{width:280px;height:280px}.logo-core{width:176px;height:176px}.balance-arm{width:130px}.pan.left{left:18px}.pan.right{right:18px}}
+  </style>
+</head>
+<body>
+  <div class="bg"></div><div class="grid"></div>
+  <nav><div class="wrap nav"><div class="brand"><div class="mark"></div><div><h1>شيخة</h1><p>التجربة التقنية للشعار والمعنى البصري</p></div></div><div class="links"><a href="/">الرئيسية</a><a href="/future">المشهد المستقبلي</a><a href="/هوية-السوق.html">هوية السوق</a><a href="/سوق-المدينة.html">سوق المدينة</a></div></div></nav>
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <span class="badge"><span class="dot"></span> الشعار ليس رسماً فقط — بل نظام معنى حي</span>
+          <h2>تحويل <span class="grad">الميزان والعدل</span><br/>إلى تجربة تقنية قوية</h2>
+          <p class="lead">هذه الصفحة تبني أفضل مظهر تقني للشعار: الميزان يمثل العدل والانضباط، الدائرة تمثل الشمولية والاتساع، والشبكة تمثل الحركة الحية للسوق والبيانات وسلاسل الإمداد. المطلوب هنا ليس شكلًا قديمًا، بل حضورًا بصريًا حديثًا يشعر الزائر أن شيخة منظومة قوية تعمل الآن.</p>
+          <div class="cta"><a class="btn primary" href="#meaning">استكشف معنى الشعار</a><a class="btn secondary" href="#gallery">مشاهد بصرية جديدة</a></div>
+        </div>
+        <div class="hero-panel">
+          <div class="video-shell">
+            <canvas id="neural"></canvas>
+            <div class="video-overlay"></div>
+            <div class="logo-center">
+              <div class="logo-ring">
+                <div class="logo-core">
+                  <div class="balance-post"></div>
+                  <div class="balance-arm"></div>
+                  <div class="string s1"></div>
+                  <div class="string s2"></div>
+                  <div class="pan left"></div>
+                  <div class="pan right"></div>
+                  <div class="center-dot"></div>
+                </div>
+                <div class="sh-label">SHEIKHA • BALANCE • NETWORK • JUSTICE</div>
+              </div>
+            </div>
+            <div class="stats">
+              <div class="stat"><small>المعنى</small><strong>ميزان + عدل</strong></div>
+              <div class="stat"><small>المدى</small><strong>شمولية + امتداد</strong></div>
+              <div class="stat"><small>التقنية</small><strong>Neural Visual System</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="meaning">
+      <div class="sec-head"><span class="mini">معنى الشعار</span><h3>كل عنصر يرمز إلى نظام حي</h3><p>المطلوب في شيخة أن يظهر معنى العلامة التجارية بوضوح: ليس مجرد رمز زخرفي، بل اختصار بصري للمنظومة كلها. لذلك يجب أن تُفهم عناصره وتُترجم إلى واجهات، وفيديو، وحركة، وضوء، وبيانات.</p></div>
+      <div class="meaning-grid">
+        <div class="meaning"><div class="icon">⚖</div><h4>الميزان</h4><p>يرمز إلى العدل، توازن الحقوق، دقة القرار، وضبط الصفقات. بصريًا يجب أن يظهر كحركة تستقر، لا كأيقونة جامدة فقط.</p></div>
+        <div class="meaning"><div class="icon">◌</div><h4>الدائرة</h4><p>ترمز إلى الشمولية، الاتساع، الامتداد العالمي، والترابط. بصريًا تصبح شبكة ورينغات ونبضات واتصال مستمر.</p></div>
+        <div class="meaning"><div class="icon">✦</div><h4>النقطة/النواة</h4><p>ترمز إلى مركز القرار والصدق والهوية. بصريًا تظهر كضوء مركزي يتوهج عند الاستقرار أو نجاح التوازن.</p></div>
+        <div class="meaning"><div class="icon">⟿</div><h4>الشبكة</h4><p>ترمز إلى السوق الحي، سلاسل الإمداد، البيانات، والعلاقات بين الأطراف. بصريًا تصبح خطوطًا ونقاطًا ومسارات تتفاعل مع الحركة.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="mini">من المعنى إلى التنفيذ</span><h3>كيف نُظهر الشعار بمظهر تقني حديث</h3><p>بدل الشكل القديم أو الصور الضعيفة، تُترجم العلامة إلى فيديو ومشاهد بصرية وتقنيات عرض تجعل الزائر يشعر بالقوة الاقتصادية والتقنية والحضارية في أول ثانية.</p></div>
+      <div class="flow">
+        <div class="flow-card">
+          <h4 style="margin:0 0 8px;font-size:1.25rem">مسار الفيديو الرئيسي</h4>
+          <p style="margin:0;color:var(--muted);line-height:1.9">الفيديو لا يبدأ بالشعار مباشرة، بل يبدأ بفوضى بيانات، ثم تنظيم، ثم ظهور الميزان، ثم الاستقرار، ثم التوسع الدائري، ثم التحول إلى شبكة عالمية تحمل اسم شيخة.</p>
+          <div class="flow-list">
+            <div class="flow-step"><b>1</b><div>Data Chaos — نقاط متناثرة تمثل الأسواق غير المنضبطة</div></div>
+            <div class="flow-step"><b>2</b><div>Lines Connect — ارتباط النقاط وتحولها إلى شبكة واعية</div></div>
+            <div class="flow-step"><b>3</b><div>Balance Appears — ظهور الميزان الضوئي وحركة التوازن</div></div>
+            <div class="flow-step"><b>4</b><div>Justice State — استقرار الضوء في المركز كرمز للعدل</div></div>
+            <div class="flow-step"><b>5</b><div>Universal Ring — توسع الدائرة لتدل على الشمولية</div></div>
+          </div>
+        </div>
+        <div class="flow-card">
+          <h4 style="margin:0 0 8px;font-size:1.25rem">تقنيات التنفيذ الأفضل</h4>
+          <p style="margin:0;color:var(--muted);line-height:1.9">الأفضل لشيخة هو المزج بين فيديو قصير مضغوط، وCanvas حي، ومؤثرات Glow وGlass وGrid. هكذا يظهر الموقع تقنيًا وحديثًا بدون أن يفقد هويته.</p>
+          <div class="flow-list">
+            <div class="flow-step"><b>A</b><div>Hero Video قصير وخفيف بصيغة MP4/WebM</div></div>
+            <div class="flow-step"><b>B</b><div>Canvas Neural Layer لربط العقد والخطوط حيًا</div></div>
+            <div class="flow-step"><b>C</b><div>Glow System لإظهار العدالة والاستقرار والنجاح</div></div>
+            <div class="flow-step"><b>D</b><div>Dashboard overlays لعرض usage والصفقات والحركة</div></div>
+            <div class="flow-step"><b>E</b><div>Three.js لاحقًا للمستوى الأعلى ثلاثي الأبعاد</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="sec-head"><span class="mini">مشاهد بصرية مقترحة</span><h3>صور وفيديو وتقنيات عرض جديدة</h3><p>هذه ليست بطاقات تجميل، بل مشاهد مرجعية لما يجب أن يظهر في الصفحة الرئيسية وصفحات الهوية والتقنية والمتحف الحضاري.</p></div>
+      <div class="gallery">
+        <div class="shot"><h5>Hero Balance Scene</h5><p>مشهد افتتاحي فيه شبكة مضيئة وميزان مركزي ودائرة تحيط به. هذا المشهد يجب أن يكون خلفية الصفحة الرئيسية.</p><div class="visual"><div class="bar"></div><div class="ring"></div><div class="pulse"></div></div></div>
+        <div class="shot"><h5>Justice Data Board</h5><p>لوحة مؤشرات تعرض الصفقات، الإنصاف، الحركة، والتنبيهات — كأن الموقع مركز قيادة للسوق لا مجرد واجهة عرض.</p><div class="visual"><div class="bar" style="top:38px"></div><div class="bar" style="top:78px;color:var(--gold);background:linear-gradient(90deg,transparent,var(--gold),transparent)"></div><div class="bar" style="top:118px"></div></div></div>
+        <div class="shot"><h5>Universal Market Ring</h5><p>حلقة تمثل شمولية السوق واتصال الموردين والمشترين والجهات والأنظمة عبر شبكة موحدة ذات هوية إسلامية تقنية.</p><div class="visual"><div class="ring" style="width:94px;height:94px;top:26px"></div><div class="ring" style="width:54px;height:54px;top:46px;border-color:rgba(103,232,249,.28)"></div><div class="pulse"></div></div></div>
+      </div>
+    </section>
+
+    <div class="footer">تم بناء هذه الصفحة لتفعيل أفضل مظهر تقني للشعار داخل منظومة شيخة، تمهيدًا لدمجها مع الصفحة الرئيسية والهوية والمتحف والتنقل العصبي.</div>
+  </main>
+  <script>
+    const canvas = document.getElementById('neural');
+    const ctx = canvas.getContext('2d');
+    let nodes = [];
+    function size(){ const dpr = window.devicePixelRatio || 1; canvas.width = canvas.offsetWidth * dpr; canvas.height = canvas.offsetHeight * dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+    function init(){ nodes = []; const count = window.innerWidth < 760 ? 26 : 46; for(let i=0;i<count;i++){ nodes.push({ x: Math.random()*canvas.offsetWidth, y: Math.random()*canvas.offsetHeight, vx:(Math.random()-.5)*.35, vy:(Math.random()-.5)*.35, r: Math.random()*2.2+1.1, c: i%3===0 ? 'rgba(253,230,138,.9)' : (i%3===1 ? 'rgba(103,232,249,.9)' : 'rgba(110,231,183,.85)')}); } }
+    function draw(){ ctx.clearRect(0,0,canvas.offsetWidth,canvas.offsetHeight); for(const n of nodes){ n.x += n.vx; n.y += n.vy; if(n.x<0||n.x>canvas.offsetWidth) n.vx *= -1; if(n.y<0||n.y>canvas.offsetHeight) n.vy *= -1; }
+      for(let i=0;i<nodes.length;i++){ for(let j=i+1;j<nodes.length;j++){ const a=nodes[i], b=nodes[j]; const dx=a.x-b.x, dy=a.y-b.y; const dist=Math.hypot(dx,dy); if(dist<120){ ctx.strokeStyle = `rgba(255,255,255,${(1-dist/120)*0.18})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); } } }
+      for(const n of nodes){ ctx.fillStyle=n.c; ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2); ctx.fill(); }
+      requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize', ()=>{ size(); init(); }); size(); init(); draw();
+  </script>
+</body>
+</html>
