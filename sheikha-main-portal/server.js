@@ -185,6 +185,20 @@ try {
     console.log('⚠️ Pilot Engine غير متوفر:', e.message);
 }
 
+// ═══ ARABIC UTF-8 NEURAL LANGUAGE ENGINE ═══
+// ✅ L0 CRITICAL — محرك اللغة العربية الشبكة العصبية UTF-8 — يُحمّل فوراً
+// "إِنَّا أَنزَلْنَاهُ قُرْآنًا عَرَبِيًّا لَّعَلَّكُمْ تَعْقِلُونَ" — يوسف:٢
+let arabicUTF8NeuralEngine = null;
+let _arabicUTF8RegisterRoutes = null;
+try {
+    const { engine: _arabicEng, registerRoutes: _arabicRoutes } = require('./lib/sheikha-arabic-utf8-neural-engine.js');
+    arabicUTF8NeuralEngine = _arabicEng;
+    _arabicUTF8RegisterRoutes = _arabicRoutes;
+    console.log('✅ Arabic UTF-8 Neural Engine — محرك اللغة العربية الشبكة العصبية مُفعّل');
+} catch (e) {
+    console.log('⚠️ Arabic UTF-8 Neural Engine غير متوفر:', e.message);
+}
+
 // ═══ EXCELLENCE ENGINE — محرك الإتقان والتقدم العلمي والتجاري والتقني ═══
 // ═══ P0-1: LAZY — محرك L1 ═══
 let excellenceEngine = null;
@@ -4236,6 +4250,19 @@ app.use((req, res, next) => {
 app.get('/health', (req, res) => {
     res.status(200).send('OK');
 });
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌟 Arabic UTF-8 Neural Language Engine — تسجيل الـ APIs
+// "إِنَّا أَنزَلْنَاهُ قُرْآنًا عَرَبِيًّا لَّعَلَّكُمْ تَعْقِلُونَ" — يوسف:٢
+// ═══════════════════════════════════════════════════════════════════════════════
+if (arabicUTF8NeuralEngine && typeof _arabicUTF8RegisterRoutes === 'function') {
+    try {
+        _arabicUTF8RegisterRoutes(app, arabicUTF8NeuralEngine, null);
+        console.log('✅ Arabic UTF-8 Neural Engine — 19 API مسجّلة على /api/arabic-utf8/*');
+    } catch (_e) {
+        console.log('⚠️ Arabic UTF-8 Neural Engine — تسجيل الـ APIs فشل:', _e.message);
+    }
+}
 
 // ============================================================
 // PROJECT IDENTITY — للتعريف بالمشروع من أي بيئة
