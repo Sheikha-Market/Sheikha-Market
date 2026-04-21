@@ -21,6 +21,9 @@ services:
       # Run `docker compose build main-portal` to build locally without ghcr.io access.
       context: ../../../../
       dockerfile: Dockerfile
+    # Always build from the local Dockerfile; never pull from ghcr.io.
+    # Remove this line (or set to 'missing') only when you have ghcr.io push/pull access.
+    pull_policy: build
     container_name: sheikha-main-portal
     restart: unless-stopped
     env_file:
