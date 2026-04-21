@@ -35955,6 +35955,34 @@ try {
     console.warn('⚠️ [SOVEREIGN-NET] فشل التحميل — الخادم يستمر بدونه:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠🌐 PHNAE — شبكة الإنتاج + HTTP + الرخصة + الشبكة + الخلية الكاملة
+//             + العصبية الأفضل + الهيكل + المعمارية الكاملة الأفضل
+// "صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ" — النمل ٨٨
+// ═══════════════════════════════════════════════════════════════════════════════
+let phnaeEngine = null;
+try {
+    const PHNAEngine = require('./lib/sheikha-production-http-neural-architecture-engine');
+    phnaeEngine = new PHNAEngine();
+    phnaeEngine.registerRoutes(app);
+} catch (e) {
+    console.warn('⚠️ [PHNAE] فشل التحميل — الخادم يستمر بدونه:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏭🧠 PMNCN — شبكة الخلايا العصبية للآلات الإنتاجية PM1→PM4 + Pilot
+// PM1=العلمي🔬 | PM2=التقني⚙️ | PM3=التجاري📈 | PM4=التشغيلي🏭 + PM5–PM8
+// "وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ" — التوبة ١٠٥
+// ═══════════════════════════════════════════════════════════════════════════════
+let pmNeuralCellNetwork = null;
+try {
+    const SheikhapmNeuralCellNetwork = require('./lib/sheikha-pm-neural-cell-network');
+    pmNeuralCellNetwork = new SheikhapmNeuralCellNetwork(__dirname);
+    pmNeuralCellNetwork.registerRoutes(app);
+} catch (e) {
+    console.warn('⚠️ [PMNCN] فشل التحميل — الخادم يستمر بدونه:', e.message);
+}
+
 // ☪️ منظومة التسويق الشامل الموحد — UMB (قبل 404 handler)
 try {
     const SheikhaUMB = require('./lib/sheikha-unified-marketing-brain.js');
