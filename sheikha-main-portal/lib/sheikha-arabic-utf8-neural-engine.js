@@ -20,7 +20,7 @@
  *  5. تصنيف النصوص — كشف اللغة — قياس التشابه
  *  6. تشفير وفك تشفير UTF-8 العربية
  *  7. توليد التضمينات (Embeddings) العربية
- *  8. 20+ API endpoint مع WebSocket broadcast
+ *  8. 19 API endpoint مع WebSocket broadcast
  *
  * @version 1.0.0
  * @author  Sheikha Codex Neural Engine
@@ -1077,40 +1077,42 @@ function registerRoutes(app, engine, broadcast) {
 
     // ── GET: قائمة كل الـ APIs ──
     app.get(`${BASE}`, (_req, res) => {
+        const _endpoints = [
+            { method: 'GET',  path: `${BASE}/health`,          nameAr: 'صحة المحرك' },
+            { method: 'POST', path: `${BASE}/encode`,           nameAr: 'ترميز نص UTF-8' },
+            { method: 'POST', path: `${BASE}/codepoints`,       nameAr: 'تحليل نقاط Unicode' },
+            { method: 'POST', path: `${BASE}/neural`,           nameAr: 'الشبكة العصبية' },
+            { method: 'POST', path: `${BASE}/analyze`,          nameAr: 'التحليل اللغوي' },
+            { method: 'POST', path: `${BASE}/detect-language`,  nameAr: 'كشف اللغة' },
+            { method: 'POST', path: `${BASE}/normalize`,        nameAr: 'تطبيع النص' },
+            { method: 'POST', path: `${BASE}/similarity`,       nameAr: 'حساب التشابه' },
+            { method: 'POST', path: `${BASE}/embedding`,        nameAr: 'توليد التضمين' },
+            { method: 'POST', path: `${BASE}/root`,             nameAr: 'استخراج الجذر' },
+            { method: 'POST', path: `${BASE}/full-analysis`,    nameAr: 'تحليل شامل' },
+            { method: 'GET',  path: `${BASE}/unicode-blocks`,   nameAr: 'كتل Unicode العربية' },
+            { method: 'GET',  path: `${BASE}/letters`,          nameAr: 'الحروف العربية' },
+            { method: 'GET',  path: `${BASE}/quran`,            nameAr: 'قاعدة بيانات القرآن' },
+            { method: 'GET',  path: `${BASE}/quran/search`,     nameAr: 'بحث في القرآن' },
+            { method: 'GET',  path: `${BASE}/sunnah`,           nameAr: 'قاعدة بيانات السنة' },
+            { method: 'GET',  path: `${BASE}/sunnah/search`,    nameAr: 'بحث في السنة' },
+            { method: 'GET',  path: `${BASE}/maqasid`,          nameAr: 'مقاصد الشريعة' },
+            { method: 'GET',  path: `${BASE}/network/status`,   nameAr: 'حالة الشبكة العصبية' },
+        ];
         res.json({
-            schema:   'sheikha/utf8-neural/v1',
-            tawheed:  engine.tawheed,
-            no_harm:  engine.no_harm,
-            bismillah: engine.bismillah,
-            nameAr:   engine.nameAr,
-            nameEn:   engine.nameEn,
-            version:  engine.version,
-            endpoints: [
-                { method: 'GET',  path: `${BASE}/health`,          nameAr: 'صحة المحرك' },
-                { method: 'POST', path: `${BASE}/encode`,           nameAr: 'ترميز نص UTF-8' },
-                { method: 'POST', path: `${BASE}/codepoints`,       nameAr: 'تحليل نقاط Unicode' },
-                { method: 'POST', path: `${BASE}/neural`,           nameAr: 'الشبكة العصبية' },
-                { method: 'POST', path: `${BASE}/analyze`,          nameAr: 'التحليل اللغوي' },
-                { method: 'POST', path: `${BASE}/detect-language`,  nameAr: 'كشف اللغة' },
-                { method: 'POST', path: `${BASE}/normalize`,        nameAr: 'تطبيع النص' },
-                { method: 'POST', path: `${BASE}/similarity`,       nameAr: 'حساب التشابه' },
-                { method: 'POST', path: `${BASE}/embedding`,        nameAr: 'توليد التضمين' },
-                { method: 'POST', path: `${BASE}/root`,             nameAr: 'استخراج الجذر' },
-                { method: 'POST', path: `${BASE}/full-analysis`,    nameAr: 'تحليل شامل' },
-                { method: 'GET',  path: `${BASE}/unicode-blocks`,   nameAr: 'كتل Unicode العربية' },
-                { method: 'GET',  path: `${BASE}/letters`,          nameAr: 'الحروف العربية' },
-                { method: 'GET',  path: `${BASE}/quran`,            nameAr: 'قاعدة بيانات القرآن' },
-                { method: 'GET',  path: `${BASE}/quran/search`,     nameAr: 'بحث في القرآن' },
-                { method: 'GET',  path: `${BASE}/sunnah`,           nameAr: 'قاعدة بيانات السنة' },
-                { method: 'GET',  path: `${BASE}/sunnah/search`,    nameAr: 'بحث في السنة' },
-                { method: 'GET',  path: `${BASE}/maqasid`,          nameAr: 'مقاصد الشريعة' },
-                { method: 'GET',  path: `${BASE}/network/status`,   nameAr: 'حالة الشبكة العصبية' },
-            ],
+            schema:        'sheikha/utf8-neural/v1',
+            tawheed:       engine.tawheed,
+            no_harm:       engine.no_harm,
+            bismillah:     engine.bismillah,
+            nameAr:        engine.nameAr,
+            nameEn:        engine.nameEn,
+            version:       engine.version,
+            endpointCount: _endpoints.length,
+            endpoints:     _endpoints,
             quran_ref: { ref: 'الرحمن:٣-٤', text: 'خَلَقَ الْإِنسَانَ ﴿٣﴾ عَلَّمَهُ الْبَيَانَ' },
         });
     });
 
-    console.log(`✅ [Arabic UTF-8 Neural Engine] ${19} API مسجّلة على ${BASE}/*`);
+    console.log(`✅ [Arabic UTF-8 Neural Engine] ${_endpoints.length} API مسجّلة على ${BASE}/*`);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
