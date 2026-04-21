@@ -35955,6 +35955,20 @@ try {
     console.warn('⚠️ [SOVEREIGN-NET] فشل التحميل — الخادم يستمر بدونه:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠🌐 PHNAE — شبكة الإنتاج + HTTP + الرخصة + الشبكة + الخلية الكاملة
+//             + العصبية الأفضل + الهيكل + المعمارية الكاملة الأفضل
+// "صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ" — النمل ٨٨
+// ═══════════════════════════════════════════════════════════════════════════════
+let phnaeEngine = null;
+try {
+    const PHNAEngine = require('./lib/sheikha-production-http-neural-architecture-engine');
+    phnaeEngine = new PHNAEngine();
+    phnaeEngine.registerRoutes(app);
+} catch (e) {
+    console.warn('⚠️ [PHNAE] فشل التحميل — الخادم يستمر بدونه:', e.message);
+}
+
 // ☪️ منظومة التسويق الشامل الموحد — UMB (قبل 404 handler)
 try {
     const SheikhaUMB = require('./lib/sheikha-unified-marketing-brain.js');
