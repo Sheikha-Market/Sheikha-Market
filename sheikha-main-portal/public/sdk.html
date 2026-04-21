@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>Sheikha SDK — مجموعة أدوات التطوير الموحدة | SHEIKHA</title>
+<meta name="description" content="Sheikha SDK — مجموعة أدوات التطوير الموحدة لمنظومة شيخة: Market SDK، Contract SDK، Supply SDK، Auth SDK، Analytics SDK، Governance SDK">
+<meta name="robots" content="index, follow">
+<meta name="author" content="سلمان أحمد بن سلمان الراجح">
+<meta name="copyright" content="© 2026 منظومة شيخة — جميع الحقوق محفوظة">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#D4AF37">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   بسم الله الرحمن الرحيم
+   SHEIKHA SDK — صفحة مجموعة أدوات التطوير
+   "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَن يُتْقِنَهُ"
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#050810;--bg2:#0a0f1a;--bg3:#111827;--bg4:#1a2236;
+  --gold:#D4AF37;--gold2:#b8942f;--gold3:#f5d97e;
+  --t1:#f1f5f9;--t2:#94a3b8;--t3:#64748b;
+  --bdr:#1e293b;--bdr2:#334155;
+  --green:#22c55e;--blue:#3b82f6;--purple:#a855f7;--orange:#f97316;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold2)}
+
+/* ═══ NAVBAR ═══ */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 32px;height:64px;display:flex;align-items:center;background:rgba(5,8,16,.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(30,41,59,.6)}
+.nav-inner{max-width:1400px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo-link{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-mark{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:20px;height:20px}
+.logo-text{font-size:1.25rem;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-a{padding:8px 16px;color:var(--t2);text-decoration:none;font-size:.88rem;font-weight:500;border-radius:8px;transition:all .25s}
+.nav-a:hover{color:var(--t1);background:rgba(255,255,255,.05)}
+.nav-a.active{color:var(--gold);background:rgba(212,175,55,.1)}
+.nav-cta{padding:9px 20px;background:rgba(212,175,55,.12);border:1px solid var(--gold);border-radius:10px;color:var(--gold);font-size:.86rem;font-weight:600;text-decoration:none;transition:all .25s}
+.nav-cta:hover{background:var(--gold);color:#050810}
+
+/* ═══ HERO ═══ */
+.hero{padding:120px 32px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(212,175,55,.08) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid rgba(212,175,55,.25);border-radius:20px;background:rgba(212,175,55,.06);margin-bottom:24px;font-size:.82rem;font-weight:600;color:var(--gold)}
+.hero-badge span{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.15;margin-bottom:20px}
+.hero h1 .grad{background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.1rem;color:var(--t2);max-width:680px;margin:0 auto 36px;line-height:1.7}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{padding:14px 32px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#050810;font-weight:700;border-radius:12px;text-decoration:none;font-size:.98rem;transition:all .25s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,175,55,.3)}
+.btn-secondary{padding:14px 32px;border:1px solid rgba(212,175,55,.3);color:var(--gold);border-radius:12px;text-decoration:none;font-size:.98rem;font-weight:600;transition:all .25s}
+.btn-secondary:hover{background:rgba(212,175,55,.08);border-color:var(--gold)}
+
+/* ═══ MAIN LAYOUT ═══ */
+.container{max-width:1400px;margin:0 auto;padding:0 32px}
+.section{padding:60px 32px}
+.section-title{font-size:1.8rem;font-weight:800;margin-bottom:8px}
+.section-sub{color:var(--t2);margin-bottom:40px;font-size:1rem}
+
+/* ═══ SDK CARDS GRID ═══ */
+.sdk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+.sdk-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:16px;padding:28px;transition:all .3s;cursor:pointer}
+.sdk-card:hover{border-color:rgba(212,175,55,.3);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+.sdk-card-header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.sdk-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.sdk-icon.market{background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.2)}
+.sdk-icon.contract{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.2)}
+.sdk-icon.supply{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.2)}
+.sdk-icon.auth{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.2)}
+.sdk-icon.analytics{background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.2)}
+.sdk-icon.governance{background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.2)}
+.sdk-icon.core{background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3)}
+.sdk-name{font-size:1.15rem;font-weight:700;color:var(--t1)}
+.sdk-version{font-size:.75rem;color:var(--t3);font-family:'JetBrains Mono',monospace;background:var(--bg3);padding:2px 8px;border-radius:4px}
+.sdk-desc{color:var(--t2);font-size:.9rem;line-height:1.6;margin-bottom:16px}
+.sdk-endpoints{display:flex;flex-direction:column;gap:6px}
+.endpoint{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg3);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem}
+.method{font-weight:700;min-width:40px}
+.method.get{color:var(--green)}
+.method.post{color:var(--blue)}
+.method.put{color:var(--orange)}
+.method.delete{color:#ef4444}
+.ep-path{color:var(--t2)}
+.sdk-footer{margin-top:18px;display:flex;align-items:center;justify-content:space-between}
+.sdk-status{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--green)}
+.sdk-status::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%}
+.sdk-btn{padding:8px 16px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.2);border-radius:8px;color:var(--gold);font-size:.82rem;font-weight:600;text-decoration:none;transition:all .2s}
+.sdk-btn:hover{background:var(--gold);color:#050810}
+
+/* ═══ CODE EXAMPLE ═══ */
+.code-section{background:var(--bg2);border:1px solid var(--bdr);border-radius:16px;overflow:hidden}
+.code-tabs{display:flex;border-bottom:1px solid var(--bdr);overflow-x:auto}
+.code-tab{padding:12px 20px;font-size:.85rem;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;font-family:'JetBrains Mono',monospace}
+.code-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.code-body{padding:24px;overflow-x:auto}
+.code-body pre{font-family:'JetBrains Mono',monospace;font-size:.83rem;line-height:1.7;color:var(--t2)}
+.kw{color:#c678dd}
+.str{color:#98c379}
+.fn{color:#61afef}
+.cm{color:#5c6370;font-style:italic}
+.num{color:#d19a66}
+.obj{color:var(--gold3)}
+
+/* ═══ STATS ═══ */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin:40px 0}
+.stat{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:20px;text-align:center}
+.stat-val{font-size:2rem;font-weight:800;color:var(--gold);display:block}
+.stat-lbl{font-size:.8rem;color:var(--t3);margin-top:4px}
+
+/* ═══ KEYS TABLE ═══ */
+.keys-table{width:100%;border-collapse:collapse}
+.keys-table th{padding:12px 16px;text-align:right;font-size:.8rem;font-weight:600;color:var(--t3);border-bottom:1px solid var(--bdr);background:var(--bg3)}
+.keys-table td{padding:12px 16px;font-size:.85rem;border-bottom:1px solid rgba(30,41,59,.5);vertical-align:middle}
+.keys-table tr:last-child td{border-bottom:none}
+.key-name{font-family:'JetBrains Mono',monospace;color:var(--gold3);font-size:.8rem}
+.key-type{padding:3px 8px;background:rgba(59,130,246,.1);border-radius:4px;color:var(--blue);font-size:.75rem;font-family:'JetBrains Mono',monospace}
+.key-req{color:var(--green);font-size:.78rem}
+
+/* ═══ INTEGRATIONS ═══ */
+.integrations-grid{display:flex;flex-wrap:wrap;gap:12px}
+.int-chip{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;font-size:.85rem;font-weight:600;transition:all .2s}
+.int-chip:hover{border-color:rgba(212,175,55,.3);background:rgba(212,175,55,.05)}
+.int-dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .6s ease forwards}
+
+/* ═══ FOOTER ═══ */
+.footer{background:var(--bg2);border-top:1px solid var(--bdr);padding:40px 32px;text-align:center;color:var(--t3);font-size:.85rem}
+.footer a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="/" class="logo-link">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#050810" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span class="logo-text">SHEIKHA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/" class="nav-a">الرئيسية</a></li>
+      <li><a href="/سوق-شيخة.html" class="nav-a">السوق</a></li>
+      <li><a href="/لوحة-التحكم-الموحدة.html" class="nav-a">لوحة التحكم</a></li>
+      <li><a href="/sdk.html" class="nav-a active">SDK</a></li>
+      <li><a href="/sheikha-ide.html" class="nav-a">IDE</a></li>
+      <li><a href="/mcp.html" class="nav-a">MCP</a></li>
+      <li><a href="/cli.html" class="nav-a">CLI</a></li>
+      <li><a href="/الحوكمة.html" class="nav-a">الحوكمة</a></li>
+    </ul>
+    <a href="/تسجيل-الدخول.html" class="nav-cta">دخول / تسجيل</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><span></span> Sheikha SDK — نشط ومتصل</div>
+  <h1>مجموعة أدوات التطوير<br><span class="grad">Sheikha SDK</span></h1>
+  <p>ادمج منظومة شيخة في تطبيقاتك بأسطر قليلة — APIs واضحة، توثيق شامل، أمثلة حية، وتكامل مع كل طبقات المنظومة.</p>
+  <div class="hero-actions">
+    <a href="#sdks" class="btn-primary">استكشف الـ SDKs</a>
+    <a href="#examples" class="btn-secondary">أمثلة الكود</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="container">
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-val">7</span><div class="stat-lbl">حزم SDK</div></div>
+    <div class="stat"><span class="stat-val">120+</span><div class="stat-lbl">Endpoint</div></div>
+    <div class="stat"><span class="stat-val">12</span><div class="stat-lbl">لغة برمجة مدعومة</div></div>
+    <div class="stat"><span class="stat-val">99.9%</span><div class="stat-lbl">وقت التشغيل</div></div>
+    <div class="stat"><span class="stat-val">&lt;80ms</span><div class="stat-lbl">متوسط زمن الاستجابة</div></div>
+  </div>
+</div>
+
+<!-- SDK CARDS -->
+<section class="section" id="sdks">
+  <div class="container">
+    <h2 class="section-title">حزم SDK المتاحة</h2>
+    <p class="section-sub">سبع حزم متخصصة تغطي كل طبقات منظومة شيخة</p>
+    <div class="sdk-grid">
+
+      <!-- Core SDK -->
+      <div class="sdk-card fade-up">
+        <div class="sdk-card-header">
+          <div class="sdk-icon core">⚡</div>
+          <div>
+            <div class="sdk-name">Sheikha Core SDK</div>
+            <span class="sdk-version">v2.4.1</span>
+          </div>
+        </div>
+        <p class="sdk-desc">النواة الأساسية لمنظومة شيخة — المصادقة، الجلسات، الأحداث، والتهيئة الموحدة لكل الحزم الأخرى.</p>
+        <div class="sdk-endpoints">
+          <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/api/auth/token</span></div>
+          <div class="endpoint"><span class="method get">GET</span><span class="ep-path">/api/status</span></div>
+          <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/api/session/validate</span></div>
+        </div>
+        <div class="sdk-footer">
+          <span class="sdk-status">نشط</span>
+          <a href="#" class="sdk-btn">التوثيق</a>
+        </div>
+      </div>
+
+      <!-- Market SDK -->
+      <div class="sdk-card fade-up">
+        <div class="sdk-card-header">
+          <div class="sdk-icon market">🏪</div>
+          <div>
+            <div class="sdk-name">Market SDK</div>
+            <span class="sdk-version">v1.9.0</span>
+          </div>
+        </div>
+        <p class="sdk-desc">تكامل كامل مع سوق شيخة — جلب الأسعار اللحظية، إدارة العروض، البحث، والتصفية المتقدمة.</p>
+        <div class="sdk-endpoints">
+          <div class="endpoint"><span class="method get">GET</span><span class="ep-path">/api/market/prices</span></div>
+          <div class="endpoint"><span class="method get">GET</span><span class="ep-path">/api/market/offers</span></div>
+          <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/api/market/orders</span></div>
+        </div>
+        <div class="sdk-footer">
+          <span class="sdk-status">نشط</span>
+          <a href="#" class="sdk-btn">التوثيق</a>
+        </div>
+      </div>
+
+      <!-- Contract SDK -->
+      <div class="sdk-card fade-up">
+        <div class="sdk-card-header">
+          <div class="sdk-icon contract">📋</div>
+          <div>
+            <div class="sdk-name">Contract SDK</div>
+            <span class="sdk-version">v1.5.2</span>
+          </div>
+        </div>
+        <p class="sdk-desc">إنشاء العقود الرقمية، إدارة الموافقات، التتبع، والأرشفة — كل دورة حياة العقد في SDK واحد.</p>
+        <div class="sdk-endpoints">
+          <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/api/contracts/create</span></div>
+          <div class="endpoint"><span class="method get">GET</span><span class="ep-path">/api/contracts/:id</span></div>
+          <div class="endpoint"><span class="method put">PUT</span><span class="ep-path">/api/contracts/:id/approve</span></div>
+        </div>
+        <div class="sdk-footer">
+          <span class="sdk-status">نشط</span>
+          <a href="#" class="sdk-btn">التوثيق</a>
+        </div>
+      </div>
+
+      <!-- Supply SDK -->
+      <div class="sdk-card fade-up">
+        <div class="sdk-card-header">
+          <div class="sdk-icon supply">🔗</div>
+          <div>
+            <div class="sdk-name">Supply SDK</div>
+            <span class="sdk-version">v1.3.0</span>
+          </div>
+        </div>
+        <p class="sdk-desc">إدارة سلاسل الإمداد — أوامر التوريد، تتبع الشحنات، مزامنة المخزون، وربط الموردين.</p>
+        <div class="sdk-endpoints">
+          <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/api/supply/orders</span></div>
+          <div class="endpoint"><span class="method get">GET</span><span class="ep-path">/api/supply/track/:id</span></div>
+          <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/api/supply/sync</span></div>
+        </div>
+        <div class="sdk-footer">
+          <span class="sdk-status">نشط</span>
+          <a href="#" class="sdk-btn">التوثيق</a>
+        </div>
+      </div>
+
+      <!-- Analytics SDK -->
+      <div class="sdk-card fade-up">
+        <div class="sdk-card-header">
+          <div class="sdk-icon analytics">📊</div>
+          <div>
+            <div class="sdk-name">Analytics SDK</div>
+            <span class="sdk-version">v2.0.1</span>
+          </div>
+        </div>
+        <p class="sdk-desc">تحليل النشاط، قياس الاستخدام، مؤشرات السوق، تقارير الأداء، والذكاء التشغيلي.</p>
+        <div class="sdk-endpoints">
+          <div class="endpoint"><span class="method get">GET</span><span class="ep-path">/api/analytics/overview</span></div>
+          <div class="endpoint"><span class="method get">GET</span><span class="ep-path">/api/analytics/market</span></div>
+          <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/api/analytics/report</span></div>
+        </div>
+        <div class="sdk-footer">
+          <span class="sdk-status">نشط</span>
+          <a href="#" class="sdk-btn">التوثيق</a>
+        </div>
+      </div>
+
+      <!-- Auth SDK -->
+      <div class="sdk-card fade-up">
+        <div class="sdk-card-header">
+          <div class="sdk-icon auth">🔐</div>
+          <div>
+            <div class="sdk-name">Auth SDK</div>
+            <span class="sdk-version">v3.1.0</span>
+          </div>
+        </div>
+        <p class="sdk-desc">المصادقة الموحدة — JWT، OAuth2، مفاتيح API، صلاحيات الأدوار، والتحقق متعدد العوامل.</p>
+        <div class="sdk-endpoints">
+          <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/api/auth/login</span></div>
+          <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/api/auth/refresh</span></div>
+          <div class="endpoint"><span class="method get">GET</span><span class="ep-path">/api/auth/me</span></div>
+        </div>
+        <div class="sdk-footer">
+          <span class="sdk-status">نشط</span>
+          <a href="#" class="sdk-btn">التوثيق</a>
+        </div>
+      </div>
+
+      <!-- Governance SDK -->
+      <div class="sdk-card fade-up">
+        <div class="sdk-card-header">
+          <div class="sdk-icon governance">⚖️</div>
+          <div>
+            <div class="sdk-name">Governance SDK</div>
+            <span class="sdk-version">v1.2.0</span>
+          </div>
+        </div>
+        <p class="sdk-desc">التحقق من الامتثال، سجل الأثر، الموافقات، ومراقبة الانضباط التشغيلي وفق الميثاق.</p>
+        <div class="sdk-endpoints">
+          <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/api/governance/check</span></div>
+          <div class="endpoint"><span class="method get">GET</span><span class="ep-path">/api/governance/audit</span></div>
+          <div class="endpoint"><span class="method post">POST</span><span class="ep-path">/api/governance/approve</span></div>
+        </div>
+        <div class="sdk-footer">
+          <span class="sdk-status">نشط</span>
+          <a href="#" class="sdk-btn">التوثيق</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CODE EXAMPLES -->
+<section class="section" id="examples" style="background:var(--bg2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)">
+  <div class="container">
+    <h2 class="section-title">أمثلة الكود</h2>
+    <p class="section-sub">ابدأ التكامل في دقائق</p>
+    <div class="code-section">
+      <div class="code-tabs">
+        <div class="code-tab active">JavaScript</div>
+        <div class="code-tab">Python</div>
+        <div class="code-tab">cURL</div>
+        <div class="code-tab">Go</div>
+      </div>
+      <div class="code-body">
+<pre><span class="cm">// تثبيت Sheikha Core SDK</span>
+<span class="cm">// npm install @sheikha/core @sheikha/market @sheikha/contracts</span>
+
+<span class="kw">import</span> { SheikhaClient } <span class="kw">from</span> <span class="str">'@sheikha/core'</span>;
+<span class="kw">import</span> { MarketSDK } <span class="kw">from</span> <span class="str">'@sheikha/market'</span>;
+<span class="kw">import</span> { ContractSDK } <span class="kw">from</span> <span class="str">'@sheikha/contracts'</span>;
+
+<span class="cm">// تهيئة العميل</span>
+<span class="kw">const</span> client = <span class="kw">new</span> <span class="fn">SheikhaClient</span>({
+  apiKey: <span class="str">'sk_live_your_api_key'</span>,
+  environment: <span class="str">'production'</span>,
+  locale: <span class="str">'ar'</span>
+});
+
+<span class="cm">// جلب أسعار المعادن اللحظية</span>
+<span class="kw">const</span> market = <span class="kw">new</span> <span class="fn">MarketSDK</span>(client);
+<span class="kw">const</span> prices = <span class="kw">await</span> market.<span class="fn">getLivePrices</span>({
+  metals: [<span class="str">'gold'</span>, <span class="str">'silver'</span>, <span class="str">'copper'</span>],
+  currency: <span class="str">'SAR'</span>
+});
+
+console.<span class="fn">log</span>(prices);
+<span class="cm">// → { gold: { price: 285.40, change: +1.2%, exchange: 'LBMA' }, ... }</span>
+
+<span class="cm">// إنشاء عقد رقمي</span>
+<span class="kw">const</span> contracts = <span class="kw">new</span> <span class="fn">ContractSDK</span>(client);
+<span class="kw">const</span> contract = <span class="kw">await</span> contracts.<span class="fn">create</span>({
+  type: <span class="str">'supply'</span>,
+  parties: { buyer: <span class="str">'buyer_id'</span>, seller: <span class="str">'seller_id'</span> },
+  items: [{ metal: <span class="str">'copper'</span>, qty: <span class="num">5000</span>, unit: <span class="str">'kg'</span> }],
+  terms: { payment: <span class="str">'net_30'</span>, delivery: <span class="str">'CIF'</span> }
+});
+
+console.<span class="fn">log</span>(contract.id); <span class="cm">// → 'cnt_2026_abc123'</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- API KEYS -->
+<section class="section" id="keys">
+  <div class="container">
+    <h2 class="section-title">معاملات المصادقة</h2>
+    <p class="section-sub">المعاملات المطلوبة في كل طلب API</p>
+    <div class="code-section">
+      <div style="overflow-x:auto">
+        <table class="keys-table">
+          <thead>
+            <tr>
+              <th>المعامل</th>
+              <th>النوع</th>
+              <th>إلزامي</th>
+              <th>الوصف</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="key-name">Authorization</span></td>
+              <td><span class="key-type">header</span></td>
+              <td class="key-req">✓ نعم</td>
+              <td style="color:var(--t2)">Bearer &lt;API_KEY&gt; — مفتاح API الخاص بك</td>
+            </tr>
+            <tr>
+              <td><span class="key-name">X-Sheikha-Version</span></td>
+              <td><span class="key-type">header</span></td>
+              <td style="color:var(--t3)">اختياري</td>
+              <td style="color:var(--t2)">إصدار API المطلوب (الافتراضي: الأحدث)</td>
+            </tr>
+            <tr>
+              <td><span class="key-name">X-Request-ID</span></td>
+              <td><span class="key-type">header</span></td>
+              <td style="color:var(--t3)">اختياري</td>
+              <td style="color:var(--t2)">معرف الطلب للتتبع (UUID)</td>
+            </tr>
+            <tr>
+              <td><span class="key-name">locale</span></td>
+              <td><span class="key-type">query</span></td>
+              <td style="color:var(--t3)">اختياري</td>
+              <td style="color:var(--t2)">لغة الاستجابة: ar، en (الافتراضي: ar)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section class="section" style="background:var(--bg2);border-top:1px solid var(--bdr)">
+  <div class="container">
+    <h2 class="section-title">التكاملات المدعومة</h2>
+    <p class="section-sub">شيخة SDK يتكامل مع منظومتك الحالية</p>
+    <div class="integrations-grid">
+      <div class="int-chip"><span class="int-dot"></span>GitHub</div>
+      <div class="int-chip"><span class="int-dot"></span>GitLab</div>
+      <div class="int-chip"><span class="int-dot"></span>Stripe</div>
+      <div class="int-chip"><span class="int-dot"></span>AWS</div>
+      <div class="int-chip"><span class="int-dot"></span>Google Cloud</div>
+      <div class="int-chip"><span class="int-dot"></span>Slack</div>
+      <div class="int-chip"><span class="int-dot"></span>Zapier</div>
+      <div class="int-chip"><span class="int-dot"></span>Webhook</div>
+      <div class="int-chip"><span class="int-dot"></span>REST API</div>
+      <div class="int-chip"><span class="int-dot"></span>GraphQL</div>
+      <div class="int-chip"><span class="int-dot"></span>WebSocket</div>
+      <div class="int-chip"><span class="int-dot"></span>Docker</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2026 منظومة شيخة — <a href="/">sheikha.top</a> | SDK v2.4.1 | <a href="/الحوكمة.html">الحوكمة</a> | <a href="/cli.html">CLI</a> | <a href="/mcp.html">MCP</a></p>
+  <p style="margin-top:8px;font-size:.75rem">"إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَن يُتْقِنَهُ"</p>
+</footer>
+
+</body>
+</html>
