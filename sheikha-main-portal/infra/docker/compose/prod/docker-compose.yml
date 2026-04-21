@@ -16,6 +16,11 @@ services:
 
   main-portal:
     image: ghcr.io/sheikha/main-portal:latest
+    build:
+      # Context is the repo root (sheikha-main-portal/) where the Dockerfile lives.
+      # Run `docker compose build main-portal` to build locally without ghcr.io access.
+      context: ../../../../
+      dockerfile: Dockerfile
     container_name: sheikha-main-portal
     restart: unless-stopped
     env_file:
@@ -40,6 +45,7 @@ services:
 
   mcp-server:
     image: ghcr.io/sheikha/mcp-server:latest
+    profiles: [mcp]
     container_name: sheikha-mcp-server
     restart: unless-stopped
     env_file:
