@@ -29,7 +29,7 @@ const TOOLS = [
     { id: 'analytics_report', node: 'analytics',  permissions: ['analytics:read'],    status: 'beta'   }
 ];
 
-class SheikhaaMCP extends EventEmitter {
+class SheikhaMCP extends EventEmitter {
     constructor() {
         super();
         this.nodes = NODES;
@@ -75,9 +75,9 @@ class SheikhaaMCP extends EventEmitter {
 
 let _instance = null;
 function getInstance() {
-    if (!_instance) _instance = new SheikhaaMCP();
+    if (!_instance) _instance = new SheikhaMCP();
     return _instance;
 }
 
-module.exports = { SheikhaaMCP, getInstance, NODES, TOOLS };
+module.exports = { SheikhaMCP, getInstance, NODES, TOOLS };
 console.log('✅ [MCP-ENGINE] محرك مركز ربط الأدوات — جاهز | Deny-by-Default: true');
