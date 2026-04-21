@@ -1,0 +1,1008 @@
+/**
+ * ╔══════════════════════════════════════════════════════════════════════════════╗
+ * ║          SHEIKHA NEURAL IDENTITY ENGINE — خلية الشبكة العصبية للهوية       ║
+ * ║                    نظام التصميم الأسطوري — IDOL LEVEL                       ║
+ * ╠══════════════════════════════════════════════════════════════════════════════╣
+ * ║  كل عنصر له معنى — كل لون له روح — كل حركة لها قصة — كل خط له حكمة        ║
+ * ║  السواد = ليلة الإسراء والمعراج — السر والعمق والبدايات                     ║
+ * ║  الذهب  = الحق والعدل والنور — معدن الأنبياء والملوك                        ║
+ * ║  الأخضر = الإسلام والنعيم والحياة — لون الجنة والرحمة                       ║
+ * ║  الفضة  = الطهارة والصدق والنقاء — معدن الصالحين                            ║
+ * ╚══════════════════════════════════════════════════════════════════════════════╝
+ */
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 0: الطبقة الأولى — الجذر الكوني (Cosmic Root)
+   ══════════════════════════════════════════════════════════════════ */
+:root {
+  /* ── الذهب: نور الحقيقة ── */
+  --n-gold-core:    #D4AF37;
+  --n-gold-flame:   #F5D76E;
+  --n-gold-deep:    #A8882B;
+  --n-gold-whisper: rgba(212,175,55,0.06);
+  --n-gold-glow:    rgba(212,175,55,0.18);
+  --n-gold-pulse:   rgba(212,175,55,0.35);
+
+  /* ── الأخضر: روح الإسلام ── */
+  --n-green-core:   #006c35;
+  --n-green-light:  #00a855;
+  --n-green-deep:   #004020;
+  --n-green-glow:   rgba(0,108,53,0.2);
+
+  /* ── الفضة: نقاء الصدق ── */
+  --n-silver:       #C8D6E0;
+  --n-silver-dim:   rgba(200,214,224,0.12);
+
+  /* ── الكون الداكن ── */
+  --n-void:         #020308;
+  --n-deep:         #05080f;
+  --n-space:        #080d18;
+  --n-surface:      #0d1525;
+  --n-card:         #111e30;
+
+  /* ── نصوص ── */
+  --n-t1: #f0f4f8;
+  --n-t2: #9baab8;
+  --n-t3: #5d7082;
+  --n-t4: #3a4f60;
+
+  /* ── الشبكة العصبية ── */
+  --n-node-radius:  6px;
+  --n-pulse-speed:  2.8s;
+  --n-flow-speed:   6s;
+  --n-breath-speed: 4s;
+
+  /* ── الأنيميشن ── */
+  --ease-golden: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft:   cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── الخطوط الإلهية ── */
+  --font-arab:  'Tajawal', 'Segoe UI', sans-serif;
+  --font-quran: 'Amiri', 'Traditional Arabic', serif;
+
+  /* ── نظام الحجوم ── */
+  --n-r-xs: 4px;
+  --n-r-sm: 8px;
+  --n-r-md: 14px;
+  --n-r-lg: 20px;
+  --n-r-xl: 28px;
+  --n-r-full: 9999px;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 1: القماش الكوني — The Cosmic Canvas
+   ══════════════════════════════════════════════════════════════════ */
+.n-canvas {
+  position: relative;
+  background: var(--n-void);
+  color: var(--n-t1);
+  font-family: var(--font-arab);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* طبقة الشبكة الهندسية الإسلامية — Islamic Geometric Grid */
+.n-canvas::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='.5'%3E%3Cpolygon points='60,6 90,24 90,60 60,78 30,60 30,24'/%3E%3Cpolygon points='60,24 78,33.6 78,55.2 60,64.8 42,55.2 42,33.6'/%3E%3Cline x1='60' y1='6' x2='60' y2='114'/%3E%3Cline x1='6' y1='60' x2='114' y2='60'/%3E%3Cline x1='30' y1='24' x2='90' y2='96'/%3E%3Cline x1='90' y1='24' x2='30' y2='96'/%3E%3Ccircle cx='60' cy='42' r='18'/%3E%3Ccircle cx='60' cy='42' r='6'/%3E%3C/g%3E%3C/svg%3E");
+  animation: n-grid-breathe var(--n-breath-speed) ease-in-out infinite alternate;
+}
+
+/* طبقة الأعماق المتوهجة */
+.n-canvas::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(212,175,55,0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 80% 90%, rgba(0,108,53,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(212,175,55,0.015) 0%, transparent 70%);
+}
+
+@keyframes n-grid-breathe {
+  from { opacity: 0.018; transform: scale(1); }
+  to   { opacity: 0.032; transform: scale(1.04); }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 2: عقدة الشبكة العصبية — Neural Node
+   ══════════════════════════════════════════════════════════════════ */
+.n-node {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--n-gold-core);
+  box-shadow:
+    0 0 8px var(--n-gold-glow),
+    0 0 24px rgba(212,175,55,0.08);
+  animation: n-node-pulse var(--n-pulse-speed) ease-in-out infinite;
+}
+
+.n-node::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(212,175,55,0.3);
+  animation: n-ring-expand 2.4s ease-out infinite;
+}
+
+.n-node::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(212,175,55,0.12);
+  animation: n-ring-expand 2.4s 0.8s ease-out infinite;
+}
+
+@keyframes n-node-pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--n-gold-glow), 0 0 24px rgba(212,175,55,0.08); }
+  50%       { box-shadow: 0 0 16px var(--n-gold-pulse), 0 0 48px rgba(212,175,55,0.18); }
+}
+
+@keyframes n-ring-expand {
+  0%   { transform: scale(1);    opacity: 0.6; }
+  100% { transform: scale(2.5);  opacity: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 3: بطل الهوية — Identity Hero
+   ══════════════════════════════════════════════════════════════════ */
+.n-hero {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 4rem 2rem;
+}
+
+.n-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 860px;
+}
+
+/* ── تاج الهوية — Crown Badge ── */
+.n-crown {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  border: 1px solid rgba(212,175,55,0.22);
+  border-radius: var(--n-r-full);
+  background: rgba(212,175,55,0.05);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--n-gold-flame);
+  margin-bottom: 2.5rem;
+  animation: n-fadeInDown 1s var(--ease-golden) both;
+  position: relative;
+  overflow: hidden;
+}
+
+.n-crown::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.08), transparent);
+  animation: n-shimmer 3s ease-in-out infinite;
+}
+
+/* ── العنوان الأسطوري ── */
+.n-hero-title {
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  animation: n-fadeInUp 1s 0.2s var(--ease-golden) both;
+}
+
+.n-hero-title .n-gold-text {
+  background: linear-gradient(135deg, var(--n-gold-deep) 0%, var(--n-gold-core) 40%, var(--n-gold-flame) 70%, var(--n-gold-core) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: n-gold-flow 4s linear infinite;
+  display: block;
+}
+
+.n-hero-title .n-white-text {
+  color: var(--n-t1);
+  opacity: 0.92;
+  display: block;
+}
+
+/* ── العبارة الإلهامية ── */
+.n-hero-verse {
+  font-family: var(--font-quran);
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  color: var(--n-t2);
+  margin-bottom: 1rem;
+  animation: n-fadeInUp 1s 0.4s var(--ease-golden) both;
+  font-style: italic;
+}
+
+.n-hero-verse span {
+  color: var(--n-gold-core);
+  font-style: normal;
+}
+
+/* ── الوصف الفلسفي ── */
+.n-hero-desc {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--n-t2);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  line-height: 2;
+  animation: n-fadeInUp 1s 0.6s var(--ease-golden) both;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 4: بطاقة الهوية النووية — Core Identity Card
+   ══════════════════════════════════════════════════════════════════ */
+.n-card {
+  background: var(--n-card);
+  border: 1px solid rgba(212,175,55,0.09);
+  border-radius: var(--n-r-xl);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s var(--ease-golden),
+              box-shadow 0.4s var(--ease-golden),
+              transform 0.4s var(--ease-spring);
+}
+
+.n-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--n-gold-core), transparent);
+  opacity: 0.4;
+  transition: opacity 0.4s;
+}
+
+.n-card:hover {
+  border-color: rgba(212,175,55,0.22);
+  box-shadow: 0 0 40px rgba(212,175,55,0.06), 0 20px 60px rgba(0,0,0,0.4);
+  transform: translateY(-3px);
+}
+
+.n-card:hover::before {
+  opacity: 0.8;
+}
+
+/* ── بطاقة الهوية المميزة ── */
+.n-card-idol {
+  background: linear-gradient(145deg, rgba(212,175,55,0.04), rgba(5,8,15,0.95));
+  border-color: rgba(212,175,55,0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(212,175,55,0.12),
+    0 0 60px rgba(212,175,55,0.04);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 5: الشبكة العصبية المرئية — Visual Neural Network
+   ══════════════════════════════════════════════════════════════════ */
+.n-network-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* خطوط الشبكة العصبية المتدفقة */
+.n-synapse {
+  position: absolute;
+  height: 1px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, transparent, var(--n-gold-core), transparent);
+  opacity: 0;
+  animation: n-synapse-fire var(--n-flow-speed) ease-in-out infinite;
+}
+
+@keyframes n-synapse-fire {
+  0%   { opacity: 0; transform: scaleX(0); }
+  20%  { opacity: 0.4; transform: scaleX(0.5); }
+  60%  { opacity: 0.2; transform: scaleX(1); }
+  100% { opacity: 0; transform: scaleX(1.2); }
+}
+
+/* عقد الشبكة العائمة */
+.n-float-node {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--n-gold-core);
+  box-shadow: 0 0 6px var(--n-gold-glow);
+  animation: n-float-drift 12s ease-in-out infinite;
+}
+
+@keyframes n-float-drift {
+  0%, 100% { transform: translate(0, 0) scale(1);   opacity: 0.3; }
+  25%      { transform: translate(20px, -30px) scale(1.5); opacity: 0.6; }
+  50%      { transform: translate(-15px, -50px) scale(0.8); opacity: 0.4; }
+  75%      { transform: translate(30px, -20px) scale(1.2); opacity: 0.5; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 6: خلية الهوية — Identity Cell (Core Component)
+   ══════════════════════════════════════════════════════════════════ */
+.n-identity-cell {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: var(--n-r-lg);
+  background: linear-gradient(135deg, rgba(212,175,55,0.03), transparent);
+  border: 1px solid rgba(212,175,55,0.08);
+  transition: all 0.4s var(--ease-golden);
+  position: relative;
+  overflow: hidden;
+}
+
+.n-identity-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(212,175,55,0.05) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.n-identity-cell:hover::after { opacity: 1; }
+.n-identity-cell:hover { border-color: rgba(212,175,55,0.18); }
+
+/* الأيقونة العصبية */
+.n-cell-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--n-r-md);
+  background: var(--n-gold-whisper);
+  border: 1px solid rgba(212,175,55,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.4s var(--ease-spring);
+}
+
+.n-identity-cell:hover .n-cell-icon {
+  background: rgba(212,175,55,0.1);
+  border-color: rgba(212,175,55,0.3);
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 0 20px rgba(212,175,55,0.12);
+}
+
+.n-cell-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--n-t1);
+  margin-bottom: 0.4rem;
+}
+
+.n-cell-desc {
+  font-size: 0.85rem;
+  color: var(--n-t3);
+  line-height: 1.7;
+}
+
+.n-cell-tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--n-r-full);
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: rgba(212,175,55,0.08);
+  color: var(--n-gold-core);
+  border: 1px solid rgba(212,175,55,0.15);
+  margin-top: 0.5rem;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 7: نبض الهوية — Identity Pulse (Live Stats)
+   ══════════════════════════════════════════════════════════════════ */
+.n-pulse-ring {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.n-pulse-ring::before,
+.n-pulse-ring::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--n-gold-core);
+  animation: n-pulse-ring-out 3s ease-out infinite;
+}
+
+.n-pulse-ring::after {
+  animation-delay: 1.5s;
+}
+
+@keyframes n-pulse-ring-out {
+  0%   { width: 30px; height: 30px; opacity: 0.6; }
+  100% { width: 80px; height: 80px; opacity: 0; }
+}
+
+.n-pulse-core {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--n-gold-flame) 0%, var(--n-gold-core) 100%);
+  box-shadow: 0 0 16px var(--n-gold-pulse);
+  animation: n-core-breathe 3s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes n-core-breathe {
+  0%, 100% { transform: scale(1);   box-shadow: 0 0 16px var(--n-gold-pulse); }
+  50%       { transform: scale(1.12); box-shadow: 0 0 30px rgba(212,175,55,0.5); }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 8: شريط الهوية — Identity Bar (Navigation DNA)
+   ══════════════════════════════════════════════════════════════════ */
+.n-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 2rem;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(2,3,8,0.82);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(212,175,55,0.06);
+  transition: all 0.4s var(--ease-golden);
+}
+
+.n-nav-logo {
+  font-size: 1.4rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--n-gold-core), var(--n-gold-flame));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.n-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.n-nav-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--n-t3);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.n-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px;
+  background: var(--n-gold-core);
+  transform: scaleX(0);
+  transition: transform 0.3s var(--ease-golden);
+}
+
+.n-nav-link:hover { color: var(--n-gold-core); }
+.n-nav-link:hover::after { transform: scaleX(1); }
+.n-nav-link.active { color: var(--n-gold-core); }
+.n-nav-link.active::after { transform: scaleX(1); }
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 9: الأزرار الأسطورية — Legendary Buttons
+   ══════════════════════════════════════════════════════════════════ */
+
+/* الزر الأساسي — Primary (الذهب) */
+.n-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.8rem;
+  border-radius: var(--n-r-full);
+  font-family: var(--font-arab);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.35s var(--ease-spring);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.n-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.n-btn:hover::before { opacity: 1; }
+
+.n-btn-gold {
+  background: linear-gradient(135deg, var(--n-gold-deep) 0%, var(--n-gold-core) 50%, var(--n-gold-flame) 100%);
+  background-size: 200% auto;
+  color: #000;
+  box-shadow: 0 4px 20px rgba(212,175,55,0.3);
+  animation: n-btn-gold-flow 4s linear infinite;
+}
+
+.n-btn-gold:hover {
+  box-shadow: 0 6px 30px rgba(212,175,55,0.5);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.n-btn-ghost {
+  background: transparent;
+  color: var(--n-gold-core);
+  border: 1px solid rgba(212,175,55,0.25);
+}
+
+.n-btn-ghost:hover {
+  background: rgba(212,175,55,0.06);
+  border-color: rgba(212,175,55,0.5);
+  transform: translateY(-2px);
+}
+
+@keyframes n-btn-gold-flow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 10: فلسفة الألوان — Color Philosophy Grid
+   ══════════════════════════════════════════════════════════════════ */
+.n-color-cell {
+  border-radius: var(--n-r-lg);
+  overflow: hidden;
+  position: relative;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.2rem;
+  transition: transform 0.4s var(--ease-spring), box-shadow 0.4s;
+  cursor: default;
+}
+
+.n-color-cell:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.n-color-gold  { background: linear-gradient(145deg, #8B6914, var(--n-gold-core), var(--n-gold-flame)); }
+.n-color-green { background: linear-gradient(145deg, #002d16, var(--n-green-core), var(--n-green-light)); }
+.n-color-void  { background: linear-gradient(145deg, #000, #0a0e18, #111e30); border: 1px solid rgba(212,175,55,0.1); }
+.n-color-silver{ background: linear-gradient(145deg, #3a4f60, #7a9ab0, #C8D6E0); }
+
+.n-color-name {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.n-color-meaning {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.75);
+  margin-top: 2px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 11: خط الزمن الأسطوري — Legendary Timeline
+   ══════════════════════════════════════════════════════════════════ */
+.n-timeline {
+  position: relative;
+  padding-right: 2.5rem;
+}
+
+.n-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent,
+    rgba(212,175,55,0.4) 20%,
+    rgba(212,175,55,0.4) 80%,
+    transparent);
+}
+
+.n-timeline-item {
+  position: relative;
+  padding-bottom: 2.5rem;
+  animation: n-fadeInRight 0.6s var(--ease-golden) both;
+}
+
+.n-timeline-item::before {
+  content: '';
+  position: absolute;
+  right: -2.92rem;
+  top: 0.4rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--n-gold-core);
+  box-shadow: 0 0 12px var(--n-gold-glow);
+}
+
+.n-timeline-date {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--n-gold-core);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.n-timeline-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--n-t1);
+  margin-bottom: 0.4rem;
+}
+
+.n-timeline-body {
+  font-size: 0.85rem;
+  color: var(--n-t3);
+  line-height: 1.8;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 12: مقياس الهوية — Identity Meter
+   ══════════════════════════════════════════════════════════════════ */
+.n-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.n-meter-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.n-meter-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--n-t2);
+}
+
+.n-meter-value {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--n-gold-core);
+}
+
+.n-meter-track {
+  height: 4px;
+  background: rgba(212,175,55,0.06);
+  border-radius: var(--n-r-full);
+  overflow: hidden;
+}
+
+.n-meter-fill {
+  height: 100%;
+  border-radius: var(--n-r-full);
+  background: linear-gradient(90deg, var(--n-gold-deep), var(--n-gold-core), var(--n-gold-flame));
+  background-size: 200% auto;
+  animation: n-meter-flow 3s linear infinite, n-meter-grow 1.5s var(--ease-golden) both;
+  transform-origin: right;
+}
+
+@keyframes n-meter-flow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes n-meter-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 13: شبكة التخطيط — Layout Grid
+   ══════════════════════════════════════════════════════════════════ */
+.n-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.n-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.n-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+
+.n-section {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.n-section-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  color: var(--n-t1);
+  margin-bottom: 0.6rem;
+}
+
+.n-section-title .n-accent { color: var(--n-gold-core); }
+
+.n-section-sub {
+  font-size: 0.9rem;
+  color: var(--n-t3);
+  margin-bottom: 3rem;
+  max-width: 560px;
+  line-height: 1.8;
+}
+
+.n-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.2), transparent);
+  margin: 0 2rem;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 14: خلية القيمة — Value Cell
+   ══════════════════════════════════════════════════════════════════ */
+.n-value-cell {
+  text-align: center;
+  padding: 2rem 1rem;
+  border-radius: var(--n-r-xl);
+  background: var(--n-card);
+  border: 1px solid rgba(212,175,55,0.06);
+  transition: all 0.4s var(--ease-spring);
+  position: relative;
+  overflow: hidden;
+}
+
+.n-value-cell::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--n-gold-core), transparent);
+  transform: scaleX(0);
+  transition: transform 0.5s var(--ease-golden);
+}
+
+.n-value-cell:hover { transform: translateY(-8px); border-color: rgba(212,175,55,0.18); }
+.n-value-cell:hover::before { transform: scaleX(1); }
+
+.n-value-number {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--n-gold-core), var(--n-gold-flame));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.n-value-label {
+  font-size: 0.82rem;
+  color: var(--n-t3);
+  font-weight: 600;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 15: الكلمات المتوهجة — Glowing Words
+   ══════════════════════════════════════════════════════════════════ */
+.n-glow-word {
+  display: inline-block;
+  color: var(--n-gold-core);
+  text-shadow: 0 0 20px rgba(212,175,55,0.4);
+  animation: n-word-glow var(--n-breath-speed) ease-in-out infinite;
+}
+
+@keyframes n-word-glow {
+  0%, 100% { text-shadow: 0 0 20px rgba(212,175,55,0.3); }
+  50%       { text-shadow: 0 0 40px rgba(212,175,55,0.6), 0 0 80px rgba(212,175,55,0.2); }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 16: حركات الإدخال — Entry Animations
+   ══════════════════════════════════════════════════════════════════ */
+@keyframes n-fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes n-fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes n-fadeInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes n-gold-flow {
+  0%   { background-position: 0%   50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes n-shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* مراقب التمرير — Scroll Reveal */
+.n-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-golden), transform 0.7s var(--ease-golden);
+}
+
+.n-reveal.n-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.n-reveal-delay-1 { transition-delay: 0.1s; }
+.n-reveal-delay-2 { transition-delay: 0.2s; }
+.n-reveal-delay-3 { transition-delay: 0.3s; }
+.n-reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 17: التجاوب — Responsive
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .n-grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .n-grid-2,
+  .n-grid-3,
+  .n-grid-4 { grid-template-columns: 1fr; }
+
+  .n-nav-links { display: none; }
+
+  .n-identity-cell { grid-template-columns: 1fr; text-align: center; }
+  .n-cell-icon { margin: 0 auto; }
+
+  .n-section { padding: 3rem 1.25rem; }
+
+  .n-hero { padding: 2rem 1.25rem; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 18: طباعة فاخرة — Luxury Typography
+   ══════════════════════════════════════════════════════════════════ */
+.n-display {
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.n-headline {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.n-subhead {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.n-body {
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  font-weight: 400;
+  line-height: 1.9;
+  color: var(--n-t2);
+}
+
+.n-caption {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--n-t3);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 19: التأثيرات الخاصة — Special FX
+   ══════════════════════════════════════════════════════════════════ */
+
+/* تأثير الزجاج الذكي */
+.n-glass {
+  background: rgba(13,21,37,0.6);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(212,175,55,0.08);
+}
+
+/* هالة ذهبية */
+.n-halo {
+  box-shadow:
+    0 0 0 1px rgba(212,175,55,0.1),
+    0 0 30px rgba(212,175,55,0.06),
+    0 0 80px rgba(212,175,55,0.03);
+}
+
+/* الخط الذهبي الحي */
+.n-live-bar {
+  height: 2px;
+  background: linear-gradient(90deg, var(--n-gold-deep), var(--n-gold-core), var(--n-gold-flame), var(--n-gold-core), var(--n-gold-deep));
+  background-size: 300% auto;
+  animation: n-live-scroll 3s linear infinite;
+}
+
+@keyframes n-live-scroll {
+  from { background-position: 0% 50%; }
+  to   { background-position: 300% 50%; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYER 20: الختم — The Seal
+   ══════════════════════════════════════════════════════════════════ */
+.n-seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--n-t4);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.n-seal::before,
+.n-seal::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.2));
+}
+
+.n-seal::before { background: linear-gradient(90deg, transparent, rgba(212,175,55,0.2)); }
+.n-seal::after  { background: linear-gradient(90deg, rgba(212,175,55,0.2), transparent); }
