@@ -111,7 +111,11 @@ router.post('/sync', (req, res) => {
     });
 });
 
-// ─── GitHub API helper ────────────────────────────────────────────────────────
+// ─── GitHub API helpers ───────────────────────────────────────────────────────
+function encodeGitHubPath(filePath) {
+    return filePath.split('/').map(segment => encodeURIComponent(segment)).join('/');
+}
+
 async function githubApiRequest(method, apiPath, body) {
     const token  = process.env.GITHUB_TOKEN;
     const owner  = process.env.GITHUB_OWNER || 'Sheikha-Market';
@@ -129,7 +133,9 @@ async function githubApiRequest(method, apiPath, body) {
     if (body) options.body = JSON.stringify(body);
 
     const res  = await fetch(url, options);
-    const json = await res.json();
+    const text = await res.text();
+    let json;
+    try { json = JSON.parse(text); } catch (_) { json = { message: text }; }
     return { status: res.status, data: json };
 }
 
@@ -149,7 +155,7 @@ router.post('/create-file', async (req, res) => {
         const defaultBranch  = process.env.GITHUB_DEFAULT_BRANCH || 'main';
         const payload        = { message, content: base64Content, branch: branch || defaultBranch };
 
-        const { status, data } = await githubApiRequest('PUT', `/contents/${filePath}`, payload);
+        const { status, data } = await githubApiRequest('PUT', `/contents/${encodeGitHubPath(filePath)}`, payload);
 
         if (status === 201) {
             return res.status(201).json({
@@ -189,7 +195,7 @@ router.put('/update-file', async (req, res) => {
         const defaultBranch  = process.env.GITHUB_DEFAULT_BRANCH || 'main';
         const payload        = { message, content: base64Content, sha, branch: branch || defaultBranch };
 
-        const { status, data } = await githubApiRequest('PUT', `/contents/${filePath}`, payload);
+        const { status, data } = await githubApiRequest('PUT', `/contents/${encodeGitHubPath(filePath)}`, payload);
 
         if (status === 200) {
             return res.json({
@@ -222,7 +228,8 @@ router.get('/file', async (req, res) => {
     }
 
     try {
-        const apiPath           = `/contents/${filePath}${ref ? `?ref=${encodeURIComponent(ref)}` : ''}`;
+        const encodedPath       = encodeGitHubPath(filePath);
+        const apiPath           = `/contents/${encodedPath}${ref ? `?ref=${encodeURIComponent(ref)}` : ''}`;
         const { status, data }  = await githubApiRequest('GET', apiPath);
 
         if (status === 200) {
