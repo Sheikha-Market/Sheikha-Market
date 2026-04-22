@@ -22,6 +22,15 @@ try {
     console.warn('⚠️ [SHEIKHA-CODE] فشل تحميل الشبكة العصبية:', e.message);
 }
 
+// ─── تحميل المحرك البصري ──────────────────────────────────────────────────────
+let visualEngine = null;
+try {
+    const { getEngine } = require('../lib/sheikha-visual-generation-engine');
+    visualEngine = getEngine();
+} catch (e) {
+    console.warn('⚠️ [SHEIKHA-CODE] فشل تحميل المحرك البصري:', e.message);
+}
+
 const DATA_DIR    = path.join(__dirname, '../data');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
 const SUPPLY_FILE = path.join(DATA_DIR, 'supply.json');
@@ -140,6 +149,75 @@ const COMMAND_INTENTS = [
                 currentMode:  status.runtime.currentMode,
                 executionsCount: status.runtime.executionsCount
             };
+        }
+    },
+    // ─── أوامر المحرك البصري — صور وفيديو ─────────────────────────────────────
+    {
+        patterns: [
+            /أنشئ\s*صورة/i, /اصنع\s*صورة/i, /ولّد\s*صورة/i, /generate\s*image/i,
+            /create\s*image/i, /صورة\s*هوية/i, /تصميم\s*صورة/i
+        ],
+        action:   'generate_image',
+        parsed:   ['generate_visual'],
+        target:   'visual_engine',
+        endpoint: '/api/visual/generate',
+        method:   'POST',
+        description: 'توليد صورة بصرية عبر محرك شيخة البصري',
+        execute(_nn, params) {
+            if (!visualEngine) return { error: 'المحرك البصري غير متوفر' };
+            const prompt = (params && params.prompt) || 'هوية تقنية متقدمة لسوق شيخة';
+            const job = visualEngine.generate(prompt, 'image', params || {});
+            return { jobId: job.id, status: job.status, asset: job.asset };
+        }
+    },
+    {
+        patterns: [
+            /أنشئ\s*فيديو/i, /اصنع\s*فيديو/i, /ولّد\s*فيديو/i, /generate\s*video/i,
+            /create\s*video/i, /فيديو\s*ترويجي/i, /فيديو\s*مقدمة/i
+        ],
+        action:   'generate_video',
+        parsed:   ['generate_visual'],
+        target:   'visual_engine',
+        endpoint: '/api/visual/generate',
+        method:   'POST',
+        description: 'توليد فيديو عبر محرك شيخة البصري',
+        execute(_nn, params) {
+            if (!visualEngine) return { error: 'المحرك البصري غير متوفر' };
+            const prompt = (params && params.prompt) || 'فيديو ترويجي لسوق شيخة';
+            const job = visualEngine.generate(prompt, 'video', params || {});
+            return { jobId: job.id, status: job.status, asset: job.asset };
+        }
+    },
+    {
+        patterns: [
+            /تصميم\s*شعار/i, /أنشئ\s*شعار/i, /logo\s*design/i, /create\s*logo/i
+        ],
+        action:   'generate_logo',
+        parsed:   ['generate_visual'],
+        target:   'visual_engine',
+        endpoint: '/api/visual/generate',
+        method:   'POST',
+        description: 'تصميم شعار عبر محرك شيخة البصري',
+        execute(_nn, params) {
+            if (!visualEngine) return { error: 'المحرك البصري غير متوفر' };
+            const prompt = (params && params.prompt) || 'شعار شيخة — ذهبي وداكن';
+            const job = visualEngine.generate(prompt, 'image', params || {});
+            return { jobId: job.id, status: job.status, asset: job.asset };
+        }
+    },
+    {
+        patterns: [
+            /حالة\s*المحرك\s*البصري/i, /visual\s*engine\s*status/i, /حالة\s*الصور/i
+        ],
+        action:   'visual_engine_status',
+        parsed:   ['show_visual_engine_status'],
+        target:   'visual_engine',
+        endpoint: '/api/visual/health',
+        method:   'GET',
+        description: 'عرض حالة محرك شيخة البصري',
+        execute() {
+            if (!visualEngine) return { error: 'المحرك البصري غير متوفر' };
+            return visualEngine.health();
         }
     }
 ];

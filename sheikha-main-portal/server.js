@@ -36481,6 +36481,25 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🎨  VISUAL GENERATION ENGINE — محرك شيخة البصري (صور + فيديو)
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const visualRoutes = require('./routes/visual.routes');
+    app.use('/api/visual', visualRoutes);
+    console.log('✅ [VISUAL] محرك شيخة البصري — مُفعَّل على /api/visual');
+    console.log('   ├─ GET  /api/visual/health          — صحة المحرك');
+    console.log('   ├─ GET  /api/visual/catalog         — كتالوج المحولات والنوايا');
+    console.log('   ├─ GET  /api/visual/jobs            — قائمة المهام');
+    console.log('   ├─ GET  /api/visual/library         — مكتبة الأصول المولّدة');
+    console.log('   ├─ POST /api/visual/plan            — تخطيط بدون تنفيذ');
+    console.log('   ├─ POST /api/visual/job             — إنشاء مهمة');
+    console.log('   ├─ POST /api/visual/generate        — تخطيط + تنفيذ فوري');
+    console.log('   └─ POST /api/visual/analyze         — تحليل prompt بدون توليد');
+} catch (e) {
+    console.warn('⚠️ [VISUAL] فشل تحميل محرك الصور والفيديو:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // ⚙️  EXECUTION ORCHESTRATOR — منفذ القرارات والإنتاج
 // ═══════════════════════════════════════════════════════════════════════════════
 try {
