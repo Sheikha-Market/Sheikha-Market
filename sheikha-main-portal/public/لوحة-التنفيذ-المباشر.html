@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التنفيذ المباشر | SHEIKHA</title>
+    <meta name="description" content="واجهة تنفيذ مباشرة — أوامر شيخة + استعراض ملفات GitHub + حالة الأوركسترا لحظيًا">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════════════════════
+           بسم الله الرحمن الرحيم
+           لوحة التنفيذ المباشر — شيخة
+           ═══════════════════════════════════════════════════════════════ */
+        :root {
+            --bg:     #050810;
+            --bg2:    #0c1020;
+            --panel:  #0d1321;
+            --panel2: #121a2b;
+            --gold:   #d4af37;
+            --copper: #b87333;
+            --text:   #f4f4f5;
+            --muted:  #a1a1aa;
+            --ok:     #10b981;
+            --warn:   #f59e0b;
+            --err:    #ef4444;
+            --blue:   #60a5fa;
+            --border: rgba(212,175,55,0.15);
+            --border2: rgba(212,175,55,0.25);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: radial-gradient(circle at top, #11182b 0%, var(--bg) 55%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        /* ─── Top bar ─────────────────────────────────────────────────── */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 13px 22px;
+            background: rgba(13,19,33,0.95);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .brand {
+            font-size: 1.05rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), #f8e39a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            white-space: nowrap;
+        }
+        .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 5px 10px;
+            transition: border-color .2s, color .2s;
+        }
+        .nav-links a:hover { color: var(--gold); border-color: var(--border2); }
+
+        /* ─── Main layout ─────────────────────────────────────────────── */
+        .wrap { max-width: 1340px; margin: 0 auto; padding: 22px; }
+        .hero {
+            background: linear-gradient(140deg, rgba(212,175,55,0.1), rgba(17,24,39,0.8));
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px 26px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .hero h1 { font-size: clamp(1.3rem, 3.5vw, 1.8rem); margin-bottom: 6px; }
+        .hero p { color: var(--muted); font-size: 0.9rem; max-width: 680px; }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } }
+
+        /* ─── Panel card ──────────────────────────────────────────────── */
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .panel-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .panel-title .icon { font-size: 1.1rem; }
+
+        /* ─── Command execution ───────────────────────────────────────── */
+        .cmd-area {
+            width: 100%;
+            min-height: 88px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 10px;
+            padding: 10px 12px;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            resize: vertical;
+            direction: rtl;
+        }
+        .cmd-area:focus { outline: none; border-color: var(--gold); }
+        .cmd-area::placeholder { color: var(--muted); }
+
+        .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: none;
+            border-radius: 10px;
+            padding: 9px 18px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity .15s, transform .1s;
+        }
+        .btn:active { transform: scale(.97); }
+        .btn:disabled { opacity: .45; cursor: default; }
+        .btn-gold   { background: var(--gold); color: #050810; }
+        .btn-outline { background: transparent; border: 1px solid var(--border2); color: var(--gold); }
+        .btn-blue   { background: rgba(96,165,250,0.15); border: 1px solid rgba(96,165,250,0.3); color: var(--blue); }
+        .btn-sm     { padding: 6px 12px; font-size: 0.8rem; }
+
+        .quick-cmds {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .quick-chip {
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-size: 0.76rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: border-color .15s, color .15s;
+            background: none;
+            font-family: 'Tajawal', sans-serif;
+        }
+        .quick-chip:hover { border-color: var(--gold); color: var(--gold); }
+
+        .result-box {
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.6;
+            min-height: 80px;
+            max-height: 220px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: var(--muted);
+            direction: ltr;
+        }
+        .result-box.success { border-color: rgba(16,185,129,0.3); color: var(--ok); }
+        .result-box.error   { border-color: rgba(239,68,68,0.3);  color: var(--err); }
+
+        /* ─── Orchestrator status ─────────────────────────────────────── */
+        .orch-mode {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 12px;
+            padding: 6px 14px;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+        .mode-normal   { background: rgba(16,185,129,0.12); color: var(--ok); border: 1px solid rgba(16,185,129,0.25); }
+        .mode-critical { background: rgba(239,68,68,0.12);  color: var(--err); border: 1px solid rgba(239,68,68,0.25); }
+        .mode-unknown  { background: rgba(161,161,170,0.1); color: var(--muted); border: 1px solid rgba(255,255,255,0.1); }
+
+        .pulse {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.6s ease-in-out infinite;
+        }
+        .pulse-green { background: var(--ok); box-shadow: 0 0 0 0 rgba(16,185,129,0.6); }
+        .pulse-red   { background: var(--err); box-shadow: 0 0 0 0 rgba(239,68,68,0.6); }
+        .pulse-gray  { background: var(--muted); animation: none; }
+        @keyframes pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.6); }
+            70%  { box-shadow: 0 0 0 7px rgba(16,185,129,0); }
+            100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+        }
+
+        .orch-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .orch-stat {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+        .orch-stat .v { font-size: 1.3rem; font-weight: 900; color: var(--gold); }
+        .orch-stat .k { color: var(--muted); font-size: 0.74rem; }
+
+        .actions-list {
+            max-height: 120px;
+            overflow-y: auto;
+        }
+        .action-item {
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 6px 10px;
+            margin-bottom: 5px;
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-family: 'JetBrains Mono', monospace;
+            direction: ltr;
+        }
+        .empty-msg { color: var(--muted); font-size: 0.8rem; text-align: center; padding: 10px 0; }
+
+        .refresh-info {
+            font-size: 0.73rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* ─── File browser ────────────────────────────────────────────── */
+        .file-input-row {
+            display: flex;
+            gap: 8px;
+        }
+        .file-input {
+            flex: 1;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 10px;
+            padding: 9px 12px;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            direction: ltr;
+        }
+        .file-input:focus { outline: none; border-color: var(--gold); }
+        .file-input::placeholder { color: var(--muted); }
+
+        .file-meta {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.75rem;
+            color: var(--muted);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .file-meta span { color: var(--text); }
+
+        .file-content {
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.77rem;
+            line-height: 1.65;
+            max-height: 260px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #b0bec5;
+            direction: ltr;
+        }
+
+        .quick-files {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .quick-file-chip {
+            border: 1px solid rgba(96,165,250,0.2);
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-size: 0.74rem;
+            color: #7ab8f5;
+            cursor: pointer;
+            transition: border-color .15s, color .15s;
+            background: none;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .quick-file-chip:hover { border-color: var(--blue); color: var(--blue); }
+
+        /* ─── Status bar ──────────────────────────────────────────────── */
+        .status-bar {
+            background: rgba(13,19,33,0.9);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+        .status-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 5px;
+        }
+        .dot-ok  { background: var(--ok); }
+        .dot-err { background: var(--err); }
+        .dot-na  { background: var(--muted); }
+
+        /* ─── Footer ──────────────────────────────────────────────────── */
+        .footer {
+            margin-top: 24px;
+            padding: 14px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            color: var(--muted);
+            font-size: 0.78rem;
+            text-align: center;
+        }
+
+        /* ─── Spinner ─────────────────────────────────────────────────── */
+        .spinner {
+            display: inline-block;
+            width: 14px; height: 14px;
+            border: 2px solid rgba(212,175,55,0.2);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<!-- Top bar -->
+<nav class="topbar" aria-label="شريط التنقل">
+    <div class="brand">⚙️ SHEIKHA | لوحة التنفيذ المباشر</div>
+    <div class="nav-links">
+        <a href="/encoding">التنفيذ المباشر</a>
+        <a href="/dashboard-neural">لوحة العصبية</a>
+        <a href="/future">المستقبل</a>
+        <a href="/logo-tech">التقنية</a>
+        <a href="/لوحة-تكامل-شيخة-الموحدة.html">التكامل الموحد</a>
+    </div>
+</nav>
+
+<div class="wrap">
+
+    <!-- Hero -->
+    <section class="hero" aria-label="مقدمة">
+        <div>
+            <h1>🚀 لوحة التنفيذ المباشر — <span style="color:var(--gold)">Sheikha</span></h1>
+            <p>تنفيذ أوامر شيخة + استعراض ملفات GitHub + حالة الأوركسترا لحظيًا — في شاشة واحدة.</p>
+        </div>
+        <div id="hero-mode" style="align-self:center;"></div>
+    </section>
+
+    <!-- Status bar -->
+    <div class="status-bar" aria-live="polite" id="status-bar">
+        <div>
+            <span class="status-dot dot-na" id="api-cmd-dot"></span>API أوامر شيخة
+            <span class="status-dot dot-na" id="api-orch-dot" style="margin-right:12px"></span>Orchestrator
+            <span class="status-dot dot-na" id="api-git-dot"  style="margin-right:12px"></span>Git API
+        </div>
+        <div id="last-refresh">—</div>
+    </div>
+
+    <!-- Main 2-column grid -->
+    <div class="main-grid">
+
+        <!-- ─── Panel 1: Command Execution ─────────────────────────── -->
+        <section class="panel" aria-label="تنفيذ أوامر شيخة">
+            <div class="panel-title">
+                <span class="icon">🖥️</span> تنفيذ أوامر شيخة
+            </div>
+
+            <div>
+                <label for="cmd-input" style="font-size:0.8rem;color:var(--muted);display:block;margin-bottom:6px;">أدخل الأمر بالعربية أو الإنجليزية:</label>
+                <textarea id="cmd-input" class="cmd-area" placeholder="مثال: اعرض حالة النظام&#10;أو: activate pm4&#10;أو: شغّل التنفيذ التلقائي"></textarea>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-gold" id="btn-execute" onclick="executeCommand()">
+                    ▶ تنفيذ الأمر
+                </button>
+                <button class="btn btn-outline btn-sm" onclick="clearCmd()">مسح</button>
+            </div>
+
+            <div>
+                <div style="font-size:0.76rem;color:var(--muted);margin-bottom:6px;">أوامر سريعة:</div>
+                <div class="quick-cmds">
+                    <button class="quick-chip" onclick="setCmd('اعرض حالة النظام')">حالة النظام</button>
+                    <button class="quick-chip" onclick="setCmd('فعّل pm4')">تفعيل PM4</button>
+                    <button class="quick-chip" onclick="setCmd('شغّل التنفيذ التلقائي')">تنفيذ تلقائي</button>
+                    <button class="quick-chip" onclick="setCmd('أنشئ ملف')">إنشاء ملف</button>
+                    <button class="quick-chip" onclick="setCmd('show system status')">show status</button>
+                    <button class="quick-chip" onclick="setCmd('git sync')">git sync</button>
+                </div>
+            </div>
+
+            <div>
+                <div style="font-size:0.76rem;color:var(--muted);margin-bottom:5px;">النتيجة:</div>
+                <div class="result-box" id="cmd-result" aria-live="polite">—</div>
+            </div>
+        </section>
+
+        <!-- ─── Panel 2: Orchestrator Status ──────────────────────── -->
+        <section class="panel" aria-label="حالة الأوركسترا">
+            <div class="panel-title">
+                <span class="icon">⚙️</span> حالة الأوركسترا — لحظيًا
+                <span id="orch-spinner" style="margin-right:auto;display:none"><span class="spinner"></span></span>
+            </div>
+
+            <div id="orch-mode-badge">
+                <span class="orch-mode mode-unknown">
+                    <span class="pulse pulse-gray"></span>
+                    جاري التحميل…
+                </span>
+            </div>
+
+            <div class="orch-stats" id="orch-stats">
+                <div class="orch-stat"><div class="v">—</div><div class="k">الوضع الحالي</div></div>
+                <div class="orch-stat"><div class="v">—</div><div class="k">الإجراءات النشطة</div></div>
+                <div class="orch-stat"><div class="v">—</div><div class="k">الطلبات</div></div>
+                <div class="orch-stat"><div class="v">—</div><div class="k">العرض</div></div>
+            </div>
+
+            <div>
+                <div style="font-size:0.76rem;color:var(--muted);margin-bottom:5px;">الإجراءات النشطة:</div>
+                <div class="actions-list" id="active-actions">
+                    <div class="empty-msg">جاري التحميل…</div>
+                </div>
+            </div>
+
+            <div class="refresh-info">
+                <span>يتجدد تلقائيًا كل 5 ثوانٍ</span>
+                <button class="btn btn-outline btn-sm" onclick="loadOrchestratorState()">تحديث الآن</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ─── Panel 3: GitHub File Browser (full width) ─────────────────── -->
+    <section class="panel" aria-label="استعراض ملفات GitHub" style="margin-bottom:16px;">
+        <div class="panel-title">
+            <span class="icon">📂</span> استعراض ملفات GitHub
+        </div>
+
+        <div class="file-input-row">
+            <input type="text" id="file-path" class="file-input" placeholder="أدخل مسار الملف — مثال: README.md أو server.js أو src/index.js" value="README.md">
+            <button class="btn btn-blue" onclick="fetchFile()">📥 استعراض</button>
+        </div>
+
+        <div>
+            <div style="font-size:0.76rem;color:var(--muted);margin-bottom:6px;">ملفات سريعة:</div>
+            <div class="quick-files">
+                <button class="quick-file-chip" onclick="setFile('README.md')">README.md</button>
+                <button class="quick-file-chip" onclick="setFile('package.json')">package.json</button>
+                <button class="quick-file-chip" onclick="setFile('server.js')">server.js</button>
+                <button class="quick-file-chip" onclick="setFile('CHARTER.md')">CHARTER.md</button>
+                <button class="quick-file-chip" onclick="setFile('docker-compose.yml')">docker-compose.yml</button>
+                <button class="quick-file-chip" onclick="setFile('.env.example')">.env.example</button>
+                <button class="quick-file-chip" onclick="setFile('nginx.conf')">nginx.conf</button>
+                <button class="quick-file-chip" onclick="setFile('Dockerfile')">Dockerfile</button>
+            </div>
+        </div>
+
+        <div id="file-meta-box" class="file-meta" style="display:none">
+            المسار: <span id="fmeta-path">—</span>
+            الحجم: <span id="fmeta-size">—</span>
+            SHA: <span id="fmeta-sha" style="font-family:'JetBrains Mono',monospace;font-size:0.72rem">—</span>
+            <a id="fmeta-url" href="#" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-size:0.74rem">فتح في GitHub ↗</a>
+        </div>
+
+        <div>
+            <div style="font-size:0.76rem;color:var(--muted);margin-bottom:5px;">محتوى الملف:</div>
+            <div class="file-content" id="file-content" aria-live="polite">اختر ملفًا للاستعراض…</div>
+        </div>
+    </section>
+
+</div>
+
+<footer class="footer">© 2026 SHEIKHA — لوحة التنفيذ المباشر | Sheikha Codex Neural Engine</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   لوحة التنفيذ المباشر — JavaScript
+   ═══════════════════════════════════════════════════════════════ */
+
+// ─── Command execution ────────────────────────────────────────────────────────
+function setCmd(txt) {
+    document.getElementById('cmd-input').value = txt;
+}
+
+function clearCmd() {
+    document.getElementById('cmd-input').value = '';
+    const r = document.getElementById('cmd-result');
+    r.textContent = '—';
+    r.className = 'result-box';
+}
+
+async function executeCommand() {
+    const input = document.getElementById('cmd-input').value.trim();
+    if (!input) return;
+
+    const btn = document.getElementById('btn-execute');
+    const resultBox = document.getElementById('cmd-result');
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> جاري التنفيذ…';
+    resultBox.className = 'result-box';
+    resultBox.textContent = 'جاري الإرسال…';
+
+    try {
+        const res = await fetch('/api/sheikha-code/command', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ command: input })
+        });
+
+        const data = await res.json();
+        setApiDot('api-cmd-dot', res.ok);
+
+        if (data.ok || data.success) {
+            resultBox.className = 'result-box success';
+        } else {
+            resultBox.className = 'result-box error';
+        }
+
+        resultBox.textContent = JSON.stringify(data, null, 2);
+    } catch (err) {
+        resultBox.className = 'result-box error';
+        resultBox.textContent = 'خطأ في الاتصال: ' + err.message;
+        setApiDot('api-cmd-dot', false);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '▶ تنفيذ الأمر';
+    }
+}
+
+// Allow Ctrl+Enter to submit
+document.getElementById('cmd-input').addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') executeCommand();
+});
+
+// ─── Orchestrator status ──────────────────────────────────────────────────────
+async function loadOrchestratorState() {
+    const spinner = document.getElementById('orch-spinner');
+    spinner.style.display = 'inline';
+
+    try {
+        const res  = await fetch('/api/execution-orchestrator/state');
+        const data = await res.json();
+
+        setApiDot('api-orch-dot', res.ok);
+
+        const isNormal   = (data.currentMode || '').includes('NORMAL');
+        const isCritical = (data.currentMode || '').includes('CRITICAL') || (data.currentMode || '').includes('EMERGENCY');
+
+        // Mode badge
+        let modeClass = 'mode-unknown', pulseClass = 'pulse-gray';
+        if (isNormal)   { modeClass = 'mode-normal';   pulseClass = 'pulse-green'; }
+        if (isCritical) { modeClass = 'mode-critical';  pulseClass = 'pulse-red'; }
+
+        document.getElementById('orch-mode-badge').innerHTML = `
+            <span class="orch-mode ${modeClass}">
+                <span class="pulse ${pulseClass}"></span>
+                ${data.currentMode || 'UNKNOWN'}
+            </span>
+        `;
+
+        // Hero badge too
+        document.getElementById('hero-mode').innerHTML = `
+            <span class="orch-mode ${modeClass}" style="font-size:0.82rem;padding:5px 12px;">
+                <span class="pulse ${pulseClass}"></span>
+                ${data.currentMode || '—'}
+            </span>
+        `;
+
+        // Stats
+        const actions = data.activeActions || [];
+        const analysis = data.systemState || data.analysis || {};
+        document.getElementById('orch-stats').innerHTML = `
+            <div class="orch-stat"><div class="v">${data.currentMode || '—'}</div><div class="k">الوضع الحالي</div></div>
+            <div class="orch-stat"><div class="v">${actions.length}</div><div class="k">الإجراءات النشطة</div></div>
+            <div class="orch-stat"><div class="v">${analysis.orders ?? '—'}</div><div class="k">الطلبات</div></div>
+            <div class="orch-stat"><div class="v">${analysis.supply ?? '—'}</div><div class="k">العرض</div></div>
+        `;
+
+        // Active actions list
+        const actionsEl = document.getElementById('active-actions');
+        if (actions.length === 0) {
+            actionsEl.innerHTML = '<div class="empty-msg">لا توجد إجراءات نشطة حاليًا ✅</div>';
+        } else {
+            actionsEl.innerHTML = actions.map(a =>
+                `<div class="action-item">${typeof a === 'object' ? JSON.stringify(a) : a}</div>`
+            ).join('');
+        }
+
+    } catch (err) {
+        setApiDot('api-orch-dot', false);
+        document.getElementById('orch-mode-badge').innerHTML = `
+            <span class="orch-mode mode-unknown">
+                <span class="pulse pulse-gray"></span>
+                خطأ في الاتصال
+            </span>
+        `;
+    } finally {
+        spinner.style.display = 'none';
+        document.getElementById('last-refresh').textContent =
+            'آخر تحديث: ' + new Date().toLocaleTimeString('ar-SA');
+    }
+}
+
+// Auto-refresh every 5 seconds — pause when tab is hidden
+let _orchInterval = setInterval(loadOrchestratorState, 5000);
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        clearInterval(_orchInterval);
+    } else {
+        loadOrchestratorState();
+        _orchInterval = setInterval(loadOrchestratorState, 5000);
+    }
+});
+
+// ─── File browser ─────────────────────────────────────────────────────────────
+function setFile(p) {
+    document.getElementById('file-path').value = p;
+}
+
+async function fetchFile() {
+    const filePath = document.getElementById('file-path').value.trim();
+    if (!filePath) return;
+
+    const contentEl = document.getElementById('file-content');
+    const metaBox   = document.getElementById('file-meta-box');
+
+    contentEl.textContent = 'جاري التحميل…';
+    metaBox.style.display = 'none';
+
+    try {
+        const res  = await fetch('/api/git/file?path=' + encodeURIComponent(filePath));
+        const data = await res.json();
+
+        setApiDot('api-git-dot', res.ok && data.success);
+
+        if (!data.success) {
+            contentEl.textContent = 'خطأ: ' + (data.error || 'فشل استرجاع الملف');
+            return;
+        }
+
+        // Meta
+        document.getElementById('fmeta-path').textContent = data.path || filePath;
+        document.getElementById('fmeta-size').textContent = formatBytes(data.size || 0);
+        document.getElementById('fmeta-sha').textContent  = (data.sha || '—').slice(0, 10);
+        const urlEl = document.getElementById('fmeta-url');
+        urlEl.href = data.html_url || '#';
+        urlEl.style.display = data.html_url ? '' : 'none';
+        metaBox.style.display = 'flex';
+
+        contentEl.textContent = data.content || '(ملف فارغ)';
+
+    } catch (err) {
+        setApiDot('api-git-dot', false);
+        contentEl.textContent = 'خطأ في الاتصال: ' + err.message;
+    }
+}
+
+// Allow Enter in file input to fetch
+document.getElementById('file-path').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') fetchFile();
+});
+
+// ─── Utility helpers ──────────────────────────────────────────────────────────
+function setApiDot(id, ok) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.className = 'status-dot ' + (ok ? 'dot-ok' : 'dot-err');
+}
+
+function formatBytes(bytes) {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+(function init() {
+    loadOrchestratorState();
+})();
+</script>
+</body>
+</html>
