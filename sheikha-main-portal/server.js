@@ -36465,6 +36465,34 @@ try {
     console.warn('⚠️ [DASHBOARD] فشل تحميل مسارات لوحة التحكم:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🖥️  SHEIKHA CODING LANGUAGE — لغة شيخة للترميز
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const sheikhaCodeRoutes = require('./routes/sheikha-coding-language.routes');
+    app.use('/api/sheikha-code', sheikhaCodeRoutes);
+    console.log('✅ [SHEIKHA-CODE] لغة شيخة للترميز — مُفعَّلة على /api/sheikha-code');
+    console.log('   ├─ POST /api/sheikha-code/command  — تنفيذ أمر بلغة شيخة');
+    console.log('   ├─ POST /api/sheikha-code/parse    — تحليل أمر فقط');
+    console.log('   └─ GET  /api/sheikha-code/commands — قائمة الأوامر المدعومة');
+} catch (e) {
+    console.warn('⚠️ [SHEIKHA-CODE] فشل تحميل مسارات لغة شيخة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚙️  EXECUTION ORCHESTRATOR — منفذ القرارات والإنتاج
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const executionOrchestratorRoutes = require('./routes/execution-orchestrator.routes');
+    app.use('/api/execution-orchestrator', executionOrchestratorRoutes);
+    console.log('✅ [ORCHESTRATOR] منفذ القرارات — مُفعَّل على /api/execution-orchestrator');
+    console.log('   ├─ GET  /api/execution-orchestrator/state    — حالة الأوركسترا');
+    console.log('   ├─ POST /api/execution-orchestrator/auto     — تشغيل التنفيذ التلقائي');
+    console.log('   └─ POST /api/execution-orchestrator/activate — تفعيل وحدة');
+} catch (e) {
+    console.warn('⚠️ [ORCHESTRATOR] فشل تحميل مسارات الأوركسترا:', e.message);
+}
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
