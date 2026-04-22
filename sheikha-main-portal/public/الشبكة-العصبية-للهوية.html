@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>شيخة — الحليم | SHEIKHA · AL-HALEEM</title>
+<meta name="description" content="شيخة — هوية الحليم. تصميم صبور، دافئ، رزين. أول سوق إسلامي رقمي عالمي للمعادن.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="سلمان أحمد بن سلمان الراجح">
+<meta name="copyright" content="© 2026 سلمان أحمد بن سلمان الراجح — جميع الحقوق محفوظة">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#C9A84C">
+<link rel="canonical" href="https://sheikha.top/الشبكة-العصبية-للهوية.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="شيخة — هوية الحليم">
+<meta property="og:description" content="أول سوق إسلامي رقمي عالمي للمعادن — هوية الحليم — صبور، دافئ، رزين">
+<meta property="og:url" content="https://sheikha.top/الشبكة-العصبية-للهوية.html">
+<meta property="og:site_name" content="SHEIKHA">
+<meta property="og:image" content="https://sheikha.top/images/og-sheikha.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@sheikha_market">
+<meta name="twitter:title" content="شيخة — هوية الحليم">
+<meta name="twitter:image" content="https://sheikha.top/images/og-sheikha.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- هوية الحليم -->
+<link rel="stylesheet" href="/css/sheikha-haleem.css">
+
+<style>
+/* ─────────────────────────────────────────────────
+   RESET + BASE
+   ───────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--h-void);
+  color: var(--h-t1);
+  overflow-x: hidden;
+  line-height: var(--h-lh);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { text-decoration: none; color: inherit; }
+
+/* ─────────────────────────────────────────────────
+   CANVAS — شبكة الحليم (أبطأ، أهدأ)
+   ───────────────────────────────────────────────── */
+#haleemCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45; /* أقل من السابق — لا يشتّت */
+}
+
+/* ─────────────────────────────────────────────────
+   HERO — الحليم لا يصرخ
+   ───────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 9rem 2rem 7rem;
+  overflow: hidden;
+}
+
+/* الضوء الدافئ خلف الكلمة */
+.hero-warm-light {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 700px; height: 500px;
+  transform: translate(-50%, -52%);
+  background: radial-gradient(ellipse,
+    rgba(201,168,76,0.045) 0%,
+    rgba(139,108,26,0.02) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: h-breathe var(--h-dur-breathe) var(--h-ease) infinite alternate;
+}
+
+/* باسمله صغيرة في الأعلى */
+.hero-bismillah {
+  font-family: 'Amiri', serif;
+  font-size: 0.9rem;
+  color: var(--h-t4);
+  letter-spacing: 0.08em;
+  margin-bottom: 2.5rem;
+  animation: h-rise var(--h-dur-slow) var(--h-ease) 0.2s both;
+}
+
+/* اسم الصفة */
+.hero-attr {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--h-gold);
+  margin-bottom: 2rem;
+  animation: h-rise var(--h-dur-slow) var(--h-ease) 0.4s both;
+}
+
+/* الاسم العظيم */
+.hero-name {
+  font-size: clamp(5.5rem, 18vw, 15rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  background: linear-gradient(160deg,
+    var(--h-gold-d)  0%,
+    var(--h-gold)   42%,
+    var(--h-gold-l) 58%,
+    var(--h-gold)   78%,
+    var(--h-gold-d) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation:
+    h-rise var(--h-dur-slow) var(--h-ease) 0.5s both,
+    h-gold-breathe var(--h-dur-breathe) var(--h-ease) infinite alternate;
+  position: relative;
+  z-index: 1;
+}
+
+/* الاسم اللاتيني */
+.hero-latin {
+  font-size: clamp(0.65rem, 1.8vw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--h-t4);
+  margin-top: 1rem;
+  animation: h-rise var(--h-dur-slow) var(--h-ease) 0.65s both;
+}
+
+/* الخط الفاصل */
+.hero-divider {
+  width: 0;
+  height: 1px;
+  background: var(--h-gold);
+  opacity: 0.3;
+  margin: 3rem auto;
+  animation: h-widen var(--h-dur-slow) var(--h-ease) 0.85s both;
+}
+
+/* الجملة المحورية */
+.hero-verse {
+  font-family: 'Amiri', serif;
+  font-size: clamp(1rem, 2.8vw, 1.45rem);
+  color: var(--h-t2);
+  line-height: var(--h-lh-verse);
+  max-width: 580px;
+  animation: h-rise var(--h-dur-slow) var(--h-ease) 1s both;
+}
+.hero-verse strong { color: var(--h-gold); font-style: normal; font-weight: 700; }
+
+/* الأزرار */
+.hero-btns {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 3.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: h-rise var(--h-dur-slow) var(--h-ease) 1.2s both;
+}
+
+/* إشارة التمرير */
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--h-t4);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  animation: h-rise var(--h-dur-slow) var(--h-ease) 1.8s both;
+}
+.scroll-thread {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, transparent, var(--h-gold));
+  animation: h-drip 2.5s ease-in-out 2.5s infinite;
+}
+
+/* ─────────────────────────────────────────────────
+   MANIFESTO — البيان الهادئ
+   ───────────────────────────────────────────────── */
+.manifesto {
+  position: relative;
+  z-index: 1;
+  padding: 10rem 2rem;
+  background: linear-gradient(180deg,
+    var(--h-void) 0%,
+    var(--h-deep) 50%,
+    var(--h-void) 100%
+  );
+}
+.manifesto::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 2.5rem;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent,
+    rgba(201,168,76,0.1),
+    transparent
+  );
+}
+.manifesto-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.manifesto-label {
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--h-gold);
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.manifesto-label::after {
+  content: '';
+  width: 60px;
+  height: 1px;
+  background: var(--h-line);
+}
+
+.manifesto-text {
+  font-size: clamp(1.8rem, 4.5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  color: var(--h-t1);
+}
+.manifesto-text .gold { color: var(--h-gold); }
+.manifesto-text .dim  { color: var(--h-t4); font-weight: 300; }
+
+.manifesto-sub {
+  margin-top: 3.5rem;
+  max-width: 540px;
+  font-family: 'Amiri', serif;
+  font-size: 1.05rem;
+  color: var(--h-t3);
+  line-height: var(--h-lh-verse);
+}
+
+/* ─────────────────────────────────────────────────
+   NAME MEANING — معنى اسم الله الحليم
+   ───────────────────────────────────────────────── */
+.haleem-meaning {
+  position: relative;
+  z-index: 1;
+  padding: 8rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.meaning-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 0 4rem;
+  align-items: start;
+  margin-top: 4rem;
+}
+
+.meaning-divider-v {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--h-border), transparent);
+  justify-self: center;
+}
+
+.meaning-block {}
+.meaning-num {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--h-t4);
+  margin-bottom: 1.2rem;
+}
+.meaning-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--h-gold);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+.meaning-text {
+  font-size: 0.9rem;
+  color: var(--h-t3);
+  line-height: 2;
+}
+.meaning-verse {
+  margin-top: 1.5rem;
+  font-family: 'Amiri', serif;
+  font-size: 0.88rem;
+  color: var(--h-t4);
+  line-height: var(--h-lh-verse);
+  border-right: 2px solid var(--h-border);
+  padding-right: 1rem;
+}
+
+/* ─────────────────────────────────────────────────
+   COLORS — ألوان الحليم
+   ───────────────────────────────────────────────── */
+.colors {
+  position: relative;
+  z-index: 1;
+}
+.colors-header {
+  padding: 6rem 2rem 4rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ─────────────────────────────────────────────────
+   PILLARS — الأعمدة الستة
+   ───────────────────────────────────────────────── */
+.pillars {
+  position: relative;
+  z-index: 1;
+  padding: 8rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.pillars-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: 5rem;
+}
+.pillars-title {
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  color: var(--h-t1);
+}
+.pillars-title .gold { color: var(--h-gold); }
+.pillars-desc {
+  font-size: 0.94rem;
+  color: var(--h-t3);
+  line-height: 2;
+}
+
+/* ─────────────────────────────────────────────────
+   NUMBERS
+   ───────────────────────────────────────────────── */
+.numbers {
+  position: relative;
+  z-index: 1;
+  background: var(--h-deep);
+  border-top: 1px solid var(--h-line);
+  border-bottom: 1px solid var(--h-line);
+  padding: 6rem 2rem;
+  overflow: hidden;
+}
+.numbers::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 70% at 50% 50%,
+    rgba(201,168,76,0.02) 0%, transparent 70%
+  );
+  pointer-events: none;
+}
+.numbers-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.stat {
+  padding: 2.5rem 2rem;
+  border-left: 1px solid var(--h-line);
+  transition: background var(--h-dur) var(--h-ease);
+}
+.stat:first-child { border-left: none; }
+.stat:hover { background: rgba(201,168,76,0.018); }
+
+/* ─────────────────────────────────────────────────
+   FINAL CTA
+   ───────────────────────────────────────────────── */
+.final-cta {
+  position: relative;
+  z-index: 1;
+  padding: 12rem 2rem;
+  text-align: center;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(201,168,76,0.03) 0%, transparent 70%
+  );
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  animation: h-breathe 6s ease-in-out infinite;
+}
+.cta-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.cta-title {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--h-t1);
+  margin-bottom: 1.5rem;
+}
+.cta-title .gold { color: var(--h-gold); }
+.cta-sub {
+  font-family: 'Amiri', serif;
+  font-size: 1rem;
+  color: var(--h-t3);
+  line-height: var(--h-lh-verse);
+  margin-bottom: 3.5rem;
+}
+.cta-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ─────────────────────────────────────────────────
+   RESPONSIVE
+   ───────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .numbers-inner { grid-template-columns: 1fr 1fr; }
+  .numbers-inner .stat:nth-child(2) { border-left: 1px solid var(--h-line); }
+  .numbers-inner .stat:nth-child(3) { border-left: none; }
+  .pillars-header { grid-template-columns: 1fr; gap: 2rem; }
+  .meaning-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .meaning-divider-v { display: none; }
+}
+@media (max-width: 480px) {
+  .numbers-inner { grid-template-columns: 1fr; }
+  .stat { border-left: none; border-top: 1px solid var(--h-line); }
+  .stat:first-child { border-top: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════
+     CANVAS
+     ══════════════════════ -->
+<canvas id="haleemCanvas" aria-hidden="true"></canvas>
+
+<!-- شريط التقدم -->
+<div id="readProg" style="
+  position:fixed;top:0;left:0;height:2px;
+  background:linear-gradient(90deg,#8B6C1A,#C9A84C,#E2C97E);
+  z-index:200;width:0%;pointer-events:none;
+  transition:width .12s linear;
+" aria-hidden="true"></div>
+
+<!-- ══════════════════════
+     NAV
+     ══════════════════════ -->
+<nav class="h-nav" id="nav">
+  <div class="h-nav-logo">شيخة</div>
+  <ul class="h-nav-links">
+    <li><a href="/index.html"      class="h-nav-link">الرئيسية</a></li>
+    <li><a href="/سوق-شيخة.html"  class="h-nav-link">السوق</a></li>
+    <li><a href="/هوية-السوق.html" class="h-nav-link">القصة</a></li>
+    <li><a href="/الشريعة-الاسلامية.html" class="h-nav-link">الشريعة</a></li>
+  </ul>
+  <a href="/تسجيل-الدخول.html" class="h-btn h-btn-gold" style="padding:.55rem 1.3rem;font-size:.8rem">ابدأ التجارة</a>
+</nav>
+
+<!-- ══════════════════════
+     HERO
+     ══════════════════════ -->
+<section class="hero">
+  <div class="hero-warm-light" aria-hidden="true"></div>
+
+  <p class="hero-bismillah">بسم الله الرحمن الرحيم</p>
+
+  <p class="hero-attr">SHEIKHA · AL-HALEEM · الحليم</p>
+
+  <h1 class="hero-name">شيخة</h1>
+
+  <p class="hero-latin">Sheikha Market · Since 1445H</p>
+
+  <div class="hero-divider" aria-hidden="true"></div>
+
+  <p class="hero-verse" id="heroVerse">
+    من <strong>سوق المدينة المنورة</strong> الذي أسسه النبي ﷺ<br>
+    إلى أول سوق إسلامي رقمي عالمي للمعادن
+  </p>
+
+  <div class="hero-btns">
+    <a href="/سوق-شيخة.html"    class="h-btn h-btn-gold">استكشف السوق</a>
+    <a href="/هوية-السوق.html"  class="h-btn h-btn-outline">اقرأ القصة</a>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>اكتشف</span>
+    <div class="scroll-thread"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════
+     TICKER
+     ══════════════════════ -->
+<div class="h-ticker" aria-hidden="true">
+  <div class="h-ticker-track">
+    <span class="h-ticker-item"><b>الحليم</b> — الصابر الذي لا يعجل</span>
+    <span class="h-ticker-item"><b>الذهب</b> — نور الحقيقة والعدل</span>
+    <span class="h-ticker-item"><b>الأخضر</b> — روح الإسلام والنعيم</span>
+    <span class="h-ticker-item"><b>الفضة</b> — نقاء الصدق والطهارة</span>
+    <span class="h-ticker-item"><b>SMI</b> — أول مؤشر إسلامي للمعادن</span>
+    <span class="h-ticker-item"><b>١٠٠٪</b> امتثال شرعي مُعتمد</span>
+    <span class="h-ticker-item"><b>٥٧+</b> دولة إسلامية يصلها السوق</span>
+    <!-- تكرار -->
+    <span class="h-ticker-item"><b>الحليم</b> — الصابر الذي لا يعجل</span>
+    <span class="h-ticker-item"><b>الذهب</b> — نور الحقيقة والعدل</span>
+    <span class="h-ticker-item"><b>الأخضر</b> — روح الإسلام والنعيم</span>
+    <span class="h-ticker-item"><b>الفضة</b> — نقاء الصدق والطهارة</span>
+    <span class="h-ticker-item"><b>SMI</b> — أول مؤشر إسلامي للمعادن</span>
+    <span class="h-ticker-item"><b>١٠٠٪</b> امتثال شرعي مُعتمد</span>
+    <span class="h-ticker-item"><b>٥٧+</b> دولة إسلامية يصلها السوق</span>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     MANIFESTO
+     ══════════════════════ -->
+<section class="manifesto">
+  <div class="manifesto-inner">
+    <p class="manifesto-label h-sr">البيان</p>
+    <h2 class="manifesto-text h-sr h-sr-d1">
+      نحن لا نبيع <span class="gold">معادن</span>.<br>
+      <span class="dim">نحن نُرسّخ</span> قيماً.
+    </h2>
+    <p class="manifesto-sub h-sr h-sr-d2">
+      كل معاملة في شيخة تمر بمرشح ثلاثي: العدل في السعر، الصدق في الوصف، والبركة في النية.
+      وكالحليم الذي يُمهل ولا يُهمل — شيخة تتحقق ولا تتعجل.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════
+     HALEEM MEANING — معنى الحليم
+     ══════════════════════ -->
+<section class="haleem-meaning">
+  <div class="h-sr">
+    <p class="h-label">هوية الحليم</p>
+    <h2 class="h-title">
+      لماذا <span class="accent">الحليم</span>؟
+    </h2>
+  </div>
+
+  <div class="meaning-grid">
+
+    <div class="h-sr h-sr-d1">
+      <p class="meaning-num">المعنى الأول</p>
+      <h3 class="meaning-title">الحلم في التصميم</h3>
+      <p class="meaning-text">
+        الحليم في اللغة: من يصبر على الأذى ولا يعجل بالعقوبة.
+        في التصميم: لا مؤثرات مفاجئة، لا ألوان صارخة، لا حركات تُقلق.
+        كل عنصر يدخل بهدوء ويخرج بكرامة.
+      </p>
+      <blockquote class="meaning-verse">
+        «وَاللَّهُ غَفُورٌ حَلِيمٌ»<br>
+        <small>البقرة: 225</small>
+      </blockquote>
+    </div>
+
+    <div class="meaning-divider-v" aria-hidden="true"></div>
+
+    <div class="h-sr h-sr-d2">
+      <p class="meaning-num">المعنى الثاني</p>
+      <h3 class="meaning-title">الصبر في التجارة</h3>
+      <p class="meaning-text">
+        التاجر الحليم لا يبيع في العجلة، ولا يشتري في الغضب.
+        شيخة مبنية على هذا المبدأ: معلومات دقيقة، أسعار حقيقية،
+        وقرارات مبنية على العلم لا على اللحظة.
+      </p>
+      <blockquote class="meaning-verse">
+        «إِنَّ أَكْرَمَكُمْ عِنْدَ اللَّهِ أَتْقَاكُمْ»<br>
+        <small>الحجرات: 13</small>
+      </blockquote>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════
+     COLORS
+     ══════════════════════ -->
+<section class="colors">
+  <div class="colors-header h-sr">
+    <p class="h-label">فلسفة الألوان</p>
+    <h2 class="h-title">
+      كل لون <span class="accent">دفء</span>
+    </h2>
+    <p class="h-subtitle" style="margin-top:.8rem;max-width:480px">
+      ألوان الحليم دافئة لا باردة — تُسكّن لا تُقلق
+    </p>
+  </div>
+
+  <div class="h-color-grid">
+
+    <div class="h-color-block h-cb-gold">
+      <div class="h-color-content">
+        <p class="h-color-num">01</p>
+        <h3 class="h-color-name">الذهب العنبري</h3>
+        <p class="h-color-hex">#C9A84C</p>
+        <p class="h-color-desc">
+          ذهب أكثر دفئاً وأقل حدة. معدن الأنبياء — في شيخة: الثقة والقيمة التي لا تصرخ.
+        </p>
+      </div>
+    </div>
+
+    <div class="h-color-block h-cb-green">
+      <div class="h-color-content">
+        <p class="h-color-num">02</p>
+        <h3 class="h-color-name">الأخضر الرزين</h3>
+        <p class="h-color-hex">#2D6B4A</p>
+        <p class="h-color-desc">
+          خضرة أكثر هدوءاً — أخضر الجنة لا صرخة الحياة. في شيخة: الحلال والبركة الهادئة.
+        </p>
+      </div>
+    </div>
+
+    <div class="h-color-block h-cb-warm">
+      <div class="h-color-content">
+        <p class="h-color-num">03</p>
+        <h3 class="h-color-name">الأسود الدافئ</h3>
+        <p class="h-color-hex">#0C0A08</p>
+        <p class="h-color-desc">
+          ليس أسود بارداً — بل حرارة الليل العربي. الخلفية التي تجعل الذهب يتوهج بأجمل صورة.
+        </p>
+      </div>
+    </div>
+
+    <div class="h-color-block h-cb-silver">
+      <div class="h-color-content">
+        <p class="h-color-num">04</p>
+        <h3 class="h-color-name">الفضة المعتدلة</h3>
+        <p class="h-color-hex">#B0BBCC</p>
+        <p class="h-color-desc">
+          فضة أقل بريقاً وأكثر أناقة. في شيخة: الشفافية والمعلومات الموثوقة والهادئة.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════
+     PILLARS
+     ══════════════════════ -->
+<section class="pillars">
+  <div class="pillars-header h-sr">
+    <div>
+      <p class="h-label">الأعمدة</p>
+      <h2 class="pillars-title">
+        ستة أعمدة<br>
+        <span class="gold">بحلم وصبر</span>
+      </h2>
+    </div>
+    <p class="pillars-desc">
+      الحليم يبني ببطء ليبقى طويلاً. شيخة مبنية على ستة مبادئ
+      لا يُعلى عليها — ليس لأنها شعارات، بل لأنها أمانة.
+    </p>
+  </div>
+
+  <div>
+    <div class="h-pillar h-sr">
+      <span class="h-pillar-num">01</span>
+      <div>
+        <h3 class="h-pillar-name">الذكاء الشريف</h3>
+        <p class="h-pillar-text">نظام ذكاء اصطناعي يفكر بأخلاق التاجر المسلم — يسعّر بعدل ويكشف الغش بهدوء.</p>
+      </div>
+      <p class="h-pillar-verse">«وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ»</p>
+    </div>
+
+    <div class="h-pillar h-sr h-sr-d1">
+      <span class="h-pillar-num">02</span>
+      <div>
+        <h3 class="h-pillar-name">التسعير الشفاف</h3>
+        <p class="h-pillar-text">أسعار مبنية على LME وCOMEX وSMI — مرئية للجميع، لا مخفية، لا تدليس.</p>
+      </div>
+      <p class="h-pillar-verse">«لا يبع بعضكم على بيع بعض» — الصدق أصل كل معاملة</p>
+    </div>
+
+    <div class="h-pillar h-sr h-sr-d2">
+      <span class="h-pillar-num">03</span>
+      <div>
+        <h3 class="h-pillar-name">الرقابة الشرعية</h3>
+        <p class="h-pillar-text">كل معاملة تمر بمرشح شرعي تلقائي قبل الاعتماد — لا ربا، لا غرر، لا ميسر.</p>
+      </div>
+      <p class="h-pillar-verse">«وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا»</p>
+    </div>
+
+    <div class="h-pillar h-sr h-sr-d3">
+      <span class="h-pillar-num">04</span>
+      <div>
+        <h3 class="h-pillar-name">مؤشر شيخة للمعادن</h3>
+        <p class="h-pillar-text">SMI — أول مؤشر إسلامي معتمد لتسعير المعادن والسكراب في العالم.</p>
+      </div>
+      <p class="h-pillar-verse">العلم بالأسعار حماية للبائع والمشتري على حد سواء</p>
+    </div>
+
+    <div class="h-pillar h-sr h-sr-d1">
+      <span class="h-pillar-num">05</span>
+      <div>
+        <h3 class="h-pillar-name">شبكة الموردين</h3>
+        <p class="h-pillar-text">موردون ومشترون موثّقون في ٥٧+ دولة — معتمدون ومصنّفون ومراجَعون.</p>
+      </div>
+      <p class="h-pillar-verse">«وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا»</p>
+    </div>
+
+    <div class="h-pillar h-sr h-sr-d2">
+      <span class="h-pillar-num">06</span>
+      <div>
+        <h3 class="h-pillar-name">الوصول بلا حواجز</h3>
+        <p class="h-pillar-text">عربي، إنجليزي، هندي، صيني، فرنسي — كل تاجر يتعامل بلغته وعملته.</p>
+      </div>
+      <p class="h-pillar-verse">التجارة لغة إنسانية مشتركة قبل أن تكون معاملة</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════
+     NUMBERS
+     ══════════════════════ -->
+<section class="numbers">
+  <div class="numbers-inner">
+    <div class="stat h-sr">
+      <span class="h-metric-value" data-count="1" data-suffix="#">&nbsp;</span>
+      <p class="h-metric-label">أول وفريد — سوق إسلامي رقمي<br>للمعادن في العالم</p>
+    </div>
+    <div class="stat h-sr h-sr-d1">
+      <span class="h-metric-value" data-count="57" data-suffix="+">&nbsp;</span>
+      <p class="h-metric-label">دولة إسلامية<br>يصلها السوق</p>
+    </div>
+    <div class="stat h-sr h-sr-d2">
+      <span class="h-metric-value" data-count="100" data-suffix="٪">&nbsp;</span>
+      <p class="h-metric-label">امتثال شرعي مُعتمد<br>في كل معاملة</p>
+    </div>
+    <div class="stat h-sr h-sr-d3">
+      <span class="h-metric-value" data-count="1445" data-suffix="هـ">&nbsp;</span>
+      <p class="h-metric-label">السنة الهجرية<br>لانطلاق شيخة</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════
+     FINAL CTA
+     ══════════════════════ -->
+<section class="final-cta">
+  <div class="cta-inner h-sr">
+    <h2 class="cta-title">
+      التجارة الشريفة<br>
+      تبدأ <span class="gold">بصبر</span>
+    </h2>
+    <p class="cta-sub">
+      انضم إلى أول منظومة تجارية إسلامية رقمية للمعادن —<br>
+      مبنية على سنة النبي ﷺ ومدعومة بأحدث التقنيات.
+    </p>
+    <div class="cta-btns">
+      <a href="/تسجيل-الشركات.html" class="h-btn h-btn-gold">سجّل شركتك</a>
+      <a href="/سوق-شيخة.html"      class="h-btn h-btn-outline">تصفّح السوق أولاً</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════
+     FOOTER
+     ══════════════════════ -->
+<footer class="h-footer">
+  <div class="h-footer-logo">شيخة · SHEIKHA</div>
+  <p class="h-footer-verse">
+    «وَأَوْفُوا الْكَيْلَ إِذَا كِلْتُمْ وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ ذَلِكَ خَيْرٌ وَأَحْسَنُ تَأْوِيلًا»
+  </p>
+  <ul class="h-footer-links">
+    <li><a href="/سياسة-الخصوصية.html">الخصوصية</a></li>
+    <li><a href="/الشروط-والسياسات.html">الشروط</a></li>
+    <li><a href="/الشريعة-الاسلامية.html">الشريعة</a></li>
+  </ul>
+  <p class="h-footer-copy">© <span id="yr"></span> سلمان أحمد بن سلمان الراجح</p>
+</footer>
+
+<!-- ══════════════════════
+     ENGINE — محرك الحليم
+     ══════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── السنة ── */
+  var yrEl = document.getElementById('yr');
+  if (yrEl) yrEl.textContent = new Date().getFullYear();
+
+  /* ── NAV + شريط التقدم ── */
+  var nav  = document.getElementById('nav');
+  var prog = document.getElementById('readProg');
+
+  window.addEventListener('scroll', function () {
+    var sy = window.scrollY;
+    nav.classList.toggle('resting', sy > 60);
+
+    if (prog) {
+      var total = document.documentElement.scrollHeight - window.innerHeight;
+      prog.style.width = (total > 0 ? (sy / total) * 100 : 0).toFixed(1) + '%';
+    }
+  }, { passive: true });
+
+  /* ══════════════════════════════════════════════════════
+     CANVAS الحليم — أبطأ، أهدأ، أكثر رزانة
+     العقد أبطأ حركة وأقل كثافة
+     ══════════════════════════════════════════════════════ */
+  var canvas = document.getElementById('haleemCanvas');
+  var ctx    = canvas.getContext('2d');
+
+  /* ألوان الحليم الدافئة */
+  var GOLD_R = 201, GOLD_G = 168, GOLD_B = 76;
+
+  var W, H, nodes = [];
+  var mouse = { x: -9999, y: -9999 };
+
+  /* ٢٨ عقدة فقط — لا ازدحام */
+  var NODE_N   = 28;
+  var CONN_D   = 130;  /* مسافة الاتصال */
+  var MOUSE_D  = 180;  /* مسافة الماوس */
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    spawnNodes();
+  }
+
+  function spawnNodes() {
+    nodes = [];
+    for (var i = 0; i < NODE_N; i++) {
+      nodes.push({
+        x:  Math.random() * W,
+        y:  Math.random() * H,
+        /* الحليم لا يعجل — سرعة أقل بمقدار النصف */
+        vx: (Math.random() - 0.5) * 0.16,
+        vy: (Math.random() - 0.5) * 0.16,
+        r:  Math.random() * 1.4 + 0.8,
+        t:  Math.random() * Math.PI * 2,
+        /* دورة النبض أبطأ */
+        ts: Math.random() * 0.010 + 0.004,
+      });
+    }
+  }
+
+  window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('mousemove', function (e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  }, { passive: true });
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    /* تحديث المواضع */
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      n.t  += n.ts;
+      n.x  += n.vx;
+      n.y  += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+    }
+
+    /* الخطوط بين العقد — شفافية أقل */
+    for (var i = 0; i < nodes.length; i++) {
+      for (var j = i + 1; j < nodes.length; j++) {
+        var a = nodes[i], b = nodes[j];
+        var dx = a.x - b.x, dy = a.y - b.y;
+        var d  = Math.sqrt(dx * dx + dy * dy);
+        if (d > CONN_D) continue;
+        var alpha = (1 - d / CONN_D) * 0.08;  /* 0.08 بدلاً من 0.12 — أخفى وأهدأ */
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = 'rgba(' + GOLD_R + ',' + GOLD_G + ',' + GOLD_B + ',' + alpha + ')';
+        ctx.lineWidth   = 0.4;
+        ctx.stroke();
+      }
+    }
+
+    /* خطوط الماوس — ناعمة */
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      var dx = n.x - mouse.x, dy = n.y - mouse.y;
+      var d  = Math.sqrt(dx * dx + dy * dy);
+      if (d > MOUSE_D) continue;
+      var alpha = (1 - d / MOUSE_D) * 0.20;
+      ctx.beginPath();
+      ctx.moveTo(n.x, n.y);
+      ctx.lineTo(mouse.x, mouse.y);
+      ctx.strokeStyle = 'rgba(' + GOLD_R + ',' + GOLD_G + ',' + GOLD_B + ',' + alpha + ')';
+      ctx.lineWidth   = 0.5;
+      ctx.stroke();
+    }
+
+    /* العقد — نبض هادئ */
+    for (var i = 0; i < nodes.length; i++) {
+      var n     = nodes[i];
+      var pulse = (Math.sin(n.t) + 1) * 0.5;
+      var r     = n.r + pulse * 0.9;
+      var alpha = 0.25 + pulse * 0.35;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(' + GOLD_R + ',' + GOLD_G + ',' + GOLD_B + ',' + alpha + ')';
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  draw();
+
+  /* ══════════════════════════════════════════════════════
+     SCROLL REVEAL — ظهور صبور
+     ══════════════════════════════════════════════════════ */
+  var srObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        srObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.h-sr').forEach(function (el) {
+    srObs.observe(el);
+  });
+
+  /* ══════════════════════════════════════════════════════
+     COUNTER — عداد صبور (2400ms بدلاً من 2000ms)
+     ══════════════════════════════════════════════════════ */
+  function countUp(el) {
+    var target   = parseInt(el.dataset.count, 10);
+    var suffix   = el.dataset.suffix || '';
+    var duration = 2400;
+    var start    = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(e * target).toLocaleString('ar-SA') + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  var cObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        countUp(e.target);
+        cObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  document.querySelectorAll('[data-count]').forEach(function (el) {
+    cObs.observe(el);
+  });
+
+  /* ══════════════════════════════════════════════════════
+     PARALLAX خفيف جداً على الاسم — الحليم لا يهرع
+     ══════════════════════════════════════════════════════ */
+  var heroName = document.querySelector('.hero-name');
+  var warmLight = document.querySelector('.hero-warm-light');
+
+  window.addEventListener('scroll', function () {
+    var sy = window.scrollY;
+    if (sy < window.innerHeight && heroName) {
+      /* 0.10 بدلاً من 0.18 — أبطأ وأهدأ */
+      heroName.style.transform = 'translateY(' + (sy * 0.10) + 'px)';
+      if (warmLight) {
+        warmLight.style.transform =
+          'translate(-50%,-52%) translateY(' + (sy * 0.05) + 'px)';
+      }
+    }
+  }, { passive: true });
+
+  /* ══════════════════════════════════════════════════════
+     دوران جملة الهيرو — كل 6 ثوانٍ (أبطأ من 5)
+     ══════════════════════════════════════════════════════ */
+  var verseEl = document.getElementById('heroVerse');
+  if (verseEl) {
+    var verses = [
+      'من <strong>سوق المدينة المنورة</strong> الذي أسسه النبي ﷺ<br>إلى أول سوق إسلامي رقمي عالمي للمعادن',
+      'الحليم يبني ببطء ليبقى طويلاً —<br>شيخة تتحقق ولا <strong>تتعجل</strong>',
+      'كل سعر شفاف — كل معاملة حلال —<br>كل بيان <strong>موثّق</strong>',
+    ];
+    var vi = 0;
+    setInterval(function () {
+      vi = (vi + 1) % verses.length;
+      verseEl.style.transition = 'opacity 600ms ease, transform 600ms ease';
+      verseEl.style.opacity = '0';
+      verseEl.style.transform = 'translateY(8px)';
+      setTimeout(function () {
+        verseEl.innerHTML = verses[vi];
+        verseEl.style.opacity = '1';
+        verseEl.style.transform = 'translateY(0)';
+      }, 420);
+    }, 6000);
+  }
+
+  /* ══════════════════════════════════════════════════════
+     CARD MOUSE LIGHT — ضوء خفيف عند المرور
+     ══════════════════════════════════════════════════════ */
+  document.querySelectorAll('.h-card').forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      var r  = card.getBoundingClientRect();
+      var mx = ((e.clientX - r.left) / r.width  * 100).toFixed(1) + '%';
+      var my = ((e.clientY - r.top)  / r.height * 100).toFixed(1) + '%';
+      card.style.setProperty('--mx', mx);
+      card.style.setProperty('--my', my);
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 /**
- * Sheikha Port Proxy — container:8081 → container:8080
- * يتيح الوصول من local:8081 إلى الخادم الرئيسي على 8080
+ * Sheikha Port Proxy — container:8082 → container:8080
+ * يتيح الوصول من local:8082 إلى الخادم الرئيسي على 8080
+ * ملاحظة: المنفذ 8081 محجوز لخلية MARKETPLACE في الشبكة العصبية
  */
 const http = require('http');
 
-const PROXY_PORT = 8081;
+const PROXY_PORT = 8082;
 const TARGET_PORT = 8080;
 const TARGET_HOST = 'localhost';
 

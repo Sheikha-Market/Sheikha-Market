@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   nginx:
     image: nginx:1.27-alpine
@@ -18,6 +16,14 @@ services:
 
   main-portal:
     image: ghcr.io/sheikha/main-portal:latest
+    build:
+      # Context is the repo root (sheikha-main-portal/) where the Dockerfile lives.
+      # Run `docker compose build main-portal` to build locally without ghcr.io access.
+      context: ../../../../
+      dockerfile: Dockerfile
+    # Always build from the local Dockerfile; never pull from ghcr.io.
+    # Remove this line (or set to 'missing') only when you have ghcr.io push/pull access.
+    pull_policy: build
     container_name: sheikha-main-portal
     restart: unless-stopped
     env_file:
@@ -42,6 +48,7 @@ services:
 
   mcp-server:
     image: ghcr.io/sheikha/mcp-server:latest
+    profiles: [mcp]
     container_name: sheikha-mcp-server
     restart: unless-stopped
     env_file:

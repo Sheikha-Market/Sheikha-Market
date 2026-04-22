@@ -185,6 +185,20 @@ try {
     console.log('⚠️ Pilot Engine غير متوفر:', e.message);
 }
 
+// ═══ ARABIC UTF-8 NEURAL LANGUAGE ENGINE ═══
+// ✅ L0 CRITICAL — محرك اللغة العربية الشبكة العصبية UTF-8 — يُحمّل فوراً
+// "إِنَّا أَنزَلْنَاهُ قُرْآنًا عَرَبِيًّا لَّعَلَّكُمْ تَعْقِلُونَ" — يوسف:٢
+let arabicUTF8NeuralEngine = null;
+let _arabicUTF8RegisterRoutes = null;
+try {
+    const { engine: _arabicEng, registerRoutes: _arabicRoutes } = require('./lib/sheikha-arabic-utf8-neural-engine.js');
+    arabicUTF8NeuralEngine = _arabicEng;
+    _arabicUTF8RegisterRoutes = _arabicRoutes;
+    console.log('✅ Arabic UTF-8 Neural Engine — محرك اللغة العربية الشبكة العصبية مُفعّل');
+} catch (e) {
+    console.log('⚠️ Arabic UTF-8 Neural Engine غير متوفر:', e.message);
+}
+
 // ═══ EXCELLENCE ENGINE — محرك الإتقان والتقدم العلمي والتجاري والتقني ═══
 // ═══ P0-1: LAZY — محرك L1 ═══
 let excellenceEngine = null;
@@ -4012,9 +4026,12 @@ const corsOptions = {
     origin: [
         'https://sheikha.top',
         'https://www.sheikha.top',
+        'https://public.sheikha.top',   // البوابة العامة
+        'https://admin.sheikha.top',    // لوحة الإدارة
         'http://localhost:23000',
         'http://localhost:8080',
-        'http://localhost:8081',    // سوق الأسواق الجامع
+        'http://localhost:8081',    // سوق الأسواق الجامع — خلية الشبكة العصبية
+        'http://localhost:8082',    // البروكسي المحلي للتطوير
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -4233,6 +4250,19 @@ app.use((req, res, next) => {
 app.get('/health', (req, res) => {
     res.status(200).send('OK');
 });
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌟 Arabic UTF-8 Neural Language Engine — تسجيل الـ APIs
+// "إِنَّا أَنزَلْنَاهُ قُرْآنًا عَرَبِيًّا لَّعَلَّكُمْ تَعْقِلُونَ" — يوسف:٢
+// ═══════════════════════════════════════════════════════════════════════════════
+if (arabicUTF8NeuralEngine && typeof _arabicUTF8RegisterRoutes === 'function') {
+    try {
+        _arabicUTF8RegisterRoutes(app, arabicUTF8NeuralEngine, null);
+        console.log('✅ Arabic UTF-8 Neural Engine — 19 API مسجّلة على /api/arabic-utf8/*');
+    } catch (_e) {
+        console.log('⚠️ Arabic UTF-8 Neural Engine — تسجيل الـ APIs فشل:', _e.message);
+    }
+}
 
 // ============================================================
 // PROJECT IDENTITY — للتعريف بالمشروع من أي بيئة
@@ -5828,6 +5858,18 @@ app.get('/البنك-المركزي', (req, res) => res.redirect('/شيخة-ام
 app.get('/central-bank', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
 app.get('/العاصمة', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
 app.get('/شريان', (req, res) => res.redirect('/شيخة-امبراطورية-الكون.html'));
+
+// 🌟 شيخة للترميز — محرك اللغة العربية الشبكة العصبية UTF-8
+// "إِنَّا أَنزَلْنَاهُ قُرْآنًا عَرَبِيًّا لَّعَلَّكُمْ تَعْقِلُونَ" — يوسف:٢
+// /encoding → لوحة التنفيذ المباشر (أوامر شيخة + استعراض ملفات GitHub + حالة orchestrator)
+app.get('/encoding',         (req, res) => res.redirect('/لوحة-التنفيذ-المباشر.html'));
+app.get('/utf8',             (req, res) => res.redirect('/شيخة-ترميز-UTF8.html'));
+app.get('/arabic-engine',    (req, res) => res.redirect('/شيخة-ترميز-UTF8.html'));
+app.get('/neural-language',  (req, res) => res.redirect('/شيخة-ترميز-UTF8.html'));
+app.get('/ترميز',            (req, res) => res.redirect('/شيخة-ترميز-UTF8.html'));
+app.get('/شيخة-ترميز',       (req, res) => res.redirect('/شيخة-ترميز-UTF8.html'));
+app.get('/اللغة-العربية',    (req, res) => res.redirect('/شيخة-ترميز-UTF8.html'));
+app.get('/الشبكة-العصبية',   (req, res) => res.redirect('/شيخة-ترميز-UTF8.html'));
 
 const _PORT_ENV = parseInt(process.env.PORT || '8080', 10);
 // 🛡️ تنظيم المنافذ — الافتراضي 0.0.0.0 (يعمل في Codespaces/Docker/Cloud)
@@ -35952,6 +35994,34 @@ try {
     console.warn('⚠️ [SOVEREIGN-NET] فشل التحميل — الخادم يستمر بدونه:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠🌐 PHNAE — شبكة الإنتاج + HTTP + الرخصة + الشبكة + الخلية الكاملة
+//             + العصبية الأفضل + الهيكل + المعمارية الكاملة الأفضل
+// "صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ" — النمل ٨٨
+// ═══════════════════════════════════════════════════════════════════════════════
+let phnaeEngine = null;
+try {
+    const PHNAEngine = require('./lib/sheikha-production-http-neural-architecture-engine');
+    phnaeEngine = new PHNAEngine();
+    phnaeEngine.registerRoutes(app);
+} catch (e) {
+    console.warn('⚠️ [PHNAE] فشل التحميل — الخادم يستمر بدونه:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏭🧠 PMNCN — شبكة الخلايا العصبية للآلات الإنتاجية PM1→PM4 + Pilot
+// PM1=العلمي🔬 | PM2=التقني⚙️ | PM3=التجاري📈 | PM4=التشغيلي🏭 + PM5–PM8
+// "وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ" — التوبة ١٠٥
+// ═══════════════════════════════════════════════════════════════════════════════
+let pmNeuralCellNetwork = null;
+try {
+    const SheikhapmNeuralCellNetwork = require('./lib/sheikha-pm-neural-cell-network');
+    pmNeuralCellNetwork = new SheikhapmNeuralCellNetwork(__dirname);
+    pmNeuralCellNetwork.registerRoutes(app);
+} catch (e) {
+    console.warn('⚠️ [PMNCN] فشل التحميل — الخادم يستمر بدونه:', e.message);
+}
+
 // ☪️ منظومة التسويق الشامل الموحد — UMB (قبل 404 handler)
 try {
     const SheikhaUMB = require('./lib/sheikha-unified-marketing-brain.js');
@@ -36300,6 +36370,147 @@ try {
     console.log(`   🌐 ${neuralTransportNetwork.stats.totalNodes} عقدة | ${neuralTransportNetwork.stats.totalEdges} رابط | 12 نوع نقل | 12 وسيلة | 12 API`);
 } catch (e) {
     console.warn('⚠️ [SNTN] الشبكة العصبية للنقل:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚖️ GOVERNANCE — الحوكمة والامتثال
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const governanceRoutes = require('./routes/governance.js');
+    app.use('/api/governance', governanceRoutes);
+    console.log('✅ [GOVERNANCE] مسارات الحوكمة — مُفعَّلة على /api/governance');
+} catch (e) {
+    console.warn('⚠️ [GOVERNANCE] فشل تحميل مسارات الحوكمة:', e.message);
+}
+
+// 📋 CONTRACTS — العقود الرقمية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const contractsRoutes = require('./routes/contracts.js');
+    app.use('/api/contracts', contractsRoutes);
+    console.log('✅ [CONTRACTS] مسارات العقود الرقمية — مُفعَّلة على /api/contracts');
+} catch (e) {
+    console.warn('⚠️ [CONTRACTS] فشل تحميل مسارات العقود:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔗 SUPPLY — سلاسل الإمداد
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const supplyRoutes = require('./routes/supply.js');
+    app.use('/api/supply', supplyRoutes);
+    console.log('✅ [SUPPLY] مسارات الإمداد — مُفعَّلة على /api/supply');
+} catch (e) {
+    console.warn('⚠️ [SUPPLY] فشل تحميل مسارات الإمداد:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚡ SDK — مجموعة أدوات التطوير
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const sdkRoutes = require('./routes/sdk.js');
+    app.use('/api/sdk', sdkRoutes);
+    console.log('✅ [SDK] مسارات SDK — مُفعَّلة على /api/sdk');
+} catch (e) {
+    console.warn('⚠️ [SDK] فشل تحميل مسارات SDK:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔮 MCP — مركز ربط الأدوات
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const mcpRoutes = require('./routes/mcp.js');
+    app.use('/api/mcp', mcpRoutes);
+    console.log('✅ [MCP] مسارات MCP — مُفعَّلة على /api/mcp');
+} catch (e) {
+    console.warn('⚠️ [MCP] فشل تحميل مسارات MCP:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 💻 CLI — واجهة سطر الأوامر
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const cliRoutes = require('./routes/cli.js');
+    app.use('/api/cli', cliRoutes);
+    console.log('✅ [CLI] مسارات CLI — مُفعَّلة على /api/cli');
+} catch (e) {
+    console.warn('⚠️ [CLI] فشل تحميل مسارات CLI:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐 GIT — تكامل GitHub / GitLab
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const gitRoutes = require('./routes/git.js');
+    app.use('/api/git', gitRoutes);
+    console.log('✅ [GIT] مسارات Git — مُفعَّلة على /api/git');
+    console.log('   ├─ GET  /api/git/status    — حالة Git الكاملة');
+    console.log('   ├─ GET  /api/git/branches  — الفروع');
+    console.log('   ├─ GET  /api/git/activity  — نشاط التطوير');
+    console.log('   ├─ GET  /api/git/report    — تقرير نشاط Git');
+    console.log('   ├─ POST /api/git/sync      — مزامنة GitHub/GitLab');
+    console.log('   └─ POST /api/git/validate  — التحقق من الملفات الحرجة');
+} catch (e) {
+    console.warn('⚠️ [GIT] فشل تحميل مسارات Git:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📊 DASHBOARD — لوحة التحكم المركزية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const dashboardRoutes = require('./routes/dashboard.js');
+    app.use('/api/dashboard', dashboardRoutes);
+    console.log('✅ [DASHBOARD] مسارات لوحة التحكم — مُفعَّلة على /api/dashboard');
+} catch (e) {
+    console.warn('⚠️ [DASHBOARD] فشل تحميل مسارات لوحة التحكم:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🖥️  SHEIKHA CODING LANGUAGE — لغة شيخة للترميز
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const sheikhaCodeRoutes = require('./routes/sheikha-coding-language.routes');
+    app.use('/api/sheikha-code', sheikhaCodeRoutes);
+    console.log('✅ [SHEIKHA-CODE] لغة شيخة للترميز — مُفعَّلة على /api/sheikha-code');
+    console.log('   ├─ POST /api/sheikha-code/command  — تنفيذ أمر بلغة شيخة');
+    console.log('   ├─ POST /api/sheikha-code/parse    — تحليل أمر فقط');
+    console.log('   └─ GET  /api/sheikha-code/commands — قائمة الأوامر المدعومة');
+} catch (e) {
+    console.warn('⚠️ [SHEIKHA-CODE] فشل تحميل مسارات لغة شيخة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🎨  VISUAL GENERATION ENGINE — محرك شيخة البصري (صور + فيديو)
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const visualRoutes = require('./routes/visual.routes');
+    app.use('/api/visual', visualRoutes);
+    console.log('✅ [VISUAL] محرك شيخة البصري — مُفعَّل على /api/visual');
+    console.log('   ├─ GET  /api/visual/health          — صحة المحرك');
+    console.log('   ├─ GET  /api/visual/catalog         — كتالوج المحولات والنوايا');
+    console.log('   ├─ GET  /api/visual/jobs            — قائمة المهام');
+    console.log('   ├─ GET  /api/visual/library         — مكتبة الأصول المولّدة');
+    console.log('   ├─ POST /api/visual/plan            — تخطيط بدون تنفيذ');
+    console.log('   ├─ POST /api/visual/job             — إنشاء مهمة');
+    console.log('   ├─ POST /api/visual/generate        — تخطيط + تنفيذ فوري');
+    console.log('   └─ POST /api/visual/analyze         — تحليل prompt بدون توليد');
+} catch (e) {
+    console.warn('⚠️ [VISUAL] فشل تحميل محرك الصور والفيديو:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚙️  EXECUTION ORCHESTRATOR — منفذ القرارات والإنتاج
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const executionOrchestratorRoutes = require('./routes/execution-orchestrator.routes');
+    app.use('/api/execution-orchestrator', executionOrchestratorRoutes);
+    console.log('✅ [ORCHESTRATOR] منفذ القرارات — مُفعَّل على /api/execution-orchestrator');
+    console.log('   ├─ GET  /api/execution-orchestrator/state    — حالة الأوركسترا');
+    console.log('   ├─ POST /api/execution-orchestrator/auto     — تشغيل التنفيذ التلقائي');
+    console.log('   └─ POST /api/execution-orchestrator/activate — تفعيل وحدة');
+} catch (e) {
+    console.warn('⚠️ [ORCHESTRATOR] فشل تحميل مسارات الأوركسترا:', e.message);
 }
 
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
@@ -36666,6 +36877,59 @@ try {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🏪 بوابة سوق الأسواق — تكامل خلية الشبكة العصبية (MARKETPLACE Cell)
+// ═══════════════════════════════════════════════════════════════════════════════
+// تبدأ خادم HTTP خفيف على منفذ خلية MARKETPLACE المكتشف، يوجّه كل الطلبات
+// إلى الخادم الرئيسي مع إضافة ترويسة x-sheikha-gateway للتتبع.
+// يحمي من التعارض: إذا كان المنفذ مشغولاً تُسجّل تحذيراً فقط دون إيقاف.
+// ═══════════════════════════════════════════════════════════════════════════════
+function _startMarketplaceGateway(mainPort) {
+    if (!_portEngine) return;
+
+    const marketPort = _portEngine.marketplacePort;
+    if (!marketPort || marketPort === mainPort) return;
+
+    const http = require('http');
+
+    const gateway = http.createServer((req, res) => {
+        const options = {
+            hostname: '127.0.0.1',
+            port: mainPort,
+            path: req.url,
+            method: req.method,
+            headers: { ...req.headers, 'x-sheikha-gateway': 'marketplace', host: `127.0.0.1:${mainPort}` },
+        };
+
+        const proxyReq = http.request(options, (proxyRes) => {
+            res.writeHead(proxyRes.statusCode, proxyRes.headers);
+            proxyRes.pipe(res, { end: true });
+        });
+
+        proxyReq.on('error', (err) => {
+            if (!res.headersSent) {
+                res.writeHead(502, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: 'gateway_error', message: err.message }));
+            }
+        });
+
+        req.pipe(proxyReq, { end: true });
+    });
+
+    gateway.listen(marketPort, HOST, () => {
+        console.log(`🏪 [MARKETPLACE CELL] بوابة الأسواق الجامع: منفذ ${marketPort} ← ${mainPort} (خلية الشبكة العصبية)`);
+        addSystemLog('success', 'MarketplaceGateway', `Marketplace gateway started on port ${marketPort}`);
+    });
+
+    gateway.on('error', (err) => {
+        if (err.code === 'EADDRINUSE') {
+            console.log(`⚠️ [MARKETPLACE CELL] المنفذ ${marketPort} مشغول — بوابة الأسواق ستعمل عند الإعادة التالية`);
+        } else {
+            console.log(`⚠️ [MARKETPLACE CELL] خطأ في البوابة:`, err.message);
+        }
+    });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🚀 بدء الخادم — الشبكة العصبية تكتشف المنفذ الحر تلقائياً
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -36710,6 +36974,9 @@ async function _startServer() {
                 console.log('⚠️ خطأ في تفعيل منظومة التطوير:', e.message);
             }
         }
+
+        // ═══ تفعيل بوابة سوق الأسواق — خلية الشبكة العصبية ═══
+        _startMarketplaceGateway(actualPort);
 
         const relocated = actualPort !== _PORT_ENV ? `🔄 انتقل من ${_PORT_ENV} إلى ${actualPort}` : '✅ المنفذ المفضّل';
         console.log(`

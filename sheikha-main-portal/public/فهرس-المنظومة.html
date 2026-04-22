@@ -105,7 +105,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 <!-- المحركات -->
 <div class="section">
-<div class="section-title">🧠 المحركات الذكية (12 محرك)</div>
+<div class="section-title">🧠 المحركات الذكية (13 محرك)</div>
 <div class="grid" id="engineList"></div>
 </div>
 
@@ -149,6 +149,7 @@ const PAGES = {
         {url:'/معايير-الأحاديث.html',name:'معايير الأحاديث الصحيحة',icon:'⚖️',desc:'٤٨ حديث صحيح — ٨ وحدات قياس — ٦٢ قاعدة مفعّلة — المكيال مكيال المدينة والوزن وزن مكة'},
         {url:'/بنك-شيخة.html',name:'بنك شيخة المركزي',icon:'🏦',desc:'بنك مركزي إسلامي — ١٠ أقسام — ١٠ منتجات — ١٢ عقد إسلامي — صرافة بالكتاب والسنة'},
         {url:'/العاصمة-الاقتصادية.html',name:'العاصمة الاقتصادية العالمية',icon:'🌍',desc:'٨ أركان — ٨ مناطق — ٩ ممرات تجارية — ٧ مراحل تنفيذية — عاصمة عالمية بالكتاب والسنة'},
+        {url:'/شيخة-ترميز-UTF8.html',name:'شيخة للترميز — Arabic UTF-8',icon:'🌟',desc:'محرك اللغة العربية الشبكة العصبية — ٨ كتل Unicode — ١٧ خلية — ١٩ API — مرجّع بالقرآن والسنة'},
         {url:'/فهرس-المنظومة.html',name:'الفهرس (أنت هنا)',icon:'📋',desc:'فهرس كامل + مراقبة'}
     ],
     legal: [
@@ -180,7 +181,15 @@ const APIS = [
     {url:'/api/advancement/checklist/daily',name:'مهام يومية'},
     {url:'/api/advancement/checklist/weekly',name:'مهام أسبوعية'},
     {url:'/api/prices',name:'الأسعار الحية'},
-    {url:'/api/business-plan',name:'خطة العمل'}
+    {url:'/api/business-plan',name:'خطة العمل'},
+    // Arabic UTF-8 Neural Engine APIs
+    {url:'/api/arabic-utf8/health',name:'صحة محرك الترميز'},
+    {url:'/api/arabic-utf8/unicode-blocks',name:'كتل Unicode العربية'},
+    {url:'/api/arabic-utf8/letters',name:'الحروف العربية'},
+    {url:'/api/arabic-utf8/quran',name:'قاعدة القرآن الكريم'},
+    {url:'/api/arabic-utf8/sunnah',name:'قاعدة السنة النبوية'},
+    {url:'/api/arabic-utf8/maqasid',name:'مقاصد الشريعة'},
+    {url:'/api/arabic-utf8/network/status',name:'الشبكة العصبية العربية'}
 ];
 
 const ENGINES = [
@@ -195,7 +204,8 @@ const ENGINES = [
     {name:'Navigator',desc:'التنقل الذكي',file:'sheikha-navigator.js'},
     {name:'Development',desc:'إدارة التطوير',file:'development-engine.js'},
     {name:'Arabic Language',desc:'معالجة العربية',file:'arabic-language-engine.js'},
-    {name:'Arabic Parser',desc:'تحليل النصوص',file:'arabic-parser-engine.js'}
+    {name:'Arabic Parser',desc:'تحليل النصوص',file:'arabic-parser-engine.js'},
+    {name:'🌟 Arabic UTF-8 Neural Engine',desc:'محرك اللغة العربية الشبكة العصبية — 8 كتل Unicode — 17 خلية — 19 API — القرآن والسنة',file:'sheikha-arabic-utf8-neural-engine.js'}
 ];
 
 let results = {};
@@ -284,7 +294,7 @@ async function runFullCheck() {
 
     document.getElementById('totalPages').textContent = pagesOK+'/'+pages.length;
     document.getElementById('totalAPIs').textContent = apisOK+'/'+apis.length;
-    document.getElementById('totalEngines').textContent = '12';
+    document.getElementById('totalEngines').textContent = '13';
     document.getElementById('serverStatus').textContent = results['/']===200?'يعمل':'متوقف';
     document.getElementById('serverStatus').style.color = results['/']===200?'var(--green)':'var(--red)';
 

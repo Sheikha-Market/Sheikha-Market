@@ -1,0 +1,100 @@
+{
+  "orders": [
+    {
+      "id": "ord_2026_001",
+      "type": "buy",
+      "status": "matched",
+      "created_at": "2026-04-21T08:00:00Z",
+      "created_by": "usr_001",
+      "item": {
+        "metal": "copper",
+        "quantity": 5000,
+        "unit": "kg",
+        "grade": "Grade A",
+        "max_price": 43.0,
+        "currency": "SAR"
+      },
+      "matching": {
+        "supplier": "usr_002",
+        "matched_at": "2026-04-21T08:15:00Z",
+        "matched_price": 42.8
+      },
+      "contract_id": "cnt_2026_x7a1b",
+      "tracking": {
+        "status": "contract_signed",
+        "delivery_est": "2026-05-15"
+      }
+    },
+    {
+      "id": "ord_2026_002",
+      "type": "sell",
+      "status": "open",
+      "created_at": "2026-04-21T07:30:00Z",
+      "created_by": "usr_005",
+      "item": {
+        "metal": "aluminum",
+        "quantity": 8000,
+        "unit": "kg",
+        "grade": "6061-T6",
+        "min_price": 28.0,
+        "currency": "SAR"
+      },
+      "matching": null,
+      "contract_id": null,
+      "tracking": {
+        "status": "searching",
+        "delivery_est": null
+      }
+    },
+    {
+      "id": "ord_2026_003",
+      "type": "buy",
+      "status": "completed",
+      "created_at": "2026-04-19T11:00:00Z",
+      "created_by": "usr_003",
+      "item": {
+        "metal": "steel_scrap",
+        "quantity": 10000,
+        "unit": "kg",
+        "grade": "HMS 1",
+        "max_price": 19.0,
+        "currency": "SAR"
+      },
+      "matching": {
+        "supplier": "usr_006",
+        "matched_at": "2026-04-19T12:00:00Z",
+        "matched_price": 18.75
+      },
+      "contract_id": "cnt_2026_z9c3d",
+      "tracking": {
+        "status": "delivered",
+        "delivered_at": "2026-04-20T16:00:00Z"
+      }
+    },
+    {
+      "id": "ORD-001",
+      "material": "steel",
+      "quantity": 120,
+      "status": "pending"
+    },
+    {
+      "id": "ORD-002",
+      "material": "copper",
+      "quantity": 45,
+      "status": "pending"
+    },
+    {
+      "id": "ORD-003",
+      "material": "aluminum",
+      "quantity": 30,
+      "status": "pending"
+    }
+  ],
+  "meta": {
+    "total": 3,
+    "open": 1,
+    "matched": 1,
+    "completed": 1,
+    "last_updated": "2026-04-21T09:14:00Z"
+  }
+}
