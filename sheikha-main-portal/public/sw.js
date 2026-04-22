@@ -1,47 +1,161 @@
 // Service Worker — منظومة شيخة للمعادن والسكراب
 // © 2026 SHEIKHA — ملكية فكرية محفوظة لـ سلمان أحمد بن سلمان الراجح
-// v6 — وضع PILOT: الشبكة أولاً دائماً — لا تخزين يعترض التنقل
-const CACHE_NAME = 'sheikha-cache-v6';
+// v7 — وضع Offline-First: يعمل بالإنترنت وبدونه
+const CACHE_VERSION = 'v7';
+const CACHE_STATIC = `sheikha-static-${CACHE_VERSION}`;
+const CACHE_PAGES  = `sheikha-pages-${CACHE_VERSION}`;
+const CACHE_API    = `sheikha-api-${CACHE_VERSION}`;
 
-// Install — فوري بدون تخزين مسبق في وضع PILOT
+// الأصول الحرجة التي تُحمَّل مسبقاً عند التثبيت
+const PRECACHE_ASSETS = [
+    '/',
+    '/offline.html',
+    '/manifest.json',
+    '/css/sheikha-neural-identity.css',
+    '/css/sheikha-haleem.css',
+    '/css/sheikha-design-system.css',
+    '/js/safe-api.js',
+    '/js/sheikha-offline-db.js',
+    '/js/sheikha-access.js',
+    '/js/sheikha-i18n.js',
+    '/js/sheikha-neural-design-engine.js',
+    '/css/sheikha-neural-identity.css',
+    '/icons/icon.svg',
+    '/icons/icon-192.svg',
+    '/سوق-شيخة.html',
+    '/لوحة-تحكم-المستخدم.html',
+    '/تسجيل-الدخول.html',
+];
+
+// Install — تخزين الأصول الحرجة مسبقاً
 self.addEventListener('install', (event) => {
-    console.log('[SW] Installing Sheikha Service Worker v6 (PILOT mode)...');
-    self.skipWaiting();
-});
-
-// Activate — حذف كل الكاش القديم فوراً
-self.addEventListener('activate', (event) => {
-    console.log('[SW] Activating v6 — clearing ALL old caches...');
+    console.log('[SW] Installing Sheikha Service Worker v7 (Offline-First)...');
     event.waitUntil(
-        caches.keys().then((cacheNames) => {
-            return Promise.all(
-                cacheNames.map((name) => {
-                    console.log('[SW] Deleting cache:', name);
-                    return caches.delete(name);
+        caches.open(CACHE_STATIC).then((cache) => {
+            return cache.addAll(
+                PRECACHE_ASSETS.filter(url => {
+                    // تجاهل الأصول غير الموجودة بشكل آمن
+                    return true;
                 })
             );
-        }).then(() => self.clients.claim())
-          .then(() => self.clients.matchAll({ type: 'window', includeUncontrolled: true }))
-          .then((clientsList) => {
-              clientsList.forEach((client) => {
-                  client.postMessage({ type: 'SHEIKHA_FORCE_REFRESH', version: CACHE_NAME });
-              });
+        }).then(() => self.skipWaiting())
+          .catch((err) => {
+              console.warn('[SW] Precache partial failure (safe):', err);
+              return self.skipWaiting();
           })
     );
 });
 
-// Fetch — الشبكة مباشرة دائماً في وضع PILOT (لا اعتراض)
+// Activate — حذف الكاش القديم فقط (الإصدارات السابقة)
+self.addEventListener('activate', (event) => {
+    console.log('[SW] Activating v7 — pruning old caches...');
+    const CURRENT_CACHES = [CACHE_STATIC, CACHE_PAGES, CACHE_API];
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames
+                    .filter((name) => !CURRENT_CACHES.includes(name))
+                    .map((name) => {
+                        console.log('[SW] Deleting old cache:', name);
+                        return caches.delete(name);
+                    })
+            );
+        }).then(() => self.clients.claim())
+    );
+});
+
+// ═══ استراتيجيات الكاش ═══
+
+// Cache-First: للأصول الثابتة (CSS، JS، صور، أيقونات)
+function cacheFirst(request, cacheName) {
+    return caches.open(cacheName).then((cache) => {
+        return cache.match(request).then((cached) => {
+            if (cached) return cached;
+            return fetch(request).then((response) => {
+                if (response && response.status === 200) {
+                    cache.put(request, response.clone());
+                }
+                return response;
+            }).catch(() => cached || new Response('', { status: 503 }));
+        });
+    });
+}
+
+// Network-First مع Cache fallback: للصفحات والـ API
+function networkFirst(request, cacheName) {
+    return fetch(request).then((response) => {
+        if (response && response.status === 200) {
+            caches.open(cacheName).then((cache) => cache.put(request, response.clone()));
+        }
+        return response;
+    }).catch(() => {
+        return caches.open(cacheName).then((cache) => {
+            return cache.match(request).then((cached) => {
+                if (cached) return cached;
+                // إذا كانت صفحة HTML → أرجع صفحة offline
+                if (request.headers.get('accept') && request.headers.get('accept').includes('text/html')) {
+                    return caches.match('/offline.html');
+                }
+                return new Response(JSON.stringify({ offline: true, error: 'لا يوجد اتصال بالشبكة' }), {
+                    status: 503,
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' }
+                });
+            });
+        });
+    });
+}
+
+// Fetch — التوزيع الذكي حسب نوع الطلب
 self.addEventListener('fetch', (event) => {
-    // لا نعترض أي طلب — نتركه يذهب للشبكة مباشرة
-    return;
+    const { request } = event;
+    const url = new URL(request.url);
+
+    // تجاهل الطلبات غير HTTP/HTTPS
+    if (!url.protocol.startsWith('http')) return;
+
+    // تجاهل طلبات Chrome extensions وغيرها
+    if (url.origin !== self.location.origin && !url.hostname.includes('sheikha')) {
+        return;
+    }
+
+    // الأصول الثابتة → Cache-First
+    if (
+        url.pathname.match(/\.(css|js|svg|png|jpg|jpeg|gif|webp|woff2?|ttf|ico)$/)
+    ) {
+        event.respondWith(cacheFirst(request, CACHE_STATIC));
+        return;
+    }
+
+    // طلبات API → Network-First مع Cache fallback
+    if (url.pathname.startsWith('/api/')) {
+        event.respondWith(networkFirst(request, CACHE_API));
+        return;
+    }
+
+    // صفحات HTML → Network-First مع Cache fallback
+    if (request.method === 'GET') {
+        event.respondWith(networkFirst(request, CACHE_PAGES));
+        return;
+    }
 });
 
 // Background sync for offline operations
 self.addEventListener('sync', (event) => {
-    if (event.tag === 'sync-orders') {
-        event.waitUntil(syncPendingOrders());
+    if (event.tag === 'sync-orders' || event.tag === 'sync-payment' ||
+        event.tag === 'sync-document' || event.tag === 'sync-operation') {
+        event.waitUntil(syncFromIndexedDB(event.tag));
     }
 });
+
+async function syncFromIndexedDB(tag) {
+    // إرسال رسالة لكل النوافذ المفتوحة لتشغيل المزامنة عبر SheikhaOfflineDB
+    const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    clients.forEach(client => {
+        client.postMessage({ type: 'SHEIKHA_SYNC_REQUEST', tag });
+    });
+    // المزامنة الاحتياطية المباشرة (عندما لا توجد نوافذ مفتوحة)
+    return syncPendingOrders();
+}
 
 async function syncPendingOrders() {
     try {

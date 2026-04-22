@@ -45,6 +45,7 @@
     <!-- هوية الحليم — الدفء والصبر والرزانة -->
     <link rel="stylesheet" href="/css/sheikha-haleem.css">
     <script src="/js/safe-api.js"></script>
+    <script src="/js/sheikha-offline-db.js"></script>
     <script src="/js/sheikha-meta-injector.js" defer></script>
     <script src="/js/sheikha-meta-helper.js"></script>
     <!-- Meta Pixel + CAPI — إطلاق مزدوج browser+server مع deduplication -->
@@ -749,7 +750,7 @@
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-bg" data-neural-canvas></div>
     <div class="hero-c">
         <div class="emblem-wrap"><div class="emblem">
             <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1155,7 +1156,7 @@
         <!-- «بُعِثتُ بجوامعِ الكَلِم» — صحيح البخاري ٧٢٧٣ وصحيح مسلم ٥٢٣ -->
         <p class="amiri" style="margin-top:1.5rem;font-size:.92rem;color:var(--gold);line-height:2.2;max-width:580px;margin-left:auto;margin-right:auto;text-align:center;opacity:.85;border-bottom:1px solid rgba(212,175,55,.08);padding-bottom:14px">«لا ضَرَرَ ولا ضِرار» · «مَن غَشَّنا فليسَ مِنّا» · «البَيِّعانِ بالخِيار»</p>
         <div class="btns">
-            <a href="/تسجيل-الدخول.html?tab=register&type=trader" class="btn bp">
+            <a href="/تسجيل-الدخول.html?tab=register&type=trader" class="btn bp" data-magnetic>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
                 🚀 سجّل كتاجر — مجاناً
             </a>
@@ -1262,10 +1263,7 @@
 <!-- ═══ جوامع الكلم في التجارة — «بُعِثتُ بجوامعِ الكَلِم» البخاري ٧٢٧٣ ═══ -->
 <!-- الهيكل الإداري: كما أسّس النبي ﷺ سوق المدينة وعيّن المحتسب، وكما نظّم عمر بن الخطاب رضي الله عنه الدواوين -->
 <!-- «عليكم بسنّتي وسنّة الخلفاء الراشدين المهديين» — أبو داود ٤٦٠٧ والترمذي ٢٦٧٦ -->
-<section class="sec">
-    <div class="sh c">
-        <div class="sb amiri">«بُعِثتُ بجوامعِ الكَلِم» — البخاري</div>
-        <h2 class="st">سنّة <span class="g">سوق المدينة</span></h2>
+<section class="sec n-reveal">
     </div>
     <div class="found-grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">
         <!-- ١. لا ضرر — جامعة الكلم الأولى في المعاملات -->
@@ -1382,7 +1380,7 @@
     </section>
 
 <!-- ═══ CULTURAL SPREAD ═══ -->
-<section class="sec">
+<section class="sec n-reveal">
     <div class="sh c">
         <div class="sb">نشر الثقافة</div>
         <h2 class="st">نشر ثقافة <span class="g">التجارة النبوية</span> — محلياً وعالمياً</h2>
@@ -1413,7 +1411,7 @@
     </section>
 
 <!-- ═══ MARKETS VISITED ═══ -->
-<section class="sec">
+<section class="sec n-reveal">
     <div class="sh c">
         <div class="sb">التراث التجاري النبوي</div>
         <h2 class="st">أسواق زارها وأسسها <span class="g">النبي ﷺ</span></h2>
@@ -1451,7 +1449,7 @@
             </div>
 
 <!-- ═══ MARKET CATEGORIES ═══ -->
-<section class="sec">
+<section class="sec n-reveal">
     <div class="sh c">
         <div class="sb">سوق شيخة</div>
         <h2 class="st">أربعة أقسام — <span class="g">تصنيف HS Code عالمي</span></h2>
@@ -1488,7 +1486,7 @@
 <!-- ══════ أقسام ثانوية مخفية مؤقتاً ══════ -->
 <div style="display:none">
 <!-- ═══ VISION & GOALS ═══ -->
-<section class="sec">
+<section class="sec n-reveal">
     <div class="sh c">
         <div class="sb">الرؤية والأهداف</div>
         <h2 class="st">من <span class="g">المدينة المنورة</span> إلى العالم</h2>
@@ -1514,7 +1512,7 @@
     </section>
 
 <!-- ═══ ECOSYSTEM ═══ -->
-<section class="sec">
+<section class="sec n-reveal">
     <div class="sh c">
         <div class="sb">المنظومة</div>
         <h2 class="st">كل ما يحتاجه <span class="g">التاجر</span></h2>
@@ -1715,8 +1713,29 @@ if ('serviceWorker' in navigator) {
         }).catch((err) => {
             console.log('[SHEIKHA] SW registration failed:', err);
         });
+        // استقبال رسائل SW لطلب المزامنة
+        navigator.serviceWorker.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'SHEIKHA_SYNC_REQUEST') {
+                if (window.SheikhaOfflineDB && window.SheikhaOfflineDB._online) {
+                    window.SheikhaOfflineDB.syncAll();
+                }
+            }
+        });
     });
 }
+
+// ═══ مؤشر الوضع أوفلاين / أونلاين ═══
+window.addEventListener('sheikha:offline', () => {
+    if (window.showToast) window.showToast('📵 وضع بلا إنترنت — العمليات تُحفظ محلياً', 'warning');
+});
+window.addEventListener('sheikha:online', () => {
+    if (window.showToast) window.showToast('🌐 عاد الاتصال — جارٍ مزامنة البيانات', 'success');
+});
+window.addEventListener('sheikha:sync:complete', (e) => {
+    const { synced, failed } = e.detail || {};
+    if (synced > 0 && window.showToast) window.showToast(`✅ مُزامَن: ${synced} عملية`, 'success');
+    if (failed > 0 && window.showToast) window.showToast(`⚠️ لم يُزامَن: ${failed} عملية`, 'warning');
+});
 
 // Show install button if not in standalone mode and not showing native prompt
 if (!window.matchMedia('(display-mode: standalone)').matches && !navigator.standalone) {
