@@ -12,9 +12,18 @@ const router  = express.Router();
 const fs      = require('fs');
 const path    = require('path');
 
-const DATA_DIR   = path.join(__dirname, '../data');
+const DATA_DIR    = path.join(__dirname, '../data');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
-const SUPPLY_FILE  = path.join(DATA_DIR, 'supply.json');
+const SUPPLY_FILE = path.join(DATA_DIR, 'supply.json');
+
+// Minimum demand-supply gap that triggers BOOST_SUPPLY mode
+const BOOST_THRESHOLD = 100;
+
+// Recognized units for the /activate endpoint
+const VALID_UNITS = [
+    'pm4', 'pm-neural', 'sheikha-code', 'git', 'dashboard',
+    'market', 'supply', 'orchestrator', 'auto-execution'
+];
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 function readJson(filePath, fallback) {
@@ -83,7 +92,7 @@ router.get('/state', (req, res) => {
     const totalDemand = calcPendingDemand(ordersData);
     const totalSupply = calcAvailableSupply(supplyData);
     const gap         = totalDemand - totalSupply;
-    const mode        = gap > 100 ? 'BOOST_SUPPLY' : 'NORMAL_PRODUCTION';
+    const mode        = gap > BOOST_THRESHOLD ? 'BOOST_SUPPLY' : 'NORMAL_PRODUCTION';
 
     res.json({
         success: true,
@@ -92,7 +101,7 @@ router.get('/state', (req, res) => {
             totalDemand,
             totalSupply,
             gap,
-            decision: gap > 100
+            decision: gap > BOOST_THRESHOLD
                 ? 'الطلب يتجاوز العرض — تفعيل وضع تعزيز الإمداد'
                 : 'الإنتاج في معدلاته الطبيعية'
         },
@@ -112,7 +121,7 @@ router.post('/auto', (req, res) => {
     const totalDemand = calcPendingDemand(ordersData);
     const totalSupply = calcAvailableSupply(supplyData);
     const gap         = totalDemand - totalSupply;
-    const mode        = gap > 100 ? 'BOOST_SUPPLY' : 'NORMAL_PRODUCTION';
+    const mode        = gap > BOOST_THRESHOLD ? 'BOOST_SUPPLY' : 'NORMAL_PRODUCTION';
 
     const actions = [];
 
@@ -137,7 +146,7 @@ router.post('/auto', (req, res) => {
             totalDemand,
             totalSupply,
             gap,
-            threshold: 100
+            threshold: BOOST_THRESHOLD
         },
         actions,
         executedAt: new Date().toISOString()
@@ -151,10 +160,19 @@ router.post('/activate', (req, res) => {
         return res.status(400).json({ success: false, error: 'الحقل المطلوب: unit' });
     }
 
+    const normalizedUnit = String(unit).toLowerCase().trim();
+    if (!VALID_UNITS.includes(normalizedUnit)) {
+        return res.status(400).json({
+            success: false,
+            error:   'unrecognized_unit',
+            message: `الوحدة '${unit}' غير معروفة. الوحدات المدعومة: ${VALID_UNITS.join(', ')}`
+        });
+    }
+
     res.json({
         success: true,
-        message: `تم تفعيل الوحدة: ${unit}`,
-        unit,
+        message: `تم تفعيل الوحدة: ${normalizedUnit}`,
+        unit: normalizedUnit,
         activatedAt: new Date().toISOString()
     });
 });
