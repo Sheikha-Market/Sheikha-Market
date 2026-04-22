@@ -36180,6 +36180,31 @@ try {
     console.warn('⚠️ [TELECOM] فشل تحميل مسارات الاتصالات:', e.message);
 }
 
+// ── Sheikha Network Architecture — DBUS + DNS + Waterline + Neural ──────────
+try {
+    const sheikhaNetworkRoutes = require('./routes/sheikha-network.js');
+    app.use('/api/network', sheikhaNetworkRoutes);
+    console.log('✅ [SHEIKHA-NETWORK] شبكة شيخة المتكاملة — مُفعَّلة');
+    console.log('   ├─ GET  /api/network                          — نقطة الدخول');
+    console.log('   ├─ GET  /api/network/dashboard                — لوحة القيادة الموحدة');
+    console.log('   ├─ GET  /api/network/layers                   — طبقات شيخة (PAN→SHTTP/HTTPS)');
+    console.log('   ├─ GET  /api/network/dbus/status              — Sheikha DBUS');
+    console.log('   ├─ POST /api/network/dbus/publish             — نشر رسالة DBUS');
+    console.log('   ├─ GET  /api/network/dns/status               — Sheikha DNS');
+    console.log('   ├─ GET  /api/network/dns/resolve/:name        — حل اسم خدمة');
+    console.log('   ├─ GET  /api/network/waterline/status         — Sheikha Waterline');
+    console.log('   ├─ GET  /api/network/waterline/layers         — خطوط الأمان');
+    console.log('   ├─ POST /api/network/waterline/encrypt        — تشفير AES-256');
+    console.log('   ├─ GET  /api/network/neural/status            — Sheikha Neural Engine');
+    console.log('   ├─ GET  /api/network/neural/topology          — طوبولوجيا الشبكة العصبية');
+    console.log('   ├─ POST /api/network/neural/infer             — استدلال عصبي');
+    console.log('   ├─ POST /api/network/neural/recommend/product — توصيات منتج');
+    console.log('   ├─ POST /api/network/neural/recommend/user    — توصيات مستخدم');
+    console.log('   └─ POST /api/network/neural/satellite         — تحليل الأقمار الصناعية');
+} catch (e) {
+    console.warn('⚠️ [SHEIKHA-NETWORK] فشل تحميل مسارات الشبكة المتكاملة:', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🧠 شبكة الذكاء الاصطناعي الحية v2 — الأقوى · الأفضل · الأتقى · الأنفع
 // ٧ عقد متخصصة · Word2Vec · SelfAttention · Backprop · Batch · Semantic Sim

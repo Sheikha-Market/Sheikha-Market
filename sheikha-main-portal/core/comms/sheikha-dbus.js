@@ -285,9 +285,9 @@ class SheikhaDBus extends EventEmitter {
 
     _containsHaram(payload) {
         if (!payload || typeof payload !== 'object') return false;
-        const HARAM_KEYS = ['riba', 'interest_rate', 'alcohol', 'pork', 'gambling'];
+        const SHARIA_FILTER_KEYWORDS = ['riba', 'interest_rate', 'alcohol', 'pork', 'gambling'];
         const str = JSON.stringify(payload).toLowerCase();
-        return HARAM_KEYS.some(k => str.includes(k));
+        return SHARIA_FILTER_KEYWORDS.some(k => str.includes(k));
     }
 
     _cleanup() {

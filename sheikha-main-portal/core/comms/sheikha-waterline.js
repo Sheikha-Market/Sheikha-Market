@@ -38,57 +38,168 @@ const IV_LENGTH        = 16;   // bytes — 128 bit GCM nonce
 const AUTH_TAG_LENGTH  = 16;   // bytes — GCM auth tag
 const TOKEN_EXPIRY_MS  = 60 * 60 * 1000;   // 1 hour default
 
-/** طبقات الشبكة وحدودها الأمنية (الخط المائي لكل طبقة) */
+/**
+ * طبقات شبكة شيخة وخطوط الأمان لكل طبقة
+ *
+ * كل طبقة تحمل اسم "Sheikha" — الطبقة الحاكمة هي Sheikha SHTTP/HTTPS
+ * التسلسل من الأصغر إلى الأكبر:
+ *   Sheikha PAN → Sheikha LAN → Sheikha WLAN → Sheikha CAN
+ *   → Sheikha MAN → Sheikha WAN → Sheikha VPN → Sheikha TCP/IP
+ *   → Sheikha HTTP/HTTPS → [Sheikha SHTTP/HTTPS ← الحاكمة]
+ */
 const NETWORK_LAYERS = {
-    PAN:   {
-        nameAr: 'شبكة منطقة شخصية', nameEn: 'Personal Area Network',
-        range: '< 10m', protocols: ['Bluetooth', 'NFC', 'Zigbee'],
-        waterline: { maxRatePerSec: 100, requiresAuth: false, encryptionRequired: false },
+
+    // ── Sheikha PAN ── شبكة المنطقة الشخصية ───────────────────
+    'Sheikha PAN': {
+        id:       'Sheikha PAN',
+        abbr:     'PAN',
+        nameAr:   'شيخة PAN — شبكة المنطقة الشخصية',
+        nameEn:   'Sheikha Personal Area Network',
+        descAr:   'للأجهزة الشخصية: المحافظ الرقمية، الساعات الذكية، الطواريف التجارية',
+        range:    '< 10m',
+        icon:     '📲',
+        protocols: ['Bluetooth 5.x', 'NFC', 'Zigbee', 'UWB'],
+        waterline: { maxRatePerSec: 100, requiresAuth: false, encryptionRequired: false, layer: 1 },
     },
-    LAN:   {
-        nameAr: 'شبكة محلية', nameEn: 'Local Area Network',
-        range: '< 1km', protocols: ['Ethernet', 'WiFi'],
-        waterline: { maxRatePerSec: 1000, requiresAuth: true, encryptionRequired: false },
+
+    // ── Sheikha LAN ── شبكة المتاجر والمستودعات ──────────────
+    'Sheikha LAN': {
+        id:       'Sheikha LAN',
+        abbr:     'LAN',
+        nameAr:   'شيخة LAN — شبكة المتاجر والمستودعات',
+        nameEn:   'Sheikha Local Area Network',
+        descAr:   'شبكة داخلية للمتاجر والمستودعات ونقاط البيع',
+        range:    '< 1 km',
+        icon:     '🏪',
+        protocols: ['Ethernet 10GbE', 'IEEE 802.3'],
+        waterline: { maxRatePerSec: 1000, requiresAuth: true, encryptionRequired: false, layer: 2 },
     },
-    WLAN:  {
-        nameAr: 'شبكة محلية لاسلكية', nameEn: 'Wireless LAN',
-        range: '< 100m', protocols: ['WiFi 6', 'WiFi 7'],
-        waterline: { maxRatePerSec: 500, requiresAuth: true, encryptionRequired: true },
+
+    // ── Sheikha WLAN ── WiFi للنقاط التجارية والمعارض ─────────
+    'Sheikha WLAN': {
+        id:       'Sheikha WLAN',
+        abbr:     'WLAN',
+        nameAr:   'شيخة WLAN — WiFi للنقاط التجارية والمعارض',
+        nameEn:   'Sheikha Wireless Local Area Network',
+        descAr:   'WiFi لنقاط البيع والمعارض التجارية ومراكز التسوق',
+        range:    '< 300m',
+        icon:     '📡',
+        protocols: ['Wi-Fi 6 (802.11ax)', 'Wi-Fi 7 (802.11be)'],
+        waterline: { maxRatePerSec: 500, requiresAuth: true, encryptionRequired: true, layer: 3 },
     },
-    CAN:   {
-        nameAr: 'شبكة منطقة المدينة', nameEn: 'Campus Area Network',
-        range: '< 5km', protocols: ['Fiber', '5G'],
-        waterline: { maxRatePerSec: 2000, requiresAuth: true, encryptionRequired: true },
+
+    // ── Sheikha CAN ── شبكة منطقة المدينة (التكامل بين الفروع)
+    'Sheikha CAN': {
+        id:       'Sheikha CAN',
+        abbr:     'CAN',
+        nameAr:   'شيخة CAN — شبكة التكامل بين الفروع',
+        nameEn:   'Sheikha Campus Area Network',
+        descAr:   'تربط فروع الشركة والمستودعات الكبرى في المنطقة الواحدة',
+        range:    '< 5 km',
+        icon:     '🏢',
+        protocols: ['Fiber Optic', '5G Private', 'MPLS'],
+        waterline: { maxRatePerSec: 2000, requiresAuth: true, encryptionRequired: true, layer: 4 },
     },
-    MAN:   {
-        nameAr: 'شبكة المدينة', nameEn: 'Metropolitan Area Network',
-        range: '< 50km', protocols: ['Metro Ethernet', 'WiMAX'],
-        waterline: { maxRatePerSec: 5000, requiresAuth: true, encryptionRequired: true },
+
+    // ── Sheikha MAN ── شبكة المدينة (ربط المناطق التجارية) ────
+    'Sheikha MAN': {
+        id:       'Sheikha MAN',
+        abbr:     'MAN',
+        nameAr:   'شيخة MAN — شبكة المدينة للمناطق التجارية',
+        nameEn:   'Sheikha Metropolitan Area Network',
+        descAr:   'تربط المناطق التجارية والأسواق داخل المدينة الواحدة',
+        range:    '< 50 km',
+        icon:     '🏙️',
+        protocols: ['Metro Ethernet', 'WiMAX', 'SDH/SONET'],
+        waterline: { maxRatePerSec: 5000, requiresAuth: true, encryptionRequired: true, layer: 5 },
     },
-    WAN:   {
-        nameAr: 'الشبكة الواسعة', nameEn: 'Wide Area Network',
-        range: 'Global', protocols: ['MPLS', 'BGP', 'Submarine Cable'],
-        waterline: { maxRatePerSec: 10000, requiresAuth: true, encryptionRequired: true },
+
+    // ── Sheikha WAN ── الشبكة الواسعة (ربط الدول والأسواق) ───
+    'Sheikha WAN': {
+        id:       'Sheikha WAN',
+        abbr:     'WAN',
+        nameAr:   'شيخة WAN — الشبكة الواسعة لربط الأسواق الدولية',
+        nameEn:   'Sheikha Wide Area Network',
+        descAr:   'تربط الدول والأسواق الدولية عبر الكابلات البحرية والأقمار الصناعية',
+        range:    'Global',
+        icon:     '🌍',
+        protocols: ['BGP', 'MPLS', 'Submarine Cable', 'Satellite LEO/GEO'],
+        waterline: { maxRatePerSec: 10000, requiresAuth: true, encryptionRequired: true, layer: 6 },
     },
-    VPN:   {
-        nameAr: 'الشبكة الخاصة الافتراضية', nameEn: 'Virtual Private Network',
-        range: 'Any', protocols: ['WireGuard', 'OpenVPN', 'IPSec'],
-        waterline: { maxRatePerSec: 3000, requiresAuth: true, encryptionRequired: true, tunneled: true },
+
+    // ── Sheikha VPN ── تشفير الاتصالات التجارية الحساسة ───────
+    'Sheikha VPN': {
+        id:       'Sheikha VPN',
+        abbr:     'VPN',
+        nameAr:   'شيخة VPN — تشفير الاتصالات التجارية الحساسة',
+        nameEn:   'Sheikha Virtual Private Network',
+        descAr:   'نفق مشفّر لحماية الاتصالات التجارية الحساسة بين الفروع والموردين',
+        range:    'Any',
+        icon:     '🔒',
+        protocols: ['WireGuard', 'OpenVPN', 'IPSec IKEv2'],
+        waterline: { maxRatePerSec: 3000, requiresAuth: true, encryptionRequired: true, tunneled: true, layer: 7 },
     },
-    HTTP:  {
-        nameAr: 'بروتوكول نقل النص التشعبي', nameEn: 'HTTP Protocol',
-        range: 'Internet', protocols: ['HTTP/1.1', 'HTTP/2'],
-        waterline: { maxRatePerSec: 200, requiresAuth: false, encryptionRequired: false, deprecated: true },
+
+    // ── Sheikha TCP/IP ── الأساس البروتوكولي لكل الاتصالات ────
+    'Sheikha TCP/IP': {
+        id:       'Sheikha TCP/IP',
+        abbr:     'TCP/IP',
+        nameAr:   'شيخة TCP/IP — الأساس البروتوكولي لكل الاتصالات',
+        nameEn:   'Sheikha TCP/IP Protocol Stack',
+        descAr:   'الركيزة البروتوكولية الجامعة لكل طبقات شبكة شيخة',
+        range:    'Universal',
+        icon:     '🔗',
+        protocols: ['IPv4', 'IPv6', 'TCP', 'UDP', 'QUIC'],
+        waterline: { maxRatePerSec: 50000, requiresAuth: false, encryptionRequired: false, fundamental: true, layer: 8 },
     },
-    HTTPS: {
-        nameAr: 'بروتوكول نقل النص التشعبي الآمن', nameEn: 'HTTPS Protocol',
-        range: 'Internet', protocols: ['TLS 1.3', 'HTTP/2', 'HTTP/3'],
-        waterline: { maxRatePerSec: 500, requiresAuth: false, encryptionRequired: true, tls: '1.3' },
+
+    // ── Sheikha HTTP/HTTPS ── بروتوكولات التطبيقات والواجهات ──
+    'Sheikha HTTP/HTTPS': {
+        id:       'Sheikha HTTP/HTTPS',
+        abbr:     'HTTP/HTTPS',
+        nameAr:   'شيخة HTTP/HTTPS — بروتوكولات التطبيقات والواجهات',
+        nameEn:   'Sheikha Application Protocol Layer',
+        descAr:   'بروتوكولات الويب والواجهات البرمجية لتطبيقات السوق',
+        range:    'Internet',
+        icon:     '🌐',
+        protocols: ['HTTP/2', 'HTTP/3', 'HTTPS (TLS 1.3)', 'WebSocket', 'REST', 'GraphQL'],
+        waterline: { maxRatePerSec: 500, requiresAuth: false, encryptionRequired: true, tls: '1.3', layer: 9 },
     },
-    TCPIP: {
-        nameAr: 'بروتوكول الإنترنت الأساسي', nameEn: 'TCP/IP Protocol Stack',
-        range: 'Universal', protocols: ['IPv4', 'IPv6', 'TCP', 'UDP'],
-        waterline: { maxRatePerSec: 50000, requiresAuth: false, encryptionRequired: false, fundamental: true },
+
+    // ══ Sheikha SHTTP/HTTPS ══ الطبقة الحاكمة ═════════════════
+    'Sheikha SHTTP/HTTPS': {
+        id:        'Sheikha SHTTP/HTTPS',
+        abbr:      'SHTTP/HTTPS',
+        nameAr:    'شيخة SHTTP/HTTPS — الطبقة الحاكمة لكل الشبكة',
+        nameEn:    'Sheikha Sovereign HTTPS — Governing Layer',
+        descAr:    'الطبقة الحاكمة التي تُشرف على كل طبقات شبكة شيخة وتفرض الرقابة الشرعية والأمنية',
+        range:     'All Layers',
+        icon:      '👑',
+        sovereign: true,
+        protocols: [
+            'TLS 1.3 (مفروض)',
+            'mTLS (المصادقة المتبادلة)',
+            'HSTS',
+            'Certificate Pinning',
+            'AES-256-GCM',
+            'Zero-Trust',
+            'Sharia Filter',
+        ],
+        waterline: {
+            maxRatePerSec:       0,          // لا حد — حاكمة
+            requiresAuth:        true,
+            encryptionRequired:  true,
+            tls:                 '1.3',
+            mtls:                true,
+            zeroTrust:           true,
+            shariaCompliance:    true,
+            governsLayers:       ['Sheikha PAN','Sheikha LAN','Sheikha WLAN','Sheikha CAN',
+                                   'Sheikha MAN','Sheikha WAN','Sheikha VPN',
+                                   'Sheikha TCP/IP','Sheikha HTTP/HTTPS'],
+            layer: 10,
+        },
+        quranRef:  '﴿ وَاللَّهُ غَالِبٌ عَلَى أَمْرِهِ ﴾ — يوسف: 21',
+        hadith:    '«إن الله يحب إذا عمل أحدكم عملاً أن يُتقنه» — البيهقي',
     },
 };
 
@@ -139,7 +250,11 @@ class SheikhaWaterline {
      */
     checkRequest(req, options = {}) {
         this._stats.requests_checked++;
-        const layer   = options.layer ? NETWORK_LAYERS[options.layer] : null;
+        // دعم كلا الصيغتين: 'LAN' أو 'Sheikha LAN'
+        const layerKey = options.layer
+            ? (NETWORK_LAYERS[options.layer] ? options.layer : `Sheikha ${options.layer}`)
+            : null;
+        const layer = layerKey ? NETWORK_LAYERS[layerKey] : null;
         const reasons = [];
         let   blocked = false;
         let   score   = 0;
@@ -358,11 +473,15 @@ class SheikhaWaterline {
     }
 
     getNetworkLayers() {
+        const layers = Object.entries(NETWORK_LAYERS).map(([id, data]) => ({ id, ...data }));
+        const sovereign = layers.find(l => l.sovereign);
         return {
-            nameAr:  'طبقات الشبكة وخطوط الأمان',
-            layers:  Object.entries(NETWORK_LAYERS).map(([id, data]) => ({ id, ...data })),
-            total:   Object.keys(NETWORK_LAYERS).length,
-            verse:   '﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾ — الأنفال: 60',
+            nameAr:       'طبقات شبكة شيخة وخطوط الأمان',
+            nameEn:       'Sheikha Network Layers & Waterlines',
+            governingLayer: sovereign ? sovereign.id : 'Sheikha SHTTP/HTTPS',
+            layers,
+            total:        layers.length,
+            verse:        '﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾ — الأنفال: 60',
         };
     }
 
@@ -410,10 +529,11 @@ class SheikhaWaterline {
     _checkBody(body) {
         if (!body) return { ok: true, reasons: [] };
         const SUSPICIOUS_PATTERNS = [
-            { pattern: /<script[\s\S]*?>/i, reason: 'xss_script_tag' },
-            { pattern: /;\s*drop\s+table/i, reason: 'sql_injection' },
-            { pattern: /\.\.[/\\]/,          reason: 'path_traversal' },
-            { pattern: /riba|ربا/i,           reason: 'sharia_violation_riba' },
+            { pattern: /<script[\s\S]*?>/i,                                          reason: 'xss_script_tag'       },
+            { pattern: /;\s*(drop|delete|insert|update|union|truncate)\s+/i,         reason: 'sql_injection'         },
+            { pattern: /'\s*(or|and)\s+['"\d]/i,                                     reason: 'sql_injection_or_and'  },
+            { pattern: /\.\.[/\\]/,                                                   reason: 'path_traversal'        },
+            { pattern: /riba|ربا/i,                                                   reason: 'sharia_violation_riba' },
         ];
         const str     = JSON.stringify(body);
         const reasons = SUSPICIOUS_PATTERNS
