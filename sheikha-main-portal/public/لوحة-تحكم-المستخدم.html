@@ -6,6 +6,7 @@
 <meta name="description" content="لوحة تحكم المستخدم - سوق شيخة للمعادن والسكراب">
 <title>لوحة التحكم | شيخة</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/sheikha-neural-identity.css">
 <style>
 :root{--bg:#020617;--bg2:#0f172a;--bg-card:#0d1424;--bg-el:#1a2332;--gold:#D4AF37;--gold-dim:rgba(212,175,55,.15);--gold-border:rgba(212,175,55,.3);--green:#006c35;--green-l:#10b981;--red:#ef4444;--blue:#3b82f6;--purple:#8b5cf6;--orange:#f59e0b;--t1:#f8fafc;--t2:#cbd5e1;--t3:#64748b;--b1:#334155;--b2:#1e293b;--radius:14px;--sidebar-w:280px;--tr:all .3s ease}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -313,6 +314,8 @@ textarea.form-input{resize:vertical;min-height:80px}
 </head>
 <body>
 <div class="app">
+<!-- شبكة الخلايا العصبية — طبقة خلفية -->
+<div data-neural-canvas style="position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.12"></div>
 <div class="overlay" id="overlay"></div>
 
 <!-- SIDEBAR -->
@@ -1999,5 +2002,7 @@ el.classList.add('selected');
 </script>
 <script src="/js/sheikha-smart-fab.js" defer></script>
 <script src="/js/sheikha-itqan.js"></script>
+<!-- خلية الشبكة العصبية للتصميم والهوية -->
+<script src="/js/sheikha-neural-design-engine.js" defer></script>
 </body>
 </html>

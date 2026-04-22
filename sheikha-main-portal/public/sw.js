@@ -18,6 +18,8 @@ const PRECACHE_ASSETS = [
     '/js/sheikha-offline-db.js',
     '/js/sheikha-access.js',
     '/js/sheikha-i18n.js',
+    '/js/sheikha-neural-design-engine.js',
+    '/css/sheikha-neural-identity.css',
     '/icons/icon.svg',
     '/icons/icon-192.svg',
     '/سوق-شيخة.html',
