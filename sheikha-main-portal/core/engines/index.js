@@ -407,6 +407,32 @@ try {
     console.error('[ENGINES-INDEX] ❌ خطأ في تحميل شبكة الإنتاج العصبية:', err.stack || err.message);
 }
 
+// ─── تسجيل خلايا الشبكة العصبية لجذر شيخة ────────────────────────────────────
+// "وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا" — البقرة: ٣١
+
+try {
+    const neuralCells = require('../sheikha-neural-cells');
+    registerEngine('neural-cells', neuralCells, {
+        nameAr: 'خلايا الشبكة العصبية — جذر شيخة',
+        nameEn: 'Sheikha Neural Cells — Root Layer',
+        maqsad: 'AQL',
+    });
+    registerRoute('neural-cells',   'neural-cells', 'AQL');
+    registerRoute('neural_cells',   'neural-cells', 'AQL');
+    registerRoute('cells',          'neural-cells', 'AQL');
+    registerRoute('neurons',        'neural-cells', 'AQL');
+    registerRoute('neuron',         'neural-cells', 'AQL');
+    registerRoute('logic_infer',    'neural-cells', 'AQL');
+    registerRoute('logic_network',  'neural-cells', 'AQL');
+    registerRoute('synaptic',       'neural-cells', 'AQL');
+    neuralCells.init().catch(err => {
+        console.error('[ENGINES-INDEX] ⚠️  خطأ في تهيئة خلايا الشبكة العصبية:', err.message);
+    });
+    console.log('[ENGINES-INDEX] 🧠 خلايا الشبكة العصبية مسجّلة في جذر شيخة');
+} catch (err) {
+    console.error('[ENGINES-INDEX] ❌ خطأ في تحميل خلايا الشبكة العصبية:', err.stack || err.message);
+}
+
 // ─── تسجيل كل المحركات تحت سيادة الحاكمة العليا ─────────────────────────────
 // بعد تسجيل الجميع، تفرض شيخة سيادتها على الكل
 // ﴿ وَفَوْقَ كُلِّ ذِي عِلْمٍ عَلِيمٌ ﴾ — يوسف ٧٦
@@ -441,6 +467,7 @@ if (_governor) {
             energy:               'شبكة شيخة العصبية للطاقة',
             resources:            'شبكة شيخة العصبية للموارد (صناعة، جدوى، خطوط، لوجستيات)',
             production_neural:    'شبكة شيخة العصبية للإنتاج',
+            'neural-cells':       'خلايا الشبكة العصبية — جذر شيخة',
         };
         const allEngines = listEngines();
         for (const engineKey of allEngines) {
