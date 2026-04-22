@@ -1,6 +1,7 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
  *  ⚙️  Execution Orchestrator Routes — منفذ القرارات والإنتاج
+ *  مدعوم بشبكة الخلايا العصبية (Sheikha Execution Neural Cell Network)
  *  "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ"
  * ═══════════════════════════════════════════════════════════════════════════════
  */
@@ -16,8 +17,15 @@ const DATA_DIR    = path.join(__dirname, '../data');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
 const SUPPLY_FILE = path.join(DATA_DIR, 'supply.json');
 
-// Minimum demand-supply gap that triggers BOOST_SUPPLY mode
-const BOOST_THRESHOLD = 100;
+// ─── تحميل الشبكة العصبية ──────────────────────────────────────────────────────
+let neuralNetwork = null;
+try {
+    const { getNetwork } = require('../lib/sheikha-execution-neural-cell-network');
+    neuralNetwork = getNetwork();
+    console.log('✅ [ORCHESTRATOR] شبكة الخلايا العصبية — مُحمَّلة ومُفعَّلة');
+} catch (e) {
+    console.warn('⚠️ [ORCHESTRATOR] فشل تحميل الشبكة العصبية:', e.message);
+}
 
 // Recognized units for the /activate endpoint
 const VALID_UNITS = [
@@ -35,146 +43,77 @@ function readJson(filePath, fallback) {
     }
 }
 
-/**
- * Calculate total pending demand from orders.json.
- * Supports both:
- *   - Simple array: [{ quantity, status }]
- *   - Object with orders key: { orders: [{ item: { quantity }, status }] }
- */
-function calcPendingDemand(ordersData) {
-    const list = Array.isArray(ordersData)
-        ? ordersData
-        : (ordersData.orders || []);
-
-    return list.reduce((sum, o) => {
-        const status = (o.status || '').toLowerCase();
-        if (status !== 'pending' && status !== 'open') return sum;
-        // Simple format: { quantity }
-        const qty = typeof o.quantity === 'number'
-            ? o.quantity
-            : (o.item && typeof o.item.quantity === 'number' ? o.item.quantity : 0);
-        return sum + qty;
-    }, 0);
-}
-
-/**
- * Calculate total available supply from supply.json.
- * Supports both:
- *   - Simple array: [{ quantity }]
- *   - Object with inventory key: { inventory: { material: { available } } }
- */
-function calcAvailableSupply(supplyData) {
-    if (Array.isArray(supplyData)) {
-        return supplyData.reduce((sum, s) => sum + (Number(s.quantity) || 0), 0);
-    }
-
-    // Try inventory object { material: { available: N } }
-    const inventory = supplyData.inventory;
-    if (inventory && typeof inventory === 'object' && !Array.isArray(inventory)) {
-        return Object.values(inventory).reduce((sum, v) => {
-            return sum + (typeof v === 'object' ? (Number(v.available) || 0) : (Number(v) || 0));
-        }, 0);
-    }
-
-    // Try supply_orders array
-    const supplyOrders = supplyData.supply_orders || [];
-    return supplyOrders.reduce((sum, s) => {
-        const qty = s.cargo && typeof s.cargo.quantity === 'number' ? s.cargo.quantity : 0;
-        return sum + qty;
-    }, 0);
-}
-
 // ─── GET /api/execution-orchestrator/state — حالة الأوركسترا ─────────────────
 router.get('/state', (req, res) => {
-    const ordersData  = readJson(ORDERS_FILE, []);
-    const supplyData  = readJson(SUPPLY_FILE, []);
+    if (!neuralNetwork) {
+        return res.status(503).json({ ok: false, error: 'الشبكة العصبية غير متوفرة' });
+    }
 
-    const totalDemand = calcPendingDemand(ordersData);
-    const totalSupply = calcAvailableSupply(supplyData);
-    const gap         = totalDemand - totalSupply;
-    const mode        = gap > BOOST_THRESHOLD ? 'BOOST_SUPPLY' : 'NORMAL_PRODUCTION';
-
-    res.json({
-        success: true,
-        state: {
-            mode,
-            totalDemand,
-            totalSupply,
-            gap,
-            decision: gap > BOOST_THRESHOLD
-                ? 'الطلب يتجاوز العرض — تفعيل وضع تعزيز الإمداد'
-                : 'الإنتاج في معدلاته الطبيعية'
-        },
-        dataFiles: {
-            orders: fs.existsSync(ORDERS_FILE),
-            supply: fs.existsSync(SUPPLY_FILE)
-        },
-        timestamp: new Date().toISOString()
-    });
+    const state = neuralNetwork.getState();
+    res.json(state);
 });
 
 // ─── POST /api/execution-orchestrator/auto — تشغيل التنفيذ التلقائي ──────────
 router.post('/auto', (req, res) => {
-    const ordersData  = readJson(ORDERS_FILE, []);
-    const supplyData  = readJson(SUPPLY_FILE, []);
-
-    const totalDemand = calcPendingDemand(ordersData);
-    const totalSupply = calcAvailableSupply(supplyData);
-    const gap         = totalDemand - totalSupply;
-    const mode        = gap > BOOST_THRESHOLD ? 'BOOST_SUPPLY' : 'NORMAL_PRODUCTION';
-
-    const actions = [];
-
-    if (mode === 'BOOST_SUPPLY') {
-        actions.push({
-            action: 'BOOST_SUPPLY',
-            reason: `فجوة الطلب والعرض: ${gap} وحدة`,
-            recommendation: 'زيادة الإنتاج وفتح طلبات توريد إضافية'
-        });
-    } else {
-        actions.push({
-            action: 'MAINTAIN_PRODUCTION',
-            reason: 'مستويات العرض والطلب متوازنة',
-            recommendation: 'الاستمرار بالمعدلات الحالية'
-        });
+    if (!neuralNetwork) {
+        return res.status(503).json({ ok: false, error: 'الشبكة العصبية غير متوفرة' });
     }
 
+    const ordersData = readJson(ORDERS_FILE, []);
+    const supplyData = readJson(SUPPLY_FILE, []);
+
+    const result = neuralNetwork.execute(ordersData, supplyData);
+
     res.json({
-        success: true,
-        mode,
-        analysis: {
-            totalDemand,
-            totalSupply,
-            gap,
-            threshold: BOOST_THRESHOLD
+        ok:         true,
+        timestamp:  result.executedAt,
+        mode:       result.mode,
+        reasoning:  result.reasoning,
+        actions:    result.actions,
+        systemState: {
+            orders:    result.analysis.totalDemand,
+            supply:    result.analysis.totalSupply,
+            supplyGap: result.analysis.gap,
+            contracts: 0,
+            alerts:    result.analysis.gap > 100 ? 1 : 0
         },
-        actions,
-        executedAt: new Date().toISOString()
+        neural: result.neural,
+        actionsExecuted:  result.actionsExecuted.length,
+        executionSuccess: true
     });
+});
+
+// ─── GET /api/execution-orchestrator/network — حالة الشبكة العصبية ───────────
+router.get('/network', (req, res) => {
+    if (!neuralNetwork) {
+        return res.status(503).json({ ok: false, error: 'الشبكة العصبية غير متوفرة' });
+    }
+    res.json({ ok: true, network: neuralNetwork.getNetworkStatus() });
 });
 
 // ─── POST /api/execution-orchestrator/activate — تفعيل وحدة ─────────────────
 router.post('/activate', (req, res) => {
     const { unit } = req.body || {};
     if (!unit) {
-        return res.status(400).json({ success: false, error: 'الحقل المطلوب: unit' });
+        return res.status(400).json({ ok: false, error: 'الحقل المطلوب: unit' });
     }
 
     const normalizedUnit = String(unit).toLowerCase().trim();
     if (!VALID_UNITS.includes(normalizedUnit)) {
         return res.status(400).json({
-            success: false,
+            ok:      false,
             error:   'unrecognized_unit',
             message: `الوحدة '${unit}' غير معروفة. الوحدات المدعومة: ${VALID_UNITS.join(', ')}`
         });
     }
 
     res.json({
-        success: true,
-        message: `تم تفعيل الوحدة: ${normalizedUnit}`,
-        unit: normalizedUnit,
+        ok:          true,
+        message:     `تم تفعيل الوحدة: ${normalizedUnit}`,
+        unit:        normalizedUnit,
         activatedAt: new Date().toISOString()
     });
 });
 
 module.exports = router;
+
