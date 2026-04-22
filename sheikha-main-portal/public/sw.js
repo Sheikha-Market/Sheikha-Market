@@ -15,6 +15,7 @@ const PRECACHE_ASSETS = [
     '/css/sheikha-haleem.css',
     '/css/sheikha-design-system.css',
     '/js/safe-api.js',
+    '/js/sheikha-offline-db.js',
     '/js/sheikha-access.js',
     '/js/sheikha-i18n.js',
     '/icons/icon.svg',
@@ -138,10 +139,21 @@ self.addEventListener('fetch', (event) => {
 
 // Background sync for offline operations
 self.addEventListener('sync', (event) => {
-    if (event.tag === 'sync-orders') {
-        event.waitUntil(syncPendingOrders());
+    if (event.tag === 'sync-orders' || event.tag === 'sync-payment' ||
+        event.tag === 'sync-document' || event.tag === 'sync-operation') {
+        event.waitUntil(syncFromIndexedDB(event.tag));
     }
 });
+
+async function syncFromIndexedDB(tag) {
+    // إرسال رسالة لكل النوافذ المفتوحة لتشغيل المزامنة عبر SheikhaOfflineDB
+    const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    clients.forEach(client => {
+        client.postMessage({ type: 'SHEIKHA_SYNC_REQUEST', tag });
+    });
+    // المزامنة الاحتياطية المباشرة (عندما لا توجد نوافذ مفتوحة)
+    return syncPendingOrders();
+}
 
 async function syncPendingOrders() {
     try {

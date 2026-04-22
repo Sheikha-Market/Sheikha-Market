@@ -17,7 +17,7 @@
     // ═══ الوضع الصامت — Silent Mode ═══
     window.SHEIKHA_SILENT_MODE = true;
 
-    // ═══ safeFetch — بديل آمن عن fetch ═══
+    // ═══ safeFetch — بديل آمن عن fetch مع دعم أوفلاين ═══
     window.safeFetch = async function(url, options = {}) {
         try {
             const controller = new AbortController();
@@ -48,7 +48,20 @@
             if (err.name === 'AbortError') {
                 console.warn('[Sheikha API] Timeout:', url);
             } else {
-                console.warn('[Sheikha API] Silent fail:', url);
+                console.warn('[Sheikha API] Silent fail (offline?):', url);
+            }
+            // إذا كان هناك طلب POST معلّق → أضفه لقائمة المزامنة
+            if (options.method === 'POST' && options.body && window.SheikhaOfflineDB && window.SheikhaOfflineDB._ready) {
+                try {
+                    const body = typeof options.body === 'string' ? JSON.parse(options.body) : options.body;
+                    await window.SheikhaOfflineDB.saveOperation({
+                        syncUrl: url,
+                        method: 'POST',
+                        payload: body,
+                        type: options._offlineType || 'generic',
+                    });
+                    console.log('[Sheikha API] ✅ تم حفظ الطلب محلياً للمزامنة لاحقاً');
+                } catch (_) {}
             }
             return null;
         }

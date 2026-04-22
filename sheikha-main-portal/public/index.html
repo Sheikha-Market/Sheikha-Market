@@ -45,6 +45,7 @@
     <!-- هوية الحليم — الدفء والصبر والرزانة -->
     <link rel="stylesheet" href="/css/sheikha-haleem.css">
     <script src="/js/safe-api.js"></script>
+    <script src="/js/sheikha-offline-db.js"></script>
     <script src="/js/sheikha-meta-injector.js" defer></script>
     <script src="/js/sheikha-meta-helper.js"></script>
     <!-- Meta Pixel + CAPI — إطلاق مزدوج browser+server مع deduplication -->
@@ -1715,8 +1716,29 @@ if ('serviceWorker' in navigator) {
         }).catch((err) => {
             console.log('[SHEIKHA] SW registration failed:', err);
         });
+        // استقبال رسائل SW لطلب المزامنة
+        navigator.serviceWorker.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'SHEIKHA_SYNC_REQUEST') {
+                if (window.SheikhaOfflineDB && window.SheikhaOfflineDB._online) {
+                    window.SheikhaOfflineDB.syncAll();
+                }
+            }
+        });
     });
 }
+
+// ═══ مؤشر الوضع أوفلاين / أونلاين ═══
+window.addEventListener('sheikha:offline', () => {
+    if (window.showToast) window.showToast('📵 وضع بلا إنترنت — العمليات تُحفظ محلياً', 'warning');
+});
+window.addEventListener('sheikha:online', () => {
+    if (window.showToast) window.showToast('🌐 عاد الاتصال — جارٍ مزامنة البيانات', 'success');
+});
+window.addEventListener('sheikha:sync:complete', (e) => {
+    const { synced, failed } = e.detail || {};
+    if (synced > 0 && window.showToast) window.showToast(`✅ مُزامَن: ${synced} عملية`, 'success');
+    if (failed > 0 && window.showToast) window.showToast(`⚠️ لم يُزامَن: ${failed} عملية`, 'warning');
+});
 
 // Show install button if not in standalone mode and not showing native prompt
 if (!window.matchMedia('(display-mode: standalone)').matches && !navigator.standalone) {
