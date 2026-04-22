@@ -409,7 +409,9 @@ class SheikhaNeuralFIOEngine {
             completedAt:   new Date().toISOString(),
             fioMasterRef:  QURAN_SUNNAH_INDEX[6], // FIO-007 — الإخلاص (التوحيد)
             network: {
-                totalNeurons:    (this._network.neurons || []).length + 1, // +1 المنطق الأعلى
+                // masterNeuron محفوظ في _network.masterNeuron بشكل منفصل عن مصفوفة neurons
+                // لذا يُضاف 1 للحصول على العدد الفعلي لجميع الخلايا
+                totalNeurons:    (this._network.neurons || []).length + 1,
                 trainedSteps:    this._network.trainedSteps    || 0,
                 totalInferences: this._network.totalInferences || 0,
                 masterShield:    this._network.masterShield    || true,
@@ -437,10 +439,14 @@ class SheikhaNeuralFIOEngine {
 
     _computeBalanceIndex({ opsPerSec, accuracy, density, iops }) {
         // تطبيع القيم — كل مقياس يُحوَّل إلى 0-100
-        const speedScore    = Math.min(100, (opsPerSec / 10) * 100);          // 10 ops/s = 100%
-        const accuracyScore = accuracy;                                         // مباشرة 0-100%
-        const densityScore  = Math.min(100, density);                           // 0-100%
-        const iopsScore     = Math.min(100, (iops / 10) * 100);               // 10 iops/s = 100%
+        // خط الأساس لسرعة الاستدلال: 1 op/s = 10%, 10 ops/s = 100%
+        // (الشبكة في بيئة الإنتاج تُحقق آلاف ops/s — يُعدَّل الأساس حسب التقييم)
+        const SPEED_BASELINE = 10;  // ops/s عند الخط الأساسي (يمثّل الحد الأدنى للإنتاج الجيد)
+        const IOPS_BASELINE  = 10;  // iops/s عند الخط الأساسي
+        const speedScore    = Math.min(100, (opsPerSec / SPEED_BASELINE) * 100);
+        const accuracyScore = accuracy;                           // مباشرة 0-100%
+        const densityScore  = Math.min(100, density);            // 0-100%
+        const iopsScore     = Math.min(100, (iops / IOPS_BASELINE) * 100);
 
         // أوزان المقاييس — الدقة تحمل أعلى وزن
         const weights = { speed: 0.25, accuracy: 0.40, density: 0.20, iops: 0.15 };
@@ -514,12 +520,9 @@ class SheikhaNeuralFIOEngine {
     }
 
     _requireMatrix() {
-        try {
-            const nn = require('../models/LogicNeuralNetwork.js');
-            return { Matrix: nn.Matrix || _localMatrix() };
-        } catch (_) {
-            return { Matrix: _localMatrix() };
-        }
+        const nn = require('../models/LogicNeuralNetwork.js');
+        if (!nn.Matrix) throw new Error('Matrix class غير متوفر في LogicNeuralNetwork — تحقق من التثبيت');
+        return { Matrix: nn.Matrix };
     }
 
     _requireEncodeContext() {
@@ -533,16 +536,6 @@ class SheikhaNeuralFIOEngine {
             };
         }
     }
-}
-
-/** مصفوفة محلية بسيطة للطوارئ */
-function _localMatrix() {
-    return {
-        random(r, c, scale = 0.5) {
-            const data = new Float32Array(r * c).map(() => (Math.random() * 2 - 1) * scale);
-            return { rows: r, cols: c, data };
-        }
-    };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
