@@ -108,6 +108,7 @@ async function boot() {
         { key: 'saas',          file: 'sheikha-saas-root.js' },
         { key: 'impact',        file: 'sheikha-impact-engine.js' },
         { key: 'voice',         file: 'sheikha-voice.js' },
+        { key: 'neural-cells',  file: 'sheikha-neural-cells.js' },
     ];
 
     for (const { key, file, json } of bootOrder) {
@@ -135,6 +136,7 @@ async function boot() {
                     'saas':          'طبقة البرمجيات كخدمة',
                     'impact':        'محرك الأثر والقيم',
                     'voice':         'طبقة الصوت والتواصل',
+                    'neural-cells':  'خلايا الشبكة العصبية',
                 };
                 sovereignLayer.registerSubject(key, 'layer', {
                     nameAr: LAYER_ARABIC[key] || key,
