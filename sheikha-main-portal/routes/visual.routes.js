@@ -1,0 +1,13 @@
+const express = require('express');
+const SheikhaVisualGenerationEngine = require('../lib/sheikha-visual-generation-engine');
+const router = express.Router();
+const engine = new SheikhaVisualGenerationEngine(process.cwd());
+router.get('/health',(req,res)=>res.json(engine.health()));
+router.get('/catalog',(req,res)=>res.json(engine.catalog()));
+router.get('/jobs',(req,res)=>res.json(engine.listJobs()));
+router.get('/library',(req,res)=>res.json(engine.library()));
+router.post('/plan',(req,res)=>res.json(engine.plan(req.body||{})));
+router.post('/job',(req,res)=>res.json(engine.createJob(req.body||{})));
+router.post('/generate',(req,res)=>res.json(engine.runJob(req.body||{})));
+router.post('/analyze',(req,res)=>res.json(engine.analyze(req.body||{})));
+module.exports = router;
