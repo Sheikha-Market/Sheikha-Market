@@ -36,32 +36,43 @@ let homeNetwork = null;
 let homeAI      = null;
 try {
     homeNetwork = require('../telecom/home-network/index');
-    homeAI      = homeNetwork.aiEngine;
-} catch (_) {}
+    homeAI      = homeNetwork && homeNetwork.aiEngine ? homeNetwork.aiEngine : null;
+    if (!homeAI) console.warn('⚠️ [HOME-INTEGRATION] aiEngine غير متاح في home-network/index');
+} catch (e) {
+    console.warn('⚠️ [HOME-INTEGRATION] فشل تحميل home-network:', e.message);
+}
 
 // ── تحميل وحدات الاتصالات الكونية ────────────────────────────────────────────
 let telecomOrg = null;
 try {
     telecomOrg = require('../core/comms/telecom-org').telecomOrg;
-} catch (_) {}
+} catch (e) {
+    console.warn('⚠️ [HOME-INTEGRATION] فشل تحميل telecom-org:', e.message);
+}
 
 // ── تحميل وحدات السوق الذكي ──────────────────────────────────────────────────
 let commerceNetwork = null;
 try {
     commerceNetwork = require('../telecom/commerce-network/index');
-} catch (_) {}
+} catch (e) {
+    console.warn('⚠️ [HOME-INTEGRATION] فشل تحميل commerce-network:', e.message);
+}
 
 // ── تحميل وحدة الشبكة العصبية للاتصالات ─────────────────────────────────────
 let networkCore = null;
 try {
     networkCore = require('../telecom/network-core/index');
-} catch (_) {}
+} catch (e) {
+    console.warn('⚠️ [HOME-INTEGRATION] فشل تحميل network-core:', e.message);
+}
 
 // ── تحميل وحدة الذكاء الاصطناعي للاتصالات ───────────────────────────────────
 let aiNetwork = null;
 try {
     aiNetwork = require('../telecom/ai-network/index');
-} catch (_) {}
+} catch (e) {
+    console.warn('⚠️ [HOME-INTEGRATION] فشل تحميل ai-network:', e.message);
+}
 
 // ── مساعد الاستجابة ───────────────────────────────────────────────────────────
 function ok(res, data) {
@@ -249,6 +260,9 @@ router.post('/market/connect', (req, res) => {
 
         // الربط بالشبكة التجارية
         const commerceResult = commerceNetwork.connectToCommerceNetwork({ userId, type: 'smart_home_trader', region });
+        if (!commerceResult.success) {
+            return fail(res, 400, commerceResult.error || 'commerce_error', commerceResult.messageAr || 'فشل الاتصال بالشبكة التجارية');
+        }
 
         // حالة شبكة المنزل
         const homeDash = homeNetwork ? homeNetwork.getHomeNetworkDashboard() : null;
@@ -351,7 +365,9 @@ router.get('/neural/pulse', (req, res) => {
         const netStatus = networkCore ? networkCore.getNetworkStatus() : null;
 
         // طوبولوجيا الشبكة العصبية الكونية
-        const neuralTopology = telecomOrg ? telecomOrg.getNeuralTopology() : null;
+        const neuralTopology = (telecomOrg && typeof telecomOrg.getNeuralTopology === 'function')
+            ? telecomOrg.getNeuralTopology()
+            : null;
 
         // عقد الذكاء الاصطناعي
         const aiNodes = aiNetwork ? aiNetwork.getAINodes() : null;

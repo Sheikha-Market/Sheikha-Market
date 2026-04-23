@@ -51,8 +51,8 @@ const { createSecureChannel, getGatewaySummary } = require('../telecom/universal
 let telecomOrg = null;
 try {
     telecomOrg = require('../core/comms/telecom-org').telecomOrg;
-} catch (_) {
-    // يعمل بدون المحرك العصبي إذا لم يكن متاحاً
+} catch (e) {
+    console.warn('⚠️ [TELECOM] telecom-org غير متاح:', e.message);
 }
 
 // ── تحميل محرك شبكة المنزل الذكي + الذكاء الاصطناعي ─────────────────────────
@@ -60,8 +60,8 @@ try {
 let homeNetwork = null;
 try {
     homeNetwork = require('../telecom/home-network/index');
-} catch (_) {
-    // يعمل بدون محرك المنزل إذا لم يكن متاحاً
+} catch (e) {
+    console.warn('⚠️ [TELECOM] home-network غير متاح:', e.message);
 }
 
 // ── مساعد الاستجابة ──────────────────────────────────────────────────────────

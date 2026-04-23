@@ -19,7 +19,25 @@
 
 'use strict';
 
-const aiEngine = require('./ai-engine');
+let aiEngine = null;
+try {
+    aiEngine = require('./ai-engine');
+} catch (e) {
+    console.warn('⚠️ [HOME-NETWORK] ai-engine غير متاح:', e.message);
+    // fallback بسيط لمنع أخطاء undefined
+    aiEngine = {
+        AI_MODELS:            {},
+        THREAT_CATEGORIES:    {},
+        QOS_CLASSES:          [],
+        analyzeTrafficWithAI: () => ({ threat_level: 'unknown', anomaly_score: 0 }),
+        predictThreats:       () => ({ predictions: [] }),
+        smartRouteTraffic:    () => ({ routing_table: [] }),
+        autoOptimizeNetwork:  () => ({ suggestions: [] }),
+        classifyContent:      () => ({ halal_score: 0.5, is_halal: true }),
+        processVoiceCommand:  () => ({ intent: 'UNKNOWN', response_ar: 'محرك AI غير متاح' }),
+        getAINetworkInsights: () => ({ models: [], live_metrics: {}, ai_capabilities: [] }),
+    };
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 1. الخلايا العصبية — الشبكة الداخلية (HOME_INTERNAL)
