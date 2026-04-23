@@ -36190,12 +36190,45 @@ try {
     console.log('   ├─ GET  /api/telecom/sheikha/unified/cell/:q     — خلية برقمها أو معرّفها');
     console.log('   ├─ GET  /api/telecom/sheikha/unified/section/:s  — قسم TERRESTRIAL/DIGITAL/…');
     console.log('   ├─ GET  /api/telecom/sheikha/unified/signal      — إشارة موحّدة (GET)');
-    console.log('   └─ POST /api/telecom/sheikha/unified/signal      — إشارة موحّدة (POST)');
+    console.log('   ├─ POST /api/telecom/sheikha/unified/signal      — إشارة موحّدة (POST)');
+    console.log('   ├─ GET  /api/telecom/home-network                — 🏠🧠🤖 لوحة المنزل الذكي + AI');
+    console.log('   ├─ GET  /api/telecom/home-network/internal       — الشبكة الداخلية (راوتر، IoT، LAN)');
+    console.log('   ├─ GET  /api/telecom/home-network/external       — الشبكة الخارجية (5G، ألياف)');
+    console.log('   ├─ GET  /api/telecom/home-network/security       — الأمن والحماية (جدار، IDS، VPN)');
+    console.log('   ├─ GET  /api/telecom/home-network/integration    — جسر التكامل الذكي');
+    console.log('   ├─ GET  /api/telecom/home-network/cell/:id       — خلية عصبية منزلية محددة');
+    console.log('   ├─ POST /api/telecom/home-network/signal         — إطلاق إشارة عصبية منزلية');
+    console.log('   ├─ GET  /api/telecom/home-network/ai             — رؤى الذكاء الاصطناعي');
+    console.log('   ├─ POST /api/telecom/home-network/ai/analyze     — تحليل حركة الشبكة بالذكاء الاصطناعي');
+    console.log('   ├─ POST /api/telecom/home-network/ai/predict     — توقع التهديدات الأمنية');
+    console.log('   ├─ POST /api/telecom/home-network/ai/route       — توجيه ذكي للأجهزة (QoS)');
+    console.log('   ├─ POST /api/telecom/home-network/ai/optimize    — تحسين الشبكة تلقائياً');
+    console.log('   ├─ POST /api/telecom/home-network/ai/classify    — تصنيف محتوى شرعي (BERT-Arabic)');
+    console.log('   └─ POST /api/telecom/home-network/ai/command     — أمر صوتي/نصي إسلامي');
 } catch (e) {
     console.warn('⚠️ [TELECOM] فشل تحميل مسارات الاتصالات:', e.message);
 }
 
-// ── Sheikha Network Architecture — DBUS + DNS + Waterline + Neural ──────────
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌉 جسر التكامل — شبكة المنزل الذكي × منظومة سوق شيخة الكاملة
+// Home Network Integration Bridge — يربط المنزل بالسوق والذكاء الاصطناعي والأمن
+// ﴿ وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا ﴾ — الحجرات: 13
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const homeIntegrationRoutes = require('./routes/home-network-integration.js');
+    app.use('/api/home-integration', homeIntegrationRoutes);
+    console.log('✅ [HOME-INTEGRATION] جسر التكامل — المنزل الذكي × سوق شيخة — مُفعَّل');
+    console.log('   ├─ GET  /api/home-integration                  — نقطة الدخول');
+    console.log('   ├─ GET  /api/home-integration/status           — حالة التكامل الكامل');
+    console.log('   ├─ GET  /api/home-integration/dashboard        — لوحة القيادة الموحدة');
+    console.log('   ├─ POST /api/home-integration/ai/analyze       — تحليل AI موحد');
+    console.log('   ├─ POST /api/home-integration/market/connect   — ربط المنزل بالسوق');
+    console.log('   ├─ POST /api/home-integration/security/scan    — مسح أمني موحد');
+    console.log('   ├─ GET  /api/home-integration/neural/pulse     — النبضة العصبية الكاملة');
+    console.log('   └─ POST /api/home-integration/command          — أمر موحد (منزل+سوق+AI)');
+} catch (e) {
+    console.warn('⚠️ [HOME-INTEGRATION] فشل تحميل جسر التكامل:', e.message);
+}
 try {
     const sheikhaNetworkRoutes = require('./routes/sheikha-network.js');
     app.use('/api/network', sheikhaNetworkRoutes);
