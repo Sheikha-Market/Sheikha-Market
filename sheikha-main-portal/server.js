@@ -36175,7 +36175,14 @@ try {
     console.log('   ├─ GET  /api/telecom/neural/cell/:id      — خلية عصبية محددة');
     console.log('   ├─ GET  /api/telecom/neural/domain/:d     — خلايا نطاق معين');
     console.log('   ├─ GET  /api/telecom/neural/signal        — إطلاق إشارة (GET)');
-    console.log('   └─ POST /api/telecom/neural/signal        — إطلاق إشارة عصبية');
+    console.log('   ├─ POST /api/telecom/neural/signal        — إطلاق إشارة عصبية');
+    console.log('   ├─ GET  /api/telecom/sheikha              — 👑 طوبولوجيا شبكة شيخة العصبية');
+    console.log('   ├─ POST /api/telecom/sheikha/activate     — 🔥 تفعيل شبكة شيخة (14 خلية)');
+    console.log('   ├─ GET  /api/telecom/sheikha/sovereign    — 👑 الطبقة الحاكمة SHTTP/HTTPS');
+    console.log('   ├─ GET  /api/telecom/sheikha/cell/:id     — خلية شيخة محددة');
+    console.log('   ├─ GET  /api/telecom/sheikha/layer/:order — طبقة شيخة حسب الرقم (1-10)');
+    console.log('   ├─ GET  /api/telecom/sheikha/signal       — إشارة في شبكة شيخة (GET)');
+    console.log('   └─ POST /api/telecom/sheikha/signal       — إطلاق إشارة عصبية شيخة');
 } catch (e) {
     console.warn('⚠️ [TELECOM] فشل تحميل مسارات الاتصالات:', e.message);
 }

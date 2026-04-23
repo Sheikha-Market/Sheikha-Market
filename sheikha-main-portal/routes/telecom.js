@@ -342,4 +342,94 @@ router.post('/neural/signal', (req, res) => {
     }
 });
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 👑 شبكة خلايا شيخة العصبية — Sheikha Neural Cell Network
+//    (طبقات PAN → LAN → WLAN → CAN → MAN → WAN → VPN → TCP/IP → HTTPS → SHTTP)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// GET /api/telecom/sheikha — طوبولوجيا شبكة شيخة العصبية
+router.get('/sheikha', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة العصبية غير متاح');
+    try {
+        res.json(telecomOrg.getSheikhaTopology());
+    } catch (e) {
+        fail(res, 500, 'sheikha_topology_error', 'حدث خطأ أثناء جلب طوبولوجيا شبكة شيخة');
+    }
+});
+
+// POST /api/telecom/sheikha/activate — تفعيل شبكة شيخة العصبية كاملاً
+router.post('/sheikha/activate', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة غير متاح');
+    try {
+        res.json(telecomOrg.activateSheikha());
+    } catch (e) {
+        fail(res, 500, 'sheikha_activate_error', 'حدث خطأ أثناء تفعيل شبكة شيخة');
+    }
+});
+
+// GET /api/telecom/sheikha/cell/:id — خلية شيخة محددة
+// مثال: /api/telecom/sheikha/cell/CELL_SHEIKHA_SHTTP
+router.get('/sheikha/cell/:id', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة غير متاح');
+    try {
+        const id   = req.params.id.toUpperCase();
+        const cell = telecomOrg.getNeuralCell(id);
+        if (!cell) return fail(res, 404, 'sheikha_cell_not_found', `خلية شيخة غير موجودة: ${req.params.id}`);
+        res.json(cell);
+    } catch (e) {
+        fail(res, 500, 'sheikha_cell_error', 'حدث خطأ أثناء جلب بيانات الخلية');
+    }
+});
+
+// GET /api/telecom/sheikha/layer/:order — خلية شيخة حسب رقم الطبقة (1–10)
+router.get('/sheikha/layer/:order', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة غير متاح');
+    try {
+        const order = parseInt(req.params.order, 10);
+        const topology = telecomOrg.getSheikhaTopology();
+        const cell = topology.cells.find(c => c.layerOrder === order);
+        if (!cell) return fail(res, 404, 'layer_not_found', `لا توجد طبقة برقم: ${order}`);
+        res.json({ layerOrder: order, cell });
+    } catch (e) {
+        fail(res, 500, 'sheikha_layer_error', 'حدث خطأ أثناء جلب الطبقة');
+    }
+});
+
+// GET /api/telecom/sheikha/sovereign — الطبقة الحاكمة SHTTP/HTTPS
+router.get('/sheikha/sovereign', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة غير متاح');
+    try {
+        const cell = telecomOrg.getNeuralCell('CELL_SHEIKHA_SHTTP');
+        if (!cell) return fail(res, 404, 'sovereign_not_found', 'الطبقة الحاكمة غير موجودة');
+        res.json({ sovereign: true, cell });
+    } catch (e) {
+        fail(res, 500, 'sheikha_sovereign_error', 'حدث خطأ أثناء جلب الطبقة الحاكمة');
+    }
+});
+
+// GET /api/telecom/sheikha/signal?from=<CELL_ID>&type=<type>&depth=<n>
+router.get('/sheikha/signal', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة غير متاح');
+    try {
+        const { from, type, depth } = req.query;
+        if (!from) return fail(res, 400, 'from_required', 'مطلوب: ?from=CELL_SHEIKHA_PAN&type=MARKET_SIGNAL');
+        res.json(telecomOrg.fireSignal(from, { type: type || 'SHEIKHA_SIGNAL' }, depth ? parseInt(depth, 10) : 5));
+    } catch (e) {
+        fail(res, 500, 'sheikha_signal_error', 'حدث خطأ أثناء إطلاق إشارة شيخة');
+    }
+});
+
+// POST /api/telecom/sheikha/signal — إطلاق إشارة عصبية في شبكة شيخة
+// Body: { from, signal: { type, payload }, depth }
+router.post('/sheikha/signal', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة غير متاح');
+    try {
+        const { from, signal, depth } = req.body || {};
+        if (!from) return fail(res, 400, 'from_required', 'مطلوب: { from: "CELL_SHEIKHA_PAN", signal: {type:...}, depth: 5 }');
+        res.json(telecomOrg.fireSignal(from, signal || { type: 'SHEIKHA_SIGNAL' }, depth !== undefined ? parseInt(depth, 10) : 5));
+    } catch (e) {
+        fail(res, 500, 'sheikha_signal_error', 'حدث خطأ أثناء إطلاق إشارة شيخة');
+    }
+});
+
 module.exports = router;

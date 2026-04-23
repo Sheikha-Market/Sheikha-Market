@@ -72,7 +72,10 @@ const {
     TERRESTRIAL_CELLS,
     SATELLITE_CELLS,
     LOGISTICS_CELLS,
+    SHEIKHA_CELLS,
     buildNeuralTopology,
+    buildSheikhaTopology,
+    activateSheikhaNetwork,
     propagateSignal,
     getCell,
     getCellsByDomain,
@@ -146,6 +149,8 @@ class TelecomOrganizationEngine {
     getNeuralTopology()       { return buildNeuralTopology(); }
     getNeuralCell(id)         { return getCell(id.toUpperCase()); }
     getNeuralDomain(domain)   { return getCellsByDomain(domain); }
+    getSheikhaTopology()      { return buildSheikhaTopology(); }
+    activateSheikha()         { return activateSheikhaNetwork(); }
     fireSignal(from, signal, depth) {
         return propagateSignal(
             (from || '').toUpperCase(),
