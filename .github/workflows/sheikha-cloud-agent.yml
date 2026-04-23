@@ -1,0 +1,144 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  🤖 Sheikha Cloud Agent — سير عمل الوكيل السحابي                           ║
+# ║  يُشغّل الوكيل السحابي تلقائياً عند كل push                                ║
+# ║  "وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ" — المائدة: ٢               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+name: Sheikha Cloud Agent
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "sheikha-main-portal/core/**"
+      - "sheikha-main-portal/server.js"
+      - ".github/workflows/sheikha-cloud-agent.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "sheikha-main-portal/core/**"
+      - "sheikha-main-portal/server.js"
+  workflow_dispatch:
+    inputs:
+      task_type:
+        description: "نوع المهمة / Task type"
+        required: false
+        default: "health-check"
+        type: choice
+        options:
+          - health-check
+          - neural-status
+          - agent-status
+          - full-pulse
+
+defaults:
+  run:
+    working-directory: sheikha-main-portal
+
+jobs:
+  # ─── التحقق من سلامة الوكيل والشبكة العصبية ─────────────────────────────────
+  agent-health:
+    name: 🤖 Agent & Neural Health Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟩 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: sheikha-main-portal/.nvmrc
+          cache: npm
+          cache-dependency-path: sheikha-main-portal/package-lock.json
+
+      - name: 📦 Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --prefer-offline
+          else
+            npm install --prefer-offline
+          fi
+
+      - name: 🧠 Verify Neural Cells Module
+        run: |
+          node -e "
+            const cells = require('./core/neural/neural-cells');
+            const s = cells.status();
+            console.log('✅ Neural Cells ready:', s.ready);
+            console.log('✅ Total cells:', s.totalCells);
+            if (!s.ready || s.totalCells !== 12) process.exit(1);
+          "
+
+      - name: 🤖 Verify Cloud Agent Module
+        run: |
+          node -e "
+            const agent = require('./core/sheikha-cloud-agent/cloud-agent-clone');
+            const s = agent.status();
+            console.log('✅ Cloud Agent ready:', s.ready);
+            console.log('✅ Master Agent ID:', s.masterAgentId);
+            if (!s.ready || s.masterAgentId !== 786) process.exit(1);
+          "
+
+      - name: 🌟 Verify Unity Engine
+        run: |
+          node -e "
+            const unity = require('./core/neural/unity-engine');
+            const s = unity.status();
+            console.log('✅ Unity Engine ready:', s.ready);
+            console.log('✅ Neural available:', s.neuralCells.ready !== false);
+            console.log('✅ Agent available:', s.cloudAgent.ready !== false);
+            if (!s.ready) process.exit(1);
+          "
+
+      - name: 📊 Summary
+        if: always()
+        run: |
+          echo "═══════════════════════════════════════"
+          echo "🕌 Sheikha Cloud Agent — Health Report"
+          echo "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
+          echo "═══════════════════════════════════════"
+          node -e "
+            const unity = require('./core/neural/unity-engine');
+            const s = unity.status();
+            console.log(JSON.stringify(s, null, 2));
+          " || echo "⚠️ Could not load unity engine status"
+
+  # ─── التحقق من البيان والسجل ──────────────────────────────────────────────────
+  validate-manifests:
+    name: 📋 Validate Manifests & Registry
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: ✅ Validate neural-cells-manifest.json
+        run: |
+          python3 -c "
+          import json, sys
+          with open('sheikha-main-portal/core/neural/neural-cells-manifest.json') as f:
+              m = json.load(f)
+          cells = m.get('cells', [])
+          assert len(cells) == 12, f'Expected 12 cells, got {len(cells)}'
+          for c in cells:
+              assert 'number' in c and 'nameAr' in c, f'Cell missing fields: {c}'
+          print(f'✅ {len(cells)} خلية عصبية — المنيفست صحيح')
+          "
+
+      - name: ✅ Validate agent-registry.json
+        run: |
+          python3 -c "
+          import json, sys
+          with open('sheikha-main-portal/core/sheikha-cloud-agent/agent-registry.json') as f:
+              r = json.load(f)
+          assert r['meta']['masterAgentId'] == 786, 'Master agent ID must be 786'
+          agents = r.get('agents', [])
+          assert len(agents) > 0, 'Registry must have agents'
+          print(f'✅ {len(agents)} وكيل في السجل — المعرف الرئيسي: {r[\"meta\"][\"masterAgentId\"]}')
+          "
