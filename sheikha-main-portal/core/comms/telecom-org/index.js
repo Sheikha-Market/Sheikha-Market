@@ -72,11 +72,20 @@ const {
     TERRESTRIAL_CELLS,
     SATELLITE_CELLS,
     LOGISTICS_CELLS,
+    SHEIKHA_CELLS,
     buildNeuralTopology,
+    buildSheikhaTopology,
+    activateSheikhaNetwork,
     propagateSignal,
     getCell,
     getCellsByDomain,
 } = require('./neural-cell-networks');
+
+const {
+    unifiedNet,
+    SHEIKHA_UNIFIED_CELLS,
+    DIVINE_REFS,
+} = require('./sheikha-unified-neural');
 
 // ═══════════════════════════════════════════════════════════════
 // محرك منظمة الاتصالات
@@ -146,12 +155,26 @@ class TelecomOrganizationEngine {
     getNeuralTopology()       { return buildNeuralTopology(); }
     getNeuralCell(id)         { return getCell(id.toUpperCase()); }
     getNeuralDomain(domain)   { return getCellsByDomain(domain); }
+    getSheikhaTopology()      { return buildSheikhaTopology(); }
+    activateSheikha()         { return activateSheikhaNetwork(); }
+
+    // ─── الشبكة الموحّدة (23 خلية + الكتاب والسنة) ───────────
+    getUnifiedTopology()      { return unifiedNet.getTopology(); }
+    activateUnified()         { return unifiedNet.activate(); }
+    getUnifiedCell(query)     { return unifiedNet.getCell(query); }
+    getUnifiedSection(sec)    { return unifiedNet.getSection(sec); }
+    getDivineRefs()           { return unifiedNet.getDivineRefs(); }
+    getUnifiedStatus()        { return unifiedNet.getStatus(); }
+
     fireSignal(from, signal, depth) {
         return propagateSignal(
             (from || '').toUpperCase(),
             signal || { type: 'ACTIVATION' },
             parseInt(depth || 3, 10)
         );
+    }
+    fireUnifiedSignal(fromIdOrNumber, signal, depth) {
+        return unifiedNet.fireSignal(fromIdOrNumber, signal, depth !== undefined ? parseInt(depth, 10) : 5);
     }
 
     // ─── بحث عبر الكل ─────────────────────────────────────────

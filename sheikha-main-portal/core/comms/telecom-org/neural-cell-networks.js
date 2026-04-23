@@ -600,13 +600,858 @@ const LOGISTICS_CELLS = {
     },
 };
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// ██████  الخلايا العصبية — طبقات شبكة شيخة (SHEIKHA CELLS)  ██████
+//
+//  كل طبقة من طبقات شبكة شيخة = خلية عصبية مستقلة
+//  التسلسل الهرمي: PAN(1) → LAN(2) → WLAN(3) → CAN(4) → MAN(5)
+//                   → WAN(6) → VPN(7) → TCP/IP(8) → HTTP/HTTPS(9)
+//                   → 👑 SHTTP/HTTPS(10) ← الطبقة الحاكمة
+//
+//  الدومين: 'SHEIKHA'
+//  "وَاللَّهُ غَالِبٌ عَلَى أَمْرِهِ" — يوسف: 21
+// ═══════════════════════════════════════════════════════════════════════════════
+const SHEIKHA_CELLS = {
+
+    // ─── خلية 1: Sheikha PAN ──────────────────────────────────────────────────
+    CELL_SHEIKHA_PAN: {
+        id:         'CELL_SHEIKHA_PAN',
+        nameAr:     'خلية Sheikha PAN — الشبكة الشخصية',
+        nameEn:     'Sheikha Personal Area Network Cell',
+        icon:       '📲',
+        domain:     'SHEIKHA',
+        layerOrder: 1,
+        activation: 0.8,
+
+        inputs: [
+            { id: 'DIGITAL_WALLET',   nameAr: 'إشارة المحفظة الرقمية',        type: 'NFC',       source: 'هاتف المستخدم / ساعة ذكية' },
+            { id: 'BT_DEVICE',        nameAr: 'اتصال Bluetooth بالجهاز',      type: 'BT',        source: 'سماعة / ساعة / لوحة مفاتيح' },
+            { id: 'USER_BIOMETRIC',   nameAr: 'بصمة / وجه لتفعيل المحفظة',   type: 'AUTH',      source: 'حساسات الهاتف' },
+        ],
+
+        goal: {
+            primary:   'ربط الأجهزة الشخصية للمستخدم بمنظومة سوق شيخة عبر NFC/Bluetooth',
+            secondary: 'تمكين الدفع القريب المدى (Tap-to-Pay) الخالي من الربا',
+            kpi:       { range: '< 10m', tap_pay_ms: '< 300ms', battery_impact: 'minimal' },
+        },
+
+        elements: [
+            { id: 'NFC_CHIP',     nameAr: 'شريحة NFC للدفع القريب',           role: 'استقبال وإرسال معاملات الدفع' },
+            { id: 'BT_5X',        nameAr: 'Bluetooth 5.x / BLE',              role: 'ربط الأجهزة الطرفية' },
+            { id: 'SE_MODULE',    nameAr: 'العنصر الآمن (Secure Element)',     role: 'تخزين مفاتيح الدفع بأمان' },
+            { id: 'WALLET_APP',   nameAr: 'تطبيق المحفظة الرقمية شيخة',       role: 'واجهة المستخدم للدفع' },
+        ],
+
+        process: {
+            mechanism: 'NFC Field Detection → SE Authentication → Token Exchange → Payment Confirmation',
+            protocol:  'ISO 14443 (NFC) / ISO 7816 (SE) / EMV Contactless',
+            standard:  'PCI DSS | EMVCo | NFC Forum | GSMA',
+        },
+
+        output: [
+            { id: 'PAYMENT_TOKEN',   nameAr: 'رمز دفع آمن للمعاملة',          type: 'TOKEN',    destination: 'CELL_SHEIKHA_LAN / نقطة البيع' },
+            { id: 'AUTH_SIGNAL',     nameAr: 'إشارة تحقق هوية المستخدم',      type: 'AUTH',     destination: 'CELL_SHEIKHA_SHTTP' },
+            { id: 'DEVICE_PRESENCE', nameAr: 'تأكيد حضور الجهاز في المتجر',  type: 'PRESENCE', destination: 'CELL_SHEIKHA_WLAN' },
+        ],
+
+        effect: {
+            immediate:  'دفع لحظي بلمسة واحدة — لا ربا لا غرر',
+            short_term: 'تجربة تسوق سلسة في المتاجر والمعارض',
+            long_term:  'المحفظة الرقمية الإسلامية الأكثر انتشاراً في المنطقة',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_LAN',   signal_type: 'PAYMENT_TOKEN',  strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_WLAN',  signal_type: 'DEVICE_BEACON',  strength: 0.8 },
+            { to_cell_id: 'CELL_SHEIKHA_SHTTP', signal_type: 'AUTH_REQUEST',   strength: 0.9 },
+        ],
+
+        quran_ref:   { ref: 'البقرة:٢٨٢', text: 'يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا تَدَايَنتُم بِدَيْنٍ فَاكْتُبُوهُ' },
+        sharia_note: 'توثيق المعاملات — كل دفع موثّق ومشفّر وخالٍ من الربا',
+    },
+
+    // ─── خلية 2: Sheikha LAN ──────────────────────────────────────────────────
+    CELL_SHEIKHA_LAN: {
+        id:         'CELL_SHEIKHA_LAN',
+        nameAr:     'خلية Sheikha LAN — شبكة المتاجر والمستودعات',
+        nameEn:     'Sheikha Local Area Network Cell',
+        icon:       '🏪',
+        domain:     'SHEIKHA',
+        layerOrder: 2,
+        activation: 0.95,
+
+        inputs: [
+            { id: 'POS_TERMINAL',   nameAr: 'معاملات نقطة البيع',              type: 'COMMERCE',  source: 'CELL_SHEIKHA_PAN / كاشير' },
+            { id: 'INVENTORY_DATA', nameAr: 'بيانات الجرد والمخزون',           type: 'INVENTORY', source: 'نظام WMS المستودع' },
+            { id: 'STAFF_DEVICE',   nameAr: 'أجهزة موظفي المتجر',             type: 'DEVICE',    source: 'هواتف / لوحات العمل' },
+            { id: 'CAMERA_FEED',    nameAr: 'كاميرات المراقبة (CCTV)',          type: 'VIDEO',     source: 'منظومة المراقبة' },
+        ],
+
+        goal: {
+            primary:   'تشغيل الشبكة الداخلية للمتجر/المستودع بكفاءة وأمان كامل',
+            secondary: 'ربط نقاط البيع والمخزون بخوادم سوق شيخة المركزية',
+            kpi:       { throughput: '10 Gbps', latency: '< 1ms', availability: '99.9%' },
+        },
+
+        elements: [
+            { id: 'SWITCH_10G',    nameAr: 'مبدّل شبكة 10 Gbps',             role: 'توجيه الحركة الداخلية' },
+            { id: 'POS_SYSTEM',    nameAr: 'منظومة نقطة البيع الشرعية',       role: 'إتمام المعاملات وإصدار الفواتير' },
+            { id: 'NAS_SERVER',    nameAr: 'خادم التخزين الشبكي NAS',         role: 'حفظ بيانات المبيعات محلياً' },
+            { id: 'FIREWALL_LAN',  nameAr: 'جدار حماية LAN شيخة',            role: 'Waterline حماية الشبكة المحلية' },
+            { id: 'BARCODE_SCAN',  nameAr: 'ماسحات الباركود والـ RFID',       role: 'تتبع المنتجات والمخزون' },
+        ],
+
+        process: {
+            mechanism: 'POS Scan → Inventory Update → Payment Auth → Central Sync → Receipt',
+            protocol:  'IEEE 802.3 Ethernet / TCP/IP / TLS 1.3',
+            standard:  'PCI DSS Level 1 | ISO 27001 | ZATCA e-Invoice',
+        },
+
+        output: [
+            { id: 'SALE_RECORD',   nameAr: 'سجل البيع الموثّق شرعياً',        type: 'RECORD',   destination: 'CELL_SHEIKHA_CAN / الخوادم المركزية' },
+            { id: 'STOCK_UPDATE',  nameAr: 'تحديث المخزون الفوري',            type: 'DATA',     destination: 'CELL_SHEIKHA_MAN / نظام SCM' },
+            { id: 'RECEIPT',       nameAr: 'فاتورة إلكترونية ZATCA',          type: 'DOCUMENT', destination: 'المستخدم / CELL_SHEIKHA_PAN' },
+        ],
+
+        effect: {
+            immediate:  'إتمام البيع الشرعي وتحديث المخزون آنياً',
+            short_term: 'رؤية كاملة لأداء المتجر لحظة بلحظة',
+            long_term:  'شبكة متاجر شيخة المتكاملة عبر المملكة',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_WLAN',  signal_type: 'WIFI_BRIDGE',      strength: 0.9 },
+            { to_cell_id: 'CELL_SHEIKHA_CAN',   signal_type: 'SALE_SYNC',        strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_TCPIP', signal_type: 'PROTOCOL_STACK',   strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_SHTTP', signal_type: 'AUTH_VERIFY',      strength: 0.9 },
+            { to_cell_id: 'CELL_IOT',           signal_type: 'RFID_CONNECT',     strength: 0.8 },
+        ],
+
+        quran_ref:   { ref: 'الشعراء:١٨١', text: 'أَوْفُوا الْكَيْلَ وَلَا تَكُونُوا مِنَ الْمُخْسِرِينَ' },
+        sharia_note: 'العدل في الكيل والوزن — كل معاملة في المتجر موثّقة ومراجعة شرعياً',
+    },
+
+    // ─── خلية 3: Sheikha WLAN ─────────────────────────────────────────────────
+    CELL_SHEIKHA_WLAN: {
+        id:         'CELL_SHEIKHA_WLAN',
+        nameAr:     'خلية Sheikha WLAN — WiFi النقاط التجارية والمعارض',
+        nameEn:     'Sheikha Wireless LAN Cell',
+        icon:       '📡',
+        domain:     'SHEIKHA',
+        layerOrder: 3,
+        activation: 0.9,
+
+        inputs: [
+            { id: 'MOBILE_BUYERS',  nameAr: 'أجهزة المشترين المتجولين',        type: 'DEVICE',   source: 'هواتف الزوار في المعرض / المتجر' },
+            { id: 'WIFI_AP',        nameAr: 'نقطة وصول Wi-Fi 6/7',            type: 'RF',       source: 'CELL_SHEIKHA_LAN' },
+            { id: 'SMART_DISPLAY',  nameAr: 'شاشات العروض الذكية',             type: 'DISPLAY',  source: 'نظام المعارض' },
+        ],
+
+        goal: {
+            primary:   'توفير WiFi تجاري سريع وآمن لنقاط البيع والمعارض والأسواق',
+            secondary: 'تمكين تجربة التسوق الذكي — عروض مخصصة، دفع بالهاتف، تتبع سلوكي شرعي',
+            kpi:       { speed: '9.6 Gbps (Wi-Fi 7)', coverage: '300m²/AP', concurrent_users: 500 },
+        },
+
+        elements: [
+            { id: 'WIFI7_AP',      nameAr: 'نقطة وصول Wi-Fi 7 (802.11be)',   role: 'البث اللاسلكي الفائق' },
+            { id: 'CAPTIVE_PORTAL',nameAr: 'بوابة تسجيل دخول الشيخة',        role: 'مصادقة المستخدمين شرعياً' },
+            { id: 'CONTENT_FILTER',nameAr: 'فلتر المحتوى الشرعي',            role: 'Waterline — منع المحتوى الحرام' },
+            { id: 'ANALYTICS',     nameAr: 'تحليل سلوك التسوق (مجهّل)',       role: 'تحسين تجربة المستخدم بأمانة' },
+        ],
+
+        process: {
+            mechanism: 'Device Connect → Captive Auth → Sharia Filter → Personalized Content → Purchase',
+            protocol:  'IEEE 802.11be (Wi-Fi 7) / WPA3-Enterprise / HTTPS',
+            standard:  'IEEE 802.11 | Wi-Fi Alliance | WPA3',
+        },
+
+        output: [
+            { id: 'CUSTOMER_SESSION', nameAr: 'جلسة تسوق ذكية مخصصة',         type: 'SESSION',  destination: 'CELL_SHEIKHA_SHTTP / تطبيق شيخة' },
+            { id: 'WIFI_ANALYTICS',   nameAr: 'بيانات سلوك التسوق المجهّلة',  type: 'ANALYTICS',destination: 'CELL_SHEIKHA_AI / محرك التوصيات' },
+            { id: 'PROMO_DISPLAY',    nameAr: 'عروض ترويجية على الشاشات',       type: 'CONTENT',  destination: 'شاشات المعرض / هاتف الزائر' },
+        ],
+
+        effect: {
+            immediate:  'تجربة تسوق ذكية وسلسة في كل نقطة بيع',
+            short_term: 'زيادة مبيعات المعارض والأسواق',
+            long_term:  'شبكة شيخة WiFi — الأوسع في الأسواق التجارية الإسلامية',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_LAN',   signal_type: 'UPLINK_TRAFFIC',  strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_CAN',   signal_type: 'DATA_SYNC',       strength: 0.9 },
+            { to_cell_id: 'CELL_SHEIKHA_SHTTP', signal_type: 'SECURE_SESSION',  strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_NEURAL',signal_type: 'BEHAVIOR_DATA',   strength: 0.8 },
+        ],
+
+        quran_ref:   { ref: 'الحجرات:٦', text: 'يَا أَيُّهَا الَّذِينَ آمَنُوا إِن جَاءَكُمْ فَاسِقٌ بِنَبَإٍ فَتَبَيَّنُوا' },
+        sharia_note: 'التثبت من المعلومات — فلتر الشريعة على كل بيانات الشبكة اللاسلكية',
+    },
+
+    // ─── خلية 4: Sheikha CAN ──────────────────────────────────────────────────
+    CELL_SHEIKHA_CAN: {
+        id:         'CELL_SHEIKHA_CAN',
+        nameAr:     'خلية Sheikha CAN — شبكة التكامل بين الفروع',
+        nameEn:     'Sheikha Campus Area Network Cell',
+        icon:       '🏢',
+        domain:     'SHEIKHA',
+        layerOrder: 4,
+        activation: 0.9,
+
+        inputs: [
+            { id: 'BRANCH_DATA',    nameAr: 'بيانات الفروع والمستودعات',       type: 'DATA',     source: 'CELL_SHEIKHA_LAN × N فرع' },
+            { id: 'FIBER_BACKBONE', nameAr: 'ألياف بصرية بين الفروع',          type: 'OPTICAL',  source: 'CELL_FIBER' },
+            { id: 'SCM_REQUESTS',   nameAr: 'طلبات سلسلة الإمداد',             type: 'COMMERCE', source: 'نظام SCM شيخة' },
+        ],
+
+        goal: {
+            primary:   'ربط فروع شيخة التجارية ضمن المنطقة الجغرافية الواحدة ببنية بيانات موحّدة',
+            secondary: 'مزامنة المخزون والأسعار والعروض عبر كل الفروع آنياً',
+            kpi:       { sync_lag: '< 100ms', branch_count: '50+', bandwidth: '10 Gbps' },
+        },
+
+        elements: [
+            { id: 'CORE_SWITCH',   nameAr: 'مبدّل مركزي للفروع',              role: 'قلب الشبكة بين الفروع' },
+            { id: 'MPLS_RING',     nameAr: 'حلقة MPLS بين الفروع',           role: 'ضمان وصول البيانات حتى عند عطل رابط' },
+            { id: 'SYNC_ENGINE',   nameAr: 'محرك مزامنة المخزون والأسعار',    role: 'تحديث البيانات عبر الفروع' },
+            { id: 'BRANCH_FW',     nameAr: 'جدار حماية CAN شيخة',            role: 'Waterline — عزل حركة الفروع' },
+        ],
+
+        process: {
+            mechanism: 'MPLS Ring Topology → Branch Sync → Central Aggregation → SCM Update',
+            protocol:  'MPLS / BGP / OSPF / TCP/IP / TLS 1.3',
+            standard:  'MEF CE 2.0 | IEEE 802.1Q | ISO 27001',
+        },
+
+        output: [
+            { id: 'UNIFIED_STOCK',  nameAr: 'مخزون موحّد بين الفروع',          type: 'DATA',     destination: 'CELL_SHEIKHA_MAN / SCM' },
+            { id: 'PRICE_SYNC',     nameAr: 'تزامن الأسعار العادلة',           type: 'PRICING',  destination: 'كل CELL_SHEIKHA_LAN' },
+            { id: 'BRANCH_REPORT',  nameAr: 'تقرير أداء الفروع',               type: 'REPORT',   destination: 'CELL_SHEIKHA_NEURAL / لوحة القيادة' },
+        ],
+
+        effect: {
+            immediate:  'رؤية موحّدة لمخزون وأسعار كل الفروع',
+            short_term: 'تحسين توزيع البضائع ومنع نفاد المخزون',
+            long_term:  'شبكة فروع شيخة المتكاملة في كل مدينة',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_MAN',   signal_type: 'METRO_UPLINK',     strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_LAN',   signal_type: 'BRANCH_DOWNLINK',  strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_TCPIP', signal_type: 'ROUTING',          strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_NEURAL',signal_type: 'STOCK_ANALYTICS',  strength: 0.9 },
+            { to_cell_id: 'CELL_FIBER',         signal_type: 'FIBER_BACKBONE',   strength: 1.0 },
+        ],
+
+        quran_ref:   { ref: 'الحشر:٧', text: 'كَيْ لَا يَكُونَ دُولَةً بَيْنَ الْأَغْنِيَاءِ مِنكُمْ' },
+        sharia_note: 'توزيع الثروة والبضاعة عادلاً — لا احتكار لا تمييز بين الفروع',
+    },
+
+    // ─── خلية 5: Sheikha MAN ──────────────────────────────────────────────────
+    CELL_SHEIKHA_MAN: {
+        id:         'CELL_SHEIKHA_MAN',
+        nameAr:     'خلية Sheikha MAN — شبكة المدينة للمناطق التجارية',
+        nameEn:     'Sheikha Metropolitan Area Network Cell',
+        icon:       '🏙️',
+        domain:     'SHEIKHA',
+        layerOrder: 5,
+        activation: 0.88,
+
+        inputs: [
+            { id: 'CAN_TRAFFIC',    nameAr: 'حركة بيانات CAN الفروع',          type: 'DATA',     source: 'CELL_SHEIKHA_CAN × M منطقة' },
+            { id: 'MARKET_FEEDS',   nameAr: 'بيانات أسواق المدينة',            type: 'MARKET',   source: 'أسواق التجزئة والجملة' },
+            { id: 'LOGISTICS_IN',   nameAr: 'شحنات اللوجستيات الواردة',        type: 'LOGISTICS',source: 'CELL_LOGISTICS' },
+        ],
+
+        goal: {
+            primary:   'ربط كل الأسواق والمناطق التجارية داخل المدينة الواحدة بشبكة شيخة المتكاملة',
+            secondary: 'مراقبة حركة التجارة في المدينة وتحسين توزيع البضائع',
+            kpi:       { coverage: 'المدينة كاملة', latency: '< 5ms', zones: '20+ منطقة تجارية' },
+        },
+
+        elements: [
+            { id: 'METRO_RING',    nameAr: 'حلقة Metro Ethernet',              role: 'العمود الفقري لشبكة المدينة' },
+            { id: 'WIMAX_TOWERS',  nameAr: 'أبراج WiMAX للمناطق البعيدة',    role: 'تغطية المناطق غير المكبّلة' },
+            { id: 'CITY_NOC',      nameAr: 'مركز عمليات شبكة المدينة',        role: 'المراقبة والتحكم المركزي' },
+            { id: 'MAN_FW',        nameAr: 'جدار حماية MAN شيخة',             role: 'Waterline — حماية شبكة المدينة' },
+        ],
+
+        process: {
+            mechanism: 'CAN Aggregation → Metro Core → Market Data Fusion → City Dashboard',
+            protocol:  'Metro Ethernet (MEF) / SDH / DWDM / TLS 1.3',
+            standard:  'MEF 3.0 | ITU-T G.8032 | IEEE 802.17',
+        },
+
+        output: [
+            { id: 'CITY_COMMERCE',  nameAr: 'بيانات التجارة الموحّدة للمدينة', type: 'DATA',     destination: 'CELL_SHEIKHA_WAN / التقارير' },
+            { id: 'LOGISTICS_OPT',  nameAr: 'تحسين مسارات التوصيل المدينة',   type: 'ROUTING',  destination: 'CELL_LOGISTICS' },
+            { id: 'MARKET_PULSE',   nameAr: 'نبض سوق المدينة اللحظي',          type: 'ANALYTICS',destination: 'CELL_SHEIKHA_NEURAL' },
+        ],
+
+        effect: {
+            immediate:  'رؤية تجارية شاملة لكل أسواق المدينة',
+            short_term: 'تحسين الكفاءة اللوجستية ورفع مستوى الخدمة',
+            long_term:  'المدينة التجارية الذكية — نموذج شيخة للمدن الإسلامية',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_WAN',   signal_type: 'NATIONAL_UPLINK', strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_CAN',   signal_type: 'METRO_DOWNLINK',  strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_NEURAL',signal_type: 'CITY_DATA',       strength: 0.9 },
+            { to_cell_id: 'CELL_LOGISTICS',     signal_type: 'CITY_LOGISTICS',  strength: 0.9 },
+            { to_cell_id: 'CELL_5G',            signal_type: 'MOBILE_BACKHAUL', strength: 0.8 },
+        ],
+
+        quran_ref:   { ref: 'النور:٣٧', text: 'رِجَالٌ لَّا تُلْهِيهِمْ تِجَارَةٌ وَلَا بَيْعٌ عَن ذِكْرِ اللَّهِ' },
+        sharia_note: 'التجارة والعبادة — يجمع سوق شيخة بين التجارة الدنيوية والقيم الإسلامية',
+    },
+
+    // ─── خلية 6: Sheikha WAN ──────────────────────────────────────────────────
+    CELL_SHEIKHA_WAN: {
+        id:         'CELL_SHEIKHA_WAN',
+        nameAr:     'خلية Sheikha WAN — الشبكة الواسعة للأسواق الدولية',
+        nameEn:     'Sheikha Wide Area Network Cell',
+        icon:       '🌍',
+        domain:     'SHEIKHA',
+        layerOrder: 6,
+        activation: 0.85,
+
+        inputs: [
+            { id: 'MAN_FEEDS',      nameAr: 'بيانات من كل مدن شيخة',          type: 'DATA',     source: 'CELL_SHEIKHA_MAN × N مدينة' },
+            { id: 'INTL_TRADE',     nameAr: 'بيانات التجارة الدولية',          type: 'TRADE',    source: 'منصة التبادل الدولي' },
+            { id: 'SAT_LINK',       nameAr: 'اتصال الأقمار الصناعية',          type: 'SAT',      source: 'CELL_SATELLITE' },
+        ],
+
+        goal: {
+            primary:   'ربط شبكة شيخة التجارية بين المدن والدول والأسواق الدولية',
+            secondary: 'تسهيل التجارة العربية والإسلامية الدولية الخالية من الربا',
+            kpi:       { countries: '57 دولة إسلامية', latency: '< 50ms (MENA)', bandwidth: '100 Gbps' },
+        },
+
+        elements: [
+            { id: 'BGP_ROUTER',    nameAr: 'موجّه BGP للتوجيه الدولي',       role: 'اختيار أفضل مسار بين الدول' },
+            { id: 'SUBMARINE_GW',  nameAr: 'بوابة الكابلات البحرية',          role: 'الربط القاري بالكابلات' },
+            { id: 'IX_PEERING',    nameAr: 'نقاط التبادل (IXP) الإقليمية',   role: 'تبادل الحركة مع الشركاء' },
+            { id: 'WAN_FW',        nameAr: 'جدار حماية WAN شيخة',            role: 'Waterline — صد الهجمات الدولية' },
+            { id: 'CDN_NODES',     nameAr: 'عقد شبكة توصيل المحتوى (CDN)',   role: 'تقديم محتوى شيخة محلياً' },
+        ],
+
+        process: {
+            mechanism: 'BGP Route Selection → MPLS Core → Submarine/Satellite Link → Partner Markets',
+            protocol:  'BGP-4 / MPLS / IS-IS / TLS 1.3 / QUIC',
+            standard:  'RFC 4271 | ITU-T G.709 | ISO 27001',
+        },
+
+        output: [
+            { id: 'GLOBAL_MARKET',  nameAr: 'وصول للأسواق الدولية',           type: 'COMMERCE', destination: 'شركاء شيخة الدوليون' },
+            { id: 'TRADE_DATA',     nameAr: 'بيانات التجارة العالمية',         type: 'DATA',     destination: 'CELL_SHEIKHA_NEURAL / التحليل' },
+            { id: 'INTL_PAYMENTS',  nameAr: 'مدفوعات دولية إسلامية',          type: 'PAYMENT',  destination: 'CELL_SHEIKHA_PAY' },
+        ],
+
+        effect: {
+            immediate:  'وصول المنتجات الإسلامية للمستهلكين حول العالم',
+            short_term: 'ترسيخ شيخة كمنصة التجارة الإسلامية الدولية',
+            long_term:  'نظام تجارة عالمي خالٍ من الربا ومبني على العدل',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_VPN',   signal_type: 'SECURE_TUNNEL',   strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_MAN',   signal_type: 'WAN_DOWNLINK',    strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_NEURAL',signal_type: 'GLOBAL_MARKET',   strength: 0.9 },
+            { to_cell_id: 'CELL_SATELLITE',     signal_type: 'SAT_BACKUP',      strength: 0.9 },
+            { to_cell_id: 'CELL_MARITIME',      signal_type: 'TRADE_VESSEL',    strength: 0.8 },
+        ],
+
+        quran_ref:   { ref: 'قريش:٢', text: 'إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ' },
+        sharia_note: 'التجارة الدولية سنة نبوية — والمسلمون أمة التجارة العادلة',
+    },
+
+    // ─── خلية 7: Sheikha VPN ──────────────────────────────────────────────────
+    CELL_SHEIKHA_VPN: {
+        id:         'CELL_SHEIKHA_VPN',
+        nameAr:     'خلية Sheikha VPN — تشفير الاتصالات التجارية الحساسة',
+        nameEn:     'Sheikha Virtual Private Network Cell',
+        icon:       '🔒',
+        domain:     'SHEIKHA',
+        layerOrder: 7,
+        activation: 0.95,
+
+        inputs: [
+            { id: 'WAN_TRAFFIC',    nameAr: 'حركة البيانات الخام',             type: 'DATA',     source: 'CELL_SHEIKHA_WAN' },
+            { id: 'PARTNER_CONN',   nameAr: 'اتصالات الشركاء والموردين',      type: 'B2B',      source: 'شركاء التجارة الدولية' },
+            { id: 'SENSITIVE_DATA', nameAr: 'بيانات حساسة (عقود/مدفوعات)',    type: 'SECRET',   source: 'CELL_SHEIKHA_LAN / المركز' },
+        ],
+
+        goal: {
+            primary:   'تأمين كل الاتصالات التجارية الحساسة بنفق مشفّر غير قابل للاختراق',
+            secondary: 'ضمان خصوصية بيانات البائعين والمشترين والعقود التجارية',
+            kpi:       { encryption: 'AES-256-GCM', handshake: '< 100ms', throughput: '10 Gbps' },
+        },
+
+        elements: [
+            { id: 'WIREGUARD',     nameAr: 'نفق WireGuard الخفيف والسريع',   role: 'التشفير الأساسي للاتصالات' },
+            { id: 'IPSEC_GW',      nameAr: 'بوابة IPSec IKEv2 للشركاء',     role: 'VPN مع الشركاء التقليديين' },
+            { id: 'PKI_SHEIKHA',   nameAr: 'بنية مفاتيح شيخة العامة PKI',    role: 'إصدار الشهادات والتوقيع الرقمي' },
+            { id: 'VPN_GATEWAY',   nameAr: 'بوابة VPN المركزية',             role: 'إدارة نفق التشفير' },
+            { id: 'ZERO_TRUST_GW', nameAr: 'بوابة Zero-Trust شيخة',          role: 'لا ثقة افتراضية — كل طلب يُتحقق منه' },
+        ],
+
+        process: {
+            mechanism: 'Mutual Auth (mTLS) → WireGuard Tunnel → AES-256-GCM Encryption → Secure Transit',
+            protocol:  'WireGuard / IPSec IKEv2 / TLS 1.3 / mTLS',
+            standard:  'NIST SP 800-77 | RFC 8446 | ISO 27001',
+        },
+
+        output: [
+            { id: 'SECURE_CHANNEL', nameAr: 'قناة اتصال مشفّرة آمنة',         type: 'ENCRYPTED',destination: 'كل طبقات شبكة شيخة' },
+            { id: 'B2B_TUNNEL',     nameAr: 'نفق B2B مع الموردين',            type: 'TUNNEL',   destination: 'CELL_SHEIKHA_WAN' },
+            { id: 'AUDIT_LOG',      nameAr: 'سجل مراجعة الاتصالات',           type: 'LOG',      destination: 'CELL_SHEIKHA_SHTTP / التدقيق' },
+        ],
+
+        effect: {
+            immediate:  'حماية كل معاملة تجارية من التنصت والتلاعب',
+            short_term: 'ثقة الشركاء التجاريين في منظومة شيخة',
+            long_term:  'أأمن منظومة تجارة رقمية إسلامية في العالم',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_SHTTP', signal_type: 'TLS_LAYER',      strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_WAN',   signal_type: 'ENCRYPTED_DATA', strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_TCPIP', signal_type: 'ENCAP_PACKETS',  strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_DNS',   signal_type: 'DNS_OVER_TLS',   strength: 0.9 },
+        ],
+
+        quran_ref:   { ref: 'النساء:٥٨', text: 'إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا' },
+        sharia_note: 'أداء الأمانة — البيانات التجارية أمانة تُؤدّى مشفّرة محمية',
+    },
+
+    // ─── خلية 8: Sheikha TCP/IP ───────────────────────────────────────────────
+    CELL_SHEIKHA_TCPIP: {
+        id:         'CELL_SHEIKHA_TCPIP',
+        nameAr:     'خلية Sheikha TCP/IP — الأساس البروتوكولي لكل الاتصالات',
+        nameEn:     'Sheikha TCP/IP Protocol Stack Cell',
+        icon:       '🔗',
+        domain:     'SHEIKHA',
+        layerOrder: 8,
+        activation: 1.0,
+
+        inputs: [
+            { id: 'APP_DATA',       nameAr: 'بيانات التطبيقات (HTTP/WS/…)',   type: 'APP',      source: 'CELL_SHEIKHA_HTTPS / كل التطبيقات' },
+            { id: 'RAW_PACKETS',    nameAr: 'حزم بيانات خام',                 type: 'PACKETS',  source: 'كل الطبقات الأدنى' },
+            { id: 'NETWORK_STACK',  nameAr: 'مكدس الشبكة من نواة Linux',       type: 'OS',       source: 'خوادم شيخة' },
+        ],
+
+        goal: {
+            primary:   'توفير ركيزة البروتوكول الشاملة لكل اتصالات شبكة شيخة',
+            secondary: 'ضمان وصول البيانات الصحيح والمرتّب عبر كل الطبقات',
+            kpi:       { packet_loss: '< 0.01%', retransmission: 'auto', throughput: '100 Gbps' },
+        },
+
+        elements: [
+            { id: 'TCP_LAYER',     nameAr: 'طبقة TCP — توصيل موثوق',          role: 'ضمان الترتيب وإعادة الإرسال' },
+            { id: 'UDP_LAYER',     nameAr: 'طبقة UDP — توصيل سريع',           role: 'البث المباشر والألعاب' },
+            { id: 'IPv6_STACK',    nameAr: 'مكدس IPv6 الأساسي',               role: 'عنونة كل جهاز في الشبكة' },
+            { id: 'QUIC_PROTO',    nameAr: 'بروتوكول QUIC / HTTP3',            role: 'سرعة اتصال مع تشفير TLS' },
+            { id: 'LOAD_BALANCER', nameAr: 'موزّع الحمل بين الخوادم',          role: 'توزيع الطلبات بعدل بين الخوادم' },
+        ],
+
+        process: {
+            mechanism: 'Segment → Route → Deliver → ACK — دورة حياة الحزمة الكاملة',
+            protocol:  'TCP / UDP / QUIC / IPv4 / IPv6 / ICMP',
+            standard:  'RFC 793 (TCP) | RFC 768 (UDP) | RFC 2460 (IPv6) | RFC 9000 (QUIC)',
+        },
+
+        output: [
+            { id: 'RELIABLE_DATA',  nameAr: 'بيانات مرتّبة موثوقة',           type: 'DATA',     destination: 'CELL_SHEIKHA_HTTPS / كل التطبيقات' },
+            { id: 'ROUTING_TABLE',  nameAr: 'جدول التوجيه المحدّث',            type: 'ROUTING',  destination: 'CELL_SHEIKHA_WAN / CELL_SHEIKHA_CAN' },
+            { id: 'FLOW_METRICS',   nameAr: 'مقاييس تدفق البيانات',            type: 'METRICS',  destination: 'CELL_SHEIKHA_SHTTP / المراقبة' },
+        ],
+
+        effect: {
+            immediate:  'وصول كل رسالة لوجهتها بسلامة وترتيب',
+            short_term: 'استقرار خدمات شيخة التجارية',
+            long_term:  'البنية التحتية البروتوكولية لسوق شيخة الكوني',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_HTTPS', signal_type: 'TRANSPORT_UP',   strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_VPN',   signal_type: 'PACKET_ENCAP',   strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_WAN',   signal_type: 'IP_ROUTING',     strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_DNS',   signal_type: 'DNS_QUERY',      strength: 0.9 },
+            { to_cell_id: 'CELL_SHEIKHA_SHTTP', signal_type: 'FLOW_REPORT',    strength: 0.8 },
+        ],
+
+        quran_ref:   { ref: 'البقرة:٣١', text: 'وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا' },
+        sharia_note: 'كل بروتوكول = لغة — وشيخة تتقن لغة البيانات لخدمة الإنسان',
+    },
+
+    // ─── خلية 9: Sheikha HTTP/HTTPS ───────────────────────────────────────────
+    CELL_SHEIKHA_HTTPS: {
+        id:         'CELL_SHEIKHA_HTTPS',
+        nameAr:     'خلية Sheikha HTTP/HTTPS — بروتوكولات التطبيقات والواجهات',
+        nameEn:     'Sheikha HTTP/HTTPS Application Layer Cell',
+        icon:       '🌐',
+        domain:     'SHEIKHA',
+        layerOrder: 9,
+        activation: 1.0,
+
+        inputs: [
+            { id: 'API_REQUEST',    nameAr: 'طلب API من تطبيق أو جهاز',       type: 'HTTP',     source: 'تطبيق شيخة / متصفح / شريك' },
+            { id: 'TCP_STREAM',     nameAr: 'تيار TCP من طبقة النقل',          type: 'TCP',      source: 'CELL_SHEIKHA_TCPIP' },
+            { id: 'TLS_HANDSHAKE',  nameAr: 'مصافحة TLS 1.3',                 type: 'TLS',      source: 'CELL_SHEIKHA_VPN / المتصفح' },
+        ],
+
+        goal: {
+            primary:   'توفير واجهات تطبيقات (APIs) سريعة وآمنة لخدمات سوق شيخة',
+            secondary: 'تقديم الويب والموبايل وتكاملات B2B عبر HTTPS مع TLS 1.3',
+            kpi:       { response: '< 200ms p95', rps: '100,000 req/s', tls: 'TLS 1.3 mandatory' },
+        },
+
+        elements: [
+            { id: 'API_GATEWAY',   nameAr: 'بوابة API شيخة المركزية',         role: 'التحكم في كل طلبات الـ API' },
+            { id: 'HTTP3_SERVER',  nameAr: 'خادم HTTP/3 + QUIC',              role: 'أسرع بروتوكول ويب' },
+            { id: 'WEBSOCKET',     nameAr: 'WebSocket للتحديثات الفورية',     role: 'أسعار وطلبات مباشرة' },
+            { id: 'GRAPHQL',       nameAr: 'GraphQL لاستعلامات السوق',        role: 'جلب البيانات بمرونة' },
+            { id: 'REST_LAYER',    nameAr: 'REST API الكامل لشيخة',           role: 'كل وظائف السوق كـ API' },
+        ],
+
+        process: {
+            mechanism: 'TLS Handshake → HTTP/3 Request → API Gateway → Service Router → Response',
+            protocol:  'HTTP/1.1 / HTTP/2 / HTTP/3 / WebSocket / TLS 1.3 / HSTS',
+            standard:  'RFC 9114 (HTTP/3) | RFC 8446 (TLS 1.3) | OWASP API Top 10',
+        },
+
+        output: [
+            { id: 'API_RESPONSE',   nameAr: 'استجابة API لطلب العميل',        type: 'HTTP',     destination: 'التطبيق / المتصفح / الشريك' },
+            { id: 'WS_EVENTS',      nameAr: 'أحداث فورية للأسعار والطلبات',   type: 'EVENT',    destination: 'CELL_SHEIKHA_DBUS / العملاء' },
+            { id: 'ACCESS_LOG',     nameAr: 'سجل وصول مراجعة شاملة',          type: 'LOG',      destination: 'CELL_SHEIKHA_SHTTP / الأمان' },
+        ],
+
+        effect: {
+            immediate:  'خدمة كل طلب من المستخدمين والشركاء في < 200ms',
+            short_term: 'تجربة مستخدم سلسة وسريعة',
+            long_term:  'منصة API عالمية لسوق شيخة الإسلامي',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_SHTTP', signal_type: 'SOVEREIGN_CHECK', strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_TCPIP', signal_type: 'TCP_LAYER_DOWN',  strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_NEURAL',signal_type: 'REQUEST_FEED',    strength: 0.9 },
+            { to_cell_id: 'CELL_SHEIKHA_DBUS',  signal_type: 'EVENT_PUBLISH',   strength: 0.9 },
+            { to_cell_id: 'CELL_SHEIKHA_DNS',   signal_type: 'SERVICE_LOOKUP',  strength: 0.9 },
+        ],
+
+        quran_ref:   { ref: 'الإسراء:٣٦', text: 'وَلَا تَقْفُ مَا لَيْسَ لَكَ بِهِ عِلْمٌ' },
+        sharia_note: 'التثبت في المعلومات — كل API يُتحقق من طالبه قبل تقديم البيانات',
+    },
+
+    // ─── خلية 10 👑: Sheikha SHTTP/HTTPS — الطبقة الحاكمة ────────────────────
+    CELL_SHEIKHA_SHTTP: {
+        id:         'CELL_SHEIKHA_SHTTP',
+        nameAr:     'خلية Sheikha SHTTP/HTTPS — الطبقة الحاكمة لكل الشبكة',
+        nameEn:     'Sheikha Sovereign HTTPS — Governing Neural Cell',
+        icon:       '👑',
+        domain:     'SHEIKHA',
+        layerOrder: 10,
+        activation: 1.0,
+        sovereign:  true,
+
+        inputs: [
+            { id: 'ALL_LAYERS_UP',  nameAr: 'إشارات من كل الطبقات (1–9)',      type: 'MULTI',    source: 'كل CELL_SHEIKHA_*' },
+            { id: 'SHARIA_ORACLE',  nameAr: 'حكم الرقابة الشرعية',             type: 'SHARIA',   source: 'محرك الشريعة الإسلامية' },
+            { id: 'CERT_CHAIN',     nameAr: 'سلسلة شهادات TLS شيخة',           type: 'PKI',      source: 'PKI شيخة المركزية' },
+            { id: 'POLICY_ENGINE',  nameAr: 'محرك سياسة Zero-Trust',            type: 'POLICY',   source: 'CELL_SHEIKHA_WATERLINE' },
+        ],
+
+        goal: {
+            primary:   'الإشراف الحاكم على كل طبقات شبكة شيخة — الرقابة الشاملة والتشغيل الموحّد',
+            secondary: 'ضمان الامتثال الشرعي التام وحماية حقوق كل أطراف المعاملة',
+            kpi:       { govern_layers: 9, sharia_compliance: '100%', zero_trust: 'enforced', mtls: 'mandatory' },
+        },
+
+        elements: [
+            { id: 'SOVEREIGN_CTRL', nameAr: 'وحدة التحكم الحاكمة',            role: 'صنع القرار النهائي لكل الطبقات' },
+            { id: 'SHARIA_ENGINE',  nameAr: 'محرك الرقابة الشرعية المركزي',   role: 'الموافقة الشرعية على كل معاملة' },
+            { id: 'MTLS_ENFORCER',  nameAr: 'مطبّق mTLS الإلزامي',            role: 'المصادقة المتبادلة في كل اتصال' },
+            { id: 'ZERO_TRUST',     nameAr: 'نظام Zero-Trust الكامل',          role: 'لا ثقة بأي طلب حتى يُثبت أحقيته' },
+            { id: 'AUDIT_MASTER',   nameAr: 'سجل التدقيق الرئيسي',            role: 'توثيق كل حدث في الشبكة' },
+            { id: 'AES256_VAULT',   nameAr: 'خزينة مفاتيح AES-256',           role: 'تخزين وإدارة مفاتيح التشفير' },
+            { id: 'CERT_AUTHORITY', nameAr: 'مرجع إصدار شهادات شيخة',         role: 'CA الداخلية لشهادات TLS' },
+        ],
+
+        process: {
+            mechanism: 'Policy Check → Sharia Verify → mTLS Enforce → AES-256 Transit → Audit Log → Approve',
+            protocol:  'TLS 1.3 (mandatory) / mTLS / HSTS / Certificate Pinning / AES-256-GCM',
+            standard:  'NIST Zero Trust (SP 800-207) | RFC 8446 | ISO 27001 | OWASP | شريعة إسلامية',
+        },
+
+        output: [
+            { id: 'GOVERN_SIGNAL',  nameAr: 'إشارة الحوكمة لكل الطبقات',      type: 'GOVERN',   destination: 'كل CELL_SHEIKHA_* (1-9)' },
+            { id: 'SHARIA_CERT',    nameAr: 'شهادة الامتثال الشرعي',           type: 'CERT',     destination: 'البائع والمشتري والشريك' },
+            { id: 'SECURITY_ALERT', nameAr: 'تنبيه أمني للحوادث',             type: 'ALERT',    destination: 'CELL_SHEIKHA_WATERLINE / الإدارة' },
+            { id: 'POLICY_UPDATE',  nameAr: 'تحديث سياسات الأمان',            type: 'POLICY',   destination: 'كل طبقات شبكة شيخة' },
+        ],
+
+        effect: {
+            immediate:  'حماية فورية لكل معاملة في منظومة شيخة',
+            short_term: 'ثقة كاملة من البائعين والمشترين والشركاء',
+            long_term:  'أكثر منظومة تجارة رقمية موثوقة في العالم الإسلامي',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_PAN',   signal_type: 'GOVERN_PAN',     strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_LAN',   signal_type: 'GOVERN_LAN',     strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_WLAN',  signal_type: 'GOVERN_WLAN',    strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_CAN',   signal_type: 'GOVERN_CAN',     strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_MAN',   signal_type: 'GOVERN_MAN',     strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_WAN',   signal_type: 'GOVERN_WAN',     strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_VPN',   signal_type: 'GOVERN_VPN',     strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_TCPIP', signal_type: 'GOVERN_TCPIP',   strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_HTTPS', signal_type: 'GOVERN_HTTPS',   strength: 1.0 },
+        ],
+
+        quran_ref:   { ref: 'يوسف:٢١', text: 'وَاللَّهُ غَالِبٌ عَلَى أَمْرِهِ وَلَٰكِنَّ أَكْثَرَ النَّاسِ لَا يَعْلَمُونَ' },
+        sharia_note: 'الحاكمية لله وحده — شيخة SHTTP طبقة الحوكمة المبنية على مبادئ الشريعة',
+    },
+
+    // ─── خلية مساعدة: Sheikha DNS Neural ─────────────────────────────────────
+    CELL_SHEIKHA_DNS: {
+        id:         'CELL_SHEIKHA_DNS',
+        nameAr:     'خلية Sheikha DNS — توجيه الخدمات الداخلية',
+        nameEn:     'Sheikha Internal DNS Neural Cell',
+        icon:       '🗂️',
+        domain:     'SHEIKHA',
+        layerOrder: 0,
+        activation: 1.0,
+
+        inputs: [
+            { id: 'SERVICE_QUERY',  nameAr: 'استعلام عن اسم خدمة',            type: 'QUERY',    source: 'أي خلية في الشبكة' },
+            { id: 'REGISTRY',       nameAr: 'سجل الخدمات المدمج',              type: 'REGISTRY', source: 'BUILT_IN_RECORDS' },
+            { id: 'HEALTH_STATUS',  nameAr: 'حالة صحة الخدمات',               type: 'HEALTH',   source: 'Health Check Engine' },
+        ],
+
+        goal: {
+            primary:   'تحويل أسماء الخدمات إلى عناوين فعلية ضمن منظومة شيخة',
+            secondary: 'توجيه الطلبات للخادم الخلفي الأمثل (Load Balancing)',
+            kpi:       { resolve_ms: '< 1ms', records: '50+ سجل', zones: '7 مناطق' },
+        },
+
+        elements: [
+            { id: 'DNS_ZONES',     nameAr: '7 مناطق DNS شيخة',                role: 'تنظيم السجلات حسب الوظيفة' },
+            { id: 'TTL_CACHE',     nameAr: 'ذاكرة TTL للسجلات',               role: 'تسريع الاستعلامات المتكررة' },
+            { id: 'LB_ENGINE',     nameAr: 'محرك موازنة التحميل Round-Robin', role: 'توزيع الطلبات على الخوادم' },
+            { id: 'REVERSE_DNS',   nameAr: 'البحث العكسي IP → اسم',           role: 'تحديد هوية الخادم من عنوانه' },
+        ],
+
+        process: {
+            mechanism: 'Query → Cache Check → Zone Lookup → CNAME Chain → LB Select → Return SRV',
+            protocol:  'Sheikha Internal DNS Protocol v2.0',
+            standard:  'RFC 1034/1035 (مُكيَّف داخلياً)',
+        },
+
+        output: [
+            { id: 'SRV_RECORD',    nameAr: 'سجل SRV للخدمة المطلوبة',        type: 'RECORD',   destination: 'الخلية الطالبة' },
+            { id: 'LB_ENDPOINT',   nameAr: 'نقطة نهاية موازنة التحميل',       type: 'ENDPOINT', destination: 'الخادم الخلفي المختار' },
+        ],
+
+        effect: {
+            immediate:  'توجيه كل طلب للخدمة الصحيحة في < 1ms',
+            short_term: 'استقرار كامل لخدمات شيخة',
+            long_term:  'DNS داخلي إسلامي مستقل ومحمي',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_TCPIP', signal_type: 'DNS_OVER_TCP',   strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_VPN',   signal_type: 'DNS_OVER_TLS',   strength: 0.9 },
+            { to_cell_id: 'CELL_SHEIKHA_SHTTP', signal_type: 'SERVICE_MAP',    strength: 0.9 },
+        ],
+
+        quran_ref:   { ref: 'البقرة:١٤٨', text: 'وَلِكُلٍّ وِجْهَةٌ هُوَ مُوَلِّيهَا' },
+        sharia_note: 'لكل خدمة وجهة — وشيخة DNS يعرف وجهة كل طلب',
+    },
+
+    // ─── خلية مساعدة: Sheikha DBUS Neural ────────────────────────────────────
+    CELL_SHEIKHA_DBUS: {
+        id:         'CELL_SHEIKHA_DBUS',
+        nameAr:     'خلية Sheikha DBUS — ناقل الرسائل بين الخدمات',
+        nameEn:     'Sheikha D-Bus Microservices Message Bus Cell',
+        icon:       '🚌',
+        domain:     'SHEIKHA',
+        layerOrder: 0,
+        activation: 1.0,
+
+        inputs: [
+            { id: 'SERVICE_EVENT',  nameAr: 'حدث من خدمة مصدر',               type: 'EVENT',    source: 'أي خدمة في منظومة شيخة' },
+            { id: 'MARKET_EVENTS',  nameAr: 'أحداث السوق (سعر/طلب/دفع)',     type: 'MARKET',   source: 'CELL_SHEIKHA_LAN / HTTPS' },
+        ],
+
+        goal: {
+            primary:   'توصيل الرسائل بين خدمات شيخة المصغرة بسرعة وموثوقية',
+            secondary: 'فصل الخدمات (Decoupling) لتمكين التطوير المستقل',
+            kpi:       { channels: 21, delivery_ms: '< 5ms', subscribers: 'غير محدود' },
+        },
+
+        elements: [
+            { id: 'PUB_SUB',       nameAr: 'نظام النشر والاشتراك',             role: 'توصيل الأحداث للمشتركين' },
+            { id: 'MSG_QUEUE',     nameAr: 'طابور الرسائل المتحمل للفشل',     role: 'حفظ الرسائل عند الانقطاع' },
+            { id: 'SHARIA_FILTER', nameAr: 'فلتر المحتوى الشرعي للرسائل',     role: 'منع الرسائل غير المشروعة' },
+        ],
+
+        process: {
+            mechanism: 'Publish → Sharia Filter → Queue → Fan-out → Deliver to Subscribers',
+            protocol:  'Sheikha DBUS Protocol v1.0 (EventEmitter-based)',
+            standard:  'D-Bus Specification (مُكيَّف) | ISO 11898',
+        },
+
+        output: [
+            { id: 'MSG_DELIVERED',  nameAr: 'رسالة موصلة للمشترك',            type: 'MESSAGE',  destination: 'الخدمة المشتركة' },
+            { id: 'DBUS_LOG',       nameAr: 'سجل الرسائل',                    type: 'LOG',      destination: 'CELL_SHEIKHA_SHTTP / التدقيق' },
+        ],
+
+        effect: {
+            immediate:  'تبادل فوري للأحداث بين خدمات شيخة',
+            short_term: 'تطبيق رشيق قابل للتوسع',
+            long_term:  'نظام رسائل إسلامي متكامل للمنصات الرقمية',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_HTTPS', signal_type: 'EVENT_BRIDGE',   strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_NEURAL',signal_type: 'FEED_NEURAL',    strength: 0.9 },
+            { to_cell_id: 'CELL_SHEIKHA_SHTTP', signal_type: 'AUDIT_FEED',     strength: 0.8 },
+        ],
+
+        quran_ref:   { ref: 'المائدة:٢', text: 'وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ' },
+        sharia_note: 'التعاون الرقمي — الخدمات تتعاون عبر DBUS كما يتعاون المؤمنون',
+    },
+
+    // ─── خلية مساعدة: Sheikha Neural Market ──────────────────────────────────
+    CELL_SHEIKHA_NEURAL: {
+        id:         'CELL_SHEIKHA_NEURAL',
+        nameAr:     'خلية Sheikha Neural — الشبكة العصبية للسوق',
+        nameEn:     'Sheikha Market Neural Network Cell',
+        icon:       '🧠',
+        domain:     'SHEIKHA',
+        layerOrder: 0,
+        activation: 0.95,
+
+        inputs: [
+            { id: 'MARKET_DATA',    nameAr: 'بيانات السوق اللحظية',            type: 'MARKET',   source: 'CELL_SHEIKHA_LAN / MAN / WAN' },
+            { id: 'USER_BEHAVIOR',  nameAr: 'سلوك المستخدمين',                type: 'BEHAVIOR', source: 'CELL_SHEIKHA_WLAN / PAN' },
+            { id: 'SAT_DATA',       nameAr: 'بيانات الأقمار (GPS/طقس/زراعة)', type: 'SAT',      source: 'CELL_SATELLITE' },
+            { id: 'PRICE_FEED',     nameAr: 'تغذية الأسعار',                   type: 'PRICE',    source: 'CELL_SHEIKHA_HTTPS / APIs' },
+        ],
+
+        goal: {
+            primary:   'تحليل بيانات السوق وإنتاج توصيات ذكية وتنبيهات مبكرة',
+            secondary: 'ربط العرض بالطلب وتحقيق سعر عادل شرعياً',
+            kpi:       { inference_ms: '< 100ms', accuracy: '> 85%', sharia_check: '100%' },
+        },
+
+        elements: [
+            { id: 'INPUT_LAYER',   nameAr: 'طبقة إدخال البيانات',              role: 'استقبال إشارات السوق' },
+            { id: 'HIDDEN_H1',     nameAr: 'طبقة مخفية 1 — تحليل الطلب',      role: 'رصد الأنماط والطلب' },
+            { id: 'HIDDEN_H2',     nameAr: 'طبقة مخفية 2 — التنبؤ بالأسعار', role: 'حساب السعر العادل' },
+            { id: 'HIDDEN_H3',     nameAr: 'طبقة مخفية 3 — رصد الجودة',      role: 'تصنيف المنتجات' },
+            { id: 'OUTPUT_LAYER',  nameAr: 'طبقة الإخراج — التوصيات',        role: 'إنتاج التوصيات والتنبيهات' },
+        ],
+
+        process: {
+            mechanism: 'Input Normalize → H1 Demand → H2 Price → H3 Quality → Output Recommendations',
+            protocol:  'Sheikha Market Neural v1.0',
+            standard:  'ISO AI (in progress) + أحكام البيع والشراء الإسلامية',
+        },
+
+        output: [
+            { id: 'RECOMMENDATIONS',nameAr: 'توصيات ذكية للبائع والمشتري',   type: 'RECO',     destination: 'تطبيق شيخة / CELL_SHEIKHA_HTTPS' },
+            { id: 'RISK_ALERTS',    nameAr: 'تنبيهات مخاطر السوق',           type: 'ALERT',    destination: 'CELL_SHEIKHA_DBUS' },
+            { id: 'FAIR_PRICE',     nameAr: 'مقترح السعر العادل الشرعي',      type: 'PRICING',  destination: 'CELL_SHEIKHA_LAN / نظام الأسعار' },
+        ],
+
+        effect: {
+            immediate:  'توصيات فورية لكل مستخدم',
+            short_term: 'تحسين مبيعات البائعين وجودة الشراء للمشترين',
+            long_term:  'سوق إسلامي ذكي يقترب من العدل الكامل في التسعير',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_HTTPS', signal_type: 'RECO_SERVE',     strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_DBUS',  signal_type: 'ALERT_PUBLISH',  strength: 0.9 },
+            { to_cell_id: 'CELL_SHEIKHA_SHTTP', signal_type: 'AUDIT_DECISION', strength: 0.8 },
+            { to_cell_id: 'CELL_SATELLITE',     signal_type: 'SAT_ANALYTICS',  strength: 0.8 },
+        ],
+
+        quran_ref:   { ref: 'النساء:١١٣', text: 'وَعَلَّمَكَ مَا لَمْ تَكُن تَعْلَمُ وَكَانَ فَضْلُ اللَّهِ عَلَيْكَ عَظِيمًا' },
+        sharia_note: 'العلم نور — الذكاء الاصطناعي خادم للتاجر المؤمن، لا سيد عليه',
+    },
+
+    // ─── خلية مساعدة: Sheikha Waterline ─────────────────────────────────────
+    CELL_SHEIKHA_WATERLINE: {
+        id:         'CELL_SHEIKHA_WATERLINE',
+        nameAr:     'خلية Sheikha Waterline — خط الأمان الرقمي',
+        nameEn:     'Sheikha Waterline Security Cell',
+        icon:       '🛡️',
+        domain:     'SHEIKHA',
+        layerOrder: 0,
+        activation: 1.0,
+
+        inputs: [
+            { id: 'ALL_REQUESTS',   nameAr: 'كل الطلبات عبر شبكة شيخة',       type: 'REQUEST',  source: 'كل الطبقات' },
+            { id: 'THREAT_FEED',    nameAr: 'تغذية بيانات التهديدات',          type: 'THREAT',   source: 'مصادر الأمن الدولية' },
+            { id: 'BLOCKLIST',      nameAr: 'قائمة العناوين المحظورة',         type: 'POLICY',   source: 'سياسات شيخة الأمنية' },
+        ],
+
+        goal: {
+            primary:   'تشكيل خط الأمان (Waterline) لكل طبقة في شبكة شيخة',
+            secondary: 'منع الهجمات والحماية من التجسس والحفاظ على الخصوصية',
+            kpi:       { attack_block: '> 99%', false_positive: '< 0.1%', latency_added: '< 1ms' },
+        },
+
+        elements: [
+            { id: 'RATE_LIMITER',  nameAr: 'محدّد معدل الطلبات',              role: 'الحماية من هجمات DoS' },
+            { id: 'IP_BLOCKLIST',  nameAr: 'قائمة حظر العناوين',              role: 'منع الجهات الخبيثة' },
+            { id: 'AES256_ENC',    nameAr: 'تشفير AES-256-GCM',               role: 'حماية البيانات في الانتقال' },
+            { id: 'ZERO_TRUST_EN', nameAr: 'محرك Zero-Trust',                  role: 'لا ثقة افتراضية' },
+            { id: 'SHARIA_SCAN',   nameAr: 'مسح شرعي للمحتوى',               role: 'فلترة المحتوى المحرّم' },
+        ],
+
+        process: {
+            mechanism: 'Request → Rate Check → Blocklist → Body Scan → Sharia Filter → Allow/Block',
+            protocol:  'Sheikha Zero-Trust v1.0 / AES-256-GCM / TLS 1.3',
+            standard:  'NIST SP 800-207 | OWASP | CIS Controls',
+        },
+
+        output: [
+            { id: 'ALLOW_REQUEST',  nameAr: 'طلب مُجاز للمرور',               type: 'ALLOW',    destination: 'الخدمة المطلوبة' },
+            { id: 'BLOCK_ALERT',    nameAr: 'تنبيه حجب طلب خبيث',            type: 'BLOCK',    destination: 'CELL_SHEIKHA_SHTTP / سجل الحوادث' },
+            { id: 'INCIDENT_LOG',   nameAr: 'سجل الحوادث الأمنية',           type: 'LOG',      destination: 'CELL_SHEIKHA_SHTTP' },
+        ],
+
+        effect: {
+            immediate:  'حماية كل معاملة من الهجمات والتلاعب',
+            short_term: 'بيئة تجارية آمنة وموثوقة',
+            long_term:  'الحصن الرقمي لمنظومة شيخة الإسلامية',
+        },
+
+        synapses: [
+            { to_cell_id: 'CELL_SHEIKHA_SHTTP', signal_type: 'SECURITY_REPORT', strength: 1.0 },
+            { to_cell_id: 'CELL_SHEIKHA_VPN',   signal_type: 'POLICY_FEED',     strength: 0.9 },
+            { to_cell_id: 'CELL_SHEIKHA_DBUS',  signal_type: 'INCIDENT_EVENT',  strength: 0.8 },
+        ],
+
+        quran_ref:   { ref: 'التحريم:٦', text: 'يَا أَيُّهَا الَّذِينَ آمَنُوا قُوا أَنفُسَكُمْ وَأَهْلِيكُمْ نَارًا' },
+        sharia_note: 'الوقاية — حفظ المال والعرض من المقاصد الشرعية الخمس',
+    },
+};
+
 // ═══════════════════════════════════════════════════════════════
-// خريطة الخلايا الكاملة
+// خريطة الخلايا الكاملة (تشمل الآن خلايا شيخة)
 // ═══════════════════════════════════════════════════════════════
 const ALL_CELLS = {
     ...TERRESTRIAL_CELLS,
     ...SATELLITE_CELLS,
     ...LOGISTICS_CELLS,
+    ...SHEIKHA_CELLS,
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -726,12 +1571,132 @@ function getCellsByDomain(domain) {
     return Object.values(ALL_CELLS).filter((c) => c.domain === domain.toUpperCase());
 }
 
+// ═══════════════════════════════════════════════════════════════
+// شبكة شيخة العصبية — طوبولوجيا متخصصة
+// ═══════════════════════════════════════════════════════════════
+
+/**
+ * يبني طوبولوجيا شبكة شيخة العصبية فقط (SHEIKHA domain)
+ * مرتّبة حسب LayerOrder — مع مسار التدفق من PAN إلى SHTTP
+ */
+function buildSheikhaTopology() {
+    const cells = Object.values(SHEIKHA_CELLS)
+        .sort((a, b) => (a.layerOrder || 99) - (b.layerOrder || 99));
+
+    const nodes = cells.map((c) => ({
+        id:           c.id,
+        nameAr:       c.nameAr,
+        nameEn:       c.nameEn,
+        icon:         c.icon,
+        domain:       c.domain,
+        layerOrder:   c.layerOrder,
+        activation:   c.activation,
+        sovereign:    c.sovereign || false,
+        synapse_count: c.synapses.length,
+        inputs_count:  c.inputs.length,
+        outputs_count: c.output.length,
+        kpi:          c.goal.kpi,
+    }));
+
+    const edges = [];
+    cells.forEach((c) => {
+        c.synapses.forEach((s) => {
+            edges.push({
+                from:        c.id,
+                to:          s.to_cell_id,
+                signal_type: s.signal_type,
+                strength:    s.strength,
+                critical:    s.strength >= 0.9,
+                sheikha_only: s.to_cell_id.startsWith('CELL_SHEIKHA_'),
+            });
+        });
+    });
+
+    // ترتيب الطبقات التسلسلي
+    const layerChain = cells
+        .filter(c => c.layerOrder > 0)
+        .sort((a, b) => a.layerOrder - b.layerOrder)
+        .map(c => `${c.layerOrder}. ${c.icon} ${c.nameAr}`);
+
+    const sovereignCell = cells.find(c => c.sovereign);
+
+    return {
+        nameAr:   'شبكة شيخة العصبية المتكاملة',
+        nameEn:   'Sheikha Integrated Neural Cell Network',
+        version:  '1.0.0',
+        cells:    nodes,
+        synapses: edges,
+        layerChain,
+        summary: {
+            total_cells:        nodes.length,
+            total_synapses:     edges.length,
+            critical_synapses:  edges.filter(e => e.critical).length,
+            internal_synapses:  edges.filter(e => e.sheikha_only).length,
+            governing_cell:     sovereignCell ? sovereignCell.id : null,
+            avg_activation:     +(nodes.reduce((s, n) => s + n.activation, 0) / nodes.length).toFixed(3),
+        },
+        verse:  { ref: 'يوسف:٢١', text: 'وَاللَّهُ غَالِبٌ عَلَى أَمْرِهِ وَلَٰكِنَّ أَكْثَرَ النَّاسِ لَا يَعْلَمُونَ' },
+    };
+}
+
+/**
+ * يُفعّل شبكة شيخة العصبية كاملاً ويُعيد تقرير التفعيل
+ * — يُشغّل إشارة تفعيل من الطبقة الحاكمة SHTTP إلى كل الطبقات
+ * — ويُشغّل إشارة صاعدة من PAN إلى SHTTP
+ */
+function activateSheikhaNetwork() {
+    // إشارة تفعيل نازلة من الحاكمة SHTTP → كل الطبقات
+    const topDown = propagateSignal(
+        'CELL_SHEIKHA_SHTTP',
+        { type: 'ACTIVATION', payload: 'Sheikha Network Full Activation — بسم الله' },
+        10
+    );
+
+    // إشارة صاعدة من PAN → أعلى الطبقات
+    const bottomUp = propagateSignal(
+        'CELL_SHEIKHA_PAN',
+        { type: 'MARKET_SIGNAL', payload: 'First transaction from PAN layer' },
+        5
+    );
+
+    const topology = buildSheikhaTopology();
+    const allActive = topology.cells.every(c => c.activation > 0);
+
+    return {
+        status:       'ACTIVE',
+        nameAr:       'شبكة شيخة العصبية — مُفعَّلة',
+        nameEn:       'Sheikha Neural Network — ACTIVE',
+        activatedAt:  new Date().toISOString(),
+        layers:       topology.cells.length,
+        synapses:     topology.synapses.length,
+        governing:    topology.summary.governing_cell,
+        avgActivation: topology.summary.avg_activation,
+        allLayersActive: allActive,
+        signals: {
+            topDown: {
+                description: 'إشارة تفعيل من الطبقة الحاكمة ← كل الطبقات',
+                stepsReached: topDown.steps,
+            },
+            bottomUp: {
+                description: 'إشارة صاعدة من PAN → SHTTP',
+                stepsReached: bottomUp.steps,
+            },
+        },
+        layerChain: topology.layerChain,
+        verse:  { ref: 'البقرة:٣١', text: 'وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا' },
+        hadith: '«إن الله يحب إذا عمل أحدكم عملاً أن يُتقنه» — البيهقي',
+    };
+}
+
 module.exports = {
     ALL_CELLS,
     TERRESTRIAL_CELLS,
     SATELLITE_CELLS,
     LOGISTICS_CELLS,
+    SHEIKHA_CELLS,
     buildNeuralTopology,
+    buildSheikhaTopology,
+    activateSheikhaNetwork,
     propagateSignal,
     getCell,
     getCellsByDomain,

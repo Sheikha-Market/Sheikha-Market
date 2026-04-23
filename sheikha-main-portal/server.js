@@ -36175,9 +36175,49 @@ try {
     console.log('   ├─ GET  /api/telecom/neural/cell/:id      — خلية عصبية محددة');
     console.log('   ├─ GET  /api/telecom/neural/domain/:d     — خلايا نطاق معين');
     console.log('   ├─ GET  /api/telecom/neural/signal        — إطلاق إشارة (GET)');
-    console.log('   └─ POST /api/telecom/neural/signal        — إطلاق إشارة عصبية');
+    console.log('   ├─ POST /api/telecom/neural/signal        — إطلاق إشارة عصبية');
+    console.log('   ├─ GET  /api/telecom/sheikha              — 👑 طوبولوجيا شبكة شيخة العصبية');
+    console.log('   ├─ POST /api/telecom/sheikha/activate     — 🔥 تفعيل شبكة شيخة (14 خلية)');
+    console.log('   ├─ GET  /api/telecom/sheikha/sovereign    — 👑 الطبقة الحاكمة SHTTP/HTTPS');
+    console.log('   ├─ GET  /api/telecom/sheikha/cell/:id     — خلية شيخة محددة');
+    console.log('   ├─ GET  /api/telecom/sheikha/layer/:order — طبقة شيخة حسب الرقم (1-10)');
+    console.log('   ├─ GET  /api/telecom/sheikha/signal       — إشارة في شبكة شيخة (GET)');
+    console.log('   ├─ POST /api/telecom/sheikha/signal       — إطلاق إشارة عصبية شيخة');
+    console.log('   ├─ GET  /api/telecom/sheikha/unified             — 🌐 الشبكة الموحدة (23 خلية)');
+    console.log('   ├─ POST /api/telecom/sheikha/unified/activate    — 🔥 تفعيل الشبكة الموحدة');
+    console.log('   ├─ GET  /api/telecom/sheikha/unified/status      — حالة الشبكة الموحدة');
+    console.log('   ├─ GET  /api/telecom/sheikha/unified/divine-refs — 📖 الكتاب والسنة (23 مرجع)');
+    console.log('   ├─ GET  /api/telecom/sheikha/unified/cell/:q     — خلية برقمها أو معرّفها');
+    console.log('   ├─ GET  /api/telecom/sheikha/unified/section/:s  — قسم TERRESTRIAL/DIGITAL/…');
+    console.log('   ├─ GET  /api/telecom/sheikha/unified/signal      — إشارة موحّدة (GET)');
+    console.log('   └─ POST /api/telecom/sheikha/unified/signal      — إشارة موحّدة (POST)');
 } catch (e) {
     console.warn('⚠️ [TELECOM] فشل تحميل مسارات الاتصالات:', e.message);
+}
+
+// ── Sheikha Network Architecture — DBUS + DNS + Waterline + Neural ──────────
+try {
+    const sheikhaNetworkRoutes = require('./routes/sheikha-network.js');
+    app.use('/api/network', sheikhaNetworkRoutes);
+    console.log('✅ [SHEIKHA-NETWORK] شبكة شيخة المتكاملة — مُفعَّلة');
+    console.log('   ├─ GET  /api/network                          — نقطة الدخول');
+    console.log('   ├─ GET  /api/network/dashboard                — لوحة القيادة الموحدة');
+    console.log('   ├─ GET  /api/network/layers                   — طبقات شيخة (PAN→SHTTP/HTTPS)');
+    console.log('   ├─ GET  /api/network/dbus/status              — Sheikha DBUS');
+    console.log('   ├─ POST /api/network/dbus/publish             — نشر رسالة DBUS');
+    console.log('   ├─ GET  /api/network/dns/status               — Sheikha DNS');
+    console.log('   ├─ GET  /api/network/dns/resolve/:name        — حل اسم خدمة');
+    console.log('   ├─ GET  /api/network/waterline/status         — Sheikha Waterline');
+    console.log('   ├─ GET  /api/network/waterline/layers         — خطوط الأمان');
+    console.log('   ├─ POST /api/network/waterline/encrypt        — تشفير AES-256');
+    console.log('   ├─ GET  /api/network/neural/status            — Sheikha Neural Engine');
+    console.log('   ├─ GET  /api/network/neural/topology          — طوبولوجيا الشبكة العصبية');
+    console.log('   ├─ POST /api/network/neural/infer             — استدلال عصبي');
+    console.log('   ├─ POST /api/network/neural/recommend/product — توصيات منتج');
+    console.log('   ├─ POST /api/network/neural/recommend/user    — توصيات مستخدم');
+    console.log('   └─ POST /api/network/neural/satellite         — تحليل الأقمار الصناعية');
+} catch (e) {
+    console.warn('⚠️ [SHEIKHA-NETWORK] فشل تحميل مسارات الشبكة المتكاملة:', e.message);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
