@@ -110,6 +110,16 @@ async function boot() {
         console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل طبقة اللغة:', err.message);
     }
 
+    // تسجيل المحرك العلمي العلوي الجامع — أقوى منظومة برمجيات بالكون
+    // ﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨
+    try {
+        const supremeCS = require('../lib/sheikha-supreme-cs-engine');
+        registerLayer('supreme-cs', supremeCS);
+        console.log('[SHEIKHA-ROOT] 🧠 المحرك العلمي العلوي الجامع مُفعَّل — 8 طبقات × 40 خلية عصبية');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل المحرك العلوي:', err.message);
+    }
+
     const bootOrder = [
         { key: 'os',            file: 'sheikha-os.js' },
         { key: 'control-plane', file: 'sheikha-control-plane.js' },
@@ -148,6 +158,7 @@ async function boot() {
                     'voice':         'طبقة الصوت والتواصل',
                     'neural-cells':  'خلايا الشبكة العصبية',
                     'language-layer':'طبقة لغة شيخة الحاكمة',
+                    'supreme-cs':    'المحرك العلمي العلوي الجامع',
                 };
                 sovereignLayer.registerSubject(key, 'layer', {
                     nameAr: LAYER_ARABIC[key] || key,
