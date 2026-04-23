@@ -81,7 +81,7 @@ router.post('/sync', (req, res) => {
 // ─── GET /api/offline/queue ───────────────────────────────────────────────────
 // قائمة العمليات المعلقة (للمراقبة)
 router.get('/queue', (req, res) => {
-    const limit = Math.min(parseInt(req.query.limit) || 50, 200);
+    const limit = Math.min(parseInt(req.query.limit, 10) || 50, 200);
     res.json({
         success: true,
         total:   syncQueue.size(),

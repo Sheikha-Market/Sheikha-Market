@@ -56,8 +56,13 @@ class ResponseCache {
 
         // إبقاء حجم الذاكرة في الحدود
         if (this._mem.size > this.maxMemory) {
-            const oldest = this._mem.keys().next().value;
-            this._mem.delete(oldest);
+            // حذف الإدخال الأقدم تاريخاً (LRU بالـ timestamp)
+            let oldestKey = null;
+            let oldestTs  = Infinity;
+            for (const [k, v] of this._mem) {
+                if (v.ts < oldestTs) { oldestTs = v.ts; oldestKey = k; }
+            }
+            if (oldestKey) this._mem.delete(oldestKey);
         }
 
         // كتابة على القرص (للبقاء بعد إعادة التشغيل)
@@ -176,11 +181,15 @@ class SyncQueue {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 3️⃣  ConnectivityWatcher — يراقب الإنترنت بشكل دوري
 // ═══════════════════════════════════════════════════════════════════════════════
-const CHECK_URLS = [
-    'https://1.1.1.1',             // Cloudflare DNS
-    'https://www.google.com/generate_204',
-    'https://httpbin.org/status/200',
-];
+// URLs لفحص الاتصال — يمكن تخصيصها عبر متغيرات البيئة
+const _rawCheckUrls = process.env.SHEIKHA_CONNECTIVITY_CHECK_URLS;
+const CHECK_URLS = _rawCheckUrls
+    ? _rawCheckUrls.split(',').map(u => u.trim()).filter(Boolean)
+    : [
+        'https://1.1.1.1',             // Cloudflare DNS
+        'https://www.google.com/generate_204',
+        'https://httpbin.org/status/200',
+      ];
 
 class ConnectivityWatcher extends EventEmitter {
     constructor(options = {}) {

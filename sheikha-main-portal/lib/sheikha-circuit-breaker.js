@@ -46,8 +46,10 @@ class CircuitBreaker extends EventEmitter {
         if (this._state === STATE.OPEN) {
             if (Date.now() < this._nextAttempt) {
                 this._stats.rejected++;
-                const err = new Error(`[CircuitBreaker:${this.name}] الدائرة مفتوحة — الطلب محجوب`);
+                const err = new Error(`[CircuitBreaker:${this.name}] الدائرة مفتوحة — الطلب محجوب | Circuit is OPEN — request blocked`);
                 err.code = 'CIRCUIT_OPEN';
+                err.messageAr = 'الدائرة مفتوحة — الطلب محجوب';
+                err.messageEn = 'Circuit is OPEN — request blocked';
                 throw err;
             }
             this._toHalfOpen();

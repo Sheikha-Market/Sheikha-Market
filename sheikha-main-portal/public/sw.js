@@ -30,7 +30,7 @@ const PRECACHE_ASSETS = [
 
 // Install — تخزين الأصول الحرجة مسبقاً
 self.addEventListener('install', (event) => {
-    console.log('[SW] Installing Sheikha Service Worker v7 (Offline-First)...');
+    console.log('[SW v8] Installing Sheikha Service Worker v8 (Offline-First — All Conditions)...');
     event.waitUntil(
         caches.open(CACHE_STATIC).then((cache) => {
             // تخزين كل أصل بشكل منفصل — خطأ أصل واحد لا يوقف الباقي
