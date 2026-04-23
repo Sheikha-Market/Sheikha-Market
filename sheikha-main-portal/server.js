@@ -36210,24 +36210,33 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🌉 جسر التكامل — شبكة المنزل الذكي × منظومة سوق شيخة الكاملة
-// Home Network Integration Bridge — يربط المنزل بالسوق والذكاء الاصطناعي والأمن
-// ﴿ وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا ﴾ — الحجرات: 13
+// 🔒 جسر التكامل — مُعطَّل بقرار الخصوصية
+// [PRIVACY-WALL] ⛔ شبكة المنزل لا تُدمج مع السوق أو المنظومة
+// بأمر شيخة: بيانات المنزل والأسرة سرية ومعزولة تماماً
+// ═══════════════════════════════════════════════════════════════════════════════
+// [DISABLED] home-network-integration.js — لا يُحمَّل ولا يُسجَّل
+// app.use('/api/home-integration', ...) — مُعطَّل نهائياً
+console.log('⛔ [HOME-INTEGRATION] مُعطَّل — شبكة المنزل معزولة بجدار الخصوصية');
+console.log('   ✅ بيانات المنزل والأسرة محمية ولا تُشارَك مع السوق');
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔐 شبكة شيخة الخاصة — معزولة بالكامل — للمالكة فقط
+// SHEIKHA PRIVATE HOME NETWORK — Isolated · Encrypted · Owner-Only
+// لا اتصال بالسوق · لا تكامل خارجي · بيانات الأسرة محمية
 // ═══════════════════════════════════════════════════════════════════════════════
 try {
-    const homeIntegrationRoutes = require('./routes/home-network-integration.js');
-    app.use('/api/home-integration', homeIntegrationRoutes);
-    console.log('✅ [HOME-INTEGRATION] جسر التكامل — المنزل الذكي × سوق شيخة — مُفعَّل');
-    console.log('   ├─ GET  /api/home-integration                  — نقطة الدخول');
-    console.log('   ├─ GET  /api/home-integration/status           — حالة التكامل الكامل');
-    console.log('   ├─ GET  /api/home-integration/dashboard        — لوحة القيادة الموحدة');
-    console.log('   ├─ POST /api/home-integration/ai/analyze       — تحليل AI موحد');
-    console.log('   ├─ POST /api/home-integration/market/connect   — ربط المنزل بالسوق');
-    console.log('   ├─ POST /api/home-integration/security/scan    — مسح أمني موحد');
-    console.log('   ├─ GET  /api/home-integration/neural/pulse     — النبضة العصبية الكاملة');
-    console.log('   └─ POST /api/home-integration/command          — أمر موحد (منزل+سوق+AI)');
+    const sheikhaPrivateHomeRoutes = require('./routes/sheikha-private-home.js');
+    app.use('/api/sheikha/private-home', sheikhaPrivateHomeRoutes);
+    console.log('🔐 [PRIVATE-HOME] شبكة شيخة الخاصة المعزولة — مُفعَّلة');
+    console.log('   ├─ GET  /api/sheikha/private-home/status        — حالة الشبكة الخاصة');
+    console.log('   ├─ GET  /api/sheikha/private-home/dashboard     — لوحة المنزل (مالكة فقط)');
+    console.log('   ├─ GET  /api/sheikha/private-home/devices       — أجهزة المنزل (مالكة فقط)');
+    console.log('   ├─ POST /api/sheikha/private-home/security/scan — مسح أمني خاص');
+    console.log('   ├─ GET  /api/sheikha/private-home/privacy       — تقرير الخصوصية الكامل');
+    console.log('   └─ GET  /api/sheikha/private-home/audit         — سجل التدقيق (من حاول الدخول)');
+    console.log('   ⛔ القاعدة: لا يدخل أحد · لا تُشارَك بيانات · لا تكامل مع السوق');
 } catch (e) {
-    console.warn('⚠️ [HOME-INTEGRATION] فشل تحميل جسر التكامل:', e.message);
+    console.warn('⚠️ [PRIVATE-HOME] فشل تحميل الشبكة الخاصة:', e.message);
 }
 try {
     const sheikhaNetworkRoutes = require('./routes/sheikha-network.js');
