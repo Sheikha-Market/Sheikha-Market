@@ -5,6 +5,7 @@
 // GET  /api/network/live     — liveness probe (بسيط — هل السيرفر حي؟)
 // GET  /api/network/ready    — readiness probe (هل جاهز لخدمة الطلبات؟)
 // GET  /api/network/status   — حالة تفصيلية لكل مكونات الشبكة
+// GET  /api/network/dns      — Sheikha DNS — اختبار تفعيل اتصال DNS
 // ═══════════════════════════════════════════════════════════════════════════════
 
 'use strict';
@@ -12,6 +13,7 @@
 const express = require('express');
 const fs      = require('fs');
 const path    = require('path');
+const dns     = require('dns');
 const router  = express.Router();
 
 // الوحدات الاختيارية — لا تُفشل السيرفر إن غابت
@@ -133,6 +135,48 @@ router.get('/status', (_req, res) => {
             serviceWorker:    true, // من جانب المتصفح (sw.js v8)
             indexedDB:        true, // من جانب المتصفح
         },
+    });
+});
+
+// ─── GET /api/network/dns ─────────────────────────────────────────────────────
+// Sheikha DNS — اختبار تفعيل اتصال DNS واستجابته
+// يرجع قائمة بنتائج الاستعلامات لعدة نطاقات مرجعية
+router.get('/dns', (req, res) => {
+    const targets = [
+        'github.com',
+        'google.com',
+        'api.sheikha.top',
+    ];
+
+    const startAll = Date.now();
+
+    const checks = targets.map(host => new Promise(resolve => {
+        const t0 = Date.now();
+        dns.resolve4(host, (err, addresses) => {
+            const latencyMs = Date.now() - t0;
+            if (err) {
+                resolve({ host, ok: false, error: err.code, latencyMs });
+            } else {
+                resolve({ host, ok: true, addresses, latencyMs });
+            }
+        });
+    }));
+
+    Promise.all(checks).then(results => {
+        const totalMs  = Date.now() - startAll;
+        const allOk    = results.every(r => r.ok);
+        const anyOk    = results.some(r => r.ok);
+        const status   = allOk ? 'dns_ok' : (anyOk ? 'dns_partial' : 'dns_failed');
+
+        res.status(allOk || anyOk ? 200 : 503).json({
+            success:   anyOk,
+            status,
+            name:      'Sheikha DNS',
+            timestamp: new Date().toISOString(),
+            totalMs,
+            results,
+            _note: 'اختبار تفعيل اتصال DNS — شيخة',
+        });
     });
 });
 
