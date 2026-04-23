@@ -100,6 +100,16 @@ async function boot() {
     }
 
     // ② تشغيل بقية الطبقات تحت إشراف الحاكمة
+    // تسجيل طبقة لغة شيخة الحاكمة — قبل بقية الطبقات
+    // ﴿عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ﴾ — العلق: ٥
+    try {
+        const languageLayer = require('../lib/sheikha-language-layer');
+        registerLayer('language-layer', languageLayer);
+        console.log('[SHEIKHA-ROOT] 🌐 طبقة لغة شيخة الحاكمة مُفعَّلة — Ada→Plankalkül→FORTRAN→GML→HTML→SQL→Unicode');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل طبقة اللغة:', err.message);
+    }
+
     const bootOrder = [
         { key: 'os',            file: 'sheikha-os.js' },
         { key: 'control-plane', file: 'sheikha-control-plane.js' },
@@ -137,6 +147,7 @@ async function boot() {
                     'impact':        'محرك الأثر والقيم',
                     'voice':         'طبقة الصوت والتواصل',
                     'neural-cells':  'خلايا الشبكة العصبية',
+                    'language-layer':'طبقة لغة شيخة الحاكمة',
                 };
                 sovereignLayer.registerSubject(key, 'layer', {
                     nameAr: LAYER_ARABIC[key] || key,
