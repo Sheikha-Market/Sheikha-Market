@@ -25051,7 +25051,7 @@ const VIRTUAL_CUSTOMER = {
     id: 'vc-001',
     name: 'مستخدم عميل',
     email: 'test.customer@sheikha.top',
-    password: hashPassword('Test@Customer2024'),
+    password: hashPassword(process.env.VIRTUAL_CUSTOMER_PASSWORD || ''),
     phone: '+966500000001',
     type: 'customer',
     region: 'الرياض',
@@ -25071,7 +25071,7 @@ const VIRTUAL_TRADER = {
     id: 'vt-001',
     name: 'متجر الاختبار',
     email: 'test.trader@sheikha.top',
-    password: hashPassword('Test@Trader2024'),
+    password: hashPassword(process.env.VIRTUAL_TRADER_PASSWORD || ''),
     crNumber: '1234567890',
     specialties: ['حديد', 'نحاس', 'ألمنيوم'],
     products: [],
@@ -25115,14 +25115,8 @@ app.get('/api/virtual-customer', (req, res) => {
             metrics: VIRTUAL_TRADER.metrics
         },
         credentials: {
-            customer: {
-                email: 'test.customer@sheikha.top',
-                password: 'Test@Customer2024'
-            },
-            trader: {
-                email: 'test.trader@sheikha.top',
-                password: 'Test@Trader2024'
-            }
+            customer: { email: 'test.customer@sheikha.top' },
+            trader: { email: 'test.trader@sheikha.top' }
         }
     });
 });
@@ -36190,12 +36184,54 @@ try {
     console.log('   ├─ GET  /api/telecom/sheikha/unified/cell/:q     — خلية برقمها أو معرّفها');
     console.log('   ├─ GET  /api/telecom/sheikha/unified/section/:s  — قسم TERRESTRIAL/DIGITAL/…');
     console.log('   ├─ GET  /api/telecom/sheikha/unified/signal      — إشارة موحّدة (GET)');
-    console.log('   └─ POST /api/telecom/sheikha/unified/signal      — إشارة موحّدة (POST)');
+    console.log('   ├─ POST /api/telecom/sheikha/unified/signal      — إشارة موحّدة (POST)');
+    console.log('   ├─ GET  /api/telecom/home-network                — 🏠🧠🤖 لوحة المنزل الذكي + AI');
+    console.log('   ├─ GET  /api/telecom/home-network/internal       — الشبكة الداخلية (راوتر، IoT، LAN)');
+    console.log('   ├─ GET  /api/telecom/home-network/external       — الشبكة الخارجية (5G، ألياف)');
+    console.log('   ├─ GET  /api/telecom/home-network/security       — الأمن والحماية (جدار، IDS، VPN)');
+    console.log('   ├─ GET  /api/telecom/home-network/integration    — جسر التكامل الذكي');
+    console.log('   ├─ GET  /api/telecom/home-network/cell/:id       — خلية عصبية منزلية محددة');
+    console.log('   ├─ POST /api/telecom/home-network/signal         — إطلاق إشارة عصبية منزلية');
+    console.log('   ├─ GET  /api/telecom/home-network/ai             — رؤى الذكاء الاصطناعي');
+    console.log('   ├─ POST /api/telecom/home-network/ai/analyze     — تحليل حركة الشبكة بالذكاء الاصطناعي');
+    console.log('   ├─ POST /api/telecom/home-network/ai/predict     — توقع التهديدات الأمنية');
+    console.log('   ├─ POST /api/telecom/home-network/ai/route       — توجيه ذكي للأجهزة (QoS)');
+    console.log('   ├─ POST /api/telecom/home-network/ai/optimize    — تحسين الشبكة تلقائياً');
+    console.log('   ├─ POST /api/telecom/home-network/ai/classify    — تصنيف محتوى شرعي (BERT-Arabic)');
+    console.log('   └─ POST /api/telecom/home-network/ai/command     — أمر صوتي/نصي إسلامي');
 } catch (e) {
     console.warn('⚠️ [TELECOM] فشل تحميل مسارات الاتصالات:', e.message);
 }
 
-// ── Sheikha Network Architecture — DBUS + DNS + Waterline + Neural ──────────
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔒 جسر التكامل — مُعطَّل بقرار الخصوصية
+// [PRIVACY-WALL] ⛔ شبكة المنزل لا تُدمج مع السوق أو المنظومة
+// بأمر شيخة: بيانات المنزل والأسرة سرية ومعزولة تماماً
+// ═══════════════════════════════════════════════════════════════════════════════
+// [DISABLED] home-network-integration.js — لا يُحمَّل ولا يُسجَّل
+// app.use('/api/home-integration', ...) — مُعطَّل نهائياً
+console.log('⛔ [HOME-INTEGRATION] مُعطَّل — شبكة المنزل معزولة بجدار الخصوصية');
+console.log('   ✅ بيانات المنزل والأسرة محمية ولا تُشارَك مع السوق');
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔐 شبكة شيخة الخاصة — معزولة بالكامل — للمالكة فقط
+// SHEIKHA PRIVATE HOME NETWORK — Isolated · Encrypted · Owner-Only
+// لا اتصال بالسوق · لا تكامل خارجي · بيانات الأسرة محمية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const sheikhaPrivateHomeRoutes = require('./routes/sheikha-private-home.js');
+    app.use('/api/sheikha/private-home', sheikhaPrivateHomeRoutes);
+    console.log('🔐 [PRIVATE-HOME] شبكة شيخة الخاصة المعزولة — مُفعَّلة');
+    console.log('   ├─ GET  /api/sheikha/private-home/status        — حالة الشبكة الخاصة');
+    console.log('   ├─ GET  /api/sheikha/private-home/dashboard     — لوحة المنزل (مالكة فقط)');
+    console.log('   ├─ GET  /api/sheikha/private-home/devices       — أجهزة المنزل (مالكة فقط)');
+    console.log('   ├─ POST /api/sheikha/private-home/security/scan — مسح أمني خاص');
+    console.log('   ├─ GET  /api/sheikha/private-home/privacy       — تقرير الخصوصية الكامل');
+    console.log('   └─ GET  /api/sheikha/private-home/audit         — سجل التدقيق (من حاول الدخول)');
+    console.log('   ⛔ القاعدة: لا يدخل أحد · لا تُشارَك بيانات · لا تكامل مع السوق');
+} catch (e) {
+    console.warn('⚠️ [PRIVATE-HOME] فشل تحميل الشبكة الخاصة:', e.message);
+}
 try {
     const sheikhaNetworkRoutes = require('./routes/sheikha-network.js');
     app.use('/api/network', sheikhaNetworkRoutes);
@@ -36912,6 +36948,56 @@ try {
     console.warn('⚠️ DigitalRoot:', e.message);
 }
 
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐 NETWORK RESILIENCE — تقوية الاتصال والشبكة (يعمل في كل الأحوال)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ── CDN Cache Middleware ───────────────────────────────────────────────────────
+try {
+    const { cdnCacheMiddleware } = require('./middleware/cdn-cache.js');
+    app.use(cdnCacheMiddleware);
+    console.log('✅ [CDN-CACHE] ترويسات كاش الأصول — مُفعَّلة');
+} catch (e) {
+    console.warn('⚠️ [CDN-CACHE]', e.message);
+}
+
+// ── Offline Mode — يعمل حتى بدون إنترنت وبدون منزل ذكي ──────────────────────
+try {
+    // التحميل يُشغّل ConnectivityWatcher + HomeNetworkGuard تلقائياً
+    require('./lib/sheikha-offline-mode');
+    console.log('✅ [OFFLINE-MODE] وضع الاستقلالية — يعمل بكل الأحوال (إنترنت / منزل ذكي / كهرباء)');
+} catch (e) {
+    console.warn('⚠️ [OFFLINE-MODE]', e.message);
+}
+
+// ── Offline Sync Routes ────────────────────────────────────────────────────────
+try {
+    const offlineSyncRoutes = require('./routes/offline-sync.js');
+    app.use('/api/offline', offlineSyncRoutes);
+    console.log('✅ [OFFLINE-SYNC] مزامنة العمليات المعلقة — /api/offline (status · sync · queue)');
+} catch (e) {
+    console.warn('⚠️ [OFFLINE-SYNC]', e.message);
+}
+
+// ── Network Health — فحص صحة الشبكة لـ Azure Container Apps ─────────────────
+try {
+    const networkHealthRoutes = require('./routes/network-health.js');
+    app.use('/api/network', networkHealthRoutes);
+    console.log('✅ [NETWORK-HEALTH] فحص صحة الشبكة — /api/network (health · live · ready · status)');
+} catch (e) {
+    console.warn('⚠️ [NETWORK-HEALTH]', e.message);
+}
+
+// ── Realtime Hub Routes (SSE + WebSocket وصل بـ Hub) ─────────────────────────
+try {
+    const realtimeRoutes = require('./routes/realtime.routes.js');
+    app.use('/api/realtime', realtimeRoutes);
+    console.log('✅ [REALTIME] أحداث لحظية — /api/realtime (health · events · recent · emit)');
+} catch (e) {
+    console.warn('⚠️ [REALTIME]', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🚀 بدء الخادم
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -37080,6 +37166,22 @@ _serverPromise.then((s) => {
     if (empireGrandEngine) { empireGrandEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
     // Wire WS clients into meta engine
     if (metaEngine) { metaEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
+
+    // ── وصل Realtime Hub بـ WebSocket — يبث أحداث Hub لكل العملاء ─────────────
+    try {
+        const hub = require('./lib/sheikha-realtime-hub');
+        hub.subscribeBroadcast((event) => {
+            const msg = JSON.stringify({ type: 'hubEvent', ...event });
+            clients.forEach(client => {
+                try {
+                    if (client.readyState === WebSocket.OPEN) client.send(msg);
+                } catch (_) {}
+            });
+        });
+        console.log('✅ [WS] Realtime Hub وصل بـ WebSocket — البث الفوري مُفعَّل');
+    } catch (e) {
+        console.warn('⚠️ [WS] فشل وصل Realtime Hub:', e.message);
+    }
 
     function broadcastPrices() {
         const data = JSON.stringify({

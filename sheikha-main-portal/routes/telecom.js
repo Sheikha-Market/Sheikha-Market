@@ -51,8 +51,17 @@ const { createSecureChannel, getGatewaySummary } = require('../telecom/universal
 let telecomOrg = null;
 try {
     telecomOrg = require('../core/comms/telecom-org').telecomOrg;
-} catch (_) {
-    // يعمل بدون المحرك العصبي إذا لم يكن متاحاً
+} catch (e) {
+    console.warn('⚠️ [TELECOM] telecom-org غير متاح:', e.message);
+}
+
+// ── تحميل محرك شبكة المنزل الذكي + الذكاء الاصطناعي ─────────────────────────
+
+let homeNetwork = null;
+try {
+    homeNetwork = require('../telecom/home-network/index');
+} catch (e) {
+    console.warn('⚠️ [TELECOM] home-network غير متاح:', e.message);
 }
 
 // ── مساعد الاستجابة ──────────────────────────────────────────────────────────
@@ -536,6 +545,184 @@ router.post('/sheikha/unified/signal', (req, res) => {
         res.json(telecomOrg.fireUnifiedSignal(key, signal || { type: 'UNIFIED_SIGNAL' }, depth !== undefined ? parseInt(depth, 10) : 5));
     } catch (e) {
         fail(res, 500, 'unified_signal_error', 'حدث خطأ أثناء إطلاق الإشارة الموحّدة');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏠🧠🤖 شبكة المنزل الذكي العصبية + الذكاء الاصطناعي
+//    Home Neural Network + AI — الداخلية والخارجية والتكامل الآمن
+//
+//  GET  /api/telecom/home-network             — لوحة القيادة الكاملة
+//  GET  /api/telecom/home-network/internal    — الشبكة الداخلية
+//  GET  /api/telecom/home-network/external    — الشبكة الخارجية (5G)
+//  GET  /api/telecom/home-network/security    — الأمن والحماية
+//  GET  /api/telecom/home-network/integration — جسر التكامل الذكي
+//  GET  /api/telecom/home-network/cell/:id    — خلية عصبية محددة
+//  POST /api/telecom/home-network/signal      — إطلاق إشارة عصبية
+//  GET  /api/telecom/home-network/ai          — رؤى الذكاء الاصطناعي
+//  POST /api/telecom/home-network/ai/analyze  — تحليل حركة الشبكة بالذكاء الاصطناعي
+//  POST /api/telecom/home-network/ai/predict  — توقع التهديدات
+//  POST /api/telecom/home-network/ai/route    — توجيه ذكي للأجهزة
+//  POST /api/telecom/home-network/ai/optimize — تحسين الشبكة تلقائياً
+//  POST /api/telecom/home-network/ai/classify — تصنيف محتوى شرعي
+//  POST /api/telecom/home-network/ai/command  — أمر صوتي/نصي ذكي
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ── GET /api/telecom/home-network ─────────────────────────────────────────────
+router.get('/home-network', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل الذكي غير متاح');
+    try {
+        res.json(homeNetwork.getHomeNetworkDashboard());
+    } catch (e) {
+        fail(res, 500, 'home_network_error', 'حدث خطأ في جلب لوحة قيادة شبكة المنزل');
+    }
+});
+
+// ── GET /api/telecom/home-network/internal ────────────────────────────────────
+router.get('/home-network/internal', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const cells = homeNetwork.getHomeDomain('HOME_INTERNAL');
+        res.json({ domain: 'HOME_INTERNAL', nameAr: 'الشبكة الداخلية', count: cells.length, cells });
+    } catch (e) {
+        fail(res, 500, 'home_internal_error', 'حدث خطأ في جلب الشبكة الداخلية');
+    }
+});
+
+// ── GET /api/telecom/home-network/external ────────────────────────────────────
+router.get('/home-network/external', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const cells = homeNetwork.getHomeDomain('HOME_EXTERNAL');
+        res.json({ domain: 'HOME_EXTERNAL', nameAr: 'الشبكة الخارجية (5G + الألياف)', count: cells.length, cells });
+    } catch (e) {
+        fail(res, 500, 'home_external_error', 'حدث خطأ في جلب الشبكة الخارجية');
+    }
+});
+
+// ── GET /api/telecom/home-network/security ────────────────────────────────────
+router.get('/home-network/security', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        res.json(homeNetwork.getHomeSecurityStatus());
+    } catch (e) {
+        fail(res, 500, 'home_security_error', 'حدث خطأ في جلب حالة الأمن');
+    }
+});
+
+// ── GET /api/telecom/home-network/integration ─────────────────────────────────
+router.get('/home-network/integration', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        res.json(homeNetwork.getIntegrationStatus());
+    } catch (e) {
+        fail(res, 500, 'home_integration_error', 'حدث خطأ في جلب حالة التكامل');
+    }
+});
+
+// ── GET /api/telecom/home-network/cell/:id ────────────────────────────────────
+router.get('/home-network/cell/:id', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const cell = homeNetwork.getHomeCell(req.params.id.toUpperCase());
+        if (!cell) return fail(res, 404, 'home_cell_not_found', `خلية غير موجودة: ${req.params.id}`);
+        res.json(cell);
+    } catch (e) {
+        fail(res, 500, 'home_cell_error', 'حدث خطأ في جلب بيانات الخلية');
+    }
+});
+
+// ── POST /api/telecom/home-network/signal ─────────────────────────────────────
+// Body: { from: "CELL_HOME_ROUTER", signal: { type: "..." }, depth: 3 }
+router.post('/home-network/signal', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const { from, signal, depth } = req.body || {};
+        if (!from) return fail(res, 400, 'from_required', 'مطلوب: { from: "CELL_HOME_ROUTER", signal: {type:...}, depth: 3 }');
+        res.json(homeNetwork.fireHomeSignal(from.toUpperCase(), signal || {}, depth !== undefined ? parseInt(depth, 10) : 3));
+    } catch (e) {
+        fail(res, 500, 'home_signal_error', 'حدث خطأ في إطلاق الإشارة العصبية');
+    }
+});
+
+// ── GET /api/telecom/home-network/ai ──────────────────────────────────────────
+router.get('/home-network/ai', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        res.json(homeNetwork.aiEngine.getAINetworkInsights());
+    } catch (e) {
+        fail(res, 500, 'home_ai_error', 'حدث خطأ في جلب رؤى الذكاء الاصطناعي');
+    }
+});
+
+// ── POST /api/telecom/home-network/ai/analyze ─────────────────────────────────
+// Body: { packets_per_sec?, bandwidth_mbps?, unique_connections?, protocol_dist?, hour_of_day? }
+router.post('/home-network/ai/analyze', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        res.json(homeNetwork.aiEngine.analyzeTrafficWithAI(req.body || {}));
+    } catch (e) {
+        fail(res, 500, 'home_ai_analyze_error', 'حدث خطأ في تحليل حركة الشبكة بالذكاء الاصطناعي');
+    }
+});
+
+// ── POST /api/telecom/home-network/ai/predict ─────────────────────────────────
+// Body: { device_count?, last_threats?: [], time_of_day? }
+router.post('/home-network/ai/predict', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        res.json(homeNetwork.aiEngine.predictThreats(req.body || {}));
+    } catch (e) {
+        fail(res, 500, 'home_ai_predict_error', 'حدث خطأ في توقع التهديدات');
+    }
+});
+
+// ── POST /api/telecom/home-network/ai/route ───────────────────────────────────
+// Body: [ { id, type, current_app }, ... ]
+router.post('/home-network/ai/route', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const devices = Array.isArray(req.body) ? req.body : (req.body && req.body.devices) ? req.body.devices : [];
+        res.json(homeNetwork.aiEngine.smartRouteTraffic(devices));
+    } catch (e) {
+        fail(res, 500, 'home_ai_route_error', 'حدث خطأ في التوجيه الذكي');
+    }
+});
+
+// ── POST /api/telecom/home-network/ai/optimize ────────────────────────────────
+// Body: { wifi_channel?, dns?, vlan_enabled?, security_score? }
+router.post('/home-network/ai/optimize', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        res.json(homeNetwork.aiEngine.autoOptimizeNetwork(req.body || {}));
+    } catch (e) {
+        fail(res, 500, 'home_ai_optimize_error', 'حدث خطأ في تحسين الشبكة');
+    }
+});
+
+// ── POST /api/telecom/home-network/ai/classify ────────────────────────────────
+// Body: { url, content? }
+router.post('/home-network/ai/classify', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const { url, content } = req.body || {};
+        if (!url) return fail(res, 400, 'url_required', 'مطلوب: { url: "..." }');
+        res.json(homeNetwork.aiEngine.classifyContent(url, content || ''));
+    } catch (e) {
+        fail(res, 500, 'home_ai_classify_error', 'حدث خطأ في تصنيف المحتوى');
+    }
+});
+
+// ── POST /api/telecom/home-network/ai/command ─────────────────────────────────
+// Body: { command: "أطفئ الأضواء", homeState?: {} }
+router.post('/home-network/ai/command', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const { command, homeState } = req.body || {};
+        if (!command) return fail(res, 400, 'command_required', 'مطلوب: { command: "أطفئ الأضواء" }');
+        res.json(homeNetwork.aiEngine.processVoiceCommand(command, homeState || {}));
+    } catch (e) {
+        fail(res, 500, 'home_ai_command_error', 'حدث خطأ في معالجة الأمر الذكي');
     }
 });
 
