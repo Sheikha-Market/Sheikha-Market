@@ -25051,7 +25051,7 @@ const VIRTUAL_CUSTOMER = {
     id: 'vc-001',
     name: 'مستخدم عميل',
     email: 'test.customer@sheikha.top',
-    password: hashPassword('Test@Customer2024'),
+    password: hashPassword(process.env.VIRTUAL_CUSTOMER_PASSWORD || ''),
     phone: '+966500000001',
     type: 'customer',
     region: 'الرياض',
@@ -25071,7 +25071,7 @@ const VIRTUAL_TRADER = {
     id: 'vt-001',
     name: 'متجر الاختبار',
     email: 'test.trader@sheikha.top',
-    password: hashPassword('Test@Trader2024'),
+    password: hashPassword(process.env.VIRTUAL_TRADER_PASSWORD || ''),
     crNumber: '1234567890',
     specialties: ['حديد', 'نحاس', 'ألمنيوم'],
     products: [],
@@ -25115,14 +25115,8 @@ app.get('/api/virtual-customer', (req, res) => {
             metrics: VIRTUAL_TRADER.metrics
         },
         credentials: {
-            customer: {
-                email: 'test.customer@sheikha.top',
-                password: 'Test@Customer2024'
-            },
-            trader: {
-                email: 'test.trader@sheikha.top',
-                password: 'Test@Trader2024'
-            }
+            customer: { email: 'test.customer@sheikha.top' },
+            trader: { email: 'test.trader@sheikha.top' }
         }
     });
 });
