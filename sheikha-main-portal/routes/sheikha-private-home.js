@@ -28,6 +28,24 @@ const express    = require('express');
 const router     = express.Router();
 const { requireHomeOwner, getAuditLog, getAuditSummary } = require('../middleware/home-privacy-wall');
 
+// ── Offline Mode — يعمل حتى لو الوحدة غير موجودة ────────────────────────────
+let _homeGuard = null;
+try { _homeGuard = require('../lib/sheikha-offline-mode').homeGuard; } catch (_) {}
+
+/** هل نظام المنزل الذكي يعمل حالياً؟ (null = غير محدد) */
+function homeSystemStatus() {
+    if (!_homeGuard) return { configured: false, isHomeUp: null, mode: 'standalone' };
+    const s = _homeGuard.status();
+    return {
+        configured:  s.configured,
+        isHomeUp:    s.isHomeUp,
+        mode:        s.isHomeUp ? 'connected' : 'standalone',
+        note:        s.isHomeUp
+            ? '✅ نظام المنزل الذكي يعمل'
+            : '⚡ وضع مستقل — السوق يعمل بدون نظام المنزل',
+    };
+}
+
 // ══════════════════════════════════════════════════════════════════════════════
 // 🔒 جميع مسارات هذا الملف محمية — requireHomeOwner على المستوى الجذري
 // ══════════════════════════════════════════════════════════════════════════════
@@ -42,6 +60,8 @@ function privateOk(res, data) {
         _network: 'SHEIKHA_PRIVATE_HOME',
         _privacy: '🔒 شبكة خاصة — بيانات الأسرة محمية ولا تُشارَك',
         _isolation: 'FULLY_ISOLATED_FROM_MARKET',
+        _homeSystem: homeSystemStatus(),   // ← حالة المنزل الذكي
+        _offlineReady: true,               // ← يعمل دائماً حتى بدون إنترنت
         ...data,
         // ضمان: لا يصل timestamp بتوقيت حساس للخارج
         timestamp: new Date().toISOString(),

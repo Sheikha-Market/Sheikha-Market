@@ -1,10 +1,11 @@
 // Service Worker — منظومة شيخة للمعادن والسكراب
 // © 2026 SHEIKHA — ملكية فكرية محفوظة لـ سلمان أحمد بن سلمان الراجح
-// v7 — وضع Offline-First: يعمل بالإنترنت وبدونه
-const CACHE_VERSION = 'v7';
-const CACHE_STATIC = `sheikha-static-${CACHE_VERSION}`;
-const CACHE_PAGES  = `sheikha-pages-${CACHE_VERSION}`;
-const CACHE_API    = `sheikha-api-${CACHE_VERSION}`;
+// v8 — Offline-First كامل: يعمل بكل الأحوال (إنترنت، بدون إنترنت، منزل ذكي، بدون منزل)
+const CACHE_VERSION = 'v8';
+const CACHE_STATIC  = `sheikha-static-${CACHE_VERSION}`;
+const CACHE_PAGES   = `sheikha-pages-${CACHE_VERSION}`;
+const CACHE_API     = `sheikha-api-${CACHE_VERSION}`;
+const CACHE_HOME    = `sheikha-home-${CACHE_VERSION}`;   // كاش بيانات المنزل الذكي
 
 // الأصول الحرجة التي تُحمَّل مسبقاً عند التثبيت
 const PRECACHE_ASSETS = [
@@ -32,15 +33,17 @@ self.addEventListener('install', (event) => {
     console.log('[SW] Installing Sheikha Service Worker v7 (Offline-First)...');
     event.waitUntil(
         caches.open(CACHE_STATIC).then((cache) => {
-            return cache.addAll(
-                PRECACHE_ASSETS.filter(url => {
-                    // تجاهل الأصول غير الموجودة بشكل آمن
-                    return true;
-                })
+            // تخزين كل أصل بشكل منفصل — خطأ أصل واحد لا يوقف الباقي
+            return Promise.allSettled(
+                PRECACHE_ASSETS.map(url =>
+                    cache.add(url).catch(err =>
+                        console.warn('[SW v8] Precache skip:', url, err.message)
+                    )
+                )
             );
         }).then(() => self.skipWaiting())
           .catch((err) => {
-              console.warn('[SW] Precache partial failure (safe):', err);
+              console.warn('[SW v8] Precache partial failure (safe):', err);
               return self.skipWaiting();
           })
     );
@@ -48,15 +51,15 @@ self.addEventListener('install', (event) => {
 
 // Activate — حذف الكاش القديم فقط (الإصدارات السابقة)
 self.addEventListener('activate', (event) => {
-    console.log('[SW] Activating v7 — pruning old caches...');
-    const CURRENT_CACHES = [CACHE_STATIC, CACHE_PAGES, CACHE_API];
+    console.log('[SW v8] Activating — pruning old caches...');
+    const CURRENT_CACHES = [CACHE_STATIC, CACHE_PAGES, CACHE_API, CACHE_HOME];
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
                 cacheNames
                     .filter((name) => !CURRENT_CACHES.includes(name))
                     .map((name) => {
-                        console.log('[SW] Deleting old cache:', name);
+                        console.log('[SW v8] Deleting old cache:', name);
                         return caches.delete(name);
                     })
             );
@@ -96,11 +99,57 @@ function networkFirst(request, cacheName) {
                 if (request.headers.get('accept') && request.headers.get('accept').includes('text/html')) {
                     return caches.match('/offline.html');
                 }
-                return new Response(JSON.stringify({ offline: true, error: 'لا يوجد اتصال بالشبكة' }), {
-                    status: 503,
+                return new Response(JSON.stringify({
+                    offline: true,
+                    error:   'لا يوجد اتصال بالشبكة',
+                    _offlineReady: true,
+                }), {
+                    status:  503,
                     headers: { 'Content-Type': 'application/json; charset=utf-8' }
                 });
             });
+        });
+    });
+}
+
+// ─── Home Network — Stale-While-Revalidate ────────────────────────────────────
+// بيانات المنزل الذكي: يُرجع الكاش فوراً ثم يُحدّثه في الخلفية
+// إذا كان المنزل متوقفاً (انقطاع كهرباء) → يُرجع آخر بيانات محفوظة
+function homeNetworkStrategy(request) {
+    return caches.open(CACHE_HOME).then((cache) => {
+        return cache.match(request).then((cached) => {
+            // تحديث في الخلفية
+            const networkPromise = fetch(request, { signal: AbortSignal.timeout(4000) })
+                .then((response) => {
+                    if (response && response.ok) {
+                        cache.put(request, response.clone());
+                        // أبلغ النوافذ بتحديث بيانات المنزل
+                        self.clients.matchAll({ type: 'window' }).then(clients =>
+                            clients.forEach(c => c.postMessage({
+                                type: 'SHEIKHA_HOME_UPDATED',
+                                url:  request.url,
+                            }))
+                        );
+                    }
+                    return response;
+                })
+                .catch(() => null);
+
+            // أرجع الكاش فوراً إن وُجد، وإلا انتظر الشبكة
+            if (cached) {
+                networkPromise.catch(() => {}); // لا تكسر الوعد
+                return cached;
+            }
+            return networkPromise.then(res => res || new Response(JSON.stringify({
+                offline:   true,
+                homeDown:  true,
+                message:   'نظام المنزل الذكي غير متاح حالياً — آخر بيانات محفوظة ستُعاد عند الاتصال',
+                _offlineReady: true,
+            }), {
+                status:  200,  // 200 وليس خطأ — النظام يعمل بدون المنزل
+                headers: { 'Content-Type': 'application/json; charset=utf-8',
+                           'X-Sheikha-Home-Status': 'offline' }
+            }));
         });
     });
 }
@@ -115,6 +164,17 @@ self.addEventListener('fetch', (event) => {
 
     // تجاهل طلبات Chrome extensions وغيرها
     if (url.origin !== self.location.origin && !url.hostname.includes('sheikha')) {
+        return;
+    }
+
+    // مسارات المنزل الذكي → Stale-While-Revalidate
+    if (
+        url.pathname.startsWith('/api/sheikha/private-home') ||
+        url.pathname.startsWith('/api/home-')
+    ) {
+        if (request.method === 'GET') {
+            event.respondWith(homeNetworkStrategy(request));
+        }
         return;
     }
 
@@ -141,38 +201,59 @@ self.addEventListener('fetch', (event) => {
 
 // Background sync for offline operations
 self.addEventListener('sync', (event) => {
-    if (event.tag === 'sync-orders' || event.tag === 'sync-payment' ||
-        event.tag === 'sync-document' || event.tag === 'sync-operation') {
+    if (
+        event.tag === 'sync-orders'    ||
+        event.tag === 'sync-payment'   ||
+        event.tag === 'sync-document'  ||
+        event.tag === 'sync-operation' ||
+        event.tag === 'sheikha-sync'
+    ) {
         event.waitUntil(syncFromIndexedDB(event.tag));
     }
 });
 
 async function syncFromIndexedDB(tag) {
     // إرسال رسالة لكل النوافذ المفتوحة لتشغيل المزامنة عبر SheikhaOfflineDB
-    const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
-    clients.forEach(client => {
+    const allClients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    allClients.forEach(client => {
         client.postMessage({ type: 'SHEIKHA_SYNC_REQUEST', tag });
     });
     // المزامنة الاحتياطية المباشرة (عندما لا توجد نوافذ مفتوحة)
-    return syncPendingOrders();
+    return syncPendingOperations();
 }
 
-async function syncPendingOrders() {
+async function syncPendingOperations() {
     try {
-        const cache = await caches.open('sheikha-pending');
-        const requests = await cache.keys();
-        for (const request of requests) {
-            const response = await cache.match(request);
-            const data = await response.json();
-            await fetch(request.url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            await cache.delete(request);
+        // 1. مزامنة العمليات المعلقة من كاش sheikha-pending
+        const pendingCache = await caches.open('sheikha-pending');
+        const requests = await pendingCache.keys();
+        const ops = [];
+        for (const req of requests) {
+            try {
+                const response = await pendingCache.match(req);
+                const data     = await response.json();
+                ops.push({ type: 'pending-op', method: req.method, path: new URL(req.url).pathname, payload: data });
+                await pendingCache.delete(req);
+            } catch (_) {}
         }
+
+        // 2. إرسال دفعة واحدة إلى /api/offline/sync
+        if (ops.length > 0) {
+            await fetch('/api/offline/sync', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({ operations: ops }),
+            });
+        }
+
+        // 3. إخطار النوافذ بنجاح المزامنة
+        const allClients = await self.clients.matchAll({ type: 'window' });
+        allClients.forEach(c => c.postMessage({
+            type:    'SHEIKHA_SYNC_COMPLETE',
+            synced:  ops.length,
+        }));
     } catch (err) {
-        console.log('[SW] Sync failed:', err);
+        console.log('[SW v8] Sync failed:', err);
     }
 }
 

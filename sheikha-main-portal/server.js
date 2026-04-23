@@ -36954,6 +36954,56 @@ try {
     console.warn('⚠️ DigitalRoot:', e.message);
 }
 
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐 NETWORK RESILIENCE — تقوية الاتصال والشبكة (يعمل في كل الأحوال)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ── CDN Cache Middleware ───────────────────────────────────────────────────────
+try {
+    const { cdnCacheMiddleware } = require('./middleware/cdn-cache.js');
+    app.use(cdnCacheMiddleware);
+    console.log('✅ [CDN-CACHE] ترويسات كاش الأصول — مُفعَّلة');
+} catch (e) {
+    console.warn('⚠️ [CDN-CACHE]', e.message);
+}
+
+// ── Offline Mode — يعمل حتى بدون إنترنت وبدون منزل ذكي ──────────────────────
+try {
+    // التحميل يُشغّل ConnectivityWatcher + HomeNetworkGuard تلقائياً
+    require('./lib/sheikha-offline-mode');
+    console.log('✅ [OFFLINE-MODE] وضع الاستقلالية — يعمل بكل الأحوال (إنترنت / منزل ذكي / كهرباء)');
+} catch (e) {
+    console.warn('⚠️ [OFFLINE-MODE]', e.message);
+}
+
+// ── Offline Sync Routes ────────────────────────────────────────────────────────
+try {
+    const offlineSyncRoutes = require('./routes/offline-sync.js');
+    app.use('/api/offline', offlineSyncRoutes);
+    console.log('✅ [OFFLINE-SYNC] مزامنة العمليات المعلقة — /api/offline (status · sync · queue)');
+} catch (e) {
+    console.warn('⚠️ [OFFLINE-SYNC]', e.message);
+}
+
+// ── Network Health — فحص صحة الشبكة لـ Azure Container Apps ─────────────────
+try {
+    const networkHealthRoutes = require('./routes/network-health.js');
+    app.use('/api/network', networkHealthRoutes);
+    console.log('✅ [NETWORK-HEALTH] فحص صحة الشبكة — /api/network (health · live · ready · status)');
+} catch (e) {
+    console.warn('⚠️ [NETWORK-HEALTH]', e.message);
+}
+
+// ── Realtime Hub Routes (SSE + WebSocket وصل بـ Hub) ─────────────────────────
+try {
+    const realtimeRoutes = require('./routes/realtime.routes.js');
+    app.use('/api/realtime', realtimeRoutes);
+    console.log('✅ [REALTIME] أحداث لحظية — /api/realtime (health · events · recent · emit)');
+} catch (e) {
+    console.warn('⚠️ [REALTIME]', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🚀 بدء الخادم
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -37122,6 +37172,22 @@ _serverPromise.then((s) => {
     if (empireGrandEngine) { empireGrandEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
     // Wire WS clients into meta engine
     if (metaEngine) { metaEngine.wsClients = { forEach: (fn) => clients.forEach(fn) }; }
+
+    // ── وصل Realtime Hub بـ WebSocket — يبث أحداث Hub لكل العملاء ─────────────
+    try {
+        const hub = require('./lib/sheikha-realtime-hub');
+        hub.subscribeBroadcast((event) => {
+            const msg = JSON.stringify({ type: 'hubEvent', ...event });
+            clients.forEach(client => {
+                try {
+                    if (client.readyState === WebSocket.OPEN) client.send(msg);
+                } catch (_) {}
+            });
+        });
+        console.log('✅ [WS] Realtime Hub وصل بـ WebSocket — البث الفوري مُفعَّل');
+    } catch (e) {
+        console.warn('⚠️ [WS] فشل وصل Realtime Hub:', e.message);
+    }
 
     function broadcastPrices() {
         const data = JSON.stringify({
