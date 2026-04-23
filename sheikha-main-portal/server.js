@@ -36182,7 +36182,15 @@ try {
     console.log('   ├─ GET  /api/telecom/sheikha/cell/:id     — خلية شيخة محددة');
     console.log('   ├─ GET  /api/telecom/sheikha/layer/:order — طبقة شيخة حسب الرقم (1-10)');
     console.log('   ├─ GET  /api/telecom/sheikha/signal       — إشارة في شبكة شيخة (GET)');
-    console.log('   └─ POST /api/telecom/sheikha/signal       — إطلاق إشارة عصبية شيخة');
+    console.log('   ├─ POST /api/telecom/sheikha/signal       — إطلاق إشارة عصبية شيخة');
+    console.log('   ├─ GET  /api/telecom/sheikha/unified             — 🌐 الشبكة الموحدة (23 خلية)');
+    console.log('   ├─ POST /api/telecom/sheikha/unified/activate    — 🔥 تفعيل الشبكة الموحدة');
+    console.log('   ├─ GET  /api/telecom/sheikha/unified/status      — حالة الشبكة الموحدة');
+    console.log('   ├─ GET  /api/telecom/sheikha/unified/divine-refs — 📖 الكتاب والسنة (23 مرجع)');
+    console.log('   ├─ GET  /api/telecom/sheikha/unified/cell/:q     — خلية برقمها أو معرّفها');
+    console.log('   ├─ GET  /api/telecom/sheikha/unified/section/:s  — قسم TERRESTRIAL/DIGITAL/…');
+    console.log('   ├─ GET  /api/telecom/sheikha/unified/signal      — إشارة موحّدة (GET)');
+    console.log('   └─ POST /api/telecom/sheikha/unified/signal      — إشارة موحّدة (POST)');
 } catch (e) {
     console.warn('⚠️ [TELECOM] فشل تحميل مسارات الاتصالات:', e.message);
 }

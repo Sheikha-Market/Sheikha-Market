@@ -432,4 +432,111 @@ router.post('/sheikha/signal', (req, res) => {
     }
 });
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐 شبكة شيخة الموحدة — Sheikha Unified Neural Network (23 خلية + الكتاب والسنة)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// GET /api/telecom/sheikha/unified — الطوبولوجيا الكاملة للشبكة الموحّدة
+router.get('/sheikha/unified', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        res.json(telecomOrg.getUnifiedTopology());
+    } catch (e) {
+        fail(res, 500, 'unified_topology_error', 'حدث خطأ في جلب طوبولوجيا الشبكة الموحّدة');
+    }
+});
+
+// POST /api/telecom/sheikha/unified/activate — تفعيل الشبكة الموحدة كاملاً
+router.post('/sheikha/unified/activate', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        res.json(telecomOrg.activateUnified());
+    } catch (e) {
+        fail(res, 500, 'unified_activate_error', 'حدث خطأ أثناء تفعيل الشبكة الموحّدة');
+    }
+});
+
+// GET /api/telecom/sheikha/unified/status — حالة الشبكة الموحدة
+router.get('/sheikha/unified/status', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        res.json(telecomOrg.getUnifiedStatus());
+    } catch (e) {
+        fail(res, 500, 'unified_status_error', 'حدث خطأ في جلب حالة الشبكة الموحّدة');
+    }
+});
+
+// GET /api/telecom/sheikha/unified/divine-refs — جدول الآيات والأحاديث (الكتاب والسنة)
+router.get('/sheikha/unified/divine-refs', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        res.json({
+            nameAr:   'جدول المراجع القرآنية والنبوية — شبكة شيخة الموحّدة',
+            tawheed:  'لا إله إلا الله — وحدها لله',
+            refs:     telecomOrg.getDivineRefs(),
+            total:    telecomOrg.getDivineRefs().length,
+            verse:    { ref: 'البقرة:٣١', text: 'وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا' },
+        });
+    } catch (e) {
+        fail(res, 500, 'divine_refs_error', 'حدث خطأ في جلب المراجع القرآنية');
+    }
+});
+
+// GET /api/telecom/sheikha/unified/cell/:query — خلية موحّدة برقمها أو معرّفها
+// مثال: /api/telecom/sheikha/unified/cell/19
+// مثال: /api/telecom/sheikha/unified/cell/CELL_SHEIKHA_SATELLITE
+router.get('/sheikha/unified/cell/:query', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        const q    = req.params.query;
+        const key  = isNaN(q) ? q : parseInt(q, 10);
+        const cell = telecomOrg.getUnifiedCell(key);
+        if (!cell) return fail(res, 404, 'unified_cell_not_found', `خلية غير موجودة: ${q}`);
+        res.json(cell);
+    } catch (e) {
+        fail(res, 500, 'unified_cell_error', 'حدث خطأ في جلب الخلية');
+    }
+});
+
+// GET /api/telecom/sheikha/unified/section/:name — قسم كامل من الشبكة
+// القسم: TERRESTRIAL | SATELLITE | LOGISTICS | DIGITAL | SERVICE
+router.get('/sheikha/unified/section/:section', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        const section = req.params.section.toUpperCase();
+        const cells   = telecomOrg.getUnifiedSection(section);
+        if (!cells || cells.length === 0) return fail(res, 404, 'section_not_found', `قسم غير موجود: ${section} | المتاح: TERRESTRIAL, SATELLITE, LOGISTICS, DIGITAL, SERVICE`);
+        res.json({ section, count: cells.length, cells });
+    } catch (e) {
+        fail(res, 500, 'unified_section_error', 'حدث خطأ في جلب القسم');
+    }
+});
+
+// GET /api/telecom/sheikha/unified/signal?from=<id_or_number>&type=<type>&depth=<n>
+router.get('/sheikha/unified/signal', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        const { from, type, depth } = req.query;
+        if (!from) return fail(res, 400, 'from_required', 'مطلوب: ?from=19 أو ?from=CELL_SHEIKHA_SHTTP&type=GOVERN');
+        const key = isNaN(from) ? from : parseInt(from, 10);
+        res.json(telecomOrg.fireUnifiedSignal(key, { type: type || 'UNIFIED_SIGNAL' }, depth ? parseInt(depth, 10) : 5));
+    } catch (e) {
+        fail(res, 500, 'unified_signal_error', 'حدث خطأ أثناء إطلاق الإشارة الموحّدة');
+    }
+});
+
+// POST /api/telecom/sheikha/unified/signal — إطلاق إشارة في الشبكة الموحّدة
+// Body: { from: 5 | "CELL_SHEIKHA_5G", signal: { type, payload }, depth }
+router.post('/sheikha/unified/signal', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        const { from, signal, depth } = req.body || {};
+        if (from === undefined || from === null) return fail(res, 400, 'from_required', 'مطلوب: { from: 5, signal: {type:...}, depth: 5 }');
+        const key = (typeof from === 'number' || !isNaN(from)) ? parseInt(from, 10) : from;
+        res.json(telecomOrg.fireUnifiedSignal(key, signal || { type: 'UNIFIED_SIGNAL' }, depth !== undefined ? parseInt(depth, 10) : 5));
+    } catch (e) {
+        fail(res, 500, 'unified_signal_error', 'حدث خطأ أثناء إطلاق الإشارة الموحّدة');
+    }
+});
+
 module.exports = router;
