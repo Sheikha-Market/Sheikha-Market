@@ -52,6 +52,8 @@ let _ready    = false;
 let _initAt   = null;
 let _callCount = 0;
 
+const ACTIVATION_INCREMENT = 0.1; // مقدار الزيادة في تفعيل الخلية عند كل إطلاق
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // ① تهيئة الخلايا
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -99,7 +101,7 @@ function activate(cellNumber, context = {}) {
     const cell = _cells.get(Number(cellNumber));
     if (!cell) return null;
 
-    cell.activation = Math.min(1, cell.activation + 0.1);
+    cell.activation = Math.min(1, cell.activation + ACTIVATION_INCREMENT);
     cell.fireCount++;
     cell.lastFired  = new Date().toISOString();
     cell.active     = true;

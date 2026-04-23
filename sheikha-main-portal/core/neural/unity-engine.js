@@ -51,7 +51,7 @@ try {
 
 let _ready     = false;
 let _initAt    = null;
-let _pulseCount = 0;
+let pulseCount = 0;
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // ① تهيئة المحرك الموحد
@@ -90,12 +90,11 @@ function init() {
  */
 function pulse(input = {}) {
     if (!_ready) init();
-    _pulseCount++;
+    pulseCount++;
 
     const { type = 'general', data = {}, context = '', task = null } = input;
-
     const result = {
-        id:         `pulse_${Date.now()}_${_pulseCount}`,
+        id:         `pulse_${Date.now()}_${pulseCount}`,
         timestamp:  new Date().toISOString(),
         type,
         neural:     null,
@@ -261,7 +260,7 @@ function status() {
         nameAr:       'محرك التوحيد — قُلْ هُوَ اللَّهُ أَحَدٌ',
         ready:        _ready,
         initAt:       _initAt,
-        pulseCount:   _pulseCount,
+        pulseCount:   pulseCount,
         neuralCells:  neuralCells ? neuralCells.status() : { available: false },
         cloudAgent:   cloudAgent  ? cloudAgent.status()  : { available: false },
     };
