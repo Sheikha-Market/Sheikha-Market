@@ -133,6 +133,18 @@ async function boot() {
         console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل محرك القواعد العربية:', err.message);
     }
 
+    // تسجيل الشبكة العصبية الشاملة — كل شيء حلال لله — 16 طبقة × 100 خلية
+    // ﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١
+    // ﴿اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ﴾ — العلق: ١
+    try {
+        const universalNN = require('../lib/sheikha-universal-neural-network');
+        universalNN.init();
+        registerLayer('universal-neural-network', universalNN);
+        console.log('[SHEIKHA-ROOT] 🌐 الشبكة العصبية الشاملة مُفعَّلة — 16 طبقة × 100 خلية | لغات+أنظمة+علوم+إسلام');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل الشبكة العصبية الشاملة:', err.message);
+    }
+
     const bootOrder = [
         { key: 'os',            file: 'sheikha-os.js' },
         { key: 'control-plane', file: 'sheikha-control-plane.js' },
@@ -172,8 +184,9 @@ async function boot() {
                     'neural-cells':  'خلايا الشبكة العصبية',
                     'language-layer':       'طبقة لغة شيخة الحاكمة',
                     'supreme-cs':           'المحرك العلمي العلوي الجامع',
-                    'arabic-grammar-engine':'محرك النحو والصرف والبلاغة',
-                    'arabic-grammar-rules': 'منظومة القواعد العربية الرقمية الكاملة',
+                    'arabic-grammar-engine':    'محرك النحو والصرف والبلاغة',
+                    'arabic-grammar-rules':     'منظومة القواعد العربية الرقمية الكاملة',
+                    'universal-neural-network': 'الشبكة العصبية الشاملة — كل العلوم والتقنيات لله',
                 };
                 sovereignLayer.registerSubject(key, 'layer', {
                     nameAr: LAYER_ARABIC[key] || key,
