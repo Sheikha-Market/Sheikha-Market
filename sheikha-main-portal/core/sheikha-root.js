@@ -120,6 +120,19 @@ async function boot() {
         console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل المحرك العلوي:', err.message);
     }
 
+    // تسجيل محرك النحو والصرف والبلاغة — منظومة القواعد العربية الرقمية الكاملة
+    // ﴿الرَّحْمَٰنُ عَلَّمَ الْقُرْآنَ خَلَقَ الْإِنسَانَ عَلَّمَهُ الْبَيَانَ﴾ — الرحمن: ١-٤
+    try {
+        const grammarEngine  = require('../lib/sheikha-arabic-grammar-engine');
+        const grammarRules   = require('../lib/sheikha-arabic-grammar-rules');
+        registerLayer('arabic-grammar-engine', grammarEngine);
+        registerLayer('arabic-grammar-rules',  grammarRules);
+        console.log('[SHEIKHA-ROOT] 📖 محرك النحو والصرف والبلاغة مُفعَّل — 60 خلية (grammar-engine)');
+        console.log('[SHEIKHA-ROOT] 📚 منظومة القواعد الرقمية مُفعَّلة — 75 خلية | زمن+عوامل+46 تطابق (grammar-rules)');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل محرك القواعد العربية:', err.message);
+    }
+
     const bootOrder = [
         { key: 'os',            file: 'sheikha-os.js' },
         { key: 'control-plane', file: 'sheikha-control-plane.js' },
@@ -157,8 +170,10 @@ async function boot() {
                     'impact':        'محرك الأثر والقيم',
                     'voice':         'طبقة الصوت والتواصل',
                     'neural-cells':  'خلايا الشبكة العصبية',
-                    'language-layer':'طبقة لغة شيخة الحاكمة',
-                    'supreme-cs':    'المحرك العلمي العلوي الجامع',
+                    'language-layer':       'طبقة لغة شيخة الحاكمة',
+                    'supreme-cs':           'المحرك العلمي العلوي الجامع',
+                    'arabic-grammar-engine':'محرك النحو والصرف والبلاغة',
+                    'arabic-grammar-rules': 'منظومة القواعد العربية الرقمية الكاملة',
                 };
                 sovereignLayer.registerSubject(key, 'layer', {
                     nameAr: LAYER_ARABIC[key] || key,

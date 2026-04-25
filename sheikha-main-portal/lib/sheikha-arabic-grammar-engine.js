@@ -894,11 +894,11 @@ class SheikhArabicGrammarEngine extends EventEmitter {
     this.startedAt = new Date().toISOString();
 
     // الطبقات
-    this.nahw    = NAHW;
-    this.sarf    = SARF;
-    this.balagha = BALAGHA;
-    this.iraab   = SheikhaIraabEngine;
-    this.texts   = TEXT_TYPES;
+    this.nahw        = NAHW;
+    this.sarf        = SARF;
+    this.balagha     = BALAGHA;
+    this.iraabEngine = SheikhaIraabEngine;  // الفئة الثابتة — لا تُستدعى بـ new
+    this.texts       = TEXT_TYPES;
 
     // الشبكة العصبية
     this.network = new GrammarNeuralNetwork();
