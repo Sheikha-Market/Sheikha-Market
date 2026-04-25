@@ -100,6 +100,51 @@ async function boot() {
     }
 
     // ② تشغيل بقية الطبقات تحت إشراف الحاكمة
+    // تسجيل طبقة لغة شيخة الحاكمة — قبل بقية الطبقات
+    // ﴿عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ﴾ — العلق: ٥
+    try {
+        const languageLayer = require('../lib/sheikha-language-layer');
+        registerLayer('language-layer', languageLayer);
+        console.log('[SHEIKHA-ROOT] 🌐 طبقة لغة شيخة الحاكمة مُفعَّلة — Ada→Plankalkül→FORTRAN→GML→HTML→SQL→Unicode');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل طبقة اللغة:', err.message);
+    }
+
+    // تسجيل المحرك العلمي العلوي الجامع — أقوى منظومة برمجيات بالكون
+    // ﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨
+    try {
+        const supremeCS = require('../lib/sheikha-supreme-cs-engine');
+        registerLayer('supreme-cs', supremeCS);
+        console.log('[SHEIKHA-ROOT] 🧠 المحرك العلمي العلوي الجامع مُفعَّل — 8 طبقات × 40 خلية عصبية');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل المحرك العلوي:', err.message);
+    }
+
+    // تسجيل محرك النحو والصرف والبلاغة — منظومة القواعد العربية الرقمية الكاملة
+    // ﴿الرَّحْمَٰنُ عَلَّمَ الْقُرْآنَ خَلَقَ الْإِنسَانَ عَلَّمَهُ الْبَيَانَ﴾ — الرحمن: ١-٤
+    try {
+        const grammarEngine  = require('../lib/sheikha-arabic-grammar-engine');
+        const grammarRules   = require('../lib/sheikha-arabic-grammar-rules');
+        registerLayer('arabic-grammar-engine', grammarEngine);
+        registerLayer('arabic-grammar-rules',  grammarRules);
+        console.log('[SHEIKHA-ROOT] 📖 محرك النحو والصرف والبلاغة مُفعَّل — 60 خلية (grammar-engine)');
+        console.log('[SHEIKHA-ROOT] 📚 منظومة القواعد الرقمية مُفعَّلة — 75 خلية | زمن+عوامل+46 تطابق (grammar-rules)');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل محرك القواعد العربية:', err.message);
+    }
+
+    // تسجيل الشبكة العصبية الشاملة — كل شيء حلال لله — 16 طبقة × 100 خلية
+    // ﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١
+    // ﴿اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ﴾ — العلق: ١
+    try {
+        const universalNN = require('../lib/sheikha-universal-neural-network');
+        universalNN.init();
+        registerLayer('universal-neural-network', universalNN);
+        console.log('[SHEIKHA-ROOT] 🌐 الشبكة العصبية الشاملة مُفعَّلة — 16 طبقة × 100 خلية | لغات+أنظمة+علوم+إسلام');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل الشبكة العصبية الشاملة:', err.message);
+    }
+
     const bootOrder = [
         { key: 'os',            file: 'sheikha-os.js' },
         { key: 'control-plane', file: 'sheikha-control-plane.js' },
@@ -137,6 +182,11 @@ async function boot() {
                     'impact':        'محرك الأثر والقيم',
                     'voice':         'طبقة الصوت والتواصل',
                     'neural-cells':  'خلايا الشبكة العصبية',
+                    'language-layer':       'طبقة لغة شيخة الحاكمة',
+                    'supreme-cs':           'المحرك العلمي العلوي الجامع',
+                    'arabic-grammar-engine':    'محرك النحو والصرف والبلاغة',
+                    'arabic-grammar-rules':     'منظومة القواعد العربية الرقمية الكاملة',
+                    'universal-neural-network': 'الشبكة العصبية الشاملة — كل العلوم والتقنيات لله',
                 };
                 sovereignLayer.registerSubject(key, 'layer', {
                     nameAr: LAYER_ARABIC[key] || key,
