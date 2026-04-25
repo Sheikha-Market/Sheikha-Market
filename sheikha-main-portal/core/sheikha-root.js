@@ -1,5 +1,7 @@
 'use strict';
 
+const sheikhaLanguageLayer = require('../lib/sheikha-language-layer');
+
 const SUPPORTED_RUNTIME_MODES = ['pilot', 'production', 'development', 'staging'];
 
 function resolveRuntimeMode(input) {
@@ -16,6 +18,7 @@ function buildRootConfig({ runtimeMode } = {}) {
         runtimeMode: mode,
         covenant: 'توحيد البناء الرقمي لله بالكتاب والسنة',
         layers: [
+            'language-layer',
             'identity',
             'governance',
             'operations',
@@ -47,6 +50,10 @@ function getSystemSnapshot({ runtimeMode } = {}) {
     return {
         runtimeMode: mode,
         status: 'ready',
+        languageLayer: {
+            status: 'active',
+            activatedAt: sheikhaLanguageLayer.activate().timestamp
+        },
         layers: config.layers,
         capabilities: config.capabilities,
         generatedAt: new Date().toISOString()

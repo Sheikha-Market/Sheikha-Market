@@ -1,79 +1,17 @@
-version: "3.9"
-
 services:
-  nginx:
-    image: nginx:1.27-alpine
-    container_name: sheikha-nginx
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ../../../../infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - main-portal
-    networks:
-      - front_net
-      - back_net
-
-  main-portal:
-    image: ghcr.io/sheikha/main-portal:latest
-    container_name: sheikha-main-portal
-    restart: unless-stopped
-    env_file:
-      - .env
-    environment:
-      - NODE_ENV=production
-      - STARTUP_L0_ONLY=true
-      - SHEIKHA_CHARTER_ENFORCED=true
-      - MCP_DENY_BY_DEFAULT=true
-      - PORT=8080
-    depends_on:
-      - postgres
-      - redis
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:8080/api/health"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-    networks:
-      - back_net
-
-  mcp-server:
-    image: ghcr.io/sheikha/mcp-server:latest
-    container_name: sheikha-mcp-server
-    restart: unless-stopped
-    env_file:
-      - .env
-    environment:
-      - NODE_ENV=production
-      - MCP_DENY_BY_DEFAULT=true
-      - MCP_ALLOWLIST_PATH=/app/config/allowlist.json
-      - MCP_DENYLIST_PATH=/app/config/denylist.json
-      - MCP_POLICIES_PATH=/app/config/policies.json
-    volumes:
-      - ../../../../mcp-servers/config/allowlist.json:/app/config/allowlist.json:ro
-      - ../../../../mcp-servers/config/denylist.json:/app/config/denylist.json:ro
-      - ../../../../mcp-servers/config/policies.json:/app/config/policies.json:ro
-    networks:
-      - back_net
-
   postgres:
     image: postgres:16-alpine
     container_name: sheikha-postgres
     restart: unless-stopped
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      POSTGRES_DB: sheikha
+      POSTGRES_USER: sheikha
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 30s
+      test: ["CMD-SHELL", "pg_isready -U sheikha -d sheikha"]
+      interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
     networks:
       - back_net
 
@@ -81,118 +19,62 @@ services:
     image: redis:7-alpine
     container_name: sheikha-redis
     restart: unless-stopped
-    command: redis-server --appendonly yes
-    volumes:
-      - redis_data:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
-      interval: 30s
+      interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
     networks:
       - back_net
 
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: sheikha-prometheus
+  main-portal:
+    build:
+      context: /home/sheikha/Projects/sheikha/sheikha-main-portal
+      dockerfile: Dockerfile
+    image: prod-main-portal
+    container_name: sheikha-main-portal
     restart: unless-stopped
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - "--storage.tsdb.path=/prometheus"
-      - "--web.enable-lifecycle"
-    volumes:
-      - ../../../../infra/observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - ../../../../infra/observability/prometheus/alert_rules.yml:/etc/prometheus/alert_rules.yml:ro
-    depends_on:
-      - node-exporter
-      - cadvisor
-      - alertmanager
-    networks:
-      - back_net
-
-  alertmanager:
-    image: prom/alertmanager:latest
-    container_name: sheikha-alertmanager
-    restart: unless-stopped
-    command:
-      - "--config.file=/etc/alertmanager/alertmanager.yml"
-    volumes:
-      - ../../../../infra/observability/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
-    networks:
-      - back_net
-
-  grafana:
-    image: grafana/grafana:latest
-    container_name: sheikha-grafana
-    restart: unless-stopped
+    env_file:
+      - .env
     environment:
-      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
-      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ../../../../infra/observability/grafana/provisioning/datasources/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml:ro
+      NODE_ENV: production
+      PORT: 8080
     depends_on:
-      - prometheus
-      - loki
+      postgres:
+        condition: service_started
+      redis:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/ >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 180s
+    expose:
+      - "8080"
     networks:
       - back_net
+      - front_net
 
-  loki:
-    image: grafana/loki:latest
-    container_name: sheikha-loki
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: sheikha-nginx
     restart: unless-stopped
-    command: ["-config.file=/etc/loki/loki-config.yml"]
-    volumes:
-      - ../../../../infra/observability/loki/loki-config.yml:/etc/loki/loki-config.yml:ro
-      - loki_data:/loki
-    networks:
-      - back_net
-
-  otel-collector:
-    image: otel/opentelemetry-collector:latest
-    container_name: sheikha-otel
-    restart: unless-stopped
-    command: ["--config=/etc/otelcol/config.yaml"]
-    volumes:
-      - ../../../../infra/observability/otel/otel-collector-config.yml:/etc/otelcol/config.yaml:ro
     depends_on:
-      - loki
-      - prometheus
-    networks:
-      - back_net
-
-  node-exporter:
-    image: prom/node-exporter:latest
-    container_name: sheikha-node-exporter
-    restart: unless-stopped
-    command:
-      - "--path.rootfs=/host"
+      main-portal:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
     volumes:
-      - /:/host:ro,rslave
+      - /home/sheikha/Projects/sheikha/sheikha-main-portal/infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
-      - back_net
-
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
-    container_name: sheikha-cadvisor
-    restart: unless-stopped
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker:/var/lib/docker:ro
-    networks:
+      - front_net
       - back_net
 
 networks:
   front_net:
-    driver: bridge
+    name: prod_front_net
   back_net:
-    driver: bridge
-
-volumes:
-  postgres_data:
-  redis_data:
-  grafana_data:
-  loki_data:
+    name: prod_back_net
 

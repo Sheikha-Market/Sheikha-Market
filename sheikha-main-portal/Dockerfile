@@ -20,8 +20,14 @@ RUN npm install --omit=dev --no-audit --no-fund && npm cache clean --force
 # ─── نسخ كود المشروع ─────────────────────────────────────────────────────────
 COPY server.js ./
 COPY lib/ ./lib/
+COPY routes/ ./routes/
 COPY public/ ./public/
 COPY data/ ./data/
+COPY CHAT-CONVERSATIONS-LIST.md ./
+COPY CHAT-HISTORY-RECOVERY.md ./
+COPY استرجاع-المحادثات-السابقة.md ./
+COPY QUICK-ACTIVATION.md ./
+COPY ACTIVATION-SUMMARY.md ./
 
 # ─── إنشاء مستخدم غير جذري (أمان) ──────────────────────────────────────────
 RUN addgroup -g 1001 -S sheikha && \

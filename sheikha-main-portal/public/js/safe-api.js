@@ -262,8 +262,56 @@
 
     injectGlobalBetaAssets();
 
+    function normalizeRequestUrl(url) {
+        if (typeof url === 'string') {
+            return url;
+        }
+        if (url && typeof url.url === 'string') {
+            return url.url;
+        }
+        return String(url || '');
+    }
+
+    function normalizeMethod(options) {
+        if (!options || !options.method) {
+            return 'GET';
+        }
+        return String(options.method).toUpperCase();
+    }
+
+    function isWriteMethod(method) {
+        return method === 'POST' || method === 'PUT' || method === 'PATCH' || method === 'DELETE';
+    }
+
+    function isMarketApi(url) {
+        return /\/api\/(market|metals|listings|prices|visual\/jobs|video\/jobs|visual\/library)/i.test(url);
+    }
+
+    async function enqueueOfflineOperation(url, options) {
+        if (!window.SheikhaOfflineDB || typeof window.SheikhaOfflineDB.queueAndSave !== 'function') {
+            return false;
+        }
+
+        const method = normalizeMethod(options);
+        if (!isWriteMethod(method)) {
+            return false;
+        }
+
+        const headers = {
+            'Content-Type': 'application/json',
+            ...((options && options.headers) || {})
+        };
+
+        const body = options && options.body ? options.body : null;
+        await window.SheikhaOfflineDB.queueAndSave(url, method, headers, body);
+        return true;
+    }
+
     // ═══ safeFetch — بديل آمن عن fetch ═══
     window.safeFetch = async function(url, options = {}) {
+        const method = normalizeMethod(options);
+        const normalizedUrl = normalizeRequestUrl(url);
+
         try {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), options.timeout || 8000);
@@ -281,15 +329,44 @@
 
             if (!res.ok) {
                 console.warn('[Sheikha API]', url, '→', res.status);
+
+                if (res.status >= 500 && isWriteMethod(method)) {
+                    await enqueueOfflineOperation(normalizedUrl, options);
+                    return { success: true, offline: true, queued: true };
+                }
+
+                if (isMarketApi(normalizedUrl) && window.SheikhaOfflineDB) {
+                    const fallbackData = await window.SheikhaOfflineDB.getMarketCache(normalizedUrl);
+                    if (fallbackData) {
+                        return fallbackData;
+                    }
+                }
+
                 return null;
             }
 
             const contentType = res.headers.get('content-type') || '';
             if (contentType.includes('application/json')) {
-                return await res.json();
+                const json = await res.json();
+                if (method === 'GET' && isMarketApi(normalizedUrl) && window.SheikhaOfflineDB) {
+                    window.SheikhaOfflineDB.setMarketCache(normalizedUrl, json).catch(() => {});
+                }
+                return json;
             }
             return await res.text();
         } catch (err) {
+            if (isWriteMethod(method)) {
+                await enqueueOfflineOperation(normalizedUrl, options);
+                return { success: true, offline: true, queued: true };
+            }
+
+            if (isMarketApi(normalizedUrl) && window.SheikhaOfflineDB) {
+                const fallbackData = await window.SheikhaOfflineDB.getMarketCache(normalizedUrl);
+                if (fallbackData) {
+                    return fallbackData;
+                }
+            }
+
             if (err.name === 'AbortError') {
                 console.warn('[Sheikha API] Timeout:', url);
             } else {
@@ -302,14 +379,30 @@
     // ═══ تغليف fetch الأصلي — Safe Fetch Wrapper ═══
     const _originalFetch = window.fetch;
     window.fetch = async function(url, options) {
+        const normalizedUrl = normalizeRequestUrl(url);
         try {
             const response = await _originalFetch.call(this, url, options);
+
+            if (response && response.ok && normalizeMethod(options) === 'GET' && isMarketApi(normalizedUrl) && window.SheikhaOfflineDB) {
+                const cloned = response.clone();
+                cloned.json().then((json) => {
+                    window.SheikhaOfflineDB.setMarketCache(normalizedUrl, json).catch(() => {});
+                }).catch(() => {});
+            }
+
             return response;
         } catch (err) {
             console.warn('[Sheikha] Fetch intercepted error:', typeof url === 'string' ? url : '(Request)', err.message);
+
+            try {
+                await enqueueOfflineOperation(normalizedUrl, options || {});
+            } catch (_queueErr) {
+                // تجاهل أخطاء التخزين المحلي
+            }
+
             // إرجاع Response فارغ بدلاً من رمي الخطأ
-            return new Response(JSON.stringify({ success: false, error: 'connection_failed' }), {
-                status: 0,
+            return new Response(JSON.stringify({ success: false, error: 'connection_failed', offline: true }), {
+                status: 503,
                 statusText: 'Connection Failed',
                 headers: { 'Content-Type': 'application/json' }
             });

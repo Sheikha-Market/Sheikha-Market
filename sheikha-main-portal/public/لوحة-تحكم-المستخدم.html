@@ -9,6 +9,9 @@
 <script src="/js/sheikha-beta-banner.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="/js/safe-api.js"></script>
+<script src="/js/sheikha-offline-db.js" defer></script>
+<script src="/js/sheikha-neural-engine.js" defer></script>
 <style>
 :root{--bg:#020617;--bg2:#0a0f1e;--card:#0d1424;--el:#1a2332;--gold:#D4AF37;--copper:#B87333;--gold-dim:rgba(212,175,55,.12);--gold-glow:rgba(212,175,55,.25);--green:#10b981;--red:#ef4444;--blue:#3b82f6;--purple:#8b5cf6;--t1:#f8fafc;--t2:#cbd5e1;--t3:#64748b;--b1:#1e293b;--r:14px;--sw:290px;--tr:.3s ease}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -110,7 +113,7 @@ table{border-collapse:collapse;width:100%} th,td{padding:12px 15px;text-align:ri
 .price-up{color:var(--green);font-weight:700} .price-dn{color:var(--red);font-weight:700}
 .metal-badge{padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700}
 .metal-gold{background:rgba(212,175,55,.15);color:var(--gold);border:1px solid rgba(212,175,55,.3)}
-.metal-silver{background:rgba(148,163,184,.1);color:#94a3b8;border:1px solid rgba(148,163,184,.2)}
+.metal-silver{background:rgba(148,163,184,.12);color:#cbd5e1;border:1px solid rgba(148,163,184,.25)}
 .metal-copper{background:rgba(184,115,51,.15);color:var(--copper);border:1px solid rgba(184,115,51,.3)}
 
 /* ── Activity ── */
@@ -174,7 +177,7 @@ table{border-collapse:collapse;width:100%} th,td{padding:12px 15px;text-align:ri
 .tag-blue{background:rgba(59,130,246,.1);color:var(--blue);border:1px solid rgba(59,130,246,.2)}
 </style>
 </head>
-<body>
+<body data-neural-opacity="0.12">
 
 <!-- 3D Background Canvas -->
 <canvas id="bg3d"></canvas>
@@ -205,51 +208,51 @@ table{border-collapse:collapse;width:100%} th,td{padding:12px 15px;text-align:ri
   </div>
   <div class="sidebar-scroll">
     <div class="nav-group-title">الرئيسية</div>
-    <div class="nav-item active" onclick="showSection('overview')">
+    <div class="nav-item active" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="showSection('overview')">
       <svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>لوحة البيانات الذكية
     </div>
-    <div class="nav-item" onclick="showSection('globe3d')">
+    <div class="nav-item" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="showSection('globe3d')">
       <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>خريطة السوق 360°
     </div>
     <div class="nav-group-title">التداول</div>
-    <div class="nav-item" onclick="showSection('metals')">
+    <div class="nav-item" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="showSection('metals')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>المعادن والأسعار
       <span class="nav-badge">مباشر</span>
     </div>
-    <div class="nav-item" onclick="showSection('rfq')">
+    <div class="nav-item" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="showSection('rfq')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>طلبات العروض RFQ
     </div>
-    <div class="nav-item" onclick="showSection('listings')">
+    <div class="nav-item" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="showSection('listings')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>قوائم المنتجات
     </div>
     <div class="nav-group-title">التحليلات</div>
-    <div class="nav-item" onclick="showSection('analytics')">
+    <div class="nav-item" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="showSection('analytics')">
       <svg class="nav-icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>التحليلات المتقدمة
     </div>
-    <div class="nav-item" onclick="showSection('controltower')">
+    <div class="nav-item" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="showSection('controltower')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 8h18"/><path d="M6 8V5h12v3"/><rect x="4" y="8" width="16" height="11" rx="2"/><path d="M9 12h6M9 15h3"/></svg>Control Tower
       <span class="nav-badge">SGSC-OS</span>
     </div>
-    <div class="nav-item" onclick="openErpIntegrationsPage()">
+    <div class="nav-item" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="openErpIntegrationsPage()">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M7 7h10v10H7z"/><path d="M3 12h4M17 12h4M12 3v4M12 17v4"/></svg>ERP Integrations
     </div>
-    <div class="nav-item" onclick="showSection('sharia')">
+    <div class="nav-item" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="showSection('sharia')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>الفقه والشريعة
     </div>
     <div class="nav-group-title">الاتصالات</div>
-    <div class="nav-item" onclick="showSection('video')">
+    <div class="nav-item" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="showSection('video')">
       <svg class="nav-icon" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>اجتماعات الفيديو
       <span class="nav-badge red">جديد</span>
     </div>
-    <div class="nav-item" onclick="showSection('messages')">
+    <div class="nav-item" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="showSection('messages')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>الرسائل
       <span class="nav-badge" id="msg-count">0</span>
     </div>
     <div class="nav-group-title">الحساب</div>
-    <div class="nav-item" onclick="showSection('zakat')">
+    <div class="nav-item" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="showSection('zakat')">
       <svg class="nav-icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>حاسبة الزكاة
     </div>
-    <div class="nav-item" onclick="showSection('settings')">
+    <div class="nav-item" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="showSection('settings')">
       <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>الإعدادات
     </div>
   </div>
@@ -439,12 +442,12 @@ table{border-collapse:collapse;width:100%} th,td{padding:12px 15px;text-align:ri
   <div class="section" id="sec-video">
     <div class="topbar"><div class="topbar-title"><h1>اجتماعات الفيديو الذكي</h1><p>مشفرة ذاتياً — بلا أرواح — تقنية WebRTC</p></div></div>
     <div class="video-grid">
-      <div class="video-card"><div class="play-btn" onclick="startMeeting('instant')">▶</div><h4>اجتماع فوري</h4><p>افتح غرفة محادثة مباشرة مشفرة</p><button class="btn btn-gold btn-sm" style="margin:12px auto 0;display:flex" onclick="startMeeting('instant')">ابدأ الآن</button></div>
-      <div class="video-card"><div class="play-btn" onclick="startMeeting('scheduled')">📅</div><h4>اجتماع مجدول</h4><p>حدد موعداً مع عميل أو شريك</p><button class="btn btn-outline btn-sm" style="margin:12px auto 0;display:flex">جدولة</button></div>
-      <div class="video-card"><div class="play-btn" onclick="startMeeting('webinar')">🎤</div><h4>ندوة تفاعلية</h4><p>حتى 500 مشارك بتقنية Stream</p><button class="btn btn-outline btn-sm" style="margin:12px auto 0;display:flex">إنشاء ندوة</button></div>
+      <div class="video-card"><div class="play-btn" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="startMeeting('instant')">▶</div><h4>اجتماع فوري</h4><p>افتح غرفة محادثة مباشرة مشفرة</p><button class="btn btn-gold btn-sm" style="margin:12px auto 0;display:flex" onclick="startMeeting('instant')">ابدأ الآن</button></div>
+      <div class="video-card"><div class="play-btn" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="startMeeting('scheduled')">📅</div><h4>اجتماع مجدول</h4><p>حدد موعداً مع عميل أو شريك</p><button class="btn btn-outline btn-sm" style="margin:12px auto 0;display:flex">جدولة</button></div>
+      <div class="video-card"><div class="play-btn" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}" onclick="startMeeting('webinar')">🎤</div><h4>ندوة تفاعلية</h4><p>حتى 500 مشارك بتقنية Stream</p><button class="btn btn-outline btn-sm" style="margin:12px auto 0;display:flex">إنشاء ندوة</button></div>
     </div>
     <div id="meeting-frame" style="display:none;border-radius:14px;overflow:hidden;height:450px;background:#000;position:relative">
-      <iframe id="jitsi-frame" style="width:100%;height:100%;border:none" allow="camera;microphone;fullscreen"></iframe>
+      <iframe id="jitsi-frame" title="Sheikha Secure Meeting" style="width:100%;height:100%;border:none" allow="camera;microphone;fullscreen"></iframe>
     </div>
   </div>
 
@@ -455,9 +458,9 @@ table{border-collapse:collapse;width:100%} th,td{padding:12px 15px;text-align:ri
       <div class="chart-card">
         <div class="chart-header"><div class="chart-title">احتساب الزكاة</div></div>
         <div style="display:grid;gap:14px;padding-top:4px">
-          <div><label style="font-size:.83rem;color:var(--t3);display:block;margin-bottom:6px">قيمة الذهب (ريال)</label><input type="number" id="zakat-gold" placeholder="0" style="width:100%;padding:10px 14px;background:var(--el);border:1px solid var(--b1);border-radius:9px;color:var(--t1);font-size:.9rem" oninput="calcZakat()"></div>
-          <div><label style="font-size:.83rem;color:var(--t3);display:block;margin-bottom:6px">قيمة الفضة (ريال)</label><input type="number" id="zakat-silver" placeholder="0" style="width:100%;padding:10px 14px;background:var(--el);border:1px solid var(--b1);border-radius:9px;color:var(--t1);font-size:.9rem" oninput="calcZakat()"></div>
-          <div><label style="font-size:.83rem;color:var(--t3);display:block;margin-bottom:6px">عروض التجارة (ريال)</label><input type="number" id="zakat-trade" placeholder="0" style="width:100%;padding:10px 14px;background:var(--el);border:1px solid var(--b1);border-radius:9px;color:var(--t1);font-size:.9rem" oninput="calcZakat()"></div>
+          <div><label for="zakat-gold" style="font-size:.83rem;color:var(--t3);display:block;margin-bottom:6px">قيمة الذهب (ريال)</label><input type="number" id="zakat-gold" placeholder="0" style="width:100%;padding:10px 14px;background:var(--el);border:1px solid var(--b1);border-radius:9px;color:var(--t1);font-size:.9rem" oninput="calcZakat()"></div>
+          <div><label for="zakat-silver" style="font-size:.83rem;color:var(--t3);display:block;margin-bottom:6px">قيمة الفضة (ريال)</label><input type="number" id="zakat-silver" placeholder="0" style="width:100%;padding:10px 14px;background:var(--el);border:1px solid var(--b1);border-radius:9px;color:var(--t1);font-size:.9rem" oninput="calcZakat()"></div>
+          <div><label for="zakat-trade" style="font-size:.83rem;color:var(--t3);display:block;margin-bottom:6px">عروض التجارة (ريال)</label><input type="number" id="zakat-trade" placeholder="0" style="width:100%;padding:10px 14px;background:var(--el);border:1px solid var(--b1);border-radius:9px;color:var(--t1);font-size:.9rem" oninput="calcZakat()"></div>
           <div style="background:var(--gold-dim);border:1px solid rgba(212,175,55,.3);border-radius:10px;padding:16px;text-align:center">
             <div style="font-size:.82rem;color:var(--t3);margin-bottom:6px">الزكاة المستحقة (2.5%)</div>
             <div id="zakat-result" style="font-size:2rem;font-weight:900;color:var(--gold)">0</div>
@@ -600,7 +603,7 @@ function initGlobe(){
   const wMat = new THREE.MeshBasicMaterial({color:0xD4AF37,wireframe:true,transparent:true,opacity:.18});
   scene.add(new THREE.Mesh(wGeo,wMat));
   // نقاط المدن/الأسواق
-  const cities=[{lat:24.7,lng:46.7,n:'الرياض'},{lat:21.3,lng:39.1,n:'جدة'},{lat:25.2,lng:55.3,n:'دبي'},{lat:23.6,lng:58.6,n:'مسقط'},{lat:26.2,lng:50.6,n:'المنامة'},{lat:51.5,lng:-0.1,n:'لندن LME'},{lat:40.7,lng:-74.0,n:'نيويورك COMEX'},{lat:31.2,lng:121.5,n:'شنغهاي SHFE'}];
+  const cities=[{lat:24.7,lng:46.7,n:'الرياض'},{lat:21.3,lng:39.1,n:'جدة'},{lat:25.2,lng:55.3,n:'دبي'},{lat:23.6,lng:58.6,n:'مسقط'},{lat:26.2,lng:50.6,n:'المنامة'},{lat:51.5,lng:-0.1,n:'لندن LME'},{lat:40.7,lng:-74,n:'نيويورك COMEX'},{lat:31.2,lng:121.5,n:'شنغهاي SHFE'}];
   cities.forEach(c=>{
     const phi=(90-c.lat)*Math.PI/180, theta=(c.lng+180)*Math.PI/180;
     const x=1.44*Math.sin(phi)*Math.cos(theta), y=1.44*Math.cos(phi), z=1.44*Math.sin(phi)*Math.sin(theta);
@@ -613,12 +616,28 @@ function initGlobe(){
   scene.add(new THREE.AmbientLight(0x404040,2));
   const pLight=new THREE.PointLight(0xD4AF37,1,10); pLight.position.set(3,3,3); scene.add(pLight);
   // تفاعل الماوس
-  let mouseX=0,mouseY=0,isDragging=false,startMX=0,startMY=0,rotX=0,rotY=0;
+  let isDragging=false,startMX=0,startMY=0,rotX=0,rotY=0;
   canvas.addEventListener('mousedown',e=>{isDragging=true;startMX=e.clientX;startMY=e.clientY;});
-  canvas.addEventListener('mousemove',e=>{if(!isDragging)return;rotY+=(e.clientX-startMX)*.005;rotX+=(e.clientY-startMY)*.005;startMX=e.clientX;startMY=e.clientY;});
+  canvas.addEventListener('mousemove',e=>{
+    if(!isDragging){
+      return;
+    }
+    rotY+=(e.clientX-startMX)*.005;
+    rotX+=(e.clientY-startMY)*.005;
+    startMX=e.clientX;
+    startMY=e.clientY;
+  });
   canvas.addEventListener('mouseup',()=>isDragging=false);
   canvas.addEventListener('touchstart',e=>{isDragging=true;startMX=e.touches[0].clientX;startMY=e.touches[0].clientY;},{passive:true});
-  canvas.addEventListener('touchmove',e=>{if(!isDragging)return;rotY+=(e.touches[0].clientX-startMX)*.005;rotX+=(e.touches[0].clientY-startMY)*.005;startMX=e.touches[0].clientX;startMY=e.touches[0].clientY;},{passive:true});
+  canvas.addEventListener('touchmove',e=>{
+    if(!isDragging){
+      return;
+    }
+    rotY+=(e.touches[0].clientX-startMX)*.005;
+    rotX+=(e.touches[0].clientY-startMY)*.005;
+    startMX=e.touches[0].clientX;
+    startMY=e.touches[0].clientY;
+  },{passive:true});
   canvas.addEventListener('touchend',()=>isDragging=false);
   function animGlobe(){requestAnimationFrame(animGlobe);if(!isDragging){rotY+=.004;}sphere.rotation.y=rotY;sphere.rotation.x=rotX;renderer.render(scene,camera);}
   animGlobe();
@@ -738,7 +757,7 @@ function enterpriseUserRequest(url, options){
 }
 
 function openErpIntegrationsPage(){
-  window.location.href = '/erp-integrations.html';
+  globalThis.location.href = '/erp-integrations.html';
 }
 
 async function ensureUserEnterpriseTenant(){
@@ -867,9 +886,9 @@ loadUserControlTower();
 // حاسبة الزكاة
 // ══════════════════════════════════════════
 function calcZakat(){
-  const g=parseFloat(document.getElementById('zakat-gold').value)||0;
-  const s=parseFloat(document.getElementById('zakat-silver').value)||0;
-  const t=parseFloat(document.getElementById('zakat-trade').value)||0;
+  const g=Number.parseFloat(document.getElementById('zakat-gold').value)||0;
+  const s=Number.parseFloat(document.getElementById('zakat-silver').value)||0;
+  const t=Number.parseFloat(document.getElementById('zakat-trade').value)||0;
   const total=(g+s+t)*0.025;
   document.getElementById('zakat-result').textContent=total.toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2});
   const kEl=document.getElementById('kpi-zakat'); if(kEl) kEl.textContent=Math.round(total).toLocaleString('ar-SA');
@@ -918,6 +937,13 @@ fetch('/api/auth/me').then(r=>r.json()).then(d=>{
     if(document.getElementById('user-plan')) document.getElementById('user-plan').textContent=u.plan||'مجاني';
   }
 }).catch(()=>{});
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
 </script>
 </body>
 </html>

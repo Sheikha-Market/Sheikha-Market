@@ -6,7 +6,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 echo "==> [Sheikha] Full AI Power bootstrap"
 cd "${ROOT_DIR}"
 
-unset npm_config_devdir NPM_CONFIG_DEVDIR npm_config_tmp NPM_CONFIG_TMP || true
+unset npm_config_prefix NPM_CONFIG_PREFIX npm_config_devdir NPM_CONFIG_DEVDIR npm_config_tmp NPM_CONFIG_TMP || true
 source "$HOME/.nvm/nvm.sh" >/dev/null 2>&1 || true
 nvm use 25.6.1 >/dev/null 2>&1 || true
 
