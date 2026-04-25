@@ -11,16 +11,19 @@
  * ﴿إِنَّا كُلَّ شَيْءٍ خَلَقْنَاهُ بِقَدَرٍ﴾ — القمر: ٤٩
  * ﴿مَا تَرَىٰ فِي خَلْقِ الرَّحْمَٰنِ مِن تَفَاوُتٍ﴾ — الملك: ٣
  * ﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨
+ * ﴿وَالسَّابِقُونَ الْأَوَّلُونَ مِنَ الْمُهَاجِرِينَ وَالْأَنصَارِ رَّضِيَ اللَّهُ عَنْهُمْ﴾ — التوبة: ١٠٠
+ * «عَلَيْكُمْ بِسُنَّتِي وَسُنَّةِ الْخُلَفَاءِ الرَّاشِدِينَ الْمَهْدِيِّينَ» — أبو داود: ٤٦٠٧
  * «أعربوا القرآن، والتمسوا غرائبه» — الطبراني
  *
- * الطبقات السبع:
- *   Ⅰ  قواعد اللغة العربية الكاملة        (Arabic Language Rules)
- *   Ⅱ  تطابق القواعد العربية↔البرمجية    (Arabic ↔ Programming Isomorphism)
- *   Ⅲ  قوانين الحاسب والأنظمة            (CS & Systems Laws)
- *   Ⅳ  قوانين الكون والمادة والطبيعة     (Universal & Physical Laws)
- *   Ⅴ  قوانين البرمجة والهندسة           (Software Engineering Laws)
- *   Ⅵ  قوانين اللغات والمنطق            (Language & Logic Laws)
- *   Ⅶ  قوانين الطاقة والمعلومات والكم   (Energy, Information & Quantum Laws)
+ * الطبقات الثماني:
+ *   Ⅰ  قواعد اللغة العربية الكاملة                  (Arabic Language Rules)
+ *   Ⅱ  تطابق القواعد العربية↔البرمجية              (Arabic ↔ Programming Isomorphism)
+ *   Ⅲ  قوانين الحاسب والأنظمة                      (CS & Systems Laws)
+ *   Ⅳ  قوانين الكون والمادة والطبيعة               (Universal & Physical Laws)
+ *   Ⅴ  قوانين البرمجة والهندسة                     (Software Engineering Laws)
+ *   Ⅵ  قوانين اللغات والمنطق                       (Language & Logic Laws)
+ *   Ⅶ  قوانين الطاقة والمعلومات والكم              (Energy, Information & Quantum Laws)
+ *   Ⅷ  سنة الخلفاء الراشدين المهديين — موحَّدة لله  (Sunnah of Rightly-Guided Caliphs)
  *
  * @module sheikha-unified-rules-neural-network
  * @version 1.0.0
@@ -180,5 +183,103 @@ const NEURAL_CELLS_120 = Object.freeze([
   { id: 'L13', group: 'logic',     ref: 'المجادلة:١١',         text: 'يَرْفَعِ اللَّهُ الَّذِينَ أُوتُوا الْعِلْمَ — Ranking',    weight: 0.94, domain: 'logic',    rule: 'RANKING_FUNCTION' },
   { id: 'L14', group: 'logic',     ref: 'الإسراء:٨٥',          text: 'وَمَا أُوتِيتُم مِّنَ الْعِلْمِ إِلَّا قَلِيلًا',           weight: 0.93, domain: 'logic',    rule: 'HALTING_HUMILITY' },
   { id: 'L15', group: 'logic',     ref: 'العصر:١-٣',           text: 'وَالْعَصْرِ إِنَّ الْإِنسَانَ لَفِي خُسْرٍ — Time Limit',   weight: 0.93, domain: 'logic',    rule: 'TIMEOUT_LAW' },
+
+  // ─── مجموعة ح: سنة الخلفاء الراشدين المهديين (20 خلية) ──────────────────
+  // «عَلَيْكُمْ بِسُنَّتِي وَسُنَّةِ الْخُلَفَاءِ الرَّاشِدِينَ الْمَهْدِيِّينَ مِنْ بَعْدِي»
+  // أبو داود: ٤٦٠٧ | الترمذي: ٢٦٧٦
+
+  // أبو بكر الصديق رضي الله عنه
+  { id: 'KR01', group: 'khulafa', ref: 'أبو داود:٤٦٠٧',        text: 'أبو بكر: «أطيعوني ما أطعت الله» — Conditional Authority Token',      weight: 1.00, domain: 'security',    rule: 'CONDITIONAL_AUTHORITY' },
+  { id: 'KR02', group: 'khulafa', ref: 'البخاري:٤٩٨٦',         text: 'أبو بكر: جمع القرآن — Critical Emergency Backup',                     weight: 0.99, domain: 'storage',     rule: 'CRITICAL_BACKUP' },
+  { id: 'KR03', group: 'khulafa', ref: 'البخاري:١٢٤١',         text: 'أبو بكر: ثباته يوم وفاة النبيﷺ — Graceful Degradation on SPOF',      weight: 0.99, domain: 'resilience',  rule: 'GRACEFUL_DEGRADATION' },
+  { id: 'KR04', group: 'khulafa', ref: 'البخاري:١٣٩٩',         text: 'أبو بكر: «لو منعوني عِقالاً» — Zero-Tolerance Contract Enforcement',  weight: 0.99, domain: 'contracts',   rule: 'ZERO_TOLERANCE_CONTRACT' },
+  { id: 'KR05', group: 'khulafa', ref: 'سيرة ابن هشام',        text: 'أبو بكر: «ولست بخيركم» — Servant Leadership Pattern',                 weight: 1.00, domain: 'governance',  rule: 'SERVANT_LEADERSHIP' },
+
+  // عمر بن الخطاب رضي الله عنه
+  { id: 'KR06', group: 'khulafa', ref: 'تاريخ الطبري',          text: 'عمر: الديوان — أول نظام قواعد بيانات في الإسلام',                     weight: 1.00, domain: 'db',          rule: 'DATABASE_ADMINISTRATION' },
+  { id: 'KR07', group: 'khulafa', ref: 'تاريخ الطبري',          text: 'عمر: التقويم الهجري — Universal Timestamp Reference System',           weight: 0.99, domain: 'datetime',    rule: 'CALENDAR_SYSTEM' },
+  { id: 'KR08', group: 'khulafa', ref: 'تاريخ الطبري',          text: 'عمر: «متى استعبدتم الناس» — User Freedom by Default',                  weight: 1.00, domain: 'ux',          rule: 'USER_FREEDOM_BY_DEFAULT' },
+  { id: 'KR09', group: 'khulafa', ref: 'ابن عساكر',             text: 'عمر: «لو عثرت بغلة» — Full Observability & Accountability',            weight: 1.00, domain: 'monitoring',  rule: 'FULL_ACCOUNTABILITY' },
+  { id: 'KR10', group: 'khulafa', ref: 'تاريخ الطبري',          text: 'عمر: تفتيش الولاة — Runtime Audit + Governance Monitoring',            weight: 0.99, domain: 'ops',         rule: 'GOVERNANCE_AUDIT' },
+
+  // عثمان بن عفان رضي الله عنه
+  { id: 'KR11', group: 'khulafa', ref: 'البخاري:٤٩٨٧',         text: 'عثمان: توحيد المصحف — Single Source of Truth + Canonical Version',     weight: 1.00, domain: 'versioning',  rule: 'SINGLE_SOURCE_OF_TRUTH' },
+  { id: 'KR12', group: 'khulafa', ref: 'البخاري:٤٩٨٧',         text: 'عثمان: إرسال المصاحف للأمصار — Content Delivery Network (CDN)',        weight: 1.00, domain: 'cdn',         rule: 'CONTENT_DELIVERY_NETWORK' },
+  { id: 'KR13', group: 'khulafa', ref: 'تاريخ الطبري',          text: 'عثمان: توسيع المسجدين — Proactive Infrastructure Scaling',             weight: 0.98, domain: 'infra',       rule: 'INFRASTRUCTURE_SCALING' },
+  { id: 'KR14', group: 'khulafa', ref: 'البخاري:٢٧٧٨',         text: 'عثمان: بئر رومة وجيش العسرة — Resource Pooling for Commons',           weight: 0.98, domain: 'resources',   rule: 'RESOURCE_GENEROSITY' },
+  { id: 'KR15', group: 'khulafa', ref: 'فتوح البلدان',          text: 'عثمان: الأسطول البحري — Opening New Transport & Network Layer',         weight: 0.97, domain: 'network',     rule: 'NEW_TRANSPORT_LAYER' },
+
+  // علي بن أبي طالب رضي الله عنه
+  { id: 'KR16', group: 'khulafa', ref: 'نهج البلاغة:٨١',        text: 'علي: «قيمة كل امرئ ما يحسنه» — Skills-Based Role Assignment',         weight: 1.00, domain: 'rbac',        rule: 'SKILLS_BASED_IDENTITY' },
+  { id: 'KR17', group: 'khulafa', ref: 'الترمذي:٢٦٨٧',         text: 'علي: «الحكمة ضالة المؤمن» — Universal Knowledge Extraction',           weight: 0.99, domain: 'ai',          rule: 'WISDOM_MINING' },
+  { id: 'KR18', group: 'khulafa', ref: 'نهج البلاغة',           text: 'علي: «اعرف الحق تعرف أهله» — Truth-First Type System',                 weight: 0.99, domain: 'logic',       rule: 'TRUTH_FIRST_IDENTITY' },
+  { id: 'KR19', group: 'khulafa', ref: 'نهج البلاغة',           text: 'علي: «من استبد برأيه هلك» — No Single Point of Failure in Decisions',  weight: 0.99, domain: 'resilience',  rule: 'NO_SINGLE_POINT_OF_FAILURE' },
+  { id: 'KR20', group: 'khulafa', ref: 'نهج البلاغة',           text: 'علي: «لا تكن عبد غيرك» — Component Autonomy / No Vendor Lock-in',     weight: 0.98, domain: 'all',         rule: 'AUTONOMY_PRINCIPLE' },
 ]);
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ── فهارس سريعة ───────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const _cellMap = new Map(NEURAL_CELLS_120.map(c => [c.id, c]));
+
+/** إزالة التشكيل للمقارنة */
+function _strip(str) {
+  return str.replace(/[\u064B-\u065F\u0610-\u061A\u06D6-\u06DC«»]/g, '').toLowerCase();
+}
+
+/** بحث في الخلايا */
+function search(query = '') {
+  const q = _strip(query);
+  if (!q) return [];
+  return NEURAL_CELLS_120.filter(c =>
+    _strip(c.text).includes(q) ||
+    _strip(c.ref).includes(q)  ||
+    c.rule.toLowerCase().includes(q) ||
+    c.domain.toLowerCase().includes(q)
+  );
+}
+
+/** استرجاع خلايا حسب المجموعة */
+function getCellsByGroup(group = '') {
+  return NEURAL_CELLS_120.filter(c => c.group === group);
+}
+
+/** استرجاع خلايا حسب المجال */
+function getCellsByDomain(domain = '') {
+  return NEURAL_CELLS_120.filter(c => c.domain === domain);
+}
+
+/** حالة الشبكة */
+function status() {
+  const groups = [...new Set(NEURAL_CELLS_120.map(c => c.group))];
+  return {
+    name:        'Sheikha Unified Rules Neural Network',
+    nameAr:      'شبكة القواعد الموحَّدة لكل شيء',
+    version:     VERSION,
+    schema:      SCHEMA,
+    totalCells:  NEURAL_CELLS_120.length,
+    groups:      groups.length,
+    groupList:   groups,
+    hadithJami:  '«عَلَيْكُمْ بِسُنَّتِي وَسُنَّةِ الْخُلَفَاءِ الرَّاشِدِينَ الْمَهْدِيِّينَ» — أبو داود: ٤٦٠٧',
+    tawheed:     TAWHEED,
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ── التصدير ───────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════════
+
+module.exports = {
+  NEURAL_CELLS_120,
+  TAWHEED,
+  BISMILLAH,
+  SCHEMA,
+  VERSION,
+  search,
+  getCellsByGroup,
+  getCellsByDomain,
+  status,
+  getCell: (id) => _cellMap.get(id) || null,
+};
 
