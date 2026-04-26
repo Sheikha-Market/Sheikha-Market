@@ -58,10 +58,11 @@ function _safeRequire(filePath, name) {
     }
 }
 
-const debugNeural  = _safeRequire('./sheikha-debug-neural',    'Debug Neural');
-const transport    = _safeRequire('./sheikha-transport-bus',   'Transport Bus');
-const erpNeural    = _safeRequire('./sheikha-erp-neural',      'ERP Neural');
-const unityEngine  = _safeRequire('../neural/unity-engine',    'Unity Engine');
+const debugNeural  = _safeRequire('./sheikha-debug-neural',            'Debug Neural');
+const transport    = _safeRequire('./sheikha-transport-bus',           'Transport Bus');
+const erpNeural    = _safeRequire('./sheikha-erp-neural',              'ERP Neural');
+const hierarchyNN  = _safeRequire('./sheikha-roots-hierarchy-neural',  'Hierarchy Neural');
+const unityEngine  = _safeRequire('../neural/unity-engine',            'Unity Engine');
 const neuralCells  = _safeRequire('../neural/neural-cells',    'Neural Cells (core 12)');
 
 // المحركات
@@ -94,10 +95,11 @@ function init() {
     console.log('[UNIFIED] 🕌 تهيئة المُوحِّد الشامل لكل أنظمة منظومة شيخة...');
 
     const systems = [
-        { id: 'transport-bus', name: 'الناقل الشامل',              mod: transport,   initFn: 'init'  },
+        { id: 'transport-bus', name: 'الناقل الشامل',              mod: transport,    initFn: 'init'  },
         { id: 'debug-neural',  name: 'منظومة التصحيح العصبي (55 خلية)', mod: debugNeural, initFn: 'init'  },
-        { id: 'erp-neural',    name: 'نظام ERP العصبي (7 وحدات)',    mod: erpNeural,   initFn: 'init'  },
-        { id: 'unity-engine',  name: 'محرك التوحيد',                 mod: unityEngine, initFn: 'init'  },
+        { id: 'erp-neural',    name: 'نظام ERP العصبي (7 وحدات)',    mod: erpNeural,    initFn: 'init'  },
+        { id: 'hierarchy-nn',  name: 'الشبكة العصبية الهرمية (55 عقدة — 4 مستويات)', mod: hierarchyNN, initFn: null },
+        { id: 'unity-engine',  name: 'محرك التوحيد',                 mod: unityEngine,  initFn: 'init'  },
         { id: 'neural-cells',  name: 'الخلايا العصبية الأساسية (12)',  mod: neuralCells, initFn: 'init'  },
         { id: 'ai-network',    name: 'شبكة الذكاء الاصطناعي',        mod: aiNetwork,   initFn: null    },
         { id: 'home-network',  name: 'شبكة المنزل الذكي',             mod: homeNetwork, initFn: null    },
@@ -222,6 +224,11 @@ function pulse(input = {}) {
         }
     }
 
+    // ─── تشغيل الشبكة الهرمية إذا طُلبت ─────────────────────────────────────
+    if (hierarchyNN) {
+        result.hierarchy = hierarchyNN.infer(data.hierarchyInput || {}, context || type);
+    }
+
     // ─── تشغيل محرك التوحيد ──────────────────────────────────────────────────
     if (unityEngine) {
         result.unity = unityEngine.pulse({ type, data, context, task });
@@ -301,10 +308,11 @@ function status() {
         pulseCount:  _pulseCount,
         systems:     _systemRegistry.size,
         health:      healthCheck(),
-        neural:      debugNeural  ? debugNeural.status()  : null,
-        erp:         erpNeural    ? erpNeural.status()    : null,
-        transport:   transport    ? transport.status()    : null,
-        unity:       unityEngine  ? unityEngine.status()  : null,
+        neural:      debugNeural  ? debugNeural.status()   : null,
+        hierarchy:   hierarchyNN  ? hierarchyNN.status()   : null,
+        erp:         erpNeural    ? erpNeural.status()     : null,
+        transport:   transport    ? transport.status()     : null,
+        unity:       unityEngine  ? unityEngine.status()   : null,
         principle: {
             tawheed:   '﴿ قُلْ هُوَ اللَّهُ أَحَدٌ ﴾ — الإخلاص: 1',
             unity:     '﴿ وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا ﴾ — آل عمران: 103',
@@ -354,6 +362,12 @@ function createRouter() {
     if (transport && typeof transport.createRouter === 'function') {
         const transportRouter = transport.createRouter();
         if (transportRouter) router.use('/transport', transportRouter);
+    }
+
+    // ─── الشبكة الهرمية ────────────────────────────────────────────────────────
+    if (hierarchyNN && typeof hierarchyNN.createRouter === 'function') {
+        const hierarchyRouter = hierarchyNN.createRouter();
+        if (hierarchyRouter) router.use('/hierarchy', hierarchyRouter);
     }
 
     // ─── نظام ERP ─────────────────────────────────────────────────────────────
@@ -431,6 +445,7 @@ module.exports = {
         neural:    () => debugNeural,
         transport: () => transport,
         erp:       () => erpNeural,
+        hierarchy: () => hierarchyNN,
         unity:     () => unityEngine,
     },
 };
