@@ -98,7 +98,7 @@ function init() {
         { id: 'transport-bus', name: 'الناقل الشامل',              mod: transport,    initFn: 'init'  },
         { id: 'debug-neural',  name: 'منظومة التصحيح العصبي (55 خلية)', mod: debugNeural, initFn: 'init'  },
         { id: 'erp-neural',    name: 'نظام ERP العصبي (7 وحدات)',    mod: erpNeural,    initFn: 'init'  },
-        { id: 'hierarchy-nn',  name: 'الشبكة العصبية الهرمية (55 عقدة — 4 مستويات)', mod: hierarchyNN, initFn: null },
+        { id: 'hierarchy-nn',  name: 'الشبكة العصبية الهرمية (55 عقدة — أعماق 0-3)', mod: hierarchyNN, initFn: null },
         { id: 'unity-engine',  name: 'محرك التوحيد',                 mod: unityEngine,  initFn: 'init'  },
         { id: 'neural-cells',  name: 'الخلايا العصبية الأساسية (12)',  mod: neuralCells, initFn: 'init'  },
         { id: 'ai-network',    name: 'شبكة الذكاء الاصطناعي',        mod: aiNetwork,   initFn: null    },

@@ -110,6 +110,7 @@ let _initAt       = null;
 let _emitCount    = 0;
 let _sendCount    = 0;
 let _bridgeCount  = 0;
+let _bridgesActivated = false;
 
 /** قوائم الانتظار لكل قناة */
 const _queues     = new Map();   // channel → Array<message>
@@ -663,8 +664,6 @@ function createRouter() {
 
     return router;
 }
-
-let _bridgesActivated = false;
 
 // ─── تهيئة تلقائية ────────────────────────────────────────────────────────────
 

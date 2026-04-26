@@ -99,9 +99,12 @@ try {
 
 const sigmoid  = x => 1 / (1 + Math.exp(-Math.max(-500, Math.min(500, x))));
 const dsigmoid = y => y * (1 - y);
-const relu     = x => Math.max(0, x);
-const tanh     = x => Math.tanh(x);
+const relu     = x => Math.max(0, x);    // eslint-disable-line no-unused-vars
+const tanh     = x => Math.tanh(x);      // eslint-disable-line no-unused-vars
 const clamp    = (v, lo = 0, hi = 1) => Math.max(lo, Math.min(hi, v));
+
+/** وزن إشارات الأخوة — ضعيف عن قصد لعدم السيطرة على إشارة الأب */
+const SIBLING_SIGNAL_WEIGHT = 0.15;
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 2. تعريفات الشجرة الهرمية لمنظومة شيخة
@@ -585,9 +588,9 @@ class RootNeuralCell {
         // مساهمة الإدخال الذاتي
         raw += this.selfInput * this.w_self;
 
-        // مساهمة الأخوة (weak lateral signal)
+        // مساهمة الأخوة (weak lateral signal — SIBLING_SIGNAL_WEIGHT)
         for (const [sAct, sW] of siblingSignals) {
-            raw += sAct * sW * 0.15;
+            raw += sAct * sW * SIBLING_SIGNAL_WEIGHT;
         }
 
         this.potential  = raw;
@@ -753,16 +756,10 @@ class HierarchyNeuralNetwork {
      * @returns {object} نتيجة الاستدلال مع الشجرة المفعّلة
      */
     infer(inputMap = {}, context = '') {
-        // تعيين الإدخالات الذاتية
-        for (const [id, val] of Object.entries(inputMap)) {
-            const cell = this._nodes.get(id);
-            if (cell) cell.selfInput = clamp(Number(val) || 0);
-        }
-
         // إعادة تعيين جميع التفعيلات
         for (const [, cell] of this._nodes) cell.reset();
 
-        // إعادة تعيين الإدخالات الذاتية
+        // تعيين الإدخالات الذاتية بعد إعادة التعيين
         for (const [id, val] of Object.entries(inputMap)) {
             const cell = this._nodes.get(id);
             if (cell) cell.selfInput = clamp(Number(val) || 0);
