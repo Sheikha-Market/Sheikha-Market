@@ -178,11 +178,11 @@ async function boot() {
     // ﴿وَفِي السَّمَاءِ رِزْقُكُمْ وَمَا تُوعَدُونَ﴾ — الذاريات: ٢٢
     // اقتصاد كل الاقتصادات — كامل فيما بينهم جميعاً
     try {
-        const rootsOrgMod2    = getLayer('roots-organizations-neural-network');
+        const rootsOrgModForEconomy    = getLayer('roots-organizations-neural-network');
         const networksInfraMod = getLayer('networks-infrastructure-neural-network');
         const economyWealthNN  = require('../lib/sheikha-economy-wealth-neural-network');
         const extNets = {};
-        if (rootsOrgMod2)    extNets['roots-organizations']  = rootsOrgMod2.unifiedNetwork || rootsOrgMod2;
+        if (rootsOrgModForEconomy)    extNets['roots-organizations']  = rootsOrgModForEconomy.unifiedNetwork || rootsOrgModForEconomy;
         if (networksInfraMod) extNets['networks-infrastructure'] = networksInfraMod.grandUnifiedNetwork || networksInfraMod;
         economyWealthNN.init(extNets);
         registerLayer('economy-wealth-neural-network', economyWealthNN);

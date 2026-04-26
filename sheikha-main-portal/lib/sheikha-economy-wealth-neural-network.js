@@ -360,7 +360,7 @@ class SheikhaOilAndEnergy {
 // Ⅶ  شبكة الراعية والرعاة — STEWARDSHIP NETWORK
 // ══════════════════════════════════════════════════════════════════════════════
 
-class SheikhaRaiahAndStewards {
+class SheikhaRaaiahAndStewards {
     constructor() {
         this.id        = 'sheikha_raaiah_and_stewards';
         this.nameAr    = 'شبكة شيخة راعية كل الرعاة وراعٍ لكل راعٍ';
@@ -641,7 +641,7 @@ const wealthNetwork           = new SheikhaWealthOfWealth();
 const gainsNetwork            = new SheikhaGainsAndSpoils();
 const metalsNetwork           = new SheikhaMetalsAndPrecious();
 const oilEnergyNetwork        = new SheikhaOilAndEnergy();
-const stewardshipNetwork      = new SheikhaRaiahAndStewards();
+const stewardshipNetwork      = new SheikhaRaaiahAndStewards();
 const growthCycleNetwork      = new SheikhaGrowthCycleNetwork();
 const financialMarketsNetwork = new SheikhaFinancialMarketsNetwork();
 const grandEconomicNetwork    = new SheikhaGrandEconomicUnifiedNetwork();
@@ -714,7 +714,7 @@ module.exports = {
     SheikhaGainsAndSpoils,
     SheikhaMetalsAndPrecious,
     SheikhaOilAndEnergy,
-    SheikhaRaiahAndStewards,
+    SheikhaRaaiahAndStewards,
     SheikhaGrowthCycleNetwork,
     SheikhaFinancialMarketsNetwork,
     SheikhaGrandEconomicUnifiedNetwork,
