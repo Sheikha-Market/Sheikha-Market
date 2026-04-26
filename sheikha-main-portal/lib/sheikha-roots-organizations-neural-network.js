@@ -257,7 +257,6 @@ class SheikhaOrganizationsNeuralNetwork {
         ]);
 
         this._activations = new Map();
-        this.fireCount = 0;
     }
 
     activateOrg(orgId, context = {}) {
@@ -419,7 +418,7 @@ class SheikhaStructuresNeuralNetwork {
  *
  * ﴿إِنَّا كُلَّ شَيْءٍ خَلَقْنَاهُ بِقَدَرٍ﴾ — القمر: ٤٩
  */
-class SheikhaBluprintsNeuralNetwork {
+class SheikhaBlueprintsNeuralNetwork {
     constructor() {
         this.id      = 'sheikha_blueprints_neural';
         this.nameAr  = 'شبكة شيخة العصبية للمخططات';
@@ -1013,7 +1012,7 @@ class SheikhaUnifiedIntegrationNetwork extends EventEmitter {
             if (networkId && this.networks[networkId]) {
                 subResult = await this.networks[networkId].handle({ data, traceId });
             }
-        } catch (_) { /* تُكمل حتى بدون الشبكة الفرعية */ }
+        } catch (err) { console.debug('[UNIFIED-NEURAL] sub-network error:', err.message); }
 
         return {
             id:            traceId,
@@ -1085,7 +1084,7 @@ class SheikhaUnifiedIntegrationNetwork extends EventEmitter {
 const rootNetwork          = new SheikhaRootNeuralNetwork();
 const organizationsNetwork = new SheikhaOrganizationsNeuralNetwork();
 const structuresNetwork    = new SheikhaStructuresNeuralNetwork();
-const blueprintsNetwork    = new SheikhaBluprintsNeuralNetwork();
+const blueprintsNetwork    = new SheikhaBlueprintsNeuralNetwork();
 const architecturesNetwork = new SheikhaArchitecturesNeuralNetwork();
 const managementNetwork    = new SheikhaManagementNeuralNetwork();
 const sciencesNetwork      = new SheikhaFoundationsSciencesNeuralNetwork();
@@ -1158,7 +1157,7 @@ module.exports = {
     SheikhaRootNeuralNetwork,
     SheikhaOrganizationsNeuralNetwork,
     SheikhaStructuresNeuralNetwork,
-    SheikhaBluprintsNeuralNetwork,
+    SheikhaBlueprintsNeuralNetwork,
     SheikhaArchitecturesNeuralNetwork,
     SheikhaManagementNeuralNetwork,
     SheikhaFoundationsSciencesNeuralNetwork,
