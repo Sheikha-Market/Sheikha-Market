@@ -289,7 +289,7 @@ class SheikhaSupplyChainNeuralNetwork {
  *
  * ﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾ — البقرة: ٢٧٥
  */
-class SheikhaPlateformOfPlatforms {
+class SheikhasPlatformOfPlatforms {
     constructor() {
         this.id       = 'sheikha_platform_of_platforms';
         this.nameAr   = 'شبكة شيخة منصة المنصات';
@@ -637,7 +637,7 @@ class SheikhaFoundationsPillarsNetwork {
  * ﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨
  * ﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١
  */
-class SheikhasTechnologyNetwork {
+class SheikhasTechnologiesNetwork {
     constructor() {
         this.id       = 'sheikha_technology_of_technologies';
         this.nameAr   = 'شبكة شيخة تقنية التقنيات';
@@ -1233,10 +1233,10 @@ class SheikhaGrandUnifiedNetwork extends EventEmitter {
 // إنشاء الشبكات التسع
 const networkOfNetworks        = new SheikhaNetworkOfNetworks();
 const supplyChainNetwork       = new SheikhaSupplyChainNeuralNetwork();
-const platformOfPlatforms      = new SheikhaPlateformOfPlatforms();
+const platformOfPlatforms      = new SheikhasPlatformOfPlatforms();
 const marketOfMarkets          = new SheikhaMarketOfMarkets();
 const foundationsPillarsNetwork = new SheikhaFoundationsPillarsNetwork();
-const technologyNetwork        = new SheikhasTechnologyNetwork();
+const technologyNetwork        = new SheikhasTechnologiesNetwork();
 const columnsConstructionNetwork = new SheikhaColumnsConstructionNetwork();
 const infrastructureNetwork    = new SheikhaInfrastructureNetwork();
 const logisticsNetwork         = new SheikhaLogisticsNetwork();
@@ -1322,10 +1322,10 @@ module.exports = {
     // الأصناف
     SheikhaNetworkOfNetworks,
     SheikhaSupplyChainNeuralNetwork,
-    SheikhaPlateformOfPlatforms,
+    SheikhasPlatformOfPlatforms,
     SheikhaMarketOfMarkets,
     SheikhaFoundationsPillarsNetwork,
-    SheikhasTechnologyNetwork,
+    SheikhasTechnologiesNetwork,
     SheikhaColumnsConstructionNetwork,
     SheikhaInfrastructureNetwork,
     SheikhaLogisticsNetwork,
