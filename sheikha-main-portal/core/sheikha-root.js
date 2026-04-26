@@ -174,6 +174,23 @@ async function boot() {
         console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل شبكة الشبكات والبنى التحتية:', err.message);
     }
 
+    // تسجيل شبكة الاقتصاد والتجارة والثروة والموارد والطاقة والمعادن والنمو
+    // ﴿وَفِي السَّمَاءِ رِزْقُكُمْ وَمَا تُوعَدُونَ﴾ — الذاريات: ٢٢
+    // اقتصاد كل الاقتصادات — كامل فيما بينهم جميعاً
+    try {
+        const rootsOrgMod2    = getLayer('roots-organizations-neural-network');
+        const networksInfraMod = getLayer('networks-infrastructure-neural-network');
+        const economyWealthNN  = require('../lib/sheikha-economy-wealth-neural-network');
+        const extNets = {};
+        if (rootsOrgMod2)    extNets['roots-organizations']  = rootsOrgMod2.unifiedNetwork || rootsOrgMod2;
+        if (networksInfraMod) extNets['networks-infrastructure'] = networksInfraMod.grandUnifiedNetwork || networksInfraMod;
+        economyWealthNN.init(extNets);
+        registerLayer('economy-wealth-neural-network', economyWealthNN);
+        console.log('[SHEIKHA-ROOT] 💰 شبكة الاقتصاد والتجارة والثروة والذهب والنفط والطاقة والمعادن والنمو مُفعَّلة — 9 شبكات × 16 خلية — اقتصاد كل الاقتصادات');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل شبكة الاقتصاد والثروة:', err.message);
+    }
+
     const bootOrder = [
         { key: 'os',            file: 'sheikha-os.js' },
         { key: 'control-plane', file: 'sheikha-control-plane.js' },
@@ -218,6 +235,7 @@ async function boot() {
                     'universal-neural-network': 'الشبكة العصبية الشاملة — كل العلوم والتقنيات لله',
                     'roots-organizations-neural-network': 'شبكة الجذور والمنظمات والهياكل والمعماريات والإدارة والعلوم',
                     'networks-infrastructure-neural-network': 'شبكة الشبكات والسلاسل والمنصات والأسواق والأساسات والتقنيات والبنى التحتية واللوجستيات',
+                    'economy-wealth-neural-network': 'شبكة الاقتصاد والتجارة والثروة والذهب والنفط والطاقة والمعادن والنمو',
                 };
                 sovereignLayer.registerSubject(key, 'layer', {
                     nameAr: LAYER_ARABIC[key] || key,
