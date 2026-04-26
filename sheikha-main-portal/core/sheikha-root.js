@@ -145,6 +145,18 @@ async function boot() {
         console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل الشبكة العصبية الشاملة:', err.message);
     }
 
+    // تسجيل شبكة الجذور والمنظمات والهياكل والمعماريات والإدارة والعلوم
+    // ﴿أَصْلُهَا ثَابِتٌ وَفَرْعُهَا فِي السَّمَاءِ﴾ — إبراهيم: ٢٤
+    // ﴿وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا﴾ — آل عمران: ١٠٣
+    try {
+        const rootsOrgNN = require('../lib/sheikha-roots-organizations-neural-network');
+        rootsOrgNN.init();
+        registerLayer('roots-organizations-neural-network', rootsOrgNN);
+        console.log('[SHEIKHA-ROOT] 🌳 شبكة الجذور والمنظمات والهياكل والمعماريات والإدارة والعلوم مُفعَّلة — 8 شبكات × 12 خلية تكاملية');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل شبكة الجذور والمنظمات:', err.message);
+    }
+
     const bootOrder = [
         { key: 'os',            file: 'sheikha-os.js' },
         { key: 'control-plane', file: 'sheikha-control-plane.js' },
@@ -187,6 +199,7 @@ async function boot() {
                     'arabic-grammar-engine':    'محرك النحو والصرف والبلاغة',
                     'arabic-grammar-rules':     'منظومة القواعد العربية الرقمية الكاملة',
                     'universal-neural-network': 'الشبكة العصبية الشاملة — كل العلوم والتقنيات لله',
+                    'roots-organizations-neural-network': 'شبكة الجذور والمنظمات والهياكل والمعماريات والإدارة والعلوم',
                 };
                 sovereignLayer.registerSubject(key, 'layer', {
                     nameAr: LAYER_ARABIC[key] || key,
