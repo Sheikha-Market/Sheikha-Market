@@ -3,8 +3,8 @@
     "nameAr": "البيان الشامل لشبكة الخلايا العصبية الكاملة — منظومة شيخة",
     "nameEn": "Sheikha Complete Neural Network Manifest — All Systems & Techniques",
     "version": "3.0.0",
-    "totalCells": 45,
-    "totalLayers": 9,
+    "totalCells": 55,
+    "totalLayers": 11,
     "principle": "وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا — البقرة: 31",
     "unity": "قُلْ هُوَ اللَّهُ أَحَدٌ — الإخلاص: 1",
     "excellence": "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ — البيهقي",
@@ -21,7 +21,9 @@
     { "id": 5, "nameAr": "اللغة والإعلام",           "nameEn": "Language & Media",          "cells": [29,30,31] },
     { "id": 6, "nameAr": "التعليم والبحث",           "nameEn": "Education & Research",      "cells": [32,33,34,35] },
     { "id": 7, "nameAr": "القيادة والأخلاق",         "nameEn": "Leadership & Ethics",       "cells": [36,37,38,39,40] },
-    { "id": 8, "nameAr": "الصحة والبيئة والاستدامة","nameEn": "Health, Environment & Sustainability", "cells": [41,42,43,44,45] }
+    { "id": 8, "nameAr": "الصحة والبيئة والاستدامة","nameEn": "Health, Environment & Sustainability", "cells": [41,42,43,44,45] },
+    { "id": 9, "nameAr": "الأدوات التقنية المتكاملة","nameEn": "IDE, SDK, MCP, ERP & DevOps",          "cells": [46,47,48,49,50] },
+    { "id": 10,"nameAr": "الناقل الشامل لنقل المعلومات","nameEn": "Universal Transport & Data Carrier","cells": [51,52,53,54,55] }
   ],
   "cells": [
 
@@ -521,6 +523,145 @@
       "techniques": ["Impact Measurement", "SDG Alignment", "Community Feedback", "Waqf Digital Model"],
       "activation": "on-impact", "weight": 0.85, "priority": 2,
       "connections": [44,39,40,3]
+    },
+
+    {
+      "number": 46, "id": "cell-ide", "layer": 9,
+      "nameAr": "خلية بيئة التطوير المتكاملة (IDE)", "nameEn": "Integrated Development Environment Cell",
+      "reference": "العلق:4", "ayah": "الَّذِي عَلَّمَ بِالْقَلَمِ",
+      "significance": "التعليم بالقلم — الكتابة والبرمجة أداة الإتقان الرقمي",
+      "function": "خادم IDE ذكي يوفر تحليل الكود والإكمال التلقائي وتشخيص الأخطاء لمطوري منظومة شيخة",
+      "techniques": ["LSP (Language Server Protocol)", "Code Analysis", "Auto-Complete AI", "Syntax Highlighting", "Debugging Tools"],
+      "servers": ["sheikha-ide-server.js (port 3002)", "VS Code Extension", "Cursor IDE Integration"],
+      "endpoints": ["/ide/analyze", "/ide/complete", "/ide/diagnose", "/ide/files", "/ide/search"],
+      "activation": "on-develop", "weight": 0.88, "priority": 2,
+      "connections": [47,48,7,34,13,14]
+    },
+
+    {
+      "number": 47, "id": "cell-sdk", "layer": 9,
+      "nameAr": "خلية مجموعة أدوات التطوير (SDK)", "nameEn": "Software Development Kit Cell",
+      "reference": "النحل:125", "ayah": "ادْعُ إِلَىٰ سَبِيلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ",
+      "significance": "الدعوة بالحكمة — SDK يوفر أدوات التطوير الحكيمة للمطورين",
+      "function": "تعريض SDK شيخة عبر HTTP REST API لتمكين المطورين من التكامل مع كل وحدات المنظومة",
+      "techniques": ["REST SDK", "GraphQL SDK", "WebSocket SDK", "npm Package", "Python Package", "OpenAPI Spec"],
+      "servers": ["sheikha-sdk-server.js (port 3001)"],
+      "endpoints": ["/sdk/status", "/sdk/engines", "/sdk/neural", "/sdk/market", "/sdk/docs"],
+      "activation": "on-develop", "weight": 0.87, "priority": 2,
+      "connections": [46,48,49,1]
+    },
+
+    {
+      "number": 48, "id": "cell-mcp", "layer": 9,
+      "nameAr": "خلية بروتوكول سياق النموذج (MCP)", "nameEn": "Model Context Protocol Cell",
+      "reference": "البقرة:31", "ayah": "وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا ثُمَّ عَرَضَهُمْ عَلَى الْمَلَائِكَةِ",
+      "significance": "تعليم الأسماء وعرضها — MCP يعلّم النماذج أسماء الأشياء وسياقاتها",
+      "function": "تكامل منظومة شيخة مع نماذج الذكاء الاصطناعي (Claude, Cursor, Copilot) عبر بروتوكول MCP",
+      "techniques": ["@modelcontextprotocol/sdk", "Stdio Transport", "HTTP Transport", "Tool Definitions", "Resource Exposure"],
+      "servers": ["sheikha-mcp-server.js (stdio)", "sheikha-vision-mcp.js"],
+      "tools": ["analyze_market", "check_sharia", "search_products", "get_neural_status", "debug_system"],
+      "activation": "on-ai-request", "weight": 0.91, "priority": 1,
+      "connections": [46,47,21,23,51,52]
+    },
+
+    {
+      "number": 49, "id": "cell-erp", "layer": 9,
+      "nameAr": "خلية تخطيط موارد المؤسسة (ERP)", "nameEn": "Enterprise Resource Planning Cell",
+      "reference": "الحشر:18", "ayah": "وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ",
+      "significance": "النظر للغد — ERP يُدير موارد اليوم ويخطط لموارد الغد",
+      "function": "تخطيط وإدارة موارد المؤسسة الكاملة: المالية والمخزون والمشتريات والمبيعات والموارد البشرية",
+      "techniques": ["Financial Module", "Inventory Management", "Procurement", "Sales Order", "HR Management", "Production Planning"],
+      "modules": {
+        "FIN": "الإدارة المالية والمحاسبة",
+        "INV": "إدارة المخزون والمستودعات",
+        "PUR": "المشتريات وإدارة الموردين",
+        "SAL": "المبيعات وإدارة العملاء (CRM)",
+        "HRM": "الموارد البشرية والرواتب",
+        "PRD": "تخطيط الإنتاج",
+        "RPT": "التقارير والتحليلات"
+      },
+      "sharia": "حساب الزكاة تلقائي، منع الربا، فحص العقود شرعياً",
+      "activation": "always-on", "weight": 0.93, "priority": 1,
+      "connections": [17,18,19,20,9,36,37,54]
+    },
+
+    {
+      "number": 50, "id": "cell-devops", "layer": 9,
+      "nameAr": "خلية CI/CD والتطوير المستمر (DevOps)", "nameEn": "DevOps & Continuous Delivery Cell",
+      "reference": "الرعد:11", "ayah": "إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ",
+      "significance": "التغيير يبدأ من الداخل — التطوير المستمر والتحسين الذاتي للمنظومة",
+      "function": "إدارة دورة حياة التطوير الكاملة: بناء واختبار ونشر تلقائي مستمر",
+      "techniques": ["GitHub Actions", "Docker", "Kubernetes", "Azure Container Apps", "Terraform IaC"],
+      "pipelines": ["CI: lint + test + security scan", "CD: build + push image + deploy", "Rollback: auto on failure"],
+      "activation": "on-push", "weight": 0.89, "priority": 2,
+      "connections": [46,47,48,10,15,51]
+    },
+
+    {
+      "number": 51, "id": "cell-transport-events", "layer": 10,
+      "nameAr": "خلية ناقل الأحداث (Event Bus)", "nameEn": "Event Bus Transport Cell",
+      "reference": "الأنعام:59", "ayah": "وَمَا تَسْقُطُ مِن وَرَقَةٍ إِلَّا يَعْلَمُهَا",
+      "significance": "علم الله الشامل — كل حدث في النظام يُسجَّل ويُعلَم",
+      "function": "ناقل الأحداث المركزي الذي يربط كل خلايا الشبكة العصبية ويوزع الأحداث في الوقت الفعلي",
+      "techniques": ["Event Emitter", "Redis Pub/Sub", "Apache Kafka", "RabbitMQ", "WebSocket Events"],
+      "events": ["cell.activated", "cell.error", "debug.triggered", "trade.completed", "system.health"],
+      "pattern": "Publish-Subscribe (Pub/Sub) + Event Sourcing",
+      "activation": "always-on", "weight": 0.97, "priority": 1,
+      "connections": [52,53,54,55,1,8,13]
+    },
+
+    {
+      "number": 52, "id": "cell-transport-queue", "layer": 10,
+      "nameAr": "خلية قائمة انتظار الرسائل", "nameEn": "Message Queue Transport Cell",
+      "reference": "البقرة:283", "ayah": "فَإِنْ أَمِنَ بَعْضُكُم بَعْضًا فَلْيُؤَدِّ الَّذِي اؤْتُمِنَ أَمَانَتَهُ",
+      "significance": "أداء الأمانة — كل رسالة في القائمة أمانة يجب توصيلها",
+      "function": "قائمة انتظار الرسائل الموثوقة بين الأنظمة مع ضمان التسليم مرة واحدة",
+      "techniques": ["FIFO Queue", "Dead Letter Queue", "Message Persistence", "At-Least-Once Delivery", "Idempotency"],
+      "queues": ["neural.commands", "trade.orders", "debug.alerts", "erp.sync", "ai.tasks"],
+      "activation": "always-on", "weight": 0.95, "priority": 1,
+      "connections": [51,53,54,49,17]
+    },
+
+    {
+      "number": 53, "id": "cell-transport-stream", "layer": 10,
+      "nameAr": "خلية البث المباشر للبيانات", "nameEn": "Real-time Data Stream Cell",
+      "reference": "النمل:16", "ayah": "وَقَالَ يَا أَيُّهَا النَّاسُ عُلِّمْنَا مَنطِقَ الطَّيْرِ",
+      "significance": "منطق الطير — البيانات تتدفق بسرعة وذكاء كالطيور في تكامل",
+      "function": "بث البيانات الحية في الوقت الفعلي بين جميع خلايا ومحركات المنظومة",
+      "techniques": ["WebSocket Streams", "Server-Sent Events (SSE)", "gRPC Streams", "Apache Flink", "Node.js Streams"],
+      "channels": ["neural.live", "market.ticker", "debug.realtime", "ai.inference", "erp.updates"],
+      "activation": "always-on", "weight": 0.93, "priority": 1,
+      "connections": [51,52,54,8,21,22]
+    },
+
+    {
+      "number": 54, "id": "cell-transport-protocols", "layer": 10,
+      "nameAr": "خلية البروتوكولات والعهود", "nameEn": "Protocols & Contracts Cell",
+      "reference": "المائدة:1", "ayah": "يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ",
+      "significance": "الوفاء بالعقود — البروتوكولات عقود بين الأنظمة يجب الوفاء بها",
+      "function": "إدارة بروتوكولات الاتصال بين جميع الأنظمة وضمان توافق الإصدارات والعقود",
+      "techniques": ["REST/HTTP", "GraphQL", "gRPC/Protobuf", "WebSocket", "MQTT", "AMQP", "API Versioning"],
+      "protocols": {
+        "internal": "gRPC + Protobuf (سرعة وكفاءة)",
+        "external": "REST/JSON (توافقية)",
+        "realtime": "WebSocket (اتصال مستمر)",
+        "iot": "MQTT (أجهزة خفيفة)",
+        "ai": "MCP (نماذج ذكاء اصطناعي)"
+      },
+      "activation": "always-on", "weight": 0.92, "priority": 1,
+      "connections": [51,52,53,55,48,25]
+    },
+
+    {
+      "number": 55, "id": "cell-transport-sync", "layer": 10,
+      "nameAr": "خلية التزامن والتوافق الكوني", "nameEn": "Synchronization & Universal Harmony Cell",
+      "reference": "الملك:3", "ayah": "الَّذِي خَلَقَ سَبْعَ سَمَاوَاتٍ طِبَاقًا ۖ مَّا تَرَىٰ فِي خَلْقِ الرَّحْمَٰنِ مِن تَفَاوُتٍ",
+      "significance": "لا تفاوت في خلق الرحمن — التزامن الكامل بلا تعارض أو تناقض",
+      "function": "تزامن حالة جميع الخلايا والأنظمة وضمان الاتساق الكامل عبر الشبكة الموزعة",
+      "techniques": ["Distributed Consensus (Raft/Paxos)", "Event Sourcing + CQRS", "Two-Phase Commit", "Saga Pattern"],
+      "guarantees": ["Eventual Consistency", "Causal Ordering", "Idempotent Operations", "Conflict-Free Merge"],
+      "activation": "always-on", "weight": 0.94, "priority": 1,
+      "connections": [51,52,53,54,12,26]
     }
 
   ]

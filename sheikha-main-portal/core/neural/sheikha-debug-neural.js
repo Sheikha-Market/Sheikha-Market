@@ -10,16 +10,18 @@
  * ﴿ قُلْ هُوَ اللَّهُ أَحَدٌ ﴾ — الإخلاص: 1
  * «إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ» — البيهقي
  *
- * الطبقات التسع للشبكة العصبية الكاملة:
- *   Layer 0 — الأساس والتوحيد      (خلايا 1-12)   — CORE & TAWHEED
- *   Layer 1 — التشخيص والتصحيح    (خلايا 13-16)  — DEBUGGING & DIAGNOSTICS
- *   Layer 2 — التجارة والاقتصاد    (خلايا 17-20)  — COMMERCE & ECONOMY
- *   Layer 3 — الذكاء الاصطناعي    (خلايا 21-24)  — AI & MACHINE LEARNING
- *   Layer 4 — الشبكة والاتصالات   (خلايا 25-28)  — NETWORK & TELECOM
- *   Layer 5 — اللغة والإعلام       (خلايا 29-31)  — LANGUAGE & MEDIA
- *   Layer 6 — التعليم والبحث       (خلايا 32-35)  — EDUCATION & RESEARCH
- *   Layer 7 — القيادة والأخلاق     (خلايا 36-40)  — LEADERSHIP & ETHICS
- *   Layer 8 — الصحة والبيئة        (خلايا 41-45)  — HEALTH, ENV & LEGACY
+ * الطبقات الإحدى عشرة للشبكة العصبية الكاملة:
+ *   Layer 0  — الأساس والتوحيد      (خلايا 1-12)   — CORE & TAWHEED
+ *   Layer 1  — التشخيص والتصحيح    (خلايا 13-16)  — DEBUGGING & DIAGNOSTICS
+ *   Layer 2  — التجارة والاقتصاد    (خلايا 17-20)  — COMMERCE & ECONOMY
+ *   Layer 3  — الذكاء الاصطناعي    (خلايا 21-24)  — AI & MACHINE LEARNING
+ *   Layer 4  — الشبكة والاتصالات   (خلايا 25-28)  — NETWORK & TELECOM
+ *   Layer 5  — اللغة والإعلام       (خلايا 29-31)  — LANGUAGE & MEDIA
+ *   Layer 6  — التعليم والبحث       (خلايا 32-35)  — EDUCATION & RESEARCH
+ *   Layer 7  — القيادة والأخلاق     (خلايا 36-40)  — LEADERSHIP & ETHICS
+ *   Layer 8  — الصحة والبيئة        (خلايا 41-45)  — HEALTH, ENV & LEGACY
+ *   Layer 9  — الأدوات التقنية      (خلايا 46-50)  — IDE + SDK + MCP + ERP + DevOps
+ *   Layer 10 — الناقل الشامل        (خلايا 51-55)  — TRANSPORT BUS
  *
  * واجهة الوحدة:
  *   init()                    — تهيئة الشبكة الكاملة (45 خلية)
@@ -53,6 +55,13 @@ try {
     _manifest = { meta: {}, layers: [], cells: [] };
 }
 
+// ─── الناقل الشامل (اختياري) ─────────────────────────────────────────────────
+
+let _transport = null;
+try {
+    _transport = require('./sheikha-transport-bus');
+} catch (_) { /* اختياري */ }
+
 // ─── حالة الوحدة ──────────────────────────────────────────────────────────────
 
 let _cells      = new Map();   // رقم الخلية → كائن الخلية
@@ -67,7 +76,7 @@ const ACTIVATION_INCREMENT = 0.05;
 const MAX_ERROR_LOG        = 200;
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// ① تهيئة الشبكة العصبية الكاملة — 45 خلية
+// ① تهيئة الشبكة العصبية الكاملة — 55 خلية
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function init() {
@@ -163,6 +172,11 @@ function debug(input = {}) {
     // ─── تسجيل في سجل الأخطاء ────────────────────────────────────────────────
     if (severity === 'error' || severity === 'critical') {
         _logError({ debugId, system, error, severity, context, timestamp: new Date().toISOString() });
+    }
+
+    // ─── إطلاق حدث على الناقل الشامل ────────────────────────────────────────
+    if (_transport) {
+        _transport.emit('debug.triggered', { debugId, system, severity, issuesFound: detection.issuesFound }, 'debug-neural');
     }
 
     const elapsed = Date.now() - startTime;
@@ -365,6 +379,12 @@ function process(input = {}) {
     const { type = 'general', data = {}, context = '' } = input;
 
     const activationMap = {
+        'ide':          [1, 46, 7, 34, 13],
+        'sdk':          [1, 47, 46, 48],
+        'mcp':          [1, 48, 21, 23, 51],
+        'erp':          [1, 49, 17, 18, 9, 36],
+        'devops':       [1, 50, 10, 15, 51],
+        'transport':    [1, 51, 52, 53, 54, 55],
         'startup':      [1, 2, 3],
         'auth':         [1, 2, 4, 43],
         'security':     [1, 2, 28, 42, 43],
