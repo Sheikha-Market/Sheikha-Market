@@ -447,6 +447,7 @@ function removeBridge(bridgeId) {
  * تفعيل جميع الجسور الافتراضية بين أنظمة المنظومة
  */
 function activateDefaultBridges() {
+    if (_bridgesActivated) return [];   // منع التفعيل المكرر
     const defaultBridges = [
         // IDE ↔ الشبكة العصبية
         ['ide-server',       'debug-neural',    null],
@@ -663,10 +664,15 @@ function createRouter() {
     return router;
 }
 
+let _bridgesActivated = false;
+
 // ─── تهيئة تلقائية ────────────────────────────────────────────────────────────
 
 init();
-activateDefaultBridges();
+if (!_bridgesActivated) {
+    activateDefaultBridges();
+    _bridgesActivated = true;
+}
 
 // ─── Export ───────────────────────────────────────────────────────────────────
 

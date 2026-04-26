@@ -325,7 +325,7 @@ function _runAlert(healing, severity) {
 
 function _logError(entry) {
     _errorLog.unshift(entry);
-    if (_errorLog.length > MAX_ERROR_LOG) _errorLog = _errorLog.slice(0, MAX_ERROR_LOG);
+    if (_errorLog.length > MAX_ERROR_LOG) _errorLog.length = MAX_ERROR_LOG;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
