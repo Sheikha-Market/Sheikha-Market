@@ -36742,7 +36742,7 @@ app.get('/api/memory/health', (_req, res) => {
     const heapMB = Math.round(m.heapUsed  / 1024 / 1024);
     const rssMB  = Math.round(m.rss       / 1024 / 1024);
     const pct    = Math.round((m.heapUsed / m.heapTotal) * 100);
-    const ok     = rssMB < 1024 && pct < 90;
+    const ok     = rssMB < 1024 && (heapMB < 200 || pct < 90);
     res.status(ok ? 200 : 503).json({
         success:   ok,
         service:   'memory',
