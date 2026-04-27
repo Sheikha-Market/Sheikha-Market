@@ -37070,7 +37070,7 @@ try {
     });
     smartDigitalRootEngine.registerRoutes(app);
     const rootStatus = smartDigitalRootEngine.getStatus();
-    console.log(`✅ [DigitalRoot v2.0] ${rootStatus.nameAr} | ${rootStatus.activeRoots} جذر نشط | ${rootStatus.chainHeight} كتلة | ${rootStatus.apis} API | ${rootStatus.algos.join(' + ')}`);
+    console.log(`✅ [DigitalRoot v2.0] ${rootStatus.nameAr} | ${rootStatus.activeRoots} جذر نشط | ${rootStatus.chainHeight} كتلة | ${rootStatus.apis} API | ${(rootStatus.algos || []).join(' + ')}`);
 } catch (e) {
     console.warn('⚠️ DigitalRoot:', e.message);
 }
