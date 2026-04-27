@@ -49,6 +49,10 @@ check "protocol-status"   "$BASE/api/protocol-events/status"
 check "pipeline-health"   "$BASE/api/sheikha-pipeline/health"
 check "pipeline-status"   "$BASE/api/sheikha-pipeline/status"
 
+# ── حوكمة شيخة ───────────────────────────────────────────────────
+check "governance"        "$BASE/api/governance/health"
+check "governance-status" "$BASE/api/governance/status"
+
 # ── مسارات إضافية ────────────────────────────────────────────────
 check "offline-status"    "$BASE/api/offline/status"
 check "realtime-health"   "$BASE/api/realtime/health"
