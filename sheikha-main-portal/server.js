@@ -36735,30 +36735,38 @@ app.get('/api/protocol-events/status', (_req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🧩 MEMORY HEALTH — صحة الذاكرة
+// 🧩 MEMORY — ذاكرة التعلم الذاتي + صحة ذاكرة العملية
 // ═══════════════════════════════════════════════════════════════════════════════
-app.get('/api/memory/health', (_req, res) => {
-    const m      = process.memoryUsage();
-    const heapMB = Math.round(m.heapUsed  / 1024 / 1024);
-    const rssMB  = Math.round(m.rss       / 1024 / 1024);
-    const pct    = Math.round((m.heapUsed / m.heapTotal) * 100);
-    const ok     = rssMB < 1024 && (heapMB < 200 || pct < 90);
-    res.status(ok ? 200 : 503).json({
-        success:   ok,
-        service:   'memory',
-        status:    ok ? 'healthy' : 'degraded',
-        timestamp: new Date().toISOString(),
-        memory: {
-            heapUsedMB:  heapMB,
-            heapTotalMB: Math.round(m.heapTotal / 1024 / 1024),
-            rssMB,
-            externalMB:  Math.round(m.external  / 1024 / 1024),
-            heapPct:     pct,
-        },
-        uptime: Math.round(process.uptime()),
-        pid:    process.pid,
+try {
+    const memoryRoutes = require('./routes/memory.routes');
+    app.use('/api/memory', memoryRoutes);
+    console.log('✅ Memory routes mounted on /api/memory');
+} catch (e) {
+    console.error('❌ Memory routes failed to load:', e.message);
+    // Fallback inline handler preserves the small-heap fix
+    app.get('/api/memory/health', (_req, res) => {
+        const m      = process.memoryUsage();
+        const heapMB = Math.round(m.heapUsed  / 1024 / 1024);
+        const rssMB  = Math.round(m.rss       / 1024 / 1024);
+        const pct    = Math.round((m.heapUsed / m.heapTotal) * 100);
+        const ok     = rssMB < 1024 && (heapMB < 200 || pct < 90);
+        res.status(ok ? 200 : 503).json({
+            success:   ok,
+            service:   'memory',
+            status:    ok ? 'healthy' : 'degraded',
+            timestamp: new Date().toISOString(),
+            memory: {
+                heapUsedMB:  heapMB,
+                heapTotalMB: Math.round(m.heapTotal / 1024 / 1024),
+                rssMB,
+                externalMB:  Math.round(m.external  / 1024 / 1024),
+                heapPct:     pct,
+            },
+            uptime: Math.round(process.uptime()),
+            pid:    process.pid,
+        });
     });
-});
+}
 
 // ── Network health/live/ready ─────────────────────────────────────────────
 app.get('/api/network/live',   (_req, res) => res.json({ success: true, status: 'live',  service: 'network', timestamp: new Date().toISOString() }));
