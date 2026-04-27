@@ -10,6 +10,13 @@
   "scripts": {
     "start": "node --max-old-space-size=2048 server.js",
     "start:proxy": "node scripts/proxy-8081.js",
+    "server:start": "pm2 start ecosystem.config.js --only sheikha-api && pm2 save",
+    "server:stop": "pm2 stop sheikha-api && pm2 save",
+    "server:restart": "pm2 describe sheikha-api > /dev/null 2>&1 && pm2 restart sheikha-api && pm2 save || pm2 start ecosystem.config.js --only sheikha-api && pm2 save",
+    "server:status": "pm2 describe sheikha-api",
+    "server:logs": "pm2 logs sheikha-api --lines 100",
+    "server:smoke": "bash scripts/sheikha-smoke-test.sh",
+    "server:deploy": "git pull && npm run server:restart && sleep 5 && npm run server:smoke",
     "meta:start": "pm2 start ecosystem.config.js --only sheikha-meta-background && pm2 save",
     "meta:stop": "pm2 stop sheikha-meta-background && pm2 save",
     "meta:restart": "pm2 restart sheikha-meta-background && pm2 save",
