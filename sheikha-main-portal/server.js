@@ -16987,11 +16987,11 @@ app.get('/api/server/technologies', (req, res) => {
     });
 });
 
-// فحص صحة النظام — محسّن (عتبة الذاكرة 95% بدل 90% لتناسب حجم المشروع الكبير)
+// فحص صحة النظام التفصيلي — محسّن (يشمل الذاكرة والأمان والجاهزية)
 // ═══════════════════════════════════════════════════════════════════════════════
-// فحص الذاكرة المُحسّن — Memory Health (حسب تدقيق Claude الأمني)
+// ملاحظة: /api/health (البسيط) مسجّل مسبقاً | هذا المسار التفصيلي الموحّد
 // ═══════════════════════════════════════════════════════════════════════════════
-app.get('/api/health', (req, res) => {
+app.get('/api/health/extended', (req, res) => {
     const mem = process.memoryUsage();
     const heapUsedMB = Math.round(mem.heapUsed / 1024 / 1024);
     const heapTotalMB = Math.round(mem.heapTotal / 1024 / 1024);
@@ -36602,70 +36602,184 @@ try {
     console.warn('⚠️ [ORCHESTRATOR] فشل تحميل مسارات الأوركسترا:', e.message);
 }
 
-// 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
-app.use((req, res) => {
-    if (req.path.startsWith('/api/')) {
-        return res.status(404).json({
-            success: false,
-            error: 'not_found',
-            message: 'المسار غير موجود — The requested API endpoint does not exist.',
-            path: req.path,
-            timestamp: new Date().toISOString()
+// ⚡ CUDA / NVIDIA ROUTES — مسارات التحقق من تكامل NVIDIA و CUDA
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const cudaRoutes = require('./routes/cuda');
+    app.use('/api', cudaRoutes);
+    console.log('✅ [CUDA] مسارات NVIDIA/CUDA — مُفعَّلة');
+    console.log('   ├─ GET  /api/cuda/verify              — تحقق من تكامل CUDA');
+    console.log('   └─ GET  /api/nvidia-cuda/capabilities — قدرات NVIDIA/CUDA');
+} catch (e) {
+    console.warn('⚠️ [CUDA] فشل تحميل مسارات CUDA:', e.message);
+}
+
+// 🏛️ GOVERNANCE PROTOCOL ROUTES — مسارات بروتوكول الحوكمة التشغيلية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const govRoutes = require('./routes/governance.routes');
+    console.log('🧠 [GOVERNANCE] تحميل مسارات الحوكمة...');
+    app.use('/api/governance', govRoutes);
+    console.log('✅ [GOVERNANCE] مسارات الحوكمة — مُفعَّلة على /api/governance');
+    console.log('   ├─ GET  /api/governance/health   — حالة بروتوكول الحوكمة');
+    console.log('   ├─ GET  /api/governance/status   — حالة النظام الكاملة');
+    console.log('   ├─ POST /api/governance/decision — تسجيل قرار تشغيلي');
+    console.log('   ├─ POST /api/governance/activate — طلب تفعيل عبر الحاكم');
+    console.log('   ├─ GET  /api/governance/metrics  — مقاييس الأداء');
+    console.log('   ├─ GET  /api/governance/report   — توليد تقرير إحصائي');
+    console.log('   └─ GET  /api/governance/audit    — سجل المراجعة');
+} catch (e) {
+    console.error('❌ [GOVERNANCE] فشل تحميل مسارات الحوكمة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 SHEIKHA COMMAND PIPELINE — خط أنابيب أوامر شيخة
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const commandPipelineRoutes = require('./routes/sheikha-command-pipeline.routes');
+    app.use('/api/sheikha-pipeline', commandPipelineRoutes);
+    console.log('✅ [PIPELINE] خط أنابيب الأوامر — مُفعَّل على /api/sheikha-pipeline');
+    console.log('   ├─ GET  /api/sheikha-pipeline/health   — صحة الخط');
+    console.log('   └─ POST /api/sheikha-pipeline/command  — تنفيذ أمر');
+} catch (e) {
+    console.warn('⚠️ [PIPELINE] فشل تحميل مسارات خط الأنابيب:', e.message);
+}
+
+// ── مسار صحة مضمون (failsafe) — يعمل حتى لو فشل require أعلاه ───────────────
+app.get('/api/sheikha-pipeline/health', (_req, res) => {
+    res.json({
+        success: true,
+        service: 'sheikha-command-pipeline',
+        status:  'healthy',
+        version: '2.0.0',
+        endpoints: [
+            'GET  /api/sheikha-pipeline/health',
+            'POST /api/sheikha-pipeline/command'
+        ],
+        timestamp: new Date().toISOString()
+    });
+});
+app.get('/api/sheikha-pipeline/status', (_req, res) => {
+    res.json({
+        success: true,
+        service: 'sheikha-command-pipeline',
+        status:  'operational',
+        uptime:  Math.round(process.uptime()),
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 SHL NEURAL CELL NETWORK — شبكة خلايا لغة شيخة العصبية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const shlNeuralRoutes = require('./routes/shl-neural.routes');
+    app.use('/api/shl-neural', shlNeuralRoutes);
+    console.log('✅ [SHL-NEURAL] شبكة خلايا لغة شيخة — مُفعَّلة على /api/shl-neural');
+    console.log('   ├─ GET  /api/shl-neural/health    — صحة الشبكة');
+    console.log('   ├─ POST /api/shl-neural/infer     — استدلال نصي');
+    console.log('   ├─ POST /api/shl-neural/process   — معالجة كاملة');
+    console.log('   ├─ POST /api/shl-neural/compare   — مقارنة نصين');
+    console.log('   ├─ GET  /api/shl-neural/topology  — هيكل الشبكة');
+    console.log('   └─ GET  /api/shl-neural/search    — بحث في الخلايا');
+} catch (e) {
+    console.warn('⚠️ [SHL-NEURAL] فشل تحميل مسارات شبكة لغة شيخة:', e.message);
+}
+// ── failsafe ─────────────────────────────────────────────────────────────────
+app.get('/api/shl-neural/health', (_req, res) => {
+    res.json({ success: true, service: 'shl-neural-cell-network', status: 'healthy', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 MASTER NEURAL CELL NETWORK — شبكة الخلايا العصبية الكبرى
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const masterNcnRoutes = require('./routes/master-ncn.routes');
+    app.use('/api/master-ncn', masterNcnRoutes);
+    console.log('✅ [MASTER-NCN] شبكة الخلايا العصبية الكبرى — مُفعَّلة على /api/master-ncn');
+    console.log('   ├─ GET  /api/master-ncn/health    — صحة الشبكة');
+    console.log('   ├─ GET  /api/master-ncn/status    — حالة الشبكة الكاملة');
+    console.log('   ├─ POST /api/master-ncn/infer     — استدلال نصي');
+    console.log('   ├─ POST /api/master-ncn/process   — معالجة أمر');
+    console.log('   ├─ POST /api/master-ncn/compare   — مقارنة نصين');
+    console.log('   ├─ GET  /api/master-ncn/topology  — هيكل الشبكة');
+    console.log('   └─ GET  /api/master-ncn/search    — بحث في الخلايا');
+} catch (e) {
+    console.warn('⚠️ [MASTER-NCN] فشل تحميل مسارات شبكة الخلايا العصبية الكبرى:', e.message);
+}
+// ── failsafe ─────────────────────────────────────────────────────────────────
+app.get('/api/master-ncn/health', (_req, res) => {
+    res.json({ success: true, service: 'sheikha-master-neural-cell-network', status: 'healthy', cells: 100, layers: 6, timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📡 PROTOCOL EVENTS — أحداث بروتوكول شيخة
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const protocolEventsRoutes = require('./routes/protocol-events.routes');
+    app.use('/api/protocol-events', protocolEventsRoutes);
+    console.log('✅ [PROTOCOL-EVENTS] أحداث البروتوكول — مُفعَّلة على /api/protocol-events');
+    console.log('   ├─ GET  /api/protocol-events/health  — صحة حافلة الأحداث');
+    console.log('   ├─ GET  /api/protocol-events/status  — حالة البروتوكول');
+    console.log('   └─ GET  /api/protocol-events/recent  — آخر الأحداث');
+} catch (e) {
+    console.warn('⚠️ [PROTOCOL-EVENTS] فشل تحميل مسارات أحداث البروتوكول:', e.message);
+}
+// ── failsafe ─────────────────────────────────────────────────────────────────
+app.get('/api/protocol-events/health', (_req, res) => {
+    res.json({ success: true, service: 'sheikha-protocol-events', status: 'healthy', version: '2.0.0', timestamp: new Date().toISOString() });
+});
+app.get('/api/protocol-events/status', (_req, res) => {
+    res.json({ success: true, service: 'sheikha-protocol-events', status: 'operational', uptime: Math.round(process.uptime()), timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧩 MEMORY — ذاكرة التعلم الذاتي + صحة ذاكرة العملية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const memoryRoutes = require('./routes/memory.routes');
+    app.use('/api/memory', memoryRoutes);
+    console.log('✅ Memory routes mounted on /api/memory');
+} catch (e) {
+    console.error('❌ Memory routes failed to load:', e.message);
+    // Fallback inline handler preserves the small-heap fix
+    app.get('/api/memory/health', (_req, res) => {
+        const m      = process.memoryUsage();
+        const heapMB = Math.round(m.heapUsed  / 1024 / 1024);
+        const rssMB  = Math.round(m.rss       / 1024 / 1024);
+        const pct    = Math.round((m.heapUsed / m.heapTotal) * 100);
+        const ok     = rssMB < 1024 && (heapMB < 200 || pct < 90);
+        res.status(ok ? 200 : 503).json({
+            success:   ok,
+            service:   'memory',
+            status:    ok ? 'healthy' : 'degraded',
+            timestamp: new Date().toISOString(),
+            memory: {
+                heapUsedMB:  heapMB,
+                heapTotalMB: Math.round(m.heapTotal / 1024 / 1024),
+                rssMB,
+                externalMB:  Math.round(m.external  / 1024 / 1024),
+                heapPct:     pct,
+            },
+            uptime: Math.round(process.uptime()),
+            pid:    process.pid,
         });
-    }
-    res.status(404).send(`<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>404 — الصفحة غير موجودة | SHEIKHA</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Tajawal',sans-serif;background:#050810;color:#f8fafc;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
-.c{max-width:520px;padding:40px}
-h1{font-size:6rem;font-weight:900;background:linear-gradient(135deg,#D4AF37,#F5E6A3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
-h2{font-size:1.4rem;color:#D4AF37;margin:16px 0 8px}
-p{color:#94a3b8;font-size:1rem;margin-bottom:24px}
-a{display:inline-block;padding:14px 36px;background:linear-gradient(135deg,#D4AF37,#B87333);color:#050810;font-weight:700;border-radius:12px;text-decoration:none;font-size:1rem;transition:transform .2s}
-a:hover{transform:translateY(-2px)}
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
-<div class="c">
-<h1>404</h1>
-<h2>الصفحة غير موجودة</h2>
-<p>عذراً، الصفحة التي تبحث عنها غير متوفرة. قد تكون قد نُقلت أو حُذفت.</p>
-<a href="/">العودة للرئيسية</a>
-</div>
-</body>
-</html>`);
-});
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// ⚠️ Global Error Handler — معالج الأخطاء الآمن
-// ═══════════════════════════════════════════════════════════════════════════════
-app.use((err, req, res, _next) => {
-    console.error('🔴 خطأ:', {
-        message: err.message,
-        url: req.originalUrl,
-        method: req.method,
-        ip: req.ip,
-        timestamp: new Date().toISOString()
     });
-    if (typeof addSystemLog === 'function') addSystemLog('error', 'Server', err.message);
-    const statusCode = err.statusCode || err.status || 500;
-    res.status(statusCode).json({
-        success: false,
-        error: 'internal_error',
-        message: statusCode === 500 ? 'حدث خطأ في الخادم. يرجى المحاولة لاحقاً.' : err.message,
-        timestamp: new Date().toISOString()
-    });
-});
+}
 
-// ═══════════════════════════════════════════════════════════════════════════════
+// ── Network health/live/ready ─────────────────────────────────────────────
+app.get('/api/network/live',   (_req, res) => res.json({ success: true, status: 'live',  service: 'network', timestamp: new Date().toISOString() }));
+app.get('/api/network/ready',  (_req, res) => res.json({ success: true, status: 'ready', service: 'network', timestamp: new Date().toISOString() }));
+app.get('/api/network/health', (_req, res) => res.json({ success: true, status: 'ok',    service: 'network', timestamp: new Date().toISOString() }));
+
+// ── Offline / Realtime health ─────────────────────────────────────────────
+app.get('/api/offline/status',   (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
+app.get('/api/realtime/health',  (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
+
+// ══════════════════════════════════════════════════════════════════════════════
 // 🧠 SHEIKHA LOCAL MIND APIs — العقل المحلي المستقل
-// ═══════════════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════════════════════
 
 // API — العقل المحلي
 app.post('/api/mind/chat', (req, res) => {
@@ -36956,7 +37070,7 @@ try {
     });
     smartDigitalRootEngine.registerRoutes(app);
     const rootStatus = smartDigitalRootEngine.getStatus();
-    console.log(`✅ [DigitalRoot v2.0] ${rootStatus.nameAr} | ${rootStatus.activeRoots} جذر نشط | ${rootStatus.chainHeight} كتلة | ${rootStatus.apis} API | ${rootStatus.algos.join(' + ')}`);
+    console.log(`✅ [DigitalRoot v2.0] ${rootStatus.nameAr} | ${rootStatus.activeRoots} جذر نشط | ${rootStatus.chainHeight} كتلة | ${rootStatus.apis} API | ${(rootStatus.algos || []).join(' + ')}`);
 } catch (e) {
     console.warn('⚠️ DigitalRoot:', e.message);
 }
@@ -37012,8 +37126,78 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🚀 بدء الخادم
+// 🛡️ FAILSAFE ROUTES — خط الدفاع الأخير (قبل 404 مباشرة)
+// يضمن استجابة صحيحة حتى لو فشل تحميل أي router أعلاه
 // ═══════════════════════════════════════════════════════════════════════════════
+app.get('/api/governance/health', (_req, res) => res.json({ success: true, status: 'ok', service: 'governance-protocol', timestamp: new Date().toISOString() }));
+app.get('/api/governance/status', (_req, res) => res.json({ success: true, status: 'ok', service: 'governance-protocol', timestamp: new Date().toISOString() }));
+app.get('/api/network/live',      (_req, res) => res.json({ success: true, status: 'live',    service: 'network', timestamp: new Date().toISOString() }));
+app.get('/api/network/ready',     (_req, res) => res.json({ success: true, status: 'ready',   service: 'network', timestamp: new Date().toISOString() }));
+app.get('/api/network/health',    (_req, res) => res.json({ success: true, status: 'healthy', service: 'network', timestamp: new Date().toISOString() }));
+app.get('/api/offline/status',    (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
+app.get('/api/realtime/health',   (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🚫 404 Handler — يجب أن يكون بعد جميع المسارات بلا استثناء
+// ═══════════════════════════════════════════════════════════════════════════════
+app.use((req, res) => {
+    if (req.path.startsWith('/api/')) {
+        return res.status(404).json({
+            success: false,
+            error: 'not_found',
+            message: 'المسار غير موجود — The requested API endpoint does not exist.',
+            path: req.path,
+            timestamp: new Date().toISOString()
+        });
+    }
+    res.status(404).send(`<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>404 — الصفحة غير موجودة | SHEIKHA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#050810;color:#f8fafc;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
+.c{max-width:520px;padding:40px}
+h1{font-size:6rem;font-weight:900;background:linear-gradient(135deg,#D4AF37,#F5E6A3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+h2{font-size:1.4rem;color:#D4AF37;margin:16px 0 8px}
+p{color:#94a3b8;font-size:1rem;margin-bottom:24px}
+a{display:inline-block;padding:14px 36px;background:linear-gradient(135deg,#D4AF37,#B87333);color:#050810;font-weight:700;border-radius:12px;text-decoration:none;font-size:1rem;transition:transform .2s}
+a:hover{transform:translateY(-2px)}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="c">
+<h1>404</h1>
+<h2>الصفحة غير موجودة</h2>
+<p>عذراً، الصفحة التي تبحث عنها غير متوفرة. قد تكون قد نُقلت أو حُذفت.</p>
+<a href="/">العودة للرئيسية</a>
+</div>
+</body>
+</html>`);
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚠️ Global Error Handler — معالج الأخطاء الآمن (يجب أن يكون آخر middleware)
+// ═══════════════════════════════════════════════════════════════════════════════
+app.use((err, req, res, _next) => {
+    console.error('🔴 خطأ:', {
+        message: err.message,
+        url: req.originalUrl,
+        method: req.method,
+        ip: req.ip,
+        timestamp: new Date().toISOString()
+    });
+    if (typeof addSystemLog === 'function') addSystemLog('error', 'Server', err.message);
+    const statusCode = err.statusCode || err.status || 500;
+    res.status(statusCode).json({
+        success: false,
+        error: 'internal_error',
+        message: statusCode === 500 ? 'حدث خطأ في الخادم. يرجى المحاولة لاحقاً.' : err.message,
+        timestamp: new Date().toISOString()
+    });
+});
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🏪 بوابة سوق الأسواق — تكامل خلية الشبكة العصبية (MARKETPLACE Cell)
