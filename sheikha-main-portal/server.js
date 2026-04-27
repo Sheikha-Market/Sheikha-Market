@@ -36759,6 +36759,15 @@ app.get('/api/memory/health', (_req, res) => {
     });
 });
 
+// ── Network health/live/ready ─────────────────────────────────────────────
+app.get('/api/network/live',   (_req, res) => res.json({ success: true, status: 'live',  service: 'network', timestamp: new Date().toISOString() }));
+app.get('/api/network/ready',  (_req, res) => res.json({ success: true, status: 'ready', service: 'network', timestamp: new Date().toISOString() }));
+app.get('/api/network/health', (_req, res) => res.json({ success: true, status: 'ok',    service: 'network', timestamp: new Date().toISOString() }));
+
+// ── Offline / Realtime health ─────────────────────────────────────────────
+app.get('/api/offline/status',   (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
+app.get('/api/realtime/health',  (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
+
 // ══════════════════════════════════════════════════════════════════════════════
 // 🧠 SHEIKHA LOCAL MIND APIs — العقل المحلي المستقل
 // ══════════════════════════════════════════════════════════════════════════════
