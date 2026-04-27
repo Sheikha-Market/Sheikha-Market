@@ -36602,6 +36602,94 @@ try {
     console.warn('⚠️ [ORCHESTRATOR] فشل تحميل مسارات الأوركسترا:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 SHEIKHA COMMAND PIPELINE — خط أنابيب أوامر شيخة
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const commandPipelineRoutes = require('./routes/sheikha-command-pipeline.routes');
+    app.use('/api/sheikha-pipeline', commandPipelineRoutes);
+    console.log('✅ [PIPELINE] خط أنابيب الأوامر — مُفعَّل على /api/sheikha-pipeline');
+    console.log('   ├─ GET  /api/sheikha-pipeline/health   — صحة الخط');
+    console.log('   └─ POST /api/sheikha-pipeline/command  — تنفيذ أمر');
+} catch (e) {
+    console.warn('⚠️ [PIPELINE] فشل تحميل مسارات خط الأنابيب:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 SHL NEURAL CELL NETWORK — شبكة خلايا لغة شيخة العصبية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const shlNeuralRoutes = require('./routes/shl-neural.routes');
+    app.use('/api/shl-neural', shlNeuralRoutes);
+    console.log('✅ [SHL-NEURAL] شبكة خلايا لغة شيخة — مُفعَّلة على /api/shl-neural');
+    console.log('   ├─ GET  /api/shl-neural/health    — صحة الشبكة');
+    console.log('   ├─ POST /api/shl-neural/infer     — استدلال نصي');
+    console.log('   ├─ POST /api/shl-neural/process   — معالجة كاملة');
+    console.log('   ├─ POST /api/shl-neural/compare   — مقارنة نصين');
+    console.log('   ├─ GET  /api/shl-neural/topology  — هيكل الشبكة');
+    console.log('   └─ GET  /api/shl-neural/search    — بحث في الخلايا');
+} catch (e) {
+    console.warn('⚠️ [SHL-NEURAL] فشل تحميل مسارات شبكة لغة شيخة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 MASTER NEURAL CELL NETWORK — شبكة الخلايا العصبية الكبرى
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const masterNcnRoutes = require('./routes/master-ncn.routes');
+    app.use('/api/master-ncn', masterNcnRoutes);
+    console.log('✅ [MASTER-NCN] شبكة الخلايا العصبية الكبرى — مُفعَّلة على /api/master-ncn');
+    console.log('   ├─ GET  /api/master-ncn/health    — صحة الشبكة');
+    console.log('   ├─ GET  /api/master-ncn/status    — حالة الشبكة الكاملة');
+    console.log('   ├─ POST /api/master-ncn/infer     — استدلال نصي');
+    console.log('   ├─ POST /api/master-ncn/process   — معالجة أمر');
+    console.log('   ├─ POST /api/master-ncn/compare   — مقارنة نصين');
+    console.log('   ├─ GET  /api/master-ncn/topology  — هيكل الشبكة');
+    console.log('   └─ GET  /api/master-ncn/search    — بحث في الخلايا');
+} catch (e) {
+    console.warn('⚠️ [MASTER-NCN] فشل تحميل مسارات شبكة الخلايا العصبية الكبرى:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📡 PROTOCOL EVENTS — أحداث بروتوكول شيخة
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const protocolEventsRoutes = require('./routes/protocol-events.routes');
+    app.use('/api/protocol-events', protocolEventsRoutes);
+    console.log('✅ [PROTOCOL-EVENTS] أحداث البروتوكول — مُفعَّلة على /api/protocol-events');
+    console.log('   ├─ GET  /api/protocol-events/health  — صحة حافلة الأحداث');
+    console.log('   ├─ GET  /api/protocol-events/status  — حالة البروتوكول');
+    console.log('   └─ GET  /api/protocol-events/recent  — آخر الأحداث');
+} catch (e) {
+    console.warn('⚠️ [PROTOCOL-EVENTS] فشل تحميل مسارات أحداث البروتوكول:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧩 MEMORY HEALTH — صحة الذاكرة
+// ═══════════════════════════════════════════════════════════════════════════════
+app.get('/api/memory/health', (_req, res) => {
+    const m      = process.memoryUsage();
+    const heapMB = Math.round(m.heapUsed  / 1024 / 1024);
+    const rssMB  = Math.round(m.rss       / 1024 / 1024);
+    const pct    = Math.round((m.heapUsed / m.heapTotal) * 100);
+    const ok     = rssMB < 1024 && pct < 90;
+    res.status(ok ? 200 : 503).json({
+        success:   ok,
+        service:   'memory',
+        status:    ok ? 'healthy' : 'degraded',
+        timestamp: new Date().toISOString(),
+        memory: {
+            heapUsedMB:  heapMB,
+            heapTotalMB: Math.round(m.heapTotal / 1024 / 1024),
+            rssMB,
+            externalMB:  Math.round(m.external  / 1024 / 1024),
+            heapPct:     pct,
+        },
+        uptime: Math.round(process.uptime()),
+        pid:    process.pid,
+    });
+});
+
 // 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
