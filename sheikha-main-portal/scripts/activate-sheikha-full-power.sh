@@ -104,8 +104,12 @@ TS="$(date +%Y%m%d-%H%M%S)"
 
 curl -sS -m 30 http://127.0.0.1:8080/api/cuda/verify          >/tmp/sheikha-full-power-cuda.json    2>/dev/null || true
 curl -sS -m 30 http://127.0.0.1:8080/api/nvidia-cuda/capabilities >/tmp/sheikha-full-power-nvidia.json 2>/dev/null || true
-echo "   cuda verify → /tmp/sheikha-full-power-cuda.json"
-echo "   nvidia caps → /tmp/sheikha-full-power-nvidia.json"
+curl -sS -m 10 http://127.0.0.1:8080/api/sheikha-pipeline/health >/tmp/sheikha-full-power-pipeline.json 2>/dev/null || true
+echo "   cuda verify    → /tmp/sheikha-full-power-cuda.json"
+echo "   nvidia caps    → /tmp/sheikha-full-power-nvidia.json"
+echo "   pipeline health→ /tmp/sheikha-full-power-pipeline.json"
+PIPELINE_STATUS="$(python3 -c "import json,sys; d=json.load(open('/tmp/sheikha-full-power-pipeline.json')); print('✅' if d.get('success') else '❌')" 2>/dev/null || echo '⚠️ ')"
+echo "   pipeline: $PIPELINE_STATUS"
 
 if [ -n "$PY_BIN" ] && [ -x "$PY_BIN" ] && [ -f "$VERIFY_SCRIPT" ]; then
 	if command -v nsys >/dev/null 2>&1; then

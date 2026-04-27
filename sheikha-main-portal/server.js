@@ -36603,6 +36603,19 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// ⚡ CUDA / NVIDIA ROUTES — مسارات التحقق من تكامل NVIDIA و CUDA
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const cudaRoutes = require('./routes/cuda');
+    app.use('/api', cudaRoutes);
+    console.log('✅ [CUDA] مسارات NVIDIA/CUDA — مُفعَّلة');
+    console.log('   ├─ GET  /api/cuda/verify              — تحقق من تكامل CUDA');
+    console.log('   └─ GET  /api/nvidia-cuda/capabilities — قدرات NVIDIA/CUDA');
+} catch (e) {
+    console.warn('⚠️ [CUDA] فشل تحميل مسارات CUDA:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🧠 SHEIKHA COMMAND PIPELINE — خط أنابيب أوامر شيخة
 // ═══════════════════════════════════════════════════════════════════════════════
 try {
