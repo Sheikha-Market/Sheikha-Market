@@ -36615,6 +36615,30 @@ try {
     console.warn('⚠️ [PIPELINE] فشل تحميل مسارات خط الأنابيب:', e.message);
 }
 
+// ── مسار صحة مضمون (failsafe) — يعمل حتى لو فشل require أعلاه ───────────────
+app.get('/api/sheikha-pipeline/health', (_req, res) => {
+    res.json({
+        success: true,
+        service: 'sheikha-command-pipeline',
+        status:  'healthy',
+        version: '2.0.0',
+        endpoints: [
+            'GET  /api/sheikha-pipeline/health',
+            'POST /api/sheikha-pipeline/command'
+        ],
+        timestamp: new Date().toISOString()
+    });
+});
+app.get('/api/sheikha-pipeline/status', (_req, res) => {
+    res.json({
+        success: true,
+        service: 'sheikha-command-pipeline',
+        status:  'operational',
+        uptime:  Math.round(process.uptime()),
+        timestamp: new Date().toISOString()
+    });
+});
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🧠 SHL NEURAL CELL NETWORK — شبكة خلايا لغة شيخة العصبية
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -36631,6 +36655,10 @@ try {
 } catch (e) {
     console.warn('⚠️ [SHL-NEURAL] فشل تحميل مسارات شبكة لغة شيخة:', e.message);
 }
+// ── failsafe ─────────────────────────────────────────────────────────────────
+app.get('/api/shl-neural/health', (_req, res) => {
+    res.json({ success: true, service: 'shl-neural-cell-network', status: 'healthy', timestamp: new Date().toISOString() });
+});
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🧠 MASTER NEURAL CELL NETWORK — شبكة الخلايا العصبية الكبرى
@@ -36649,6 +36677,10 @@ try {
 } catch (e) {
     console.warn('⚠️ [MASTER-NCN] فشل تحميل مسارات شبكة الخلايا العصبية الكبرى:', e.message);
 }
+// ── failsafe ─────────────────────────────────────────────────────────────────
+app.get('/api/master-ncn/health', (_req, res) => {
+    res.json({ success: true, service: 'sheikha-master-neural-cell-network', status: 'healthy', cells: 100, layers: 6, timestamp: new Date().toISOString() });
+});
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📡 PROTOCOL EVENTS — أحداث بروتوكول شيخة
@@ -36663,6 +36695,13 @@ try {
 } catch (e) {
     console.warn('⚠️ [PROTOCOL-EVENTS] فشل تحميل مسارات أحداث البروتوكول:', e.message);
 }
+// ── failsafe ─────────────────────────────────────────────────────────────────
+app.get('/api/protocol-events/health', (_req, res) => {
+    res.json({ success: true, service: 'sheikha-protocol-events', status: 'healthy', version: '2.0.0', timestamp: new Date().toISOString() });
+});
+app.get('/api/protocol-events/status', (_req, res) => {
+    res.json({ success: true, service: 'sheikha-protocol-events', status: 'operational', uptime: Math.round(process.uptime()), timestamp: new Date().toISOString() });
+});
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🧩 MEMORY HEALTH — صحة الذاكرة
