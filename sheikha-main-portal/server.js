@@ -36619,8 +36619,9 @@ try {
 // ═══════════════════════════════════════════════════════════════════════════════
 try {
     const govRoutes = require('./routes/governance.routes');
-    app.use('/api', govRoutes);
-    console.log('✅ [GOVERNANCE] مسارات الحوكمة — مُفعَّلة');
+    console.log('🧠 [GOVERNANCE] تحميل مسارات الحوكمة...');
+    app.use('/api/governance', govRoutes);
+    console.log('✅ [GOVERNANCE] مسارات الحوكمة — مُفعَّلة على /api/governance');
     console.log('   ├─ GET  /api/governance/health   — حالة بروتوكول الحوكمة');
     console.log('   ├─ GET  /api/governance/status   — حالة النظام الكاملة');
     console.log('   ├─ POST /api/governance/decision — تسجيل قرار تشغيلي');
@@ -36629,7 +36630,7 @@ try {
     console.log('   ├─ GET  /api/governance/report   — توليد تقرير إحصائي');
     console.log('   └─ GET  /api/governance/audit    — سجل المراجعة');
 } catch (e) {
-    console.warn('⚠️ [GOVERNANCE] فشل تحميل مسارات الحوكمة:', e.message);
+    console.error('❌ [GOVERNANCE] فشل تحميل مسارات الحوكمة:', e.message);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════

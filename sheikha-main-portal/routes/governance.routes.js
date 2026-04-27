@@ -21,7 +21,7 @@ const router   = express.Router();
 const gov      = require('../lib/sheikha-governance-protocol');
 
 // ── GET /api/governance/health ────────────────────────────────────────
-router.get('/governance/health', (req, res) => {
+router.get('/health', (req, res) => {
   try {
     const health = gov.getHealthStatus();
     res.json({
@@ -35,7 +35,7 @@ router.get('/governance/health', (req, res) => {
 });
 
 // ── GET /api/governance/status ────────────────────────────────────────
-router.get('/governance/status', (req, res) => {
+router.get('/status', (req, res) => {
   try {
     const summary = gov.getMetricsSummary();
     res.json({
@@ -51,7 +51,7 @@ router.get('/governance/status', (req, res) => {
 });
 
 // ── POST /api/governance/decision ─────────────────────────────────────
-router.post('/governance/decision', (req, res) => {
+router.post('/decision', (req, res) => {
   try {
     const { type, mode, result, role, meta } = req.body || {};
     if (!mode || !result) {
@@ -74,7 +74,7 @@ router.post('/governance/decision', (req, res) => {
 
 // ── POST /api/governance/activate ─────────────────────────────────────
 // ملاحظة: هذا المسار يسجّل طلب التفعيل فقط — التفعيل الفعلي عبر sheikha-control
-router.post('/governance/activate', (req, res) => {
+router.post('/activate', (req, res) => {
   try {
     const { mode = 'auto', role = 'system' } = req.body || {};
     const validModes = ['stable', 'power', 'auto'];
@@ -115,7 +115,7 @@ router.post('/governance/activate', (req, res) => {
 });
 
 // ── GET /api/governance/metrics ───────────────────────────────────────
-router.get('/governance/metrics', (req, res) => {
+router.get('/metrics', (req, res) => {
   try {
     const metrics = gov.collectMetrics();
     const summary = gov.getMetricsSummary();
@@ -138,7 +138,7 @@ router.get('/governance/metrics', (req, res) => {
 });
 
 // ── GET /api/governance/report ────────────────────────────────────────
-router.get('/governance/report', (req, res) => {
+router.get('/report', (req, res) => {
   try {
     const { report, filePath } = gov.generateReport();
     res.json({
@@ -154,7 +154,7 @@ router.get('/governance/report', (req, res) => {
 });
 
 // ── GET /api/governance/audit ─────────────────────────────────────────
-router.get('/governance/audit', (req, res) => {
+router.get('/audit', (req, res) => {
   try {
     const limit   = Math.min(parseInt(req.query.limit) || 50, 200);
     const summary = gov.getMetricsSummary();
