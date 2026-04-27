@@ -36615,6 +36615,23 @@ try {
     console.warn('⚠️ [CUDA] فشل تحميل مسارات CUDA:', e.message);
 }
 
+// 🏛️ GOVERNANCE PROTOCOL ROUTES — مسارات بروتوكول الحوكمة التشغيلية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const govRoutes = require('./routes/governance.routes');
+    app.use('/api', govRoutes);
+    console.log('✅ [GOVERNANCE] مسارات الحوكمة — مُفعَّلة');
+    console.log('   ├─ GET  /api/governance/health   — حالة بروتوكول الحوكمة');
+    console.log('   ├─ GET  /api/governance/status   — حالة النظام الكاملة');
+    console.log('   ├─ POST /api/governance/decision — تسجيل قرار تشغيلي');
+    console.log('   ├─ POST /api/governance/activate — طلب تفعيل عبر الحاكم');
+    console.log('   ├─ GET  /api/governance/metrics  — مقاييس الأداء');
+    console.log('   ├─ GET  /api/governance/report   — توليد تقرير إحصائي');
+    console.log('   └─ GET  /api/governance/audit    — سجل المراجعة');
+} catch (e) {
+    console.warn('⚠️ [GOVERNANCE] فشل تحميل مسارات الحوكمة:', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🧠 SHEIKHA COMMAND PIPELINE — خط أنابيب أوامر شيخة
 // ═══════════════════════════════════════════════════════════════════════════════

@@ -10,13 +10,17 @@
 set -euo pipefail
 
 # ── حارس التشغيل المباشر ──────────────────────────────────────────────
-# هذا السكربت محكوم ببروتوكول الحاكم الأعلى.
-# التشغيل المباشر مسموح من الحاكم فقط (SHEIKHA_GOVERNOR=1).
+# هذا المسار محكوم ببروتوكول شيخة.
+# لا يُسمح بالتشغيل المباشر — يجب الاستخدام عبر النظام الحاكم.
 if [[ -z "${SHEIKHA_GOVERNOR:-}" ]]; then
-	echo -e "\033[1;33m⚠️  تحذير: هذا السكربت محكوم ببروتوكول شيخة.\033[0m"
-	echo "   الطريق الصحيح: bash scripts/activate-sheikha.sh --mode power --apply"
-	echo "   أو npm        : npm run ops:activate:full-power"
-	echo "   جارٍ التنفيذ المباشر (تحذير فقط — لن يُوقَف)..."
+	echo -e "\033[0;31m❌  هذا المسار محكوم ببروتوكول شيخة.\033[0m"
+	echo "   استخدم النظام الحاكم:"
+	echo "     bash scripts/sheikha-control.sh power"
+	echo "     bash scripts/activate-sheikha.sh --mode power --apply"
+	echo "     npm run ops:activate:full-power"
+	echo ""
+	echo "   لتجاوز الحارس (للمطورين فقط): SHEIKHA_GOVERNOR=1 bash $0"
+	exit 1
 fi
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

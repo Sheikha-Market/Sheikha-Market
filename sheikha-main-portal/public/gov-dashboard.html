@@ -163,10 +163,29 @@ const IS_LOCAL = location.protocol === 'file:' || location.hostname === 'localho
 const BASE = IS_LOCAL ? 'http://' + IP : '';
 
 const ENDPOINTS = {
-    main:   { health: BASE + '/api8080/api/health',  name: 'البوابة الرئيسية', port: 8080 },
-    market: { health: BASE + '/api23000/api/health', name: 'السوق العالمي',    port: 23000 },
-    nginx:  { health: BASE + '/healthz',             name: 'Nginx' }
+    main:       { health: BASE + '/api8080/api/health',          name: 'البوابة الرئيسية', port: 8080 },
+    market:     { health: BASE + '/api23000/api/health',         name: 'السوق العالمي',    port: 23000 },
+    nginx:      { health: BASE + '/healthz',                     name: 'Nginx' },
+    governance: { health: BASE + '/api/governance/health',       name: 'Governance Protocol' },
 };
+
+// ── بروتوكول الحوكمة التشغيلية ────────────────────────────────────────
+async function loadGovernanceStatus() {
+    try {
+        const r = await fetch('/api/governance/status', { signal: AbortSignal.timeout(5000) });
+        if (!r.ok) return;
+        const d = await r.json();
+        if (!d.success) return;
+        const m = d.data;
+        addLog('Governance: runs=' + (m.totalRuns||0) + ' successRate=' + (m.successRate||'N/A'), 'ok');
+        if (m.lastRun) {
+            addLog('آخر تشغيل: ' + m.lastRun.mode + ' → ' + m.lastRun.result, m.lastRun.result === 'success' ? 'ok' : 'err');
+        }
+    } catch (e) {
+        addLog('Governance: ' + e.message, 'err');
+    }
+}
+window.addEventListener('DOMContentLoaded', () => { setTimeout(loadGovernanceStatus, 1500); });
 
 // If running on domain directly, use simpler paths
 if (!IS_LOCAL && location.hostname.includes('sheikha.top')) {

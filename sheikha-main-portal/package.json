@@ -325,7 +325,13 @@
     "ops:open-markets:activate:force": "node scripts/activate-sheikha-open-markets-core.js --force",
     "ops:open-markets:status": "node scripts/sheikha-open-markets-core-status.js",
     "ops:universal-core:activate": "node scripts/activate-universal-core.js",
-    "ops:universal-core:status": "node scripts/universal-core-status.js"
+    "ops:universal-core:status": "node scripts/universal-core-status.js",
+    "ops:control": "bash scripts/sheikha-control.sh auto",
+    "ops:control:auto": "bash scripts/sheikha-control.sh auto",
+    "ops:control:stable": "bash scripts/sheikha-control.sh stable",
+    "ops:control:power": "bash scripts/sheikha-control.sh power",
+    "ops:control:status": "bash scripts/sheikha-control.sh status",
+    "ops:control:report": "bash scripts/sheikha-control.sh report"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
