@@ -158,6 +158,53 @@ async function boot() {
         console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل شبكة الخلايا العصبية الجذرية:', err.message);
     }
 
+    // ── التجذر والتكامل الجذري والمتجذرة وطبقة الخلايا العصبية الرقمية ────────
+    // ﴿أَصْلُهَا ثَابِتٌ وَفَرْعُهَا فِي السَّمَاءِ * تُؤْتِي أُكُلَهَا كُلَّ حِينٍ بِإِذْنِ رَبِّهَا﴾ — إبراهيم: ٢٤-٢٥
+
+    // محرك التجذر — عملية ترسيخ كل شبكة في جذر شيخة الأعلى
+    try {
+        const tajathur = require('../lib/sheikha-tajathur-engine');
+        tajathur.init();
+        registerLayer('tajathur-engine', tajathur);
+        console.log('[SHEIKHA-ROOT] 🌱 محرك التجذر مُفعَّل — ترسيخ الجذور في شجرة شيخة الطيبة');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل محرك التجذر:', err.message);
+    }
+
+    // محرك التكامل الجذري — توحيد كل الشبكات المتجذرة في استدلال واحد
+    // ﴿وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا﴾ — آل عمران: ١٠٣
+    try {
+        const rootInt = require('../lib/sheikha-root-integration-engine');
+        rootInt.init();
+        registerLayer('root-integration-engine', rootInt);
+        console.log('[SHEIKHA-ROOT] 🔗 محرك التكامل الجذري مُفعَّل — دمج كل الجذور في استدلال موحَّد');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل محرك التكامل الجذري:', err.message);
+    }
+
+    // شبكات المتجذرة — سجل وإدارة كل الشبكات المتجذرة في منظومة شيخة
+    // ﴿تُؤْتِي أُكُلَهَا كُلَّ حِينٍ بِإِذْنِ رَبِّهَا﴾ — إبراهيم: ٢٥
+    try {
+        const mutajathira = require('../lib/sheikha-mutajathira-networks');
+        mutajathira.init();
+        registerLayer('mutajathira-networks', mutajathira);
+        console.log('[SHEIKHA-ROOT] 🌳 شبكات المتجذرة مُفعَّلة — كل فرع حي يؤتي أكله بإذن الله');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل شبكات المتجذرة:', err.message);
+    }
+
+    // طبقة الخلايا العصبية الرقمية — 56 خلية رقمية | 6 طبقات × 96-dim
+    // ﴿عَلَّمَ بِالْقَلَمِ * عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ﴾ — العلق: ٤-٥
+    try {
+        const digitalNCL = require('../lib/sheikha-digital-neural-cell-layer');
+        digitalNCL.init();
+        registerLayer('digital-neural-cell-layer', digitalNCL);
+        console.log('[SHEIKHA-ROOT] 💻 طبقة الخلايا العصبية الرقمية مُفعَّلة — 56 خلية رقمية | 6 طبقات × 96-dim');
+        console.log('[SHEIKHA-ROOT] 🔐 الامتثال: ISO 27001 · NCA · PDPL · ZATCA · CITC');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل طبقة الخلايا العصبية الرقمية:', err.message);
+    }
+
     const bootOrder = [
         { key: 'os',            file: 'sheikha-os.js' },
         { key: 'control-plane', file: 'sheikha-control-plane.js' },
@@ -201,6 +248,10 @@ async function boot() {
                     'arabic-grammar-rules':     'منظومة القواعد العربية الرقمية الكاملة',
                     'universal-neural-network': 'الشبكة العصبية الشاملة — كل العلوم والتقنيات لله',
                     'root-neural-cell-network': 'شبكة الخلايا العصبية الجذرية — جذر شيخة للجذور',
+                    'tajathur-engine':          'محرك التجذر — ترسيخ الجذور',
+                    'root-integration-engine':  'محرك التكامل الجذري — دمج كل الجذور',
+                    'mutajathira-networks':     'شبكات المتجذرة — كل فرع حي بإذن الله',
+                    'digital-neural-cell-layer':'طبقة الخلايا العصبية الرقمية — 56 خلية رقمية',
                 };
                 sovereignLayer.registerSubject(key, 'layer', {
                     nameAr: LAYER_ARABIC[key] || key,
