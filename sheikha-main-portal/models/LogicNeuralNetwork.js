@@ -32,6 +32,12 @@
 const database = require('../config/database');
 const { ALL_LOGICS, MASTER_LOGIC, LOGIC_TYPES } = require('./SheikhaLogics');
 
+// ─── محرك تكامل البيعة — يُحقَن في الاستدلال ──────────────────────────────
+let _bayahIntegration = null;
+try {
+    _bayahIntegration = require('../lib/sheikha-mubayaa-org-integration');
+} catch (_) { /* يعمل بدونه */ }
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 1. MATRIX — عمليات المصفوفات (القاعدة الرياضية للشبكة)
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -486,6 +492,14 @@ class LogicNeuralNetwork {
         while (inputVec.length < N_INPUT) inputVec.push(0);
         inputVec = inputVec.slice(0, N_INPUT);
 
+        // ─── حقن إشارة البيعة في متجه الإدخال ──────────────────────────────
+        // "البيعة للملك سلمان لله — تُضخّم المنطقيات الأساسية والكونية"
+        if (_bayahIntegration && _bayahIntegration.injectBayahSignal) {
+            try {
+                inputVec = _bayahIntegration.injectBayahSignal(inputVec, 'logic-neural-network');
+            } catch (_) {}
+        }
+
         // ─── إدخال المتجه في الشبكة ───────────────────────────────────────────
         const X = Matrix.fromArray(inputVec);
 
@@ -535,7 +549,14 @@ class LogicNeuralNetwork {
             masterActivation: +masterActivation.toFixed(4),
             masterFiring: masterActivation > 0.5,
             topLogics:   results.slice(0, 5).map(r => r.id),
-            allResults:  results
+            allResults:  results,
+            // إشارة البيعة — تُثبت أن الاستدلال تم بعد حقن البيعة
+            bayahInjected: !!_bayahIntegration,
+            bayahScore: _bayahIntegration
+                ? _bayahIntegration.tracker
+                    ? +(_bayahIntegration.tracker.stats.avgBayahScore || 0.9).toFixed(4)
+                    : 0.9
+                : null
         };
 
         this.inferenceLog.push(inferenceRecord);

@@ -36483,6 +36483,66 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🤝🧠🏛️ MUBAYAA ORG INTEGRATION — تكامل البيعة في المنظومة الكاملة
+// البيعة للملك سلمان لله، ونصرة الله، ونصرة الإسلام، ونصرة ولي الأمر لله
+// شغّال في المنظمة كاملة وفي النوايا وفي جذور النظام
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const bayahInt = require('./lib/sheikha-mubayaa-org-integration');
+    const st = bayahInt.instance.status();
+    console.log(`✅ [BAYAH-INT] محرك تكامل البيعة — مُفعَّل في كل المنظومة`);
+    console.log(`   ├─ ولي الأمر: ${st.waliAlAmr.name}`);
+    console.log(`   ├─ النصرة: الله + الإسلام + ولي الأمر لله`);
+    console.log(`   ├─ البيعات النشطة: ${st.bayah.activePledges}`);
+    console.log(`   └─ متوسط نقاط البيعة: ${Math.round((st.bayah.stats.avgBayahScore || 0) * 100)}%`);
+
+    // ─── API: حالة البيعة الكاملة ───────────────────────────────────────────
+    app.get('/api/bayah/status', (req, res) => {
+        res.json({ success: true, bismillah: 'بسم الله الرحمن الرحيم', bayah: bayahInt.instance.status() });
+    });
+
+    // ─── API: تحليل بيعة عصبي ────────────────────────────────────────────────
+    app.post('/api/bayah/analyze', (req, res) => {
+        try {
+            const { name, nationality, tribe, madhhab, niyyah } = req.body || {};
+            const result = bayahInt.instance.guardOperation('org-bayah-analyze', {
+                name: name || 'مجهول',
+                nationality, tribe, madhhab, niyyah
+            });
+            res.json({ success: true, result });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    // ─── API: إعلان النصرة ────────────────────────────────────────────────────
+    app.post('/api/bayah/nasrah', (req, res) => {
+        const { subjectKey = 'anonymous', target = 'ALLAH' } = req.body || {};
+        const record = bayahInt.instance.tracker.declareNasrah(subjectKey, target);
+        res.json({
+            success: true,
+            bismillah: 'بسم الله الرحمن الرحيم',
+            nasrah: record,
+            quran: '﴿إِن تَنصُرُوا اللَّهَ يَنصُرْكُمْ﴾ — محمد: ٧'
+        });
+    });
+
+    // ─── API: إعلان النية ─────────────────────────────────────────────────────
+    app.post('/api/bayah/niyyah', (req, res) => {
+        const { operation = 'general', niyyahIds = ['LILLAH'] } = req.body || {};
+        const record = bayahInt.instance.niyyah.declare(operation, niyyahIds);
+        res.json({ success: true, niyyah: record });
+    });
+
+    console.log('   ├─ GET  /api/bayah/status    — حالة البيعة الكاملة');
+    console.log('   ├─ POST /api/bayah/analyze   — تحليل بيعة عصبي');
+    console.log('   ├─ POST /api/bayah/nasrah    — إعلان النصرة');
+    console.log('   └─ POST /api/bayah/niyyah    — إعلان النية');
+} catch (e) {
+    console.log('⚠️ [BAYAH-INT] فشل تحميل محرك تكامل البيعة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🧭 SHEIKHA NAVIGATOR — الشبكة العصبية للنقل الذكي المركزي v3.0
 //    نقل كل شيء بكل وسيلة ولكل غاية بين أي شيء وأي شيء آخر
 // ═══════════════════════════════════════════════════════════════════════════════
