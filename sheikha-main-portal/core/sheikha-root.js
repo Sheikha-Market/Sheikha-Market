@@ -145,6 +145,19 @@ async function boot() {
         console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل الشبكة العصبية الشاملة:', err.message);
     }
 
+    // تسجيل شبكة الخلايا العصبية الجذرية — جذر شيخة للجذور — أفضل شبكة جذرية بالكون
+    // ﴿أَلَمْ تَرَ كَيْفَ ضَرَبَ اللَّهُ مَثَلًا كَلِمَةً طَيِّبَةً كَشَجَرَةٍ طَيِّبَةٍ أَصْلُهَا ثَابِتٌ وَفَرْعُهَا فِي السَّمَاءِ﴾ — إبراهيم: ٢٤
+    // ﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨
+    try {
+        const rootNCN = require('../lib/sheikha-root-neural-cell-network');
+        rootNCN.init();
+        registerLayer('root-neural-cell-network', rootNCN);
+        console.log('[SHEIKHA-ROOT] 🌳 شبكة الخلايا العصبية الجذرية مُفعَّلة — جذر شيخة للجذور — 92 خلية جذرية | 7 طبقات × 128-dim');
+        console.log('[SHEIKHA-ROOT] ✨ ﴿وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ﴾');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل شبكة الخلايا العصبية الجذرية:', err.message);
+    }
+
     const bootOrder = [
         { key: 'os',            file: 'sheikha-os.js' },
         { key: 'control-plane', file: 'sheikha-control-plane.js' },
@@ -187,6 +200,7 @@ async function boot() {
                     'arabic-grammar-engine':    'محرك النحو والصرف والبلاغة',
                     'arabic-grammar-rules':     'منظومة القواعد العربية الرقمية الكاملة',
                     'universal-neural-network': 'الشبكة العصبية الشاملة — كل العلوم والتقنيات لله',
+                    'root-neural-cell-network': 'شبكة الخلايا العصبية الجذرية — جذر شيخة للجذور',
                 };
                 sovereignLayer.registerSubject(key, 'layer', {
                     nameAr: LAYER_ARABIC[key] || key,
