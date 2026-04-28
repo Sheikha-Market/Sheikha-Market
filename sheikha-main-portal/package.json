@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node --max-old-space-size=2048 server.js",
     "start:proxy": "node scripts/proxy-8081.js",
+    "test:grid": "bash scripts/test-cellular-grid.sh",
     "server:start": "pm2 start ecosystem.config.js --only sheikha-api && pm2 save",
     "server:stop": "pm2 stop sheikha-api && pm2 save",
     "server:restart": "pm2 describe sheikha-api > /dev/null 2>&1 && pm2 restart sheikha-api && pm2 save || pm2 start ecosystem.config.js --only sheikha-api && pm2 save",

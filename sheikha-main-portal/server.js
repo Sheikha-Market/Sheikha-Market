@@ -37323,9 +37323,8 @@ app.use((err, req, res, _next) => {
 // يحمي من التعارض: إذا كان المنفذ مشغولاً تُسجّل تحذيراً فقط دون إيقاف.
 // ═══════════════════════════════════════════════════════════════════════════════
 function _startMarketplaceGateway(mainPort) {
-    if (!_portEngine) return;
-
-    const marketPort = _portEngine.marketplacePort;
+    // اكتشف المنفذ عبر الشبكة العصبية — الاحتياطي: _PORT_ENV + 1 (8081)
+    const marketPort = (_portEngine && _portEngine.marketplacePort) || (_PORT_ENV + 1);
     if (!marketPort || marketPort === mainPort) return;
 
     const http = require('http');
@@ -37351,12 +37350,16 @@ function _startMarketplaceGateway(mainPort) {
             }
         });
 
-        req.pipe(proxyReq, { end: true });
+        if (req.method !== 'GET' && req.method !== 'HEAD') {
+            req.pipe(proxyReq, { end: true });
+        } else {
+            proxyReq.end();
+        }
     });
 
     gateway.listen(marketPort, HOST, () => {
-        console.log(`🏪 [MARKETPLACE CELL] بوابة الأسواق الجامع: منفذ ${marketPort} ← ${mainPort} (خلية الشبكة العصبية)`);
-        addSystemLog('success', 'MarketplaceGateway', `Marketplace gateway started on port ${marketPort}`);
+        console.log(`🏪 [MARKETPLACE CELL] بوابة الأسواق الجامع: منفذ ${marketPort} ← ${mainPort} (${_portEngine ? 'الشبكة العصبية' : 'منفذ احتياطي'})`);
+        if (typeof addSystemLog === 'function') addSystemLog('success', 'MarketplaceGateway', `Marketplace gateway started on port ${marketPort}`);
     });
 
     gateway.on('error', (err) => {
