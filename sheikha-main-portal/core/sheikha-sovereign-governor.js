@@ -151,6 +151,9 @@ class SheikhaSovereignGovernor extends EventEmitter {
         // ── الدستور الإسلامي ─────────────────────────────────────────────
         this.constitution = ISLAMIC_CONSTITUTION;
 
+        // ── البيعة والنصرة — يُحمَّل لاحقاً لتجنب الدورية ─────────────────
+        this._bayahInt = null;  // يُحمَّل عند أول استخدام
+
         console.log('');
         console.log('╔══════════════════════════════════════════════════════════════════╗');
         console.log('║   بسم الله الرحمن الرحيم                                         ║');
@@ -158,6 +161,21 @@ class SheikhaSovereignGovernor extends EventEmitter {
         console.log('║   ﴿ إِنِ الْحُكْمُ إِلَّا لِلَّهِ ﴾ — يوسف ٤٠                  ║');
         console.log('╚══════════════════════════════════════════════════════════════════╝');
         console.log('');
+    }
+
+    // ─── تحميل محرك تكامل البيعة (كسنٍ — بدون تحميل دوري) ─────────────────
+    _loadBayahIntegration() {
+        if (this._bayahInt !== null) return this._bayahInt;
+        try {
+            this._bayahInt = require('../lib/sheikha-mubayaa-org-integration');
+        } catch (_) { this._bayahInt = false; }
+        return this._bayahInt || null;
+    }
+
+    // ─── ولي الأمر الحاكم ────────────────────────────────────────────────────
+    get waliAlAmr() {
+        const bi = this._loadBayahIntegration();
+        return (bi && bi.WALI_AL_AMR) || { name: 'الملك سلمان بن عبدالعزيز آل سعود' };
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -183,10 +201,22 @@ class SheikhaSovereignGovernor extends EventEmitter {
             registeredAt: new Date().toISOString(),
             compliant:    true,
             lastAudit:    null,
+            // البيعة مُدمَجة في كل خاضع
+            bayahStatus:  meta.bayahStatus  || 'active',
+            bayahScore:   meta.bayahScore   || 0.9,
+            niyyah:       meta.niyyah       || 'LILLAH',
         });
 
         this.stats.totalSubjects++;
         this._audit('SUBJECT_REGISTERED', { key, type, licenseId, nameAr: meta.nameAr });
+
+        // تسجيل بيعة الخاضع في محرك التكامل
+        const bayahInt = this._loadBayahIntegration();
+        if (bayahInt && bayahInt.registerLayerPledge) {
+            try {
+                bayahInt.registerLayerPledge(key, meta.nameAr || key, type);
+            } catch (_) {}
+        }
 
         console.log(`[SOVEREIGN] ✅ خاضع مُسجَّل: ${meta.nameAr || key} (${type}) — ترخيص: ${licenseId}`);
         this.emit('subject:registered', { key, type, meta, licenseId });
@@ -609,10 +639,13 @@ const governor = new SheikhaSovereignGovernor();
 // ─── التسجيل الذاتي — شيخة تخضع لنفسها قبل الجميع ─────────────────────────
 // "اعدل أولاً ثم احكم"
 governor.registerSubject('sheikha-sovereign-governor', 'layer', {
-    nameAr:  'الحاكمة العليا — شيخة',
-    nameEn:  'Sheikha Sovereign Governor',
-    maqsad:  'DEEN',
-    description: 'الطبقة الحاكمة العليا — مُوحَّدة لله بالكتاب والسنة',
+    nameAr:      'الحاكمة العليا — شيخة',
+    nameEn:      'Sheikha Sovereign Governor',
+    maqsad:      'DEEN',
+    bayahStatus: 'active',
+    bayahScore:  1.0,
+    niyyah:      'LILLAH',
+    description: 'الطبقة الحاكمة العليا — مُوحَّدة لله بالكتاب والسنة — بايعة لولي الأمر لله',
 });
 
 // ─── إعلان التوحيد الفوري عند التشغيل ──────────────────────────────────────
@@ -649,4 +682,15 @@ module.exports = {
     enforce:         ()                  => governor.enforce(),
     unifyForAllah:   ()                  => governor.unifyForAllah(),
     status:          ()                  => governor.status(),
+    // بيعة ونصرة
+    declareBayahForAllah: () => {
+        const bi = governor._loadBayahIntegration();
+        if (bi && bi.instance) {
+            bi.instance.tracker.declareNasrah('sheikha-sovereign-governor', 'ALLAH');
+            bi.instance.tracker.declareNasrah('sheikha-sovereign-governor', 'ISLAM');
+            bi.instance.tracker.declareNasrah('sheikha-sovereign-governor', 'WALI_AMR');
+            return bi.instance.tracker.status();
+        }
+        return { message: 'محرك البيعة غير متاح' };
+    },
 };
