@@ -76,7 +76,7 @@ const COALITION_STAGES = [
     },
     {
         id: 'CS-05', order: 5,
-        nameAr: 'الملحمة الكبرى — الاعماق ودابق',
+        nameAr: 'الملحمة الكبرى — الأعماق ودابق',
         nameEn: 'The Great Battle — Al-Amaq and Dabiq',
         hadithRef: 'لا تقوم الساعة حتى ينزل الروم بالأعماق أو بدابق — مسلم 2897',
         niyyahRequired: ['LILLAH', 'NASRAH_ISLAM'],
@@ -252,7 +252,6 @@ class SheikhaNiyyahCoalitionEngine {
         const safetyFailed = [];
 
         for (const rule of SAFETY_RULES) {
-            const contextKey = rule.rule.toLowerCase();
             // قاعدة حماية المدنيين: يمكن تجاوزها فقط إن صرّح السياق بالحماية
             if (rule.id === 'SR-04' && context.civilianProtectionConfirmed === false) {
                 safetyFailed.push({ id: rule.id, rule: rule.rule, basis: rule.basis, blocking: rule.blocking });
