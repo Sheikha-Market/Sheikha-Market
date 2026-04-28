@@ -49,7 +49,8 @@ const config = {
             logicNeuralNetwork:  'logic-neural-network.json',   // أوزان الشبكة العصبية
             continuousImprovement: 'continuous-improvement.json', // محرك التحسين المستمر
             // ─── المبايعة الرقمية ────────────────────────────────────────────
-            mubayaa:             'mubayaa.json'                 // سجل المبايعات الرقمية
+            mubayaa:                 'mubayaa.json',                // سجل المبايعات الرقمية
+            mubayaaNeuralWeights:    'mubayaa-neural-weights.json'  // أوزان الشبكة العصبية الجذرية للمبايعة
         }
     },
 

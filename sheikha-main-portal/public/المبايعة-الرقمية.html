@@ -308,6 +308,133 @@
             .card { padding: 20px 16px; }
             .bismillah { font-size: 1.25rem; }
         }
+
+        /* ─── الشبكة العصبية الجذرية ─── */
+        .neural-card {
+            background: linear-gradient(135deg, #0d1117 0%, #050d14 100%);
+            border-color: #1e40af;
+        }
+        .neural-card .card-title { color: #60a5fa; }
+
+        .neural-arch {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+        }
+        .neural-layer-box {
+            background: rgba(30,64,175,0.15);
+            border: 1px solid #1e40af;
+            border-radius: 8px;
+            padding: 10px 14px;
+            text-align: center;
+            min-width: 70px;
+        }
+        .neural-layer-box .nl-count { font-size: 1.4rem; font-weight: 900; color: #60a5fa; }
+        .neural-layer-box .nl-name  { font-size: 0.72rem; color: #93c5fd; margin-top: 2px; }
+        .neural-arrow { color: #1e40af; font-size: 1.2rem; font-weight: 700; }
+
+        .neural-scores {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+        .nscore-box {
+            flex: 1;
+            min-width: 110px;
+            background: rgba(30,64,175,0.1);
+            border: 1px solid #1e40af;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        .nscore-box .nsval { font-size: 1.6rem; font-weight: 900; }
+        .nscore-box .nslbl { font-size: 0.78rem; color: #93c5fd; margin-top: 3px; }
+
+        .neural-bar-row {
+            margin-bottom: 10px;
+        }
+        .neural-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            color: #93c5fd;
+            margin-bottom: 4px;
+        }
+        .neural-bar-track {
+            background: rgba(30,64,175,0.15);
+            border-radius: 4px;
+            height: 8px;
+            overflow: hidden;
+        }
+        .neural-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .grade-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 10px 0;
+            border: 2px solid;
+        }
+
+        .neural-layers-detail {
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .nld-row {
+            background: rgba(30,64,175,0.08);
+            border: 1px solid rgba(30,64,175,0.3);
+            border-radius: 8px;
+            padding: 10px 14px;
+        }
+        .nld-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #93c5fd;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        .nld-acts {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .nld-cell {
+            background: rgba(96,165,250,0.1);
+            border: 1px solid rgba(96,165,250,0.3);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 0.72rem;
+            font-family: monospace;
+            color: #bfdbfe;
+        }
+
+        .btn-neural {
+            background: rgba(30,64,175,0.2);
+            border: 1px solid #1e40af;
+            color: #60a5fa;
+            border-radius: 8px;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-size: 0.92rem;
+            font-weight: 700;
+            transition: background 0.2s;
+        }
+        .btn-neural:hover { background: rgba(30,64,175,0.35); }
     </style>
 </head>
 <body>
@@ -428,6 +555,90 @@
                 <div class="lbl">مبايعات فعّالة</div>
             </div>
         </div>
+    </div>
+
+    <!-- ─── الشبكة العصبية الجذرية ─── -->
+    <div class="card neural-card" id="neuralSection">
+        <div class="card-title">🧠 الشبكة العصبية الجذرية للمبايعة</div>
+
+        <!-- بنية الشبكة -->
+        <div class="neural-arch" id="neuralArch">
+            <div class="neural-layer-box">
+                <div class="nl-count">8</div>
+                <div class="nl-name">المُدخَلات</div>
+            </div>
+            <span class="neural-arrow">→</span>
+            <div class="neural-layer-box">
+                <div class="nl-count">12</div>
+                <div class="nl-name">الطبقة الجذرية</div>
+            </div>
+            <span class="neural-arrow">→</span>
+            <div class="neural-layer-box">
+                <div class="nl-count">8</div>
+                <div class="nl-name">طبقة الولاء</div>
+            </div>
+            <span class="neural-arrow">→</span>
+            <div class="neural-layer-box">
+                <div class="nl-count">4</div>
+                <div class="nl-name">طبقة الثقة</div>
+            </div>
+            <span class="neural-arrow">→</span>
+            <div class="neural-layer-box">
+                <div class="nl-count">3</div>
+                <div class="nl-name">المُخرَجات</div>
+            </div>
+        </div>
+
+        <!-- نتائج التحليل (تظهر بعد المبايعة) -->
+        <div id="neuralResult" style="display:none;">
+            <div style="margin-bottom:14px;">
+                <span id="neuralGradeBadge" class="grade-badge">—</span>
+            </div>
+
+            <!-- النقاط الثلاث -->
+            <div class="neural-scores">
+                <div class="nscore-box">
+                    <div class="nsval" id="nsPledge" style="color:#60a5fa;">—</div>
+                    <div class="nslbl">نقاط المبايعة</div>
+                </div>
+                <div class="nscore-box">
+                    <div class="nsval" id="nsLoyalty" style="color:#34d399;">—</div>
+                    <div class="nslbl">مؤشر الولاء</div>
+                </div>
+                <div class="nscore-box">
+                    <div class="nsval" id="nsTrust" style="color:#f59e0b;">—</div>
+                    <div class="nslbl">مستوى الثقة</div>
+                </div>
+            </div>
+
+            <!-- أشرطة التقدم -->
+            <div class="neural-bar-row">
+                <div class="neural-bar-label"><span>نقاط المبايعة</span><span id="barPledgePct">0%</span></div>
+                <div class="neural-bar-track"><div class="neural-bar-fill" id="barPledge" style="width:0%;background:#60a5fa;"></div></div>
+            </div>
+            <div class="neural-bar-row">
+                <div class="neural-bar-label"><span>مؤشر الولاء</span><span id="barLoyaltyPct">0%</span></div>
+                <div class="neural-bar-track"><div class="neural-bar-fill" id="barLoyalty" style="width:0%;background:#34d399;"></div></div>
+            </div>
+            <div class="neural-bar-row">
+                <div class="neural-bar-label"><span>مستوى الثقة</span><span id="barTrustPct">0%</span></div>
+                <div class="neural-bar-track"><div class="neural-bar-fill" id="barTrust" style="width:0%;background:#f59e0b;"></div></div>
+            </div>
+            <div class="neural-bar-row">
+                <div class="neural-bar-label"><span>⭐ النقاط الإجمالية</span><span id="barCompositePct">0%</span></div>
+                <div class="neural-bar-track"><div class="neural-bar-fill" id="barComposite" style="width:0%;background:#D4AF37;"></div></div>
+            </div>
+
+            <!-- تفاصيل الطبقات -->
+            <div class="neural-layers-detail" id="neuralLayers"></div>
+        </div>
+
+        <!-- زر تحليل يدوي -->
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn-neural" onclick="runNeuralAnalysis()">⚡ تحليل عصبي يدوي</button>
+            <button class="btn-neural" onclick="loadNeuralStatus()">📡 حالة الشبكة</button>
+        </div>
+        <div id="neuralStatusBox" style="display:none;margin-top:12px;font-size:0.8rem;color:#93c5fd;background:rgba(30,64,175,0.08);border:1px solid rgba(30,64,175,0.3);border-radius:8px;padding:12px;"></div>
     </div>
 
 </main>
@@ -566,6 +777,127 @@
     // ─── تشغيل ───────────────────────────────────────────────────────────────
     loadPledgeText();
     loadStats();
+
+    // ─── الشبكة العصبية الجذرية ──────────────────────────────────────────────
+    function renderNeuralResult(analysis) {
+        const nr = document.getElementById('neuralResult');
+        nr.style.display = 'block';
+
+        const pct = v => Math.round(v * 100);
+
+        // الدرجة
+        const badge = document.getElementById('neuralGradeBadge');
+        badge.textContent = `⭐ ${analysis.grade.ar} — ${pct(analysis.composite)}%`;
+        badge.style.borderColor = analysis.grade.color;
+        badge.style.color       = analysis.grade.color;
+        badge.style.background  = analysis.grade.color + '18';
+
+        // النقاط الثلاث
+        document.getElementById('nsPledge').textContent  = pct(analysis.pledgeScore)  + '%';
+        document.getElementById('nsLoyalty').textContent = pct(analysis.loyaltyIndex) + '%';
+        document.getElementById('nsTrust').textContent   = pct(analysis.trustLevel)   + '%';
+
+        // أشرطة
+        function setBar(id, pctId, val, color) {
+            const p = pct(val);
+            const el = document.getElementById(id);
+            const pt = document.getElementById(pctId);
+            el.style.width  = p + '%';
+            el.style.background = color;
+            pt.textContent  = p + '%';
+        }
+
+        setBar('barPledge',    'barPledgePct',    analysis.pledgeScore,  '#60a5fa');
+        setBar('barLoyalty',   'barLoyaltyPct',   analysis.loyaltyIndex, '#34d399');
+        setBar('barTrust',     'barTrustPct',     analysis.trustLevel,   '#f59e0b');
+        setBar('barComposite', 'barCompositePct', analysis.composite,    '#D4AF37');
+
+        // تفاصيل الطبقات
+        const container = document.getElementById('neuralLayers');
+        container.innerHTML = '';
+        if (analysis.layers && analysis.layers.length) {
+            analysis.layers.forEach(layer => {
+                const row = document.createElement('div');
+                row.className = 'nld-row';
+                const maxPct = Math.round(layer.max * 100);
+                const meanPct = Math.round(layer.mean * 100);
+                row.innerHTML = `
+                    <div class="nld-header">
+                        <span>⚡ ${layer.name}</span>
+                        <span>متوسط: ${meanPct}% | أعلى: ${maxPct}%</span>
+                    </div>
+                    <div class="nld-acts">
+                        ${layer.activation.slice(0, 8).map(v =>
+                            `<span class="nld-cell">${(v * 100).toFixed(1)}%</span>`
+                        ).join('')}
+                        ${layer.activation.length > 8 ? `<span class="nld-cell">+${layer.activation.length - 8}</span>` : ''}
+                    </div>`;
+                container.appendChild(row);
+            });
+        }
+    }
+
+    async function runNeuralAnalysis() {
+        const fullName    = document.getElementById('fullName').value.trim();
+        const tribe       = document.getElementById('tribe').value.trim() || null;
+        const nationality = document.getElementById('nationality').value;
+        const madhhab     = document.getElementById('madhhab').value || null;
+        const agreed      = document.getElementById('agreedCheck').checked;
+
+        const payload = { fullName: fullName || 'مجهول', tribe, nationality, madhhab, agreed, pledgedAt: new Date().toISOString() };
+
+        try {
+            const r = await fetch(`${API}/neural/analyze`, {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify(payload)
+            });
+            const d = await r.json();
+            if (d.success && d.analysis) {
+                renderNeuralResult(d.analysis);
+                document.getElementById('neuralSection').scrollIntoView({ behavior: 'smooth' });
+            }
+        } catch (e) {
+            alert('تعذّر الاتصال بالشبكة العصبية');
+        }
+    }
+
+    async function loadNeuralStatus() {
+        const box = document.getElementById('neuralStatusBox');
+        box.style.display = 'block';
+        box.textContent = '⏳ جارٍ التحميل…';
+
+        try {
+            const r = await fetch(`${API}/neural/status`);
+            const d = await r.json();
+            if (d.success) {
+                const n = d.neural;
+                const arch = n.architecture;
+                box.innerHTML = `
+                    <strong>🧠 ${n.name}</strong><br>
+                    النسخة: ${n.version} | الحالة: ${n.initialized ? '✅ نشطة' : '⚠️ غير مُهيَّأة'}<br>
+                    البنية: ${arch.layers.map(l => `${l.outSize}(${l.activation})`).join(' → ')}<br>
+                    إجمالي المعاملات: ${arch.totalParams}<br>
+                    تحليلات منجزة: ${n.stats.totalAnalyzed} | تدريبات: ${n.stats.totalTrained}<br>
+                    متوسط النقاط: ${Math.round((n.stats.avgScore || 0) * 100)}%<br>
+                    التسجيل في الجذر: ${n.registeredInRoot ? '🌐 مُسجَّل' : '⚡ مستقل'}
+                `;
+            } else {
+                box.textContent = '⚠️ الشبكة غير متاحة حالياً';
+            }
+        } catch (e) {
+            box.textContent = 'تعذّر الاتصال بالشبكة العصبية';
+        }
+    }
+
+    // تحليل عصبي تلقائي بعد تسجيل مبايعة ناجحة
+    const _origShowResult = showResult;
+    function showResult(ok, d) {
+        _origShowResult(ok, d);
+        if (ok) {
+            setTimeout(() => runNeuralAnalysis(), 600);
+        }
+    }
 </script>
 
 </body>

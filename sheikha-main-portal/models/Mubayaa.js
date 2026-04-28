@@ -50,6 +50,9 @@ class Mubayaa {
         this.userAgent     = data.userAgent     || null;
         // الحالة
         this.status        = data.status        || 'active'; // active | revoked
+        // التحليل العصبي الجذري
+        this.neuralScore    = data.neuralScore    || null; // نقاط المبايعة من الشبكة العصبية
+        this.neuralAnalysis = data.neuralAnalysis || null; // التحليل الكامل
         // التوقيت
         this.pledgedAt     = data.pledgedAt     || new Date().toISOString();
         this.createdAt     = data.createdAt     || new Date().toISOString();
@@ -124,6 +127,21 @@ class Mubayaa {
         mubayaa.userAgent   = meta.ua   || null;
         mubayaa.pledgedAt   = new Date().toISOString();
         mubayaa.generateSignature();
+
+        // ─── التحليل العصبي الجذري ────────────────────────────────────────
+        try {
+            const neuralRoot   = require('../lib/mubayaa-neural-root');
+            const analysis     = neuralRoot.analyze({ ...mubayaa });
+            mubayaa.neuralScore    = analysis.composite;
+            mubayaa.neuralAnalysis = {
+                grade:        analysis.grade,
+                pledgeScore:  analysis.pledgeScore,
+                loyaltyIndex: analysis.loyaltyIndex,
+                trustLevel:   analysis.trustLevel,
+                analyzedAt:   analysis.timestamp
+            };
+        } catch (_) { /* الشبكة العصبية غير متاحة — المبايعة تُحفظ بدون نقاط */ }
+
         return mubayaa.save();
     }
 

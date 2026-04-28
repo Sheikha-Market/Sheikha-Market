@@ -4,20 +4,31 @@
  *  🤝 مسارات المبايعة الرقمية
  *  Digital Pledge (Mubayaa) Routes
  *
- *  GET  /api/mubayaa/text          → نص المبايعة الرسمي
- *  POST /api/mubayaa               → تقديم مبايعة رقمية جديدة
- *  GET  /api/mubayaa/:id           → تفاصيل مبايعة بالمعرّف
- *  GET  /api/mubayaa/verify/:sig   → التحقق من صحة توقيع رقمي
- *  GET  /api/mubayaa/stats         → إحصائيات المبايعات
+ *  GET  /api/mubayaa/text              → نص المبايعة الرسمي
+ *  POST /api/mubayaa                   → تقديم مبايعة رقمية جديدة
+ *  GET  /api/mubayaa/:id               → تفاصيل مبايعة بالمعرّف
+ *  GET  /api/mubayaa/verify/:sig       → التحقق من صحة توقيع رقمي
+ *  GET  /api/mubayaa/stats             → إحصائيات المبايعات
+ *  POST /api/mubayaa/neural/analyze    → تحليل عصبي جذري لبيانات مبايعة
+ *  POST /api/mubayaa/neural/train      → تدريب الشبكة العصبية من السجل
+ *  GET  /api/mubayaa/neural/status     → حالة الشبكة العصبية الجذرية
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 'use strict';
 
-const express = require('express');
-const router  = express.Router();
-const Mubayaa = require('../models/Mubayaa');
+const express    = require('express');
+const router     = express.Router();
+const Mubayaa    = require('../models/Mubayaa');
 const { optionalAuth } = require('../middleware/auth');
+
+// ─── الشبكة العصبية الجذرية ───────────────────────────────────────────────────
+let neuralRoot = null;
+try {
+    neuralRoot = require('../lib/mubayaa-neural-root');
+} catch (e) {
+    console.warn('[MUBAYAA] الشبكة العصبية غير متاحة:', e.message);
+}
 
 // ─── نص المبايعة الرسمي ───────────────────────────────────────────────────────
 
@@ -183,6 +194,62 @@ router.get('/:id', (req, res) => {
         signature:  mubayaa.signature,
         status:     mubayaa.status,
         textAr:     mubayaa.textAr
+    });
+});
+
+// ─── الشبكة العصبية — تحليل مبايعة ──────────────────────────────────────────
+
+router.post('/neural/analyze', (req, res) => {
+    if (!neuralRoot) {
+        return res.status(503).json({ success: false, message: 'الشبكة العصبية غير متاحة' });
+    }
+
+    try {
+        const data = req.body || {};
+        const analysis = neuralRoot.analyze(data);
+
+        res.json({
+            success: true,
+            bismillah: 'بسم الله الرحمن الرحيم',
+            analysis
+        });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
+// ─── الشبكة العصبية — تدريب من السجل ────────────────────────────────────────
+
+router.post('/neural/train', optionalAuth, (req, res) => {
+    if (!neuralRoot) {
+        return res.status(503).json({ success: false, message: 'الشبكة العصبية غير متاحة' });
+    }
+
+    const epochs = Math.min(parseInt(req.body.epochs || 5, 10), 20);
+    const lr     = parseFloat(req.body.lr || 0.003);
+
+    try {
+        const result = neuralRoot.trainFromRegistry(epochs, lr);
+        res.json({
+            success: true,
+            message: `تمّ تدريب الشبكة العصبية على ${result.trained} مبايعة — ${result.epochs} دورة`,
+            result
+        });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
+// ─── الشبكة العصبية — الحالة ──────────────────────────────────────────────────
+
+router.get('/neural/status', (req, res) => {
+    if (!neuralRoot) {
+        return res.status(503).json({ success: false, message: 'الشبكة العصبية غير متاحة' });
+    }
+
+    res.json({
+        success: true,
+        neural:  neuralRoot.status()
     });
 });
 

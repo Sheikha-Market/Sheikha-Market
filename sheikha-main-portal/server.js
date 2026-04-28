@@ -36455,13 +36455,31 @@ try {
     const mubayaaRoutes = require('./routes/mubayaa.js');
     app.use('/api/mubayaa', mubayaaRoutes);
     console.log('✅ [MUBAYAA] المبايعة الرقمية — مُفعَّلة على /api/mubayaa');
-    console.log('   ├─ GET  /api/mubayaa/text         — نص المبايعة الرسمي');
-    console.log('   ├─ GET  /api/mubayaa/stats        — إحصائيات المبايعات');
-    console.log('   ├─ GET  /api/mubayaa/verify/:sig  — التحقق من توقيع رقمي');
-    console.log('   ├─ POST /api/mubayaa              — تقديم مبايعة رقمية');
-    console.log('   └─ GET  /api/mubayaa/:id          — تفاصيل مبايعة');
+    console.log('   ├─ GET  /api/mubayaa/text              — نص المبايعة الرسمي');
+    console.log('   ├─ GET  /api/mubayaa/stats             — إحصائيات المبايعات');
+    console.log('   ├─ GET  /api/mubayaa/verify/:sig       — التحقق من توقيع رقمي');
+    console.log('   ├─ POST /api/mubayaa                   — تقديم مبايعة رقمية');
+    console.log('   ├─ GET  /api/mubayaa/:id               — تفاصيل مبايعة');
+    console.log('   ├─ GET  /api/mubayaa/neural/status     — حالة الشبكة العصبية الجذرية');
+    console.log('   ├─ POST /api/mubayaa/neural/analyze    — تحليل عصبي جذري');
+    console.log('   └─ POST /api/mubayaa/neural/train      — تدريب الشبكة من السجل');
 } catch (e) {
     console.log('⚠️ [MUBAYAA] فشل تحميل مسارات المبايعة الرقمية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 MUBAYAA NEURAL ROOT — الشبكة العصبية الجذرية للمبايعة
+// تحليل عصبي عميق (8 مُدخَلات → 4 طبقات → 3 مُخرَجات) + Adam Optimizer
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const mubayaaNeuralRoot = require('./lib/mubayaa-neural-root');
+    const st = mubayaaNeuralRoot.status();
+    console.log(`✅ [MUBAYAA-NR] الشبكة العصبية الجذرية للمبايعة — مُفعَّلة`);
+    console.log(`   ├─ البنية: 8 مُدخَل → ${st.architecture.layers.map(l => l.outSize).join(' → ')}`);
+    console.log(`   ├─ إجمالي المعاملات: ${st.architecture.totalParams}`);
+    console.log(`   └─ التسجيل في الجذر: ${st.registeredInRoot ? 'مُسجَّل ✅' : 'مستقل ⚡'}`);
+} catch (e) {
+    console.log('⚠️ [MUBAYAA-NR] فشل تحميل الشبكة العصبية الجذرية للمبايعة:', e.message);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
