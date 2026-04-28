@@ -35843,6 +35843,26 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🤝 NIYYAH COALITION ENGINE — محرك التحالف بالنية والأمان
+// "ستصالحون الروم صلحاً آمناً وتغزون أنتم وهم عدواً من ورائكم" — أبو داود 4292
+// "إنما الأعمال بالنيات" — البخاري 1 | "لا ضرر ولا ضرار" — ابن ماجه 2341
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const niyyahCoalitionRoutes = require('./routes/niyyah-coalition.js');
+    app.use('/api/niyyah-coalition', niyyahCoalitionRoutes);
+    console.log('✅ [NIYYAH-COALITION] محرك التحالف بالنية والأمان — مُفعَّل | 9 نقاط API');
+    console.log('   ├─ GET  /api/niyyah-coalition/dashboard');
+    console.log('   ├─ GET  /api/niyyah-coalition/foundation-hadith');
+    console.log('   ├─ GET  /api/niyyah-coalition/stages');
+    console.log('   ├─ GET  /api/niyyah-coalition/niyyah-levels');
+    console.log('   ├─ GET  /api/niyyah-coalition/safety-rules');
+    console.log('   ├─ POST /api/niyyah-coalition/validate-niyyah');
+    console.log('   └─ POST /api/niyyah-coalition/apply-safely');
+} catch (e) {
+    console.log('⚠️ [NIYYAH-COALITION] فشل تحميل مسارات التحالف بالنية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🌍 GLOBAL ALLIANCE ENGINE — محرك التحالف العالمي الشامل
 // القائد: سلمان احمد بن سلمان الراجح
 // "واعدوا لهم ما استطعتم من قوة ومن رباط الخيل" — الانفال:60
