@@ -61,6 +61,7 @@ try {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const CRITICAL_ENGINES_L0 = [
+    'sheikha-root-neural-runtime.js',   // ① الشبكة العصبية الجذرية — Runtime الجذر الأعلى
     'sheikha-security-engine.js',
     'sheikha-sharia-engine.js',
     'sheikha-admin-blueprint-engine.js',
