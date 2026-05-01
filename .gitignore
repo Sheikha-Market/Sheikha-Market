@@ -125,3 +125,18 @@ data/ports/*.port
 data/ports/
 data/decision-log.json
 *.port
+
+# Secrets / local AI tools
+.env
+.codex
+*.key
+*secret*
+*token*
+*credential*
+
+# Runtime data
+data/**/*.ndjson
+data/**/ledger*.json
+data/**/audit*.json
+runtime/
+reports/

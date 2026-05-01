@@ -4,6 +4,8 @@
 
 **البوابة المؤسسية الرسمية: Sheikha Enterprise AL Portal**
 
+**GitHub Repository:** `Sheikha-Market/sheikha-main-portal`
+
 **المالك:** سلمان أحمد بن سلمان الراجح
 
 ---
