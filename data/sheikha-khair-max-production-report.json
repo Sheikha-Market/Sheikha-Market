@@ -1,0 +1,555 @@
+{
+    "name": "sheikha-khair-max-production",
+    "generatedAt": "2026-03-18T04:56:59.597Z",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "governance": {
+        "basis": "الكتاب والسنة",
+        "principle": "لا ضرر ولا ضرار",
+        "tawhid": "كل التمكين بفضل الله وحده",
+        "scope": "owned-or-delegated-assets-only",
+        "mission": "تعظيم الإنتاج النافع والآمن والتقني ضمن الأصول المملوكة أو المفوضة فقط",
+        "competitionGoal": "السبق إلى الخير والمنفعة والابتكار الآمن"
+    },
+    "renewalPolicy": {
+        "temporal": {
+            "monthlyRenewal": true,
+            "reviewDayOfMonth": 1,
+            "weeklyRenewal": true,
+            "weeklyReviewWeekday": "Friday",
+            "timezone": "Asia/Riyadh"
+        },
+        "standardsBased": {
+            "newTechnology": true,
+            "newExtension": true,
+            "innovationGoal": true
+        },
+        "valueDriven": {
+            "continuousImprovement": true,
+            "ethicalGuardrails": true,
+            "humanOversight": true
+        }
+    },
+    "ecosystemTargets": [
+        "Sheikha Visual Studio Code",
+        "Sheikha Nvidia",
+        "Sheikha Google",
+        "Sheikha Microsoft",
+        "Sheikha Apple",
+        "Sheikha Linux",
+        "Sheikha Intel Core",
+        "Sheikha Meta",
+        "Sheikha GPT",
+        "Sheikha OpenAI",
+        "Sheikha Pop!_OS"
+    ],
+    "hardLimits": {
+        "forbidUnauthorizedServers": true,
+        "forbidGlobalUnownedControl": true,
+        "forbidDestructiveActions": true
+    },
+    "capabilities": {
+        "node": true,
+        "npm": true,
+        "pm2": true,
+        "python3": true,
+        "git": true,
+        "docker": false,
+        "nvidiaSmi": false,
+        "code": true
+    },
+    "plan": {
+        "oneShot": [
+            {
+                "name": "ops:production:activate:force",
+                "exists": true
+            },
+            {
+                "name": "ops:generative-production:activate:force",
+                "exists": true
+            },
+            {
+                "name": "ops:advanced-computing:activate:force",
+                "exists": true
+            },
+            {
+                "name": "ops:global-compute-halal:activate:force",
+                "exists": true
+            },
+            {
+                "name": "ops:foundation:activate:force",
+                "exists": true
+            },
+            {
+                "name": "ops:partnerships-core:activate:force",
+                "exists": true
+            },
+            {
+                "name": "ops:data-fabric:activate:force",
+                "exists": true
+            }
+        ],
+        "background": [
+            {
+                "name": "ops:server:pm2:start",
+                "exists": true,
+                "requiresPm2": true,
+                "runnable": true
+            },
+            {
+                "name": "ops:monitor:start",
+                "exists": true,
+                "requiresPm2": true,
+                "runnable": true
+            },
+            {
+                "name": "ops:bg-guard:pm2:start",
+                "exists": true,
+                "requiresPm2": true,
+                "runnable": true
+            },
+            {
+                "name": "ops:ai-guard:pm2:start",
+                "exists": true,
+                "requiresPm2": true,
+                "runnable": true
+            },
+            {
+                "name": "ops:ip:proof:pm2:start:strict",
+                "exists": true,
+                "requiresPm2": true,
+                "runnable": true
+            },
+            {
+                "name": "ops:gcloud:alliance:auto:pm2:start",
+                "exists": true,
+                "requiresPm2": true,
+                "runnable": true
+            },
+            {
+                "name": "ops:extension:release:cycle:pm2:start",
+                "exists": true,
+                "requiresPm2": true,
+                "runnable": true
+            }
+        ],
+        "optional": [
+            {
+                "name": "ops:health:check:dry",
+                "exists": true
+            },
+            {
+                "name": "ops:readiness",
+                "exists": true
+            },
+            {
+                "name": "ops:auth:readiness",
+                "exists": true
+            },
+            {
+                "name": "ops:dev:doctor",
+                "exists": true
+            },
+            {
+                "name": "ops:ollama:plan",
+                "exists": true
+            }
+        ]
+    },
+    "execution": {
+        "oneShot": [
+            {
+                "name": "ops:production:activate:force",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "                \"file\": \"infrastructure/sheikha-production-core/scaling/auto-scaling-framework.json\",",
+                    "                \"written\": true",
+                    "            },",
+                    "            {",
+                    "                \"file\": \"infrastructure/sheikha-production-core/governance/production-governance.json\",",
+                    "                \"written\": true",
+                    "            }",
+                    "        ],",
+                    "        \"writtenCount\": 6",
+                    "    },",
+                    "    \"timestamp\": \"2026-03-18T04:56:59.679Z\"",
+                    "}"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:generative-production:activate:force",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "                \"file\": \"infrastructure/sheikha-generative-production-core/integration/training-simulation-production-integration.json\",",
+                    "                \"written\": true",
+                    "            },",
+                    "            {",
+                    "                \"file\": \"infrastructure/sheikha-generative-production-core/governance/generative-production-governance.json\",",
+                    "                \"written\": true",
+                    "            }",
+                    "        ],",
+                    "        \"writtenCount\": 6",
+                    "    },",
+                    "    \"timestamp\": \"2026-03-18T04:56:59.789Z\"",
+                    "}"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:advanced-computing:activate:force",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "            {",
+                    "                \"filePath\": \"/workspaces/sheikha/sheikha-main-portal/infrastructure/sheikha-advanced-computing-core/autogenesis/branch-autogenesis-system.json\",",
+                    "                \"written\": true",
+                    "            },",
+                    "            {",
+                    "                \"filePath\": \"/workspaces/sheikha/sheikha-main-portal/infrastructure/sheikha-advanced-computing-core/governance/advanced-computing-governance.json\",",
+                    "                \"written\": true",
+                    "            }",
+                    "        ]",
+                    "    },",
+                    "    \"timestamp\": \"2026-03-18T04:56:59.893Z\"",
+                    "}"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:global-compute-halal:activate:force",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "            {",
+                    "                \"filePath\": \"/workspaces/sheikha/sheikha-main-portal/infrastructure/sheikha-global-compute-halal-core/contracts/digital-contracting-pack.json\",",
+                    "                \"written\": true",
+                    "            },",
+                    "            {",
+                    "                \"filePath\": \"/workspaces/sheikha/sheikha-main-portal/infrastructure/sheikha-global-compute-halal-core/governance/halal-governance-controls.json\",",
+                    "                \"written\": true",
+                    "            }",
+                    "        ]",
+                    "    },",
+                    "    \"timestamp\": \"2026-03-18T04:56:59.995Z\"",
+                    "}"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:foundation:activate:force",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "            {",
+                    "                \"filePath\": \"/workspaces/sheikha/sheikha-main-portal/infrastructure/sheikha-foundation-governance/rules/foundational-rules.json\",",
+                    "                \"written\": true",
+                    "            },",
+                    "            {",
+                    "                \"filePath\": \"/workspaces/sheikha/sheikha-main-portal/infrastructure/sheikha-foundation-governance/architecture/layers.json\",",
+                    "                \"written\": true",
+                    "            }",
+                    "        ]",
+                    "    },",
+                    "    \"timestamp\": \"2026-03-18T04:57:00.093Z\"",
+                    "}"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:partnerships-core:activate:force",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "            {",
+                    "                \"filePath\": \"/workspaces/sheikha/sheikha-main-portal/infrastructure/sheikha-strategic-partnerships-core/research/target-research-centers.json\",",
+                    "                \"written\": true",
+                    "            },",
+                    "            {",
+                    "                \"filePath\": \"/workspaces/sheikha/sheikha-main-portal/infrastructure/sheikha-strategic-partnerships-core/training/training-development-framework.json\",",
+                    "                \"written\": true",
+                    "            }",
+                    "        ]",
+                    "    },",
+                    "    \"timestamp\": \"2026-03-18T04:57:00.193Z\"",
+                    "}"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:data-fabric:activate:force",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "            {",
+                    "                \"filePath\": \"/workspaces/sheikha/sheikha-main-portal/infrastructure/sheikha-data-fabric-core/pipeline/improvement-pipeline.json\",",
+                    "                \"written\": true",
+                    "            },",
+                    "            {",
+                    "                \"filePath\": \"/workspaces/sheikha/sheikha-main-portal/infrastructure/sheikha-data-fabric-core/governance/data-governance.json\",",
+                    "                \"written\": true",
+                    "            }",
+                    "        ]",
+                    "    },",
+                    "    \"timestamp\": \"2026-03-18T04:57:00.293Z\"",
+                    "}"
+                ],
+                "stderr": []
+            }
+        ],
+        "background": [
+            {
+                "name": "ops:server:pm2:start",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "│ \u001b[1m\u001b[36m30\u001b[39m\u001b[22m │ sheikha-api                        │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 89978    │ 0s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 11.4mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m45\u001b[39m\u001b[22m │ sheikha-bg-guard                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 86982    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 68.4mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m49\u001b[39m\u001b[22m │ sheikha-extension-release-cycle    │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87264    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m48\u001b[39m\u001b[22m │ sheikha-gcloud-auto                │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87199    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 68.2mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m22\u001b[39m\u001b[22m │ sheikha-health-monitor             │ default     │ 1.0.0   │ \u001b[34m\u001b[1mcluster\u001b[22m\u001b[39m │ 86915    │ 5m     │ 3    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 81.0mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m47\u001b[39m\u001b[22m │ sheikha-ip-proof                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87134    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 67.6mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m38\u001b[39m\u001b[22m │ sheikha-khair-max-cycle            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 83995    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m39\u001b[39m\u001b[22m │ sheikha-khair-max-renew            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 84125    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.3mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m31\u001b[39m\u001b[22m │ sheikha-market-3030                │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 64037    │ 91m    │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 37.0mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "└────┴────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘",
+                    "\u001b[32m[PM2] \u001b[39mSaving current process list...",
+                    "\u001b[32m[PM2] \u001b[39mSuccessfully saved in /home/node/.pm2/dump.pm2"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:monitor:start",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "│ \u001b[1m\u001b[36m30\u001b[39m\u001b[22m │ sheikha-api                        │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 89978    │ 0s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 100.7mb  │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m45\u001b[39m\u001b[22m │ sheikha-bg-guard                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 86982    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 68.4mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m49\u001b[39m\u001b[22m │ sheikha-extension-release-cycle    │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87264    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m48\u001b[39m\u001b[22m │ sheikha-gcloud-auto                │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87199    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 68.2mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m22\u001b[39m\u001b[22m │ sheikha-health-monitor             │ default     │ 1.0.0   │ \u001b[34m\u001b[1mcluster\u001b[22m\u001b[39m │ 90019    │ 0s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 44.6mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m47\u001b[39m\u001b[22m │ sheikha-ip-proof                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87134    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 67.6mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m38\u001b[39m\u001b[22m │ sheikha-khair-max-cycle            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 83995    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m39\u001b[39m\u001b[22m │ sheikha-khair-max-renew            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 84125    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.3mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m31\u001b[39m\u001b[22m │ sheikha-market-3030                │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 64037    │ 91m    │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 37.0mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "└────┴────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘",
+                    "\u001b[32m[PM2] \u001b[39mSaving current process list...",
+                    "\u001b[32m[PM2] \u001b[39mSuccessfully saved in /home/node/.pm2/dump.pm2"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:bg-guard:pm2:start",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "│ \u001b[1m\u001b[36m30\u001b[39m\u001b[22m │ sheikha-api                        │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 89978    │ 0s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 100.7mb  │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m50\u001b[39m\u001b[22m │ sheikha-bg-guard                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 90084    │ 0s     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 5.6mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m49\u001b[39m\u001b[22m │ sheikha-extension-release-cycle    │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87264    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m48\u001b[39m\u001b[22m │ sheikha-gcloud-auto                │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87199    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 68.2mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m22\u001b[39m\u001b[22m │ sheikha-health-monitor             │ default     │ 1.0.0   │ \u001b[34m\u001b[1mcluster\u001b[22m\u001b[39m │ 90019    │ 0s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 91.4mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m47\u001b[39m\u001b[22m │ sheikha-ip-proof                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87134    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 67.6mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m38\u001b[39m\u001b[22m │ sheikha-khair-max-cycle            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 83995    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m39\u001b[39m\u001b[22m │ sheikha-khair-max-renew            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 84125    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.3mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m31\u001b[39m\u001b[22m │ sheikha-market-3030                │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 64037    │ 91m    │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 37.0mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "└────┴────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘",
+                    "\u001b[32m[PM2] \u001b[39mSaving current process list...",
+                    "\u001b[32m[PM2] \u001b[39mSuccessfully saved in /home/node/.pm2/dump.pm2"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:ai-guard:pm2:start",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "│ \u001b[1m\u001b[36m30\u001b[39m\u001b[22m │ sheikha-api                        │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 89978    │ 1s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 100.7mb  │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m50\u001b[39m\u001b[22m │ sheikha-bg-guard                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 90084    │ 0s     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 66.4mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m49\u001b[39m\u001b[22m │ sheikha-extension-release-cycle    │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87264    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m48\u001b[39m\u001b[22m │ sheikha-gcloud-auto                │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87199    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 68.2mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m22\u001b[39m\u001b[22m │ sheikha-health-monitor             │ default     │ 1.0.0   │ \u001b[34m\u001b[1mcluster\u001b[22m\u001b[39m │ 90019    │ 1s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 91.8mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m47\u001b[39m\u001b[22m │ sheikha-ip-proof                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87134    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 67.6mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m38\u001b[39m\u001b[22m │ sheikha-khair-max-cycle            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 83995    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m39\u001b[39m\u001b[22m │ sheikha-khair-max-renew            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 84125    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.3mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m31\u001b[39m\u001b[22m │ sheikha-market-3030                │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 64037    │ 91m    │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 37.0mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "└────┴────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘",
+                    "\u001b[32m[PM2] \u001b[39mSaving current process list...",
+                    "\u001b[32m[PM2] \u001b[39mSuccessfully saved in /home/node/.pm2/dump.pm2"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:ip:proof:pm2:start:strict",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "│ \u001b[1m\u001b[36m30\u001b[39m\u001b[22m │ sheikha-api                        │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 89978    │ 1s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 100.7mb  │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m50\u001b[39m\u001b[22m │ sheikha-bg-guard                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 90084    │ 0s     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 66.4mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m49\u001b[39m\u001b[22m │ sheikha-extension-release-cycle    │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87264    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m48\u001b[39m\u001b[22m │ sheikha-gcloud-auto                │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87199    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 68.2mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m22\u001b[39m\u001b[22m │ sheikha-health-monitor             │ default     │ 1.0.0   │ \u001b[34m\u001b[1mcluster\u001b[22m\u001b[39m │ 90019    │ 1s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 91.8mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m52\u001b[39m\u001b[22m │ sheikha-ip-proof                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 90249    │ 0s     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 7.2mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m38\u001b[39m\u001b[22m │ sheikha-khair-max-cycle            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 83995    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m39\u001b[39m\u001b[22m │ sheikha-khair-max-renew            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 84125    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.3mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m31\u001b[39m\u001b[22m │ sheikha-market-3030                │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 64037    │ 91m    │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 37.0mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "└────┴────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘",
+                    "\u001b[32m[PM2] \u001b[39mSaving current process list...",
+                    "\u001b[32m[PM2] \u001b[39mSuccessfully saved in /home/node/.pm2/dump.pm2"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:gcloud:alliance:auto:pm2:start",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "│ \u001b[1m\u001b[36m30\u001b[39m\u001b[22m │ sheikha-api                        │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 89978    │ 2s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 100.7mb  │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m50\u001b[39m\u001b[22m │ sheikha-bg-guard                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 90084    │ 1s     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 66.4mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m49\u001b[39m\u001b[22m │ sheikha-extension-release-cycle    │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 87264    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m53\u001b[39m\u001b[22m │ sheikha-gcloud-auto                │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 90315    │ 0s     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 9.6mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m22\u001b[39m\u001b[22m │ sheikha-health-monitor             │ default     │ 1.0.0   │ \u001b[34m\u001b[1mcluster\u001b[22m\u001b[39m │ 90019    │ 2s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 91.8mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m52\u001b[39m\u001b[22m │ sheikha-ip-proof                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 90249    │ 0s     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 66.6mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m38\u001b[39m\u001b[22m │ sheikha-khair-max-cycle            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 83995    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m39\u001b[39m\u001b[22m │ sheikha-khair-max-renew            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 84125    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.3mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m31\u001b[39m\u001b[22m │ sheikha-market-3030                │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 64037    │ 92m    │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 37.0mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "└────┴────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘",
+                    "\u001b[32m[PM2] \u001b[39mSaving current process list...",
+                    "\u001b[32m[PM2] \u001b[39mSuccessfully saved in /home/node/.pm2/dump.pm2"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:extension:release:cycle:pm2:start",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "│ \u001b[1m\u001b[36m30\u001b[39m\u001b[22m │ sheikha-api                        │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 89978    │ 2s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 100.7mb  │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m50\u001b[39m\u001b[22m │ sheikha-bg-guard                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 90084    │ 1s     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 66.4mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m54\u001b[39m\u001b[22m │ sheikha-extension-release-cycle    │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 90392    │ 0s     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m53\u001b[39m\u001b[22m │ sheikha-gcloud-auto                │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 90315    │ 0s     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 66.6mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m22\u001b[39m\u001b[22m │ sheikha-health-monitor             │ default     │ 1.0.0   │ \u001b[34m\u001b[1mcluster\u001b[22m\u001b[39m │ 90019    │ 2s     │ 4    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 91.8mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m52\u001b[39m\u001b[22m │ sheikha-ip-proof                   │ default     │ 0.40.4  │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 90249    │ 1s     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 66.6mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m38\u001b[39m\u001b[22m │ sheikha-khair-max-cycle            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 83995    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.0mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m39\u001b[39m\u001b[22m │ sheikha-khair-max-renew            │ default     │ N/A     │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 84125    │ 5m     │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 3.3mb    │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "│ \u001b[1m\u001b[36m31\u001b[39m\u001b[22m │ sheikha-market-3030                │ default     │ 1.0.0   │ \u001b[7m\u001b[1mfork\u001b[22m\u001b[27m    │ 64037    │ 92m    │ 0    │ \u001b[32m\u001b[1monline\u001b[22m\u001b[39m    │ 0%       │ 37.3mb   │ \u001b[1mnode\u001b[22m     │ \u001b[90mdisabled\u001b[39m │",
+                    "└────┴────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘",
+                    "\u001b[32m[PM2] \u001b[39mSaving current process list...",
+                    "\u001b[32m[PM2] \u001b[39mSuccessfully saved in /home/node/.pm2/dump.pm2"
+                ],
+                "stderr": []
+            }
+        ],
+        "optional": [
+            {
+                "name": "ops:health:check:dry",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "[2026-03-18T04:57:04.738Z] │  المشاريع:       غ.م                                 │",
+                    "[2026-03-18T04:57:04.738Z] │  Wellbeing:      84/100                              │",
+                    "[2026-03-18T04:57:04.738Z] │  Safety Flags:   0                                   │",
+                    "[2026-03-18T04:57:04.738Z] │  Neural Balance: 100/100                             │",
+                    "[2026-03-18T04:57:04.738Z] │  النقاط الكلية:  50                                  │",
+                    "[2026-03-18T04:57:04.738Z] │  وضع المصادقة:   adc                                 │",
+                    "[2026-03-18T04:57:04.738Z] │  زمن الفحص:      1027ms                             │",
+                    "[2026-03-18T04:57:04.738Z] └─────────────────────────────────────────────────────┘",
+                    "[2026-03-18T04:57:04.738Z] ",
+                    "💡 الاتصال بالسحابة غير كامل. لإعادة التفعيل:",
+                    "[2026-03-18T04:57:04.738Z]    gcloud auth application-default login",
+                    "[2026-03-18T04:57:04.738Z]    gcloud auth application-default set-quota-project sheikha-market-ops"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:readiness",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "WARN: ANTHROPIC_API_KEY not configured",
+                    "WARN: ALERT_WEBHOOK_URL not configured",
+                    "WARN: VPS_HOST not configured",
+                    "=== Local Health Endpoint ===",
+                    "OK: /api/health responded 200",
+                    "Body: {\"status\":\"ok\"}",
+                    "=== Summary ===",
+                    "Critical: 0",
+                    "Warnings: 5",
+                    "Fixes: 0",
+                    "Mode: READONLY",
+                    "Result: PASS (ready for integration hardening)"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:auth:readiness",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "BASE_URL: OK https://sheikha.top",
+                    "GOOGLE_CLIENT_ID: OK 9520....com",
+                    "GOOGLE_CLIENT_SECRET: OK GOCS...2w5A",
+                    "NAFATH_CLIENT_ID: OK CHAN...T_ID",
+                    "NAFATH_CLIENT_SECRET: OK CHAN...CRET",
+                    "=== Callback URLs (configure in provider consoles) ===",
+                    "Google : https://sheikha.top/api/auth/google/callback",
+                    "Nafath : https://sheikha.top/api/auth/nafath/callback",
+                    "=== Summary ===",
+                    "Core auth: READY",
+                    "Google auth: READY",
+                    "Nafath auth: READY"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:dev:doctor",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "[3] Clear VS Code extension host cache (safe)",
+                    "[4] Network reachability checks",
+                    "FAIL github.com",
+                    "FAIL api.github.com",
+                    "FAIL copilot-proxy.githubusercontent.com",
+                    "[5] Next actions",
+                    "- Restart VS Code window: Ctrl+Shift+P -> Developer: Reload Window",
+                    "- Sign in again to GitHub in VS Code Accounts menu",
+                    "- If still slow: disable heavy extensions temporarily and reopen workspace",
+                    "============================================================",
+                    "COPILOT CHAT DOCTOR COMPLETE",
+                    "============================================================"
+                ],
+                "stderr": []
+            },
+            {
+                "name": "ops:ollama:plan",
+                "status": 0,
+                "ok": true,
+                "stdout": [
+                    "Recommended Models:",
+                    " - llama3.1:8b-instruct-q4_K_M [balanced]",
+                    " - qwen2.5:14b-instruct-q4_K_M [strong]",
+                    " - mistral-nemo:12b [strong]",
+                    " - phi3:mini [light]",
+                    "Mode: PLAN ONLY (no pull)",
+                    "To apply pulls: OLLAMA_ALLOW_PULL=true node scripts/ollama-models-sync.js --apply",
+                    "Policy: لا ضرر ولا ضرار",
+                    " - منع طلبات الغش والضرر والاختراق غير المصرح",
+                    " - منع أي مخرجات ربوية أو احتيالية أو احتكارية",
+                    " - إرجاع تحذير شرعي عند طلب مخالف",
+                    "════════════════════════════════════════════"
+                ],
+                "stderr": [
+                    "/bin/sh: 1: ollama: not found"
+                ]
+            }
+        ]
+    },
+    "summary": {
+        "mode": "apply",
+        "ownedScopeOnly": true,
+        "activatedOneShot": 7,
+        "activatedBackground": 7,
+        "optionalCompleted": 5
+    }
+}

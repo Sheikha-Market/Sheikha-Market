@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <title>رسم توضيحي — سلسلة التوريد وعلاقة كل عميل | Sheikha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #0d9488; --primary-dark: #0f766e; --gold: #d4af37; --bg: #f0fdfa; --card: #fff; --text: #0f172a; --muted: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 1.5rem; line-height: 1.6; }
+        .wrap { max-width: 1000px; margin: 0 auto; }
+        .back { display: inline-block; margin-bottom: 1rem; color: var(--primary); text-decoration: none; font-weight: 600; }
+        .back:hover { text-decoration: underline; }
+        h1 { font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--text); }
+        .sub { color: var(--muted); margin-bottom: 1.5rem; font-size: 1rem; }
+        .diagram-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; overflow-x: auto; }
+        .chain { display: flex; align-items: stretch; justify-content: space-between; gap: 0; flex-wrap: wrap; }
+        .stage-box { flex: 1; min-width: 120px; max-width: 160px; border: 2px solid var(--primary); border-radius: 12px; padding: 1rem; text-align: center; background: rgba(13,148,136,0.06); position: relative; }
+        .stage-box .icon { font-size: 1.5rem; margin-bottom: 0.35rem; }
+        .stage-box .name { font-weight: 700; color: var(--primary-dark); font-size: 0.95rem; }
+        .stage-box .who { font-size: 0.8rem; color: var(--muted); margin-top: 0.35rem; }
+        .stage-box .info { font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem; border-top: 1px dashed var(--border); padding-top: 0.5rem; }
+        .arrow { display: flex; align-items: center; padding: 0 4px; color: var(--primary); font-size: 1.2rem; }
+        .legend { margin-top: 1.5rem; padding: 1rem; background: rgba(13,148,136,0.08); border-radius: 12px; border-right: 4px solid var(--primary); }
+        .legend h3 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--primary-dark); }
+        .legend ul { list-style: none; font-size: 0.9rem; color: var(--muted); }
+        .legend li { margin: 0.25rem 0; }
+        @media (max-width: 768px) { .chain { flex-direction: column; align-items: center; } .arrow { transform: rotate(90deg); } .stage-box { max-width: 100%; } }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <a href="index.html" class="back">← الرئيسية</a>
+        <h1>رسم توضيحي — سلسلة التوريد وعلاقة كل عميل</h1>
+        <p class="sub">من المصدر إلى الطرف النهائي: من يقع في كل مرحلة وما المعلومات التي يمكن استخلاصها.</p>
+        <div class="diagram-wrap">
+            <div class="chain" id="chainDiagram"></div>
+            <div class="legend">
+                <h3>المعلومات التي يمكن استخلاصها من السلسلة</h3>
+                <ul>
+                    <li><strong>من المصدر:</strong> نوع السكراب، الكمية، الموقع، سعر البيع المطلوب.</li>
+                    <li><strong>من التجميع:</strong> أحجام التجميع، أنواع الفرز، تكلفة الجمع.</li>
+                    <li><strong>من النقل:</strong> المسافات، الأوزان، تكلفة الشحن، توفر الشاحنات.</li>
+                    <li><strong>من المصهر:</strong> أسعار الصهر، أنواع المعادن الناتجة، الجودة.</li>
+                    <li><strong>من التصنيع/الطرف النهائي:</strong> الطلب، الأسعار النهائية، الكميات المشتراة.</li>
+                    <li><strong>كل العمليات تظهر باسم «سوق شيخة»</strong> — لا تظهر أسماء الأطراف لبعضهم.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        var apiBase = (window.location.origin && window.location.protocol !== 'file:') ? window.location.origin : 'http://localhost:8080';
+        var stages = [
+            { id: 'source', nameAr: 'مصدر', nameEn: 'Source', icon: '◇', whoAr: 'أفراد، مصانع، مناجم، تجار', whoEn: 'Individuals, factories, mines, traders', infoAr: 'نوع السكراب، كمية، موقع، سعر', infoEn: 'Scrap type, quantity, location, price' },
+            { id: 'collection', nameAr: 'تجميع', nameEn: 'Collection', icon: '▣', whoAr: 'جامعو سكراب، مزودو تجميع', whoEn: 'Collectors, aggregators', infoAr: 'أحجام تجميع، فرز، تكلفة جمع', infoEn: 'Collection volumes, sorting, cost' },
+            { id: 'transport', nameAr: 'نقل', nameEn: 'Transport', icon: '▤', whoAr: 'ناقلون، شركات شحن، شاحنات', whoEn: 'Haulers, shipping, trucks', infoAr: 'مسافات، أوزان، تكلفة شحن', infoEn: 'Distances, weights, shipping cost' },
+            { id: 'smelter', nameAr: 'مصهر', nameEn: 'Smelter', icon: '◆', whoAr: 'مصاهر، معيدو تدوير', whoEn: 'Smelters, recyclers', infoAr: 'أسعار صهر، جودة، معادن ناتجة', infoEn: 'Smelting prices, quality, output' },
+            { id: 'manufacturing', nameAr: 'تصنيع', nameEn: 'Manufacturing', icon: '◈', whoAr: 'مصانع، مصنّعون', whoEn: 'Factories, manufacturers', infoAr: 'طلب، مواصفات، كميات', infoEn: 'Demand, specs, quantities' },
+            { id: 'end', nameAr: 'طرف نهائي', nameEn: 'End', icon: '◎', whoAr: 'تاجر تجزئة، مستهلك', whoEn: 'Retailer, end consumer', infoAr: 'أسعار نهائية، مبيعات', infoEn: 'Final prices, sales' }
+        ];
+        var lang = (function(){ try { return localStorage.getItem('sheikha_lang') || 'ar'; } catch(e){ return 'ar'; } })();
+        var isEn = lang === 'en';
+        var container = document.getElementById('chainDiagram');
+        stages.forEach(function(st, i) {
+            if (i > 0) { var arr = document.createElement('div'); arr.className = 'arrow'; arr.textContent = '→'; container.appendChild(arr); }
+            var box = document.createElement('div');
+            box.className = 'stage-box';
+            box.innerHTML = '<div class="icon">' + st.icon + '</div><div class="name">' + (isEn ? st.nameEn : st.nameAr) + '</div><div class="who">' + (isEn ? st.whoEn : st.whoAr) + '</div><div class="info">' + (isEn ? st.infoEn : st.infoAr) + '</div>';
+            container.appendChild(box);
+        });
+    </script>
+    <footer style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e2e8f0;text-align:center;font-size:0.9em;color:#64748b;">
+        <p><a href="index.html" style="color:#0d9488;text-decoration:none;">الرئيسية</a> · <a href="خريطة-الموقع.html" style="color:#0d9488;text-decoration:none;">خريطة الموقع</a></p>
+        <p style="margin-top:0.5rem;">أهداف الموقع: بلا ضرر ولا ضرار · حب العلامة وأمان · محافظة على البيئة والصحة والبشر.</p>
+    </footer>
+</body>
+</html>

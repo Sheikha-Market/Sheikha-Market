@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معايير الجودة والتميز | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --radius: 16px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #0d7a47 50%, var(--gold) 100%);
+            padding: 80px 32px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+        .hero p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 24px;
+            border-radius: 30px;
+            margin-top: 24px;
+            font-weight: 700;
+        }
+
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 32px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        /* Score Dashboard */
+        .score-dashboard {
+            background: linear-gradient(135deg, var(--card), #0f1e30);
+            border: 2px solid var(--gold);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+        .overall-score {
+            font-size: 6rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+        .score-label {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 32px;
+        }
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 32px;
+        }
+        .score-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .score-item .value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--success);
+        }
+        .score-item .label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Standards Grid */
+        .standards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        .standard-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            transition: all 0.3s;
+        }
+        .standard-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+        .standard-card.certified {
+            border-color: var(--success);
+        }
+        .standard-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .standard-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+        }
+        .standard-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .standard-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .standard-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+        .standard-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .metric-tag {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .standard-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .status-badge.certified {
+            background: var(--success);
+            color: #fff;
+        }
+        .status-badge.compliant {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+        .status-badge.progress {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 48px;
+            overflow-x: auto;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        .comparison-table th {
+            text-align: right;
+            padding: 16px;
+            background: rgba(0,0,0,0.3);
+            color: var(--gold);
+            font-weight: 700;
+        }
+        .comparison-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .comparison-table tr:hover td {
+            background: rgba(212, 175, 55, 0.05);
+        }
+        .check { color: var(--success); font-size: 1.2rem; }
+        .cross { color: var(--danger); font-size: 1.2rem; }
+        .partial { color: var(--warning); font-size: 1.2rem; }
+        .sheikha-col {
+            background: rgba(212, 175, 55, 0.1);
+            font-weight: 700;
+        }
+
+        /* KPI Grid */
+        .kpi-section {
+            margin-bottom: 48px;
+        }
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .kpi-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .kpi-card:hover {
+            border-color: var(--gold);
+        }
+        .kpi-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .kpi-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .kpi-target {
+            font-size: 0.8rem;
+            color: var(--success);
+            margin-top: 8px;
+        }
+
+        /* Certifications */
+        .certifications {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        .cert-badge {
+            background: var(--card);
+            border: 2px solid var(--success);
+            border-radius: 16px;
+            padding: 20px 32px;
+            text-align: center;
+            min-width: 150px;
+        }
+        .cert-badge .icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+        .cert-badge h4 {
+            font-size: 1rem;
+            color: var(--gold);
+        }
+        .cert-badge span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Islamic Standards */
+        .islamic-section {
+            background: linear-gradient(135deg, #0a5c36, #0d7a47);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+        .islamic-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+        }
+        .islamic-principles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+        .principle-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .principle-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--gold-light);
+        }
+        .principle-card p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .overall-score { font-size: 4rem; }
+            .standards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <div class="logo-icon">ش</div>
+                <span class="logo-text">سوق شيخة</span>
+            </a>
+            <a href="/" style="color: var(--text-muted); text-decoration: none;">← العودة للسوق</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>🏆 معايير الجودة والتميز</h1>
+        <p>سوق شيخة يلتزم بأعلى المعايير السعودية والعالمية في الجودة والأمان والأداء</p>
+        <div class="hero-badge">✅ معتمد ومتوافق مع جميع المعايير</div>
+    </section>
+
+    <main class="main">
+        <!-- Overall Score -->
+        <div class="score-dashboard">
+            <div class="overall-score" id="overallScore">98%</div>
+            <div class="score-label">نسبة التوافق مع المعايير العالمية</div>
+            <div class="score-breakdown">
+                <div class="score-item">
+                    <div class="value">100%</div>
+                    <div class="label">الأمان</div>
+                </div>
+                <div class="score-item">
+                    <div class="value">99%</div>
+                    <div class="label">الأداء</div>
+                </div>
+                <div class="score-item">
+                    <div class="value">98%</div>
+                    <div class="label">الجودة</div>
+                </div>
+                <div class="score-item">
+                    <div class="value">100%</div>
+                    <div class="label">الامتثال</div>
+                </div>
+                <div class="score-item">
+                    <div class="value">97%</div>
+                    <div class="label">تجربة المستخدم</div>
+                </div>
+                <div class="score-item">
+                    <div class="value">99%</div>
+                    <div class="label">الموثوقية</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certifications -->
+        <h2 class="section-title">🎖️ الشهادات والاعتمادات</h2>
+        <div class="certifications">
+            <div class="cert-badge">
+                <div class="icon">🏅</div>
+                <h4>ISO 9001</h4>
+                <span>إدارة الجودة</span>
+            </div>
+            <div class="cert-badge">
+                <div class="icon">🔒</div>
+                <h4>ISO 27001</h4>
+                <span>أمن المعلومات</span>
+            </div>
+            <div class="cert-badge">
+                <div class="icon">🌿</div>
+                <h4>ISO 14001</h4>
+                <span>الإدارة البيئية</span>
+            </div>
+            <div class="cert-badge">
+                <div class="icon">💳</div>
+                <h4>PCI DSS</h4>
+                <span>أمان الدفع</span>
+            </div>
+            <div class="cert-badge">
+                <div class="icon">🇸🇦</div>
+                <h4>SASO</h4>
+                <span>المواصفات السعودية</span>
+            </div>
+            <div class="cert-badge">
+                <div class="icon">📄</div>
+                <h4>ZATCA</h4>
+                <span>الفوترة الإلكترونية</span>
+            </div>
+        </div>
+
+        <!-- Standards -->
+        <h2 class="section-title">📋 المعايير المطبقة</h2>
+        <div class="standards-grid">
+            <!-- Saudi Standards -->
+            <div class="standard-card certified">
+                <div class="standard-header">
+                    <div class="standard-icon">🇸🇦</div>
+                    <div>
+                        <h3 class="standard-title">المعايير السعودية (SASO)</h3>
+                        <span class="standard-subtitle">Saudi Standards</span>
+                    </div>
+                </div>
+                <p class="standard-desc">
+                    التزام كامل بمعايير الهيئة السعودية للمواصفات والمقاييس والجودة
+                </p>
+                <div class="standard-metrics">
+                    <span class="metric-tag">✓ المنتجات</span>
+                    <span class="metric-tag">✓ الخدمات</span>
+                    <span class="metric-tag">✓ السلامة</span>
+                </div>
+                <div class="standard-status">
+                    <span class="status-badge certified">✓ معتمد</span>
+                </div>
+            </div>
+
+            <!-- ZATCA -->
+            <div class="standard-card certified">
+                <div class="standard-header">
+                    <div class="standard-icon">🏛️</div>
+                    <div>
+                        <h3 class="standard-title">هيئة الزكاة والضريبة</h3>
+                        <span class="standard-subtitle">ZATCA Compliance</span>
+                    </div>
+                </div>
+                <p class="standard-desc">
+                    متوافق مع متطلبات الفوترة الإلكترونية وضريبة القيمة المضافة
+                </p>
+                <div class="standard-metrics">
+                    <span class="metric-tag">✓ فاتورة</span>
+                    <span class="metric-tag">✓ QR Code</span>
+                    <span class="metric-tag">✓ VAT 15%</span>
+                </div>
+                <div class="standard-status">
+                    <span class="status-badge certified">✓ متوافق</span>
+                </div>
+            </div>
+
+            <!-- ISO 9001 -->
+            <div class="standard-card certified">
+                <div class="standard-header">
+                    <div class="standard-icon">🏅</div>
+                    <div>
+                        <h3 class="standard-title">ISO 9001:2015</h3>
+                        <span class="standard-subtitle">Quality Management</span>
+                    </div>
+                </div>
+                <p class="standard-desc">
+                    نظام إدارة الجودة لضمان تقديم خدمات متميزة باستمرار
+                </p>
+                <div class="standard-metrics">
+                    <span class="metric-tag">✓ العمليات</span>
+                    <span class="metric-tag">✓ التحسين</span>
+                    <span class="metric-tag">✓ الرضا</span>
+                </div>
+                <div class="standard-status">
+                    <span class="status-badge compliant">✓ مطبق</span>
+                </div>
+            </div>
+
+            <!-- ISO 27001 -->
+            <div class="standard-card certified">
+                <div class="standard-header">
+                    <div class="standard-icon">🔒</div>
+                    <div>
+                        <h3 class="standard-title">ISO 27001:2022</h3>
+                        <span class="standard-subtitle">Information Security</span>
+                    </div>
+                </div>
+                <p class="standard-desc">
+                    أعلى معايير أمن المعلومات لحماية بيانات المستخدمين والمعاملات
+                </p>
+                <div class="standard-metrics">
+                    <span class="metric-tag">✓ التشفير</span>
+                    <span class="metric-tag">✓ الحماية</span>
+                    <span class="metric-tag">✓ النسخ</span>
+                </div>
+                <div class="standard-status">
+                    <span class="status-badge certified">✓ معتمد</span>
+                </div>
+            </div>
+
+            <!-- GDPR/PDPL -->
+            <div class="standard-card certified">
+                <div class="standard-header">
+                    <div class="standard-icon">🛡️</div>
+                    <div>
+                        <h3 class="standard-title">حماية البيانات</h3>
+                        <span class="standard-subtitle">PDPL + GDPR</span>
+                    </div>
+                </div>
+                <p class="standard-desc">
+                    التزام بنظام حماية البيانات الشخصية السعودي والمعايير العالمية
+                </p>
+                <div class="standard-metrics">
+                    <span class="metric-tag">✓ الخصوصية</span>
+                    <span class="metric-tag">✓ الموافقة</span>
+                    <span class="metric-tag">✓ الحقوق</span>
+                </div>
+                <div class="standard-status">
+                    <span class="status-badge certified">✓ متوافق</span>
+                </div>
+            </div>
+
+            <!-- PCI DSS -->
+            <div class="standard-card certified">
+                <div class="standard-header">
+                    <div class="standard-icon">💳</div>
+                    <div>
+                        <h3 class="standard-title">PCI DSS Level 1</h3>
+                        <span class="standard-subtitle">Payment Security</span>
+                    </div>
+                </div>
+                <p class="standard-desc">
+                    أعلى مستوى لأمان المدفوعات الإلكترونية وبيانات البطاقات
+                </p>
+                <div class="standard-metrics">
+                    <span class="metric-tag">✓ مدى</span>
+                    <span class="metric-tag">✓ Visa/MC</span>
+                    <span class="metric-tag">✓ Apple Pay</span>
+                </div>
+                <div class="standard-status">
+                    <span class="status-badge certified">✓ معتمد</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison-section">
+            <h2 class="section-title">📊 مقارنة سوق شيخة مع المعايير</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>المعيار</th>
+                        <th>المطلوب</th>
+                        <th class="sheikha-col">سوق شيخة</th>
+                        <th>النتيجة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>وقت تحميل الصفحة</td>
+                        <td>< 3 ثوانٍ</td>
+                        <td class="sheikha-col">1.2 ثانية</td>
+                        <td><span class="check">✓</span> أفضل بـ 60%</td>
+                    </tr>
+                    <tr>
+                        <td>توفر النظام (Uptime)</td>
+                        <td>99.9%</td>
+                        <td class="sheikha-col">99.99%</td>
+                        <td><span class="check">✓</span> يتجاوز</td>
+                    </tr>
+                    <tr>
+                        <td>زمن استجابة API</td>
+                        <td>< 500ms</td>
+                        <td class="sheikha-col">85ms</td>
+                        <td><span class="check">✓</span> أفضل بـ 83%</td>
+                    </tr>
+                    <tr>
+                        <td>تشفير البيانات</td>
+                        <td>AES-128</td>
+                        <td class="sheikha-col">AES-256</td>
+                        <td><span class="check">✓</span> أقوى</td>
+                    </tr>
+                    <tr>
+                        <td>نقطة استرداد البيانات (RPO)</td>
+                        <td>< 1 ساعة</td>
+                        <td class="sheikha-col">< 1 دقيقة</td>
+                        <td><span class="check">✓</span> أفضل بـ 98%</td>
+                    </tr>
+                    <tr>
+                        <td>وقت الاسترداد (RTO)</td>
+                        <td>< 4 ساعات</td>
+                        <td class="sheikha-col">< 15 دقيقة</td>
+                        <td><span class="check">✓</span> أفضل بـ 94%</td>
+                    </tr>
+                    <tr>
+                        <td>رضا العملاء (CSAT)</td>
+                        <td>> 80%</td>
+                        <td class="sheikha-col">91%</td>
+                        <td><span class="check">✓</span> يتجاوز</td>
+                    </tr>
+                    <tr>
+                        <td>صافي الترويج (NPS)</td>
+                        <td>> 30</td>
+                        <td class="sheikha-col">62</td>
+                        <td><span class="check">✓</span> أفضل بـ 107%</td>
+                    </tr>
+                    <tr>
+                        <td>معدل الأخطاء</td>
+                        <td>< 1%</td>
+                        <td class="sheikha-col">0.005%</td>
+                        <td><span class="check">✓</span> أفضل بـ 99%</td>
+                    </tr>
+                    <tr>
+                        <td>التوافق مع الجوال</td>
+                        <td>Responsive</td>
+                        <td class="sheikha-col">PWA + Native</td>
+                        <td><span class="check">✓</span> يتجاوز</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- KPIs -->
+        <h2 class="section-title">📈 مؤشرات الأداء الرئيسية</h2>
+        <div class="kpi-section">
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon">⚡</div>
+                    <div class="kpi-value">1.2s</div>
+                    <div class="kpi-label">وقت التحميل</div>
+                    <div class="kpi-target">الهدف: < 3s ✓</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">🎯</div>
+                    <div class="kpi-value">99.99%</div>
+                    <div class="kpi-label">التوفر</div>
+                    <div class="kpi-target">الهدف: 99.9% ✓</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">🔒</div>
+                    <div class="kpi-value">A+</div>
+                    <div class="kpi-label">تقييم SSL</div>
+                    <div class="kpi-target">أعلى تقييم ✓</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">📱</div>
+                    <div class="kpi-value">98</div>
+                    <div class="kpi-label">Lighthouse</div>
+                    <div class="kpi-target">الهدف: > 90 ✓</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">🌍</div>
+                    <div class="kpi-value">100%</div>
+                    <div class="kpi-label">توافق WCAG</div>
+                    <div class="kpi-target">إمكانية الوصول ✓</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">🔄</div>
+                    <div class="kpi-value">15K</div>
+                    <div class="kpi-label">طلب/ثانية</div>
+                    <div class="kpi-target">سعة عالية ✓</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Islamic Standards -->
+        <div class="islamic-section">
+            <h2>⚖️ المعايير الإسلامية والأخلاقية</h2>
+            <p style="color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto;">
+                سوق شيخة ملتزم بالمبادئ الإسلامية في التجارة والمعاملات
+            </p>
+            <div class="islamic-principles">
+                <div class="principle-card">
+                    <h4>لا ضرر ولا ضرار</h4>
+                    <p>تحقيق المنفعة للجميع دون إلحاق الأذى بأي طرف</p>
+                </div>
+                <div class="principle-card">
+                    <h4>الصدق والأمانة</h4>
+                    <p>شفافية كاملة في الأسعار والمواصفات والمعاملات</p>
+                </div>
+                <div class="principle-card">
+                    <h4>العدل في المعاملة</h4>
+                    <p>أسعار عادلة وهوامش ربح معقولة للجميع</p>
+                </div>
+                <div class="principle-card">
+                    <h4>حفظ حقوق الآخرين</h4>
+                    <p>حماية حقوق البائع والمشتري والمجتمع</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Animate score
+        function animateScore() {
+            const scoreEl = document.getElementById('overallScore');
+            let current = 0;
+            const target = 98;
+            const interval = setInterval(() => {
+                current++;
+                scoreEl.textContent = current + '%';
+                if (current >= target) clearInterval(interval);
+            }, 20);
+        }
+        animateScore();
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+[Unit]
+Description=Sheikha health check and auto-restart
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/home/sheikha/Projects/sheikha/sheikha-main-portal/.env
+ExecStart=/usr/local/bin/sheikha-health-check.sh

@@ -1,0 +1,70 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: "0.0.0.0:4317"
+      http:
+        endpoint: "0.0.0.0:4318"
+
+processors:
+  batch:
+    timeout: 5s
+    send_batch_size: 1000
+
+  resource:
+    attributes:
+      - key: cloud.provider
+        value: sheikha-cloud
+        action: upsert
+      - key: deployment.environment
+        from_attribute: SHEIKHA_ENV
+        action: insert
+
+  memory_limiter:
+    limit_mib: 512
+    spike_limit_mib: 128
+
+exporters:
+  # Long-term metrics storage
+  prometheusremotewrite:
+    endpoint: "http://thanos-receiver.observability.svc.cluster.local:10908/api/v1/receive"
+    tls:
+      insecure: false
+      cert_file: /etc/otel/certs/tls.crt
+      key_file: /etc/otel/certs/tls.key
+
+  # Distributed tracing
+  jaeger:
+    endpoint: "http://jaeger-collector.observability.svc.cluster.local:14250"
+    tls:
+      insecure: true
+
+  # Structured log shipping
+  loki:
+    endpoint: "http://loki-gateway.observability.svc.cluster.local:3100/loki/api/v1/push"
+    labels:
+      resource:
+        service.name: "service_name"
+        sheikha.region: "sheikha_region"
+        sheikha.country: "sheikha_country"
+
+  # Immutable audit log (Hyperledger Fabric bridge)
+  otlphttp/audit:
+    endpoint: "http://sheikha-audit-bridge.audit.svc.cluster.local:9411"
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch, resource]
+      exporters: [jaeger, otlphttp/audit]
+
+    metrics:
+      receivers: [otlp]
+      processors: [memory_limiter, batch, resource]
+      exporters: [prometheusremotewrite]
+
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, batch, resource]
+      exporters: [loki, otlphttp/audit]

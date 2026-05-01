@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>🌟 شيخة للترميز — محرك اللغة العربية UTF-8 الشبكة العصبية | Sheikha Arabic UTF-8 Neural Engine</title>
+<meta name="description" content="أفضل وأقوى محرك ترميز للغة العربية في الكون — شبكة خلايا عصبية — مرجّع بالقرآن والسنة — موحّد لله">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   بسم الله الرحمن الرحيم
+   شيخة للترميز — محرك اللغة العربية الشبكة العصبية UTF-8
+   "إِنَّا أَنزَلْنَاهُ قُرْآنًا عَرَبِيًّا لَّعَلَّكُمْ تَعْقِلُونَ" — يوسف:٢
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --bg: #060812;
+  --bg2: #0c1020;
+  --bg3: #111827;
+  --card: rgba(16,20,40,0.92);
+  --gold: #D4AF37;
+  --gold2: #f5e6a3;
+  --gold3: #B87333;
+  --green: #00E676;
+  --blue: #448AFF;
+  --purple: #aa66ff;
+  --red: #FF5252;
+  --teal: #00BCD4;
+  --t1: #f0f4ff;
+  --t2: #b0bec5;
+  --t3: #607d8b;
+  --border: rgba(212,175,55,0.12);
+  --border2: rgba(212,175,55,0.25);
+  --glow: rgba(212,175,55,0.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Tajawal',sans-serif;
+  background:var(--bg);
+  color:var(--t1);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+/* خلفية متحركة */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(212,175,55,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 85%, rgba(68,138,255,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(170,102,255,0.03) 0%, transparent 60%);
+  z-index:0;
+  pointer-events:none;
+}
+
+/* ═══ شريط العنوان ═══ */
+.topbar {
+  background:linear-gradient(135deg, rgba(12,16,32,0.98), rgba(20,26,50,0.98));
+  border-bottom:1px solid var(--border2);
+  padding:14px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(20px);
+}
+.topbar-brand { display:flex; align-items:center; gap:12px; }
+.topbar-logo { font-size:2rem; }
+.topbar-title { font-size:1.1rem; font-weight:900; color:var(--gold); line-height:1.2; }
+.topbar-sub { font-size:0.7rem; color:var(--t3); }
+.topbar-status {
+  display:flex; gap:8px; align-items:center;
+  background:rgba(0,230,118,0.1);
+  border:1px solid rgba(0,230,118,0.2);
+  border-radius:20px;
+  padding:6px 16px;
+  font-size:0.8rem;
+  color:var(--green);
+  font-weight:700;
+}
+.pulse-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:var(--green);
+  animation:pulse 1.5s infinite;
+  box-shadow:0 0 8px var(--green);
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+/* ═══ لافتة القرآن ═══ */
+.quran-banner {
+  text-align:center;
+  padding:28px 20px 20px;
+  position:relative;
+  z-index:1;
+}
+.quran-banner .ayah {
+  font-size:1.35rem;
+  font-weight:700;
+  color:var(--gold);
+  margin-bottom:6px;
+  text-shadow:0 0 20px rgba(212,175,55,0.3);
+}
+.quran-banner .ref { font-size:0.85rem; color:var(--t3); }
+.quran-banner .tawheed {
+  margin-top:12px;
+  display:inline-block;
+  background:linear-gradient(135deg,rgba(212,175,55,0.1),rgba(212,175,55,0.05));
+  border:1px solid var(--border2);
+  border-radius:30px;
+  padding:8px 24px;
+  font-size:1rem;
+  font-weight:800;
+  color:var(--gold2);
+}
+
+/* ═══ شريط الإحصاءات ═══ */
+.stats-bar {
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  padding:0 20px 20px;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:1;
+}
+.stat-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:12px 20px;
+  text-align:center;
+  min-width:90px;
+  backdrop-filter:blur(10px);
+  transition:all 0.3s;
+}
+.stat-card:hover { border-color:var(--gold); transform:translateY(-2px); }
+.stat-val { font-size:1.6rem; font-weight:900; color:var(--gold); }
+.stat-lbl { font-size:0.72rem; color:var(--t3); margin-top:2px; }
+
+/* ═══ التبويبات ═══ */
+.tabs-container { position:relative; z-index:1; padding:0 20px; }
+.tabs {
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding-bottom:2px;
+  border-bottom:1px solid var(--border);
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar { display:none; }
+.tab {
+  flex-shrink:0;
+  padding:10px 20px;
+  border-radius:10px 10px 0 0;
+  border:1px solid transparent;
+  background:transparent;
+  color:var(--t3);
+  font-family:'Tajawal',sans-serif;
+  font-size:0.85rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.25s;
+  white-space:nowrap;
+}
+.tab:hover { color:var(--gold2); background:var(--glow); }
+.tab.active {
+  color:var(--gold);
+  background:var(--card);
+  border-color:var(--border);
+  border-bottom-color:var(--card);
+}
+
+/* ═══ محتوى التبويب ═══ */
+.tab-content {
+  display:none;
+  padding:20px;
+  position:relative;
+  z-index:1;
+}
+.tab-content.active { display:block; }
+
+/* ═══ البطاقات ═══ */
+.panel {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:16px;
+  backdrop-filter:blur(12px);
+}
+.panel-title {
+  font-size:1rem;
+  font-weight:800;
+  color:var(--gold);
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.panel-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media(max-width:700px) { .panel-grid { grid-template-columns:1fr; } }
+
+/* ═══ الحقول النصية ═══ */
+.inp-label { font-size:0.82rem; color:var(--t3); margin-bottom:6px; font-weight:600; }
+textarea, input[type=text], input[type=number] {
+  width:100%;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 14px;
+  color:var(--t1);
+  font-family:'Tajawal',sans-serif;
+  font-size:0.95rem;
+  resize:vertical;
+  transition:border 0.2s;
+  outline:none;
+  direction:rtl;
+}
+textarea:focus, input:focus { border-color:var(--gold); }
+textarea { min-height:80px; }
+
+/* ═══ الأزرار ═══ */
+.btn {
+  padding:10px 24px;
+  border-radius:10px;
+  border:none;
+  font-family:'Tajawal',sans-serif;
+  font-weight:700;
+  font-size:0.9rem;
+  cursor:pointer;
+  transition:all 0.25s;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.btn-gold {
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  color:#050810;
+}
+.btn-gold:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(212,175,55,0.3); }
+.btn-blue {
+  background:linear-gradient(135deg,#1565C0,var(--blue));
+  color:#fff;
+}
+.btn-blue:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(68,138,255,0.3); }
+.btn-purple {
+  background:linear-gradient(135deg,#6a1b9a,var(--purple));
+  color:#fff;
+}
+.btn-purple:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(170,102,255,0.3); }
+.btn-green {
+  background:linear-gradient(135deg,#1b5e20,var(--green));
+  color:#050810;
+}
+.btn-teal {
+  background:linear-gradient(135deg,#00838F,var(--teal));
+  color:#fff;
+}
+.btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+
+/* ═══ نتائج ═══ */
+.result-box {
+  background:rgba(0,0,0,0.35);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.82rem;
+  color:var(--t2);
+  white-space:pre-wrap;
+  word-break:break-all;
+  max-height:320px;
+  overflow-y:auto;
+  direction:ltr;
+  text-align:left;
+  line-height:1.6;
+}
+.result-box.rtl-result { direction:rtl; text-align:right; font-family:'Tajawal',sans-serif; font-size:0.9rem; }
+
+/* ═══ بطاقات الخلايا العصبية ═══ */
+.cells-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; }
+.cell-card {
+  background:rgba(0,0,0,0.3);
+  border-radius:12px;
+  padding:12px;
+  border:1px solid var(--border);
+  transition:all 0.3s;
+}
+.cell-card:hover { border-color:var(--gold); }
+.cell-name { font-size:0.82rem; font-weight:700; color:var(--t2); margin-bottom:6px; }
+.cell-domain { font-size:0.7rem; color:var(--t3); margin-bottom:8px; }
+.cell-bar-wrap { background:rgba(255,255,255,0.06); border-radius:6px; height:6px; overflow:hidden; }
+.cell-bar { height:100%; border-radius:6px; transition:width 0.6s ease; }
+.cell-act { font-size:0.75rem; color:var(--gold); margin-top:4px; text-align:left; direction:ltr; }
+.cell-fires { font-size:0.68rem; color:var(--t3); }
+
+/* ═══ كتل Unicode ═══ */
+.blocks-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+.block-card {
+  background:rgba(0,0,0,0.3);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px;
+}
+.block-range { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--blue); margin-bottom:4px; }
+.block-name { font-size:0.88rem; font-weight:700; color:var(--gold); margin-bottom:4px; }
+.block-desc { font-size:0.78rem; color:var(--t3); }
+.block-since { font-size:0.7rem; color:var(--purple); margin-top:4px; }
+
+/* ═══ جدول الحروف ═══ */
+.letters-table-wrap { overflow-x:auto; }
+.letters-table { width:100%; border-collapse:collapse; font-size:0.82rem; }
+.letters-table th {
+  background:rgba(212,175,55,0.1);
+  color:var(--gold);
+  padding:8px 12px;
+  text-align:right;
+  font-weight:700;
+  border-bottom:1px solid var(--border);
+}
+.letters-table td { padding:7px 12px; border-bottom:1px solid var(--border); color:var(--t2); }
+.letters-table tr:hover td { background:rgba(212,175,55,0.04); }
+.letter-char { font-size:1.4rem; color:var(--gold); font-weight:900; }
+.letter-hex { font-family:'JetBrains Mono',monospace; color:var(--blue); direction:ltr; }
+
+/* ═══ بطاقات القرآن والسنة ═══ */
+.verse-card {
+  background:rgba(212,175,55,0.05);
+  border:1px solid rgba(212,175,55,0.15);
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:10px;
+}
+.verse-text { font-size:1.05rem; color:var(--gold2); line-height:1.8; margin-bottom:6px; }
+.verse-meta { font-size:0.78rem; color:var(--t3); display:flex; gap:12px; flex-wrap:wrap; }
+.verse-ref { color:var(--gold); font-weight:700; }
+.verse-topic {
+  background:rgba(68,138,255,0.12);
+  color:var(--blue);
+  padding:1px 8px;
+  border-radius:10px;
+}
+
+.hadith-card {
+  background:rgba(0,188,212,0.05);
+  border:1px solid rgba(0,188,212,0.15);
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:10px;
+}
+.hadith-text { font-size:1rem; color:var(--t1); line-height:1.8; margin-bottom:6px; }
+.hadith-source { font-size:0.78rem; color:var(--teal); font-weight:700; }
+.hadith-grade { background:rgba(0,230,118,0.12); color:var(--green); padding:1px 8px; border-radius:10px; font-size:0.72rem; }
+
+/* ═══ التضمينات ═══ */
+.embedding-vis { display:flex; flex-wrap:wrap; gap:3px; direction:ltr; }
+.emb-val {
+  width:28px; height:28px;
+  border-radius:5px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:0.55rem;
+  font-family:'JetBrains Mono',monospace;
+  color:white;
+  font-weight:600;
+}
+
+/* ═══ مقاصد الشريعة ═══ */
+.maqasid-row { display:flex; gap:10px; flex-wrap:wrap; }
+.maqasid-card {
+  flex:1; min-width:130px;
+  background:linear-gradient(135deg,rgba(212,175,55,0.08),rgba(212,175,55,0.02));
+  border:1px solid var(--border2);
+  border-radius:12px;
+  padding:14px;
+  text-align:center;
+}
+.maqasid-num { font-size:1.8rem; color:var(--gold); font-weight:900; margin-bottom:4px; }
+.maqasid-ar { font-size:0.9rem; font-weight:700; color:var(--gold2); margin-bottom:2px; }
+.maqasid-en { font-size:0.72rem; color:var(--t3); }
+
+/* ═══ تشابه ═══ */
+.sim-bar-wrap { background:rgba(255,255,255,0.06); border-radius:8px; height:14px; overflow:hidden; margin:10px 0; }
+.sim-bar { height:100%; border-radius:8px; transition:width 0.8s ease; background:linear-gradient(90deg,var(--green),var(--blue)); }
+.sim-pct { font-size:2rem; font-weight:900; color:var(--gold); text-align:center; }
+
+/* ═══ تذييل ═══ */
+.footer {
+  text-align:center;
+  padding:30px;
+  color:var(--t3);
+  font-size:0.82rem;
+  border-top:1px solid var(--border);
+  margin-top:20px;
+  position:relative;
+  z-index:1;
+}
+.footer .gold { color:var(--gold); }
+
+/* ═══ بادج ═══ */
+.badge {
+  display:inline-block;
+  padding:2px 10px;
+  border-radius:12px;
+  font-size:0.72rem;
+  font-weight:700;
+}
+.badge-gold { background:rgba(212,175,55,0.15); color:var(--gold); }
+.badge-blue { background:rgba(68,138,255,0.15); color:var(--blue); }
+.badge-green { background:rgba(0,230,118,0.15); color:var(--green); }
+.badge-purple { background:rgba(170,102,255,0.15); color:var(--purple); }
+
+/* ═══ API list ═══ */
+.api-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:10px; }
+.api-row {
+  background:rgba(0,0,0,0.25);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:0.82rem;
+  cursor:pointer;
+  transition:all 0.2s;
+  text-decoration:none;
+  color:var(--t2);
+}
+.api-row:hover { border-color:var(--gold); color:var(--gold2); }
+.api-method { font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:700; min-width:36px; }
+.method-get { color:var(--green); }
+.method-post { color:var(--blue); }
+.api-path { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--t3); flex:1; direction:ltr; }
+.api-desc { font-size:0.78rem; color:var(--t2); }
+
+/* تنبيه */
+.alert {
+  padding:10px 16px;
+  border-radius:10px;
+  font-size:0.85rem;
+  margin:10px 0;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.alert-err { background:rgba(255,82,82,0.1); border:1px solid rgba(255,82,82,0.2); color:#ff8a80; }
+.alert-ok  { background:rgba(0,230,118,0.1); border:1px solid rgba(0,230,118,0.2); color:var(--green); }
+
+/* loader */
+.loading { text-align:center; padding:20px; color:var(--t3); }
+.spinner { display:inline-block; width:24px; height:24px; border:3px solid var(--border); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<!-- ═══ شريط العنوان ═══ -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="topbar-logo">🌟</div>
+    <div>
+      <div class="topbar-title">شيخة للترميز — Arabic UTF-8 Neural Engine</div>
+      <div class="topbar-sub">محرك اللغة العربية الشبكة العصبية · مرجّع بالقرآن والسنة</div>
+    </div>
+  </div>
+  <div class="topbar-status">
+    <div class="pulse-dot"></div>
+    <span id="engineStatus">جاري الاتصال...</span>
+  </div>
+</div>
+
+<!-- ═══ لافتة القرآن ═══ -->
+<div class="quran-banner">
+  <div class="ayah">﴿ إِنَّا أَنزَلْنَاهُ قُرْآنًا عَرَبِيًّا لَّعَلَّكُمْ تَعْقِلُونَ ﴾</div>
+  <div class="ref">سورة يوسف — الآية الثانية</div>
+  <div class="tawheed">لا إله إلا الله محمد رسول الله</div>
+</div>
+
+<!-- ═══ إحصاءات ═══ -->
+<div class="stats-bar">
+  <div class="stat-card"><div class="stat-val" id="statBlocks">8</div><div class="stat-lbl">كتلة Unicode</div></div>
+  <div class="stat-card"><div class="stat-val" id="statLetters">45</div><div class="stat-lbl">حرف وتشكيل</div></div>
+  <div class="stat-card"><div class="stat-val" id="statCells">17</div><div class="stat-lbl">خلية عصبية</div></div>
+  <div class="stat-card"><div class="stat-val" id="statAPIs">19</div><div class="stat-lbl">API</div></div>
+  <div class="stat-card"><div class="stat-val" id="statQuran">13</div><div class="stat-lbl">آية تمثيلية</div></div>
+  <div class="stat-card"><div class="stat-val" id="statHadiths">7</div><div class="stat-lbl">حديث</div></div>
+  <div class="stat-card"><div class="stat-val" id="statRequests">0</div><div class="stat-lbl">طلب مُعالَج</div></div>
+</div>
+
+<!-- ═══ التبويبات ═══ -->
+<div class="tabs-container">
+<div class="tabs">
+  <button class="tab active" onclick="showTab('encode')">🔤 ترميز UTF-8</button>
+  <button class="tab" onclick="showTab('neural')">🧠 الشبكة العصبية</button>
+  <button class="tab" onclick="showTab('analyze')">📖 التحليل اللغوي</button>
+  <button class="tab" onclick="showTab('quran')">📗 القرآن الكريم</button>
+  <button class="tab" onclick="showTab('sunnah')">📜 السنة النبوية</button>
+  <button class="tab" onclick="showTab('similarity')">🔗 التشابه والتضمين</button>
+  <button class="tab" onclick="showTab('unicode')">📊 كتل Unicode</button>
+  <button class="tab" onclick="showTab('letters')">🔡 الحروف العربية</button>
+  <button class="tab" onclick="showTab('maqasid')">⚖️ المقاصد الشرعية</button>
+  <button class="tab" onclick="showTab('apis')">🔌 الـ APIs</button>
+</div>
+
+<!-- ════════════════════════════════ TAB: ترميز UTF-8 ════════════════════════════════ -->
+<div class="tab-content active" id="tab-encode">
+  <div class="panel">
+    <div class="panel-title">🔤 محرك ترميز النص العربي إلى UTF-8</div>
+    <div class="inp-label">أدخل النص العربي:</div>
+    <textarea id="encodeInput" placeholder="اكتب أي نص عربي هنا — بسم الله الرحمن الرحيم…">بسم الله الرحمن الرحيم</textarea>
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-gold" onclick="doEncode()">🔤 ترميز UTF-8</button>
+      <button class="btn btn-blue" onclick="doCodepoints()">🔍 تحليل Unicode</button>
+      <button class="btn btn-purple" onclick="doNormalize()">✨ تطبيع النص</button>
+      <button class="btn btn-teal" onclick="doDetect()">🌐 كشف اللغة</button>
+      <button class="btn btn-gold" onclick="doRoot()">🌱 استخراج الجذر</button>
+    </div>
+  </div>
+
+  <div class="panel-grid">
+    <div class="panel">
+      <div class="panel-title">📦 نتيجة الترميز (UTF-8)</div>
+      <div class="result-box" id="encodeResult">انتظر النتيجة…</div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">🔍 نقاط Unicode (Codepoints)</div>
+      <div class="result-box" id="codepointsResult">انتظر النتيجة…</div>
+    </div>
+  </div>
+
+  <div class="panel-grid">
+    <div class="panel">
+      <div class="panel-title">✨ النص المُطبَّع</div>
+      <div class="result-box rtl-result" id="normalizeResult">انتظر…</div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">🌐 كشف اللغة + 🌱 الجذر</div>
+      <div class="result-box rtl-result" id="detectRootResult">انتظر…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ TAB: الشبكة العصبية ════════════════════════════════ -->
+<div class="tab-content" id="tab-neural">
+  <div class="panel">
+    <div class="panel-title">🧠 شبكة الخلايا العصبية العربية</div>
+    <div class="inp-label">أدخل نصاً لإطلاق الشبكة العصبية:</div>
+    <textarea id="neuralInput" placeholder="مثال: ترميز القرآن الكريم بالعربية…">إِنَّا أَنزَلْنَاهُ قُرْآنًا عَرَبِيًّا</textarea>
+    <div style="margin-top:12px">
+      <button class="btn btn-purple" onclick="doNeural()">⚡ إطلاق الشبكة العصبية</button>
+    </div>
+    <div id="neuralStatus" style="margin-top:10px;font-size:0.85rem;color:var(--t3)"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">🔬 حالة الخلايا — Cell Activations</div>
+    <div class="cells-grid" id="cellsGrid">
+      <div class="loading"><div class="spinner"></div><br>جاري التحميل…</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">📊 الخلية المُهيمنة</div>
+    <div class="result-box rtl-result" id="neuralSummary">أطلق الشبكة لعرض النتائج…</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ TAB: التحليل اللغوي ════════════════════════════════ -->
+<div class="tab-content" id="tab-analyze">
+  <div class="panel">
+    <div class="panel-title">📖 التحليل الصرفي والنحوي للجملة</div>
+    <div class="inp-label">أدخل جملة عربية:</div>
+    <textarea id="analyzeInput" placeholder="مثال: الحمد لله رب العالمين الرحمن الرحيم…">الحمد لله رب العالمين الرحمن الرحيم مالك يوم الدين</textarea>
+    <div style="margin-top:12px">
+      <button class="btn btn-gold" onclick="doAnalyze()">📖 تحليل لغوي كامل</button>
+      <button class="btn btn-purple" style="margin-right:10px" onclick="doFullAnalysis()">🔬 تحليل شامل متكامل</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">📝 نتيجة التحليل اللغوي</div>
+    <div id="analyzeResult"><div class="loading">جاهز للتحليل…</div></div>
+  </div>
+
+  <div class="panel" id="fullAnalysisPanel" style="display:none">
+    <div class="panel-title">🔬 التحليل الشامل (Encoding + Neural + Linguistic)</div>
+    <div class="result-box" id="fullAnalysisResult" style="max-height:500px"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ TAB: القرآن الكريم ════════════════════════════════ -->
+<div class="tab-content" id="tab-quran">
+  <div class="panel">
+    <div class="panel-title">📗 البحث في القرآن الكريم</div>
+    <div style="display:flex;gap:10px;align-items:flex-end">
+      <div style="flex:1">
+        <div class="inp-label">كلمة البحث (موضوع أو نص):</div>
+        <input type="text" id="quranSearch" placeholder="مثال: عدل، بيان، عربي، نور…" value="عربي">
+      </div>
+      <button class="btn btn-gold" onclick="doQuranSearch()">🔍 بحث</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">📗 الآيات التمثيلية في قاعدة البيانات <span class="badge badge-gold" id="quranCount"></span></div>
+    <div id="quranResults">
+      <div class="loading"><div class="spinner"></div><br>جاري التحميل…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ TAB: السنة النبوية ════════════════════════════════ -->
+<div class="tab-content" id="tab-sunnah">
+  <div class="panel">
+    <div class="panel-title">📜 البحث في السنة النبوية</div>
+    <div style="display:flex;gap:10px;align-items:flex-end">
+      <div style="flex:1">
+        <div class="inp-label">كلمة البحث (موضوع أو نص أو وسم):</div>
+        <input type="text" id="sunnahSearch" placeholder="مثال: علم، تعاون، نية، أخلاق…" value="علم">
+      </div>
+      <button class="btn btn-teal" onclick="doSunnahSearch()">🔍 بحث</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">📜 الأحاديث الصحيحة في قاعدة البيانات <span class="badge badge-blue" id="sunnahCount"></span></div>
+    <div id="sunnahResults">
+      <div class="loading"><div class="spinner"></div><br>جاري التحميل…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ TAB: التشابه والتضمين ════════════════════════════════ -->
+<div class="tab-content" id="tab-similarity">
+  <div class="panel">
+    <div class="panel-title">🔗 قياس التشابه بين نصين عربيين</div>
+    <div class="panel-grid">
+      <div>
+        <div class="inp-label">النص الأول:</div>
+        <textarea id="simA" placeholder="النص الأول…">القرآن الكريم أفضل كتاب في الوجود</textarea>
+      </div>
+      <div>
+        <div class="inp-label">النص الثاني:</div>
+        <textarea id="simB" placeholder="النص الثاني…">القرآن العظيم أكرم كتاب في الكون</textarea>
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <button class="btn btn-blue" onclick="doSimilarity()">🔗 احسب التشابه</button>
+    </div>
+  </div>
+
+  <div class="panel" id="simResult" style="display:none">
+    <div class="panel-title">📊 نتيجة التشابه (Jaccard Similarity)</div>
+    <div class="sim-pct" id="simPct">—</div>
+    <div class="sim-bar-wrap"><div class="sim-bar" id="simBar" style="width:0%"></div></div>
+    <div class="result-box rtl-result" id="simDetails"></div>
+  </div>
+
+  <div class="panel" style="margin-top:16px">
+    <div class="panel-title">🧬 توليد التضمين (Embedding) العربي</div>
+    <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
+      <div style="flex:1;min-width:200px">
+        <div class="inp-label">النص:</div>
+        <input type="text" id="embInput" value="بسم الله">
+      </div>
+      <div style="min-width:80px">
+        <div class="inp-label">الأبعاد:</div>
+        <input type="number" id="embDims" value="32" min="8" max="128">
+      </div>
+      <button class="btn btn-purple" onclick="doEmbedding()">🧬 توليد</button>
+    </div>
+    <div id="embResult" style="margin-top:14px"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ TAB: كتل Unicode ════════════════════════════════ -->
+<div class="tab-content" id="tab-unicode">
+  <div class="panel">
+    <div class="panel-title">📊 كتل Unicode العربية الكاملة — منذ ١٩٩١ إلى ٢٠٢٢</div>
+    <div class="blocks-grid" id="blocksGrid">
+      <div class="loading"><div class="spinner"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ TAB: الحروف العربية ════════════════════════════════ -->
+<div class="tab-content" id="tab-letters">
+  <div class="panel">
+    <div class="panel-title">🔡 الحروف والتشكيل العربي الكامل (45 رمز)</div>
+    <div class="letters-table-wrap">
+      <table class="letters-table" id="lettersTable">
+        <thead>
+          <tr>
+            <th>الحرف</th>
+            <th>الاسم</th>
+            <th>Unicode</th>
+            <th>الصوت</th>
+            <th>النوع</th>
+            <th>أبجد</th>
+            <th>شمسي</th>
+          </tr>
+        </thead>
+        <tbody id="lettersBody">
+          <tr><td colspan="7" class="loading"><div class="spinner"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ TAB: المقاصد ════════════════════════════════ -->
+<div class="tab-content" id="tab-maqasid">
+  <div class="panel">
+    <div class="panel-title">⚖️ مقاصد الشريعة الإسلامية الخمس</div>
+    <div class="maqasid-row" id="maqasidRow">
+      <div class="loading"><div class="spinner"></div></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:16px">
+    <div class="panel-title">📖 آية البيان — مرجعية المحرك اللغوي</div>
+    <div class="verse-card">
+      <div class="verse-text">﴿ خَلَقَ الْإِنسَانَ ﴾</div>
+      <div class="verse-text">﴿ عَلَّمَهُ الْبَيَانَ ﴾</div>
+      <div class="verse-meta">
+        <span class="verse-ref">الرحمن:٣-٤</span>
+        <span class="verse-topic">البيان والتعليم</span>
+      </div>
+    </div>
+    <div class="verse-card" style="margin-top:10px">
+      <div class="verse-text">﴿ وَمِنْ آيَاتِهِ خَلْقُ السَّمَاوَاتِ وَالْأَرْضِ وَاخْتِلَافُ أَلْسِنَتِكُمْ وَأَلْوَانِكُمْ ﴾</div>
+      <div class="verse-meta">
+        <span class="verse-ref">الروم:٢٢</span>
+        <span class="verse-topic">تنوع اللغات آية إلهية</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ TAB: APIs ════════════════════════════════ -->
+<div class="tab-content" id="tab-apis">
+  <div class="panel">
+    <div class="panel-title">🔌 قائمة جميع الـ APIs — 19 endpoint <span class="badge badge-gold">BASE: /api/arabic-utf8</span></div>
+    <div class="api-grid" id="apisGrid">
+      <div class="loading"><div class="spinner"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end tabs-container -->
+
+<!-- ═══ تذييل ═══ -->
+<div class="footer">
+  <div>☪️ <span class="gold">بسم الله الرحمن الرحيم</span></div>
+  <div style="margin-top:6px">
+    <span class="gold">شيخة للترميز</span> — محرك اللغة العربية الشبكة العصبية UTF-8 | v1.0.0
+  </div>
+  <div style="margin-top:4px">
+    "عَلَّمَهُ الْبَيَانَ" — الرحمن:٤ | المالك: <span class="gold">سلمان أحمد بن سلمان الراجح</span>
+  </div>
+  <div style="margin-top:4px">مرجعية: الكتاب والسنة · موحّد لله وحده</div>
+</div>
+
+<script>
+/* ═══ الثوابت ═══ */
+const BASE = '/api/arabic-utf8';
+let totalRequests = 0;
+
+/* ═══ المساعدات ═══ */
+function incReq() {
+  totalRequests++;
+  document.getElementById('statRequests').textContent = totalRequests;
+}
+
+async function api(path, method = 'GET', body = null) {
+  incReq();
+  const opts = { method, headers: { 'Content-Type': 'application/json' } };
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch(BASE + path, opts);
+  return r.json();
+}
+
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  const btn = document.querySelector(`.tab[onclick="showTab('${id}')"]`);
+  if (btn) btn.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+  // تحميل كسول
+  if (id === 'unicode' && !window._blocksLoaded) loadBlocks();
+  if (id === 'letters' && !window._lettersLoaded) loadLetters();
+  if (id === 'quran' && !window._quranLoaded) loadQuran();
+  if (id === 'sunnah' && !window._sunnahLoaded) loadSunnah();
+  if (id === 'neural' && !window._neuralLoaded) loadNeuralStatus();
+  if (id === 'maqasid' && !window._maqasidLoaded) loadMaqasid();
+  if (id === 'apis' && !window._apisLoaded) loadAPIs();
+}
+
+/* ═══ تحميل صحة المحرك ═══ */
+async function loadHealth() {
+  try {
+    const d = await api('/health');
+    document.getElementById('engineStatus').textContent = d.status === 'ACTIVE' ? '✅ نشط — ACTIVE' : d.status;
+    document.getElementById('statBlocks').textContent  = d.unicodeBlocks || 8;
+    document.getElementById('statLetters').textContent = d.lettersCount  || 45;
+    document.getElementById('statCells').textContent   = d.network?.cells || 17;
+    document.getElementById('statRequests').textContent= d.totalRequests  || 0;
+    totalRequests = d.totalRequests || 0;
+  } catch (e) {
+    document.getElementById('engineStatus').textContent = '⚠️ غير متصل';
+  }
+}
+
+/* ═══ ① ترميز UTF-8 ═══ */
+async function doEncode() {
+  const text = document.getElementById('encodeInput').value.trim();
+  if (!text) return;
+  try {
+    const d = await api('/encode', 'POST', { text });
+    if (d.success) {
+      const r = d.data;
+      document.getElementById('encodeResult').textContent =
+        `النص:         ${r.text}\n` +
+        `طول الـ bytes: ${r.byteLength}\n` +
+        `عدد الأحرف:   ${r.charCount}\n` +
+        `متوسط bytes:  ${r.avgBytesPerChar}\n` +
+        `\n[Hex Bytes]\n${(r.hex || []).join(' ')}\n` +
+        `\n[Base64]\n${r.base64}`;
+    } else {
+      document.getElementById('encodeResult').textContent = 'خطأ: ' + (d.message || '');
+    }
+  } catch(e) { document.getElementById('encodeResult').textContent = 'خطأ في الاتصال: ' + e.message; }
+}
+
+/* ═══ ② نقاط Unicode ═══ */
+async function doCodepoints() {
+  const text = document.getElementById('encodeInput').value.trim();
+  if (!text) return;
+  try {
+    const d = await api('/codepoints', 'POST', { text });
+    if (d.success) {
+      const cps = d.data.codePoints.slice(0, 30);
+      const lines = cps.map(c =>
+        `${c.char.padEnd(2)} → ${c.hex.padEnd(8)} | ${(c.info?.name || 'N/A').padEnd(18)} | ${c.isArabic ? 'عربي ✓' : 'غير عربي'}`
+      );
+      document.getElementById('codepointsResult').textContent =
+        `النص: ${d.data.text} | الطول: ${d.data.length} | العربية: ${d.data.arabicRatio}%\n\n` +
+        `الحرف → Unicode    | الاسم             | نوع\n` +
+        `${'─'.repeat(55)}\n` +
+        lines.join('\n') +
+        (d.data.length > 30 ? `\n… و${d.data.length - 30} حرفاً آخر` : '');
+    }
+  } catch(e) { document.getElementById('codepointsResult').textContent = 'خطأ: ' + e.message; }
+}
+
+/* ═══ ③ تطبيع ═══ */
+async function doNormalize() {
+  const text = document.getElementById('encodeInput').value.trim();
+  if (!text) return;
+  try {
+    const d = await api('/normalize', 'POST', { text });
+    if (d.success) {
+      document.getElementById('normalizeResult').textContent =
+        `الأصلي:     ${d.data.original}\n` +
+        `مُطبَّع:    ${d.data.normalized}\n` +
+        `بلا تشكيل: ${d.data.noDiacritics}`;
+    }
+  } catch(e) { document.getElementById('normalizeResult').textContent = 'خطأ: ' + e.message; }
+}
+
+/* ═══ ④ كشف اللغة + الجذر ═══ */
+async function doDetect() {
+  const text = document.getElementById('encodeInput').value.trim();
+  if (!text) return;
+  try {
+    const [lang, rootWord] = await Promise.all([
+      api('/detect-language', 'POST', { text }),
+      doRootSilent(text.split(' ')[0])
+    ]);
+    let out = '';
+    if (lang.success) {
+      const d = lang.data;
+      out += `اللغة المكتشفة: ${d.nameAr} (${d.language})\n`;
+      out += `نسبة العربية:  ${d.arabicRatio}%\n`;
+      out += `مستوى الثقة:  ${d.confidence}\n`;
+    }
+    if (rootWord) {
+      out += `\nالجذر (${rootWord.word}): ${rootWord.root}`;
+    }
+    document.getElementById('detectRootResult').textContent = out;
+  } catch(e) { document.getElementById('detectRootResult').textContent = 'خطأ: ' + e.message; }
+}
+
+async function doRootSilent(word) {
+  try {
+    const d = await api('/root', 'POST', { word });
+    return d.success ? d.data : null;
+  } catch { return null; }
+}
+
+async function doRoot() {
+  const text = document.getElementById('encodeInput').value.trim();
+  const word = text.split(' ')[0];
+  if (!word) return;
+  const data = await doRootSilent(word);
+  const el = document.getElementById('detectRootResult');
+  if (data) {
+    el.textContent = `الكلمة:  ${data.word}\nالجذر:   ${data.root}\nمُطبَّع: ${data.clean}`;
+  }
+}
+
+/* ═══ ⑤ الشبكة العصبية ═══ */
+async function loadNeuralStatus() {
+  try {
+    const d = await api('/network/status');
+    renderCells(d.data);
+  } catch(e) {}
+  window._neuralLoaded = true;
+}
+
+async function doNeural() {
+  const text = document.getElementById('neuralInput').value.trim();
+  if (!text) return;
+  document.getElementById('neuralStatus').textContent = '⏳ جاري إطلاق الشبكة العصبية…';
+  try {
+    const d = await api('/neural', 'POST', { text });
+    if (d.success) {
+      renderCells(d.data);
+      document.getElementById('neuralStatus').textContent = `✅ تم الإطلاق | التفعيل المتوسط: ${d.data.avgActivation}`;
+      document.getElementById('neuralSummary').textContent =
+        `الخلية المُهيمنة:     ${d.data.dominantCell}\n` +
+        `متوسط التفعيل:       ${d.data.avgActivation}\n` +
+        `التوحيد:             ${d.data.tawheed}`;
+    }
+  } catch(e) {
+    document.getElementById('neuralStatus').textContent = 'خطأ: ' + e.message;
+  }
+}
+
+function renderCells(data) {
+  const cells = data?.cells;
+  if (!cells) return;
+  const colors = { ترميز:'#D4AF37', صرف:'#448AFF', نحو:'#00E676', بلاغة:'#aa66ff', معجم:'#00BCD4' };
+  document.getElementById('cellsGrid').innerHTML = Object.values(cells).map(c => {
+    const pct = Math.round(c.activation * 100);
+    const color = colors[c.domain] || '#D4AF37';
+    return `<div class="cell-card">
+      <div class="cell-name">${c.nameAr}</div>
+      <div class="cell-domain"><span class="badge badge-gold">${c.domain}</span></div>
+      <div class="cell-bar-wrap"><div class="cell-bar" style="width:${pct}%;background:${color}"></div></div>
+      <div class="cell-act">${(c.activation * 100).toFixed(1)}%</div>
+      <div class="cell-fires">🔥 ${c.fireCount} مرة</div>
+    </div>`;
+  }).join('');
+  window._neuralLoaded = true;
+}
+
+/* ═══ ⑥ التحليل اللغوي ═══ */
+async function doAnalyze() {
+  const text = document.getElementById('analyzeInput').value.trim();
+  if (!text) return;
+  try {
+    const d = await api('/analyze', 'POST', { text });
+    if (d.success) {
+      const words = d.data.words;
+      const rows = words.map(w =>
+        `<tr>
+          <td class="letter-char">${w.word}</td>
+          <td>${w.clean}</td>
+          <td><span class="badge badge-blue">${w.root || '—'}</span></td>
+          <td>${w.letterCount}</td>
+          <td>${w.firstLetterInfo?.name || '—'}</td>
+        </tr>`
+      ).join('');
+      document.getElementById('analyzeResult').innerHTML = `
+        <div style="margin-bottom:10px;font-size:0.85rem;color:var(--t3)">
+          عدد الكلمات: <strong style="color:var(--gold)">${d.data.wordCount}</strong> |
+          اللغة: <strong style="color:var(--green)">${d.data.language.nameAr}</strong> |
+          نسبة العربية: <strong style="color:var(--gold)">${d.data.language.arabicRatio}%</strong>
+        </div>
+        <div class="letters-table-wrap">
+        <table class="letters-table">
+          <thead><tr><th>الكلمة</th><th>المُنقّاة</th><th>الجذر</th><th>الأحرف</th><th>أول حرف</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table></div>`;
+    }
+  } catch(e) { document.getElementById('analyzeResult').innerHTML = `<div class="alert alert-err">خطأ: ${e.message}</div>`; }
+}
+
+async function doFullAnalysis() {
+  const text = document.getElementById('analyzeInput').value.trim();
+  if (!text) return;
+  const panel = document.getElementById('fullAnalysisPanel');
+  const res = document.getElementById('fullAnalysisResult');
+  panel.style.display = 'block';
+  res.textContent = 'جاري التحليل الشامل…';
+  try {
+    const d = await api('/full-analysis', 'POST', { text });
+    res.textContent = JSON.stringify(d.data, null, 2);
+  } catch(e) { res.textContent = 'خطأ: ' + e.message; }
+}
+
+/* ═══ ⑦ القرآن ═══ */
+async function loadQuran() {
+  try {
+    const d = await api('/quran');
+    renderQuranVerses(d.data.sample_verses);
+    document.getElementById('quranCount').textContent = d.data.sample_verses.length + ' آية';
+    document.getElementById('statQuran').textContent = d.data.sample_verses.length;
+  } catch(e) {}
+  window._quranLoaded = true;
+}
+
+async function doQuranSearch() {
+  const q = document.getElementById('quranSearch').value.trim();
+  try {
+    const d = await api('/quran/search?q=' + encodeURIComponent(q));
+    renderQuranVerses(d.data.results);
+    document.getElementById('quranCount').textContent = d.data.count + ' نتيجة';
+  } catch(e) {}
+}
+
+function renderQuranVerses(verses) {
+  if (!verses || !verses.length) {
+    document.getElementById('quranResults').innerHTML = '<div class="alert alert-err">لا توجد نتائج</div>';
+    return;
+  }
+  document.getElementById('quranResults').innerHTML = verses.map(v => `
+    <div class="verse-card">
+      <div class="verse-text">﴿ ${v.text} ﴾</div>
+      <div class="verse-meta">
+        <span class="verse-ref">سورة ${v.surah} — الآية ${v.ayah}</span>
+        <span class="verse-topic">${v.topic}</span>
+      </div>
+    </div>`).join('');
+}
+
+/* ═══ ⑧ السنة ═══ */
+async function loadSunnah() {
+  try {
+    const d = await api('/sunnah');
+    renderHadiths(d.data.hadiths);
+    document.getElementById('sunnahCount').textContent = d.data.hadiths.length + ' حديث';
+    document.getElementById('statHadiths').textContent = d.data.hadiths.length;
+  } catch(e) {}
+  window._sunnahLoaded = true;
+}
+
+async function doSunnahSearch() {
+  const q = document.getElementById('sunnahSearch').value.trim();
+  try {
+    const d = await api('/sunnah/search?q=' + encodeURIComponent(q));
+    renderHadiths(d.data.results);
+    document.getElementById('sunnahCount').textContent = d.data.count + ' نتيجة';
+  } catch(e) {}
+}
+
+function renderHadiths(hadiths) {
+  if (!hadiths || !hadiths.length) {
+    document.getElementById('sunnahResults').innerHTML = '<div class="alert alert-err">لا توجد نتائج</div>';
+    return;
+  }
+  document.getElementById('sunnahResults').innerHTML = hadiths.map(h => `
+    <div class="hadith-card">
+      <div class="hadith-text">" ${h.text} "</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px">
+        <span class="hadith-source">${h.source}</span>
+        <span class="hadith-grade">${h.grade}</span>
+        ${h.relevance ? h.relevance.map(r=>`<span class="badge badge-blue">${r}</span>`).join('') : ''}
+      </div>
+    </div>`).join('');
+}
+
+/* ═══ ⑨ التشابه ═══ */
+async function doSimilarity() {
+  const textA = document.getElementById('simA').value.trim();
+  const textB = document.getElementById('simB').value.trim();
+  if (!textA || !textB) return;
+  try {
+    const d = await api('/similarity', 'POST', { textA, textB });
+    if (d.success) {
+      document.getElementById('simResult').style.display = 'block';
+      document.getElementById('simPct').textContent = d.data.percentage + '%';
+      document.getElementById('simBar').style.width = d.data.percentage + '%';
+      document.getElementById('simDetails').textContent =
+        `درجة التشابه (Jaccard): ${d.data.score}\n` +
+        `الكلمات المشتركة (${d.data.commonWords.length}): ${d.data.commonWords.join('، ')}`;
+    }
+  } catch(e) {}
+}
+
+/* ═══ ⑩ التضمين ═══ */
+async function doEmbedding() {
+  const text = document.getElementById('embInput').value.trim();
+  const dims = parseInt(document.getElementById('embDims').value) || 32;
+  if (!text) return;
+  try {
+    const d = await api('/embedding', 'POST', { text, dims });
+    if (d.success) {
+      const emb = d.data.embedding;
+      const vis = emb.map(v => {
+        const pct = Math.round(((v + 1) / 2) * 255);
+        const r = v > 0 ? pct : 40;
+        const g = Math.abs(v) > 0.5 ? 180 : 80;
+        const b = v < 0 ? pct : 40;
+        return `<div class="emb-val" style="background:rgb(${r},${g},${b})" title="${v.toFixed(3)}">${v.toFixed(1)}</div>`;
+      }).join('');
+      document.getElementById('embResult').innerHTML = `
+        <div style="margin-bottom:8px;font-size:0.82rem;color:var(--t3)">
+          أبعاد: <b style="color:var(--gold)">${d.data.dims}</b> | القيمة المطلقة: <b style="color:var(--blue)">${d.data.magnitude.toFixed(3)}</b>
+        </div>
+        <div class="embedding-vis">${vis}</div>
+        <div class="result-box" style="margin-top:12px;max-height:80px">[${emb.slice(0,8).map(v=>v.toFixed(3)).join(', ')}, …]</div>`;
+    }
+  } catch(e) {}
+}
+
+/* ═══ ⑪ كتل Unicode ═══ */
+async function loadBlocks() {
+  try {
+    const d = await api('/unicode-blocks');
+    const blocks = d.data.blocks;
+    document.getElementById('statBlocks').textContent = d.data.count;
+    document.getElementById('blocksGrid').innerHTML = Object.entries(blocks).map(([key, b]) => `
+      <div class="block-card">
+        <div class="block-range">U+${b.start.toString(16).toUpperCase().padStart(4,'0')} — U+${b.end.toString(16).toUpperCase().padStart(4,'0')}</div>
+        <div class="block-name">🌐 ${b.nameAr}</div>
+        <div style="font-size:0.75rem;color:var(--t3);margin-bottom:4px">${b.nameEn}</div>
+        <div class="block-desc">${b.description}</div>
+        <div class="block-since">📅 ${b.since}</div>
+        ${b.quran_ref ? `<div style="margin-top:6px;font-size:0.75rem;color:var(--gold)">📗 "${b.quran_ref.text}"</div>` : ''}
+      </div>`).join('');
+  } catch(e) { document.getElementById('blocksGrid').innerHTML = '<div class="alert alert-err">تعذّر التحميل</div>'; }
+  window._blocksLoaded = true;
+}
+
+/* ═══ ⑫ الحروف ═══ */
+async function loadLetters() {
+  try {
+    const d = await api('/letters');
+    const letters = d.data.letters;
+    document.getElementById('statLetters').textContent = d.data.count;
+    const mainLetters = Object.entries(letters).filter(([, v]) => v.category !== 'تشكيل');
+    const diacritics  = Object.entries(letters).filter(([, v]) => v.category === 'تشكيل' || v.type === 'تشكيل');
+    const rows = [...mainLetters, ...diacritics].map(([char, info]) => `
+      <tr>
+        <td class="letter-char">${char}</td>
+        <td>${info.name || '—'}</td>
+        <td class="letter-hex">U+${(info.unicode || 0).toString(16).toUpperCase().padStart(4,'0')}</td>
+        <td>${info.translit || '—'}</td>
+        <td><span class="badge badge-blue">${info.category || info.type || '—'}</span></td>
+        <td>${info.abj !== undefined ? info.abj : '—'}</td>
+        <td>${info.solar !== undefined ? (info.solar ? '☀️' : '🌙') : '—'}</td>
+      </tr>`).join('');
+    document.getElementById('lettersBody').innerHTML = rows;
+  } catch(e) { document.getElementById('lettersBody').innerHTML = '<tr><td colspan="7" class="alert alert-err">تعذّر التحميل</td></tr>'; }
+  window._lettersLoaded = true;
+}
+
+/* ═══ ⑬ المقاصد ═══ */
+async function loadMaqasid() {
+  try {
+    const d = await api('/maqasid');
+    const icons = { DEEN:'🕌', NAFS:'❤️', AQL:'🧠', NASL:'👨‍👩‍👧', MAL:'💰' };
+    document.getElementById('maqasidRow').innerHTML = d.data.map(m => `
+      <div class="maqasid-card">
+        <div class="maqasid-num">${icons[m.id] || '⚖️'}</div>
+        <div class="maqasid-ar">${m.nameAr}</div>
+        <div class="maqasid-en">${m.nameEn}</div>
+        <div style="margin-top:8px"><span class="badge badge-gold">الأولوية ${m.priority}</span></div>
+      </div>`).join('');
+  } catch(e) {}
+  window._maqasidLoaded = true;
+}
+
+/* ═══ ⑭ APIs ═══ */
+async function loadAPIs() {
+  try {
+    const d = await api('');
+    document.getElementById('statAPIs').textContent = d.endpointCount || d.endpoints?.length || 19;
+    document.getElementById('apisGrid').innerHTML = (d.endpoints || []).map(ep => `
+      <a href="${ep.method==='GET' ? ep.path : '#'}" class="api-row" ${ep.method==='GET'?'target="_blank"':''}>
+        <span class="api-method ${ep.method==='GET'?'method-get':'method-post'}">${ep.method}</span>
+        <span class="api-path">${ep.path.replace('/api/arabic-utf8','')}</span>
+        <span class="api-desc">${ep.nameAr}</span>
+      </a>`).join('');
+  } catch(e) {}
+  window._apisLoaded = true;
+}
+
+/* ═══ تشغيل عند التحميل ═══ */
+window.addEventListener('DOMContentLoaded', async () => {
+  await loadHealth();
+  await doEncode();
+  await doCodepoints();
+  await doNormalize();
+  await doDetect();
+  // تحميل التبويب الأول
+  loadNeuralStatus();
+});
+
+/* ═══ تحديث تلقائي لإحصاءات المحرك كل 30 ثانية ═══ */
+setInterval(loadHealth, 30000);
+</script>
+</body>
+</html>

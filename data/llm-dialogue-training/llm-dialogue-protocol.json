@@ -1,0 +1,92 @@
+{
+  "name": "Sheikha LLM Constructive Dialogue Protocol",
+  "version": "1.0.0",
+  "languageProfile": [
+    "Arabic-Fusha",
+    "English-Professional"
+  ],
+  "objective": "Enable safe, constructive, and goal-oriented dialogue across AI systems and partner companies",
+  "principles": [
+    "لا ضرر ولا ضرار",
+    "الوضوح والشفافية",
+    "الاحترام المتبادل",
+    "التركيز على النتائج القابلة للقياس",
+    "حوكمة المسؤولية وتوثيق القرارات"
+  ],
+  "conversationLifecycle": [
+    {
+      "phase": "Welcome & Alignment",
+      "goals": [
+        "ترحيب رسمي محترم",
+        "تحديد الأهداف المشتركة",
+        "تأكيد قيود الأمان والامتثال"
+      ]
+    },
+    {
+      "phase": "Problem Framing",
+      "goals": [
+        "تعريف المشكلة بدقة",
+        "تحديد النطاق",
+        "تحديد المخرجات المتوقعة"
+      ]
+    },
+    {
+      "phase": "Option Exploration",
+      "goals": [
+        "طرح بدائل تقنية",
+        "تحليل المخاطر والفوائد",
+        "مقارنة الكلفة والزمن"
+      ]
+    },
+    {
+      "phase": "Decision & Commitments",
+      "goals": [
+        "اختيار البديل الأمثل",
+        "تحديد المالك والجدول الزمني",
+        "اعتماد مؤشرات نجاح واضحة"
+      ]
+    },
+    {
+      "phase": "Follow-up & Learning",
+      "goals": [
+        "متابعة التنفيذ",
+        "قياس النتائج",
+        "تحسين الحوار للجولات القادمة"
+      ]
+    }
+  ],
+  "roleCards": {
+    "moderator": {
+      "mission": "Keep discussion constructive and on-scope",
+      "checklist": [
+        "timeboxing",
+        "neutral tone",
+        "decision recap"
+      ]
+    },
+    "technicalLead": {
+      "mission": "Translate goals into technical options",
+      "checklist": [
+        "architecture fit",
+        "security impact",
+        "integration readiness"
+      ]
+    },
+    "complianceLead": {
+      "mission": "Ensure no-harm and policy alignment",
+      "checklist": [
+        "data boundaries",
+        "risk gating",
+        "audit trace"
+      ]
+    },
+    "partnerRep": {
+      "mission": "Represent partner capabilities and constraints",
+      "checklist": [
+        "SLA clarity",
+        "support model",
+        "ownership split"
+      ]
+    }
+  }
+}

@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التسجيل السريع | شبكة شيخة الذكية</title>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --copper: #B87333;
+            --dark-bg: #0a0f1a;
+            --card-bg: #1f2937;
+            --border: #374151;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #0a0f1a 0%, #1a1a2e 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(31,41,55,0.95);
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .logo-text { color: var(--gold); font-size: 1.5rem; font-weight: bold; }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-title h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .page-title p { color: var(--text-secondary); }
+        
+        /* Search Section */
+        .search-section {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            color: #000;
+        }
+        
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212,175,55,0.3); }
+        
+        /* Sectors Grid */
+        .sectors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .sector-card {
+            background: var(--dark-bg);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .sector-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+        
+        .sector-card.active {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        
+        .sector-icon { font-size: 2rem; margin-bottom: 10px; }
+        .sector-name { font-size: 0.9rem; color: var(--text-secondary); }
+        .sector-count { font-size: 0.75rem; color: var(--gold); margin-top: 5px; }
+        
+        /* Companies Grid */
+        .companies-section {
+            margin-top: 30px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--gold);
+        }
+        
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .company-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .company-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .company-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .company-info h3 { font-size: 1.1rem; margin-bottom: 5px; }
+        .company-info p { color: var(--text-secondary); font-size: 0.85rem; }
+        
+        .company-body { padding: 20px; }
+        
+        .company-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            padding: 5px 12px;
+            background: var(--dark-bg);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .tag.ready { background: rgba(16,185,129,0.2); color: var(--success); }
+        
+        .company-products {
+            margin-bottom: 15px;
+        }
+        
+        .company-products h4 {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+        
+        .products-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .product-item {
+            padding: 3px 10px;
+            background: rgba(59,130,246,0.2);
+            border-radius: 5px;
+            font-size: 0.75rem;
+            color: var(--info);
+        }
+        
+        .company-gaps {
+            background: rgba(239,68,68,0.1);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .company-gaps h4 {
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+        
+        .gap-item {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+        
+        .company-footer {
+            padding: 15px 20px;
+            background: var(--dark-bg);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-sm {
+            flex: 1;
+            padding: 10px;
+            font-size: 0.85rem;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+        
+        /* Quick Register Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.open { display: flex; }
+        
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 { color: var(--gold); }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body { padding: 25px; }
+        
+        .prefilled-notice {
+            background: rgba(16,185,129,0.1);
+            border: 1px solid var(--success);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .prefilled-notice span { color: var(--success); font-size: 0.9rem; }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        
+        .form-group input:disabled {
+            background: rgba(212,175,55,0.1);
+            border-color: var(--gold);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .solution-item {
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .solution-item:hover {
+            border-color: var(--gold);
+        }
+        
+        .solution-item.selected {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        
+        .solution-item input { display: none; }
+        
+        .solution-item h5 { margin-bottom: 5px; }
+        .solution-item p { font-size: 0.75rem; color: var(--text-secondary); }
+        
+        /* Stats */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 2rem; color: var(--gold); font-weight: bold; }
+        .stat-label { font-size: 0.85rem; color: var(--text-secondary); }
+        
+        /* AI Assistant */
+        .ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 100;
+        }
+        
+        .ai-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(212,175,55,0.4);
+            transition: all 0.3s;
+        }
+        
+        .ai-toggle:hover { transform: scale(1.1); }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .success-message.show { display: block; }
+        
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(16,185,129,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 20px;
+        }
+        
+        .success-message h2 { color: var(--success); margin-bottom: 10px; }
+        
+        .credentials {
+            background: var(--dark-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: right;
+        }
+        
+        .credential-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .credential-item:last-child { border: none; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">⚡</div>
+            <span class="logo-text">شبكة شيخة الذكية</span>
+        </div>
+        <nav>
+            <a href="منظومة-شيخة.html" style="color: var(--text-secondary); text-decoration: none; margin-left: 20px;">الرئيسية</a>
+            <a href="سوق-شيخة.html" style="color: var(--text-secondary); text-decoration: none; margin-left: 20px;">السوق</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>🚀 التسجيل السريع</h1>
+            <p>متجرك جاهز مسبقاً! اختر شركتك وانطلق في ثوانٍ</p>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" id="totalCompanies">85+</div>
+                <div class="stat-label">شركة مجهزة</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">8</div>
+                <div class="stat-label">قطاعات</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">بيانات جاهزة</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">30 ثانية</div>
+                <div class="stat-label">وقت التسجيل</div>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن شركتك... (مثال: معادن، لازوردي، حديد الراجحي)">
+                <button class="btn btn-primary" onclick="searchCompanies()">🔍 بحث</button>
+            </div>
+            
+            <div class="sectors-grid" id="sectorsGrid">
+                <div class="sector-card active" data-sector="all" onclick="filterBySector('all')">
+                    <div class="sector-icon">🌐</div>
+                    <div class="sector-name">الكل</div>
+                    <div class="sector-count">85 شركة</div>
+                </div>
+                <div class="sector-card" data-sector="mining" onclick="filterBySector('mining')">
+                    <div class="sector-icon">⛏️</div>
+                    <div class="sector-name">التعدين</div>
+                    <div class="sector-count">15 شركة</div>
+                </div>
+                <div class="sector-card" data-sector="scrap" onclick="filterBySector('scrap')">
+                    <div class="sector-icon">♻️</div>
+                    <div class="sector-name">السكراب</div>
+                    <div class="sector-count">20 شركة</div>
+                </div>
+                <div class="sector-card" data-sector="gold" onclick="filterBySector('gold')">
+                    <div class="sector-icon">💎</div>
+                    <div class="sector-name">الذهب</div>
+                    <div class="sector-count">12 شركة</div>
+                </div>
+                <div class="sector-card" data-sector="steel" onclick="filterBySector('steel')">
+                    <div class="sector-icon">🔩</div>
+                    <div class="sector-name">الحديد</div>
+                    <div class="sector-count">15 شركة</div>
+                </div>
+                <div class="sector-card" data-sector="aluminum" onclick="filterBySector('aluminum')">
+                    <div class="sector-icon">🪶</div>
+                    <div class="sector-name">الألمنيوم</div>
+                    <div class="sector-count">8 شركات</div>
+                </div>
+                <div class="sector-card" data-sector="logistics" onclick="filterBySector('logistics')">
+                    <div class="sector-icon">🚚</div>
+                    <div class="sector-name">النقل</div>
+                    <div class="sector-count">10 شركات</div>
+                </div>
+                <div class="sector-card" data-sector="storage" onclick="filterBySector('storage')">
+                    <div class="sector-icon">🏭</div>
+                    <div class="sector-name">التخزين</div>
+                    <div class="sector-count">5 شركات</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="companies-section">
+            <div class="section-header">
+                <h2 class="section-title">📋 الشركات المجهزة مسبقاً</h2>
+                <span style="color: var(--text-secondary);">اختر شركتك للتسجيل الفوري</span>
+            </div>
+            
+            <div class="companies-grid" id="companiesGrid">
+                <!-- سيتم تعبئتها بالجافاسكربت -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal التسجيل السريع -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🚀 تسجيل سريع - <span id="modalCompanyName"></span></h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="registerForm">
+                    <div class="prefilled-notice">
+                        <span>✅</span>
+                        <span>بيانات شركتك مجهزة مسبقاً! فقط أكمل البيانات الناقصة</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>اسم الشركة (مجهز)</label>
+                        <input type="text" id="regCompanyName" disabled>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>القطاع (مجهز)</label>
+                            <input type="text" id="regSector" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>المدينة (مجهزة)</label>
+                            <input type="text" id="regCity" disabled>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>المنتجات (مجهزة) - <span id="productCount">0</span> منتج</label>
+                        <div id="productsPreview" style="background: var(--dark-bg); padding: 15px; border-radius: 10px; max-height: 100px; overflow-y: auto;"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="color: #ef4444;">⚠️ الفجوات المكتشفة</label>
+                        <div id="gapsPreview" style="background: rgba(239,68,68,0.1); padding: 15px; border-radius: 10px;"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="color: var(--success);">✅ الحلول المقترحة من شيخة</label>
+                        <div class="solutions-grid" id="solutionsGrid"></div>
+                    </div>
+                    
+                    <hr style="border-color: var(--border); margin: 25px 0;">
+                    
+                    <h4 style="margin-bottom: 15px;">📝 أكمل بياناتك</h4>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>الاسم الكامل *</label>
+                            <input type="text" id="regFullName" placeholder="اسمك الكامل" required>
+                        </div>
+                        <div class="form-group">
+                            <label>المنصب *</label>
+                            <input type="text" id="regPosition" placeholder="مثال: مدير المبيعات">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>البريد الإلكتروني *</label>
+                            <input type="email" id="regEmail" placeholder="email@company.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>رقم الجوال *</label>
+                            <input type="tel" id="regPhone" placeholder="05XXXXXXXX" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>اختر الباقة</label>
+                        <select id="regPackage">
+                            <option value="starter">باقة البداية - 299 ريال/شهر</option>
+                            <option value="business" selected>باقة الأعمال - 699 ريال/شهر (الأكثر طلباً)</option>
+                            <option value="leadership">باقة الريادة - 1,499 ريال/شهر</option>
+                            <option value="enterprise">باقة المؤسسات - تواصل معنا</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="completeRegistration()">
+                        🚀 إتمام التسجيل الآن
+                    </button>
+                </div>
+                
+                <div class="success-message" id="successMessage">
+                    <div class="success-icon">✅</div>
+                    <h2>تم التسجيل بنجاح!</h2>
+                    <p style="color: var(--text-secondary);">متجرك جاهز الآن مع جميع المنتجات والبيانات</p>
+                    
+                    <div class="credentials">
+                        <div class="credential-item">
+                            <span style="color: var(--text-secondary);">معرف الشركة:</span>
+                            <span id="successCompanyId" style="color: var(--gold); font-family: monospace;"></span>
+                        </div>
+                        <div class="credential-item">
+                            <span style="color: var(--text-secondary);">مفتاح API:</span>
+                            <span id="successApiKey" style="color: var(--info); font-family: monospace; font-size: 0.8rem;"></span>
+                        </div>
+                        <div class="credential-item">
+                            <span style="color: var(--text-secondary);">المنتجات المفعّلة:</span>
+                            <span id="successProducts" style="color: var(--success);"></span>
+                        </div>
+                        <div class="credential-item">
+                            <span style="color: var(--text-secondary);">الحلول المفعّلة:</span>
+                            <span id="successSolutions" style="color: var(--success);"></span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 25px; display: flex; gap: 15px;">
+                        <a href="لوحة-الشركة.html" class="btn btn-primary" style="flex: 1; text-decoration: none; text-align: center;">
+                            🎛️ الدخول للوحة التحكم
+                        </a>
+                        <button class="btn btn-secondary" style="flex: 1;" onclick="closeModal()">
+                            إغلاق
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ai-assistant">
+        <button class="ai-toggle" onclick="askSheikha()">🤖</button>
+    </div>
+
+    <script>
+        let companiesData = [];
+        let selectedCompany = null;
+        let selectedSolutions = [];
+
+        // تحميل البيانات
+        async function loadData() {
+            try {
+                const res = await fetch('/data/saudi-market-preloaded.json');
+                const data = await res.json();
+                companiesData = data.preloadedCompanies || [];
+                renderCompanies(companiesData);
+            } catch (e) {
+                console.error('Error loading data:', e);
+                // بيانات احتياطية
+                companiesData = getBackupData();
+                renderCompanies(companiesData);
+            }
+        }
+
+        function getBackupData() {
+            return [
+                {
+                    companyId: "MAADEN-001",
+                    nameAr: "شركة التعدين العربية السعودية (معادن)",
+                    sector: "mining",
+                    logo: "🏔️",
+                    headquarters: { city: "الرياض" },
+                    products: [
+                        { name: "سبائك الذهب" },
+                        { name: "النحاس" },
+                        { name: "الألمنيوم" },
+                        { name: "الفوسفات" }
+                    ],
+                    gaps: [
+                        { area: "السكراب", gap: "لا توجد شراكات لإعادة التدوير" }
+                    ],
+                    opportunities: ["شراكة مع مراكز السكراب", "تكامل مع منظومة شيخة"]
+                },
+                {
+                    companyId: "LAZURDE-002",
+                    nameAr: "شركة لازوردي للمجوهرات",
+                    sector: "gold",
+                    logo: "💎",
+                    headquarters: { city: "الرياض" },
+                    products: [
+                        { name: "خواتم ذهب" },
+                        { name: "أساور ذهب" },
+                        { name: "سلاسل ذهب" }
+                    ],
+                    gaps: [
+                        { area: "المواد الخام", gap: "اعتماد على استيراد الذهب" }
+                    ],
+                    opportunities: ["شراكة مع معادن للذهب المحلي"]
+                },
+                {
+                    companyId: "SCRAPCITY-003",
+                    nameAr: "مدينة تجميع المعادن",
+                    sector: "scrap",
+                    logo: "♻️",
+                    headquarters: { city: "الرياض" },
+                    products: [
+                        { name: "حديد سكراب" },
+                        { name: "نحاس سكراب" },
+                        { name: "ألمنيوم سكراب" }
+                    ],
+                    gaps: [
+                        { area: "الرقمنة", gap: "نظام يدوي بالكامل" },
+                        { area: "التسعير", gap: "لا يوجد نظام تسعير شفاف" }
+                    ],
+                    opportunities: ["نظام رقمي متكامل", "تسعير ذكي بالذكاء الاصطناعي"]
+                }
+            ];
+        }
+
+        function renderCompanies(companies) {
+            const grid = document.getElementById('companiesGrid');
+            grid.innerHTML = companies.map(company => `
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-logo">${company.logo || '🏢'}</div>
+                        <div class="company-info">
+                            <h3>${company.nameAr}</h3>
+                            <p>${company.headquarters?.city || 'السعودية'}</p>
+                        </div>
+                    </div>
+                    <div class="company-body">
+                        <div class="company-tags">
+                            <span class="tag">${getSectorName(company.sector)}</span>
+                            <span class="tag ready">✅ جاهز للتسجيل</span>
+                        </div>
+                        
+                        <div class="company-products">
+                            <h4>📦 المنتجات المجهزة (${(company.products || []).length})</h4>
+                            <div class="products-list">
+                                ${(company.products || []).slice(0, 4).map(p => `
+                                    <span class="product-item">${p.name}</span>
+                                `).join('')}
+                                ${(company.products || []).length > 4 ? `<span class="product-item">+${company.products.length - 4}</span>` : ''}
+                            </div>
+                        </div>
+                        
+                        ${company.gaps && company.gaps.length > 0 ? `
+                            <div class="company-gaps">
+                                <h4>⚠️ فجوات مكتشفة</h4>
+                                ${company.gaps.slice(0, 2).map(g => `
+                                    <div class="gap-item">• ${g.gap}</div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="company-footer">
+                        <button class="btn btn-primary btn-sm" onclick="openQuickRegister('${company.companyId}')">
+                            🚀 تسجيل فوري
+                        </button>
+                        <button class="btn btn-secondary btn-sm" onclick="viewDetails('${company.companyId}')">
+                            📋 التفاصيل
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getSectorName(sector) {
+            const sectors = {
+                mining: '⛏️ تعدين',
+                scrap: '♻️ سكراب',
+                gold: '💎 ذهب',
+                steel: '🔩 حديد',
+                aluminum: '🪶 ألمنيوم',
+                logistics: '🚚 نقل',
+                storage: '🏭 تخزين'
+            };
+            return sectors[sector] || sector;
+        }
+
+        function filterBySector(sector) {
+            document.querySelectorAll('.sector-card').forEach(card => {
+                card.classList.remove('active');
+                if (card.dataset.sector === sector) card.classList.add('active');
+            });
+
+            if (sector === 'all') {
+                renderCompanies(companiesData);
+            } else {
+                const filtered = companiesData.filter(c => c.sector === sector);
+                renderCompanies(filtered);
+            }
+        }
+
+        function searchCompanies() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = companiesData.filter(c => 
+                c.nameAr.toLowerCase().includes(query) ||
+                (c.nameEn && c.nameEn.toLowerCase().includes(query))
+            );
+            renderCompanies(filtered);
+        }
+
+        function openQuickRegister(companyId) {
+            selectedCompany = companiesData.find(c => c.companyId === companyId);
+            if (!selectedCompany) return;
+
+            document.getElementById('modalCompanyName').textContent = selectedCompany.nameAr;
+            document.getElementById('regCompanyName').value = selectedCompany.nameAr;
+            document.getElementById('regSector').value = getSectorName(selectedCompany.sector);
+            document.getElementById('regCity').value = selectedCompany.headquarters?.city || 'السعودية';
+
+            // عرض المنتجات
+            const products = selectedCompany.products || [];
+            document.getElementById('productCount').textContent = products.length;
+            document.getElementById('productsPreview').innerHTML = products.map(p => 
+                `<span style="display: inline-block; padding: 5px 10px; margin: 3px; background: rgba(59,130,246,0.2); border-radius: 5px; font-size: 0.8rem; color: var(--info);">${p.name}</span>`
+            ).join('');
+
+            // عرض الفجوات
+            const gaps = selectedCompany.gaps || [];
+            document.getElementById('gapsPreview').innerHTML = gaps.length > 0 
+                ? gaps.map(g => `<div style="margin-bottom: 8px;">• <strong>${g.area}:</strong> ${g.gap}</div>`).join('')
+                : '<div style="color: var(--success);">✅ لا توجد فجوات مكتشفة</div>';
+
+            // عرض الحلول
+            const solutions = [
+                { id: 'digital', name: 'كتلة الرقمنة', desc: 'لوحة تحكم + متجر + API', price: '299 ريال/شهر' },
+                { id: 'pricing', name: 'التسعير الذكي', desc: 'أسعار لحظية + توصيات شيخة', price: '99 ريال/شهر' },
+                { id: 'tracking', name: 'التتبع المتقدم', desc: 'تتبع الشحنات والمصادر', price: '149 ريال/شهر' },
+                { id: 'marketing', name: 'التسويق المتكامل', desc: 'هوية + موقع + إيميلات', price: '199 ريال/شهر' }
+            ];
+            document.getElementById('solutionsGrid').innerHTML = solutions.map(s => `
+                <div class="solution-item" onclick="toggleSolution('${s.id}', this)">
+                    <input type="checkbox" id="sol-${s.id}">
+                    <h5>${s.name}</h5>
+                    <p>${s.desc}</p>
+                    <p style="color: var(--gold); margin-top: 5px;">${s.price}</p>
+                </div>
+            `).join('');
+
+            selectedSolutions = [];
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('successMessage').classList.remove('show');
+            document.getElementById('registerModal').classList.add('open');
+        }
+
+        function toggleSolution(id, element) {
+            element.classList.toggle('selected');
+            if (selectedSolutions.includes(id)) {
+                selectedSolutions = selectedSolutions.filter(s => s !== id);
+            } else {
+                selectedSolutions.push(id);
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('registerModal').classList.remove('open');
+        }
+
+        async function completeRegistration() {
+            const fullName = document.getElementById('regFullName').value;
+            const email = document.getElementById('regEmail').value;
+            const phone = document.getElementById('regPhone').value;
+
+            if (!fullName || !email || !phone) {
+                alert('يرجى إكمال جميع البيانات المطلوبة');
+                return;
+            }
+
+            const registrationData = {
+                ...selectedCompany,
+                user: { fullName, email, phone },
+                selectedSolutions,
+                package: document.getElementById('regPackage').value,
+                registeredAt: new Date().toISOString(),
+                apiKey: 'shk_' + Math.random().toString(36).substring(2, 15)
+            };
+
+            // حفظ في localStorage
+            const registered = JSON.parse(localStorage.getItem('sheikhaRegistered') || '[]');
+            registered.push(registrationData);
+            localStorage.setItem('sheikhaRegistered', JSON.stringify(registered));
+            localStorage.setItem('currentCompany', JSON.stringify(registrationData));
+
+            // عرض رسالة النجاح
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('successCompanyId').textContent = selectedCompany.companyId;
+            document.getElementById('successApiKey').textContent = registrationData.apiKey;
+            document.getElementById('successProducts').textContent = (selectedCompany.products || []).length + ' منتج';
+            document.getElementById('successSolutions').textContent = selectedSolutions.length + ' حل';
+            document.getElementById('successMessage').classList.add('show');
+
+            // محاولة الحفظ في الخادم
+            try {
+                await fetch('/api/companies/quick-register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(registrationData)
+                });
+            } catch (e) {
+                console.log('Saved locally only');
+            }
+        }
+
+        function viewDetails(companyId) {
+            const company = companiesData.find(c => c.companyId === companyId);
+            if (company) {
+                alert(`تفاصيل ${company.nameAr}\n\nالقطاع: ${getSectorName(company.sector)}\nالمنتجات: ${(company.products || []).length}\nالمدينة: ${company.headquarters?.city || 'غير محدد'}`);
+            }
+        }
+
+        function askSheikha() {
+            const question = prompt('🤖 شيخة: كيف يمكنني مساعدتك؟\n\nاكتب سؤالك أو اسم الشركة التي تبحث عنها:');
+            if (question) {
+                const found = companiesData.filter(c => 
+                    c.nameAr.includes(question) || 
+                    (c.nameEn && c.nameEn.toLowerCase().includes(question.toLowerCase()))
+                );
+                if (found.length > 0) {
+                    filterBySector('all');
+                    renderCompanies(found);
+                    alert(`🤖 شيخة: وجدت ${found.length} شركة تطابق بحثك!`);
+                } else {
+                    alert('🤖 شيخة: لم أجد شركات تطابق بحثك. جرب البحث بكلمات مختلفة أو تصفح القطاعات.');
+                }
+            }
+        }
+
+        // تحميل البيانات عند بدء الصفحة
+        loadData();
+    </script>
+</body>
+</html>

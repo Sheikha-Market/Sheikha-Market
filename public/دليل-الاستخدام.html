@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل الاستخدام الذكي — شيخة</title>
+<meta name="description" content="دليل الاستخدام الذكي الرقمي لمنظومة شيخة — رقمنة بالكتاب والسنة">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #0f1117;
+    --bg2: #171b24;
+    --bg3: #1e2330;
+    --border: rgba(255,255,255,.08);
+    --gold: #D4AF37;
+    --copper: #B87333;
+    --green: #22c55e;
+    --red: #ef4444;
+    --blue: #60a5fa;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --radius: 14px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* Layout */
+.layout { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+@media(max-width:768px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } }
+
+/* Sidebar */
+.sidebar {
+    background: var(--bg2);
+    border-left: 1px solid var(--border);
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+.sidebar-logo {
+    padding: 0 20px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+}
+.sidebar-logo .brand { font-size: 1.3rem; font-weight: 900; color: var(--gold); }
+.sidebar-logo .brand-sub { font-size: .68rem; color: var(--text-muted); }
+.nav-cat { font-size: .62rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .05em; padding: 10px 20px 4px; }
+.nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 20px; cursor: pointer; font-size: .8rem;
+    border-right: 3px solid transparent;
+    transition: all .2s;
+}
+.nav-item:hover { background: rgba(212,175,55,.06); color: var(--gold); }
+.nav-item.active { background: rgba(212,175,55,.1); border-right-color: var(--gold); color: var(--gold); font-weight: 700; }
+.nav-item .icon { font-size: 1rem; min-width: 20px; text-align: center; }
+
+/* Main */
+.main { padding: 0; overflow-y: auto; }
+
+/* Header */
+.guide-header {
+    background: linear-gradient(135deg, var(--bg2) 0%, #1a1f2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 32px 24px;
+    position: sticky; top: 0; z-index: 10;
+}
+.guide-header h1 { font-size: 1.4rem; font-weight: 900; color: var(--gold); margin-bottom: 4px; }
+.guide-header .ayah { font-size: .72rem; color: var(--text-muted); font-style: italic; }
+
+/* Search */
+.search-wrap { position: relative; margin-top: 16px; }
+.search-wrap input {
+    width: 100%; padding: 11px 16px 11px 44px;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 12px; color: var(--text); font-family: 'Tajawal', sans-serif;
+    font-size: .85rem; outline: none; transition: border .2s;
+}
+.search-wrap input:focus { border-color: rgba(212,175,55,.4); }
+.search-wrap .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1rem; }
+#searchResults { display: none; background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; margin-top: 8px; padding: 12px; max-height: 300px; overflow-y: auto; }
+.search-result-item { padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: .78rem; }
+.search-result-item:hover { background: rgba(212,175,55,.08); }
+.search-result-item .sr-type { font-size: .6rem; color: var(--gold); margin-bottom: 2px; }
+.search-result-item .sr-title { font-weight: 700; color: var(--text); }
+.search-result-item .sr-desc { color: var(--text-muted); font-size: .7rem; margin-top: 2px; }
+
+/* Content */
+.content-area { padding: 28px 32px; }
+
+/* Stats Bar */
+.stats-bar { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-pill { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-size: .72rem; display: flex; align-items: center; gap: 6px; }
+.stat-pill .val { color: var(--gold); font-weight: 800; }
+
+/* Section Card */
+.section-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: border-color .2s;
+}
+.section-card:hover { border-color: rgba(212,175,55,.25); }
+.section-head {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 20px; cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: all .2s;
+}
+.section-card.open .section-head { border-bottom-color: var(--border); }
+.section-icon { font-size: 1.6rem; min-width: 36px; text-align: center; }
+.section-title-wrap .s-title { font-size: .95rem; font-weight: 800; color: var(--text); }
+.section-title-wrap .s-cat { font-size: .62rem; color: var(--gold); margin-top: 2px; }
+.section-title-wrap .s-quran { font-size: .65rem; color: var(--text-muted); font-style: italic; margin-top: 2px; }
+.section-chevron { margin-right: auto; color: var(--text-muted); transition: transform .3s; font-size: .8rem; }
+.section-card.open .section-chevron { transform: rotate(180deg); }
+
+.section-body { display: none; padding: 20px; }
+.section-card.open .section-body { display: block; }
+
+.s-summary { font-size: .82rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 16px; }
+.s-principle { display: inline-flex; align-items: center; gap: 6px; background: rgba(212,175,55,.08); border: 1px solid rgba(212,175,55,.2); border-radius: 8px; padding: 5px 12px; font-size: .72rem; color: var(--gold); margin-bottom: 18px; }
+
+/* Steps */
+.steps-title { font-size: .78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: .04em; }
+.steps-list { display: flex; flex-direction: column; gap: 10px; }
+.step-item { display: flex; gap: 12px; align-items: flex-start; }
+.step-num { min-width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg,var(--gold),var(--copper)); display: flex; align-items: center; justify-content: center; font-size: .68rem; font-weight: 800; color: #000; flex-shrink: 0; }
+.step-content .step-title { font-size: .8rem; font-weight: 700; color: var(--text); }
+.step-content .step-desc { font-size: .72rem; color: var(--text-muted); margin-top: 2px; line-height: 1.6; }
+.step-icon { font-size: .9rem; min-width: 20px; }
+
+/* Tips & Warnings */
+.tips-warnings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+@media(max-width:600px) { .tips-warnings { grid-template-columns: 1fr; } }
+.tips-box, .warnings-box { background: var(--bg3); border-radius: 10px; padding: 12px 14px; border: 1px solid var(--border); }
+.tips-box { border-top: 2px solid var(--green); }
+.warnings-box { border-top: 2px solid var(--red); }
+.tw-title { font-size: .7rem; font-weight: 700; margin-bottom: 8px; }
+.tips-box .tw-title { color: var(--green); }
+.warnings-box .tw-title { color: var(--red); }
+.tw-item { font-size: .7rem; color: var(--text-muted); margin-bottom: 5px; display: flex; gap: 6px; align-items: flex-start; line-height: 1.5; }
+.tw-item::before { content: '•'; flex-shrink: 0; }
+
+/* Sharia Rules Table */
+.sharia-table { width: 100%; border-collapse: collapse; font-size: .72rem; margin-top: 16px; }
+.sharia-table th { text-align: right; padding: 7px 10px; background: var(--bg3); color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--border); }
+.sharia-table td { padding: 7px 10px; border-bottom: 1px solid rgba(255,255,255,.04); color: var(--text); }
+.sharia-table tr:hover td { background: rgba(212,175,55,.04); }
+.rule-badge { padding: 2px 8px; border-radius: 5px; background: rgba(239,68,68,.12); color: var(--red); font-size: .65rem; font-weight: 700; }
+
+/* FAQ */
+.faq-section { margin-top: 32px; }
+.faq-title { font-size: 1rem; font-weight: 800; color: var(--gold); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.faq-q { padding: 13px 16px; font-size: .82rem; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background .2s; }
+.faq-q:hover { background: rgba(212,175,55,.05); }
+.faq-item.open .faq-q { color: var(--gold); }
+.faq-a { display: none; padding: 0 16px 13px; font-size: .78rem; color: var(--text-muted); line-height: 1.8; border-top: 1px solid var(--border); }
+.faq-a .faq-ref { font-size: .65rem; color: rgba(212,175,55,.6); font-style: italic; margin-top: 8px; }
+.faq-item.open .faq-a { display: block; }
+.faq-chevron { transition: transform .2s; font-size: .7rem; color: var(--text-muted); }
+.faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--gold); }
+.faq-cat-badge { font-size: .6rem; padding: 2px 8px; border-radius: 5px; background: rgba(96,165,250,.12); color: var(--blue); margin-right: 8px; }
+
+/* Home overview */
+.home-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.home-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; cursor: pointer; transition: all .2s; }
+.home-card:hover { border-color: rgba(212,175,55,.3); transform: translateY(-2px); }
+.home-card .hc-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.home-card .hc-title { font-size: .82rem; font-weight: 700; color: var(--text); }
+.home-card .hc-cat { font-size: .62rem; color: var(--gold); margin-top: 3px; }
+.home-card .hc-steps { font-size: .65rem; color: var(--text-muted); margin-top: 4px; }
+
+/* Quick links */
+.quick-links { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.ql-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg2); color: var(--text-muted); font-size: .72rem; cursor: pointer; font-family: 'Tajawal', sans-serif; transition: all .2s; }
+.ql-btn:hover, .ql-btn.active { border-color: rgba(212,175,55,.4); color: var(--gold); background: rgba(212,175,55,.07); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="layout">
+    <!-- القائمة الجانبية -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <div class="brand">☪️ شيخة</div>
+            <div class="brand-sub">دليل الاستخدام الذكي الرقمي</div>
+            <div style="font-size:.58rem;color:rgba(212,175,55,.5);margin-top:4px;font-style:italic">اقْرَأْ بِاسْمِ رَبِّكَ — العلق ١</div>
+        </div>
+        <div id="sidebarNav"></div>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="main">
+        <div class="guide-header">
+            <h1>📖 دليل الاستخدام الذكي الرقمي</h1>
+            <div class="ayah">"عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ" — العلق ٥ &nbsp;|&nbsp; "قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ" — الزمر ٩</div>
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="ابحث في الدليل... (مثال: زكاة، HS code، التسجيل)" oninput="handleSearch(this.value)">
+                <div id="searchResults"></div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <!-- إحصائيات الدليل -->
+            <div class="stats-bar" id="statsBar">
+                <div class="stat-pill">📚 الأقسام: <span class="val" id="statSections">—</span></div>
+                <div class="stat-pill">🪜 الخطوات: <span class="val" id="statSteps">—</span></div>
+                <div class="stat-pill">❓ أسئلة شائعة: <span class="val" id="statFaq">—</span></div>
+                <div class="stat-pill">☪️ مرجعاً قرآنياً: <span class="val" id="statQuran">—</span></div>
+            </div>
+
+            <!-- روابط سريعة للتصفية -->
+            <div class="quick-links" id="quickLinks">
+                <button class="ql-btn active" onclick="filterByCategory('')">الكل</button>
+            </div>
+
+            <!-- بطاقات النظرة العامة -->
+            <div id="overviewGrid" class="home-grid"></div>
+
+            <!-- أقسام الدليل التفصيلية -->
+            <div id="sectionsContainer"></div>
+
+            <!-- الأسئلة الشائعة -->
+            <div class="faq-section" id="faqSection">
+                <div class="faq-title">❓ الأسئلة الشائعة — مرقمنة بالكتاب والسنة</div>
+                <div id="faqContainer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// دليل الاستخدام الذكي — JavaScript
+// ══════════════════════════════════════════════════════════
+var guideData = null;
+var allSections = [];
+var allFaq = [];
+var currentCategory = '';
+var searchTimeout = null;
+
+async function loadGuide() {
+    try {
+        const [summaryRes, sectionsRes, faqRes] = await Promise.all([
+            fetch('/api/guide/summary'),
+            fetch('/api/guide/sections'),
+            fetch('/api/guide/faq')
+        ]);
+        const summary = await summaryRes.json();
+        const sections = await sectionsRes.json();
+        const faq = await faqRes.json();
+
+        if (summary.success) {
+            guideData = summary.data;
+            document.getElementById('statSections').textContent = guideData.totalSections;
+            document.getElementById('statSteps').textContent = guideData.totalSteps;
+            document.getElementById('statFaq').textContent = guideData.totalFAQ;
+            document.getElementById('statQuran').textContent = guideData.totalSections;
+            buildSidebar(guideData.categories);
+            buildQuickLinks(guideData.categories);
+        }
+        if (sections.success) {
+            allSections = sections.data.sections;
+            renderSections(allSections);
+            renderOverviewGrid(allSections);
+        }
+        if (faq.success) {
+            allFaq = faq.data.faq;
+            renderFaq(allFaq);
+        }
+    } catch (e) {
+        document.getElementById('sectionsContainer').innerHTML = '<div style="color:var(--text-muted);font-size:.8rem;padding:20px">خطأ في تحميل الدليل. تأكد من تشغيل الخادم.</div>';
+    }
+}
+
+function buildSidebar(categories) {
+    const nav = document.getElementById('sidebarNav');
+    if (!nav || !categories) return;
+    let html = '';
+    Object.entries(categories).forEach(([cat, items]) => {
+        html += '<div class="nav-cat">' + cat + '</div>';
+        items.forEach((item) => {
+            html += '<div class="nav-item" id="nav_' + item.id + '" onclick="scrollToSection(\'' + item.id + '\')">' +
+                '<span class="icon">' + item.icon + '</span>' +
+                '<span>' + item.title + '</span>' +
+                '</div>';
+        });
+    });
+    html += '<div class="nav-cat">المساعدة</div>';
+    html += '<div class="nav-item" onclick="scrollToSection(\'faq-section\')">' +
+        '<span class="icon">❓</span><span>الأسئلة الشائعة</span></div>';
+    nav.innerHTML = html;
+}
+
+function buildQuickLinks(categories) {
+    const wrap = document.getElementById('quickLinks');
+    if (!wrap || !categories) return;
+    Object.keys(categories).forEach((cat) => {
+        const btn = document.createElement('button');
+        btn.className = 'ql-btn';
+        btn.textContent = cat;
+        btn.onclick = () => filterByCategory(cat, btn);
+        wrap.appendChild(btn);
+    });
+}
+
+function filterByCategory(cat, btnEl) {
+    currentCategory = cat;
+    document.querySelectorAll('.ql-btn').forEach((b) => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+    else document.querySelector('.ql-btn').classList.add('active');
+    const filtered = cat ? allSections.filter((s) => s.category === cat) : allSections;
+    renderSections(filtered);
+    renderOverviewGrid(filtered);
+    document.getElementById('faqSection').style.display = cat ? 'none' : 'block';
+}
+
+function renderOverviewGrid(sections) {
+    const grid = document.getElementById('overviewGrid');
+    if (!grid) return;
+    grid.innerHTML = sections.map((sec) =>
+        '<div class="home-card" onclick="openSection(\'' + sec.id + '\')">' +
+        '<div class="hc-icon">' + sec.icon + '</div>' +
+        '<div class="hc-title">' + sec.title + '</div>' +
+        '<div class="hc-cat">' + sec.category + '</div>' +
+        '<div class="hc-steps">' + (sec.steps ? sec.steps.length + ' خطوة' : '') + '</div>' +
+        '</div>'
+    ).join('');
+}
+
+function renderSections(sections) {
+    const container = document.getElementById('sectionsContainer');
+    if (!container) return;
+    container.innerHTML = sections.map((sec) => buildSectionCard(sec)).join('');
+}
+
+function buildSectionCard(sec) {
+    const stepsHtml = sec.steps ? sec.steps.map((s) =>
+        '<div class="step-item">' +
+        '<div class="step-num">' + s.step + '</div>' +
+        '<div class="step-icon">' + (s.icon || '') + '</div>' +
+        '<div class="step-content"><div class="step-title">' + s.title + '</div>' +
+        '<div class="step-desc">' + s.desc + '</div></div></div>'
+    ).join('') : '';
+
+    const tipsHtml = sec.tips && sec.tips.length > 0
+        ? '<div class="tips-box"><div class="tw-title">✅ نصائح وإرشادات</div>' +
+          sec.tips.map((t) => '<div class="tw-item">' + t + '</div>').join('') + '</div>' : '';
+
+    const warningsHtml = sec.warnings && sec.warnings.length > 0
+        ? '<div class="warnings-box"><div class="tw-title">⚠️ تنبيهات مهمة</div>' +
+          sec.warnings.map((w) => '<div class="tw-item">' + w + '</div>').join('') + '</div>' : '';
+
+    const shariaHtml = sec.shariaRules && sec.shariaRules.length > 0
+        ? '<div style="margin-top:16px"><div class="steps-title">⚖️ الضوابط الشرعية</div>' +
+          '<table class="sharia-table"><thead><tr>' +
+          '<th>الحكم</th><th>الوصف</th><th>المرجع</th>' +
+          (sec.shariaRules[0].status ? '<th>الحالة</th>' : '') +
+          '</tr></thead><tbody>' +
+          sec.shariaRules.map((r) =>
+              '<tr><td><span class="rule-badge">' + r.rule + '</span></td>' +
+              '<td>' + r.desc + '</td>' +
+              '<td style="font-size:.62rem;font-style:italic;color:var(--text-muted)">' + (r.quran || r.hadith || '') + '</td>' +
+              (r.status ? '<td style="color:var(--red);font-size:.65rem">' + r.status + '</td>' : '') +
+              '</tr>'
+          ).join('') +
+          '</tbody></table></div>' : '';
+
+    return '<div class="section-card" id="sec_' + sec.id + '">' +
+        '<div class="section-head" onclick="toggleSection(\'' + sec.id + '\')">' +
+        '<div class="section-icon">' + sec.icon + '</div>' +
+        '<div class="section-title-wrap">' +
+        '<div class="s-title">' + sec.title + '</div>' +
+        '<div class="s-cat">' + sec.category + '</div>' +
+        '<div class="s-quran">' + (sec.quranRef || '') + '</div>' +
+        '</div>' +
+        '<div class="section-chevron">▼</div>' +
+        '</div>' +
+        '<div class="section-body">' +
+        '<div class="s-summary">' + (sec.summary || '') + '</div>' +
+        (sec.islamicPrinciple ? '<div class="s-principle">☪️ ' + sec.islamicPrinciple + '</div>' : '') +
+        (stepsHtml ? '<div class="steps-title" style="margin-top:16px">🪜 خطوات الاستخدام</div><div class="steps-list">' + stepsHtml + '</div>' : '') +
+        shariaHtml +
+        ((tipsHtml || warningsHtml) ? '<div class="tips-warnings">' + tipsHtml + warningsHtml + '</div>' : '') +
+        '</div>' +
+        '</div>';
+}
+
+function renderFaq(faqList) {
+    const container = document.getElementById('faqContainer');
+    if (!container) return;
+    container.innerHTML = faqList.map((f, i) =>
+        '<div class="faq-item" id="faq_' + i + '">' +
+        '<div class="faq-q" onclick="toggleFaq(' + i + ')">' +
+        '<span><span class="faq-cat-badge">' + f.category + '</span>' + f.q + '</span>' +
+        '<span class="faq-chevron">▼</span>' +
+        '</div>' +
+        '<div class="faq-a">' + f.a +
+        (f.quranRef ? '<div class="faq-ref">☪️ ' + f.quranRef + '</div>' : '') +
+        '</div></div>'
+    ).join('');
+}
+
+function toggleSection(id) {
+    const card = document.getElementById('sec_' + id);
+    if (!card) return;
+    card.classList.toggle('open');
+    document.querySelectorAll('.nav-item').forEach((n) => n.classList.remove('active'));
+    const navItem = document.getElementById('nav_' + id);
+    if (navItem) navItem.classList.add('active');
+}
+
+function openSection(id) {
+    const card = document.getElementById('sec_' + id);
+    if (!card) return;
+    if (!card.classList.contains('open')) card.classList.add('open');
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.nav-item').forEach((n) => n.classList.remove('active'));
+    const navItem = document.getElementById('nav_' + id);
+    if (navItem) navItem.classList.add('active');
+}
+
+function scrollToSection(id) {
+    if (id === 'faq-section') {
+        const el = document.getElementById('faqSection');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        return;
+    }
+    openSection(id);
+}
+
+function toggleFaq(idx) {
+    const item = document.getElementById('faq_' + idx);
+    if (item) item.classList.toggle('open');
+}
+
+function handleSearch(val) {
+    clearTimeout(searchTimeout);
+    const resultsEl = document.getElementById('searchResults');
+    if (!val || val.length < 2) { resultsEl.style.display = 'none'; return; }
+    searchTimeout = setTimeout(async () => {
+        try {
+            const res = await fetch('/api/guide/search?q=' + encodeURIComponent(val));
+            const json = await res.json();
+            if (!json.success || json.data.total === 0) {
+                resultsEl.innerHTML = '<div style="color:var(--text-muted);font-size:.75rem;padding:8px">لم يُوجد نتائج لـ: ' + val + '</div>';
+                resultsEl.style.display = 'block';
+                return;
+            }
+            const d = json.data;
+            let html = '';
+            if (d.sections && d.sections.length > 0) {
+                html += '<div style="font-size:.62rem;color:var(--text-muted);margin-bottom:6px;font-weight:700">أقسام</div>';
+                d.sections.forEach((s) => {
+                    html += '<div class="search-result-item" onclick="closeSearch();openSection(\'' + s.id + '\')">' +
+                        '<div class="sr-type">📂 ' + s.category + '</div>' +
+                        '<div class="sr-title">' + s.icon + ' ' + s.title + '</div>' +
+                        '<div class="sr-desc">' + (s.summary || '').substring(0, 80) + '...</div>' +
+                        '</div>';
+                });
+            }
+            if (d.faq && d.faq.length > 0) {
+                html += '<div style="font-size:.62rem;color:var(--text-muted);margin:10px 0 6px;font-weight:700">أسئلة شائعة</div>';
+                d.faq.forEach((f) => {
+                    html += '<div class="search-result-item" onclick="closeSearch()">' +
+                        '<div class="sr-type">❓ ' + f.category + '</div>' +
+                        '<div class="sr-title">' + f.q + '</div>' +
+                        '<div class="sr-desc">' + f.a.substring(0, 80) + '...</div>' +
+                        '</div>';
+                });
+            }
+            resultsEl.innerHTML = html;
+            resultsEl.style.display = 'block';
+        } catch (e) {
+            resultsEl.innerHTML = '<div style="color:var(--red);font-size:.75rem;padding:8px">خطأ في البحث.</div>';
+            resultsEl.style.display = 'block';
+        }
+    }, 350);
+}
+
+function closeSearch() {
+    document.getElementById('searchResults').style.display = 'none';
+    document.getElementById('searchInput').value = '';
+}
+
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-wrap')) closeSearch();
+});
+
+// تحميل البيانات
+loadGuide();
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+    "generatedAt": "2026-03-13T23:59:13.756Z",
+    "loop": {
+        "name": "sheikha-continuous-training-fabric",
+        "description": "حلقة التدريب المستمر — النموذج يتطور دائماً دون توقف الإنتاج",
+        "strategy": "shadow-model-continuous-training",
+        "stages": [
+            {
+                "id": "data-stream",
+                "nameAr": "تدفق البيانات",
+                "description": "استقبال إشارات التعلم من الإنتاج في الوقت الفعلي",
+                "signals": [
+                    "إجابات صحيحة مؤكدة",
+                    "تصحيحات المستخدمين",
+                    "مراجعات الهيئة الشرعية"
+                ]
+            },
+            {
+                "id": "shadow-training",
+                "nameAr": "التدريب الظلي",
+                "description": "تدريب نموذج ظل مواز بدون مقاطعة الإنتاج",
+                "updateFrequency": "rolling-every-1000-samples or 1 hour"
+            },
+            {
+                "id": "automated-eval",
+                "nameAr": "التقييم الآلي",
+                "description": "قياس أداء النموذج الظل مقارنةً بالنموذج الإنتاجي",
+                "promotionThreshold": "improve >= 0.5% AND no-regression"
+            },
+            {
+                "id": "hot-swap",
+                "nameAr": "التبديل الساخن",
+                "description": "ترقية النموذج الإنتاجي بدون توقف — zero-downtime swap",
+                "mechanism": "blue-green model serving"
+            }
+        ]
+    }
+}

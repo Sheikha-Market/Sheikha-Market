@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <!-- تدرجات ذهبية فاخرة متعددة الطبقات -->
+    <radialGradient id="goldShine" cx="40%" cy="30%">
+      <stop offset="0%" style="stop-color:#FFF8DC;stop-opacity:1"/>
+      <stop offset="20%" style="stop-color:#FFD700;stop-opacity:1"/>
+      <stop offset="45%" style="stop-color:#DAA520;stop-opacity:1"/>
+      <stop offset="70%" style="stop-color:#B8860B;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#8B6914;stop-opacity:1"/>
+    </radialGradient>
+
+    <linearGradient id="goldReflection" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFACD;stop-opacity:0.9"/>
+      <stop offset="25%" style="stop-color:#FFD700;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#FFA500;stop-opacity:1"/>
+      <stop offset="75%" style="stop-color:#FF8C00;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1"/>
+    </linearGradient>
+
+    <radialGradient id="goldHighlight" cx="35%" cy="35%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.8"/>
+      <stop offset="40%" style="stop-color:#FFD700;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#DAA520;stop-opacity:0"/>
+    </radialGradient>
+
+    <!-- فلتر لتأثير اللمعان -->
+    <filter id="goldGlow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- فلتر للظل ثلاثي الأبعاد -->
+    <filter id="shadow3D">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="15"/>
+      <feOffset dx="0" dy="20" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.5"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- خلفية راقية -->
+  <rect width="800" height="800" fill="#0A0E1A"/>
+
+  <!-- وهج خلفي -->
+  <circle cx="400" cy="350" r="300" fill="url(#goldHighlight)" opacity="0.15" filter="url(#goldGlow)"/>
+
+  <!-- سبيكة الذهب الرئيسية - شكل ثلاثي الأبعاد -->
+  <g filter="url(#shadow3D)">
+    <!-- الجانب العلوي -->
+    <path d="M 250 280 L 550 280 L 580 310 L 220 310 Z"
+          fill="url(#goldReflection)" opacity="0.95"/>
+
+    <!-- الوجه الأمامي -->
+    <rect x="220" y="310" width="360" height="280"
+          fill="url(#goldShine)"
+          stroke="#FFD700" stroke-width="2"/>
+
+    <!-- الجانب الأيمن (عمق ثلاثي) -->
+    <path d="M 580 310 L 620 340 L 620 620 L 580 590 Z"
+          fill="#B8860B" opacity="0.8"/>
+
+    <!-- حواف لامعة -->
+    <rect x="220" y="310" width="360" height="15"
+          fill="#FFFACD" opacity="0.6"/>
+    <rect x="220" y="575" width="360" height="15"
+          fill="#8B6914" opacity="0.7"/>
+
+    <!-- انعكاسات ضوئية متقدمة -->
+    <ellipse cx="320" cy="400" rx="60" ry="120"
+             fill="#FFFFFF" opacity="0.25"
+             transform="rotate(-15 320 400)"/>
+    <ellipse cx="450" cy="450" rx="40" ry="100"
+             fill="#FFFACD" opacity="0.2"
+             transform="rotate(20 450 450)"/>
+
+    <!-- نقوش فاخرة "LBMA" -->
+    <text x="400" y="440"
+          font-family="'Times New Roman', serif"
+          font-size="48"
+          font-weight="bold"
+          fill="#8B6914"
+          text-anchor="middle"
+          opacity="0.5">LBMA</text>
+
+    <!-- رقم تسلسلي -->
+    <text x="400" y="550"
+          font-family="'Courier New', monospace"
+          font-size="20"
+          fill="#B8860B"
+          text-anchor="middle"
+          opacity="0.6">999.9 FINE GOLD</text>
+
+    <!-- خطوط زخرفية -->
+    <line x1="240" y1="340" x2="560" y2="340"
+          stroke="#FFD700" stroke-width="1" opacity="0.4"/>
+    <line x1="240" y1="560" x2="560" y2="560"
+          stroke="#8B6914" stroke-width="1" opacity="0.4"/>
+  </g>
+
+  <!-- وهج أمامي نهائي -->
+  <ellipse cx="380" cy="360" rx="100" ry="80"
+           fill="#FFFFFF" opacity="0.15"
+           filter="url(#goldGlow)"/>
+</svg>

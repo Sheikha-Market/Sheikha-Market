@@ -1,0 +1,37 @@
+{
+    "generatedAt": "2026-03-13T09:44:40.276Z",
+    "layers": [
+        {
+            "id": 1,
+            "layer": "root-of-governance",
+            "status": "active-root"
+        },
+        {
+            "id": 2,
+            "layer": "root-of-data",
+            "status": "active-root"
+        },
+        {
+            "id": 3,
+            "layer": "root-of-cloud",
+            "status": "active-root"
+        },
+        {
+            "id": 4,
+            "layer": "root-of-ai",
+            "status": "active-root"
+        },
+        {
+            "id": 5,
+            "layer": "root-of-resilience",
+            "status": "active-root"
+        }
+    ],
+    "targets": {
+        "availability": "99.99%",
+        "apiP95Ms": 50,
+        "apiP99Ms": 150,
+        "rtoMinutes": 15,
+        "rpoMinutes": 5
+    }
+}

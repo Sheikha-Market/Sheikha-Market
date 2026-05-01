@@ -1,0 +1,112 @@
+{
+  "version": "1.0.0",
+  "id": "SHEIKHA-SDK-001",
+  "name": "Sheikha SDK",
+  "nameAr": "أدوات تطوير شيخة",
+  "description": "مجموعة أدوات تطوير شاملة لبناء تطبيقات على منظومة شيخة",
+  "installCommand": "npm install @sheikha/sdk",
+  "languages": ["JavaScript", "TypeScript", "Python", "cURL/REST"],
+  "license": "Sheikha License — الاستخدام الحلال فقط",
+  "modules": [
+    {
+      "id": "SDK-01",
+      "name": "sheikha-core",
+      "nameAr": "النواة",
+      "desc": "الوظائف الأساسية والمصادقة والاتصال",
+      "functions": [
+        { "fn": "init()", "api": "GET /api/sheikha/status", "method": "GET" },
+        { "fn": "authenticate()", "api": "POST /api/auth/login", "method": "POST" },
+        { "fn": "connect()", "api": "GET /api/sheikha/status", "method": "GET" },
+        { "fn": "disconnect()", "api": "POST /api/auth/logout", "method": "POST" }
+      ]
+    },
+    {
+      "id": "SDK-02",
+      "name": "sheikha-market",
+      "nameAr": "السوق",
+      "desc": "أسعار المعادن والتجارة والعقود",
+      "functions": [
+        { "fn": "getPrices()", "api": "GET /api/metals/prices", "method": "GET" },
+        { "fn": "createOrder()", "api": "POST /api/orders", "method": "POST" },
+        { "fn": "getCompanies()", "api": "GET /api/market/preloaded", "method": "GET" },
+        { "fn": "searchProducts()", "api": "GET /api/market/listings", "method": "GET" }
+      ]
+    },
+    {
+      "id": "SDK-03",
+      "name": "sheikha-ai",
+      "nameAr": "الذكاء",
+      "desc": "محادثة ذكية وتحليل وتوصيات",
+      "functions": [
+        { "fn": "chat()", "api": "POST /api/ai/chat", "method": "POST" },
+        { "fn": "analyze()", "api": "POST /api/ai/analytics", "method": "POST" },
+        { "fn": "recommend()", "api": "POST /api/ai/recommendations", "method": "POST" },
+        { "fn": "translate()", "api": "POST /api/i18n/translate", "method": "POST" }
+      ]
+    },
+    {
+      "id": "SDK-04",
+      "name": "sheikha-sharia",
+      "nameAr": "الشريعة",
+      "desc": "فحص شرعي وآيات وأحاديث",
+      "functions": [
+        { "fn": "check()", "api": "POST /api/sharia/check", "method": "POST" },
+        { "fn": "getAyah()", "api": "GET /api/sharia/quran", "method": "GET" },
+        { "fn": "getHadith()", "api": "GET /api/sharia/hadith", "method": "GET" },
+        { "fn": "validateContract()", "api": "POST /api/sharia/validate-contract", "method": "POST" }
+      ]
+    },
+    {
+      "id": "SDK-05",
+      "name": "sheikha-auth",
+      "nameAr": "المصادقة",
+      "desc": "تسجيل دخول وتوثيق وصلاحيات",
+      "functions": [
+        { "fn": "login()", "api": "POST /api/auth/login", "method": "POST" },
+        { "fn": "register()", "api": "POST /api/auth/register", "method": "POST" },
+        { "fn": "verifyNafath()", "api": "POST /api/auth/nafath", "method": "POST" },
+        { "fn": "getToken()", "api": "POST /api/auth/refresh", "method": "POST" }
+      ]
+    },
+    {
+      "id": "SDK-06",
+      "name": "sheikha-data",
+      "nameAr": "البيانات",
+      "desc": "قراءة وكتابة وتحليل البيانات",
+      "functions": [
+        { "fn": "read()", "api": "GET /api/data/*", "method": "GET" },
+        { "fn": "write()", "api": "POST /api/data/*", "method": "POST" },
+        { "fn": "query()", "api": "POST /api/query", "method": "POST" },
+        { "fn": "export()", "api": "GET /api/export/*", "method": "GET" }
+      ]
+    },
+    {
+      "id": "SDK-07",
+      "name": "sheikha-ui",
+      "nameAr": "الواجهة",
+      "desc": "مكونات UI جاهزة بتصميم شيخة",
+      "functions": [
+        { "fn": "Card()", "api": "مكوّن frontend — public/js/", "method": "N/A" },
+        { "fn": "Table()", "api": "مكوّن frontend — public/js/", "method": "N/A" },
+        { "fn": "Chart()", "api": "مكوّن frontend — public/js/", "method": "N/A" },
+        { "fn": "Form()", "api": "مكوّن frontend — public/js/", "method": "N/A" },
+        { "fn": "Modal()", "api": "مكوّن frontend — public/js/", "method": "N/A" }
+      ]
+    },
+    {
+      "id": "SDK-08",
+      "name": "sheikha-i18n",
+      "nameAr": "الترجمة",
+      "desc": "ترجمة ودعم 22 لغة",
+      "functions": [
+        { "fn": "translate()", "api": "POST /api/i18n/translate", "method": "POST" },
+        { "fn": "setLanguage()", "api": "GET /api/i18n/languages", "method": "GET" },
+        { "fn": "getLanguages()", "api": "GET /api/i18n/languages", "method": "GET" }
+      ]
+    }
+  ],
+  "tools": {
+    "mcp": 23,
+    "resources": 10
+  }
+}

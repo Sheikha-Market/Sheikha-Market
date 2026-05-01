@@ -1,0 +1,392 @@
+{
+  "version": "1.0.0",
+  "description": "قاعدة بيانات الهوية الثقافية والاجتماعية — سوق شيخة",
+  "savedAt": "2026-04-13T20:14:21.604Z",
+
+  "originCategories": [
+    { "id": "arab",    "nameAr": "عربي",   "nameEn": "Arab",    "icon": "🌙" },
+    { "id": "ajam",    "nameAr": "أعجمي",  "nameEn": "Ajam",    "icon": "🌍" },
+    { "id": "mixed",   "nameAr": "مختلط",  "nameEn": "Mixed",   "icon": "🤝" },
+    { "id": "other",   "nameAr": "أخرى",   "nameEn": "Other",   "icon": "🌐" }
+  ],
+
+  "ajamPeoples": [
+    { "id": "persian",   "nameAr": "فارسي",    "nameEn": "Persian",    "region": "إيران وما جاورها" },
+    { "id": "turkish",   "nameAr": "تركي",     "nameEn": "Turkish",    "region": "تركيا وآسيا الوسطى" },
+    { "id": "urdu",      "nameAr": "باكستاني/أردو", "nameEn": "Urdu/Pakistani", "region": "باكستان والهند" },
+    { "id": "amazigh",   "nameAr": "أمازيغي",  "nameEn": "Amazigh",    "region": "شمال أفريقيا" },
+    { "id": "kurdish",   "nameAr": "كردي",     "nameEn": "Kurdish",    "region": "كردستان" },
+    { "id": "african",   "nameAr": "أفريقي",   "nameEn": "African",    "region": "أفريقيا جنوب الصحراء" },
+    { "id": "malay",     "nameAr": "ملايوي",   "nameEn": "Malay",      "region": "جنوب شرق آسيا" },
+    { "id": "indian",    "nameAr": "هندي",     "nameEn": "Indian",     "region": "الهند" },
+    { "id": "chinese",   "nameAr": "صيني",     "nameEn": "Chinese",    "region": "الصين" },
+    { "id": "russian",   "nameAr": "روسي",     "nameEn": "Russian",    "region": "روسيا وآسيا الوسطى" },
+    { "id": "european",  "nameAr": "أوروبي",   "nameEn": "European",   "region": "أوروبا" }
+  ],
+
+  "arabTribes": [
+    {
+      "id": "banu-tamim",
+      "nameAr": "بنو تميم",
+      "nameEn": "Banu Tamim",
+      "region": "نجد / الجزيرة العربية",
+      "country": "السعودية",
+      "branches": ["آل مرة", "بنو سعد", "الحنظلة"]
+    },
+    {
+      "id": "al-ansar",
+      "nameAr": "الأنصار",
+      "nameEn": "Al-Ansar",
+      "region": "المدينة المنورة",
+      "country": "السعودية",
+      "branches": ["الأوس", "الخزرج"]
+    },
+    {
+      "id": "quraysh",
+      "nameAr": "قريش",
+      "nameEn": "Quraysh",
+      "region": "مكة المكرمة",
+      "country": "السعودية",
+      "branches": ["بنو هاشم", "بنو أمية", "بنو مخزوم"]
+    },
+    {
+      "id": "banu-asad",
+      "nameAr": "بنو أسد",
+      "nameEn": "Banu Asad",
+      "region": "نجد",
+      "country": "السعودية",
+      "branches": []
+    },
+    {
+      "id": "banu-ghamid",
+      "nameAr": "بنو غامد",
+      "nameEn": "Banu Ghamid",
+      "region": "المنطقة الجنوبية الغربية",
+      "country": "السعودية",
+      "branches": []
+    },
+    {
+      "id": "banu-shahr",
+      "nameAr": "بنو شهر",
+      "nameEn": "Banu Shahr",
+      "region": "عسير",
+      "country": "السعودية",
+      "branches": []
+    },
+    {
+      "id": "qahtan",
+      "nameAr": "قحطان",
+      "nameEn": "Qahtan",
+      "region": "الجنوب",
+      "country": "السعودية",
+      "branches": ["آل يام", "آل مطرف"]
+    },
+    {
+      "id": "shammar",
+      "nameAr": "شمّر",
+      "nameEn": "Shammar",
+      "region": "حائل / الجزيرة",
+      "country": "السعودية / العراق / سوريا",
+      "branches": ["الجربا", "العبدة", "التومان"]
+    },
+    {
+      "id": "anazah",
+      "nameAr": "عنزة",
+      "nameEn": "Anazah",
+      "region": "نجد / الشام / العراق",
+      "country": "السعودية / الكويت / العراق / سوريا",
+      "branches": ["بشر", "وائل", "آل سعود"]
+    },
+    {
+      "id": "otaibah",
+      "nameAr": "عتيبة",
+      "nameEn": "Otaibah",
+      "region": "الحجاز / نجد",
+      "country": "السعودية",
+      "branches": ["البرقا", "الروقة", "الحدار"]
+    },
+    {
+      "id": "mutair",
+      "nameAr": "مطير",
+      "nameEn": "Mutair",
+      "region": "نجد / الحجاز",
+      "country": "السعودية / الكويت",
+      "branches": ["الجلاس", "البطان"]
+    },
+    {
+      "id": "harb",
+      "nameAr": "حرب",
+      "nameEn": "Harb",
+      "region": "الحجاز / المدينة المنورة",
+      "country": "السعودية",
+      "branches": ["بنو سالم", "مسروح"]
+    },
+    {
+      "id": "banu-khalid",
+      "nameAr": "بنو خالد",
+      "nameEn": "Banu Khalid",
+      "region": "الأحساء / القطيف / الكويت",
+      "country": "السعودية / الكويت",
+      "branches": []
+    },
+    {
+      "id": "ajman",
+      "nameAr": "عجمان",
+      "nameEn": "Ajman",
+      "region": "الجزيرة العربية",
+      "country": "السعودية / الإمارات",
+      "branches": []
+    },
+    {
+      "id": "dawasir",
+      "nameAr": "الدواسر",
+      "nameEn": "Dawasir",
+      "region": "وادي الدواسر / البحرين",
+      "country": "السعودية / البحرين",
+      "branches": []
+    },
+    {
+      "id": "subai",
+      "nameAr": "سبيع",
+      "nameEn": "Subai",
+      "region": "نجد",
+      "country": "السعودية",
+      "branches": []
+    },
+    {
+      "id": "qahtani-yemeni",
+      "nameAr": "القحطانيون اليمنيون",
+      "nameEn": "Qahtani Yemeni",
+      "region": "اليمن / الجنوب",
+      "country": "اليمن",
+      "branches": ["همدان", "مذحج", "كندة"]
+    },
+    {
+      "id": "hashid",
+      "nameAr": "حاشد",
+      "nameEn": "Hashid",
+      "region": "اليمن الشمالي",
+      "country": "اليمن",
+      "branches": []
+    },
+    {
+      "id": "bakil",
+      "nameAr": "بكيل",
+      "nameEn": "Bakil",
+      "region": "اليمن الشمالي",
+      "country": "اليمن",
+      "branches": []
+    },
+    {
+      "id": "banu-makhzum",
+      "nameAr": "مخزوم",
+      "nameEn": "Makhzum",
+      "region": "مكة المكرمة / الشام",
+      "country": "السعودية / سوريا",
+      "branches": []
+    },
+    {
+      "id": "tayy",
+      "nameAr": "طيء",
+      "nameEn": "Tayy",
+      "region": "حائل / الشمال",
+      "country": "السعودية / العراق / الأردن",
+      "branches": ["آل فضل", "آل مرا"]
+    },
+    {
+      "id": "bani-yas",
+      "nameAr": "بني ياس",
+      "nameEn": "Bani Yas",
+      "region": "الإمارات / أبوظبي",
+      "country": "الإمارات",
+      "branches": ["آل نهيان", "آل مكتوم"]
+    },
+    {
+      "id": "qawasim",
+      "nameAr": "القواسم",
+      "nameEn": "Qawasim",
+      "region": "رأس الخيمة / الشارقة",
+      "country": "الإمارات",
+      "branches": []
+    },
+    {
+      "id": "banu-lam",
+      "nameAr": "بنو لام",
+      "nameEn": "Banu Lam",
+      "region": "واسط / العراق",
+      "country": "العراق",
+      "branches": []
+    },
+    {
+      "id": "jubur",
+      "nameAr": "الجبور",
+      "nameEn": "Jubur",
+      "region": "الموصل / نينوى",
+      "country": "العراق / سوريا",
+      "branches": []
+    },
+    {
+      "id": "albu-fahad",
+      "nameAr": "آل بو فهد",
+      "nameEn": "Albu Fahad",
+      "region": "الفرات الأوسط",
+      "country": "العراق",
+      "branches": []
+    },
+    {
+      "id": "banu-sulaym",
+      "nameAr": "بنو سليم",
+      "nameEn": "Banu Sulaym",
+      "region": "ليبيا / المدينة",
+      "country": "ليبيا / السعودية",
+      "branches": []
+    },
+    {
+      "id": "warfalla",
+      "nameAr": "ورفلة",
+      "nameEn": "Warfalla",
+      "region": "غرب ليبيا",
+      "country": "ليبيا",
+      "branches": []
+    },
+    {
+      "id": "awlad-ali",
+      "nameAr": "أولاد علي",
+      "nameEn": "Awlad Ali",
+      "region": "غرب مصر / ليبيا الشرقية",
+      "country": "مصر / ليبيا",
+      "branches": []
+    },
+    {
+      "id": "hawwara",
+      "nameAr": "هوارة",
+      "nameEn": "Hawwara",
+      "region": "صعيد مصر / المغرب",
+      "country": "مصر / ليبيا / المغرب",
+      "branches": []
+    },
+    {
+      "id": "banu-hilal",
+      "nameAr": "بنو هلال",
+      "nameEn": "Banu Hilal",
+      "region": "المغرب العربي",
+      "country": "تونس / الجزائر / المغرب",
+      "branches": []
+    }
+  ],
+
+  "commercialFamilies": [
+    {
+      "id": "al-rajeh",
+      "nameAr": "آل راجح",
+      "nameEn": "Al-Rajeh",
+      "sector": ["مصارف", "عقارات", "تجارة"],
+      "country": "السعودية"
+    },
+    {
+      "id": "bin-laden",
+      "nameAr": "بن لادن",
+      "nameEn": "Bin Laden",
+      "sector": ["إنشاءات", "مقاولات"],
+      "country": "السعودية"
+    },
+    {
+      "id": "al-olayan",
+      "nameAr": "العليان",
+      "nameEn": "Al-Olayan",
+      "sector": ["استثمار", "تجزئة"],
+      "country": "السعودية"
+    },
+    {
+      "id": "al-khobar",
+      "nameAr": "آل زهران",
+      "nameEn": "Al-Zahrani",
+      "sector": ["نفط", "طاقة"],
+      "country": "السعودية"
+    },
+    {
+      "id": "al-futtaim",
+      "nameAr": "الفطيم",
+      "nameEn": "Al-Futtaim",
+      "sector": ["سيارات", "عقارات", "تجزئة"],
+      "country": "الإمارات"
+    },
+    {
+      "id": "al-ghurair",
+      "nameAr": "الغرير",
+      "nameEn": "Al-Ghurair",
+      "sector": ["غذاء", "بنوك", "إنشاء"],
+      "country": "الإمارات"
+    },
+    {
+      "id": "majid-al-futtaim",
+      "nameAr": "ماجد الفطيم",
+      "nameEn": "Majid Al Futtaim",
+      "sector": ["ترفيه", "تجزئة", "عقارات"],
+      "country": "الإمارات"
+    },
+    {
+      "id": "al-habtoor",
+      "nameAr": "الحبتور",
+      "nameEn": "Al-Habtoor",
+      "sector": ["فنادق", "إنشاء", "سيارات"],
+      "country": "الإمارات"
+    },
+    {
+      "id": "al-kharafi",
+      "nameAr": "الخرافي",
+      "nameEn": "Al-Kharafi",
+      "sector": ["إنشاء", "غذاء", "استثمار"],
+      "country": "الكويت"
+    },
+    {
+      "id": "al-ghanim",
+      "nameAr": "الغانم",
+      "nameEn": "Al-Ghanim",
+      "sector": ["تجزئة", "سيارات", "طاقة"],
+      "country": "الكويت"
+    },
+    {
+      "id": "kanoo",
+      "nameAr": "كانو",
+      "nameEn": "Kanoo",
+      "sector": ["شحن", "سفر", "مواد"],
+      "country": "البحرين / الإمارات"
+    },
+    {
+      "id": "al-mana",
+      "nameAr": "المانع",
+      "nameEn": "Al-Mana",
+      "sector": ["سيارات", "تجزئة"],
+      "country": "قطر"
+    }
+  ],
+
+  "supportedLanguages": [
+    { "code": "ar",   "nameAr": "العربية",   "nameEn": "Arabic",   "rtl": true,  "script": "Arabic" },
+    { "code": "fa",   "nameAr": "الفارسية",  "nameEn": "Persian",  "rtl": true,  "script": "Arabic" },
+    { "code": "ur",   "nameAr": "الأردية",   "nameEn": "Urdu",     "rtl": true,  "script": "Arabic" },
+    { "code": "tr",   "nameAr": "التركية",   "nameEn": "Turkish",  "rtl": false, "script": "Latin" },
+    { "code": "en",   "nameAr": "الإنجليزية","nameEn": "English",  "rtl": false, "script": "Latin" },
+    { "code": "fr",   "nameAr": "الفرنسية",  "nameEn": "French",   "rtl": false, "script": "Latin" },
+    { "code": "ms",   "nameAr": "الملايوية", "nameEn": "Malay",    "rtl": false, "script": "Latin" },
+    { "code": "id",   "nameAr": "الإندونيسية","nameEn": "Indonesian","rtl": false,"script": "Latin" },
+    { "code": "sw",   "nameAr": "السواحيلية","nameEn": "Swahili",  "rtl": false, "script": "Latin" },
+    { "code": "ku",   "nameAr": "الكردية",   "nameEn": "Kurdish",  "rtl": true,  "script": "Arabic" },
+    { "code": "so",   "nameAr": "الصومالية", "nameEn": "Somali",   "rtl": false, "script": "Latin" },
+    { "code": "ha",   "nameAr": "الهوساوية","nameEn": "Hausa",    "rtl": false, "script": "Latin" }
+  ],
+
+  "communityTypes": [
+    { "id": "TRIBAL",        "nameAr": "مجتمع قبلي",  "nameEn": "Tribal Community",  "icon": "🏕️" },
+    { "id": "FAMILY",        "nameAr": "مجتمع عائلي", "nameEn": "Family Community",  "icon": "👨‍👩‍👧‍👦" },
+    { "id": "AJAM",          "nameAr": "مجتمع الأعجام","nameEn": "Ajam Community",   "icon": "🌍" },
+    { "id": "LINGUISTIC",    "nameAr": "مجتمع لغوي",  "nameEn": "Linguistic Community","icon": "💬" },
+    { "id": "REGIONAL",      "nameAr": "مجتمع إقليمي","nameEn": "Regional Community","icon": "📍" },
+    { "id": "COMMERCE",      "nameAr": "مجتمع تجاري", "nameEn": "Commerce Community","icon": "🛒" },
+    { "id": "AI_TECH",       "nameAr": "تقنية وذكاء اصطناعي","nameEn": "AI & Tech","icon": "🤖" },
+    { "id": "GEOGRAPHIC",    "nameAr": "مجتمع جغرافي","nameEn": "Geographic",        "icon": "🗺️" },
+    { "id": "ISLAMIC",       "nameAr": "مجتمع إسلامي","nameEn": "Islamic",           "icon": "🕌" },
+    { "id": "YOUTH_CREATIVE","nameAr": "إبداع شبابي", "nameEn": "Youth Creative",    "icon": "✨" }
+  ]
+}

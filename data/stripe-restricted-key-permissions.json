@@ -1,0 +1,149 @@
+{
+  "version": "1.0.0",
+  "description": "بجانب كل قسم رئيسي: none | read | write — ثم الفروع تحته",
+  "legend": {
+    "read": "قراءة",
+    "write": "كتابة",
+    "none": "لا تفعّل"
+  },
+  "mainSelection": {
+    "Core": "write",
+    "Billing": "write",
+    "Checkout": "write",
+    "Climate": "none",
+    "Connect": "write",
+    "Financial Connections": "none",
+    "Issuing": "none",
+    "Orders": "write",
+    "Payment Links": "write",
+    "Payment Records": "write",
+    "Radar": "read",
+    "Reporting": "read",
+    "Sigma": "none",
+    "Stripe Apps": "none",
+    "Tax": "read",
+    "Terminal": "read",
+    "Webhook": "write",
+    "Workflows": "none"
+  },
+  "resourceTypes": {
+    "Core": {
+      "Apple Pay Domains": "write",
+      "Balance": "read",
+      "Balance Transaction Source": "read",
+      "Balance Transfers": "read",
+      "Charges and Refunds": "write",
+      "Confirmation Token": "read",
+      "Confirmation Token (client)": "none",
+      "Customer Session": "none",
+      "Customers": "write",
+      "Delegated Commerce Product Search": "none",
+      "Disputes": "read",
+      "Ephemeral keys": "none",
+      "Events": "read",
+      "Files": "read",
+      "Funding Instructions": "none",
+      "Health Alerts": "none",
+      "Payment Intents": "write",
+      "Payment Method Domains": "write",
+      "Payment Methods": "write",
+      "Payouts": "read",
+      "Products": "write",
+      "Setup Intents": "write",
+      "Shipping Rates": "none",
+      "Sources": "read",
+      "Test clocks": "none",
+      "Tokens": "read"
+    },
+    "Billing": {
+      "Alerts": "none",
+      "Billable Items": "none",
+      "Coupons": "read",
+      "Credit balances": "none",
+      "Credit grants": "none",
+      "Credit notes": "read",
+      "Customer portal": "none",
+      "Entitlements": "none",
+      "Features": "none",
+      "Invoices": "write",
+      "Meter Event Adjustments": "none",
+      "Meter Events": "none",
+      "Meters": "none",
+      "Prices": "write",
+      "Promotion Codes": "read",
+      "Quote": "write",
+      "Subscriptions": "write",
+      "Tax IDs": "none",
+      "Tax Rates": "read",
+      "Usage Records": "none"
+    },
+    "Checkout": {
+      "Checkout Sessions": "write"
+    },
+    "Climate": {
+      "Climate Orders": "none",
+      "Climate Program": "none"
+    },
+    "Connect": {
+      "Account Links": "none",
+      "Accounts": "read",
+      "Application Fees": "none",
+      "Login Links": "none",
+      "Transfers": "write"
+    },
+    "Financial Connections": {
+      "Financial Connections": "none"
+    },
+    "Issuing": {
+      "Authorizations": "none",
+      "Cardholders": "none",
+      "Cards": "none",
+      "Disputes": "none",
+      "Issuing Settlement": "none",
+      "Issuing Tokens": "none",
+      "Issuing Tokens Network Data": "none",
+      "Transactions": "none"
+    },
+    "Orders": {
+      "Orders": "write",
+      "SKUs": "read"
+    },
+    "Payment Links": {
+      "Payment Links": "write"
+    },
+    "Payment Records": {
+      "Payment Records": "write"
+    },
+    "Radar": {
+      "Reviews": "read"
+    },
+    "Reporting": {
+      "Report Runs and Report Types": "read"
+    },
+    "Sigma": {
+      "Sigma API Permission": "none"
+    },
+    "Stripe Apps": {
+      "Secrets": "none",
+      "Stripe CLI permissions": "none",
+      "Debugging tools": "none"
+    },
+    "Tax": {
+      "Tax Calculations and Transactions": "none",
+      "Tax Settings and Registrations": "read"
+    },
+    "Terminal": {
+      "Configurations": "none",
+      "Connection Tokens": "none",
+      "Locations": "read",
+      "Onboarding links": "none",
+      "Readers": "none"
+    },
+    "Webhook": {
+      "Webhook Endpoints": "write"
+    },
+    "Workflows": {
+      "Workflows Settings": "none"
+    }
+  }
+}

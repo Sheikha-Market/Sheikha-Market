@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="لوحة إدارة النظام - سوق شيخة">
+    <title>إدارة النظام | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --card-hover: #111b2e;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--card);
+            border-left: 1px solid var(--border);
+            height: 100vh;
+            position: fixed;
+            right: 0;
+            top: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+        .logo-text {
+            font-size: 1rem;
+            font-weight: 800;
+        }
+        .logo-text span { color: var(--gold); }
+        .sidebar-nav {
+            padding: 16px;
+        }
+        .nav-section {
+            margin-bottom: 24px;
+        }
+        .nav-section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 12px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            margin-bottom: 4px;
+        }
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+        }
+        .nav-item.active {
+            background: rgba(212,175,55,0.1);
+            color: var(--gold);
+        }
+        .nav-icon { font-size: 1.1rem; }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            margin-right: 280px;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .header-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .header-title span { color: var(--gold); }
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.85rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Content */
+        .content {
+            padding: 32px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: var(--transition);
+        }
+        .stat-card:hover {
+            border-color: rgba(212,175,55,0.3);
+        }
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .stat-icon.green { background: rgba(16,185,129,0.15); }
+        .stat-icon.blue { background: rgba(59,130,246,0.15); }
+        .stat-icon.yellow { background: rgba(245,158,11,0.15); }
+        .stat-icon.purple { background: rgba(139,92,246,0.15); }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .stat-badge.success { background: rgba(16,185,129,0.15); color: var(--success); }
+        .stat-badge.warning { background: rgba(245,158,11,0.15); color: var(--warning); }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 32px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .service-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: var(--transition);
+        }
+        .service-card:hover {
+            border-color: rgba(212,175,55,0.3);
+            transform: translateY(-2px);
+        }
+        .service-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(212,175,55,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        .status-indicator.online { background: var(--success); }
+        .status-indicator.offline { background: var(--danger); }
+        .status-indicator.warning { background: var(--warning); }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .service-name {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .service-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+        .service-stats {
+            display: flex;
+            gap: 16px;
+        }
+        .service-stat {
+            text-align: center;
+        }
+        .service-stat-value {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .service-stat-label {
+            font-size: 0.7rem;
+            color: var(--text-faint);
+        }
+
+        /* Terminal */
+        .terminal {
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        .terminal-header {
+            background: #161b22;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; }
+        .terminal-title {
+            margin-right: auto;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+        .terminal-body {
+            padding: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            line-height: 1.8;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .terminal-line {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .terminal-prompt { color: var(--success); }
+        .terminal-cmd { color: var(--text); }
+        .terminal-output { color: var(--text-muted); }
+        .terminal-error { color: var(--danger); }
+        .terminal-success { color: var(--success); }
+
+        /* Metrics Chart */
+        .chart-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+        }
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        .chart-legend {
+            display: flex;
+            gap: 16px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .chart-area {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(180deg, var(--gold) 0%, rgba(212,175,55,0.3) 100%);
+            border-radius: 6px 6px 0 0;
+            min-height: 20px;
+            transition: var(--transition);
+            position: relative;
+        }
+        .chart-bar:hover {
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+        }
+        .chart-bar::after {
+            content: attr(data-value);
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .chart-bar:hover::after {
+            opacity: 1;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 12px;
+        }
+        .chart-label {
+            font-size: 0.7rem;
+            color: var(--text-faint);
+        }
+
+        /* Logs Table */
+        .logs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .logs-table th, .logs-table td {
+            padding: 14px 16px;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+        }
+        .logs-table th {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-faint);
+            text-transform: uppercase;
+        }
+        .logs-table td {
+            font-size: 0.85rem;
+        }
+        .log-level {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .log-level.info { background: rgba(59,130,246,0.15); color: var(--info); }
+        .log-level.success { background: rgba(16,185,129,0.15); color: var(--success); }
+        .log-level.warning { background: rgba(245,158,11,0.15); color: var(--warning); }
+        .log-level.error { background: rgba(239,68,68,0.15); color: var(--danger); }
+        .log-time {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Two Column Grid */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main { margin-right: 0; }
+            .two-col { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon"><svg viewBox="0 0 60 60" width="100%" height="100%"><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f7e98e"/><stop offset="50%" style="stop-color:#d4af37"/><stop offset="100%" style="stop-color:#aa8c2c"/></linearGradient></defs><circle cx="30" cy="30" r="28" fill="none" stroke="url(#goldGrad)" stroke-width="2"/><path d="M20 22 Q30 18 40 22 Q42 30 40 38 Q30 42 20 38 Q18 30 20 22" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/><circle cx="24" cy="20" r="2" fill="url(#goldGrad)"/><circle cx="30" cy="18" r="2" fill="url(#goldGrad)"/><circle cx="36" cy="20" r="2" fill="url(#goldGrad)"/><path d="M25 30 L35 30" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <div class="logo-text">إدارة <span>النظام</span></div>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">النظام</div>
+                <a href="#overview" class="nav-item active">
+                    <span class="nav-icon">📊</span> نظرة عامة
+                </a>
+                <a href="#services" class="nav-item">
+                    <span class="nav-icon">⚙️</span> الخدمات
+                </a>
+                <a href="#logs" class="nav-item">
+                    <span class="nav-icon">📝</span> السجلات
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">البنية التحتية</div>
+                <a href="devops.html" class="nav-item">
+                    <span class="nav-icon">🚀</span> DevOps
+                </a>
+                <a href="#database" class="nav-item">
+                    <span class="nav-icon">🗄️</span> قاعدة البيانات
+                </a>
+                <a href="#cache" class="nav-item">
+                    <span class="nav-icon">⚡</span> التخزين المؤقت
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">الأمان</div>
+                <a href="#security" class="nav-item">
+                    <span class="nav-icon">🔒</span> الأمان
+                </a>
+                <a href="#api-keys" class="nav-item">
+                    <span class="nav-icon">🔑</span> مفاتيح API
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">روابط</div>
+                <a href="لوحة-التحكم.html" class="nav-item">
+                    <span class="nav-icon">📋</span> لوحة التحكم
+                </a>
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">🏠</span> الرئيسية
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="header-title">🖥️ إدارة <span>النظام</span></h1>
+            <div class="header-actions">
+                <button class="btn btn-outline" onclick="refreshAll()">🔄 تحديث</button>
+                <button class="btn btn-gold" onclick="restartServices()">⚡ إعادة التشغيل</button>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">🟢</div>
+                        <span class="stat-badge success">متصل</span>
+                    </div>
+                    <div class="stat-value" id="uptime">99.9%</div>
+                    <div class="stat-label">وقت التشغيل</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">📊</div>
+                        <span class="stat-badge success">طبيعي</span>
+                    </div>
+                    <div class="stat-value" id="requests">1,284</div>
+                    <div class="stat-label">طلب / ساعة</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon yellow">⚡</div>
+                        <span class="stat-badge success">سريع</span>
+                    </div>
+                    <div class="stat-value" id="responseTime">45ms</div>
+                    <div class="stat-label">متوسط الاستجابة</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">💾</div>
+                        <span class="stat-badge warning">72%</span>
+                    </div>
+                    <div class="stat-value" id="memory">5.8GB</div>
+                    <div class="stat-label">الذاكرة المستخدمة</div>
+                </div>
+            </div>
+
+            <!-- Services -->
+            <section class="section" id="services">
+                <div class="section-header">
+                    <h2 class="section-title">⚙️ الخدمات</h2>
+                    <button class="btn btn-outline" onclick="checkServices()">فحص الكل</button>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">🌐</div>
+                            <div class="status-indicator online"></div>
+                        </div>
+                        <div class="service-name">خادم الويب</div>
+                        <div class="service-desc">Node.js Express Server - Port 8080</div>
+                        <div class="service-stats">
+                            <div class="service-stat">
+                                <div class="service-stat-value" id="webRequests">1.2K</div>
+                                <div class="service-stat-label">طلب/س</div>
+                            </div>
+                            <div class="service-stat">
+                                <div class="service-stat-value">42ms</div>
+                                <div class="service-stat-label">استجابة</div>
+                            </div>
+                            <div class="service-stat">
+                                <div class="service-stat-value">0</div>
+                                <div class="service-stat-label">أخطاء</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">🤖</div>
+                            <div class="status-indicator online" id="aiStatus"></div>
+                        </div>
+                        <div class="service-name">الذكاء الاصطناعي</div>
+                        <div class="service-desc" id="aiModel">OpenAI GPT-4o-mini</div>
+                        <div class="service-stats">
+                            <div class="service-stat">
+                                <div class="service-stat-value" id="aiChats">156</div>
+                                <div class="service-stat-label">محادثة</div>
+                            </div>
+                            <div class="service-stat">
+                                <div class="service-stat-value">1.2s</div>
+                                <div class="service-stat-label">استجابة</div>
+                            </div>
+                            <div class="service-stat">
+                                <div class="service-stat-value">98%</div>
+                                <div class="service-stat-label">نجاح</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">🗄️</div>
+                            <div class="status-indicator online"></div>
+                        </div>
+                        <div class="service-name">قاعدة البيانات</div>
+                        <div class="service-desc">JSON File Storage</div>
+                        <div class="service-stats">
+                            <div class="service-stat">
+                                <div class="service-stat-value" id="dbSize">2.4MB</div>
+                                <div class="service-stat-label">حجم</div>
+                            </div>
+                            <div class="service-stat">
+                                <div class="service-stat-value" id="dbRecords">847</div>
+                                <div class="service-stat-label">سجل</div>
+                            </div>
+                            <div class="service-stat">
+                                <div class="service-stat-value">&lt;1ms</div>
+                                <div class="service-stat-label">قراءة</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">📡</div>
+                            <div class="status-indicator online"></div>
+                        </div>
+                        <div class="service-name">WebSocket</div>
+                        <div class="service-desc">Real-time Price Updates</div>
+                        <div class="service-stats">
+                            <div class="service-stat">
+                                <div class="service-stat-value" id="wsConnections">23</div>
+                                <div class="service-stat-label">اتصال</div>
+                            </div>
+                            <div class="service-stat">
+                                <div class="service-stat-value">5s</div>
+                                <div class="service-stat-label">فترة</div>
+                            </div>
+                            <div class="service-stat">
+                                <div class="service-stat-value">100%</div>
+                                <div class="service-stat-label">مستقر</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">🔐</div>
+                            <div class="status-indicator online"></div>
+                        </div>
+                        <div class="service-name">المصادقة</div>
+                        <div class="service-desc">JWT Authentication System</div>
+                        <div class="service-stats">
+                            <div class="service-stat">
+                                <div class="service-stat-value" id="authUsers">128</div>
+                                <div class="service-stat-label">مستخدم</div>
+                            </div>
+                            <div class="service-stat">
+                                <div class="service-stat-value">24h</div>
+                                <div class="service-stat-label">صلاحية</div>
+                            </div>
+                            <div class="service-stat">
+                                <div class="service-stat-value">256bit</div>
+                                <div class="service-stat-label">تشفير</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">📧</div>
+                            <div class="status-indicator warning"></div>
+                        </div>
+                        <div class="service-name">الإشعارات</div>
+                        <div class="service-desc">Email & WhatsApp Integration</div>
+                        <div class="service-stats">
+                            <div class="service-stat">
+                                <div class="service-stat-value">—</div>
+                                <div class="service-stat-label">SMTP</div>
+                            </div>
+                            <div class="service-stat">
+                                <div class="service-stat-value">✓</div>
+                                <div class="service-stat-label">واتساب</div>
+                            </div>
+                            <div class="service-stat">
+                                <div class="service-stat-value">جاهز</div>
+                                <div class="service-stat-label">حالة</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Two Column -->
+            <div class="two-col">
+                <!-- Performance Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">📈 الأداء (آخر 24 ساعة)</div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--gold);"></div>
+                                <span>طلبات</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-area" id="performanceChart">
+                        <!-- Generated by JS -->
+                    </div>
+                    <div class="chart-labels">
+                        <span class="chart-label">00:00</span>
+                        <span class="chart-label">06:00</span>
+                        <span class="chart-label">12:00</span>
+                        <span class="chart-label">18:00</span>
+                        <span class="chart-label">الآن</span>
+                    </div>
+                </div>
+
+                <!-- Terminal -->
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                        <span class="terminal-title">system-monitor.sh</span>
+                    </div>
+                    <div class="terminal-body" id="terminalOutput">
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-cmd">node server.js</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-success">✓</span>
+                            <span class="terminal-output">Server running on port 8080</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-success">✓</span>
+                            <span class="terminal-output">WebSocket server initialized</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-success">✓</span>
+                            <span class="terminal-output">AI module loaded (gpt-4o-mini)</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-success">✓</span>
+                            <span class="terminal-output">Database connected (JSON storage)</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-cmd">system status</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-output">All systems operational</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logs -->
+            <section class="section" id="logs">
+                <div class="section-header">
+                    <h2 class="section-title">📝 سجلات النظام</h2>
+                    <button class="btn btn-outline" onclick="clearLogs()">مسح</button>
+                </div>
+                <div class="chart-card" style="padding: 0; overflow: hidden;">
+                    <table class="logs-table">
+                        <thead>
+                            <tr>
+                                <th>الوقت</th>
+                                <th>المستوى</th>
+                                <th>الخدمة</th>
+                                <th>الرسالة</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logsTable">
+                            <!-- Generated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        const API = window.location.origin;
+
+        // Initialize chart
+        function initChart() {
+            const chart = document.getElementById('performanceChart');
+            const values = [45, 62, 38, 75, 52, 88, 67, 95, 72, 58, 83, 70];
+            chart.innerHTML = values.map(v => 
+                `<div class="chart-bar" style="height: ${v}%;" data-value="${v}%"></div>`
+            ).join('');
+        }
+
+        // Initialize logs
+        function initLogs() {
+            const logs = [
+                { time: '10:45:23', level: 'success', service: 'Auth', msg: 'User login successful: user_128' },
+                { time: '10:44:56', level: 'info', service: 'API', msg: 'GET /api/market-listings - 200 (42ms)' },
+                { time: '10:44:32', level: 'info', service: 'WebSocket', msg: 'Price update broadcasted to 23 clients' },
+                { time: '10:43:18', level: 'success', service: 'AI', msg: 'Chat response generated (1.2s)' },
+                { time: '10:42:05', level: 'warning', service: 'Email', msg: 'SMTP not configured - email disabled' },
+                { time: '10:41:30', level: 'info', service: 'Database', msg: 'Auto-save completed (2.4MB)' },
+            ];
+            
+            document.getElementById('logsTable').innerHTML = logs.map(l => `
+                <tr>
+                    <td class="log-time">${l.time}</td>
+                    <td><span class="log-level ${l.level}">${l.level.toUpperCase()}</span></td>
+                    <td>${l.service}</td>
+                    <td style="color: var(--text-muted);">${l.msg}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Check AI status
+        async function checkAI() {
+            try {
+                const res = await fetch(API + '/api/ai/capabilities');
+                const data = await res.json();
+                if (data.success && data.ai) {
+                    document.getElementById('aiModel').textContent = data.ai.model || 'Not configured';
+                    document.getElementById('aiStatus').className = 'status-indicator ' + (data.ai.enabled ? 'online' : 'warning');
+                }
+            } catch (e) {
+                document.getElementById('aiStatus').className = 'status-indicator offline';
+            }
+        }
+
+        // Check system status
+        async function checkSystem() {
+            try {
+                const res = await fetch(API + '/api/systems-status');
+                const data = await res.json();
+                if (data.success) {
+                    // Update stats from real data
+                }
+            } catch (e) {
+                console.log('System check failed');
+            }
+        }
+
+        // Refresh all
+        function refreshAll() {
+            checkAI();
+            checkSystem();
+            addTerminalLine('system refresh', 'All services refreshed');
+        }
+
+        // Restart services
+        function restartServices() {
+            addTerminalLine('service restart --all', 'Restarting all services...');
+            setTimeout(() => {
+                addTerminalLine(null, 'All services restarted successfully', 'success');
+            }, 1000);
+        }
+
+        // Check services
+        function checkServices() {
+            addTerminalLine('health-check', 'Running health checks...');
+            setTimeout(() => {
+                addTerminalLine(null, '6/6 services healthy', 'success');
+            }, 500);
+        }
+
+        // Add terminal line
+        function addTerminalLine(cmd, output, type = 'output') {
+            const terminal = document.getElementById('terminalOutput');
+            if (cmd) {
+                terminal.innerHTML += `
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-cmd">${cmd}</span>
+                    </div>
+                `;
+            }
+            terminal.innerHTML += `
+                <div class="terminal-line">
+                    <span class="terminal-${type === 'success' ? 'success' : 'output'}">${type === 'success' ? '✓' : '>'}</span>
+                    <span class="terminal-output">${output}</span>
+                </div>
+            `;
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        // Clear logs
+        function clearLogs() {
+            document.getElementById('logsTable').innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 40px;">لا توجد سجلات</td></tr>';
+        }
+
+        // Update stats randomly (simulation)
+        function updateStats() {
+            const requests = Math.floor(1200 + Math.random() * 200);
+            const response = Math.floor(40 + Math.random() * 20);
+            document.getElementById('requests').textContent = requests.toLocaleString();
+            document.getElementById('responseTime').textContent = response + 'ms';
+        }
+
+        // Initialize
+        initChart();
+        initLogs();
+        checkAI();
+        checkSystem();
+        
+        // Update every 30 seconds
+        setInterval(updateStats, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "description": "تكامل NVIDIA مع منظومة شيخة — الأقوى والأفضل، مرقمن بالكتاب والسنة",
+  "vision": {
+    "unifiedFor": "الله وعباده",
+    "readiness": "جاهزية البنية للتطوير المستمر وفتح أسواق أخرى",
+    "principle": "ولا حول ولا قوة إلا بالله"
+  },
+  "sectors": [
+    {
+      "id": "data-center",
+      "name": "مراكز البيانات والذكاء الاصطناعي",
+      "priority": 1,
+      "relevance": "عالية جداً",
+      "technologies": [
+        { "id": "blackwell-hopper", "name": "Blackwell / Hopper", "chips": ["H100", "B200"], "sheikhaUse": "نماذج تسعير، تحليل السوق", "quranRef": "البقرة:282", "status": "مستقبلي" },
+        { "id": "dgx-hgx", "name": "DGX / HGX", "sheikhaUse": "تحليلات ضخمة عند التوسع", "quranRef": "الإسراء:36", "status": "مستقبلي" },
+        { "id": "nvidia-nim", "name": "NVIDIA NIM", "sheikhaUse": "تكامل Llama ونماذج عبر API", "quranRef": "العلق:1-5", "status": "قيد التفعيل" },
+        { "id": "quantum", "name": "Quantum Computing", "sheikhaUse": "تحسين خوارزميات مستقبلي", "quranRef": "الإسراء:36", "status": "بحث" }
+      ]
+    },
+    {
+      "id": "software-networking",
+      "name": "المنصات البرمجية والربط",
+      "priority": 2,
+      "relevance": "عالية",
+      "technologies": [
+        { "id": "cuda", "name": "CUDA Toolkit", "sheikhaUse": "تحليلات، تنبؤ، تصنيف", "quranRef": "البقرة:282", "status": "جاهزية" },
+        { "id": "infiniband", "name": "InfiniBand / Spectrum-X", "sheikhaUse": "بنية موزعة عند التوسع", "quranRef": "الشورى:38", "status": "مستقبلي" },
+        { "id": "ai-enterprise", "name": "NVIDIA AI Enterprise", "sheikhaUse": "نشر نماذج في بيئة العمل", "quranRef": "الصف:4", "status": "مستقبلي" }
+      ]
+    },
+    {
+      "id": "omniverse",
+      "name": "المحاكاة والعوالم الافتراضية",
+      "priority": 3,
+      "relevance": "متوسطة",
+      "technologies": [
+        { "id": "omniverse", "name": "Omniverse", "sheikhaUse": "توأم رقمي للمستودعات وسلاسل التوريد", "quranRef": "الإسراء:36", "status": "مستقبلي" },
+        { "id": "openusd", "name": "OpenUSD", "sheikhaUse": "تصور المعادن، منشآت التكرير", "quranRef": "الإسراء:36", "status": "مستقبلي" }
+      ]
+    },
+    {
+      "id": "geforce",
+      "name": "الألعاب والمبدعين (GeForce RTX)",
+      "priority": 4,
+      "relevance": "منخفضة",
+      "technologies": [
+        { "id": "ray-tracing", "name": "Ray Tracing", "sheikhaUse": "عرض تفاعلي للمنتجات", "quranRef": "الإحسان", "status": "عند الحاجة" },
+        { "id": "dlss", "name": "DLSS", "sheikhaUse": "واجهات سلسة", "quranRef": "الإتقان", "status": "عند الحاجة" },
+        { "id": "rtx-ai-pc", "name": "RTX AI PC", "sheikhaUse": "تطوير محلي، نماذج على الجهاز", "quranRef": "العلق:1-5", "status": "عند الحاجة" }
+      ]
+    },
+    {
+      "id": "automotive-robotics",
+      "name": "السيارات والروبوتات",
+      "priority": 5,
+      "relevance": "منخفضة",
+      "technologies": [
+        { "id": "drive", "name": "NVIDIA DRIVE", "sheikhaUse": "لوجستيات الشحن المستقبلية", "quranRef": "البقرة:282", "status": "مستقبلي" },
+        { "id": "isaac", "name": "Isaac Robotics", "sheikhaUse": "أتمتة المستودعات", "quranRef": "الإتقان", "status": "مستقبلي" }
+      ]
+    }
+  ],
+  "practicalActions": [
+    { "id": "nim", "action": "تفعيل NVIDIA NIM API", "target": "lib/sheikha-ai-engine.js", "status": "قيد التفعيل" },
+    { "id": "cuda-doc", "action": "توثيق CUDA للتطوير — مرقمن بالكتاب والسنة", "target": "docs/guides/CUDA-Sheikha.md", "status": "مكتمل" },
+    { "id": "omniverse-vision", "action": "توأم رقمي للمستودعات", "target": "Omniverse", "status": "مستقبلي" },
+    { "id": "expand-markets", "action": "فتح أسواق أخرى", "target": "بنية قابلة للتوسع", "status": "جاهزية" }
+  ],
+  "shariaPrinciples": [
+    { "principle": "الإتقان", "ref": "إن الله يحب إذا عمل أحدكم عملاً أن يتقنه" },
+    { "principle": "العلم قبل العمل", "ref": "ولا تقف ما ليس لك به علم — الإسراء:36" },
+    { "principle": "التوثيق", "ref": "فاكتبوه — البقرة:282" },
+    { "principle": "التوحيد", "ref": "لا حول ولا قوة إلا بالله" },
+    { "principle": "الاستعداد", "ref": "وأعدوا لهم ما استطعتم من قوة — الأنفال:60" }
+  ]
+}

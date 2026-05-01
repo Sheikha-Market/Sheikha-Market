@@ -1,0 +1,30 @@
+{
+  "id": "schedule-1772499505673",
+  "agentId": "agent-intellect-preservation-1772495966716",
+  "scheduleType": "REAL_TIME",
+  "schedule": {
+    "name": "تدريب فوري",
+    "frequency": "immediate",
+    "batchSize": 1,
+    "ideal": "تحديثات سريعة"
+  },
+  "config": {
+    "allLanguages": true,
+    "sourceFamilies": [
+      "HumanLanguages",
+      "NLP",
+      "LLM"
+    ],
+    "sourceScope": "global_and_cosmic_symbolic",
+    "technique": "PEFT",
+    "pipeline": {
+      "nlp": true,
+      "llm": true
+    },
+    "batchSize": 8,
+    "epochs": 1
+  },
+  "status": "scheduled",
+  "nextRun": "2026-03-03T00:58:25.673Z",
+  "createdAt": "2026-03-03T00:58:25.673Z"
+}

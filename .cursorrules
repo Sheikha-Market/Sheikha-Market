@@ -1,0 +1,132 @@
+# بسم الله الرحمن الرحيم
+# Cursor Rules — منظومة وسوق شيخة | SHEIKHA Platform
+# ══════════════════════════════════════════════════════
+
+## المالك
+سلمان أحمد بن سلمان الراجح — المالك الوحيد — لا تعديل بدون إذن صريح.
+
+## المشروع
+**SHEIKHA** — أول منظومة اقتصادية إسلامية رقمية للمعادن والسكراب
+مبنية على مبادئ سوق المدينة المنورة — الكتاب والسنة
+الدومين: sheikha.top | البريد: market@sheikha.top
+
+## اللغة / Language
+- الواجهة: عربية (RTL) بالكامل
+- التعليقات: بالعربية
+- أسماء المتغيرات: إنجليزية (camelCase)
+- أسماء الملفات: عربية للصفحات العامة، إنجليزية للكود
+
+## التقنيات / Tech Stack
+- Backend: Node.js + Express.js (server.js — 12,790 سطر — 200+ API)
+- Frontend: Vanilla HTML5 + CSS3 + JS — **بدون React/Vue/Angular**
+- تخزين: JSON files في data/
+- مصادقة: JWT + OAuth (Google, Microsoft, Apple, Nafath)
+- WebSocket: أسعار لحظية (ws library)
+- PWA: Service Worker + manifest.json
+- نشر: Vercel (vercel.json معد)
+- Node: >= 18.0.0
+- AI Primary: Claude Opus 4.6 (تفكير تكيفي، 1M context)
+- AI Secondary: GPT-5.2 (محادثات عامة)
+
+## التصميم / Design System
+- Dark theme: #050810 (bg) → #0a0f1a (bg2) → #111827 (bg3)
+- ذهبي: #D4AF37 (primary gold)
+- نحاسي: #B87333 (copper accent)
+- نجاح: #10b981 | تحذير: #f59e0b | خطأ: #ef4444 | معلومات: #3b82f6
+- خط: Tajawal (Google Fonts)
+- RTL layout دائماً
+- تصميم متجاوب (responsive)
+- حدود: #1e293b | نص أساسي: #f8fafc | نص ثانوي: #94a3b8
+
+## قواعد الكود / Code Style
+- 4 مسافات للإزاحة (spaces, not tabs)
+- Single quotes + semicolons
+- تعليقات عربية شارحة
+- Error handling بالعربية
+- تحقق من كل المدخلات
+- كل API يرجع: `{ success: boolean, data: any, message?: string, timestamp: string }`
+
+## هيكل المشروع / Structure
+```
+sheikha-main-portal/
+├── server.js              ← الخادم الرئيسي (200+ endpoint)
+├── lib/                   ← المحركات (AI, شريعة, إعراب, تطوير)
+├── middleware/             ← auth, security, validation, logger
+├── routes/                ← auth, ai, arabic, market, sharia
+├── config/                ← إعدادات
+├── data/                  ← JSON storage
+├── mcp-servers/           ← MCP تكامل Cursor
+└── public/                ← 14 صفحة HTML رئيسية
+    ├── index.html         ← الرئيسية (PWA)
+    ├── سوق-شيخة.html      ← السوق (HS codes, فلاتر, RFQ)
+    ├── لوحة-الادمن.html    ← لوحة الأدمن (15+ قسم)
+    ├── لوحة-تحكم-المستخدم.html ← لوحة المستخدم
+    ├── لوحة-الشركة.html    ← لوحة الشركة
+    ├── تسجيل-الدخول.html   ← 5 طرق مصادقة
+    ├── تسجيل-الشركات.html  ← 5 خطوات تسجيل
+    ├── المجتمع.html        ← منتدى + مختبرات
+    ├── الشريعة-الاسلامية.html ← مرجع شرعي
+    ├── css/               ← أنظمة التصميم
+    ├── js/                ← JavaScript مشترك
+    └── manifest.json      ← PWA
+```
+
+## المبادئ الشرعية (إلزامية)
+1. لا ربا — «وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا»
+2. لا غرر — لا بيع مجهول
+3. لا غش — «مَنْ غَشَّنَا فَلَيْسَ مِنَّا»
+4. لا احتكار — «لاَ يَحْتَكِرُ إِلاَّ خَاطِئٌ»
+5. لا نجش — حرام رفع السعر الوهمي
+6. البيع عن تراضٍ
+7. صدق القول والوزن
+8. مؤشر شيخة للمعرفة فقط (ليس تسعير إلزامي)
+
+## بروتوكول التكامل بين البيئات (سيادي — معتمد)
+
+### توزيع الأدوار (Role Separation)
+| البيئة | الدور | الحدود |
+|--------|-------|--------|
+| **Cursor** | التنفيذ النهائي واعتماد الكود | إدارة الملفات والبنية — تطبيق التعديلات بإذن المالك فقط |
+| **Claude** | تدقيق شرعي + مخاطر + سياسات | لا يكتب UI — لا يفرض refactor — لا يغير منطق |
+| **ChatGPT** | كود مقترح + UX + نصوص | لا فتوى — لا قرار مالي — لا تغيير قواعد |
+
+### قواعد Cursor (هذه البيئة)
+- Cursor = المنفذ النهائي الوحيد — الكود المعتمد هنا فقط
+- أي مخرج من Claude أو ChatGPT = اقتراح/مراجعة — ليس تنفيذ تلقائي
+- قبل أي تنفيذ: "اقتراح: (وصف). هل تأذن يا سلمان؟" — لا تنفيذ بدون (نعم)
+- ممنوع refactor واسع أو تغيير بنيوي بدون موافقة صريحة
+- ممنوع إدخال frameworks (React/Vue/Angular)
+
+### التوجيه الذكي (Routing)
+- UI/HTML/CSS/JS/Node drafts → ChatGPT (اقتراح) → Cursor (تنفيذ بإذن)
+- عقود/تمويل/شروط/غرر/ربا/مخاطر → Claude (تدقيق)
+- تغيير بنيوي/refactor/نقل ملفات → اقتراح فقط + إذن المالك
+- التنفيذ الفعلي → Cursor فقط وبإذن المالك
+
+### منع كشف الأسرار
+- ممنوع إرسال/عرض: JWT_SECRET, OPENAI_API_KEY, OAuth secrets, Nafath secrets
+- أي تشخيص يتطلب أسرار: بصيغة placeholders فقط مثل: `<JWT_SECRET>`
+
+### ملفات التكامل
+- **Cursor:** `.cursorrules` + `.cursor/mcp.json` + `.cursor/prompts/` + `CLAUDE.md`
+- **Claude:** `CLAUDE-PROJECT-INSTRUCTIONS.md` + `.claude/config.json`
+- **ChatGPT:** `CHATGPT-INSTRUCTIONS.md`
+- **السياق الشامل:** `SHEIKHA-AI-CONTEXT.md`
+- **MCP:** `mcp-servers/sheikha-mcp-server.js`
+- **API:** `GET /api/project/identity`
+- **Vercel:** `vercel.json`
+
+### الختم السيادي
+هذه الجلسة امتداد لمشروع SHEIKHA وليست تأسيساً جديداً.
+المالك الوحيد: سلمان أحمد بن سلمان الراجح.
+الناتج النهائي يُدمج ويُعتمد داخل Cursor فقط.
+
+## عند إنشاء كود جديد
+1. أضف تعليقات عربية شارحة
+2. تأكد من RTL compatibility
+3. اتبع نظام التصميم (ألوان، خطوط)
+4. تحقق من المدخلات
+5. لا تكسر الصفحات الأخرى
+6. لا تكشف مفاتيح API أو بيانات حساسة
+7. حافظ على الأداء
+8. اختبر في المتصفح

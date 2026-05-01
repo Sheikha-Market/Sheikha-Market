@@ -1,0 +1,109 @@
+{
+  "_meta": {
+    "generator": "SHEIKHA Navigator v1.0",
+    "generatedAt": "2026-02-16T02:25:43.591Z",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "project": "منظومة وسوق شيخة — SHEIKHA"
+  },
+  "overall": {
+    "status": "active",
+    "readiness": "85%",
+    "security": "9/9",
+    "sharia": "compliant"
+  },
+  "servers": {
+    "mainPortal": {
+      "port": 8080,
+      "status": "running",
+      "apis": "200+",
+      "pages": 106,
+      "dashboards": [
+        "admin",
+        "user",
+        "company"
+      ]
+    },
+    "universalMarketplace": {
+      "port": 23000,
+      "status": "running",
+      "apis": 13,
+      "pages": 1
+    },
+    "smartMarket": {
+      "status": "initial",
+      "pages": 1
+    }
+  },
+  "completed": [
+    "الأمان الكامل 9 طبقات (helmet, rate-limit, compression, CORS, sanitization)",
+    "Node v20 LTS معتمد ومستقر",
+    "/api/project/identity في كلا الخادمين",
+    "فحص الذاكرة الذكي",
+    "ملفات التكامل (SUIL, .cursorrules, CLAUDE.md, CHATGPT-INSTRUCTIONS.md)",
+    "بروتوكول التكامل السيادي بين البيئات",
+    "المراجعة الهيكلية SHEIKHA-STRUCTURE-AUDIT.md (10 أقسام)",
+    "التحليل الاستراتيجي SHEIKHA-STRATEGIC-ANALYSIS.md",
+    "أولوية الدمج SHEIKHA-DESIGN-INTEGRATION-ORDER.md",
+    "صفحة التسجيل الحكومي (6 خطوات + 4 أنواع كيانات + 6 أدوار)",
+    "API التسجيل الحكومي (/api/government/register + status + entities)",
+    "سجل العمل المركزي SHEIKHA-WORK-LOG.md",
+    "نظام Navigator المركزي الذكي"
+  ],
+  "inProgress": [
+    "تحديث التسجيل الحكومي (قطاع عام + جامعات + شبه حكومي)",
+    "إصلاح أقسام مفقودة في لوحة المستخدم (CRM/رزنامة/مهام)",
+    "إصلاح أقسام مفقودة في لوحة الأدمن (3 أقسام)",
+    "إصلاح قسم إعمار الأرض في لوحة الشركة"
+  ],
+  "planned": [
+    "نظام إشعارات مركزي (Event Bus)",
+    "ربط الخادمين بـ API Gateway",
+    "MongoDB Migration",
+    "HTTPS/SSL لـ sheikha.top",
+    "CI/CD Pipeline",
+    "Automated Tests",
+    "Docker containerization",
+    "تطبيق جوال PWA كامل",
+    "تكامل أنظمة حكومية (فسح، اعتماد، بلدي، نافذ، نفاذ)",
+    "التوسع الدولي"
+  ],
+  "environments": {
+    "cursor": {
+      "role": "execution",
+      "status": "active",
+      "lastSync": "2026-02-16T02:25:43.591Z"
+    },
+    "claude": {
+      "role": "audit",
+      "status": "configured",
+      "lastSync": null
+    },
+    "chatgpt": {
+      "role": "suggestions",
+      "status": "configured",
+      "lastSync": null
+    }
+  },
+  "security": {
+    "helmet": true,
+    "rateLimit": true,
+    "compression": true,
+    "cors": true,
+    "inputSanitization": true,
+    "errorHandling": true,
+    "securityLogging": true,
+    "memoryHealth": true,
+    "jwtAuth": true
+  },
+  "referenceFiles": [
+    "SHEIKHA-WORK-LOG.md",
+    "SHEIKHA-STRUCTURE-AUDIT.md",
+    "SHEIKHA-STRATEGIC-ANALYSIS.md",
+    "SHEIKHA-DESIGN-INTEGRATION-ORDER.md",
+    "SHEIKHA-AI-CONTEXT.md",
+    "SHEIKHA-SUIL.md",
+    ".cursorrules",
+    "CLAUDE.md",
+    "CHATGPT-INSTRUCTIONS.md"
+  ]
+}

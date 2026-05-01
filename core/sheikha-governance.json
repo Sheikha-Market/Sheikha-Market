@@ -1,0 +1,85 @@
+{
+    "version": "1.0.0",
+    "name": "Sheikha Governance",
+    "description": "حوكمة المنظومة الرقمية الحاكمة — شيخة",
+
+    "ownership": {
+        "owner": "Sheikha",
+        "decisionAuthority": "sheikha-control-plane",
+        "executor": "sheikha-os",
+        "monitor": "sheikha-impact-engine"
+    },
+
+    "environments": {
+        "local":      { "deployable": true,  "production": false, "debug": true  },
+        "dev":        { "deployable": true,  "production": false, "debug": true  },
+        "pilot":      { "deployable": true,  "production": false, "debug": false },
+        "production": { "deployable": true,  "production": true,  "debug": false }
+    },
+
+    "allowedLayers": [
+        "01-hardware",
+        "02-system",
+        "03-cs-core",
+        "04-programming",
+        "05-data",
+        "06-network",
+        "07-cloud",
+        "08-ai",
+        "09-integration",
+        "10-control-plane",
+        "11-saas",
+        "12-smart-interfaces",
+        "13-metrics-impact",
+        "14-governance"
+    ],
+
+    "security": {
+        "denyByDefault": true,
+        "allowlistRequired": true,
+        "secretsInEnvOnly": true,
+        "httpsRequired": true,
+        "rateLimitEnabled": true
+    },
+
+    "changeManagement": {
+        "logAllChanges": true,
+        "requireApprovalFor": ["production-deploy", "secret-rotation", "schema-change"],
+        "auditRetentionDays": 90
+    },
+
+    "servicePolicy": {
+        "maxRestarts": 10,
+        "healthCheckIntervalSec": 30,
+        "autoRecovery": true,
+        "alertOnFailure": true
+    },
+
+    "dataPolicy": {
+        "encryptAtRest": true,
+        "encryptInTransit": true,
+        "retentionDays": 365,
+        "backupEnabled": true,
+        "backupIntervalHours": 24
+    },
+
+    "aiPolicy": {
+        "llmAllowed": true,
+        "toolCallsAllowed": true,
+        "agentsAllowed": true,
+        "humanOverrideAlways": true,
+        "policyLayerEnforced": true
+    },
+
+    "integrationPolicy": {
+        "externalSystemsAsPartners": true,
+        "adapterRequired": true,
+        "sheikhaLayerSuperior": true
+    },
+
+    "shariahCompliance": {
+        "enabled": true,
+        "prohibitedActivities": ["riba", "gharar", "maysir", "haram-products"],
+        "reviewRequired": true
+    }
+}

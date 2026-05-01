@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خريطة الموقع | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --primary: #0a5c36;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #fff;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --success: #10b981;
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; line-height: 1.7; }
+        
+        /* Header */
+        .header {
+            background: var(--card);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; font-weight: 900; color: var(--dark);
+        }
+        .logo-text h1 { font-size: 1.2rem; color: var(--gold); }
+        .logo-text p { font-size: 0.75rem; color: var(--text-muted); }
+        
+        .nav { display: flex; gap: 8px; }
+        .nav-link {
+            padding: 10px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .nav-link:hover { border-color: var(--gold); color: var(--gold); }
+        
+        /* Hero */
+        .hero {
+            padding: 80px 24px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--card) 0%, var(--dark) 100%);
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 16px; }
+        .hero h1 span { color: var(--gold); }
+        .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 30px; }
+        
+        /* Quick Links */
+        .quick-links {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .quick-link {
+            padding: 14px 28px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .quick-link:hover {
+            border-color: var(--gold);
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-4px);
+        }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 60px 24px; }
+        
+        /* Section Title */
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title span { color: var(--gold); }
+        
+        /* Sitemap Grid */
+        .sitemap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .sitemap-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        
+        .sitemap-header {
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(10,92,54,0.1));
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .sitemap-icon {
+            width: 56px; height: 56px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem;
+        }
+        .sitemap-info h3 { font-size: 1.2rem; font-weight: 800; }
+        .sitemap-info p { font-size: 0.85rem; color: var(--text-muted); }
+        
+        .sitemap-body { padding: 20px; }
+        
+        .sitemap-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: var(--radius);
+            margin-bottom: 6px;
+            transition: all 0.2s;
+            background: var(--dark);
+            border: 1px solid transparent;
+        }
+        .sitemap-link:hover {
+            background: rgba(212,175,55,0.1);
+            border-color: var(--gold);
+            padding-right: 20px;
+        }
+        .sitemap-link-icon {
+            width: 36px; height: 36px;
+            background: rgba(212,175,55,0.1);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+        }
+        .sitemap-link-text h4 { font-size: 0.95rem; font-weight: 700; }
+        .sitemap-link-text p { font-size: 0.75rem; color: var(--text-faint); }
+        
+        /* Hierarchy */
+        .hierarchy-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+        .hierarchy-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .hierarchy-title h2 { font-size: 1.5rem; margin-bottom: 8px; }
+        .hierarchy-title p { color: var(--text-muted); }
+        
+        .hierarchy-tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .hierarchy-root {
+            padding: 20px 40px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: var(--radius-lg);
+            text-align: center;
+            color: var(--dark);
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+        .hierarchy-line {
+            width: 2px;
+            height: 30px;
+            background: var(--gold);
+        }
+        .hierarchy-branches {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .hierarchy-branch {
+            padding: 16px 24px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            text-align: center;
+            min-width: 140px;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--text);
+        }
+        .hierarchy-branch:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+        .hierarchy-branch-icon { font-size: 1.5rem; margin-bottom: 8px; }
+        .hierarchy-branch h4 { font-size: 0.9rem; }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            background: var(--card);
+            border-top: 1px solid var(--border);
+        }
+        .footer .basmala { color: var(--gold); margin-bottom: 12px; font-size: 1.1rem; }
+        .footer p { color: var(--text-muted); }
+        
+        @media (max-width: 1024px) {
+            .sitemap-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .sitemap-grid { grid-template-columns: 1fr; }
+            .nav { display: none; }
+            .hierarchy-branches { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="/" class="logo">
+            <div class="logo-icon">ش</div>
+            <div class="logo-text">
+                <h1>شيخة</h1>
+                <p>خريطة الموقع</p>
+            </div>
+        </a>
+        <nav class="nav">
+            <a href="/" class="nav-link">🏠 الرئيسية</a>
+            <a href="السوق.html" class="nav-link">🛒 السوق</a>
+            <a href="مساعد-شيخة.html" class="nav-link">🤖 المستشار</a>
+            <a href="app.html" class="nav-link">📱 التطبيق</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>🗺️ خريطة <span>الموقع</span></h1>
+        <p>دليل شامل ومنظم لجميع أقسام وصفحات منظومة شيخة — تنقل سهل وسريع</p>
+        <div class="quick-links">
+            <a href="/" class="quick-link">🏠 الرئيسية</a>
+            <a href="السوق.html" class="quick-link">🛒 السوق</a>
+            <a href="نظام-شيخة-الذكي.html" class="quick-link">🔗 سلسلة التوريد</a>
+            <a href="مساعد-شيخة.html" class="quick-link">🤖 المستشار</a>
+            <a href="تسجيل-تاجر.html" class="quick-link">📝 افتح متجرك</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Hierarchy -->
+        <div class="hierarchy-section">
+            <div class="hierarchy-title">
+                <h2>🏗️ الهيكل التنظيمي للمنظومة</h2>
+                <p>6 أقسام رئيسية متكاملة</p>
+            </div>
+            <div class="hierarchy-tree">
+                <div class="hierarchy-root">منظومة شيخة</div>
+                <div class="hierarchy-line"></div>
+                <div class="hierarchy-branches">
+                    <a href="السوق.html" class="hierarchy-branch">
+                        <div class="hierarchy-branch-icon">🛒</div>
+                        <h4>السوق والتجارة</h4>
+                    </a>
+                    <a href="نظام-شيخة-الذكي.html" class="hierarchy-branch">
+                        <div class="hierarchy-branch-icon">🔗</div>
+                        <h4>سلسلة التوريد</h4>
+                    </a>
+                    <a href="نظام-اللوجستيات.html" class="hierarchy-branch">
+                        <div class="hierarchy-branch-icon">🚚</div>
+                        <h4>اللوجستيات</h4>
+                    </a>
+                    <a href="لوحة-التحكم.html" class="hierarchy-branch">
+                        <div class="hierarchy-branch-icon">📊</div>
+                        <h4>الأنظمة</h4>
+                    </a>
+                    <a href="مساعد-شيخة.html" class="hierarchy-branch">
+                        <div class="hierarchy-branch-icon">🤖</div>
+                        <h4>الذكاء الاصطناعي</h4>
+                    </a>
+                    <a href="اللوائح-والقوانين-والاجراءات.html" class="hierarchy-branch">
+                        <div class="hierarchy-branch-icon">📜</div>
+                        <h4>القوانين والمعايير</h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sitemap -->
+        <h2 class="section-title">📂 الأقسام <span>التفصيلية</span></h2>
+        
+        <div class="sitemap-grid">
+            <!-- السوق والتجارة -->
+            <div class="sitemap-section">
+                <div class="sitemap-header">
+                    <div class="sitemap-icon">🛒</div>
+                    <div class="sitemap-info">
+                        <h3>السوق والتجارة</h3>
+                        <p>بيع وشراء المعادن والسكراب</p>
+                    </div>
+                </div>
+                <div class="sitemap-body">
+                    <a href="السوق.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">🛒</div>
+                        <div class="sitemap-link-text">
+                            <h4>سوق المعادن</h4>
+                            <p>تصفح وشراء المنتجات</p>
+                        </div>
+                    </a>
+                    <a href="المتاجر.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">🏪</div>
+                        <div class="sitemap-link-text">
+                            <h4>دليل المتاجر</h4>
+                            <p>متاجر التجار المعتمدين</p>
+                        </div>
+                    </a>
+                    <a href="عرض-بضائع.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">📦</div>
+                        <div class="sitemap-link-text">
+                            <h4>عرض بضائع</h4>
+                            <p>أضف منتجاتك للبيع</p>
+                        </div>
+                    </a>
+                    <a href="تسجيل-تاجر.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">📝</div>
+                        <div class="sitemap-link-text">
+                            <h4>تسجيل تاجر</h4>
+                            <p>افتح متجرك مجاناً</p>
+                        </div>
+                    </a>
+                    <a href="آلية-البيع.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">⚖️</div>
+                        <div class="sitemap-link-text">
+                            <h4>آلية البيع</h4>
+                            <p>كيف تعمل العملية</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- سلسلة التوريد -->
+            <div class="sitemap-section">
+                <div class="sitemap-header">
+                    <div class="sitemap-icon">🔗</div>
+                    <div class="sitemap-info">
+                        <h3>سلسلة التوريد</h3>
+                        <p>من المصدر إلى المصهر</p>
+                    </div>
+                </div>
+                <div class="sitemap-body">
+                    <a href="نظام-شيخة-الذكي.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">🔗</div>
+                        <div class="sitemap-link-text">
+                            <h4>الشبكات التجارية</h4>
+                            <p>نظام شيخة الذكي</p>
+                        </div>
+                    </a>
+                    <a href="enterprise.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">🏭</div>
+                        <div class="sitemap-link-text">
+                            <h4>المشاريع الضخمة</h4>
+                            <p>مناجم، مصاهر، مصانع</p>
+                        </div>
+                    </a>
+                    <a href="fbs.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">📦</div>
+                        <div class="sitemap-link-text">
+                            <h4>FBS التخزين والشحن</h4>
+                            <p>مستودعات ذكية</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- اللوجستيات -->
+            <div class="sitemap-section">
+                <div class="sitemap-header">
+                    <div class="sitemap-icon">🚚</div>
+                    <div class="sitemap-info">
+                        <h3>اللوجستيات والنقل</h3>
+                        <p>شحن ونقل وتخليص</p>
+                    </div>
+                </div>
+                <div class="sitemap-body">
+                    <a href="نظام-اللوجستيات.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">🚚</div>
+                        <div class="sitemap-link-text">
+                            <h4>نظام اللوجستيات</h4>
+                            <p>إدارة النقل الذكي</p>
+                        </div>
+                    </a>
+                    <a href="تسجيل-ناقل.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">🚛</div>
+                        <div class="sitemap-link-text">
+                            <h4>تسجيل ناقل</h4>
+                            <p>انضم كشركة نقل</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- الأنظمة والإدارة -->
+            <div class="sitemap-section">
+                <div class="sitemap-header">
+                    <div class="sitemap-icon">📊</div>
+                    <div class="sitemap-info">
+                        <h3>الأنظمة والإدارة</h3>
+                        <p>أدوات إدارية متقدمة</p>
+                    </div>
+                </div>
+                <div class="sitemap-body">
+                    <a href="لوحة-التحكم.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">📊</div>
+                        <div class="sitemap-link-text">
+                            <h4>لوحة التحكم</h4>
+                            <p>إدارة متجرك</p>
+                        </div>
+                    </a>
+                    <a href="لوحة-المؤشرات.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">📈</div>
+                        <div class="sitemap-link-text">
+                            <h4>المؤشرات</h4>
+                            <p>تحليلات وإحصائيات</p>
+                        </div>
+                    </a>
+                    <a href="النظام-المحاسبي.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">💰</div>
+                        <div class="sitemap-link-text">
+                            <h4>النظام المحاسبي</h4>
+                            <p>فواتير ومالية</p>
+                        </div>
+                    </a>
+                    <a href="نظام-المدفوعات.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">💳</div>
+                        <div class="sitemap-link-text">
+                            <h4>المدفوعات</h4>
+                            <p>دفع إلكتروني</p>
+                        </div>
+                    </a>
+                    <a href="تكامل.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">🔌</div>
+                        <div class="sitemap-link-text">
+                            <h4>التكامل API</h4>
+                            <p>ربط الأنظمة</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- الذكاء والمعرفة -->
+            <div class="sitemap-section">
+                <div class="sitemap-header">
+                    <div class="sitemap-icon">🤖</div>
+                    <div class="sitemap-info">
+                        <h3>الذكاء والمعرفة</h3>
+                        <p>AI ومركز الأبحاث</p>
+                    </div>
+                </div>
+                <div class="sitemap-body">
+                    <a href="مساعد-شيخة.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">🤖</div>
+                        <div class="sitemap-link-text">
+                            <h4>المستشار الذكي</h4>
+                            <p>استشارات AI</p>
+                        </div>
+                    </a>
+                    <a href="مركز-الأبحاث.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">🔬</div>
+                        <div class="sitemap-link-text">
+                            <h4>مركز الأبحاث</h4>
+                            <p>دراسات ومقالات</p>
+                        </div>
+                    </a>
+                    <a href="المنتدى.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">💬</div>
+                        <div class="sitemap-link-text">
+                            <h4>المنتدى</h4>
+                            <p>مجتمع التجار</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- القوانين والمعايير -->
+            <div class="sitemap-section">
+                <div class="sitemap-header">
+                    <div class="sitemap-icon">📜</div>
+                    <div class="sitemap-info">
+                        <h3>القوانين والمعايير</h3>
+                        <p>لوائح وجودة</p>
+                    </div>
+                </div>
+                <div class="sitemap-body">
+                    <a href="اللوائح-والقوانين-والاجراءات.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">📜</div>
+                        <div class="sitemap-link-text">
+                            <h4>اللوائح والقوانين</h4>
+                            <p>القواعد والإجراءات</p>
+                        </div>
+                    </a>
+                    <a href="معايير-الجودة.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">✅</div>
+                        <div class="sitemap-link-text">
+                            <h4>معايير الجودة</h4>
+                            <p>مواصفات المعادن</p>
+                        </div>
+                    </a>
+                    <a href="الشروط-والسياسات.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">📋</div>
+                        <div class="sitemap-link-text">
+                            <h4>الشروط والسياسات</h4>
+                            <p>سياسات الاستخدام</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Links -->
+        <h2 class="section-title">🔧 صفحات <span>إضافية</span></h2>
+        <div class="sitemap-grid">
+            <div class="sitemap-section">
+                <div class="sitemap-header">
+                    <div class="sitemap-icon">👤</div>
+                    <div class="sitemap-info">
+                        <h3>الحساب والدخول</h3>
+                        <p>تسجيل وإدارة الحساب</p>
+                    </div>
+                </div>
+                <div class="sitemap-body">
+                    <a href="تسجيل-الدخول.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">🔑</div>
+                        <div class="sitemap-link-text">
+                            <h4>تسجيل الدخول</h4>
+                            <p>الدخول لحسابك</p>
+                        </div>
+                    </a>
+                    <a href="تسجيل-تاجر.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">📝</div>
+                        <div class="sitemap-link-text">
+                            <h4>تسجيل جديد</h4>
+                            <p>إنشاء حساب</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sitemap-section">
+                <div class="sitemap-header">
+                    <div class="sitemap-icon">📱</div>
+                    <div class="sitemap-info">
+                        <h3>التطبيقات</h3>
+                        <p>تطبيقات الجوال</p>
+                    </div>
+                </div>
+                <div class="sitemap-body">
+                    <a href="app.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">📱</div>
+                        <div class="sitemap-link-text">
+                            <h4>تحميل التطبيق</h4>
+                            <p>iOS و Android</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sitemap-section">
+                <div class="sitemap-header">
+                    <div class="sitemap-icon">🔐</div>
+                    <div class="sitemap-info">
+                        <h3>الإدارة</h3>
+                        <p>للمسؤولين فقط</p>
+                    </div>
+                </div>
+                <div class="sitemap-body">
+                    <a href="admin-dashboard.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">🔐</div>
+                        <div class="sitemap-link-text">
+                            <h4>لوحة الأدمن</h4>
+                            <p>إدارة المنظومة</p>
+                        </div>
+                    </a>
+                    <a href="api-docs.html" class="sitemap-link">
+                        <div class="sitemap-link-icon">📚</div>
+                        <div class="sitemap-link-text">
+                            <h4>توثيق API</h4>
+                            <p>دليل المطورين</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="basmala">لا حول ولا قوة إلا بالله</p>
+        <p>© 2026 منظومة شيخة — جميع الحقوق محفوظة</p>
+    </footer>
+</body>
+</html>

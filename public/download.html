@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تحميل شيخة — القناة الرسمية</title>
+    <style>
+        body { font-family: Arial, sans-serif; background:#0b1220; color:#e5e7eb; margin:0; }
+        .wrap { max-width:900px; margin:40px auto; padding:24px; }
+        .card { background:#121a2b; border:1px solid #22304d; border-radius:12px; padding:20px; margin-bottom:16px; }
+        h1,h2 { color:#f3d27a; margin-top:0; }
+        code { background:#0a1020; padding:2px 6px; border-radius:6px; }
+        a { color:#7cc6ff; text-decoration:none; }
+        .btn { display:inline-block; padding:10px 14px; border-radius:8px; background:#1f3b73; color:#fff; margin:8px 8px 0 0; }
+        .muted { color:#a8b3c8; font-size:14px; }
+        ul { line-height:1.9; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>تحميل شيخة — القناة الرسمية</h1>
+        <p class="muted">التثبيت الآمن الرسمي مع التحقق والتوثيق.</p>
+
+        <div class="card">
+            <h2>1) التثبيت الطرفي (موصى به)</h2>
+            <p>شغّل الأوامر التالية:</p>
+            <code>sudo bash scripts/install.sh</code>
+            <p class="muted">قبل التشغيل العام، حدّث ملف <code>.env</code> بالقيم السرية.</p>
+        </div>
+
+        <div class="card">
+            <h2>2) حزمة Debian (.deb)</h2>
+            <p>ابن الحزمة:</p>
+            <code>bash scripts/build-deb.sh</code>
+            <p>ثم ثبّت:</p>
+            <code>sudo dpkg -i dist/sheikha-main-portal_1.0.0_amd64.deb</code>
+            <p>تحقق من checksum:</p>
+            <code>sha256sum -c dist/sheikha-main-portal_1.0.0_amd64.deb.sha256</code>
+        </div>
+
+        <div class="card">
+            <h2>3) تحقق السلامة قبل الإصدار</h2>
+            <code>bash scripts/validate-release.sh</code>
+            <ul>
+                <li>فحص أمني للاعتمادات</li>
+                <li>توليد SBOM</li>
+                <li>توليد checksums</li>
+                <li>التحقق من ملفات الحماية والتوزيع</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>دليل الاستخدام والتوجيهات</h2>
+            <a class="btn" href="/docs/تشغيل-انتاجي-هجين-شيخة.md" target="_blank">تشغيل إنتاجي</a>
+            <a class="btn" href="/docs/security/سياسة-أمن-المعلومات-شيخة.md" target="_blank">سياسة الأمن</a>
+            <a class="btn" href="/docs/security/دليل-الاستجابة-للحوادث-شيخة.md" target="_blank">الاستجابة للحوادث</a>
+            <a class="btn" href="/docs/security/نظام-التعليمات-والاجراءات-والقوانين-شيخة.md" target="_blank">التعليمات والإجراءات</a>
+        </div>
+    </div>
+</body>
+</html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تحميل شيخة | Sheikha Download</title>
+    <style>
+        body { font-family: Tajawal, Arial, sans-serif; background:#0a0f1e; color:#e5e7eb; margin:0; }
+        .wrap { max-width:960px; margin:40px auto; padding:20px; }
+        .card { background:#111827; border:1px solid #374151; border-radius:12px; padding:20px; margin-bottom:16px; }
+        h1,h2 { color:#d4af37; margin:0 0 12px; }
+        a.btn { display:inline-block; background:#d4af37; color:#111827; padding:10px 14px; border-radius:8px; text-decoration:none; font-weight:700; margin-left:8px; }
+        code { background:#0b1220; padding:2px 6px; border-radius:6px; }
+        ul { margin:8px 0 0; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>تنزيل شيخة — القناة الرسمية</h1>
+        <div class="card">
+            <h2>تثبيت طرفية (موصى به)</h2>
+            <p>طريقة سريعة وآمنة مع خدمة <code>systemd</code> محصّنة.</p>
+            <a class="btn" href="/scripts/install.sh">تحميل install.sh</a>
+            <a class="btn" href="/scripts/uninstall.sh">تحميل uninstall.sh</a>
+            <p><strong>أمر التثبيت:</strong></p>
+            <p><code>curl -fsSL https://www.sheikha.top/scripts/install.sh -o install.sh && sudo bash install.sh</code></p>
+        </div>
+
+        <div class="card">
+            <h2>حزمة Ubuntu/Debian (.deb)</h2>
+            <p>مناسبة للبيئات المؤسسية.</p>
+            <p><code>sudo dpkg -i sheikha-main-portal_1.0.0_amd64.deb</code></p>
+            <p>تحقق من السلامة قبل التثبيت باستخدام ملف <code>SHA-256</code>.</p>
+        </div>
+
+        <div class="card">
+            <h2>تعليمات ما بعد التثبيت</h2>
+            <ul>
+                <li>تحرير ملف <code>.env</code> وإضافة المفاتيح السرية.</li>
+                <li>فحص الخدمة: <code>sudo systemctl status sheikha</code></li>
+                <li>فحص الصحة: <code>curl -fsS http://127.0.0.1:8080/api/health</code></li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>إشعار ملكية فكرية</h2>
+            <p>جميع الحقوق محفوظة. يمنع إعادة التوزيع غير المصرح به.</p>
+        </div>
+    </div>
+</body>
+</html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل شيخة — التثبيت الرسمي</title>
+    <style>
+        body { font-family: Tahoma, Arial, sans-serif; background: #0b1020; color: #e5e7eb; margin: 0; padding: 24px; }
+        .wrap { max-width: 920px; margin: 0 auto; }
+        .card { background: #111827; border: 1px solid #374151; border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+        h1, h2 { margin: 0 0 12px; color: #fbbf24; }
+        code, pre { background: #0f172a; color: #e2e8f0; border-radius: 8px; padding: 10px; display: block; overflow: auto; }
+        .btn { display: inline-block; padding: 10px 14px; border-radius: 8px; border: 1px solid #fbbf24; color: #fbbf24; text-decoration: none; margin-left: 8px; }
+        .muted { color: #9ca3af; font-size: 0.95rem; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h1>تحميل شيخة — القناة الرسمية</h1>
+    <p class="muted">هذه صفحة التثبيت والتحديث الرسمية للعملاء. كل إصدار يجب التحقق منه عبر checksums.</p>
+
+    <div class="card">
+        <h2>1) التثبيت بالطرفية (موصى به)</h2>
+        <pre>curl -fsSL https://www.sheikha.top/scripts/install.sh -o install.sh
+sudo bash install.sh</pre>
+    </div>
+
+    <div class="card">
+        <h2>2) حزمة Debian</h2>
+        <a class="btn" href="/releases/sheikha-main-portal_latest_amd64.deb">تحميل .deb</a>
+        <a class="btn" href="/releases/checksums.sha256">تحميل checksums</a>
+        <pre>sha256sum -c checksums.sha256
+sudo dpkg -i sheikha-main-portal_latest_amd64.deb</pre>
+    </div>
+
+    <div class="card">
+        <h2>3) التشغيل والتحقق</h2>
+        <pre>sudo systemctl status sheikha
+curl -fsS http://127.0.0.1:8080/api/health</pre>
+    </div>
+
+    <div class="card">
+        <h2>الملكية الفكرية</h2>
+        <p>جميع الحقوق محفوظة للمالك. يمنع إعادة التوزيع غير المصرح به.</p>
+    </div>
+</div>
+</body>
+</html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تنزيل شيخة — الحزمة الرسمية</title>
+    <style>
+        body { font-family: Arial, sans-serif; background:#0b1220; color:#e5e7eb; margin:0; padding:24px; }
+        .wrap { max-width: 980px; margin:0 auto; }
+        .card { background:#111827; border:1px solid #1f2937; border-radius:12px; padding:18px; margin-bottom:16px; }
+        .btn { display:inline-block; padding:10px 14px; border-radius:10px; background:#d4af37; color:#111827; text-decoration:none; font-weight:700; margin:6px 0; }
+        code { background:#0f172a; padding:2px 6px; border-radius:6px; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h1>تنزيل شيخة — القناة الرسمية</h1>
+    <p>تثبيت آمن ومُوثق للعملاء على Ubuntu/Debian.</p>
+
+    <div class="card">
+        <h2>1) تثبيت طرفية (موصى به)</h2>
+        <p>شغّل الأوامر:</p>
+        <p><code>cd sheikha-main-portal</code></p>
+        <p><code>sudo bash scripts/install.sh</code></p>
+    </div>
+
+    <div class="card">
+        <h2>2) حزمة Debian (.deb)</h2>
+        <p>بناء الحزمة ثم تثبيتها:</p>
+        <p><code>bash scripts/build-deb.sh</code></p>
+        <p><code>sudo dpkg -i dist/sheikha-main-portal_1.0.0_amd64.deb</code></p>
+    </div>
+
+    <div class="card">
+        <h2>التحقق بعد التثبيت</h2>
+        <p><code>systemctl status sheikha --no-pager</code></p>
+        <p><code>curl -fsS http://127.0.0.1:8080/api/health</code></p>
+        <p><code>curl -fsS http://127.0.0.1:8080/api/governance/ayat-guidance</code></p>
+    </div>
+
+    <div class="card">
+        <h2>الملكية الفكرية</h2>
+        <p>جميع الحقوق محفوظة. يمنع إعادة التوزيع غير المصرح.</p>
+        <a class="btn" href="/LICENSE-PROPRIETARY.md">عرض الترخيص</a>
+    </div>
+</div>
+</body>
+</html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تنزيل شيخة — القناة الرسمية</title>
+    <style>
+        body { font-family: sans-serif; background: #0b0f1a; color: #f5f5f5; margin: 0; padding: 24px; }
+        .wrap { max-width: 980px; margin: 0 auto; }
+        h1 { color: #d4af37; margin-bottom: 8px; }
+        .card { background: #121a2a; border: 1px solid #26324a; border-radius: 12px; padding: 16px; margin-top: 14px; }
+        code { background: #0a1322; padding: 2px 6px; border-radius: 6px; }
+        .btn { display: inline-block; margin: 6px 6px 0 0; padding: 10px 14px; border-radius: 10px; color: #08111f; background: #d4af37; text-decoration: none; font-weight: bold; }
+        ul { line-height: 1.8; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>تنزيل شيخة — القناة الرسمية</h1>
+        <p>قناة توزيع موثقة وآمنة للعملاء. جميع الحزم الرسمية يجب التحقق منها قبل التثبيت.</p>
+
+        <div class="card">
+            <h2>1) التثبيت عبر الطرفية (موصى به)</h2>
+            <p>ثبّت مباشرة من الحزمة الرسمية:</p>
+            <pre><code>sudo bash scripts/install.sh</code></pre>
+            <p>إزالة التثبيت:</p>
+            <pre><code>sudo bash scripts/uninstall.sh</code></pre>
+        </div>
+
+        <div class="card">
+            <h2>2) حزمة Debian (.deb)</h2>
+            <p>ابنِ الحزمة:</p>
+            <pre><code>npm run release:deb</code></pre>
+            <p>ثبّت الحزمة:</p>
+            <pre><code>sudo dpkg -i dist/sheikha-main-portal_1.0.0_amd64.deb</code></pre>
+        </div>
+
+        <div class="card">
+            <h2>3) التحقق الأمني قبل الإصدار</h2>
+            <pre><code>npm run release:validate</code></pre>
+            <p>سيتم إنتاج ملفات: <code>sbom.cdx.json</code> و <code>release-checksums.sha256</code>.</p>
+        </div>
+
+        <div class="card">
+            <h2>مراجع الحماية</h2>
+            <ul>
+                <li><a class="btn" href="/docs/security/سياسة-أمن-المعلومات-شيخة.md" target="_blank" rel="noopener">سياسة أمن المعلومات</a></li>
+                <li><a class="btn" href="/docs/security/دليل-الاستجابة-للحوادث-شيخة.md" target="_blank" rel="noopener">دليل الاستجابة للحوادث</a></li>
+                <li><a class="btn" href="/docs/security/نظام-التعليمات-والاجراءات-والقوانين-شيخة.md" target="_blank" rel="noopener">نظام التعليمات والإجراءات</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

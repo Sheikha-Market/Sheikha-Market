@@ -1,0 +1,76 @@
+SHEIKHA GO-LIVE READINESS PLAN
+Target Window: 2026-03-31 to 2026-04-01
+
+1) READY STATUS (LIVE NOW)
+- API health: PASS (/api/health => {"status":"ok"})
+- Core status: PASS (/api/sheikha/status => success:true)
+- Runtime port: PASS (127.0.0.1:8080 LISTEN)
+- Auth readiness: PASS (JWT/Google/Nafath ready)
+- Integration readiness: PASS with warnings (missing optional keys: OPENAI_API_KEY, ANTHROPIC_API_KEY, ALERT_WEBHOOK_URL, VPS_HOST)
+
+2) INTERNAL SYSTEMS (Technical)
+- Core app runtime: READY
+- Security middleware (helmet/compression/rate-limit): READY
+- Local monitoring checkpoints: READY
+- Action before go-live:
+  - Keep .env.local NODE_OPTIONS aligned with RAM capacity
+  - Run readiness checks one last time (script below)
+  - Keep one rollback path (restart + stop scripts)
+
+3) EXTERNAL SYSTEMS (Dependencies)
+- DNS/Base URL: READY (https://sheikha.top)
+- OAuth callbacks: READY for Google and Nafath
+- AI vendor keys: OPTIONAL (enable only if required for production features)
+- Alerting webhook: RECOMMENDED to enable before high-traffic launch
+
+4) HUMAN READINESS (Nafsi / Fizyaei / Hayawi)
+- Psychological readiness (Nafsi):
+  - 10 min pre-launch breathing + focused intention
+  - Single command protocol (no last-minute random changes)
+  - Role clarity: Operator / Observer / Incident responder
+- Physical readiness (Fizyaei):
+  - Sleep 7+ hours night before launch
+  - Hydration target: 2L water on launch day
+  - 5-minute movement every 60-90 minutes during operation
+- Biological readiness (Hayawi):
+  - Light meal 60-90 min before launch, avoid heavy sugar spike
+  - Caffeine ceiling: one normal dose pre-launch only
+  - No fasting from water during high cognitive load operation
+
+5) LAUNCH TIMELINE
+- T-7 days:
+  - Confirm infrastructure, keys, callbacks, and backup procedure
+  - Run full readiness script daily
+- T-1 day:
+  - Freeze non-critical changes
+  - Run final doctor/readiness/auth checks
+  - Verify port 8080 and API health
+- T-2 hours:
+  - Start services from clean state
+  - Validate dashboards and core APIs
+  - Assign communication channel for incident updates
+- T-0:
+  - Execute launch checklist
+  - Monitor health endpoints every 5-10 minutes
+- T+24h:
+  - Post-launch review (errors, latency, auth failures, user feedback)
+
+6) WHAT TO ADD TO THE MARKET (HIGH IMPACT)
+- Trust layer: public SLA + service status page
+- Trade layer: shipment tracking timeline + dispute workflow
+- Compliance layer: audit log visibility for key actions
+- Intelligence layer: actionable market alerts (not noisy raw data)
+
+7) TECH YOU CAN RUN NOW
+- PM2 process management (server + monitors)
+- Redis caching for hot APIs
+- Structured logs + alert webhook
+- Background guards (already available in package scripts)
+- Readiness automation before each launch window
+
+8) SUCCESS CRITERIA
+- Uptime stable on launch window
+- No auth outage
+- No memory-kill (exit 137)
+- Core business APIs responsive
+- Operator load manageable and documented

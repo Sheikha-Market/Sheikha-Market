@@ -1,0 +1,271 @@
+{
+    "program": "SHEIKHA_ISLAMIC_DIGITAL_LIBRARY_CORE",
+    "version": "1.0.0",
+    "identity": {
+        "nameAr": "نواة شيخة للمكتبة الإسلامية الرقمية والرقمنة الشرعية",
+        "mission": "فهرسة علوم أهل السنة والجماعة والمصحف الشريف والتفسير وفتح مسارات رقمنة قانونية ومنضبطة للكتب الشرعية والعامة النافعة",
+        "primaryLanguage": "ar",
+        "defaultLocale": "ar-SA",
+        "manhaj": "ahl-al-sunnah-wal-jamaah"
+    },
+    "foundation": {
+        "sources": [
+            "quran",
+            "sunnah"
+        ],
+        "controls": [
+            "no-distortion",
+            "verified-attribution",
+            "licensed-or-public-domain-only",
+            "human-scholar-review",
+            "no-harm"
+        ],
+        "values": [
+            "amanah",
+            "adl",
+            "ihsan",
+            "sidq",
+            "ilm"
+        ]
+    },
+    "shariaSciences": [
+        "aqidah",
+        "tafsir",
+        "ulum-al-quran",
+        "hadith",
+        "mustalah-al-hadith",
+        "fiqh",
+        "usul-al-fiqh",
+        "qawaid-fiqhiyyah",
+        "siyar-and-seerah",
+        "tarajim-and-tabaqat",
+        "adab-and-akhlaq",
+        "tazkiyah",
+        "dawah",
+        "arabic-language",
+        "nahw-and-sarf",
+        "balaghah",
+        "faraid",
+        "tajwid-and-qiraat",
+        "maqasid-and-siyasah-shariyyah"
+    ],
+    "knowledgeCollections": {
+        "seerah": [
+            "prophetic-biography",
+            "makkan-phase",
+            "madinan-phase",
+            "ghazawat-and-saraya",
+            "shamail-and-character",
+            "leadership-lessons"
+        ],
+        "prophetsStories": [
+            "adam",
+            "nuh",
+            "ibrahim",
+            "musa",
+            "isa",
+            "yusuf",
+            "dawud",
+            "sulayman",
+            "ayyub",
+            "yunus",
+            "others-mentioned-in-quran"
+        ],
+        "righteousStories": [
+            "ashab-al-kahf",
+            "maryam",
+            "luqman",
+            "dhul-qarnayn",
+            "asiah",
+            "jurayj",
+            "people-mentioned-in-authentic-sunnah"
+        ],
+        "quranStories": [
+            "full-story-index",
+            "lesson-mapping",
+            "theme-mapping",
+            "cross-surah-linking"
+        ],
+        "quranMiracles": [
+            "linguistic-signs",
+            "legislative-wisdom",
+            "historical-signs",
+            "cosmic-signs",
+            "human-self-reflection-signs"
+        ]
+    },
+    "quranIndexing": {
+        "include": [
+            "surah-index",
+            "ayah-index",
+            "juz-index",
+            "hizb-index",
+            "topic-tags",
+            "story-tags",
+            "science-tags",
+            "rulings-tags"
+        ],
+        "digitalAssets": [
+            "metadata",
+            "recitation-links",
+            "translation-links",
+            "tafsir-links"
+        ]
+    },
+    "tafsirCatalog": {
+        "works": [
+            "tafsir-al-tabari",
+            "tafsir-ibn-kathir",
+            "tafsir-al-baghawi",
+            "tafsir-al-saadi",
+            "tafsir-al-qurtubi",
+            "tafsir-ibn-ashur"
+        ],
+        "indexingModes": [
+            "by-surah",
+            "by-ayah",
+            "by-theme",
+            "by-ruling",
+            "by-story",
+            "by-creedal-topic"
+        ]
+    },
+    "digitizationProgram": {
+        "tracks": [
+            "sharia-books",
+            "quranic-studies",
+            "prophetic-sunnah-studies",
+            "beneficial-sciences-books",
+            "general-knowledge-books"
+        ],
+        "workflow": [
+            "rights-verification",
+            "source-acquisition",
+            "scanning-or-import",
+            "ocr-and-text-extraction",
+            "metadata-normalization",
+            "scholarly-review",
+            "classification-and-indexing",
+            "publication-or-private-archive"
+        ],
+        "allowedRights": [
+            "owned-by-sheikha",
+            "public-domain",
+            "licensed",
+            "author-permission"
+        ]
+    },
+    "computationalIslamicSciences": {
+        "tracks": [
+            {
+                "science": "aqidah-computing",
+                "focus": [
+                    "creedal-topic-maps",
+                    "deviation-detection-with-human-review",
+                    "evidence-chain-tracking"
+                ]
+            },
+            {
+                "science": "quran-and-tafsir-computing",
+                "focus": [
+                    "ayah-theme-graph",
+                    "tafsir-comparison-assistance",
+                    "story-and-ruling-indexes"
+                ]
+            },
+            {
+                "science": "hadith-computing",
+                "focus": [
+                    "isnad-network-mapping",
+                    "matn-topic-classification",
+                    "narrator-biography-linkage"
+                ]
+            },
+            {
+                "science": "fiqh-and-usul-computing",
+                "focus": [
+                    "rule-derivation-graphs",
+                    "qawaid-fiqhiyyah-compilers",
+                    "maqasid-aware-decision-support"
+                ]
+            },
+            {
+                "science": "arabic-language-computing",
+                "focus": [
+                    "nahw-sarf-engines",
+                    "balaghah-pattern-linking",
+                    "classical-arabic-corpus-analysis"
+                ]
+            },
+            {
+                "science": "seerah-and-civilization-computing",
+                "focus": [
+                    "timeline-modeling",
+                    "event-causality-mapping",
+                    "leadership-and-governance-patterns"
+                ]
+            }
+        ],
+        "deliveryModes": [
+            "private-research-workbench",
+            "scholarly-review-console",
+            "knowledge-graph-api",
+            "curriculum-support-tools"
+        ]
+    },
+    "methodizationFusionMatrix": [
+        {
+            "fusion": "sharia-medicine",
+            "purpose": "ethics-clinical-decision-support-and-dignity-controls",
+            "outputs": [
+                "medical-ethics-ruleset",
+                "patient-dignity-checklists",
+                "scholarly-review-paths"
+            ]
+        },
+        {
+            "fusion": "sharia-space",
+            "purpose": "governance-of-remote-missions-and-trustworthy-data",
+            "outputs": [
+                "mission-governance-controls",
+                "evidence-traceability-ledgers"
+            ]
+        },
+        {
+            "fusion": "sharia-logistics",
+            "purpose": "trustworthy-supply-and-contracting",
+            "outputs": [
+                "halal-supply-rules",
+                "contract-compliance-automation"
+            ]
+        },
+        {
+            "fusion": "sharia-education-and-behavior",
+            "purpose": "curriculum-guidance-and-character-development",
+            "outputs": [
+                "adab-learning-paths",
+                "behavioral-improvement-frameworks"
+            ]
+        }
+    ],
+    "privacyAndRightsGovernance": {
+        "controls": [
+            "confidentiality-by-default",
+            "scholar-only-sensitive-workspaces",
+            "intellectual-property-protection",
+            "citation-and-attribution-enforcement",
+            "private-manuscript-restrictions"
+        ],
+        "publicationRules": [
+            "no-public-release-without-review",
+            "no-unverified-fatwa-generation",
+            "no-rights-violating-distribution"
+        ]
+    },
+    "targets": {
+        "catalogReadiness": 100,
+        "metadataQuality": 95,
+        "verificationCoverage": 100,
+        "availability": "99.99%"
+    }
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>شيخة — لوحة التحكم العصبية</title>
+  <meta name="description" content="لوحة التحكم العصبية المدمجة لهوية شيخة مع بيانات حية من dashboard و orchestrator و Git." />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#030712;--bg2:#081121;--panel:rgba(255,255,255,.05);--line:rgba(255,255,255,.10);--text:#f8fafc;--muted:#cbd5e1;--soft:#94a3b8;--gold:#d4af37;--gold2:#fde68a;--cyan:#67e8f9;--emerald:#6ee7b7;--red:#fda4af}
+    *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}.wrap{max-width:1420px;margin:auto;padding:0 24px;position:relative;z-index:2}
+    .bg{position:fixed;inset:0;background:radial-gradient(circle at 18% 10%,rgba(212,175,55,.14),transparent 20%),radial-gradient(circle at 82% 16%,rgba(103,232,249,.10),transparent 20%),linear-gradient(180deg,#030712,#081121);z-index:0}.grid{position:fixed;inset:0;opacity:.12;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:34px 34px;z-index:1;pointer-events:none}
+    nav{position:sticky;top:0;z-index:50;background:rgba(3,7,18,.72);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav{min-height:74px;display:flex;justify-content:space-between;align-items:center;gap:18px}.brand{display:flex;align-items:center;gap:12px}.mark{width:46px;height:46px;border-radius:18px;background:linear-gradient(135deg,var(--gold),var(--gold2),var(--cyan));box-shadow:0 14px 36px rgba(212,175,55,.22)}.brand h1{margin:0;font-size:1.1rem}.brand p{margin:2px 0 0;color:var(--soft);font-size:.74rem}.navlinks{display:flex;flex-wrap:wrap;gap:10px}.navlinks a{padding:10px 14px;border-radius:12px;color:var(--muted)}.navlinks a:hover{background:rgba(255,255,255,.05);color:var(--gold2)}
+    .shell{padding:28px 0 46px}.hero{position:relative;min-height:360px;border:1px solid rgba(212,175,55,.10);border-radius:34px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));backdrop-filter:blur(16px);box-shadow:0 24px 70px rgba(0,0,0,.35)}
+    .hero::before{content:'';position:absolute;inset:0;opacity:.12;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:34px 34px;pointer-events:none}
+    .hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1}.hero-content{position:relative;z-index:2;padding:30px}.badge{display:inline-flex;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.16);color:var(--gold2);font-size:.82rem;font-weight:800}.hero h2{font-size:clamp(2rem,4vw,4rem);line-height:1.08;margin:14px 0 12px}.hero h2 .g{background:linear-gradient(90deg,var(--gold2),var(--gold),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.hero p{max-width:760px;color:var(--muted);font-size:1.05rem;line-height:1.95;margin:0 0 22px}
+    .hero-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.hero-kpi{padding:16px;border-radius:20px;border:1px solid var(--line);background:rgba(3,7,18,.56)}.hero-kpi small{display:block;color:var(--soft);margin-bottom:6px}.hero-kpi strong{font-size:1.05rem;color:var(--gold2)}
+    .hero-balance{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);z-index:2;pointer-events:none}.hero-balance .ring{position:absolute;inset:50%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(212,175,55,.22)}.hero-balance .r1{width:140px;height:140px}.hero-balance .r2{width:186px;height:186px;border-color:rgba(103,232,249,.18)}.hero-balance .r3{width:230px;height:230px;border-color:rgba(255,255,255,.08)}.hero-balance .post{position:absolute;left:50%;top:12px;transform:translateX(-50%);width:4px;height:86px;border-radius:999px;background:linear-gradient(180deg,var(--gold2),var(--gold))}.hero-balance .arm{position:absolute;left:50%;top:28px;transform:translateX(-50%);width:106px;height:4px;border-radius:999px;background:linear-gradient(90deg,transparent,var(--gold2),var(--gold),transparent)}.hero-balance .dot{position:absolute;left:50%;top:24px;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--gold));box-shadow:0 0 24px rgba(212,175,55,.45)}.hero-balance .pan{position:absolute;top:40px;width:30px;height:20px;border:2px solid rgba(253,230,138,.55);border-top:none;border-radius:0 0 18px 18px}.hero-balance .left{right:56px}.hero-balance .right{left:56px}
+    .main{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;margin-top:20px}.card{border:1px solid var(--line);background:var(--panel);border-radius:28px;padding:20px;backdrop-filter:blur(14px)}.card h3{margin:0 0 14px;font-size:1.14rem}.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.kpi{padding:16px;border-radius:20px;background:rgba(3,7,18,.54);border:1px solid var(--line)}.kpi .v{font-size:1.45rem;font-weight:900;color:var(--gold2)}.kpi .l{margin-top:6px;color:var(--soft)}
+    .status-box{padding:16px;border-radius:20px;background:rgba(3,7,18,.54);border:1px solid var(--line);line-height:1.9;color:var(--muted)}.status-box strong{color:var(--text)}
+    .feed{display:grid;gap:12px}.event{padding:14px;border-radius:18px;background:rgba(3,7,18,.5);border:1px solid var(--line)}.event small{display:block;color:var(--soft);margin-bottom:6px}.event strong{display:block;margin-bottom:6px}.tag{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:.78rem;border:1px solid}.tag.calm{color:var(--emerald);border-color:rgba(110,231,183,.24);background:rgba(110,231,183,.08)}.tag.warn{color:var(--gold2);border-color:rgba(253,230,138,.24);background:rgba(253,230,138,.08)}.tag.alert{color:var(--red);border-color:rgba(253,164,175,.24);background:rgba(253,164,175,.08)}
+    .code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#020b16;border:1px solid var(--line);border-radius:20px;padding:16px;line-height:1.8;color:#d1fae5;white-space:pre-wrap}
+    @media (max-width:1100px){.main{grid-template-columns:1fr}.hero-kpis,.kpis{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:700px){.wrap{padding:0 16px}.hero-kpis,.kpis{grid-template-columns:1fr}.nav{flex-direction:column;padding:10px 0}.hero{min-height:440px}}
+  </style>
+</head>
+<body>
+  <div class="bg"></div><div class="grid"></div>
+  <nav><div class="wrap nav"><div class="brand"><div class="mark"></div><div><h1>شيخة</h1><p>لوحة التحكم العصبية — هوية + بيانات + تشغيل</p></div></div><div class="navlinks"><a href="/">الرئيسية</a><a href="/future">المشهد المستقبلي</a><a href="/logo-tech">الشعار التقني</a><a href="/سوق-شيخة.html">السوق</a></div></div></nav>
+  <main class="wrap shell">
+    <section class="hero" data-alert-level="calm">
+      <canvas id="neuralHero"></canvas>
+      <div class="hero-balance"><span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span><span class="post"></span><span class="arm"></span><span class="pan left"></span><span class="pan right"></span><span class="dot"></span></div>
+      <div class="hero-content">
+        <span class="badge" id="neuralBadge">Neural Identity • Balanced</span>
+        <h2>لوحة تحكم <span class="g">شيخة العصبية</span></h2>
+        <p>هذه نسخة مدمجة مباشرة لخلية الهوية العصبية داخل لوحة التحكم: التصميم يقرأ حالة المنظومة، ويظهر العدل بالشعار، والشمولية بالدائرة، والحركة بالشبكة، والقرار بالحالة الحية القادمة من dashboard و orchestrator و Git.</p>
+        <div class="hero-kpis">
+          <div class="hero-kpi"><small>الهوية</small><strong>Balance + Network</strong></div>
+          <div class="hero-kpi"><small>المسار</small><strong>Dashboard + Orchestrator</strong></div>
+          <div class="hero-kpi"><small>المرجعية</small><strong>معنى + قيمة + وظيفة</strong></div>
+          <div class="hero-kpi"><small>الحالة</small><strong id="heroState">Balanced</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="main">
+      <div class="card">
+        <h3>المؤشرات الحية</h3>
+        <div class="kpis">
+          <div class="kpi"><div class="v" id="kpi-users">0</div><div class="l">المستخدمون</div></div>
+          <div class="kpi"><div class="v" id="kpi-orders">0</div><div class="l">الطلبات</div></div>
+          <div class="kpi"><div class="v" id="kpi-contracts">0</div><div class="l">العقود</div></div>
+          <div class="kpi"><div class="v" id="kpi-supply">0</div><div class="l">التغذية/التوريد</div></div>
+          <div class="kpi"><div class="v" id="kpi-git-dirty">0</div><div class="l">Git Dirty</div></div>
+          <div class="kpi"><div class="v" id="kpi-alerts">0</div><div class="l">التنبيهات</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>حالة Git والمنظومة</h3>
+        <div class="status-box" id="gitStatusBox">جاري التحميل...</div>
+      </div>
+
+      <div class="card">
+        <h3>التغذية الحية</h3>
+        <div class="feed" id="activityFeed">
+          <div class="event"><small>الآن</small><strong>جاري التحميل</strong><div>يتم جمع الأحداث الحية من dashboard و orchestrator.</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>CLI العصبي</h3>
+        <div class="code" id="neuralCli">$ sheikha status\nloading...</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const hero = document.querySelector('.hero');
+    const canvas = document.getElementById('neuralHero');
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    let width = 0, height = 0, nodes = [], pulse = 0;
+    let visual = { alertLevel: 'calm', alerts: 0, gitDirty: 0 };
+
+    const palettes = {
+      calm: { nodes: ['rgba(253,230,138,.95)','rgba(103,232,249,.85)','rgba(110,231,183,.82)'], line: '255,255,255', aura: '212,175,55', ring: '103,232,249' },
+      warn: { nodes: ['rgba(253,230,138,.95)','rgba(251,146,60,.9)','rgba(253,164,175,.82)'], line: '255,210,120', aura: '245,158,11', ring: '251,146,60' },
+      alert:{ nodes: ['rgba(253,164,175,.95)','rgba(248,113,113,.9)','rgba(253,230,138,.72)'], line:'255,160,160', aura:'239,68,68', ring:'248,113,113' }
+    };
+
+    function palette() { return palettes[visual.alertLevel] || palettes.calm; }
+    function makeNode() {
+      const p = palette();
+      return { x: Math.random()*width, y: Math.random()*height, vx:(Math.random()-.5)*.35, vy:(Math.random()-.5)*.35, r:Math.random()*2.5+1.1, c:p.nodes[Math.floor(Math.random()*p.nodes.length)] };
+    }
+    function resize() {
+      width = hero.clientWidth; height = hero.clientHeight;
+      canvas.width = Math.floor(width*dpr); canvas.height = Math.floor(height*dpr);
+      canvas.style.width = width+'px'; canvas.style.height = height+'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      nodes = Array.from({length: 40}, makeNode);
+    }
+    function setVisual(state) {
+      visual = state;
+      hero.dataset.alertLevel = state.alertLevel;
+      document.getElementById('heroState').textContent = state.alertLevel === 'alert' ? 'Alert' : state.alertLevel === 'warn' ? 'Review' : 'Balanced';
+      document.getElementById('neuralBadge').textContent = state.alertLevel === 'alert' ? 'Neural Identity • Alert' : state.alertLevel === 'warn' ? 'Neural Identity • Active Review' : 'Neural Identity • Balanced';
+      const p = palette();
+      nodes.forEach((n, i) => n.c = p.nodes[i % p.nodes.length]);
+    }
+    function drawBackdrop() {
+      const p = palette();
+      const grad = ctx.createRadialGradient(width*.5,height*.35,20,width*.5,height*.35,Math.max(width,height)*.45);
+      grad.addColorStop(0, `rgba(${p.aura},0.16)`);
+      grad.addColorStop(.45, `rgba(${p.ring},0.08)`);
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad; ctx.fillRect(0,0,width,height);
+    }
+    function draw() {
+      const p = palette();
+      ctx.clearRect(0,0,width,height); drawBackdrop();
+      const speed = visual.alertLevel === 'alert' ? 1.9 : visual.alertLevel === 'warn' ? 1.35 : 1;
+      for (const n of nodes) {
+        n.x += n.vx*speed; n.y += n.vy*speed;
+        if (n.x<0 || n.x>width) n.vx*=-1;
+        if (n.y<0 || n.y>height) n.vy*=-1;
+      }
+      for (let i=0;i<nodes.length;i++) {
+        for (let j=i+1;j<nodes.length;j++) {
+          const a=nodes[i], b=nodes[j]; const dx=a.x-b.x, dy=a.y-b.y; const dist=Math.hypot(dx,dy);
+          if (dist < 150) {
+            const alpha = (1-dist/150) * (visual.alertLevel === 'alert' ? .24 : .17);
+            ctx.strokeStyle = `rgba(${p.line},${alpha})`; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+          }
+        }
+      }
+      for (const n of nodes) { ctx.beginPath(); ctx.fillStyle=n.c; ctx.arc(n.x,n.y,n.r,0,Math.PI*2); ctx.fill(); }
+      pulse += .016 * (visual.alertLevel === 'alert' ? 2 : visual.alertLevel === 'warn' ? 1.4 : 1);
+      requestAnimationFrame(draw);
+    }
+
+    function fmt(v){ return typeof v === 'number' ? v : 0; }
+
+    function renderState(dashboard, orchestrator, git) {
+      const alerts = orchestrator?.alerts?.length || 0;
+      const gitDirty = dashboard?.kpis?.git_dirty_count ?? git?.branchHealth?.dirtyCount ?? 0;
+      let alertLevel = 'calm';
+      if (alerts > 0 || gitDirty > 40) alertLevel = 'warn';
+      if (alerts > 1 || gitDirty > 80) alertLevel = 'alert';
+      setVisual({ alerts, gitDirty, alertLevel });
+
+      document.getElementById('kpi-users').textContent = fmt(dashboard?.kpis?.users);
+      document.getElementById('kpi-orders').textContent = fmt(dashboard?.kpis?.orders);
+      document.getElementById('kpi-contracts').textContent = fmt(dashboard?.kpis?.contracts);
+      document.getElementById('kpi-supply').textContent = fmt(dashboard?.kpis?.supply);
+      document.getElementById('kpi-git-dirty').textContent = fmt(gitDirty);
+      document.getElementById('kpi-alerts').textContent = fmt(alerts);
+
+      const gitBox = document.getElementById('gitStatusBox');
+      const remotes = (git?.remotes || []).map(r => `<div>• <strong>${r.name}</strong> → ${r.fetch || '-'}</div>`).join('');
+      gitBox.innerHTML = `
+        <div><strong>الفرع:</strong> ${git?.branchHealth?.branch || '-'}</div>
+        <div><strong>Dirty Count:</strong> ${fmt(gitDirty)}</div>
+        <div><strong>GitHub:</strong> ${git?.providers?.github ? 'متصل' : 'غير متصل'}</div>
+        <div><strong>GitLab:</strong> ${git?.providers?.gitlab ? 'متصل' : 'غير متصل'}</div>
+        <div style="margin-top:10px"><span class="tag ${alertLevel}">${alertLevel === 'alert' ? 'Alert' : alertLevel === 'warn' ? 'Review' : 'Balanced'}</span></div>
+        <div style="margin-top:10px;color:var(--soft)">${remotes}</div>
+      `;
+
+      const feed = document.getElementById('activityFeed');
+      const feedItems = [];
+      feedItems.push(`<div class="event"><small>الآن</small><strong>حالة Git</strong><div>الفرع الحالي: ${git?.branchHealth?.branch || '-'} — Dirty: ${fmt(gitDirty)}</div></div>`);
+      if (alerts) {
+        (orchestrator.alerts || []).slice(0,3).forEach(a => {
+          feedItems.push(`<div class="event"><small>تنبيه</small><strong>${a.code}</strong><div>${a.message}</div></div>`);
+        });
+      } else {
+        feedItems.push(`<div class="event"><small>الآن</small><strong>توازن تشغيلي</strong><div>لا توجد تنبيهات حرجة في المنظومة الحالية.</div></div>`);
+      }
+      feed.innerHTML = feedItems.join('');
+
+      const cli = document.getElementById('neuralCli');
+      cli.textContent = `$ sheikha status\nbranch: ${git?.branchHealth?.branch || '-'}\nusers: ${fmt(dashboard?.kpis?.users)}\norders: ${fmt(dashboard?.kpis?.orders)}\ncontracts: ${fmt(dashboard?.kpis?.contracts)}\nsupply: ${fmt(dashboard?.kpis?.supply)}\nalerts: ${fmt(alerts)}\nstate: ${alertLevel}`;
+    }
+
+    async function loadState() {
+      try {
+        const [d,o,g] = await Promise.all([
+          fetch('/api/dashboard/state', {cache:'no-store'}).then(r => r.json()),
+          fetch('/api/orchestrator/state', {cache:'no-store'}).then(r => r.json()),
+          fetch('/api/git/status', {cache:'no-store'}).then(r => r.json())
+        ]);
+        renderState(d,o,g);
+      } catch (e) {
+        console.error('state load failed', e);
+      }
+    }
+
+    resize(); draw(); loadState();
+    setInterval(loadState, 15000);
+    window.addEventListener('resize', resize, {passive:true});
+  </script>
+</body>
+</html>

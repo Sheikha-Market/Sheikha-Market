@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منظومة الشبكات والاتصالات والطاقة — شيخة</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap');
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Tajawal',sans-serif; background:#0a0f1c; color:#e0e8f0; min-height:100vh; }
+        .hero { background:linear-gradient(135deg,#0d1b3e 0%,#1a2a5e 40%,#0f4c5c 70%,#0a2d4a 100%); padding:40px 20px; text-align:center; border-bottom:3px solid #00d4aa; }
+        .hero h1 { font-family:'Amiri',serif; font-size:2.5em; color:#00d4aa; margin-bottom:10px; text-shadow:0 0 30px rgba(0,212,170,.3); }
+        .hero .verse { font-family:'Amiri',serif; font-size:1.1em; color:#ffd700; margin:8px 0; opacity:.9; }
+        .hero .sub { color:#8ba4c4; font-size:1em; }
+        .stats-bar { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; padding:20px; background:#0d1525; }
+        .stat-box { background:linear-gradient(135deg,#1a2744,#0f1d35); border:1px solid #1e3a5f; border-radius:12px; padding:15px 20px; text-align:center; min-width:130px; }
+        .stat-box .num { font-size:2em; font-weight:700; color:#00d4aa; }
+        .stat-box .label { font-size:.85em; color:#7a9bc0; margin-top:4px; }
+        .container { max-width:1400px; margin:0 auto; padding:20px; }
+        .section { margin:30px 0; }
+        .section-title { font-family:'Amiri',serif; font-size:1.8em; color:#00d4aa; border-bottom:2px solid #1e3a5f; padding-bottom:10px; margin-bottom:20px; }
+        .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+        .card { background:linear-gradient(145deg,#111d33,#0d1628); border:1px solid #1e3a5f; border-radius:14px; padding:20px; transition:all .3s; }
+        .card:hover { border-color:#00d4aa; transform:translateY(-3px); box-shadow:0 8px 25px rgba(0,212,170,.15); }
+        .card-icon { font-size:2em; margin-bottom:8px; }
+        .card-title { font-size:1.15em; font-weight:700; color:#e8f0ff; margin-bottom:6px; }
+        .card-sub { font-size:.85em; color:#5a8ab5; margin-bottom:8px; }
+        .card-desc { font-size:.9em; color:#8ba4c4; line-height:1.6; }
+        .tag { display:inline-block; background:#0f2a4a; color:#00d4aa; padding:3px 10px; border-radius:20px; font-size:.78em; margin:3px 2px; border:1px solid #1a3d66; }
+        .tag-gold { background:#2a1f00; color:#ffd700; border-color:#5a4a00; }
+        .tag-red { background:#2a0f0f; color:#ff6b6b; border-color:#5a2020; }
+        .tag-purple { background:#1a0f2a; color:#b388ff; border-color:#3a2060; }
+        .osi-table { width:100%; border-collapse:collapse; margin:15px 0; }
+        .osi-table th, .osi-table td { border:1px solid #1e3a5f; padding:10px 14px; text-align:right; }
+        .osi-table th { background:#0f1d35; color:#00d4aa; font-size:.95em; }
+        .osi-table tr:nth-child(even) { background:#0d1525; }
+        .osi-table tr:hover { background:#1a2744; }
+        .layer-num { font-size:1.3em; font-weight:700; color:#ffd700; }
+        .key-card { background:linear-gradient(145deg,#0d1628,#111d33); border:1px solid #1e3a5f; border-radius:14px; padding:20px; margin:12px 0; }
+        .key-card:hover { border-color:#ffd700; }
+        .key-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+        .key-header .icon { font-size:1.8em; }
+        .key-header .name { font-size:1.2em; font-weight:700; color:#ffd700; }
+        .key-header .en { font-size:.85em; color:#5a8ab5; }
+        .gen-timeline { position:relative; padding:10px 30px; }
+        .gen-item { display:flex; align-items:flex-start; gap:16px; margin:12px 0; padding:14px; background:#111d33; border-radius:12px; border-right:4px solid #00d4aa; }
+        .gen-item .gen-label { font-size:1.5em; font-weight:700; color:#00d4aa; min-width:60px; }
+        .gen-item .gen-year { color:#ffd700; font-size:.9em; }
+        .energy-card { position:relative; overflow:hidden; }
+        .energy-card::before { content:''; position:absolute; top:0; right:0; width:4px; height:100%; background:linear-gradient(to bottom,#00d4aa,#ffd700); }
+        .search-box { width:100%; max-width:500px; margin:20px auto; display:block; padding:12px 20px; border-radius:30px; border:2px solid #1e3a5f; background:#0d1525; color:#e0e8f0; font-size:1em; font-family:'Tajawal',sans-serif; outline:none; }
+        .search-box:focus { border-color:#00d4aa; }
+        .sharia-card { border-right:4px solid #ffd700; }
+        @media(max-width:768px) {
+            .hero h1 { font-size:1.6em; }
+            .grid { grid-template-columns:1fr; }
+            .stats-bar { gap:8px; }
+            .stat-box { min-width:100px; padding:10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>☪️ منظومة الشبكات والاتصالات والطاقة</h1>
+    <div class="verse">يَا أَيُّهَا النَّاسُ إِنَّا خَلَقْنَاكُم مِّن ذَكَرٍ وَأُنثَىٰ وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا — الحجرات ١٣</div>
+    <div class="verse">اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ — النور ٣٥</div>
+    <div class="sub">شبكات الحاسب | الاتصالات | الإنترنت | الجوال | الكهرباء | الطاقة | المفاتيح الرقمية | الأمن السيبراني</div>
+</div>
+
+<div class="stats-bar" id="statsBar">⏳ جارٍ تحميل الإحصائيات...</div>
+
+<div class="container">
+    <input type="text" class="search-box" id="searchBox" placeholder="🔍 ابحث في المنظومة... (شبكة، بروتوكول، مفتاح، طاقة...)" oninput="filterAll(this.value)">
+
+    <!-- شبكات الحاسب -->
+    <div class="section" id="sec-networks">
+        <h2 class="section-title">🖧 شبكات الحاسب — Computer Networks</h2>
+        <div class="grid" id="networksGrid"></div>
+    </div>
+
+    <!-- نموذج OSI -->
+    <div class="section" id="sec-osi">
+        <h2 class="section-title">📊 نموذج OSI — الطبقات السبع</h2>
+        <table class="osi-table" id="osiTable">
+            <thead><tr><th>الطبقة</th><th>الاسم</th><th>Name</th><th>البروتوكولات</th></tr></thead>
+            <tbody id="osiBody"></tbody>
+        </table>
+    </div>
+
+    <!-- الاتصالات -->
+    <div class="section" id="sec-telecom">
+        <h2 class="section-title">📡 منظومة الاتصالات — Telecommunications</h2>
+        <div class="grid" id="telecomGrid"></div>
+    </div>
+
+    <!-- أجيال الجوال -->
+    <div class="section" id="sec-mobile">
+        <h2 class="section-title">📱 أجيال الاتصالات النقالة — 1G to 6G</h2>
+        <div class="gen-timeline" id="mobileTimeline"></div>
+    </div>
+
+    <!-- الإنترنت -->
+    <div class="section" id="sec-internet">
+        <h2 class="section-title">🌐 البنية التحتية للإنترنت</h2>
+        <div class="grid" id="internetGrid"></div>
+    </div>
+
+    <!-- الكهرباء -->
+    <div class="section" id="sec-electricity">
+        <h2 class="section-title">⚡ منظومة الكهرباء</h2>
+        <div class="grid" id="electricityGrid"></div>
+    </div>
+
+    <!-- الطاقة -->
+    <div class="section" id="sec-energy">
+        <h2 class="section-title">🔋 منظومة الطاقة — Energy</h2>
+        <div class="grid" id="energyGrid"></div>
+    </div>
+
+    <!-- المفاتيح الرقمية -->
+    <div class="section" id="sec-keys">
+        <h2 class="section-title">🔑 منظومة المفاتيح الرقمية — Digital Keys</h2>
+        <div id="keysContainer"></div>
+    </div>
+
+    <!-- الأمن السيبراني -->
+    <div class="section" id="sec-cyber">
+        <h2 class="section-title">🛡️ الأمن السيبراني — Cybersecurity</h2>
+        <div class="grid" id="cyberGrid"></div>
+    </div>
+
+    <!-- الضوابط الشرعية -->
+    <div class="section" id="sec-sharia">
+        <h2 class="section-title">📖 الضوابط الشرعية للشبكات والطاقة</h2>
+        <div class="grid" id="shariaGrid"></div>
+    </div>
+
+    <!-- الآيات القرآنية -->
+    <div class="section" id="sec-quran">
+        <h2 class="section-title">☪️ الآيات القرآنية</h2>
+        <div class="grid" id="quranGrid"></div>
+    </div>
+</div>
+
+<script>
+const API = '/api/networks/dashboard';
+
+async function loadDashboard() {
+    try {
+        const res = await fetch(API);
+        if (!res.ok) return;
+        const d = await res.json();
+        if (d.success) renderAll(d.data);
+    } catch(e) { console.warn('Networks API:', e.message); }
+}
+
+function renderAll(d) {
+    // Stats
+    const s = d.summary;
+    document.getElementById('statsBar').innerHTML = [
+        stat(s.networkTypes, 'نوع شبكة'),
+        stat(s.telecomSectors, 'قطاع اتصالات'),
+        stat(s.mobileGenerations, 'جيل جوال'),
+        stat(s.electricityStages, 'مرحلة كهرباء'),
+        stat(s.energySectors, 'قطاع طاقة'),
+        stat(s.digitalKeyTypes, 'نوع مفتاح رقمي'),
+        stat(s.protocolCategories, 'فئة بروتوكول'),
+        stat(s.cyberDomains, 'مجال أمن سيبراني'),
+        stat(s.osiLayers, 'طبقة OSI'),
+        stat(s.quranVerses, 'آية قرآنية'),
+    ].join('');
+
+    // Networks
+    document.getElementById('networksGrid').innerHTML = d.computerNetworks.types.map(n => `
+        <div class="card searchable" data-text="${n.nameAr} ${n.nameEn} ${n.examples.join(' ')}">
+            <div class="card-icon">${n.icon}</div>
+            <div class="card-title">${n.nameAr}</div>
+            <div class="card-sub">${n.nameEn}</div>
+            <div class="card-desc">المدى: ${n.range}</div>
+            <div style="margin-top:8px">${n.examples.map(e => `<span class="tag">${e}</span>`).join('')}</div>
+        </div>
+    `).join('');
+
+    // OSI
+    document.getElementById('osiBody').innerHTML = d.computerNetworks.osiModel.map(l => `
+        <tr class="searchable" data-text="${l.nameAr} ${l.nameEn} ${l.protocols.join(' ')}">
+            <td><span class="layer-num">${l.layer}</span></td>
+            <td>${l.nameAr}</td>
+            <td>${l.nameEn}</td>
+            <td>${l.protocols.map(p => `<span class="tag">${p}</span>`).join('')}</td>
+        </tr>
+    `).join('');
+
+    // Telecom
+    document.getElementById('telecomGrid').innerHTML = d.telecom.sectors.map(t => `
+        <div class="card searchable" data-text="${t.nameAr} ${t.nameEn} ${t.technologies.join(' ')}">
+            <div class="card-icon">${t.icon}</div>
+            <div class="card-title">${t.nameAr}</div>
+            <div class="card-sub">${t.nameEn}</div>
+            <div class="card-desc">${t.description}</div>
+            <div style="margin-top:8px">${t.technologies.map(t => `<span class="tag-gold tag">${t}</span>`).join('')}</div>
+        </div>
+    `).join('');
+
+    // Mobile
+    document.getElementById('mobileTimeline').innerHTML = d.mobile.generations.map(g => `
+        <div class="gen-item searchable" data-text="${g.gen} ${g.nameAr} ${g.tech} ${g.features.join(' ')}">
+            <div>
+                <div class="gen-label">${g.icon} ${g.gen}</div>
+                <div class="gen-year">${g.year}</div>
+            </div>
+            <div>
+                <div class="card-title">${g.nameAr} — ${g.tech}</div>
+                <div class="card-desc">السرعة: ${g.speed}</div>
+                <div style="margin-top:6px">${g.features.map(f => `<span class="tag">${f}</span>`).join('')}</div>
+            </div>
+        </div>
+    `).join('');
+
+    // Internet
+    const iServices = d.internet.services || [];
+    const iCloud = d.internet.cloudProviders || [];
+    document.getElementById('internetGrid').innerHTML =
+        iServices.map(s => `
+            <div class="card searchable" data-text="${s.nameAr} ${s.nameEn} ${(s.protocols||s.models||[]).join(' ')}">
+                <div class="card-title">${s.nameAr}</div>
+                <div class="card-sub">${s.nameEn}</div>
+                <div style="margin-top:8px">${(s.protocols||s.models||[]).map(p => `<span class="tag">${p}</span>`).join('')}</div>
+            </div>
+        `).join('') +
+        iCloud.map(c => `
+            <div class="card searchable" data-text="${c.name} ${c.region}">
+                <div class="card-title">☁️ ${c.name}</div>
+                <div class="card-desc">المنطقة: ${c.region} | الخدمات: ${c.services}</div>
+            </div>
+        `).join('');
+
+    // Electricity
+    document.getElementById('electricityGrid').innerHTML = d.electricity.stages.map(s => `
+        <div class="card energy-card searchable" data-text="${s.nameAr} ${s.nameEn} ${(s.sources||s.features||s.voltages||[]).join(' ')}">
+            <div class="card-icon">${s.icon}</div>
+            <div class="card-title">${s.nameAr}</div>
+            <div class="card-sub">${s.nameEn}</div>
+            <div class="card-desc">${s.description}</div>
+            <div style="margin-top:8px">${(s.sources||s.features||s.voltages||[]).map(x => `<span class="tag-gold tag">${x}</span>`).join('')}</div>
+        </div>
+    `).join('');
+
+    // Energy
+    document.getElementById('energyGrid').innerHTML = d.energy.sectors.map(e => `
+        <div class="card energy-card searchable" data-text="${e.nameAr} ${e.nameEn} ${(e.technologies||e.types||e.stages||[]).join(' ')}">
+            <div class="card-icon">${e.icon}</div>
+            <div class="card-title">${e.nameAr}</div>
+            <div class="card-sub">${e.nameEn}</div>
+            <div class="card-desc">${e.description}</div>
+            <div style="margin-top:8px">${(e.technologies||e.types||e.stages||[]).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+            ${e.projects ? `<div style="margin-top:6px">${e.projects.map(p => `<span class="tag-gold tag">${p}</span>`).join('')}</div>` : ''}
+        </div>
+    `).join('');
+
+    // Digital Keys
+    document.getElementById('keysContainer').innerHTML = d.digitalKeys.categories.map(k => `
+        <div class="key-card searchable" data-text="${k.nameAr} ${k.nameEn} ${k.description} ${(k.examples||k.flows||k.types||k.commands||k.methods||[]).join(' ')}">
+            <div class="key-header">
+                <span class="icon">${k.icon}</span>
+                <div>
+                    <div class="name">${k.nameAr}</div>
+                    <div class="en">${k.nameEn}</div>
+                </div>
+            </div>
+            <div class="card-desc">${k.description}</div>
+            ${k.usage ? `<div style="margin-top:6px;color:#5a8ab5;">الاستخدام: ${k.usage}</div>` : ''}
+            ${k.examples ? `<div style="margin-top:8px">${k.examples.map(e => `<span class="tag">${e}</span>`).join('')}</div>` : ''}
+            ${k.flows ? `<div style="margin-top:8px">${k.flows.map(f => `<span class="tag-purple tag">${f}</span>`).join('')}</div>` : ''}
+            ${k.types && Array.isArray(k.types) && typeof k.types[0]==='string' ? `<div style="margin-top:8px">${k.types.map(t => `<span class="tag">${t}</span>`).join('')}</div>` : ''}
+            ${k.security && Array.isArray(k.security) ? `<div style="margin-top:8px">${k.security.map(s => `<span class="tag-red tag">🛡️ ${s}</span>`).join('')}</div>` : ''}
+            ${k.algorithms ? `<div style="margin-top:8px">${k.algorithms.map(a => `<span class="tag-gold tag">${a}</span>`).join('')}</div>` : ''}
+            ${k.methods ? `<div style="margin-top:8px">${k.methods.map(m => `<span class="tag" style="min-width:80px"><b>${m.method}</b> — ${m.use}</span>`).join('')}</div>` : ''}
+            ${k.statusCodes ? `<div style="margin-top:8px">${k.statusCodes.map(s => `<span class="tag ${s.range.startsWith('2')?'':'tag-red'}">${s.range} ${s.meaning}: ${s.examples.join(', ')}</span>`).join('')}</div>` : ''}
+            ${k.format ? `<div style="margin-top:8px;font-family:monospace;font-size:.8em;color:#5a8ab5;direction:ltr;text-align:left;background:#0a0f1c;padding:6px 10px;border-radius:6px;">${k.format}</div>` : ''}
+        </div>
+    `).join('');
+
+    // Cyber
+    document.getElementById('cyberGrid').innerHTML = d.cyberSecurity.domains.map(c => `
+        <div class="card searchable" data-text="${c.nameAr} ${c.nameEn} ${c.tools.join(' ')}">
+            <div class="card-title">🛡️ ${c.nameAr}</div>
+            <div class="card-sub">${c.nameEn}</div>
+            <div style="margin-top:8px">${c.tools.map(t => `<span class="tag-red tag">${t}</span>`).join('')}</div>
+        </div>
+    `).join('') + `
+        <div class="card">
+            <div class="card-title">📋 الأطر والمعايير</div>
+            <div style="margin-top:8px">${d.cyberSecurity.frameworks.map(f => `<span class="tag-gold tag">${f}</span>`).join('')}</div>
+        </div>
+        <div class="card">
+            <div class="card-title">🇸🇦 الجهات السعودية</div>
+            <div style="margin-top:8px">${d.cyberSecurity.saudiEntities.map(e => `<div style="margin:4px 0"><b>${e.nameAr}</b> (${e.name}) — ${e.role}</div>`).join('')}</div>
+        </div>
+    `;
+
+    // Sharia
+    document.getElementById('shariaGrid').innerHTML = d.shariaGuidance.principles.map(p => `
+        <div class="card sharia-card searchable" data-text="${p.nameAr} ${p.description}">
+            <div class="card-icon">${p.icon}</div>
+            <div class="card-title">${p.nameAr}</div>
+            <div class="card-desc">${p.description}</div>
+        </div>
+    `).join('');
+
+    // Quran
+    document.getElementById('quranGrid').innerHTML = d.quranReferences.map(q => `
+        <div class="card searchable" data-text="${q.text} ${q.surah} ${q.context}">
+            <div style="font-family:'Amiri',serif;font-size:1.1em;color:#ffd700;line-height:1.8;">${q.text}</div>
+            <div style="margin-top:6px;color:#00d4aa;font-size:.9em;">— ${q.surah} ${q.ayah}</div>
+            <div class="card-desc" style="margin-top:6px;">${q.context}</div>
+        </div>
+    `).join('');
+}
+
+function stat(n, label) {
+    return `<div class="stat-box"><div class="num">${n}</div><div class="label">${label}</div></div>`;
+}
+
+function filterAll(q) {
+    q = q.trim().toLowerCase();
+    document.querySelectorAll('.searchable').forEach(el => {
+        const t = (el.dataset.text || '').toLowerCase();
+        el.style.display = (!q || t.includes(q)) ? '' : 'none';
+    });
+}
+
+loadDashboard();
+</script>
+</body>
+</html>

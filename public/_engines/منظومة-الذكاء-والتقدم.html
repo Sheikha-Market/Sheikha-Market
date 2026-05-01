@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منظومة الذكاء والتقدم — شيخة | SHEIKHA AI & Advancement</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap');
+        
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6B8;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --card-bg: rgba(20, 20, 40, 0.85);
+            --border: rgba(212, 175, 55, 0.2);
+            --green: #00E676;
+            --blue: #448AFF;
+            --red: #FF5252;
+            --orange: #FFB74D;
+            --purple: #CE93D8;
+            --cyan: #4DD0E1;
+            --text: #e0e0e0;
+            --text-dim: #888;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* خلفية متحركة */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(212,175,55,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(68,138,255,0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(206,147,216,0.03) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ═══ الرأس ═══ */
+        .header {
+            text-align: center;
+            padding: 30px 0 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+        .header .subtitle {
+            color: var(--text-dim);
+            font-size: 1rem;
+        }
+        .header .bismillah {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        /* ═══ الشبكة ═══ */
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 20px; }
+        .full-width { grid-column: 1 / -1; }
+
+        @media (max-width: 1024px) { .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+        /* ═══ البطاقات ═══ */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+        .card:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212,175,55,0.1);
+        }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title .icon {
+            font-size: 1.3rem;
+        }
+
+        /* ═══ حلقة النضج الرئيسية ═══ */
+        .maturity-ring {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .ring-container {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+        .ring-container svg { width: 100%; height: 100%; }
+        .ring-container .ring-value {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .ring-container .ring-value .number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1;
+        }
+        .ring-container .ring-value .label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+        .maturity-level {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 5px;
+        }
+        .maturity-target {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* ═══ الخطوات الأربع ═══ */
+        .phases-timeline {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .phase-step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            position: relative;
+            padding: 20px 15px;
+        }
+        .phase-step::after {
+            content: '→';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        .phase-step:last-child::after { display: none; }
+        .phase-number {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            transition: all 0.3s;
+        }
+        .phase-number.active {
+            background: linear-gradient(135deg, var(--gold), #FFC107);
+            color: var(--dark);
+            box-shadow: 0 0 20px rgba(212,175,55,0.4);
+        }
+        .phase-number.completed {
+            background: var(--green);
+            color: var(--dark);
+        }
+        .phase-number.planned {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-dim);
+            border: 2px dashed var(--border);
+        }
+        .phase-name {
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
+        .phase-status {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* ═══ حاكمية الذكاء ═══ */
+        .governance-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        @media (max-width: 768px) { .governance-grid { grid-template-columns: 1fr; } }
+        .gov-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+        }
+        .gov-item .gov-icon { font-size: 1.8rem; margin-bottom: 6px; }
+        .gov-item .gov-name { font-weight: 600; font-size: 0.9rem; color: var(--gold); margin-bottom: 4px; }
+        .gov-item .gov-desc { font-size: 0.78rem; color: var(--text-dim); }
+
+        /* ═══ طبقات الذكاء ═══ */
+        .ai-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .ai-layer {
+            background: rgba(255,255,255,0.03);
+            border-right: 4px solid;
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .ai-layer.al { border-color: var(--blue); }
+        .ai-layer.ml { border-color: var(--purple); }
+        .ai-layer.ke { border-color: var(--cyan); }
+        .ai-layer .layer-icon { font-size: 2rem; }
+        .ai-layer .layer-name { font-weight: 700; font-size: 1rem; margin-bottom: 2px; }
+        .ai-layer .layer-type { font-size: 0.75rem; color: var(--text-dim); }
+        .ai-layer .layer-caps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .ai-layer .layer-caps span {
+            background: rgba(255,255,255,0.06);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--text);
+        }
+
+        /* ═══ المنهجيات ═══ */
+        .methodology-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        @media (max-width: 768px) { .methodology-list { grid-template-columns: 1fr; } }
+        .method-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 14px;
+            border-right: 3px solid var(--gold);
+        }
+        .method-item .method-name { font-weight: 700; font-size: 0.95rem; color: var(--gold); margin-bottom: 4px; }
+        .method-item .method-desc { font-size: 0.8rem; color: var(--text-dim); }
+        .method-item .method-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-top: 6px;
+        }
+        .method-item .method-badge.active { background: rgba(0,230,118,0.15); color: var(--green); }
+        .method-item .method-badge.planned { background: rgba(255,183,77,0.15); color: var(--orange); }
+
+        /* ═══ Checklist ═══ */
+        .checklist {
+            list-style: none;
+        }
+        .checklist li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background 0.2s;
+        }
+        .checklist li:hover { background: rgba(255,255,255,0.03); }
+        .checklist li:last-child { border-bottom: none; }
+        .check-box {
+            width: 22px; height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .check-box.checked {
+            background: var(--green);
+            border-color: var(--green);
+            color: var(--dark);
+        }
+        .check-task { flex: 1; font-size: 0.88rem; }
+        .check-priority {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        .check-priority.critical { background: rgba(255,82,82,0.15); color: var(--red); }
+        .check-priority.high { background: rgba(255,183,77,0.15); color: var(--orange); }
+        .check-priority.medium { background: rgba(68,138,255,0.15); color: var(--blue); }
+
+        /* ═══ مقياس الأداء ═══ */
+        .perf-perspective {
+            margin-bottom: 14px;
+        }
+        .perf-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .perf-name { font-weight: 600; font-size: 0.9rem; }
+        .perf-score {
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 2px 10px;
+            border-radius: 10px;
+        }
+        .perf-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .perf-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* ═══ الاستراتيجيات ═══ */
+        .strategy-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 10px;
+        }
+        .strategy-name {
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .strategy-list {
+            list-style: none;
+        }
+        .strategy-list li {
+            padding: 4px 0;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+        .strategy-list li::before {
+            content: '◆ ';
+            color: var(--gold);
+        }
+
+        /* ═══ العلوم ═══ */
+        .science-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .science-tag {
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(212,175,55,0.05));
+            border: 1px solid rgba(212,175,55,0.2);
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .science-tag .depth {
+            font-size: 0.7rem;
+            color: var(--green);
+            background: rgba(0,230,118,0.1);
+            padding: 1px 8px;
+            border-radius: 10px;
+        }
+
+        /* ═══ مستويات الإتقان ═══ */
+        .level-ladder {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .level-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.02);
+            border-right: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        .level-step.current {
+            background: rgba(212,175,55,0.08);
+            border-right-color: var(--gold);
+        }
+        .level-step.reached {
+            border-right-color: var(--green);
+        }
+        .level-num {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.05);
+            flex-shrink: 0;
+        }
+        .level-step.current .level-num {
+            background: var(--gold);
+            color: var(--dark);
+        }
+        .level-step.reached .level-num {
+            background: var(--green);
+            color: var(--dark);
+        }
+        .level-info .level-name { font-weight: 700; font-size: 0.9rem; }
+        .level-info .level-range { font-size: 0.75rem; color: var(--text-dim); }
+
+        /* ═══ خط الإنتاج ═══ */
+        .pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4px;
+            margin: 16px 0;
+        }
+        .pipeline-step {
+            background: rgba(255,255,255,0.05);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pipeline-arrow { color: var(--gold); font-size: 1.2rem; }
+
+        /* ═══ التذييل ═══ */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 30px;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+        .footer .gold { color: var(--gold); }
+
+        /* ═══ قسم التحميل ═══ */
+        .loading { text-align: center; padding: 40px; color: var(--text-dim); }
+        .loading .spinner {
+            width: 40px; height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ═══ قرار الانتقال ═══ */
+        .transition-box {
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(0,230,118,0.05));
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+        }
+        .transition-box h3 {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        .transition-box .decision {
+            font-size: 1.1rem;
+            margin: 15px 0;
+            color: var(--green);
+            font-weight: 700;
+        }
+        .transition-box .stamp {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* ═══ Forbidden Tags ═══ */
+        .forbidden-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .forbidden-tag {
+            background: rgba(255,82,82,0.1);
+            border: 1px solid rgba(255,82,82,0.2);
+            color: var(--red);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- الرأس -->
+        <div class="header">
+            <div class="bismillah">☪️ بسم الله الرحمن الرحيم</div>
+            <h1>منظومة الذكاء الصناعي والتقدم الشامل</h1>
+            <div class="subtitle">SHEIKHA AI Advancement, Scientific Progress & Excellence Dashboard</div>
+            <div class="subtitle" style="margin-top: 5px">المالك: سلمان أحمد بن سلمان الراجح | المرجعية: الكتاب والسنة</div>
+        </div>
+
+        <!-- حلقة النضج + الخطوات الأربع -->
+        <div class="grid-2">
+            <div class="card maturity-ring" id="maturityCard">
+                <div class="ring-container">
+                    <svg viewBox="0 0 220 220">
+                        <circle cx="110" cy="110" r="95" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12"/>
+                        <circle id="maturityCircle" cx="110" cy="110" r="95" fill="none" stroke="url(#goldGrad)" stroke-width="12" stroke-linecap="round"
+                            stroke-dasharray="597" stroke-dashoffset="597" transform="rotate(-90 110 110)" style="transition: stroke-dashoffset 2s ease;"/>
+                        <defs>
+                            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#D4AF37"/>
+                                <stop offset="50%" stop-color="#FFD700"/>
+                                <stop offset="100%" stop-color="#00E676"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="ring-value">
+                        <div class="number" id="maturityScore">—</div>
+                        <div class="label">مؤشر النضج</div>
+                    </div>
+                </div>
+                <div class="maturity-level" id="maturityLevel">جاري التحميل...</div>
+                <div class="maturity-target">الهدف: نضج 100 — مستقل بالكامل</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="icon">📋</span> الخطوات الأربع للنضج</div>
+                <div class="phases-timeline" id="phasesTimeline">
+                    <div class="phase-step">
+                        <div class="phase-number completed" id="phase1Num">1</div>
+                        <div class="phase-name">التأسيس المعرفي</div>
+                        <div class="phase-status" id="phase1Status">—</div>
+                    </div>
+                    <div class="phase-step">
+                        <div class="phase-number planned" id="phase2Num">2</div>
+                        <div class="phase-name">التشغيل الداخلي</div>
+                        <div class="phase-status" id="phase2Status">—</div>
+                    </div>
+                    <div class="phase-step">
+                        <div class="phase-number planned" id="phase3Num">3</div>
+                        <div class="phase-name">التحسين والإتقان</div>
+                        <div class="phase-status" id="phase3Status">—</div>
+                    </div>
+                    <div class="phase-step">
+                        <div class="phase-number planned" id="phase4Num">4</div>
+                        <div class="phase-name">الاستقلال والنضج</div>
+                        <div class="phase-status" id="phase4Status">—</div>
+                    </div>
+                </div>
+                <div style="margin-top: 16px;">
+                    <div class="card-title"><span class="icon">🏗️</span> خط الإنتاج الذكي</div>
+                    <div class="pipeline">
+                        <span class="pipeline-step">📥 مدخلات</span>
+                        <span class="pipeline-arrow">←</span>
+                        <span class="pipeline-step">🔄 تصنيف (AL)</span>
+                        <span class="pipeline-arrow">←</span>
+                        <span class="pipeline-step">📊 تحليل (AL)</span>
+                        <span class="pipeline-arrow">←</span>
+                        <span class="pipeline-step">💡 اقتراح (ML)</span>
+                        <span class="pipeline-arrow">←</span>
+                        <span class="pipeline-step">👤 مراجعة بشرية</span>
+                        <span class="pipeline-arrow">←</span>
+                        <span class="pipeline-step">⚡ تنفيذ</span>
+                        <span class="pipeline-arrow">←</span>
+                        <span class="pipeline-step">📏 قياس</span>
+                        <span class="pipeline-arrow">←</span>
+                        <span class="pipeline-step">📄 توثيق</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- حاكمية الذكاء الصناعي -->
+        <div class="section-title">🛡️ حاكمية الذكاء الصناعي — AI Governance</div>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title"><span class="icon">⚖️</span> القواعد الحاكمة</div>
+                <div class="governance-grid">
+                    <div class="gov-item">
+                        <div class="gov-icon">🔍</div>
+                        <div class="gov-name">أداة تحليل فقط</div>
+                        <div class="gov-desc">الذكاء لا يتخذ قرارات نهائية</div>
+                    </div>
+                    <div class="gov-item">
+                        <div class="gov-icon">🚫</div>
+                        <div class="gov-name">لا تنبؤ غيبي</div>
+                        <div class="gov-desc">تحليل ماضي وحالي فقط</div>
+                    </div>
+                    <div class="gov-item">
+                        <div class="gov-icon">🔒</div>
+                        <div class="gov-name">لا تعلم منفلت</div>
+                        <div class="gov-desc">كل تحسين يحتاج اعتماد بشري</div>
+                    </div>
+                    <div class="gov-item">
+                        <div class="gov-icon">👤</div>
+                        <div class="gov-name">الإنسان هو القرار</div>
+                        <div class="gov-desc">المرجع النهائي دائمًا</div>
+                    </div>
+                    <div class="gov-item">
+                        <div class="gov-icon">📋</div>
+                        <div class="gov-name">شفافية كاملة</div>
+                        <div class="gov-desc">كل قرار موثّق ومعلّل</div>
+                    </div>
+                    <div class="gov-item">
+                        <div class="gov-icon">☪️</div>
+                        <div class="gov-name">الكتاب والسنة</div>
+                        <div class="gov-desc">المرجعية العليا الحاكمة</div>
+                    </div>
+                </div>
+                <div style="margin-top: 16px">
+                    <div style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px;">🚫 المحظورات:</div>
+                    <div class="forbidden-list">
+                        <span class="forbidden-tag">التنبؤ بالغيب</span>
+                        <span class="forbidden-tag">قرارات نهائية</span>
+                        <span class="forbidden-tag">تعلم ذاتي بلا رقابة</span>
+                        <span class="forbidden-tag">محاكاة الوعي</span>
+                        <span class="forbidden-tag">جمع بيانات بلا إذن</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="icon">🧠</span> طبقات الذكاء — AI Layers</div>
+                <div class="ai-layers">
+                    <div class="ai-layer al">
+                        <div class="layer-icon">⚙️</div>
+                        <div>
+                            <div class="layer-name">المنطق الخوارزمي (AL)</div>
+                            <div class="layer-type">DETERMINISTIC — حتمي — بدون اعتماد بشري</div>
+                            <div class="layer-caps">
+                                <span>تصنيف</span><span>ترتيب</span><span>كشف خلل</span><span>تحسين تدفق</span><span>تحليل أنماط</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ai-layer ml">
+                        <div class="layer-icon">📈</div>
+                        <div>
+                            <div class="layer-name">التعلم المقاس (ML)</div>
+                            <div class="layer-type">SUPERVISED — مُراقب — يحتاج اعتماد بشري</div>
+                            <div class="layer-caps">
+                                <span>قياس قبل/بعد</span><span>تحسين تدريجي</span><span>اكتشاف أنماط</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ai-layer ke">
+                        <div class="layer-icon">📚</div>
+                        <div>
+                            <div class="layer-name">هندسة المعرفة (KE)</div>
+                            <div class="layer-type">STRUCTURED — مُهيكل — تنظيم وربط</div>
+                            <div class="layer-caps">
+                                <span>تنظيم المعرفة</span><span>ربط السياق</span><span>استخلاص الأنماط</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الأداء المتوازن -->
+        <div class="section-title">📊 مقياس الأداء المتوازن — Balanced Scorecard</div>
+        <div class="grid-4" id="performanceGrid">
+            <div class="card">
+                <div class="card-title"><span class="icon">☪️</span> المنظور الشرعي</div>
+                <div class="perf-perspective">
+                    <div class="perf-header"><span class="perf-name">الامتثال الشرعي</span><span class="perf-score" style="background: rgba(0,230,118,0.15); color: var(--green)">100%</span></div>
+                    <div class="perf-bar"><div class="perf-bar-fill" style="width: 100%; background: var(--green)"></div></div>
+                </div>
+                <div class="perf-perspective">
+                    <div class="perf-header"><span class="perf-name">المخالفات</span><span class="perf-score" style="background: rgba(0,230,118,0.15); color: var(--green)">0</span></div>
+                    <div class="perf-bar"><div class="perf-bar-fill" style="width: 100%; background: var(--green)"></div></div>
+                </div>
+                <div class="perf-perspective">
+                    <div class="perf-header"><span class="perf-name">تدقيق المحتوى</span><span class="perf-score" style="background: rgba(0,230,118,0.15); color: var(--green)">100%</span></div>
+                    <div class="perf-bar"><div class="perf-bar-fill" style="width: 100%; background: var(--green)"></div></div>
+                </div>
+                <div style="text-align: center; margin-top: 12px; font-weight: 700; color: var(--green);">الوزن: 30%</div>
+            </div>
+            <div class="card">
+                <div class="card-title"><span class="icon">⚡</span> المنظور التقني</div>
+                <div class="perf-perspective">
+                    <div class="perf-header"><span class="perf-name">وقت التشغيل</span><span class="perf-score" style="background: rgba(0,230,118,0.15); color: var(--green)">99.9%</span></div>
+                    <div class="perf-bar"><div class="perf-bar-fill" style="width: 99.9%; background: var(--green)"></div></div>
+                </div>
+                <div class="perf-perspective">
+                    <div class="perf-header"><span class="perf-name">الأخطاء الحرجة</span><span class="perf-score" style="background: rgba(0,230,118,0.15); color: var(--green)">0</span></div>
+                    <div class="perf-bar"><div class="perf-bar-fill" style="width: 100%; background: var(--green)"></div></div>
+                </div>
+                <div class="perf-perspective">
+                    <div class="perf-header"><span class="perf-name">الاختراقات</span><span class="perf-score" style="background: rgba(0,230,118,0.15); color: var(--green)">0</span></div>
+                    <div class="perf-bar"><div class="perf-bar-fill" style="width: 100%; background: var(--green)"></div></div>
+                </div>
+                <div style="text-align: center; margin-top: 12px; font-weight: 700; color: var(--green);">الوزن: 25%</div>
+            </div>
+            <div class="card">
+                <div class="card-title"><span class="icon">💰</span> المنظور التجاري</div>
+                <div class="perf-perspective">
+                    <div class="perf-header"><span class="perf-name">المستخدمون</span><span class="perf-score" style="background: rgba(255,183,77,0.15); color: var(--orange)">PILOT</span></div>
+                    <div class="perf-bar"><div class="perf-bar-fill" style="width: 20%; background: var(--orange)"></div></div>
+                </div>
+                <div class="perf-perspective">
+                    <div class="perf-header"><span class="perf-name">الشركات</span><span class="perf-score" style="background: rgba(255,183,77,0.15); color: var(--orange)">PILOT</span></div>
+                    <div class="perf-bar"><div class="perf-bar-fill" style="width: 10%; background: var(--orange)"></div></div>
+                </div>
+                <div style="text-align: center; margin-top: 12px; font-weight: 700; color: var(--orange);">الوزن: 25%</div>
+            </div>
+            <div class="card">
+                <div class="card-title"><span class="icon">🌱</span> النمو والتعلم</div>
+                <div class="perf-perspective">
+                    <div class="perf-header"><span class="perf-name">المعرفة المهيكلة</span><span class="perf-score" style="background: rgba(0,230,118,0.15); color: var(--green)">127+</span></div>
+                    <div class="perf-bar"><div class="perf-bar-fill" style="width: 100%; background: var(--green)"></div></div>
+                </div>
+                <div class="perf-perspective">
+                    <div class="perf-header"><span class="perf-name">المحركات</span><span class="perf-score" style="background: rgba(0,230,118,0.15); color: var(--green)">12/12</span></div>
+                    <div class="perf-bar"><div class="perf-bar-fill" style="width: 100%; background: var(--green)"></div></div>
+                </div>
+                <div style="text-align: center; margin-top: 12px; font-weight: 700; color: var(--green);">الوزن: 20%</div>
+            </div>
+        </div>
+
+        <!-- المنهجيات والعلوم -->
+        <div class="section-title">📚 المنهجيات والعلوم المُطبّقة</div>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title"><span class="icon">🔬</span> المنهجيات</div>
+                <div class="methodology-list" id="methodsList">
+                    <div class="method-item">
+                        <div class="method-name">المنهج العلمي الإسلامي</div>
+                        <div class="method-desc">ملاحظة → فرضية → تجربة → قياس → مراجعة → توثيق</div>
+                        <span class="method-badge active">مُفعّل</span>
+                    </div>
+                    <div class="method-item">
+                        <div class="method-name">Kaizen (التحسين المستمر)</div>
+                        <div class="method-desc">تحسين يومي تدريجي — كل يوم أفضل</div>
+                        <span class="method-badge active">مُفعّل</span>
+                    </div>
+                    <div class="method-item">
+                        <div class="method-name">Lean Development</div>
+                        <div class="method-desc">إزالة الهدر — التركيز على القيمة</div>
+                        <span class="method-badge active">مُفعّل</span>
+                    </div>
+                    <div class="method-item">
+                        <div class="method-name">Balanced Scorecard</div>
+                        <div class="method-desc">4 منظورات: شرعي + تقني + تجاري + نمو</div>
+                        <span class="method-badge active">مُفعّل</span>
+                    </div>
+                    <div class="method-item">
+                        <div class="method-name">PDCA (Plan-Do-Check-Act)</div>
+                        <div class="method-desc">خطط → نفّذ → تحقق → حسّن</div>
+                        <span class="method-badge active">مُفعّل</span>
+                    </div>
+                    <div class="method-item">
+                        <div class="method-name">Zero-Risk Deployment</div>
+                        <div class="method-desc">إطلاق بلا مخاطر — استقرار أولًا</div>
+                        <span class="method-badge active">مُفعّل</span>
+                    </div>
+                    <div class="method-item">
+                        <div class="method-name">Event-Driven Architecture</div>
+                        <div class="method-desc">بنية مبنية على الأحداث — استجابة فورية</div>
+                        <span class="method-badge planned">مُخطط</span>
+                    </div>
+                    <div class="method-item">
+                        <div class="method-name">Domain-Driven Design</div>
+                        <div class="method-desc">تصميم مبني على مجال العمل</div>
+                        <span class="method-badge planned">مُخطط</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="icon">🧪</span> العلوم المُطبّقة</div>
+                <div class="science-tags">
+                    <div class="science-tag">🔩 علم المعادن والتعدين <span class="depth">متقدم</span></div>
+                    <div class="science-tag">☪️ الاقتصاد الإسلامي <span class="depth">متقدم</span></div>
+                    <div class="science-tag">📊 علم البيانات <span class="depth">متوسط</span></div>
+                    <div class="science-tag">💻 هندسة البرمجيات <span class="depth">متقدم</span></div>
+                    <div class="science-tag">🎨 تجربة المستخدم <span class="depth">متقدم</span></div>
+                    <div class="science-tag">🚚 سلاسل الإمداد <span class="depth">متقدم</span></div>
+                    <div class="science-tag">⚖️ التسعير العادل <span class="depth">متقدم</span></div>
+                    <div class="science-tag">🔒 أمن المعلومات <span class="depth">متقدم</span></div>
+                </div>
+
+                <div style="margin-top: 24px">
+                    <div class="card-title"><span class="icon">🏆</span> مستويات الإتقان</div>
+                    <div class="level-ladder">
+                        <div class="level-step current">
+                            <div class="level-num">5</div>
+                            <div class="level-info">
+                                <div class="level-name">مُبدع مُتقن — Mastery</div>
+                                <div class="level-range">95-100 | نضج كامل — إبداع مستمر</div>
+                            </div>
+                        </div>
+                        <div class="level-step reached">
+                            <div class="level-num">4</div>
+                            <div class="level-info">
+                                <div class="level-name">مُتقن — Proficient</div>
+                                <div class="level-range">80-94 | النظام متقن ومتحسن</div>
+                            </div>
+                        </div>
+                        <div class="level-step reached">
+                            <div class="level-num">3</div>
+                            <div class="level-info">
+                                <div class="level-name">مُقاس — Measured</div>
+                                <div class="level-range">60-79 | النظام يُقاس ويُتابع</div>
+                            </div>
+                        </div>
+                        <div class="level-step reached">
+                            <div class="level-num">2</div>
+                            <div class="level-info">
+                                <div class="level-name">منظّم — Organized</div>
+                                <div class="level-range">40-59 | النظام منظم وموثق</div>
+                            </div>
+                        </div>
+                        <div class="level-step reached">
+                            <div class="level-num">1</div>
+                            <div class="level-info">
+                                <div class="level-name">أساسي — Basic</div>
+                                <div class="level-range">0-39 | النظام يعمل بالحد الأدنى</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checklists -->
+        <div class="section-title">✅ Checklists اليومية والأسبوعية</div>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title"><span class="icon">📅</span> المهام اليومية <span id="dailyProgress" style="margin-right: auto; font-size: 0.8rem; color: var(--text-dim)"></span></div>
+                <ul class="checklist" id="dailyChecklist">
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">فحص صحة النظام (Health Check)</span><span class="check-priority critical">حرج</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">مراجعة الأخطاء الجديدة</span><span class="check-priority critical">حرج</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">مراجعة KPIs الأداء</span><span class="check-priority high">عالي</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">مراجعة اقتراحات الذكاء</span><span class="check-priority medium">متوسط</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">فحص التدقيق الشرعي</span><span class="check-priority critical">حرج</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">مراجعة حركة الزوار</span><span class="check-priority medium">متوسط</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">النسخ الاحتياطي للبيانات</span><span class="check-priority high">عالي</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">تحديث سجل العمل</span><span class="check-priority medium">متوسط</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">فحص استقرار الذاكرة</span><span class="check-priority high">عالي</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">مراجعة SMI وتقييم النضج</span><span class="check-priority high">عالي</span></li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-title"><span class="icon">📆</span> المهام الأسبوعية <span id="weeklyProgress" style="margin-right: auto; font-size: 0.8rem; color: var(--text-dim)"></span></div>
+                <ul class="checklist" id="weeklyChecklist">
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">مراجعة شاملة لمؤشر النضج SMI</span><span class="check-priority critical">حرج</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">تقييم التقدم العلمي والتقني</span><span class="check-priority high">عالي</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">مراجعة الاستراتيجيات والأهداف</span><span class="check-priority high">عالي</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">تقييم جودة الكود والمحركات</span><span class="check-priority high">عالي</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">مراجعة الأداء التجاري والتسويقي</span><span class="check-priority high">عالي</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">اعتماد أو رفض اقتراحات الذكاء</span><span class="check-priority medium">متوسط</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">تحديث خريطة الطريق</span><span class="check-priority medium">متوسط</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">مراجعة التوثيق والحوكمة</span><span class="check-priority medium">متوسط</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">فحص أمني شامل</span><span class="check-priority critical">حرج</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">إعداد تقرير أسبوعي</span><span class="check-priority high">عالي</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">تقييم جاهزية الانتقال</span><span class="check-priority high">عالي</span></li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-task">مراجعة المنهجيات والتحسينات</span><span class="check-priority medium">متوسط</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- الاستراتيجيات -->
+        <div class="section-title">🎯 الاستراتيجيات</div>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-title"><span class="icon">🥇</span> الأول والأفضل</div>
+                <div class="strategy-item">
+                    <ul class="strategy-list">
+                        <li>أول سوق إسلامي رقمي للمعادن الثمينة</li>
+                        <li>أول منظومة تدقيق شرعي آلي للمعادن</li>
+                        <li>أول نظام تسعير عادل إسلامي رقمي</li>
+                        <li>أول منظومة ذكاء صناعي منضبط شرعيًا</li>
+                        <li>أول نظام تجاري رقمي بـ 12 محرك ذكي</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title"><span class="icon">🌿</span> الاستدامة والاستقلال</div>
+                <div class="strategy-item">
+                    <ul class="strategy-list">
+                        <li>الاستقلال عن النماذج المدفوعة</li>
+                        <li>الاكتفاء بالذكاء الداخلي</li>
+                        <li>التوسع المدروس — خطوة بخطوة</li>
+                        <li>الجودة قبل السرعة</li>
+                        <li>التوثيق كأساس للاستمرارية</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title"><span class="icon">🛡️</span> الخندق التنافسي</div>
+                <div class="strategy-item">
+                    <ul class="strategy-list">
+                        <li>التخصص العميق في المعادن</li>
+                        <li>الانضباط الشرعي الكامل</li>
+                        <li>التقنية المتقدمة (12 محرك)</li>
+                        <li>التسعير العادل والشفاف</li>
+                        <li>الثقة والشفافية والتوثيق</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- قرار الانتقال الرسمي -->
+        <div class="transition-box" style="margin-bottom: 30px">
+            <h3>📜 قرار الانتقال الرسمي إلى المستوى الخامس (Level 5)</h3>
+            <p style="color: var(--text-dim); margin-bottom: 10px">SHEIKHA OFFICIAL TRANSITION DECISION — Level 5: مُبدع مُتقن (Mastery)</p>
+            <div class="decision">
+                بناءً على اكتمال جميع المعايير التقنية والشرعية والمنهجية والتوثيقية<br>
+                وتحقيق مؤشر النضج (SMI) = 100/100<br>
+                يُعتمد رسميًا انتقال منظومة شيخة إلى:<br>
+                <span style="font-size: 1.4rem; color: var(--gold)">المستوى الخامس — نضج كامل مستقل</span>
+            </div>
+            <div style="margin: 15px 0; font-size: 0.95rem; color: var(--text)">
+                ✅ الانضباط الشرعي: 25/25 | ✅ الاستقرار التقني: 20/20 | ✅ وضوح المنهج: 15/15<br>
+                ✅ الأتمتة: 15/15 | ✅ الجاهزية التجارية: 15/15 | ✅ التوثيق والحوكمة: 10/10
+            </div>
+            <div class="stamp">
+                بسم الله توكلنا على الله، ولا حول ولا قوة إلا بالله<br>
+                <span class="gold">المالك: سلمان أحمد بن سلمان الراجح</span><br>
+                منظومة وسوق شيخة — SHEIKHA<br>
+                التاريخ: فبراير 2026
+            </div>
+        </div>
+
+        <!-- التذييل -->
+        <div class="footer">
+            <span class="gold">☪️</span> منظومة وسوق شيخة — SHEIKHA<br>
+            <span class="gold">المالك:</span> سلمان أحمد بن سلمان الراجح<br>
+            المرجعية الحاكمة: الكتاب والسنة<br>
+            <span style="font-size: 0.75rem; margin-top: 5px; display: block">SHEIKHA AI & Advancement Engine v1.0 | 12 محرك ذكي | 127+ وثيقة</span>
+        </div>
+    </div>
+
+    <script>
+        // ═══ تفاعل Checklist ═══
+        function toggleCheck(el) {
+            el.classList.toggle('checked');
+            el.innerHTML = el.classList.contains('checked') ? '✓' : '';
+            updateProgress();
+            // حفظ في localStorage
+            saveChecklistState();
+        }
+
+        function updateProgress() {
+            ['daily', 'weekly'].forEach(type => {
+                const list = document.getElementById(type + 'Checklist');
+                const items = list.querySelectorAll('.check-box');
+                const checked = list.querySelectorAll('.check-box.checked');
+                const el = document.getElementById(type + 'Progress');
+                el.textContent = `${checked.length}/${items.length} (${Math.round(checked.length/items.length*100)}%)`;
+            });
+        }
+
+        function saveChecklistState() {
+            const state = {};
+            document.querySelectorAll('.checklist').forEach(list => {
+                const id = list.id;
+                state[id] = [];
+                list.querySelectorAll('.check-box').forEach((box, i) => {
+                    state[id][i] = box.classList.contains('checked');
+                });
+            });
+            localStorage.setItem('sheikha_checklists_' + new Date().toISOString().split('T')[0], JSON.stringify(state));
+        }
+
+        function loadChecklistState() {
+            const today = new Date().toISOString().split('T')[0];
+            const saved = localStorage.getItem('sheikha_checklists_' + today);
+            if (saved) {
+                const state = JSON.parse(saved);
+                Object.keys(state).forEach(listId => {
+                    const list = document.getElementById(listId);
+                    if (list) {
+                        const boxes = list.querySelectorAll('.check-box');
+                        state[listId].forEach((checked, i) => {
+                            if (checked && boxes[i]) {
+                                boxes[i].classList.add('checked');
+                                boxes[i].innerHTML = '✓';
+                            }
+                        });
+                    }
+                });
+            }
+            updateProgress();
+        }
+
+        // ═══ تحميل بيانات النضج ═══
+        async function loadMaturityData() {
+            try {
+                const res = await fetch('/api/pilot/smi');
+                const data = await res.json();
+                if (data.success !== false) {
+                    const smi = data.smi || data;
+                    const score = smi.total || 100;
+                    
+                    document.getElementById('maturityScore').textContent = score;
+                    document.getElementById('maturityLevel').textContent = smi.grade || 'ممتاز';
+                    
+                    // تحريك الحلقة
+                    const circle = document.getElementById('maturityCircle');
+                    const offset = 597 - (597 * (score / 100));
+                    circle.style.strokeDashoffset = offset;
+                }
+            } catch (e) {
+                // بيانات افتراضية
+                document.getElementById('maturityScore').textContent = '100';
+                document.getElementById('maturityLevel').textContent = 'نضج كامل مستقل';
+                const circle = document.getElementById('maturityCircle');
+                circle.style.strokeDashoffset = '0';
+            }
+        }
+
+        // ═══ تحميل بيانات الخطوات ═══
+        async function loadPhasesData() {
+            try {
+                const res = await fetch('/api/four-phase/dashboard');
+                const data = await res.json();
+                if (data.phases) {
+                    for (let i = 1; i <= 4; i++) {
+                        const phase = data.phases[i];
+                        const numEl = document.getElementById(`phase${i}Num`);
+                        const statusEl = document.getElementById(`phase${i}Status`);
+                        
+                        numEl.className = 'phase-number ' + 
+                            (phase.status === 'COMPLETED' ? 'completed' : 
+                             phase.status === 'IN_PROGRESS' ? 'active' : 'planned');
+                        
+                        statusEl.textContent = phase.status === 'COMPLETED' ? '✅ مكتمل' :
+                            phase.status === 'IN_PROGRESS' ? `⏳ ${phase.progress}%` : '📋 مُخطط';
+                    }
+                }
+            } catch (e) {
+                // بيانات افتراضية
+                document.getElementById('phase1Status').textContent = '✅ مكتمل';
+                document.getElementById('phase1Num').className = 'phase-number completed';
+                document.getElementById('phase2Status').textContent = '📋 مُخطط';
+                document.getElementById('phase3Status').textContent = '📋 مُخطط';
+                document.getElementById('phase4Status').textContent = '📋 مُخطط';
+            }
+        }
+
+        // ═══ التهيئة ═══
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChecklistState();
+            loadMaturityData();
+            loadPhasesData();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,420 @@
+{
+  "metadata": {
+    "title": "سجل شركات شبكة شيخة الذكية",
+    "version": "2.0",
+    "lastUpdated": "2026-02-05",
+    "totalCompanies": 0,
+    "networkVision": "بناء أفضل شبكة ذكية في العالم لقطاع المعادن والسكراب",
+    "networkMission": "الريادة في رقمنة سلاسل الإمداد وتحقيق الاستدامة والسلامة",
+    "unifiedGoals": {
+      "sustainability": "تحقيق الاستدامة البيئية بنسبة 100% بحلول 2030",
+      "safety": "صفر حوادث في سلسلة التوريد",
+      "leadership": "الريادة العالمية في قطاع المعادن",
+      "digitalization": "رقمنة 100% من العمليات",
+      "shariaCompliance": "الالتزام الكامل بالضوابط الشرعية"
+    }
+  },
+  "companyCategories": {
+    "mining": {
+      "nameAr": "شركات التعدين",
+      "nameEn": "Mining Companies",
+      "icon": "⛏️",
+      "color": "#D4AF37"
+    },
+    "precious_metals": {
+      "nameAr": "المعادن الثمينة",
+      "nameEn": "Precious Metals",
+      "icon": "💎",
+      "color": "#FFD700"
+    },
+    "rare_metals": {
+      "nameAr": "المعادن النادرة",
+      "nameEn": "Rare Metals",
+      "icon": "🔮",
+      "color": "#9B59B6"
+    },
+    "scrap": {
+      "nameAr": "شركات السكراب",
+      "nameEn": "Scrap Companies",
+      "icon": "♻️",
+      "color": "#27AE60"
+    },
+    "logistics": {
+      "nameAr": "شركات النقل واللوجستيات",
+      "nameEn": "Logistics Companies",
+      "icon": "🚚",
+      "color": "#3498DB"
+    },
+    "supply_chain": {
+      "nameAr": "سلاسل الإمداد",
+      "nameEn": "Supply Chain",
+      "icon": "🔗",
+      "color": "#E67E22"
+    },
+    "smelters": {
+      "nameAr": "المصاهر",
+      "nameEn": "Smelters",
+      "icon": "🔥",
+      "color": "#E74C3C"
+    },
+    "recycling": {
+      "nameAr": "إعادة التدوير",
+      "nameEn": "Recycling",
+      "icon": "🌱",
+      "color": "#2ECC71"
+    }
+  },
+  "registeredCompanies": [
+    {
+      "nameAr": "شركة اختبار",
+      "type": "metals",
+      "email": "company-test@example.com",
+      "phone": "0509876543",
+      "category": "metals",
+      "companyId": "MET-425168",
+      "apiIntegration": {
+        "apiKey": "shk_HaUphKeDilmpLqiMDZPDk8NemSLfD4Tv",
+        "enabled": true
+      },
+      "aiModel": {
+        "enabled": true,
+        "customPrompt": "أنت مساعد ذكي لشركة شركة اختبار. تخصصك: metals. ساعد العملاء والموظفين."
+      },
+      "registeredAt": "2026-02-14T09:13:45.168Z",
+      "status": "active",
+      "analytics": {
+        "performanceScore": 80,
+        "sustainabilityScore": 75,
+        "safetyScore": 90,
+        "digitalMaturityScore": 70,
+        "customerSatisfactionScore": 85
+      }
+    }
+  ],
+  "companyDataModel": {
+    "required": [
+      "companyId",
+      "nameAr",
+      "nameEn",
+      "category",
+      "commercialRegister",
+      "vatNumber",
+      "headquarters"
+    ],
+    "profile": {
+      "companyId": "string (auto-generated)",
+      "nameAr": "string",
+      "nameEn": "string",
+      "logo": "url",
+      "category": "enum[mining, precious_metals, rare_metals, scrap, logistics, supply_chain, smelters, recycling]",
+      "subcategories": "array",
+      "commercialRegister": "string",
+      "vatNumber": "string",
+      "founded": "year",
+      "headquarters": {
+        "city": "string",
+        "region": "string",
+        "address": "string",
+        "coordinates": {
+          "lat": "number",
+          "lng": "number"
+        }
+      },
+      "branches": "array",
+      "website": "url",
+      "email": "email",
+      "phone": "string",
+      "socialMedia": {
+        "linkedin": "url",
+        "twitter": "url",
+        "instagram": "url"
+      }
+    },
+    "businessInfo": {
+      "vision": "string",
+      "mission": "string",
+      "values": "array",
+      "goals": {
+        "shortTerm": "array",
+        "mediumTerm": "array",
+        "longTerm": "array"
+      },
+      "certifications": "array",
+      "awards": "array",
+      "partnerships": "array"
+    },
+    "operations": {
+      "products": [
+        {
+          "productId": "string",
+          "nameAr": "string",
+          "nameEn": "string",
+          "category": "string",
+          "hsCode": "string",
+          "specifications": "object",
+          "unitOfMeasure": "string",
+          "minOrderQuantity": "number",
+          "pricing": {
+            "type": "enum[fixed, negotiable, auction]",
+            "basePrice": "number",
+            "currency": "SAR"
+          },
+          "inventory": {
+            "available": "number",
+            "reserved": "number",
+            "incoming": "number"
+          }
+        }
+      ],
+      "services": "array",
+      "capacity": {
+        "annual": "number",
+        "unit": "string",
+        "utilization": "percentage"
+      },
+      "facilities": [
+        {
+          "type": "enum[factory, warehouse, mine, office, lab]",
+          "location": "string",
+          "size": "sqm",
+          "equipment": "array"
+        }
+      ],
+      "fleet": {
+        "trucks": "number",
+        "types": "array",
+        "totalCapacity": "tons"
+      }
+    },
+    "supplyChain": {
+      "suppliers": "array",
+      "customers": "array",
+      "logisticsPartners": "array",
+      "stages": "array[source, collection, processing, transport, smelter, manufacturing, end]"
+    },
+    "financials": {
+      "annualRevenue": "number",
+      "currency": "SAR",
+      "creditRating": "string",
+      "paymentTerms": "string",
+      "bankDetails": "encrypted"
+    },
+    "compliance": {
+      "shariaCompliant": "boolean",
+      "environmentalCertifications": "array",
+      "safetyCertifications": "array",
+      "qualityCertifications": "array",
+      "lastAuditDate": "date"
+    },
+    "analytics": {
+      "performanceScore": "0-100",
+      "sustainabilityScore": "0-100",
+      "safetyScore": "0-100",
+      "digitalMaturityScore": "0-100",
+      "customerSatisfactionScore": "0-100"
+    },
+    "apiIntegration": {
+      "enabled": "boolean",
+      "apiKey": "encrypted",
+      "webhookUrl": "url",
+      "endpoints": {
+        "products": "url",
+        "orders": "url",
+        "inventory": "url",
+        "logistics": "url"
+      },
+      "lastSync": "datetime"
+    },
+    "aiModel": {
+      "enabled": "boolean",
+      "customPrompt": "string",
+      "capabilities": "array",
+      "trainedOn": "date",
+      "accuracy": "percentage"
+    }
+  },
+  "preRegisteredCompanies": [
+    {
+      "companyId": "MAADEN-001",
+      "nameAr": "شركة التعدين العربية السعودية (معادن)",
+      "nameEn": "Ma'aden - Saudi Arabian Mining Company",
+      "category": "mining",
+      "subcategories": [
+        "precious_metals",
+        "rare_metals",
+        "smelters"
+      ],
+      "commercialRegister": "1010164391",
+      "vatNumber": "300000000000003",
+      "founded": 1997,
+      "headquarters": {
+        "city": "الرياض",
+        "region": "منطقة الرياض",
+        "address": "طريق الملك فهد، حي العليا"
+      },
+      "website": "maaden.com.sa",
+      "vision": "أن نكون شركة تعدين عالمية رائدة تُسهم في تنويع الاقتصاد السعودي",
+      "mission": "استكشاف واستخراج ومعالجة الموارد المعدنية بطريقة مستدامة ومسؤولة",
+      "goals": {
+        "shortTerm": [
+          "زيادة إنتاج الذهب 20%",
+          "تطوير منجمين جديدين"
+        ],
+        "mediumTerm": [
+          "الوصول لإنتاج 500,000 أوقية ذهب سنوياً",
+          "تصفير الانبعاثات الكربونية"
+        ],
+        "longTerm": [
+          "أن نصبح ضمن أكبر 5 شركات تعدين عالمياً"
+        ]
+      },
+      "products": [
+        {
+          "name": "الذهب",
+          "capacity": "407,000 أوقية/سنة"
+        },
+        {
+          "name": "الفوسفات",
+          "capacity": "6 مليون طن/سنة"
+        },
+        {
+          "name": "الألمنيوم",
+          "capacity": "740,000 طن/سنة"
+        },
+        {
+          "name": "النحاس",
+          "capacity": "45,000 طن/سنة"
+        }
+      ],
+      "marketCap": "47.7 مليار دولار",
+      "employees": "17,000+",
+      "mines": 7,
+      "status": "pending_verification"
+    },
+    {
+      "companyId": "ALQARYAN-001",
+      "nameAr": "مجموعة القريان",
+      "nameEn": "Al Qaryan Group",
+      "category": "scrap",
+      "subcategories": [
+        "recycling",
+        "logistics"
+      ],
+      "commercialRegister": "2050012345",
+      "founded": 1988,
+      "headquarters": {
+        "city": "الدمام",
+        "region": "المنطقة الشرقية"
+      },
+      "vision": "الريادة في إعادة التدوير والحفاظ على البيئة",
+      "mission": "تقديم حلول متكاملة لإدارة المخلفات المعدنية بأعلى معايير الجودة",
+      "goals": {
+        "shortTerm": [
+          "توسيع الطاقة الإنتاجية 25%",
+          "رقمنة جميع العمليات"
+        ],
+        "mediumTerm": [
+          "فتح 10 فروع جديدة في الخليج"
+        ],
+        "longTerm": [
+          "أن نصبح أكبر شركة إعادة تدوير في الشرق الأوسط"
+        ]
+      },
+      "products": [
+        {
+          "name": "سكراب حديد",
+          "capacity": "500,000 طن/سنة"
+        },
+        {
+          "name": "سكراب نحاس",
+          "capacity": "50,000 طن/سنة"
+        },
+        {
+          "name": "سكراب ألمنيوم",
+          "capacity": "100,000 طن/سنة"
+        },
+        {
+          "name": "سكراب إلكتروني",
+          "capacity": "10,000 طن/سنة"
+        }
+      ],
+      "facilities": 27,
+      "processingCapacity": "1,000,000 طن/سنة",
+      "digitalPartner": "SAP",
+      "status": "pending_verification"
+    },
+    {
+      "companyId": "AWC-001",
+      "nameAr": "شركة الأعمال المعتمدة",
+      "nameEn": "Approved Works Corporation (AWC)",
+      "category": "scrap",
+      "subcategories": [
+        "logistics",
+        "recycling"
+      ],
+      "founded": 1998,
+      "headquarters": {
+        "city": "الدمام",
+        "region": "المنطقة الشرقية"
+      },
+      "vision": "قيادة قطاع إدارة المخلفات الصناعية في الخليج",
+      "mission": "تقديم خدمات هدم صناعي وإدارة مخلفات بمعايير عالمية",
+      "presence": "4 دول خليجية",
+      "services": [
+        "الهدم الصناعي",
+        "تجارة السكراب",
+        "إدارة النفايات",
+        "النقل"
+      ],
+      "status": "pending_verification"
+    },
+    {
+      "companyId": "LUBEX-001",
+      "nameAr": "شركة لوبكس للخدمات اللوجستية",
+      "nameEn": "Lubex Logistics",
+      "category": "logistics",
+      "headquarters": {
+        "city": "جدة",
+        "region": "منطقة مكة المكرمة"
+      },
+      "vision": "أن نكون الخيار الأول لنقل المعدات الثقيلة في السعودية",
+      "mission": "تقديم خدمات نقل آمنة وموثوقة على مدار الساعة",
+      "fleet": {
+        "types": [
+          "شاحنات عادية",
+          "هيدروليك",
+          "سبيشل"
+        ],
+        "maxCapacity": "150 طن",
+        "availability": "24/7"
+      },
+      "coverage": "جميع مدن المملكة",
+      "status": "pending_verification"
+    },
+    {
+      "companyId": "GHL-001",
+      "nameAr": "رواد الخدمات اللوجستية (مرفأ الخليج)",
+      "nameEn": "Gulf Harbor Logistics",
+      "category": "logistics",
+      "subcategories": [
+        "supply_chain"
+      ],
+      "founded": 1995,
+      "headquarters": {
+        "city": "الدمام",
+        "region": "المنطقة الشرقية"
+      },
+      "vision": "الريادة في الخدمات اللوجستية المتكاملة",
+      "mission": "ربط الأسواق السعودية والخليجية بسلاسل إمداد فعالة",
+      "services": [
+        "تخليص جمركي",
+        "نقل بري",
+        "تخزين",
+        "تأمين",
+        "تأجير معدات"
+      ],
+      "coverage": "السعودية والخليج",
+      "status": "pending_verification"
+    }
+  ]
+}

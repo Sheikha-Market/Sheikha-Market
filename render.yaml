@@ -1,0 +1,22 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🏪 شيخة — إعدادات النشر على Render.com
+# ═══════════════════════════════════════════════════════════════════════════════
+
+services:
+  - type: web
+    name: sheikha-market
+    runtime: node
+    region: frankfurt  # أقرب لمنطقة الخليج
+    plan: free         # ابدأ بالمجاني ثم ارقِ
+    buildCommand: npm ci --only=production
+    startCommand: node server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 8080
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SHEIKHA_MODE
+        value: PILOT

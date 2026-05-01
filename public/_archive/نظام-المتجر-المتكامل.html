@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="نظام المتجر المتكامل - إدارة كاملة للمبيعات والفواتير والعقود والشحن">
+    <title>نظام المتجر المتكامل | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: #0a0f1a;
+            border-left: 1px solid rgba(255,255,255,0.08);
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .sidebar-header {
+            padding: 0 20px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 20px;
+        }
+        .store-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .store-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #d4af37, #f0d060);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .store-name {
+            font-weight: 800;
+            color: #d4af37;
+        }
+        .store-type {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .nav-section {
+            padding: 0 16px;
+            margin-bottom: 20px;
+        }
+        .nav-title {
+            font-size: 0.75rem;
+            color: #64748b;
+            padding: 8px 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 4px;
+        }
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: #ffffff;
+        }
+        .nav-item.active {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+            color: #d4af37;
+        }
+        .nav-icon {
+            font-size: 1.2rem;
+        }
+        .nav-badge {
+            margin-right: auto;
+            padding: 2px 8px;
+            background: #ef4444;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            color: white;
+        }
+
+        .main {
+            padding: 24px 32px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+        }
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37, #b8962d);
+            color: #0a0f1a;
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: linear-gradient(145deg, rgba(20, 30, 50, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        .stat-icon.gold { background: rgba(212, 175, 55, 0.2); }
+        .stat-icon.green { background: rgba(16, 185, 129, 0.2); }
+        .stat-icon.blue { background: rgba(59, 130, 246, 0.2); }
+        .stat-icon.purple { background: rgba(139, 92, 246, 0.2); }
+        .stat-change {
+            font-size: 0.85rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+        .stat-change.up { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .stat-change.down { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, rgba(20, 30, 50, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 24px;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+        .card-action {
+            color: #d4af37;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .orders-table {
+            width: 100%;
+        }
+        .orders-table th {
+            text-align: right;
+            padding: 12px 16px;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .orders-table td {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .order-id {
+            font-weight: 700;
+            color: #d4af37;
+        }
+        .order-customer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .customer-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .order-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status-new { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .status-processing { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .status-shipped { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+        .status-completed { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+
+        .quick-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .quick-action {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .quick-action:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        .action-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .action-icon.invoice { background: rgba(59, 130, 246, 0.2); }
+        .action-icon.contract { background: rgba(139, 92, 246, 0.2); }
+        .action-icon.quote { background: rgba(16, 185, 129, 0.2); }
+        .action-icon.po { background: rgba(245, 158, 11, 0.2); }
+        .action-icon.ship { background: rgba(236, 72, 153, 0.2); }
+        .action-title {
+            font-weight: 700;
+        }
+        .action-desc {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .document-flow {
+            margin-top: 24px;
+        }
+        .flow-title {
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .flow-steps {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            font-size: 0.85rem;
+        }
+        .flow-step.active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        .flow-arrow {
+            color: #64748b;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.show { display: flex; }
+        .modal-content {
+            background: #1e293b;
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #94a3b8;
+        }
+        .form-input, .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+        }
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .terms-section {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+        .terms-title {
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 8px;
+        }
+        .terms-check {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .terms-check input {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .layout { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .content-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="layout">
+    
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="store-logo">
+                <div class="store-icon">🏪</div>
+                <div>
+                    <div class="store-name">معادن الخليج</div>
+                    <div class="store-type">تاجر جملة</div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="nav-section">
+            <div class="nav-title">الرئيسية</div>
+            <div class="nav-item active">
+                <span class="nav-icon">📊</span>
+                <span>لوحة التحكم</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">📦</span>
+                <span>المنتجات</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">📋</span>
+                <span>الطلبات</span>
+                <span class="nav-badge">12</span>
+            </div>
+        </nav>
+
+        <nav class="nav-section">
+            <div class="nav-title">المستندات</div>
+            <div class="nav-item" onclick="openModal('quote')">
+                <span class="nav-icon">📄</span>
+                <span>عروض الأسعار</span>
+            </div>
+            <div class="nav-item" onclick="openModal('po')">
+                <span class="nav-icon">📑</span>
+                <span>أوامر الشراء</span>
+            </div>
+            <div class="nav-item" onclick="openModal('contract')">
+                <span class="nav-icon">📝</span>
+                <span>العقود</span>
+            </div>
+            <div class="nav-item" onclick="openModal('invoice')">
+                <span class="nav-icon">🧾</span>
+                <span>الفواتير</span>
+            </div>
+        </nav>
+
+        <nav class="nav-section">
+            <div class="nav-title">الشحن</div>
+            <div class="nav-item">
+                <span class="nav-icon">🚚</span>
+                <span>طلبات الشحن</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">📍</span>
+                <span>التتبع</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">📦</span>
+                <span>المستودعات</span>
+            </div>
+        </nav>
+
+        <nav class="nav-section">
+            <div class="nav-title">المالية</div>
+            <div class="nav-item">
+                <span class="nav-icon">💰</span>
+                <span>المحفظة</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">📈</span>
+                <span>التقارير</span>
+            </div>
+        </nav>
+
+        <nav class="nav-section">
+            <div class="nav-title">الإعدادات</div>
+            <div class="nav-item">
+                <span class="nav-icon">⚙️</span>
+                <span>إعدادات المتجر</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">📜</span>
+                <span>السياسات والشروط</span>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main">
+        
+        <div class="header">
+            <h1 class="page-title">لوحة التحكم</h1>
+            <div class="header-actions">
+                <button class="btn btn-secondary">📊 التقارير</button>
+                <button class="btn btn-primary" onclick="openModal('newOrder')">+ طلب جديد</button>
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon gold">💰</div>
+                    <span class="stat-change up">+15%</span>
+                </div>
+                <div class="stat-value">125,430 ر.س</div>
+                <div class="stat-label">المبيعات هذا الشهر</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon green">📦</div>
+                    <span class="stat-change up">+8%</span>
+                </div>
+                <div class="stat-value">234</div>
+                <div class="stat-label">الطلبات المكتملة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon blue">👥</div>
+                    <span class="stat-change up">+12%</span>
+                </div>
+                <div class="stat-value">89</div>
+                <div class="stat-label">عملاء جدد</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon purple">⭐</div>
+                </div>
+                <div class="stat-value">4.8</div>
+                <div class="stat-label">التقييم</div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📋 أحدث الطلبات</h2>
+                    <span class="card-action">عرض الكل ←</span>
+                </div>
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>رقم الطلب</th>
+                            <th>العميل</th>
+                            <th>المنتج</th>
+                            <th>القيمة</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="order-id">#ORD-2026-001</td>
+                            <td>
+                                <div class="order-customer">
+                                    <div class="customer-avatar">م</div>
+                                    <span>مصنع الخليج</span>
+                                </div>
+                            </td>
+                            <td>نحاس سكراب - 10 طن</td>
+                            <td>85,000 ر.س</td>
+                            <td><span class="order-status status-new">جديد</span></td>
+                        </tr>
+                        <tr>
+                            <td class="order-id">#ORD-2026-002</td>
+                            <td>
+                                <div class="order-customer">
+                                    <div class="customer-avatar">ش</div>
+                                    <span>شركة الفيصل</span>
+                                </div>
+                            </td>
+                            <td>ألومنيوم - 5 طن</td>
+                            <td>45,000 ر.س</td>
+                            <td><span class="order-status status-processing">قيد التجهيز</span></td>
+                        </tr>
+                        <tr>
+                            <td class="order-id">#ORD-2026-003</td>
+                            <td>
+                                <div class="order-customer">
+                                    <div class="customer-avatar">ت</div>
+                                    <span>تجارة المعادن</span>
+                                </div>
+                            </td>
+                            <td>حديد خردة - 20 طن</td>
+                            <td>28,000 ر.س</td>
+                            <td><span class="order-status status-shipped">تم الشحن</span></td>
+                        </tr>
+                        <tr>
+                            <td class="order-id">#ORD-2026-004</td>
+                            <td>
+                                <div class="order-customer">
+                                    <div class="customer-avatar">أ</div>
+                                    <span>أحمد للمعادن</span>
+                                </div>
+                            </td>
+                            <td>نحاس أحمر - 3 طن</td>
+                            <td>52,000 ر.س</td>
+                            <td><span class="order-status status-completed">مكتمل</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="document-flow">
+                    <h4 class="flow-title">📄 دورة المستندات</h4>
+                    <div class="flow-steps">
+                        <div class="flow-step active">📄 عرض سعر</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step active">📑 أمر شراء</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step active">📝 عقد</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">💳 دفع</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">🚚 شحن</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">🧾 فاتورة</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">⚡ إجراءات سريعة</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="quick-action" onclick="openModal('quote')">
+                            <div class="action-icon quote">📄</div>
+                            <div>
+                                <div class="action-title">إنشاء عرض سعر</div>
+                                <div class="action-desc">عرض أسعار جديد للعميل</div>
+                            </div>
+                        </div>
+                        <div class="quick-action" onclick="openModal('invoice')">
+                            <div class="action-icon invoice">🧾</div>
+                            <div>
+                                <div class="action-title">إصدار فاتورة</div>
+                                <div class="action-desc">فاتورة ضريبية رسمية</div>
+                            </div>
+                        </div>
+                        <div class="quick-action" onclick="openModal('contract')">
+                            <div class="action-icon contract">📝</div>
+                            <div>
+                                <div class="action-title">إنشاء عقد</div>
+                                <div class="action-desc">عقد بيع جديد</div>
+                            </div>
+                        </div>
+                        <div class="quick-action" onclick="openModal('ship')">
+                            <div class="action-icon ship">🚚</div>
+                            <div>
+                                <div class="action-title">طلب شحن</div>
+                                <div class="action-desc">حجز شحنة جديدة</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card-header">
+                        <h2 class="card-title">📊 المبيعات اليوم</h2>
+                    </div>
+                    <div style="text-align: center; padding: 20px 0;">
+                        <div style="font-size: 2.5rem; font-weight: 900; color: #10b981;">23,450</div>
+                        <div style="color: #64748b;">ر.س</div>
+                        <div style="margin-top: 16px; padding: 10px; background: rgba(16, 185, 129, 0.1); border-radius: 10px;">
+                            <span style="color: #10b981;">↑ 12%</span> مقارنة بالأمس
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<!-- Modal: عرض سعر -->
+<div class="modal" id="quoteModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">📄 إنشاء عرض سعر</h3>
+            <button class="modal-close" onclick="closeModal('quote')">×</button>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">العميل</label>
+            <select class="form-select">
+                <option>اختر العميل</option>
+                <option>مصنع الخليج</option>
+                <option>شركة الفيصل</option>
+                <option>تجارة المعادن</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">المنتج</label>
+            <select class="form-select">
+                <option>اختر المنتج</option>
+                <option>نحاس سكراب</option>
+                <option>ألومنيوم</option>
+                <option>حديد خردة</option>
+            </select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+                <label class="form-label">الكمية (طن)</label>
+                <input type="number" class="form-input" placeholder="10">
+            </div>
+            <div class="form-group">
+                <label class="form-label">السعر للطن</label>
+                <input type="number" class="form-input" placeholder="8,500">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">صلاحية العرض</label>
+            <select class="form-select">
+                <option>7 أيام</option>
+                <option>14 يوم</option>
+                <option>30 يوم</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">ملاحظات</label>
+            <input type="text" class="form-input" placeholder="أي ملاحظات إضافية">
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 16px;">
+            إنشاء العرض
+        </button>
+    </div>
+</div>
+
+<!-- Modal: فاتورة -->
+<div class="modal" id="invoiceModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">🧾 إصدار فاتورة ضريبية</h3>
+            <button class="modal-close" onclick="closeModal('invoice')">×</button>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">من طلب</label>
+            <select class="form-select">
+                <option>اختر الطلب</option>
+                <option>#ORD-2026-001 - مصنع الخليج</option>
+                <option>#ORD-2026-002 - شركة الفيصل</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">نوع الفاتورة</label>
+            <select class="form-select">
+                <option>فاتورة ضريبية</option>
+                <option>فاتورة ضريبية مبسطة</option>
+                <option>فاتورة أولية (Proforma)</option>
+            </select>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 16px; margin: 20px 0;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <span>المبلغ الأساسي:</span>
+                <span>85,000 ر.س</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <span>ضريبة القيمة المضافة (15%):</span>
+                <span>12,750 ر.س</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-weight: 800; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <span>الإجمالي:</span>
+                <span style="color: #d4af37;">97,750 ر.س</span>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%; justify-content: center;">
+            إصدار الفاتورة
+        </button>
+    </div>
+</div>
+
+<!-- Modal: عقد -->
+<div class="modal" id="contractModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">📝 إنشاء عقد بيع</h3>
+            <button class="modal-close" onclick="closeModal('contract')">×</button>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">الطرف الثاني (المشتري)</label>
+            <select class="form-select">
+                <option>اختر العميل</option>
+                <option>مصنع الخليج</option>
+                <option>شركة الفيصل</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">نوع العقد</label>
+            <select class="form-select">
+                <option>عقد بيع لمرة واحدة</option>
+                <option>عقد توريد دوري</option>
+                <option>عقد إطاري</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">البضاعة</label>
+            <input type="text" class="form-input" placeholder="مثال: 50 طن نحاس سكراب">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+                <label class="form-label">قيمة العقد</label>
+                <input type="text" class="form-input" placeholder="425,000 ر.س">
+            </div>
+            <div class="form-group">
+                <label class="form-label">مدة التسليم</label>
+                <input type="text" class="form-input" placeholder="14 يوم">
+            </div>
+        </div>
+
+        <div class="terms-section">
+            <div class="terms-title">📜 الشروط والأحكام</div>
+            <p style="font-size: 0.85rem; color: #94a3b8;">
+                يخضع هذا العقد لأحكام الشريعة الإسلامية والقوانين المعمول بها في المملكة العربية السعودية
+            </p>
+            <div class="terms-check">
+                <input type="checkbox" id="terms">
+                <label for="terms">أوافق على الشروط والأحكام وسياسة الخصوصية</label>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 16px;">
+            إنشاء العقد
+        </button>
+    </div>
+</div>
+
+<!-- Modal: طلب شحن -->
+<div class="modal" id="shipModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">🚚 طلب شحن جديد</h3>
+            <button class="modal-close" onclick="closeModal('ship')">×</button>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">للطلب</label>
+            <select class="form-select">
+                <option>اختر الطلب</option>
+                <option>#ORD-2026-001 - 10 طن نحاس</option>
+                <option>#ORD-2026-002 - 5 طن ألومنيوم</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">نوع الشحن</label>
+            <select class="form-select">
+                <option>شاحنة مسطحة</option>
+                <option>شاحنة مغلقة</option>
+                <option>قطار شحن</option>
+                <option>تجهيز حاوية (للتصدير)</option>
+            </select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+                <label class="form-label">من</label>
+                <input type="text" class="form-input" placeholder="الرياض - المستودع">
+            </div>
+            <div class="form-group">
+                <label class="form-label">إلى</label>
+                <input type="text" class="form-input" placeholder="جدة - الميناء">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">تاريخ الشحن المطلوب</label>
+            <input type="date" class="form-input">
+        </div>
+
+        <div style="background: rgba(16, 185, 129, 0.1); border-radius: 12px; padding: 16px; margin: 16px 0;">
+            <div style="display: flex; justify-content: space-between;">
+                <span>تكلفة الشحن التقديرية:</span>
+                <span style="font-weight: 800; color: #10b981;">2,850 ر.س</span>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%; justify-content: center;">
+            تأكيد طلب الشحن
+        </button>
+    </div>
+</div>
+
+<script>
+    function openModal(type) {
+        document.getElementById(type + 'Modal')?.classList.add('show');
+    }
+    
+    function closeModal(type) {
+        document.getElementById(type + 'Modal')?.classList.remove('show');
+    }
+    
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

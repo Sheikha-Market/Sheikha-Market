@@ -1,0 +1,117 @@
+{
+  "version": "1.0",
+  "owner": "سلمان أحمد بن سلمان الراجح",
+  "updatedAt": "2026-02-21",
+  "currency": "SAR",
+  "pilotWindow": {
+    "enabled": true,
+    "label": "الفترة التجريبية التجارية",
+    "startDate": "2026-02-21",
+    "endDate": "2026-03-31",
+    "note": "الخدمات تعمل بقياس فاعلية يومي مع تحسينات مستمرة"
+  },
+  "products": [
+    {
+      "id": "PRD-MARKET-001",
+      "nameAr": "Sheikha Market",
+      "nameEn": "B2B Metals Marketplace",
+      "category": "marketplace",
+      "definition": "سوق رقمي متخصص للمعادن والسكراب مع رحلة RFQ وطلبات B2B.",
+      "valueDefinition": "تقليل زمن التوريد، رفع الشفافية، وربط البائع بالمشتري بآلية شرعية واضحة.",
+      "priceModel": {
+        "type": "subscription_plus_transaction",
+        "setupFeeSAR": 3000,
+        "monthlyBaseSAR": 6000,
+        "transactionFeePercent": 2.0
+      },
+      "kpis": {
+        "monthlyLeadsTarget": 120,
+        "monthlyOrdersTarget": 60,
+        "conversionTargetPercent": 18,
+        "fulfillmentTargetPercent": 95
+      },
+      "scores": {
+        "marketFit": 90,
+        "operationalReadiness": 82,
+        "digitalMaturity": 84,
+        "shariaCompliance": 100
+      },
+      "status": "active"
+    },
+    {
+      "id": "PRD-CONTROL-002",
+      "nameAr": "Sheikha Control",
+      "nameEn": "Operations & Governance Dashboards",
+      "category": "operations",
+      "definition": "لوحات تشغيل وإدارة تشمل المراقبة، التنبيهات، وتتبع الأداء التشغيلي.",
+      "valueDefinition": "خفض الأعطال التشغيلية وتسريع القرار الإداري القائم على البيانات.",
+      "priceModel": {
+        "type": "tiered_subscription",
+        "setupFeeSAR": 2000,
+        "monthlyBaseSAR": 4500
+      },
+      "kpis": {
+        "opsUptimeTargetPercent": 99.5,
+        "incidentResponseTargetMin": 15,
+        "dashboardAdoptionTargetPercent": 85
+      },
+      "scores": {
+        "marketFit": 86,
+        "operationalReadiness": 88,
+        "digitalMaturity": 87,
+        "shariaCompliance": 100
+      },
+      "status": "active"
+    },
+    {
+      "id": "PRD-INTEGRATION-003",
+      "nameAr": "Sheikha Integration Mesh",
+      "nameEn": "ERP Integration & Automation",
+      "category": "integration",
+      "definition": "طبقة تكامل مؤسسي لربط ERP وأنظمة الشركاء بتدفقات آمنة وقابلة للقياس.",
+      "valueDefinition": "إلغاء الإدخال اليدوي، تقليل التكرار والأخطاء، وتسريع دورة الأعمال.",
+      "priceModel": {
+        "type": "packaged_subscription",
+        "setupFeeSAR": 9000,
+        "monthlyBaseSAR": 12000
+      },
+      "kpis": {
+        "syncSuccessTargetPercent": 99,
+        "dlqOpenTarget": 5,
+        "reconciliationMismatchTargetPercent": 2
+      },
+      "scores": {
+        "marketFit": 92,
+        "operationalReadiness": 85,
+        "digitalMaturity": 91,
+        "shariaCompliance": 100
+      },
+      "status": "active"
+    },
+    {
+      "id": "PRD-MARKETING-004",
+      "nameAr": "Sheikha Growth Studio",
+      "nameEn": "Digital Marketing & Campaign Automation",
+      "category": "marketing",
+      "definition": "محرك حملات تسويقية وقمع مبيعات مع قياس أداء وتحسين مستمر.",
+      "valueDefinition": "رفع الوصول والتحويل بنفقات محسوبة وتدفق محتوى مستدام.",
+      "priceModel": {
+        "type": "subscription",
+        "setupFeeSAR": 1500,
+        "monthlyBaseSAR": 3500
+      },
+      "kpis": {
+        "qualifiedLeadsTarget": 90,
+        "campaignRoiTargetPercent": 140,
+        "contentPublishingCadenceWeekly": 4
+      },
+      "scores": {
+        "marketFit": 84,
+        "operationalReadiness": 80,
+        "digitalMaturity": 83,
+        "shariaCompliance": 100
+      },
+      "status": "active"
+    }
+  ]
+}

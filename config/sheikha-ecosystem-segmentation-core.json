@@ -1,0 +1,106 @@
+{
+    "program": "SHEIKHA_ECOSYSTEM_SEGMENTATION_CORE",
+    "version": "1.0.0",
+    "identity": {
+        "nameAr": "منظومة شيخة لتقسيم المنظومة العالمية حسب التخصص",
+        "mission": "تصنيف الشركات والجامعات والمنظمات والهيئات محليا وعالميا وتفعيل التجمعات والعقود الرقمية النافعة",
+        "primaryLanguage": "ar",
+        "defaultLocale": "ar-SA"
+    },
+    "foundation": {
+        "sources": [
+            "quran",
+            "sunnah"
+        ],
+        "controls": [
+            "no-riba",
+            "no-gharar",
+            "no-fraud",
+            "no-harm",
+            "beneficial-purpose"
+        ],
+        "values": [
+            "amanah",
+            "adl",
+            "ihsan",
+            "maslahah"
+        ]
+    },
+    "markets": [
+        "local",
+        "regional",
+        "global"
+    ],
+    "entityTypes": [
+        "companies",
+        "organizations",
+        "universities",
+        "authorities",
+        "associations"
+    ],
+    "sectorTaxonomy": [
+        "energy-and-oil-gas",
+        "metals-and-mining",
+        "manufacturing-and-industry",
+        "semiconductors-and-electronics",
+        "ai-cloud-and-compute",
+        "logistics-and-supply-chain",
+        "finance-and-fintech",
+        "healthcare-and-pharma",
+        "retail-and-ecommerce",
+        "education-research-and-training",
+        "public-sector-and-regulators"
+    ],
+    "classificationMetrics": [
+        "sector-fit",
+        "market-fit",
+        "impact-score",
+        "execution-readiness",
+        "governance-transparency",
+        "sharia-compliance",
+        "innovation-capability",
+        "community-benefit"
+    ],
+    "clusteringPolicy": {
+        "strategy": "sector-first-then-market",
+        "communityTypes": [
+            "knowledge-community",
+            "industry-community",
+            "research-community",
+            "training-community",
+            "integration-community"
+        ]
+    },
+    "digitalContracting": {
+        "documentTypes": [
+            "nda",
+            "mou",
+            "msa",
+            "sla",
+            "joint-development-agreement"
+        ],
+        "workflow": [
+            "qualification",
+            "scoring",
+            "shortlisting",
+            "document-generation",
+            "electronic-signature",
+            "integration-kickoff",
+            "kpi-tracking"
+        ],
+        "deliveryChannels": [
+            "secure-email",
+            "partner-portal",
+            "api-webhook"
+        ]
+    },
+    "targets": {
+        "availability": "99.99%",
+        "classificationCoverage": 100,
+        "partnerDataQuality": 95,
+        "apiP95Ms": 50,
+        "apiP99Ms": 150,
+        "rtoMinutes": 15,
+        "rpoMinutes": 5
+    }
+}

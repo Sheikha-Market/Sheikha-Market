@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="قاعدة بيانات الشركات والجهات المستهدفة - سوق شيخة">
+    <title>قاعدة بيانات الشركات | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-dark: #063d24;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --shadow-gold: 0 4px 20px rgba(212,175,55,0.2);
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon { font-size: 2rem; }
+        .logo-text { font-size: 1.2rem; font-weight: 800; color: var(--gold); }
+        .nav { display: flex; gap: 8px; }
+        .nav-link {
+            padding: 10px 18px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        .nav-link:hover, .nav-link.active { color: var(--gold); background: rgba(212,175,55,0.1); }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--dark); }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-info { background: var(--info); color: white; }
+
+        .hero {
+            padding: 48px 32px;
+            background: linear-gradient(180deg, var(--card) 0%, var(--dark) 100%);
+            text-align: center;
+        }
+        .hero-title { font-size: 2rem; font-weight: 900; margin-bottom: 12px; }
+        .hero-title span { color: var(--gold); }
+        .hero-desc { font-size: 1rem; color: var(--text-muted); margin-bottom: 24px; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+        .main { max-width: 1400px; margin: 0 auto; padding: 32px; }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            text-align: center;
+        }
+        .stat-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .stat-value { font-size: 2rem; font-weight: 900; color: var(--gold); }
+        .stat-label { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* Search Section */
+        .search-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .search-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .search-field { display: flex; flex-direction: column; gap: 6px; }
+        .search-field label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+        .search-field select, .search-field input {
+            padding: 12px 16px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+        .search-field select:focus, .search-field input:focus { outline: none; border-color: var(--gold); }
+        .search-actions { display: flex; gap: 12px; margin-top: 16px; }
+
+        /* HS Code Categories */
+        .hs-categories {
+            margin-bottom: 32px;
+        }
+        .section-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .hs-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .hs-tab {
+            padding: 10px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hs-tab:hover { border-color: var(--gold); color: var(--gold); }
+        .hs-tab.active { background: rgba(212,175,55,0.1); border-color: var(--gold); color: var(--gold); }
+        .hs-tab-code { font-size: 0.7rem; font-family: monospace; opacity: 0.7; }
+
+        /* Companies Grid */
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .company-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: var(--transition);
+        }
+        .company-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--shadow); }
+        .company-header { display: flex; align-items: start; gap: 16px; margin-bottom: 16px; }
+        .company-logo {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(10,92,54,0.1));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .company-info { flex: 1; }
+        .company-name { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+        .company-type { font-size: 0.8rem; color: var(--gold); }
+        .company-verified { 
+            padding: 4px 8px; 
+            background: rgba(16,185,129,0.2); 
+            color: var(--success); 
+            border-radius: 6px; 
+            font-size: 0.7rem; 
+            font-weight: 600; 
+        }
+        .company-specialization {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .company-hs-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        .hs-tag {
+            padding: 4px 10px;
+            background: rgba(59,130,246,0.1);
+            color: var(--info);
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-family: monospace;
+            font-weight: 600;
+        }
+        .company-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .contact-item span:first-child { font-size: 1rem; }
+        .contact-item a { color: var(--gold); text-decoration: none; }
+        .contact-item a:hover { text-decoration: underline; }
+        .company-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .company-actions .btn { flex: 1; justify-content: center; font-size: 0.8rem; padding: 8px 12px; }
+
+        /* Add Company Form */
+        .add-company-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-top: 32px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .form-field { display: flex; flex-direction: column; gap: 6px; }
+        .form-field.full { grid-column: span 2; }
+        .form-field label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+        .form-field input, .form-field select, .form-field textarea {
+            padding: 12px 16px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+        .form-field textarea { min-height: 100px; resize: vertical; }
+        .hs-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .hs-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .hs-checkbox:hover { border-color: var(--gold); }
+        .hs-checkbox input { display: none; }
+        .hs-checkbox.selected { background: rgba(212,175,55,0.1); border-color: var(--gold); color: var(--gold); }
+
+        /* Export Section */
+        .export-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-top: 32px;
+        }
+        .export-options {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .export-card {
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .export-card:hover { border-color: var(--gold); background: rgba(212,175,55,0.05); }
+        .export-icon { font-size: 2rem; margin-bottom: 8px; }
+        .export-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+        .export-desc { font-size: 0.75rem; color: var(--text-muted); }
+
+        @media (max-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .search-grid { grid-template-columns: repeat(2, 1fr); }
+            .companies-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .search-grid { grid-template-columns: 1fr; }
+            .companies-grid { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-field.full { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🏢</span>
+                <span class="logo-text">قاعدة بيانات الشركات</span>
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">الرئيسية</a>
+                <a href="السوق.html" class="nav-link">السوق</a>
+                <a href="قاعدة-بيانات-الشركات.html" class="nav-link active">الشركات</a>
+                <a href="مساعد-شيخة.html" class="nav-link">المساعد</a>
+            </nav>
+            <a href="#add-company" class="btn btn-gold">➕ إضافة شركة</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1 class="hero-title">🏢 قاعدة بيانات <span>الشركات والجهات المستهدفة</span></h1>
+        <p class="hero-desc">قاعدة بيانات شاملة للشركات والجامعات والجهات المهتمة مصنفة حسب HS Code للتسويق والحملات الإعلانية المستهدفة</p>
+    </section>
+
+    <main class="main">
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🏭</div>
+                <div class="stat-value" id="totalCompanies">0</div>
+                <div class="stat-label">شركة ومؤسسة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎓</div>
+                <div class="stat-value" id="totalUniversities">0</div>
+                <div class="stat-label">جامعة ومركز بحثي</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏛️</div>
+                <div class="stat-value" id="totalAssociations">0</div>
+                <div class="stat-label">جمعية وغرفة تجارية</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-value" id="totalHsCategories">15</div>
+                <div class="stat-label">تصنيف HS Code</div>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <h3 class="search-title">🔍 البحث المتقدم</h3>
+            <div class="search-grid">
+                <div class="search-field">
+                    <label>تصنيف HS Code</label>
+                    <select id="searchHsCode">
+                        <option value="">كل التصنيفات</option>
+                        <optgroup label="المعادن الأساسية">
+                            <option value="72">72 - الحديد والصلب</option>
+                            <option value="73">73 - مصنوعات الحديد</option>
+                            <option value="74">74 - النحاس</option>
+                            <option value="75">75 - النيكل</option>
+                            <option value="76">76 - الألمنيوم</option>
+                            <option value="78">78 - الرصاص</option>
+                            <option value="79">79 - الزنك</option>
+                            <option value="80">80 - القصدير</option>
+                        </optgroup>
+                        <optgroup label="السكراب وإعادة التدوير">
+                            <option value="7204">7204 - سكراب الحديد</option>
+                            <option value="7404">7404 - سكراب النحاس</option>
+                            <option value="7602">7602 - سكراب الألمنيوم</option>
+                            <option value="8548">8548 - نفايات البطاريات</option>
+                            <option value="8549">8549 - نفايات إلكترونية</option>
+                        </optgroup>
+                        <optgroup label="المعادن الثمينة">
+                            <option value="71">71 - المعادن الثمينة والمجوهرات</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="search-field">
+                    <label>نوع الجهة</label>
+                    <select id="searchType">
+                        <option value="">كل الأنواع</option>
+                        <option value="manufacturer">مصنّع</option>
+                        <option value="trader">تاجر</option>
+                        <option value="importer">مستورد</option>
+                        <option value="exporter">مصدّر</option>
+                        <option value="smelter">مصهر</option>
+                        <option value="recycler">معيد تدوير</option>
+                        <option value="contractor">مقاول</option>
+                        <option value="university">جامعة/مركز بحثي</option>
+                        <option value="association">جمعية/غرفة تجارية</option>
+                    </select>
+                </div>
+                <div class="search-field">
+                    <label>المنطقة</label>
+                    <select id="searchRegion">
+                        <option value="">كل المناطق</option>
+                        <option value="riyadh">الرياض</option>
+                        <option value="jeddah">جدة</option>
+                        <option value="dammam">الدمام/الشرقية</option>
+                        <option value="jubail">الجبيل</option>
+                        <option value="yanbu">ينبع</option>
+                        <option value="makkah">مكة المكرمة</option>
+                        <option value="madinah">المدينة المنورة</option>
+                    </select>
+                </div>
+                <div class="search-field">
+                    <label>البحث بالاسم</label>
+                    <input type="text" id="searchName" placeholder="اسم الشركة أو الجهة...">
+                </div>
+            </div>
+            <div class="search-actions">
+                <button class="btn btn-gold" onclick="searchCompanies()">🔍 بحث</button>
+                <button class="btn btn-outline" onclick="resetSearch()">↻ إعادة تعيين</button>
+                <button class="btn btn-info" onclick="exportResults()">📤 تصدير النتائج</button>
+            </div>
+        </div>
+
+        <!-- HS Code Categories -->
+        <div class="hs-categories">
+            <h3 class="section-title">📋 تصفح حسب HS Code</h3>
+            <div class="hs-tabs" id="hsTabs">
+                <button class="hs-tab active" onclick="filterByHs('all')">
+                    🌐 الكل
+                </button>
+                <button class="hs-tab" onclick="filterByHs('72')">
+                    🔩 الحديد <span class="hs-tab-code">72</span>
+                </button>
+                <button class="hs-tab" onclick="filterByHs('74')">
+                    🥉 النحاس <span class="hs-tab-code">74</span>
+                </button>
+                <button class="hs-tab" onclick="filterByHs('76')">
+                    🪙 الألمنيوم <span class="hs-tab-code">76</span>
+                </button>
+                <button class="hs-tab" onclick="filterByHs('7204')">
+                    ♻️ سكراب حديد <span class="hs-tab-code">7204</span>
+                </button>
+                <button class="hs-tab" onclick="filterByHs('7404')">
+                    ♻️ سكراب نحاس <span class="hs-tab-code">7404</span>
+                </button>
+                <button class="hs-tab" onclick="filterByHs('71')">
+                    💎 معادن ثمينة <span class="hs-tab-code">71</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Companies Grid -->
+        <div class="companies-grid" id="companiesGrid">
+            <!-- Will be populated by JavaScript -->
+        </div>
+
+        <!-- Add Company Form -->
+        <div class="add-company-section" id="add-company">
+            <h3 class="section-title">➕ إضافة شركة أو جهة جديدة</h3>
+            <form id="addCompanyForm" onsubmit="addCompany(event)">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>اسم الشركة/الجهة *</label>
+                        <input type="text" id="companyName" required placeholder="مثال: شركة حديد الراجحي">
+                    </div>
+                    <div class="form-field">
+                        <label>الاسم بالإنجليزية</label>
+                        <input type="text" id="companyNameEn" placeholder="Example: Rajhi Steel Company">
+                    </div>
+                    <div class="form-field">
+                        <label>نوع الجهة *</label>
+                        <select id="companyType" required>
+                            <option value="">اختر النوع</option>
+                            <option value="manufacturer">مصنّع</option>
+                            <option value="trader">تاجر</option>
+                            <option value="importer">مستورد</option>
+                            <option value="exporter">مصدّر</option>
+                            <option value="smelter">مصهر</option>
+                            <option value="recycler">معيد تدوير</option>
+                            <option value="scrap_trader">تاجر سكراب</option>
+                            <option value="contractor">مقاول</option>
+                            <option value="university">جامعة/مركز بحثي</option>
+                            <option value="association">جمعية/غرفة تجارية</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>المنطقة *</label>
+                        <select id="companyRegion" required>
+                            <option value="">اختر المنطقة</option>
+                            <option value="الرياض">الرياض</option>
+                            <option value="جدة">جدة</option>
+                            <option value="الدمام">الدمام</option>
+                            <option value="الجبيل">الجبيل</option>
+                            <option value="ينبع">ينبع</option>
+                            <option value="مكة المكرمة">مكة المكرمة</option>
+                            <option value="المدينة المنورة">المدينة المنورة</option>
+                            <option value="أخرى">أخرى</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>رقم الهاتف *</label>
+                        <input type="tel" id="companyPhone" required placeholder="+966 XX XXX XXXX">
+                    </div>
+                    <div class="form-field">
+                        <label>البريد الإلكتروني *</label>
+                        <input type="email" id="companyEmail" required placeholder="info@company.com">
+                    </div>
+                    <div class="form-field">
+                        <label>الموقع الإلكتروني</label>
+                        <input type="url" id="companyWebsite" placeholder="www.company.com">
+                    </div>
+                    <div class="form-field">
+                        <label>العنوان</label>
+                        <input type="text" id="companyAddress" placeholder="المدينة، الحي، الشارع">
+                    </div>
+                    <div class="form-field full">
+                        <label>التخصص والوصف</label>
+                        <textarea id="companySpecialization" placeholder="وصف تخصص الشركة ونشاطها..."></textarea>
+                    </div>
+                    <div class="form-field full">
+                        <label>تصنيفات HS Code ذات العلاقة *</label>
+                        <div class="hs-checkboxes" id="hsCheckboxes">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; display: flex; gap: 12px;">
+                    <button type="submit" class="btn btn-gold">💾 حفظ الشركة</button>
+                    <button type="reset" class="btn btn-outline">↻ مسح النموذج</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Export Section -->
+        <div class="export-section">
+            <h3 class="section-title">📤 تصدير قاعدة البيانات</h3>
+            <p style="color: var(--text-muted); margin-bottom: 16px;">صدّر قاعدة البيانات للتسويق والحملات الإعلانية المستهدفة</p>
+            <div class="export-options">
+                <div class="export-card" onclick="exportToExcel()">
+                    <div class="export-icon">📊</div>
+                    <div class="export-name">Excel</div>
+                    <div class="export-desc">تصدير كملف Excel</div>
+                </div>
+                <div class="export-card" onclick="exportToCSV()">
+                    <div class="export-icon">📄</div>
+                    <div class="export-name">CSV</div>
+                    <div class="export-desc">تصدير كملف CSV</div>
+                </div>
+                <div class="export-card" onclick="exportToJSON()">
+                    <div class="export-icon">🔧</div>
+                    <div class="export-name">JSON</div>
+                    <div class="export-desc">تصدير كملف JSON</div>
+                </div>
+                <div class="export-card" onclick="exportForMarketing()">
+                    <div class="export-icon">📧</div>
+                    <div class="export-name">قائمة تسويقية</div>
+                    <div class="export-desc">إيميلات وأرقام للحملات</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Sample Database
+        const companiesDB = {
+            companies: [
+                {
+                    id: 'comp-001',
+                    name: 'شركة حديد الراجحي',
+                    nameEn: 'Rajhi Steel Company',
+                    type: 'manufacturer',
+                    typeName: 'مصنّع',
+                    hsCategories: ['72', '7214'],
+                    specialization: 'إنتاج حديد التسليح والمقاطع الحديدية',
+                    contact: { phone: '+966 11 265 4321', email: 'info@rajhisteel.com.sa', website: 'www.rajhisteel.com.sa', address: 'الرياض، المنطقة الصناعية الثانية' },
+                    region: 'الرياض',
+                    verified: true,
+                    icon: '🏭'
+                },
+                {
+                    id: 'comp-002',
+                    name: 'شركة الزامل للصلب',
+                    nameEn: 'Zamil Steel Company',
+                    type: 'manufacturer',
+                    typeName: 'مصنّع',
+                    hsCategories: ['72', '7216', '7308'],
+                    specialization: 'تصنيع المباني الحديدية والهياكل المعدنية',
+                    contact: { phone: '+966 13 812 2222', email: 'info@zamilsteel.com', website: 'www.zamilsteel.com', address: 'الدمام، المنطقة الصناعية' },
+                    region: 'الدمام',
+                    verified: true,
+                    icon: '🏗️'
+                },
+                {
+                    id: 'comp-003',
+                    name: 'مصنع الجبيل للألمنيوم',
+                    nameEn: 'Jubail Aluminum Factory',
+                    type: 'manufacturer',
+                    typeName: 'مصنّع',
+                    hsCategories: ['76', '7601', '7604', '7606'],
+                    specialization: 'إنتاج الألمنيوم الخام وقطاعات الألمنيوم',
+                    contact: { phone: '+966 13 341 5555', email: 'info@jubailalum.com', website: 'www.jubailalum.com', address: 'الجبيل الصناعية' },
+                    region: 'الجبيل',
+                    verified: true,
+                    icon: '🪙'
+                },
+                {
+                    id: 'comp-004',
+                    name: 'شركة المعادن الوطنية للتدوير',
+                    nameEn: 'National Metals Recycling',
+                    type: 'recycler',
+                    typeName: 'معيد تدوير',
+                    hsCategories: ['7204', '7404', '7602'],
+                    specialization: 'إعادة تدوير جميع أنواع السكراب المعدني',
+                    contact: { phone: '+966 11 456 7890', email: 'info@nmr.com.sa', website: 'www.nmr.com.sa', address: 'الرياض، السلي' },
+                    region: 'الرياض',
+                    verified: true,
+                    icon: '♻️'
+                },
+                {
+                    id: 'comp-005',
+                    name: 'مركز جدة للسكراب',
+                    nameEn: 'Jeddah Scrap Center',
+                    type: 'scrap_trader',
+                    typeName: 'تاجر سكراب',
+                    hsCategories: ['7204', '7404', '7602', '8548'],
+                    specialization: 'شراء وبيع جميع أنواع السكراب والخردة',
+                    contact: { phone: '+966 12 654 3210', email: 'sales@jeddahscrap.com', website: 'www.jeddahscrap.com', address: 'جدة، الخمرة الصناعية' },
+                    region: 'جدة',
+                    verified: false,
+                    icon: '🔩'
+                },
+                {
+                    id: 'comp-006',
+                    name: 'مصفاة الذهب السعودية',
+                    nameEn: 'Saudi Gold Refinery',
+                    type: 'smelter',
+                    typeName: 'مصهر',
+                    hsCategories: ['71', '7108', '7112'],
+                    specialization: 'تكرير وصهر الذهب والمعادن الثمينة',
+                    contact: { phone: '+966 11 478 9012', email: 'info@saudgold.com', website: 'www.saudgold.com', address: 'الرياض، الحي الصناعي' },
+                    region: 'الرياض',
+                    verified: true,
+                    icon: '🥇'
+                },
+                {
+                    id: 'comp-007',
+                    name: 'شركة النحاس العربية',
+                    nameEn: 'Arabian Copper Company',
+                    type: 'manufacturer',
+                    typeName: 'مصنّع',
+                    hsCategories: ['74', '7408', '7411'],
+                    specialization: 'تصنيع أسلاك وأنابيب النحاس',
+                    contact: { phone: '+966 13 867 5432', email: 'info@arabcopper.com', website: 'www.arabcopper.com', address: 'الدمام، الصناعية الأولى' },
+                    region: 'الدمام',
+                    verified: true,
+                    icon: '🥉'
+                },
+                {
+                    id: 'comp-008',
+                    name: 'جامعة الملك فهد للبترول والمعادن',
+                    nameEn: 'KFUPM',
+                    type: 'university',
+                    typeName: 'جامعة',
+                    hsCategories: ['72', '74', '76', '71'],
+                    specialization: 'أبحاث علوم المعادن والمواد وهندسة التعدين',
+                    contact: { phone: '+966 13 860 0000', email: 'info@kfupm.edu.sa', website: 'www.kfupm.edu.sa', address: 'الظهران' },
+                    region: 'الظهران',
+                    verified: true,
+                    icon: '🎓'
+                }
+            ],
+            hsCodeLabels: {
+                '72': 'الحديد والصلب',
+                '73': 'مصنوعات الحديد',
+                '74': 'النحاس',
+                '75': 'النيكل',
+                '76': 'الألمنيوم',
+                '78': 'الرصاص',
+                '79': 'الزنك',
+                '80': 'القصدير',
+                '71': 'المعادن الثمينة',
+                '7204': 'سكراب الحديد',
+                '7214': 'حديد تسليح',
+                '7216': 'مقاطع حديدية',
+                '7308': 'هياكل معدنية',
+                '7404': 'سكراب النحاس',
+                '7408': 'أسلاك نحاس',
+                '7411': 'أنابيب نحاس',
+                '7601': 'ألمنيوم خام',
+                '7602': 'سكراب ألمنيوم',
+                '7604': 'قطاعات ألمنيوم',
+                '7606': 'صفائح ألمنيوم',
+                '7108': 'ذهب',
+                '7112': 'نفايات معادن ثمينة',
+                '8548': 'نفايات بطاريات',
+                '8549': 'نفايات إلكترونية'
+            }
+        };
+
+        let filteredCompanies = [...companiesDB.companies];
+
+        function renderCompanies() {
+            const grid = document.getElementById('companiesGrid');
+            
+            if (filteredCompanies.length === 0) {
+                grid.innerHTML = '<div style="grid-column: span 3; text-align: center; padding: 48px; color: var(--text-muted);">لا توجد نتائج مطابقة للبحث</div>';
+                return;
+            }
+
+            grid.innerHTML = filteredCompanies.map(company => `
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-logo">${company.icon}</div>
+                        <div class="company-info">
+                            <div class="company-name">${company.name}</div>
+                            <div class="company-type">${company.typeName}</div>
+                        </div>
+                        ${company.verified ? '<span class="company-verified">✓ موثق</span>' : ''}
+                    </div>
+                    <div class="company-specialization">${company.specialization}</div>
+                    <div class="company-hs-tags">
+                        ${company.hsCategories.map(hs => `<span class="hs-tag">HS ${hs}</span>`).join('')}
+                    </div>
+                    <div class="company-contact">
+                        <div class="contact-item">
+                            <span>📞</span>
+                            <a href="tel:${company.contact.phone}">${company.contact.phone}</a>
+                        </div>
+                        <div class="contact-item">
+                            <span>📧</span>
+                            <a href="mailto:${company.contact.email}">${company.contact.email}</a>
+                        </div>
+                        ${company.contact.website ? `
+                        <div class="contact-item">
+                            <span>🌐</span>
+                            <a href="https://${company.contact.website}" target="_blank">${company.contact.website}</a>
+                        </div>
+                        ` : ''}
+                        <div class="contact-item">
+                            <span>📍</span>
+                            <span>${company.contact.address}</span>
+                        </div>
+                    </div>
+                    <div class="company-actions">
+                        <button class="btn btn-gold" onclick="contactCompany('${company.id}')">📞 تواصل</button>
+                        <button class="btn btn-outline" onclick="viewDetails('${company.id}')">👁️ التفاصيل</button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update stats
+            document.getElementById('totalCompanies').textContent = companiesDB.companies.filter(c => c.type !== 'university' && c.type !== 'association').length;
+            document.getElementById('totalUniversities').textContent = companiesDB.companies.filter(c => c.type === 'university').length;
+            document.getElementById('totalAssociations').textContent = companiesDB.companies.filter(c => c.type === 'association').length;
+        }
+
+        function filterByHs(hsCode) {
+            // Update tabs
+            document.querySelectorAll('.hs-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.closest('.hs-tab').classList.add('active');
+
+            if (hsCode === 'all') {
+                filteredCompanies = [...companiesDB.companies];
+            } else {
+                filteredCompanies = companiesDB.companies.filter(c => 
+                    c.hsCategories.some(hs => hs.startsWith(hsCode) || hsCode.startsWith(hs))
+                );
+            }
+            renderCompanies();
+        }
+
+        function searchCompanies() {
+            const hsCode = document.getElementById('searchHsCode').value;
+            const type = document.getElementById('searchType').value;
+            const region = document.getElementById('searchRegion').value;
+            const name = document.getElementById('searchName').value.toLowerCase();
+
+            filteredCompanies = companiesDB.companies.filter(company => {
+                let match = true;
+                if (hsCode && !company.hsCategories.some(hs => hs.startsWith(hsCode))) match = false;
+                if (type && company.type !== type) match = false;
+                if (region && !company.region.includes(region === 'dammam' ? 'الدمام' : region === 'riyadh' ? 'الرياض' : region === 'jeddah' ? 'جدة' : region)) match = false;
+                if (name && !company.name.toLowerCase().includes(name) && !company.nameEn.toLowerCase().includes(name)) match = false;
+                return match;
+            });
+            renderCompanies();
+        }
+
+        function resetSearch() {
+            document.getElementById('searchHsCode').value = '';
+            document.getElementById('searchType').value = '';
+            document.getElementById('searchRegion').value = '';
+            document.getElementById('searchName').value = '';
+            filteredCompanies = [...companiesDB.companies];
+            renderCompanies();
+        }
+
+        function renderHsCheckboxes() {
+            const container = document.getElementById('hsCheckboxes');
+            const hsCodes = [
+                { code: '72', name: '🔩 الحديد والصلب' },
+                { code: '74', name: '🥉 النحاس' },
+                { code: '76', name: '🪙 الألمنيوم' },
+                { code: '71', name: '💎 المعادن الثمينة' },
+                { code: '7204', name: '♻️ سكراب حديد' },
+                { code: '7404', name: '♻️ سكراب نحاس' },
+                { code: '7602', name: '♻️ سكراب ألمنيوم' },
+                { code: '8548', name: '🔋 نفايات بطاريات' },
+                { code: '8549', name: '📱 نفايات إلكترونية' }
+            ];
+            
+            container.innerHTML = hsCodes.map(hs => `
+                <label class="hs-checkbox" onclick="this.classList.toggle('selected')">
+                    <input type="checkbox" name="hsCategories" value="${hs.code}">
+                    ${hs.name} <span style="opacity:0.6; font-size:0.7rem;">(${hs.code})</span>
+                </label>
+            `).join('');
+        }
+
+        function addCompany(event) {
+            event.preventDefault();
+            
+            const selectedHs = Array.from(document.querySelectorAll('input[name="hsCategories"]:checked')).map(cb => cb.value);
+            
+            if (selectedHs.length === 0) {
+                alert('يرجى اختيار تصنيف HS Code واحد على الأقل');
+                return;
+            }
+
+            const newCompany = {
+                id: 'comp-' + Date.now(),
+                name: document.getElementById('companyName').value,
+                nameEn: document.getElementById('companyNameEn').value || '',
+                type: document.getElementById('companyType').value,
+                typeName: document.getElementById('companyType').options[document.getElementById('companyType').selectedIndex].text,
+                hsCategories: selectedHs,
+                specialization: document.getElementById('companySpecialization').value || 'غير محدد',
+                contact: {
+                    phone: document.getElementById('companyPhone').value,
+                    email: document.getElementById('companyEmail').value,
+                    website: document.getElementById('companyWebsite').value,
+                    address: document.getElementById('companyAddress').value
+                },
+                region: document.getElementById('companyRegion').value,
+                verified: false,
+                icon: getIconForType(document.getElementById('companyType').value)
+            };
+
+            companiesDB.companies.push(newCompany);
+            filteredCompanies = [...companiesDB.companies];
+            renderCompanies();
+            
+            alert('تم إضافة الشركة بنجاح! ✓');
+            document.getElementById('addCompanyForm').reset();
+            document.querySelectorAll('.hs-checkbox').forEach(cb => cb.classList.remove('selected'));
+        }
+
+        function getIconForType(type) {
+            const icons = {
+                manufacturer: '🏭',
+                trader: '🏪',
+                importer: '📥',
+                exporter: '📤',
+                smelter: '🔥',
+                recycler: '♻️',
+                scrap_trader: '🔩',
+                contractor: '🏗️',
+                university: '🎓',
+                association: '🏛️'
+            };
+            return icons[type] || '🏢';
+        }
+
+        function contactCompany(id) {
+            const company = companiesDB.companies.find(c => c.id === id);
+            if (company) {
+                window.location.href = `tel:${company.contact.phone}`;
+            }
+        }
+
+        function viewDetails(id) {
+            const company = companiesDB.companies.find(c => c.id === id);
+            if (company) {
+                alert(`
+تفاصيل: ${company.name}
+━━━━━━━━━━━━━━━
+النوع: ${company.typeName}
+التخصص: ${company.specialization}
+المنطقة: ${company.region}
+الهاتف: ${company.contact.phone}
+البريد: ${company.contact.email}
+الموقع: ${company.contact.website || 'غير متوفر'}
+تصنيفات HS: ${company.hsCategories.join(', ')}
+                `);
+            }
+        }
+
+        function exportToExcel() {
+            alert('جاري تصدير قاعدة البيانات إلى Excel...\n\nسيتم تنزيل الملف قريباً.');
+        }
+
+        function exportToCSV() {
+            const headers = 'الاسم,النوع,الهاتف,البريد,المنطقة,تصنيفات HS\n';
+            const rows = filteredCompanies.map(c => 
+                `"${c.name}","${c.typeName}","${c.contact.phone}","${c.contact.email}","${c.region}","${c.hsCategories.join('; ')}"`
+            ).join('\n');
+            
+            const csv = headers + rows;
+            const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'sheikha-companies-database.csv';
+            link.click();
+        }
+
+        function exportToJSON() {
+            const json = JSON.stringify(filteredCompanies, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'sheikha-companies-database.json';
+            link.click();
+        }
+
+        function exportForMarketing() {
+            const emails = filteredCompanies.map(c => c.contact.email).join('\n');
+            const phones = filteredCompanies.map(c => c.contact.phone).join('\n');
+            
+            alert(`
+قائمة التسويق (${filteredCompanies.length} جهة)
+━━━━━━━━━━━━━━━
+📧 البريد الإلكتروني:
+${emails}
+
+📞 أرقام الهاتف:
+${phones}
+            `);
+        }
+
+        function exportResults() {
+            exportToCSV();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCompanies();
+            renderHsCheckboxes();
+        });
+    </script>
+</body>
+</html>

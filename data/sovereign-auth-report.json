@@ -1,0 +1,100 @@
+{
+  "timestamp": "2026-03-11T08:58:50.233Z",
+  "owner": {
+    "fullName": "Salman Ahmed bin Salman AlRajih",
+    "registry": "2051263653",
+    "credential": "ciscc2250603061"
+  },
+  "protocol": "Sovereign Identity Protocol",
+  "auth": {
+    "core": {
+      "jwtSecretReady": true,
+      "passwordSaltReady": true,
+      "baseUrlReady": true
+    },
+    "providers": [
+      {
+        "provider": "google",
+        "enabled": true,
+        "callbackUrl": "https://sheikha.top/api/auth/google/callback"
+      },
+      {
+        "provider": "microsoft",
+        "enabled": true,
+        "callbackUrl": "https://sheikha.top/api/auth/microsoft/callback"
+      },
+      {
+        "provider": "apple",
+        "enabled": true,
+        "callbackUrl": "https://sheikha.top/api/auth/apple/callback"
+      },
+      {
+        "provider": "nafath",
+        "enabled": true,
+        "callbackUrl": "https://sheikha.top/api/auth/nafath/callback"
+      }
+    ],
+    "overall": {
+      "coreReady": true,
+      "enabledProviders": 4,
+      "totalProviders": 4,
+      "status": "ready"
+    }
+  },
+  "branding": {
+    "googleConsentScreen": {
+      "appName": "Sheikha Sovereign Portal",
+      "developerName": "Salman Ahmed bin Salman AlRajih",
+      "supportEmail": "market@sheikha.top",
+      "privacyPolicy": "https://sheikha.top/privacy-policy",
+      "termsUrl": "https://sheikha.top/terms"
+    },
+    "appleSignIn": {
+      "appName": "Sheikha Sovereign Portal",
+      "contactEmail": "market@sheikha.top",
+      "associatedDomain": "sheikha.top"
+    }
+  },
+  "mobileSuite": {
+    "config": {
+      "flutter": {
+        "androidPackage": "top.sheikha.app",
+        "iosBundleId": "top.sheikha.app"
+      },
+      "payments": {
+        "googlePayMerchantId": "TEST",
+        "applePayMerchantId": ""
+      },
+      "authApp": {
+        "biometricEnabled": "true",
+        "totpIssuer": "SHEIKHA"
+      }
+    },
+    "status": {
+      "paymentsReady": true,
+      "mobileIdsReady": true
+    }
+  },
+  "compliance": {
+    "standards": [
+      "GDPR",
+      "SOC2",
+      "PCI-DSS",
+      "PDPL"
+    ],
+    "controls": [
+      "OAuth provider callback whitelisting",
+      "JWT secret rotation policy",
+      "Audit logging for auth events",
+      "Rate limiting on auth endpoints",
+      "MFA enforcement for admin roles"
+    ]
+  },
+  "actions": [
+    "تأكيد OAuth consent screen في Google Cloud Console",
+    "ضبط callback URLs لكل مزود حسب BASE_URL",
+    "تفعيل MFA إلزامي لحسابات الإدارة",
+    "اعتماد معرفات Android/iOS النهائية للتطبيقات",
+    "مراجعة readiness عبر npm run ops:auth:readiness"
+  ]
+}

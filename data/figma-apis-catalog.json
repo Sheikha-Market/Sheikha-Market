@@ -1,0 +1,95 @@
+{
+  "version": "1.0.0",
+  "description": "Figma APIs — Plugin, Widget, REST, SCIM — مرقمنة بالكتاب والسنة",
+  "apis": [
+    {
+      "id": "plugin",
+      "name": "Plugin APIs",
+      "value": "أتمتة المهام، إضافة وظائف، تحسين سير العمل — توثيق، تواصل، وأكثر",
+      "docs": "https://www.figma.com/plugin-docs/",
+      "quranRef": "البقرة:282",
+      "quranText": "فَاكْتُبُوهُ",
+      "principle": "التوثيق — أتمتة وتسجيل"
+    },
+    {
+      "id": "widget",
+      "name": "Widget APIs",
+      "value": "تعاون الفريق في FigJam — ألعاب تفاعلية، استطلاعات، متتبعات",
+      "docs": "https://www.figma.com/widget-docs/",
+      "quranRef": "الشورى:38",
+      "quranText": "وَأَمْرُهُمْ شُورَىٰ بَيْنَهُمْ",
+      "principle": "الشورى — تعاون واجتماعات"
+    },
+    {
+      "id": "rest",
+      "name": "REST API",
+      "value": "جلب Figma إلى أدواتك — Embed kit لمشاركة التصاميم والنماذج مباشرة",
+      "docs": "https://www.figma.com/developers/api",
+      "quranRef": "الحجرات:13",
+      "quranText": "لِتَعَارَفُوا",
+      "principle": "التعارف — مشاركة ومشاركة"
+    },
+    {
+      "id": "scim",
+      "name": "SCIM API",
+      "value": "أتمتة توفير الحسابات — مزامنة الأدوار من مزود الهوية إلى Figma",
+      "docs": "https://www.figma.com/developers/scim",
+      "quranRef": "البقرة:282",
+      "quranText": "وَاسْتَشْهِدُوا شَهِيدَيْنِ",
+      "principle": "التوثيق — أمان وإدارة الهوية"
+    },
+    {
+      "id": "community",
+      "name": "Figma Community",
+      "value": "نشر ومشاركة ما تبنيّه مع ملايين المستخدمين",
+      "docs": "https://www.figma.com/community",
+      "quranRef": "النحل:125",
+      "quranText": "ادْعُ إِلَىٰ سَبِيلِ رَبِّكَ بِالْحِكْمَةِ",
+      "principle": "الدعوة بالحكمة — مشاركة المعرفة"
+    },
+    {
+      "id": "integrations",
+      "name": "Integrations",
+      "value": "الشراكة مع Figma — عرض تكاملك في المجموعة",
+      "docs": "https://www.figma.com/developers/integrations",
+      "quranRef": "البقرة:282",
+      "quranText": "فَاكْتُبُوهُ",
+      "principle": "التوثيق — تكامل شرعي"
+    },
+    {
+      "id": "private",
+      "name": "Private Plugins",
+      "value": "إضافة خاصة داخلية — حفظ بيانات ومعلومات الحساب بأمان",
+      "docs": "https://www.figma.com/plugin-docs/",
+      "quranRef": "البقرة:283",
+      "quranText": "وَاتَّقُوا اللَّهَ",
+      "principle": "التقوى — أمان البيانات"
+    }
+  ],
+  "envVars": {
+    "FIGMA_ACCESS_TOKEN": {
+      "description": "مفتاح شخصي من Figma",
+      "where": "Figma → قائمة الحساب (أعلى يسار) → Settings → Security → Personal access tokens",
+      "steps": [
+        "انقر قائمة الحساب في أعلى يسار متصفح الملفات",
+        "اختر Settings",
+        "اختر تبويب Security",
+        "انتقل إلى قسم Personal access tokens",
+        "انقر Generate new token",
+        "أدخل اسماً (مثل REST API)",
+        "حدد الصلاحيات (scopes) — انظر tokenScopes أدناه",
+        "انسخ المفتاح فوراً — يُعرض مرة واحدة فقط"
+      ],
+      "tokenScopes": [
+        { "ar": "المستخدمون", "en": "Users", "selected": true, "desc": "Read the current user's name, email, and profile image" },
+        { "ar": "الملفات", "en": "Files", "selected": false, "desc": "Read comments • Create/modify/delete comments • Read contents and render images • Read metadata • Read version history" },
+        { "ar": "أنظمة التصميم", "en": "Design systems", "selected": true, "desc": "Read components and styles • Read published from files • Read published in team libraries" },
+        { "ar": "التطوير", "en": "Development", "selected": true, "desc": "Read and list dev resources • Create and modify dev resources" },
+        { "ar": "المشاريع", "en": "Projects", "selected": true, "desc": "Read team project structure" },
+        { "ar": "الويب هوكس", "en": "Webhooks", "selected": true, "desc": "Read and list webhooks • Create, modify, delete webhooks" }
+      ],
+      "selectedInAccount": "Users, Design systems, Development, Projects, Webhooks",
+      "docs": "https://help.figma.com/hc/en-us/articles/8085703771159"
+    }
+  }
+}

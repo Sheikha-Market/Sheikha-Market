@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلسلة التوريد | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --green: #0a5c36;
+            --green-saudi: #006c35;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #fff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; line-height: 1.7; }
+        
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; font-weight: 900; color: var(--dark);
+        }
+        .logo-text h1 { font-size: 1.1rem; color: var(--gold); }
+        .logo-text p { font-size: 0.7rem; color: var(--text-muted); }
+        .nav { display: flex; gap: 8px; }
+        .nav-link {
+            padding: 10px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: var(--radius);
+            transition: all 0.2s;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--gold); background: rgba(212,175,55,0.1); }
+        
+        /* Hero */
+        .hero {
+            padding: 60px 24px;
+            background: linear-gradient(180deg, var(--card), var(--darker));
+            text-align: center;
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 16px; }
+        .hero h1 span { color: var(--gold); }
+        .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 30px; }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 24px; }
+        
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-title h2 { font-size: 1.8rem; margin-bottom: 12px; }
+        .section-title h2 span { color: var(--gold); }
+        .section-title p { color: var(--text-muted); }
+        
+        /* Supply Chain Flow */
+        .supply-chain-visual {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+        .chain-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .chain-stage {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+            padding: 24px 16px;
+            background: var(--dark);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .chain-stage:hover, .chain-stage.active {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.05);
+            transform: translateY(-4px);
+        }
+        .chain-stage-icon {
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(10,92,54,0.15));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 12px;
+        }
+        .chain-stage h4 { font-size: 1rem; margin-bottom: 4px; }
+        .chain-stage p { font-size: 0.8rem; color: var(--text-muted); }
+        .chain-arrow {
+            font-size: 1.5rem;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+        
+        /* Stage Details */
+        .stage-details {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-bottom: 40px;
+            display: none;
+        }
+        .stage-details.active { display: block; }
+        .stage-details-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .stage-details-icon {
+            width: 70px; height: 70px;
+            background: linear-gradient(135deg, var(--gold), var(--green));
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+        }
+        .stage-details-title h3 { font-size: 1.4rem; margin-bottom: 4px; }
+        .stage-details-title p { color: var(--text-muted); }
+        
+        .stage-content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .stage-card {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+        }
+        .stage-card h5 {
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .stage-card ul { list-style: none; }
+        .stage-card li {
+            padding: 8px 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .stage-card li::before { content: '✓'; color: var(--success); }
+        
+        /* Quick Links Grid */
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        .quick-link-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+        .quick-link-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+        .quick-link-icon {
+            width: 60px; height: 60px;
+            background: var(--dark);
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 16px;
+        }
+        .quick-link-card h4 { font-size: 1rem; margin-bottom: 8px; }
+        .quick-link-card p { font-size: 0.8rem; color: var(--text-muted); }
+        
+        /* Integration Section */
+        .integration-banner {
+            background: linear-gradient(135deg, var(--green), var(--dark));
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .integration-content h3 { font-size: 1.5rem; margin-bottom: 12px; }
+        .integration-content p { color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+        .integration-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+        .integration-badge {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--dark); }
+        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212,175,55,0.3); }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+        }
+        .footer .basmala { color: var(--gold); margin-bottom: 12px; }
+        
+        @media (max-width: 1024px) {
+            .stage-content-grid { grid-template-columns: repeat(2, 1fr); }
+            .quick-links-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .chain-flow { flex-direction: column; }
+            .chain-arrow { transform: rotate(90deg); }
+            .stage-content-grid { grid-template-columns: 1fr; }
+            .quick-links-grid { grid-template-columns: 1fr; }
+            .integration-banner { flex-direction: column; text-align: center; }
+            .nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">ش</div>
+                <div class="logo-text">
+                    <h1>شيخة</h1>
+                    <p>سلسلة التوريد</p>
+                </div>
+            </a>
+            <nav class="nav">
+                <a href="/" class="nav-link">الرئيسية</a>
+                <a href="السوق.html" class="nav-link">السوق</a>
+                <a href="سلسلة-التوريد.html" class="nav-link active">سلسلة التوريد</a>
+                <a href="لوحة-التحكم.html" class="nav-link">لوحة التحكم</a>
+                <a href="مساعد-شيخة.html" class="nav-link">المساعد</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>سلسلة <span>التوريد</span> الذكية</h1>
+        <p>تتبع مسار المعادن من المصدر إلى المستهلك — 6 مراحل متكاملة مع أدوات رقمية ذكية لإدارة كل مرحلة</p>
+    </section>
+
+    <div class="container">
+        <!-- Supply Chain Flow -->
+        <div class="supply-chain-visual">
+            <div class="section-title" style="margin-bottom: 30px;">
+                <h2>🔗 مراحل <span>سلسلة التوريد</span></h2>
+                <p>اضغط على أي مرحلة لمعرفة التفاصيل والأدوات المتاحة</p>
+            </div>
+            
+            <div class="chain-flow">
+                <div class="chain-stage active" onclick="showStage('source')" data-stage="source">
+                    <div class="chain-stage-icon">⛏️</div>
+                    <h4>المصدر</h4>
+                    <p>Source</p>
+                </div>
+                <span class="chain-arrow">→</span>
+                <div class="chain-stage" onclick="showStage('collection')" data-stage="collection">
+                    <div class="chain-stage-icon">🚛</div>
+                    <h4>التجميع</h4>
+                    <p>Collection</p>
+                </div>
+                <span class="chain-arrow">→</span>
+                <div class="chain-stage" onclick="showStage('transport')" data-stage="transport">
+                    <div class="chain-stage-icon">🚚</div>
+                    <h4>النقل</h4>
+                    <p>Transport</p>
+                </div>
+                <span class="chain-arrow">→</span>
+                <div class="chain-stage" onclick="showStage('smelter')" data-stage="smelter">
+                    <div class="chain-stage-icon">🔥</div>
+                    <h4>المصهر</h4>
+                    <p>Smelter</p>
+                </div>
+                <span class="chain-arrow">→</span>
+                <div class="chain-stage" onclick="showStage('manufacturing')" data-stage="manufacturing">
+                    <div class="chain-stage-icon">🏭</div>
+                    <h4>التصنيع</h4>
+                    <p>Manufacturing</p>
+                </div>
+                <span class="chain-arrow">→</span>
+                <div class="chain-stage" onclick="showStage('end')" data-stage="end">
+                    <div class="chain-stage-icon">🏪</div>
+                    <h4>المستهلك</h4>
+                    <p>End User</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage Details -->
+        <div class="stage-details active" id="stageSource">
+            <div class="stage-details-header">
+                <div class="stage-details-icon">⛏️</div>
+                <div class="stage-details-title">
+                    <h3>مرحلة المصدر</h3>
+                    <p>أماكن استخراج أو تجميع المعادن الخام</p>
+                </div>
+            </div>
+            <div class="stage-content-grid">
+                <div class="stage-card">
+                    <h5>📍 أنواع المصادر</h5>
+                    <ul>
+                        <li>المناجم والمحاجر</li>
+                        <li>مصانع الإنتاج</li>
+                        <li>ورش الصيانة</li>
+                        <li>مشاريع الهدم</li>
+                        <li>المخلفات الصناعية</li>
+                    </ul>
+                </div>
+                <div class="stage-card">
+                    <h5>⚙️ الأدوات المتاحة</h5>
+                    <ul>
+                        <li>كشافات معادن</li>
+                        <li>ميزان إلكتروني</li>
+                        <li>أجهزة XRF للتحليل</li>
+                        <li>كاميرات توثيق</li>
+                        <li>نظام GPS للتتبع</li>
+                    </ul>
+                </div>
+                <div class="stage-card">
+                    <h5>📋 المستندات</h5>
+                    <ul>
+                        <li>شهادة المنشأ</li>
+                        <li>تقرير الجودة</li>
+                        <li>إذن النقل</li>
+                        <li>الفاتورة الأولية</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="stage-details" id="stageCollection">
+            <div class="stage-details-header">
+                <div class="stage-details-icon">🚛</div>
+                <div class="stage-details-title">
+                    <h3>مرحلة التجميع</h3>
+                    <p>جمع وفرز المعادن من المصادر المختلفة</p>
+                </div>
+            </div>
+            <div class="stage-content-grid">
+                <div class="stage-card">
+                    <h5>📍 نقاط التجميع</h5>
+                    <ul>
+                        <li>ساحات السكراب</li>
+                        <li>مراكز الفرز</li>
+                        <li>نقاط التجميع المتنقلة</li>
+                        <li>حاويات التجميع</li>
+                    </ul>
+                </div>
+                <div class="stage-card">
+                    <h5>⚙️ المعدات</h5>
+                    <ul>
+                        <li>رافعات شوكية</li>
+                        <li>مغناطيس فصل</li>
+                        <li>مكابس هيدروليكية</li>
+                        <li>آلات القطع</li>
+                        <li>موازين رقمية</li>
+                    </ul>
+                </div>
+                <div class="stage-card">
+                    <h5>🔧 الخدمات</h5>
+                    <ul>
+                        <li>الفرز حسب النوع</li>
+                        <li>التنظيف الأولي</li>
+                        <li>الضغط والتكعيب</li>
+                        <li>التصنيف والترميز</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="stage-details" id="stageTransport">
+            <div class="stage-details-header">
+                <div class="stage-details-icon">🚚</div>
+                <div class="stage-details-title">
+                    <h3>مرحلة النقل</h3>
+                    <p>نقل المعادن بين المراحل المختلفة</p>
+                </div>
+            </div>
+            <div class="stage-content-grid">
+                <div class="stage-card">
+                    <h5>🚛 أنواع النقل</h5>
+                    <ul>
+                        <li>شاحنات مسطحة</li>
+                        <li>شاحنات قلاب</li>
+                        <li>حاويات شحن</li>
+                        <li>نقل بحري</li>
+                        <li>سيارات مصفحة (للثمينة)</li>
+                    </ul>
+                </div>
+                <div class="stage-card">
+                    <h5>📦 الخدمات اللوجستية</h5>
+                    <ul>
+                        <li>تتبع GPS حي</li>
+                        <li>إصدار البوالص</li>
+                        <li>التخليص الجمركي</li>
+                        <li>حماية وتوثيق الشحنة</li>
+                        <li>جدولة التسليم</li>
+                    </ul>
+                </div>
+                <div class="stage-card">
+                    <h5>🏢 شركات النقل</h5>
+                    <ul>
+                        <li>SMSA Express</li>
+                        <li>Aramex</li>
+                        <li>DHL</li>
+                        <li>ناقل</li>
+                        <li>البريد السعودي</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="stage-details" id="stageSmelter">
+            <div class="stage-details-header">
+                <div class="stage-details-icon">🔥</div>
+                <div class="stage-details-title">
+                    <h3>مرحلة المصهر</h3>
+                    <p>صهر وتكرير المعادن</p>
+                </div>
+            </div>
+            <div class="stage-content-grid">
+                <div class="stage-card">
+                    <h5>🔥 عمليات الصهر</h5>
+                    <ul>
+                        <li>أفران القوس الكهربائي</li>
+                        <li>أفران الحث</li>
+                        <li>أفران الوقود</li>
+                        <li>التكرير الكيميائي</li>
+                    </ul>
+                </div>
+                <div class="stage-card">
+                    <h5>📊 بيانات حية</h5>
+                    <ul>
+                        <li>درجة الحرارة (°C)</li>
+                        <li>نسبة النقاء (%)</li>
+                        <li>استهلاك الطاقة</li>
+                        <li>كمية الإنتاج</li>
+                        <li>مراقبة الانبعاثات</li>
+                    </ul>
+                </div>
+                <div class="stage-card">
+                    <h5>📜 الشهادات</h5>
+                    <ul>
+                        <li>شهادة النقاء</li>
+                        <li>تحليل التركيب</li>
+                        <li>شهادة المطابقة ISO</li>
+                        <li>تقرير الجودة</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="stage-details" id="stageManufacturing">
+            <div class="stage-details-header">
+                <div class="stage-details-icon">🏭</div>
+                <div class="stage-details-title">
+                    <h3>مرحلة التصنيع</h3>
+                    <p>تحويل المعادن إلى منتجات</p>
+                </div>
+            </div>
+            <div class="stage-content-grid">
+                <div class="stage-card">
+                    <h5>🏭 أنواع التصنيع</h5>
+                    <ul>
+                        <li>سبائك ومصبوبات</li>
+                        <li>ألواح وصفائح</li>
+                        <li>أسلاك وكابلات</li>
+                        <li>أنابيب وقطاعات</li>
+                        <li>مشغولات ومصنوعات</li>
+                    </ul>
+                </div>
+                <div class="stage-card">
+                    <h5>⚙️ التكامل الصناعي</h5>
+                    <ul>
+                        <li>أنظمة MES</li>
+                        <li>مستشعرات IoT</li>
+                        <li>بروتوكول OPC-UA</li>
+                        <li>جدولة الإنتاج</li>
+                        <li>مراقبة الجودة</li>
+                    </ul>
+                </div>
+                <div class="stage-card">
+                    <h5>✅ ضبط الجودة</h5>
+                    <ul>
+                        <li>فحص الأبعاد</li>
+                        <li>اختبار الصلابة</li>
+                        <li>فحص التركيب</li>
+                        <li>اختبار الإجهاد</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="stage-details" id="stageEnd">
+            <div class="stage-details-header">
+                <div class="stage-details-icon">🏪</div>
+                <div class="stage-details-title">
+                    <h3>المستهلك النهائي</h3>
+                    <p>البيع والتوزيع</p>
+                </div>
+            </div>
+            <div class="stage-content-grid">
+                <div class="stage-card">
+                    <h5>🏪 قنوات البيع</h5>
+                    <ul>
+                        <li>سوق شيخة (B2B)</li>
+                        <li>المتاجر والمعارض</li>
+                        <li>التصدير الدولي</li>
+                        <li>العقود الحكومية</li>
+                    </ul>
+                </div>
+                <div class="stage-card">
+                    <h5>👥 العملاء</h5>
+                    <ul>
+                        <li>المصانع والورش</li>
+                        <li>شركات البناء</li>
+                        <li>تجار التجزئة</li>
+                        <li>المصدرون</li>
+                    </ul>
+                </div>
+                <div class="stage-card">
+                    <h5>📊 التحليلات</h5>
+                    <ul>
+                        <li>تقارير المبيعات</li>
+                        <li>تحليل السوق</li>
+                        <li>توقعات الطلب</li>
+                        <li>رضا العملاء</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="section-title">
+            <h2>🔗 روابط <span>سريعة</span></h2>
+            <p>الوصول المباشر لأهم الأدوات والخدمات</p>
+        </div>
+        
+        <div class="quick-links-grid">
+            <a href="السوق.html" class="quick-link-card">
+                <div class="quick-link-icon">🛒</div>
+                <h4>السوق</h4>
+                <p>تصفح وشراء المنتجات</p>
+            </a>
+            <a href="fbs.html" class="quick-link-card">
+                <div class="quick-link-icon">📦</div>
+                <h4>التخزين والشحن</h4>
+                <p>FBS — خدمات التخزين</p>
+            </a>
+            <a href="التكامل-الصناعي.html" class="quick-link-card">
+                <div class="quick-link-icon">🏭</div>
+                <h4>التكامل الصناعي</h4>
+                <p>ربط المصانع والمصاهر</p>
+            </a>
+            <a href="enterprise.html" class="quick-link-card">
+                <div class="quick-link-icon">🏗️</div>
+                <h4>المشاريع الكبرى</h4>
+                <p>مناجم ومصانع</p>
+            </a>
+        </div>
+
+        <!-- Integration Banner -->
+        <div class="integration-banner">
+            <div class="integration-content">
+                <h3>🔌 تكامل مع أنظمتك</h3>
+                <p>ربط سلسلة التوريد الخاصة بك مع منظومة شيخة عبر APIs متقدمة</p>
+                <div class="integration-badges">
+                    <span class="integration-badge">REST API</span>
+                    <span class="integration-badge">WebSocket</span>
+                    <span class="integration-badge">OPC-UA</span>
+                    <span class="integration-badge">MQTT</span>
+                </div>
+            </div>
+            <a href="api-docs.html" class="btn btn-gold">📚 توثيق API</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="basmala">لا حول ولا قوة إلا بالله</p>
+        <p>© 2026 منظومة شيخة — سلسلة التوريد الذكية</p>
+    </footer>
+
+    <script>
+        function showStage(stageId) {
+            // Hide all details
+            document.querySelectorAll('.stage-details').forEach(d => d.classList.remove('active'));
+            
+            // Remove active from all stages
+            document.querySelectorAll('.chain-stage').forEach(s => s.classList.remove('active'));
+            
+            // Show selected stage
+            const stageMap = {
+                'source': 'stageSource',
+                'collection': 'stageCollection',
+                'transport': 'stageTransport',
+                'smelter': 'stageSmelter',
+                'manufacturing': 'stageManufacturing',
+                'end': 'stageEnd'
+            };
+            
+            document.getElementById(stageMap[stageId]).classList.add('active');
+            document.querySelector(`[data-stage="${stageId}"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

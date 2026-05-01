@@ -1,0 +1,57 @@
+<svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0a0f1a"/><stop offset="100%" stop-color="#030712"/></linearGradient>
+    <linearGradient id="g" x1="20%" y1="0%" x2="80%" y2="100%"><stop offset="0%" stop-color="#FBF0C8"/><stop offset="30%" stop-color="#E8C94A"/><stop offset="60%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#A8882B"/></linearGradient>
+    <linearGradient id="gv" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#FBF0C8"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient>
+    <radialGradient id="core" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFFDE8"/><stop offset="40%" stop-color="#F5E6A3"/><stop offset="100%" stop-color="#D4AF37"/></radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#D4AF37" stop-opacity=".08"/><stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/></radialGradient>
+    <filter id="gl"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glB"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+
+<!-- خلفية مملوءة (maskable safe zone) -->
+<rect width="512" height="512" fill="url(#bg)"/>
+<circle cx="256" cy="256" r="200" fill="url(#halo)"/>
+
+<!-- النجمة (ضمن المنطقة الآمنة 80%) -->
+<polygon points="256,60 288,200 414,200 312,282 342,420 256,350 170,420 200,282 98,200 224,200" fill="url(#g)" opacity=".05"/>
+<polygon points="256,60 288,200 414,200 312,282 342,420 256,350 170,420 200,282 98,200 224,200" stroke="url(#g)" stroke-width="2.5" fill="none" opacity=".2" filter="url(#gl)"/>
+<polygon points="256,105 280,205 370,205 300,260 324,360 256,316 188,360 212,260 142,205 232,205" stroke="url(#g)" stroke-width="1" fill="none" opacity=".08"/>
+
+<!-- عمود الميزان -->
+<rect x="250" y="110" width="12" height="245" rx="6" fill="url(#g)" opacity=".42"/>
+<!-- التاج -->
+<circle cx="256" cy="105" r="18" fill="url(#gv)" filter="url(#glB)" opacity=".8"/>
+<circle cx="256" cy="105" r="9" fill="#0a0f1a" opacity=".3"/>
+<circle cx="256" cy="105" r="4.5" fill="url(#core)" opacity=".55"/>
+<path d="M244,123 L256,132 L268,123" stroke="url(#g)" stroke-width="2" fill="none" opacity=".25"/>
+<!-- ذراع -->
+<rect x="128" y="210" width="256" height="7" rx="3.5" fill="url(#g)" opacity=".42"/>
+<circle cx="256" cy="213.5" r="7" fill="url(#gv)" opacity=".4"/>
+
+<!-- الكفة اليمنى -->
+<line x1="146" y1="213.5" x2="132" y2="280" stroke="url(#g)" stroke-width="2" opacity=".3"/>
+<line x1="198" y1="213.5" x2="212" y2="280" stroke="url(#g)" stroke-width="2" opacity=".3"/>
+<path d="M124,280 C130,310 172,318 172,318 C172,318 214,310 220,280 Z" fill="rgba(212,175,55,.05)" stroke="url(#g)" stroke-width="2.5" opacity=".4"/>
+
+<!-- الكفة اليسرى -->
+<line x1="314" y1="213.5" x2="300" y2="280" stroke="url(#g)" stroke-width="2" opacity=".3"/>
+<line x1="366" y1="213.5" x2="380" y2="280" stroke="url(#g)" stroke-width="2" opacity=".3"/>
+<path d="M292,280 C298,310 340,318 340,318 C340,318 382,310 388,280 Z" fill="rgba(212,175,55,.05)" stroke="url(#g)" stroke-width="2.5" opacity=".4"/>
+
+<!-- الجوهرة -->
+<polygon points="256,162 286,256 256,350 226,256" fill="rgba(212,175,55,.03)" stroke="url(#g)" stroke-width="1.5" opacity=".3"/>
+<polygon points="256,185 276,256 256,327 236,256" fill="rgba(212,175,55,.03)" stroke="url(#g)" stroke-width="1" opacity=".18"/>
+<circle cx="256" cy="256" r="20" fill="url(#core)" filter="url(#glB)" opacity=".8"/>
+<circle cx="256" cy="256" r="9" fill="#FFFDE8" opacity=".3"/>
+
+<!-- القاعدة -->
+<rect x="248" y="355" width="16" height="14" rx="4" fill="url(#g)" opacity=".32"/>
+<rect x="198" y="369" width="116" height="7" rx="3.5" fill="url(#g)" opacity=".42"/>
+<rect x="186" y="380" width="140" height="5.5" rx="2.75" fill="url(#g)" opacity=".25"/>
+<line x1="212" y1="376" x2="200" y2="385.5" stroke="url(#g)" stroke-width="2" opacity=".22"/>
+<line x1="300" y1="376" x2="312" y2="385.5" stroke="url(#g)" stroke-width="2" opacity=".22"/>
+
+<!-- النص -->
+<text x="256" y="425" font-family="Cairo,Tajawal,sans-serif" font-size="28" fill="url(#g)" text-anchor="middle" opacity=".28" font-weight="900" letter-spacing="5">شيخة</text>
+</svg>

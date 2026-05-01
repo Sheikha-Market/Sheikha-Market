@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍🌌 منظومة الأرض والسماء — البروج والمنازل والطباق | SHEIKHA</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#D4AF37;--bg:#050810;--card:rgba(15,20,35,0.95);--border:rgba(99,102,241,0.1);--text:#e2e8f0;--dim:#64748b;--green:#10b981;--blue:#0ea5e9;--indigo:#6366f1;--purple:#8b5cf6;--amber:#f59e0b;--emerald:#059669}
+body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 10%,rgba(99,102,241,0.04),transparent 50%),radial-gradient(ellipse at 70% 90%,rgba(14,165,233,0.03),transparent 50%);pointer-events:none}
+.container{max-width:1200px;margin:0 auto;padding:20px;position:relative;z-index:1}
+.hdr{text-align:center;padding:24px 0 16px}
+.hdr .bsm{font-family:'Amiri',serif;font-size:0.9rem;color:rgba(99,102,241,0.5)}
+.hdr h1{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--indigo),#818cf8,var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:4px 0}
+.hdr .sub{font-size:0.75rem;color:var(--dim);max-width:700px;margin:0 auto}
+.hdr .verse{font-family:'Amiri',serif;font-size:0.85rem;color:rgba(212,175,55,0.5);margin-top:6px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin:14px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center}
+.stat .v{font-size:1.2rem;font-weight:900;color:var(--indigo)}
+.stat .v.g{color:var(--green)}.stat .v.b{color:var(--blue)}.stat .v.a{color:var(--amber)}.stat .v.p{color:var(--purple)}.stat .v.gd{color:var(--gold)}
+.stat .l{font-size:0.55rem;color:var(--dim);margin-top:2px}
+.verses{margin:16px 0;padding:14px;background:linear-gradient(135deg,rgba(99,102,241,0.04),rgba(14,165,233,0.03));border:1px solid rgba(99,102,241,0.1);border-radius:14px;max-height:180px;overflow-y:auto}
+.vrs{font-family:'Amiri',serif;font-size:0.78rem;color:rgba(212,175,55,0.5);padding:4px 0;line-height:1.7}
+.vrs .ref{font-size:0.6rem;color:var(--dim);font-family:'Tajawal'}
+.section{margin:20px 0}
+.section-title{display:flex;align-items:center;gap:8px;font-size:0.95rem;font-weight:700;color:var(--indigo);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all 0.3s}
+.card:hover{border-color:rgba(99,102,241,0.25);transform:translateY(-2px)}
+.card .c-name{font-size:0.82rem;font-weight:700;color:#fff}
+.card .c-en{font-size:0.6rem;color:var(--dim)}
+.card .c-desc{font-size:0.68rem;color:var(--dim);margin:4px 0}
+.card .c-quran{font-family:'Amiri',serif;font-size:0.7rem;color:rgba(212,175,55,0.4);margin-top:4px}
+.badge{display:inline-block;font-size:0.52rem;padding:2px 6px;border-radius:6px;font-weight:700;margin:2px 2px 0 0}
+.badge.active{background:rgba(16,185,129,0.08);color:var(--green)}
+.badge.emerging{background:rgba(245,158,11,0.08);color:var(--amber)}
+.badge.research{background:rgba(139,92,246,0.08);color:var(--purple)}
+.badge.planned{background:rgba(14,165,233,0.08);color:var(--blue)}
+.badge.halal{background:rgba(16,185,129,0.06);color:var(--green)}
+.badge.gold{background:rgba(212,175,55,0.08);color:var(--gold)}
+/* منازل دائرية */
+.manazil-ring{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.mnz{padding:6px 10px;border-radius:8px;background:rgba(99,102,241,0.04);border:1px solid rgba(99,102,241,0.08);font-size:0.65rem;text-align:center;transition:all 0.2s;cursor:default;min-width:80px}
+.mnz:hover{border-color:rgba(212,175,55,0.3);background:rgba(212,175,55,0.06)}
+.mnz .m-num{font-weight:900;color:var(--indigo);font-size:0.7rem}
+.mnz .m-name{font-weight:700;color:#fff;font-size:0.72rem}
+.mnz .m-burj{color:var(--dim);font-size:0.55rem}
+.mnz .m-season{color:var(--amber);font-size:0.52rem}
+/* سماوات */
+.samawat{display:flex;flex-direction:column;gap:8px}
+.sama{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all 0.3s}
+.sama:hover{border-color:rgba(99,102,241,0.25)}
+.sama .s-order{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--purple));color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:900;float:left;margin-left:10px}
+.sama .s-name{font-size:0.85rem;font-weight:700;color:#fff}
+.sama .s-en{font-size:0.6rem;color:var(--dim)}
+.sama .s-desc{font-size:0.68rem;color:var(--dim);margin:4px 0}
+.sama .s-quran{font-family:'Amiri',serif;font-size:0.7rem;color:rgba(212,175,55,0.4);margin:4px 0}
+.sama .s-sci{font-size:0.6rem;color:var(--blue);padding:3px 8px;background:rgba(14,165,233,0.04);border-radius:6px;display:inline-block;margin-top:3px}
+/* طرق */
+.routes{display:grid;grid-template-columns:1fr;gap:8px}
+.route{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:0.72rem}
+.route .r-name{font-weight:700;color:#fff;min-width:130px}
+.route .r-path{color:var(--dim);flex:1}
+.route .r-type{font-size:0.6rem;padding:2px 8px;border-radius:6px;background:rgba(99,102,241,0.06);color:var(--indigo)}
+.sharia-note{margin:12px 0;padding:12px;background:rgba(5,150,105,0.04);border:1px solid rgba(5,150,105,0.1);border-radius:10px;font-size:0.7rem;color:var(--emerald);font-family:'Amiri',serif;line-height:1.7}
+.footer{text-align:center;padding:20px;color:var(--dim);font-size:0.6rem;border-top:1px solid var(--border);margin-top:24px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="hdr">
+    <div class="bsm">☪️ بسم الله الرحمن الرحيم</div>
+    <h1>🌍 منظومة الأرض والسماء 🌌</h1>
+    <div class="sub">البروج والمنازل والسماوات السبع طباقاً — التجارة والاقتصاد والبحث العلمي — مُرقمنة بالكتاب والسنة</div>
+    <div class="verse">هُوَ الَّذِي جَعَلَ الشَّمْسَ ضِيَاءً وَالْقَمَرَ نُورًا وَقَدَّرَهُ مَنَازِلَ لِتَعْلَمُوا عَدَدَ السِّنِينَ وَالْحِسَابَ — يونس ٥</div>
+</div>
+<div class="stats" id="stats"></div>
+<div class="verses" id="verses"></div>
+
+<div class="section"><div class="section-title">🌙 منازل القمر الـ٢٨ — وَقَدَّرَهُ مَنَازِلَ</div><div id="manazil-info"></div><div class="manazil-ring" id="manazil"></div></div>
+<div class="section"><div class="section-title">♈ البروج الاثنا عشر — بُرُوجًا وَزَيَّنَّاهَا</div><div id="buruj-note"></div><div class="grid" id="buruj"></div></div>
+<div class="section"><div class="section-title">🌌 السماوات السبع طباقاً</div><div class="samawat" id="samawat"></div></div>
+<div class="section"><div class="section-title">🌍 منظومة الأرض — التجارة والموارد</div><div class="grid" id="earth"></div></div>
+<div class="section"><div class="section-title">🚀 منظومة السماء والفضاء</div><div class="grid" id="sky"></div></div>
+<div class="section"><div class="section-title">☀️ الشمس والقمر والكواكب</div><div class="grid" id="celestial"></div></div>
+<div class="section"><div class="section-title">💰 اقتصاد الفضاء</div><div class="grid" id="space-econ"></div></div>
+<div class="section"><div class="section-title">🔬 البحث والتطوير العلمي</div><div class="grid" id="research"></div></div>
+<div class="section"><div class="section-title">🗺️ أقطار السماوات والأرض — طرق التجارة</div><div class="routes" id="routes"></div></div>
+
+<div class="footer">
+    <div style="font-family:'Amiri',serif;color:rgba(99,102,241,0.4)">المالك: سلمان أحمد بن سلمان الراجح</div>
+    <div>SHEIKHA Cosmos Engine v1.0 — منظومة الأرض والسماء — البروج والمنازل والطباق</div>
+</div>
+</div>
+
+<script>
+async function sf(u){try{const r=await fetch(u);if(!r.ok)return null;return await r.json();}catch(e){return null;}}
+async function load(){
+    const d=await sf('/api/cosmos/dashboard');
+    if(!d||!d.success)return;
+    const s=d.summary;
+    document.getElementById('stats').innerHTML=`
+        <div class="stat"><div class="v gd">${s.quranVerses}</div><div class="l">آية قرآنية</div></div>
+        <div class="stat"><div class="v p">${s.burujCount}</div><div class="l">برج فلكي</div></div>
+        <div class="stat"><div class="v">${s.manazilCount}</div><div class="l">منزل قمري</div></div>
+        <div class="stat"><div class="v a">${s.samawatCount}</div><div class="l">سماء طباقاً</div></div>
+        <div class="stat"><div class="v b">${s.earthSectors}</div><div class="l">قطاع أرضي</div></div>
+        <div class="stat"><div class="v">${s.spaceDomains}</div><div class="l">مجال فضائي</div></div>
+        <div class="stat"><div class="v a">${s.celestialBodies}</div><div class="l">جرم سماوي</div></div>
+        <div class="stat"><div class="v g">${s.earthResearch+s.spaceResearch}</div><div class="l">مجال بحث</div></div>
+        <div class="stat"><div class="v b">${s.tradeRoutes}</div><div class="l">ممر تجاري</div></div>
+    `;
+
+    // آيات
+    document.getElementById('verses').innerHTML=d.quranReferences.map(v=>`<div class="vrs">${v.text} <span class="ref">— ${v.ref} | ${v.topic}</span></div>`).join('');
+
+    // المنازل
+    if(d.manazil){
+        document.getElementById('manazil-info').innerHTML=`
+            <div class="sharia-note" style="margin-bottom:10px">${d.manazil.verse}<br>${d.manazil.verse2}<br><br>${d.manazil.description}</div>
+        `;
+        document.getElementById('manazil').innerHTML=d.manazil.mansions.map(m=>`
+            <div class="mnz"><div class="m-num">${m.order}</div><div class="m-name">${m.nameAr}</div><div class="m-burj">${m.burj}</div><div class="m-season">${m.season}</div></div>
+        `).join('');
+    }
+
+    // البروج
+    if(d.buruj){
+        document.getElementById('buruj-note').innerHTML=`<div class="sharia-note" style="margin-bottom:10px">${d.buruj.verse}<br><br>${d.buruj.shariaNote}</div>`;
+        document.getElementById('buruj').innerHTML=d.buruj.constellations.map(b=>`
+            <div class="card">
+                <div class="c-name">${b.order}. ${b.nameAr}</div>
+                <div class="c-en">${b.nameEn} | ${b.arabicName}</div>
+                <div class="c-desc">${b.season} | ${b.months}</div>
+                <div class="c-desc">النجوم: ${b.stars}</div>
+                <div>${b.applications.map(a=>`<span class="badge gold">${a}</span>`).join('')}</div>
+            </div>
+        `).join('');
+    }
+
+    // السماوات السبع
+    if(d.sabaaSamawat){
+        document.getElementById('samawat').innerHTML=`
+            <div class="sharia-note">${d.sabaaSamawat.verse}<br>${d.sabaaSamawat.verse2}<br><br>${d.sabaaSamawat.description}</div>
+            ${d.sabaaSamawat.layers.map(l=>`
+                <div class="sama">
+                    <div class="s-order">${l.order}</div>
+                    <div class="s-name">${l.nameAr}</div>
+                    <div class="s-en">${l.nameEn}</div>
+                    ${l.quran?`<div class="s-quran">${l.quran}</div>`:''}
+                    <div class="s-desc">${l.description}</div>
+                    <div class="s-sci">🔬 ${l.scientificParallel}</div>
+                    <div>${l.applications.map(a=>`<span class="badge active">${a}</span>`).join('')}</div>
+                </div>
+            `).join('')}
+            <div class="sharia-note">${d.sabaaSamawat.note}</div>
+        `;
+    }
+
+    // الأرض
+    document.getElementById('earth').innerHTML=d.earthSystem.sectors.map(s=>`<div class="card"><div class="c-name">${s.nameAr}</div><div class="c-en">${s.nameEn}</div><div class="c-desc">${s.description}</div>${s.quran?`<div class="c-quran">${s.quran}</div>`:''}<span class="badge active">✓ ${s.status}</span></div>`).join('');
+
+    // الفضاء
+    document.getElementById('sky').innerHTML=d.skySystem.domains.map(s=>`<div class="card"><div class="c-name">${s.nameAr}</div><div class="c-en">${s.nameEn}</div><div class="c-desc">${s.description}</div><span class="badge ${s.status}">${s.status}</span><span class="badge emerging">${s.market}</span></div>`).join('');
+
+    // الشمس والقمر والكواكب
+    document.getElementById('celestial').innerHTML=d.sunMoonSystem.celestialBodies.map(c=>`<div class="card"><div class="c-name">${c.nameAr}</div><div class="c-en">${c.nameEn} (${c.type})</div>${c.quran?`<div class="c-quran">${c.quran}</div>`:''}<div class="c-desc">${c.applications.join(' • ')}</div></div>`).join('');
+
+    // اقتصاد الفضاء
+    document.getElementById('space-econ').innerHTML=d.spaceCommerce.sectors.map(s=>`<div class="card"><div class="c-name">${s.nameAr}</div><div class="c-desc">حجم: ${s.value} | نمو: ${s.growth}</div><span class="badge halal">☪️ ${s.shariaStatus}</span></div>`).join('');
+
+    // البحث
+    let rH=d.research.earthResearch.map(r=>`<div class="card"><div class="c-name">🌍 ${r.nameAr}</div><div class="c-en">${r.nameEn}</div><div class="c-desc">${r.focus}</div><span class="badge ${r.status}">${r.status}</span></div>`).join('');
+    rH+=d.research.spaceResearch.map(r=>`<div class="card"><div class="c-name">🚀 ${r.nameAr}</div><div class="c-en">${r.nameEn}</div><div class="c-desc">${r.focus}</div><span class="badge ${r.status}">${r.status}</span></div>`).join('');
+    document.getElementById('research').innerHTML=rH;
+
+    // الطرق التجارية
+    document.getElementById('routes').innerHTML=d.regions.tradeRoutes.map(r=>`<div class="route"><span class="r-name">${r.nameAr}</span><span class="r-path">${r.from} → ${r.to}</span><span class="r-type">${r.type}</span></div>`).join('');
+}
+load();
+</script>
+</body>
+</html>

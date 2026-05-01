@@ -1,0 +1,15 @@
+{
+    "generatedAt": "2026-03-18T04:56:59.789Z",
+    "integrationFlow": "training-core → simulation-testing-core → production-core",
+    "automatedPromotion": true,
+    "promotionGates": [
+        {
+            "stage": "stage-2-training-loop",
+            "gate": "eval-score >= 0.92 AND sharia-check = PASS"
+        },
+        {
+            "stage": "stage-3-simulation-gate",
+            "gate": "pass-rate >= 98"
+        }
+    ]
+}

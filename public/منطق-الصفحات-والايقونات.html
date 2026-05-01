@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منطق الصفحات والايقونات | SHEIKHA</title>
+    <meta name="description" content="مرجع منطقي يوضح هدف كل صفحة في منظومة شيخة ومعنى كل أيقونة داخل الواجهة.">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050810;
+            --panel: #0d1321;
+            --panel2: #121a2b;
+            --text: #f4f4f5;
+            --muted: #a1a1aa;
+            --gold: #d4af37;
+            --ok: #10b981;
+            --warn: #f59e0b;
+            --danger: #ef4444;
+            --info: #38bdf8;
+            --border: rgba(212, 175, 55, 0.15);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: radial-gradient(circle at top, #11182b 0%, var(--bg) 58%);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .wrap { max-width: 1280px; margin: 0 auto; padding: 22px; }
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 14px 16px;
+            background: rgba(13, 19, 33, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .brand {
+            font-weight: 900;
+            font-size: 1.05rem;
+            background: linear-gradient(135deg, var(--gold), #f8e39a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .top a {
+            color: var(--muted);
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 6px 10px;
+            font-size: 0.8rem;
+        }
+
+        .hero {
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: linear-gradient(140deg, rgba(212,175,55,0.12), rgba(17,24,39,0.85));
+            margin-bottom: 16px;
+        }
+
+        .hero h1 { font-size: clamp(1.35rem, 3.8vw, 1.9rem); margin-bottom: 6px; }
+        .hero p { color: var(--muted); }
+
+        .rules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .rule {
+            background: rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 12px;
+            padding: 10px 12px;
+            font-size: 0.82rem;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            color: var(--gold);
+            margin: 18px 0 10px;
+            font-weight: 800;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--panel2);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            text-align: right;
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.82rem;
+            vertical-align: top;
+        }
+
+        th {
+            color: var(--gold);
+            background: rgba(212,175,55,0.05);
+            font-weight: 800;
+        }
+
+        tr:last-child td { border-bottom: none; }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.12);
+            margin-left: 4px;
+        }
+
+        .t-ok { color: var(--ok); }
+        .t-info { color: var(--info); }
+        .t-warn { color: var(--warn); }
+        .t-danger { color: var(--danger); }
+
+        .footer {
+            margin-top: 18px;
+            color: var(--muted);
+            font-size: 0.78rem;
+            text-align: center;
+            padding-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="top">
+            <div class="brand">SHEIKHA | منطق الصفحات والايقونات</div>
+            <a href="/">الرجوع للرئيسية</a>
+        </div>
+
+        <section class="hero">
+            <h1>مرجع منطقي موحد للتصميم</h1>
+            <p>هذا المرجع يفرض قاعدة تشغيلية: كل صفحة لها هدف أعمال واضح، وكل أيقونة لها معنى واحد ثابت مرتبط بإجراء محدد.</p>
+            <div class="rules">
+                <div class="rule">1) لا أيقونة بدون نص يشرح معناها.</div>
+                <div class="rule">2) لا صفحة بدون هدف رئيسي ومؤشر نجاح.</div>
+                <div class="rule">3) الألوان والأيقونات للحالة فقط، وليست للزينة.</div>
+                <div class="rule">4) كل زر يقود لإجراء واضح قابل للقياس.</div>
+            </div>
+        </section>
+
+        <h2 class="section-title">خريطة الصفحات (الهدف والمنطق)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>الصفحة</th>
+                    <th>الهدف الرئيسي</th>
+                    <th>المستخدم المستهدف</th>
+                    <th>الإجراء الأساسي</th>
+                    <th>مؤشر النجاح</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>/index.html</code></td>
+                    <td>توجيه المستخدم للمسار الصحيح بسرعة.</td>
+                    <td>زائر جديد</td>
+                    <td>الدخول للسوق أو التسجيل.</td>
+                    <td>نسبة التحويل إلى <code>تسجيل-الدخول</code></td>
+                </tr>
+                <tr>
+                    <td><code>/سوق-شيخة.html</code></td>
+                    <td>تنفيذ عمليات السوق (بحث، RFQ، عروض).</td>
+                    <td>تاجر/شركة</td>
+                    <td>نشر/طلب صفقة.</td>
+                    <td>عدد الصفقات المغلقة</td>
+                </tr>
+                <tr>
+                    <td><code>/تكامل-شيخة-الذكي.html</code></td>
+                    <td>شرح مسار EI + VS Code + RAG تقنيا.</td>
+                    <td>مطور/تقني</td>
+                    <td>فتح IDE أو لوحة التكامل.</td>
+                    <td>زمن الانتقال إلى IDE</td>
+                </tr>
+                <tr>
+                    <td><code>/لوحة-تكامل-شيخة-الموحدة.html</code></td>
+                    <td>مراقبة حالة التكاملات الحية.</td>
+                    <td>قيادة تقنية</td>
+                    <td>التحقق من الحالة التشغيلية.</td>
+                    <td>تكاملات فعالة / إجمالي</td>
+                </tr>
+                <tr>
+                    <td><code>/sheikha-ide.html</code></td>
+                    <td>بيئة تطوير وتشغيل أدوات شيخة.</td>
+                    <td>مطور</td>
+                    <td>تنفيذ مهام تطوير/تحقق.</td>
+                    <td>نجاح المهام بدون أخطاء</td>
+                </tr>
+                <tr>
+                    <td><code>/المجتمع.html</code></td>
+                    <td>بناء مجتمع معرفة وتعاون.</td>
+                    <td>باحث/شريك/مستخدم</td>
+                    <td>الانضمام لمبادرة أو نقاش.</td>
+                    <td>معدل المشاركة</td>
+                </tr>
+                <tr>
+                    <td><code>/الشريعة-الاسلامية.html</code></td>
+                    <td>مرجعية شرعية للمعاملات.</td>
+                    <td>جميع الأدوار</td>
+                    <td>التحقق من الحكم الشرعي.</td>
+                    <td>عدد الاستعلامات الشرعية</td>
+                </tr>
+                <tr>
+                    <td><code>/لوحة-تحكم-المستخدم.html</code></td>
+                    <td>إدارة الحساب والطلبات.</td>
+                    <td>مستخدم مسجل</td>
+                    <td>متابعة الطلبات والصفقات.</td>
+                    <td>اكتمال المهام الشخصية</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="section-title">قاموس الأيقونات (معنى ثابت)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>الأيقونة</th>
+                    <th>المعنى المنطقي</th>
+                    <th>نوعها</th>
+                    <th>ممنوع استخدامها لــ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>🏪</td>
+                    <td>مسار السوق/التداول.</td>
+                    <td><span class="tag t-info">تنقل</span></td>
+                    <td>الأمان أو التحذيرات.</td>
+                </tr>
+                <tr>
+                    <td>🧠</td>
+                    <td>منطق الاستدلال أو AI Reasoning.</td>
+                    <td><span class="tag t-info">وظيفي</span></td>
+                    <td>بيانات مالية أو دفع.</td>
+                </tr>
+                <tr>
+                    <td>⚙️</td>
+                    <td>الإعدادات أو المحركات التشغيلية.</td>
+                    <td><span class="tag t-info">تشغيل</span></td>
+                    <td>نتيجة نجاح أو فشل.</td>
+                </tr>
+                <tr>
+                    <td>✅</td>
+                    <td>نجاح تحقق فعلي فقط.</td>
+                    <td><span class="tag t-ok">حالة</span></td>
+                    <td>عناصر غير مفحوصة.</td>
+                </tr>
+                <tr>
+                    <td>⚠️</td>
+                    <td>مخاطر/تنبيه يحتاج تدخل.</td>
+                    <td><span class="tag t-warn">حالة</span></td>
+                    <td>أزرار تنفيذ رئيسية.</td>
+                </tr>
+                <tr>
+                    <td>❌</td>
+                    <td>فشل أو تعطّل.</td>
+                    <td><span class="tag t-danger">حالة</span></td>
+                    <td>أجزاء تعمل بشكل طبيعي.</td>
+                </tr>
+                <tr>
+                    <td>📊</td>
+                    <td>تقارير/مؤشرات/قياس.</td>
+                    <td><span class="tag t-info">تحليلات</span></td>
+                    <td>التحكم بالصلاحيات.</td>
+                </tr>
+                <tr>
+                    <td>🔐</td>
+                    <td>هوية/مصادقة/أمان.</td>
+                    <td><span class="tag t-info">أمن</span></td>
+                    <td>تصفح عام أو محتوى عادي.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">مرجع منطقي معتمد للتصميم التشغيلي في SHEIKHA — 2026</div>
+    </div>
+</body>
+</html>

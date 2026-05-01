@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>الحوكمة والمنهج — ميثاق شيخة التشغيلي | SHEIKHA</title>
+<meta name="description" content="حوكمة منظومة شيخة — المبادئ، السياسات، قواعد العقود والسوق، ومعايير الامتثال بالكتاب والسنة وسنة الخلفاء الراشدين">
+<meta name="robots" content="index, follow">
+<meta name="author" content="سلمان أحمد بن سلمان الراجح">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#D4AF37">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   بسم الله الرحمن الرحيم
+   SHEIKHA GOVERNANCE — الحوكمة والمنهج
+   المرجعية العليا: الكتاب والسنة وسنة الخلفاء الراشدين
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#050810;--bg2:#0a0f1a;--bg3:#111827;--bg4:#1a2236;
+  --gold:#D4AF37;--gold2:#b8942f;--gold3:#f5d97e;
+  --t1:#f1f5f9;--t2:#94a3b8;--t3:#64748b;
+  --bdr:#1e293b;--bdr2:#334155;
+  --green:#22c55e;--blue:#3b82f6;--red:#ef4444;--amber:#f59e0b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:3px}
+
+/* ═══ NAVBAR ═══ */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 32px;height:64px;display:flex;align-items:center;background:rgba(5,8,16,.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(30,41,59,.6)}
+.nav-inner{max-width:1400px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo-link{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-mark{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:20px;height:20px}
+.logo-text{font-size:1.25rem;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-a{padding:8px 16px;color:var(--t2);text-decoration:none;font-size:.88rem;font-weight:500;border-radius:8px;transition:all .25s}
+.nav-a:hover{color:var(--t1);background:rgba(255,255,255,.05)}
+.nav-a.active{color:var(--gold);background:rgba(212,175,55,.1)}
+.nav-cta{padding:9px 20px;background:rgba(212,175,55,.12);border:1px solid var(--gold);border-radius:10px;color:var(--gold);font-size:.86rem;font-weight:600;text-decoration:none;transition:all .25s}
+.nav-cta:hover{background:var(--gold);color:#050810}
+
+/* ═══ HERO ═══ */
+.hero{padding:120px 32px 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:900px;height:500px;background:radial-gradient(ellipse,rgba(212,175,55,.06) 0%,transparent 70%);pointer-events:none}
+.basmalah{font-family:'Amiri',serif;font-size:1.8rem;color:var(--gold3);margin-bottom:32px;text-shadow:0 0 40px rgba(212,175,55,.2)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid rgba(212,175,55,.25);border-radius:20px;background:rgba(212,175,55,.06);margin-bottom:24px;font-size:.82rem;font-weight:600;color:var(--gold)}
+.hero h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:900;line-height:1.2;margin-bottom:20px}
+.hero h1 .grad{background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-ref{font-family:'Amiri',serif;font-size:1.1rem;color:var(--gold3);margin-bottom:12px}
+.hero-ref-src{font-size:.82rem;color:var(--t3);margin-bottom:36px}
+.hero p{font-size:1.05rem;color:var(--t2);max-width:680px;margin:0 auto;line-height:1.8}
+
+/* ═══ LAYOUT ═══ */
+.container{max-width:1300px;margin:0 auto;padding:0 32px}
+.section{padding:60px 32px}
+.section-title{font-size:1.8rem;font-weight:800;margin-bottom:8px}
+.section-sub{color:var(--t2);margin-bottom:40px;font-size:1rem}
+
+/* ═══ PILLARS ═══ */
+.pillars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.pillar{background:var(--bg2);border:1px solid var(--bdr);border-radius:16px;padding:28px;position:relative;overflow:hidden}
+.pillar::before{content:'';position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle,rgba(212,175,55,.06),transparent);border-radius:0 16px 0 80px}
+.pillar-num{font-size:.75rem;font-weight:700;color:var(--t3);letter-spacing:.1em;margin-bottom:12px}
+.pillar-icon{font-size:2rem;margin-bottom:12px;display:block}
+.pillar-title{font-size:1.1rem;font-weight:700;color:var(--gold3);margin-bottom:10px}
+.pillar-ref{font-family:'Amiri',serif;font-size:.95rem;color:var(--gold);margin-bottom:6px;line-height:1.6}
+.pillar-desc{font-size:.87rem;color:var(--t2);line-height:1.6}
+
+/* ═══ POLICIES ═══ */
+.policies-list{display:flex;flex-direction:column;gap:12px}
+.policy{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:20px 24px;display:flex;align-items:flex-start;gap:16px;transition:all .25s}
+.policy:hover{border-color:rgba(212,175,55,.2)}
+.policy-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px}
+.policy-body{flex:1}
+.policy-title{font-size:1rem;font-weight:700;color:var(--t1);margin-bottom:6px}
+.policy-desc{font-size:.87rem;color:var(--t2);line-height:1.6}
+.policy-status{flex-shrink:0;display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600}
+.st-active{color:var(--green)}
+.st-active::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-left:4px}
+
+/* ═══ MARKET RULES ═══ */
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.rule-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:14px;padding:22px;border-right:4px solid var(--gold)}
+.rule-num{font-size:.75rem;font-weight:700;color:var(--t3);margin-bottom:8px;letter-spacing:.06em}
+.rule-title{font-size:1rem;font-weight:700;color:var(--t1);margin-bottom:8px}
+.rule-text{font-size:.87rem;color:var(--t2);line-height:1.6;margin-bottom:10px}
+.rule-ref{font-family:'Amiri',serif;font-size:.88rem;color:var(--gold3)}
+
+/* ═══ NO-HARM ═══ */
+.no-harm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.harm-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:20px;text-align:center}
+.harm-icon{font-size:2rem;margin-bottom:10px}
+.harm-title{font-size:.9rem;font-weight:700;color:var(--t1);margin-bottom:8px}
+.harm-desc{font-size:.8rem;color:var(--t2);line-height:1.5}
+.harm-status{margin-top:12px;font-size:.75rem;padding:4px 10px;border-radius:6px;background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2);display:inline-block}
+
+/* ═══ COMPLIANCE LOG ═══ */
+.log-table{width:100%;border-collapse:collapse}
+.log-table th{padding:12px 16px;text-align:right;font-size:.78rem;font-weight:600;color:var(--t3);border-bottom:1px solid var(--bdr);background:var(--bg3)}
+.log-table td{padding:12px 16px;font-size:.83rem;border-bottom:1px solid rgba(30,41,59,.4);vertical-align:middle}
+.log-table tr:last-child td{border-bottom:none}
+.log-ok{color:var(--green);font-weight:600}
+.log-warn{color:var(--amber);font-weight:600}
+.log-time{color:var(--t3);font-size:.78rem}
+.log-action{color:var(--t1)}
+.log-actor{color:var(--blue);font-size:.8rem}
+
+/* ═══ STATS ═══ */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin:40px 0}
+.stat{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:20px;text-align:center}
+.stat-val{font-size:2rem;font-weight:800;color:var(--gold);display:block}
+.stat-lbl{font-size:.8rem;color:var(--t3);margin-top:4px}
+
+/* ═══ CHARTER BOX ═══ */
+.charter-box{background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(212,175,55,.02));border:1px solid rgba(212,175,55,.2);border-radius:16px;padding:36px;text-align:center}
+.charter-title{font-size:1.3rem;font-weight:800;color:var(--gold);margin-bottom:12px}
+.charter-text{font-family:'Amiri',serif;font-size:1.1rem;color:var(--gold3);line-height:1.9;margin-bottom:12px}
+.charter-sub{font-size:.88rem;color:var(--t2)}
+
+/* ═══ FOOTER ═══ */
+.footer{background:var(--bg2);border-top:1px solid var(--bdr);padding:40px 32px;text-align:center;color:var(--t3);font-size:.85rem}
+.footer a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="/" class="logo-link">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#050810" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span class="logo-text">SHEIKHA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/" class="nav-a">الرئيسية</a></li>
+      <li><a href="/سوق-شيخة.html" class="nav-a">السوق</a></li>
+      <li><a href="/لوحة-التحكم-الموحدة.html" class="nav-a">لوحة التحكم</a></li>
+      <li><a href="/sdk.html" class="nav-a">SDK</a></li>
+      <li><a href="/sheikha-ide.html" class="nav-a">IDE</a></li>
+      <li><a href="/mcp.html" class="nav-a">MCP</a></li>
+      <li><a href="/cli.html" class="nav-a">CLI</a></li>
+      <li><a href="/الحوكمة.html" class="nav-a active">الحوكمة</a></li>
+    </ul>
+    <a href="/تسجيل-الدخول.html" class="nav-cta">دخول / تسجيل</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="basmalah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+  <div class="hero-badge">⚖️ الحوكمة والمنهج — نشط ومُفعَّل</div>
+  <h1>ميثاق شيخة<br><span class="grad">الحوكمة والمنهج</span></h1>
+  <div class="hero-ref">"وَيُحِلُّ لَهُمُ الطَّيِّبَاتِ وَيُحَرِّمُ عَلَيْهِمُ الْخَبَائِثَ"</div>
+  <div class="hero-ref-src">سورة الأعراف: 157</div>
+  <p>الحوكمة في شيخة ليست قيداً، بل إطار تشغيلي يضمن أن كل إجراء يُبنى على العدل والأمانة والشفافية — مستمداً من الكتاب والسنة وسنة الخلفاء الراشدين.</p>
+</section>
+
+<!-- STATS -->
+<div class="container">
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-val">5</span><div class="stat-lbl">مبادئ تأسيسية</div></div>
+    <div class="stat"><span class="stat-val">18</span><div class="stat-lbl">سياسة تشغيلية</div></div>
+    <div class="stat"><span class="stat-val">12</span><div class="stat-lbl">قاعدة سوق</div></div>
+    <div class="stat"><span class="stat-val">100%</span><div class="stat-lbl">معدل الامتثال</div></div>
+    <div class="stat"><span class="stat-val">0</span><div class="stat-lbl">انتهاكات مفتوحة</div></div>
+  </div>
+</div>
+
+<!-- PILLARS — المبادئ -->
+<section class="section" id="principles">
+  <div class="container">
+    <h2 class="section-title">المبادئ التأسيسية</h2>
+    <p class="section-sub">الأسس التي تقوم عليها حوكمة منظومة شيخة</p>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-num">المبدأ الأول</div>
+        <span class="pillar-icon">⚖️</span>
+        <div class="pillar-title">العدل والقسط</div>
+        <div class="pillar-ref">"إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ"</div>
+        <p class="pillar-desc">كل قرار وكل إجراء يُقاس بميزان العدل — لا فرق بين طرف صغير أو كبير، مورد أو مشترٍ.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">المبدأ الثاني</div>
+        <span class="pillar-icon">🤝</span>
+        <div class="pillar-title">الأمانة والصدق</div>
+        <div class="pillar-ref">"إِنَّ اللَّهَ لَا يُصْلِحُ عَمَلَ الْمُفْسِدِينَ"</div>
+        <p class="pillar-desc">البيانات حقيقية، العقود شفافة، والمعلومات أمانة — لا غش في الميزان ولا تدليس في المعاملة.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">المبدأ الثالث</div>
+        <span class="pillar-icon">🛡️</span>
+        <div class="pillar-title">لا ضرر ولا ضرار</div>
+        <div class="pillar-ref">"لَا ضَرَرَ وَلَا ضِرَارَ" — الحديث الشريف</div>
+        <p class="pillar-desc">كل ميزة أو أتمتة تُفحص ضد قاعدة عدم الضرر — المنظومة تُحذر وتوقف وتُبلغ عند أي ضرر محتمل.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">المبدأ الرابع</div>
+        <span class="pillar-icon">📋</span>
+        <div class="pillar-title">الشفافية والتوثيق</div>
+        <div class="pillar-ref">"وَأَوْفُوا بِالْعَقْدِ"</div>
+        <p class="pillar-desc">كل إجراء موثق بسجل أثر لا يُمحى — من الطلب حتى الإغلاق، والمراجعة متاحة لكل طرف.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">المبدأ الخامس</div>
+        <span class="pillar-icon">📖</span>
+        <div class="pillar-title">المرجعية العليا</div>
+        <div class="pillar-ref">الكتاب والسنة وسنة الخلفاء الراشدين</div>
+        <p class="pillar-desc">عند أي تعارض بين إجراء وحكم شرعي، الحكم الشرعي مقدَّم — المنظومة تخدم الإسلام لا تخدمه.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POLICIES -->
+<section class="section" id="policies" style="background:var(--bg2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)">
+  <div class="container">
+    <h2 class="section-title">السياسات التشغيلية</h2>
+    <p class="section-sub">القواعد المُفعَّلة التي تُحكم كل إجراء في المنظومة</p>
+    <div class="policies-list">
+      <div class="policy">
+        <div class="policy-icon">🔐</div>
+        <div class="policy-body">
+          <div class="policy-title">سياسة المصادقة والتحقق</div>
+          <div class="policy-desc">كل مستخدم يُتحقق من هويته قبل أي إجراء — لا عملية بلا توثيق، ولا عقد بلا طرفين محددَي الهوية.</div>
+        </div>
+        <div class="policy-status st-active">نشطة</div>
+      </div>
+      <div class="policy">
+        <div class="policy-icon">💰</div>
+        <div class="policy-body">
+          <div class="policy-title">سياسة منع الربا والغرر</div>
+          <div class="policy-desc">المنظومة تفحص العقود والمعاملات تلقائياً للكشف عن أي عنصر ربوي أو غرر فاحش — وترفضها فوراً.</div>
+        </div>
+        <div class="policy-status st-active">نشطة</div>
+      </div>
+      <div class="policy">
+        <div class="policy-icon">📊</div>
+        <div class="policy-body">
+          <div class="policy-title">سياسة الشفافية في التسعير</div>
+          <div class="policy-desc">الأسعار مرجعها LME وCOMEX وLBMA المعلنة علناً — لا تلاعب في الأسعار ولا احتكار.</div>
+        </div>
+        <div class="policy-status st-active">نشطة</div>
+      </div>
+      <div class="policy">
+        <div class="policy-icon">📁</div>
+        <div class="policy-body">
+          <div class="policy-title">سياسة حفظ الأثر والأرشفة</div>
+          <div class="policy-desc">جميع العمليات محفوظة في سجل أثر غير قابل للتعديل — مدة الحفظ 7 سنوات وفق المتطلبات التنظيمية.</div>
+        </div>
+        <div class="policy-status st-active">نشطة</div>
+      </div>
+      <div class="policy">
+        <div class="policy-icon">🛡️</div>
+        <div class="policy-body">
+          <div class="policy-title">سياسة حماية البيانات</div>
+          <div class="policy-desc">بيانات المستخدمين مشفرة ومحمية — لا مشاركة لأي طرف ثالث بدون إذن صريح، وفق متطلبات PDPL السعودية.</div>
+        </div>
+        <div class="policy-status st-active">نشطة</div>
+      </div>
+      <div class="policy">
+        <div class="policy-icon">⚡</div>
+        <div class="policy-body">
+          <div class="policy-title">سياسة Deny-by-Default للأدوات</div>
+          <div class="policy-desc">كل أداة وكل API مُقيَّدة بالافتراض — لا تُفعَّل إلا بإذن صريح محدد النطاق والمدة والمستخدم.</div>
+        </div>
+        <div class="policy-status st-active">نشطة</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET RULES -->
+<section class="section" id="market-rules">
+  <div class="container">
+    <h2 class="section-title">قواعد السوق</h2>
+    <p class="section-sub">المبادئ التشغيلية الحاكمة لسوق شيخة — مستلهمة من سوق المدينة النبوي</p>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-num">القاعدة 01</div>
+        <div class="rule-title">لا احتكار</div>
+        <div class="rule-text">حظر الاحتكار وتخزين البضاعة للتأثير في الأسعار. السوق للجميع ولا امتياز لطرف على آخر بغير حق.</div>
+        <div class="rule-ref">"لَا يَحْتَكِرُ إِلَّا خَاطِئٌ"</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">القاعدة 02</div>
+        <div class="rule-title">صحة الميزان والمكيال</div>
+        <div class="rule-text">الكميات والمواصفات موثقة ومطابقة للواقع — لا بيع لما لا يُملك ولا وصف لما لا يصح.</div>
+        <div class="rule-ref">"وَأَوْفُوا الْكَيْلَ وَلَا تَكُونُوا مِنَ الْمُخْسِرِينَ"</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">القاعدة 03</div>
+        <div class="rule-title">حظر الغرر الفاحش</div>
+        <div class="rule-text">العقود خالية من الغموض الجوهري — المنتج محدد، الثمن معلوم، الأجل موضح.</div>
+        <div class="rule-ref">"نَهَى النَّبِيُّ ﷺ عَنْ بَيْعِ الْغَرَرِ"</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">القاعدة 04</div>
+        <div class="rule-title">تكافؤ المعلومات</div>
+        <div class="rule-text">حظر تلقي الركبان — لا يجوز التربح من إخفاء المعلومات التسويقية عن البائعين القادمين.</div>
+        <div class="rule-ref">"لَا تَلَقَّوُا الرُّكْبَانَ لِلْبَيْعِ"</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">القاعدة 05</div>
+        <div class="rule-title">وفاء العقود</div>
+        <div class="rule-text">العقد المبرم ملزم للطرفين — المنظومة تتتبع التنفيذ وتُنبه عند الإخلال وتوثق كل مرحلة.</div>
+        <div class="rule-ref">"يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ"</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">القاعدة 06</div>
+        <div class="rule-title">حسن المعاملة</div>
+        <div class="rule-text">الإتقان والإحسان في كل تعامل — سواء مع المورد أو المشتري أو الشريك. المنظومة تقيس وتُحسن المعاملة.</div>
+        <div class="rule-ref">"إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَن يُتْقِنَهُ"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NO-HARM RULES -->
+<section class="section" style="background:var(--bg2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)">
+  <div class="container">
+    <h2 class="section-title">قواعد عدم الضرر</h2>
+    <p class="section-sub">الحمايات التلقائية المُدمجة في المنظومة — محظورات بالأثر والمنع</p>
+    <div class="no-harm-grid">
+      <div class="harm-card">
+        <div class="harm-icon">🚫</div>
+        <div class="harm-title">حظر الربا</div>
+        <div class="harm-desc">كشف وإيقاف أي عملية تحتوي على فائدة ربوية</div>
+        <div class="harm-status">محظور تلقائياً</div>
+      </div>
+      <div class="harm-card">
+        <div class="harm-icon">🚫</div>
+        <div class="harm-title">حظر الغش والتدليس</div>
+        <div class="harm-desc">التحقق من المواصفات ورفض البيانات المزيفة</div>
+        <div class="harm-status">محظور تلقائياً</div>
+      </div>
+      <div class="harm-card">
+        <div class="harm-icon">🚫</div>
+        <div class="harm-title">حظر بيع المحرمات</div>
+        <div class="harm-desc">قائمة سلع محظورة شرعاً مُفعَّلة في فلتر السوق</div>
+        <div class="harm-status">محظور تلقائياً</div>
+      </div>
+      <div class="harm-card">
+        <div class="harm-icon">🚫</div>
+        <div class="harm-title">حظر الضرر البيئي</div>
+        <div class="harm-desc">مراقبة التأثير البيئي وتنبيهات الاستدامة</div>
+        <div class="harm-status">محظور تلقائياً</div>
+      </div>
+      <div class="harm-card">
+        <div class="harm-icon">🚫</div>
+        <div class="harm-title">حظر التجسس</div>
+        <div class="harm-desc">لا جمع لبيانات لم يُوافق عليها المستخدم صراحةً</div>
+        <div class="harm-status">محظور تلقائياً</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE LOG -->
+<section class="section" id="compliance">
+  <div class="container">
+    <h2 class="section-title">سجل الامتثال</h2>
+    <p class="section-sub">آخر إجراءات التحقق من الامتثال الموثقة</p>
+    <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:14px;overflow:hidden">
+      <table class="log-table">
+        <thead>
+          <tr>
+            <th>الوقت</th>
+            <th>الإجراء</th>
+            <th>المُنفِّذ</th>
+            <th>النتيجة</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="log-time">2026-04-21 09:14</td>
+            <td class="log-action">فحص عقد رقمي — cnt_2026_x7a1</td>
+            <td class="log-actor">governance.check</td>
+            <td class="log-ok">✓ ممتثل</td>
+          </tr>
+          <tr>
+            <td class="log-time">2026-04-21 08:52</td>
+            <td class="log-action">مراجعة سياسة التسعير — سوق الذهب</td>
+            <td class="log-actor">market.validator</td>
+            <td class="log-ok">✓ ممتثل</td>
+          </tr>
+          <tr>
+            <td class="log-time">2026-04-21 07:30</td>
+            <td class="log-action">تسجيل مستخدم جديد — تحقق الهوية</td>
+            <td class="log-actor">auth.verifier</td>
+            <td class="log-ok">✓ ممتثل</td>
+          </tr>
+          <tr>
+            <td class="log-time">2026-04-21 06:15</td>
+            <td class="log-action">فحص طلب توريد — ربوية محتملة</td>
+            <td class="log-actor">sharia.scanner</td>
+            <td class="log-warn">⚠ مُعلَّق للمراجعة</td>
+          </tr>
+          <tr>
+            <td class="log-time">2026-04-21 05:00</td>
+            <td class="log-action">تقرير الامتثال اليومي — كامل</td>
+            <td class="log-actor">governance.daily</td>
+            <td class="log-ok">✓ 100% ممتثل</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CHARTER -->
+<section class="section" style="background:var(--bg2);border-top:1px solid var(--bdr)">
+  <div class="container">
+    <div class="charter-box">
+      <div class="charter-title">الميثاق التشغيلي لشيخة</div>
+      <div class="charter-text">
+        "وَالَّذِينَ إِذَا أَنفَقُوا لَمْ يُسْرِفُوا وَلَمْ يَقْتُرُوا وَكَانَ بَيْنَ ذَٰلِكَ قَوَامًا"
+      </div>
+      <div class="charter-sub">
+        المنظومة تُبنى على التوازن: بين الكفاءة والأخلاق، بين الربح والعدل، بين التقنية والشريعة.<br>
+        المرجعية الأعلى دائماً: الكتاب والسنة وسنة الخلفاء الراشدين رضي الله عنهم.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2026 منظومة شيخة — <a href="/">sheikha.top</a> | الحوكمة v1.0 | <a href="/sdk.html">SDK</a> | <a href="/cli.html">CLI</a> | <a href="/المتحف-الحضاري.html">المتحف الحضاري</a></p>
+  <p style="margin-top:8px;font-size:.75rem">"وَاللَّهُ يَعْلَمُ الْمُفْسِدَ مِنَ الْمُصْلِحِ"</p>
+</footer>
+
+</body>
+</html>

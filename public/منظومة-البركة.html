@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>☪️ منظومة البركة للاقتصاد الإسلامي | SHEIKHA</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#D4AF37;--gold2:#B87333;--bg:#050810;--card:rgba(15,20,35,0.95);--border:rgba(212,175,55,0.1);--text:#e2e8f0;--dim:#64748b;--green:#10b981;--emerald:#059669}
+body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 40% 20%,rgba(212,175,55,0.04),transparent 50%),radial-gradient(ellipse at 60% 80%,rgba(5,150,105,0.03),transparent 50%);pointer-events:none}
+.container{max-width:1200px;margin:0 auto;padding:20px;position:relative;z-index:1}
+
+.hdr{text-align:center;padding:28px 0 16px}
+.hdr .bsm{font-family:'Amiri',serif;font-size:1.1rem;color:rgba(212,175,55,0.5);margin-bottom:4px}
+.hdr h1{font-size:1.7rem;font-weight:900;background:linear-gradient(135deg,var(--gold),#F5E6A3,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.hdr .sub{font-size:0.82rem;color:var(--dim);max-width:650px;margin:0 auto}
+.hdr .hadith{font-family:'Amiri',serif;font-size:0.85rem;color:rgba(5,150,105,0.5);margin-top:8px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.7}
+
+/* مؤشر البركة */
+.bi-card{background:linear-gradient(135deg,rgba(212,175,55,0.06),rgba(5,150,105,0.04));border:1px solid rgba(212,175,55,0.15);border-radius:16px;padding:24px;text-align:center;margin:20px 0}
+.bi-score{font-size:3rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--emerald));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.bi-label{font-size:0.8rem;color:var(--dim);margin-top:2px}
+.bi-components{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:16px}
+.bi-comp{background:rgba(0,0,0,0.2);border-radius:10px;padding:10px;text-align:center}
+.bi-comp .v{font-size:1.1rem;font-weight:900;color:var(--gold)}
+.bi-comp .l{font-size:0.6rem;color:var(--dim);margin-top:2px}
+.bi-comp .w{font-size:0.5rem;color:rgba(255,255,255,0.2)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center}
+.stat .val{font-size:1.4rem;font-weight:900;color:var(--gold)}
+.stat .val.green{color:var(--green)}
+.stat .lbl{font-size:0.65rem;color:var(--dim);margin-top:2px}
+
+.section{margin:22px 0}
+.section-title{display:flex;align-items:center;gap:8px;font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+
+/* الأركان */
+.pillars{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.pillar{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;transition:all 0.3s}
+.pillar:hover{border-color:rgba(212,175,55,0.25);transform:translateY(-2px)}
+.pillar .p-order{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:900;float:left;margin-left:10px}
+.pillar .p-name{font-size:0.88rem;font-weight:700;color:#fff}
+.pillar .p-en{font-size:0.6rem;color:var(--dim)}
+.pillar .p-source{font-family:'Amiri',serif;font-size:0.78rem;color:rgba(212,175,55,0.5);margin:6px 0;padding:6px 8px;background:rgba(212,175,55,0.03);border-radius:8px;line-height:1.6}
+.pillar .p-desc{font-size:0.72rem;color:var(--dim);margin-bottom:4px}
+.pillar .p-impl{font-size:0.65rem;color:var(--emerald);padding:4px 8px;background:rgba(5,150,105,0.05);border-radius:6px}
+
+/* التمويل */
+.modes{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.mode{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;transition:all 0.3s}
+.mode:hover{border-color:rgba(5,150,105,0.2)}
+.mode .m-name{font-size:0.88rem;font-weight:700;color:#fff}
+.mode .m-en{font-size:0.6rem;color:var(--dim)}
+.mode .m-desc{font-size:0.72rem;color:var(--dim);margin:6px 0}
+.mode .m-rule{font-size:0.65rem;color:var(--emerald);padding:6px 8px;background:rgba(5,150,105,0.04);border-radius:8px;margin-top:4px}
+.mode .m-badges{display:flex;gap:4px;margin-top:6px}
+.mode .m-badge{font-size:0.55rem;padding:2px 8px;border-radius:6px;font-weight:600}
+.mode .m-badge.active{background:rgba(16,185,129,0.08);color:var(--green)}
+.mode .m-badge.risk{background:rgba(245,158,11,0.06);color:#f59e0b}
+
+/* المنتدى */
+.forum{background:linear-gradient(135deg,rgba(212,175,55,0.04),rgba(5,150,105,0.03));border:1px solid rgba(212,175,55,0.12);border-radius:16px;padding:20px;margin:20px 0}
+.forum h3{color:var(--gold);font-size:1rem;margin-bottom:8px}
+.forum .f-info{font-size:0.72rem;color:var(--dim);margin-bottom:10px}
+.forum .f-themes{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.forum .f-theme{font-size:0.68rem;padding:4px 12px;border-radius:8px;background:rgba(212,175,55,0.06);color:var(--gold);border:1px solid rgba(212,175,55,0.1)}
+.forum .f-integration{margin-top:12px;padding:12px;background:rgba(0,0,0,0.2);border-radius:10px}
+.forum .f-integration h4{font-size:0.8rem;color:var(--emerald);margin-bottom:6px}
+.forum .f-int-item{font-size:0.68rem;color:var(--dim);padding:3px 0}
+
+/* المعايير */
+.standards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.standard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px}
+.standard .s-name{font-size:0.82rem;font-weight:700;color:#fff}
+.standard .s-org{font-size:0.65rem;color:var(--dim);margin-top:2px}
+.standard .s-badge{display:inline-block;font-size:0.55rem;padding:2px 8px;border-radius:6px;background:rgba(16,185,129,0.08);color:var(--green);font-weight:700;margin-top:4px}
+
+/* الأدوات */
+.instruments{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.instrument{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all 0.3s}
+.instrument:hover{border-color:rgba(212,175,55,0.2)}
+.instrument .i-name{font-size:0.82rem;font-weight:700;color:#fff}
+.instrument .i-en{font-size:0.6rem;color:var(--dim)}
+.instrument .i-desc{font-size:0.7rem;color:var(--dim);margin:4px 0}
+.instrument .i-badge{display:inline-block;font-size:0.55rem;padding:2px 8px;border-radius:6px;font-weight:700;margin-top:3px}
+.instrument .i-badge.active{background:rgba(16,185,129,0.08);color:var(--green)}
+.instrument .i-badge.planned{background:rgba(212,175,55,0.08);color:var(--gold)}
+
+.footer{text-align:center;padding:24px;color:var(--dim);font-size:0.65rem;border-top:1px solid var(--border);margin-top:24px}
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:14px 32px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between;max-width:100%}
+.topbar-logo{font-size:1.2rem;font-weight:800;color:var(--gold);text-decoration:none}
+.topbar-back{color:var(--dim);text-decoration:none;font-size:.9rem;transition:color .3s}
+.topbar-back:hover{color:var(--gold)}
+@media(max-width:600px){.stats,.bi-components{grid-template-columns:repeat(2,1fr)}.pillars,.modes,.standards,.instruments{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar">
+    <a href="/" class="topbar-logo">شيخة</a>
+    <a href="/" class="topbar-back">← الرئيسية</a>
+</div>
+<div class="container">
+
+<div class="hdr">
+    <div class="bsm">☪️ بسم الله الرحمن الرحيم</div>
+    <h1>منظومة البركة للاقتصاد الإسلامي</h1>
+    <div class="sub">رقمنة البركة في التجارة والاقتصاد الإسلامي — تكامل مع منتدى البركة — تمويل إسلامي، صكوك، أوقاف، زكاة، تكافل</div>
+    <div class="hadith">فإن صَدَقا وبيَّنا بُورِكَ لهما في بيعِهما وإن كذَبا وكتَما مُحِقَت بركةُ بيعِهما</div>
+</div>
+
+<div class="bi-card" id="barakah-index"></div>
+
+<div class="stats" id="stats"></div>
+
+<div class="forum" id="forum"></div>
+
+<div class="section">
+    <div class="section-title">☪️ أركان البركة في التجارة الإسلامية</div>
+    <div class="pillars" id="pillars"></div>
+</div>
+
+<div class="section">
+    <div class="section-title">💰 أنماط التمويل الإسلامي</div>
+    <div class="modes" id="modes"></div>
+</div>
+
+<div class="section">
+    <div class="section-title">📜 المعايير المصرفية الإسلامية</div>
+    <div class="standards" id="standards"></div>
+</div>
+
+<div class="section">
+    <div class="section-title">🔗 الأدوات المالية الرقمية الإسلامية</div>
+    <div class="instruments" id="instruments"></div>
+</div>
+
+<div class="footer">
+    <div style="font-family:'Amiri',serif;color:rgba(212,175,55,0.4)">المالك: سلمان أحمد بن سلمان الراجح</div>
+    <div style="margin-top:3px">SHEIKHA Barakah Engine v1.0 — منظومة البركة للاقتصاد الإسلامي</div>
+</div>
+
+</div>
+
+<script>
+async function sf(u){try{const r=await fetch(u);if(!r.ok)return null;return await r.json();}catch(e){return null;}}
+
+async function load(){
+    const d=await sf('/api/barakah/dashboard');
+    if(!d||!d.success)return;
+
+    // مؤشر البركة
+    const bi=d.barakahIndex;
+    document.getElementById('barakah-index').innerHTML=`
+        <div style="font-size:0.7rem;color:var(--dim)">مؤشر البركة — Barakah Index</div>
+        <div class="bi-score">${bi.currentScore}/100</div>
+        <div class="bi-label">${bi.description}</div>
+        <div class="bi-components">${bi.components.map(c=>`
+            <div class="bi-comp"><div class="v">${c.score}%</div><div class="l">${c.nameAr}</div><div class="w">وزن ${c.weight}%</div></div>
+        `).join('')}</div>
+    `;
+
+    // إحصائيات
+    document.getElementById('stats').innerHTML=`
+        <div class="stat"><div class="val">${d.summary.pillarsCount}</div><div class="lbl">ركن بركة</div></div>
+        <div class="stat"><div class="val">${d.summary.financingModesCount}</div><div class="lbl">نمط تمويل إسلامي</div></div>
+        <div class="stat"><div class="val green">${d.summary.compliantStandards}</div><div class="lbl">معيار ممتثل</div></div>
+        <div class="stat"><div class="val">${d.summary.instrumentsCount}</div><div class="lbl">أداة مالية رقمية</div></div>
+        <div class="stat"><div class="val green">100%</div><div class="lbl">امتثال شرعي</div></div>
+    `;
+
+    // المنتدى
+    const f=d.barakahForum;
+    document.getElementById('forum').innerHTML=`
+        <h3>🏛️ ${f.nameAr}</h3>
+        <div class="f-info">${f.nameEn} — تأسس ${f.founded} — ${f.mission}</div>
+        <div style="font-size:0.75rem;font-weight:700;color:var(--emerald);margin:8px 0">📅 ${f.currentSession.title} — ${f.currentSession.date}</div>
+        <div class="f-themes">${f.currentSession.themes.map(t=>`<span class="f-theme">${t}</span>`).join('')}</div>
+        <div class="f-integration">
+            <h4>✅ تكامل منظومة شيخة مع منتدى البركة</h4>
+            ${f.sheikhaIntegration.areas.map(a=>`<div class="f-int-item">◉ ${a}</div>`).join('')}
+        </div>
+    `;
+
+    // الأركان
+    document.getElementById('pillars').innerHTML=d.pillars.map(p=>`
+        <div class="pillar">
+            <div class="p-order">${p.order}</div>
+            <div class="p-name">${p.nameAr}</div>
+            <div class="p-en">${p.nameEn} — وزن البركة: ${p.barakahWeight}%</div>
+            <div class="p-source">${p.source}</div>
+            <div class="p-desc">${p.description}</div>
+            <div class="p-impl">⚡ ${p.digitalImpl}</div>
+        </div>
+    `).join('');
+
+    // التمويل
+    document.getElementById('modes').innerHTML=d.financingModes.map(m=>`
+        <div class="mode">
+            <div class="m-name">${m.nameAr}</div>
+            <div class="m-en">${m.nameEn}</div>
+            <div class="m-desc">${m.description}</div>
+            <div class="m-rule">⚖️ ${m.shariaRule}</div>
+            <div class="m-badges">
+                <span class="m-badge active">✓ ${m.status}</span>
+                <span class="m-badge risk">مخاطر: ${m.risk}</span>
+            </div>
+        </div>
+    `).join('');
+
+    // المعايير
+    document.getElementById('standards').innerHTML=d.standards.map(s=>`
+        <div class="standard">
+            <div class="s-name">${s.nameAr}</div>
+            <div class="s-org">${s.org} — ${s.location}</div>
+            <div class="s-badge">✅ ${s.status}</div>
+        </div>
+    `).join('');
+
+    // الأدوات
+    document.getElementById('instruments').innerHTML=d.digitalInstruments.map(i=>`
+        <div class="instrument">
+            <div class="i-name">${i.nameAr}</div>
+            <div class="i-en">${i.nameEn}</div>
+            <div class="i-desc">${i.description}</div>
+            <span class="i-badge ${i.status}">${i.status==='active'?'✓ مفعّل':'◉ مخطط'}</span>
+        </div>
+    `).join('');
+}
+load();
+</script>
+</body>
+</html>

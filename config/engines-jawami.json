@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "bismillah": "بسم الله الرحمن الرحيم",
+    "charter": "SHEIKHA-CHARTER-TAWHEED-GOVERNANCE.md",
+    "rule": "لا يُسمح بوجود أي محرك لا ينتمي صراحةً إلى أحد الجوامع",
+    "version": "1.0.0",
+    "updated": "2026-02-16"
+  },
+  
+  "jawami": {
+    "tawheed_niyyah": {
+      "name_ar": "جامع التوحيد والنية",
+      "purpose": "الإخلاص + مراقبة الله + الأمانة + محاسبة النفس",
+      "engines": []
+    },
+    "sharia_dhabt": {
+      "name_ar": "جامع الشريعة والضبط",
+      "purpose": "الحلال والحرام + سد الذرائع + ترك المشتبهات + منع الضرر",
+      "engines": []
+    },
+    "adl_huquq": {
+      "name_ar": "جامع العدل والحقوق",
+      "purpose": "العدل + حفظ المال + إثبات الحقوق + الشروط والبينات",
+      "engines": []
+    },
+    "aman_amn": {
+      "name_ar": "جامع الأمان والأمن",
+      "purpose": "أقل صلاحية + منع التسريب + منع العبث + التتبع والمساءلة",
+      "engines": []
+    },
+    "souq_muamalah": {
+      "name_ar": "جامع السوق والمعاملة",
+      "purpose": "أركان البيع والشراء + التسعير العادل + التسليم + الوفاء بالعقود",
+      "engines": []
+    },
+    "idarah_itqan": {
+      "name_ar": "جامع الإدارة والإتقان",
+      "purpose": "الشورى + الإتقان + الجودة + التحسين المستمر",
+      "engines": []
+    },
+    "bayan_tawthiq": {
+      "name_ar": "جامع البيان والتوثيق والهوية",
+      "purpose": "الشفافية المنضبطة + التوثيق + الهوية + التاريخ",
+      "engines": []
+    }
+  },
+  
+  "l0_critical": {
+    "description": "المحركات الحرجة - تُحمّل عند startup فقط",
+    "count": 21,
+    "engines": [
+      "sheikha-security-engine.js",
+      "sheikha-sharia-engine.js",
+      "sheikha-admin-blueprint-engine.js",
+      "sheikha-hadith-standards-engine.js",
+      "sheikha-quran-trade-engine.js",
+      "sheikha-taqwa-engine.js",
+      "sheikha-musharri-engine.js",
+      "sheikha-legal-engine.js",
+      "sheikha-souq-madinah-engine.js",
+      "sheikha-market-structure-engine.js",
+      "sheikha-metals-market-engine.js",
+      "sheikha-banking-engine.js",
+      "sheikha-trade-engine.js",
+      "sheikha-supply-logistics-engine.js",
+      "sheikha-dashboard-engine.js",
+      "sheikha-experience-engine.js",
+      "sheikha-pilot-engine.js",
+      "sheikha-segments-engine.js",
+      "sheikha-historical-engine.js",
+      "sheikha-quran-sunnah-engine.js",
+      "sheikha-brand-engine.js"
+    ]
+  },
+  
+  "l1_important": {
+    "description": "محركات مهمة - تُحمّل عند الطلب",
+    "engines": []
+  },
+  
+  "l2_advanced": {
+    "description": "محركات متقدمة - تُحمّل عند الطلب",
+    "engines": []
+  },
+  
+  "unknown": {
+    "description": "محركات غير مصنفة - يجب مراجعتها (يُوقف → يُراجع → يُصحّح)",
+    "engines": []
+  },
+  
+  "blocked": {
+    "description": "محركات محظورة - لا تُحمّل أبداً (تضخم أو مخالفة)",
+    "engines": []
+  }
+}

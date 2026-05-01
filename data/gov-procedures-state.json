@@ -1,0 +1,1079 @@
+{
+  "success": true,
+  "timestamp": "2026-02-21T15:39:38.970Z",
+  "mode": "READONLY",
+  "workflow": "Government Services Digital Procedures",
+  "summary": {
+    "total": 26,
+    "avgProgress": 21,
+    "p0AverageProgress": 23
+  },
+  "services": [
+    {
+      "id": "IFADA",
+      "name": "إفادة",
+      "priority": "P1",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "IFADA_PROCEDURE_PROGRESS",
+      "nextAction": "set IFADA_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "BASMAH",
+      "name": "البصمة",
+      "priority": "P0",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "BASMAH_PROCEDURE_PROGRESS",
+      "nextAction": "set BASMAH_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "RAQABA",
+      "name": "رقابة",
+      "priority": "P1",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "RAQABA_PROCEDURE_PROGRESS",
+      "nextAction": "set RAQABA_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "YAQEEN",
+      "name": "يقين",
+      "priority": "P0",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "YAQEEN_PROCEDURE_PROGRESS",
+      "nextAction": "set YAQEEN_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "DHAMEN",
+      "name": "ضامن",
+      "priority": "P0",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "DHAMEN_PROCEDURE_PROGRESS",
+      "nextAction": "set DHAMEN_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "SALAMAH",
+      "name": "سلامة",
+      "priority": "P1",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "SALAMAH_PROCEDURE_PROGRESS",
+      "nextAction": "set SALAMAH_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "MUQEEM",
+      "name": "مقيم",
+      "priority": "P1",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "MUQEEM_PROCEDURE_PROGRESS",
+      "nextAction": "set MUQEEM_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "BASHER",
+      "name": "باشر",
+      "priority": "P1",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "BASHER_PROCEDURE_PROGRESS",
+      "nextAction": "set BASHER_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "SMART_GATEWAY",
+      "name": "البوابة الذكية",
+      "priority": "P1",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "SMART_GATEWAY_PROCEDURE_PROGRESS",
+      "nextAction": "set SMART_GATEWAY_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "MOJAZ",
+      "name": "موجز",
+      "priority": "P1",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "MOJAZ_PROCEDURE_PROGRESS",
+      "nextAction": "set MOJAZ_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "DAKHLI",
+      "name": "دخلي",
+      "priority": "P1",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "DAKHLI_PROCEDURE_PROGRESS",
+      "nextAction": "set DAKHLI_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "VEHICLE_SPECS",
+      "name": "مواصفات المركبة",
+      "priority": "P1",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "VEHICLE_SPECS_PROCEDURE_PROGRESS",
+      "nextAction": "set VEHICLE_SPECS_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "BAYAN",
+      "name": "بيان",
+      "priority": "P0",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "BAYAN_PROCEDURE_PROGRESS",
+      "nextAction": "set BAYAN_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "TAJER",
+      "name": "تأجير",
+      "priority": "P1",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "TAJER_PROCEDURE_PROGRESS",
+      "nextAction": "set TAJER_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "TRADERS_IMPORTS",
+      "name": "واردات التجار",
+      "priority": "P0",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "TRADERS_IMPORTS_PROCEDURE_PROGRESS",
+      "nextAction": "set TRADERS_IMPORTS_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "NAFATH",
+      "name": "نفاذ",
+      "priority": "P0",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "NAFATH_PROCEDURE_PROGRESS",
+      "nextAction": "set NAFATH_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "TAMM",
+      "name": "تم",
+      "priority": "P1",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "TAMM_PROCEDURE_PROGRESS",
+      "nextAction": "set TAMM_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "FURSAH",
+      "name": "فرصة",
+      "priority": "P1",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "FURSAH_PROCEDURE_PROGRESS",
+      "nextAction": "set FURSAH_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "NATHEER",
+      "name": "Natheer",
+      "priority": "P2",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "NATHEER_PROCEDURE_PROGRESS",
+      "nextAction": "set NATHEER_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "DALEEL",
+      "name": "Daleel",
+      "priority": "P2",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "DALEEL_PROCEDURE_PROGRESS",
+      "nextAction": "set DALEEL_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "VEHICLE_RECALL",
+      "name": "Vehicle Recall",
+      "priority": "P2",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "VEHICLE_RECALL_PROCEDURE_PROGRESS",
+      "nextAction": "set VEHICLE_RECALL_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "ONBOARDING_API",
+      "name": "التهيئة والاعتماد",
+      "priority": "P0",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "ONBOARDING_API_PROCEDURE_PROGRESS",
+      "nextAction": "set ONBOARDING_API_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "ATHR",
+      "name": "Athr",
+      "priority": "P2",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "ATHR_PROCEDURE_PROGRESS",
+      "nextAction": "set ATHR_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "VIBAN",
+      "name": "VIBAN",
+      "priority": "P2",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "VIBAN_PROCEDURE_PROGRESS",
+      "nextAction": "set VIBAN_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "MONTHER",
+      "name": "Monther",
+      "priority": "P2",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 20,
+      "procedureKey": "MONTHER_PROCEDURE_PROGRESS",
+      "nextAction": "set MONTHER_APPROVED=true بعد الموافقة الرسمية",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "pending",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "pending",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    },
+    {
+      "id": "NATIONAL_ADDRESS",
+      "name": "National Address",
+      "priority": "P0",
+      "currentStatus": "pending_credentials",
+      "procedureProgress": 40,
+      "procedureKey": "NATIONAL_ADDRESS_PROCEDURE_PROGRESS",
+      "nextAction": "املأ المتغيرات الناقصة: NATIONAL_ADDRESS_BASE_URL",
+      "stages": [
+        {
+          "id": "legal_intake",
+          "name": "التأهيل النظامي",
+          "status": "done",
+          "description": "توثيق الموافقة النظامية واتفاقية استخدام البيانات."
+        },
+        {
+          "id": "technical_setup",
+          "name": "الإعداد التقني",
+          "status": "pending",
+          "description": "ضبط BASE_URL والمفاتيح وربط البيئة."
+        },
+        {
+          "id": "sandbox_validation",
+          "name": "اختبار Sandbox",
+          "status": "pending",
+          "description": "اختبارات نجاح/فشل، صلاحيات، وحدود الاستخدام."
+        },
+        {
+          "id": "go_live",
+          "name": "الإطلاق التشغيلي",
+          "status": "in_progress",
+          "description": "تفعيل الخدمة إنتاجيًا وربطها بتدفقات الأعمال."
+        },
+        {
+          "id": "continuous_compliance",
+          "name": "المراقبة والامتثال",
+          "status": "done",
+          "description": "مراقبة مستمرة، تدقيق، وإنذارات عند الأعطال أو انتهاء المفاتيح."
+        }
+      ]
+    }
+  ]
+}

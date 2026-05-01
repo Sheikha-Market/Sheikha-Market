@@ -1,0 +1,298 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-02-02",
+    "totalCompanies": 0,
+    "description": "قاعدة بيانات الشركات والجهات المستهدفة حسب تصنيف HS Code"
+  },
+  "hsCodeTargets": {
+    "72": {
+      "name": "الحديد والصلب",
+      "nameEn": "Iron & Steel",
+      "targetCategories": ["manufacturers", "traders", "contractors", "importers", "exporters"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "73": {
+      "name": "مصنوعات الحديد والصلب",
+      "nameEn": "Iron & Steel Articles",
+      "targetCategories": ["manufacturers", "contractors", "construction"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "74": {
+      "name": "النحاس ومصنوعاته",
+      "nameEn": "Copper & Articles",
+      "targetCategories": ["manufacturers", "electrical", "traders"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "75": {
+      "name": "النيكل ومصنوعاته",
+      "nameEn": "Nickel & Articles",
+      "targetCategories": ["manufacturers", "chemical", "aerospace"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "76": {
+      "name": "الألمنيوم ومصنوعاته",
+      "nameEn": "Aluminum & Articles",
+      "targetCategories": ["manufacturers", "construction", "automotive"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "78": {
+      "name": "الرصاص ومصنوعاته",
+      "nameEn": "Lead & Articles",
+      "targetCategories": ["battery", "manufacturers", "recyclers"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "79": {
+      "name": "الزنك ومصنوعاته",
+      "nameEn": "Zinc & Articles",
+      "targetCategories": ["galvanizing", "manufacturers"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "80": {
+      "name": "القصدير ومصنوعاته",
+      "nameEn": "Tin & Articles",
+      "targetCategories": ["electronics", "packaging"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "71": {
+      "name": "المعادن الثمينة والمجوهرات",
+      "nameEn": "Precious Metals & Jewelry",
+      "targetCategories": ["jewelry", "investment", "refineries", "banks"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "7204": {
+      "name": "سكراب الحديد والصلب",
+      "nameEn": "Iron & Steel Scrap",
+      "targetCategories": ["smelters", "recyclers", "scrap_traders", "demolition"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "7404": {
+      "name": "سكراب النحاس",
+      "nameEn": "Copper Scrap",
+      "targetCategories": ["smelters", "recyclers", "cable_recyclers"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "7602": {
+      "name": "سكراب الألمنيوم",
+      "nameEn": "Aluminum Scrap",
+      "targetCategories": ["smelters", "recyclers", "can_collectors"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "8548": {
+      "name": "نفايات البطاريات",
+      "nameEn": "Battery Waste",
+      "targetCategories": ["battery_recyclers", "lead_smelters", "environmental"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    },
+    "8549": {
+      "name": "النفايات الإلكترونية",
+      "nameEn": "E-Waste",
+      "targetCategories": ["e_waste_recyclers", "precious_recovery", "environmental"],
+      "companies": [],
+      "universities": [],
+      "associations": []
+    }
+  },
+  "companyCategories": {
+    "manufacturers": {
+      "name": "المصنعين",
+      "nameEn": "Manufacturers",
+      "description": "مصانع إنتاج المعادن"
+    },
+    "traders": {
+      "name": "التجار",
+      "nameEn": "Traders",
+      "description": "تجار المعادن والجملة"
+    },
+    "contractors": {
+      "name": "المقاولين",
+      "nameEn": "Contractors",
+      "description": "شركات المقاولات والبناء"
+    },
+    "importers": {
+      "name": "المستوردين",
+      "nameEn": "Importers",
+      "description": "شركات الاستيراد"
+    },
+    "exporters": {
+      "name": "المصدرين",
+      "nameEn": "Exporters",
+      "description": "شركات التصدير"
+    },
+    "smelters": {
+      "name": "المصاهر",
+      "nameEn": "Smelters",
+      "description": "مصاهر المعادن"
+    },
+    "recyclers": {
+      "name": "شركات إعادة التدوير",
+      "nameEn": "Recyclers",
+      "description": "شركات إعادة التدوير"
+    },
+    "scrap_traders": {
+      "name": "تجار السكراب",
+      "nameEn": "Scrap Traders",
+      "description": "تجار السكراب والخردة"
+    },
+    "demolition": {
+      "name": "شركات الهدم",
+      "nameEn": "Demolition Companies",
+      "description": "شركات الهدم والإزالة"
+    },
+    "construction": {
+      "name": "شركات البناء",
+      "nameEn": "Construction Companies",
+      "description": "شركات البناء والتشييد"
+    },
+    "electrical": {
+      "name": "شركات الكهرباء",
+      "nameEn": "Electrical Companies",
+      "description": "شركات الكهرباء والأسلاك"
+    },
+    "automotive": {
+      "name": "قطاع السيارات",
+      "nameEn": "Automotive",
+      "description": "مصانع ووكالات السيارات"
+    },
+    "jewelry": {
+      "name": "محلات المجوهرات",
+      "nameEn": "Jewelry Shops",
+      "description": "محلات الذهب والمجوهرات"
+    },
+    "refineries": {
+      "name": "مصافي المعادن الثمينة",
+      "nameEn": "Precious Metal Refineries",
+      "description": "مصافي الذهب والفضة"
+    },
+    "battery_recyclers": {
+      "name": "معيدو تدوير البطاريات",
+      "nameEn": "Battery Recyclers",
+      "description": "شركات إعادة تدوير البطاريات"
+    },
+    "e_waste_recyclers": {
+      "name": "معيدو تدوير الإلكترونيات",
+      "nameEn": "E-Waste Recyclers",
+      "description": "شركات إعادة تدوير النفايات الإلكترونية"
+    }
+  },
+  "sampleCompanies": [
+    {
+      "id": "comp-001",
+      "name": "شركة حديد الراجحي",
+      "nameEn": "Rajhi Steel Company",
+      "type": "manufacturer",
+      "hsCategories": ["72", "7214"],
+      "specialization": "إنتاج حديد التسليح",
+      "contact": {
+        "phone": "+966 11 XXX XXXX",
+        "email": "info@rajhisteel.com.sa",
+        "website": "www.rajhisteel.com.sa",
+        "address": "الرياض، المنطقة الصناعية الثانية"
+      },
+      "region": "الرياض",
+      "verified": true,
+      "capacity": "2 مليون طن/سنة"
+    },
+    {
+      "id": "comp-002",
+      "name": "شركة الألمنيوم السعودية (سابك)",
+      "nameEn": "Saudi Arabian Aluminum (SABIC)",
+      "type": "manufacturer",
+      "hsCategories": ["76", "7601", "7604"],
+      "specialization": "إنتاج الألمنيوم ومصنوعاته",
+      "contact": {
+        "phone": "+966 13 XXX XXXX",
+        "email": "info@sabic.com",
+        "website": "www.sabic.com",
+        "address": "الجبيل الصناعية"
+      },
+      "region": "المنطقة الشرقية",
+      "verified": true,
+      "capacity": "740,000 طن/سنة"
+    }
+  ],
+  "sampleUniversities": [
+    {
+      "id": "univ-001",
+      "name": "جامعة الملك فهد للبترول والمعادن",
+      "nameEn": "King Fahd University of Petroleum & Minerals",
+      "departments": ["هندسة المعادن", "هندسة المواد", "الهندسة الكيميائية"],
+      "hsRelevance": ["72", "74", "76", "71"],
+      "contact": {
+        "phone": "+966 13 860 0000",
+        "email": "info@kfupm.edu.sa",
+        "website": "www.kfupm.edu.sa"
+      },
+      "researchAreas": ["علوم المعادن", "إعادة التدوير", "المواد المتقدمة"],
+      "region": "الظهران"
+    },
+    {
+      "id": "univ-002",
+      "name": "جامعة الملك عبدالعزيز",
+      "nameEn": "King Abdulaziz University",
+      "departments": ["كلية الهندسة", "كلية علوم الأرض"],
+      "hsRelevance": ["72", "71", "76"],
+      "contact": {
+        "phone": "+966 12 695 2000",
+        "email": "info@kau.edu.sa",
+        "website": "www.kau.edu.sa"
+      },
+      "researchAreas": ["التعدين", "الجيولوجيا", "المعادن"],
+      "region": "جدة"
+    }
+  ],
+  "sampleAssociations": [
+    {
+      "id": "assoc-001",
+      "name": "الهيئة السعودية للمواصفات والمقاييس والجودة",
+      "nameEn": "Saudi Standards, Metrology and Quality Organization (SASO)",
+      "type": "government",
+      "hsRelevance": ["all"],
+      "contact": {
+        "phone": "+966 11 452 0000",
+        "email": "info@saso.gov.sa",
+        "website": "www.saso.gov.sa"
+      },
+      "services": ["المواصفات", "الجودة", "الاعتماد"]
+    },
+    {
+      "id": "assoc-002",
+      "name": "غرفة الرياض التجارية",
+      "nameEn": "Riyadh Chamber of Commerce",
+      "type": "chamber",
+      "hsRelevance": ["all"],
+      "contact": {
+        "phone": "+966 11 218 0000",
+        "email": "info@chamber.sa",
+        "website": "www.chamber.sa"
+      },
+      "services": ["التراخيص", "الشهادات", "التواصل التجاري"]
+    }
+  ]
+}

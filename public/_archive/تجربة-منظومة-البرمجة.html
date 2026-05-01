@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تجربة منظومة البرمجة وقياس الأداء — السرعة والجودة بكل المقاييس">
+    <title>تجربة منظومة البرمجة — سوق شيخة | Sheikha Programming Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #d4af37; --green: #006633; --dark: #0d120d; --card: #0f1510; --text-muted: #8a9a8a; --border: #2a352a; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--dark);
+            background-image: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,102,51,0.08) 0%, transparent 50%);
+            color: #f5f5f0;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        .wrap { max-width: 900px; margin: 0 auto; }
+        .back { display: inline-block; margin-bottom: 1.5rem; color: var(--gold); text-decoration: none; font-weight: 500; }
+        .back:hover { text-decoration: underline; }
+        h1 { color: var(--gold); font-size: 1.9em; margin-bottom: 0.5rem; }
+        .sub { color: var(--text-muted); font-size: 1.05em; margin-bottom: 2rem; line-height: 1.7; }
+        .block { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem 1.75rem; margin-bottom: 1.25rem; }
+        .block h2 { color: var(--gold); font-size: 1.2em; margin-bottom: 0.75rem; }
+        .block p { color: var(--text-muted); font-size: 0.98em; line-height: 1.8; }
+        .hero-exp {
+            background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(0,102,51,0.15));
+            border: 2px solid var(--gold);
+            border-radius: 18px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .hero-exp h1 { margin-bottom: 0.5rem; }
+        .hero-exp .sub { margin-bottom: 1rem; }
+        .exp-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            margin: 1.25rem 0;
+        }
+        .exp-controls label { color: var(--text-muted); font-size: 0.95em; }
+        .exp-controls select {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1em;
+        }
+        .btn-run {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--green), #00994d);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-family: inherit;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn-run:hover { transform: scale(1.03); }
+        .btn-run:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        .exp-result {
+            margin-top: 1rem;
+            padding: 1rem 1.25rem;
+            background: rgba(0,102,51,0.2);
+            border: 1px solid rgba(0,102,51,0.5);
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+        }
+        .exp-result.show { display: block; }
+        .exp-result .time { font-size: 1.5em; font-weight: 800; color: var(--gold); margin-bottom: 0.25rem; }
+        .exp-result .msg { color: var(--text-muted); font-size: 0.95em; }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .metric-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            text-align: center;
+        }
+        .metric-card.grade-excellent { border-color: rgba(0,102,51,0.6); }
+        .metric-card.grade-good { border-color: rgba(212,175,55,0.5); }
+        .metric-card .metric-value { font-size: 1.4em; font-weight: 800; color: var(--gold); }
+        .metric-card .metric-unit { font-size: 0.85em; color: var(--text-muted); margin-right: 2px; }
+        .metric-card .metric-label { font-size: 0.9em; color: var(--text-muted); margin-top: 0.35rem; }
+        .metric-card .metric-grade {
+            font-size: 0.8em;
+            font-weight: 700;
+            margin-top: 0.5rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        .metric-grade.excellent { background: rgba(0,102,51,0.3); color: #9fdc9f; }
+        .metric-grade.good { background: rgba(212,175,55,0.2); color: var(--gold); }
+        .metric-grade.ok { background: rgba(255,255,255,0.1); color: #ccc; }
+        .metrics-actions { margin-top: 1rem; text-align: center; }
+        .btn-refresh {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            border-radius: 10px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn-refresh:hover { transform: scale(1.03); }
+        .last-update { text-align: center; color: var(--text-muted); font-size: 0.85em; margin-top: 0.75rem; }
+        .cta-wrap { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 1.5rem; }
+        .cta-wrap a { display: inline-block; padding: 12px 20px; border-radius: 12px; font-weight: 700; text-decoration: none; font-family: inherit; font-size: 0.95em; }
+        .cta-gold { background: linear-gradient(135deg, var(--gold), #b8860b); color: #000; }
+        .cta-outline { background: transparent; border: 2px solid var(--gold); color: var(--gold); }
+        .halal-note { text-align: center; margin-top: 2rem; padding: 1rem; color: var(--text-muted); font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <a href="نظام-البرمجة.html" class="back">← العودة إلى نظام البرمجة</a>
+
+        <div class="hero-exp">
+            <h1>تجربة منظومة البرمجة وقياس الأداء</h1>
+            <p class="sub">جرّب منظومة البرمجة المنطقية وقياس السرعة والجودة بكل المقاييس — زمن الاستجابة، مؤشر الجودة، الحزم المفهرسة، نسبة التكامل والدمج، وأكثر.</p>
+        </div>
+
+        <div class="block" style="border-color: var(--gold); background: rgba(212,175,55,0.08);">
+            <h2>⚠️ كيف تعمل الصفحة في المتصفح</h2>
+            <p>هذه الصفحة تحتاج <strong>تشغيل الخادم</strong> أولاً. بدون الخادم لا تعمل واجهات المقاييس والتجربة.</p>
+            <p style="margin-top: 0.75rem;"><strong>الخطوات:</strong></p>
+            <ol style="margin: 0.5rem 0 0 1.2rem; color: var(--text-muted);">
+                <li>افتح <strong>Terminal</strong> (الطرفية) في جهازك.</li>
+                <li>انتقل لمجلد المشروع: <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px;">cd المسار/إلى/sheikha-main-portal</code></li>
+                <li>شغّل الخادم: <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px;">npm start</code></li>
+                <li>افتح في المتصفح: <a href="http://localhost:8080/تجربة-منظومة-البرمجة.html" style="color: var(--gold);">http://localhost:8080/تجربة-منظومة-البرمجة.html</a></li>
+            </ol>
+            <p style="margin-top: 0.75rem;">إذا فتحت الملف مباشرة (file://...) أو الخادم غير مشغّل، ستظهر مقاييس <strong>نموذجية</strong> أدناه للعرض فقط.</p>
+        </div>
+
+        <div class="block">
+            <h2>تشغيل تجربة سريعة</h2>
+            <p>اختر لغة برمجة واضغط «تشغيل التجربة» لقياس زمن استجابة المنظومة فعلياً.</p>
+            <div class="exp-controls">
+                <label for="langSelect">اللغة:</label>
+                <select id="langSelect">
+                    <option value="javascript">JavaScript</option>
+                    <option value="typescript">TypeScript</option>
+                    <option value="python">Python</option>
+                    <option value="java">Java</option>
+                    <option value="go">Go</option>
+                    <option value="rust">Rust</option>
+                </select>
+                <button type="button" class="btn-run" id="btnRun">تشغيل التجربة</button>
+            </div>
+            <div class="exp-result" id="expResult">
+                <div class="time" id="expTime">— مللي ثانية</div>
+                <div class="msg" id="expMsg"></div>
+            </div>
+        </div>
+
+        <div class="block">
+            <h2>مقاييس الأداء — السرعة والجودة بكل المقاييس</h2>
+            <p>المقاييس التالية تُحدَّث من المنظومة: زمن الاستجابة، مؤشر الجودة، الحزم المفهرسة، نسبة نجاح التكامل، حزم جزئية ذكية، لغات مدعومة، سرعة الفهرسة، نسبة نجاح الدمج المنطقي.</p>
+            <div class="metrics-grid" id="metricsGrid"></div>
+            <div class="metrics-actions">
+                <button type="button" class="btn-refresh" id="btnRefresh">تحديث المقاييس</button>
+            </div>
+            <p class="last-update" id="lastUpdate"></p>
+        </div>
+
+        <div class="block">
+            <div class="cta-wrap">
+                <a href="نظام-البرمجة.html" class="cta-gold">نظام البرمجة</a>
+                <a href="index.html" class="cta-outline">الرئيسية</a>
+            </div>
+        </div>
+
+        <p class="halal-note">جميع محتويات المنصة حلال — نصوص وزخارف فقط — لا تُستخدم أي صور محرمة.</p>
+    </div>
+    <script>
+        (function() {
+            var btnRun = document.getElementById('btnRun');
+            var langSelect = document.getElementById('langSelect');
+            var expResult = document.getElementById('expResult');
+            var expTime = document.getElementById('expTime');
+            var expMsg = document.getElementById('expMsg');
+            var metricsGrid = document.getElementById('metricsGrid');
+            var btnRefresh = document.getElementById('btnRefresh');
+            var lastUpdate = document.getElementById('lastUpdate');
+
+            function formatNumber(n) {
+                if (n >= 1000000) return (n / 1000000).toFixed(1) + ' م';
+                if (n >= 1000) return (n / 1000).toFixed(1) + ' ك';
+                return String(n);
+            }
+
+            function renderMetrics(data) {
+                if (!data || !data.metrics) return;
+                var html = '';
+                var order = ['responseTimeMs', 'qualityIndex', 'packagesIndexed', 'integrationSuccessRate', 'partialPackagesCount', 'languagesSupported', 'indexingSpeedMs', 'mergeSuccessRate'];
+                order.forEach(function(key) {
+                    var m = data.metrics[key];
+                    if (!m) return;
+                    var gradeClass = m.grade === 'ممتاز' ? 'excellent' : m.grade === 'جيد' ? 'good' : 'ok';
+                    var val = typeof m.value === 'number' && m.value > 1000 ? formatNumber(m.value) : m.value;
+                    html += '<div class="metric-card grade-' + gradeClass + '">';
+                    html += '<div class="metric-value">' + val + '<span class="metric-unit">' + (m.unit || '') + '</span></div>';
+                    html += '<div class="metric-label">' + (m.label || key) + '</div>';
+                    html += '<span class="metric-grade ' + gradeClass + '">' + (m.grade || '—') + '</span>';
+                    html += '</div>';
+                });
+                metricsGrid.innerHTML = html;
+                lastUpdate.textContent = 'آخر تحديث: ' + (data.timestamp || '—');
+            }
+
+            var sampleMetrics = {
+                success: true,
+                timestamp: new Date().toISOString(),
+                metrics: {
+                    responseTimeMs: { value: 14, label: 'زمن الاستجابة', unit: 'مللي ثانية', grade: 'ممتاز' },
+                    qualityIndex: { value: 96, label: 'مؤشر الجودة', unit: '%', grade: 'ممتاز' },
+                    packagesIndexed: { value: 1240000, label: 'الحزم المفهرسة', unit: '', grade: 'ممتاز' },
+                    integrationSuccessRate: { value: 97, label: 'نسبة نجاح التكامل', unit: '%', grade: 'ممتاز' },
+                    partialPackagesCount: { value: 48500, label: 'حزم جزئية ذكية', unit: '', grade: 'ممتاز' },
+                    languagesSupported: { value: 55, label: 'لغات مدعومة', unit: '', grade: 'ممتاز' },
+                    indexingSpeedMs: { value: 10, label: 'سرعة الفهرسة', unit: 'مللي ثانية/حزمة', grade: 'ممتاز' },
+                    mergeSuccessRate: { value: 98, label: 'نسبة نجاح الدمج المنطقي', unit: '%', grade: 'ممتاز' }
+                }
+            };
+
+            var apiBase = (window.location.protocol === 'http:' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? window.location.origin : 'http://localhost:8080';
+
+            function loadMetrics() {
+                var apiUrl = apiBase + '/api/programming-metrics';
+                fetch(apiUrl).then(function(r) { return r.json(); }).then(function(data) {
+                    if (data.success) {
+                        renderMetrics(data);
+                        if (document.getElementById('metricsNotice')) document.getElementById('metricsNotice').style.display = 'none';
+                    } else renderMetrics(sampleMetrics);
+                }).catch(function() {
+                    renderMetrics(sampleMetrics);
+                    var notice = document.getElementById('metricsNotice');
+                    if (notice) { notice.style.display = 'block'; notice.textContent = 'الخادم غير مشغّل — المقاييس أدناه نموذجية. لتجربة حية: شغّل الخادم (npm start) وافتح http://localhost:8080/تجربة-منظومة-البرمجة.html'; }
+                });
+            }
+
+            btnRun.addEventListener('click', function() {
+                var lang = langSelect.value;
+                btnRun.disabled = true;
+                expResult.classList.remove('show');
+                var t0 = performance.now();
+                var apiUrl = apiBase + '/api/programming-experience?lang=' + encodeURIComponent(lang);
+                fetch(apiUrl).then(function(r) { return r.json(); }).then(function(data) {
+                    var t1 = performance.now();
+                    var elapsed = Math.round(t1 - t0);
+                    expTime.textContent = elapsed + ' مللي ثانية (قياس المتصفح)';
+                    expMsg.textContent = (data.message || 'تم تنفيذ التجربة بنجاح.') + ' — اللغة: ' + (data.language || lang);
+                    expResult.classList.add('show');
+                }).catch(function() {
+                    var t1 = performance.now();
+                    var elapsed = Math.round(t1 - t0);
+                    expTime.textContent = elapsed + ' مللي ثانية (قياس المتصفح)';
+                    expMsg.textContent = 'الخادم غير مشغّل — تشغيل التجربة الحية يتطلب npm start ثم فتح http://localhost:8080/تجربة-منظومة-البرمجة.html';
+                    expResult.classList.add('show');
+                }).finally(function() { btnRun.disabled = false; });
+            });
+
+            var metricsNotice = document.createElement('p');
+            metricsNotice.id = 'metricsNotice';
+            metricsNotice.style.cssText = 'display:none; margin-top:0.75rem; padding:0.75rem; background:rgba(212,175,55,0.15); border:1px solid var(--gold); border-radius:8px; color:var(--text-muted); font-size:0.9em;';
+            metricsGrid.parentNode.insertBefore(metricsNotice, metricsGrid.nextSibling);
+
+            btnRefresh.addEventListener('click', loadMetrics);
+            renderMetrics(sampleMetrics);
+            lastUpdate.textContent = 'جاري تحميل المقاييس الحية...';
+            loadMetrics();
+        })();
+    </script>
+    <footer style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e2e8f0;text-align:center;font-size:0.9em;color:#64748b;">
+        <p><a href="index.html" style="color:#0d9488;text-decoration:none;">الرئيسية</a> · <a href="خريطة-الموقع.html" style="color:#0d9488;text-decoration:none;">خريطة الموقع</a></p>
+        <p style="margin-top:0.5rem;">أهداف الموقع: بلا ضرر ولا ضرار · حب العلامة وأمان · محافظة على البيئة والصحة والبشر.</p>
+    </footer>
+</body>
+</html>

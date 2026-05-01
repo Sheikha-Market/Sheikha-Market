@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="منظومة شيخة — المنصة الرائدة لتجارة المعادن والسكراب وإدارة سلاسل التوريد في السعودية">
+    <title>منظومة شيخة | تجارة المعادن وسلاسل التوريد الذكية</title>
+    <!-- توحيد نقطة الدخول: اجعل الصفحة الرئيسية هي منظومة شيخة -->
+    <meta http-equiv="refresh" content="0; url=منظومة-شيخة.html">
+    <script>
+      // تحويل فوري بدون إضافة سجل في المتصفح
+      window.location.replace('منظومة-شيخة.html');
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --gold-dark: #b8960c;
+            --primary: #0a5c36;
+            --primary-dark: #063d24;
+            --primary-light: #0d7a47;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --card-hover: #111c30;
+            --text: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 20px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --shadow-gold: 0 4px 32px rgba(212,175,55,0.25);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* ==================== HEADER ==================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(13, 20, 36, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        .logo-text h1 { font-size: 1.3rem; color: var(--gold); font-weight: 800; }
+        .logo-text p { font-size: 0.75rem; color: var(--text-muted); }
+        
+        .nav {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .nav-link {
+            padding: 10px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: var(--radius);
+            transition: all 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.9rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+        }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+        .btn-sm { padding: 10px 18px; font-size: 0.85rem; }
+        .btn-lg { padding: 16px 32px; font-size: 1rem; }
+
+        /* ==================== HERO ==================== */
+        .hero {
+            min-height: 100vh;
+            padding: 120px 24px 80px;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(180deg, var(--darker) 0%, var(--dark) 50%, var(--card) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(ellipse, rgba(212,175,55,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .hero-title .highlight {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+        }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 2rem; font-weight: 900; color: var(--gold); }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+        }
+        .hero-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        .hero-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ==================== WHAT IS SHEIKHA ==================== */
+        .intro-section {
+            padding: 100px 24px;
+            background: var(--card);
+        }
+        .intro-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .intro-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-badge {
+            display: inline-flex;
+            padding: 8px 18px;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+        .section-title .highlight { color: var(--gold); }
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .intro-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .intro-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .intro-text p {
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.9;
+        }
+        .intro-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 30px;
+        }
+        .intro-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--dark);
+            border-radius: var(--radius);
+        }
+        .intro-feature-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(212,175,55,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        .intro-feature span { font-weight: 600; }
+
+        /* ==================== MAIN SECTIONS ==================== */
+        .sections-grid {
+            padding: 100px 24px;
+            background: var(--dark);
+        }
+        .sections-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .sections-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .main-sections {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .main-section-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .main-section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--primary));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        .main-section-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .main-section-card:hover::before { transform: scaleX(1); }
+        
+        .section-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(10,92,54,0.15));
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .main-section-card h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .main-section-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .section-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .section-link {
+            padding: 6px 14px;
+            background: var(--dark);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .section-link:hover {
+            background: rgba(212,175,55,0.1);
+            color: var(--gold);
+        }
+
+        /* ==================== HOW IT WORKS ==================== */
+        .how-section {
+            padding: 100px 24px;
+            background: var(--card);
+        }
+        .how-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .how-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .how-steps {
+            display: flex;
+            gap: 20px;
+            position: relative;
+        }
+        .how-steps::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--primary), var(--gold));
+        }
+        .how-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--dark);
+            margin: 0 auto 20px;
+            box-shadow: var(--shadow-gold);
+        }
+        .how-step h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .how-step p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ==================== PROJECT MANAGEMENT ==================== */
+        .project-section {
+            padding: 100px 24px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--dark));
+        }
+        .project-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .project-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .project-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .flow-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 24px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius-lg);
+            transition: all 0.3s;
+        }
+        .flow-step:hover {
+            background: rgba(212,175,55,0.1);
+            border-color: var(--gold);
+        }
+        .flow-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        .flow-step h5 { font-size: 1rem; margin-bottom: 6px; }
+        .flow-step p { font-size: 0.8rem; color: var(--text-muted); }
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--gold);
+        }
+        
+        .project-services {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .service-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .service-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(212,175,55,0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 16px;
+        }
+        .service-card h5 { margin-bottom: 8px; }
+        .service-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* ==================== SITE MAP ==================== */
+        .sitemap-section {
+            padding: 100px 24px;
+            background: var(--dark);
+        }
+        .sitemap-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .sitemap-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .sitemap-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .sitemap-column {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        .sitemap-column-header {
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(10,92,54,0.1));
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sitemap-column-header span { font-size: 1.5rem; }
+        .sitemap-column-header h4 { font-size: 1rem; }
+        .sitemap-links {
+            padding: 16px;
+        }
+        .sitemap-link {
+            display: block;
+            padding: 10px 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .sitemap-link:hover {
+            background: rgba(212,175,55,0.1);
+            color: var(--gold);
+            padding-right: 16px;
+        }
+
+        /* ==================== CTA ==================== */
+        .cta-section {
+            padding: 100px 24px;
+            background: var(--card);
+            text-align: center;
+        }
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cta-title { font-size: 2.5rem; margin-bottom: 16px; }
+        .cta-title .highlight { color: var(--gold); }
+        .cta-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            background: var(--darker);
+            border-top: 1px solid var(--border);
+            padding: 60px 24px 30px;
+        }
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand h3 {
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        .footer-links h4 {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        .footer-links a {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .footer-bottom p { color: var(--text-muted); font-size: 0.85rem; }
+        .footer-bottom .basmala { color: var(--gold); }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1200px) {
+            .hero-container { grid-template-columns: 1fr; }
+            .hero-visual { display: none; }
+            .main-sections { grid-template-columns: repeat(2, 1fr); }
+            .sitemap-grid { grid-template-columns: repeat(2, 1fr); }
+            .project-services { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .hero-title { font-size: 2rem; }
+            .hero-stats { flex-direction: column; gap: 20px; }
+            .intro-content { grid-template-columns: 1fr; }
+            .intro-features { grid-template-columns: 1fr; }
+            .main-sections { grid-template-columns: 1fr; }
+            .how-steps { flex-direction: column; }
+            .how-steps::before { display: none; }
+            .project-flow { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+            .sitemap-grid { grid-template-columns: 1fr; }
+            .project-services { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Saudi Top Banner -->
+    <div style="background: linear-gradient(90deg, #006c35, #004d26); padding: 8px 24px; text-align: center; font-size: 0.85rem; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap;">
+        <span style="display: flex; align-items: center; gap: 8px;">
+            <span>🇸🇦</span>
+            <span>صنع في السعودية</span>
+        </span>
+        <span style="opacity: 0.5;">|</span>
+        <span style="display: flex; align-items: center; gap: 8px;">
+            <span>🎯</span>
+            <span>رؤية 2030</span>
+        </span>
+        <span style="opacity: 0.5;">|</span>
+        <span style="display: flex; align-items: center; gap: 8px;">
+            <span>♻️</span>
+            <span>الاقتصاد الدائري</span>
+        </span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <div class="logo-icon" style="position: relative;">
+                    <span style="font-size: 1.6rem; font-weight: 900; color: #0a0f1a;">ش</span>
+                    <div style="position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: 20px; height: 3px; background: #006c35; border-radius: 2px;"></div>
+                </div>
+                <div class="logo-text">
+                    <h1 style="display: flex; align-items: center; gap: 8px;">
+                        شيخة
+                        <svg width="18" height="18" viewBox="0 0 20 20" style="margin-top: -2px;">
+                            <circle cx="10" cy="10" r="9" fill="#006c35"/>
+                            <path d="M6 10 L9 13 L14 7" stroke="#fff" stroke-width="2" fill="none"/>
+                        </svg>
+                    </h1>
+                    <p>المعادن والسكراب ♻️</p>
+                </div>
+            </a>
+            <nav class="nav">
+                <a href="/" class="nav-link active">الرئيسية</a>
+                <a href="السوق.html" class="nav-link">السوق</a>
+                <a href="سلسلة-التوريد.html" class="nav-link">سلسلة التوريد</a>
+                <a href="fbs.html" class="nav-link">اللوجستيات</a>
+                <a href="مساعد-شيخة.html" class="nav-link">المساعد</a>
+                <a href="الاقسام.html" class="nav-link">الأقسام</a>
+            </nav>
+            <div class="header-actions">
+                <a href="لوحة-التحكم.html" class="btn btn-outline btn-sm">⚙️ لوحة التحكم</a>
+                <a href="app.html" class="btn btn-primary btn-sm">📱 التطبيق</a>
+                <a href="تسجيل-تاجر.html" class="btn btn-gold">افتح متجرك</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge" style="background: linear-gradient(135deg, rgba(0,108,53,0.15), rgba(212,175,55,0.15)); border-color: #006c35;">
+                    <span style="color: #006c35;">🇸🇦</span>
+                    <span>المنصة السعودية الأولى لتجارة المعادن</span>
+                </div>
+                <h1 class="hero-title">
+                    منظومة <span class="highlight">شيخة</span><br>
+                    لتجارة المعادن الذكية
+                </h1>
+                <p class="hero-desc">
+                    منصة سعودية متكاملة تجمع بين السوق، سلاسل التوريد، الخدمات اللوجستية، والذكاء الاصطناعي — 
+                    لتحقيق أفضل قيمة لتجارتك في المعادن والسكراب. متوافقة مع رؤية 2030.
+                </p>
+                <div class="hero-buttons">
+                    <a href="السوق.html" class="btn btn-gold btn-lg">🛒 تصفح السوق</a>
+                    <a href="تسجيل-تاجر.html" class="btn btn-primary btn-lg">📝 سجّل الآن</a>
+                    <a href="#how-it-works" class="btn btn-outline btn-lg">كيف يعمل؟</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">أقسام رئيسية</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">50+</div>
+                        <div class="stat-label">خدمة متكاملة</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label">دعم متواصل</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <h3>🔗 سلسلة التوريد المتكاملة</h3>
+                    <svg viewBox="0 0 400 200" style="width: 100%;">
+                        <!-- Background -->
+                        <rect width="400" height="200" fill="#0a0f1a" rx="10"/>
+                        
+                        <!-- Flow Line -->
+                        <path d="M40 100 L360 100" stroke="#1e3a5f" stroke-width="3" stroke-dasharray="8,4"/>
+                        
+                        <!-- Nodes -->
+                        <g transform="translate(40,100)">
+                            <circle r="25" fill="#0a5c36" stroke="#d4af37" stroke-width="2"/>
+                            <text y="5" text-anchor="middle" fill="white" font-size="20">⛏️</text>
+                            <text y="45" text-anchor="middle" fill="#94a3b8" font-size="10">المصدر</text>
+                        </g>
+                        <g transform="translate(120,100)">
+                            <circle r="25" fill="#0a5c36" stroke="#d4af37" stroke-width="2"/>
+                            <text y="5" text-anchor="middle" fill="white" font-size="20">📦</text>
+                            <text y="45" text-anchor="middle" fill="#94a3b8" font-size="10">التجميع</text>
+                        </g>
+                        <g transform="translate(200,100)">
+                            <circle r="25" fill="#0a5c36" stroke="#d4af37" stroke-width="2"/>
+                            <text y="5" text-anchor="middle" fill="white" font-size="20">⚙️</text>
+                            <text y="45" text-anchor="middle" fill="#94a3b8" font-size="10">الفرز</text>
+                        </g>
+                        <g transform="translate(280,100)">
+                            <circle r="25" fill="#0a5c36" stroke="#d4af37" stroke-width="2"/>
+                            <text y="5" text-anchor="middle" fill="white" font-size="20">🚚</text>
+                            <text y="45" text-anchor="middle" fill="#94a3b8" font-size="10">النقل</text>
+                        </g>
+                        <g transform="translate(360,100)">
+                            <circle r="25" fill="#d4af37" stroke="#f0d060" stroke-width="2"/>
+                            <text y="5" text-anchor="middle" fill="#0a0f1a" font-size="20">🔥</text>
+                            <text y="45" text-anchor="middle" fill="#d4af37" font-size="10">المصهر</text>
+                        </g>
+                        
+                        <!-- Arrows -->
+                        <path d="M70 100 L85 100" stroke="#d4af37" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <path d="M150 100 L165 100" stroke="#d4af37" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <path d="M230 100 L245 100" stroke="#d4af37" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <path d="M310 100 L325 100" stroke="#d4af37" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#d4af37"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is Sheikha -->
+    <section class="intro-section">
+        <div class="intro-container">
+            <div class="intro-header">
+                <div class="section-badge">💡 تعرّف على المنظومة</div>
+                <h2 class="section-title">ما هي <span class="highlight">منظومة شيخة</span>؟</h2>
+                <p class="section-desc">منصة سعودية متكاملة تربط جميع أطراف سلسلة توريد المعادن والسكراب</p>
+            </div>
+            <div class="intro-content">
+                <div class="intro-text">
+                    <h3>منظومة أعمال متكاملة</h3>
+                    <p>
+                        شيخة ليست مجرد سوق إلكتروني — بل منظومة أعمال متكاملة تجمع بين التجارة، 
+                        إدارة سلاسل التوريد، الخدمات اللوجستية، والذكاء الاصطناعي في منصة واحدة.
+                    </p>
+                    <p>
+                        تربط المنظومة بين المناجم، الجامعين، الفارزين، الناقلين، المصانع، والمصاهر — 
+                        لتحقيق أفضل قيمة لجميع الأطراف بشفافية وأمانة.
+                    </p>
+                    <div class="intro-features">
+                        <div class="intro-feature">
+                            <div class="intro-feature-icon">🛒</div>
+                            <span>سوق متخصص</span>
+                        </div>
+                        <div class="intro-feature">
+                            <div class="intro-feature-icon">🔗</div>
+                            <span>سلسلة توريد</span>
+                        </div>
+                        <div class="intro-feature">
+                            <div class="intro-feature-icon">🚚</div>
+                            <span>لوجستيات ذكية</span>
+                        </div>
+                        <div class="intro-feature">
+                            <div class="intro-feature-icon">🤖</div>
+                            <span>ذكاء اصطناعي</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="intro-visual">
+                    <svg viewBox="0 0 400 350" style="width: 100%;">
+                        <rect width="400" height="350" fill="#0a0f1a" rx="15"/>
+                        
+                        <!-- Center Logo -->
+                        <circle cx="200" cy="175" r="50" fill="#0a5c36" stroke="#d4af37" stroke-width="3"/>
+                        <text x="200" y="185" text-anchor="middle" fill="#d4af37" font-size="40" font-weight="bold">ش</text>
+                        
+                        <!-- Surrounding Elements -->
+                        <g transform="translate(200,60)">
+                            <circle r="35" fill="#0d1424" stroke="#1e3a5f" stroke-width="2"/>
+                            <text y="8" text-anchor="middle" fill="white" font-size="24">🛒</text>
+                        </g>
+                        <g transform="translate(320,130)">
+                            <circle r="35" fill="#0d1424" stroke="#1e3a5f" stroke-width="2"/>
+                            <text y="8" text-anchor="middle" fill="white" font-size="24">🔗</text>
+                        </g>
+                        <g transform="translate(320,220)">
+                            <circle r="35" fill="#0d1424" stroke="#1e3a5f" stroke-width="2"/>
+                            <text y="8" text-anchor="middle" fill="white" font-size="24">🏭</text>
+                        </g>
+                        <g transform="translate(200,290)">
+                            <circle r="35" fill="#0d1424" stroke="#1e3a5f" stroke-width="2"/>
+                            <text y="8" text-anchor="middle" fill="white" font-size="24">🚚</text>
+                        </g>
+                        <g transform="translate(80,220)">
+                            <circle r="35" fill="#0d1424" stroke="#1e3a5f" stroke-width="2"/>
+                            <text y="8" text-anchor="middle" fill="white" font-size="24">📊</text>
+                        </g>
+                        <g transform="translate(80,130)">
+                            <circle r="35" fill="#0d1424" stroke="#1e3a5f" stroke-width="2"/>
+                            <text y="8" text-anchor="middle" fill="white" font-size="24">🤖</text>
+                        </g>
+                        
+                        <!-- Connection Lines -->
+                        <line x1="200" y1="125" x2="200" y2="95" stroke="#d4af37" stroke-width="2" stroke-dasharray="4,2"/>
+                        <line x1="250" y1="155" x2="285" y2="135" stroke="#d4af37" stroke-width="2" stroke-dasharray="4,2"/>
+                        <line x1="250" y1="195" x2="285" y2="215" stroke="#d4af37" stroke-width="2" stroke-dasharray="4,2"/>
+                        <line x1="200" y1="225" x2="200" y2="255" stroke="#d4af37" stroke-width="2" stroke-dasharray="4,2"/>
+                        <line x1="150" y1="195" x2="115" y2="215" stroke="#d4af37" stroke-width="2" stroke-dasharray="4,2"/>
+                        <line x1="150" y1="155" x2="115" y2="135" stroke="#d4af37" stroke-width="2" stroke-dasharray="4,2"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Sections -->
+    <section class="sections-grid">
+        <div class="sections-container">
+            <div class="sections-header">
+                <div class="section-badge">🗂️ الأقسام الرئيسية</div>
+                <h2 class="section-title">استكشف <span class="highlight">أقسام المنظومة</span></h2>
+                <p class="section-desc">6 أقسام متكاملة تغطي جميع احتياجات تجارة المعادن</p>
+            </div>
+            
+            <div class="main-sections">
+                <!-- السوق -->
+                <a href="السوق.html" class="main-section-card">
+                    <div class="section-icon">🛒</div>
+                    <h3>السوق والتجارة</h3>
+                    <p>سوق متخصص لبيع وشراء المعادن والسكراب — تصفح المنتجات، قارن الأسعار، وتواصل مع التجار.</p>
+                    <div class="section-links">
+                        <span class="section-link">سوق المعادن</span>
+                        <span class="section-link">المتاجر</span>
+                        <span class="section-link">عرض بضائع</span>
+                    </div>
+                </a>
+                
+                <!-- سلسلة التوريد -->
+                <a href="نظام-شيخة-الذكي.html" class="main-section-card">
+                    <div class="section-icon">🔗</div>
+                    <h3>سلسلة التوريد</h3>
+                    <p>إدارة متكاملة للسلسلة من المصدر للمصهر — أدوات، معدات، بوليصات شحن، وتتبع الشحنات.</p>
+                    <div class="section-links">
+                        <span class="section-link">الشبكات التجارية</span>
+                        <span class="section-link">المشاريع الضخمة</span>
+                        <span class="section-link">FBS</span>
+                    </div>
+                </a>
+                
+                <!-- اللوجستيات -->
+                <a href="نظام-اللوجستيات.html" class="main-section-card">
+                    <div class="section-icon">🚚</div>
+                    <h3>اللوجستيات والنقل</h3>
+                    <p>خدمات نقل وشحن متكاملة — شاحنات، حاويات، تخليص جمركي، وتتبع مباشر.</p>
+                    <div class="section-links">
+                        <span class="section-link">النقل البري</span>
+                        <span class="section-link">الشحن البحري</span>
+                        <span class="section-link">التخليص</span>
+                    </div>
+                </a>
+                
+                <!-- الأنظمة -->
+                <a href="لوحة-التحكم.html" class="main-section-card">
+                    <div class="section-icon">📊</div>
+                    <h3>الأنظمة والإدارة</h3>
+                    <p>أدوات إدارية متقدمة — لوحة تحكم، تقارير، محاسبة، مدفوعات، وتكامل API.</p>
+                    <div class="section-links">
+                        <span class="section-link">لوحة التحكم</span>
+                        <span class="section-link">المحاسبة</span>
+                        <span class="section-link">التكامل</span>
+                    </div>
+                </a>
+                
+                <!-- الذكاء الاصطناعي -->
+                <a href="مساعد-شيخة.html" class="main-section-card">
+                    <div class="section-icon">🤖</div>
+                    <h3>المستشار الذكي</h3>
+                    <p>ذكاء اصطناعي متخصص في المعادن — استشارات، تحليلات، توصيات، وأبحاث.</p>
+                    <div class="section-links">
+                        <span class="section-link">استشارات AI</span>
+                        <span class="section-link">مركز الأبحاث</span>
+                        <span class="section-link">المنتدى</span>
+                    </div>
+                </a>
+                
+                <!-- المعايير والقوانين -->
+                <a href="اللوائح-والقوانين-والاجراءات.html" class="main-section-card">
+                    <div class="section-icon">📜</div>
+                    <h3>المعايير والقوانين</h3>
+                    <p>لوائح وقوانين التجارة — معايير الجودة، الشهادات، والامتثال للأنظمة.</p>
+                    <div class="section-links">
+                        <span class="section-link">اللوائح</span>
+                        <span class="section-link">معايير الجودة</span>
+                        <span class="section-link">الشهادات</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-section" id="how-it-works">
+        <div class="how-container">
+            <div class="how-header">
+                <div class="section-badge">🚀 ابدأ رحلتك</div>
+                <h2 class="section-title">كيف تعمل <span class="highlight">المنظومة</span>؟</h2>
+                <p class="section-desc">4 خطوات بسيطة للبدء في تجارة المعادن</p>
+            </div>
+            
+            <div class="how-steps">
+                <div class="how-step">
+                    <div class="step-number">1</div>
+                    <h4>سجّل حسابك</h4>
+                    <p>افتح متجرك مجاناً واختر تخصصك في سلسلة التوريد</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-number">2</div>
+                    <h4>أضف منتجاتك</h4>
+                    <p>اعرض بضائعك بالصور والمواصفات والأسعار</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-number">3</div>
+                    <h4>تواصل وتفاوض</h4>
+                    <p>استقبل الطلبات وتفاوض مع المشترين</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-number">4</div>
+                    <h4>أتمم الصفقة</h4>
+                    <p>شحن آمن ودفع موثوق عبر المنظومة</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Management -->
+    <section class="project-section">
+        <div class="project-container">
+            <div class="project-header">
+                <div class="section-badge">⚙️ إدارة المشاريع الذكية</div>
+                <h2 class="section-title" style="color: #fff;">صمّم <span class="highlight">مشروعك المتكامل</span></h2>
+                <p class="section-desc" style="color: rgba(255,255,255,0.7);">اختر الخدمات التي تحتاجها — النظام يؤتمت العمليات ويقترح أفضل خطة تنفيذية</p>
+            </div>
+            
+            <div class="project-flow">
+                <div class="flow-step">
+                    <div class="flow-icon">📦</div>
+                    <h5>شراء المواد</h5>
+                    <p>اختر من السوق</p>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">
+                    <div class="flow-icon">🔥</div>
+                    <h5>خدمة الصهر</h5>
+                    <p>مصاهر معتمدة</p>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">
+                    <div class="flow-icon">🚚</div>
+                    <h5>النقل والشحن</h5>
+                    <p>شركات موثوقة</p>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">
+                    <div class="flow-icon">📋</div>
+                    <h5>التخليص</h5>
+                    <p>جمركي وتصدير</p>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">
+                    <div class="flow-icon">✅</div>
+                    <h5>التسليم</h5>
+                    <p>للمستلم النهائي</p>
+                </div>
+            </div>
+            
+            <div class="project-services">
+                <div class="service-card">
+                    <div class="service-icon">🛒</div>
+                    <h5>شراء مواد خام</h5>
+                    <p>من السوق مباشرة</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔥</div>
+                    <h5>خدمات الصهر</h5>
+                    <p>مصاهر معتمدة</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏭</div>
+                    <h5>خدمات التصنيع</h5>
+                    <p>مصانع متخصصة</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚚</div>
+                    <h5>النقل والشحن</h5>
+                    <p>بري، بحري، جوي</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📦</div>
+                    <h5>التخزين FBS</h5>
+                    <p>مستودعات ذكية</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h5>التخليص الجمركي</h5>
+                    <p>استيراد وتصدير</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔬</div>
+                    <h5>فحص الجودة</h5>
+                    <p>مختبرات معتمدة</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📜</div>
+                    <h5>الشهادات</h5>
+                    <p>منشأ واعتماد</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industrial Integration -->
+    <section style="padding: 100px 24px; background: linear-gradient(135deg, #063d24, #0a0f1a);">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="section-badge" style="background: rgba(0,108,53,0.15); border-color: #006c35; color: #10b981;">🏭 التكامل الصناعي</div>
+                <h2 class="section-title" style="color: #fff;">تكامل مع <span class="highlight">البيئات الصناعية</span></h2>
+                <p class="section-desc" style="color: rgba(255,255,255,0.7);">ربط ذكي مع المصانع والمصاهر والمناجم — بيانات حية وأتمتة كاملة</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px;">
+                <a href="التكامل-الصناعي.html" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 30px; text-align: center; text-decoration: none; color: #fff; transition: all 0.3s;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">🏭</div>
+                    <h4 style="margin-bottom: 8px;">المصانع الذكية</h4>
+                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">MES • خطوط الإنتاج • الجودة</p>
+                </a>
+                <a href="التكامل-الصناعي.html" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 30px; text-align: center; text-decoration: none; color: #fff; transition: all 0.3s;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">🔥</div>
+                    <h4 style="margin-bottom: 8px;">المصاهر</h4>
+                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">الحرارة • النقاء • الطاقة</p>
+                </a>
+                <a href="التكامل-الصناعي.html" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 30px; text-align: center; text-decoration: none; color: #fff; transition: all 0.3s;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">⛏️</div>
+                    <h4 style="margin-bottom: 8px;">المناجم</h4>
+                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">الاستخراج • التحليل • السلامة</p>
+                </a>
+                <a href="التكامل-الصناعي.html" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 30px; text-align: center; text-decoration: none; color: #fff; transition: all 0.3s;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">📦</div>
+                    <h4 style="margin-bottom: 8px;">المستودعات</h4>
+                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">WMS • RFID • الأتمتة</p>
+                </a>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="التكامل-الصناعي.html" class="btn btn-gold btn-lg">🔗 استكشف التكامل الصناعي</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Site Map -->
+    <section class="sitemap-section">
+        <div class="sitemap-container">
+            <div class="sitemap-header">
+                <div class="section-badge">🗺️ خريطة الموقع</div>
+                <h2 class="section-title">دليل <span class="highlight">التنقل السريع</span></h2>
+                <p class="section-desc">وصول سهل لجميع أقسام وصفحات المنظومة</p>
+            </div>
+            
+            <div class="sitemap-grid">
+                <div class="sitemap-column">
+                    <div class="sitemap-column-header">
+                        <span>🛒</span>
+                        <h4>السوق والتجارة</h4>
+                    </div>
+                    <div class="sitemap-links">
+                        <a href="السوق.html" class="sitemap-link">→ سوق المعادن والسكراب</a>
+                        <a href="المتاجر.html" class="sitemap-link">→ دليل المتاجر</a>
+                        <a href="عرض-بضائع.html" class="sitemap-link">→ عرض بضائع للبيع</a>
+                        <a href="تسجيل-تاجر.html" class="sitemap-link">→ تسجيل تاجر جديد</a>
+                        <a href="آلية-البيع.html" class="sitemap-link">→ آلية البيع والشراء</a>
+                    </div>
+                </div>
+                
+                <div class="sitemap-column">
+                    <div class="sitemap-column-header">
+                        <span>🔗</span>
+                        <h4>سلسلة التوريد</h4>
+                    </div>
+                    <div class="sitemap-links">
+                        <a href="نظام-شيخة-الذكي.html" class="sitemap-link">→ الشبكات التجارية</a>
+                        <a href="enterprise.html" class="sitemap-link">→ المشاريع الضخمة</a>
+                        <a href="fbs.html" class="sitemap-link">→ التخزين والشحن FBS</a>
+                        <a href="نظام-اللوجستيات.html" class="sitemap-link">→ اللوجستيات والنقل</a>
+                        <a href="تسجيل-ناقل.html" class="sitemap-link">→ تسجيل شركة نقل</a>
+                    </div>
+                </div>
+                
+                <div class="sitemap-column">
+                    <div class="sitemap-column-header">
+                        <span>📊</span>
+                        <h4>الأنظمة والإدارة</h4>
+                    </div>
+                    <div class="sitemap-links">
+                        <a href="لوحة-التحكم.html" class="sitemap-link">→ لوحة التحكم</a>
+                        <a href="لوحة-المؤشرات.html" class="sitemap-link">→ المؤشرات والتحليلات</a>
+                        <a href="النظام-المحاسبي.html" class="sitemap-link">→ النظام المحاسبي</a>
+                        <a href="نظام-المدفوعات.html" class="sitemap-link">→ المدفوعات</a>
+                        <a href="تكامل.html" class="sitemap-link">→ التكامل API</a>
+                    </div>
+                </div>
+                
+                <div class="sitemap-column">
+                    <div class="sitemap-column-header">
+                        <span>🤖</span>
+                        <h4>الذكاء والمعرفة</h4>
+                    </div>
+                    <div class="sitemap-links">
+                        <a href="مساعد-شيخة.html" class="sitemap-link">→ المستشار الذكي</a>
+                        <a href="مركز-الأبحاث.html" class="sitemap-link">→ مركز الأبحاث</a>
+                        <a href="المنتدى.html" class="sitemap-link">→ منتدى التجار</a>
+                        <a href="اللوائح-والقوانين-والاجراءات.html" class="sitemap-link">→ اللوائح والقوانين</a>
+                        <a href="معايير-الجودة.html" class="sitemap-link">→ معايير الجودة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">ابدأ تجارتك <span class="highlight">اليوم</span></h2>
+            <p class="cta-desc">انضم إلى منظومة شيخة — المنصة الرائدة لتجارة المعادن والسكراب في السعودية</p>
+            <div class="cta-buttons">
+                <a href="تسجيل-تاجر.html" class="btn btn-gold btn-lg">📝 سجّل الآن مجاناً</a>
+                <a href="السوق.html" class="btn btn-primary btn-lg">🛒 تصفح السوق</a>
+                <a href="مساعد-شيخة.html" class="btn btn-outline btn-lg">🤖 جرّب المستشار</a>
+                <a href="app.html" class="btn btn-outline btn-lg">📱 حمّل التطبيق</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Saudi Vision Banner -->
+            <div style="background: linear-gradient(90deg, #006c35, #004d26); border-radius: 16px; padding: 30px; margin-bottom: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">🇸🇦</div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; margin-bottom: 4px;">متوافق مع رؤية المملكة 2030</h4>
+                        <p style="font-size: 0.85rem; opacity: 0.8;">برنامج تطوير الصناعة الوطنية والخدمات اللوجستية NIDLP</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <span style="padding: 8px 16px; background: rgba(255,255,255,0.15); border-radius: 20px; font-size: 0.8rem;">✓ صنع في السعودية</span>
+                    <span style="padding: 8px 16px; background: rgba(255,255,255,0.15); border-radius: 20px; font-size: 0.8rem;">✓ المحتوى المحلي</span>
+                    <span style="padding: 8px 16px; background: rgba(255,255,255,0.15); border-radius: 20px; font-size: 0.8rem;">✓ الاقتصاد الدائري</span>
+                </div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 style="display: flex; align-items: center; gap: 10px;">
+                        <span style="width: 40px; height: 40px; background: linear-gradient(135deg, #f0d060, #d4af37); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #0a0f1a;">ش</span>
+                        منظومة شيخة
+                    </h3>
+                    <p>المنصة السعودية الرائدة لتجارة المعادن والسكراب وإدارة سلاسل التوريد. تجارة بأمانة وشفافية — وفق الكتاب والسنة.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>التجارة</h4>
+                    <a href="السوق.html">السوق</a>
+                    <a href="المتاجر.html">المتاجر</a>
+                    <a href="تسجيل-تاجر.html">تسجيل تاجر</a>
+                    <a href="عرض-بضائع.html">عرض بضائع</a>
+                </div>
+                <div class="footer-links">
+                    <h4>المنظومة</h4>
+                    <a href="نظام-شيخة-الذكي.html">سلسلة التوريد</a>
+                    <a href="التكامل-الصناعي.html">التكامل الصناعي</a>
+                    <a href="fbs.html">التخزين والشحن</a>
+                    <a href="تكامل.html">التكامل API</a>
+                </div>
+                <div class="footer-links">
+                    <h4>الدعم</h4>
+                    <a href="مساعد-شيخة.html">المستشار الذكي</a>
+                    <a href="الاقسام.html">خريطة الموقع</a>
+                    <a href="app.html">التطبيق</a>
+                    <a href="https://wa.me/966554942904">واتساب</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="basmala">لا حول ولا قوة إلا بالله</p>
+                <p>© 2026 منظومة شيخة — جميع الحقوق محفوظة | المملكة العربية السعودية 🇸🇦</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

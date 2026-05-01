@@ -1,0 +1,42 @@
+{
+    "generatedAt": "2026-03-18T04:56:59.679Z",
+    "monitoring": {
+        "enabled": true,
+        "checkIntervalSeconds": 30,
+        "endpoints": [
+            {
+                "path": "/api/health",
+                "critical": true
+            },
+            {
+                "path": "/api/sheikha-ai/generative-rag",
+                "critical": true
+            },
+            {
+                "path": "/api/sheikha-ai/quranic-science",
+                "critical": false
+            },
+            {
+                "path": "/api/sheikha-ai/training",
+                "critical": false
+            },
+            {
+                "path": "/api/sheikha-ai/simulation",
+                "critical": false
+            }
+        ],
+        "alertThresholds": {
+            "responseTimeMs": 3000,
+            "errorRatePercent": 1,
+            "uptimeMinimumPercent": 99.9
+        },
+        "shariaMonitoring": {
+            "enabled": true,
+            "checkPattern": "monitor-for-sharia-violations-in-outputs",
+            "autoBlockOnViolation": true
+        }
+    },
+    "currentStatus": "initializing",
+    "lastHealthCheckAt": null,
+    "incidents": []
+}

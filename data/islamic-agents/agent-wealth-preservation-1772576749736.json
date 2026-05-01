@@ -1,0 +1,102 @@
+{
+  "id": "agent-wealth-preservation-1772576749736",
+  "type": "maqsad-agent",
+  "template": "WEALTH_PRESERVATION",
+  "nameAr": "وكيل حفظ المال",
+  "nameEn": "Wealth Preservation Agent",
+  "maqsad": "حفظ المال",
+  "priority": 5,
+  "quranicBase": [
+    "يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ — النساء ٢٩",
+    "وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة ٢٧٥",
+    "وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ — الأنعام ١٥٢",
+    "وَآتُوا الزَّكَاةَ — البقرة ٤٣"
+  ],
+  "hadithBase": [
+    "البيعان بالخيار ما لم يتفرقا — متفق عليه",
+    "لا يبيع الرجل على بيع أخيه — متفق عليه",
+    "التاجر الصدوق مع النبيين والصديقين — صحيح الترمذي",
+    "من غشنا فليس منا — صحيح مسلم"
+  ],
+  "capabilities": [
+    "التجارة الإسلامية",
+    "المعاملات المالية الحلال",
+    "إدارة الزكاة",
+    "مكافحة الربا",
+    "التمويل الإسلامي",
+    "حماية الملكية",
+    "العدالة الاقتصادية",
+    "توزيع الثروة"
+  ],
+  "subAgents": [
+    {
+      "id": "agent-wealth-preservation-1772576749736-sub-1772576749736-8ifar8p1c",
+      "parentId": "agent-wealth-preservation-1772576749736",
+      "nameAr": "مستشار التجارة الحلال",
+      "focus": "ضمان حلال المعاملات",
+      "sources": [
+        "فقه المعاملات",
+        "منظومة شيخة"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-wealth-preservation-1772576749736-sub-1772576749736-l9k3kds52",
+      "parentId": "agent-wealth-preservation-1772576749736",
+      "nameAr": "محاسب الزكاة",
+      "focus": "حساب وتوزيع الزكاة",
+      "sources": [
+        "أحكام الزكاة",
+        "مصارف الزكاة"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-wealth-preservation-1772576749736-sub-1772576749736-tsva4xj92",
+      "parentId": "agent-wealth-preservation-1772576749736",
+      "nameAr": "كاشف الربا",
+      "focus": "الكشف عن المعاملات الربوية",
+      "sources": [
+        "أنواع الربا",
+        "الحيل الربوية"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-wealth-preservation-1772576749736-sub-1772576749736-v3qb9gjk0",
+      "parentId": "agent-wealth-preservation-1772576749736",
+      "nameAr": "خبير التمويل الإسلامي",
+      "focus": "الصكوك والمرابحة والمشاركة",
+      "sources": [
+        "المعايير الشرعية",
+        "الصيرفة الإسلامية"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-wealth-preservation-1772576749736-sub-1772576749736-j7kt059ot",
+      "parentId": "agent-wealth-preservation-1772576749736",
+      "nameAr": "مراقب السوق",
+      "focus": "منع الغش والاحتكار والنجش",
+      "sources": [
+        "أحكام السوق",
+        "حسبة السوق"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    }
+  ],
+  "status": "active",
+  "createdAt": "2026-03-03T22:25:49.736Z",
+  "tasksCompleted": 0,
+  "totalTasks": 0
+}

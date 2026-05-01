@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-03-09T21:24:47.480Z",
+  "organizationId": "224557279528",
+  "projects": {
+    "production": "sheikha-empire",
+    "development": "sheikha-core",
+    "testing": "sheikha-test"
+  },
+  "operatorPrincipal": "user:market@sheikha.top",
+  "requestedBy": {
+    "name": "Salman Ahmed Al-Rajih",
+    "email": "market@sheikha.top"
+  },
+  "requestedActions": [
+    "Link sheikha-empire to institutional billing account (no personal card)",
+    "Enable required Google Cloud APIs for production and development",
+    "Grant operator IAM roles to user:market@sheikha.top",
+    "Confirm org-level policy alignment and regional constraints",
+    "Provide activation confirmation and support case reference"
+  ],
+  "requiredApis": [
+    "aiplatform.googleapis.com",
+    "run.googleapis.com",
+    "bigquery.googleapis.com",
+    "storage.googleapis.com",
+    "cloudfunctions.googleapis.com",
+    "monitoring.googleapis.com",
+    "iam.googleapis.com",
+    "serviceusage.googleapis.com"
+  ],
+  "operatorRoles": [
+    "roles/viewer",
+    "roles/serviceusage.serviceUsageAdmin",
+    "roles/run.admin",
+    "roles/aiplatform.user",
+    "roles/bigquery.jobUser",
+    "roles/storage.objectAdmin",
+    "roles/cloudfunctions.developer"
+  ],
+  "compliance": {
+    "noHarm": true,
+    "leastPrivilege": true,
+    "transparency": true,
+    "auditability": true
+  }
+}

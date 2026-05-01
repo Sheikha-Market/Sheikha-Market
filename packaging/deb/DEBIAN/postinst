@@ -1,0 +1,51 @@
+#!/bin/sh
+set -e
+
+APP_DIR="/opt/sheikha/sheikha-main-portal"
+SERVICE_NAME="sheikha"
+
+if ! id -u sheikha >/dev/null 2>&1; then
+    useradd --system --create-home --shell /usr/sbin/nologin sheikha || true
+fi
+
+mkdir -p "${APP_DIR}/logs" "${APP_DIR}/uploads" "${APP_DIR}/quarantine"
+chown -R sheikha:sheikha "${APP_DIR}" || true
+
+cat >"/etc/systemd/system/${SERVICE_NAME}.service" <<EOF
+[Unit]
+Description=Sheikha Core Service
+After=network.target
+
+[Service]
+Type=simple
+User=sheikha
+Group=sheikha
+WorkingDirectory=${APP_DIR}
+Environment=NODE_ENV=production
+EnvironmentFile=${APP_DIR}/.env
+ExecStart=/usr/bin/npm run start
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=${APP_DIR}/data ${APP_DIR}/logs ${APP_DIR}/uploads ${APP_DIR}/quarantine
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+if [ ! -f "${APP_DIR}/.env" ] && [ -f "${APP_DIR}/.env.example" ]; then
+    cp "${APP_DIR}/.env.example" "${APP_DIR}/.env"
+    chown sheikha:sheikha "${APP_DIR}/.env" || true
+    chmod 600 "${APP_DIR}/.env" || true
+fi
+
+if [ -f "/etc/systemd/system/${SERVICE_NAME}.service" ]; then
+    systemctl daemon-reload || true
+    systemctl enable --now "${SERVICE_NAME}" || true
+fi
+
+exit 0

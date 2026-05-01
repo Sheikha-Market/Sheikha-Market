@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="اعرض بضائعك للبيع في سوق شيخة - السوق الرائد لتجارة المعادن والسكراب">
+    <title>اعرض بضائعك | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-dark: #063d24;
+            --primary-light: #0d7a47;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --gold-dark: #b8960c;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 20px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.3);
+            --shadow-lg: 0 8px 48px rgba(0,0,0,0.4);
+            --shadow-gold: 0 4px 24px rgba(212,175,55,0.25);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--dark);
+            box-shadow: var(--shadow-gold);
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+        .nav-link {
+            padding: 10px 18px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Layout */
+        .page-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 32px;
+            padding: 32px;
+        }
+
+        /* Main Form */
+        .main {
+            min-width: 0;
+        }
+
+        /* Page Title */
+        .page-title {
+            margin-bottom: 24px;
+        }
+        .page-title h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .page-title h1 span {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .page-title p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        /* Form Section */
+        .form-section {
+            padding: 28px;
+            border-bottom: 1px solid var(--border);
+        }
+        .form-section:last-child {
+            border-bottom: none;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+        .section-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(10,92,54,0.15));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+        .section-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+        .required { color: var(--danger); }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(0,0,0,0.3);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.05);
+        }
+        .form-input::placeholder {
+            color: var(--text-faint);
+        }
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--text-faint);
+            margin-top: 6px;
+        }
+
+        /* Category Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .category-card {
+            background: rgba(0,0,0,0.2);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        .category-card:hover {
+            border-color: rgba(212,175,55,0.5);
+            background: rgba(212,175,55,0.05);
+        }
+        .category-card.selected {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        .category-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 18px;
+            height: 18px;
+            background: var(--gold);
+            color: var(--dark);
+            border-radius: 50%;
+            font-size: 0.65rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .category-card input { display: none; }
+        .category-icon {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+        .category-name {
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* Quality Grid */
+        .quality-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .quality-card {
+            background: rgba(0,0,0,0.2);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .quality-card:hover {
+            border-color: rgba(212,175,55,0.5);
+        }
+        .quality-card.selected {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        .quality-card input { display: none; }
+        .quality-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+        .quality-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Messages */
+        .msg {
+            padding: 14px 18px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            align-items: center;
+            gap: 10px;
+        }
+        .msg.show { display: flex; }
+        .msg.success {
+            background: rgba(16,185,129,0.15);
+            border: 1px solid rgba(16,185,129,0.3);
+            color: var(--success);
+        }
+        .msg.error {
+            background: rgba(239,68,68,0.15);
+            border: 1px solid rgba(239,68,68,0.3);
+            color: var(--danger);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+            box-shadow: var(--shadow-gold);
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(212,175,55,0.4);
+        }
+        .btn-gold:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            padding: 24px 28px;
+            background: rgba(0,0,0,0.2);
+            border-top: 1px solid var(--border);
+        }
+        .form-actions .btn { flex: 1; }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        /* Preview Card */
+        .preview-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .preview-header {
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(10,92,54,0.15), rgba(212,175,55,0.1));
+            border-bottom: 1px solid var(--border);
+        }
+        .preview-header h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .preview-body {
+            padding: 20px;
+        }
+        .preview-visual {
+            height: 120px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(10,92,54,0.08));
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .preview-icon {
+            font-size: 3rem;
+            opacity: 0.8;
+        }
+        .preview-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .preview-category {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+        .preview-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .preview-stat {
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        .preview-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .preview-stat-value {
+            font-size: 1rem;
+            font-weight: 800;
+        }
+        .preview-price {
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(212,175,55,0.05));
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+        }
+        .preview-price-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .preview-price-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+        .preview-price-total {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Tips Card */
+        .tips-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+        }
+        .tips-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tip-item {
+            display: flex;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .tip-item:last-child { border-bottom: none; }
+        .tip-icon {
+            color: var(--success);
+            font-size: 0.9rem;
+        }
+        .tip-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Login Required */
+        .login-required {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            padding: 60px 40px;
+        }
+        .login-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        .login-required h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--gold);
+        }
+        .login-required p {
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            font-size: 1rem;
+        }
+        .login-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .page-layout {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            .sidebar {
+                position: static;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+        @media (max-width: 768px) {
+            .header { padding: 12px 16px; }
+            .nav-links { display: none; }
+            .form-row, .form-row-3 { grid-template-columns: 1fr; }
+            .category-grid { grid-template-columns: repeat(2, 1fr); }
+            .quality-grid { grid-template-columns: 1fr; }
+            .sidebar { grid-template-columns: 1fr; }
+            .login-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><svg viewBox="0 0 60 60" width="100%" height="100%"><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f7e98e"/><stop offset="50%" style="stop-color:#d4af37"/><stop offset="100%" style="stop-color:#aa8c2c"/></linearGradient></defs><circle cx="30" cy="30" r="28" fill="none" stroke="url(#goldGrad)" stroke-width="2"/><path d="M20 22 Q30 18 40 22 Q42 30 40 38 Q30 42 20 38 Q18 30 20 22" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/><circle cx="24" cy="20" r="2" fill="url(#goldGrad)"/><circle cx="30" cy="18" r="2" fill="url(#goldGrad)"/><circle cx="36" cy="20" r="2" fill="url(#goldGrad)"/><path d="M25 30 L35 30" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round"/></svg></div>
+                <span class="logo-text">سوق شيخة</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">🏠 الرئيسية</a>
+                <a href="لوحة-التحكم.html" class="nav-link">📊 لوحة التحكم</a>
+                <a href="السوق.html" class="nav-link">🛒 السوق</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-layout">
+        <!-- Main Form -->
+        <main class="main">
+            <div class="page-title">
+                <h1>📦 <span>اعرض بضائعك</span> للبيع</h1>
+                <p>أضف منتجك ليظهر للمشترين في سوق شيخة</p>
+            </div>
+
+            <!-- Login Required -->
+            <div id="loginRequired" class="login-required" style="display: none;">
+                <div class="login-icon">🔐</div>
+                <h2>سجّل دخولك لعرض بضائعك</h2>
+                <p>لعرض منتجاتك في السوق، يجب أن يكون لديك حساب تاجر</p>
+                <div class="login-buttons">
+                    <a href="تسجيل-الدخول.html" class="btn btn-gold">تسجيل الدخول</a>
+                    <a href="تسجيل-تاجر.html" class="btn btn-outline">إنشاء حساب مجاني</a>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form id="listingForm" class="form-card" style="display: none;">
+                <div id="formMsg" class="msg" style="margin: 20px 28px 0;"></div>
+
+                <!-- معلومات المنتج -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">📦</div>
+                        <div>
+                            <div class="section-title">معلومات المنتج</div>
+                            <div class="section-subtitle">اسم المنتج ونوعه وحالته</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="required">*</span> اسم المنتج
+                        </label>
+                        <input type="text" class="form-input" id="productName" required placeholder="مثال: حديد تسليح 12mm، سكراب نحاس أسلاك نظيف">
+                        <div class="form-hint">اكتب اسماً واضحاً يصف المنتج بدقة</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="required">*</span> نوع المعدن
+                        </label>
+                        <div class="category-grid" id="categoryGrid">
+                            <label class="category-card" onclick="selectCategory(this)">
+                                <input type="radio" name="category" value="iron">
+                                <div class="category-icon">🔩</div>
+                                <div class="category-name">حديد</div>
+                            </label>
+                            <label class="category-card" onclick="selectCategory(this)">
+                                <input type="radio" name="category" value="copper">
+                                <div class="category-icon">🔶</div>
+                                <div class="category-name">نحاس</div>
+                            </label>
+                            <label class="category-card" onclick="selectCategory(this)">
+                                <input type="radio" name="category" value="aluminum">
+                                <div class="category-icon">⬜</div>
+                                <div class="category-name">ألمنيوم</div>
+                            </label>
+                            <label class="category-card" onclick="selectCategory(this)">
+                                <input type="radio" name="category" value="stainless">
+                                <div class="category-icon">✨</div>
+                                <div class="category-name">ستانلس</div>
+                            </label>
+                            <label class="category-card" onclick="selectCategory(this)">
+                                <input type="radio" name="category" value="cables">
+                                <div class="category-icon">🔌</div>
+                                <div class="category-name">كابلات</div>
+                            </label>
+                            <label class="category-card" onclick="selectCategory(this)">
+                                <input type="radio" name="category" value="batteries">
+                                <div class="category-icon">🔋</div>
+                                <div class="category-name">بطاريات</div>
+                            </label>
+                            <label class="category-card" onclick="selectCategory(this)">
+                                <input type="radio" name="category" value="mixed">
+                                <div class="category-icon">♻️</div>
+                                <div class="category-name">سكراب مختلط</div>
+                            </label>
+                            <label class="category-card" onclick="selectCategory(this)">
+                                <input type="radio" name="category" value="other">
+                                <div class="category-icon">📦</div>
+                                <div class="category-name">أخرى</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">حالة المنتج</label>
+                        <div class="quality-grid" id="qualityGrid">
+                            <label class="quality-card" onclick="selectQuality(this)">
+                                <input type="radio" name="quality" value="excellent">
+                                <div class="quality-name">ممتاز</div>
+                                <div class="quality-desc">نظيف وجاهز</div>
+                            </label>
+                            <label class="quality-card selected" onclick="selectQuality(this)">
+                                <input type="radio" name="quality" value="good" checked>
+                                <div class="quality-name">جيد</div>
+                                <div class="quality-desc">حالة عادية</div>
+                            </label>
+                            <label class="quality-card" onclick="selectQuality(this)">
+                                <input type="radio" name="quality" value="mixed">
+                                <div class="quality-name">مختلط</div>
+                                <div class="quality-desc">يحتاج فرز</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">وصف المنتج</label>
+                        <textarea class="form-textarea" id="productDesc" placeholder="وصف تفصيلي: المواصفات، النوعية، أي ملاحظات للمشتري..."></textarea>
+                    </div>
+                </div>
+
+                <!-- نوع العرض (مصنع/كميات كبيرة) -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">🏭</div>
+                        <div>
+                            <div class="section-title">نوع العرض</div>
+                            <div class="section-subtitle">هل أنت مصنع أو لديك كميات كبيرة حسب الطلب؟</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="quality-grid">
+                            <label class="quality-card selected" onclick="selectSupplyType(this)">
+                                <input type="radio" name="supplyType" value="stock" checked>
+                                <div class="quality-name">مخزون متاح</div>
+                                <div class="quality-desc">كمية محددة جاهزة للبيع</div>
+                            </label>
+                            <label class="quality-card" onclick="selectSupplyType(this)">
+                                <input type="radio" name="supplyType" value="factory">
+                                <div class="quality-name">مصنع / إنتاج</div>
+                                <div class="quality-desc">إنتاج حسب الطلب بكميات كبيرة</div>
+                            </label>
+                            <label class="quality-card" onclick="selectSupplyType(this)">
+                                <input type="radio" name="supplyType" value="continuous">
+                                <div class="quality-name">توريد مستمر</div>
+                                <div class="quality-desc">عقود توريد دورية</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- حقول المصنع (تظهر عند اختيار مصنع) -->
+                    <div id="factoryFields" style="display: none; background: rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.2); border-radius: var(--radius); padding: 20px; margin-top: 16px;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">الطاقة الإنتاجية اليومية</label>
+                                <input type="number" class="form-input" id="dailyCapacity" placeholder="مثال: 100 طن/يوم">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">الطاقة الإنتاجية الشهرية</label>
+                                <input type="number" class="form-input" id="monthlyCapacity" placeholder="مثال: 2000 طن/شهر">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">مدة التجهيز (بالأيام)</label>
+                            <input type="number" class="form-input" id="leadTime" placeholder="مثال: 7 أيام">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الكمية والسعر -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">💰</div>
+                        <div>
+                            <div class="section-title">الكمية والسعر</div>
+                            <div class="section-subtitle">حدد الكمية المتوفرة والسعر المطلوب</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row-3">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <span class="required">*</span> <span id="qtyLabel">الكمية المتوفرة</span>
+                            </label>
+                            <input type="number" class="form-input" id="quantity" required placeholder="50" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">الوحدة</label>
+                            <select class="form-select" id="unit">
+                                <option value="طن">طن</option>
+                                <option value="كيلو">كيلو</option>
+                                <option value="قطعة">قطعة</option>
+                                <option value="لفة">لفة</option>
+                                <option value="متر">متر</option>
+                                <option value="حاوية">حاوية (20 قدم)</option>
+                                <option value="حاوية 40">حاوية (40 قدم)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">الحد الأدنى للطلب</label>
+                            <input type="number" class="form-input" id="minOrder" placeholder="مثال: 10">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <span class="required">*</span> السعر للوحدة
+                            </label>
+                            <input type="number" class="form-input" id="price" required placeholder="2400" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">العملة</label>
+                            <select class="form-select" id="currency">
+                                <option value="ريال">ريال سعودي</option>
+                                <option value="دولار">دولار أمريكي</option>
+                                <option value="درهم">درهم إماراتي</option>
+                                <option value="يورو">يورو</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">نوع السعر</label>
+                        <div class="quality-grid">
+                            <label class="quality-card selected" onclick="selectPriceType(this)">
+                                <input type="radio" name="priceType" value="fixed" checked>
+                                <div class="quality-name">ثابت</div>
+                                <div class="quality-desc">سعر نهائي</div>
+                            </label>
+                            <label class="quality-card" onclick="selectPriceType(this)">
+                                <input type="radio" name="priceType" value="negotiable">
+                                <div class="quality-name">قابل للتفاوض</div>
+                                <div class="quality-desc">يمكن النقاش</div>
+                            </label>
+                            <label class="quality-card" onclick="selectPriceType(this)">
+                                <input type="radio" name="priceType" value="auction">
+                                <div class="quality-name">مزايدة</div>
+                                <div class="quality-desc">أعلى سعر</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- خصم الكميات الكبيرة -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" id="hasBulkDiscount" onchange="toggleBulkDiscount()" style="margin-left: 8px;">
+                            خصم للكميات الكبيرة
+                        </label>
+                        <div id="bulkDiscountFields" style="display: none; margin-top: 12px;">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" style="font-size: 0.85rem;">عند شراء أكثر من</label>
+                                    <input type="number" class="form-input" id="bulkQty" placeholder="مثال: 50 طن">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" style="font-size: 0.85rem;">نسبة الخصم %</label>
+                                    <input type="number" class="form-input" id="bulkDiscount" placeholder="مثال: 5%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الموقع والتسليم -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">📍</div>
+                        <div>
+                            <div class="section-title">الموقع والتسليم</div>
+                            <div class="section-subtitle">موقع البضاعة وطريقة التسليم</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <span class="required">*</span> المنطقة/المدينة
+                            </label>
+                            <select class="form-select" id="location" required>
+                                <option value="">اختر المنطقة</option>
+                                <option value="الرياض">الرياض</option>
+                                <option value="جدة">جدة</option>
+                                <option value="الدمام">الدمام</option>
+                                <option value="الخبر">الخبر</option>
+                                <option value="مكة">مكة المكرمة</option>
+                                <option value="المدينة">المدينة المنورة</option>
+                                <option value="القصيم">القصيم</option>
+                                <option value="تبوك">تبوك</option>
+                                <option value="الجبيل">الجبيل الصناعية</option>
+                                <option value="ينبع">ينبع الصناعية</option>
+                                <option value="أخرى">منطقة أخرى</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">العنوان التفصيلي</label>
+                            <input type="text" class="form-input" id="address" placeholder="المدينة الصناعية، الحي، الشارع...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">خيارات التسليم والشحن</label>
+                        <div class="category-grid" style="grid-template-columns: repeat(3, 1fr);">
+                            <label class="category-card selected" onclick="selectDelivery(this)">
+                                <input type="radio" name="delivery" value="pickup" checked>
+                                <div class="category-icon">🏭</div>
+                                <div class="category-name">استلام من الموقع</div>
+                            </label>
+                            <label class="category-card" onclick="selectDelivery(this)">
+                                <input type="radio" name="delivery" value="local">
+                                <div class="category-icon">🚛</div>
+                                <div class="category-name">توصيل داخلي</div>
+                            </label>
+                            <label class="category-card" onclick="selectDelivery(this)">
+                                <input type="radio" name="delivery" value="international">
+                                <div class="category-icon">🚢</div>
+                                <div class="category-name">شحن دولي</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- خيارات النقل التفصيلية -->
+                    <div id="transportOptions" style="display: none; background: rgba(10,92,54,0.05); border: 1px solid rgba(10,92,54,0.2); border-radius: var(--radius); padding: 20px; margin-top: 16px;">
+                        <div class="section-header" style="margin-bottom: 16px;">
+                            <div class="section-icon">🚚</div>
+                            <div>
+                                <div class="section-title">خيارات النقل المتاحة</div>
+                            </div>
+                        </div>
+                        <div style="display: grid; gap: 10px;">
+                            <label style="display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" name="transportType" value="truck"> 🚛 شاحنة (نقل بري)
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" name="transportType" value="container"> 📦 حاويات (نقل بحري)
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" name="transportType" value="train"> 🚂 سكك حديدية
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" name="transportType" value="secure"> 🔐 نقل آمن (للمعادن الثمينة)
+                            </label>
+                        </div>
+                        <div class="form-group" style="margin-top: 16px;">
+                            <label class="form-label">تكلفة الشحن المقدرة</label>
+                            <select class="form-select" id="shippingCost">
+                                <option value="included">مشمول في السعر</option>
+                                <option value="buyer">على المشتري</option>
+                                <option value="negotiable">قابل للتفاوض</option>
+                                <option value="fob">FOB (تسليم على ظهر السفينة)</option>
+                                <option value="cif">CIF (التكلفة والتغطية والشحن)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 16px;">
+                        <label class="form-label">ملاحظات إضافية</label>
+                        <textarea class="form-textarea" id="notes" placeholder="معلومات إضافية: متاح للمعاينة، شهادات الجودة، مواعيد التحميل..." style="min-height: 80px;"></textarea>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+                    <a href="لوحة-التحكم.html" class="btn btn-outline">إلغاء</a>
+                    <button type="submit" class="btn btn-gold" id="submitBtn">
+                        نشر العرض <span>✓</span>
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Live Preview -->
+            <div class="preview-card">
+                <div class="preview-header">
+                    <h3>👁️ معاينة العرض</h3>
+                </div>
+                <div class="preview-body">
+                    <div class="preview-visual">
+                        <span class="preview-icon" id="previewIcon">📦</span>
+                    </div>
+                    <div class="preview-title" id="previewTitle">اسم المنتج</div>
+                    <div class="preview-category" id="previewCategory">نوع المعدن • الحالة</div>
+                    
+                    <div class="preview-stats">
+                        <div class="preview-stat">
+                            <div class="preview-stat-label">الكمية</div>
+                            <div class="preview-stat-value" id="previewQty">—</div>
+                        </div>
+                        <div class="preview-stat">
+                            <div class="preview-stat-label">الموقع</div>
+                            <div class="preview-stat-value" id="previewLocation">—</div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-price">
+                        <div class="preview-price-label">السعر</div>
+                        <div class="preview-price-value" id="previewPrice">— ريال</div>
+                        <div class="preview-price-total" id="previewTotal">الإجمالي: —</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="tips-card">
+                <div class="tips-title">💡 نصائح لعرض ناجح</div>
+                <div class="tip-item">
+                    <span class="tip-icon">✓</span>
+                    <span class="tip-text">اكتب اسماً واضحاً ومحدداً للمنتج</span>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">✓</span>
+                    <span class="tip-text">حدد السعر بشكل تنافسي مع السوق</span>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">✓</span>
+                    <span class="tip-text">اذكر حالة المنتج بصدق ووضوح</span>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">✓</span>
+                    <span class="tip-text">أضف وصفاً تفصيلياً للمواصفات</span>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">✓</span>
+                    <span class="tip-text">حدد موقع البضاعة بدقة</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        const API = window.location.origin;
+        const token = localStorage.getItem('sheikha_token');
+
+        const categoryIcons = {
+            iron: '🔩', copper: '🔶', aluminum: '⬜', stainless: '✨',
+            cables: '🔌', batteries: '🔋', mixed: '♻️', other: '📦'
+        };
+        const categoryNames = {
+            iron: 'حديد', copper: 'نحاس', aluminum: 'ألمنيوم', stainless: 'ستانلس',
+            cables: 'كابلات', batteries: 'بطاريات', mixed: 'سكراب مختلط', other: 'أخرى'
+        };
+        const qualityNames = {
+            excellent: 'ممتاز', good: 'جيد', mixed: 'مختلط'
+        };
+
+        // Check login
+        if (!token) {
+            document.getElementById('loginRequired').style.display = 'block';
+            document.getElementById('listingForm').style.display = 'none';
+        } else {
+            document.getElementById('loginRequired').style.display = 'none';
+            document.getElementById('listingForm').style.display = 'block';
+        }
+
+        function selectCategory(el) {
+            document.querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            el.querySelector('input').checked = true;
+            updatePreview();
+        }
+
+        function selectQuality(el) {
+            document.querySelectorAll('#qualityGrid .quality-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            el.querySelector('input').checked = true;
+            updatePreview();
+        }
+
+        function selectPriceType(el) {
+            el.closest('.quality-grid').querySelectorAll('.quality-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            el.querySelector('input').checked = true;
+        }
+
+        function selectSupplyType(el) {
+            el.closest('.quality-grid').querySelectorAll('.quality-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            el.querySelector('input').checked = true;
+            
+            const supplyType = el.querySelector('input').value;
+            const factoryFields = document.getElementById('factoryFields');
+            const qtyLabel = document.getElementById('qtyLabel');
+            
+            if (supplyType === 'factory' || supplyType === 'continuous') {
+                factoryFields.style.display = 'block';
+                qtyLabel.textContent = 'الحد الأدنى للطلب';
+            } else {
+                factoryFields.style.display = 'none';
+                qtyLabel.textContent = 'الكمية المتوفرة';
+            }
+        }
+
+        function selectDelivery(el) {
+            el.closest('.category-grid').querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            el.querySelector('input').checked = true;
+            
+            const delivery = el.querySelector('input').value;
+            const transportOptions = document.getElementById('transportOptions');
+            
+            if (delivery === 'local' || delivery === 'international') {
+                transportOptions.style.display = 'block';
+            } else {
+                transportOptions.style.display = 'none';
+            }
+        }
+
+        function toggleBulkDiscount() {
+            const checkbox = document.getElementById('hasBulkDiscount');
+            const fields = document.getElementById('bulkDiscountFields');
+            fields.style.display = checkbox.checked ? 'block' : 'none';
+        }
+
+        function updatePreview() {
+            const name = document.getElementById('productName').value || 'اسم المنتج';
+            const category = document.querySelector('input[name="category"]:checked')?.value;
+            const quality = document.querySelector('input[name="quality"]:checked')?.value || 'good';
+            const qty = document.getElementById('quantity').value;
+            const unit = document.getElementById('unit').value;
+            const price = document.getElementById('price').value;
+            const currency = document.getElementById('currency').value;
+            const location = document.getElementById('location').value;
+
+            document.getElementById('previewTitle').textContent = name;
+            document.getElementById('previewIcon').textContent = category ? categoryIcons[category] : '📦';
+            document.getElementById('previewCategory').textContent = 
+                (category ? categoryNames[category] : 'نوع المعدن') + ' • ' + qualityNames[quality];
+            document.getElementById('previewQty').textContent = qty ? `${qty} ${unit}` : '—';
+            document.getElementById('previewLocation').textContent = location || '—';
+            
+            if (price) {
+                document.getElementById('previewPrice').textContent = `${Number(price).toLocaleString()} ${currency}/${unit}`;
+                if (qty) {
+                    const total = Number(qty) * Number(price);
+                    document.getElementById('previewTotal').textContent = `الإجمالي: ${total.toLocaleString()} ${currency}`;
+                } else {
+                    document.getElementById('previewTotal').textContent = 'الإجمالي: —';
+                }
+            } else {
+                document.getElementById('previewPrice').textContent = '— ريال';
+                document.getElementById('previewTotal').textContent = 'الإجمالي: —';
+            }
+        }
+
+        // Live preview listeners
+        ['productName', 'quantity', 'price', 'unit', 'currency', 'location'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', updatePreview);
+                el.addEventListener('change', updatePreview);
+            }
+        });
+
+        function showMsg(text, type) {
+            const el = document.getElementById('formMsg');
+            el.innerHTML = `<span>${type === 'error' ? '⚠️' : '✓'}</span> ${text}`;
+            el.className = `msg show ${type}`;
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        document.getElementById('listingForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const category = document.querySelector('input[name="category"]:checked');
+            if (!category) {
+                showMsg('يرجى اختيار نوع المعدن', 'error');
+                return;
+            }
+
+            const location = document.getElementById('location').value;
+            if (!location) {
+                showMsg('يرجى اختيار المنطقة/المدينة', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span>جاري النشر...</span>';
+
+            // جمع أنواع النقل المحددة
+            const transportTypes = [];
+            document.querySelectorAll('input[name="transportType"]:checked').forEach(cb => {
+                transportTypes.push(cb.value);
+            });
+
+            const body = {
+                name: document.getElementById('productName').value.trim(),
+                categoryName: categoryNames[category.value],
+                hsCode: category.value,
+                quality: document.querySelector('input[name="quality"]:checked')?.value || 'good',
+                description: document.getElementById('productDesc').value.trim(),
+                quantity: document.getElementById('quantity').value.trim(),
+                unit: document.getElementById('unit').value,
+                minOrder: document.getElementById('minOrder').value.trim(),
+                price: document.getElementById('price').value.trim(),
+                currency: document.getElementById('currency').value,
+                priceType: document.querySelector('input[name="priceType"]:checked')?.value || 'fixed',
+                locationAddress: location,
+                address: document.getElementById('address')?.value?.trim() || '',
+                delivery: document.querySelector('input[name="delivery"]:checked')?.value || 'pickup',
+                transportTypes: transportTypes,
+                shippingCost: document.getElementById('shippingCost')?.value || 'buyer',
+                notes: document.getElementById('notes').value.trim(),
+                // بيانات المصنع
+                supplyType: document.querySelector('input[name="supplyType"]:checked')?.value || 'stock',
+                dailyCapacity: document.getElementById('dailyCapacity')?.value?.trim() || '',
+                monthlyCapacity: document.getElementById('monthlyCapacity')?.value?.trim() || '',
+                leadTime: document.getElementById('leadTime')?.value?.trim() || '',
+                // خصم الكميات
+                hasBulkDiscount: document.getElementById('hasBulkDiscount')?.checked || false,
+                bulkQty: document.getElementById('bulkQty')?.value?.trim() || '',
+                bulkDiscount: document.getElementById('bulkDiscount')?.value?.trim() || ''
+            };
+
+            try {
+                const res = await fetch(API + '/api/products', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(body)
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showMsg('تم نشر العرض بنجاح! يمكنك مشاهدته في السوق الآن', 'success');
+                    setTimeout(() => {
+                        // التحويل للسوق لمشاهدة المنتج
+                        window.location.href = 'السوق.html';
+                    }, 1500);
+                } else {
+                    showMsg(data.message || 'فشل نشر العرض، حاول مرة أخرى', 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = 'نشر العرض <span>✓</span>';
+                }
+            } catch (e) {
+                showMsg('خطأ في الاتصال بالخادم', 'error');
+                btn.disabled = false;
+                btn.innerHTML = 'نشر العرض <span>✓</span>';
+            }
+        });
+
+        // Initialize preview
+        updatePreview();
+    </script>
+</body>
+</html>

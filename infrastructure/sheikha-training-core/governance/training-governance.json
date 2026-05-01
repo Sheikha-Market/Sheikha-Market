@@ -1,0 +1,33 @@
+{
+    "generatedAt": "2026-03-13T23:54:18.663Z",
+    "policySource": "quran-and-sunnah",
+    "prohibitedTrainingData": [
+        "تدريب على بيانات مغشوشة",
+        "تدريب على ربا أو غرر",
+        "تدريب على مخالفات شرعية"
+    ],
+    "modelRegistryPolicy": {
+        "path": "infrastructure/sheikha-training-core/registry/",
+        "versioning": "semantic",
+        "retentionPolicy": "keep-last-5-versions-per-model",
+        "promotionGates": [
+            "evaluation-score",
+            "sharia-review",
+            "smoke-test"
+        ]
+    },
+    "continuousLearningPolicy": {
+        "enabled": true,
+        "trigger": "weekly-or-on-data-drift",
+        "feedbackLoop": [
+            "user-corrections",
+            "sharia-board-review",
+            "market-accuracy-signals"
+        ],
+        "safeguards": [
+            "no-regression-on-sharia-checks",
+            "no-accuracy-drop-over-5pct"
+        ]
+    },
+    "ownerApprovalRequired": true
+}

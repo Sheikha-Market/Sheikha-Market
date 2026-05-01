@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مركز أبحاث شيخة - مركز بحثي عالمي مفتوح للجميع لدراسة أسواق المعادن وتحليلاتها">
+    <title>مركز أبحاث شيخة | SHEIKHA Research Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #06b6d4;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+        .nav-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav-link:hover { color: #06b6d4; }
+
+        .hero {
+            text-align: center;
+            padding: 80px 24px 60px;
+            background: radial-gradient(ellipse at center top, rgba(6, 182, 212, 0.1) 0%, transparent 60%);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            color: #06b6d4;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #06b6d4 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .section-card {
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            border-color: #06b6d4;
+            box-shadow: 0 20px 60px rgba(6, 182, 212, 0.2);
+        }
+        .section-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        .section-desc {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+        .section-link {
+            color: #06b6d4;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .prices-section {
+            background: linear-gradient(145deg, rgba(6, 182, 212, 0.1), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 60px;
+        }
+        .prices-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .prices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+        .price-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+        .metal-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        .metal-price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #06b6d4;
+        }
+        .metal-unit {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        .metal-change {
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        .change-up { color: #10b981; }
+        .change-down { color: #ef4444; }
+
+        .reports-section {
+            margin-bottom: 60px;
+        }
+        .reports-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+        .reports-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .report-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        .report-item:hover {
+            background: rgba(6, 182, 212, 0.1);
+            border-color: rgba(6, 182, 212, 0.3);
+        }
+        .report-info h4 {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .report-info p {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        .report-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            border: none;
+            border-radius: 10px;
+            color: #ffffff;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(15, 23, 42, 0.95));
+            border-radius: 24px;
+        }
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .cta-desc {
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
+        .cta-btn {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            border: none;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .footer {
+            background: rgba(5, 8, 16, 0.95);
+            border-top: 1px solid rgba(6, 182, 212, 0.1);
+            padding: 32px;
+            text-align: center;
+        }
+        .footer-text {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .sections-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <a href="منظومة-شيخة.html" class="logo">
+            <div class="logo-icon">🔬</div>
+            <span class="logo-text">مركز أبحاث شيخة</span>
+        </a>
+        <nav class="nav-links">
+            <a href="منظومة-شيخة.html" class="nav-link">الرئيسية</a>
+            <a href="سوق-شيخة.html" class="nav-link">السوق</a>
+            <a href="منتدى-شيخة.html" class="nav-link">المنتدى</a>
+            <a href="المساعد-الذكي.html" class="nav-link">المساعد</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-badge">
+        🌍 مفتوح للجميع من أي مكان في العالم
+    </div>
+    <h1>مركز أبحاث شيخة</h1>
+    <p>مركز بحثي عالمي متخصص في دراسة أسواق المعادن، تحليل الأسعار، والتوقعات المستقبلية - متاح مجاناً للجميع</p>
+</section>
+
+<main class="main">
+
+    <!-- أقسام المركز -->
+    <div class="sections-grid">
+        <div class="section-card" onclick="showSection('markets')">
+            <div class="section-icon">📊</div>
+            <h3 class="section-title">تحليل الأسواق</h3>
+            <p class="section-desc">تحليلات يومية وأسبوعية لأسواق المعادن العالمية والإقليمية</p>
+            <span class="section-link">استكشف ←</span>
+        </div>
+
+        <div class="section-card" onclick="showSection('prices')">
+            <div class="section-icon">📈</div>
+            <h3 class="section-title">توقعات الأسعار</h3>
+            <p class="section-desc">توقعات مبنية على الذكاء الاصطناعي لأسعار المعادن</p>
+            <span class="section-link">استكشف ←</span>
+        </div>
+
+        <div class="section-card" onclick="showSection('tech')">
+            <div class="section-icon">🔧</div>
+            <h3 class="section-title">التقنيات الحديثة</h3>
+            <p class="section-desc">أحدث تقنيات التعدين والصهر والتصنيع</p>
+            <span class="section-link">استكشف ←</span>
+        </div>
+
+        <div class="section-card" onclick="showSection('sustainability')">
+            <div class="section-icon">♻️</div>
+            <h3 class="section-title">الاستدامة البيئية</h3>
+            <p class="section-desc">أبحاث إعادة التدوير والتعدين المستدام</p>
+            <span class="section-link">استكشف ←</span>
+        </div>
+
+        <div class="section-card" onclick="showSection('library')">
+            <div class="section-icon">📚</div>
+            <h3 class="section-title">المكتبة الرقمية</h3>
+            <p class="section-desc">مراجع وأبحاث علمية محكمة في مجال المعادن</p>
+            <span class="section-link">استكشف ←</span>
+        </div>
+
+        <div class="section-card" onclick="showSection('indicators')">
+            <div class="section-icon">🎯</div>
+            <h3 class="section-title">مؤشرات السوق</h3>
+            <p class="section-desc">مؤشرات حية لأداء أسواق المعادن العالمية</p>
+            <span class="section-link">استكشف ←</span>
+        </div>
+    </div>
+
+    <!-- أسعار المعادن الحية -->
+    <div class="prices-section">
+        <h2 class="prices-title">📊 أسعار المعادن الحية</h2>
+        <div class="prices-grid">
+            <div class="price-card">
+                <div class="metal-name">🥇 الذهب</div>
+                <div class="metal-price">$2,045</div>
+                <div class="metal-unit">للأونصة</div>
+                <div class="metal-change change-up">↑ +0.8%</div>
+            </div>
+            <div class="price-card">
+                <div class="metal-name">🥈 الفضة</div>
+                <div class="metal-price">$24.50</div>
+                <div class="metal-unit">للأونصة</div>
+                <div class="metal-change change-up">↑ +1.2%</div>
+            </div>
+            <div class="price-card">
+                <div class="metal-name">🔶 النحاس</div>
+                <div class="metal-price">$8,450</div>
+                <div class="metal-unit">للطن</div>
+                <div class="metal-change change-down">↓ -0.3%</div>
+            </div>
+            <div class="price-card">
+                <div class="metal-name">⬛ الحديد</div>
+                <div class="metal-price">$125</div>
+                <div class="metal-unit">للطن</div>
+                <div class="metal-change change-up">↑ +0.5%</div>
+            </div>
+            <div class="price-card">
+                <div class="metal-name">⬜ الألومنيوم</div>
+                <div class="metal-price">$2,280</div>
+                <div class="metal-unit">للطن</div>
+                <div class="metal-change change-down">↓ -0.2%</div>
+            </div>
+            <div class="price-card">
+                <div class="metal-name">💎 البلاتين</div>
+                <div class="metal-price">$985</div>
+                <div class="metal-unit">للأونصة</div>
+                <div class="metal-change change-up">↑ +0.4%</div>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 24px; color: #64748b; font-size: 0.85rem;">
+            آخر تحديث: <span id="lastUpdate"></span> | المصدر: بورصة لندن للمعادن (LME)
+        </p>
+    </div>
+
+    <!-- التقارير -->
+    <div class="reports-section">
+        <h2 class="reports-title">📄 أحدث التقارير والدراسات</h2>
+        <div class="reports-list">
+            <div class="report-item">
+                <div class="report-info">
+                    <h4>تقرير سوق المعادن الأساسية - فبراير 2026</h4>
+                    <p>تحليل شامل لأسواق الحديد والنحاس والألومنيوم</p>
+                </div>
+                <a href="#" class="report-btn">تحميل PDF</a>
+            </div>
+            <div class="report-item">
+                <div class="report-info">
+                    <h4>توقعات أسعار الذهب 2026</h4>
+                    <p>دراسة تحليلية باستخدام الذكاء الاصطناعي</p>
+                </div>
+                <a href="#" class="report-btn">تحميل PDF</a>
+            </div>
+            <div class="report-item">
+                <div class="report-info">
+                    <h4>مستقبل صناعة إعادة تدوير المعادن</h4>
+                    <p>فرص النمو والتحديات في السوق السعودي</p>
+                </div>
+                <a href="#" class="report-btn">تحميل PDF</a>
+            </div>
+            <div class="report-item">
+                <div class="report-info">
+                    <h4>دليل المعادن النادرة والاستراتيجية</h4>
+                    <p>الأهمية الصناعية والتطبيقات المستقبلية</p>
+                </div>
+                <a href="#" class="report-btn">تحميل PDF</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- دعوة للانضمام -->
+    <div class="cta-section">
+        <h2 class="cta-title">🌍 انضم لمجتمع الباحثين</h2>
+        <p class="cta-desc">سجل مجاناً للوصول لجميع الأبحاث والتقارير والمشاركة في النقاشات العلمية</p>
+        <a href="تسجيل-الشركاء.html" class="cta-btn">سجل الآن مجاناً</a>
+    </div>
+
+</main>
+
+<footer class="footer">
+    <p class="footer-text">لا حول ولا قوة إلا بالله - اللهم اجعلها منظومة وسوق بركة وخير 🤲</p>
+</footer>
+
+<script>
+    // تحديث الوقت
+    document.getElementById('lastUpdate').textContent = new Date().toLocaleString('ar-SA');
+
+    function showSection(section) {
+        alert('قسم ' + section + ' - سيتم فتح المحتوى الكامل');
+    }
+</script>
+
+</body>
+</html>

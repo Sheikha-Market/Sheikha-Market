@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بانرات تسويقية — شيخة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #D4AF37;
+    --gold-light: #f0d060;
+    --gold-dark: #b8942f;
+    --dark: #030712;
+    --green: #006c35;
+    --gray: #94a3b8;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'Tajawal', Arial, sans-serif;
+    background: #e2e8f0;
+    color: var(--dark);
+    direction: rtl;
+    padding: 30px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 22pt;
+    font-weight: 900;
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+
+  .page-subtitle {
+    text-align: center;
+    font-size: 11pt;
+    color: #6b7280;
+    margin-bottom: 40px;
+  }
+
+  .banner-section {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .banner-label {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 8px;
+    background: #fff;
+    padding: 4px 16px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+  }
+
+  .banner-label span {
+    color: #94a3b8;
+    font-weight: 400;
+    font-size: 9pt;
+    margin-right: 6px;
+  }
+
+  /* ===== COMMON BANNER STYLES ===== */
+  .banner {
+    position: relative;
+    overflow: hidden;
+    background: var(--dark);
+    border-radius: 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+  }
+
+  .banner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(212,175,55,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 50%, rgba(212,175,55,0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .banner-accent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--gold-light), var(--gold), var(--gold-dark));
+    z-index: 1;
+  }
+
+  .banner-logo svg {
+    display: block;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .banner-content {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .banner-title {
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1.3;
+  }
+
+  .banner-tagline {
+    color: #cbd5e1;
+    line-height: 1.4;
+  }
+
+  .banner-cta {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+    color: var(--dark);
+    font-weight: 800;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .banner-url {
+    color: var(--gold);
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== LEADERBOARD 728x90 ===== */
+  .banner-leaderboard {
+    width: 728px;
+    height: 90px;
+    padding: 0 20px;
+    gap: 14px;
+  }
+
+  .banner-leaderboard .banner-logo svg { width: 45px; height: 45px; }
+  .banner-leaderboard .banner-title { font-size: 16px; }
+  .banner-leaderboard .banner-tagline { font-size: 9px; margin-top: 2px; }
+  .banner-leaderboard .banner-cta { font-size: 10px; padding: 5px 14px; margin-top: 4px; }
+  .banner-leaderboard .banner-url { font-size: 9px; position: absolute; bottom: 8px; left: 16px; }
+
+  /* ===== MEDIUM RECTANGLE 300x250 ===== */
+  .banner-medrect {
+    width: 300px;
+    height: 250px;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .banner-medrect .banner-content { align-items: center; }
+  .banner-medrect .banner-logo svg { width: 60px; height: 60px; }
+  .banner-medrect .banner-title { font-size: 18px; text-align: center; }
+  .banner-medrect .banner-tagline { font-size: 11px; text-align: center; margin-top: 4px; }
+  .banner-medrect .banner-cta { font-size: 12px; padding: 8px 24px; margin-top: 8px; border-radius: 6px; }
+  .banner-medrect .banner-url { font-size: 10px; margin-top: 6px; }
+
+  /* ===== FULL BANNER 468x60 ===== */
+  .banner-full {
+    width: 468px;
+    height: 60px;
+    padding: 0 14px;
+    gap: 10px;
+  }
+
+  .banner-full .banner-logo svg { width: 32px; height: 32px; }
+  .banner-full .banner-title { font-size: 13px; }
+  .banner-full .banner-tagline { font-size: 8px; margin-top: 1px; }
+  .banner-full .banner-cta { font-size: 9px; padding: 4px 10px; margin-top: 2px; }
+  .banner-full .banner-url { font-size: 8px; position: absolute; bottom: 6px; left: 12px; }
+
+  /* ===== LARGE RECTANGLE 336x280 ===== */
+  .banner-lgrect {
+    width: 336px;
+    height: 280px;
+    flex-direction: column;
+    padding: 22px;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .banner-lgrect .banner-content { align-items: center; }
+  .banner-lgrect .banner-logo svg { width: 65px; height: 65px; }
+  .banner-lgrect .banner-title { font-size: 20px; text-align: center; }
+  .banner-lgrect .banner-tagline { font-size: 11px; text-align: center; margin-top: 4px; }
+  .banner-lgrect .banner-cta { font-size: 13px; padding: 8px 28px; margin-top: 10px; border-radius: 6px; }
+  .banner-lgrect .banner-url { font-size: 10px; margin-top: 6px; }
+
+  /* ===== SOCIAL MEDIA 1200x630 ===== */
+  .banner-social {
+    width: 1200px;
+    height: 630px;
+    flex-direction: column;
+    padding: 60px;
+    text-align: center;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .banner-social .banner-content { align-items: center; }
+  .banner-social .banner-logo svg { width: 120px; height: 120px; }
+  .banner-social .banner-title { font-size: 48px; text-align: center; }
+  .banner-social .banner-tagline { font-size: 22px; text-align: center; margin-top: 10px; max-width: 800px; }
+  .banner-social .banner-cta { font-size: 22px; padding: 16px 50px; margin-top: 20px; border-radius: 10px; }
+  .banner-social .banner-url { font-size: 18px; margin-top: 14px; }
+
+  .banner-social::before {
+    background:
+      radial-gradient(ellipse at 30% 30%, rgba(212,175,55,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 70%, rgba(212,175,55,0.06) 0%, transparent 50%);
+  }
+
+  .banner-social .banner-accent {
+    width: 10px;
+  }
+
+  /* Decorative circles for social banner */
+  .banner-social .decor-circle {
+    position: absolute;
+    border: 1px solid rgba(212,175,55,0.1);
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  .decor-1 { width: 300px; height: 300px; top: -80px; right: -60px; }
+  .decor-2 { width: 200px; height: 200px; bottom: -50px; left: -40px; }
+  .decor-3 { width: 150px; height: 150px; top: 50%; left: 10%; }
+
+  /* ===== PRINT STYLES ===== */
+  @media print {
+    body { background: white; }
+
+    .banner-section {
+      page-break-inside: avoid;
+    }
+
+    .banner {
+      box-shadow: none;
+      border: 0.5px solid #e5e7eb;
+    }
+
+    @page {
+      size: A4 landscape;
+      margin: 10mm;
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    .banner-social {
+      width: 100%;
+      max-width: 1200px;
+      height: auto;
+      aspect-ratio: 1200 / 630;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    .banner-leaderboard {
+      width: 100%;
+      max-width: 728px;
+      height: auto;
+      min-height: 90px;
+    }
+    .banner-full {
+      width: 100%;
+      max-width: 468px;
+      height: auto;
+      min-height: 60px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>البانرات التسويقية</h1>
+<p class="page-subtitle">منظومة وسوق شيخة -- جميع الأحجام الإعلانية</p>
+
+<!-- ===== LEADERBOARD 728x90 ===== -->
+<div class="banner-section">
+  <div class="banner-label">Leaderboard <span>728 x 90</span></div>
+  <div class="banner banner-leaderboard">
+    <div class="banner-accent"></div>
+    <div class="banner-logo">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gl1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs>
+        <rect x="3" y="3" width="54" height="54" rx="12" fill="url(#gl1)"/>
+        <text x="30" y="42" text-anchor="middle" fill="#030712" font-size="30" font-weight="900" font-family="Arial">ش</text>
+      </svg>
+    </div>
+    <div class="banner-content">
+      <div class="banner-title">سوق شيخة</div>
+      <div class="banner-tagline">أول سوق إسلامي رقمي للمعادن والسكراب</div>
+    </div>
+    <a class="banner-cta" href="https://sheikha.top">سجّل الآن مجاناً</a>
+    <div class="banner-url">sheikha.top</div>
+  </div>
+</div>
+
+<!-- ===== MEDIUM RECTANGLE 300x250 ===== -->
+<div class="banner-section">
+  <div class="banner-label">Medium Rectangle <span>300 x 250</span></div>
+  <div class="banner banner-medrect">
+    <div class="banner-accent"></div>
+    <div class="banner-logo">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gl2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs>
+        <rect x="3" y="3" width="54" height="54" rx="12" fill="url(#gl2)"/>
+        <text x="30" y="42" text-anchor="middle" fill="#030712" font-size="30" font-weight="900" font-family="Arial">ش</text>
+      </svg>
+    </div>
+    <div class="banner-content">
+      <div class="banner-title">سوق شيخة</div>
+      <div class="banner-tagline">أول سوق إسلامي رقمي للمعادن والسكراب</div>
+      <a class="banner-cta" href="https://sheikha.top">سجّل الآن مجاناً</a>
+      <div class="banner-url">sheikha.top</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FULL BANNER 468x60 ===== -->
+<div class="banner-section">
+  <div class="banner-label">Full Banner <span>468 x 60</span></div>
+  <div class="banner banner-full">
+    <div class="banner-accent"></div>
+    <div class="banner-logo">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gl3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs>
+        <rect x="3" y="3" width="54" height="54" rx="12" fill="url(#gl3)"/>
+        <text x="30" y="42" text-anchor="middle" fill="#030712" font-size="30" font-weight="900" font-family="Arial">ش</text>
+      </svg>
+    </div>
+    <div class="banner-content">
+      <div class="banner-title">سوق شيخة</div>
+      <div class="banner-tagline">أول سوق إسلامي رقمي للمعادن</div>
+    </div>
+    <a class="banner-cta" href="https://sheikha.top">سجّل الآن مجاناً</a>
+    <div class="banner-url">sheikha.top</div>
+  </div>
+</div>
+
+<!-- ===== LARGE RECTANGLE 336x280 ===== -->
+<div class="banner-section">
+  <div class="banner-label">Large Rectangle <span>336 x 280</span></div>
+  <div class="banner banner-lgrect">
+    <div class="banner-accent"></div>
+    <div class="banner-logo">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gl4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs>
+        <rect x="3" y="3" width="54" height="54" rx="12" fill="url(#gl4)"/>
+        <text x="30" y="42" text-anchor="middle" fill="#030712" font-size="30" font-weight="900" font-family="Arial">ش</text>
+      </svg>
+    </div>
+    <div class="banner-content">
+      <div class="banner-title">سوق شيخة</div>
+      <div class="banner-tagline">أول سوق إسلامي رقمي للمعادن والسكراب</div>
+      <a class="banner-cta" href="https://sheikha.top">سجّل الآن مجاناً</a>
+      <div class="banner-url">sheikha.top</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SOCIAL MEDIA 1200x630 ===== -->
+<div class="banner-section">
+  <div class="banner-label">Social Media (Facebook/LinkedIn) <span>1200 x 630</span></div>
+  <div class="banner banner-social">
+    <div class="banner-accent"></div>
+    <div class="decor-circle decor-1"></div>
+    <div class="decor-circle decor-2"></div>
+    <div class="decor-circle decor-3"></div>
+    <div class="banner-logo">
+      <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gl5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs>
+        <rect x="2" y="8" width="44" height="44" rx="10" fill="url(#gl5)"/>
+        <text x="24" y="40" text-anchor="middle" fill="#030712" font-size="24" font-weight="900" font-family="Arial">ش</text>
+        <text x="60" y="30" fill="#D4AF37" font-size="22" font-weight="800" font-family="Tajawal, Arial" direction="rtl">SHEIKHA</text>
+        <text x="60" y="48" fill="#94a3b8" font-size="10" font-family="Tajawal, Arial">أول سوق إسلامي رقمي للمعادن</text>
+      </svg>
+    </div>
+    <div class="banner-content">
+      <div class="banner-title">سوق شيخة</div>
+      <div class="banner-tagline">أول سوق إسلامي رقمي متخصص في المعادن الأساسية والنادرة والثمينة والسكراب</div>
+      <a class="banner-cta" href="https://sheikha.top">سجّل الآن مجاناً</a>
+      <div class="banner-url">sheikha.top</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

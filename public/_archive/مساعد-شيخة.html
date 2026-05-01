@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مستشار شيخة - المستشار الذكي الرائد في تجارة المعادن والسكراب وسلاسل الإمداد">
+    <title>مستشار شيخة | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-dark: #063d24;
+            --primary-light: #0d7a47;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --gold-dark: #b8960c;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+        .logo-text h1 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .ai-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(16,185,129,0.1);
+            border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--success);
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .header-left {
+            display: flex;
+            gap: 8px;
+        }
+        .header-btn {
+            padding: 10px 18px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: var(--card);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .new-chat-btn {
+            width: 100%;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border: none;
+            border-radius: var(--radius);
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .new-chat-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(212,175,55,0.3);
+        }
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .quick-action {
+            padding: 12px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        .quick-action:hover {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.05);
+        }
+        .quick-action-icon {
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+        }
+        .quick-action-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .suggestion-item {
+            padding: 14px 16px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .suggestion-item:hover {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.05);
+        }
+        .suggestion-icon {
+            font-size: 1.2rem;
+        }
+        .suggestion-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid var(--border);
+        }
+        .ai-capabilities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .capability-tag {
+            padding: 6px 10px;
+            background: rgba(10,92,54,0.15);
+            border: 1px solid rgba(10,92,54,0.3);
+            border-radius: 6px;
+            font-size: 0.7rem;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Chat Area */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212,175,55,0.03) 0%, transparent 50%),
+                linear-gradient(180deg, var(--dark) 0%, var(--darker) 100%);
+        }
+
+        /* Messages */
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+        }
+        .welcome-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 32px rgba(212,175,55,0.3);
+        }
+        .welcome-title {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+        .welcome-title span { color: var(--gold); }
+        .welcome-desc {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 550px;
+            margin-bottom: 36px;
+            line-height: 1.8;
+        }
+        .welcome-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            max-width: 650px;
+        }
+        .welcome-chip {
+            padding: 12px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .welcome-chip:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212,175,55,0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Message Styles */
+        .message {
+            display: flex;
+            gap: 14px;
+            max-width: 85%;
+            animation: messageIn 0.3s ease;
+        }
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message.user {
+            margin-right: auto;
+            flex-direction: row-reverse;
+        }
+        .message.assistant {
+            margin-left: auto;
+        }
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .message.user .message-avatar {
+            background: var(--primary);
+        }
+        .message.assistant .message-avatar {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+        }
+        .message-content {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            max-width: 100%;
+        }
+        .message.user .message-content {
+            background: var(--primary-dark);
+            border-color: var(--primary);
+        }
+        .message-text {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+        .message-text p { margin-bottom: 10px; }
+        .message-text p:last-child { margin-bottom: 0; }
+        .message-text ul, .message-text ol {
+            margin: 10px 0;
+            padding-right: 20px;
+        }
+        .message-text li { margin-bottom: 6px; }
+        .message-text strong { color: var(--gold); }
+        .message-text a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+        .message-text a:hover { text-decoration: underline; }
+        .message-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .message-time {
+            font-size: 0.75rem;
+            color: var(--text-faint);
+        }
+        .message-source {
+            font-size: 0.7rem;
+            color: var(--text-faint);
+            background: rgba(0,0,0,0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        /* Feedback */
+        .message-feedback {
+            display: flex;
+            gap: 6px;
+        }
+        .feedback-btn {
+            width: 28px;
+            height: 28px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-faint);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        .feedback-btn:hover {
+            background: rgba(212,175,55,0.1);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .feedback-btn.active {
+            background: rgba(16,185,129,0.15);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        /* Suggestions in message */
+        .message-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .msg-suggestion {
+            padding: 8px 14px;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 999px;
+            font-size: 0.8rem;
+            color: var(--gold);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .msg-suggestion:hover {
+            background: rgba(212,175,55,0.2);
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 10px 0;
+        }
+        .typing-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        /* Input Area */
+        .input-area {
+            padding: 20px 24px;
+            background: var(--card);
+            border-top: 1px solid var(--border);
+        }
+        .input-wrapper {
+            max-width: 850px;
+            margin: 0 auto;
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+        .input-box {
+            flex: 1;
+            background: rgba(0,0,0,0.3);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+        .input-box:focus-within {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.02);
+        }
+        .input-field {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            resize: none;
+            min-height: 24px;
+            max-height: 120px;
+        }
+        .input-field::placeholder {
+            color: var(--text-faint);
+        }
+        .send-btn {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border: none;
+            border-radius: var(--radius);
+            color: var(--dark);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(212,175,55,0.3);
+        }
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .input-hint {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-faint);
+            margin-top: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .sidebar { width: 260px; }
+        }
+        @media (max-width: 800px) {
+            .sidebar { display: none; }
+            .message { max-width: 95%; }
+        }
+        @media (max-width: 600px) {
+            .header { padding: 10px 16px; }
+            .header-btn span { display: none; }
+            .messages { padding: 16px; }
+            .input-area { padding: 16px; }
+            .welcome-screen { padding: 24px; }
+            .welcome-title { font-size: 1.5rem; }
+            .welcome-chips { gap: 8px; }
+            .welcome-chip { padding: 10px 14px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-right">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🎓</div>
+                <div class="logo-text">
+                    <h1>المستشار الذكي</h1>
+                    <p>مستشار السوق | Smart Consultant</p>
+                </div>
+            </a>
+            <div class="ai-status" id="aiStatus">
+                <span class="status-dot"></span>
+                <span id="aiStatusText">جاهز</span>
+            </div>
+        </div>
+        <div class="header-left">
+            <a href="نظام-شيخة-الذكي.html" class="header-btn">
+                🔗 <span>الشبكات التجارية</span>
+            </a>
+            <a href="السوق.html" class="header-btn">
+                🛒 <span>السوق</span>
+            </a>
+            <a href="app.html" class="header-btn">
+                📱 <span>التطبيق</span>
+            </a>
+            <a href="/" class="header-btn">
+                🏠 <span>الرئيسية</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <button class="new-chat-btn" onclick="newChat()">
+                    ✨ محادثة جديدة
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <div class="section-title">إجراءات سريعة</div>
+                <div class="quick-actions">
+                    <div class="quick-action" onclick="askSuggestion('ما هي أسعار المعادن اليوم؟')">
+                        <div class="quick-action-icon">📈</div>
+                        <div class="quick-action-text">الأسعار</div>
+                    </div>
+                    <div class="quick-action" onclick="askSuggestion('كيف أسجل متجري؟')">
+                        <div class="quick-action-icon">🏪</div>
+                        <div class="quick-action-text">تسجيل</div>
+                    </div>
+                    <div class="quick-action" onclick="askSuggestion('اشرح لي سلسلة التوريد')">
+                        <div class="quick-action-icon">🔗</div>
+                        <div class="quick-action-text">التوريد</div>
+                    </div>
+                    <div class="quick-action" onclick="askSuggestion('ما هي آلية البيع؟')">
+                        <div class="quick-action-icon">💰</div>
+                        <div class="quick-action-text">البيع</div>
+                    </div>
+                </div>
+
+                <div class="section-title">اسألني عن</div>
+                <div class="suggestion-item" onclick="askSuggestion('ما هي أنواع سكراب الحديد؟')">
+                    <div class="suggestion-icon">🔩</div>
+                    <div class="suggestion-text">أنواع سكراب الحديد</div>
+                </div>
+                <div class="suggestion-item" onclick="askSuggestion('كيف أحدد سعر بضاعتي؟')">
+                    <div class="suggestion-icon">💵</div>
+                    <div class="suggestion-text">تسعير البضاعة</div>
+                </div>
+                <div class="suggestion-item" onclick="askSuggestion('ما هي معايير ISRI للسكراب؟')">
+                    <div class="suggestion-icon">📋</div>
+                    <div class="suggestion-text">معايير ISRI</div>
+                </div>
+                <div class="suggestion-item" onclick="askSuggestion('ما هي منافع إعادة التدوير؟')">
+                    <div class="suggestion-icon">♻️</div>
+                    <div class="suggestion-text">منافع إعادة التدوير</div>
+                </div>
+                <div class="suggestion-item" onclick="askSuggestion('كيف أستخدم نظام ERP؟')">
+                    <div class="suggestion-icon">📊</div>
+                    <div class="suggestion-text">استخدام نظام ERP</div>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <div class="section-title">قدرات مستشار السوق</div>
+                <div class="ai-capabilities">
+                    <span class="capability-tag">💬 حوار ذكي</span>
+                    <span class="capability-tag">📚 تعليم</span>
+                    <span class="capability-tag">💡 ابتكار</span>
+                    <span class="capability-tag">🔬 بحث</span>
+                    <span class="capability-tag">📈 استشارات</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <!-- Welcome Screen -->
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="welcome-icon">🎓</div>
+                <h2 class="welcome-title">مرحباً بك في <span>مستشار السوق</span></h2>
+                <p class="welcome-desc">
+                    أنا مستشار السوق (Market Consultant) لمنظومة وسوق شيخة.
+                    <br>أحب نشر العلم والتعلم والتعليم، وأشجع الابتكار والتفكير الذكي.
+                    <br><br>
+                    <span style="color: var(--gold); font-size: 0.95rem;">☪️ بالكتاب والسنة — لا ضرر ولا ضرار — كل مباح نافع مرحب به</span>
+                </p>
+                <div class="welcome-chips">
+                    <div class="welcome-chip" onclick="askSuggestion('علمني عن تجارة المعادن')">
+                        📚 تعلّم معي
+                    </div>
+                    <div class="welcome-chip" onclick="askSuggestion('كيف أبتكر في مجال السكراب؟')">
+                        💡 ابتكار
+                    </div>
+                    <div class="welcome-chip" onclick="askSuggestion('ما هي أسعار المعادن اليوم؟')">
+                        📈 أسعار السوق
+                    </div>
+                    <div class="welcome-chip" onclick="askSuggestion('اشرح لي سلاسل الإمداد')">
+                        🔗 سلاسل الإمداد
+                    </div>
+                    <div class="welcome-chip" onclick="askSuggestion('كيف أبدأ تجارتي؟')">
+                        🚀 ابدأ الآن
+                    </div>
+                    <div class="welcome-chip" onclick="askSuggestion('حدثني عن الاستدامة البيئية')">
+                        🌱 الاستدامة
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages -->
+            <div class="messages" id="messages" style="display: none;"></div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <div class="input-box">
+                        <textarea 
+                            class="input-field" 
+                            id="messageInput" 
+                            placeholder="اكتب سؤالك هنا... (مثال: ما هو سعر النحاس اليوم؟)"
+                            rows="1"
+                            onkeydown="handleKeyDown(event)"
+                            oninput="autoResize(this)"
+                        ></textarea>
+                    </div>
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                        ➤
+                    </button>
+                </div>
+                <div class="input-hint">
+                    اضغط Enter للإرسال • Shift+Enter لسطر جديد • يتم حفظ المحادثات لتحسين الذكاء
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API = window.location.origin;
+        const messagesEl = document.getElementById('messages');
+        const welcomeEl = document.getElementById('welcomeScreen');
+        const inputEl = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        
+        let isTyping = false;
+        let conversationHistory = [];
+        let sessionId = 'session_' + Date.now();
+        let lastMessageId = null;
+
+        // Check AI status
+        async function checkAIStatus() {
+            try {
+                const res = await fetch(API + '/api/ai/capabilities');
+                const data = await res.json();
+                if (data.success && data.ai) {
+                    const statusEl = document.getElementById('aiStatusText');
+                    const statusDot = document.querySelector('.status-dot');
+                    if (data.ai.enabled) {
+                        statusEl.textContent = 'شيخة AI متصل';
+                        statusDot.style.background = 'var(--success)';
+                    } else {
+                        statusEl.textContent = 'وضع محلي';
+                        statusDot.style.background = 'var(--warning)';
+                    }
+                }
+            } catch (e) {
+                document.getElementById('aiStatusText').textContent = 'غير متصل';
+            }
+        }
+
+        function newChat() {
+            messagesEl.innerHTML = '';
+            messagesEl.style.display = 'none';
+            welcomeEl.style.display = 'flex';
+            conversationHistory = [];
+            sessionId = 'session_' + Date.now();
+            inputEl.value = '';
+            inputEl.focus();
+        }
+
+        function askSuggestion(text) {
+            inputEl.value = text;
+            sendMessage();
+        }
+
+        function handleKeyDown(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function autoResize(el) {
+            el.style.height = 'auto';
+            el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+        }
+
+        function addMessage(role, text, extra = {}) {
+            welcomeEl.style.display = 'none';
+            messagesEl.style.display = 'flex';
+
+            const msgId = 'msg_' + Date.now();
+            const msg = document.createElement('div');
+            msg.className = `message ${role}`;
+            msg.id = msgId;
+            
+            const avatar = role === 'user' ? '👤' : '👔';
+            const time = new Date().toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+            
+            let footerHtml = `<span class="message-time">${time}</span>`;
+            
+            if (role === 'assistant') {
+                lastMessageId = msgId;
+                footerHtml += `
+                    <div class="message-feedback">
+                        <button class="feedback-btn" onclick="sendFeedback('${msgId}', 5)" title="مفيد">👍</button>
+                        <button class="feedback-btn" onclick="sendFeedback('${msgId}', 2)" title="غير مفيد">👎</button>
+                    </div>
+                `;
+                if (extra.source) {
+                    footerHtml = `<span class="message-source">${extra.source}</span>` + footerHtml;
+                }
+            }
+            
+            let suggestionsHtml = '';
+            if (extra.suggestions && extra.suggestions.length > 0) {
+                suggestionsHtml = `<div class="message-suggestions">
+                    ${extra.suggestions.map(s => `<span class="msg-suggestion" onclick="askSuggestion('${s}')">${s}</span>`).join('')}
+                </div>`;
+            }
+            
+            msg.innerHTML = `
+                <div class="message-avatar">${avatar}</div>
+                <div class="message-content">
+                    <div class="message-text">${formatText(text)}</div>
+                    ${suggestionsHtml}
+                    <div class="message-footer">${footerHtml}</div>
+                </div>
+            `;
+            
+            messagesEl.appendChild(msg);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+            return msg;
+        }
+
+        function formatText(text) {
+            return text
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/`(.*?)`/g, '<code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;">$1</code>')
+                .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank">$1</a>')
+                .replace(/(\/.+?\.html)/g, '<a href="$1">$1</a>');
+        }
+
+        function addTypingIndicator() {
+            const msg = document.createElement('div');
+            msg.className = 'message assistant';
+            msg.id = 'typingIndicator';
+            msg.innerHTML = `
+                <div class="message-avatar">🎓</div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                    </div>
+                </div>
+            `;
+            messagesEl.appendChild(msg);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) indicator.remove();
+        }
+
+        async function sendMessage() {
+            const text = inputEl.value.trim();
+            if (!text || isTyping) return;
+
+            // Add user message
+            addMessage('user', text);
+            conversationHistory.push({ role: 'user', content: text });
+            
+            inputEl.value = '';
+            inputEl.style.height = 'auto';
+
+            // Show typing
+            isTyping = true;
+            sendBtn.disabled = true;
+            addTypingIndicator();
+
+            try {
+                const res = await fetch(API + '/api/ai/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        message: text,
+                        history: conversationHistory.slice(-10),
+                        sessionId
+                    })
+                });
+                
+                const data = await res.json();
+                removeTypingIndicator();
+
+                if (data.success && data.reply) {
+                    addMessage('assistant', data.reply, {
+                        source: 'شيخة AI',
+                        suggestions: data.suggestions
+                    });
+                    conversationHistory.push({ role: 'assistant', content: data.reply });
+                } else {
+                    addMessage('assistant', data.message || 'عذراً، حدث خطأ. حاول مرة أخرى.', {
+                        source: 'خطأ'
+                    });
+                }
+            } catch (e) {
+                removeTypingIndicator();
+                addMessage('assistant', 'عذراً، لم أتمكن من الاتصال بالخادم. تأكد من تشغيل الخادم.', {
+                    source: 'خطأ اتصال'
+                });
+            }
+
+            isTyping = false;
+            sendBtn.disabled = false;
+            inputEl.focus();
+        }
+
+        async function sendFeedback(msgId, rating) {
+            try {
+                await fetch(API + '/api/ai/feedback', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        conversationId: msgId,
+                        rating,
+                        sessionId
+                    })
+                });
+                
+                // Update UI
+                const msg = document.getElementById(msgId);
+                if (msg) {
+                    const btns = msg.querySelectorAll('.feedback-btn');
+                    btns.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.style.pointerEvents = 'none';
+                    });
+                    const activeBtn = rating >= 4 ? btns[0] : btns[1];
+                    activeBtn.classList.add('active');
+                }
+            } catch (e) {
+                console.log('Feedback error');
+            }
+        }
+
+        // Initialize
+        checkAIStatus();
+        inputEl.focus();
+        
+        // Refresh status every 30 seconds
+        setInterval(checkAIStatus, 30000);
+    </script>
+</body>
+</html>

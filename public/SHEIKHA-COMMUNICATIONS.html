@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شيخة — منظومة الاتصالات الشاملة | SHEIKHA Communications System</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@200;300;400;500;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--g4:#D4AF37;--g2:#F5E6A3;--g1:#FFF8E1;--c4:#B87333;--n8:#020306;--n7:#070b14;--n6:#0d1320;--n5:#141e2e;--t1:#f0e6d0;--t2:#b8a880;--t3:#706850;--t4:#484030;--grn:#00e89d;--red:#ff4d6a;--blu:#3d8eff;--pur:#9d6aff;--ylw:#ffb020;--cyn:#00d8ff;--wha:#25D366;--sms:#FF6B35;--eml:#EA4335;--cal:#4285F4;--tel:#0088CC;--ig:#E4405F;--x:#000;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Naskh Arabic','Cairo',sans-serif;background:var(--n8);color:var(--t1);overflow-x:hidden;}
+::selection{background:var(--g4);color:#000;}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='rgba(212,175,55,0.012)' stroke-width='0.5'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.p{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 20px;}
+.gd{background:linear-gradient(135deg,var(--g1),var(--g4),var(--c4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.chip{display:inline-block;padding:3px 14px;border-radius:16px;font-family:'Outfit';font-size:7px;letter-spacing:4px;text-transform:uppercase;border:1px solid rgba(212,175,55,0.08);color:var(--g4);margin-bottom:10px;}
+
+.hero{padding:32px 0 20px;text-align:center;}
+.bism{font-family:'Amiri';font-size:20px;color:var(--g4);font-style:italic;margin-bottom:8px;}
+.hero h1{font-family:'Amiri';font-size:clamp(22px,4vw,38px);font-weight:700;line-height:1.3;}
+.hero .sub{font-size:10px;color:var(--t3);margin-top:6px;line-height:2.2;max-width:650px;margin-inline:auto;}
+
+.sec{margin:28px 0;}
+.sh{text-align:center;margin-bottom:14px;}
+.sh h2{font-family:'Cairo';font-size:clamp(16px,2.5vw,22px);font-weight:900;margin:3px 0;}
+.sh .d{font-size:9px;color:var(--t4);}
+
+/* Channel cards */
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:8px;}
+.ch{border-radius:14px;background:var(--n6);border:1px solid rgba(255,255,255,0.02);overflow:hidden;}
+.ch-head{padding:12px 14px;display:flex;align-items:center;gap:10px;}
+.ch-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.ch-info .ch-name{font-family:'Cairo';font-size:12px;font-weight:800;}
+.ch-info .ch-desc{font-size:8px;color:var(--t4);}
+.ch-body{padding:0 14px 14px;}
+.ch-section{margin-top:8px;}
+.ch-section-t{font-family:'Cairo';font-size:9px;font-weight:800;color:var(--t2);margin-bottom:4px;display:flex;align-items:center;gap:4px;}
+
+/* Message templates */
+.msg{background:var(--n7);border-radius:10px;padding:10px 12px;margin:4px 0;border-right:3px solid;font-size:9px;line-height:2.1;}
+.msg-t{font-family:'Cairo';font-size:8px;font-weight:700;margin-bottom:2px;opacity:0.6;}
+.msg-ar{font-family:'Noto Naskh Arabic';font-size:10px;}
+.msg-en{font-family:'Outfit';font-size:8.5px;color:var(--t3);direction:ltr;text-align:left;margin-top:2px;}
+
+/* Tech stack */
+.tech{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;}
+.tech-item{font-family:'IBM Plex Mono';font-size:7px;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:var(--t3);}
+
+/* Flow */
+.flow-box{background:var(--n7);border-radius:10px;padding:10px;margin:6px 0;}
+.flow-step{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:8px;}
+.flow-num{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Outfit';font-size:7px;font-weight:800;flex-shrink:0;}
+.flow-arrow{font-size:8px;color:var(--t4);text-align:center;padding:1px 0;}
+
+/* Table */
+.tbl{width:100%;border-collapse:separate;border-spacing:0;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.02);font-size:8px;margin:8px 0;}
+.tbl th{background:var(--n5);padding:6px 8px;font-family:'Outfit';font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--t3);text-align:right;}
+.tbl td{background:var(--n7);padding:5px 8px;border-bottom:1px solid rgba(255,255,255,0.01);}
+.tbl tr:last-child td{border-bottom:none;}
+
+/* Cmd */
+.cmd{background:#080c16;border:1px solid rgba(212,175,55,0.05);border-radius:12px;padding:14px;margin:8px 0;position:relative;}
+.cmd-tag{position:absolute;top:5px;left:7px;font-family:'Outfit';font-size:6px;letter-spacing:2px;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(212,175,55,0.06);color:var(--g4);}
+.cmd pre{font-family:'IBM Plex Mono';font-size:8px;line-height:2;color:#c9d1d9;white-space:pre-wrap;direction:ltr;text-align:left;}
+.cm{color:#6e7681;}.kw{color:#ff7b72;}.st2{color:#a5d6ff;}.fn{color:#d2a8ff;}.gl{color:#D4AF37;}.gn{color:#00e89d;}
+
+.ft{text-align:center;padding:20px;border-top:1px solid rgba(212,175,55,0.03);margin-top:20px;}
+.ft p{font-size:7px;color:var(--t4);line-height:2.4;}
+</style>
+</head>
+<body>
+<div class="p">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="bism">بسم الله الرحمن الرحيم</div>
+  <div class="chip">◆ Omni-Channel Communications System ◆</div>
+  <h1><span class="gd">منظومة الاتصالات الشاملة</span></h1>
+  <div class="sub">واتساب · SMS · إيميل · مكالمات · تيليجرام · رسائل التواصل — كل قناة مفعّلة بصوت شيخة وقيمها</div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 01 — WHATSAPP BUSINESS                    -->
+<!-- ═══════════════════════════════════════════ -->
+
+<div class="sec">
+<div class="ch-grid">
+
+<!-- WHATSAPP -->
+<div class="ch">
+  <div class="ch-head">
+    <div class="ch-ico" style="background:rgba(37,211,102,0.08);color:var(--wha);">💬</div>
+    <div class="ch-info">
+      <div class="ch-name" style="color:var(--wha);">01 — واتساب بزنس API</div>
+      <div class="ch-desc">القناة الأساسية — 2+ مليار مستخدم · الأقرب للعميل</div>
+    </div>
+  </div>
+  <div class="ch-body">
+    <div class="ch-section">
+      <div class="ch-section-t">⚙️ الإعداد التقني</div>
+      <div class="tech">
+        <div class="tech-item">WhatsApp Business API</div>
+        <div class="tech-item">Meta Cloud API</div>
+        <div class="tech-item">Twilio</div>
+        <div class="tech-item">WABA</div>
+        <div class="tech-item">Webhook /api/whatsapp</div>
+      </div>
+    </div>
+    <div class="ch-section">
+      <div class="ch-section-t">📋 القوالب المعتمدة (Message Templates)</div>
+      
+      <div class="msg" style="border-color:var(--wha);">
+        <div class="msg-t">🟢 ترحيب — welcome_message</div>
+        <div class="msg-ar">السلام عليكم ورحمة الله وبركاته 🌙<br>أهلاً بك في *شيخة* — منصة تجارة المعادن الحلال<br>على بركة الله — كيف نخدمك؟<br><br>1️⃣ أسعار المعادن اليوم<br>2️⃣ تسجيل حساب جديد<br>3️⃣ استفسار عن منتج<br>4️⃣ تتبع طلب<br>5️⃣ التحدث مع مستشار</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--grn);">
+        <div class="msg-t">🟢 تأكيد طلب — order_confirmation</div>
+        <div class="msg-ar">بارك الله في تجارتك 🤝<br><br>✅ تم تأكيد طلبك رقم: *#{{order_id}}*<br>📦 المنتج: {{product_name}}<br>⚖️ الوزن: {{weight}} {{unit}}<br>💰 المبلغ: {{amount}} {{currency}}<br>📅 التسليم المتوقع: {{delivery_date}}<br><br>☪ *شيخة — تجارة حلال مباركة*</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--g4);">
+        <div class="msg-t">🟡 أسعار يومية — daily_prices</div>
+        <div class="msg-ar">📊 أسعار المعادن — {{date}} 🕐<br><br>🥇 ذهب 24: *{{gold_24}}* ريال/جرام<br>🥇 ذهب 21: *{{gold_21}}* ريال/جرام<br>🥈 فضة: *{{silver}}* ريال/جرام<br>⬜ بلاتين: *{{platinum}}* ريال/جرام<br>🔶 نحاس: *{{copper}}* ريال/كجم<br><br>🔄 تحديث كل ساعة — sheikha.top/prices<br>☪ *لا ضرر ولا ضرار*</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--blu);">
+        <div class="msg-t">🔵 تتبع شحنة — shipment_tracking</div>
+        <div class="msg-ar">📦 تحديث شحنتك رقم: *#{{tracking_id}}*<br><br>📍 الحالة: *{{status}}*<br>🚛 الموقع: {{location}}<br>📅 الوصول المتوقع: {{eta}}<br>🏷 الوزن: {{weight}} كجم<br><br>تتبع مباشر: sheikha.top/track/{{tracking_id}}</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--red);">
+        <div class="msg-t">🔴 تنبيه سعر — price_alert</div>
+        <div class="msg-ar">⚡ تنبيه سعر — {{metal_name}}<br><br>{{direction}} السعر {{change_type}}: *{{new_price}}* {{currency}}<br>📈 التغيّر: {{change_percent}}%<br>⏰ الوقت: {{timestamp}}<br><br>📊 التفاصيل: sheikha.top/prices/{{metal_code}}</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--pur);">
+        <div class="msg-t">🟣 تذكير صلاة — prayer_reminder</div>
+        <div class="msg-ar">🕌 حان وقت صلاة *{{prayer_name}}*<br><br>﴿ رِجَالٌ لَّا تُلْهِيهِمْ تِجَارَةٌ وَلَا بَيْعٌ عَن ذِكْرِ اللَّهِ ﴾<br><br>⏸ المنصة في وضع الصلاة<br>تعود بعد {{minutes}} دقيقة إن شاء الله</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--ylw);">
+        <div class="msg-t">🟡 فاتورة — invoice</div>
+        <div class="msg-ar">📄 فاتورة شيخة رقم: *{{invoice_id}}*<br><br>🏢 من: {{seller_name}}<br>👤 إلى: {{buyer_name}}<br>📦 {{product_name}} — {{weight}} {{unit}}<br>💰 المبلغ: *{{amount}}* {{currency}}<br>✅ الحالة: {{status}}<br><br>📥 PDF: sheikha.top/invoice/{{invoice_id}}<br>☪ *بيعٌ مبرور — بارك الله لكما*</div>
+      </div>
+    </div>
+
+    <div class="ch-section">
+      <div class="ch-section-t">🤖 الردود التلقائية (Chatbot)</div>
+      <div class="flow-box">
+        <div class="flow-step"><div class="flow-num" style="background:rgba(37,211,102,0.1);color:var(--wha);">1</div>العميل يرسل «السلام عليكم» أو أي رسالة → رسالة الترحيب</div>
+        <div class="flow-step"><div class="flow-num" style="background:rgba(37,211,102,0.1);color:var(--wha);">2</div>يختار رقم 1 → أسعار المعادن الحية</div>
+        <div class="flow-step"><div class="flow-num" style="background:rgba(37,211,102,0.1);color:var(--wha);">3</div>يختار رقم 2 → رابط التسجيل + معلومات</div>
+        <div class="flow-step"><div class="flow-num" style="background:rgba(37,211,102,0.1);color:var(--wha);">4</div>يختار رقم 5 → تحويل لمستشار بشري</div>
+        <div class="flow-step"><div class="flow-num" style="background:rgba(37,211,102,0.1);color:var(--wha);">5</div>كلمات مفتاحية: «ذهب» «فضة» «سعر» → أسعار فورية</div>
+        <div class="flow-step"><div class="flow-num" style="background:rgba(37,211,102,0.1);color:var(--wha);">6</div>خارج ساعات العمل → رسالة «جزاك الله خيراً — نرد عليك أول شيء صباحاً»</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SMS -->
+<div class="ch">
+  <div class="ch-head">
+    <div class="ch-ico" style="background:rgba(255,107,53,0.08);color:var(--sms);">📱</div>
+    <div class="ch-info">
+      <div class="ch-name" style="color:var(--sms);">02 — رسائل SMS</div>
+      <div class="ch-desc">وصول مضمون — لا يحتاج إنترنت · للتنبيهات الحرجة</div>
+    </div>
+  </div>
+  <div class="ch-body">
+    <div class="ch-section">
+      <div class="ch-section-t">⚙️ الإعداد التقني</div>
+      <div class="tech">
+        <div class="tech-item">Twilio SMS</div>
+        <div class="tech-item">Unifonic (خليج)</div>
+        <div class="tech-item">Vonage/Nexmo</div>
+        <div class="tech-item">Sender ID: SHEIKHA</div>
+      </div>
+    </div>
+    <div class="ch-section">
+      <div class="ch-section-t">📋 القوالب</div>
+
+      <div class="msg" style="border-color:var(--sms);">
+        <div class="msg-t">🔐 رمز التحقق — OTP</div>
+        <div class="msg-ar">شيخة — رمز التحقق: {{otp_code}}<br>صالح لمدة 5 دقائق<br>لا تشارك الرمز مع أحد<br>SHEIKHA.top</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--grn);">
+        <div class="msg-t">✅ تأكيد طلب</div>
+        <div class="msg-ar">شيخة ☪ بارك الله في تجارتك<br>طلبك #{{order_id}} تم تأكيده<br>{{product}} — {{amount}} ريال<br>التسليم: {{date}}<br>sheikha.top/orders</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--red);">
+        <div class="msg-t">⚡ تنبيه سعر عاجل</div>
+        <div class="msg-ar">شيخة ⚡ {{metal}} {{direction}} {{percent}}%<br>السعر الآن: {{price}} {{currency}}<br>sheikha.top/prices</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--blu);">
+        <div class="msg-t">📦 تحديث شحنة</div>
+        <div class="msg-ar">شيخة 📦 شحنتك #{{tracking}}<br>الحالة: {{status}}<br>الوصول: {{eta}}<br>sheikha.top/track/{{tracking}}</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--ylw);">
+        <div class="msg-t">💳 تأكيد دفع</div>
+        <div class="msg-ar">شيخة ✅ تم استلام {{amount}} {{currency}}<br>الفاتورة: #{{invoice}}<br>جزاك الله خيراً<br>sheikha.top/payments</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EMAIL -->
+<div class="ch">
+  <div class="ch-head">
+    <div class="ch-ico" style="background:rgba(234,67,53,0.08);color:var(--eml);">✉️</div>
+    <div class="ch-info">
+      <div class="ch-name" style="color:var(--eml);">03 — البريد الإلكتروني</div>
+      <div class="ch-desc">القناة الرسمية — عقود · فواتير · تقارير · تسويق</div>
+    </div>
+  </div>
+  <div class="ch-body">
+    <div class="ch-section">
+      <div class="ch-section-t">⚙️ الإعداد التقني</div>
+      <div class="tech">
+        <div class="tech-item">Nodemailer</div>
+        <div class="tech-item">SendGrid API</div>
+        <div class="tech-item">Resend.com</div>
+        <div class="tech-item">SMTP</div>
+        <div class="tech-item">SPF+DKIM+DMARC</div>
+        <div class="tech-item">mjml templates</div>
+      </div>
+    </div>
+    <div class="ch-section">
+      <div class="ch-section-t">📧 عناوين البريد</div>
+      <table class="tbl">
+        <tr><th>العنوان</th><th>الغرض</th></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--g4);">info@sheikha.top</td><td>استفسارات عامة</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--g4);">support@sheikha.top</td><td>الدعم الفني</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--g4);">orders@sheikha.top</td><td>الطلبات والشحنات</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--g4);">newsletter@sheikha.top</td><td>النشرة الأسبوعية</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--g4);">invoices@sheikha.top</td><td>الفواتير والمالية</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--g4);">partners@sheikha.top</td><td>الشراكات والتعاون</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--g4);">ceo@sheikha.top</td><td>المدير التنفيذي</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--g4);">noreply@sheikha.top</td><td>إشعارات تلقائية</td></tr>
+      </table>
+    </div>
+    <div class="ch-section">
+      <div class="ch-section-t">📋 قوالب الإيميل</div>
+
+      <div class="msg" style="border-color:var(--eml);">
+        <div class="msg-t">🔑 ترحيب — welcome_email</div>
+        <div class="msg-ar">الموضوع: السلام عليكم — أهلاً بك في شيخة ☪<br><br>السلام عليكم ورحمة الله وبركاته<br>يا {{name}}،<br><br>بارك الله فيك — تم تسجيلك بنجاح في منصة شيخة ☪<br><br>🏪 حسابك جاهز<br>📊 أسعار حية للمعادن<br>☪ تجارة حلال 100%<br>💰 صفر عمولة — سنّة نبوية<br><br>على بركة الله — ابدأ الآن:<br>[زر: ادخل لحسابك]<br><br>جزاك الله خيراً،<br>فريق شيخة</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--g4);">
+        <div class="msg-t">📄 فاتورة — invoice_email</div>
+        <div class="msg-ar">الموضوع: فاتورة شيخة #{{invoice_id}} — بيعٌ مبرور<br><br>بسم الله الرحمن الرحيم<br>بارك الله لكما وبارك عليكما<br><br>[تفاصيل الفاتورة — جدول]<br>[مرفق: PDF الفاتورة]<br>[مرفق: شهادة الفحص]<br><br>☪ «التاجر الصدوق الأمين مع النبيين والصديقين»</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--blu);">
+        <div class="msg-t">📰 نشرة أسبوعية — weekly_newsletter</div>
+        <div class="msg-ar">الموضوع: تقرير شيخة الأسبوعي — {{week_date}} ☪<br><br>📊 ملخص أسعار المعادن<br>📈 تحليل السوق<br>☪ حكم شرعي للأسبوع<br>🏪 فرص تجارية جديدة<br>📖 آية وحديث في التجارة<br><br>[زر: اقرأ التقرير الكامل]</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VOICE CALLS -->
+<div class="ch">
+  <div class="ch-head">
+    <div class="ch-ico" style="background:rgba(66,133,244,0.08);color:var(--cal);">📞</div>
+    <div class="ch-info">
+      <div class="ch-name" style="color:var(--cal);">04 — المكالمات الصوتية</div>
+      <div class="ch-desc">IVR ذكي + تسجيل + توجيه — صوت شيخة المهيب</div>
+    </div>
+  </div>
+  <div class="ch-body">
+    <div class="ch-section">
+      <div class="ch-section-t">⚙️ الإعداد التقني</div>
+      <div class="tech">
+        <div class="tech-item">Twilio Voice</div>
+        <div class="tech-item">IVR System</div>
+        <div class="tech-item">TwiML</div>
+        <div class="tech-item">Call Recording</div>
+        <div class="tech-item">+966 رقم سعودي</div>
+      </div>
+    </div>
+    <div class="ch-section">
+      <div class="ch-section-t">🎙️ نص الرد الآلي (IVR)</div>
+
+      <div class="msg" style="border-color:var(--cal);">
+        <div class="msg-t">📞 الرد الرئيسي</div>
+        <div class="msg-ar">بسم الله الرحمن الرحيم<br>السلام عليكم ورحمة الله وبركاته<br>أهلاً بك في شيخة — منصة تجارة المعادن الحلال<br><br>اضغط 1 — للاستفسار عن الأسعار<br>اضغط 2 — لتتبع طلبك<br>اضغط 3 — للمبيعات والشراكات<br>اضغط 4 — للدعم الفني<br>اضغط 5 — للتحدث مع مستشار<br>اضغط 0 — لإعادة القائمة<br><br>أو انتظر وسيرد عليك أحد فريقنا — جزاك الله خيراً</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--ylw);">
+        <div class="msg-t">⏳ رسالة الانتظار</div>
+        <div class="msg-ar">جزاك الله خيراً على انتظارك<br>سيرد عليك أحد مستشارينا قريباً إن شاء الله<br>— قال رسول الله ﷺ: «رحم الله رجلاً سمحاً إذا باع وإذا اشترى» —</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--t3);">
+        <div class="msg-t">🌙 خارج الدوام</div>
+        <div class="msg-ar">السلام عليكم — شكراً لاتصالك بشيخة<br>نحن خارج ساعات العمل حالياً<br>ساعات الدوام: الأحد - الخميس، 8 صباحاً - 5 مساءً<br>يمكنك إرسال واتساب على نفس الرقم وسنرد أول شيء<br>أو زوّر موقعنا: sheikha.top<br>جزاك الله خيراً</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TELEGRAM -->
+<div class="ch">
+  <div class="ch-head">
+    <div class="ch-ico" style="background:rgba(0,136,204,0.08);color:var(--tel);">✈️</div>
+    <div class="ch-info">
+      <div class="ch-name" style="color:var(--tel);">05 — تيليجرام بوت + قناة</div>
+      <div class="ch-desc">@sheikha_market — مجتمع التجار · تنبيهات فورية</div>
+    </div>
+  </div>
+  <div class="ch-body">
+    <div class="ch-section">
+      <div class="ch-section-t">⚙️ الإعداد</div>
+      <div class="tech">
+        <div class="tech-item">Telegram Bot API</div>
+        <div class="tech-item">telegraf.js</div>
+        <div class="tech-item">@sheikha_bot</div>
+        <div class="tech-item">@sheikha_market قناة</div>
+        <div class="tech-item">Webhook /api/telegram</div>
+      </div>
+    </div>
+    <div class="ch-section">
+      <div class="ch-section-t">🤖 أوامر البوت</div>
+      <table class="tbl">
+        <tr><th>الأمر</th><th>الوظيفة</th></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--tel);">/start</td><td>رسالة ترحيب + القائمة</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--tel);">/prices</td><td>أسعار المعادن الحية</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--tel);">/gold</td><td>سعر الذهب التفصيلي</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--tel);">/silver</td><td>سعر الفضة</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--tel);">/alert gold 2500</td><td>تنبيهني لو الذهب وصل 2500</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--tel);">/track [ID]</td><td>تتبع شحنة</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--tel);">/prayer</td><td>أوقات الصلاة</td></tr>
+        <tr><td style="font-family:'IBM Plex Mono';color:var(--tel);">/help</td><td>المساعدة</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SOCIAL DMs -->
+<div class="ch">
+  <div class="ch-head">
+    <div class="ch-ico" style="background:rgba(228,64,95,0.08);color:var(--ig);">💌</div>
+    <div class="ch-info">
+      <div class="ch-name" style="color:var(--ig);">06 — رسائل التواصل الاجتماعي</div>
+      <div class="ch-desc">Instagram DM · X DM · LinkedIn · Facebook Messenger</div>
+    </div>
+  </div>
+  <div class="ch-body">
+    <div class="ch-section">
+      <div class="ch-section-t">⚙️ الإعداد</div>
+      <div class="tech">
+        <div class="tech-item">Instagram Graph API</div>
+        <div class="tech-item">X/Twitter API v2</div>
+        <div class="tech-item">LinkedIn Messaging</div>
+        <div class="tech-item">Meta Messenger API</div>
+        <div class="tech-item">Chatbot Unified</div>
+      </div>
+    </div>
+    <div class="ch-section">
+      <div class="ch-section-t">📋 ردود تلقائية موحّدة</div>
+
+      <div class="msg" style="border-color:var(--ig);">
+        <div class="msg-t">📸 Instagram DM — رد تلقائي</div>
+        <div class="msg-ar">السلام عليكم ☪<br>شكراً لتواصلك مع شيخة 🌙<br><br>🔹 أسعار المعادن: sheikha.top/prices<br>🔹 تسجيل مجاني: sheikha.top/register<br>🔹 واتساب للردود الفورية: wa.me/966...<br><br>نرد عليك في أقرب وقت إن شاء الله ✨<br>بارك الله فيك</div>
+      </div>
+
+      <div class="msg" style="border-color:#000;">
+        <div class="msg-t">🐦 X (Twitter) DM — رد تلقائي</div>
+        <div class="msg-ar">وعليكم السلام 🤝<br>أهلاً بك — كيف نساعدك؟<br><br>📊 الأسعار: sheikha.top/prices<br>💬 واتساب: wa.me/966...<br>📧 إيميل: info@sheikha.top<br><br>☪ تجارة حلال مباركة</div>
+      </div>
+
+      <div class="msg" style="border-color:var(--blu);">
+        <div class="msg-t">💼 LinkedIn — رد تلقائي</div>
+        <div class="msg-ar">Thank you for reaching out to SHEIKHA ☪<br><br>We're the first Sharia-compliant metals trading platform.<br><br>📊 Live prices: sheikha.top/prices<br>🤝 Partnerships: partners@sheikha.top<br>📞 Direct: +966 ...<br><br>Halal Trade · Zero Commission · Prophetic Values</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end ch-grid -->
+</div>
+
+<!-- ═══ AUTOMATION FLOWS ═══ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip">Automation Flows</div>
+    <h2><span class="gd">سيناريوهات الإرسال التلقائي</span></h2>
+  </div>
+  <table class="tbl">
+    <tr><th>الحدث (Trigger)</th><th>واتساب</th><th>SMS</th><th>إيميل</th><th>تيليجرام</th><th>إشعار</th></tr>
+    <tr><td style="font-weight:700;">تسجيل جديد</td><td style="color:var(--grn);">✅ ترحيب</td><td style="color:var(--grn);">✅ OTP</td><td style="color:var(--grn);">✅ ترحيب</td><td>—</td><td style="color:var(--grn);">✅ Push</td></tr>
+    <tr><td style="font-weight:700;">طلب جديد</td><td style="color:var(--grn);">✅ تأكيد</td><td style="color:var(--grn);">✅ تأكيد</td><td style="color:var(--grn);">✅ تأكيد+PDF</td><td>—</td><td style="color:var(--grn);">✅</td></tr>
+    <tr><td style="font-weight:700;">تحديث شحنة</td><td style="color:var(--grn);">✅ تتبع</td><td style="color:var(--ylw);">حرج فقط</td><td>—</td><td style="color:var(--grn);">✅ تلقائي</td><td style="color:var(--grn);">✅</td></tr>
+    <tr><td style="font-weight:700;">تم التسليم</td><td style="color:var(--grn);">✅ + تقييم</td><td style="color:var(--grn);">✅</td><td style="color:var(--grn);">✅ فاتورة</td><td>—</td><td style="color:var(--grn);">✅</td></tr>
+    <tr><td style="font-weight:700;">تنبيه سعر</td><td style="color:var(--grn);">✅ فوري</td><td style="color:var(--ylw);">مشتركين</td><td>—</td><td style="color:var(--grn);">✅ قناة</td><td style="color:var(--grn);">✅</td></tr>
+    <tr><td style="font-weight:700;">وقت الصلاة</td><td style="color:var(--grn);">✅ تذكير</td><td>—</td><td>—</td><td style="color:var(--grn);">✅</td><td style="color:var(--grn);">✅</td></tr>
+    <tr><td style="font-weight:700;">نشرة أسبوعية</td><td>—</td><td>—</td><td style="color:var(--grn);">✅ كامل</td><td style="color:var(--grn);">✅ ملخص</td><td>—</td></tr>
+    <tr><td style="font-weight:700;">دفع ناجح</td><td style="color:var(--grn);">✅ إيصال</td><td style="color:var(--grn);">✅ تأكيد</td><td style="color:var(--grn);">✅ فاتورة</td><td>—</td><td style="color:var(--grn);">✅</td></tr>
+    <tr><td style="font-weight:700;">طلب إلغاء</td><td style="color:var(--grn);">✅</td><td style="color:var(--grn);">✅</td><td style="color:var(--grn);">✅</td><td>—</td><td style="color:var(--grn);">✅</td></tr>
+    <tr><td style="font-weight:700;">DM اجتماعي</td><td>—</td><td>—</td><td>—</td><td>—</td><td style="color:var(--grn);">✅ رد تلقائي</td></tr>
+  </table>
+</div>
+
+<!-- ═══ CURSOR COMMAND ═══ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip">CURSOR IMPLEMENTATION</div>
+    <h2><span class="gd">أمر التفعيل في Cursor</span></h2>
+  </div>
+  <div class="cmd">
+    <div class="cmd-tag">CURSOR CHAT — انسخ والصق</div>
+    <pre>
+<span class="cm">/* ═══ منظومة اتصالات شيخة الشاملة ═══ */</span>
+
+<span class="gl">أنشئ engines/communications-engine.js:</span>
+
+<span class="kw">const</span> CommunicationsEngine = {
+  channels: {
+    <span class="gn">whatsapp</span>: {
+      provider: <span class="st2">'twilio'</span>, <span class="cm">// or 'meta-cloud-api'</span>
+      webhook: <span class="st2">'/api/whatsapp/webhook'</span>,
+      templates: [
+        <span class="st2">'welcome_message'</span>,
+        <span class="st2">'order_confirmation'</span>,
+        <span class="st2">'daily_prices'</span>,
+        <span class="st2">'shipment_tracking'</span>,
+        <span class="st2">'price_alert'</span>,
+        <span class="st2">'prayer_reminder'</span>,
+        <span class="st2">'invoice'</span>
+      ],
+      chatbot: <span class="kw">true</span>,
+      autoReply: <span class="kw">true</span>
+    },
+    <span class="gn">sms</span>: {
+      provider: <span class="st2">'twilio'</span>, <span class="cm">// + unifonic for Gulf</span>
+      senderId: <span class="st2">'SHEIKHA'</span>,
+      templates: [<span class="st2">'otp'</span>, <span class="st2">'order_confirm'</span>, <span class="st2">'price_alert'</span>, <span class="st2">'shipment'</span>, <span class="st2">'payment'</span>]
+    },
+    <span class="gn">email</span>: {
+      provider: <span class="st2">'sendgrid'</span>, <span class="cm">// or 'resend'</span>
+      from: <span class="st2">'noreply@sheikha.top'</span>,
+      templates: [<span class="st2">'welcome'</span>, <span class="st2">'invoice'</span>, <span class="st2">'newsletter'</span>, <span class="st2">'order'</span>, <span class="st2">'reset_password'</span>],
+      dkim: <span class="kw">true</span>, spf: <span class="kw">true</span>, dmarc: <span class="kw">true</span>
+    },
+    <span class="gn">voice</span>: {
+      provider: <span class="st2">'twilio'</span>,
+      ivr: <span class="kw">true</span>,
+      recording: <span class="kw">true</span>,
+      businessHours: { start: <span class="st2">'08:00'</span>, end: <span class="st2">'17:00'</span>, days: [<span class="st2">'Sun'</span>,<span class="st2">'Mon'</span>,<span class="st2">'Tue'</span>,<span class="st2">'Wed'</span>,<span class="st2">'Thu'</span>] }
+    },
+    <span class="gn">telegram</span>: {
+      bot: <span class="st2">'@sheikha_bot'</span>,
+      channel: <span class="st2">'@sheikha_market'</span>,
+      commands: [<span class="st2">'/prices'</span>, <span class="st2">'/gold'</span>, <span class="st2">'/silver'</span>, <span class="st2">'/alert'</span>, <span class="st2">'/track'</span>, <span class="st2">'/prayer'</span>]
+    },
+    <span class="gn">social</span>: {
+      instagram: { autoReply: <span class="kw">true</span> },
+      twitter: { autoReply: <span class="kw">true</span> },
+      linkedin: { autoReply: <span class="kw">true</span> }
+    }
+  }
+};
+
+<span class="gl">أنشئ الملفات التالية:</span>
+
+1. <span class="kw">engines/comms/whatsapp-service.js</span>
+   - initWebhook() — استقبال رسائل واتساب
+   - sendTemplate(to, templateName, params)
+   - handleIncoming(message) — chatbot logic
+   - sendPrices(to) — أسعار فورية
+
+2. <span class="kw">engines/comms/sms-service.js</span>
+   - sendOTP(phone, code)
+   - sendAlert(phone, message)
+   - sendOrderConfirm(phone, orderData)
+
+3. <span class="kw">engines/comms/email-service.js</span>
+   - sendWelcome(email, name)
+   - sendInvoice(email, invoiceData, pdfAttachment)
+   - sendNewsletter(subscribers, content)
+   - sendOrderConfirm(email, orderData)
+
+4. <span class="kw">engines/comms/voice-service.js</span>
+   - generateIVR() — TwiML XML response
+   - handleKeypress(digit) — route calls
+   - afterHoursMessage()
+
+5. <span class="kw">engines/comms/telegram-service.js</span>
+   - initBot() — register commands
+   - handleCommand(command, args)
+   - broadcastToChannel(message)
+   - sendPriceAlert(metal, price)
+
+6. <span class="kw">engines/comms/social-service.js</span>
+   - handleInstagramDM(message)
+   - handleTwitterDM(message)
+   - handleLinkedInMessage(message)
+   - unifiedAutoReply(platform, message)
+
+7. <span class="kw">engines/comms/notification-hub.js</span>
+   - notify(event, userId, data) — الموزّع المركزي
+   - يقرر أي قنوات يُرسل بناءً على نوع الحدث
+   - يحترم تفضيلات المستخدم
+
+<span class="gl">APIs جديدة:</span>
+POST /api/comms/whatsapp/webhook    — استقبال واتساب
+POST /api/comms/whatsapp/send       — إرسال واتساب
+POST /api/comms/sms/send            — إرسال SMS
+POST /api/comms/email/send          — إرسال إيميل
+POST /api/comms/telegram/webhook    — استقبال تيليجرام
+POST /api/comms/notify              — إشعار موحّد
+GET  /api/comms/templates           — قائمة القوالب
+PUT  /api/comms/preferences/:userId — تفضيلات المستخدم
+
+<span class="gl">.env المطلوب:</span>
+TWILIO_ACCOUNT_SID=xxx
+TWILIO_AUTH_TOKEN=xxx
+TWILIO_PHONE=+966xxx
+WHATSAPP_BUSINESS_ID=xxx
+SENDGRID_API_KEY=xxx
+TELEGRAM_BOT_TOKEN=xxx
+INSTAGRAM_ACCESS_TOKEN=xxx
+TWITTER_BEARER_TOKEN=xxx</pre>
+  </div>
+</div>
+
+</div>
+
+<div class="ft">
+  <p style="font-family:'Amiri';font-size:11px;color:var(--t2);">بسم الله توكلنا على الله — «رحم الله رجلاً سمحاً إذا باع وإذا اشترى»</p>
+  <p>SHEIKHA Omni-Channel Communications v1.0 — 23 فبراير 2026</p>
+  <p>6 قنوات · 20+ قالب · 10 سيناريوهات تلقائية · 8 عناوين بريد · 8 أوامر بوت · Chatbot ذكي · IVR صوتي</p>
+</div>
+
+</div>
+</body>
+</html>

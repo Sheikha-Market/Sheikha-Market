@@ -1,0 +1,32 @@
+{
+    "version": "1.0.0",
+    "generatedFor": "SHEIKHA Government Integrations",
+    "services": [
+        { "id": "IFADA", "name": "إفادة", "priority": "P1", "requiresApproval": true, "requiredEnv": ["IFADA_BASE_URL", "IFADA_API_KEY"] },
+        { "id": "BASMAH", "name": "البصمة", "priority": "P0", "requiresApproval": true, "requiredEnv": ["BASMAH_BASE_URL", "BASMAH_API_KEY"] },
+        { "id": "RAQABA", "name": "رقابة", "priority": "P1", "requiresApproval": true, "requiredEnv": ["RAQABA_BASE_URL", "RAQABA_API_KEY"] },
+        { "id": "YAQEEN", "name": "يقين", "priority": "P0", "requiresApproval": true, "requiredEnv": ["YAQEEN_BASE_URL", "YAQEEN_API_KEY"] },
+        { "id": "DHAMEN", "name": "ضامن", "priority": "P0", "requiresApproval": true, "requiredEnv": ["DHAMEN_BASE_URL", "DHAMEN_API_KEY"] },
+        { "id": "SALAMAH", "name": "سلامة", "priority": "P1", "requiresApproval": true, "requiredEnv": ["SALAMAH_BASE_URL", "SALAMAH_API_KEY"] },
+        { "id": "MUQEEM", "name": "مقيم", "priority": "P1", "requiresApproval": true, "requiredEnv": ["MUQEEM_BASE_URL", "MUQEEM_API_KEY"] },
+        { "id": "BASHER", "name": "باشر", "priority": "P1", "requiresApproval": true, "requiredEnv": ["BASHER_BASE_URL", "BASHER_API_KEY"] },
+        { "id": "SMART_GATEWAY", "name": "البوابة الذكية", "priority": "P1", "requiresApproval": true, "requiredEnv": ["SMART_GATEWAY_BASE_URL", "SMART_GATEWAY_API_KEY"] },
+        { "id": "MOJAZ", "name": "موجز", "priority": "P1", "requiresApproval": true, "requiredEnv": ["MOJAZ_BASE_URL", "MOJAZ_API_KEY"] },
+        { "id": "DAKHLI", "name": "دخلي", "priority": "P1", "requiresApproval": true, "requiredEnv": ["DAKHLI_BASE_URL", "DAKHLI_API_KEY"] },
+        { "id": "VEHICLE_SPECS", "name": "مواصفات المركبة", "priority": "P1", "requiresApproval": true, "requiredEnv": ["VEHICLE_SPECS_BASE_URL", "VEHICLE_SPECS_API_KEY"] },
+        { "id": "BAYAN", "name": "بيان", "priority": "P0", "requiresApproval": true, "requiredEnv": ["BAYAN_BASE_URL", "BAYAN_API_KEY"] },
+        { "id": "TAJER", "name": "تأجير", "priority": "P1", "requiresApproval": true, "requiredEnv": ["TAJER_BASE_URL", "TAJER_API_KEY"] },
+        { "id": "TRADERS_IMPORTS", "name": "واردات التجار", "priority": "P0", "requiresApproval": true, "requiredEnv": ["TRADERS_IMPORTS_BASE_URL", "TRADERS_IMPORTS_API_KEY"] },
+        { "id": "NAFATH", "name": "نفاذ", "priority": "P0", "requiresApproval": true, "requiredEnv": ["NAFATH_CLIENT_ID", "NAFATH_CLIENT_SECRET"] },
+        { "id": "TAMM", "name": "تم", "priority": "P1", "requiresApproval": true, "requiredEnv": ["TAMM_BASE_URL", "TAMM_API_KEY"] },
+        { "id": "FURSAH", "name": "فرصة", "priority": "P1", "requiresApproval": true, "requiredEnv": ["FURSAH_BASE_URL", "FURSAH_API_KEY"] },
+        { "id": "NATHEER", "name": "Natheer", "priority": "P2", "requiresApproval": true, "requiredEnv": ["NATHEER_BASE_URL", "NATHEER_API_KEY"] },
+        { "id": "DALEEL", "name": "Daleel", "priority": "P2", "requiresApproval": true, "requiredEnv": ["DALEEL_BASE_URL", "DALEEL_API_KEY"] },
+        { "id": "VEHICLE_RECALL", "name": "Vehicle Recall", "priority": "P2", "requiresApproval": true, "requiredEnv": ["VEHICLE_RECALL_BASE_URL", "VEHICLE_RECALL_API_KEY"] },
+        { "id": "ONBOARDING_API", "name": "التهيئة والاعتماد", "priority": "P0", "requiresApproval": true, "requiredEnv": ["ONBOARDING_API_BASE_URL", "ONBOARDING_API_KEY"] },
+        { "id": "ATHR", "name": "Athr", "priority": "P2", "requiresApproval": true, "requiredEnv": ["ATHR_BASE_URL", "ATHR_API_KEY"] },
+        { "id": "VIBAN", "name": "VIBAN", "priority": "P2", "requiresApproval": true, "requiredEnv": ["VIBAN_BASE_URL", "VIBAN_API_KEY"] },
+        { "id": "MONTHER", "name": "Monther", "priority": "P2", "requiresApproval": true, "requiredEnv": ["MONTHER_BASE_URL", "MONTHER_API_KEY"] },
+        { "id": "NATIONAL_ADDRESS", "name": "National Address", "priority": "P0", "requiresApproval": false, "requiredEnv": ["NATIONAL_ADDRESS_BASE_URL"] }
+    ]
+}

@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "module": "SHEIKHA_CLOUD_PHYSICAL_REGIONS",
+    "version": "1.0.0",
+    "generatedAt": "2026-04-12T00:00:00.000Z",
+    "description": "Sovereign data-centre regions forming the physical backbone of Sheikha Cloud"
+  },
+  "regions": [
+    {
+      "id": "mec-mecca",
+      "nameAr": "منطقة مكة المكرمة",
+      "nameEn": "Mecca Sacred Region",
+      "country": "SA",
+      "city": "Mecca",
+      "coordinates": { "lat": 21.3891, "lon": 39.8579 },
+      "tier": "PRIMARY",
+      "availabilityZones": 3,
+      "powerSource": ["solar", "grid-sa"],
+      "certifications": ["ISO27001", "SOC2", "FIPS-140-3-L4"],
+      "sovereigntyClass": "TIER_ZERO",
+      "dataResidency": ["SA", "OIC-GENERAL"],
+      "connectivity": { "bandwidthTbps": 10, "peeringASN": 65001 }
+    },
+    {
+      "id": "ruh-riyadh",
+      "nameAr": "منطقة الرياض",
+      "nameEn": "Riyadh Region",
+      "country": "SA",
+      "city": "Riyadh",
+      "coordinates": { "lat": 24.6877, "lon": 46.7219 },
+      "tier": "PRIMARY",
+      "availabilityZones": 3,
+      "powerSource": ["solar", "grid-sa"],
+      "certifications": ["ISO27001", "SOC2", "FIPS-140-3-L4", "SAMA-CSF"],
+      "sovereigntyClass": "TIER_ONE",
+      "dataResidency": ["SA"],
+      "connectivity": { "bandwidthTbps": 20, "peeringASN": 65002 }
+    },
+    {
+      "id": "ist-istanbul",
+      "nameAr": "منطقة إسطنبول",
+      "nameEn": "Istanbul Region",
+      "country": "TR",
+      "city": "Istanbul",
+      "coordinates": { "lat": 41.0082, "lon": 28.9784 },
+      "tier": "PRIMARY",
+      "availabilityZones": 3,
+      "powerSource": ["wind", "grid-tr"],
+      "certifications": ["ISO27001", "SOC2", "FIPS-140-3-L4"],
+      "sovereigntyClass": "TIER_ONE",
+      "dataResidency": ["TR", "BALKANS"],
+      "connectivity": { "bandwidthTbps": 15, "peeringASN": 65003 }
+    },
+    {
+      "id": "cai-cairo",
+      "nameAr": "منطقة القاهرة",
+      "nameEn": "Cairo Region",
+      "country": "EG",
+      "city": "Cairo",
+      "coordinates": { "lat": 30.0444, "lon": 31.2357 },
+      "tier": "PRIMARY",
+      "availabilityZones": 3,
+      "powerSource": ["solar", "grid-eg"],
+      "certifications": ["ISO27001", "SOC2", "FIPS-140-3-L4"],
+      "sovereigntyClass": "TIER_ONE",
+      "dataResidency": ["EG", "ARAB-AFRICA"],
+      "connectivity": { "bandwidthTbps": 10, "peeringASN": 65004 }
+    },
+    {
+      "id": "kul-kualalumpur",
+      "nameAr": "منطقة كوالالمبور",
+      "nameEn": "Kuala Lumpur Region",
+      "country": "MY",
+      "city": "Kuala Lumpur",
+      "coordinates": { "lat": 3.1390, "lon": 101.6869 },
+      "tier": "PRIMARY",
+      "availabilityZones": 3,
+      "powerSource": ["hydro", "grid-my"],
+      "certifications": ["ISO27001", "SOC2", "FIPS-140-3-L4"],
+      "sovereigntyClass": "TIER_ONE",
+      "dataResidency": ["MY", "SEA"],
+      "connectivity": { "bandwidthTbps": 12, "peeringASN": 65005 }
+    },
+    {
+      "id": "jkt-jakarta",
+      "nameAr": "منطقة جاكرتا",
+      "nameEn": "Jakarta Region",
+      "country": "ID",
+      "city": "Jakarta",
+      "coordinates": { "lat": -6.2088, "lon": 106.8456 },
+      "tier": "SECONDARY",
+      "availabilityZones": 2,
+      "powerSource": ["geothermal", "grid-id"],
+      "certifications": ["ISO27001", "SOC2"],
+      "sovereigntyClass": "TIER_TWO",
+      "dataResidency": ["ID"],
+      "connectivity": { "bandwidthTbps": 8, "peeringASN": 65006 }
+    },
+    {
+      "id": "lag-lagos",
+      "nameAr": "منطقة لاغوس",
+      "nameEn": "Lagos Region",
+      "country": "NG",
+      "city": "Lagos",
+      "coordinates": { "lat": 6.5244, "lon": 3.3792 },
+      "tier": "SECONDARY",
+      "availabilityZones": 2,
+      "powerSource": ["solar", "grid-ng"],
+      "certifications": ["ISO27001", "SOC2"],
+      "sovereigntyClass": "TIER_TWO",
+      "dataResidency": ["NG", "WEST-AFRICA"],
+      "connectivity": { "bandwidthTbps": 6, "peeringASN": 65007 }
+    },
+    {
+      "id": "lon-london",
+      "nameAr": "منطقة لندن (مسلمو الغرب)",
+      "nameEn": "London Region (Western Muslims)",
+      "country": "GB",
+      "city": "London",
+      "coordinates": { "lat": 51.5074, "lon": -0.1278 },
+      "tier": "SECONDARY",
+      "availabilityZones": 2,
+      "powerSource": ["wind", "grid-gb"],
+      "certifications": ["ISO27001", "SOC2", "UK-CYBER-ESSENTIALS"],
+      "sovereigntyClass": "TIER_THREE",
+      "dataResidency": ["GB", "WESTERN-DIASPORA"],
+      "connectivity": { "bandwidthTbps": 10, "peeringASN": 65008 }
+    }
+  ],
+  "edgeNodes": {
+    "description": "57 lightweight edge-compute nodes — one per OIC member state",
+    "count": 57,
+    "spec": {
+      "cpu": "32 vCPU",
+      "ram": "256 GB",
+      "storage": "10 TB NVMe",
+      "connectivity": "10 Gbps",
+      "purpose": ["CDN", "latency-reduction", "offline-resilience", "local-data-residency"]
+    }
+  },
+  "greenEnergyTargets": {
+    "renewablePercent": 80,
+    "pueTarget": 1.15,
+    "carbonNeutralBy": "2030"
+  }
+}

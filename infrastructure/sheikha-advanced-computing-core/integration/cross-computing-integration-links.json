@@ -1,0 +1,42 @@
+{
+    "generatedAt": "2026-03-18T04:56:59.892Z",
+    "links": [
+        {
+            "from": "computingSystem",
+            "to": "neuralNetworkSystem",
+            "purpose": "training-and-inference-fabric"
+        },
+        {
+            "from": "computingSystem",
+            "to": "physicalComputingSystem",
+            "purpose": "edge-and-control-runtime"
+        },
+        {
+            "from": "neuralNetworkSystem",
+            "to": "physicalComputingSystem",
+            "purpose": "intelligent-automation-and-vision"
+        },
+        {
+            "from": "quantumComputingSystem",
+            "to": "computingSystem",
+            "purpose": "hybrid-optimization-workloads"
+        },
+        {
+            "from": "quantumComputingSystem",
+            "to": "neuralNetworkSystem",
+            "purpose": "research-acceleration-and-advanced-optimization"
+        },
+        {
+            "from": "physicalComputingSystem",
+            "to": "computingSystem",
+            "purpose": "telemetry-ingestion-and-control-feedback"
+        }
+    ],
+    "orchestrationPattern": "event-driven-and-policy-controlled",
+    "sharedServices": [
+        "identity-and-access",
+        "workload-scheduler",
+        "observability",
+        "governance-gates"
+    ]
+}

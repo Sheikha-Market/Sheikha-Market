@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رسم توضيحي — سلسلة التوريد وعلاقة كل عميل | Sheikha Supply Chain</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #0d9488; --primary-dark: #0f766e; --gold: #d4af37; --bg: #f0fdfa; --card: #fff; --text: #0f172a; --muted: #64748b; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); padding: 1.5rem; line-height: 1.6; }
+        .wrap { max-width: 960px; margin: 0 auto; }
+        .back { display: inline-block; margin-bottom: 1rem; color: var(--primary); text-decoration: none; font-weight: 600; }
+        .back:hover { text-decoration: underline; }
+        h1 { font-size: 1.6rem; margin-bottom: 0.5rem; color: var(--primary-dark); }
+        .sub { color: var(--muted); margin-bottom: 1.5rem; }
+        .diagram { background: var(--card); border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; overflow-x: auto; }
+        .chain { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; align-items: center; }
+        .stage-box { min-width: 120px; max-width: 160px; padding: 1rem; border-radius: 12px; border: 2px solid var(--primary); background: rgba(13,148,136,0.08); text-align: center; }
+        .stage-box .icon { font-size: 1.5rem; margin-bottom: 0.35rem; }
+        .stage-box .name { font-weight: 700; color: var(--text); font-size: 1rem; }
+        .stage-box .who { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+        .stage-box .info { font-size: 0.75rem; color: var(--primary-dark); margin-top: 0.5rem; }
+        .arrow { color: var(--primary); font-size: 1.2rem; }
+        .legend { margin-top: 1.5rem; padding: 1rem; background: rgba(13,148,136,0.06); border-radius: 12px; }
+        .legend h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .legend ul { list-style: none; }
+        .legend li { font-size: 0.9rem; margin: 0.25rem 0; }
+        @media (max-width: 640px) { .arrow { display: none; } .chain { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <a href="index.html" class="back">← الرئيسية</a>
+        <h1>رسم توضيحي — سلسلة التوريد</h1>
+        <p class="sub">علاقة كل عميل في السلسلة والمعلومات التي يمكن استخلاصها. جميع العمليات تتم عبر سوق شيخة.</p>
+        <div class="diagram">
+            <div class="chain">
+                <div class="stage-box">
+                    <div class="icon">◇</div>
+                    <div class="name">مصدر</div>
+                    <div class="who">مصنع، منجم، فرد، تاجر</div>
+                    <div class="info">معلومات: نوع الكمية، الموقع، السعر المطلوب</div>
+                </div>
+                <span class="arrow">→</span>
+                <div class="stage-box">
+                    <div class="icon">▣</div>
+                    <div class="name">تجميع</div>
+                    <div class="who">جامع سكراب، مزود تجميع</div>
+                    <div class="info">معلومات: كميات مجمعة، فرز، جاهزية للنقل</div>
+                </div>
+                <span class="arrow">→</span>
+                <div class="stage-box">
+                    <div class="icon">▤</div>
+                    <div class="name">نقل</div>
+                    <div class="who">ناقل، شركة نقل، شاحنات</div>
+                    <div class="info">معلومات: مسار، تكلفة، توفر معدات</div>
+                </div>
+                <span class="arrow">→</span>
+                <div class="stage-box">
+                    <div class="icon">◆</div>
+                    <div class="name">مصهر</div>
+                    <div class="who">مصهر، معيد تدوير</div>
+                    <div class="info">معلومات: طاقة استيعاب، أسعار شراء، مواصفات</div>
+                </div>
+                <span class="arrow">→</span>
+                <div class="stage-box">
+                    <div class="icon">◈</div>
+                    <div class="name">تصنيع</div>
+                    <div class="who">مصنع، منتج نهائي</div>
+                    <div class="info">معلومات: طلب مواد، مواصفات، كميات</div>
+                </div>
+                <span class="arrow">→</span>
+                <div class="stage-box">
+                    <div class="icon">◎</div>
+                    <div class="name">طرف نهائي</div>
+                    <div class="who">تاجر معادن، مشتري، مستهلك</div>
+                    <div class="info">معلومات: طلبات شراء، نطاق سعر، منطقة</div>
+                </div>
+            </div>
+            <div class="legend">
+                <h3>المعلومات المستخلصة من كل مرحلة (عبر سوق شيخة)</h3>
+                <ul>
+                    <li><strong>مصدر:</strong> نوع السكراب، الكمية، الموقع، سعر الطلب، مرحلة التوريد.</li>
+                    <li><strong>تجميع:</strong> إجمالي الكميات المجمعة، أنواع الفرز، جاهزية الشحن.</li>
+                    <li><strong>نقل:</strong> مسارات النقل، تكلفة النقل، توفر الشاحنات والحاويات.</li>
+                    <li><strong>مصهر:</strong> أسعار الشراء، الطاقة الاستيعابية، المواصفات المطلوبة.</li>
+                    <li><strong>تصنيع / طرف نهائي:</strong> طلبات الشراء، المواصفات، المناطق، أحجام الصفقات.</li>
+                </ul>
+                <p style="margin-top:0.75rem;font-size:0.9em;color:var(--muted);">جميع العمليات تظهر باسم <strong>سوق شيخة</strong> — لا تُكشف أسماء الأطراف لبعضها إلا حسب سياسة المنصة.</p>
+            </div>
+        </div>
+        <p style="text-align:center;"><a href="سوق-سلسلة-التوريد.html" class="back">عرض السوق حسب المرحلة ←</a></p>
+    </div>
+    <footer style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e2e8f0;text-align:center;font-size:0.9em;color:#64748b;">
+        <p><a href="index.html" style="color:#0d9488;text-decoration:none;">الرئيسية</a> · <a href="خريطة-الموقع.html" style="color:#0d9488;text-decoration:none;">خريطة الموقع</a></p>
+        <p style="margin-top:0.5rem;">أهداف الموقع: بلا ضرر ولا ضرار · حب العلامة وأمان · محافظة على البيئة والصحة والبشر.</p>
+    </footer>
+</body>
+</html>

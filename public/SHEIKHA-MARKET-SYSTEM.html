@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شيخة — منظومة السوق + البصمة الرقمية الشاملة | SHEIKHA Market System</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@200;300;400;500;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--g4:#D4AF37;--g2:#F5E6A3;--g6:#B8942A;--g1:#FFF8E1;--c4:#B87333;--n8:#020306;--n7:#070b14;--n6:#0d1320;--n5:#141e2e;--t1:#f0e6d0;--t2:#b8a880;--t3:#706850;--t4:#484030;--grn:#00e89d;--red:#ff4d6a;--blu:#3d8eff;--pur:#9d6aff;--ylw:#ffb020;--cyn:#00d8ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Naskh Arabic','Cairo',sans-serif;background:var(--n8);color:var(--t1);overflow-x:hidden;}
+::selection{background:var(--g4);color:#000;}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='rgba(212,175,55,0.012)' stroke-width='0.5'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.p{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 20px;}
+.gd{background:linear-gradient(135deg,var(--g1),var(--g4),var(--c4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.chip{display:inline-block;padding:3px 14px;border-radius:16px;font-family:'Outfit';font-size:7px;letter-spacing:4px;text-transform:uppercase;border:1px solid rgba(212,175,55,0.08);color:var(--g4);margin-bottom:12px;}
+.sec{margin:32px 0;}
+.sh{text-align:center;margin-bottom:16px;}
+.sh h2{font-family:'Cairo';font-size:clamp(17px,2.8vw,24px);font-weight:900;margin:3px 0;}
+.sh .d{font-size:10px;color:var(--t4);}
+.hero{padding:36px 0 24px;text-align:center;}
+.hero::after{content:'';display:block;width:20%;margin:18px auto 0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.1),transparent);}
+.bism{font-family:'Amiri';font-size:22px;color:var(--g4);font-style:italic;margin-bottom:10px;}
+.hero h1{font-family:'Amiri';font-size:clamp(24px,4.5vw,42px);font-weight:700;line-height:1.3;}
+.hero .sub{font-size:11px;color:var(--t3);margin-top:8px;line-height:2.2;max-width:650px;margin-inline:auto;}
+
+/* Verse */
+.verse{padding:16px;border-radius:14px;background:linear-gradient(135deg,rgba(212,175,55,0.02),transparent);border:1px solid rgba(212,175,55,0.04);text-align:center;margin:16px 0;}
+.verse .ar{font-family:'Amiri';font-size:17px;font-weight:700;line-height:2;color:var(--g2);}
+.verse .ref{font-size:9px;color:var(--g4);font-family:'Outfit';margin-top:4px;}
+
+/* Grid cards */
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px;}
+.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;}
+.g4{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;}
+
+.card{padding:14px;border-radius:12px;background:var(--n6);border:1px solid rgba(255,255,255,0.02);transition:all .15s;}
+.card:hover{border-color:rgba(212,175,55,0.04);transform:translateY(-1px);}
+.card-i{font-size:20px;margin-bottom:4px;}
+.card-t{font-family:'Cairo';font-size:12px;font-weight:800;margin-bottom:3px;}
+.card-v{font-family:'Amiri';font-size:10px;font-style:italic;color:var(--g4);line-height:1.9;margin-bottom:4px;}
+.card-d{font-size:9px;color:var(--t3);line-height:2;}
+.card-dig{font-size:8px;color:var(--grn);margin-top:4px;font-weight:600;line-height:2;}
+
+/* Table */
+.tbl{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.02);font-size:9px;margin:10px 0;}
+.tbl th{background:var(--n5);padding:7px 10px;font-family:'Outfit';font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--t3);font-weight:600;text-align:right;}
+.tbl td{background:var(--n7);padding:7px 10px;border-bottom:1px solid rgba(255,255,255,0.01);}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl .plat{font-weight:700;color:var(--t1);}
+.tbl .url{font-family:'IBM Plex Mono';font-size:7.5px;color:var(--blu);direction:ltr;}
+.tbl .status{font-size:8px;font-weight:600;}
+.tbl .stat-do{color:var(--grn);}
+.tbl .stat-soon{color:var(--ylw);}
+
+/* Category header */
+.cat{padding:8px 14px;border-radius:10px;font-family:'Cairo';font-size:11px;font-weight:800;margin:14px 0 6px;display:flex;align-items:center;gap:6px;}
+
+/* Cmd */
+.cmd{background:#080c16;border:1px solid rgba(212,175,55,0.05);border-radius:12px;padding:14px;margin:10px 0;position:relative;}
+.cmd-tag{position:absolute;top:5px;left:7px;font-family:'Outfit';font-size:6px;letter-spacing:2px;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(212,175,55,0.06);color:var(--g4);}
+.cmd pre{font-family:'IBM Plex Mono';font-size:8.5px;line-height:1.9;color:#c9d1d9;white-space:pre-wrap;direction:ltr;text-align:left;}
+.cm{color:#6e7681;}.kw{color:#ff7b72;}.st{color:#a5d6ff;}.fn{color:#d2a8ff;}.gl{color:#D4AF37;}
+
+.ft{text-align:center;padding:24px 20px;border-top:1px solid rgba(212,175,55,0.03);margin-top:20px;}
+.ft p{font-size:7px;color:var(--t4);line-height:2.4;}
+
+/* Connector line */
+.conn{text-align:center;font-size:14px;color:var(--g4);opacity:0.2;margin:4px 0;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:.15}50%{opacity:.5}}
+</style>
+</head>
+<body>
+<nav style="position:sticky;top:0;z-index:999;background:rgba(2,3,6,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(212,175,55,0.06);padding:10px 20px;display:flex;gap:16px;align-items:center;font-family:'Cairo',sans-serif;font-size:12px;">
+  <a href="/" style="color:#D4AF37;text-decoration:none;font-weight:700;">الرئيسية</a>
+  <a href="/%D8%B3%D9%88%D9%82-%D8%B4%D9%8A%D8%AE%D8%A9.html" style="color:#b8a880;text-decoration:none;">السوق</a>
+  <a href="/SHEIKHA-DIGITAL-IDENTITY.html" style="color:#b8a880;text-decoration:none;">الهوية الرقمية</a>
+  <a href="/SHEIKHA-SMART-DIGITAL.html" style="color:#b8a880;text-decoration:none;">المعمارية الذكية</a>
+</nav>
+<div class="p">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="bism">بسم الله الرحمن الرحيم</div>
+  <div class="chip">◆ Souq Al-Madinah Digital System + Universal Brand Presence ◆</div>
+  <h1><span class="gd">منظومة سوق شيخة</span><br><span style="font-size:0.55em;color:var(--t2);">+ البصمة الرقمية في كل كيان ومنصة</span></h1>
+  <div class="sub">رقمنة مبادئ سوق المدينة الذي أسّسه النبي ﷺ + بناء الهوية في كل منصة رقمية في الأرض — حكومات · منظمات · شركات · أكاديميات · محركات بحث · وسائل تواصل</div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- الجزء الأول: سوق المدينة المرقمن           -->
+<!-- ═══════════════════════════════════════════ -->
+
+<div class="verse">
+  <div class="ar">﴿ يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ مِّنكُمْ ﴾</div>
+  <div class="ref">سورة النساء — آية 29</div>
+</div>
+
+<div class="sec">
+  <div class="sh">
+    <div class="chip">الجزء الأول — Souq Al-Madinah OS</div>
+    <h2><span class="gd">مبادئ سوق المدينة — مُرقمنة</span></h2>
+    <div class="d">النبي ﷺ أسّس سوق المدينة بمبادئ واضحة — نحن نرقمنها ونطبّقها</div>
+  </div>
+
+  <div class="g2">
+    <!-- 1 -->
+    <div class="card">
+      <div class="card-i">🏛</div>
+      <div class="card-t" style="color:var(--grn);">1. السوق الحر — لا خراج</div>
+      <div class="card-v">النبي ﷺ أسّس سوقاً لا يُؤخذ فيه خراج — مفتوح لكل تاجر</div>
+      <div class="card-d">لما وصل ﷺ المدينة كان هناك سوق واحد لبني قينقاع يأخذون منه ضرائب. فأسّس ﷺ سوقاً جديداً وقال: «هذا سوقكم لا يُنقص منه ولا يُضرب عليه خراج»</div>
+      <div class="card-dig">🔧 الرقمنة: تسجيل مجاني · عرض مجاني · صفر عمولة · لا ضريبة منصة</div>
+    </div>
+    <!-- 2 -->
+    <div class="card">
+      <div class="card-i">⚖️</div>
+      <div class="card-t" style="color:var(--g4);">2. تحريم الغش — الشفافية</div>
+      <div class="card-v">«من غشّنا فليس منّا» — مرّ النبي ﷺ على صُبرة طعام فأدخل يده فيها فنالت أصابعه بللاً</div>
+      <div class="card-d">كل معروض يجب أن يكون كما هو في الوصف — لا إخفاء عيوب — لا تدليس — لا غش في الوزن أو النوع أو الجودة</div>
+      <div class="card-dig">🔧 الرقمنة: فحص AI للإعلانات · كشف صور مزيفة · تقييم التجار · إبلاغ الغش</div>
+    </div>
+    <!-- 3 -->
+    <div class="card">
+      <div class="card-i">🚫</div>
+      <div class="card-t" style="color:var(--red);">3. تحريم الربا — صفر فوائد</div>
+      <div class="card-v">﴿ وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا ﴾</div>
+      <div class="card-d">لا بيع ذهب بذهب إلا مثلاً بمثل — لا تأخير في الصرف — لا فائدة على الأقساط — البيع الحلال فقط</div>
+      <div class="card-dig">🔧 الرقمنة: محرك Sharia يفحص كل عقد تلقائياً · تنبيه ربا · حاسبة بيع مباركة</div>
+    </div>
+    <!-- 4 -->
+    <div class="card">
+      <div class="card-i">🤝</div>
+      <div class="card-t" style="color:var(--blu);">4. البيع بالتراضي</div>
+      <div class="card-v">﴿ إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ مِّنكُمْ ﴾</div>
+      <div class="card-d">لا إكراه في البيع — خيار المجلس — خيار الشرط — حق الإرجاع — كل طرف راضٍ قبل إتمام الصفقة</div>
+      <div class="card-dig">🔧 الرقمنة: تأكيد ثنائي لكل صفقة · خيار إلغاء · ضمان إرجاع · عقد ذكي واضح</div>
+    </div>
+    <!-- 5 -->
+    <div class="card">
+      <div class="card-i">🚷</div>
+      <div class="card-t" style="color:var(--ylw);">5. تحريم الاحتكار</div>
+      <div class="card-v">«لا يحتكر إلا خاطئ» — رواه مسلم</div>
+      <div class="card-d">لا يحق لتاجر حبس سلعة لرفع سعرها — المنصة تكشف الاحتكار وتنبّه — الأسعار شفافة للجميع</div>
+      <div class="card-dig">🔧 الرقمنة: خوارزمية كشف الاحتكار · مؤشر أسعار مفتوح · تنبيه تضخم مصطنع</div>
+    </div>
+    <!-- 6 -->
+    <div class="card">
+      <div class="card-i">📏</div>
+      <div class="card-t" style="color:var(--cyn);">6. الوزن والمكيال بالعدل</div>
+      <div class="card-v">﴿ وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ ﴾</div>
+      <div class="card-d">كل وزن مسجّل — كل مكيال دقيق — شهادات فحص معتمدة — لا تطفيف</div>
+      <div class="card-dig">🔧 الرقمنة: شهادات تحليل رقمية · QR Code لكل شحنة · سجل الوزن التاريخي</div>
+    </div>
+    <!-- 7 -->
+    <div class="card">
+      <div class="card-i">🕊️</div>
+      <div class="card-t" style="color:var(--pur);">7. السماحة في البيع والشراء</div>
+      <div class="card-v">«رحم الله رجلاً سمحاً إذا باع وإذا اشترى وإذا اقتضى»</div>
+      <div class="card-d">يُسر في الشروط — مرونة في الدفع الحلال — لا تعسير — لا ظلم — اللين مع العملاء</div>
+      <div class="card-dig">🔧 الرقمنة: دفع مرن حلال · تقسيط بدون فائدة · وساطة ودية · تقييم سماحة التاجر</div>
+    </div>
+    <!-- 8 -->
+    <div class="card">
+      <div class="card-i">📝</div>
+      <div class="card-t" style="color:var(--g4);">8. التوثيق والإشهاد</div>
+      <div class="card-v">﴿ يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا تَدَايَنتُم بِدَيْنٍ إِلَىٰ أَجَلٍ مُّسَمًّى فَاكْتُبُوهُ ﴾</div>
+      <div class="card-d">كل عقد مكتوب — كل صفقة موثّقة — شهود — سجل دائم — لا نزاع بلا مستند</div>
+      <div class="card-dig">🔧 الرقمنة: عقود ذكية مؤرشفة · Blockchain hash · تاريخ كل معاملة · تصدير PDF</div>
+    </div>
+    <!-- 9 -->
+    <div class="card">
+      <div class="card-i">🕌</div>
+      <div class="card-t" style="color:var(--grn);">9. البيع لا يُلهي عن ذكر الله</div>
+      <div class="card-v">﴿ رِجَالٌ لَّا تُلْهِيهِمْ تِجَارَةٌ وَلَا بَيْعٌ عَن ذِكْرِ اللَّهِ ﴾</div>
+      <div class="card-d">تنبيه أوقات الصلاة — إيقاف المزاد وقت الأذان — تذكير بالأذكار — ميزة «وقت الصلاة»</div>
+      <div class="card-dig">🔧 الرقمنة: إشعار أذان · إيقاف مؤقت وقت الصلاة · ذكر يومي · تسبيح تجاري</div>
+    </div>
+    <!-- 10 -->
+    <div class="card">
+      <div class="card-i">🌍</div>
+      <div class="card-t" style="color:var(--ylw);">10. السوق مفتوح للجميع</div>
+      <div class="card-v">سوق المدينة كان مفتوحاً لكل الناس — مسلمين وغيرهم — عرب وغيرهم</div>
+      <div class="card-d">المنصة للبشرية — القيم الإسلامية تنفع الجميع — العدل والصدق والأمانة لا تحتاج مذهب</div>
+      <div class="card-dig">🔧 الرقمنة: تعدد لغات · واجهة محايدة + إسلامية · ترحيب بالجميع · ترجمة فورية</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- الجزء الثاني: البصمة الرقمية الشاملة           -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="conn">▼ ▼ ▼</div>
+
+<div class="sec">
+  <div class="sh">
+    <div class="chip">الجزء الثاني — Universal Digital Presence</div>
+    <h2><span class="gd">البصمة الرقمية في كل كيان ومنصة</span></h2>
+    <div class="d">تسجيل شيخة في كل منصة رقمية — حكومية · تجارية · أكاديمية · تقنية · عالمية</div>
+  </div>
+
+  <!-- A. GOVERNMENT -->
+  <div class="cat" style="background:rgba(255,77,106,0.03);border:1px solid rgba(255,77,106,0.06);color:var(--red);">🏛 أولاً — المنصات الحكومية السعودية</div>
+  <table class="tbl">
+    <tr><th>المنصة</th><th>الرابط</th><th>الغرض</th><th>الحالة</th></tr>
+    <tr><td class="plat">وزارة التجارة — سجل تجاري</td><td class="url">mc.gov.sa</td><td>سجل 2051263653 — أساس قانوني</td><td class="status stat-do">✅ مفعّل</td></tr>
+    <tr><td class="plat">منصة مراس — تراخيص</td><td class="url">meras.gov.sa</td><td>تراخيص النشاط التجاري</td><td class="status stat-do">✅ تحقق</td></tr>
+    <tr><td class="plat">هيئة الزكاة والضريبة</td><td class="url">zatca.gov.sa</td><td>الرقم الضريبي + الفوترة الإلكترونية</td><td class="status stat-soon">⏳ سجّل</td></tr>
+    <tr><td class="plat">منصة قوى — الموارد البشرية</td><td class="url">qiwa.sa</td><td>ملف المنشأة + الموظفين</td><td class="status stat-soon">⏳ سجّل</td></tr>
+    <tr><td class="plat">المؤسسة العامة للتأمينات</td><td class="url">gosi.gov.sa</td><td>تأمين الموظفين</td><td class="status stat-soon">⏳ سجّل</td></tr>
+    <tr><td class="plat">منصة اعتماد — المشتريات</td><td class="url">etimad.sa</td><td>عقود حكومية + مناقصات</td><td class="status stat-soon">⏳ سجّل</td></tr>
+    <tr><td class="plat">هيئة المحتوى المحلي — نافس</td><td class="url">lcgpa.gov.sa</td><td>شهادة المحتوى المحلي</td><td class="status stat-soon">⏳ سجّل</td></tr>
+    <tr><td class="plat">الهيئة العامة للجمارك</td><td class="url">customs.gov.sa</td><td>رخص استيراد وتصدير</td><td class="status stat-soon">⏳ سجّل</td></tr>
+    <tr><td class="plat">منصة فسح — إذن استيراد</td><td class="url">fasah.sa</td><td>إذن استيراد المعادن</td><td class="status stat-soon">⏳ سجّل</td></tr>
+    <tr><td class="plat">معروف — توثيق المتاجر</td><td class="url">maroof.sa</td><td>توثيق المتجر الإلكتروني</td><td class="status stat-soon">⏳ سجّل</td></tr>
+  </table>
+
+  <!-- B. SEARCH ENGINES -->
+  <div class="cat" style="background:rgba(61,142,255,0.03);border:1px solid rgba(61,142,255,0.06);color:var(--blu);">🔍 ثانياً — محركات البحث والخرائط</div>
+  <table class="tbl">
+    <tr><th>المنصة</th><th>الرابط</th><th>الغرض</th><th>الحالة</th></tr>
+    <tr><td class="plat">Google Business Profile</td><td class="url">business.google.com</td><td>الظهور في بحث Google + خرائط Google Maps</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">Google Search Console</td><td class="url">search.google.com/search-console</td><td>فهرسة sheikha.top في Google</td><td class="status stat-soon">⏳ ربط</td></tr>
+    <tr><td class="plat">Google Analytics 4</td><td class="url">analytics.google.com</td><td>تحليل الزوار والأداء</td><td class="status stat-soon">⏳ ربط</td></tr>
+    <tr><td class="plat">Bing Webmaster Tools</td><td class="url">bing.com/webmasters</td><td>فهرسة في Bing + Yahoo</td><td class="status stat-soon">⏳ ربط</td></tr>
+    <tr><td class="plat">Yandex Webmaster</td><td class="url">webmaster.yandex.com</td><td>بحث روسيا + آسيا الوسطى</td><td class="status stat-soon">⏳ ربط</td></tr>
+    <tr><td class="plat">Apple Maps Connect</td><td class="url">mapsconnect.apple.com</td><td>الظهور في خرائط Apple</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+  </table>
+
+  <!-- C. SOCIAL MEDIA -->
+  <div class="cat" style="background:rgba(157,106,255,0.03);border:1px solid rgba(157,106,255,0.06);color:var(--pur);">📱 ثالثاً — وسائل التواصل الاجتماعي</div>
+  <table class="tbl">
+    <tr><th>المنصة</th><th>المُعرّف</th><th>نوع المحتوى</th><th>الحالة</th></tr>
+    <tr><td class="plat">X (Twitter)</td><td class="url">@sheikha</td><td>أخبار · أسعار · أحكام · يومي</td><td class="status stat-soon">⏳ احجز</td></tr>
+    <tr><td class="plat">Instagram</td><td class="url">@sheikha</td><td>صور · Reels · Stories · 3x أسبوع</td><td class="status stat-soon">⏳ احجز</td></tr>
+    <tr><td class="plat">LinkedIn (Company Page)</td><td class="url">linkedin.com/company/sheikha</td><td>B2B · تحليلات · شراكات · أسبوعي</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">YouTube</td><td class="url">@sheikha</td><td>تعليم · شروحات · مقابلات · أسبوعي</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">TikTok</td><td class="url">@sheikha</td><td>مقاطع قصيرة · هل تعلم · يومي</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">Telegram (قناة + مجموعة)</td><td class="url">@sheikha_market</td><td>تنبيهات أسعار · مجتمع تجار</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">WhatsApp Business</td><td class="url">wa.me/966...</td><td>خدمة عملاء · كتالوج · إشعارات</td><td class="status stat-soon">⏳ فعّل</td></tr>
+    <tr><td class="plat">Snapchat</td><td class="url">@sheikha</td><td>خلف الكواليس · يوميات تاجر</td><td class="status stat-soon">⏳ احجز</td></tr>
+    <tr><td class="plat">Pinterest</td><td class="url">@sheikha</td><td>صور معادن · Infographics · تصاميم</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">Reddit</td><td class="url">r/sheikha</td><td>مجتمع دولي · نقاشات تقنية</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+  </table>
+
+  <!-- D. DEVELOPER -->
+  <div class="cat" style="background:rgba(0,232,157,0.03);border:1px solid rgba(0,232,157,0.06);color:var(--grn);">💻 رابعاً — منصات المطوّرين والتقنية</div>
+  <table class="tbl">
+    <tr><th>المنصة</th><th>الرابط</th><th>الغرض</th><th>الحالة</th></tr>
+    <tr><td class="plat">GitHub</td><td class="url">github.com/sheikha</td><td>كود مفتوح · APIs · توثيق · 53+ محرك</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">npm Registry</td><td class="url">npmjs.com/~sheikha</td><td>حزم Node.js للمحركات</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">Product Hunt</td><td class="url">producthunt.com</td><td>إطلاق المنتج عالمياً</td><td class="status stat-soon">⏳ حضّر</td></tr>
+    <tr><td class="plat">RapidAPI / API Hub</td><td class="url">rapidapi.com</td><td>نشر APIs شيخة للمطوّرين</td><td class="status stat-soon">⏳ انشر</td></tr>
+    <tr><td class="plat">Stack Overflow Teams</td><td class="url">stackoverflow.com</td><td>دعم تقني للمطوّرين</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">Dev.to / Hashnode</td><td class="url">dev.to/sheikha</td><td>مقالات تقنية · بلوق المطوّرين</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+  </table>
+
+  <!-- E. BUSINESS DIRECTORIES -->
+  <div class="cat" style="background:rgba(212,175,55,0.03);border:1px solid rgba(212,175,55,0.06);color:var(--g4);">🏢 خامساً — أدلة الأعمال والتجارة</div>
+  <table class="tbl">
+    <tr><th>المنصة</th><th>الرابط</th><th>الغرض</th><th>الحالة</th></tr>
+    <tr><td class="plat">Crunchbase</td><td class="url">crunchbase.com</td><td>ملف الشركة للمستثمرين</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">Alibaba.com</td><td class="url">alibaba.com</td><td>ملف مورّد — تجارة المعادن B2B</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">TradeKey</td><td class="url">tradekey.com</td><td>دليل تجار المعادن الدولي</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">Kompass</td><td class="url">kompass.com</td><td>دليل أعمال عالمي</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">Yellow Pages SA</td><td class="url">yellowpages.sa</td><td>دليل أعمال سعودي</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">Thomasnet</td><td class="url">thomasnet.com</td><td>دليل موردي المعادن أمريكا</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">DUNS (D&B)</td><td class="url">dnb.com</td><td>رقم DUNS الدولي — مصداقية</td><td class="status stat-soon">⏳ سجّل</td></tr>
+  </table>
+
+  <!-- F. ISLAMIC -->
+  <div class="cat" style="background:rgba(0,232,157,0.03);border:1px solid rgba(0,232,157,0.06);color:var(--grn);">☪ سادساً — المنصات الإسلامية والحلال</div>
+  <table class="tbl">
+    <tr><th>المنصة</th><th>الرابط</th><th>الغرض</th><th>الحالة</th></tr>
+    <tr><td class="plat">IslamicMarkets.com</td><td class="url">islamicmarkets.com</td><td>منصة التمويل الإسلامي العالمية</td><td class="status stat-soon">⏳ سجّل</td></tr>
+    <tr><td class="plat">AAOIFI — معايير شرعية</td><td class="url">aaoifi.com</td><td>اعتماد المعايير الشرعية</td><td class="status stat-soon">⏳ تواصل</td></tr>
+    <tr><td class="plat">OIC — منظمة التعاون الإسلامي</td><td class="url">oic-oci.org</td><td>التسجيل كمنصة تجارة إسلامية</td><td class="status stat-soon">⏳ تواصل</td></tr>
+    <tr><td class="plat">Halal Trade Directory</td><td class="url">halaltradeworld.com</td><td>دليل التجارة الحلال العالمي</td><td class="status stat-soon">⏳ سجّل</td></tr>
+    <tr><td class="plat">World Halal Council</td><td class="url">worldhalalcouncil.com</td><td>اعتماد حلال عالمي</td><td class="status stat-soon">⏳ تقدّم</td></tr>
+  </table>
+
+  <!-- G. ACADEMIC -->
+  <div class="cat" style="background:rgba(0,216,255,0.03);border:1px solid rgba(0,216,255,0.06);color:var(--cyn);">🎓 سابعاً — المنصات الأكاديمية والعلمية</div>
+  <table class="tbl">
+    <tr><th>المنصة</th><th>الرابط</th><th>الغرض</th><th>الحالة</th></tr>
+    <tr><td class="plat">Google Scholar</td><td class="url">scholar.google.com</td><td>نشر أبحاث التجارة الإسلامية الرقمية</td><td class="status stat-soon">⏳ انشر</td></tr>
+    <tr><td class="plat">ResearchGate</td><td class="url">researchgate.net</td><td>ملف بحثي — Sharia-First Architecture</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">Academia.edu</td><td class="url">academia.edu</td><td>أوراق بحثية — سوق المدينة الرقمي</td><td class="status stat-soon">⏳ أنشئ</td></tr>
+    <tr><td class="plat">SSRN</td><td class="url">ssrn.com</td><td>ورقة بحثية: Islamic Digital Commerce</td><td class="status stat-soon">⏳ انشر</td></tr>
+    <tr><td class="plat">IEEE / ACM</td><td class="url">ieee.org</td><td>ورقة: 7-Layer Sharia Architecture</td><td class="status stat-soon">⏳ قدّم</td></tr>
+  </table>
+
+  <!-- H. DOMAIN -->
+  <div class="cat" style="background:rgba(255,176,32,0.03);border:1px solid rgba(255,176,32,0.06);color:var(--ylw);">🌐 ثامناً — النطاقات والبنية التحتية</div>
+  <table class="tbl">
+    <tr><th>النطاق / الخدمة</th><th>الحالة</th><th>الغرض</th></tr>
+    <tr><td class="plat">sheikha.top</td><td class="status stat-do">✅ مملوك</td><td>النطاق الأساسي</td></tr>
+    <tr><td class="plat">sheikha.com</td><td class="status stat-soon">⏳ احجز</td><td>النطاق الدولي</td></tr>
+    <tr><td class="plat">sheikha.sa</td><td class="status stat-soon">⏳ احجز</td><td>النطاق السعودي</td></tr>
+    <tr><td class="plat">sheikha.store</td><td class="status stat-soon">⏳ احجز</td><td>المتجر</td></tr>
+    <tr><td class="plat">sheikha.app</td><td class="status stat-soon">⏳ احجز</td><td>التطبيق</td></tr>
+    <tr><td class="plat">CloudFlare</td><td class="status stat-soon">⏳ فعّل</td><td>CDN + حماية + SSL</td></tr>
+    <tr><td class="plat">Apple App Store</td><td class="status stat-soon">⏳ حساب</td><td>تطبيق iOS مستقبلاً</td></tr>
+    <tr><td class="plat">Google Play Store</td><td class="status stat-soon">⏳ حساب</td><td>تطبيق Android مستقبلاً</td></tr>
+  </table>
+</div>
+
+<!-- ═══ CURSOR COMMAND ═══ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip">أمر التفعيل</div>
+    <h2><span class="gd">تفعيل منظومة السوق في Cursor</span></h2>
+  </div>
+  <div class="cmd">
+    <div class="cmd-tag">CURSOR CHAT</div>
+    <pre>
+<span class="cm">/* ═══ منظومة سوق المدينة الرقمي ═══ */</span>
+
+أنشئ ملف <span class="kw">engines/souq-madinah-engine.js</span>:
+
+<span class="gl">المبادئ العشرة مُرقمنة:</span>
+
+1. <span class="kw">freeMarket</span>: تسجيل + عرض + بيع = صفر عمولة
+2. <span class="kw">antiGhash</span>: فحص AI لكل إعلان + كشف صور مزيفة
+3. <span class="kw">antiRiba</span>: محرك Sharia يفحص كل عقد تلقائياً
+4. <span class="kw">mutualConsent</span>: تأكيد ثنائي + خيار إلغاء + ضمان
+5. <span class="kw">antiMonopoly</span>: خوارزمية كشف الاحتكار + أسعار شفافة
+6. <span class="kw">fairWeight</span>: شهادات تحليل رقمية + QR + سجل وزن
+7. <span class="kw">easeTrade</span>: دفع مرن حلال + تقسيط صفر فائدة
+8. <span class="kw">documentation</span>: عقود ذكية + أرشفة + PDF + hash
+9. <span class="kw">prayerReminder</span>: إشعار أذان + إيقاف وقت الصلاة
+10. <span class="kw">openForAll</span>: 14 لغة + ترجمة فورية + ترحيب
+
+<span class="gl">APIs الجديدة:</span>
+GET  /api/souq/principles    → المبادئ العشرة
+POST /api/souq/verify-halal  → فحص شرعي للصفقة
+GET  /api/souq/prayer-times  → أوقات الصلاة
+POST /api/souq/report-ghash  → الإبلاغ عن غش
+GET  /api/souq/price-index   → مؤشر الأسعار المفتوح
+
+<span class="gl">وأنشئ صفحة /souq-al-madinah:</span>
+- عنوان: «سوق المدينة — على نهج النبي ﷺ»
+- المبادئ العشرة مع الأحاديث والآيات
+- كل مبدأ وكيف رقمنّاه في شيخة
+- رابط في القائمة الرئيسية
+
+<span class="gl">وأضف SEO + Schema + OG Tags:</span>
+- JSON-LD Organization schema
+- og:title / og:description / og:image
+- twitter:card / twitter:site
+- sitemap.xml + robots.txt</pre>
+  </div>
+</div>
+
+</div>
+
+<div class="ft">
+  <p style="font-family:'Amiri';font-size:11px;color:var(--t2);">بسم الله توكلنا على الله — لا حول ولا قوة إلا بالله</p>
+  <p style="font-family:'Amiri';font-size:10px;color:var(--g4);">﴿ وَمَا أَرْسَلْنَاكَ إِلَّا رَحْمَةً لِّلْعَالَمِينَ ﴾</p>
+  <p>SHEIKHA Market System + Universal Digital Presence v1.0 — 22 فبراير 2026</p>
+  <p>10 مبادئ نبوية مُرقمنة · 10 منصات حكومية · 6 محركات بحث · 10 وسائل تواصل · 7 أدلة أعمال · 5 منصات إسلامية · 5 أكاديمية · 6 تقنية · 8 نطاقات</p>
+</div>
+
+</div>
+</body>
+</html>

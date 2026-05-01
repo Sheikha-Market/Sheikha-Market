@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="خدمات منظومة شيخة المتكاملة - المتجر الإلكتروني، النقل والشحن، التخزين، التخليص الجمركي، الفحص والجودة، وحلول المصانع">
+    <title>خدمات شيخة | منظومة شيخة للمعادن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/elite-design-system.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #f0d060, #d4af37);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #0a0f1a;
+        }
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #d4af37;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+        .nav-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav-link:hover { color: #d4af37; }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 24px 60px;
+            background: radial-gradient(ellipse at center top, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(0, 108, 53, 0.2), rgba(0, 108, 53, 0.05));
+            border: 1px solid rgba(0, 108, 53, 0.3);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            color: #10b981;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #d4af37 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Main */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--card-color);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px var(--card-glow);
+        }
+
+        .service-header {
+            background: linear-gradient(135deg, var(--card-color), rgba(var(--card-rgb), 0.7));
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .service-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .service-tagline {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.8);
+            position: relative;
+        }
+
+        .service-body {
+            padding: 32px;
+        }
+        .service-desc {
+            color: #cbd5e1;
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .service-features {
+            margin-bottom: 24px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .feature-item:last-child { border-bottom: none; }
+        .feature-icon {
+            width: 28px;
+            height: 28px;
+            background: rgba(var(--card-rgb), 0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        .feature-text {
+            color: #e2e8f0;
+            font-size: 0.95rem;
+        }
+
+        .service-pricing {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .pricing-title {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+        .pricing-value {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--card-color);
+        }
+        .pricing-note {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        .service-cta {
+            display: flex;
+            gap: 12px;
+        }
+        .cta-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        .cta-btn.primary {
+            background: linear-gradient(135deg, var(--card-color), rgba(var(--card-rgb), 0.8));
+            color: #0a0f1a;
+        }
+        .cta-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--card-glow);
+        }
+        .cta-btn.secondary {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #ffffff;
+        }
+        .cta-btn.secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Card Colors */
+        .service-card[data-service="store"] {
+            --card-color: #d4af37;
+            --card-glow: rgba(212, 175, 55, 0.2);
+            --card-rgb: 212, 175, 55;
+        }
+        .service-card[data-service="transport"] {
+            --card-color: #8b5cf6;
+            --card-glow: rgba(139, 92, 246, 0.2);
+            --card-rgb: 139, 92, 246;
+        }
+        .service-card[data-service="storage"] {
+            --card-color: #3b82f6;
+            --card-glow: rgba(59, 130, 246, 0.2);
+            --card-rgb: 59, 130, 246;
+        }
+        .service-card[data-service="customs"] {
+            --card-color: #ec4899;
+            --card-glow: rgba(236, 72, 153, 0.2);
+            --card-rgb: 236, 72, 153;
+        }
+        .service-card[data-service="inspection"] {
+            --card-color: #06b6d4;
+            --card-glow: rgba(6, 182, 212, 0.2);
+            --card-rgb: 6, 182, 212;
+        }
+        .service-card[data-service="factory"] {
+            --card-color: #f59e0b;
+            --card-glow: rgba(245, 158, 11, 0.2);
+            --card-rgb: 245, 158, 11;
+        }
+        .service-card[data-service="fbs"] {
+            --card-color: #ef4444;
+            --card-glow: rgba(239, 68, 68, 0.2);
+            --card-rgb: 239, 68, 68;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(0, 108, 53, 0.05));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 60px;
+        }
+        .stats-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 32px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 32px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #d4af37, #f0d060);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+        .stat-label {
+            color: #94a3b8;
+            margin-top: 8px;
+        }
+
+        /* Sharia Section */
+        .sharia-section {
+            background: linear-gradient(135deg, rgba(0, 108, 53, 0.15), rgba(0, 108, 53, 0.05));
+            border: 1px solid rgba(0, 108, 53, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .sharia-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+        .sharia-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #10b981;
+            margin-bottom: 12px;
+        }
+        .sharia-text {
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(5, 8, 16, 0.95);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 40px 24px;
+            text-align: center;
+        }
+        .footer-prayer {
+            color: #64748b;
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .footer-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .footer-link:hover { color: #d4af37; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links { display: none; }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-content">
+        <a href="منظومة-شيخة.html" class="logo">
+            <div class="logo-icon" aria-label="شعار شيخة">
+                <img src="assets/sheikha-mark.svg" alt="شيخة" width="28" height="28" style="display:block; width:28px; height:28px;">
+            </div>
+            <span class="logo-text">منظومة شيخة</span>
+        </a>
+        <nav class="nav-links">
+            <a href="منظومة-شيخة.html" class="nav-link">الرئيسية</a>
+            <a href="سوق-شيخة.html" class="nav-link">السوق</a>
+            <a href="تسجيل-الشركاء.html" class="nav-link">التسجيل</a>
+            <a href="المساعد-الذكي.html" class="nav-link">المساعد</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-badge">
+        ☪️ جميع الخدمات متوافقة مع الشريعة الإسلامية
+    </div>
+    <h1>خدمات منظومة شيخة</h1>
+    <p>حلول متكاملة لتجارة المعادن - من التاجر للمصنع للمستهلك، بأعلى معايير الجودة والاحترافية</p>
+</section>
+
+<!-- Main Content -->
+<main class="main">
+
+    <!-- Services Grid -->
+    <div class="services-grid">
+
+        <!-- 1. المتجر الإلكتروني -->
+        <div class="service-card" data-service="store">
+            <div class="service-header">
+                <div class="service-icon">🏪</div>
+                <h2 class="service-title">المتجر الإلكتروني</h2>
+                <p class="service-tagline">افتح متجرك في سوق شيخة</p>
+            </div>
+            <div class="service-body">
+                <p class="service-desc">
+                    فتح متجر إلكتروني احترافي لبيع المعادن، مع لوحة تحكم متكاملة وأدوات تحليل متقدمة.
+                </p>
+                <div class="service-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">صفحة متجر خاصة باسمك</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">منتجات غير محدودة</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">محفظة إلكترونية وتقارير</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">شارة "تاجر معتمد"</span>
+                    </div>
+                </div>
+                <div class="service-pricing">
+                    <div class="pricing-title">التسعير</div>
+                    <div class="pricing-value">مجاني - 1,500 ر.س/شهر</div>
+                    <div class="pricing-note">عمولة 2-5% حسب الباقة</div>
+                </div>
+                <div class="service-cta">
+                    <a href="تسجيل-تاجر.html" class="cta-btn primary">افتح متجرك</a>
+                    <a href="#" class="cta-btn secondary" onclick="showDetails('store')">التفاصيل</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. النقل والشحن -->
+        <div class="service-card" data-service="transport">
+            <div class="service-header">
+                <div class="service-icon">🚚</div>
+                <h2 class="service-title">النقل والشحن</h2>
+                <p class="service-tagline">شبكة نقل متكاملة وآمنة</p>
+            </div>
+            <div class="service-body">
+                <p class="service-desc">
+                    خدمات نقل وشحن المعادن داخل المملكة ودولياً، مع تتبع GPS وتوثيق كامل وحماية تشغيلية للشحنات.
+                </p>
+                <div class="service-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">شاحنات متنوعة (مسطحة، مغلقة، مصفحة)</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">تتبع GPS لحظي</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">حماية الشحنات وتوثيق الاستلام والتسليم</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">شحن دولي (خليجي وعربي)</span>
+                    </div>
+                </div>
+                <div class="service-pricing">
+                    <div class="pricing-title">التسعير</div>
+                    <div class="pricing-value">500 ر.س + 3-4 ر.س/كم</div>
+                    <div class="pricing-note">حسب نوع الشاحنة والمسافة</div>
+                </div>
+                <div class="service-cta">
+                    <a href="تسجيل-الشركاء.html" class="cta-btn primary">سجل كناقل</a>
+                    <a href="#" class="cta-btn secondary" onclick="showDetails('transport')">التفاصيل</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. التخزين -->
+        <div class="service-card" data-service="storage">
+            <div class="service-header">
+                <div class="service-icon">📦</div>
+                <h2 class="service-title">التخزين والمستودعات</h2>
+                <p class="service-tagline">مستودعات آمنة ومؤمنة</p>
+            </div>
+            <div class="service-body">
+                <p class="service-desc">
+                    حلول تخزين متخصصة للمعادن في مستودعات مؤمنة 24/7 مع نظام جرد ذكي.
+                </p>
+                <div class="service-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">مستودعات عامة ومكيفة</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">خزائن آمنة للمعادن الثمينة</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">نظام RFID للجرد</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">حماية 24/7 (حراسة + كاميرات + سجلات دخول)</span>
+                    </div>
+                </div>
+                <div class="service-pricing">
+                    <div class="pricing-title">التسعير</div>
+                    <div class="pricing-value">45-120 ر.س/طن/شهر</div>
+                    <div class="pricing-note">حسب نوع المستودع</div>
+                </div>
+                <div class="service-cta">
+                    <a href="تسجيل-الشركاء.html" class="cta-btn primary">احجز مساحة</a>
+                    <a href="#" class="cta-btn secondary" onclick="showDetails('storage')">التفاصيل</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. التخليص الجمركي -->
+        <div class="service-card" data-service="customs">
+            <div class="service-header">
+                <div class="service-icon">📋</div>
+                <h2 class="service-title">التخليص الجمركي</h2>
+                <p class="service-tagline">استيراد وتصدير بدون تعقيد</p>
+            </div>
+            <div class="service-body">
+                <p class="service-desc">
+                    إدارة كاملة لإجراءات الاستيراد والتصدير عبر جميع المنافذ السعودية.
+                </p>
+                <div class="service-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">إعداد البيانات الجمركية</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">شهادات المنشأ والمطابقة</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">تصاريح المعادن الخاصة</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">تتبع حالة الشحنة</span>
+                    </div>
+                </div>
+                <div class="service-pricing">
+                    <div class="pricing-title">التسعير</div>
+                    <div class="pricing-value">1,000 - 3,000 ر.س/شحنة</div>
+                    <div class="pricing-note">+ الرسوم الجمركية</div>
+                </div>
+                <div class="service-cta">
+                    <a href="تسجيل-الشركاء.html" class="cta-btn primary">اطلب الخدمة</a>
+                    <a href="#" class="cta-btn secondary" onclick="showDetails('customs')">التفاصيل</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. الفحص والجودة -->
+        <div class="service-card" data-service="inspection">
+            <div class="service-header">
+                <div class="service-icon">🔬</div>
+                <h2 class="service-title">الفحص والجودة</h2>
+                <p class="service-tagline">شهادات معتمدة محلياً ودولياً</p>
+            </div>
+            <div class="service-body">
+                <p class="service-desc">
+                    فحوصات مخبرية متقدمة للمعادن مع إصدار شهادات جودة معتمدة.
+                </p>
+                <div class="service-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">تحليل كيميائي (نسبة النقاء)</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">فحص فيزيائي (صلابة، شد)</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">شهادات SASO و LBMA</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">فحص في الموقع</span>
+                    </div>
+                </div>
+                <div class="service-pricing">
+                    <div class="pricing-title">التسعير</div>
+                    <div class="pricing-value">500 - 3,000 ر.س</div>
+                    <div class="pricing-note">حسب نوع الفحص</div>
+                </div>
+                <div class="service-cta">
+                    <a href="تسجيل-الشركاء.html" class="cta-btn primary">اطلب فحص</a>
+                    <a href="#" class="cta-btn secondary" onclick="showDetails('inspection')">التفاصيل</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. حلول المصانع -->
+        <div class="service-card" data-service="factory">
+            <div class="service-header">
+                <div class="service-icon">🏭</div>
+                <h2 class="service-title">حلول المصانع</h2>
+                <p class="service-tagline">توريد مضمون للمواد الخام</p>
+            </div>
+            <div class="service-body">
+                <p class="service-desc">
+                    حل متكامل للمصانع يوفر توريد مجدول للمواد الخام مع تكامل ERP.
+                </p>
+                <div class="service-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">عقود توريد طويلة الأمد</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">أسعار جملة مخفضة (5-15%)</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">توصيل Just-In-Time</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">مدير حساب مخصص</span>
+                    </div>
+                </div>
+                <div class="service-pricing">
+                    <div class="pricing-title">التسعير</div>
+                    <div class="pricing-value">2,000 - 10,000 ر.س/شهر</div>
+                    <div class="pricing-note">+ خصم على المعادن</div>
+                </div>
+                <div class="service-cta">
+                    <a href="تسجيل-الشركاء.html" class="cta-btn primary">تواصل معنا</a>
+                    <a href="#" class="cta-btn secondary" onclick="showDetails('factory')">التفاصيل</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. FBS -->
+        <div class="service-card" data-service="fbs">
+            <div class="service-header">
+                <div class="service-icon">📦</div>
+                <h2 class="service-title">FBS - التنفيذ بواسطة شيخة</h2>
+                <p class="service-tagline">نخزن ونشحن نيابة عنك</p>
+            </div>
+            <div class="service-body">
+                <p class="service-desc">
+                    شيخة تتولى التخزين والشحن بالكامل - أنت تبيع ونحن ننفذ!
+                </p>
+                <div class="service-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">شارة FBS المميزة</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">شحن سريع (1-2 يوم)</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">خدمة عملاء من شيخة</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span class="feature-text">إدارة المرتجعات</span>
+                    </div>
+                </div>
+                <div class="service-pricing">
+                    <div class="pricing-title">التسعير</div>
+                    <div class="pricing-value">30 ر.س/طن + 15 ر.س/طلب</div>
+                    <div class="pricing-note">+ تكلفة الشحن</div>
+                </div>
+                <div class="service-cta">
+                    <a href="تسجيل-تاجر.html" class="cta-btn primary">انضم لـ FBS</a>
+                    <a href="#" class="cta-btn secondary" onclick="showDetails('fbs')">التفاصيل</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <h3 class="stats-title">أرقام تتحدث عن خدماتنا</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">7</div>
+                <div class="stat-label">خدمات متكاملة</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">500+</div>
+                <div class="stat-label">عميل نشط</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">18</div>
+                <div class="stat-label">دولة مغطاة</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">99%</div>
+                <div class="stat-label">رضا العملاء</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sharia Section -->
+    <div class="sharia-section">
+        <div class="sharia-icon">☪️</div>
+        <h3 class="sharia-title">جميع الخدمات متوافقة مع الشريعة الإسلامية</h3>
+        <p class="sharia-text">
+            نلتزم بأحكام الشريعة الإسلامية في جميع تعاملاتنا - لا ربا، لا غرر، لا غش.
+            العقود واضحة وعادلة، وآليات الحماية والتوثيق مبنية على الشفافية ورفع النزاع.
+        </p>
+    </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <p class="footer-prayer">لا حول ولا قوة إلا بالله - اللهم اجعلها منظومة وسوق بركة وخير 🤲</p>
+    <div class="footer-links">
+        <a href="منظومة-شيخة.html" class="footer-link">الرئيسية</a>
+        <a href="سوق-شيخة.html" class="footer-link">السوق</a>
+        <a href="تسجيل-الشركاء.html" class="footer-link">التسجيل</a>
+        <a href="الالتزام-الشرعي.html" class="footer-link">الالتزام الشرعي</a>
+        <a href="المساعد-الذكي.html" class="footer-link">المساعد الذكي</a>
+    </div>
+</footer>
+
+<script>
+    function showDetails(service) {
+        // يمكن فتح نافذة منبثقة أو توجيه لصفحة تفاصيل
+        const services = {
+            store: 'خدمة-المتجر-الإلكتروني',
+            transport: 'خدمة-النقل-والشحن',
+            storage: 'خدمة-التخزين',
+            customs: 'خدمة-التخليص-الجمركي',
+            inspection: 'خدمة-الفحص-والجودة',
+            factory: 'خدمة-حلول-المصانع',
+            fbs: 'خدمة-FBS'
+        };
+        
+        alert(`للاطلاع على التفاصيل الكاملة، راجع الوثيقة:\ndocs/services/${services[service]}.md`);
+    }
+</script>
+
+</body>
+</html>

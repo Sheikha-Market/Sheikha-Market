@@ -1,0 +1,1472 @@
+server.js:if (generalLimiter) app.use('/api/', generalLimiter);
+server.js:    app.use('/api/auth/login', authLimiter);
+server.js:    app.use('/api/auth/register', authLimiter);
+server.js:    app.use('/api/ai/', aiLimiter);
+server.js:    app.use('/api/sheikha-ai/', aiLimiter);
+server.js:    app.use('/api/agent', unityEngine.createRouter());
+server.js:app.get('/api/project/identity', (req, res) => {
+server.js:app.get('/api/project/status', (req, res) => {
+server.js:app.get('/api/government/status/:refCode', (req, res) => {
+server.js:app.get('/api/government/entities', (req, res) => {
+server.js:app.get('/api/navigator/status', (req, res) => {
+server.js:app.get('/api/navigator/report/:env', (req, res) => {
+server.js:app.get('/api/navigator/report/text', (req, res) => {
+server.js:app.get('/api/navigator/verify', (req, res) => {
+server.js:app.get('/api/navigator/log', (req, res) => {
+server.js:app.get('/api/navigator/benchmark/cards', (req, res) => {
+server.js:app.get('/api/navigator/benchmark/plan', (req, res) => {
+server.js:app.get('/api/navigator/benchmark/summary', (req, res) => {
+server.js:app.get('/api/government/types', (req, res) => {
+server.js:app.get('/api/business-model', (req, res) => {
+server.js:app.get('/api/activation/safe/protocol', (req, res) => {
+server.js:app.get('/api/activation/safe/one-engine-plan', (req, res) => {
+server.js:app.get('/api/activation/safe/khair-mode', (req, res) => {
+server.js:app.get('/api/activation/ramadan/status', (req, res) => {
+server.js:app.get('/api/activation/transition-plan', (req, res) => {
+server.js:app.get('/api/saudiwiki/digitization/status', (req, res) => {
+server.js:app.get('/api/saudiwiki/digitization/ledger', (req, res) => {
+server.js:app.get('/api/saudiwiki/digitization/realtime', (req, res) => {
+server.js:app.get('/api/metals/encyclopedia/dashboard', (req, res) => {
+server.js:app.get('/api/metals/encyclopedia/metals', (req, res) => {
+server.js:app.get('/api/metals/encyclopedia/scrap', (req, res) => {
+server.js:app.get('/api/metals/encyclopedia/item/:id', (req, res) => {
+server.js:app.get('/api/metals/encyclopedia/production/:country', (req, res) => {
+server.js:app.get('/api/metals/encyclopedia/sources', (req, res) => {
+server.js:app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+server.js:app.get('/api/comms', (req, res) => {
+server.js:app.get('/api/comms/traffic', (req, res) => {
+server.js:app.get('/api/comms/network', (req, res) => {
+server.js:app.get('/api/comms/channel', (req, res) => {
+server.js:app.get('/api/comms/audit', (req, res) => {
+server.js:app.get('/api/ports', (req, res) => {
+server.js:app.get('/api/ports/network', (req, res) => {
+server.js:app.get('/api/marketplace/sectors', (req, res) => {
+server.js:app.get('/api/index/smi', (req, res) => {
+server.js:app.get('/api/association', (req, res) => {
+server.js:app.get('/api/association/membership', (req, res) => {
+server.js:app.get('/api/pricing/constants', (req, res) => {
+server.js:app.get('/api/pricing/variables', (req, res) => {
+server.js:app.get('/api/pricing/calculate', (req, res) => {
+server.js:app.get('/api/prices/sheikha', (req, res) => {
+server.js:app.get('/api/capacity/production', (req, res) => {
+server.js:app.get('/api/prices/logistics', (req, res) => {
+server.js:app.get('/api/logistics/calculate', (req, res) => {
+server.js:app.get('/api/currency/rates', (req, res) => {
+server.js:app.get('/api/currency/convert', (req, res) => {
+server.js:app.get('/api/market/supply-demand', (req, res) => {
+server.js:app.get('/api/business-plan', (req, res) => res.json({ success: true, plan: BUSINESS_PLAN }));
+server.js:app.get('/api/sciences/metallurgy', (req, res) =>
+server.js:app.get('/api/sciences/scrap', (req, res) => res.json({ success: true, data: SCRAP_SCIENCES }));
+server.js:app.get('/api/sciences/waste', (req, res) =>
+server.js:app.get('/api/prices', (req, res) =>
+server.js:app.get('/api/partner-api', (req, res) => {
+server.js:app.get('/api/logistics/dashboard', (req, res) => {
+server.js:app.get('/api/logistics/vehicles', (req, res) => {
+server.js:app.get('/api/logistics/iot', (req, res) => {
+server.js:app.get('/api/logistics/customs', (req, res) => {
+server.js:app.get('/api/logistics/documents', (req, res) => {
+server.js:app.get('/api/intelligence', (req, res) => {
+server.js:app.get('/api/ai/capabilities', (req, res) => {
+server.js:app.get('/api/ai/knowledge-base', (req, res) => {
+server.js:app.get('/api/ai/learning-stats', (req, res) => {
+server.js:app.get('/api/ai/unanswered', (req, res) => {
+server.js:app.get('/api/sheikha-ai/metals', (req, res) => {
+server.js:app.get('/api/sheikha-ai/metals/:metalId', (req, res) => {
+server.js:app.get('/api/sheikha-ai/supply-chain', (req, res) => {
+server.js:app.get('/api/sheikha-ai/knowledge', (req, res) => {
+server.js:app.get('/api/auth/oauth/status', (req, res) => {
+server.js:app.get('/api/me', authRequired, (req, res) => {
+server.js:app.get('/api/admin/identity-status', authRequired, (req, res) => {
+server.js:app.get('/api/notifications', authRequired, (req, res) => {
+server.js:app.get('/api/auth/authenticator-status', authRequired, (req, res) => {
+server.js:app.get('/api/auth/pin/status', authRequired, (req, res) => {
+server.js:app.get('/api/admin/verification-status', authRequired, (req, res) => {
+server.js:app.get('/api/auth/security-log', authRequired, (req, res) => {
+server.js:app.get('/api/auth/providers', (req, res) => {
+server.js:app.get('/api/auth/google', (req, res) => {
+server.js:app.get('/api/auth/google/callback', async (req, res) => {
+server.js:app.get('/api/auth/microsoft', (req, res) => {
+server.js:app.get('/api/auth/microsoft/callback', async (req, res) => {
+server.js:app.get('/api/auth/apple', (req, res) => {
+server.js:app.get('/api/auth/nafath', (req, res) => {
+server.js:app.get('/api/auth/nafath/callback', async (req, res) => {
+server.js:app.get('/api/hs-scrap-categories', (req, res) => {
+server.js:app.get('/api/supply-chain-stages', (req, res) => {
+server.js:app.get('/api/source-types', (req, res) => {
+server.js:app.get('/api/trader-specialties', (req, res) => {
+server.js:app.get('/api/registration-options', (req, res) => {
+server.js:app.get('/api/scrap-display-types', (req, res) => {
+server.js:app.get('/api/my-products', authRequired, (req, res) => {
+server.js:app.get('/api/container-types', (req, res) => {
+server.js:app.get('/api/containers', (req, res) => {
+server.js:app.get('/api/my-containers', authRequired, (req, res) => {
+server.js:app.get('/api/traders', (req, res) => {
+server.js:app.get('/api/stores', (req, res) => {
+server.js:app.get('/api/stores-by-specialty', (req, res) => {
+server.js:app.get('/api/quantities-by-store', (req, res) => {
+server.js:app.get('/api/quantities-by-type', (req, res) => {
+server.js:app.get('/api/quantities-by-region', (req, res) => {
+server.js:app.get('/api/resource-summary', (req, res) => {
+server.js:app.get('/api/market-listings', (req, res) => {
+server.js:app.get('/api/market-by-scrap-type', (req, res) => {
+server.js:app.get('/api/scrap-categories', (req, res) => {
+server.js:app.get('/api/market/products', (req, res) => {
+server.js:app.get('/api/products/:id', (req, res) => {
+server.js:app.get('/api/sheikha/compliance/treaty-resolution', (req, res) => {
+server.js:app.get('/api/market-by-stage', (req, res) => {
+server.js:app.get('/api/fbs/status', (req, res) => {
+server.js:app.get('/api/fbs/warehouses', (req, res) => {
+server.js:app.get('/api/fbs/pricing', (req, res) => {
+server.js:app.get('/api/fbs/inventory', authRequired, (req, res) => {
+server.js:app.get('/api/erp/status', (req, res) => {
+server.js:app.get('/api/erp/modules', (req, res) => {
+server.js:app.get('/api/scm/status', (req, res) => {
+server.js:app.get('/api/scm/supply-chain', (req, res) => {
+server.js:app.get('/api/scm/flow', (req, res) => {
+server.js:app.get('/api/logistics/fbs-status', (req, res) => {
+server.js:app.get('/api/prices/metals/:metal', (req, res) => {
+server.js:app.get('/api/prices/precious/:metal', (req, res) => {
+server.js:app.get('/api/prices/scrap/:type', (req, res) => {
+server.js:app.get('/api/prices/regional/:region', (req, res) => {
+server.js:app.get('/api/history/:metal/:period', (req, res) => {
+server.js:app.get('/api/prices/calculate', (req, res) => {
+server.js:app.get('/api/ai/pricing-suggestion', (req, res) => {
+server.js:app.get('/api/logistics/domestic/calculate', (req, res) => {
+server.js:app.get('/api/logistics/domestic/rates', (req, res) => {
+server.js:app.get('/api/logistics/international/calculate', (req, res) => {
+server.js:app.get('/api/logistics/international/rates', (req, res) => {
+server.js:app.get('/api/logistics/distances/saudi', (req, res) => {
+server.js:app.get('/api/logistics/live-stats', (req, res) => {
+server.js:app.get('/api/logistics/shipments', (req, res) => {
+server.js:app.get('/api/logistics/shipments/:id', (req, res) => {
+server.js:app.get('/api/logistics/iot/sensors', (req, res) => {
+server.js:app.get('/api/logistics/fleet', (req, res) => {
+server.js:app.get('/api/logistics/customs/status', (req, res) => {
+server.js:app.get('/api/shipping/companies', (req, res) => {
+server.js:app.get('/api/shipping/trucks', (req, res) => {
+server.js:app.get('/api/shipping/warehouses', (req, res) => {
+server.js:app.get('/api/shipping/find', (req, res) => {
+server.js:app.get('/api/shipping/track/:trackingNumber', (req, res) => {
+server.js:app.get('/api/marketplace/capabilities', (req, res) => {
+server.js:app.get('/api/content-config', (req, res) => {
+server.js:app.get('/api/dashboard', (req, res) => {
+server.js:app.get('/api/marketing-indicators', (req, res) => {
+server.js:app.get('/api/performance-indicators', (req, res) => {
+server.js:app.get('/api/companies', (req, res) => {
+server.js:app.get('/api/companies/:id', (req, res) => {
+server.js:app.get('/api/mines', (req, res) => {
+server.js:app.get('/api/market-analysis', (req, res) => {
+server.js:app.get('/api/supply-chain-model', (req, res) => {
+server.js:app.get('/api/digital-mining', (req, res) => {
+server.js:app.get('/api/saudi-metals-report', (req, res) => {
+server.js:app.get('/api/companies/registered', (req, res) => {
+server.js:app.get('/api/companies/registered/:id', (req, res) => {
+server.js:app.get('/api/government/employees', (req, res) => {
+server.js:app.get('/api/government/status/:refCode', (req, res) => {
+server.js:app.get('/api/government/stats', (req, res) => {
+server.js:app.get('/api/company/:id/products', (req, res) => {
+server.js:app.get('/api/company/:id/analytics', (req, res) => {
+server.js:app.get('/api/marketing/dashboard', (req, res) => {
+server.js:app.get('/api/marketing/campaigns', (req, res) => {
+server.js:app.get('/api/marketing/leads', (req, res) => {
+server.js:app.get('/api/marketing/funnel', (req, res) => {
+server.js:app.get('/api/marketing/content', (req, res) => {
+server.js:app.get('/api/marketing/channel-performance', (req, res) => {
+server.js:app.get('/api/marketing/materials', (req, res) => {
+server.js:app.get('/api/marketing/packages', (req, res) => {
+server.js:app.get('/api/marketing/packages/:id', (req, res) => {
+server.js:app.get('/api/marketing/services', (req, res) => {
+server.js:app.get('/api/marketing/addons', (req, res) => {
+server.js:app.get('/api/network/unified-goals', (req, res) => {
+server.js:app.get('/api/systems-status', (req, res) => {
+server.js:app.get('/api/programming-metrics', (req, res) => {
+server.js:app.get('/api/programming-experience', (req, res) => {
+server.js:app.get('/api/server/status', (req, res) => {
+server.js:app.get('/api/server/metrics', (req, res) => {
+server.js:app.get('/api/server/services', (req, res) => {
+server.js:app.get('/api/server/logs', (req, res) => {
+server.js:app.get('/api/server/environment', (req, res) => {
+server.js:app.get('/api/server/technologies', (req, res) => {
+server.js:app.get('/api/health/extended', (req, res) => {
+server.js:app.get('/api/ready', (req, res) => {
+server.js:app.get('/api/forum/stats', (req, res) => {
+server.js:app.get('/api/forum/topics', (req, res) => {
+server.js:app.get('/api/forum/topics/:id', (req, res) => {
+server.js:app.get('/api/forum/search', (req, res) => {
+server.js:app.get('/api/research/stats', (req, res) => {
+server.js:app.get('/api/research/papers', (req, res) => {
+server.js:app.get('/api/research/search', (req, res) => {
+server.js:app.get('/api/intelligence/insights', (req, res) => {
+server.js:app.get('/api/intelligence/stats', (req, res) => {
+server.js:app.get('/api/search/all', (req, res) => {
+server.js:app.get('/api/dashboard/kpis', (req, res) => {
+server.js:app.get('/api/dashboard/charts', (req, res) => {
+server.js:app.get('/api/dashboard/activity', (req, res) => {
+server.js:app.get('/api/dashboard/top-traders', (req, res) => {
+server.js:app.get('/api/dashboard/ai-insights', (req, res) => {
+server.js:app.get('/api/dashboard/reports', (req, res) => {
+server.js:app.get('/api/store/info', (req, res) => {
+server.js:app.get('/api/cursor/bridge', (req, res) => {
+server.js:app.get('/api/cursor/tools', (req, res) => {
+server.js:app.get('/api/vscode/bridge', (req, res) => {
+server.js:app.get('/api/vscode/tools', (req, res) => {
+server.js:app.get('/api/sheikha/reasoning/status', (req, res) => {
+server.js:app.get('/api/sheikha/reasoning/models', (req, res) => {
+server.js:app.get('/api/sheikha/ai/pair-programmer/status', (req, res) => {
+server.js:app.get('/api/sheikha/unified-integrations', (req, res) => {
+server.js:app.get('/api/sheikha/ide/status', (req, res) => {
+server.js:app.get('/api/sheikha/market/exchange/status', (req, res) => {
+server.js:app.get('/api/sheikha/market/trading-board', (req, res) => {
+server.js:app.get('/api/sheikha/sdk/market/overview', (req, res) => {
+server.js:app.get('/api/sheikha/trade-ecommerce/status', (req, res) => {
+server.js:app.get('/api/sheikha/specializations/technology-ai', (req, res) => {
+server.js:app.get('/api/sheikha/specializations/industrial-ai-tech', (req, res) => {
+server.js:app.get('/api/sheikha/specializations/systems-management', (req, res) => {
+server.js:app.get('/api/sheikha/content/islamic-governance', (req, res) => {
+server.js:app.get('/api/sheikha/market/sharia-audience-framework', (req, res) => {
+server.js:app.get('/api/sheikha/specializations/state-governance-systems', (req, res) => {
+server.js:app.get('/api/sheikha/specializations/legislative-systems', (req, res) => {
+server.js:app.get('/api/sheikha/organizations/activation', (req, res) => {
+server.js:app.get('/api/sheikha/organizations/value-architecture', (req, res) => {
+server.js:app.get('/api/sheikha/management/organization-network-toolkit', (req, res) => {
+server.js:app.get('/api/sheikha/management/organization-network-map', (req, res) => {
+server.js:app.get('/api/sheikha/design/studio', (req, res) => {
+server.js:app.get('/api/sheikha/design/commercial-network-blueprints', (req, res) => {
+server.js:app.get('/api/sheikha/design/commercial-network-blueprint/:networkId', (req, res) => {
+server.js:app.get('/api/sheikha/design/infinite-production', (req, res) => {
+server.js:app.get('/api/sheikha/background/state-systems-architecture', (req, res) => {
+server.js:app.get('/api/sheikha/background/state-systems-gap-analysis', (req, res) => {
+server.js:app.get('/api/sheikha/background/state-systems-programs', (req, res) => {
+server.js:app.get('/api/sheikha/background/state-ministries-and-authorities', (req, res) => {
+server.js:app.get('/api/sheikha/background/sovereign-treasury-and-funds', (req, res) => {
+server.js:app.get('/api/sheikha/background/historical-kingdoms-and-empires', (req, res) => {
+server.js:app.get('/api/sheikha/background/commercial-cooperation-and-sales', (req, res) => {
+server.js:app.get('/api/sheikha/management/operational-priority-feed', (req, res) => {
+server.js:app.get('/api/sheikha/background/prophetic-state-and-civilization-heritage', (req, res) => {
+server.js:app.get('/api/sheikha/background/rashidun-governance-and-civilization', (req, res) => {
+server.js:app.get('/api/sheikha/background/islamic-civilization-digitization', (req, res) => {
+server.js:app.get('/api/sheikha/background/civilizational-programs', (req, res) => {
+server.js:app.get('/api/sheikha/management/civilizational-priority-feed', (req, res) => {
+server.js:app.get('/api/sheikha/security/internal-readiness', (req, res) => {
+server.js:app.get('/api/sheikha/background/legislative-execution-programs', (req, res) => {
+server.js:app.get('/api/sheikha/background/legislative-execution-program/:programId', (req, res) => {
+server.js:app.get('/api/sheikha/specializations/parliament-and-constitution-systems', (req, res) => {
+server.js:app.get('/api/sheikha/background/state-governance-consents', (req, res) => {
+server.js:app.get('/api/sheikha/background/constitutional-programs', (req, res) => {
+server.js:app.get('/api/sheikha/background/state-entity-governance-models', (req, res) => {
+server.js:app.get('/api/sheikha/background/global-state-evaluation', (req, res) => {
+server.js:app.get('/api/sheikha/management/unified-executive-dashboard', (req, res) => {
+server.js:app.get('/api/sheikha/governance/constitutional-legislation-system', (req, res) => {
+server.js:app.get('/api/sheikha/governance/parliament-management-system', (req, res) => {
+server.js:app.get('/api/sheikha/governance/state-entity-legislative-activation', (req, res) => {
+server.js:app.get('/api/sheikha/governance/global-country-evaluation', (req, res) => {
+server.js:app.get('/api/sheikha/governance/constitutional-programs', (req, res) => {
+server.js:app.get('/api/sheikha/governance/constitutional-program/:programId', (req, res) => {
+server.js:app.get('/api/sheikha/governance/vision-programs-system', (req, res) => {
+server.js:app.get('/api/sheikha/governance/vision-programs', (req, res) => {
+server.js:app.get('/api/sheikha/specializations/rare-gap-intelligence', (req, res) => {
+server.js:app.get('/api/sheikha/specializations/blue-ocean-activation', (req, res) => {
+server.js:app.get('/api/sheikha/governance/gap-execution-plans', (req, res) => {
+server.js:app.get('/api/sheikha/governance/gap-execution-plan/:planId', (req, res) => {
+server.js:app.get('/api/sheikha/ai/neural-network-sharia-quality-gate', (req, res) => {
+server.js:app.get('/api/sheikha/system/blocked-files-diagnostics', (req, res) => {
+server.js:app.get('/api/sheikha/management/executive-brief', (req, res) => {
+server.js:app.get('/api/sheikha/management/early-warning', (req, res) => {
+server.js:app.get('/api/sheikha/management/kpis', (req, res) => {
+server.js:app.get('/api/sheikha/background/strategic-sectors', (req, res) => {
+server.js:app.get('/api/sheikha/technology/competitive-power', (req, res) => {
+server.js:app.get('/api/sheikha/blue-ocean/khair-value-framework', (req, res) => {
+server.js:app.get('/api/sheikha/pricing/prophetic-market-guidance', (req, res) => {
+server.js:app.get('/api/sheikha/economy/gap-analysis', (req, res) => {
+server.js:app.get('/api/sheikha/economy/gap-solutions', (req, res) => {
+server.js:app.get('/api/sheikha/trade-ecommerce/competitive-readiness', (req, res) => {
+server.js:app.get('/api/sheikha/market/value-added-labs', (req, res) => {
+server.js:app.get('/api/sheikha/idk/status', (req, res) => {
+server.js:app.get('/api/sheikha/mcp/status', (req, res) => {
+server.js:app.get('/api/sheikha/mpc/status', (req, res) => {
+server.js:app.get('/api/integrations/status', (req, res) => {
+server.js:app.get('/api/sheikha/integrations/google-safe-status', (req, res) => {
+server.js:app.get('/api/sheikha/integrations/cntxt-safe-status', (req, res) => {
+server.js:app.get('/api/sheikha/architecture/public-benchmark', (req, res) => {
+server.js:app.get('/api/auth/oauth/:provider', (req, res) => {
+server.js:app.get('/api/companies', (req, res) => {
+server.js:app.get('/api/companies/hs/:code', (req, res) => {
+server.js:app.get('/api/companies/search', (req, res) => {
+server.js:app.get('/api/companies/export', (req, res) => {
+server.js:app.get('/api/companies/stats', (req, res) => {
+server.js:app.get('/api/security/status', (req, res) => {
+server.js:app.get('/api/security/config', (req, res) => {
+server.js:app.get('/api/security/logs', (req, res) => {
+server.js:app.get('/api/virtual-customer', (req, res) => {
+server.js:app.get('/api/customer-journey/report', (req, res) => {
+server.js:app.get('/api/app/info', (req, res) => {
+server.js:app.get('/api/app/stats', (req, res) => {
+server.js:app.get('/api/launch/plan', (req, res) => {
+server.js:app.get('/api/communications/settings', (req, res) => {
+server.js:app.get('/api/communications/log', (req, res) => {
+server.js:app.get('/api/communications/stats', (req, res) => {
+server.js:app.get('/api/comms/dashboard', (req, res) => {
+server.js:app.get('/api/comms/channels', (req, res) => {
+server.js:app.get('/api/comms/providers', (req, res) => {
+server.js:app.get('/api/comms/templates', (req, res) => {
+server.js:app.get('/api/comms/log', (req, res) => {
+server.js:app.get('/api/ai-comms/dashboard', (req, res) => {
+server.js:app.get('/api/ai-comms/insights', (req, res) => {
+server.js:app.get('/api/ai-comms/analytics', (req, res) => {
+server.js:app.get('/api/ai-comms/collected-data', authRequired, (req, res) => {
+server.js:app.get('/api/ai-comms/foundation', (req, res) => {
+server.js:app.get('/api/ai-comms/channels', (req, res) => {
+server.js:app.get('/api/comms/islamic-foundation', (req, res) => {
+server.js:app.get('/api/channels/status', (req, res) => {
+server.js:app.get('/api/channels/summary', (req, res) => {
+server.js:app.get('/api/channels/:category', (req, res) => {
+server.js:app.get('/api/channels/sharia/foundation', (req, res) => {
+server.js:app.get('/api/hijri/today', (req, res) => {
+server.js:app.get('/api/hijri/convert/to-hijri', (req, res) => {
+server.js:app.get('/api/hijri/convert/to-gregorian', (req, res) => {
+server.js:app.get('/api/hijri/months', (req, res) => {
+server.js:app.get('/api/hijri/occasions', (req, res) => {
+server.js:app.get('/api/islamic/principles', (req, res) => {
+server.js:app.get('/api/islamic/prayer-times', (req, res) => {
+server.js:app.get('/api/islamic/prohibited', (req, res) => {
+server.js:app.get('/api/islamic/valid-sale-conditions', (req, res) => {
+server.js:app.get('/api/islamic/trade-etiquette', (req, res) => {
+server.js:app.get('/api/i18n/languages', (req, res) => {
+server.js:app.get('/api/i18n/dictionary', (req, res) => {
+server.js:app.get('/api/i18n/stats', (req, res) => {
+server.js:app.get('/api/iot/sensors', (req, res) => {
+server.js:app.get('/api/logistics/documents', (req, res) => {
+server.js:app.get('/api/research/papers', (req, res) => {
+server.js:app.get('/api/research/papers/:id', (req, res) => {
+server.js:app.get('/api/research/categories', (req, res) => {
+server.js:app.get('/api/forum/topics', (req, res) => {
+server.js:app.get('/api/forum/topics/:id', (req, res) => {
+server.js:app.get('/api/forum/experts', (req, res) => {
+server.js:app.get('/api/forum/categories', (req, res) => {
+server.js:app.get('/api/forum/search', (req, res) => {
+server.js:app.get('/api/admin/file', (req, res) => {
+server.js:app.get('/api/admin/stats', (req, res) => {
+server.js:app.get('/api/server/health', (req, res) => {
+server.js:app.get('/api/server/stats', (req, res) => {
+server.js:app.get('/api/admin/users', (req, res) => {
+server.js:app.get('/api/admin/logs', (req, res) => {
+server.js:app.get('/api/scm/kpis', (req, res) => {
+server.js:app.get('/api/scm/predictions', (req, res) => {
+server.js:app.get('/api/scm/iot', (req, res) => {
+server.js:app.get('/api/scm/blockchain', (req, res) => {
+server.js:app.get('/api/ai/conversations', (req, res) => {
+server.js:app.get('/api/ai/knowledge', (req, res) => {
+server.js:app.get('/api/shipping/companies', (req, res) => {
+server.js:app.get('/api/shipping/companies/:id', (req, res) => {
+server.js:app.get('/api/warehouses', (req, res) => {
+server.js:app.get('/api/warehouses/:id', (req, res) => {
+server.js:app.get('/api/shipments', (req, res) => {
+server.js:app.get('/api/shipments/:id/track', (req, res) => {
+server.js:app.get('/api/notifications', (req, res) => {
+server.js:app.get('/api/notifications/whatsapp-queue', (req, res) => {
+server.js:app.get('/api/notifications/templates', (req, res) => {
+server.js:app.get('/api/market/preloaded', (req, res) => {
+server.js:app.get('/api/market/preloaded/:id', (req, res) => {
+server.js:app.get('/api/market/search', (req, res) => {
+server.js:app.get('/api/market/supply-chain', (req, res) => {
+server.js:app.get('/api/market/blocks', (req, res) => {
+server.js:app.get('/api/market/gaps/:companyId', (req, res) => {
+server.js:app.get('/api/market/sectors', (req, res) => {
+server.js:app.get('/api/development/status', (req, res) => {
+server.js:app.get('/api/development/templates', (req, res) => {
+server.js:app.get('/api/development/cursor-config', (req, res) => {
+server.js:app.get('/api/development/cursor-rules', (req, res) => {
+server.js:app.get('/api/development/claude-config', (req, res) => {
+server.js:app.get('/api/sheikha/analyze-concept/:word', (req, res) => {
+server.js:app.get('/api/sheikha/greeting/:companyName', (req, res) => {
+server.js:app.get('/api/arabic/grammar/:rule', (req, res) => {
+server.js:app.get('/api/arabic/grammar', (req, res) => {
+server.js:app.get('/api/arabic/morphology', (req, res) => {
+server.js:app.get('/api/arabic/rhetoric', (req, res) => {
+server.js:app.get('/api/arabic/programming/keywords', (req, res) => {
+server.js:app.get('/api/arabic/logic', (req, res) => {
+server.js:app.get('/api/arabic/status', (req, res) => {
+server.js:app.get('/api/arabic/parse/prepositions', (req, res) => {
+server.js:app.get('/api/arabic/parse/kana-sisters', (req, res) => {
+server.js:app.get('/api/arabic/parse/inna-sisters', (req, res) => {
+server.js:app.get('/api/arabic/parse/adverbs', (req, res) => {
+server.js:app.get('/api/arabic/parse/pronouns', (req, res) => {
+server.js:app.get('/api/arabic/parse/conjunctions', (req, res) => {
+server.js:app.get('/api/arabic/parse/status', (req, res) => {
+server.js:app.get('/api/pilot/status', (req, res) => {
+server.js:app.get('/api/pilot/message', (req, res) => {
+server.js:app.get('/api/pilot/rules', (req, res) => {
+server.js:app.get('/api/pilot/kpis', (req, res) => {
+server.js:app.get('/api/pilot/smi', (req, res) => {
+server.js:app.get('/api/alml/dashboard', (req, res) => {
+server.js:app.get('/api/alml/suggestions', (req, res) => {
+server.js:app.get('/api/alml/health', (req, res) => {
+server.js:app.get('/api/production/items', (req, res) => {
+server.js:app.use('/api/auth/register', (req, res, next) => {
+server.js:app.use('/api/companies/register', (req, res, next) => {
+server.js:app.get('/api/pilot/banner', (req, res) => {
+server.js:app.get('/api/pilot/alml', (req, res) => {
+server.js:app.get('/api/pilot/suggestions', (req, res) => {
+server.js:app.get('/api/pilot/work-items', (req, res) => {
+server.js:app.get('/api/pilot/health', (req, res) => {
+server.js:app.get('/api/excellence/dashboard', (req, res) => {
+server.js:app.get('/api/excellence/scientific', (req, res) => {
+server.js:app.get('/api/excellence/commercial', (req, res) => {
+server.js:app.get('/api/excellence/technical', (req, res) => {
+server.js:app.get('/api/excellence/technical/quality', (req, res) => {
+server.js:app.get('/api/excellence/first-best', (req, res) => {
+server.js:app.get('/api/excellence/itqan', (req, res) => {
+server.js:app.get('/api/four-phase/dashboard', (req, res) => {
+server.js:app.get('/api/four-phase/current', (req, res) => {
+server.js:app.get('/api/four-phase/quality', (req, res) => {
+server.js:app.get('/api/four-phase/assess', (req, res) => {
+server.js:app.get('/api/advancement/dashboard', (req, res) => {
+server.js:app.get('/api/advancement/performance', (req, res) => {
+server.js:app.get('/api/advancement/level', (req, res) => {
+server.js:app.get('/api/advancement/governance', (req, res) => {
+server.js:app.get('/api/advancement/methodologies', (req, res) => {
+server.js:app.get('/api/advancement/strategies', (req, res) => {
+server.js:app.get('/api/advancement/scientific', (req, res) => {
+server.js:app.get('/api/advancement/technical', (req, res) => {
+server.js:app.get('/api/advancement/checklist/daily', (req, res) => {
+server.js:app.get('/api/advancement/checklist/weekly', (req, res) => {
+server.js:app.get('/api/monitor/dashboard', async (req, res) => {
+server.js:app.get('/api/monitor/check', async (req, res) => {
+server.js:app.get('/api/monitor/performance', (req, res) => {
+server.js:app.get('/api/monitor/index', (req, res) => {
+server.js:app.get('/api/monitor/alerts', (req, res) => {
+server.js:app.get('/api/monitor/health', async (req, res) => {
+server.js:app.get('/api/dim/dashboard', (req, res) => {
+server.js:app.get('/api/dim/pipeline', (req, res) => {
+server.js:app.get('/api/dim/work-items', (req, res) => {
+server.js:app.get('/api/dim/decisions', (req, res) => {
+server.js:app.get('/api/dim/kpis', (req, res) => {
+server.js:app.get('/api/dim/methodology', (req, res) => {
+server.js:app.get('/api/production/dashboard', (req, res) => {
+server.js:app.get('/api/production/work-items', (req, res) => {
+server.js:app.get('/api/production/data-sources', (req, res) => {
+server.js:app.get('/api/production/sharia-gate', (req, res) => {
+server.js:app.get('/api/production/layers', (req, res) => {
+server.js:app.get('/api/production/reports', (req, res) => {
+server.js:app.get('/api/production/goals', (req, res) => {
+server.js:app.get('/api/production/auto-status', (req, res) => {
+server.js:app.get('/api/production/dashboard', (req, res) => {
+server.js:app.get('/api/production/work-items', (req, res) => {
+server.js:app.get('/api/dim/dashboard', (req, res) => {
+server.js:app.get('/api/dim/pipeline', (req, res) => {
+server.js:app.get('/api/automation/dashboard', (req, res) => {
+server.js:app.get('/api/automation/functions', (req, res) => {
+server.js:app.get('/api/automation/workflows', (req, res) => {
+server.js:app.get('/api/automation/sitemap', (req, res) => {
+server.js:app.get('/api/automation/info-flow', (req, res) => {
+server.js:app.get('/api/automation/logs', (req, res) => {
+server.js:app.get('/api/navigator/map', (req, res) => {
+server.js:app.get('/api/experience/dashboard', (req, res) => {
+server.js:app.get('/api/experience/principles', (req, res) => {
+server.js:app.get('/api/experience/journey/:id', (req, res) => {
+server.js:app.get('/api/experience/simulate/:journeyId', (req, res) => {
+server.js:app.get('/api/gov/saudi', (req, res) => {
+server.js:app.get('/api/gov/international', (req, res) => {
+server.js:app.get('/api/gov/companies', (req, res) => {
+server.js:app.get('/api/gov/dashboard', (req, res) => {
+server.js:app.get('/api/barakah/dashboard', (req, res) => {
+server.js:app.get('/api/barakah/index', (req, res) => {
+server.js:app.get('/api/barakah/forum', (req, res) => {
+server.js:app.get('/api/barakah/financing', (req, res) => {
+server.js:app.get('/api/barakah/pillars', (req, res) => {
+server.js:app.get('/api/musharri/dashboard', (req, res) => {
+server.js:app.get('/api/musharri/consult', (req, res) => {
+server.js:app.get('/api/cosmos/dashboard', (req, res) => {
+server.js:app.get('/api/sheikha-os/dashboard', (req, res) => {
+server.js:app.get('/api/sheikha-os/spec-report', (req, res) => {
+server.js:app.get('/api/sheikha-os/supreme-laws', (req, res) => {
+server.js:app.get('/api/sheikha-os/supreme-laws/:lawId', (req, res) => {
+server.js:app.get('/api/sheikha-os/domain-specs', (req, res) => {
+server.js:app.get('/api/sheikha-os/domain-specs/:specId', (req, res) => {
+server.js:app.get('/api/sheikha-os/digital-properties', (req, res) => {
+server.js:app.get('/api/sheikha-os/measurement', (req, res) => {
+server.js:app.get('/api/sheikha-os/validate/:component', (req, res) => {
+server.js:app.get('/api/sheikha-os/editions', (req, res) => {
+server.js:app.get('/api/sheikha-os/apps', (req, res) => {
+server.js:app.get('/api/sheikha-os/roadmap', (req, res) => {
+server.js:app.get('/api/sheikha-os/security', (req, res) => {
+server.js:app.get('/api/historical/dashboard', (req, res) => {
+server.js:app.get('/api/historical/era/:eraId', (req, res) => {
+server.js:app.get('/api/historical/laws', (req, res) => {
+server.js:app.get('/api/historical/specifications', (req, res) => {
+server.js:app.get('/api/historical/events', (req, res) => {
+server.js:app.get('/api/historical/timeline', (req, res) => {
+server.js:app.get('/api/historical/search/:keyword', (req, res) => {
+server.js:app.get('/api/admin-blueprint/dashboard', (req, res) => {
+server.js:app.get('/api/admin-blueprint/sharia-governance', (req, res) => {
+server.js:app.get('/api/admin-blueprint/top-structure', (req, res) => {
+server.js:app.get('/api/admin-blueprint/sectors', (req, res) => {
+server.js:app.get('/api/admin-blueprint/engineering', (req, res) => {
+server.js:app.get('/api/admin-blueprint/roles', (req, res) => {
+server.js:app.get('/api/admin-blueprint/kpis', (req, res) => {
+server.js:app.get('/api/admin-blueprint/policies', (req, res) => {
+server.js:app.get('/api/admin-blueprint/engines', (req, res) => {
+server.js:app.get('/api/quran-trade/dashboard', (req, res) => {
+server.js:app.get('/api/quran-trade/riba', (req, res) => {
+server.js:app.get('/api/quran-trade/trade', (req, res) => {
+server.js:app.get('/api/quran-trade/weights', (req, res) => {
+server.js:app.get('/api/quran-trade/debt-verse', (req, res) => {
+server.js:app.get('/api/quran-trade/wealth', (req, res) => {
+server.js:app.get('/api/quran-trade/zakat', (req, res) => {
+server.js:app.get('/api/quran-trade/power', (req, res) => {
+server.js:app.get('/api/quran-trade/prophets', (req, res) => {
+server.js:app.get('/api/quran-trade/trust', (req, res) => {
+server.js:app.get('/api/quran-trade/all', (req, res) => {
+server.js:app.get('/api/quran-trade/search/:keyword', (req, res) => {
+server.js:app.get('/api/quran-trade/surah/:name', (req, res) => {
+server.js:app.get('/api/hadith-standards/dashboard', (req, res) => {
+server.js:app.get('/api/hadith-standards/weights-measures', (req, res) => {
+server.js:app.get('/api/hadith-standards/trade-foundations', (req, res) => {
+server.js:app.get('/api/hadith-standards/prohibitions', (req, res) => {
+server.js:app.get('/api/hadith-standards/exchange', (req, res) => {
+server.js:app.get('/api/hadith-standards/market-regulation', (req, res) => {
+server.js:app.get('/api/hadith-standards/ethics', (req, res) => {
+server.js:app.get('/api/hadith-standards/zakat', (req, res) => {
+server.js:app.get('/api/hadith-standards/hisbah', (req, res) => {
+server.js:app.get('/api/hadith-standards/all', (req, res) => {
+server.js:app.get('/api/hadith-standards/structure', (req, res) => {
+server.js:app.get('/api/hadith-standards/search/:keyword', (req, res) => {
+server.js:app.get('/api/hadith-standards/convert/:value/:from/:to', (req, res) => {
+server.js:app.get('/api/banking/dashboard', (req, res) => {
+server.js:app.get('/api/banking/central-bank', (req, res) => {
+server.js:app.get('/api/banking/exchange', (req, res) => {
+server.js:app.get('/api/banking/laws', (req, res) => {
+server.js:app.get('/api/banking/contracts', (req, res) => {
+server.js:app.get('/api/banking/sharia', (req, res) => {
+server.js:app.get('/api/banking/governance', (req, res) => {
+server.js:app.get('/api/banking/tech', (req, res) => {
+server.js:app.get('/api/capital/dashboard', (req, res) => {
+server.js:app.get('/api/capital/vision', (req, res) => {
+server.js:app.get('/api/capital/pillars', (req, res) => {
+server.js:app.get('/api/capital/zones', (req, res) => {
+server.js:app.get('/api/capital/corridors', (req, res) => {
+server.js:app.get('/api/capital/standards', (req, res) => {
+server.js:app.get('/api/capital/strategy', (req, res) => {
+server.js:app.get('/api/capital/phases', (req, res) => {
+server.js:app.get('/api/market-structure/dashboard', (req, res) => {
+server.js:app.get('/api/market-structure/org', (req, res) => {
+server.js:app.get('/api/market-structure/sections', (req, res) => {
+server.js:app.get('/api/market-structure/rules', (req, res) => {
+server.js:app.get('/api/market-structure/blueprint', (req, res) => {
+server.js:app.get('/api/market-structure/hisbah', (req, res) => {
+server.js:app.get('/api/market-structure/design', (req, res) => {
+server.js:app.get('/api/hikmah/dashboard', (req, res) => {
+server.js:app.get('/api/hikmah/foundations', (req, res) => {
+server.js:app.get('/api/hikmah/logic-layers', (req, res) => {
+server.js:app.get('/api/hikmah/wisdom-rules', (req, res) => {
+server.js:app.get('/api/hikmah/computation-types', (req, res) => {
+server.js:app.get('/api/networks/dashboard', (req, res) => {
+server.js:app.get('/api/networks/networks', (req, res) => {
+server.js:app.get('/api/networks/telecom', (req, res) => {
+server.js:app.get('/api/networks/internet', (req, res) => {
+server.js:app.get('/api/networks/mobile', (req, res) => {
+server.js:app.get('/api/networks/electricity', (req, res) => {
+server.js:app.get('/api/networks/energy', (req, res) => {
+server.js:app.get('/api/networks/keys', (req, res) => {
+server.js:app.get('/api/networks/protocols', (req, res) => {
+server.js:app.get('/api/networks/cyber', (req, res) => {
+server.js:app.get('/api/networks/sharia', (req, res) => {
+server.js:app.get('/api/petroleum/dashboard', (req, res) => {
+server.js:app.get('/api/petroleum/valuechain', (req, res) => {
+server.js:app.get('/api/petroleum/crude', (req, res) => {
+server.js:app.get('/api/petroleum/gas', (req, res) => {
+server.js:app.get('/api/petroleum/refining', (req, res) => {
+server.js:app.get('/api/petroleum/petrochemicals', (req, res) => {
+server.js:app.get('/api/petroleum/transport', (req, res) => {
+server.js:app.get('/api/petroleum/trading', (req, res) => {
+server.js:app.get('/api/petroleum/entities', (req, res) => {
+server.js:app.get('/api/petroleum/sustainability', (req, res) => {
+server.js:app.get('/api/earth/dashboard', (req, res) => {
+server.js:app.get('/api/earth/agriculture', (req, res) => {
+server.js:app.get('/api/earth/water', (req, res) => {
+server.js:app.get('/api/earth/geography', (req, res) => {
+server.js:app.get('/api/earth/geology', (req, res) => {
+server.js:app.get('/api/earth/minerals', (req, res) => {
+server.js:app.get('/api/earth/environment', (req, res) => {
+server.js:app.get('/api/earth/saudi', (req, res) => {
+server.js:app.get('/api/industry/dashboard', (req, res) => {
+server.js:app.get('/api/industry/revolutions', (req, res) => {
+server.js:app.get('/api/industry/types', (req, res) => {
+server.js:app.get('/api/industry/sectors', (req, res) => {
+server.js:app.get('/api/industry/processes', (req, res) => {
+server.js:app.get('/api/industry/quality', (req, res) => {
+server.js:app.get('/api/industry/digital', (req, res) => {
+server.js:app.get('/api/industry/safety', (req, res) => {
+server.js:app.get('/api/industry/saudi-zones', (req, res) => {
+server.js:app.get('/api/industry/green', (req, res) => {
+server.js:app.get('/api/industry/kpis', (req, res) => {
+server.js:app.get('/api/industry/emerging', (req, res) => {
+server.js:app.get('/api/industry/hr', (req, res) => {
+server.js:app.get('/api/industry/sharia', (req, res) => {
+server.js:app.get('/api/industry/saudi-manufacturing', (req, res) => {
+server.js:app.get('/api/industry/islamic-manufacturing', (req, res) => {
+server.js:app.get('/api/industry/global-manufacturing', (req, res) => {
+server.js:app.get('/api/industry/supply-chain', (req, res) => {
+server.js:app.get('/api/industry/digital-supply-chain', (req, res) => {
+server.js:app.get('/api/industry/digital-manufacturing', (req, res) => {
+server.js:app.get('/api/industry/sheikha-ai-factories', (req, res) => {
+server.js:app.get('/api/industry/ai-supply-chain', (req, res) => {
+server.js:app.get('/api/industry/ai-sharia', (req, res) => {
+server.js:app.get('/api/industry/ai-systems', (req, res) => {
+server.js:app.get('/api/industry/ai-software', (req, res) => {
+server.js:app.get('/api/industry/ai-sciences', (req, res) => {
+server.js:app.get('/api/industry/ai-methodologies', (req, res) => {
+server.js:app.get('/api/industry/ai-software-supply-chain', (req, res) => {
+server.js:app.get('/api/sharia/dashboard', (req, res) => {
+server.js:app.get('/api/sharia/quran', (req, res) => {
+server.js:app.get('/api/sharia/sunnah', (req, res) => {
+server.js:app.get('/api/sharia/aqeedah', (req, res) => {
+server.js:app.get('/api/sharia/usul', (req, res) => {
+server.js:app.get('/api/sharia/fiqh', (req, res) => {
+server.js:app.get('/api/sharia/maqasid', (req, res) => {
+server.js:app.get('/api/sharia/finance', (req, res) => {
+server.js:app.get('/api/sharia/akhlaq', (req, res) => {
+server.js:app.get('/api/sharia/seerah', (req, res) => {
+server.js:app.get('/api/sharia/digital', (req, res) => {
+server.js:app.get('/api/sharia/adhkar', (req, res) => {
+server.js:app.get('/api/sciences/dashboard', (req, res) => {
+server.js:app.get('/api/sciences/natural', (req, res) => {
+server.js:app.get('/api/sciences/applied', (req, res) => {
+server.js:app.get('/api/sciences/medical', (req, res) => {
+server.js:app.get('/api/sciences/human', (req, res) => {
+server.js:app.get('/api/sciences/technology', (req, res) => {
+server.js:app.get('/api/sciences/innovation', (req, res) => {
+server.js:app.get('/api/sciences/research', (req, res) => {
+server.js:app.get('/api/sciences/exploration', (req, res) => {
+server.js:app.get('/api/sciences/islamic-heritage', (req, res) => {
+server.js:app.get('/api/sciences/digital-platform', (req, res) => {
+server.js:app.get('/api/segments/dashboard', (req, res) => {
+server.js:app.get('/api/segments/users', (req, res) => {
+server.js:app.get('/api/segments/channels', (req, res) => {
+server.js:app.get('/api/segments/matrix', (req, res) => {
+server.js:app.get('/api/segments/sharia-marketing', (req, res) => {
+server.js:app.get('/api/community/dashboard', (req, res) => {
+server.js:app.get('/api/community/types', (req, res) => {
+server.js:app.get('/api/community/goals', (req, res) => {
+server.js:app.get('/api/community/tools', (req, res) => {
+server.js:app.get('/api/legal/dashboard', (req, res) => {
+server.js:app.get('/api/legal/saudi', (req, res) => {
+server.js:app.get('/api/legal/international', (req, res) => {
+server.js:app.get('/api/legal/organizations', (req, res) => {
+server.js:app.get('/api/legal/treaties', (req, res) => {
+server.js:app.get('/api/catalog/dashboard', (req, res) => {
+server.js:app.get('/api/catalog/engines', (req, res) => {
+server.js:app.get('/api/catalog/layers', (req, res) => {
+server.js:app.get('/api/tech/dashboard', (req, res) => {
+server.js:app.get('/api/tech/operating-systems', (req, res) => {
+server.js:app.get('/api/tech/hardware', (req, res) => {
+server.js:app.get('/api/tech/mobile', (req, res) => {
+server.js:app.get('/api/tech/automotive', (req, res) => {
+server.js:app.get('/api/tech/industrial', (req, res) => {
+server.js:app.get('/api/tech/software', (req, res) => {
+server.js:app.get('/api/tech/emerging', (req, res) => {
+server.js:app.get('/api/browser/dashboard', (req, res) => {
+server.js:app.get('/api/browser/identity', (req, res) => {
+server.js:app.get('/api/browser/core-engine', (req, res) => {
+server.js:app.get('/api/browser/sharia-filter', (req, res) => {
+server.js:app.get('/api/browser/privacy', (req, res) => {
+server.js:app.get('/api/browser/islamic-features', (req, res) => {
+server.js:app.get('/api/browser/features', (req, res) => {
+server.js:app.get('/api/browser/editions', (req, res) => {
+server.js:app.get('/api/browser/extensions', (req, res) => {
+server.js:app.get('/api/browser/roadmap', (req, res) => {
+server.js:app.get('/api/browser/sharia-guidelines', (req, res) => {
+server.js:app.get('/api/contracts/types', (req, res) => {
+server.js:app.get('/api/contracts', authRequired, (req, res) => {
+server.js:app.get('/api/contracts/:id', authRequired, (req, res) => {
+server.js:app.get('/api/orders', authRequired, (req, res) => {
+server.js:app.get('/api/my-supply-chain-stage', authRequired, (req, res) => {
+server.js:app.get('/api/circular-economy/stats', (req, res) => {
+server.js:app.get('/api/dashboard/:role', authRequired, (req, res) => {
+server.js:app.get('/api/green/dashboard', (req, res) => {
+server.js:app.get('/api/green/islamic-foundation', (req, res) => {
+server.js:app.get('/api/green/system', (req, res) => {
+server.js:app.get('/api/circular/metals', (req, res) => {
+server.js:app.get('/api/circular/system', (req, res) => {
+server.js:app.get('/api/green/contracts', (req, res) => {
+server.js:app.get('/api/green/certifications', (req, res) => {
+server.js:app.get('/api/circular/business-models', (req, res) => {
+server.js:app.get('/api/circular/kpis', (req, res) => {
+server.js:app.get('/api/green/islamic-search', (req, res) => {
+server.js:app.get('/api/circular/metal/:type', (req, res) => {
+server.js:    const aiCoreRouter = require('./routes/ai');
+server.js:    app.use('/api/ai-core', aiCoreRouter);
+server.js:app.get('/api/metals/dashboard', (req, res) => {
+server.js:app.get('/api/metals/all', (req, res) => {
+server.js:app.get('/api/metals/info/:symbol', (req, res) => {
+server.js:app.get('/api/metals/product-card/:symbol', (req, res) => {
+server.js:app.get('/api/metals/islamic-foundation', (req, res) => {
+server.js:app.get('/api/metals/precious', (req, res) => {
+server.js:app.get('/api/metals/base', (req, res) => {
+server.js:app.get('/api/metals/strategic', (req, res) => {
+server.js:app.get('/api/scrap/grades/:category', (req, res) => {
+server.js:app.get('/api/scrap/quality-standards', (req, res) => {
+server.js:app.get('/api/markets/exchanges', (req, res) => {
+server.js:app.get('/api/markets/islamic-principles', (req, res) => {
+server.js:app.get('/api/markets/riba-rules', (req, res) => {
+server.js:app.get('/api/markets/contract-types', (req, res) => {
+server.js:app.get('/api/markets/saudi', (req, res) => {
+server.js:app.get('/api/markets/units', (req, res) => {
+server.js:app.get('/api/metals/global/:key', (req, res) => {
+server.js:app.get('/api/metals/saudi/:key', (req, res) => {
+server.js:app.get('/api/metals/islamic/:key', (req, res) => {
+server.js:app.get('/api/metals/cost-chain/:key', (req, res) => {
+server.js:app.get('/api/metals/reserves/:key', (req, res) => {
+server.js:app.get('/api/metals/mining-sharia', (req, res) => {
+server.js:app.get('/api/scrap/global/dashboard', (req, res) => {
+server.js:app.get('/api/scrap/history', (req, res) => {
+server.js:app.get('/api/scrap/type/:key', (req, res) => {
+server.js:app.get('/api/scrap/all-types', (req, res) => {
+server.js:app.get('/api/scrap/smelters/:region?', (req, res) => {
+server.js:app.get('/api/scrap/equipment', (req, res) => {
+server.js:app.get('/api/scrap/saudi-locations', (req, res) => {
+server.js:app.get('/api/scrap/global-trade', (req, res) => {
+server.js:app.get('/api/scrap/contract-issues', (req, res) => {
+server.js:app.get('/api/scrap/solutions', (req, res) => {
+server.js:app.get('/api/scrap/islamic-foundation', (req, res) => {
+server.js:app.get('/api/hs/dashboard', (req, res) => {
+server.js:app.get('/api/hs/codes/:metal', (req, res) => {
+server.js:app.get('/api/hs/stage/:metal/:stage', (req, res) => {
+server.js:app.get('/api/hs/search', (req, res) => {
+server.js:app.get('/api/hs/system', (req, res) => {
+server.js:app.get('/api/metals/history', (req, res) => {
+server.js:app.get('/api/metals/history/:index', (req, res) => {
+server.js:app.get('/api/metals/quran', (req, res) => {
+server.js:app.get('/api/networks/dashboard', (req, res) => {
+server.js:app.get('/api/networks/supply-demand/:metal', (req, res) => {
+server.js:app.get('/api/networks/supply-demand', (req, res) => {
+server.js:app.get('/api/networks/network/:id', (req, res) => {
+server.js:app.get('/api/networks/all', (req, res) => {
+server.js:app.get('/api/networks/map', (req, res) => {
+server.js:app.get('/api/networks/visibility/:role', (req, res) => {
+server.js:app.get('/api/networks/search', (req, res) => {
+server.js:app.get('/api/networks/islamic', (req, res) => {
+server.js:app.get('/api/salvage/dashboard', (req, res) => {
+server.js:app.get('/api/salvage/global', (req, res) => {
+server.js:app.get('/api/salvage/saudi', (req, res) => {
+server.js:app.get('/api/salvage/recycle-chain', (req, res) => {
+server.js:app.get('/api/salvage/networks', (req, res) => {
+server.js:app.get('/api/salvage/sharia', (req, res) => {
+server.js:app.get('/api/logistics/supply-chain-dashboard', (req, res) => {
+server.js:app.get('/api/logistics/islamic', (req, res) => {
+server.js:app.get('/api/logistics/ports', (req, res) => {
+server.js:app.get('/api/logistics/airports', (req, res) => {
+server.js:app.get('/api/logistics/transport', (req, res) => {
+server.js:app.get('/api/logistics/zones', (req, res) => {
+server.js:app.get('/api/logistics/gaps', (req, res) => {
+server.js:app.get('/api/trade-history/dashboard', (req, res) => {
+server.js:app.get('/api/trade-history/cosmic-origins', (req, res) => {
+server.js:app.get('/api/trade-history/prophet-era', (req, res) => {
+server.js:app.get('/api/trade-history/modern-networks', (req, res) => {
+server.js:app.get('/api/trade-history/routes-map', (req, res) => {
+server.js:app.get('/api/trade-history/attraction-strategy', (req, res) => {
+server.js:app.get('/api/trade-history/network-analysis', (req, res) => {
+server.js:app.get('/api/leadership/dashboard', (req, res) => {
+server.js:app.get('/api/leadership/islamic', (req, res) => {
+server.js:app.get('/api/leadership/structure', (req, res) => {
+server.js:app.get('/api/leadership/organizations', (req, res) => {
+server.js:app.get('/api/leadership/caravans', (req, res) => {
+server.js:app.get('/api/leadership/networks', (req, res) => {
+server.js:app.get('/api/leadership/history', (req, res) => {
+server.js:app.get('/api/leadership/goals', (req, res) => {
+server.js:app.get('/api/leadership/governance', (req, res) => {
+server.js:app.get('/api/metals-bank/dashboard', (req, res) => {
+server.js:app.get('/api/metals-bank/islamic', (req, res) => {
+server.js:app.get('/api/metals-bank/info', (req, res) => {
+server.js:app.get('/api/metals-bank/prices', (req, res) => {
+server.js:app.get('/api/metals-bank/contracts', (req, res) => {
+server.js:app.get('/api/metals-bank/vaults', (req, res) => {
+server.js:app.get('/api/metals-bank/certificates', (req, res) => {
+server.js:app.get('/api/metals-bank/trade', (req, res) => {
+server.js:app.get('/api/metals-bank/insurance', (req, res) => {
+server.js:app.get('/api/licenses/dashboard', (req, res) => {
+server.js:app.get('/api/licenses/actual-cr', (req, res) => {
+server.js:app.get('/api/licenses/readiness', (req, res) => {
+server.js:app.get('/api/licenses/registry', (req, res) => {
+server.js:app.get('/api/licenses/essential', (req, res) => {
+server.js:app.get('/api/licenses/certificates', (req, res) => {
+server.js:app.get('/api/licenses/timeline', (req, res) => {
+server.js:app.get('/api/licenses/digital-systems', (req, res) => {
+server.js:app.get('/api/licenses/authorities', (req, res) => {
+server.js:app.get('/api/official-docs/dashboard', (req, res) => {
+server.js:app.get('/api/official-docs/ciscc', (req, res) => {
+server.js:app.get('/api/official-docs/stamps', (req, res) => {
+server.js:app.get('/api/official-docs/signatures', (req, res) => {
+server.js:app.get('/api/official-docs/letterheads', (req, res) => {
+server.js:app.get('/api/official-docs/government-forms', (req, res) => {
+server.js:app.get('/api/official-docs/commercial-forms', (req, res) => {
+server.js:app.get('/api/official-docs/internal-forms', (req, res) => {
+server.js:app.get('/api/archive/dashboard', (req, res) => {
+server.js:app.get('/api/archive/structure', (req, res) => {
+server.js:app.get('/api/archive/numbering', (req, res) => {
+server.js:app.get('/api/archive/retention', (req, res) => {
+server.js:app.get('/api/archive/compliance', (req, res) => {
+server.js:app.get('/api/archive/workflows', (req, res) => {
+server.js:app.get('/api/archive/security', (req, res) => {
+server.js:app.get('/api/archive/indexing', (req, res) => {
+server.js:app.get('/api/archive/reports', (req, res) => {
+server.js:app.get('/api/archive/proof-documents', (req, res) => {
+server.js:app.get('/api/accounting/dashboard', (req, res) => {
+server.js:app.get('/api/accounting/chart-of-accounts', (req, res) => {
+server.js:app.get('/api/accounting/financial-statements', (req, res) => {
+server.js:app.get('/api/accounting/general-ledger', (req, res) => {
+server.js:app.get('/api/accounting/automation', (req, res) => {
+server.js:app.get('/api/accounting/islamic-foundation', (req, res) => {
+server.js:app.get('/api/gov-platforms/dashboard', (req, res) => {
+server.js:app.get('/api/gov-platforms/platforms', (req, res) => {
+server.js:app.get('/api/gov-platforms/carrier-port', (req, res) => {
+server.js:app.get('/api/gov-platforms/sheikha-docs', (req, res) => {
+server.js:app.get('/api/gov-platforms/operations', (req, res) => {
+server.js:app.get('/api/gov-platforms/analytics', (req, res) => {
+server.js:app.get('/api/logistics-mgmt/dashboard', (req, res) => {
+server.js:app.get('/api/logistics-mgmt/tms', (req, res) => {
+server.js:app.get('/api/logistics-mgmt/wms', (req, res) => {
+server.js:app.get('/api/logistics-mgmt/carrier-management', (req, res) => {
+server.js:app.get('/api/logistics-mgmt/oms', (req, res) => {
+server.js:app.get('/api/logistics-mgmt/fms', (req, res) => {
+server.js:app.get('/api/logistics-mgmt/integration', (req, res) => {
+server.js:app.get('/api/logistics-mgmt/ai', (req, res) => {
+server.js:app.get('/api/logistics-mgmt/islamic-foundation', (req, res) => {
+server.js:app.get('/api/logistics-mgmt/competitive-analysis', (req, res) => {
+server.js:app.get('/api/materials/dashboard', (req, res) => {
+server.js:app.get('/api/materials/islamic-foundation', (req, res) => {
+server.js:app.get('/api/materials/catalog', (req, res) => {
+server.js:app.get('/api/materials/usage-maps', (req, res) => {
+server.js:app.get('/api/materials/standards', (req, res) => {
+server.js:app.get('/api/materials/geographic-map', (req, res) => {
+server.js:app.get('/api/materials/pricing', (req, res) => {
+server.js:app.get('/api/readiness/dashboard', (req, res) => {
+server.js:app.get('/api/readiness/saudi', (req, res) => {
+server.js:app.get('/api/readiness/international', (req, res) => {
+server.js:app.get('/api/readiness/trade-agreements', (req, res) => {
+server.js:app.get('/api/readiness/islamic-compliance', (req, res) => {
+server.js:app.get('/api/wisdom/dashboard', (req, res) => {
+server.js:app.get('/api/wisdom/islamic', (req, res) => {
+server.js:app.get('/api/wisdom/ai-power', (req, res) => {
+server.js:app.get('/api/wisdom/systems-computing', (req, res) => {
+server.js:app.get('/api/wisdom/management', (req, res) => {
+server.js:app.get('/api/wisdom/engineering-science', (req, res) => {
+server.js:app.get('/api/wisdom/integration-map', (req, res) => {
+server.js:app.get('/api/metals-impact/dashboard', (req, res) => {
+server.js:app.get('/api/metals-impact/islamic-foundation', (req, res) => {
+server.js:app.get('/api/metals-impact/usage-knowledge', (req, res) => {
+server.js:app.get('/api/metals-impact/dimensions', (req, res) => {
+server.js:app.get('/api/metals-impact/sdg-alignment', (req, res) => {
+server.js:app.get('/api/metals-impact/background-processes', (req, res) => {
+server.js:app.get('/api/metals-measure/dashboard', (req, res) => {
+server.js:app.get('/api/metals-measure/prophetic', (req, res) => {
+server.js:app.get('/api/metals-measure/comprehensive', (req, res) => {
+server.js:app.get('/api/metals-measure/classifications', (req, res) => {
+server.js:app.get('/api/metals-measure/values', (req, res) => {
+server.js:app.get('/api/metals-measure/wisdom-display', (req, res) => {
+server.js:app.get('/api/logic/dashboard', (req, res) => {
+server.js:app.get('/api/logic/quranic', (req, res) => {
+server.js:app.get('/api/logic/methodology', (req, res) => {
+server.js:app.get('/api/logic/decision-framework', (req, res) => {
+server.js:app.get('/api/logic/computational', (req, res) => {
+server.js:app.get('/api/logic/background', (req, res) => {
+server.js:app.get('/api/quantum-stats/dashboard', (req, res) => {
+server.js:app.get('/api/quantum-stats/divine', (req, res) => {
+server.js:app.get('/api/quantum-stats/cosmic-timeline', (req, res) => {
+server.js:app.get('/api/quantum-stats/earth', (req, res) => {
+server.js:app.get('/api/quantum-stats/heavens', (req, res) => {
+server.js:app.get('/api/quantum-stats/quantum-computing', (req, res) => {
+server.js:app.get('/api/quantum-stats/systems-metrics', (req, res) => {
+server.js:app.get('/api/quantum-stats/background', (req, res) => {
+server.js:app.get('/api/wisdom-fusion/dashboard', (req, res) => {
+server.js:app.get('/api/wisdom-fusion/foundations', (req, res) => {
+server.js:app.get('/api/wisdom-fusion/domains', (req, res) => {
+server.js:app.get('/api/wisdom-fusion/integration-matrix', (req, res) => {
+server.js:app.get('/api/wisdom-fusion/cross-rules', (req, res) => {
+server.js:app.get('/api/wisdom-fusion/background', (req, res) => {
+server.js:app.get('/api/quraysh/dashboard', (req, res) => {
+server.js:app.get('/api/quraysh/ilaf', (req, res) => {
+server.js:app.get('/api/quraysh/journeys', (req, res) => {
+server.js:app.get('/api/quraysh/provision', (req, res) => {
+server.js:app.get('/api/quraysh/security', (req, res) => {
+server.js:app.get('/api/quraysh/gratitude', (req, res) => {
+server.js:app.get('/api/quraysh/background', (req, res) => {
+server.js:app.get('/api/learning/dashboard', (req, res) => {
+server.js:app.get('/api/learning/divine-knowledge', (req, res) => {
+server.js:app.get('/api/learning/machine-learning', (req, res) => {
+server.js:app.get('/api/learning/wisdom', (req, res) => {
+server.js:app.get('/api/learning/human', (req, res) => {
+server.js:app.get('/api/learning/background', (req, res) => {
+server.js:app.get('/api/walaa-baraa/dashboard', (req, res) => {
+server.js:app.get('/api/walaa-baraa/walaa', (req, res) => {
+server.js:app.get('/api/walaa-baraa/baraa', (req, res) => {
+server.js:app.get('/api/walaa-baraa/shield', (req, res) => {
+server.js:app.get('/api/walaa-baraa/background', (req, res) => {
+server.js:app.get('/api/trade-legacy/dashboard', (req, res) => {
+server.js:app.get('/api/trade-legacy/historical-networks', (req, res) => {
+server.js:app.get('/api/trade-legacy/success-analysis', (req, res) => {
+server.js:app.get('/api/trade-legacy/sheikh-vision', (req, res) => {
+server.js:app.get('/api/trade-legacy/background', (req, res) => {
+server.js:app.get('/api/private/adab/dashboard', ownerAuth, (req, res) => {
+server.js:app.get('/api/private/adab/prophetic', ownerAuth, (req, res) => {
+server.js:app.get('/api/private/adab/mubah', ownerAuth, (req, res) => {
+server.js:app.get('/api/private/adab/privacy', ownerAuth, (req, res) => {
+server.js:app.get('/api/private/adab/background', ownerAuth, (req, res) => {
+server.js:app.get('/api/trust-auth/dashboard', (req, res) => {
+server.js:app.get('/api/trust-auth/islamic-trust', (req, res) => {
+server.js:app.get('/api/trust-auth/auth-system', (req, res) => {
+server.js:app.get('/api/trust-auth/trust-score', (req, res) => {
+server.js:app.get('/api/trust-auth/reliability', (req, res) => {
+server.js:app.get('/api/trust-auth/background', (req, res) => {
+server.js:app.get('/api/architecture/dashboard', (req, res) => {
+server.js:app.get('/api/architecture/foundation', (req, res) => {
+server.js:app.get('/api/architecture/layers', (req, res) => {
+server.js:app.get('/api/architecture/dataflow', (req, res) => {
+server.js:app.get('/api/architecture/infrastructure', (req, res) => {
+server.js:app.get('/api/architecture/blueprint', (req, res) => {
+server.js:app.get('/api/architecture/principles', (req, res) => {
+server.js:app.get('/api/architecture/apis', (req, res) => {
+server.js:app.get('/api/architecture/background', (req, res) => {
+server.js:app.get('/api/sheikha-os-v2/dashboard', (req, res) => {
+server.js:app.get('/api/sheikha-os-v2/competitor-analysis', (req, res) => {
+server.js:app.get('/api/sheikha-os-v2/comparison', (req, res) => {
+server.js:app.get('/api/sheikha-os-v2/architecture', (req, res) => {
+server.js:app.get('/api/sheikha-os-v2/launch-plan', (req, res) => {
+server.js:app.get('/api/sheikha-os-v2/best-run-method', (req, res) => {
+server.js:app.get('/api/sheikha-os-v2/background', (req, res) => {
+server.js:app.get('/api/customs/dashboard', (req, res) => {
+server.js:app.get('/api/customs/islamic-foundation', (req, res) => {
+server.js:app.get('/api/customs/transport-channels', (req, res) => {
+server.js:app.get('/api/customs/channel/:id', (req, res) => {
+server.js:app.get('/api/customs/clearance', (req, res) => {
+server.js:app.get('/api/customs/workflow', (req, res) => {
+server.js:app.get('/api/customs/documents', (req, res) => {
+server.js:app.get('/api/customs/booking', (req, res) => {
+server.js:app.get('/api/customs/tracking', (req, res) => {
+server.js:app.get('/api/customs/financial', (req, res) => {
+server.js:app.get('/api/customs/government', (req, res) => {
+server.js:app.get('/api/customs/integrations', (req, res) => {
+server.js:app.get('/api/customs/ai-automation', (req, res) => {
+server.js:app.get('/api/customs/digital-supply-chain', (req, res) => {
+server.js:app.get('/api/customs/blockchain', (req, res) => {
+server.js:app.get('/api/customs/statistics', (req, res) => {
+server.js:app.get('/api/customs/shipment/:id', (req, res) => {
+server.js:app.get('/api/customs/shipments', (req, res) => {
+server.js:app.get('/api/power/dashboard', (req, res) => {
+server.js:app.get('/api/power/islamic-foundation', (req, res) => {
+server.js:app.get('/api/power/all', (req, res) => {
+server.js:app.get('/api/power/background', (req, res) => {
+server.js:app.get('/api/power/statistics', (req, res) => {
+server.js:app.get('/api/power/:id', (req, res) => {
+server.js:app.get('/api/payments/dashboard', (req, res) => {
+server.js:app.get('/api/payments/methods', (req, res) => {
+server.js:app.get('/api/payments/islamic-foundation', (req, res) => {
+server.js:app.get('/api/payments/licenses', (req, res) => {
+server.js:app.get('/api/payments/timeline', (req, res) => {
+server.js:app.get('/api/payments/transparent-pricing', (req, res) => {
+server.js:app.get('/api/payments/bank-fees', (req, res) => {
+server.js:app.get('/api/payments/sharia-evidence', (req, res) => {
+server.js:app.get('/api/payments/transaction-example', (req, res) => {
+server.js:app.get('/api/payments/buyer-disclosure', (req, res) => {
+server.js:app.get('/api/payments/sharia-compliance', (req, res) => {
+server.js:app.get('/api/payments/integrations', (req, res) => {
+server.js:app.get('/api/payments/security', (req, res) => {
+server.js:app.get('/api/sunnah/governance', (req, res) => {
+server.js:app.get('/api/sunnah/hadith', (req, res) => {
+server.js:app.get('/api/sunnah/khulafaa', (req, res) => {
+server.js:app.get('/api/sunnah/background', (req, res) => {
+server.js:app.get('/api/sunnah/display-policy', (req, res) => {
+server.js:app.get('/api/sheikha/status', (req, res) => {
+server.js:app.get('/api/survey/dashboard', (req, res) => {
+server.js:app.get('/api/survey/templates', (req, res) => {
+server.js:app.get('/api/survey/system', (req, res) => {
+server.js:app.get('/api/survey/observations', (req, res) => {
+server.js:app.get('/api/ihsan/dashboard', (req, res) => {
+server.js:app.get('/api/ihsan/system', (req, res) => {
+server.js:app.get('/api/itqan-system/dashboard', (req, res) => {
+server.js:app.get('/api/itqan-system/full', (req, res) => {
+server.js:app.get('/api/quran-dhikr/dashboard', (req, res) => {
+server.js:app.get('/api/quran-dhikr/system', (req, res) => {
+server.js:app.get('/api/taqwa/dashboard', (req, res) => {
+server.js:app.get('/api/taqwa/system', (req, res) => {
+server.js:app.get('/api/markets/open/registry', (req, res) => {
+server.js:app.get('/api/markets/open/categories', (req, res) => {
+server.js:app.get('/api/markets/open/principle', (req, res) => {
+server.js:app.get('/api/markets/open/search', (req, res) => {
+server.js:app.get('/api/saudi/identity-vision', (req, res) => {
+server.js:app.get('/api/saudi/networks-policy', (req, res) => {
+server.js:app.get('/api/saudi/national-digital-core', (req, res) => {
+server.js:app.get('/api/saudi/open-information', (req, res) => {
+server.js:app.get('/api/saudi/comprehensive', (req, res) => {
+server.js:app.get('/api/sheikha/logics', (req, res) => {
+server.js:app.get('/api/sheikha/logics/list', (req, res) => {
+server.js:app.get('/api/sheikha/logics/:id', (req, res) => {
+server.js:app.get('/api/sheikha/logics/executive/full', (req, res) => {
+server.js:app.get('/api/sheikha/logics/executive/golden-rules', (req, res) => {
+server.js:app.get('/api/sheikha/logics/executive/okr', (req, res) => {
+server.js:app.get('/api/sheikha/logics/executive/blocker-protocol', (req, res) => {
+server.js:app.get('/api/sheikha/logics/executive/definition-of-done', (req, res) => {
+server.js:app.get('/api/sheikha/logics/executive/cadence', (req, res) => {
+server.js:app.get('/api/sheikha/services', (req, res) => {
+server.js:app.get('/api/sheikha/copilot/status', (req, res) => {
+server.js:app.get('/api/sheikha/copilot/models', (req, res) => {
+server.js:app.get('/api/sheikha/copilot/languages', (req, res) => {
+server.js:        codeSnippet = "app.get('/api/resource', (req, res) => {\n    res.json({ success: true, data: {}, message: '', timestamp: new Date().toISOString() });\n});";
+server.js:app.get('/api/sheikha/copilot/settings', (req, res) => {
+server.js:app.get('/api/sheikha/copilot/vscode-bridge', (req, res) => {
+server.js:app.get('/api/sheikha/copilot/extensions-sync', (req, res) => {
+server.js:app.get('/api/sheikha/copilot/extensions-live', (req, res) => {
+server.js:    const ghanayimRoutes = require('./routes/ghanayim.js');
+server.js:    app.use('/api/ghanayim', ghanayimRoutes);
+server.js:    const neuralRoutes = require('./routes/neural.js');
+server.js:    app.use('/api/neural', neuralRoutes);
+server.js:    const culturalIdentityRoutes = require('./routes/cultural-identity.js');
+server.js:    app.use('/api/cultural', culturalIdentityRoutes);
+server.js:    const malahemRoutes = require('./routes/malahem.js');
+server.js:    app.use('/api/malahem', malahemRoutes);
+server.js:    const allianceRoutes = require('./routes/alliance.js');
+server.js:    app.use('/api/alliance', allianceRoutes);
+server.js:    const enterpriseRoutes = require('./routes/enterprise.js');
+server.js:    app.use('/api/enterprise', enterpriseRoutes);
+server.js:    const apiGatewayRoutes = require('./routes/api-gateway.js');
+server.js:    app.use('/api/gateway', apiGatewayRoutes);
+server.js:    app.use('/api/', apiGateway.middleware());
+server.js:    } = require('./routes/google-integrations.js');
+server.js:    app.use('/api/ai/gemini',       geminiRouter);
+server.js:    app.use('/api/cloud',           cloudRouter);
+server.js:    app.use('/api/maps',            mapsRouter);
+server.js:    app.use('/api/analytics',       analyticsRouter);
+server.js:    app.use('/api/email',           emailRouter);
+server.js:    app.use('/api/payment/googlepay', googlePayRouter);
+server.js:    const awsRoutes = require('./routes/aws.js');
+server.js:    app.use('/api/aws', awsRoutes);
+server.js:    const cosmicCloudRoutes = require('./routes/cloud.js');
+server.js:    app.use('/api/cloud/cosmic', cosmicCloudRoutes);
+server.js:    const scmRoutes = require('./routes/scm.js');
+server.js:    app.use('/api/scm', scmRoutes);
+server.js:    const neuralAdminRoutes = require('./routes/neural-erp-scm-admin.js');
+server.js:    app.use('/api/neural-admin', neuralAdminRoutes);
+server.js:    const blockchainRoutes = require('./routes/neural-blockchain.js');
+server.js:    app.use('/api/blockchain', blockchainRoutes);
+server.js:    const shkRoutes = require('./routes/digital-currency.js');
+server.js:    app.use('/api/shk', shkRoutes);
+server.js:    const neuralOpsRoutes = require('./routes/neural-operations.js');
+server.js:    app.use('/api/neural-ops', neuralOpsRoutes);
+server.js:    const telecomRoutes = require('./routes/telecom.js');
+server.js:    app.use('/api/telecom', telecomRoutes);
+server.js:// app.use('/api/home-integration', ...) — مُعطَّل نهائياً
+server.js:    const sheikhaPrivateHomeRoutes = require('./routes/sheikha-private-home.js');
+server.js:    app.use('/api/sheikha/private-home', sheikhaPrivateHomeRoutes);
+server.js:    const sheikhaNetworkRoutes = require('./routes/sheikha-network.js');
+server.js:    app.use('/api/network', sheikhaNetworkRoutes);
+server.js:    const liveAIRoutes = require('./routes/live-ai');
+server.js:    app.use('/api/ai/live', liveAIRoutes);
+server.js:    const vitalityRoutes = require('./routes/sheikha-vitality');
+server.js:    app.use('/api/vitality', vitalityRoutes);
+server.js:    const programsRoutes = require('./routes/sheikha-programs');
+server.js:    app.use('/api/programs', programsRoutes);
+server.js:    const visionRoutes = require('./routes/sheikha-vision');
+server.js:    app.use('/api/vision', visionRoutes);
+server.js:    const spifRoutes = require('./routes/sheikha-spif');
+server.js:    app.use('/api/spif', spifRoutes);
+server.js:    const watanRoutes = require('./routes/sheikha-watan');
+server.js:    app.use('/api/watan', watanRoutes);
+server.js:    const advisoryVisionRoutes = require('./routes/advisory-vision-routes.js');
+server.js:    app.use('/api/advisory-vision', advisoryVisionRoutes);
+server.js:    const nationalVisionsRoutes = require('./routes/national-visions-routes.js');
+server.js:    app.use('/api/national-visions', nationalVisionsRoutes);
+server.js:    const computerVisionRoutes = require('./routes/computer-vision-routes.js');
+server.js:    app.use('/api/computer-vision', computerVisionRoutes);
+server.js:    const visionSystemRoutes = require('./routes/vision-system-routes.js');
+server.js:    app.use('/api/vision', visionSystemRoutes);
+server.js:    const governanceRoutes = require('./routes/governance.js');
+server.js:    app.use('/api/governance', governanceRoutes);
+server.js:    const contractsRoutes = require('./routes/contracts.js');
+server.js:    app.use('/api/contracts', contractsRoutes);
+server.js:    const supplyRoutes = require('./routes/supply.js');
+server.js:    app.use('/api/supply', supplyRoutes);
+server.js:    const sdkRoutes = require('./routes/sdk.js');
+server.js:    app.use('/api/sdk', sdkRoutes);
+server.js:    const mcpRoutes = require('./routes/mcp.js');
+server.js:    app.use('/api/mcp', mcpRoutes);
+server.js:    const cliRoutes = require('./routes/cli.js');
+server.js:    app.use('/api/cli', cliRoutes);
+server.js:    const gitRoutes = require('./routes/git.js');
+server.js:    app.use('/api/git', gitRoutes);
+server.js:    const dashboardRoutes = require('./routes/dashboard.js');
+server.js:    app.use('/api/dashboard', dashboardRoutes);
+server.js:    const sheikhaCodeRoutes = require('./routes/sheikha-coding-language.routes');
+server.js:    app.use('/api/sheikha-code', sheikhaCodeRoutes);
+server.js:    const visualRoutes = require('./routes/visual.routes');
+server.js:    app.use('/api/visual', visualRoutes);
+server.js:    const executionOrchestratorRoutes = require('./routes/execution-orchestrator.routes');
+server.js:    app.use('/api/execution-orchestrator', executionOrchestratorRoutes);
+server.js:    const cudaRoutes = require('./routes/cuda');
+server.js:    app.use('/api', cudaRoutes);
+server.js:    const govRoutes = require('./routes/governance.routes');
+server.js:    app.use('/api/governance', govRoutes);
+server.js:    const commandPipelineRoutes = require('./routes/sheikha-command-pipeline.routes');
+server.js:    app.use('/api/sheikha-pipeline', commandPipelineRoutes);
+server.js:app.get('/api/sheikha-pipeline/health', (_req, res) => {
+server.js:app.get('/api/sheikha-pipeline/status', (_req, res) => {
+server.js:    const shlNeuralRoutes = require('./routes/shl-neural.routes');
+server.js:    app.use('/api/shl-neural', shlNeuralRoutes);
+server.js:app.get('/api/shl-neural/health', (_req, res) => {
+server.js:    const masterNcnRoutes = require('./routes/master-ncn.routes');
+server.js:    app.use('/api/master-ncn', masterNcnRoutes);
+server.js:app.get('/api/master-ncn/health', (_req, res) => {
+server.js:    const protocolEventsRoutes = require('./routes/protocol-events.routes');
+server.js:    app.use('/api/protocol-events', protocolEventsRoutes);
+server.js:app.get('/api/protocol-events/health', (_req, res) => {
+server.js:app.get('/api/protocol-events/status', (_req, res) => {
+server.js:    const memoryRoutes = require('./routes/memory.routes');
+server.js:    app.use('/api/memory', memoryRoutes);
+server.js:    app.get('/api/memory/health', (_req, res) => {
+server.js:app.get('/api/network/live',   (_req, res) => res.json({ success: true, status: 'live',  service: 'network', timestamp: new Date().toISOString() }));
+server.js:app.get('/api/network/ready',  (_req, res) => res.json({ success: true, status: 'ready', service: 'network', timestamp: new Date().toISOString() }));
+server.js:app.get('/api/network/health', (_req, res) => res.json({ success: true, status: 'ok',    service: 'network', timestamp: new Date().toISOString() }));
+server.js:app.get('/api/offline/status',   (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
+server.js:app.get('/api/realtime/health',  (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
+server.js:app.get('/api/mind/dashboard', (req, res) => {
+server.js:app.get('/api/mind/search', (req, res) => {
+server.js:app.get('/api/mind/lexicon', (req, res) => {
+server.js:app.get('/api/mind/lexicon/search', (req, res) => {
+server.js:app.get('/api/quran-ai/report', (req, res) => {
+server.js:app.get('/api/quran-ai/foundation/:key', (req, res) => {
+server.js:app.get('/api/quran-ai/creation-stages', (req, res) => {
+server.js:app.get('/api/quran-ai/pairs-argument', (req, res) => {
+server.js:app.get('/api/quran-ai/genealogy', (req, res) => {
+server.js:app.get('/api/quran-ai/contributor', (req, res) => {
+server.js:app.get('/api/quran-ai/islamic-logic', (req, res) => {
+server.js:    const offlineSyncRoutes = require('./routes/offline-sync.js');
+server.js:    app.use('/api/offline', offlineSyncRoutes);
+server.js:    const networkHealthRoutes = require('./routes/network-health.js');
+server.js:    app.use('/api/network', networkHealthRoutes);
+server.js:    const realtimeRoutes = require('./routes/realtime.routes.js');
+server.js:    app.use('/api/realtime', realtimeRoutes);
+server.js:app.get('/api/governance/health', (_req, res) => res.json({ success: true, status: 'ok', service: 'governance-protocol', timestamp: new Date().toISOString() }));
+server.js:app.get('/api/governance/status', (_req, res) => res.json({ success: true, status: 'ok', service: 'governance-protocol', timestamp: new Date().toISOString() }));
+server.js:app.get('/api/network/live',      (_req, res) => res.json({ success: true, status: 'live',    service: 'network', timestamp: new Date().toISOString() }));
+server.js:app.get('/api/network/ready',     (_req, res) => res.json({ success: true, status: 'ready',   service: 'network', timestamp: new Date().toISOString() }));
+server.js:app.get('/api/network/health',    (_req, res) => res.json({ success: true, status: 'healthy', service: 'network', timestamp: new Date().toISOString() }));
+server.js:app.get('/api/offline/status',    (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
+server.js:app.get('/api/realtime/health',   (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
+lib/sheikha-integration-engine.js:        app.get('/api/integration/dashboard', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/connectors', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/one-click/options', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/oracle/config', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/oracle/audit', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/canonical-model', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/packs', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/verticals', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/tenant-governance/blueprint', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/tenant-governance/ip-policy', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/security/hardening-report', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/tenant-governance/provisioning-report', this.tenantContextMiddleware('tenant:read'), (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/saas/blueprint', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/ecosystem/blueprint', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/operating-layer/blueprint', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/operating-layer/launch-90-days', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/operating-layer/pricing', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/operating-layer/roadmap-12m', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/operating-layer/supreme-architecture', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/master/report', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/operating-layer/master-transformation', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/saas/command-center', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/ecosystem/command-center', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/operating-layer/executive-report', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/tenant-governance/me', this.tenantContextMiddleware('tenant:read'), (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/tenant-governance/security-posture', this.tenantContextMiddleware('tenant:read'), (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/tenants', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/tenants/:tenantId/connections', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/verticals/readiness', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/flows/queue', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/autonomous/status', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/sourcing/blueprint', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/sourcing/providers', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/sourcing/campaigns', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/sourcing/catalog', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/sourcing/intelligence', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/sourcing/scorecard', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/vcs/discover', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/vcs/activity', async (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/ops/executive', async (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/vcs/reports', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/reconciliation/dashboard', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/dlq', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/contract', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/charter', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/architecture/erp-systems', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/zero-key/methods', (req, res) => {
+lib/sheikha-integration-engine.js:        app.get('/api/integration/zero-key/pairing/:pairingId', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/dashboard', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/metals', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/scrap', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/scrap/sources/:sourceType', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/salvage', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/presses', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/labs', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/transport', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/ecommerce', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/digital-commerce', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/intl-trade', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/marketing', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/isri', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/sharia', (req, res) => {
+lib/sheikha-digital-commerce-network-engine.js:    app.get('/api/digital-network/ip', (req, res) => {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/dashboard', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/sharia', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/strategic-goals', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/strategic-goals/:category', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/forums', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/forums/:id', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/innovation', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/academic', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/commercial-tools', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/research-centers', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/research-centers/:id', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/digitization', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/quran-sunnah-digitization', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/maturity', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/kpis', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/dashboard', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/sharia', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/structure', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/structure/:deptId', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/execution-plan', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/execution-plan/:phaseId', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/digital-blueprint', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/ip-protection', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/ultimate-goals', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/schools', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/factories', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/ai-discovery', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/publishing', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/bayt-al-ilm/implementation', function(req, res) {
+lib/sheikha-digital-community-ecosystem.js:app.get('/api/community-ecosystem/overview', function(req, res) {
+lib/sheikha-api-gateway.js:     * استخدام: app.use('/api', gateway.middleware())
+lib/sheikha-continuous-improvement-engine.js:app.get('/api/kaizen/dashboard', (req, res) => {
+lib/sheikha-continuous-improvement-engine.js:app.get('/api/kaizen/kpis', (req, res) => {
+lib/sheikha-continuous-improvement-engine.js:app.get('/api/training/programs', (req, res) => {
+lib/sheikha-continuous-improvement-engine.js:app.get('/api/training/:id', (req, res) => {
+lib/sheikha-continuous-improvement-engine.js:app.get('/api/knowledge/domains', (req, res) => {
+lib/sheikha-continuous-improvement-engine.js:app.get('/api/knowledge/:domainId', (req, res) => {
+lib/sheikha-continuous-improvement-engine.js:app.get('/api/tech-stack', (req, res) => {
+lib/sheikha-continuous-improvement-engine.js:app.get('/api/codification', (req, res) => {
+lib/sheikha-continuous-improvement-engine.js:app.get('/api/improvement/overview', (req, res) => {
+lib/sheikha-dev-platform-engine.js:        app.get('/api/dev-platform/dashboard', (req, res) => {
+lib/sheikha-dev-platform-engine.js:        app.get('/api/dev-platform/sdk', (req, res) => {
+lib/sheikha-dev-platform-engine.js:        app.get('/api/dev-platform/mcp', (req, res) => {
+lib/sheikha-dev-platform-engine.js:        app.get('/api/dev-platform/ide', (req, res) => {
+lib/sheikha-dev-platform-engine.js:        app.get('/api/dev-platform/org', (req, res) => {
+lib/sheikha-dev-platform-engine.js:        app.get('/api/dev-platform/feasibility', (req, res) => {
+lib/sheikha-dev-platform-engine.js:        app.get('/api/dev-platform/plan', (req, res) => {
+lib/sheikha-dev-platform-engine.js:        app.get('/api/dev-platform/sharia', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/port/dashboard', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/port/saudi', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/port/vessels', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/port/aircraft', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/port/scrap-categories', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/blockchain/chains', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/blockchain/chain/:id', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/blockchain/flow/:metalId', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/ai-agents', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/ai-agents/:id', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/competitive-value', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/assets/dashboard', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/assets/trucks', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/assets/equipment', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/studies', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/studies/business-model', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/studies/admin-org', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/studies/:type', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/loyalty/program', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/identity-bot/fields', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/project-management/tools', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/engineering/tools', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/design/tools', (req, res) => {
+lib/sheikha-digital-operations-engine.js:app.get('/api/digital-ops/overview', (req, res) => {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/dashboard', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/sharia', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/circles', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/library', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/school', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/methodologies', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/innovation-factory', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/academy', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/papers', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/journal', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/ip-system', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/ai-events', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/knowledge-gaps', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/regulations', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/regulations/saudi', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/regulations/international', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/regulations/active', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/compliance-process', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/structure', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/roadmap', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/auto-codification', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/ai-feed', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/overview', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/research-network/dashboard', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/research-network/orcid-gap', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/riyad-aljannah/research-network/researchers', function(req, res) {
+lib/sheikha-riyad-aljannah-engine.js:app.get('/api/community/research/dashboard', function(req, res) {
+lib/sheikha-dashboards-engine.js:app.get('/api/dashboards/roles', (req, res) => {
+lib/sheikha-dashboards-engine.js:app.get('/api/dashboards/:roleId', (req, res) => {
+lib/sheikha-dashboards-engine.js:app.get('/api/dashboards/geo/saudi', (req, res) => {
+lib/sheikha-dashboards-engine.js:app.get('/api/dashboards/geo/peninsula', (req, res) => {
+lib/sheikha-dashboards-engine.js:app.get('/api/dashboards/geo/international', (req, res) => {
+lib/sheikha-dashboards-engine.js:app.get('/api/dashboards/gov/entities', (req, res) => {
+lib/sheikha-dashboards-engine.js:app.get('/api/dashboards/gov/companies', (req, res) => {
+lib/sheikha-dashboards-engine.js:app.get('/api/dashboards/admin/live', (req, res) => {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/dashboard', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/sharia', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/tracks', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/tracks/:id', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/courses/:id', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/tools', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/renewal-system', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/licenses', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/licenses/saudi', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/licenses/international', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/licenses/roadmap', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/marketing', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/marketing/segments', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/marketing/plan', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/marketing/tools', function(req, res) {
+lib/sheikha-educational-launchpad-engine.js:app.get('/api/edu-launchpad/pricing', function(req, res) {
+lib/sheikha-cloud-auto-integrator.js:        app.use('/api/', buildSovereignMiddleware(orchestrator));
+lib/sheikha-smart-market-engine.js:    app.get('/api/smart-market/dashboard', (req, res) => {
+lib/sheikha-smart-market-engine.js:    app.get('/api/smart-market/trust/:traderId', (req, res) => {
+lib/sheikha-smart-market-engine.js:    app.get('/api/smart-market/supply-chain', (req, res) => {
+lib/sheikha-smart-market-engine.js:    app.get('/api/smart-market/network', (req, res) => {
+lib/sheikha-smart-market-engine.js:    app.get('/api/smart-market/automation', (req, res) => {
+lib/sheikha-smart-market-engine.js:    app.get('/api/smart-market/classifications', (req, res) => {
+lib/sheikha-smart-market-engine.js:    app.get('/api/smart-market/supply-demand', (req, res) => {
+lib/sheikha-smart-market-engine.js:    app.get('/api/smart-market/ip', (req, res) => {
+lib/sheikha-translation-engine.js:        app.get('/api/translation/dashboard', (req, res) => {
+lib/sheikha-translation-engine.js:        app.get('/api/translation/languages', (req, res) => {
+lib/sheikha-translation-engine.js:        app.get('/api/translation/stats', (req, res) => {
+lib/sheikha-neural-transport-network.js:    app.get('/api/navigator/neural/status', (_req, res) => {
+lib/sheikha-neural-transport-network.js:    app.get('/api/navigator/neural/statistics', (_req, res) => {
+lib/sheikha-neural-transport-network.js:    app.get('/api/navigator/neural/nodes', (req, res) => {
+lib/sheikha-neural-transport-network.js:    app.get('/api/navigator/neural/edges', (_req, res) => {
+lib/sheikha-neural-transport-network.js:    app.get('/api/navigator/neural/types', (_req, res) => {
+lib/sheikha-neural-transport-network.js:    app.get('/api/navigator/neural/means', (_req, res) => {
+lib/sheikha-neural-transport-network.js:    app.get('/api/navigator/neural/shariah', (_req, res) => {
+lib/sheikha-neural-transport-network.js:    app.get('/api/navigator/neural/history', (req, res) => {
+lib/sheikha-neural-transport-network.js:    app.get('/api/navigator/neural/predict/:from/:to/:type', (req, res) => {
+lib/sheikha-smart-network.js:        app.get('/api/network/telemetry', (req, res) => {
+lib/sheikha-smart-network.js:        app.get('/api/network/topology', (req, res) => {
+lib/sheikha-smart-network.js:        app.get('/api/network/firewall', (req, res) => {
+lib/sheikha-smart-network.js:        app.get('/api/network/events', (req, res) => {
+lib/sheikha-smart-network.js:        app.get('/api/network/dashboard', (req, res) => {
+lib/sheikha-smart-network.js:        app.get('/api/network/firewall/blocked', (req, res) => {
+lib/sheikha-digital-identity-engine.js:        app.get('/api/identity/dashboard', (req, res) => res.json({ success: true, ...this.getDashboard() }));
+lib/sheikha-digital-identity-engine.js:        app.get('/api/identity/card', (req, res) => res.json({ success: true, card: this.digitalIdCard }));
+lib/sheikha-digital-identity-engine.js:        app.get('/api/identity/legal', (req, res) => res.json({ success: true, entity: this.legalEntity }));
+lib/sheikha-digital-identity-engine.js:        app.get('/api/identity/cr', (req, res) => res.json({ success: true, cr: this.commercialRegister }));
+lib/sheikha-digital-identity-engine.js:        app.get('/api/identity/social', (req, res) => res.json({ success: true, ...this.getSocialProfile(req.query.platform) }));
+lib/sheikha-digital-identity-engine.js:        app.get('/api/identity/autofill', (req, res) => res.json({ success: true, ...this.getAutoFillData(req.query.type) }));
+lib/sheikha-digital-identity-engine.js:        app.get('/api/identity/structured-data', (req, res) => res.json({ success: true, ...this.getStructuredData(req.query.format) }));
+lib/sheikha-digital-identity-engine.js:        app.get('/api/identity/json-ld', (req, res) => res.json(this.structuredData.jsonLd));
+lib/sheikha-digital-identity-engine.js:        app.get('/api/identity/vcard', (req, res) => { res.set('Content-Type', 'text/vcard'); res.send(this.structuredData.vCard); });
+lib/sheikha-digital-identity-engine.js:        app.get('/api/identity/knowledge', (req, res) => res.json({ success: true, sources: this.knowledgeSources }));
+lib/sheikha-digital-identity-engine.js:        app.get('/api/knowledge/wikipedia', async (req, res) => {
+lib/sheikha-digital-identity-engine.js:        app.get('/api/knowledge/saudipedia', (req, res) => {
+lib/sheikha-org-execution-engine.js:app.get('/api/org-execution/dashboard', function(req, res) {
+lib/sheikha-org-execution-engine.js:app.get('/api/org-execution/sharia', function(req,res) { res.json({success:true,data:SHARIA_GOVERNANCE}); });
+lib/sheikha-org-execution-engine.js:app.get('/api/org-execution/org-chart', function(req,res) { res.json({success:true,data:ORG_CHART}); });
+lib/sheikha-org-execution-engine.js:app.get('/api/org-execution/execution-plan', function(req,res) { res.json({success:true,data:EXECUTION_PLAN}); });
+lib/sheikha-org-execution-engine.js:app.get('/api/org-execution/execution-plan/:id', function(req,res) {
+lib/sheikha-org-execution-engine.js:app.get('/api/org-execution/ai-feed', function(req,res) { res.json({success:true,data:AI_KNOWLEDGE_FEED}); });
+lib/sheikha-org-execution-engine.js:app.get('/api/org-execution/ai-feed/sources', function(req,res) { res.json({success:true,data:AI_KNOWLEDGE_FEED.knowledge_sources}); });
+lib/sheikha-org-execution-engine.js:app.get('/api/org-execution/ai-feed/capabilities', function(req,res) { res.json({success:true,data:AI_KNOWLEDGE_FEED.ai_capabilities}); });
+lib/sheikha-org-execution-engine.js:app.get('/api/org-execution/ai-feed/pipeline', function(req,res) { res.json({success:true,data:AI_KNOWLEDGE_FEED.feeding_pipeline}); });
+lib/sheikha-org-execution-engine.js:app.get('/api/org-execution/ai-feed/digitization', function(req,res) { res.json({success:true,data:AI_KNOWLEDGE_FEED.quran_sunnah_digitization}); });
+lib/sheikha-org-execution-engine.js:app.get('/api/org-execution/self-operating', function(req,res) { res.json({success:true,data:SELF_OPERATING}); });
+lib/sheikha-digital-seed-layer.js:        app.get('/api/digital-seed/status', (req, res) => {
+lib/sheikha-digital-seed-layer.js:        app.get('/api/digital-seed/architecture', (req, res) => {
+lib/sheikha-digital-seed-layer.js:        app.get('/api/digital-seed/tech-structure', (req, res) => {
+lib/sheikha-digital-seed-layer.js:        app.get('/api/digital-seed/tech-network', (req, res) => {
+lib/sheikha-digital-seed-layer.js:        app.get('/api/digital-seed/branches', (req, res) => {
+lib/sheikha-digital-seed-layer.js:        app.get('/api/digital-seed/growth-log', (req, res) => {
+lib/sheikha-production-http-neural-architecture-engine.js:        app.get('/api/phnae/dashboard', (req, res) => {
+lib/sheikha-production-http-neural-architecture-engine.js:        app.get('/api/phnae/production-network', (req, res) => {
+lib/sheikha-production-http-neural-architecture-engine.js:        app.get('/api/phnae/http-network', (req, res) => {
+lib/sheikha-production-http-neural-architecture-engine.js:        app.get('/api/phnae/license', (req, res) => {
+lib/sheikha-production-http-neural-architecture-engine.js:        app.get('/api/phnae/networks', (req, res) => {
+lib/sheikha-production-http-neural-architecture-engine.js:        app.get('/api/phnae/complete-cell', (req, res) => {
+lib/sheikha-production-http-neural-architecture-engine.js:        app.get('/api/phnae/neural-core', (req, res) => {
+lib/sheikha-production-http-neural-architecture-engine.js:        app.get('/api/phnae/architecture-structure', (req, res) => {
+lib/sheikha-production-http-neural-architecture-engine.js:        app.get('/api/phnae/full-architecture', (req, res) => {
+lib/sheikha-production-http-neural-architecture-engine.js:        app.get('/api/phnae/status', (req, res) => {
+lib/sheikha-digital-learning-engine.js:app.get('/api/learning/dashboard', (req, res) => {
+lib/sheikha-digital-learning-engine.js:app.get('/api/learning/sharia', (req, res) => {
+lib/sheikha-digital-learning-engine.js:app.get('/api/learning/improvement', (req, res) => {
+lib/sheikha-digital-learning-engine.js:app.get('/api/learning/training', (req, res) => {
+lib/sheikha-digital-learning-engine.js:app.get('/api/learning/training/:id', (req, res) => {
+lib/sheikha-digital-learning-engine.js:app.get('/api/learning/knowledge', (req, res) => {
+lib/sheikha-digital-learning-engine.js:app.get('/api/learning/knowledge/:domain', (req, res) => {
+lib/sheikha-digital-learning-engine.js:app.get('/api/learning/devops', (req, res) => {
+lib/sheikha-digital-learning-engine.js:app.get('/api/learning/maturity', (req, res) => {
+lib/sheikha-digital-learning-engine.js:app.get('/api/learning/overview', (req, res) => {
+lib/sheikha-automation-engine.js:        app.get('/api/automation/n8n/status', (req, res) => {
+lib/sheikha-automation-engine.js:        app.get('/api/automation/events', (req, res) => {
+lib/sheikha-automation-engine.js:        app.get('/api/automation/errors', (req, res) => {
+lib/sheikha-digital-market-ecosystem.js:app.get('/api/digital-market/dashboard', (req, res) => {
+lib/sheikha-digital-market-ecosystem.js:app.get('/api/digital-market/network', (req, res) => {
+lib/sheikha-digital-market-ecosystem.js:app.get('/api/digital-market/quality-standards', (req, res) => {
+lib/sheikha-digital-market-ecosystem.js:app.get('/api/digital-market/merchant-trust/:id', (req, res) => {
+lib/sheikha-digital-market-ecosystem.js:app.get('/api/digital-market/supply-demand/:category', (req, res) => {
+lib/sheikha-digital-market-ecosystem.js:app.get('/api/digital-market/target-audiences', (req, res) => {
+lib/sheikha-digital-market-ecosystem.js:app.get('/api/digital-market/marketing-tools', (req, res) => {
+lib/sheikha-digital-market-ecosystem.js:app.get('/api/digital-market/marketing-plan', (req, res) => {
+lib/sheikha-digital-market-ecosystem.js:app.get('/api/digital-market/fulfillment', (req, res) => {
+lib/sheikha-digital-market-ecosystem.js:app.get('/api/digital-market/sharia', (req, res) => {
+lib/sheikha-digital-market-ecosystem.js:app.get('/api/digital-market/intellectual-property', (req, res) => {
+lib/sheikha-digital-market-ecosystem.js:app.get('/api/digital-market/taxonomy', (req, res) => {
+lib/sheikha-smart-structure.js:        app.get('/api/structure/org', (req, res) => {
+lib/sheikha-smart-structure.js:        app.get('/api/structure/dashboard/:role', (req, res) => {
+lib/sheikha-smart-structure.js:        app.get('/api/structure/workflows', (req, res) => {
+lib/sheikha-smart-structure.js:        app.get('/api/structure/twin/:id', (req, res) => {
+lib/sheikha-smart-structure.js:        app.get('/api/structure/agents', (req, res) => {
+lib/sheikha-smart-structure.js:        app.get('/api/structure/workflow-types', (req, res) => {
+lib/sheikha-market-launch-commerce-engine.js:        app.get('/api/launch-commerce/dashboard',   (req, res) => ok(res, self.getDashboard()));
+lib/sheikha-market-launch-commerce-engine.js:        app.get('/api/launch-commerce/policy',      (req, res) => ok(res, self.getLaunchPolicy()));
+lib/sheikha-market-launch-commerce-engine.js:        app.get('/api/launch-commerce/kpis',        (req, res) => ok(res, self.getKPIFramework()));
+lib/sheikha-market-launch-commerce-engine.js:        app.get('/api/launch-commerce/markets',     (req, res) => ok(res, self.getMarketSegments()));
+lib/sheikha-smart-architecture.js:        app.get('/api/smart/health', (req, res) => {
+lib/sheikha-smart-architecture.js:        app.get('/api/smart/scale', (req, res) => {
+lib/sheikha-smart-architecture.js:        app.get('/api/smart/learning', (req, res) => {
+lib/sheikha-smart-architecture.js:        app.get('/api/smart/dashboard', (req, res) => {
+lib/sheikha-pm-neural-cell-network.js:        app.get('/api/pm-neural/dashboard', (req, res) => {
+lib/sheikha-pm-neural-cell-network.js:        app.get('/api/pm-neural/status', (req, res) => {
+lib/sheikha-pm-neural-cell-network.js:        app.get('/api/pm-neural/pilot', (req, res) => {
+lib/sheikha-pm-neural-cell-network.js:        app.get('/api/pm-neural/cell/:pmId', (req, res) => {
+lib/sheikha-pm-neural-cell-network.js:        app.get('/api/pm-neural/definitions', (req, res) => {
+lib/sheikha-pm-neural-cell-network.js:        app.get('/api/pm-neural/log', (req, res) => {
+lib/sheikha-knowledge-engine.js:        app.get('/api/knowledge/dashboard', (req, res) => {
+lib/sheikha-knowledge-engine.js:        app.get('/api/knowledge/search', async (req, res) => {
+lib/sheikha-knowledge-engine.js:        app.get('/api/knowledge/wikipedia', async (req, res) => {
+lib/sheikha-knowledge-engine.js:        app.get('/api/knowledge/sources', (req, res) => {
+lib/sheikha-knowledge-engine.js:        app.get('/api/knowledge/articles', (req, res) => {
+lib/sheikha-knowledge-engine.js:        app.get('/api/knowledge/saudipedia', (req, res) => {
+lib/sheikha-knowledge-engine.js:        app.get('/api/knowledge/stats', (req, res) => {
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/dashboard', function(req, res) {
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/sharia', function(req,res) { res.json({success:true,data:SHARIA_FOUNDATION}); });
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/quran', function(req,res) { res.json({success:true,data:QURAN_EDUCATION}); });
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/quran/tilawah', function(req,res) { res.json({success:true,data:QURAN_EDUCATION.tilawah}); });
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/quran/tajweed', function(req,res) { res.json({success:true,data:QURAN_EDUCATION.tajweed}); });
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/quran/hifz', function(req,res) { res.json({success:true,data:QURAN_EDUCATION.hifz}); });
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/quran/advanced', function(req,res) { res.json({success:true,data:QURAN_EDUCATION.advanced}); });
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/quran/sciences', function(req,res) { res.json({success:true,data:QURAN_EDUCATION.quran_sciences}); });
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/sunnah', function(req,res) { res.json({success:true,data:SUNNAH_EDUCATION}); });
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/sharia-courses', function(req,res) { res.json({success:true,data:SHARIA_EDUCATION_SYSTEM}); });
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/tools', function(req,res) { res.json({success:true,data:DIGITAL_TOOLS}); });
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/subscriptions', function(req,res) { res.json({success:true,data:SUBSCRIPTION_SYSTEM}); });
+lib/sheikha-quran-sunnah-education.js:app.get('/api/quran-education/levels', function(req,res) { res.json({success:true,data:LEARNING_LEVELS}); });
+lib/sheikha-sovereign-network.js:        app.use('/api/', buildNoHarmMiddleware());
+lib/sheikha-sovereign-network.js:    app.use('/api/sheikha', sovereignRouter);

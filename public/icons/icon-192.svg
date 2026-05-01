@@ -1,0 +1,39 @@
+<svg viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0a0f1a"/><stop offset="100%" stop-color="#030712"/></linearGradient>
+    <linearGradient id="g" x1="20%" y1="0%" x2="80%" y2="100%"><stop offset="0%" stop-color="#FBF0C8"/><stop offset="30%" stop-color="#E8C94A"/><stop offset="60%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#A8882B"/></linearGradient>
+    <linearGradient id="gv" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#FBF0C8"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient>
+    <radialGradient id="c" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFFDE8"/><stop offset="100%" stop-color="#D4AF37"/></radialGradient>
+    <filter id="gl"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="192" height="192" rx="38" fill="url(#bg)"/>
+<!-- النجمة -->
+<polygon points="96,12 111,78 178,78 125,117 139,184 96,144 53,184 67,117 14,78 81,78" fill="url(#g)" opacity=".06"/>
+<polygon points="96,12 111,78 178,78 125,117 139,184 96,144 53,184 67,117 14,78 81,78" stroke="url(#g)" stroke-width="1.5" fill="none" opacity=".22"/>
+<!-- عمود -->
+<rect x="93" y="36" width="6" height="108" rx="3" fill="url(#g)" opacity=".45"/>
+<!-- تاج -->
+<circle cx="96" cy="34" r="8" fill="url(#gv)" filter="url(#gl)" opacity=".8"/>
+<circle cx="96" cy="34" r="4" fill="#0a0f1a" opacity=".3"/>
+<circle cx="96" cy="34" r="2" fill="url(#c)" opacity=".5"/>
+<!-- ذراع -->
+<rect x="44" y="77" width="104" height="3.5" rx="1.75" fill="url(#g)" opacity=".45"/>
+<circle cx="96" cy="78.5" r="3.5" fill="url(#gv)" opacity=".4"/>
+<!-- الكفة اليمنى -->
+<line x1="52" y1="78.5" x2="46" y2="108" stroke="url(#g)" stroke-width="1.2" opacity=".35"/>
+<line x1="74" y1="78.5" x2="80" y2="108" stroke="url(#g)" stroke-width="1.2" opacity=".35"/>
+<path d="M42,108 C45,122 63,125 63,125 C63,125 81,122 84,108 Z" fill="rgba(212,175,55,.06)" stroke="url(#g)" stroke-width="1.5" opacity=".4"/>
+<!-- الكفة اليسرى -->
+<line x1="118" y1="78.5" x2="112" y2="108" stroke="url(#g)" stroke-width="1.2" opacity=".35"/>
+<line x1="140" y1="78.5" x2="146" y2="108" stroke="url(#g)" stroke-width="1.2" opacity=".35"/>
+<path d="M108,108 C111,122 129,125 129,125 C129,125 147,122 150,108 Z" fill="rgba(212,175,55,.06)" stroke="url(#g)" stroke-width="1.5" opacity=".4"/>
+<!-- جوهرة -->
+<polygon points="96,58 110,96 96,134 82,96" fill="rgba(212,175,55,.04)" stroke="url(#g)" stroke-width="1" opacity=".3"/>
+<circle cx="96" cy="96" r="9" fill="url(#c)" filter="url(#gl)" opacity=".8"/>
+<circle cx="96" cy="96" r="4" fill="#FFFDE8" opacity=".3"/>
+<!-- قاعدة -->
+<rect x="74" y="144" width="44" height="3.5" rx="1.75" fill="url(#g)" opacity=".45"/>
+<rect x="68" y="150" width="56" height="3" rx="1.5" fill="url(#g)" opacity=".28"/>
+<!-- نص -->
+<text x="96" y="174" font-family="Cairo,sans-serif" font-size="12" fill="url(#g)" text-anchor="middle" opacity=".3" font-weight="900" letter-spacing="3">شيخة</text>
+</svg>

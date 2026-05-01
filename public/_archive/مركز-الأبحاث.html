@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مختبر شيخة للأبحاث - مركز علمي متكامل للبحوث والدراسات في المعادن والسكراب وسلاسل الإمداد">
+    <title>مختبر الأبحاث العلمي | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --cyan: #06b6d4;
+            --pink: #ec4899;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --card-hover: #111b2e;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --shadow-glow: 0 0 40px rgba(139,92,246,0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+            50% { box-shadow: 0 0 40px rgba(139,92,246,0.5); }
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--purple), var(--cyan));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            animation: pulse-glow 3s infinite;
+        }
+        .logo-text {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+        .logo-text span { color: var(--purple); }
+        .nav {
+            display: flex;
+            gap: 8px;
+        }
+        .nav-link {
+            padding: 10px 18px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--purple);
+            background: rgba(139,92,246,0.1);
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.9rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-purple {
+            background: linear-gradient(135deg, var(--purple), #6366f1);
+            color: white;
+        }
+        .btn-purple:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(139,92,246,0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--purple);
+            color: var(--purple);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 32px;
+            background: linear-gradient(180deg, var(--card) 0%, var(--dark) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(139,92,246,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 40% 30% at 20% 80%, rgba(6,182,212,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse 40% 30% at 80% 80%, rgba(236,72,153,0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hero-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--purple), var(--cyan));
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 24px;
+            animation: float 4s ease-in-out infinite;
+            box-shadow: var(--shadow-glow);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(139,92,246,0.15);
+            border: 1px solid rgba(139,92,246,0.3);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: 24px;
+        }
+        .hero-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+        .hero-title span { 
+            background: linear-gradient(135deg, var(--purple), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 32px;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat-value {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Main */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 48px 32px;
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title span { color: var(--purple); }
+
+        /* Lab Workspace */
+        .lab-workspace {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            margin-bottom: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+        .lab-workspace::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .lab-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .lab-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .lab-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .lab-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .lab-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .lab-tab {
+            padding: 12px 24px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .lab-tab:hover, .lab-tab.active {
+            border-color: var(--purple);
+            color: var(--purple);
+            background: rgba(139,92,246,0.1);
+        }
+        .lab-content {
+            display: none;
+        }
+        .lab-content.active {
+            display: block;
+        }
+
+        /* Search Lab */
+        .search-lab {
+            background: rgba(0,0,0,0.3);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .search-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 16px 24px;
+            background: rgba(0,0,0,0.4);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--purple);
+            box-shadow: 0 0 20px rgba(139,92,246,0.2);
+        }
+        .search-filters {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .filter-chip {
+            padding: 8px 16px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .filter-chip:hover, .filter-chip.active {
+            border-color: var(--purple);
+            color: var(--purple);
+            background: rgba(139,92,246,0.1);
+        }
+
+        /* AI Research Assistant */
+        .ai-assistant {
+            background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(6,182,212,0.1));
+            border: 1px solid rgba(139,92,246,0.3);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+        }
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .ai-avatar {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--purple), var(--cyan));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .ai-info h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+        .ai-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .ai-status {
+            margin-right: auto;
+            padding: 6px 12px;
+            background: rgba(16,185,129,0.15);
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .ai-status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse-glow 2s infinite;
+        }
+        .ai-input-area {
+            display: flex;
+            gap: 12px;
+        }
+        .ai-input {
+            flex: 1;
+            padding: 14px 20px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .ai-input:focus {
+            outline: none;
+            border-color: var(--purple);
+        }
+        .ai-suggestions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .ai-suggestion {
+            padding: 8px 16px;
+            background: rgba(139,92,246,0.1);
+            border: 1px solid rgba(139,92,246,0.3);
+            border-radius: 999px;
+            color: var(--purple);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .ai-suggestion:hover {
+            background: rgba(139,92,246,0.2);
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .tool-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--purple), var(--cyan));
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .tool-card:hover {
+            border-color: var(--purple);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+        }
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+        .tool-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 12px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .tool-icon.analysis { background: rgba(139,92,246,0.15); }
+        .tool-icon.data { background: rgba(6,182,212,0.15); }
+        .tool-icon.ai { background: rgba(236,72,153,0.15); }
+        .tool-icon.report { background: rgba(16,185,129,0.15); }
+        .tool-icon.predict { background: rgba(245,158,11,0.15); }
+        .tool-icon.compare { background: rgba(59,130,246,0.15); }
+        .tool-icon.collab { background: rgba(212,175,55,0.15); }
+        .tool-icon.visual { background: rgba(239,68,68,0.15); }
+        .tool-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .tool-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .tool-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 4px 8px;
+            background: rgba(139,92,246,0.2);
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--purple);
+        }
+
+        /* Research Areas */
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+        .area-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .area-card:hover {
+            border-color: var(--purple);
+            transform: translateY(-4px);
+        }
+        .area-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .area-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .area-icon.metals { background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.1)); }
+        .area-icon.scm { background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(6,182,212,0.1)); }
+        .area-icon.env { background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(16,185,129,0.1)); }
+        .area-icon.ai { background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(139,92,246,0.1)); }
+        .area-icon.eco { background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(59,130,246,0.1)); }
+        .area-icon.policy { background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.1)); }
+        .area-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+        .area-count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .area-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .area-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .area-tag {
+            padding: 4px 10px;
+            background: rgba(139,92,246,0.1);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--purple);
+        }
+
+        /* Papers List */
+        .papers-section {
+            margin-bottom: 48px;
+        }
+        .papers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .paper-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: var(--transition);
+        }
+        .paper-card:hover {
+            border-color: rgba(139,92,246,0.5);
+        }
+        .paper-type {
+            display: inline-flex;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .paper-type.research { background: rgba(139,92,246,0.15); color: var(--purple); }
+        .paper-type.study { background: rgba(6,182,212,0.15); color: var(--cyan); }
+        .paper-type.report { background: rgba(16,185,129,0.15); color: var(--success); }
+        .paper-type.analysis { background: rgba(212,175,55,0.15); color: var(--gold); }
+        .paper-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .paper-authors {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .paper-abstract {
+            font-size: 0.85rem;
+            color: var(--text-faint);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .paper-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+        .paper-date {
+            font-size: 0.8rem;
+            color: var(--text-faint);
+        }
+        .paper-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .paper-btn {
+            padding: 6px 12px;
+            background: rgba(139,92,246,0.1);
+            border: 1px solid rgba(139,92,246,0.3);
+            border-radius: 6px;
+            color: var(--purple);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .paper-btn:hover {
+            background: rgba(139,92,246,0.2);
+        }
+
+        /* Submit Section */
+        .submit-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+        }
+        .submit-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .submit-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .submit-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .submit-form {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--purple);
+        }
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Community Section */
+        .community-section {
+            background: linear-gradient(135deg, rgba(139,92,246,0.05), rgba(6,182,212,0.05));
+            border: 1px solid rgba(139,92,246,0.2);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .community-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+        .community-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+        .community-features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+        .community-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .community-feature-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(139,92,246,0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .tools-grid { grid-template-columns: repeat(2, 1fr); }
+            .areas-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .hero { padding: 60px 20px; }
+            .main { padding: 32px 20px; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .areas-grid { grid-template-columns: 1fr; }
+            .papers-grid { grid-template-columns: 1fr; }
+            .search-row { flex-direction: column; }
+            .form-row { grid-template-columns: 1fr; }
+            .hero-stats { gap: 24px; }
+            .community-features { flex-direction: column; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🔬</div>
+                <span class="logo-text">مختبر <span>شيخة</span> العلمي</span>
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">الرئيسية</a>
+                <a href="السوق.html" class="nav-link">السوق</a>
+                <a href="المنتدى.html" class="nav-link">المنتدى</a>
+                <a href="مركز-الأبحاث.html" class="nav-link active">المختبر</a>
+                <a href="مساعد-شيخة.html" class="nav-link">المساعد</a>
+            </nav>
+            <div style="display: flex; gap: 10px;">
+                <a href="#submit" class="btn btn-purple">📄 نشر بحث</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-icon">🧪</div>
+            <div class="hero-badge">🎓 مركز بحثي متكامل</div>
+            <h1 class="hero-title">مختبر <span>شيخة</span> للأبحاث العلمية</h1>
+            <p class="hero-desc">
+                مختبر علمي ذكي متكامل يجمع الباحثين والأكاديميين والمهتمين بالبحث العلمي
+                في مجالات المعادن وسلاسل الإمداد والاستدامة البيئية، مع أدوات بحث متقدمة مدعومة بالذكاء الاصطناعي
+            </p>
+            <div class="hero-stats" id="researchStats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value" id="statPapers">0</div>
+                    <div class="hero-stat-label">بحث منشور</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value" id="statResearchers">0</div>
+                    <div class="hero-stat-label">باحث</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value" id="statViews">0</div>
+                    <div class="hero-stat-label">مشاهدة</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value" id="statDownloads">0</div>
+                    <div class="hero-stat-label">تحميل</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main -->
+    <main class="main">
+        <!-- Lab Workspace -->
+        <section class="lab-workspace">
+            <div class="lab-header">
+                <div class="lab-icon">🧬</div>
+                <div>
+                    <div class="lab-title">مساحة العمل البحثية</div>
+                    <div class="lab-desc">أدوات متقدمة للبحث والتحليل والتجربة العلمية</div>
+                </div>
+            </div>
+            
+            <div class="lab-tabs">
+                <div class="lab-tab active" onclick="switchLabTab('search')">🔍 البحث المتقدم</div>
+                <div class="lab-tab" onclick="switchLabTab('ai')">🤖 مساعد البحث الذكي</div>
+                <div class="lab-tab" onclick="switchLabTab('data')">📊 تحليل البيانات</div>
+                <div class="lab-tab" onclick="switchLabTab('experiment')">🧪 المختبر التجريبي</div>
+            </div>
+
+            <!-- Search Tab -->
+            <div class="lab-content active" id="lab-search">
+                <div class="search-lab">
+                    <div class="search-row">
+                        <input type="text" class="search-input" id="researchSearch" placeholder="ابحث في الأوراق العلمية، الدراسات، التقارير، البيانات...">
+                        <button class="btn btn-purple" onclick="searchResearch()">🔍 بحث</button>
+                    </div>
+                    <div class="search-filters">
+                        <span class="filter-chip active">الكل</span>
+                        <span class="filter-chip">أوراق علمية</span>
+                        <span class="filter-chip">دراسات</span>
+                        <span class="filter-chip">تقارير</span>
+                        <span class="filter-chip">بيانات</span>
+                        <span class="filter-chip">2025</span>
+                        <span class="filter-chip">2024</span>
+                        <span class="filter-chip">محكّمة</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Tab -->
+            <div class="lab-content" id="lab-ai">
+                <div class="ai-assistant">
+                    <div class="ai-header">
+                        <div class="ai-avatar">🤖</div>
+                        <div class="ai-info">
+                            <h3>مساعد البحث الذكي</h3>
+                            <p>مدعوم بالذكاء الاصطناعي لمساعدتك في البحث العلمي</p>
+                        </div>
+                        <div class="ai-status">متصل</div>
+                    </div>
+                    <div class="ai-input-area">
+                        <input type="text" class="ai-input" id="aiResearchInput" placeholder="اسأل عن أي موضوع بحثي أو اطلب مساعدة في البحث...">
+                        <button class="btn btn-purple" onclick="askResearchAI()">إرسال</button>
+                    </div>
+                    <div class="ai-suggestions">
+                        <span class="ai-suggestion" onclick="setAIQuery('ما هي أحدث الدراسات عن إعادة تدوير النحاس؟')">أحدث دراسات تدوير النحاس</span>
+                        <span class="ai-suggestion" onclick="setAIQuery('كيف أكتب منهجية بحث عن سلاسل الإمداد؟')">منهجية بحث SCM</span>
+                        <span class="ai-suggestion" onclick="setAIQuery('ما هي مصادر البيانات لأسعار المعادن؟')">مصادر بيانات الأسعار</span>
+                        <span class="ai-suggestion" onclick="setAIQuery('اقترح موضوع بحث عن الاستدامة')">اقتراح موضوع بحث</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Tab -->
+            <div class="lab-content" id="lab-data">
+                <div style="text-align: center; padding: 40px;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">📊</div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 8px;">أدوات تحليل البيانات</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 24px;">حلل البيانات البحثية، أنشئ الرسوم البيانية، واستخرج الرؤى</p>
+                    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                        <button class="btn btn-outline">📈 تحليل إحصائي</button>
+                        <button class="btn btn-outline">📉 رسوم بيانية</button>
+                        <button class="btn btn-outline">🔢 معالجة بيانات</button>
+                        <button class="btn btn-outline">📥 استيراد بيانات</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Experiment Tab -->
+            <div class="lab-content" id="lab-experiment">
+                <div style="text-align: center; padding: 40px;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">🧪</div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 8px;">المختبر التجريبي</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 24px;">جرّب النماذج، اختبر الفرضيات، وشارك نتائجك مع المجتمع العلمي</p>
+                    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                        <button class="btn btn-outline">🧬 محاكاة نموذج</button>
+                        <button class="btn btn-outline">⚗️ تجربة جديدة</button>
+                        <button class="btn btn-outline">📋 قالب بحث</button>
+                        <button class="btn btn-outline">👥 تعاون بحثي</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Tools -->
+        <section class="section-header">
+            <h2 class="section-title">🛠️ أدوات <span>البحث</span> المتقدمة</h2>
+        </section>
+        <div class="tools-grid">
+            <div class="tool-card" onclick="openTool('price-analyzer')">
+                <span class="tool-badge">AI</span>
+                <div class="tool-icon analysis">📊</div>
+                <div class="tool-name">محلل الأسعار</div>
+                <div class="tool-desc">تحليل تاريخي وتوقعات الأسعار بالذكاء الاصطناعي</div>
+            </div>
+            <div class="tool-card" onclick="openTool('data-collector')">
+                <span class="tool-badge">جديد</span>
+                <div class="tool-icon data">📥</div>
+                <div class="tool-name">جامع البيانات</div>
+                <div class="tool-desc">جمع آلي من مصادر متعددة وموثوقة</div>
+            </div>
+            <div class="tool-card" onclick="openTool('ai-writer')">
+                <span class="tool-badge">AI</span>
+                <div class="tool-icon ai">✍️</div>
+                <div class="tool-name">كاتب البحث الذكي</div>
+                <div class="tool-desc">مساعدة في كتابة وتنسيق الأبحاث</div>
+            </div>
+            <div class="tool-card" onclick="openTool('report-generator')">
+                <div class="tool-icon report">📄</div>
+                <div class="tool-name">مولد التقارير</div>
+                <div class="tool-desc">إنشاء تقارير احترافية تلقائياً</div>
+            </div>
+            <div class="tool-card" onclick="openTool('predictor')">
+                <span class="tool-badge">AI</span>
+                <div class="tool-icon predict">🔮</div>
+                <div class="tool-name">التنبؤ والتوقعات</div>
+                <div class="tool-desc">توقعات السوق والاتجاهات المستقبلية</div>
+            </div>
+            <div class="tool-card" onclick="openTool('comparator')">
+                <div class="tool-icon compare">⚖️</div>
+                <div class="tool-name">المقارنة والتحليل</div>
+                <div class="tool-desc">مقارنة دراسات وبيانات مختلفة</div>
+            </div>
+            <div class="tool-card" onclick="openTool('collaboration')">
+                <div class="tool-icon collab">👥</div>
+                <div class="tool-name">التعاون البحثي</div>
+                <div class="tool-desc">مشاركة وتعاون مع باحثين آخرين</div>
+            </div>
+            <div class="tool-card" onclick="openTool('visualization')">
+                <div class="tool-icon visual">📈</div>
+                <div class="tool-name">التصور البصري</div>
+                <div class="tool-desc">رسوم بيانية وتمثيلات بصرية</div>
+            </div>
+        </div>
+
+        <!-- Research Areas -->
+        <section class="section-header">
+            <h2 class="section-title">📚 مجالات <span>البحث</span></h2>
+        </section>
+        <div class="areas-grid">
+            <div class="area-card">
+                <div class="area-header">
+                    <div class="area-icon metals">🔩</div>
+                    <div>
+                        <div class="area-name">علوم المعادن والسكراب</div>
+                        <div class="area-count">45 بحث • 12.3K مشاهدة</div>
+                    </div>
+                </div>
+                <div class="area-desc">أبحاث في خصائص المعادن، تصنيف السكراب، معايير الجودة ISRI، تقنيات الفرز والمعالجة</div>
+                <div class="area-tags">
+                    <span class="area-tag">HMS</span>
+                    <span class="area-tag">نحاس</span>
+                    <span class="area-tag">ألمنيوم</span>
+                    <span class="area-tag">ISRI</span>
+                </div>
+            </div>
+            <div class="area-card">
+                <div class="area-header">
+                    <div class="area-icon scm">🔗</div>
+                    <div>
+                        <div class="area-name">سلاسل الإمداد والتوريد</div>
+                        <div class="area-count">38 بحث • 9.8K مشاهدة</div>
+                    </div>
+                </div>
+                <div class="area-desc">دراسات في إدارة سلاسل الإمداد، اللوجستيات، التحسين المستمر، نظرية القيود</div>
+                <div class="area-tags">
+                    <span class="area-tag">SCM</span>
+                    <span class="area-tag">لوجستيات</span>
+                    <span class="area-tag">ERP</span>
+                    <span class="area-tag">TOC</span>
+                </div>
+            </div>
+            <div class="area-card">
+                <div class="area-header">
+                    <div class="area-icon env">♻️</div>
+                    <div>
+                        <div class="area-name">البيئة والاستدامة</div>
+                        <div class="area-count">52 بحث • 15.6K مشاهدة</div>
+                    </div>
+                </div>
+                <div class="area-desc">أبحاث الاستدامة، الاقتصاد الدائري، تقليل الانبعاثات، ESG</div>
+                <div class="area-tags">
+                    <span class="area-tag">تدوير</span>
+                    <span class="area-tag">ESG</span>
+                    <span class="area-tag">كربون</span>
+                    <span class="area-tag">استدامة</span>
+                </div>
+            </div>
+            <div class="area-card">
+                <div class="area-header">
+                    <div class="area-icon ai">🤖</div>
+                    <div>
+                        <div class="area-name">التقنية والذكاء الاصطناعي</div>
+                        <div class="area-count">29 بحث • 18.2K مشاهدة</div>
+                    </div>
+                </div>
+                <div class="area-desc">تطبيقات AI في المعادن، blockchain، IoT، الأتمتة الذكية</div>
+                <div class="area-tags">
+                    <span class="area-tag">AI</span>
+                    <span class="area-tag">Blockchain</span>
+                    <span class="area-tag">IoT</span>
+                    <span class="area-tag">أتمتة</span>
+                </div>
+            </div>
+            <div class="area-card">
+                <div class="area-header">
+                    <div class="area-icon eco">💰</div>
+                    <div>
+                        <div class="area-name">اقتصاديات المعادن</div>
+                        <div class="area-count">34 بحث • 22.1K مشاهدة</div>
+                    </div>
+                </div>
+                <div class="area-desc">تحليل الأسواق، توقعات الأسعار، دراسات الجدوى، التجارة الدولية</div>
+                <div class="area-tags">
+                    <span class="area-tag">LME</span>
+                    <span class="area-tag">أسعار</span>
+                    <span class="area-tag">تجارة</span>
+                    <span class="area-tag">جدوى</span>
+                </div>
+            </div>
+            <div class="area-card">
+                <div class="area-header">
+                    <div class="area-icon policy">📜</div>
+                    <div>
+                        <div class="area-name">السياسات والتشريعات</div>
+                        <div class="area-count">21 بحث • 7.4K مشاهدة</div>
+                    </div>
+                </div>
+                <div class="area-desc">قوانين التجارة، اللوائح البيئية، رؤية 2030، الاتفاقيات الدولية</div>
+                <div class="area-tags">
+                    <span class="area-tag">رؤية 2030</span>
+                    <span class="area-tag">لوائح</span>
+                    <span class="area-tag">تصدير</span>
+                    <span class="area-tag">استيراد</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Community -->
+        <section class="community-section">
+            <h2 class="community-title">🌐 مجتمع البحث العلمي</h2>
+            <p class="community-desc">
+                انضم إلى مجتمع من الباحثين والأكاديميين والمهتمين بالعلوم،
+                شارك أبحاثك، تعاون مع الآخرين، واستفد من الخبرات المتنوعة
+            </p>
+            <div class="community-features">
+                <div class="community-feature">
+                    <div class="community-feature-icon">👥</div>
+                    <span>نقاشات علمية</span>
+                </div>
+                <div class="community-feature">
+                    <div class="community-feature-icon">📝</div>
+                    <span>مراجعة الأقران</span>
+                </div>
+                <div class="community-feature">
+                    <div class="community-feature-icon">🤝</div>
+                    <span>تعاون بحثي</span>
+                </div>
+                <div class="community-feature">
+                    <div class="community-feature-icon">🏆</div>
+                    <span>جوائز وتقدير</span>
+                </div>
+            </div>
+            <a href="المنتدى.html" class="btn btn-purple">انضم للمجتمع العلمي</a>
+        </section>
+
+        <!-- Latest Papers -->
+        <section class="papers-section">
+            <div class="section-header">
+                <h2 class="section-title">📄 أحدث <span>الأبحاث</span></h2>
+                <a href="#" class="btn btn-outline">عرض الكل</a>
+            </div>
+            <div class="papers-grid" id="papersGrid">
+                <!-- Papers loaded dynamically -->
+            </div>
+        </section>
+
+        <!-- Submit Research -->
+        <section class="submit-section" id="submit">
+            <div class="submit-header">
+                <h2 class="submit-title">📤 نشر بحث أو دراسة</h2>
+                <p class="submit-desc">شارك أبحاثك ودراساتك مع المجتمع العلمي وساهم في إثراء المعرفة</p>
+            </div>
+            <form class="submit-form" onsubmit="submitResearch(event)">
+                <div class="form-group">
+                    <label class="form-label">عنوان البحث *</label>
+                    <input type="text" class="form-input" required placeholder="عنوان البحث أو الدراسة">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">نوع البحث *</label>
+                        <select class="form-select" required>
+                            <option value="">اختر النوع</option>
+                            <option value="research">ورقة علمية</option>
+                            <option value="study">دراسة بحثية</option>
+                            <option value="report">تقرير</option>
+                            <option value="analysis">تحليل سوق</option>
+                            <option value="thesis">رسالة علمية</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">المجال *</label>
+                        <select class="form-select" required>
+                            <option value="">اختر المجال</option>
+                            <option value="metals">المعادن والسكراب</option>
+                            <option value="scm">سلاسل الإمداد</option>
+                            <option value="environment">البيئة والاستدامة</option>
+                            <option value="ai">التقنية والذكاء الاصطناعي</option>
+                            <option value="economics">اقتصاديات المعادن</option>
+                            <option value="policy">السياسات والتشريعات</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الملخص *</label>
+                    <textarea class="form-textarea" required placeholder="ملخص البحث (200-500 كلمة) يوضح الهدف والمنهجية والنتائج الرئيسية"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">اسم الباحث/الباحثين *</label>
+                        <input type="text" class="form-input" required placeholder="الأسماء الكاملة مفصولة بفاصلة">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">البريد الإلكتروني *</label>
+                        <input type="email" class="form-input" required placeholder="email@example.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الكلمات المفتاحية</label>
+                    <input type="text" class="form-input" placeholder="كلمات مفتاحية مفصولة بفاصلة (مثال: نحاس، إعادة تدوير، LME)">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">رابط الملف أو DOI (اختياري)</label>
+                    <input type="text" class="form-input" placeholder="رابط PDF أو DOI">
+                </div>
+                <button type="submit" class="btn btn-purple" style="width: 100%;">📤 إرسال البحث للمراجعة</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        const API = window.location.origin;
+
+        // Lab tabs
+        function switchLabTab(tab) {
+            document.querySelectorAll('.lab-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.lab-content').forEach(c => c.classList.remove('active'));
+            
+            document.querySelector(`.lab-tab[onclick*="${tab}"]`).classList.add('active');
+            document.getElementById(`lab-${tab}`).classList.add('active');
+        }
+
+        // Filter chips
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+
+        // الأبحاث - من قاعدة البيانات الحقيقية فقط
+        let samplePapers = [];
+        
+        // جلب الأبحاث من API
+        async function loadPapers() {
+            try {
+                const res = await fetch('/api/research/papers');
+                const data = await res.json();
+                if (data.success && data.papers && data.papers.length > 0) {
+                    samplePapers = data.papers;
+                    renderPapers();
+                } else {
+                    showEmptyResearchState();
+                }
+            } catch (e) {
+                showEmptyResearchState();
+            }
+        }
+        
+        function showEmptyResearchState() {
+            const grid = document.getElementById('papersGrid');
+            grid.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: var(--card); border: 2px dashed var(--border); border-radius: 16px;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">📚</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 12px; color: var(--purple);">مركز الأبحاث في انتظار مساهماتك!</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                        لا توجد أبحاث منشورة حالياً.<br>
+                        كن أول من ينشر بحثاً علمياً في مجال المعادن وسلاسل الإمداد!
+                    </p>
+                    <a href="#submit" class="btn btn-purple" style="text-decoration: none; padding: 14px 32px;">
+                        📤 انشر بحثك الآن
+                    </a>
+                </div>
+            `;
+        }
+        
+        // تحميل الأبحاث عند فتح الصفحة
+        loadPapers();
+
+        function renderPapers() {
+            const grid = document.getElementById('papersGrid');
+            grid.innerHTML = samplePapers.map(p => `
+                <div class="paper-card">
+                    <span class="paper-type ${p.type}">${getTypeLabel(p.type)}</span>
+                    <h3 class="paper-title">${p.title}</h3>
+                    <div class="paper-authors">✍️ ${p.authors}</div>
+                    <p class="paper-abstract">${p.abstract}</p>
+                    <div class="paper-meta">
+                        <span class="paper-date">📅 ${formatDate(p.date)} • 👁️ ${p.views.toLocaleString()}</span>
+                        <div class="paper-actions">
+                            <button class="paper-btn" onclick="readPaper(${p.id})">قراءة</button>
+                            <button class="paper-btn" onclick="downloadPaper(${p.id})">تحميل</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getTypeLabel(type) {
+            const labels = {
+                research: '🔬 ورقة علمية',
+                study: '📊 دراسة',
+                report: '📋 تقرير',
+                analysis: '📈 تحليل'
+            };
+            return labels[type] || type;
+        }
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('ar-SA');
+        }
+
+        // البحث في الأبحاث
+        function searchResearch() {
+            const query = document.getElementById('researchSearch').value;
+            if (!query) {
+                showNotification('يرجى إدخال كلمة للبحث', 'warning');
+                return;
+            }
+            
+            const filteredPapers = samplePapers.filter(p => 
+                p.title.includes(query) || p.abstract.includes(query) || p.authors.includes(query)
+            );
+            
+            if (filteredPapers.length > 0) {
+                document.getElementById('papersGrid').innerHTML = filteredPapers.map(p => `
+                    <div class="paper-card">
+                        <span class="paper-type ${p.type}">${getTypeLabel(p.type)}</span>
+                        <h3 class="paper-title">${p.title}</h3>
+                        <div class="paper-authors">✍️ ${p.authors}</div>
+                        <p class="paper-abstract">${p.abstract}</p>
+                        <div class="paper-meta">
+                            <span class="paper-date">📅 ${formatDate(p.date)} • 👁️ ${p.views.toLocaleString()}</span>
+                            <div class="paper-actions">
+                                <button class="paper-btn" onclick="readPaper(${p.id})">قراءة</button>
+                                <button class="paper-btn" onclick="downloadPaper(${p.id})">تحميل</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                showNotification(`✓ تم العثور على ${filteredPapers.length} نتيجة`, 'success');
+            } else {
+                showNotification('لم يتم العثور على نتائج', 'warning');
+            }
+        }
+
+        function askResearchAI() {
+            const query = document.getElementById('aiResearchInput').value;
+            if (!query) {
+                showNotification('يرجى إدخال سؤالك', 'warning');
+                return;
+            }
+            window.location.href = `مساعد-شيخة.html?q=${encodeURIComponent(query)}`;
+        }
+
+        function setAIQuery(query) {
+            document.getElementById('aiResearchInput').value = query;
+            document.getElementById('aiResearchInput').focus();
+        }
+
+        function openTool(toolId) {
+            const toolPages = {
+                'price-analyzer': 'تحليل-العملية-التجارية.html',
+                'ai-writer': 'مساعد-شيخة.html',
+                'collaboration': 'المنتدى.html',
+                'visualization': 'رسومات-هندسية-وفنية.html'
+            };
+            
+            if (toolPages[toolId]) {
+                window.location.href = toolPages[toolId];
+            } else {
+                showToolModal(toolId);
+            }
+        }
+        
+        function showToolModal(toolId) {
+            const names = {
+                'data-collector': 'جامع البيانات',
+                'report-generator': 'مولد التقارير',
+                'predictor': 'التنبؤ والتوقعات',
+                'comparator': 'المقارنة والتحليل'
+            };
+            
+            const modal = document.createElement('div');
+            modal.innerHTML = `
+                <div style="background:var(--card);padding:32px;border-radius:20px;max-width:400px;text-align:center;border:1px solid var(--border);">
+                    <h3 style="margin-bottom:16px;">🛠️ ${names[toolId] || toolId}</h3>
+                    <p>هذه الأداة قيد التطوير وستكون متاحة قريباً إن شاء الله.</p>
+                    <button onclick="this.closest('div').parentElement.remove()" class="btn btn-purple" style="margin-top:20px;padding:12px 32px;">حسناً</button>
+                </div>
+            `;
+            modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;';
+            document.body.appendChild(modal);
+            modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+        }
+
+        function readPaper(id) {
+            const paper = samplePapers.find(p => p.id === id);
+            if (!paper) return;
+            
+            const modal = document.createElement('div');
+            modal.innerHTML = `
+                <div style="background:var(--card);padding:32px;border-radius:20px;max-width:600px;width:90%;border:1px solid var(--border);">
+                    <span class="paper-type ${paper.type}" style="margin-bottom:16px;display:inline-block;">${getTypeLabel(paper.type)}</span>
+                    <h2 style="font-size:1.3rem;margin-bottom:12px;">${paper.title}</h2>
+                    <p style="color:var(--text-muted);margin-bottom:16px;">✍️ ${paper.authors}</p>
+                    <div style="background:rgba(0,0,0,0.2);padding:20px;border-radius:12px;margin-bottom:20px;">
+                        <h4 style="margin-bottom:10px;color:var(--purple);">📄 الملخص</h4>
+                        <p style="line-height:1.8;">${paper.abstract}</p>
+                    </div>
+                    <p style="color:var(--text-faint);font-size:0.85rem;">📅 ${formatDate(paper.date)} • 👁️ ${paper.views.toLocaleString()} مشاهدة</p>
+                    <div style="display:flex;gap:12px;margin-top:20px;">
+                        <button onclick="downloadPaper(${id})" class="btn btn-purple" style="flex:1;">📥 تحميل</button>
+                        <button onclick="this.closest('div').parentElement.parentElement.remove()" class="btn btn-outline" style="flex:1;">إغلاق</button>
+                    </div>
+                </div>
+            `;
+            modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;';
+            document.body.appendChild(modal);
+            modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+        }
+
+        function downloadPaper(id) {
+            const paper = samplePapers.find(p => p.id === id);
+            showNotification('📥 جاري تحميل: ' + (paper ? paper.title.substring(0,30) + '...' : 'البحث'), 'info');
+        }
+
+        function submitResearch(e) {
+            e.preventDefault();
+            showNotification('جاري إرسال البحث...', 'info');
+            setTimeout(() => {
+                showNotification('✓ تم إرسال البحث للمراجعة بنجاح!', 'success');
+                e.target.reset();
+            }, 1500);
+        }
+        
+        function showNotification(message, type = 'info') {
+            const colors = { success: '#10b981', warning: '#f59e0b', info: '#8b5cf6', error: '#ef4444' };
+            const n = document.createElement('div');
+            n.innerHTML = message;
+            n.style.cssText = `position:fixed;top:20px;left:50%;transform:translateX(-50%);background:${colors[type]};color:white;padding:14px 28px;border-radius:12px;font-weight:600;z-index:10000;box-shadow:0 4px 20px rgba(0,0,0,0.3);`;
+            document.body.appendChild(n);
+            setTimeout(() => n.remove(), 3000);
+        }
+
+        // Initialize - الأبحاث تُحمّل من loadPapers() تلقائياً
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <title>لوحة تحكم شيخة الموحدة</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body>
+    <header>
+        <h1>لوحة تحكم شيخة الموحدة</h1>
+        <nav id="role-nav"></nav>
+    </header>
+    <main id="main-content">
+        <section id="welcome">
+            <p>مرحباً بك! اختر دورك من القائمة أعلاه للبدء.
+                هذه اللوحة تدعم: المدير، الحكومات، الشركات الحكومية، التجار، رواد الأعمال، الباحثين، الأكاديميين، العلماء، طلاب العلم والمجتمع.</p>
+        </section>
+        <section id="role-section" style="display:none;"></section>
+    </main>
+    <aside id="chat-container">
+        <h2>الشات الذكي</h2>
+        <div id="chat-log"></div>
+        <input id="chat-input" placeholder="اكتب رسالتك هنا..." />
+        <button id="chat-send">إرسال</button>
+    </aside>
+    <script src="/js/autopilot-chat.js"></script>
+    <script>
+        const roles = [
+            'مدير', 'حكومة', 'شركة-حكومية', 'تاجر', 'رائد-أعمال',
+            'باحث', 'أكاديمي', 'عالم', 'طالب-علم', 'مجتمع'
+        ];
+        const nav = document.getElementById('role-nav');
+        roles.forEach(r => {
+            const btn = document.createElement('button');
+            btn.textContent = r;
+            btn.onclick = () => selectRole(r);
+            nav.appendChild(btn);
+        });
+
+        function selectRole(role) {
+            const sec = document.getElementById('role-section');
+            sec.style.display = 'block';
+            sec.innerHTML = `<h2>لوحة ${role}</h2><p>محتوى مخصص لدور ${role} سيُعرض هنا.</p>`;
+        }
+    </script>
+</body>
+</html>

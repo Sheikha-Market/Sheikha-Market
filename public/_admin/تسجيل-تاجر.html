@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="سجّل متجرك مجاناً في سوق شيخة - السوق الرائد لتجارة المعادن والسكراب">
+    <title>افتح متجرك | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-dark: #063d24;
+            --primary-light: #0d7a47;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --gold-dark: #b8960c;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --card-hover: #111c30;
+            --text: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 20px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.3);
+            --shadow-lg: 0 8px 48px rgba(0,0,0,0.4);
+            --shadow-gold: 0 4px 24px rgba(212,175,55,0.25);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--dark);
+            box-shadow: var(--shadow-gold);
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .back-btn {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .back-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Layout */
+        .page-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            min-height: calc(100vh - 77px);
+        }
+
+        /* Main Form Area */
+        .main {
+            padding: 48px;
+            max-width: 700px;
+        }
+
+        /* Sidebar Benefits */
+        .sidebar {
+            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--card) 100%);
+            border-right: 1px solid var(--border);
+            padding: 48px 32px;
+            position: sticky;
+            top: 77px;
+            height: calc(100vh - 77px);
+            overflow-y: auto;
+        }
+        .sidebar-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(212,175,55,0.15);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        .sidebar h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .sidebar-desc {
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        .benefit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .benefit-item {
+            display: flex;
+            gap: 14px;
+            padding: 16px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        .benefit-item:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(212,175,55,0.2);
+        }
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(10,92,54,0.2));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .benefit-content h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .benefit-content p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .sidebar-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-box {
+            background: rgba(0,0,0,0.2);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Progress Steps */
+        .progress-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 60px;
+            right: 60px;
+            height: 3px;
+            background: var(--border);
+            z-index: 0;
+        }
+        .progress-fill {
+            position: absolute;
+            top: 20px;
+            left: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--primary));
+            z-index: 1;
+            transition: var(--transition);
+            width: 0%;
+        }
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        .step-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            background: var(--card);
+            border: 3px solid var(--border);
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+        .step.active .step-circle {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-color: var(--gold);
+            color: var(--dark);
+            box-shadow: var(--shadow-gold);
+        }
+        .step.completed .step-circle {
+            background: var(--success);
+            border-color: var(--success);
+            color: #fff;
+        }
+        .step-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .step.active .step-label {
+            color: var(--gold);
+        }
+        .step.completed .step-label {
+            color: var(--success);
+        }
+
+        /* Form Card */
+        .form-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        .form-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(135deg, rgba(10,92,54,0.1), rgba(212,175,55,0.05));
+        }
+        .form-header h2 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .form-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .form-body {
+            padding: 28px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .required {
+            color: var(--danger);
+            font-size: 1.1rem;
+        }
+        .form-input, .form-select {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(0,0,0,0.3);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.05);
+        }
+        .form-input::placeholder {
+            color: var(--text-faint);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--text-faint);
+            margin-top: 6px;
+        }
+
+        /* Supply Chain Selection */
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .selection-card {
+            background: rgba(0,0,0,0.2);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        .selection-card:hover {
+            border-color: rgba(212,175,55,0.5);
+            background: rgba(212,175,55,0.05);
+        }
+        .selection-card.selected {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        .selection-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            width: 20px;
+            height: 20px;
+            background: var(--gold);
+            color: var(--dark);
+            border-radius: 50%;
+            font-size: 0.7rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .selection-card input { display: none; }
+        .selection-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        .selection-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        .selection-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Specializations */
+        .specs-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .spec-chip {
+            padding: 10px 18px;
+            background: rgba(0,0,0,0.2);
+            border: 2px solid var(--border);
+            border-radius: 999px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .spec-chip:hover {
+            border-color: rgba(212,175,55,0.5);
+        }
+        .spec-chip.selected {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.15);
+        }
+        .spec-chip input { display: none; }
+        .spec-chip .emoji { font-size: 1rem; pointer-events: none; }
+        .spec-chip .name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            pointer-events: none;
+        }
+        
+        /* إصلاح الضغط على البطاقات - pointer-events للعناصر الداخلية */
+        .selection-card * { pointer-events: none; }
+        .selection-card { pointer-events: auto !important; cursor: pointer; }
+        .spec-chip * { pointer-events: none; }
+        .spec-chip { pointer-events: auto !important; cursor: pointer; }
+        
+        /* إصلاح للجوال - touch events */
+        @media (max-width: 768px) {
+            .selection-card, .spec-chip {
+                -webkit-tap-highlight-color: rgba(212,175,55,0.2);
+                touch-action: manipulation;
+            }
+        }
+
+        /* Messages */
+        .msg {
+            padding: 14px 18px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            align-items: center;
+            gap: 10px;
+        }
+        .msg.show { display: flex; }
+        .msg.success {
+            background: rgba(16,185,129,0.15);
+            border: 1px solid rgba(16,185,129,0.3);
+            color: var(--success);
+        }
+        .msg.error {
+            background: rgba(239,68,68,0.15);
+            border: 1px solid rgba(239,68,68,0.3);
+            color: var(--danger);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+            box-shadow: var(--shadow-gold);
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(212,175,55,0.4);
+        }
+        .btn-gold:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+        .form-actions .btn { flex: 1; }
+
+        /* Review Summary */
+        .review-box {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .review-title {
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .review-item:last-child { border-bottom: none; }
+        .review-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .review-value {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Terms */
+        .terms-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .terms-check:hover {
+            border-color: rgba(212,175,55,0.3);
+        }
+        .terms-check input {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            accent-color: var(--gold);
+        }
+        .terms-check span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .terms-check a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+        .terms-check a:hover { text-decoration: underline; }
+
+        /* Login Link */
+        .login-link {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .login-link a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .login-link a:hover { text-decoration: underline; }
+
+        /* Quick Auth */
+        .quick-auth {
+            margin-top: 24px;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .divider span {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        .auth-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        .auth-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: rgba(0,0,0,0.2);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .auth-btn:hover {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.05);
+        }
+        .auth-btn.nafath {
+            border-color: #006C35;
+            color: #10b981;
+        }
+        .auth-btn.nafath:hover {
+            background: rgba(0,108,53,0.1);
+        }
+        .auth-btn.google:hover {
+            border-color: #4285F4;
+        }
+        .auth-btn.apple {
+            color: #fff;
+        }
+        .auth-btn.apple:hover {
+            border-color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+        @media (max-width: 640px) {
+            .auth-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Password Strength */
+        .password-strength {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+        }
+        .strength-bar {
+            flex: 1;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+        .strength-bar.weak { background: var(--danger); }
+        .strength-bar.medium { background: var(--warning); }
+        .strength-bar.strong { background: var(--success); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .page-layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 32px 20px;
+            }
+        }
+        @media (max-width: 640px) {
+            .form-row { grid-template-columns: 1fr; }
+            .selection-grid { grid-template-columns: repeat(2, 1fr); }
+            .header { padding: 12px 16px; }
+            .progress-bar::before { display: none; }
+            .progress-fill { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><svg viewBox="0 0 60 60" width="100%" height="100%"><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f7e98e"/><stop offset="50%" style="stop-color:#d4af37"/><stop offset="100%" style="stop-color:#aa8c2c"/></linearGradient></defs><circle cx="30" cy="30" r="28" fill="none" stroke="url(#goldGrad)" stroke-width="2"/><path d="M20 22 Q30 18 40 22 Q42 30 40 38 Q30 42 20 38 Q18 30 20 22" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/><circle cx="24" cy="20" r="2" fill="url(#goldGrad)"/><circle cx="30" cy="18" r="2" fill="url(#goldGrad)"/><circle cx="36" cy="20" r="2" fill="url(#goldGrad)"/><path d="M25 30 L35 30" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round"/></svg></div>
+                <span class="logo-text">سوق شيخة</span>
+            </a>
+            <a href="index.html" class="back-btn">
+                <span>←</span> الرئيسية
+            </a>
+        </div>
+    </header>
+
+    <div class="page-layout">
+        <!-- Main Form -->
+        <main class="main">
+            <!-- Progress Steps -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+                <div class="step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <span class="step-label">المعلومات</span>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">التخصص</span>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">التأكيد</span>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="form-card">
+                <form id="registerForm">
+                    <!-- Step 1: Basic Info -->
+                    <div class="form-step" data-step="1">
+                        <div class="form-header">
+                            <h2>المعلومات الأساسية</h2>
+                            <p>معلوماتك الشخصية ومعلومات المتجر</p>
+                        </div>
+                        <div class="form-body">
+                            <div id="msg1" class="msg"></div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <span class="required">*</span> الاسم الكامل
+                                    </label>
+                                    <input type="text" class="form-input" id="ownerName" required placeholder="أدخل اسمك">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <span class="required">*</span> رقم الجوال
+                                    </label>
+                                    <input type="tel" class="form-input" id="phone" required placeholder="05XXXXXXXX">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">البريد الإلكتروني</label>
+                                <input type="email" class="form-input" id="email" placeholder="example@email.com">
+                                <div class="form-hint">اختياري — للإشعارات والتواصل</div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <span class="required">*</span> اسم المتجر
+                                    </label>
+                                    <input type="text" class="form-input" id="storeName" required placeholder="مثال: متجر المعادن">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <span class="required">*</span> المنطقة
+                                    </label>
+                                    <select class="form-select" id="region" required>
+                                        <option value="">اختر المنطقة</option>
+                                        <option value="الرياض">الرياض</option>
+                                        <option value="مكة المكرمة">مكة المكرمة</option>
+                                        <option value="المنطقة الشرقية">المنطقة الشرقية</option>
+                                        <option value="المدينة المنورة">المدينة المنورة</option>
+                                        <option value="القصيم">القصيم</option>
+                                        <option value="عسير">عسير</option>
+                                        <option value="تبوك">تبوك</option>
+                                        <option value="حائل">حائل</option>
+                                        <option value="الجوف">الجوف</option>
+                                        <option value="جازان">جازان</option>
+                                        <option value="نجران">نجران</option>
+                                        <option value="الباحة">الباحة</option>
+                                        <option value="الحدود الشمالية">الحدود الشمالية</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <span class="required">*</span> كلمة المرور
+                                    </label>
+                                    <input type="password" class="form-input" id="password" required placeholder="6 أحرف على الأقل" oninput="checkPasswordStrength()">
+                                    <div class="password-strength" id="passwordStrength">
+                                        <div class="strength-bar"></div>
+                                        <div class="strength-bar"></div>
+                                        <div class="strength-bar"></div>
+                                        <div class="strength-bar"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <span class="required">*</span> تأكيد كلمة المرور
+                                    </label>
+                                    <input type="password" class="form-input" id="confirmPassword" required placeholder="أعد كتابة كلمة المرور">
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-gold" onclick="nextStep(1)">
+                                    التالي <span>←</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Specialization -->
+                    <div class="form-step" data-step="2" style="display: none;">
+                        <div class="form-header">
+                            <h2>التخصص وسلسلة التوريد</h2>
+                            <p>حدد تخصصك وموقعك في سلسلة التوريد</p>
+                        </div>
+                        <div class="form-body">
+                            <div id="msg2" class="msg"></div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span> مرحلتك في سلسلة التوريد
+                                </label>
+                                <div class="selection-grid" id="supplyChain">
+                                    <label class="selection-card" onclick="selectSupply(this)">
+                                        <input type="radio" name="supplyStage" value="source">
+                                        <div class="selection-icon">⛏️</div>
+                                        <div class="selection-name">المصدر</div>
+                                        <div class="selection-desc">مصانع، ورش، مشاريع</div>
+                                    </label>
+                                    <label class="selection-card" onclick="selectSupply(this)">
+                                        <input type="radio" name="supplyStage" value="collector">
+                                        <div class="selection-icon">🚛</div>
+                                        <div class="selection-name">الجامع</div>
+                                        <div class="selection-desc">جمع وتجميع</div>
+                                    </label>
+                                    <label class="selection-card" onclick="selectSupply(this)">
+                                        <input type="radio" name="supplyStage" value="sorter">
+                                        <div class="selection-icon">⚙️</div>
+                                        <div class="selection-name">الفارز</div>
+                                        <div class="selection-desc">فرز وتصنيف</div>
+                                    </label>
+                                    <label class="selection-card" onclick="selectSupply(this)">
+                                        <input type="radio" name="supplyStage" value="processor">
+                                        <div class="selection-icon">🔧</div>
+                                        <div class="selection-name">المعالج</div>
+                                        <div class="selection-desc">معالجة وتنظيف</div>
+                                    </label>
+                                    <label class="selection-card" onclick="selectSupply(this)">
+                                        <input type="radio" name="supplyStage" value="manufacturer">
+                                        <div class="selection-icon">🏭</div>
+                                        <div class="selection-name">المصنّع</div>
+                                        <div class="selection-desc">تصنيع منتجات</div>
+                                    </label>
+                                    <label class="selection-card" onclick="selectSupply(this)">
+                                        <input type="radio" name="supplyStage" value="smelter">
+                                        <div class="selection-icon">🔥</div>
+                                        <div class="selection-name">المصهر</div>
+                                        <div class="selection-desc">صهر وتكرير</div>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span class="required">*</span> تخصصات المتجر
+                                </label>
+                                <div class="form-hint" style="margin-bottom: 10px;">اختر نوع أو أكثر من المعادن</div>
+                                <div class="specs-grid" id="specializations">
+                                    <label class="spec-chip" onclick="toggleSpec(this)">
+                                        <input type="checkbox" name="specs" value="حديد">
+                                        <span class="emoji">🔩</span>
+                                        <span class="name">حديد</span>
+                                    </label>
+                                    <label class="spec-chip" onclick="toggleSpec(this)">
+                                        <input type="checkbox" name="specs" value="نحاس">
+                                        <span class="emoji">🔶</span>
+                                        <span class="name">نحاس</span>
+                                    </label>
+                                    <label class="spec-chip" onclick="toggleSpec(this)">
+                                        <input type="checkbox" name="specs" value="ألمنيوم">
+                                        <span class="emoji">⬜</span>
+                                        <span class="name">ألمنيوم</span>
+                                    </label>
+                                    <label class="spec-chip" onclick="toggleSpec(this)">
+                                        <input type="checkbox" name="specs" value="ستانلس">
+                                        <span class="emoji">✨</span>
+                                        <span class="name">ستانلس</span>
+                                    </label>
+                                    <label class="spec-chip" onclick="toggleSpec(this)">
+                                        <input type="checkbox" name="specs" value="سكراب مختلط">
+                                        <span class="emoji">♻️</span>
+                                        <span class="name">سكراب مختلط</span>
+                                    </label>
+                                    <label class="spec-chip" onclick="toggleSpec(this)">
+                                        <input type="checkbox" name="specs" value="كابلات">
+                                        <span class="emoji">🔌</span>
+                                        <span class="name">كابلات</span>
+                                    </label>
+                                    <label class="spec-chip" onclick="toggleSpec(this)">
+                                        <input type="checkbox" name="specs" value="بطاريات">
+                                        <span class="emoji">🔋</span>
+                                        <span class="name">بطاريات</span>
+                                    </label>
+                                    <label class="spec-chip" onclick="toggleSpec(this)">
+                                        <input type="checkbox" name="specs" value="إلكترونيات">
+                                        <span class="emoji">📱</span>
+                                        <span class="name">إلكترونيات</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline" onclick="prevStep(2)">
+                                    <span>→</span> السابق
+                                </button>
+                                <button type="button" class="btn btn-gold" onclick="nextStep(2)">
+                                    التالي <span>←</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Confirm -->
+                    <div class="form-step" data-step="3" style="display: none;">
+                        <div class="form-header">
+                            <h2>مراجعة وتأكيد</h2>
+                            <p>راجع معلوماتك ثم أكمل التسجيل</p>
+                        </div>
+                        <div class="form-body">
+                            <div id="msg3" class="msg"></div>
+                            
+                            <div class="review-box">
+                                <div class="review-title">ملخص التسجيل</div>
+                                <div class="review-item">
+                                    <span class="review-label">اسم المتجر</span>
+                                    <span class="review-value" id="reviewStore">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-label">صاحب المتجر</span>
+                                    <span class="review-value" id="reviewOwner">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-label">رقم الجوال</span>
+                                    <span class="review-value" id="reviewPhone">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-label">المنطقة</span>
+                                    <span class="review-value" id="reviewRegion">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-label">مرحلة سلسلة التوريد</span>
+                                    <span class="review-value" id="reviewSupply">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-label">التخصصات</span>
+                                    <span class="review-value" id="reviewSpecs">—</span>
+                                </div>
+                            </div>
+                            
+                            <label class="terms-check">
+                                <input type="checkbox" id="agreeTerms" required>
+                                <span>
+                                    أوافق على <a href="اللوائح-والقوانين-والاجراءات.html" target="_blank">اللوائح والقوانين</a> 
+                                    وأتعهد بالالتزام بمبادئ الأمانة والصدق في التعامل
+                                </span>
+                            </label>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline" onclick="prevStep(3)">
+                                    <span>→</span> السابق
+                                </button>
+                                <button type="submit" class="btn btn-gold" id="submitBtn">
+                                    إتمام التسجيل <span>✓</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- التسجيل السريع -->
+            <div class="quick-auth">
+                <div class="divider">
+                    <span>أو سجّل بسرعة عبر</span>
+                </div>
+                <div class="auth-buttons">
+                    <button type="button" class="auth-btn nafath" onclick="authWithNafath()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l6.9 3.45L12 11.09 5.1 7.63 12 4.18zM4 8.82l7 3.5v7.36l-7-3.5V8.82zm9 10.86v-7.36l7-3.5v7.36l-7 3.5z"/>
+                        </svg>
+                        نفاذ
+                    </button>
+                    <button type="button" class="auth-btn google" onclick="authWithGoogle()">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Google
+                    </button>
+                    <button type="button" class="auth-btn apple" onclick="authWithApple()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                        </svg>
+                        Apple
+                    </button>
+                </div>
+            </div>
+
+            <div class="login-link">
+                لديك حساب؟ <a href="تسجيل-الدخول.html">تسجيل الدخول</a>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-badge">✨ مجاناً 100%</div>
+            <h2>افتح متجرك في سوق شيخة</h2>
+            <p class="sidebar-desc">
+                انضم إلى أكبر منصة متخصصة في تجارة المعادن والسكراب في السعودية
+            </p>
+            
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon">🚀</div>
+                    <div class="benefit-content">
+                        <h4>تسجيل سريع</h4>
+                        <p>افتح متجرك في أقل من 3 دقائق</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">💰</div>
+                    <div class="benefit-content">
+                        <h4>بدون عمولة</h4>
+                        <p>لا رسوم اشتراك أو عمولة على المبيعات</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">📊</div>
+                    <div class="benefit-content">
+                        <h4>أسعار مباشرة</h4>
+                        <p>متابعة أسعار السوق لحظياً</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🔗</div>
+                    <div class="benefit-content">
+                        <h4>سلسلة توريد</h4>
+                        <p>تواصل مع كل مراحل السلسلة</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🤖</div>
+                    <div class="benefit-content">
+                        <h4>مساعد ذكي</h4>
+                        <p>استشارات وتوصيات بالذكاء الاصطناعي</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-stats">
+                <div class="stat-box">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">متجر مسجّل</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">عرض متاح</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">13</div>
+                    <div class="stat-label">منطقة</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-label">دعم</div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        const API = window.location.origin;
+        let currentStep = 1;
+
+        const supplyNames = {
+            source: 'المصدر',
+            collector: 'الجامع',
+            sorter: 'الفارز',
+            processor: 'المعالج',
+            manufacturer: 'المصنّع',
+            smelter: 'المصهر'
+        };
+
+        function selectSupply(el) {
+            if (!el) return;
+            // إزالة التحديد من الكل
+            document.querySelectorAll('.selection-card').forEach(c => {
+                c.classList.remove('selected');
+                const inp = c.querySelector('input[type="radio"]');
+                if (inp) inp.checked = false;
+            });
+            // تحديد العنصر الحالي
+            el.classList.add('selected');
+            const input = el.querySelector('input[type="radio"]');
+            if (input) {
+                input.checked = true;
+            }
+        }
+
+        function toggleSpec(el) {
+            if (!el) return;
+            const input = el.querySelector('input[type="checkbox"]');
+            if (input) {
+                input.checked = !input.checked;
+                if (input.checked) {
+                    el.classList.add('selected');
+                } else {
+                    el.classList.remove('selected');
+                }
+            }
+        }
+        
+        // تسهيل التسجيل - إضافة event listeners للجوال والكمبيوتر
+        document.addEventListener('DOMContentLoaded', function() {
+            // للتخصصات (سلسلة التوريد) - click بدلاً من touchend
+            document.querySelectorAll('.selection-card').forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    selectSupply(this);
+                });
+            });
+            
+            // للمعادن - click بدلاً من touchend
+            document.querySelectorAll('.spec-chip').forEach(chip => {
+                chip.style.cursor = 'pointer';
+                chip.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleSpec(this);
+                });
+            });
+        });
+        
+        // دعم إضافي للجوال
+        document.addEventListener('DOMContentLoaded', function() {
+            // للتخصصات (سلسلة التوريد)
+            document.querySelectorAll('.selection-card').forEach(card => {
+                // للنقر العادي
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    selectSupply(this);
+                });
+                // للجوال
+                card.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    selectSupply(this);
+                }, { passive: false });
+            });
+            
+            // للمعادن (التخصصات)
+            document.querySelectorAll('.spec-chip').forEach(chip => {
+                // للنقر العادي
+                chip.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleSpec(this);
+                });
+                // للجوال
+                chip.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    toggleSpec(this);
+                }, { passive: false });
+            });
+            
+            console.log('Registration page initialized');
+        });
+
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            const bars = document.querySelectorAll('.strength-bar');
+            let strength = 0;
+            
+            if (password.length >= 6) strength++;
+            if (password.length >= 8) strength++;
+            if (/[A-Z]/.test(password) || /[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            bars.forEach((bar, i) => {
+                bar.className = 'strength-bar';
+                if (i < strength) {
+                    if (strength <= 1) bar.classList.add('weak');
+                    else if (strength <= 2) bar.classList.add('medium');
+                    else bar.classList.add('strong');
+                }
+            });
+        }
+
+        function updateProgress() {
+            const progressFill = document.getElementById('progressFill');
+            const percentage = ((currentStep - 1) / 2) * 100;
+            progressFill.style.width = `calc(${percentage}% - ${percentage > 0 ? 0 : 60}px)`;
+            
+            document.querySelectorAll('.step').forEach((step, i) => {
+                step.classList.remove('active', 'completed');
+                if (i + 1 < currentStep) step.classList.add('completed');
+                if (i + 1 === currentStep) step.classList.add('active');
+            });
+            
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.style.display = step.dataset.step == currentStep ? 'block' : 'none';
+            });
+        }
+
+        function showMsg(id, text, type) {
+            const el = document.getElementById(id);
+            el.innerHTML = `<span>${type === 'error' ? '⚠️' : '✓'}</span> ${text}`;
+            el.className = `msg show ${type}`;
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function validateStep(step) {
+            if (step === 1) {
+                const name = document.getElementById('ownerName').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const store = document.getElementById('storeName').value.trim();
+                const region = document.getElementById('region').value;
+                const password = document.getElementById('password').value;
+                const confirm = document.getElementById('confirmPassword').value;
+                
+                if (!name || !phone || !store || !region || !password) {
+                    showMsg('msg1', 'يرجى تعبئة جميع الحقول المطلوبة', 'error');
+                    return false;
+                }
+                if (password.length < 6) {
+                    showMsg('msg1', 'كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
+                    return false;
+                }
+                if (password !== confirm) {
+                    showMsg('msg1', 'كلمة المرور غير متطابقة', 'error');
+                    return false;
+                }
+                return true;
+            }
+            if (step === 2) {
+                const supply = document.querySelector('input[name="supplyStage"]:checked');
+                const specs = document.querySelectorAll('input[name="specs"]:checked');
+                
+                if (!supply) {
+                    showMsg('msg2', 'يرجى اختيار مرحلتك في سلسلة التوريد', 'error');
+                    return false;
+                }
+                if (specs.length === 0) {
+                    showMsg('msg2', 'يرجى اختيار تخصص واحد على الأقل', 'error');
+                    return false;
+                }
+                return true;
+            }
+            return true;
+        }
+
+        function nextStep(fromStep) {
+            if (!validateStep(fromStep)) return;
+            currentStep++;
+            updateProgress();
+            if (currentStep === 3) updateReview();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function prevStep(fromStep) {
+            currentStep--;
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateReview() {
+            document.getElementById('reviewStore').textContent = document.getElementById('storeName').value;
+            document.getElementById('reviewOwner').textContent = document.getElementById('ownerName').value;
+            document.getElementById('reviewPhone').textContent = document.getElementById('phone').value;
+            document.getElementById('reviewRegion').textContent = document.getElementById('region').value;
+            
+            const supply = document.querySelector('input[name="supplyStage"]:checked');
+            document.getElementById('reviewSupply').textContent = supply ? supplyNames[supply.value] : '—';
+            
+            const specs = Array.from(document.querySelectorAll('input[name="specs"]:checked')).map(c => c.value);
+            document.getElementById('reviewSpecs').textContent = specs.join('، ') || '—';
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!document.getElementById('agreeTerms').checked) {
+                showMsg('msg3', 'يرجى الموافقة على اللوائح والقوانين', 'error');
+                return;
+            }
+            
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> جاري التسجيل...';
+            
+            const body = {
+                ownerName: document.getElementById('ownerName').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                storeName: document.getElementById('storeName').value.trim(),
+                region: document.getElementById('region').value,
+                password: document.getElementById('password').value,
+                supplyStage: document.querySelector('input[name="supplyStage"]:checked')?.value,
+                specializations: Array.from(document.querySelectorAll('input[name="specs"]:checked')).map(c => c.value)
+            };
+            
+            try {
+                const res = await fetch(API + '/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    showMsg('msg3', 'تم التسجيل بنجاح! جاري تحويلك للوحة التحكم...', 'success');
+                    if (data.token) {
+                        localStorage.setItem('sheikha_token', data.token);
+                    }
+                    setTimeout(() => {
+                        window.location.href = 'لوحة-التحكم.html';
+                    }, 1500);
+                } else {
+                    showMsg('msg3', data.message || 'فشل التسجيل، حاول مرة أخرى', 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = 'إتمام التسجيل <span>✓</span>';
+                }
+            } catch (e) {
+                showMsg('msg3', 'خطأ في الاتصال بالخادم', 'error');
+                btn.disabled = false;
+                btn.innerHTML = 'إتمام التسجيل <span>✓</span>';
+            }
+        });
+
+        // Initialize
+        updateProgress();
+
+        // OAuth Authentication Functions
+        function authWithNafath() {
+            // نفاذ الوطني - IAM.GOV.SA
+            showAuthModal('nafath', 'جاري التوجيه لنفاذ الوطني...');
+            // في الإنتاج: توجيه لـ https://iam.gov.sa/authservice/authorize
+            setTimeout(() => {
+                // محاكاة للتجربة
+                alert('🔐 سيتم توجيهك لنفاذ الوطني للتحقق من هويتك\n\nفي الإنتاج: يتم التكامل مع IAM.GOV.SA');
+            }, 500);
+        }
+
+        function authWithGoogle() {
+            showAuthModal('google', 'جاري التوجيه لـ Google...');
+            // في الإنتاج: استخدام Google OAuth 2.0
+            // Client ID يحتاج إعداد في Google Cloud Console
+            const googleAuthUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' +
+                'client_id=YOUR_GOOGLE_CLIENT_ID' +
+                '&redirect_uri=' + encodeURIComponent(window.location.origin + '/auth/google/callback') +
+                '&response_type=code' +
+                '&scope=email%20profile' +
+                '&access_type=offline';
+            
+            setTimeout(() => {
+                alert('🔐 للتفعيل الكامل:\n1. إنشاء مشروع في Google Cloud Console\n2. تفعيل Google OAuth 2.0\n3. إضافة Client ID');
+            }, 500);
+        }
+
+        function authWithApple() {
+            showAuthModal('apple', 'جاري التوجيه لـ Apple...');
+            // في الإنتاج: استخدام Apple Sign In
+            setTimeout(() => {
+                alert('🔐 للتفعيل الكامل:\n1. إنشاء حساب Apple Developer\n2. تفعيل Sign in with Apple\n3. إضافة Service ID');
+            }, 500);
+        }
+
+        function showAuthModal(provider, message) {
+            console.log('Auth with:', provider, message);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{
+  "_meta": {
+    "title": "بروتوكول السلامة والتشغيل الرقمي — محاضر وتعليمات",
+    "version": "1.0.0",
+    "createdAt": "2026-03-12",
+    "principle": "وَلَا تُلْقُوا بِأَيْدِيكُمْ إِلَى التَّهْلُكَةِ — البقرة:195",
+    "protocolId": "SHK-SAFE-OPS-001"
+  },
+  "sections": [
+    {
+      "id": "SHK-SAFE-001",
+      "name": "Safety Meeting Minutes",
+      "description": "محضر اجتماع السلامة الدوري",
+      "mandatoryFields": ["meetingId", "date", "location", "attendees", "risks", "decisions", "actions", "issuer", "receiver", "flag"]
+    },
+    {
+      "id": "SHK-SAFE-002",
+      "name": "Task Handover Minutes",
+      "description": "محضر تسليم مهام",
+      "mandatoryFields": ["handoverId", "taskId", "issuer", "receiver", "scope", "deadline", "attachments", "flag"]
+    },
+    {
+      "id": "SHK-SAFE-003",
+      "name": "Instruction Receipt Log",
+      "description": "محضر استلام التعليمات",
+      "mandatoryFields": ["instructionId", "issuer", "receiver", "instructionType", "acknowledgedAt", "flag"]
+    },
+    {
+      "id": "SHK-SAFE-004",
+      "name": "Digital Security Patrol",
+      "description": "جولة أمنية رقمية للمنشأة",
+      "mandatoryFields": ["patrolId", "zone", "startAt", "endAt", "findings", "severity", "issuer", "receiver", "flag"]
+    }
+  ],
+  "botRoles": [
+    { "id": "SHK-SAFE-BOT-ISSUER", "name": "Issuer Bot", "assignedBot": "SHK-BOT-019", "responsibility": "إصدار المحاضر والتعليمات" },
+    { "id": "SHK-SAFE-BOT-RECEIVER", "name": "Receiver Bot", "assignedBot": "SHK-BOT-025", "responsibility": "استلام وتأكيد التنفيذ" },
+    { "id": "SHK-SAFE-BOT-FLAG", "name": "Flag Bot", "assignedBot": "SHK-BOT-010", "responsibility": "تصنيف الخطورة ورفع الإنذارات" },
+    { "id": "SHK-SAFE-BOT-PATROL", "name": "Patrol Bot", "assignedBot": "SHK-BOT-024", "responsibility": "تنفيذ الجولات الأمنية الرقمية" }
+  ],
+  "flagLevels": [
+    { "id": "FLAG-GREEN", "severity": "low", "action": "توثيق ومتابعة" },
+    { "id": "FLAG-YELLOW", "severity": "medium", "action": "تصحيح خلال 24 ساعة" },
+    { "id": "FLAG-ORANGE", "severity": "high", "action": "تصعيد فوري لمدير السلامة" },
+    { "id": "FLAG-RED", "severity": "critical", "action": "إيقاف الإجراء + إنذار طوارئ" }
+  ]
+}

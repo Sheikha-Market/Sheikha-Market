@@ -1,0 +1,88 @@
+<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5E6A3;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A8882B;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="copperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9A56;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#B87333;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5A2B;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="silverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F0F0F0;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#C0C0C0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#808080;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="400" fill="#030509" opacity="0"/>
+
+  <!-- ذهب — Gold Bar -->
+  <g transform="translate(100, 80)">
+    <rect x="0" y="0" width="140" height="200" rx="8" fill="url(#goldGrad)" filter="url(#glow)"/>
+    <rect x="8" y="8" width="124" height="20" fill="#F5E6A3" opacity="0.5" rx="4"/>
+    <text x="70" y="240" font-family="Tajawal" font-size="20" font-weight="700" fill="#D4AF37" text-anchor="middle">ذهب</text>
+    <text x="70" y="265" font-family="inherit" font-size="14" fill="#71717a" text-anchor="middle">Gold</text>
+  </g>
+
+  <!-- نحاس — Copper Ingot -->
+  <g transform="translate(350, 80)">
+    <circle cx="70" cy="100" r="60" fill="url(#copperGrad)" filter="url(#glow)"/>
+    <ellipse cx="70" cy="80" rx="55" ry="20" fill="#FF9A56" opacity="0.4"/>
+    <g opacity="0.3">
+      <circle cx="50" cy="90" r="8" fill="#fff"/>
+      <circle cx="85" cy="75" r="6" fill="#fff"/>
+    </g>
+    <text x="70" y="240" font-family="Tajawal" font-size="20" font-weight="700" fill="#B87333" text-anchor="middle">نحاس</text>
+    <text x="70" y="265" font-family="inherit" font-size="14" fill="#71717a" text-anchor="middle">Copper</text>
+  </g>
+
+  <!-- فضة — Silver Plate -->
+  <g transform="translate(600, 80)">
+    <path d="M 20 80 L 70 20 L 120 80 Z" fill="url(#silverGrad)" filter="url(#glow)"/>
+    <path d="M 30 80 L 70 40 L 110 80 Z" fill="#F0F0F0" opacity="0.5"/>
+    <g opacity="0.4">
+      <circle cx="50" cy="70" r="4" fill="#fff"/>
+      <circle cx="90" cy="60" r="3" fill="#fff"/>
+    </g>
+    <text x="70" y="240" font-family="Tajawal" font-size="20" font-weight="700" fill="#C0C0C0" text-anchor="middle">فضة</text>
+    <text x="70" y="265" font-family="inherit" font-size="14" fill="#71717a" text-anchor="middle">Silver</text>
+  </g>
+
+  <!-- سكراب — Scrap Metal -->
+  <g transform="translate(850, 80)">
+    <g opacity="0.9">
+      <rect x="20" y="30" width="50" height="80" fill="#A8882B" rx="4" transform="rotate(-15 45 70)"/>
+      <rect x="50" y="20" width="50" height="70" fill="#B87333" rx="4" transform="rotate(10 75 55)"/>
+      <circle cx="55" cy="100" r="35" fill="#C0C0C0" opacity="0.7"/>
+    </g>
+    <g filter="url(#glow)" opacity="0.6">
+      <polygon points="60,50 75,40 80,60 70,70" fill="#F5E6A3"/>
+    </g>
+    <text x="70" y="240" font-family="Tajawal" font-size="20" font-weight="700" fill="#B87333" text-anchor="middle">سكراب</text>
+    <text x="70" y="265" font-family="inherit" font-size="14" fill="#71717a" text-anchor="middle">Scrap</text>
+  </g>
+
+  <!-- شهادات — Certificates -->
+  <g transform="translate(1050, 100)">
+    <g opacity="0.8">
+      <rect x="0" y="0" width="80" height="120" fill="#030712" stroke="url(#goldGrad)" stroke-width="2" rx="4"/>
+      <text x="40" y="30" font-family="Tajawal" font-size="18" font-weight="800" fill="#D4AF37" text-anchor="middle">✓</text>
+      <rect x="8" y="45" width="64" height="2" fill="#D4AF37" opacity="0.5"/>
+      <rect x="8" y="52" width="64" height="1" fill="#D4AF37" opacity="0.3"/>
+      <rect x="8" y="58" width="50" height="1" fill="#D4AF37" opacity="0.3"/>
+    </g>
+    <text x="40" y="180" font-family="Tajawal" font-size="18" font-weight="700" fill="#D4AF37" text-anchor="middle">شهادات</text>
+    <text x="40" y="200" font-family="inherit" font-size="12" fill="#71717a" text-anchor="middle">Certificates</text>
+  </g>
+</svg>

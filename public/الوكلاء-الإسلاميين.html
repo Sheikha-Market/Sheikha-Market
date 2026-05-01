@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☪️ منظومة الوكلاء الإسلاميين الذكيين — SHEIKHA</title>
+    <meta name="description" content="وكلاء AI متخصصون لتحقيق مقاصد الشريعة وأهداف الإسلام الشاملة — الدين تام وشامل لكل شيء">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6A3;
+            --copper: #B87333;
+            --dark: #050810;
+            --dark-card: #0A1220;
+            --dark-hover: #101828;
+            --silver: #C0C0C0;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --success: #10b98150;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --radius: 12px;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+            background: var(--dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ═══ الترويسة ═══ */
+        header {
+            background: linear-gradient(135deg, var(--dark-card) 0%, var(--dark) 100%);
+            padding: 30px 0;
+            border-bottom: 2px solid var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 3rem;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        .ayah-header {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            border-right: 4px solid var(--gold);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            text-align: center;
+        }
+
+        /* ═══ البطاقات ═══ */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--dark-card);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
+            border-color: var(--gold);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--gold-light);
+        }
+
+        /* ═══ الأزرار ═══ */
+        .btn {
+            padding: 12px 24px;
+            border-radius: var(--radius);
+            border: none;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            color: var(--dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--dark-hover);
+            color: var(--text-primary);
+            border: 1px solid var(--gold);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ═══ النماذج ═══ */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--dark-hover);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: var(--radius);
+            color: var(--text-primary);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* ═══ القوائم ═══ */
+        .agent-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .agent-item {
+            background: var(--dark-hover);
+            padding: 20px;
+            border-radius: var(--radius);
+            border-right: 4px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .agent-item:hover {
+            background: var(--dark-card);
+            transform: translateX(-5px);
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .agent-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        .agent-priority {
+            background: var(--gold);
+            color: var(--dark);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .agent-maqsad {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .agent-quranic {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            color: var(--gold-light);
+            border-right: 3px solid var(--gold);
+        }
+
+        .sub-agents {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .sub-agent-badge {
+            background: var(--dark-card);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* ═══ رسائل الحالة ═══ */
+        .alert {
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        .alert-info {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold-light);
+        }
+
+        /* ═══ التبويبات ═══ */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ═══ التحميل ═══ */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ═══ Responsive ═══ */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ═══ الترويسة ═══ -->
+        <header>
+            <div class="header-content">
+                <div class="header-title">
+                    <div class="logo">☪️</div>
+                    <div>
+                        <h1>منظومة الوكلاء الإسلاميين الذكيين</h1>
+                        <div class="subtitle">وكلاء AI لتحقيق مقاصد الشريعة وأهداف الإسلام — SHEIKHA Islamic AI Agents Engine</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="refreshStats()">
+                    🔄 تحديث
+                </button>
+            </div>
+        </header>
+
+        <!-- ═══ الآية المباركة ═══ -->
+        <div class="ayah-header">
+            ☪️ "الْيَوْمَ أَكْمَلْتُ لَكُمْ دِينَكُمْ وَأَتْمَمْتُ عَلَيْكُمْ نِعْمَتِي وَرَضِيتُ لَكُمُ الْإِسْلَامَ دِينًا" — المائدة ٣
+        </div>
+
+        <!-- ═══ رسائل الحالة ═══ -->
+        <div id="alerts"></div>
+
+        <!-- ═══ الإحصائيات ═══ -->
+        <div class="cards-grid" id="statsCards">
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-icon">📊</span>
+                    إحصائيات النظام
+                </div>
+                <div id="systemStats">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>جارٍ التحميل...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ التبويبات ═══ -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('overview')">📊 نظرة عامة</button>
+            <button class="tab" onclick="switchTab('maqasid')">🕌 وكلاء المقاصد</button>
+            <button class="tab" onclick="switchTab('custom')">✨ وكيل مخصص</button>
+            <button class="tab" onclick="switchTab('list')">📋 الوكلاء النشطين</button>
+            <button class="tab" onclick="switchTab('execute')">⚙️ تنفيذ مهمة</button>
+        </div>
+
+        <!-- ═══ نظرة عامة ═══ -->
+        <div id="tab-overview" class="tab-content active">
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-icon">🌟</span>
+                    المقاصد الشرعية الخمس
+                </div>
+                <div style="color: var(--text-secondary); margin-bottom: 20px;">
+                    الضروريات الخمس التي جاءت الشريعة الإسلامية لحفظها وصيانتها
+                </div>
+                <div style="display: grid; gap: 15px;">
+                    <div class="agent-quranic">
+                        <strong>١. حفظ الدين</strong> — أولى المقاصد وأعظمها
+                        <div style="margin-top: 8px; font-size: 0.85rem;">العقيدة • العبادة • الأمر بالمعروف والنهي عن المنكر</div>
+                    </div>
+                    <div class="agent-quranic">
+                        <strong>٢. حفظ النفس</strong> — حماية الحياة البشرية
+                        <div style="margin-top: 8px; font-size: 0.85rem;">الصحة • السلامة • الطب • الوقاية من الأضرار</div>
+                    </div>
+                    <div class="agent-quranic">
+                        <strong>٣. حفظ العقل</strong> — صيانة التفكير السليم
+                        <div style="margin-top: 8px; font-size: 0.85rem;">العلم • التعليم • البحث • الابتكار • المحافظة على العقل</div>
+                    </div>
+                    <div class="agent-quranic">
+                        <strong>٤. حفظ النسل</strong> — حماية النسل والأعراض
+                        <div style="margin-top: 8px; font-size: 0.85rem;">الزواج • الأسرة • التربية • العفاف والحياء</div>
+                    </div>
+                    <div class="agent-quranic">
+                        <strong>٥. حفظ المال</strong> — حفظ الثروة والممتلكات
+                        <div style="margin-top: 8px; font-size: 0.85rem;">التجارة • الاقتصاد • الز كاة • تحريم الربا</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; text-align: center;">
+                    <button class="btn btn-primary" onclick="activateAllMaqasidAgents()" id="activateAllBtn">
+                        🚀 تفعيل جميع وكلاء المقاصد الخمس
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ توليد وكيل مقصد ═══ -->
+        <div id="tab-maqasid" class="tab-content">
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-icon">🕌</span>
+                    توليد وكيل مقصد شرعي
+                </div>
+
+                <form onsubmit="generateMaqsadAgent(event)">
+                    <div class="form-group">
+                        <label class="form-label">المقصد الشرعي</label>
+                        <select class="form-select" id="maqsadKey" required>
+                            <option value="">اختر المقصد...</option>
+                            <option value="DEEN_PRESERVATION">حفظ الدين</option>
+                            <option value="LIFE_PRESERVATION">حفظ النفس</option>
+                            <option value="INTELLECT_PRESERVATION">حفظ العقل</option>
+                            <option value="LINEAGE_PRESERVATION">حفظ النسل</option>
+                            <option value="WEALTH_PRESERVATION">حفظ المال</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">اسم الوكيل (اختياري — تخصيص)</label>
+                        <input type="text" class="form-input" id="customNameAr" placeholder="مثال: وكيل حفظ الدين الخاص">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="generateMaqsadBtn">
+                        ⚡ توليد الوكيل
+                    </button>
+                </form>
+
+                <div id="maqasidResults" style="margin-top: 30px;"></div>
+            </div>
+        </div>
+
+        <!-- ═══ توليد وكيل مخصص ═══ -->
+        <div id="tab-custom" class="tab-content">
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-icon">✨</span>
+                    توليد وكيل مخصص
+                </div>
+
+                <form onsubmit="generateCustomAgent(event)">
+                    <div class="form-group">
+                        <label class="form-label">* اسم الوكيل بالعربية</label>
+                        <input type="text" class="form-input" id="customAgentNameAr" required placeholder="مثال: وكيل رعاية البيئة">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">اسم الوكيل بالإنجليزية (اختياري)</label>
+                        <input type="text" class="form-input" id="customAgentNameEn" placeholder="Example: Environment Care Agent">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">* الهدف الإسلامي</label>
+                        <textarea class="form-textarea" id="customAgentGoal" required placeholder="مثال: حماية البيئة والمحافظة على الأرض كأمانة من الله تعالى"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">الأساس الإسلامي (آيات أو أحاديث)</label>
+                        <textarea class="form-textarea" id="customAgentBasis" placeholder="مثال: 'إن الأرض لله يورثها من يشاء من عباده'"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">القدرات (مفصولة بفاصلة)</label>
+                        <input type="text" class="form-input" id="customAgentCapabilities" placeholder="مثال: تدوير النفايات, تقليل التلوث, زراعة الأشجار">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="generateCustomBtn">
+                        ⚡ توليد الوكيل المخصص
+                    </button>
+                </form>
+
+                <div id="customResults" style="margin-top: 30px;"></div>
+            </div>
+        </div>
+
+        <!-- ═══ قائمة الوكلاء النشطين ═══ -->
+        <div id="tab-list" class="tab-content">
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-icon">📋</span>
+                    الوكلاء النشطين حالياً
+                </div>
+                <button class="btn btn-secondary" onclick="loadActiveAgents()" style="margin-bottom: 20px;">
+                    🔄 تحديث القائمة
+                </button>
+                <div id="activeAgentsList">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>جارٍ التحميل...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ تنفيذ مهمة ═══ -->
+        <div id="tab-execute" class="tab-content">
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-icon">⚙️</span>
+                    تنفيذ مهمة من خلال وكيل
+                </div>
+
+                <form onsubmit="executeTask(event)">
+                    <div class="form-group">
+                        <label class="form-label">* معرف الوكيل (Agent ID)</label>
+                        <input type="text" class="form-input" id="taskAgentId" required placeholder="مثال: agent-deen-preservation-1709414400000">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">* وصف المهمة</label>
+                        <textarea class="form-textarea" id="taskDescription" required placeholder="مثال: قدم نصيحة شرعية عن أهمية الصلاة في وقتها"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">السياق (اختياري)</label>
+                        <textarea class="form-textarea" id="taskContext" placeholder="مثال: شخص يسأل عن حكم تأخير الصلاة بسبب العمل"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="executeTaskBtn">
+                        ▶️ تنفيذ المهمة
+                    </button>
+                </form>
+
+                <div id="taskResults" style="margin-top: 30px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // JavaScript — منطق التطبيق
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        const API_BASE = '/api/islamic-agents';
+
+        // عرض رسالة
+        function showAlert(message, type = 'info') {
+            const alertsDiv = document.getElementById('alerts');
+            const alertClass = `alert-${type}`;
+            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+
+            const alertHTML = `
+                <div class="alert ${alertClass}">
+                    <span>${icon}</span>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            alertsDiv.innerHTML = alertHTML;
+            setTimeout(() => {
+                alertsDiv.innerHTML = '';
+            }, 5000);
+        }
+
+        // تبديل التبويب
+        function switchTab(tabName) {
+            // إخفاء جميع التبويبات
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // إظهار التبويب المحدد
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            event.target.classList.add('active');
+
+            // تحميل البيانات عند الحاجة
+            if (tabName === 'list') {
+                loadActiveAgents();
+            }
+        }
+
+        // تحميل الإحصائيات
+        async function refreshStats() {
+            try {
+                const response = await fetch(`${API_BASE}/stats`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const stats = data.data;
+                    document.getElementById('systemStats').innerHTML = `
+                        <div class="stat-item">
+                            <span class="stat-label">إجمالي الوكلاء المولدة</span>
+                            <span class="stat-value">${stats.stats.totalGenerated || 0}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">الوكلاء النشطة حالياً</span>
+                            <span class="stat-value">${stats.totalAgents || 0}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">المهام المنجزة</span>
+                            <span class="stat-value">${stats.stats.totalCompleted || 0}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">وكلاء المقاصد المتاحة</span>
+                            <span class="stat-value">${stats.maqasidAgentsAvailable || 5}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">الإصدار</span>
+                            <span class="stat-value">${stats.version}</span>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                document.getElementById('systemStats').innerHTML = `
+                    <div class="alert alert-error">
+                        ❌ خطأ في تحميل الإحصائيات: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // تفعيل جميع وكلاء المقاصد
+        async function activateAllMaqasidAgents() {
+            const btn = document.getElementById('activateAllBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ جارٍ التفعيل...';
+
+            try {
+                const response = await fetch(`${API_BASE}/activate-all`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert(`✅ ${data.message}`, 'success');
+                    refreshStats();
+
+                    // عرض تفاصيل الوكلاء المفعلة
+                    const agentsHTML = data.data.agents.map(agent => `
+                        <div class="agent-item">
+                            <div class="agent-header">
+                                <div class="agent-name">${agent.nameAr}</div>
+                                <div class="agent-priority">أولوية ${agent.priority}</div>
+                            </div>
+                            <div class="agent-maqsad">🎯 ${agent.maqsad}</div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                ${agent.subAgentsCount} وكيل فرعي متخصص
+                            </div>
+                        </div>
+                    `).join('');
+
+                    setTimeout(() => {
+                        document.getElementById('tab-overview').innerHTML += `
+                            <div class="card" style="margin-top: 20px;">
+                                <div class="card-title">✅ الوكلاء المفعلة</div>
+                                <div class="agent-list">${agentsHTML}</div>
+                            </div>
+                        `;
+                    }, 500);
+                } else {
+                    showAlert(`❌ ${data.message}`, 'error');
+                }
+            } catch (error) {
+                showAlert(`❌ خطأ: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🚀 تفعيل جميع وكلاء المقاصد الخمس';
+            }
+        }
+
+        // توليد وكيل مقصد
+        async function generateMaqsadAgent(event) {
+            event.preventDefault();
+
+            const btn = document.getElementById('generateMaqsadBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ جارٍ التوليد...';
+
+            const maqsadKey = document.getElementById('maqsadKey').value;
+            const customNameAr = document.getElementById('customNameAr').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/generate-maqsad`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        maqsadKey,
+                        customization: customNameAr ? { nameAr: customNameAr } : {}
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert(`✅ ${data.message}`, 'success');
+                    refreshStats();
+
+                    const agent = data.data.agent;
+                    document.getElementById('maqasidResults').innerHTML = `
+                        <div class="alert alert-success">
+                            ✅ تم توليد الوكيل بنجاح
+                        </div>
+                        <div class="agent-item">
+                            <div class="agent-header">
+                                <div class="agent-name">${agent.nameAr}</div>
+                                <div class="agent-priority">أولوية ${agent.priority}</div>
+                            </div>
+                            <div class="agent-maqsad">🎯 المقصد: ${agent.maqsad}</div>
+                            <div class="agent-quranic">${agent.quranicBase[0]}</div>
+                            <div style="margin-top: 15px; color: var(--text-secondary);">
+                                <strong>القدرات:</strong> ${agent.capabilities.join(' • ')}
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <strong style="color: var(--gold);">الوكلاء الفرعية (${agent.subAgents.length}):</strong>
+                                <div class="sub-agents">
+                                    ${agent.subAgents.map(sa => `<span class="sub-agent-badge">${sa.nameAr}</span>`).join('')}
+                                </div>
+                            </div>
+                            <div style="margin-top: 15px; padding: 10px; background: var(--dark-hover); border-radius: 8px; font-size: 0.85rem; color: var(--text-secondary);">
+                                <strong>معرف الوكيل:</strong> <code style="color: var(--gold);">${agent.id}</code>
+                            </div>
+                        </div>
+                    `;
+
+                    // مسح النموذج
+                    document.getElementById('maqsadKey').value = '';
+                    document.getElementById('customNameAr').value = '';
+                } else {
+                    showAlert(`❌ ${data.message}`, 'error');
+                }
+            } catch (error) {
+                showAlert(`❌ خطأ: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '⚡ توليد الوكيل';
+            }
+        }
+
+        // توليد وكيل مخصص
+        async function generateCustomAgent(event) {
+            event.preventDefault();
+
+            const btn = document.getElementById('generateCustomBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ جارٍ التوليد...';
+
+            const nameAr = document.getElementById('customAgentNameAr').value;
+            const nameEn = document.getElementById('customAgentNameEn').value;
+            const goal = document.getElementById('customAgentGoal').value;
+            const basisText = document.getElementById('customAgentBasis').value;
+            const capabilitiesText = document.getElementById('customAgentCapabilities').value;
+
+            const islamicBasis = basisText ? basisText.split('\n').filter(l => l.trim()) : [];
+            const capabilities = capabilitiesText ? capabilitiesText.split(',').map(c => c.trim()).filter(c => c) : [];
+
+            try {
+                const response = await fetch(`${API_BASE}/generate-custom`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nameAr, nameEn, goal, islamicBasis, capabilities })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert(`✅ ${data.message}`, 'success');
+                    refreshStats();
+
+                    const agent = data.data.agent;
+                    document.getElementById('customResults').innerHTML = `
+                        <div class="alert alert-success">
+                            ✅ تم توليد الوكيل المخصص بنجاح
+                        </div>
+                        <div class="agent-item">
+                            <div class="agent-name">${agent.nameAr}</div>
+                            <div class="agent-maqsad">🎯 الهدف: ${agent.goal}</div>
+                            ${agent.islamicBasis && agent.islamicBasis.length > 0 ? `
+                                <div class="agent-quradic">${agent.islamicBasis.join(' • ')}</div>
+                            ` : ''}
+                            ${agent.capabilities && agent.capabilities.length > 0 ? `
+                                <div style="margin-top: 15px; color: var(--text-secondary);">
+                                    <strong>القدرات:</strong> ${agent.capabilities.join(' • ')}
+                                </div>
+                            ` : ''}
+                            <div style="margin-top: 15px; padding: 10px; background: var(--dark-hover); border-radius: 8px; font-size: 0.85rem; color: var(--text-secondary);">
+                                <strong>معرف الوكيل:</strong> <code style="color: var(--gold);">${agent.id}</code>
+                            </div>
+                        </div>
+                    `;
+
+                    // مسح النموذج
+                    event.target.reset();
+                } else {
+                    showAlert(`❌ ${data.message}`, 'error');
+                }
+            } catch (error) {
+                showAlert(`❌ خطأ: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '⚡ توليد الوكيل المخصص';
+            }
+        }
+
+        // تحميل الوكلاء النشطين
+        async function loadActiveAgents() {
+            document.getElementById('activeAgentsList').innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>جارٍ التحميل...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(`${API_BASE}/list`);
+                const data = await response.json();
+
+                if (data.success) {
+                    if (data.data.agents.length === 0) {
+                        document.getElementById('activeAgentsList').innerHTML = `
+                            <div class="empty-state">
+                                <div class="empty-state-icon">📭</div>
+                                <p>لا توجد وكلاء نشطة حالياً</p>
+                                <p style="font-size: 0.9rem;">قم بتفعيل وكلاء المقاصد أو إنشاء وكيل مخصص</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    const agentsHTML = data.data.agents.map(agent => `
+                        <div class="agent-item">
+                            <div class="agent-header">
+                                <div class="agent-name">${agent.nameAr}</div>
+                                ${agent.priority ? `<div class="agent-priority">أولوية ${agent.priority}</div>` : ''}
+                            </div>
+                            ${agent.maqsad ? `<div class="agent-maqsad">🎯 ${agent.maqsad}</div>` : ''}
+                            ${agent.goal ? `<div class="agent-maqsad">🎯 ${agent.goal}</div>` : ''}
+                            <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary);">
+                                <span>نوع: ${agent.type === 'maqsad-agent' ? 'وكيل مقصد' : 'وكيل مخصص'}</span>
+                                <span>المهام المنجزة: ${agent.tasksCompleted || 0}</span>
+                                ${agent.subAgentsCount ? `<span>الوكلاء الفرعية: ${agent.subAgentsCount}</span>` : ''}
+                            </div>
+                            <div style="margin-top: 10px; padding: 8px; background: var(--dark-hover); border-radius: 8px; font-size: 0.8rem; color: var(--text-secondary);">
+                                <code style="color: var(--gold);">${agent.id}</code>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    document.getElementById('activeAgentsList').innerHTML = `
+                        <div class="agent-list">${agentsHTML}</div>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                document.getElementById('activeAgentsList').innerHTML = `
+                    <div class="alert alert-error">
+                        ❌ خطأ في تحميل الوكلاء: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // تنفيذ مهمة
+        async function executeTask(event) {
+            event.preventDefault();
+
+            const btn = document.getElementById('executeTaskBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ جارٍ التنفيذ...';
+
+            const agentId = document.getElementById('taskAgentId').value;
+            const description = document.getElementById('taskDescription').value;
+            const context = document.getElementById('taskContext').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/execute-task`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        agentId,
+                        task: {
+                            description,
+                            context: context || undefined
+                        }
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert('✅ تم إنجاز المهمة بنجاح', 'success');
+
+                    const result = data.data;
+                    document.getElementById('taskResults').innerHTML = `
+                        <div class="alert alert-success">
+                            ✅ ${result.agentName} أنهى المهمة بنجاح
+                        </div>
+                        <div class="card">
+                            <div class="card-title">نتيجة المهمة</div>
+                            <div style="background: var(--dark-hover); padding: 20px; border-radius: 8px; border-right: 4px solid var(--gold);">
+                                <div style="white-space: pre-wrap; color: var(--text-primary);">
+                                    ${result.output}
+                                </div>
+                            </div>
+                            <div style="margin-top: 15px; display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-secondary);">
+                                <span>بدأت: ${new Date(result.startedAt).toLocaleString('ar-SA')}</span>
+                                <span>انتهت: ${new Date(result.completedAt).toLocaleString('ar-SA')}</span>
+                            </div>
+                        </div>
+                    `;
+
+                    refreshStats();
+                } else {
+                    showAlert(`❌ ${data.message}`, 'error');
+                }
+            } catch (error) {
+                showAlert(`❌ خطأ: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '▶️ تنفيذ المهمة';
+            }
+        }
+
+        // التحميل الأولي
+        window.addEventListener('DOMContentLoaded', () => {
+            refreshStats();
+            loadActiveAgents();
+        });
+    </script>
+</body>
+</html>

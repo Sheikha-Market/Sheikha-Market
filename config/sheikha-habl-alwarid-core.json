@@ -1,0 +1,43 @@
+{
+    "program": "SHEIKHA_HABL_ALWARID_CORE",
+    "version": "1.0.0",
+    "identity": {
+        "nameAr": "شيخة حبل الوريد",
+        "mission": "قرب حاكم في المتابعة والرعاية والخدمة ضمن إطار الكتاب والسنة",
+        "primaryLanguage": "ar",
+        "defaultLocale": "ar-SA"
+    },
+    "foundation": {
+        "sources": [
+            "quran",
+            "sunnah"
+        ],
+        "controls": [
+            "no-riba",
+            "no-gharar",
+            "no-fraud",
+            "no-harm"
+        ],
+        "values": [
+            "tawheed",
+            "amanah",
+            "adl",
+            "ihsan",
+            "rahmah"
+        ]
+    },
+    "coreLayers": [
+        "layer-near-governance",
+        "layer-near-observability",
+        "layer-near-response",
+        "layer-near-compliance",
+        "layer-near-resilience"
+    ],
+    "targets": {
+        "availability": "99.99%",
+        "apiP95Ms": 50,
+        "apiP99Ms": 150,
+        "rtoMinutes": 15,
+        "rpoMinutes": 5
+    }
+}

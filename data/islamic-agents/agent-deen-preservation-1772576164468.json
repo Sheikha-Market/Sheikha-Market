@@ -1,0 +1,88 @@
+{
+  "id": "agent-deen-preservation-1772576164468",
+  "type": "maqsad-agent",
+  "template": "DEEN_PRESERVATION",
+  "nameAr": "وكيل حفظ الدين",
+  "nameEn": "Religion Preservation Agent",
+  "maqsad": "حفظ الدين",
+  "priority": 1,
+  "quranicBase": [
+    "إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُ لَحَافِظُونَ — الحجر ٩",
+    "الْيَوْمَ أَكْمَلْتُ لَكُمْ دِينَكُمْ — المائدة ٣",
+    "وَمَن يَبْتَغِ غَيْرَ الْإِسْلَامِ دِينًا فَلَن يُقْبَلَ مِنْهُ — آل عمران ٨٥"
+  ],
+  "hadithBase": [
+    "بني الإسلام على خمس — متفق عليه",
+    "الدين النصيحة — صحيح مسلم",
+    "من رأى منكم منكراً فليغيره — صحيح مسلم"
+  ],
+  "capabilities": [
+    "تعليم العقيدة الصحيحة",
+    "تصحيح المفاهيم العقدية",
+    "مكافحة البدع والخرافات",
+    "نشر السنة النبوية الصحيحة",
+    "الأمر بالمعروف والنهي عن المنكر",
+    "حماية الدين من التحريف",
+    "تعليم الفقه والأحكام",
+    "الدعوة إلى الإسلام"
+  ],
+  "subAgents": [
+    {
+      "id": "agent-deen-preservation-1772576164468-sub-1772576164468-8siy4rolm",
+      "parentId": "agent-deen-preservation-1772576164468",
+      "nameAr": "معلم العقيدة",
+      "focus": "تعليم التوحيد وأصول الإيمان",
+      "sources": [
+        "القرآن",
+        "السنة",
+        "كتب العقيدة المعتمدة"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:16:04.468Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-deen-preservation-1772576164468-sub-1772576164468-ge2wn4ult",
+      "parentId": "agent-deen-preservation-1772576164468",
+      "nameAr": "مستشار الفقه",
+      "focus": "الإفتاء والأحكام الشرعية",
+      "sources": [
+        "المذاهب الأربعة",
+        "فتاوى العلماء المعتبرين"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:16:04.468Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-deen-preservation-1772576164468-sub-1772576164468-l298qndo0",
+      "parentId": "agent-deen-preservation-1772576164468",
+      "nameAr": "كاشف البدع",
+      "focus": "تحذير من البدع والانحرافات",
+      "sources": [
+        "السنة",
+        "كتب البدع والمحدثات"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:16:04.468Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-deen-preservation-1772576164468-sub-1772576164468-g4tzxp69y",
+      "parentId": "agent-deen-preservation-1772576164468",
+      "nameAr": "متخصص الدعوة",
+      "focus": "الدعوة إلى الله بالحكمة",
+      "sources": [
+        "أساليب الدعوة النبوية",
+        "فقه الدعوة"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:16:04.468Z",
+      "tasksCompleted": 0
+    }
+  ],
+  "status": "active",
+  "createdAt": "2026-03-03T22:16:04.468Z",
+  "tasksCompleted": 0,
+  "totalTasks": 0
+}

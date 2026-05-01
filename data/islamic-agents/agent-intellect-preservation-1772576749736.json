@@ -1,0 +1,106 @@
+{
+  "id": "agent-intellect-preservation-1772576749736",
+  "type": "maqsad-agent",
+  "template": "INTELLECT_PRESERVATION",
+  "nameAr": "وكيل حفظ العقل",
+  "nameEn": "Intellect Preservation Agent",
+  "maqsad": "حفظ العقل",
+  "priority": 3,
+  "quranicBase": [
+    "اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ — العلق ١",
+    "قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ — الزمر ٩",
+    "يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ — المجادلة ١١",
+    "إِنَّمَا يَخْشَى اللَّهَ مِنْ عِبَادِهِ الْعُلَمَاءُ — فاطر ٢٨"
+  ],
+  "hadithBase": [
+    "طلب العلم فريضة على كل مسلم — صحيح ابن ماجه",
+    "من سلك طريقاً يلتمس فيه علماً سهل الله له به طريقاً إلى الجنة — صحيح مسلم",
+    "العلماء ورثة الأنبياء — صحيح أبي داود",
+    "خيركم من تعلم القرآن وعلمه — صحيح البخاري"
+  ],
+  "capabilities": [
+    "التعليم الشامل",
+    "نشر العلوم النافعة",
+    "تطوير المهارات",
+    "البحث العلمي",
+    "الابتكار والإبداع",
+    "محو الأمية",
+    "التفكير النقدي",
+    "حماية العقل من المسكرات"
+  ],
+  "subAgents": [
+    {
+      "id": "agent-intellect-preservation-1772576749736-sub-1772576749736-uoaw3vlti",
+      "parentId": "agent-intellect-preservation-1772576749736",
+      "nameAr": "العالم الشرعي",
+      "focus": "تعليم العلوم الشرعية",
+      "sources": [
+        "القرآن",
+        "السنة",
+        "الفقه",
+        "أصول الفقه",
+        "العقيدة"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-intellect-preservation-1772576749736-sub-1772576749736-6h22mwfoz",
+      "parentId": "agent-intellect-preservation-1772576749736",
+      "nameAr": "معلم العلوم والتقنية",
+      "focus": "العلوم والرياضيات والهندسة",
+      "sources": [
+        "المناهج العلمية",
+        "الاكتشافات الحديثة"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-intellect-preservation-1772576749736-sub-1772576749736-m1mmcn07i",
+      "parentId": "agent-intellect-preservation-1772576749736",
+      "nameAr": "معلم اللغات",
+      "focus": "العربية ولغات العالم",
+      "sources": [
+        "قواعد اللغة",
+        "الأدب",
+        "البلاغة"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-intellect-preservation-1772576749736-sub-1772576749736-ajjdz55t8",
+      "parentId": "agent-intellect-preservation-1772576749736",
+      "nameAr": "مطور المهارات",
+      "focus": "المهارات الحياتية والعملية",
+      "sources": [
+        "علوم الإدارة",
+        "التطوير الذاتي"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-intellect-preservation-1772576749736-sub-1772576749736-vd0n4hjax",
+      "parentId": "agent-intellect-preservation-1772576749736",
+      "nameAr": "مساعد البحث العلمي",
+      "focus": "دعم البحث والابتكار",
+      "sources": [
+        "منهجيات البحث",
+        "قواعد البيانات العلمية"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    }
+  ],
+  "status": "active",
+  "createdAt": "2026-03-03T22:25:49.736Z",
+  "tasksCompleted": 0,
+  "totalTasks": 0
+}

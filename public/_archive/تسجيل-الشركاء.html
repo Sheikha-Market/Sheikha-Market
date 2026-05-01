@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="سجّل شركتك في منظومة شيخة - تسجيل المناجم، المصانع، شركات النقل، المستودعات، وجميع شركاء سلسلة التوريد">
+    <title>تسجيل الشركاء | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/elite-design-system.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #050810 0%, #0a0f1a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(13, 20, 36, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #f0d060, #d4af37);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #0a0f1a;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+        }
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #d4af37;
+        }
+        .back-btn {
+            padding: 10px 24px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #94a3b8;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .back-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 24px 40px;
+            background: radial-gradient(ellipse at center top, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #d4af37;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, #d4af37 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Container */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+        }
+
+        /* Partner Types Grid */
+        .partner-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .partner-card {
+            background: linear-gradient(145deg, rgba(13, 20, 36, 0.9), rgba(20, 30, 50, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .partner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--card-color), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .partner-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--card-color);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px var(--card-glow);
+        }
+        .partner-card:hover::before {
+            opacity: 1;
+        }
+        .partner-card.selected {
+            border-color: var(--card-color);
+            background: linear-gradient(145deg, rgba(var(--card-rgb), 0.15), rgba(13, 20, 36, 0.95));
+            box-shadow: 0 0 50px var(--card-glow);
+        }
+        .partner-card.selected::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--card-color), rgba(var(--card-rgb), 0.5));
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 30px var(--card-glow);
+        }
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        .card-desc {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .card-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .card-feature {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        .card-check {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 28px;
+            height: 28px;
+            background: var(--card-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s;
+        }
+        .partner-card.selected .card-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Card Colors */
+        .partner-card[data-type="mine"] {
+            --card-color: #f59e0b;
+            --card-glow: rgba(245, 158, 11, 0.2);
+            --card-rgb: 245, 158, 11;
+        }
+        .partner-card[data-type="collector"] {
+            --card-color: #06b6d4;
+            --card-glow: rgba(6, 182, 212, 0.2);
+            --card-rgb: 6, 182, 212;
+        }
+        .partner-card[data-type="transport"] {
+            --card-color: #8b5cf6;
+            --card-glow: rgba(139, 92, 246, 0.2);
+            --card-rgb: 139, 92, 246;
+        }
+        .partner-card[data-type="smelter"] {
+            --card-color: #ef4444;
+            --card-glow: rgba(239, 68, 68, 0.2);
+            --card-rgb: 239, 68, 68;
+        }
+        .partner-card[data-type="factory"] {
+            --card-color: #10b981;
+            --card-glow: rgba(16, 185, 129, 0.2);
+            --card-rgb: 16, 185, 129;
+        }
+        .partner-card[data-type="warehouse"] {
+            --card-color: #3b82f6;
+            --card-glow: rgba(59, 130, 246, 0.2);
+            --card-rgb: 59, 130, 246;
+        }
+        .partner-card[data-type="trader"] {
+            --card-color: #d4af37;
+            --card-glow: rgba(212, 175, 55, 0.2);
+            --card-rgb: 212, 175, 55;
+        }
+        .partner-card[data-type="customs"] {
+            --card-color: #ec4899;
+            --card-glow: rgba(236, 72, 153, 0.2);
+            --card-rgb: 236, 72, 153;
+        }
+        .partner-card[data-type="inspection"] {
+            --card-color: #6366f1;
+            --card-glow: rgba(99, 102, 241, 0.2);
+            --card-rgb: 99, 102, 241;
+        }
+
+        /* Registration Form */
+        .form-section {
+            display: none;
+            background: linear-gradient(145deg, rgba(13, 20, 36, 0.95), rgba(20, 30, 50, 0.9));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 24px;
+            padding: 48px;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #d4af37, #006c35);
+        }
+        .form-section.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .form-header h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        .form-header p {
+            color: #94a3b8;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 10px;
+        }
+        .form-label .required {
+            color: #ef4444;
+            margin-right: 4px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.05);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+        }
+        .form-input::placeholder {
+            color: #64748b;
+        }
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 14px center;
+            background-size: 20px;
+            padding-left: 44px;
+        }
+        .form-select option {
+            background: #0d1424;
+            color: #ffffff;
+        }
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(212, 175, 55, 0.02);
+        }
+        .file-upload:hover {
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.05);
+        }
+        .file-upload-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        .file-upload-text {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+        .file-upload-text span {
+            color: #d4af37;
+            font-weight: 600;
+        }
+        .file-upload input {
+            display: none;
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(0, 108, 53, 0.1);
+            border: 1px solid rgba(0, 108, 53, 0.2);
+            border-radius: 12px;
+        }
+        .checkbox-input {
+            width: 22px;
+            height: 22px;
+            accent-color: #006c35;
+            cursor: pointer;
+            margin-top: 2px;
+        }
+        .checkbox-label {
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .checkbox-label a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 18px 32px;
+            background: linear-gradient(135deg, #d4af37, #b8960c);
+            border: none;
+            border-radius: 14px;
+            color: #0a0f1a;
+            font-family: inherit;
+            font-size: 1.15rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.4);
+        }
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Steps Indicator */
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .step-num {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        .step.active .step-num {
+            background: linear-gradient(135deg, #d4af37, #b8960c);
+            color: #0a0f1a;
+            border-color: #d4af37;
+        }
+        .step.completed .step-num {
+            background: #10b981;
+            color: #ffffff;
+            border-color: #10b981;
+        }
+        .step.active {
+            color: #d4af37;
+        }
+        .step.completed {
+            color: #10b981;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(13, 20, 36, 0.95));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 24px;
+            margin-top: 40px;
+        }
+        .success-message.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 24px;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+        }
+        .success-message h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #10b981;
+            margin-bottom: 12px;
+        }
+        .success-message p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+        }
+        .success-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .success-btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .success-btn.primary {
+            background: linear-gradient(135deg, #d4af37, #b8960c);
+            color: #0a0f1a;
+        }
+        .success-btn.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, rgba(0, 108, 53, 0.1), rgba(212, 175, 55, 0.05));
+            border: 1px solid rgba(0, 108, 53, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 60px;
+        }
+        .stats-title {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 32px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 24px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #d4af37, #f0d060);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        /* Sharia Badge */
+        .sharia-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, rgba(0, 108, 53, 0.15), rgba(0, 108, 53, 0.05));
+            border: 1px solid rgba(0, 108, 53, 0.3);
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+        .sharia-badge-icon {
+            font-size: 1.5rem;
+        }
+        .sharia-badge-text {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(5, 8, 16, 0.95);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 32px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .footer-prayer {
+            color: #64748b;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-content">
+        <a href="منظومة-شيخة.html" class="logo">
+            <div class="logo-icon">ش</div>
+            <span class="logo-text">منظومة شيخة</span>
+        </a>
+        <a href="منظومة-شيخة.html" class="back-btn">
+            <span>→</span>
+            العودة للرئيسية
+        </a>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-badge">
+        ☪️ نظام متوافق مع الشريعة الإسلامية
+    </div>
+    <h1>سجّل شركتك في منظومة شيخة</h1>
+    <p>انضم لأكبر شبكة متكاملة لتجارة المعادن في المنطقة العربية - تسجيل سريع وسهل لجميع الأطراف</p>
+</section>
+
+<!-- Main Content -->
+<main class="main">
+    
+    <!-- Steps -->
+    <div class="steps">
+        <div class="step active" id="step1-indicator">
+            <span class="step-num">1</span>
+            <span>اختر نوع النشاط</span>
+        </div>
+        <div class="step" id="step2-indicator">
+            <span class="step-num">2</span>
+            <span>أدخل البيانات</span>
+        </div>
+        <div class="step" id="step3-indicator">
+            <span class="step-num">3</span>
+            <span>تأكيد التسجيل</span>
+        </div>
+    </div>
+
+    <!-- Partner Types Selection -->
+    <div class="partner-types" id="partner-selection">
+        
+        <!-- المناجم -->
+        <div class="partner-card" data-type="mine" onclick="selectPartner(this, 'mine')">
+            <div class="card-check">✓</div>
+            <div class="card-icon">⛏️</div>
+            <h3 class="card-title">منجم / مصدر خام</h3>
+            <p class="card-desc">للمناجم ومصادر المعادن الخام - استخراج وتصدير المواد الأولية</p>
+            <div class="card-features">
+                <span class="card-feature">استخراج</span>
+                <span class="card-feature">تصدير خام</span>
+                <span class="card-feature">معادن أساسية</span>
+            </div>
+        </div>
+
+        <!-- مجمعي السكراب -->
+        <div class="partner-card" data-type="collector" onclick="selectPartner(this, 'collector')">
+            <div class="card-check">✓</div>
+            <div class="card-icon">♻️</div>
+            <h3 class="card-title">مجمّع خردة / سكراب</h3>
+            <p class="card-desc">لمراكز جمع وفرز الخردة المعدنية وإعادة التدوير</p>
+            <div class="card-features">
+                <span class="card-feature">جمع</span>
+                <span class="card-feature">فرز</span>
+                <span class="card-feature">إعادة تدوير</span>
+            </div>
+        </div>
+
+        <!-- شركات النقل -->
+        <div class="partner-card" data-type="transport" onclick="selectPartner(this, 'transport')">
+            <div class="card-check">✓</div>
+            <div class="card-icon">🚚</div>
+            <h3 class="card-title">شركة نقل وشحن</h3>
+            <p class="card-desc">لشركات نقل البضائع والشحن البري والبحري والجوي</p>
+            <div class="card-features">
+                <span class="card-feature">نقل بري</span>
+                <span class="card-feature">شحن بحري</span>
+                <span class="card-feature">شحن جوي</span>
+            </div>
+        </div>
+
+        <!-- المصاهر -->
+        <div class="partner-card" data-type="smelter" onclick="selectPartner(this, 'smelter')">
+            <div class="card-check">✓</div>
+            <div class="card-icon">🔥</div>
+            <h3 class="card-title">مصهر / معالج معادن</h3>
+            <p class="card-desc">لمصاهر المعادن ومرافق الصهر والتكرير والمعالجة</p>
+            <div class="card-features">
+                <span class="card-feature">صهر</span>
+                <span class="card-feature">تكرير</span>
+                <span class="card-feature">معالجة</span>
+            </div>
+        </div>
+
+        <!-- المصانع -->
+        <div class="partner-card" data-type="factory" onclick="selectPartner(this, 'factory')">
+            <div class="card-check">✓</div>
+            <div class="card-icon">🏭</div>
+            <h3 class="card-title">مصنع / منتج</h3>
+            <p class="card-desc">للمصانع التي تستخدم المعادن في تصنيع منتجاتها</p>
+            <div class="card-features">
+                <span class="card-feature">تصنيع</span>
+                <span class="card-feature">إنتاج</span>
+                <span class="card-feature">منتجات نهائية</span>
+            </div>
+        </div>
+
+        <!-- المستودعات -->
+        <div class="partner-card" data-type="warehouse" onclick="selectPartner(this, 'warehouse')">
+            <div class="card-check">✓</div>
+            <div class="card-icon">📦</div>
+            <h3 class="card-title">مستودع / مركز تخزين</h3>
+            <p class="card-desc">لمستودعات التخزين ومراكز التوزيع اللوجستية</p>
+            <div class="card-features">
+                <span class="card-feature">تخزين</span>
+                <span class="card-feature">توزيع</span>
+                <span class="card-feature">لوجستيات</span>
+            </div>
+        </div>
+
+        <!-- التجار -->
+        <div class="partner-card" data-type="trader" onclick="selectPartner(this, 'trader')">
+            <div class="card-check">✓</div>
+            <div class="card-icon">💼</div>
+            <h3 class="card-title">تاجر / موزع</h3>
+            <p class="card-desc">للتجار والموزعين في مجال المعادن والسكراب</p>
+            <div class="card-features">
+                <span class="card-feature">بيع</span>
+                <span class="card-feature">شراء</span>
+                <span class="card-feature">توزيع</span>
+            </div>
+        </div>
+
+        <!-- التخليص الجمركي -->
+        <div class="partner-card" data-type="customs" onclick="selectPartner(this, 'customs')">
+            <div class="card-check">✓</div>
+            <div class="card-icon">📋</div>
+            <h3 class="card-title">مخلص جمركي</h3>
+            <p class="card-desc">لشركات التخليص الجمركي وخدمات الاستيراد والتصدير</p>
+            <div class="card-features">
+                <span class="card-feature">تخليص</span>
+                <span class="card-feature">استيراد</span>
+                <span class="card-feature">تصدير</span>
+            </div>
+        </div>
+
+        <!-- الفحص والجودة -->
+        <div class="partner-card" data-type="inspection" onclick="selectPartner(this, 'inspection')">
+            <div class="card-check">✓</div>
+            <div class="card-icon">🔬</div>
+            <h3 class="card-title">مختبر فحص / جودة</h3>
+            <p class="card-desc">لمختبرات فحص جودة المعادن والشهادات المعتمدة</p>
+            <div class="card-features">
+                <span class="card-feature">فحص</span>
+                <span class="card-feature">شهادات</span>
+                <span class="card-feature">جودة</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Registration Form -->
+    <div class="form-section" id="registration-form">
+        <div class="form-header">
+            <h2 id="form-title">أدخل بيانات الشركة</h2>
+            <p id="form-subtitle">جميع البيانات مطلوبة للتحقق والموافقة</p>
+        </div>
+
+        <form id="partnerForm" onsubmit="submitForm(event)">
+            <div class="form-grid">
+                <!-- Company Name -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="required">*</span>
+                        اسم الشركة / المنشأة
+                    </label>
+                    <input type="text" class="form-input" name="companyName" placeholder="مثال: شركة المعادن المتحدة" required>
+                </div>
+
+                <!-- Company Type (Auto-filled) -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="required">*</span>
+                        نوع النشاط
+                    </label>
+                    <input type="text" class="form-input" name="partnerType" id="partnerTypeInput" readonly>
+                </div>
+
+                <!-- Commercial Registration -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="required">*</span>
+                        رقم السجل التجاري
+                    </label>
+                    <input type="text" class="form-input" name="commercialReg" placeholder="أدخل رقم السجل التجاري" required>
+                </div>
+
+                <!-- Tax Number -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="required">*</span>
+                        الرقم الضريبي
+                    </label>
+                    <input type="text" class="form-input" name="taxNumber" placeholder="أدخل الرقم الضريبي">
+                </div>
+
+                <!-- Country -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="required">*</span>
+                        الدولة
+                    </label>
+                    <select class="form-select" name="country" required>
+                        <option value="">اختر الدولة</option>
+                        <option value="SA">المملكة العربية السعودية</option>
+                        <option value="AE">الإمارات العربية المتحدة</option>
+                        <option value="KW">الكويت</option>
+                        <option value="QA">قطر</option>
+                        <option value="BH">البحرين</option>
+                        <option value="OM">عُمان</option>
+                        <option value="EG">مصر</option>
+                        <option value="JO">الأردن</option>
+                        <option value="LB">لبنان</option>
+                        <option value="IQ">العراق</option>
+                        <option value="SY">سوريا</option>
+                        <option value="YE">اليمن</option>
+                        <option value="LY">ليبيا</option>
+                        <option value="TN">تونس</option>
+                        <option value="DZ">الجزائر</option>
+                        <option value="MA">المغرب</option>
+                        <option value="SD">السودان</option>
+                        <option value="OTHER">دولة أخرى</option>
+                    </select>
+                </div>
+
+                <!-- City -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="required">*</span>
+                        المدينة
+                    </label>
+                    <input type="text" class="form-input" name="city" placeholder="اسم المدينة" required>
+                </div>
+
+                <!-- Contact Person -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="required">*</span>
+                        اسم المسؤول
+                    </label>
+                    <input type="text" class="form-input" name="contactName" placeholder="اسم الشخص المسؤول" required>
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="required">*</span>
+                        رقم الهاتف
+                    </label>
+                    <input type="tel" class="form-input" name="phone" placeholder="+966 5X XXX XXXX" required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="required">*</span>
+                        البريد الإلكتروني
+                    </label>
+                    <input type="email" class="form-input" name="email" placeholder="email@company.com" required>
+                </div>
+
+                <!-- Website -->
+                <div class="form-group">
+                    <label class="form-label">
+                        الموقع الإلكتروني (اختياري)
+                    </label>
+                    <input type="url" class="form-input" name="website" placeholder="https://www.company.com">
+                </div>
+
+                <!-- Specialized Fields Container -->
+                <div class="form-group full-width" id="specialized-fields">
+                    <!-- Will be populated based on partner type -->
+                </div>
+
+                <!-- Description -->
+                <div class="form-group full-width">
+                    <label class="form-label">
+                        <span class="required">*</span>
+                        وصف النشاط
+                    </label>
+                    <textarea class="form-textarea" name="description" placeholder="اكتب وصفاً مختصراً لنشاط الشركة والخدمات المقدمة..." required></textarea>
+                </div>
+
+                <!-- Documents Upload -->
+                <div class="form-group full-width">
+                    <label class="form-label">
+                        <span class="required">*</span>
+                        رفع المستندات
+                    </label>
+                    <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+                        <div class="file-upload-icon">📎</div>
+                        <p class="file-upload-text">
+                            <span>اضغط لرفع الملفات</span>
+                            <br>
+                            السجل التجاري، الرخصة، شهادات الجودة (PDF, JPG - حد أقصى 10MB)
+                        </p>
+                        <input type="file" id="fileInput" name="documents" multiple accept=".pdf,.jpg,.jpeg,.png">
+                    </div>
+                </div>
+
+                <!-- Terms Agreement -->
+                <div class="form-group full-width">
+                    <div class="checkbox-group">
+                        <input type="checkbox" class="checkbox-input" id="termsCheck" required>
+                        <label class="checkbox-label" for="termsCheck">
+                            أقر بصحة جميع البيانات المقدمة، وأوافق على 
+                            <a href="الالتزام-الشرعي.html">الشروط والأحكام</a>
+                            ومبادئ الشريعة الإسلامية في التعامل التجاري
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span>📝</span>
+                تقديم طلب التسجيل
+            </button>
+        </form>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="success-message">
+        <div class="success-icon">✓</div>
+        <h2>تم تقديم الطلب بنجاح!</h2>
+        <p>شكراً لتسجيلك في منظومة شيخة. سيتم مراجعة طلبك والتواصل معك خلال 24-48 ساعة عمل.</p>
+        <div class="success-actions">
+            <a href="منظومة-شيخة.html" class="success-btn primary">العودة للرئيسية</a>
+            <a href="#" class="success-btn secondary" onclick="registerAnother()">تسجيل شركة أخرى</a>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <h3 class="stats-title">شركاء منظومة شيخة</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">150+</div>
+                <div class="stat-label">منجم ومصدر</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">500+</div>
+                <div class="stat-label">تاجر معتمد</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">80+</div>
+                <div class="stat-label">شركة نقل</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">45+</div>
+                <div class="stat-label">مصنع ومصهر</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">18</div>
+                <div class="stat-label">دولة</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sharia Badge -->
+    <div class="sharia-badge">
+        <span class="sharia-badge-icon">☪️</span>
+        <span class="sharia-badge-text">جميع التعاملات متوافقة مع أحكام الشريعة الإسلامية</span>
+    </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <p class="footer-prayer">لا حول ولا قوة إلا بالله - اللهم اجعلها منظومة وسوق بركة وخير 🤲</p>
+</footer>
+
+<script>
+    // Partner type labels
+    const PARTNER_LABELS = {
+        mine: 'منجم / مصدر خام',
+        collector: 'مجمّع خردة / سكراب',
+        transport: 'شركة نقل وشحن',
+        smelter: 'مصهر / معالج معادن',
+        factory: 'مصنع / منتج',
+        warehouse: 'مستودع / مركز تخزين',
+        trader: 'تاجر / موزع',
+        customs: 'مخلص جمركي',
+        inspection: 'مختبر فحص / جودة'
+    };
+
+    // Specialized fields for each partner type
+    const SPECIALIZED_FIELDS = {
+        mine: `
+            <label class="form-label"><span class="required">*</span> أنواع المعادن المستخرجة</label>
+            <input type="text" class="form-input" name="mineralTypes" placeholder="مثال: حديد، نحاس، ذهب..." required>
+            <br><br>
+            <label class="form-label"><span class="required">*</span> الطاقة الإنتاجية الشهرية (طن)</label>
+            <input type="number" class="form-input" name="capacity" placeholder="الطاقة الإنتاجية بالطن" required>
+        `,
+        collector: `
+            <label class="form-label"><span class="required">*</span> أنواع الخردة المجمّعة</label>
+            <input type="text" class="form-input" name="scrapTypes" placeholder="مثال: حديد، ألومنيوم، نحاس..." required>
+            <br><br>
+            <label class="form-label"><span class="required">*</span> سعة التخزين (طن)</label>
+            <input type="number" class="form-input" name="storageCapacity" placeholder="سعة التخزين بالطن" required>
+        `,
+        transport: `
+            <label class="form-label"><span class="required">*</span> نوع النقل</label>
+            <select class="form-select" name="transportType" required>
+                <option value="">اختر نوع النقل</option>
+                <option value="land">نقل بري</option>
+                <option value="sea">شحن بحري</option>
+                <option value="air">شحن جوي</option>
+                <option value="multi">متعدد الوسائل</option>
+            </select>
+            <br><br>
+            <label class="form-label"><span class="required">*</span> عدد الشاحنات / السفن</label>
+            <input type="number" class="form-input" name="fleetSize" placeholder="عدد وسائل النقل" required>
+        `,
+        smelter: `
+            <label class="form-label"><span class="required">*</span> أنواع المعادن المعالجة</label>
+            <input type="text" class="form-input" name="processedMetals" placeholder="مثال: حديد، ألومنيوم، نحاس..." required>
+            <br><br>
+            <label class="form-label"><span class="required">*</span> طاقة الصهر الشهرية (طن)</label>
+            <input type="number" class="form-input" name="smeltingCapacity" placeholder="طاقة الصهر بالطن" required>
+        `,
+        factory: `
+            <label class="form-label"><span class="required">*</span> نوع المنتجات</label>
+            <input type="text" class="form-input" name="productTypes" placeholder="مثال: قضبان، صفائح، أسلاك..." required>
+            <br><br>
+            <label class="form-label"><span class="required">*</span> المعادن المستخدمة</label>
+            <input type="text" class="form-input" name="usedMetals" placeholder="مثال: حديد، ألومنيوم..." required>
+        `,
+        warehouse: `
+            <label class="form-label"><span class="required">*</span> مساحة المستودع (متر مربع)</label>
+            <input type="number" class="form-input" name="warehouseArea" placeholder="المساحة بالمتر المربع" required>
+            <br><br>
+            <label class="form-label"><span class="required">*</span> نوع التخزين</label>
+            <select class="form-select" name="storageType" required>
+                <option value="">اختر نوع التخزين</option>
+                <option value="covered">مغطى</option>
+                <option value="open">مفتوح</option>
+                <option value="climate">مكيف</option>
+                <option value="mixed">مختلط</option>
+            </select>
+        `,
+        trader: `
+            <label class="form-label"><span class="required">*</span> المعادن المتداولة</label>
+            <input type="text" class="form-input" name="tradedMetals" placeholder="مثال: حديد، نحاس، ذهب..." required>
+            <br><br>
+            <label class="form-label"><span class="required">*</span> حجم التداول الشهري (طن)</label>
+            <input type="number" class="form-input" name="monthlyVolume" placeholder="حجم التداول بالطن" required>
+        `,
+        customs: `
+            <label class="form-label"><span class="required">*</span> المنافذ الجمركية</label>
+            <input type="text" class="form-input" name="customsPorts" placeholder="مثال: ميناء جدة، مطار الرياض..." required>
+            <br><br>
+            <label class="form-label"><span class="required">*</span> رقم ترخيص التخليص</label>
+            <input type="text" class="form-input" name="clearanceLicense" placeholder="رقم الترخيص" required>
+        `,
+        inspection: `
+            <label class="form-label"><span class="required">*</span> الاختبارات المعتمدة</label>
+            <input type="text" class="form-input" name="testTypes" placeholder="مثال: تحليل كيميائي، اختبار صلابة..." required>
+            <br><br>
+            <label class="form-label"><span class="required">*</span> الاعتمادات الدولية</label>
+            <input type="text" class="form-input" name="accreditations" placeholder="مثال: ISO 17025, SGS..." required>
+        `
+    };
+
+    let selectedPartnerType = null;
+
+    function selectPartner(card, type) {
+        // Remove selection from all cards
+        document.querySelectorAll('.partner-card').forEach(c => c.classList.remove('selected'));
+        
+        // Select clicked card
+        card.classList.add('selected');
+        selectedPartnerType = type;
+
+        // Update form
+        document.getElementById('partnerTypeInput').value = PARTNER_LABELS[type];
+        document.getElementById('specialized-fields').innerHTML = SPECIALIZED_FIELDS[type] || '';
+
+        // Show form
+        document.getElementById('registration-form').classList.add('active');
+        document.getElementById('success-message').classList.remove('active');
+
+        // Update steps
+        document.getElementById('step1-indicator').classList.remove('active');
+        document.getElementById('step1-indicator').classList.add('completed');
+        document.getElementById('step2-indicator').classList.add('active');
+
+        // Scroll to form
+        setTimeout(() => {
+            document.getElementById('registration-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+
+    function submitForm(event) {
+        event.preventDefault();
+
+        const form = document.getElementById('partnerForm');
+        const formData = new FormData(form);
+        
+        // Validate terms checkbox
+        if (!document.getElementById('termsCheck').checked) {
+            alert('يرجى الموافقة على الشروط والأحكام');
+            return;
+        }
+
+        // Simulate form submission
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>⏳</span> جاري التقديم...';
+
+        // Simulate API call
+        setTimeout(() => {
+            // Hide form, show success
+            document.getElementById('registration-form').classList.remove('active');
+            document.getElementById('success-message').classList.add('active');
+
+            // Update steps
+            document.getElementById('step2-indicator').classList.remove('active');
+            document.getElementById('step2-indicator').classList.add('completed');
+            document.getElementById('step3-indicator').classList.add('active');
+            document.getElementById('step3-indicator').classList.add('completed');
+
+            // Scroll to success
+            document.getElementById('success-message').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Reset button
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>📝</span> تقديم طلب التسجيل';
+        }, 2000);
+    }
+
+    function registerAnother() {
+        // Reset everything
+        selectedPartnerType = null;
+        document.querySelectorAll('.partner-card').forEach(c => c.classList.remove('selected'));
+        document.getElementById('partnerForm').reset();
+        document.getElementById('registration-form').classList.remove('active');
+        document.getElementById('success-message').classList.remove('active');
+
+        // Reset steps
+        document.querySelectorAll('.step').forEach(s => {
+            s.classList.remove('active', 'completed');
+        });
+        document.getElementById('step1-indicator').classList.add('active');
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // File upload preview
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        const files = e.target.files;
+        if (files.length > 0) {
+            const fileNames = Array.from(files).map(f => f.name).join(', ');
+            document.querySelector('.file-upload-text').innerHTML = `
+                <span style="color: #10b981;">✓ تم اختيار ${files.length} ملف(ات)</span>
+                <br>
+                <small>${fileNames}</small>
+            `;
+        }
+    });
+</script>
+
+</body>
+</html>

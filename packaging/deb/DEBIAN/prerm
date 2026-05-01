@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+SERVICE_NAME="sheikha"
+
+if [ -f "/etc/systemd/system/${SERVICE_NAME}.service" ]; then
+    systemctl disable --now "${SERVICE_NAME}" || true
+fi
+
+exit 0

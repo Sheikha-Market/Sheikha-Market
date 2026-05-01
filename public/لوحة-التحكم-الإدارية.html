@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 لوحة التحكم الإدارية والمراقبة الجغرافية</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', Arial;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0f2027 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الرأس */
+        /* ═══════════════════════════════════════════════════════ */
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #b87333 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .header h1 {
+            color: #000;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .header-stat {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .header-stat-label {
+            color: #333;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .header-stat-value {
+            color: #000;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الشبكات */
+        /* ═══════════════════════════════════════════════════════ */
+        .grid-full {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* البطاقات */
+        /* ═══════════════════════════════════════════════════════ */
+        .card {
+            background: rgba(20, 30, 40, 0.8);
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .card-title {
+            color: #d4af37;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* المؤشرات الرقمية */
+        /* ═══════════════════════════════════════════════════════ */
+        .kpi-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #d4af37;
+            margin: 10px 0;
+        }
+
+        .kpi-label {
+            font-size: 12px;
+            color: #99a0a7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .kpi-change {
+            font-size: 14px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .kpi-change.positive {
+            color: #4ade80;
+        }
+
+        .kpi-change.negative {
+            color: #ef4444;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الخريطة الجغرافية */
+        /* ═══════════════════════════════════════════════════════ */
+        #map {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+            border: 2px solid #d4af37;
+            z-index: 1;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الرسوم البيانية */
+        /* ═══════════════════════════════════════════════════════ */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 15px;
+        }
+
+        canvas {
+            max-height: 300px;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الحالات والألوان */
+        /* ═══════════════════════════════════════════════════════ */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+        }
+
+        .status-warning {
+            background: rgba(251, 146, 60, 0.2);
+            color: #fb923c;
+        }
+
+        .status-critical {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الجداول */
+        /* ═══════════════════════════════════════════════════════ */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .data-table thead {
+            background: rgba(212, 175, 55, 0.1);
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .data-table th {
+            color: #d4af37;
+            padding: 12px;
+            text-align: right;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .data-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            font-size: 13px;
+        }
+
+        .data-table tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* أشرطة التقدم */
+        /* ═══════════════════════════════════════════════════════ */
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4ade80, #d4af37);
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الأزرار */
+        /* ═══════════════════════════════════════════════════════ */
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+            background: transparent;
+            color: #d4af37;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        .btn-primary {
+            background: #d4af37;
+            color: #000;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الإشعارات */
+        /* ═══════════════════════════════════════════════════════ */
+        .notification {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border-left: 4px solid;
+            font-size: 12px;
+        }
+
+        .notification-success {
+            background: rgba(74, 222, 128, 0.1);
+            border-left-color: #4ade80;
+            color: #4ade80;
+        }
+
+        .notification-warning {
+            background: rgba(251, 146, 60, 0.1);
+            border-left-color: #fb923c;
+            color: #fb923c;
+        }
+
+        .notification-critical {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: #ef4444;
+            color: #ef4444;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- الرأس -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="header">
+            <h1>📊 لوحة التحكم الإدارية والمراقبة الجغرافية</h1>
+            <div class="header-info">
+                <div class="header-stat">
+                    <div class="header-stat-label">الحالة العامة</div>
+                    <div class="header-stat-value">✅ تشغيلي</div>
+                </div>
+                <div class="header-stat">
+                    <div class="header-stat-label">المناطق النشطة</div>
+                    <div class="header-stat-value" id="active-regions">4</div>
+                </div>
+                <div class="header-stat">
+                    <div class="header-stat-label">كفاءة النظام</div>
+                    <div class="header-stat-value">98.5%</div>
+                </div>
+                <div class="header-stat">
+                    <div class="header-stat-label">آخر تحديث</div>
+                    <div class="header-stat-value" id="last-update">الآن</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- المؤشرات الرقمية الرئيسية KPI -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="grid-4">
+            <div class="card">
+                <div class="card-title">📈 إجمالي المبيعات</div>
+                <div class="kpi-value" id="total-sales">2.5M</div>
+                <div class="kpi-label">الإجمالي الشهري</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%"></div>
+                </div>
+                <div class="kpi-change positive">↑ +15% من الشهر الماضي</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📊 معدل الإنجاز</div>
+                <div class="kpi-value" id="completion-rate">92%</div>
+                <div class="kpi-label">المشاريع المكتملة</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 92%"></div>
+                </div>
+                <div class="kpi-change positive">↑ +5% من الأسبوع</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">👥 عدد العاملين</div>
+                <div class="kpi-value" id="staff-count">250</div>
+                <div class="kpi-label">العاملون النشطون</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 88%"></div>
+                </div>
+                <div class="kpi-change positive">↑ +10 موظف جديد</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">💰 الربحية</div>
+                <div class="kpi-value" id="profitability">45%</div>
+                <div class="kpi-label">هامش الربح</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 45%"></div>
+                </div>
+                <div class="kpi-change positive">↑ +8% من العام الماضي</div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- الخريطة الجغرافية التفاعلية -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title">🌍 الخريطة الجغرافية للعمليات</div>
+            <p style="font-size: 12px; color: #99a0a7; margin-bottom: 10px;">مراقبة العمليات على الخريطة التفاعلية</p>
+            <div id="map"></div>
+
+            <div style="margin-top: 20px;">
+                <h3 style="color: #d4af37; margin-bottom: 10px;">📍 المواقع النشطة:</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>الموقع</th>
+                            <th>النوع</th>
+                            <th>الحالة</th>
+                            <th>الإنتاجية</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🏭 الرياض - مصنع الشمال</td>
+                            <td>إنتاج</td>
+                            <td><span class="status-badge status-active">نشط</span></td>
+                            <td>95%</td>
+                        </tr>
+                        <tr>
+                            <td>🏢 جدة - مكتب الرئيسي</td>
+                            <td>إدارة</td>
+                            <td><span class="status-badge status-active">نشط</span></td>
+                            <td>98%</td>
+                        </tr>
+                        <tr>
+                            <td>📦 الدمام - مستودع</td>
+                            <td>تخزين</td>
+                            <td><span class="status-badge status-active">نشط</span></td>
+                            <td>87%</td>
+                        </tr>
+                        <tr>
+                            <td>🚚 الخبر - مركز توزيع</td>
+                            <td>توزيع</td>
+                            <td><span class="status-badge status-warning">مراقبة</span></td>
+                            <td>78%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- الرسوم البيانية -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">📈 اتجاه الأداء الشهري</div>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🎯 توزيع الموارد</div>
+                <div class="chart-container">
+                    <canvas id="resourceChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- حالة الأنظمة -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">⚙️ حالة الأنظمة</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>النظام</th>
+                            <th>الحالة</th>
+                            <th>الاستجابة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🤲 محرك البركة</td>
+                            <td><span class="status-badge status-active">✅ حي</span></td>
+                            <td>12ms</td>
+                        </tr>
+                        <tr>
+                            <td>📡 نظام المراقبة</td>
+                            <td><span class="status-badge status-active">✅ حي</span></td>
+                            <td>8ms</td>
+                        </tr>
+                        <tr>
+                            <td>🌍 الناقل العالمي</td>
+                            <td><span class="status-badge status-active">✅ حي</span></td>
+                            <td>15ms</td>
+                        </tr>
+                        <tr>
+                            <td>📊 نظام الإدارة</td>
+                            <td><span class="status-badge status-active">✅ حي</span></td>
+                            <td>10ms</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🔔 الإنذارات والتنبيهات</div>
+                <div id="alerts-container" style="max-height: 300px; overflow-y: auto;">
+                    <div class="notification notification-success">
+                        ✅ جميع الأنظمة تعمل بكفاءة عالية
+                    </div>
+                    <div class="notification notification-success">
+                        ✅ المشاريع تسير وفق الجدول الزمني
+                    </div>
+                    <div class="notification notification-warning">
+                        ⚠️ استهلاك الموارد في الخبر أعلى من المتوقع
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- أدوات التحكم -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title">🎛️ أدوات التحكم والإجراءات</div>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="refreshDashboard()">🔄 تحديث البيانات</button>
+                <button class="btn" onclick="exportReport()">📥 تحميل التقرير</button>
+                <button class="btn" onclick="generateAnalysis()">📊 تحليل متقدم</button>
+                <button class="btn" onclick="updateMap()">🗺️ تحديث الخريطة</button>
+                <button class="btn" onclick="configureAlerts()">🔔 إعدادات التنبيهات</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═════════════════════════════════════════════════════════
+        // تهيئة الخريطة الجغرافية
+        // ═════════════════════════════════════════════════════════
+        const map = L.map('map').setView([24.7136, 46.6753], 6);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19,
+            tileSize: 256
+        }).addTo(map);
+
+        // إضافة علامات المواقع
+        const locations = [
+            {
+                name: '🏭 الرياض - مصنع الشمال',
+                lat: 24.7136,
+                lng: 46.6753,
+                status: 'active',
+                productivity: 95
+            },
+            {
+                name: '🏢 جدة - مكتب الرئيسي',
+                lat: 21.5433,
+                lng: 39.1728,
+                status: 'active',
+                productivity: 98
+            },
+            {
+                name: '📦 الدمام - مستودع',
+                lat: 26.4124,
+                lng: 50.1971,
+                status: 'active',
+                productivity: 87
+            },
+            {
+                name: '🚚 الخبر - مركز توزيع',
+                lat: 26.1428,
+                lng: 50.2051,
+                status: 'warning',
+                productivity: 78
+            }
+        ];
+
+        locations.forEach(loc => {
+            const color = loc.status === 'active' ? '#4ade80' : '#fb923c';
+            const marker = L.circleMarker([loc.lat, loc.lng], {
+                radius: 12,
+                fillColor: color,
+                color: '#d4af37',
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 0.8
+            }).addTo(map);
+
+            marker.bindPopup(`
+                <div style="color: #000; font-family: Arial;">
+                    <strong>${loc.name}</strong><br>
+                    الحالة: ${loc.status === 'active' ? '🟢 نشط' : '🟡 مراقبة'}<br>
+                    الإنتاجية: ${loc.productivity}%
+                </div>
+            `);
+        });
+
+        // ═════════════════════════════════════════════════════════
+        // الرسوم البيانية
+        // ═════════════════════════════════════════════════════════
+        const perfCtx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(perfCtx, {
+            type: 'line',
+            data: {
+                labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الأسبوع 4'],
+                datasets: [{
+                    label: 'الأداء %',
+                    data: [85, 88, 92, 95],
+                    borderColor: '#d4af37',
+                    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#d4af37'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#d4af37' }
+                    }
+                },
+                scales: {
+                    y: {
+                        grid: { color: 'rgba(212, 175, 55, 0.1)' },
+                        ticks: { color: '#d4af37' }
+                    },
+                    x: {
+                        grid: { color: 'rgba(212, 175, 55, 0.1)' },
+                        ticks: { color: '#d4af37' }
+                    }
+                }
+            }
+        });
+
+        const resCtx = document.getElementById('resourceChart').getContext('2d');
+        new Chart(resCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['الإنتاج', 'التخزين', 'التوزيع', 'الإدارة'],
+                datasets: [{
+                    data: [35, 25, 30, 10],
+                    backgroundColor: ['#d4af37', '#4ade80', '#3b82f6', '#fb923c'],
+                    borderColor: '#1a1a2e',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#d4af37' }
+                    }
+                }
+            }
+        });
+
+        // ═════════════════════════════════════════════════════════
+        // الدوال
+        // ═════════════════════════════════════════════════════════
+        function refreshDashboard() {
+            document.getElementById('last-update').textContent = 'الآن';
+            const randomSales = (2 + Math.random() * 0.5).toFixed(1) + 'M';
+            document.getElementById('total-sales').textContent = randomSales;
+            alert('✅ تم تحديث البيانات');
+        }
+
+        function exportReport() {
+            alert('📥 جاري تحميل التقرير الإداري الشامل...');
+        }
+
+        function generateAnalysis() {
+            alert('📊 جاري إنشاء التحليل المتقدم للبيانات...');
+        }
+
+        function updateMap() {
+            alert('🗺️ جاري تحديث الخريطة والمواقع...');
+        }
+
+        function configureAlerts() {
+            alert('🔔 نافذة إعدادات التنبيهات');
+        }
+
+        // تحديث الوقت
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('last-update').textContent =
+                now.toLocaleTimeString('ar-SA');
+        }, 1000);
+    </script>
+</body>
+</html>

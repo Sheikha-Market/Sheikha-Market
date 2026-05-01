@@ -1,0 +1,46 @@
+{
+  "_meta": {
+    "title": "حوكمة تقييم البوتات والمخالفات",
+    "version": "1.0.0",
+    "createdAt": "2026-03-12",
+    "principle": "إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالإِحْسَانِ — النحل:90",
+    "systemId": "SHK-BOT-GOV-001"
+  },
+  "evaluationModel": {
+    "scoreRange": "0-100",
+    "weights": {
+      "quality": 0.30,
+      "accuracy": 0.25,
+      "sla": 0.20,
+      "compliance": 0.15,
+      "collaboration": 0.10
+    },
+    "ratingBands": [
+      { "band": "A+", "min": 95, "max": 100 },
+      { "band": "A", "min": 90, "max": 94 },
+      { "band": "B", "min": 80, "max": 89 },
+      { "band": "C", "min": 70, "max": 79 },
+      { "band": "D", "min": 0, "max": 69 }
+    ]
+  },
+  "violationsModel": {
+    "levels": [
+      { "id": "V1", "name": "Minor", "penalty": 2, "action": "تنبيه" },
+      { "id": "V2", "name": "Moderate", "penalty": 5, "action": "إعادة تدريب" },
+      { "id": "V3", "name": "Major", "penalty": 10, "action": "تعليق مؤقت + مراجعة بشرية" },
+      { "id": "V4", "name": "Critical", "penalty": 20, "action": "إيقاف فوري + تحقيق" }
+    ],
+    "categories": [
+      "Quality Drift",
+      "Policy Violation",
+      "Security Misstep",
+      "SLA Breach",
+      "Data Mishandling"
+    ]
+  },
+  "improvementPlan": {
+    "daily": ["تغذية من نتائج المهام", "تحديث الذاكرة التشغيلية", "مراجعة أخطاء اليوم"],
+    "weekly": ["Fine-tune prompts", "اختبارات قياس مرجعية", "مراجعة المخالفات"],
+    "monthly": ["إعادة معايرة الأوزان", "تحديث المعرفة التخصصية", "اعتماد نسخة تشغيل جديدة"]
+  }
+}

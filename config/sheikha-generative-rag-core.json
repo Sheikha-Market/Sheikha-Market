@@ -1,0 +1,129 @@
+{
+    "program": "SHEIKHA_GENERATIVE_RAG_CORE",
+    "version": "1.0.0",
+    "identity": {
+        "nameAr": "نواة شيخة للذكاء التوليدي وRAG",
+        "mission": "تأسيس تكامل ذكي بين الحوسبة وRAG لإنتاج نموذج استدلالي واضح وآمن ومفيد",
+        "primaryLanguage": "ar",
+        "defaultLocale": "ar-SA"
+    },
+    "foundation": {
+        "sources": [
+            "quran",
+            "sunnah"
+        ],
+        "controls": [
+            "verified-evidence-only",
+            "no-hallucination-by-default",
+            "privacy-by-default",
+            "human-in-the-loop",
+            "no-harm"
+        ],
+        "methodology": [
+            "hujjah",
+            "burhan",
+            "istidlal",
+            "bayan"
+        ]
+    },
+    "modelOrchestration": {
+        "router": [
+            "intent-classification",
+            "domain-routing",
+            "risk-aware-model-selection",
+            "response-policy-gating"
+        ],
+        "generationModes": [
+            "retrieval-augmented-generation",
+            "chain-of-evidence-generation",
+            "structured-answer-generation",
+            "comparative-reasoning-generation"
+        ],
+        "qualityControls": [
+            "citation-required",
+            "evidence-coverage-threshold",
+            "ambiguity-detection",
+            "uncertainty-disclosure"
+        ]
+    },
+    "ragPipeline": {
+        "stages": [
+            "query-understanding",
+            "hybrid-retrieval",
+            "reranking-and-filtering",
+            "evidence-packing",
+            "grounded-generation",
+            "answer-validation",
+            "audit-logging"
+        ],
+        "retrievalModes": [
+            "semantic",
+            "keyword",
+            "graph",
+            "hybrid"
+        ],
+        "chunking": {
+            "strategy": "topic-and-proof-aligned",
+            "maxChunkTokens": 900,
+            "overlapTokens": 120
+        }
+    },
+    "knowledgeSources": {
+        "islamic": [
+            "quran-index-manifest",
+            "tafsir-catalog-manifest",
+            "hadith-and-usul-indexes"
+        ],
+        "humanMedical": [
+            "human-lifecycle-framework",
+            "medical-sciences-map",
+            "blood-and-cell-frameworks"
+        ],
+        "computing": [
+            "computing-fabric",
+            "science-fusion-matrix",
+            "branch-autogenesis-system"
+        ]
+    },
+    "computingRagIntegration": {
+        "bridges": [
+            "hpc-retrieval-acceleration",
+            "neural-reranking-and-synthesis",
+            "edge-caching-for-low-latency-queries",
+            "policy-aware-runtime-gates"
+        ],
+        "workloadProfiles": [
+            "fatwa-research-assist",
+            "medical-knowledge-support",
+            "cross-science-innovation",
+            "logistics-and-operations-intelligence"
+        ]
+    },
+    "smartModelInnovation": {
+        "modelName": "sheikha-rag-reasoner-v1",
+        "architecture": [
+            "retrieval-router",
+            "evidence-graph-builder",
+            "generative-reasoner",
+            "verification-and-bayan-layer"
+        ],
+        "innovationObjectives": [
+            "reduce-hallucination",
+            "increase-evidence-clarity",
+            "improve-domain-fusion-quality",
+            "preserve-confidentiality-and-ip"
+        ],
+        "evaluation": [
+            "groundedness-score",
+            "evidence-precision",
+            "bayan-clarity-score",
+            "safety-and-privacy-compliance"
+        ]
+    },
+    "targets": {
+        "readiness": 100,
+        "groundedness": 95,
+        "citationCoverage": 100,
+        "availability": "99.99%"
+    }
+}

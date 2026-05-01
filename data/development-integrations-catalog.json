@@ -1,0 +1,119 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-02-26T00:00:00.000Z",
+  "description": "كتالوج تكاملات التطوير — Adobe, Figma, NVIDIA, Datadog, Linear, OpenAI, Stripe, Ramp",
+  "integrations": [
+    {
+      "id": "adobe",
+      "name": "Adobe",
+      "category": "design",
+      "products": ["Adobe XD", "Adobe Creative Cloud", "Adobe Experience Platform"],
+      "value": "تصميم واجهات، أصول مرئية، تجربة مستخدم",
+      "apiKeyEnv": "ADOBE_CLIENT_ID",
+      "secretEnv": "ADOBE_CLIENT_SECRET",
+      "baseUrl": "https://ims-na1.adobelogin.com",
+      "status": "planned",
+      "priority": "P2"
+    },
+    {
+      "id": "ramp",
+      "name": "Ramp",
+      "category": "finance",
+      "products": ["Spend Management", "AI Reporting", "Bill Pay"],
+      "value": "إدارة المصروفات، ترميز تلقائي، تحكم في الفواتير",
+      "apiKeyEnv": "RAMP_API_KEY",
+      "baseUrl": "https://api.ramp.com/v1",
+      "status": "planned",
+      "priority": "P2"
+    },
+    {
+      "id": "figma",
+      "name": "Figma",
+      "category": "design",
+      "products": ["Figma Design", "Figma Dev Mode", "Figma API", "MCP", "Plugin APIs", "Widget APIs", "REST API", "SCIM API"],
+      "value": "تصميم تعاوني، تصدير CSS/مكونات، تصميم-كود",
+      "apiKeyEnv": "FIGMA_ACCESS_TOKEN",
+      "baseUrl": "https://api.figma.com/v1",
+      "integrationsCatalogApi": "/api/figma/integrations-catalog",
+      "status": "planned",
+      "priority": "P1"
+    },
+    {
+      "id": "nvidia",
+      "name": "NVIDIA",
+      "category": "ai",
+      "products": ["NVIDIA NIM", "NeMo", "TensorRT", "CUDA"],
+      "value": "نماذج AI محلية، استدلال سريع، بنية GPU",
+      "apiKeyEnv": "NVIDIA_API_KEY",
+      "baseUrl": "https://api.nim.nvidia.com",
+      "status": "planned",
+      "priority": "P1"
+    },
+    {
+      "id": "sentry",
+      "name": "Sentry",
+      "category": "observability",
+      "products": ["Error Tracking", "Performance", "Releases"],
+      "value": "تتبع الأخطاء ومراقبة الأداء — بديل Datadog",
+      "apiKeyEnv": "SENTRY_DSN",
+      "baseUrl": "https://sentry.io",
+      "status": "planned",
+      "priority": "P1"
+    },
+    {
+      "id": "linear",
+      "name": "Linear",
+      "category": "project-management",
+      "products": ["Linear Issues", "Linear API", "Cycles"],
+      "value": "تتبع المهام، سباقات التطوير، تكامل Git",
+      "apiKeyEnv": "LINEAR_API_KEY",
+      "baseUrl": "https://api.linear.app/graphql",
+      "status": "planned",
+      "priority": "P1"
+    },
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "category": "ai",
+      "products": ["GPT-5", "Embeddings", "Moderation"],
+      "value": "محادثة ذكية، تحليل، توليد نصوص",
+      "apiKeyEnv": "OPENAI_API_KEY",
+      "baseUrl": "https://api.openai.com/v1",
+      "status": "active",
+      "priority": "P0"
+    },
+    {
+      "id": "stripe",
+      "name": "Stripe",
+      "category": "payments",
+      "products": ["Payments", "Checkout", "Billing", "Connect", "Event Destinations v2"],
+      "value": "مدفوعات عالمية، اشتراكات، مدفوعات للمنصة",
+      "apiKeyEnv": "STRIPE_SECRET_KEY",
+      "publishableEnv": "STRIPE_PUBLISHABLE_KEY",
+      "webhookSecretEnv": "STRIPE_WEBHOOK_SECRET",
+      "baseUrl": "https://api.stripe.com/v1",
+      "baseUrlV2": "https://api.stripe.com/v2",
+      "status": "active",
+      "priority": "P0",
+      "apiVersioning": {
+        "v1": "Payments, Checkout, Billing",
+        "v2": "Event Destinations — يتطلب include لجلب include-dependent response values"
+      },
+      "includeDependentDocs": "https://docs.stripe.com/api/include_dependent_response_values",
+      "apiKeysDoc": "docs/Stripe-API-Keys.md",
+      "apiKeysTypes": {"standard": "وصول كامل — للتطوير", "restricted": "صلاحيات محددة — للإنتاج"},
+      "sdkLanguages": ["Node.js", "Python", "Go", "Java", ".NET", "PHP", "Ruby", "Not using an SDK"],
+      "preferredSdk": "Node.js",
+      "sdkLanguagesApi": "/api/stripe/sdk-languages"
+    }
+  ],
+  "priorityOrder": ["P0", "P1", "P2"],
+  "categories": {
+    "design": "التصميم والواجهات",
+    "ai": "الذكاء الاصطناعي",
+    "observability": "المراقبة والأداء",
+    "project-management": "إدارة المشاريع",
+    "payments": "المدفوعات",
+    "finance": "المالية"
+  }
+}

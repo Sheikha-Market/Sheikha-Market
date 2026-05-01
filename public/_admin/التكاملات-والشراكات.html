@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="التكاملات والشراكات العالمية - منظومة شيخة">
+    <title>التكاملات والشراكات | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(30, 41, 59, 0.95));
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #d4af37, #f0d060);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .logo-text {
+            font-weight: 900;
+            font-size: 1.3rem;
+            color: #d4af37;
+        }
+
+        .hero {
+            padding: 80px 32px;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+        .hero h1 span { color: #d4af37; }
+        .hero p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px 80px;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-align: center;
+            margin: 60px 0 40px;
+        }
+        .section-title span { color: #d4af37; }
+
+        /* Comparison Grid */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        .compare-card {
+            background: linear-gradient(145deg, rgba(20, 30, 50, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .compare-card:hover {
+            border-color: var(--card-color, rgba(255,255,255,0.2));
+            transform: translateY(-4px);
+        }
+        .compare-header {
+            padding: 24px;
+            background: linear-gradient(135deg, var(--card-color, #3b82f6), rgba(var(--card-rgb, 59, 130, 246), 0.7));
+            position: relative;
+        }
+        .compare-logo {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        .compare-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .compare-type {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        .compare-body {
+            padding: 24px;
+        }
+        .compare-section {
+            margin-bottom: 20px;
+        }
+        .compare-section-title {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .compare-list {
+            list-style: none;
+        }
+        .compare-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        .compare-list li:last-child { border-bottom: none; }
+        .lesson-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            margin-top: 12px;
+        }
+
+        /* Sheikha Advantages */
+        .advantages-section {
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), rgba(15, 23, 42, 0.95));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 60px;
+        }
+        .advantages-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 32px;
+        }
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        .advantage-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+        .advantage-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+        .advantage-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .advantage-desc {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* Integration Architecture */
+        .architecture-section {
+            background: linear-gradient(145deg, rgba(20, 30, 50, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 60px;
+        }
+        .arch-diagram {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .arch-core {
+            display: inline-block;
+            padding: 20px 40px;
+            background: linear-gradient(135deg, #d4af37, #b8962d);
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #0a0f1a;
+            margin-bottom: 24px;
+        }
+        .arch-layers {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .arch-layer {
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        .arch-integrations {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .arch-integration {
+            padding: 10px 16px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        /* Blockchain Section */
+        .blockchain-section {
+            background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(15, 23, 42, 0.95));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 60px;
+        }
+        .blockchain-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 32px;
+        }
+        .blockchain-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+        .blockchain-block {
+            padding: 20px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            text-align: center;
+            min-width: 120px;
+        }
+        .block-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .block-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .blockchain-arrow {
+            color: #8b5cf6;
+            font-size: 1.5rem;
+        }
+        .blockchain-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .bc-feature {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .bc-feature-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .bc-feature-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        /* Integration Matrix */
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+        }
+        .matrix-table th, .matrix-table td {
+            padding: 16px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .matrix-table th {
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+            font-weight: 700;
+        }
+        .matrix-table th:first-child,
+        .matrix-table td:first-child {
+            text-align: right;
+        }
+        .priority-high { color: #10b981; }
+        .priority-medium { color: #f59e0b; }
+        .priority-low { color: #64748b; }
+
+        /* Principle Box */
+        .principle-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .principle-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #10b981;
+            margin-bottom: 12px;
+        }
+        .principle-arabic {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .principle-desc {
+            color: #94a3b8;
+        }
+
+        .footer {
+            background: rgba(5, 8, 16, 0.95);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 40px 24px;
+            text-align: center;
+        }
+        .footer-prayer {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .comparison-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <a href="منظومة-شيخة.html" class="logo">
+            <div class="logo-icon">🔗</div>
+            <span class="logo-text">التكاملات والشراكات</span>
+        </a>
+        <nav style="display: flex; gap: 24px;">
+            <a href="منظومة-شيخة.html" style="color: #94a3b8; text-decoration: none;">الرئيسية</a>
+            <a href="سوق-شيخة.html" style="color: #94a3b8; text-decoration: none;">السوق</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <h1>التكاملات <span>والشراكات</span></h1>
+    <p>تحليل أفضل الممارسات العالمية والتكامل الذكي مع الشبكات الكبرى - بلا ضرر ولا ضرار</p>
+</section>
+
+<main class="main">
+
+    <!-- المبدأ الأساسي -->
+    <div class="principle-box">
+        <div class="principle-title">☪️ المبدأ الأساسي للتكامل</div>
+        <div class="principle-arabic">"لا ضرر ولا ضرار"</div>
+        <div class="principle-desc">منفعة متبادلة، استقلالية، حماية البيانات، مرونة، شفافية</div>
+    </div>
+
+    <!-- تحليل الأنظمة العالمية -->
+    <h2 class="section-title">📊 تحليل <span>الأنظمة العالمية</span></h2>
+    
+    <div class="comparison-grid">
+        
+        <!-- SAP -->
+        <div class="compare-card" style="--card-color: #0070F2; --card-rgb: 0, 112, 242;">
+            <div class="compare-header">
+                <div class="compare-logo">💎</div>
+                <div class="compare-name">SAP S/4HANA</div>
+                <div class="compare-type">نظام ERP عالمي</div>
+            </div>
+            <div class="compare-body">
+                <div class="compare-section">
+                    <div class="compare-section-title">نقاط القوة</div>
+                    <ul class="compare-list">
+                        <li>✅ الأفضل في سلاسل التوريد</li>
+                        <li>✅ دعم قوي للتصنيع</li>
+                        <li>✅ معايير أمان عالية</li>
+                    </ul>
+                </div>
+                <div class="compare-section">
+                    <div class="compare-section-title">نقاط الضعف</div>
+                    <ul class="compare-list">
+                        <li>❌ تكلفة عالية جداً</li>
+                        <li>❌ تعقيد التنفيذ</li>
+                        <li>❌ لا يدعم العربية بشكل كامل</li>
+                    </ul>
+                </div>
+                <span class="lesson-badge">✨ نأخذ: Real-time Analytics</span>
+            </div>
+        </div>
+
+        <!-- Oracle -->
+        <div class="compare-card" style="--card-color: #F80000; --card-rgb: 248, 0, 0;">
+            <div class="compare-header">
+                <div class="compare-logo">🔶</div>
+                <div class="compare-name">Oracle Cloud ERP</div>
+                <div class="compare-type">نظام ERP سحابي</div>
+            </div>
+            <div class="compare-body">
+                <div class="compare-section">
+                    <div class="compare-section-title">نقاط القوة</div>
+                    <ul class="compare-list">
+                        <li>✅ تحليلات قوية</li>
+                        <li>✅ ذكاء اصطناعي مدمج</li>
+                        <li>✅ مرونة في التخصيص</li>
+                    </ul>
+                </div>
+                <div class="compare-section">
+                    <div class="compare-section-title">نقاط الضعف</div>
+                    <ul class="compare-list">
+                        <li>❌ تكلفة اشتراك مرتفعة</li>
+                        <li>❌ دعم إقليمي محدود</li>
+                        <li>❌ منحنى تعلم حاد</li>
+                    </ul>
+                </div>
+                <span class="lesson-badge">✨ نأخذ: AI Forecasting</span>
+            </div>
+        </div>
+
+        <!-- Google -->
+        <div class="compare-card" style="--card-color: #4285F4; --card-rgb: 66, 133, 244;">
+            <div class="compare-header">
+                <div class="compare-logo">🌐</div>
+                <div class="compare-name">Google Supply Chain</div>
+                <div class="compare-type">حلول سلسلة التوريد</div>
+            </div>
+            <div class="compare-body">
+                <div class="compare-section">
+                    <div class="compare-section-title">نقاط القوة</div>
+                    <ul class="compare-list">
+                        <li>✅ Digital Twin</li>
+                        <li>✅ تحليلات BigQuery</li>
+                        <li>✅ Maps & Routes</li>
+                    </ul>
+                </div>
+                <div class="compare-section">
+                    <div class="compare-section-title">نقاط الضعف</div>
+                    <ul class="compare-list">
+                        <li>❌ ليس متخصصاً</li>
+                        <li>❌ يحتاج خبرة تقنية</li>
+                        <li>❌ تكامل معقد</li>
+                    </ul>
+                </div>
+                <span class="lesson-badge">✨ نأخذ: Maps API + AI</span>
+            </div>
+        </div>
+
+        <!-- Amazon -->
+        <div class="compare-card" style="--card-color: #FF9900; --card-rgb: 255, 153, 0;">
+            <div class="compare-header">
+                <div class="compare-logo">📦</div>
+                <div class="compare-name">Amazon</div>
+                <div class="compare-type">سوق إلكتروني عالمي</div>
+            </div>
+            <div class="compare-body">
+                <div class="compare-section">
+                    <div class="compare-section-title">نقاط القوة</div>
+                    <ul class="compare-list">
+                        <li>✅ FBA - التنفيذ بواسطة أمازون</li>
+                        <li>✅ نظام تقييمات قوي</li>
+                        <li>✅ لوجستيات متقدمة</li>
+                    </ul>
+                </div>
+                <div class="compare-section">
+                    <div class="compare-section-title">نقاط الضعف</div>
+                    <ul class="compare-list">
+                        <li>❌ عمولات مرتفعة (15-40%)</li>
+                        <li>❌ لا يناسب B2B للمعادن</li>
+                        <li>❌ سيطرة على البيانات</li>
+                    </ul>
+                </div>
+                <span class="lesson-badge">✨ نأخذ: FBS Model</span>
+            </div>
+        </div>
+
+        <!-- Alibaba -->
+        <div class="compare-card" style="--card-color: #FF6A00; --card-rgb: 255, 106, 0;">
+            <div class="compare-header">
+                <div class="compare-logo">🏪</div>
+                <div class="compare-name">Alibaba</div>
+                <div class="compare-type">سوق B2B عالمي</div>
+            </div>
+            <div class="compare-body">
+                <div class="compare-section">
+                    <div class="compare-section-title">نقاط القوة</div>
+                    <ul class="compare-list">
+                        <li>✅ أكبر منصة B2B</li>
+                        <li>✅ Trade Assurance</li>
+                        <li>✅ RFQ System</li>
+                    </ul>
+                </div>
+                <div class="compare-section">
+                    <div class="compare-section-title">نقاط الضعف</div>
+                    <ul class="compare-list">
+                        <li>❌ جودة متفاوتة</li>
+                        <li>❌ حاجز اللغة</li>
+                        <li>❌ بطء الشحن</li>
+                    </ul>
+                </div>
+                <span class="lesson-badge">✨ نأخذ: Trade Assurance</span>
+            </div>
+        </div>
+
+        <!-- Blockchain -->
+        <div class="compare-card" style="--card-color: #8B5CF6; --card-rgb: 139, 92, 246;">
+            <div class="compare-header">
+                <div class="compare-logo">⛓️</div>
+                <div class="compare-name">Blockchain</div>
+                <div class="compare-type">تقنية السجلات الموزعة</div>
+            </div>
+            <div class="compare-body">
+                <div class="compare-section">
+                    <div class="compare-section-title">نقاط القوة</div>
+                    <ul class="compare-list">
+                        <li>✅ سجلات لا تتغير</li>
+                        <li>✅ شفافية كاملة</li>
+                        <li>✅ عقود ذكية</li>
+                    </ul>
+                </div>
+                <div class="compare-section">
+                    <div class="compare-section-title">نقاط الضعف</div>
+                    <ul class="compare-list">
+                        <li>❌ تكلفة التنفيذ</li>
+                        <li>❌ تعقيد تقني</li>
+                        <li>❌ استهلاك الطاقة</li>
+                    </ul>
+                </div>
+                <span class="lesson-badge">✨ نأخذ: Traceability</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- مميزات شيخة -->
+    <div class="advantages-section">
+        <h3 class="advantages-title">🏆 ما يميز شيخة عن الجميع</h3>
+        <div class="advantages-grid">
+            <div class="advantage-card">
+                <div class="advantage-icon">🎯</div>
+                <div class="advantage-title">التخصص العمودي</div>
+                <div class="advantage-desc">منصة متخصصة 100% في المعادن - ليست عامة</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">☪️</div>
+                <div class="advantage-title">الالتزام الشرعي</div>
+                <div class="advantage-desc">فريدة عالمياً - لا ربا، لا غرر، لا غش</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🇸🇦</div>
+                <div class="advantage-title">التكامل المحلي</div>
+                <div class="advantage-desc">ربط كامل مع الجهات الحكومية السعودية</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">💰</div>
+                <div class="advantage-title">العدالة في الأسعار</div>
+                <div class="advantage-desc">عمولات 2-5% فقط (مقابل 15-40% للآخرين)</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🔗</div>
+                <div class="advantage-title">الشفافية</div>
+                <div class="advantage-desc">Blockchain للتتبع الكامل من المصدر للمستهلك</div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🤖</div>
+                <div class="advantage-title">الذكاء الاصطناعي</div>
+                <div class="advantage-desc">تنبؤ الأسعار وتحسين العمليات</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- البنية التكاملية -->
+    <h2 class="section-title">🏗️ البنية <span>التكاملية</span></h2>
+    
+    <div class="architecture-section">
+        <div class="arch-diagram">
+            <div class="arch-core">🏛️ منظومة شيخة (Core)</div>
+            <div class="arch-layers">
+                <div class="arch-layer">🔐 API Gateway</div>
+                <div class="arch-layer">📊 Analytics Engine</div>
+                <div class="arch-layer">🤖 AI/ML Services</div>
+                <div class="arch-layer">⛓️ Blockchain</div>
+            </div>
+            <div class="arch-integrations">
+                <div class="arch-integration">🗺️ Google Maps</div>
+                <div class="arch-integration">💳 مدى/SADAD</div>
+                <div class="arch-integration">🏛️ وزارة التجارة</div>
+                <div class="arch-integration">👤 أبشر</div>
+                <div class="arch-integration">📋 الزكاة والدخل</div>
+                <div class="arch-integration">🚢 شركات الشحن</div>
+                <div class="arch-integration">💼 SAP/Oracle</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blockchain -->
+    <div class="blockchain-section">
+        <h3 class="blockchain-title">⛓️ سلسلة الكتل للشفافية</h3>
+        <div class="blockchain-flow">
+            <div class="blockchain-block">
+                <div class="block-icon">⛏️</div>
+                <div class="block-name">المصدر</div>
+            </div>
+            <span class="blockchain-arrow">→</span>
+            <div class="blockchain-block">
+                <div class="block-icon">📦</div>
+                <div class="block-name">التجميع</div>
+            </div>
+            <span class="blockchain-arrow">→</span>
+            <div class="blockchain-block">
+                <div class="block-icon">🚚</div>
+                <div class="block-name">النقل</div>
+            </div>
+            <span class="blockchain-arrow">→</span>
+            <div class="blockchain-block">
+                <div class="block-icon">✅</div>
+                <div class="block-name">التسليم</div>
+            </div>
+        </div>
+        <div class="blockchain-features">
+            <div class="bc-feature">
+                <div class="bc-feature-icon">🔒</div>
+                <div class="bc-feature-title">سجلات لا تتغير</div>
+            </div>
+            <div class="bc-feature">
+                <div class="bc-feature-icon">📜</div>
+                <div class="bc-feature-title">شهادة المنشأ</div>
+            </div>
+            <div class="bc-feature">
+                <div class="bc-feature-icon">📝</div>
+                <div class="bc-feature-title">عقود ذكية</div>
+            </div>
+            <div class="bc-feature">
+                <div class="bc-feature-icon">👁️</div>
+                <div class="bc-feature-title">شفافية كاملة</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مصفوفة التكامل -->
+    <h2 class="section-title">📋 مصفوفة <span>التكامل</span></h2>
+    
+    <div class="architecture-section">
+        <table class="matrix-table">
+            <thead>
+                <tr>
+                    <th>الشريك/النظام</th>
+                    <th>الأولوية</th>
+                    <th>التكلفة</th>
+                    <th>الفائدة</th>
+                    <th>الحالة</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Google Maps</td>
+                    <td class="priority-high">عالية</td>
+                    <td>منخفضة</td>
+                    <td>تتبع GPS</td>
+                    <td>✅ جاهز</td>
+                </tr>
+                <tr>
+                    <td>مدى/SADAD</td>
+                    <td class="priority-high">عالية</td>
+                    <td>منخفضة</td>
+                    <td>دفع محلي</td>
+                    <td>✅ جاهز</td>
+                </tr>
+                <tr>
+                    <td>وزارة التجارة</td>
+                    <td class="priority-high">عالية</td>
+                    <td>مجاني</td>
+                    <td>التحقق</td>
+                    <td>✅ جاهز</td>
+                </tr>
+                <tr>
+                    <td>أبشر</td>
+                    <td class="priority-high">عالية</td>
+                    <td>مجاني</td>
+                    <td>الهوية</td>
+                    <td>✅ جاهز</td>
+                </tr>
+                <tr>
+                    <td>SAP/Oracle</td>
+                    <td class="priority-medium">متوسطة</td>
+                    <td>متوسطة</td>
+                    <td>B2B</td>
+                    <td>⏳ قريباً</td>
+                </tr>
+                <tr>
+                    <td>Alibaba</td>
+                    <td class="priority-medium">متوسطة</td>
+                    <td>متوسطة</td>
+                    <td>التصدير</td>
+                    <td>⏳ قريباً</td>
+                </tr>
+                <tr>
+                    <td>Blockchain</td>
+                    <td class="priority-medium">متوسطة</td>
+                    <td>عالية</td>
+                    <td>الشفافية</td>
+                    <td>📅 مخطط</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<footer class="footer">
+    <p class="footer-prayer">لا حول ولا قوة إلا بالله - اللهم اجعلها منظومة وسوق بركة وخير 🤲</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,815 @@
+/* ╔════════════════════════════════════════════════════════════════╗ */
+/* ║  SHEIKHA Unified Theme — الهوية البصرية الموحدة الذكية          ║ */
+/* ║  بسم الله الرحمن الرحيم                                         ║ */
+/* ║  "وَلِلَّهِ الْحِكْمَةُ الْقِسْطُ" — الأنعام: 1                ║ */
+/* ╚════════════════════════════════════════════════════════════════╝ */
+
+:root {
+    /* ─────────────────────────────────────────────────────────────
+       الألوان الأساسية — شيخة
+    ─────────────────────────────────────────────────────────────── */
+
+    /* الذهب الحقيقي — القيمة والثقة */
+    --sheikha-gold: #D4AF37;
+    --sheikha-gold-light: #E8C547;
+    --sheikha-gold-dark: #B8860B;
+    --sheikha-gold-rgb: 212, 175, 55;
+
+    /* النحاس — الكسب والإنتاج */
+    --sheikha-copper: #B87333;
+    --sheikha-copper-light: #D4984A;
+    --sheikha-copper-dark: #8B5A2B;
+    --sheikha-copper-rgb: 184, 115, 51;
+
+    /* الأسود — الحكمة والاستقرار */
+    --sheikha-black: #1a1a1a;
+    --sheikha-black-light: #2d2d2d;
+    --sheikha-black-lighter: #3a3a3a;
+
+    /* الخلفية — الليل والقوة */
+    --sheikha-bg: #0a0a0a;
+    --sheikha-bg-secondary: #151515;
+    --sheikha-bg-tertiary: #1a1a1a;
+
+    /* النص — الوضوح */
+    --sheikha-text: #ffffff;
+    --sheikha-text-light: #e8e8e8;
+    --sheikha-text-muted: #a8a8a8;
+    --sheikha-text-dark: #666666;
+
+    /* حالات عامة */
+    --sheikha-success: #10B981;
+    --sheikha-warning: #F59E0B;
+    --sheikha-danger: #EF4444;
+    --sheikha-info: #3B82F6;
+    --sheikha-secondary: #6B7280;
+
+    /* الحدود والفواصل */
+    --sheikha-border: rgba(212, 175, 55, 0.2);
+    --sheikha-border-dark: rgba(212, 175, 55, 0.1);
+    --sheikha-divider: rgba(255, 255, 255, 0.1);
+
+    /* الظلال */
+    --sheikha-shadow-sm: 0 1px 2px 0 rgba(212, 175, 55, 0.1);
+    --sheikha-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 175, 55, 0.1);
+    --sheikha-shadow-gold: 0 0 30px rgba(212, 175, 55, 0.2);
+    --sheikha-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 0 40px rgba(212, 175, 55, 0.15);
+
+    /* الخطوط */
+    --sheikha-font-arabic: 'Tajawal', 'Cairo', 'Arabic Typesetting', sans-serif;
+    --sheikha-font-english: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    --sheikha-font-code: 'JetBrains Mono', 'Courier New', monospace;
+
+    /* الأحجام */
+    --sheikha-font-xs: 0.75rem;
+    --sheikha-font-sm: 0.875rem;
+    --sheikha-font-base: 1rem;
+    --sheikha-font-lg: 1.125rem;
+    --sheikha-font-xl: 1.25rem;
+    --sheikha-font-2xl: 1.5rem;
+    --sheikha-font-3xl: 1.875rem;
+    --sheikha-font-4xl: 2.25rem;
+
+    /* المسافات */
+    --sheikha-spacing-xs: 0.25rem;
+    --sheikha-spacing-sm: 0.5rem;
+    --sheikha-spacing-md: 1rem;
+    --sheikha-spacing-lg: 1.5rem;
+    --sheikha-spacing-xl: 2rem;
+    --sheikha-spacing-2xl: 3rem;
+    --sheikha-spacing-3xl: 4rem;
+
+    /* التحولات */
+    --sheikha-transition-fast: 150ms ease-in-out;
+    --sheikha-transition: 300ms ease-in-out;
+    --sheikha-transition-slow: 500ms ease-in-out;
+
+    /* z-index */
+    --sheikha-z-dropdown: 1000;
+    --sheikha-z-modal: 1040;
+    --sheikha-z-popover: 1060;
+    --sheikha-z-tooltip: 1080;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   النمط الأساسي — الجسم والعناصر الأساسية
+─────────────────────────────────────────────────────────────── */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    direction: rtl;
+}
+
+body {
+    font-family: var(--sheikha-font-arabic);
+    background-color: var(--sheikha-bg);
+    color: var(--sheikha-text);
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   الملفات
+─────────────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: var(--sheikha-spacing-md);
+}
+
+h1 {
+    font-size: var(--sheikha-font-4xl);
+    color: var(--sheikha-gold);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+h2 {
+    font-size: var(--sheikha-font-3xl);
+    color: var(--sheikha-gold-light);
+}
+
+h3 {
+    font-size: var(--sheikha-font-2xl);
+    color: var(--sheikha-gold);
+}
+
+h4, h5, h6 {
+    font-size: var(--sheikha-font-lg);
+    color: var(--sheikha-text-light);
+}
+
+p {
+    margin-bottom: var(--sheikha-spacing-md);
+    color: var(--sheikha-text);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   الأزرار
+─────────────────────────────────────────────────────────────── */
+
+.btn, button, .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sheikha-spacing-sm);
+    padding: var(--sheikha-spacing-md) var(--sheikha-spacing-lg);
+    font-size: var(--sheikha-font-sm);
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all var(--sheikha-transition);
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.btn-primary, .button-primary {
+    background: linear-gradient(135deg, var(--sheikha-gold) 0%, var(--sheikha-gold-dark) 100%);
+    color: var(--sheikha-black);
+    box-shadow: var(--sheikha-shadow-gold);
+    border: 2px solid var(--sheikha-gold);
+}
+
+.btn-primary:hover, .button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+}
+
+.btn-secondary, .button-secondary {
+    background: var(--sheikha-black-light);
+    color: var(--sheikha-gold);
+    border: 2px solid var(--sheikha-gold);
+}
+
+.btn-secondary:hover, .button-secondary:hover {
+    background: var(--sheikha-black-lighter);
+    box-shadow: var(--sheikha-shadow-gold);
+}
+
+.btn-copper, .button-copper {
+    background: linear-gradient(135deg, var(--sheikha-copper) 0%, var(--sheikha-copper-dark) 100%);
+    color: var(--sheikha-text);
+    border: 2px solid var(--sheikha-copper);
+    box-shadow: 0 0 20px rgba(184, 115, 51, 0.2);
+}
+
+.btn-copper:hover, .button-copper:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px rgba(184, 115, 51, 0.4);
+}
+
+.btn-success {
+    background: var(--sheikha-success);
+    color: white;
+}
+
+.btn-success:hover {
+    background: #059669;
+}
+
+.btn-warning {
+    background: var(--sheikha-warning);
+    color: white;
+}
+
+.btn-warning:hover {
+    background: #D97706;
+}
+
+.btn-danger {
+    background: var(--sheikha-danger);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #DC2626;
+}
+
+.btn-sm {
+    padding: var(--sheikha-spacing-sm) var(--sheikha-spacing-md);
+    font-size: var(--sheikha-font-xs);
+}
+
+.btn-lg {
+    padding: var(--sheikha-spacing-lg) var(--sheikha-spacing-xl);
+    font-size: var(--sheikha-font-lg);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   بطاقات — Cards
+─────────────────────────────────────────────────────────────── */
+
+.card {
+    background: var(--sheikha-bg-secondary);
+    border: 1px solid var(--sheikha-border);
+    border-radius: 12px;
+    padding: var(--sheikha-spacing-lg);
+    box-shadow: var(--sheikha-shadow);
+    transition: all var(--sheikha-transition);
+    backdrop-filter: blur(10px);
+}
+
+.card:hover {
+    border-color: var(--sheikha-gold);
+    box-shadow: var(--sheikha-shadow-lg);
+    transform: translateY(-4px);
+}
+
+.card-header {
+    border-bottom: 1px solid var(--sheikha-divider);
+    padding-bottom: var(--sheikha-spacing-md);
+    margin-bottom: var(--sheikha-spacing-md);
+}
+
+.card-title {
+    font-size: var(--sheikha-font-lg);
+    color: var(--sheikha-gold);
+    font-weight: 700;
+}
+
+.card-body {
+    padding: var(--sheikha-spacing-md) 0;
+}
+
+.card-footer {
+    border-top: 1px solid var(--sheikha-divider);
+    padding-top: var(--sheikha-spacing-md);
+    margin-top: var(--sheikha-spacing-md);
+    display: flex;
+    gap: var(--sheikha-spacing-md);
+    justify-content: flex-end;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   الجداول
+─────────────────────────────────────────────────────────────── */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--sheikha-spacing-lg) 0;
+}
+
+thead {
+    background: var(--sheikha-black-light);
+    border-bottom: 2px solid var(--sheikha-gold);
+}
+
+th {
+    padding: var(--sheikha-spacing-md);
+    text-align: right;
+    color: var(--sheikha-gold);
+    font-weight: 700;
+}
+
+td {
+    padding: var(--sheikha-spacing-md);
+    border-bottom: 1px solid var(--sheikha-divider);
+}
+
+tbody tr:hover {
+    background: var(--sheikha-black-light);
+}
+
+tbody tr:nth-child(even) {
+    background: var(--sheikha-bg-secondary);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   النماذج — Forms
+─────────────────────────────────────────────────────────────── */
+
+.form-group {
+    margin-bottom: var(--sheikha-spacing-lg);
+}
+
+label {
+    display: block;
+    margin-bottom: var(--sheikha-spacing-sm);
+    color: var(--sheikha-gold);
+    font-weight: 600;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: var(--sheikha-spacing-md);
+    background: var(--sheikha-black-light);
+    border: 1px solid var(--sheikha-border);
+    color: var(--sheikha-text);
+    border-radius: 8px;
+    font-family: var(--sheikha-font-arabic);
+    font-size: var(--sheikha-font-sm);
+    transition: all var(--sheikha-transition);
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--sheikha-gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+input::placeholder {
+    color: var(--sheikha-text-muted);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   التنبيهات — Alerts
+─────────────────────────────────────────────────────────────── */
+
+.alert {
+    padding: var(--sheikha-spacing-lg);
+    border-radius: 8px;
+    margin-bottom: var(--sheikha-spacing-lg);
+    border-right: 4px solid;
+}
+
+.alert-success {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--sheikha-success);
+    border-right-color: var(--sheikha-success);
+}
+
+.alert-warning {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--sheikha-warning);
+    border-right-color: var(--sheikha-warning);
+}
+
+.alert-danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--sheikha-danger);
+    border-right-color: var(--sheikha-danger);
+}
+
+.alert-info {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--sheikha-info);
+    border-right-color: var(--sheikha-info);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   الشريط العلوي — Header
+─────────────────────────────────────────────────────────────── */
+
+header, .header {
+    background: var(--sheikha-black);
+    border-bottom: 2px solid var(--sheikha-gold);
+    padding: var(--sheikha-spacing-md) var(--sheikha-spacing-xl);
+    box-shadow: var(--sheikha-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: var(--sheikha-font-2xl);
+    font-weight: 800;
+    color: var(--sheikha-gold);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: var(--sheikha-spacing-md);
+}
+
+.logo span {
+    color: var(--sheikha-copper);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   الشريط الجانبي — Sidebar
+─────────────────────────────────────────────────────────────── */
+
+.sidebar {
+    background: var(--sheikha-black-light);
+    border-right: 1px solid var(--sheikha-border);
+    padding: var(--sheikha-spacing-lg);
+    width: 250px;
+    height: 100vh;
+    overflow-y: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.sidebar-item {
+    display: block;
+    padding: var(--sheikha-spacing-md) var(--sheikha-spacing-lg);
+    color: var(--sheikha-text);
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: var(--sheikha-spacing-sm);
+    transition: all var(--sheikha-transition);
+    border-right: 3px solid transparent;
+}
+
+.sidebar-item:hover {
+    background: var(--sheikha-black-lighter);
+    border-right-color: var(--sheikha-gold);
+    color: var(--sheikha-gold);
+}
+
+.sidebar-item.active {
+    background: rgba(212, 175, 55, 0.1);
+    border-right-color: var(--sheikha-gold);
+    color: var(--sheikha-gold);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   الحاويات والتخطيطات
+─────────────────────────────────────────────────────────────── */
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--sheikha-spacing-xl);
+}
+
+.grid {
+    display: grid;
+    gap: var(--sheikha-spacing-lg);
+}
+
+.grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.gap-sm {
+    gap: var(--sheikha-spacing-sm);
+}
+
+.gap-md {
+    gap: var(--sheikha-spacing-md);
+}
+
+.gap-lg {
+    gap: var(--sheikha-spacing-lg);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   الشارات والعلامات — Badges
+─────────────────────────────────────────────────────────────── */
+
+.badge {
+    display: inline-block;
+    padding: var(--sheikha-spacing-xs) var(--sheikha-spacing-md);
+    border-radius: 20px;
+    font-size: var(--sheikha-font-xs);
+    font-weight: 700;
+}
+
+.badge-gold {
+    background: rgba(212, 175, 55, 0.2);
+    color: var(--sheikha-gold);
+}
+
+.badge-copper {
+    background: rgba(184, 115, 51, 0.2);
+    color: var(--sheikha-copper);
+}
+
+.badge-success {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--sheikha-success);
+}
+
+.badge-warning {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--sheikha-warning);
+}
+
+.badge-danger {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--sheikha-danger);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   الرسوم البيانية والمؤشرات
+─────────────────────────────────────────────────────────────── */
+
+.metric {
+    background: var(--sheikha-bg-secondary);
+    border: 1px solid var(--sheikha-border);
+    border-radius: 12px;
+    padding: var(--sheikha-spacing-lg);
+    text-align: center;
+}
+
+.metric-value {
+    font-size: var(--sheikha-font-3xl);
+    font-weight: 800;
+    color: var(--sheikha-gold);
+    margin-bottom: var(--sheikha-spacing-sm);
+}
+
+.metric-label {
+    font-size: var(--sheikha-font-sm);
+    color: var(--sheikha-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.metric-change {
+    font-size: var(--sheikha-font-sm);
+    margin-top: var(--sheikha-spacing-md);
+}
+
+.metric-change.positive {
+    color: var(--sheikha-success);
+}
+
+.metric-change.negative {
+    color: var(--sheikha-danger);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   صور خلفية متدرجة
+─────────────────────────────────────────────────────────────── */
+
+.gradient-gold {
+    background: linear-gradient(135deg, var(--sheikha-gold) 0%, var(--sheikha-gold-dark) 100%);
+}
+
+.gradient-copper {
+    background: linear-gradient(135deg, var(--sheikha-copper) 0%, var(--sheikha-copper-dark) 100%);
+}
+
+.gradient-dark {
+    background: linear-gradient(135deg, var(--sheikha-bg) 0%, var(--sheikha-black) 100%);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   الحركات والتأثيرات
+─────────────────────────────────────────────────────────────── */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn var(--sheikha-transition);
+}
+
+.animate-slide-in {
+    animation: slideIn var(--sheikha-transition);
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   المساعدات والأدوات
+─────────────────────────────────────────────────────────────── */
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-muted {
+    color: var(--sheikha-text-muted);
+}
+
+.text-gold {
+    color: var(--sheikha-gold);
+}
+
+.text-copper {
+    color: var(--sheikha-copper);
+}
+
+.text-success {
+    color: var(--sheikha-success);
+}
+
+.text-warning {
+    color: var(--sheikha-warning);
+}
+
+.text-danger {
+    color: var(--sheikha-danger);
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.mt-sm { margin-top: var(--sheikha-spacing-sm); }
+.mt-md { margin-top: var(--sheikha-spacing-md); }
+.mt-lg { margin-top: var(--sheikha-spacing-lg); }
+.mt-xl { margin-top: var(--sheikha-spacing-xl); }
+
+.mb-sm { margin-bottom: var(--sheikha-spacing-sm); }
+.mb-md { margin-bottom: var(--sheikha-spacing-md); }
+.mb-lg { margin-bottom: var(--sheikha-spacing-lg); }
+.mb-xl { margin-bottom: var(--sheikha-spacing-xl); }
+
+.px-sm { padding-left: var(--sheikha-spacing-sm); padding-right: var(--sheikha-spacing-sm); }
+.px-md { padding-left: var(--sheikha-spacing-md); padding-right: var(--sheikha-spacing-md); }
+.px-lg { padding-left: var(--sheikha-spacing-lg); padding-right: var(--sheikha-spacing-lg); }
+
+.py-sm { padding-top: var(--sheikha-spacing-sm); padding-bottom: var(--sheikha-spacing-sm); }
+.py-md { padding-top: var(--sheikha-spacing-md); padding-bottom: var(--sheikha-spacing-md); }
+.py-lg { padding-top: var(--sheikha-spacing-lg); padding-bottom: var(--sheikha-spacing-lg); }
+
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+.opacity-50 {
+    opacity: 0.5;
+}
+
+.opacity-75 {
+    opacity: 0.75;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   الاستجابة — Responsive
+─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    :root {
+        font-size: 14px;
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        display: none;
+    }
+
+    .sidebar.active {
+        display: block;
+    }
+
+    h1 {
+        font-size: var(--sheikha-font-2xl);
+    }
+
+    h2 {
+        font-size: var(--sheikha-font-xl);
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   وضع الطباعة
+─────────────────────────────────────────────────────────────── */
+
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .btn, button {
+        display: none;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .card {
+        page-break-inside: avoid;
+    }
+}
+
+/* ╔════════════════════════════════════════════════════════════════╗ */
+/* ║  نهاية الهوية البصرية الموحدة                                  ║ */
+/* ║  "وَخَلَقَ كُلَّ شَيْءٍ فَقَدَّرَهُ تَقْدِيرًا" — الفرقان: 2  ║ */
+/* ╚════════════════════════════════════════════════════════════════╝ */

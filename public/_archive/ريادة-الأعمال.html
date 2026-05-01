@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ريادة الأعمال — نظام ريادة الأعمال المتكامل والبدء بالتجارة في سوق شيخة">
+    <title>ريادة الأعمال — سوق شيخة | Sheikha Market</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #d4af37; --green: #006633; --dark: #0d120d; --card: #0f1510; --text-muted: #8a9a8a; --border: #2a352a; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--dark);
+            background-image: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,102,51,0.08) 0%, transparent 50%);
+            color: #f5f5f0;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        .wrap { max-width: 800px; margin: 0 auto; }
+        .back { display: inline-block; margin-bottom: 1.5rem; color: var(--gold); text-decoration: none; font-weight: 500; }
+        .back:hover { text-decoration: underline; }
+        h1 { color: var(--gold); font-size: 1.9em; margin-bottom: 0.5rem; }
+        .sub { color: var(--text-muted); font-size: 1.05em; margin-bottom: 2rem; line-height: 1.7; }
+        .block { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem 1.75rem; margin-bottom: 1.25rem; }
+        .block h2 { color: var(--gold); font-size: 1.2em; margin-bottom: 0.75rem; }
+        .block p, .block ul { color: var(--text-muted); font-size: 0.98em; line-height: 1.8; }
+        .block ul { margin: 0.5rem 0 0 1.2rem; }
+        .block li { margin-bottom: 0.35rem; }
+        .steps { display: grid; gap: 0.75rem; margin-top: 1rem; }
+        .step { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: rgba(0,0,0,0.2); border-radius: 10px; border-right: 3px solid var(--gold); }
+        .step-num { width: 28px; height: 28px; background: linear-gradient(135deg, var(--gold), #b8860b); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85em; color: #000; flex-shrink: 0; }
+        .step-text { flex: 1; }
+        .step-title { font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+        .step-desc { font-size: 0.9em; color: var(--text-muted); }
+        .cta-wrap { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 2rem; }
+        .cta-wrap a { display: inline-block; padding: 14px 24px; border-radius: 12px; font-weight: 700; text-decoration: none; font-family: inherit; font-size: 1em; transition: transform 0.2s; }
+        .cta-gold { background: linear-gradient(135deg, var(--gold), #b8860b); color: #000; }
+        .cta-outline { background: transparent; border: 2px solid var(--gold); color: var(--gold); }
+        .cta-wrap a:hover { transform: scale(1.03); }
+        .halal-note { text-align: center; margin-top: 2rem; padding: 1rem; color: var(--text-muted); font-size: 0.9em; }
+        .launch-hero { background: linear-gradient(135deg, rgba(0,102,51,0.2), rgba(212,175,55,0.12)); border: 2px solid var(--gold); border-radius: 18px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
+        .launch-hero h1 { margin-bottom: 0.5rem; }
+        .launch-hero .launch-sub { color: var(--text-muted); font-size: 1.05em; margin-bottom: 1.5rem; }
+        .launch-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .launch-step { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; text-align: center; }
+        .launch-step .n { font-size: 1.5em; font-weight: 800; color: var(--gold); margin-bottom: 0.35rem; }
+        .launch-step .t { font-weight: 700; color: #fff; font-size: 0.95em; }
+        .launch-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 1.5rem; }
+        .launch-cta a { display: inline-block; padding: 16px 28px; border-radius: 14px; font-weight: 800; text-decoration: none; font-family: inherit; font-size: 1.05em; transition: transform 0.2s; }
+        .launch-now { background: linear-gradient(135deg, var(--gold), #b8860b); color: #000; }
+        .launch-add { background: linear-gradient(135deg, var(--green), #00994d); color: #fff; }
+        .launch-contact { background: transparent; border: 2px solid var(--gold); color: var(--gold); }
+        .launch-cta a:hover { transform: scale(1.05); }
+        .systems-status { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 2rem 0; }
+        .system-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; display: flex; align-items: center; gap: 12px; }
+        .system-card.active { border-color: rgba(0,102,51,0.6); }
+        .system-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+        .system-info .name { font-weight: 700; color: #fff; font-size: 0.95em; }
+        .system-info .run { font-size: 0.85em; color: var(--text-muted); }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <a href="index.html" class="back">← العودة إلى الرئيسية</a>
+
+        <div class="launch-hero">
+            <h1>الدخول إلى التجارة الآن — الانطلاق حالاً</h1>
+            <p class="launch-sub">نظام ريادة الأعمال، مسرعات الأعمال، وحاضنات الأعمال مُفعّلة وتعمل بالخلفية — ابدأ التجارة وفق مراحل الريادة. لا تُستخدم أي صور محرمة.</p>
+            <div class="launch-steps">
+                <div class="launch-step"><span class="n">1</span><div class="t">سجّل الآن / ابدأ الآن</div></div>
+                <div class="launch-step"><span class="n">2</span><div class="t">أضف أول عرض أو طلب</div></div>
+                <div class="launch-step"><span class="n">3</span><div class="t">تواصل للتفعيل وأول صفقة</div></div>
+            </div>
+            <div class="launch-cta">
+                <a href="index.html#home" class="launch-now">ابدأ الآن</a>
+                <a href="index.html#market" class="launch-add">أضف أول عرض</a>
+                <a href="index.html#contact" class="launch-contact">تواصل للتفعيل</a>
+            </div>
+            <div class="systems-status" id="systemsStatus" aria-live="polite">
+                <!-- تُملأ بالخلفية من /api/systems-status -->
+            </div>
+        </div>
+
+        <div class="block profit-hero">
+            <h2>تحقيق أرباح ومنفعة — الانطلاق الآن</h2>
+            <p>الأرباح تأتي من: الاشتراكات، عمولات المنصة، النقل واللوجستيات، الاستشارات، وشراء السكراب وبيعه (بالكامل أو بعقود توريد). ابدأ بالبيع أو الشراء اليوم عبر التواصل معنا.</p>
+            <div class="profit-ways">
+                <div class="profit-way"><strong>اشتراكات</strong> دخل متكرر</div>
+                <div class="profit-way"><strong>عمولات</strong> من الصفقات</div>
+                <div class="profit-way"><strong>نقل</strong> ولوجستيات</div>
+                <div class="profit-way"><strong>استشارات</strong> وتقارير</div>
+                <div class="profit-way"><strong>تداول</strong> شراء وبيع سكراب</div>
+            </div>
+            <div class="whatsapp-cta">
+                <a href="#" id="waSell" target="_blank" rel="noopener" class="wa-sell">📤 أريد البيع الآن — واتساب</a>
+                <a href="#" id="waBuy" target="_blank" rel="noopener" class="wa-buy">📥 أريد الشراء الآن — واتساب</a>
+            </div>
+        </div>
+
+        <h1>ريادة الأعمال</h1>
+        <p class="sub">نظام ريادة الأعمال المتكامل — المراحل من الأولى إلى الكاملة. تمكين رواد الأعمال وعونهم.</p>
+
+        <div class="block">
+            <h2>المفهوم</h2>
+            <p>ريادة الأعمال في سوق شيخة تعني: الانطلاق بالتجارة في المعادن والسكراب من خلال المنصة، والانتقال مرحلةً بعد مرحلة من الانطلاق إلى التفعيل، ثم أول صفقة، ثم التوسع، ثم الريادة في السوق، ثم التجارة المتكاملة. النظام يدعم الابتكار من أول مرحلة ويستمر في كل المراحل.</p>
+        </div>
+
+        <div class="block">
+            <h2>المراحل من الأولى إلى الكاملة</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-num">1</span>
+                    <div class="step-text"><span class="step-title">الانطلاق</span><div class="step-desc">الدخول إلى المنصة، التسجيل، أول تعريف بالعروض أو الطلبات.</div></div>
+                </div>
+                <div class="step">
+                    <span class="step-num">2</span>
+                    <div class="step-text"><span class="step-title">التفعيل</span><div class="step-desc">إكمال الملف، الشروط، الربط بالسوق والخدمات.</div></div>
+                </div>
+                <div class="step">
+                    <span class="step-num">3</span>
+                    <div class="step-text"><span class="step-title">أول صفقة</span><div class="step-desc">إبرام أول عقد أو تنفيذ أول عملية عبر المنصة.</div></div>
+                </div>
+                <div class="step">
+                    <span class="step-num">4</span>
+                    <div class="step-text"><span class="step-title">التوسع</span><div class="step-desc">زيادة العروض والعملاء والخدمات.</div></div>
+                </div>
+                <div class="step">
+                    <span class="step-num">5</span>
+                    <div class="step-text"><span class="step-title">الريادة</span><div class="step-desc">تميّز في السوق، سمعة، شراكات.</div></div>
+                </div>
+                <div class="step">
+                    <span class="step-num">6</span>
+                    <div class="step-text"><span class="step-title">التجارة المتكاملة</span><div class="step-desc">استغلال كامل الخدمات وعقود الشراء/البيع والاستدامة.</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block">
+            <h2>نظام ريادة الأعمال — يعمل بالخلفية</h2>
+            <p>نظام الريادة بالأعمال مُفعّل ويعمل بالخلفية للانطلاق حالاً والدخول إلى التجارة. المراحل الست (الانطلاق، التفعيل، أول صفقة، التوسع، الريادة، التجارة المتكاملة) مُطبَّقة ومنظمة بالخلفية — النتائج تظهر عند الدخول والتسجيل والعروض.</p>
+        </div>
+
+        <div class="block">
+            <h2>نظام مسرعات الأعمال — يعمل بالخلفية</h2>
+            <p>منظومة ونظام مسرعات الأعمال مُفعّلان لتسريع الأعمال. يعملان بالخلفية: تحديث الأسعار، مطابقة العروض والطلبات، الإشعارات، التقارير، والتكامل مع الاستشارات واللوجستيات والعقود — دون توقف. تحقيق مفهوم مسرعات الأعمال لتسريع الأعمال من الانطلاق إلى أول صفقة والتوسع.</p>
+        </div>
+
+        <div class="block">
+            <h2>منظومة حاضنات الأعمال — تعمل بالخلفية</h2>
+            <p>نظام حاضنات الأعمال ومنظومة حاضنات الأعمال مُفعّلان لاحتضان أعمال تجارية. تعملان بالخلفية: منصة واحدة، مراحل واضحة، استشارات، لوجستيات، عقود، ومسرعات أعمال — لاحتضان رائد الأعمال من الانطلاق إلى التفعيل وأول صفقة ثم التوسع. المنظومة تعمل دون توقف.</p>
+        </div>
+
+        <div class="block">
+            <h2>نظام المنطق ومحرك المنطق — يعملان بالخلفية</h2>
+            <p>نظام المنطق ومنظومة المنطق مُفعّلان — الموقع منطقي ومفهوم وواضح. محرك المنطق يحلل المنظومة كاملة بالخلفية (الصفحات، الروابط، الأنظمة، البنية) لضمان الاتساق والوضوح. الحالة تظهر في لوحة الأنظمة أعلاه.</p>
+        </div>
+
+        <div class="block">
+            <h2>نظام شيخة للغات البرمجة — يعمل بالخلفية</h2>
+            <p>نظام شيخة للغات البرمجة، منظومة البرمجة المنطقية، ومحركات اللغات البرمجية مُفعّلة — تشمل كل لغة برمجة بالكون، الحزم البرمجية وتنسيقها وفهرستها وتكاملها بذكاء ومنطق، ودمج حزم بمنطقية لتسريع البرمجة بذكاء، وحزم جزئية منطقية ذكية لكل لغة. <a href="نظام-البرمجة.html" style="color: var(--gold);">نظام البرمجة</a>.</p>
+        </div>
+
+        <div class="block">
+            <h2>تمكين رواد الأعمال</h2>
+            <p>المنصة مفتوحة لرواد الأعمال — أفراد، مؤسسات، شركات صغيرة ومتوسطة. نُوضح المراحل، نُفعّل آلية تجربة المحتوى، ونوفّر استشارات ولوجستيات وعقود إطارية. تواصل معنا لمساعدتكم في أول خطوات التسجيل والعروض وأول صفقة.</p>
+        </div>
+
+        <div class="block">
+            <h2>البدء الآن</h2>
+            <p>ادخل إلى سوق شيخة، سجّل أو ابدأ، أضف أول عرض أو طلب، واستكشف الخدمات. المرحلة الأولى تبدأ من اليوم.</p>
+            <div class="cta-wrap">
+                <a href="index.html#home" class="cta-gold">ابدأ الآن</a>
+                <a href="index.html#market" class="cta-outline">استكشف السوق</a>
+                <a href="تجربة-العميل.html" class="cta-outline">تجربة العميل</a>
+            </div>
+        </div>
+
+        <p class="halal-note">جميع محتويات المنصة حلال — نصوص وزخارف فقط — لا تُستخدم أي صور محرمة.</p>
+    </div>
+    <script>
+        (function() {
+            var el = document.getElementById('systemsStatus');
+            if (el) {
+                fetch('/api/systems-status').then(function(r) { return r.json(); }).then(function(data) {
+                    if (!data.success || !data.systems) return;
+                    var html = '';
+                    if (data.systems.riyada && data.systems.riyada.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.riyada.label || 'نظام ريادة الأعمال') + '</span><div class="run">' + (data.systems.riyada.running || 'بالخلفية') + '</div></div></div>';
+                    if (data.systems.musarraat && data.systems.musarraat.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.musarraat.label || 'نظام مسرعات الأعمال') + '</span><div class="run">' + (data.systems.musarraat.running || 'بالخلفية') + '</div></div></div>';
+                    if (data.systems.hadinat && data.systems.hadinat.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.hadinat.label || 'منظومة حاضنات الأعمال') + '</span><div class="run">' + (data.systems.hadinat.running || 'بالخلفية') + '</div></div></div>';
+                    if (data.systems.mantiq && data.systems.mantiq.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.mantiq.label || 'نظام المنطق') + '</span><div class="run">' + (data.systems.mantiq.running || 'بالخلفية') + '</div></div></div>';
+                    if (data.systems.mantiqEngine && data.systems.mantiqEngine.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.mantiqEngine.label || 'محرك المنطق') + '</span><div class="run">' + (data.systems.mantiqEngine.running || 'يحلل المنظومة كاملة') + '</div></div></div>';
+                    if (data.systems.sheikhaLang && data.systems.sheikhaLang.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.sheikhaLang.label || 'نظام شيخة للغات البرمجة') + '</span><div class="run">' + (data.systems.sheikhaLang.running || 'بالخلفية') + '</div></div></div>';
+                    if (data.systems.progEcosystem && data.systems.progEcosystem.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.progEcosystem.label || 'منظومة البرمجة المنطقية') + '</span><div class="run">' + (data.systems.progEcosystem.running || 'تنسيق وفهرسة وتكامل الحزم') + '</div></div></div>';
+                    if (data.systems.langEngines && data.systems.langEngines.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.langEngines.label || 'محركات اللغات البرمجية') + '</span><div class="run">' + (data.systems.langEngines.running || 'حزم جزئية ذكية لكل لغة بالكون') + '</div></div></div>';
+                    if (data.systems.stores && data.systems.stores.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.stores.label || 'نظام المتاجر') + '</span><div class="run">' + (data.systems.stores.running || 'عرض بضائع داخل السوق') + '</div></div></div>';
+                    if (data.systems.globalMarkets && data.systems.globalMarkets.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.globalMarkets.label || 'سوق شيخة للأسواق كلها') + '</span><div class="run">' + (data.systems.globalMarkets.running || 'نظام يشمل كل الأسواق') + '</div></div></div>';
+                    if (data.systems.traderRegistration && data.systems.traderRegistration.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.traderRegistration.label || 'تسجيل التاجر وعرض البضائع') + '</span><div class="run">' + (data.systems.traderRegistration.running || 'أي تاجر يمكنه التسجيل وعرض بضائعه') + '</div></div></div>';
+                    if (data.systems.contentManagement && data.systems.contentManagement.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.contentManagement.label || 'نظام إدارة المحتوى') + '</span><div class="run">' + (data.systems.contentManagement.running || 'محتوى قوي واحترافي') + '</div></div></div>';
+                    if (data.systems.contentEcosystem && data.systems.contentEcosystem.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.contentEcosystem.label || 'منظومة إدارة المحتوى') + '</span><div class="run">' + (data.systems.contentEcosystem.running || 'بالخلفية') + '</div></div></div>';
+                    if (data.systems.scrapHub && data.systems.scrapHub.active) html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems.scrapHub.label || 'مركز أسواق السكراب') + '</span><div class="run">' + (data.systems.scrapHub.running || 'مكان واحد يجذب كل الأسواق') + '</div></div></div>';
+                    if (html) el.innerHTML = html;
+                }).catch(function() {});
+            }
+            // رقم واتساب سوق شيخة — المملكة العربية السعودية
+            var waNumber = '966554942904';
+            var sellMsg = encodeURIComponent('السلام عليكم. أريد البدء بالبيع في سوق شيخة — لدي سكراب/معادن للبيع. نوع الخام: ... الكمية التقريبية: ...');
+            var buyMsg = encodeURIComponent('السلام عليكم. أريد البدء بالشراء في سوق شيخة — أبحث عن شراء سكراب/معادن. النوع المطلوب: ... الكمية التقريبية: ...');
+            var sellLink = document.getElementById('waSell');
+            var buyLink = document.getElementById('waBuy');
+            if (sellLink) sellLink.href = 'https://wa.me/' + waNumber + '?text=' + sellMsg;
+            if (buyLink) buyLink.href = 'https://wa.me/' + waNumber + '?text=' + buyMsg;
+        })();
+    </script>
+    <footer style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e2e8f0;text-align:center;font-size:0.9em;color:#64748b;">
+        <p><a href="index.html" style="color:#0d9488;text-decoration:none;">الرئيسية</a> · <a href="خريطة-الموقع.html" style="color:#0d9488;text-decoration:none;">خريطة الموقع</a></p>
+        <p style="margin-top:0.5rem;">أهداف الموقع: بلا ضرر ولا ضرار · حب العلامة وأمان · محافظة على البيئة والصحة والبشر.</p>
+    </footer>
+</body>
+</html>

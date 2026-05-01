@@ -1,0 +1,15 @@
+{
+    "core": "sheikha-production-core",
+    "version": "1.0.0",
+    "title": "نواة الإنتاج لمنصة شيخة",
+    "description": "منظومة الإنتاج الكاملة — نشر + مراقبة + ترقية + تكامل مستمر — حلال وآمن",
+    "activatedAt": "2026-03-18T04:56:59.679Z",
+    "governancePolicy": "quran-and-sunnah",
+    "productionReadiness": {
+        "gate": "training-core + simulation-testing-core must pass before production",
+        "minimumTestPassRate": 98,
+        "minimumEvaluationScore": 90,
+        "shariaComplianceRequired": true,
+        "rollbackCapability": true
+    }
+}

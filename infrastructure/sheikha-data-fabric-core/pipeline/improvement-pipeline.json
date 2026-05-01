@@ -1,0 +1,52 @@
+{
+    "generatedAt": "2026-03-18T04:57:00.293Z",
+    "stages": [
+        {
+            "id": 1,
+            "stage": "ingest",
+            "status": "enabled"
+        },
+        {
+            "id": 2,
+            "stage": "validate",
+            "status": "enabled"
+        },
+        {
+            "id": 3,
+            "stage": "clean",
+            "status": "enabled"
+        },
+        {
+            "id": 4,
+            "stage": "normalize",
+            "status": "enabled"
+        },
+        {
+            "id": 5,
+            "stage": "classify",
+            "status": "enabled"
+        },
+        {
+            "id": 6,
+            "stage": "enrich",
+            "status": "enabled"
+        },
+        {
+            "id": 7,
+            "stage": "govern",
+            "status": "enabled"
+        },
+        {
+            "id": 8,
+            "stage": "serve",
+            "status": "enabled"
+        }
+    ],
+    "qualityMetrics": [
+        "completeness",
+        "consistency",
+        "accuracy",
+        "timeliness",
+        "lineage"
+    ]
+}

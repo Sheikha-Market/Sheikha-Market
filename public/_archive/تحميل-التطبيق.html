@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل تطبيق شيخة | Sheikha App Download</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #d4af37;
+            --secondary: #1a1a2e;
+            --accent: #16213e;
+            --success: #10b981;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(26, 26, 46, 0.95);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23d4af3720" stroke-width="0.5"/></svg>');
+            background-size: 100px;
+            opacity: 0.3;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        /* Phone Mockup */
+        .phone-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            padding: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .phone-mockup {
+            width: 280px;
+            height: 560px;
+            background: linear-gradient(180deg, #2a2a4a 0%, #1a1a2e 100%);
+            border-radius: 40px;
+            padding: 10px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5), inset 0 0 0 2px rgba(212, 175, 55, 0.3);
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 25px;
+            background: #000;
+            border-radius: 20px;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, var(--secondary) 0%, var(--accent) 100%);
+            border-radius: 32px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-header {
+            background: var(--primary);
+            padding: 2.5rem 1rem 1rem;
+            text-align: center;
+        }
+
+        .app-header h3 {
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+
+        .app-content {
+            padding: 1rem;
+            flex: 1;
+        }
+
+        .app-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .app-card i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .app-card-text {
+            font-size: 0.85rem;
+        }
+
+        .app-card-text small {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+
+        .app-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .app-nav i {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        .app-nav i.active {
+            color: var(--primary);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Download Section */
+        .download-section {
+            max-width: 600px;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .download-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .download-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .download-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--primary);
+            transform: translateX(-10px);
+        }
+
+        .download-btn i {
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        .download-btn-text h4 {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .download-btn-text span {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .download-btn.apple i { color: #fff; }
+        .download-btn.android i { color: #3DDC84; }
+        .download-btn.web i { color: #4285F4; }
+
+        /* QR Code */
+        .qr-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            background: #fff;
+            margin: 1rem auto;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--secondary);
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), #b8962e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* PWA Install Banner */
+        .pwa-banner {
+            background: linear-gradient(135deg, var(--primary), #b8962e);
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem;
+            border-radius: 20px;
+            display: none;
+        }
+
+        .pwa-banner.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .pwa-banner h3 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pwa-install-btn {
+            background: var(--secondary);
+            color: var(--primary);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pwa-install-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 3rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .phone-section { flex-direction: column; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">شيخة</div>
+            <nav class="nav-links">
+                <a href="/">الرئيسية</a>
+                <a href="/السوق.html">السوق</a>
+                <a href="/نظام-اللوجستيات.html">اللوجستيات</a>
+                <a href="/سلاسل-الإمداد-المتقدمة.html">سلاسل الإمداد</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>تطبيق شيخة للمعادن</h1>
+        <p>أكبر منصة للمعادن والسكراب في العالم العربي - في جيبك</p>
+    </section>
+
+    <!-- Phone Mockup & Download -->
+    <section class="phone-section">
+        <div class="phone-mockup">
+            <div class="phone-screen">
+                <div class="app-header">
+                    <h3>شيخة للمعادن</h3>
+                </div>
+                <div class="app-content">
+                    <div class="app-card">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="app-card-text">
+                            <div>أسعار لحظية</div>
+                            <small>تحديث كل ثانية</small>
+                        </div>
+                    </div>
+                    <div class="app-card">
+                        <i class="fas fa-store"></i>
+                        <div class="app-card-text">
+                            <div>+10,000 متجر</div>
+                            <small>موثق ومعتمد</small>
+                        </div>
+                    </div>
+                    <div class="app-card">
+                        <i class="fas fa-truck"></i>
+                        <div class="app-card-text">
+                            <div>تتبع الشحنات</div>
+                            <small>خريطة حية</small>
+                        </div>
+                    </div>
+                    <div class="app-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="app-card-text">
+                            <div>دفع آمن</div>
+                            <small>ضمان كامل</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-nav">
+                    <i class="fas fa-home active"></i>
+                    <i class="fas fa-search"></i>
+                    <i class="fas fa-shopping-cart"></i>
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <h2 class="download-title">حمّل التطبيق الآن</h2>
+            <p class="download-subtitle">متوفر على جميع المنصات</p>
+
+            <div class="download-buttons">
+                <a href="#" class="download-btn apple" onclick="showComingSoon('iOS')">
+                    <i class="fab fa-apple"></i>
+                    <div class="download-btn-text">
+                        <h4>حمّل من</h4>
+                        <span>App Store</span>
+                    </div>
+                </a>
+
+                <a href="#" class="download-btn android" onclick="showComingSoon('Android')">
+                    <i class="fab fa-google-play"></i>
+                    <div class="download-btn-text">
+                        <h4>حمّل من</h4>
+                        <span>Google Play</span>
+                    </div>
+                </a>
+
+                <a href="/" class="download-btn web">
+                    <i class="fas fa-globe"></i>
+                    <div class="download-btn-text">
+                        <h4>استخدم</h4>
+                        <span>تطبيق الويب</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="qr-section">
+                <h4>امسح للتحميل</h4>
+                <div class="qr-code" id="qrCode">
+                    <i class="fas fa-qrcode" style="font-size: 4rem; color: #333;"></i>
+                </div>
+                <small style="color: var(--text-muted);">www.sheikha.top/app</small>
+            </div>
+        </div>
+    </section>
+
+    <!-- PWA Install Banner -->
+    <div class="pwa-banner" id="pwaBanner">
+        <h3>ثبّت التطبيق مباشرة من المتصفح</h3>
+        <p style="color: var(--secondary); margin-bottom: 1rem;">بدون الحاجة للمتجر - سريع وخفيف</p>
+        <button class="pwa-install-btn" id="pwaInstallBtn">
+            <i class="fas fa-download"></i> تثبيت الآن
+        </button>
+    </div>
+
+    <!-- Features -->
+    <section class="features">
+        <h2>مميزات التطبيق</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>سرعة فائقة</h3>
+                <p>تحميل سريع وأداء سلس حتى مع الاتصال الضعيف</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-fingerprint"></i>
+                </div>
+                <h3>تسجيل بالبصمة</h3>
+                <p>دخول آمن وسريع ببصمة الإصبع أو الوجه</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3>إشعارات فورية</h3>
+                <p>تنبيهات بالأسعار والعروض والطلبات</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <h3>وضع عدم الاتصال</h3>
+                <p>استعرض البيانات المحفوظة بدون إنترنت</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3>تتبع مباشر</h3>
+                <p>تابع شحناتك على الخريطة لحظة بلحظة</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+                <h3>مسح الباركود</h3>
+                <p>ابحث عن المنتجات بمسح الباركود</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <h3>دفع إلكتروني</h3>
+                <p>Apple Pay, mada, Visa, Mastercard</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h3>متعدد اللغات</h3>
+                <p>عربي وإنجليزي ولغات أخرى</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stat-item">
+            <h3 id="statDownloads">0</h3>
+            <p>تحميل</p>
+        </div>
+        <div class="stat-item">
+            <h3 id="statRating">4.8</h3>
+            <p>تقييم المستخدمين</p>
+        </div>
+        <div class="stat-item">
+            <h3 id="statTraders">0</h3>
+            <p>تاجر نشط</p>
+        </div>
+        <div class="stat-item">
+            <h3 id="statOrders">0</h3>
+            <p>طلب يومياً</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">سياسة الخصوصية</a>
+            <a href="#">الشروط والأحكام</a>
+            <a href="#">الدعم الفني</a>
+            <a href="#">تواصل معنا</a>
+        </div>
+        <p class="copyright">
+            جميع الحقوق محفوظة لمنظومة شيخة &copy; 2024-2026<br>
+            <a href="https://www.sheikha.top" style="color: var(--primary);">www.sheikha.top</a>
+        </p>
+    </footer>
+
+    <script>
+        // Animate Stats
+        function animateValue(id, start, end, duration, suffix = '') {
+            const obj = document.getElementById(id);
+            const range = end - start;
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(start + (range * easeProgress));
+                obj.textContent = current.toLocaleString('ar-SA') + suffix;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        // Start animations when in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateValue('statDownloads', 0, 50000, 2000, '+');
+                    animateValue('statTraders', 0, 10000, 2000, '+');
+                    animateValue('statOrders', 0, 5000, 2000, '+');
+                    observer.disconnect();
+                }
+            });
+        });
+
+        observer.observe(document.querySelector('.stats'));
+
+        // PWA Install
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('pwaBanner').classList.add('show');
+        });
+
+        document.getElementById('pwaInstallBtn').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('PWA installed');
+                }
+                deferredPrompt = null;
+                document.getElementById('pwaBanner').classList.remove('show');
+            }
+        });
+
+        // Show coming soon
+        function showComingSoon(platform) {
+            event.preventDefault();
+            alert(`تطبيق شيخة لـ ${platform} قيد التطوير!\n\nيمكنك استخدام تطبيق الويب الآن من:\nwww.sheikha.top`);
+        }
+    </script>
+</body>
+</html>

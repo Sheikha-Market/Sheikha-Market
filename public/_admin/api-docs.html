@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--card);
+            border-left: 1px solid var(--border);
+            height: 100vh;
+            position: fixed;
+            right: 0;
+            top: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .sidebar-title span { color: var(--gold); }
+        .sidebar-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .sidebar-nav {
+            padding: 16px;
+        }
+        .nav-section {
+            margin-bottom: 20px;
+        }
+        .nav-section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 12px;
+        }
+        .nav-item {
+            display: block;
+            padding: 10px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            margin-bottom: 4px;
+        }
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+        }
+        .nav-item.active {
+            background: rgba(212,175,55,0.1);
+            color: var(--gold);
+        }
+
+        /* Main */
+        .main {
+            flex: 1;
+            margin-right: 280px;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .header-title span { color: var(--gold); }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.85rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        /* Content */
+        .content {
+            padding: 32px;
+            max-width: 1000px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 48px;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Endpoint */
+        .endpoint {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .endpoint-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .endpoint-header:hover {
+            background: rgba(255,255,255,0.02);
+        }
+        .endpoint-method {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+        .method-get { background: rgba(16,185,129,0.15); color: var(--success); }
+        .method-post { background: rgba(59,130,246,0.15); color: var(--info); }
+        .method-put { background: rgba(245,158,11,0.15); color: var(--warning); }
+        .method-delete { background: rgba(239,68,68,0.15); color: var(--danger); }
+        .endpoint-path {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .endpoint-desc {
+            margin-right: auto;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .endpoint-arrow {
+            color: var(--text-faint);
+            transition: var(--transition);
+        }
+        .endpoint.open .endpoint-arrow {
+            transform: rotate(180deg);
+        }
+        .endpoint-body {
+            display: none;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            background: rgba(0,0,0,0.2);
+        }
+        .endpoint.open .endpoint-body {
+            display: block;
+        }
+        .endpoint-section {
+            margin-bottom: 16px;
+        }
+        .endpoint-section:last-child {
+            margin-bottom: 0;
+        }
+        .endpoint-section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .code-block {
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            overflow-x: auto;
+            white-space: pre;
+            color: var(--text-muted);
+        }
+        .code-block .key { color: #7ee787; }
+        .code-block .string { color: #a5d6ff; }
+        .code-block .number { color: #f0d060; }
+        .code-block .boolean { color: #ff7b72; }
+
+        /* Try Button */
+        .try-btn {
+            padding: 8px 16px;
+            background: rgba(212,175,55,0.15);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: var(--radius);
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .try-btn:hover {
+            background: rgba(212,175,55,0.25);
+        }
+
+        /* Response Display */
+        .response-display {
+            margin-top: 16px;
+            display: none;
+        }
+        .response-display.show {
+            display: block;
+        }
+        .response-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .response-status {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .status-200 { background: rgba(16,185,129,0.15); color: var(--success); }
+        .status-error { background: rgba(239,68,68,0.15); color: var(--danger); }
+
+        /* Badge */
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 700;
+        }
+        .badge-auth { background: rgba(139,92,246,0.15); color: var(--purple); }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main { margin-right: 0; }
+            .content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">📚 <span>API</span> Documentation</div>
+            <div class="sidebar-subtitle">Sheikha Market APIs v2.0</div>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">System</div>
+                <a href="#server" class="nav-item active">🖥️ Server Status</a>
+                <a href="#health" class="nav-item">❤️ Health Checks</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Authentication</div>
+                <a href="#auth" class="nav-item">🔐 Auth APIs</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Market</div>
+                <a href="#market" class="nav-item">🛒 Market APIs</a>
+                <a href="#prices" class="nav-item">💰 Prices</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">AI</div>
+                <a href="#ai" class="nav-item">🤖 AI APIs</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Links</div>
+                <a href="ادارة-النظام.html" class="nav-item">🖥️ System Admin</a>
+                <a href="index.html" class="nav-item">🏠 Home</a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="header-title">📚 API <span>Documentation</span></h1>
+                <a href="ادارة-النظام.html" class="btn btn-outline">← النظام</a>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Server APIs -->
+            <section class="section" id="server">
+                <h2 class="section-title">🖥️ Server APIs</h2>
+                
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-get">GET</span>
+                        <span class="endpoint-path">/api/server/status</span>
+                        <span class="endpoint-desc">حالة الخادم والأداء</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <div class="endpoint-section">
+                            <div class="endpoint-section-title">Response</div>
+                            <div class="code-block">{
+  <span class="key">"success"</span>: <span class="boolean">true</span>,
+  <span class="key">"server"</span>: {
+    <span class="key">"status"</span>: <span class="string">"online"</span>,
+    <span class="key">"uptime"</span>: { <span class="key">"ms"</span>: <span class="number">3600000</span>, <span class="key">"formatted"</span>: <span class="string">"1h 0m 0s"</span> },
+    <span class="key">"version"</span>: <span class="string">"2.0.0"</span>,
+    <span class="key">"nodeVersion"</span>: <span class="string">"v20.x.x"</span>
+  },
+  <span class="key">"performance"</span>: {
+    <span class="key">"requestsTotal"</span>: <span class="number">1284</span>,
+    <span class="key">"avgResponseTime"</span>: <span class="string">"45ms"</span>
+  },
+  <span class="key">"memory"</span>: { ... }
+}</div>
+                        </div>
+                        <button class="try-btn" onclick="event.stopPropagation(); tryApi('/api/server/status', this)">▶️ Try it</button>
+                        <div class="response-display"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-get">GET</span>
+                        <span class="endpoint-path">/api/server/metrics</span>
+                        <span class="endpoint-desc">مقاييس الأداء التفصيلية</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <div class="endpoint-section">
+                            <div class="endpoint-section-title">Response</div>
+                            <div class="code-block">{
+  <span class="key">"success"</span>: <span class="boolean">true</span>,
+  <span class="key">"metrics"</span>: {
+    <span class="key">"uptime"</span>: { <span class="key">"seconds"</span>: <span class="number">3600</span>, <span class="key">"percentage"</span>: <span class="string">"99.9%"</span> },
+    <span class="key">"requests"</span>: { <span class="key">"total"</span>: <span class="number">1284</span>, <span class="key">"perHour"</span>: <span class="number">1284</span> },
+    <span class="key">"response"</span>: { <span class="key">"average"</span>: <span class="number">45</span>, <span class="key">"unit"</span>: <span class="string">"ms"</span> },
+    <span class="key">"memory"</span>: { <span class="key">"heapUsedMB"</span>: <span class="number">128</span>, <span class="key">"percentUsed"</span>: <span class="number">68</span> }
+  }
+}</div>
+                        </div>
+                        <button class="try-btn" onclick="event.stopPropagation(); tryApi('/api/server/metrics', this)">▶️ Try it</button>
+                        <div class="response-display"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-get">GET</span>
+                        <span class="endpoint-path">/api/server/services</span>
+                        <span class="endpoint-desc">حالة جميع الخدمات</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <div class="endpoint-section">
+                            <div class="endpoint-section-title">Response</div>
+                            <div class="code-block">{
+  <span class="key">"success"</span>: <span class="boolean">true</span>,
+  <span class="key">"services"</span>: [
+    { <span class="key">"id"</span>: <span class="string">"web-server"</span>, <span class="key">"status"</span>: <span class="string">"online"</span> },
+    { <span class="key">"id"</span>: <span class="string">"ai-service"</span>, <span class="key">"status"</span>: <span class="string">"online"</span> },
+    { <span class="key">"id"</span>: <span class="string">"websocket"</span>, <span class="key">"status"</span>: <span class="string">"online"</span> },
+    ...
+  ]
+}</div>
+                        </div>
+                        <button class="try-btn" onclick="event.stopPropagation(); tryApi('/api/server/services', this)">▶️ Try it</button>
+                        <div class="response-display"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Health APIs -->
+            <section class="section" id="health">
+                <h2 class="section-title">❤️ Health Checks</h2>
+                
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-get">GET</span>
+                        <span class="endpoint-path">/api/health</span>
+                        <span class="endpoint-desc">فحص صحة النظام</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <div class="endpoint-section">
+                            <div class="endpoint-section-title">Response</div>
+                            <div class="code-block">{
+  <span class="key">"success"</span>: <span class="boolean">true</span>,
+  <span class="key">"status"</span>: <span class="string">"healthy"</span>,
+  <span class="key">"checks"</span>: {
+    <span class="key">"server"</span>: <span class="boolean">true</span>,
+    <span class="key">"database"</span>: <span class="boolean">true</span>,
+    <span class="key">"memory"</span>: <span class="boolean">true</span>
+  }
+}</div>
+                        </div>
+                        <button class="try-btn" onclick="event.stopPropagation(); tryApi('/api/health', this)">▶️ Try it</button>
+                        <div class="response-display"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-get">GET</span>
+                        <span class="endpoint-path">/api/ready</span>
+                        <span class="endpoint-desc">جاهزية النظام</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <div class="endpoint-section">
+                            <div class="endpoint-section-title">Response</div>
+                            <div class="code-block">{
+  <span class="key">"success"</span>: <span class="boolean">true</span>,
+  <span class="key">"ready"</span>: <span class="boolean">true</span>,
+  <span class="key">"uptime"</span>: <span class="number">3600000</span>
+}</div>
+                        </div>
+                        <button class="try-btn" onclick="event.stopPropagation(); tryApi('/api/ready', this)">▶️ Try it</button>
+                        <div class="response-display"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Auth APIs -->
+            <section class="section" id="auth">
+                <h2 class="section-title">🔐 Authentication APIs</h2>
+                
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-post">POST</span>
+                        <span class="endpoint-path">/api/auth/login</span>
+                        <span class="endpoint-desc">تسجيل الدخول</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <div class="endpoint-section">
+                            <div class="endpoint-section-title">Request Body</div>
+                            <div class="code-block">{
+  <span class="key">"phone"</span>: <span class="string">"05xxxxxxxx"</span>,
+  <span class="key">"password"</span>: <span class="string">"your-password"</span>
+}</div>
+                        </div>
+                        <div class="endpoint-section">
+                            <div class="endpoint-section-title">Response</div>
+                            <div class="code-block">{
+  <span class="key">"success"</span>: <span class="boolean">true</span>,
+  <span class="key">"token"</span>: <span class="string">"eyJhbGciOiJIUzI1NiIs..."</span>,
+  <span class="key">"user"</span>: { ... }
+}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-post">POST</span>
+                        <span class="endpoint-path">/api/auth/register</span>
+                        <span class="endpoint-desc">تسجيل جديد</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <div class="endpoint-section">
+                            <div class="endpoint-section-title">Request Body</div>
+                            <div class="code-block">{
+  <span class="key">"name"</span>: <span class="string">"اسم المستخدم"</span>,
+  <span class="key">"phone"</span>: <span class="string">"05xxxxxxxx"</span>,
+  <span class="key">"password"</span>: <span class="string">"your-password"</span>,
+  <span class="key">"storeName"</span>: <span class="string">"اسم المتجر"</span>,
+  <span class="key">"region"</span>: <span class="string">"الرياض"</span>
+}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-get">GET</span>
+                        <span class="endpoint-path">/api/me</span>
+                        <span class="endpoint-desc">بيانات المستخدم الحالي</span>
+                        <span class="badge badge-auth">Auth</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <div class="endpoint-section">
+                            <div class="endpoint-section-title">Headers</div>
+                            <div class="code-block">Authorization: Bearer {token}</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Market APIs -->
+            <section class="section" id="market">
+                <h2 class="section-title">🛒 Market APIs</h2>
+                
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-get">GET</span>
+                        <span class="endpoint-path">/api/market-listings</span>
+                        <span class="endpoint-desc">عروض السوق</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <button class="try-btn" onclick="event.stopPropagation(); tryApi('/api/market-listings', this)">▶️ Try it</button>
+                        <div class="response-display"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-get">GET</span>
+                        <span class="endpoint-path">/api/traders</span>
+                        <span class="endpoint-desc">قائمة التجار</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <button class="try-btn" onclick="event.stopPropagation(); tryApi('/api/traders', this)">▶️ Try it</button>
+                        <div class="response-display"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Prices APIs -->
+            <section class="section" id="prices">
+                <h2 class="section-title">💰 Prices APIs</h2>
+                
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-get">GET</span>
+                        <span class="endpoint-path">/api/prices</span>
+                        <span class="endpoint-desc">أسعار المعادن الحية</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <button class="try-btn" onclick="event.stopPropagation(); tryApi('/api/prices', this)">▶️ Try it</button>
+                        <div class="response-display"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI APIs -->
+            <section class="section" id="ai">
+                <h2 class="section-title">🤖 AI APIs</h2>
+                
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-get">GET</span>
+                        <span class="endpoint-path">/api/ai/capabilities</span>
+                        <span class="endpoint-desc">إمكانيات الذكاء الاصطناعي</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <button class="try-btn" onclick="event.stopPropagation(); tryApi('/api/ai/capabilities', this)">▶️ Try it</button>
+                        <div class="response-display"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-post">POST</span>
+                        <span class="endpoint-path">/api/ai/chat</span>
+                        <span class="endpoint-desc">محادثة مع الذكاء الاصطناعي</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <div class="endpoint-section">
+                            <div class="endpoint-section-title">Request Body</div>
+                            <div class="code-block">{
+  <span class="key">"message"</span>: <span class="string">"ما هو سعر الحديد اليوم؟"</span>
+}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint" onclick="toggleEndpoint(this)">
+                    <div class="endpoint-header">
+                        <span class="endpoint-method method-get">GET</span>
+                        <span class="endpoint-path">/api/systems-status</span>
+                        <span class="endpoint-desc">حالة جميع الأنظمة</span>
+                        <span class="endpoint-arrow">▼</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <button class="try-btn" onclick="event.stopPropagation(); tryApi('/api/systems-status', this)">▶️ Try it</button>
+                        <div class="response-display"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        const API = window.location.origin;
+
+        function toggleEndpoint(el) {
+            el.classList.toggle('open');
+        }
+
+        async function tryApi(endpoint, btn) {
+            const display = btn.nextElementSibling;
+            display.classList.add('show');
+            display.innerHTML = '<div style="color: var(--text-muted); padding: 12px;">جاري التحميل...</div>';
+            
+            try {
+                const res = await fetch(API + endpoint);
+                const data = await res.json();
+                
+                display.innerHTML = `
+                    <div class="response-header">
+                        <span class="response-status status-200">${res.status} OK</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Response</span>
+                    </div>
+                    <div class="code-block" style="max-height: 300px; overflow: auto;">${JSON.stringify(data, null, 2)}</div>
+                `;
+            } catch (e) {
+                display.innerHTML = `
+                    <div class="response-header">
+                        <span class="response-status status-error">Error</span>
+                    </div>
+                    <div class="code-block">${e.message}</div>
+                `;
+            }
+        }
+
+        // Smooth scroll for nav
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                    document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

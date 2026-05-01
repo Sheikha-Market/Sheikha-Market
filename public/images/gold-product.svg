@@ -1,0 +1,70 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#F5E6A3;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#A8882B;stop-opacity:1" />
+        </linearGradient>
+        <filter id="goldGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="4" />
+            <feOffset result="coloredBlur" />
+            <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <filter id="shadow">
+            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.3" />
+        </filter>
+    </defs>
+
+    <!-- Background gradient -->
+    <defs>
+        <radialGradient id="bgGrad" cx="50%" cy="40%" r="70%">
+            <stop offset="0%" style="stop-color:rgba(245,230,163,0.1);stop-opacity:1" />
+            <stop offset="100%" style="stop-color:rgba(212,175,55,0);stop-opacity:1" />
+        </radialGradient>
+    </defs>
+    <rect width="400" height="300" fill="#030509" />
+    <rect width="400" height="300" fill="url(#bgGrad)" />
+
+    <!-- Gold bars stack -->
+    <g filter="url(#shadow)">
+        <!-- Bottom bar -->
+        <rect x="80" y="180" width="240" height="35" rx="8" fill="url(#goldGrad)" opacity="0.8" />
+        <rect x="85" y="183" width="230" height="8" fill="#F5E6A3" opacity="0.3" rx="4" />
+
+        <!-- Middle bar -->
+        <rect x="70" y="140" width="260" height="40" rx="8" fill="url(#goldGrad)" opacity="0.9" />
+        <rect x="75" y="143" width="250" height="10" fill="#F5E6A3" opacity="0.35" rx="5" />
+        <text x="200" y="168" font-family="Tajawal" font-size="16" font-weight="700" fill="#030509"
+            text-anchor="middle">9999 — اليوم</text>
+
+        <!-- Top bar -->
+        <rect x="90" y="100" width="220" height="38" rx="8" fill="url(#goldGrad)"
+            filter="url(#goldGlow)" />
+        <rect x="95" y="103" width="210" height="9" fill="#F5E6A3" opacity="0.4" rx="4" />
+    </g>
+
+    <!-- Price tag -->
+    <g filter="url(#shadow)">
+        <rect x="260" y="40" width="130" height="60" rx="10" fill="rgba(3,5,9,0.9)"
+            stroke="url(#goldGrad)" stroke-width="2" />
+        <text x="325" y="60" font-family="Tajawal" font-size="24" font-weight="800" fill="#D4AF37"
+            text-anchor="middle">2,450</text>
+        <text x="325" y="80" font-family="inherit" font-size="12" fill="#71717a"
+            text-anchor="middle">$/أونصة</text>
+    </g>
+
+    <!-- Certification badge -->
+    <g transform="translate(30, 30)">
+        <circle cx="0" cy="0" r="35" fill="rgba(212,175,55,0.1)" stroke="url(#goldGrad)"
+            stroke-width="2" />
+        <text x="0" y="0" font-family="Tajawal" font-size="32" font-weight="800" fill="#D4AF37"
+            text-anchor="middle" dominant-baseline="central">✓</text>
+    </g>
+
+    <!-- Certificate text -->
+    <text x="20" y="295" font-family="Tajawal" font-size="12" font-weight="700" fill="#D4AF37">معتمد
+        دولياً | LBMA</text>
+</svg>

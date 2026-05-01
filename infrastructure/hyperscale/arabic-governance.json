@@ -1,0 +1,26 @@
+{
+    "generatedAt": "2026-03-13T09:00:20.257Z",
+    "languagePolicy": {
+        "primaryLanguage": "ar",
+        "defaultLocale": "ar-SA",
+        "bilingualTechnicalDocs": true
+    },
+    "shariaPolicy": {
+        "source": [
+            "quran",
+            "sunnah"
+        ],
+        "controls": [
+            "no-riba",
+            "no-gharar",
+            "no-fraud",
+            "no-harm"
+        ],
+        "reviewMode": "human-in-the-loop"
+    },
+    "trustPolicy": {
+        "model": "zero-trust",
+        "secretManagement": "hsm-backed",
+        "continuousAudit": true
+    }
+}

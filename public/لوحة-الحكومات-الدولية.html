@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 لوحة التحكم الحكومية الدولية | SHEIKHA</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#D4AF37;--gold2:#B87333;--bg:#050810;--card:rgba(15,20,35,0.95);--border:rgba(139,92,246,0.1);--text:#e2e8f0;--dim:#64748b;--green:#10b981;--blue:#0ea5e9;--purple:#8b5cf6}
+body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(139,92,246,0.03),transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(14,165,233,0.02),transparent 50%);pointer-events:none}
+.container{max-width:1200px;margin:0 auto;padding:20px;position:relative;z-index:1}
+
+.hdr{text-align:center;padding:24px 0 16px}
+.hdr .icon{font-size:2.5rem;margin-bottom:8px}
+.hdr h1{font-size:1.6rem;font-weight:900;color:#fff;margin-bottom:4px}
+.hdr h1 span{color:var(--purple)}
+.hdr .sub{font-size:0.8rem;color:var(--dim);max-width:600px;margin:0 auto}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:16px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center}
+.stat .val{font-size:1.5rem;font-weight:900;color:var(--purple)}
+.stat .val.green{color:var(--green)}
+.stat .val.blue{color:var(--blue)}
+.stat .lbl{font-size:0.65rem;color:var(--dim);margin-top:2px}
+
+.section{margin:20px 0}
+.section-title{display:flex;align-items:center;gap:8px;font-size:1rem;font-weight:700;color:var(--purple);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+
+.countries{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.country{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all 0.3s}
+.country:hover{border-color:rgba(139,92,246,0.25);transform:translateY(-2px)}
+.country .c-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.country .c-flag{font-size:1.6rem}
+.country .c-name{font-size:0.85rem;font-weight:700;color:#fff}
+.country .c-en{font-size:0.6rem;color:var(--dim)}
+.country .c-currency{font-size:0.6rem;padding:2px 8px;border-radius:6px;background:rgba(139,92,246,0.08);color:var(--purple);font-weight:700;margin-right:auto}
+.country .c-status{display:inline-flex;align-items:center;gap:3px;font-size:0.6rem;padding:2px 8px;border-radius:8px;font-weight:600}
+.country .c-status.ready{background:rgba(16,185,129,0.08);color:var(--green)}
+.country .c-status.planned{background:rgba(212,175,55,0.08);color:var(--gold)}
+.country .c-reqs{margin-top:6px}
+.country .c-req{font-size:0.6rem;padding:2px 6px;border-radius:6px;background:rgba(255,255,255,0.03);color:var(--dim);display:inline-block;margin:2px}
+.country .c-regs{margin-top:4px}
+.country .c-reg{font-size:0.58rem;padding:1px 6px;border-radius:6px;background:rgba(139,92,246,0.05);color:var(--purple);display:inline-block;margin:1px}
+
+.footer{text-align:center;padding:24px;color:var(--dim);font-size:0.65rem;border-top:1px solid var(--border);margin-top:24px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}.countries{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hdr">
+    <div class="icon">🌍</div>
+    <h1>لوحة التحكم <span>الحكومية الدولية</span></h1>
+    <div class="sub">تكامل منظومة شيخة مع حكومات دول الخليج والدول العربية والدولية — لتمكين التجارة العابرة للحدود على أساس الشريعة الإسلامية</div>
+</div>
+
+<div class="stats" id="stats"></div>
+
+<div id="regions"></div>
+
+<div class="footer">
+    <div style="font-family:'Amiri',serif;color:rgba(139,92,246,0.4)">المالك: سلمان أحمد بن سلمان الراجح</div>
+    <div style="margin-top:3px">SHEIKHA Gov Engine v1.0 — النظام الحكومي الدولي</div>
+</div>
+
+</div>
+
+<script>
+async function safeFetch(u){try{const r=await fetch(u);if(!r.ok)return null;return await r.json();}catch(e){return null;}}
+
+async function load(){
+    const data = await safeFetch('/api/gov/international');
+    if(!data||!data.success) return;
+
+    document.getElementById('stats').innerHTML = `
+        <div class="stat"><div class="val">${data.summary.totalCountries}</div><div class="lbl">دولة</div></div>
+        <div class="stat"><div class="val blue">${data.summary.gccCountries}</div><div class="lbl">دول خليجية</div></div>
+        <div class="stat"><div class="val">${data.summary.arabCountries}</div><div class="lbl">دول عربية</div></div>
+        <div class="stat"><div class="val">${data.summary.internationalCountries}</div><div class="lbl">دول دولية</div></div>
+        <div class="stat"><div class="val green">${data.summary.ready}</div><div class="lbl">جاهزة</div></div>
+        <div class="stat"><div class="val green">${data.summary.readyRate}%</div><div class="lbl">نسبة الجاهزية</div></div>
+    `;
+
+    const regionsEl = document.getElementById('regions');
+    const icons = {gcc:'🏛️',arab:'🌙',international:'🌐'};
+    let html = '';
+    for (const [key, region] of Object.entries(data.regions)) {
+        html += `<div class="section">
+            <div class="section-title">${icons[key]||'🌍'} ${region.title} (${region.countries.length})</div>
+            <div class="countries">${region.countries.map(c => `
+                <div class="country">
+                    <div class="c-head">
+                        <span class="c-flag">${c.flag}</span>
+                        <div><div class="c-name">${c.nameAr}</div><div class="c-en">${c.nameEn}</div></div>
+                        <span class="c-currency">${c.currency}</span>
+                    </div>
+                    <span class="c-status ${c.status}">${c.status==='ready'?'✓ جاهز':'◉ مخطط'}</span>
+                    <div class="c-reqs">${(c.requirements||[]).map(r=>`<span class="c-req">📋 ${r}</span>`).join('')}</div>
+                    <div class="c-regs">${(c.regulations||[]).map(r=>`<span class="c-reg">⚖️ ${r}</span>`).join('')}</div>
+                </div>
+            `).join('')}</div>
+        </div>`;
+    }
+    regionsEl.innerHTML = html;
+}
+load();
+</script>
+</body>
+</html>

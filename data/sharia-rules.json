@@ -1,0 +1,148 @@
+{
+  "version": "1.0",
+  "authority": "الكتاب والسنة",
+  "owner": "سلمان أحمد بن سلمان الراجح",
+  "lastUpdated": "2026-02-03",
+  "principles": {
+    "core": [
+      {
+        "id": "SR-001",
+        "rule": "لا كذب ولا تضليل",
+        "category": "integrity",
+        "enforcement": "STRICT",
+        "penalty": "IMMEDIATE_BLOCK"
+      },
+      {
+        "id": "SR-002",
+        "rule": "لا ضرر ولا ضرار",
+        "category": "harm_prevention",
+        "enforcement": "STRICT",
+        "penalty": "IMMEDIATE_BLOCK"
+      },
+      {
+        "id": "SR-003",
+        "rule": "لا تنبؤ غيبي",
+        "category": "ai_governance",
+        "enforcement": "STRICT",
+        "penalty": "IMMEDIATE_DISABLE"
+      },
+      {
+        "id": "SR-004",
+        "rule": "لا تعلّم ذاتي منفلت",
+        "category": "ai_governance",
+        "enforcement": "STRICT",
+        "penalty": "IMMEDIATE_DISABLE"
+      },
+      {
+        "id": "SR-005",
+        "rule": "لا محاكاة وعي أو بشر",
+        "category": "ai_governance",
+        "enforcement": "STRICT",
+        "penalty": "IMMEDIATE_DISABLE"
+      },
+      {
+        "id": "SR-006",
+        "rule": "الإنسان هو المرجع والقرار النهائي",
+        "category": "governance",
+        "enforcement": "STRICT",
+        "penalty": "SYSTEM_HALT"
+      }
+    ],
+    "financial": [
+      {
+        "id": "SF-001",
+        "rule": "لا ربا",
+        "category": "financial",
+        "enforcement": "STRICT",
+        "description": "حرمة الفائدة الربوية في جميع المعاملات"
+      },
+      {
+        "id": "SF-002",
+        "rule": "لا غرر",
+        "category": "financial",
+        "enforcement": "STRICT",
+        "description": "وضوح كامل في المعاملات - لا جهالة"
+      },
+      {
+        "id": "SF-003",
+        "rule": "لا غش",
+        "category": "financial",
+        "enforcement": "STRICT",
+        "description": "الصدق والأمانة في وصف البضائع والأسعار"
+      },
+      {
+        "id": "SF-004",
+        "rule": "لا احتكار",
+        "category": "market",
+        "enforcement": "MONITORED",
+        "description": "منع الاحتكار الضار بالسوق"
+      },
+      {
+        "id": "SF-005",
+        "rule": "التسعير العادل",
+        "category": "pricing",
+        "enforcement": "MONITORED",
+        "description": "تسعير عادل لا يضر المشتري ولا البائع"
+      }
+    ],
+    "content": [
+      {
+        "id": "SC-001",
+        "rule": "لا محتوى محرّم",
+        "category": "content",
+        "enforcement": "STRICT",
+        "blockedTypes": ["gambling", "alcohol", "pork", "adult", "deception"]
+      },
+      {
+        "id": "SC-002",
+        "rule": "احترام الدين والقيم",
+        "category": "content",
+        "enforcement": "STRICT"
+      },
+      {
+        "id": "SC-003",
+        "rule": "الصدق في التسويق",
+        "category": "marketing",
+        "enforcement": "STRICT",
+        "description": "لا مبالغة ولا وعود كاذبة"
+      },
+      {
+        "id": "SC-COMM-001",
+        "rule": "امتثال الرسائل للشريعة",
+        "category": "communications",
+        "enforcement": "STRICT",
+        "blockedTypes": [
+          "gambling",
+          "alcohol",
+          "pork",
+          "adult",
+          "deception",
+          "riba",
+          "gharar"
+        ]
+      },
+      {
+        "id": "SC-COMM-002",
+        "rule": "احترام أوقات الهدوء",
+        "category": "communications",
+        "enforcement": "MONITORED",
+        "quietHours": {
+          "start": "23:00",
+          "end": "07:00",
+          "timezone": "Asia/Riyadh"
+        }
+      }
+    ]
+  },
+  "auditSchedule": {
+    "automated": "CONTINUOUS",
+    "manual": "WEEKLY",
+    "comprehensive": "MONTHLY"
+  },
+  "violationPolicy": {
+    "detection": "REAL_TIME",
+    "response": "IMMEDIATE",
+    "escalation": ["auto_block", "admin_notify", "log_record", "human_review"],
+    "zeroTolerance": ["fraud", "riba", "deception", "haram_content"]
+  }
+}

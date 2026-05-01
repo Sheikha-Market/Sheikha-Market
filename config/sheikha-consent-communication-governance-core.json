@@ -1,0 +1,217 @@
+{
+    "program": "SHEIKHA_CONSENT_COMMUNICATION_GOVERNANCE_CORE",
+    "version": "1.0.0",
+    "identity": {
+        "nameAr": "نواة شيخة للتواصل الطوعي والحوكمة والامتثال",
+        "mission": "تفعيل منصة تواصل فعالة قائمة على الموافقة الصريحة، وحوكمة خصوصية واضحة، ومتابعة دفاعية لصحة الأنظمة دون مراقبة غير رضائية",
+        "primaryLanguage": "ar",
+        "defaultLocale": "ar-SA"
+    },
+    "foundation": {
+        "sources": [
+            "quran",
+            "sunnah"
+        ],
+        "controls": [
+            "no-harm",
+            "consent-required",
+            "privacy-by-default",
+            "no-nonconsensual-surveillance",
+            "defensive-monitoring-only",
+            "legal-and-security-audit"
+        ],
+        "values": [
+            "amanah",
+            "adl",
+            "ihsan",
+            "sidq",
+            "shafafiyah"
+        ]
+    },
+    "communication": {
+        "publicNewsletters": [
+            {
+                "id": "public-market-updates",
+                "nameAr": "النشرة العامة لتحديثات السوق",
+                "frequency": "weekly"
+            },
+            {
+                "id": "partnership-and-opportunities",
+                "nameAr": "نشرة الشراكات والفرص",
+                "frequency": "biweekly"
+            },
+            {
+                "id": "security-and-resilience-advisories",
+                "nameAr": "تنبيهات الأمان والمرونة التقنية",
+                "frequency": "as-needed"
+            }
+        ],
+        "channels": [
+            "public-partner-portal",
+            "official-email-notifications",
+            "opt-in-sms-alerts",
+            "verified-community-channels",
+            "public-status-page"
+        ],
+        "officialContactForms": [
+            "general-inquiry",
+            "partnership-request",
+            "compliance-report",
+            "security-disclosure",
+            "media-and-public-relations"
+        ]
+    },
+    "consent": {
+        "requiredFor": [
+            "newsletter-subscription",
+            "direct-notifications",
+            "partner-outreach",
+            "program-participation"
+        ],
+        "consentRecordFields": [
+            "subjectType",
+            "subjectId",
+            "purpose",
+            "channel",
+            "consentGranted",
+            "consentTextVersion",
+            "ipHash",
+            "recordedAt"
+        ],
+        "retentionPolicy": {
+            "consentRecordsMonths": 36,
+            "auditTrailMonths": 36
+        }
+    },
+    "governance": {
+        "privacyPolicyPrinciples": [
+            "lawful-purpose",
+            "data-minimization",
+            "storage-limitation",
+            "security-controls",
+            "access-control",
+            "clear-consent-management",
+            "right-to-withdraw-consent"
+        ],
+        "complianceDomains": [
+            "privacy",
+            "security",
+            "legal",
+            "audit",
+            "incident-response"
+        ],
+        "auditCadence": {
+            "securityAudit": "quarterly",
+            "legalAudit": "quarterly",
+            "privacyAudit": "quarterly"
+        }
+    },
+    "defensiveMonitoring": {
+        "scope": [
+            "system-health",
+            "service-availability",
+            "error-rates",
+            "latency",
+            "security-events"
+        ],
+        "excludedScope": [
+            "private-user-content-monitoring",
+            "behavior-tracking-without-consent",
+            "identity-surveillance"
+        ],
+        "dashboardKpis": [
+            "availability",
+            "api-p95-latency-ms",
+            "api-error-rate",
+            "security-alert-count",
+            "mean-time-to-recovery-min"
+        ]
+    },
+    "partnerships": {
+        "publicPages": [
+            "partnership-model-overview",
+            "partner-eligibility-and-criteria",
+            "governance-and-compliance-commitments",
+            "transparency-and-reporting"
+        ],
+        "transparencyFields": [
+            "entityName",
+            "entityType",
+            "country",
+            "sector",
+            "relationshipType",
+            "status",
+            "lastReviewDate"
+        ],
+        "initialEntityCatalog": [
+            {
+                "entityName": "جامعة الملك فهد للبترول والمعادن",
+                "entityType": "university",
+                "country": "Saudi Arabia",
+                "sector": "education-and-research",
+                "relationshipType": "knowledge-and-research",
+                "status": "candidate",
+                "lastReviewDate": "2026-03-13"
+            },
+            {
+                "entityName": "جامعة الملك عبدالله للعلوم والتقنية (KAUST)",
+                "entityType": "university",
+                "country": "Saudi Arabia",
+                "sector": "science-and-innovation",
+                "relationshipType": "research-collaboration",
+                "status": "candidate",
+                "lastReviewDate": "2026-03-13"
+            },
+            {
+                "entityName": "غرفة الرياض",
+                "entityType": "chamber-of-commerce",
+                "country": "Saudi Arabia",
+                "sector": "trade-and-business",
+                "relationshipType": "market-and-partnership-network",
+                "status": "candidate",
+                "lastReviewDate": "2026-03-13"
+            },
+            {
+                "entityName": "Islamic Development Bank Institute",
+                "entityType": "development-institution",
+                "country": "Saudi Arabia",
+                "sector": "development-and-finance",
+                "relationshipType": "knowledge-and-program-collaboration",
+                "status": "candidate",
+                "lastReviewDate": "2026-03-13"
+            },
+            {
+                "entityName": "OECD",
+                "entityType": "international-organization",
+                "country": "France",
+                "sector": "policy-and-economic-cooperation",
+                "relationshipType": "policy-dialogue-and-benchmarking",
+                "status": "candidate",
+                "lastReviewDate": "2026-03-13"
+            },
+            {
+                "entityName": "IEEE",
+                "entityType": "professional-association",
+                "country": "United States",
+                "sector": "technology-and-standards",
+                "relationshipType": "standards-and-knowledge-collaboration",
+                "status": "candidate",
+                "lastReviewDate": "2026-03-13"
+            }
+        ]
+    },
+    "deliverables": [
+        "communication-catalog",
+        "consent-registry-schema",
+        "privacy-policy-pack",
+        "compliance-framework",
+        "defensive-monitoring-playbook",
+        "partnership-transparency-model"
+    ],
+    "targets": {
+        "consentCaptureCoverage": 100,
+        "privacyPolicyReadabilityScore": 90,
+        "defensiveMonitoringCoverage": 100,
+        "availability": "99.99%"
+    }
+}
