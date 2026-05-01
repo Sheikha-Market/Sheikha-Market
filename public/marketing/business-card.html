@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بطاقة عمل — شيخة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #D4AF37;
+    --gold-light: #f0d060;
+    --gold-dark: #b8942f;
+    --dark: #030712;
+    --green: #006c35;
+    --gray: #94a3b8;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'Tajawal', Arial, sans-serif;
+    background: #e2e8f0;
+    color: var(--dark);
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20mm;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  h1.page-title {
+    font-size: 16pt;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 8mm;
+    text-align: center;
+  }
+
+  .cards-container {
+    display: flex;
+    gap: 10mm;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .card-wrapper {
+    text-align: center;
+  }
+
+  .card-label {
+    font-size: 9pt;
+    color: #6b7280;
+    margin-bottom: 3mm;
+    font-weight: 700;
+  }
+
+  .card {
+    width: 90mm;
+    height: 55mm;
+    border-radius: 3mm;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+
+  /* ===== FRONT ===== */
+  .card-front {
+    background: linear-gradient(145deg, #faf5e4, #f0d060 30%, #D4AF37 60%, #b8942f);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5mm;
+  }
+
+  .card-front::before {
+    content: '';
+    position: absolute;
+    top: -15mm;
+    right: -15mm;
+    width: 40mm;
+    height: 40mm;
+    border: 1px solid rgba(3,7,18,0.06);
+    border-radius: 50%;
+  }
+
+  .card-front::after {
+    content: '';
+    position: absolute;
+    bottom: -10mm;
+    left: -10mm;
+    width: 30mm;
+    height: 30mm;
+    border: 1px solid rgba(3,7,18,0.06);
+    border-radius: 50%;
+  }
+
+  .card-front svg {
+    width: 50mm;
+    height: auto;
+    margin-bottom: 3mm;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-front .brand-text {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--dark);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    line-height: 1.5;
+  }
+
+  .card-front .brand-name {
+    font-size: 14pt;
+    font-weight: 900;
+    color: var(--dark);
+    letter-spacing: 2px;
+    margin-bottom: 1mm;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== BACK ===== */
+  .card-back {
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    padding: 5mm 6mm 4mm;
+    position: relative;
+  }
+
+  .card-back::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(212,175,55,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .back-top {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .back-name {
+    font-size: 11pt;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 0.5mm;
+  }
+
+  .back-title {
+    font-size: 7pt;
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 3mm;
+  }
+
+  .back-separator {
+    width: 15mm;
+    height: 0.8px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin-bottom: 2.5mm;
+  }
+
+  .back-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1mm 4mm;
+  }
+
+  .back-info-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5mm;
+    font-size: 6.5pt;
+    color: #cbd5e1;
+  }
+
+  .back-info-item svg {
+    width: 8px;
+    height: 8px;
+    fill: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .back-info-item a {
+    color: #cbd5e1;
+    text-decoration: none;
+  }
+
+  .back-logo {
+    position: absolute;
+    bottom: 4mm;
+    left: 5mm;
+    z-index: 1;
+  }
+
+  .back-logo svg {
+    width: 22mm;
+    height: auto;
+    opacity: 0.5;
+  }
+
+  /* ===== PRINT STYLES ===== */
+  @media print {
+    body {
+      background: white;
+      padding: 10mm;
+    }
+
+    .card {
+      box-shadow: none;
+      border: 0.5px solid #e5e7eb;
+    }
+
+    @page {
+      size: A4;
+      margin: 10mm;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">بطاقة العمل -- شيخة</h1>
+
+<div class="cards-container">
+
+  <!-- FRONT -->
+  <div class="card-wrapper">
+    <div class="card-label">الوجه الأمامي</div>
+    <div class="card card-front">
+      <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gld" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs>
+        <rect x="2" y="8" width="44" height="44" rx="10" fill="url(#gld)"/>
+        <text x="24" y="40" text-anchor="middle" fill="#030712" font-size="24" font-weight="900" font-family="Arial">ش</text>
+        <text x="60" y="30" fill="#030712" font-size="22" font-weight="800" font-family="Tajawal, Arial" direction="rtl">SHEIKHA</text>
+        <text x="60" y="48" fill="#374151" font-size="10" font-family="Tajawal, Arial">أول سوق إسلامي رقمي للمعادن</text>
+      </svg>
+      <div class="brand-text">منظومة وسوق شيخة للمعادن والسكراب</div>
+    </div>
+  </div>
+
+  <!-- BACK -->
+  <div class="card-wrapper">
+    <div class="card-label">الوجه الخلفي</div>
+    <div class="card card-back">
+      <div class="back-top">
+        <div class="back-name">سلمان أحمد بن سلمان الراجح</div>
+        <div class="back-title">المؤسس والمدير التنفيذي | Founder &amp; CEO</div>
+        <div class="back-separator"></div>
+        <div class="back-info">
+          <div class="back-info-item">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z"/></svg>
+            0554942904
+          </div>
+          <div class="back-info-item">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            market@sheikha.top
+          </div>
+          <div class="back-info-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            sheikha.top
+          </div>
+          <div class="back-info-item">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.546 21.2c-.124.475.32.893.788.744l3.861-1.108A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+            +966554942904
+          </div>
+        </div>
+      </div>
+      <div class="back-logo">
+        <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="gld2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0d060"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#b8942f"/></linearGradient></defs>
+          <rect x="2" y="8" width="44" height="44" rx="10" fill="url(#gld2)"/>
+          <text x="24" y="40" text-anchor="middle" fill="#030712" font-size="24" font-weight="900" font-family="Arial">ش</text>
+          <text x="60" y="30" fill="#D4AF37" font-size="22" font-weight="800" font-family="Tajawal, Arial" direction="rtl">SHEIKHA</text>
+          <text x="60" y="48" fill="#94a3b8" font-size="10" font-family="Tajawal, Arial">أول سوق إسلامي رقمي للمعادن</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

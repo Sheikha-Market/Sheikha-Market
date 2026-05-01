@@ -1,0 +1,56 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🏪 شيخة — Dockerfile للنشر الإنتاجي
+# ═══════════════════════════════════════════════════════════════════════════════
+
+FROM node:20-alpine AS production
+
+# ─── معلومات ─────────────────────────────────────────────────────────────────
+LABEL maintainer="Sheikha Market <info@sheikha.market>"
+LABEL description="سوق شيخة للمعادن والسكراب — أول سوق إسلامي رقمي للمعادن"
+
+# ─── إعداد مجلد العمل ────────────────────────────────────────────────────────
+WORKDIR /app
+
+# ─── نسخ ملفات التبعيات أولاً (للاستفادة من الكاش) ────────────────────────────
+COPY package*.json ./
+
+# ─── تثبيت التبعيات (إنتاجي فقط) ─────────────────────────────────────────────
+RUN if [ -f package-lock.json ]; then \
+      npm ci --omit=dev && npm cache clean --force; \
+    else \
+      npm install --omit=dev && npm cache clean --force; \
+    fi
+
+# ─── نسخ كود المشروع ─────────────────────────────────────────────────────────
+COPY server.js ./
+COPY global-neural-governance-init.js ./
+COPY core/ ./core/
+COPY lib/ ./lib/
+COPY models/ ./models/
+COPY middleware/ ./middleware/
+COPY routes/ ./routes/
+COPY config/ ./config/
+COPY public/ ./public/
+COPY data/ ./data/
+
+# ─── إنشاء مستخدم غير جذري (أمان) ──────────────────────────────────────────
+RUN addgroup -g 1001 -S sheikha && \
+    adduser -S sheikha -u 1001 -G sheikha && \
+    chown -R sheikha:sheikha /app
+
+USER sheikha
+
+# ─── متغيرات البيئة الافتراضية ────────────────────────────────────────────────
+ENV NODE_ENV=production
+ENV PORT=8080
+ENV HOST=0.0.0.0
+
+# ─── الصحة ────────────────────────────────────────────────────────────────────
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:${PORT}/health || exit 1
+
+# ─── فتح البورت ──────────────────────────────────────────────────────────────
+EXPOSE ${PORT}
+
+# ─── التشغيل ──────────────────────────────────────────────────────────────────
+CMD ["node", "server.js"]

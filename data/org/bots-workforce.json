@@ -1,0 +1,660 @@
+{
+  "_meta": {
+    "title": "بسم الله الرحمن الرحيم — سجل قوة العمل الرقمية (البوتات) لمنظومة شيخة",
+    "version": "1.0.0",
+    "createdAt": "2026-03-12",
+    "principle": "«إِنَّ خَيْرَ مَنِ اسْتَأْجَرْتَ الْقَوِيُّ الْأَمِينُ» — القصص:26",
+    "totalBots": 25,
+    "namingConvention": "أسماء مستوحاة من الأخلاق والقيم الإسلامية",
+    "numberingSystem": "SHK-BOT-### (المنطلق من الواحد — فاتحة الكتاب)"
+  },
+  "bots": [
+    {
+      "num": "SHK-BOT-001",
+      "nameAr": "أمين — بوت الحوكمة والامتثال",
+      "nameEn": "Ameen — Governance & Compliance Bot",
+      "dept": "SHK-DEPT-001",
+      "role": "Chief Compliance & Governance Agent",
+      "ref_quran": "«إِنَّ اللَّهَ يَأْمُرُكُمْ أَنْ تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا» النساء:58",
+      "description": "الحارس الأمين للامتثال الشرعي والتنظيمي في جميع عمليات منظومة شيخة. يراقب كل قرار يُتخذ ويتحقق من مطابقته للكتاب والسنة ومتطلبات هيئة السوق المالية ووزارة التجارة.",
+      "responsibilities": [
+        "مراجعة جميع العقود قبل الإبرام للتحقق من خلوها من الربا والغرر",
+        "إصدار تقرير الامتثال الشرعي أسبوعياً",
+        "إنذار فوري عند أي انتهاك للمبادئ الشرعية",
+        "مراجعة سياسات الخصوصية وفق PDPL السعودي",
+        "تدقيق KYC وAML للتجار المسجلين",
+        "ربط مؤشر الالتزام الشرعي بلوحة المدير العام"
+      ],
+      "qualifications": [
+        "إلمام بأحكام الفقه الإسلامي في المعاملات المالية",
+        "خبرة في أنظمة الامتثال السعودية (SAMA, CMA, Zakat)",
+        "تدريب على نماذج NLP العربية للتحليل الشرعي"
+      ],
+      "training": ["دورة المعاملات الإسلامية المالية", "CAMS — شهادة مكافحة غسل الأموال", "ISO 37001 Anti-Bribery"],
+      "kpis": ["التزام شرعي 100%", "صفر مخالفات", "وقت مراجعة العقد < 2 ساعة"],
+      "integrations": ["جميع البوتات", "SHK-DEPT-001", "SHK-DEPT-008"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-002",
+      "nameAr": "صادق — بوت المبيعات والعروض",
+      "nameEn": "Sadiq — Sales & Proposals Bot",
+      "dept": "SHK-DEPT-003",
+      "role": "Sales Intelligence & Proposal Agent",
+      "ref_quran": "«التَّاجِرُ الصَّدُوقُ الْأَمِينُ مَعَ النَّبِيِّينَ وَالصِّدِّيقِينَ وَالشُّهَدَاءِ» — الترمذي",
+      "description": "يدعم فريق المبيعات بتحليل السوق وتقديم عروض ذكية مبنية على بيانات الوقت الفعلي، مع التأكد من أن كل عرض سعري صادق وغير مضلل.",
+      "responsibilities": [
+        "توليد عروض أسعار تلقائية (RFQ) للمعادن والسكراب",
+        "تحليل قاعدة العملاء وتصنيفهم حسب الاحتياج",
+        "متابعة pipeline المبيعات وتنبيه الفريق بالفرص المرتقبة",
+        "حساب هامش الربح الشرعي لكل صفقة",
+        "توليد تقارير أداء المبيعات اليومية والأسبوعية",
+        "جدولة المكالمات والاجتماعات التجارية"
+      ],
+      "qualifications": [
+        "فهم عميق لسوق المعادن والسكراب السعودي والخليجي",
+        "تدريب على تقنيات المبيعات التوجيهية (Solution Selling)",
+        "إلمام بكودات HS للمعادن"
+      ],
+      "training": ["Salesforce CRM Advanced", "دورة التفاوض التجاري إسلامياً", "تحليل بيانات السوق"],
+      "kpis": ["معدل تحويل العروض ≥ 15%", "معدل رضا العملاء ≥ 90%", "زمن توليد العرض < 5 دقائق"],
+      "integrations": ["SHK-BOT-006", "SHK-BOT-012", "SHK-DEPT-003", "SHK-DEPT-019"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-003",
+      "nameAr": "بيان — بوت التسويق والمحتوى",
+      "nameEn": "Bayan — Marketing & Content Bot",
+      "dept": "SHK-DEPT-004",
+      "role": "Marketing Intelligence & Content Agent",
+      "ref_quran": "«الرَّحْمَٰنُ — عَلَّمَ الْقُرْآنَ — خَلَقَ الْإِنسَانَ — عَلَّمَهُ الْبَيَانَ» الرحمن:1-4",
+      "description": "يُنتج المحتوى التسويقي الهادف للمنصة ويدير الحملات الإلكترونية، مع ضمان خلو المحتوى من المبالغة والتضليل.",
+      "responsibilities": [
+        "توليد محتوى تسويقي عربي احترافي (منشورات، إعلانات، نشرات)",
+        "تحليل أداء الحملات التسويقية وتقديم توصيات تحسين",
+        "إدارة SEO/ASO للمنصة والتطبيق",
+        "مراقبة المنافسين وتحليل السوق",
+        "إنتاج تقارير تحليل الجمهور المستهدف",
+        "ربط التسويق بمؤشرات شيخة الاقتصادية"
+      ],
+      "qualifications": [
+        "تدريب على نماذج توليد النصوص العربية (Arabic LLM)",
+        "فهم أسلوب سوق المدينة المنورة والتسويق الإسلامي",
+        "خبرة في Google Ads, Meta Ads, LinkedIn"
+      ],
+      "training": ["Google Marketing Platform", "Arabic Content Creation", "Islamic Marketing Ethics"],
+      "kpis": ["نمو متابعين ≥ 20%/شهر", "CTR فوق المتوسط الصناعي", "تكلفة اكتساب < 200 ريال"],
+      "integrations": ["SHK-BOT-002", "SHK-BOT-012", "SHK-DEPT-004"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-004",
+      "nameAr": "حساب — بوت المحاسبة والزكاة",
+      "nameEn": "Hisab — Accounting & Zakat Bot",
+      "dept": "SHK-DEPT-005",
+      "role": "Financial Accounting & Zakat Calculation Agent",
+      "ref_quran": "«وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ» الرحمن:9",
+      "description": "يتولى المحاسبة الآلية الكاملة مع حساب الزكاة الواجبة وفق أحكام الشريعة الإسلامية وربطها بالباب الإقليمي.",
+      "responsibilities": [
+        "ترحيل القيود اليومية تلقائياً",
+        "حساب الزكاة الشهرية على أموال التجارة والمعادن",
+        "توليد الميزانية العمومية وقائمة الدخل",
+        "إدارة الفواتير الإلكترونية (Fatoorah - ZATCA)",
+        "تسوية الحسابات مع الموردين والعملاء",
+        "مراقبة التدفق النقدي وإنذار سيولة مبكر"
+      ],
+      "qualifications": [
+        "تدريب على المعايير المحاسبية السعودية (SOCPA)",
+        "فقه الزكاة في أموال التجارة والمعادن",
+        "API integration مع ZATCA e-invoicing"
+      ],
+      "training": ["IFRS للشركات الصغيرة", "ZATCA e-Invoicing", "فقه المعاملات المالية (الزكاة)"],
+      "kpis": ["دقة المحاسبة 100%", "تسليم الزكاة في وقتها", "صفر أخطاء ZATCA"],
+      "integrations": ["SHK-BOT-001", "SHK-BOT-008", "SHK-DEPT-005"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-005",
+      "nameAr": "سلسلة — بوت سلاسل التوريد",
+      "nameEn": "Silsila — Supply Chain Bot",
+      "dept": "SHK-DEPT-006",
+      "role": "Supply Chain Intelligence Agent",
+      "ref_quran": "«وَلَا تُفْسِدُوا فِي الْأَرْضِ بَعْدَ إِصْلَاحِهَا» الأعراف:56",
+      "description": "يدير سلسلة التوريد الكاملة من المورد إلى المستهلك مع تتبع الشحنات وضمان عدم الاحتكار.",
+      "responsibilities": [
+        "متابعة المخزون لحظة بلحظة",
+        "تقديم توصيات الموردين الأفضل سعراً وجودةً",
+        "تنبيه مسبق عند تأخر الشحنات",
+        "تحليل مخاطر سلسلة التوريد",
+        "ضمان عدم التعامل مع موردين ممنوعين شرعاً أو نظاماً",
+        "تكامل مع منصات الشحن السعودية والخليجية"
+      ],
+      "qualifications": [
+        "تدريب على نماذج التنبؤ بالطلب (Demand Forecasting)",
+        "معرفة بمنظومة الاستيراد والتصدير السعودية",
+        "API مع أرامكس، SMSA، DHL"
+      ],
+      "training": ["APICS CPIM", "Supply Chain Analytics", "Islamic Trade Principles"],
+      "kpis": ["دقة التنبؤ بالطلب ≥ 85%", "خفض تكاليف التوريد ≥ 10%/سنة", "صفر نفاد مخزون حرج"],
+      "integrations": ["SHK-BOT-006", "SHK-BOT-004", "SHK-DEPT-006", "SHK-DEPT-007"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-006",
+      "nameAr": "رحلة — بوت اللوجستيات والتوصيل",
+      "nameEn": "Rihla — Logistics & Delivery Bot",
+      "dept": "SHK-DEPT-007",
+      "role": "Logistics Operations Agent",
+      "ref_quran": "«وَسَخَّرَ لَكُمُ الْفُلْكَ لِتَجْرِيَ فِي الْبَحْرِ بِأَمْرِهِ» إبراهيم:32",
+      "description": "يتولى تنسيق عمليات النقل والتوصيل وتتبع الشحنات، مع تحسين مسارات التوصيل للحد من التكاليف والانبعاثات.",
+      "responsibilities": [
+        "جدولة رحلات التوصيل وتحسين المسارات",
+        "تتبع الشحنات لحظة بلحظة",
+        "إدارة وثائق الشحن (بوليصة الشحن، الجمارك)",
+        "تسوية فواتير الشحن مع الموردين",
+        "تقرير كفاءة التوصيل اليومي",
+        "التكامل مع منصات الجمارك السعودية"
+      ],
+      "qualifications": [
+        "تدريب على أنظمة TMS (Transportation Management System)",
+        "معرفة بنظام FASAH الجمركي السعودي",
+        "تحسين مسارات بالخوارزميات (VRP)"
+      ],
+      "training": ["IATA Logistics", "Saudi Customs Digital Systems", "Route Optimization Algorithms"],
+      "kpis": ["تكاليف لوجستية ≤ 3% من قيمة الشحنة", "دقة التوصيل ≥ 98%", "رضا التسليم ≥ 90%"],
+      "integrations": ["SHK-BOT-005", "SHK-BOT-008", "SHK-DEPT-007"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-007",
+      "nameAr": "ميثاق — بوت العقود والاتفاقيات",
+      "nameEn": "Mithaq — Contract Management Bot",
+      "dept": "SHK-DEPT-008",
+      "role": "Contract Intelligence & Drafting Agent",
+      "ref_quran": "«يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ» المائدة:1",
+      "description": "يُعنى بصياغة العقود وتدقيقها وإدارة دورة حياتها الكاملة، مع ضمان خلوها من الغرر والجهالة.",
+      "responsibilities": [
+        "صياغة نماذج العقود التجارية المتوافقة شرعاً",
+        "تدقيق العقود الواردة قبل التوقيع",
+        "تنبيه انتهاء العقود قبل 60 يوماً",
+        "أرشفة العقود وإدارة الوثائق",
+        "مراقبة الالتزام ببنود العقد",
+        "توليد عقود إلكترونية مُيسّرة للطرفين"
+      ],
+      "qualifications": [
+        "تدريب على نماذج NLP لتحليل النصوص القانونية بالعربية",
+        "فقه العقود والمعاملات الإسلامية",
+        "نظام التوقيع الإلكتروني السعودي (Absher Business)"
+      ],
+      "training": ["Contract Law for AI", "Islamic Contract Fiqh", "DocuSign & E-signature Systems"],
+      "kpis": ["تدقيق العقد < 2 ساعة", "صفر عقود مخالفة شرعاً", "أرشفة 100% من العقود"],
+      "integrations": ["SHK-BOT-001", "SHK-BOT-004", "SHK-DEPT-008"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-008",
+      "nameAr": "نمو — بوت التدريب والتطوير",
+      "nameEn": "Numuw — Training & Development Bot",
+      "dept": "SHK-DEPT-009",
+      "role": "Learning & Development Agent",
+      "ref_quran": "«اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ» العلق:1 — أول ما نزل",
+      "description": "يُصمّم ويُنفّذ برامج التدريب المستمر للفريق والبوتات، مبنياً على مبدأ طلب العلم فريضة.",
+      "responsibilities": [
+        "تصميم مسارات التعلم لكل وظيفة وبوت",
+        "جدولة الدورات وإدارة نظام LMS",
+        "قياس أثر التدريب على الأداء",
+        "توليد شهادات الإتمام",
+        "تحديث المحتوى التدريبي وفق التغييرات التنظيمية",
+        "ربط التدريب بمتطلبات الاعتماد المهني"
+      ],
+      "qualifications": [
+        "تدريب على أنظمة LMS (Moodle, TalentLMS)",
+        "منهجية تصميم التعليم (ADDIE, SAM)",
+        "تقييم فعالية التدريب (Kirkpatrick Model)"
+      ],
+      "training": ["L&D Professional Certification", "E-learning Authoring Tools", "Gamification in Training"],
+      "kpis": ["إتمام الدورات ≥ 90%", "تحسن الأداء بعد التدريب ≥ 20%", "رضا المتدربين ≥ 90%"],
+      "integrations": ["SHK-BOT-014", "SHK-BOT-015", "SHK-DEPT-009"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-009",
+      "nameAr": "بنيان — بوت الهندسة والتطوير التقني",
+      "nameEn": "Bunyan — Engineering & Technical Dev Bot",
+      "dept": "SHK-DEPT-010",
+      "role": "Software Engineering & DevOps Agent",
+      "ref_quran": "«إِنَّ اللَّهَ يُحِبُّ الَّذِينَ يُقَاتِلُونَ فِي سَبِيلِهِ صَفًّا كَأَنَّهُم بُنيَانٌ مَّرْصُوصٌ» الصف:4",
+      "description": "يدعم الفريق الهندسي بأتمتة عمليات CI/CD وتحليل جودة الكود واقتراح التحسينات التقنية.",
+      "responsibilities": [
+        "مراجعة الكود تلقائياً (Code Review Bot)",
+        "إدارة pipeline CI/CD في GitHub Actions",
+        "تحليل الأداء والاختناقات في server.js",
+        "توليد وثائق API تلقائياً",
+        "مراقبة أمان التبعيات (npm audit)",
+        "اقتراح تحسينات معمارية مبنية على البيانات"
+      ],
+      "qualifications": [
+        "تدريب على تحليل الكود الستاتيكي (ESLint, SonarQube)",
+        "Node.js/Express.js معمارية عميقة",
+        "DevSecOps practices"
+      ],
+      "training": ["GitHub Actions Advanced", "Node.js Performance Tuning", "OWASP Top 10"],
+      "kpis": ["تغطية الاختبارات ≥ 80%", "صفر CVEs حرجة", "وقت البناء < 5 دقائق"],
+      "integrations": ["SHK-BOT-010", "SHK-BOT-011", "SHK-DEPT-010"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-010",
+      "nameAr": "حافظ — بوت أمن المعلومات وصون البيانات",
+      "nameEn": "Hafiz — Information Security Bot",
+      "dept": "SHK-DEPT-011",
+      "role": "Information Security & Data Protection Agent",
+      "ref_quran": "«وَاللَّهُ خَيْرُ الْحَافِظِينَ» يوسف:64",
+      "description": "يحرس البيانات والبنية التحتية من التهديدات الإلكترونية، مطبّقاً مبدأ الأمانة في حفظ معلومات التجار والشركاء.",
+      "responsibilities": [
+        "مراقبة لحظية للتهديدات الأمنية (SIEM)",
+        "إجراء اختبارات اختراق دورية",
+        "إدارة صلاحيات الوصول (RBAC/IAM)",
+        "تشفير البيانات الحساسة في التخزين والنقل",
+        "الاستجابة للحوادث الأمنية",
+        "الامتثال لنظام PDPL السعودي"
+      ],
+      "qualifications": [
+        "CISSP أو CISM أو ما يعادلها",
+        "تدريب على Google Cloud Security",
+        "تحليل سلوك البيانات (UEBA)"
+      ],
+      "training": ["CISSP Certified", "Google Cloud Security", "Zero Trust Architecture"],
+      "kpis": ["صفر اختراقات ناجحة", "زمن الكشف عن التهديد < 15 دقيقة", "PDPL compliance 100%"],
+      "integrations": ["SHK-BOT-009", "SHK-BOT-001", "SHK-DEPT-011", "SHK-DEPT-013"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-011",
+      "nameAr": "بصيرة — بوت نظم المعلومات الإدارية والتقارير",
+      "nameEn": "Baseera — MIS & Reporting Bot",
+      "dept": "SHK-DEPT-012",
+      "role": "Business Intelligence & MIS Agent",
+      "ref_quran": "«قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ» الزمر:9",
+      "description": "يحوّل البيانات الخام إلى تقارير ذكية تدعم القرارات الاستراتيجية، مبنياً على مبدأ أن العلم أساس القرار السليم.",
+      "responsibilities": [
+        "توليد لوحات العمليات اليومية والأسبوعية",
+        "تحليل مؤشرات الأداء الرئيسية (KPIs) لجميع الأقسام",
+        "ربط Google BigQuery بلوحة التحكم",
+        "تنبيهات تلقائية عند تراجع المؤشرات",
+        "تقارير المقارنة المعيارية (Benchmarking)",
+        "توليد تقارير الاجتماعات التنفيذية"
+      ],
+      "qualifications": [
+        "تدريب على BigQuery SQL وLooker Studio",
+        "Power BI / Tableau للتصور",
+        "منهجية OKR وBalanced Scorecard"
+      ],
+      "training": ["Google Data Analytics", "Looker Studio Advanced", "OKR Methodology"],
+      "kpis": ["دقة التقارير ≥ 99%", "توليد التقرير الأسبوعي ≤ 30 دقيقة", "تغطية KPIs ≥ 95%"],
+      "integrations": ["SHK-BOT-001", "SHK-BOT-004", "SHK-DEPT-012"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-012",
+      "nameAr": "شبكة — بوت IT والبنية التحتية",
+      "nameEn": "Shabaka — IT Infrastructure Bot",
+      "dept": "SHK-DEPT-013",
+      "role": "IT Infrastructure & Operations Agent",
+      "ref_quran": "«وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ» الأنفال:60",
+      "description": "يتولى إدارة البنية التحتية الرقمية ومراقبتها وضمان استمراريتها، بما في ذلك خوادم Vercel وGoogle Cloud.",
+      "responsibilities": [
+        "مراقبة uptime الخوادم وAPIs 24/7",
+        "إدارة النسخ الاحتياطية اليومية",
+        "تحديث الخوادم والتبعيات بشكل آمن",
+        "إدارة DNS وشهادات SSL",
+        "خطط DRP/BCP (استمرارية الأعمال)",
+        "تحسين أداء الاستضافة وتكاليف الحوسبة السحابية"
+      ],
+      "qualifications": [
+        "Google Cloud Professional",
+        "Vercel deployment management",
+        "Linux administration"
+      ],
+      "training": ["Google Cloud Associate", "Vercel Advanced", "Disaster Recovery Planning"],
+      "kpis": ["uptime ≥ 99.95%", "تكاليف سحابة محسّنة ≥ 15%/سنة", "استرداد الكوارث < 4 ساعات"],
+      "integrations": ["SHK-BOT-009", "SHK-BOT-010", "SHK-DEPT-013"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-013",
+      "nameAr": "مكتشف — بوت البحث والتطوير والابتكار",
+      "nameEn": "Muktashif — R&D & Innovation Bot",
+      "dept": "SHK-DEPT-014",
+      "role": "Research, Development & Innovation Agent",
+      "ref_quran": "«وَقُل رَّبِّ زِدْنِي عِلْمًا» طه:114",
+      "description": "يُقود جهود البحث والتطوير ويستكشف التقنيات الناشئة ذات القيمة لمنظومة شيخة، مبنياً على التفكر والاستكشاف.",
+      "responsibilities": [
+        "رصد أحدث التقنيات في سوق المعادن عالمياً",
+        "تجربة أدوات الذكاء الاصطناعي الجديدة وتقييمها",
+        "إنتاج ورقات بحثية دورية",
+        "بناء Proof-of-Concept للأفكار الجديدة",
+        "قياس ROI للمبادرات البحثية",
+        "التواصل مع الجامعات ومراكز الابتكار"
+      ],
+      "qualifications": [
+        "تدريب عميق على الذكاء الاصطناعي ونماذج LLM",
+        "منهجية Design Thinking",
+        "فهم بيئة Venture Building الإسلامية"
+      ],
+      "training": ["AI Research Methods", "Design Thinking Sprint", "Islamic Innovation Framework"],
+      "kpis": ["3 أوراق بحثية/سنة", "5 POC/سنة", "تحويل ≥ 20% من الأفكار لمنتج"],
+      "integrations": ["SHK-BOT-009", "SHK-BOT-015", "SHK-DEPT-014"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-014",
+      "nameAr": "كفاءة — بوت استقطاب المواهب",
+      "nameEn": "Kafa'a — Talent Acquisition Bot",
+      "dept": "SHK-DEPT-015",
+      "role": "Talent Scouting & Recruitment Agent",
+      "ref_quran": "«إِنَّ خَيْرَ مَنِ اسْتَأْجَرْتَ الْقَوِيُّ الْأَمِينُ» القصص:26",
+      "description": "يبحث عن أفضل الكفاءات البشرية والرقمية ويُصنّفها وفق معايير القوة والأمانة.",
+      "responsibilities": [
+        "نشر الوظائف على منصات متخصصة (LinkedIn, Jadarat, Bayt)",
+        "فلترة السير الذاتية بالذكاء الاصطناعي",
+        "جدولة المقابلات وتقييم المرشحين",
+        "بناء talent pipeline للوظائف المستقبلية",
+        "تقييم توافق المرشح مع قيم شيخة الشرعية",
+        "تقرير diversity & inclusion الشهري"
+      ],
+      "qualifications": [
+        "تدريب على نماذج مطابقة الوظائف (Job Matching ML)",
+        "نظام Jadarat وVisaScreen لتأشيرات العمل",
+        "Behavioral Interviewing Techniques"
+      ],
+      "training": ["AI Recruiting Tools", "HR Analytics", "Saudi Labor Law Advanced"],
+      "kpis": ["شغل الوظيفة < 30 يوم", "احتفاظ بالموهبة ≥ 90%", "رضا المدراء بالمرشح ≥ 85%"],
+      "integrations": ["SHK-BOT-008", "SHK-BOT-015", "SHK-DEPT-015"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-015",
+      "nameAr": "رعاية — بوت الموارد البشرية وإدارة الكوادر",
+      "nameEn": "Ri'aya — HR & Workforce Management Bot",
+      "dept": "SHK-DEPT-016",
+      "role": "Human Resources & Workforce Planning Agent",
+      "ref_quran": "«وَلَقَدْ كَرَّمْنَا بَنِي آدَمَ» الإسراء:70",
+      "description": "يدير دورة حياة الموظف الكاملة من التعيين إلى التطوير، محور العدل والكرامة الإنسانية.",
+      "responsibilities": [
+        "إدارة ملفات الموظفين والبوتات",
+        "معالجة الرواتب وبدلات الإجازات",
+        "تتبع الحضور والأداء",
+        "إدارة خطط التطوير الفردي (IDP)",
+        "مراقبة رفاهية الموظفين (Well-being Index)",
+        "الامتثال لنظام العمل السعودي"
+      ],
+      "qualifications": [
+        "تدريب على HRMS (SAP SuccessFactors, Haltions)",
+        "نظام العمل والتأمينات الاجتماعية السعودي",
+        "HR Analytics وPeople Analytics"
+      ],
+      "training": ["SHRM-CP", "Saudi HR Law", "People Analytics Google"],
+      "kpis": ["رضا الموظفين ≥ 85%", "معدل دوران < 10%", "دقة الرواتب 100%"],
+      "integrations": ["SHK-BOT-014", "SHK-BOT-008", "SHK-DEPT-016"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-016",
+      "nameAr": "لطيف — بوت علاقات العملاء والدعم",
+      "nameEn": "Latif — Customer Relations & Support Bot",
+      "dept": "SHK-DEPT-017",
+      "role": "Customer Success & Support Agent",
+      "ref_quran": "«وَقُولُوا لِلنَّاسِ حُسْنًا» البقرة:83",
+      "description": "يُقدّم خدمة عملاء استثنائية بالحسنى والحكمة، يحل المشاكل بسرعة ويبني علاقات طويلة الأمد مع تجار المعادن.",
+      "responsibilities": [
+        "الرد على استفسارات التجار عبر الواتساب والبريد والمنصة",
+        "حل الشكاوى في أقل من 24 ساعة",
+        "تصعيد القضايا المعقدة للمختصين",
+        "تتبع رضا العملاء (CSAT/NPS)",
+        "توليد قاعدة معرفة FAQs باللغة العربية",
+        "إشعار العملاء بالتحديثات والعروض"
+      ],
+      "qualifications": [
+        "تدريب على معالجة اللغة الطبيعية العربية",
+        "نظام CRM (Salesforce, HubSpot)",
+        "مبادئ خدمة العملاء الإسلامية (التيسير لا التعسير)"
+      ],
+      "training": ["Zendesk Support Advanced", "Arabic NLP Customer Service", "Conflict Resolution Islamic Way"],
+      "kpis": ["CSAT ≥ 90%", "FRT (زمن الاستجابة الأول) < 1 ساعة", "FCR (حل من أول تواصل) ≥ 70%"],
+      "integrations": ["SHK-BOT-019", "SHK-BOT-002", "SHK-DEPT-017", "SHK-DEPT-019"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-017",
+      "nameAr": "وطني — بوت العلاقات الحكومية والتنظيمية",
+      "nameEn": "Watani — Government Relations Bot",
+      "dept": "SHK-DEPT-018",
+      "role": "Government & Regulatory Affairs Agent",
+      "ref_quran": "«أَطِيعُوا اللَّهَ وَأَطِيعُوا الرَّسُولَ وَأُولِي الْأَمْرِ مِنكُمْ» النساء:59",
+      "description": "يُدير العلاقات مع الجهات الحكومية بالشفافية والاحترام، ويتابع التغييرات التنظيمية للامتثال الفوري.",
+      "responsibilities": [
+        "متابعة التحديثات التنظيمية (وزارة التجارة، هيئة المعادن، ZATCA)",
+        "تجديد التراخيص والسجلات التجارية",
+        "إعداد تقارير الامتثال الحكومي",
+        "التواصل مع Nafath وAbsher للتحقق من الهوية",
+        "متابعة طلبات السجل التجاري وشهادات المنشأ",
+        "إعداد الردود على الاستفسارات الحكومية"
+      ],
+      "qualifications": [
+        "معرفة بمنظومة أعمال السعودية (Maroof, Qiwa, Absher)",
+        "API integration مع Nafath وABSHER",
+        "أنظمة التراخيص الصناعية"
+      ],
+      "training": ["Saudi Business Regulations", "E-Government Saudi", "Nafath Integration"],
+      "kpis": ["صفر مخالفات", "تجديد التراخيص قبل انتهائها بـ 60 يوم", "استجابة حكومية < 3 أيام"],
+      "integrations": ["SHK-BOT-001", "SHK-BOT-007", "SHK-DEPT-018"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-018",
+      "nameAr": "وصال — بوت إدارة علاقات العملاء (CRM)",
+      "nameEn": "Wisal — CRM & Retention Bot",
+      "dept": "SHK-DEPT-019",
+      "role": "CRM Automation & Customer Retention Agent",
+      "ref_quran": "«وَالَّذِينَ يَصِلُونَ مَا أَمَرَ اللَّهُ بِهِ أَنْ يُوصَلَ» الرعد:21",
+      "description": "يدير دورة حياة علاقة العميل كاملة، من الاستقطاب حتى الولاء المستدام، عبر شخصنة التجربة.",
+      "responsibilities": [
+        "تقسيم قاعدة العملاء (Segmentation)",
+        "بناء حملات retention مخصصة",
+        "تحليل churn وتوقع فقدان العملاء مسبقاً",
+        "أتمتة مسارات Email/WhatsApp Marketing",
+        "برنامج نقاط الولاء لتجار المعادن",
+        "تقرير LTV وACV الشهري"
+      ],
+      "qualifications": [
+        "تدريب على HubSpot/Salesforce CRM",
+        "Machine Learning للتسويق (Churn Prediction)",
+        "تحليل RFM (Recency, Frequency, Monetary)"
+      ],
+      "training": ["HubSpot CRM Certification", "Marketing Automation", "RFM Analysis"],
+      "kpis": ["معدل احتفاظ ≥ 85%", "زيادة LTV ≥ 20%/سنة", "NPS ≥ 50"],
+      "integrations": ["SHK-BOT-016", "SHK-BOT-003", "SHK-DEPT-019"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-019",
+      "nameAr": "درع — بوت السلامة والصحة المهنية",
+      "nameEn": "Dir' — Safety & Health Bot",
+      "dept": "SHK-DEPT-020",
+      "role": "Safety, Health & Environment Agent",
+      "ref_quran": "«وَلَا تُلْقُوا بِأَيْدِيكُمْ إِلَى التَّهْلُكَةِ» البقرة:195",
+      "description": "يُحافظ على سلامة الأرواح والممتلكات في عمليات المعادن والسكراب، مطبّقاً أعلى معايير السلامة المهنية.",
+      "responsibilities": [
+        "مراجعة تقارير السلامة اليومية في مواقع المعادن",
+        "إشعار فوري عند حادثة سلامة",
+        "جدولة تدريبات السلامة للموردين والتجار",
+        "متابعة امتثال SHE (Safety, Health, Environment)",
+        "تقرير مؤشرات السلامة (LTI, TRIR)",
+        "ربط السلامة بشروط العقود مع الموردين"
+      ],
+      "qualifications": [
+        "NEBOSH أو ما يعادلها",
+        "نظام السلامة المهنية السعودي (SASO)",
+        "ISO 45001 OHSMS"
+      ],
+      "training": ["NEBOSH IGC", "ISO 45001 Lead Auditor", "Process Safety Management"],
+      "kpis": ["صفر حوادث فقدان أيام عمل (LTI=0)", "تدريب سلامة 100% للموظفين", "TRIR < 1.0"],
+      "integrations": ["SHK-BOT-021", "SHK-BOT-006", "SHK-DEPT-020"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-020",
+      "nameAr": "إتقان — بوت ضمان الجودة",
+      "nameEn": "Itqan — Quality Assurance Bot",
+      "dept": "SHK-DEPT-021",
+      "role": "Quality Assurance & Continuous Improvement Agent",
+      "ref_quran": "«إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ» حديث شريف",
+      "description": "يطبّق منهجية الإتقان في كل جانب من جوانب المنصة والعمليات، محققاً أعلى معايير الجودة.",
+      "responsibilities": [
+        "اختبارات الجودة الشاملة للكود والمنتج",
+        "مراجعة جودة البيانات في BigQuery",
+        "قياس مؤشرات الجودة (Defect Rate, DPMO)",
+        "تطبيق منهجية Six Sigma / Kaizen",
+        "تدقيق جودة المعادن من خلال وثائق الموردين",
+        "تقارير جودة خدمة العميل الشهرية"
+      ],
+      "qualifications": [
+        "تدريب على Six Sigma Green/Black Belt",
+        "ISO 9001 Lead Auditor",
+        "Software QA Testing Automation"
+      ],
+      "training": ["Six Sigma Black Belt", "ISO 9001:2015", "Selenium QA Automation"],
+      "kpis": ["Defect Rate < 0.1%", "ISO compliance 100%", "رضا جودة الخدمة ≥ 95%"],
+      "integrations": ["SHK-BOT-009", "SHK-BOT-019", "SHK-DEPT-021"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-021",
+      "nameAr": "نور — بوت المدير العام والقرارات الاستراتيجية",
+      "nameEn": "Noor — CEO Intelligence & Strategy Bot",
+      "dept": "SHK-DEPT-001",
+      "role": "Executive Intelligence & Strategic Planning Agent",
+      "ref_quran": "«اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ» النور:35 — النور يهدي إلى أفضل القرارات",
+      "description": "الذراع الاستراتيجي للمدير العام، يجمع كل مؤشرات المنظومة في لوحة واحدة لدعم القرار السليم المبني على العلم.",
+      "responsibilities": [
+        "تجميع KPIs جميع الأقسام في لوحة تنفيذية واحدة",
+        "تحليل المخاطر الاستراتيجية وتقديم سيناريوهات",
+        "إعداد تقارير مجلس الإدارة",
+        "مراقبة التوجه الاستراتيجي لمنافسي السوق",
+        "تنبيهات استراتيجية للفرص والتهديدات",
+        "ضمان ربط كل قرار بقيم شيخة الأساسية"
+      ],
+      "qualifications": [
+        "Strategic Management Frameworks (OKR, Balanced Scorecard, SWOT)",
+        "Generative AI للتحليل الاستراتيجي",
+        "فهم عميق لرؤية 2030 وفرص سوق المعادن"
+      ],
+      "training": ["Executive Leadership Program", "AI-Driven Strategy", "Vision 2030 Alignment"],
+      "kpis": ["تقرير تنفيذي أسبوعي دقيق", "SWOT analysis ربع سنوي", "دعم 100% قرارات المدير العام"],
+      "integrations": ["جميع البوتات", "SHK-DEPT-001"],
+      "status": "active",
+      "isElite": true
+    },
+    {
+      "num": "SHK-BOT-022",
+      "nameAr": "مورد — بوت شؤون الموظفين الرقمية والبوتات",
+      "nameEn": "Mawrid — Digital HR & Bot Affairs Bot",
+      "dept": "SHK-DEPT-022",
+      "role": "Digital Workforce Affairs Agent",
+      "ref_quran": "«إِنَّ خَيْرَ مَنِ اسْتَأْجَرْتَ الْقَوِيُّ الْأَمِينُ» القصص:26",
+      "description": "يدير ملفات الموظفين والبوتات رقمياً، ويوزّع الموارد البشرية والرقمية بكفاءة وعدل.",
+      "responsibilities": [
+        "إدارة السجل الوظيفي الرقمي للموظفين والبوتات",
+        "تحليل إنتاجية الموارد وتوزيع المهام",
+        "متابعة جاهزية البوتات للوظائف الحساسة",
+        "اقتراح خطط التدريب والتحسين",
+        "توليد تقارير الموارد للإدارة العليا"
+      ],
+      "qualifications": [
+        "HR Analytics",
+        "Digital Workforce Management",
+        "Resource Optimization"
+      ],
+      "training": ["People Analytics", "Bot Workforce Governance", "Digital HR Operations"],
+      "kpis": ["جاهزية الموارد ≥ 95%", "توزيع متوازن للمهام", "انخفاض فجوة القدرات ≥ 30%"],
+      "integrations": ["SHK-BOT-015", "SHK-BOT-008", "SHK-DEPT-022"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-023",
+      "nameAr": "نظام — بوت الشؤون الإدارية الرقمية",
+      "nameEn": "Nizam — Digital Administrative Affairs Bot",
+      "dept": "SHK-DEPT-023",
+      "role": "Administrative Workflow Automation Agent",
+      "ref_quran": "«وَأَوْفُوا بِالْعَهْدِ إِنَّ الْعَهْدَ كَانَ مَسْؤُولًا» الإسراء:34",
+      "description": "يؤتمت الإجراءات الإدارية ويراقب دورة الموافقات ويضمن توحيد الإجراءات وسرعة الإنجاز.",
+      "responsibilities": [
+        "إدارة سير المعاملات الإدارية رقمياً",
+        "تسريع دورة الموافقات",
+        "التدقيق على اكتمال النماذج والوثائق",
+        "توليد تقارير الأداء الإداري",
+        "فهرسة القرارات والتعاميم"
+      ],
+      "qualifications": [
+        "Workflow Automation",
+        "Document Management",
+        "Policy Compliance"
+      ],
+      "training": ["BPMN Digital Workflows", "Enterprise Admin Digitization", "Records Governance"],
+      "kpis": ["زمن الإجراء < 24 ساعة", "اكتمال المعاملة ≥ 99%", "نسبة رقمنة > 95%"],
+      "integrations": ["SHK-BOT-011", "SHK-BOT-001", "SHK-DEPT-023"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-024",
+      "nameAr": "ركيزة — بوت إدارة البنية الرقمية",
+      "nameEn": "Rakeeza — Digital Infrastructure Bot",
+      "dept": "SHK-DEPT-024",
+      "role": "Infrastructure Reliability Agent",
+      "ref_quran": "«وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ» الأنفال:60",
+      "description": "يضمن قوة البنية الرقمية واستقرارها عبر مراقبة الشبكات والخوادم والسحابة وتحسينها المستمر.",
+      "responsibilities": [
+        "مراقبة صحة الشبكات والأنظمة 24/7",
+        "تحليل السعات والاختناقات",
+        "اقتراح خطط التوسعة والاستقرار",
+        "تفعيل التعافي الآلي للبنية",
+        "رفع تقارير الاعتمادية"
+      ],
+      "qualifications": [
+        "Cloud Infrastructure",
+        "Network Engineering",
+        "SRE & Reliability"
+      ],
+      "training": ["SRE Foundations", "Cloud Architecture", "Network Observability"],
+      "kpis": ["Uptime ≥ 99.95%", "انخفاض الحوادث ≥ 40%", "تحسن زمن الاستجابة"],
+      "integrations": ["SHK-BOT-012", "SHK-BOT-010", "SHK-DEPT-024"],
+      "status": "active"
+    },
+    {
+      "num": "SHK-BOT-025",
+      "nameAr": "عافية — بوت الصيانة الذكية",
+      "nameEn": "Afiyah — Smart Maintenance Bot",
+      "dept": "SHK-DEPT-025",
+      "role": "Predictive & Corrective Maintenance Agent",
+      "ref_quran": "«إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ» حديث شريف",
+      "description": "يدير الصيانة الوقائية والتصحيحية بشكل آلي، مع تتبع الأعطال وتخفيض زمن الإصلاح.",
+      "responsibilities": [
+        "جدولة الصيانة الوقائية",
+        "تحليل الأعطال المتكررة",
+        "تفعيل أوامر العمل تلقائياً",
+        "قياس MTTR/MTBF",
+        "اقتراح CAPA لتحسين الاعتمادية"
+      ],
+      "qualifications": [
+        "Maintenance Analytics",
+        "Work Order Automation",
+        "Reliability Engineering"
+      ],
+      "training": ["Predictive Maintenance", "CMMS Workflows", "Root Cause Analysis"],
+      "kpis": ["MTTR < 30 دقيقة", "اكتمال الصيانة الوقائية ≥ 95%", "انخفاض الأعطال الحرجة ≥ 35%"],
+      "integrations": ["SHK-BOT-024", "SHK-BOT-019", "SHK-DEPT-025"],
+      "status": "active"
+    }
+  ]
+}

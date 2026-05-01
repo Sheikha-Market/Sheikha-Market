@@ -1,0 +1,37 @@
+{
+    "generatedAt": "2026-03-13T09:48:55.032Z",
+    "layers": [
+        {
+            "id": 1,
+            "layer": "layer-purpose-and-trust",
+            "status": "activated"
+        },
+        {
+            "id": 2,
+            "layer": "layer-sharia-governance",
+            "status": "activated"
+        },
+        {
+            "id": 3,
+            "layer": "layer-global-command",
+            "status": "activated"
+        },
+        {
+            "id": 4,
+            "layer": "layer-cloud-and-ai",
+            "status": "activated"
+        },
+        {
+            "id": 5,
+            "layer": "layer-resilience-and-continuity",
+            "status": "activated"
+        }
+    ],
+    "targets": {
+        "availability": "99.99%",
+        "apiP95Ms": 50,
+        "apiP99Ms": 150,
+        "rtoMinutes": 15,
+        "rpoMinutes": 5
+    }
+}

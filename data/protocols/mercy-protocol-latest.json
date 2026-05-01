@@ -1,0 +1,217 @@
+{
+  "protocolId": "MERCY-PROTOCOL-2026-001",
+  "timestamp": "2026-03-10T01:02:34.052Z",
+  "principles": [
+    {
+      "id": "humility-to-allah",
+      "nameAr": "التواضع لله",
+      "nameEn": "Humility to Allah",
+      "verse": "وَاخْفِضْ جَنَاحَكَ لِلْمُؤْمِنِينَ",
+      "reference": "الحجر:88",
+      "implementation": [
+        "لا تكبر على أحد",
+        "الكل سواسية أمام النظام",
+        "لا امتياز لصاحب جاه إلا بالحق",
+        "العدل مع القوي والضعيف",
+        "الاعتراف بالخطأ وتصحيحه"
+      ],
+      "priority": "CRITICAL"
+    },
+    {
+      "id": "mercy-to-peaceful",
+      "nameAr": "الرحمة بالمسالمين",
+      "nameEn": "Mercy to the Peaceful",
+      "verse": "وَمَا أَرْسَلْنَاكَ إِلَّا رَحْمَةً لِّلْعَالَمِينَ",
+      "reference": "الأنبياء:107",
+      "implementation": [
+        "تسهيل المعاملات للمسالمين",
+        "اللين في القول والفعل",
+        "مساعدة المحتاج بكرامة",
+        "الصبر على الجاهل وتعليمه",
+        "العفو عند المقدرة"
+      ],
+      "priority": "HIGH"
+    },
+    {
+      "id": "justice-to-oppressors",
+      "nameAr": "العدل مع الظالمين",
+      "nameEn": "Justice for Oppressors",
+      "verse": "وَلَا يَجْرِمَنَّكُمْ شَنَآنُ قَوْمٍ عَلَىٰ أَلَّا تَعْدِلُوا",
+      "reference": "المائدة:8",
+      "implementation": [
+        "الشدة على الظالم والمفسد",
+        "حماية الضعيف من القوي",
+        "منع الاحتكار والغش",
+        "محاربة الفساد والرشوة",
+        "العدل حتى مع الخصم"
+      ],
+      "priority": "CRITICAL"
+    },
+    {
+      "id": "no-harm",
+      "nameAr": "لا ضرر ولا ضرار",
+      "nameEn": "No Harm & No Reciprocal Harm",
+      "hadith": "لا ضرر ولا ضرار",
+      "reference": "ابن ماجه",
+      "implementation": [
+        "لا تضر أحداً في المعاملات",
+        "لا تعاقب البريء بذنب المذنب",
+        "حماية البيانات والخصوصية",
+        "منع الاحتيال والغدر",
+        "الشفافية الكاملة"
+      ],
+      "priority": "CRITICAL"
+    },
+    {
+      "id": "honesty-trust",
+      "nameAr": "الصدق والأمانة",
+      "nameEn": "Honesty & Trustworthiness",
+      "verse": "إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا",
+      "reference": "النساء:58",
+      "implementation": [
+        "صدق في القول والإعلان",
+        "أمانة في حفظ الأموال والبيانات",
+        "دقة في الوزن والقياس",
+        "وفاء بالعهود والعقود",
+        "عدم الكذب أو التدليس"
+      ],
+      "priority": "CRITICAL"
+    }
+  ],
+  "peacefulGate": {
+    "id": "peaceful-gate",
+    "nameAr": "بوابة المسالمين",
+    "nameEn": "Peaceful Gate",
+    "description": "مسار ميسر لكل إنسان مسالم يبحث عن الرزق الحلال",
+    "features": [
+      {
+        "name": "تسجيل سريع",
+        "description": "لا تعقيد في التسجيل للمسالمين",
+        "duration": "5 دقائق فقط"
+      },
+      {
+        "name": "دعم فوري",
+        "description": "فريق دعم متاح 24/7",
+        "response": "خلال ساعة"
+      },
+      {
+        "name": "واجهة سهلة",
+        "description": "تصميم بسيط يفهمه الجميع",
+        "accessibility": "عالي"
+      },
+      {
+        "name": "تدريب مجاني",
+        "description": "دورات تدريبية للمبتدئين",
+        "cost": "مجاناً"
+      },
+      {
+        "name": "قروض حسنة",
+        "description": "تمويل بلا فائدة للمحتاجين",
+        "shariaCompliant": true
+      }
+    ],
+    "eligibility": [
+      "المسالم غير المؤذي",
+      "الباحث عن الرزق الحلال",
+      "الملتزم بالأمانة والصدق",
+      "المحترم للآخرين",
+      "غير متورط في فساد أو ظلم"
+    ]
+  },
+  "justiceShield": {
+    "id": "justice-shield",
+    "nameAr": "درع العدل",
+    "nameEn": "Justice Shield",
+    "description": "حماية الضعفاء من الأقوياء الظالمين",
+    "protections": [
+      {
+        "type": "منع الاحتكار",
+        "description": "لا يسمح بالاحتكار الضار",
+        "action": "إيقاف فوري"
+      },
+      {
+        "type": "منع الغش",
+        "description": "كشف الغش في الوزن والجودة",
+        "action": "عقوبة مشددة"
+      },
+      {
+        "type": "منع الظلم",
+        "description": "حماية العامل من ظلم صاحب العمل",
+        "action": "تحكيم شرعي"
+      },
+      {
+        "type": "منع التكبر",
+        "description": "لا امتياز لأحد بغير حق",
+        "action": "مساواة كاملة"
+      },
+      {
+        "type": "منع الفساد",
+        "description": "محاربة الرشوة والمحسوبية",
+        "action": "إبعاد نهائي"
+      }
+    ],
+    "enforcement": {
+      "automated": true,
+      "blockchain": true,
+      "publicReport": true,
+      "appeal": "متاح للجميع"
+    }
+  },
+  "status": "active",
+  "classifications": {
+    "peaceful": {
+      "id": "USER-001",
+      "timestamp": "2026-03-10T01:02:34.054Z",
+      "category": "مسالم",
+      "treatment": "رحمة ولين",
+      "restrictions": [],
+      "benefits": [
+        "تسجيل سريع",
+        "دعم فوري",
+        "قروض حسنة",
+        "تدريب مجاني",
+        "أولوية في الفرص"
+      ]
+    },
+    "oppressor": {
+      "id": "USER-002",
+      "timestamp": "2026-03-10T01:02:34.054Z",
+      "category": "ظالم",
+      "treatment": "عدل ومحاسبة",
+      "restrictions": [
+        "مراجعة مشددة للمعاملات",
+        "منع الاحتكار",
+        "غرامات على الغش",
+        "إيقاف عند الفساد",
+        "إبلاغ الجهات الرسمية"
+      ],
+      "benefits": []
+    }
+  },
+  "mercyActions": [
+    {
+      "id": "MERCY-1773104554054",
+      "userId": "USER-003",
+      "situation": "financial-hardship",
+      "timestamp": "2026-03-10T01:02:34.054Z",
+      "action": "تأجيل السداد بدون فوائد",
+      "verse": "وَإِن كَانَ ذُو عُسْرَةٍ فَنَظِرَةٌ إِلَىٰ مَيْسَرَةٍ — البقرة:280"
+    },
+    {
+      "id": "MERCY-1773104554054",
+      "userId": "USER-004",
+      "situation": "learning-difficulty",
+      "timestamp": "2026-03-10T01:02:34.054Z",
+      "action": "تدريب إضافي مجاني",
+      "verse": "فَبِمَا رَحْمَةٍ مِّنَ اللَّهِ لِنتَ لَهُمْ — آل عمران:159"
+    },
+    {
+      "id": "MERCY-1773104554054",
+      "userId": "USER-005",
+      "situation": "honest-mistake",
+      "timestamp": "2026-03-10T01:02:34.054Z",
+      "action": "عفو وتصحيح بدون عقوبة",
+      "verse": "وَأَن تَعْفُوا أَقْرَبُ لِلتَّقْوَىٰ — البقرة:237"
+    }
+  ]
+}

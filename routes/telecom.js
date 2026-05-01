@@ -1,0 +1,729 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ *  📡 مسارات منظومة شيخة للاتصالات والشبكات الكونية
+ *  Sheikha Telecom & Universal Networks — API Routes
+ *
+ *  المرجع: SHEIKHA-TELECOM-NETWORK.md
+ *  الميثاق: SHEIKHA-TELECOM-CHARTER.md
+ *  ﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾ — الأنفال: 60
+ *
+ *  المسارات الأساسية:
+ *   GET  /api/telecom                        — لوحة القيادة الكونية
+ *   GET  /api/telecom/network-status         — حالة الشبكة الكونية
+ *   GET  /api/telecom/ai-nodes               — عقد الذكاء الاصطناعي
+ *   POST /api/telecom/connect                — ربط المستخدمين والتجار
+ *   POST /api/telecom/secure-channel         — قناة اتصال آمنة شرعياً
+ *   GET  /api/telecom/knowledge-base         — قاعدة المعرفة الموحدة
+ *
+ *  مسارات الشبكة العصبية للاتصالات:
+ *   GET  /api/telecom/neural                 — طوبولوجيا الشبكة العصبية الكاملة
+ *   GET  /api/telecom/neural/cell/:id        — خلية عصبية محددة
+ *   GET  /api/telecom/neural/domain/:domain  — خلايا نطاق معين
+ *   POST /api/telecom/neural/signal          — إطلاق إشارة عصبية
+ *   GET  /api/telecom/neural/signal          — إطلاق إشارة (GET)
+ *
+ *  مسارات منظمة الاتصالات:
+ *   GET  /api/telecom/terrestrial            — الشبكات الأرضية
+ *   GET  /api/telecom/satellite              — الأقمار الصناعية
+ *   GET  /api/telecom/logistics              — الشبكات اللوجستية
+ *   GET  /api/telecom/communities            — مجتمعات الاتصالات
+ *   GET  /api/telecom/integration            — جسور التكامل
+ *   GET  /api/telecom/search                 — البحث الشامل
+ *   GET  /api/telecom/path                   — مسار الاتصال بين نقطتين
+ * ═══════════════════════════════════════════════════════════════════════════════
+ */
+
+'use strict';
+
+const express = require('express');
+const router  = express.Router();
+
+// ── تحميل الوحدات الأساسية ────────────────────────────────────────────────────
+
+const { getNetworkStatus }        = require('../telecom/network-core/index');
+const { getAINodes }              = require('../telecom/ai-network/index');
+const { connectToCommerceNetwork} = require('../telecom/commerce-network/index');
+const { getKnowledgeBase }        = require('../telecom/knowledge-network/index');
+const { createSecureChannel, getGatewaySummary } = require('../telecom/universal-gateway/index');
+
+// ── تحميل محرك منظمة الاتصالات (الشبكة العصبية) ─────────────────────────────
+
+let telecomOrg = null;
+try {
+    telecomOrg = require('../core/comms/telecom-org').telecomOrg;
+} catch (e) {
+    console.warn('⚠️ [TELECOM] telecom-org غير متاح:', e.message);
+}
+
+// ── تحميل محرك شبكة المنزل الذكي + الذكاء الاصطناعي ─────────────────────────
+
+let homeNetwork = null;
+try {
+    homeNetwork = require('../telecom/home-network/index');
+} catch (e) {
+    console.warn('⚠️ [TELECOM] home-network غير متاح:', e.message);
+}
+
+// ── مساعد الاستجابة ──────────────────────────────────────────────────────────
+
+function ok(res, data) {
+    return res.json({ success: true, ...data, _telecom: 'Sheikha Universal Telecom v2.0' });
+}
+
+function fail(res, status, error, messageAr) {
+    return res.status(status).json({ success: false, error, messageAr });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// GET /api/telecom/network-status
+// حالة الشبكة الكونية — الطبقات 1 و 2
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.get('/network-status', (req, res) => {
+    try {
+        const status = getNetworkStatus();
+        ok(res, { data: status });
+    } catch (e) {
+        fail(res, 500, 'network_status_error', 'حدث خطأ أثناء جلب حالة الشبكة');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// GET /api/telecom/ai-nodes
+// عقد الذكاء الاصطناعي — Sheikha Neural Engine — الطبقة 3
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.get('/ai-nodes', (req, res) => {
+    try {
+        const nodes = getAINodes();
+        ok(res, { data: nodes });
+    } catch (e) {
+        fail(res, 500, 'ai_nodes_error', 'حدث خطأ أثناء جلب عقد الذكاء الاصطناعي');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// POST /api/telecom/connect
+// ربط المستخدمين والتجار بالشبكة التجارية — الطبقة 4
+// Body: { userId, type?, region? }
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.post('/connect', (req, res) => {
+    try {
+        const { userId, type, region } = req.body || {};
+
+        if (!userId) {
+            return fail(res, 400, 'user_id_required', 'يرجى إرسال معرّف المستخدم (userId)');
+        }
+
+        const result = connectToCommerceNetwork({ userId, type, region });
+
+        if (!result.success) {
+            return fail(res, 400, result.error, result.messageAr);
+        }
+
+        ok(res, { data: result });
+    } catch (e) {
+        fail(res, 500, 'connect_error', 'حدث خطأ أثناء الاتصال بالشبكة التجارية');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// POST /api/telecom/secure-channel
+// إنشاء قناة اتصال آمنة شرعياً — البوابة الكونية
+// Body: { fromId, toId, purpose?, encrypted? }
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.post('/secure-channel', (req, res) => {
+    try {
+        const { fromId, toId, purpose, encrypted } = req.body || {};
+
+        if (!fromId || !toId) {
+            return fail(res, 400, 'missing_ids', 'يرجى إرسال معرّف المُرسِل (fromId) والمُستقبِل (toId)');
+        }
+
+        const channel = createSecureChannel({ fromId, toId, purpose, encrypted });
+
+        if (!channel.success) {
+            return fail(res, 400, channel.error, channel.messageAr);
+        }
+
+        ok(res, { data: channel });
+    } catch (e) {
+        fail(res, 500, 'secure_channel_error', 'حدث خطأ أثناء إنشاء القناة الآمنة');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// GET /api/telecom/knowledge-base
+// قاعدة المعرفة الموحدة — الطبقة 5
+// Query: ?category=quran|hadith|fiqh|science|heritage|research
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.get('/knowledge-base', (req, res) => {
+    try {
+        const { category } = req.query;
+        const knowledge = getKnowledgeBase(category || null);
+        ok(res, { data: knowledge });
+    } catch (e) {
+        fail(res, 500, 'knowledge_base_error', 'حدث خطأ أثناء جلب قاعدة المعرفة');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// GET /api/telecom  (لوحة القيادة الكونية)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.get('/', (req, res) => {
+    try {
+        const gateway = getGatewaySummary();
+        if (telecomOrg) {
+            const dashboard = telecomOrg.getDashboard();
+            return ok(res, { data: { gateway, org: dashboard } });
+        }
+        ok(res, { data: gateway });
+    } catch (e) {
+        fail(res, 500, 'gateway_error', 'حدث خطأ أثناء جلب لوحة القيادة الكونية');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🗺️ الشبكات الأرضية
+// GET /api/telecom/terrestrial?id=<techId>
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.get('/terrestrial', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك منظمة الاتصالات غير متاح');
+    try {
+        res.json(telecomOrg.getTerrestrial(req.query.id || null));
+    } catch (e) {
+        fail(res, 500, 'terrestrial_error', 'حدث خطأ أثناء جلب الشبكات الأرضية');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🛰️ الأقمار الصناعية
+// GET /api/telecom/satellite?id=<id>&type=orbit|sector
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.get('/satellite', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك منظمة الاتصالات غير متاح');
+    try {
+        res.json(telecomOrg.getSatellite(req.query.id || null, req.query.type || 'sector'));
+    } catch (e) {
+        fail(res, 500, 'satellite_error', 'حدث خطأ أثناء جلب بيانات الأقمار الصناعية');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐 الشبكات اللوجستية
+// GET /api/telecom/logistics?section=aviation|maritime|land
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.get('/logistics', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك منظمة الاتصالات غير متاح');
+    try {
+        res.json(telecomOrg.getLogistics(req.query.section || null));
+    } catch (e) {
+        fail(res, 500, 'logistics_error', 'حدث خطأ أثناء جلب الشبكات اللوجستية');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 👥 مجتمعات الاتصالات
+// GET /api/telecom/communities?id=<id>
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.get('/communities', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك منظمة الاتصالات غير متاح');
+    try {
+        res.json(telecomOrg.getCommunities(req.query.id || null));
+    } catch (e) {
+        fail(res, 500, 'communities_error', 'حدث خطأ أثناء جلب مجتمعات الاتصالات');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔗 جسور التكامل
+// GET /api/telecom/integration?id=<id>
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.get('/integration', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك منظمة الاتصالات غير متاح');
+    try {
+        res.json(telecomOrg.getIntegrations(req.query.id || null));
+    } catch (e) {
+        fail(res, 500, 'integration_error', 'حدث خطأ أثناء جلب جسور التكامل');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔍 البحث الشامل
+// GET /api/telecom/search?q=<كلمة>
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.get('/search', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك منظمة الاتصالات غير متاح');
+    try {
+        const q = req.query.q || req.query.query || '';
+        if (!q) return fail(res, 400, 'query_required', 'مطلوب: ?q=كلمة البحث');
+        res.json(telecomOrg.search(q));
+    } catch (e) {
+        fail(res, 500, 'search_error', 'حدث خطأ أثناء البحث');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🛤️ مسار الاتصال بين نقطتين
+// GET /api/telecom/path?from=<A>&to=<B>
+// ═══════════════════════════════════════════════════════════════════════════════
+
+router.get('/path', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك منظمة الاتصالات غير متاح');
+    try {
+        const { from, to } = req.query;
+        if (!from || !to) return fail(res, 400, 'params_required', 'مطلوب: ?from=TERRESTRIAL&to=SATELLITE');
+        res.json(telecomOrg.getPath(from, to));
+    } catch (e) {
+        fail(res, 500, 'path_error', 'حدث خطأ أثناء حساب مسار الاتصال');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 الشبكة العصبية للاتصالات — Neural Cell Networks
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// GET /api/telecom/neural — طوبولوجيا الشبكة العصبية الكاملة
+router.get('/neural', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة العصبية غير متاح');
+    try {
+        res.json(telecomOrg.getNeuralTopology());
+    } catch (e) {
+        fail(res, 500, 'neural_topology_error', 'حدث خطأ أثناء جلب طوبولوجيا الشبكة العصبية');
+    }
+});
+
+// GET /api/telecom/neural/signal?from=<CELL_ID>&type=<type>&depth=<n>
+router.get('/neural/signal', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة العصبية غير متاح');
+    try {
+        const { from, type, depth } = req.query;
+        if (!from) return fail(res, 400, 'from_required', 'مطلوب: ?from=CELL_FIBER&type=DATA&depth=3');
+        res.json(telecomOrg.fireSignal(from, { type: type || 'ACTIVATION' }, depth ? parseInt(depth, 10) : 3));
+    } catch (e) {
+        fail(res, 500, 'neural_signal_error', 'حدث خطأ أثناء إطلاق الإشارة العصبية');
+    }
+});
+
+// GET /api/telecom/neural/cell/:id — خلية عصبية محددة
+router.get('/neural/cell/:id', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة العصبية غير متاح');
+    try {
+        const cell = telecomOrg.getNeuralCell(req.params.id);
+        if (!cell) return fail(res, 404, 'cell_not_found', `خلية غير موجودة: ${req.params.id}`);
+        res.json(cell);
+    } catch (e) {
+        fail(res, 500, 'neural_cell_error', 'حدث خطأ أثناء جلب بيانات الخلية العصبية');
+    }
+});
+
+// GET /api/telecom/neural/domain/:domain — خلايا نطاق معين
+router.get('/neural/domain/:domain', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة العصبية غير متاح');
+    try {
+        const cells = telecomOrg.getNeuralDomain(req.params.domain);
+        res.json({ domain: req.params.domain, cells });
+    } catch (e) {
+        fail(res, 500, 'neural_domain_error', 'حدث خطأ أثناء جلب خلايا النطاق');
+    }
+});
+
+// POST /api/telecom/neural/signal — إطلاق إشارة عصبية
+// Body: { from, signal, depth }
+router.post('/neural/signal', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة العصبية غير متاح');
+    try {
+        const { from, signal, depth } = req.body || {};
+        if (!from) return fail(res, 400, 'from_required', 'مطلوب: { from: "CELL_FIBER", signal: {...}, depth: 3 }');
+        res.json(telecomOrg.fireSignal(from, signal, depth !== undefined ? parseInt(depth, 10) : 3));
+    } catch (e) {
+        fail(res, 500, 'neural_signal_error', 'حدث خطأ أثناء إطلاق الإشارة العصبية');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 👑 شبكة خلايا شيخة العصبية — Sheikha Neural Cell Network
+//    (طبقات PAN → LAN → WLAN → CAN → MAN → WAN → VPN → TCP/IP → HTTPS → SHTTP)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// GET /api/telecom/sheikha — طوبولوجيا شبكة شيخة العصبية
+router.get('/sheikha', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة العصبية غير متاح');
+    try {
+        res.json(telecomOrg.getSheikhaTopology());
+    } catch (e) {
+        fail(res, 500, 'sheikha_topology_error', 'حدث خطأ أثناء جلب طوبولوجيا شبكة شيخة');
+    }
+});
+
+// POST /api/telecom/sheikha/activate — تفعيل شبكة شيخة العصبية كاملاً
+router.post('/sheikha/activate', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة غير متاح');
+    try {
+        res.json(telecomOrg.activateSheikha());
+    } catch (e) {
+        fail(res, 500, 'sheikha_activate_error', 'حدث خطأ أثناء تفعيل شبكة شيخة');
+    }
+});
+
+// GET /api/telecom/sheikha/cell/:id — خلية شيخة محددة
+// مثال: /api/telecom/sheikha/cell/CELL_SHEIKHA_SHTTP
+router.get('/sheikha/cell/:id', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة غير متاح');
+    try {
+        const id   = req.params.id.toUpperCase();
+        const cell = telecomOrg.getNeuralCell(id);
+        if (!cell) return fail(res, 404, 'sheikha_cell_not_found', `خلية شيخة غير موجودة: ${req.params.id}`);
+        res.json(cell);
+    } catch (e) {
+        fail(res, 500, 'sheikha_cell_error', 'حدث خطأ أثناء جلب بيانات الخلية');
+    }
+});
+
+// GET /api/telecom/sheikha/layer/:order — خلية شيخة حسب رقم الطبقة (1–10)
+router.get('/sheikha/layer/:order', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة غير متاح');
+    try {
+        const order = parseInt(req.params.order, 10);
+        const topology = telecomOrg.getSheikhaTopology();
+        const cell = topology.cells.find(c => c.layerOrder === order);
+        if (!cell) return fail(res, 404, 'layer_not_found', `لا توجد طبقة برقم: ${order}`);
+        res.json({ layerOrder: order, cell });
+    } catch (e) {
+        fail(res, 500, 'sheikha_layer_error', 'حدث خطأ أثناء جلب الطبقة');
+    }
+});
+
+// GET /api/telecom/sheikha/sovereign — الطبقة الحاكمة SHTTP/HTTPS
+router.get('/sheikha/sovereign', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة غير متاح');
+    try {
+        const cell = telecomOrg.getNeuralCell('CELL_SHEIKHA_SHTTP');
+        if (!cell) return fail(res, 404, 'sovereign_not_found', 'الطبقة الحاكمة غير موجودة');
+        res.json({ sovereign: true, cell });
+    } catch (e) {
+        fail(res, 500, 'sheikha_sovereign_error', 'حدث خطأ أثناء جلب الطبقة الحاكمة');
+    }
+});
+
+// GET /api/telecom/sheikha/signal?from=<CELL_ID>&type=<type>&depth=<n>
+router.get('/sheikha/signal', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة غير متاح');
+    try {
+        const { from, type, depth } = req.query;
+        if (!from) return fail(res, 400, 'from_required', 'مطلوب: ?from=CELL_SHEIKHA_PAN&type=MARKET_SIGNAL');
+        res.json(telecomOrg.fireSignal(from, { type: type || 'SHEIKHA_SIGNAL' }, depth ? parseInt(depth, 10) : 5));
+    } catch (e) {
+        fail(res, 500, 'sheikha_signal_error', 'حدث خطأ أثناء إطلاق إشارة شيخة');
+    }
+});
+
+// POST /api/telecom/sheikha/signal — إطلاق إشارة عصبية في شبكة شيخة
+// Body: { from, signal: { type, payload }, depth }
+router.post('/sheikha/signal', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك شبكة شيخة غير متاح');
+    try {
+        const { from, signal, depth } = req.body || {};
+        if (!from) return fail(res, 400, 'from_required', 'مطلوب: { from: "CELL_SHEIKHA_PAN", signal: {type:...}, depth: 5 }');
+        res.json(telecomOrg.fireSignal(from, signal || { type: 'SHEIKHA_SIGNAL' }, depth !== undefined ? parseInt(depth, 10) : 5));
+    } catch (e) {
+        fail(res, 500, 'sheikha_signal_error', 'حدث خطأ أثناء إطلاق إشارة شيخة');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐 شبكة شيخة الموحدة — Sheikha Unified Neural Network (23 خلية + الكتاب والسنة)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// GET /api/telecom/sheikha/unified — الطوبولوجيا الكاملة للشبكة الموحّدة
+router.get('/sheikha/unified', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        res.json(telecomOrg.getUnifiedTopology());
+    } catch (e) {
+        fail(res, 500, 'unified_topology_error', 'حدث خطأ في جلب طوبولوجيا الشبكة الموحّدة');
+    }
+});
+
+// POST /api/telecom/sheikha/unified/activate — تفعيل الشبكة الموحدة كاملاً
+router.post('/sheikha/unified/activate', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        res.json(telecomOrg.activateUnified());
+    } catch (e) {
+        fail(res, 500, 'unified_activate_error', 'حدث خطأ أثناء تفعيل الشبكة الموحّدة');
+    }
+});
+
+// GET /api/telecom/sheikha/unified/status — حالة الشبكة الموحدة
+router.get('/sheikha/unified/status', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        res.json(telecomOrg.getUnifiedStatus());
+    } catch (e) {
+        fail(res, 500, 'unified_status_error', 'حدث خطأ في جلب حالة الشبكة الموحّدة');
+    }
+});
+
+// GET /api/telecom/sheikha/unified/divine-refs — جدول الآيات والأحاديث (الكتاب والسنة)
+router.get('/sheikha/unified/divine-refs', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        res.json({
+            nameAr:   'جدول المراجع القرآنية والنبوية — شبكة شيخة الموحّدة',
+            tawheed:  'لا إله إلا الله — وحدها لله',
+            refs:     telecomOrg.getDivineRefs(),
+            total:    telecomOrg.getDivineRefs().length,
+            verse:    { ref: 'البقرة:٣١', text: 'وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا' },
+        });
+    } catch (e) {
+        fail(res, 500, 'divine_refs_error', 'حدث خطأ في جلب المراجع القرآنية');
+    }
+});
+
+// GET /api/telecom/sheikha/unified/cell/:query — خلية موحّدة برقمها أو معرّفها
+// مثال: /api/telecom/sheikha/unified/cell/19
+// مثال: /api/telecom/sheikha/unified/cell/CELL_SHEIKHA_SATELLITE
+router.get('/sheikha/unified/cell/:query', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        const q    = req.params.query;
+        const key  = isNaN(q) ? q : parseInt(q, 10);
+        const cell = telecomOrg.getUnifiedCell(key);
+        if (!cell) return fail(res, 404, 'unified_cell_not_found', `خلية غير موجودة: ${q}`);
+        res.json(cell);
+    } catch (e) {
+        fail(res, 500, 'unified_cell_error', 'حدث خطأ في جلب الخلية');
+    }
+});
+
+// GET /api/telecom/sheikha/unified/section/:name — قسم كامل من الشبكة
+// القسم: TERRESTRIAL | SATELLITE | LOGISTICS | DIGITAL | SERVICE
+router.get('/sheikha/unified/section/:section', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        const section = req.params.section.toUpperCase();
+        const cells   = telecomOrg.getUnifiedSection(section);
+        if (!cells || cells.length === 0) return fail(res, 404, 'section_not_found', `قسم غير موجود: ${section} | المتاح: TERRESTRIAL, SATELLITE, LOGISTICS, DIGITAL, SERVICE`);
+        res.json({ section, count: cells.length, cells });
+    } catch (e) {
+        fail(res, 500, 'unified_section_error', 'حدث خطأ في جلب القسم');
+    }
+});
+
+// GET /api/telecom/sheikha/unified/signal?from=<id_or_number>&type=<type>&depth=<n>
+router.get('/sheikha/unified/signal', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        const { from, type, depth } = req.query;
+        if (!from) return fail(res, 400, 'from_required', 'مطلوب: ?from=19 أو ?from=CELL_SHEIKHA_SHTTP&type=GOVERN');
+        const key = isNaN(from) ? from : parseInt(from, 10);
+        res.json(telecomOrg.fireUnifiedSignal(key, { type: type || 'UNIFIED_SIGNAL' }, depth ? parseInt(depth, 10) : 5));
+    } catch (e) {
+        fail(res, 500, 'unified_signal_error', 'حدث خطأ أثناء إطلاق الإشارة الموحّدة');
+    }
+});
+
+// POST /api/telecom/sheikha/unified/signal — إطلاق إشارة في الشبكة الموحّدة
+// Body: { from: 5 | "CELL_SHEIKHA_5G", signal: { type, payload }, depth }
+router.post('/sheikha/unified/signal', (req, res) => {
+    if (!telecomOrg) return fail(res, 503, 'engine_unavailable', 'محرك الشبكة الموحّدة غير متاح');
+    try {
+        const { from, signal, depth } = req.body || {};
+        if (from === undefined || from === null) return fail(res, 400, 'from_required', 'مطلوب: { from: 5, signal: {type:...}, depth: 5 }');
+        const key = (typeof from === 'number' || !isNaN(from)) ? parseInt(from, 10) : from;
+        res.json(telecomOrg.fireUnifiedSignal(key, signal || { type: 'UNIFIED_SIGNAL' }, depth !== undefined ? parseInt(depth, 10) : 5));
+    } catch (e) {
+        fail(res, 500, 'unified_signal_error', 'حدث خطأ أثناء إطلاق الإشارة الموحّدة');
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏠🧠🤖 شبكة المنزل الذكي العصبية + الذكاء الاصطناعي
+//    Home Neural Network + AI — الداخلية والخارجية والتكامل الآمن
+//
+//  GET  /api/telecom/home-network             — لوحة القيادة الكاملة
+//  GET  /api/telecom/home-network/internal    — الشبكة الداخلية
+//  GET  /api/telecom/home-network/external    — الشبكة الخارجية (5G)
+//  GET  /api/telecom/home-network/security    — الأمن والحماية
+//  GET  /api/telecom/home-network/integration — جسر التكامل الذكي
+//  GET  /api/telecom/home-network/cell/:id    — خلية عصبية محددة
+//  POST /api/telecom/home-network/signal      — إطلاق إشارة عصبية
+//  GET  /api/telecom/home-network/ai          — رؤى الذكاء الاصطناعي
+//  POST /api/telecom/home-network/ai/analyze  — تحليل حركة الشبكة بالذكاء الاصطناعي
+//  POST /api/telecom/home-network/ai/predict  — توقع التهديدات
+//  POST /api/telecom/home-network/ai/route    — توجيه ذكي للأجهزة
+//  POST /api/telecom/home-network/ai/optimize — تحسين الشبكة تلقائياً
+//  POST /api/telecom/home-network/ai/classify — تصنيف محتوى شرعي
+//  POST /api/telecom/home-network/ai/command  — أمر صوتي/نصي ذكي
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ── GET /api/telecom/home-network ─────────────────────────────────────────────
+router.get('/home-network', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل الذكي غير متاح');
+    try {
+        res.json(homeNetwork.getHomeNetworkDashboard());
+    } catch (e) {
+        fail(res, 500, 'home_network_error', 'حدث خطأ في جلب لوحة قيادة شبكة المنزل');
+    }
+});
+
+// ── GET /api/telecom/home-network/internal ────────────────────────────────────
+router.get('/home-network/internal', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const cells = homeNetwork.getHomeDomain('HOME_INTERNAL');
+        res.json({ domain: 'HOME_INTERNAL', nameAr: 'الشبكة الداخلية', count: cells.length, cells });
+    } catch (e) {
+        fail(res, 500, 'home_internal_error', 'حدث خطأ في جلب الشبكة الداخلية');
+    }
+});
+
+// ── GET /api/telecom/home-network/external ────────────────────────────────────
+router.get('/home-network/external', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const cells = homeNetwork.getHomeDomain('HOME_EXTERNAL');
+        res.json({ domain: 'HOME_EXTERNAL', nameAr: 'الشبكة الخارجية (5G + الألياف)', count: cells.length, cells });
+    } catch (e) {
+        fail(res, 500, 'home_external_error', 'حدث خطأ في جلب الشبكة الخارجية');
+    }
+});
+
+// ── GET /api/telecom/home-network/security ────────────────────────────────────
+router.get('/home-network/security', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        res.json(homeNetwork.getHomeSecurityStatus());
+    } catch (e) {
+        fail(res, 500, 'home_security_error', 'حدث خطأ في جلب حالة الأمن');
+    }
+});
+
+// ── GET /api/telecom/home-network/integration ─────────────────────────────────
+router.get('/home-network/integration', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        res.json(homeNetwork.getIntegrationStatus());
+    } catch (e) {
+        fail(res, 500, 'home_integration_error', 'حدث خطأ في جلب حالة التكامل');
+    }
+});
+
+// ── GET /api/telecom/home-network/cell/:id ────────────────────────────────────
+router.get('/home-network/cell/:id', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const cell = homeNetwork.getHomeCell(req.params.id.toUpperCase());
+        if (!cell) return fail(res, 404, 'home_cell_not_found', `خلية غير موجودة: ${req.params.id}`);
+        res.json(cell);
+    } catch (e) {
+        fail(res, 500, 'home_cell_error', 'حدث خطأ في جلب بيانات الخلية');
+    }
+});
+
+// ── POST /api/telecom/home-network/signal ─────────────────────────────────────
+// Body: { from: "CELL_HOME_ROUTER", signal: { type: "..." }, depth: 3 }
+router.post('/home-network/signal', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const { from, signal, depth } = req.body || {};
+        if (!from) return fail(res, 400, 'from_required', 'مطلوب: { from: "CELL_HOME_ROUTER", signal: {type:...}, depth: 3 }');
+        res.json(homeNetwork.fireHomeSignal(from.toUpperCase(), signal || {}, depth !== undefined ? parseInt(depth, 10) : 3));
+    } catch (e) {
+        fail(res, 500, 'home_signal_error', 'حدث خطأ في إطلاق الإشارة العصبية');
+    }
+});
+
+// ── GET /api/telecom/home-network/ai ──────────────────────────────────────────
+router.get('/home-network/ai', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        res.json(homeNetwork.aiEngine.getAINetworkInsights());
+    } catch (e) {
+        fail(res, 500, 'home_ai_error', 'حدث خطأ في جلب رؤى الذكاء الاصطناعي');
+    }
+});
+
+// ── POST /api/telecom/home-network/ai/analyze ─────────────────────────────────
+// Body: { packets_per_sec?, bandwidth_mbps?, unique_connections?, protocol_dist?, hour_of_day? }
+router.post('/home-network/ai/analyze', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        res.json(homeNetwork.aiEngine.analyzeTrafficWithAI(req.body || {}));
+    } catch (e) {
+        fail(res, 500, 'home_ai_analyze_error', 'حدث خطأ في تحليل حركة الشبكة بالذكاء الاصطناعي');
+    }
+});
+
+// ── POST /api/telecom/home-network/ai/predict ─────────────────────────────────
+// Body: { device_count?, last_threats?: [], time_of_day? }
+router.post('/home-network/ai/predict', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        res.json(homeNetwork.aiEngine.predictThreats(req.body || {}));
+    } catch (e) {
+        fail(res, 500, 'home_ai_predict_error', 'حدث خطأ في توقع التهديدات');
+    }
+});
+
+// ── POST /api/telecom/home-network/ai/route ───────────────────────────────────
+// Body: [ { id, type, current_app }, ... ]
+router.post('/home-network/ai/route', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const devices = Array.isArray(req.body) ? req.body : (req.body && req.body.devices) ? req.body.devices : [];
+        res.json(homeNetwork.aiEngine.smartRouteTraffic(devices));
+    } catch (e) {
+        fail(res, 500, 'home_ai_route_error', 'حدث خطأ في التوجيه الذكي');
+    }
+});
+
+// ── POST /api/telecom/home-network/ai/optimize ────────────────────────────────
+// Body: { wifi_channel?, dns?, vlan_enabled?, security_score? }
+router.post('/home-network/ai/optimize', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        res.json(homeNetwork.aiEngine.autoOptimizeNetwork(req.body || {}));
+    } catch (e) {
+        fail(res, 500, 'home_ai_optimize_error', 'حدث خطأ في تحسين الشبكة');
+    }
+});
+
+// ── POST /api/telecom/home-network/ai/classify ────────────────────────────────
+// Body: { url, content? }
+router.post('/home-network/ai/classify', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const { url, content } = req.body || {};
+        if (!url) return fail(res, 400, 'url_required', 'مطلوب: { url: "..." }');
+        res.json(homeNetwork.aiEngine.classifyContent(url, content || ''));
+    } catch (e) {
+        fail(res, 500, 'home_ai_classify_error', 'حدث خطأ في تصنيف المحتوى');
+    }
+});
+
+// ── POST /api/telecom/home-network/ai/command ─────────────────────────────────
+// Body: { command: "أطفئ الأضواء", homeState?: {} }
+router.post('/home-network/ai/command', (req, res) => {
+    if (!homeNetwork) return fail(res, 503, 'home_network_unavailable', 'محرك شبكة المنزل غير متاح');
+    try {
+        const { command, homeState } = req.body || {};
+        if (!command) return fail(res, 400, 'command_required', 'مطلوب: { command: "أطفئ الأضواء" }');
+        res.json(homeNetwork.aiEngine.processVoiceCommand(command, homeState || {}));
+    } catch (e) {
+        fail(res, 500, 'home_ai_command_error', 'حدث خطأ في معالجة الأمر الذكي');
+    }
+});
+
+module.exports = router;

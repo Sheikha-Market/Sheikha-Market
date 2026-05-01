@@ -1,0 +1,596 @@
+{
+    "generatedAt": "2026-03-13T13:39:13.381Z",
+    "classificationAxes": [
+        "civilizational-scope",
+        "legal-form",
+        "sector",
+        "influence-level",
+        "relationship-mode",
+        "value-and-governance-alignment",
+        "digital-and-cyber-readiness"
+    ],
+    "engagementChannels": [
+        "public-partnership-office",
+        "opt-in-newsletters",
+        "partner-portal",
+        "university-liaison",
+        "chamber-and-trade-network-outreach",
+        "civil-society-roundtables",
+        "standards-and-research-forums"
+    ],
+    "governanceGuardrails": [
+        "no-discrimination-by-ethnicity-or-lineage",
+        "no-coercive-outreach",
+        "consent-based-engagement-only",
+        "no-nonconsensual-surveillance",
+        "lawful-and-documented-partnerships",
+        "human-review-for-sensitive-classification",
+        "data-minimization",
+        "transparent-benefit-and-impact-disclosure"
+    ],
+    "entityProfiles": [
+        {
+            "key": "islamic-commercial-and-industrial-partners",
+            "labelAr": "الشركات التجارية والصناعية الإسلامية",
+            "entityTypes": [
+                "company",
+                "industrial-group",
+                "holding-company"
+            ],
+            "civilizationalScopes": [
+                "islamic",
+                "arabic",
+                "global"
+            ],
+            "prioritySectors": [
+                "trade",
+                "industry",
+                "logistics",
+                "fintech"
+            ],
+            "relationshipModes": [
+                "partner",
+                "supplier",
+                "investor",
+                "market-access"
+            ]
+        },
+        {
+            "key": "public-and-regulatory-bodies",
+            "labelAr": "الجهات العامة والتنظيمية",
+            "entityTypes": [
+                "state",
+                "ministry",
+                "authority",
+                "municipality"
+            ],
+            "civilizationalScopes": [
+                "islamic",
+                "arabic",
+                "european-mediterranean",
+                "global"
+            ],
+            "prioritySectors": [
+                "regulation",
+                "trade",
+                "education",
+                "digital-governance"
+            ],
+            "relationshipModes": [
+                "policy-dialogue",
+                "memorandum",
+                "public-service"
+            ]
+        },
+        {
+            "key": "knowledge-and-research-institutions",
+            "labelAr": "الجامعات ومراكز البحث والمعرفة",
+            "entityTypes": [
+                "university",
+                "research-center",
+                "academy",
+                "library"
+            ],
+            "civilizationalScopes": [
+                "islamic",
+                "arabic",
+                "european-mediterranean",
+                "global"
+            ],
+            "prioritySectors": [
+                "education",
+                "science",
+                "innovation",
+                "archives"
+            ],
+            "relationshipModes": [
+                "research",
+                "curriculum",
+                "exchange",
+                "publication"
+            ]
+        },
+        {
+            "key": "community-and-charity-organizations",
+            "labelAr": "المنظمات المجتمعية والخيرية والوقفية",
+            "entityTypes": [
+                "foundation",
+                "association",
+                "waqf",
+                "community-program"
+            ],
+            "civilizationalScopes": [
+                "islamic",
+                "arabic",
+                "global"
+            ],
+            "prioritySectors": [
+                "charity",
+                "community-service",
+                "family-support",
+                "youth"
+            ],
+            "relationshipModes": [
+                "program-delivery",
+                "grant",
+                "volunteer-network",
+                "impact-measurement"
+            ]
+        },
+        {
+            "key": "technology-and-cyber-defense-providers",
+            "labelAr": "مزودو التقنية والحماية السيبرانية الدفاعية",
+            "entityTypes": [
+                "technology-company",
+                "cloud-provider",
+                "cybersecurity-provider"
+            ],
+            "civilizationalScopes": [
+                "islamic",
+                "arabic",
+                "european-mediterranean",
+                "global"
+            ],
+            "prioritySectors": [
+                "software",
+                "cloud",
+                "cybersecurity",
+                "data"
+            ],
+            "relationshipModes": [
+                "integration",
+                "vendor",
+                "joint-lab",
+                "defensive-resilience"
+            ]
+        },
+        {
+            "key": "european-and-mediterranean-cooperation-partners",
+            "labelAr": "شركاء التعاون الأوروبي والمتوسطي",
+            "entityTypes": [
+                "company",
+                "university",
+                "association",
+                "trade-network"
+            ],
+            "civilizationalScopes": [
+                "european-mediterranean",
+                "global"
+            ],
+            "prioritySectors": [
+                "trade",
+                "education",
+                "research",
+                "manufacturing",
+                "health"
+            ],
+            "relationshipModes": [
+                "cross-border-cooperation",
+                "research",
+                "trade",
+                "public-benefit-program"
+            ]
+        }
+    ],
+    "entities": [
+        {
+            "id": 1,
+            "group": "islamic-companies",
+            "defaultGoals": [],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        },
+        {
+            "id": 2,
+            "group": "islamic-organizations",
+            "defaultGoals": [
+                "knowledge-dissemination",
+                "community-reform",
+                "institutional-cooperation",
+                "public-benefit-programs",
+                "research-and-guidance"
+            ],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        },
+        {
+            "id": 3,
+            "group": "public-institutions",
+            "defaultGoals": [],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        },
+        {
+            "id": 4,
+            "group": "universities-and-research-centers",
+            "defaultGoals": [
+                "knowledge-preservation-and-publication",
+                "joint-research-programs",
+                "ethical-innovation",
+                "student-and-scholar-mobility",
+                "open-public-benefit-labs"
+            ],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        },
+        {
+            "id": 5,
+            "group": "islamic-schools",
+            "defaultGoals": [
+                "quran-memorization-and-understanding",
+                "sound-aqidah-and-akhlaq",
+                "arabic-language-mastery",
+                "teacher-development",
+                "family-engagement"
+            ],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        },
+        {
+            "id": 6,
+            "group": "charitable-and-waqf-institutions",
+            "defaultGoals": [
+                "direct-relief",
+                "sustainable-support-programs",
+                "transparent-zakat-and-sadaqah-management",
+                "beneficiary-development",
+                "orphan-and-widow-care"
+            ],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        },
+        {
+            "id": 7,
+            "group": "dawah-and-guidance-centers",
+            "defaultGoals": [],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        },
+        {
+            "id": 8,
+            "group": "community-initiatives",
+            "defaultGoals": [
+                "local-engagement",
+                "volunteer-mobilization",
+                "social-cohesion",
+                "digital-awareness",
+                "youth-mentorship"
+            ],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        },
+        {
+            "id": 9,
+            "group": "mosque-linked-programs",
+            "defaultGoals": [],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        },
+        {
+            "id": 10,
+            "group": "technology-providers",
+            "defaultGoals": [
+                "lawful-digital-infrastructure",
+                "cybersecurity-defense-enablement",
+                "digital-service-integration",
+                "privacy-and-data-protection",
+                "resilient-platform-operations"
+            ],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        },
+        {
+            "id": 11,
+            "group": "economic-networks",
+            "defaultGoals": [
+                "halal-trade-enablement",
+                "ethical-supply-chain-coordination",
+                "market-access-and-trust-building",
+                "investment-readiness",
+                "economic-resilience"
+            ],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        },
+        {
+            "id": 12,
+            "group": "european-and-mediterranean-partners",
+            "defaultGoals": [
+                "lawful-cross-cultural-cooperation",
+                "research-and-education-bridges",
+                "public-benefit-innovation",
+                "ethical-trade-and-logistics",
+                "shared-community-stability"
+            ],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        },
+        {
+            "id": 13,
+            "group": "global-public-benefit-organizations",
+            "defaultGoals": [],
+            "analysisDimensions": [
+                "aqidah-and-manhaj-alignment",
+                "educational-impact",
+                "charitable-impact",
+                "community-service",
+                "financial-integrity",
+                "legal-and-regulatory-compliance",
+                "governance-maturity",
+                "digital-readiness",
+                "cybersecurity-readiness",
+                "partnership-readiness",
+                "knowledge-preservation",
+                "market-and-supply-chain-readiness",
+                "cross-cultural-cooperation-readiness",
+                "youth-and-family-impact"
+            ],
+            "engagementChannels": [
+                "public-partnership-office",
+                "opt-in-newsletters",
+                "partner-portal"
+            ],
+            "defaultStatus": "ready-for-analysis"
+        }
+    ]
+}

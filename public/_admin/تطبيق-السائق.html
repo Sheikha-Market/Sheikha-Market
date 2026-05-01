@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تطبيق السائق - نظام إدارة عمليات النقل والتوثيق والتتبع">
+    <title>تطبيق السائق | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #10b981, #059669);
+            padding: 20px 20px 60px;
+            position: relative;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .driver-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .driver-avatar {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .driver-name {
+            font-weight: 700;
+        }
+        .driver-status {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .notifications {
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            position: relative;
+        }
+        .notif-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stats-card {
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 20px;
+            margin: -40px 20px 20px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #10b981;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .main {
+            padding: 0 20px 100px;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #94a3b8;
+            margin: 24px 0 16px;
+        }
+
+        .current-shipment {
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .shipment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .shipment-id {
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+        .shipment-status {
+            padding: 6px 14px;
+            background: #10b981;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .shipment-route {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .route-point {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            border-radius: 12px;
+        }
+        .route-label {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        .route-value {
+            font-weight: 700;
+        }
+        .route-arrow {
+            font-size: 1.5rem;
+            color: #10b981;
+        }
+        .shipment-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .detail-item {
+            background: rgba(255,255,255,0.03);
+            padding: 12px;
+            border-radius: 10px;
+        }
+        .detail-label {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        .detail-value {
+            font-weight: 700;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .action-btn {
+            padding: 16px;
+            border-radius: 14px;
+            border: none;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+        .action-btn.primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        .action-btn.secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        .action-btn .icon {
+            font-size: 1.5rem;
+        }
+
+        .operations-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        .operation-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .operation-card:active {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: #10b981;
+        }
+        .operation-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .operation-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .checklist {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+        }
+        .checklist-item:last-child { border-bottom: none; }
+        .check-circle {
+            width: 28px;
+            height: 28px;
+            border: 2px solid #64748b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .check-circle.checked {
+            background: #10b981;
+            border-color: #10b981;
+        }
+        .checklist-text {
+            flex: 1;
+        }
+        .checklist-text h4 {
+            font-weight: 600;
+        }
+        .checklist-text p {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 500px;
+            background: rgba(15, 23, 42, 0.98);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        .nav-item.active {
+            color: #10b981;
+        }
+        .nav-icon {
+            font-size: 1.4rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .modal.show {
+            display: flex;
+        }
+        .modal-content {
+            background: #1e293b;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 24px 24px 0 0;
+            padding: 24px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .camera-preview {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: #0f172a;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .camera-icon {
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+        .capture-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .weight-display {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .weight-value {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #10b981;
+        }
+        .weight-unit {
+            font-size: 1.5rem;
+            color: #64748b;
+        }
+        .weight-status {
+            margin-top: 16px;
+            padding: 10px 20px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+        .input-label {
+            display: block;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        .text-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+        }
+
+        .signature-pad {
+            width: 100%;
+            height: 200px;
+            background: #0f172a;
+            border: 1px dashed rgba(255,255,255,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            margin-bottom: 16px;
+        }
+
+        @media (min-width: 500px) {
+            body {
+                border-left: 1px solid rgba(255,255,255,0.1);
+                border-right: 1px solid rgba(255,255,255,0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <div class="driver-info">
+            <div class="driver-avatar">🚚</div>
+            <div>
+                <div class="driver-name">أحمد محمد</div>
+                <div class="driver-status">● متصل | شاحنة 456 ABC</div>
+            </div>
+        </div>
+        <div class="notifications">
+            🔔
+            <span class="notif-badge">3</span>
+        </div>
+    </div>
+</header>
+
+<div class="stats-card">
+    <div class="stat-item">
+        <div class="stat-value">12</div>
+        <div class="stat-label">شحنة اليوم</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-value">4.9</div>
+        <div class="stat-label">التقييم</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-value">2,450</div>
+        <div class="stat-label">ر.س الأرباح</div>
+    </div>
+</div>
+
+<main class="main">
+
+    <!-- الشحنة الحالية -->
+    <div class="current-shipment">
+        <div class="shipment-header">
+            <span class="shipment-id">#SHP-2026-001234</span>
+            <span class="shipment-status">قيد التنفيذ</span>
+        </div>
+        
+        <div class="shipment-route">
+            <div class="route-point">
+                <div class="route-label">من</div>
+                <div class="route-value">الرياض - المنطقة الصناعية</div>
+            </div>
+            <span class="route-arrow">→</span>
+            <div class="route-point">
+                <div class="route-label">إلى</div>
+                <div class="route-value">جدة - الميناء</div>
+            </div>
+        </div>
+
+        <div class="shipment-details">
+            <div class="detail-item">
+                <div class="detail-label">نوع البضاعة</div>
+                <div class="detail-value">نحاس سكراب</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">الوزن</div>
+                <div class="detail-value">25 طن</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">المسافة</div>
+                <div class="detail-value">950 كم</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">الأجرة</div>
+                <div class="detail-value">2,850 ر.س</div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn primary" onclick="openModal('navigation')">
+                <span class="icon">🗺️</span>
+                <span>فتح الخريطة</span>
+            </button>
+            <button class="action-btn secondary" onclick="openModal('contact')">
+                <span class="icon">📞</span>
+                <span>تواصل مع العميل</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- العمليات -->
+    <h3 class="section-title">⚙️ العمليات</h3>
+    <div class="operations-grid">
+        <div class="operation-card" onclick="openModal('receive')">
+            <div class="operation-icon">📦</div>
+            <div class="operation-name">استلام الشحنة</div>
+        </div>
+        <div class="operation-card" onclick="openModal('camera')">
+            <div class="operation-icon">📸</div>
+            <div class="operation-name">توثيق بالصور</div>
+        </div>
+        <div class="operation-card" onclick="openModal('weight')">
+            <div class="operation-icon">⚖️</div>
+            <div class="operation-name">وزن البضاعة</div>
+        </div>
+        <div class="operation-card" onclick="openModal('qr')">
+            <div class="operation-icon">📱</div>
+            <div class="operation-name">مسح QR</div>
+        </div>
+        <div class="operation-card" onclick="openModal('deliver')">
+            <div class="operation-icon">✅</div>
+            <div class="operation-name">تسليم الشحنة</div>
+        </div>
+        <div class="operation-card" onclick="openModal('report')">
+            <div class="operation-icon">⚠️</div>
+            <div class="operation-name">إبلاغ مشكلة</div>
+        </div>
+    </div>
+
+    <!-- قائمة التحقق -->
+    <h3 class="section-title">✓ قائمة التحقق</h3>
+    <div class="checklist">
+        <div class="checklist-item" onclick="toggleCheck(this)">
+            <div class="check-circle checked">✓</div>
+            <div class="checklist-text">
+                <h4>استلام البضاعة</h4>
+                <p>تم التحقق من البضاعة والكمية</p>
+            </div>
+        </div>
+        <div class="checklist-item" onclick="toggleCheck(this)">
+            <div class="check-circle checked">✓</div>
+            <div class="checklist-text">
+                <h4>توثيق بالصور</h4>
+                <p>تم التقاط 5 صور للبضاعة</p>
+            </div>
+        </div>
+        <div class="checklist-item" onclick="toggleCheck(this)">
+            <div class="check-circle checked">✓</div>
+            <div class="checklist-text">
+                <h4>الوزن عند الاستلام</h4>
+                <p>25.2 طن - موازين المرسل</p>
+            </div>
+        </div>
+        <div class="checklist-item" onclick="toggleCheck(this)">
+            <div class="check-circle">✓</div>
+            <div class="checklist-text">
+                <h4>نقطة تفتيش 1</h4>
+                <p>القصيم - في الطريق</p>
+            </div>
+        </div>
+        <div class="checklist-item" onclick="toggleCheck(this)">
+            <div class="check-circle">✓</div>
+            <div class="checklist-text">
+                <h4>الوزن عند التسليم</h4>
+                <p>لم يتم بعد</p>
+            </div>
+        </div>
+        <div class="checklist-item" onclick="toggleCheck(this)">
+            <div class="check-circle">✓</div>
+            <div class="checklist-text">
+                <h4>توقيع المستلم</h4>
+                <p>لم يتم بعد</p>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<nav class="bottom-nav">
+    <div class="nav-item active">
+        <span class="nav-icon">🏠</span>
+        <span>الرئيسية</span>
+    </div>
+    <div class="nav-item">
+        <span class="nav-icon">📋</span>
+        <span>الشحنات</span>
+    </div>
+    <div class="nav-item">
+        <span class="nav-icon">🗺️</span>
+        <span>الخريطة</span>
+    </div>
+    <div class="nav-item">
+        <span class="nav-icon">💰</span>
+        <span>الأرباح</span>
+    </div>
+    <div class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span>حسابي</span>
+    </div>
+</nav>
+
+<!-- Modal: التصوير -->
+<div class="modal" id="cameraModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">📸 توثيق البضاعة</h3>
+            <button class="modal-close" onclick="closeModal('camera')">×</button>
+        </div>
+        <div class="camera-preview">
+            <span class="camera-icon">📷</span>
+        </div>
+        <p style="text-align: center; color: #64748b; margin-bottom: 16px;">
+            التقط صورة واضحة للبضاعة من زوايا متعددة
+        </p>
+        <button class="capture-btn">📸 التقاط صورة</button>
+        <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+            <div style="aspect-ratio: 1; background: #0f172a; border-radius: 8px; display: flex; align-items: center; justify-content: center;">📷</div>
+            <div style="aspect-ratio: 1; background: #0f172a; border-radius: 8px; display: flex; align-items: center; justify-content: center;">📷</div>
+            <div style="aspect-ratio: 1; background: #0f172a; border-radius: 8px; display: flex; align-items: center; justify-content: center; opacity: 0.3;">+</div>
+            <div style="aspect-ratio: 1; background: #0f172a; border-radius: 8px; display: flex; align-items: center; justify-content: center; opacity: 0.3;">+</div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: الوزن -->
+<div class="modal" id="weightModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">⚖️ وزن البضاعة</h3>
+            <button class="modal-close" onclick="closeModal('weight')">×</button>
+        </div>
+        <div class="weight-display">
+            <div class="weight-value">25.2</div>
+            <div class="weight-unit">طن</div>
+            <div class="weight-status">✅ متصل بالميزان</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;">
+            <button class="action-btn secondary">إدخال يدوي</button>
+            <button class="action-btn primary">تأكيد الوزن</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: التسليم -->
+<div class="modal" id="deliverModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">✅ تسليم الشحنة</h3>
+            <button class="modal-close" onclick="closeModal('deliver')">×</button>
+        </div>
+        
+        <div class="input-group">
+            <label class="input-label">اسم المستلم</label>
+            <input type="text" class="text-input" placeholder="أدخل اسم المستلم">
+        </div>
+        
+        <div class="input-group">
+            <label class="input-label">الوزن النهائي (طن)</label>
+            <input type="number" class="text-input" value="25.2">
+        </div>
+        
+        <div class="input-group">
+            <label class="input-label">توقيع المستلم</label>
+            <div class="signature-pad">اضغط للتوقيع ✍️</div>
+        </div>
+        
+        <div class="input-group">
+            <label class="input-label">ملاحظات (اختياري)</label>
+            <input type="text" class="text-input" placeholder="أي ملاحظات على التسليم">
+        </div>
+        
+        <button class="capture-btn" style="margin-top: 16px;">✅ تأكيد التسليم</button>
+    </div>
+</div>
+
+<script>
+    function openModal(type) {
+        document.getElementById(type + 'Modal')?.classList.add('show');
+    }
+    
+    function closeModal(type) {
+        document.getElementById(type + 'Modal')?.classList.remove('show');
+    }
+    
+    function toggleCheck(item) {
+        const circle = item.querySelector('.check-circle');
+        circle.classList.toggle('checked');
+    }
+    
+    // إغلاق Modal عند النقر خارجها
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

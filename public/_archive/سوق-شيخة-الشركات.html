@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل الشركات | سوق شيخة</title>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --copper: #B87333;
+            --dark-bg: #0a0f1a;
+            --card-bg: #1f2937;
+            --border: #374151;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --error: #ef4444;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--card-bg), var(--dark-bg));
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-right: 25px;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover { color: var(--gold); }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px 40px;
+        }
+        
+        /* Statistics */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        
+        .stat-icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .stat-value { font-size: 2rem; font-weight: bold; color: var(--gold); }
+        .stat-label { color: var(--text-secondary); font-size: 0.9rem; }
+        
+        /* Sectors */
+        .sectors-section { margin-bottom: 40px; }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sectors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .sector-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .sector-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+        
+        .sector-card.active {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        
+        .sector-icon { font-size: 3rem; margin-bottom: 15px; }
+        .sector-name { font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; }
+        .sector-count { color: var(--text-secondary); font-size: 0.9rem; }
+        
+        /* Companies Grid */
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 25px;
+        }
+        
+        .company-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .company-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .company-header {
+            padding: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), transparent);
+        }
+        
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .company-info { flex: 1; }
+        .company-info h3 { font-size: 1.2rem; margin-bottom: 5px; }
+        .company-info p { color: var(--text-secondary); font-size: 0.9rem; }
+        
+        .company-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            background: var(--dark-bg);
+            color: var(--text-secondary);
+        }
+        
+        .badge.sector { background: rgba(59,130,246,0.2); color: var(--info); }
+        .badge.ready { background: rgba(16,185,129,0.2); color: var(--success); }
+        .badge.featured { background: rgba(212,175,55,0.2); color: var(--gold); }
+        
+        .company-body { padding: 25px; }
+        
+        .company-section {
+            margin-bottom: 20px;
+        }
+        
+        .company-section h4 {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .product-tag {
+            padding: 6px 14px;
+            background: rgba(59,130,246,0.15);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--info);
+        }
+        
+        .gaps-list {
+            background: rgba(239,68,68,0.1);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .gap-item {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .gap-item:last-child { margin-bottom: 0; }
+        .gap-icon { color: var(--warning); }
+        
+        .opportunities-list {
+            background: rgba(16,185,129,0.1);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .opportunity-item {
+            font-size: 0.85rem;
+            color: var(--success);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .company-footer {
+            padding: 20px 25px;
+            background: var(--dark-bg);
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            color: #000;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212,175,55,0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(212,175,55,0.1);
+        }
+        
+        /* Search */
+        .search-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px 25px;
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        /* Supply Chain */
+        .supply-chain-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid var(--border);
+        }
+        
+        .supply-chain-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+        
+        .chain-stage {
+            text-align: center;
+            min-width: 150px;
+            padding: 20px;
+            background: var(--dark-bg);
+            border-radius: 15px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .chain-stage:hover {
+            border-color: var(--gold);
+        }
+        
+        .chain-stage.active {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        
+        .chain-icon { font-size: 2rem; margin-bottom: 10px; }
+        .chain-name { font-size: 0.9rem; font-weight: bold; }
+        .chain-count { font-size: 0.75rem; color: var(--text-secondary); margin-top: 5px; }
+        
+        .chain-arrow {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 0 10px;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: var(--text-secondary);
+        }
+        
+        .empty-icon { font-size: 4rem; margin-bottom: 20px; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            .companies-grid { grid-template-columns: 1fr; }
+            .sectors-grid { grid-template-columns: repeat(2, 1fr); }
+            .search-box { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <span class="logo-text">سوق شيخة</span>
+            </div>
+            <nav>
+                <a href="منظومة-شيخة.html">الرئيسية</a>
+                <a href="سوق-شيخة.html">السوق</a>
+                <a href="تسجيل-سريع.html">التسجيل السريع</a>
+                <a href="تحليل-الشركات.html">التحليلات</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Statistics -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-icon">🏢</div>
+                <div class="stat-value" id="totalCompanies">85+</div>
+                <div class="stat-label">شركة مجهزة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <div class="stat-value" id="totalProducts">500+</div>
+                <div class="stat-label">منتج</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔗</div>
+                <div class="stat-value">5</div>
+                <div class="stat-label">مراحل سلسلة التوريد</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-value">30s</div>
+                <div class="stat-label">وقت التسجيل</div>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن شركة أو منتج... (مثال: معادن، حديد، نحاس، ذهب)">
+                <button class="btn btn-primary" onclick="searchCompanies()">🔍 بحث</button>
+            </div>
+        </div>
+
+        <!-- Supply Chain -->
+        <div class="supply-chain-section">
+            <h2 class="section-title">🔗 سلسلة التوريد</h2>
+            <div class="supply-chain-flow">
+                <div class="chain-stage" data-stage="1" onclick="filterByStage(1)">
+                    <div class="chain-icon">⛏️</div>
+                    <div class="chain-name">الاستخراج والتجميع</div>
+                    <div class="chain-count">مناجم + سكراب</div>
+                </div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-stage" data-stage="2" onclick="filterByStage(2)">
+                    <div class="chain-icon">🏭</div>
+                    <div class="chain-name">المعالجة والتصنيع</div>
+                    <div class="chain-count">مصاهر + مصانع</div>
+                </div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-stage" data-stage="3" onclick="filterByStage(3)">
+                    <div class="chain-icon">🚚</div>
+                    <div class="chain-name">النقل والتخزين</div>
+                    <div class="chain-count">لوجستيات</div>
+                </div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-stage" data-stage="4" onclick="filterByStage(4)">
+                    <div class="chain-icon">💎</div>
+                    <div class="chain-name">التصنيع النهائي</div>
+                    <div class="chain-count">منتجات نهائية</div>
+                </div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-stage" data-stage="5" onclick="filterByStage(5)">
+                    <div class="chain-icon">🛒</div>
+                    <div class="chain-name">التوزيع والبيع</div>
+                    <div class="chain-count">تجارة</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sectors -->
+        <div class="sectors-section">
+            <h2 class="section-title">📊 القطاعات</h2>
+            <div class="sectors-grid" id="sectorsGrid"></div>
+        </div>
+
+        <!-- Companies -->
+        <div class="companies-section">
+            <h2 class="section-title">🏢 الشركات المجهزة (<span id="companiesCount">0</span>)</h2>
+            <div class="companies-grid" id="companiesGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        let allCompanies = [];
+        let sectors = {};
+        let supplyChain = {};
+        let currentSector = 'all';
+
+        async function loadData() {
+            try {
+                const res = await fetch('/api/market/preloaded');
+                const data = await res.json();
+                allCompanies = data.companies || [];
+                sectors = data.sectors || {};
+                
+                // Load supply chain
+                const scRes = await fetch('/api/market/supply-chain');
+                const scData = await scRes.json();
+                supplyChain = scData.model || {};
+                
+                renderSectors();
+                renderCompanies(allCompanies);
+                updateStats();
+            } catch (e) {
+                console.error(e);
+                // Fallback
+                loadFallbackData();
+            }
+        }
+
+        function loadFallbackData() {
+            fetch('/data/saudi-market-preloaded.json')
+                .then(r => r.json())
+                .then(data => {
+                    allCompanies = data.preloadedCompanies || [];
+                    sectors = data.sectors || {};
+                    supplyChain = data.supplyChainModel || {};
+                    renderSectors();
+                    renderCompanies(allCompanies);
+                    updateStats();
+                });
+        }
+
+        function updateStats() {
+            document.getElementById('totalCompanies').textContent = allCompanies.length + '+';
+            let products = 0;
+            allCompanies.forEach(c => products += (c.products || []).length);
+            document.getElementById('totalProducts').textContent = products + '+';
+        }
+
+        function renderSectors() {
+            const grid = document.getElementById('sectorsGrid');
+            const sectorsArray = [
+                { id: 'all', nameAr: 'جميع القطاعات', icon: '🌐', count: allCompanies.length }
+            ];
+            
+            Object.entries(sectors).forEach(([id, s]) => {
+                const count = allCompanies.filter(c => c.sector === id).length;
+                sectorsArray.push({ id, ...s, count });
+            });
+            
+            grid.innerHTML = sectorsArray.map(s => `
+                <div class="sector-card ${s.id === currentSector ? 'active' : ''}" onclick="filterBySector('${s.id}')">
+                    <div class="sector-icon">${s.icon}</div>
+                    <div class="sector-name">${s.nameAr}</div>
+                    <div class="sector-count">${s.count} شركة</div>
+                </div>
+            `).join('');
+        }
+
+        function filterBySector(sector) {
+            currentSector = sector;
+            document.querySelectorAll('.sector-card').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="filterBySector('${sector}')"]`)?.classList.add('active');
+            
+            const filtered = sector === 'all' 
+                ? allCompanies 
+                : allCompanies.filter(c => c.sector === sector);
+            renderCompanies(filtered);
+        }
+
+        function filterByStage(stage) {
+            document.querySelectorAll('.chain-stage').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[data-stage="${stage}"]`)?.classList.add('active');
+            
+            const stages = supplyChain.stages || [];
+            const stageData = stages.find(s => s.stage === stage);
+            if (!stageData) return;
+            
+            const companyIds = stageData.companies || [];
+            const filtered = companyIds === 'ALL' 
+                ? allCompanies 
+                : allCompanies.filter(c => companyIds.includes(c.companyId));
+            renderCompanies(filtered);
+        }
+
+        function searchCompanies() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if (!query) {
+                renderCompanies(allCompanies);
+                return;
+            }
+            
+            const filtered = allCompanies.filter(c => 
+                c.nameAr?.toLowerCase().includes(query) ||
+                c.nameEn?.toLowerCase().includes(query) ||
+                (c.products || []).some(p => p.name?.toLowerCase().includes(query))
+            );
+            renderCompanies(filtered);
+        }
+
+        function renderCompanies(companies) {
+            const grid = document.getElementById('companiesGrid');
+            document.getElementById('companiesCount').textContent = companies.length;
+            
+            if (companies.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div class="empty-icon">🔍</div>
+                        <h3>لم يتم العثور على نتائج</h3>
+                        <p>جرب البحث بكلمات مختلفة</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = companies.map(c => {
+                const products = (c.products || []).slice(0, 5);
+                const gaps = (c.gaps || []).slice(0, 2);
+                const opportunities = (c.opportunities || []).slice(0, 2);
+                
+                return `
+                    <div class="company-card">
+                        <div class="company-header">
+                            <div class="company-logo">${c.logo || '🏢'}</div>
+                            <div class="company-info">
+                                <h3>${c.nameAr}</h3>
+                                <p>${c.headquarters?.city || 'السعودية'}</p>
+                                <div class="company-badges">
+                                    <span class="badge sector">${getSectorName(c.sector)}</span>
+                                    <span class="badge ready">✅ جاهز</span>
+                                    ${c.financials?.listed ? '<span class="badge featured">📈 مدرجة</span>' : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="company-body">
+                            ${products.length > 0 ? `
+                                <div class="company-section">
+                                    <h4>📦 المنتجات (${(c.products || []).length})</h4>
+                                    <div class="products-grid">
+                                        ${products.map(p => `<span class="product-tag">${p.name}</span>`).join('')}
+                                        ${(c.products || []).length > 5 ? `<span class="product-tag">+${c.products.length - 5}</span>` : ''}
+                                    </div>
+                                </div>
+                            ` : ''}
+                            
+                            ${gaps.length > 0 ? `
+                                <div class="company-section">
+                                    <h4>⚠️ الفجوات</h4>
+                                    <div class="gaps-list">
+                                        ${gaps.map(g => `
+                                            <div class="gap-item">
+                                                <span class="gap-icon">⚠️</span>
+                                                <span><strong>${g.area}:</strong> ${g.gap}</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            ` : ''}
+                            
+                            ${opportunities.length > 0 ? `
+                                <div class="company-section">
+                                    <h4>💡 الفرص</h4>
+                                    <div class="opportunities-list">
+                                        ${opportunities.map(o => `
+                                            <div class="opportunity-item">
+                                                <span>✅</span>
+                                                <span>${o}</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="company-footer">
+                            <a href="تسجيل-سريع.html?company=${c.companyId}" class="btn btn-primary">🚀 تسجيل سريع</a>
+                            <button class="btn btn-secondary" onclick="viewCompanyDetails('${c.companyId}')">📋 التفاصيل</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getSectorName(sector) {
+            const names = {
+                mining: '⛏️ تعدين',
+                scrap: '♻️ سكراب',
+                gold: '💎 ذهب',
+                steel: '🔩 حديد',
+                aluminum: '🪶 ألمنيوم',
+                logistics: '🚚 نقل',
+                storage: '🏭 تخزين'
+            };
+            return names[sector] || sector;
+        }
+
+        function viewCompanyDetails(companyId) {
+            const company = allCompanies.find(c => c.companyId === companyId);
+            if (!company) return;
+            
+            alert(`
+📋 ${company.nameAr}
+━━━━━━━━━━━━━━━━━━━━━
+🏢 المعرف: ${company.companyId}
+📍 المدينة: ${company.headquarters?.city || 'غير محدد'}
+📞 الهاتف: ${company.contacts?.phone || 'غير محدد'}
+🌐 الموقع: ${company.contacts?.website || 'غير محدد'}
+
+📦 المنتجات: ${(company.products || []).length}
+⚠️ الفجوات: ${(company.gaps || []).length}
+💡 الفرص: ${(company.opportunities || []).length}
+
+🎯 الرؤية:
+${company.profile?.vision || 'غير محددة'}
+            `);
+        }
+
+        // Search on Enter
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchCompanies();
+        });
+
+        // Load data
+        loadData();
+    </script>
+</body>
+</html>

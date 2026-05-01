@@ -1,0 +1,307 @@
+{
+  "metadata": {
+    "documentId": "SHK-Digital-NDA-Confidentiality-Framework",
+    "createdAt": "2026-03-12T00:00:00Z",
+    "organisation": "Sheikha Technology Imperium",
+    "classification": "Legal - Confidential",
+    "type": "Digital Contract Template",
+    "islamic_basis": "Amana (Trust), Sirr (Secrecy), Amanah as-Sirr (Secret Trusting)",
+    "quranic_reference": "سورة النور ٢٨: بِإِذْنِ أَهْلِهِ - 'by the permission of their owners' (Al-Nur 28)"
+  },
+  "nda_digital_standard": {
+    "standard_id": "DNDA-2026",
+    "standard_name": "Sheikha Digital Non-Disclosure Agreement Standard",
+    "effective_date": "2026-03-12",
+    "enforceability": "Legally binding in Saudi Arabia, UAE, Qatar, Kuwait, Bahrain"
+  },
+  "nda_template_master": {
+    "contract_title": "Digital Non-Disclosure and Confidentiality Agreement",
+    "parties": {
+      "party_1": {
+        "role": "Disclosing Party (Owner of Confidential Information)",
+        "name_placeholder": "[SHEIKHA TECHNOLOGY IMPERIUM or PARTNER NAME]",
+        "address_placeholder": "[FULL LEGAL ADDRESS]",
+        "representative_placeholder": "[AUTHORIZED SIGNATORY NAME & TITLE]"
+      },
+      "party_2": {
+        "role": "Receiving Party (Recipient of Confidential Information)",
+        "name_placeholder": "[PARTNER NAME]",
+        "address_placeholder": "[FULL LEGAL ADDRESS]",
+        "representative_placeholder": "[AUTHORIZED SIGNATORY NAME & TITLE]"
+      }
+    },
+    "recitals": {
+      "recital_1": "WHEREAS, the Disclosing Party possesses proprietary and confidential information related to [SPECIFY: Technology, Business Plans, Trade Secrets, Customer Lists, Financial Data, AI Models, Source Code, etc.]",
+      "recital_2": "WHEREAS, the parties wish to enter into business discussions and evaluate a potential partnership regarding [SPECIFY: Joint venture, API integration, technology licensing, distribution rights, etc.]",
+      "recital_3": "WHEREAS, in connection with such discussions, the Disclosing Party may disclose to the Receiving Party certain confidential and proprietary information",
+      "recital_4": "WHEREAS, the parties desire to protect such confidential information and establish clear terms governing its use, disclosure, and protection"
+    },
+    "definitions": {
+      "def_1": {
+        "term": "Confidential Information",
+        "definition": "All information disclosed by Disclosing Party to Receiving Party, whether in written, oral, electronic, or visual form, including but not limited to: business plans, financial information, technical data, source code, algorithms, AI models, customer lists, trade secrets, strategic information, and any information marked 'Confidential' or that would reasonably be understood as confidential given its nature and circumstances of disclosure"
+      },
+      "def_2": {
+        "term": "Digital Records",
+        "definition": "Electronically maintained copies of Confidential Information including: encrypted databases, cloud storage, digital documents, blockchain hashes for immutable records, and any digitally-signed versions"
+      },
+      "def_3": {
+        "term": "Authorized Personnel",
+        "definition": "Employees, contractors, and advisors of Receiving Party who have a legitimate 'need-to-know' for the specific business purpose and who are bound by written confidentiality obligations at least as stringent as this Agreement"
+      },
+      "def_4": {
+        "term": "Permitted Use",
+        "definition": "Use of Confidential Information solely for the stated business purpose: [SPECIFY: Evaluating partnership, developing APIs, integrating systems, etc.] and NOT for competitive purposes or any other unauthorized use"
+      }
+    },
+    "obligations": {
+      "obligation_1": {
+        "title": "Protection of Confidential Information",
+        "description": "Receiving Party shall protect Confidential Information with the same degree of care it uses to protect its own confidential information, but in no case less than reasonable care",
+        "technical_measures": [
+          "Encryption of all digital records (AES-256 minimum)",
+          "Access control with multi-factor authentication",
+          "Secure deletion protocols (DOD 5220.22-M standard or better)",
+          "Regular security audits and penetration testing",
+          "Network security (firewalls, IDS/IPS systems)",
+          "Data segregation and isolation"
+        ]
+      },
+      "obligation_2": {
+        "title": "Limited Disclosure",
+        "description": "Receiving Party shall disclose Confidential Information only to Authorized Personnel who have a legitimate need-to-know and who are bound by written confidentiality obligations",
+        "enforcement": "Receiving Party shall maintain a register of all Authorized Personnel with access to Confidential Information and provide audit reports quarterly"
+      },
+      "obligation_3": {
+        "title": "Permitted Use Only",
+        "description": "Confidential Information shall be used solely for the stated Permitted Use. Any other use is prohibited.",
+        "prohibited_uses": [
+          "Competitive use (creating competing products/services)",
+          "Reverse engineering or decompilation (especially for AI models, source code)",
+          "Disclosure to third parties without written consent",
+          "Commercial use beyond the Permitted Use",
+          "Sharing with government bodies unless legally compelled"
+        ]
+      },
+      "obligation_4": {
+        "title": "Digital Watermarking & Tracking",
+        "description": "For sensitive AI models, source code, and trade secrets: Receiving Party shall implement digital watermarking and access logging to track if Confidential Information is accessed, by whom, when, and for how long",
+        "technology": "Blockchain-verifiable audit trails, cryptographic signatures, timestamp-certified logs"
+      },
+      "obligation_5": {
+        "title": "Data Privacy & Islamic Principles",
+        "description": "Receiving Party shall comply with all applicable data protection laws and Islamic principles of trust (Amanah) and secrecy (Sirr)",
+        "requirements": [
+          "No use of Confidential Information for surveillance or unethical purposes",
+          "Respect user privacy (if Confidential Information includes personal data)",
+          "Comply with Saudi DPA, GDPR (if applicable), and Sharia principles",
+          "No profiling or manipulation of data for commercial advantage at users' expense"
+        ]
+      }
+    },
+    "exceptions": {
+      "exception_1": {
+        "title": "Public Domain Information",
+        "description": "Information that is, or becomes, publicly available through no breach of this Agreement by Receiving Party is not considered Confidential Information. Burden of proof is on Receiving Party.",
+        "caveat": "Public domain status must be documented and submitted to Disclosing Party for verification"
+      },
+      "exception_2": {
+        "title": "Legally Required Disclosure",
+        "description": "If Receiving Party is legally compelled to disclose Confidential Information by court order, regulatory demand, or legal obligation, Receiving Party shall: (1) Immediately notify Disclosing Party, (2) Cooperate to seek protective order, (3) Disclose only the minimum legally required, (4) Request confidential treatment from the legal authority",
+        "process": "Minimum 10 business days' notice required before any disclosure"
+      },
+      "exception_3": {
+        "title": "Prior Knowledge",
+        "description": "Information that Receiving Party can prove it possessed prior to disclosure with independent evidence is not subject to confidentiality obligations",
+        "proof_required": "Original documents, dated communications, or credible witnesses demonstrating prior possession"
+      }
+    },
+    "term_duration": {
+      "agreement_duration": {
+        "initial_term": "3 years from the Effective Date",
+        "renewal": "May be renewed for additional 3-year periods by mutual written consent",
+        "termination_by_either_party": "Either party may terminate with 30 days' written notice"
+      },
+      "confidentiality_survive": {
+        "duration_after_termination": "Confidentiality obligations survive termination for an additional 5 years",
+        "trade_secrets": "Trade secret information remains confidential perpetually or until it becomes public through no fault of Receiving Party"
+      }
+    },
+    "return_destruction": {
+      "requirement": "Within 30 days of termination or request, Receiving Party shall either: (A) Return all Confidential Information to Disclosing Party, or (B) Permanently destroy it",
+      "destruction_process": [
+        "Physical destruction: Shredding, incineration, or degaussing (for data storage)",
+        "Digital destruction: Secure deletion using NIST standards (Gutmann method or overwrite 7+ times)",
+        "Cloud data: Verified deletion from all servers and backup systems",
+        "Blockchain records: If applicable, archival with privacy-preserving hashing"
+      ],
+      "certification": "Receiving Party shall provide written certification of destruction signed by authorized officer"
+    },
+    "representations_warranties": {
+      "rep_1": "Each party represents it has full authority to enter into this Agreement and bind itself to its terms",
+      "rep_2": "Disclosing Party represents it has the right to disclose the Confidential Information and that disclosure does not violate any third-party rights",
+      "rep_3": "Receiving Party represents it will comply with all applicable laws including data protection, cybersecurity, and Islamic financing regulations",
+      "rep_4": "No confidentiality obligations exist in relation to Authorized Personnel as stated (they are duly bound)"
+    },
+    "limitation_liability": {
+      "limitation_1": "Confidential Information is provided 'AS IS' without warranty of accuracy, completeness, or fitness for any purpose",
+      "limitation_2": "Neither party assumes liability for decisions made based on Confidential Information",
+      "limitation_3": "Maximum liability capped at amount of direct damages actually incurred, not to exceed [SPECIFY: Amount in local currency]",
+      "limitation_4": "Neither party liable for indirect, consequential, punitive, or lost profits damages"
+    },
+    "remedies": {
+      "remedy_1": {
+        "title": "Injunctive Relief",
+        "description": "Disclosing Party acknowledges that monetary damages may be inadequate for breach of this Agreement. In event of breach or threatened breach, Disclosing Party may seek injunctive relief and specific performance without proving actual damages"
+      },
+      "remedy_2": {
+        "title": "Audit Rights",
+        "description": "Disclosing Party may audit Receiving Party's compliance at any time with 5 business days' notice, no more than 2 times per year. Audits conducted at Disclosing Party's expense unless major breach discovered",
+        "audit_scope": "Review of access logs, security measures, destruction records, and Authorized Personnel registers"
+      },
+      "remedy_3": {
+        "title": "Digital Forensics",
+        "description": "In case of suspected breach, Disclosing Party may retain third-party digital forensics firm to investigate unauthorized access or disclosure. If breach confirmed, costs borne by Receiving Party"
+      }
+    },
+    "dispute_resolution": {
+      "method_1": {
+        "method_name": "Negotiation & Mediation (Islamic)",
+        "order": "First step - 30 days",
+        "description": "Parties shall attempt to resolve disputes through good-faith negotiation. If unresolved, proceed to Islamic mediation (Tahkim-based) with mutually agreed mediator"
+      },
+      "method_2": {
+        "method_name": "Arabic Arbitration",
+        "order": "Second step - If negotiation fails",
+        "description": "Disputes shall be resolved by binding arbitration under rules of [SPECIFY: Saudi Arbitration Law / DIAC / GCC Arbitration Center], conducted in Arabic",
+        "arbitrator_count": "Single arbitrator for disputes < [Amount] or 3 arbitrators for larger disputes",
+        "seat_of_arbitration": "Riyadh, Saudi Arabia"
+      },
+      "method_3": {
+        "method_name": "Escalation to Sharia Council",
+        "order": "If disputes involve Islamic financing or Sharia-compliant terms",
+        "description": "Sharia-related disputes escalated to mutually agreed Islamic law scholar or Sharia council for fatwa/advisory opinion"
+      },
+      "method_4": {
+        "method_name": "Litigation",
+        "order": "Final recourse only if arbitration fails",
+        "venue": "Courts of Saudi Arabia (Riyadh Regional Court preferred)"
+      }
+    },
+    "special_provisions": {
+      "provision_1": {
+        "title": "Blockchain Verification (Optional)",
+        "description": "For high-value Confidential Information, parties may mutually agree to store hash of agreement and key access events on blockchain for immutable audit trail",
+        "blockchain_chain": "Choose: Ethereum, Hyperledger, or Saudi-approved blockchain",
+        "benefit": "Tamper-proof record of who accessed what and when"
+      },
+      "provision_2": {
+        "title": "AI Model Protection",
+        "description": "If Confidential Information includes AI models, source code, or training data: (A) Receiving Party shall not reverse-engineer, fine-tune on own data, or create derivative models without explicit written consent; (B) Receiving Party shall implement digital watermarking to identify model provenance",
+        "enforcement": "Breach of this provision subjects Receiving Party to greater statutory damages"
+      },
+      "provision_3": {
+        "title": "Islamic Financing Confidentiality",
+        "description": "If Confidential Information relates to Islamic financing products or Zakat calculations: (A) Receiving Party shall keep Islamic financial models and calculations confidential; (B) Shall not disclose to non-Islamic institutions; (C) Shall not use for Riba-based products",
+        "oath": "Receiving Party authorized personnel shall take formal oath (Bayah) to uphold Islamic principles"
+      },
+      "provision_4": {
+        "title": "Geofencing & Data Residency",
+        "description": "Confidential Information (especially customer data or IP) shall NEVER leave GCC region without Disclosing Party's written approval. Technical controls (IP geofencing, access controls) shall restrict access from outside approved locations",
+        "monitoring": "Real-time monitoring of data access and transfer locations with automated alerts if violations detected"
+      }
+    },
+    "entire_agreement": "This Agreement constitutes the entire agreement between the parties regarding the subject matter and supersedes all prior negotiations, understandings, and agreements, whether written or oral",
+    "amendments": "This Agreement may only be amended by written instrument signed by authorized representatives of both parties",
+    "governing_law": "This Agreement shall be governed by and construed in accordance with the laws of Saudi Arabia, consistent with Islamic Sharia principles",
+    "severability": "If any provision is found invalid, such provision shall be severed and remaining provisions shall continue in full force and effect",
+    "confidentiality_clause_itself": "This Agreement itself shall be deemed Confidential Information and Receiving Party shall not disclose its existence or terms without prior written consent, except as required by law",
+    "execution": {
+      "signature_block_1": {
+        "party": "Disclosing Party",
+        "name_line": "By: ___________________________ | Date: ______________",
+        "title_line": "Title: _________________________",
+        "company_line": "Company: _________________________",
+        "digital_signature": "Digital Signature / Blockchain Hash: _______________"
+      },
+      "signature_block_2": {
+        "party": "Receiving Party",
+        "name_line": "By: ___________________________ | Date: ______________",
+        "title_line": "Title: _________________________",
+        "company_line": "Company: _________________________",
+        "digital_signature": "Digital Signature / Blockchain Hash: _______________"
+      }
+    }
+  },
+  "automated_nda_enforcement": {
+    "automation_feature_1": {
+      "feature_id": "ANE-001",
+      "feature_name": "Digital Watermarking & Tracking",
+      "description": "Automatically embed digital watermarks in all Confidential Information files with metadata: creator, date, recipient, expiry",
+      "implementation": "Python PIL library for images, PDF stamp for documents, Git metadata for code",
+      "monitoring": "Automated system checks if watermarked files appear in unauthorized locations"
+    },
+    "automation_feature_2": {
+      "feature_id": "ANE-002",
+      "feature_name": "Access Logging & SIEM Integration",
+      "description": "Every access to Confidential Information logged with: who accessed, when, from where (IP/device), duration, what they accessed",
+      "implementation": "Elasticsearch for indexing, Kibana for visualization, real-time alerts for suspicious access",
+      "retention": "Logs retained minimum 3 years"
+    },
+    "automation_feature_3": {
+      "feature_id": "ANE-003",
+      "feature_name": "Automated Deletion Scheduler",
+      "description": "On agreement expiration, automatically trigger secure deletion of all Confidential Information from receiving party's systems",
+      "implementation": "Scheduled jobs, secure deletion protocol (7-pass overwrite), blockchain-certified proof of deletion",
+      "confirmation": "Automated email confirmation to Disclosing Party with deletion certificate"
+    },
+    "automation_feature_4": {
+      "feature_id": "ANE-004",
+      "feature_name": "AI-Powered Anomaly Detection",
+      "description": "ML model trained to detect suspicious access patterns: bulk downloads, unusual times, geographic anomalies, copy/paste activities",
+      "implementation": "Isolation Forest algorithm, continuous learning from historical access patterns",
+      "alerts": "Real-time alerts to both parties, escalation to legal team if high-risk activity detected"
+    },
+    "automation_feature_5": {
+      "feature_id": "ANE-005",
+      "feature_name": "Smart NDA Renewal & Alerts",
+      "description": "Automatically notify parties 90 days before NDA expiration with renewal options or destruction procedures",
+      "implementation": "Scheduled notifications, automated renewal documents with pre-filled terms",
+      "outcome": "Prevent accidental lapse of confidentiality"
+    },
+    "automation_feature_6": {
+      "feature_id": "ANE-006",
+      "feature_name": "Blockchain Audit Trail",
+      "description": "Store cryptographic hashes of NDA, access logs, and key events on blockchain for immutable verification",
+      "implementation": "Ethereum smart contracts with event logging, Hyperledger for private networks",
+      "benefit": "Legally admissible evidence of compliance in court proceedings"
+    }
+  },
+  "policy_terms_digital_policies": {
+    "policy_1": {
+      "policy_id": "POL-CONF-001",
+      "policy_name": "Confidentiality Classification Policy",
+      "policy_statement": "All information classified as Public, Internal, Confidential, or Restricted based on sensitivity and business impact"
+    },
+    "policy_2": {
+      "policy_id": "POL-CONF-002",
+      "policy_name": "Data Minimization Policy",
+      "policy_statement": "Share only the minimum data necessary for the stated business purpose. Default to 'no share' unless explicit permission granted"
+    },
+    "policy_3": {
+      "policy_id": "POL-CONF-003",
+      "policy_name": "Purpose Limitation Policy",
+      "policy_statement": "Data received under NDA may be used ONLY for the stated business purpose. Any other use requires new written consent"
+    },
+    "policy_4": {
+      "policy_id": "POL-CONF-004",
+      "policy_name": "Sub-processor Prohibition Policy",
+      "policy_statement": "Receiving Party shall NOT share or process Confidential Information through third-party sub-processors without explicit written consent of Disclosing Party"
+    },
+    "policy_5": {
+      "policy_id": "POL-CONF-005",
+      "policy_name": "Islamic Principles Compliance Policy",
+      "policy_statement": "All handling of Confidential Information must comply with Islamic principles: Amanah (Trust), Sirr (Secrecy), honest dealing, no Riba, no Gharar"
+    }
+  }
+}

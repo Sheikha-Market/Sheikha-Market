@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>Sheikha CLI — واجهة سطر الأوامر | SHEIKHA</title>
+<meta name="description" content="Sheikha CLI — واجهة سطر الأوامر لمنظومة شيخة: sheikha status، sheikha market live، sheikha contracts inspect، sheikha git report">
+<meta name="robots" content="index, follow">
+<meta name="author" content="سلمان أحمد بن سلمان الراجح">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#D4AF37">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   بسم الله الرحمن الرحيم
+   SHEIKHA CLI — واجهة سطر الأوامر
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#050810;--bg2:#0a0f1a;--bg3:#111827;--bg4:#1a2236;
+  --gold:#D4AF37;--gold2:#b8942f;--gold3:#f5d97e;
+  --t1:#f1f5f9;--t2:#94a3b8;--t3:#64748b;
+  --bdr:#1e293b;--bdr2:#334155;
+  --green:#22c55e;--blue:#3b82f6;--purple:#a855f7;--orange:#f97316;
+  --term-bg:#020b10;--term-green:#00ff88;--term-gold:#f5d97e;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:3px}
+
+/* ═══ NAVBAR ═══ */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 32px;height:64px;display:flex;align-items:center;background:rgba(5,8,16,.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(30,41,59,.6)}
+.nav-inner{max-width:1400px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo-link{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-mark{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:20px;height:20px}
+.logo-text{font-size:1.25rem;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-a{padding:8px 16px;color:var(--t2);text-decoration:none;font-size:.88rem;font-weight:500;border-radius:8px;transition:all .25s}
+.nav-a:hover{color:var(--t1);background:rgba(255,255,255,.05)}
+.nav-a.active{color:var(--gold);background:rgba(212,175,55,.1)}
+.nav-cta{padding:9px 20px;background:rgba(212,175,55,.12);border:1px solid var(--gold);border-radius:10px;color:var(--gold);font-size:.86rem;font-weight:600;text-decoration:none;transition:all .25s}
+.nav-cta:hover{background:var(--gold);color:#050810}
+
+/* ═══ HERO ═══ */
+.hero{padding:120px 32px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(34,197,94,.06) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid rgba(34,197,94,.25);border-radius:20px;background:rgba(34,197,94,.06);margin-bottom:24px;font-size:.82rem;font-weight:600;color:var(--green);font-family:'JetBrains Mono',monospace}
+.hero-badge span{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.15;margin-bottom:20px}
+.hero h1 .grad{background:linear-gradient(135deg,var(--green),#86efac);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-family:'JetBrains Mono',monospace}
+.hero p{font-size:1.1rem;color:var(--t2);max-width:680px;margin:0 auto 36px;line-height:1.7}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{padding:14px 32px;background:linear-gradient(135deg,var(--green),#16a34a);color:#fff;font-weight:700;border-radius:12px;text-decoration:none;font-size:.98rem;transition:all .25s;font-family:'JetBrains Mono',monospace}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(34,197,94,.3)}
+.btn-secondary{padding:14px 32px;border:1px solid rgba(34,197,94,.3);color:var(--green);border-radius:12px;text-decoration:none;font-size:.98rem;font-weight:600;transition:all .25s;font-family:'JetBrains Mono',monospace}
+.btn-secondary:hover{background:rgba(34,197,94,.08)}
+
+/* ═══ MAIN TERMINAL ═══ */
+.terminal-hero{max-width:800px;margin:0 auto 60px;background:var(--term-bg);border:1px solid #0d2a1e;border-radius:16px;overflow:hidden;box-shadow:0 24px 64px rgba(0,255,136,.08)}
+.terminal-bar{background:#071510;padding:12px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #0d2a1e}
+.t-dot{width:12px;height:12px;border-radius:50%}
+.t-red{background:#ff5f57}
+.t-yellow{background:#febc2e}
+.t-green{background:#28c840}
+.terminal-title{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:#3d6b4d;margin-right:auto}
+.terminal-body{padding:24px;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.8;min-height:240px}
+.t-prompt{color:var(--term-green)}
+.t-cmd{color:var(--term-gold)}
+.t-out{color:#5cb87a;padding-right:20px}
+.t-key{color:#4ade80}
+.t-val{color:#f5d97e}
+.t-dim{color:#2d6040}
+.cursor{display:inline-block;width:8px;height:14px;background:var(--term-green);animation:blink 1s infinite;vertical-align:middle}
+
+/* ═══ LAYOUT ═══ */
+.container{max-width:1400px;margin:0 auto;padding:0 32px}
+.section{padding:60px 32px}
+.section-title{font-size:1.8rem;font-weight:800;margin-bottom:8px}
+.section-sub{color:var(--t2);margin-bottom:40px;font-size:1rem}
+
+/* ═══ COMMANDS GRID ═══ */
+.cmd-groups{display:flex;flex-direction:column;gap:40px}
+.cmd-group{background:var(--bg2);border:1px solid var(--bdr);border-radius:16px;overflow:hidden}
+.cmd-group-header{padding:18px 24px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:12px}
+.cmd-group-icon{font-size:1.4rem}
+.cmd-group-name{font-size:1.05rem;font-weight:700;color:var(--t1)}
+.cmd-group-desc{font-size:.85rem;color:var(--t3);margin-right:auto}
+.cmd-list{padding:16px}
+.cmd-item{display:grid;grid-template-columns:auto 1fr;gap:0;border-radius:10px;overflow:hidden;margin-bottom:10px;border:1px solid var(--bdr);cursor:pointer;transition:all .25s}
+.cmd-item:hover{border-color:rgba(34,197,94,.25)}
+.cmd-item:last-child{margin-bottom:0}
+.cmd-left{padding:14px 18px;background:var(--bg3);border-left:1px solid var(--bdr)}
+.cmd-code{font-family:'JetBrains Mono',monospace;font-size:.83rem;color:var(--term-green);white-space:nowrap}
+.cmd-right{padding:14px 18px;background:var(--bg);display:flex;align-items:center}
+.cmd-desc{font-size:.88rem;color:var(--t2)}
+
+/* ═══ INSTALL ═══ */
+.install-box{background:var(--bg3);border:1px solid var(--bdr);border-radius:12px;overflow:hidden}
+.install-tabs{display:flex;border-bottom:1px solid var(--bdr)}
+.itab{padding:12px 20px;font-size:.82rem;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;font-family:'JetBrains Mono',monospace;transition:all .2s}
+.itab.active{color:var(--green);border-bottom-color:var(--green)}
+.install-body{padding:20px;font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--term-green);line-height:1.8}
+.install-note{font-size:.78rem;color:var(--t3);padding:12px 20px;border-top:1px solid var(--bdr)}
+
+/* ═══ STATS ═══ */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin:40px 0}
+.stat{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:20px;text-align:center}
+.stat-val{font-size:1.8rem;font-weight:800;color:var(--green);display:block;font-family:'JetBrains Mono',monospace}
+.stat-lbl{font-size:.8rem;color:var(--t3);margin-top:4px}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes typewriter{from{width:0}to{width:100%}}
+
+/* ═══ FOOTER ═══ */
+.footer{background:var(--bg2);border-top:1px solid var(--bdr);padding:40px 32px;text-align:center;color:var(--t3);font-size:.85rem}
+.footer a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="/" class="logo-link">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#050810" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span class="logo-text">SHEIKHA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/" class="nav-a">الرئيسية</a></li>
+      <li><a href="/سوق-شيخة.html" class="nav-a">السوق</a></li>
+      <li><a href="/لوحة-التحكم-الموحدة.html" class="nav-a">لوحة التحكم</a></li>
+      <li><a href="/sdk.html" class="nav-a">SDK</a></li>
+      <li><a href="/sheikha-ide.html" class="nav-a">IDE</a></li>
+      <li><a href="/mcp.html" class="nav-a">MCP</a></li>
+      <li><a href="/cli.html" class="nav-a active">CLI</a></li>
+      <li><a href="/الحوكمة.html" class="nav-a">الحوكمة</a></li>
+    </ul>
+    <a href="/تسجيل-الدخول.html" class="nav-cta">دخول / تسجيل</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><span></span> sheikha-cli v1.4.0 — جاهز</div>
+  <h1>واجهة سطر الأوامر<br><span class="grad">sheikha CLI</span></h1>
+  <p>تحكم في منظومة شيخة كاملةً من سطر الأوامر — فحص الحالة، إدارة السوق، مراجعة العقود، مزامنة الإمداد، وتقارير Git في ثوانٍ.</p>
+  <div class="hero-actions">
+    <a href="#install" class="btn-primary">$ التثبيت</a>
+    <a href="#commands" class="btn-secondary">$ الأوامر</a>
+  </div>
+
+  <!-- Terminal showcase -->
+  <div class="terminal-hero" style="margin-top:48px">
+    <div class="terminal-bar">
+      <div class="t-dot t-red"></div>
+      <div class="t-dot t-yellow"></div>
+      <div class="t-dot t-green"></div>
+      <span class="terminal-title">sheikha — bash — 80×24</span>
+    </div>
+    <div class="terminal-body">
+      <div><span class="t-prompt">❯ </span><span class="t-cmd">sheikha status</span></div>
+      <div class="t-out">
+        <div>┌─────────────────────────────────────────┐</div>
+        <div>│  <span class="t-key">SHEIKHA</span> — النظام التشغيلي الرقمي        │</div>
+        <div>│  الإصدار: <span class="t-val">v2.4.1</span> | البيئة: <span class="t-val">production</span>   │</div>
+        <div>├─────────────────────────────────────────┤</div>
+        <div>│  🏪 السوق         <span class="t-key">●  نشط</span>                 │</div>
+        <div>│  📋 العقود        <span class="t-key">●  نشط</span>                 │</div>
+        <div>│  🔗 الإمداد       <span class="t-key">●  نشط</span>                 │</div>
+        <div>│  ⚖️  الحوكمة       <span class="t-key">●  نشط</span>                 │</div>
+        <div>│  🌐 GitHub        <span class="t-key">●  متزامن</span>              │</div>
+        <div>│  💳 الفوترة       <span class="t-dim">◉  تحديث</span>              │</div>
+        <div>└─────────────────────────────────────────┘</div>
+      </div>
+      <div><span class="t-prompt">❯ </span><span class="cursor"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="container">
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-val">48</span><div class="stat-lbl">أمر متاح</div></div>
+    <div class="stat"><span class="stat-val">8</span><div class="stat-lbl">مجموعات أوامر</div></div>
+    <div class="stat"><span class="stat-val">3</span><div class="stat-lbl">أنظمة تشغيل مدعومة</div></div>
+    <div class="stat"><span class="stat-val">v1.4</span><div class="stat-lbl">الإصدار الحالي</div></div>
+  </div>
+</div>
+
+<!-- INSTALL -->
+<section class="section" id="install" style="background:var(--bg2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)">
+  <div class="container">
+    <h2 class="section-title">التثبيت</h2>
+    <p class="section-sub">ثلاث طرق لتثبيت Sheikha CLI</p>
+    <div class="install-box">
+      <div class="install-tabs">
+        <div class="itab active">npm</div>
+        <div class="itab">curl</div>
+        <div class="itab">brew</div>
+      </div>
+      <div class="install-body">
+        <div># تثبيت Sheikha CLI عبر npm</div>
+        <div>npm install -g @sheikha/cli</div>
+        <div>&nbsp;</div>
+        <div># التحقق من التثبيت</div>
+        <div>sheikha --version</div>
+        <div><span style="color:var(--t3)"># sheikha-cli/1.4.0 linux-x64 node/v20.11.0</span></div>
+        <div>&nbsp;</div>
+        <div># تسجيل الدخول</div>
+        <div>sheikha login</div>
+        <div><span style="color:var(--t3)"># ✓ مرحباً! تم تسجيل الدخول كـ trader@example.com</span></div>
+      </div>
+      <div class="install-note">يتطلب Node.js 18+ | متوافق مع Linux، macOS، Windows</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMANDS -->
+<section class="section" id="commands">
+  <div class="container">
+    <h2 class="section-title">الأوامر</h2>
+    <p class="section-sub">دليل الأوامر الكامل مصنفةً حسب المجموعة</p>
+    <div class="cmd-groups">
+
+      <!-- Status -->
+      <div class="cmd-group">
+        <div class="cmd-group-header">
+          <div class="cmd-group-icon">📡</div>
+          <div class="cmd-group-name">sheikha status</div>
+          <div class="cmd-group-desc">فحص حالة المنظومة</div>
+        </div>
+        <div class="cmd-list">
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha status</span></div>
+            <div class="cmd-right"><span class="cmd-desc">عرض حالة جميع خدمات منظومة شيخة</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha status --json</span></div>
+            <div class="cmd-right"><span class="cmd-desc">إخراج الحالة بصيغة JSON للمعالجة البرمجية</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha status --watch</span></div>
+            <div class="cmd-right"><span class="cmd-desc">مراقبة الحالة بشكل حي (تحديث كل 5 ثوانٍ)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Market -->
+      <div class="cmd-group">
+        <div class="cmd-group-header">
+          <div class="cmd-group-icon">🏪</div>
+          <div class="cmd-group-name">sheikha market</div>
+          <div class="cmd-group-desc">أوامر السوق الحي</div>
+        </div>
+        <div class="cmd-list">
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha market live</span></div>
+            <div class="cmd-right"><span class="cmd-desc">عرض أسعار المعادن اللحظية من LME/COMEX/LBMA</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha market prices --metal gold</span></div>
+            <div class="cmd-right"><span class="cmd-desc">سعر معدن محدد مع التاريخ والتغيير</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha market offers --list</span></div>
+            <div class="cmd-right"><span class="cmd-desc">قائمة العروض النشطة في السوق</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha market order create</span></div>
+            <div class="cmd-right"><span class="cmd-desc">إنشاء طلب شراء أو بيع جديد</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contracts -->
+      <div class="cmd-group">
+        <div class="cmd-group-header">
+          <div class="cmd-group-icon">📋</div>
+          <div class="cmd-group-name">sheikha contracts</div>
+          <div class="cmd-group-desc">إدارة العقود الرقمية</div>
+        </div>
+        <div class="cmd-list">
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha contracts inspect &lt;id&gt;</span></div>
+            <div class="cmd-right"><span class="cmd-desc">فحص تفاصيل عقد بمعرفه</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha contracts list</span></div>
+            <div class="cmd-right"><span class="cmd-desc">قائمة عقودك النشطة والمكتملة</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha contracts create</span></div>
+            <div class="cmd-right"><span class="cmd-desc">إنشاء عقد رقمي جديد (تفاعلي)</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha contracts approve &lt;id&gt;</span></div>
+            <div class="cmd-right"><span class="cmd-desc">الموافقة على عقد معلق</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Supply -->
+      <div class="cmd-group">
+        <div class="cmd-group-header">
+          <div class="cmd-group-icon">🔗</div>
+          <div class="cmd-group-name">sheikha supply</div>
+          <div class="cmd-group-desc">إدارة سلاسل الإمداد</div>
+        </div>
+        <div class="cmd-list">
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha supply sync</span></div>
+            <div class="cmd-right"><span class="cmd-desc">مزامنة بيانات الإمداد مع الموردين</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha supply track &lt;order-id&gt;</span></div>
+            <div class="cmd-right"><span class="cmd-desc">تتبع شحنة أو أمر توريد</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha supply suppliers --list</span></div>
+            <div class="cmd-right"><span class="cmd-desc">قائمة الموردين المرتبطين</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Governance -->
+      <div class="cmd-group">
+        <div class="cmd-group-header">
+          <div class="cmd-group-icon">⚖️</div>
+          <div class="cmd-group-name">sheikha governance</div>
+          <div class="cmd-group-desc">فحوصات الحوكمة والامتثال</div>
+        </div>
+        <div class="cmd-list">
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha governance check</span></div>
+            <div class="cmd-right"><span class="cmd-desc">تشغيل فحص الامتثال الكامل للميثاق</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha governance audit --tail 50</span></div>
+            <div class="cmd-right"><span class="cmd-desc">عرض آخر 50 سجل في سجل الأثر</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha governance policies</span></div>
+            <div class="cmd-right"><span class="cmd-desc">قائمة السياسات التشغيلية النشطة</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SDK -->
+      <div class="cmd-group">
+        <div class="cmd-group-header">
+          <div class="cmd-group-icon">⚡</div>
+          <div class="cmd-group-name">sheikha sdk</div>
+          <div class="cmd-group-desc">إدارة مجموعة أدوات التطوير</div>
+        </div>
+        <div class="cmd-list">
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha sdk list</span></div>
+            <div class="cmd-right"><span class="cmd-desc">قائمة حزم SDK المتاحة وإصداراتها</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha sdk keys --create</span></div>
+            <div class="cmd-right"><span class="cmd-desc">إنشاء مفتاح API جديد</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha sdk test --endpoint /api/market</span></div>
+            <div class="cmd-right"><span class="cmd-desc">اختبار endpoint محدد</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MCP -->
+      <div class="cmd-group">
+        <div class="cmd-group-header">
+          <div class="cmd-group-icon">🔮</div>
+          <div class="cmd-group-name">sheikha mcp</div>
+          <div class="cmd-group-desc">إدارة مركز ربط الأدوات</div>
+        </div>
+        <div class="cmd-list">
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha mcp health</span></div>
+            <div class="cmd-right"><span class="cmd-desc">فحص صحة جميع عقد MCP</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha mcp tools --list</span></div>
+            <div class="cmd-right"><span class="cmd-desc">قائمة الأدوات المسجلة في MCP</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha mcp connect --node market</span></div>
+            <div class="cmd-right"><span class="cmd-desc">الاتصال بعقدة محددة</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Git -->
+      <div class="cmd-group">
+        <div class="cmd-group-header">
+          <div class="cmd-group-icon">🌐</div>
+          <div class="cmd-group-name">sheikha git</div>
+          <div class="cmd-group-desc">تكامل GitHub وGitLab</div>
+        </div>
+        <div class="cmd-list">
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha git status</span></div>
+            <div class="cmd-right"><span class="cmd-desc">حالة المستودعات والفروع والتزامن</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha git branches</span></div>
+            <div class="cmd-right"><span class="cmd-desc">قائمة الفروع وحالة الدمج</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha git sync</span></div>
+            <div class="cmd-right"><span class="cmd-desc">مزامنة GitHub وGitLab</span></div>
+          </div>
+          <div class="cmd-item">
+            <div class="cmd-left"><span class="cmd-code">sheikha git report</span></div>
+            <div class="cmd-right"><span class="cmd-desc">توليد تقرير نشاط التطوير اليومي</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2026 منظومة شيخة — <a href="/">sheikha.top</a> | CLI v1.4.0 | <a href="/sdk.html">SDK</a> | <a href="/mcp.html">MCP</a> | <a href="/الحوكمة.html">الحوكمة</a></p>
+  <p style="margin-top:8px;font-size:.75rem">"إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَن يُتْقِنَهُ"</p>
+</footer>
+
+<script>
+// تأثير الكتابة على المحطة الطرفية
+const demos = [
+  ['sheikha market live', [
+    '  ═══════════ أسعار المعادن الحية ═══════════',
+    '  🥇 الذهب   285.40 SAR/g  ▲ +1.2%  [LBMA]',
+    '  🥈 الفضة    3.12 SAR/g   ▲ +0.8%  [COMEX]',
+    '  🔴 النحاس   42.80 SAR/kg ▼ -0.3%  [LME]',
+    '  آخر تحديث: ' + new Date().toLocaleTimeString('ar')
+  ]],
+  ['sheikha git report', [
+    '  📊 تقرير نشاط Git — ' + new Date().toLocaleDateString('ar'),
+    '  ├─ GitHub: ✓ متزامن | 3 فروع نشطة',
+    '  ├─ GitLab: ✓ متزامن | آخر commit منذ 2 ساعة',
+    '  ├─ Commits اليوم: 14 | PRs مفتوحة: 3',
+    '  └─ حالة النشر: ✓ مستقر'
+  ]],
+];
+</script>
+</body>
+</html>

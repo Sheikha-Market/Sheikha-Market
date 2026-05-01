@@ -1,0 +1,39 @@
+{
+    "generatedAt": "2026-03-13T23:54:18.663Z",
+    "datasets": [
+        {
+            "id": "metals-scrap-market",
+            "nameAr": "سوق المعادن والسكراب",
+            "description": "بيانات الأسعار والعقود والتقييمات لسوق شيخة",
+            "size": "dynamic",
+            "updateFrequency": "real-time"
+        },
+        {
+            "id": "sharia-sciences",
+            "nameAr": "العلوم الشرعية",
+            "description": "النصوص القرآنية والأحاديث النبوية وكتب الفقه المعتمدة",
+            "size": "large",
+            "updateFrequency": "on-new-scholarly-review"
+        },
+        {
+            "id": "arabic-nlp",
+            "nameAr": "معالجة اللغة العربية",
+            "description": "نصوص العربية الفصحى والمصطلحات الاقتصادية والتقنية",
+            "size": "medium",
+            "updateFrequency": "monthly"
+        },
+        {
+            "id": "science-integration",
+            "nameAr": "التكامل العلمي القرآني",
+            "description": "حالات التأمل القرآني وتكاملات العلوم الطبيعية",
+            "size": "growing",
+            "updateFrequency": "as-new-insights"
+        }
+    ],
+    "governanceChecks": [
+        "source-verification",
+        "sharia-filtering",
+        "deduplication",
+        "arabic-normalization"
+    ]
+}

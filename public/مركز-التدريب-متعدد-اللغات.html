@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 مركز التدريب متعدد اللغات - شيخة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #D4AF37 0%, #B87333 100%);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #D4AF37;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .card h3 {
+            color: #D4AF37;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .stat-value {
+            font-size: 3em;
+            font-weight: 900;
+            color: #D4AF37;
+            margin: 15px 0;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.8;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            color: #D4AF37;
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .agent-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .agent-card {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(184, 115, 51, 0.1) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .agent-card:hover {
+            transform: scale(1.05);
+            border-color: #D4AF37;
+        }
+
+        .agent-name {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #D4AF37;
+            margin-bottom: 10px;
+        }
+
+        .agent-role {
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        .schedule-item {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid #D4AF37;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .schedule-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #D4AF37;
+            margin-bottom: 5px;
+        }
+
+        .language-tag {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid #D4AF37;
+            color: #D4AF37;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .technique-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #D4AF37 0%, #B87333 100%);
+            color: #1a1a1a;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9em;
+            font-weight: 700;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #D4AF37 0%, #B87333 100%);
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .status-active {
+            color: #4ade80;
+            font-weight: 700;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.3em;
+            color: #D4AF37;
+        }
+
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .control-panel {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
+            opacity: 0.8;
+        }
+
+        .refresh-indicator {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(212, 175, 55, 0.9);
+            color: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="refresh-indicator" id="refreshIndicator">🔄 جاري التحديث...</div>
+
+    <div class="header">
+        <h1>🌍 مركز التدريب متعدد اللغات</h1>
+        <p>منظومة شيخة للتدريب بأفضل تقنيات العالم - 150+ لغة</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="card">
+            <h3>🌐 اللغات المدربة</h3>
+            <div class="stat-value" id="languagesTrained">--</div>
+            <div class="stat-label">من إجمالي <span id="totalLanguages">--</span> لغة</div>
+        </div>
+
+        <div class="card">
+            <h3>🚀 التقنيات المتاحة</h3>
+            <div class="stat-value" id="techniquesCount">--</div>
+            <div class="stat-label">LoRA • QLoRA • PEFT • DPO</div>
+        </div>
+
+        <div class="card">
+            <h3>🤖 الوكلاء النشطون</h3>
+            <div class="stat-value" id="activeAgents">--</div>
+            <div class="stat-label" class="status-active">جميع الوكلاء مُفعّلون</div>
+        </div>
+
+        <div class="card">
+            <h3>📊 جلسات التدريب</h3>
+            <div class="stat-value" id="trainingSessions">--</div>
+            <div class="stat-label">جلسة مكتملة</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">🤖 الوكلاء الإداريون</h2>
+        <div class="agent-list" id="agentsList">
+            <div class="loading">جاري تحميل الوكلاء...</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">📅 جداول التدريب النشطة</h2>
+        <div id="schedulesList">
+            <div class="schedule-item">
+                <div class="schedule-title">🔄 تدريب مستمر 24/7</div>
+                <p>التقنية: <span class="technique-badge">LoRA</span></p>
+                <p>اللغات الرئيسية: العربية • الإنجليزية • الصينية • الهندية • الإسبانية • الفرنسية • الأردو</p>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-title">⏰ تدريب كل ساعة</div>
+                <p>التقنية: <span class="technique-badge">QLoRA</span></p>
+                <p>تحديثات سريعة لجميع النماذج</p>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-title">📆 تدريب يومي</div>
+                <p>التقنية: <span class="technique-badge">PEFT</span></p>
+                <p>أفضل توازن بين الأداء والموارد</p>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-title">📅 تدريب أسبوعي</div>
+                <p>التقنية: <span class="technique-badge">DPO</span></p>
+                <p>تحديثات كبيرة ومحسّنات أساسية</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">🚀 تقنيات التدريب المتقدمة</h2>
+        <div id="techniquesList"></div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">🌍 اللغات المدعومة (49 لغة نشطة)</h2>
+        <div class="languages-grid" id="languagesList">
+            <div class="loading">جاري تحميل اللغات...</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">⚙️ لوحة التحكم</h2>
+        <div class="control-panel">
+            <button class="btn" onclick="refreshData()">🔄 تحديث البيانات</button>
+            <button class="btn" onclick="startNewTraining()">🚀 بدء تدريب جديد</button>
+            <button class="btn" onclick="viewLogs()">📋 سجلات التدريب</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>منظومة شيخة</strong> - أول منظومة اقتصادية إسلامية رقمية للمعادن والسكراب</p>
+        <p>مبنية على مبادئ سوق المدينة المنورة — الكتاب والسنة</p>
+        <p style="margin-top: 10px;">المالك: سلمان أحمد بن سلمان الراجح | <a href="mailto:market@sheikha.top" style="color: #D4AF37;">market@sheikha.top</a></p>
+    </div>
+
+    <script>
+        // 🔄 تحميل البيانات الأساسية
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/training-center/stats');
+                const result = await response.json();
+
+                if (result.success) {
+                    const data = result.data;
+
+                    // تحديث الإحصائيات
+                    document.getElementById('languagesTrained').textContent = data.stats.totalLanguagesTrained;
+                    document.getElementById('totalLanguages').textContent = data.languages.total;
+                    document.getElementById('techniquesCount').textContent = data.techniques.length;
+                    document.getElementById('activeAgents').textContent = data.stats.activeAgents;
+                    document.getElementById('trainingSessions').textContent = data.stats.completedJobs;
+
+                    // عرض التقنيات
+                    displayTechniques(data.techniques);
+                }
+            } catch (error) {
+                console.error('خطأ في تحميل الإحصائيات:', error);
+            }
+        }
+
+        // 🌍 تحميل اللغات
+        async function loadLanguages() {
+            try {
+                const response = await fetch('/api/training-center/languages');
+                const result = await response.json();
+
+                if (result.success) {
+                    const languages = result.data.languages;
+                    const languagesHTML = Object.entries(languages)
+                        .map(([key, lang]) => `
+                            <div class="language-tag" title="${lang.speakers.toLocaleString()} متحدث">
+                                ${lang.name}
+                            </div>
+                        `).join('');
+
+                    document.getElementById('languagesList').innerHTML = languagesHTML;
+                }
+            } catch (error) {
+                console.error('خطأ في تحميل اللغات:', error);
+            }
+        }
+
+        // 🤖 عرض الوكلاء
+        function displayAgents() {
+            const agents = [
+                { name: 'وكيل الجدولة', role: 'إدارة أوقات التدريب المثالية', emoji: '📅' },
+                { name: 'وكيل مراقبة الجودة', role: 'فحص جودة النماذج المدربة', emoji: '✅' },
+                { name: 'وكيل إدارة الموارد', role: 'تحسين استخدام GPU/CPU/Memory', emoji: '⚡' },
+                { name: 'وكيل تنظيم البيانات', role: 'تنظيف وتحضير البيانات التدريبية', emoji: '📊' },
+                { name: 'وكيل النشر', role: 'نشر النماذج المدربة للإنتاج', emoji: '🚀' }
+            ];
+
+            const agentsHTML = agents.map(agent => `
+                <div class="agent-card">
+                    <div class="agent-name">${agent.emoji} ${agent.name}</div>
+                    <div class="agent-role">${agent.role}</div>
+                    <div style="margin-top: 10px; color: #4ade80; font-weight: 700;">● نشط</div>
+                </div>
+            `).join('');
+
+            document.getElementById('agentsList').innerHTML = agentsHTML;
+        }
+
+        // 🚀 عرض التقنيات
+        function displayTechniques(techniques) {
+            const techniquesHTML = techniques.map(tech => `
+                <span class="technique-badge">${tech}</span>
+            `).join('');
+
+            document.getElementById('techniquesList').innerHTML = techniquesHTML;
+        }
+
+        // 🔄 تحديث البيانات
+        async function refreshData() {
+            const indicator = document.getElementById('refreshIndicator');
+            indicator.style.display = 'block';
+
+            await Promise.all([
+                loadStats(),
+                loadLanguages()
+            ]);
+
+            setTimeout(() => {
+                indicator.style.display = 'none';
+            }, 1000);
+        }
+
+        // 🚀 بدء تدريب جديد
+        function startNewTraining() {
+            alert('🚀 سيتم فتح واجهة بدء تدريب جديد قريباً...\n\nالتقنيات المتاحة:\n• LoRA - كفاءة عالية\n• QLoRA - استهلاك منخفض للذاكرة\n• PEFT - تدريب فعّال\n• DPO - تحسين مباشر\n• RLHF - تعلم تعزيزي');
+        }
+
+        // 📋 عرض السجلات
+        function viewLogs() {
+            alert('📋 جاري تجهيز واجهة السجلات...\n\nسيتم عرض:\n• سجلات التدريب المفصلة\n• الأخطاء والتحذيرات\n• مقاييس الأداء\n• تاريخ الجلسات');
+        }
+
+        // ⚡ التهيئة عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStats();
+            loadLanguages();
+            displayAgents();
+
+            // تحديث تلقائي كل 30 ثانية
+            setInterval(refreshData, 30000);
+        });
+    </script>
+</body>
+</html>

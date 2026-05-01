@@ -1,0 +1,119 @@
+{
+    "generatedAt": "2026-03-13T23:54:27.129Z",
+    "engine": {
+        "type": "sheikha-rag-simulation-engine",
+        "capabilities": [
+            "محاكاة استعلامات RAG الكاملة",
+            "محاكاة جلسات التدريب",
+            "محاكاة سيناريوهات السوق",
+            "محاكاة الحالات الشرعية الحدية",
+            "اختبار الأداء تحت الحمل"
+        ],
+        "modes": [
+            "interactive",
+            "batch",
+            "stress",
+            "regression",
+            "sharia-compliance"
+        ]
+    },
+    "ragScenarios": [
+        {
+            "id": "rag-q-001",
+            "categoryAr": "سوق المعادن",
+            "query": "ما سعر النحاس الحالي ومعاملاته الشرعية؟",
+            "expectedOutputKeys": [
+                "price",
+                "shariaStatus",
+                "evidence"
+            ],
+            "acceptanceCriteria": {
+                "hasEvidence": true,
+                "noCertainty": false,
+                "shariaCompliant": true
+            }
+        },
+        {
+            "id": "rag-q-002",
+            "categoryAr": "الشريعة الإسلامية",
+            "query": "هل بيع المعادن الفضية الآجل جائز شرعاً؟",
+            "expectedOutputKeys": [
+                "ruling",
+                "evidence",
+                "conditions"
+            ],
+            "acceptanceCriteria": {
+                "hasEvidence": true,
+                "citesQuranOrHadith": true
+            }
+        },
+        {
+            "id": "rag-q-003",
+            "categoryAr": "العلوم القرآنية",
+            "query": "ما الدروس العلمية من آية الشجر والنار في سورة يس؟",
+            "expectedOutputKeys": [
+                "verse",
+                "scientificInsights",
+                "methodology"
+            ],
+            "acceptanceCriteria": {
+                "referencesVerse": true,
+                "epistemicPolicyCompliant": true
+            }
+        },
+        {
+            "id": "rag-q-004",
+            "categoryAr": "الحوسبة الطبية",
+            "query": "كيف تساعد منظومة شيخة في تحليل البيانات الطبية؟",
+            "expectedOutputKeys": [
+                "capabilities",
+                "governance",
+                "humanDignityCompliance"
+            ],
+            "acceptanceCriteria": {
+                "mentionsGovernance": true,
+                "humanCentric": true
+            }
+        },
+        {
+            "id": "rag-q-005",
+            "categoryAr": "الفروع الحوسبية",
+            "query": "اقترح فرعاً حوسبياً لعلوم الفضاء مؤصّلاً بأقطار السماوات",
+            "expectedOutputKeys": [
+                "branchName",
+                "quranReference",
+                "computingLayers"
+            ],
+            "acceptanceCriteria": {
+                "hasQuranReference": true,
+                "branchStructured": true
+            }
+        }
+    ],
+    "stressTests": [
+        {
+            "id": "stress-001",
+            "name": "100 concurrent RAG queries",
+            "targetRps": 100,
+            "durationSeconds": 60,
+            "acceptableP95LatencyMs": 2000
+        },
+        {
+            "id": "stress-002",
+            "name": "data-fabric high-volume ingestion",
+            "target": "data-fabric-core",
+            "payloadSizeMb": 50,
+            "acceptableP95LatencyMs": 5000
+        }
+    ],
+    "regressionSuite": {
+        "runBeforeEveryPromotion": true,
+        "minPassRate": 98,
+        "includedCategories": [
+            "sharia-compliance",
+            "rag-accuracy",
+            "market-data",
+            "governance"
+        ]
+    }
+}

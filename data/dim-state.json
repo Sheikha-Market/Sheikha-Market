@@ -1,0 +1,128 @@
+{
+  "workItems": [],
+  "decisions": [
+    {
+      "id": "DEC-20260209-0001",
+      "title": "منع البيع والدفع والعقود — PILOT MODE",
+      "rule": "PAYMENTS/SELLING/CONTRACTS: DISABLED",
+      "reason": "OPERATIONAL-PILOT / ZERO RISK — لا ضرر ولا ضرار",
+      "status": "active",
+      "approved_by": "المالك",
+      "approved_at": "2026-02-09T13:10:26.027Z",
+      "created_at": "2026-02-09T13:10:26.027Z"
+    },
+    {
+      "id": "DEC-20260209-0002",
+      "title": "المرجعية الحاكمة: الكتاب والسنة",
+      "rule": "SHARIA_REFERENCE: QURAN_AND_SUNNAH",
+      "reason": "لا حُكم فوق حكم الله — الشريعة أولاً",
+      "status": "active",
+      "approved_by": "المالك",
+      "approved_at": "2026-02-09T13:10:26.027Z",
+      "created_at": "2026-02-09T13:10:26.027Z"
+    },
+    {
+      "id": "DEC-20260209-0003",
+      "title": "القرار النهائي للإنسان",
+      "rule": "AI_ROLE: ASSIST_ONLY / HUMAN_DECIDES",
+      "reason": "الآلة تساعد ولا تقرر — القرار للمالك",
+      "status": "active",
+      "approved_by": "المالك",
+      "approved_at": "2026-02-09T13:10:26.032Z",
+      "created_at": "2026-02-09T13:10:26.032Z"
+    }
+  ],
+  "kpis": [
+    {
+      "id": "KPI-OPS-SYSTEM-HEALTH",
+      "name": "System Health",
+      "domain": "ops",
+      "target": "UP",
+      "current": "UP",
+      "status": "GREEN",
+      "updated_at": "2026-02-09T13:10:26.034Z",
+      "history": [
+        {
+          "value": "UP",
+          "at": "2026-02-09T13:10:26.034Z"
+        }
+      ]
+    },
+    {
+      "id": "KPI-OPS-ERROR-RATE",
+      "name": "Error Rate",
+      "domain": "ops",
+      "target": 0,
+      "current": 0,
+      "status": "RED",
+      "updated_at": "2026-02-09T13:10:26.035Z",
+      "history": [
+        {
+          "value": 0,
+          "at": "2026-02-09T13:10:26.035Z"
+        }
+      ]
+    },
+    {
+      "id": "KPI-SHARIA-SHARIA-COMPLIANCE",
+      "name": "Sharia Compliance",
+      "domain": "sharia",
+      "target": 100,
+      "current": 100,
+      "status": "GREEN",
+      "updated_at": "2026-02-09T13:10:26.035Z",
+      "history": [
+        {
+          "value": 100,
+          "at": "2026-02-09T13:10:26.035Z"
+        }
+      ]
+    },
+    {
+      "id": "KPI-MATURITY-SMI-SCORE",
+      "name": "SMI Score",
+      "domain": "maturity",
+      "target": 100,
+      "current": 78,
+      "status": "YELLOW",
+      "updated_at": "2026-02-09T13:10:26.035Z",
+      "history": [
+        {
+          "value": 78,
+          "at": "2026-02-09T13:10:26.035Z"
+        }
+      ]
+    },
+    {
+      "id": "KPI-TECH-PAGES-ACTIVE",
+      "name": "Pages Active",
+      "domain": "tech",
+      "target": 20,
+      "current": 20,
+      "status": "GREEN",
+      "updated_at": "2026-02-09T13:10:26.036Z",
+      "history": [
+        {
+          "value": 20,
+          "at": "2026-02-09T13:10:26.036Z"
+        }
+      ]
+    },
+    {
+      "id": "KPI-SECURITY-SECURITY-SCORE",
+      "name": "Security Score",
+      "domain": "security",
+      "target": 100,
+      "current": 95,
+      "status": "GREEN",
+      "updated_at": "2026-02-09T13:10:26.036Z",
+      "history": [
+        {
+          "value": 95,
+          "at": "2026-02-09T13:10:26.036Z"
+        }
+      ]
+    }
+  ],
+  "savedAt": "2026-02-16T02:25:42.373Z"
+}

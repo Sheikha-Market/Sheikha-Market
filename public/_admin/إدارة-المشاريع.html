@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المشاريع | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --green: #006c35;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #fff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --danger: #ef4444;
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; line-height: 1.7; }
+        
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; font-weight: 900; color: var(--dark);
+        }
+        .logo-text h1 { font-size: 1.1rem; color: var(--gold); }
+        .logo-text p { font-size: 0.7rem; color: var(--text-muted); }
+        .nav { display: flex; gap: 8px; }
+        .nav-link {
+            padding: 10px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: var(--radius);
+            transition: all 0.2s;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--gold); background: rgba(212,175,55,0.1); }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 40px 0 60px;
+        }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 16px; }
+        .hero h1 span { color: var(--gold); }
+        .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+        
+        /* Methodology Section */
+        .methodology {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .methodology-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .methodology-title h2 { font-size: 1.5rem; margin-bottom: 8px; }
+        .methodology-title h2 span { color: var(--gold); }
+        .methodology-title p { color: var(--text-muted); font-size: 0.95rem; }
+        
+        /* POLCC Framework */
+        .polcc-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+        .polcc-item {
+            background: var(--dark);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px 16px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .polcc-item:hover, .polcc-item.active {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+        .polcc-item.active { background: rgba(212,175,55,0.05); }
+        .polcc-number {
+            width: 40px; height: 40px;
+            background: var(--gold);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900;
+            margin: 0 auto 12px;
+        }
+        .polcc-item h4 { font-size: 1rem; margin-bottom: 4px; }
+        .polcc-item p { font-size: 0.75rem; color: var(--text-muted); }
+        
+        /* Phase Details */
+        .phase-details {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+        .phase-content {
+            display: none;
+        }
+        .phase-content.active { display: block; }
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .phase-icon {
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, var(--gold), var(--green));
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+        }
+        .phase-header h3 { font-size: 1.3rem; }
+        .phase-header p { color: var(--text-muted); font-size: 0.9rem; }
+        
+        .phase-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .phase-card {
+            background: var(--darker);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+        }
+        .phase-card h5 {
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .phase-card ul { list-style: none; }
+        .phase-card li {
+            padding: 8px 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .phase-card li:last-child { border-bottom: none; }
+        .phase-card li::before { content: '→'; color: var(--gold); }
+        
+        /* Project Wizard */
+        .wizard-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .wizard-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .wizard-title h2 { font-size: 1.5rem; margin-bottom: 8px; }
+        .wizard-title h2 span { color: var(--gold); }
+        
+        /* Wizard Steps */
+        .wizard-steps {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .wizard-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            background: var(--border);
+            z-index: 0;
+        }
+        .wizard-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            z-index: 1;
+            flex: 1;
+            max-width: 150px;
+        }
+        .step-circle {
+            width: 40px; height: 40px;
+            background: var(--dark);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        .wizard-step.active .step-circle,
+        .wizard-step.completed .step-circle {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--dark);
+        }
+        .wizard-step.completed .step-circle::after {
+            content: '✓';
+        }
+        .step-label { font-size: 0.8rem; color: var(--text-muted); text-align: center; }
+        .wizard-step.active .step-label { color: var(--gold); }
+        
+        /* Wizard Form */
+        .wizard-form {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .form-step { display: none; }
+        .form-step.active { display: block; }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        /* Option Cards */
+        .option-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 12px;
+        }
+        .option-card {
+            background: var(--dark);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-card:hover { border-color: var(--gold); }
+        .option-card.selected {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.05);
+        }
+        .option-card input { display: none; }
+        .option-icon { font-size: 2rem; margin-bottom: 8px; }
+        .option-card h5 { font-size: 0.95rem; margin-bottom: 4px; }
+        .option-card p { font-size: 0.75rem; color: var(--text-muted); }
+        
+        /* Buttons */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--dark); }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,0.3); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        /* Summary */
+        .summary-card {
+            background: var(--darker);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .summary-row:last-child { border-bottom: none; }
+        .summary-label { color: var(--text-muted); }
+        .summary-value { font-weight: 600; color: var(--gold); }
+        
+        /* KPIs */
+        .kpi-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+        }
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .kpi-card {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+        }
+        .kpi-icon { font-size: 2rem; margin-bottom: 12px; }
+        .kpi-value { font-size: 2rem; font-weight: 900; color: var(--gold); }
+        .kpi-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+        .kpi-change { font-size: 0.8rem; margin-top: 8px; }
+        .kpi-change.up { color: var(--success); }
+        .kpi-change.down { color: var(--danger); }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+        .footer .basmala { color: var(--gold); margin-bottom: 12px; }
+        
+        @media (max-width: 1024px) {
+            .polcc-grid { grid-template-columns: repeat(3, 1fr); }
+            .phase-grid { grid-template-columns: repeat(2, 1fr); }
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .option-cards { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .polcc-grid { grid-template-columns: 1fr; }
+            .phase-grid { grid-template-columns: 1fr; }
+            .kpi-grid { grid-template-columns: 1fr; }
+            .option-cards { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">ش</div>
+                <div class="logo-text">
+                    <h1>شيخة</h1>
+                    <p>إدارة المشاريع</p>
+                </div>
+            </a>
+            <nav class="nav">
+                <a href="/" class="nav-link">الرئيسية</a>
+                <a href="السوق.html" class="nav-link">السوق</a>
+                <a href="سلسلة-التوريد.html" class="nav-link">سلسلة التوريد</a>
+                <a href="إدارة-المشاريع.html" class="nav-link active">إدارة المشاريع</a>
+                <a href="لوحة-التحكم.html" class="nav-link">لوحة التحكم</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <h1>إدارة <span>المشاريع</span> التجارية</h1>
+            <p>منهجية علمية متكاملة لإدارة مشاريع المعادن — من الفكرة إلى التنفيذ</p>
+        </div>
+
+        <!-- POLCC Methodology -->
+        <div class="methodology">
+            <div class="methodology-title">
+                <h2>📐 منهجية <span>POLCC</span> للإدارة</h2>
+                <p>أركان الإدارة الخمسة — اضغط على أي مرحلة لمعرفة التفاصيل</p>
+            </div>
+            
+            <div class="polcc-grid">
+                <div class="polcc-item active" onclick="showPhase('planning')" data-phase="planning">
+                    <div class="polcc-number">1</div>
+                    <h4>التخطيط</h4>
+                    <p>Planning</p>
+                </div>
+                <div class="polcc-item" onclick="showPhase('organizing')" data-phase="organizing">
+                    <div class="polcc-number">2</div>
+                    <h4>التنظيم</h4>
+                    <p>Organizing</p>
+                </div>
+                <div class="polcc-item" onclick="showPhase('leading')" data-phase="leading">
+                    <div class="polcc-number">3</div>
+                    <h4>القيادة</h4>
+                    <p>Leading</p>
+                </div>
+                <div class="polcc-item" onclick="showPhase('coordinating')" data-phase="coordinating">
+                    <div class="polcc-number">4</div>
+                    <h4>التنسيق</h4>
+                    <p>Coordinating</p>
+                </div>
+                <div class="polcc-item" onclick="showPhase('controlling')" data-phase="controlling">
+                    <div class="polcc-number">5</div>
+                    <h4>الرقابة</h4>
+                    <p>Controlling</p>
+                </div>
+            </div>
+
+            <!-- Phase Details -->
+            <div class="phase-details">
+                <!-- Planning -->
+                <div class="phase-content active" id="phasePlanning">
+                    <div class="phase-header">
+                        <div class="phase-icon">📋</div>
+                        <div>
+                            <h3>مرحلة التخطيط</h3>
+                            <p>تحديد الأهداف ووضع الخطط لتحقيقها</p>
+                        </div>
+                    </div>
+                    <div class="phase-grid">
+                        <div class="phase-card">
+                            <h5>🎯 الأهداف</h5>
+                            <ul>
+                                <li>تحديد الهدف الرئيسي</li>
+                                <li>الأهداف الفرعية SMART</li>
+                                <li>مؤشرات النجاح KPIs</li>
+                                <li>الجدول الزمني</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <h5>📊 التحليل</h5>
+                            <ul>
+                                <li>تحليل SWOT</li>
+                                <li>دراسة السوق</li>
+                                <li>تحليل المنافسين</li>
+                                <li>تقييم المخاطر</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <h5>📝 المخرجات</h5>
+                            <ul>
+                                <li>خطة العمل</li>
+                                <li>الميزانية التقديرية</li>
+                                <li>جدول المهام</li>
+                                <li>معايير القبول</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Organizing -->
+                <div class="phase-content" id="phaseOrganizing">
+                    <div class="phase-header">
+                        <div class="phase-icon">🏗️</div>
+                        <div>
+                            <h3>مرحلة التنظيم</h3>
+                            <p>ترتيب الموارد وتوزيع المهام</p>
+                        </div>
+                    </div>
+                    <div class="phase-grid">
+                        <div class="phase-card">
+                            <h5>👥 الفريق</h5>
+                            <ul>
+                                <li>تحديد الأدوار</li>
+                                <li>توزيع المسؤوليات</li>
+                                <li>الهيكل التنظيمي</li>
+                                <li>قنوات التواصل</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <h5>💰 الموارد</h5>
+                            <ul>
+                                <li>الميزانية</li>
+                                <li>المعدات والأدوات</li>
+                                <li>الموردين والشركاء</li>
+                                <li>التقنيات المستخدمة</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <h5>📋 الإجراءات</h5>
+                            <ul>
+                                <li>سير العمل</li>
+                                <li>السياسات والقواعد</li>
+                                <li>نماذج ووثائق</li>
+                                <li>أدوات الإدارة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leading -->
+                <div class="phase-content" id="phaseLeading">
+                    <div class="phase-header">
+                        <div class="phase-icon">🚀</div>
+                        <div>
+                            <h3>مرحلة القيادة</h3>
+                            <p>توجيه وتحفيز الفريق نحو الأهداف</p>
+                        </div>
+                    </div>
+                    <div class="phase-grid">
+                        <div class="phase-card">
+                            <h5>🎯 التوجيه</h5>
+                            <ul>
+                                <li>توضيح الرؤية</li>
+                                <li>تحديد الأولويات</li>
+                                <li>اتخاذ القرارات</li>
+                                <li>حل المشكلات</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <h5>💪 التحفيز</h5>
+                            <ul>
+                                <li>المكافآت والحوافز</li>
+                                <li>التقدير والثناء</li>
+                                <li>بناء الثقة</li>
+                                <li>تطوير المهارات</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <h5>🤝 الدعم</h5>
+                            <ul>
+                                <li>إزالة العقبات</li>
+                                <li>توفير الموارد</li>
+                                <li>التدريب والإرشاد</li>
+                                <li>الاستماع للفريق</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coordinating -->
+                <div class="phase-content" id="phaseCoordinating">
+                    <div class="phase-header">
+                        <div class="phase-icon">🔗</div>
+                        <div>
+                            <h3>مرحلة التنسيق</h3>
+                            <p>ضمان التكامل والانسجام بين الأقسام</p>
+                        </div>
+                    </div>
+                    <div class="phase-grid">
+                        <div class="phase-card">
+                            <h5>📡 الاتصال</h5>
+                            <ul>
+                                <li>اجتماعات دورية</li>
+                                <li>تقارير الحالة</li>
+                                <li>قنوات مفتوحة</li>
+                                <li>توثيق القرارات</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <h5>⚙️ التكامل</h5>
+                            <ul>
+                                <li>ربط الأنظمة</li>
+                                <li>تزامن البيانات</li>
+                                <li>تدفق المعلومات</li>
+                                <li>معايير موحدة</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <h5>⏰ التزامن</h5>
+                            <ul>
+                                <li>جدولة المهام</li>
+                                <li>إدارة التبعيات</li>
+                                <li>تجنب التعارض</li>
+                                <li>تحسين التدفق</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controlling -->
+                <div class="phase-content" id="phaseControlling">
+                    <div class="phase-header">
+                        <div class="phase-icon">📊</div>
+                        <div>
+                            <h3>مرحلة الرقابة</h3>
+                            <p>قياس الأداء والتصحيح المستمر</p>
+                        </div>
+                    </div>
+                    <div class="phase-grid">
+                        <div class="phase-card">
+                            <h5>📏 القياس</h5>
+                            <ul>
+                                <li>جمع البيانات</li>
+                                <li>مؤشرات الأداء</li>
+                                <li>تقارير دورية</li>
+                                <li>لوحات المتابعة</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <h5>🔍 التحليل</h5>
+                            <ul>
+                                <li>مقارنة بالخطة</li>
+                                <li>تحديد الانحرافات</li>
+                                <li>تحليل الأسباب</li>
+                                <li>دروس مستفادة</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card">
+                            <h5>🔧 التصحيح</h5>
+                            <ul>
+                                <li>إجراءات تصحيحية</li>
+                                <li>تعديل الخطط</li>
+                                <li>إعادة توزيع الموارد</li>
+                                <li>تحسين مستمر</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Wizard -->
+        <div class="wizard-section">
+            <div class="wizard-title">
+                <h2>🚀 إنشاء <span>مشروع جديد</span></h2>
+                <p>3 خطوات بسيطة لبدء مشروعك</p>
+            </div>
+
+            <!-- Steps Indicator -->
+            <div class="wizard-steps">
+                <div class="wizard-step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <span class="step-label">نوع المشروع</span>
+                </div>
+                <div class="wizard-step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">التفاصيل</span>
+                </div>
+                <div class="wizard-step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">المراجعة</span>
+                </div>
+            </div>
+
+            <!-- Form Steps -->
+            <div class="wizard-form">
+                <!-- Step 1: Project Type -->
+                <div class="form-step active" id="formStep1">
+                    <div class="form-group">
+                        <label>اختر نوع المشروع</label>
+                        <div class="option-cards">
+                            <label class="option-card selected">
+                                <input type="radio" name="projectType" value="buy" checked>
+                                <div class="option-icon">🛒</div>
+                                <h5>شراء معادن</h5>
+                                <p>شراء من السوق</p>
+                            </label>
+                            <label class="option-card">
+                                <input type="radio" name="projectType" value="sell">
+                                <div class="option-icon">💰</div>
+                                <h5>بيع معادن</h5>
+                                <p>عرض للبيع</p>
+                            </label>
+                            <label class="option-card">
+                                <input type="radio" name="projectType" value="process">
+                                <div class="option-icon">🔥</div>
+                                <h5>معالجة/صهر</h5>
+                                <p>تحويل المعادن</p>
+                            </label>
+                            <label class="option-card">
+                                <input type="radio" name="projectType" value="transport">
+                                <div class="option-icon">🚚</div>
+                                <h5>نقل وشحن</h5>
+                                <p>خدمات لوجستية</p>
+                            </label>
+                            <label class="option-card">
+                                <input type="radio" name="projectType" value="export">
+                                <div class="option-icon">🌍</div>
+                                <h5>تصدير</h5>
+                                <p>تصدير دولي</p>
+                            </label>
+                            <label class="option-card">
+                                <input type="radio" name="projectType" value="full">
+                                <div class="option-icon">🔗</div>
+                                <h5>مشروع متكامل</h5>
+                                <p>سلسلة كاملة</p>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div></div>
+                        <button class="btn btn-gold" onclick="nextStep()">التالي →</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Details -->
+                <div class="form-step" id="formStep2">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>اسم المشروع</label>
+                            <input type="text" placeholder="مثال: شراء سكراب حديد 100 طن">
+                        </div>
+                        <div class="form-group">
+                            <label>نوع المعدن</label>
+                            <select>
+                                <option>حديد وصلب</option>
+                                <option>نحاس</option>
+                                <option>ألمنيوم</option>
+                                <option>ذهب</option>
+                                <option>معادن نادرة</option>
+                                <option>أخرى</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>الكمية (طن)</label>
+                            <input type="number" placeholder="100">
+                        </div>
+                        <div class="form-group">
+                            <label>الميزانية التقديرية (ر.س)</label>
+                            <input type="number" placeholder="500000">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>وصف المشروع</label>
+                        <textarea rows="3" placeholder="اكتب تفاصيل إضافية عن المشروع..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-outline" onclick="prevStep()">← السابق</button>
+                        <button class="btn btn-gold" onclick="nextStep()">التالي →</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review -->
+                <div class="form-step" id="formStep3">
+                    <div class="summary-card">
+                        <h4 style="margin-bottom: 16px; color: var(--gold);">📋 ملخص المشروع</h4>
+                        <div class="summary-row">
+                            <span class="summary-label">نوع المشروع</span>
+                            <span class="summary-value">شراء معادن</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">نوع المعدن</span>
+                            <span class="summary-value">حديد وصلب</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">الكمية</span>
+                            <span class="summary-value">100 طن</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">الميزانية</span>
+                            <span class="summary-value">500,000 ر.س</span>
+                        </div>
+                    </div>
+                    <div style="background: rgba(16,185,129,0.1); border: 1px solid var(--success); border-radius: var(--radius); padding: 16px; margin-bottom: 20px;">
+                        <p style="color: var(--success); font-size: 0.9rem;">
+                            ✅ سيقوم النظام بإنشاء خطة عمل تلقائية تشمل: البحث عن موردين، مقارنة الأسعار، ترتيب النقل، والمتابعة حتى الاستلام.
+                        </p>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-outline" onclick="prevStep()">← السابق</button>
+                        <button class="btn btn-gold" onclick="submitProject()">🚀 إنشاء المشروع</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="kpi-section">
+            <div class="wizard-title" style="margin-bottom: 30px;">
+                <h2>📊 مؤشرات <span>الأداء</span></h2>
+                <p>قياس نجاح المشاريع</p>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon">📦</div>
+                    <div class="kpi-value">24</div>
+                    <div class="kpi-label">مشاريع نشطة</div>
+                    <div class="kpi-change up">↑ 12% هذا الشهر</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">✅</div>
+                    <div class="kpi-value">89%</div>
+                    <div class="kpi-label">نسبة الإنجاز</div>
+                    <div class="kpi-change up">↑ 5% عن الهدف</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">⏱️</div>
+                    <div class="kpi-value">4.2</div>
+                    <div class="kpi-label">متوسط أيام التنفيذ</div>
+                    <div class="kpi-change up">↓ أسرع بـ 20%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">💰</div>
+                    <div class="kpi-value">2.4M</div>
+                    <div class="kpi-label">قيمة المشاريع (ر.س)</div>
+                    <div class="kpi-change up">↑ 35% هذا الشهر</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="basmala">لا حول ولا قوة إلا بالله</p>
+        <p>© 2026 منظومة شيخة — إدارة المشاريع</p>
+    </footer>
+
+    <script>
+        // POLCC Phases
+        function showPhase(phaseId) {
+            // Update items
+            document.querySelectorAll('.polcc-item').forEach(item => item.classList.remove('active'));
+            document.querySelector(`[data-phase="${phaseId}"]`).classList.add('active');
+            
+            // Update content
+            document.querySelectorAll('.phase-content').forEach(content => content.classList.remove('active'));
+            const phaseMap = {
+                'planning': 'phasePlanning',
+                'organizing': 'phaseOrganizing',
+                'leading': 'phaseLeading',
+                'coordinating': 'phaseCoordinating',
+                'controlling': 'phaseControlling'
+            };
+            document.getElementById(phaseMap[phaseId]).classList.add('active');
+        }
+
+        // Wizard
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        function updateSteps() {
+            document.querySelectorAll('.wizard-step').forEach((step, index) => {
+                const stepNum = index + 1;
+                step.classList.remove('active', 'completed');
+                if (stepNum === currentStep) step.classList.add('active');
+                if (stepNum < currentStep) step.classList.add('completed');
+            });
+            
+            document.querySelectorAll('.form-step').forEach((form, index) => {
+                form.classList.remove('active');
+                if (index + 1 === currentStep) form.classList.add('active');
+            });
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateSteps();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateSteps();
+            }
+        }
+
+        function submitProject() {
+            alert('✅ تم إنشاء المشروع بنجاح!\n\nسيتم توجيهك إلى لوحة المتابعة.');
+        }
+
+        // Option cards selection
+        document.querySelectorAll('.option-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>

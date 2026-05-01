@@ -1,0 +1,37 @@
+{
+    "generatedAt": "2026-03-18T04:57:00.293Z",
+    "domains": [
+        {
+            "key": "structured",
+            "description": "منظومة البيانات المهيكلة",
+            "examples": [
+                "sql-tables",
+                "financial-ledgers",
+                "erp-records"
+            ],
+            "status": "activated"
+        },
+        {
+            "key": "semiStructured",
+            "description": "منظومة البيانات شبه المهيكلة",
+            "examples": [
+                "json",
+                "xml",
+                "api-events",
+                "logs"
+            ],
+            "status": "activated"
+        },
+        {
+            "key": "unstructured",
+            "description": "منظومة البيانات غير المهيكلة",
+            "examples": [
+                "documents",
+                "images",
+                "audio",
+                "video"
+            ],
+            "status": "activated"
+        }
+    ]
+}

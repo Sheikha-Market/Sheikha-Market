@@ -1,0 +1,41 @@
+{
+    "generatedAt": "2026-03-18T04:56:59.679Z",
+    "blueprint": {
+        "target": "vercel-primary + backup-node",
+        "strategy": "blue-green",
+        "healthCheckEndpoint": "/api/health",
+        "rollbackTrigger": "error-rate > 1% OR sharia-violation-detected",
+        "deploymentSteps": [
+            "pre-deployment smoke test",
+            "sharia compliance gate",
+            "database migration check",
+            "dependency integrity check",
+            "blue-green swap",
+            "post-deployment health verification"
+        ],
+        "environments": [
+            {
+                "id": "development",
+                "nameAr": "التطوير",
+                "url": "localhost:8080",
+                "dataStrategy": "synthetic-safe-data"
+            },
+            {
+                "id": "staging",
+                "nameAr": "التجهيز",
+                "url": "staging.sheikha.top",
+                "dataStrategy": "isolated-real-data-subset"
+            },
+            {
+                "id": "production",
+                "nameAr": "الإنتاج",
+                "url": "https://sheikha.top",
+                "dataStrategy": "full-live-data"
+            }
+        ]
+    },
+    "currentEnvironment": "production",
+    "activeVersion": null,
+    "lastDeployedAt": null,
+    "rollbackVersion": null
+}

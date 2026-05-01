@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلاسل الإمداد المتقدمة | منظومة شيخة - Sheikha Advanced SCM</title>
+    <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+    <style>
+        :root {
+            --primary: #d4af37;
+            --primary-dark: #b8962e;
+            --secondary: #1a472a;
+            --bg-dark: #0a0f0d;
+            --bg-card: #111916;
+            --bg-card-hover: #1a2420;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --success: #00c853;
+            --warning: #ffc107;
+            --danger: #ff5252;
+            --info: #29b6f6;
+            --purple: #9c27b0;
+            --cyan: #00bcd4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--secondary) 100%);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img { width: 50px; height: 50px; }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .logo-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .header-badge {
+            background: linear-gradient(135deg, var(--success), var(--cyan));
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 10px var(--success); }
+            50% { box-shadow: 0 0 25px var(--cyan); }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(26, 71, 42, 0.9), rgba(10, 15, 13, 0.95)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23d4af3720" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1), transparent 70%);
+            animation: pulse-bg 4s infinite;
+        }
+
+        @keyframes pulse-bg {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .tech-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .tech-badge {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Main Dashboard */
+        .dashboard {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* KPI Cards */
+        .kpi-card {
+            background: linear-gradient(145deg, var(--bg-card), var(--bg-card-hover));
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .kpi-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .kpi-label {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .kpi-change {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .kpi-change.up { color: var(--success); }
+        .kpi-change.down { color: var(--danger); }
+
+        .kpi-live {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            width: 10px;
+            height: 10px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Full Width Sections */
+        .full-section {
+            grid-column: span 4;
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .live-badge {
+            background: var(--success);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .live-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        /* Supply Chain Flow */
+        .scm-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .scm-flow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--success), var(--info), var(--warning), var(--purple));
+            transform: translateY(-50%);
+            border-radius: 2px;
+        }
+
+        .scm-stage {
+            background: var(--bg-card-hover);
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            width: 140px;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+
+        .scm-stage:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .scm-stage.active {
+            background: linear-gradient(145deg, var(--secondary), var(--bg-card));
+            animation: stage-pulse 2s infinite;
+        }
+
+        @keyframes stage-pulse {
+            0%, 100% { box-shadow: 0 0 10px var(--primary); }
+            50% { box-shadow: 0 0 30px var(--primary); }
+        }
+
+        .scm-stage-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .scm-stage-name {
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .scm-stage-count {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-top: 0.5rem;
+        }
+
+        /* AI Predictions Panel */
+        .ai-panel {
+            grid-column: span 2;
+            background: linear-gradient(145deg, var(--bg-card), rgba(156, 39, 176, 0.1));
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--purple);
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-icon {
+            font-size: 2.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .ai-title {
+            color: var(--purple);
+            font-size: 1.2rem;
+        }
+
+        .ai-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .prediction-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .prediction-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-right: 3px solid var(--purple);
+        }
+
+        .prediction-icon {
+            font-size: 1.5rem;
+        }
+
+        .prediction-content {
+            flex: 1;
+        }
+
+        .prediction-title {
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .prediction-value {
+            color: var(--success);
+            font-size: 0.9rem;
+        }
+
+        .prediction-confidence {
+            background: var(--purple);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        /* IoT Grid */
+        .iot-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .iot-sensor {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(0, 188, 212, 0.3);
+            transition: all 0.3s;
+        }
+
+        .iot-sensor:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 188, 212, 0.3);
+        }
+
+        .iot-sensor.alert {
+            border-color: var(--danger);
+            animation: alert-pulse 1s infinite;
+        }
+
+        @keyframes alert-pulse {
+            0%, 100% { box-shadow: 0 0 5px var(--danger); }
+            50% { box-shadow: 0 0 20px var(--danger); }
+        }
+
+        .sensor-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .sensor-value { font-size: 1.5rem; font-weight: bold; color: var(--cyan); }
+        .sensor-label { font-size: 0.8rem; color: var(--text-secondary); }
+        .sensor-status { font-size: 0.75rem; margin-top: 0.5rem; }
+        .sensor-status.online { color: var(--success); }
+        .sensor-status.warning { color: var(--warning); }
+
+        /* Automation Panel */
+        .automation-panel {
+            grid-column: span 2;
+            background: linear-gradient(145deg, var(--bg-card), rgba(0, 200, 83, 0.1));
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--success);
+        }
+
+        .automation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .automation-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .automation-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .automation-icon { font-size: 1.5rem; }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: var(--bg-dark);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: var(--success);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch.active::after {
+            left: 27px;
+        }
+
+        /* Real-time Chart */
+        .chart-container {
+            height: 200px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-line {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 0 10px;
+        }
+
+        .chart-bar {
+            width: 20px;
+            background: linear-gradient(to top, var(--primary), var(--success));
+            border-radius: 4px 4px 0 0;
+            transition: height 0.5s ease;
+        }
+
+        /* Blockchain Section */
+        .blockchain-panel {
+            background: linear-gradient(145deg, var(--bg-card), rgba(255, 193, 7, 0.1));
+            border: 1px solid var(--warning);
+        }
+
+        .blockchain-chain {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+
+        .blockchain-block {
+            background: var(--bg-card-hover);
+            border: 2px solid var(--warning);
+            border-radius: 10px;
+            padding: 1rem;
+            min-width: 120px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .block-hash {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: var(--warning);
+            margin-top: 0.5rem;
+        }
+
+        .block-connector {
+            color: var(--warning);
+            font-size: 1.5rem;
+        }
+
+        /* Document Automation */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .doc-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .doc-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .doc-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .doc-name { font-weight: bold; margin-bottom: 0.5rem; }
+        .doc-status { font-size: 0.85rem; }
+        .doc-status.ready { color: var(--success); }
+        .doc-status.processing { color: var(--warning); }
+        .doc-status.pending { color: var(--text-secondary); }
+
+        /* Action Buttons */
+        .action-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--bg-dark);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .action-btn.secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .full-section, .ai-panel, .automation-panel {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .full-section, .ai-panel, .automation-panel {
+                grid-column: span 1;
+            }
+            .scm-flow {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            .scm-flow::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <img src="images/logo.svg" alt="شيخة" onerror="this.outerHTML='<span style=\'font-size:2.5rem\'>♻️</span>'">
+            <div>
+                <div class="logo-text">شيخة SCM</div>
+                <div class="logo-subtitle">سلاسل الإمداد المتقدمة</div>
+            </div>
+        </div>
+        <div class="header-badge">🚀 سوق شيخة لسلاسل الإمداد</div>
+        <div style="display: flex; gap: 1rem;">
+            <button class="action-btn" onclick="location.href='لوحة-التحكم.html'">📊 لوحة التحكم</button>
+            <button class="action-btn secondary" onclick="location.href='/'">🏠 الرئيسية</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🚀 منظومة شيخة لسلاسل الإمداد المتقدمة</h1>
+            <p>نظام ذكي متكامل يتفوق على أكبر شركات سلاسل الإمداد العالمية بفضل الذكاء الاصطناعي، إنترنت الأشياء، البلوكتشين، والأتمتة الكاملة</p>
+            <div class="tech-badges">
+                <span class="tech-badge">🤖 AI التنبؤي</span>
+                <span class="tech-badge">📡 IoT المتقدم</span>
+                <span class="tech-badge">⛓️ Blockchain</span>
+                <span class="tech-badge">🔄 أتمتة كاملة</span>
+                <span class="tech-badge">🌐 تتبع لحظي</span>
+                <span class="tech-badge">📄 وثائق آلية</span>
+                <span class="tech-badge">🎯 تحسين مستمر</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard">
+        <!-- KPI Cards -->
+        <div class="kpi-card">
+            <div class="kpi-live"></div>
+            <div class="kpi-icon">📦</div>
+            <div class="kpi-value" id="totalShipments">12,847</div>
+            <div class="kpi-label">إجمالي الشحنات النشطة</div>
+            <div class="kpi-change up">↑ 23% من الشهر الماضي</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-live"></div>
+            <div class="kpi-icon">⚡</div>
+            <div class="kpi-value" id="efficiency">98.7%</div>
+            <div class="kpi-label">كفاءة العمليات</div>
+            <div class="kpi-change up">↑ 5.2% تحسن</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-live"></div>
+            <div class="kpi-icon">⏱️</div>
+            <div class="kpi-value" id="avgTime">1.8</div>
+            <div class="kpi-label">متوسط أيام التسليم</div>
+            <div class="kpi-change up">↓ 40% أسرع من المنافسين</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-live"></div>
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-value" id="costSaving">32%</div>
+            <div class="kpi-label">توفير في التكاليف</div>
+            <div class="kpi-change up">↑ 8% إضافي</div>
+        </div>
+
+        <!-- Supply Chain Flow -->
+        <section class="full-section">
+            <div class="section-header">
+                <h2 class="section-title">🔗 سلسلة الإمداد الذكية - 7 مراحل متكاملة</h2>
+                <div class="live-badge">مباشر</div>
+            </div>
+            <div class="scm-flow">
+                <div class="scm-stage active">
+                    <div class="scm-stage-icon">🏭</div>
+                    <div class="scm-stage-name">المصدر</div>
+                    <div class="scm-stage-count">2,450</div>
+                </div>
+                <div class="scm-stage">
+                    <div class="scm-stage-icon">📦</div>
+                    <div class="scm-stage-name">التجميع</div>
+                    <div class="scm-stage-count">1,820</div>
+                </div>
+                <div class="scm-stage active">
+                    <div class="scm-stage-icon">⚙️</div>
+                    <div class="scm-stage-name">المعالجة</div>
+                    <div class="scm-stage-count">3,150</div>
+                </div>
+                <div class="scm-stage">
+                    <div class="scm-stage-icon">🚚</div>
+                    <div class="scm-stage-name">النقل</div>
+                    <div class="scm-stage-count">4,280</div>
+                </div>
+                <div class="scm-stage active">
+                    <div class="scm-stage-icon">🏭</div>
+                    <div class="scm-stage-name">المصهر</div>
+                    <div class="scm-stage-count">890</div>
+                </div>
+                <div class="scm-stage">
+                    <div class="scm-stage-icon">🔧</div>
+                    <div class="scm-stage-name">التصنيع</div>
+                    <div class="scm-stage-count">1,540</div>
+                </div>
+                <div class="scm-stage">
+                    <div class="scm-stage-icon">🏠</div>
+                    <div class="scm-stage-name">المستهلك</div>
+                    <div class="scm-stage-count">8,720</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Predictions -->
+        <div class="ai-panel">
+            <div class="ai-header">
+                <div class="ai-icon">🧠</div>
+                <div>
+                    <div class="ai-title">الذكاء الاصطناعي التنبؤي</div>
+                    <div class="ai-subtitle">تحليل 50,000+ متغير في الثانية</div>
+                </div>
+            </div>
+            <div class="prediction-list">
+                <div class="prediction-item">
+                    <div class="prediction-icon">📈</div>
+                    <div class="prediction-content">
+                        <div class="prediction-title">توقع الطلب - الأسبوع القادم</div>
+                        <div class="prediction-value">زيادة 18% في طلب النحاس</div>
+                    </div>
+                    <div class="prediction-confidence">دقة 94%</div>
+                </div>
+                <div class="prediction-item">
+                    <div class="prediction-icon">⚠️</div>
+                    <div class="prediction-content">
+                        <div class="prediction-title">تنبيه اختناق محتمل</div>
+                        <div class="prediction-value">ميناء جدة - خلال 3 أيام</div>
+                    </div>
+                    <div class="prediction-confidence">دقة 87%</div>
+                </div>
+                <div class="prediction-item">
+                    <div class="prediction-icon">💡</div>
+                    <div class="prediction-content">
+                        <div class="prediction-title">توصية تحسين المسار</div>
+                        <div class="prediction-value">توفير 12% عبر مسار بديل</div>
+                    </div>
+                    <div class="prediction-confidence">دقة 91%</div>
+                </div>
+                <div class="prediction-item">
+                    <div class="prediction-icon">🌡️</div>
+                    <div class="prediction-content">
+                        <div class="prediction-title">تنبؤ أسعار المعادن</div>
+                        <div class="prediction-value">ارتفاع الحديد 5% خلال أسبوعين</div>
+                    </div>
+                    <div class="prediction-confidence">دقة 89%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Automation Panel -->
+        <div class="automation-panel">
+            <div class="section-header">
+                <h3 class="section-title">⚡ الأتمتة الذكية</h3>
+                <span style="color: var(--success); font-size: 0.85rem;">12/15 نشط</span>
+            </div>
+            <div class="automation-list">
+                <div class="automation-item">
+                    <div class="automation-info">
+                        <span class="automation-icon">📄</span>
+                        <span>توليد الوثائق التلقائي</span>
+                    </div>
+                    <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="automation-item">
+                    <div class="automation-info">
+                        <span class="automation-icon">🔔</span>
+                        <span>تنبيهات التأخير الذكية</span>
+                    </div>
+                    <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="automation-item">
+                    <div class="automation-info">
+                        <span class="automation-icon">🛣️</span>
+                        <span>تحسين المسارات التلقائي</span>
+                    </div>
+                    <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="automation-item">
+                    <div class="automation-info">
+                        <span class="automation-icon">💳</span>
+                        <span>الدفع والتخليص الآلي</span>
+                    </div>
+                    <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="automation-item">
+                    <div class="automation-info">
+                        <span class="automation-icon">📊</span>
+                        <span>التقارير اليومية التلقائية</span>
+                    </div>
+                    <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IoT Sensors -->
+        <section class="full-section">
+            <div class="section-header">
+                <h2 class="section-title">📡 إنترنت الأشياء (IoT) - 2,450 مستشعر نشط</h2>
+                <div class="live-badge">تحديث كل 5 ثوانٍ</div>
+            </div>
+            <div class="iot-grid">
+                <div class="iot-sensor">
+                    <div class="sensor-icon">🌡️</div>
+                    <div class="sensor-value" id="iotTemp">24.5°C</div>
+                    <div class="sensor-label">متوسط الحرارة</div>
+                    <div class="sensor-status online">● 520 مستشعر</div>
+                </div>
+                <div class="iot-sensor">
+                    <div class="sensor-icon">💧</div>
+                    <div class="sensor-value" id="iotHumidity">42%</div>
+                    <div class="sensor-label">متوسط الرطوبة</div>
+                    <div class="sensor-status online">● 380 مستشعر</div>
+                </div>
+                <div class="iot-sensor alert">
+                    <div class="sensor-icon">⚖️</div>
+                    <div class="sensor-value" id="iotWeight">98.2%</div>
+                    <div class="sensor-label">دقة الأوزان</div>
+                    <div class="sensor-status warning">⚠️ 2 تحتاج معايرة</div>
+                </div>
+                <div class="iot-sensor">
+                    <div class="sensor-icon">📍</div>
+                    <div class="sensor-value" id="iotGPS">4,280</div>
+                    <div class="sensor-label">تتبع GPS نشط</div>
+                    <div class="sensor-status online">● دقة 99.9%</div>
+                </div>
+                <div class="iot-sensor">
+                    <div class="sensor-icon">🔋</div>
+                    <div class="sensor-value" id="iotBattery">94%</div>
+                    <div class="sensor-label">متوسط البطارية</div>
+                    <div class="sensor-status online">● 450 جهاز</div>
+                </div>
+                <div class="iot-sensor">
+                    <div class="sensor-icon">📶</div>
+                    <div class="sensor-value" id="iotSignal">-65dBm</div>
+                    <div class="sensor-label">قوة الإشارة</div>
+                    <div class="sensor-status online">● ممتازة</div>
+                </div>
+                <div class="iot-sensor">
+                    <div class="sensor-icon">🚨</div>
+                    <div class="sensor-value" id="iotAlerts">3</div>
+                    <div class="sensor-label">تنبيهات نشطة</div>
+                    <div class="sensor-status warning">⚠️ تحتاج مراجعة</div>
+                </div>
+                <div class="iot-sensor">
+                    <div class="sensor-icon">🔒</div>
+                    <div class="sensor-value" id="iotSecurity">100%</div>
+                    <div class="sensor-label">الأمان</div>
+                    <div class="sensor-status online">● محمي</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blockchain Panel -->
+        <section class="full-section blockchain-panel">
+            <div class="section-header">
+                <h2 class="section-title">⛓️ البلوكتشين - سجل لا يمكن التلاعب به</h2>
+                <div class="live-badge">247 كتلة اليوم</div>
+            </div>
+            <div class="blockchain-chain">
+                <div class="blockchain-block">
+                    <div>📦 شحنة #8472</div>
+                    <div class="block-hash">0x8f3a...2b1c</div>
+                </div>
+                <div class="block-connector">→</div>
+                <div class="blockchain-block">
+                    <div>✅ تأكيد الجودة</div>
+                    <div class="block-hash">0x7e2d...9a4f</div>
+                </div>
+                <div class="block-connector">→</div>
+                <div class="blockchain-block">
+                    <div>🚚 بدء النقل</div>
+                    <div class="block-hash">0x5c1b...3e8d</div>
+                </div>
+                <div class="block-connector">→</div>
+                <div class="blockchain-block">
+                    <div>🏛️ تخليص جمركي</div>
+                    <div class="block-hash">0x9d4e...7f2a</div>
+                </div>
+                <div class="block-connector">→</div>
+                <div class="blockchain-block">
+                    <div>📍 وصول الميناء</div>
+                    <div class="block-hash">0x2a6c...1b5e</div>
+                </div>
+                <div class="block-connector">→</div>
+                <div class="blockchain-block">
+                    <div style="color: var(--warning);">⏳ قيد التسليم</div>
+                    <div class="block-hash">0x4f8a...6c3d</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Document Automation -->
+        <section class="full-section">
+            <div class="section-header">
+                <h2 class="section-title">📄 أتمتة الوثائق - توليد فوري</h2>
+                <button class="action-btn" onclick="generateAllDocs()">⚡ توليد الكل</button>
+            </div>
+            <div class="docs-grid">
+                <div class="doc-card" onclick="generateDoc('bol')">
+                    <div class="doc-icon">📋</div>
+                    <div class="doc-name">بوليصة الشحن (B/L)</div>
+                    <div class="doc-status ready">✅ جاهز للتوليد</div>
+                </div>
+                <div class="doc-card" onclick="generateDoc('invoice')">
+                    <div class="doc-icon">🧾</div>
+                    <div class="doc-name">الفاتورة التجارية</div>
+                    <div class="doc-status ready">✅ جاهز للتوليد</div>
+                </div>
+                <div class="doc-card" onclick="generateDoc('coo')">
+                    <div class="doc-icon">🏛️</div>
+                    <div class="doc-name">شهادة المنشأ</div>
+                    <div class="doc-status ready">✅ جاهز للتوليد</div>
+                </div>
+                <div class="doc-card" onclick="generateDoc('customs')">
+                    <div class="doc-icon">📑</div>
+                    <div class="doc-name">البيان الجمركي</div>
+                    <div class="doc-status processing">⏳ يحتاج بيانات</div>
+                </div>
+                <div class="doc-card" onclick="generateDoc('packing')">
+                    <div class="doc-icon">📦</div>
+                    <div class="doc-name">قائمة التعبئة</div>
+                    <div class="doc-status ready">✅ جاهز للتوليد</div>
+                </div>
+                <div class="doc-card" onclick="generateDoc('insurance')">
+                    <div class="doc-icon">🛡️</div>
+                    <div class="doc-name">شهادة الحماية والتوثيق</div>
+                    <div class="doc-status ready">✅ جاهز للتوليد</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Real-time Analytics -->
+        <section class="full-section">
+            <div class="section-header">
+                <h2 class="section-title">📊 التحليلات اللحظية</h2>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="action-btn secondary" onclick="exportReport()">📤 تصدير التقرير</button>
+                    <button class="action-btn" onclick="viewFullAnalytics()">📈 التحليل الكامل</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="chart-line" id="realtimeChart"></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // تحديث الوقت والبيانات اللحظية
+        function updateRealTimeData() {
+            // KPIs
+            document.getElementById('totalShipments').textContent = (12800 + Math.floor(Math.random() * 100)).toLocaleString();
+            document.getElementById('efficiency').textContent = (98 + Math.random() * 1.5).toFixed(1) + '%';
+            document.getElementById('avgTime').textContent = (1.6 + Math.random() * 0.4).toFixed(1);
+            document.getElementById('costSaving').textContent = (30 + Math.random() * 5).toFixed(0) + '%';
+
+            // IoT Sensors
+            document.getElementById('iotTemp').textContent = (22 + Math.random() * 5).toFixed(1) + '°C';
+            document.getElementById('iotHumidity').textContent = (38 + Math.random() * 10).toFixed(0) + '%';
+            document.getElementById('iotBattery').textContent = (90 + Math.random() * 8).toFixed(0) + '%';
+            document.getElementById('iotGPS').textContent = (4200 + Math.floor(Math.random() * 150)).toLocaleString();
+        }
+
+        // تحديث الرسم البياني
+        function updateChart() {
+            const chart = document.getElementById('realtimeChart');
+            chart.innerHTML = '';
+            for (let i = 0; i < 24; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'chart-bar';
+                bar.style.height = (30 + Math.random() * 70) + 'px';
+                chart.appendChild(bar);
+            }
+        }
+
+        // توليد الوثائق
+        function generateDoc(type) {
+            const docs = {
+                'bol': 'بوليصة الشحن',
+                'invoice': 'الفاتورة التجارية',
+                'coo': 'شهادة المنشأ',
+                'customs': 'البيان الجمركي',
+                'packing': 'قائمة التعبئة',
+                'insurance': 'شهادة الحماية والتوثيق'
+            };
+            alert(`⚡ جاري توليد ${docs[type]} تلقائياً...\n\n✅ تم التوليد بنجاح!\n📥 جاهز للتحميل`);
+        }
+
+        function generateAllDocs() {
+            alert('⚡ جاري توليد جميع الوثائق تلقائياً...\n\n✅ بوليصة الشحن - تم\n✅ الفاتورة التجارية - تم\n✅ شهادة المنشأ - تم\n✅ قائمة التعبئة - تم\n✅ شهادة الحماية والتوثيق - تم\n⏳ البيان الجمركي - يحتاج بيانات إضافية\n\n📥 5/6 وثائق جاهزة للتحميل');
+        }
+
+        function exportReport() {
+            alert('📤 جاري تصدير التقرير...\n\nالصيغ المتاحة:\n• PDF\n• Excel\n• CSV\n• JSON\n\n✅ تم التصدير بنجاح!');
+        }
+
+        function viewFullAnalytics() {
+            alert('📊 فتح لوحة التحليلات الكاملة...\n\nتتضمن:\n• تحليل الأداء\n• مقارنة مع المنافسين\n• توقعات الذكاء الاصطناعي\n• خرائط حرارية\n• تقارير مخصصة');
+        }
+
+        // تحديث دوري
+        setInterval(updateRealTimeData, 3000);
+        setInterval(updateChart, 5000);
+
+        // تهيئة
+        updateRealTimeData();
+        updateChart();
+
+        console.log('📍 www.sheikha.top');
+        console.log('🚀 سوق شيخة لسلاسل الإمداد المتقدمة');
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+{
+  "success": true,
+  "data": {
+    "namespace": "Sheikha",
+    "networkId": "network-1773602882733",
+    "versionTag": "v1",
+    "versionNumber": 1,
+    "blueprint": {
+      "name": "شبكة تجارية وقفية",
+      "category": "commercial-network",
+      "growthLevel": "scale",
+      "growthProfile": {
+        "coverage": "multi-market",
+        "organizationCount": 5,
+        "rolloutMonths": 6
+      },
+      "governance": {
+        "values": [
+          "الأمانة",
+          "العدل",
+          "الإحسان",
+          "الشفافية",
+          "المسؤولية"
+        ],
+        "principles": [
+          "لا ضرر ولا ضرار",
+          "لا ربا",
+          "لا غرر",
+          "لا غش",
+          "لا احتكار"
+        ],
+        "objective": "تعظيم النفع العام وخدمة الاقتصاد الإسلامي"
+      },
+      "strategy": {
+        "domainFocus": [
+          "التجارة العادلة",
+          "الخدمات اللوجستية",
+          "الأسواق الرقمية"
+        ],
+        "targetMarkets": [
+          "السوق المحلي",
+          "السوق الخليجي"
+        ],
+        "kpis": [
+          "market-activation-rate",
+          "network-reliability",
+          "public-benefit-score",
+          "compliance-score"
+        ]
+      },
+      "organizationalDesign": {
+        "model": "federated-governed-network",
+        "coreEntities": [
+          "org-supreme-council",
+          "org-sheikha-core",
+          "org-ummat-community",
+          "org-deen-compliance"
+        ],
+        "supportOffices": [
+          "office-architecture",
+          "office-network",
+          "office-planning"
+        ]
+      },
+      "technicalArchitecture": {
+        "style": "Hub-and-Spoke",
+        "technologies": [
+          "Node.js",
+          "Express.js",
+          "WebSocket",
+          "JWT",
+          "Event Queue"
+        ],
+        "mandatoryControls": [
+          "zero-trust",
+          "audit-trails",
+          "api-contract-tests",
+          "incident-playbooks"
+        ]
+      },
+      "rolloutPlan": {
+        "phase1_30days": [
+          "اعتماد الحوكمة ودليل الأدوار",
+          "إطلاق MVP للتكاملات الأساسية"
+        ],
+        "phase2_90days": [
+          "توسيع الربط بين الجهات",
+          "تفعيل المراقبة الشاملة ولوحة KPI"
+        ],
+        "phase3_180days": [
+          "توسيع الشبكة تجاريا",
+          "تحسين الأداء والموثوقية والنفع العام"
+        ]
+      }
+    },
+    "metadata": {
+      "createdAt": "2026-03-15T19:28:02.733Z",
+      "savedBy": "api",
+      "mode": "versioned-save"
+    }
+  },
+  "message": "نسخة Blueprint محفوظة بنجاح",
+  "timestamp": "2026-03-15T19:28:02.733Z"
+}

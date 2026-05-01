@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+APP_DIR="/opt/sheikha/sheikha-main-portal"
+
+if [[ -d "${APP_DIR}" ]]; then
+    chmod +x "${APP_DIR}/scripts/install.sh" || true
+    if [[ ! -f "${APP_DIR}/.env" && -f "${APP_DIR}/.env.example" ]]; then
+        cp "${APP_DIR}/.env.example" "${APP_DIR}/.env"
+        chmod 600 "${APP_DIR}/.env" || true
+    fi
+fi
+
+echo "تم تثبيت الحزمة. لإكمال الإعداد:"
+echo "sudo bash /opt/sheikha/sheikha-main-portal/scripts/install.sh"
+#!/usr/bin/env bash
+set -euo pipefail
+
+APP_DIR="/opt/sheikha/sheikha-main-portal"
+if [[ -d "${APP_DIR}" ]]; then
+    bash "${APP_DIR}/scripts/install.sh" || true
+fi
+
+exit 0

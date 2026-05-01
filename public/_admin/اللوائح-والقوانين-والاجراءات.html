@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اللوائح والقوانين والإجراءات | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-dark: #063d24;
+            --gold: #c9a227;
+            --gold-light: #e4c04a;
+            --dark: #0a1628;
+            --darker: #060d17;
+            --card: #0f1e2f;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: #1e3a50;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --radius: 16px;
+            --radius-lg: 24px;
+            --shadow: 0 8px 32px rgba(0,0,0,0.3);
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--gold), var(--primary));
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .back-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text-muted);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .back-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 48px 32px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(201,162,39,0.15);
+            border: 1px solid rgba(201,162,39,0.3);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        .hero h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 900;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Navigation Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 12px 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-muted);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .tab:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .tab.active {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-color: var(--gold);
+            color: var(--dark);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sections */
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .section-header {
+            background: linear-gradient(135deg, rgba(10,92,54,0.2), rgba(201,162,39,0.1));
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        .section-title h2 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+        .section-title p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .section-body {
+            padding: 28px;
+        }
+
+        /* Rules */
+        .rule {
+            display: flex;
+            gap: 16px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .rule:last-child {
+            border-bottom: none;
+        }
+        .rule-num {
+            width: 36px;
+            height: 36px;
+            background: rgba(201,162,39,0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+        .rule-content h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .rule-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .rule-penalty {
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.3);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--danger);
+        }
+
+        /* Specs Table */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .specs-table th, .specs-table td {
+            padding: 14px 16px;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+        }
+        .specs-table th {
+            background: rgba(0,0,0,0.2);
+            font-weight: 700;
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+        .specs-table tr:hover td {
+            background: rgba(201,162,39,0.05);
+        }
+
+        /* Process Flow */
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 24px 0;
+        }
+        .process-step {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            text-align: center;
+            transition: var(--transition);
+            min-width: 100px;
+        }
+        .process-step:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+        .process-step-num {
+            width: 28px;
+            height: 28px;
+            background: var(--gold);
+            color: var(--dark);
+            font-weight: 800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 0.85rem;
+        }
+        .process-step-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .process-arrow {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        /* Forms/Templates */
+        .form-template {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: var(--transition);
+        }
+        .form-template:hover {
+            border-color: var(--gold);
+        }
+        .form-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(201,162,39,0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        .form-info {
+            flex: 1;
+        }
+        .form-info h4 {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .form-info p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .form-action {
+            padding: 10px 20px;
+            background: rgba(201,162,39,0.15);
+            border: 1px solid rgba(201,162,39,0.3);
+            border-radius: 8px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .form-action:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Cards */
+        .info-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .info-card:hover {
+            border-color: var(--gold);
+        }
+        .info-card-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        .info-card h4 {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .info-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            padding: 32px;
+            text-align: center;
+            margin-top: 48px;
+        }
+        .footer p {
+            color: var(--text-muted);
+        }
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .main { padding: 24px 16px; }
+            .section-body { padding: 20px 16px; }
+            .process-flow { flex-direction: column; }
+            .process-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><svg viewBox="0 0 60 60" width="100%" height="100%"><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f7e98e"/><stop offset="50%" style="stop-color:#d4af37"/><stop offset="100%" style="stop-color:#aa8c2c"/></linearGradient></defs><circle cx="30" cy="30" r="28" fill="none" stroke="url(#goldGrad)" stroke-width="2"/><path d="M20 22 Q30 18 40 22 Q42 30 40 38 Q30 42 20 38 Q18 30 20 22" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/><circle cx="24" cy="20" r="2" fill="url(#goldGrad)"/><circle cx="30" cy="18" r="2" fill="url(#goldGrad)"/><circle cx="36" cy="20" r="2" fill="url(#goldGrad)"/><path d="M25 30 L35 30" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round"/></svg></div>
+                <span class="logo-text">سوق شيخة</span>
+            </a>
+            <a href="index.html" class="back-btn">← الرئيسية</a>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="hero">
+            <div class="hero-badge">📜 النظام والحوكمة</div>
+            <h1>اللوائح والقوانين والإجراءات</h1>
+            <p>القواعد والمواصفات والإجراءات التي تحكم التعاملات في سوق شيخة</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('rules')">القواعد الأساسية</div>
+            <div class="tab" onclick="showTab('specs')">المواصفات</div>
+            <div class="tab" onclick="showTab('procedures')">الإجراءات</div>
+            <div class="tab" onclick="showTab('forms')">النماذج</div>
+            <div class="tab" onclick="showTab('disputes')">النزاعات</div>
+            <div class="tab" onclick="showTab('standards')">المعايير</div>
+        </div>
+
+        <!-- القواعد الأساسية -->
+        <div class="tab-content active" id="tab-rules">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">⚖️</div>
+                    <div class="section-title">
+                        <h2>قواعد التجارة الأساسية</h2>
+                        <p>القوانين الملزمة لجميع التجار في السوق</p>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="rule">
+                        <div class="rule-num">١</div>
+                        <div class="rule-content">
+                            <h3>الصدق والأمانة في الوصف</h3>
+                            <p>وصف المنتج يجب أن يطابق الحقيقة تماماً. يشمل: نوع المعدن، درجة النقاء، الحالة (جديد/مستعمل/سكراب)، الكمية الفعلية. لا يجوز إخفاء عيوب أو تضخيم الجودة.</p>
+                            <div class="rule-penalty">المخالفة: تحذير أول ← إيقاف مؤقت ← إغلاق نهائي</div>
+                        </div>
+                    </div>
+                    <div class="rule">
+                        <div class="rule-num">٢</div>
+                        <div class="rule-content">
+                            <h3>الالتزام بالأسعار المعلنة</h3>
+                            <p>السعر المعلن في العرض هو السعر النهائي بعد الاتفاق. التفاوض مسموح قبل الاتفاق فقط. لا يجوز تغيير السعر بعد الاتفاق إلا بموافقة الطرفين.</p>
+                            <div class="rule-penalty">المخالفة: تعويض الطرف المتضرر + تحذير رسمي</div>
+                        </div>
+                    </div>
+                    <div class="rule">
+                        <div class="rule-num">٣</div>
+                        <div class="rule-content">
+                            <h3>التسليم في الموعد المحدد</h3>
+                            <p>الالتزام بموعد التسليم المتفق عليه. في حالة التأخير، يجب إبلاغ المشتري فوراً مع السبب والموعد الجديد.</p>
+                            <div class="rule-penalty">تأخير أكثر من 7 أيام بدون إبلاغ = مخالفة</div>
+                        </div>
+                    </div>
+                    <div class="rule">
+                        <div class="rule-num">٤</div>
+                        <div class="rule-content">
+                            <h3>ضمان الجودة والمطابقة</h3>
+                            <p>المنتج المسلّم يجب أن يطابق الوصف والعينة (إن وجدت). للمشتري حق الفحص عند الاستلام والرفض في حالة عدم المطابقة.</p>
+                            <div class="rule-penalty" style="background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3); color: var(--success);">حق المشتري: استرجاع كامل خلال 48 ساعة إذا لم يطابق الوصف</div>
+                        </div>
+                    </div>
+                    <div class="rule">
+                        <div class="rule-num">٥</div>
+                        <div class="rule-content">
+                            <h3>حظر التعاملات المشبوهة</h3>
+                            <p>يُحظر: سكراب مسروق، معادن غير قانونية، مواد خطرة بدون ترخيص، أي منتج محظور قانونياً.</p>
+                            <div class="rule-penalty">المخالفة: إغلاق فوري + إبلاغ الجهات المختصة</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- المواصفات -->
+        <div class="tab-content" id="tab-specs">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">📋</div>
+                    <div class="section-title">
+                        <h2>مواصفات المنتجات والتصنيفات</h2>
+                        <p>المعايير القياسية لكل نوع من المعادن والسكراب</p>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <table class="specs-table">
+                        <thead>
+                            <tr>
+                                <th>التصنيف</th>
+                                <th>المواصفات المطلوبة</th>
+                                <th>معايير القبول</th>
+                                <th>المرجع</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>حديد تسليح</strong></td>
+                                <td>درجة الشد، القطر، الطول</td>
+                                <td>مطابقة SASO</td>
+                                <td>شهادة المصنع</td>
+                            </tr>
+                            <tr>
+                                <td><strong>سكراب حديد HMS</strong></td>
+                                <td>HMS 1 أو HMS 2، نسبة الشوائب</td>
+                                <td>شوائب < 5%</td>
+                                <td>ISRI</td>
+                            </tr>
+                            <tr>
+                                <td><strong>نحاس كهربائي</strong></td>
+                                <td>درجة النقاء، النوع</td>
+                                <td>نقاء 99.9%</td>
+                                <td>شهادة تحليل</td>
+                            </tr>
+                            <tr>
+                                <td><strong>سكراب نحاس</strong></td>
+                                <td>Berry, Birch, Candy</td>
+                                <td>حسب ISRI</td>
+                                <td>ISRI</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ألمنيوم</strong></td>
+                                <td>السبيكة، درجة النقاء</td>
+                                <td>حسب النوع</td>
+                                <td>شهادة المصنع</td>
+                            </tr>
+                            <tr>
+                                <td><strong>سكراب ألمنيوم</strong></td>
+                                <td>Taint, Tabor, Tense</td>
+                                <td>حسب ISRI</td>
+                                <td>ISRI</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ستانلس ستيل</strong></td>
+                                <td>الدرجة (304, 316)</td>
+                                <td>حسب المواصفة</td>
+                                <td>شهادة تحليل</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- الإجراءات -->
+        <div class="tab-content" id="tab-procedures">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🔄</div>
+                    <div class="section-title">
+                        <h2>إجراءات البيع والشراء</h2>
+                        <p>الخطوات المعتمدة لإتمام العمليات التجارية</p>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="process-step-num">١</div>
+                            <div class="process-step-name">إنشاء العرض</div>
+                        </div>
+                        <span class="process-arrow">←</span>
+                        <div class="process-step">
+                            <div class="process-step-num">٢</div>
+                            <div class="process-step-name">استلام الطلب</div>
+                        </div>
+                        <span class="process-arrow">←</span>
+                        <div class="process-step">
+                            <div class="process-step-num">٣</div>
+                            <div class="process-step-name">التفاوض</div>
+                        </div>
+                        <span class="process-arrow">←</span>
+                        <div class="process-step">
+                            <div class="process-step-num">٤</div>
+                            <div class="process-step-name">الاتفاق</div>
+                        </div>
+                        <span class="process-arrow">←</span>
+                        <div class="process-step">
+                            <div class="process-step-num">٥</div>
+                            <div class="process-step-name">الدفع</div>
+                        </div>
+                        <span class="process-arrow">←</span>
+                        <div class="process-step">
+                            <div class="process-step-num">٦</div>
+                            <div class="process-step-name">التسليم</div>
+                        </div>
+                        <span class="process-arrow">←</span>
+                        <div class="process-step">
+                            <div class="process-step-num">٧</div>
+                            <div class="process-step-name">التقييم</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">📝</div>
+                        <div class="section-title">
+                            <h2>إجراءات التسجيل</h2>
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div class="rule">
+                            <div class="rule-num">١</div>
+                            <div class="rule-content">
+                                <h3>إدخال البيانات الأساسية</h3>
+                                <p>الاسم، الجوال، البريد، اسم المتجر، المنطقة</p>
+                            </div>
+                        </div>
+                        <div class="rule">
+                            <div class="rule-num">٢</div>
+                            <div class="rule-content">
+                                <h3>تحديد التخصص</h3>
+                                <p>مرحلة سلسلة التوريد + أنواع المعادن</p>
+                            </div>
+                        </div>
+                        <div class="rule">
+                            <div class="rule-num">٣</div>
+                            <div class="rule-content">
+                                <h3>الموافقة على اللوائح</h3>
+                                <p>قراءة والموافقة على الشروط</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">📦</div>
+                        <div class="section-title">
+                            <h2>إجراءات عرض المنتج</h2>
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div class="rule">
+                            <div class="rule-num">١</div>
+                            <div class="rule-content">
+                                <h3>وصف المنتج</h3>
+                                <p>الاسم، التصنيف، الحالة، الوصف التفصيلي</p>
+                            </div>
+                        </div>
+                        <div class="rule">
+                            <div class="rule-num">٢</div>
+                            <div class="rule-content">
+                                <h3>الكمية والسعر</h3>
+                                <p>الكمية، الوحدة، السعر، نوع السعر</p>
+                            </div>
+                        </div>
+                        <div class="rule">
+                            <div class="rule-num">٣</div>
+                            <div class="rule-content">
+                                <h3>الموقع والتسليم</h3>
+                                <p>المدينة، طريقة التسليم، الملاحظات</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- النماذج -->
+        <div class="tab-content" id="tab-forms">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">📄</div>
+                    <div class="section-title">
+                        <h2>النماذج الإدارية والرقمية</h2>
+                        <p>النماذج المعتمدة للعمليات التجارية</p>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="form-template">
+                        <div class="form-icon">🏪</div>
+                        <div class="form-info">
+                            <h4>نموذج تسجيل متجر</h4>
+                            <p>نموذج رقمي لفتح متجر جديد في السوق</p>
+                        </div>
+                        <a href="تسجيل-تاجر.html" class="form-action">فتح النموذج</a>
+                    </div>
+                    <div class="form-template">
+                        <div class="form-icon">📦</div>
+                        <div class="form-info">
+                            <h4>نموذج عرض بضاعة</h4>
+                            <p>نموذج إضافة منتج للبيع في السوق</p>
+                        </div>
+                        <a href="عرض-بضائع.html" class="form-action">فتح النموذج</a>
+                    </div>
+                    <div class="form-template">
+                        <div class="form-icon">🛒</div>
+                        <div class="form-info">
+                            <h4>نموذج طلب شراء</h4>
+                            <p>نموذج تقديم طلب شراء لمنتج</p>
+                        </div>
+                        <span class="form-action" style="opacity: 0.5;">قريباً</span>
+                    </div>
+                    <div class="form-template">
+                        <div class="form-icon">📋</div>
+                        <div class="form-info">
+                            <h4>نموذج عقد بيع</h4>
+                            <p>عقد البيع الرسمي بين البائع والمشتري</p>
+                        </div>
+                        <span class="form-action" style="opacity: 0.5;">قريباً</span>
+                    </div>
+                    <div class="form-template">
+                        <div class="form-icon">🚚</div>
+                        <div class="form-info">
+                            <h4>نموذج استلام وتسليم</h4>
+                            <p>إثبات استلام البضاعة</p>
+                        </div>
+                        <span class="form-action" style="opacity: 0.5;">قريباً</span>
+                    </div>
+                    <div class="form-template">
+                        <div class="form-icon">⚠️</div>
+                        <div class="form-info">
+                            <h4>نموذج شكوى</h4>
+                            <p>تقديم شكوى رسمية</p>
+                        </div>
+                        <span class="form-action" style="opacity: 0.5;">قريباً</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- النزاعات -->
+        <div class="tab-content" id="tab-disputes">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">⚖️</div>
+                    <div class="section-title">
+                        <h2>آلية حل النزاعات</h2>
+                        <p>الإجراءات المعتمدة لحل الخلافات</p>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="process-step-num">١</div>
+                            <div class="process-step-name">تواصل مباشر</div>
+                        </div>
+                        <span class="process-arrow">←</span>
+                        <div class="process-step">
+                            <div class="process-step-num">٢</div>
+                            <div class="process-step-name">تقديم شكوى</div>
+                        </div>
+                        <span class="process-arrow">←</span>
+                        <div class="process-step">
+                            <div class="process-step-num">٣</div>
+                            <div class="process-step-name">التحقيق</div>
+                        </div>
+                        <span class="process-arrow">←</span>
+                        <div class="process-step">
+                            <div class="process-step-num">٤</div>
+                            <div class="process-step-name">القرار</div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2" style="margin-top: 24px;">
+                        <div class="info-card">
+                            <div class="info-card-icon">💬</div>
+                            <h4>التواصل المباشر</h4>
+                            <p>الخطوة الأولى: محاولة حل الخلاف بالحوار المباشر بين الطرفين</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-icon">📝</div>
+                            <h4>الشكوى الرسمية</h4>
+                            <p>إذا فشل التواصل، تقديم شكوى مع الأدلة والمحادثات</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-icon">🔍</div>
+                            <h4>التحقيق (3-7 أيام)</h4>
+                            <p>فريق المنصة يحقق ويتواصل مع الطرفين</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-icon">✅</div>
+                            <h4>القرار النهائي</h4>
+                            <p>قرار ملزم: استرجاع، تعويض، تحذير، أو إغلاق</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- المعايير -->
+        <div class="tab-content" id="tab-standards">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">⭐</div>
+                    <div class="section-title">
+                        <h2>معايير التاجر المعتمد</h2>
+                        <p>متطلبات الحصول على شارة التاجر المعتمد</p>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="grid-2">
+                        <div class="info-card">
+                            <div class="info-card-icon">🪪</div>
+                            <h4>هوية موثقة</h4>
+                            <p>هوية رسمية أو سجل تجاري ساري</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-icon">✅</div>
+                            <h4>سجل نظيف</h4>
+                            <p>بدون مخالفات خلال 6 أشهر</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-icon">⭐</div>
+                            <h4>تقييم عالي</h4>
+                            <p>4 نجوم+ من 10 عملاء</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-icon">📈</div>
+                            <h4>حجم تعاملات</h4>
+                            <p>20 صفقة ناجحة+</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🤝</div>
+                    <div class="section-title">
+                        <h2>التزامات المنظومة</h2>
+                        <p>ما تلتزم به شيخة تجاه المستخدمين</p>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="grid-2">
+                        <div class="info-card">
+                            <div class="info-card-icon">🔐</div>
+                            <h4>حماية البيانات</h4>
+                            <p>لا مشاركة بدون موافقة</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-icon">⚖️</div>
+                            <h4>العدالة والحياد</h4>
+                            <p>معاملة متساوية للجميع</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-icon">🌱</div>
+                            <h4>المسؤولية البيئية</h4>
+                            <p>دعم إعادة التدوير</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-icon">📊</div>
+                            <h4>الشفافية</h4>
+                            <p>معلومات واضحة ومحدّثة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 منظومة وسوق شيخة — جميع الحقوق محفوظة</p>
+        <p style="margin-top: 8px;">
+            <a href="index.html">الرئيسية</a> · 
+            <a href="خريطة-الموقع.html">خريطة الموقع</a> · 
+            <a href="آلية-البيع.html">آلية البيع</a>
+        </p>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>

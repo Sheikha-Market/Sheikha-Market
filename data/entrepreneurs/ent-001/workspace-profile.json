@@ -1,0 +1,82 @@
+{
+  "id": "ent-001",
+  "name": "Raed Metals Works",
+  "email": "raed1@sheikha.top",
+  "sector": "metals",
+  "projectName": "raed-metals-hub",
+  "targetRegion": "saudi-arabia",
+  "needs": [
+    "erp",
+    "pricing-ai",
+    "logistics"
+  ],
+  "projectId": "sheikha-raed-metals-hub",
+  "orgId": "224557279528",
+  "ideProfiles": {
+    "cursor": {
+      "workspaceName": "Raed Metals Works-cursor-workspace",
+      "recommendedExtensions": [
+        "ms-vscode.vscode-json",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ],
+      "env": {
+        "SHEIKHA_ORG_ID": "224557279528",
+        "SHEIKHA_PROJECT_ID": "sheikha-raed-metals-hub",
+        "SHEIKHA_ENTREPRENEUR_ID": "ent-001"
+      }
+    },
+    "vscode": {
+      "workspaceName": "Raed Metals Works-vscode-workspace",
+      "tasks": [
+        "npm run dev",
+        "npm run ops:readiness",
+        "npm run ops:auth:readiness"
+      ],
+      "env": {
+        "SHEIKHA_ORG_ID": "224557279528",
+        "SHEIKHA_PROJECT_ID": "sheikha-raed-metals-hub",
+        "SHEIKHA_ENTREPRENEUR_ID": "ent-001"
+      }
+    },
+    "generic": {
+      "gitRepo": "https://git.sheikha.top/entrepreneurs/ent-001/sheikha-raed-metals-hub",
+      "branchModel": [
+        "main",
+        "develop",
+        "release"
+      ],
+      "ciCd": "pipeline-required-before-production"
+    }
+  },
+  "provisioning": {
+    "mode": "institutional-automation",
+    "commands": [
+      "gcloud projects create sheikha-raed-metals-hub --organization=224557279528",
+      "gcloud beta billing projects link sheikha-raed-metals-hub --billing-account=REQUIRED-BILLING-ACCOUNT",
+      "gcloud services enable run.googleapis.com aiplatform.googleapis.com bigquery.googleapis.com storage.googleapis.com cloudfunctions.googleapis.com monitoring.googleapis.com --project=sheikha-raed-metals-hub",
+      "gcloud projects add-iam-policy-binding sheikha-raed-metals-hub --member=user:raed1@sheikha.top --role=roles/viewer",
+      "gcloud projects add-iam-policy-binding sheikha-raed-metals-hub --member=user:raed1@sheikha.top --role=roles/run.developer",
+      "gcloud projects add-iam-policy-binding sheikha-raed-metals-hub --member=user:raed1@sheikha.top --role=roles/serviceusage.serviceUsageConsumer",
+      "gcloud projects add-iam-policy-binding sheikha-raed-metals-hub --member=user:raed1@sheikha.top --role=roles/storage.objectUser"
+    ]
+  },
+  "supportCatalog": {
+    "managedServices": [
+      "cloud-run",
+      "cloud-functions",
+      "monitoring",
+      "security-baseline"
+    ],
+    "dataAi": [
+      "bigquery",
+      "vertex-ai",
+      "dashboards"
+    ],
+    "enablement": [
+      "starter-template",
+      "mentoring",
+      "weekly-tech-review"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+    "generatedAt": "2026-03-18T04:56:59.789Z",
+    "modes": {
+        "realtime": {
+            "nameAr": "الوقت الفعلي",
+            "latencyTarget": "< 50ms",
+            "use": "أسعار السوق اللحظية، الفتاوى العاجلة"
+        },
+        "batch": {
+            "nameAr": "الدُفعي",
+            "latencyTarget": "< 10s per batch",
+            "use": "تقارير السوق، تحديثات النماذج"
+        },
+        "streaming": {
+            "nameAr": "التدفقي",
+            "latencyTarget": "first-token < 100ms",
+            "use": "إجابات RAG الطويلة، التحليلات التفصيلية"
+        },
+        "quantum-accelerated": {
+            "nameAr": "المسرَّع كمياً",
+            "latencyTarget": "< 10ms for complex reasoning",
+            "use": "استعلامات معقدة متعددة الأبعاد، تحسين النماذج"
+        }
+    }
+}

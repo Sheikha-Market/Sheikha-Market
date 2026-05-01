@@ -1,0 +1,84 @@
+{
+  "version": "1.0.0",
+  "charter_enforced": true,
+  "startup_mode": "L0_ONLY",
+  "domains": {
+    "souq": {
+      "routes": [
+        "/api/market",
+        "/api/metals",
+        "/api/logistics"
+      ],
+      "l0": [
+        "sheikha-market-structure-engine.js",
+        "sheikha-metals-market-engine.js",
+        "sheikha-supply-logistics-engine.js"
+      ],
+      "lazy": [
+        "sheikha-marketing-engine.js",
+        "sheikha-smart-market-engine"
+      ]
+    },
+    "community": {
+      "routes": [
+        "/api/community",
+        "/api/education",
+        "/api/learning",
+        "/api/training"
+      ],
+      "l0": [
+        "sheikha-community-engine.js"
+      ],
+      "lazy": [
+        "sheikha-digital-learning-engine.js"
+      ]
+    },
+    "dashboard": {
+      "routes": [
+        "/api/dashboard",
+        "/api/dashboards",
+        "/api/admin/dashboard"
+      ],
+      "l0": [
+        "sheikha-dashboard-engine.js"
+      ],
+      "lazy": [
+        "sheikha-dashboards-engine.js"
+      ]
+    },
+    "sharia": {
+      "routes": [
+        "/api/sharia",
+        "/api/fatwa"
+      ],
+      "l0": [
+        "sheikha-sharia-engine.js",
+        "sheikha-musharri-engine.js"
+      ],
+      "lazy": []
+    },
+    "bayan": {
+      "routes": [
+        "/api/audit",
+        "/api/evidence"
+      ],
+      "l0": [
+        "sheikha-historical-engine.js",
+        "sheikha-brand-engine.js"
+      ],
+      "lazy": [
+        "sheikha-archive-engine"
+      ]
+    }
+  },
+  "required_outputs": [
+    "sharia",
+    "legal",
+    "security",
+    "ops",
+    "quality",
+    "metrics",
+    "knowledge"
+  ]
+}
+

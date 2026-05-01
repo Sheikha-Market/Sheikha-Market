@@ -1,0 +1,67 @@
+{
+  "autoRefreshEnabled": true,
+  "autoRefreshIntervalHours": 24,
+  "lastRefreshedAt": "2026-03-03T22:31:09.344Z",
+  "integrations": [
+    {
+      "id": "humain-saudi",
+      "name": "Humain ALLaM",
+      "provider": "humain",
+      "model": "humain-ai/ALLaM-7B-Instruct-preview",
+      "llmLanguage": "ar",
+      "devLanguage": "javascript",
+      "baseUrl": "https://api-inference.huggingface.co",
+      "apiKeyEnv": "HUGGINGFACE_API_KEY",
+      "active": false,
+      "autoUpgrade": false,
+      "notes": "هيوماين السعودي — PIF | شراكات AWS/NVIDIA/AMD | نموذج عربي ALLaM",
+      "createdAt": "2026-02-21T00:00:00.000Z",
+      "updatedAt": "2026-02-21T00:00:00.000Z"
+    },
+    {
+      "id": "openai-primary",
+      "name": "OpenAI Primary",
+      "provider": "openai",
+      "model": "gpt-5.3",
+      "llmLanguage": "ar",
+      "devLanguage": "javascript",
+      "baseUrl": "https://api.openai.com/v1",
+      "apiKeyEnv": "OPENAI_API_KEY",
+      "active": false,
+      "autoUpgrade": true,
+      "notes": "مسار المحادثة العامة والتحليلات",
+      "createdAt": "2026-02-26T00:00:00.000Z",
+      "updatedAt": "2026-02-26T23:47:36.896Z"
+    },
+    {
+      "id": "claude-development",
+      "name": "Claude Development",
+      "provider": "anthropic",
+      "model": "claude-opus-4-6-20260205",
+      "llmLanguage": "ar",
+      "devLanguage": "javascript",
+      "baseUrl": "https://api.anthropic.com/v1",
+      "apiKeyEnv": "ANTHROPIC_API_KEY",
+      "active": false,
+      "autoUpgrade": true,
+      "notes": "أولوية المهام العميقة والتطوير",
+      "createdAt": "2026-02-26T00:00:00.000Z",
+      "updatedAt": "2026-02-26T00:00:00.000Z"
+    },
+    {
+      "id": "ollama-local",
+      "name": "Ollama Local",
+      "provider": "ollama",
+      "model": "qwen2.5-coder:14b",
+      "llmLanguage": "ar",
+      "devLanguage": "javascript",
+      "baseUrl": "http://127.0.0.1:11434",
+      "apiKeyEnv": "",
+      "active": true,
+      "autoUpgrade": false,
+      "notes": "تشغيل محلي وسيادة بيانات",
+      "createdAt": "2026-02-26T00:00:00.000Z",
+      "updatedAt": "2026-02-26T00:00:00.000Z"
+    }
+  ]
+}

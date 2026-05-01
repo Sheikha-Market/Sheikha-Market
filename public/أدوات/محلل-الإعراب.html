@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محلل الإعراب المتقدم - منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-secondary: #C5A028;
+            --gold-light: #F4E4BC;
+            --dark-primary: #1A1A2E;
+            --dark-secondary: #16213E;
+            --dark-tertiary: #0F3460;
+            --success: #10B981;
+            --error: #EF4444;
+            --warning: #F59E0B;
+            --info: #3B82F6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, var(--dark-primary) 0%, var(--dark-secondary) 50%, var(--dark-tertiary) 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+        
+        .verse {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 10px;
+            font-style: italic;
+            color: var(--gold-light);
+        }
+        
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Input Section */
+        .input-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--gold-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .input-area {
+            width: 100%;
+            min-height: 150px;
+            padding: 20px;
+            font-size: 1.3rem;
+            font-family: 'Tajawal', sans-serif;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            color: #fff;
+            resize: vertical;
+            line-height: 2;
+            direction: rtl;
+        }
+        
+        .input-area:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        
+        .input-area::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Examples */
+        .examples {
+            margin-top: 20px;
+        }
+        
+        .examples-title {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+        }
+        
+        .example-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .example-chip {
+            padding: 10px 15px;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .example-chip:hover {
+            background: rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Buttons */
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+            color: var(--dark-primary);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Results Section */
+        .results-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        /* Sentence Type Badge */
+        .sentence-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+            border: 1px solid var(--gold-primary);
+            border-radius: 30px;
+            margin-bottom: 25px;
+        }
+        
+        .sentence-type .type {
+            color: var(--gold-primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .sentence-type .reason {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* Word Analysis */
+        .word-analysis {
+            margin-top: 20px;
+        }
+        
+        .word-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .word-card:hover {
+            border-color: var(--gold-primary);
+            transform: translateX(-5px);
+        }
+        
+        .word-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .word-number {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+            color: var(--dark-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .word-text {
+            font-size: 1.8rem;
+            color: var(--gold-primary);
+            font-weight: 700;
+        }
+        
+        .word-type-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .word-type-badge.فعل { background: rgba(59, 130, 246, 0.2); color: #60A5FA; border: 1px solid #3B82F6; }
+        .word-type-badge.اسم { background: rgba(16, 185, 129, 0.2); color: #34D399; border: 1px solid #10B981; }
+        .word-type-badge.حرف { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid #F59E0B; }
+        .word-type-badge.أداة { background: rgba(139, 92, 246, 0.2); color: #A78BFA; border: 1px solid #8B5CF6; }
+        
+        .word-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .detail-item {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .detail-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .detail-value.الإعراب {
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+        
+        .detail-value.التعليل {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+        
+        /* Role Badge */
+        .role-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+            color: var(--dark-primary);
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        
+        /* Case Marker */
+        .case-marker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--success);
+            border-radius: 10px;
+            color: var(--success);
+        }
+        
+        /* Structure Section */
+        .structure-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+        }
+        
+        .structure-title {
+            color: var(--gold-primary);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .structure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        
+        .structure-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .structure-item.active {
+            border-color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .structure-item .label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 10px;
+        }
+        
+        .structure-item .value {
+            font-size: 1.3rem;
+            color: var(--gold-primary);
+            font-weight: 700;
+        }
+        
+        .structure-item .empty {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Summary */
+        .summary-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            font-family: 'Courier New', monospace;
+            direction: rtl;
+            white-space: pre-wrap;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        /* Quick Reference */
+        .reference-section {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .reference-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .reference-card h3 {
+            color: var(--gold-primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .reference-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .reference-item {
+            padding: 6px 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .reference-item:hover {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold-primary);
+        }
+        
+        /* Loading */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .loading i {
+            font-size: 2rem;
+            margin-left: 15px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: rgba(212, 175, 55, 0.3);
+        }
+        
+        .empty-state p {
+            font-size: 1.1rem;
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 15px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: #fff;
+        }
+        
+        .tab.active {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold-primary);
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Relationship Line */
+        .relationship {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 8px;
+            border: 1px dashed rgba(239, 68, 68, 0.3);
+        }
+        
+        .relationship i {
+            color: var(--error);
+        }
+        
+        .relationship span {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .footer a {
+            color: var(--gold-primary);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <i class="fas fa-book-open"></i>
+                محلل الإعراب المتقدم
+            </h1>
+            <p>تحليل إعرابي شامل ودقيق للجمل العربية مع فهم السياق وتحديد العلاقات النحوية</p>
+            <div class="verse">
+                "وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا" - البقرة: 31
+            </div>
+        </div>
+        
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Input Section -->
+            <div class="input-section">
+                <h2 class="section-title">
+                    <i class="fas fa-pen"></i>
+                    أدخل الجملة للإعراب
+                </h2>
+                
+                <textarea id="inputText" class="input-area" placeholder="اكتب جملة عربية هنا للإعراب...
+
+مثال: كتب الطالب الدرس
+أو: العلم نور"></textarea>
+                
+                <div class="examples">
+                    <p class="examples-title">أمثلة للتجربة:</p>
+                    <div class="example-chips">
+                        <span class="example-chip" data-text="كتب الطالب الدرس">كتب الطالب الدرس</span>
+                        <span class="example-chip" data-text="العلم نور">العلم نور</span>
+                        <span class="example-chip" data-text="إن الله غفور رحيم">إن الله غفور رحيم</span>
+                        <span class="example-chip" data-text="كان الجو جميلاً">كان الجو جميلاً</span>
+                        <span class="example-chip" data-text="ذهب محمد إلى المدرسة">ذهب محمد إلى المدرسة</span>
+                        <span class="example-chip" data-text="الطالب يقرأ الكتاب">الطالب يقرأ الكتاب</span>
+                        <span class="example-chip" data-text="في البيت رجل">في البيت رجل</span>
+                        <span class="example-chip" data-text="المسلمون يصلون في المسجد">المسلمون يصلون في المسجد</span>
+                    </div>
+                </div>
+                
+                <div class="buttons">
+                    <button id="parseBtn" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                        أعرب الجملة
+                    </button>
+                    <button id="clearBtn" class="btn btn-secondary">
+                        <i class="fas fa-eraser"></i>
+                        مسح
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Results Section -->
+            <div class="results-section">
+                <h2 class="section-title">
+                    <i class="fas fa-clipboard-list"></i>
+                    نتيجة الإعراب
+                </h2>
+                
+                <div id="resultsContainer">
+                    <div class="empty-state">
+                        <i class="fas fa-feather-pointed"></i>
+                        <p>أدخل جملة عربية واضغط "أعرب الجملة" لرؤية التحليل الإعرابي</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Reference -->
+        <div class="reference-section">
+            <div class="reference-card">
+                <h3><i class="fas fa-link"></i> حروف الجر</h3>
+                <div class="reference-list" id="prepositionsList">
+                    <!-- سيتم ملؤها -->
+                </div>
+            </div>
+            
+            <div class="reference-card">
+                <h3><i class="fas fa-clock"></i> كان وأخواتها</h3>
+                <div class="reference-list" id="kanaSistersList">
+                    <!-- سيتم ملؤها -->
+                </div>
+            </div>
+            
+            <div class="reference-card">
+                <h3><i class="fas fa-exclamation-circle"></i> إن وأخواتها</h3>
+                <div class="reference-list" id="innaSistersList">
+                    <!-- سيتم ملؤها -->
+                </div>
+            </div>
+            
+            <div class="reference-card">
+                <h3><i class="fas fa-hand-point-left"></i> أسماء الإشارة والموصولة</h3>
+                <div class="reference-list" id="demonstrativesList">
+                    <span class="reference-item">هذا</span>
+                    <span class="reference-item">هذه</span>
+                    <span class="reference-item">ذلك</span>
+                    <span class="reference-item">تلك</span>
+                    <span class="reference-item">هؤلاء</span>
+                    <span class="reference-item">الذي</span>
+                    <span class="reference-item">التي</span>
+                    <span class="reference-item">الذين</span>
+                    <span class="reference-item">اللاتي</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>محلل الإعراب المتقدم - جزء من <a href="/">منظومة شيخة للمعادن</a></p>
+            <p>مبني على قواعد النحو العربي الفصيح</p>
+        </div>
+    </div>
+    
+    <script>
+        const API_BASE = '/api/arabic/parse';
+        
+        // Elements
+        const inputText = document.getElementById('inputText');
+        const parseBtn = document.getElementById('parseBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const resultsContainer = document.getElementById('resultsContainer');
+        
+        // Example chips
+        document.querySelectorAll('.example-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                inputText.value = chip.dataset.text;
+                parseBtn.click();
+            });
+        });
+        
+        // Clear button
+        clearBtn.addEventListener('click', () => {
+            inputText.value = '';
+            resultsContainer.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-feather-pointed"></i>
+                    <p>أدخل جملة عربية واضغط "أعرب الجملة" لرؤية التحليل الإعرابي</p>
+                </div>
+            `;
+        });
+        
+        // Parse button
+        parseBtn.addEventListener('click', async () => {
+            const text = inputText.value.trim();
+            if (!text) {
+                alert('الرجاء إدخال جملة للإعراب');
+                return;
+            }
+            
+            parseBtn.disabled = true;
+            resultsContainer.innerHTML = `
+                <div class="loading">
+                    <i class="fas fa-spinner"></i>
+                    <span>جارٍ التحليل...</span>
+                </div>
+            `;
+            
+            try {
+                const response = await fetch(API_BASE, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ جملة: text })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayResults(result.data);
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                resultsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle" style="color: var(--error);"></i>
+                        <p>حدث خطأ: ${error.message}</p>
+                    </div>
+                `;
+            } finally {
+                parseBtn.disabled = false;
+            }
+        });
+        
+        // Display results
+        function displayResults(data) {
+            let html = '';
+            
+            // Sentence type badge
+            html += `
+                <div class="sentence-type">
+                    <span class="type">${data.نوع_الجملة.النوع}</span>
+                    ${data.نوع_الجملة.السبب ? `<span class="reason">(${data.نوع_الجملة.السبب})</span>` : ''}
+                </div>
+            `;
+            
+            // Tabs
+            html += `
+                <div class="tabs">
+                    <button class="tab active" data-tab="detailed">التحليل التفصيلي</button>
+                    <button class="tab" data-tab="structure">البنية</button>
+                    <button class="tab" data-tab="summary">الملخص</button>
+                </div>
+            `;
+            
+            // Detailed Tab
+            html += `<div class="tab-content active" id="detailed">`;
+            html += `<div class="word-analysis">`;
+            
+            for (const item of data.التحليل) {
+                html += `
+                    <div class="word-card">
+                        <div class="word-header">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <span class="word-number">${item.الموقع}</span>
+                                <span class="word-text">${item.الكلمة}</span>
+                            </div>
+                            <span class="word-type-badge ${item.القسم}">${item.النوع}</span>
+                        </div>
+                        <div class="word-details">
+                            <div class="detail-item">
+                                <div class="detail-label">القسم</div>
+                                <div class="detail-value">${item.القسم}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">الإعراب</div>
+                                <div class="detail-value الإعراب">${item.الإعراب || 'غير محدد'}</div>
+                            </div>
+                            ${item.العلامة ? `
+                                <div class="detail-item">
+                                    <div class="detail-label">العلامة</div>
+                                    <div class="detail-value">
+                                        <span class="case-marker">
+                                            ${item.العلامة.أصلية || item.العلامة.فرعية || item.العلامة.علامة || '—'}
+                                            ${item.العلامة.السبب ? `<small>(${item.العلامة.السبب})</small>` : ''}
+                                        </span>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            <div class="detail-item" style="grid-column: 1 / -1;">
+                                <div class="detail-label">التعليل</div>
+                                <div class="detail-value التعليل">${item.التعليل || '—'}</div>
+                            </div>
+                        </div>
+                        ${item.الدور ? `<span class="role-badge"><i class="fas fa-star"></i> ${item.الدور}</span>` : ''}
+                        ${item.العلاقة ? `
+                            <div class="relationship">
+                                <i class="fas fa-arrow-left"></i>
+                                <span>مجرور بـ "${item.العلاقة.السبب}"</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+            
+            html += `</div></div>`;
+            
+            // Structure Tab
+            html += `<div class="tab-content" id="structure">`;
+            if (data.البنية) {
+                html += `<div class="structure-section">`;
+                html += `<h3 class="structure-title"><i class="fas fa-sitemap"></i> بنية الجملة</h3>`;
+                html += `<div class="structure-grid">`;
+                
+                const displayStructure = (label, value) => {
+                    const hasValue = value && value.الكلمة;
+                    return `
+                        <div class="structure-item ${hasValue ? 'active' : ''}">
+                            <div class="label">${label}</div>
+                            <div class="value ${!hasValue ? 'empty' : ''}">${hasValue ? value.الكلمة : '—'}</div>
+                        </div>
+                    `;
+                };
+                
+                if (data.نوع_الجملة.النوع === 'جملة فعلية') {
+                    html += displayStructure('الفعل', data.البنية.الفعل);
+                    html += displayStructure('الفاعل', data.البنية.الفاعل);
+                    html += displayStructure('المفعول به', data.البنية.المفعول_به);
+                } else if (data.نوع_الجملة.النوع === 'جملة اسمية') {
+                    html += displayStructure('المبتدأ', data.البنية.المبتدأ);
+                    html += displayStructure('الخبر', data.البنية.الخبر);
+                } else if (data.نوع_الجملة.النوع.includes('كان')) {
+                    html += displayStructure('الناسخ', data.البنية.الناسخ);
+                    html += displayStructure('اسم كان', data.البنية.الاسم);
+                    html += displayStructure('خبر كان', data.البنية.الخبر);
+                } else if (data.نوع_الجملة.النوع.includes('إن')) {
+                    html += displayStructure('الناسخ', data.البنية.الناسخ);
+                    html += displayStructure('اسم إن', data.البنية.الاسم);
+                    html += displayStructure('خبر إن', data.البنية.الخبر);
+                }
+                
+                html += `</div></div>`;
+            }
+            html += `</div>`;
+            
+            // Summary Tab
+            html += `<div class="tab-content" id="summary">`;
+            html += `<div class="summary-section">${data.الملخص || 'لا يوجد ملخص'}</div>`;
+            html += `</div>`;
+            
+            resultsContainer.innerHTML = html;
+            
+            // Tab functionality
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
+            });
+        }
+        
+        // Load reference data
+        async function loadReferenceData() {
+            try {
+                // Prepositions
+                const prepRes = await fetch(`${API_BASE}/prepositions`);
+                const prepData = await prepRes.json();
+                if (prepData.success) {
+                    const list = document.getElementById('prepositionsList');
+                    list.innerHTML = Object.keys(prepData.data).map(p => 
+                        `<span class="reference-item" title="${prepData.data[p].المعنى}">${p}</span>`
+                    ).join('');
+                }
+                
+                // Kana sisters
+                const kanaRes = await fetch(`${API_BASE}/kana-sisters`);
+                const kanaData = await kanaRes.json();
+                if (kanaData.success) {
+                    const list = document.getElementById('kanaSistersList');
+                    list.innerHTML = Object.keys(kanaData.data).map(k => 
+                        `<span class="reference-item" title="${kanaData.data[k].المعنى}">${k}</span>`
+                    ).join('');
+                }
+                
+                // Inna sisters
+                const innaRes = await fetch(`${API_BASE}/inna-sisters`);
+                const innaData = await innaRes.json();
+                if (innaData.success) {
+                    const list = document.getElementById('innaSistersList');
+                    list.innerHTML = Object.keys(innaData.data).map(i => 
+                        `<span class="reference-item" title="${innaData.data[i].المعنى}">${i}</span>`
+                    ).join('');
+                }
+            } catch (error) {
+                console.log('Error loading reference data:', error);
+            }
+        }
+        
+        // Initialize
+        loadReferenceData();
+        
+        // Keyboard shortcut
+        inputText.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                parseBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>

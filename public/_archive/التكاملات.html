@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التكاملات والمصادقة | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --radius: 16px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--gold), var(--primary));
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .back-btn {
+            padding: 10px 24px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--card) 0%, var(--dark) 100%);
+            padding: 60px 32px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--gold), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 32px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Integration Cards */
+        .integrations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .integration-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .integration-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.15);
+        }
+        .integration-card.connected {
+            border-color: var(--success);
+        }
+        .integration-card.connected::after {
+            content: '✓ متصل';
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--success);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .integration-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .integration-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        .integration-icon.nafath { background: linear-gradient(135deg, #006c35, #00a651); }
+        .integration-icon.google { background: linear-gradient(135deg, #4285F4, #34A853); }
+        .integration-icon.microsoft { background: linear-gradient(135deg, #00a4ef, #0078d4); }
+        .integration-icon.apple { background: linear-gradient(135deg, #333, #000); }
+        .integration-icon.mada { background: linear-gradient(135deg, #1a3c6e, #2a5298); }
+        .integration-icon.stcpay { background: linear-gradient(135deg, #5d3fd3, #7c4dff); }
+        .integration-icon.zatca { background: linear-gradient(135deg, #0a5c36, #10b981); }
+        .integration-icon.saber { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .integration-icon.gosi { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .integration-icon.qr { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+        .integration-icon.ai { background: linear-gradient(135deg, #ec4899, #be185d); }
+        .integration-icon.iot { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+
+        .integration-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+        .integration-info span {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .integration-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            min-height: 60px;
+        }
+
+        .integration-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .feature-tag {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .integration-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-integrate {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-integrate.primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--dark);
+        }
+        .btn-integrate.secondary {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+        .btn-integrate:hover {
+            transform: translateY(-2px);
+        }
+        .btn-integrate.connected {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        /* Auth Methods Section */
+        .auth-methods {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 48px;
+            border: 1px solid var(--border);
+        }
+        .auth-methods h2 {
+            font-size: 1.3rem;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .auth-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .auth-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .auth-btn:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .auth-btn .icon {
+            font-size: 1.5rem;
+        }
+
+        /* Status Dashboard */
+        .status-dashboard {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 48px;
+            border: 1px solid var(--border);
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+        .status-item {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .status-item .value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .status-item .label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .status-item.success .value { color: var(--success); }
+        .status-item.warning .value { color: var(--warning); }
+
+        /* API Section */
+        .api-section {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 32px;
+            border: 1px solid var(--border);
+        }
+        .api-endpoint {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .api-method {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .api-method.get { background: var(--success); color: #fff; }
+        .api-method.post { background: var(--info); color: #fff; }
+        .api-path {
+            font-family: monospace;
+            color: var(--gold);
+        }
+        .api-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .integrations-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <div class="logo-icon">ش</div>
+                <span class="logo-text">منظومة شيخة</span>
+            </a>
+            <a href="/" class="back-btn">← العودة للرئيسية</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>🔗 التكاملات والمصادقة</h1>
+        <p>اربط منظومة شيخة مع أنظمتك المفضلة وطرق المصادقة المتقدمة</p>
+    </section>
+
+    <main class="main">
+        <!-- Auth Methods -->
+        <section class="auth-methods">
+            <h2>🔐 طرق المصادقة المتاحة</h2>
+            <div class="auth-grid">
+                <button class="auth-btn" onclick="authenticateWith('nafath')">
+                    <span class="icon">🇸🇦</span>
+                    <span>نفاذ الوطني</span>
+                </button>
+                <button class="auth-btn" onclick="authenticateWith('google')">
+                    <span class="icon">🔵</span>
+                    <span>Google</span>
+                </button>
+                <button class="auth-btn" onclick="authenticateWith('microsoft')">
+                    <span class="icon">🟦</span>
+                    <span>Microsoft</span>
+                </button>
+                <button class="auth-btn" onclick="authenticateWith('apple')">
+                    <span class="icon">🍎</span>
+                    <span>Apple</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Status Dashboard -->
+        <section class="status-dashboard">
+            <h2 class="section-title">📊 حالة التكاملات</h2>
+            <div class="status-grid">
+                <div class="status-item success">
+                    <div class="value" id="connectedCount">8</div>
+                    <div class="label">تكامل نشط</div>
+                </div>
+                <div class="status-item">
+                    <div class="value" id="availableCount">15</div>
+                    <div class="label">تكامل متاح</div>
+                </div>
+                <div class="status-item success">
+                    <div class="value">99.9%</div>
+                    <div class="label">وقت التشغيل</div>
+                </div>
+                <div class="status-item">
+                    <div class="value" id="apiCalls">0</div>
+                    <div class="label">طلبات API اليوم</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Government Integrations -->
+        <h2 class="section-title">🏛️ التكاملات الحكومية</h2>
+        <div class="integrations-grid">
+            <div class="integration-card connected">
+                <div class="integration-header">
+                    <div class="integration-icon nafath">🇸🇦</div>
+                    <div class="integration-info">
+                        <h3>نفاذ الوطني</h3>
+                        <span>National Single Sign-On</span>
+                    </div>
+                </div>
+                <p class="integration-description">
+                    تسجيل دخول موحد وآمن عبر الهوية الوطنية السعودية مع التحقق الثنائي
+                </p>
+                <div class="integration-features">
+                    <span class="feature-tag">SSO</span>
+                    <span class="feature-tag">2FA</span>
+                    <span class="feature-tag">KYC</span>
+                </div>
+                <div class="integration-actions">
+                    <button class="btn-integrate connected">✓ متصل</button>
+                    <button class="btn-integrate secondary">إعدادات</button>
+                </div>
+            </div>
+
+            <div class="integration-card connected">
+                <div class="integration-header">
+                    <div class="integration-icon zatca">📄</div>
+                    <div class="integration-info">
+                        <h3>زاتكا - الفوترة</h3>
+                        <span>ZATCA e-Invoicing</span>
+                    </div>
+                </div>
+                <p class="integration-description">
+                    الفوترة الإلكترونية المتوافقة مع متطلبات هيئة الزكاة والضريبة والجمارك
+                </p>
+                <div class="integration-features">
+                    <span class="feature-tag">فاتورة إلكترونية</span>
+                    <span class="feature-tag">QR</span>
+                    <span class="feature-tag">XML</span>
+                </div>
+                <div class="integration-actions">
+                    <button class="btn-integrate connected">✓ متصل</button>
+                    <button class="btn-integrate secondary">إعدادات</button>
+                </div>
+            </div>
+
+            <div class="integration-card">
+                <div class="integration-header">
+                    <div class="integration-icon saber">✅</div>
+                    <div class="integration-info">
+                        <h3>سابر</h3>
+                        <span>SABER Platform</span>
+                    </div>
+                </div>
+                <p class="integration-description">
+                    منصة سابر للمطابقة والتصديق على المنتجات المستوردة
+                </p>
+                <div class="integration-features">
+                    <span class="feature-tag">شهادة مطابقة</span>
+                    <span class="feature-tag">جمارك</span>
+                </div>
+                <div class="integration-actions">
+                    <button class="btn-integrate primary" onclick="connect('saber')">تفعيل</button>
+                    <button class="btn-integrate secondary">معرفة المزيد</button>
+                </div>
+            </div>
+
+            <div class="integration-card">
+                <div class="integration-header">
+                    <div class="integration-icon gosi">🏛️</div>
+                    <div class="integration-info">
+                        <h3>GOSI</h3>
+                        <span>GOSI Integration</span>
+                    </div>
+                </div>
+                <p class="integration-description">
+                    ربط مع GOSI للتحقق من بيانات الشركات والموظفين
+                </p>
+                <div class="integration-features">
+                    <span class="feature-tag">تحقق</span>
+                    <span class="feature-tag">شهادات</span>
+                </div>
+                <div class="integration-actions">
+                    <button class="btn-integrate primary" onclick="connect('gosi')">تفعيل</button>
+                    <button class="btn-integrate secondary">معرفة المزيد</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Integrations -->
+        <h2 class="section-title">💳 تكاملات الدفع</h2>
+        <div class="integrations-grid">
+            <div class="integration-card connected">
+                <div class="integration-header">
+                    <div class="integration-icon mada">💳</div>
+                    <div class="integration-info">
+                        <h3>مدى</h3>
+                        <span>Saudi Debit Network</span>
+                    </div>
+                </div>
+                <p class="integration-description">
+                    قبول المدفوعات عبر بطاقات مدى المصرفية السعودية
+                </p>
+                <div class="integration-features">
+                    <span class="feature-tag">بطاقات</span>
+                    <span class="feature-tag">آمن</span>
+                    <span class="feature-tag">فوري</span>
+                </div>
+                <div class="integration-actions">
+                    <button class="btn-integrate connected">✓ متصل</button>
+                    <button class="btn-integrate secondary">إعدادات</button>
+                </div>
+            </div>
+
+            <div class="integration-card connected">
+                <div class="integration-header">
+                    <div class="integration-icon stcpay">📱</div>
+                    <div class="integration-info">
+                        <h3>STC Pay</h3>
+                        <span>Digital Wallet</span>
+                    </div>
+                </div>
+                <p class="integration-description">
+                    الدفع عبر المحفظة الرقمية STC Pay
+                </p>
+                <div class="integration-features">
+                    <span class="feature-tag">محفظة</span>
+                    <span class="feature-tag">QR</span>
+                </div>
+                <div class="integration-actions">
+                    <button class="btn-integrate connected">✓ متصل</button>
+                    <button class="btn-integrate secondary">إعدادات</button>
+                </div>
+            </div>
+
+            <div class="integration-card">
+                <div class="integration-header">
+                    <div class="integration-icon apple">🍎</div>
+                    <div class="integration-info">
+                        <h3>Apple Pay</h3>
+                        <span>Contactless Payment</span>
+                    </div>
+                </div>
+                <p class="integration-description">
+                    الدفع السريع والآمن عبر Apple Pay
+                </p>
+                <div class="integration-features">
+                    <span class="feature-tag">Touch ID</span>
+                    <span class="feature-tag">Face ID</span>
+                </div>
+                <div class="integration-actions">
+                    <button class="btn-integrate primary" onclick="connect('applepay')">تفعيل</button>
+                    <button class="btn-integrate secondary">معرفة المزيد</button>
+                </div>
+            </div>
+
+            <div class="integration-card">
+                <div class="integration-header">
+                    <div class="integration-icon google">💰</div>
+                    <div class="integration-info">
+                        <h3>Google Pay</h3>
+                        <span>Digital Payment</span>
+                    </div>
+                </div>
+                <p class="integration-description">
+                    الدفع عبر Google Pay للأجهزة المتوافقة
+                </p>
+                <div class="integration-features">
+                    <span class="feature-tag">NFC</span>
+                    <span class="feature-tag">سريع</span>
+                </div>
+                <div class="integration-actions">
+                    <button class="btn-integrate primary" onclick="connect('googlepay')">تفعيل</button>
+                    <button class="btn-integrate secondary">معرفة المزيد</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI & Technology Integrations -->
+        <h2 class="section-title">🤖 تكاملات الذكاء والتقنية</h2>
+        <div class="integrations-grid">
+            <div class="integration-card connected">
+                <div class="integration-header">
+                    <div class="integration-icon ai">🧠</div>
+                    <div class="integration-info">
+                        <h3>مساعد شيخة AI</h3>
+                        <span>Sheikha AI Assistant</span>
+                    </div>
+                </div>
+                <p class="integration-description">
+                    مساعد ذكي متكامل للإجابة على الاستفسارات وتقديم التوصيات
+                </p>
+                <div class="integration-features">
+                    <span class="feature-tag">NLP</span>
+                    <span class="feature-tag">توصيات</span>
+                    <span class="feature-tag">دعم 24/7</span>
+                </div>
+                <div class="integration-actions">
+                    <button class="btn-integrate connected">✓ مفعل</button>
+                    <button class="btn-integrate secondary">إعدادات</button>
+                </div>
+            </div>
+
+            <div class="integration-card">
+                <div class="integration-header">
+                    <div class="integration-icon iot">📡</div>
+                    <div class="integration-info">
+                        <h3>إنترنت الأشياء IoT</h3>
+                        <span>Sensors & Tracking</span>
+                    </div>
+                </div>
+                <p class="integration-description">
+                    تتبع الشحنات ومراقبة المخازن عبر أجهزة استشعار ذكية
+                </p>
+                <div class="integration-features">
+                    <span class="feature-tag">GPS</span>
+                    <span class="feature-tag">حرارة</span>
+                    <span class="feature-tag">رطوبة</span>
+                </div>
+                <div class="integration-actions">
+                    <button class="btn-integrate primary" onclick="connect('iot')">تفعيل</button>
+                    <button class="btn-integrate secondary">معرفة المزيد</button>
+                </div>
+            </div>
+
+            <div class="integration-card">
+                <div class="integration-header">
+                    <div class="integration-icon qr">📱</div>
+                    <div class="integration-info">
+                        <h3>QR & Barcode</h3>
+                        <span>Scanning System</span>
+                    </div>
+                </div>
+                <p class="integration-description">
+                    مسح الباركود وQR للمنتجات والمستندات
+                </p>
+                <div class="integration-features">
+                    <span class="feature-tag">مسح سريع</span>
+                    <span class="feature-tag">توليد</span>
+                </div>
+                <div class="integration-actions">
+                    <button class="btn-integrate primary" onclick="connect('qr')">تفعيل</button>
+                    <button class="btn-integrate secondary">معرفة المزيد</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Documentation -->
+        <section class="api-section">
+            <h2 class="section-title">📚 واجهات برمجة التطبيقات API</h2>
+            
+            <div class="api-endpoint">
+                <span class="api-method get">GET</span>
+                <span class="api-path">/api/integrations/status</span>
+                <span class="api-desc">حالة جميع التكاملات</span>
+            </div>
+            
+            <div class="api-endpoint">
+                <span class="api-method post">POST</span>
+                <span class="api-path">/api/auth/oauth/{provider}</span>
+                <span class="api-desc">المصادقة عبر OAuth</span>
+            </div>
+            
+            <div class="api-endpoint">
+                <span class="api-method post">POST</span>
+                <span class="api-path">/api/integrations/connect</span>
+                <span class="api-desc">تفعيل تكامل جديد</span>
+            </div>
+            
+            <div class="api-endpoint">
+                <span class="api-method get">GET</span>
+                <span class="api-path">/api/integrations/webhooks</span>
+                <span class="api-desc">قائمة Webhooks المسجلة</span>
+            </div>
+
+            <p style="margin-top: 20px; color: var(--text-muted);">
+                📖 للاطلاع على التوثيق الكامل: <a href="/api-docs.html" style="color: var(--gold);">/api-docs.html</a>
+            </p>
+        </section>
+    </main>
+
+    <script>
+        // Animate API calls counter
+        let apiCalls = 0;
+        setInterval(() => {
+            apiCalls += Math.floor(Math.random() * 50);
+            document.getElementById('apiCalls').textContent = apiCalls.toLocaleString();
+        }, 3000);
+
+        // Authentication
+        function authenticateWith(provider) {
+            const providers = {
+                nafath: { name: 'نفاذ الوطني', url: '/api/auth/oauth/nafath' },
+                google: { name: 'Google', url: '/api/auth/oauth/google' },
+                microsoft: { name: 'Microsoft', url: '/api/auth/oauth/microsoft' },
+                apple: { name: 'Apple', url: '/api/auth/oauth/apple' }
+            };
+
+            const p = providers[provider];
+            if (!p) return;
+
+            // In production, this would open OAuth flow
+            alert(`جاري تسجيل الدخول عبر ${p.name}...\n\nسيتم توجيهك لصفحة المصادقة.`);
+            
+            // Simulate OAuth redirect
+            // window.location.href = p.url;
+        }
+
+        // Connect integration
+        function connect(integration) {
+            const integrations = {
+                saber: 'سابر',
+                gosi: 'GOSI',
+                applepay: 'Apple Pay',
+                googlepay: 'Google Pay',
+                iot: 'إنترنت الأشياء',
+                qr: 'نظام QR & Barcode'
+            };
+
+            alert(`جاري تفعيل ${integrations[integration]}...\n\nيرجى استكمال خطوات التكامل.`);
+        }
+    </script>
+</body>
+</html>

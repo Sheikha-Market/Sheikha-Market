@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>شيخة — منظومة الحكمة والمنطق والبصيرة</title>
+<style>
+:root{--gold:#D4A853;--dark:#0a0f1a;--card:#111827;--glass:rgba(255,255,255,.05);--green:#22c55e;--blue:#3b82f6;--purple:#a855f7;--cyan:#06b6d4;--orange:#f59e0b;--rose:#f43f5e;--txt:#e2e8f0;--light:#94a3b8;--radius:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:var(--dark);color:var(--txt);min-height:100vh;line-height:1.8}
+.hero{text-align:center;padding:60px 20px 30px;background:linear-gradient(135deg,#0a0f1a 0%,#1a1a3a 50%,#0a0f1a 100%)}
+.hero h1{font-size:2.6em;color:var(--gold);margin-bottom:10px;text-shadow:0 0 40px rgba(212,168,83,.4)}
+.hero .en{font-size:1em;color:var(--light);letter-spacing:2px}
+.hero .ayah{margin-top:18px;padding:15px 30px;background:var(--glass);border-radius:12px;display:inline-block;font-size:1.15em;border:1px solid rgba(212,168,83,.25);color:var(--gold)}
+.hero .ayah-ref{display:block;font-size:.75em;color:var(--light);margin-top:5px}
+
+.stats{display:flex;justify-content:center;gap:20px;padding:25px;flex-wrap:wrap}
+.stat-box{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 30px;text-align:center;min-width:140px}
+.stat-box .num{font-size:2.2em;font-weight:700;color:var(--gold)}
+.stat-box .label{font-size:.85em;color:var(--light)}
+
+.container{max-width:1300px;margin:0 auto;padding:20px}
+.section{margin-bottom:50px}
+.section-title{font-size:1.7em;color:var(--gold);margin-bottom:8px;border-bottom:2px solid rgba(212,168,83,.3);padding-bottom:10px}
+.section-subtitle{font-size:.9em;color:var(--light);margin-bottom:25px}
+
+.grid{display:grid;gap:20px}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(360px,1fr))}
+.grid-2{grid-template-columns:repeat(auto-fill,minmax(560px,1fr))}
+
+.card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:25px;transition:.3s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-4px);border-color:rgba(212,168,83,.3);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.card::before{content:'';position:absolute;top:0;right:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),transparent)}
+.card .id{position:absolute;top:12px;left:12px;background:rgba(212,168,83,.15);color:var(--gold);padding:3px 10px;border-radius:8px;font-size:.75em}
+.card h3{font-size:1.2em;color:#fff;margin-bottom:3px}
+.card .en-name{font-size:.8em;color:var(--light);margin-bottom:10px}
+.card .quran{background:rgba(212,168,83,.08);padding:10px 15px;border-radius:10px;margin:10px 0;font-size:.9em;color:var(--gold);border-right:3px solid var(--gold)}
+.card .quran-ref{font-size:.7em;color:var(--light)}
+.card .hadith{background:rgba(34,197,94,.08);padding:10px 15px;border-radius:10px;margin:10px 0;font-size:.85em;color:var(--green);border-right:3px solid var(--green)}
+.card .def{font-size:.9em;color:var(--txt);margin:8px 0;line-height:1.7}
+.card .digital{background:rgba(59,130,246,.08);padding:10px 15px;border-radius:10px;margin:10px 0;font-size:.85em;color:var(--blue)}
+.card .digital::before{content:'💻 الرقمنة: '}
+.card .code-badge{display:inline-block;background:rgba(168,85,247,.15);color:var(--purple);padding:3px 12px;border-radius:8px;font-size:.75em;font-family:monospace;margin-top:8px}
+
+.rules-list{margin:10px 0}
+.rules-list li{margin:5px 0;padding:6px 12px;background:var(--glass);border-radius:8px;font-size:.85em;list-style:none}
+.rules-list li::before{content:'✦ ';color:var(--gold)}
+
+.logic-types{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.logic-type{background:rgba(6,182,212,.1);color:var(--cyan);padding:5px 14px;border-radius:20px;font-size:.78em;border:1px solid rgba(6,182,212,.2)}
+
+.framework-steps{counter-reset:step}
+.framework-steps .step{display:flex;align-items:center;gap:15px;padding:12px 15px;margin:6px 0;background:var(--glass);border-radius:12px;position:relative}
+.framework-steps .step::before{counter-increment:step;content:counter(step);background:var(--gold);color:var(--dark);width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-weight:700;font-size:.9em;flex-shrink:0}
+.framework-steps .step-name{font-weight:600;color:#fff}
+.framework-steps .step-desc{font-size:.8em;color:var(--light)}
+
+.flow-map{display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;padding:20px;margin:20px 0}
+.flow-node{background:var(--card);border:2px solid var(--gold);border-radius:14px;padding:14px 20px;text-align:center;min-width:120px}
+.flow-node .fn-icon{font-size:1.8em}
+.flow-node .fn-name{font-size:.85em;color:#fff;margin-top:5px;font-weight:600}
+.flow-node .fn-en{font-size:.65em;color:var(--light)}
+.flow-arrow{font-size:1.5em;color:var(--gold)}
+
+.cooldown-table{width:100%;border-collapse:collapse;margin:10px 0}
+.cooldown-table th{background:rgba(212,168,83,.1);color:var(--gold);padding:10px;text-align:right;font-size:.85em}
+.cooldown-table td{padding:10px;border-bottom:1px solid rgba(255,255,255,.05);font-size:.85em}
+
+.nav-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(10,15,26,.95);backdrop-filter:blur(15px);display:flex;justify-content:center;gap:10px;padding:12px;border-top:1px solid rgba(212,168,83,.2);z-index:1000}
+.nav-bar a{color:var(--light);text-decoration:none;padding:8px 18px;border-radius:10px;font-size:.82em;transition:.3s}
+.nav-bar a:hover{background:rgba(212,168,83,.15);color:var(--gold)}
+
+.priority-badge{display:inline-block;background:rgba(244,63,94,.15);color:var(--rose);padding:2px 10px;border-radius:8px;font-size:.7em}
+
+footer{text-align:center;padding:60px 20px 100px;color:var(--light);font-size:.85em}
+footer .gold{color:var(--gold)}
+
+@media(max-width:768px){
+    .hero h1{font-size:1.8em}
+    .grid-3,.grid-2{grid-template-columns:1fr}
+    .flow-map{flex-direction:column}
+    .flow-arrow{transform:rotate(90deg)}
+    .stats{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>🧿 منظومة الحكمة والمنطق والبصيرة</h1>
+    <div class="en">SHEIKHA HIKMAH — Wisdom, Logic & Insight Engine</div>
+    <div class="ayah">
+        يُؤْتِي الْحِكْمَةَ مَن يَشَاءُ ۚ وَمَن يُؤْتَ الْحِكْمَةَ فَقَدْ أُوتِيَ خَيْرًا كَثِيرًا
+        <span class="ayah-ref">سورة البقرة — الآية ٢٦٩</span>
+    </div>
+</div>
+
+<div class="stats" id="stats-bar"></div>
+
+<!-- خريطة تدفق القرار الحكيم -->
+<div class="container">
+    <div class="section">
+        <div class="section-title">🗺️ خريطة تدفق القرار الحكيم</div>
+        <div class="section-subtitle">Wisdom Decision Flow Map — من البيانات إلى القرار إلى القياس</div>
+        <div class="flow-map" id="flow-map"></div>
+    </div>
+
+    <!-- الأسس الستة -->
+    <div class="section">
+        <div class="section-title">📖 الأسس الستة — الأساس القرآني والنبوي</div>
+        <div class="section-subtitle">Six Foundations: Wisdom, Logic, Insight, Forbearance, Knowledge, Reckoning</div>
+        <div class="grid grid-3" id="foundations-grid"></div>
+    </div>
+
+    <!-- طبقات المنطق -->
+    <div class="section">
+        <div class="section-title">🏗️ طبقات المنطق — Logic Layers</div>
+        <div class="section-subtitle">Six Logic Layers from Data Collection to Measurement</div>
+        <div class="grid grid-2" id="logic-grid"></div>
+    </div>
+
+    <!-- قواعد الحكمة الفقهية -->
+    <div class="section">
+        <div class="section-title">⚖️ قواعد الحكمة الفقهية — Wisdom Rules</div>
+        <div class="section-subtitle">Eight Jurisprudential Maxims Digitized for System Logic</div>
+        <div class="grid grid-3" id="rules-grid"></div>
+    </div>
+
+    <!-- أنواع الحساب -->
+    <div class="section">
+        <div class="section-title">🔢 أنواع الحساب في المنظومة — Computation Types</div>
+        <div class="section-subtitle">Eight Sharia-Compliant Computation Categories</div>
+        <div class="grid grid-3" id="computation-grid"></div>
+    </div>
+
+    <!-- إطار القرار الحكيم -->
+    <div class="section">
+        <div class="section-title">🎯 إطار القرار الحكيم — ٧ خطوات</div>
+        <div class="section-subtitle">Sheikha Wisdom Decision Framework — 7 Steps</div>
+        <div class="framework-steps" id="framework-steps"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="gold">منظومة وسوق شيخة — SHEIKHA</div>
+    <div>المالك: سلمان أحمد بن سلمان الراجح</div>
+    <div>بسم الله توكلنا على الله ولا حول ولا قوة إلا بالله</div>
+</footer>
+
+<nav class="nav-bar">
+    <a href="/">🏠 الرئيسية</a>
+    <a href="/خريطة-شيخة.html">🗺️ الخريطة</a>
+    <a href="/المخطط-الهيكلي.html">🏗️ الهيكل</a>
+    <a href="/فهرس-المنظومة.html">📑 الفهرس</a>
+</nav>
+
+<script>
+const FOUNDATIONS = [
+    { id:'F-01', nameAr:'الحكمة', nameEn:'Wisdom (Hikmah)', icon:'🏛️', def:'وضع الشيء في موضعه — إصابة الحق بالعلم والعقل', quran:'يُؤْتِي الْحِكْمَةَ مَن يَشَاءُ وَمَن يُؤْتَ الْحِكْمَةَ فَقَدْ أُوتِيَ خَيْرًا كَثِيرًا', ref:'البقرة ٢٦٩', hadith:'لا حسد إلا في اثنتين: رجل آتاه الله مالاً فسلّطه على هلكته في الحق، ورجل آتاه الله الحكمة فهو يقضي بها ويعلّمها', narrator:'متفق عليه', digital:'كل قرار في المنظومة يجب أن يُبنى على حكمة — البيانات + السياق + المرجعية الشرعية' },
+    { id:'F-02', nameAr:'المنطق', nameEn:'Logic (Mantiq)', icon:'🔗', def:'ترتيب المقدمات للوصول إلى نتائج صحيحة — الاستدلال المنظم', quran:'قُلْ هَاتُوا بُرْهَانَكُمْ إِن كُنتُمْ صَادِقِينَ', ref:'البقرة ١١١', quran2:'أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ أَمْ عَلَى قُلُوبٍ أَقْفَالُهَا', ref2:'محمد ٢٤', digital:'كل عملية حسابية وخوارزمية يجب أن تكون مبنية على منطق صحيح وبرهان واضح' },
+    { id:'F-03', nameAr:'البصيرة', nameEn:'Insight (Basirah)', icon:'👁️', def:'نور في القلب يُدرك به الحق من الباطل — الفهم العميق', quran:'قُلْ هَذِهِ سَبِيلِي أَدْعُو إِلَى اللَّهِ عَلَى بَصِيرَةٍ أَنَا وَمَنِ اتَّبَعَنِي', ref:'يوسف ١٠٨', digital:'كل تحليل يجب أن يُقدّم رؤية واضحة (Insight) وليس مجرد أرقام' },
+    { id:'F-04', nameAr:'الحلم', nameEn:'Forbearance (Hilm)', icon:'🕊️', def:'ضبط النفس عند الغضب — التأني وعدم العجلة في القرارات', quran:'إِنَّ إِبْرَاهِيمَ لَأَوَّاهٌ حَلِيمٌ', ref:'التوبة ١١٤', hadith:'إن فيك خصلتين يحبهما الله: الحلم والأناة', narrator:'رواه مسلم — قاله ﷺ لأشج عبد القيس', digital:'النظام لا يتخذ قرارات متسرعة — كل عملية حرجة تمر بفترة تأنٍّ ومراجعة' },
+    { id:'F-05', nameAr:'العلم', nameEn:'Knowledge (Ilm)', icon:'📚', def:'إدراك الشيء على ما هو عليه — معرفة الحقائق بالدليل', quran:'وَقُل رَّبِّ زِدْنِي عِلْمًا', ref:'طه ١١٤', hadith:'من سلك طريقاً يلتمس فيه علماً سهّل الله له به طريقاً إلى الجنة', narrator:'رواه مسلم', digital:'قاعدة معرفة مركزية تنمو باستمرار — كل تجربة تُوثّق وتُحلّل' },
+    { id:'F-06', nameAr:'الحساب', nameEn:'Reckoning (Hisab)', icon:'🔢', def:'العد والقياس والحساب الدقيق — إحصاء كل شيء', quran:'هُوَ الَّذِي جَعَلَ الشَّمْسَ ضِيَاءً وَالْقَمَرَ نُورًا وَقَدَّرَهُ مَنَازِلَ لِتَعْلَمُوا عَدَدَ السِّنِينَ وَالْحِسَابَ', ref:'يونس ٥', digital:'كل شيء يُحسب ويُقاس ويُرقم — لا قرار بدون بيانات' }
+];
+
+const LOGIC_LAYERS = [
+    { id:'LL-01', nameAr:'طبقة جمع البيانات', nameEn:'Data Collection Layer', principle:'العلم', color:'var(--cyan)', quran:'فَتَبَيَّنُوا', ref:'الحجرات ٦', desc:'جمع البيانات من مصادر موثوقة والتثبت منها', rules:['لا تقبل بيانات بدون مصدر','التحقق من صحة كل مدخل','رفض البيانات المتناقضة','توثيق مصدر كل بيانة'], code:'DATA_SOURCED && DATA_VERIFIED' },
+    { id:'LL-02', nameAr:'طبقة التحليل المنطقي', nameEn:'Logical Analysis Layer', principle:'المنطق', color:'var(--blue)', quran:'هَاتُوا بُرْهَانَكُمْ', ref:'البقرة ١١١', desc:'تحليل البيانات بمنطق صحيح واستدلال منظم', rules:['كل نتيجة مبنية على مقدمات صحيحة','لا قفز إلى استنتاجات بدون أدلة','فصل الحقائق عن الافتراضات','تجنب المغالطات المنطقية'], logicTypes:['الاستقراء (Induction)','الاستنباط (Deduction)','القياس (Qiyas)','الاستصحاب','سد الذرائع'], code:'LOGIC_VALID && NO_FALLACIES' },
+    { id:'LL-03', nameAr:'طبقة البصيرة والرؤية', nameEn:'Insight & Vision Layer', principle:'البصيرة', color:'var(--purple)', quran:'أَدْعُو إِلَى اللَّهِ عَلَى بَصِيرَةٍ', ref:'يوسف ١٠٨', desc:'تحويل التحليل إلى رؤى عملية قابلة للتنفيذ', rules:['كل تحليل يُنتج رؤية واحدة على الأقل','الرؤية قابلة للقياس والتنفيذ','ربط الرؤية بالهدف الشرعي والتجاري','تقديم بدائل وليس خياراً واحداً'], code:'INSIGHT_ACTIONABLE && INSIGHT_MEASURABLE' },
+    { id:'LL-04', nameAr:'طبقة الحلم والتأني', nameEn:'Forbearance & Deliberation', principle:'الحلم', color:'var(--green)', quran:'الحِلم والأناة', ref:'حديث أشج عبد القيس', desc:'مراجعة القرارات الحرجة قبل التنفيذ — لا عجلة', rules:['القرارات الحرجة تنتظر 24 ساعة','القرارات المالية تمر بمراجعة ثلاثية','القرارات الشرعية تُعرض على المراجع','لا رد فعل آلي على الأحداث الاستثنائية'], cooldown:{critical:'24h',financial:'48h + مراجعة',sharia:'حتى الاعتماد البشري',routine:'فوري + توثيق'}, code:'DELIBERATION_COMPLETE && HUMAN_APPROVED' },
+    { id:'LL-05', nameAr:'طبقة الحكمة والقرار', nameEn:'Wisdom & Decision Layer', principle:'الحكمة', color:'var(--gold)', quran:'يُؤْتِي الْحِكْمَةَ مَن يَشَاءُ', ref:'البقرة ٢٦٩', desc:'اتخاذ القرار الحكيم — وضع الشيء في موضعه', rules:['القرار يُحقق المصلحة ويدرأ المفسدة','يتوافق مع القوانين العليا العشرة','مبني على بيانات + منطق + بصيرة + حلم','موثّق بالسبب والأثر المتوقع'], code:'DECISION_WISE && DECISION_DOCUMENTED' },
+    { id:'LL-06', nameAr:'طبقة الحساب والقياس', nameEn:'Reckoning & Measurement', principle:'الحساب', color:'var(--orange)', quran:'لِتَعْلَمُوا عَدَدَ السِّنِينَ وَالْحِسَابَ', ref:'يونس ٥', desc:'قياس كل شيء وحساب النتائج والأثر', rules:['كل قرار يُقاس أثره بعد التنفيذ','كل عملية لها مؤشرات أداء','مقارنة النتائج بالتوقعات','تسجيل الدروس المستفادة'], code:'MEASURED && DOCUMENTED && LEARNED' }
+];
+
+const WISDOM_RULES = [
+    { id:'WR-01', nameAr:'درء المفاسد مقدّم على جلب المصالح', nameEn:'Preventing Harm Precedes Gaining Benefit', source:'قاعدة فقهية', digital:'إذا تعارضت ميزة جديدة مع أمان النظام — يُقدّم الأمان', priority:1 },
+    { id:'WR-02', nameAr:'اليقين لا يزول بالشك', nameEn:'Certainty Is Not Overruled by Doubt', source:'قاعدة فقهية', digital:'لا تُغيّر حالة مؤكدة بناءً على بيانات مشكوك فيها', priority:2 },
+    { id:'WR-03', nameAr:'المشقة تجلب التيسير', nameEn:'Hardship Brings Ease', source:'قاعدة فقهية', digital:'إذا واجه المستخدم صعوبة — النظام يُبسّط تلقائياً', priority:3 },
+    { id:'WR-04', nameAr:'العادة محكّمة', nameEn:'Custom Is Authoritative', source:'قاعدة فقهية', digital:'النظام يتعلم من عادات المستخدم ويتكيف معها', priority:4 },
+    { id:'WR-05', nameAr:'الأمور بمقاصدها', nameEn:'Matters Are Judged by Intentions', source:'قاعدة فقهية', digital:'كل إجراء يُقيّم بمقصده — النية تُحدد المسار', priority:5 },
+    { id:'WR-06', nameAr:'إذا ضاق الأمر اتسع وإذا اتسع ضاق', nameEn:'Narrow ↔ Wide Principle', source:'قاعدة فقهية', digital:'في الأزمات — مرونة أكثر. في الاستقرار — ضوابط أشد', priority:6 },
+    { id:'WR-07', nameAr:'لا اجتهاد مع النص', nameEn:'No Reasoning Against Clear Text', source:'قاعدة أصولية', digital:'إذا وُجد نص شرعي صريح — لا يُتجاوز بالخوارزميات', priority:7 },
+    { id:'WR-08', nameAr:'ما لا يتم الواجب إلا به فهو واجب', nameEn:'Essentials of Duty Are Obligatory', source:'قاعدة أصولية', digital:'الأمان والتوثيق والاختبار واجبات وليست اختيارية', priority:8 }
+];
+
+const COMPUTATION_TYPES = [
+    { id:'CT-01', nameAr:'حساب الزكاة', nameEn:'Zakat', icon:'💰', quran:'وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ', ref:'البقرة ٤٣', desc:'حساب دقيق لزكاة المال والمعادن والتجارة' },
+    { id:'CT-02', nameAr:'حساب الميراث', nameEn:'Inheritance', icon:'📜', quran:'يُوصِيكُمُ اللَّهُ فِي أَوْلَادِكُمْ', ref:'النساء ١١', desc:'حساب الفرائض والمواريث الشرعية' },
+    { id:'CT-03', nameAr:'حساب التقويم الهجري', nameEn:'Hijri Calendar', icon:'🌙', quran:'إِنَّ عِدَّةَ الشُّهُورِ عِندَ اللَّهِ اثْنَا عَشَرَ شَهْرًا', ref:'التوبة ٣٦', desc:'حساب التواريخ والأشهر الهجرية' },
+    { id:'CT-04', nameAr:'حساب أوقات الصلاة', nameEn:'Prayer Times', icon:'🕌', quran:'إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَّوْقُوتًا', ref:'النساء ١٠٣', desc:'حساب دقيق لأوقات الصلوات الخمس' },
+    { id:'CT-05', nameAr:'حساب الأسعار والموازين', nameEn:'Pricing & Weights', icon:'⚖️', quran:'وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ', ref:'الأنعام ١٥٢', desc:'حساب التسعير العادل والأوزان الدقيقة' },
+    { id:'CT-06', nameAr:'حساب الأداء والنضج', nameEn:'Performance & Maturity', icon:'📊', quran:'وَكُلَّ شَيْءٍ أَحْصَيْنَاهُ كِتَابًا', ref:'النبأ ٢٩', desc:'مؤشرات KPI ونضج المنظومة' },
+    { id:'CT-07', nameAr:'حساب المخاطر', nameEn:'Risk Assessment', icon:'🛡️', quran:'وَلَا تُلْقُوا بِأَيْدِيكُمْ إِلَى التَّهْلُكَةِ', ref:'البقرة ١٩٥', desc:'تقييم المخاطر التقنية والتجارية والشرعية' },
+    { id:'CT-08', nameAr:'حساب الجدوى', nameEn:'Feasibility Study', icon:'📋', quran:'وَلَا تَبْخَسُوا النَّاسَ أَشْيَاءَهُمْ', ref:'الأعراف ٨٥', desc:'دراسة الجدوى الاقتصادية والشرعية' }
+];
+
+const FLOW_NODES = [
+    { icon:'📚', name:'العلم', en:'Knowledge' },
+    { icon:'🔗', name:'المنطق', en:'Logic' },
+    { icon:'👁️', name:'البصيرة', en:'Insight' },
+    { icon:'🕊️', name:'الحلم', en:'Forbearance' },
+    { icon:'🏛️', name:'الحكمة', en:'Wisdom' },
+    { icon:'⚡', name:'الإتقان', en:'Execution' },
+    { icon:'🔢', name:'الحساب', en:'Reckoning' }
+];
+
+const FRAMEWORK_STEPS = [
+    { name:'جمع البيانات (العلم)', desc:'جمع البيانات من مصادر موثوقة — التحقق — التوثيق' },
+    { name:'التحليل المنطقي (المنطق)', desc:'استقراء — استنباط — قياس — فصل الحقائق عن الافتراضات' },
+    { name:'استخراج الرؤى (البصيرة)', desc:'تحويل البيانات إلى رؤى عملية قابلة للقياس والتنفيذ' },
+    { name:'المراجعة والتأني (الحلم)', desc:'فترة تأمل — مراجعة شرعية — عدم استعجال القرار' },
+    { name:'القرار الحكيم (الحكمة)', desc:'وضع الشيء في موضعه — تحقيق المصلحة ودرء المفسدة' },
+    { name:'التنفيذ المتقن (الإتقان)', desc:'تنفيذ القرار بإتقان — إن الله يحب إذا عمل أحدكم عملاً أن يتقنه' },
+    { name:'القياس والتوثيق (الحساب)', desc:'قياس الأثر — توثيق النتائج — التعلم — التحسين المستمر' }
+];
+
+// === إحصائيات ===
+document.getElementById('stats-bar').innerHTML = `
+    <div class="stat-box"><div class="num">${FOUNDATIONS.length}</div><div class="label">أساس قرآني ونبوي</div></div>
+    <div class="stat-box"><div class="num">${LOGIC_LAYERS.length}</div><div class="label">طبقة منطق</div></div>
+    <div class="stat-box"><div class="num">${WISDOM_RULES.length}</div><div class="label">قاعدة حكمة فقهية</div></div>
+    <div class="stat-box"><div class="num">${COMPUTATION_TYPES.length}</div><div class="label">نوع حساب</div></div>
+    <div class="stat-box"><div class="num">${FOUNDATIONS.length+LOGIC_LAYERS.length+WISDOM_RULES.length+COMPUTATION_TYPES.length}</div><div class="label">إجمالي العناصر</div></div>
+`;
+
+// === خريطة التدفق ===
+document.getElementById('flow-map').innerHTML = FLOW_NODES.map((n,i) =>
+    `<div class="flow-node"><div class="fn-icon">${n.icon}</div><div class="fn-name">${n.name}</div><div class="fn-en">${n.en}</div></div>` +
+    (i < FLOW_NODES.length-1 ? '<div class="flow-arrow">←</div>' : '')
+).join('');
+
+// === الأسس ===
+document.getElementById('foundations-grid').innerHTML = FOUNDATIONS.map(f => `
+    <div class="card">
+        <span class="id">${f.id}</span>
+        <h3>${f.icon} ${f.nameAr}</h3>
+        <div class="en-name">${f.nameEn}</div>
+        <div class="def">${f.def}</div>
+        <div class="quran">${f.quran}<span class="quran-ref"> — ${f.ref}</span></div>
+        ${f.quran2 ? `<div class="quran">${f.quran2}<span class="quran-ref"> — ${f.ref2}</span></div>` : ''}
+        ${f.hadith ? `<div class="hadith">${f.hadith}<br><small>${f.narrator}</small></div>` : ''}
+        <div class="digital">${f.digital}</div>
+    </div>
+`).join('');
+
+// === طبقات المنطق ===
+document.getElementById('logic-grid').innerHTML = LOGIC_LAYERS.map(l => `
+    <div class="card" style="border-top:3px solid ${l.color}">
+        <span class="id">${l.id}</span>
+        <h3>${l.nameAr}</h3>
+        <div class="en-name">${l.nameEn} — مبدأ: ${l.principle}</div>
+        <div class="quran">${l.quran}<span class="quran-ref"> — ${l.ref}</span></div>
+        <div class="def">${l.desc}</div>
+        <ul class="rules-list">${l.rules.map(r => `<li>${r}</li>`).join('')}</ul>
+        ${l.logicTypes ? `<div class="logic-types">${l.logicTypes.map(t => `<span class="logic-type">${t}</span>`).join('')}</div>` : ''}
+        ${l.cooldown ? `<table class="cooldown-table"><tr><th>النوع</th><th>فترة التأني</th></tr>${Object.entries(l.cooldown).map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>` : ''}
+        <div class="code-badge">${l.code}</div>
+    </div>
+`).join('');
+
+// === قواعد الحكمة ===
+document.getElementById('rules-grid').innerHTML = WISDOM_RULES.map(r => `
+    <div class="card">
+        <span class="id">${r.id}</span>
+        <span class="priority-badge">أولوية ${r.priority}</span>
+        <h3 style="margin-top:10px">${r.nameAr}</h3>
+        <div class="en-name">${r.nameEn}</div>
+        <div class="def">${r.source}</div>
+        <div class="digital">${r.digital}</div>
+    </div>
+`).join('');
+
+// === أنواع الحساب ===
+document.getElementById('computation-grid').innerHTML = COMPUTATION_TYPES.map(c => `
+    <div class="card">
+        <span class="id">${c.id}</span>
+        <h3>${c.icon} ${c.nameAr}</h3>
+        <div class="en-name">${c.nameEn}</div>
+        <div class="quran">${c.quran}<span class="quran-ref"> — ${c.ref}</span></div>
+        <div class="def">${c.desc}</div>
+    </div>
+`).join('');
+
+// === إطار القرار ===
+document.getElementById('framework-steps').innerHTML = FRAMEWORK_STEPS.map(s => `
+    <div class="step"><div><div class="step-name">${s.name}</div><div class="step-desc">${s.desc}</div></div></div>
+`).join('');
+</script>
+
+</body>
+</html>

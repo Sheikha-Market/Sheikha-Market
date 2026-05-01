@@ -1,0 +1,170 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-03-10T00:00:00.000Z",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "organization": "224557279528",
+    "purpose": "سجل رقمي لتتبع الشراكات والاعتمادات القانونية"
+  },
+  "partnerships": [
+    {
+      "id": "PARTNER-2026-001",
+      "partnerId": "google",
+      "partnerName": "Google Cloud Platform",
+      "partnerEntity": "Google LLC",
+      "type": "strategic-technical",
+      "status": "pending-activation",
+      "priority": "critical",
+      "initiatedDate": "2026-03-10",
+      "targetActivationDate": "2026-04-09",
+      "documents": {
+        "nda": {
+          "number": "NDA-GOOGLE-2026-001",
+          "status": "draft-ready",
+          "location": "docs/legal/partnerships/NDA-GOOGLE-2026-001.md",
+          "signedBy": {
+            "sheikha": false,
+            "partner": false
+          },
+          "signedDate": null,
+          "expiryDate": null,
+          "sha256": null
+        },
+        "mou": {
+          "number": "MOU-GOOGLE-2026-001",
+          "status": "draft-ready",
+          "location": "docs/legal/partnerships/MOU-GOOGLE-2026-001.md",
+          "signedBy": {
+            "sheikha": false,
+            "partner": false
+          },
+          "signedDate": null,
+          "expiryDate": null,
+          "sha256": null
+        }
+      },
+      "contacts": {
+        "sheikha": {
+          "name": "سلمان أحمد بن سلمان الراجح",
+          "role": "المالك والممثل النظامي",
+          "email": "market@sheikha.top",
+          "phone": null
+        },
+        "partner": {
+          "name": null,
+          "role": null,
+          "email": null,
+          "phone": null
+        }
+      },
+      "technicalIntegration": {
+        "services": [
+          "Vertex AI",
+          "Cloud Run",
+          "Cloud Firestore",
+          "Cloud Storage",
+          "Cloud Functions",
+          "Secret Manager"
+        ],
+        "status": "services-ready-prerequisites-pending",
+        "prerequisites": {
+          "gcloudSdk": false,
+          "activeAccount": false,
+          "billingAccount": false,
+          "creditCard": false
+        },
+        "milestones": [
+          {
+            "phase": "setup",
+            "target": "2026-04-09",
+            "status": "not-started"
+          },
+          {
+            "phase": "integration",
+            "target": "2026-06-09",
+            "status": "not-started"
+          },
+          {
+            "phase": "beta",
+            "target": "2026-07-09",
+            "status": "not-started"
+          },
+          {
+            "phase": "production",
+            "target": "2026-07-10",
+            "status": "not-started"
+          }
+        ]
+      },
+      "compliance": {
+        "shariaCompliant": true,
+        "dataProtection": "gdpr-ready",
+        "securityStandards": ["SOC2", "ISO27001"]
+      },
+      "kpis": {
+        "integrationReadiness": 0,
+        "apiSuccessRate": null,
+        "responseTime": null,
+        "uptime": null,
+        "securityIncidents": 0,
+        "userSatisfaction": null
+      },
+      "notes": [
+        "الخدمات جاهزة تقنيًا، بانتظار إكمال المتطلبات الأساسية",
+        "يحتاج إلى بطاقة ائتمان دولية (ليست مدى) لتفعيل الفوترة",
+        "التكامل مع شراكة السعودية-أمريكا في المواد النادرة"
+      ]
+    },
+    {
+      "id": "PARTNER-2026-002",
+      "partnerId": "github",
+      "partnerName": "GitHub",
+      "type": "operational-development",
+      "status": "active",
+      "priority": "high",
+      "documents": {
+        "nda": {
+          "status": "not-required",
+          "note": "خدمة عامة، مستودعات خاصة محمية بصلاحيات"
+        }
+      },
+      "technicalIntegration": {
+        "services": ["GitHub Repositories", "GitHub Actions", "GitHub Copilot"],
+        "status": "fully-integrated",
+        "prerequisites": {
+          "gitInstalled": true,
+          "sshKeys": true
+        }
+      }
+    },
+    {
+      "id": "PARTNER-2026-003",
+      "partnerId": "vercel",
+      "partnerName": "Vercel",
+      "type": "operational-hosting",
+      "status": "active",
+      "priority": "medium",
+      "documents": {
+        "nda": {
+          "status": "not-required",
+          "note": "خدمة SaaS عامة"
+        }
+      },
+      "technicalIntegration": {
+        "services": ["Serverless Functions", "Edge Functions"],
+        "status": "fully-integrated",
+        "prerequisites": {
+          "account": true
+        }
+      }
+    }
+  ],
+  "statistics": {
+    "total": 3,
+    "active": 2,
+    "pending": 1,
+    "blocked": 0,
+    "ndaSigned": 0,
+    "mouSigned": 0
+  }
+}

@@ -1,0 +1,328 @@
+/**
+ * ==========================================
+ * هوية شيخة البصرية المتكاملة
+ * Sheikha Brand Identity System
+ * ==========================================
+ * تتكامل مع الهوية الوطنية السعودية
+ * رؤية 2030 | المعادن والتعدين
+ * ==========================================
+ */
+
+:root {
+    /* ===== الألوان الأساسية - شيخة ===== */
+    /* الذهبي - يمثل المعادن الثمينة والقيمة */
+    --sheikha-gold: #d4af37;
+    --sheikha-gold-light: #f0d060;
+    --sheikha-gold-dark: #b8960c;
+    --sheikha-gold-glow: rgba(212, 175, 55, 0.3);
+    
+    /* الأخضر - يمثل النمو والاستدامة (متوافق مع الأخضر السعودي) */
+    --sheikha-green: #0a5c36;
+    --sheikha-green-light: #0d7a47;
+    --sheikha-green-dark: #063d24;
+    --sheikha-green-saudi: #006c35; /* الأخضر السعودي الرسمي */
+    
+    /* ===== الألوان الوطنية السعودية ===== */
+    --saudi-green: #006c35;
+    --saudi-white: #ffffff;
+    --saudi-gold: #c9a227;
+    
+    /* ===== ألوان المعادن ===== */
+    --metal-iron: #71797E;
+    --metal-copper: #b87333;
+    --metal-aluminum: #c0c0c0;
+    --metal-gold: #ffd700;
+    --metal-silver: #e8e8e8;
+    --metal-steel: #43464B;
+    
+    /* ===== ألوان الخلفيات ===== */
+    --bg-darker: #050810;
+    --bg-dark: #0a0f1a;
+    --bg-card: #0d1424;
+    --bg-card-hover: #111c30;
+    --bg-elevated: #142638;
+    
+    /* ===== ألوان النصوص ===== */
+    --text-primary: #ffffff;
+    --text-secondary: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-faint: #64748b;
+    
+    /* ===== ألوان الحدود ===== */
+    --border-default: #1e3a5f;
+    --border-light: #2d4a6f;
+    --border-gold: rgba(212, 175, 55, 0.3);
+    
+    /* ===== ألوان الحالات ===== */
+    --status-success: #10b981;
+    --status-warning: #f59e0b;
+    --status-danger: #ef4444;
+    --status-info: #3b82f6;
+    
+    /* ===== التدرجات ===== */
+    --gradient-gold: linear-gradient(135deg, var(--sheikha-gold-light), var(--sheikha-gold), var(--sheikha-gold-dark));
+    --gradient-green: linear-gradient(135deg, var(--sheikha-green-light), var(--sheikha-green), var(--sheikha-green-dark));
+    --gradient-saudi: linear-gradient(135deg, var(--saudi-green), #004d26);
+    --gradient-royal: linear-gradient(135deg, var(--sheikha-gold), var(--sheikha-green));
+    --gradient-metal: linear-gradient(135deg, var(--metal-silver), var(--metal-steel));
+    
+    /* ===== الظلال ===== */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.35);
+    --shadow-gold: 0 4px 32px rgba(212, 175, 55, 0.25);
+    --shadow-green: 0 4px 32px rgba(10, 92, 54, 0.25);
+    
+    /* ===== الأبعاد ===== */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-full: 9999px;
+    
+    /* ===== الحركة ===== */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== الخطوط ===== */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap');
+
+body {
+    font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ===== شعار شيخة ===== */
+.sheikha-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.sheikha-logo-mark {
+    width: 56px;
+    height: 56px;
+    background: var(--gradient-gold);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-gold);
+    position: relative;
+    overflow: hidden;
+}
+
+.sheikha-logo-mark::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+    animation: logoShine 3s infinite;
+}
+
+@keyframes logoShine {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+
+.sheikha-logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.sheikha-logo-text .name {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--sheikha-gold);
+    line-height: 1.2;
+}
+
+.sheikha-logo-text .tagline {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* ===== العناصر الوطنية ===== */
+.saudi-element {
+    position: relative;
+}
+
+.saudi-element::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-saudi);
+}
+
+.saudi-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(0, 108, 53, 0.1);
+    border: 1px solid rgba(0, 108, 53, 0.3);
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    color: var(--saudi-green);
+}
+
+.vision-2030-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(0, 108, 53, 0.1), rgba(212, 175, 55, 0.1));
+    border: 1px solid var(--sheikha-gold);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* ===== بطاقات المعادن ===== */
+.metal-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: var(--transition-normal);
+}
+
+.metal-card:hover {
+    border-color: var(--sheikha-gold);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-gold);
+}
+
+.metal-card[data-metal="iron"] { --metal-color: var(--metal-iron); }
+.metal-card[data-metal="copper"] { --metal-color: var(--metal-copper); }
+.metal-card[data-metal="aluminum"] { --metal-color: var(--metal-aluminum); }
+.metal-card[data-metal="gold"] { --metal-color: var(--metal-gold); }
+
+.metal-card::before {
+    content: '';
+    display: block;
+    height: 4px;
+    background: var(--metal-color, var(--sheikha-gold));
+}
+
+/* ===== أزرار شيخة ===== */
+.btn-sheikha {
+    padding: 14px 28px;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.btn-sheikha-gold {
+    background: var(--gradient-gold);
+    color: var(--bg-dark);
+    box-shadow: var(--shadow-gold);
+}
+
+.btn-sheikha-gold:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 40px rgba(212, 175, 55, 0.4);
+}
+
+.btn-sheikha-green {
+    background: var(--gradient-green);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-green);
+}
+
+.btn-sheikha-outline {
+    background: transparent;
+    border: 2px solid var(--sheikha-gold);
+    color: var(--sheikha-gold);
+}
+
+.btn-sheikha-outline:hover {
+    background: var(--sheikha-gold);
+    color: var(--bg-dark);
+}
+
+/* ===== حالات التكامل ===== */
+.integration-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.integration-status.connected {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--status-success);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.integration-status.pending {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--status-warning);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.integration-status.offline {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--status-danger);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* ===== نبضة البيانات الحية ===== */
+.live-pulse {
+    width: 8px;
+    height: 8px;
+    background: var(--status-success);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+/* ===== رسومات المعادن ===== */
+.metal-visual {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, var(--bg-dark), var(--bg-card));
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.metal-visual::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.02) 50%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.02) 50%, transparent 52%);
+    background-size: 20px 20px;
+}

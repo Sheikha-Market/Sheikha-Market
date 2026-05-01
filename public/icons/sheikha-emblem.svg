@@ -1,0 +1,143 @@
+<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="g2" x1="20%" y1="0%" x2="80%" y2="100%">
+            <stop offset="0%" stop-color="#FBF0C8"/>
+            <stop offset="25%" stop-color="#E8C94A"/>
+            <stop offset="55%" stop-color="#D4AF37"/>
+            <stop offset="100%" stop-color="#A8882B"/>
+        </linearGradient>
+        <linearGradient id="g2v" x1="50%" y1="0%" x2="50%" y2="100%">
+            <stop offset="0%" stop-color="#FBF0C8"/>
+            <stop offset="100%" stop-color="#D4AF37"/>
+        </linearGradient>
+        <linearGradient id="gArm" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" stop-color="#A8882B"/>
+            <stop offset="50%" stop-color="#F5E6A3"/>
+            <stop offset="100%" stop-color="#A8882B"/>
+        </linearGradient>
+        <linearGradient id="gPillar" x1="50%" y1="0%" x2="50%" y2="100%">
+            <stop offset="0%" stop-color="#F5E6A3"/>
+            <stop offset="40%" stop-color="#D4AF37"/>
+            <stop offset="100%" stop-color="#A8882B"/>
+        </linearGradient>
+        <radialGradient id="g2r" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F5E6A3" stop-opacity=".18"/>
+            <stop offset="40%" stop-color="#D4AF37" stop-opacity=".08"/>
+            <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="gemCore" cx="45%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#FFFDE8"/>
+            <stop offset="35%" stop-color="#F5E6A3"/>
+            <stop offset="100%" stop-color="#D4AF37"/>
+        </radialGradient>
+        <radialGradient id="crownCore" cx="50%" cy="35%" r="50%">
+            <stop offset="0%" stop-color="#FFFDE8"/>
+            <stop offset="40%" stop-color="#F5E6A3"/>
+            <stop offset="100%" stop-color="#E8C94A"/>
+        </radialGradient>
+        <filter id="gl"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="glBig"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+
+    <!-- خلفية -->
+    <rect width="400" height="400" rx="20" fill="#030509"/>
+
+    <!-- الهالة الخارجية -->
+    <circle cx="200" cy="200" r="198" fill="url(#g2r)"/>
+    <circle cx="200" cy="200" r="190" stroke="url(#g2)" stroke-width=".5" fill="none" opacity=".08" stroke-dasharray="3 8"/>
+
+    <!-- الدوائر الزخرفية -->
+    <circle cx="200" cy="200" r="182" stroke="url(#g2)" stroke-width="1.8" fill="none" opacity=".22"/>
+    <circle cx="200" cy="200" r="178" stroke="url(#g2)" stroke-width=".4" fill="none" opacity=".08" stroke-dasharray="1 4"/>
+
+    <!-- النجمة الثمانية — مربعان متقاطعان -->
+    <rect x="85" y="85" width="230" height="230" rx="4" fill="url(#g2)" opacity=".04" transform="rotate(0 200 200)"/>
+    <rect x="85" y="85" width="230" height="230" rx="4" stroke="url(#g2)" stroke-width="1.2" fill="none" opacity=".18" transform="rotate(0 200 200)"/>
+    <rect x="85" y="85" width="230" height="230" rx="4" fill="url(#g2)" opacity=".03" transform="rotate(45 200 200)"/>
+    <rect x="85" y="85" width="230" height="230" rx="4" stroke="url(#g2)" stroke-width="1.2" fill="none" opacity=".18" transform="rotate(45 200 200)"/>
+
+    <!-- نجمة داخلية -->
+    <rect x="120" y="120" width="160" height="160" rx="3" fill="url(#g2)" opacity=".03" transform="rotate(0 200 200)"/>
+    <rect x="120" y="120" width="160" height="160" rx="3" stroke="url(#g2)" stroke-width=".8" fill="none" opacity=".12" transform="rotate(0 200 200)"/>
+    <rect x="120" y="120" width="160" height="160" rx="3" fill="url(#g2)" opacity=".02" transform="rotate(45 200 200)"/>
+    <rect x="120" y="120" width="160" height="160" rx="3" stroke="url(#g2)" stroke-width=".8" fill="none" opacity=".12" transform="rotate(45 200 200)"/>
+
+    <!-- الحلقة المركزية -->
+    <circle cx="200" cy="200" r="84" stroke="url(#g2)" stroke-width="1" fill="none" opacity=".1"/>
+
+    <!-- ═══ الميزان النبوي ═══ -->
+
+    <!-- عمود الميزان -->
+    <rect x="196" y="78" width="8" height="230" rx="4" fill="url(#gPillar)" opacity=".65"/>
+    <rect x="199" y="82" width="2" height="220" rx="1" fill="#FBF0C8" opacity=".12"/>
+
+    <!-- تاج الحكمة -->
+    <circle cx="200" cy="68" r="18" fill="url(#crownCore)" filter="url(#glBig)" opacity=".92"/>
+    <circle cx="200" cy="68" r="10" fill="#080d18" opacity=".35"/>
+    <circle cx="200" cy="68" r="5.5" fill="url(#gemCore)" opacity=".75"/>
+    <circle cx="196" cy="64" r="2" fill="#fff" opacity=".3"/>
+    <path d="M186,88 L200,97 L214,88" stroke="url(#g2)" stroke-width="1.8" fill="none" opacity=".35"/>
+    <path d="M191,92 L200,98 L209,92" stroke="url(#g2)" stroke-width="1" fill="none" opacity=".15"/>
+
+    <!-- ذراع الميزان -->
+    <rect x="88" y="158" width="224" height="7" rx="3.5" fill="url(#gArm)" opacity=".6"/>
+    <rect x="150" y="160" width="100" height="2" rx="1" fill="#FBF0C8" opacity=".1"/>
+    <circle cx="200" cy="161" r="9" fill="url(#g2v)" opacity=".6"/>
+    <circle cx="200" cy="161" r="5" fill="#080d18" opacity=".25"/>
+    <circle cx="200" cy="161" r="2.5" fill="url(#gemCore)" opacity=".4"/>
+
+    <!-- الكفة اليمنى -->
+    <line x1="108" y1="162" x2="96" y2="224" stroke="url(#g2)" stroke-width="1.8" opacity=".5"/>
+    <line x1="155" y1="162" x2="167" y2="224" stroke="url(#g2)" stroke-width="1.8" opacity=".5"/>
+    <line x1="131" y1="162" x2="131" y2="218" stroke="url(#g2)" stroke-width=".6" opacity=".15" stroke-dasharray="2 3"/>
+    <path d="M88,224 C95,252 131,260 131,260 C131,260 167,252 174,224 Z" fill="rgba(212,175,55,.08)" stroke="url(#g2)" stroke-width="2" opacity=".55"/>
+    <path d="M100,230 C108,246 131,252 131,252 C131,252 154,246 162,230" stroke="url(#g2)" stroke-width=".7" fill="none" opacity=".2"/>
+    <circle cx="108" cy="162" r="2.5" fill="url(#g2)" opacity=".35"/>
+    <circle cx="155" cy="162" r="2.5" fill="url(#g2)" opacity=".35"/>
+
+    <!-- الكفة اليسرى -->
+    <line x1="245" y1="162" x2="233" y2="224" stroke="url(#g2)" stroke-width="1.8" opacity=".5"/>
+    <line x1="292" y1="162" x2="304" y2="224" stroke="url(#g2)" stroke-width="1.8" opacity=".5"/>
+    <line x1="269" y1="162" x2="269" y2="218" stroke="url(#g2)" stroke-width=".6" opacity=".15" stroke-dasharray="2 3"/>
+    <path d="M226,224 C233,252 269,260 269,260 C269,260 305,252 312,224 Z" fill="rgba(212,175,55,.08)" stroke="url(#g2)" stroke-width="2" opacity=".55"/>
+    <path d="M238,230 C246,246 269,252 269,252 C269,252 292,246 300,230" stroke="url(#g2)" stroke-width=".7" fill="none" opacity=".2"/>
+    <circle cx="245" cy="162" r="2.5" fill="url(#g2)" opacity=".35"/>
+    <circle cx="292" cy="162" r="2.5" fill="url(#g2)" opacity=".35"/>
+
+    <!-- الجوهرة المركزية -->
+    <polygon points="200,128 234,200 200,272 166,200" fill="rgba(212,175,55,.06)" stroke="url(#g2)" stroke-width="2" opacity=".45"/>
+    <line x1="200" y1="128" x2="166" y2="200" stroke="url(#g2)" stroke-width=".8" opacity=".15"/>
+    <line x1="200" y1="128" x2="234" y2="200" stroke="url(#g2)" stroke-width=".8" opacity=".15"/>
+    <line x1="200" y1="272" x2="166" y2="200" stroke="url(#g2)" stroke-width=".6" opacity=".1"/>
+    <line x1="200" y1="272" x2="234" y2="200" stroke="url(#g2)" stroke-width=".6" opacity=".1"/>
+    <polygon points="200,150 220,200 200,250 180,200" fill="rgba(212,175,55,.06)" stroke="url(#g2)" stroke-width="1.2" opacity=".3"/>
+    <line x1="166" y1="200" x2="234" y2="200" stroke="url(#g2)" stroke-width=".5" opacity=".1"/>
+
+    <!-- النواة المتوهجة -->
+    <circle cx="200" cy="200" r="20" fill="url(#gemCore)" filter="url(#glBig)" opacity=".9"/>
+    <circle cx="200" cy="200" r="11" fill="#FFFDE8" opacity=".35"/>
+    <circle cx="195" cy="193" r="3.5" fill="#fff" opacity=".25"/>
+    <circle cx="203" cy="196" r="1.5" fill="#fff" opacity=".12"/>
+
+    <!-- القاعدة -->
+    <rect x="196" y="308" width="8" height="14" rx="3" fill="url(#g2)" opacity=".5"/>
+    <rect x="156" y="322" width="88" height="7" rx="3.5" fill="url(#g2)" opacity=".55"/>
+    <rect x="175" y="324" width="50" height="2" rx="1" fill="#FBF0C8" opacity=".1"/>
+    <rect x="142" y="333" width="116" height="6" rx="3" fill="url(#g2)" opacity=".35"/>
+    <line x1="168" y1="329" x2="154" y2="339" stroke="url(#g2)" stroke-width="2" opacity=".3"/>
+    <line x1="232" y1="329" x2="246" y2="339" stroke="url(#g2)" stroke-width="2" opacity=".3"/>
+
+    <!-- نقاط البوصلة -->
+    <circle cx="200" cy="10" r="5" fill="url(#g2v)" filter="url(#gl)" opacity=".45"/>
+    <circle cx="200" cy="390" r="4.5" fill="url(#g2)" opacity=".28"/>
+    <circle cx="10" cy="200" r="4.5" fill="url(#g2)" opacity=".28"/>
+    <circle cx="390" cy="200" r="4.5" fill="url(#g2)" opacity=".28"/>
+    <circle cx="56" cy="56" r="3" fill="url(#g2)" opacity=".16"/>
+    <circle cx="344" cy="56" r="3" fill="url(#g2)" opacity=".16"/>
+    <circle cx="56" cy="344" r="3" fill="url(#g2)" opacity=".16"/>
+    <circle cx="344" cy="344" r="3" fill="url(#g2)" opacity=".16"/>
+
+    <!-- النص -->
+    <text x="200" y="375" font-family="'Cairo','Tajawal',sans-serif" font-size="20" fill="url(#g2)" text-anchor="middle" opacity=".35" font-weight="900" letter-spacing="6">شيخة</text>
+    <text x="200" y="393" font-family="'Outfit','Cairo',sans-serif" font-size="8" fill="url(#g2)" text-anchor="middle" opacity=".15" font-weight="700" letter-spacing="4">SHEIKHA</text>
+</svg>

@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "owner": "سلمان أحمد بن سلمان الراجح",
+  "lastUpdated": "2026-02-03",
+  "brand": {
+    "name": "شيخة – SHEIKHA",
+    "taglineAr": "أول سوق إسلامي رقمي للمعادن الثمينة",
+    "taglineEn": "The First Islamic Digital Market for Precious Metals",
+    "colors": {
+      "primary": "#D4AF37",
+      "secondary": "#1a1a2e",
+      "accent": "#C0C0C0",
+      "text": "#333333",
+      "background": "#FFFFFF"
+    },
+    "fonts": {
+      "arabic": "Tajawal",
+      "english": "Poppins"
+    }
+  },
+  "services": [
+    {
+      "id": "MKT-001",
+      "name": "الهوية التجارية الرقمية",
+      "nameEn": "Digital Brand Identity",
+      "status": "ACTIVE",
+      "deliverables": ["logo", "color_palette", "typography", "brand_guidelines"],
+      "files": ["SHEIKHA-DIGITAL-PACKAGE.html", "SHEIKHA-CARDS-V5.html"]
+    },
+    {
+      "id": "MKT-002",
+      "name": "المواد التسويقية",
+      "nameEn": "Marketing Materials",
+      "status": "ACTIVE",
+      "deliverables": ["business_cards", "brochures", "email_signatures", "banners", "company_profile"],
+      "files": ["business-card-v4.html", "brochure.html", "email-signature.html", "banner.html", "company-profile.html"]
+    },
+    {
+      "id": "MKT-003",
+      "name": "التسويق الرقمي",
+      "nameEn": "Digital Marketing",
+      "status": "ACTIVE",
+      "channels": ["website", "social_media", "email", "content_marketing"],
+      "engine": "sheikha-marketing-engine.js"
+    },
+    {
+      "id": "MKT-004",
+      "name": "تسجيل الشركات",
+      "nameEn": "Company Registration",
+      "status": "PILOT",
+      "description": "نظام تسجيل الشركات والموردين في سوق شيخة",
+      "page": "تسجيل-الشركات.html"
+    },
+    {
+      "id": "MKT-005",
+      "name": "عرض السوق",
+      "nameEn": "Market Showcase",
+      "status": "PILOT",
+      "description": "عرض المنتجات والخدمات في سوق شيخة",
+      "page": "سوق-شيخة.html"
+    },
+    {
+      "id": "MKT-006",
+      "name": "التحليل والقياس",
+      "nameEn": "Analytics & Measurement",
+      "status": "ACTIVE",
+      "tools": ["pilot-engine-kpis", "alml-fabric", "excellence-dashboard"],
+      "description": "قياس أداء التسويق وتحليل البيانات"
+    }
+  ],
+  "campaigns": {
+    "pilot": {
+      "name": "حملة الإطلاق التجريبي",
+      "status": "ACTIVE",
+      "startDate": "2026-02-03",
+      "goals": ["brand_awareness", "user_registration", "company_registration"],
+      "channels": ["direct", "website", "referral"]
+    }
+  },
+  "shariaCompliance": {
+    "noFalsePromises": true,
+    "noExaggeration": true,
+    "truthfulDescriptions": true,
+    "noHaramContent": true,
+    "respectfulLanguage": true
+  }
+}

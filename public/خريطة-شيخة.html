@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>خريطة شيخة — أسواق ومنظومات | Sheikha Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--gold-l:#F5E6A3;--dark:#030509;--card:#0a0e18;--border:rgba(212,175,55,.1);--text:#f4f4f5;--muted:#94a3b8;--green:#10b981;--blue:#3b82f6;--orange:#f59e0b;--red:#ef4444;--purple:#a855f7;--copper:#B87333}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 10%,rgba(212,175,55,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+.wrap{max-width:1300px;margin:0 auto;padding:20px;position:relative;z-index:1}
+
+/* Header */
+.hdr{text-align:center;padding:40px 20px 20px}
+.hdr h1{font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hdr .ayah{color:var(--gold);font-size:.95rem;font-style:italic;margin:12px 0 4px;opacity:.85}
+.hdr .ref{color:var(--muted);font-size:.8rem}
+.hdr .sub{color:var(--muted);font-size:.9rem;margin-top:10px}
+
+/* Stats Bar */
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:20px 0 30px}
+.st{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 22px;text-align:center;min-width:120px}
+.st .n{font-size:1.8rem;font-weight:900;color:var(--gold)}
+.st .l{color:var(--muted);font-size:.75rem;margin-top:2px}
+
+/* Nav Tabs */
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 24px;position:sticky;top:0;z-index:50;background:rgba(3,5,9,.92);backdrop-filter:blur(20px);padding:14px 0;border-bottom:1px solid var(--border)}
+.tab{padding:8px 20px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Tajawal';font-size:.85rem;font-weight:600;cursor:pointer;transition:all .3s}
+.tab:hover{color:var(--gold);border-color:var(--gold)}
+.tab.active{background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--dark);border-color:transparent;font-weight:800}
+
+/* Section */
+.section{margin-bottom:36px;display:none}
+.section.show{display:block}
+.section-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.section-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.section-info h2{font-size:1.2rem;font-weight:800}
+.section-info p{font-size:.8rem;color:var(--muted)}
+
+/* Grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+
+/* Card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;transition:all .3s;text-decoration:none;color:var(--text);display:block;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;right:0;left:0;height:3px;border-radius:16px 16px 0 0}
+.card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 12px 40px rgba(212,175,55,.08)}
+.card .badge{position:absolute;top:14px;left:14px;padding:3px 12px;border-radius:20px;font-size:.7rem;font-weight:700}
+.badge.live{background:rgba(16,185,129,.15);color:var(--green)}
+.badge.soon{background:rgba(245,158,11,.15);color:var(--orange)}
+.badge.plan{background:rgba(168,85,247,.15);color:var(--purple)}
+.card .ic{font-size:2rem;margin-bottom:10px}
+.card h3{font-size:1.05rem;font-weight:700;margin-bottom:4px}
+.card .en{display:none}
+.card .desc{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:10px}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px}
+.card .tag{padding:2px 8px;border-radius:6px;font-size:.65rem;background:rgba(59,130,246,.1);color:var(--blue)}
+
+/* Phase Timeline */
+.timeline{display:flex;gap:0;margin:20px 0;overflow-x:auto;padding-bottom:8px}
+.phase{flex:1;min-width:180px;text-align:center;padding:16px 12px;border:1px solid var(--border);background:var(--card);position:relative}
+.phase:first-child{border-radius:0 12px 12px 0}
+.phase:last-child{border-radius:12px 0 0 12px}
+.phase .ph-num{font-size:1.6rem;font-weight:900;color:var(--gold)}
+.phase .ph-name{font-size:.85rem;font-weight:700;margin:4px 0}
+.phase .ph-time{font-size:.7rem;color:var(--muted)}
+.phase.current{border-color:var(--gold);background:rgba(212,175,55,.05)}
+.phase.current::after{content:'الآن';position:absolute;top:-10px;right:50%;transform:translateX(50%);background:var(--gold);color:var(--dark);padding:2px 10px;border-radius:10px;font-size:.65rem;font-weight:800}
+
+/* Back to Home */
+.home-btn{position:fixed;bottom:20px;left:20px;background:linear-gradient(135deg,var(--gold),var(--copper));color:var(--dark);border:none;padding:12px 22px;border-radius:12px;font-family:'Tajawal';font-weight:800;font-size:.85rem;cursor:pointer;z-index:100;box-shadow:0 4px 20px rgba(212,175,55,.3);text-decoration:none;display:flex;align-items:center;gap:8px}
+.home-btn:hover{transform:scale(1.05)}
+
+.footer{text-align:center;padding:40px 20px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:30px}
+.footer .owner{color:var(--gold);font-weight:700;font-size:.9rem;margin-bottom:6px}
+
+@media(max-width:768px){.hdr h1{font-size:1.6rem}.grid{grid-template-columns:1fr}.stats{gap:6px}.st{min-width:90px;padding:10px}.st .n{font-size:1.3rem}.tab{padding:6px 14px;font-size:.78rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+    <h1>خريطة منظومة وسوق شيخة</h1>
+    <div class="ayah">"وَكُلَّ شَيْءٍ فَصَّلْنَاهُ تَفْصِيلًا"</div>
+    <div class="ref">الإسراء ١٢</div>
+    <div class="sub">كل سوق ومنظومة في مكانها — منظمة ومرقمنة بالكتاب والسنة</div>
+</div>
+
+<div class="stats" id="mainStats"></div>
+
+<!-- جدول المراحل -->
+<div class="timeline" id="timeline"></div>
+
+<!-- أقسام التصفح -->
+<div class="tabs" id="tabs"></div>
+
+<!-- المحتوى -->
+<div id="content"></div>
+
+<div class="footer">
+    <div class="owner">المالك: سلمان أحمد بن سلمان الراجح</div>
+    منظومة وسوق شيخة — مبنية على الكتاب والسنة<br>
+    <span style="display:inline-block;margin-top:4px;font-size:.8rem;color:#71717a">الملكية الفكرية: سلمان أحمد بن سلمان الراجح</span>
+</div>
+</div>
+
+<a href="/" class="home-btn">الرئيسية ←</a>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// بيانات الأسواق والمنظومات — مصنفة ومنظمة
+// ═══════════════════════════════════════════════════════════════
+const SECTIONS = [
+    // ═══════════════════════════════════════════════════════════
+    // الطبقة ١: واجهة المستخدم — ما يراه الزائر والتاجر
+    // ═══════════════════════════════════════════════════════════
+    {
+        id:'core', tab:'الصفحات الأساسية', icon:'🏠', color:'#D4AF37',
+        title:'البوابة الرئيسية', desc:'الصفحات الأساسية التي يراها كل زائر',
+        cards:[
+            { name:'الصفحة الرئيسية', en:'Home', icon:'🏠', url:'/', status:'live', desc:'البوابة الرئيسية لمنظومة شيخة', tags:['PWA','SEO'] },
+            { name:'تسجيل الدخول', en:'Login', icon:'🔐', url:'/تسجيل-الدخول.html', status:'live', desc:'5 طرق مصادقة — Google, Microsoft, Apple, نفاذ', tags:['JWT','OAuth'] },
+            { name:'تسجيل الشركات', en:'Company Register', icon:'🏢', url:'/تسجيل-الشركات.html', status:'live', desc:'تسجيل الشركات والموردين — 5 خطوات', tags:['B2B'] },
+            { name:'تسجيل حكومي', en:'Gov Register', icon:'🏛️', url:'/تسجيل-حكومي.html', status:'live', desc:'تسجيل الجهات الحكومية', tags:['B2G'] },
+            { name:'الشروط والسياسات', en:'Terms', icon:'📄', url:'/الشروط-والسياسات.html', status:'live', desc:'شروط الاستخدام والأحكام', tags:['قانوني'] },
+            { name:'سياسة الخصوصية', en:'Privacy', icon:'🔒', url:'/سياسة-الخصوصية.html', status:'live', desc:'حماية البيانات والخصوصية', tags:['GDPR'] }
+        ]
+    },
+    {
+        id:'metals', tab:'سوق المعادن', icon:'⚙️', color:'#B87333',
+        title:'سوق المعادن والسكراب', desc:'أول سوق إسلامي رقمي للمعادن — النشاط الأساسي',
+        cards:[
+            { name:'سوق شيخة', en:'Sheikha Market', icon:'🏪', url:'/سوق-شيخة.html', status:'live', desc:'السوق الرئيسي — عرض المنتجات والأسعار الحية', tags:['أسعار حية','HS Codes','RFQ'] },
+            { name:'هوية السوق', en:'Market Identity', icon:'📜', url:'/هوية-السوق.html', status:'live', desc:'قصة سوق المدينة النبوي — من المدينة إلى الخبر', tags:['هوية','تاريخ'] },
+            { name:'سوق المدينة', en:'Souq Al-Madinah', icon:'🕌', url:'/سوق-المدينة.html', status:'live', desc:'٨ أركان نبوية — ١٢ حكم شرعي — ٨ مواصفات هندسية', tags:['نبوي','أركان'] },
+            { name:'التسويق الرقمي', en:'Digital Marketing', icon:'📊', url:'/التسويق-الرقمي.html', status:'live', desc:'الحملات والمواد التسويقية', tags:['SEO','حملات'] },
+            { name:'المجتمع', en:'Community', icon:'🤝', url:'/المجتمع.html', status:'live', desc:'المجتمع العلمي والتجاري', tags:['منتدى','ابتكار'] }
+        ]
+    },
+    {
+        id:'dashboards', tab:'لوحات التحكم', icon:'📊', color:'#3b82f6',
+        title:'لوحات التحكم والإدارة', desc:'كل مستخدم له لوحة تحكم مخصصة',
+        cards:[
+            { name:'لوحة المستخدم', en:'User Dashboard', icon:'👤', url:'/لوحة-تحكم-المستخدم.html', status:'live', desc:'لوحة تحكم التاجر', tags:['تاجر'] },
+            { name:'لوحة الشركة', en:'Company Dashboard', icon:'🏢', url:'/لوحة-الشركة.html', status:'live', desc:'لوحة تحكم الشركة', tags:['B2B'] },
+            { name:'لوحة الإدارة', en:'Admin Dashboard', icon:'👑', url:'/لوحة-الادمن.html', status:'live', desc:'لوحة الإدارة العليا', tags:['إدمن'] },
+            { name:'لوحة الحكومة السعودية', en:'Saudi Gov', icon:'🇸🇦', url:'/لوحة-الحكومة-السعودية.html', status:'live', desc:'لوحة الجهات السعودية', tags:['B2G'] },
+            { name:'لوحة الحكومات الدولية', en:'International Gov', icon:'🌍', url:'/لوحة-الحكومات-الدولية.html', status:'live', desc:'لوحة الجهات الدولية', tags:['دولي'] }
+        ]
+    },
+    {
+        id:'sharia', tab:'الشريعة والمرجعية', icon:'☪️', color:'#10b981',
+        title:'المرجعية الشرعية', desc:'المرجعية القرآنية والنبوية — أساس كل شيء في المنظومة',
+        cards:[
+            { name:'الشريعة الإسلامية', en:'Islamic Sharia', icon:'☪️', url:'/الشريعة-الاسلامية.html', status:'live', desc:'المرجع الشرعي — حاسبة زكاة — فقه المعاملات', tags:['قرآن','سنة','زكاة'] },
+            { name:'آيات التجارة', en:'Quranic Trade Verses', icon:'📖', url:'/آيات-التجارة.html', status:'live', desc:'٥٤ آية قرآنية في ٩ أبواب', tags:['قرآن','تجارة'] },
+            { name:'معايير الأحاديث', en:'Hadith Standards', icon:'⚖️', url:'/معايير-الأحاديث.html', status:'live', desc:'٤٨ حديث صحيح — ٨ وحدات قياس نبوية', tags:['أحاديث','معايير'] },
+            { name:'منظومة البركة', en:'Barakah System', icon:'🌿', url:'/منظومة-البركة.html', status:'live', desc:'الاقتصاد الإسلامي والبركة', tags:['بركة'] },
+            { name:'المشرّع الذكي', en:'Smart Legislator', icon:'⚖️', url:'/المشرع-الذكي.html', status:'live', desc:'نظام تشريع ذكي بالكتاب والسنة', tags:['تشريع'] }
+        ]
+    },
+
+    // ═══════════════════════════════════════════════════════════
+    // الطبقة ٢: الرؤية والمستقبل — صفحات استعراضية
+    // ═══════════════════════════════════════════════════════════
+    {
+        id:'vision', tab:'الرؤية والمستقبل', icon:'🌐', color:'#f59e0b',
+        title:'الرؤية الاقتصادية والمستقبلية', desc:'المشاريع الاستراتيجية — رؤية شيخة العالمية',
+        cards:[
+            { name:'بنك شيخة المركزي', en:'Sheikha Islamic Bank', icon:'🏦', url:'/بنك-شيخة.html', status:'live', desc:'١٠ أقسام — ١٠ منتجات — ١٢ عقد إسلامي — صفر ربا', tags:['بنك','صرافة'] },
+            { name:'العاصمة الاقتصادية', en:'Global Economic Capital', icon:'🌍', url:'/العاصمة-الاقتصادية.html', status:'live', desc:'٨ أركان — ٩ ممرات تجارية عالمية — ٧ مراحل', tags:['عاصمة','عالمي'] },
+            { name:'الهيكل الإداري', en:'Admin Structure', icon:'🏛️', url:'/الهيكل-الإداري.html', status:'live', desc:'٧ قطاعات — ٣٤ إدارة — ١٩٧ موظف', tags:['هيكل','إدارة'] }
+        ]
+    },
+
+    // ═══════════════════════════════════════════════════════════
+    // الطبقة ٣: أنظمة الخلفية — تعمل تلقائياً ولا تظهر للمستخدم العادي
+    // ═══════════════════════════════════════════════════════════
+    {
+        id:'backend', tab:'محركات الخلفية', icon:'🔧', color:'#6366f1',
+        title:'محركات الخلفية (Backend Engines)', desc:'أنظمة تعمل خلف الكواليس تلقائياً — لا تحتاج تفاعل المستخدم',
+        cards:[
+            { name:'محرك الذكاء الاصطناعي', en:'AI Engine', icon:'🧠', status:'live', desc:'GPT + Claude — تحليل ذكي — تصنيف تلقائي', tags:['خلفية','AI'] },
+            { name:'محرك الإنتاج المنهجي', en:'Production Engine', icon:'🏭', status:'live', desc:'خطوط إنتاج رقمية — جدولة — قياس', tags:['خلفية','إنتاج'] },
+            { name:'محرك الإتقان', en:'Excellence Engine', icon:'🏆', status:'live', desc:'الجودة ومعايير ISO — تحسين مستمر', tags:['خلفية','جودة'] },
+            { name:'محرك الأتمتة', en:'Automation Engine', icon:'⚡', status:'live', desc:'26 وظيفة مؤتمتة — 5 سير عمل', tags:['خلفية','أتمتة'] },
+            { name:'محرك التجربة', en:'Experience Engine', icon:'🎯', status:'live', desc:'رحلة العميل — 39 خطوة — 9 مبادئ', tags:['خلفية','UX'] },
+            { name:'محرك المراقبة', en:'Monitor Engine', icon:'📡', status:'live', desc:'مراقبة حية — فهرسة — تنبيهات', tags:['خلفية','مراقبة'] },
+            { name:'محرك الحكمة والمنطق', en:'Wisdom Engine', icon:'🧿', status:'live', desc:'٦ أسس — ٦ طبقات منطق — ٨ قواعد', tags:['خلفية','حكمة'] },
+            { name:'محرك الشبكات والطاقة', en:'Networks Engine', icon:'🔌', status:'live', desc:'شبكات — اتصالات — طاقة', tags:['خلفية','شبكات'] },
+            { name:'محرك الكون والأرض', en:'Cosmos Engine', icon:'🌌', status:'live', desc:'الموارد — الفضاء — الآيات الكونية', tags:['خلفية','موارد'] },
+            { name:'محرك اللغة العربية', en:'Arabic Engine', icon:'📚', status:'live', desc:'نحو — صرف — بلاغة — إعراب', tags:['خلفية','لغة'] },
+            { name:'محرك التكامل', en:'Integration Engine', icon:'🔗', status:'live', desc:'53 محرك متكامل — 4 أنماط تدفق', tags:['خلفية','تكامل'] },
+            { name:'محرك الإصلاح الذاتي', en:'Self-Heal Engine', icon:'🛡️', status:'live', desc:'6 فحوصات — 10 استراتيجيات إصلاح', tags:['خلفية','أمان'] },
+            { name:'محرك DevOps', en:'DevOps Engine', icon:'🔄', status:'live', desc:'CI/CD — 7 مراحل — نشر تلقائي', tags:['خلفية','DevOps'] },
+            { name:'محرك التقويم', en:'Calendar Engine', icon:'📅', status:'live', desc:'هجري + ميلادي — مناسبات — أحداث', tags:['خلفية','تقويم'] },
+            { name:'محرك الهوية', en:'Brand Engine', icon:'🎨', status:'live', desc:'6 قيم — 5 ألوان — 10 قنوات', tags:['خلفية','هوية'] },
+            { name:'محرك التوثيق التاريخي', en:'Historical Engine', icon:'📜', status:'live', desc:'6 عصور — 60 حدث — 36 قانون', tags:['خلفية','تاريخ'] },
+            { name:'محرك هيكل السوق', en:'Market Structure', icon:'🏗️', status:'live', desc:'7 قطاعات — 12 قسم — نظام الحسبة', tags:['خلفية','هيكل'] },
+            { name:'محرك i18n', en:'Internationalization', icon:'🌍', status:'live', desc:'14 لغة — ترجمة ثنائية الاتجاه', tags:['خلفية','لغات'] }
+        ]
+    },
+
+    // ═══════════════════════════════════════════════════════════
+    // الطبقة ٤: الخرائط والفهرسة الداخلية
+    // ═══════════════════════════════════════════════════════════
+    {
+        id:'maps', tab:'الخرائط والهيكلة', icon:'🗺️', color:'#8b5cf6',
+        title:'الخرائط والهيكلة', desc:'المخططات والفهارس — للمطورين والإدارة',
+        cards:[
+            { name:'المخطط الهيكلي', en:'System Blueprint', icon:'🏗️', url:'/المخطط-الهيكلي.html', status:'live', desc:'39 محرك — 15 طبقة — 10 قوانين', tags:['هيكلة','محركات'] },
+            { name:'فهرس المنظومة', en:'System Directory', icon:'📋', url:'/فهرس-المنظومة.html', status:'live', desc:'فهرس كامل + مراقبة حية', tags:['فهرس','مراقبة'] },
+            { name:'خريطة شيخة', en:'Sheikha Roadmap', icon:'🗺️', url:'/خريطة-شيخة.html', status:'live', desc:'أنت هنا — الخريطة الشاملة', tags:['خريطة'] }
+        ]
+    },
+
+    // ═══════════════════════════════════════════════════════════
+    // الطبقة ٥: مشاريع مستقبلية
+    // ═══════════════════════════════════════════════════════════
+    {
+        id:'future', tab:'مشاريع مستقبلية', icon:'🚀', color:'#ec4899',
+        title:'مشاريع مستقبلية', desc:'قيد التخطيط — تُفعّل حسب الجاهزية والأولوية',
+        cards:[
+            { name:'نظام شيخة للتشغيل', en:'Sheikha OS', icon:'💻', status:'plan', desc:'9 إصدارات: حاسب، جوال، سحابة، سيارات، IoT', tags:['نظام تشغيل'] },
+            { name:'صندوق شيخة الاستثماري', en:'Investment Fund', icon:'📈', status:'plan', desc:'صندوق استثماري إسلامي — عوائد حلال', tags:['استثمار'] },
+            { name:'سوق البترول والطاقة', en:'Petroleum Market', icon:'⛽', status:'plan', desc:'سوق النفط والغاز والطاقة المتجددة', tags:['بترول'] },
+            { name:'سوق الذهب والفضة', en:'Gold & Silver', icon:'🥇', status:'plan', desc:'تداول المعادن الثمينة', tags:['ذهب','فضة'] },
+            { name:'متصفح شيخة', en:'Sheikha Browser', icon:'🌐', status:'plan', desc:'متصفح آمن مع فلتر شرعي', tags:['متصفح'] },
+            { name:'منظومة التصنيع', en:'Manufacturing', icon:'🏭', status:'plan', desc:'مصانع — سلاسل إمداد — تصنيع ذكي', tags:['صناعة'] },
+            { name:'التجارة الدولية', en:'International Trade', icon:'🌍', status:'plan', desc:'استيراد وتصدير — معاهدات دولية', tags:['تجارة'] },
+            { name:'العلوم والابتكار', en:'Sciences', icon:'🔬', status:'plan', desc:'بحث علمي — مختبرات — 14 مجال', tags:['علوم'] }
+        ]
+    }
+];
+
+const PHASES = [
+    { num:1, name:'التأسيس', en:'Foundation', time:'الآن', current:true },
+    { num:2, name:'التشغيل التجريبي', en:'Pilot', time:'المرحلة الحالية', current:true },
+    { num:3, name:'الإطلاق التجاري', en:'Launch', time:'بعد التحقق', current:false },
+    { num:4, name:'التوسع الإقليمي', en:'Regional', time:'السنة الثانية', current:false },
+    { num:5, name:'العالمية', en:'Global', time:'السنة الثالثة+', current:false }
+];
+
+// ═══════════════════════════════════════════════════════════════
+// Render
+// ═══════════════════════════════════════════════════════════════
+const totalCards = SECTIONS.reduce((s,sec) => s + sec.cards.length, 0);
+const liveCards = SECTIONS.reduce((s,sec) => s + sec.cards.filter(c => c.status === 'live').length, 0);
+const planCards = totalCards - liveCards;
+
+document.getElementById('mainStats').innerHTML = [
+    { n: SECTIONS.length, l:'قسم رئيسي' },
+    { n: totalCards, l:'سوق / منظومة' },
+    { n: liveCards, l:'نشط الآن' },
+    { n: planCards, l:'قيد التخطيط' },
+    { n: '10', l:'قانون شرعي' },
+    { n: '42', l:'شرط وضابط' }
+].map(s => `<div class="st"><div class="n">${s.n}</div><div class="l">${s.l}</div></div>`).join('');
+
+// Timeline
+document.getElementById('timeline').innerHTML = PHASES.map(p =>
+    `<div class="phase${p.current?' current':''}">
+        <div class="ph-num">${p.num}</div>
+        <div class="ph-name">${p.name}</div>
+        <div style="font-size:.7rem;color:var(--blue)">${p.en}</div>
+        <div class="ph-time">${p.time}</div>
+    </div>`
+).join('');
+
+// Tabs
+const tabsEl = document.getElementById('tabs');
+const contentEl = document.getElementById('content');
+
+tabsEl.innerHTML = `<button class="tab active" data-id="all">الكل</button>` +
+    SECTIONS.map(s => `<button class="tab" data-id="${s.id}">${s.icon} ${s.tab}</button>`).join('');
+
+function renderSections(filter) {
+    const show = filter === 'all' ? SECTIONS : SECTIONS.filter(s => s.id === filter);
+    contentEl.innerHTML = show.map(sec => `
+        <div class="section show">
+            <div class="section-hdr">
+                <div class="section-icon" style="background:${sec.color}20;color:${sec.color}">${sec.icon}</div>
+                <div class="section-info">
+                    <h2>${sec.title}</h2>
+                    <p>${sec.desc}</p>
+                </div>
+            </div>
+            <div class="grid">
+                ${sec.cards.map(c => {
+                    const statusClass = c.status === 'live' ? 'live' : c.status === 'soon' ? 'soon' : 'plan';
+                    const statusText = c.status === 'live' ? 'نشط' : c.status === 'soon' ? 'قريباً' : 'مخطط';
+                    const href = c.url ? `href="${c.url}"` : '';
+                    return `<a ${href} class="card" style="--accent:${sec.color}">
+                        <div style="position:absolute;top:0;right:0;left:0;height:3px;background:${sec.color};border-radius:16px 16px 0 0"></div>
+                        <span class="badge ${statusClass}">${statusText}</span>
+                        <div class="ic">${c.icon}</div>
+                        <h3>${c.name}</h3>
+                        ${c.en ? `<div class="en">${c.en}</div>` : ''}
+                        <div class="desc">${c.desc}</div>
+                        <div class="meta">${(c.tags||[]).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                    </a>`;
+                }).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+renderSections('all');
+
+tabsEl.addEventListener('click', e => {
+    if (!e.target.classList.contains('tab')) return;
+    tabsEl.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    e.target.classList.add('active');
+    renderSections(e.target.dataset.id);
+});
+</script>
+</body>
+</html>

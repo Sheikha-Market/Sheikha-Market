@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>رياض الجنة للباحثين | SHEIKHA R&D</title>
+<meta name="description" content="شبكة الباحثين في رياض الجنة — تسجيل الباحثين، متابعة المشاريع، ومؤشر الأثر البحثي">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--bg:#050810;--bg2:#0f172a;--t1:#f8fafc;--t2:#94a3b8;--ok:#22c55e;--bad:#ef4444;--line:rgba(212,175,55,.18)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1)}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:18px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.logo{font-weight:900;color:var(--gold);font-size:1.15rem}
+.btn{padding:9px 14px;border:1px solid var(--line);border-radius:10px;background:rgba(212,175,55,.08);color:#f5e6a3;font-weight:700;cursor:pointer;font-family:inherit}
+.btn.ghost{background:transparent;color:var(--t2)}
+.hero{padding:18px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(15,23,42,.75));margin-bottom:14px}
+.hero h1{font-size:1.4rem;color:var(--gold);margin-bottom:6px}
+.hero p{font-size:.92rem;color:var(--t2);line-height:1.8}
+.grid{display:grid;grid-template-columns:1.1fr 1fr;gap:14px}
+.card{padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--bg2)}
+.card h2{font-size:.95rem;color:var(--gold);margin-bottom:10px}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(90px,1fr));gap:8px}
+.kpi{padding:10px;border:1px solid rgba(148,163,184,.2);border-radius:10px;text-align:center}
+.kpi .n{font-size:1.15rem;font-weight:900;color:#f8fafc}
+.kpi .l{font-size:.7rem;color:var(--t2)}
+.list{display:flex;flex-direction:column;gap:7px;max-height:340px;overflow:auto}
+.row{padding:8px;border:1px solid rgba(148,163,184,.2);border-radius:10px}
+.row .n{font-size:.85rem;font-weight:800}
+.row .m{font-size:.72rem;color:var(--t2);margin-top:2px}
+label{display:block;font-size:.72rem;color:var(--t2);margin-bottom:5px}
+input,textarea{width:100%;padding:9px;border-radius:9px;border:1px solid rgba(148,163,184,.24);background:#0b1221;color:var(--t1);font-family:inherit}
+textarea{min-height:70px;resize:vertical}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hint{font-size:.7rem;color:var(--t2)}
+.status{margin-top:8px;font-size:.78rem}
+.status.ok{color:var(--ok)} .status.err{color:var(--bad)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:4px 8px;border-radius:999px;border:1px solid rgba(148,163,184,.2);font-size:.68rem;color:#cbd5e1}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,minmax(90px,1fr))}.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="logo">🔬 رياض الجنة — شبكة الباحثين R&D</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a class="btn ghost" href="/المجتمع.html">العودة للمجتمع</a>
+      <a class="btn ghost" href="/سوق-شيخة.html">سوق شيخة</a>
+      <button class="btn" id="refreshBtn">تحديث البيانات</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <h1>منصة الباحثين الداخلية — أفضل من النمط التقليدي</h1>
+    <p>تجمع بين: هوية الباحث، المشاريع، المخرجات، الأثر المجتمعي، والمراجعة الشرعية/العلمية ضمن منظومة واحدة متصلة برياض الجنة والمجتمع.</p>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>لوحة شبكة الباحثين</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="n" id="kResearchers">0</div><div class="l">باحثون</div></div>
+        <div class="kpi"><div class="n" id="kProjects">0</div><div class="l">مشاريع</div></div>
+        <div class="kpi"><div class="n" id="kPubs">0</div><div class="l">مخرجات</div></div>
+      </div>
+      <div style="margin-top:10px" class="chips" id="orcidAdvantages"></div>
+      <div class="status" id="dashStatus"></div>
+    </section>
+
+    <section class="card">
+      <h2>أفضل الباحثين (Top)</h2>
+      <div class="list" id="topResearchers"></div>
+    </section>
+
+    <section class="card">
+      <h2>تسجيل باحث جديد</h2>
+      <div class="cols">
+        <div>
+          <label>الاسم الكامل</label>
+          <input id="rName" placeholder="مثال: د. أحمد بن علي">
+        </div>
+        <div>
+          <label>البريد</label>
+          <input id="rEmail" placeholder="research@example.com">
+        </div>
+      </div>
+      <div class="cols" style="margin-top:8px">
+        <div>
+          <label>مجالات التركيز (مفصولة بفاصلة)</label>
+          <input id="rFocus" placeholder="المعادن, الذكاء الاصطناعي">
+        </div>
+        <div>
+          <label>المنهجيات</label>
+          <input id="rMethods" placeholder="المنهج التجريبي, DMAIC">
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        <button class="btn" id="saveResearcherBtn">حفظ الباحث</button>
+        <span class="hint">تُحفظ البيانات داخل منظومة شيخة الرقمية.</span>
+      </div>
+      <div class="status" id="saveStatus"></div>
+    </section>
+
+    <section class="card">
+      <h2>بحث في الباحثين</h2>
+      <div class="cols">
+        <div>
+          <label>عبارة البحث</label>
+          <input id="searchQ" placeholder="اسم أو مجال">
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <button class="btn" id="searchBtn" style="width:100%">تنفيذ البحث</button>
+        </div>
+      </div>
+      <div class="list" id="searchResults" style="margin-top:10px"></div>
+      <div class="status" id="searchStatus"></div>
+    </section>
+  </div>
+</div>
+
+<script>
+async function jget(url){
+  const r=await fetch(url,{cache:'no-store'});
+  return r.json();
+}
+async function jpost(url,data){
+  const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data||{})});
+  return r.json();
+}
+function setStatus(elId,msg,ok){
+  const el=document.getElementById(elId); if(!el) return;
+  el.className='status '+(ok?'ok':'err'); el.textContent=msg||'';
+}
+function safeArr(v){return Array.isArray(v)?v:[];}
+
+function renderResearchers(rows,targetId){
+  const el=document.getElementById(targetId); if(!el) return;
+  const list=safeArr(rows);
+  if(!list.length){el.innerHTML='<div class="row"><div class="m">لا توجد بيانات.</div></div>';return;}
+  el.innerHTML=list.map((r)=>`
+    <div class="row">
+      <div class="n">${r.fullName||'—'} ${r.score!==undefined?`<span style="color:#22c55e;font-size:.78rem">(${r.score})</span>`:''}</div>
+      <div class="m">${safeArr(r.focusAreas).join(' • ')||'بدون مجالات'}${r.email?` — ${r.email}`:''}</div>
+    </div>
+  `).join('');
+}
+
+async function loadDashboard(){
+  try{
+    const [dash,gap]=await Promise.all([
+      jget('/api/riyad-aljannah/research-network/dashboard'),
+      jget('/api/riyad-aljannah/research-network/orcid-gap')
+    ]);
+    if(!dash.success){ setStatus('dashStatus','تعذر تحميل لوحة الشبكة.',false); return; }
+    const s=dash.data&&dash.data.summary?dash.data.summary:{};
+    document.getElementById('kResearchers').textContent=s.researchers||0;
+    document.getElementById('kProjects').textContent=s.projects||0;
+    document.getElementById('kPubs').textContent=s.publications||0;
+    renderResearchers(dash.data.topResearchers||[],'topResearchers');
+    const adv=safeArr(gap.data&&gap.data.sheikhaAdvantages);
+    document.getElementById('orcidAdvantages').innerHTML=adv.slice(0,4).map((x)=>`<span class="chip">${x}</span>`).join('');
+    setStatus('dashStatus','تم تحديث لوحة شبكة الباحثين.',true);
+  }catch(_){
+    setStatus('dashStatus','الخدمة غير متاحة الآن (تحقق من تشغيل الخادم).',false);
+  }
+}
+
+async function saveResearcher(){
+  const fullName=document.getElementById('rName').value.trim();
+  const email=document.getElementById('rEmail').value.trim();
+  const focus=document.getElementById('rFocus').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const methods=document.getElementById('rMethods').value.split(',').map(s=>s.trim()).filter(Boolean);
+  if(!fullName){setStatus('saveStatus','الاسم مطلوب.',false);return;}
+  try{
+    const res=await jpost('/api/riyad-aljannah/research-network/researchers',{fullName,email,focusAreas:focus,methodologies:methods});
+    if(res.success){
+      setStatus('saveStatus','تم تسجيل الباحث بنجاح.',true);
+      document.getElementById('rName').value=''; document.getElementById('rEmail').value='';
+      document.getElementById('rFocus').value=''; document.getElementById('rMethods').value='';
+      loadDashboard();
+    }else{
+      setStatus('saveStatus',res.message||'تعذر حفظ الباحث.',false);
+    }
+  }catch(_){
+    setStatus('saveStatus','فشل الاتصال بالخادم.',false);
+  }
+}
+
+async function searchResearchers(){
+  const q=document.getElementById('searchQ').value.trim();
+  try{
+    const res=await jget('/api/riyad-aljannah/research-network/researchers?q='+encodeURIComponent(q));
+    if(res.success){
+      renderResearchers(res.data||[],'searchResults');
+      setStatus('searchStatus','تم تنفيذ البحث.',true);
+    }else{
+      setStatus('searchStatus',res.message||'تعذر تنفيذ البحث.',false);
+    }
+  }catch(_){
+    setStatus('searchStatus','فشل الاتصال بالخادم.',false);
+  }
+}
+
+document.getElementById('refreshBtn').addEventListener('click',loadDashboard);
+document.getElementById('saveResearcherBtn').addEventListener('click',saveResearcher);
+document.getElementById('searchBtn').addEventListener('click',searchResearchers);
+loadDashboard();
+</script>
+</body>
+</html>

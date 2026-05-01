@@ -1,0 +1,37 @@
+{
+    "generatedAt": "2026-03-13T23:54:27.129Z",
+    "benchmarks": {
+        "ragAccuracy": {
+            "target": 0.92,
+            "measurement": "answer-coverage-and-citation-rate"
+        },
+        "shariaComplianceRate": {
+            "target": 1,
+            "measurement": "zero-sharia-violations"
+        },
+        "responseLatencyP95Ms": {
+            "target": 1500,
+            "measurement": "wall-clock-from-query-to-response"
+        },
+        "throughputRps": {
+            "target": 50,
+            "measurement": "sustained-requests-per-second"
+        }
+    },
+    "stressTestProfiles": [
+        {
+            "id": "stress-001",
+            "name": "100 concurrent RAG queries",
+            "targetRps": 100,
+            "durationSeconds": 60,
+            "acceptableP95LatencyMs": 2000
+        },
+        {
+            "id": "stress-002",
+            "name": "data-fabric high-volume ingestion",
+            "target": "data-fabric-core",
+            "payloadSizeMb": 50,
+            "acceptableP95LatencyMs": 5000
+        }
+    ]
+}

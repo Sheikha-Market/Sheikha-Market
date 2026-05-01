@@ -1,0 +1,16 @@
+{
+  "activity": [
+    { "id": "act_001", "type": "order_created", "actor": "usr_001", "entity": "ord_2026_001", "at": "2026-04-21T08:00:00Z", "details": "طلب شراء نحاس 5000 كغ" },
+    { "id": "act_002", "type": "order_matched", "actor": "system.matcher", "entity": "ord_2026_001", "at": "2026-04-21T08:15:00Z", "details": "مطابقة مع مورد usr_002" },
+    { "id": "act_003", "type": "contract_created", "actor": "system.contracts", "entity": "cnt_2026_x7a1b", "at": "2026-04-21T09:00:00Z", "details": "عقد توريد نحاس" },
+    { "id": "act_004", "type": "governance_check", "actor": "governance.checker", "entity": "cnt_2026_x7a1b", "at": "2026-04-21T09:01:00Z", "details": "تحقق الامتثال — ناجح" },
+    { "id": "act_005", "type": "supply_dispatched", "actor": "usr_002", "entity": "sup_2026_001", "at": "2026-04-21T06:00:00Z", "details": "شحنة نحاس مغادرة الدمام" },
+    { "id": "act_006", "type": "user_login", "actor": "usr_003", "entity": null, "at": "2026-04-21T07:20:00Z", "details": "تسجيل دخول — الرياض" },
+    { "id": "act_007", "type": "price_alert", "actor": "system.alerts", "entity": "copper", "at": "2026-04-21T07:00:00Z", "details": "النحاس +1.2% — LME" }
+  ],
+  "summary": {
+    "today": { "orders": 3, "contracts": 1, "supply_dispatched": 1, "users_active": 12 },
+    "week": { "orders": 18, "contracts": 7, "total_value_sar": 2840000 },
+    "last_updated": "2026-04-21T09:14:00Z"
+  }
+}

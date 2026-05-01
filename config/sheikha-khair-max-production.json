@@ -1,0 +1,78 @@
+{
+    "name": "sheikha-khair-max-production",
+    "version": "1.0.0",
+    "updatedAt": "2026-03-18T00:00:00.000Z",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "governance": {
+        "basis": "الكتاب والسنة",
+        "principle": "لا ضرر ولا ضرار",
+        "tawhid": "كل التمكين بفضل الله وحده",
+        "scope": "owned-or-delegated-assets-only",
+        "mission": "تعظيم الإنتاج النافع والآمن والتقني ضمن الأصول المملوكة أو المفوضة فقط",
+        "competitionGoal": "السبق إلى الخير والمنفعة والابتكار الآمن"
+    },
+    "renewalPolicy": {
+        "temporal": {
+            "monthlyRenewal": true,
+            "reviewDayOfMonth": 1,
+            "weeklyRenewal": true,
+            "weeklyReviewWeekday": "Friday",
+            "timezone": "Asia/Riyadh"
+        },
+        "standardsBased": {
+            "newTechnology": true,
+            "newExtension": true,
+            "innovationGoal": true
+        },
+        "valueDriven": {
+            "continuousImprovement": true,
+            "ethicalGuardrails": true,
+            "humanOversight": true
+        }
+    },
+    "activation": {
+        "oneShotScripts": [
+            "ops:production:activate:force",
+            "ops:generative-production:activate:force",
+            "ops:advanced-computing:activate:force",
+            "ops:global-compute-halal:activate:force",
+            "ops:foundation:activate:force",
+            "ops:partnerships-core:activate:force",
+            "ops:data-fabric:activate:force"
+        ],
+        "backgroundPm2Scripts": [
+            "ops:server:pm2:start",
+            "ops:monitor:start",
+            "ops:bg-guard:pm2:start",
+            "ops:ai-guard:pm2:start",
+            "ops:ip:proof:pm2:start:strict",
+            "ops:gcloud:alliance:auto:pm2:start",
+            "ops:extension:release:cycle:pm2:start"
+        ],
+        "optionalScripts": [
+            "ops:health:check:dry",
+            "ops:readiness",
+            "ops:auth:readiness",
+            "ops:dev:doctor",
+            "ops:ollama:plan"
+        ]
+    },
+    "ecosystemTargets": [
+        "Sheikha Visual Studio Code",
+        "Sheikha Nvidia",
+        "Sheikha Google",
+        "Sheikha Microsoft",
+        "Sheikha Apple",
+        "Sheikha Linux",
+        "Sheikha Intel Core",
+        "Sheikha Meta",
+        "Sheikha GPT",
+        "Sheikha OpenAI",
+        "Sheikha Pop!_OS"
+    ],
+    "hardLimits": {
+        "forbidUnauthorizedServers": true,
+        "forbidGlobalUnownedControl": true,
+        "forbidDestructiveActions": true
+    }
+}

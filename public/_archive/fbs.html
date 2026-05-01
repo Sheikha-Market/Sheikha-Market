@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="نظام التخزين والشحن بواسطة شيخة FBS - خزّن بضاعتك واشحنها بسهولة">
+    <title>FBS - التخزين والشحن بواسطة شيخة | سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-dark: #063d24;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --text-faint: #64748b;
+            --border: #1e3a5f;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.25);
+            --shadow-gold: 0 4px 20px rgba(212,175,55,0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .nav {
+            display: flex;
+            gap: 8px;
+        }
+        .nav-link {
+            padding: 10px 18px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--gold);
+            background: rgba(212,175,55,0.1);
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--dark);
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 32px;
+            background: linear-gradient(180deg, var(--card) 0%, var(--dark) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse 70% 60% at 50% 20%, rgba(212,175,55,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(16,185,129,0.15);
+            border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Features */
+        .features {
+            padding: 80px 32px;
+            background: var(--dark);
+        }
+        .features-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 48px;
+        }
+        .section-title span { color: var(--gold); }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .feature-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: var(--transition);
+        }
+        .feature-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(10,92,54,0.15));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 32px;
+            background: var(--card);
+        }
+        .how-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+        .step {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            padding: 32px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+        }
+        .step:hover {
+            border-color: var(--gold);
+        }
+        .step-num {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--dark);
+            flex-shrink: 0;
+        }
+        .step-content h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .step-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 80px 32px;
+            background: var(--dark);
+        }
+        .pricing-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .pricing-table {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+        }
+        .pricing-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 32px;
+            text-align: center;
+        }
+        .pricing-header h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .pricing-header p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+        }
+        .pricing-body {
+            padding: 32px;
+        }
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .pricing-row:last-child { border-bottom: none; }
+        .pricing-service {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .pricing-service-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(212,175,55,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .pricing-service-name { font-weight: 600; }
+        .pricing-price {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .pricing-note {
+            text-align: center;
+            padding: 20px;
+            background: rgba(212,175,55,0.05);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Warehouses */
+        .warehouses {
+            padding: 80px 32px;
+            background: var(--card);
+        }
+        .warehouses-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .warehouses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .warehouse-card {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+        }
+        .warehouse-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .warehouse-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+        .warehouse-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status-active {
+            background: rgba(16,185,129,0.15);
+            color: var(--success);
+        }
+        .status-coming {
+            background: rgba(245,158,11,0.15);
+            color: var(--warning);
+        }
+
+        /* CTA */
+        .cta {
+            padding: 80px 32px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--dark));
+            text-align: center;
+        }
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .cta h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+        .cta h2 span { color: var(--gold); }
+        .cta p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker);
+            border-top: 1px solid var(--border);
+            padding: 32px;
+            text-align: center;
+        }
+        .footer p {
+            color: var(--text-faint);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .hero { padding: 48px 20px; }
+            .features, .how-it-works, .pricing, .warehouses, .cta { padding: 48px 20px; }
+            .step { flex-direction: column; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">ش</div>
+                <span class="logo-text">سوق شيخة</span>
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">الرئيسية</a>
+                <a href="السوق.html" class="nav-link">السوق</a>
+                <a href="المتاجر.html" class="nav-link">المتاجر</a>
+                <a href="fbs.html" class="nav-link active">FBS</a>
+                <a href="لوحة-التحكم.html" class="nav-link">لوحة التحكم</a>
+            </nav>
+            <a href="تسجيل-تاجر.html" class="btn btn-gold">افتح متجرك</a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🚀</span>
+                <span>خدمة جديدة</span>
+            </div>
+            <h1>التخزين والشحن <span>بواسطة شيخة</span></h1>
+            <p class="hero-desc">
+                خزّن بضاعتك في مستودعاتنا المعتمدة، وسنتولى الشحن والتوصيل لعملائك. 
+                ركّز على البيع ودعنا نهتم بالباقي!
+            </p>
+            <div class="hero-buttons">
+                <a href="#signup" class="btn btn-gold">📦 اشترك في FBS</a>
+                <a href="#how" class="btn btn-outline">كيف يعمل؟</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="features-content">
+            <h2 class="section-title">لماذا <span>FBS</span>؟</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>تخزين آمن</h3>
+                    <p>مستودعات مؤمنة ومراقبة 24/7. بضاعتك في أيدٍ أمينة مع حماية وتوثيق ضد الأضرار.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚚</div>
+                    <h3>شحن سريع</h3>
+                    <p>شبكة ناقلين معتمدين لتوصيل طلباتك في أسرع وقت. تتبع مباشر للشحنات.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>أسعار تنافسية</h3>
+                    <p>وفّر تكاليف التخزين والشحن. أسعار بالجملة لجميع التجار.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>إدارة مخزون</h3>
+                    <p>تابع مخزونك لحظة بلحظة من لوحة التحكم. تقارير تفصيلية وإشعارات.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>ضمان الجودة</h3>
+                    <p>فحص البضاعة عند الاستلام والتسليم. ضمان المطابقة للمواصفات.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>تركيز على البيع</h3>
+                    <p>لا تشغل بالك بالتخزين والشحن. ركّز على ما تجيده — البيع!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how">
+        <div class="how-content">
+            <h2 class="section-title">كيف يعمل <span>FBS</span>؟</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h3>أرسل بضاعتك</h3>
+                        <p>أرسل بضاعتك إلى مستودع شيخة الأقرب إليك. سنستلمها ونفحصها ونخزنها بأمان.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h3>اعرضها في السوق</h3>
+                        <p>اعرض بضاعتك في سوق شيخة مع شارة "FBS" الذهبية. العملاء يفضلون FBS للضمان والسرعة.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h3>نشحن لك</h3>
+                        <p>عند وصول طلب، نجهز الشحنة ونرسلها للعميل مباشرة. أنت لا تفعل شيئاً!</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <h3>استلم أرباحك</h3>
+                        <p>بعد تأكيد التوصيل، نحول لك قيمة البيع مباشرة. شفافية كاملة.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing">
+        <div class="pricing-content">
+            <h2 class="section-title">أسعار <span>FBS</span></h2>
+            <div class="pricing-table">
+                <div class="pricing-header">
+                    <h3>باقة التاجر</h3>
+                    <p>مناسبة لجميع التجار — بدون رسوم اشتراك</p>
+                </div>
+                <div class="pricing-body">
+                    <div class="pricing-row">
+                        <div class="pricing-service">
+                            <div class="pricing-service-icon">📦</div>
+                            <span class="pricing-service-name">التخزين (للطن/شهر)</span>
+                        </div>
+                        <div class="pricing-price">50 ريال</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-service">
+                            <div class="pricing-service-icon">🚚</div>
+                            <span class="pricing-service-name">الشحن المحلي (للطن)</span>
+                        </div>
+                        <div class="pricing-price">من 80 ريال</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-service">
+                            <div class="pricing-service-icon">📋</div>
+                            <span class="pricing-service-name">الاستلام والفحص</span>
+                        </div>
+                        <div class="pricing-price">مجاني</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-service">
+                            <div class="pricing-service-icon">🔒</div>
+                            <span class="pricing-service-name">حماية وتوثيق البضاعة</span>
+                        </div>
+                        <div class="pricing-price">0.5% من القيمة</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-service">
+                            <div class="pricing-service-icon">📊</div>
+                            <span class="pricing-service-name">إدارة المخزون</span>
+                        </div>
+                        <div class="pricing-price">مجاني</div>
+                    </div>
+                </div>
+                <div class="pricing-note">
+                    * الأسعار تقريبية وتختلف حسب نوع البضاعة والمسافة. تواصل معنا للحصول على عرض سعر دقيق.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Warehouses -->
+    <section class="warehouses">
+        <div class="warehouses-content">
+            <h2 class="section-title">مستودعات <span>شيخة</span></h2>
+            <div class="warehouses-grid">
+                <div class="warehouse-card">
+                    <h4>📍 مستودع الرياض</h4>
+                    <p>المنطقة الصناعية الثانية — 5000 متر مربع</p>
+                    <span class="warehouse-status status-active">✓ متاح الآن</span>
+                </div>
+                <div class="warehouse-card">
+                    <h4>📍 مستودع جدة</h4>
+                    <p>ميناء جدة الإسلامي — 3000 متر مربع</p>
+                    <span class="warehouse-status status-active">✓ متاح الآن</span>
+                </div>
+                <div class="warehouse-card">
+                    <h4>📍 مستودع الدمام</h4>
+                    <p>المنطقة الصناعية — 4000 متر مربع</p>
+                    <span class="warehouse-status status-active">✓ متاح الآن</span>
+                </div>
+                <div class="warehouse-card">
+                    <h4>📍 مستودع القصيم</h4>
+                    <p>بريدة — قيد الإنشاء</p>
+                    <span class="warehouse-status status-coming">⏳ قريباً</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="signup">
+        <div class="cta-content">
+            <h2>جاهز للبدء مع <span>FBS</span>؟</h2>
+            <p>انضم لمئات التجار الذين يستخدمون FBS لتسهيل عملياتهم وزيادة مبيعاتهم</p>
+            <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+                <a href="تسجيل-تاجر.html" class="btn btn-gold btn-lg">📦 اشترك الآن</a>
+                <a href="https://wa.me/966554942904?text=أريد الاستفسار عن خدمة FBS" target="_blank" class="btn btn-outline">تواصل معنا</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 سوق شيخة — FBS التخزين والشحن بواسطة شيخة</p>
+    </footer>
+</body>
+</html>

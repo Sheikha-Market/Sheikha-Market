@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Sheikha health check every 5 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+Unit=sheikha-health-check.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target

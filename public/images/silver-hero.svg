@@ -1,0 +1,95 @@
+<svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <!-- فضة حقيقية براقة -->
+        <radialGradient id="silverMetallic" cx="35%" cy="35%" r="70%">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+            <stop offset="10%" style="stop-color:#F5F5F5;stop-opacity:1" />
+            <stop offset="25%" style="stop-color:#E8E8E8;stop-opacity:1" />
+            <stop offset="45%" style="stop-color:#D0D0D0;stop-opacity:1" />
+            <stop offset="65%" style="stop-color:#A8A8A8;stop-opacity:1" />
+            <stop offset="85%" style="stop-color:#808080;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#505050;stop-opacity:0.8" />
+        </radialGradient>
+
+        <!-- ظل دقيق -->
+        <filter id="silverShadow">
+            <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000" flood-opacity="0.4" />
+            <feDropShadow dx="2" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.2" />
+        </filter>
+
+        <!-- بريق الفضة -->
+        <filter id="silverGlow">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2" />
+            <feOffset dx="0" dy="3" result="offsetblur" />
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.5" />
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+
+        <!-- خلفية -->
+        <linearGradient id="silverBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#1a1a1f;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#252530;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#1a1a1f;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+
+    <rect width="600" height="500" fill="url(#silverBg)" />
+
+    <!-- توهج خلفي فضي -->
+    <ellipse cx="300" cy="200" rx="380" ry="300" fill="url(#silverMetallic)" opacity="0.05" />
+
+    <!-- عملات فضية (الطبقة الأعمق) -->
+    <g filter="url(#silverShadow)">
+        <circle cx="140" cy="220" r="65" fill="url(#silverMetallic)" />
+        <circle cx="140" cy="220" r="62" stroke="#E8E8E8" stroke-width="1" fill="none" opacity="0.3" />
+        <circle cx="140" cy="220" r="58" stroke="#808080" stroke-width="0.5" fill="none"
+            opacity="0.15" />
+
+        <!-- نقش نمط الدوائر -->
+        <circle cx="140" cy="220" r="50" stroke="#D0D0D0" stroke-width="0.5" fill="none"
+            opacity="0.2" stroke-dasharray="1,2" />
+    </g>
+
+    <!-- عملة رئيسية (الأمام) -->
+    <g filter="url(#silverShadow)" transform="translate(50, -30)">
+        <circle cx="200" cy="200" r="75" fill="url(#silverMetallic)" />
+
+        <!-- تفاصيل منقوشة -->
+        <circle cx="200" cy="200" r="72" stroke="#F5F5F5" stroke-width="1.5" fill="none"
+            opacity="0.4" />
+        <circle cx="200" cy="200" r="68" stroke="#D0D0D0" stroke-width="0.8" fill="none"
+            opacity="0.25" />
+        <circle cx="200" cy="200" r="55" stroke="#A8A8A8" stroke-width="0.5" fill="none"
+            opacity="0.15" />
+
+        <!-- نقاط انعكاس -->
+        <circle cx="165" cy="185" r="18" fill="#fff" opacity="0.35" filter="url(#silverGlow)" />
+        <circle cx="215" cy="175" r="12" fill="#fff" opacity="0.25" />
+        <ellipse cx="200" cy="140" rx="15" ry="8" fill="#fff" opacity="0.2" />
+    </g>
+
+    <!-- عملة ثالثة (الجانب) -->
+    <g filter="url(#silverShadow)">
+        <circle cx="420" cy="240" r="60" fill="url(#silverMetallic)" />
+        <circle cx="420" cy="240" r="57" stroke="#E8E8E8" stroke-width="1" fill="none" opacity="0.3" />
+        <circle cx="380" cy="220" r="15" fill="#fff" opacity="0.3" filter="url(#silverGlow)" />
+    </g>
+
+    <!-- قاعدة عرض فضية -->
+    <ellipse cx="300" cy="380" rx="240" ry="50" fill="url(#silverMetallic)" opacity="0.2" />
+    <rect x="50" y="370" width="500" height="20" rx="10" fill="#1a1a1f" stroke="#A8A8A8"
+        stroke-width="1.5" />
+    <rect x="50" y="370" width="500" height="8" rx="8" fill="url(#silverMetallic)" opacity="0.3" />
+
+    <!-- معلومات المنتج -->
+    <text x="300" y="450" font-family="Amiri, serif" font-size="48" font-weight="700" fill="#C0C0C0"
+        text-anchor="middle" opacity="0.8">الفضة النقية</text>
+    <text x="300" y="495" font-family="Tajawal, sans-serif" font-size="18" font-weight="600"
+        fill="#808080" text-anchor="middle" opacity="0.7">نقاء 999 — استثماري وصناعي</text>
+</svg>

@@ -1,0 +1,99 @@
+{
+  "wallets": [
+    [
+      "SHK102a106ad401d8d54e927cee79442aa19",
+      {
+        "address": "SHK102a106ad401d8d54e927cee79442aa19",
+        "ownerName": "سلمان الراجح",
+        "ownerId": "OWN-1776633938291-0001",
+        "balances": {
+          "SHK": 8499,
+          "DGD": 0,
+          "SDH": 0
+        },
+        "staked": {
+          "SHK": 500
+        },
+        "createdAt": "2026-04-19T21:25:38.291Z",
+        "txCount": 2,
+        "active": true,
+        "onChain": true,
+        "chainTxId": "402843e9010e7759"
+      }
+    ],
+    [
+      "SHK149f7808973a71b4da887d3d6cf847d52",
+      {
+        "address": "SHK149f7808973a71b4da887d3d6cf847d52",
+        "ownerName": "منظومة شيخة",
+        "ownerId": "OWN-1776633938292-0002",
+        "balances": {
+          "SHK": 1000,
+          "DGD": 0,
+          "SDH": 0
+        },
+        "staked": {
+          "SHK": 0
+        },
+        "createdAt": "2026-04-19T21:25:38.292Z",
+        "txCount": 1,
+        "active": true,
+        "onChain": true,
+        "chainTxId": "2f4bbc9734dac549"
+      }
+    ]
+  ],
+  "txHistory": [
+    {
+      "txId": "TX-1776633938293-0004",
+      "from": "SHK102a106ad401d8d54e927cee79442aa19",
+      "to": "SHK149f7808973a71b4da887d3d6cf847d52",
+      "amount": 1000,
+      "currency": "SHK",
+      "fee": 1,
+      "net": 1000,
+      "memo": "اختبار",
+      "timestamp": "2026-04-19T21:25:38.293Z",
+      "hash": "8737e8bb2b4905dc6e00c66d3fa79821",
+      "onChain": true,
+      "chainTxId": "818235f91c91a466"
+    }
+  ],
+  "mintLog": [
+    {
+      "mintId": "MINT-1776633938292-0003",
+      "toAddress": "SHK102a106ad401d8d54e927cee79442aa19",
+      "amountSHK": 10000,
+      "backingAsset": "gold",
+      "backingValueSAR": 10000,
+      "backingRatioPerToken": 1,
+      "timestamp": "2026-04-19T21:25:38.292Z",
+      "authority": "SHEIKHA_CENTRAL_BANK"
+    }
+  ],
+  "burnLog": [],
+  "reserves": {
+    "gold": {
+      "amountSAR": 40010000,
+      "ratio": 0.4,
+      "description": "ذهب في خزائن آمنة"
+    },
+    "silver": {
+      "amountSAR": 30000000,
+      "ratio": 0.3,
+      "description": "فضة في خزائن آمنة"
+    },
+    "commodities": {
+      "amountSAR": 20000000,
+      "ratio": 0.2,
+      "description": "سلع حقيقية (معادن، زراعة، صناعة)"
+    },
+    "liquidity": {
+      "amountSAR": 10000000,
+      "ratio": 0.1,
+      "description": "سيولة نقدية مضمونة"
+    }
+  },
+  "circulatingSupply": 100010000,
+  "savedAt": "2026-04-19T21:25:38.293Z"
+}

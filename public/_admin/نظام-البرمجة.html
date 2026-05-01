@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="نظام شيخة للغات البرمجة — منظومة البرمجة المنطقية ومحركات اللغات البرمجية">
+    <title>نظام البرمجة — سوق شيخة | Sheikha Programming System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #d4af37; --green: #006633; --dark: #0d120d; --card: #0f1510; --text-muted: #8a9a8a; --border: #2a352a; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--dark);
+            background-image: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,102,51,0.08) 0%, transparent 50%);
+            color: #f5f5f0;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        .wrap { max-width: 820px; margin: 0 auto; }
+        .back { display: inline-block; margin-bottom: 1.5rem; color: var(--gold); text-decoration: none; font-weight: 500; }
+        .back:hover { text-decoration: underline; }
+        h1 { color: var(--gold); font-size: 1.9em; margin-bottom: 0.5rem; }
+        .sub { color: var(--text-muted); font-size: 1.05em; margin-bottom: 2rem; line-height: 1.7; }
+        .block { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem 1.75rem; margin-bottom: 1.25rem; }
+        .block h2 { color: var(--gold); font-size: 1.2em; margin-bottom: 0.75rem; }
+        .block p, .block ul { color: var(--text-muted); font-size: 0.98em; line-height: 1.8; }
+        .block ul { margin: 0.5rem 0 0 1.2rem; }
+        .block li { margin-bottom: 0.35rem; }
+        .hero-prog {
+            background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(0,102,51,0.15));
+            border: 2px solid var(--gold);
+            border-radius: 18px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .hero-prog h1 { margin-bottom: 0.5rem; }
+        .hero-prog .sub { margin-bottom: 1rem; }
+        .systems-status { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .system-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; display: flex; align-items: center; gap: 12px; }
+        .system-card.active { border-color: rgba(0,102,51,0.6); }
+        .system-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+        .system-info .name { font-weight: 700; color: #fff; font-size: 0.95em; }
+        .system-info .run { font-size: 0.85em; color: var(--text-muted); }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .cta-wrap { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 1.5rem; }
+        .cta-wrap a { display: inline-block; padding: 12px 20px; border-radius: 12px; font-weight: 700; text-decoration: none; font-family: inherit; font-size: 0.95em; }
+        .cta-gold { background: linear-gradient(135deg, var(--gold), #b8860b); color: #000; }
+        .cta-outline { background: transparent; border: 2px solid var(--gold); color: var(--gold); }
+        .halal-note { text-align: center; margin-top: 2rem; padding: 1rem; color: var(--text-muted); font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <a href="index.html" class="back">← العودة إلى الرئيسية</a>
+
+        <div class="hero-prog">
+            <h1>نظام شيخة للغات البرمجة</h1>
+            <p class="sub">منظومة البرمجة المنطقية ومحركات اللغات البرمجية متكاملة — الأفضل بالكون — تشمل كل لغة برمجة، الحزم البرمجية وتنسيقها وفهرستها وتكاملها بذكاء ومنطق، وحزم جزئية ذكية لكل لغة بالكون.</p>
+            <div class="systems-status" id="progSystemsStatus"></div>
+        </div>
+
+        <div class="block">
+            <h2>الحزم البرمجية — تنسيق، فهرسة، تكامل</h2>
+            <p>تنسيق الحزم (أسماء، إصدارات، تبعيات)، فهرستها للبحث السريع، وتكاملها بذكاء ومنطق — ربط حزمة بحزمة، أو جزء بحزمة، أو جزء بجزء. دمج حزم بمنطقية لتسريع البرمجة بذكاء.</p>
+        </div>
+
+        <div class="block">
+            <h2>تفعيل جزء من حزمة وربطها بحزمة أخرى</h2>
+            <p>إمكانية تفعيل جزء فقط من حزمة (وحدات، دوال، أصناف) وربطها بحزمة أخرى أو جزء من حزمة أخرى. تكوين حزم جزئية منطقية ذكية لكل لغة برمجة بالكون — قابلة لإعادة الاستخدام.</p>
+        </div>
+
+        <div class="block">
+            <h2>كل لغة برمجة بالكون</h2>
+            <p>المنظومة مصممة لشمول لغات الويب (JavaScript/TypeScript، HTML/CSS)، لغات الخادم (Node، Python، Java، C#، Go، Rust، PHP، Ruby)، لغات البيانات (SQL، R)، وأدوات (npm، pip، Maven، Gradle، cargo، إلخ). لكل لغة: فهرسة، تنسيق، قواعد ربط ودمج منطقية، وحزم جزئية ذكية.</p>
+        </div>
+
+        <div class="block">
+            <h2>تجربة المنظومة وقياس الأداء</h2>
+            <p>يمكنك تجربة منظومة البرمجة وقياس أدائها بالسرعة والجودة بكل المقاييس — زمن الاستجابة، مؤشر الجودة، الحزم المفهرسة، نسبة التكامل والدمج، وأكثر.</p>
+            <div class="cta-wrap">
+                <a href="تجربة-منظومة-البرمجة.html" class="cta-gold">تجربة منظومة البرمجة وقياس الأداء</a>
+            </div>
+        </div>
+
+        <div class="block">
+            <h2>الحالة</h2>
+            <p>نظام شيخة للغات البرمجة، منظومة البرمجة المنطقية، ومحركات اللغات البرمجية مُفعّلة وتعمل بالخلفية. الحالة تظهر في لوحة الأنظمة أعلاه وفي الصفحة الرئيسية (زر الأنظمة النشطة).</p>
+            <div class="cta-wrap">
+                <a href="index.html" class="cta-gold">الرئيسية</a>
+                <a href="index.html#contact" class="cta-outline">تواصل معنا</a>
+            </div>
+        </div>
+
+        <p class="halal-note">جميع محتويات المنصة حلال — نصوص وزخارف فقط — لا تُستخدم أي صور محرمة.</p>
+    </div>
+    <script>
+        (function() {
+            var el = document.getElementById('progSystemsStatus');
+            if (!el) return;
+            fetch('/api/systems-status').then(function(r) { return r.json(); }).then(function(data) {
+                if (!data.success || !data.systems) return;
+                var keys = ['sheikhaLang', 'progEcosystem', 'langEngines'];
+                var html = '';
+                keys.forEach(function(k) {
+                    if (data.systems[k] && data.systems[k].active)
+                        html += '<div class="system-card active"><span class="system-dot"></span><div class="system-info"><span class="name">' + (data.systems[k].label || k) + '</span><div class="run">' + (data.systems[k].running || 'بالخلفية') + '</div></div></div>';
+                });
+                if (html) el.innerHTML = html;
+            }).catch(function() {});
+        })();
+    </script>
+    <footer style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e2e8f0;text-align:center;font-size:0.9em;color:#64748b;">
+        <p><a href="index.html" style="color:#0d9488;text-decoration:none;">الرئيسية</a> · <a href="خريطة-الموقع.html" style="color:#0d9488;text-decoration:none;">خريطة الموقع</a></p>
+        <p style="margin-top:0.5rem;">أهداف الموقع: بلا ضرر ولا ضرار · حب العلامة وأمان · محافظة على البيئة والصحة والبشر.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="منتدى شيخة العالمي - منتدى تفاعلي لتبادل المعرفة والخبرات في مجال المعادن">
+    <title>منتدى شيخة العالمي | SHEIKHA Global Forum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #a78bfa;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+        .nav-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav-link:hover { color: #a78bfa; }
+        .login-btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+            border: none;
+            border-radius: 10px;
+            color: #ffffff;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 24px 40px;
+            background: radial-gradient(ellipse at center top, rgba(139, 92, 246, 0.1) 0%, transparent 60%);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            color: #a78bfa;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, #a78bfa 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 32px;
+        }
+
+        .forums-section h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .forum-category {
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .category-header {
+            background: rgba(139, 92, 246, 0.1);
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .category-icon {
+            font-size: 1.5rem;
+        }
+        .category-title {
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .category-desc {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .forum-list {
+            padding: 0;
+        }
+        .forum-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        .forum-item:last-child { border-bottom: none; }
+        .forum-item:hover {
+            background: rgba(139, 92, 246, 0.05);
+        }
+        .forum-info h4 {
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 4px;
+        }
+        .forum-info p {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        .forum-stats {
+            text-align: left;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+        .forum-stats span {
+            display: block;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .sidebar-card {
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .sidebar-title {
+            font-weight: 800;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #a78bfa;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .online-users {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .user-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .user-status {
+            font-size: 0.75rem;
+            color: #10b981;
+        }
+
+        .recent-topics {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .topic-item {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .topic-item:hover {
+            background: rgba(139, 92, 246, 0.1);
+        }
+        .topic-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        .topic-meta {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .new-topic-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .new-topic-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: rgba(5, 8, 16, 0.95);
+            border-top: 1px solid rgba(139, 92, 246, 0.1);
+            padding: 32px;
+            text-align: center;
+        }
+        .footer-text {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        @media (max-width: 900px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <a href="منظومة-شيخة.html" class="logo">
+            <div class="logo-icon">🌐</div>
+            <span class="logo-text">منتدى شيخة</span>
+        </a>
+        <nav class="nav-links">
+            <a href="منظومة-شيخة.html" class="nav-link">الرئيسية</a>
+            <a href="مركز-أبحاث-شيخة.html" class="nav-link">مركز الأبحاث</a>
+            <a href="سوق-شيخة.html" class="nav-link">السوق</a>
+        </nav>
+        <a href="تسجيل-الدخول.html" class="login-btn">تسجيل الدخول</a>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-badge">
+        🌍 مجتمع عالمي مفتوح للجميع
+    </div>
+    <h1>منتدى شيخة العالمي</h1>
+    <p>تبادل المعرفة والخبرات في مجال المعادن - انضم لآلاف الخبراء والتجار من حول العالم</p>
+</section>
+
+<main class="main">
+    
+    <div class="forums-section">
+        <h2>📋 أقسام المنتدى</h2>
+
+        <!-- قسم الأخبار -->
+        <div class="forum-category">
+            <div class="category-header">
+                <span class="category-icon">📢</span>
+                <div>
+                    <div class="category-title">إعلانات وأخبار السوق</div>
+                    <div class="category-desc">آخر الأخبار والتحديثات في عالم المعادن</div>
+                </div>
+            </div>
+            <div class="forum-list">
+                <div class="forum-item" onclick="openForum('news')">
+                    <div class="forum-info">
+                        <h4>أخبار أسعار المعادن</h4>
+                        <p>تحديثات يومية للأسعار العالمية</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>234 موضوع</span>
+                        <span>1,523 رد</span>
+                    </div>
+                </div>
+                <div class="forum-item" onclick="openForum('announcements')">
+                    <div class="forum-info">
+                        <h4>إعلانات المنصة</h4>
+                        <p>تحديثات وإعلانات منظومة شيخة</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>45 موضوع</span>
+                        <span>312 رد</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم النقاشات -->
+        <div class="forum-category">
+            <div class="category-header">
+                <span class="category-icon">💬</span>
+                <div>
+                    <div class="category-title">نقاشات عامة</div>
+                    <div class="category-desc">نقاشات حرة حول المعادن والتجارة</div>
+                </div>
+            </div>
+            <div class="forum-list">
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h4>تحليل الأسواق</h4>
+                        <p>شارك تحليلاتك وتوقعاتك</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>567 موضوع</span>
+                        <span>4,231 رد</span>
+                    </div>
+                </div>
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h4>استراتيجيات التجارة</h4>
+                        <p>تبادل الخبرات والاستراتيجيات</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>342 موضوع</span>
+                        <span>2,876 رد</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم المصانع -->
+        <div class="forum-category">
+            <div class="category-header">
+                <span class="category-icon">🏭</span>
+                <div>
+                    <div class="category-title">قسم المصانع والتصنيع</div>
+                    <div class="category-desc">للمصانع والشركات الصناعية</div>
+                </div>
+            </div>
+            <div class="forum-list">
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h4>احتياجات المواد الخام</h4>
+                        <p>طلبات التوريد والشراكات</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>189 موضوع</span>
+                        <span>1,234 رد</span>
+                    </div>
+                </div>
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h4>تقنيات التصنيع</h4>
+                        <p>أحدث التقنيات والمعدات</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>156 موضوع</span>
+                        <span>987 رد</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم اللوجستيات -->
+        <div class="forum-category">
+            <div class="category-header">
+                <span class="category-icon">🚚</span>
+                <div>
+                    <div class="category-title">قسم اللوجستيات والنقل</div>
+                    <div class="category-desc">للناقلين وشركات الشحن</div>
+                </div>
+            </div>
+            <div class="forum-list">
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h4>خدمات النقل</h4>
+                        <p>عروض وطلبات الشحن</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>278 موضوع</span>
+                        <span>1,654 رد</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم إعادة التدوير -->
+        <div class="forum-category">
+            <div class="category-header">
+                <span class="category-icon">♻️</span>
+                <div>
+                    <div class="category-title">قسم السكراب وإعادة التدوير</div>
+                    <div class="category-desc">تجارة الخردة والمعادن المعاد تدويرها</div>
+                </div>
+            </div>
+            <div class="forum-list">
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h4>بيع وشراء السكراب</h4>
+                        <p>عروض وطلبات الخردة المعدنية</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>423 موضوع</span>
+                        <span>3,421 رد</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم التعلم -->
+        <div class="forum-category">
+            <div class="category-header">
+                <span class="category-icon">📚</span>
+                <div>
+                    <div class="category-title">التعلم والتدريب</div>
+                    <div class="category-desc">دورات ومواد تعليمية</div>
+                </div>
+            </div>
+            <div class="forum-list">
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h4>دليل المبتدئين</h4>
+                        <p>أساسيات تجارة المعادن</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>89 موضوع</span>
+                        <span>567 رد</span>
+                    </div>
+                </div>
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h4>أسئلة وأجوبة</h4>
+                        <p>اسأل الخبراء</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>654 موضوع</span>
+                        <span>4,321 رد</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <aside class="sidebar">
+        
+        <div class="sidebar-card">
+            <button class="new-topic-btn" onclick="newTopic()">✏️ موضوع جديد</button>
+        </div>
+
+        <div class="sidebar-card">
+            <h3 class="sidebar-title">📊 إحصائيات المنتدى</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">12,450</div>
+                    <div class="stat-label">عضو</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">3,234</div>
+                    <div class="stat-label">موضوع</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">45,678</div>
+                    <div class="stat-label">رد</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">234</div>
+                    <div class="stat-label">متصل الآن</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-card">
+            <h3 class="sidebar-title">🟢 الأعضاء المتصلون</h3>
+            <div class="online-users">
+                <div class="user-item">
+                    <div class="user-avatar">أ</div>
+                    <div>
+                        <div class="user-name">أحمد التاجر</div>
+                        <div class="user-status">● متصل</div>
+                    </div>
+                </div>
+                <div class="user-item">
+                    <div class="user-avatar">م</div>
+                    <div>
+                        <div class="user-name">محمد الصناعي</div>
+                        <div class="user-status">● متصل</div>
+                    </div>
+                </div>
+                <div class="user-item">
+                    <div class="user-avatar">س</div>
+                    <div>
+                        <div class="user-name">سعيد الناقل</div>
+                        <div class="user-status">● متصل</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-card">
+            <h3 class="sidebar-title">🔥 أحدث المواضيع</h3>
+            <div class="recent-topics">
+                <div class="topic-item">
+                    <div class="topic-title">توقعات أسعار النحاس للربع الثاني</div>
+                    <div class="topic-meta">قبل 15 دقيقة • 23 رد</div>
+                </div>
+                <div class="topic-item">
+                    <div class="topic-title">مطلوب 500 طن حديد سكراب</div>
+                    <div class="topic-meta">قبل ساعة • 12 رد</div>
+                </div>
+                <div class="topic-item">
+                    <div class="topic-title">أفضل طرق فحص جودة الألومنيوم</div>
+                    <div class="topic-meta">قبل 3 ساعات • 45 رد</div>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+</main>
+
+<footer class="footer">
+    <p class="footer-text">لا حول ولا قوة إلا بالله - اللهم اجعلها منظومة وسوق بركة وخير 🤲</p>
+</footer>
+
+<script>
+    function openForum(forum) {
+        alert('فتح قسم: ' + forum);
+    }
+    function newTopic() {
+        alert('سجل الدخول لإنشاء موضوع جديد');
+    }
+</script>
+
+</body>
+</html>

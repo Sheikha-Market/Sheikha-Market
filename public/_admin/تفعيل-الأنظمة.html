@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفعيل الأنظمة | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --green: #006c35;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #fff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; line-height: 1.7; }
+        
+        /* Header */
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; font-weight: 900; color: var(--dark);
+        }
+        .logo-text h1 { font-size: 1.1rem; color: var(--gold); }
+        .logo-text p { font-size: 0.7rem; color: var(--text-muted); }
+        
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 24px; }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+        }
+        .hero h1 { font-size: 2rem; margin-bottom: 12px; }
+        .hero h1 span { color: var(--gold); }
+        .hero p { font-size: 1rem; color: var(--text-muted); max-width: 500px; margin: 0 auto; }
+        
+        /* Systems Grid */
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .system-card {
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .system-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+        .system-card.selected {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.05);
+        }
+        .system-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .system-icon {
+            width: 60px; height: 60px;
+            background: var(--dark);
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+        }
+        .system-header h3 { font-size: 1.2rem; }
+        .system-header p { font-size: 0.8rem; color: var(--text-muted); }
+        .system-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+        .system-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .feature-tag {
+            padding: 4px 12px;
+            background: rgba(212,175,55,0.1);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--gold);
+        }
+        
+        /* Activation Panel */
+        .activation-panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            display: none;
+        }
+        .activation-panel.active { display: block; }
+        
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .panel-title h2 { font-size: 1.3rem; }
+        .close-btn {
+            width: 40px; height: 40px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        .close-btn:hover { border-color: var(--gold); color: var(--gold); }
+        
+        /* Objectives */
+        .objectives-section {
+            background: rgba(16,185,129,0.1);
+            border: 1px solid var(--success);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .objectives-section h4 {
+            color: var(--success);
+            font-size: 1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .objectives-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        .objectives-list li {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .objectives-list li::before { content: '✓'; color: var(--success); }
+        
+        /* Value Proposition */
+        .value-section {
+            background: rgba(212,175,55,0.1);
+            border: 1px solid var(--gold);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .value-section h4 {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .value-item {
+            text-align: center;
+            padding: 16px;
+            background: var(--dark);
+            border-radius: var(--radius);
+        }
+        .value-item .icon { font-size: 1.5rem; margin-bottom: 8px; }
+        .value-item h5 { font-size: 0.9rem; margin-bottom: 4px; }
+        .value-item p { font-size: 0.75rem; color: var(--text-muted); }
+        
+        /* Steps */
+        .steps-section {
+            margin-bottom: 24px;
+        }
+        .steps-section h4 {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .step-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            padding: 16px;
+            background: var(--dark);
+            border-radius: var(--radius);
+            border-right: 3px solid var(--border);
+            transition: all 0.3s;
+        }
+        .step-item:hover { border-right-color: var(--gold); }
+        .step-number {
+            width: 36px; height: 36px;
+            background: var(--gold);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+        .step-content h5 { font-size: 0.95rem; margin-bottom: 4px; }
+        .step-content p { font-size: 0.8rem; color: var(--text-muted); }
+        
+        /* Requirements */
+        .requirements-section {
+            background: var(--dark);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .requirements-section h4 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .req-list {
+            list-style: none;
+        }
+        .req-list li {
+            padding: 8px 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .req-list li:last-child { border-bottom: none; }
+        .req-list li::before { content: '📋'; }
+        
+        /* Bot Assistant */
+        .bot-section {
+            background: linear-gradient(135deg, var(--green), var(--dark));
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .bot-avatar {
+            width: 70px; height: 70px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        .bot-content h4 { font-size: 1.1rem; margin-bottom: 8px; }
+        .bot-content p { font-size: 0.9rem; opacity: 0.9; margin-bottom: 12px; }
+        .bot-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            border: none;
+            border-radius: var(--radius);
+            color: var(--dark);
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .bot-btn:hover { transform: scale(1.02); }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .btn {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--dark); }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,0.3); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+        
+        /* Chat Bot Modal */
+        .chat-modal {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            width: 380px;
+            max-height: 500px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+        }
+        .chat-modal.active { display: flex; }
+        .chat-header {
+            padding: 16px 20px;
+            background: linear-gradient(135deg, var(--gold), var(--green));
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .chat-header h4 { font-size: 1rem; color: var(--dark); }
+        .chat-close {
+            background: rgba(0,0,0,0.2);
+            border: none;
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        .chat-body {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            max-height: 350px;
+        }
+        .chat-message {
+            margin-bottom: 12px;
+            display: flex;
+            gap: 10px;
+        }
+        .chat-message.bot { flex-direction: row; }
+        .chat-message.user { flex-direction: row-reverse; }
+        .message-avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .bot .message-avatar { background: var(--gold); }
+        .user .message-avatar { background: var(--info); }
+        .message-bubble {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .bot .message-bubble { background: var(--dark); color: var(--text); border-bottom-right-radius: 4px; }
+        .user .message-bubble { background: var(--info); color: #fff; border-bottom-left-radius: 4px; }
+        .chat-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .chat-option {
+            padding: 6px 12px;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--gold);
+            cursor: pointer;
+        }
+        .chat-option:hover { background: var(--gold); color: var(--dark); }
+        .chat-input-area {
+            padding: 12px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 10px 14px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+        .chat-input:focus { outline: none; border-color: var(--gold); }
+        .chat-send {
+            width: 40px; height: 40px;
+            background: var(--gold);
+            border: none;
+            border-radius: 50%;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        /* Floating Bot Button */
+        .floating-bot {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, var(--gold), var(--green));
+            border: none;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(212,175,55,0.4);
+            z-index: 999;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .floating-bot.hidden { display: none; }
+        
+        @media (max-width: 768px) {
+            .systems-grid { grid-template-columns: 1fr; }
+            .objectives-list { grid-template-columns: 1fr; }
+            .value-grid { grid-template-columns: 1fr; }
+            .chat-modal { width: calc(100% - 48px); right: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">ش</div>
+                <div class="logo-text">
+                    <h1>شيخة</h1>
+                    <p>تفعيل الأنظمة</p>
+                </div>
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <h1>تفعيل <span>الأنظمة</span></h1>
+            <p>اختر النظام الذي تريد تفعيله — بوت ذكي سيساعدك خطوة بخطوة</p>
+        </div>
+
+        <!-- Systems Grid -->
+        <div class="systems-grid" id="systemsGrid">
+            <!-- نظام البيع والشراء -->
+            <div class="system-card" onclick="selectSystem('trading')">
+                <div class="system-header">
+                    <div class="system-icon">🛒</div>
+                    <div>
+                        <h3>نظام البيع والشراء</h3>
+                        <p>Trading System</p>
+                    </div>
+                </div>
+                <p class="system-desc">افتح متجرك الإلكتروني لبيع وشراء المعادن والسكراب في سوق شيخة</p>
+                <div class="system-features">
+                    <span class="feature-tag">عرض منتجات</span>
+                    <span class="feature-tag">استقبال طلبات</span>
+                    <span class="feature-tag">مدفوعات</span>
+                </div>
+            </div>
+
+            <!-- نظام اللوجستيات -->
+            <div class="system-card" onclick="selectSystem('logistics')">
+                <div class="system-header">
+                    <div class="system-icon">🚚</div>
+                    <div>
+                        <h3>نظام اللوجستيات</h3>
+                        <p>Logistics System</p>
+                    </div>
+                </div>
+                <p class="system-desc">سجّل شركتك للنقل والشحن وقدّم خدمات لوجستية لتجار المعادن</p>
+                <div class="system-features">
+                    <span class="feature-tag">إدارة الأسطول</span>
+                    <span class="feature-tag">تتبع GPS</span>
+                    <span class="feature-tag">بوالص شحن</span>
+                </div>
+            </div>
+
+            <!-- نظام التكامل الصناعي -->
+            <div class="system-card" onclick="selectSystem('industrial')">
+                <div class="system-header">
+                    <div class="system-icon">🏭</div>
+                    <div>
+                        <h3>التكامل الصناعي</h3>
+                        <p>Industrial Integration</p>
+                    </div>
+                </div>
+                <p class="system-desc">اربط مصنعك أو مصهرك مع منظومة شيخة للحصول على طلبات وبيانات حية</p>
+                <div class="system-features">
+                    <span class="feature-tag">IoT</span>
+                    <span class="feature-tag">بيانات حية</span>
+                    <span class="feature-tag">أتمتة</span>
+                </div>
+            </div>
+
+            <!-- نظام المشاريع -->
+            <div class="system-card" onclick="selectSystem('projects')">
+                <div class="system-header">
+                    <div class="system-icon">🏗️</div>
+                    <div>
+                        <h3>إدارة المشاريع</h3>
+                        <p>Project Management</p>
+                    </div>
+                </div>
+                <p class="system-desc">أنشئ وأدر مشاريع المعادن الكبرى — من التخطيط إلى التنفيذ</p>
+                <div class="system-features">
+                    <span class="feature-tag">مناقصات</span>
+                    <span class="feature-tag">عقود</span>
+                    <span class="feature-tag">متابعة</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activation Panels -->
+        
+        <!-- Trading System Panel -->
+        <div class="activation-panel" id="panelTrading">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <div class="system-icon">🛒</div>
+                    <h2>تفعيل نظام البيع والشراء</h2>
+                </div>
+                <button class="close-btn" onclick="closePanel()">✕</button>
+            </div>
+
+            <!-- الأهداف -->
+            <div class="objectives-section">
+                <h4>🎯 أهداف النظام</h4>
+                <ul class="objectives-list">
+                    <li>فتح متجر إلكتروني للمعادن</li>
+                    <li>عرض المنتجات بأسعار تنافسية</li>
+                    <li>الوصول لقاعدة عملاء واسعة</li>
+                    <li>استقبال ومعالجة الطلبات</li>
+                    <li>تحصيل المدفوعات بأمان</li>
+                    <li>تقارير وتحليلات المبيعات</li>
+                </ul>
+            </div>
+
+            <!-- القيمة -->
+            <div class="value-section">
+                <h4>💎 القيمة المضافة</h4>
+                <div class="value-grid">
+                    <div class="value-item">
+                        <div class="icon">📈</div>
+                        <h5>زيادة المبيعات</h5>
+                        <p>+40% متوسط</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="icon">👥</div>
+                        <h5>عملاء جدد</h5>
+                        <p>قاعدة 10,000+</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="icon">💰</div>
+                        <h5">عمولة منخفضة</h5>
+                        <p>2.5% فقط</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الخطوات -->
+            <div class="steps-section">
+                <h4>📋 خطوات التفعيل</h4>
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h5>إنشاء حساب تاجر</h5>
+                        <p>سجّل بياناتك الأساسية والسجل التجاري</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h5>التحقق من الهوية</h5>
+                        <p>رفع المستندات للتحقق (1-24 ساعة)</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h5>إعداد المتجر</h5>
+                        <p>أضف معلومات متجرك وطرق الدفع</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h5>إضافة المنتجات</h5>
+                        <p>أضف منتجاتك الأولى وابدأ البيع!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- المتطلبات -->
+            <div class="requirements-section">
+                <h4>📝 المتطلبات</h4>
+                <ul class="req-list">
+                    <li>سجل تجاري ساري المفعول</li>
+                    <li>هوية وطنية أو إقامة</li>
+                    <li>حساب بنكي تجاري</li>
+                    <li>عنوان تجاري موثق</li>
+                </ul>
+            </div>
+
+            <!-- Bot Assistant -->
+            <div class="bot-section">
+                <div class="bot-avatar">🤖</div>
+                <div class="bot-content">
+                    <h4>مساعد التفعيل الذكي</h4>
+                    <p>دعني أساعدك في إكمال التسجيل خطوة بخطوة — سأجيب على أسئلتك وأرشدك</p>
+                    <button class="bot-btn" onclick="openBot('trading')">
+                        💬 ابدأ مع المساعد
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-outline" onclick="closePanel()">إلغاء</button>
+                <a href="تسجيل-تاجر.html" class="btn btn-gold">🚀 ابدأ التسجيل الآن</a>
+            </div>
+        </div>
+
+        <!-- Logistics System Panel -->
+        <div class="activation-panel" id="panelLogistics">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <div class="system-icon">🚚</div>
+                    <h2>تفعيل نظام اللوجستيات</h2>
+                </div>
+                <button class="close-btn" onclick="closePanel()">✕</button>
+            </div>
+
+            <!-- الأهداف -->
+            <div class="objectives-section">
+                <h4>🎯 أهداف النظام</h4>
+                <ul class="objectives-list">
+                    <li>تسجيل شركة نقل معتمدة</li>
+                    <li>إدارة أسطول الشاحنات</li>
+                    <li>استقبال طلبات الشحن</li>
+                    <li>تتبع الشحنات GPS</li>
+                    <li>إصدار بوالص الشحن</li>
+                    <li>التخليص الجمركي</li>
+                </ul>
+            </div>
+
+            <!-- القيمة -->
+            <div class="value-section">
+                <h4>💎 القيمة المضافة</h4>
+                <div class="value-grid">
+                    <div class="value-item">
+                        <div class="icon">📦</div>
+                        <h5>طلبات شحن</h5>
+                        <p>500+ شهرياً</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="icon">🗺️</div>
+                        <h5>تغطية</h5>
+                        <p>كل المملكة</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="icon">⚡</div>
+                        <h5>تخصيص تلقائي</h5>
+                        <p>AI ذكي</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- المخرجات -->
+            <div class="value-section" style="background: rgba(59,130,246,0.1); border-color: var(--info);">
+                <h4 style="color: var(--info);">📤 المخرجات</h4>
+                <div class="value-grid">
+                    <div class="value-item">
+                        <div class="icon">📄</div>
+                        <h5>بوالص شحن</h5>
+                        <p>إصدار آلي</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="icon">📊</div>
+                        <h5>تقارير</h5>
+                        <p>أداء الأسطول</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="icon">💵</div>
+                        <h5>فواتير</h5>
+                        <p>تلقائية</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الخطوات -->
+            <div class="steps-section">
+                <h4>📋 خطوات التفعيل</h4>
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h5>تسجيل الشركة</h5>
+                        <p>بيانات الشركة + رخصة النقل</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h5>إضافة الأسطول</h5>
+                        <p>سجّل شاحناتك ومركباتك</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h5>تفعيل التتبع</h5>
+                        <p>ربط أجهزة GPS</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h5>تحديد الأسعار</h5>
+                        <p>ضع تسعيرة الشحن</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- المتطلبات -->
+            <div class="requirements-section">
+                <h4>📝 المتطلبات</h4>
+                <ul class="req-list">
+                    <li>رخصة نقل سارية (هيئة النقل)</li>
+                    <li>سجل تجاري (نشاط نقل)</li>
+                    <li>توثيق المركبات وصلاحيتها</li>
+                    <li>شاحنة واحدة على الأقل</li>
+                </ul>
+            </div>
+
+            <!-- Bot -->
+            <div class="bot-section">
+                <div class="bot-avatar">🤖</div>
+                <div class="bot-content">
+                    <h4>مساعد التفعيل الذكي</h4>
+                    <p>سأساعدك في تسجيل شركتك وإعداد الأسطول — اسألني أي سؤال!</p>
+                    <button class="bot-btn" onclick="openBot('logistics')">
+                        💬 ابدأ مع المساعد
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-outline" onclick="closePanel()">إلغاء</button>
+                <a href="تسجيل-ناقل.html" class="btn btn-gold">🚀 سجّل شركتك الآن</a>
+            </div>
+        </div>
+
+        <!-- Industrial System Panel -->
+        <div class="activation-panel" id="panelIndustrial">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <div class="system-icon">🏭</div>
+                    <h2>تفعيل التكامل الصناعي</h2>
+                </div>
+                <button class="close-btn" onclick="closePanel()">✕</button>
+            </div>
+
+            <div class="objectives-section">
+                <h4>🎯 أهداف النظام</h4>
+                <ul class="objectives-list">
+                    <li>ربط أنظمة المصنع مع شيخة</li>
+                    <li>نقل بيانات الإنتاج الحية</li>
+                    <li>استقبال طلبات المعالجة</li>
+                    <li>مراقبة الجودة الآلية</li>
+                    <li>جدولة الإنتاج الذكية</li>
+                    <li>إصدار شهادات النقاء</li>
+                </ul>
+            </div>
+
+            <div class="steps-section">
+                <h4>📋 خطوات التفعيل</h4>
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h5>تقييم تقني</h5>
+                        <p>فريقنا يزور المصنع لتقييم الأنظمة</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h5>تركيب الربط</h5>
+                        <p>تثبيت بوابات OPC-UA/MQTT</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h5>الاختبار</h5>
+                        <p>تجربة نقل البيانات</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h5>الإطلاق</h5>
+                        <p>التشغيل الفعلي</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bot-section">
+                <div class="bot-avatar">🤖</div>
+                <div class="bot-content">
+                    <h4>مساعد التكامل الصناعي</h4>
+                    <p>أخبرني عن مصنعك وسأحدد لك خطة التكامل المناسبة</p>
+                    <button class="bot-btn" onclick="openBot('industrial')">
+                        💬 استشارة تقنية
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-outline" onclick="closePanel()">إلغاء</button>
+                <a href="التكامل-الصناعي.html" class="btn btn-gold">📞 طلب تقييم تقني</a>
+            </div>
+        </div>
+
+        <!-- Projects System Panel -->
+        <div class="activation-panel" id="panelProjects">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <div class="system-icon">🏗️</div>
+                    <h2>تفعيل إدارة المشاريع</h2>
+                </div>
+                <button class="close-btn" onclick="closePanel()">✕</button>
+            </div>
+
+            <div class="objectives-section">
+                <h4>🎯 أهداف النظام</h4>
+                <ul class="objectives-list">
+                    <li>تخطيط المشاريع الكبرى</li>
+                    <li>إدارة سلسلة التوريد</li>
+                    <li>متابعة التنفيذ</li>
+                    <li>إدارة المقاولين</li>
+                    <li>تقارير الأداء</li>
+                    <li>إدارة الميزانية</li>
+                </ul>
+            </div>
+
+            <div class="bot-section">
+                <div class="bot-avatar">🤖</div>
+                <div class="bot-content">
+                    <h4>مساعد المشاريع</h4>
+                    <p>صف لي مشروعك وسأساعدك في وضع خطة تنفيذية</p>
+                    <button class="bot-btn" onclick="openBot('projects')">
+                        💬 ابدأ التخطيط
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-outline" onclick="closePanel()">إلغاء</button>
+                <a href="إدارة-المشاريع.html" class="btn btn-gold">🚀 إنشاء مشروع</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Bot Button -->
+    <button class="floating-bot" id="floatingBot" onclick="toggleChat()">🤖</button>
+
+    <!-- Chat Modal -->
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-header">
+            <h4>🤖 مساعد شيخة الذكي</h4>
+            <button class="chat-close" onclick="toggleChat()">✕</button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot">
+                <div class="message-avatar">🤖</div>
+                <div>
+                    <div class="message-bubble">
+                        مرحباً! أنا مساعد شيخة الذكي. كيف يمكنني مساعدتك اليوم؟
+                    </div>
+                    <div class="chat-options">
+                        <span class="chat-option" onclick="sendOption('أريد فتح متجر')">أريد فتح متجر</span>
+                        <span class="chat-option" onclick="sendOption('تسجيل شركة نقل')">تسجيل شركة نقل</span>
+                        <span class="chat-option" onclick="sendOption('ربط مصنع')">ربط مصنع</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="اكتب سؤالك..." onkeypress="handleEnter(event)">
+            <button class="chat-send" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script>
+        // System Selection
+        function selectSystem(systemId) {
+            document.querySelectorAll('.system-card').forEach(c => c.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            document.querySelectorAll('.activation-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('panel' + systemId.charAt(0).toUpperCase() + systemId.slice(1)).classList.add('active');
+            
+            document.getElementById('systemsGrid').style.display = 'none';
+        }
+
+        function closePanel() {
+            document.querySelectorAll('.activation-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.system-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById('systemsGrid').style.display = 'grid';
+        }
+
+        // Chat Bot
+        function toggleChat() {
+            const modal = document.getElementById('chatModal');
+            const btn = document.getElementById('floatingBot');
+            modal.classList.toggle('active');
+            btn.classList.toggle('hidden', modal.classList.contains('active'));
+        }
+
+        function openBot(context) {
+            toggleChat();
+            const messages = {
+                trading: 'أريد فتح متجر للمعادن',
+                logistics: 'أريد تسجيل شركة نقل',
+                industrial: 'أريد ربط مصنعي',
+                projects: 'أريد إنشاء مشروع'
+            };
+            setTimeout(() => sendOption(messages[context]), 500);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            addMessage(message, 'user');
+            input.value = '';
+            
+            setTimeout(() => {
+                const response = getBotResponse(message);
+                addMessage(response, 'bot');
+            }, 800);
+        }
+
+        function sendOption(text) {
+            addMessage(text, 'user');
+            setTimeout(() => {
+                const response = getBotResponse(text);
+                addMessage(response, 'bot');
+            }, 800);
+        }
+
+        function handleEnter(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function addMessage(text, type) {
+            const chatBody = document.getElementById('chatBody');
+            const avatar = type === 'bot' ? '🤖' : '👤';
+            chatBody.innerHTML += `
+                <div class="chat-message ${type}">
+                    <div class="message-avatar">${avatar}</div>
+                    <div class="message-bubble">${text}</div>
+                </div>
+            `;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function getBotResponse(message) {
+            const lower = message.toLowerCase();
+            
+            if (lower.includes('متجر') || lower.includes('بيع')) {
+                return `ممتاز! لفتح متجر في شيخة تحتاج:
+                
+📋 <b>المتطلبات:</b>
+• سجل تجاري ساري
+• هوية وطنية
+• حساب بنكي
+
+⏱️ <b>الوقت:</b> 24 ساعة للتفعيل
+
+💰 <b>التكلفة:</b> مجاني (عمولة 2.5% على المبيعات)
+
+هل تريد البدء الآن؟ <a href="تسجيل-تاجر.html" style="color: var(--gold);">اضغط هنا للتسجيل</a>`;
+            }
+            
+            if (lower.includes('نقل') || lower.includes('شحن') || lower.includes('لوجستيات')) {
+                return `لتسجيل شركة نقل:
+
+📋 <b>المتطلبات:</b>
+• رخصة نقل من هيئة النقل
+• سجل تجاري (نشاط نقل)
+• توثيق المركبات وصلاحيتها
+• شاحنة واحدة على الأقل
+
+📤 <b>المخرجات:</b>
+• طلبات شحن من التجار
+• بوالص شحن إلكترونية
+• نظام تتبع GPS
+• تقارير أداء الأسطول
+
+هل لديك رخصة نقل؟`;
+            }
+            
+            if (lower.includes('مصنع') || lower.includes('مصهر') || lower.includes('ربط')) {
+                return `لربط مصنعك مع منظومة شيخة:
+
+📋 <b>الخطوات:</b>
+1. زيارة تقييم تقني (مجانية)
+2. تحديد طريقة الربط (OPC-UA/MQTT/API)
+3. تركيب البوابات
+4. اختبار نقل البيانات
+5. إطلاق التكامل
+
+📊 <b>البيانات المنقولة:</b>
+• درجات الحرارة
+• نسب النقاء
+• كميات الإنتاج
+• استهلاك الطاقة
+
+هل تريد حجز زيارة تقييم؟`;
+            }
+            
+            if (lower.includes('مشروع')) {
+                return `لإنشاء مشروع في شيخة:
+
+📋 <b>أنواع المشاريع:</b>
+• شراء معادن
+• بيع معادن
+• معالجة/صهر
+• نقل وتصدير
+• مشروع متكامل
+
+⚙️ <b>النظام سيوفر:</b>
+• خطة عمل تلقائية
+• اقتراح موردين
+• جدولة العمليات
+• متابعة التنفيذ
+
+ما نوع مشروعك؟`;
+            }
+            
+            return `شكراً على سؤالك! يمكنني مساعدتك في:
+
+🛒 فتح متجر للمعادن
+🚚 تسجيل شركة نقل
+🏭 ربط مصنع
+🏗️ إدارة مشروع
+
+اختر أحد الخيارات أو اكتب سؤالك`;
+        }
+    </script>
+</body>
+</html>

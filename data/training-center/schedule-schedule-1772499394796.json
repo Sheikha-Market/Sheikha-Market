@@ -1,0 +1,30 @@
+{
+  "id": "schedule-1772499394796",
+  "agentId": "agent-wealth-preservation-1772495966717",
+  "scheduleType": "WEEKLY",
+  "schedule": {
+    "name": "أسبوعي",
+    "frequency": "weekly",
+    "batchSize": 5000,
+    "ideal": "تحديثات كبيرة"
+  },
+  "config": {
+    "allLanguages": true,
+    "sourceFamilies": [
+      "HumanLanguages",
+      "NLP",
+      "LLM"
+    ],
+    "sourceScope": "global_and_cosmic_symbolic",
+    "technique": "QLORA",
+    "pipeline": {
+      "nlp": true,
+      "llm": true
+    },
+    "batchSize": 64,
+    "epochs": 5
+  },
+  "status": "scheduled",
+  "nextRun": "2026-03-10T00:56:34.796Z",
+  "createdAt": "2026-03-03T00:56:34.796Z"
+}

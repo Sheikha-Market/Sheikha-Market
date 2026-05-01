@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="التكامل — ربط سوق شيخة مع الذكاء الصناعي، جوجل، أمازون، أوراكل، ساب، وERP. سهولة التسويق والوصول.">
+    <title>التكامل — سوق شيخة | Integration | Sheikha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d9488;
+            --primary-dark: #0f766e;
+            --accent: #d4af37;
+            --bg: #f0fdfa;
+            --card: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(13,148,136,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh; }
+        .header-bar {
+            background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: #fff; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+        }
+        .header-bar a { color: #fff; text-decoration: none; font-weight: 600; opacity: 0.95; }
+        .header-bar a:hover { opacity: 1; text-decoration: underline; }
+        .wrap { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+        .back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; color: var(--primary); text-decoration: none; font-weight: 600; }
+        .back:hover { text-decoration: underline; }
+        h1 { font-size: 1.9rem; color: var(--text); margin-bottom: 8px; font-weight: 800; }
+        .sub { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 32px; }
+        .intro {
+            background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 28px;
+            border-right: 4px solid var(--primary); box-shadow: var(--shadow);
+        }
+        .intro p { color: var(--text-muted); margin-bottom: 0; }
+        .section {
+            background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 28px; margin-bottom: 20px;
+            box-shadow: var(--shadow); transition: box-shadow 0.2s;
+        }
+        .section:hover { box-shadow: var(--shadow-lg); }
+        .section h2 { font-size: 1.25rem; color: var(--primary-dark); margin-bottom: 14px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .section h2 .icon { font-size: 1.4em; }
+        .section p { color: var(--text-muted); margin-bottom: 12px; font-size: 0.98rem; }
+        .section ul { margin: 0 0 12px 1.25rem; color: var(--text-muted); font-size: 0.95rem; }
+        .section li { margin-bottom: 6px; }
+        .section a { color: var(--primary); font-weight: 600; text-decoration: none; }
+        .section a:hover { text-decoration: underline; }
+        .badge { display: inline-block; background: rgba(13,148,136,0.12); color: var(--primary-dark); padding: 4px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; margin-left: 8px; }
+        .links-inline { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+        .links-inline a { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: rgba(13,148,136,0.08); border: 1px solid var(--primary); border-radius: var(--radius); color: var(--primary); font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+        .links-inline a:hover { background: rgba(13,148,136,0.15); }
+        .footer-cta { text-align: center; padding: 28px 24px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: #fff; border-radius: var(--radius-lg); margin-top: 32px; }
+        .footer-cta h3 { font-size: 1.2rem; margin-bottom: 8px; }
+        .footer-cta p { opacity: 0.95; font-size: 0.95rem; margin-bottom: 14px; }
+        .footer-cta a { color: #fff; text-decoration: underline; font-weight: 600; }
+        .quick-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; padding: 14px 18px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); }
+        .quick-nav a { padding: 6px 12px; background: rgba(13,148,136,0.08); border-radius: 999px; color: var(--primary-dark); font-size: 0.88rem; font-weight: 600; text-decoration: none; }
+        .quick-nav a:hover { background: rgba(13,148,136,0.18); }
+        .api-request { background: linear-gradient(135deg, rgba(13,148,136,0.06) 0%, rgba(15,118,110,0.08) 100%); border: 1px solid var(--primary); border-radius: var(--radius-lg); padding: 20px 24px; margin-bottom: 24px; }
+        .api-request h3 { font-size: 1.1rem; color: var(--primary-dark); margin-bottom: 10px; font-weight: 700; }
+        .api-request p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; }
+        .api-request .btn-api { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--primary); color: #fff; border: none; border-radius: var(--radius); font-weight: 600; font-family: inherit; font-size: 0.95rem; cursor: pointer; text-decoration: none; }
+        .api-request .btn-api:hover { background: var(--primary-dark); }
+        .share-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 8px 14px; background: rgba(13,148,136,0.1); border: 1px solid var(--primary); border-radius: var(--radius); color: var(--primary-dark); font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .share-link:hover { background: rgba(13,148,136,0.18); }
+        @media (max-width: 600px) { .wrap { padding: 20px 16px; } .section { padding: 18px; } .quick-nav { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <div><a href="index.html">سوق شيخة</a> | <a href="تكامل.html">التكامل</a> | <a href="تسجيل-تاجر.html">تسجيل متجر</a> | <a href="عرض-بضائع.html">عرض بضائع</a></div>
+        <div><a href="index.html">← الرئيسية</a></div>
+    </div>
+    <div class="wrap">
+        <a href="index.html" class="back">← العودة إلى الرئيسية</a>
+        <h1>التكامل — Integration</h1>
+        <p class="sub">ربط سوق شيخة مع أنظمتك ومنصاتك: الذكاء الصناعي، جوجل، أمازون، أوراكل، ساب، و ERP. نقطة واحدة لسهولة التسويق والوصول.</p>
+
+        <div class="intro">
+            <p><strong>لماذا التكامل؟</strong> شركة واحدة، لوحة تحكم واحدة، وكل خيارات الربط من مكان واحد — للمصاهر والشركات والمطورين. اختر المنصة أو النظام الذي تستخدمه واربطه مع سوق شيخة.</p>
+        </div>
+
+        <div class="section" id="ai">
+            <h2><span class="icon">🤖</span> منصات الذكاء الصناعي (AI)</h2>
+            <p>ربط سوق شيخة مع الذكاء الصناعي — أسعار وعروض وطلبات من واجهة واحدة.</p>
+            <ul>
+                <li><strong>مساعد شيخة:</strong> محادثة ذكية واقتراح أسعار مدمج في الموقع.</li>
+                <li><strong>Sheikha Partner API:</strong> واجهة REST/JSON لربط أي نظام أو روبوت — عروض، طلبات، تقارير.</li>
+                <li><strong>Webhooks (لاحقاً):</strong> إشعار فوري عند طلب جديد أو تغيير حالة — لأتمتة الرد.</li>
+                <li><strong>تكامل مع ChatGPT / Claude (مستقبلاً):</strong> إمكانية Action أو Plugin لاستعلام أسعار وعروض شيخة من منصات الذكاء.</li>
+            </ul>
+            <div class="links-inline">
+                <a href="مساعد-شيخة.html">مساعد شيخة الذكي</a>
+                <a href="/api/business-model" target="_blank" rel="noopener">واجهات API</a>
+            </div>
+        </div>
+
+        <div class="section" id="google">
+            <h2><span class="icon">🔍</span> جوجل (Google)</h2>
+            <p>شيخة تعمل مع بيئة جوجل — بحث، جداول، سحابة.</p>
+            <ul>
+                <li><strong>Google Search / SEO:</strong> الموقع مُحسّن للبحث؛ ظهور أغنى في نتائج جوجل.</li>
+                <li><strong>Google Workspace / Sheets (لاحقاً):</strong> تصدير عروضك أو تقاريرك إلى Google Sheets.</li>
+                <li><strong>Google Cloud:</strong> استدعاء Sheikha API من سكربتات أو خدمات على Google Cloud.</li>
+            </ul>
+            <div class="links-inline">
+                <a href="index.html">الموقع — يظهر في جوجل</a>
+            </div>
+        </div>
+
+        <div class="section" id="amazon">
+            <h2><span class="icon">📦</span> أمازون (Amazon)</h2>
+            <p>تكامل مع أنظمة أمازون — API واحد لسوق السكراب والمعادن.</p>
+            <ul>
+                <li><strong>منطق SP-API / ربط البيانات:</strong> ربط عروض وطلبات شيخة مع أنظمة تستخدم أمازون.</li>
+                <li><strong>Amazon Web Services (AWS):</strong> Sheikha API يعمل مع AWS — استدعاء من Lambda أو EC2.</li>
+            </ul>
+            <div class="links-inline">
+                <a href="/api/business-model" target="_blank" rel="noopener">Sheikha Partner API</a>
+            </div>
+        </div>
+
+        <div class="section" id="oracle">
+            <h2><span class="icon">☁️</span> أوراكل (Oracle)</h2>
+            <p>ربط Oracle ERP و Oracle Cloud مع سوق شيخة — عروض وطلبات سكراب في نظامك.</p>
+            <ul>
+                <li><strong>Oracle ERP / Oracle Cloud:</strong> استيراد احتياجات الشراء، تصدير أوامر الشراء، مزامنة العروض والطلبات عبر Sheikha API.</li>
+                <li><strong>Oracle Integration Cloud:</strong> استخدام Sheikha API ضمن سير عمل أوراكل.</li>
+            </ul>
+            <div class="links-inline">
+                <a href="/docs/تخطيط-تسجيل-المستخدمين-لكل-مرحلة-ومنتجاته-والتقارير-والتكامل-مع-ERP.md" target="_blank" rel="noopener">دليل التكامل مع ERP</a>
+            </div>
+        </div>
+
+        <div class="section" id="sap">
+            <h2><span class="icon">🏢</span> ساب (SAP)</h2>
+            <p>ربط SAP مع سوق شيخة — مشتريات سكراب ومعادن من داخل SAP.</p>
+            <ul>
+                <li><strong>SAP ERP / S/4HANA:</strong> ربط وحدة المشتريات أو المواد الخام مع شيخة — استيراد عروض، تصدير أوامر شراء، تقارير.</li>
+                <li><strong>SAP Business Technology Platform:</strong> تكامل Sheikha API مع سير عمل SAP.</li>
+            </ul>
+            <div class="links-inline">
+                <a href="/docs/تخطيط-تسجيل-المستخدمين-لكل-مرحلة-ومنتجاته-والتقارير-والتكامل-مع-ERP.md" target="_blank" rel="noopener">دليل التكامل مع ERP</a>
+            </div>
+        </div>
+
+        <div class="section" id="erp">
+            <h2><span class="icon">📊</span> أنظمة ERP عامة</h2>
+            <p>أي ERP — شيخة تتكامل مع نظامك عبر API أو ملفات. Odoo، Microsoft Dynamics، أو أي نظام يدعم REST API أو استيراد/تصدير.</p>
+            <ul>
+                <li><strong>Sheikha Partner API (REST/JSON):</strong> عروض، طلبات، تقارير — ربط من أي نظام.</li>
+                <li><strong>استيراد/تصدير ملفات (CSV/Excel):</strong> رفع عروض؛ تحميل تقارير من لوحة التحكم دون برمجة.</li>
+                <li><strong>مفتاح API (API Key):</strong> للشركات والمطورين — طلب مفتاح للوصول إلى API.</li>
+            </ul>
+            <div class="links-inline">
+                <a href="لوحة-التحكم.html">لوحة التحكم</a>
+                <a href="تخطيط-كل-مرحلة.html">تخطيط كل مرحلة و ERP</a>
+                <a href="/docs/تخطيط-تسجيل-المستخدمين-لكل-مرحلة-ومنتجاته-والتقارير-والتكامل-مع-ERP.md" target="_blank" rel="noopener">الوثيقة الكاملة</a>
+            </div>
+        </div>
+
+        <div class="footer-cta">
+            <h3>للشركات التي تريد دعم تكامل مخصّص</h3>
+            <p>تواصل معنا عبر واتساب أو البريد — نربط سوق شيخة مع SAP أو Oracle أو أي ERP حسب احتياجك.</p>
+            <a href="https://wa.me/966554942904" target="_blank" rel="noopener">واتساب: +966 55 494 2904</a>
+            <p style="margin-top:14px;font-size:0.9rem;"><a href="/docs/خطة-تسويقية-كاملة-ظهور-شيخة-والتكامل.md" target="_blank" rel="noopener" style="opacity:0.9;">📄 خطة تسويقية كاملة — ظهور شيخة والتكامل (وثيقة)</a></p>
+            <p style="margin-top:8px;font-size:0.9rem;"><a href="/docs/شيخة-أساس-التكامل-الصلاحيات-والاشتراكات-والحلول-المبتكرة.md" target="_blank" rel="noopener" style="opacity:0.9;">📄 شيخة أساس التكامل — صلاحيات، اشتراكات، وحلول مبتكرة (وثيقة)</a></p>
+            <p style="margin-top:12px;font-size:0.9rem;"><a href="index.html" style="color:rgba(255,255,255,0.95);">الرئيسية</a> · <a href="خريطة-الموقع.html" style="color:rgba(255,255,255,0.95);text-decoration:underline;">خريطة الموقع</a></p>
+        </div>
+    </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('shareIntegrationLink');
+            if (btn) btn.addEventListener('click', function() {
+                var url = window.location.href;
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url).then(function() { btn.textContent = '✓ تم النسخ'; setTimeout(function() { btn.textContent = '📋 نسخ رابط التكامل'; }, 2000); }).catch(function() { fallbackCopy(url); });
+                } else fallbackCopy(url);
+            });
+            function fallbackCopy(str) {
+                var ta = document.createElement('textarea'); ta.value = str; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); btn.textContent = '✓ تم النسخ'; setTimeout(function() { btn.textContent = '📋 نسخ رابط التكامل'; }, 2000); } catch (e) {} document.body.removeChild(ta);
+            }
+        })();
+    </script>
+</body>
+</html>

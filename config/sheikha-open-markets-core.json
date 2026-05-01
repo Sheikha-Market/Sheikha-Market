@@ -1,0 +1,95 @@
+{
+    "core": "open-markets-core",
+    "version": "1.0.0",
+    "title": "منظومة الأسواق المفتوحة — لا حدود إلا حدود الله",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "activatedAt": null,
+    "philosophy": {
+        "principle": "لَا حَدَّ إِلَّا حُدُودُ اللَّهِ",
+        "basis": "الكتاب والسنة — القرآن الكريم والسنة النبوية",
+        "freedom": "حرية البرمجة والتقدم العلمي والتقنيات والعلوم والحوسبة والذكاء الصناعي والعلوم التطبيقية والفيزياء وكل علم نافع",
+        "specialization": "كل سوق له تخصصه الدقيق مع انفتاح كامل على الجديد",
+        "noArtificialLimits": true,
+        "noArtificialLimitsNote": "لا يُقيَّد الإنسان بحدود بشرية في المعرفة والعلم والأسواق"
+    },
+    "builtInMarkets": [
+        {
+            "id": "metals-market",
+            "nameAr": "سوق المعادن",
+            "category": "commodities",
+            "specialization": "metals",
+            "description": "سوق تداول المعادن الثمينة والصناعية وفق الشريعة الإسلامية",
+            "shariaStatus": "حلال",
+            "status": "active"
+        },
+        {
+            "id": "scrap-market",
+            "nameAr": "سوق السكراب",
+            "category": "recycling",
+            "specialization": "scrap",
+            "description": "سوق المعادن المعاد تدويرها والسكراب الصناعي",
+            "shariaStatus": "حلال",
+            "status": "active"
+        },
+        {
+            "id": "logistics-market",
+            "nameAr": "سوق اللوجستيان",
+            "category": "services",
+            "specialization": "logistics",
+            "description": "سوق خدمات النقل والتوصيل والتخزين اللوجستي",
+            "shariaStatus": "حلال",
+            "status": "active"
+        },
+        {
+            "id": "community-market",
+            "nameAr": "سوق المجتمع",
+            "category": "community",
+            "specialization": "community",
+            "description": "المجتمع والتبادل المعرفي والتواصل بين التجار والشركات",
+            "shariaStatus": "حلال",
+            "status": "active"
+        }
+    ],
+    "openMarketCategories": [
+        "commodities", "services", "technology", "agriculture", "energy",
+        "construction", "manufacturing", "healthcare", "education",
+        "transportation", "recycling", "community", "innovation",
+        "research", "environment", "real-estate", "finance-halal",
+        "food", "textile", "chemical", "aerospace", "maritime",
+        "digital", "media", "tourism", "crafts", "arts", "other"
+    ],
+    "shariaFilter": {
+        "prohibited": [
+            "ربا — فائدة على القروض",
+            "غرر — جهالة فاحشة أو مخاطرة مفرطة",
+            "ميسر — قمار أو رهان",
+            "بيع ما لا يملك بلا توكيل",
+            "غش وتدليس وكذب",
+            "احتكار — حبس المنافع",
+            "نجش — رفع السعر بلا نية شراء",
+            "بيع المحرمات — خمر / خنزير / أسلحة للظلم",
+            "ضرر — إيذاء أحد أو البيئة"
+        ],
+        "allowed": "كل ما لم يرد فيه نص تحريم — الأصل في الأشياء الإباحة",
+        "reference": "قاعدة فقهية: الأصل في الأشياء الإباحة حتى يرد دليل التحريم"
+    },
+    "innovationEngine": {
+        "noLimitsInKnowledge": true,
+        "domains": [
+            "برمجة",
+            "تقدم علمي",
+            "تقنيات",
+            "حوسبة",
+            "ذكاء صناعي",
+            "علوم تطبيقية",
+            "فيزياء",
+            "علوم طبيعية", "علوم إنسانية", "علوم شرعية", "علوم تطبيقية",
+            "علوم حاسوبية", "ذكاء اصطناعي", "هندسة", "طب", "فلك",
+            "فيزياء كمية", "بيولوجيا جزيئية", "علم النفس", "اقتصاد",
+            "اجتماع", "تاريخ", "جغرافيا", "لغات", "آداب",
+            "فنون", "موسيقى حلال", "رياضيات", "فلسفة إسلامية",
+            "أي علم نافع لم يرد في تحريمه نص"
+        ],
+        "principle": "اطلبوا العلم من المهد إلى اللحد"
+    }
+}

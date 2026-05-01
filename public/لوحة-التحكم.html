@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>شيخة — لوحة التحكم الموحدة</title>
+  <meta name="description" content="لوحة التحكم الموحدة لمنظومة شيخة: السوق، العقود، التغذية، الحوكمة، Git، والتشغيل الحي." />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#020617;--panel:rgba(255,255,255,.05);--line:rgba(255,255,255,.1);--text:#f8fafc;--muted:#cbd5e1;--soft:#94a3b8;--gold:#d4af37;--gold2:#fde68a;--cyan:#67e8f9;--emerald:#6ee7b7;--red:#fda4af}
+    *{box-sizing:border-box} body{margin:0;font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text)}
+    a{text-decoration:none;color:inherit}.wrap{max-width:1400px;margin:auto;padding:0 24px}
+    .bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 15% 8%,rgba(212,175,55,.14),transparent 18%),radial-gradient(circle at 82% 15%,rgba(103,232,249,.12),transparent 18%),linear-gradient(180deg,#020617,#07111f)}
+    .grid{position:fixed;inset:0;z-index:-1;opacity:.14;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:34px 34px}
+    nav{position:sticky;top:0;backdrop-filter:blur(18px);background:rgba(2,6,23,.7);border-bottom:1px solid var(--line)}.nav{min-height:74px;display:flex;justify-content:space-between;align-items:center;gap:18px}.brand{display:flex;align-items:center;gap:12px}.mark{width:46px;height:46px;border-radius:18px;background:linear-gradient(135deg,var(--gold),var(--gold2),var(--cyan));box-shadow:0 14px 36px rgba(212,175,55,.22)}.brand h1{margin:0;font-size:1.1rem}.brand p{margin:2px 0 0;color:var(--soft);font-size:.74rem}.navlinks{display:flex;gap:10px;flex-wrap:wrap}.navlinks a{padding:10px 14px;border-radius:12px;color:var(--muted)}.navlinks a:hover{background:rgba(255,255,255,.05);color:var(--gold2)}
+    .hero{padding:42px 0 28px}.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}.hero-card,.panel,.table,.terminal,.feed{border:1px solid var(--line);background:var(--panel);border-radius:28px;backdrop-filter:blur(14px)}.hero-card{padding:28px}.badge{display:inline-flex;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.22);color:var(--gold2);font-size:.84rem}.hero h2{font-size:clamp(2rem,4vw,4rem);line-height:1.08;margin:16px 0 12px}.hero p{margin:0;color:var(--muted);line-height:1.95;font-size:1.06rem}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}.stat{padding:18px;border-radius:22px;background:rgba(2,6,23,.54);border:1px solid var(--line)}.stat small{display:block;color:var(--soft);margin-bottom:6px}.stat strong{font-size:1.05rem;color:var(--gold2)}
+    .visual{padding:18px;position:relative;overflow:hidden}.visual-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;color:var(--muted)}.pill{padding:8px 12px;border-radius:999px;background:rgba(103,232,249,.1);border:1px solid rgba(103,232,249,.18);color:var(--cyan);font-size:.8rem}.mesh{height:320px;border-radius:22px;background:radial-gradient(circle at 50% 25%,rgba(212,175,55,.14),transparent 20%),linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));position:relative;overflow:hidden}.mesh::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:28px 28px;opacity:.35}.node{position:absolute;width:14px;height:14px;border-radius:50%;box-shadow:0 0 28px currentColor}.n1{top:18%;right:18%;color:var(--cyan);background:currentColor}.n2{top:26%;left:18%;color:var(--gold2);background:currentColor}.n3{bottom:24%;left:40%;color:var(--emerald);background:currentColor}.n4{bottom:18%;right:28%;color:#fff;background:currentColor}.line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,currentColor,transparent)}.l1{top:24%;left:20%;right:18%;color:var(--cyan)}.l2{bottom:24%;left:34%;right:24%;color:var(--gold)}.l3{left:50%;top:18%;bottom:18%;width:2px;height:auto;background:linear-gradient(180deg,transparent,rgba(255,255,255,.45),transparent)}
+    .main{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;padding:6px 0 44px}.cols{display:grid;gap:20px}.panel{padding:20px}.panel h3,.table h3,.terminal h3,.feed h3{margin:0 0 14px;font-size:1.14rem}.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.kpi{padding:16px;border-radius:20px;background:rgba(2,6,23,.5);border:1px solid var(--line)}.kpi .v{font-size:1.34rem;font-weight:800;color:var(--gold2)}.kpi .l{color:var(--soft);font-size:.9rem;margin-top:6px}
+    .table{padding:20px}.rows{display:grid;gap:10px}.row{display:grid;grid-template-columns:1.1fr .8fr .7fr .7fr;gap:10px;padding:14px;border-radius:18px;background:rgba(2,6,23,.5);border:1px solid var(--line);align-items:center}.row .muted{color:var(--muted)}.tag{padding:7px 10px;border-radius:999px;font-size:.8rem;width:max-content}.ok{background:rgba(110,231,183,.1);border:1px solid rgba(110,231,183,.18);color:var(--emerald)}.warn{background:rgba(253,230,138,.1);border:1px solid rgba(253,230,138,.18);color:var(--gold2)}.bad{background:rgba(253,164,175,.1);border:1px solid rgba(253,164,175,.18);color:var(--red)}
+    .terminal{padding:20px;background:#020b16}.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#d1fae5;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:18px;padding:16px;line-height:1.8;white-space:pre-wrap}
+    .feed{padding:20px}.events{display:grid;gap:12px}.event{padding:14px;border-radius:18px;background:rgba(2,6,23,.52);border:1px solid var(--line)}.event small{display:block;color:var(--soft);margin-bottom:6px}.event strong{display:block;margin-bottom:6px}
+    @media (max-width:1100px){.hero-grid,.main{grid-template-columns:1fr}.stats,.kpis{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:700px){.wrap{padding:0 16px}.stats,.kpis{grid-template-columns:1fr}.row{grid-template-columns:1fr}.nav{flex-direction:column;padding:10px 0}}
+  </style>
+</head>
+<body>
+  <div class="bg"></div><div class="grid"></div>
+  <nav><div class="wrap nav"><div class="brand"><div class="mark"></div><div><h1>شيخة</h1><p>لوحة التحكم الموحدة — السوق، Git، الحوكمة، والتشغيل</p></div></div><div class="navlinks"><a href="/">الرئيسية</a><a href="/سوق-شيخة.html">السوق</a><a href="/future">المشهد المستقبلي</a><a href="/logo-tech">الشعار التقني</a></div></div></nav>
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div class="hero-card">
+        <span class="badge">مركز القيادة الموحد</span>
+        <h2>لوحة تحكم <span style="background:linear-gradient(90deg,var(--gold2),var(--gold),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent">شيخة</span> الحية</h2>
+        <p>واجهة تشغيل موحدة تربط السوق، العقود، التغذية، الاستخدام، الفوترة، التكاملات، والحالة الحية للخدمات في مشهد تقني قوي يليق بمنظومة شيخة.</p>
+        <div class="stats">
+          <div class="stat"><small>الخدمات</small><strong>SDK + IDE + MCP + CLI</strong></div>
+          <div class="stat"><small>التكامل</small><strong>GitHub + GitLab</strong></div>
+          <div class="stat"><small>الحوكمة</small><strong>Governance Active</strong></div>
+          <div class="stat"><small>الوضع</small><strong>Operational Pilot</strong></div>
+        </div>
+      </div>
+      <div class="panel visual">
+        <div class="visual-head"><span>Sheikha Neural Control Graph</span><span class="pill">Live Mesh</span></div>
+        <div class="mesh"><span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span><span class="line l1"></span><span class="line l2"></span><span class="line l3"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap main">
+    <div class="cols">
+      <div class="panel">
+        <h3>المؤشرات الرئيسية</h3>
+        <div class="kpis">
+          <div class="kpi"><div class="v">128</div><div class="l">الطلبات النشطة</div></div>
+          <div class="kpi"><div class="v">34</div><div class="l">العقود الجارية</div></div>
+          <div class="kpi"><div class="v">12</div><div class="l">موردون فعّالون</div></div>
+          <div class="kpi"><div class="v">97%</div><div class="l">سلامة التشغيل</div></div>
+          <div class="kpi"><div class="v">4</div><div class="l">تكاملات حيّة</div></div>
+          <div class="kpi"><div class="v">2</div><div class="l">تنبيهات تحتاج مراجعة</div></div>
+        </div>
+      </div>
+      <div class="table">
+        <h3>حالة السوق والعمليات</h3>
+        <div class="rows">
+          <div class="row"><div><strong>صفقة معادن — الشرقية</strong><div class="muted">مطابقة مورد + عقد + متابعة</div></div><div class="tag ok">نشط</div><div class="muted">اليوم</div><div class="muted">Supply + Contract</div></div>
+          <div class="row"><div><strong>تغذية طلب جديد</strong><div class="muted">تحليل احتياج وتوجيه توريد</div></div><div class="tag warn">قيد التحقق</div><div class="muted">اليوم</div><div class="muted">Feed Engine</div></div>
+          <div class="row"><div><strong>مراجعة تكامل Git</strong><div class="muted">فحص الفروع وحالة التزامن</div></div><div class="tag ok">سليم</div><div class="muted">الآن</div><div class="muted">Git Engine</div></div>
+          <div class="row"><div><strong>تنبيه حوكمة</strong><div class="muted">مراجعة شرط تشغيلي قبل الإتمام</div></div><div class="tag bad">يتطلب قرار</div><div class="muted">الآن</div><div class="muted">Governance</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="terminal">
+        <h3>CLI السريع</h3>
+        <div class="code">$ sheikha status
+System: online
+Market: active
+Governance: enabled
+GitHub: connected
+GitLab: connected
+
+$ sheikha git status
+origin: review/safe-analysis
+github: copilot/build-neural-network-for-navigation
+sync: partial
+
+$ sheikha market live
+orders: 128
+contracts: 34
+alerts: 2</div>
+      </div>
+      <div class="feed">
+        <h3>التغذية الحية والأحداث</h3>
+        <div class="events">
+          <div class="event"><small>الآن</small><strong>تم تحديث حالة خدمة السوق</strong><div>السوق حي، ومؤشرات النشاط محدثة، ولا يوجد توقف حرج.</div></div>
+          <div class="event"><small>قبل 3 دقائق</small><strong>مراجعة عقد جديد</strong><div>تم تكوين مسودة عقد وربطها بالطلب والمورد والمشتري.</div></div>
+          <div class="event"><small>قبل 9 دقائق</small><strong>فحص GitHub / GitLab</strong><div>تم التقاط حالة الفرع ومسار الدمج المقترح وتسجيله في لوحة التحكم.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

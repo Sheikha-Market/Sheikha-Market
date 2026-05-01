@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الهيكل الإداري | 7 قطاعات و 34 إدارة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37; --gold-l: #F5E6A3; --gold-d: #A8882B;
+            --bg: #030712; --bg2: #0a0e18; --bg3: #111827;
+            --card: rgba(212,175,55,.03); --border: rgba(212,175,55,.1);
+            --t1: #f4f4f5; --t2: #a1a1aa; --t3: #71717a;
+            --green: #006c35; --green-l: #10b981;
+            --radius: 16px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t1); line-height: 1.8; min-height: 100vh; }
+        ::selection { background: rgba(212,175,55,.2); color: #fff; }
+
+        .topbar { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 14px 32px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px); }
+        .topbar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .topbar-logo { font-size: 1.4rem; font-weight: 800; color: var(--gold); text-decoration: none; }
+        .topbar-back { color: var(--t2); text-decoration: none; font-size: .95rem; transition: color .3s; }
+        .topbar-back:hover { color: var(--gold); }
+
+        .hero { background: linear-gradient(135deg, #0d1a2f 0%, #030712 50%, rgba(212,175,55,.05) 100%); padding: 64px 32px; text-align: center; border-bottom: 3px solid var(--gold); }
+        .hero h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 12px; }
+        .hero h1 span { color: var(--gold); }
+        .hero p { font-size: 1.1rem; color: var(--t2); max-width: 700px; margin: 0 auto; }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
+        .stat { background: var(--bg2); padding: 20px 16px; text-align: center; }
+        .stat-num { font-size: 1.7rem; font-weight: 800; color: var(--gold); }
+        .stat-label { font-size: .82rem; color: var(--t3); margin-top: 2px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 48px 24px; }
+
+        /* ═══ CEO ═══ */
+        .ceo-card { background: linear-gradient(135deg, rgba(212,175,55,.08), rgba(212,175,55,.02)); border: 2px solid rgba(212,175,55,.2); border-radius: var(--radius); padding: 32px; text-align: center; margin-bottom: 48px; position: relative; }
+        .ceo-card::after { content: ''; position: absolute; bottom: -24px; left: 50%; width: 2px; height: 24px; background: var(--gold); transform: translateX(-50%); }
+        .ceo-badge { display: inline-block; background: var(--gold); color: #000; font-size: .75rem; font-weight: 800; padding: 4px 16px; border-radius: 20px; margin-bottom: 12px; }
+        .ceo-card h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
+        .ceo-card p { font-size: .95rem; color: var(--t2); }
+
+        /* ═══ SECTORS ═══ */
+        .sectors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; margin-bottom: 48px; }
+        .sector { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color .3s; }
+        .sector:hover { border-color: rgba(212,175,55,.25); }
+        .sector-head { padding: 20px 24px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--border); }
+        .sector-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+        .sector-head h3 { font-size: 1.1rem; font-weight: 700; }
+        .sector-head .staff { font-size: .75rem; color: var(--t3); background: var(--bg); padding: 3px 10px; border-radius: 20px; margin-right: auto; }
+        .dept-list { padding: 16px 24px; }
+        .dept { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(212,175,55,.04); }
+        .dept:last-child { border-bottom: none; }
+        .dept-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+        .dept-name { font-size: .9rem; color: var(--t1); flex: 1; }
+        .dept-count { font-size: .75rem; color: var(--t3); }
+
+        .s-tech .sector-icon { background: rgba(59,130,246,.15); }
+        .s-trade .sector-icon { background: rgba(16,185,129,.15); }
+        .s-sharia .sector-icon { background: rgba(212,175,55,.15); }
+        .s-finance .sector-icon { background: rgba(168,136,43,.15); }
+        .s-marketing .sector-icon { background: rgba(236,72,153,.15); }
+        .s-ops .sector-icon { background: rgba(249,115,22,.15); }
+        .s-gov .sector-icon { background: rgba(139,92,246,.15); }
+
+        .footer { text-align: center; padding: 32px; color: var(--t3); font-size: .8rem; border-top: 1px solid var(--border); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.7rem; }
+            .sectors-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-inner">
+        <a href="/" class="topbar-logo">شيخة</a>
+        <a href="/" class="topbar-back">← الرئيسية</a>
+    </div>
+</div>
+
+<section class="hero">
+    <h1>الهيكل <span>الإداري</span></h1>
+    <p>7 قطاعات و 34 إدارة — البنية التنظيمية الكاملة لمنظومة شيخة الاقتصادية الإسلامية</p>
+</section>
+
+<div class="stats-bar">
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">قطاعات</div></div>
+    <div class="stat"><div class="stat-num">34</div><div class="stat-label">إدارة</div></div>
+    <div class="stat"><div class="stat-num">186</div><div class="stat-label">موظف</div></div>
+    <div class="stat"><div class="stat-num">12</div><div class="stat-label">مستشار خارجي</div></div>
+</div>
+
+<div class="container">
+
+    <div class="ceo-card">
+        <div class="ceo-badge">الرئيس التنفيذي</div>
+        <h2>سلمان أحمد بن سلمان الراجح</h2>
+        <p>المؤسس والرئيس التنفيذي — الإشراف المباشر على جميع القطاعات السبعة</p>
+    </div>
+
+    <div class="sectors-grid">
+
+        <!-- قطاع التقنية -->
+        <div class="sector s-tech">
+            <div class="sector-head">
+                <div class="sector-icon">⚡</div>
+                <h3>قطاع التقنية</h3>
+                <span class="staff">42 موظف</span>
+            </div>
+            <div class="dept-list">
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة تطوير البرمجيات</span><span class="dept-count">12</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة البنية التحتية والسحابة</span><span class="dept-count">8</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة الذكاء الاصطناعي</span><span class="dept-count">7</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة أمن المعلومات</span><span class="dept-count">6</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة تجربة المستخدم</span><span class="dept-count">5</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة ضمان الجودة</span><span class="dept-count">4</span></div>
+            </div>
+        </div>
+
+        <!-- قطاع التجارة -->
+        <div class="sector s-trade">
+            <div class="sector-head">
+                <div class="sector-icon">🏪</div>
+                <h3>قطاع التجارة</h3>
+                <span class="staff">38 موظف</span>
+            </div>
+            <div class="dept-list">
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة السوق الرقمي</span><span class="dept-count">10</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة سلاسل الإمداد</span><span class="dept-count">8</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة العلاقات التجارية</span><span class="dept-count">7</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة التسعير والمؤشرات</span><span class="dept-count">6</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة التوسع الدولي</span><span class="dept-count">7</span></div>
+            </div>
+        </div>
+
+        <!-- قطاع الشرعية -->
+        <div class="sector s-sharia">
+            <div class="sector-head">
+                <div class="sector-icon">📖</div>
+                <h3>قطاع الشرعية</h3>
+                <span class="staff">18 موظف</span>
+            </div>
+            <div class="dept-list">
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة الرقابة الشرعية</span><span class="dept-count">5</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة الفتوى والبحوث</span><span class="dept-count">4</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة العقود الشرعية</span><span class="dept-count">4</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة التدقيق والامتثال</span><span class="dept-count">3</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة التوعية الشرعية</span><span class="dept-count">2</span></div>
+            </div>
+        </div>
+
+        <!-- قطاع المالية -->
+        <div class="sector s-finance">
+            <div class="sector-head">
+                <div class="sector-icon">💰</div>
+                <h3>قطاع المالية</h3>
+                <span class="staff">28 موظف</span>
+            </div>
+            <div class="dept-list">
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة المحاسبة والتقارير</span><span class="dept-count">7</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة المدفوعات والتحصيل</span><span class="dept-count">6</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة التمويل الإسلامي</span><span class="dept-count">5</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة المخاطر المالية</span><span class="dept-count">5</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة الزكاة والصدقات</span><span class="dept-count">3</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة التخطيط المالي</span><span class="dept-count">2</span></div>
+            </div>
+        </div>
+
+        <!-- قطاع التسويق -->
+        <div class="sector s-marketing">
+            <div class="sector-head">
+                <div class="sector-icon">📢</div>
+                <h3>قطاع التسويق</h3>
+                <span class="staff">24 موظف</span>
+            </div>
+            <div class="dept-list">
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة التسويق الرقمي</span><span class="dept-count">7</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة الهوية والعلامة</span><span class="dept-count">5</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة المحتوى والإعلام</span><span class="dept-count">5</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة نمو المستخدمين</span><span class="dept-count">4</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة الشراكات التسويقية</span><span class="dept-count">3</span></div>
+            </div>
+        </div>
+
+        <!-- قطاع العمليات -->
+        <div class="sector s-ops">
+            <div class="sector-head">
+                <div class="sector-icon">⚙️</div>
+                <h3>قطاع العمليات</h3>
+                <span class="staff">22 موظف</span>
+            </div>
+            <div class="dept-list">
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة خدمة العملاء</span><span class="dept-count">8</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة اللوجستيات</span><span class="dept-count">5</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة الموارد البشرية</span><span class="dept-count">4</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة الشؤون الإدارية</span><span class="dept-count">3</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة التدريب والتطوير</span><span class="dept-count">2</span></div>
+            </div>
+        </div>
+
+        <!-- قطاع الحوكمة -->
+        <div class="sector s-gov">
+            <div class="sector-head">
+                <div class="sector-icon">🏛️</div>
+                <h3>قطاع الحوكمة</h3>
+                <span class="staff">14 موظف</span>
+            </div>
+            <div class="dept-list">
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة الحوكمة المؤسسية</span><span class="dept-count">4</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة الشؤون القانونية</span><span class="dept-count">3</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة الامتثال التنظيمي</span><span class="dept-count">3</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة المراجعة الداخلية</span><span class="dept-count">2</span></div>
+                <div class="dept"><span class="dept-dot"></span><span class="dept-name">إدارة العلاقات الحكومية</span><span class="dept-count">2</span></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="footer">الهيكل الإداري — وثيقة إدارية داخلية © 2026 منظومة شيخة</div>
+
+<script src="/js/safe-api.js"></script>
+<script src="/js/sheikha-smart-fab.js" defer></script>
+</body>
+</html>

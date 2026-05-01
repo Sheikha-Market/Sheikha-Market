@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مختبرات الابتكار والتعاون في منظومة شيخة - فرص للتطوير المشترك والابتكار">
+    <title>مختبرات الابتكار | شيخة</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/sheikha-unified-theme.css">
+
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, var(--sheikha-black) 0%, var(--sheikha-black-light) 100%);
+            border-bottom: 2px solid var(--sheikha-gold);
+            padding: 3rem var(--sheikha-spacing-xl);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--sheikha-copper);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .lab-card {
+            background: var(--sheikha-bg-secondary);
+            border: 1px solid var(--sheikha-border);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--sheikha-shadow);
+            transition: all 300ms ease-in-out;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lab-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--sheikha-gold) 0%, var(--sheikha-copper) 100%);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 300ms ease-in-out;
+        }
+
+        .lab-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--sheikha-gold);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .lab-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .lab-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .lab-title {
+            font-size: 1.3rem;
+            color: var(--sheikha-gold);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .lab-description {
+            color: var(--sheikha-text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .lab-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .lab-features li {
+            padding: 0.5rem 0;
+            color: var(--sheikha-text-muted);
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--sheikha-divider);
+        }
+
+        .lab-features li::before {
+            content: '✓ ';
+            color: var(--sheikha-success);
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .lab-features li:last-child {
+            border-bottom: none;
+        }
+
+        .lab-footer {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--sheikha-divider);
+        }
+
+        .btn-join {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, var(--sheikha-gold) 0%, var(--sheikha-copper) 100%);
+            color: var(--sheikha-black);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 300ms ease-in-out;
+            font-size: 0.9rem;
+        }
+
+        .btn-join:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .section-divider {
+            text-align: center;
+            margin: 4rem 0 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--sheikha-border);
+            border-bottom: 1px solid var(--sheikha-border);
+        }
+
+        .section-divider h2 {
+            color: var(--sheikha-gold);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .tab-container {
+            background: var(--sheikha-bg-secondary);
+            border: 1px solid var(--sheikha-border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--sheikha-border);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1.5rem;
+            background: var(--sheikha-bg-secondary);
+            border: none;
+            color: var(--sheikha-text-muted);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 300ms ease-in-out;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: var(--sheikha-gold);
+        }
+
+        .tab-btn.active {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--sheikha-gold);
+            border-bottom-color: var(--sheikha-gold);
+        }
+
+        .tab-content {
+            padding: 2rem;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: slideDown 300ms ease-in-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            padding: 2rem;
+            padding-right: 3rem;
+            margin-bottom: 2rem;
+            background: var(--sheikha-black-light);
+            border-right: 4px solid var(--sheikha-gold);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: -12px;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--sheikha-gold);
+            border-radius: 50%;
+            border: 4px solid var(--sheikha-bg);
+        }
+
+        .timeline-date {
+            color: var(--sheikha-copper);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            color: var(--sheikha-gold);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: var(--sheikha-text-light);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 300ms ease-in-out;
+        }
+
+        .modal-content {
+            background: var(--sheikha-bg-secondary);
+            margin: 5% auto;
+            padding: 2rem;
+            border: 1px solid var(--sheikha-border);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: var(--sheikha-shadow-lg);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--sheikha-divider);
+        }
+
+        .modal-title {
+            color: var(--sheikha-gold);
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--sheikha-text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 300ms ease-in-out;
+        }
+
+        .close-btn:hover {
+            color: var(--sheikha-gold);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--sheikha-gold);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--sheikha-black-light);
+            border: 1px solid var(--sheikha-border);
+            color: var(--sheikha-text);
+            border-radius: 6px;
+            font-family: var(--sheikha-font-arabic);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--sheikha-gold) 0%, var(--sheikha-copper) 100%);
+            color: var(--sheikha-black);
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 300ms ease-in-out;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: var(--sheikha-shadow-lg);
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header {
+                padding: 2rem var(--sheikha-spacing-md);
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                text-align: right;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الرأس -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <span style="color: var(--sheikha-gold);">شيخة</span>
+                <span style="color: var(--sheikha-copper);">Innovation</span>
+            </div>
+            <h1 style="margin: 0; font-size: 1.5rem;">🔬 مختبرات الابتكار</h1>
+            <a href="index.html" style="color: var(--sheikha-gold); text-decoration: none;">← الرئيسية</a>
+        </div>
+    </header>
+
+    <!-- الصفحة الرئيسية -->
+    <div class="page-header">
+        <h1>🔬 مختبرات الابتكار والتعاون</h1>
+        <p>مساحات تعاون مفتوحة للشركات والمختصين لتطوير منتجات وحلول جديدة</p>
+        <div style="margin-top: 2rem; color: var(--sheikha-gold);">
+            <p>"وَالَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ"</p>
+            <p style="color: var(--sheikha-copper); font-size: 0.9rem;">العصر: 3</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- مختبرات الابتكار الرئيسية -->
+        <div class="content-grid">
+
+            <!-- مختبر المعادن والسكراب -->
+            <div class="lab-card">
+                <span class="lab-icon">⛏️</span>
+                <div class="lab-title">مختبر المعادن والسكراب</div>
+                <div class="lab-description">
+                    تطوير تقنيات جديدة لمعالجة وتنقية المعادن والسكراب بكفاءة عالية
+                </div>
+                <ul class="lab-features">
+                    <li>تحليل جودة المواد</li>
+                    <li>عمليات التنقية المتقدمة</li>
+                    <li>استدامة بيئية</li>
+                    <li>تقليل النفايات</li>
+                </ul>
+                <div class="lab-footer">
+                    <button class="btn-join" onclick="openModal('metal-lab')">انضم الآن</button>
+                </div>
+            </div>
+
+            <!-- مختبر البرمجيات والذكاء الصناعي -->
+            <div class="lab-card">
+                <span class="lab-icon">🤖</span>
+                <div class="lab-title">مختبر الذكاء الصناعي</div>
+                <div class="lab-description">
+                    بناء نماذج AI متقدمة للتنبؤ والتحسين والأتمتة في سوق المعادن
+                </div>
+                <ul class="lab-features">
+                    <li>نماذج التنبؤ</li>
+                    <li>تحسين الأسعار</li>
+                    <li>كشف الاحتيال</li>
+                    <li>توصيات ذكية</li>
+                </ul>
+                <div class="lab-footer">
+                    <button class="btn-join" onclick="openModal('ai-lab')">انضم الآن</button>
+                </div>
+            </div>
+
+            <!-- مختبر البلوكتشين والأمان -->
+            <div class="lab-card">
+                <span class="lab-icon">🔐</span>
+                <div class="lab-title">مختبر البلوكتشين</div>
+                <div class="lab-description">
+                    تطوير حلول بلوكتشين آمنة وموثوقة للعقود والتتبع الشفاف
+                </div>
+                <ul class="lab-features">
+                    <li>العقود الذكية</li>
+                    <li>تتبع الشحنات</li>
+                    <li>التحقق من الأصالة</li>
+                    <li>الشفافية الكاملة</li>
+                </ul>
+                <div class="lab-footer">
+                    <button class="btn-join" onclick="openModal('blockchain-lab')">انضم الآن</button>
+                </div>
+            </div>
+
+            <!-- مختبر الاستدامة الخضراء -->
+            <div class="lab-card">
+                <span class="lab-icon">🌱</span>
+                <div class="lab-title">مختبر الاستدامة</div>
+                <div class="lab-description">
+                    تطوير طرق صديقة للبيئة لمعالجة النفايات وإعادة التدوير
+                </div>
+                <ul class="lab-features">
+                    <li>طرق إعادة التدوير</li>
+                    <li>تقليل الانبعاثات</li>
+                    <li>معايير بيئية</li>
+                    <li>الشهادات الخضراء</li>
+                </ul>
+                <div class="lab-footer">
+                    <button class="btn-join" onclick="openModal('sustainability-lab')">انضم الآن</button>
+                </div>
+            </div>
+
+            <!-- مختبر الشريعة والامتثال -->
+            <div class="lab-card">
+                <span class="lab-icon">📖</span>
+                <div class="lab-title">مختبر التوافق الشرعي</div>
+                <div class="lab-description">
+                    بحث وتطوير أطر عمل إسلامية متكاملة للتجارة والمعاملات
+                </div>
+                <ul class="lab-features">
+                    <li>فتاوى موثقة</li>
+                    <li>أطر عمل شرعية</li>
+                    <li>الزكاة والصدقات</li>
+                    <li>المتابعة الدورية</li>
+                </ul>
+                <div class="lab-footer">
+                    <button class="btn-join" onclick="openModal('shariah-lab')">انضم الآن</button>
+                </div>
+            </div>
+
+            <!-- مختبر التدريب والتطوير -->
+            <div class="lab-card">
+                <span class="lab-icon">📚</span>
+                <div class="lab-title">مختبر التدريب</div>
+                <div class="lab-description">
+                    برامج تدريب متخصصة لتطوير مهارات الموظفين والشركاء
+                </div>
+                <ul class="lab-features">
+                    <li>دورات تخصصية</li>
+                    <li>شهادات معترف بها</li>
+                    <li>ورش عمل عملية</li>
+                    <li>معايير دولية</li>
+                </ul>
+                <div class="lab-footer">
+                    <button class="btn-join" onclick="openModal('training-lab')">انضم الآن</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم المشاريع الجارية -->
+        <div class="section-divider">
+            <h2>🚀 المشاريع الجارية</h2>
+            <p style="color: var(--sheikha-text-light);">مشاريع تعاونية حالية بحاجة إلى شركاء وعاملين</p>
+        </div>
+
+        <!-- الأتباب -->
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'active-projects')">المشاريع النشطة</button>
+                <button class="tab-btn" onclick="switchTab(event, 'upcoming-projects')">المشاريع القادمة</button>
+                <button class="tab-btn" onclick="switchTab(event, 'completed-projects')">المشاريع المنجزة</button>
+                <button class="tab-btn" onclick="switchTab(event, 'timeline')">الجدول الزمني</button>
+            </div>
+
+            <!-- المشاريع النشطة -->
+            <div id="active-projects" class="tab-content active">
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <div class="card-header">
+                        <h3>🏆 تطوير منصة تسعير المعادن الذكية</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>الجالة:</strong> قيد التطوير النشط</p>
+                        <p><strong>التقدم:</strong> 65%</p>
+                        <div class="progress-bar" style="margin: 1rem 0;">
+                            <div class="progress-fill" style="width: 65%;"></div>
+                        </div>
+                        <p><strong>الهدف:</strong> بناء نظام تسعير ذكي يعتمد على AI والتعلم الآلي</p>
+                        <p><strong>الشركاء المطلوبة:</strong> شركات تقنية، شركات معادن، خبراء AI</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <div class="card-header">
+                        <h3>♻️ نظام إعادة التدوير الذكي</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>الحالة:</strong> قيد التطوير</p>
+                        <p><strong>التقدم:</strong> 45%</p>
+                        <div class="progress-bar" style="margin: 1rem 0;">
+                            <div class="progress-fill" style="width: 45%;"></div>
+                        </div>
+                        <p><strong>الهدف:</strong> تطوير نظام متكامل لفرز وإعادة تدوير السكراب</p>
+                        <p><strong>الشركاء المطلوبة:</strong> شركات بيئية، مصنعين، متخصصي ميكانيكا</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>📱 تطبيق الجوال للمتداولين</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>الحالة:</strong> المرحلة الأولى</p>
+                        <p><strong>التقدم:</strong> 30%</p>
+                        <div class="progress-bar" style="margin: 1rem 0;">
+                            <div class="progress-fill" style="width: 30%;"></div>
+                        </div>
+                        <p><strong>الهدف:</strong> تطبيق موبايل كامل للتداول والمتابعة اللحظية</p>
+                        <p><strong>الشركاء المطلوبة:</strong> مطورو تطبيقات، مصممي UI/UX</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- المشاريع القادمة -->
+            <div id="upcoming-projects" class="tab-content">
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <div class="card-header">
+                        <h3>🔮 نظام التنبؤ بأسعار المعادن</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>تاريخ البدء:</strong> 2026/04/01</p>
+                        <p><strong>المدة المتوقعة:</strong> 6 أشهر</p>
+                        <p><strong>الميزانية:</strong> $500,000</p>
+                        <p><strong>الوصف:</strong> بناء نماذج متقدمة للتنبؤ بأسعار المعادن بدقة 95%+</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>🌐 منصة التجارة الدولية</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>تاريخ البدء:</strong> 2026/05/15</p>
+                        <p><strong>المدة المتوقعة:</strong> 8 أشهر</p>
+                        <p><strong>الميزانية:</strong> $1,000,000</p>
+                        <p><strong>الوصف:</strong> منصة عالمية آمنة وموثوقة للتجارة بين الشركات</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- المشاريع المنجزة -->
+            <div id="completed-projects" class="tab-content">
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <div class="card-header">
+                        <h3>✅ نظام التوافق الشرعي</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>تاريخ الإنجاز:</strong> 2026/01/15</p>
+                        <p><strong>الحالة:</strong> منجز وقيد الاستخدام</p>
+                        <p><strong>النتيجة:</strong> نظام كامل يراقب التوافق الشرعي لـ 100% من العمليات</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>✅ لوحة التحكم الموحدة</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>تاريخ الإنجاز:</strong> 2026/03/04</p>
+                        <p><strong>الحالة:</strong> منجز وقيد الاستخدام</p>
+                        <p><strong>النتيجة:</strong> لوحة تحكم ذكية يمكنها إدارة 93 محرك</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الجدول الزمني -->
+            <div id="timeline" class="tab-content">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">🔄 2026/01/15</div>
+                        <div class="timeline-title">إطلاق نظام التوافق الشرعي</div>
+                        <div class="timeline-description">تفعيل نظام المراقبة التلقائية للتوافق الشرعي</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">🛠️ 2026/02/20</div>
+                        <div class="timeline-title">بدء تطوير نظام ERP/SCM</div>
+                        <div class="timeline-description">دمج وحدات المالية والموارد البشرية والمخزون</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">🎯 2026/03/04</div>
+                        <div class="timeline-title">إطلاق لوحة التحكم الموحدة</div>
+                        <div class="timeline-description">منصة موحدة لإدارة جميع المحركات والأنظمة</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">🚀 2026/04/01</div>
+                        <div class="timeline-title">بدء مشروع التنبؤ بالأسعار</div>
+                        <div class="timeline-description">نماذج AI متقدمة للتنبؤ بأسعار المعادن</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">🌍 2026/06/01</div>
+                        <div class="timeline-title">إطلاق منصة التجارة الدولية</div>
+                        <div class="timeline-description">منصة عالمية موثوقة وآمنة</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم الفرص المتاحة -->
+        <div class="section-divider">
+            <h2>💼 الفرص المتاحة</h2>
+            <p style="color: var(--sheikha-text-light);">انضم إلى مختبراتنا وكن جزءاً من الابتكار</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="card">
+                <div class="card-header">
+                    <h3>🎓 برنامج التدريب</h3>
+                </div>
+                <div class="card-body">
+                    <p>برنامج مكثف لتطوير المهارات في المجالات التقنية والإدارية</p>
+                    <ul style="list-style-position: inside; margin-top: 1rem;">
+                        <li>مدة 3 أشهر</li>
+                        <li>شهادة معترف بها</li>
+                        <li>راتب شهري</li>
+                        <li>فرصة التوظيف</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-join" onclick="openModal('training-program')">تقدم الآن</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>🤝 شراكات استراتيجية</h3>
+                </div>
+                <div class="card-body">
+                    <p>نبحث عن شركاء لتطوير منتجات وخدمات جديدة</p>
+                    <ul style="list-style-position: inside; margin-top: 1rem;">
+                        <li>تمويل مشترك</li>
+                        <li>تبادل الخبرات</li>
+                        <li>نمو سريع</li>
+                        <li>رؤية مشتركة</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-join" onclick="openModal('partnership')">تواصل معنا</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>💡 مسابقة الابتكار</h3>
+                </div>
+                <div class="card-body">
+                    <p>مسابقة سنوية لأفضل الأفكار والابتكارات</p>
+                    <ul style="list-style-position: inside; margin-top: 1rem;">
+                        <li>جوائز مالية: $100,000</li>
+                        <li>دعم فني كامل</li>
+                        <li>تمويل لتنفيذ الفكرة</li>
+                        <li>حقوق ملكية فكرية</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-join" onclick="openModal('competition')">اشترك</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الحواوير المشروطة -->
+    <div id="lab-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">انضم إلى المختبر</h2>
+                <button class="close-btn" onclick="closeModal('lab-modal')">&times;</button>
+            </div>
+            <form onsubmit="handleLabSubmit(event)">
+                <div class="form-group">
+                    <label>الاسم الكامل *</label>
+                    <input type="text" name="fullname" required>
+                </div>
+                <div class="form-group">
+                    <label>البريد الإلكتروني *</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>اسم المنظمة *</label>
+                    <input type="text" name="organization" required>
+                </div>
+                <div class="form-group">
+                    <label>مجال التخصص *</label>
+                    <select name="specialization" required>
+                        <option value="">اختر</option>
+                        <option value="technical">فني وتقني</option>
+                        <option value="business">أعمال وتجارة</option>
+                        <option value="research">بحث وتطوير</option>
+                        <option value="consulting">استشارات</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>رسالة التقديم</label>
+                    <textarea name="message" placeholder="أخبرنا عن اهتماماتك ومهاراتك"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">إرسال التقديم</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- الحوار الثاني -->
+    <div id="opportunity-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="opportunity-title">فرصة جديدة</h2>
+                <button class="close-btn" onclick="closeModal('opportunity-modal')">&times;</button>
+            </div>
+            <form onsubmit="handleOpportunitySubmit(event)">
+                <div class="form-group">
+                    <label>الاسم الكامل *</label>
+                    <input type="text" name="fullname" required>
+                </div>
+                <div class="form-group">
+                    <label>البريد الإلكتروني *</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>رقم الهاتف</label>
+                    <input type="tel" name="phone">
+                </div>
+                <div class="form-group">
+                    <label>الخبرة السابقة</label>
+                    <textarea name="experience" placeholder="أخبرنا عن خبرتك"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">إرسال</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(event, tabName) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function openModal(type) {
+            if (type === 'metal-lab' || type === 'ai-lab' || type === 'blockchain-lab' ||
+                type === 'sustainability-lab' || type === 'shariah-lab' || type === 'training-lab') {
+                const titles = {
+                    'metal-lab': 'انضم إلى مختبر المعادن والسكراب',
+                    'ai-lab': 'انضم إلى مختبر الذكاء الصناعي',
+                    'blockchain-lab': 'انضم إلى مختبر البلوكتشين',
+                    'sustainability-lab': 'انضم إلى مختبر الاستدامة',
+                    'shariah-lab': 'انضم إلى مختبر التوافق الشرعي',
+                    'training-lab': 'انضم إلى مختبر التدريب'
+                };
+                document.getElementById('modal-title').textContent = titles[type];
+                document.getElementById('lab-modal').style.display = 'block';
+            } else {
+                const titles = {
+                    'training-program': 'برنامج التدريب',
+                    'partnership': 'الشراكات الاستراتيجية',
+                    'competition': 'مسابقة الابتكار'
+                };
+                document.getElementById('opportunity-title').textContent = titles[type];
+                document.getElementById('opportunity-modal').style.display = 'block';
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function handleLabSubmit(event) {
+            event.preventDefault();
+            alert('شكراً لتقديمك! سيتم التواصل معك قريباً');
+            closeModal('lab-modal');
+        }
+
+        function handleOpportunitySubmit(event) {
+            event.preventDefault();
+            alert('شكراً لاهتمامك! سيتم التواصل معك قريباً');
+            closeModal('opportunity-modal');
+        }
+
+        // إغلاق الحوار عند النقر خارجه
+        window.onclick = function(event) {
+            let modal = document.getElementById('lab-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+            modal = document.getElementById('opportunity-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شيخة — الهوية التجارية الرقمية V5 | سلمان أحمد الراجح</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--gold:#D4AF37;--gold-l:#F5E6A3;--gold-d:#8B7321;--copper:#B87333;--bg:#050810;--bg2:#0B1120;--bg3:#111827;--txt:#FFF;--txt2:#B0B8C8;--txt3:#6B7A90;--green:#0a5c36;--green-l:#10b981;--gov:#0ea5e9;--r:16px;}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Tajawal',sans-serif;background:var(--bg);min-height:100vh;color:var(--txt);}
+        a{color:var(--gold);text-decoration:none;}
+
+        /* === NAV === */
+        .nav{position:sticky;top:0;z-index:100;background:rgba(5,8,16,.94);backdrop-filter:blur(24px);border-bottom:1px solid rgba(212,175,55,.08);padding:0 24px;}
+        .nav-c{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;}
+        .nav-logo{display:flex;align-items:center;gap:10px;}
+        .nav-logo svg{width:28px;height:28px;}
+        .nav-logo span{font-family:'Cairo';font-size:1.1rem;font-weight:900;color:var(--gold);}
+        .nav-badge{padding:3px 10px;border-radius:6px;background:rgba(212,175,55,.08);color:var(--gold);font-size:.7rem;font-weight:700;border:1px solid rgba(212,175,55,.15);}
+        .nav-links{display:flex;gap:4px;list-style:none;}
+        .nav-links a{color:var(--txt3);padding:6px 14px;border-radius:8px;font-size:.82rem;font-weight:500;transition:all .2s;}
+        .nav-links a:hover,.nav-links a.active{color:var(--gold);background:rgba(212,175,55,.06);}
+
+        /* === HERO === */
+        .hero{text-align:center;padding:60px 24px 40px;position:relative;}
+        .hero::before{content:'';position:absolute;top:0;left:0;right:0;height:400px;background:radial-gradient(ellipse at 50% 0%,rgba(212,175,55,.04),transparent 60%);pointer-events:none;}
+        .hero h1{font-family:'Cairo';font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:6px;position:relative;}
+        .hero h1 span{background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .hero p{color:var(--txt2);font-size:.95rem;max-width:600px;margin:0 auto;}
+        .hero .verse{color:var(--green-l);font-size:.82rem;margin-top:14px;font-style:italic;}
+
+        /* === SECTIONS === */
+        .container{max-width:1100px;margin:0 auto;padding:0 24px;}
+        .sec{margin-bottom:60px;}
+        .sec-header{text-align:center;margin-bottom:30px;}
+        .sec-tag{font-family:'Outfit';font-size:.7rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+        .sec-title{font-family:'Cairo';font-size:1.6rem;font-weight:800;margin-bottom:6px;}
+        .sec-desc{color:var(--txt3);font-size:.88rem;max-width:500px;margin:0 auto;}
+
+        /* === LOGO DISPLAY === */
+        .logo-showcase{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-bottom:40px;}
+        .logo-box{background:var(--bg2);border:1px solid rgba(212,175,55,.08);border-radius:20px;padding:32px;text-align:center;min-width:240px;transition:all .4s;}
+        .logo-box:hover{border-color:rgba(212,175,55,.2);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.3);}
+        .logo-box img{max-width:180px;height:auto;margin-bottom:14px;}
+        .logo-box .lb-name{font-size:.85rem;font-weight:700;color:var(--gold);margin-bottom:4px;}
+        .logo-box .lb-use{font-size:.75rem;color:var(--txt3);}
+
+        /* === MEANING GRID === */
+        .meaning-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+        .m-card{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:var(--r);padding:20px;display:flex;gap:14px;transition:all .3s;}
+        .m-card:hover{border-color:rgba(212,175,55,.15);background:rgba(212,175,55,.02);}
+        .m-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.4rem;}
+        .m-card h4{font-size:.92rem;font-weight:700;color:var(--gold);margin-bottom:4px;}
+        .m-card p{font-size:.8rem;color:var(--txt2);line-height:1.6;}
+        .m-card .ref{font-size:.72rem;color:var(--green-l);margin-top:4px;font-style:italic;}
+
+        /* === BRAND COLORS === */
+        .colors-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+        .color-chip{width:120px;border-radius:14px;overflow:hidden;background:var(--bg2);border:1px solid rgba(255,255,255,.04);text-align:center;transition:all .3s;}
+        .color-chip:hover{transform:translateY(-4px);}
+        .color-swatch{height:70px;display:flex;align-items:center;justify-content:center;}
+        .color-chip .info{padding:10px 8px;}
+        .color-chip .hex{font-family:'Outfit';font-size:.8rem;font-weight:600;color:var(--txt);}
+        .color-chip .name{font-size:.72rem;color:var(--txt3);margin-top:2px;}
+
+        /* === TYPOGRAPHY === */
+        .typo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;}
+        .typo-card{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:var(--r);padding:24px;text-align:center;}
+        .typo-sample{font-size:2rem;margin-bottom:8px;color:var(--gold);}
+        .typo-name{font-size:.85rem;font-weight:700;margin-bottom:2px;}
+        .typo-use{font-size:.72rem;color:var(--txt3);}
+
+        /* === BUSINESS CARD === */
+        .cards-row{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;}
+        .bcard{width:100%;max-width:520px;aspect-ratio:1.7/1;border-radius:var(--r);position:relative;overflow:hidden;transition:all .5s;}
+        .bcard:hover{transform:translateY(-6px);box-shadow:0 30px 80px rgba(212,175,55,.1);}
+
+        .front{background:linear-gradient(150deg,#0c1322 0%,#060b15 50%,#0a1020 100%);border:1px solid rgba(212,175,55,.1);}
+        .front::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4;}
+        .front::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 85% 15%,rgba(212,175,55,.03),transparent 50%);}
+        .f-inner{position:relative;z-index:2;padding:22px 26px;height:100%;display:flex;flex-direction:column;}
+        .logo-row{display:flex;align-items:center;gap:10px;margin-bottom:auto;}
+        .brand-text .ar{font-family:'Cairo';font-size:14px;font-weight:900;color:var(--gold);line-height:1.2;}
+        .brand-text .en{font-family:'Outfit';font-size:7px;color:var(--txt3);letter-spacing:3px;text-transform:uppercase;}
+        .name-ar{font-family:'Cairo';font-size:20px;font-weight:900;line-height:1.2;}
+        .name-en{font-family:'Playfair Display';font-size:10px;color:var(--txt2);letter-spacing:1.5px;margin-top:1px;}
+        .role-ar{font-size:11px;color:var(--gold);font-weight:700;margin-top:3px;}
+        .role-en{font-family:'Outfit';font-size:7.5px;color:var(--txt3);letter-spacing:2px;text-transform:uppercase;margin-top:1px;}
+        .tagline{font-size:9px;color:var(--txt3);margin-top:4px;}
+        .contacts{display:flex;gap:14px;align-items:center;padding-top:10px;border-top:1px solid rgba(212,175,55,.06);margin-top:8px;flex-wrap:wrap;}
+        .ct{display:flex;align-items:center;gap:4px;}
+        .ct-i{font-size:7px;color:var(--gold);}
+        .ct-v{font-family:'Outfit';font-size:8.5px;color:var(--txt2);direction:ltr;}
+
+        .back{background:linear-gradient(150deg,#0c1322,#060b15);border:1px solid rgba(212,175,55,.1);}
+        .back::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4;}
+        .b-inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;}
+        .b-ar{font-family:'Cairo';font-size:32px;font-weight:900;color:var(--gold);line-height:1;}
+        .b-en{font-family:'Playfair Display';font-size:10px;color:var(--gold-d);letter-spacing:6px;text-transform:uppercase;margin-top:3px;}
+        .b-line{width:50px;height:1px;background:var(--gold);opacity:.3;margin:12px auto;}
+        .b-tl{font-size:10px;color:var(--txt2);}
+        .b-tle{font-family:'Outfit';font-size:7.5px;color:var(--txt3);letter-spacing:1.5px;margin-top:2px;}
+        .b-site{font-family:'Outfit';font-size:9px;color:var(--gold);margin-top:14px;letter-spacing:1px;}
+        .b-qr{margin-top:8px;opacity:.6;}
+
+        .card-note{font-size:.75rem;color:var(--txt3);text-align:center;margin-top:14px;max-width:520px;line-height:1.6;}
+
+        /* === NFC CARD === */
+        .nfc{width:100%;max-width:520px;background:linear-gradient(150deg,#0c1322,#0f1729);border:1px solid rgba(212,175,55,.1);border-radius:20px;overflow:hidden;margin:0 auto;}
+        .nfc-h{padding:28px 24px 18px;text-align:center;border-bottom:1px solid rgba(212,175,55,.04);}
+        .nfc-av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--copper));display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-family:'Cairo';font-size:28px;font-weight:900;color:var(--bg);border:3px solid var(--bg);box-shadow:0 0 0 2px rgba(212,175,55,.25);}
+        .nfc-n{font-family:'Cairo';font-size:20px;font-weight:800;}
+        .nfc-ne{font-family:'Playfair Display';font-size:11px;color:var(--txt2);letter-spacing:1px;margin-top:1px;}
+        .nfc-r{font-size:12px;color:var(--gold);font-weight:700;margin-top:4px;}
+        .nfc-re{font-family:'Outfit';font-size:8px;color:var(--txt3);letter-spacing:2px;text-transform:uppercase;}
+        .nfc-co{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;}
+        .nfc-co span{font-size:11px;color:var(--txt2);}
+        .nfc-b{padding:14px 20px;}
+        .nl{display:flex;align-items:center;gap:10px;padding:11px 14px;background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.03);border-radius:12px;text-decoration:none;color:var(--txt);transition:all .25s;cursor:pointer;margin-bottom:6px;}
+        .nl:hover{background:rgba(212,175,55,.03);border-color:rgba(212,175,55,.1);transform:translateX(-3px);}
+        .nl-i{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+        .nl-t{flex:1;}
+        .nl-la{font-size:10px;color:var(--txt3);}
+        .nl-v{font-family:'Outfit';font-size:11.5px;color:var(--txt);direction:ltr;text-align:right;margin-top:1px;}
+        .nfc-f{padding:14px 20px 22px;text-align:center;border-top:1px solid rgba(212,175,55,.04);}
+        .nfc-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;background:linear-gradient(135deg,var(--gold),var(--copper));border:none;border-radius:12px;color:var(--bg);font-family:'Tajawal';font-size:13px;font-weight:800;cursor:pointer;transition:all .3s;}
+        .nfc-btn:hover{box-shadow:0 8px 30px rgba(212,175,55,.25);transform:translateY(-2px);}
+        .nfc-tag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(212,175,55,.05);border-radius:16px;font-size:9px;color:var(--gold);margin-top:8px;}
+
+        /* === MARKETING USES === */
+        .uses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;}
+        .use-card{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:14px;padding:20px;text-align:center;transition:all .3s;}
+        .use-card:hover{border-color:rgba(212,175,55,.15);transform:translateY(-3px);}
+        .use-card .use-icon{font-size:2rem;margin-bottom:10px;}
+        .use-card h4{font-size:.9rem;font-weight:700;margin-bottom:4px;}
+        .use-card p{font-size:.75rem;color:var(--txt3);line-height:1.5;}
+
+        /* === GUIDELINES === */
+        .guide-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+        .guide-card{background:var(--bg2);border:1px solid rgba(255,255,255,.04);border-radius:14px;padding:20px;}
+        .guide-card h4{font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+        .guide-card ul{list-style:none;font-size:.8rem;color:var(--txt2);}
+        .guide-card li{padding:4px 0;padding-right:16px;position:relative;}
+        .guide-card li::before{content:'✓';position:absolute;right:0;color:var(--green-l);font-size:.7rem;}
+        .guide-card .dont li::before{content:'✗';color:#ef4444;}
+
+        /* === FOOTER === */
+        .footer{padding:30px 24px;text-align:center;color:var(--txt3);font-size:.78rem;border-top:1px solid rgba(212,175,55,.06);margin-top:40px;}
+
+        /* Responsive */
+        @media(max-width:768px){.cards-row{flex-direction:column;align-items:center;}.logo-showcase{flex-direction:column;align-items:center;}.contacts{gap:8px;}}
+
+        /* SVG inline */
+        .emblem-svg{display:inline-block;}
+    </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav">
+    <div class="nav-c">
+        <div class="nav-logo">
+            <svg viewBox="0 0 44 44" fill="none"><defs><linearGradient id="ng" x1="4" y1="4" x2="40" y2="40"><stop offset="0%" stop-color="#F5E6A3"/><stop offset="40%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#B87333"/></linearGradient></defs><rect x="8" y="8" width="28" height="28" rx="1.5" fill="none" stroke="url(#ng)" stroke-width="1" transform="rotate(0 22 22)"/><rect x="8" y="8" width="28" height="28" rx="1.5" fill="none" stroke="url(#ng)" stroke-width="1" transform="rotate(45 22 22)"/><line x1="22" y1="13" x2="22" y2="33" stroke="#D4AF37" stroke-width=".8"/><line x1="13" y1="18" x2="31" y2="18" stroke="#D4AF37" stroke-width=".8"/><line x1="13" y1="18" x2="13" y2="25" stroke="#D4AF37" stroke-width=".6"/><line x1="31" y1="18" x2="31" y2="25" stroke="#D4AF37" stroke-width=".6"/><path d="M9 25Q11 29 13 25Q15 29 17 25" fill="none" stroke="#D4AF37" stroke-width=".7"/><path d="M27 25Q29 29 31 25Q33 29 35 25" fill="none" stroke="#D4AF37" stroke-width=".7"/><polygon points="22,15 24,17 22,19 20,17" fill="none" stroke="#D4AF37" stroke-width=".7"/><circle cx="22" cy="17" r=".8" fill="#D4AF37"/><circle cx="22" cy="6" r="1" fill="#D4AF37"/><circle cx="18" cy="7.5" r=".7" fill="#D4AF37"/><circle cx="26" cy="7.5" r=".7" fill="#D4AF37"/><rect x="19" y="32" width="6" height="1.5" rx=".7" fill="none" stroke="#D4AF37" stroke-width=".6"/></svg>
+            <span>شيخة</span>
+        </div>
+        <span class="nav-badge">الهوية التجارية V5</span>
+        <ul class="nav-links"><li><a href="/">الرئيسية</a></li><li><a href="/سوق-شيخة.html">السوق</a></li></ul>
+    </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+    <h1>الهوية التجارية <span>الرقمية</span></h1>
+    <p>العلامة التجارية لمنظومة وسوق شيخة — الشعار والمعنى والألوان والخطوط وبطاقات الأعمال والمواد التسويقية</p>
+    <div class="verse">«وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة 275</div>
+</section>
+
+<div class="container">
+
+<!-- ═══ 1. LOGO SHOWCASE ═══ -->
+<div class="sec">
+    <div class="sec-header">
+        <div class="sec-tag">01 — The Logo</div>
+        <h2 class="sec-title">الشعار الرسمي</h2>
+        <p class="sec-desc">النجمة الثمانية + الميزان + الجوهرة — رمز العدل والحكمة في تجارة المعادن</p>
+    </div>
+    <div class="logo-showcase">
+        <div class="logo-box">
+            <svg width="140" height="180" viewBox="0 0 140 180" fill="none">
+                <defs><linearGradient id="lg1" x1="20" y1="10" x2="120" y2="130"><stop offset="0%" stop-color="#F5E6A3"/><stop offset="40%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#B87333"/></linearGradient></defs>
+                <rect x="28" y="18" width="84" height="84" rx="3" fill="none" stroke="url(#lg1)" stroke-width="2.2" transform="rotate(0 70 60)"/>
+                <rect x="28" y="18" width="84" height="84" rx="3" fill="none" stroke="url(#lg1)" stroke-width="2.2" transform="rotate(45 70 60)"/>
+                <line x1="70" y1="32" x2="70" y2="90" stroke="url(#lg1)" stroke-width="2"/>
+                <line x1="42" y1="46" x2="98" y2="46" stroke="url(#lg1)" stroke-width="2"/>
+                <line x1="42" y1="46" x2="42" y2="68" stroke="url(#lg1)" stroke-width="1.5"/>
+                <line x1="98" y1="46" x2="98" y2="68" stroke="url(#lg1)" stroke-width="1.5"/>
+                <path d="M30 68Q36 80 42 68Q48 80 54 68" fill="none" stroke="url(#lg1)" stroke-width="1.8"/>
+                <path d="M86 68Q92 80 98 68Q104 80 110 68" fill="none" stroke="url(#lg1)" stroke-width="1.8"/>
+                <polygon points="70,36 76,42 70,48 64,42" fill="none" stroke="url(#lg1)" stroke-width="1.8"/>
+                <circle cx="70" cy="42" r="2.5" fill="#D4AF37"/>
+                <circle cx="70" cy="12" r="2.8" fill="#D4AF37"/>
+                <circle cx="58" cy="16" r="2" fill="#D4AF37"/>
+                <circle cx="82" cy="16" r="2" fill="#D4AF37"/>
+                <rect x="60" y="88" width="20" height="4" rx="2" fill="none" stroke="url(#lg1)" stroke-width="1.5"/>
+                <line x1="40" y1="110" x2="100" y2="110" stroke="url(#lg1)" stroke-width=".8" opacity=".4"/>
+                <text x="70" y="136" font-family="'Cairo',sans-serif" font-size="26" font-weight="900" fill="url(#lg1)" text-anchor="middle">شيخة</text>
+                <text x="70" y="156" font-family="'Outfit',sans-serif" font-size="11" font-weight="400" fill="#8B7321" text-anchor="middle" letter-spacing="5">SHEIKHA</text>
+            </svg>
+            <div class="lb-name">الشعار الكامل</div>
+            <div class="lb-use">للمطبوعات وبطاقات الأعمال والمراسلات الرسمية</div>
+        </div>
+        <div class="logo-box">
+            <svg width="120" height="120" viewBox="0 0 140 140" fill="none">
+                <defs><linearGradient id="lg2" x1="20" y1="20" x2="120" y2="120"><stop offset="0%" stop-color="#F5E6A3"/><stop offset="40%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#B87333"/></linearGradient></defs>
+                <rect x="28" y="28" width="84" height="84" rx="3" fill="none" stroke="url(#lg2)" stroke-width="2.2" transform="rotate(0 70 70)"/>
+                <rect x="28" y="28" width="84" height="84" rx="3" fill="none" stroke="url(#lg2)" stroke-width="2.2" transform="rotate(45 70 70)"/>
+                <line x1="70" y1="42" x2="70" y2="100" stroke="url(#lg2)" stroke-width="2"/>
+                <line x1="42" y1="56" x2="98" y2="56" stroke="url(#lg2)" stroke-width="2"/>
+                <line x1="42" y1="56" x2="42" y2="78" stroke="url(#lg2)" stroke-width="1.5"/>
+                <line x1="98" y1="56" x2="98" y2="78" stroke="url(#lg2)" stroke-width="1.5"/>
+                <path d="M30 78Q36 90 42 78Q48 90 54 78" fill="none" stroke="url(#lg2)" stroke-width="1.8"/>
+                <path d="M86 78Q92 90 98 78Q104 90 110 78" fill="none" stroke="url(#lg2)" stroke-width="1.8"/>
+                <polygon points="70,46 76,52 70,58 64,52" fill="none" stroke="url(#lg2)" stroke-width="1.8"/>
+                <circle cx="70" cy="52" r="2.5" fill="#D4AF37"/>
+                <circle cx="70" cy="22" r="2.8" fill="#D4AF37"/>
+                <circle cx="58" cy="26" r="2" fill="#D4AF37"/>
+                <circle cx="82" cy="26" r="2" fill="#D4AF37"/>
+                <rect x="60" y="98" width="20" height="4" rx="2" fill="none" stroke="url(#lg2)" stroke-width="1.5"/>
+            </svg>
+            <div class="lb-name">الرمز (Emblem)</div>
+            <div class="lb-use">للأيقونات والتطبيقات والـ favicon</div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ 2. MEANING ═══ -->
+<div class="sec">
+    <div class="sec-header">
+        <div class="sec-tag">02 — Symbolism</div>
+        <h2 class="sec-title">معنى الشعار</h2>
+        <p class="sec-desc">كل عنصر يحمل معنى شرعياً وتجارياً — ليس زخرفة بل رسالة</p>
+    </div>
+    <div class="meaning-grid">
+        <div class="m-card"><div class="m-icon" style="background:rgba(212,175,55,.08)">✦</div><div><h4>النجمة الثمانية</h4><p>النظام الرباني والكمال — رمز هندسي إسلامي عريق. تمثل 8 أركان المنظومة: سوق، لوجستيات، مالية، تقنية، CRM، أمان، شريعة، مجتمع.</p></div></div>
+        <div class="m-card"><div class="m-icon" style="background:rgba(16,185,129,.08)">⚖️</div><div><h4>الميزان — القسط</h4><p>العدل والشفافية في التجارة — أسعار عادلة، لا غش في الأوزان والمقاييس.</p><div class="ref">«وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ» — الرحمن 9</div></div></div>
+        <div class="m-card"><div class="m-icon" style="background:rgba(139,92,246,.08)">💎</div><div><h4>جوهرة المعادن</h4><p>المعدن الثمين — جوهر التجارة. الشكل المعيّن يرمز للقيمة والندرة. المعادن هي قلب المنظومة.</p></div></div>
+        <div class="m-card"><div class="m-icon" style="background:rgba(59,130,246,.08)">👑</div><div><h4>التاج — 3 نقاط</h4><p>الكتاب والسنة والعقل — أسس القرار في شيخة. الريادة والحكمة والقيادة في سوق المعادن الإسلامي.</p></div></div>
+        <div class="m-card"><div class="m-icon" style="background:rgba(245,158,11,.08)">⊙</div><div><h4>النقطة المركزية</h4><p>التوحيد — نقطة واحدة في مركز كل شيء. منظومة واحدة، مالك واحد، هدف واحد.</p></div></div>
+        <div class="m-card"><div class="m-icon" style="background:rgba(212,175,55,.08)">🏛️</div><div><h4>القاعدة المتينة</h4><p>الأساس التقني القوي — 200+ API، 9 طبقات أمان، بنية تحتية متكاملة تدعم السوق بالكامل.</p></div></div>
+    </div>
+</div>
+
+<!-- ═══ 3. COLORS ═══ -->
+<div class="sec">
+    <div class="sec-header">
+        <div class="sec-tag">03 — Colors</div>
+        <h2 class="sec-title">الألوان الرسمية</h2>
+        <p class="sec-desc">ألوان مستوحاة من المعادن الثمينة والهوية الإسلامية</p>
+    </div>
+    <div class="colors-row">
+        <div class="color-chip"><div class="color-swatch" style="background:linear-gradient(135deg,#F5E6A3,#D4AF37)"></div><div class="info"><div class="hex">#D4AF37</div><div class="name">الذهبي — Gold</div></div></div>
+        <div class="color-chip"><div class="color-swatch" style="background:linear-gradient(135deg,#D4AF37,#B87333)"></div><div class="info"><div class="hex">#B87333</div><div class="name">النحاسي — Copper</div></div></div>
+        <div class="color-chip"><div class="color-swatch" style="background:#F5E6A3"></div><div class="info"><div class="hex">#F5E6A3</div><div class="name">ذهبي فاتح — Light Gold</div></div></div>
+        <div class="color-chip"><div class="color-swatch" style="background:#050810"></div><div class="info"><div class="hex">#050810</div><div class="name">كحلي داكن — Dark Navy</div></div></div>
+        <div class="color-chip"><div class="color-swatch" style="background:#0a5c36"></div><div class="info"><div class="hex">#0A5C36</div><div class="name">أخضر إسلامي — Green</div></div></div>
+        <div class="color-chip"><div class="color-swatch" style="background:#111827"></div><div class="info"><div class="hex">#111827</div><div class="name">رمادي داكن — Dark Gray</div></div></div>
+    </div>
+</div>
+
+<!-- ═══ 4. TYPOGRAPHY ═══ -->
+<div class="sec">
+    <div class="sec-header">
+        <div class="sec-tag">04 — Typography</div>
+        <h2 class="sec-title">الخطوط المعتمدة</h2>
+    </div>
+    <div class="typo-row">
+        <div class="typo-card"><div class="typo-sample" style="font-family:'Cairo';font-weight:900">شيخة</div><div class="typo-name">Cairo — العناوين العربية</div><div class="typo-use">الأسماء والعناوين الرئيسية</div></div>
+        <div class="typo-card"><div class="typo-sample" style="font-family:'Tajawal';font-weight:400">منظومة وسوق</div><div class="typo-name">Tajawal — النصوص العربية</div><div class="typo-use">المحتوى والأوصاف والقوائم</div></div>
+        <div class="typo-card"><div class="typo-sample" style="font-family:'Playfair Display';color:var(--gold)">SHEIKHA</div><div class="typo-name">Playfair Display — العناوين الإنجليزية</div><div class="typo-use">الاسم الإنجليزي والعناوين الفاخرة</div></div>
+        <div class="typo-card"><div class="typo-sample" style="font-family:'Outfit';font-weight:300;font-size:1.6rem;letter-spacing:4px">METALS</div><div class="typo-name">Outfit — النصوص الإنجليزية</div><div class="typo-use">التسميات والأرقام والبيانات التقنية</div></div>
+    </div>
+</div>
+
+<!-- ═══ 5. BUSINESS CARD FRONT ═══ -->
+<div class="sec">
+    <div class="sec-header">
+        <div class="sec-tag">05 — Business Card</div>
+        <h2 class="sec-title">بطاقة الأعمال</h2>
+        <p class="sec-desc">90×55 مم | ورق أسود مطفي 400 جم | طباعة ذهبية + أبيض + بروز</p>
+    </div>
+    <div class="cards-row">
+        <div class="bcard front">
+            <div class="f-inner">
+                <div class="logo-row">
+                    <svg width="40" height="40" viewBox="0 0 44 44" fill="none"><defs><linearGradient id="fc" x1="4" y1="4" x2="40" y2="40"><stop offset="0%" stop-color="#F5E6A3"/><stop offset="40%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#B87333"/></linearGradient></defs><rect x="8" y="8" width="28" height="28" rx="1.5" fill="none" stroke="url(#fc)" stroke-width="1" transform="rotate(0 22 22)"/><rect x="8" y="8" width="28" height="28" rx="1.5" fill="none" stroke="url(#fc)" stroke-width="1" transform="rotate(45 22 22)"/><line x1="22" y1="13" x2="22" y2="33" stroke="#D4AF37" stroke-width=".8"/><line x1="13" y1="18" x2="31" y2="18" stroke="#D4AF37" stroke-width=".8"/><line x1="13" y1="18" x2="13" y2="25" stroke="#D4AF37" stroke-width=".6"/><line x1="31" y1="18" x2="31" y2="25" stroke="#D4AF37" stroke-width=".6"/><path d="M9 25Q11 29 13 25Q15 29 17 25" fill="none" stroke="#D4AF37" stroke-width=".7"/><path d="M27 25Q29 29 31 25Q33 29 35 25" fill="none" stroke="#D4AF37" stroke-width=".7"/><polygon points="22,15 24,17 22,19 20,17" fill="none" stroke="#D4AF37" stroke-width=".7"/><circle cx="22" cy="17" r=".8" fill="#D4AF37"/><circle cx="22" cy="6" r="1" fill="#D4AF37"/><circle cx="18" cy="7.5" r=".7" fill="#D4AF37"/><circle cx="26" cy="7.5" r=".7" fill="#D4AF37"/><rect x="19" y="32" width="6" height="1.5" rx=".7" fill="none" stroke="#D4AF37" stroke-width=".6"/></svg>
+                    <div class="brand-text"><div class="ar">شيخة</div><div class="en">SHEIKHA</div></div>
+                </div>
+                <div>
+                    <div class="name-ar">سلمان أحمد الراجح</div>
+                    <div class="name-en">Salman Ahmed Alrajeh</div>
+                    <div class="role-ar">المؤسس والرئيس التنفيذي</div>
+                    <div class="role-en">Founder & Chief Executive Officer</div>
+                    <div class="tagline">منظومة وسوق شيخة — أول منظومة اقتصادية إسلامية رقمية للمعادن</div>
+                </div>
+                <div class="contacts">
+                    <div class="ct"><span class="ct-i">🌐</span><span class="ct-v">sheikha.top</span></div>
+                    <div class="ct"><span class="ct-i">✉</span><span class="ct-v">market@sheikha.top</span></div>
+                    <div class="ct"><span class="ct-i">📱</span><span class="ct-v">+966 55 494 2904</span></div>
+                    <div class="ct"><span class="ct-i">📍</span><span class="ct-v">الخبر، المنطقة الشرقية، السعودية</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="bcard back">
+            <div class="b-inner">
+                <svg width="60" height="60" viewBox="0 0 68 68" fill="none"><defs><linearGradient id="bc" x1="6" y1="6" x2="62" y2="62"><stop offset="0%" stop-color="#F5E6A3"/><stop offset="40%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#B87333"/></linearGradient></defs><rect x="12" y="12" width="44" height="44" rx="2" fill="none" stroke="url(#bc)" stroke-width="1.5" transform="rotate(0 34 34)"/><rect x="12" y="12" width="44" height="44" rx="2" fill="none" stroke="url(#bc)" stroke-width="1.5" transform="rotate(45 34 34)"/><line x1="34" y1="20" x2="34" y2="52" stroke="#D4AF37" stroke-width="1.2"/><line x1="20" y1="28" x2="48" y2="28" stroke="#D4AF37" stroke-width="1.2"/><line x1="20" y1="28" x2="20" y2="39" stroke="#D4AF37" stroke-width=".9"/><line x1="48" y1="28" x2="48" y2="39" stroke="#D4AF37" stroke-width=".9"/><path d="M14 39Q17 46 20 39Q23 46 26 39" fill="none" stroke="#D4AF37" stroke-width="1"/><path d="M42 39Q45 46 48 39Q51 46 54 39" fill="none" stroke="#D4AF37" stroke-width="1"/><polygon points="34,22 38,26 34,30 30,26" fill="none" stroke="#D4AF37" stroke-width="1"/><circle cx="34" cy="26" r="1.5" fill="#D4AF37"/><circle cx="34" cy="9" r="1.8" fill="#D4AF37"/><circle cx="28" cy="11" r="1.2" fill="#D4AF37"/><circle cx="40" cy="11" r="1.2" fill="#D4AF37"/><rect x="29" y="50" width="10" height="2.5" rx="1" fill="none" stroke="#D4AF37" stroke-width=".9"/></svg>
+                <div class="b-ar">شيخة</div>
+                <div class="b-en">SHEIKHA</div>
+                <div class="b-line"></div>
+                <div class="b-tl">سوق المدينة الرقمي للمعادن والسكراب</div>
+                <div class="b-tle">ISLAMIC DIGITAL METALS & SCRAP MARKETPLACE</div>
+                <div class="b-site">sheikha.top</div>
+            </div>
+        </div>
+    </div>
+    <p class="card-note" style="margin:14px auto 0">90×55mm | 400gsm Black Matte | Gold Foil Stamping + White Ink + Emboss | Rounded Corners 3mm</p>
+</div>
+
+<!-- ═══ 6. NFC DIGITAL CARD ═══ -->
+<div class="sec">
+    <div class="sec-header">
+        <div class="sec-tag">06 — Digital Smart Card</div>
+        <h2 class="sec-title">البطاقة الرقمية NFC</h2>
+        <p class="sec-desc">بطاقة ذكية — لمسة واحدة تفتح ملفك الرقمي الكامل</p>
+    </div>
+    <div class="nfc">
+        <div class="nfc-h">
+            <div class="nfc-av">س</div>
+            <div class="nfc-n">سلمان أحمد الراجح</div>
+            <div class="nfc-ne">Salman Ahmed Alrajeh</div>
+            <div class="nfc-r">المؤسس والرئيس التنفيذي</div>
+            <div class="nfc-re">Founder & Chief Executive Officer</div>
+            <div class="nfc-co">
+                <svg width="20" height="20" viewBox="0 0 44 44" fill="none"><rect x="8" y="8" width="28" height="28" rx="1.5" fill="none" stroke="#D4AF37" stroke-width=".8" transform="rotate(0 22 22)"/><rect x="8" y="8" width="28" height="28" rx="1.5" fill="none" stroke="#D4AF37" stroke-width=".8" transform="rotate(45 22 22)"/><line x1="22" y1="14" x2="22" y2="32" stroke="#D4AF37" stroke-width=".6"/><line x1="14" y1="19" x2="30" y2="19" stroke="#D4AF37" stroke-width=".6"/><path d="M10 25Q12 28 14 25Q16 28 18 25" fill="none" stroke="#D4AF37" stroke-width=".5"/><path d="M26 25Q28 28 30 25Q32 28 34 25" fill="none" stroke="#D4AF37" stroke-width=".5"/><polygon points="22,16 24,18 22,20 20,18" fill="none" stroke="#D4AF37" stroke-width=".5"/><circle cx="22" cy="18" r=".7" fill="#D4AF37"/></svg>
+                <span>منظومة وسوق شيخة — SHEIKHA</span>
+            </div>
+        </div>
+        <div class="nfc-b">
+            <a class="nl" href="https://sheikha.top"><div class="nl-i" style="background:rgba(212,175,55,.07)">🌐</div><div class="nl-t"><div class="nl-la">الموقع الرسمي</div><div class="nl-v">sheikha.top</div></div><span style="color:var(--txt3)">←</span></a>
+            <a class="nl" href="mailto:market@sheikha.top"><div class="nl-i" style="background:rgba(16,185,129,.07)">✉️</div><div class="nl-t"><div class="nl-la">البريد الإلكتروني</div><div class="nl-v">market@sheikha.top</div></div><span style="color:var(--txt3)">←</span></a>
+            <a class="nl" href="tel:+966554942904"><div class="nl-i" style="background:rgba(59,130,246,.07)">📱</div><div class="nl-t"><div class="nl-la">الهاتف</div><div class="nl-v">+966 55 494 2904</div></div><span style="color:var(--txt3)">←</span></a>
+            <a class="nl" href="https://wa.me/966554942904"><div class="nl-i" style="background:rgba(37,211,102,.07)">💬</div><div class="nl-t"><div class="nl-la">واتساب</div><div class="nl-v">+966 55 494 2904</div></div><span style="color:var(--txt3)">←</span></a>
+            <a class="nl"><div class="nl-i" style="background:rgba(239,68,68,.07)">📍</div><div class="nl-t"><div class="nl-la">الموقع</div><div class="nl-v">الخبر، المنطقة الشرقية، السعودية</div></div><span style="color:var(--txt3)">←</span></a>
+        </div>
+        <div class="nfc-f">
+            <button class="nfc-btn" onclick="dlVCard()">📥 حفظ جهة الاتصال — Save Contact</button>
+            <div class="nfc-tag">📡 NFC Smart Card — NTAG215</div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ 7. MARKETING USES ═══ -->
+<div class="sec">
+    <div class="sec-header">
+        <div class="sec-tag">07 — Marketing Applications</div>
+        <h2 class="sec-title">تطبيقات تسويقية</h2>
+        <p class="sec-desc">أين وكيف يُستخدم الشعار والهوية</p>
+    </div>
+    <div class="uses-grid">
+        <div class="use-card"><div class="use-icon">💳</div><h4>بطاقات الأعمال</h4><p>مطبوعة بالذهب + بطاقة NFC رقمية</p></div>
+        <div class="use-card"><div class="use-icon">📧</div><h4>توقيع البريد</h4><p>شعار + اسم + منصب + بيانات التواصل</p></div>
+        <div class="use-card"><div class="use-icon">📄</div><h4>الأوراق الرسمية</h4><p>ورق مراسلات + فواتير + عقود</p></div>
+        <div class="use-card"><div class="use-icon">📱</div><h4>التطبيق والموقع</h4><p>أيقونة PWA + شعار الموقع + favicon</p></div>
+        <div class="use-card"><div class="use-icon">🎁</div><h4>هدايا تسويقية</h4><p>أقلام + دفاتر + أكواب بالشعار الذهبي</p></div>
+        <div class="use-card"><div class="use-icon">📊</div><h4>العروض التقديمية</h4><p>شرائح بهوية شيخة لعروض المستثمرين</p></div>
+        <div class="use-card"><div class="use-icon">🏢</div><h4>لوحات المكتب</h4><p>لوحة استقبال + لوحة اجتماعات</p></div>
+        <div class="use-card"><div class="use-icon">📦</div><h4>تغليف المنتجات</h4><p>ملصقات وأشرطة للشحنات والسبائك</p></div>
+    </div>
+</div>
+
+<!-- ═══ 8. BRAND GUIDELINES ═══ -->
+<div class="sec">
+    <div class="sec-header">
+        <div class="sec-tag">08 — Brand Guidelines</div>
+        <h2 class="sec-title">إرشادات العلامة التجارية</h2>
+    </div>
+    <div class="guide-grid">
+        <div class="guide-card">
+            <h4>✅ استخدام صحيح</h4>
+            <ul>
+                <li>الشعار على خلفية داكنة (#050810)</li>
+                <li>التدرج الذهبي الرسمي فقط</li>
+                <li>مسافة آمنة حول الشعار (20% من الحجم)</li>
+                <li>الحد الأدنى 24px رقمي / 8mm مطبوع</li>
+                <li>SVG أو PNG عالي الدقة فقط</li>
+            </ul>
+        </div>
+        <div class="guide-card">
+            <h4>❌ استخدام خاطئ</h4>
+            <ul class="dont">
+                <li>تغيير ألوان الشعار</li>
+                <li>إمالة أو تدوير أو تشويه</li>
+                <li>وضعه على خلفيات فاتحة بدون تعديل</li>
+                <li>إضافة ظلال أو تأثيرات</li>
+                <li>استخدام نسخ منخفضة الدقة</li>
+            </ul>
+        </div>
+        <div class="guide-card">
+            <h4>📐 المقاسات المعتمدة</h4>
+            <ul>
+                <li>بطاقة أعمال: 90×55 مم</li>
+                <li>ورق رسمي: A4 مع هامش 25mm</li>
+                <li>أيقونة تطبيق: 512×512 px</li>
+                <li>favicon: 32×32 px</li>
+                <li>OG Image: 1200×630 px</li>
+            </ul>
+        </div>
+        <div class="guide-card">
+            <h4>☪️ المبادئ الشرعية</h4>
+            <ul>
+                <li>لا صور بشرية في الشعار</li>
+                <li>لا رموز مخالفة للشريعة</li>
+                <li>الميزان يرمز للعدل لا للقانون الوضعي</li>
+                <li>النجمة إسلامية وليست سياسية</li>
+                <li>الشعار يُحترم ولا يُبتذل</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div><!-- container -->
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+    <div>منظومة وسوق شيخة — SHEIKHA &copy; 2026 | المالك: سلمان أحمد بن سلمان الراجح</div>
+    <div style="margin-top:4px">«وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة 275</div>
+    <div style="margin-top:8px;color:var(--gold);font-size:.7rem">الهوية التجارية الرقمية V5 — تم التصميم بواسطة Cursor + Claude + ChatGPT</div>
+</footer>
+
+<script>
+function dlVCard(){
+    const v=`BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=utf-8:الراجح;سلمان;أحمد;;
+FN;CHARSET=utf-8:سلمان أحمد الراجح
+FN;LANGUAGE=en:Salman Ahmed Alrajeh
+ORG;CHARSET=utf-8:منظومة وسوق شيخة - SHEIKHA
+TITLE;CHARSET=utf-8:المؤسس والرئيس التنفيذي - Founder & CEO
+TEL;TYPE=CELL:+966554942904
+EMAIL:market@sheikha.top
+URL:https://sheikha.top
+ADR;TYPE=WORK;CHARSET=utf-8:;;الخبر;المنطقة الشرقية;;;المملكة العربية السعودية
+NOTE;CHARSET=utf-8:منظومة وسوق شيخة — أول منظومة اقتصادية إسلامية رقمية للمعادن والسكراب\\nSHEIKHA — First Islamic Digital Metals Marketplace\\nsheikha.top
+END:VCARD`;
+    const b=new Blob([v],{type:'text/vcard;charset=utf-8'});
+    const u=URL.createObjectURL(b);
+    const a=document.createElement('a');a.href=u;a.download='Salman-Alrajeh-SHEIKHA.vcf';a.click();
+    URL.revokeObjectURL(u);
+}
+</script>
+
+</body>
+</html>

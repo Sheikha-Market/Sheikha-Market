@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شيخة — البصمة الرقمية والشخصية | SHEIKHA Digital Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@200;300;400;500;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+--g4:#D4AF37;--g2:#F5E6A3;--g6:#B8942A;--g1:#FFF8E1;
+--c4:#B87333;--n8:#020306;--n7:#070b14;--n6:#0d1320;--n5:#141e2e;
+--t1:#f0e6d0;--t2:#b8a880;--t3:#706850;--t4:#484030;
+--grn:#00e89d;--red:#ff4d6a;--blu:#3d8eff;--pur:#9d6aff;--ylw:#ffb020;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Naskh Arabic','Cairo',sans-serif;background:var(--n8);color:var(--t1);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--g4);color:#000;}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='rgba(212,175,55,0.012)' stroke-width='0.5'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.p{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 20px;}
+
+/* Shared */
+.gd{background:linear-gradient(135deg,var(--g1),var(--g4),var(--c4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.chip{display:inline-block;padding:3px 14px;border-radius:16px;font-family:'Outfit';font-size:7px;letter-spacing:4px;text-transform:uppercase;border:1px solid rgba(212,175,55,0.08);color:var(--g4);margin-bottom:12px;}
+.sec{margin:36px 0;}
+.sh{text-align:center;margin-bottom:16px;}
+.sh h2{font-family:'Cairo';font-size:clamp(18px,3vw,26px);font-weight:900;margin:3px 0;}
+.sh .d{font-size:10px;color:var(--t4);}
+
+/* Hero */
+.hero{padding:40px 0 28px;text-align:center;}
+.hero::after{content:'';display:block;width:25%;margin:20px auto 0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.1),transparent);}
+.bism{font-family:'Amiri';font-size:clamp(18px,3vw,28px);color:var(--g4);margin-bottom:6px;font-style:italic;}
+.shahada{font-family:'Amiri';font-size:13px;color:var(--t3);margin-bottom:16px;line-height:2;}
+.hero h1{font-family:'Amiri';font-size:clamp(26px,5vw,48px);font-weight:700;line-height:1.3;}
+.hero .sub{font-size:12px;color:var(--t3);margin-top:8px;line-height:2.2;max-width:600px;margin-inline:auto;}
+
+/* Verse Box */
+.verse{padding:20px;border-radius:16px;background:linear-gradient(135deg,rgba(212,175,55,0.02),transparent);border:1px solid rgba(212,175,55,0.05);text-align:center;margin:20px 0;}
+.verse .ar{font-family:'Amiri';font-size:20px;font-weight:700;line-height:2;color:var(--g2);}
+.verse .ref{font-size:10px;color:var(--g4);margin-top:6px;font-family:'Outfit';}
+.verse .mean{font-size:11px;color:var(--t3);margin-top:4px;}
+
+/* Personality */
+.pers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;}
+.pers{padding:16px;border-radius:14px;background:var(--n6);border:1px solid rgba(255,255,255,0.02);transition:all .2s;}
+.pers:hover{transform:translateY(-2px);border-color:rgba(212,175,55,0.04);}
+.pers-ico{font-size:22px;margin-bottom:6px;}
+.pers-t{font-family:'Cairo';font-size:12px;font-weight:800;margin-bottom:3px;}
+.pers-v{font-family:'Amiri';font-size:11px;font-style:italic;color:var(--g4);margin-bottom:4px;line-height:1.8;}
+.pers-d{font-size:9px;color:var(--t3);line-height:2;}
+
+/* Voice */
+.voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+@media(max-width:600px){.voice-grid{grid-template-columns:1fr;}}
+.voice-box{padding:16px;border-radius:12px;}
+.voice-label{font-family:'Outfit';font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.voice-label::before{content:'';width:8px;height:8px;border-radius:50%;}
+.voice-do{background:rgba(0,232,157,0.02);border:1px solid rgba(0,232,157,0.04);}
+.voice-do .voice-label{color:var(--grn);}
+.voice-do .voice-label::before{background:var(--grn);}
+.voice-dont{background:rgba(255,77,106,0.02);border:1px solid rgba(255,77,106,0.04);}
+.voice-dont .voice-label{color:var(--red);}
+.voice-dont .voice-label::before{background:var(--red);}
+.voice-list{list-style:none;font-size:10px;color:var(--t3);line-height:2.4;}
+
+/* Channels */
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;}
+.ch{padding:14px;border-radius:12px;background:var(--n6);border:1px solid rgba(255,255,255,0.02);transition:all .2s;}
+.ch:hover{border-color:rgba(212,175,55,0.04);}
+.ch-h{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.ch-ico{font-size:18px;}
+.ch-name{font-family:'Cairo';font-size:11px;font-weight:800;}
+.ch-handle{font-family:'IBM Plex Mono';font-size:8px;color:var(--g4);direction:ltr;}
+.ch-d{font-size:8px;color:var(--t4);line-height:2;}
+.ch-type{font-family:'Outfit';font-size:7px;padding:2px 6px;border-radius:4px;font-weight:600;}
+
+/* Identity Matrix */
+.id-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.02);font-size:9px;margin:12px 0;}
+.id-table th{background:var(--n5);padding:8px 10px;font-family:'Outfit';font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--t3);font-weight:600;text-align:right;}
+.id-table td{background:var(--n7);padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.01);}
+.id-table tr:last-child td{border-bottom:none;}
+
+/* Phases */
+.phases{display:flex;flex-direction:column;gap:8px;}
+.phase{padding:16px;border-radius:14px;background:var(--n6);border:1px solid rgba(255,255,255,0.02);display:grid;grid-template-columns:60px 1fr;gap:14px;align-items:start;}
+.phase-num{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Outfit';font-size:20px;font-weight:800;}
+.phase-t{font-family:'Cairo';font-size:13px;font-weight:800;margin-bottom:2px;}
+.phase-d{font-size:9px;color:var(--t3);line-height:2;}
+.phase-targets{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+.phase-tag{font-size:7px;padding:2px 8px;border-radius:4px;font-weight:600;}
+
+/* CTA */
+.cta{text-align:center;padding:28px;border-radius:18px;background:linear-gradient(135deg,rgba(212,175,55,0.03),rgba(184,115,51,0.02));border:1px solid rgba(212,175,55,0.06);margin:20px 0;}
+.cta h3{font-family:'Amiri';font-size:22px;font-weight:700;margin-bottom:6px;}
+.cta .d{font-size:11px;color:var(--t3);line-height:2;}
+
+/* Cmd */
+.cmd{background:#080c16;border:1px solid rgba(212,175,55,0.05);border-radius:14px;padding:16px;margin:12px 0;position:relative;}
+.cmd-tag{position:absolute;top:6px;left:8px;font-family:'Outfit';font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:rgba(212,175,55,0.06);color:var(--g4);}
+.cmd pre{font-family:'IBM Plex Mono';font-size:9px;line-height:2;color:#c9d1d9;white-space:pre-wrap;direction:ltr;text-align:left;}
+.cm{color:#6e7681;}.kw{color:#ff7b72;}.st{color:#a5d6ff;}.fn{color:#d2a8ff;}.gl{color:#D4AF37;}
+
+.ft{text-align:center;padding:24px 20px;border-top:1px solid rgba(212,175,55,0.03);margin-top:24px;}
+.ft p{font-size:8px;color:var(--t4);line-height:2.4;}
+</style>
+</head>
+<body>
+<nav style="position:sticky;top:0;z-index:999;background:rgba(2,3,6,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(212,175,55,0.06);padding:10px 20px;display:flex;gap:16px;align-items:center;font-family:'Cairo',sans-serif;font-size:12px;">
+  <a href="/" style="color:#D4AF37;text-decoration:none;font-weight:700;">الرئيسية</a>
+  <a href="/SHEIKHA-MARKET-SYSTEM.html" style="color:#b8a880;text-decoration:none;">منظومة السوق</a>
+  <a href="/%D8%B3%D9%88%D9%82-%D8%B4%D9%8A%D8%AE%D8%A9.html" style="color:#b8a880;text-decoration:none;">السوق</a>
+  <a href="/SHEIKHA-SMART-DIGITAL.html" style="color:#b8a880;text-decoration:none;">المعمارية الذكية</a>
+</nav>
+<div class="p">
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="bism">بسم الله الرحمن الرحيم</div>
+  <div class="shahada">أشهد أن لا إله إلا الله وأشهد أنّ محمداً رسول الله ﷺ</div>
+  <div class="chip">◆ Digital Identity & Personality System ◆</div>
+  <h1><span class="gd">البصمة · الهوية · الشخصية</span></h1>
+  <div class="sub">تاجر مسلم على نهج النبي ﷺ — قدوة في الأخلاق والمبادئ والقيم — بصمة رقمية في كل مكان — رسالة لأمة محمد والبشرية أجمعين</div>
+</div>
+
+<!-- ═══ THE VERSE ═══ -->
+<div class="verse">
+  <div class="ar">﴿ لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ ﴾</div>
+  <div class="ref">سورة الأحزاب — آية 21</div>
+</div>
+
+<!-- ═══ 1. الشخصية — WHO IS SHEIKHA ═══ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip">01 — Brand Personality</div>
+    <h2><span class="gd">شخصية شيخة — على نهج النبي ﷺ</span></h2>
+    <div class="d">كل صفة مستمدة من أخلاق النبي ﷺ في التجارة والمعاملات</div>
+  </div>
+  <div class="pers-grid">
+    <div class="pers">
+      <div class="pers-ico">🤝</div>
+      <div class="pers-t" style="color:var(--grn);">الصدق — Truthful</div>
+      <div class="pers-v">«التاجر الصدوق الأمين مع النبيين والصديقين والشهداء»</div>
+      <div class="pers-d">كل سعر حقيقي · كل وصف صادق · لا مبالغة في التسويق · لا وعود كاذبة · البيّنة على من ادّعى</div>
+    </div>
+    <div class="pers">
+      <div class="pers-ico">⚖️</div>
+      <div class="pers-t" style="color:var(--g4);">الأمانة — Trustworthy</div>
+      <div class="pers-v">«أدِّ الأمانة إلى من ائتمنك ولا تخن من خانك»</div>
+      <div class="pers-d">بيانات العملاء أمانة · الأسعار أمانة · المعادن مفحوصة · الشهادات حقيقية · العقود واضحة</div>
+    </div>
+    <div class="pers">
+      <div class="pers-ico">💎</div>
+      <div class="pers-t" style="color:var(--blu);">الإتقان — Excellence</div>
+      <div class="pers-v">«إنّ الله يحب إذا عمل أحدكم عملاً أن يتقنه»</div>
+      <div class="pers-d">كل صفحة مُتقنة · كل API مُختبر · كل تصميم مُراجع · صفر أخطاء · تقييم 85/100 وصاعد</div>
+    </div>
+    <div class="pers">
+      <div class="pers-ico">🕊️</div>
+      <div class="pers-t" style="color:var(--pur);">الرحمة — Merciful</div>
+      <div class="pers-v">«رحم الله رجلاً سمحاً إذا باع وإذا اشترى»</div>
+      <div class="pers-d">صفر عمولة · تسجيل مجاني · مساعدة التاجر الصغير · لا احتكار · السماحة في البيع والشراء</div>
+    </div>
+    <div class="pers">
+      <div class="pers-ico">🛡️</div>
+      <div class="pers-t" style="color:var(--red);">النهي عن الغش — Anti-Fraud</div>
+      <div class="pers-v">«من غشّنا فليس منّا»</div>
+      <div class="pers-d">فحص شرعي تلقائي · كشف الغش · كشف الربا · تنبيه المحرّمات · حماية المشتري والبائع</div>
+    </div>
+    <div class="pers">
+      <div class="pers-ico">🌍</div>
+      <div class="pers-t" style="color:var(--ylw);">العالمية — Universal</div>
+      <div class="pers-v">﴿ وَمَا أَرْسَلْنَاكَ إِلَّا رَحْمَةً لِّلْعَالَمِينَ ﴾</div>
+      <div class="pers-d">المنصة للجميع · مسلم وغير مسلم · عربي وأعجمي · القيم الإسلامية تنفع البشرية · العدل للكل</div>
+    </div>
+    <div class="pers">
+      <div class="pers-ico">📢</div>
+      <div class="pers-t" style="color:var(--grn);">الأمر بالمعروف — Advocate</div>
+      <div class="pers-v">﴿ كُنتُمْ خَيْرَ أُمَّةٍ أُخْرِجَتْ لِلنَّاسِ ﴾</div>
+      <div class="pers-d">نشر التجارة الحلال · تعليم أحكام البيع · محاربة الربا · نشر الوعي · إعمار الأرض بالحلال</div>
+    </div>
+    <div class="pers">
+      <div class="pers-ico">🏗️</div>
+      <div class="pers-t" style="color:var(--c4);">إعمار الأرض — Build</div>
+      <div class="pers-v">﴿ هُوَ أَنشَأَكُم مِّنَ الْأَرْضِ وَاسْتَعْمَرَكُمْ فِيهَا ﴾</div>
+      <div class="pers-d">بناء بنية تحتية تقنية · خلق فرص عمل · تمكين التجار · ربط الأسواق · تنمية الاقتصاد الحلال</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 2. VOICE — صوت شيخة ═══ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip">02 — Brand Voice</div>
+    <h2><span class="gd">صوت شيخة — كيف تتكلم</span></h2>
+    <div class="d">نبرة موحّدة في كل القنوات</div>
+  </div>
+  <div class="voice-grid">
+    <div class="voice-box voice-do">
+      <div class="voice-label">نقول ✅</div>
+      <ul class="voice-list">
+        <li>✅ «بارك الله في تجارتك» — بدل "Thanks for your purchase"</li>
+        <li>✅ «تجارة حلال مباركة» — بدل "Great deal"</li>
+        <li>✅ «على بركة الله» — بدل "Get started"</li>
+        <li>✅ «نحن نخدمك بإتقان» — بدل "Best service"</li>
+        <li>✅ «السلام عليكم» — بدل "Hello"</li>
+        <li>✅ «جزاك الله خيراً» — بدل "Thank you"</li>
+        <li>✅ «بيع مبرور» — بدل "Sale completed"</li>
+        <li>✅ «لا ضرر ولا ضرار» — بدل "Fair trade"</li>
+        <li>✅ «توكّلنا على الله» — بدل "Let's go"</li>
+      </ul>
+    </div>
+    <div class="voice-box voice-dont">
+      <div class="voice-label">لا نقول ❌</div>
+      <ul class="voice-list">
+        <li>❌ عبارات ربوية: «فائدة · قرض · interest»</li>
+        <li>❌ مبالغات: «أفضل في العالم · الأول عالمياً»</li>
+        <li>❌ وعود كاذبة: «ربح مضمون 100%»</li>
+        <li>❌ ضغط نفسي: «العرض ينتهي الآن!!»</li>
+        <li>❌ يمين كاذب: «والله أرخص سعر»</li>
+        <li>❌ تحقير المنافس: «نحن أفضل من فلان»</li>
+        <li>❌ غرور: «لا أحد يقدر يسوّي مثلنا»</li>
+        <li>❌ ألفاظ سوقية غير لائقة</li>
+        <li>❌ أي عبارة فيها غش أو تدليس</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 3. DIGITAL IDENTITY ═══ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip">03 — Digital Identity</div>
+    <h2><span class="gd">الهوية الرقمية — كل منصة · كل قناة</span></h2>
+    <div class="d">بصمة موحّدة يعرفها الجميع — من السعودية إلى آخر الأرض</div>
+  </div>
+
+  <table class="id-table">
+    <tr><th>العنصر</th><th>المعيار الموحّد</th><th>الاستخدام</th></tr>
+    <tr><td style="font-weight:700;color:var(--t1);">الاسم العربي</td><td style="color:var(--g4);font-family:'Amiri';font-size:14px;">شيخة</td><td>كل المنصات العربية</td></tr>
+    <tr><td style="font-weight:700;color:var(--t1);">الاسم الإنجليزي</td><td style="color:var(--g4);font-family:'Outfit';letter-spacing:2px;">SHEIKHA</td><td>كل المنصات الدولية</td></tr>
+    <tr><td style="font-weight:700;color:var(--t1);">المُعرّف الموحّد</td><td style="color:var(--grn);font-family:'IBM Plex Mono';">@sheikiha</td><td>كل المنصات بدون استثناء</td></tr>
+    <tr><td style="font-weight:700;color:var(--t1);">الشعار</td><td>حرف <span style="font-family:'Amiri';font-size:16px;color:var(--g4);">ش</span> في مربع ذهبي</td><td>صورة البروفايل في كل مكان</td></tr>
+    <tr><td style="font-weight:700;color:var(--t1);">الألوان</td><td><span style="color:var(--g4);">■</span> ذهبي + <span style="color:var(--c4);">■</span> نحاسي + <span>■</span> ليل</td><td>كل التصاميم والمنشورات</td></tr>
+    <tr><td style="font-weight:700;color:var(--t1);">الشعار النصي</td><td style="color:var(--g2);font-family:'Amiri';">تجارة حلال مباركة ☪</td><td>البايو في كل المنصات</td></tr>
+    <tr><td style="font-weight:700;color:var(--t1);">الهاشتاقات</td><td style="font-family:'IBM Plex Mono';font-size:8px;color:var(--grn);">#شيخة #تجارة_حلال #SHEIKHA</td><td>كل المنشورات</td></tr>
+    <tr><td style="font-weight:700;color:var(--t1);">الموقع</td><td style="font-family:'IBM Plex Mono';color:var(--blu);">sheikha.top</td><td>الرابط الرئيسي في كل مكان</td></tr>
+    <tr><td style="font-weight:700;color:var(--t1);">البريد</td><td style="font-family:'IBM Plex Mono';color:var(--blu);">info@sheikha.top</td><td>التواصل الرسمي</td></tr>
+  </table>
+
+  <div class="ch-grid">
+    <!-- Social Media -->
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">📱</div><div><div class="ch-name">X (تويتر)</div><div class="ch-handle">@sheikha</div></div></div>
+      <div class="ch-type" style="background:rgba(61,142,255,0.06);color:var(--blu);">أساسي — يومي</div>
+      <div class="ch-d">أخبار السوق · أسعار المعادن · أحكام البيع · نصائح تجارية · آيات وأحاديث التجارة</div>
+    </div>
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">📸</div><div><div class="ch-name">Instagram</div><div class="ch-handle">@sheikha</div></div></div>
+      <div class="ch-type" style="background:rgba(255,92,160,0.06);color:#ff5ca0;">بصري — 3x أسبوعياً</div>
+      <div class="ch-d">صور المعادن · تصاميم إسلامية · Reels تعليمية · Stories أسعار · Infographics أحكام</div>
+    </div>
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">💼</div><div><div class="ch-name">LinkedIn</div><div class="ch-handle">@sheikha</div></div></div>
+      <div class="ch-type" style="background:rgba(61,142,255,0.06);color:var(--blu);">B2B — أسبوعي</div>
+      <div class="ch-d">مقالات تحليلية · شراكات تجارية · تحليل أسواق المعادن · قصص نجاح · فرص استيراد وتصدير</div>
+    </div>
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">🎬</div><div><div class="ch-name">YouTube</div><div class="ch-handle">@sheikha</div></div></div>
+      <div class="ch-type" style="background:rgba(255,77,106,0.06);color:var(--red);">تعليمي — أسبوعي</div>
+      <div class="ch-d">شرح أحكام التجارة · تعليم المعادن · جولات في الأسواق · مقابلات تجار · تحليل اقتصادي</div>
+    </div>
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">📺</div><div><div class="ch-name">TikTok</div><div class="ch-handle">@sheikha</div></div></div>
+      <div class="ch-type" style="background:rgba(0,232,157,0.06);color:var(--grn);">شبابي — يومي</div>
+      <div class="ch-d">مقاطع قصيرة · «هل تعلم؟» · حكم شرعي سريع · أسعار اليوم · نصيحة تاجر</div>
+    </div>
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">💬</div><div><div class="ch-name">WhatsApp Business</div><div class="ch-handle">+966 5XX</div></div></div>
+      <div class="ch-type" style="background:rgba(0,232,157,0.06);color:var(--grn);">تواصل — مباشر</div>
+      <div class="ch-d">خدمة عملاء · طلبات · استفسارات · كتالوج منتجات · إشعارات أسعار</div>
+    </div>
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">💻</div><div><div class="ch-name">GitHub</div><div class="ch-handle">@sheikha</div></div></div>
+      <div class="ch-type" style="background:rgba(157,106,255,0.06);color:var(--pur);">مطوّرين — تقني</div>
+      <div class="ch-d">الكود المفتوح · APIs · توثيق تقني · مساهمات المجتمع · 53+ محرك</div>
+    </div>
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">📧</div><div><div class="ch-name">Email Newsletter</div><div class="ch-handle">newsletter@sheikha.top</div></div></div>
+      <div class="ch-type" style="background:rgba(212,175,55,0.06);color:var(--g4);">رسمي — أسبوعي</div>
+      <div class="ch-d">تقرير السوق الأسبوعي · أحكام جديدة · فرص تجارية · تحديثات المنصة</div>
+    </div>
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">🕌</div><div><div class="ch-name">Telegram</div><div class="ch-handle">@sheikha_market</div></div></div>
+      <div class="ch-type" style="background:rgba(61,142,255,0.06);color:var(--blu);">مجتمع — يومي</div>
+      <div class="ch-d">مجموعة التجار · تنبيهات أسعار فورية · مناقشات · فتاوى تجارية · إعلانات</div>
+    </div>
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">🎙️</div><div><div class="ch-name">Podcast</div><div class="ch-handle">بودكاست شيخة</div></div></div>
+      <div class="ch-type" style="background:rgba(255,176,32,0.06);color:var(--ylw);">عميق — شهري</div>
+      <div class="ch-d">حوارات مع تجار ناجحين · أحكام تجارية معمّقة · تحليل اقتصادي · قصص من السيرة النبوية</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 4. NON-DIGITAL ═══ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip">04 — Offline Identity</div>
+    <h2><span class="gd">الهوية غير الرقمية</span></h2>
+  </div>
+  <div class="ch-grid">
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">🏢</div><div class="ch-name">المكتب والمقر</div></div>
+      <div class="ch-d">لوحة ذهبية · ديكور إسلامي · مصحف في الاستقبال · بخور · ضيافة عربية · اتجاه القبلة واضح</div>
+    </div>
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">📇</div><div class="ch-name">بطاقة العمل</div></div>
+      <div class="ch-d">خلفية سوداء + ش ذهبي + QR لـ sheikha.top + «بسم الله» + معلومات التواصل</div>
+    </div>
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">📦</div><div class="ch-name">التغليف والشحن</div></div>
+      <div class="ch-d">صندوق أسود + شعار ذهبي + بطاقة «بارك الله في تجارتك» + ختم شيخة</div>
+    </div>
+    <div class="ch">
+      <div class="ch-h"><div class="ch-ico">🎪</div><div class="ch-name">المعارض والمؤتمرات</div></div>
+      <div class="ch-d">جناح بتصميم إسلامي · شاشة تعرض المنصة · عيّنات معادن · كتيّب أحكام التجارة</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 5. EXPANSION PHASES ═══ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip">05 — Global Expansion</div>
+    <h2><span class="gd">خطة الوصول — الأقرب فالأقرب ثم العالمين</span></h2>
+  </div>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num" style="background:rgba(0,232,157,0.06);color:var(--grn);">1</div>
+      <div>
+        <div class="phase-t" style="color:var(--grn);">السعودية والخليج — الآن</div>
+        <div class="phase-d">🇸🇦 🇦🇪 🇶🇦 🇧🇭 🇰🇼 🇴🇲 — عربي · تجار المعادن · مؤسسات · شركات استيراد وتصدير</div>
+        <div class="phase-targets">
+          <div class="phase-tag" style="background:rgba(0,232,157,0.06);color:var(--grn);">عربي</div>
+          <div class="phase-tag" style="background:rgba(0,232,157,0.06);color:var(--grn);">X + Instagram + WhatsApp</div>
+          <div class="phase-tag" style="background:rgba(0,232,157,0.06);color:var(--grn);">SEO عربي</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num" style="background:rgba(61,142,255,0.06);color:var(--blu);">2</div>
+      <div>
+        <div class="phase-t" style="color:var(--blu);">الشرق الأوسط وشمال أفريقيا</div>
+        <div class="phase-d">🇪🇬 🇯🇴 🇱🇧 🇮🇶 🇲🇦 🇹🇳 🇩🇿 — عربي + إنجليزي · LinkedIn B2B · YouTube تعليمي</div>
+        <div class="phase-targets">
+          <div class="phase-tag" style="background:rgba(61,142,255,0.06);color:var(--blu);">عربي + إنجليزي</div>
+          <div class="phase-tag" style="background:rgba(61,142,255,0.06);color:var(--blu);">LinkedIn + YouTube</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num" style="background:rgba(157,106,255,0.06);color:var(--pur);">3</div>
+      <div>
+        <div class="phase-t" style="color:var(--pur);">آسيا وأفريقيا الإسلامية</div>
+        <div class="phase-d">🇹🇷 🇮🇩 🇲🇾 🇵🇰 🇧🇩 🇳🇬 — تركي + أوردو + ملايو + إنجليزي · TikTok + Telegram</div>
+        <div class="phase-targets">
+          <div class="phase-tag" style="background:rgba(157,106,255,0.06);color:var(--pur);">6 لغات</div>
+          <div class="phase-tag" style="background:rgba(157,106,255,0.06);color:var(--pur);">TikTok + Telegram</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num" style="background:rgba(212,175,55,0.06);color:var(--g4);">4</div>
+      <div>
+        <div class="phase-t" style="color:var(--g4);">العالمين — أمة محمد والبشرية</div>
+        <div class="phase-d">🌍 كل الأرض — 14 لغة · Podcast · مؤتمرات · شراكات دولية · نشر الإسلام بالقدوة والمعاملة</div>
+        <div class="phase-targets">
+          <div class="phase-tag" style="background:rgba(212,175,55,0.06);color:var(--g4);">14 لغة</div>
+          <div class="phase-tag" style="background:rgba(212,175,55,0.06);color:var(--g4);">كل القنوات</div>
+          <div class="phase-tag" style="background:rgba(212,175,55,0.06);color:var(--g4);">Podcast + مؤتمرات</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MESSAGE FRAMEWORK ═══ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip">06 — Message Framework</div>
+    <h2><span class="gd">رسائل شيخة — لكل جمهور</span></h2>
+  </div>
+  <table class="id-table">
+    <tr><th>الجمهور</th><th>الرسالة</th><th>القناة</th></tr>
+    <tr><td style="font-weight:700;">تاجر مسلم عربي</td><td>«تجارتك حلال مباركة — على سنّة النبي ﷺ — بدون ربا ولا غش»</td><td>X · WhatsApp · Telegram</td></tr>
+    <tr><td style="font-weight:700;">شركة استيراد وتصدير</td><td>«منصة تجارة المعادن — 438+ API — عقود ذكية — لوجستيات — فحص شرعي»</td><td>LinkedIn · Email · الموقع</td></tr>
+    <tr><td style="font-weight:700;">مسلم غير عربي</td><td>"Halal trade platform — Sharia-compliant metals trading — Zero fees — Prophetic values"</td><td>Instagram · TikTok · YouTube</td></tr>
+    <tr><td style="font-weight:700;">غير مسلم</td><td>"Ethical trading platform — Fair trade — Zero commission — Transparent pricing — AI-powered"</td><td>LinkedIn · GitHub · Website</td></tr>
+    <tr><td style="font-weight:700;">مطوّر / تقني</td><td>"53+ engines — 438+ APIs — Local AI — 7-layer architecture — Open source"</td><td>GitHub · Dev Blog · X</td></tr>
+    <tr><td style="font-weight:700;">مستثمر</td><td>«أول منصة تجارة إسلامية رقمية — 134 محرك — سوق عالمي — رؤية 2030»</td><td>LinkedIn · عرض تقديمي</td></tr>
+  </table>
+</div>
+
+<!-- ═══ CTA ═══ -->
+<div class="cta">
+  <div style="font-family:'Amiri';font-size:18px;color:var(--g4);margin-bottom:8px;">﴿ ادْعُ إِلَىٰ سَبِيلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ ﴾</div>
+  <h3><span class="gd">الدعوة بالقدوة والعمل</span></h3>
+  <div class="d" style="max-width:500px;margin:8px auto;">شيخة ليست مجرد منصة تجارية — هي مشروع دعوي تجاري<br>نشر الإسلام من خلال القدوة الحسنة في التجارة والمعاملة<br>كل صفقة حلال = دعوة · كل عدل = إسلام · كل إتقان = عبادة</div>
+</div>
+
+<!-- ═══ CURSOR COMMAND ═══ -->
+<div class="sec">
+  <div class="sh">
+    <div class="chip">07 — Cursor Implementation</div>
+    <h2><span class="gd">أمر تفعيل الهوية في Cursor</span></h2>
+  </div>
+  <div class="cmd">
+    <div class="cmd-tag">CURSOR CHAT</div>
+    <pre>
+<span class="cm">/* ═══ تفعيل الشخصية والبصمة الرقمية ═══ */</span>
+
+<span class="gl">1. أنشئ ملف sheikha-identity.js في engines/:</span>
+
+<span class="kw">module.exports</span> = {
+  <span class="fn">brand</span>: {
+    name_ar: <span class="st">'شيخة'</span>,
+    name_en: <span class="st">'SHEIKHA'</span>,
+    handle: <span class="st">'@sheikha'</span>,
+    domain: <span class="st">'sheikha.top'</span>,
+    slogan_ar: <span class="st">'تجارة حلال مباركة ☪'</span>,
+    slogan_en: <span class="st">'Blessed Halal Trade ☪'</span>,
+    tagline: <span class="st">'على نهج النبي ﷺ في التجارة'</span>,
+    hashtags: [<span class="st">'#شيخة'</span>, <span class="st">'#تجارة_حلال'</span>, <span class="st">'#SHEIKHA'</span>],
+    email: <span class="st">'info@sheikha.top'</span>,
+    cr: <span class="st">'2051263653'</span>
+  },
+  <span class="fn">personality</span>: {
+    core_values: [
+      <span class="st">'الصدق'</span>, <span class="st">'الأمانة'</span>, <span class="st">'الإتقان'</span>, <span class="st">'الرحمة'</span>,
+      <span class="st">'العدل'</span>, <span class="st">'مكافحة الغش'</span>, <span class="st">'إعمار الأرض'</span>
+    ],
+    prophet_model: <span class="st">'القدوة: محمد ﷺ — التاجر الصدوق الأمين'</span>,
+    mission: <span class="st">'نشر التجارة الحلال وإعمار الأرض'</span>
+  },
+  <span class="fn">voice</span>: {
+    greeting: <span class="st">'السلام عليكم ورحمة الله'</span>,
+    farewell: <span class="st">'بارك الله في تجارتك'</span>,
+    success: <span class="st">'بيع مبرور — بارك الله لكما'</span>,
+    cta: <span class="st">'على بركة الله'</span>,
+    thanks: <span class="st">'جزاك الله خيراً'</span>,
+    forbidden: [<span class="st">'فائدة'</span>, <span class="st">'قرض ربوي'</span>, <span class="st">'interest'</span>,
+                <span class="st">'ربح مضمون'</span>, <span class="st">'أفضل في العالم'</span>]
+  }
+};
+
+<span class="gl">2. أضف Meta Tags في كل صفحات HTML:</span>
+
+&lt;meta property="og:title" content="شيخة — تجارة حلال مباركة"&gt;
+&lt;meta property="og:description" content="منصة تجارة المعادن الإسلامية"&gt;
+&lt;meta property="og:image" content="/images/sheikha-og.png"&gt;
+&lt;meta property="og:url" content="https://sheikha.top"&gt;
+&lt;meta name="twitter:card" content="summary_large_image"&gt;
+&lt;meta name="twitter:site" content="@sheikha"&gt;
+
+<span class="gl">3. أنشئ صفحة /about — من نحن:</span>
+- عنوان: «على نهج النبي ﷺ في التجارة»
+- القيم الـ 7 مع الأحاديث
+- الرؤية والرسالة
+- فريق العمل
+- السجل التجاري
+
+<span class="gl">4. أضف JSON-LD Schema في index.html:</span>
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "شيخة - SHEIKHA",
+  "url": "https://sheikha.top",
+  "description": "منصة تجارة المعادن الإسلامية",
+  "foundingDate": "2024"
+}</pre>
+  </div>
+</div>
+
+</div>
+
+<div class="ft">
+  <p style="font-family:'Amiri';font-size:12px;color:var(--t2);">بسم الله توكلنا على الله — لا حول ولا قوة إلا بالله</p>
+  <p style="font-family:'Amiri';font-size:11px;color:var(--g4);">﴿ وَمَا أَرْسَلْنَاكَ إِلَّا رَحْمَةً لِّلْعَالَمِينَ ﴾</p>
+  <p>SHEIKHA Digital Identity System v1.0 — 22 فبراير 2026</p>
+  <p>8 قيم نبوية · 10 قنوات رقمية · 4 قنوات غير رقمية · 4 مراحل توسّع عالمية · 6 رسائل لـ 6 جماهير</p>
+  <p>مؤسسة سلمان أحمد بن سلمان الراجح التجارية — الخبر — سجل: 2051263653</p>
+</div>
+
+</div>
+</body>
+</html>

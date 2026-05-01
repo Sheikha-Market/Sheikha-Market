@@ -1,0 +1,30 @@
+{
+  "id": "schedule-1772499394357",
+  "agentId": "agent-lineage-preservation-1772495966716",
+  "scheduleType": "WEEKLY",
+  "schedule": {
+    "name": "أسبوعي",
+    "frequency": "weekly",
+    "batchSize": 5000,
+    "ideal": "تحديثات كبيرة"
+  },
+  "config": {
+    "allLanguages": true,
+    "sourceFamilies": [
+      "HumanLanguages",
+      "NLP",
+      "LLM"
+    ],
+    "sourceScope": "global_and_cosmic_symbolic",
+    "technique": "PROMPT_TUNING",
+    "pipeline": {
+      "nlp": true,
+      "llm": true
+    },
+    "batchSize": 64,
+    "epochs": 5
+  },
+  "status": "scheduled",
+  "nextRun": "2026-03-10T00:56:34.357Z",
+  "createdAt": "2026-03-03T00:56:34.357Z"
+}

@@ -1,0 +1,62 @@
+# بسم الله الرحمن الرحيم
+# Deploy to Hostinger VPS (Malaysia) via SSH + Docker Compose
+name: Deploy Sheikha to VPS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-vps
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy on VPS with Docker Compose
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT || 22 }}
+          script_stop: true
+          script: |
+            set -euo pipefail
+            APP_PATH="${{ secrets.VPS_APP_PATH }}"
+            if [ -z "$APP_PATH" ]; then
+              APP_PATH="/opt/sheikha/sheikha-main-portal"
+            fi
+            cd "$APP_PATH"
+
+            if [ ! -d .git ]; then
+              echo "❌ App path is not a git repository: $APP_PATH"
+              exit 1
+            fi
+
+            git fetch --all --prune
+            git checkout main
+            git pull --ff-only
+
+            docker compose -f infra/docker/compose/prod/docker-compose.yml --env-file infra/docker/compose/prod/.env pull || true
+            docker compose -f infra/docker/compose/prod/docker-compose.yml --env-file infra/docker/compose/prod/.env up -d --remove-orphans
+
+            sleep 8
+            curl -fsS http://localhost:8080/api/health
+
+            DISK_USED="$(df -P / | awk 'NR==2 {gsub(/%/,\"\",$5); print $5}')"
+            echo "Disk usage: ${DISK_USED}%"
+            if [ "$DISK_USED" -ge 90 ]; then
+              echo "❌ CRITICAL: Disk usage >= 90%. Upgrade plan now."
+              exit 1
+            elif [ "$DISK_USED" -ge 80 ]; then
+              echo "⚠️ WARNING: Disk usage >= 80%. Consider upgrade soon."
+            else
+              echo "✅ Disk usage is healthy."
+            fi

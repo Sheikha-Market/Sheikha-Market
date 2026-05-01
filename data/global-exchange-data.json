@@ -1,0 +1,742 @@
+{
+  "_meta": {
+    "name": "منظومة شيخة — البورصة العالمية للمعادن والذهب والفضة والسكراب",
+    "version": "1.0.0",
+    "date": "2026-03-11",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "domains": ["sheikha.top"],
+    "quran": "وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة 275",
+    "hadith": "إنما البيع عن تراضٍ — ابن ماجه",
+    "note": "مرجع معرفي فقط — ليس تسعيراً إلزامياً — للاسترشاد والمعرفة"
+  },
+
+  "exchanges": {
+    "LME": {
+      "id": "LME",
+      "name": "London Metal Exchange",
+      "nameAr": "بورصة لندن للمعادن",
+      "country": "UK",
+      "city": "London",
+      "founded": 1877,
+      "currency": "USD",
+      "timezone": "Europe/London",
+      "tradingHours": "01:00-19:00 UTC",
+      "website": "lme.com",
+      "description": "أقدم وأكبر بورصة معادن في العالم — تتحكم في تسعير 80% من صفقات المعادن العالمية",
+      "metals": ["copper", "aluminum", "zinc", "lead", "nickel", "tin", "cobalt", "molybdenum"],
+      "contractTypes": ["cash", "3month", "15month"],
+      "settlementCurrency": "USD",
+      "lotSize": {
+        "copper": 25,
+        "aluminum": 25,
+        "zinc": 25,
+        "lead": 25,
+        "nickel": 6,
+        "tin": 5
+      },
+      "unitTons": true
+    },
+    "COMEX": {
+      "id": "COMEX",
+      "name": "Commodity Exchange New York",
+      "nameAr": "بورصة كوميكس نيويورك",
+      "country": "USA",
+      "city": "New York",
+      "founded": 1933,
+      "currency": "USD",
+      "timezone": "America/New_York",
+      "tradingHours": "18:00-17:00 ET (Sunday-Friday)",
+      "website": "cmegroup.com",
+      "description": "بورصة العقود الآجلة الأعلى سيولة للذهب والفضة والنحاس في العالم",
+      "metals": ["gold", "silver", "copper", "platinum", "palladium"],
+      "contractTypes": ["futures", "options", "mini", "micro"],
+      "goldContractOz": 100,
+      "silverContractOz": 5000,
+      "copperContractLbs": 25000
+    },
+    "SHFE": {
+      "id": "SHFE",
+      "name": "Shanghai Futures Exchange",
+      "nameAr": "بورصة شنغهاي للعقود الآجلة",
+      "country": "China",
+      "city": "Shanghai",
+      "founded": 1999,
+      "currency": "CNY",
+      "timezone": "Asia/Shanghai",
+      "tradingHours": "09:00-15:00 + 21:00-02:30 CST",
+      "website": "shfe.com.cn",
+      "description": "أكبر بورصة آسيوية — أسعارها تؤثر في المعادن الصينية والآسيوية",
+      "metals": ["copper", "aluminum", "zinc", "lead", "nickel", "tin", "gold", "silver", "rebar", "hotRolledCoil"],
+      "contractTypes": ["futures"],
+      "currency_note": "أسعارها بالين الصيني CNY/طن"
+    },
+    "MCX": {
+      "id": "MCX",
+      "name": "Multi Commodity Exchange India",
+      "nameAr": "بورصة السلع المتعددة الهند",
+      "country": "India",
+      "city": "Mumbai",
+      "founded": 2003,
+      "currency": "INR",
+      "timezone": "Asia/Kolkata",
+      "description": "بورصة السلع الأضخم في الهند — مهم لتجارة الذهب والفضة والمعادن مع شبه القارة",
+      "metals": ["gold", "silver", "copper", "aluminum", "zinc", "lead", "nickel", "tin"]
+    },
+    "DGCX": {
+      "id": "DGCX",
+      "name": "Dubai Gold and Commodities Exchange",
+      "nameAr": "بورصة دبي للذهب والسلع",
+      "country": "UAE",
+      "city": "Dubai",
+      "founded": 2005,
+      "currency": "USD",
+      "timezone": "Asia/Dubai",
+      "tradingHours": "08:00-23:55 GST",
+      "website": "dgcx.ae",
+      "description": "البورصة الخليجية الأهم — بوابة المعادن للعالم الإسلامي والخليج",
+      "metals": ["gold", "silver", "copper"],
+      "specialProducts": ["goldShariah", "silverShariah"],
+      "shariah_compliant": true
+    },
+    "TOCOM": {
+      "id": "TOCOM",
+      "name": "Tokyo Commodity Exchange",
+      "nameAr": "بورصة طوكيو للسلع",
+      "country": "Japan",
+      "city": "Tokyo",
+      "founded": 1984,
+      "currency": "JPY",
+      "description": "بورصة المعادن الثمينة الآسيوية — مؤشر مهم للأسواق الشرقية",
+      "metals": ["gold", "silver", "platinum", "palladium"]
+    },
+    "JSE": {
+      "id": "JSE",
+      "name": "Johannesburg Stock Exchange — Commodity Derivatives",
+      "nameAr": "بورصة جوهانسبرغ — مشتقات السلع",
+      "country": "SouthAfrica",
+      "city": "Johannesburg",
+      "description": "بورصة أفريقية مهمة — مصدر البلاتينيوم والمعادن الأفريقية",
+      "metals": ["gold", "platinum", "palladium", "copper", "aluminum"]
+    }
+  },
+
+  "metals": {
+    "gold": {
+      "id": "gold",
+      "nameEn": "Gold",
+      "nameAr": "ذهب",
+      "symbol": "XAU",
+      "unit": "troy_ounce",
+      "unitAr": "أوقية تروي",
+      "unitKg": 0.031103,
+      "purity_levels": {
+        "24k": { "fineness": 999.9, "nameAr": "ذهب خالص", "premium_pct": 0 },
+        "22k": { "fineness": 916.7, "nameAr": "21.3 قيراط تقريباً", "premium_pct": -8.33 },
+        "21k": { "fineness": 875.0, "nameAr": "21 قيراط", "premium_pct": -12.5 },
+        "18k": { "fineness": 750.0, "nameAr": "18 قيراط", "premium_pct": -25 },
+        "14k": { "fineness": 583.3, "nameAr": "14 قيراط", "premium_pct": -41.7 }
+      },
+      "forms": ["bar", "coin", "jewelry", "granule", "dust", "scrap", "doré"],
+      "formsAr": ["سبيكة", "مسكوكات", "مجوهرات", "حبيبات", "مسحوق", "خردة", "دوري خام"],
+      "primaryExchanges": ["COMEX", "LBMA", "SHFE", "MCX", "DGCX"],
+      "LBMA_fixings": { "AM": "10:30 London", "PM": "15:00 London" },
+      "benchmarkPrice_usd_oz": 2650,
+      "benchmarkPrice_sar_gram": 31.5,
+      "benchmarkDate": "2026-03-11",
+      "islamicStatus": "مباح — الشراء والبيع والتخزين جائزان — الربا محرم",
+      "zakatable": true,
+      "nisab_grams": 85,
+      "zakat_rate": 0.025,
+      "major_producers": [
+        { "country": "China", "share_pct": 12 },
+        { "country": "Russia", "share_pct": 9 },
+        { "country": "Australia", "share_pct": 9 },
+        { "country": "Canada", "share_pct": 5 },
+        { "country": "USA", "share_pct": 5 },
+        { "country": "Ghana", "share_pct": 4 },
+        { "country": "Saudi Arabia", "share_pct": 1 }
+      ],
+      "major_consumers": ["India", "China", "UAE", "USA", "Turkey"],
+      "price_history_years": 30
+    },
+    "silver": {
+      "id": "silver",
+      "nameEn": "Silver",
+      "nameAr": "فضة",
+      "symbol": "XAG",
+      "unit": "troy_ounce",
+      "unitAr": "أوقية تروي",
+      "unitKg": 0.031103,
+      "purity_levels": {
+        "999": { "pct": 99.9, "nameAr": "فضة خالصة" },
+        "925": { "pct": 92.5, "nameAr": "فضة الاسترليني" },
+        "900": { "pct": 90, "nameAr": "فضة نقدية" },
+        "800": { "pct": 80, "nameAr": "فضة قياسية" }
+      },
+      "forms": ["bar", "coin", "granule", "industrial_flake", "scrap"],
+      "formsAr": ["سبيكة", "مسكوكات", "حبيبات", "رقائق صناعية", "خردة"],
+      "primaryExchanges": ["COMEX", "LBMA", "SHFE", "MCX"],
+      "benchmarkPrice_usd_oz": 30.5,
+      "benchmarkPrice_sar_gram": 3.62,
+      "benchmarkDate": "2026-03-11",
+      "islamicStatus": "مباح — نصاب الزكاة 595 غرام",
+      "zakatable": true,
+      "nisab_grams": 595,
+      "zakat_rate": 0.025,
+      "goldSilverRatio": 87,
+      "major_uses_pct": {
+        "industrial": 55,
+        "jewelry": 20,
+        "investment": 20,
+        "photography": 5
+      }
+    },
+    "platinum": {
+      "id": "platinum",
+      "nameEn": "Platinum",
+      "nameAr": "بلاتين",
+      "symbol": "XPT",
+      "unit": "troy_ounce",
+      "benchmarkPrice_usd_oz": 980,
+      "benchmarkPrice_sar_gram": 11.6,
+      "benchmarkDate": "2026-03-11",
+      "primaryExchanges": ["NYMEX", "TOCOM", "JSE"],
+      "islamicStatus": "مباح — حكمه حكم سائر المعادن الثمينة",
+      "zakatable": false,
+      "note_zakat": "اختلف العلماء — الأحوط إخراج الزكاة"
+    },
+    "palladium": {
+      "id": "palladium",
+      "nameEn": "Palladium",
+      "nameAr": "بلاديوم",
+      "symbol": "XPD",
+      "unit": "troy_ounce",
+      "benchmarkPrice_usd_oz": 1050,
+      "benchmarkPrice_sar_gram": 12.5,
+      "benchmarkDate": "2026-03-11",
+      "primaryExchanges": ["NYMEX", "JSE"],
+      "major_use": "محفزات السيارات — 85% من الاستخدام"
+    },
+    "copper": {
+      "id": "copper",
+      "nameEn": "Copper",
+      "nameAr": "نحاس",
+      "symbol": "HG",
+      "unit": "metric_ton",
+      "unitAr": "طن متري",
+      "grades": {
+        "A": { "purity_pct": 99.99, "nameAr": "نحاس درجة A — مجاري تيار" },
+        "1": { "purity_pct": 99.9, "nameAr": "نحاس درجة 1" },
+        "2": { "purity_pct": 96, "nameAr": "نحاس درجة 2 — خردة عالية" },
+        "3": { "purity_pct": 85, "nameAr": "نحاس درجة 3 — خردة مختلطة" }
+      },
+      "forms": ["cathode", "rod", "wire", "scrap_bare_bright", "scrap_#1", "scrap_#2", "alloy"],
+      "formsAr": ["كاثود", "قضبان", "أسلاك", "خردة لامعة", "خردة #1", "خردة #2", "سبائك"],
+      "benchmarkPrice_usd_ton": 9200,
+      "benchmarkPrice_sar_ton": 34500,
+      "scrapDiscount_pct": { "bare_bright": -5, "#1": -12, "#2": -25, "#3": -40 },
+      "primaryExchanges": ["LME", "COMEX", "SHFE"],
+      "benchmarkDate": "2026-03-11",
+      "islamicStatus": "مباح — من أفضل معادن الخردة",
+      "major_uses_pct": {
+        "electrical_wiring": 65,
+        "plumbing": 25,
+        "industrial": 10
+      }
+    },
+    "aluminum": {
+      "id": "aluminum",
+      "nameEn": "Aluminum",
+      "nameAr": "ألمنيوم",
+      "symbol": "AL",
+      "unit": "metric_ton",
+      "alloys": {
+        "1100": "ألمنيوم خالص 99%",
+        "6061": "ألمنيوم هيكلي",
+        "5083": "سفن وبحرية",
+        "2024": "طيران — طائرات",
+        "7075": "طيران درجة عالية"
+      },
+      "forms": ["ingot", "billet", "sheet", "scrap_clean", "scrap_mixed", "foil"],
+      "formsAr": ["سبيكة", "بلليت", "صفائح", "خردة نظيفة", "خردة مختلطة", "رقاق"],
+      "benchmarkPrice_usd_ton": 2600,
+      "benchmarkPrice_sar_ton": 9750,
+      "scrapDiscount_pct": { "clean": -15, "mixed": -35, "irony": -55 },
+      "primaryExchanges": ["LME", "SHFE"],
+      "benchmarkDate": "2026-03-11",
+      "recycling_energy_saving_pct": 95,
+      "islamicStatus": "مباح — من أكثر المعادن إعادة تدويراً في العالم"
+    },
+    "steel": {
+      "id": "steel",
+      "nameEn": "Steel / Iron",
+      "nameAr": "فولاذ / حديد",
+      "symbol": "ST",
+      "unit": "metric_ton",
+      "grades": {
+        "HMS1": { "nameAr": "خردة فولاذ #1 ثقيل ملف", "desc": "Heavy Melting Steel No.1" },
+        "HMS2": { "nameAr": "خردة فولاذ #2 ثقيل", "desc": "Heavy Melting Steel No.2" },
+        "P&S": { "nameAr": "إطارات وهيكل", "desc": "Plate and Structural" },
+        "shredded": { "nameAr": "فولاذ مفتت", "desc": "Shredded Scrap" },
+        "busheling": { "nameAr": "قصاصات مصانع", "desc": "No.1 Busheling" },
+        "rebar_prime": { "nameAr": "حديد تسليح جديد", "desc": "Prime Rebar" }
+      },
+      "benchmarkPrice_usd_ton": { "HMS1": 380, "HMS2": 340, "shredded": 390, "rebar_prime": 560 },
+      "benchmarkPrice_sar_ton": { "HMS1": 1425, "HMS2": 1275, "shredded": 1463, "rebar_prime": 2100 },
+      "primaryExchanges": ["SHFE", "CME", "LME_steel"],
+      "benchmarkDate": "2026-03-11",
+      "globalScrap_million_tons_year": 650,
+      "islamicStatus": "مباح — حَدِيدٌ فِيهِ بَأْسٌ شَدِيدٌ وَمَنَافِعُ لِلنَّاسِ — الحديد 25"
+    },
+    "zinc": {
+      "id": "zinc",
+      "nameEn": "Zinc",
+      "nameAr": "زنك (خارصين)",
+      "symbol": "ZN",
+      "unit": "metric_ton",
+      "benchmarkPrice_usd_ton": 2900,
+      "benchmarkPrice_sar_ton": 10875,
+      "primaryExchanges": ["LME", "SHFE"],
+      "major_uses": ["galvanizing", "die_casting", "batteries", "alloys"],
+      "major_usesAr": ["جلفنة الحديد", "صب السبائك", "بطاريات", "سبائك"]
+    },
+    "lead": {
+      "id": "lead",
+      "nameEn": "Lead",
+      "nameAr": "رصاص",
+      "symbol": "PB",
+      "unit": "metric_ton",
+      "benchmarkPrice_usd_ton": 2100,
+      "benchmarkPrice_sar_ton": 7875,
+      "primaryExchanges": ["LME", "SHFE"],
+      "note_hazard": "خطر بيئي — يستلزم ترخيص خاص للتداول والتدوير",
+      "major_uses": ["batteries", "cable_sheathing", "radiation_shielding"],
+      "major_usesAr": ["بطاريات الرصاص الحامضية", "غلاف كابلات", "حماية إشعاعية"]
+    },
+    "nickel": {
+      "id": "nickel",
+      "nameEn": "Nickel",
+      "nameAr": "نيكل",
+      "symbol": "NI",
+      "unit": "metric_ton",
+      "benchmarkPrice_usd_ton": 15500,
+      "benchmarkPrice_sar_ton": 58125,
+      "primaryExchanges": ["LME", "SHFE"],
+      "major_uses": ["stainless_steel", "batteries_EV", "plating"],
+      "ev_battery_demand": "طلب متصاعد من بطاريات السيارات الكهربائية"
+    },
+    "tin": {
+      "id": "tin",
+      "nameEn": "Tin",
+      "nameAr": "قصدير",
+      "symbol": "SN",
+      "unit": "metric_ton",
+      "benchmarkPrice_usd_ton": 28000,
+      "benchmarkPrice_sar_ton": 105000,
+      "primaryExchanges": ["LME", "KLTM"],
+      "major_uses": ["soldering", "tinning", "alloys"],
+      "major_usesAr": ["لحام إلكتروني", "تبييض الصفائح", "سبائك البرونز"]
+    },
+    "stainless_steel": {
+      "id": "stainless_steel",
+      "nameEn": "Stainless Steel",
+      "nameAr": "فولاذ مقاوم للصدأ (SS)",
+      "symbol": "SS",
+      "unit": "metric_ton",
+      "grades": {
+        "304": { "composition": "18% Cr + 8% Ni", "nameAr": "SS 304 — أكثر شيوعاً", "priceUSD": 2200 },
+        "316": { "composition": "16% Cr + 10% Ni + 2% Mo", "nameAr": "SS 316 — مقاوم للبحر", "priceUSD": 2600 },
+        "430": { "composition": "17% Cr — no Ni", "nameAr": "SS 430 — مغناطيسي", "priceUSD": 1400 },
+        "201": { "composition": "16% Cr + 4% Ni + 7% Mn", "nameAr": "SS 201 — اقتصادي", "priceUSD": 1200 }
+      },
+      "benchmarkDate": "2026-03-11",
+      "scrapAlloy_factor": "السعر = نسبة الكروم × سعر الكروم + نسبة النيكل × سعر النيكل"
+    },
+    "cobalt": {
+      "id": "cobalt",
+      "nameEn": "Cobalt",
+      "nameAr": "كوبالت",
+      "symbol": "CO",
+      "unit": "metric_ton",
+      "benchmarkPrice_usd_ton": 28000,
+      "major_source": "الكونغو DR 60%+ من الإنتاج العالمي",
+      "major_use": "بطاريات الليثيوم أيون — 70% من الطلب"
+    }
+  },
+
+  "scrap_grades": {
+    "_info": "تصنيفات خردة المعادن حسب المعايير الدولية ISRI/BIRM/BIR",
+    "ISRI_codes": {
+      "copper": {
+        "bare_bright": { "code": "#1 Bare Bright", "descAr": "أسلاك نحاس مكشوفة لامعة — نظيفة 99%", "premiumVsLME": -3 },
+        "No1": { "code": "#1 Copper", "descAr": "أسلاك وأنابيب نحاس نظيفة", "premiumVsLME": -10 },
+        "No2": { "code": "#2 Copper", "descAr": "نحاس مختلط مع أكاسيد ورنق خفيف", "premiumVsLME": -18 },
+        "No3": { "code": "#3 Copper", "descAr": "نحاس ملوث مع طلاءات أو خلائط", "premiumVsLME": -30 },
+        "brass_yellow": { "code": "Yellow Brass", "descAr": "لاتون أصفر ≥63% نحاس", "premiumVsLME": -35 },
+        "brass_red": { "code": "Red Brass", "descAr": "لاتون أحمر ≥83% نحاس", "premiumVsLME": -20 }
+      },
+      "aluminum": {
+        "taint_tabor": { "code": "Taint/Tabor", "descAr": "ألمنيوم صفائح نظيفة", "premiumVsLME": -10 },
+        "taldon": { "code": "Taldon", "descAr": "ألمنيوم بيتي مختلط", "premiumVsLME": -25 },
+        "tubal_telic": { "code": "Tubal/Telic", "descAr": "بثق ألمنيوم ≥6063", "premiumVsLME": -8 },
+        "zorba": { "code": "Zorba", "descAr": "ألمنيوم مخلوط غير مفرز", "premiumVsLME": -40 },
+        "twitch": { "code": "Twitch", "descAr": "خردة مولدة من إزالة شظايا", "premiumVsLME": -35 }
+      },
+      "steel": {
+        "HMS1": { "code": "Heavy Melting Steel #1", "descAr": "خردة فولاذ ثقيل نظيف", "price_usd_ton": 380 },
+        "HMS2": { "code": "Heavy Melting Steel #2", "descAr": "خردة فولاذ ثقيل بسمك أقل", "price_usd_ton": 345 },
+        "shredded": { "code": "Shredded Scrap", "descAr": "خردة مفتتة بالمفرمة", "price_usd_ton": 390 },
+        "busheling": { "code": "#1 Busheling", "descAr": "قصاصات مصانع حداد — نظيفة", "price_usd_ton": 420 },
+        "turnings": { "code": "Turnings", "descAr": "برادة وتشكيل خراطة", "price_usd_ton": 280 }
+      }
+    },
+    "purity_testing": {
+      "XRF": { "descAr": "مسبار XRF — فحص عنصري لحظي", "accuracy_pct": 99 },
+      "OES": { "descAr": "طيف الانبعاث الضوئي — للسبائك", "accuracy_pct": 99.9 },
+      "fire_assay": { "descAr": "اختبار الصهر الناري — للذهب والفضة", "accuracy_pct": 99.99 },
+      "acid_test": { "descAr": "اختبار الحمض — للذهب الميداني", "accuracy_pct": 90 }
+    }
+  },
+
+  "world_regions": {
+    "GCC": {
+      "id": "GCC",
+      "nameAr": "دول الخليج العربي",
+      "countries": ["SA", "AE", "KW", "BH", "QA", "OM"],
+      "currency": "SAR/AED/KWD",
+      "tradingHub": "دبي — جبل علي",
+      "metals_import_annual_tons": 12000000,
+      "metals_export_annual_tons": 2000000,
+      "growthDriver": "Vision 2030 + Neom + Qatar 2030 + إكسبو دبي",
+      "key_ports": ["Jeddah Islamic Port", "Jubail", "Dammam", "Jebel Ali", "Shuaiba"],
+      "regulations": "GCC Customs Union — رسوم جمركية موحدة 5%",
+      "preferential_trade": ["Arab League", "GCC FTA"]
+    },
+    "East_Asia": {
+      "id": "East_Asia",
+      "nameAr": "شرق آسيا",
+      "countries": ["CN", "JP", "KR", "TW", "HK"],
+      "tradingHub": "شنغهاي + بوسان + كاوهسيونغ",
+      "metals_import_annual_tons": 400000000,
+      "growthDriver": "الصين — أكبر مستورد ومصدر في العالم",
+      "key_ports": ["Shanghai", "Ningbo", "Qingdao", "Tianjin", "Busan", "Kaohsiung"],
+      "china_dominance": "الصين تستهلك 50%+ من معادن العالم"
+    },
+    "South_Asia": {
+      "id": "South_Asia",
+      "nameAr": "جنوب آسيا",
+      "countries": ["IN", "PK", "BD", "LK"],
+      "tradingHub": "مومباي + كراتشي",
+      "key_feature": "الهند — أكبر مستورد ذهب في العالم",
+      "gold_import_tons_year": 800,
+      "steel_capacity_MT": 150
+    },
+    "Southeast_Asia": {
+      "id": "Southeast_Asia",
+      "nameAr": "جنوب شرق آسيا",
+      "countries": ["SG", "MY", "TH", "VN", "ID", "PH"],
+      "tradingHub": "سنغافورة",
+      "key_feature": "سنغافورة — مركز تمويل معادن آسيا"
+    },
+    "Europe": {
+      "id": "Europe",
+      "nameAr": "أوروبا",
+      "countries": ["DE", "UK", "FR", "IT", "NL", "BE", "ES", "PL", "TR"],
+      "tradingHub": "لندن — روتردام — هامبورغ",
+      "regulations": "EU REACH + RoHS + EU ETS + Basel Convention",
+      "key_ports": ["Rotterdam", "Antwerp", "Hamburg", "Felixstowe"],
+      "recycling_rate_pct": 75,
+      "steel_capacity_MT": 170
+    },
+    "North_America": {
+      "id": "North_America",
+      "nameAr": "أمريكا الشمالية",
+      "countries": ["US", "CA", "MX"],
+      "tradingHub": "نيويورك + شيكاغو + هيوستن",
+      "regulations": "EPA + RCRA + Dodd-Frank (conflict minerals) + USMCA",
+      "recycling_rate_steel_pct": 83
+    },
+    "Africa": {
+      "id": "Africa",
+      "nameAr": "أفريقيا",
+      "countries": ["ZA", "NG", "EG", "ET", "KE", "GH", "CD", "ZM", "TZ"],
+      "key_feature": "أكبر احتياطيات معادن في العالم",
+      "key_minerals": ["gold", "platinum", "cobalt", "copper", "diamonds"],
+      "tradingHub": "جوهانسبرغ + لاغوس + القاهرة",
+      "gold_reserves_pct_world": 45
+    },
+    "LatinAmerica": {
+      "id": "LatinAmerica",
+      "nameAr": "أمريكا اللاتينية",
+      "countries": ["BR", "MX", "CL", "PE", "AR", "CO"],
+      "key_minerals": ["copper", "silver", "gold", "iron", "lithium"],
+      "chile_copper_share_pct": 27,
+      "tradingHub": "ساو باولو + سانتياغو + بوغوتا"
+    }
+  },
+
+  "price_indices": {
+    "TSI": {
+      "id": "TSI",
+      "name": "The Steel Index",
+      "nameAr": "مؤشر الفولاذ العالمي TSI",
+      "coverage": ["HRC", "CRC", "plate", "scrap"],
+      "frequency": "daily",
+      "publisher": "Fastmarkets — سابقاً TSI"
+    },
+    "Platts": {
+      "id": "Platts",
+      "name": "S&P Global Commodity Insights (Platts)",
+      "nameAr": "مؤشرات بلاتس للطاقة والمعادن",
+      "coverage": ["steel", "iron_ore", "ferro_alloys", "copper", "aluminum"],
+      "frequency": "daily"
+    },
+    "LBMA": {
+      "id": "LBMA",
+      "name": "London Bullion Market Association",
+      "nameAr": "رابطة لندن لسوق السبائك",
+      "coverage": ["gold", "silver", "platinum", "palladium"],
+      "gold_fixing": "يومياً مرتين — 10:30 AM و 3:00 PM بتوقيت لندن",
+      "authority": "المرجع الذهبي الأعلى في العالم"
+    },
+    "SheikhaIndex": {
+      "id": "SheikhaIndex",
+      "name": "مؤشر شيخة للمعادن",
+      "nameAr": "مؤشر شيخة — السوق الإسلامي",
+      "note": "للمعرفة فقط — ليس تسعيراً إلزامياً",
+      "methodology": "متوسط مرجح لأسعار LME + تكاليف شحن الخليج + هامش السوق المحلي",
+      "factors": ["LME_price", "freight_gulf", "forex_SAR", "local_premium", "quality_discount"],
+      "formula": "SheikhaPrice = LME × (1 + freight_factor) × forex_rate × quality_factor × (1 + local_premium)"
+    }
+  },
+
+  "incoterms_2020": {
+    "_info": "قواعد إنكوترمز 2020 — ICC International Chamber of Commerce",
+    "any_mode": {
+      "EXW": {
+        "code": "EXW",
+        "name": "Ex Works",
+        "nameAr": "تسليم من المستودع",
+        "risk_transfer": "في مستودع البائع",
+        "buyer_pays": "كل شيء من المستودع",
+        "seller_pays": "لا شيء بعد التسليم",
+        "use_case": "للمشتري القادر على ترتيب الشحن كاملاً — تصدير نادراً",
+        "customs_export": "المشتري مسؤول",
+        "islamic_note": "حلال — ولكن يُستحسن تحديد نقطة التسليم بدقة دفعاً للغرر"
+      },
+      "FCA": {
+        "code": "FCA",
+        "name": "Free Carrier",
+        "nameAr": "تسليم للناقل",
+        "risk_transfer": "عند تسليم حامل البضاعة",
+        "use_case": "الأفضل للحاويات والشحن الجوي",
+        "note": "معدل جديد في 2020 — يمكن للبائع والمشتري الاتفاق على سند الشحن Onboard"
+      },
+      "CPT": {
+        "code": "CPT",
+        "name": "Carriage Paid To",
+        "nameAr": "الشحن مدفوع حتى",
+        "seller_pays": "الشحن حتى الوجهة",
+        "risk_transfer": "عند تسليم أول ناقل"
+      },
+      "CIP": {
+        "code": "CIP",
+        "name": "Carriage and Insurance Paid To",
+        "nameAr": "الشحن والتأمين مدفوعان حتى",
+        "note_2020": "تحديث 2020: التأمين الآن بالمستوى الأعلى A وليس C",
+        "islamic_note": "التأمين التجاري — بعض العلماء يفضل تكافل الشحن"
+      },
+      "DAP": {
+        "code": "DAP",
+        "name": "Delivered at Place",
+        "nameAr": "تسليم في الموقع",
+        "seller_pays": "الشحن الكامل حتى الموقع — ما عدا التخليص الجمركي",
+        "risk_transfer": "في الموقع المتفق عليه"
+      },
+      "DPU": {
+        "code": "DPU",
+        "name": "Delivered at Place Unloaded",
+        "nameAr": "تسليم في الموقع بعد التفريغ",
+        "note_2020": "جديد في 2020 — يستبدل DAT"
+      },
+      "DDP": {
+        "code": "DDP",
+        "name": "Delivered Duty Paid",
+        "nameAr": "تسليم رسوم جمركية مدفوعة",
+        "seller_pays": "كل شيء بما فيه الجمارك",
+        "note": "الأكثر التزاماً للبائع"
+      }
+    },
+    "sea_inland_waterway": {
+      "FAS": {
+        "code": "FAS",
+        "name": "Free Alongside Ship",
+        "nameAr": "تسليم بجانب السفينة",
+        "risk_transfer": "على الرصيف بجانب السفينة"
+      },
+      "FOB": {
+        "code": "FOB",
+        "name": "Free On Board",
+        "nameAr": "تسليم على ظهر السفينة",
+        "risk_transfer": "عند تجاوز درابزين السفينة",
+        "islamic_note": "الأكثر شيوعاً في تجارة المعادن الإسلامية — واضح في تحديد لحظة انتقال الملكية",
+        "use_in_metals": "الأكثر استخداماً في تصدير الخردة"
+      },
+      "CFR": {
+        "code": "CFR",
+        "name": "Cost and Freight",
+        "nameAr": "التكلفة والشحن",
+        "seller_pays": "التكلفة وأجرة الشحن",
+        "buyer_pays": "التأمين + المخاطر من عند تحميل السفينة"
+      },
+      "CIF": {
+        "code": "CIF",
+        "name": "Cost Insurance and Freight",
+        "nameAr": "التكلفة والتأمين والشحن",
+        "seller_pays": "التكلفة + التأمين + الشحن",
+        "islamic_note": "الأكثر شيوعاً في استيراد المعادن — يُستحسن استبدال التأمين بالتكافل"
+      }
+    }
+  },
+
+  "hs_codes": {
+    "_info": "رموز النظام المنسق HS للمعادن والسكراب — اتفاقية منظمة الجمارك العالمية WCO",
+    "precious_metals": {
+      "7108": { "descAr": "ذهب — غير مشغول أو مسحوق أو نصف مشغول", "rate_gcc": 5 },
+      "7109": { "descAr": "ذهب مطلي بالفضة — غير مشغول", "rate_gcc": 5 },
+      "7106": { "descAr": "فضة — غير مشغولة أو مسحوق أو نصف مشغولة", "rate_gcc": 5 },
+      "7110": { "descAr": "البلاتين — غير مشغول أو مسحوق أو نصف مشغول", "rate_gcc": 5 },
+      "7112": { "descAr": "خردة المعادن الثمينة", "rate_gcc": 5 }
+    },
+    "base_metals_scrap": {
+      "7204": { "descAr": "خردة وفضلات الحديد والفولاذ — HMS1/HMS2/Shredded", "rate_gcc": 0 },
+      "7404": { "descAr": "خردة وفضلات النحاس", "rate_gcc": 0 },
+      "7602": { "descAr": "خردة وفضلات الألمنيوم", "rate_gcc": 0 },
+      "7802": { "descAr": "خردة وفضلات الرصاص", "rate_gcc": 5, "note": "حساسة بيئياً" },
+      "7902": { "descAr": "خردة وفضلات الزنك", "rate_gcc": 0 },
+      "7503": { "descAr": "خردة وفضلات النيكل", "rate_gcc": 0 },
+      "8002": { "descAr": "خردة وفضلات القصدير", "rate_gcc": 0 },
+      "8548": { "descAr": "خردة إلكترونية ومعادن E-Waste", "rate_gcc": 5 }
+    },
+    "refined_metals": {
+      "7201": { "descAr": "حديد خام — صغير الوزن", "rate_gcc": 0 },
+      "7207": { "descAr": "منتجات الفولاذ نصف المصنعة", "rate_gcc": 5 },
+      "7214": { "descAr": "قضبان الحديد والفولاذ — حديد تسليح", "rate_gcc": 5 },
+      "7401": { "descAr": "حجر النحاس والكابريت", "rate_gcc": 0 },
+      "7403": { "descAr": "نحاس مكرر — كاثود، قضبان", "rate_gcc": 5 },
+      "7601": { "descAr": "الألمنيوم غير المشغول — سبائك وبلليت", "rate_gcc": 5 }
+    }
+  },
+
+  "global_trade_flows": {
+    "steel_scrap": {
+      "top_exporters": [
+        { "country": "USA", "million_tons": 18, "main_dest": ["Turkey", "Bangladesh", "India"] },
+        { "country": "EU", "million_tons": 15, "main_dest": ["Turkey", "Egypt", "Algeria"] },
+        { "country": "Japan", "million_tons": 6, "main_dest": ["South Korea", "Vietnam", "Bangladesh"] },
+        { "country": "UK", "million_tons": 5, "main_dest": ["Turkey", "Egypt"] }
+      ],
+      "top_importers": [
+        { "country": "Turkey", "million_tons": 22, "main_source": ["USA", "EU", "FSU"] },
+        { "country": "India", "million_tons": 8, "main_source": ["USA", "ME", "EU"] },
+        { "country": "Bangladesh", "million_tons": 5, "main_source": ["USA", "Japan", "EU"] },
+        { "country": "South Korea", "million_tons": 4 }
+      ]
+    },
+    "copper_scrap": {
+      "top_importers": [
+        { "country": "China", "share_pct": 45 },
+        { "country": "South Korea", "share_pct": 8 },
+        { "country": "Germany", "share_pct": 6 },
+        { "country": "India", "share_pct": 5 }
+      ]
+    },
+    "gold_trading": {
+      "top_hubs": [
+        { "hub": "London LBMA", "share_pct": 70, "descAr": "مركز التداول الأول للذهب اليومي" },
+        { "hub": "COMEX New York", "share_pct": 20, "descAr": "عقود آجلة الذهب" },
+        { "hub": "Shanghai SGE", "share_pct": 5, "descAr": "البورصة الذهبية الصينية" },
+        { "hub": "Dubai DMCC/DGCX", "share_pct": 3, "descAr": "مركز التداول الخليجي" }
+      ]
+    }
+  },
+
+  "freight_rates": {
+    "_info": "أسعار الشحن البحري التقريبية من الموانئ الرئيسية إلى الخليج | USD/TEU أو USD/طن",
+    "to_jeddah": {
+      "from_china_shanghai": { "usd_ton": 45, "days": 22 },
+      "from_germany_hamburg": { "usd_ton": 38, "days": 18 },
+      "from_usa_houston": { "usd_ton": 55, "days": 28 },
+      "from_india_mumbai": { "usd_ton": 25, "days": 8 },
+      "from_turkey_istanbul": { "usd_ton": 22, "days": 7 }
+    },
+    "to_jubail_dammam": {
+      "from_china_shanghai": { "usd_ton": 50, "days": 25 },
+      "from_japan_tokyo": { "usd_ton": 55, "days": 28 },
+      "from_india_mumbai": { "usd_ton": 28, "days": 10 }
+    },
+    "to_dubai_jebel_ali": {
+      "from_china_shanghai": { "usd_ton": 42, "days": 20 },
+      "from_germany_hamburg": { "usd_ton": 36, "days": 16 },
+      "from_usa_houston": { "usd_ton": 52, "days": 26 }
+    }
+  },
+
+  "currency_rates_sar": {
+    "_note": "أسعار استرشادية — تتحدث لحظياً",
+    "_date": "2026-03-11",
+    "USD": 3.75,
+    "EUR": 4.05,
+    "GBP": 4.70,
+    "CNY": 0.52,
+    "JPY": 0.025,
+    "AED": 1.02,
+    "INR": 0.045,
+    "TRY": 0.115,
+    "GBP_note": "يُحسب من LME بالدولار",
+    "SAR_to_USD": 0.2667
+  },
+
+  "islamic_finance": {
+    "shariah_compliant_products": {
+      "murabaha": {
+        "nameAr": "مرابحة",
+        "desc": "البنك يشتري المعدن ثم يبيعه للعميل بربح متفق عليه — تمويل مشروع للحلال",
+        "use_case": "تمويل شراء معادن وخردة"
+      },
+      "istisna": {
+        "nameAr": "استصناع",
+        "desc": "عقد تصنيع مسبق — الدفع يسبق الإنتاج — للمصانع ومصهري المعادن",
+        "use_case": "تعاقد على المعادن المصنعة"
+      },
+      "salam": {
+        "nameAr": "بيع السلم",
+        "desc": "الدفع الآن + تسليم مستقبلي — للمواد الزراعية والمعادن البسيطة",
+        "conditions": "يجب تحديد الكمية والنوعية والسعر والأجل بدقة",
+        "use_case": "خردة فولاذ موحدة الجودة"
+      },
+      "takaful": {
+        "nameAr": "تكافل الشحن",
+        "desc": "بديل التأمين التقليدي للشحن — يُفضل على تأمين بحري ربوي",
+        "providers_sa": ["تكافل الراجحي", "التعاونية للتأمين", "ميدغلف"]
+      },
+      "wakala": {
+        "nameAr": "وكالة",
+        "desc": "عقد وكالة استثمار — يستخدم في صناديق المعادن الإسلامية",
+        "use_case": "إدارة محافظ معادن بدون ربا"
+      }
+    },
+    "prohibitions": {
+      "riba": "لا ربا على الذهب والفضة — يد بيد أو مؤجل مع تأجل محظور",
+      "gharar": "لا غرر — يجب تحديد الكمية والجودة والسعر",
+      "maysir": "لا قمار — العقود الآجلة الخالصة للمضاربة محظورة",
+      "gold_silver_exchange": "بيع ذهب بذهب إلا مثلاً بمثل يداً بيد — الزيادة ربا فاحش"
+    },
+    "fatawa_references": [
+      { "body": "هيئة المحاسبة والمراجعة للمؤسسات المالية الإسلامية AAOIFI", "url": "aaoifi.com" },
+      { "body": "مجمع الفقه الإسلامي الدولي — منظمة التعاون الإسلامي", "url": "iifa-jeddah.org" },
+      { "body": "هيئة كبار العلماء المملكة العربية السعودية" },
+      { "body": "دار الإفتاء المصرية" }
+    ]
+  }
+}

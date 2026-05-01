@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام المدفوعات والاعتمادات | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --radius: 16px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .back-btn {
+            padding: 10px 24px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #0d7a47 100%);
+            padding: 60px 32px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        .hero p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 32px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Bank Info Card */
+        .bank-info {
+            background: linear-gradient(135deg, var(--card), #0f1e30);
+            border: 2px solid var(--gold);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .bank-logo {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+        .bank-name {
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+        .iban-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        .iban-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        .iban-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: monospace;
+            letter-spacing: 2px;
+            color: var(--gold);
+            direction: ltr;
+        }
+        .copy-btn {
+            margin-top: 12px;
+            padding: 10px 24px;
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .copy-btn:hover {
+            transform: scale(1.05);
+        }
+        .copy-btn.copied {
+            background: var(--success);
+            color: #fff;
+        }
+
+        /* Payment Methods */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .payment-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .payment-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+        .payment-card.active {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        .payment-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .payment-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+        .payment-icon.bank { background: linear-gradient(135deg, #1a3c6e, #2a5298); }
+        .payment-icon.mada { background: linear-gradient(135deg, #005b99, #0077cc); }
+        .payment-icon.card { background: linear-gradient(135deg, #1a1f71, #00579f); }
+        .payment-icon.apple { background: linear-gradient(135deg, #333, #000); }
+        .payment-icon.stc { background: linear-gradient(135deg, #5d3fd3, #7c4dff); }
+        .payment-icon.lc { background: linear-gradient(135deg, var(--gold), var(--gold-light)); }
+        .payment-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .payment-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .payment-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .feature-tag {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* LC Section */
+        .lc-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 40px;
+        }
+        .lc-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+        .lc-type {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            border-right: 3px solid var(--gold);
+        }
+        .lc-type h4 {
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .lc-type p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Process Steps */
+        .process-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 24px;
+        }
+        .step {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .step::after {
+            content: '→';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        .step:first-child::after {
+            display: none;
+        }
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--gold);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin: 0 auto 12px;
+        }
+        .step h4 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        .step p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Guarantee Section */
+        .guarantee-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 40px;
+        }
+        .guarantee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+        .guarantee-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 24px;
+            border-top: 3px solid var(--info);
+        }
+        .guarantee-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .guarantee-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+        .guarantee-rate {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--info);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+
+        /* Payment Form */
+        .payment-form {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        .submit-btn {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--dark);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Policies */
+        .policies {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-top: 40px;
+        }
+        .policies h3 {
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        .policy-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        .policy-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .policy-item span {
+            color: var(--success);
+        }
+        .policy-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .iban-number { font-size: 1.1rem; }
+            .step::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <div class="logo-icon">ش</div>
+                <span class="logo-text">منظومة شيخة</span>
+            </a>
+            <a href="/" class="back-btn">← العودة للرئيسية</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>💳 نظام المدفوعات والاعتمادات</h1>
+        <p>وسائل دفع آمنة ومتنوعة مع دعم الاعتمادات المستندية والضمانات البنكية</p>
+    </section>
+
+    <main class="main">
+        <!-- Bank Info -->
+        <div class="bank-info">
+            <div class="bank-logo">🏦</div>
+            <h2>مؤسسة سلمان أحمد بن سلمان الراجح التجارية</h2>
+            <p class="bank-name">مصرف الإنماء | Alinma Bank</p>
+            <div class="iban-box">
+                <div class="iban-label">رقم الآيبان (IBAN)</div>
+                <div class="iban-number" id="ibanNumber">SA40 0500 0068 2061 6211 8000</div>
+            </div>
+            <button class="copy-btn" id="copyBtn" onclick="copyIBAN()">
+                📋 نسخ رقم الآيبان
+            </button>
+        </div>
+
+        <!-- Payment Methods -->
+        <h2 class="section-title">💳 وسائل الدفع المتاحة</h2>
+        <div class="payment-grid">
+            <div class="payment-card" onclick="selectPayment('bank')">
+                <div class="payment-header">
+                    <div class="payment-icon bank">🏦</div>
+                    <div>
+                        <h3 class="payment-title">تحويل بنكي</h3>
+                        <span class="payment-subtitle">Bank Transfer</span>
+                    </div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    تحويل مباشر إلى حساب المؤسسة في مصرف الإنماء
+                </p>
+                <div class="payment-features">
+                    <span class="feature-tag">فوري</span>
+                    <span class="feature-tag">آمن</span>
+                    <span class="feature-tag">بدون رسوم</span>
+                </div>
+            </div>
+
+            <div class="payment-card" onclick="selectPayment('mada')">
+                <div class="payment-header">
+                    <div class="payment-icon mada">💳</div>
+                    <div>
+                        <h3 class="payment-title">مدى</h3>
+                        <span class="payment-subtitle">Saudi Debit Cards</span>
+                    </div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    الدفع ببطاقات مدى المصرفية السعودية
+                </p>
+                <div class="payment-features">
+                    <span class="feature-tag">سريع</span>
+                    <span class="feature-tag">آمن</span>
+                </div>
+            </div>
+
+            <div class="payment-card" onclick="selectPayment('card')">
+                <div class="payment-header">
+                    <div class="payment-icon card">💳</div>
+                    <div>
+                        <h3 class="payment-title">Visa / Mastercard</h3>
+                        <span class="payment-subtitle">Credit & Debit Cards</span>
+                    </div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    بطاقات الائتمان والخصم المباشر
+                </p>
+                <div class="payment-features">
+                    <span class="feature-tag">عالمي</span>
+                    <span class="feature-tag">PCI DSS</span>
+                </div>
+            </div>
+
+            <div class="payment-card" onclick="selectPayment('apple')">
+                <div class="payment-header">
+                    <div class="payment-icon apple">🍎</div>
+                    <div>
+                        <h3 class="payment-title">Apple Pay</h3>
+                        <span class="payment-subtitle">Contactless Payment</span>
+                    </div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    دفع سريع وآمن عبر أجهزة Apple
+                </p>
+                <div class="payment-features">
+                    <span class="feature-tag">Touch ID</span>
+                    <span class="feature-tag">Face ID</span>
+                </div>
+            </div>
+
+            <div class="payment-card" onclick="selectPayment('stc')">
+                <div class="payment-header">
+                    <div class="payment-icon stc">📱</div>
+                    <div>
+                        <h3 class="payment-title">STC Pay</h3>
+                        <span class="payment-subtitle">Digital Wallet</span>
+                    </div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    الدفع عبر المحفظة الرقمية STC Pay
+                </p>
+                <div class="payment-features">
+                    <span class="feature-tag">محفظة</span>
+                    <span class="feature-tag">QR</span>
+                </div>
+            </div>
+
+            <div class="payment-card" onclick="selectPayment('lc')">
+                <div class="payment-header">
+                    <div class="payment-icon lc">📜</div>
+                    <div>
+                        <h3 class="payment-title">اعتماد مستندي</h3>
+                        <span class="payment-subtitle">Letter of Credit</span>
+                    </div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    للصفقات الكبيرة والتجارة الدولية
+                </p>
+                <div class="payment-features">
+                    <span class="feature-tag">مضمون</span>
+                    <span class="feature-tag">> 100,000 ر.س</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Letter of Credit Section -->
+        <section class="lc-section">
+            <h2 class="section-title">📜 الاعتمادات المستندية (L/C)</h2>
+            <p style="color: var(--text-muted);">
+                نقدم خدمة الاعتمادات المستندية للصفقات الكبيرة والتجارة الدولية بالتعاون مع مصرف الإنماء
+            </p>
+
+            <div class="lc-types">
+                <div class="lc-type">
+                    <h4>🔒 اعتماد غير قابل للإلغاء</h4>
+                    <p>لا يمكن تعديله أو إلغاؤه إلا بموافقة جميع الأطراف. الأكثر أماناً للبائع.</p>
+                </div>
+                <div class="lc-type">
+                    <h4>✅ اعتماد معزز</h4>
+                    <p>مضمون من بنك ثانٍ إضافة للبنك المصدر. مثالي للتجارة الدولية.</p>
+                </div>
+                <div class="lc-type">
+                    <h4>⚡ اعتماد فوري</h4>
+                    <p>الدفع فور تقديم المستندات الصحيحة. للصفقات السريعة.</p>
+                </div>
+                <div class="lc-type">
+                    <h4>📅 اعتماد آجل</h4>
+                    <p>الدفع بعد 30/60/90 يوم. يوفر تمويلاً للمشتري.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 32px; margin-bottom: 16px;">خطوات فتح اعتماد مستندي</h3>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>تقديم الطلب</h4>
+                    <p>تعبئة النموذج وإرفاق الفاتورة الأولية</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>دراسة الطلب</h4>
+                    <p>مراجعة الملاءة المالية والموافقة</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>إصدار الاعتماد</h4>
+                    <p>إيداع التغطية وإصدار L/C</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>شحن البضاعة</h4>
+                    <p>المورد يشحن ويقدم المستندات</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h4>الدفع والاستلام</h4>
+                    <p>مراجعة المستندات والدفع</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bank Guarantees -->
+        <section class="guarantee-section">
+            <h2 class="section-title">🛡️ الضمانات البنكية</h2>
+            <p style="color: var(--text-muted);">
+                نوفر جميع أنواع الضمانات البنكية لدعم أعمالك التجارية
+            </p>
+
+            <div class="guarantee-grid">
+                <div class="guarantee-card">
+                    <h4>📋 ضمان العطاء</h4>
+                    <p>ضمان جدية التقدم للمناقصات والعطاءات الحكومية والخاصة</p>
+                    <span class="guarantee-rate">1-5% من قيمة العطاء</span>
+                </div>
+                <div class="guarantee-card">
+                    <h4>⚙️ ضمان حسن التنفيذ</h4>
+                    <p>ضمان تنفيذ العقد بالكامل وفق الشروط والمواصفات</p>
+                    <span class="guarantee-rate">5-10% من قيمة العقد</span>
+                </div>
+                <div class="guarantee-card">
+                    <h4>💰 ضمان الدفعة المقدمة</h4>
+                    <p>ضمان استرداد الدفعة المقدمة في حالة عدم التنفيذ</p>
+                    <span class="guarantee-rate">100% من الدفعة</span>
+                </div>
+                <div class="guarantee-card">
+                    <h4>🔧 ضمان الصيانة</h4>
+                    <p>ضمان إصلاح العيوب خلال فترة الضمان</p>
+                    <span class="guarantee-rate">5% من قيمة العقد</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment Request Form -->
+        <section class="payment-form">
+            <h2 class="section-title">📝 طلب اعتماد / ضمان</h2>
+            <form id="lcRequestForm" onsubmit="submitRequest(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>نوع الطلب</label>
+                        <select required>
+                            <option value="">اختر نوع الطلب</option>
+                            <option value="lc">اعتماد مستندي</option>
+                            <option value="bid">ضمان عطاء</option>
+                            <option value="performance">ضمان حسن تنفيذ</option>
+                            <option value="advance">ضمان دفعة مقدمة</option>
+                            <option value="maintenance">ضمان صيانة</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>قيمة الطلب (ر.س)</label>
+                        <input type="number" placeholder="أدخل القيمة" required>
+                    </div>
+                    <div class="form-group">
+                        <label>اسم الشركة / المؤسسة</label>
+                        <input type="text" placeholder="اسم شركتك" required>
+                    </div>
+                    <div class="form-group">
+                        <label>رقم السجل التجاري</label>
+                        <input type="text" placeholder="رقم السجل" required>
+                    </div>
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" placeholder="email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>رقم الجوال</label>
+                        <input type="tel" placeholder="+966..." required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>تفاصيل إضافية</label>
+                    <textarea rows="4" placeholder="اكتب تفاصيل الطلب والمستندات المطلوبة..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    📤 إرسال الطلب
+                </button>
+            </form>
+        </section>
+
+        <!-- Policies -->
+        <div class="policies">
+            <h3>⚖️ سياسات الدفع</h3>
+            <div class="policy-list">
+                <div class="policy-item">
+                    <span>✅</span>
+                    <p><strong>المبيعات النقدية:</strong> الدفع قبل أو عند التسليم</p>
+                </div>
+                <div class="policy-item">
+                    <span>✅</span>
+                    <p><strong>المبيعات الآجلة:</strong> 30 يوم صافي للعملاء المعتمدين</p>
+                </div>
+                <div class="policy-item">
+                    <span>✅</span>
+                    <p><strong>الطلبات الكبيرة:</strong> 30% مقدم + 70% عند التسليم</p>
+                </div>
+                <div class="policy-item">
+                    <span>✅</span>
+                    <p><strong>الاسترداد:</strong> استرداد كامل خلال 7 أيام</p>
+                </div>
+                <div class="policy-item">
+                    <span>✅</span>
+                    <p><strong>الأمان:</strong> جميع المعاملات مشفرة ومؤمنة</p>
+                </div>
+                <div class="policy-item">
+                    <span>✅</span>
+                    <p><strong>الفوترة:</strong> فواتير إلكترونية معتمدة من ZATCA</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Copy IBAN
+        function copyIBAN() {
+            const iban = 'SA4005000068206162118000';
+            navigator.clipboard.writeText(iban).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.textContent = '✓ تم النسخ';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 نسخ رقم الآيبان';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Select Payment Method
+        function selectPayment(method) {
+            document.querySelectorAll('.payment-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            if (method === 'lc') {
+                document.querySelector('.lc-section').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Submit Request
+        function submitRequest(e) {
+            e.preventDefault();
+            alert('تم استلام طلبك بنجاح!\n\nسيتم التواصل معك خلال 24 ساعة.\n\nشكراً لاختيارك منظومة شيخة.');
+        }
+    </script>
+</body>
+</html>

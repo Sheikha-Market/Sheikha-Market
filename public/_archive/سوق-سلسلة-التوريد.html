@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="سوق شيخة — سلسلة التوريد والمتاجر حسب التخصص. مصدر، تجميع، نقل، مصهر، سكراب تجميع، صهر، نقل، شاحنات.">
+    <title>سوق سلسلة التوريد والمتاجر — شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #d4af37; --green: #006633; --dark: #0d120d; --card: #0f1510; --text-muted: #8a9a8a; --border: #2a352a; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--dark); color: #f5f5f0; min-height: 100vh; padding: 1.5rem; background-image: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,102,51,0.08) 0%, transparent 50%); }
+        .wrap { max-width: 960px; margin: 0 auto; }
+        .back { display: inline-block; margin-bottom: 1rem; color: var(--gold); text-decoration: none; font-weight: 500; }
+        .back:hover { text-decoration: underline; }
+        h1 { color: var(--gold); font-size: 1.6em; margin-bottom: 0.5rem; }
+        .sub { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95em; }
+        h2 { font-size: 1.2em; margin: 1.5rem 0 0.75rem; color: var(--gold); border-bottom: 1px solid var(--border); padding-bottom: 0.35rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; text-align: center; transition: border-color 0.2s; }
+        .card:hover { border-color: var(--gold); }
+        .card a { color: inherit; text-decoration: none; display: block; }
+        .card .icon { font-size: 1.8em; margin-bottom: 0.35rem; }
+        .card .name { font-weight: 600; font-size: 0.95em; }
+        .card .desc { font-size: 0.8em; color: var(--text-muted); margin-top: 0.25rem; }
+        .listings { margin-top: 1rem; }
+        .item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 0.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+        .item .icon { font-size: 1.2em; }
+        .item .name { font-weight: 600; }
+        .item .meta { font-size: 0.85em; color: var(--text-muted); }
+        .item .price { color: var(--gold); font-weight: 600; }
+        .links { margin-top: 1.5rem; text-align: center; }
+        .links a { color: var(--gold); text-decoration: none; margin: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <a href="index.html" class="back">← الرئيسية</a>
+        <h1>سوق سلسلة التوريد والمتاجر حسب التخصص</h1>
+        <p class="sub">من المصدر إلى النهاية: مصدر — تجميع — نقل — مصهر — تصنيع — طرف نهائي. وعرض السكراب: تجميع، صهر، نقل، شاحنات.</p>
+
+        <h2>مراحل سلسلة التوريد</h2>
+        <div class="grid" id="stagesGrid"></div>
+
+        <h2>عرض السكراب حسب النوع</h2>
+        <div class="grid" id="scrapTypesGrid"></div>
+
+        <h2>متاجر حسب التخصص</h2>
+        <div class="grid" id="specialtiesGrid"></div>
+
+        <h2>عروض حسب المرحلة</h2>
+        <div id="byStage"></div>
+
+        <h2>عروض حسب نوع السكراب</h2>
+        <div id="byScrapType"></div>
+
+        <div class="links">
+            <a href="تسجيل-تاجر.html">تسجيل تاجر حسب التخصص</a>
+            <a href="عرض-بضائع.html">عرض بضائع</a>
+            <a href="index.html#market">السوق</a>
+        </div>
+    </div>
+    <script>
+        (function() {
+            var api = (window.location.protocol === 'http:' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? window.location.origin : 'http://localhost:8080';
+
+            function el(tag, c, attr) {
+                var e = document.createElement(tag);
+                if (attr) for (var k in attr) e.setAttribute(k, attr[k]);
+                if (typeof c === 'string') e.textContent = c; else if (c) e.appendChild(c);
+                return e;
+            }
+
+            fetch(api + '/api/supply-chain-stages').then(function(r) { return r.json(); }).then(function(d) {
+                if (!d.success || !d.stages) return;
+                var g = document.getElementById('stagesGrid');
+                d.stages.forEach(function(s) {
+                    g.appendChild(el('div', null, { class: 'card' }).appendChild(el('a', null, { href: '?stage=' + s.id })).appendChild(el('div', s.icon, { class: 'icon' })).parentNode.appendChild(el('div', s.nameAr, { class: 'name' })).parentNode.appendChild(el('div', s.description || '', { class: 'desc' })));
+                });
+            }).catch(function() {});
+
+            fetch(api + '/api/scrap-display-types').then(function(r) { return r.json(); }).then(function(d) {
+                if (!d.success || !d.types) return;
+                var g = document.getElementById('scrapTypesGrid');
+                d.types.forEach(function(t) {
+                    g.appendChild(el('div', null, { class: 'card' }).appendChild(el('a', null, { href: '?scrapType=' + t.id })).appendChild(el('div', t.icon, { class: 'icon' })).parentNode.appendChild(el('div', t.nameAr, { class: 'name' })));
+                });
+            }).catch(function() {});
+
+            fetch(api + '/api/trader-specialties').then(function(r) { return r.json(); }).then(function(d) {
+                if (!d.success || !d.specialties) return;
+                var g = document.getElementById('specialtiesGrid');
+                d.specialties.forEach(function(s) {
+                    g.appendChild(el('div', null, { class: 'card' }).appendChild(el('a', null, { href: '?specialty=' + s.id })).appendChild(el('div', s.nameAr, { class: 'name' })).parentNode.appendChild(el('div', s.storeLabel || '', { class: 'desc' })));
+                });
+            }).catch(function() {});
+
+            var params = new URLSearchParams(window.location.search);
+            var stage = params.get('stage');
+            var scrapType = params.get('scrapType');
+
+            if (stage) {
+                fetch(api + '/api/market-by-stage?stage=' + encodeURIComponent(stage)).then(function(r) { return r.json(); }).then(function(d) {
+                    var box = document.getElementById('byStage');
+                    box.innerHTML = '<p class="sub">مرحلة: ' + (d.stageName || stage) + ' — ' + (d.count || 0) + ' عرض</p>';
+                    (d.listings || []).forEach(function(l) {
+                        var item = el('div', null, { class: 'item' });
+                        item.innerHTML = '<span class="icon">' + (l.icon || '□') + '</span><span class="name">' + (l.name || '') + '</span><span class="meta">' + (l.storeName || '') + ' — ' + (l.quantity || '') + ' ' + (l.unit || '') + '</span><span class="price">' + (l.price || '') + ' ' + (l.currency || 'ريال') + '</span>';
+                        box.appendChild(item);
+                    });
+                }).catch(function() { document.getElementById('byStage').innerHTML = '<p class="sub">تعذر تحميل العروض.</p>'; });
+            }
+
+            if (scrapType) {
+                fetch(api + '/api/market-by-scrap-type?scrapType=' + encodeURIComponent(scrapType)).then(function(r) { return r.json(); }).then(function(d) {
+                    var box = document.getElementById('byScrapType');
+                    box.innerHTML = '<p class="sub">نوع: ' + (d.scrapTypeName || scrapType) + ' — ' + (d.count || 0) + ' عرض</p>';
+                    (d.listings || []).forEach(function(l) {
+                        var item = el('div', null, { class: 'item' });
+                        item.innerHTML = '<span class="icon">' + (l.icon || '□') + '</span><span class="name">' + (l.name || '') + '</span><span class="meta">' + (l.storeName || '') + ' — ' + (l.quantity || '') + ' ' + (l.unit || '') + '</span><span class="price">' + (l.price || '') + ' ' + (l.currency || 'ريال') + '</span>';
+                        box.appendChild(item);
+                    });
+                }).catch(function() { document.getElementById('byScrapType').innerHTML = '<p class="sub">تعذر تحميل العروض.</p>'; });
+            }
+        })();
+    </script>
+    <footer style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e2e8f0;text-align:center;font-size:0.9em;color:#64748b;">
+        <p><a href="index.html" style="color:#0d9488;text-decoration:none;">الرئيسية</a> · <a href="خريطة-الموقع.html" style="color:#0d9488;text-decoration:none;">خريطة الموقع</a></p>
+        <p style="margin-top:0.5rem;">أهداف الموقع: بلا ضرر ولا ضرار · حب العلامة وأمان · محافظة على البيئة والصحة والبشر.</p>
+    </footer>
+</body>
+</html>

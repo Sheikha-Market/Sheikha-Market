@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "nameAr": "سجل وكلاء شيخة السحابية",
+    "nameEn": "Sheikha Cloud Agent Registry",
+    "version": "1.0.0",
+    "masterAgentId": 786,
+    "masterReference": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ — الفاتحة:1",
+    "principle": "وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ — المائدة: 2",
+    "maxAgents": 57,
+    "createdAt": "2026-04-23T20:00:00.000Z",
+    "loaded": true
+  },
+  "agents": [
+    {
+      "id": 786,
+      "type": "master",
+      "nameAr": "الوكيل الرئيسي — بسم الله",
+      "nameEn": "Master Agent — Bismillah",
+      "reference": "الفاتحة:1 — بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+      "quranicNumber": 786,
+      "significance": "الرقم الأبجدي لـ «بسم الله الرحمن الرحيم» — أصل كل شيء",
+      "capabilities": ["clone", "dispatch", "monitor", "heal", "orchestrate"],
+      "scope": "global"
+    },
+    {
+      "id": 786001,
+      "type": "clone",
+      "nameAr": "وكيل الأمان والحماية",
+      "nameEn": "Security & Protection Agent",
+      "reference": "البقرة:255 — آية الكرسي",
+      "quranicNumber": 1,
+      "significance": "آية الكرسي — أعظم آية في القرآن، حماية وحصن",
+      "capabilities": ["security-scan", "threat-detection", "access-control"],
+      "scope": "security"
+    },
+    {
+      "id": 786002,
+      "type": "clone",
+      "nameAr": "وكيل التكامل والنشر",
+      "nameEn": "Integration & Deployment Agent",
+      "reference": "الإخلاص:1 — قُلْ هُوَ اللَّهُ أَحَدٌ",
+      "quranicNumber": 2,
+      "significance": "التوحيد — وحدة النظام وتكامله",
+      "capabilities": ["git-sync", "deploy", "integrate", "build"],
+      "scope": "devops"
+    },
+    {
+      "id": 786003,
+      "type": "clone",
+      "nameAr": "وكيل المراقبة والرصد",
+      "nameEn": "Monitoring & Observability Agent",
+      "reference": "الحديد:4 — وَهُوَ مَعَكُمْ أَيْنَ مَا كُنتُمْ",
+      "quranicNumber": 3,
+      "significance": "الرقابة الكاملة — لا يغيب عنه شيء",
+      "capabilities": ["monitor", "alert", "metrics", "logs"],
+      "scope": "observability"
+    },
+    {
+      "id": 786004,
+      "type": "clone",
+      "nameAr": "وكيل التجارة والسوق",
+      "nameEn": "Commerce & Market Agent",
+      "reference": "البقرة:275 — وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا",
+      "quranicNumber": 4,
+      "significance": "حِلّ البيع وتحريم الربا — أساس التجارة الإسلامية",
+      "capabilities": ["trade", "pricing", "market-analysis", "halal-check"],
+      "scope": "commerce"
+    },
+    {
+      "id": 786005,
+      "type": "clone",
+      "nameAr": "وكيل التعلم والذكاء",
+      "nameEn": "Learning & Intelligence Agent",
+      "reference": "الرحمن:1-2 — الرَّحْمَٰنُ عَلَّمَ الْقُرْآنَ",
+      "quranicNumber": 5,
+      "significance": "التعليم الرباني — منبع كل علم ومعرفة",
+      "capabilities": ["ml-train", "inference", "nlp", "knowledge-base"],
+      "scope": "ai"
+    },
+    {
+      "id": 786006,
+      "type": "clone",
+      "nameAr": "وكيل التوافق الشرعي",
+      "nameEn": "Sharia Compliance Agent",
+      "reference": "النساء:59 — أَطِيعُوا اللَّهَ وَأَطِيعُوا الرَّسُولَ",
+      "quranicNumber": 6,
+      "significance": "الطاعة والامتثال — معيار كل قرار",
+      "capabilities": ["sharia-audit", "fatwa-lookup", "compliance-report"],
+      "scope": "sharia"
+    },
+    {
+      "id": 786007,
+      "type": "clone",
+      "nameAr": "وكيل التعاون والتكامل البيئي",
+      "nameEn": "Ecosystem Integration Agent",
+      "reference": "المائدة:2 — وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ",
+      "quranicNumber": 7,
+      "significance": "التعاون على البر — ربط كل الأنظمة بعضها ببعض",
+      "capabilities": ["vscode-sync", "github-sync", "gitlab-sync", "api-bridge"],
+      "scope": "integration"
+    }
+  ]
+}

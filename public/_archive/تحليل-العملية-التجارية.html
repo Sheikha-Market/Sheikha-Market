@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تحليل العملية التجارية كاملة — العرض، الطلب، البيع، حركة المواد، التتبع. سوق شيخة للسكراب والمعادن.">
+    <title>تحليل العملية التجارية — سوق شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #0d9488; --primary-dark: #0f766e; --accent: #d4af37; --bg: #f0fdfa; --card: #fff; --text: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --radius: 12px; --radius-lg: 16px; --shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh; }
+        .header-bar { background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 100%); color: #fff; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .header-bar a { color: #fff; text-decoration: none; font-weight: 600; }
+        .header-bar a:hover { text-decoration: underline; }
+        .wrap { max-width: 960px; margin: 0 auto; padding: 28px 24px; }
+        .back { display: inline-block; margin-bottom: 20px; color: var(--primary); text-decoration: none; font-weight: 600; }
+        .back:hover { text-decoration: underline; }
+        h1 { font-size: 1.75rem; color: var(--text); margin-bottom: 8px; font-weight: 800; }
+        .sub { color: var(--text-muted); font-size: 1rem; margin-bottom: 28px; }
+        .section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 24px; box-shadow: var(--shadow); }
+        .section h2 { font-size: 1.2rem; color: var(--primary-dark); margin-bottom: 16px; font-weight: 700; }
+        .section p { color: var(--text-muted); margin-bottom: 12px; font-size: 0.98rem; }
+        /* رسم تدفق — حلال (أشكال هندسية فقط، لا صور ذوات أرواح) */
+        .flow { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 4px; margin: 24px 0; padding: 20px; background: rgba(13,148,136,0.04); border-radius: var(--radius-lg); border: 1px solid var(--border); }
+        .flow-node { min-width: 100px; padding: 14px 18px; background: var(--card); border: 2px solid var(--primary); border-radius: var(--radius); font-weight: 700; color: var(--primary-dark); font-size: 0.95rem; text-align: center; }
+        .flow-arrow { color: var(--primary); font-size: 1.2rem; font-weight: 700; }
+        .flow-node.supply { border-color: #059669; color: #047857; }
+        .flow-node.demand { border-color: #0d9488; color: var(--primary-dark); }
+        .flow-node.sale { border-color: #b45309; color: #b45309; }
+        .flow-node.material { border-color: #7c3aed; color: #6d28d9; }
+        .flow-node.track { border-color: #0369a1; color: #0369a1; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 16px; }
+        .kpi-box { background: rgba(13,148,136,0.08); border: 1px solid var(--primary); border-radius: var(--radius); padding: 14px; text-align: center; }
+        .kpi-box .label { font-size: 0.85rem; color: var(--text-muted); }
+        .kpi-box .value { font-size: 1.25rem; font-weight: 800; color: var(--primary-dark); }
+        .links-inline { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+        .links-inline a { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: rgba(13,148,136,0.08); border: 1px solid var(--primary); border-radius: var(--radius); color: var(--primary); font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+        .links-inline a:hover { background: rgba(13,148,136,0.15); }
+        @media (max-width: 640px) { .flow { flex-direction: column; } .flow-arrow { transform: rotate(90deg); } }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <div><a href="index.html">سوق شيخة</a> | <a href="تحليل-العملية-التجارية.html">تحليل العملية التجارية</a> | <a href="نظام-متابعة-وتنفيذ-وتحليل.html">نظام المتابعة</a> | <a href="تكامل.html">التكامل</a></div>
+        <div><a href="index.html">← الرئيسية</a></div>
+    </div>
+    <div class="wrap">
+        <a href="index.html" class="back">← العودة إلى الرئيسية</a>
+        <h1>تحليل العملية التجارية كاملة</h1>
+        <p class="sub">من العرض والطلب والبيع وحركة المواد وتتبعها — منظومة شيخة للسكراب والمعادن.</p>
+
+        <div class="section">
+            <h2>تدفق العملية التجارية (رسم حلال — أشكال هندسية فقط)</h2>
+            <p>مسار العملية من العرض إلى التتبع. لا صور لذوات أرواح — زخارف هندسية ومربعات وسهم فقط.</p>
+            <div class="flow" aria-label="تدفق العملية التجارية">
+                <span class="flow-node supply">العرض<br>(Supply)</span>
+                <span class="flow-arrow">←</span>
+                <span class="flow-node demand">الطلب<br>(Demand)</span>
+                <span class="flow-arrow">←</span>
+                <span class="flow-node sale">البيع<br>(Sale)</span>
+                <span class="flow-arrow">←</span>
+                <span class="flow-node material">حركة المواد<br>(Material Flow)</span>
+                <span class="flow-arrow">←</span>
+                <span class="flow-node track">التتبع<br>(Tracking)</span>
+            </div>
+            <p><strong>العرض:</strong> من يقدم البضاعة (سكراب، معادن، خدمات نقل/حاويات) — مصدر، جامع، ناقل، مصهر. | <strong>الطلب:</strong> من يطلب الشراء أو النقل. | <strong>البيع:</strong> إبرام الصفقة. | <strong>حركة المواد:</strong> مسار المادة من المصدر إلى التصنيع/الطرف النهائي. | <strong>التتبع:</strong> تتبع حالة العرض، الطلب، الصفقة، الحاوية، الشحنة.</p>
+        </div>
+
+        <div class="section">
+            <h2>عناصر التحليل</h2>
+            <table style="width:100%; border-collapse: collapse;">
+                <thead><tr style="background: rgba(13,148,136,0.08);"><th style="padding:10px 12px; text-align:right; border:1px solid var(--border);">العنصر</th><th style="padding:10px 12px; text-align:right; border:1px solid var(--border);">المصدر في المنصة</th></tr></thead>
+                <tbody>
+                    <tr><td style="padding:10px 12px; border:1px solid var(--border);">العرض (Supply)</td><td style="padding:10px 12px; border:1px solid var(--border);">تسجيل تاجر؛ إضافة عرض (عرض-بضائع.html، POST /api/listings)؛ السوق</td></tr>
+                    <tr><td style="padding:10px 12px; border:1px solid var(--border);">الطلب (Demand)</td><td style="padding:10px 12px; border:1px solid var(--border);">سجل الطلبات (orders) — عند التفعيل؛ لوحة التحكم</td></tr>
+                    <tr><td style="padding:10px 12px; border:1px solid var(--border);">البيع (Sale)</td><td style="padding:10px 12px; border:1px solid var(--border);">سجل صفقات؛ عمولة على الصفقات المكتملة عبر المنصة</td></tr>
+                    <tr><td style="padding:10px 12px; border:1px solid var(--border);">حركة المواد</td><td style="padding:10px 12px; border:1px solid var(--border);">سلسلة التوريد (مصدر → تجميع → نقل → مصهر → تصنيع → طرف نهائي)； /api/supply-chain-stages؛ حاويات</td></tr>
+                    <tr><td style="padding:10px 12px; border:1px solid var(--border);">التتبع</td><td style="padding:10px 12px; border:1px solid var(--border);">لوحة التحكم (عروضي، طلباتي، حاوياتي)； تقارير؛ (لاحقاً) رقم تتبع موحد، IoT</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>مؤشرات الأداء (KPIs) المقترحة</h2>
+            <div class="kpi-grid">
+                <div class="kpi-box"><div class="label">عدد العروض النشطة</div><div class="value" id="kpiListings">—</div></div>
+                <div class="kpi-box"><div class="label">عدد المتاجر/التجار</div><div class="value" id="kpiTraders">—</div></div>
+                <div class="kpi-box"><div class="label">طلبات (عند التفعيل)</div><div class="value">—</div></div>
+                <div class="kpi-box"><div class="label">صفقات مكتملة</div><div class="value">—</div></div>
+                <div class="kpi-box"><div class="label">قيمة التداول</div><div class="value">—</div></div>
+            </div>
+            <p style="margin-top:12px; font-size:0.9rem; color: var(--text-muted);">القيم الفعلية تُغذى من API عند تفعيل سجل الطلبات والصفقات.</p>
+        </div>
+
+        <div class="section">
+            <h2>اللوجستيات والوسائل الرقمية</h2>
+            <p>التوصيل واللوجستيات باستخدام كل الوسائل المتاحة وابتكار أفضل الحلول: إنترنت الأشياء (IoT)، الذكاء الاصطناعي (AI)، FBS، تتبع موحد. انظر وثيقة «إدارة مشاريع رقمية وهندسية ولوجستيات وتحليل العملية التجارية».</p>
+            <div class="links-inline">
+                <a href="/docs/إدارة-مشاريع-رقمية-وهندسية-ولوجستيات-وتحليل-العملية-التجارية.md" target="_blank" rel="noopener">وثيقة إدارة مشاريع رقمية ولوجستيات وتحليل</a>
+                <a href="نظام-متابعة-وتنفيذ-وتحليل.html">نظام المتابعة</a>
+                <a href="لوحة-التحكم.html">لوحة التحكم</a>
+                <a href="عرض-بضائع.html">عرض بضائع</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function() {
+            var apiBase = (window.location.origin && window.location.protocol !== 'file:') ? window.location.origin : 'http://localhost:8080';
+            fetch(apiBase + '/api/market-listings').then(function(r) { return r.json(); }).then(function(d) {
+                if (d.success) {
+                    var el = document.getElementById('kpiListings');
+                    if (el) el.textContent = (d.listingsCount !== undefined ? d.listingsCount : (d.listings && d.listings.length) || 0);
+                    el = document.getElementById('kpiTraders');
+                    if (el && d.listings && d.listings.length) el.textContent = new Set(d.listings.map(function(l){ return l.storeName || ''; })).size;
+                    else if (el && d.tradersCount !== undefined) el.textContent = d.tradersCount;
+                }
+            }).catch(function() {});
+        })();
+    </script>
+    <footer style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e2e8f0;text-align:center;font-size:0.9em;color:#64748b;">
+        <p><a href="index.html" style="color:#0d9488;text-decoration:none;">الرئيسية</a> · <a href="خريطة-الموقع.html" style="color:#0d9488;text-decoration:none;">خريطة الموقع</a></p>
+        <p style="margin-top:0.5rem;">أهداف الموقع: بلا ضرر ولا ضرار · حب العلامة وأمان · محافظة على البيئة والصحة والبشر.</p>
+    </footer>
+</body>
+</html>

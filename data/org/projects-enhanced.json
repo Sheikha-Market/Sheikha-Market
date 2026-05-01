@@ -1,0 +1,266 @@
+{
+  "_meta": {
+    "title": "بسم الله الرحمن الرحيم — سجل مشاريع منظومة شيخة المُعزَّز",
+    "version": "2.0.0",
+    "createdAt": "2026-03-12",
+    "principle": "«وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ» هود:88",
+    "totalProjects": 8,
+    "owner": "سلمان أحمد بن سلمان الراجح"
+  },
+  "projects": [
+    {
+      "num": "SHK-PRJ-001",
+      "nameAr": "سوق شيخة — المنصة الرئيسية للمعادن والسكراب",
+      "nameEn": "Sheikha Market — Core Metals & Scrap Platform",
+      "id": "sheikha-market-platform",
+      "priority": "critical",
+      "status": "active",
+      "phase": "phase-3-growth",
+      "rating": 88,
+      "completion": 65,
+      "healthScore": 90,
+      "vision": "أول سوق رقمي إسلامي للمعادن في المنطقة — «وَأَحَلَّ اللَّهُ الْبَيْعَ» البقرة:275",
+      "kpis": {
+        "activeTraders": 500,
+        "monthlyGMV_SAR": 2000000,
+        "listings": 1200,
+        "uptime": "99.9%"
+      },
+      "improvement": {
+        "shortTerm": ["تحسين UX للتجار", "إضافة خاصية المزادات الشرعية", "تكامل Nafath للتحقق"],
+        "midTerm": ["تطوير تطبيق الجوال (iOS+Android)", "نظام تقييم التجار", "ذكاء اصطناعي لاقتراح الأسعار"],
+        "longTerm": ["سوق المعادن الخليجي الموحد", "بروتوكول شيخة اللامركزي", "Web3 Halal Trading"]
+      },
+      "research": {
+        "areas": ["تقنية Blockchain الحلال", "نماذج التسعير الذكي", "بروتوكولات التبادل الإسلامي"],
+        "papers": 2,
+        "experiments": 5
+      },
+      "gcloudIntegration": "sheikha-market-ops",
+      "bigQueryDatasets": ["sheikha_market", "sheikha_analytics"],
+      "assignedBots": ["SHK-BOT-002", "SHK-BOT-003", "SHK-BOT-011", "SHK-BOT-016"]
+    },
+    {
+      "num": "SHK-PRJ-002",
+      "nameAr": "بوابة المؤسسة — portal.sheikha.top",
+      "nameEn": "Enterprise Portal — Main Dashboard",
+      "id": "sheikha-portal",
+      "priority": "critical",
+      "status": "active",
+      "phase": "phase-2-maturity",
+      "rating": 85,
+      "completion": 70,
+      "healthScore": 88,
+      "vision": "مركز القيادة الرقمي الموحد لكل عمليات شيخة",
+      "kpis": {
+        "apiEndpoints": 200,
+        "dailyActiveUsers": 300,
+        "responseTime_ms": 180,
+        "uptime": "99.9%"
+      },
+      "improvement": {
+        "shortTerm": ["تحسين أداء server.js > 200 endpoint", "إضافة WebSocket لأسعار المعادن اللحظية", "تقليل حجم الـ bundle"],
+        "midTerm": ["تحويل إلى microservices منتقاة", "نظام caching ذكي (Redis)", "PWA تحسينات شاملة"],
+        "longTerm": ["هجرة تدريجية إلى GraphQL", "فصل frontend إلى React/Next.js", "CDN عربي متخصص"]
+      },
+      "research": {
+        "areas": ["معمارية Microservices للنظم الإسلامية", "تحسين WebSocket للأسواق الناشئة"],
+        "papers": 1,
+        "experiments": 3
+      },
+      "gcloudIntegration": "sheikha-market-ops",
+      "bigQueryDatasets": ["sheikha_operations"],
+      "assignedBots": ["SHK-BOT-009", "SHK-BOT-010", "SHK-BOT-011", "SHK-BOT-012"]
+    },
+    {
+      "num": "SHK-PRJ-003",
+      "nameAr": "محرك الشريعة الإسلامية",
+      "nameEn": "Islamic Sharia Engine",
+      "id": "sheikha-shariah-engine",
+      "priority": "critical",
+      "status": "active",
+      "phase": "phase-2-maturity",
+      "rating": 92,
+      "completion": 60,
+      "healthScore": 95,
+      "vision": "القلب الشرعي لكل قرار في منظومة شيخة — «وَمَا آتَاكُمُ الرَّسُولُ فَخُذُوهُ» الحشر:7",
+      "kpis": {
+        "shariaRulesDatabase": 500,
+        "zakahCalculations": 1000,
+        "complianceScore": 100,
+        "contractsReviewed": 200
+      },
+      "improvement": {
+        "shortTerm": ["توسيع قاعدة الأحكام الشرعية للمعادن", "تكامل مع هيئة محاسبة AAOIFI", "حاسبة زكاة المعادن التفاعلية"],
+        "midTerm": ["نموذج LLM مدرَّب على الفقه الإسلامي", "محرك الفتاوى الآلي للمعاملات", "تحكيم إسلامي رقمي"],
+        "longTerm": ["نظام الشريعة العالمي للأسواق الإسلامية", "بروتوكول الحلال-DeFi", "معيار ISO للمعاملات الإسلامية"]
+      },
+      "research": {
+        "areas": ["فقه المعادن والسكراب المعاصر", "الذكاء الاصطناعي والفتوى", "قياس الامتثال الشرعي رقمياً"],
+        "papers": 3,
+        "experiments": 4
+      },
+      "gcloudIntegration": null,
+      "assignedBots": ["SHK-BOT-001", "SHK-BOT-007", "SHK-BOT-004"]
+    },
+    {
+      "num": "SHK-PRJ-004",
+      "nameAr": "سوق السكراب والمعادن — الذكاء التشغيلي",
+      "nameEn": "Scrap Metal Market — Operational Intelligence",
+      "id": "sheikha-scrap-market",
+      "priority": "high",
+      "status": "active",
+      "phase": "phase-2-maturity",
+      "rating": 78,
+      "completion": 50,
+      "healthScore": 80,
+      "vision": "تحويل سوق السكراب السعودي من تقليدي إلى رقمي بالكامل",
+      "kpis": {
+        "scrapsListed": 800,
+        "tradersConnected": 200,
+        "avgDealValue_SAR": 45000,
+        "repeatPurchaseRate": "40%"
+      },
+      "improvement": {
+        "shortTerm": ["نظام تصنيف المعادن بالصورة (AI Vision)", "ربط أسعار LME لحظياً", "خدمة التحليل الكيميائي الرقمي"],
+        "midTerm": ["منصة مزادات المعادن الشرعية", "شبكة موردين معتمدين", "تقبيل الشحنات بالـ blockchain"],
+        "longTerm": ["بورصة معادن خليجية", "شبكة إعادة تدوير شرعية وبيئية", "نظام تتبع كربوني للمعادن"]
+      },
+      "research": {
+        "areas": ["تقنية الرؤية الحاسوبية لتصنيف المعادن", "نماذج التسعير الديناميكي", "سلاسل قيمة المعادن المستدامة"],
+        "papers": 2,
+        "experiments": 6
+      },
+      "gcloudIntegration": "sheikha-market-ops",
+      "bigQueryDatasets": ["sheikha_market", "sheikha_analytics"],
+      "assignedBots": ["SHK-BOT-002", "SHK-BOT-005", "SHK-BOT-006", "SHK-BOT-020"]
+    },
+    {
+      "num": "SHK-PRJ-005",
+      "nameAr": "التحالف الاستراتيجي مع Google",
+      "nameEn": "Google Strategic Alliance",
+      "id": "sheikha-google-alliance",
+      "priority": "high",
+      "status": "active",
+      "phase": "phase-1-foundation",
+      "rating": 70,
+      "completion": 40,
+      "healthScore": 75,
+      "vision": "استثمار Google Cloud وGemini AI لتسريع النمو",
+      "kpis": {
+        "bigQueryTables": 11,
+        "storageBuckets": 3,
+        "aiApiCalls_monthly": 50000,
+        "cloudSavings_SAR": 15000
+      },
+      "improvement": {
+        "shortTerm": ["إنشاء Storage Buckets (3)", "ربط BigQuery بلوحة التحكم", "Gemini AI للمساعد الذكي"],
+        "midTerm": ["Google Workspace للفريق", "Vertex AI لنموذج التسعير", "Google Maps لتتبع الشحنات"],
+        "longTerm": ["Google Cloud Marketplace listing", "شراكة ISV مع Google", "Google for Startups Equity Program"]
+      },
+      "research": {
+        "areas": ["Vertex AI للأسواق الإسلامية", "BigQuery ML للتنبؤ بالطلب"],
+        "papers": 1,
+        "experiments": 4
+      },
+      "gcloudIntegration": "sheikha-market-ops",
+      "bigQueryDatasets": ["sheikha_market", "sheikha_analytics", "sheikha_operations"],
+      "assignedBots": ["SHK-BOT-012", "SHK-BOT-013", "SHK-BOT-011"]
+    },
+    {
+      "num": "SHK-PRJ-006",
+      "nameAr": "التحالف الاستراتيجي مع Microsoft",
+      "nameEn": "Microsoft Strategic Alliance",
+      "id": "sheikha-microsoft-alliance",
+      "priority": "high",
+      "status": "active",
+      "phase": "phase-1-foundation",
+      "rating": 65,
+      "completion": 25,
+      "healthScore": 70,
+      "vision": "استثمار Azure وCopilot وPower Platform لتسريع النمو المؤسسي",
+      "kpis": {
+        "azureServices": 5,
+        "powerBiReports": 10,
+        "copilotIntegrations": 3,
+        "microsoftReach_SAR": 200000
+      },
+      "improvement": {
+        "shortTerm": ["Azure AD B2C للمصادقة", "Power BI لتقارير المبيعات", "Teams Bot لإشعارات المدير"],
+        "midTerm": ["Azure OpenAI للمساعد العربي", "Dynamics 365 لـ CRM", "SharePoint لإدارة الوثائق"],
+        "longTerm": ["Microsoft for Startups Founders Hub", "ISV على Azure Marketplace", "شراكة منطقة Azure السعودية"]
+      },
+      "research": {
+        "areas": ["Azure AI للغة العربية", "Microsoft Power Platform الإسلامي"],
+        "papers": 0,
+        "experiments": 2
+      },
+      "gcloudIntegration": null,
+      "assignedBots": ["SHK-BOT-011", "SHK-BOT-013", "SHK-BOT-021"]
+    },
+    {
+      "num": "SHK-PRJ-007",
+      "nameAr": "منظومة إدارة المؤسسة (EMS)",
+      "nameEn": "Enterprise Management System",
+      "id": "sheikha-enterprise-management",
+      "priority": "critical",
+      "status": "active",
+      "phase": "phase-1-foundation",
+      "rating": 72,
+      "completion": 35,
+      "healthScore": 78,
+      "vision": "نظام إدارة مؤسسي شامل لأقسام شيخة الـ 21 — «إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ» النحل:90",
+      "kpis": {
+        "departmentsCovered": 21,
+        "botsDeployed": 21,
+        "automationRate": "45%",
+        "processesDigitized": 80
+      },
+      "improvement": {
+        "shortTerm": ["إطلاق سجل الأقسام الـ 21", "تفعيل 21 بوت", "ربط KPIs بلوحة CEO"],
+        "midTerm": ["أتمتة 80% من العمليات", "تكامل HRMS كامل", "نظام أوامر العمل WO الرقمي"],
+        "longTerm": ["ERP إسلامي موحد", "رائد الإدارة المؤسسية الاقتصادية الإسلامية", "تصدير النظام لبقية الدول"]
+      },
+      "research": {
+        "areas": ["ERP Innovation للأسواق الإسلامية الناشئة", "Process Mining لتحسين العمليات"],
+        "papers": 1,
+        "experiments": 3
+      },
+      "gcloudIntegration": "sheikha-market-ops",
+      "bigQueryDatasets": ["sheikha_operations"],
+      "assignedBots": ["SHK-BOT-021", "SHK-BOT-015", "SHK-BOT-011", "SHK-BOT-001"]
+    },
+    {
+      "num": "SHK-PRJ-008",
+      "nameAr": "مشروع شيخة الذكاء الاصطناعي الإسلامي",
+      "nameEn": "Sheikha Islamic AI Project",
+      "id": "sheikha-islamic-ai",
+      "priority": "high",
+      "status": "active",
+      "phase": "phase-1-foundation",
+      "rating": 60,
+      "completion": 20,
+      "healthScore": 65,
+      "vision": "بناء أول ذكاء اصطناعي عربي إسلامي مخصص للمعاملات التجارية — «وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا» البقرة:31",
+      "kpis": {
+        "trainingDataSize_MB": 5000,
+        "modelAccuracy": "75%",
+        "shariahCompliance": "100%",
+        "languageSupport": 3
+      },
+      "improvement": {
+        "shortTerm": ["جمع Corpus فقه المعادن", "Fine-tune نموذج عربي للمعاملات", "API للتحقق الشرعي"],
+        "midTerm": ["نموذج سعري AI للمعادن الخليجي", "AI Arbitration للنزاعات التجارية", "Embedding قرآني كريم"],
+        "longTerm": ["نموذج Sheikha LLM المفتوح المصدر", "متجر plugins الشريعة الإسلامية", "AGI الاقتصادي الإسلامي"]
+      },
+      "research": {
+        "areas": ["LLM الإسلامي للمعاملات المالية", "Arabic NLP للفقه المعاصر", "Ethical AI الإسلامي"],
+        "papers": 2,
+        "experiments": 5
+      },
+      "gcloudIntegration": "sheikha-market-ops",
+      "bigQueryDatasets": ["sheikha_analytics"],
+      "assignedBots": ["SHK-BOT-013", "SHK-BOT-001", "SHK-BOT-021"]
+    }
+  ]
+}

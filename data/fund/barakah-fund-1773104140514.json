@@ -1,0 +1,97 @@
+{
+  "fundId": "BARAKAH-FUND-2026-001",
+  "timestamp": "2026-03-10T00:55:40.500Z",
+  "balance": 579965500,
+  "currency": "SAR",
+  "summary": {
+    "totalIncome": 580000000,
+    "totalExpenditure": 34500,
+    "netBalance": 579965500,
+    "transactionCount": 8
+  },
+  "income": {
+    "total": 580000000,
+    "count": 4,
+    "sources": {
+      "مصرف الراجحي": 500000000,
+      "مركز الملك سلمان للإغاثة": 50000000,
+      "المحسنين الأفراد": 10000000,
+      "مسؤولية اجتماعية للشركات": 20000000
+    }
+  },
+  "expenditure": {
+    "total": 34500,
+    "count": 4,
+    "byCategory": {
+      "youth-microfinance": {
+        "nameAr": "تمويل مشاريع الشباب",
+        "allocation": 0.6,
+        "description": "قروض حسنة ومضاربة لمشاريع صغيرة",
+        "beneficiaries": 10000,
+        "avgAmount": 30000,
+        "shariaCompliant": true,
+        "actualAmount": 30000,
+        "actualBeneficiaries": 1,
+        "transactions": 1
+      },
+      "orphan-sponsorship": {
+        "nameAr": "كفالة الأيتام",
+        "allocation": 0.2,
+        "description": "كفالات شهرية للأيتام",
+        "beneficiaries": 5000,
+        "avgAmount": 1000,
+        "shariaCompliant": true,
+        "actualAmount": 1000,
+        "actualBeneficiaries": 1,
+        "transactions": 1
+      },
+      "family-support": {
+        "nameAr": "دعم الأسر الفقيرة",
+        "allocation": 0.1,
+        "description": "مساعدات مالية وعينية",
+        "beneficiaries": 2000,
+        "avgAmount": 2000,
+        "shariaCompliant": true,
+        "actualAmount": 2000,
+        "actualBeneficiaries": 1,
+        "transactions": 1
+      },
+      "educational-grants": {
+        "nameAr": "المنح التعليمية",
+        "allocation": 0.05,
+        "description": "منح دراسية جامعية",
+        "beneficiaries": 1000,
+        "avgAmount": 1500,
+        "shariaCompliant": true,
+        "actualAmount": 1500,
+        "actualBeneficiaries": 1,
+        "transactions": 1
+      },
+      "operations": {
+        "nameAr": "التشغيل والإدارة",
+        "allocation": 0.05,
+        "description": "تكاليف إدارية ورواتب",
+        "beneficiaries": 50,
+        "avgAmount": 10000,
+        "shariaCompliant": true,
+        "actualAmount": 0,
+        "actualBeneficiaries": 0,
+        "transactions": 0
+      }
+    }
+  },
+  "zakah": {
+    "applicable": true,
+    "balance": 579965500,
+    "nisab": 50648.95,
+    "rate": 0.025,
+    "amount": 14499137.5,
+    "currency": "SAR"
+  },
+  "blockchain": {
+    "verified": true,
+    "algorithm": "SHA-256",
+    "records": 8,
+    "immutable": true
+  }
+}

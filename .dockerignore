@@ -1,0 +1,44 @@
+# Exclude files/dirs that don't belong in the production Docker image.
+# This keeps the build context small and avoids leaking sensitive files.
+
+# Git & CI
+.git
+.github
+.gitignore
+
+# Dev tooling & IDE
+.devcontainer
+.vscode
+*.swp
+*.swo
+
+# Node development artifacts
+node_modules
+npm-debug.log*
+
+# Docs and planning files (not needed at runtime)
+*.md
+*.txt
+docs/
+reports/
+exports/
+backups/
+releases/
+examples/
+packaging/
+
+# Infrastructure configs (mounted as volumes or irrelevant to the app image)
+infra/
+infrastructure/
+mcp-servers/
+
+# Local secrets (should never be in the image)
+.env
+.env.*
+!.env.example
+
+# Scripts not needed inside the container
+*.sh
+deploy.sh
+activate-*.sh
+fix-*.js

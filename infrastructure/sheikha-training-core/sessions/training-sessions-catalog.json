@@ -1,0 +1,29 @@
+{
+    "generatedAt": "2026-03-13T23:54:18.663Z",
+    "sessions": [
+        {
+            "id": "session-rag-v1",
+            "modelTarget": "sheikha-rag-reasoner-v1",
+            "domain": "metals-scrap-market",
+            "status": "pending",
+            "epochs": 10,
+            "batchSize": 32
+        },
+        {
+            "id": "session-sharia-classifier-v1",
+            "modelTarget": "sharia-compliance-classifier",
+            "domain": "sharia-sciences",
+            "status": "pending",
+            "epochs": 10,
+            "batchSize": 32
+        },
+        {
+            "id": "session-branch-autogenesis-v1",
+            "modelTarget": "branch-autogenesis-model",
+            "domain": "science-integration",
+            "status": "pending",
+            "epochs": 10,
+            "batchSize": 32
+        }
+    ]
+}

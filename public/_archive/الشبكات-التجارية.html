@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="الشبكات التجارية - شبكة تجارية متكاملة لربط التجار والمصانع والموردين في قطاع المعادن والسكراب">
+    <title>الشبكات التجارية | شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/elite-design-system.css">
+    <link rel="stylesheet" href="css/3d-graphics-system.css">
+    <style>
+        :root {
+            --bg-primary: #020617;
+            --bg-secondary: #0f172a;
+            --bg-card: #0d1424;
+            --bg-elevated: #1a2332;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border-primary: #334155;
+            --accent-gold: #d4af37;
+            --accent-green: #006c35;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(13, 20, 36, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-primary);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--metal-gold);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            font-weight: 800;
+        }
+        
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        .nav {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .nav-link {
+            padding: 10px 18px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 80px 32px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+        }
+        
+        .hero-content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+        
+        /* Section */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .section-header h2 span {
+            color: var(--accent-gold);
+        }
+        
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Layers Architecture */
+        .layers-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            perspective: 1500px;
+        }
+        
+        .layer {
+            background: linear-gradient(145deg, var(--bg-elevated), var(--bg-card));
+            border: 1px solid var(--border-primary);
+            border-radius: 20px;
+            padding: 32px;
+            transform-style: preserve-3d;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .layer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+        
+        .layer.gold::before { background: var(--metal-gold); }
+        .layer.green::before { background: linear-gradient(90deg, #006c35, #10b981); }
+        .layer.blue::before { background: linear-gradient(90deg, #3b82f6, #1d4ed8); }
+        .layer.purple::before { background: linear-gradient(90deg, #8b5cf6, #6366f1); }
+        .layer.cyan::before { background: linear-gradient(90deg, #06b6d4, #0891b2); }
+        
+        .layer:hover {
+            transform: translateY(-8px) rotateX(-2deg);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        
+        .layer-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .layer-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+        
+        .layer.gold .layer-number { background: var(--metal-gold); color: #1a1a1a; }
+        .layer.green .layer-number { background: linear-gradient(135deg, #006c35, #10b981); color: white; }
+        .layer.blue .layer-number { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
+        .layer.purple .layer-number { background: linear-gradient(135deg, #8b5cf6, #6366f1); color: white; }
+        .layer.cyan .layer-number { background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; }
+        
+        .layer-title h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .layer-title p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .layer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .layer-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: 14px;
+            padding: 20px;
+        }
+        
+        .layer-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .layer-card-icon {
+            font-size: 1.2rem;
+        }
+        
+        .layer-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+        
+        /* KPIs */
+        .kpi-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .kpi-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 8px;
+            font-size: 0.8rem;
+        }
+        
+        .kpi-item-label {
+            color: var(--text-secondary);
+        }
+        
+        .kpi-item-value {
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+        
+        /* Objectives */
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+        }
+        
+        .objective-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .objective-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-5px);
+        }
+        
+        .objective-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 16px;
+        }
+        
+        .objective-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .objective-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+        
+        .objective-target {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: #10b981;
+        }
+        
+        /* Network Visualization */
+        .network-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 0;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .network-node {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .network-node::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 2px dashed rgba(212, 175, 55, 0.3);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .network-node:hover {
+            transform: scale(1.1);
+        }
+        
+        .network-node.center {
+            width: 180px;
+            height: 180px;
+            background: var(--metal-gold);
+            z-index: 2;
+        }
+        
+        .network-node.traders { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .network-node.factories { background: linear-gradient(135deg, #10b981, #059669); }
+        .network-node.logistics { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .network-node.labs { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+        
+        .network-node-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .network-node-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .network-node.center .network-node-label { color: #1a1a1a; }
+        .network-node:not(.center) .network-node-label { color: white; }
+        
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(145deg, var(--bg-card), var(--bg-elevated));
+            border: 1px solid var(--border-primary);
+            border-radius: 24px;
+            padding: 60px;
+            text-align: center;
+            margin: 80px 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .cta-section p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+        
+        .btn {
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 8px;
+        }
+        
+        .btn-primary {
+            background: var(--metal-gold);
+            color: #1a1a1a;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-primary);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-primary);
+            padding: 40px 32px;
+            text-align: center;
+        }
+        
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .layer-content { grid-template-columns: repeat(2, 1fr); }
+            .objectives-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 768px) {
+            .layer-content { grid-template-columns: 1fr; }
+            .objectives-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+            .nav { display: none; }
+            .network-visual { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="منظومة-شيخة.html" class="logo">
+                <div class="logo-icon">🔗</div>
+                <div class="logo-text">
+                    <h1>الشبكات التجارية</h1>
+                    <p>ربط الأعمال الذكي</p>
+                </div>
+            </a>
+            <nav class="nav">
+                <a href="منظومة-شيخة.html" class="nav-link">الرئيسية</a>
+                <a href="سوق-شيخة.html" class="nav-link">السوق</a>
+                <a href="إدارة-المشاريع.html" class="nav-link">إدارة المشاريع</a>
+                <a href="لوحة-تحكم-المستخدم.html" class="nav-link">حسابي</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>الشبكات <span>التجارية</span> المتكاملة</h1>
+            <p>منظومة ربط ذكية بين التجار والمصانع والموردين — من المصدر إلى المستهلك</p>
+        </div>
+    </section>
+    
+    <!-- Network Visualization -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="network-visual">
+                <div class="network-node traders">
+                    <span class="network-node-icon">🏪</span>
+                    <span class="network-node-label">التجار</span>
+                </div>
+                <div class="network-node factories">
+                    <span class="network-node-icon">🏭</span>
+                    <span class="network-node-label">المصانع</span>
+                </div>
+                <div class="network-node center">
+                    <span class="network-node-icon">🔗</span>
+                    <span class="network-node-label">شبكة شيخة</span>
+                </div>
+                <div class="network-node logistics">
+                    <span class="network-node-icon">🚚</span>
+                    <span class="network-node-label">اللوجستيات</span>
+                </div>
+                <div class="network-node labs">
+                    <span class="network-node-icon">🔬</span>
+                    <span class="network-node-label">المختبرات</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Layers Architecture -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>الهيكل <span>الطبقي</span> للشبكة</h2>
+                <p>5 طبقات متكاملة تضمن تدفق القيمة من المصدر إلى المستهلك</p>
+            </div>
+            
+            <div class="layers-container">
+                <!-- Layer 1: Sources -->
+                <div class="layer gold">
+                    <div class="layer-header">
+                        <div class="layer-number">1</div>
+                        <div class="layer-title">
+                            <h3>طبقة المصادر</h3>
+                            <p>نقاط الإمداد الأولية — مناجم، محطات تجميع، مستودعات</p>
+                        </div>
+                    </div>
+                    <div class="layer-content">
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">⛏️</span> المناجم</h4>
+                            <p>ربط مباشر مع مناجم الخامات والمعادن المحلية والدولية</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">50 منجم</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">28 منجم</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">🏭</span> محطات التجميع</h4>
+                            <p>شبكة محطات تجميع السكراب والمعادن المستعملة</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">200 محطة</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">145 محطة</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">📦</span> المستودعات</h4>
+                            <p>مستودعات تخزين ذكية موزعة على المناطق</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">30 مستودع</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">18 مستودع</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Layer 2: Processing -->
+                <div class="layer green">
+                    <div class="layer-header">
+                        <div class="layer-number">2</div>
+                        <div class="layer-title">
+                            <h3>طبقة المعالجة</h3>
+                            <p>تحويل الخامات — فرز، تكسير، صهر، تنقية</p>
+                        </div>
+                    </div>
+                    <div class="layer-content">
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">🔥</span> المصاهر</h4>
+                            <p>مصاهر معتمدة لصهر وتنقية المعادن</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">25 مصهر</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">12 مصهر</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">⚙️</span> مراكز الفرز</h4>
+                            <p>مراكز فرز وتصنيف آلية بتقنيات AI</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">40 مركز</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">22 مركز</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">🔬</span> المختبرات</h4>
+                            <p>مختبرات فحص وتحليل معتمدة ISO</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">15 مختبر</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">8 مختبر</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Layer 3: Trading -->
+                <div class="layer blue">
+                    <div class="layer-header">
+                        <div class="layer-number">3</div>
+                        <div class="layer-title">
+                            <h3>طبقة التداول</h3>
+                            <p>سوق شيخة — عرض، طلب، تسعير، تفاوض</p>
+                        </div>
+                    </div>
+                    <div class="layer-content">
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">🛒</span> سوق المعادن</h4>
+                            <p>منصة تداول إلكترونية للمعادن والسكراب</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">5000 تاجر</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">2450 تاجر</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">💰</span> التسعير الذكي</h4>
+                            <p>نظام تسعير لحظي مرتبط بـ LME</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">تحديث كل 5 دقائق</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">✓ مُفعَّل</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">📜</span> العقود والتوثيق</h4>
+                            <p>عقود رقمية موثقة وفق الشريعة</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">100% رقمي</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">85%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Layer 4: Logistics -->
+                <div class="layer purple">
+                    <div class="layer-header">
+                        <div class="layer-number">4</div>
+                        <div class="layer-title">
+                            <h3>طبقة اللوجستيات</h3>
+                            <p>النقل والتوصيل — شحن، تتبع، تخليص</p>
+                        </div>
+                    </div>
+                    <div class="layer-content">
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">🚚</span> أسطول النقل</h4>
+                            <p>شبكة ناقلين معتمدين للنقل الثقيل</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">500 شاحنة</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">320 شاحنة</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">📍</span> التتبع الحي</h4>
+                            <p>نظام GPS لتتبع الشحنات لحظياً</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">100% تغطية</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">95%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">🌍</span> التصدير الدولي</h4>
+                            <p>خدمات تخليص وتصدير للأسواق العالمية</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">20 دولة</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">8 دول</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Layer 5: End Users -->
+                <div class="layer cyan">
+                    <div class="layer-header">
+                        <div class="layer-number">5</div>
+                        <div class="layer-title">
+                            <h3>طبقة المستهلك النهائي</h3>
+                            <p>المصانع والمستهلكين النهائيين</p>
+                        </div>
+                    </div>
+                    <div class="layer-content">
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">🏭</span> المصانع الصناعية</h4>
+                            <p>مصانع السيارات والإلكترونيات والبناء</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">100 مصنع</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">45 مصنع</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">🏗️</span> قطاع البناء</h4>
+                            <p>شركات المقاولات والتشييد</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">200 شركة</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">78 شركة</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layer-card">
+                            <h4><span class="layer-card-icon">🔄</span> إعادة التدوير</h4>
+                            <p>مرافق إعادة التدوير والاقتصاد الدائري</p>
+                            <div class="kpi-list">
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الهدف</span>
+                                    <span class="kpi-item-value">50 مرفق</span>
+                                </div>
+                                <div class="kpi-item">
+                                    <span class="kpi-item-label">الإنجاز</span>
+                                    <span class="kpi-item-value">22 مرفق</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Strategic Objectives -->
+    <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2>الأهداف <span>الاستراتيجية</span></h2>
+                <p>أهداف قابلة للقياس والتحقق — SMART</p>
+            </div>
+            
+            <div class="objectives-grid">
+                <div class="objective-card">
+                    <div class="objective-icon">📈</div>
+                    <h4>نمو الشبكة</h4>
+                    <p>زيادة عدد الشركاء المسجلين بنسبة 50%</p>
+                    <div class="objective-target">
+                        <span>🎯</span>
+                        <span>5,000 شريك بنهاية 2026</span>
+                    </div>
+                </div>
+                <div class="objective-card">
+                    <div class="objective-icon">💰</div>
+                    <h4>حجم التداول</h4>
+                    <p>زيادة حجم التداول الشهري</p>
+                    <div class="objective-target">
+                        <span>🎯</span>
+                        <span>50 مليون ر.س/شهر</span>
+                    </div>
+                </div>
+                <div class="objective-card">
+                    <div class="objective-icon">⏱️</div>
+                    <h4>سرعة التنفيذ</h4>
+                    <p>تقليل وقت إتمام الصفقات</p>
+                    <div class="objective-target">
+                        <span>🎯</span>
+                        <span>أقل من 48 ساعة</span>
+                    </div>
+                </div>
+                <div class="objective-card">
+                    <div class="objective-icon">⭐</div>
+                    <h4>رضا العملاء</h4>
+                    <p>تحقيق أعلى معدلات الرضا</p>
+                    <div class="objective-target">
+                        <span>🎯</span>
+                        <span>4.8/5 تقييم</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA -->
+    <section class="section">
+        <div class="container">
+            <div class="cta-section">
+                <h2>انضم للشبكة التجارية 🔗</h2>
+                <p>كن جزءاً من أكبر شبكة تجارية للمعادن والسكراب في المنطقة</p>
+                <div>
+                    <a href="تسجيل-الشركاء.html" class="btn btn-primary">
+                        <span>📝</span>
+                        سجّل الآن
+                    </a>
+                    <a href="سوق-شيخة.html" class="btn btn-secondary">
+                        <span>🛒</span>
+                        تصفح السوق
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <p>© 2026 منظومة شيخة — جميع الحقوق محفوظة | <a href="منظومة-شيخة.html">الرئيسية</a> | <a href="الشريعة-الاسلامية.html">الالتزام الشرعي</a></p>
+    </footer>
+</body>
+</html>

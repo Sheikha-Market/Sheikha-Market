@@ -1,0 +1,38 @@
+{
+    "mcpServers": {
+        "sheikha-local": {
+            "command": "node",
+            "args": [
+                "/home/sheikha/Projects/sheikha/sheikha-main-portal/mcp-servers/sheikha-mcp-server.js"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            }
+        },
+        "github": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-github"
+            ],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "PUT_TOKEN_HERE"
+            }
+        },
+        "fetch": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-fetch"
+            ]
+        },
+        "filesystem-sheikha": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "/home/sheikha/Projects/sheikha/sheikha-main-portal"
+            ]
+        }
+    }
+}

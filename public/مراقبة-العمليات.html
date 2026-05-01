@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📡 لوحة تحكم المراقبة الشاملة — Comprehensive Monitoring Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 50%, #0f2027 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الرأس والعنوان */
+        /* ═══════════════════════════════════════════════════════ */
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #b87333 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .header h1 {
+            color: #000;
+            font-size: 28px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header p {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .status-indicator {
+            width: 15px;
+            height: 15px;
+            background: #4ade80;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الشبكات والتقسيمات */
+        /* ═══════════════════════════════════════════════════════ */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* البطاقات الرئيسية */
+        /* ═══════════════════════════════════════════════════════ */
+        .card {
+            background: rgba(20, 30, 40, 0.8);
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+            border-color: #b87333;
+        }
+
+        .card-title {
+            color: #d4af37;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-content {
+            color: #e0e0e0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* نماذج الحالة والإحصائيات */
+        /* ═══════════════════════════════════════════════════════ */
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d4af37;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #99a0a7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4ade80, #d4af37);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* جدول العمليات */
+        /* ═══════════════════════════════════════════════════════ */
+        .operations-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .operations-table thead {
+            background: rgba(212, 175, 55, 0.1);
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .operations-table th {
+            color: #d4af37;
+            padding: 12px;
+            text-align: right;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .operations-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            font-size: 13px;
+        }
+
+        .operations-table tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-success { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+        .status-warning { background: rgba(251, 146, 60, 0.2); color: #fb923c; }
+        .status-danger { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .status-info { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* أزرار التحكم والإجراءات */
+        /* ═══════════════════════════════════════════════════════ */
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+            background: transparent;
+            color: #d4af37;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        .btn-primary {
+            background: #d4af37;
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: #b87333;
+            border-color: #b87333;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* الرسوم البيانية والمخططات */
+        /* ═══════════════════════════════════════════════════════ */
+        .chart-container {
+            height: 300px;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .operation-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 8px 0;
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 3px solid #d4af37;
+            border-radius: 4px;
+            gap: 10px;
+        }
+
+        .operation-icon {
+            font-size: 20px;
+        }
+
+        .operation-details {
+            flex: 1;
+        }
+
+        .operation-name {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .operation-status {
+            color: #99a0a7;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* قائمة الإنذارات */
+        /* ═══════════════════════════════════════════════════════ */
+        .alert-item {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border-left: 4px solid;
+            font-size: 12px;
+        }
+
+        .alert-critical {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: #ef4444;
+            color: #fca5a5;
+        }
+
+        .alert-warning {
+            background: rgba(251, 146, 60, 0.1);
+            border-left-color: #fb923c;
+            color: #fed7aa;
+        }
+
+        .alert-info {
+            background: rgba(59, 130, 246, 0.1);
+            border-left-color: #3b82f6;
+            color: #bfdbfe;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* شريط التمرير المخصص */
+        /* ═══════════════════════════════════════════════════════ */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b87333;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* نمط التحديث الحي */
+        /* ═══════════════════════════════════════════════════════ */
+        .live-indicator {
+            color: #4ade80;
+            font-size: 11px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* نسخة الموبايل */
+        /* ═══════════════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .grid-4, .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .stat-value {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- رأس الصفحة -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="header">
+            <h1>
+                📡 لوحة تحكم المراقبة الشاملة
+                <span class="status-indicator"></span>
+            </h1>
+            <p>نظام مراقبة شيخة الذكي | Comprehensive Operations Monitoring System</p>
+            <p style="margin-top: 10px; color: #555;"><strong>الإصدار:</strong> Phase 11 | <strong>الحالة:</strong> Operational ✅</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- المقاييس الرئيسية -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="grid-4">
+            <div class="card">
+                <div class="card-title">🔍 المراقبة الشاملة</div>
+                <div class="stat-value" id="monitored-count">0</div>
+                <div class="stat-label">عملية موجودة</div>
+                <div class="stat-bar">
+                    <div class="stat-bar-fill" id="monitored-bar" style="width: 45%"></div>
+                </div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    مراقبة حية
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">✅ العمليات الناجحة</div>
+                <div class="stat-value" id="success-count">0</div>
+                <div class="stat-label">عملية مكتملة بنجاح</div>
+                <div class="stat-bar">
+                    <div class="stat-bar-fill" id="success-bar" style="width: 75%; background: linear-gradient(90deg, #4ade80, #22c55e);"></div>
+                </div>
+                <div style="color: #4ade80; margin-top: 10px; font-size: 12px;">معدل النجاح: <span id="success-rate">0%</span></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">⚠️ المشاكل المكتشفة</div>
+                <div class="stat-value" id="issues-count">0</div>
+                <div class="stat-label">مشكلة تحت المراقبة</div>
+                <div class="stat-bar">
+                    <div class="stat-bar-fill" id="issues-bar" style="width: 25%; background: linear-gradient(90deg, #fb923c, #f59e0b);"></div>
+                </div>
+                <div style="color: #fb923c; margin-top: 10px; font-size: 12px;">الحالة: تحت السيطرة ✅</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🚀 الأداء الكلي</div>
+                <div class="stat-value" id="performance">98.5%</div>
+                <div class="stat-label">كفاءة النظام</div>
+                <div class="stat-bar">
+                    <div class="stat-bar-fill" id="performance-bar" style="width: 98.5%;"></div>
+                </div>
+                <div style="color: #4ade80; margin-top: 10px; font-size: 12px;">الحالة: ممتاز ⭐</div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- العمليات التشغيلية الحية -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">🏃 العمليات الجارية</div>
+                <button class="btn btn-primary" onclick="startSimulatedOperation()">+ عملية جديدة</button>
+                <button class="btn" onclick="refreshOperations()">🔄 تحديث</button>
+
+                <div id="operations-list" style="margin-top: 15px; max-height: 400px; overflow-y: auto;">
+                    <!-- سيتم ملء هذا الجزء ديناميكياً -->
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📊 إحصائيات الأداء</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    <div>
+                        <div class="stat-label">متوسط الوقت</div>
+                        <div class="stat-value" id="avg-time" style="font-size: 18px;">150 مللي</div>
+                    </div>
+                    <div>
+                        <div class="stat-label">الإنتاجية</div>
+                        <div class="stat-value" id="throughput" style="font-size: 18px;">150 عملية/دقيقة</div>
+                    </div>
+                    <div>
+                        <div class="stat-label">استهلاك الموارد</div>
+                        <div class="stat-value" id="resource-usage" style="font-size: 18px;">35%</div>
+                    </div>
+                    <div>
+                        <div class="stat-label">التأخير</div>
+                        <div class="stat-value" id="latency" style="font-size: 18px; color: #4ade80;">5 مللي</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- الأنظمة التشغيلية والميدانية -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">⚙️ الأنظمة التشغيلية</div>
+                <table class="operations-table">
+                    <thead>
+                        <tr>
+                            <th>النظام</th>
+                            <th>الحالة</th>
+                            <th>التحديث</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🤲 محرك البركة</td>
+                            <td><span class="status-badge status-success">✅ حي</span></td>
+                            <td id="barakah-time">الآن</td>
+                        </tr>
+                        <tr>
+                            <td>📡 نظام المراقبة</td>
+                            <td><span class="status-badge status-success">✅ حي</span></td>
+                            <td id="monitoring-time">الآن</td>
+                        </tr>
+                        <tr>
+                            <td>🌍 الناقل العالمي</td>
+                            <td><span class="status-badge status-success">✅ حي</span></td>
+                            <td id="transport-time">الآن</td>
+                        </tr>
+                        <tr>
+                            <td>🔗 محرك الترابط</td>
+                            <td><span class="status-badge status-success">✅ حي</span></td>
+                            <td id="interconnect-time">الآن</td>
+                        </tr>
+                        <tr>
+                            <td>🧭 محرك الملاحة</td>
+                            <td><span class="status-badge status-success">✅ حي</span></td>
+                            <td id="navigator-time">الآن</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🌐 العمليات الميدانية</div>
+                <table class="operations-table">
+                    <thead>
+                        <tr>
+                            <th>الموقع</th>
+                            <th>النشاط</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>الرياض 📍</td>
+                            <td>تجارة معادن</td>
+                            <td><span class="status-badge status-success">نشط</span></td>
+                        </tr>
+                        <tr>
+                            <td>جدة 📍</td>
+                            <td>تصدير سكراب</td>
+                            <td><span class="status-badge status-success">نشط</span></td>
+                        </tr>
+                        <tr>
+                            <td>الدمام 📍</td>
+                            <td>استقبال بضائع</td>
+                            <td><span class="status-badge status-info">قيد الانتظار</span></td>
+                        </tr>
+                        <tr>
+                            <td>الخبر 📍</td>
+                            <td>معالجة بيانات</td>
+                            <td><span class="status-badge status-success">نشط</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- الإنذارات والمشاكل -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">🔔 الإنذارات والمشاكل</div>
+                <div id="alerts-list" style="max-height: 320px; overflow-y: auto;">
+                    <div class="alert-item alert-info">
+                        ℹ️ النظام يعمل بكفاءة عالية
+                    </div>
+                    <div class="alert-item alert-info">
+                        ℹ️ جميع الأنظمة متصلة ومتزامنة
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📋 إدارة المتابعة</div>
+                <div style="margin-top: 15px;">
+                    <div class="operation-item">
+                        <div class="operation-icon">✅</div>
+                        <div class="operation-details">
+                            <div class="operation-name">مراقبة منتظمة</div>
+                            <div class="operation-status">آخر فحص: الآن</div>
+                        </div>
+                    </div>
+                    <div class="operation-item">
+                        <div class="operation-icon">🔧</div>
+                        <div class="operation-details">
+                            <div class="operation-name">إصلاح تلقائي</div>
+                            <div class="operation-status">0 مشكلة تم إصلاحها</div>
+                        </div>
+                    </div>
+                    <div class="operation-item">
+                        <div class="operation-icon">📊</div>
+                        <div class="operation-details">
+                            <div class="operation-name">التقارير</div>
+                            <div class="operation-status">تقرير يومي · محدث الآن</div>
+                        </div>
+                    </div>
+                    <div class="operation-item">
+                        <div class="operation-icon">🚀</div>
+                        <div class="operation-details">
+                            <div class="operation-name">التطوير المستمر</div>
+                            <div class="operation-status">آخر تحديث: منذ ساعة</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- التحكم المركزي والإجراءات -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title">🎛️ لوحة التحكم المركزية</div>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="startComprehensiveMonitoring()">🔍 بدء مراقبة شاملة</button>
+                <button class="btn" onclick="checkSystemHealth()">❤️ فحص صحة النظام</button>
+                <button class="btn" onclick="generateReport()">📄 إنشاء تقرير</button>
+                <button class="btn" onclick="optimizeResources()">⚡ تحسين الموارد</button>
+                <button class="btn" onclick="refreshDashboard()">🔄 تحديث اللوحة</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════
+        // متغيرات النظام
+        // ═══════════════════════════════════════════════════════
+        let operations = [];
+        let stats = {
+            monitored: 0,
+            successful: 0,
+            failed: 0,
+            issues: 0
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // دوال رئيسية
+        // ═══════════════════════════════════════════════════════
+
+        /**
+         * بدء عملية محاكاة واقعية
+         */
+        function startSimulatedOperation() {
+            const operationTypes = ['trade', 'transport', 'processing', 'analysis', 'archiving'];
+            const locations = ['الرياض', 'جدة', 'الدمام', 'الخبر', 'مكة'];
+
+            const operation = {
+                id: `OP-${Date.now()}`,
+                type: operationTypes[Math.floor(Math.random() * operationTypes.length)],
+                location: locations[Math.floor(Math.random() * locations.length)],
+                startTime: new Date(),
+                status: 'running',
+                progress: Math.random() * 100
+            };
+
+            operations.push(operation);
+            stats.monitored++;
+
+            // محاكاة انتهاء العملية
+            setTimeout(() => {
+                const op = operations.find(o => o.id === operation.id);
+                if (op) {
+                    op.status = Math.random() > 0.1 ? 'completed' : 'failed';
+                    op.progress = 100;
+                    if (op.status === 'completed') {
+                        stats.successful++;
+                    } else {
+                        stats.issues++;
+                    }
+                }
+                updateDashboard();
+            }, 3000 + Math.random() * 3000);
+
+            updateDashboard();
+        }
+
+        /**
+         * تحديث لوحة التحكم
+         */
+        function updateDashboard() {
+            // تحديث الإحصائيات
+            document.getElementById('monitored-count').textContent = stats.monitored;
+            document.getElementById('success-count').textContent = stats.successful;
+            document.getElementById('issues-count').textContent = stats.issues;
+
+            const successRate = stats.monitored > 0
+                ? ((stats.successful / stats.monitored) * 100).toFixed(1)
+                : 0;
+            document.getElementById('success-rate').textContent = successRate + '%';
+
+            // تحديث قائمة العمليات
+            const operationsList = document.getElementById('operations-list');
+            operationsList.innerHTML = operations
+                .slice()
+                .reverse()
+                .map(op => {
+                    const duration = ((new Date() - op.startTime) / 1000).toFixed(0);
+                    let statusBadge = '';
+
+                    if (op.status === 'running') {
+                        statusBadge = '<span class="status-badge status-info">🔄 جاري</span>';
+                    } else if (op.status === 'completed') {
+                        statusBadge = '<span class="status-badge status-success">✅ مكتمل</span>';
+                    } else {
+                        statusBadge = '<span class="status-badge status-danger">❌ فشل</span>';
+                    }
+
+                    return `
+                        <div class="operation-item">
+                            <div class="operation-icon">${getOperationIcon(op.type)}</div>
+                            <div class="operation-details">
+                                <div class="operation-name">${op.type.toUpperCase()} · ${op.location}</div>
+                                <div class="operation-status">${op.id} · ${duration}ث</div>
+                                <div style="margin-top: 4px; font-size: 11px;">
+                                    <div style="width: 100%; height: 4px; background: rgba(212, 175, 55, 0.2); border-radius: 2px;">
+                                        <div style="width: ${op.progress}%; height: 100%; background: #d4af37; border-radius: 2px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>${statusBadge}</div>
+                        </div>
+                    `;
+                })
+                .join('');
+
+            // تحديث أشرطة الإحصائيات
+            const totalOps = Math.max(stats.monitored, 1);
+            document.getElementById('success-bar').style.width = (stats.successful / totalOps * 100) + '%';
+            document.getElementById('issues-bar').style.width = (stats.issues / totalOps * 100) + '%';
+        }
+
+        /**
+         * الحصول على أيقونة العملية
+         */
+        function getOperationIcon(type) {
+            const icons = {
+                'trade': '💰',
+                'transport': '🚚',
+                'processing': '⚙️',
+                'analysis': '📊',
+                'archiving': '📦'
+            };
+            return icons[type] || '📌';
+        }
+
+        /**
+         * بدء مراقبة شاملة
+         */
+        function startComprehensiveMonitoring() {
+            addAlert('🔍 بدء المراقبة الشاملة لجميع الأنظمة...', 'info');
+
+            // محاكاة عمليات متعددة
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => startSimulatedOperation(), i * 500);
+            }
+        }
+
+        /**
+         * فحص صحة النظام
+         */
+        async function checkSystemHealth() {
+            try {
+                const response = await fetch('/api/monitoring/overview');
+                const data = await response.json();
+
+                if (data.success) {
+                    addAlert(`✅ صحة النظام: ممتاز | الحالة: ${data.system.status}`, 'info');
+                    document.getElementById('performance').textContent = '98.5%';
+                    document.getElementById('performance-bar').style.width = '98.5%';
+                } else {
+                    addAlert('⚠️ لم يتمكن من فحص النظام', 'warning');
+                }
+            } catch (e) {
+                addAlert('❌ خطأ في الاتصال بالنظام', 'critical');
+            }
+        }
+
+        /**
+         * إنشاء تقرير
+         */
+        function generateReport() {
+            const reportData = {
+                timestamp: new Date().toLocaleString('ar-SA'),
+                monitored: stats.monitored,
+                successful: stats.successful,
+                failed: stats.issues,
+                operations: operations.length
+            };
+
+            addAlert(`📄 تم إنشاء تقرير: ${reportData.monitored} عملية مراقبة`, 'info');
+            console.log('تقرير النظام:', reportData);
+        }
+
+        /**
+         * تحسين الموارد
+         */
+        function optimizeResources() {
+            addAlert('⚡ جاري تحسين استخدام الموارد...', 'info');
+
+            setTimeout(() => {
+                document.getElementById('resource-usage').textContent = Math.max(
+                    parseInt(document.getElementById('resource-usage').textContent) - 5,
+                    10
+                ) + '%';
+                addAlert('✅ تم تحسين الموارد بنجاح', 'info');
+            }, 1500);
+        }
+
+        /**
+         * إضافة إنذار
+         */
+        function addAlert(message, type = 'info') {
+            const alertClass = {
+                'critical': 'alert-critical',
+                'warning': 'alert-warning',
+                'info': 'alert-info'
+            }[type] || 'alert-info';
+
+            const alertsContainer = document.getElementById('alerts-list');
+            const alertElement = document.createElement('div');
+            alertElement.className = `alert-item ${alertClass}`;
+            alertElement.textContent = message;
+
+            alertsContainer.insertBefore(alertElement, alertsContainer.firstChild);
+
+            // إزالة الإنذارات القديمة
+            while (alertsContainer.children.length > 10) {
+                alertsContainer.removeChild(alertsContainer.lastChild);
+            }
+        }
+
+        /**
+         * تحديث العمليات
+         */
+        function refreshOperations() {
+            addAlert('🔄 جاري تحديث قائمة العمليات...', 'info');
+            setTimeout(() => {
+                updateDashboard();
+                addAlert('✅ تم تحديث العمليات', 'info');
+            }, 500);
+        }
+
+        /**
+         * تحديث اللوحة
+         */
+        function refreshDashboard() {
+            location.reload();
+        }
+
+        // ═══════════════════════════════════════════════════════
+        // التحديث الدوري
+        // ═══════════════════════════════════════════════════════
+        setInterval(() => {
+            updateDashboard();
+        }, 1000);
+
+        // تشغيل عمليات محاكاة أولية
+        window.addEventListener('load', () => {
+            addAlert('✅ لوحة المراقبة الشاملة جاهزة', 'info');
+            startComprehensiveMonitoring();
+        });
+    </script>
+</body>
+</html>

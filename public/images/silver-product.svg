@@ -1,0 +1,73 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="silverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#F0F0F0;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#C0C0C0;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#808080;stop-opacity:1" />
+        </linearGradient>
+        <filter id="silverGlow">
+            <feGaussianBlur stdDeviation="4" />
+            <feOffset result="coloredBlur" />
+            <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <filter id="shadow">
+            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.3" />
+        </filter>
+    </defs>
+
+    <rect width="400" height="300" fill="#030509" />
+    <defs>
+        <radialGradient id="bgGrad" cx="50%" cy="40%" r="70%">
+            <stop offset="0%" style="stop-color:rgba(192,192,192,0.08);stop-opacity:1" />
+            <stop offset="100%" style="stop-color:rgba(192,192,192,0);stop-opacity:1" />
+        </radialGradient>
+    </defs>
+    <rect width="400" height="300" fill="url(#bgGrad)" />
+
+    <!-- Silver coins/bars stack -->
+    <g filter="url(#shadow)">
+        <!-- Bottom coin -->
+        <circle cx="200" cy="185" r="55" fill="url(#silverGrad)" opacity="0.75" />
+        <circle cx="200" cy="185" r="52" fill="none" stroke="#F0F0F0" stroke-width="1" opacity="0.2" />
+        <g opacity="0.2">
+            <line x1="160" y1="185" x2="240" y2="185" stroke="#F0F0F0" stroke-width="0.5" />
+            <circle cx="200" cy="185" r="45" fill="none" stroke="#F0F0F0" stroke-width="0.5" />
+        </g>
+
+        <!-- Middle coin -->
+        <circle cx="200" cy="145" r="60" fill="url(#silverGrad)" filter="url(#silverGlow)" />
+        <circle cx="200" cy="145" r="57" fill="none" stroke="#F0F0F0" stroke-width="1"
+            opacity="0.25" />
+        <text x="200" y="152" font-family="Tajawal" font-size="20" font-weight="700" fill="#030509"
+            text-anchor="middle">999</text>
+
+        <!-- Top coin -->
+        <circle cx="200" cy="100" r="55" fill="url(#silverGrad)" opacity="0.8" />
+        <circle cx="200" cy="100" r="52" fill="none" stroke="#F0F0F0" stroke-width="1" opacity="0.2" />
+    </g>
+
+    <!-- Price display -->
+    <g filter="url(#shadow)">
+        <rect x="260" y="40" width="130" height="60" rx="10" fill="rgba(3,5,9,0.9)"
+            stroke="url(#silverGrad)" stroke-width="2" />
+        <text x="325" y="60" font-family="Tajawal" font-size="24" font-weight="800" fill="#C0C0C0"
+            text-anchor="middle">29.45</text>
+        <text x="325" y="80" font-family="inherit" font-size="12" fill="#71717a"
+            text-anchor="middle">$/أونصة</text>
+    </g>
+
+    <!-- Purity badge -->
+    <g transform="translate(30, 30)">
+        <circle cx="0" cy="0" r="35" fill="rgba(192,192,192,0.1)" stroke="url(#silverGrad)"
+            stroke-width="2" />
+        <text x="0" y="0" font-family="Tajawal" font-size="32" font-weight="800" fill="#C0C0C0"
+            text-anchor="middle" dominant-baseline="central">Ag</text>
+    </g>
+
+    <!-- Certificate -->
+    <text x="20" y="295" font-family="Tajawal" font-size="12" font-weight="700" fill="#C0C0C0">نقاء
+        ٩٩٩ | LBMA معتمد</text>
+</svg>

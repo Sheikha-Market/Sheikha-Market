@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-03-11T19:05:43.452Z",
+  "location": "Al-Khobar_Warehouses",
+  "engine": "NVIDIA_Omniverse_Enterprise_Ready",
+  "dimensions": "4D",
+  "status": "synced",
+  "simulation": {
+    "physics": true,
+    "thermalModel": true,
+    "routePrediction": true
+  },
+  "nodes": [
+    {
+      "id": "WH-ALKHOBAR-01",
+      "type": "precious_metals",
+      "capacityTons": 1200
+    },
+    {
+      "id": "WH-ALKHOBAR-02",
+      "type": "scrap_processing",
+      "capacityTons": 1800
+    }
+  ],
+  "totalCapacityTons": 3000
+}

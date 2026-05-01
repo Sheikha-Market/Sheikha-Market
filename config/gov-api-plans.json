@@ -1,0 +1,49 @@
+{
+    "provider": "NationalAddress",
+    "plans": {
+        "development": {
+            "approvalRequired": false,
+            "monthlyCalls": 100,
+            "callsPerSecond": 0.2,
+            "minIntervalMs": 5000
+        },
+        "business": {
+            "approvalRequired": true,
+            "monthlyCalls": 4000000,
+            "callsPerSecond": 200,
+            "minIntervalMs": 5
+        },
+        "unlimited": {
+            "approvalRequired": true,
+            "monthlyCalls": 6000000,
+            "callsPerSecond": 400,
+            "minIntervalMs": 2
+        }
+    },
+    "apis": [
+        {
+            "key": "NationalAddress.Address",
+            "path": "/NationalAddress/Address",
+            "method": "GET",
+            "description": "الاستعلام عن العنوان الوطني"
+        },
+        {
+            "key": "NationalAddress.Lookups",
+            "path": "/NationalAddress/Lookups",
+            "method": "GET",
+            "description": "جداول Lookup المرجعية للعنوان الوطني"
+        },
+        {
+            "key": "NationalAddress.Maps",
+            "path": "/NationalAddress/Maps",
+            "method": "GET",
+            "description": "خدمات الخرائط المرتبطة بالعنوان الوطني"
+        },
+        {
+            "key": "NationalAddress.NationalAddressByShortAddress",
+            "path": "/NationalAddress/NationalAddressByShortAddress",
+            "method": "GET",
+            "description": "جلب العنوان الوطني عبر العنوان المختصر"
+        }
+    ]
+}

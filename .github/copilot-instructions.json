@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "instructions": {
+    "project": "منظومة وسوق شيخة — SHEIKHA — أول منظومة اقتصادية إسلامية رقمية للمعادن والسكراب",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "domain": "sheikha.top",
+    "language": "Arabic (RTL)",
+    "techStack": {
+      "backend": "Node.js + Express.js",
+      "frontend": "Vanilla HTML5 + CSS3 + JS (NO frameworks)",
+      "storage": "JSON file-based in data/",
+      "auth": "JWT + OAuth (Google, Microsoft, Apple, Nafath)",
+      "realtime": "WebSocket",
+      "deployment": "Vercel"
+    },
+    "codeStyle": {
+      "indentation": "4 spaces",
+      "quotes": "single",
+      "semicolons": true,
+      "comments": "Arabic",
+      "variables": "camelCase (English)",
+      "errorMessages": "Arabic",
+      "apiResponse": "{ success: boolean, data: any, message?: string, timestamp: string }"
+    },
+    "design": {
+      "theme": "dark",
+      "primaryColor": "#D4AF37",
+      "accentColor": "#B87333",
+      "background": "#050810",
+      "font": "Tajawal",
+      "direction": "RTL"
+    },
+    "sharia": {
+      "noRiba": true,
+      "noGharar": true,
+      "noCheating": true,
+      "noMonopoly": true,
+      "mutualConsent": true,
+      "accurateWeights": true
+    },
+    "rules": [
+      "No modifications without explicit owner permission",
+      "Arabic comments on all code",
+      "RTL layout always",
+      "No React/Vue/Angular — Vanilla JS only",
+      "Follow the design system colors and fonts",
+      "Never expose API keys or sensitive data",
+      "Validate all inputs",
+      "Handle errors gracefully in Arabic"
+    ]
+  }
+}

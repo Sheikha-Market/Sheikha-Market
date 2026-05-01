@@ -1,0 +1,556 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * ☪️ نظام تصميم سوق شيخة - Sheikha Design System
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * متكامل مع الهوية السعودية الرقمية ورؤية 2030
+ * تصميم جميل، فخم، أنيق، سمح، يسير، منطقي، حليم، معلوم
+ * ═══════════════════════════════════════════════════════════════════════════════
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   المتغيرات الأساسية - CSS Variables
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+:root {
+    /* ألوان سوق شيخة الأساسية */
+    --sheikha-gold: #d4af37;
+    --sheikha-gold-light: #f0d060;
+    --sheikha-gold-dark: #b8960c;
+    --sheikha-green: #0a5c36;
+    --sheikha-green-light: #0d7a47;
+    --sheikha-green-dark: #063d24;
+    
+    /* ألوان الهوية السعودية (رؤية 2030) */
+    --saudi-green: #006c35;
+    --saudi-white: #ffffff;
+    --saudi-gold: #c5a572;
+    
+    /* ألوان النظام الموحد (DGA Platform Code) */
+    --dga-primary: #07A869;
+    --dga-secondary: #3D7EB9;
+    --dga-accent: #0DA9A6;
+    --dga-dark: #15445A;
+    --dga-gold: #C1B489;
+    
+    /* ألوان الواجهة */
+    --bg-primary: #050810;
+    --bg-secondary: #0a0f1a;
+    --bg-card: #0d1424;
+    --bg-card-hover: #111c30;
+    --bg-elevated: #142638;
+    
+    /* ألوان النصوص */
+    --text-primary: #ffffff;
+    --text-secondary: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-faint: #64748b;
+    
+    /* ألوان الحدود */
+    --border-primary: #1e3a5f;
+    --border-light: #2d4a6f;
+    --border-gold: rgba(212, 175, 55, 0.3);
+    
+    /* ألوان الحالات */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #3b82f6;
+    
+    /* الأحجام المتجاوبة */
+    --font-size-xs: clamp(0.7rem, 1.5vw, 0.75rem);
+    --font-size-sm: clamp(0.8rem, 1.8vw, 0.875rem);
+    --font-size-base: clamp(0.9rem, 2vw, 1rem);
+    --font-size-lg: clamp(1rem, 2.2vw, 1.125rem);
+    --font-size-xl: clamp(1.1rem, 2.5vw, 1.25rem);
+    --font-size-2xl: clamp(1.3rem, 3vw, 1.5rem);
+    --font-size-3xl: clamp(1.5rem, 3.5vw, 1.875rem);
+    --font-size-4xl: clamp(1.8rem, 4vw, 2.25rem);
+    --font-size-5xl: clamp(2rem, 5vw, 3rem);
+    
+    /* المسافات المتجاوبة */
+    --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+    --space-sm: clamp(0.5rem, 1vw, 0.75rem);
+    --space-md: clamp(0.75rem, 1.5vw, 1rem);
+    --space-lg: clamp(1rem, 2vw, 1.5rem);
+    --space-xl: clamp(1.5rem, 3vw, 2rem);
+    --space-2xl: clamp(2rem, 4vw, 3rem);
+    --space-3xl: clamp(2.5rem, 5vw, 4rem);
+    
+    /* الزوايا */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
+    --radius-2xl: 28px;
+    --radius-full: 9999px;
+    
+    /* الظلال */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.25);
+    --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.3);
+    --shadow-gold: 0 4px 24px rgba(212, 175, 55, 0.2);
+    --shadow-green: 0 4px 24px rgba(10, 92, 54, 0.2);
+    
+    /* الانتقالات */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 400ms ease;
+    --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* الخطوط */
+    --font-arabic: 'Tajawal', 'IBM Plex Sans Arabic', 'Noto Sans Arabic', sans-serif;
+    --font-english: 'Inter', 'Helvetica Neue', sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   إعادة التعيين والأساسيات - Reset & Base
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-arabic);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+    text-align: right;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   النصوص - Typography
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text-primary);
+}
+
+h1 { font-size: var(--font-size-5xl); font-weight: 900; }
+h2 { font-size: var(--font-size-4xl); font-weight: 800; }
+h3 { font-size: var(--font-size-3xl); font-weight: 700; }
+h4 { font-size: var(--font-size-2xl); font-weight: 700; }
+h5 { font-size: var(--font-size-xl); font-weight: 600; }
+h6 { font-size: var(--font-size-lg); font-weight: 600; }
+
+p {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.text-gold { color: var(--sheikha-gold); }
+.text-green { color: var(--sheikha-green-light); }
+.text-muted { color: var(--text-muted); }
+.text-success { color: var(--success); }
+.text-warning { color: var(--warning); }
+.text-danger { color: var(--danger); }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   الأزرار - Buttons
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-xl);
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    white-space: nowrap;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* زر ذهبي - الأساسي */
+.btn-gold {
+    background: linear-gradient(135deg, var(--sheikha-gold-light), var(--sheikha-gold));
+    color: var(--bg-primary);
+    box-shadow: var(--shadow-gold);
+}
+
+.btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(212, 175, 55, 0.35);
+    filter: brightness(1.08);
+}
+
+/* زر أخضر */
+.btn-green {
+    background: linear-gradient(135deg, var(--sheikha-green-light), var(--sheikha-green));
+    color: var(--text-primary);
+    box-shadow: var(--shadow-green);
+}
+
+.btn-green:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(10, 92, 54, 0.35);
+}
+
+/* زر محيط */
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--sheikha-gold);
+    color: var(--sheikha-gold);
+}
+
+.btn-outline:hover {
+    background: var(--sheikha-gold);
+    color: var(--bg-primary);
+}
+
+/* أحجام الأزرار */
+.btn-sm {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-sm);
+}
+
+.btn-lg {
+    padding: var(--space-lg) var(--space-2xl);
+    font-size: var(--font-size-lg);
+    border-radius: var(--radius-xl);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   البطاقات - Cards
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    transition: var(--transition-smooth);
+}
+
+.card:hover {
+    border-color: var(--sheikha-gold);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+.card-header {
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-primary);
+}
+
+.card-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.card-body {
+    color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   النماذج - Forms
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.form-group {
+    margin-bottom: var(--space-lg);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: var(--space-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.form-input {
+    width: 100%;
+    padding: var(--space-md) var(--space-lg);
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--sheikha-gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.form-input::placeholder {
+    color: var(--text-faint);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   الحاوية والشبكة - Container & Grid
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+}
+
+.container-sm { max-width: 800px; }
+.container-md { max-width: 1000px; }
+.container-lg { max-width: 1200px; }
+.container-xl { max-width: 1400px; }
+
+.grid {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   التجاوب - Responsive Design
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* الجوال الصغير */
+@media (max-width: 480px) {
+    :root {
+        --font-size-base: 0.9rem;
+        --space-lg: 0.875rem;
+        --space-xl: 1.25rem;
+    }
+    
+    .container {
+        padding: 0 var(--space-md);
+    }
+    
+    .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    h1 { font-size: clamp(1.5rem, 6vw, 2rem); }
+    h2 { font-size: clamp(1.3rem, 5vw, 1.75rem); }
+    h3 { font-size: clamp(1.1rem, 4vw, 1.5rem); }
+}
+
+/* الجوال الكبير */
+@media (min-width: 481px) and (max-width: 768px) {
+    .grid-3, .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* التابلت */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .grid-4 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   الهوية السعودية - Saudi Identity Integration
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* شريط الهوية السعودية */
+.saudi-identity-bar {
+    background: linear-gradient(135deg, var(--saudi-green), var(--sheikha-green));
+    padding: var(--space-sm) var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+}
+
+.saudi-identity-bar .vision-logo {
+    height: 20px;
+    opacity: 0.9;
+}
+
+/* بطاقة رؤية 2030 */
+.vision-2030-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xs) var(--space-md);
+    background: rgba(0, 108, 53, 0.15);
+    border: 1px solid rgba(0, 108, 53, 0.3);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--success);
+}
+
+/* ألوان الهوية السعودية */
+.bg-saudi-green { background-color: var(--saudi-green); }
+.bg-saudi-gold { background-color: var(--saudi-gold); }
+.text-saudi-green { color: var(--saudi-green); }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   الرسوم المتحركة - Animations
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.animate-fade-in { animation: fadeIn 0.5s ease-out; }
+.animate-fade-in-up { animation: fadeInUp 0.5s ease-out; }
+.animate-pulse { animation: pulse 2s infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   التحسينات البصرية - Visual Enhancements
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* التدرج الذهبي */
+.gradient-gold {
+    background: linear-gradient(135deg, var(--sheikha-gold-light), var(--sheikha-gold), var(--sheikha-gold-dark));
+}
+
+/* التدرج الأخضر */
+.gradient-green {
+    background: linear-gradient(135deg, var(--sheikha-green-light), var(--sheikha-green), var(--sheikha-green-dark));
+}
+
+/* نص متدرج */
+.text-gradient-gold {
+    background: linear-gradient(135deg, var(--sheikha-gold-light), var(--sheikha-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* الزجاج الضبابي */
+.glass {
+    background: rgba(13, 20, 36, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   إمكانية الوصول - Accessibility
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* تركيز واضح */
+:focus-visible {
+    outline: 2px solid var(--sheikha-gold);
+    outline-offset: 2px;
+}
+
+/* تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* التباين العالي */
+@media (prefers-contrast: high) {
+    :root {
+        --border-primary: #ffffff;
+        --text-muted: #ffffff;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   أدوات مساعدة - Utilities
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.hidden { display: none !important; }
+.block { display: block; }
+.flex { display: flex; }
+.grid { display: grid; }
+
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+
+.m-auto { margin: auto; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+.rounded { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خريطة الأهداف — شيخة | Goals Roadmap</title>
+<meta name="description" content="خريطة تحقق الأهداف — من التأسيس إلى الريادة العالمية">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--gold-l:#F5E6A3;--bg:#030712;--bg2:#0a0f1c;--bg3:#111827;--green:#10b981;--red:#ef4444;--blue:#3b82f6;--purple:#8b5cf6;--orange:#f59e0b;--cyan:#06b6d4;--t1:#f4f4f5;--t2:#a1a1aa;--t3:#71717a;--r:16px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(212,175,55,.2)}
+
+.topbar{position:sticky;top:0;z-index:99;background:rgba(3,7,18,.88);backdrop-filter:blur(40px);border-bottom:1px solid rgba(212,175,55,.06);padding:0 32px;display:flex;align-items:center;height:56px;gap:16px}
+.topbar .logo{font-family:'Cairo';font-weight:900;font-size:1rem;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:8px}
+.topbar .logo svg{width:22px;height:22px}
+.back-btn{margin-right:auto;padding:7px 14px;border-radius:10px;background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.08);color:var(--t3);font-size:.75rem;font-weight:700;text-decoration:none;font-family:inherit;transition:.2s}
+.back-btn:hover{color:var(--gold);border-color:rgba(212,175,55,.15)}
+.auto-badge{padding:5px 12px;border-radius:8px;font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:6px}
+.auto-badge.running{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.15)}
+.auto-badge.stopped{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.15)}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.hero{padding:40px 32px 20px;text-align:center}
+.hero h1{font-family:'Cairo';font-size:1.6rem;font-weight:900;margin-bottom:6px}
+.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--t3);font-size:.85rem}
+
+/* ═══ TIMELINE ═══ */
+.timeline{max-width:1000px;margin:0 auto;padding:32px 32px 60px;position:relative}
+.timeline::before{content:'';position:absolute;top:0;bottom:0;right:50%;width:3px;background:linear-gradient(180deg,rgba(212,175,55,.2),rgba(212,175,55,.06));border-radius:3px;transform:translateX(1.5px)}
+
+.phase{position:relative;margin-bottom:48px}
+.phase-marker{position:absolute;right:50%;top:0;transform:translateX(50%);width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;z-index:2;border:3px solid var(--bg)}
+.phase-marker.done{background:var(--green);box-shadow:0 0 20px rgba(16,185,129,.3)}
+.phase-marker.active{background:var(--gold);box-shadow:0 0 20px rgba(212,175,55,.3);animation:pulse 2s infinite}
+.phase-marker.planned{background:var(--blue);opacity:.7}
+.phase-marker.vision{background:var(--purple);opacity:.5}
+
+.phase-content{width:45%;padding:20px;background:rgba(10,15,26,.8);border:1px solid rgba(212,175,55,.06);border-radius:var(--r);transition:.3s}
+.phase-content:hover{border-color:rgba(212,175,55,.15);transform:translateY(-2px)}
+.phase:nth-child(odd) .phase-content{margin-right:auto;margin-left:4%}
+.phase:nth-child(even) .phase-content{margin-left:auto;margin-right:4%}
+
+.phase-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.phase-title{font-family:'Cairo';font-size:.95rem;font-weight:800}
+.phase-badge{font-size:.6rem;font-weight:800;padding:3px 10px;border-radius:8px;margin-right:auto}
+.badge-done{background:rgba(16,185,129,.1);color:var(--green)}
+.badge-active{background:rgba(212,175,55,.1);color:var(--gold)}
+.badge-planned{background:rgba(59,130,246,.1);color:var(--blue)}
+.badge-vision{background:rgba(139,92,246,.1);color:var(--purple)}
+.phase-target{font-size:.7rem;color:var(--t3)}
+
+.phase-bar{height:6px;background:rgba(255,255,255,.04);border-radius:4px;margin:10px 0;overflow:hidden}
+.phase-bar-fill{height:100%;border-radius:4px;transition:width 1.5s ease}
+
+.goal-list{list-style:none;margin-top:12px}
+.goal-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.02);font-size:.78rem;color:var(--t2)}
+.goal-item:last-child{border-bottom:none}
+.goal-icon{font-size:.7rem}
+.goal-icon.done{color:var(--green)}
+.goal-icon.active{color:var(--gold)}
+.goal-icon.planned{color:var(--blue)}
+.goal-icon.vision{color:var(--purple)}
+.goal-progress{margin-right:auto;font-weight:700;font-size:.72rem}
+
+/* ═══ KPIs ═══ */
+.kpi-section{max-width:1000px;margin:0 auto;padding:0 32px 48px}
+.kpi-title{font-family:'Cairo';font-size:1.1rem;font-weight:800;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.kpi-card{background:rgba(10,15,26,.8);border:1px solid rgba(212,175,55,.06);border-radius:var(--r);padding:16px;transition:.3s}
+.kpi-card:hover{border-color:rgba(212,175,55,.12)}
+.kpi-name{font-size:.78rem;color:var(--t3);font-weight:600;margin-bottom:6px}
+.kpi-value{font-family:'Cairo';font-size:1.4rem;font-weight:900}
+.kpi-target{font-size:.68rem;color:var(--t3);margin-top:2px}
+.kpi-bar{height:4px;background:rgba(255,255,255,.04);border-radius:3px;margin-top:8px;overflow:hidden}
+.kpi-bar-fill{height:100%;border-radius:3px}
+.kpi-trend{font-size:.65rem;font-weight:700;margin-top:4px}
+.trend-up{color:var(--green)}
+.trend-stable{color:var(--t3)}
+
+/* ═══ FACTORY STATUS ═══ */
+.factory-section{max-width:1000px;margin:0 auto;padding:0 32px 48px}
+.factory-card{background:rgba(10,15,26,.8);border:1px solid rgba(16,185,129,.08);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.factory-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.factory-head h3{font-family:'Cairo';font-size:.95rem;font-weight:800;color:var(--green)}
+.log-list{max-height:200px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(16,185,129,.1) transparent}
+.log-entry{padding:4px 0;font-size:.72rem;color:var(--t3);border-bottom:1px solid rgba(255,255,255,.01);display:flex;gap:8px}
+.log-time{color:var(--green);font-weight:700;flex-shrink:0;min-width:50px}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+    .timeline::before{right:20px}
+    .phase-marker{right:20px;width:36px;height:36px;font-size:1rem}
+    .phase-content{width:calc(100% - 60px);margin-right:0!important;margin-left:0!important}
+    .phase:nth-child(odd) .phase-content,.phase:nth-child(even) .phase-content{margin-right:0;margin-left:auto}
+    .hero{padding:24px 16px 12px}
+    .hero h1{font-size:1.2rem}
+    .timeline{padding:24px 16px}
+    .kpi-section,.factory-section{padding:0 16px 32px}
+    .kpi-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+    <a href="/" class="logo">
+        <svg viewBox="0 0 100 100" fill="none"><polygon points="50,5 61,38 95,38 68,58 78,92 50,72 22,92 32,58 5,38 39,38" fill="#D4AF37" opacity=".8"/><circle cx="50" cy="50" r="12" fill="#D4AF37"/></svg>
+        شيخة
+    </a>
+    <div class="auto-badge running" id="autoStatus">
+        <div class="pulse-dot"></div>
+        <span>المصنع يعمل تلقائياً</span>
+    </div>
+    <a href="/" class="back-btn">← الرئيسية</a>
+</div>
+
+<div class="hero">
+    <h1>خريطة <span>تحقق الأهداف</span></h1>
+    <p>من التأسيس إلى الريادة العالمية — مصنع الإنتاج يعمل بالخلفية باستمرار لتحقيق كل هدف</p>
+</div>
+
+<!-- ═══ TIMELINE ═══ -->
+<div class="timeline" id="timeline"></div>
+
+<!-- ═══ KPIs ═══ -->
+<div class="kpi-section">
+    <div class="kpi-title">📊 مؤشرات الأداء الرئيسية</div>
+    <div class="kpi-grid" id="kpiGrid"></div>
+</div>
+
+<!-- ═══ FACTORY STATUS ═══ -->
+<div class="factory-section">
+    <div class="factory-card">
+        <div class="factory-head">
+            <span style="font-size:1.3rem">🏭</span>
+            <h3>مصنع الإنتاج — التشغيل التلقائي</h3>
+            <span style="margin-right:auto;font-size:.7rem;color:var(--t3)" id="factoryInfo">جمع بيانات كل 15 دقيقة | إنتاج تشغيلي كل ساعة | إنتاج كامل كل 6 ساعات</span>
+        </div>
+        <div class="log-list" id="logList">
+            <div class="log-entry"><span class="log-time">--:--</span><span>جارٍ تحميل السجل...</span></div>
+        </div>
+    </div>
+
+    <div class="factory-card" style="border-color:rgba(212,175,55,.08)">
+        <div class="factory-head">
+            <span style="font-size:1.3rem">📦</span>
+            <h3 style="color:var(--gold)">إنتاج اليوم</h3>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center" id="todayStats">
+            <div><div style="font-family:Cairo;font-size:1.5rem;font-weight:900;color:var(--gold)">-</div><div style="font-size:.7rem;color:var(--t3)">إجمالي المخرجات</div></div>
+            <div><div style="font-family:Cairo;font-size:1.5rem;font-weight:900;color:var(--green)">-</div><div style="font-size:.7rem;color:var(--t3)">مكتمل</div></div>
+            <div><div style="font-family:Cairo;font-size:1.5rem;font-weight:900;color:var(--orange)">-</div><div style="font-size:.7rem;color:var(--t3)">بانتظار الاعتماد</div></div>
+            <div><div style="font-family:Cairo;font-size:1.5rem;font-weight:900;color:var(--blue)">-</div><div style="font-size:.7rem;color:var(--t3)">جودة %</div></div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/safe-api.js"></script>
+<script>
+const PHASE_COLORS = { done: '#10b981', active: '#D4AF37', planned: '#3b82f6', vision: '#8b5cf6' };
+const GOAL_ICONS = { done: '✅', in_progress: '🔶', planned: '🔵', vision: '🟣' };
+
+async function loadGoals() {
+    try {
+        const res = await fetch('/api/production/goals');
+        const data = await res.json();
+        if (!data.success || !data.goals) throw new Error('No goals');
+        renderTimeline(data.goals);
+        renderKPIs(data.goals.kpis);
+        if (data.goals.todayProduction) renderTodayStats(data.goals.todayProduction);
+    } catch(e) {
+        console.error('Goals load error:', e);
+        document.getElementById('timeline').innerHTML = '<p style="text-align:center;color:#71717a;padding:40px">جارٍ تشغيل المصنع...</p>';
+    }
+}
+
+function renderTimeline(goals) {
+    const el = document.getElementById('timeline');
+    let html = '';
+    goals.phases.forEach((phase, i) => {
+        const color = PHASE_COLORS[phase.status] || PHASE_COLORS.planned;
+        const badgeClass = 'badge-' + phase.status;
+        const statusText = { completed:'مكتمل', active:'جارٍ', planned:'مخطط', vision:'رؤية' }[phase.status] || phase.status;
+        
+        html += `<div class="phase">
+            <div class="phase-marker ${phase.status === 'completed' ? 'done' : phase.status}">${phase.icon}</div>
+            <div class="phase-content">
+                <div class="phase-head">
+                    <div class="phase-title">${phase.name}</div>
+                    <div class="phase-badge ${badgeClass}">${statusText}</div>
+                </div>
+                <div class="phase-target">🎯 الهدف: ${phase.target}</div>
+                <div class="phase-bar"><div class="phase-bar-fill" style="width:${phase.progress}%;background:${color}"></div></div>
+                <div style="font-size:.72rem;color:#71717a;margin-bottom:8px">التقدم: ${phase.progress}%</div>
+                <ul class="goal-list">
+                    ${phase.goals.map(g => {
+                        const pct = Math.min(100, (g.current / g.target) * 100).toFixed(0);
+                        const iconClass = g.status === 'done' ? 'done' : g.status === 'in_progress' ? 'active' : g.status === 'planned' ? 'planned' : 'vision';
+                        return `<li class="goal-item">
+                            <span class="goal-icon ${iconClass}">${GOAL_ICONS[g.status] || '⚪'}</span>
+                            <span>${g.name}</span>
+                            <span class="goal-progress" style="color:${pct >= 80 ? '#10b981' : pct >= 50 ? '#D4AF37' : '#f59e0b'}">${g.current}/${g.target} ${g.unit} (${pct}%)</span>
+                        </li>`;
+                    }).join('')}
+                </ul>
+            </div>
+        </div>`;
+    });
+    el.innerHTML = html;
+    // Animate bars
+    setTimeout(() => {
+        el.querySelectorAll('.phase-bar-fill').forEach(b => { b.style.transition = 'width 1.5s ease'; });
+    }, 100);
+}
+
+function renderKPIs(kpis) {
+    const grid = document.getElementById('kpiGrid');
+    grid.innerHTML = kpis.map(k => {
+        const pct = Math.min(100, (k.current / k.target) * 100);
+        const color = pct >= 90 ? '#10b981' : pct >= 70 ? '#D4AF37' : '#f59e0b';
+        const trendIcon = k.trend === 'up' ? '↑' : k.trend === 'down' ? '↓' : '→';
+        return `<div class="kpi-card">
+            <div class="kpi-name">${k.name}</div>
+            <div class="kpi-value" style="color:${color}">${k.current}${k.unit}</div>
+            <div class="kpi-target">المستهدف: ${k.target}${k.unit}</div>
+            <div class="kpi-bar"><div class="kpi-bar-fill" style="width:${pct}%;background:${color}"></div></div>
+            <div class="kpi-trend ${k.trend === 'up' ? 'trend-up' : 'trend-stable'}">${trendIcon} ${k.trend === 'up' ? 'صاعد' : k.trend === 'down' ? 'هابط' : 'مستقر'}</div>
+        </div>`;
+    }).join('');
+}
+
+function renderTodayStats(stats) {
+    const el = document.getElementById('todayStats');
+    const divs = el.querySelectorAll('div > div:first-child');
+    if (divs[0]) divs[0].textContent = stats.total;
+    if (divs[2]) divs[2].textContent = stats.completed;
+    if (divs[4]) divs[4].textContent = stats.pending;
+    if (divs[6]) divs[6].textContent = stats.quality + '%';
+}
+
+async function loadAutoStatus() {
+    try {
+        const res = await fetch('/api/production/auto-status');
+        const data = await res.json();
+        if (!data.success) return;
+        
+        const badge = document.getElementById('autoStatus');
+        if (data.running) {
+            badge.className = 'auto-badge running';
+            badge.innerHTML = '<div class="pulse-dot"></div><span>المصنع يعمل تلقائياً</span>';
+        } else {
+            badge.className = 'auto-badge stopped';
+            badge.innerHTML = '<span>⏹️ متوقف</span>';
+        }
+        
+        const logList = document.getElementById('logList');
+        if (data.log && data.log.length > 0) {
+            logList.innerHTML = data.log.slice(-20).reverse().map(l => 
+                `<div class="log-entry"><span class="log-time">${l.time}</span><span>${l.message}</span></div>`
+            ).join('');
+        }
+    } catch(e) {}
+}
+
+// Load & refresh
+loadGoals();
+loadAutoStatus();
+setInterval(loadGoals, 60000); // كل دقيقة
+setInterval(loadAutoStatus, 30000); // كل 30 ثانية
+</script>
+<script src="/js/sheikha-smart-fab.js" defer></script>
+</body>
+</html>

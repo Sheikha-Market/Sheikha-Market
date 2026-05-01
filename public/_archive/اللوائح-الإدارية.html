@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="اللوائح الإدارية والسياسات والإجراءات - منظومة شيخة">
+    <title>اللوائح الإدارية | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            line-height: 1.9;
+        }
+
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 16px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #f0d060, #d4af37);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #0a0f1a;
+        }
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #d4af37;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 24px;
+            background: radial-gradient(ellipse at center top, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+        .hero h1 span { color: #d4af37; }
+        .hero p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .layout {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        .nav-card {
+            background: linear-gradient(145deg, rgba(20, 30, 50, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 24px;
+        }
+        .nav-title {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 4px;
+        }
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: #ffffff;
+        }
+        .nav-item.active {
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .nav-icon { font-size: 1.2rem; }
+
+        .main-content {
+            min-width: 0;
+        }
+
+        .chapter {
+            display: none;
+        }
+        .chapter.active {
+            display: block;
+        }
+
+        .chapter-card {
+            background: linear-gradient(145deg, rgba(20, 30, 50, 0.9), rgba(30, 41, 59, 0.8));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 24px;
+        }
+
+        .chapter-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chapter-icon { font-size: 2rem; }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #d4af37;
+            margin: 32px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .content p {
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+
+        .content ul, .content ol {
+            margin-right: 24px;
+            color: #94a3b8;
+            margin-bottom: 16px;
+        }
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .data-table th, .data-table td {
+            padding: 14px 16px;
+            text-align: right;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .data-table th {
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+            font-weight: 700;
+        }
+        .data-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-right: 4px solid #3b82f6;
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+        .warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-right: 4px solid #f59e0b;
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+        .success-box {
+            background: rgba(16, 185, 129, 0.1);
+            border-right: 4px solid #10b981;
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+
+        .process-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        .flow-step.completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        .flow-arrow {
+            color: #64748b;
+        }
+
+        .org-chart {
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .org-level {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .org-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+        .org-box.main {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+        }
+        .org-connector {
+            width: 2px;
+            height: 20px;
+            background: rgba(212, 175, 55, 0.3);
+            margin: 0 auto;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .kpi-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #d4af37;
+        }
+        .kpi-label {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .badge-gold { background: rgba(212, 175, 55, 0.2); color: #d4af37; }
+        .badge-green { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .badge-blue { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+
+        .sharia-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(0, 108, 53, 0.2), rgba(0, 108, 53, 0.05));
+            border: 1px solid rgba(0, 108, 53, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            background: rgba(5, 8, 16, 0.95);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 30px 24px;
+            text-align: center;
+        }
+        .footer-prayer {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        @media (max-width: 1024px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+            }
+            .nav-card {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .nav-title {
+                width: 100%;
+            }
+            .nav-item {
+                padding: 10px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <a href="منظومة-شيخة.html" class="logo">
+            <div class="logo-icon" aria-label="شعار شيخة">
+                <img src="assets/sheikha-mark.svg" alt="شيخة" width="28" height="28" style="display:block; width:28px; height:28px;">
+            </div>
+            <span class="logo-text">منظومة شيخة</span>
+        </a>
+        <nav style="display: flex; gap: 24px;">
+            <a href="منظومة-شيخة.html" style="color: #94a3b8; text-decoration: none;">الرئيسية</a>
+            <a href="السياسات-والشروط.html" style="color: #94a3b8; text-decoration: none;">السياسات</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <h1>📋 اللوائح <span>الإدارية</span></h1>
+    <p>السياسات والإجراءات المعتمدة لضمان أعلى معايير الجودة والحوكمة</p>
+</section>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="nav-card">
+            <div class="nav-title">الفصول</div>
+            <div class="nav-item active" onclick="showChapter('governance')">
+                <span class="nav-icon">🏛️</span>
+                <span>الحوكمة</span>
+            </div>
+            <div class="nav-item" onclick="showChapter('policies')">
+                <span class="nav-icon">📜</span>
+                <span>السياسات العامة</span>
+            </div>
+            <div class="nav-item" onclick="showChapter('operations')">
+                <span class="nav-icon">⚙️</span>
+                <span>الإجراءات التشغيلية</span>
+            </div>
+            <div class="nav-item" onclick="showChapter('security')">
+                <span class="nav-icon">🔒</span>
+                <span>الأمان والخصوصية</span>
+            </div>
+            <div class="nav-item" onclick="showChapter('risk')">
+                <span class="nav-icon">⚠️</span>
+                <span>إدارة المخاطر</span>
+            </div>
+            <div class="nav-item" onclick="showChapter('hr')">
+                <span class="nav-icon">👥</span>
+                <span>الموارد البشرية</span>
+            </div>
+            <div class="nav-item" onclick="showChapter('quality')">
+                <span class="nav-icon">📊</span>
+                <span>الجودة والتحسين</span>
+            </div>
+            <div class="nav-item" onclick="showChapter('sharia')">
+                <span class="nav-icon">☪️</span>
+                <span>الالتزام الشرعي</span>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <!-- الحوكمة -->
+        <div class="chapter active" id="governance">
+            <div class="chapter-card">
+                <h2 class="chapter-title"><span class="chapter-icon">🏛️</span> الإطار العام للحوكمة</h2>
+                
+                <h3 class="section-title">الرؤية والرسالة</h3>
+                <div class="content">
+                    <div class="success-box">
+                        <strong>الرؤية:</strong> أن نكون المنصة الرائدة عالمياً في تجارة المعادن الرقمية، ملتزمين بأعلى معايير الجودة والشفافية وأحكام الشريعة الإسلامية.
+                    </div>
+                    <p><strong>الرسالة:</strong> تمكين التجار والمصانع والمستهلكين من إجراء معاملات تجارية آمنة وشفافة في قطاع المعادن.</p>
+                </div>
+
+                <h3 class="section-title">القيم الأساسية</h3>
+                <table class="data-table">
+                    <tr><th>القيمة</th><th>التعريف</th></tr>
+                    <tr><td>الأمانة</td><td>الصدق في جميع التعاملات</td></tr>
+                    <tr><td>الشفافية</td><td>الوضوح الكامل في الأسعار والشروط</td></tr>
+                    <tr><td>الجودة</td><td>تقديم أعلى مستوى من الخدمة</td></tr>
+                    <tr><td>الالتزام الشرعي</td><td>التوافق مع أحكام الشريعة الإسلامية</td></tr>
+                    <tr><td>الابتكار</td><td>التطوير المستمر بأحدث التقنيات</td></tr>
+                </table>
+
+                <h3 class="section-title">الهيكل التنظيمي</h3>
+                <div class="org-chart">
+                    <div class="org-level">
+                        <div class="org-box main">مجلس الإدارة</div>
+                    </div>
+                    <div class="org-connector"></div>
+                    <div class="org-level">
+                        <div class="org-box main">الرئيس التنفيذي</div>
+                    </div>
+                    <div class="org-connector"></div>
+                    <div class="org-level">
+                        <div class="org-box">التقنية</div>
+                        <div class="org-box">العمليات</div>
+                        <div class="org-box">المالية</div>
+                        <div class="org-box">التسويق</div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">اللجان الإدارية</h3>
+                <table class="data-table">
+                    <tr><th>اللجنة</th><th>المهام</th><th>الاجتماعات</th></tr>
+                    <tr><td>لجنة المراجعة الشرعية</td><td>مراجعة توافق العمليات مع الشريعة</td><td>شهرياً</td></tr>
+                    <tr><td>لجنة الجودة</td><td>مراقبة معايير الجودة</td><td>أسبوعياً</td></tr>
+                    <tr><td>لجنة المخاطر</td><td>تقييم وإدارة المخاطر</td><td>شهرياً</td></tr>
+                    <tr><td>لجنة التقنية</td><td>مراجعة الأنظمة والأمان</td><td>أسبوعياً</td></tr>
+                    <tr><td>لجنة النزاعات</td><td>حل الخلافات بين الأطراف</td><td>حسب الحاجة</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- السياسات العامة -->
+        <div class="chapter" id="policies">
+            <div class="chapter-card">
+                <h2 class="chapter-title"><span class="chapter-icon">📜</span> السياسات العامة</h2>
+                
+                <h3 class="section-title">سياسة التسجيل والقبول</h3>
+                <div class="content">
+                    <p><strong>المتطلبات الإلزامية للتجار:</strong></p>
+                    <ul>
+                        <li>سجل تجاري ساري المفعول</li>
+                        <li>شهادة الزكاة والدخل</li>
+                        <li>رخصة تجارة المعادن (إن وجدت)</li>
+                        <li>هوية المالك أو المفوض</li>
+                        <li>عنوان فعلي للنشاط</li>
+                        <li>حساب بنكي تجاري</li>
+                    </ul>
+                </div>
+
+                <h3 class="section-title">مستويات التحقق</h3>
+                <table class="data-table">
+                    <tr><th>المستوى</th><th>المتطلبات</th><th>الصلاحيات</th></tr>
+                    <tr><td><span class="badge badge-blue">أساسي</span></td><td>هوية + جوال</td><td>تصفح فقط</td></tr>
+                    <tr><td><span class="badge badge-green">موثق</span></td><td>+ سجل تجاري</td><td>شراء حتى 50,000 ر.س</td></tr>
+                    <tr><td><span class="badge badge-gold">معتمد</span></td><td>+ زيارة ميدانية</td><td>شراء/بيع بدون حدود</td></tr>
+                    <tr><td><span class="badge badge-gold">VIP</span></td><td>+ تاريخ تعاملات</td><td>مزايا حصرية</td></tr>
+                </table>
+
+                <h3 class="section-title">إجراء التسجيل المؤتمت</h3>
+                <div class="process-flow">
+                    <div class="flow-step completed">📝 تقديم الطلب</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step completed">🔍 التحقق من السجل</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step completed">👤 التحقق من الهوية</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step completed">✅ الموافقة</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step completed">🔓 تفعيل الحساب</div>
+                </div>
+                <div class="info-box">
+                    <strong>ملاحظة:</strong> يتم التحقق تلقائياً من السجل التجاري عبر API وزارة التجارة، ومن الهوية عبر أبشر. العملية تستغرق أقل من 5 دقائق.
+                </div>
+
+                <h3 class="section-title">سياسة العمولات</h3>
+                <table class="data-table">
+                    <tr><th>الباقة</th><th>الرسوم الشهرية</th><th>العمولة</th><th>المزايا</th></tr>
+                    <tr><td>مجاني</td><td>0 ر.س</td><td>5%</td><td>أساسية</td></tr>
+                    <tr><td>أساسي</td><td>500 ر.س</td><td>3%</td><td>+ دعم أولوية</td></tr>
+                    <tr><td>احترافي</td><td>1,500 ر.س</td><td>2%</td><td>+ تحليلات متقدمة</td></tr>
+                    <tr><td>مؤسسي</td><td>اتفاقية</td><td>1.5%</td><td>+ API + مدير حساب</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- الإجراءات التشغيلية -->
+        <div class="chapter" id="operations">
+            <div class="chapter-card">
+                <h2 class="chapter-title"><span class="chapter-icon">⚙️</span> الإجراءات التشغيلية</h2>
+                
+                <h3 class="section-title">دورة حياة الطلب</h3>
+                <div class="process-flow">
+                    <div class="flow-step">📥 جديد</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">✔️ مؤكد</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">📦 قيد التجهيز</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">🚚 جاهز للشحن</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">🚛 قيد الشحن</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step completed">✅ مكتمل</div>
+                </div>
+
+                <h3 class="section-title">أنواع الشحن</h3>
+                <table class="data-table">
+                    <tr><th>نوع الشحن</th><th>المدة</th><th>التكلفة</th></tr>
+                    <tr><td>عادي</td><td>3-5 أيام</td><td>حسب الوزن والمسافة</td></tr>
+                    <tr><td>سريع</td><td>1-2 يوم</td><td>+50%</td></tr>
+                    <tr><td>فوري</td><td>نفس اليوم</td><td>+100%</td></tr>
+                    <tr><td>سكك حديدية</td><td>5-7 أيام</td><td>-20% للكميات الكبيرة</td></tr>
+                    <tr><td>بحري دولي</td><td>15-30 يوم</td><td>حسب الوجهة</td></tr>
+                </table>
+
+                <h3 class="section-title">إجراءات الشحن</h3>
+                <div class="process-flow">
+                    <div class="flow-step">1. استلام الطلب</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">2. التأكد من المخزون</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">3. اختيار الناقل</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">4. إصدار البوليصة</div>
+                </div>
+                <div class="process-flow">
+                    <div class="flow-step">5. تجهيز ووزن</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">6. التصوير والتوثيق</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">7. تسليم الناقل</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">8. تفعيل GPS</div>
+                </div>
+
+                <h3 class="section-title">سياسة المرتجعات</h3>
+                <table class="data-table">
+                    <tr><th>الحالة</th><th>مدة الإرجاع</th><th>الإجراء</th></tr>
+                    <tr><td>اختلاف المواصفات</td><td>48 ساعة</td><td>استرداد كامل</td></tr>
+                    <tr><td>عيب مصنعي</td><td>7 أيام</td><td>استبدال أو استرداد</td></tr>
+                    <tr><td>تضرر الشحن</td><td>عند الاستلام</td><td>تعويض</td></tr>
+                    <tr><td>تغيير رأي المشتري</td><td>-</td><td>غير مقبول</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- الأمان والخصوصية -->
+        <div class="chapter" id="security">
+            <div class="chapter-card">
+                <h2 class="chapter-title"><span class="chapter-icon">🔒</span> الأمان والخصوصية</h2>
+                
+                <h3 class="section-title">تصنيف البيانات</h3>
+                <table class="data-table">
+                    <tr><th>التصنيف</th><th>الأمثلة</th><th>مستوى الحماية</th></tr>
+                    <tr><td><span class="badge badge-gold">سري جداً</span></td><td>بيانات الدفع، كلمات المرور</td><td>تشفير AES-256</td></tr>
+                    <tr><td><span class="badge badge-blue">سري</span></td><td>معلومات العملاء الشخصية</td><td>تشفير + وصول محدود</td></tr>
+                    <tr><td><span class="badge badge-green">داخلي</span></td><td>تقارير الأعمال</td><td>وصول للموظفين فقط</td></tr>
+                    <tr><td>عام</td><td>معلومات المنتجات</td><td>متاح للجميع</td></tr>
+                </table>
+
+                <h3 class="section-title">سياسة كلمات المرور</h3>
+                <div class="content">
+                    <ul>
+                        <li>الحد الأدنى: 12 حرف</li>
+                        <li>أحرف كبيرة وصغيرة</li>
+                        <li>أرقام ورموز خاصة</li>
+                        <li>تغيير كل 90 يوم</li>
+                        <li>عدم تكرار آخر 5 كلمات</li>
+                    </ul>
+                </div>
+                <div class="warning-box">
+                    <strong>المصادقة الثنائية (2FA):</strong> إلزامية للتجار وللمعاملات التي تتجاوز 10,000 ر.س
+                </div>
+
+                <h3 class="section-title">النسخ الاحتياطي</h3>
+                <table class="data-table">
+                    <tr><th>النوع</th><th>التكرار</th><th>الاحتفاظ</th></tr>
+                    <tr><td>قاعدة البيانات</td><td>كل 6 ساعات</td><td>30 يوم</td></tr>
+                    <tr><td>الملفات</td><td>يومياً</td><td>30 يوم</td></tr>
+                    <tr><td>نسخة كاملة</td><td>أسبوعياً</td><td>12 أسبوع</td></tr>
+                    <tr><td>نسخة أرشيفية</td><td>شهرياً</td><td>7 سنوات</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- إدارة المخاطر -->
+        <div class="chapter" id="risk">
+            <div class="chapter-card">
+                <h2 class="chapter-title"><span class="chapter-icon">⚠️</span> إدارة المخاطر والامتثال</h2>
+                
+                <h3 class="section-title">تصنيف المخاطر</h3>
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-value">⚙️</div>
+                        <div class="kpi-label">مخاطر تشغيلية</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">💰</div>
+                        <div class="kpi-label">مخاطر مالية</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">📋</div>
+                        <div class="kpi-label">مخاطر تنظيمية</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">☪️</div>
+                        <div class="kpi-label">مخاطر شرعية</div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">مصفوفة المخاطر</h3>
+                <table class="data-table">
+                    <tr>
+                        <th></th>
+                        <th>تأثير منخفض</th>
+                        <th>تأثير متوسط</th>
+                        <th>تأثير عالي</th>
+                    </tr>
+                    <tr>
+                        <td><strong>احتمال عالي</strong></td>
+                        <td><span class="badge badge-gold">متوسط</span></td>
+                        <td><span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">عالي</span></td>
+                        <td><span class="badge" style="background: rgba(239, 68, 68, 0.3); color: #ef4444;">حرج</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>احتمال متوسط</strong></td>
+                        <td><span class="badge badge-green">منخفض</span></td>
+                        <td><span class="badge badge-gold">متوسط</span></td>
+                        <td><span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">عالي</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>احتمال منخفض</strong></td>
+                        <td><span class="badge badge-green">منخفض</span></td>
+                        <td><span class="badge badge-green">منخفض</span></td>
+                        <td><span class="badge badge-gold">متوسط</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- الموارد البشرية -->
+        <div class="chapter" id="hr">
+            <div class="chapter-card">
+                <h2 class="chapter-title"><span class="chapter-icon">👥</span> إدارة الموارد البشرية</h2>
+                
+                <h3 class="section-title">مراحل التوظيف</h3>
+                <div class="process-flow">
+                    <div class="flow-step">1. نشر الوظيفة</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">2. الفرز (AI)</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">3. مقابلة هاتفية</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">4. اختبار تقني</div>
+                </div>
+                <div class="process-flow">
+                    <div class="flow-step">5. مقابلة شخصية</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">6. التحقق من المراجع</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">7. العرض الوظيفي</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step completed">8. التعيين</div>
+                </div>
+
+                <h3 class="section-title">برامج التدريب الإلزامية</h3>
+                <table class="data-table">
+                    <tr><th>البرنامج</th><th>التكرار</th><th>المدة</th></tr>
+                    <tr><td>برنامج التأهيل</td><td>أول أسبوع</td><td>5 أيام</td></tr>
+                    <tr><td>الالتزام الشرعي</td><td>سنوياً</td><td>يوم واحد</td></tr>
+                    <tr><td>أمن المعلومات</td><td>سنوياً</td><td>نصف يوم</td></tr>
+                    <tr><td>خدمة العملاء</td><td>كل 6 أشهر</td><td>يوم واحد</td></tr>
+                </table>
+
+                <h3 class="section-title">معايير تقييم الأداء</h3>
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-value">30%</div>
+                        <div class="kpi-label">الإنتاجية</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">25%</div>
+                        <div class="kpi-label">الجودة</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">20%</div>
+                        <div class="kpi-label">الالتزام</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">15%</div>
+                        <div class="kpi-label">التعاون</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">10%</div>
+                        <div class="kpi-label">الابتكار</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الجودة والتحسين -->
+        <div class="chapter" id="quality">
+            <div class="chapter-card">
+                <h2 class="chapter-title"><span class="chapter-icon">📊</span> الجودة والتحسين المستمر</h2>
+                
+                <h3 class="section-title">مؤشرات الأداء الرئيسية (KPIs)</h3>
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-value">≥95%</div>
+                        <div class="kpi-label">رضا العملاء</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">≥98%</div>
+                        <div class="kpi-label">دقة التوصيل</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">≤24س</div>
+                        <div class="kpi-label">حل الشكاوى</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">99.9%</div>
+                        <div class="kpi-label">توفر النظام</div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">دورة التحسين (PDCA)</h3>
+                <div class="process-flow">
+                    <div class="flow-step">📋 Plan - خطط</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">▶️ Do - نفذ</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">✔️ Check - تحقق</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">🔄 Act - تصرف</div>
+                </div>
+
+                <h3 class="section-title">التقارير الدورية</h3>
+                <table class="data-table">
+                    <tr><th>التقرير</th><th>التكرار</th><th>المستلم</th></tr>
+                    <tr><td>ملخص العمليات</td><td>يومي</td><td>مدير العمليات</td></tr>
+                    <tr><td>تقرير المبيعات</td><td>أسبوعي</td><td>الإدارة التجارية</td></tr>
+                    <tr><td>تقرير المالية</td><td>شهري</td><td>المدير المالي</td></tr>
+                    <tr><td>تقرير الامتثال</td><td>شهري</td><td>الرئيس التنفيذي</td></tr>
+                    <tr><td>التقرير الشامل</td><td>ربع سنوي</td><td>مجلس الإدارة</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- الالتزام الشرعي -->
+        <div class="chapter" id="sharia">
+            <div class="chapter-card">
+                <h2 class="chapter-title"><span class="chapter-icon">☪️</span> الالتزام الشرعي</h2>
+                <div class="sharia-badge">☪️ ملتزمون بالكتاب والسنة</div>
+                
+                <div class="success-box">
+                    قال الله تعالى: {وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا} [البقرة: 275]
+                </div>
+
+                <h3 class="section-title">المحظورات الشرعية</h3>
+                <div class="content">
+                    <p><strong>محرمات قطعية يجب تجنبها:</strong></p>
+                    <ul>
+                        <li>❌ <strong>الربا:</strong> الفوائد البنكية والتمويل بفوائد</li>
+                        <li>❌ <strong>الغرر الفاحش:</strong> الجهالة الكبيرة في المعاملات</li>
+                        <li>❌ <strong>الغش والتدليس:</strong> في الوصف أو الوزن أو الجودة</li>
+                        <li>❌ <strong>بيع ما لا يُملك:</strong> البيع قبل حيازة البضاعة</li>
+                        <li>❌ <strong>الاحتكار:</strong> احتكار المعادن الضرورية</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <strong>تم إزالة خدمة التأمين التجاري</strong> من المنظومة للابتعاد عن الشبهات والالتزام بأحكام الشريعة الإسلامية.
+                </div>
+
+                <h3 class="section-title">قواعد البيع الشرعي</h3>
+                <div class="content">
+                    <ol>
+                        <li>تحديد الثمن والمثمن بوضوح</li>
+                        <li>القدرة على التسليم</li>
+                        <li>العلم بالمبيع ورؤيته أو وصفه</li>
+                        <li>التراضي بين الطرفين</li>
+                        <li>أن يكون المبيع مباحاً</li>
+                    </ol>
+                </div>
+
+                <div class="success-box" style="text-align: center; margin-top: 32px;">
+                    <strong>دعاء:</strong><br>
+                    لا حول ولا قوة إلا بالله<br>
+                    اللهم اجعل منظومة شيخة بركة وخير على جميع المتعاملين فيها 🤲
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+<footer class="footer">
+    <p class="footer-prayer">لا حول ولا قوة إلا بالله - اللهم اجعلها منظومة وسوق بركة وخير 🤲</p>
+    <p style="color: #64748b; margin-top: 12px; font-size: 0.85rem;">آخر تحديث: 3 فبراير 2026 | الإصدار 1.0</p>
+</footer>
+
+<script>
+    function showChapter(id) {
+        // إخفاء جميع الفصول
+        document.querySelectorAll('.chapter').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        
+        // إظهار الفصل المطلوب
+        document.getElementById(id).classList.add('active');
+        event.target.closest('.nav-item').classList.add('active');
+    }
+</script>
+
+</body>
+</html>

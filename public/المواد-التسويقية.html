@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المواد التسويقية — شيخة | SHEIKHA Marketing Materials</title>
+    <meta name="description" content="المواد التسويقية لمنظومة شيخة — أول سوق إسلامي رقمي للمعادن والسكراب">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-l: #F5E6A3;
+            --gold-d: #A8882B;
+            --dark: #030712;
+            --dark2: #0a0f1a;
+            --dark3: #111827;
+            --green: #006c35;
+            --green-l: #10b981;
+            --t1: #f4f4f5;
+            --t2: #a1a1aa;
+            --t3: #71717a;
+            --border: rgba(212,175,55,.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--dark); color: var(--t1); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        ::selection { background: rgba(212,175,55,.2); color: #fff; }
+
+        /* ═══ GEOMETRIC BACKGROUND ═══ */
+        .geo-bg { position: fixed; inset: 0; pointer-events: none; opacity: .02; z-index: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='.3'%3E%3Cpolygon points='40,4 58,16 58,40 40,52 22,40 22,16'/%3E%3Ccircle cx='40' cy='28' r='10'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* ═══ HEADER ═══ */
+        .page-header { position: sticky; top: 0; z-index: 100; background: rgba(3,7,18,.97); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .header-inner { max-width: 1300px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .brand-mark { width: 42px; height: 42px; background: linear-gradient(135deg, var(--gold), var(--gold-d)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; color: var(--dark); }
+        .brand-text { display: flex; flex-direction: column; }
+        .brand-text .ar { font-size: 1.1rem; font-weight: 800; background: linear-gradient(135deg, var(--gold), var(--gold-l)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .brand-text .sub { font-size: .7rem; color: var(--t3); font-weight: 600; }
+        .page-title { font-size: 1rem; color: var(--t2); font-weight: 600; }
+
+        /* ═══ TAB NAVIGATION ═══ */
+        .tab-nav { background: var(--dark2); border-bottom: 1px solid var(--border); position: sticky; top: 74px; z-index: 99; }
+        .tab-nav-inner { max-width: 1300px; margin: 0 auto; padding: 0 24px; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+        .tab-nav-inner::-webkit-scrollbar { display: none; }
+        .tab-btn { padding: 14px 22px; font-family: inherit; font-size: .85rem; font-weight: 700; color: var(--t3); background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; transition: all .3s; white-space: nowrap; }
+        .tab-btn:hover { color: var(--t1); }
+        .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); background: rgba(212,175,55,.03); }
+
+        /* ═══ MATERIAL SECTIONS ═══ */
+        .material { display: none; padding: 40px 24px 80px; max-width: 1300px; margin: 0 auto; position: relative; z-index: 1; }
+        .material.active { display: block; }
+        .material-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
+        .material-title { font-size: 1.5rem; font-weight: 800; color: var(--gold); }
+        .material-desc { font-size: .9rem; color: var(--t3); margin-top: 4px; }
+
+        /* ═══ BUTTONS ═══ */
+        .btn-print { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: linear-gradient(135deg, var(--gold), var(--gold-d)); color: var(--dark); border: none; border-radius: 8px; font-family: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; transition: all .3s; }
+        .btn-print:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,.25); }
+        .btn-copy { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: rgba(212,175,55,.08); color: var(--gold); border: 1px solid rgba(212,175,55,.15); border-radius: 8px; font-family: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; transition: all .3s; margin-inline-start: 8px; }
+        .btn-copy:hover { background: rgba(212,175,55,.15); }
+        .btn-download { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: rgba(0,108,53,.15); color: var(--green-l); border: 1px solid rgba(0,108,53,.25); border-radius: 8px; font-family: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; transition: all .3s; margin-inline-start: 8px; }
+        .btn-download:hover { background: rgba(0,108,53,.25); }
+
+        /* ═══ CARD WRAPPER ═══ */
+        .card { background: rgba(212,175,55,.015); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 24px; }
+        .card-dark { background: var(--dark); }
+
+        /* ═══ DIVIDER ═══ */
+        .gold-line { height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 24px 0; opacity: .3; }
+        .gold-line-thick { height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 32px 0; opacity: .5; }
+
+        /* ═══════════════════════════════════
+           MATERIAL 1: BUSINESS CARD
+           ═══════════════════════════════════ */
+        .bcard-preview { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; align-items: start; }
+        .bcard-side { width: 340px; height: 208px; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+        .bcard-front { background: linear-gradient(145deg, #0a0e18, var(--dark)); border: 1px solid rgba(212,175,55,.15); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+        .bcard-front .logo-box { width: 64px; height: 64px; background: linear-gradient(135deg, var(--gold), var(--gold-d)); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; color: var(--dark); margin-bottom: 12px; }
+        .bcard-front .name { font-size: 1rem; font-weight: 800; color: var(--t1); margin-bottom: 2px; }
+        .bcard-front .title-text { font-size: .7rem; font-weight: 600; color: var(--gold); margin-bottom: 8px; }
+        .bcard-front .company { font-size: .65rem; color: var(--t3); font-weight: 600; }
+
+        .bcard-back { background: linear-gradient(145deg, #0a0e18, var(--dark)); border: 1px solid rgba(212,175,55,.15); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; gap: 6px; text-align: center; }
+        .bcard-back .contact-line { font-size: .68rem; color: var(--t2); display: flex; align-items: center; gap: 6px; direction: ltr; }
+        .bcard-back .contact-line svg { width: 12px; height: 12px; fill: var(--gold); flex-shrink: 0; }
+        .bcard-back .qr-placeholder { width: 60px; height: 60px; margin: 4px 0; }
+        .bcard-back .slogan { font-size: .6rem; color: var(--gold); opacity: .7; font-weight: 600; margin-top: 4px; }
+        .bcard-back .country { font-size: .58rem; color: var(--t3); }
+        .bcard-label { text-align: center; font-size: .8rem; color: var(--t3); margin-top: 8px; font-weight: 600; }
+
+        /* ═══════════════════════════════════
+           MATERIAL 2: BROCHURE
+           ═══════════════════════════════════ */
+        .brochure-page { background: var(--dark); border: 1px solid var(--border); border-radius: 12px; padding: 48px 40px; margin-bottom: 24px; min-height: 500px; position: relative; overflow: hidden; }
+        .brochure-page::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: radial-gradient(circle, rgba(212,175,55,.04), transparent 70%); pointer-events: none; }
+        .brochure-cover { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 560px; }
+        .brochure-cover .big-mark { width: 120px; height: 120px; background: linear-gradient(135deg, var(--gold), var(--gold-d)); border-radius: 28px; display: flex; align-items: center; justify-content: center; font-size: 4rem; font-weight: 900; color: var(--dark); margin-bottom: 32px; box-shadow: 0 20px 60px rgba(212,175,55,.15); }
+        .brochure-cover h2 { font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, var(--gold-l), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; }
+        .brochure-cover .subtitle { font-size: 1.1rem; color: var(--t2); line-height: 1.8; max-width: 500px; }
+
+        .brochure-section h3 { font-size: 1.3rem; font-weight: 800; color: var(--gold); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .brochure-section h3 .num { width: 32px; height: 32px; background: linear-gradient(135deg, var(--gold), var(--gold-d)); color: var(--dark); border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: .85rem; font-weight: 900; flex-shrink: 0; }
+        .brochure-section p { color: var(--t2); line-height: 2; font-size: .95rem; margin-bottom: 12px; }
+        .brochure-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px; }
+        .brochure-value { background: rgba(212,175,55,.03); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+        .brochure-value .val-name { font-size: .9rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+        .brochure-value .val-desc { font-size: .75rem; color: var(--t3); }
+        .brochure-stats { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+        .brochure-stat { text-align: center; padding: 16px 24px; background: rgba(212,175,55,.03); border: 1px solid var(--border); border-radius: 10px; }
+        .brochure-stat .num-val { font-size: 1.5rem; font-weight: 900; color: var(--gold); }
+        .brochure-stat .label { font-size: .75rem; color: var(--t3); margin-top: 2px; }
+
+        .service-item { background: rgba(212,175,55,.02); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; }
+        .service-item .srv-name { font-size: .95rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+        .service-item .srv-desc { font-size: .82rem; color: var(--t3); }
+
+        .brochure-contact { text-align: center; padding: 40px; }
+        .brochure-contact .contact-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; color: var(--t2); font-size: .9rem; }
+        .brochure-contact .contact-row svg { width: 16px; height: 16px; fill: var(--gold); flex-shrink: 0; }
+        .brochure-contact .copyright { font-size: .75rem; color: var(--t3); margin-top: 20px; }
+
+        /* ═══════════════════════════════════
+           MATERIAL 3: EMAIL SIGNATURE
+           ═══════════════════════════════════ */
+        .sig-preview { max-width: 600px; margin: 0 auto; }
+        .sig-table-wrap { background: var(--dark); border: 1px solid var(--border); border-radius: 12px; padding: 24px; overflow: hidden; }
+        .sig-code { background: var(--dark2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-top: 20px; max-height: 300px; overflow-y: auto; font-family: monospace; font-size: .72rem; color: var(--t3); direction: ltr; text-align: left; white-space: pre-wrap; word-break: break-all; }
+
+        /* ═══════════════════════════════════
+           MATERIAL 4: AD BANNERS
+           ═══════════════════════════════════ */
+        .banner-section { margin-bottom: 32px; }
+        .banner-label { font-size: .9rem; font-weight: 700; color: var(--t2); margin-bottom: 12px; }
+        .banner-wrap { display: flex; justify-content: center; background: rgba(255,255,255,.02); border: 1px dashed rgba(212,175,55,.1); border-radius: 12px; padding: 24px; overflow-x: auto; }
+        .banner-wrap svg { flex-shrink: 0; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,.3); }
+
+        /* ═══════════════════════════════════
+           MATERIAL 5: COMPANY PROFILE
+           ═══════════════════════════════════ */
+        .profile-page { background: var(--dark); border: 1px solid var(--border); border-radius: 12px; padding: 48px 44px; margin-bottom: 24px; position: relative; overflow: hidden; page-break-after: always; }
+        .profile-page::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .2; }
+        .profile-page h2 { font-size: 1.4rem; font-weight: 800; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .profile-page h2 .sec-num { font-size: .8rem; background: var(--gold); color: var(--dark); padding: 4px 10px; border-radius: 6px; font-weight: 800; }
+        .profile-page h3 { font-size: 1.05rem; font-weight: 700; color: var(--gold); margin: 16px 0 8px; opacity: .8; }
+        .profile-page p { color: var(--t2); line-height: 2; font-size: .92rem; margin-bottom: 10px; }
+        .profile-page ul { list-style: none; padding: 0; }
+        .profile-page li { color: var(--t2); font-size: .88rem; padding: 8px 0; border-bottom: 1px solid rgba(212,175,55,.04); display: flex; align-items: start; gap: 8px; line-height: 1.7; }
+        .profile-page li::before { content: '◆'; color: var(--gold); font-size: .6rem; margin-top: 6px; flex-shrink: 0; }
+
+        .toc-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(212,175,55,.05); }
+        .toc-num { width: 28px; height: 28px; background: rgba(212,175,55,.06); color: var(--gold); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 800; flex-shrink: 0; }
+        .toc-label { font-size: .9rem; color: var(--t2); font-weight: 600; }
+
+        .org-chart { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 24px 0; }
+        .org-box { background: rgba(212,175,55,.05); border: 1px solid rgba(212,175,55,.15); border-radius: 10px; padding: 12px 24px; text-align: center; }
+        .org-box.top { background: linear-gradient(135deg, rgba(212,175,55,.15), rgba(212,175,55,.05)); border-color: var(--gold); }
+        .org-box .org-title { font-size: .85rem; font-weight: 700; color: var(--gold); }
+        .org-box .org-name { font-size: .75rem; color: var(--t3); }
+        .org-connector { width: 2px; height: 20px; background: rgba(212,175,55,.2); }
+        .org-row { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; position: relative; }
+        .org-row::before { content: ''; position: absolute; top: -8px; left: 20%; right: 20%; height: 2px; background: rgba(212,175,55,.1); }
+
+        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 16px 0; }
+        .tech-item { background: rgba(212,175,55,.02); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; text-align: center; }
+        .tech-item .tech-name { font-size: .82rem; font-weight: 700; color: var(--gold); }
+        .tech-item .tech-desc { font-size: .72rem; color: var(--t3); margin-top: 2px; }
+
+        /* ═══════════════════════════════════
+           MATERIAL 6: PRODUCT SHEET
+           ═══════════════════════════════════ */
+        .product-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+        .product-table th { background: rgba(212,175,55,.08); color: var(--gold); font-size: .82rem; font-weight: 700; padding: 12px 16px; text-align: right; border-bottom: 2px solid rgba(212,175,55,.15); }
+        .product-table td { padding: 10px 16px; font-size: .82rem; color: var(--t2); border-bottom: 1px solid rgba(212,175,55,.04); }
+        .product-table tr:hover td { background: rgba(212,175,55,.02); }
+        .product-cat { font-weight: 700; color: var(--gold); font-size: .88rem; }
+        .hs-code { direction: ltr; text-align: left; font-family: monospace; color: var(--gold); opacity: .7; font-size: .78rem; }
+        .product-icon { width: 28px; height: 28px; background: rgba(212,175,55,.06); border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; font-size: .8rem; margin-inline-end: 8px; vertical-align: middle; }
+
+        /* ═══ PRINT STYLES ═══ */
+        @media print {
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+            body { background: #fff !important; color: #111 !important; font-size: 11pt; }
+            .geo-bg, .page-header, .tab-nav, .btn-print, .btn-copy, .btn-download, .material-header .btn-print, .no-print { display: none !important; }
+            .material { display: none !important; padding: 0 !important; max-width: 100% !important; }
+            .material.printing { display: block !important; }
+
+            .card, .brochure-page, .profile-page { border: 1px solid #ddd !important; background: #fff !important; box-shadow: none !important; }
+            .brochure-page::before, .profile-page::after { display: none !important; }
+            .brochure-section h3, .profile-page h2 { color: #8B6914 !important; }
+            .brochure-section p, .profile-page p, .profile-page li { color: #333 !important; }
+            .service-item { background: #f9f7f0 !important; border-color: #e5d9a8 !important; }
+            .service-item .srv-name { color: #8B6914 !important; }
+            .service-item .srv-desc { color: #555 !important; }
+            .brochure-value { background: #faf8f0 !important; border-color: #e5d9a8 !important; }
+            .brochure-value .val-name { color: #8B6914 !important; }
+            .brochure-stat { background: #faf8f0 !important; border-color: #e5d9a8 !important; }
+            .brochure-stat .num-val { color: #8B6914 !important; }
+            .brochure-contact .contact-row { color: #333 !important; }
+            .brochure-contact .contact-row svg { fill: #8B6914 !important; }
+            .brochure-cover h2 { -webkit-text-fill-color: #8B6914 !important; color: #8B6914 !important; background: none !important; }
+            .brochure-cover .big-mark { background: #D4AF37 !important; }
+
+            .bcard-side { box-shadow: 0 2px 8px rgba(0,0,0,.1) !important; }
+            .bcard-front, .bcard-back { background: #111 !important; }
+
+            .product-table th { background: #f5f0e0 !important; color: #8B6914 !important; }
+            .product-table td { color: #333 !important; border-color: #eee !important; }
+            .product-cat { color: #8B6914 !important; }
+
+            .toc-item { border-color: #eee !important; }
+            .toc-num { background: #f5f0e0 !important; color: #8B6914 !important; }
+            .toc-label { color: #333 !important; }
+            .org-box { background: #faf8f0 !important; border-color: #D4AF37 !important; }
+            .org-box .org-title { color: #8B6914 !important; }
+            .tech-item { background: #faf8f0 !important; border-color: #e5d9a8 !important; }
+            .tech-item .tech-name { color: #8B6914 !important; }
+            .tech-item .tech-desc { color: #555 !important; }
+
+            .profile-page li::before { color: #D4AF37 !important; }
+            .gold-line, .gold-line-thick { background: linear-gradient(90deg, transparent, #D4AF37, transparent) !important; }
+            h2 .sec-num { background: #D4AF37 !important; color: #fff !important; }
+
+            .material-title { color: #8B6914 !important; }
+
+            .sig-table-wrap { background: #111 !important; }
+
+            .banner-wrap { background: #f9f9f9 !important; border-color: #ddd !important; }
+
+            .brochure-page { page-break-after: always; }
+            .profile-page { page-break-after: always; }
+
+            @page { size: A4; margin: 15mm; }
+        }
+
+        /* ═══ BUSINESS CARD PRINT ═══ */
+        @media print {
+            .material[data-material="card"].printing .bcard-preview { flex-direction: row; gap: 20px; }
+            .material[data-material="card"].printing .bcard-side { width: 90mm; height: 55mm; }
+        }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 768px) {
+            .tab-btn { padding: 12px 16px; font-size: .78rem; }
+            .material { padding: 24px 16px 60px; }
+            .brochure-page, .profile-page { padding: 28px 20px; }
+            .bcard-side { width: 300px; height: 183px; }
+            .header-inner { padding: 12px 16px; }
+            .material-header { flex-direction: column; align-items: start; }
+        }
+
+        /* ═══ ANIMATIONS ═══ */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .material.active { animation: fadeIn .4s ease; }
+
+        /* ═══ SCROLLBAR ═══ */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb { background: rgba(212,175,55,.15); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(212,175,55,.3); }
+
+        /* Toast */
+        .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--gold); color: var(--dark); padding: 12px 28px; border-radius: 10px; font-weight: 700; font-size: .85rem; z-index: 9999; transition: transform .3s; pointer-events: none; }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+    <!-- Geometric BG -->
+    <div class="geo-bg"></div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">تم النسخ بنجاح ✓</div>
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="page-header">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-mark">ش</div>
+                <div class="brand-text">
+                    <span class="ar">شيخة | SHEIKHA</span>
+                    <span class="sub">المواد التسويقية</span>
+                </div>
+            </div>
+            <div class="page-title">Marketing Materials Hub</div>
+        </div>
+    </header>
+
+    <!-- ═══ TAB NAVIGATION ═══ -->
+    <nav class="tab-nav">
+        <div class="tab-nav-inner">
+            <button class="tab-btn active" data-tab="card">بطاقة العمل</button>
+            <button class="tab-btn" data-tab="brochure">بروشور تعريفي</button>
+            <button class="tab-btn" data-tab="signature">توقيع الإيميل</button>
+            <button class="tab-btn" data-tab="banners">بانرات إعلانية</button>
+            <button class="tab-btn" data-tab="profile">ملف تعريفي</button>
+            <button class="tab-btn" data-tab="products">ورقة المنتجات</button>
+        </div>
+    </nav>
+
+    <!-- ═════════════════════════════════════════════
+         MATERIAL 1: BUSINESS CARD
+         ═════════════════════════════════════════════ -->
+    <section class="material active" data-material="card" id="mat-card">
+        <div class="material-header">
+            <div>
+                <div class="material-title">بطاقة العمل</div>
+                <div class="material-desc">Business Card — 90×55mm — جاهزة للطباعة</div>
+            </div>
+            <button class="btn-print" onclick="printMaterial('card')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                طباعة
+            </button>
+        </div>
+
+        <div class="bcard-preview">
+            <div>
+                <div class="bcard-side bcard-front">
+                    <div class="logo-box">ش</div>
+                    <div class="name">سلمان أحمد بن سلمان الراجح</div>
+                    <div class="title-text">المؤسس والرئيس التنفيذي | Founder & CEO</div>
+                    <div class="company">منظومة شيخة للمعادن والسكراب</div>
+                </div>
+                <div class="bcard-label">الوجه الأمامي</div>
+            </div>
+
+            <div>
+                <div class="bcard-side bcard-back">
+                    <div class="contact-line">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none" stroke="#D4AF37" stroke-width="2"/></svg>
+                        market@sheikha.top
+                    </div>
+                    <div class="contact-line">
+                        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                        +966 55 494 2904
+                    </div>
+                    <div class="contact-line">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#D4AF37" stroke-width="2"/><line x1="2" y1="12" x2="22" y2="12" stroke="#D4AF37" stroke-width="2"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" fill="none" stroke="#D4AF37" stroke-width="2"/></svg>
+                        sheikha.top
+                    </div>
+                    <!-- QR Code Placeholder -->
+                    <svg class="qr-placeholder" width="60" height="60" viewBox="0 0 60 60">
+                        <rect width="60" height="60" fill="#0a0e18"/>
+                        <g fill="#D4AF37" opacity=".8">
+                            <rect x="4" y="4" width="4" height="4"/><rect x="8" y="4" width="4" height="4"/><rect x="12" y="4" width="4" height="4"/>
+                            <rect x="4" y="8" width="4" height="4"/><rect x="12" y="8" width="4" height="4"/>
+                            <rect x="4" y="12" width="4" height="4"/><rect x="8" y="12" width="4" height="4"/><rect x="12" y="12" width="4" height="4"/>
+                            <rect x="20" y="4" width="4" height="4"/><rect x="28" y="4" width="4" height="4"/><rect x="24" y="8" width="4" height="4"/>
+                            <rect x="20" y="12" width="4" height="4"/><rect x="28" y="12" width="4" height="4"/>
+                            <rect x="36" y="4" width="4" height="4"/><rect x="40" y="4" width="4" height="4"/><rect x="44" y="4" width="4" height="4"/>
+                            <rect x="36" y="8" width="4" height="4"/><rect x="44" y="8" width="4" height="4"/>
+                            <rect x="36" y="12" width="4" height="4"/><rect x="40" y="12" width="4" height="4"/><rect x="44" y="12" width="4" height="4"/>
+                            <rect x="4" y="20" width="4" height="4"/><rect x="12" y="20" width="4" height="4"/><rect x="24" y="20" width="4" height="4"/>
+                            <rect x="36" y="20" width="4" height="4"/><rect x="44" y="20" width="4" height="4"/>
+                            <rect x="8" y="24" width="4" height="4"/><rect x="20" y="24" width="4" height="4"/><rect x="28" y="24" width="4" height="4"/>
+                            <rect x="40" y="24" width="4" height="4"/>
+                            <rect x="4" y="28" width="4" height="4"/><rect x="16" y="28" width="4" height="4"/><rect x="24" y="28" width="4" height="4"/>
+                            <rect x="32" y="28" width="4" height="4"/><rect x="44" y="28" width="4" height="4"/>
+                            <rect x="4" y="36" width="4" height="4"/><rect x="8" y="36" width="4" height="4"/><rect x="12" y="36" width="4" height="4"/>
+                            <rect x="4" y="40" width="4" height="4"/><rect x="12" y="40" width="4" height="4"/>
+                            <rect x="4" y="44" width="4" height="4"/><rect x="8" y="44" width="4" height="4"/><rect x="12" y="44" width="4" height="4"/>
+                            <rect x="20" y="36" width="4" height="4"/><rect x="28" y="36" width="4" height="4"/>
+                            <rect x="24" y="40" width="4" height="4"/><rect x="32" y="40" width="4" height="4"/>
+                            <rect x="20" y="44" width="4" height="4"/><rect x="28" y="44" width="4" height="4"/>
+                            <rect x="36" y="36" width="4" height="4"/><rect x="44" y="36" width="4" height="4"/>
+                            <rect x="40" y="40" width="4" height="4"/>
+                            <rect x="36" y="44" width="4" height="4"/><rect x="40" y="44" width="4" height="4"/><rect x="44" y="44" width="4" height="4"/>
+                        </g>
+                    </svg>
+                    <div class="slogan">أول سوق إسلامي رقمي للمعادن والسكراب</div>
+                    <div class="country">المملكة العربية السعودية</div>
+                </div>
+                <div class="bcard-label">الوجه الخلفي</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════
+         MATERIAL 2: COMPANY BROCHURE
+         ═════════════════════════════════════════════ -->
+    <section class="material" data-material="brochure" id="mat-brochure">
+        <div class="material-header">
+            <div>
+                <div class="material-title">بروشور تعريفي</div>
+                <div class="material-desc">Company Brochure — A4 — 4 صفحات</div>
+            </div>
+            <button class="btn-print" onclick="printMaterial('brochure')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                طباعة
+            </button>
+        </div>
+
+        <!-- Page 1: Cover -->
+        <div class="brochure-page">
+            <div class="brochure-cover">
+                <div class="big-mark">ش</div>
+                <div class="gold-line-thick" style="width:200px"></div>
+                <h2>منظومة شيخة للمعادن والسكراب</h2>
+                <p class="subtitle">أول سوق إسلامي رقمي للمعادن والسكراب<br>في المملكة العربية السعودية والعالم</p>
+                <div class="gold-line" style="width:160px; margin-top: 32px;"></div>
+                <p style="color: var(--t3); font-size: .8rem; margin-top: 8px;">SHEIKHA — Digital Islamic Metals & Scrap Marketplace</p>
+            </div>
+        </div>
+
+        <!-- Page 2: About Us -->
+        <div class="brochure-page brochure-section">
+            <h3><span class="num">١</span> من نحن</h3>
+            <p>منظومة متكاملة قائمة على الكتاب والسنة لتجارة المعادن الأساسية والنادرة والثمينة والسكراب. نعمل على بناء أكبر سوق إسلامي رقمي متخصص يربط التجار والمصانع والموردين في منصة واحدة آمنة وشفافة.</p>
+
+            <div class="gold-line"></div>
+
+            <h3 style="font-size: 1rem;"><span class="num" style="width:28px; height:28px; font-size:.75rem;">◉</span> الرؤية</h3>
+            <p>رقمنة تجارة المعادن بأعلى المعايير الإسلامية والعلمية</p>
+
+            <h3 style="font-size: 1rem;"><span class="num" style="width:28px; height:28px; font-size:.75rem;">◉</span> الرسالة</h3>
+            <p>توفير منصة آمنة وشفافة تجمع التجار والمصانع والموردين تحت مظلة شرعية ورقمية متكاملة</p>
+
+            <h3 style="font-size: 1rem;"><span class="num" style="width:28px; height:28px; font-size:.75rem;">◉</span> القيم</h3>
+            <div class="brochure-grid">
+                <div class="brochure-value"><div class="val-name">الأمانة</div><div class="val-desc">Trust & Integrity</div></div>
+                <div class="brochure-value"><div class="val-name">الشفافية</div><div class="val-desc">Transparency</div></div>
+                <div class="brochure-value"><div class="val-name">الابتكار</div><div class="val-desc">Innovation</div></div>
+                <div class="brochure-value"><div class="val-name">الالتزام الشرعي</div><div class="val-desc">Sharia Compliance</div></div>
+                <div class="brochure-value"><div class="val-name">التميز</div><div class="val-desc">Excellence</div></div>
+            </div>
+
+            <div class="gold-line"></div>
+
+            <div class="brochure-stats">
+                <div class="brochure-stat"><div class="num-val">+15</div><div class="label">قطاع معدني</div></div>
+                <div class="brochure-stat"><div class="num-val">10</div><div class="label">مختبرات رقمية</div></div>
+                <div class="brochure-stat"><div class="num-val">6</div><div class="label">أنظمة متكاملة</div></div>
+            </div>
+        </div>
+
+        <!-- Page 3: Services -->
+        <div class="brochure-page brochure-section">
+            <h3><span class="num">٢</span> خدماتنا</h3>
+
+            <div class="service-item">
+                <div class="srv-name">سوق المعادن الرقمي</div>
+                <div class="srv-desc">تداول المعادن الأساسية والثمينة والنادرة — ذهب، فضة، نحاس، ألمنيوم، حديد، وأكثر</div>
+            </div>
+            <div class="service-item">
+                <div class="srv-name">سوق السكراب الذكي</div>
+                <div class="srv-desc">تصنيف HS Code كامل مع أسعار حيّة لكل أنواع السكراب الحديدي وغير الحديدي</div>
+            </div>
+            <div class="service-item">
+                <div class="srv-name">تشليح السيارات الرقمي</div>
+                <div class="srv-desc">أول منصة لرقمنة قطع غيار السيارات المستعملة بنظام بحث ذكي وتصنيف دقيق</div>
+            </div>
+            <div class="service-item">
+                <div class="srv-name">نظام العقود والتوريد</div>
+                <div class="srv-desc">عقود قصيرة وطويلة الأمد بضمان شرعي — Forward Contracts بإطار إسلامي</div>
+            </div>
+            <div class="service-item">
+                <div class="srv-name">المختبرات الرقمية</div>
+                <div class="srv-desc">محاكاة سبائك، صهر، اختبار مواد، تحليل سكراب — 10 مختبرات متخصصة</div>
+            </div>
+            <div class="service-item">
+                <div class="srv-name">الوساطة التجارية</div>
+                <div class="srv-desc">وساطة تجارية وقانونية في صفقات المعادن الكبرى مع ضمان حماية الأطراف</div>
+            </div>
+            <div class="service-item">
+                <div class="srv-name">أنظمة ERP / SCM / CX</div>
+                <div class="srv-desc">إدارة كاملة للأعمال — تخطيط الموارد، سلاسل الإمداد، وتجربة العملاء</div>
+            </div>
+            <div class="service-item">
+                <div class="srv-name">شيخة AI — المساعد الذكي</div>
+                <div class="srv-desc">مساعد ذكاء اصطناعي متخصص في المعادن والتجارة والتحليل الفني</div>
+            </div>
+        </div>
+
+        <!-- Page 4: Contact -->
+        <div class="brochure-page">
+            <div class="brochure-contact">
+                <div class="big-mark" style="width:80px; height:80px; font-size:2.5rem; border-radius:18px; margin: 0 auto 24px; background: linear-gradient(135deg, var(--gold), var(--gold-d)); display:flex; align-items:center; justify-content:center; color: var(--dark); font-weight: 900;">ش</div>
+                <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--gold); margin-bottom: 24px;">تواصل معنا</h3>
+
+                <div class="contact-row">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none" stroke="#D4AF37" stroke-width="2"/></svg>
+                    market@sheikha.top
+                </div>
+                <div class="contact-row">
+                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z" fill="none" stroke="#D4AF37" stroke-width="2"/></svg>
+                    +966 55 494 2904
+                </div>
+                <div class="contact-row">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#D4AF37" stroke-width="2"/><line x1="2" y1="12" x2="22" y2="12" stroke="#D4AF37" stroke-width="2"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" fill="none" stroke="#D4AF37" stroke-width="2"/></svg>
+                    sheikha.top
+                </div>
+                <div class="contact-row">
+                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" fill="none" stroke="#D4AF37" stroke-width="2"/><circle cx="12" cy="10" r="3" fill="none" stroke="#D4AF37" stroke-width="2"/></svg>
+                    المملكة العربية السعودية
+                </div>
+
+                <div style="margin: 28px 0;">
+                    <svg width="80" height="80" viewBox="0 0 60 60">
+                        <rect width="60" height="60" fill="#0a0e18" rx="6"/>
+                        <g fill="#D4AF37" opacity=".8">
+                            <rect x="4" y="4" width="4" height="4"/><rect x="8" y="4" width="4" height="4"/><rect x="12" y="4" width="4" height="4"/>
+                            <rect x="4" y="8" width="4" height="4"/><rect x="12" y="8" width="4" height="4"/>
+                            <rect x="4" y="12" width="4" height="4"/><rect x="8" y="12" width="4" height="4"/><rect x="12" y="12" width="4" height="4"/>
+                            <rect x="20" y="4" width="4" height="4"/><rect x="28" y="8" width="4" height="4"/>
+                            <rect x="24" y="12" width="4" height="4"/>
+                            <rect x="36" y="4" width="4" height="4"/><rect x="40" y="4" width="4" height="4"/><rect x="44" y="4" width="4" height="4"/>
+                            <rect x="36" y="8" width="4" height="4"/><rect x="44" y="8" width="4" height="4"/>
+                            <rect x="36" y="12" width="4" height="4"/><rect x="40" y="12" width="4" height="4"/><rect x="44" y="12" width="4" height="4"/>
+                            <rect x="8" y="20" width="4" height="4"/><rect x="24" y="20" width="4" height="4"/><rect x="40" y="20" width="4" height="4"/>
+                            <rect x="4" y="24" width="4" height="4"/><rect x="16" y="24" width="4" height="4"/><rect x="28" y="24" width="4" height="4"/>
+                            <rect x="4" y="36" width="4" height="4"/><rect x="8" y="36" width="4" height="4"/><rect x="12" y="36" width="4" height="4"/>
+                            <rect x="4" y="40" width="4" height="4"/><rect x="12" y="40" width="4" height="4"/>
+                            <rect x="4" y="44" width="4" height="4"/><rect x="8" y="44" width="4" height="4"/><rect x="12" y="44" width="4" height="4"/>
+                            <rect x="20" y="36" width="4" height="4"/><rect x="32" y="40" width="4" height="4"/>
+                            <rect x="28" y="44" width="4" height="4"/>
+                            <rect x="36" y="36" width="4" height="4"/><rect x="44" y="40" width="4" height="4"/><rect x="40" y="44" width="4" height="4"/>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="gold-line" style="width: 160px; margin: 24px auto;"></div>
+                <div class="copyright">© 2026 SHEIKHA — جميع الحقوق محفوظة<br>ملكية فكرية لـ سلمان أحمد بن سلمان الراجح</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════
+         MATERIAL 3: EMAIL SIGNATURE
+         ═════════════════════════════════════════════ -->
+    <section class="material" data-material="signature" id="mat-signature">
+        <div class="material-header">
+            <div>
+                <div class="material-title">توقيع الإيميل</div>
+                <div class="material-desc">Email Signature — 600px — جاهز للنسخ واللصق</div>
+            </div>
+            <div>
+                <button class="btn-print" onclick="printMaterial('signature')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                    طباعة
+                </button>
+                <button class="btn-copy" onclick="copySignatureHTML()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                    نسخ HTML
+                </button>
+            </div>
+        </div>
+
+        <div class="sig-preview">
+            <div class="sig-table-wrap" id="sig-preview-box">
+                <!-- The actual email signature rendered -->
+                <table dir="rtl" cellpadding="0" cellspacing="0" style="font-family: 'Tajawal', Tahoma, Arial, sans-serif; width: 600px; max-width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="padding: 0 0 12px 0;">
+                            <table cellpadding="0" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <!-- Logo Mark -->
+                                    <td style="width: 60px; vertical-align: top; padding-left: 16px;">
+                                        <div style="width: 52px; height: 52px; background: linear-gradient(135deg, #D4AF37, #A8882B); border-radius: 12px; text-align: center; line-height: 52px; font-size: 1.6rem; font-weight: 900; color: #030712;">ش</div>
+                                    </td>
+                                    <!-- Name & Title -->
+                                    <td style="vertical-align: top; padding-top: 2px;">
+                                        <div style="font-size: 16px; font-weight: 800; color: #f4f4f5; margin-bottom: 2px;">سلمان أحمد بن سلمان الراجح</div>
+                                        <div style="font-size: 12px; font-weight: 600; color: #D4AF37; margin-bottom: 2px;">المؤسس والرئيس التنفيذي</div>
+                                        <div style="font-size: 11px; color: #71717a; font-weight: 600;">منظومة شيخة للمعادن والسكراب | SHEIKHA</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0;">
+                            <div style="height: 2px; background: linear-gradient(90deg, transparent, #D4AF37, transparent);"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 0 0 0;">
+                            <table cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 3px 0; font-size: 12px; color: #a1a1aa;">
+                                        <span style="margin-inline-end: 6px;">📧</span> market@sheikha.top
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 3px 0; font-size: 12px; color: #a1a1aa;">
+                                        <span style="margin-inline-end: 6px;">📱</span> <span dir="ltr">+966 55 494 2904</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 3px 0; font-size: 12px; color: #a1a1aa;">
+                                        <span style="margin-inline-end: 6px;">🌐</span> <a href="https://sheikha.top" style="color: #D4AF37; text-decoration: none; font-weight: 600;">sheikha.top</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 0 0 0;">
+                            <div style="font-size: 11px; color: #71717a; font-weight: 600; padding: 8px 12px; background: rgba(212,175,55,0.06); border-radius: 6px; border-right: 3px solid #D4AF37;">
+                                أول سوق إسلامي رقمي للمعادن والسكراب
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="font-size: .85rem; font-weight: 700; color: var(--t2); margin-bottom: 8px;">كود HTML للتوقيع:</div>
+                <div class="sig-code" id="sig-html-code"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════
+         MATERIAL 4: AD BANNERS
+         ═════════════════════════════════════════════ -->
+    <section class="material" data-material="banners" id="mat-banners">
+        <div class="material-header">
+            <div>
+                <div class="material-title">بانرات إعلانية</div>
+                <div class="material-desc">Ad Banners — SVG — أحجام متعددة للإعلانات الرقمية</div>
+            </div>
+            <button class="btn-print" onclick="printMaterial('banners')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                طباعة
+            </button>
+        </div>
+
+        <!-- Leaderboard 728x90 -->
+        <div class="banner-section">
+            <div class="banner-label">Leaderboard — 728×90</div>
+            <div class="banner-wrap">
+                <svg width="728" height="90" viewBox="0 0 728 90" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gld1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#D4AF37"/>
+                            <stop offset="100%" style="stop-color:#A8882B"/>
+                        </linearGradient>
+                        <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#030712"/>
+                            <stop offset="100%" style="stop-color:#0a0f1a"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="728" height="90" fill="url(#bg1)" rx="8"/>
+                    <rect x="0" y="0" width="728" height="90" rx="8" stroke="#D4AF37" stroke-width=".5" fill="none" opacity=".3"/>
+                    <!-- Subtle pattern -->
+                    <g opacity=".03">
+                        <circle cx="100" cy="45" r="60" stroke="#D4AF37" stroke-width=".5" fill="none"/>
+                        <circle cx="650" cy="45" r="50" stroke="#D4AF37" stroke-width=".5" fill="none"/>
+                    </g>
+                    <!-- Logo Mark -->
+                    <rect x="24" y="18" width="54" height="54" rx="12" fill="url(#gld1)"/>
+                    <text x="51" y="55" font-family="Tajawal,sans-serif" font-size="28" font-weight="900" fill="#030712" text-anchor="middle">ش</text>
+                    <!-- Text -->
+                    <text x="98" y="38" font-family="Tajawal,sans-serif" font-size="18" font-weight="800" fill="#f4f4f5" text-anchor="start">شيخة | SHEIKHA</text>
+                    <text x="98" y="60" font-family="Tajawal,sans-serif" font-size="12" fill="#a1a1aa" text-anchor="start">أول سوق إسلامي رقمي للمعادن والسكراب</text>
+                    <!-- Divider -->
+                    <line x1="420" y1="20" x2="420" y2="70" stroke="#D4AF37" stroke-width=".5" opacity=".3"/>
+                    <!-- CTA -->
+                    <rect x="560" y="25" width="140" height="40" rx="8" fill="url(#gld1)"/>
+                    <text x="630" y="50" font-family="Tajawal,sans-serif" font-size="14" font-weight="800" fill="#030712" text-anchor="middle">سجّل الآن</text>
+                    <!-- URL -->
+                    <text x="460" y="50" font-family="Tajawal,sans-serif" font-size="11" fill="#D4AF37" opacity=".7" text-anchor="start">sheikha.top</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Square 300x250 -->
+        <div class="banner-section">
+            <div class="banner-label">Square — 300×250</div>
+            <div class="banner-wrap">
+                <svg width="300" height="250" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gld2" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#D4AF37"/>
+                            <stop offset="100%" style="stop-color:#A8882B"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="300" height="250" fill="#030712" rx="10"/>
+                    <rect width="300" height="250" rx="10" stroke="#D4AF37" stroke-width=".5" fill="none" opacity=".3"/>
+                    <!-- Pattern -->
+                    <g opacity=".03">
+                        <circle cx="250" cy="40" r="80" stroke="#D4AF37" stroke-width=".5" fill="none"/>
+                        <circle cx="50" cy="200" r="60" stroke="#D4AF37" stroke-width=".5" fill="none"/>
+                    </g>
+                    <!-- Logo Mark -->
+                    <rect x="115" y="24" width="70" height="70" rx="16" fill="url(#gld2)"/>
+                    <text x="150" y="72" font-family="Tajawal,sans-serif" font-size="36" font-weight="900" fill="#030712" text-anchor="middle">ش</text>
+                    <!-- Gold Line -->
+                    <line x1="80" y1="108" x2="220" y2="108" stroke="#D4AF37" stroke-width="1" opacity=".3"/>
+                    <!-- Brand -->
+                    <text x="150" y="132" font-family="Tajawal,sans-serif" font-size="16" font-weight="800" fill="#f4f4f5" text-anchor="middle">شيخة | SHEIKHA</text>
+                    <!-- Subtitle -->
+                    <text x="150" y="154" font-family="Tajawal,sans-serif" font-size="10" fill="#a1a1aa" text-anchor="middle">أول سوق إسلامي رقمي للمعادن والسكراب</text>
+                    <text x="150" y="170" font-family="Tajawal,sans-serif" font-size="9" fill="#71717a" text-anchor="middle">في المملكة العربية السعودية</text>
+                    <!-- CTA -->
+                    <rect x="80" y="190" width="140" height="38" rx="8" fill="url(#gld2)"/>
+                    <text x="150" y="214" font-family="Tajawal,sans-serif" font-size="14" font-weight="800" fill="#030712" text-anchor="middle">سجّل الآن</text>
+                    <!-- URL -->
+                    <text x="150" y="243" font-family="Tajawal,sans-serif" font-size="9" fill="#D4AF37" opacity=".6" text-anchor="middle">sheikha.top</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Skyscraper 160x600 -->
+        <div class="banner-section">
+            <div class="banner-label">Skyscraper — 160×600</div>
+            <div class="banner-wrap">
+                <svg width="160" height="600" viewBox="0 0 160 600" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gld3" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#D4AF37"/>
+                            <stop offset="100%" style="stop-color:#A8882B"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="160" height="600" fill="#030712" rx="8"/>
+                    <rect width="160" height="600" rx="8" stroke="#D4AF37" stroke-width=".5" fill="none" opacity=".3"/>
+                    <!-- Pattern -->
+                    <g opacity=".03">
+                        <circle cx="80" cy="100" r="100" stroke="#D4AF37" stroke-width=".5" fill="none"/>
+                        <circle cx="80" cy="400" r="80" stroke="#D4AF37" stroke-width=".5" fill="none"/>
+                    </g>
+                    <!-- Logo -->
+                    <rect x="44" y="30" width="72" height="72" rx="16" fill="url(#gld3)"/>
+                    <text x="80" y="78" font-family="Tajawal,sans-serif" font-size="38" font-weight="900" fill="#030712" text-anchor="middle">ش</text>
+                    <!-- Brand -->
+                    <text x="80" y="130" font-family="Tajawal,sans-serif" font-size="16" font-weight="800" fill="#f4f4f5" text-anchor="middle">شيخة</text>
+                    <text x="80" y="148" font-family="Tajawal,sans-serif" font-size="10" fill="#D4AF37" text-anchor="middle" font-weight="700">SHEIKHA</text>
+                    <!-- Line -->
+                    <line x1="30" y1="165" x2="130" y2="165" stroke="#D4AF37" stroke-width="1" opacity=".3"/>
+                    <!-- Features -->
+                    <text x="80" y="200" font-family="Tajawal,sans-serif" font-size="10" fill="#a1a1aa" text-anchor="middle">سوق المعادن</text>
+                    <text x="80" y="218" font-family="Tajawal,sans-serif" font-size="10" fill="#a1a1aa" text-anchor="middle">الرقمي</text>
+                    <line x1="50" y1="235" x2="110" y2="235" stroke="#D4AF37" stroke-width=".5" opacity=".15"/>
+                    <text x="80" y="260" font-family="Tajawal,sans-serif" font-size="10" fill="#a1a1aa" text-anchor="middle">سوق السكراب</text>
+                    <text x="80" y="278" font-family="Tajawal,sans-serif" font-size="10" fill="#a1a1aa" text-anchor="middle">الذكي</text>
+                    <line x1="50" y1="295" x2="110" y2="295" stroke="#D4AF37" stroke-width=".5" opacity=".15"/>
+                    <text x="80" y="320" font-family="Tajawal,sans-serif" font-size="10" fill="#a1a1aa" text-anchor="middle">المختبرات</text>
+                    <text x="80" y="338" font-family="Tajawal,sans-serif" font-size="10" fill="#a1a1aa" text-anchor="middle">الرقمية</text>
+                    <line x1="50" y1="355" x2="110" y2="355" stroke="#D4AF37" stroke-width=".5" opacity=".15"/>
+                    <text x="80" y="380" font-family="Tajawal,sans-serif" font-size="10" fill="#a1a1aa" text-anchor="middle">تشليح</text>
+                    <text x="80" y="398" font-family="Tajawal,sans-serif" font-size="10" fill="#a1a1aa" text-anchor="middle">السيارات</text>
+                    <line x1="50" y1="415" x2="110" y2="415" stroke="#D4AF37" stroke-width=".5" opacity=".15"/>
+                    <text x="80" y="445" font-family="Tajawal,sans-serif" font-size="9" fill="#71717a" text-anchor="middle">أول سوق إسلامي</text>
+                    <text x="80" y="460" font-family="Tajawal,sans-serif" font-size="9" fill="#71717a" text-anchor="middle">رقمي للمعادن</text>
+                    <text x="80" y="475" font-family="Tajawal,sans-serif" font-size="9" fill="#71717a" text-anchor="middle">والسكراب</text>
+                    <!-- CTA -->
+                    <rect x="20" y="510" width="120" height="40" rx="8" fill="url(#gld3)"/>
+                    <text x="80" y="535" font-family="Tajawal,sans-serif" font-size="14" font-weight="800" fill="#030712" text-anchor="middle">سجّل الآن</text>
+                    <!-- URL -->
+                    <text x="80" y="578" font-family="Tajawal,sans-serif" font-size="10" fill="#D4AF37" opacity=".6" text-anchor="middle">sheikha.top</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Social 1200x630 -->
+        <div class="banner-section">
+            <div class="banner-label">Social Media — 1200×630 (LinkedIn / Twitter)</div>
+            <div class="banner-wrap" style="overflow-x: auto;">
+                <svg width="600" height="315" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gld4" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#D4AF37"/>
+                            <stop offset="100%" style="stop-color:#A8882B"/>
+                        </linearGradient>
+                        <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#030712"/>
+                            <stop offset="50%" style="stop-color:#0a0f1a"/>
+                            <stop offset="100%" style="stop-color:#030712"/>
+                        </linearGradient>
+                        <radialGradient id="glow4" cx="50%" cy="40%">
+                            <stop offset="0%" style="stop-color:rgba(212,175,55,0.06)"/>
+                            <stop offset="100%" style="stop-color:transparent"/>
+                        </radialGradient>
+                    </defs>
+                    <rect width="1200" height="630" fill="url(#bg4)" rx="16"/>
+                    <rect width="1200" height="630" fill="url(#glow4)" rx="16"/>
+                    <rect width="1200" height="630" rx="16" stroke="#D4AF37" stroke-width="1" fill="none" opacity=".2"/>
+                    <!-- Geometric accents -->
+                    <g opacity=".04">
+                        <polygon points="600,50 720,120 720,260 600,330 480,260 480,120" stroke="#D4AF37" stroke-width="1" fill="none"/>
+                        <circle cx="600" cy="190" r="80" stroke="#D4AF37" stroke-width=".5" fill="none"/>
+                    </g>
+                    <!-- Logo -->
+                    <rect x="510" y="80" width="180" height="180" rx="40" fill="url(#gld4)"/>
+                    <text x="600" y="200" font-family="Tajawal,sans-serif" font-size="100" font-weight="900" fill="#030712" text-anchor="middle">ش</text>
+                    <!-- Gold Line -->
+                    <line x1="350" y1="290" x2="850" y2="290" stroke="#D4AF37" stroke-width="2" opacity=".3"/>
+                    <!-- Brand Name -->
+                    <text x="600" y="350" font-family="Tajawal,sans-serif" font-size="48" font-weight="900" fill="#f4f4f5" text-anchor="middle">منظومة شيخة | SHEIKHA</text>
+                    <!-- Subtitle -->
+                    <text x="600" y="400" font-family="Tajawal,sans-serif" font-size="22" fill="#a1a1aa" text-anchor="middle">أول سوق إسلامي رقمي للمعادن والسكراب</text>
+                    <!-- Features Row -->
+                    <g transform="translate(200, 440)">
+                        <rect width="160" height="60" rx="10" fill="rgba(212,175,55,0.06)" stroke="#D4AF37" stroke-width=".5" opacity=".5"/>
+                        <text x="80" y="28" font-family="Tajawal,sans-serif" font-size="14" fill="#D4AF37" text-anchor="middle" font-weight="700">سوق المعادن</text>
+                        <text x="80" y="46" font-family="Tajawal,sans-serif" font-size="11" fill="#71717a" text-anchor="middle">+15 قطاع</text>
+                    </g>
+                    <g transform="translate(400, 440)">
+                        <rect width="160" height="60" rx="10" fill="rgba(212,175,55,0.06)" stroke="#D4AF37" stroke-width=".5" opacity=".5"/>
+                        <text x="80" y="28" font-family="Tajawal,sans-serif" font-size="14" fill="#D4AF37" text-anchor="middle" font-weight="700">المختبرات</text>
+                        <text x="80" y="46" font-family="Tajawal,sans-serif" font-size="11" fill="#71717a" text-anchor="middle">10 مختبرات</text>
+                    </g>
+                    <g transform="translate(600, 440)">
+                        <rect width="160" height="60" rx="10" fill="rgba(212,175,55,0.06)" stroke="#D4AF37" stroke-width=".5" opacity=".5"/>
+                        <text x="80" y="28" font-family="Tajawal,sans-serif" font-size="14" fill="#D4AF37" text-anchor="middle" font-weight="700">أنظمة متكاملة</text>
+                        <text x="80" y="46" font-family="Tajawal,sans-serif" font-size="11" fill="#71717a" text-anchor="middle">6 أنظمة</text>
+                    </g>
+                    <g transform="translate(800, 440)">
+                        <rect width="160" height="60" rx="10" fill="rgba(212,175,55,0.06)" stroke="#D4AF37" stroke-width=".5" opacity=".5"/>
+                        <text x="80" y="28" font-family="Tajawal,sans-serif" font-size="14" fill="#D4AF37" text-anchor="middle" font-weight="700">شيخة AI</text>
+                        <text x="80" y="46" font-family="Tajawal,sans-serif" font-size="11" fill="#71717a" text-anchor="middle">ذكاء اصطناعي</text>
+                    </g>
+                    <!-- CTA -->
+                    <rect x="460" y="540" width="280" height="56" rx="12" fill="url(#gld4)"/>
+                    <text x="600" y="575" font-family="Tajawal,sans-serif" font-size="22" font-weight="800" fill="#030712" text-anchor="middle">سجّل الآن — sheikha.top</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════
+         MATERIAL 5: COMPANY PROFILE
+         ═════════════════════════════════════════════ -->
+    <section class="material" data-material="profile" id="mat-profile">
+        <div class="material-header">
+            <div>
+                <div class="material-title">الملف التعريفي للشركة</div>
+                <div class="material-desc">Company Profile — A4 — وثيقة رسمية شاملة</div>
+            </div>
+            <button class="btn-print" onclick="printMaterial('profile')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                طباعة
+            </button>
+        </div>
+
+        <!-- Page 1: Cover -->
+        <div class="profile-page">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 500px;">
+                <div style="width: 120px; height: 120px; background: linear-gradient(135deg, var(--gold), var(--gold-d)); border-radius: 28px; display: flex; align-items: center; justify-content: center; font-size: 4rem; font-weight: 900; color: var(--dark); margin-bottom: 32px; box-shadow: 0 20px 60px rgba(212,175,55,.15);">ش</div>
+                <div class="gold-line-thick" style="width: 180px;"></div>
+                <h1 style="font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, var(--gold-l), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;">SHEIKHA | شيخة</h1>
+                <p style="font-size: 1.1rem; color: var(--t2); margin-bottom: 32px;">منظومة شيخة للمعادن والسكراب</p>
+                <div style="background: rgba(212,175,55,.04); border: 1px solid var(--border); border-radius: 12px; padding: 16px 32px;">
+                    <p style="font-size: 1.2rem; font-weight: 700; color: var(--gold);">الملف التعريفي للشركة</p>
+                    <p style="font-size: .8rem; color: var(--t3); margin-top: 4px;">Company Profile — 2026</p>
+                </div>
+                <div class="gold-line" style="width: 120px; margin-top: 40px;"></div>
+                <p style="font-size: .8rem; color: var(--t3);">المملكة العربية السعودية</p>
+                <p style="font-size: .7rem; color: var(--t3); opacity: .6; margin-top: 4px;">سري وحصري — Confidential</p>
+            </div>
+        </div>
+
+        <!-- Page 2: Table of Contents -->
+        <div class="profile-page">
+            <h2><span class="sec-num">٠</span> الفهرس</h2>
+            <div class="gold-line"></div>
+            <div class="toc-item"><div class="toc-num">١</div><div class="toc-label">نبذة عن الشركة</div></div>
+            <div class="toc-item"><div class="toc-num">٢</div><div class="toc-label">الرؤية والرسالة والقيم</div></div>
+            <div class="toc-item"><div class="toc-num">٣</div><div class="toc-label">الهيكل التنظيمي</div></div>
+            <div class="toc-item"><div class="toc-num">٤</div><div class="toc-label">خدماتنا</div></div>
+            <div class="toc-item"><div class="toc-num">٥</div><div class="toc-label">المنتجات والأقسام</div></div>
+            <div class="toc-item"><div class="toc-num">٦</div><div class="toc-label">التقنيات المستخدمة</div></div>
+            <div class="toc-item"><div class="toc-num">٧</div><div class="toc-label">الشريعة والامتثال</div></div>
+            <div class="toc-item"><div class="toc-num">٨</div><div class="toc-label">المشاريع المستهدفة</div></div>
+            <div class="toc-item"><div class="toc-num">٩</div><div class="toc-label">التواصل</div></div>
+        </div>
+
+        <!-- Page 3: Company Overview -->
+        <div class="profile-page">
+            <h2><span class="sec-num">١</span> نبذة عن الشركة</h2>
+            <div class="gold-line"></div>
+            <p>منظومة شيخة (SHEIKHA) هي أول سوق إسلامي رقمي متخصص في تجارة المعادن والسكراب في المملكة العربية السعودية والعالم العربي. تأسست المنظومة على يد <strong style="color: var(--gold);">سلمان أحمد بن سلمان الراجح</strong> بهدف رقمنة تجارة المعادن الأساسية والنادرة والثمينة والسكراب وفق أعلى المعايير الإسلامية والعلمية.</p>
+            <p>تجمع المنظومة بين التقنيات المتقدمة والأصول الشرعية لتوفير بيئة تجارية آمنة وشفافة تخدم التجار والمصانع والموردين والمستثمرين في قطاع المعادن والسكراب.</p>
+
+            <h3>الرؤية</h3>
+            <p>رقمنة تجارة المعادن بأعلى المعايير الإسلامية والعلمية، لنكون المرجع الأول في التجارة الرقمية الشرعية للمعادن على مستوى العالم.</p>
+
+            <h3>الرسالة</h3>
+            <p>توفير منصة آمنة وشفافة تجمع التجار والمصانع والموردين تحت مظلة شرعية ورقمية متكاملة، مع تقديم أدوات ذكية للتحليل والتداول والإدارة.</p>
+
+            <h3>القيم المؤسسية</h3>
+            <ul>
+                <li>الأمانة — الالتزام بأعلى معايير النزاهة والمصداقية في كل التعاملات</li>
+                <li>الشفافية — وضوح المعلومات والأسعار والعمليات لجميع الأطراف</li>
+                <li>الابتكار — استثمار أحدث التقنيات لتطوير حلول ذكية ومبتكرة</li>
+                <li>الالتزام الشرعي — التأسيس على الكتاب والسنة في كل جانب من جوانب العمل</li>
+                <li>التميز — السعي الدائم لتقديم أفضل خدمة وأعلى جودة</li>
+            </ul>
+        </div>
+
+        <!-- Page 4: Org Chart -->
+        <div class="profile-page">
+            <h2><span class="sec-num">٢</span> الهيكل التنظيمي</h2>
+            <div class="gold-line"></div>
+
+            <div class="org-chart">
+                <div class="org-box top">
+                    <div class="org-title">المالك والمؤسس</div>
+                    <div class="org-name">سلمان أحمد بن سلمان الراجح</div>
+                </div>
+                <div class="org-connector"></div>
+                <div class="org-box">
+                    <div class="org-title">الرئيس التنفيذي / المدير العام</div>
+                    <div class="org-name">CEO</div>
+                </div>
+                <div class="org-connector"></div>
+                <div class="org-row">
+                    <div class="org-box"><div class="org-title">إدارة التقنية</div><div class="org-name">CTO</div></div>
+                    <div class="org-box"><div class="org-title">إدارة العمليات</div><div class="org-name">COO</div></div>
+                    <div class="org-box"><div class="org-title">الإدارة المالية</div><div class="org-name">CFO</div></div>
+                    <div class="org-box"><div class="org-title">إدارة التسويق</div><div class="org-name">CMO</div></div>
+                    <div class="org-box"><div class="org-title">الشؤون الشرعية</div><div class="org-name">Sharia Board</div></div>
+                </div>
+                <div class="org-connector"></div>
+                <div class="org-row">
+                    <div class="org-box"><div class="org-title">سوق المعادن</div></div>
+                    <div class="org-box"><div class="org-title">سوق السكراب</div></div>
+                    <div class="org-box"><div class="org-title">التشليح الرقمي</div></div>
+                    <div class="org-box"><div class="org-title">المختبرات</div></div>
+                    <div class="org-box"><div class="org-title">شيخة AI</div></div>
+                    <div class="org-box"><div class="org-title">أنظمة ERP</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 5: Services -->
+        <div class="profile-page">
+            <h2><span class="sec-num">٣</span> خدماتنا</h2>
+            <div class="gold-line"></div>
+            <ul>
+                <li><strong style="color:var(--gold)">سوق المعادن الرقمي</strong> — منصة متكاملة لتداول المعادن الأساسية (حديد، نحاس، ألمنيوم، زنك) والثمينة (ذهب، فضة، بلاتين) والنادرة (ليثيوم، كوبالت، تيتانيوم)</li>
+                <li><strong style="color:var(--gold)">سوق السكراب الذكي</strong> — تصنيف HS Code كامل مع أسعار حيّة، تحليل جودة، ووسائل ربط بين البائعين والمشترين</li>
+                <li><strong style="color:var(--gold)">تشليح السيارات الرقمي</strong> — أول منصة سعودية لرقمنة قطع غيار السيارات المستعملة مع نظام بحث وتصنيف متقدم</li>
+                <li><strong style="color:var(--gold)">نظام العقود والتوريد</strong> — عقود قصيرة وطويلة الأمد بضمان شرعي، Forward Contracts إسلامية، وإدارة سلاسل التوريد</li>
+                <li><strong style="color:var(--gold)">المختبرات الرقمية</strong> — 10 مختبرات تشمل: محاكاة السبائك، الصهر، اختبار المواد، تحليل السكراب، XRF رقمي، وأكثر</li>
+                <li><strong style="color:var(--gold)">الوساطة التجارية</strong> — وساطة تجارية وقانونية في صفقات المعادن الكبرى مع حماية كاملة لجميع الأطراف</li>
+                <li><strong style="color:var(--gold)">أنظمة ERP/SCM/CX</strong> — إدارة كاملة للأعمال تشمل تخطيط الموارد، سلاسل الإمداد، وإدارة تجربة العملاء</li>
+                <li><strong style="color:var(--gold)">شيخة AI</strong> — مساعد ذكاء اصطناعي متخصص في المعادن والتجارة والتحليل الفني والاستشارات</li>
+            </ul>
+        </div>
+
+        <!-- Page 6: Products & Divisions -->
+        <div class="profile-page">
+            <h2><span class="sec-num">٤</span> المنتجات والأقسام</h2>
+            <div class="gold-line"></div>
+
+            <h3>المعادن الأساسية — Base Metals</h3>
+            <p>الحديد والصلب (HS 72-73)، النحاس (HS 74)، الألمنيوم (HS 76)، الزنك (HS 79)، الرصاص (HS 78)، القصدير (HS 80)، النيكل (HS 75)</p>
+
+            <h3>المعادن الثمينة — Precious Metals</h3>
+            <p>الذهب، الفضة، البلاتين، البلاديوم، الروديوم (HS 71)</p>
+
+            <h3>السكراب الحديدي — Ferrous Scrap</h3>
+            <p>خردة الحديد والصلب بجميع أنواعها — HMS 1&2، شريدد، تورنينجز (HS 7204)</p>
+
+            <h3>السكراب غير الحديدي — Non-Ferrous Scrap</h3>
+            <p>نحاس (HS 7404)، ألمنيوم (HS 7602)، رصاص (HS 7802)، زنك (HS 7902)، وأكثر</p>
+
+            <h3>الكابلات والأسلاك — Cables & Wires</h3>
+            <p>كابلات نحاسية، ألمنيوم، مختلطة — سكراب وجديد (HS 7404, 7602, 8548)</p>
+
+            <h3>الإلكترونيات — E-Waste</h3>
+            <p>لوحات إلكترونية، أجهزة، مكونات — استخلاص المعادن الثمينة (HS 8548, 8471, 8517)</p>
+
+            <h3>قطع غيار السيارات — Auto Salvage</h3>
+            <p>قطع غيار مستعملة ومجددة لجميع أنواع السيارات (HS 8708)</p>
+        </div>
+
+        <!-- Page 7: Technology -->
+        <div class="profile-page">
+            <h2><span class="sec-num">٥</span> التقنيات المستخدمة</h2>
+            <div class="gold-line"></div>
+            <p>تعتمد منظومة شيخة على أحدث التقنيات العالمية لبناء منصة متكاملة وآمنة:</p>
+
+            <div class="tech-grid">
+                <div class="tech-item"><div class="tech-name">الواجهات الأمامية</div><div class="tech-desc">HTML5, CSS3, JavaScript, React</div></div>
+                <div class="tech-item"><div class="tech-name">الخوادم الخلفية</div><div class="tech-desc">Node.js, Python, APIs</div></div>
+                <div class="tech-item"><div class="tech-name">قواعد البيانات</div><div class="tech-desc">PostgreSQL, Redis, MongoDB</div></div>
+                <div class="tech-item"><div class="tech-name">الذكاء الاصطناعي</div><div class="tech-desc">NLP, ML Models, AI Agents</div></div>
+                <div class="tech-item"><div class="tech-name">الحوسبة السحابية</div><div class="tech-desc">Cloud Infrastructure</div></div>
+                <div class="tech-item"><div class="tech-name">الأمن السيبراني</div><div class="tech-desc">Encryption, OAuth, Firewalls</div></div>
+                <div class="tech-item"><div class="tech-name">إنترنت الأشياء</div><div class="tech-desc">IoT Sensors, Real-time Data</div></div>
+                <div class="tech-item"><div class="tech-name">أنظمة ERP</div><div class="tech-desc">Enterprise Resource Planning</div></div>
+            </div>
+        </div>
+
+        <!-- Page 8: Sharia Compliance -->
+        <div class="profile-page">
+            <h2><span class="sec-num">٦</span> الشريعة والامتثال</h2>
+            <div class="gold-line"></div>
+            <p>تقوم منظومة شيخة على أساس الكتاب والسنة في كل جوانب العمل التجاري. نلتزم بالمبادئ التالية:</p>
+
+            <h3>مبادئ التجارة النبوية</h3>
+            <ul>
+                <li>تحريم الربا بجميع أشكاله — لا فوائد ربوية في أي معاملة</li>
+                <li>تحريم الغرر والغش — شفافية كاملة في الأوصاف والأسعار</li>
+                <li>التقابض في مجلس العقد — للمعادن الربوية (الذهب والفضة) وفق أحكام الصرف</li>
+                <li>منع الاحتكار — ضمان عدالة السوق وحرية التجارة</li>
+                <li>الصدق والأمانة — كما أمر النبي ﷺ في أسواق المدينة</li>
+                <li>الزكاة — نظام حساب زكاة المعادن والتجارة مدمج في المنصة</li>
+            </ul>
+
+            <h3>آلية الامتثال</h3>
+            <ul>
+                <li>هيئة شرعية مستقلة للمراجعة والإفتاء</li>
+                <li>نظام رقابة شرعية مدمج في كل المعاملات</li>
+                <li>عقود متوافقة مع الشريعة الإسلامية</li>
+                <li>تدريب مستمر للفريق على أحكام التجارة الإسلامية</li>
+                <li>تقارير امتثال شرعية دورية</li>
+            </ul>
+        </div>
+
+        <!-- Page 9: Target Projects -->
+        <div class="profile-page">
+            <h2><span class="sec-num">٧</span> المشاريع والجهات المستهدفة</h2>
+            <div class="gold-line"></div>
+            <p>نستهدف التعاون مع كبرى الجهات الحكومية والخاصة في المملكة العربية السعودية:</p>
+
+            <ul>
+                <li><strong style="color:var(--gold)">أرامكو السعودية</strong> — توريد معادن صناعية وإدارة سكراب المنشآت النفطية</li>
+                <li><strong style="color:var(--gold)">سابك (SABIC)</strong> — تجارة المعادن الأساسية والبتروكيماويات المعدنية</li>
+                <li><strong style="color:var(--gold)">شركة معادن</strong> — الشراكة في تجارة الذهب والألمنيوم والفوسفات</li>
+                <li><strong style="color:var(--gold)">وزارة الصناعة والثروة المعدنية</strong> — الامتثال التنظيمي والشراكة الاستراتيجية</li>
+                <li><strong style="color:var(--gold)">الموانئ السعودية</strong> — إدارة لوجستيات استيراد وتصدير المعادن والسكراب</li>
+                <li><strong style="color:var(--gold)">المصانع الكبرى</strong> — ربط المصانع بموردي المواد الخام والسكراب</li>
+                <li><strong style="color:var(--gold)">هيئة المنشآت الصغيرة والمتوسطة</strong> — دعم رواد الأعمال في قطاع المعادن</li>
+                <li><strong style="color:var(--gold)">مشاريع رؤية 2030</strong> — المساهمة في التنويع الاقتصادي ورقمنة القطاع الصناعي</li>
+            </ul>
+        </div>
+
+        <!-- Page 10: Contact -->
+        <div class="profile-page">
+            <h2><span class="sec-num">٨</span> التواصل</h2>
+            <div class="gold-line"></div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 24px 0;">
+                <div style="background: rgba(212,175,55,.03); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center;">
+                    <div style="font-size: .75rem; color: var(--t3); margin-bottom: 4px;">البريد الإلكتروني</div>
+                    <div style="font-size: .9rem; color: var(--gold); font-weight: 700;">market@sheikha.top</div>
+                </div>
+                <div style="background: rgba(212,175,55,.03); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center;">
+                    <div style="font-size: .75rem; color: var(--t3); margin-bottom: 4px;">الجوال / واتساب</div>
+                    <div style="font-size: .9rem; color: var(--gold); font-weight: 700;" dir="ltr">+966 55 494 2904</div>
+                </div>
+                <div style="background: rgba(212,175,55,.03); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center;">
+                    <div style="font-size: .75rem; color: var(--t3); margin-bottom: 4px;">الموقع الإلكتروني</div>
+                    <div style="font-size: .9rem; color: var(--gold); font-weight: 700;">sheikha.top</div>
+                </div>
+                <div style="background: rgba(212,175,55,.03); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center;">
+                    <div style="font-size: .75rem; color: var(--t3); margin-bottom: 4px;">العنوان</div>
+                    <div style="font-size: .9rem; color: var(--gold); font-weight: 700;">المملكة العربية السعودية</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 32px;">
+                <svg width="80" height="80" viewBox="0 0 60 60">
+                    <rect width="60" height="60" fill="#0a0e18" rx="6"/>
+                    <g fill="#D4AF37" opacity=".8">
+                        <rect x="4" y="4" width="4" height="4"/><rect x="8" y="4" width="4" height="4"/><rect x="12" y="4" width="4" height="4"/>
+                        <rect x="4" y="8" width="4" height="4"/><rect x="12" y="8" width="4" height="4"/>
+                        <rect x="4" y="12" width="4" height="4"/><rect x="8" y="12" width="4" height="4"/><rect x="12" y="12" width="4" height="4"/>
+                        <rect x="20" y="4" width="4" height="4"/><rect x="28" y="8" width="4" height="4"/><rect x="24" y="12" width="4" height="4"/>
+                        <rect x="36" y="4" width="4" height="4"/><rect x="40" y="4" width="4" height="4"/><rect x="44" y="4" width="4" height="4"/>
+                        <rect x="36" y="8" width="4" height="4"/><rect x="44" y="8" width="4" height="4"/>
+                        <rect x="36" y="12" width="4" height="4"/><rect x="40" y="12" width="4" height="4"/><rect x="44" y="12" width="4" height="4"/>
+                        <rect x="8" y="20" width="4" height="4"/><rect x="24" y="20" width="4" height="4"/><rect x="40" y="24" width="4" height="4"/>
+                        <rect x="4" y="36" width="4" height="4"/><rect x="8" y="36" width="4" height="4"/><rect x="12" y="36" width="4" height="4"/>
+                        <rect x="4" y="40" width="4" height="4"/><rect x="12" y="40" width="4" height="4"/>
+                        <rect x="4" y="44" width="4" height="4"/><rect x="8" y="44" width="4" height="4"/><rect x="12" y="44" width="4" height="4"/>
+                        <rect x="20" y="36" width="4" height="4"/><rect x="32" y="40" width="4" height="4"/><rect x="28" y="44" width="4" height="4"/>
+                        <rect x="36" y="36" width="4" height="4"/><rect x="44" y="40" width="4" height="4"/><rect x="40" y="44" width="4" height="4"/>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="gold-line" style="margin: 24px auto; width: 160px;"></div>
+            <div style="text-align: center;">
+                <p style="font-size: .85rem; color: var(--t2);">© 2026 SHEIKHA — جميع الحقوق محفوظة</p>
+                <p style="font-size: .75rem; color: var(--t3); margin-top: 4px;">ملكية فكرية لـ سلمان أحمد بن سلمان الراجح</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════
+         MATERIAL 6: PRODUCT SHEET
+         ═════════════════════════════════════════════ -->
+    <section class="material" data-material="products" id="mat-products">
+        <div class="material-header">
+            <div>
+                <div class="material-title">ورقة المنتجات</div>
+                <div class="material-desc">Product Sheet — A4 — ملخص الأقسام وأكواد HS</div>
+            </div>
+            <button class="btn-print" onclick="printMaterial('products')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                طباعة
+            </button>
+        </div>
+
+        <div class="card">
+            <!-- Header -->
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+                <div style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--gold), var(--gold-d)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; color: var(--dark);">ش</div>
+                <div>
+                    <div style="font-size: 1.1rem; font-weight: 800; color: var(--gold);">منظومة شيخة — ورقة المنتجات</div>
+                    <div style="font-size: .75rem; color: var(--t3);">SHEIKHA Product Sheet — 2026</div>
+                </div>
+            </div>
+
+            <div class="gold-line"></div>
+
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">القسم</th>
+                        <th style="width: 35%;">الوصف</th>
+                        <th style="width: 15%;">رمز HS</th>
+                        <th style="width: 20%;">الأمثلة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="product-icon">🔩</span><span class="product-cat">المعادن الأساسية</span></td>
+                        <td>المعادن الصناعية الأساسية المستخدمة في البناء والتصنيع</td>
+                        <td class="hs-code">HS 72-83</td>
+                        <td>حديد، نحاس، ألمنيوم، زنك، رصاص، قصدير، نيكل</td>
+                    </tr>
+                    <tr>
+                        <td><span class="product-icon">💎</span><span class="product-cat">المعادن الثمينة</span></td>
+                        <td>المعادن النفيسة للاستثمار والصناعة والحلي</td>
+                        <td class="hs-code">HS 71</td>
+                        <td>ذهب، فضة، بلاتين، بلاديوم، روديوم</td>
+                    </tr>
+                    <tr>
+                        <td><span class="product-icon">⚙️</span><span class="product-cat">المعادن النادرة</span></td>
+                        <td>معادن التقنيات الحديثة والطاقة المتجددة</td>
+                        <td class="hs-code">HS 81</td>
+                        <td>ليثيوم، كوبالت، تيتانيوم، تنجستن، موليبدينوم</td>
+                    </tr>
+                    <tr>
+                        <td><span class="product-icon">🔧</span><span class="product-cat">السكراب الحديدي</span></td>
+                        <td>خردة الحديد والصلب بجميع تصنيفاتها</td>
+                        <td class="hs-code">HS 7204</td>
+                        <td>HMS 1&2, شريدد، تورنينجز، حديد مسلح</td>
+                    </tr>
+                    <tr>
+                        <td><span class="product-icon">🔶</span><span class="product-cat">السكراب غير الحديدي</span></td>
+                        <td>خردة المعادن غير الحديدية</td>
+                        <td class="hs-code">HS 7404, 7602, 7802, 7902</td>
+                        <td>نحاس أحمر، نحاس أصفر، ألمنيوم، زنك</td>
+                    </tr>
+                    <tr>
+                        <td><span class="product-icon">🔌</span><span class="product-cat">الكابلات والأسلاك</span></td>
+                        <td>كابلات كهربائية نحاسية وألمنيوم — جديدة ومستعملة</td>
+                        <td class="hs-code">HS 7404, 7602, 8548</td>
+                        <td>كابلات نحاس، كابلات ألمنيوم، أسلاك مختلطة</td>
+                    </tr>
+                    <tr>
+                        <td><span class="product-icon">💻</span><span class="product-cat">النفايات الإلكترونية</span></td>
+                        <td>أجهزة ولوحات إلكترونية لاستخلاص المعادن الثمينة</td>
+                        <td class="hs-code">HS 8548, 8471, 8517</td>
+                        <td>PCB، معالجات، رامات، موصلات</td>
+                    </tr>
+                    <tr>
+                        <td><span class="product-icon">🚗</span><span class="product-cat">قطع غيار السيارات</span></td>
+                        <td>قطع غيار مستعملة ومجددة عبر نظام التشليح الرقمي</td>
+                        <td class="hs-code">HS 8708</td>
+                        <td>محركات، ناقلات حركة، كمبيوتر سيارة، هياكل</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="gold-line" style="margin-top: 28px;"></div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 16px;">
+                <div style="font-size: .75rem; color: var(--t3);">
+                    © 2026 SHEIKHA — منظومة شيخة للمعادن والسكراب<br>
+                    ملكية فكرية لـ سلمان أحمد بن سلمان الراجح
+                </div>
+                <div style="display: flex; gap: 20px; font-size: .75rem; color: var(--t3);">
+                    <span>📧 market@sheikha.top</span>
+                    <span>📱 0554942904</span>
+                    <span>🌐 sheikha.top</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ JAVASCRIPT ═══ -->
+    <script src="/js/safe-api.js"></script>
+    <script>
+        // ─── Tab Navigation ───
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const materials = document.querySelectorAll('.material');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                materials.forEach(m => m.classList.remove('active'));
+                document.querySelector(`[data-material="${tab}"]`).classList.add('active');
+            });
+        });
+
+        // ─── Print Material ───
+        function printMaterial(materialName) {
+            // Add printing class to the target material
+            materials.forEach(m => m.classList.remove('printing'));
+            const target = document.querySelector(`[data-material="${materialName}"]`);
+            target.classList.add('printing');
+
+            // Short delay to let CSS apply
+            setTimeout(() => {
+                window.print();
+                // Remove printing class after print dialog closes
+                setTimeout(() => {
+                    target.classList.remove('printing');
+                }, 500);
+            }, 100);
+        }
+
+        // ─── Email Signature HTML ───
+        const signatureHTML = `<table dir="rtl" cellpadding="0" cellspacing="0" style="font-family: Tahoma, Arial, sans-serif; width: 600px; max-width: 100%; border-collapse: collapse;">
+    <tr>
+        <td style="padding: 0 0 12px 0;">
+            <table cellpadding="0" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 60px; vertical-align: top; padding-left: 16px;">
+                        <div style="width: 52px; height: 52px; background: linear-gradient(135deg, #D4AF37, #A8882B); border-radius: 12px; text-align: center; line-height: 52px; font-size: 24px; font-weight: 900; color: #030712;">ش</div>
+                    </td>
+                    <td style="vertical-align: top; padding-top: 2px;">
+                        <div style="font-size: 16px; font-weight: 800; color: #333333; margin-bottom: 2px;">سلمان أحمد بن سلمان الراجح</div>
+                        <div style="font-size: 12px; font-weight: 600; color: #D4AF37; margin-bottom: 2px;">المؤسس والرئيس التنفيذي</div>
+                        <div style="font-size: 11px; color: #888888; font-weight: 600;">منظومة شيخة للمعادن والسكراب | SHEIKHA</div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 0;">
+            <div style="height: 2px; background: linear-gradient(90deg, transparent, #D4AF37, transparent);"></div>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 12px 0 0 0;">
+            <table cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 3px 0; font-size: 12px; color: #666666;">
+                        &#x1F4E7; market@sheikha.top
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 3px 0; font-size: 12px; color: #666666;">
+                        &#x1F4F1; <span dir="ltr">+966 55 494 2904</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 3px 0; font-size: 12px; color: #666666;">
+                        &#x1F310; <a href="https://sheikha.top" style="color: #D4AF37; text-decoration: none; font-weight: 600;">sheikha.top</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 12px 0 0 0;">
+            <div style="font-size: 11px; color: #888888; font-weight: 600; padding: 8px 12px; background: #f5f0e0; border-radius: 6px; border-right: 3px solid #D4AF37;">
+                أول سوق إسلامي رقمي للمعادن والسكراب
+            </div>
+        </td>
+    </tr>
+</table>`;
+
+        // Display signature HTML code
+        const sigCodeEl = document.getElementById('sig-html-code');
+        if (sigCodeEl) {
+            sigCodeEl.textContent = signatureHTML;
+        }
+
+        // ─── Copy Signature HTML ───
+        function copySignatureHTML() {
+            navigator.clipboard.writeText(signatureHTML).then(() => {
+                showToast('تم نسخ كود HTML بنجاح ✓');
+            }).catch(() => {
+                // Fallback
+                const textarea = document.createElement('textarea');
+                textarea.value = signatureHTML;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast('تم نسخ كود HTML بنجاح ✓');
+            });
+        }
+
+        // ─── Toast Notification ───
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+    </script>
+    <script src="/js/sheikha-smart-fab.js" defer></script>
+    <script src="/js/sheikha-itqan.js"></script>
+</body>
+</html>

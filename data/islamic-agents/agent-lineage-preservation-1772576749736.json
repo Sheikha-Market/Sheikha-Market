@@ -1,0 +1,87 @@
+{
+  "id": "agent-lineage-preservation-1772576749736",
+  "type": "maqsad-agent",
+  "template": "LINEAGE_PRESERVATION",
+  "nameAr": "وكيل حفظ النسل",
+  "nameEn": "Lineage Preservation Agent",
+  "maqsad": "حفظ النسل",
+  "priority": 4,
+  "quranicBase": [
+    "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا — الروم ٢١",
+    "وَلَا تَقْرَبُوا الزِّنَا إِنَّهُ كَانَ فَاحِشَةً — الإسراء ٣٢",
+    "فَانكِحُوا مَا طَابَ لَكُم مِّنَ النِّسَاءِ — النساء ٣"
+  ],
+  "hadithBase": [
+    "تناكحوا تناسلوا فإني مكاثر بكم الأمم — صحيح ابن حبان",
+    "يا معشر الشباب من استطاع منكم الباءة فليتزوج — متفق عليه",
+    "خيركم خيركم لأهله — صحيح الترمذي"
+  ],
+  "capabilities": [
+    "الإرشاد الأسري",
+    "التربية الإسلامية",
+    "حل النزاعات الزوجية",
+    "حماية الأطفال",
+    "المحافظة على العفة",
+    "تعليم الآداب والأخلاق",
+    "رعاية الأيتام",
+    "بناء الأسرة المسلمة"
+  ],
+  "subAgents": [
+    {
+      "id": "agent-lineage-preservation-1772576749736-sub-1772576749736-k6n9s3e75",
+      "parentId": "agent-lineage-preservation-1772576749736",
+      "nameAr": "مستشار الزواج",
+      "focus": "إرشاد الأزواج وحل المشاكل",
+      "sources": [
+        "فقه الأسرة",
+        "علم النفس الأسري"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-lineage-preservation-1772576749736-sub-1772576749736-96ondv7jx",
+      "parentId": "agent-lineage-preservation-1772576749736",
+      "nameAr": "مرشد التربية",
+      "focus": "تربية الأبناء تربية إسلامية",
+      "sources": [
+        "أساليب التربية النبوية",
+        "علم نفس الطفل"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-lineage-preservation-1772576749736-sub-1772576749736-24nm79l1a",
+      "parentId": "agent-lineage-preservation-1772576749736",
+      "nameAr": "حامي العفاف",
+      "focus": "المحافظة على الحياء والعفة",
+      "sources": [
+        "أحكام الحجاب",
+        "آداب العلاقات"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    },
+    {
+      "id": "agent-lineage-preservation-1772576749736-sub-1772576749736-14v2l350z",
+      "parentId": "agent-lineage-preservation-1772576749736",
+      "nameAr": "حامي الطفولة",
+      "focus": "حماية الأطفال من الأذى",
+      "sources": [
+        "حقوق الطفل في الإسلام",
+        "قوانين حماية الطفل"
+      ],
+      "status": "active",
+      "createdAt": "2026-03-03T22:25:49.736Z",
+      "tasksCompleted": 0
+    }
+  ],
+  "status": "active",
+  "createdAt": "2026-03-03T22:25:49.736Z",
+  "tasksCompleted": 0,
+  "totalTasks": 0
+}

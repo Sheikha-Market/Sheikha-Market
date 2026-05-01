@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if systemctl list-unit-files | rg -q '^sheikha\.service'; then
+    systemctl disable --now sheikha || true
+fi
+
+exit 0
+#!/usr/bin/env bash
+set -euo pipefail
+
+APP_DIR="/opt/sheikha/sheikha-main-portal"
+if [[ -d "${APP_DIR}" ]]; then
+    bash "${APP_DIR}/scripts/uninstall.sh" || true
+fi
+
+exit 0

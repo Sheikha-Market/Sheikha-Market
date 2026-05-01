@@ -1,0 +1,17 @@
+[Unit]
+Description=Sheikha Main Portal
+After=network.target
+
+[Service]
+Type=simple
+User=sheikha
+WorkingDirectory=/home/sheikha/Projects/sheikha/sheikha-main-portal
+ExecStart=/home/sheikha/.nvm/versions/node/v20.20.0/bin/node /home/sheikha/Projects/sheikha/sheikha-main-portal/server.js
+Restart=always
+RestartSec=10
+KillMode=control-group
+EnvironmentFile=/home/sheikha/Projects/sheikha/sheikha-main-portal/.env
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

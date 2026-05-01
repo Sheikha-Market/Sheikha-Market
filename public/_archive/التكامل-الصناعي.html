@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التكامل الصناعي الذكي | منظومة شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --green: #0a5c36;
+            --green-light: #0d7a47;
+            --saudi-green: #006c35;
+            --dark: #0a0f1a;
+            --darker: #050810;
+            --card: #0d1424;
+            --text: #fff;
+            --text-muted: #94a3b8;
+            --border: #1e3a5f;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; line-height: 1.7; }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, var(--card), var(--darker));
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon {
+            width: 50px; height: 50px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; font-weight: 900; color: var(--dark);
+        }
+        .logo-text h1 { font-size: 1.2rem; color: var(--gold); }
+        .logo-text p { font-size: 0.75rem; color: var(--text-muted); }
+        
+        .nav { display: flex; gap: 8px; }
+        .nav-link {
+            padding: 10px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: var(--radius);
+            transition: all 0.3s;
+        }
+        .nav-link:hover { color: var(--gold); background: rgba(212,175,55,0.1); }
+        
+        /* Hero */
+        .hero {
+            padding: 100px 24px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--dark), var(--card));
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%231e3a5f' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, rgba(0,108,53,0.15), rgba(212,175,55,0.15));
+            border: 1px solid var(--gold);
+            border-radius: 50px;
+            margin-bottom: 24px;
+        }
+        .hero-badge span { font-weight: 700; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+        .hero h1 span { color: var(--gold); }
+        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 30px; }
+        
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat-value { font-size: 2.5rem; font-weight: 900; color: var(--gold); }
+        .hero-stat-label { font-size: 0.9rem; color: var(--text-muted); }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 80px 24px; }
+        
+        /* Section */
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-badge {
+            display: inline-flex;
+            padding: 8px 20px;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        .section-title { font-size: 2.2rem; margin-bottom: 16px; }
+        .section-title span { color: var(--gold); }
+        .section-desc { font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; }
+        
+        /* Integration Cards */
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        .integration-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .integration-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(212,175,55,0.15);
+        }
+        .integration-header {
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(10,92,54,0.1));
+            border-bottom: 1px solid var(--border);
+        }
+        .integration-icon {
+            width: 70px; height: 70px;
+            background: var(--dark);
+            border: 2px solid var(--border);
+            border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        .integration-header h3 { font-size: 1.3rem; margin-bottom: 8px; }
+        .integration-header p { font-size: 0.9rem; color: var(--text-muted); }
+        .integration-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 12px;
+        }
+        .status-active { background: rgba(16,185,129,0.15); color: var(--success); }
+        .status-pending { background: rgba(245,158,11,0.15); color: var(--warning); }
+        .integration-body { padding: 24px; }
+        .integration-features { list-style: none; }
+        .integration-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .integration-features li:last-child { border-bottom: none; }
+        .integration-features li::before { content: '✓'; color: var(--success); }
+        
+        /* Data Flow */
+        .data-flow-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+        .data-flow-title { text-align: center; margin-bottom: 40px; }
+        .data-flow-title h3 { font-size: 1.5rem; margin-bottom: 8px; }
+        .data-flow-title p { color: var(--text-muted); }
+        
+        .data-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .data-node {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            padding: 24px 16px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            transition: all 0.3s;
+        }
+        .data-node:hover {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.05);
+        }
+        .data-node-icon {
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(10,92,54,0.15));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 12px;
+        }
+        .data-node h4 { font-size: 1rem; margin-bottom: 6px; }
+        .data-node p { font-size: 0.8rem; color: var(--text-muted); }
+        .data-arrow {
+            font-size: 1.5rem;
+            color: var(--gold);
+            animation: flowArrow 1s infinite;
+        }
+        @keyframes flowArrow {
+            0%, 100% { opacity: 0.5; transform: translateX(0); }
+            50% { opacity: 1; transform: translateX(5px); }
+        }
+        
+        /* Live Data Panel */
+        .live-data-section {
+            background: linear-gradient(135deg, var(--green), var(--dark));
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+        .live-data-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .live-data-header h3 { font-size: 1.4rem; }
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(16,185,129,0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--success);
+        }
+        .live-dot {
+            width: 8px; height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        
+        .live-data-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .live-data-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .live-data-icon { font-size: 2rem; margin-bottom: 12px; }
+        .live-data-value { font-size: 2rem; font-weight: 900; color: var(--gold); }
+        .live-data-label { font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-top: 4px; }
+        .live-data-change { font-size: 0.8rem; margin-top: 8px; }
+        .change-up { color: var(--success); }
+        .change-down { color: #ef4444; }
+        
+        /* Protocols */
+        .protocols-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        .protocol-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .protocol-card:hover {
+            border-color: var(--gold);
+        }
+        .protocol-icon {
+            width: 56px; height: 56px;
+            background: var(--dark);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 16px;
+        }
+        .protocol-card h4 { font-size: 1rem; margin-bottom: 6px; }
+        .protocol-card p { font-size: 0.8rem; color: var(--text-muted); }
+        
+        /* Saudi Vision */
+        .saudi-section {
+            background: linear-gradient(135deg, rgba(0,108,53,0.1), var(--card));
+            border: 1px solid var(--saudi-green);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .saudi-content { flex: 1; }
+        .saudi-content h3 { font-size: 1.5rem; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+        .saudi-content p { color: var(--text-muted); margin-bottom: 20px; line-height: 1.9; }
+        .saudi-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+        .saudi-badge {
+            padding: 8px 16px;
+            background: rgba(0,108,53,0.15);
+            border: 1px solid var(--saudi-green);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--saudi-green);
+        }
+        .saudi-visual {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--saudi-green), #004d26);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .saudi-visual svg { width: 100px; height: 100px; }
+        
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 60px;
+            background: var(--card);
+            border-radius: var(--radius-lg);
+        }
+        .cta-section h2 { font-size: 2rem; margin-bottom: 16px; }
+        .cta-section h2 span { color: var(--gold); }
+        .cta-section p { color: var(--text-muted); margin-bottom: 30px; }
+        .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--dark); }
+        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212,175,55,0.3); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+        .footer .basmala { color: var(--gold); margin-bottom: 12px; }
+        .footer p { color: var(--text-muted); }
+        
+        @media (max-width: 1024px) {
+            .integration-grid { grid-template-columns: repeat(2, 1fr); }
+            .live-data-grid { grid-template-columns: repeat(2, 1fr); }
+            .protocols-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .integration-grid { grid-template-columns: 1fr; }
+            .live-data-grid { grid-template-columns: 1fr; }
+            .protocols-grid { grid-template-columns: 1fr; }
+            .data-flow { flex-direction: column; }
+            .data-arrow { transform: rotate(90deg); }
+            .saudi-section { flex-direction: column; text-align: center; }
+            .nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">ش</div>
+                <div class="logo-text">
+                    <h1>شيخة</h1>
+                    <p>التكامل الصناعي</p>
+                </div>
+            </a>
+            <nav class="nav">
+                <a href="/" class="nav-link">الرئيسية</a>
+                <a href="نظام-شيخة-الذكي.html" class="nav-link">سلسلة التوريد</a>
+                <a href="enterprise.html" class="nav-link">المشاريع</a>
+                <a href="api-docs.html" class="nav-link">API</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🏭</span>
+                <span>Industry 4.0</span>
+                <span>•</span>
+                <span>رؤية 2030</span>
+            </div>
+            <h1>التكامل <span>الصناعي الذكي</span></h1>
+            <p>ربط منظومة شيخة مع المصانع الذكية والمصاهر — بيانات حية، أتمتة كاملة، وتكامل مع أحدث تقنيات الصناعة 4.0</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">15+</div>
+                    <div class="hero-stat-label">بروتوكول صناعي</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">Real-time</div>
+                    <div class="hero-stat-label">بيانات حية</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">100%</div>
+                    <div class="hero-stat-label">أتمتة</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Integration Types -->
+        <div class="section-header">
+            <div class="section-badge">🔗 أنواع التكامل</div>
+            <h2 class="section-title">تكامل مع <span>البيئات الصناعية</span></h2>
+            <p class="section-desc">ربط سلس مع جميع مراحل الإنتاج — من المصدر إلى المنتج النهائي</p>
+        </div>
+        
+        <div class="integration-grid">
+            <!-- المصانع الذكية -->
+            <div class="integration-card">
+                <div class="integration-header">
+                    <div class="integration-icon">🏭</div>
+                    <h3>المصانع الذكية</h3>
+                    <p>Smart Factory Integration</p>
+                    <div class="integration-status status-active">
+                        <span class="live-dot"></span> متصل
+                    </div>
+                </div>
+                <div class="integration-body">
+                    <ul class="integration-features">
+                        <li>ربط مع أنظمة MES (Manufacturing Execution)</li>
+                        <li>بيانات خطوط الإنتاج الحية</li>
+                        <li>مراقبة الجودة الآلية (QC)</li>
+                        <li>جدولة الإنتاج التلقائية</li>
+                        <li>تتبع المخزون Real-time</li>
+                        <li>تقارير OEE (كفاءة المعدات)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- المصاهر -->
+            <div class="integration-card">
+                <div class="integration-header">
+                    <div class="integration-icon">🔥</div>
+                    <h3>المصاهر الذكية</h3>
+                    <p>Smart Smelter Integration</p>
+                    <div class="integration-status status-active">
+                        <span class="live-dot"></span> متصل
+                    </div>
+                </div>
+                <div class="integration-body">
+                    <ul class="integration-features">
+                        <li>مراقبة درجات الحرارة الحية</li>
+                        <li>تحليل تركيب المعادن المصهورة</li>
+                        <li>بيانات استهلاك الطاقة</li>
+                        <li>تتبع المدخلات والمخرجات</li>
+                        <li>شهادات النقاء الآلية</li>
+                        <li>مراقبة الانبعاثات البيئية</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- المناجم -->
+            <div class="integration-card">
+                <div class="integration-header">
+                    <div class="integration-icon">⛏️</div>
+                    <h3>المناجم الذكية</h3>
+                    <p>Smart Mining Integration</p>
+                    <div class="integration-status status-active">
+                        <span class="live-dot"></span> متصل
+                    </div>
+                </div>
+                <div class="integration-body">
+                    <ul class="integration-features">
+                        <li>بيانات الاستخراج اليومية</li>
+                        <li>تحليل جودة الخام</li>
+                        <li>مراقبة المعدات والآليات</li>
+                        <li>إدارة سلامة العمال</li>
+                        <li>التنبؤ بالإنتاج AI</li>
+                        <li>خرائط الموارد الجيولوجية</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- المستودعات -->
+            <div class="integration-card">
+                <div class="integration-header">
+                    <div class="integration-icon">📦</div>
+                    <h3>المستودعات الذكية</h3>
+                    <p>Smart Warehouse Integration</p>
+                    <div class="integration-status status-active">
+                        <span class="live-dot"></span> متصل
+                    </div>
+                </div>
+                <div class="integration-body">
+                    <ul class="integration-features">
+                        <li>نظام WMS متكامل</li>
+                        <li>تتبع RFID للمواد</li>
+                        <li>الجرد الآلي (Automated Inventory)</li>
+                        <li>روبوتات الفرز والتحميل</li>
+                        <li>تحسين المساحات AI</li>
+                        <li>أوامر الشحن التلقائية</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- النقل -->
+            <div class="integration-card">
+                <div class="integration-header">
+                    <div class="integration-icon">🚚</div>
+                    <h3>أسطول النقل الذكي</h3>
+                    <p>Smart Fleet Integration</p>
+                    <div class="integration-status status-active">
+                        <span class="live-dot"></span> متصل
+                    </div>
+                </div>
+                <div class="integration-body">
+                    <ul class="integration-features">
+                        <li>تتبع GPS حي للشاحنات</li>
+                        <li>مراقبة حالة المركبات IoT</li>
+                        <li>تحسين المسارات AI</li>
+                        <li>بيانات استهلاك الوقود</li>
+                        <li>جدولة الصيانة التنبؤية</li>
+                        <li>إشعارات التسليم الفورية</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- مختبرات الجودة -->
+            <div class="integration-card">
+                <div class="integration-header">
+                    <div class="integration-icon">🔬</div>
+                    <h3>مختبرات الجودة</h3>
+                    <p>Quality Lab Integration</p>
+                    <div class="integration-status status-active">
+                        <span class="live-dot"></span> متصل
+                    </div>
+                </div>
+                <div class="integration-body">
+                    <ul class="integration-features">
+                        <li>نتائج التحليل الفورية (LIMS)</li>
+                        <li>شهادات الجودة الآلية</li>
+                        <li>أجهزة XRF/XRD المتصلة</li>
+                        <li>قاعدة بيانات المواصفات</li>
+                        <li>تتبع العينات الرقمي</li>
+                        <li>تقارير المطابقة ISO</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Flow -->
+        <div class="data-flow-section">
+            <div class="data-flow-title">
+                <h3>🔄 تدفق البيانات الحية</h3>
+                <p>من المصدر إلى المستهلك — بيانات متكاملة في الوقت الحقيقي</p>
+            </div>
+            <div class="data-flow">
+                <div class="data-node">
+                    <div class="data-node-icon">⛏️</div>
+                    <h4>المنجم</h4>
+                    <p>بيانات الاستخراج</p>
+                </div>
+                <span class="data-arrow">→</span>
+                <div class="data-node">
+                    <div class="data-node-icon">🔬</div>
+                    <h4>المختبر</h4>
+                    <p>تحليل الجودة</p>
+                </div>
+                <span class="data-arrow">→</span>
+                <div class="data-node">
+                    <div class="data-node-icon">🔥</div>
+                    <h4>المصهر</h4>
+                    <p>بيانات الصهر</p>
+                </div>
+                <span class="data-arrow">→</span>
+                <div class="data-node">
+                    <div class="data-node-icon">🏭</div>
+                    <h4>المصنع</h4>
+                    <p>بيانات التصنيع</p>
+                </div>
+                <span class="data-arrow">→</span>
+                <div class="data-node">
+                    <div class="data-node-icon">📦</div>
+                    <h4>المستودع</h4>
+                    <p>بيانات التخزين</p>
+                </div>
+                <span class="data-arrow">→</span>
+                <div class="data-node">
+                    <div class="data-node-icon">🚚</div>
+                    <h4>النقل</h4>
+                    <p>بيانات الشحن</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Data Panel -->
+        <div class="live-data-section">
+            <div class="live-data-header">
+                <h3>📊 بيانات حية من المصانع والمصاهر</h3>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    <span>متصل الآن</span>
+                </div>
+            </div>
+            <div class="live-data-grid">
+                <div class="live-data-card">
+                    <div class="live-data-icon">🌡️</div>
+                    <div class="live-data-value">1,450°C</div>
+                    <div class="live-data-label">درجة حرارة المصهر</div>
+                    <div class="live-data-change change-up">↑ 2.3%</div>
+                </div>
+                <div class="live-data-card">
+                    <div class="live-data-icon">⚡</div>
+                    <div class="live-data-value">2.4 MW</div>
+                    <div class="live-data-label">استهلاك الطاقة</div>
+                    <div class="live-data-change change-down">↓ 5.1%</div>
+                </div>
+                <div class="live-data-card">
+                    <div class="live-data-icon">📦</div>
+                    <div class="live-data-value">847 طن</div>
+                    <div class="live-data-label">الإنتاج اليومي</div>
+                    <div class="live-data-change change-up">↑ 12%</div>
+                </div>
+                <div class="live-data-card">
+                    <div class="live-data-icon">✅</div>
+                    <div class="live-data-value">99.7%</div>
+                    <div class="live-data-label">نسبة النقاء</div>
+                    <div class="live-data-change change-up">↑ 0.2%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Industrial Protocols -->
+        <div class="section-header">
+            <div class="section-badge">⚙️ البروتوكولات الصناعية</div>
+            <h2 class="section-title">معايير <span>الاتصال المدعومة</span></h2>
+            <p class="section-desc">توافق كامل مع جميع البروتوكولات الصناعية العالمية</p>
+        </div>
+        
+        <div class="protocols-grid">
+            <div class="protocol-card">
+                <div class="protocol-icon">🔌</div>
+                <h4>OPC-UA</h4>
+                <p>اتصال آمن وموحد</p>
+            </div>
+            <div class="protocol-card">
+                <div class="protocol-icon">📡</div>
+                <h4>MQTT</h4>
+                <p>رسائل IoT خفيفة</p>
+            </div>
+            <div class="protocol-card">
+                <div class="protocol-icon">🔗</div>
+                <h4>Modbus</h4>
+                <p>أجهزة PLC</p>
+            </div>
+            <div class="protocol-card">
+                <div class="protocol-icon">📊</div>
+                <h4>REST API</h4>
+                <p>تكامل ويب</p>
+            </div>
+            <div class="protocol-card">
+                <div class="protocol-icon">🏷️</div>
+                <h4>RFID/NFC</h4>
+                <p>تتبع المواد</p>
+            </div>
+            <div class="protocol-card">
+                <div class="protocol-icon">📶</div>
+                <h4>LoRaWAN</h4>
+                <p>شبكات IoT واسعة</p>
+            </div>
+            <div class="protocol-card">
+                <div class="protocol-icon">🔒</div>
+                <h4>TLS/SSL</h4>
+                <p>تشفير البيانات</p>
+            </div>
+            <div class="protocol-card">
+                <div class="protocol-icon">📁</div>
+                <h4>EDI</h4>
+                <p>تبادل المستندات</p>
+            </div>
+        </div>
+
+        <!-- Saudi Vision Section -->
+        <div class="saudi-section">
+            <div class="saudi-content">
+                <h3>
+                    <svg width="30" height="30" viewBox="0 0 30 30">
+                        <circle cx="15" cy="15" r="14" fill="#006c35"/>
+                        <text x="15" y="20" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">🇸🇦</text>
+                    </svg>
+                    متوافق مع رؤية 2030
+                </h3>
+                <p>
+                    منظومة شيخة متوافقة بالكامل مع برنامج تطوير الصناعة الوطنية والخدمات اللوجستية (NIDLP) 
+                    وتدعم أهداف قطاع التعدين والمعادن في المملكة العربية السعودية.
+                </p>
+                <div class="saudi-badges">
+                    <span class="saudi-badge">✓ NIDLP</span>
+                    <span class="saudi-badge">✓ Made in Saudi</span>
+                    <span class="saudi-badge">✓ Local Content</span>
+                    <span class="saudi-badge">✓ Digital Transformation</span>
+                </div>
+            </div>
+            <div class="saudi-visual">
+                <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#fff" stroke-width="2" opacity="0.3"/>
+                    <text x="50" y="45" text-anchor="middle" fill="#fff" font-size="30" font-weight="bold">2030</text>
+                    <text x="50" y="65" text-anchor="middle" fill="#fff" font-size="12">رؤية</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>ابدأ التكامل <span>الآن</span></h2>
+            <p>اربط مصنعك أو مصهرك مع منظومة شيخة واستفد من البيانات الحية والأتمتة الذكية</p>
+            <div class="cta-buttons">
+                <a href="api-docs.html" class="btn btn-gold">📚 توثيق API</a>
+                <a href="تكامل.html" class="btn btn-outline">🔌 طلب تكامل</a>
+                <a href="مساعد-شيخة.html" class="btn btn-outline">🤖 استشارة تقنية</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="basmala">لا حول ولا قوة إلا بالله</p>
+        <p>© 2026 منظومة شيخة — التكامل الصناعي الذكي</p>
+    </footer>
+
+    <script>
+        // Simulate live data updates
+        setInterval(() => {
+            const tempEl = document.querySelector('.live-data-value');
+            if (tempEl) {
+                const temp = 1440 + Math.floor(Math.random() * 20);
+                // tempEl.textContent = temp + '°C';
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

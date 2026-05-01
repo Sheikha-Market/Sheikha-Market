@@ -1,0 +1,30 @@
+{
+  "id": "schedule-1772499502832",
+  "agentId": "agent-deen-preservation-1772495966714",
+  "scheduleType": "REAL_TIME",
+  "schedule": {
+    "name": "تدريب فوري",
+    "frequency": "immediate",
+    "batchSize": 1,
+    "ideal": "تحديثات سريعة"
+  },
+  "config": {
+    "allLanguages": true,
+    "sourceFamilies": [
+      "HumanLanguages",
+      "NLP",
+      "LLM"
+    ],
+    "sourceScope": "global_and_cosmic_symbolic",
+    "technique": "QLORA",
+    "pipeline": {
+      "nlp": true,
+      "llm": true
+    },
+    "batchSize": 8,
+    "epochs": 1
+  },
+  "status": "scheduled",
+  "nextRun": "2026-03-03T00:58:22.832Z",
+  "createdAt": "2026-03-03T00:58:22.832Z"
+}

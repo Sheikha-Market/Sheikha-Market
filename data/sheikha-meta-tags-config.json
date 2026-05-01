@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "description": "إمكانية وسوم Meta الكاملة — أفضل من Meta ومتكاملة معها",
+  "baseUrl": "https://sheikha.top",
+  "defaults": {
+    "charset": "UTF-8",
+    "viewport": "width=device-width, initial-scale=1.0, viewport-fit=cover",
+    "themeColor": "#D4AF37",
+    "author": "سلمان أحمد بن سلمان الراجح",
+    "copyright": "© 2026 سلمان أحمد بن سلمان الراجح — جميع الحقوق محفوظة",
+    "locale": "ar_SA",
+    "siteName": "SHEIKHA",
+    "twitterSite": "@sheikha_market"
+  },
+  "categories": {
+    "seo": {
+      "description": "التحكم في الظهور بمحركات البحث",
+      "tags": ["description", "robots", "keywords", "canonical"]
+    },
+    "technical": {
+      "description": "التوافق مع الأجهزة والمتصفحات",
+      "tags": ["viewport", "charset", "refresh", "theme-color"]
+    },
+    "social": {
+      "description": "التحكم في الانتشار الاجتماعي",
+      "tags": ["og:*", "twitter:*"]
+    },
+    "security": {
+      "description": "خصائص أمنية وتعريفية",
+      "tags": ["Content-Security-Policy", "author", "copyright"]
+    }
+  },
+  "robotsValues": {
+    "index_follow": "index, follow",
+    "noindex_nofollow": "noindex, nofollow",
+    "noindex_follow": "noindex, follow"
+  },
+  "pages": {
+    "index": {
+      "title": "شيخة — أول سوق إسلامي رقمي للمعادن | على نهج سوق المدينة المنورة",
+      "description": "منظومة وسوق شيخة — أول مركز اقتصادي إسلامي رقمي متخصص بالمعادن، مبني على مبادئ سوق المدينة المنورة الذي أسسه النبي ﷺ",
+      "keywords": "شيخة، سوق المعادن، سكراب، معادن، تجارة إسلامية، سوق المدينة، LME، COMEX، LBMA، مؤشر شيخة، HS Code، ISRI",
+      "robots": "index, follow",
+      "path": "/",
+      "ogImage": "/images/og-sheikha.png",
+      "ogImageRecommended": "/images/og-sheikha.png"
+    },
+    "سوق-شيخة": {
+      "title": "سوق شيخة — أول سوق إسلامي رقمي للمعادن والسكراب | SHEIKHA",
+      "description": "سوق شيخة — أول سوق إسلامي رقمي للمعادن والسكراب في السعودية والعالم — أسعار لحظية LME/COMEX/LBMA — تصنيف ISRI + HS Code — مؤشر شيخة",
+      "keywords": "سوق شيخة، المعادن، السكراب، LME، COMEX، LBMA، مؤشر شيخة، ISRI، HS Code، تجارة حلال",
+      "robots": "index, follow",
+      "path": "/سوق-شيخة.html",
+      "ogImage": "/images/og-sheikha.png"
+    },
+    "المجتمع": {
+      "title": "مجتمع شيخة — الصدق والإتقان والتعاون | SHEIKHA Community",
+      "description": "مجتمع شيخة — مجتمع قائم على الصدق والإتقان والتعاون على الخير — منتدى ومختبرات ابتكار لتجار المعادن",
+      "keywords": "مجتمع شيخة، منتدى المعادن، مختبرات ابتكار، تجارة حلال",
+      "robots": "index, follow",
+      "path": "/المجتمع.html",
+      "ogImage": "/images/og-sheikha.png"
+    },
+    "تسجيل-الشركات": {
+      "title": "تسجيل التاجر في سوق شيخة | 5 خطوات | SHEIKHA",
+      "description": "سجّل شركتك كتاجر في سوق شيخة — 5 خطوات بسيطة — أول سوق إسلامي رقمي للمعادن والسكراب",
+      "keywords": "تسجيل تاجر، سوق شيخة، شركات المعادن، سكراب، تجارة حلال",
+      "robots": "index, follow",
+      "path": "/تسجيل-الشركات.html",
+      "ogImage": "/images/og-sheikha.png"
+    },
+    "الشريعة-الاسلامية": {
+      "title": "الشريعة الإسلامية في المعاملات | سوق شيخة",
+      "description": "مرجع شرعي لتجارة المعادن والسكراب — ضوابط البيع والشراء، حاسبة الزكاة، مبادئ سوق المدينة المنورة",
+      "keywords": "الشريعة الإسلامية، تجارة حلال، زكاة المعادن، سوق المدينة، ضوابط البيع",
+      "robots": "index, follow",
+      "path": "/الشريعة-الاسلامية.html",
+      "ogImage": "/images/og-sheikha.png"
+    },
+    "خريطة-الأرض-التفاعلية": {
+      "title": "خريطة شيخة التفاعلية — موانئ، مناجم، مصاهر، أسواق",
+      "description": "خريطة تفاعلية شاملة — موانئ + مطارات + مناجم + مصاهر + أسواق + سكراب — رقمنة بالكتاب والسنة",
+      "robots": "index, follow",
+      "path": "/خريطة-الأرض-التفاعلية.html",
+      "ogImage": "/images/og-sheikha.png"
+    },
+    "هوية-السوق": {
+      "title": "هوية سوق شيخة — من سوق المدينة إلى السوق الرقمي",
+      "description": "رواية هوية سوق شيخة المكانية — من سوق المدينة المنورة الذي أسسه النبي ﷺ إلى أول سوق إسلامي رقمي عالمي",
+      "robots": "index, follow",
+      "path": "/هوية-السوق.html",
+      "ogImage": "/images/og-sheikha.png"
+    },
+    "فهرس-المنظومة": {
+      "title": "فهرس منظومة شيخة — جميع الصفحات والخدمات | SHEIKHA Directory",
+      "description": "فهرس شامل لجميع صفحات وخدمات منظومة وسوق شيخة للمعادن والسكراب",
+      "keywords": "فهرس شيخة، صفحات شيخة، خدمات المعادن",
+      "robots": "index, follow",
+      "path": "/فهرس-المنظومة.html",
+      "ogImage": "/images/og-sheikha.png"
+    },
+    "تعليم-المجتمع": {
+      "title": "تعليم المجتمع — شيخة",
+      "description": "صفحة تعليم المجتمع في شيخة: تطوير داخلي، تعلم مستمر، وإتقان مدعوم بالذكاء الاصطناعي",
+      "keywords": "تعليم المجتمع، شيخة، إتقان، ذكاء اصطناعي",
+      "robots": "index, follow",
+      "path": "/تعليم-المجتمع.html",
+      "ogImage": "/images/og-sheikha.png"
+    },
+    "لوحة-الادمن": {
+      "robots": "noindex, nofollow",
+      "path": "/لوحة-الادمن.html"
+    },
+    "تسجيل-الدخول": {
+      "robots": "noindex, follow",
+      "path": "/تسجيل-الدخول.html"
+    },
+    "سياسة-الخصوصية": {
+      "title": "سياسة الخصوصية | SHEIKHA",
+      "description": "سياسة الخصوصية لمنظومة شيخة — حماية بيانات المستخدمين والشركات",
+      "keywords": "سياسة الخصوصية، شيخة، حماية البيانات، تجارة حلال",
+      "robots": "index, follow",
+      "path": "/سياسة-الخصوصية.html",
+      "ogImage": "/images/og-sheikha.png"
+    },
+    "الشروط-والسياسات": {
+      "title": "الشروط والسياسات | منظومة شيخة",
+      "description": "الشروط والأحكام العامة لمنظومة وسوق شيخة",
+      "keywords": "الشروط والأحكام، شيخة، سوق المعادن، تجارة حلال",
+      "robots": "index, follow",
+      "path": "/الشروط-والسياسات.html",
+      "ogImage": "/images/og-sheikha.png"
+    }
+  },
+  "csp": {
+    "note": "يفضّل إرسال CSP عبر رأس HTTP من الخادم — meta محدود",
+    "metaFallback": "default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://sheikha.top wss:"
+  },
+  "ogImageSpec": {
+    "recommendedSize": "1200x630",
+    "format": "PNG or JPG",
+    "path": "/images/og-sheikha.png"
+  }
+}

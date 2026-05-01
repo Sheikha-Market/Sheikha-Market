@@ -1,0 +1,83 @@
+{
+    "program": "SHEIKHA_DATA_FABRIC_CORE",
+    "version": "1.0.0",
+    "identity": {
+        "nameAr": "منظومة شيخة للبيانات والبيانات الضخمة",
+        "mission": "إدارة البيانات المهيكلة وشبه المهيكلة وغير المهيكلة وتحسينها على هدي الكتاب والسنة",
+        "primaryLanguage": "ar",
+        "defaultLocale": "ar-SA"
+    },
+    "foundation": {
+        "sources": [
+            "quran",
+            "sunnah"
+        ],
+        "controls": [
+            "no-fraud",
+            "no-harm",
+            "privacy-and-trust",
+            "data-integrity"
+        ],
+        "values": [
+            "amanah",
+            "adl",
+            "ihsan",
+            "sidq"
+        ]
+    },
+    "dataDomains": {
+        "structured": {
+            "description": "منظومة البيانات المهيكلة",
+            "examples": [
+                "sql-tables",
+                "financial-ledgers",
+                "erp-records"
+            ]
+        },
+        "semiStructured": {
+            "description": "منظومة البيانات شبه المهيكلة",
+            "examples": [
+                "json",
+                "xml",
+                "api-events",
+                "logs"
+            ]
+        },
+        "unstructured": {
+            "description": "منظومة البيانات غير المهيكلة",
+            "examples": [
+                "documents",
+                "images",
+                "audio",
+                "video"
+            ]
+        }
+    },
+    "improvementPipeline": {
+        "stages": [
+            "ingest",
+            "validate",
+            "clean",
+            "normalize",
+            "classify",
+            "enrich",
+            "govern",
+            "serve"
+        ],
+        "qualityMetrics": [
+            "completeness",
+            "consistency",
+            "accuracy",
+            "timeliness",
+            "lineage"
+        ]
+    },
+    "targets": {
+        "availability": "99.99%",
+        "dataQualityScore": 95,
+        "apiP95Ms": 50,
+        "apiP99Ms": 150,
+        "rtoMinutes": 15,
+        "rpoMinutes": 5
+    }
+}

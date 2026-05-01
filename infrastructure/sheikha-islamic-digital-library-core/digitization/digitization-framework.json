@@ -1,0 +1,63 @@
+{
+    "generatedAt": "2026-03-13T22:17:08.184Z",
+    "tracks": [
+        "sharia-books",
+        "quranic-studies",
+        "prophetic-sunnah-studies",
+        "beneficial-sciences-books",
+        "general-knowledge-books"
+    ],
+    "workflow": [
+        {
+            "id": 1,
+            "step": "rights-verification",
+            "status": "enabled"
+        },
+        {
+            "id": 2,
+            "step": "source-acquisition",
+            "status": "enabled"
+        },
+        {
+            "id": 3,
+            "step": "scanning-or-import",
+            "status": "enabled"
+        },
+        {
+            "id": 4,
+            "step": "ocr-and-text-extraction",
+            "status": "enabled"
+        },
+        {
+            "id": 5,
+            "step": "metadata-normalization",
+            "status": "enabled"
+        },
+        {
+            "id": 6,
+            "step": "scholarly-review",
+            "status": "enabled"
+        },
+        {
+            "id": 7,
+            "step": "classification-and-indexing",
+            "status": "enabled"
+        },
+        {
+            "id": 8,
+            "step": "publication-or-private-archive",
+            "status": "enabled"
+        }
+    ],
+    "allowedRights": [
+        "owned-by-sheikha",
+        "public-domain",
+        "licensed",
+        "author-permission"
+    ],
+    "prohibited": [
+        "unauthorized-copying",
+        "misattribution",
+        "unverified-religious-content-publication"
+    ]
+}

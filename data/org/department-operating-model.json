@@ -1,0 +1,330 @@
+{
+  "_meta": {
+    "title": "النموذج التشغيلي التفصيلي للأقسام — شيخة",
+    "version": "1.0.0",
+    "createdAt": "2026-03-12",
+    "principle": "وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ — التوبة:105",
+    "notes": "لكل قسم: مدير + فرق + موظفون + مهام + وكيل ذكي متخصص + خطة تقوية مستمرة"
+  },
+  "departments": [
+    {
+      "departmentId": "SHK-DEPT-001",
+      "manager": {
+        "title": "المدير العام التنفيذي",
+        "code": "SHK-ROLE-CEO-001",
+        "responsibilities": ["اعتماد الاستراتيجية", "إقرار الأولويات", "متابعة الأداء التنفيذي", "التكامل بين الإدارات"]
+      },
+      "employees": [
+        { "title": "مدير مكتب CEO", "count": 1, "tasks": ["إدارة جدول الأعمال", "تنسيق الاجتماعات", "متابعة القرارات"] },
+        { "title": "محلل استراتيجي", "count": 2, "tasks": ["تحليل السوق", "إعداد التقارير الاستراتيجية", "قياس المخاطر"] },
+        { "title": "منسق حوكمة", "count": 1, "tasks": ["متابعة السياسات", "توثيق القرارات", "ربط الحوكمة بالأداء"] }
+      ],
+      "botAgent": {
+        "botId": "SHK-BOT-021",
+        "specialization": "قيادة تنفيذية وذكاء استراتيجي",
+        "dailyMissions": ["تجميع KPI التنفيذي", "رفع تنبيهات المخاطر", "اقتراح قرارات أولية", "متابعة أوامر التنفيذ"],
+        "continuousStrengthening": ["تغذية يومية من تقارير الأقسام", "تحسين prompts من نتائج القرارات", "مراجعة دقة التوصيات أسبوعياً"]
+      }
+    },
+    {
+      "departmentId": "SHK-DEPT-002",
+      "manager": {
+        "title": "مدير الإدارة الفنية والهندسية والمساندة",
+        "code": "SHK-ROLE-TECH-001",
+        "responsibilities": ["قيادة البنية الهندسية", "اعتماد المعايير التقنية", "إدارة فرق الهندسة والدعم", "متابعة الجاهزية التشغيلية"]
+      },
+      "employees": [
+        { "title": "رئيس هندسة البرمجيات", "count": 1, "tasks": ["قيادة التطوير", "اعتماد المعمارية", "مراجعة الكود"] },
+        { "title": "رئيس هندسة الشبكات والبنية", "count": 1, "tasks": ["إدارة الشبكات", "الأمن المحيطي", "الاعتمادية"] },
+        { "title": "رئيس نظم المعلومات", "count": 1, "tasks": ["حوكمة البيانات", "التقارير الإدارية", "تكامل الأنظمة"] },
+        { "title": "منسق دعم فني", "count": 2, "tasks": ["حل الأعطال", "متابعة التذاكر", "مساندة المستخدمين"] }
+      ],
+      "botAgent": {
+        "botId": "SHK-BOT-009",
+        "specialization": "قيادة هندسية تقنية",
+        "dailyMissions": ["فحص جودة الكود", "تحليل الأداء", "استخراج عوائق التطوير", "توزيع الأولويات التقنية"],
+        "continuousStrengthening": ["تدريب من نتائج CI/CD", "ربط الملاحظات من incidents", "تغذية من code review الفعلي"]
+      },
+      "subDepartments": ["SHK-ENG-001", "SHK-ENG-002", "SHK-ENG-003", "SHK-ENG-004", "SHK-ENG-005", "SHK-ENG-006"]
+    },
+    {
+      "departmentId": "SHK-DEPT-003",
+      "manager": { "title": "مدير المبيعات", "code": "SHK-ROLE-SALES-001", "responsibilities": ["تحقيق الإيراد", "إدارة فريق المبيعات", "اعتماد العروض", "تنمية الحسابات الكبرى"] },
+      "employees": [
+        { "title": "مدير حسابات رئيسية", "count": 2, "tasks": ["إدارة كبار العملاء", "إغلاق الصفقات", "التفاوض"] },
+        { "title": "تنفيذي مبيعات", "count": 4, "tasks": ["توليد الفرص", "متابعة العملاء", "إدخال CRM"] },
+        { "title": "محلل عروض وأسعار", "count": 2, "tasks": ["تسعير RFQ", "تحليل المنافسة", "تحسين الهوامش"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-002", "specialization": "مبيعات وعروض", "dailyMissions": ["متابعة pipeline", "اقتراح العروض", "تحليل أسباب خسارة الفرص"], "continuousStrengthening": ["تغذية من نتائج الصفقات", "تعلم من اعتراضات العملاء", "تحسين scoring للفرص"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-004",
+      "manager": { "title": "مدير التسويق", "code": "SHK-ROLE-MKT-001", "responsibilities": ["قيادة العلامة", "إدارة الحملات", "تنمية الطلب", "التكامل مع المبيعات"] },
+      "employees": [
+        { "title": "أخصائي أداء رقمي", "count": 2, "tasks": ["إعلانات رقمية", "تحسين ROI", "تحليل القنوات"] },
+        { "title": "كاتب محتوى", "count": 2, "tasks": ["المحتوى العربي", "الرسائل التسويقية", "الصفحات التعريفية"] },
+        { "title": "مصمم حملات", "count": 1, "tasks": ["تصميم الهويات", "مواد الحملات", "A/B tests"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-003", "specialization": "تسويق ومحتوى", "dailyMissions": ["اقتراح حملات", "تحسين الرسائل", "تحليل CAC وCTR"], "continuousStrengthening": ["تعلم من أداء الحملات", "تحسين segment targeting", "تغذية من CRM"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-005",
+      "manager": { "title": "مدير المحاسبة والمالية", "code": "SHK-ROLE-FIN-001", "responsibilities": ["إقفال مالي", "التقارير المالية", "الزكاة والضرائب", "سلامة التدفق النقدي"] },
+      "employees": [
+        { "title": "محاسب عام", "count": 2, "tasks": ["القيود اليومية", "التسويات", "إقفال الشهر"] },
+        { "title": "محاسب زكاة وضريبة", "count": 1, "tasks": ["احتساب الزكاة", "الإقرارات", "التوافق النظامي"] },
+        { "title": "أمين خزينة", "count": 1, "tasks": ["الحركة النقدية", "المطابقات", "التسويات البنكية"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-004", "specialization": "محاسبة وزكاة", "dailyMissions": ["ترحيل القيود", "مراقبة السيولة", "تحذير الانحرافات"], "continuousStrengthening": ["تعلم من الإقفالات", "تحسين دقة التنبؤ النقدي", "تغذية من القوائم المالية"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-006",
+      "manager": { "title": "مدير سلاسل الإمداد", "code": "SHK-ROLE-SCM-001", "responsibilities": ["الموردون", "التخطيط", "المخزون", "التكامل مع اللوجستيات"] },
+      "employees": [
+        { "title": "مخطط طلب", "count": 2, "tasks": ["التنبؤ", "طلب التوريد", "التوازن بين الطلب والعرض"] },
+        { "title": "أخصائي مشتريات", "count": 2, "tasks": ["التفاوض", "أوامر الشراء", "تأهيل الموردين"] },
+        { "title": "منسق مخزون", "count": 2, "tasks": ["الجرد", "التسويات", "مستويات إعادة الطلب"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-005", "specialization": "Supply Chain", "dailyMissions": ["التنبؤ بالطلب", "تحليل الموردين", "تحذير تأخر الإمداد"], "continuousStrengthening": ["تعلم من lead times", "تحسين reorder points", "تغذية من التسليم الفعلي"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-007",
+      "manager": { "title": "مدير اللوجستيات", "code": "SHK-ROLE-LOG-001", "responsibilities": ["إدارة النقل", "التتبع", "التخليص", "تخفيض تكلفة الرحلات"] },
+      "employees": [
+        { "title": "منسق شحن", "count": 2, "tasks": ["إصدار أوامر الشحن", "تتبع الرحلات", "التنسيق مع الناقلين"] },
+        { "title": "أخصائي مستودعات", "count": 2, "tasks": ["التخزين", "الاستلام", "الصرف"] },
+        { "title": "مسؤول تخليص", "count": 1, "tasks": ["الجمارك", "الوثائق", "متابعة المنافذ"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-006", "specialization": "لوجستيات", "dailyMissions": ["تحسين المسارات", "تتبع الشحنات", "حساب تكلفة الرحلة"], "continuousStrengthening": ["تعلم من تأخيرات الشحن", "تحسين route engine", "تغذية من بيانات الوقود والمسافة"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-008",
+      "manager": { "title": "مدير العقود", "code": "SHK-ROLE-CON-001", "responsibilities": ["إدارة دورة حياة العقد", "تقليل المخاطر", "ضبط الشروط", "تكامل العقود مع العمليات"] },
+      "employees": [
+        { "title": "أخصائي عقود", "count": 2, "tasks": ["الصياغة", "المراجعة", "الأرشفة"] },
+        { "title": "مدقق التزامات", "count": 1, "tasks": ["متابعة الالتزامات", "التنبيهات", "سجلات الامتثال"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-007", "specialization": "عقود وامتثال", "dailyMissions": ["تحليل البنود", "تنبيه الانتهاء", "فحص المخاطر"], "continuousStrengthening": ["تعلم من النزاعات", "تحسين قوالب العقود", "تغذية من موافقات الإدارة"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-009",
+      "manager": { "title": "مدير التدريب", "code": "SHK-ROLE-TRN-001", "responsibilities": ["تصميم البرامج", "رفع الجاهزية", "قياس الأثر", "تطوير البوتات والأفراد"] },
+      "employees": [
+        { "title": "مصمم برامج تدريب", "count": 2, "tasks": ["إعداد المناهج", "التقييم", "تطوير المسارات"] },
+        { "title": "منسق LMS", "count": 1, "tasks": ["إدارة المنصة", "التسجيلات", "الشهادات"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-008", "specialization": "تعلم وتطوير", "dailyMissions": ["اقتراح دورات", "قياس الفجوات", "تحديث المعرفة"], "continuousStrengthening": ["تعلم من أداء المتدربين", "تغذية من تقييمات الدورات", "تحسين المسارات حسب المخرجات"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-010",
+      "manager": { "title": "مدير الهندسة التقنية", "code": "SHK-ROLE-ENG-001", "responsibilities": ["قيادة فرق البرمجيات", "اعتماد المعمارية", "رفع الموثوقية", "إدارة الإصدارات"] },
+      "employees": [
+        { "title": "مهندس Backend Node.js", "count": 3, "tasks": ["APIs", "الأمان", "تحسين الأداء"] },
+        { "title": "مهندس Frontend Web", "count": 2, "tasks": ["واجهات HTML/CSS/JS", "PWA", "تحسين UX"] },
+        { "title": "مهندس QA Automation", "count": 2, "tasks": ["اختبارات آلية", "تقارير العيوب", "Regression"] },
+        { "title": "مهندس DevOps", "count": 1, "tasks": ["CI/CD", "المراقبة", "النشر"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-009", "specialization": "هندسة برمجيات", "dailyMissions": ["Code review", "تحليل performance", "اقتراح refactoring موضعي", "متابعة الاختبارات"], "continuousStrengthening": ["تعلم من PRs", "تغذية من lint/test failures", "تحديث playbooks حسب الحوادث"] },
+      "subEngineeringTracks": ["علوم الحاسب", "هندسة البرمجيات", "DevOps", "جودة البرمجيات"]
+    },
+    {
+      "departmentId": "SHK-DEPT-011",
+      "manager": { "title": "مدير المعلومات وتقنية المعلومات", "code": "SHK-ROLE-IM-001", "responsibilities": ["حوكمة المعلومات", "إدارة الوصول", "البيانات المؤسسية", "الأرشفة"] },
+      "employees": [
+        { "title": "مهندس بيانات", "count": 2, "tasks": ["نمذجة البيانات", "ETL", "تنظيف الجودة"] },
+        { "title": "مسؤول حوكمة معلومات", "count": 1, "tasks": ["التصنيفات", "الصلاحيات", "سياسات البيانات"] },
+        { "title": "مسؤول أرشفة رقمية", "count": 1, "tasks": ["الأرشفة", "النسخ", "الاستعادة"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-010", "specialization": "أمن معلومات وصون بيانات", "dailyMissions": ["مراقبة الأمان", "تتبع الصلاحيات", "فحص التسرب"], "continuousStrengthening": ["تعلم من alerts", "تغذية من سياسات IAM", "تحسين قواعد الاكتشاف"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-012",
+      "manager": { "title": "مدير نظم المعلومات الإدارية", "code": "SHK-ROLE-MIS-001", "responsibilities": ["لوحات المؤشرات", "تحويل البيانات لقرارات", "تقارير الإدارة العليا"] },
+      "employees": [
+        { "title": "محلل BI", "count": 2, "tasks": ["لوحات KPIs", "تحليل الأعمال", "تقارير شهرية"] },
+        { "title": "محلل عمليات", "count": 1, "tasks": ["قياس الأداء", "تحليل الانحراف", "اقتراح التحسين"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-011", "specialization": "MIS وBI", "dailyMissions": ["إنتاج dashboards", "تنبيهات KPI", "تحليل الاتجاهات"], "continuousStrengthening": ["تعلم من قرارات الإدارة", "تغذية من جودة البيانات", "تحسين النماذج التحليلية"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-013",
+      "manager": { "title": "مدير IT والبنية التحتية", "code": "SHK-ROLE-IT-001", "responsibilities": ["الخوادم", "الشبكات", "النسخ الاحتياطي", "استمرارية الأعمال"] },
+      "employees": [
+        { "title": "مهندس شبكات", "count": 2, "tasks": ["VPN", "جدران الحماية", "التقسيم الشبكي"] },
+        { "title": "مسؤول أنظمة", "count": 2, "tasks": ["الخوادم", "الترقيات", "الصيانة"] },
+        { "title": "فني دعم ميداني", "count": 2, "tasks": ["أجهزة المستخدمين", "الاتصال", "الحوادث"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-012", "specialization": "IT Infrastructure", "dailyMissions": ["مراقبة uptime", "نسخ احتياطي", "تنبيه الأعطال"], "continuousStrengthening": ["تعلم من incidents", "تحسين runbooks", "تغذية من مراقبة الموارد"] },
+      "subEngineeringTracks": ["الشبكات", "البنية التحتية", "استمرارية الأعمال", "الدعم الفني"]
+    },
+    {
+      "departmentId": "SHK-DEPT-014",
+      "manager": { "title": "مدير البحث والتطوير والابتكار", "code": "SHK-ROLE-RND-001", "responsibilities": ["قيادة التجارب", "اختيار المبادرات", "تحويل الأبحاث لمنتجات"] },
+      "employees": [
+        { "title": "باحث تقني", "count": 2, "tasks": ["استكشاف التقنيات", "تجارب POC", "تقييم الجدوى"] },
+        { "title": "مهندس ابتكار", "count": 2, "tasks": ["النماذج الأولية", "التجريب", "التحسين"] },
+        { "title": "محلل سوق تقني", "count": 1, "tasks": ["رصد المنافسين", "تحليل الفرص", "دراسات الجدوى"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-013", "specialization": "بحث وابتكار", "dailyMissions": ["رصد تقنيات جديدة", "تلخيص أبحاث", "اقتراح POCs"], "continuousStrengthening": ["تعلم من نتائج التجارب", "تغذية من المشاريع الناجحة", "قياس ROI للمبادرات"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-015",
+      "manager": { "title": "مدير استقطاب المواهب", "code": "SHK-ROLE-TA-001", "responsibilities": ["التوظيف", "بناء قنوات المواهب", "اختيار المرشحين"] },
+      "employees": [
+        { "title": "أخصائي توظيف", "count": 2, "tasks": ["النشر", "الفرز", "المقابلات"] },
+        { "title": "منسق توظيف", "count": 1, "tasks": ["الجداول", "العروض الوظيفية", "المتابعة"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-014", "specialization": "استقطاب مواهب", "dailyMissions": ["فرز السير", "مطابقة المهارات", "اقتراح shortlist"], "continuousStrengthening": ["تعلم من جودة التعيينات", "تحسين matching model", "تغذية من تقييمات الأداء بعد التوظيف"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-016",
+      "manager": { "title": "مدير الموارد البشرية والموارد الرقمية", "code": "SHK-ROLE-HR-001", "responsibilities": ["سياسات الموارد", "الأداء", "الرواتب", "حوكمة البوتات"] },
+      "employees": [
+        { "title": "أخصائي موارد بشرية", "count": 2, "tasks": ["الملفات", "الإجازات", "التقييم"] },
+        { "title": "أخصائي رواتب", "count": 1, "tasks": ["الرواتب", "البدلات", "التأمينات"] },
+        { "title": "منسق موارد رقمية", "count": 1, "tasks": ["سجل البوتات", "أدوارها", "متابعة الإنتاجية"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-015", "specialization": "موارد بشرية", "dailyMissions": ["قياس الرضا", "متابعة الأداء", "إدارة ملفات الموارد"], "continuousStrengthening": ["تعلم من تقييمات الموظفين", "تحسين التوصيات التدريبية", "تغذية من turnover analytics"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-017",
+      "manager": { "title": "مدير علاقات العملاء", "code": "SHK-ROLE-CS-001", "responsibilities": ["رضا العملاء", "حل الشكاوى", "رفع الولاء", "ربط الخدمة بالمبيعات"] },
+      "employees": [
+        { "title": "أخصائي خدمة عملاء", "count": 4, "tasks": ["الرد", "الحل", "التصعيد"] },
+        { "title": "مشرف دعم", "count": 1, "tasks": ["مراقبة الجودة", "تدريب الفريق", "التصعيدات الحرجة"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-016", "specialization": "Customer Success", "dailyMissions": ["الردود الأولية", "تلخيص الحالات", "قياس الرضا"], "continuousStrengthening": ["تعلم من المحادثات", "تحسين قاعدة المعرفة", "تغذية من الشكاوى المتكررة"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-018",
+      "manager": { "title": "مدير العلاقات الحكومية", "code": "SHK-ROLE-GOV-001", "responsibilities": ["التراخيص", "العلاقات الرسمية", "الامتثال النظامي", "التواصل المؤسسي"] },
+      "employees": [
+        { "title": "أخصائي علاقات حكومية", "count": 2, "tasks": ["المعاملات", "المتابعة", "التحديثات النظامية"] },
+        { "title": "منسق تراخيص", "count": 1, "tasks": ["التجديد", "الأرشفة", "الوثائق"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-017", "specialization": "Gov Relations", "dailyMissions": ["تنبيه التراخيص", "تحديث المتطلبات", "إعداد الملفات"], "continuousStrengthening": ["تعلم من نتائج المعاملات", "تغذية من تغييرات الأنظمة", "تحسين checklists"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-019",
+      "manager": { "title": "مدير CRM", "code": "SHK-ROLE-CRM-001", "responsibilities": ["الاحتفاظ بالعملاء", "تقسيم القاعدة", "أتمتة المسارات", "رفع LTV"] },
+      "employees": [
+        { "title": "أخصائي CRM", "count": 2, "tasks": ["الحملات", "الشرائح", "الأتمتة"] },
+        { "title": "محلل ولاء", "count": 1, "tasks": ["تحليل churn", "NPS", "تحسين retention"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-018", "specialization": "CRM Automation", "dailyMissions": ["تحديث segments", "توقع churn", "تشغيل الحملات"], "continuousStrengthening": ["تعلم من retention outcomes", "تحسين LTV models", "تغذية من سلوك العملاء"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-020",
+      "manager": { "title": "مدير السلامة", "code": "SHK-ROLE-SAFE-001", "responsibilities": ["سياسات السلامة", "منع الحوادث", "جاهزية الطوارئ", "التكامل مع الجودة والعمليات"] },
+      "employees": [
+        { "title": "أخصائي سلامة", "count": 2, "tasks": ["الجولات", "التدقيق", "التقارير"] },
+        { "title": "منسق طوارئ", "count": 1, "tasks": ["خطط الإخلاء", "التمارين", "الاستجابة"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-019", "specialization": "سلامة وصحة مهنية", "dailyMissions": ["متابعة البلاغات", "تحليل المخاطر", "التذكير بالتدريبات"], "continuousStrengthening": ["تعلم من الحوادث", "تحسين قوائم الفحص", "تغذية من نتائج التدقيق"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-021",
+      "manager": { "title": "مدير الجودة", "code": "SHK-ROLE-QA-001", "responsibilities": ["ضمان الجودة", "التحسين المستمر", "مراقبة العيوب", "التوحيد المعياري"] },
+      "employees": [
+        { "title": "أخصائي جودة", "count": 2, "tasks": ["التدقيق", "تقارير الجودة", "متابعة CAPA"] },
+        { "title": "محلل تحسين مستمر", "count": 1, "tasks": ["Kaizen", "Six Sigma", "قياس الانحراف"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-020", "specialization": "Quality Assurance", "dailyMissions": ["تحليل العيوب", "قياس الجودة", "اقتراح CAPA"], "continuousStrengthening": ["تعلم من defect trends", "تحسين مؤشرات الجودة", "تغذية من نتائج التدقيق"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-022",
+      "manager": { "title": "مدير شؤون الموظفين الرقمية والبوتات", "code": "SHK-ROLE-DHR-001", "responsibilities": ["حوكمة الموارد البشرية الرقمية", "إدارة ملفات الموظفين والبوتات", "توزيع القدرات", "تعظيم الكفاءة المؤسسية"] },
+      "employees": [
+        { "title": "أخصائي موارد بشرية رقمية", "count": 2, "tasks": ["ملفات الموظفين", "الطلبات", "تقارير الحضور والأداء"] },
+        { "title": "منسق عمليات البوتات", "count": 2, "tasks": ["إسناد البوتات", "مراقبة جاهزية البوت", "متابعة كفاءة التشغيل"] },
+        { "title": "محلل إنتاجية الموارد", "count": 1, "tasks": ["تحليل الإنتاجية", "كشف الفجوات", "خطط التحسين"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-022", "specialization": "Digital HR & Bot Affairs", "dailyMissions": ["توازن الأحمال البشرية/الرقمية", "مراجعة الامتثال الوظيفي", "قياس إنتاجية الموارد"], "continuousStrengthening": ["تعلم من تقييمات الأداء", "تحسين توزيع المهام", "تغذية من نتائج التدريب"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-023",
+      "manager": { "title": "مدير الشؤون الإدارية الرقمية", "code": "SHK-ROLE-DADM-001", "responsibilities": ["رقمنة الإجراءات", "إدارة المراسلات والقرارات", "تحسين سير العمل الإداري", "ضبط دورة الموافقات"] },
+      "employees": [
+        { "title": "أخصائي معاملات رقمية", "count": 2, "tasks": ["إدخال المعاملات", "تتبع الموافقات", "إغلاق الطلبات"] },
+        { "title": "مراقب التزام إداري", "count": 1, "tasks": ["مطابقة السياسات", "تنبيه الانحرافات", "تقارير الامتثال"] },
+        { "title": "منسق أرشفة إدارية", "count": 1, "tasks": ["فهرسة الوثائق", "تدقيق الأرشيف", "استرجاع السجلات"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-023", "specialization": "Digital Administrative Affairs", "dailyMissions": ["تشغيل سير الموافقات", "تدقيق اكتمال المعاملات", "تسريع دورة الإجراءات"], "continuousStrengthening": ["تعلم من زمن إنجاز المعاملات", "تحسين قوالب الإجراءات", "تغذية من ملاحظات الإدارات"] }
+    },
+    {
+      "departmentId": "SHK-DEPT-024",
+      "manager": { "title": "مدير البنية الرقمية", "code": "SHK-ROLE-DINF-001", "responsibilities": ["قيادة بنية الشبكات والخوادم", "رفع الاعتمادية", "إدارة السحابة", "ربط الأنظمة المؤسسية"] },
+      "employees": [
+        { "title": "مهندس بنية رقمية", "count": 2, "tasks": ["تصميم topology", "تحسين الاعتمادية", "ضبط السعات"] },
+        { "title": "مهندس شبكات واتصالات", "count": 2, "tasks": ["إدارة LAN/WAN", "تأمين الاتصالات", "مراقبة الأداء"] },
+        { "title": "مهندس سحابة وخوادم", "count": 2, "tasks": ["إدارة الموارد السحابية", "تشغيل الخوادم", "النسخ الاحتياطي"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-024", "specialization": "Digital Infrastructure", "dailyMissions": ["مراقبة الاعتمادية", "تحليل الموارد", "تنفيذ تحسينات الأداء"], "continuousStrengthening": ["تعلم من incidents", "تحسين سياسات التوسعة", "تغذية من مؤشرات SLA/SLO"] },
+      "subEngineeringTracks": ["Network Core", "Cloud Infra", "Observability", "Capacity Engineering"]
+    },
+    {
+      "departmentId": "SHK-DEPT-025",
+      "manager": { "title": "مدير الصيانة", "code": "SHK-ROLE-MNT-001", "responsibilities": ["الصيانة الوقائية", "الصيانة التصحيحية", "إدارة البلاغات", "تقليل التوقفات"] },
+      "employees": [
+        { "title": "مهندس صيانة أنظمة", "count": 2, "tasks": ["الصيانة الدورية", "تصحيح الأعطال", "تقارير الجاهزية"] },
+        { "title": "فني صيانة ميداني", "count": 2, "tasks": ["تنفيذ أوامر العمل", "إصلاح الأعطال", "اختبارات ما بعد الصيانة"] },
+        { "title": "منسق أوامر عمل", "count": 1, "tasks": ["جدولة الصيانة", "متابعة SLA", "إغلاق التذاكر"] }
+      ],
+      "botAgent": { "botId": "SHK-BOT-025", "specialization": "Maintenance Automation", "dailyMissions": ["تشغيل خطط PM", "تحليل أسباب الأعطال", "اقتراح CAPA للصيانة"], "continuousStrengthening": ["تعلم من MTTR/MTBF", "تحسين أولويات البلاغات", "تغذية من نتائج اختبارات الجاهزية"] }
+    }
+  ],
+  "engineeringStructure": {
+    "title": "الهيكل الهندسي المقوّى لمنظومة شيخة",
+    "principle": "الإتقان + القوة + التخصص + الترابط التشغيلي",
+    "tracks": [
+      {
+        "id": "SHK-ENG-001",
+        "nameAr": "هندسة علوم الحاسب والبرمجيات",
+        "managerTitle": "رئيس هندسة البرمجيات",
+        "roles": ["Backend Engineer", "Frontend Engineer", "QA Engineer", "DevOps Engineer"],
+        "domains": ["Node.js", "Express.js", "Web APIs", "PWA", "WebSocket"],
+        "mission": "بناء قلب المنصة البرمجي وتشغيله بكفاءة عالية"
+      },
+      {
+        "id": "SHK-ENG-002",
+        "nameAr": "هندسة الشبكات والبنية التحتية",
+        "managerTitle": "رئيس هندسة الشبكات",
+        "roles": ["Network Engineer", "Systems Engineer", "Cloud Engineer", "Security Engineer"],
+        "domains": ["LAN/WAN", "VPC", "IAM", "Backups", "Monitoring"],
+        "mission": "حماية وربط وتشغيل البنية التحتية الرقمية"
+      },
+      {
+        "id": "SHK-ENG-003",
+        "nameAr": "هندسة سلاسل الإمداد والعمليات الصناعية",
+        "managerTitle": "رئيس هندسة العمليات وسلاسل الإمداد",
+        "roles": ["Industrial Engineer", "SCM Analyst", "Process Engineer", "Warehouse Systems Engineer"],
+        "domains": ["Demand Planning", "MRP", "Warehouse Flows", "Logistics Optimization"],
+        "mission": "ربط السوق الرقمي بالتدفق المادي للمعادن والسكراب"
+      },
+      {
+        "id": "SHK-ENG-004",
+        "nameAr": "هندسة المعادن والمصاهر والمصانع",
+        "managerTitle": "رئيس هندسة المعادن والعمليات الحرارية",
+        "roles": ["Metallurgical Engineer", "Smelter Process Engineer", "Factory Operations Engineer", "Quality Metallurgy Specialist"],
+        "domains": ["Metal Classification", "Melting Processes", "Alloy Quality", "Industrial Safety"],
+        "mission": "فهم القيمة الحقيقية للمعادن وربطها تجارياً وتشغيلياً"
+      },
+      {
+        "id": "SHK-ENG-005",
+        "nameAr": "هندسة السكراب وإعادة التدوير",
+        "managerTitle": "رئيس هندسة السكراب وإعادة التدوير",
+        "roles": ["Scrap Evaluation Engineer", "Recycling Engineer", "Sorting Specialist", "Yard Operations Engineer"],
+        "domains": ["Scrap Grading", "Sorting Automation", "Recycling Yield", "Environmental Safety"],
+        "mission": "تعظيم قيمة السكراب وتحويله لسلسلة قيمة رقمية قابلة للقياس"
+      },
+      {
+        "id": "SHK-ENG-006",
+        "nameAr": "هندسة البيانات والذكاء الاصطناعي",
+        "managerTitle": "رئيس هندسة البيانات والذكاء الاصطناعي",
+        "roles": ["Data Engineer", "ML Engineer", "BI Engineer", "Arabic NLP Engineer"],
+        "domains": ["BigQuery", "Forecasting", "LLM", "Pricing Models", "Document Intelligence"],
+        "mission": "تحويل البيانات والخبرة السوقية إلى قرار ذكي وقوة تنافسية"
+      }
+    ]
+  }
+}

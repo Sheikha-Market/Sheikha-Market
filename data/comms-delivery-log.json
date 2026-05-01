@@ -1,0 +1,27 @@
+[
+  {
+    "messageId": "msg_mlz9utm7_1809e66f",
+    "templateId": "password_reset",
+    "recipient": "0554942904",
+    "status": "failed",
+    "channels": [
+      {
+        "channel": "sms",
+        "success": false,
+        "reason": "paid_blocked_before_first_sale",
+        "status": "blocked_budget_guard",
+        "logId": "mlz9utm82pe1"
+      },
+      {
+        "channel": "email",
+        "success": false,
+        "status": "failed",
+        "provider": null,
+        "attempts": 0,
+        "logId": "mlz9utmbaotj"
+      }
+    ],
+    "attempts": 0,
+    "updatedAt": "2026-02-23T14:28:29.939Z"
+  }
+]

@@ -1,0 +1,366 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "created": "2026-03-11",
+    "source": "منظومة شيخة — قاعدة بيانات مراكز المعادن والسكراب",
+    "totalCenters": 89,
+    "coverage": "13 منطقة — 247 مدينة",
+    "lastUpdated": "2026-03-11T00:00:00Z"
+  },
+  "metals": {
+    "categories": [
+      {
+        "id": "M01",
+        "nameAr": "الفولاذ والحديد",
+        "nameEn": "Steel & Iron",
+        "hsCodes": ["7204", "7206", "7207", "7208", "7209", "7210", "7213", "7214", "7215", "7216", "7217", "7218", "7219", "7220"],
+        "recyclability": "99%",
+        "islamicNote": "وأنزلنا الحديد فيه بأس شديد ومنافع للناس (الحديد:25)",
+        "globalPrice_usd_per_ton": { "scrap": 420, "processed": 580, "premium": 680 },
+        "saudiDemand_annual_tons": 18500000,
+        "subTypes": [
+          { "id": "M01a", "nameAr": "خردة الحديد المشكّل", "nameEn": "HMS (Heavy Melting Scrap)", "grade": "A", "purity": "محدد 40-50mm", "priceRange": "400-460 USD/ton" },
+          { "id": "M01b", "nameAr": "صفائح الفولاذ الملفوف", "nameEn": "Shreddable Scrap", "grade": "B+", "purity": "نظيف غير ملون", "priceRange": "380-430 USD/ton" },
+          { "id": "M01c", "nameAr": "خردة الترنس", "nameEn": "Turnings & Borings", "grade": "C+", "purity": "نشارة وتقشيرات فولاذية", "priceRange": "280-340 USD/ton" },
+          { "id": "M01d", "nameAr": "خردة البناء والهدم", "nameEn": "C&D Steel Scrap", "grade": "B", "purity": "حديد التسليح والهياكل", "priceRange": "360-400 USD/ton" }
+        ]
+      },
+      {
+        "id": "M02",
+        "nameAr": "النحاس",
+        "nameEn": "Copper",
+        "hsCodes": ["7401", "7402", "7403", "7404", "7405", "7406", "7407", "7408", "7409", "7410"],
+        "recyclability": "100%",
+        "islamicNote": "النحاس من أكثر المعادن فيه بركة — يُنتج للأمة بلا هدر",
+        "globalPrice_usd_per_ton": { "scrap": 8200, "processed": 9500, "premium": 10800 },
+        "saudiDemand_annual_tons": 485000,
+        "subTypes": [
+          { "id": "M02a", "nameAr": "نحاس أسلاك نظيف", "nameEn": "Bare Bright Copper Wire", "grade": "A+", "purity": "99.9%", "priceRange": "8800-9200 USD/ton" },
+          { "id": "M02b", "nameAr": "نحاس أسلاك ملف", "nameEn": "Copper Enameled Wire", "grade": "B+", "purity": "95-97%", "priceRange": "7200-7800 USD/ton" },
+          { "id": "M02c", "nameAr": "صفائح وقضبان النحاس", "nameEn": "Copper Plate & Rod", "grade": "A", "purity": "98-99%", "priceRange": "8400-8900 USD/ton" },
+          { "id": "M02d", "nameAr": "النحاس المطلي والمختلط", "nameEn": "Mixed/Plated Copper", "grade": "C+", "purity": "60-80%", "priceRange": "5500-6200 USD/ton" }
+        ]
+      },
+      {
+        "id": "M03",
+        "nameAr": "الألمنيوم",
+        "nameEn": "Aluminum",
+        "hsCodes": ["7601", "7602", "7603", "7604", "7605", "7606", "7607", "7608", "7609"],
+        "recyclability": "95%",
+        "islamicNote": "إعادة تدوير الألمنيوم توفر 95% من الطاقة — من القصد وعدم الإسراف",
+        "globalPrice_usd_per_ton": { "scrap": 2100, "processed": 2650, "premium": 3100 },
+        "saudiDemand_annual_tons": 1850000,
+        "subTypes": [
+          { "id": "M03a", "nameAr": "ألمنيوم نظيف", "nameEn": "Clean Aluminum (6061/6063)", "grade": "A+", "purity": "99.7%", "priceRange": "2400-2800 USD/ton" },
+          { "id": "M03b", "nameAr": "خردة كاستن ألمنيوم", "nameEn": "Aluminum Castings", "grade": "B", "purity": "85-92%", "priceRange": "1800-2100 USD/ton" },
+          { "id": "M03c", "nameAr": "علب الألمنيوم", "nameEn": "Aluminum UBC (Cans)", "grade": "B+", "purity": "97-98%", "priceRange": "1900-2200 USD/ton" },
+          { "id": "M03d", "nameAr": "خردة الألمنيوم المختلطة", "nameEn": "Mixed Aluminum", "grade": "C", "purity": "70-85%", "priceRange": "1400-1700 USD/ton" }
+        ]
+      },
+      {
+        "id": "M04",
+        "nameAr": "الفولاذ المقاوم للصدأ",
+        "nameEn": "Stainless Steel",
+        "hsCodes": ["7218", "7219", "7220", "7221", "7222", "7223"],
+        "recyclability": "90%",
+        "globalPrice_usd_per_ton": { "scrap": 1450, "processed": 1850, "premium": 2200 },
+        "saudiDemand_annual_tons": 385000,
+        "subTypes": [
+          { "id": "M04a", "nameAr": "304 فولاذ", "nameEn": "304 Grade SS", "grade": "A+", "priceRange": "1600-1900 USD/ton" },
+          { "id": "M04b", "nameAr": "316 فولاذ بحري", "nameEn": "316 Marine Grade SS", "grade": "A+", "priceRange": "2000-2400 USD/ton" },
+          { "id": "M04c", "nameAr": "310 درجة حرارة عالية", "nameEn": "310 High Temp SS", "grade": "A", "priceRange": "1800-2200 USD/ton" }
+        ]
+      },
+      {
+        "id": "M05",
+        "nameAr": "الرصاص",
+        "nameEn": "Lead",
+        "hsCodes": ["7801", "7802", "7803", "7804"],
+        "recyclability": "99%",
+        "islamicNote": "يُعاد تدوير 99% من الرصاص عالمياً — نعمة تستدعي الحمد",
+        "globalPrice_usd_per_ton": { "scrap": 2050, "processed": 2350, "premium": 2600 },
+        "saudiDemand_annual_tons": 145000,
+        "subTypes": [
+          { "id": "M05a", "nameAr": "بطاريات الرصاص", "nameEn": "Lead-Acid Batteries", "grade": "A", "priceRange": "1800-2100 USD/ton" },
+          { "id": "M05b", "nameAr": "رصاص نظيف", "nameEn": "Soft Clean Lead", "grade": "A+", "priceRange": "2200-2500 USD/ton" }
+        ]
+      },
+      {
+        "id": "M06",
+        "nameAr": "الزنك",
+        "nameEn": "Zinc",
+        "hsCodes": ["7901", "7902"],
+        "recyclability": "80%",
+        "globalPrice_usd_per_ton": { "scrap": 2800, "processed": 3100, "premium": 3450 },
+        "saudiDemand_annual_tons": 285000,
+        "subTypes": [
+          { "id": "M06a", "nameAr": "خردة الزنك النظيفة", "nameEn": "Clean Zinc Dross", "grade": "A", "priceRange": "2900-3200 USD/ton" }
+        ]
+      },
+      {
+        "id": "M07",
+        "nameAr": "النيكل والتيتانيوم والمعادن النادرة",
+        "nameEn": "Nickel, Titanium & Rare Metals",
+        "hsCodes": ["7502", "8108"],
+        "recyclability": "75%",
+        "islamicNote": "معادن للصناعة المتقدمة — لكل أمة مستقبلها الصناعي",
+        "globalPrice_usd_per_ton": { "nickel": 16500, "titanium": 11500, "cobalt": 33000 },
+        "saudiStrategicNote": "Vision 2030 + NEOM يتطلبان احتياطيات استراتيجية",
+        "subTypes": [
+          { "id": "M07a", "nameAr": "نيكل نظيف", "nameEn": "Class 1 Nickel", "grade": "A+", "priceRange": "15000-18000 USD/ton" },
+          { "id": "M07b", "nameAr": "تيتانيوم طيران", "nameEn": "Aerospace Titanium", "grade": "A+", "priceRange": "10000-13000 USD/ton" }
+        ]
+      },
+      {
+        "id": "M08",
+        "nameAr": "المعادن الثمينة من الإلكترونيات",
+        "nameEn": "E-Waste Precious Metals",
+        "hsCodes": ["8549"],
+        "recyclability": "70%",
+        "islamicNote": "لا إسراف — المعدن في الجهاز المتقادم خير من ضياعه في التراب",
+        "globalPrice_usd_per_ton": { "gold": 62000000, "silver": 930000, "palladium": 47000000, "platinum": 31000000 },
+        "subTypes": [
+          { "id": "M08a", "nameAr": "أجهزة الحاسب والسيرفرات", "nameEn": "CPU/Server Boards", "grade": "A+", "yield_grams_per_ton": {"gold": 250, "silver": 1500, "palladium": 85} },
+          { "id": "M08b", "nameAr": "هواتف ذكية", "nameEn": "Mobile Phones", "grade": "A+", "yield_grams_per_ton": {"gold": 300, "silver": 2800, "palladium": 160} },
+          { "id": "M08c", "nameAr": "محولات كهربائية", "nameEn": "Transformers", "grade": "B", "yield_grams_per_ton": {"gold": 25, "silver": 500} }
+        ]
+      }
+    ]
+  },
+  "recyclingCenters": [
+    {
+      "id": "RC001",
+      "nameAr": "مركز شيخة للمعادن — الرياض المركزي",
+      "nameEn": "Sheikha Metals Hub — Riyadh Central",
+      "type": "مركز إقليمي رئيسي",
+      "tier": 1,
+      "regionId": "R01",
+      "cityId": "C001",
+      "location": { "lat": 24.5900, "lng": 46.6800, "address": "المدينة الصناعية الثانية، الرياض", "zone": "صناعية" },
+      "capacity_tons_monthly": 25000,
+      "metals": ["M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08"],
+      "services": ["شراء", "بيع", "تحليل مخبري", "توثيق شرعي", "شهادات إعادة تدوير", "نقل مجاني ≥10 طن"],
+      "certifications": ["SASO", "ISO_14001", "ISO_9001"],
+      "islamicCompliance": { "zakatEligible": true, "noRiba": true, "hawalaSup": true, "shariahAudit": "ربع سنوي" },
+      "contact": { "phone": "+966-11-SHEIKHA", "email": "riyadh@sheikha.top", "whatsapp": "+966-50-SHEIKHA" },
+      "operatingHours": "السبت-الخميس 7:00-22:00",
+      "status": "active"
+    },
+    {
+      "id": "RC002",
+      "nameAr": "مركز شيخة للمعادن — جدة البحري",
+      "nameEn": "Sheikha Metals Hub — Jeddah Port",
+      "type": "مركز إقليمي رئيسي",
+      "tier": 1,
+      "regionId": "R02",
+      "cityId": "C020",
+      "location": { "lat": 21.4858, "lng": 39.1925, "address": "ميناء جدة الإسلامي، المنطقة الصناعية", "zone": "ميناء-صناعية" },
+      "capacity_tons_monthly": 30000,
+      "metals": ["M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08"],
+      "services": ["شراء", "بيع", "تصدير دولي", "تحليل مخبري", "توثيق شرعي", "تخليص جمركي"],
+      "certifications": ["SASO", "ISO_14001", "ISO_9001", "ISPM15"],
+      "islamicCompliance": { "zakatEligible": true, "noRiba": true, "hawalaSup": true, "shariahAudit": "شهري" },
+      "contact": { "phone": "+966-12-SHEIKHA", "email": "jeddah@sheikha.top" },
+      "operatingHours": "السبت-الخميس 6:00-22:00",
+      "status": "active"
+    },
+    {
+      "id": "RC003",
+      "nameAr": "مركز شيخة للمعادن — الجبيل الصناعية",
+      "nameEn": "Sheikha Metals Hub — Jubail Industrial",
+      "type": "مركز صناعي متخصص",
+      "tier": 1,
+      "regionId": "R04",
+      "cityId": "C041",
+      "location": { "lat": 27.0174, "lng": 49.6654, "address": "المدينة الصناعية الثانية، الجبيل", "zone": "صناعية-ثقيلة" },
+      "capacity_tons_monthly": 45000,
+      "specialization": "فولاذ مقاوم للصدأ، نيكل، تيتانيوم، معادن الصناعة الثقيلة",
+      "metals": ["M01", "M04", "M06", "M07"],
+      "services": ["شراء كميات كبيرة", "تصنيف متقدم", "مختبر متخصص", "شراكات SABIC/أرامكو"],
+      "certifications": ["SASO", "ISO_14001", "ISO_9001", "OHSAS_18001"],
+      "islamicCompliance": { "zakatEligible": true, "noRiba": true, "shariahAudit": "ربع سنوي" },
+      "contact": { "email": "jubail@sheikha.top" },
+      "operatingHours": "24/7",
+      "status": "active"
+    },
+    {
+      "id": "RC004",
+      "nameAr": "مركز شيخة — المدينة المنورة",
+      "nameEn": "Sheikha Hub — Madinah",
+      "type": "مركز إقليمي",
+      "tier": 2,
+      "regionId": "R03",
+      "cityId": "C030",
+      "location": { "lat": 24.4672, "lng": 39.6150, "address": "المنطقة الصناعية، المدينة المنورة", "zone": "صناعية" },
+      "capacity_tons_monthly": 8000,
+      "metals": ["M01", "M02", "M03", "M05"],
+      "services": ["شراء", "بيع", "توثيق شرعي"],
+      "islamicCompliance": { "zakatEligible": true, "noRiba": true, "shariahAudit": "شهري" },
+      "contact": { "email": "madinah@sheikha.top" },
+      "operatingHours": "السبت-الخميس 8:00-20:00",
+      "status": "active"
+    },
+    {
+      "id": "RC005",
+      "nameAr": "مركز شيخة — ينبع الصناعية",
+      "nameEn": "Sheikha Hub — Yanbu Industrial",
+      "type": "مركز صناعي",
+      "tier": 2,
+      "regionId": "R03",
+      "cityId": "C031",
+      "location": { "lat": 24.0904, "lng": 38.0618, "address": "المدينة الصناعية، ينبع", "zone": "صناعية-بتروكيماوية" },
+      "capacity_tons_monthly": 12000,
+      "metals": ["M01", "M04", "M06"],
+      "services": ["شراء كميات صناعية", "معالجة بتروكيماويات"],
+      "islamicCompliance": { "noRiba": true },
+      "contact": { "email": "yanbu@sheikha.top" },
+      "operatingHours": "السبت-الخميس 7:00-21:00",
+      "status": "active"
+    },
+    {
+      "id": "RC006",
+      "nameAr": "مركز شيخة — بريدة القصيم",
+      "nameEn": "Sheikha Hub — Buraydah Qassim",
+      "type": "مركز إقليمي",
+      "tier": 2,
+      "regionId": "R05",
+      "cityId": "C050",
+      "location": { "lat": 26.3260, "lng": 43.9754, "address": "المدينة الصناعية، بريدة", "zone": "صناعية" },
+      "capacity_tons_monthly": 6500,
+      "metals": ["M01", "M02", "M03"],
+      "services": ["شراء", "بيع", "توثيق"],
+      "islamicCompliance": { "zakatEligible": true, "noRiba": true },
+      "contact": { "email": "qassim@sheikha.top" },
+      "operatingHours": "السبت-الخميس 8:00-20:00",
+      "status": "active"
+    },
+    {
+      "id": "RC007",
+      "nameAr": "مركز شيخة — خميس مشيط عسير",
+      "nameEn": "Sheikha Hub — Khamis Mushait Asir",
+      "type": "مركز إقليمي",
+      "tier": 2,
+      "regionId": "R06",
+      "cityId": "C061",
+      "location": { "lat": 18.3034, "lng": 42.7292, "address": "المنطقة الصناعية، خميس مشيط", "zone": "صناعية" },
+      "capacity_tons_monthly": 5500,
+      "metals": ["M01", "M02", "M03"],
+      "services": ["شراء", "بيع", "خدمات الجنوب"],
+      "islamicCompliance": { "noRiba": true },
+      "contact": { "email": "asir@sheikha.top" },
+      "operatingHours": "السبت-الخميس 8:00-21:00",
+      "status": "active"
+    },
+    {
+      "id": "RC008",
+      "nameAr": "مركز شيخة — جازان الصناعي",
+      "nameEn": "Sheikha Hub — Jazan Industrial",
+      "type": "مركز صناعي",
+      "tier": 2,
+      "regionId": "R12",
+      "cityId": "C120",
+      "location": { "lat": 16.8892, "lng": 42.5611, "address": "المجمع الصناعي، جازان", "zone": "صناعية-صلب" },
+      "capacity_tons_monthly": 18000,
+      "specialization": "فولاذ مجمع جازان، خام الحديد",
+      "metals": ["M01", "M03"],
+      "services": ["شراء من المجمع", "بيع محلي ودولي", "شراكات أرامكو جازان"],
+      "islamicCompliance": { "noRiba": true },
+      "contact": { "email": "jazan@sheikha.top" },
+      "operatingHours": "24/7",
+      "status": "active"
+    },
+    {
+      "id": "RC009",
+      "nameAr": "مركز شيخة — تبوك مستقبل نيوم",
+      "nameEn": "Sheikha Hub — Tabuk NEOM Future",
+      "type": "مركز مستقبلي استراتيجي",
+      "tier": 1,
+      "regionId": "R07",
+      "cityId": "C070",
+      "location": { "lat": 28.3838, "lng": 36.5552, "address": "المنطقة الصناعية، تبوك", "zone": "صناعية-مستقبلية" },
+      "capacity_tons_monthly": 35000,
+      "futureCapacity_tons_monthly": 150000,
+      "specialization": "مدخلات نيوم — ألمنيوم، تيتانيوم، فولاذ عالي الدقة",
+      "metals": ["M01", "M03", "M04", "M07"],
+      "services": ["استقبال كميات ضخمة", "تصنيف متقدم", "شراكة نيوم"],
+      "islamicCompliance": { "noRiba": true, "shariahAudit": "شهري" },
+      "contact": { "email": "tabuk@sheikha.top" },
+      "operatingHours": "السبت-الخميس 7:00-22:00",
+      "status": "under-development",
+      "expectedLaunch": "2027-Q1"
+    },
+    {
+      "id": "RC010",
+      "nameAr": "مركز شيخة — حائل الشمال",
+      "nameEn": "Sheikha Hub — Ha'il North",
+      "tier": 3,
+      "regionId": "R08",
+      "cityId": "C080",
+      "capacity_tons_monthly": 3500,
+      "metals": ["M01", "M02"],
+      "islamicCompliance": { "noRiba": true },
+      "contact": { "email": "hail@sheikha.top" },
+      "status": "active"
+    },
+    {
+      "id": "RC011",
+      "nameAr": "مركز شيخة — نجران المناجم",
+      "nameEn": "Sheikha Hub — Najran Mining",
+      "tier": 2,
+      "regionId": "R11",
+      "cityId": "C110",
+      "capacity_tons_monthly": 4500,
+      "specialization": "تجميع مخرجات المناجم — نحاس، ذهب، معادن نادرة",
+      "metals": ["M02", "M07", "M08"],
+      "islamicCompliance": { "noRiba": true, "zakatEligible": true },
+      "contact": { "email": "najran@sheikha.top" },
+      "status": "active"
+    },
+    {
+      "id": "RC012",
+      "nameAr": "مركز شيخة — سكاكا الجوف",
+      "nameEn": "Sheikha Hub — Sakakah Al Jouf",
+      "tier": 3,
+      "regionId": "R10",
+      "cityId": "C100",
+      "capacity_tons_monthly": 2800,
+      "metals": ["M01", "M02"],
+      "islamicCompliance": { "noRiba": true },
+      "contact": { "email": "jouf@sheikha.top" },
+      "status": "active"
+    }
+  ],
+  "scrapMarketplaces": {
+    "description": "أسواق السكراب التقليدية المُرقمنة في منظومة شيخة",
+    "totalMarkets": 45,
+    "markets": [
+      { "id": "SM001", "nameAr": "سوق الحراج — الرياض", "cityId": "C001", "type": "مفتوح", "digitized": true, "weeklyVolume_tons": 1200 },
+      { "id": "SM002", "nameAr": "سوق الخردة الدائري — الرياض", "cityId": "C001", "type": "متخصص", "digitized": true, "weeklyVolume_tons": 850 },
+      { "id": "SM003", "nameAr": "سوق الخردة الجبيل الصناعي", "cityId": "C041", "type": "صناعي ثقيل", "digitized": true, "weeklyVolume_tons": 3500 },
+      { "id": "SM004", "nameAr": "سوق خردة ميناء جدة", "cityId": "C020", "type": "ميناء-تصدير", "digitized": true, "weeklyVolume_tons": 2100 },
+      { "id": "SM005", "nameAr": "سوق الخردة المدينة الصناعي", "cityId": "C030", "type": "إقليمي", "digitized": true, "weeklyVolume_tons": 450 },
+      { "id": "SM006", "nameAr": "سوق خردة ينبع البتروكيماوية", "cityId": "C031", "type": "بتروكيماوي متخصص", "digitized": true, "weeklyVolume_tons": 680 },
+      { "id": "SM007", "nameAr": "سوق خردة الدمام الصناعي", "cityId": "C040", "type": "صناعي", "digitized": true, "weeklyVolume_tons": 950 },
+      { "id": "SM008", "nameAr": "حراج بريدة القصيم", "cityId": "C050", "type": "إقليمي", "digitized": false, "weeklyVolume_tons": 280 },
+      { "id": "SM009", "nameAr": "سوق خردة جازان الصناعي", "cityId": "C120", "type": "صناعي فولاذ", "digitized": true, "weeklyVolume_tons": 1100 },
+      { "id": "SM010", "nameAr": "سوق خردة خميس مشيط", "cityId": "C061", "type": "إقليمي", "digitized": false, "weeklyVolume_tons": 320 }
+    ]
+  },
+  "islamicPrinciples": {
+    "quranVerses": [
+      { "surah": "الحديد", "verse": 25, "arabic": "وَأَنزَلْنَا الْحَدِيدَ فِيهِ بَأْسٌ شَدِيدٌ وَمَنَافِعُ لِلنَّاسِ", "application": "أساس صناعة المعادن — فيه قوة وخير للناس" },
+      { "surah": "سبأ", "verse": "10-11", "arabic": "وَأَلَنَّا لَهُ الْحَدِيدَ — أَنِ اعْمَلْ سَابِغَاتٍ وَقَدِّرْ فِي السَّرْدِ", "application": "التصنيع الدقيق والقياس المنضبط في تجارة المعادن" },
+      { "surah": "الكهف", "verse": 96, "arabic": "آتُونِي زُبَرَ الْحَدِيدِ", "application": "تجميع المعادن وإعادة استخدامها — سنة ذي القرنين" },
+      { "surah": "الأعراف", "verse": 160, "arabic": "وَلَا تُفْسِدُوا فِي الْأَرْضِ بَعْدَ إِصْلَاحِهَا", "application": "البيئة والاستدامة — لا تلوث ولا هدر" },
+      { "surah": "البقرة", "verse": 275, "arabic": "وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا", "application": "صحة العقود والتسعير العادل في سوق المعادن" }
+    ],
+    "hadith": [
+      { "text": "المسلمون على شروطهم", "source": "أبو داود", "application": "الوفاء بعقود البيع والشراء" },
+      { "text": "البيعان بالخيار ما لم يتفرقا", "source": "متفق عليه", "application": "حق الخيار في صفقات المعادن" },
+      { "text": "لا ضرر ولا ضرار", "source": "ابن ماجه", "application": "منع الغش في الوزن والمواصفات" },
+      { "text": "الوزن للمدينة والمكيال لأهل مكة", "source": "مسلم", "application": "معايير القياس الموحدة" }
+    ],
+    "prohibited": ["الغش في الجودة والوزن", "الاحتكار وتلاعب الأسعار", "بيع ما لا يملك", "الربا في التمويل", "النجش وتحريض السعر"],
+    "encouraged": ["الصدق في الوصف", "دقة الوزن والقياس", "الخيار والشفافية", "التراضي المتبادل", "الزكاة على مخزون المعادن"]
+  }
+}

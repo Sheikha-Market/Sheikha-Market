@@ -1,0 +1,46 @@
+{
+    "program": "SHEIKHA_MUDGHA_CORE",
+    "version": "1.0.0",
+    "identity": {
+        "nameAr": "شيخة مضغة العالم والكون",
+        "mission": "صلاح أعمال المنظومة بصلاح القلب التشغيلي والحوكمي",
+        "primaryLanguage": "ar",
+        "defaultLocale": "ar-SA"
+    },
+    "reference": {
+        "source": [
+            "quran",
+            "sunnah"
+        ],
+        "principle": "صلاح الجوارح بصلاح القلب"
+    },
+    "governance": {
+        "controls": [
+            "no-riba",
+            "no-gharar",
+            "no-fraud",
+            "no-harm"
+        ],
+        "values": [
+            "tawheed",
+            "amanah",
+            "adl",
+            "ihsan",
+            "rahmah"
+        ]
+    },
+    "heartLayers": [
+        "heart-of-purpose",
+        "heart-of-trust",
+        "heart-of-justice",
+        "heart-of-knowledge",
+        "heart-of-resilience"
+    ],
+    "targets": {
+        "availability": "99.99%",
+        "apiP95Ms": 50,
+        "apiP99Ms": 150,
+        "rtoMinutes": 15,
+        "rpoMinutes": 5
+    }
+}

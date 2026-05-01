@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>التجربة التشغيلية | منظومة شيخة — SHEIKHA</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#D4AF37;--gold-light:#F5E6A3;--copper:#B87333;--bg:#050810;--bg2:#0a1628;--bg3:#111d35;--text:#f8fafc;--text2:#94a3b8;--text3:#64748b;--green:#22c55e;--blue:#3b82f6;--red:#ef4444;--amber:#f59e0b;--radius:16px}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.header{text-align:center;padding:40px 20px 30px;background:linear-gradient(180deg,var(--bg2),transparent)}
+.header h1{font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header .sub{color:var(--text2);margin-top:8px}
+.badge{display:inline-block;background:rgba(212,175,55,.1);color:var(--gold);padding:8px 24px;border-radius:20px;font-weight:700;border:1px solid rgba(212,175,55,.2);margin-top:12px;font-size:1.1rem}
+.banner{background:linear-gradient(135deg,rgba(212,175,55,.12),rgba(184,115,51,.06));border:1px solid rgba(212,175,55,.25);border-radius:12px;padding:16px 24px;text-align:center;margin-bottom:24px;color:var(--gold);font-size:1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px}
+.card{background:var(--bg2);border-radius:var(--radius);padding:20px;border:1px solid rgba(255,255,255,.06);text-align:center}
+.card .val{font-size:2rem;font-weight:900;color:var(--gold)}
+.card .lbl{font-size:.82rem;color:var(--text3);margin-top:4px}
+.card .target{font-size:.78rem;color:var(--text2);margin-top:2px}
+.card .status{font-size:.75rem;margin-top:6px;padding:3px 10px;border-radius:8px;display:inline-block}
+.card .status.excellent{background:rgba(34,197,94,.15);color:var(--green)}
+.card .status.on_track{background:rgba(59,130,246,.15);color:var(--blue)}
+.card .status.needs_work{background:rgba(245,158,11,.15);color:var(--amber)}
+.card .status.critical{background:rgba(239,68,68,.15);color:var(--red)}
+.section{background:var(--bg2);border-radius:var(--radius);padding:24px;margin-bottom:20px;border:1px solid rgba(255,255,255,.05)}
+.section h2{font-size:1.3rem;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.progress-bar{height:20px;background:var(--bg);border-radius:10px;overflow:hidden;position:relative;margin:16px 0}
+.progress-bar .fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width 1s ease;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--bg)}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 12px;text-align:right;border-bottom:1px solid rgba(255,255,255,.05)}
+th{color:var(--gold);font-weight:700;font-size:.85rem}
+td{color:var(--text2);font-size:.88rem}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:6px}
+.dot.g{background:var(--green)}.dot.r{background:var(--red)}.dot.a{background:var(--amber)}
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rule-card{background:var(--bg3);border-radius:12px;padding:14px}
+.rule-card .label{font-weight:700;margin-bottom:4px}
+.rule-card .value{color:var(--gold);font-weight:600}
+.allowed{color:var(--green)}.blocked{color:var(--red)}
+.loading{text-align:center;padding:60px;color:var(--text2)}
+.spinner{width:40px;height:40px;border:3px solid var(--bg3);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.smi-section{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.smi-item{background:var(--bg3);border-radius:12px;padding:14px;text-align:center}
+.smi-item .name{font-size:.82rem;color:var(--text2);margin-bottom:6px}
+.smi-item .bar{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-bottom:4px}
+.smi-item .bar .fill{height:100%;border-radius:3px}
+.smi-item .score{font-size:.9rem;font-weight:700}
+@media(max-width:768px){.rules-grid{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>🧪 التجربة التشغيلية</h1>
+    <div class="sub">لوحة مراقبة الدخول التجريبي — Pilot Entry Dashboard</div>
+    <div class="badge" id="modeBadge">⏳ جاري التحميل...</div>
+</div>
+<div class="container" id="app">
+    <div class="loading"><div class="spinner"></div>جاري تحميل بيانات التجربة...</div>
+</div>
+<script>
+async function load() {
+    const [status, kpis, smi, health] = await Promise.all([
+        fetch('/api/pilot/status').then(r=>r.json()).catch(()=>({success:false})),
+        fetch('/api/pilot/kpis').then(r=>r.json()).catch(()=>({success:false})),
+        fetch('/api/pilot/smi').then(r=>r.json()).catch(()=>({success:false})),
+        fetch('/api/pilot/health').then(r=>r.json()).catch(()=>({success:false}))
+    ]);
+
+    const app = document.getElementById('app');
+    const badge = document.getElementById('modeBadge');
+
+    if (!status.success) {
+        app.innerHTML = '<div class="section" style="text-align:center;padding:40px"><h2>⚠️ محرك التجربة غير متوفر</h2></div>';
+        badge.textContent = '❌ غير متوفر';
+        return;
+    }
+
+    const mode = status.mode || 'PILOT';
+    const pilot = status.pilot || {};
+    const rules = status.rules || {};
+    const msg = status.message || {};
+
+    badge.textContent = `🧪 ${mode} — اليوم ${pilot.elapsedDays || 0} من ${pilot.durationDays || 14}`;
+
+    let html = '';
+
+    // Banner
+    html += `<div class="banner">${msg.ar || 'سوق شيخة في وضع تجريبي'}</div>`;
+
+    // Progress
+    html += `<div class="section"><h2>📊 تقدم التجربة</h2>
+        <div class="progress-bar"><div class="fill" style="width:${pilot.progress||0}%">${pilot.progress||0}%</div></div>
+        <div style="display:flex;justify-content:space-between;color:var(--text3);font-size:.82rem">
+            <span>البداية: ${pilot.startDate || '—'}</span>
+            <span>المتبقي: ${pilot.remainingDays || 0} يوم</span>
+            <span>النهاية: ${pilot.endDate || '—'}</span>
+        </div>
+    </div>`;
+
+    // KPIs
+    const targets = kpis.targets || {};
+    html += '<div class="grid">';
+    const kpiMap = [
+        {key:'registeredUsers', icon:'👤', label:'المستخدمين المسجلين'},
+        {key:'registeredCompanies', icon:'🏢', label:'الشركات المسجلة'},
+        {key:'avgSessionMinutes', icon:'⏱️', label:'متوسط التفاعل (دقيقة)'},
+        {key:'criticalErrors', icon:'🔴', label:'أعطال حرجة'},
+        {key:'securityBreaches', icon:'🔐', label:'اختراقات أمنية'},
+        {key:'storageOverflow', icon:'💾', label:'تضخم تخزين'}
+    ];
+    kpiMap.forEach(k => {
+        const t = targets[k.key] || {};
+        const statusCls = t.status || 'on_track';
+        const statusLabel = {excellent:'ممتاز',achieved:'تحقق',on_track:'في المسار',needs_work:'يحتاج عمل',critical:'حرج'}[statusCls] || statusCls;
+        html += `<div class="card">
+            <div style="font-size:1.4rem;margin-bottom:4px">${k.icon}</div>
+            <div class="val">${typeof t.current === 'number' ? t.current : t.current || '0'}</div>
+            <div class="lbl">${k.label}</div>
+            <div class="target">الهدف: ${t.target || '—'}</div>
+            <div class="status ${statusCls}">${statusLabel}</div>
+        </div>`;
+    });
+    html += '</div>';
+
+    // Traffic
+    const traffic = kpis.traffic || {};
+    html += `<div class="section"><h2>📈 حركة المرور</h2><div class="grid">
+        <div class="card"><div class="val">${traffic.totalRequests || 0}</div><div class="lbl">إجمالي الطلبات</div></div>
+        <div class="card"><div class="val">${traffic.todayRequests || 0}</div><div class="lbl">اليوم</div></div>
+        <div class="card"><div class="val">${traffic.weekRequests || 0}</div><div class="lbl">هذا الأسبوع</div></div>
+        <div class="card"><div class="val">${traffic.uniqueVisitors || 0}</div><div class="lbl">زوار فريدون</div></div>
+    </div>`;
+    // Top Pages
+    const topP = traffic.topPages || [];
+    if (topP.length) {
+        html += '<table><tr><th>الصفحة</th><th>الزيارات</th></tr>';
+        topP.slice(0,7).forEach(p => { html += `<tr><td>${p.page}</td><td>${p.views}</td></tr>`; });
+        html += '</table>';
+    }
+    html += '</div>';
+
+    // Rules
+    html += `<div class="section"><h2>📋 قواعد الوضع التجريبي</h2><div class="rules-grid">`;
+    const ruleLabels = {
+        market:'السوق',payments:'الدفع',contracts:'العقود',selling:'البيع',buying:'الشراء',
+        registration:'التسجيل',browsing:'التصفح',marketing:'التسويق',leads:'العملاء المحتملين',
+        security:'الأمان',shariaAudit:'التدقيق الشرعي',logging:'التسجيل'
+    };
+    Object.entries(rules).forEach(([k,v]) => {
+        const isOn = ['ENABLED','FULL','ON','READ_REGISTER','STRICT'].includes(v);
+        html += `<div class="rule-card"><div class="label">${ruleLabels[k]||k}</div>
+            <div class="value ${isOn?'allowed':'blocked'}">${isOn?'✅':'❌'} ${v}</div></div>`;
+    });
+    html += '</div></div>';
+
+    // SMI
+    if (smi.success && smi.smi) {
+        const s = smi.smi || smi;
+        const details = s.details || {};
+        html += `<div class="section"><h2>📊 مؤشر النضج SMI — ${s.total || 0}/100 (${s.grade || ''})</h2><div class="smi-section">`;
+        Object.values(details).forEach(d => {
+            const pct = d.weight > 0 ? Math.round((d.weighted/d.weight)*100) : 0;
+            const color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--gold)' : 'var(--amber)';
+            html += `<div class="smi-item"><div class="name">${d.label}</div>
+                <div class="bar"><div class="fill" style="width:${pct}%;background:${color}"></div></div>
+                <div class="score" style="color:${color}">${d.weighted}/${d.weight}</div></div>`;
+        });
+        html += '</div></div>';
+    }
+
+    // System Health
+    if (health.success) {
+        const h = health;
+        html += `<div class="section"><h2>🩺 صحة النظام</h2><div class="grid">
+            <div class="card"><div class="val">${h.memory?.heapUsed || '—'}</div><div class="lbl">ذاكرة مستخدمة</div></div>
+            <div class="card"><div class="val">${h.uptime?.formatted || '—'}</div><div class="lbl">وقت التشغيل</div></div>
+            <div class="card"><div class="val">${h.requests?.ratePerMinute || 0}</div><div class="lbl">طلب/دقيقة</div></div>
+            <div class="card"><div class="val">${h.errors?.errorRate || '0%'}</div><div class="lbl">نسبة الأخطاء</div>
+                <div class="status ${h.errors?.status==='clean'?'excellent':'needs_work'}">${h.errors?.status || '—'}</div></div>
+        </div></div>`;
+    }
+
+    // Blocked
+    html += `<div style="text-align:center;padding:16px;color:var(--text3);font-size:.82rem">
+        الطلبات المحظورة: <strong style="color:var(--amber)">${kpis.blockedRequests || 0}</strong>
+    </div>`;
+
+    // Footer
+    html += `<div style="text-align:center;padding:30px 0;color:var(--text3);font-size:.82rem">
+        بسم الله توكلنا على الله — منظومة وسوق شيخة — SHEIKHA<br>
+        ${new Date().toLocaleDateString('ar-SA')} | SHEIKHA-DEV v1.6
+    </div>`;
+
+    app.innerHTML = html;
+}
+
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>

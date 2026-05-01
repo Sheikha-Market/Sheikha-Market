@@ -1,0 +1,822 @@
+{
+  "metadata": {
+    "title": "السوق السعودي للمعادن والسكراب - بيانات مجهزة مسبقاً",
+    "version": "1.0",
+    "lastUpdated": "2026-02-05",
+    "totalCompanies": 85,
+    "sectors": 8
+  },
+
+  "sectors": {
+    "mining": {
+      "nameAr": "التعدين والمناجم",
+      "nameEn": "Mining",
+      "icon": "⛏️",
+      "color": "#D4AF37",
+      "companiesCount": 15
+    },
+    "scrap": {
+      "nameAr": "السكراب وإعادة التدوير",
+      "nameEn": "Scrap & Recycling",
+      "icon": "♻️",
+      "color": "#10B981",
+      "companiesCount": 20
+    },
+    "gold": {
+      "nameAr": "الذهب والمعادن الثمينة",
+      "nameEn": "Gold & Precious Metals",
+      "icon": "💎",
+      "color": "#FFD700",
+      "companiesCount": 12
+    },
+    "steel": {
+      "nameAr": "الحديد والصلب",
+      "nameEn": "Iron & Steel",
+      "icon": "🔩",
+      "color": "#6B7280",
+      "companiesCount": 15
+    },
+    "aluminum": {
+      "nameAr": "الألمنيوم",
+      "nameEn": "Aluminum",
+      "icon": "🪶",
+      "color": "#9CA3AF",
+      "companiesCount": 8
+    },
+    "logistics": {
+      "nameAr": "النقل واللوجستيات",
+      "nameEn": "Logistics & Transport",
+      "icon": "🚚",
+      "color": "#3B82F6",
+      "companiesCount": 10
+    },
+    "storage": {
+      "nameAr": "التخزين والمستودعات",
+      "nameEn": "Storage & Warehousing",
+      "icon": "🏭",
+      "color": "#8B5CF6",
+      "companiesCount": 5
+    }
+  },
+
+  "preloadedCompanies": [
+    {
+      "companyId": "MAADEN-001",
+      "nameAr": "شركة التعدين العربية السعودية (معادن)",
+      "nameEn": "Saudi Arabian Mining Company (Ma'aden)",
+      "sector": "mining",
+      "subSectors": ["gold", "aluminum", "phosphate", "copper"],
+      "logo": "🏔️",
+      "founded": 1997,
+      "headquarters": {
+        "city": "الرياض",
+        "address": "طريق الملك فهد",
+        "region": "الرياض"
+      },
+      "contacts": {
+        "phone": "+966-11-874-8000",
+        "website": "www.maaden.com.sa",
+        "email": "info@maaden.com.sa"
+      },
+      "registration": {
+        "crNumber": "1010164391",
+        "vatNumber": "300000000000003",
+        "listed": true,
+        "tadawulSymbol": "1211"
+      },
+      "profile": {
+        "vision": "أن نكون الشركة الرائدة عالمياً في مجال التعدين المستدام",
+        "mission": "استخراج ثروات المملكة المعدنية بطريقة مسؤولة ومستدامة",
+        "goals": [
+          "إنتاج 500,000 أوقية ذهب بحلول 2025",
+          "تحقيق 700,000 أوقية ذهب بحلول 2028",
+          "المساهمة في رؤية 2030"
+        ]
+      },
+      "businessUnits": [
+        {
+          "name": "الذهب والمعادن الأساسية",
+          "description": "6 مناجم ذهب + منجم نحاس",
+          "capacity": "407,000 أوقية ذهب سنوياً"
+        },
+        {
+          "name": "الألمنيوم",
+          "description": "تصدير لـ 22 دولة",
+          "capacity": "مليون طن سنوياً"
+        },
+        {
+          "name": "الفوسفات",
+          "description": "وعد الشمال ورأس الخير",
+          "capacity": "6 مليون طن سنوياً"
+        },
+        {
+          "name": "المعادن الصناعية",
+          "description": "البوكسيت والكاولين",
+          "capacity": "مليون طن سنوياً"
+        }
+      ],
+      "products": [
+        { "id": "P001", "name": "سبائك الذهب", "unit": "أوقية", "category": "gold" },
+        { "id": "P002", "name": "النحاس", "unit": "رطل", "category": "copper" },
+        { "id": "P003", "name": "الألمنيوم", "unit": "طن", "category": "aluminum" },
+        { "id": "P004", "name": "الفوسفات", "unit": "طن", "category": "phosphate" },
+        { "id": "P005", "name": "الأمونيا", "unit": "طن", "category": "chemicals" },
+        { "id": "P006", "name": "البوكسيت", "unit": "طن", "category": "minerals" },
+        { "id": "P007", "name": "الزنك", "unit": "طن", "category": "zinc" },
+        { "id": "P008", "name": "الفضة", "unit": "أوقية", "category": "silver" }
+      ],
+      "facilities": [
+        { "name": "منجم مهد الذهب", "type": "mine", "location": "المدينة المنورة", "status": "operational" },
+        { "name": "منجم بلغة", "type": "mine", "location": "المدينة المنورة", "status": "operational" },
+        { "name": "منجم الصخيبرات", "type": "mine", "location": "القصيم", "status": "operational" },
+        { "name": "منجم جبل صايد", "type": "mine", "location": "المدينة المنورة", "status": "operational" },
+        { "name": "منجم الأمار", "type": "mine", "location": "الرياض", "status": "operational" },
+        { "name": "منجم منصورة مسرة", "type": "mine", "location": "المدينة المنورة", "status": "development" },
+        { "name": "مصهر الألمنيوم", "type": "smelter", "location": "رأس الخير", "status": "operational" },
+        { "name": "مجمع الفوسفات", "type": "complex", "location": "وعد الشمال", "status": "operational" }
+      ],
+      "technology": {
+        "digitalMining": true,
+        "iot": true,
+        "ai": true,
+        "drones": true,
+        "automation": "high",
+        "erp": "SAP",
+        "systems": ["SAP S/4HANA", "IBM Maximo", "OSIsoft PI", "Hexagon Mining"]
+      },
+      "supplyChain": {
+        "suppliers": 500,
+        "customers": 200,
+        "exportCountries": 22,
+        "logistics": ["internal", "contracted"]
+      },
+      "financials": {
+        "revenue2024": "95 مليار ريال",
+        "employees": 17000,
+        "marketCap": "180 مليار ريال"
+      },
+      "gaps": [
+        { "area": "الرقمنة", "gap": "تحتاج تكامل أكثر مع شبكات التوزيع", "priority": "medium" },
+        { "area": "السكراب", "gap": "لا توجد شراكات واضحة لإعادة التدوير", "priority": "high" },
+        { "area": "التسويق", "gap": "السوق المحلي غير مستغل بالكامل", "priority": "medium" }
+      ],
+      "opportunities": [
+        "شراكة مع مراكز تجميع السكراب",
+        "تكامل مع منظومة شيخة للتسويق",
+        "خدمات لوجستية ذكية"
+      ],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "LAZURDE-002",
+      "nameAr": "شركة لازوردي للمجوهرات",
+      "nameEn": "L'azurde Company for Jewelry",
+      "sector": "gold",
+      "subSectors": ["jewelry", "precious_metals"],
+      "logo": "💎",
+      "founded": 1980,
+      "headquarters": {
+        "city": "الرياض",
+        "address": "طريق الملك فهد، برج المملكة",
+        "region": "الرياض"
+      },
+      "contacts": {
+        "phone": "+966-11-211-0033",
+        "website": "www.lazurde.com",
+        "email": "info@lazurde.com"
+      },
+      "registration": {
+        "crNumber": "1010190898",
+        "vatNumber": "300000000000004",
+        "listed": true,
+        "tadawulSymbol": "4011"
+      },
+      "profile": {
+        "vision": "أن نكون الخيار الأول للمجوهرات في العالم العربي",
+        "mission": "تقديم مجوهرات فاخرة بجودة عالمية",
+        "goals": [
+          "التوسع في أسواق الخليج",
+          "إطلاق 3 علامات تجارية جديدة",
+          "زيادة المبيعات الإلكترونية 50%"
+        ]
+      },
+      "brands": ["لازوردي", "إنستايل", "مس أل", "ويفز"],
+      "products": [
+        { "id": "LZ001", "name": "خواتم ذهب 21 قيراط", "unit": "قطعة", "category": "rings" },
+        { "id": "LZ002", "name": "أساور ذهب 18 قيراط", "unit": "قطعة", "category": "bracelets" },
+        { "id": "LZ003", "name": "سلاسل ذهب", "unit": "قطعة", "category": "chains" },
+        { "id": "LZ004", "name": "أقراط ألماس", "unit": "زوج", "category": "earrings" },
+        { "id": "LZ005", "name": "خواتم ألماس", "unit": "قطعة", "category": "diamond_rings" },
+        { "id": "LZ006", "name": "أطقم زفاف", "unit": "طقم", "category": "wedding_sets" }
+      ],
+      "facilities": [
+        { "name": "مصنع لازوردي الرياض", "type": "factory", "location": "الرياض", "status": "operational" },
+        { "name": "مركز التصميم", "type": "design_center", "location": "دبي", "status": "operational" }
+      ],
+      "technology": {
+        "ecommerce": true,
+        "pos": "Oracle Retail",
+        "erp": "SAP",
+        "cad_cam": true
+      },
+      "financials": {
+        "revenue2024": "2.5 مليار ريال",
+        "employees": 3000,
+        "stores": 300
+      },
+      "gaps": [
+        { "area": "المواد الخام", "gap": "اعتماد على استيراد الذهب", "priority": "high" },
+        { "area": "الرقمنة", "gap": "تحتاج تحسين تجربة العميل الرقمية", "priority": "medium" }
+      ],
+      "opportunities": [
+        "شراكة مع معادن للذهب المحلي",
+        "التكامل مع منظومة شيخة للتسويق"
+      ],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "SCRAPCITY-003",
+      "nameAr": "مدينة تجميع المعادن",
+      "nameEn": "Scrap Metal City",
+      "sector": "scrap",
+      "subSectors": ["collection", "recycling", "trading"],
+      "logo": "♻️",
+      "founded": 2012,
+      "headquarters": {
+        "city": "الرياض",
+        "address": "الفرسان، طريق الرياض الدمام السريع",
+        "region": "الرياض"
+      },
+      "contacts": {
+        "phone": "+966-53-500-2076",
+        "website": "www.scrapmetalcity.com",
+        "email": "info@scrapmetalcity.com"
+      },
+      "profile": {
+        "vision": "أن نكون المركز الأول لتجميع المعادن في المنطقة",
+        "mission": "توفير بيئة مثالية لتجارة السكراب والمعادن",
+        "goals": [
+          "خدمة 250,000 زائر سنوياً",
+          "توسعة المساحة إلى 3 مليون م²",
+          "إنشاء فرع في جدة"
+        ]
+      },
+      "stats": {
+        "area": "2 مليون م²",
+        "visitors": 180000,
+        "units": 418
+      },
+      "products": [
+        { "id": "SC001", "name": "حديد سكراب", "unit": "طن", "category": "iron" },
+        { "id": "SC002", "name": "نحاس سكراب", "unit": "كجم", "category": "copper" },
+        { "id": "SC003", "name": "ألمنيوم سكراب", "unit": "كجم", "category": "aluminum" },
+        { "id": "SC004", "name": "قطع غيار مستعملة", "unit": "قطعة", "category": "parts" },
+        { "id": "SC005", "name": "بطاريات مستعملة", "unit": "قطعة", "category": "batteries" },
+        { "id": "SC006", "name": "كابلات نحاس", "unit": "متر", "category": "cables" }
+      ],
+      "services": [
+        "تجميع المعادن",
+        "فرز وتصنيف",
+        "معالجة أولية",
+        "بيع وشراء",
+        "تأجير وحدات"
+      ],
+      "technology": {
+        "weighbridge": true,
+        "tracking": "basic",
+        "payment": "cash_pos"
+      },
+      "gaps": [
+        { "area": "الرقمنة", "gap": "نظام يدوي بالكامل", "priority": "critical" },
+        { "area": "التسعير", "gap": "لا يوجد نظام تسعير شفاف", "priority": "high" },
+        { "area": "التتبع", "gap": "صعوبة تتبع المصادر", "priority": "high" }
+      ],
+      "opportunities": [
+        "نظام رقمي متكامل مع منظومة شيخة",
+        "ربط مباشر مع المصانع",
+        "تسعير ذكي بالذكاء الاصطناعي"
+      ],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "RAJHI-004",
+      "nameAr": "شركة الراجحي للصناعات الحديدية",
+      "nameEn": "Al Rajhi Steel Industries",
+      "sector": "steel",
+      "subSectors": ["manufacturing", "trading"],
+      "logo": "🔩",
+      "founded": 1984,
+      "headquarters": {
+        "city": "الرياض",
+        "address": "المنطقة الصناعية الثانية",
+        "region": "الرياض"
+      },
+      "contacts": {
+        "phone": "+966-11-282-5826",
+        "website": "www.alrajhisteel.com.sa",
+        "email": "info@alrajhisteel.com.sa"
+      },
+      "profile": {
+        "vision": "الريادة في صناعة الحديد والصلب",
+        "mission": "تقديم منتجات حديدية عالية الجودة",
+        "goals": [
+          "زيادة الطاقة الإنتاجية 30%",
+          "التوسع في التصدير"
+        ]
+      },
+      "products": [
+        { "id": "RS001", "name": "حديد التسليح", "unit": "طن", "category": "rebar" },
+        { "id": "RS002", "name": "حديد مشكل", "unit": "طن", "category": "formed" },
+        { "id": "RS003", "name": "شبك حديد", "unit": "م²", "category": "mesh" },
+        { "id": "RS004", "name": "زوايا حديد", "unit": "طن", "category": "angles" }
+      ],
+      "facilities": [
+        { "name": "مصنع الرياض", "type": "factory", "location": "الرياض", "capacity": "500,000 طن/سنة" }
+      ],
+      "technology": {
+        "erp": "basic",
+        "automation": "medium"
+      },
+      "gaps": [
+        { "area": "المواد الخام", "gap": "اعتماد على استيراد البليت", "priority": "high" },
+        { "area": "الرقمنة", "gap": "نظام ERP قديم", "priority": "medium" }
+      ],
+      "opportunities": [
+        "شراكة مع مراكز السكراب",
+        "تكامل مع منظومة شيخة"
+      ],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "NAQLEEN-005",
+      "nameAr": "شركة ناقلين",
+      "nameEn": "Naqleen Co. Ltd.",
+      "sector": "logistics",
+      "subSectors": ["transport", "heavy_haul", "storage"],
+      "logo": "🚚",
+      "founded": 1958,
+      "headquarters": {
+        "city": "الرياض",
+        "address": "طريق الملك فهد",
+        "region": "الرياض"
+      },
+      "contacts": {
+        "phone": "+966-11-XXX-XXXX",
+        "website": "www.naqleen.com.sa",
+        "email": "info@naqleen.com.sa"
+      },
+      "profile": {
+        "vision": "أن نكون الناقل الأول في المملكة",
+        "mission": "نقل آمن وموثوق بخبرة 65 عاماً",
+        "goals": [
+          "تحديث الأسطول بالكامل",
+          "التوسع في المستودعات"
+        ]
+      },
+      "services": [
+        { "id": "NQ001", "name": "نقل معادن", "type": "transport" },
+        { "id": "NQ002", "name": "نقل حاويات", "type": "container" },
+        { "id": "NQ003", "name": "نقل معدات ثقيلة", "type": "heavy" },
+        { "id": "NQ004", "name": "تخزين", "type": "storage" }
+      ],
+      "fleet": {
+        "trucks": 500,
+        "trailers": 800,
+        "heavyEquipment": 100
+      },
+      "coverage": ["الرياض", "جدة", "الدمام", "الجبيل", "ينبع"],
+      "technology": {
+        "gps": true,
+        "tms": "basic",
+        "tracking": true
+      },
+      "gaps": [
+        { "area": "الرقمنة", "gap": "نظام تتبع قديم", "priority": "high" },
+        { "area": "التكامل", "gap": "لا يوجد API للعملاء", "priority": "high" }
+      ],
+      "opportunities": [
+        "تكامل مع منظومة شيخة",
+        "إيميلات ذكية للسائقين",
+        "نظام تتبع متقدم"
+      ],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "ALUPCO-006",
+      "nameAr": "شركة ألوبكو",
+      "nameEn": "ALUPCO - Aluminium Products Company",
+      "sector": "aluminum",
+      "subSectors": ["manufacturing", "extrusion"],
+      "logo": "🪶",
+      "founded": 1975,
+      "headquarters": {
+        "city": "الدمام",
+        "address": "المنطقة الصناعية الأولى",
+        "region": "الشرقية"
+      },
+      "contacts": {
+        "phone": "+966-13-XXX-XXXX",
+        "website": "www.alupco.com",
+        "email": "info@alupco.com"
+      },
+      "profile": {
+        "vision": "الريادة في صناعة الألمنيوم",
+        "mission": "إنتاج أجود أنواع الألمنيوم المشكل"
+      },
+      "products": [
+        { "id": "AL001", "name": "بروفيلات ألمنيوم", "unit": "طن", "category": "profiles" },
+        { "id": "AL002", "name": "ألواح ألمنيوم", "unit": "م²", "category": "sheets" },
+        { "id": "AL003", "name": "نوافذ ألمنيوم", "unit": "م²", "category": "windows" }
+      ],
+      "facilities": [
+        { "name": "مصنع الدمام", "type": "factory", "location": "الدمام", "capacity": "100,000 طن/سنة" }
+      ],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "BAHRI-007",
+      "nameAr": "البحري للخدمات اللوجستية",
+      "nameEn": "Bahri Logistics",
+      "sector": "logistics",
+      "subSectors": ["shipping", "heavy_lift"],
+      "logo": "🚢",
+      "founded": 1978,
+      "headquarters": {
+        "city": "الرياض",
+        "address": "طريق الملك فهد",
+        "region": "الرياض"
+      },
+      "contacts": {
+        "phone": "+966-11-XXX-XXXX",
+        "website": "www.bahri.sa",
+        "email": "info@bahri.sa"
+      },
+      "profile": {
+        "vision": "من أكبر 10 ناقلات عالمياً",
+        "mission": "خدمات شحن ولوجستيات متكاملة"
+      },
+      "services": [
+        { "id": "BH001", "name": "نقل بحري", "type": "shipping" },
+        { "id": "BH002", "name": "نقل معدات ثقيلة", "type": "heavy_lift" },
+        { "id": "BH003", "name": "نقل سائب", "type": "bulk" }
+      ],
+      "fleet": {
+        "ships": 92,
+        "capacity": "5 مليون DWT"
+      },
+      "routes": ["الخليج", "آسيا", "أوروبا", "أمريكا"],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "HADID-008",
+      "nameAr": "الشركة السعودية للحديد والصلب",
+      "nameEn": "Saudi Iron and Steel Company (HADEED)",
+      "sector": "steel",
+      "subSectors": ["manufacturing", "steel_making"],
+      "logo": "⚙️",
+      "founded": 1979,
+      "headquarters": {
+        "city": "الجبيل",
+        "address": "المنطقة الصناعية",
+        "region": "الشرقية"
+      },
+      "contacts": {
+        "phone": "+966-13-357-1100",
+        "website": "www.hadeed.com",
+        "email": "info@hadeed.com"
+      },
+      "profile": {
+        "vision": "الشركة الرائدة في صناعة الحديد والصلب",
+        "mission": "إنتاج حديد عالي الجودة بأحدث التقنيات"
+      },
+      "products": [
+        { "id": "HD001", "name": "حديد تسليح", "unit": "طن", "category": "rebar" },
+        { "id": "HD002", "name": "لفائف صلب", "unit": "طن", "category": "coils" },
+        { "id": "HD003", "name": "قضبان سلكية", "unit": "طن", "category": "wire_rod" }
+      ],
+      "facilities": [
+        { "name": "مصنع حديد الجبيل", "type": "steel_mill", "location": "الجبيل", "capacity": "6 مليون طن/سنة" }
+      ],
+      "technology": {
+        "dri": true,
+        "eaf": true,
+        "automation": "high",
+        "erp": "SAP"
+      },
+      "rawMaterials": {
+        "scrapDependency": "40%",
+        "importedPellets": "60%"
+      },
+      "gaps": [
+        { "area": "السكراب المحلي", "gap": "نقص في المصادر المحلية", "priority": "critical" }
+      ],
+      "opportunities": [
+        "شراكات مع مراكز تجميع السكراب",
+        "تكامل مع منظومة شيخة للسكراب"
+      ],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "ESRAA-009",
+      "nameAr": "شركة الإسراء للسكراب",
+      "nameEn": "Al-Israa Scrap Company",
+      "sector": "scrap",
+      "subSectors": ["collection", "trading", "demolition"],
+      "logo": "🔧",
+      "founded": 2005,
+      "headquarters": {
+        "city": "الرياض",
+        "address": "المنطقة الصناعية",
+        "region": "الرياض"
+      },
+      "contacts": {
+        "phone": "+966-55-649-0122",
+        "website": "www.elisraa-scrap.com",
+        "email": "info@elisraa-scrap.com"
+      },
+      "services": [
+        "شراء حديد السكراب",
+        "شراء نحاس وألمنيوم",
+        "هدم المباني",
+        "نقل السكراب"
+      ],
+      "products": [
+        { "id": "ES001", "name": "حديد سكراب", "unit": "طن", "category": "iron" },
+        { "id": "ES002", "name": "نحاس سكراب", "unit": "كجم", "category": "copper" },
+        { "id": "ES003", "name": "ألمنيوم سكراب", "unit": "كجم", "category": "aluminum" }
+      ],
+      "coverage": ["الرياض", "جدة"],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "KHIDMAT-010",
+      "nameAr": "شركة سعودي خدمات",
+      "nameEn": "Saudi Khidmat",
+      "sector": "scrap",
+      "subSectors": ["collection", "recycling"],
+      "logo": "♻️",
+      "founded": 2021,
+      "headquarters": {
+        "city": "الدمام",
+        "address": "القطيف",
+        "region": "الشرقية"
+      },
+      "contacts": {
+        "phone": "+966-50-496-5175",
+        "email": "info@saudikhidmat.com"
+      },
+      "services": [
+        "شراء جميع أنواع السكراب",
+        "إعادة التدوير",
+        "عوائد مالية للعملاء"
+      ],
+      "coverage": ["الدمام", "القطيف", "الأحساء"],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "YAMAMA-011",
+      "nameAr": "شركة اليمامة لحديد التسليح",
+      "nameEn": "Al Yamama Steel Industries",
+      "sector": "steel",
+      "subSectors": ["manufacturing"],
+      "logo": "🏗️",
+      "founded": 1989,
+      "headquarters": {
+        "city": "ينبع",
+        "address": "المنطقة الصناعية",
+        "region": "المدينة المنورة"
+      },
+      "contacts": {
+        "phone": "+966-14-325-7111"
+      },
+      "products": [
+        { "id": "YM001", "name": "حديد تسليح", "unit": "طن", "category": "rebar" },
+        { "id": "YM002", "name": "حديد مشكل", "unit": "طن", "category": "formed" }
+      ],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "MUHAISEN-012",
+      "nameAr": "مجوهرات المحيسن",
+      "nameEn": "Al Muhaisen Jewelry",
+      "sector": "gold",
+      "subSectors": ["jewelry", "retail"],
+      "logo": "💍",
+      "headquarters": {
+        "city": "الرياض",
+        "region": "الرياض"
+      },
+      "products": [
+        { "id": "MH001", "name": "ذهب 21 قيراط", "unit": "غرام", "category": "gold" },
+        { "id": "MH002", "name": "ذهب 18 قيراط", "unit": "غرام", "category": "gold" },
+        { "id": "MH003", "name": "فضة", "unit": "غرام", "category": "silver" }
+      ],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "MAWARID-013",
+      "nameAr": "موارد المملكة للتخزين",
+      "nameEn": "Mawarid Al Mamlaka Storage",
+      "sector": "storage",
+      "subSectors": ["warehousing", "logistics"],
+      "logo": "🏭",
+      "headquarters": {
+        "city": "الرياض",
+        "region": "الرياض"
+      },
+      "contacts": {
+        "website": "www.mawardsa.com"
+      },
+      "services": [
+        { "id": "MW001", "name": "مستودعات جافة", "type": "dry" },
+        { "id": "MW002", "name": "مستودعات مبردة", "type": "cold" },
+        { "id": "MW003", "name": "تخليص جمركي", "type": "customs" },
+        { "id": "MW004", "name": "إدارة مخزون", "type": "inventory" }
+      ],
+      "locations": ["الرياض", "جدة", "الدمام"],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "ESTOCK-014",
+      "nameAr": "إي ستوك",
+      "nameEn": "E-Stock",
+      "sector": "storage",
+      "subSectors": ["digital_warehousing"],
+      "logo": "📦",
+      "headquarters": {
+        "city": "الرياض",
+        "region": "الرياض"
+      },
+      "contacts": {
+        "website": "www.estocksa.com"
+      },
+      "services": [
+        { "id": "ES001", "name": "حجز مستودعات رقمي", "type": "booking" },
+        { "id": "ES002", "name": "إدارة مخزون", "type": "inventory" }
+      ],
+      "pricing": {
+        "startFrom": "45 ريال/طبلية/شهر"
+      },
+      "locations": ["الرياض", "جدة", "الدمام"],
+      "storeReady": true,
+      "apiReady": true
+    },
+
+    {
+      "companyId": "MOUAWAD-015",
+      "nameAr": "مجوهرات معوض",
+      "nameEn": "Mouawad Jewelry",
+      "sector": "gold",
+      "subSectors": ["luxury_jewelry"],
+      "logo": "👑",
+      "founded": 1890,
+      "headquarters": {
+        "city": "جدة",
+        "region": "مكة المكرمة"
+      },
+      "products": [
+        { "id": "MO001", "name": "مجوهرات فاخرة", "category": "luxury" },
+        { "id": "MO002", "name": "ألماس", "category": "diamond" },
+        { "id": "MO003", "name": "ساعات فاخرة", "category": "watches" }
+      ],
+      "storeReady": true,
+      "apiReady": true
+    }
+  ],
+
+  "supplyChainModel": {
+    "stages": [
+      {
+        "stage": 1,
+        "nameAr": "الاستخراج والتجميع",
+        "nameEn": "Extraction & Collection",
+        "actors": ["مناجم", "مراكز تجميع سكراب"],
+        "companies": ["MAADEN-001", "SCRAPCITY-003", "ESRAA-009", "KHIDMAT-010"]
+      },
+      {
+        "stage": 2,
+        "nameAr": "المعالجة والتصنيع",
+        "nameEn": "Processing & Manufacturing",
+        "actors": ["مصاهر", "مصانع"],
+        "companies": ["HADID-008", "RAJHI-004", "YAMAMA-011", "ALUPCO-006"]
+      },
+      {
+        "stage": 3,
+        "nameAr": "النقل والتخزين",
+        "nameEn": "Transport & Storage",
+        "actors": ["شركات نقل", "مستودعات"],
+        "companies": ["NAQLEEN-005", "BAHRI-007", "MAWARID-013", "ESTOCK-014"]
+      },
+      {
+        "stage": 4,
+        "nameAr": "التصنيع النهائي",
+        "nameEn": "Final Manufacturing",
+        "actors": ["مصانع منتجات نهائية"],
+        "companies": ["LAZURDE-002", "MUHAISEN-012", "MOUAWAD-015"]
+      },
+      {
+        "stage": 5,
+        "nameAr": "التوزيع والبيع",
+        "nameEn": "Distribution & Sales",
+        "actors": ["تجار جملة", "تجزئة"],
+        "companies": ["ALL"]
+      }
+    ],
+    "gaps": [
+      {
+        "gap": "فجوة الرقمنة",
+        "description": "معظم مراكز السكراب تعمل يدوياً",
+        "solution": "تكامل مع منظومة شيخة الرقمية",
+        "priority": "critical"
+      },
+      {
+        "gap": "فجوة التسعير",
+        "description": "لا يوجد سعر موحد شفاف للسكراب",
+        "solution": "نظام تسعير ذكي مع شيخة AI",
+        "priority": "high"
+      },
+      {
+        "gap": "فجوة التتبع",
+        "description": "صعوبة تتبع مصادر المواد",
+        "solution": "نظام blockchain للتتبع",
+        "priority": "high"
+      },
+      {
+        "gap": "فجوة التكامل",
+        "description": "لا يوجد تكامل بين الموردين والمصانع",
+        "solution": "APIs موحدة عبر منظومة شيخة",
+        "priority": "medium"
+      }
+    ]
+  },
+
+  "blockDesignSystem": {
+    "description": "نظام تصميم الكتلة لسد الفجوات",
+    "blocks": [
+      {
+        "id": "block-digital",
+        "nameAr": "كتلة الرقمنة",
+        "services": ["لوحة تحكم", "متجر إلكتروني", "API تكامل", "تطبيق جوال"],
+        "gapsSolved": ["فجوة الرقمنة"]
+      },
+      {
+        "id": "block-pricing",
+        "nameAr": "كتلة التسعير الذكي",
+        "services": ["أسعار لحظية", "مقارنة أسعار", "توصيات شيخة AI"],
+        "gapsSolved": ["فجوة التسعير"]
+      },
+      {
+        "id": "block-tracking",
+        "nameAr": "كتلة التتبع",
+        "services": ["تتبع الشحنات", "تتبع المصادر", "شهادات المنشأ"],
+        "gapsSolved": ["فجوة التتبع"]
+      },
+      {
+        "id": "block-integration",
+        "nameAr": "كتلة التكامل",
+        "services": ["API موحد", "EDI", "تكامل ERP"],
+        "gapsSolved": ["فجوة التكامل"]
+      },
+      {
+        "id": "block-marketing",
+        "nameAr": "كتلة التسويق",
+        "services": ["هوية تجارية", "موقع إلكتروني", "إيميلات احترافية"],
+        "gapsSolved": ["فجوة التواجد الرقمي"]
+      }
+    ]
+  },
+
+  "quickRegistration": {
+    "enabled": true,
+    "prefilledData": true,
+    "autoProductSuggestion": true,
+    "autoGapAnalysis": true,
+    "aiAssistant": "شيخة"
+  }
+}

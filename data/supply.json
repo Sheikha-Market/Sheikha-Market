@@ -1,0 +1,98 @@
+{
+  "supply_orders": [
+    {
+      "id": "sup_2026_001",
+      "status": "in_transit",
+      "created_at": "2026-04-20T10:00:00Z",
+      "order_ref": "ord_2026_001",
+      "contract_ref": "cnt_2026_x7a1b",
+      "supplier": {
+        "id": "usr_002",
+        "name": "شركة الخليج للتوريد",
+        "location": "الدمام"
+      },
+      "buyer": {
+        "id": "usr_001",
+        "name": "شركة المستقبل للمعادن",
+        "location": "الرياض"
+      },
+      "cargo": {
+        "metal": "copper",
+        "quantity": 5000,
+        "unit": "kg",
+        "grade": "Grade A"
+      },
+      "logistics": {
+        "carrier": "شركة الفلك للشحن",
+        "tracking_no": "FLK20260420001",
+        "departed": "2026-04-21T06:00:00Z",
+        "eta": "2026-05-15T12:00:00Z",
+        "route": "الدمام → الرياض"
+      },
+      "checkpoints": [
+        {
+          "location": "مستودع الدمام",
+          "status": "departed",
+          "at": "2026-04-21T06:00:00Z"
+        },
+        {
+          "location": "نقطة التفتيش الوسطى",
+          "status": "passed",
+          "at": "2026-04-21T12:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "sup_2026_002",
+      "status": "pending",
+      "created_at": "2026-04-21T09:00:00Z",
+      "order_ref": "ord_2026_002",
+      "supplier": null,
+      "cargo": {
+        "metal": "aluminum",
+        "quantity": 8000,
+        "unit": "kg"
+      },
+      "logistics": null
+    }
+  ],
+  "inventory": {
+    "steel": {
+      "available": 20,
+      "unit": "kg",
+      "location": "مستودع الرياض"
+    },
+    "copper": {
+      "available": 5,
+      "unit": "kg",
+      "location": "مستودع الدمام"
+    },
+    "aluminum": {
+      "available": 3,
+      "unit": "kg",
+      "location": "مستودع جدة"
+    }
+  },
+  "suppliers": [
+    {
+      "id": "usr_002",
+      "name": "شركة الخليج للتوريد",
+      "rating": 4.8,
+      "active_orders": 2,
+      "location": "الدمام"
+    },
+    {
+      "id": "usr_006",
+      "name": "مؤسسة التوريد الوطني",
+      "rating": 4.6,
+      "active_orders": 1,
+      "location": "جدة"
+    }
+  ],
+  "meta": {
+    "total_orders": 2,
+    "in_transit": 1,
+    "pending": 1,
+    "last_sync": "2026-04-21T09:14:00Z"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-03-11T09:30:50.420Z",
+  "owner": {
+    "name": "Salman Ahmed bin Salman AlRajih",
+    "registry": "2051263653",
+    "credential": "ciscc2250603061"
+  },
+  "operationsStatus": "operational",
+  "centralBankReadiness": {
+    "centralReady": true,
+    "fundReady": true
+  },
+  "integrationReadiness": {
+    "etimad": {
+      "ready": false,
+      "baseUrlSet": false,
+      "clientIdSet": false
+    },
+    "appLicenses": {
+      "ready": false,
+      "googlePlayIdSet": false,
+      "appleTeamIdSet": false
+    }
+  },
+  "appSovereignty": {
+    "googlePlay": {
+      "configured": false,
+      "value": null
+    },
+    "appleStore": {
+      "configured": false,
+      "value": null
+    },
+    "mobileBanking": {
+      "androidPackage": "top.sheikha.app",
+      "iosBundleId": "top.sheikha.app"
+    }
+  },
+  "issuedGuarantee": {
+    "success": true,
+    "guaranteeId": "SBG-2026-000002",
+    "block": {
+      "index": 2,
+      "guaranteeId": "SBG-2026-000002",
+      "issuedAt": "2026-03-11T09:30:50.417Z",
+      "owner": {
+        "name": "Salman Ahmed bin Salman AlRajih",
+        "registry": "2051263653",
+        "credential": "ciscc2250603061"
+      },
+      "payload": {
+        "projectId": "NATIONAL_MINING_PROJECT_2030",
+        "type": "initial",
+        "beneficiary": "Saudi Government Procurement",
+        "amount": 1000000,
+        "currency": "SAR",
+        "purpose": "Tender guarantee for strategic metals project",
+        "issuer": "Sheikha Central Bank",
+        "interestRate": 0
+      },
+      "sharia": {
+        "ribaFree": true,
+        "ghararReduced": true,
+        "warnings": []
+      },
+      "previousHash": "b12fd87994847909365c46b6f0a64ef71673b84325377926d734220bb78f6091",
+      "hash": "2ba4c175f04313ded0315c069d7ee0e25126c95c4188f405750b5e8c9bef87d3"
+    }
+  },
+  "issuedLC": {
+    "success": true,
+    "lcId": "SLC-2026-000001",
+    "block": {
+      "index": 1,
+      "lcId": "SLC-2026-000001",
+      "issuedAt": "2026-03-11T09:30:50.419Z",
+      "owner": {
+        "name": "Salman Ahmed bin Salman AlRajih",
+        "registry": "2051263653",
+        "credential": "ciscc2250603061"
+      },
+      "payload": {
+        "tradeType": "Strategic_Mineral_Reserve",
+        "applicant": "Sheikha Central Bank",
+        "beneficiary": "Global Metals Supplier",
+        "amount": 1500000,
+        "currency": "USD",
+        "collateralAsset": "Gold_Reserve_AlKhobar",
+        "purpose": "Strategic metal trade coverage",
+        "interestRate": 0
+      },
+      "sharia": {
+        "ribaFree": true,
+        "warnings": []
+      },
+      "previousHash": "GENESIS",
+      "hash": "12281b3cfb0b366dfd3e853383cd8039f91e81d76b7d0368a38531bc752aebed"
+    }
+  },
+  "summary": {
+    "guaranteesInLedger": 2,
+    "lcsInLedger": 1,
+    "lastGuaranteeId": "SBG-2026-000002",
+    "lastLCId": "SLC-2026-000001",
+    "shariaCompliant": true
+  },
+  "nextActions": [
+    "ضبط ETIMAD_API_BASE_URL و ETIMAD_CLIENT_ID للربط الحكومي الفعلي",
+    "إضافة GOOGLE_PLAY_DEVELOPER_ID و APPLE_TEAM_ID لاعتماد الرخص الرسمية",
+    "مراجعة سجل الضمانات في data/sovereign-bank-guarantees.ndjson",
+    "مراجعة سجل الاعتمادات في data/sovereign-lc-ledger.ndjson"
+  ]
+}

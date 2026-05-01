@@ -1,0 +1,27 @@
+{
+  "id": "schedule-1772498755768",
+  "agentId": "ALL_AGENTS",
+  "scheduleType": "DAILY",
+  "schedule": {
+    "name": "يومي",
+    "frequency": "daily",
+    "batchSize": 500,
+    "ideal": "أفضل توازن"
+  },
+  "config": {
+    "applyToAllAgents": true,
+    "allLanguages": true,
+    "techniques": [
+      "LORA",
+      "QLORA",
+      "PEFT",
+      "DPO",
+      "RLHF"
+    ],
+    "batchSize": 32,
+    "epochs": 3
+  },
+  "status": "scheduled",
+  "nextRun": "2026-03-04T00:45:55.768Z",
+  "createdAt": "2026-03-03T00:45:55.768Z"
+}

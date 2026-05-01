@@ -1,0 +1,120 @@
+<svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <!-- الإضاءة المتقدمة -->
+        <filter id="realisticGlow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+            <feFlood flood-color="#fff" flood-opacity="0.8" result="floodColor" />
+            <feComposite in="floodColor" in2="coloredBlur" operator="in" result="glowColor" />
+            <feComposite in="glowColor" in2="SourceAlpha" operator="in" result="offsetcolor" />
+            <feOffset in="offsetcolor" dx="0" dy="2" result="offset" />
+            <feFlood flood-color="#000" flood-opacity="0.4" result="offsetblur" />
+            <feComposite in="offsetblur" in2="offset" operator="in" />
+            <feComposite in2="SourceGraphic" operator="arithmetic" k2="1" result="litPaint" />
+            <feComposite in="litPaint" in2="offset" operator="arithmetic" k2="1" />
+        </filter>
+
+        <!-- تأثير معدن حقيقي -->
+        <radialGradient id="goldMetallic" cx="35%" cy="35%" r="65%">
+            <stop offset="0%" style="stop-color:#FFFEF5;stop-opacity:1" />
+            <stop offset="20%" style="stop-color:#F5E6A3;stop-opacity:1" />
+            <stop offset="45%" style="stop-color:#E8C94A;stop-opacity:1" />
+            <stop offset="65%" style="stop-color:#D4AF37;stop-opacity:1" />
+            <stop offset="85%" style="stop-color:#A8882B;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#5A4A1A;stop-opacity:0.8" />
+        </radialGradient>
+
+        <!-- ظل ثلاثي الأبعاد -->
+        <filter id="shadow3d">
+            <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000" flood-opacity="0.4" />
+            <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.2" />
+        </filter>
+
+        <!-- ضوء عميق -->
+        <filter id="deepLight">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4" />
+            <feOffset dx="0" dy="6" result="offsetblur" />
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.3" />
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+
+    <!-- خلفية احترافية -->
+    <defs>
+        <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#1a1410;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#2d251d;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#1a1410;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+
+    <rect width="600" height="500" fill="url(#bgGradient)" />
+
+    <!-- ضوء الخلفية العميق -->
+    <ellipse cx="300" cy="200" rx="400" ry="250" fill="url(#goldMetallic)" opacity="0.08"
+        filter="url(#deepLight)" />
+
+    <!-- قاعدة معدنية -->
+    <rect x="50" y="350" width="500" height="80" rx="15" fill="#1a1410" stroke="#8B7224"
+        stroke-width="2" opacity="0.6" />
+    <rect x="50" y="350" width="500" height="15" rx="15" fill="url(#goldMetallic)" opacity="0.3" />
+
+    <!-- سبائك ذهب عالية الدقة -->
+    <g filter="url(#shadow3d)">
+        <!-- السبيكة الأولى (الأمام) -->
+        <path d="M 100 150 L 180 120 L 200 280 L 120 310 Z" fill="url(#goldMetallic)" />
+        <ellipse cx="150" cy="100" rx="35" ry="20" fill="#FFFEF5" opacity="0.25" />
+        <path d="M 110 160 L 160 140 L 165 270 L 115 280 Z" fill="#FFFEF5" opacity="0.12" />
+
+        <!-- السبيكة الثانية -->
+        <path d="M 220 140 L 300 110 L 320 290 L 240 310 Z" fill="url(#goldMetallic)" />
+        <ellipse cx="280" cy="90" rx="40" ry="22" fill="#FFFEF5" opacity="0.28" />
+        <path d="M 225 155 L 290 130 L 305 275 L 245 290 Z" fill="#FFFEF5" opacity="0.1" />
+
+        <!-- السبيكة الثالثة (الأعمق) -->
+        <path d="M 340 160 L 420 130 L 440 300 L 360 320 Z" fill="url(#goldMetallic)" />
+        <ellipse cx="400" cy="110" rx="38" ry="21" fill="#FFFEF5" opacity="0.22" />
+        <path d="M 345 175 L 410 145 L 425 290 L 365 305 Z" fill="#FFFEF5" opacity="0.08" />
+
+        <!-- السبيكة الأخيرة -->
+        <path d="M 460 150 L 540 125 L 560 290 L 480 315 Z" fill="url(#goldMetallic)" />
+        <ellipse cx="520" cy="105" rx="35" ry="19" fill="#FFFEF5" opacity="0.26" />
+        <path d="M 465 165 L 525 140 L 545 285 L 485 305 Z" fill="#FFFEF5" opacity="0.09" />
+    </g>
+
+    <!-- خطوط دقيقة بريق متقدمة -->
+    <g opacity="0.4" filter="url(#realisticGlow)">
+        <line x1="150" y1="95" x2="155" y2="280" stroke="#fff" stroke-width="2"
+            stroke-linecap="round" />
+        <line x1="280" y1="85" x2="290" y2="285" stroke="#fff" stroke-width="2.5"
+            stroke-linecap="round" />
+        <line x1="400" y1="105" x2="410" y2="295" stroke="#fff" stroke-width="2"
+            stroke-linecap="round" />
+        <line x1="520" y1="100" x2="530" y2="290" stroke="#fff" stroke-width="2"
+            stroke-linecap="round" />
+    </g>
+
+    <!-- نقاط انعكاس متزامنة -->
+    <g opacity="0.35">
+        <circle cx="148" cy="88" r="8" fill="#fff" filter="url(#realisticGlow)" />
+        <circle cx="278" cy="80" r="10" fill="#fff" filter="url(#realisticGlow)" />
+        <circle cx="398" cy="100" r="9" fill="#fff" filter="url(#realisticGlow)" />
+        <circle cx="518" cy="95" r="8" fill="#fff" filter="url(#realisticGlow)" />
+    </g>
+
+    <!-- ظلال عميقة بين السبائك -->
+    <path d="M 200 280 L 220 260 L 240 310 L 220 315 Z" fill="#000" opacity="0.15" />
+    <path d="M 320 290 L 340 270 L 360 320 L 340 325 Z" fill="#000" opacity="0.12" />
+    <path d="M 440 300 L 460 280 L 480 315 L 460 320 Z" fill="#000" opacity="0.1" />
+
+    <!-- نقش الحروف العربية -->
+    <text x="300" y="430" font-family="Amiri, serif" font-size="48" font-weight="700" fill="#D4AF37"
+        text-anchor="middle" opacity="0.7">الذهب الخالص</text>
+    <text x="300" y="470" font-family="Tajawal, sans-serif" font-size="20" font-weight="600"
+        fill="#A8882B" text-anchor="middle" opacity="0.6">9999 — الدرجة الأعلى عالمياً</text>
+</svg>

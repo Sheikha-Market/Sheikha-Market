@@ -1,0 +1,179 @@
+{
+  "sms": {
+    "primary": {
+      "providerId": "unifonic",
+      "providerNameAr": "يونيفونك",
+      "channel": "sms",
+      "slot": "primary",
+      "termsAccepted": false,
+      "policyAccepted": false,
+      "noHarmNoDirarConfirmed": false,
+      "contractArchived": false,
+      "contractArchiveRef": null,
+      "policyVersion": null,
+      "acceptedBy": null,
+      "acceptedAt": null,
+      "notes": null
+    },
+    "fallback": {
+      "providerId": "twilio",
+      "providerNameAr": "تويليو",
+      "channel": "sms",
+      "slot": "fallback",
+      "termsAccepted": false,
+      "policyAccepted": false,
+      "noHarmNoDirarConfirmed": false,
+      "contractArchived": false,
+      "contractArchiveRef": null,
+      "policyVersion": null,
+      "acceptedBy": null,
+      "acceptedAt": null,
+      "notes": null
+    }
+  },
+  "whatsapp": {
+    "primary": {
+      "providerId": "whatsapp_business",
+      "providerNameAr": "واتساب للأعمال",
+      "channel": "whatsapp",
+      "slot": "primary",
+      "termsAccepted": false,
+      "policyAccepted": false,
+      "noHarmNoDirarConfirmed": false,
+      "contractArchived": false,
+      "contractArchiveRef": null,
+      "policyVersion": null,
+      "acceptedBy": null,
+      "acceptedAt": null,
+      "notes": null
+    },
+    "fallback": {
+      "providerId": "twilio_whatsapp",
+      "providerNameAr": "تويليو واتساب",
+      "channel": "whatsapp",
+      "slot": "fallback",
+      "termsAccepted": false,
+      "policyAccepted": false,
+      "noHarmNoDirarConfirmed": false,
+      "contractArchived": false,
+      "contractArchiveRef": null,
+      "policyVersion": null,
+      "acceptedBy": null,
+      "acceptedAt": null,
+      "notes": null
+    }
+  },
+  "email": {
+    "primary": {
+      "providerId": "sendgrid",
+      "providerNameAr": "سيند جريد",
+      "channel": "email",
+      "slot": "primary",
+      "termsAccepted": false,
+      "policyAccepted": false,
+      "noHarmNoDirarConfirmed": false,
+      "contractArchived": false,
+      "contractArchiveRef": null,
+      "policyVersion": null,
+      "acceptedBy": null,
+      "acceptedAt": null,
+      "notes": null
+    },
+    "fallback": {
+      "providerId": "smtp",
+      "providerNameAr": "SMTP مباشر",
+      "channel": "email",
+      "slot": "fallback",
+      "termsAccepted": false,
+      "policyAccepted": false,
+      "noHarmNoDirarConfirmed": false,
+      "contractArchived": false,
+      "contractArchiveRef": null,
+      "policyVersion": null,
+      "acceptedBy": null,
+      "acceptedAt": null,
+      "notes": null
+    }
+  },
+  "voice": {
+    "primary": {
+      "providerId": "unifonic_voice",
+      "providerNameAr": "يونيفونك صوت",
+      "channel": "voice",
+      "slot": "primary",
+      "termsAccepted": false,
+      "policyAccepted": false,
+      "noHarmNoDirarConfirmed": false,
+      "contractArchived": false,
+      "contractArchiveRef": null,
+      "policyVersion": null,
+      "acceptedBy": null,
+      "acceptedAt": null,
+      "notes": null
+    },
+    "fallback": {
+      "providerId": "twilio_voice",
+      "providerNameAr": "تويليو صوت",
+      "channel": "voice",
+      "slot": "fallback",
+      "termsAccepted": false,
+      "policyAccepted": false,
+      "noHarmNoDirarConfirmed": false,
+      "contractArchived": false,
+      "contractArchiveRef": null,
+      "policyVersion": null,
+      "acceptedBy": null,
+      "acceptedAt": null,
+      "notes": null
+    }
+  },
+  "push": {
+    "primary": {
+      "providerId": "fcm",
+      "providerNameAr": "إشعارات جوجل",
+      "channel": "push",
+      "slot": "primary",
+      "termsAccepted": false,
+      "policyAccepted": false,
+      "noHarmNoDirarConfirmed": false,
+      "contractArchived": false,
+      "contractArchiveRef": null,
+      "policyVersion": null,
+      "acceptedBy": null,
+      "acceptedAt": null,
+      "notes": null
+    }
+  },
+  "authenticator": {
+    "sheikha": {
+      "providerId": "sheikha_auth",
+      "providerNameAr": "مصادقة شيخة",
+      "channel": "authenticator",
+      "slot": "sheikha",
+      "termsAccepted": false,
+      "policyAccepted": false,
+      "noHarmNoDirarConfirmed": false,
+      "contractArchived": false,
+      "contractArchiveRef": null,
+      "policyVersion": null,
+      "acceptedBy": null,
+      "acceptedAt": null,
+      "notes": null
+    },
+    "google": {
+      "providerId": "google_auth",
+      "providerNameAr": "مصادقة قوقل",
+      "channel": "authenticator",
+      "slot": "google",
+      "termsAccepted": false,
+      "policyAccepted": false,
+      "noHarmNoDirarConfirmed": false,
+      "contractArchived": false,
+      "contractArchiveRef": null,
+      "policyVersion": null,
+      "acceptedBy": null,
+      "acceptedAt": null,
+      "notes": null
+    }
+  }
+}

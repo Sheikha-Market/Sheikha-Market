@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة المؤشرات المركزية — شيخة | Central KPI Dashboard</title>
+<meta name="description" content="لوحة المؤشرات المركزية — جميع KPIs والهيكل والتدفقات والأهداف في مكان واحد">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--gold-l:#F5E6A3;--gold-d:#8B7321;--bg:#030712;--bg2:#0a0f1c;--bg3:#111827;--green:#10b981;--red:#ef4444;--blue:#3b82f6;--purple:#8b5cf6;--orange:#f59e0b;--cyan:#06b6d4;--t1:#f4f4f5;--t2:#a1a1aa;--t3:#71717a;--r:16px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(212,175,55,.2);color:#fff}
+
+/* ═══ BG ═══ */
+.bg-grid{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.015;background-image:linear-gradient(rgba(212,175,55,.3) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.3) 1px,transparent 1px);background-size:60px 60px}
+
+/* ═══ NAV ═══ */
+.topbar{position:sticky;top:0;z-index:99;background:rgba(3,7,18,.85);backdrop-filter:blur(40px);border-bottom:1px solid rgba(212,175,55,.06);padding:0 32px;display:flex;align-items:center;height:60px;gap:16px}
+.topbar .logo{font-family:'Cairo';font-weight:900;font-size:1.1rem;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:8px}
+.topbar .logo svg{width:24px;height:24px}
+.topbar nav{display:flex;gap:4px;margin-right:auto}
+.topbar nav a{padding:8px 16px;border-radius:10px;font-size:.78rem;font-weight:700;color:var(--t3);text-decoration:none;transition:.2s}
+.topbar nav a:hover,.topbar nav a.active{color:var(--gold);background:rgba(212,175,55,.06)}
+.back-btn{padding:8px 16px;border-radius:10px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.08);color:var(--t2);font-size:.78rem;font-weight:700;text-decoration:none;font-family:inherit;transition:.2s}
+.back-btn:hover{color:var(--gold);border-color:rgba(212,175,55,.15)}
+
+/* ═══ HERO ═══ */
+.hero{padding:48px 32px 24px;text-align:center;position:relative;z-index:1}
+.hero h1{font-family:'Cairo';font-size:1.8rem;font-weight:900;margin-bottom:8px}
+.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--t3);font-size:.88rem;max-width:600px;margin:0 auto}
+
+/* ═══ TABS ═══ */
+.tabs{display:flex;gap:4px;padding:0 32px;margin-bottom:24px;overflow-x:auto;position:sticky;top:60px;z-index:90;background:rgba(3,7,18,.9);backdrop-filter:blur(20px);padding-top:12px;padding-bottom:12px}
+.tab{padding:10px 20px;border-radius:12px;border:1px solid rgba(212,175,55,.06);background:rgba(212,175,55,.02);color:var(--t3);font-size:.8rem;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap;font-family:inherit}
+.tab:hover{color:var(--t2);border-color:rgba(212,175,55,.1)}
+.tab.active{color:var(--gold);background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.15)}
+
+/* ═══ SECTIONS ═══ */
+.section{display:none;padding:0 32px 48px;position:relative;z-index:1}
+.section.active{display:block}
+
+/* ═══ CARDS ═══ */
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.grid-4{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.card{background:rgba(10,15,26,.8);border:1px solid rgba(212,175,55,.06);border-radius:var(--r);padding:20px;transition:.3s;position:relative;overflow:hidden}
+.card:hover{border-color:rgba(212,175,55,.12);transform:translateY(-2px)}
+.card::before{content:'';position:absolute;top:0;right:0;width:60px;height:60px;background:radial-gradient(circle,rgba(212,175,55,.04),transparent);border-radius:50%}
+.card-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.card-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.card-title{font-size:.82rem;font-weight:700;color:var(--t2)}
+.card-badge{font-size:.6rem;font-weight:800;padding:3px 8px;border-radius:8px;margin-right:auto}
+.card-value{font-family:'Cairo';font-size:1.8rem;font-weight:900;line-height:1}
+.card-label{font-size:.72rem;color:var(--t3);margin-top:4px}
+.card-bar{height:4px;background:rgba(255,255,255,.04);border-radius:4px;margin-top:12px;overflow:hidden}
+.card-bar-fill{height:100%;border-radius:4px;transition:width .8s ease}
+.card-trend{font-size:.7rem;font-weight:700;margin-top:6px}
+.trend-up{color:var(--green)}
+.trend-down{color:var(--red)}
+
+/* ═══ SECTION CARDS ═══ */
+.section-card{background:rgba(10,15,26,.6);border:1px solid rgba(212,175,55,.06);border-radius:var(--r);padding:24px;margin-bottom:20px}
+.section-card h3{font-family:'Cairo';font-size:1rem;font-weight:800;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-card h3 .icon{width:32px;height:32px;border-radius:10px;background:rgba(212,175,55,.06);display:flex;align-items:center;justify-content:center;font-size:.9rem}
+
+/* ═══ TABLE ═══ */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:right;padding:10px 14px;font-size:.72rem;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(212,175,55,.06)}
+td{padding:12px 14px;font-size:.82rem;color:var(--t2);border-bottom:1px solid rgba(255,255,255,.02)}
+tr:hover td{background:rgba(212,175,55,.02)}
+.status{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:8px;font-size:.7rem;font-weight:700}
+.status-green{background:rgba(16,185,129,.1);color:var(--green)}
+.status-yellow{background:rgba(245,158,11,.1);color:var(--orange)}
+.status-red{background:rgba(239,68,68,.1);color:var(--red)}
+.status-blue{background:rgba(59,130,246,.1);color:var(--blue)}
+.status-purple{background:rgba(139,92,246,.1);color:var(--purple)}
+
+/* ═══ FLOW DIAGRAM ═══ */
+.flow{display:flex;align-items:center;gap:12px;padding:12px;overflow-x:auto}
+.flow-node{padding:12px 20px;border-radius:12px;background:rgba(212,175,55,.04);border:1px solid rgba(212,175,55,.08);text-align:center;min-width:100px;flex-shrink:0}
+.flow-node .fn-icon{font-size:1.2rem;margin-bottom:4px}
+.flow-node .fn-label{font-size:.72rem;color:var(--t2);font-weight:700}
+.flow-arrow{color:var(--gold);opacity:.3;font-size:1.2rem;flex-shrink:0}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+    .hero{padding:32px 20px 16px}
+    .hero h1{font-size:1.3rem}
+    .tabs{padding:0 16px}
+    .section{padding:0 16px 32px}
+    .grid-4{grid-template-columns:repeat(2,1fr)}
+    .grid-3{grid-template-columns:1fr}
+    .grid-2{grid-template-columns:1fr}
+    .topbar{padding:0 16px}
+    .topbar nav{display:none}
+}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<!-- ═══ TOPBAR ═══ -->
+<div class="topbar">
+    <a href="/" class="logo">
+        <svg viewBox="0 0 100 100" fill="none"><polygon points="50,5 61,38 95,38 68,58 78,92 50,72 22,92 32,58 5,38 39,38" fill="#D4AF37" opacity=".8"/><circle cx="50" cy="50" r="12" fill="#D4AF37"/></svg>
+        شيخة
+    </a>
+    <nav id="kpi-nav">
+        <a href="#overview" class="active" onclick="switchTab('overview',this)">نظرة عامة</a>
+        <a href="#market" onclick="switchTab('market',this)">مؤشرات السوق</a>
+        <a href="#smi" onclick="switchTab('smi',this)">مؤشر النضج SMI</a>
+        <a href="#okr" onclick="switchTab('okr',this)">الأهداف OKRs</a>
+        <a href="#structure" onclick="switchTab('structure',this)">الهيكل التنظيمي</a>
+        <a href="#flows" onclick="switchTab('flows',this)">خرائط التدفق</a>
+        <a href="#barakah" onclick="switchTab('barakah',this)">مؤشر البركة</a>
+    </nav>
+    <a href="/" class="back-btn">← الرئيسية</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+    <h1>لوحة <span>المؤشرات</span> المركزية</h1>
+    <p>جميع مؤشرات الأداء والهيكل التنظيمي والتدفقات والأهداف — مركزياً في مكان واحد</p>
+</div>
+
+<!-- ═══ TABS (MOBILE) ═══ -->
+<div class="tabs" id="tabs-mobile">
+    <button class="tab active" onclick="switchTab('overview',this)">📊 نظرة عامة</button>
+    <button class="tab" onclick="switchTab('market',this)">📈 السوق</button>
+    <button class="tab" onclick="switchTab('smi',this)">🎯 النضج</button>
+    <button class="tab" onclick="switchTab('okr',this)">🏆 الأهداف</button>
+    <button class="tab" onclick="switchTab('structure',this)">🏗️ الهيكل</button>
+    <button class="tab" onclick="switchTab('flows',this)">🔄 التدفقات</button>
+    <button class="tab" onclick="switchTab('barakah',this)">☪️ البركة</button>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!-- SECTION: نظرة عامة              -->
+<!-- ═══════════════════════════════ -->
+<div class="section active" id="sec-overview">
+    <div class="grid grid-4" style="margin-bottom:24px">
+        <div class="card">
+            <div class="card-header"><div class="card-icon" style="background:rgba(16,185,129,.1)">👥</div><span class="card-title">المستخدمون</span></div>
+            <div class="card-value" style="color:var(--green)">2,487</div>
+            <div class="card-label">مستخدم نشط</div>
+            <div class="card-trend trend-up">↑ 12% عن الشهر الماضي</div>
+        </div>
+        <div class="card">
+            <div class="card-header"><div class="card-icon" style="background:rgba(59,130,246,.1)">📦</div><span class="card-title">المنتجات</span></div>
+            <div class="card-value" style="color:var(--blue)">5,142</div>
+            <div class="card-label">منتج معدني مدرج</div>
+            <div class="card-trend trend-up">↑ 8% عن الشهر الماضي</div>
+        </div>
+        <div class="card">
+            <div class="card-header"><div class="card-icon" style="background:rgba(245,158,11,.1)">💰</div><span class="card-title">حجم التداول</span></div>
+            <div class="card-value" style="color:var(--orange)">15.2M</div>
+            <div class="card-label">ريال سعودي</div>
+            <div class="card-trend trend-up">↑ 22% عن الشهر الماضي</div>
+        </div>
+        <div class="card">
+            <div class="card-header"><div class="card-icon" style="background:rgba(139,92,246,.1)">🌍</div><span class="card-title">الدول</span></div>
+            <div class="card-value" style="color:var(--purple)">42</div>
+            <div class="card-label">دولة مشاركة</div>
+            <div class="card-trend trend-up">↑ 5 دول جديدة</div>
+        </div>
+    </div>
+
+    <!-- صحة النظام -->
+    <div class="section-card">
+        <h3><span class="icon">🟢</span> صحة النظام</h3>
+        <div class="grid grid-3">
+            <div class="card">
+                <div class="card-header"><span class="card-title">المحركات النشطة</span><span class="card-badge" style="background:rgba(16,185,129,.1);color:var(--green)">مستقر</span></div>
+                <div class="card-value" style="color:var(--green)">53</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:100%;background:var(--green)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">مؤشر النضج SMI</span></div>
+                <div class="card-value" style="color:var(--gold)">78%</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:78%;background:var(--gold)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">مؤشر البركة</span></div>
+                <div class="card-value" style="color:var(--cyan)">93</div>
+                <div class="card-label">من 100</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:93%;background:var(--cyan)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">الأمان</span><span class="card-badge" style="background:rgba(16,185,129,.1);color:var(--green)">محمي</span></div>
+                <div class="card-value" style="color:var(--green)">10</div>
+                <div class="card-label">طبقات حماية</div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">رضا العملاء</span></div>
+                <div class="card-value" style="color:var(--gold)">94%</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:94%;background:linear-gradient(90deg,var(--gold),var(--green))"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">وقت التشغيل</span></div>
+                <div class="card-value" style="color:var(--green)">99.8%</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:99.8%;background:var(--green)"></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!-- SECTION: مؤشرات السوق           -->
+<!-- ═══════════════════════════════ -->
+<div class="section" id="sec-market">
+    <div class="section-card">
+        <h3><span class="icon">📈</span> مؤشر شيخة الرئيسي — SHEIKHA INDEX</h3>
+        <div class="grid grid-3">
+            <div class="card">
+                <div class="card-header"><span class="card-title">🥇 الذهب</span><span class="card-badge" style="background:rgba(16,185,129,.1);color:var(--green)">↑</span></div>
+                <div class="card-value" style="color:var(--gold)">$2,340</div>
+                <div class="card-label">أونصة</div>
+                <div class="card-trend trend-up">↑ 1.2% اليوم</div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">🥈 الفضة</span><span class="card-badge" style="background:rgba(16,185,129,.1);color:var(--green)">↑</span></div>
+                <div class="card-value" style="color:#c0c0c0">$27.5</div>
+                <div class="card-label">أونصة</div>
+                <div class="card-trend trend-up">↑ 0.8% اليوم</div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">🔶 النحاس</span></div>
+                <div class="card-value" style="color:#B87333">$9,150</div>
+                <div class="card-label">طن</div>
+                <div class="card-trend trend-up">↑ 0.5% اليوم</div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">⬛ الحديد</span></div>
+                <div class="card-value" style="color:var(--t2)">$780</div>
+                <div class="card-label">طن</div>
+                <div class="card-trend trend-down">↓ 0.3% اليوم</div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">🔷 الألمنيوم</span></div>
+                <div class="card-value" style="color:var(--blue)">$2,480</div>
+                <div class="card-label">طن</div>
+                <div class="card-trend trend-up">↑ 0.4% اليوم</div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">♻️ السكراب</span></div>
+                <div class="card-value" style="color:var(--green)">$420</div>
+                <div class="card-label">طن (مختلط)</div>
+                <div class="card-trend trend-up">↑ 1.8% اليوم</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h3><span class="icon">📊</span> إحصائيات السوق</h3>
+        <div class="grid grid-4">
+            <div class="card"><div class="card-value" style="color:var(--gold)">328</div><div class="card-label">صفقة هذا الأسبوع</div></div>
+            <div class="card"><div class="card-value" style="color:var(--green)">96%</div><div class="card-label">نسبة الإتمام</div></div>
+            <div class="card"><div class="card-value" style="color:var(--blue)">4.7</div><div class="card-label">متوسط التقييم</div></div>
+            <div class="card"><div class="card-value" style="color:var(--purple)">12</div><div class="card-label">فئة معدنية</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!-- SECTION: مؤشر النضج SMI         -->
+<!-- ═══════════════════════════════ -->
+<div class="section" id="sec-smi">
+    <div class="section-card">
+        <h3><span class="icon">🎯</span> مؤشر نضج شيخة — SMI (Sheikha Maturity Index)</h3>
+        <p style="color:var(--t3);font-size:.82rem;margin-bottom:20px">قياس شامل لمدى نضج المنظومة عبر 8 محاور رئيسية</p>
+        <div class="grid grid-2">
+            <div class="card">
+                <div class="card-header"><span class="card-title">🏗️ البنية التحتية</span><span class="card-badge" style="background:rgba(16,185,129,.1);color:var(--green)">ممتاز</span></div>
+                <div class="card-value" style="color:var(--green)">92%</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:92%;background:var(--green)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">☪️ الامتثال الشرعي</span><span class="card-badge" style="background:rgba(16,185,129,.1);color:var(--green)">ممتاز</span></div>
+                <div class="card-value" style="color:var(--green)">96%</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:96%;background:var(--green)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">🤖 الذكاء الاصطناعي</span><span class="card-badge" style="background:rgba(245,158,11,.1);color:var(--orange)">جيد</span></div>
+                <div class="card-value" style="color:var(--orange)">74%</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:74%;background:var(--orange)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">🔒 الأمان والحوكمة</span><span class="card-badge" style="background:rgba(16,185,129,.1);color:var(--green)">ممتاز</span></div>
+                <div class="card-value" style="color:var(--green)">88%</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:88%;background:var(--green)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">📊 التحليلات والبيانات</span><span class="card-badge" style="background:rgba(245,158,11,.1);color:var(--orange)">جيد</span></div>
+                <div class="card-value" style="color:var(--orange)">71%</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:71%;background:var(--orange)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">🌐 التوسع العالمي</span><span class="card-badge" style="background:rgba(245,158,11,.1);color:var(--orange)">جيد</span></div>
+                <div class="card-value" style="color:var(--orange)">65%</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:65%;background:var(--orange)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">🤝 تجربة المستخدم</span><span class="card-badge" style="background:rgba(59,130,246,.1);color:var(--blue)">جيد جداً</span></div>
+                <div class="card-value" style="color:var(--blue)">82%</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:82%;background:var(--blue)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">⚡ الأداء والسرعة</span><span class="card-badge" style="background:rgba(59,130,246,.1);color:var(--blue)">جيد جداً</span></div>
+                <div class="card-value" style="color:var(--blue)">85%</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:85%;background:var(--blue)"></div></div>
+            </div>
+        </div>
+        <div class="card" style="margin-top:16px;text-align:center;padding:24px">
+            <div class="card-label">المؤشر العام</div>
+            <div class="card-value" style="color:var(--gold);font-size:2.5rem">78%</div>
+            <div class="card-bar" style="max-width:400px;margin:12px auto 0"><div class="card-bar-fill" style="width:78%;background:linear-gradient(90deg,var(--orange),var(--gold),var(--green))"></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!-- SECTION: الأهداف OKRs           -->
+<!-- ═══════════════════════════════ -->
+<div class="section" id="sec-okr">
+    <div class="section-card">
+        <h3><span class="icon">🏆</span> الأهداف والنتائج الرئيسية — OKRs 2025</h3>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>#</th><th>الهدف</th><th>النتيجة الرئيسية</th><th>التقدم</th><th>الحالة</th></tr></thead>
+                <tbody>
+                <tr><td>O1</td><td>إطلاق سوق المعادن بشكل كامل</td><td>5,000 منتج مدرج</td><td>
+                    <div class="card-bar" style="width:120px;display:inline-block"><div class="card-bar-fill" style="width:100%;background:var(--green)"></div></div> 100%
+                </td><td><span class="status status-green">✅ مكتمل</span></td></tr>
+                <tr><td>O2</td><td>الوصول إلى 3,000 تاجر مسجل</td><td>2,487 تاجر حالياً</td><td>
+                    <div class="card-bar" style="width:120px;display:inline-block"><div class="card-bar-fill" style="width:83%;background:var(--blue)"></div></div> 83%
+                </td><td><span class="status status-blue">⏳ جارٍ</span></td></tr>
+                <tr><td>O3</td><td>التوسع إلى 50 دولة</td><td>42 دولة حالياً</td><td>
+                    <div class="card-bar" style="width:120px;display:inline-block"><div class="card-bar-fill" style="width:84%;background:var(--blue)"></div></div> 84%
+                </td><td><span class="status status-blue">⏳ جارٍ</span></td></tr>
+                <tr><td>O4</td><td>مؤشر نضج SMI فوق 85%</td><td>78% حالياً</td><td>
+                    <div class="card-bar" style="width:120px;display:inline-block"><div class="card-bar-fill" style="width:78%;background:var(--orange)"></div></div> 78%
+                </td><td><span class="status status-yellow">📍 قريب</span></td></tr>
+                <tr><td>O5</td><td>إصدار تطبيق الجوال</td><td>التصميم مكتمل</td><td>
+                    <div class="card-bar" style="width:120px;display:inline-block"><div class="card-bar-fill" style="width:40%;background:var(--purple)"></div></div> 40%
+                </td><td><span class="status status-purple">🔧 قيد العمل</span></td></tr>
+                <tr><td>O6</td><td>شراكات حكومية (5 جهات)</td><td>3 جهات حالياً</td><td>
+                    <div class="card-bar" style="width:120px;display:inline-block"><div class="card-bar-fill" style="width:60%;background:var(--blue)"></div></div> 60%
+                </td><td><span class="status status-blue">⏳ جارٍ</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h3><span class="icon">🌍</span> أهداف التنمية المستدامة — SDGs</h3>
+        <div class="grid grid-4">
+            <div class="card" style="text-align:center"><div style="font-size:2rem;margin-bottom:4px">8️⃣</div><div class="card-label">العمل اللائق والنمو الاقتصادي</div><div class="card-bar"><div class="card-bar-fill" style="width:85%;background:var(--green)"></div></div></div>
+            <div class="card" style="text-align:center"><div style="font-size:2rem;margin-bottom:4px">9️⃣</div><div class="card-label">الصناعة والابتكار والبنية التحتية</div><div class="card-bar"><div class="card-bar-fill" style="width:78%;background:var(--blue)"></div></div></div>
+            <div class="card" style="text-align:center"><div style="font-size:2rem;margin-bottom:4px">🔟</div><div class="card-label">الحد من أوجه عدم المساواة</div><div class="card-bar"><div class="card-bar-fill" style="width:72%;background:var(--purple)"></div></div></div>
+            <div class="card" style="text-align:center"><div style="font-size:2rem;margin-bottom:4px">1️⃣2️⃣</div><div class="card-label">الاستهلاك والإنتاج المسؤولان</div><div class="card-bar"><div class="card-bar-fill" style="width:80%;background:var(--cyan)"></div></div></div>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h3><span class="icon">🇸🇦</span> توافق رؤية 2030</h3>
+        <div class="grid grid-3">
+            <div class="card"><div class="card-header"><span class="card-title">اقتصاد مزدهر</span></div><div class="card-value" style="color:var(--green)">88%</div><div class="card-bar"><div class="card-bar-fill" style="width:88%;background:var(--green)"></div></div></div>
+            <div class="card"><div class="card-header"><span class="card-title">مجتمع حيوي</span></div><div class="card-value" style="color:var(--blue)">82%</div><div class="card-bar"><div class="card-bar-fill" style="width:82%;background:var(--blue)"></div></div></div>
+            <div class="card"><div class="card-header"><span class="card-title">وطن طموح</span></div><div class="card-value" style="color:var(--purple)">76%</div><div class="card-bar"><div class="card-bar-fill" style="width:76%;background:var(--purple)"></div></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!-- SECTION: الهيكل التنظيمي         -->
+<!-- ═══════════════════════════════ -->
+<div class="section" id="sec-structure">
+    <div class="section-card">
+        <h3><span class="icon">🏗️</span> الهيكل التنظيمي لمنظومة شيخة</h3>
+        <div class="grid grid-2">
+            <!-- المستوى التنفيذي -->
+            <div class="card">
+                <div class="card-header"><div class="card-icon" style="background:rgba(212,175,55,.1)">👑</div><span class="card-title">المستوى التنفيذي</span></div>
+                <ul style="list-style:none;font-size:.8rem;color:var(--t2);line-height:2">
+                    <li>🔹 المدير التنفيذي CEO</li>
+                    <li>🔹 المدير التقني CTO</li>
+                    <li>🔹 المدير الشرعي CSO</li>
+                    <li>🔹 المدير المالي CFO</li>
+                </ul>
+            </div>
+            <!-- إدارة العمليات -->
+            <div class="card">
+                <div class="card-header"><div class="card-icon" style="background:rgba(59,130,246,.1)">⚙️</div><span class="card-title">إدارة العمليات</span></div>
+                <ul style="list-style:none;font-size:.8rem;color:var(--t2);line-height:2">
+                    <li>🔹 إدارة السوق</li>
+                    <li>🔹 إدارة الشركاء والموردين</li>
+                    <li>🔹 إدارة خدمة العملاء</li>
+                    <li>🔹 إدارة الجودة والامتثال</li>
+                </ul>
+            </div>
+            <!-- التقنية -->
+            <div class="card">
+                <div class="card-header"><div class="card-icon" style="background:rgba(139,92,246,.1)">💻</div><span class="card-title">إدارة التقنية</span></div>
+                <ul style="list-style:none;font-size:.8rem;color:var(--t2);line-height:2">
+                    <li>🔹 فريق المحركات والبنية التحتية</li>
+                    <li>🔹 فريق الذكاء الاصطناعي</li>
+                    <li>🔹 فريق الأمان والحماية</li>
+                    <li>🔹 فريق الواجهات UI/UX</li>
+                </ul>
+            </div>
+            <!-- التسويق والنمو -->
+            <div class="card">
+                <div class="card-header"><div class="card-icon" style="background:rgba(245,158,11,.1)">📣</div><span class="card-title">التسويق والنمو</span></div>
+                <ul style="list-style:none;font-size:.8rem;color:var(--t2);line-height:2">
+                    <li>🔹 التسويق الرقمي</li>
+                    <li>🔹 إدارة المحتوى</li>
+                    <li>🔹 العلاقات الحكومية</li>
+                    <li>🔹 الشراكات الدولية</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h3><span class="icon">🔧</span> محركات النظام (53 محرك)</h3>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>المحرك</th><th>النوع</th><th>الحالة</th><th>النضج</th></tr></thead>
+                <tbody>
+                <tr><td>محرك التسعير النبوي</td><td>تسعير</td><td><span class="status status-green">🟢 نشط</span></td><td>95%</td></tr>
+                <tr><td>محرك الاحتساب الرقمي</td><td>رقابة</td><td><span class="status status-green">🟢 نشط</span></td><td>92%</td></tr>
+                <tr><td>المشرّع الذكي</td><td>شرعي</td><td><span class="status status-green">🟢 نشط</span></td><td>88%</td></tr>
+                <tr><td>محرك الذكاء والتقدم</td><td>AI</td><td><span class="status status-green">🟢 نشط</span></td><td>74%</td></tr>
+                <tr><td>محرك سلسلة الإمداد</td><td>لوجستي</td><td><span class="status status-green">🟢 نشط</span></td><td>82%</td></tr>
+                <tr><td>محرك هيكل السوق</td><td>بنية</td><td><span class="status status-green">🟢 نشط</span></td><td>90%</td></tr>
+                <tr><td>محرك الأمان والحوكمة</td><td>أمان</td><td><span class="status status-green">🟢 نشط</span></td><td>88%</td></tr>
+                <tr><td>محرك منظومة البركة</td><td>قياس</td><td><span class="status status-green">🟢 نشط</span></td><td>93%</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!-- SECTION: خرائط التدفق           -->
+<!-- ═══════════════════════════════ -->
+<div class="section" id="sec-flows">
+    <div class="section-card">
+        <h3><span class="icon">🔄</span> تدفق التجارة الحلال</h3>
+        <div class="flow">
+            <div class="flow-node"><div class="fn-icon">🏭</div><div class="fn-label">المورّد</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">📋</div><div class="fn-label">فحص الجودة</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">☪️</div><div class="fn-label">تدقيق شرعي</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">📦</div><div class="fn-label">إدراج بالسوق</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">💰</div><div class="fn-label">تسعير نبوي</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">🤝</div><div class="fn-label">صفقة</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">🚚</div><div class="fn-label">توصيل</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">✅</div><div class="fn-label">تأكيد</div></div>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h3><span class="icon">💳</span> تدفق الدفع والتسوية</h3>
+        <div class="flow">
+            <div class="flow-node"><div class="fn-icon">👤</div><div class="fn-label">المشتري</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">🔐</div><div class="fn-label">تحقق</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">🏦</div><div class="fn-label">ضمان (Escrow)</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">📨</div><div class="fn-label">إشعار البائع</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">🚚</div><div class="fn-label">شحن</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">✅</div><div class="fn-label">تأكيد الاستلام</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">💰</div><div class="fn-label">تحرير المبلغ</div></div>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h3><span class="icon">🔗</span> تدفق سلسلة الإمداد</h3>
+        <div class="flow">
+            <div class="flow-node"><div class="fn-icon">⛏️</div><div class="fn-label">التعدين</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">🏭</div><div class="fn-label">التصنيع</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">📊</div><div class="fn-label">تصنيف</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">🏪</div><div class="fn-label">سوق شيخة</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">🌍</div><div class="fn-label">تصدير/محلي</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">♻️</div><div class="fn-label">إعادة تدوير</div></div>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h3><span class="icon">📡</span> تدفق المعلومات والبيانات</h3>
+        <div class="flow">
+            <div class="flow-node"><div class="fn-icon">🌐</div><div class="fn-label">بورصات عالمية</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">🤖</div><div class="fn-label">محرك الذكاء</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">☪️</div><div class="fn-label">فلتر شرعي</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">📊</div><div class="fn-label">لوحات العرض</div></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node"><div class="fn-icon">📱</div><div class="fn-label">المستخدمون</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!-- SECTION: مؤشر البركة            -->
+<!-- ═══════════════════════════════ -->
+<div class="section" id="sec-barakah">
+    <div class="section-card">
+        <h3><span class="icon">☪️</span> مؤشر البركة — Barakah Index</h3>
+        <p style="color:var(--t3);font-size:.82rem;margin-bottom:20px">مؤشر فريد يقيس مدى التزام المنظومة بالقيم الإسلامية والتأثير الإيجابي</p>
+        
+        <div style="text-align:center;margin-bottom:24px">
+            <div style="font-size:4rem;font-weight:900;color:var(--gold);font-family:'Cairo'">93<span style="font-size:1.5rem;color:var(--t3)">/100</span></div>
+            <div style="color:var(--green);font-weight:700;font-size:.85rem">✅ ممتاز — بارك الله</div>
+        </div>
+
+        <div class="grid grid-2">
+            <div class="card">
+                <div class="card-header"><span class="card-title">الالتزام بالشريعة</span></div>
+                <div class="card-value" style="color:var(--green)">98%</div>
+                <div class="card-label">بدون ربا • بدون غرر • بدون غش</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:98%;background:var(--green)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">العدالة في التسعير</span></div>
+                <div class="card-value" style="color:var(--gold)">95%</div>
+                <div class="card-label">تسعير نبوي عادل</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:95%;background:var(--gold)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">الشفافية</span></div>
+                <div class="card-value" style="color:var(--blue)">92%</div>
+                <div class="card-label">كل المعلومات متاحة</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:92%;background:var(--blue)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">الأثر المجتمعي</span></div>
+                <div class="card-value" style="color:var(--purple)">88%</div>
+                <div class="card-label">تمكين التجار • دعم المجتمع</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:88%;background:var(--purple)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">الاستدامة البيئية</span></div>
+                <div class="card-value" style="color:var(--cyan)">90%</div>
+                <div class="card-label">إعادة التدوير • الاقتصاد الدائري</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:90%;background:var(--cyan)"></div></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">رقابة المحتسب</span></div>
+                <div class="card-value" style="color:var(--green)">94%</div>
+                <div class="card-label">رقابة ذكية مستمرة</div>
+                <div class="card-bar"><div class="card-bar-fill" style="width:94%;background:var(--green)"></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ═══ التبويب ═══
+function switchTab(id, el) {
+    // إخفاء الكل
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('#kpi-nav a').forEach(a => a.classList.remove('active'));
+    
+    // إظهار المحدد
+    var sec = document.getElementById('sec-' + id);
+    if (sec) sec.classList.add('active');
+    
+    // تفعيل التبويب
+    if (el) el.classList.add('active');
+    
+    // مزامنة التبويب العلوي والسفلي
+    document.querySelectorAll('#kpi-nav a[href="#' + id + '"]').forEach(a => a.classList.add('active'));
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// تفعيل من URL hash
+if (window.location.hash) {
+    var hash = window.location.hash.replace('#', '');
+    var link = document.querySelector('#kpi-nav a[href="#' + hash + '"]');
+    if (link) switchTab(hash, link);
+}
+
+// Animation on scroll
+var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+        if (e.isIntersecting) {
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'translateY(0)';
+        }
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('.card').forEach(function(c) {
+    c.style.opacity = '0';
+    c.style.transform = 'translateY(16px)';
+    c.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(c);
+});
+</script>
+<script src="/js/safe-api.js"></script>
+<script src="/js/sheikha-smart-fab.js" defer></script>
+<script src="/js/sheikha-itqan.js"></script>
+</body>
+</html>
