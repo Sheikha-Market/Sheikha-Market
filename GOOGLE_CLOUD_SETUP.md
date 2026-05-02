@@ -51,7 +51,7 @@
   "type": "service_account",
   "project_id": "sheikha-marketplace",
   "private_key_id": "...",
-  "private_key": "-----BEGIN PRIVATE KEY-----\n...",
+  "private_key": "REPLACE_WITH_SERVICE_ACCOUNT_PRIVATE_KEY",
   "client_email": "market@sheikha.top",
   "client_id": "123456789",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
