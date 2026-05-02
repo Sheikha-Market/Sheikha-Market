@@ -131,18 +131,18 @@ nano .env  # أو استخدم أي محرر نصوص
 ```bash
 # Google OAuth 2.0
 GOOGLE_CLIENT_ID=xxxxx.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=GOCSPX-xxxxx
+GOOGLE_CLIENT_SECRET: REPLACE_WITH_GOOGLE_CLIENT_SECRET
 
 # Google Cloud
 GOOGLE_CLOUD_PROJECT=sheikha-marketplace
 GOOGLE_APPLICATION_CREDENTIALS=/workspaces/sheikha/sheikha-main-portal/credentials/google-service-account.json
 
 # Google Gemini AI
-GOOGLE_AI_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+GOOGLE_AI_API_KEY: REPLACE_WITH_GOOGLE_AI_API_KEY
 GOOGLE_PROJECT_ID=sheikha-marketplace
 
 # Google Maps
-GOOGLE_MAPS_API_KEY=AIzaSyYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+GOOGLE_MAPS_API_KEY: REPLACE_WITH_GOOGLE_MAPS_API_KEY
 
 # Google Analytics 4
 GA4_MEASUREMENT_ID=G-XXXXXXXXXX

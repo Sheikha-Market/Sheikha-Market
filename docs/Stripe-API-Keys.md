@@ -26,9 +26,9 @@
 
 ### استخدامها في شيخة
 ```
-STRIPE_PUBLISHABLE_KEY=pk_test_...   # أو pk_live_...
-STRIPE_SECRET_KEY=sk_test_...       # أو sk_live_...
-STRIPE_WEBHOOK_SECRET=whsec_...
+STRIPE_PUBLISHABLE_KEY: REPLACE_WITH_STRIPE_PUBLISHABLE_KEY
+STRIPE_SECRET_KEY: REPLACE_WITH_STRIPE_SECRET_KEY
+STRIPE_WEBHOOK_SECRET: REPLACE_WITH_STRIPE_WEBHOOK_SECRET
 ```
 
 ---
@@ -96,8 +96,8 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 
 - **Secret key** و **Webhook secret** — في `.env` فقط، لا تُرفع إلى Git
 - **Publishable key** — يمكن تضمينها في الواجهة الأمامية
-- استخدم **Test keys** (`sk_test_`, `pk_test_`) أثناء التطوير
-- استخدم **Live keys** (`sk_live_`, `pk_live_`) في الإنتاج فقط
+- استخدم **Test keys** (Stripe test key prefixes) أثناء التطوير
+- استخدم **Live keys** (Stripe live key prefixes) في الإنتاج فقط
 
 ---
 

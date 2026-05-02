@@ -28,7 +28,7 @@
 
 ```bash
 curl -X POST https://api.stripe.com/v2/core/accounts \
-  -H "Authorization: Bearer sk_test_..." \
+  -H "Authorization: Bearer <STRIPE_SECRET_KEY>" \
   -H "Stripe-Version: 2025-03-31.basil" \
   --json '{
     "include": [
