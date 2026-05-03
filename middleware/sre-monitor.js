@@ -301,7 +301,8 @@ function formatUptime(ms) {
 }
 
 // تشغيل التنظيف التلقائي كل ساعة
-setInterval(pruneOldRecords, 60 * 60 * 1000);
+const _pruneInterval = setInterval(pruneOldRecords, 60 * 60 * 1000);
+if (_pruneInterval.unref) _pruneInterval.unref(); // لا يمنع إيقاف الخادم
 
 module.exports = {
     sreMiddleware,
