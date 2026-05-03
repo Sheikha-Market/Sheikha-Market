@@ -14,6 +14,13 @@ const WebSocket = require('ws');
 const shariaGuard = require('./middleware/sheikha-sharia-guard');
 const tradeRoutes = require('./routes/trade.routes');
 
+// ═══ SRE Monitor — مراقبة موثوقية الموقع ═══
+const { sreMiddleware } = require('./middleware/sre-monitor');
+const sreRoutes = require('./routes/sre');
+app.use(sreMiddleware);
+app.use('/api/sre', sreRoutes);
+console.log('✅ [SRE] مراقبة موثوقية الموقع مفعّلة — /api/sre/*');
+
 const app = express();
 
 // ===== Root Control Plane — Central Governance Layer =====
@@ -5851,7 +5858,22 @@ app.use((req, res, next) => {
 
 // ═══ P0-2: Health Check — للتحقق السريع من جاهزية الخادم ═══
 
-app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+app.get('/api/health', (req, res) => {
+    const { getStatus } = require('./middleware/sre-monitor');
+    try {
+        const sre = getStatus();
+        res.json({
+            status: 'ok',
+            health: sre.health,
+            slo: sre.sloCompliant,
+            alerts: sre.alertsCount.total,
+            uptime: sre.uptime.formatted,
+            timestamp: sre.timestamp
+        });
+    } catch (_) {
+        res.json({ status: 'ok' });
+    }
+});
 
 // ===== SHEIKHA SHARIA / FIQH GOVERNANCE ROUTES =====
 // Bypass all shields for Sharia routes (guaranteed pass-through)
