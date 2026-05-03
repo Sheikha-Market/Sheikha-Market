@@ -21,6 +21,7 @@ jobs:
 
       - name: Validate server boot order
         run: |
+          [ -f server.js ] || { echo "❌ release invalid: missing server.js"; exit 1; }
           node --check server.js
           npm run -s server:guard:init
 
@@ -40,6 +41,8 @@ jobs:
             fi
             cd "$APP_PATH"
 
+            [ -f server.js ] || { echo "❌ release invalid: missing server.js in $APP_PATH"; exit 1; }
+
             if [ ! -d .git ]; then
               echo "❌ App path is not a git repository: $APP_PATH"
               exit 1
@@ -48,6 +51,8 @@ jobs:
             git fetch --all --prune
             git checkout main
             git pull --ff-only
+
+            [ -f server.js ] || { echo "❌ release invalid after pull: missing server.js"; exit 1; }
 
             docker compose -f infra/docker/compose/prod/docker-compose.yml --env-file infra/docker/compose/prod/.env pull || true
             docker compose -f infra/docker/compose/prod/docker-compose.yml --env-file infra/docker/compose/prod/.env up -d --remove-orphans
