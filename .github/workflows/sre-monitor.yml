@@ -1,0 +1,152 @@
+# بسم الله الرحمن الرحيم
+# SRE Monitor — فحص موثوقية الموقع الإنتاجي كل 10 دقائق
+name: 🔭 SRE Monitor — Sheikha Health Check
+
+on:
+  schedule:
+    # كل 10 دقائق
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: 'رابط فحص الصحة (اختياري)'
+        required: false
+        default: 'https://sheikha.top/api/health'
+
+permissions:
+  contents: read
+
+jobs:
+  health-check:
+    name: 🏥 فحص الصحة الإنتاجي
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: 📡 فحص /api/health
+        id: health
+        run: |
+          TARGET="${{ github.event.inputs.target_url || 'https://sheikha.top/api/health' }}"
+          echo "🌐 فحص: $TARGET"
+
+          HTTP_CODE=$(curl -s -o /tmp/health_body.json -w "%{http_code}" \
+            --max-time 10 --retry 2 --retry-delay 3 "$TARGET" || echo "000")
+
+          echo "http_code=$HTTP_CODE" >> $GITHUB_OUTPUT
+
+          if [ -f /tmp/health_body.json ]; then
+            echo "body=$(cat /tmp/health_body.json | tr -d '\n')" >> $GITHUB_OUTPUT
+            cat /tmp/health_body.json
+          fi
+
+          if [ "$HTTP_CODE" = "000" ]; then
+            echo "status=timeout" >> $GITHUB_OUTPUT
+          elif [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+            STATUS_OK=$(cat /tmp/health_body.json | python3 -c \
+              "import json,sys; d=json.load(sys.stdin); print('ok' if d.get('status')=='ok' else 'fail')" 2>/dev/null || echo "fail")
+            echo "status=$STATUS_OK" >> $GITHUB_OUTPUT
+          else
+            echo "status=fail" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 📊 قياس زمن الاستجابة
+        id: latency
+        run: |
+          TARGET="${{ github.event.inputs.target_url || 'https://sheikha.top/api/health' }}"
+          LATENCY=$(curl -o /dev/null -s -w "%{time_total}" --max-time 10 "$TARGET" || echo "-1")
+          echo "latency_s=$LATENCY" >> $GITHUB_OUTPUT
+          echo "⏱ زمن الاستجابة: ${LATENCY}s"
+
+          # تحقق من تجاوز الحد (2 ثانية)
+          LATENCY_MS=$(echo "$LATENCY * 1000" | bc 2>/dev/null | cut -d. -f1 || echo "0")
+          if [ "${LATENCY_MS:-0}" -gt 2000 ] 2>/dev/null; then
+            echo "latency_warning=true" >> $GITHUB_OUTPUT
+          else
+            echo "latency_warning=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 📋 ملخص الفحص
+        if: always()
+        run: |
+          STATUS="${{ steps.health.outputs.status }}"
+          HTTP_CODE="${{ steps.health.outputs.http_code }}"
+          LATENCY="${{ steps.latency.outputs.latency_s }}"
+          TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          echo "## 🔭 Sheikha SRE Health Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| المؤشر | القيمة |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 🕒 الوقت | $TS |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🌐 الحالة | $( [ "$STATUS" = "ok" ] && echo "✅ سليم" || echo "❌ يحتاج مراجعة" ) |" >> $GITHUB_STEP_SUMMARY
+          echo "| 📡 HTTP Code | $HTTP_CODE |" >> $GITHUB_STEP_SUMMARY
+          echo "| ⏱ زمن الاستجابة | ${LATENCY}s |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "$STATUS" = "ok" ]; then
+            echo "✅ **الموقع يعمل بشكل سليم**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **تحذير: الموقع لا يستجيب بشكل صحيح**" >> $GITHUB_STEP_SUMMARY
+            echo "يُنصح بمراجعة السيرفر فوراً" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "_﴿ إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَن يُتْقِنَهُ ﴾_" >> $GITHUB_STEP_SUMMARY
+
+      - name: ❌ فشل الفحص الصحي
+        if: steps.health.outputs.status != 'ok'
+        run: |
+          echo "❌ Health check FAILED"
+          echo "HTTP: ${{ steps.health.outputs.http_code }}"
+          echo "Status: ${{ steps.health.outputs.status }}"
+          echo "Body: ${{ steps.health.outputs.body }}"
+          exit 1
+
+  slo-compliance:
+    name: 🎯 فحص امتثال SLO
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: health-check
+    if: always()
+
+    steps:
+      - name: 📊 فحص /api/sre/status
+        id: sre
+        run: |
+          BASE_URL="${{ github.event.inputs.target_url || 'https://sheikha.top' }}"
+          BASE_URL="${BASE_URL%/api/health}"
+
+          HTTP_CODE=$(curl -s -o /tmp/sre_status.json -w "%{http_code}" \
+            --max-time 10 "$BASE_URL/api/sre/status" || echo "000")
+
+          echo "http_code=$HTTP_CODE" >> $GITHUB_OUTPUT
+
+          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 400 ] 2>/dev/null; then
+            SRE_HEALTH=$(cat /tmp/sre_status.json | python3 -c \
+              "import json,sys; d=json.load(sys.stdin); print(d.get('data',{}).get('health','unknown'))" 2>/dev/null || echo "unknown")
+            SLO_COMPLIANT=$(cat /tmp/sre_status.json | python3 -c \
+              "import json,sys; d=json.load(sys.stdin); print(str(d.get('data',{}).get('sloCompliant',False)).lower())" 2>/dev/null || echo "false")
+            ALERTS=$(cat /tmp/sre_status.json | python3 -c \
+              "import json,sys; d=json.load(sys.stdin); print(d.get('data',{}).get('alertsCount',{}).get('total',0))" 2>/dev/null || echo "0")
+
+            echo "sre_health=$SRE_HEALTH" >> $GITHUB_OUTPUT
+            echo "slo_compliant=$SLO_COMPLIANT" >> $GITHUB_OUTPUT
+            echo "alerts=$ALERTS" >> $GITHUB_OUTPUT
+
+            echo "🎯 SRE Health: $SRE_HEALTH"
+            echo "📋 SLO Compliant: $SLO_COMPLIANT"
+            echo "🔔 Alerts: $ALERTS"
+          else
+            echo "sre_health=unknown" >> $GITHUB_OUTPUT
+            echo "⚠️ لا يمكن الوصول إلى /api/sre/status (HTTP $HTTP_CODE)"
+          fi
+
+      - name: 📋 ملخص SLO
+        if: always()
+        run: |
+          echo "## 🎯 SLO Compliance" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| المؤشر | القيمة |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 🏥 صحة SRE | ${{ steps.sre.outputs.sre_health }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🎯 SLO محقق | $( [ '${{ steps.sre.outputs.slo_compliant }}' = 'true' ] && echo '✅ نعم' || echo '⚠️ لا' ) |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🔔 تنبيهات | ${{ steps.sre.outputs.alerts }} |" >> $GITHUB_STEP_SUMMARY
