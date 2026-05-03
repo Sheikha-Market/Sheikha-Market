@@ -4248,12 +4248,17 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // تفعيل شبكة الخلايا العصبية الجذرية المتقدمة بعد JSON/CORS/SRE
-try {
-    const rootNeuralNetworkRoutes = require('./routes/root-neural-network.routes');
-    app.use('/api/root-neural-network', rootNeuralNetworkRoutes);
-    console.log('✅ Root Neural Cell Network ACTIVE on /api/root-neural-network');
-} catch (e) {
-    console.error('❌ Root Neural Cell Network failed:', e);
+const rootNeuralRoutesPath = path.join(__dirname, 'routes', 'root-neural-network.routes.js');
+if (fs.existsSync(rootNeuralRoutesPath)) {
+    try {
+        const rootNeuralNetworkRoutes = require('./routes/root-neural-network.routes');
+        app.use('/api/root-neural-network', rootNeuralNetworkRoutes);
+        console.log('✅ Root Neural Cell Network ACTIVE on /api/root-neural-network');
+    } catch (e) {
+        console.warn('⚠️ Root Neural Cell Network disabled:', e.message);
+    }
+} else {
+    console.warn('⚠️ Root Neural Cell Network routes not found at ./routes/root-neural-network.routes.js');
 }
 
 // تنظيف المدخلات
@@ -6207,7 +6212,11 @@ app.get('/شيخة-ترميز',       (req, res) => res.redirect('/شيخة-تر
 app.get('/اللغة-العربية',    (req, res) => res.redirect('/شيخة-ترميز-UTF8.html'));
 app.get('/الشبكة-العصبية',   (req, res) => res.redirect('/شيخة-ترميز-UTF8.html'));
 
-const _PORT_ENV = parseInt(process.env.PORT || '8080', 10);
+const _HAS_EXPLICIT_PORT = typeof process.env.PORT === 'string' && process.env.PORT.trim() !== '';
+const _ALLOW_PORT_FALLBACK = String(process.env.SHEIKHA_ALLOW_PORT_FALLBACK || 'false').toLowerCase() === 'true';
+const _PORT_ENV_RAW = process.env.PORT || '8080';
+const _PORT_ENV = parseInt(_PORT_ENV_RAW, 10);
+const _PREFERRED_PORT = Number.isNaN(_PORT_ENV) ? 8080 : _PORT_ENV;
 // 🛡️ تنظيم المنافذ — الافتراضي 0.0.0.0 (يعمل في Codespaces/Docker/Cloud)
 // للتقييد المحلي فقط: ضع HOST=127.0.0.1 في ملف .env
 const HOST = process.env.HOST || '0.0.0.0';
@@ -6216,7 +6225,7 @@ if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
 // ─── الشبكة العصبية للمنافذ ──────────────────────────────────────────────────
 let _portEngine = null;
-let PORT = _PORT_ENV;
+let PORT = _PREFERRED_PORT;
 try {
     const { portEngine } = require('./core/ports');
     _portEngine = portEngine;
@@ -6239,7 +6248,7 @@ const ROOT_NEURAL_CELL_NETWORK = Object.freeze({
 });
 
 const rootNeuralRuntime = {
-    mainPort: _PORT_ENV,
+    mainPort: _PREFERRED_PORT,
     gatewayPort: 8081,
     lastRunAt: null,
     results: []
@@ -37806,15 +37815,21 @@ function _startMarketplaceGateway(mainPort) {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 async function _startServer() {
-    // ① اكتشاف المنفذ الفعلي عبر الشبكة العصبية (إذا كانت متاحة)
-    let actualPort = PORT;
-    if (_portEngine) {
+    // ① اكتشاف المنفذ الفعلي عبر الشبكة العصبية (اختياري)
+    // إذا تم تمرير PORT صراحة، نثبّت عليه إلا إذا SHEIKHA_ALLOW_PORT_FALLBACK=true
+    let actualPort = _PREFERRED_PORT;
+    const allowNeuralFallback = Boolean(_portEngine) && (!_HAS_EXPLICIT_PORT || _ALLOW_PORT_FALLBACK);
+
+    if (allowNeuralFallback) {
         try {
             await _portEngine.ignite();
-            actualPort = _portEngine.mainPort || PORT;
+            actualPort = _portEngine.mainPort || _PREFERRED_PORT;
         } catch (e) {
-            console.log('⚠️  الشبكة العصبية: استخدام المنفذ الافتراضي بسبب:', e.message);
+            console.log('⚠️  الشبكة العصبية: استخدام المنفذ المفضّل بسبب:', e.message);
         }
+    } else if (_HAS_EXPLICIT_PORT) {
+        actualPort = _PREFERRED_PORT;
+        console.log(`🔒 PORT pinned to ${actualPort} (SHEIKHA_ALLOW_PORT_FALLBACK=false)`);
     }
 
     // ② تشغيل الخادم على المنفذ الفعلي
@@ -37858,7 +37873,7 @@ async function _startServer() {
             });
         }, 800);
 
-        const relocated = actualPort !== _PORT_ENV ? `🔄 انتقل من ${_PORT_ENV} إلى ${actualPort}` : '✅ المنفذ المفضّل';
+        const relocated = actualPort !== _PREFERRED_PORT ? `🔄 انتقل من ${_PREFERRED_PORT} إلى ${actualPort}` : '✅ المنفذ المفضّل';
         console.log(`
 ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                           🏪 سوق شيخة للمعادن والسكراب - البوابة الرئيسية                                          ║
