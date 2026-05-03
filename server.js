@@ -14,6 +14,13 @@ const WebSocket = require('ws');
 const shariaGuard = require('./middleware/sheikha-sharia-guard');
 const tradeRoutes = require('./routes/trade.routes');
 
+// ═══ SRE Monitor — مراقبة موثوقية الموقع ═══
+const { sreMiddleware } = require('./middleware/sre-monitor');
+const sreRoutes = require('./routes/sre');
+app.use(sreMiddleware);
+app.use('/api/sre', sreRoutes);
+console.log('✅ [SRE] مراقبة موثوقية الموقع مفعّلة — /api/sre/*');
+
 const app = express();
 
 // ===== Root Control Plane — Central Governance Layer =====
@@ -5851,7 +5858,22 @@ app.use((req, res, next) => {
 
 // ═══ P0-2: Health Check — للتحقق السريع من جاهزية الخادم ═══
 
-app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+app.get('/api/health', (req, res) => {
+    const { getStatus } = require('./middleware/sre-monitor');
+    try {
+        const sre = getStatus();
+        res.json({
+            status: 'ok',
+            health: sre.health,
+            slo: sre.sloCompliant,
+            alerts: sre.alertsCount.total,
+            uptime: sre.uptime.formatted,
+            timestamp: sre.timestamp
+        });
+    } catch (_) {
+        res.json({ status: 'ok' });
+    }
+});
 
 // ===== SHEIKHA SHARIA / FIQH GOVERNANCE ROUTES =====
 // Bypass all shields for Sharia routes (guaranteed pass-through)
@@ -37343,17 +37365,110 @@ app.get('/api/network/ready',     (_req, res) => res.json({ success: true, statu
 app.get('/api/network/health',    (_req, res) => res.json({ success: true, status: 'healthy', service: 'network', timestamp: new Date().toISOString() }));
 app.get('/api/offline/status',    (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
 app.get('/api/realtime/health',   (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
-app.get('/api/root-neural-network/status', (_req, res) => {
-    return res.status(200).json({
-        success: true,
-        data: {
-            network: ROOT_NEURAL_CELL_NETWORK,
-            runtime: rootNeuralRuntime
-        },
-        message: 'حالة الشبكة العصبية الجذرية للخادم.',
-        timestamp: new Date().toISOString()
-    });
+app.get('/api/root-neural-network/status', async (_req, res) => {
+    try {
+        const rnn = require('./lib/sheikha-root-neural-network');
+        await rnn.ensureBooted();
+        return res.status(200).json({
+            success: true,
+            data: rnn.getStatus(),
+            message: 'الشبكة العصبية الجذرية تعمل بكامل طاقتها.',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(500).json({
+            success: false,
+            data: { network: ROOT_NEURAL_CELL_NETWORK, runtime: rootNeuralRuntime },
+            message: e.message,
+            timestamp: new Date().toISOString()
+        });
+    }
 });
+
+// ─── شبكة الخلايا العصبية الجذرية — مسارات API الكاملة ──────────────────────
+(async () => {
+    try {
+        const rnn = require('./lib/sheikha-root-neural-network');
+        await rnn.ensureBooted();
+
+        // L0: فحص شرعي
+        app.post('/api/root-neural-network/sharia', express.json(), (req, res) => {
+            try {
+                const features = req.body.features || [0,0,0,0,0,1,1,1];
+                const result = rnn.shariaCheck(features);
+                res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+            } catch(e) { res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() }); }
+        });
+
+        // L1: تحليل المخاطر
+        app.post('/api/root-neural-network/risk', express.json(), (req, res) => {
+            try {
+                const features = req.body.features || [0.5,0.3,0.1,0.9,0.95,0.7,0.8,0.9];
+                const result = rnn.riskAnalysis(features);
+                res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+            } catch(e) { res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() }); }
+        });
+
+        // L2: ذكاء السوق
+        app.post('/api/root-neural-network/market', express.json(), (req, res) => {
+            try {
+                const features = req.body.features || [1.0,0.8,0.7,0.6,0.5,0.4];
+                const result = rnn.marketIntelligence(features);
+                res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+            } catch(e) { res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() }); }
+        });
+
+        // L5: قرار الحوكمة
+        app.post('/api/root-neural-network/governance', express.json(), (req, res) => {
+            try {
+                const features = req.body.features || [1.0,0.1,0.9,0.9,0.9,1.0,0.9,0.9];
+                const result = rnn.governanceDecision(features);
+                res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+            } catch(e) { res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() }); }
+        });
+
+        // L6: تحليل النص
+        app.post('/api/root-neural-network/nlp', express.json(), (req, res) => {
+            try {
+                const text = String(req.body.text || '').slice(0, 1000);
+                if (!text) return res.status(400).json({ success: false, message: 'text مطلوب', timestamp: new Date().toISOString() });
+                const result = rnn.analyzeText(text);
+                res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+            } catch(e) { res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() }); }
+        });
+
+        // تشابه النصوص
+        app.post('/api/root-neural-network/similarity', express.json(), (req, res) => {
+            try {
+                const { text1, text2 } = req.body;
+                if (!text1 || !text2) return res.status(400).json({ success: false, message: 'text1 و text2 مطلوبان', timestamp: new Date().toISOString() });
+                const result = rnn.textSimilarity(String(text1).slice(0,500), String(text2).slice(0,500));
+                res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+            } catch(e) { res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() }); }
+        });
+
+        // الكلمات المشابهة
+        app.get('/api/root-neural-network/similar/:word', (req, res) => {
+            try {
+                const topK = Math.min(parseInt(req.query.k) || 8, 20);
+                const result = rnn.similarWords(req.params.word, topK);
+                res.json({ success: true, data: { word: req.params.word, similar: result }, timestamp: new Date().toISOString() });
+            } catch(e) { res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() }); }
+        });
+
+        // قرار متسلسل شامل (Orchestrated Pipeline)
+        app.post('/api/root-neural-network/orchestrate', express.json(), (req, res) => {
+            try {
+                const result = rnn.orchestrate(req.body || {});
+                res.json({ success: result.success, data: result, timestamp: new Date().toISOString() });
+            } catch(e) { res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() }); }
+        });
+
+        console.log('✅ [ROOT-NEURAL] 7 خلايا عصبية + Orchestrator مفعّلة — /api/root-neural-network/*');
+    } catch (e) {
+        console.warn('⚠️ [ROOT-NEURAL] تعذّر التفعيل الكامل:', e.message);
+    }
+})();
 
 // Failsafe: Root Governance Core (يضمن التفعيل حتى لو فشل تحميل الراوتر الخارجي)
 app.get('/api/root-governance/health', (_req, res) => {
