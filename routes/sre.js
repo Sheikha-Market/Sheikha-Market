@@ -86,6 +86,9 @@ router.get('/error-budget', (req, res) => {
 
         // أسوأ حالة عبر النوافذ الزمنية
         const allBudgets = Object.values(budgets);
+        if (!allBudgets.length) {
+            return res.json({ success: true, data: { windows: budgets, overall: { status: 'healthy', lowestAvailabilityBudgetPct: 100, lowestErrorRateBudgetPct: 100 } }, message: 'لا توجد بيانات كافية بعد', timestamp: new Date().toISOString() });
+        }
         const worstAvailability = Math.min(...allBudgets.map(b => b.availability.budgetRemainingPct));
         const worstErrorRate = Math.min(...allBudgets.map(b => b.errorRate.budgetRemainingPct));
 

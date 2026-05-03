@@ -345,7 +345,17 @@
   }
 
   loadAll();
-  setInterval(loadAll, 15000);
+  let _refreshInterval = setInterval(loadAll, 15000);
+
+  // إيقاف التحديث عند إخفاء الصفحة — توفير الموارد
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      clearInterval(_refreshInterval);
+    } else {
+      loadAll();
+      _refreshInterval = setInterval(loadAll, 15000);
+    }
+  });
 </script>
 </body>
 </html>
