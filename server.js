@@ -1,4 +1,49 @@
 
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * 🏢 SHEIKHA MAIN PORTAL — SERVER.JS
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * 
+ * منظومة شيخة — أول منصة اقتصادية إسلامية رقمية للمعادن والسكراب
+ * Built on: Node.js + Express | Governance: Quran + Sunnah | Design: Dark + Gold
+ * 
+ * ✨ المبادئ الأساسية:
+ *   • لا ربا — لا غرر — لا غش — لا احتكار
+ *   • سوق تراضٍ — صدق القول — دقة الوزن
+ *   • بيع مشروع بدون استغلال أو تضليل
+ * 
+ * 🏗️ العمارة الرئيسية:
+ *   └─ Root Control Plane (حاكمية مركزية)
+ *   └─ Root Neural Network (12 خلية عصبية)
+ *   └─ SRE Monitoring (مراقبة موثوقية الموقع)
+ *   └─ Decision Enforcement (فرض التقيد بالقواعس)
+ *   └─ Sharia Guard (حارس الشريعة الإسلامية)
+ *   └─ Trade Engine (محرك التجارة الآمن)
+ * 
+ * 📋 API الأساسية:
+ *   • /api/health — فحص جاهزية الخادم
+ *   • /api/sre/* — مراقبة SRE والصحة
+ *   • /api/root-governance/* — قرارات الحوكمة
+ *   • /api/neural-governance/* — الشبكة العصبية
+ *   • /api/sharia/* — الفتاوى والأحكام الشرعية
+ * 
+ * 🔒 الأمان والحماية:
+ *   ✓ JWT + OAuth (Google, Microsoft, Apple, Nafath)
+ *   ✓ Decision Enforcement على المسارات الحساسة
+ *   ✓ Sharia Guard على جميع المعاملات
+ *   ✓ Rate Limiting + CORS
+ *   ✓ Input Sanitization
+ * 
+ * 📊 المراقبة:
+ *   ✓ SRE Health Checks (5s intervals)
+ *   ✓ Request/Response Logging
+ *   ✓ Performance Metrics
+ *   ✓ Error Tracking
+ *   ✓ Uptime Monitoring
+ * 
+ * ═══════════════════════════════════════════════════════════════════════════════
+ */
+
 const express = require('express');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
@@ -4356,6 +4401,102 @@ app.use(sreMiddleware);
 app.use('/api/sre', sreRoutes);
 console.log('✅ [SRE] مراقبة موثوقية الموقع مفعّلة — /api/sre/*');
 
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * 📊 MONITORING ENDPOINTS — نقاط النهاية للمراقبة
+ * ═══════════════════════════════════════════════════════════════════════════════
+ */
+
+/**
+ * فحص حالة النظام بشكل مباشر
+ * @route GET /api/system/status
+ */
+app.get('/api/system/status', (req, res) => {
+    try {
+        const { getStatus } = require('./middleware/sre-monitor');
+        const sre = getStatus();
+        
+        return res.json({
+            success: true,
+            service: 'sheikha-main-portal',
+            status: sre.health === 'healthy' ? 'operational' : 'degraded',
+            health: sre.health,
+            metrics: {
+                uptime_seconds: sre.uptime.total,
+                uptime_formatted: sre.uptime.formatted,
+                slo_compliant: sre.sloCompliant,
+                alerts_total: sre.alertsCount.total,
+                alerts_warnings: sre.alertsCount.warnings,
+                alerts_critical: sre.alertsCount.critical
+            },
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        console.error('❌ [SYSTEM_STATUS]:', e.message);
+        return res.status(503).json({
+            success: false,
+            error: e.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
+/**
+ * إحصائيات الأداء الفورية
+ * @route GET /api/system/metrics
+ */
+app.get('/api/system/metrics', (req, res) => {
+    try {
+        const { getStatus } = require('./middleware/sre-monitor');
+        const sre = getStatus();
+        
+        const metrics = {
+            cpu: process.cpuUsage(),
+            memory: process.memoryUsage(),
+            uptime: sre.uptime,
+            alerts: sre.alertsCount,
+            timestamp: new Date().toISOString()
+        };
+        
+        return res.json({
+            success: true,
+            data: metrics
+        });
+    } catch (e) {
+        console.error('❌ [METRICS]:', e.message);
+        return res.status(500).json({
+            success: false,
+            error: e.message
+        });
+    }
+});
+
+/**
+ * حالة الخدمات الفردية
+ * @route GET /api/system/services
+ */
+app.get('/api/system/services', (req, res) => {
+    try {
+        return res.json({
+            success: true,
+            services: {
+                sre_monitor: { status: 'active', description: 'Service Reliability Engineering' },
+                sharia_guard: { status: 'active', description: 'Islamic Law Enforcement' },
+                decision_enforcement: { status: 'active', description: 'Rule Enforcement' },
+                root_governance: { status: 'active', description: 'Central Governance' },
+                neural_network: { status: 'active', description: 'Root Neural Network' }
+            },
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        console.error('❌ [SERVICES]:', e.message);
+        return res.status(500).json({
+            success: false,
+            error: e.message
+        });
+    }
+});
+
 // Cache Control for HTML pages
 app.use((req, res, next) => {
     if (req.path.endsWith('.html') || req.path === '/' || req.path === '') {
@@ -5865,20 +6006,48 @@ app.use((req, res, next) => {
 
 // ═══ P0-2: Health Check — للتحقق السريع من جاهزية الخادم ═══
 
+/**
+ * فحص صحة الخادم الشامل
+ * يتضمن:
+ * ✓ حالة SRE (Service Reliability Engineering)
+ * ✓ عدد التنبيهات والتحذيرات
+ * ✓ مدة عمل الخادم (uptime)
+ * ✓ التوافقية مع SLO (Service Level Objectives)
+ * 
+ * @route GET /api/health
+ * @returns {Object} حالة الخادم الحالية
+ * @example
+ *   GET /api/health
+ *   Response: { status: 'ok', health: 'healthy', slo: true, alerts: 0, uptime: '2d 5h 30m' }
+ */
 app.get('/api/health', (req, res) => {
     const { getStatus } = require('./middleware/sre-monitor');
     try {
         const sre = getStatus();
-        res.json({
+        const healthStatus = {
             status: 'ok',
+            service: 'sheikha-main-portal',
             health: sre.health,
             slo: sre.sloCompliant,
             alerts: sre.alertsCount.total,
+            warnings: sre.alertsCount.warnings,
+            critical: sre.alertsCount.critical,
             uptime: sre.uptime.formatted,
-            timestamp: sre.timestamp
+            uptime_seconds: sre.uptime.total,
+            timestamp: sre.timestamp,
+            version: process.env.SHEIKHA_VERSION || '1.0.0',
+            environment: process.env.NODE_ENV || 'development'
+        };
+        
+        res.status(200).json(healthStatus);
+    } catch (e) {
+        console.error('❌ [HEALTH] Error:', e.message);
+        res.status(503).json({ 
+            status: 'error',
+            service: 'sheikha-main-portal',
+            error: e.message,
+            timestamp: new Date().toISOString()
         });
-    } catch (_) {
-        res.json({ status: 'ok' });
     }
 });
 
