@@ -15,6 +15,7 @@
     "server:restart": "pm2 describe sheikha-api > /dev/null 2>&1 && pm2 restart sheikha-api && pm2 save || pm2 start ecosystem.config.js --only sheikha-api && pm2 save",
     "server:status": "pm2 describe sheikha-api",
     "server:logs": "pm2 logs sheikha-api --lines 100",
+    "server:guard:init": "node scripts/guard-server-init-order.js",
     "server:smoke": "bash scripts/sheikha-smoke-test.sh",
     "server:deploy": "git pull && npm run server:restart && sleep 5 && npm run server:smoke",
     "meta:start": "pm2 start ecosystem.config.js --only sheikha-meta-background && pm2 save",

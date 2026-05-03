@@ -19,6 +19,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate server boot order
+        run: |
+          node --check server.js
+          npm run -s server:guard:init
+
       - name: Deploy on VPS with Docker Compose
         uses: appleboy/ssh-action@v1.0.3
         with:
