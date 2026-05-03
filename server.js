@@ -16,13 +16,6 @@ const tradeRoutes = require('./routes/trade.routes');
 const { sreMiddleware } = require('./middleware/sre-monitor');
 const sreRoutes = require('./routes/sre');
 
-// ═══ SRE Monitor — مراقبة موثوقية الموقع ═══
-const { sreMiddleware } = require('./middleware/sre-monitor');
-const sreRoutes = require('./routes/sre');
-app.use(sreMiddleware);
-app.use('/api/sre', sreRoutes);
-console.log('✅ [SRE] مراقبة موثوقية الموقع مفعّلة — /api/sre/*');
-
 const app = express();
 
 // ===== Root Control Plane — Central Governance Layer =====
