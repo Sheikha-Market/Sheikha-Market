@@ -154,6 +154,26 @@
                 "command": "sheikha.openIntegrationsDashboard",
                 "title": "Sheikha: فتح لوحة التكاملات",
                 "category": "Sheikha Account"
+            },
+            {
+                "command": "sheikha.sirnAnalyze",
+                "title": "Sheikha SIRN: تحليل دلالي للكود المحدد",
+                "category": "Sheikha SIRN"
+            },
+            {
+                "command": "sheikha.sirnStatus",
+                "title": "Sheikha SIRN: حالة شبكة الجذور الدلالية",
+                "category": "Sheikha SIRN"
+            },
+            {
+                "command": "sheikha.sirnDomains",
+                "title": "Sheikha SIRN: عرض نطاقات IFL",
+                "category": "Sheikha SIRN"
+            },
+            {
+                "command": "sheikha.sirnProcess",
+                "title": "Sheikha SIRN: معالجة استعلام SIRN→IFL→IDA",
+                "category": "Sheikha SIRN"
             }
         ],
         "keybindings": [
@@ -301,6 +321,18 @@
                 },
                 {
                     "command": "sheikha.openIntegrationsDashboard"
+                },
+                {
+                    "command": "sheikha.sirnAnalyze"
+                },
+                {
+                    "command": "sheikha.sirnStatus"
+                },
+                {
+                    "command": "sheikha.sirnDomains"
+                },
+                {
+                    "command": "sheikha.sirnProcess"
                 }
             ]
         },

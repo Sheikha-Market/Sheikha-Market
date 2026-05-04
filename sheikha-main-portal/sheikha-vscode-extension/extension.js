@@ -762,6 +762,131 @@ async function activate(context) {
         await vscode.commands.executeCommand('workbench.view.extension.sheikha-copilot');
     });
 
+    // ── أوامر SIRN — شبكة الجذور الذكية الدلالية ──
+    // ﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١
+
+    const MAX_SIRN_ANALYSIS_LENGTH = 800;  // الحد الأقصى للنص المُرسل للتحليل الدلالي
+
+    const sirnAnalyzeCommand = vscode.commands.registerCommand('sheikha.sirnAnalyze', async () => {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            vscode.window.showWarningMessage('Sheikha SIRN: يرجى فتح ملف أولاً');
+            return;
+        }
+
+        const selectedText = editor.selection.isEmpty
+            ? editor.document.getText().slice(0, MAX_SIRN_ANALYSIS_LENGTH)
+            : editor.document.getText(editor.selection).slice(0, MAX_SIRN_ANALYSIS_LENGTH);
+
+        const language = editor.document.languageId;
+
+        vscode.window.withProgress(
+            { location: vscode.ProgressLocation.Notification, title: 'SIRN: تحليل دلالي...' },
+            async () => {
+                try {
+                    const authHeaders = await provider.authManager.getAuthHeaders();
+                    const response = await fetch(`${provider.config.serverUrl}/api/sirn/infer`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', ...authHeaders },
+                        body: JSON.stringify({ text: selectedText, language }),
+                    });
+                    const data = await response.json();
+                    const result = data.data || {};
+                    const domain     = result.domain     || result.iflDomain || 'غير محدد';
+                    const confidence = result.confidence  != null ? `${(result.confidence * 100).toFixed(1)}%` : 'N/A';
+                    const quranRef   = result.quranRef   || '';
+                    const sharia     = result.shariaCompliant !== false ? '✅ متوافق' : '⚠️ راجع';
+                    vscode.window.showInformationMessage(
+                        `SIRN: النطاق: ${domain} | ثقة: ${confidence} | شريعة: ${sharia}`
+                        + (quranRef ? ` | ${quranRef}` : '')
+                    );
+                } catch (err) {
+                    vscode.window.showErrorMessage(`SIRN Error: ${err.message}`);
+                }
+            }
+        );
+    });
+
+    const sirnStatusCommand = vscode.commands.registerCommand('sheikha.sirnStatus', async () => {
+        try {
+            const authHeaders = await provider.authManager.getAuthHeaders();
+            const response = await fetch(`${provider.config.serverUrl}/api/sirn/status`, {
+                headers: authHeaders,
+            });
+            const data = await response.json();
+            const s = data.data || {};
+            const sirn = s.sirn || s;
+            const arch  = sirn.architecture || {};
+            const stats = sirn.stats || {};
+            vscode.window.showInformationMessage(
+                `SIRN v${sirn.version || '?'} | خلايا: ${arch.totalCells || '?'} | طبقات: ${arch.layers || '?'} ` +
+                `| استدلالات: ${stats.classified || 0} | خطأ: ${stats.errors || 0}`
+            );
+        } catch (err) {
+            vscode.window.showErrorMessage(`SIRN Status Error: ${err.message}`);
+        }
+    });
+
+    const sirnDomainsCommand = vscode.commands.registerCommand('sheikha.sirnDomains', async () => {
+        try {
+            const authHeaders = await provider.authManager.getAuthHeaders();
+            const response = await fetch(`${provider.config.serverUrl}/api/sirn/domains`, {
+                headers: authHeaders,
+            });
+            const data = await response.json();
+            const domains = (data.data || []).map(d =>
+                `[${d.id}] ${d.key} → IFL: ${d.iflDomain || 'N/A'} (${d.iflId || '-'})`
+            ).join('\n');
+            if (!domains) {
+                vscode.window.showInformationMessage('SIRN: لا توجد نطاقات متاحة بعد');
+                return;
+            }
+            const items = (data.data || []).map(d => ({
+                label:       `${d.key}`,
+                description: `IFL: ${d.iflId || '-'}`,
+                detail:      d.quranRef || '',
+            }));
+            await vscode.window.showQuickPick(items, {
+                placeHolder: 'نطاقات SIRN / IFL — اختر لعرض التفاصيل',
+                canPickMany: false,
+            });
+        } catch (err) {
+            vscode.window.showErrorMessage(`SIRN Domains Error: ${err.message}`);
+        }
+    });
+
+    const sirnProcessCommand = vscode.commands.registerCommand('sheikha.sirnProcess', async () => {
+        const query = await vscode.window.showInputBox({
+            prompt: 'أدخل استعلاماً لمعالجته عبر SIRN → IFL → IDA',
+            placeHolder: 'مثال: تحليل كود Python أو علاج كيميائي أو حماية الغابات',
+        });
+        if (!query) return;
+
+        vscode.window.withProgress(
+            { location: vscode.ProgressLocation.Notification, title: 'SIRN → IFL: معالجة شاملة...' },
+            async () => {
+                try {
+                    const authHeaders = await provider.authManager.getAuthHeaders();
+                    const response = await fetch(`${provider.config.serverUrl}/api/sirn/process`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', ...authHeaders },
+                        body: JSON.stringify({ query }),
+                    });
+                    const data = await response.json();
+                    const result = data.data || {};
+                    const routing = result.routing || {};
+                    vscode.window.showInformationMessage(
+                        `SIRN→IFL: نطاق: ${routing.domain || 'غير محدد'} ` +
+                        `| وظيفة: ${routing.iflId || 'N/A'} ` +
+                        `| طريقة: ${routing.method || 'N/A'}`
+                    );
+                } catch (err) {
+                    vscode.window.showErrorMessage(`SIRN Process Error: ${err.message}`);
+                }
+            }
+        );
+    });
+
     await ensureBackendReady('startup');
     await syncExtensionsIntegrations('startup');
 
@@ -791,6 +916,10 @@ async function activate(context) {
         manageAccountCommand,
         syncIntegrationsCommand,
         openIntegrationsDashboardCommand,
+        sirnAnalyzeCommand,
+        sirnStatusCommand,
+        sirnDomainsCommand,
+        sirnProcessCommand,
         { dispose: () => clearInterval(autoRefreshInterval) },
         accountStatusItem
     );

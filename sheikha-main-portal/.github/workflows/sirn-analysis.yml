@@ -1,0 +1,161 @@
+# بسم الله الرحمن الرحيم
+# ══════════════════════════════════════════════════════════════════
+# SIRN GitHub Actions Workflow
+# تحليل PRs و Issues باستخدام SIRN + IFL
+# ﴿وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ﴾ — الأنفال: ٦٠
+# ══════════════════════════════════════════════════════════════════
+
+name: Sheikha SIRN Analysis
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  issues:
+    types: [opened, edited]
+
+permissions:
+  pull-requests: write
+  issues: write
+  contents: read
+
+jobs:
+  sirn-analyze:
+    name: SIRN Semantic Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: sheikha-main-portal/package-lock.json
+
+      - name: Install dependencies
+        working-directory: sheikha-main-portal
+        run: npm install --production --ignore-scripts
+
+      - name: Run SIRN Analysis
+        id: sirn
+        working-directory: sheikha-main-portal
+        run: |
+          node -e "
+          // بسم الله الرحمن الرحيم
+          const sirnEngine = require('./lib/sheikha-sirn-engine');
+          const sirn = sirnEngine.getInstance();
+
+          const title  = process.env.TITLE  || '';
+          const body   = process.env.BODY   || '';
+          const type   = process.env.EVENT_TYPE || 'unknown';
+
+          const text = title + ' ' + body;
+          const result = sirn.infer(text);
+
+          console.log('SIRN_DOMAIN=' + (result.domain || 'GENERAL'));
+          console.log('SIRN_IFL_DOMAIN=' + (result.iflDomain || 'UNKNOWN'));
+          console.log('SIRN_IFL_ID=' + (result.iflId || 'N/A'));
+          console.log('SIRN_CONFIDENCE=' + ((result.confidence || 0) * 100).toFixed(1));
+          console.log('SIRN_SHARIA=' + (result.shariaCompliant !== false ? 'compliant' : 'review-needed'));
+          console.log('SIRN_QURAN=' + (result.quranRef || ''));
+
+          // Output for GitHub Actions
+          const fs = require('fs');
+          const output = process.env.GITHUB_OUTPUT || '/dev/stdout';
+          fs.appendFileSync(output, 'domain=' + (result.domain || 'GENERAL') + '\n');
+          fs.appendFileSync(output, 'ifl_domain=' + (result.iflDomain || 'UNKNOWN') + '\n');
+          fs.appendFileSync(output, 'ifl_id=' + (result.iflId || 'N/A') + '\n');
+          fs.appendFileSync(output, 'confidence=' + ((result.confidence || 0) * 100).toFixed(1) + '\n');
+          fs.appendFileSync(output, 'sharia=' + (result.shariaCompliant !== false ? 'compliant' : 'review-needed') + '\n');
+          " 2>/dev/null || echo "SIRN analysis skipped (dependencies not available)"
+        env:
+          TITLE: ${{ github.event.pull_request.title || github.event.issue.title || '' }}
+          BODY: ${{ github.event.pull_request.body || github.event.issue.body || '' }}
+          EVENT_TYPE: ${{ github.event_name }}
+
+      - name: Comment on PR with SIRN analysis
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const domain     = '${{ steps.sirn.outputs.domain }}' || 'GENERAL';
+            const iflDomain  = '${{ steps.sirn.outputs.ifl_domain }}' || 'UNKNOWN';
+            const iflId      = '${{ steps.sirn.outputs.ifl_id }}' || 'N/A';
+            const confidence = '${{ steps.sirn.outputs.confidence }}' || '0';
+            const sharia     = '${{ steps.sirn.outputs.sharia }}' || 'unknown';
+
+            const domainEmojis = {
+              ENVIRONMENTAL: '🌿', SOFTWARE: '💻', MEDICAL: '🏥',
+              CHEMICAL: '⚗️', TRADE: '📊', SHARIA: '📜',
+              KNOWLEDGE: '📚', GOVERNANCE: '🏛️', SECURITY: '🔐', GENERAL: '🔵'
+            };
+            const emoji = domainEmojis[domain] || '🔵';
+            const shariaIcon = sharia === 'compliant' ? '✅' : '⚠️';
+
+            const quranRefs = {
+              ENVIRONMENTAL: '﴿وَلَا تُفْسِدُوا فِي الْأَرْضِ بَعْدَ إِصْلَاحِهَا﴾ — الأعراف: ٥٦',
+              SOFTWARE:      '﴿اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ﴾ — العلق: ١',
+              MEDICAL:       '﴿وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ﴾ — الشعراء: ٨٠',
+              CHEMICAL:      '«ما أنزل الله داءً إلا أنزل له شفاءً» — البخاري',
+              TRADE:         '﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾ — البقرة: ٢٧٥',
+            };
+            const quranRef = quranRefs[domain] || '﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨';
+
+            const body = [
+              '### 🧠 Sheikha SIRN Analysis',
+              '',
+              `${emoji} **النطاق الدلالي:** \`${domain}\``,
+              `📋 **IFL Domain:** \`${iflDomain}\``,
+              `🔧 **IFL Function:** \`${iflId}\``,
+              `📊 **مستوى الثقة:** ${confidence}%`,
+              `${shariaIcon} **التوافق الشرعي:** ${sharia === 'compliant' ? 'متوافق' : 'يحتاج مراجعة'}`,
+              '',
+              `> ${quranRef}`,
+              '',
+              '---',
+              '*لا إله إلا الله محمد رسول الله*',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+
+      - name: Label Issue with SIRN domain
+        if: github.event_name == 'issues'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const domain    = '${{ steps.sirn.outputs.domain }}' || 'GENERAL';
+            const iflDomain = '${{ steps.sirn.outputs.ifl_domain }}' || 'UNKNOWN';
+            const sharia    = '${{ steps.sirn.outputs.sharia }}' || 'unknown';
+
+            const labels = [
+              `sirn:${domain.toLowerCase()}`,
+              `ifl:${iflDomain.toLowerCase()}`,
+              sharia === 'compliant' ? 'sharia:compliant' : 'sharia:review-needed',
+            ];
+
+            // إنشاء labels إذا لم تكن موجودة
+            for (const label of labels) {
+              try {
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo:  context.repo.repo,
+                  name:  label,
+                  color: label.startsWith('sirn') ? 'd4af37' :
+                         label.startsWith('ifl')  ? 'b87333' : '10b981',
+                });
+              } catch (_) { /* Label already exists */ }
+            }
+
+            await github.rest.issues.addLabels({
+              owner:        context.repo.owner,
+              repo:         context.repo.repo,
+              issue_number: context.issue.number,
+              labels,
+            });

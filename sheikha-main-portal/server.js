@@ -4349,6 +4349,466 @@ app.get('/api/project/status', (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 👑 SDGN — الشبكة العليا للحوكمة الإلهية
+// Supreme Divine Governance Network
+// ﴿إِنِ الْحُكْمُ إِلَّا لِلَّهِ﴾ — يوسف: ٤٠
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let _sdgnLayer = null;
+try {
+    _sdgnLayer = require('./core/sheikha-sdgn-layer');
+} catch (_sdgnErr) {
+    console.warn('⚠️ [SDGN] sheikha-sdgn-layer غير متاح:', _sdgnErr.message);
+}
+
+// GET /api/sdgn/status — حالة SDGN + البنية الكاملة للمنظومة
+app.get('/api/sdgn/status', (req, res) => {
+    try {
+        const s = _sdgnLayer ? _sdgnLayer.status() : {
+            name: 'Sheikha SDGN Layer', ready: false, note: 'غير محمّل',
+        };
+        res.json({ success: true, data: s, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// GET /api/sdgn/stack — بنية المنظومة الكاملة (SDGN→SIRN→IFL→RNN→Guardian)
+app.get('/api/sdgn/stack', (req, res) => {
+    try {
+        const stack = _sdgnLayer ? _sdgnLayer.getStack() : {
+            tawheed: 'لا إله إلا الله محمد رسول الله',
+            stack: [],
+        };
+        res.json({ success: true, data: stack, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sdgn/govern — تطبيق مبادئ الحوكمة الإلهية
+app.post('/api/sdgn/govern', express.json(), (req, res) => {
+    try {
+        const result = _sdgnLayer
+            ? _sdgnLayer.govern(req.body || {})
+            : { allowed: true, note: 'SDGN غير متاح — تمرير افتراضي' };
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sdgn/process — معالجة كاملة SDGN→SIRN→IFL→IDA
+app.post('/api/sdgn/process', express.json(), async (req, res) => {
+    try {
+        const result = _sdgnLayer
+            ? await _sdgnLayer.process(req.body || {})
+            : { ok: false, error: 'SDGN Layer غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌟 SIRN — Supreme IFL Root Network
+// Semantic Intelligent Root Network
+// ﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let _sirnIflLayer = null;
+try {
+    _sirnIflLayer = require('./core/sheikha-sirn-ifl-layer');
+} catch (_sirnErr) {
+    console.warn('⚠️ [SIRN] sheikha-sirn-ifl-layer غير متاح:', _sirnErr.message);
+}
+
+// POST /api/sirn/infer — استدلال دلالي
+app.post('/api/sirn/infer', express.json(), (req, res) => {
+    try {
+        const { text, query } = req.body || {};
+        if (!text && !query) {
+            return res.status(400).json({ success: false, message: 'text أو query مطلوب', timestamp: new Date().toISOString() });
+        }
+        const result = _sirnIflLayer
+            ? _sirnIflLayer.infer(text || query)
+            : { ok: false, error: 'SIRN غير متاح' };
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sirn/process — معالجة كاملة SIRN→IFL→IDA
+app.post('/api/sirn/process', express.json(), async (req, res) => {
+    try {
+        const result = _sirnIflLayer
+            ? await _sirnIflLayer.process(req.body || {})
+            : { ok: false, error: 'SIRN غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// GET /api/sirn/status — حالة SIRN
+app.get('/api/sirn/status', (req, res) => {
+    try {
+        const s = _sirnIflLayer ? _sirnIflLayer.status() : { ready: false };
+        res.json({ success: true, data: s, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// GET /api/sirn/domains — نطاقات SIRN / IFL
+app.get('/api/sirn/domains', (req, res) => {
+    try {
+        const domains = _sirnIflLayer ? _sirnIflLayer.listDomains() : [];
+        res.json({ success: true, data: domains, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sirn/github/analyze-pr — تحليل PR
+app.post('/api/sirn/github/analyze-pr', express.json(), async (req, res) => {
+    try {
+        let result = { ok: false, error: 'GitHub SIRN integration غير متاح' };
+        try {
+            const ghSirn = require('./lib/sheikha-github-sirn-integration');
+            result = await ghSirn.GitHubSystemsIntegration.analyzePR(req.body || {});
+        } catch (_) {}
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sirn/github/classify-issue — تصنيف Issue
+app.post('/api/sirn/github/classify-issue', express.json(), (req, res) => {
+    try {
+        let result = { ok: false };
+        try {
+            const ghSirn = require('./lib/sheikha-github-sirn-integration');
+            result = ghSirn.GitHubSystemsIntegration.classifyIssue(req.body || {});
+        } catch (_) {}
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sirn/vscode/analyze — تحليل كود VS Code
+app.post('/api/sirn/vscode/analyze', express.json(), async (req, res) => {
+    try {
+        const { code, language } = req.body || {};
+        let result = { ok: false };
+        try {
+            const ghSirn = require('./lib/sheikha-github-sirn-integration');
+            result = await ghSirn.VSCodeBridge.analyzeSelection(code || '', language);
+        } catch (_) {}
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sirn/copilot/context — سياق Copilot
+app.post('/api/sirn/copilot/context', express.json(), async (req, res) => {
+    try {
+        const { message } = req.body || {};
+        let result = { context: '' };
+        try {
+            const ghSirn = require('./lib/sheikha-github-sirn-integration');
+            result = await ghSirn.CopilotIntegration.buildCopilotContext(message || '');
+        } catch (_) {}
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sirn/mcp/tool — تنفيذ MCP Tool
+app.post('/api/sirn/mcp/tool', express.json(), async (req, res) => {
+    try {
+        const { name, args } = req.body || {};
+        let result = { error: 'MCP غير متاح' };
+        try {
+            const ghSirn = require('./lib/sheikha-github-sirn-integration');
+            result = await ghSirn.MCPIntegration.executeMCPTool(name, args || {});
+        } catch (_) {}
+        res.json({ success: !result.error, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 💎 SDC — نواة شيخة الرقمية (Sheikha Digital Core — 9 وحدات)
+// ﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let _sdcLayer = null;
+try {
+    _sdcLayer = require('./core/sheikha-sdc-layer');
+} catch (_sdcErr) {
+    console.warn('⚠️ [SDC] sheikha-sdc-layer غير متاح:', _sdcErr.message);
+}
+
+// GET /api/sdc/status — حالة SDC
+app.get('/api/sdc/status', (req, res) => {
+    try {
+        const s = _sdcLayer ? _sdcLayer.status() : { ready: false };
+        res.json({ success: true, data: s, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sdc/execute — تنفيذ وحدة SDC
+app.post('/api/sdc/execute', express.json(), (req, res) => {
+    try {
+        const { unitId, data } = req.body || {};
+        if (!unitId) return res.status(400).json({ success: false, message: 'unitId مطلوب' });
+        const result = _sdcLayer
+            ? _sdcLayer.execute(unitId, data || {})
+            : { ok: false, error: 'SDC غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sdc/pipeline — تنفيذ pipeline وحدات متعددة
+app.post('/api/sdc/pipeline', express.json(), (req, res) => {
+    try {
+        const { units, data } = req.body || {};
+        if (!Array.isArray(units) || units.length === 0) {
+            return res.status(400).json({ success: false, message: 'units (مصفوفة) مطلوبة' });
+        }
+        const results = _sdcLayer ? _sdcLayer.pipeline(units, data || {}) : [];
+        res.json({ success: true, data: results, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🪙 SIDC — العملة الرقمية الإسلامية (1 SIDC = 12.65 USD)
+// ﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾ — البقرة: ٢٧٥
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let _sidcLayer = null;
+try {
+    _sidcLayer = require('./core/sheikha-sidc-layer');
+} catch (_sidcErr) {
+    console.warn('⚠️ [SIDC] sheikha-sidc-layer غير متاح:', _sidcErr.message);
+}
+
+// GET /api/sidc/status — حالة SIDC
+app.get('/api/sidc/status', (req, res) => {
+    try {
+        const s = _sidcLayer ? _sidcLayer.status() : { ready: false, rateUSD: 12.65 };
+        res.json({ success: true, data: s, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// GET /api/sidc/rate — سعر الصرف الحالي
+app.get('/api/sidc/rate', (req, res) => {
+    res.json({
+        success:    true,
+        data: {
+            symbol:   'SIDC',
+            rateUSD:  12.65,
+            base:     'USD',
+            halalCertified: true,
+            noRiba:   true,
+            quranRef: '﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾ — البقرة: ٢٧٥',
+        },
+        timestamp: new Date().toISOString(),
+    });
+});
+
+// GET /api/sidc/balance/:address — رصيد عنوان
+app.get('/api/sidc/balance/:address', (req, res) => {
+    try {
+        const result = _sidcLayer
+            ? _sidcLayer.balance(req.params.address)
+            : { ok: false, error: 'SIDC غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sidc/issue — إصدار عملة
+app.post('/api/sidc/issue', express.json(), (req, res) => {
+    try {
+        const { address, amount, reason } = req.body || {};
+        if (!address || !amount) return res.status(400).json({ success: false, message: 'address و amount مطلوبان' });
+        const result = _sidcLayer
+            ? _sidcLayer.issue(address, parseFloat(amount), reason)
+            : { ok: false, error: 'SIDC غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sidc/transfer — تحويل عملة
+app.post('/api/sidc/transfer', express.json(), (req, res) => {
+    try {
+        const { from, to, amount, meta } = req.body || {};
+        if (!from || !to || !amount) return res.status(400).json({ success: false, message: 'from و to و amount مطلوبة' });
+        const result = _sidcLayer
+            ? _sidcLayer.transfer(from, to, parseFloat(amount), meta || { consent: true })
+            : { ok: false, error: 'SIDC غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// GET /api/sidc/zakat/:address — حساب الزكاة
+app.get('/api/sidc/zakat/:address', (req, res) => {
+    try {
+        const result = _sidcLayer
+            ? _sidcLayer.calculateZakat(req.params.address)
+            : { ok: false, error: 'SIDC غير متاح' };
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sidc/zakat/pay — دفع الزكاة
+app.post('/api/sidc/zakat/pay', express.json(), (req, res) => {
+    try {
+        const { address } = req.body || {};
+        if (!address) return res.status(400).json({ success: false, message: 'address مطلوب' });
+        const result = _sidcLayer
+            ? _sidcLayer.payZakat(address)
+            : { ok: false, error: 'SIDC غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sidc/convert — تحويل SIDC ↔ USD
+app.post('/api/sidc/convert', express.json(), (req, res) => {
+    try {
+        const { amount, from } = req.body || {};
+        if (!amount) return res.status(400).json({ success: false, message: 'amount مطلوب' });
+        const result = _sidcLayer
+            ? _sidcLayer.convert(parseFloat(amount), from || 'SIDC')
+            : { ok: false, error: 'SIDC غير متاح' };
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sidc/sharia-check — فحص شرعي لمعاملة
+app.post('/api/sidc/sharia-check', express.json(), (req, res) => {
+    try {
+        const result = _sidcLayer
+            ? _sidcLayer.shariaCheck(req.body || {})
+            : { compliant: false, error: 'SIDC غير متاح' };
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 💡 INFRA — البنية التحتية الذكية الموحّدة
+// CV + Quantum + 6 أنواع حوسبة + RNN الجذرية
+// ﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let _infraLayer = null;
+try {
+    _infraLayer = require('./core/sheikha-infra-layer');
+} catch (_infraErr) {
+    console.warn('⚠️ [INFRA] sheikha-infra-layer غير متاح:', _infraErr.message);
+}
+
+// GET /api/infra/status — حالة البنية التحتية الكاملة
+app.get('/api/infra/status', (req, res) => {
+    try {
+        const s = _infraLayer ? _infraLayer.status() : { ready: false };
+        res.json({ success: true, data: s, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/infra/process — معالجة موحّدة (auto-routing)
+app.post('/api/infra/process', express.json(), (req, res) => {
+    try {
+        const result = _infraLayer
+            ? _infraLayer.process(req.body || {})
+            : { ok: false, error: 'INFRA غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/infra/quantum — معالجة كمية
+app.post('/api/infra/quantum', express.json(), (req, res) => {
+    try {
+        const result = _infraLayer
+            ? _infraLayer.quantum(req.body || {})
+            : { ok: false, error: 'INFRA غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/infra/compute — توجيه طلب حوسبة
+app.post('/api/infra/compute', express.json(), (req, res) => {
+    try {
+        const result = _infraLayer
+            ? _infraLayer.compute(req.body || {})
+            : { ok: false, error: 'INFRA غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/infra/neural — استدلال شبكة RNN الجذرية
+app.post('/api/infra/neural', express.json(), (req, res) => {
+    try {
+        const { text, query } = req.body || {};
+        const result = _infraLayer
+            ? _infraLayer.neural(text || query || '')
+            : { ok: false, error: 'INFRA غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/infra/vision — الرؤية الحسوبية
+app.post('/api/infra/vision', express.json(), (req, res) => {
+    try {
+        const result = _infraLayer
+            ? _infraLayer.vision(req.body || {})
+            : { ok: false, error: 'INFRA غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🏛️ التسجيل الحكومي — Government Registration System
 // ═══════════════════════════════════════════════════════════════════════════════
 
