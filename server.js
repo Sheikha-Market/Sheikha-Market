@@ -45,9 +45,16 @@
  */
 
 // ╔══════════════════════════════════════════════════════════════╗
-// ║  🌟 SIRN — SUPREME IFL ROOT NETWORK — الطبقة الأعلى         ║
+// ║  👑 SDGN — SUPREME DIVINE GOVERNANCE NETWORK — الأعلى       ║
+// ║  7 خلايا إلهية: أركان الإسلام + القرآن + السنة              ║
+// ║  Hardware → Kernel → OS → ★SDGN★ → SIRN → IFL → RNN → App  ║
+// ╚══════════════════════════════════════════════════════════════╝
+const SDGN = require('./lib/sheikha-sdgn-supreme-divine-governance-network');
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  🌟 SIRN — SUPREME IFL ROOT NETWORK — الطبقة الثانية        ║
 // ║  فوق IFL — 6 خلايا جذرية عليا بالكتاب والسنة لله وحده      ║
-// ║  Hardware → Kernel → OS → ★SIRN★ → IFL → RNN → App         ║
+// ║  Hardware → Kernel → OS → SDGN → ★SIRN★ → IFL → RNN → App  ║
 // ╚══════════════════════════════════════════════════════════════╝
 const SIRN = require('./lib/sheikha-supreme-ifl-root-network');
 
@@ -37662,6 +37669,51 @@ app.get('/api/network/ready',     (_req, res) => res.json({ success: true, statu
 app.get('/api/network/health',    (_req, res) => res.json({ success: true, status: 'healthy', service: 'network', timestamp: new Date().toISOString() }));
 app.get('/api/offline/status',    (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
 app.get('/api/realtime/health',   (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
+
+// ─── SDGN — الشبكة العليا للحوكمة الإلهية (7 خلايا) ─────────────────────────
+app.get('/api/sdgn/status', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: SDGN.getStatus(),
+        message: '👑 الشبكة العليا للحوكمة الإلهية — 7 خلايا — أركان الإسلام + القرآن والسنة',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sdgn/cell/:code', (req, res) => {
+    const result = SDGN.verifyCellIntegrity(req.params.code.toUpperCase(), req.query);
+    return res.status(result.valid ? 200 : 404).json({
+        success: result.valid,
+        data: result,
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sdgn/stack', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: {
+            governanceStack: SDGN.DIVINE_GOVERNANCE_STACK,
+            cells: SDGN.DIVINE_CELLS,
+            sirnVersion: SIRN.SIRN_VERSION,
+            sdgnVersion: SDGN.SDGN_VERSION
+        },
+        message: 'تسلسل الحوكمة الكامل — SDGN → SIRN → IFL → RNN → App',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sdgn/check', (req, res) => {
+    const result = SDGN.enforceIslamicGovernance(req.body || {});
+    return res.status(result.compliant ? 200 : 403).json({
+        success: result.compliant,
+        data: result,
+        message: result.compliant
+            ? '✅ الطلب متوافق مع الحوكمة الإلهية'
+            : '⛔ الطلب يخالف الحوكمة الإلهية',
+        timestamp: new Date().toISOString()
+    });
+});
 
 // ─── SIRN ↔ IFL ↔ RNN — حالة المنظومة الكاملة ───────────────────────────────
 app.get('/api/sirn/status', (_req, res) => {
