@@ -8,6 +8,9 @@
 echo "🚀 بدء عملية النشر لسوق شيخة..."
 echo ""
 
+# Guard: لا يبدأ النشر إذا كان release بلا entrypoint
+[ -f server.js ] || { echo "❌ release invalid: missing server.js"; exit 1; }
+
 # التحقق من وجود vercel CLI
 if command -v vercel &> /dev/null; then
     echo "✅ Vercel CLI موجود"
