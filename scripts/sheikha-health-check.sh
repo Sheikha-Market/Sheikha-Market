@@ -29,15 +29,31 @@ send_alert() {
     fi
 }
 
+PM2_APP_NAME='sheikha-api'
+PM2_BIN="$(command -v pm2 2>/dev/null || echo /usr/local/bin/pm2)"
+
 restart_if_down() {
     local svc="$1"
+    # إذا كانت الخدمة هي sheikha-main نستخدم PM2 بدلاً من systemd
+    if [[ "$svc" == 'sheikha-main' ]]; then
+        local pm2_status
+        pm2_status="$("$PM2_BIN" jlist 2>/dev/null | grep -o '"status":"[^"]*"' | head -1 | cut -d'"' -f4 || echo 'unknown')"
+        if [[ "$pm2_status" != 'online' ]]; then
+            send_alert "pm2_app_down=$PM2_APP_NAME pm2_status=$pm2_status action=pm2_restart"
+            "$PM2_BIN" restart "$PM2_APP_NAME" || "$PM2_BIN" start "$PM2_APP_NAME" || true
+            sleep 3
+            pm2_status="$("$PM2_BIN" jlist 2>/dev/null | grep -o '"status":"[^"]*"' | head -1 | cut -d'"' -f4 || echo 'unknown')"
+            if [[ "$pm2_status" != 'online' ]]; then
+                send_alert "CRITICAL: $PM2_APP_NAME failed_to_restart pm2_status=$pm2_status"
+            fi
+        fi
+        return 0
+    fi
+    # systemd services أخرى
     if ! systemctl is-active --quiet "$svc"; then
         send_alert "service_down=$svc action=restart"
-        systemctl restart "$svc"
+        systemctl restart "$svc" || send_alert "CRITICAL: failed_to_restart $svc"
         sleep 3
-        if ! systemctl is-active --quiet "$svc"; then
-            send_alert "CRITICAL: $svc failed_to_restart"
-        fi
     fi
 }
 
@@ -46,7 +62,11 @@ restart_if_unhealthy() {
     local url="$2"
     if ! curl -fsS --max-time 8 "$url" > /dev/null 2>&1; then
         send_alert "healthcheck_failed service=$svc url=$url action=restart"
-        systemctl restart "$svc"
+        if [[ "$svc" == 'sheikha-main' ]]; then
+            "$PM2_BIN" restart "$PM2_APP_NAME" || true
+        else
+            systemctl restart "$svc" || true
+        fi
         sleep 3
     fi
 }
