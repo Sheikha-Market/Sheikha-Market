@@ -20,6 +20,7 @@ const marketsOfMarketsRoutes = require('./markets-of-markets');
 const governanceRoutes       = require('./governance');
 const ipRoutes               = require('./intellectual-property');
 const logicsRoutes           = require('./logics');
+const pipelineRoutes         = require('./pipeline.routes');
 
 // ─── المسارات الرئيسية ────────────────────────────────────────────────────────
 
@@ -57,10 +58,19 @@ router.use('/api/governance', governanceRoutes);
 // الملكية الفكرية الكاملة لسوق شيخة ©️
 router.use('/api/ip', ipRoutes);
 
-// ─── المنطق السباعي ──────────────────────────────────────────────────────────
-
 // ─── المنطق الجامع (21 منطقاً: 7 أصلية + 13 موسّعة + المنطق الأعلى) ──────────
 router.use('/api/logics', logicsRoutes);
+
+// ─── محرك شيخة الموحّد: Pipeline + Factory + Neural Network ──────────────────
+// /api/engine/status        — حالة المحرك
+// /api/engine/process       — تشغيل خط أنابيب
+// /api/engine/create        — إنشاء كيان
+// /api/engine/pipelines     — قائمة الأنابيب
+// /api/engine/factory/*     — المصانع
+// /api/engine/neural/*      — الشبكة العصبية
+// /api/engine/signal        — إشارة عبر الشبكة
+// /api/engine/learn         — دورة تعلم
+router.use('/api/engine', pipelineRoutes);
 
 // ─── مسار الحالة ──────────────────────────────────────────────────────────────
 
