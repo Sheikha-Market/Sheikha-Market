@@ -50,6 +50,18 @@
 // ╚══════════════════════════════════════════════════════════════╝
 const IFL = require('./lib/sheikha-islamic-foundation-layer');
 
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  🧠 ROOT NEURAL CELL NETWORK — شبكة الخلايا العصبية الجذرية ║
+// ║  IFL → ★ Root Neural Cell Network ★ → Guardian → App        ║
+// ╚══════════════════════════════════════════════════════════════╝
+const rootNeuralNetwork = require('./lib/sheikha-root-neural-network');
+// تفعيل فوري eager boot — تُحمَّل بعد IFL مباشرة
+rootNeuralNetwork.ensureBooted().then(rnn => {
+    console.log(`🕌 [IFL→RNN] شبكة الخلايا العصبية الجذرية مفعّلة | IFL v${IFL.IFL_VERSION} | RNN v${rnn.version}`);
+}).catch(e => {
+    console.warn('[IFL→RNN] تحذير: تعذّر إقلاع الشبكة العصبية الجذرية:', e.message);
+});
+
 const express = require('express');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
@@ -37643,6 +37655,37 @@ app.get('/api/network/ready',     (_req, res) => res.json({ success: true, statu
 app.get('/api/network/health',    (_req, res) => res.json({ success: true, status: 'healthy', service: 'network', timestamp: new Date().toISOString() }));
 app.get('/api/offline/status',    (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
 app.get('/api/realtime/health',   (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
+
+// ─── IFL ↔ Root Neural Cell Network — حالة الربط ─────────────────────────────
+app.get('/api/rnn/ifl-status', async (_req, res) => {
+    try {
+        const rnn = require('./lib/sheikha-root-neural-network');
+        await rnn.ensureBooted();
+        return res.status(200).json({
+            success: true,
+            data: {
+                rnnStatus:       rnn.status,
+                rnnVersion:      rnn.version,
+                iflLinked:       rnn.iflLinked === true,
+                iflVersion:      IFL.IFL_VERSION,
+                iflAxioms:       IFL.IFL_AXIOMS,
+                governanceStack: IFL.GOVERNANCE_STACK,
+                runtimeEnv:      IFL.detectRuntimeEnvironment(),
+                rnnStats:        rnn.getStatus()
+            },
+            message: 'IFL ↔ شبكة الخلايا العصبية الجذرية — مفعّلة ومترابطة',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(500).json({
+            success: false,
+            data: null,
+            message: e.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
 app.get('/api/root-neural-network/status', async (_req, res) => {
     try {
         const rnn = require('./lib/sheikha-root-neural-network');
