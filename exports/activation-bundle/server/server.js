@@ -1,6 +1,13 @@
 try {
     require('dotenv').config();
 } catch (_) {}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  🕌 IFL — ISLAMIC FOUNDATION LAYER — أول تحميل في المنظومة  ║
+// ║  Hardware → Kernel → OS → ★IFL★ → Guardian → App            ║
+// ╚══════════════════════════════════════════════════════════════╝
+const IFL = require('../../../lib/sheikha-islamic-foundation-layer');
+
 const express = require('express');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
@@ -11767,6 +11774,89 @@ function uniqueArray(values) {
     return Array.from(new Set((values || []).filter(Boolean)));
 }
 
+function resolveRuntimeCountry() {
+    return normalizeCountryCode(
+        process.env.SHEIKHA_RUNTIME_COUNTRY ||
+            process.env.DEPLOYMENT_COUNTRY ||
+            process.env.HOST_COUNTRY ||
+            'SA'
+    );
+}
+
+function evaluateSovereignPolicy({ homeCountry, runtimeCountry, userCountry, targetCountry }) {
+    const home = normalizeCountryCode(homeCountry || 'SA');
+    const runtime = normalizeCountryCode(runtimeCountry || resolveRuntimeCountry());
+    const user = normalizeCountryCode(userCountry || home);
+    const target = normalizeCountryCode(targetCountry || home);
+    const outsideSaudi = runtime !== 'SA';
+    const neutralRuntimeCountries = new Set(['AE', 'BH', 'KW', 'OM', 'QA']);
+    const localLawMode = outsideSaudi && neutralRuntimeCountries.has(runtime) ? 'conditional' : 'disabled';
+
+    const blockedReasons = [];
+
+    // التزام الموقف السيادي السعودي الافتراضي ما لم يوجد تفويض تنظيمي صريح.
+    if (home === 'SA' && target === 'IL') {
+        blockedReasons.push('الطلب يتطلب تفويضاً تنظيمياً سيادياً صريحاً قبل التنفيذ.');
+    }
+
+    return {
+        homeCountry: home,
+        runtimeCountry: runtime,
+        userCountry: user,
+        targetCountry: target,
+        outsideSaudi,
+        legalLayers: ['الشريعة الإسلامية', 'أنظمة المملكة العربية السعودية', 'قانون دولة التشغيل (المتاح فقط)'],
+        localLaw: {
+            mode: localLawMode,
+            active: localLawMode === 'conditional',
+            note:
+                localLawMode === 'conditional'
+                    ? 'القانون المحلي مفعّل بشكل مشروط بما لا يخالف الشريعة وأنظمة المملكة.'
+                    : 'لا يوجد تفعيل إضافي للقانون المحلي أو أن الدولة ليست ضمن نمط الحياد المعتمد.'
+        },
+        decision: blockedReasons.length ? 'blocked' : 'approved',
+        blockedReasons,
+        note: 'لا طاعة لمخلوق في معصية الخالق، وتبقى قاعدة لا ضرر ولا ضرار حاكمة في جميع المسارات.'
+    };
+}
+
+function selfComplianceMiddleware(req, res, next) {
+    const payload = req.method === 'GET' ? req.query : req.body;
+    const treatyResolution = buildTreatyResolution({
+        homeCountry: payload.homeCountry,
+        userCountry: payload.userCountry,
+        targetCountry: payload.targetCountry,
+        userType: payload.userType
+    });
+
+    const sovereignPolicy = evaluateSovereignPolicy({
+        homeCountry: payload.homeCountry,
+        runtimeCountry: payload.runtimeCountry,
+        userCountry: payload.userCountry,
+        targetCountry: payload.targetCountry
+    });
+
+    const blocked =
+        treatyResolution.shariaValidation.status === 'blocked' || sovereignPolicy.decision === 'blocked';
+
+    req.sheikhaCompliance = {
+        treatyResolution,
+        sovereignPolicy,
+        blocked
+    };
+
+    if (blocked) {
+        return res.status(400).json({
+            success: false,
+            data: req.sheikhaCompliance,
+            message: 'تم إيقاف الطلب تلقائياً بسبب تعارض مع التحقق الذاتي الشرعي/السيادي.',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    return next();
+}
+
 function buildTreatyResolution({ homeCountry, userCountry, targetCountry, userType }) {
     const home = normalizeCountryCode(homeCountry || 'SA');
     const user = normalizeCountryCode(userCountry || home);
@@ -11842,15 +11932,38 @@ app.get('/api/sheikha/compliance/treaty-resolution', (req, res) => {
         userType: req.query.userType
     });
 
+    const sovereignPolicy = evaluateSovereignPolicy({
+        homeCountry: req.query.homeCountry,
+        runtimeCountry: req.query.runtimeCountry,
+        userCountry: req.query.userCountry,
+        targetCountry: req.query.targetCountry
+    });
+
     res.json({
         success: true,
-        data: resolution,
+        data: {
+            treatyResolution: resolution,
+            sovereignPolicy,
+            runtimeCountry: resolveRuntimeCountry()
+        },
         message: 'تم توليد تفعيل المعاهدات والتشريعات تلقائياً مع فلترة شرعية بالكتاب والسنة',
         timestamp: new Date().toISOString()
     });
 });
 
-app.post('/api/rfq', (req, res) => {
+app.all('/api/sheikha/compliance/self-check', selfComplianceMiddleware, (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            ...req.sheikhaCompliance,
+            runtimeCountry: resolveRuntimeCountry()
+        },
+        message: 'التحقق الذاتي مفعّل والطلب متوافق مع الشريعة والسياسة السيادية.',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/rfq', selfComplianceMiddleware, (req, res) => {
     const {
         productId,
         quantity,
@@ -11866,21 +11979,7 @@ app.post('/api/rfq', (req, res) => {
     const listing = LISTINGS.find(l => String(l.id) === String(productId));
     if (!listing) return res.status(404).json({ success: false, message: 'المنتج غير موجود' });
 
-    const treatyResolution = buildTreatyResolution({
-        homeCountry: homeCountry || 'SA',
-        userCountry,
-        targetCountry,
-        userType
-    });
-
-    if (treatyResolution.shariaValidation.status === 'blocked') {
-        return res.status(400).json({
-            success: false,
-            message: 'تعذر تنفيذ الطلب: توجد بنود تنظيمية/تعاقدية متعارضة مع الشريعة.',
-            data: treatyResolution,
-            timestamp: new Date().toISOString()
-        });
-    }
+    const treatyResolution = req.sheikhaCompliance.treatyResolution;
 
     listing.inquiries = (listing.inquiries || 0) + 1;
     saveJSON(LISTINGS_FILE, LISTINGS);
