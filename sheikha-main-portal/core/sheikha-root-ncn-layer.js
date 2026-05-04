@@ -110,7 +110,7 @@ function process(request = {}) {
                 layer:   'root-ncn',
             };
         }
-        // التحقق من الترميز
+        // التحقق من ترميز النص الكامل (يشمل text + intent)
         const encCheck = _guardian.validateEncoding(text);
         if (!encCheck.valid) {
             _stats.errors++;

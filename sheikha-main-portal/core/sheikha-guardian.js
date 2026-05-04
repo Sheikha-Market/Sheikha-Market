@@ -177,11 +177,23 @@ function validateEncoding(text) {
     if (typeof text !== 'string') {
         return { valid: false, encoding: 'unknown' };
     }
-    // Node.js strings هي Unicode (UTF-16 داخليًا)، قابلة التحويل إلى UTF-8 دائمًا
-    // نتحقق فقط من عدم وجود surrogate منفرد (يشير إلى بيانات تالفة)
-    const hasSurrogatePair = /[\uD800-\uDFFF]/.test(text);
-    const valid = !hasSurrogatePair || /[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(text);
-    return { valid, encoding: 'UTF-8' };
+    // التحقق من عدم وجود surrogate منفرد (يشير إلى بيانات تالفة)
+    // كل High Surrogate (D800–DBFF) يجب أن يتبعه Low Surrogate (DC00–DFFF) مباشرةً
+    for (let i = 0; i < text.length; i++) {
+        const code = text.charCodeAt(i);
+        if (code >= 0xD800 && code <= 0xDBFF) {
+            // High surrogate — يجب أن يتبعه low surrogate
+            const next = text.charCodeAt(i + 1);
+            if (next < 0xDC00 || next > 0xDFFF) {
+                return { valid: false, encoding: 'UTF-8' }; // lone high surrogate
+            }
+            i++; // تخطّ الزوج الكامل
+        } else if (code >= 0xDC00 && code <= 0xDFFF) {
+            // Low surrogate منفرد — بيانات تالفة
+            return { valid: false, encoding: 'UTF-8' };
+        }
+    }
+    return { valid: true, encoding: 'UTF-8' };
 }
 
 /**

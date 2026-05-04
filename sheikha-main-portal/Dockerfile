@@ -27,9 +27,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates \
         wget \
         tzdata \
-    && sed -i '/^#.*ar_SA.UTF-8/s/^#//' /etc/locale.gen \
-    && sed -i '/^#.*en_US.UTF-8/s/^#//' /etc/locale.gen \
-    && echo "C.UTF-8 UTF-8" >> /etc/locale.gen \
+    && printf 'C.UTF-8 UTF-8\nar_SA.UTF-8 UTF-8\nen_US.UTF-8 UTF-8\n' >> /etc/locale.gen \
     && locale-gen \
     && update-locale LANG=C.UTF-8 LC_ALL=C.UTF-8 \
     && ln -sf /usr/share/zoneinfo/Asia/Riyadh /etc/localtime \
