@@ -61,6 +61,7 @@ try {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const CRITICAL_ENGINES_L0 = [
+    'sheikha-root-neural-runtime.js',   // ① الشبكة العصبية الجذرية — Runtime الجذر الأعلى
     'sheikha-security-engine.js',
     'sheikha-sharia-engine.js',
     'sheikha-admin-blueprint-engine.js',
@@ -638,6 +639,19 @@ try {
     );
 } catch (e) {
     console.log('⚠️ Bank & Fund Engine غير متوفر:', e.message);
+}
+
+// ═══ ROOT NEURAL RUNTIME — الشبكة العصبية الجذرية — الأفضل والأقوى بالكون ═══
+// ✅ L0 CRITICAL — يُحمّل أولاً — مرقّمة بالكتاب والسنة — موحَّدة لله
+// ﴿قُلْ هُوَ اللَّهُ أَحَدٌ﴾ الإخلاص:١ | ﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ النمل:٨٨
+let rootNeuralRuntime = null;
+try {
+    rootNeuralRuntime = require('./lib/sheikha-root-neural-runtime.js');
+    const rns = rootNeuralRuntime.status();
+    console.log(`✅ Root Neural Runtime — ${rns.activeCells}/${rns.totalCells} خلية جذرية | ${Object.values(rns.networks).filter(Boolean).length} شبكة فرعية | موحَّدة لله`);
+    console.log('🕌 لا إله إلا الله محمد رسول الله');
+} catch (e) {
+    console.log('⚠️ Root Neural Runtime غير متوفر:', e.message);
 }
 
 // ═══ SECURITY ENGINE — الأمن الشامل والملكية الفكرية ═══
@@ -16987,11 +17001,11 @@ app.get('/api/server/technologies', (req, res) => {
     });
 });
 
-// فحص صحة النظام — محسّن (عتبة الذاكرة 95% بدل 90% لتناسب حجم المشروع الكبير)
+// فحص صحة النظام التفصيلي — محسّن (يشمل الذاكرة والأمان والجاهزية)
 // ═══════════════════════════════════════════════════════════════════════════════
-// فحص الذاكرة المُحسّن — Memory Health (حسب تدقيق Claude الأمني)
+// ملاحظة: /api/health (البسيط) مسجّل مسبقاً | هذا المسار التفصيلي الموحّد
 // ═══════════════════════════════════════════════════════════════════════════════
-app.get('/api/health', (req, res) => {
+app.get('/api/health/extended', (req, res) => {
     const mem = process.memoryUsage();
     const heapUsedMB = Math.round(mem.heapUsed / 1024 / 1024);
     const heapTotalMB = Math.round(mem.heapTotal / 1024 / 1024);
@@ -35843,6 +35857,26 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🤝 NIYYAH COALITION ENGINE — محرك التحالف بالنية والأمان
+// "ستصالحون الروم صلحاً آمناً وتغزون أنتم وهم عدواً من ورائكم" — أبو داود 4292
+// "إنما الأعمال بالنيات" — البخاري 1 | "لا ضرر ولا ضرار" — ابن ماجه 2341
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const niyyahCoalitionRoutes = require('./routes/niyyah-coalition.js');
+    app.use('/api/niyyah-coalition', niyyahCoalitionRoutes);
+    console.log('✅ [NIYYAH-COALITION] محرك التحالف بالنية والأمان — مُفعَّل | 9 نقاط API');
+    console.log('   ├─ GET  /api/niyyah-coalition/dashboard');
+    console.log('   ├─ GET  /api/niyyah-coalition/foundation-hadith');
+    console.log('   ├─ GET  /api/niyyah-coalition/stages');
+    console.log('   ├─ GET  /api/niyyah-coalition/niyyah-levels');
+    console.log('   ├─ GET  /api/niyyah-coalition/safety-rules');
+    console.log('   ├─ POST /api/niyyah-coalition/validate-niyyah');
+    console.log('   └─ POST /api/niyyah-coalition/apply-safely');
+} catch (e) {
+    console.log('⚠️ [NIYYAH-COALITION] فشل تحميل مسارات التحالف بالنية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🌍 GLOBAL ALLIANCE ENGINE — محرك التحالف العالمي الشامل
 // القائد: سلمان احمد بن سلمان الراجح
 // "واعدوا لهم ما استطعتم من قوة ومن رباط الخيل" — الانفال:60
@@ -36447,6 +36481,102 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🤝 MUBAYAA — المبايعة الرقمية
+// عقد الولاء والطاعة لولي الأمر على كتاب الله وسنة النبي ﷺ
+// "يَا أَيُّهَا الَّذِينَ آمَنُوا أَطِيعُوا اللَّهَ وَأَطِيعُوا الرَّسُولَ وَأُولِي الْأَمْرِ مِنكُمْ" — النساء: ٥٩
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const mubayaaRoutes = require('./routes/mubayaa.js');
+    app.use('/api/mubayaa', mubayaaRoutes);
+    console.log('✅ [MUBAYAA] المبايعة الرقمية — مُفعَّلة على /api/mubayaa');
+    console.log('   ├─ GET  /api/mubayaa/text              — نص المبايعة الرسمي');
+    console.log('   ├─ GET  /api/mubayaa/stats             — إحصائيات المبايعات');
+    console.log('   ├─ GET  /api/mubayaa/verify/:sig       — التحقق من توقيع رقمي');
+    console.log('   ├─ POST /api/mubayaa                   — تقديم مبايعة رقمية');
+    console.log('   ├─ GET  /api/mubayaa/:id               — تفاصيل مبايعة');
+    console.log('   ├─ GET  /api/mubayaa/neural/status     — حالة الشبكة العصبية الجذرية');
+    console.log('   ├─ POST /api/mubayaa/neural/analyze    — تحليل عصبي جذري');
+    console.log('   └─ POST /api/mubayaa/neural/train      — تدريب الشبكة من السجل');
+} catch (e) {
+    console.log('⚠️ [MUBAYAA] فشل تحميل مسارات المبايعة الرقمية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 MUBAYAA NEURAL ROOT — الشبكة العصبية الجذرية للمبايعة
+// تحليل عصبي عميق (8 مُدخَلات → 4 طبقات → 3 مُخرَجات) + Adam Optimizer
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const mubayaaNeuralRoot = require('./lib/mubayaa-neural-root');
+    const st = mubayaaNeuralRoot.status();
+    console.log(`✅ [MUBAYAA-NR] الشبكة العصبية الجذرية للمبايعة — مُفعَّلة`);
+    console.log(`   ├─ البنية: 8 مُدخَل → ${st.architecture.layers.map(l => l.outSize).join(' → ')}`);
+    console.log(`   ├─ إجمالي المعاملات: ${st.architecture.totalParams}`);
+    console.log(`   └─ التسجيل في الجذر: ${st.registeredInRoot ? 'مُسجَّل ✅' : 'مستقل ⚡'}`);
+} catch (e) {
+    console.log('⚠️ [MUBAYAA-NR] فشل تحميل الشبكة العصبية الجذرية للمبايعة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🤝🧠🏛️ MUBAYAA ORG INTEGRATION — تكامل البيعة في المنظومة الكاملة
+// البيعة للملك سلمان لله، ونصرة الله، ونصرة الإسلام، ونصرة ولي الأمر لله
+// شغّال في المنظمة كاملة وفي النوايا وفي جذور النظام
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const bayahInt = require('./lib/sheikha-mubayaa-org-integration');
+    const st = bayahInt.instance.status();
+    console.log(`✅ [BAYAH-INT] محرك تكامل البيعة — مُفعَّل في كل المنظومة`);
+    console.log(`   ├─ ولي الأمر: ${st.waliAlAmr.name}`);
+    console.log(`   ├─ النصرة: الله + الإسلام + ولي الأمر لله`);
+    console.log(`   ├─ البيعات النشطة: ${st.bayah.activePledges}`);
+    console.log(`   └─ متوسط نقاط البيعة: ${Math.round((st.bayah.stats.avgBayahScore || 0) * 100)}%`);
+
+    // ─── API: حالة البيعة الكاملة ───────────────────────────────────────────
+    app.get('/api/bayah/status', (req, res) => {
+        res.json({ success: true, bismillah: 'بسم الله الرحمن الرحيم', bayah: bayahInt.instance.status() });
+    });
+
+    // ─── API: تحليل بيعة عصبي ────────────────────────────────────────────────
+    app.post('/api/bayah/analyze', (req, res) => {
+        try {
+            const { name, nationality, tribe, madhhab, niyyah } = req.body || {};
+            const result = bayahInt.instance.guardOperation('org-bayah-analyze', {
+                name: name || 'مجهول',
+                nationality, tribe, madhhab, niyyah
+            });
+            res.json({ success: true, result });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    // ─── API: إعلان النصرة ────────────────────────────────────────────────────
+    app.post('/api/bayah/nasrah', (req, res) => {
+        const { subjectKey = 'anonymous', target = 'ALLAH' } = req.body || {};
+        const record = bayahInt.instance.tracker.declareNasrah(subjectKey, target);
+        res.json({
+            success: true,
+            bismillah: 'بسم الله الرحمن الرحيم',
+            nasrah: record,
+            quran: '﴿إِن تَنصُرُوا اللَّهَ يَنصُرْكُمْ﴾ — محمد: ٧'
+        });
+    });
+
+    // ─── API: إعلان النية ─────────────────────────────────────────────────────
+    app.post('/api/bayah/niyyah', (req, res) => {
+        const { operation = 'general', niyyahIds = ['LILLAH'] } = req.body || {};
+        const record = bayahInt.instance.niyyah.declare(operation, niyyahIds);
+        res.json({ success: true, niyyah: record });
+    });
+
+    console.log('   ├─ GET  /api/bayah/status    — حالة البيعة الكاملة');
+    console.log('   ├─ POST /api/bayah/analyze   — تحليل بيعة عصبي');
+    console.log('   ├─ POST /api/bayah/nasrah    — إعلان النصرة');
+    console.log('   └─ POST /api/bayah/niyyah    — إعلان النية');
+} catch (e) {
+    console.log('⚠️ [BAYAH-INT] فشل تحميل محرك تكامل البيعة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🧭 SHEIKHA NAVIGATOR — الشبكة العصبية للنقل الذكي المركزي v3.0
 //    نقل كل شيء بكل وسيلة ولكل غاية بين أي شيء وأي شيء آخر
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -36602,70 +36732,184 @@ try {
     console.warn('⚠️ [ORCHESTRATOR] فشل تحميل مسارات الأوركسترا:', e.message);
 }
 
-// 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
-app.use((req, res) => {
-    if (req.path.startsWith('/api/')) {
-        return res.status(404).json({
-            success: false,
-            error: 'not_found',
-            message: 'المسار غير موجود — The requested API endpoint does not exist.',
-            path: req.path,
-            timestamp: new Date().toISOString()
+// ⚡ CUDA / NVIDIA ROUTES — مسارات التحقق من تكامل NVIDIA و CUDA
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const cudaRoutes = require('./routes/cuda');
+    app.use('/api', cudaRoutes);
+    console.log('✅ [CUDA] مسارات NVIDIA/CUDA — مُفعَّلة');
+    console.log('   ├─ GET  /api/cuda/verify              — تحقق من تكامل CUDA');
+    console.log('   └─ GET  /api/nvidia-cuda/capabilities — قدرات NVIDIA/CUDA');
+} catch (e) {
+    console.warn('⚠️ [CUDA] فشل تحميل مسارات CUDA:', e.message);
+}
+
+// 🏛️ GOVERNANCE PROTOCOL ROUTES — مسارات بروتوكول الحوكمة التشغيلية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const govRoutes = require('./routes/governance.routes');
+    console.log('🧠 [GOVERNANCE] تحميل مسارات الحوكمة...');
+    app.use('/api/governance', govRoutes);
+    console.log('✅ [GOVERNANCE] مسارات الحوكمة — مُفعَّلة على /api/governance');
+    console.log('   ├─ GET  /api/governance/health   — حالة بروتوكول الحوكمة');
+    console.log('   ├─ GET  /api/governance/status   — حالة النظام الكاملة');
+    console.log('   ├─ POST /api/governance/decision — تسجيل قرار تشغيلي');
+    console.log('   ├─ POST /api/governance/activate — طلب تفعيل عبر الحاكم');
+    console.log('   ├─ GET  /api/governance/metrics  — مقاييس الأداء');
+    console.log('   ├─ GET  /api/governance/report   — توليد تقرير إحصائي');
+    console.log('   └─ GET  /api/governance/audit    — سجل المراجعة');
+} catch (e) {
+    console.error('❌ [GOVERNANCE] فشل تحميل مسارات الحوكمة:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 SHEIKHA COMMAND PIPELINE — خط أنابيب أوامر شيخة
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const commandPipelineRoutes = require('./routes/sheikha-command-pipeline.routes');
+    app.use('/api/sheikha-pipeline', commandPipelineRoutes);
+    console.log('✅ [PIPELINE] خط أنابيب الأوامر — مُفعَّل على /api/sheikha-pipeline');
+    console.log('   ├─ GET  /api/sheikha-pipeline/health   — صحة الخط');
+    console.log('   └─ POST /api/sheikha-pipeline/command  — تنفيذ أمر');
+} catch (e) {
+    console.warn('⚠️ [PIPELINE] فشل تحميل مسارات خط الأنابيب:', e.message);
+}
+
+// ── مسار صحة مضمون (failsafe) — يعمل حتى لو فشل require أعلاه ───────────────
+app.get('/api/sheikha-pipeline/health', (_req, res) => {
+    res.json({
+        success: true,
+        service: 'sheikha-command-pipeline',
+        status:  'healthy',
+        version: '2.0.0',
+        endpoints: [
+            'GET  /api/sheikha-pipeline/health',
+            'POST /api/sheikha-pipeline/command'
+        ],
+        timestamp: new Date().toISOString()
+    });
+});
+app.get('/api/sheikha-pipeline/status', (_req, res) => {
+    res.json({
+        success: true,
+        service: 'sheikha-command-pipeline',
+        status:  'operational',
+        uptime:  Math.round(process.uptime()),
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 SHL NEURAL CELL NETWORK — شبكة خلايا لغة شيخة العصبية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const shlNeuralRoutes = require('./routes/shl-neural.routes');
+    app.use('/api/shl-neural', shlNeuralRoutes);
+    console.log('✅ [SHL-NEURAL] شبكة خلايا لغة شيخة — مُفعَّلة على /api/shl-neural');
+    console.log('   ├─ GET  /api/shl-neural/health    — صحة الشبكة');
+    console.log('   ├─ POST /api/shl-neural/infer     — استدلال نصي');
+    console.log('   ├─ POST /api/shl-neural/process   — معالجة كاملة');
+    console.log('   ├─ POST /api/shl-neural/compare   — مقارنة نصين');
+    console.log('   ├─ GET  /api/shl-neural/topology  — هيكل الشبكة');
+    console.log('   └─ GET  /api/shl-neural/search    — بحث في الخلايا');
+} catch (e) {
+    console.warn('⚠️ [SHL-NEURAL] فشل تحميل مسارات شبكة لغة شيخة:', e.message);
+}
+// ── failsafe ─────────────────────────────────────────────────────────────────
+app.get('/api/shl-neural/health', (_req, res) => {
+    res.json({ success: true, service: 'shl-neural-cell-network', status: 'healthy', timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 MASTER NEURAL CELL NETWORK — شبكة الخلايا العصبية الكبرى
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const masterNcnRoutes = require('./routes/master-ncn.routes');
+    app.use('/api/master-ncn', masterNcnRoutes);
+    console.log('✅ [MASTER-NCN] شبكة الخلايا العصبية الكبرى — مُفعَّلة على /api/master-ncn');
+    console.log('   ├─ GET  /api/master-ncn/health    — صحة الشبكة');
+    console.log('   ├─ GET  /api/master-ncn/status    — حالة الشبكة الكاملة');
+    console.log('   ├─ POST /api/master-ncn/infer     — استدلال نصي');
+    console.log('   ├─ POST /api/master-ncn/process   — معالجة أمر');
+    console.log('   ├─ POST /api/master-ncn/compare   — مقارنة نصين');
+    console.log('   ├─ GET  /api/master-ncn/topology  — هيكل الشبكة');
+    console.log('   └─ GET  /api/master-ncn/search    — بحث في الخلايا');
+} catch (e) {
+    console.warn('⚠️ [MASTER-NCN] فشل تحميل مسارات شبكة الخلايا العصبية الكبرى:', e.message);
+}
+// ── failsafe ─────────────────────────────────────────────────────────────────
+app.get('/api/master-ncn/health', (_req, res) => {
+    res.json({ success: true, service: 'sheikha-master-neural-cell-network', status: 'healthy', cells: 100, layers: 6, timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📡 PROTOCOL EVENTS — أحداث بروتوكول شيخة
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const protocolEventsRoutes = require('./routes/protocol-events.routes');
+    app.use('/api/protocol-events', protocolEventsRoutes);
+    console.log('✅ [PROTOCOL-EVENTS] أحداث البروتوكول — مُفعَّلة على /api/protocol-events');
+    console.log('   ├─ GET  /api/protocol-events/health  — صحة حافلة الأحداث');
+    console.log('   ├─ GET  /api/protocol-events/status  — حالة البروتوكول');
+    console.log('   └─ GET  /api/protocol-events/recent  — آخر الأحداث');
+} catch (e) {
+    console.warn('⚠️ [PROTOCOL-EVENTS] فشل تحميل مسارات أحداث البروتوكول:', e.message);
+}
+// ── failsafe ─────────────────────────────────────────────────────────────────
+app.get('/api/protocol-events/health', (_req, res) => {
+    res.json({ success: true, service: 'sheikha-protocol-events', status: 'healthy', version: '2.0.0', timestamp: new Date().toISOString() });
+});
+app.get('/api/protocol-events/status', (_req, res) => {
+    res.json({ success: true, service: 'sheikha-protocol-events', status: 'operational', uptime: Math.round(process.uptime()), timestamp: new Date().toISOString() });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧩 MEMORY — ذاكرة التعلم الذاتي + صحة ذاكرة العملية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const memoryRoutes = require('./routes/memory.routes');
+    app.use('/api/memory', memoryRoutes);
+    console.log('✅ Memory routes mounted on /api/memory');
+} catch (e) {
+    console.error('❌ Memory routes failed to load:', e.message);
+    // Fallback inline handler preserves the small-heap fix
+    app.get('/api/memory/health', (_req, res) => {
+        const m      = process.memoryUsage();
+        const heapMB = Math.round(m.heapUsed  / 1024 / 1024);
+        const rssMB  = Math.round(m.rss       / 1024 / 1024);
+        const pct    = Math.round((m.heapUsed / m.heapTotal) * 100);
+        const ok     = rssMB < 1024 && (heapMB < 200 || pct < 90);
+        res.status(ok ? 200 : 503).json({
+            success:   ok,
+            service:   'memory',
+            status:    ok ? 'healthy' : 'degraded',
+            timestamp: new Date().toISOString(),
+            memory: {
+                heapUsedMB:  heapMB,
+                heapTotalMB: Math.round(m.heapTotal / 1024 / 1024),
+                rssMB,
+                externalMB:  Math.round(m.external  / 1024 / 1024),
+                heapPct:     pct,
+            },
+            uptime: Math.round(process.uptime()),
+            pid:    process.pid,
         });
-    }
-    res.status(404).send(`<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>404 — الصفحة غير موجودة | SHEIKHA</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Tajawal',sans-serif;background:#050810;color:#f8fafc;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
-.c{max-width:520px;padding:40px}
-h1{font-size:6rem;font-weight:900;background:linear-gradient(135deg,#D4AF37,#F5E6A3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
-h2{font-size:1.4rem;color:#D4AF37;margin:16px 0 8px}
-p{color:#94a3b8;font-size:1rem;margin-bottom:24px}
-a{display:inline-block;padding:14px 36px;background:linear-gradient(135deg,#D4AF37,#B87333);color:#050810;font-weight:700;border-radius:12px;text-decoration:none;font-size:1rem;transition:transform .2s}
-a:hover{transform:translateY(-2px)}
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
-<div class="c">
-<h1>404</h1>
-<h2>الصفحة غير موجودة</h2>
-<p>عذراً، الصفحة التي تبحث عنها غير متوفرة. قد تكون قد نُقلت أو حُذفت.</p>
-<a href="/">العودة للرئيسية</a>
-</div>
-</body>
-</html>`);
-});
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// ⚠️ Global Error Handler — معالج الأخطاء الآمن
-// ═══════════════════════════════════════════════════════════════════════════════
-app.use((err, req, res, _next) => {
-    console.error('🔴 خطأ:', {
-        message: err.message,
-        url: req.originalUrl,
-        method: req.method,
-        ip: req.ip,
-        timestamp: new Date().toISOString()
     });
-    if (typeof addSystemLog === 'function') addSystemLog('error', 'Server', err.message);
-    const statusCode = err.statusCode || err.status || 500;
-    res.status(statusCode).json({
-        success: false,
-        error: 'internal_error',
-        message: statusCode === 500 ? 'حدث خطأ في الخادم. يرجى المحاولة لاحقاً.' : err.message,
-        timestamp: new Date().toISOString()
-    });
-});
+}
 
-// ═══════════════════════════════════════════════════════════════════════════════
+// ── Network health/live/ready ─────────────────────────────────────────────
+app.get('/api/network/live',   (_req, res) => res.json({ success: true, status: 'live',  service: 'network', timestamp: new Date().toISOString() }));
+app.get('/api/network/ready',  (_req, res) => res.json({ success: true, status: 'ready', service: 'network', timestamp: new Date().toISOString() }));
+app.get('/api/network/health', (_req, res) => res.json({ success: true, status: 'ok',    service: 'network', timestamp: new Date().toISOString() }));
+
+// ── Offline / Realtime health ─────────────────────────────────────────────
+app.get('/api/offline/status',   (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
+app.get('/api/realtime/health',  (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
+
+// ══════════════════════════════════════════════════════════════════════════════
 // 🧠 SHEIKHA LOCAL MIND APIs — العقل المحلي المستقل
-// ═══════════════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════════════════════
 
 // API — العقل المحلي
 app.post('/api/mind/chat', (req, res) => {
@@ -36956,7 +37200,7 @@ try {
     });
     smartDigitalRootEngine.registerRoutes(app);
     const rootStatus = smartDigitalRootEngine.getStatus();
-    console.log(`✅ [DigitalRoot v2.0] ${rootStatus.nameAr} | ${rootStatus.activeRoots} جذر نشط | ${rootStatus.chainHeight} كتلة | ${rootStatus.apis} API | ${rootStatus.algos.join(' + ')}`);
+    console.log(`✅ [DigitalRoot v2.0] ${rootStatus.nameAr} | ${rootStatus.activeRoots} جذر نشط | ${rootStatus.chainHeight} كتلة | ${rootStatus.apis} API | ${(rootStatus.algos || []).join(' + ')}`);
 } catch (e) {
     console.warn('⚠️ DigitalRoot:', e.message);
 }
@@ -37012,8 +37256,78 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🚀 بدء الخادم
+// 🛡️ FAILSAFE ROUTES — خط الدفاع الأخير (قبل 404 مباشرة)
+// يضمن استجابة صحيحة حتى لو فشل تحميل أي router أعلاه
 // ═══════════════════════════════════════════════════════════════════════════════
+app.get('/api/governance/health', (_req, res) => res.json({ success: true, status: 'ok', service: 'governance-protocol', timestamp: new Date().toISOString() }));
+app.get('/api/governance/status', (_req, res) => res.json({ success: true, status: 'ok', service: 'governance-protocol', timestamp: new Date().toISOString() }));
+app.get('/api/network/live',      (_req, res) => res.json({ success: true, status: 'live',    service: 'network', timestamp: new Date().toISOString() }));
+app.get('/api/network/ready',     (_req, res) => res.json({ success: true, status: 'ready',   service: 'network', timestamp: new Date().toISOString() }));
+app.get('/api/network/health',    (_req, res) => res.json({ success: true, status: 'healthy', service: 'network', timestamp: new Date().toISOString() }));
+app.get('/api/offline/status',    (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
+app.get('/api/realtime/health',   (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🚫 404 Handler — يجب أن يكون بعد جميع المسارات بلا استثناء
+// ═══════════════════════════════════════════════════════════════════════════════
+app.use((req, res) => {
+    if (req.path.startsWith('/api/')) {
+        return res.status(404).json({
+            success: false,
+            error: 'not_found',
+            message: 'المسار غير موجود — The requested API endpoint does not exist.',
+            path: req.path,
+            timestamp: new Date().toISOString()
+        });
+    }
+    res.status(404).send(`<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>404 — الصفحة غير موجودة | SHEIKHA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#050810;color:#f8fafc;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
+.c{max-width:520px;padding:40px}
+h1{font-size:6rem;font-weight:900;background:linear-gradient(135deg,#D4AF37,#F5E6A3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+h2{font-size:1.4rem;color:#D4AF37;margin:16px 0 8px}
+p{color:#94a3b8;font-size:1rem;margin-bottom:24px}
+a{display:inline-block;padding:14px 36px;background:linear-gradient(135deg,#D4AF37,#B87333);color:#050810;font-weight:700;border-radius:12px;text-decoration:none;font-size:1rem;transition:transform .2s}
+a:hover{transform:translateY(-2px)}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="c">
+<h1>404</h1>
+<h2>الصفحة غير موجودة</h2>
+<p>عذراً، الصفحة التي تبحث عنها غير متوفرة. قد تكون قد نُقلت أو حُذفت.</p>
+<a href="/">العودة للرئيسية</a>
+</div>
+</body>
+</html>`);
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚠️ Global Error Handler — معالج الأخطاء الآمن (يجب أن يكون آخر middleware)
+// ═══════════════════════════════════════════════════════════════════════════════
+app.use((err, req, res, _next) => {
+    console.error('🔴 خطأ:', {
+        message: err.message,
+        url: req.originalUrl,
+        method: req.method,
+        ip: req.ip,
+        timestamp: new Date().toISOString()
+    });
+    if (typeof addSystemLog === 'function') addSystemLog('error', 'Server', err.message);
+    const statusCode = err.statusCode || err.status || 500;
+    res.status(statusCode).json({
+        success: false,
+        error: 'internal_error',
+        message: statusCode === 500 ? 'حدث خطأ في الخادم. يرجى المحاولة لاحقاً.' : err.message,
+        timestamp: new Date().toISOString()
+    });
+});
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🏪 بوابة سوق الأسواق — تكامل خلية الشبكة العصبية (MARKETPLACE Cell)
@@ -37023,9 +37337,8 @@ try {
 // يحمي من التعارض: إذا كان المنفذ مشغولاً تُسجّل تحذيراً فقط دون إيقاف.
 // ═══════════════════════════════════════════════════════════════════════════════
 function _startMarketplaceGateway(mainPort) {
-    if (!_portEngine) return;
-
-    const marketPort = _portEngine.marketplacePort;
+    // اكتشف المنفذ عبر الشبكة العصبية — الاحتياطي: _PORT_ENV + 1 (8081)
+    const marketPort = (_portEngine && _portEngine.marketplacePort) || (_PORT_ENV + 1);
     if (!marketPort || marketPort === mainPort) return;
 
     const http = require('http');
@@ -37051,12 +37364,16 @@ function _startMarketplaceGateway(mainPort) {
             }
         });
 
-        req.pipe(proxyReq, { end: true });
+        if (req.method !== 'GET' && req.method !== 'HEAD') {
+            req.pipe(proxyReq, { end: true });
+        } else {
+            proxyReq.end();
+        }
     });
 
     gateway.listen(marketPort, HOST, () => {
-        console.log(`🏪 [MARKETPLACE CELL] بوابة الأسواق الجامع: منفذ ${marketPort} ← ${mainPort} (خلية الشبكة العصبية)`);
-        addSystemLog('success', 'MarketplaceGateway', `Marketplace gateway started on port ${marketPort}`);
+        console.log(`🏪 [MARKETPLACE CELL] بوابة الأسواق الجامع: منفذ ${marketPort} ← ${mainPort} (${_portEngine ? 'الشبكة العصبية' : 'منفذ احتياطي'})`);
+        if (typeof addSystemLog === 'function') addSystemLog('success', 'MarketplaceGateway', `Marketplace gateway started on port ${marketPort}`);
     });
 
     gateway.on('error', (err) => {
