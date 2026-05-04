@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "instructions": {
     "project": "منظومة وسوق شيخة — SHEIKHA — أول منظومة اقتصادية إسلامية رقمية للمعادن والسكراب",
     "owner": "سلمان أحمد بن سلمان الراجح",
@@ -12,6 +12,30 @@
       "auth": "JWT + OAuth (Google, Microsoft, Apple, Nafath)",
       "realtime": "WebSocket",
       "deployment": "Vercel"
+    },
+    "neuralArchitecture": {
+      "rootNCN": "شبكة الخلايا العصبية الجذرية — 92 خلية × 7 طبقات × 128-dim (core/sheikha-root-ncn-layer.js)",
+      "sirn":    "Semantic Intelligent Root Network — 63 خلية × 5 طبقات × 256-dim (lib/sheikha-sirn-engine.js)",
+      "ifl":     "Interactive Functions List — 12 وظيفة × 4 نطاقات (lib/sheikha-ifl-engine.js)",
+      "ida":     "Interactive Data Architecture — 5 طبقات (lib/sheikha-ida-engine.js)",
+      "sirnIfl": "SIRN-IFL Bridge Layer — الجسر الدلالي (core/sheikha-sirn-ifl-layer.js)",
+      "flow":    "ROOT-NCN → Control Plane → SIRN → SIRN-IFL → IFL → IDA → Applications"
+    },
+    "iflDomains": {
+      "3": "ENVIRONMENTAL — Intact Forest Landscapes (IFL-F-003/004)",
+      "4": "SOFTWARE — Interactive Feature Location (IFL-F-005/006)",
+      "5": "MEDICAL — IFL Online vital monitoring (IFL-F-007/008)",
+      "6": "CHEMICAL — IFL Regimen Ifosfamide+Fluorouracil+Leucovorin (IFL-F-009/010)"
+    },
+    "sirnAPI": {
+      "infer":         "POST /api/sirn/infer — استدلال دلالي",
+      "process":       "POST /api/sirn/process — معالجة SIRN→IFL→IDA",
+      "status":        "GET  /api/sirn/status — حالة SIRN",
+      "domains":       "GET  /api/sirn/domains — نطاقات SIRN/IFL",
+      "analyzePR":     "POST /api/sirn/github/analyze-pr — تحليل PR",
+      "classifyIssue": "POST /api/sirn/github/classify-issue — تصنيف Issue",
+      "vscodeAnalyze": "POST /api/sirn/vscode/analyze — تحليل كود VS Code",
+      "copilotContext": "POST /api/sirn/copilot/context — سياق Copilot"
     },
     "codeStyle": {
       "indentation": "4 spaces",
@@ -36,7 +60,8 @@
       "noCheating": true,
       "noMonopoly": true,
       "mutualConsent": true,
-      "accurateWeights": true
+      "accurateWeights": true,
+      "quranRefsRequired": true
     },
     "rules": [
       "No modifications without explicit owner permission",
@@ -46,7 +71,11 @@
       "Follow the design system colors and fonts",
       "Never expose API keys or sensitive data",
       "Validate all inputs",
-      "Handle errors gracefully in Arabic"
+      "Handle errors gracefully in Arabic",
+      "Use SIRN for semantic routing when processing queries",
+      "Reference Quran/Sunnah in Islamic-domain code comments",
+      "SIRN confidence >= 0.15 required to route to IFL",
+      "All IFL functions must have quranRef and hadithRef"
     ]
   }
 }
