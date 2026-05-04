@@ -283,10 +283,11 @@ async function process(request = {}) {
  * @returns {object}
  */
 function getStack() {
-    // استيراد طبقات SDC وSIDC اختيارياً
-    let sdcReady = false, sidcReady = false;
-    try { sdcReady  = !!require('./sheikha-sdc-layer');  } catch (_) {}
-    try { sidcReady = !!require('./sheikha-sidc-layer'); } catch (_) {}
+    // استيراد طبقات SDC وSIDC وINFRA اختيارياً
+    let sdcReady = false, sidcReady = false, infraReady = false;
+    try { sdcReady   = !!require('./sheikha-sdc-layer');   } catch (_) {}
+    try { sidcReady  = !!require('./sheikha-sidc-layer');  } catch (_) {}
+    try { infraReady = !!require('./sheikha-infra-layer'); } catch (_) {}
 
     return {
         bismillah: BISMILLAH,
@@ -347,7 +348,16 @@ function getStack() {
                 ready:   sidcReady,
             },
             {
-                level: 7, icon: '🏪',
+                level: 7, icon: '💡',
+                name:    'INFRA v1.0.0',
+                nameAr:  'البنية التحتية الذكية الموحّدة',
+                cells:   null,
+                detail:  'CV + Quantum + 6 أنواع حوسبة + RNN الجذرية',
+                quranRef:'﴿وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ﴾ — الأنفال: ٦٠',
+                ready:   infraReady,
+            },
+            {
+                level: 8, icon: '🏪',
                 name:    'سوق شيخة',
                 nameAr:  'Guardian + Express App',
                 cells:   null,

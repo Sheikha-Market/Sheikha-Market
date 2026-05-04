@@ -4725,6 +4725,90 @@ app.post('/api/sidc/sharia-check', express.json(), (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 💡 INFRA — البنية التحتية الذكية الموحّدة
+// CV + Quantum + 6 أنواع حوسبة + RNN الجذرية
+// ﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let _infraLayer = null;
+try {
+    _infraLayer = require('./core/sheikha-infra-layer');
+} catch (_infraErr) {
+    console.warn('⚠️ [INFRA] sheikha-infra-layer غير متاح:', _infraErr.message);
+}
+
+// GET /api/infra/status — حالة البنية التحتية الكاملة
+app.get('/api/infra/status', (req, res) => {
+    try {
+        const s = _infraLayer ? _infraLayer.status() : { ready: false };
+        res.json({ success: true, data: s, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/infra/process — معالجة موحّدة (auto-routing)
+app.post('/api/infra/process', express.json(), (req, res) => {
+    try {
+        const result = _infraLayer
+            ? _infraLayer.process(req.body || {})
+            : { ok: false, error: 'INFRA غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/infra/quantum — معالجة كمية
+app.post('/api/infra/quantum', express.json(), (req, res) => {
+    try {
+        const result = _infraLayer
+            ? _infraLayer.quantum(req.body || {})
+            : { ok: false, error: 'INFRA غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/infra/compute — توجيه طلب حوسبة
+app.post('/api/infra/compute', express.json(), (req, res) => {
+    try {
+        const result = _infraLayer
+            ? _infraLayer.compute(req.body || {})
+            : { ok: false, error: 'INFRA غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/infra/neural — استدلال شبكة RNN الجذرية
+app.post('/api/infra/neural', express.json(), (req, res) => {
+    try {
+        const { text, query } = req.body || {};
+        const result = _infraLayer
+            ? _infraLayer.neural(text || query || '')
+            : { ok: false, error: 'INFRA غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/infra/vision — الرؤية الحسوبية
+app.post('/api/infra/vision', express.json(), (req, res) => {
+    try {
+        const result = _infraLayer
+            ? _infraLayer.vision(req.body || {})
+            : { ok: false, error: 'INFRA غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🏛️ التسجيل الحكومي — Government Registration System
 // ═══════════════════════════════════════════════════════════════════════════════
 
