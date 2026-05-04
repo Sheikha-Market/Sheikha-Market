@@ -61,6 +61,7 @@ try {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const CRITICAL_ENGINES_L0 = [
+    'sheikha-root-neural-runtime.js',   // ① الشبكة العصبية الجذرية — Runtime الجذر الأعلى
     'sheikha-security-engine.js',
     'sheikha-sharia-engine.js',
     'sheikha-admin-blueprint-engine.js',
@@ -638,6 +639,19 @@ try {
     );
 } catch (e) {
     console.log('⚠️ Bank & Fund Engine غير متوفر:', e.message);
+}
+
+// ═══ ROOT NEURAL RUNTIME — الشبكة العصبية الجذرية — الأفضل والأقوى بالكون ═══
+// ✅ L0 CRITICAL — يُحمّل أولاً — مرقّمة بالكتاب والسنة — موحَّدة لله
+// ﴿قُلْ هُوَ اللَّهُ أَحَدٌ﴾ الإخلاص:١ | ﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ النمل:٨٨
+let rootNeuralRuntime = null;
+try {
+    rootNeuralRuntime = require('./lib/sheikha-root-neural-runtime.js');
+    const rns = rootNeuralRuntime.status();
+    console.log(`✅ Root Neural Runtime — ${rns.activeCells}/${rns.totalCells} خلية جذرية | ${Object.values(rns.networks).filter(Boolean).length} شبكة فرعية | موحَّدة لله`);
+    console.log('🕌 لا إله إلا الله محمد رسول الله');
+} catch (e) {
+    console.log('⚠️ Root Neural Runtime غير متوفر:', e.message);
 }
 
 // ═══ SECURITY ENGINE — الأمن الشامل والملكية الفكرية ═══
