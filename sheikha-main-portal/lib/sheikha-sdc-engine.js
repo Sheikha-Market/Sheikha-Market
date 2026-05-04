@@ -324,7 +324,7 @@ class SheikhaSdcEngine extends EventEmitter {
                 icon:     u.icon,
                 nameAr:   u.nameAr,
                 quranRef: u.quranRef,
-                calls:    this._stats.byUnit[u.id.replace('SDC-U', '').replace(/^\d+$/, k => Object.keys(SDC_UNITS)[parseInt(k)-1])] || 0,
+                calls:    this._stats.byUnit[Object.keys(SDC_UNITS).find(k => SDC_UNITS[k] === u) || ''] || 0,
             })),
             stats:     { ...this._stats },
             tawheed:   TAWHEED,
