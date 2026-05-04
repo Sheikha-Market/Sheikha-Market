@@ -280,6 +280,13 @@ async function boot() {
 
     const bootOrder = [
         { key: 'os',            file: 'sheikha-os.js' },
+        // ┌─────────────────────────────────────────────────────────────────────┐
+        // │  SHEIKHA GUARDIAN — الطبقة الحاكمة الإسلامية فوق Ubuntu/Linux      │
+        // │  ﴿إِنِ الْحُكْمُ إِلَّا لِلَّهِ﴾ — يوسف: ٤٠                       │
+        // │  Ubuntu/Linux → [GUARDIAN] → Control Plane → Neural                │
+        // │  encoding: UTF-8                                                    │
+        // └─────────────────────────────────────────────────────────────────────┘
+        { key: 'guardian',      file: 'sheikha-guardian.js' },
         { key: 'control-plane', file: 'sheikha-control-plane.js' },
         { key: 'governance',    file: 'sheikha-governance.json', json: true },
         { key: 'cloud',         file: 'sheikha-cloud-root.js' },
@@ -308,6 +315,7 @@ async function boot() {
             if (sovereignLayer && sovereignLayer.registerSubject) {
                 const LAYER_ARABIC = {
                     'os':            'نظام تشغيل شيخة',
+                    'guardian':      'الحارس الإسلامي — الطبقة الحاكمة فوق Ubuntu/Linux',
                     'control-plane': 'طبقة التحكم الموحدة',
                     'governance':    'حوكمة المنظومة',
                     'cloud':         'طبقة السحابة',
