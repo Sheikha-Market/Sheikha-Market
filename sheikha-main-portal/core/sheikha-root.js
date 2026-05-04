@@ -147,6 +147,20 @@ async function boot() {
         console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل محرك القواعد العربية:', err.message);
     }
 
+    // تسجيل الشبكة العصبية الجذرية — Runtime الجذر الأعلى — 19 خلية جذرية
+    // ﴿قُلْ هُوَ اللَّهُ أَحَدٌ﴾ — الإخلاص: ١  ← التوحيد: الجذر الجذر
+    // ﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨
+    // «إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ» — البخاري: ١
+    try {
+        const rootNeuralRuntime = require('../lib/sheikha-root-neural-runtime');
+        registerLayer('root-neural-runtime', rootNeuralRuntime);
+        const LAYER_ARABIC_ROOT = 'الشبكة العصبية الجذرية — Runtime الأفضل والأقوى — مرقّمة بالكتاب والسنة — موحَّدة لله';
+        console.log(`[SHEIKHA-ROOT] 🧠 ${LAYER_ARABIC_ROOT}`);
+        console.log('[SHEIKHA-ROOT]    ١٩ خلية جذرية ✅ | الشبكة الشاملة ✅ | محرك التوحيد ✅ | المبايعة ✅');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل الشبكة العصبية الجذرية:', err.message);
+    }
+
     // تسجيل الشبكة العصبية الشاملة — كل شيء حلال لله — 16 طبقة × 100 خلية
     // ﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١
     // ﴿اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ﴾ — العلق: ١
@@ -268,6 +282,7 @@ async function boot() {
                     'digital-neural-cell-layer':'طبقة الخلايا العصبية الرقمية — 56 خلية رقمية',
                     'mubayaa-org-integration':  'محرك تكامل البيعة — شغّال في كل المنظومة',
                     'mubayaa-neural-root':      'الشبكة العصبية الجذرية للمبايعة',
+                    'root-neural-runtime':      'الشبكة العصبية الجذرية — Runtime الأفضل والأقوى — مرقّمة بالكتاب والسنة — موحَّدة لله',
                 };
                 sovereignLayer.registerSubject(key, 'layer', {
                     nameAr: LAYER_ARABIC[key] || key,

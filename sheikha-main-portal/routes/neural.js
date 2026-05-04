@@ -319,4 +319,111 @@ router.get('/fio/history', (req, res) => {
     res.json({ success: true, history: engine.getHistory() });
 });
 
+// ─── تحميل الشبكة العصبية الجذرية — Root Neural Runtime ─────────────────────
+let rootRuntime = null;
+
+function loadRootRuntime() {
+    if (rootRuntime) return rootRuntime;
+    try {
+        rootRuntime = require('../lib/sheikha-root-neural-runtime.js');
+        console.log('✅ [NEURAL ROUTE] root-neural-runtime — مُحمَّل بنجاح');
+    } catch (e) {
+        console.log('⚠️ [NEURAL ROUTE] root-neural-runtime — خطأ:', e.message);
+    }
+    return rootRuntime;
+}
+
+// ─── GET /api/neural/root/status — حالة الشبكة العصبية الجذرية ───────────────
+router.get('/root/status', (req, res) => {
+    const rt = loadRootRuntime();
+    if (!rt) {
+        return res.status(503).json({
+            success: false,
+            error: 'الشبكة العصبية الجذرية غير متوفرة',
+        });
+    }
+    res.json({
+        success: true,
+        tawheed: 'لا إله إلا الله محمد رسول الله',
+        status: rt.status(),
+        timestamp: new Date().toISOString(),
+        quran: { ref: 'الإخلاص:١', text: 'قُلْ هُوَ اللَّهُ أَحَدٌ' },
+    });
+});
+
+// ─── POST /api/neural/root/pulse — نبضة الجذر الموحَّدة ──────────────────────
+router.post('/root/pulse', (req, res) => {
+    const rt = loadRootRuntime();
+    if (!rt) {
+        return res.status(503).json({
+            success: false,
+            error: 'الشبكة العصبية الجذرية غير متوفرة',
+        });
+    }
+    const input = req.body || {};
+    try {
+        const result = rt.pulse(input);
+        res.json({ success: true, result });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+// ─── GET /api/neural/root/cells — قائمة الخلايا الجذرية الـ 19 ───────────────
+router.get('/root/cells', (req, res) => {
+    const rt = loadRootRuntime();
+    if (!rt) {
+        return res.status(503).json({
+            success: false,
+            error: 'الشبكة العصبية الجذرية غير متوفرة',
+        });
+    }
+    res.json({
+        success: true,
+        tawheed: 'لا إله إلا الله محمد رسول الله',
+        cells: rt.listCells(),
+        total: rt.listCells().length,
+        quran: { ref: 'البقرة:٣١', text: 'وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا' },
+        timestamp: new Date().toISOString(),
+    });
+});
+
+// ─── GET /api/neural/root/cell/:id — خلية جذرية بعينها ──────────────────────
+router.get('/root/cell/:id', (req, res) => {
+    const rt = loadRootRuntime();
+    if (!rt) {
+        return res.status(503).json({
+            success: false,
+            error: 'الشبكة العصبية الجذرية غير متوفرة',
+        });
+    }
+    const cell = rt.getCell(req.params.id.toUpperCase());
+    if (!cell) {
+        return res.status(404).json({
+            success: false,
+            error: `الخلية "${req.params.id}" غير موجودة — الخلايا من R01 إلى R19`,
+        });
+    }
+    res.json({ success: true, cell, timestamp: new Date().toISOString() });
+});
+
+// ─── GET /api/neural/root/init — تهيئة الجذر يدوياً ─────────────────────────
+router.get('/root/init', (req, res) => {
+    const rt = loadRootRuntime();
+    if (!rt) {
+        return res.status(503).json({
+            success: false,
+            error: 'الشبكة العصبية الجذرية غير متوفرة',
+        });
+    }
+    const st = rt.init();
+    res.json({
+        success: true,
+        message: '✅ الشبكة العصبية الجذرية مُفعَّلة — بسم الله الرحمن الرحيم',
+        tawheed: 'لا إله إلا الله محمد رسول الله',
+        status: st,
+        timestamp: new Date().toISOString(),
+    });
+});
+
 module.exports = router;
