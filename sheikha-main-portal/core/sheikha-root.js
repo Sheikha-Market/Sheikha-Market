@@ -233,6 +233,51 @@ async function boot() {
         console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل طبقة الخلايا العصبية الرقمية:', err.message);
     }
 
+    // تسجيل شبكة الجذور والمنظمات والهياكل والمعماريات والإدارة والعلوم
+    // ﴿أَصْلُهَا ثَابِتٌ وَفَرْعُهَا فِي السَّمَاءِ﴾ — إبراهيم: ٢٤
+    // ﴿وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا﴾ — آل عمران: ١٠٣
+    try {
+        const rootsOrgNN = require('../lib/sheikha-roots-organizations-neural-network');
+        rootsOrgNN.init();
+        registerLayer('roots-organizations-neural-network', rootsOrgNN);
+        console.log('[SHEIKHA-ROOT] 🌳 شبكة الجذور والمنظمات والهياكل والمعماريات والإدارة والعلوم مُفعَّلة — 8 شبكات × 12 خلية تكاملية');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل شبكة الجذور والمنظمات:', err.message);
+    }
+
+    // تسجيل شبكة الشبكات والسلاسل والإمداد والمنصات والأسواق والأساسات والتقنيات والبنى التحتية واللوجستيات
+    // ﴿وَسَخَّرَ لَكُم مَّا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ جَمِيعًا مِّنْهُ﴾ — الجاثية: ١٣
+    // "وكامل فيما بينهم جميعاً"
+    try {
+        const rootsOrgMod     = getLayer('roots-organizations-neural-network');
+        const networksInfraNN = require('../lib/sheikha-networks-infrastructure-neural-network');
+        const externalNetworks = rootsOrgMod
+            ? { 'roots-organizations': rootsOrgMod.unifiedNetwork || rootsOrgMod }
+            : {};
+        networksInfraNN.init(externalNetworks);
+        registerLayer('networks-infrastructure-neural-network', networksInfraNN);
+        console.log('[SHEIKHA-ROOT] 🕸️  شبكة الشبكات والسلاسل والمنصات والأسواق والأساسات والتقنيات والبنى واللوجستيات مُفعَّلة — 9 شبكات × 16 خلية تكاملية — كامل فيما بينهم جميعاً');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل شبكة الشبكات والبنى التحتية:', err.message);
+    }
+
+    // تسجيل شبكة الاقتصاد والتجارة والثروة والموارد والطاقة والمعادن والنمو
+    // ﴿وَفِي السَّمَاءِ رِزْقُكُمْ وَمَا تُوعَدُونَ﴾ — الذاريات: ٢٢
+    // اقتصاد كل الاقتصادات — كامل فيما بينهم جميعاً
+    try {
+        const rootsOrgModForEconomy = getLayer('roots-organizations-neural-network');
+        const networksInfraMod      = getLayer('networks-infrastructure-neural-network');
+        const economyWealthNN       = require('../lib/sheikha-economy-wealth-neural-network');
+        const extNets = {};
+        if (rootsOrgModForEconomy) extNets['roots-organizations']    = rootsOrgModForEconomy.unifiedNetwork || rootsOrgModForEconomy;
+        if (networksInfraMod)      extNets['networks-infrastructure'] = networksInfraMod.grandUnifiedNetwork || networksInfraMod;
+        economyWealthNN.init(extNets);
+        registerLayer('economy-wealth-neural-network', economyWealthNN);
+        console.log('[SHEIKHA-ROOT] 💰 شبكة الاقتصاد والتجارة والثروة والذهب والنفط والطاقة والمعادن والنمو مُفعَّلة — 9 شبكات × 16 خلية — اقتصاد كل الاقتصادات');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل شبكة الاقتصاد والثروة:', err.message);
+    }
+
     const bootOrder = [
         { key: 'os',            file: 'sheikha-os.js' },
         { key: 'control-plane', file: 'sheikha-control-plane.js' },
@@ -275,6 +320,9 @@ async function boot() {
                     'arabic-grammar-engine':    'محرك النحو والصرف والبلاغة',
                     'arabic-grammar-rules':     'منظومة القواعد العربية الرقمية الكاملة',
                     'universal-neural-network': 'الشبكة العصبية الشاملة — كل العلوم والتقنيات لله',
+                    'roots-organizations-neural-network': 'شبكة الجذور والمنظمات والهياكل والمعماريات والإدارة والعلوم',
+                    'networks-infrastructure-neural-network': 'شبكة الشبكات والسلاسل والمنصات والأسواق والأساسات والتقنيات والبنى التحتية واللوجستيات',
+                    'economy-wealth-neural-network': 'شبكة الاقتصاد والتجارة والثروة والذهب والنفط والطاقة والمعادن والنمو',
                     'root-neural-cell-network': 'شبكة الخلايا العصبية الجذرية — جذر شيخة للجذور',
                     'tajathur-engine':          'محرك التجذر — ترسيخ الجذور',
                     'root-integration-engine':  'محرك التكامل الجذري — دمج كل الجذور',
