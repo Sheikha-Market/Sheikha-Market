@@ -1,0 +1,668 @@
+{
+  "meta": {
+    "nameAr": "البيان الشامل لشبكة الخلايا العصبية الكاملة — منظومة شيخة",
+    "nameEn": "Sheikha Complete Neural Network Manifest — All Systems & Techniques",
+    "version": "3.0.0",
+    "totalCells": 55,
+    "totalLayers": 11,
+    "principle": "وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا — البقرة: 31",
+    "unity": "قُلْ هُوَ اللَّهُ أَحَدٌ — الإخلاص: 1",
+    "excellence": "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ — البيهقي",
+    "createdAt": "2026-04-26T19:00:00.000Z",
+    "owner": "سلمان أحمد بن سلمان الراجح",
+    "system": "Sheikha Codex Neural Engine v3"
+  },
+  "layers": [
+    { "id": 0, "nameAr": "الأساس والتوحيد",         "nameEn": "Foundation & Tawheed",       "cells": [1,2,3,4,5,6,7,8,9,10,11,12] },
+    { "id": 1, "nameAr": "التشخيص والتصحيح",       "nameEn": "Debugging & Diagnostics",   "cells": [13,14,15,16] },
+    { "id": 2, "nameAr": "التجارة والاقتصاد",       "nameEn": "Commerce & Economy",        "cells": [17,18,19,20] },
+    { "id": 3, "nameAr": "الذكاء الاصطناعي",        "nameEn": "AI & Machine Learning",     "cells": [21,22,23,24] },
+    { "id": 4, "nameAr": "الشبكة والاتصالات",       "nameEn": "Network & Telecom",         "cells": [25,26,27,28] },
+    { "id": 5, "nameAr": "اللغة والإعلام",           "nameEn": "Language & Media",          "cells": [29,30,31] },
+    { "id": 6, "nameAr": "التعليم والبحث",           "nameEn": "Education & Research",      "cells": [32,33,34,35] },
+    { "id": 7, "nameAr": "القيادة والأخلاق",         "nameEn": "Leadership & Ethics",       "cells": [36,37,38,39,40] },
+    { "id": 8, "nameAr": "الصحة والبيئة والاستدامة","nameEn": "Health, Environment & Sustainability", "cells": [41,42,43,44,45] },
+    { "id": 9, "nameAr": "الأدوات التقنية المتكاملة","nameEn": "IDE, SDK, MCP, ERP & DevOps",          "cells": [46,47,48,49,50] },
+    { "id": 10,"nameAr": "الناقل الشامل لنقل المعلومات","nameEn": "Universal Transport & Data Carrier","cells": [51,52,53,54,55] }
+  ],
+  "cells": [
+
+    {
+      "number": 1, "id": "cell-init", "layer": 0,
+      "nameAr": "خلية البداية", "nameEn": "Init Cell",
+      "reference": "الفاتحة:1", "ayah": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+      "significance": "كل أمر ذي بال لا يبدأ ببسم الله فهو أبتر — أساس كل بداية وتهيئة",
+      "function": "تهيئة الشبكة العصبية الكاملة وتشغيل جميع الطبقات",
+      "techniques": ["System Bootstrap", "Dependency Injection", "Health Check"],
+      "activation": "startup", "weight": 1.0, "priority": 1,
+      "connections": [2,3,4,5,6,7,8,9,10,11,12,13]
+    },
+
+    {
+      "number": 2, "id": "cell-security", "layer": 0,
+      "nameAr": "خلية الحماية", "nameEn": "Security Cell",
+      "reference": "البقرة:255", "ayah": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ",
+      "significance": "آية الكرسي — أعظم آية، حماية لا تنام ولا تتوقف",
+      "function": "الحماية الأمنية الشاملة ومنع الاختراق 24/7",
+      "techniques": ["Zero Trust Architecture", "JWT Auth", "AES-256 Encryption", "OWASP Top 10"],
+      "activation": "always-on", "weight": 0.98, "priority": 1,
+      "connections": [1,4,6,13,14,27]
+    },
+
+    {
+      "number": 3, "id": "cell-tawheed", "layer": 0,
+      "nameAr": "خلية التوحيد والامتثال الشرعي", "nameEn": "Tawheed & Sharia Compliance Cell",
+      "reference": "الإخلاص:1", "ayah": "قُلْ هُوَ اللَّهُ أَحَدٌ",
+      "significance": "التوحيد — وحدة المصدر وتوافق كل قرار مع الشريعة الإسلامية",
+      "function": "فحص كل قرار وعملية للتوافق الشرعي ورفض المحرمات",
+      "techniques": ["Rule-Based Reasoning", "BERT-Arabic Classifier", "Islamic Finance Rules Engine"],
+      "activation": "on-decision", "weight": 0.99, "priority": 1,
+      "connections": [1,2,5,6,17,18,19,20]
+    },
+
+    {
+      "number": 4, "id": "cell-identity", "layer": 0,
+      "nameAr": "خلية الهوية المركزية", "nameEn": "Central Identity Cell",
+      "reference": "الحشر:22", "ayah": "هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ عَالِمُ الْغَيْبِ وَالشَّهَادَةِ",
+      "significance": "علم الغيب والشهادة — الهوية الكاملة والمعرفة الشاملة",
+      "function": "إدارة هويات المستخدمين والكيانات والتحقق من الصلاحيات",
+      "techniques": ["OAuth 2.0", "OpenID Connect", "Multi-Factor Auth", "Biometrics"],
+      "activation": "on-auth", "weight": 0.95, "priority": 2,
+      "connections": [1,2,3,5]
+    },
+
+    {
+      "number": 5, "id": "cell-governance", "layer": 0,
+      "nameAr": "خلية الملكية والحوكمة", "nameEn": "Governance & Ownership Cell",
+      "reference": "الملك:1", "ayah": "تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",
+      "significance": "الملك لله — الحوكمة الرشيدة وسيادة الحق",
+      "function": "إدارة الصلاحيات والحوكمة والسياسات والامتثال التنظيمي",
+      "techniques": ["RBAC", "Policy Engine", "Audit Logging", "Regulatory Compliance (SAMA, CITC)"],
+      "activation": "on-policy", "weight": 0.92, "priority": 2,
+      "connections": [1,3,4,6]
+    },
+
+    {
+      "number": 6, "id": "cell-learning", "layer": 0,
+      "nameAr": "خلية التعلم والذاكرة", "nameEn": "Learning & Memory Cell",
+      "reference": "الرحمن:1-2", "ayah": "الرَّحْمَٰنُ ۝ عَلَّمَ الْقُرْآنَ",
+      "significance": "التعليم الرباني — التعلم المستمر والذاكرة التراكمية",
+      "function": "تدريب النماذج وتراكم المعرفة والذاكرة طويلة الأمد",
+      "techniques": ["Fine-Tuning", "Transfer Learning", "RAG", "Vector DB", "Continual Learning"],
+      "activation": "on-train", "weight": 0.90, "priority": 2,
+      "connections": [1,3,7,10,21,22]
+    },
+
+    {
+      "number": 7, "id": "cell-analysis", "layer": 0,
+      "nameAr": "خلية القراءة والتحليل", "nameEn": "Reading & Analysis Cell",
+      "reference": "العلق:1", "ayah": "اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ",
+      "significance": "أول آية — الأمر بالقراءة والتحليل والبحث",
+      "function": "تحليل البيانات الضخمة والنصوص واستخراج المعرفة والرؤى",
+      "techniques": ["Big Data Analytics", "NLP", "Text Mining", "Semantic Analysis", "Apache Spark"],
+      "activation": "on-data", "weight": 0.88, "priority": 2,
+      "connections": [1,6,9,10,21,22,23]
+    },
+
+    {
+      "number": 8, "id": "cell-monitoring", "layer": 0,
+      "nameAr": "خلية المراقبة والمتابعة", "nameEn": "Monitoring & Surveillance Cell",
+      "reference": "الحديد:4", "ayah": "وَهُوَ مَعَكُمْ أَيْنَ مَا كُنتُمْ ۚ وَاللَّهُ بِمَا تَعْمَلُونَ بَصِيرٌ",
+      "significance": "الرقابة الكاملة — لا يغيب عنه شيء",
+      "function": "مراقبة الأداء الشامل والتنبيه الفوري عند الشذوذ",
+      "techniques": ["Prometheus", "Grafana", "OpenTelemetry", "LSTM Anomaly Detection"],
+      "activation": "always-on", "weight": 0.93, "priority": 1,
+      "connections": [1,2,9,11,13,14]
+    },
+
+    {
+      "number": 9, "id": "cell-accounting", "layer": 0,
+      "nameAr": "خلية الحساب والتقييم", "nameEn": "Accounting & Evaluation Cell",
+      "reference": "الزلزلة:7-8", "ayah": "فَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ ۝ وَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ شَرًّا يَرَهُ",
+      "significance": "الحساب الدقيق الشامل — كل شيء محاسَب ولو مثقال ذرة",
+      "function": "حساب المعاملات المالية والتقييم الدقيق لكل عملية",
+      "techniques": ["Double-Entry Ledger", "Blockchain Audit Trail", "Real-time Settlement"],
+      "activation": "on-transaction", "weight": 0.97, "priority": 1,
+      "connections": [1,7,8,10,17,18,19]
+    },
+
+    {
+      "number": 10, "id": "cell-quality", "layer": 0,
+      "nameAr": "خلية الجودة والإتقان", "nameEn": "Quality & Excellence Cell",
+      "reference": "حديث نبوي", "hadith": "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ",
+      "source": "رواه البيهقي في شعب الإيمان",
+      "significance": "الإتقان واجب ديني — الله يحب الإتقان في كل عمل",
+      "function": "ضمان جودة المخرجات وفحص صحة البيانات والتحقق من النتائج",
+      "techniques": ["TDD", "CI/CD", "Automated Testing", "SonarQube", "Six Sigma"],
+      "activation": "on-output", "weight": 0.96, "priority": 1,
+      "connections": [1,6,7,9,11]
+    },
+
+    {
+      "number": 11, "id": "cell-advisory", "layer": 0,
+      "nameAr": "خلية التوجيه والتحسين", "nameEn": "Advisory & Improvement Cell",
+      "reference": "حديث نبوي", "hadith": "الدِّينُ النَّصِيحَةُ",
+      "source": "رواه مسلم",
+      "significance": "النصيحة دين — التوجيه والتحسين المستمر واجب",
+      "function": "تقديم التوصيات الذكية وتحسين الأداء والتغذية الراجعة",
+      "techniques": ["Recommendation Engine", "A/B Testing", "Feedback Loop", "Bayesian Optimization"],
+      "activation": "on-review", "weight": 0.89, "priority": 2,
+      "connections": [1,8,10,12]
+    },
+
+    {
+      "number": 12, "id": "cell-balance", "layer": 0,
+      "nameAr": "خلية توازن الحِمل", "nameEn": "Load Balancing Cell",
+      "reference": "البقرة:286", "ayah": "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا",
+      "significance": "التكليف بالوسع — توزيع الأحمال بعدل وفق الطاقة",
+      "function": "توازن أحمال الخوادم وتوزيع المهام بعدل وكفاءة",
+      "techniques": ["Round Robin", "Least Connections", "Auto-Scaling", "Kubernetes HPA"],
+      "activation": "on-load", "weight": 0.91, "priority": 2,
+      "connections": [1,5,8,11]
+    },
+
+    {
+      "number": 13, "id": "cell-debug-detect", "layer": 1,
+      "nameAr": "خلية كشف الأخطاء", "nameEn": "Error Detection Cell",
+      "reference": "الحجرات:6", "ayah": "يَا أَيُّهَا الَّذِينَ آمَنُوا إِن جَاءَكُمْ فَاسِقٌ بِنَبَإٍ فَتَبَيَّنُوا",
+      "significance": "التبيّن والتحقق قبل الحكم — تشخيص دقيق قبل الإصلاح",
+      "function": "كشف الأخطاء والشذوذات وتسجيلها بدقة في كل طبقات النظام",
+      "techniques": ["Error Tracking (Sentry)", "Log Aggregation (ELK)", "Distributed Tracing", "LSTM Error Prediction"],
+      "activation": "always-on", "weight": 0.97, "priority": 1,
+      "connections": [1,2,8,14,15,16]
+    },
+
+    {
+      "number": 14, "id": "cell-debug-diagnose", "layer": 1,
+      "nameAr": "خلية التشخيص العميق", "nameEn": "Deep Diagnostics Cell",
+      "reference": "الزمر:53", "ayah": "قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ",
+      "significance": "لا يأس من رحمة الله — كل خطأ قابل للتشخيص والإصلاح",
+      "function": "تشخيص جذور الأخطاء (Root Cause Analysis) واقتراح الحلول بالذكاء الاصطناعي",
+      "techniques": ["Root Cause Analysis", "Causal AI", "Bayesian Fault Localization", "5 Whys Automation"],
+      "activation": "on-error", "weight": 0.95, "priority": 1,
+      "connections": [13,15,16,7]
+    },
+
+    {
+      "number": 15, "id": "cell-debug-heal", "layer": 1,
+      "nameAr": "خلية الإصلاح التلقائي", "nameEn": "Self-Healing Cell",
+      "reference": "الشرح:5-6", "ayah": "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+      "significance": "مع كل عسر يسر — الإصلاح والانتعاش بعد كل خطأ",
+      "function": "الإصلاح التلقائي واستعادة الخدمة وتطبيق الحلول فوراً",
+      "techniques": ["Self-Healing Systems", "Circuit Breaker", "Chaos Engineering", "Kubernetes Auto-Restart"],
+      "activation": "on-error", "weight": 0.94, "priority": 1,
+      "connections": [13,14,16,12]
+    },
+
+    {
+      "number": 16, "id": "cell-debug-alert", "layer": 1,
+      "nameAr": "خلية الإنذار والتبليغ", "nameEn": "Alert & Notification Cell",
+      "reference": "الجن:1", "ayah": "قُلْ أُوحِيَ إِلَيَّ أَنَّهُ اسْتَمَعَ نَفَرٌ مِّنَ الْجِنِّ",
+      "significance": "الإشعار الفوري بما يحدث — الإنذار المبكر يُنقذ",
+      "function": "إرسال إنذارات فورية للمسؤولين عبر كل القنوات عند اكتشاف الأخطاء",
+      "techniques": ["PagerDuty", "Slack/WhatsApp Webhooks", "Email Alerts", "SMS Gateway"],
+      "activation": "on-critical", "weight": 0.92, "priority": 1,
+      "connections": [13,14,15,8]
+    },
+
+    {
+      "number": 17, "id": "cell-commerce-trade", "layer": 2,
+      "nameAr": "خلية البيع والشراء", "nameEn": "Trade & Commerce Cell",
+      "reference": "البقرة:275", "ayah": "وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا",
+      "significance": "البيع حلال — التجارة الشرعية الطاهرة من الربا",
+      "function": "إدارة عمليات البيع والشراء وفق أحكام الشريعة الإسلامية",
+      "techniques": ["E-Commerce Engine", "Islamic Finance Rules", "Smart Contracts", "Payment Gateway"],
+      "activation": "on-trade", "weight": 0.96, "priority": 1,
+      "connections": [1,3,9,18,19,20]
+    },
+
+    {
+      "number": 18, "id": "cell-commerce-scale", "layer": 2,
+      "nameAr": "خلية الميزان والعدل التجاري", "nameEn": "Fair Trade & Scale Cell",
+      "reference": "الرحمن:9", "ayah": "وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ",
+      "significance": "العدل في الميزان — لا غش ولا احتيال في الأوزان والأسعار",
+      "function": "ضمان عدالة الأسعار والأوزان ومنع الغش والاحتيال في المعاملات",
+      "techniques": ["Price Fairness Engine", "Anti-Fraud Detection", "Transparency Ledger"],
+      "activation": "on-trade", "weight": 0.95, "priority": 1,
+      "connections": [17,19,3,9]
+    },
+
+    {
+      "number": 19, "id": "cell-commerce-zakat", "layer": 2,
+      "nameAr": "خلية الزكاة والإنفاق", "nameEn": "Zakat & Charity Cell",
+      "reference": "البقرة:267", "ayah": "يَا أَيُّهَا الَّذِينَ آمَنُوا أَنفِقُوا مِن طَيِّبَاتِ مَا كَسَبْتُمْ",
+      "significance": "الإنفاق من الطيب — الزكاة والصدقة ركيزة الاقتصاد الإسلامي",
+      "function": "حساب الزكاة التلقائي وإدارة الصدقات والمسؤولية الاجتماعية",
+      "techniques": ["Zakat Calculator", "Charity Distribution", "Impact Tracking", "Social Ledger"],
+      "activation": "on-profit", "weight": 0.90, "priority": 2,
+      "connections": [17,18,3,9]
+    },
+
+    {
+      "number": 20, "id": "cell-commerce-contract", "layer": 2,
+      "nameAr": "خلية العقود والوفاء", "nameEn": "Contracts & Commitments Cell",
+      "reference": "المائدة:1", "ayah": "يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ",
+      "significance": "الوفاء بالعقود واجب — أساس الثقة والتعاملات",
+      "function": "إدارة العقود الذكية والتحقق من الالتزام بالشروط وتوثيق الاتفاقيات",
+      "techniques": ["Smart Contracts", "Blockchain", "Digital Signatures", "SLA Management"],
+      "activation": "on-contract", "weight": 0.93, "priority": 1,
+      "connections": [17,18,3,5]
+    },
+
+    {
+      "number": 21, "id": "cell-ai-llm", "layer": 3,
+      "nameAr": "خلية نموذج اللغة الكبير", "nameEn": "LLM / Language Model Cell",
+      "reference": "طه:114", "ayah": "وَقُل رَّبِّ زِدْنِي عِلْمًا",
+      "significance": "طلب الزيادة في العلم — التعلم لا ينتهي وتطوير النماذج مستمر",
+      "function": "معالجة اللغة الطبيعية والحوار الذكي وتوليد المحتوى العربي والإسلامي",
+      "techniques": ["GPT/Claude Integration", "Arabic LLM", "RAG", "Prompt Engineering", "Fine-Tuning"],
+      "models": ["GPT-4o", "Claude 3", "Llama 3 Arabic", "AraGPT2", "Sheikha Codex Neural Engine"],
+      "activation": "on-query", "weight": 0.93, "priority": 2,
+      "connections": [6,7,23,24]
+    },
+
+    {
+      "number": 22, "id": "cell-ai-vision", "layer": 3,
+      "nameAr": "خلية الرؤية الحاسوبية", "nameEn": "Computer Vision Cell",
+      "reference": "النمل:27", "ayah": "سَنَنظُرُ أَصَدَقْتَ أَمْ كُنتَ مِنَ الْكَاذِبِينَ",
+      "significance": "التمحيص والنظر الدقيق — الرؤية الحاسوبية تكشف الحق",
+      "function": "تحليل الصور والفيديو للتحقق من المنتجات والهوية وكشف المخالفات",
+      "techniques": ["YOLO v8", "Vision Transformer (ViT)", "OpenCV", "Product Recognition", "OCR"],
+      "activation": "on-image", "weight": 0.88, "priority": 2,
+      "connections": [6,7,21]
+    },
+
+    {
+      "number": 23, "id": "cell-ai-nlp", "layer": 3,
+      "nameAr": "خلية معالجة اللغة العربية", "nameEn": "Arabic NLP Cell",
+      "reference": "إبراهيم:4", "ayah": "وَمَا أَرْسَلْنَا مِن رَّسُولٍ إِلَّا بِلِسَانِ قَوْمِهِ",
+      "significance": "لغة القوم — التواصل بلغة المستخدم وإتقان العربية",
+      "function": "معالجة النصوص العربية والفصحى والعامية وفهم اللهجات",
+      "techniques": ["AraBERT", "CAMeL NLP", "Arabic Morphology", "Diacritics Restoration", "Dialect ID"],
+      "activation": "on-text", "weight": 0.87, "priority": 2,
+      "connections": [6,7,21,24]
+    },
+
+    {
+      "number": 24, "id": "cell-ai-decision", "layer": 3,
+      "nameAr": "خلية اتخاذ القرار الذكي", "nameEn": "AI Decision Making Cell",
+      "reference": "العنكبوت:43", "ayah": "وَتِلْكَ الْأَمْثَالُ نَضْرِبُهَا لِلنَّاسِ ۖ وَمَا يَعْقِلُهَا إِلَّا الْعَالِمُونَ",
+      "significance": "الأمثال للعقلاء — القرار المبني على المعرفة والعقل",
+      "function": "اتخاذ القرارات الذكية بالذكاء الاصطناعي وفق البيانات والشريعة",
+      "techniques": ["Reinforcement Learning (DQN)", "Multi-Criteria Decision", "Explainable AI (XAI)", "Decision Trees"],
+      "activation": "on-decision", "weight": 0.91, "priority": 2,
+      "connections": [6,7,21,22,23]
+    },
+
+    {
+      "number": 25, "id": "cell-network-telecom", "layer": 4,
+      "nameAr": "خلية الاتصالات", "nameEn": "Telecommunications Cell",
+      "reference": "النمل:22", "ayah": "فَمَكَثَ غَيْرَ بَعِيدٍ فَقَالَ أَحَطتُ بِمَا لَمْ تُحِطْ بِهِ",
+      "significance": "الإحاطة بالمعلومات — شبكة الاتصالات تربط ما لا يُرى",
+      "function": "إدارة شبكات الاتصالات وتوفير الاتصال المستمر والموثوق",
+      "techniques": ["5G NR", "VoIP", "WebRTC", "SIP", "Fiber Optics", "Satellite Comms"],
+      "activation": "on-request", "weight": 0.89, "priority": 2,
+      "connections": [26,27,28,12]
+    },
+
+    {
+      "number": 26, "id": "cell-network-core", "layer": 4,
+      "nameAr": "خلية النور والشبكة المركزية", "nameEn": "Core Network Cell",
+      "reference": "النور:35", "ayah": "اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ",
+      "significance": "نور السماوات والأرض — شبكة الاتصال تُنير وتربط",
+      "function": "إدارة الشبكة المركزية والتوجيه والتحويل وجودة الخدمة",
+      "techniques": ["SDN", "NFV", "BGP/OSPF Routing", "MPLS", "AI-Driven Network Optimization"],
+      "activation": "always-on", "weight": 0.91, "priority": 1,
+      "connections": [25,27,28,12]
+    },
+
+    {
+      "number": 27, "id": "cell-network-iot", "layer": 4,
+      "nameAr": "خلية إنترنت الأشياء والذكاء المنزلي", "nameEn": "IoT & Smart Home Cell",
+      "reference": "الذاريات:22", "ayah": "وَفِي السَّمَاءِ رِزْقُكُمْ وَمَا تُوعَدُونَ",
+      "significance": "الرزق والوعد من السماء — الشبكة اللاسلكية حاملة الرزق الرقمي",
+      "function": "إدارة أجهزة إنترنت الأشياء والمنزل الذكي والأجهزة المتصلة",
+      "techniques": ["MQTT", "LoRaWAN", "Zigbee", "Matter Protocol", "Edge Computing", "AI Anomaly Detection"],
+      "activation": "on-device", "weight": 0.86, "priority": 3,
+      "connections": [25,26,28]
+    },
+
+    {
+      "number": 28, "id": "cell-network-cybersec", "layer": 4,
+      "nameAr": "خلية الأمن السيبراني", "nameEn": "Cybersecurity Cell",
+      "reference": "الأنفال:60", "ayah": "وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ",
+      "significance": "إعداد القوة — التحصين السيبراني واجب لحماية الأمة الرقمية",
+      "function": "الحماية من الهجمات السيبرانية والاختراق والتجسس",
+      "techniques": ["IDS/IPS", "SIEM", "Penetration Testing", "Zero-Day Defense", "Threat Intelligence Feeds"],
+      "activation": "always-on", "weight": 0.97, "priority": 1,
+      "connections": [2,25,26,13,14]
+    },
+
+    {
+      "number": 29, "id": "cell-lang-arabic", "layer": 5,
+      "nameAr": "خلية اللغة العربية والبيان", "nameEn": "Arabic Language & Expression Cell",
+      "reference": "الرحمن:3-4", "ayah": "خَلَقَ الْإِنسَانَ ۝ عَلَّمَهُ الْبَيَانَ",
+      "significance": "تعليم البيان — اللغة العربية لغة القرآن وأشرف اللغات",
+      "function": "معالجة وتوليد المحتوى العربي الفصيح والإسلامي الأصيل",
+      "techniques": ["Arabic NLP", "Quranic Text Analysis", "Classical Arabic Processing", "Tashkeel"],
+      "activation": "on-content", "weight": 0.88, "priority": 2,
+      "connections": [21,23,30,31]
+    },
+
+    {
+      "number": 30, "id": "cell-lang-media", "layer": 5,
+      "nameAr": "خلية الإعلام والبيان الرقمي", "nameEn": "Digital Media Cell",
+      "reference": "النحل:89", "ayah": "وَنَزَّلْنَا عَلَيْكَ الْكِتَابَ تِبْيَانًا لِّكُلِّ شَيْءٍ",
+      "significance": "البيان الشامل — الإعلام الرقمي يُبيّن الحق للناس",
+      "function": "إنتاج ونشر المحتوى الرقمي المتوافق شرعياً عبر جميع المنصات",
+      "techniques": ["Content Management", "CDN", "Video Streaming", "Podcast", "Social Media API"],
+      "activation": "on-publish", "weight": 0.82, "priority": 3,
+      "connections": [29,31,3]
+    },
+
+    {
+      "number": 31, "id": "cell-lang-translate", "layer": 5,
+      "nameAr": "خلية الترجمة متعددة اللغات", "nameEn": "Multilingual Translation Cell",
+      "reference": "الحجرات:13", "ayah": "يَا أَيُّهَا النَّاسُ إِنَّا خَلَقْنَاكُم مِّن ذَكَرٍ وَأُنثَىٰ وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا",
+      "significance": "التعارف بين الشعوب — التواصل بكل لغات العالم",
+      "function": "الترجمة الفورية لأكثر من 50 لغة مع الحفاظ على المعنى الشرعي",
+      "techniques": ["Neural Machine Translation (NMT)", "mBERT", "Helsinki-NLP Models", "Localization"],
+      "activation": "on-translate", "weight": 0.83, "priority": 3,
+      "connections": [29,30,23]
+    },
+
+    {
+      "number": 32, "id": "cell-edu-teach", "layer": 6,
+      "nameAr": "خلية التعليم والتدريب", "nameEn": "Education & Training Cell",
+      "reference": "العلق:1-5", "ayah": "اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ ۝ خَلَقَ الْإِنسَانَ مِنْ عَلَقٍ ۝ اقْرَأْ وَرَبُّكَ الْأَكْرَمُ ۝ الَّذِي عَلَّمَ بِالْقَلَمِ ۝ عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ",
+      "significance": "سورة العلق كاملة — التعليم رسالة إلهية",
+      "function": "تقديم المناهج التعليمية والتدريب بالذكاء الاصطناعي",
+      "techniques": ["LMS", "Adaptive Learning", "Spaced Repetition", "AI Tutoring", "Gamification"],
+      "activation": "on-learn", "weight": 0.87, "priority": 2,
+      "connections": [6,33,34,35]
+    },
+
+    {
+      "number": 33, "id": "cell-edu-research", "layer": 6,
+      "nameAr": "خلية البحث العلمي", "nameEn": "Scientific Research Cell",
+      "reference": "الملك:10", "ayah": "وَقَالُوا لَوْ كُنَّا نَسْمَعُ أَوْ نَعْقِلُ مَا كُنَّا فِي أَصْحَابِ السَّعِيرِ",
+      "significance": "السمع والعقل — البحث العلمي واجب ديني لتحقيق الفائدة",
+      "function": "دعم البحث العلمي وتحليل الأوراق البحثية وربط المعرفة",
+      "techniques": ["Knowledge Graph", "Semantic Search", "Citation Analysis", "ArXiv Integration"],
+      "activation": "on-research", "weight": 0.84, "priority": 3,
+      "connections": [32,34,7]
+    },
+
+    {
+      "number": 34, "id": "cell-edu-innovation", "layer": 6,
+      "nameAr": "خلية الابتكار والإبداع", "nameEn": "Innovation & Creativity Cell",
+      "reference": "الزخرف:3", "ayah": "إِنَّا جَعَلْنَاهُ قُرْآنًا عَرَبِيًّا لَّعَلَّكُمْ تَعْقِلُونَ",
+      "significance": "العقل والتعقل — الابتكار ثمرة التفكر والتدبر",
+      "function": "دعم الابتكار وتطوير الأفكار الجديدة والنماذج التجريبية",
+      "techniques": ["Design Thinking", "Rapid Prototyping", "Innovation Lab", "Generative AI"],
+      "activation": "on-ideate", "weight": 0.82, "priority": 3,
+      "connections": [32,33,35,21]
+    },
+
+    {
+      "number": 35, "id": "cell-edu-quran", "layer": 6,
+      "nameAr": "خلية العلوم الشرعية والقرآنية", "nameEn": "Quranic & Islamic Sciences Cell",
+      "reference": "يوسف:2", "ayah": "إِنَّا أَنزَلْنَاهُ قُرْآنًا عَرَبِيًّا لَّعَلَّكُمْ تَعْقِلُونَ",
+      "significance": "القرآن عربي — العلوم الإسلامية أساس كل معرفة",
+      "function": "فهرسة وتحليل القرآن الكريم والحديث النبوي وعلوم الشريعة",
+      "techniques": ["Quran Search Engine", "Hadith Authentication", "Tafsir Analysis", "Fiqh Rules Engine"],
+      "activation": "on-query", "weight": 0.91, "priority": 1,
+      "connections": [3,32,33,7]
+    },
+
+    {
+      "number": 36, "id": "cell-lead-plan", "layer": 7,
+      "nameAr": "خلية التخطيط الاستراتيجي", "nameEn": "Strategic Planning Cell",
+      "reference": "الحشر:18", "ayah": "يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ",
+      "significance": "النظر للغد — التخطيط ضرورة شرعية وعملية",
+      "function": "التخطيط الاستراتيجي طويل الأمد وإدارة خريطة الطريق",
+      "techniques": ["OKRs", "Strategic Roadmapping", "Scenario Planning", "AI Forecasting"],
+      "activation": "on-plan", "weight": 0.86, "priority": 2,
+      "connections": [37,38,39,40]
+    },
+
+    {
+      "number": 37, "id": "cell-lead-forecast", "layer": 7,
+      "nameAr": "خلية التنبؤ والاستشراف", "nameEn": "Forecasting & Foresight Cell",
+      "reference": "يوسف:47", "ayah": "قَالَ تَزْرَعُونَ سَبْعَ سِنِينَ دَأَبًا فَمَا حَصَدتُّمْ فَذَرُوهُ فِي سُنبُلِهِ",
+      "significance": "التنبؤ بالمستقبل والتخزين له — التخطيط بناءً على التوقعات",
+      "function": "التنبؤ بالطلب والأسواق والمخاطر باستخدام نماذج التعلم الآلي",
+      "techniques": ["Time Series Forecasting", "ARIMA", "LSTM Predictor", "Monte Carlo Simulation"],
+      "activation": "on-schedule", "weight": 0.85, "priority": 2,
+      "connections": [36,38,9,24]
+    },
+
+    {
+      "number": 38, "id": "cell-lead-shura", "layer": 7,
+      "nameAr": "خلية الشورى والتشاور", "nameEn": "Shura & Consultation Cell",
+      "reference": "الشورى:38", "ayah": "وَالَّذِينَ اسْتَجَابُوا لِرَبِّهِمْ وَأَقَامُوا الصَّلَاةَ وَأَمْرُهُمْ شُورَىٰ بَيْنَهُمْ",
+      "significance": "الشورى دين — القرار الجماعي والتشاور أساس الحكمة",
+      "function": "تجميع آراء الخبراء والمستخدمين وتحليلها لدعم القرارات",
+      "techniques": ["Consensus Algorithms", "Voting Systems", "Crowdsourcing", "Expert Systems"],
+      "activation": "on-decision", "weight": 0.88, "priority": 2,
+      "connections": [36,37,39,5]
+    },
+
+    {
+      "number": 39, "id": "cell-lead-justice", "layer": 7,
+      "nameAr": "خلية العدل والأمانة", "nameEn": "Justice & Trust Cell",
+      "reference": "النساء:58", "ayah": "إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا وَإِذَا حَكَمْتُم بَيْنَ النَّاسِ أَن تَحْكُمُوا بِالْعَدْلِ",
+      "significance": "العدل والأمانة — فريضة إلهية في كل معاملة",
+      "function": "ضمان العدالة والأمانة في كل معاملات النظام والقرارات",
+      "techniques": ["Fairness Metrics", "Bias Detection", "Audit Trails", "Whistleblower System"],
+      "activation": "on-decision", "weight": 0.93, "priority": 1,
+      "connections": [38,40,3,5]
+    },
+
+    {
+      "number": 40, "id": "cell-lead-truthful", "layer": 7,
+      "nameAr": "خلية الصدق والشفافية", "nameEn": "Honesty & Transparency Cell",
+      "reference": "التوبة:119", "ayah": "يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَكُونُوا مَعَ الصَّادِقِينَ",
+      "significance": "الصدق مع الصادقين — الشفافية في كل بيانات النظام",
+      "function": "ضمان الشفافية الكاملة في البيانات والعمليات والتقارير",
+      "techniques": ["Open Data", "Explainable AI", "Transparent Audit", "GDPR Compliance"],
+      "activation": "always-on", "weight": 0.90, "priority": 1,
+      "connections": [38,39,5,10]
+    },
+
+    {
+      "number": 41, "id": "cell-health-wellness", "layer": 8,
+      "nameAr": "خلية الصحة والعافية", "nameEn": "Health & Wellness Cell",
+      "reference": "الشعراء:80", "ayah": "وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ",
+      "significance": "الشفاء من الله — رعاية الصحة واجبة في المنظومة",
+      "function": "رعاية صحة المستخدمين والموظفين وتوفير الموارد الصحية",
+      "techniques": ["Health Monitoring", "AI Diagnostics", "Digital Health Records", "Telemedicine"],
+      "activation": "on-request", "weight": 0.83, "priority": 3,
+      "connections": [42,43]
+    },
+
+    {
+      "number": 42, "id": "cell-health-safety", "layer": 8,
+      "nameAr": "خلية السلامة وعدم الإضرار", "nameEn": "Safety & No-Harm Cell",
+      "reference": "البقرة:195", "ayah": "وَلَا تُلْقُوا بِأَيْدِيكُمْ إِلَى التَّهْلُكَةِ",
+      "significance": "لا للتهلكة — السلامة فريضة ومنع الضرر واجب",
+      "function": "ضمان السلامة الجسدية والرقمية ومنع الأذى في كل جوانب النظام",
+      "techniques": ["Safety Rules Engine", "Risk Assessment", "Harm Detection AI", "Emergency Response"],
+      "activation": "always-on", "weight": 0.91, "priority": 1,
+      "connections": [41,43,2,3]
+    },
+
+    {
+      "number": 43, "id": "cell-health-privacy", "layer": 8,
+      "nameAr": "خلية الخصوصية وعدم التجسس", "nameEn": "Privacy & No-Spy Cell",
+      "reference": "الحجرات:12", "ayah": "وَلَا تَجَسَّسُوا وَلَا يَغْتَب بَّعْضُكُم بَعْضًا",
+      "significance": "لا للتجسس — الخصوصية حق محفوظ في الإسلام",
+      "function": "حماية خصوصية البيانات ومنع التجسس والتتبع غير المشروع",
+      "techniques": ["Differential Privacy", "Federated Learning", "Data Minimization", "GDPR/PDPL"],
+      "activation": "always-on", "weight": 0.94, "priority": 1,
+      "connections": [41,42,2,5]
+    },
+
+    {
+      "number": 44, "id": "cell-env-sustainability", "layer": 8,
+      "nameAr": "خلية البيئة والاستدامة", "nameEn": "Environment & Sustainability Cell",
+      "reference": "الأعراف:56", "ayah": "وَلَا تُفْسِدُوا فِي الْأَرْضِ بَعْدَ إِصْلَاحِهَا",
+      "significance": "لا للإفساد — حفظ البيئة فريضة دينية",
+      "function": "تقليل البصمة البيئية للنظام والتشغيل المستدام بالطاقة النظيفة",
+      "techniques": ["Green Cloud", "Carbon Footprint Tracking", "Renewable Energy", "Efficient Algorithms"],
+      "activation": "always-on", "weight": 0.80, "priority": 3,
+      "connections": [45,12]
+    },
+
+    {
+      "number": 45, "id": "cell-env-legacy", "layer": 8,
+      "nameAr": "خلية الأثر والإرث الحضاري", "nameEn": "Legacy & Civilizational Impact Cell",
+      "reference": "آل عمران:110", "ayah": "كُنتُمْ خَيْرَ أُمَّةٍ أُخْرِجَتْ لِلنَّاسِ تَأْمُرُونَ بِالْمَعْرُوفِ وَتَنْهَوْنَ عَنِ الْمُنكَرِ",
+      "significance": "خير أمة — المنظومة خادمة للإنسانية وناشرة للمعروف",
+      "function": "ضمان أن يكون أثر المنظومة إيجابياً على المجتمع والحضارة الإسلامية",
+      "techniques": ["Impact Measurement", "SDG Alignment", "Community Feedback", "Waqf Digital Model"],
+      "activation": "on-impact", "weight": 0.85, "priority": 2,
+      "connections": [44,39,40,3]
+    },
+
+    {
+      "number": 46, "id": "cell-ide", "layer": 9,
+      "nameAr": "خلية بيئة التطوير المتكاملة (IDE)", "nameEn": "Integrated Development Environment Cell",
+      "reference": "العلق:4", "ayah": "الَّذِي عَلَّمَ بِالْقَلَمِ",
+      "significance": "التعليم بالقلم — الكتابة والبرمجة أداة الإتقان الرقمي",
+      "function": "خادم IDE ذكي يوفر تحليل الكود والإكمال التلقائي وتشخيص الأخطاء لمطوري منظومة شيخة",
+      "techniques": ["LSP (Language Server Protocol)", "Code Analysis", "Auto-Complete AI", "Syntax Highlighting", "Debugging Tools"],
+      "servers": ["sheikha-ide-server.js (port 3002)", "VS Code Extension", "Cursor IDE Integration"],
+      "endpoints": ["/ide/analyze", "/ide/complete", "/ide/diagnose", "/ide/files", "/ide/search"],
+      "activation": "on-develop", "weight": 0.88, "priority": 2,
+      "connections": [47,48,7,34,13,14]
+    },
+
+    {
+      "number": 47, "id": "cell-sdk", "layer": 9,
+      "nameAr": "خلية مجموعة أدوات التطوير (SDK)", "nameEn": "Software Development Kit Cell",
+      "reference": "النحل:125", "ayah": "ادْعُ إِلَىٰ سَبِيلِ رَبِّكَ بِالْحِكْمَةِ وَالْمَوْعِظَةِ الْحَسَنَةِ",
+      "significance": "الدعوة بالحكمة — SDK يوفر أدوات التطوير الحكيمة للمطورين",
+      "function": "تعريض SDK شيخة عبر HTTP REST API لتمكين المطورين من التكامل مع كل وحدات المنظومة",
+      "techniques": ["REST SDK", "GraphQL SDK", "WebSocket SDK", "npm Package", "Python Package", "OpenAPI Spec"],
+      "servers": ["sheikha-sdk-server.js (port 3001)"],
+      "endpoints": ["/sdk/status", "/sdk/engines", "/sdk/neural", "/sdk/market", "/sdk/docs"],
+      "activation": "on-develop", "weight": 0.87, "priority": 2,
+      "connections": [46,48,49,1]
+    },
+
+    {
+      "number": 48, "id": "cell-mcp", "layer": 9,
+      "nameAr": "خلية بروتوكول سياق النموذج (MCP)", "nameEn": "Model Context Protocol Cell",
+      "reference": "البقرة:31", "ayah": "وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا ثُمَّ عَرَضَهُمْ عَلَى الْمَلَائِكَةِ",
+      "significance": "تعليم الأسماء وعرضها — MCP يعلّم النماذج أسماء الأشياء وسياقاتها",
+      "function": "تكامل منظومة شيخة مع نماذج الذكاء الاصطناعي (Claude, Cursor, Copilot) عبر بروتوكول MCP",
+      "techniques": ["@modelcontextprotocol/sdk", "Stdio Transport", "HTTP Transport", "Tool Definitions", "Resource Exposure"],
+      "servers": ["sheikha-mcp-server.js (stdio)", "sheikha-vision-mcp.js"],
+      "tools": ["analyze_market", "check_sharia", "search_products", "get_neural_status", "debug_system"],
+      "activation": "on-ai-request", "weight": 0.91, "priority": 1,
+      "connections": [46,47,21,23,51,52]
+    },
+
+    {
+      "number": 49, "id": "cell-erp", "layer": 9,
+      "nameAr": "خلية تخطيط موارد المؤسسة (ERP)", "nameEn": "Enterprise Resource Planning Cell",
+      "reference": "الحشر:18", "ayah": "وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ",
+      "significance": "النظر للغد — ERP يُدير موارد اليوم ويخطط لموارد الغد",
+      "function": "تخطيط وإدارة موارد المؤسسة الكاملة: المالية والمخزون والمشتريات والمبيعات والموارد البشرية",
+      "techniques": ["Financial Module", "Inventory Management", "Procurement", "Sales Order", "HR Management", "Production Planning"],
+      "modules": {
+        "FIN": "الإدارة المالية والمحاسبة",
+        "INV": "إدارة المخزون والمستودعات",
+        "PUR": "المشتريات وإدارة الموردين",
+        "SAL": "المبيعات وإدارة العملاء (CRM)",
+        "HRM": "الموارد البشرية والرواتب",
+        "PRD": "تخطيط الإنتاج",
+        "RPT": "التقارير والتحليلات"
+      },
+      "sharia": "حساب الزكاة تلقائي، منع الربا، فحص العقود شرعياً",
+      "activation": "always-on", "weight": 0.93, "priority": 1,
+      "connections": [17,18,19,20,9,36,37,54]
+    },
+
+    {
+      "number": 50, "id": "cell-devops", "layer": 9,
+      "nameAr": "خلية CI/CD والتطوير المستمر (DevOps)", "nameEn": "DevOps & Continuous Delivery Cell",
+      "reference": "الرعد:11", "ayah": "إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ",
+      "significance": "التغيير يبدأ من الداخل — التطوير المستمر والتحسين الذاتي للمنظومة",
+      "function": "إدارة دورة حياة التطوير الكاملة: بناء واختبار ونشر تلقائي مستمر",
+      "techniques": ["GitHub Actions", "Docker", "Kubernetes", "Azure Container Apps", "Terraform IaC"],
+      "pipelines": ["CI: lint + test + security scan", "CD: build + push image + deploy", "Rollback: auto on failure"],
+      "activation": "on-push", "weight": 0.89, "priority": 2,
+      "connections": [46,47,48,10,15,51]
+    },
+
+    {
+      "number": 51, "id": "cell-transport-events", "layer": 10,
+      "nameAr": "خلية ناقل الأحداث (Event Bus)", "nameEn": "Event Bus Transport Cell",
+      "reference": "الأنعام:59", "ayah": "وَمَا تَسْقُطُ مِن وَرَقَةٍ إِلَّا يَعْلَمُهَا",
+      "significance": "علم الله الشامل — كل حدث في النظام يُسجَّل ويُعلَم",
+      "function": "ناقل الأحداث المركزي الذي يربط كل خلايا الشبكة العصبية ويوزع الأحداث في الوقت الفعلي",
+      "techniques": ["Event Emitter", "Redis Pub/Sub", "Apache Kafka", "RabbitMQ", "WebSocket Events"],
+      "events": ["cell.activated", "cell.error", "debug.triggered", "trade.completed", "system.health"],
+      "pattern": "Publish-Subscribe (Pub/Sub) + Event Sourcing",
+      "activation": "always-on", "weight": 0.97, "priority": 1,
+      "connections": [52,53,54,55,1,8,13]
+    },
+
+    {
+      "number": 52, "id": "cell-transport-queue", "layer": 10,
+      "nameAr": "خلية قائمة انتظار الرسائل", "nameEn": "Message Queue Transport Cell",
+      "reference": "البقرة:283", "ayah": "فَإِنْ أَمِنَ بَعْضُكُم بَعْضًا فَلْيُؤَدِّ الَّذِي اؤْتُمِنَ أَمَانَتَهُ",
+      "significance": "أداء الأمانة — كل رسالة في القائمة أمانة يجب توصيلها",
+      "function": "قائمة انتظار الرسائل الموثوقة بين الأنظمة مع ضمان التسليم مرة واحدة",
+      "techniques": ["FIFO Queue", "Dead Letter Queue", "Message Persistence", "At-Least-Once Delivery", "Idempotency"],
+      "queues": ["neural.commands", "trade.orders", "debug.alerts", "erp.sync", "ai.tasks"],
+      "activation": "always-on", "weight": 0.95, "priority": 1,
+      "connections": [51,53,54,49,17]
+    },
+
+    {
+      "number": 53, "id": "cell-transport-stream", "layer": 10,
+      "nameAr": "خلية البث المباشر للبيانات", "nameEn": "Real-time Data Stream Cell",
+      "reference": "النمل:16", "ayah": "وَقَالَ يَا أَيُّهَا النَّاسُ عُلِّمْنَا مَنطِقَ الطَّيْرِ",
+      "significance": "منطق الطير — البيانات تتدفق بسرعة وذكاء كالطيور في تكامل",
+      "function": "بث البيانات الحية في الوقت الفعلي بين جميع خلايا ومحركات المنظومة",
+      "techniques": ["WebSocket Streams", "Server-Sent Events (SSE)", "gRPC Streams", "Apache Flink", "Node.js Streams"],
+      "channels": ["neural.live", "market.ticker", "debug.realtime", "ai.inference", "erp.updates"],
+      "activation": "always-on", "weight": 0.93, "priority": 1,
+      "connections": [51,52,54,8,21,22]
+    },
+
+    {
+      "number": 54, "id": "cell-transport-protocols", "layer": 10,
+      "nameAr": "خلية البروتوكولات والعهود", "nameEn": "Protocols & Contracts Cell",
+      "reference": "المائدة:1", "ayah": "يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ",
+      "significance": "الوفاء بالعقود — البروتوكولات عقود بين الأنظمة يجب الوفاء بها",
+      "function": "إدارة بروتوكولات الاتصال بين جميع الأنظمة وضمان توافق الإصدارات والعقود",
+      "techniques": ["REST/HTTP", "GraphQL", "gRPC/Protobuf", "WebSocket", "MQTT", "AMQP", "API Versioning"],
+      "protocols": {
+        "internal": "gRPC + Protobuf (سرعة وكفاءة)",
+        "external": "REST/JSON (توافقية)",
+        "realtime": "WebSocket (اتصال مستمر)",
+        "iot": "MQTT (أجهزة خفيفة)",
+        "ai": "MCP (نماذج ذكاء اصطناعي)"
+      },
+      "activation": "always-on", "weight": 0.92, "priority": 1,
+      "connections": [51,52,53,55,48,25]
+    },
+
+    {
+      "number": 55, "id": "cell-transport-sync", "layer": 10,
+      "nameAr": "خلية التزامن والتوافق الكوني", "nameEn": "Synchronization & Universal Harmony Cell",
+      "reference": "الملك:3", "ayah": "الَّذِي خَلَقَ سَبْعَ سَمَاوَاتٍ طِبَاقًا ۖ مَّا تَرَىٰ فِي خَلْقِ الرَّحْمَٰنِ مِن تَفَاوُتٍ",
+      "significance": "لا تفاوت في خلق الرحمن — التزامن الكامل بلا تعارض أو تناقض",
+      "function": "تزامن حالة جميع الخلايا والأنظمة وضمان الاتساق الكامل عبر الشبكة الموزعة",
+      "techniques": ["Distributed Consensus (Raft/Paxos)", "Event Sourcing + CQRS", "Two-Phase Commit", "Saga Pattern"],
+      "guarantees": ["Eventual Consistency", "Causal Ordering", "Idempotent Operations", "Conflict-Free Merge"],
+      "activation": "always-on", "weight": 0.94, "priority": 1,
+      "connections": [51,52,53,54,12,26]
+    }
+
+  ]
+}
