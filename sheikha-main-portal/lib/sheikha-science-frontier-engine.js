@@ -291,6 +291,10 @@ class SheikhaScienceFrontierEngine extends EventEmitter {
         this._raceLog = [];
         // قاعدة الاكتشافات المُضافة
         this._newBreakthroughs = [];
+        // الحدود الديناميكية (تُحفظ خارج الكائن المجمّد)
+        this._dynamicFrontiers = new Map(
+            Object.keys(SCIENCE_DOMAINS).map(id => [id, SCIENCE_DOMAINS[id].globalFrontier])
+        );
         // إحصائيات
         this._stats = {
             cycles:          0,
@@ -344,7 +348,8 @@ class SheikhaScienceFrontierEngine extends EventEmitter {
         sc.score     = Math.min(MAX_SCORE, sc.score + pts);
 
         // هل تجاوزنا الحد العالمي؟
-        const crossed = before < domain.globalFrontier && sc.score >= domain.globalFrontier;
+        const dynFrontier = this._dynamicFrontiers.get(domainId) || domain.globalFrontier;
+        const crossed = before < dynFrontier && sc.score >= dynFrontier;
         if (crossed) {
             this._stats.frontiersCrossed++;
             console.log(`[SCIENCE-FRONTIER] 🏆 شيخة تتجاوز الحد العالمي في: ${domain.nameAr}!`);
@@ -415,10 +420,9 @@ class SheikhaScienceFrontierEngine extends EventEmitter {
         const bonus = Math.round((breakthrough.impact || 50) * 0.15);
         this.advance(domainId, bonus, `اكتشاف: ${breakthrough.event}`);
 
-        // الاكتشاف يرفع الحد العالمي أيضاً
-        SCIENCE_DOMAINS[domainId]._dynamicFrontier =
-            (SCIENCE_DOMAINS[domainId]._dynamicFrontier || domain.globalFrontier) +
-            Math.round((breakthrough.impact || 50) * 0.25);
+        // الاكتشاف يرفع الحد العالمي أيضاً (في Map المنفصلة — لا نُعدّل الكائن المجمّد)
+        const prev = this._dynamicFrontiers.get(domainId) || domain.globalFrontier;
+        this._dynamicFrontiers.set(domainId, prev + Math.round((breakthrough.impact || 50) * 0.25));
 
         this.emit('breakthrough:added', entry);
     }
@@ -429,9 +433,10 @@ class SheikhaScienceFrontierEngine extends EventEmitter {
         let leaders = 0;
         let behindCount = 0;
 
-        for (const [id, d] of Object.entries(SCIENCE_DOMAINS)) {
+        for (const [id] of Object.entries(SCIENCE_DOMAINS)) {
             const sc = this._sheikhaScores[id];
-            const gap = sc.score - (d._dynamicFrontier || d.globalFrontier);
+            const dynFrontier = this._dynamicFrontiers.get(id) || SCIENCE_DOMAINS[id].globalFrontier;
+            const gap = sc.score - dynFrontier;
             if (gap >= 0) leaders++;
             else behindCount++;
         }
@@ -476,8 +481,8 @@ class SheikhaScienceFrontierEngine extends EventEmitter {
      */
     status() {
         const domains = Object.entries(SCIENCE_DOMAINS).map(([id, d]) => {
-            const sc  = this._sheikhaScores[id];
-            const global = d._dynamicFrontier || d.globalFrontier;
+            const sc     = this._sheikhaScores[id];
+            const global = this._dynamicFrontiers.get(id) || d.globalFrontier;
             const gap    = sc.score - global;
             const pct    = Math.round((sc.score / global) * 100);
             return {

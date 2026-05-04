@@ -219,7 +219,7 @@ class SheikhaSdgnEngine extends EventEmitter {
         super();
         this.setMaxListeners(50);
 
-        /** ستة خلايا حوكمة — مبادئ SDGN */
+        /** سبع خلايا حوكمة إلهية — أركان الإسلام + القرآن + السنة */
         this._cells = GOVERNANCE_PRINCIPLES.map(p => ({
             ...p,
             activations: 0,
