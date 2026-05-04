@@ -389,7 +389,7 @@ router.get('/health', (req, res) => {
     });
 });
 
-// ─── GET /api/computer-vision/quran-tagging ───────────────────────────────────
+// ─── POST /api/computer-vision/quran-tagging ─────────────────────────────────
 /**
  * تصنيف الصور وإرفاق أقرب آية قرآنية دلالياً
  * Body: { imageBase64?, imageUrl?, category? }
