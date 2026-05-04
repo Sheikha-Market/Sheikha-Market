@@ -10,6 +10,8 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 NGINX_SITE_FILE="${NGINX_SITE_FILE:-/etc/nginx/sites-available/default}"
 APP_PROXY_PORT="${APP_PROXY_PORT:-8080}"
+HEALTH_LOG_FILE="/var/log/sheikha-health.log"
+NEURAL_LOG_FILE="/var/log/sheikha-neural.log"
 
 log() {
     echo "[$(date -Is)] $*"
@@ -20,6 +22,12 @@ require_cmd() {
         echo "❌ missing command: $1"
         exit 1
     }
+}
+
+ensure_log_files() {
+    install -m 0644 /dev/null "$HEALTH_LOG_FILE"
+    install -m 0644 /dev/null "$NEURAL_LOG_FILE"
+    log "✅ log files ensured"
 }
 
 apply_nginx_hardening() {
@@ -101,18 +109,37 @@ install_health_guard_units() {
     install -m 0644 "$src_timer" /etc/systemd/system/sheikha-health-check.timer
 
     systemctl daemon-reload
-    systemctl enable --now sheikha-health-check.timer
+    systemctl enable sheikha-health-check.timer
+    systemctl restart sheikha-health-check.timer
     log "✅ sheikha-health-check timer enabled"
+}
+
+install_neural_monitor_units() {
+    local src_script="$ROOT_DIR/scripts/sheikha-neural-monitor.sh"
+    local src_service="$ROOT_DIR/scripts/sheikha-neural-monitor.service"
+
+    [[ -f "$src_script" ]] || { log "❌ missing: $src_script"; exit 1; }
+    [[ -f "$src_service" ]] || { log "❌ missing: $src_service"; exit 1; }
+
+    install -m 0755 "$src_script" /usr/local/bin/sheikha-neural-monitor.sh
+    install -m 0644 "$src_service" /etc/systemd/system/sheikha-neural-monitor.service
+
+    systemctl daemon-reload
+    systemctl enable sheikha-neural-monitor.service
+    systemctl restart sheikha-neural-monitor.service
+    log "✅ sheikha-neural-monitor service enabled"
 }
 
 main() {
     require_cmd sed
     require_cmd systemctl
 
+    ensure_log_files
     apply_nginx_hardening
     apply_pm2_guard
     apply_earlyoom
     install_health_guard_units
+    install_neural_monitor_units
 
     log "🎯 FINAL SHIELD ACTIVE"
     log "Next: run 'pm2 monit' for live telemetry"
