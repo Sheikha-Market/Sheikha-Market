@@ -66,6 +66,20 @@ const IFL = require('./lib/sheikha-islamic-foundation-layer');
 
 // ╔══════════════════════════════════════════════════════════════╗
 // ║  🧠 ROOT NEURAL CELL NETWORK — شبكة الخلايا العصبية الجذرية ║
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  💎 SDC — شيخة الرقمية — 9 وحدات رقمية مُرقَّمة بالكتاب    ║
+// ║  أفضل من: Bitcoin | Crypto | Siren AI | Bloomberg           ║
+// ╚══════════════════════════════════════════════════════════════╝
+const SDC  = require('./lib/sheikha-digital-core');
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  🪙 SIDC — عملة شيخة الرقمية الإسلامية                     ║
+// ║  مدعومة بالمعادن — بدون ربا — بدون مضاربة                  ║
+// ╚══════════════════════════════════════════════════════════════╝
+const SIDC = require('./lib/sheikha-islamic-digital-currency');
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  🧠 ROOT NEURAL CELL NETWORK — شبكة الخلايا العصبية الجذرية ║
 // ║  IFL → ★ Root Neural Cell Network ★ → Guardian → App        ║
 // ╚══════════════════════════════════════════════════════════════╝
 const rootNeuralNetwork = require('./lib/sheikha-root-neural-network');
@@ -37669,6 +37683,186 @@ app.get('/api/network/ready',     (_req, res) => res.json({ success: true, statu
 app.get('/api/network/health',    (_req, res) => res.json({ success: true, status: 'healthy', service: 'network', timestamp: new Date().toISOString() }));
 app.get('/api/offline/status',    (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
 app.get('/api/realtime/health',   (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
+
+// ─── SDGN — الشبكة العليا للحوكمة الإلهية (7 خلايا) ─────────────────────────
+// ─── SDC — شيخة الرقمية — 9 وحدات رقمية ────────────────────────────────────
+app.get('/api/sdc/status', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: SDC.getStatus(),
+        message: '💎 شيخة الرقمية — المنظومة الاقتصادية الإسلامية الأولى في العالم',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sdc/module/:code', (req, res) => {
+    const result = SDC.getModule(req.params.code.toUpperCase());
+    return res.status(result.found ? 200 : 404).json({
+        success: result.found,
+        data: result,
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sdc/compare/:competitor', (req, res) => {
+    const result = SDC.compareWith(req.params.competitor);
+    return res.status(result.found ? 200 : 404).json({
+        success: result.found,
+        data: result,
+        message: result.found ? 'لماذا شيخة أفضل؟' : 'المنافس غير موجود في قاعدة البيانات',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sdc/architecture', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: SDC.FULL_ARCHITECTURE,
+        message: 'المعمارية الشاملة — 10 طبقات — 29 خلية رقمية',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sdc/plan', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: SDC.STRATEGIC_PLAN,
+        message: 'الخطة الاستراتيجية لشيخة الرقمية 2025-2030',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── SIDC — عملة شيخة الرقمية الإسلامية ─────────────────────────────────────
+app.get('/api/sidc/status', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: SIDC.getStatus(),
+        message: '🪙 عملة شيخة الرقمية — مدعومة بالمعادن — بدون ربا — بدون مضاربة',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sidc/value', (_req, res) => {
+    const value = SIDC.calculateSIDCValue();
+    return res.status(200).json({
+        success: true,
+        data: {
+            symbol: SIDC.SIDC_SYMBOL,
+            value_usd: value,
+            description: `1 SIDC = ${value} USD`,
+            backed_by: 'معادن حقيقية: حديد + نحاس + ألمنيوم + ذهب + فضة'
+        },
+        message: '﴿ وَأَوْفُوا الْكَيْلَ إِذَا كِلْتُمْ ﴾ — سعر عادل مدعوم بأصول',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sidc/price-deal', (req, res) => {
+    try {
+        const { metal = 'Fe', weight = 1, grade = 'A' } = req.body || {};
+        const result = SIDC.priceMetalDeal(metal, parseFloat(weight), grade);
+        return res.status(result.success ? 200 : 400).json({
+            success: result.success,
+            data: result,
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+app.post('/api/sidc/sharia-check', (req, res) => {
+    const result = SIDC.shariaCheck(req.body || {});
+    return res.status(result.compliant ? 200 : 403).json({
+        success: result.compliant,
+        data: result,
+        message: result.compliant ? '✅ المعاملة متوافقة مع الشريعة' : '⛔ المعاملة تخالف الشريعة',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sidc/wallet', (req, res) => {
+    try {
+        const { userId, displayName } = req.body || {};
+        if (!userId || !displayName) {
+            return res.status(400).json({ success: false, message: 'userId و displayName مطلوبان', timestamp: new Date().toISOString() });
+        }
+        const result = SIDC.createWallet(userId, displayName);
+        return res.status(result.success ? 201 : 409).json({ ...result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        return res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+app.post('/api/sidc/convert', (req, res) => {
+    try {
+        const { amount = 1, metal = 'Fe' } = req.body || {};
+        const result = SIDC.convertViaMetals(parseFloat(amount), metal);
+        return res.status(result.success ? 200 : 400).json({
+            success: result.success,
+            data: result,
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ─── RNN — شبكة الخلايا العصبية الجذرية ──────────────────────────────────────
+app.post('/api/rnn/sharia-check', async (req, res) => {
+    try {
+        const rnn = await rootNeuralNetwork.ensureBooted();
+        const features = req.body?.features || [0, 0, 0, 0, 0, 1, 1, 1];
+        const result = rnn.shariaCheck(features);
+        return res.status(200).json({
+            success: true,
+            data: result,
+            message: result.allowed ? '✅ مسموح شرعاً' : '⛔ محظور شرعاً',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(503).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+app.post('/api/rnn/orchestrate', async (req, res) => {
+    try {
+        const rnn = await rootNeuralNetwork.ensureBooted();
+        const result = rnn.orchestrate(req.body || {});
+        return res.status(200).json({
+            success: true,
+            data: result,
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(503).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ─── المنظومة الكاملة — Full Stack Status ─────────────────────────────────────
+app.get('/api/sheikha/full-stack', async (_req, res) => {
+    try {
+        const rnn = await rootNeuralNetwork.ensureBooted().catch(() => null);
+        return res.status(200).json({
+            success: true,
+            data: {
+                stack: '👑 SDGN → 🌟 SIRN → 🕌 IFL → 🧠 RNN → 💎 SDC → 🪙 SIDC → 🏪 Market',
+                sdgn:  { version: SDGN.SDGN_VERSION, status: 'active', cells: SDGN.DIVINE_CELLS.length },
+                sirn:  { version: SIRN.SIRN_VERSION,  status: 'active', cells: SIRN.SUPREME_CELLS.length },
+                ifl:   { version: IFL.IFL_VERSION,    status: 'active', axioms: Object.keys(IFL.IFL_AXIOMS).length },
+                rnn:   rnn ? { version: rnn.version, status: rnn.status, cells: 7 } : { status: 'loading' },
+                sdc:   { version: SDC.SDC_VERSION,    status: 'active', modules: SDC.DIGITAL_MODULES.length },
+                sidc:  { version: SIDC.SIDC_VERSION,  status: 'active', symbol: SIDC.SIDC_SYMBOL, value_usd: SIDC.calculateSIDCValue() },
+                totalCells: SDGN.DIVINE_CELLS.length + SIRN.SUPREME_CELLS.length + 7,
+                totalLayers: 10
+            },
+            message: 'بسم الله — المنظومة الرقمية الإسلامية الكاملة',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
 
 // ─── SDGN — الشبكة العليا للحوكمة الإلهية (7 خلايا) ─────────────────────────
 app.get('/api/sdgn/status', (_req, res) => {
