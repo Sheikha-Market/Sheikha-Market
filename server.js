@@ -44,6 +44,12 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  🕌 IFL — ISLAMIC FOUNDATION LAYER — أول تحميل في المنظومة  ║
+// ║  Hardware → Kernel → OS → ★IFL★ → Guardian → App            ║
+// ╚══════════════════════════════════════════════════════════════╝
+const IFL = require('./lib/sheikha-islamic-foundation-layer');
+
 const express = require('express');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
@@ -13457,17 +13463,6 @@ app.get('/api/market-listings', (req, res) => {
     if (stage) listings = listings.filter(l => (l.supplyChainStage || '').toLowerCase() === stage);
     if (scrapType) listings = listings.filter(l => (l.scrapType || '').toLowerCase() === scrapType);
 
-    // الترتيب بالعدالة التوزيعية — الجودة لا الجنسية (ميثاق شيخة مادة 2)
-    listings.sort((a, b) => {
-        const traderA = TRADERS.find(t => t.id === a.traderId);
-        const traderB = TRADERS.find(t => t.id === b.traderId);
-        const scoreA = computeJusticeScore(a, traderA);
-        const scoreB = computeJusticeScore(b, traderB);
-        if (scoreB !== scoreA) return scoreB - scoreA;
-        // تعادل الدرجة → الأحدث أولاً
-        return new Date(b.createdAt) - new Date(a.createdAt);
-    });
-
     // الفئات مع عدد المنتجات الحقيقية
     const categories = HS_SCRAP_CATEGORIES.map(c => ({
         id: c.id,
@@ -13848,38 +13843,6 @@ function normalizeCountryCode(input) {
         .toUpperCase();
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// خوارزمية العدالة التوزيعية — الترتيب بالجودة لا بالجنسية أو العرق
-// المادة 2 من ميثاق شيخة: «إِنَّ أَكْرَمَكُمْ عِندَ اللَّهِ أَتْقَاكُمْ»
-// ═══════════════════════════════════════════════════════════════════
-function computeJusticeScore(listing, trader) {
-    let score = 0;
-
-    // جودة المنتج (المعيار الأول — لا دخل للجنسية)
-    const qualityWeights = {
-        'ممتاز': 30, 'excellent': 30,
-        'جيد جداً': 25, 'very good': 25,
-        'جيد': 20, 'good': 20,
-        'مقبول': 10, 'acceptable': 10
-    };
-    const qualityKey = String(listing.quality || '').trim().toLowerCase();
-    const qualityAr = String(listing.quality || '').trim();
-    score += qualityWeights[qualityAr] || qualityWeights[qualityKey] || 15;
-
-    // اكتمال بيانات المنتج
-    if (listing.quantity && listing.unit) score += 15;
-    if (listing.price && listing.currency) score += 10;
-    if (listing.description && String(listing.description).length > 20) score += 10;
-    if (listing.hsCode) score += 5;
-
-    // توثيق التاجر
-    if (trader && trader.verified) score += 20;
-    if (trader && trader.phone) score += 5;
-
-    // الجنسية أو البلد لا تؤثر على الترتيب — «لا ضرر ولا تعصب»
-    return Math.min(score, 100);
-}
-
 function resolveUserSegment(userType) {
     const key = String(userType || '')
         .trim()
@@ -13891,6 +13854,83 @@ function resolveUserSegment(userType) {
 
 function uniqueArray(values) {
     return Array.from(new Set((values || []).filter(Boolean)));
+}
+
+function resolveRuntimeCountry() {
+    return normalizeCountryCode(
+        process.env.SHEIKHA_RUNTIME_COUNTRY ||
+            process.env.DEPLOYMENT_COUNTRY ||
+            process.env.HOST_COUNTRY ||
+            'SA'
+    );
+}
+
+function evaluateSovereignPolicy({ homeCountry, runtimeCountry, userCountry, targetCountry }) {
+    // تفويض حساب الحوكمة إلى IFL — الطبقة الأساسية الحاكمة
+    const iflSovereign = IFL.sovereignCheck({ targetCountry });
+    const iflEnv = IFL.detectRuntimeEnvironment();
+
+    const home = normalizeCountryCode(homeCountry || 'SA');
+    const runtime = normalizeCountryCode(runtimeCountry || resolveRuntimeCountry());
+    const user = normalizeCountryCode(userCountry || home);
+    const target = normalizeCountryCode(targetCountry || home);
+    const localLawMode = iflEnv.localLawActive ? 'conditional' : 'disabled';
+
+    return {
+        homeCountry: home,
+        runtimeCountry: runtime,
+        userCountry: user,
+        targetCountry: target,
+        outsideSaudi: iflEnv.outsideSaudi,
+        legalLayers: [IFL.LAYER_0, IFL.LAYER_1, IFL.LAYER_2],
+        governanceStack: IFL.GOVERNANCE_STACK,
+        localLaw: {
+            mode: localLawMode,
+            active: localLawMode === 'conditional',
+            note: iflSovereign.legalLayerNote
+        },
+        decision: iflSovereign.approved ? 'approved' : 'blocked',
+        blockedReasons: iflSovereign.reasons,
+        iflVersion: IFL.IFL_VERSION,
+        note: IFL.IFL_AXIOMS.LA_TAAA + ' — ' + IFL.IFL_AXIOMS.LA_DARAR
+    };
+}
+
+function selfComplianceMiddleware(req, res, next) {
+    const payload = req.method === 'GET' ? req.query : req.body;
+    const treatyResolution = buildTreatyResolution({
+        homeCountry: payload.homeCountry,
+        userCountry: payload.userCountry,
+        targetCountry: payload.targetCountry,
+        userType: payload.userType
+    });
+
+    const sovereignPolicy = evaluateSovereignPolicy({
+        homeCountry: payload.homeCountry,
+        runtimeCountry: payload.runtimeCountry,
+        userCountry: payload.userCountry,
+        targetCountry: payload.targetCountry
+    });
+
+    const blocked =
+        treatyResolution.shariaValidation.status === 'blocked' || sovereignPolicy.decision === 'blocked';
+
+    req.sheikhaCompliance = {
+        treatyResolution,
+        sovereignPolicy,
+        blocked
+    };
+
+    if (blocked) {
+        return res.status(400).json({
+            success: false,
+            data: req.sheikhaCompliance,
+            message: 'تم إيقاف الطلب تلقائياً بسبب تعارض مع التحقق الذاتي الشرعي/السيادي.',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    return next();
 }
 
 function buildTreatyResolution({ homeCountry, userCountry, targetCountry, userType }) {
@@ -13969,15 +14009,38 @@ app.get('/api/sheikha/compliance/treaty-resolution', (req, res) => {
         userType: req.query.userType
     });
 
+    const sovereignPolicy = evaluateSovereignPolicy({
+        homeCountry: req.query.homeCountry,
+        runtimeCountry: req.query.runtimeCountry,
+        userCountry: req.query.userCountry,
+        targetCountry: req.query.targetCountry
+    });
+
     res.json({
         success: true,
-        data: resolution,
+        data: {
+            treatyResolution: resolution,
+            sovereignPolicy,
+            runtimeCountry: resolveRuntimeCountry()
+        },
         message: 'تم توليد تفعيل المعاهدات والتشريعات تلقائياً مع فلترة شرعية بالكتاب والسنة',
         timestamp: new Date().toISOString()
     });
 });
 
-app.post('/api/rfq', (req, res) => {
+app.all('/api/sheikha/compliance/self-check', selfComplianceMiddleware, (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            ...req.sheikhaCompliance,
+            runtimeCountry: resolveRuntimeCountry()
+        },
+        message: 'التحقق الذاتي مفعّل والطلب متوافق مع الشريعة والسياسة السيادية.',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/rfq', selfComplianceMiddleware, (req, res) => {
     const {
         productId,
         quantity,
@@ -13993,21 +14056,7 @@ app.post('/api/rfq', (req, res) => {
     const listing = LISTINGS.find(l => String(l.id) === String(productId));
     if (!listing) return res.status(404).json({ success: false, message: 'المنتج غير موجود' });
 
-    const treatyResolution = buildTreatyResolution({
-        homeCountry: homeCountry || 'SA',
-        userCountry,
-        targetCountry,
-        userType
-    });
-
-    if (treatyResolution.shariaValidation.status === 'blocked') {
-        return res.status(400).json({
-            success: false,
-            message: 'تعذر تنفيذ الطلب: توجد بنود تنظيمية/تعاقدية متعارضة مع الشريعة.',
-            data: treatyResolution,
-            timestamp: new Date().toISOString()
-        });
-    }
+    const treatyResolution = req.sheikhaCompliance.treatyResolution;
 
     listing.inquiries = (listing.inquiries || 0) + 1;
     saveJSON(LISTINGS_FILE, LISTINGS);
@@ -14094,72 +14143,6 @@ app.get('/api/market-by-stage', (req, res) => {
         stage: stage || 'all',
         listings: result,
         count: result.length
-    });
-});
-
-// ═══════════════════════════════════════════════════════════════════
-// مؤشر التوازن الجغرافي — رصد الاحتكار الإقليمي ومنعه
-// ميثاق شيخة مادة 4: «لا احتكار — منع التمركز الإقليمي»
-// ═══════════════════════════════════════════════════════════════════
-app.get('/api/market/geo-balance', (req, res) => {
-    const activeListings = LISTINGS.filter(l => l.status !== 'deleted');
-    const totalListings = activeListings.length || 1;
-
-    // توزع الموردين حسب المنطقة
-    const suppliersByRegion = {};
-    activeListings.forEach(l => {
-        const region = String(l.storeRegion || 'غير محدد').trim();
-        suppliersByRegion[region] = (suppliersByRegion[region] || 0) + 1;
-    });
-
-    // توزع التجار حسب المنطقة
-    const tradersByRegion = {};
-    TRADERS.forEach(t => {
-        const region = String(t.region || t.city || 'غير محدد').trim();
-        tradersByRegion[region] = (tradersByRegion[region] || 0) + 1;
-    });
-    const totalTraders = TRADERS.length || 1;
-
-    // حساب نسب التوزع
-    const listingDistribution = Object.entries(suppliersByRegion)
-        .map(([region, count]) => ({
-            region,
-            count,
-            percentage: parseFloat(((count / totalListings) * 100).toFixed(1))
-        }))
-        .sort((a, b) => b.count - a.count);
-
-    const traderDistribution = Object.entries(tradersByRegion)
-        .map(([region, count]) => ({
-            region,
-            count,
-            percentage: parseFloat(((count / totalTraders) * 100).toFixed(1))
-        }))
-        .sort((a, b) => b.count - a.count);
-
-    // كشف الاحتكار: منطقة واحدة تتجاوز 70% = تحذير
-    const dominantRegion = listingDistribution[0] || null;
-    const monopolyWarning = dominantRegion && dominantRegion.percentage > 70;
-
-    res.json({
-        success: true,
-        data: {
-            listings: {
-                total: totalListings,
-                distribution: listingDistribution,
-                monopolyWarning,
-                monopolyRegion: monopolyWarning ? dominantRegion.region : null
-            },
-            traders: {
-                total: TRADERS.length,
-                distribution: traderDistribution
-            }
-        },
-        shariaNote: monopolyWarning
-            ? 'تحذير: تمركز إقليمي مرتفع — راجع ميثاق شيخة مادة "منع الاحتكار"'
-            : 'التوزع الجغرافي ضمن الحدود المقبولة',
-        charterRef: 'ميثاق شيخة — مادة العدالة التوزيعية',
-        timestamp: new Date().toISOString()
     });
 });
 
