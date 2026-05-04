@@ -4,6 +4,11 @@ set -euo pipefail
 # بسم الله الرحمن الرحيم
 # فحص صحة الخدمات + إعادة تشغيل ذاتي + تنبيه Telegram
 
+# ضروري عند التشغيل من systemd (بيئة محدودة)
+export PM2_HOME='/root/.pm2'
+export HOME='/root'
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.nvm/versions/node/v25.6.1/bin"
+
 APP_URL='http://127.0.0.1:8080/api/ai-core/status'
 OLLAMA_URL='http://127.0.0.1:11434/api/tags'
 COMMS_URL='http://127.0.0.1:8080/api/comms/providers'
