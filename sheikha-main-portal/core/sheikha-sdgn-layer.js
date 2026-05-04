@@ -106,17 +106,19 @@ const LAYER_ID = {
     version:   VERSION,
     layer:     'sdgn',
     position:  'OS/Systemd → [SDGN] → SIRN → IFL → RNN → Guardian → Express',
-    cells:     6,
+    cells:     7,
     tawheed:   TAWHEED,
     bismillah: BISMILLAH,
     quranRef:  '﴿إِنِ الْحُكْمُ إِلَّا لِلَّهِ﴾ — يوسف: ٤٠',
-    // الطبقات الكاملة
+    // الطبقات الكاملة — Stack المحدّث
     stack: {
-        1: '👑 SDGN v1.0.0 — الشبكة العليا للحوكمة الإلهية (٦ خلايا)',
-        2: '🌟 SIRN v1.0.0 — Supreme IFL Root Network (٦ خلايا)',
-        3: '🕌 IFL  v1.0.0 — Islamic Foundation Layer',
-        4: '🧠 RNN  v3.0.0 — Root Neural Cell Network (٧ خلايا)',
-        5: '🛡️  Sheikha Guardian + Express App',
+        1: '👑 SDGN v1.0.0 — الشبكة العليا للحوكمة الإلهية (٧ خلايا — أركان الإسلام + القرآن + السنة)',
+        2: '🌟 SIRN v1.0.0 — Supreme IFL Root Network (٦ خلايا — المعرفة والاستخلاف)',
+        3: '🕌 IFL  v1.0.0 — Islamic Foundation Layer (٨ قواعد صلبة)',
+        4: '🧠 RNN  v3.0.0 — Root Neural Cell Network (٧ خلايا — شريعة + مخاطر + سوق)',
+        5: '💎 SDC  v1.0.0 — Sheikha Digital Core (٩ وحدات رقمية)',
+        6: '🪙 SIDC v1.0.0 — Islamic Digital Currency (12.65 USD/SIDC)',
+        7: '🏪 سوق شيخة — Guardian + Express App',
     },
 };
 
@@ -243,7 +245,7 @@ async function process(request = {}) {
                 sdgn: {
                     governed:          true,
                     passedPrinciples:  governance.passedPrinciples,
-                    cells:             _sdgn ? _sdgn.status().cells : 6,
+                    cells:             _sdgn ? _sdgn.status().cells : 7,
                     quranRef:          LAYER_ID.quranRef,
                 },
                 stack: LAYER_ID.stack,
@@ -281,6 +283,11 @@ async function process(request = {}) {
  * @returns {object}
  */
 function getStack() {
+    // استيراد طبقات SDC وSIDC اختيارياً
+    let sdcReady = false, sidcReady = false;
+    try { sdcReady  = !!require('./sheikha-sdc-layer');  } catch (_) {}
+    try { sidcReady = !!require('./sheikha-sidc-layer'); } catch (_) {}
+
     return {
         bismillah: BISMILLAH,
         tawheed:   TAWHEED,
@@ -289,39 +296,62 @@ function getStack() {
                 level: 1, icon: '👑',
                 name:    'SDGN v1.0.0',
                 nameAr:  'الشبكة العليا للحوكمة الإلهية',
-                cells:   6,
+                cells:   7,
+                detail:  'أركان الإسلام الخمسة + القرآن الكريم + السنة النبوية',
                 quranRef:'﴿إِنِ الْحُكْمُ إِلَّا لِلَّهِ﴾ — يوسف: ٤٠',
                 ready:   _ready,
             },
             {
                 level: 2, icon: '🌟',
                 name:    'SIRN v1.0.0',
-                nameAr:  'Supreme IFL Root Network',
+                nameAr:  'شبكة الجذور الذكية الدلالية',
                 cells:   6,
+                detail:  'المعرفة والاستخلاف — 6 نطاقات دلالية',
                 quranRef:'﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١',
                 ready:   !!_sirnIflLayer,
             },
             {
                 level: 3, icon: '🕌',
                 name:    'IFL v1.0.0',
-                nameAr:  'Islamic Foundation Layer',
-                cells:   12,
+                nameAr:  'طبقة الأساس الإسلامي',
+                cells:   8,
+                detail:  '8 قواعد صلبة إسلامية',
                 quranRef:'﴿اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ﴾ — العلق: ١',
                 ready:   !!_sirnIflLayer,
             },
             {
                 level: 4, icon: '🧠',
                 name:    'RNN v3.0.0',
-                nameAr:  'Root Neural Cell Network',
+                nameAr:  'شبكة الخلايا العصبية الجذرية',
                 cells:   7,
+                detail:  '7 خلايا — شريعة + مخاطر + سوق',
                 quranRef:'﴿أَصْلُهَا ثَابِتٌ وَفَرْعُهَا فِي السَّمَاءِ﴾ — إبراهيم: ٢٤',
                 ready:   true,
             },
             {
-                level: 5, icon: '🛡️',
-                name:    'Guardian + Express',
-                nameAr:  'الحارس الإسلامي + التطبيق',
+                level: 5, icon: '💎',
+                name:    'SDC v1.0.0',
+                nameAr:  'نواة شيخة الرقمية',
+                cells:   9,
+                detail:  '9 وحدات رقمية — مُرقَّمة بالكتاب والسنة',
+                quranRef:'﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨',
+                ready:   sdcReady,
+            },
+            {
+                level: 6, icon: '🪙',
+                name:    'SIDC v1.0.0',
+                nameAr:  'العملة الرقمية الإسلامية',
                 cells:   null,
+                detail:  '12.65 USD/SIDC — مشروعة | شفافة | مزكّاة',
+                quranRef:'﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾ — البقرة: ٢٧٥',
+                ready:   sidcReady,
+            },
+            {
+                level: 7, icon: '🏪',
+                name:    'سوق شيخة',
+                nameAr:  'Guardian + Express App',
+                cells:   null,
+                detail:  'الحارس الإسلامي + التطبيق',
                 quranRef:'﴿إِنِ الْحُكْمُ إِلَّا لِلَّهِ﴾ — يوسف: ٤٠',
                 ready:   true,
             },

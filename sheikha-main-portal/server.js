@@ -4545,6 +4545,186 @@ app.post('/api/sirn/mcp/tool', express.json(), async (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 💎 SDC — نواة شيخة الرقمية (Sheikha Digital Core — 9 وحدات)
+// ﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let _sdcLayer = null;
+try {
+    _sdcLayer = require('./core/sheikha-sdc-layer');
+} catch (_sdcErr) {
+    console.warn('⚠️ [SDC] sheikha-sdc-layer غير متاح:', _sdcErr.message);
+}
+
+// GET /api/sdc/status — حالة SDC
+app.get('/api/sdc/status', (req, res) => {
+    try {
+        const s = _sdcLayer ? _sdcLayer.status() : { ready: false };
+        res.json({ success: true, data: s, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sdc/execute — تنفيذ وحدة SDC
+app.post('/api/sdc/execute', express.json(), (req, res) => {
+    try {
+        const { unitId, data } = req.body || {};
+        if (!unitId) return res.status(400).json({ success: false, message: 'unitId مطلوب' });
+        const result = _sdcLayer
+            ? _sdcLayer.execute(unitId, data || {})
+            : { ok: false, error: 'SDC غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sdc/pipeline — تنفيذ pipeline وحدات متعددة
+app.post('/api/sdc/pipeline', express.json(), (req, res) => {
+    try {
+        const { units, data } = req.body || {};
+        if (!Array.isArray(units) || units.length === 0) {
+            return res.status(400).json({ success: false, message: 'units (مصفوفة) مطلوبة' });
+        }
+        const results = _sdcLayer ? _sdcLayer.pipeline(units, data || {}) : [];
+        res.json({ success: true, data: results, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🪙 SIDC — العملة الرقمية الإسلامية (1 SIDC = 12.65 USD)
+// ﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾ — البقرة: ٢٧٥
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let _sidcLayer = null;
+try {
+    _sidcLayer = require('./core/sheikha-sidc-layer');
+} catch (_sidcErr) {
+    console.warn('⚠️ [SIDC] sheikha-sidc-layer غير متاح:', _sidcErr.message);
+}
+
+// GET /api/sidc/status — حالة SIDC
+app.get('/api/sidc/status', (req, res) => {
+    try {
+        const s = _sidcLayer ? _sidcLayer.status() : { ready: false, rateUSD: 12.65 };
+        res.json({ success: true, data: s, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// GET /api/sidc/rate — سعر الصرف الحالي
+app.get('/api/sidc/rate', (req, res) => {
+    res.json({
+        success:    true,
+        data: {
+            symbol:   'SIDC',
+            rateUSD:  12.65,
+            base:     'USD',
+            halalCertified: true,
+            noRiba:   true,
+            quranRef: '﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾ — البقرة: ٢٧٥',
+        },
+        timestamp: new Date().toISOString(),
+    });
+});
+
+// GET /api/sidc/balance/:address — رصيد عنوان
+app.get('/api/sidc/balance/:address', (req, res) => {
+    try {
+        const result = _sidcLayer
+            ? _sidcLayer.balance(req.params.address)
+            : { ok: false, error: 'SIDC غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sidc/issue — إصدار عملة
+app.post('/api/sidc/issue', express.json(), (req, res) => {
+    try {
+        const { address, amount, reason } = req.body || {};
+        if (!address || !amount) return res.status(400).json({ success: false, message: 'address و amount مطلوبان' });
+        const result = _sidcLayer
+            ? _sidcLayer.issue(address, parseFloat(amount), reason)
+            : { ok: false, error: 'SIDC غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sidc/transfer — تحويل عملة
+app.post('/api/sidc/transfer', express.json(), (req, res) => {
+    try {
+        const { from, to, amount, meta } = req.body || {};
+        if (!from || !to || !amount) return res.status(400).json({ success: false, message: 'from و to و amount مطلوبة' });
+        const result = _sidcLayer
+            ? _sidcLayer.transfer(from, to, parseFloat(amount), meta || { consent: true })
+            : { ok: false, error: 'SIDC غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// GET /api/sidc/zakat/:address — حساب الزكاة
+app.get('/api/sidc/zakat/:address', (req, res) => {
+    try {
+        const result = _sidcLayer
+            ? _sidcLayer.calculateZakat(req.params.address)
+            : { ok: false, error: 'SIDC غير متاح' };
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sidc/zakat/pay — دفع الزكاة
+app.post('/api/sidc/zakat/pay', express.json(), (req, res) => {
+    try {
+        const { address } = req.body || {};
+        if (!address) return res.status(400).json({ success: false, message: 'address مطلوب' });
+        const result = _sidcLayer
+            ? _sidcLayer.payZakat(address)
+            : { ok: false, error: 'SIDC غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sidc/convert — تحويل SIDC ↔ USD
+app.post('/api/sidc/convert', express.json(), (req, res) => {
+    try {
+        const { amount, from } = req.body || {};
+        if (!amount) return res.status(400).json({ success: false, message: 'amount مطلوب' });
+        const result = _sidcLayer
+            ? _sidcLayer.convert(parseFloat(amount), from || 'SIDC')
+            : { ok: false, error: 'SIDC غير متاح' };
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/sidc/sharia-check — فحص شرعي لمعاملة
+app.post('/api/sidc/sharia-check', express.json(), (req, res) => {
+    try {
+        const result = _sidcLayer
+            ? _sidcLayer.shariaCheck(req.body || {})
+            : { compliant: false, error: 'SIDC غير متاح' };
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🏛️ التسجيل الحكومي — Government Registration System
 // ═══════════════════════════════════════════════════════════════════════════════
 

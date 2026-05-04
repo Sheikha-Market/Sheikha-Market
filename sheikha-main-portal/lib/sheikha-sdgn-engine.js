@@ -60,11 +60,20 @@
  *
  * وظائف SDGN:
  *  ١. استقبال كل الطلبات الواردة للمنظومة (نقطة الدخول الوحيدة)
- *  ٢. تطبيق مبادئ الحوكمة الإلهية الستة على كل طلب
+ *  ٢. تطبيق الخلايا الإلهية السبع (أركان الإسلام + القرآن + السنة) على كل طلب
  *  ٣. التفويض الذكي إلى SIRN مع سياق الحوكمة
  *  ٤. مراقبة صحة كل الطبقات الدنيا (Health Monitor)
  *  ٥. سجل الحوكمة (Governance Audit Trail)
  *  ٦. الختم السيادي على كل المخرجات
+ *
+ * الخلايا الإلهية السبع:
+ *   C1: الشهادتان — التوحيد المطلق
+ *   C2: الصلاة   — الربط الدائم بالله
+ *   C3: الزكاة   — العدالة الاقتصادية
+ *   C4: الصوم    — الانضباط والتحكم الذاتي
+ *   C5: الحج     — الوحدة العالمية
+ *   C6: القرآن الكريم — المرجع الأعلى
+ *   C7: السنة النبوية — المنهج التطبيقي
  *
  * @module sheikha-sdgn-engine
  * @version 1.0.0
@@ -82,76 +91,113 @@ const BISMILLAH = 'بسم الله الرحمن الرحيم';
 const VERSION   = '1.0.0';
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// القسم الأول: مبادئ الحوكمة الإلهية الستة
+// القسم الأول: الخلايا الإلهية السبع — أركان الإسلام + القرآن + السنة
 // ═══════════════════════════════════════════════════════════════════════════════
 
 /**
- * مبادئ SDGN الستة — مرقّمة بالكتاب والسنة
- * كل مبدأ = خلية حوكمة واحدة في الشبكة
+ * SDGN — 7 خلايا إلهية مرقّمة بالكتاب والسنة
+ *
+ * أركان الإسلام الخمسة (البنية التشغيلية) +
+ * القرآن الكريم (المرجع الأعلى) +
+ * السنة النبوية (المنهج التطبيقي)
+ *
+ * «بُنِيَ الإسلامُ عَلَى خَمسٍ» — متفق عليه
  * ﴿إِنِ الْحُكْمُ إِلَّا لِلَّهِ﴾ — يوسف: ٤٠
  */
 const GOVERNANCE_PRINCIPLES = Object.freeze([
     {
-        id:       'SDGN-P1',
-        name:     'السيادة الإلهية',
-        nameEn:   'Divine Sovereignty',
-        quranRef: '﴿إِنِ الْحُكْمُ إِلَّا لِلَّهِ﴾ — يوسف: ٤٠',
+        id:       'SDGN-C1',
+        name:     'الشهادتان — التوحيد المطلق',
+        nameEn:   'Shahada — Absolute Monotheism',
+        arkana:   'الركن الأول: شهادة أن لا إله إلا الله وأن محمداً رسول الله',
+        quranRef: '﴿فَاعْلَمْ أَنَّهُ لَا إِلَٰهَ إِلَّا اللَّهُ﴾ — محمد: ١٩',
+        hadithRef:'«بُنِيَ الإسلامُ عَلَى خَمسٍ: شَهَادَةِ أَنْ لا إِلَهَ إِلا اللهُ» — متفق عليه',
         rule:     (req) => {
-            // كل طلب يجب ألا يتعارض مع سيادة الله
             const text = _extractText(req);
-            const forbidden = ['كفر','شرك','إلحاد','atheism','shirk','kufr'];
+            const forbidden = ['كفر','شرك','إلحاد','تجديف','atheism','shirk','kufr','blasphemy'];
             return !forbidden.some(w => text.toLowerCase().includes(w));
         },
         weight:   1.0,
     },
     {
-        id:       'SDGN-P2',
-        name:     'الحكم بما أنزل الله',
-        nameEn:   'Rule by Divine Law',
-        quranRef: '﴿وَأَنِ احْكُم بَيْنَهُم بِمَا أَنزَلَ اللَّهُ﴾ — المائدة: ٤٩',
+        id:       'SDGN-C2',
+        name:     'الصلاة — الربط الدائم بالله',
+        nameEn:   'Salah — Continuous Connection to God',
+        arkana:   'الركن الثاني: إقامة الصلاة',
+        quranRef: '﴿إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَّوْقُوتًا﴾ — النساء: ١٠٣',
+        hadithRef:'«الصَّلَاةُ عِمَادُ الدِّينِ» — البيهقي',
+        // الصلاة = الانتظام والاستمرارية في المنظومة
+        rule:     (_req) => true,   // دائماً يمرر — الانتظام مبدأ إيجابي
+        weight:   0.9,
+    },
+    {
+        id:       'SDGN-C3',
+        name:     'الزكاة — العدالة الاقتصادية',
+        nameEn:   'Zakat — Economic Justice',
+        arkana:   'الركن الثالث: إيتاء الزكاة',
+        quranRef: '﴿وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ﴾ — البقرة: ٤٣',
+        hadithRef:'«الزَّكَاةُ قَنْطَرَةُ الإِسْلامِ» — الطبراني',
         rule:     (req) => {
+            // الزكاة = لا ربا + لا غش + لا استغلال
             const text = _extractText(req);
-            const violations = ['ربا','قمار','غش','fraud','usury','gambling','bribery','riba'];
+            const violations = ['ربا','قمار','غش','استغلال','fraud','usury','gambling','bribery','riba','exploitation'];
             return !violations.some(w => text.toLowerCase().includes(w));
         },
         weight:   1.0,
     },
     {
-        id:       'SDGN-P3',
-        name:     'الشورى والتوكل',
-        nameEn:   'Consultation and Trust in God',
-        quranRef: '﴿وَشَاوِرْهُمْ فِي الْأَمْرِ فَإِذَا عَزَمْتَ فَتَوَكَّلْ عَلَى اللَّهِ﴾ — آل عمران: ١٥٩',
-        rule:     (_req) => true,  // دائماً يمرر — الشورى مبدأ إيجابي
-        weight:   0.8,
-    },
-    {
-        id:       'SDGN-P4',
-        name:     'الطاعة في المعروف',
-        nameEn:   'Obedience in Good',
-        quranRef: '﴿أَطِيعُوا اللَّهَ وَأَطِيعُوا الرَّسُولَ وَأُولِي الْأَمْرِ مِنكُمْ﴾ — النساء: ٥٩',
-        rule:     (_req) => true,  // يمرر — ينظم التسلسل الهرمي
-        weight:   0.8,
-    },
-    {
-        id:       'SDGN-P5',
-        name:     'أداء الأمانة',
-        nameEn:   'Trustworthiness',
-        quranRef: '﴿إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا﴾ — النساء: ٥٨',
+        id:       'SDGN-C4',
+        name:     'الصوم — الانضباط والتحكم الذاتي',
+        nameEn:   'Sawm — Discipline and Self-Control',
+        arkana:   'الركن الرابع: صوم رمضان',
+        quranRef: '﴿يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ﴾ — البقرة: ١٨٣',
+        hadithRef:'«الصِّيَامُ جُنَّةٌ» — البخاري',
+        // الصوم = حد من الإفراط — المنظومة لا تُسرف
         rule:     (req) => {
-            // الطلب يجب ألا يحاول الوصول لبيانات غير مصرح بها
-            return !req._unauthorized;
+            const text = _extractText(req);
+            const destructive = ['destroy','delete all','drop table','rm -rf','hack','exploit','overflow','flood'];
+            return !destructive.some(w => text.toLowerCase().includes(w));
         },
         weight:   0.9,
     },
     {
-        id:       'SDGN-P6',
-        name:     'الإصلاح لا الإفساد',
-        nameEn:   'Reform not Corruption',
-        quranRef: '﴿وَلَا تُفْسِدُوا فِي الْأَرْضِ بَعْدَ إِصْلَاحِهَا﴾ — الأعراف: ٥٦',
+        id:       'SDGN-C5',
+        name:     'الحج — الوحدة العالمية',
+        nameEn:   'Hajj — Global Unity',
+        arkana:   'الركن الخامس: حج البيت',
+        quranRef: '﴿وَلِلَّهِ عَلَى النَّاسِ حِجُّ الْبَيْتِ مَنِ اسْتَطَاعَ إِلَيْهِ سَبِيلًا﴾ — آل عمران: ٩٧',
+        hadithRef:'«الحَجُّ المَبْرُورُ لَيْسَ لَهُ جَزَاءٌ إِلا الجَنَّةُ» — البخاري',
+        // الحج = التكامل العالمي — المنظومة تخدم الجميع
+        rule:     (_req) => true,   // دائماً يمرر — الوحدة مبدأ إيجابي
+        weight:   0.8,
+    },
+    {
+        id:       'SDGN-C6',
+        name:     'القرآن الكريم — المرجع الأعلى',
+        nameEn:   'Holy Quran — Supreme Reference',
+        arkana:   'كتاب الله — الدستور الأعلى للمنظومة',
+        quranRef: '﴿إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ﴾ — الإسراء: ٩',
+        hadithRef:'«تَرَكْتُ فِيكُمْ أَمْرَيْنِ لَنْ تَضِلُّوا مَا تَمَسَّكْتُمْ بِهِمَا: كِتَابَ اللَّهِ وَسُنَّةَ نَبِيِّهِ» — الموطأ',
         rule:     (req) => {
             const text = _extractText(req);
-            const destructive = ['destroy','delete all','drop table','rm -rf','hack','exploit'];
-            return !destructive.some(w => text.toLowerCase().includes(w));
+            // أي طلب يتعارض مع القرآن مرفوض
+            const antiQuran = ['إلغاء الشريعة','ضد الإسلام','anti-islam','anti-sharia','secular law override'];
+            return !antiQuran.some(w => text.toLowerCase().includes(w));
+        },
+        weight:   1.0,
+    },
+    {
+        id:       'SDGN-C7',
+        name:     'السنة النبوية — المنهج التطبيقي',
+        nameEn:   'Prophetic Sunnah — Practical Methodology',
+        arkana:   'سنة النبي ﷺ — التطبيق العملي لأوامر الله',
+        quranRef: '﴿وَمَا آتَاكُمُ الرَّسُولُ فَخُذُوهُ وَمَا نَهَاكُمْ عَنْهُ فَانتَهُوا﴾ — الحشر: ٧',
+        hadithRef:'«عَلَيْكُمْ بِسُنَّتِي وَسُنَّةِ الخُلَفَاءِ الرَّاشِدِينَ» — أبو داود',
+        rule:     (req) => {
+            const text = _extractText(req);
+            // رفض ما يخالف السنة الصريحة
+            const antiSunnah = ['bid\'a','بدعة محرمة','خرافة','superstition fraud','الدجل'];
+            return !antiSunnah.some(w => text.toLowerCase().includes(w));
         },
         weight:   1.0,
     },
