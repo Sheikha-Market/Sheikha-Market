@@ -26,9 +26,14 @@
 'use strict';
 
 // ─── UTF-8 Enforcement ────────────────────────────────────────────────────────
-// ضبط ترميز UTF-8 على مستوى العملية فور تحميل الطبقة
-if (process.env.SHEIKHA_ENCODING !== 'utf-8') {
-    process.env.SHEIKHA_ENCODING = 'utf-8';
+// التحقق من إعداد UTF-8 وتسجيل تحذير إذا لم يكن مضبوطًا
+// (الإعداد الصحيح يكون عبر متغيرات البيئة في Dockerfile أو systemd)
+const _expectedEncoding = 'utf-8';
+if (process.env.SHEIKHA_ENCODING && process.env.SHEIKHA_ENCODING !== _expectedEncoding) {
+    console.warn(
+        `[GUARDIAN] ⚠️  الترميز المتوقع: ${_expectedEncoding} | الحالي: ${process.env.SHEIKHA_ENCODING}` +
+        ' — تأكد من ضبط SHEIKHA_ENCODING=utf-8 في متغيرات البيئة'
+    );
 }
 // Node.js 18+ يدعم ICU الكامل — نضمن أن الإدخال/الإخراج يستخدم UTF-8
 if (process.stdout && process.stdout.setEncoding) {
@@ -161,18 +166,22 @@ function guard(request = {}) {
 }
 
 /**
- * التحقق من صحة الترميز — يضمن أن النص عربي/إنجليزي مرمَّز بـ UTF-8
+ * التحقق من صحة الترميز — يضمن أن النص مُرمَّز بـ UTF-8 (Unicode)
+ * Node.js يخزّن النصوص داخليًا بـ UTF-16، لذا أي string صالح هو UTF-8 قابل للتحويل.
  *
  * @param {string} text
  * @returns {{ valid: boolean, encoding: string }}
  */
 function validateEncoding(text) {
+    // أي قيمة غير string غير صالحة
     if (typeof text !== 'string') {
         return { valid: false, encoding: 'unknown' };
     }
-    // التحقق من وجود أحرف عربية أو لاتينية صحيحة (UTF-8)
-    const hasValidChars = /^[\u0000-\uFFFF]*$/.test(text);
-    return { valid: hasValidChars, encoding: 'UTF-8' };
+    // Node.js strings هي Unicode (UTF-16 داخليًا)، قابلة التحويل إلى UTF-8 دائمًا
+    // نتحقق فقط من عدم وجود surrogate منفرد (يشير إلى بيانات تالفة)
+    const hasSurrogatePair = /[\uD800-\uDFFF]/.test(text);
+    const valid = !hasSurrogatePair || /[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(text);
+    return { valid, encoding: 'UTF-8' };
 }
 
 /**

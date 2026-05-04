@@ -15,10 +15,10 @@ LABEL encoding="UTF-8"
 # ─── UTF-8 locale — دعم كامل للغة العربية وجميع لغات العالم ─────────────────
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
-ENV LANGUAGE=ar_SA:ar:en
+ENV LANGUAGE=ar_SA:ar:en_US:en
 
 # ─── تثبيت الحزم الأساسية فوق Linux مباشرةً ──────────────────────────────────
-# locales: دعم ترميز UTF-8 الكامل
+# locales: دعم ترميز UTF-8 الكامل — عربي وإنجليزي
 # ca-certificates: شهادات TLS للاتصالات الآمنة
 # wget: فحص صحة الخادم (healthcheck)
 # tzdata: ضبط المنطقة الزمنية (الرياض/السعودية)
@@ -27,7 +27,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates \
         wget \
         tzdata \
-    && locale-gen C.UTF-8 \
+    && sed -i '/^#.*ar_SA.UTF-8/s/^#//' /etc/locale.gen \
+    && sed -i '/^#.*en_US.UTF-8/s/^#//' /etc/locale.gen \
+    && echo "C.UTF-8 UTF-8" >> /etc/locale.gen \
+    && locale-gen \
     && update-locale LANG=C.UTF-8 LC_ALL=C.UTF-8 \
     && ln -sf /usr/share/zoneinfo/Asia/Riyadh /etc/localtime \
     && echo "Asia/Riyadh" > /etc/timezone \
@@ -55,7 +58,7 @@ COPY data/ ./data/
 
 # ─── إنشاء مستخدم غير جذري (أمان) ──────────────────────────────────────────
 RUN groupadd -g 1001 sheikha && \
-    useradd -m -u 1001 -g sheikha sheikha && \
+    useradd -M -u 1001 -g sheikha sheikha && \
     chown -R sheikha:sheikha /app
 
 USER sheikha
