@@ -1,0 +1,128 @@
+{
+  "wallets": {
+    "skw-edafbf43d18cc75dc790fcd32777838e": {
+      "address": "skw-edafbf43d18cc75dc790fcd32777838e",
+      "ownerName": "أحمد الراجح",
+      "ownerId": "usr-001",
+      "balances": {
+        "SDH": 1000,
+        "SDN": 2,
+        "SKC": 0
+      },
+      "stakedBalances": {
+        "SDH": 0,
+        "SDN": 0,
+        "SKC": 0
+      },
+      "zakatDue": {
+        "SDH": 0,
+        "SDN": 0,
+        "SKC": 0
+      },
+      "transactions": [
+        {
+          "txId": "MINT-1777932073727-00001",
+          "type": "MINT",
+          "currency": "SDH",
+          "amount": 1000,
+          "ts": "2026-05-04T22:01:13.727Z"
+        },
+        {
+          "txId": "MINT-1777932073729-00002",
+          "type": "MINT",
+          "currency": "SDN",
+          "amount": 2,
+          "ts": "2026-05-04T22:01:13.729Z"
+        }
+      ],
+      "createdAt": "2026-05-04T22:01:13.727Z",
+      "verified": false,
+      "level": "L0"
+    }
+  },
+  "transactions": [
+    {
+      "id": "MINT-1777932073727-00001",
+      "type": "MINT",
+      "currency": "SDH",
+      "amount": 1000,
+      "to": "skw-edafbf43d18cc75dc790fcd32777838e",
+      "backingProof": {
+        "asset": "silver",
+        "quantity": 3200,
+        "unit": "gram",
+        "certRef": "CERT-001"
+      },
+      "fee": 0,
+      "timestamp": "2026-05-04T22:01:13.727Z",
+      "hash": "15dd297278ef19b253daa114d84ba48f36afa900f5a058153771c9587e4d0c77",
+      "shariahApproved": true,
+      "sovereignSeal": {
+        "rootId": "did:sheikha:root",
+        "signature": "MEUCIQDIlNQPUjJeSevmd+9g5HMzRxQtCiYpJJG/aXYaw6vcUAIgbVL1+boyWmqq0RuiUTIVyvpuqR0NloK2+SU6MrxOLyM=",
+        "payload": {
+          "txId": "MINT-1777932073727-00001",
+          "type": "MINT",
+          "ts": "2026-05-04T22:01:13.727Z"
+        },
+        "sealedAt": "2026-05-04T22:01:13.728Z"
+      }
+    },
+    {
+      "id": "MINT-1777932073729-00002",
+      "type": "MINT",
+      "currency": "SDN",
+      "amount": 2,
+      "to": "skw-edafbf43d18cc75dc790fcd32777838e",
+      "backingProof": {
+        "asset": "gold",
+        "quantity": 8.5,
+        "unit": "gram",
+        "certRef": "CERT-002"
+      },
+      "fee": 0,
+      "timestamp": "2026-05-04T22:01:13.729Z",
+      "hash": "a99745d8847ee74de2ebf4727afcd05feddf99c46a64667a71e3eff01c567e6f",
+      "shariahApproved": true,
+      "sovereignSeal": {
+        "rootId": "did:sheikha:root",
+        "signature": "MEUCIBmWNvgMA9g+raxGACVNCsTZkON8uJZoceeMtfXbemuOAiEA3os3fU2U4h/ycN8MMcMJVjgkfMjOZaJZZREy/JxK02E=",
+        "payload": {
+          "txId": "MINT-1777932073729-00002",
+          "type": "MINT",
+          "ts": "2026-05-04T22:01:13.729Z"
+        },
+        "sealedAt": "2026-05-04T22:01:13.730Z"
+      }
+    }
+  ],
+  "reserves": {
+    "SDH": {
+      "silver": 3200
+    },
+    "SDN": {
+      "gold": 8.5
+    },
+    "SKC": {
+      "gold": 0,
+      "silver": 0,
+      "commodities": 0
+    }
+  },
+  "circulatingSupply": {
+    "SDH": 1000,
+    "SDN": 2,
+    "SKC": 0
+  },
+  "zakatPool": {
+    "SDH": 0,
+    "SDN": 0,
+    "SKC": 0
+  },
+  "waqfPool": {
+    "SDH": 0,
+    "SDN": 0,
+    "SKC": 0
+  },
+  "createdAt": "2026-05-04T22:01:13.726Z"
+}
