@@ -4399,7 +4399,8 @@ if (pilotEngine) {
     console.log('🧪 Pilot Middleware — مفعّل | الوضع:', pilotEngine.mode);
 }
 
-app.use(cors());
+// إعادة تطبيق CORS بنفس السياسة المقيدة لتجنب أي توسعة وصول غير مقصودة.
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(sreMiddleware);
@@ -13456,6 +13457,17 @@ app.get('/api/market-listings', (req, res) => {
     if (stage) listings = listings.filter(l => (l.supplyChainStage || '').toLowerCase() === stage);
     if (scrapType) listings = listings.filter(l => (l.scrapType || '').toLowerCase() === scrapType);
 
+    // الترتيب بالعدالة التوزيعية — الجودة لا الجنسية (ميثاق شيخة مادة 2)
+    listings.sort((a, b) => {
+        const traderA = TRADERS.find(t => t.id === a.traderId);
+        const traderB = TRADERS.find(t => t.id === b.traderId);
+        const scoreA = computeJusticeScore(a, traderA);
+        const scoreB = computeJusticeScore(b, traderB);
+        if (scoreB !== scoreA) return scoreB - scoreA;
+        // تعادل الدرجة → الأحدث أولاً
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+
     // الفئات مع عدد المنتجات الحقيقية
     const categories = HS_SCRAP_CATEGORIES.map(c => ({
         id: c.id,
@@ -13836,6 +13848,38 @@ function normalizeCountryCode(input) {
         .toUpperCase();
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// خوارزمية العدالة التوزيعية — الترتيب بالجودة لا بالجنسية أو العرق
+// المادة 2 من ميثاق شيخة: «إِنَّ أَكْرَمَكُمْ عِندَ اللَّهِ أَتْقَاكُمْ»
+// ═══════════════════════════════════════════════════════════════════
+function computeJusticeScore(listing, trader) {
+    let score = 0;
+
+    // جودة المنتج (المعيار الأول — لا دخل للجنسية)
+    const qualityWeights = {
+        'ممتاز': 30, 'excellent': 30,
+        'جيد جداً': 25, 'very good': 25,
+        'جيد': 20, 'good': 20,
+        'مقبول': 10, 'acceptable': 10
+    };
+    const qualityKey = String(listing.quality || '').trim().toLowerCase();
+    const qualityAr = String(listing.quality || '').trim();
+    score += qualityWeights[qualityAr] || qualityWeights[qualityKey] || 15;
+
+    // اكتمال بيانات المنتج
+    if (listing.quantity && listing.unit) score += 15;
+    if (listing.price && listing.currency) score += 10;
+    if (listing.description && String(listing.description).length > 20) score += 10;
+    if (listing.hsCode) score += 5;
+
+    // توثيق التاجر
+    if (trader && trader.verified) score += 20;
+    if (trader && trader.phone) score += 5;
+
+    // الجنسية أو البلد لا تؤثر على الترتيب — «لا ضرر ولا تعصب»
+    return Math.min(score, 100);
+}
+
 function resolveUserSegment(userType) {
     const key = String(userType || '')
         .trim()
@@ -14050,6 +14094,72 @@ app.get('/api/market-by-stage', (req, res) => {
         stage: stage || 'all',
         listings: result,
         count: result.length
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// مؤشر التوازن الجغرافي — رصد الاحتكار الإقليمي ومنعه
+// ميثاق شيخة مادة 4: «لا احتكار — منع التمركز الإقليمي»
+// ═══════════════════════════════════════════════════════════════════
+app.get('/api/market/geo-balance', (req, res) => {
+    const activeListings = LISTINGS.filter(l => l.status !== 'deleted');
+    const totalListings = activeListings.length || 1;
+
+    // توزع الموردين حسب المنطقة
+    const suppliersByRegion = {};
+    activeListings.forEach(l => {
+        const region = String(l.storeRegion || 'غير محدد').trim();
+        suppliersByRegion[region] = (suppliersByRegion[region] || 0) + 1;
+    });
+
+    // توزع التجار حسب المنطقة
+    const tradersByRegion = {};
+    TRADERS.forEach(t => {
+        const region = String(t.region || t.city || 'غير محدد').trim();
+        tradersByRegion[region] = (tradersByRegion[region] || 0) + 1;
+    });
+    const totalTraders = TRADERS.length || 1;
+
+    // حساب نسب التوزع
+    const listingDistribution = Object.entries(suppliersByRegion)
+        .map(([region, count]) => ({
+            region,
+            count,
+            percentage: parseFloat(((count / totalListings) * 100).toFixed(1))
+        }))
+        .sort((a, b) => b.count - a.count);
+
+    const traderDistribution = Object.entries(tradersByRegion)
+        .map(([region, count]) => ({
+            region,
+            count,
+            percentage: parseFloat(((count / totalTraders) * 100).toFixed(1))
+        }))
+        .sort((a, b) => b.count - a.count);
+
+    // كشف الاحتكار: منطقة واحدة تتجاوز 70% = تحذير
+    const dominantRegion = listingDistribution[0] || null;
+    const monopolyWarning = dominantRegion && dominantRegion.percentage > 70;
+
+    res.json({
+        success: true,
+        data: {
+            listings: {
+                total: totalListings,
+                distribution: listingDistribution,
+                monopolyWarning,
+                monopolyRegion: monopolyWarning ? dominantRegion.region : null
+            },
+            traders: {
+                total: TRADERS.length,
+                distribution: traderDistribution
+            }
+        },
+        shariaNote: monopolyWarning
+            ? 'تحذير: تمركز إقليمي مرتفع — راجع ميثاق شيخة مادة "منع الاحتكار"'
+            : 'التوزع الجغرافي ضمن الحدود المقبولة',
+        charterRef: 'ميثاق شيخة — مادة العدالة التوزيعية',
+        timestamp: new Date().toISOString()
     });
 });
 
