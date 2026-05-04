@@ -4349,6 +4349,202 @@ app.get('/api/project/status', (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 👑 SDGN — الشبكة العليا للحوكمة الإلهية
+// Supreme Divine Governance Network
+// ﴿إِنِ الْحُكْمُ إِلَّا لِلَّهِ﴾ — يوسف: ٤٠
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let _sdgnLayer = null;
+try {
+    _sdgnLayer = require('./core/sheikha-sdgn-layer');
+} catch (_sdgnErr) {
+    console.warn('⚠️ [SDGN] sheikha-sdgn-layer غير متاح:', _sdgnErr.message);
+}
+
+// GET /api/sdgn/status — حالة SDGN + البنية الكاملة للمنظومة
+app.get('/api/sdgn/status', (req, res) => {
+    try {
+        const s = _sdgnLayer ? _sdgnLayer.status() : {
+            name: 'Sheikha SDGN Layer', ready: false, note: 'غير محمّل',
+        };
+        res.json({ success: true, data: s, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// GET /api/sdgn/stack — بنية المنظومة الكاملة (SDGN→SIRN→IFL→RNN→Guardian)
+app.get('/api/sdgn/stack', (req, res) => {
+    try {
+        const stack = _sdgnLayer ? _sdgnLayer.getStack() : {
+            tawheed: 'لا إله إلا الله محمد رسول الله',
+            stack: [],
+        };
+        res.json({ success: true, data: stack, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sdgn/govern — تطبيق مبادئ الحوكمة الإلهية
+app.post('/api/sdgn/govern', express.json(), (req, res) => {
+    try {
+        const result = _sdgnLayer
+            ? _sdgnLayer.govern(req.body || {})
+            : { allowed: true, note: 'SDGN غير متاح — تمرير افتراضي' };
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sdgn/process — معالجة كاملة SDGN→SIRN→IFL→IDA
+app.post('/api/sdgn/process', express.json(), async (req, res) => {
+    try {
+        const result = _sdgnLayer
+            ? await _sdgnLayer.process(req.body || {})
+            : { ok: false, error: 'SDGN Layer غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌟 SIRN — Supreme IFL Root Network
+// Semantic Intelligent Root Network
+// ﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let _sirnIflLayer = null;
+try {
+    _sirnIflLayer = require('./core/sheikha-sirn-ifl-layer');
+} catch (_sirnErr) {
+    console.warn('⚠️ [SIRN] sheikha-sirn-ifl-layer غير متاح:', _sirnErr.message);
+}
+
+// POST /api/sirn/infer — استدلال دلالي
+app.post('/api/sirn/infer', express.json(), (req, res) => {
+    try {
+        const { text, query } = req.body || {};
+        if (!text && !query) {
+            return res.status(400).json({ success: false, message: 'text أو query مطلوب', timestamp: new Date().toISOString() });
+        }
+        const result = _sirnIflLayer
+            ? _sirnIflLayer.infer(text || query)
+            : { ok: false, error: 'SIRN غير متاح' };
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sirn/process — معالجة كاملة SIRN→IFL→IDA
+app.post('/api/sirn/process', express.json(), async (req, res) => {
+    try {
+        const result = _sirnIflLayer
+            ? await _sirnIflLayer.process(req.body || {})
+            : { ok: false, error: 'SIRN غير متاح' };
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// GET /api/sirn/status — حالة SIRN
+app.get('/api/sirn/status', (req, res) => {
+    try {
+        const s = _sirnIflLayer ? _sirnIflLayer.status() : { ready: false };
+        res.json({ success: true, data: s, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// GET /api/sirn/domains — نطاقات SIRN / IFL
+app.get('/api/sirn/domains', (req, res) => {
+    try {
+        const domains = _sirnIflLayer ? _sirnIflLayer.listDomains() : [];
+        res.json({ success: true, data: domains, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sirn/github/analyze-pr — تحليل PR
+app.post('/api/sirn/github/analyze-pr', express.json(), async (req, res) => {
+    try {
+        let result = { ok: false, error: 'GitHub SIRN integration غير متاح' };
+        try {
+            const ghSirn = require('./lib/sheikha-github-sirn-integration');
+            result = await ghSirn.GitHubSystemsIntegration.analyzePR(req.body || {});
+        } catch (_) {}
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sirn/github/classify-issue — تصنيف Issue
+app.post('/api/sirn/github/classify-issue', express.json(), (req, res) => {
+    try {
+        let result = { ok: false };
+        try {
+            const ghSirn = require('./lib/sheikha-github-sirn-integration');
+            result = ghSirn.GitHubSystemsIntegration.classifyIssue(req.body || {});
+        } catch (_) {}
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sirn/vscode/analyze — تحليل كود VS Code
+app.post('/api/sirn/vscode/analyze', express.json(), async (req, res) => {
+    try {
+        const { code, language } = req.body || {};
+        let result = { ok: false };
+        try {
+            const ghSirn = require('./lib/sheikha-github-sirn-integration');
+            result = await ghSirn.VSCodeBridge.analyzeSelection(code || '', language);
+        } catch (_) {}
+        res.json({ success: result.ok !== false, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sirn/copilot/context — سياق Copilot
+app.post('/api/sirn/copilot/context', express.json(), async (req, res) => {
+    try {
+        const { message } = req.body || {};
+        let result = { context: '' };
+        try {
+            const ghSirn = require('./lib/sheikha-github-sirn-integration');
+            result = await ghSirn.CopilotIntegration.buildCopilotContext(message || '');
+        } catch (_) {}
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// POST /api/sirn/mcp/tool — تنفيذ MCP Tool
+app.post('/api/sirn/mcp/tool', express.json(), async (req, res) => {
+    try {
+        const { name, args } = req.body || {};
+        let result = { error: 'MCP غير متاح' };
+        try {
+            const ghSirn = require('./lib/sheikha-github-sirn-integration');
+            result = await ghSirn.MCPIntegration.executeMCPTool(name, args || {});
+        } catch (_) {}
+        res.json({ success: !result.error, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🏛️ التسجيل الحكومي — Government Registration System
 // ═══════════════════════════════════════════════════════════════════════════════
 

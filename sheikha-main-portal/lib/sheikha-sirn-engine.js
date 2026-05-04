@@ -287,11 +287,12 @@ class SheikhaSIRNEngine extends EventEmitter {
             const allTerms = [...(root.ar || []), ...(root.en || [])];
             for (const term of allTerms) {
                 // مطابقة مرنة تدعم الصيغ العربية المختلفة (جمع + مفرد + تعريف)
+                // إزالة أداة التعريف من بداية الكلمات فقط (word boundary)
                 const normalizedText = lowerText
-                    .replace(/ال/g, '')  // إزالة أداة التعريف
+                    .replace(/\bال/g, '')  // إزالة أداة التعريف من بداية الكلمات
                     .replace(/[أإآ]/g, 'ا');  // توحيد الهمزات
                 const normalizedTerm = term.toLowerCase()
-                    .replace(/ال/g, '')
+                    .replace(/^ال/, '')  // إزالة أداة التعريف من بداية المصطلح فقط
                     .replace(/[أإآ]/g, 'ا');
 
                 const matched = lowerText.includes(term.toLowerCase()) ||
@@ -365,9 +366,9 @@ class SheikhaSIRNEngine extends EventEmitter {
      */
     _scanKeywords(text) {
         const lowerText = String(text).toLowerCase();
-        // تطبيع عربي: إزالة أداة التعريف + توحيد الهمزات
+        // تطبيع عربي: إزالة أداة التعريف من بداية الكلمات + توحيد الهمزات
         const normalizedText = lowerText
-            .replace(/ال/g, '')
+            .replace(/\bال/g, '')  // إزالة أداة التعريف من بداية الكلمات فقط
             .replace(/[أإآ]/g, 'ا');
 
         const hits = {};
@@ -377,7 +378,7 @@ class SheikhaSIRNEngine extends EventEmitter {
             const allTerms = [...(root.ar || []), ...(root.en || [])];
             for (const term of allTerms) {
                 const normTerm = term.toLowerCase()
-                    .replace(/ال/g, '')
+                    .replace(/^ال/, '')  // إزالة أداة التعريف من بداية المصطلح فقط
                     .replace(/[أإآ]/g, 'ا');
 
                 const matched = lowerText.includes(term.toLowerCase()) ||
