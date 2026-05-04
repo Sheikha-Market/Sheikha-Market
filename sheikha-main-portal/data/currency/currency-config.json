@@ -1,0 +1,74 @@
+{
+  "description": "إعدادات منظومة عملة شيخة الرقمية",
+  "version": "1.0.0",
+  "currencies": {
+    "SDH": {
+      "code": "SDH",
+      "name": "شيخة الدرهم",
+      "nameEn": "Sheikha Dirham",
+      "symbol": "د.ش",
+      "type": "SILVER_BACKED",
+      "backingAsset": "silver",
+      "backingWeightGrams": 3.2,
+      "initialSARRate": 3.20,
+      "initialUSDRate": 0.85,
+      "maxSupply": 1000000000,
+      "zakatNisab": 595,
+      "zakatNisabUnit": "grams_silver",
+      "description": "الدرهم الفضي الرقمي — إحياء للدرهم الإسلامي التاريخي",
+      "quranRef": "يوسف:20",
+      "superiority": "ثابت القيمة بالفضة — أعلى استقراراً من stablecoins"
+    },
+    "SDN": {
+      "code": "SDN",
+      "name": "شيخة الدينار",
+      "nameEn": "Sheikha Dinar",
+      "symbol": "د.د",
+      "type": "GOLD_BACKED",
+      "backingAsset": "gold",
+      "backingWeightGrams": 4.25,
+      "initialSARRate": 850.0,
+      "initialUSDRate": 226.67,
+      "maxSupply": 100000000,
+      "zakatNisab": 85,
+      "zakatNisabUnit": "grams_gold",
+      "description": "الدينار الذهبي الرقمي — إحياء للدينار الإسلامي الحضاري",
+      "quranRef": "الكهف:19",
+      "superiority": "ذهب حقيقي — أعلى من Bitcoin بلا إثبات عمل مهدر"
+    },
+    "SKC": {
+      "code": "SKC",
+      "name": "شيخة كوين",
+      "nameEn": "SheikhaCoin",
+      "symbol": "ش.ك",
+      "type": "BASKET_BACKED",
+      "backingAsset": "basket",
+      "backingComposition": {
+        "gold": 0.40,
+        "silver": 0.30,
+        "commodities": 0.30
+      },
+      "initialSARRate": 10.0,
+      "initialUSDRate": 2.67,
+      "maxSupply": 10000000000,
+      "description": "عملة شيخة الأساسية — سلة متنوعة من الأصول الحقيقية",
+      "quranRef": "البقرة:275",
+      "superiority": "سلة متنوعة + شريعة = استقرار حقيقي"
+    }
+  },
+  "shariahPrinciples": [
+    "لا ربا — كل مكسب من أرباح حقيقية",
+    "لا غرر — كل وحدة لها مقابل موثق",
+    "زكاة تلقائية 2.5٪ عند النصاب والحول",
+    "وقف رقمي — 20٪ من رسوم التشغيل للمشاريع الخيرية",
+    "تدقيق شرعي في كل معاملة",
+    "شفافية كاملة — كل احتياطي موثق"
+  ],
+  "governance": {
+    "authority": "منظومة شيخة — المملكة العربية السعودية",
+    "shariahBoard": "مجلس الشريعة الإسلامية — شيخة",
+    "regulators": ["SAMA", "CIBAFI", "AAOIFI"],
+    "standard": "AAOIFI Financial Accounting Standards"
+  },
+  "updatedAt": "2025-10-18T00:00:00Z"
+}

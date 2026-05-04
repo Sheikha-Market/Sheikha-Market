@@ -36146,6 +36146,50 @@ try {
 // Sheikha Digital Currency — SHK as BASE Currency
 // «وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة: 275
 // ═══════════════════════════════════════════════════════════════════════════════
+// 💎 منظومة عملة شيخة — الدرهم + الدينار + SKC
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const currencyApiRoutes = require('./routes/currency-api.js');
+    app.use('/api/currency', currencyApiRoutes);
+    console.log('✅ [CURRENCY] شيخة الدرهم (SDH) + شيخة الدينار (SDN) + شيخة كوين (SKC) — مُفعَّلة');
+    console.log('   ├─ GET  /api/currency/dirham      — شيخة الدرهم الفضي');
+    console.log('   ├─ GET  /api/currency/dinar       — شيخة الدينار الذهبي');
+    console.log('   ├─ GET  /api/currency/rates       — أسعار الصرف');
+    console.log('   ├─ POST /api/currency/wallet/create — إنشاء محفظة');
+    console.log('   ├─ POST /api/currency/transfer    — تحويل');
+    console.log('   ├─ POST /api/currency/exchange    — صرف');
+    console.log('   ├─ POST /api/currency/zakat/calculate — حساب الزكاة');
+    console.log('   └─ POST /api/currency/waqf/create — وقف رقمي');
+} catch (e) {
+    console.warn('⚠️ [CURRENCY] فشل تحميل منظومة العملة:', e.message);
+}
+
+// ─── شبكة الخلايا الجذرية العصبية — SNRN + SCNE ──────────────────────────────
+try {
+    const neuralApiRoutes = require('./routes/neural-api.js');
+    app.use('/api/neural-root', neuralApiRoutes);
+    console.log('✅ [NEURAL-ROOT] شبكة الخلايا الجذرية العصبية (SNRN + SCNE) — مُفعَّلة');
+    console.log('   ├─ POST /api/neural-root/infer    — استدلال عصبي شرعي');
+    console.log('   ├─ POST /api/neural-root/fatwa    — فتوى آلية');
+    console.log('   ├─ POST /api/neural-root/validate — تحقق شرعي');
+    console.log('   └─ POST /api/neural-root/scne/process — معالجة SCNE');
+} catch (e) {
+    console.warn('⚠️ [NEURAL-ROOT] فشل تحميل الشبكة العصبية الجذرية:', e.message);
+}
+
+// ─── الهوية الجذرية الموزعة — DID ──────────────────────────────────────────
+try {
+    const didApiRoutes = require('./routes/did-api.js');
+    app.use('/api/did', didApiRoutes);
+    console.log('✅ [DID] الهوية الجذرية الموزعة did:sheikha — مُفعَّلة');
+    console.log('   ├─ POST /api/did/create           — إنشاء هوية');
+    console.log('   ├─ GET  /api/did/resolve/:did     — استعلام هوية');
+    console.log('   └─ POST /api/did/upgrade          — ترقية مستوى التحقق');
+} catch (e) {
+    console.warn('⚠️ [DID] فشل تحميل نظام الهوية الجذرية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 try {
     const shkRoutes = require('./routes/digital-currency.js');
     app.use('/api/shk', shkRoutes);
