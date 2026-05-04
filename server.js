@@ -45,6 +45,13 @@
  */
 
 // ╔══════════════════════════════════════════════════════════════╗
+// ║  🌟 SIRN — SUPREME IFL ROOT NETWORK — الطبقة الأعلى         ║
+// ║  فوق IFL — 6 خلايا جذرية عليا بالكتاب والسنة لله وحده      ║
+// ║  Hardware → Kernel → OS → ★SIRN★ → IFL → RNN → App         ║
+// ╚══════════════════════════════════════════════════════════════╝
+const SIRN = require('./lib/sheikha-supreme-ifl-root-network');
+
+// ╔══════════════════════════════════════════════════════════════╗
 // ║  🕌 IFL — ISLAMIC FOUNDATION LAYER — أول تحميل في المنظومة  ║
 // ║  Hardware → Kernel → OS → ★IFL★ → Guardian → App            ║
 // ╚══════════════════════════════════════════════════════════════╝
@@ -37655,6 +37662,39 @@ app.get('/api/network/ready',     (_req, res) => res.json({ success: true, statu
 app.get('/api/network/health',    (_req, res) => res.json({ success: true, status: 'healthy', service: 'network', timestamp: new Date().toISOString() }));
 app.get('/api/offline/status',    (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
 app.get('/api/realtime/health',   (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
+
+// ─── SIRN ↔ IFL ↔ RNN — حالة المنظومة الكاملة ───────────────────────────────
+app.get('/api/sirn/status', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: SIRN.getStatus(),
+        message: '🌟 الشبكة الجذرية العليا — 6 خلايا بالكتاب والسنة — موحَّدة لله وحده',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sirn/cell/:code', (req, res) => {
+    const result = SIRN.verifyCellIntegrity(req.params.code.toUpperCase(), req.query);
+    return res.status(result.valid ? 200 : 404).json({
+        success: result.valid,
+        data: result,
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sirn/stack', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: {
+            governanceStack: SIRN.SUPREME_GOVERNANCE_STACK,
+            cells: SIRN.SUPREME_CELLS,
+            iflVersion: IFL.IFL_VERSION,
+            sirnVersion: SIRN.SIRN_VERSION
+        },
+        message: 'تسلسل الحوكمة الكامل — SIRN → IFL → RNN → App',
+        timestamp: new Date().toISOString()
+    });
+});
 
 // ─── IFL ↔ Root Neural Cell Network — حالة الربط ─────────────────────────────
 app.get('/api/rnn/ifl-status', async (_req, res) => {
