@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node --max-old-space-size=2048 server.js",
     "start:proxy": "node scripts/proxy-8081.js",
+    "test:grid": "bash scripts/test-cellular-grid.sh",
     "server:start": "pm2 start ecosystem.config.js --only sheikha-api && pm2 save",
     "server:stop": "pm2 stop sheikha-api && pm2 save",
     "server:restart": "pm2 describe sheikha-api > /dev/null 2>&1 && pm2 restart sheikha-api && pm2 save || pm2 start ecosystem.config.js --only sheikha-api && pm2 save",
@@ -334,13 +335,13 @@
     "ops:control:report": "bash scripts/sheikha-control.sh report"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.91.1",
-    "@google-cloud/aiplatform": "^6.6.0",
-    "@google-cloud/bigquery": "^8.1.1",
+    "@anthropic-ai/sdk": "^0.92.0",
+    "@google-cloud/aiplatform": "^6.7.0",
+    "@google-cloud/bigquery": "^8.3.0",
     "@google-cloud/pubsub": "^5.3.0",
     "@google-cloud/storage": "^7.19.0",
     "@google/generative-ai": "^0.24.1",
-    "@sentry/node": "^10.50.0",
+    "@sentry/node": "^10.51.0",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -352,7 +353,7 @@
     "moment-hijri": "^3.0.0",
     "node-cron": "^3.0.3",
     "ollama": "^0.6.3",
-    "openai": "^6.22.0",
+    "openai": "^6.35.0",
     "stripe": "^18.0.0",
     "uuid": "^9.0.0",
     "ws": "^8.14.2"

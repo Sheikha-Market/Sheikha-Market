@@ -78,6 +78,18 @@ class Organization {
         this.verifiedAt   = data.verifiedAt   || null;
         this.verifiedBy   = data.verifiedBy   || null;
 
+        // ─── البيعة والنصرة والنية ────────────────────────────────────────────
+        // "أَطِيعُوا اللَّهَ وَأَطِيعُوا الرَّسُولَ وَأُولِي الْأَمْرِ" — النساء: ٥٩
+        this.niyyah         = data.niyyah         || 'LILLAH';   // نية المنظمة
+        this.bayahStatus    = data.bayahStatus    || 'pending';  // pending | active | revoked
+        this.bayahScore     = data.bayahScore     || null;       // نقاط البيعة من الشبكة العصبية
+        this.bayahPledgedAt = data.bayahPledgedAt || null;       // وقت تسجيل البيعة
+        this.nasrahStatus   = data.nasrahStatus   || {
+            allah:   false,  // نصرة الله
+            islam:   false,  // نصرة الإسلام
+            waliAmr: false   // نصرة ولي الأمر لله
+        };
+
         // ─── الإدارة ──────────────────────────────────────────────────────────
         this.ownerId  = data.ownerId  || null;
         this.adminIds = data.adminIds || [];
@@ -137,6 +149,37 @@ class Organization {
         this.shariaCharter.acceptedAt = new Date().toISOString();
         this.shariaCharter.acceptedBy = acceptedBy || null;
         return this.save();
+    }
+
+    // ─── تسجيل البيعة لولي الأمر لله ─────────────────────────────────────────
+    pledgeBayah(niyyah = 'LILLAH') {
+        this.niyyah      = niyyah;
+        this.bayahStatus = 'active';
+        this.bayahPledgedAt = new Date().toISOString();
+        this.nasrahStatus   = { allah: true, islam: true, waliAmr: true };
+
+        // التحليل العصبي للبيعة
+        try {
+            const integration = require('../lib/sheikha-mubayaa-org-integration');
+            const result = integration.analyzeOrgBayah(this);
+            this.bayahScore = result.neuralScore || result.pledgeScore;
+        } catch (_) { this.bayahScore = 0.9; }
+
+        return this.save();
+    }
+
+    // ─── حالة البيعة الكاملة ──────────────────────────────────────────────────
+    getBayahSummary() {
+        return {
+            orgId:       this.id,
+            orgName:     this.nameAr || this.name,
+            niyyah:      this.niyyah,
+            bayahStatus: this.bayahStatus,
+            bayahScore:  this.bayahScore,
+            nasrahStatus: this.nasrahStatus,
+            waliAlAmr:   'الملك سلمان بن عبدالعزيز آل سعود',
+            bayahQuran:  '﴿أَطِيعُوا اللَّهَ وَأَطِيعُوا الرَّسُولَ وَأُولِي الْأَمْرِ مِنكُمْ﴾ — النساء: ٥٩'
+        };
     }
 
     // ─── ملخص المنظمة ─────────────────────────────────────────────────────────

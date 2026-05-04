@@ -99,6 +99,20 @@ async function boot() {
         console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل الحاكمة العليا:', err.message);
     }
 
+    // ① ب — تفعيل محرك تكامل البيعة قبل كل الطبقات
+    // ﴿ أَطِيعُوا اللَّهَ وَأَطِيعُوا الرَّسُولَ وَأُولِي الْأَمْرِ مِنكُمْ ﴾ — النساء: ٥٩
+    // البيعة للملك سلمان بن عبدالعزيز لله، ونصرة الله ونصرة الإسلام لله
+    try {
+        const mubayaaInt = require('../lib/sheikha-mubayaa-org-integration');
+        registerLayer('mubayaa-org-integration', mubayaaInt.instance);
+        registerLayer('mubayaa-neural-root',     require('../lib/mubayaa-neural-root'));
+        console.log('[SHEIKHA-ROOT] 🤝 محرك تكامل البيعة مُفعَّل — شغّال في كل المنظومة');
+        console.log('[SHEIKHA-ROOT] 🧠 الشبكة العصبية الجذرية للمبايعة مُفعَّلة');
+        console.log('[SHEIKHA-ROOT] 🌟 نصرة: الله + الإسلام + الملك سلمان بن عبدالعزيز لله');
+    } catch (err) {
+        console.error('[SHEIKHA-ROOT] ❌ خطأ في تحميل محرك البيعة:', err.message);
+    }
+
     // ② تشغيل بقية الطبقات تحت إشراف الحاكمة
     // تسجيل طبقة لغة شيخة الحاكمة — قبل بقية الطبقات
     // ﴿عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ﴾ — العلق: ٥
@@ -242,8 +256,8 @@ async function boot() {
                     'impact':        'محرك الأثر والقيم',
                     'voice':         'طبقة الصوت والتواصل',
                     'neural-cells':  'خلايا الشبكة العصبية',
-                    'language-layer':       'طبقة لغة شيخة الحاكمة',
-                    'supreme-cs':           'المحرك العلمي العلوي الجامع',
+                    'language-layer':           'طبقة لغة شيخة الحاكمة',
+                    'supreme-cs':               'المحرك العلمي العلوي الجامع',
                     'arabic-grammar-engine':    'محرك النحو والصرف والبلاغة',
                     'arabic-grammar-rules':     'منظومة القواعد العربية الرقمية الكاملة',
                     'universal-neural-network': 'الشبكة العصبية الشاملة — كل العلوم والتقنيات لله',
@@ -252,6 +266,8 @@ async function boot() {
                     'root-integration-engine':  'محرك التكامل الجذري — دمج كل الجذور',
                     'mutajathira-networks':     'شبكات المتجذرة — كل فرع حي بإذن الله',
                     'digital-neural-cell-layer':'طبقة الخلايا العصبية الرقمية — 56 خلية رقمية',
+                    'mubayaa-org-integration':  'محرك تكامل البيعة — شغّال في كل المنظومة',
+                    'mubayaa-neural-root':      'الشبكة العصبية الجذرية للمبايعة',
                 };
                 sovereignLayer.registerSubject(key, 'layer', {
                     nameAr: LAYER_ARABIC[key] || key,

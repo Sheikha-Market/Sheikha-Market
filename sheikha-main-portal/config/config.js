@@ -47,7 +47,10 @@ const config = {
             ipViolations:        'ip-violations.json',          // بلاغات انتهاك الملكية الفكرية
             // ─── الشبكة العصبية والتحسين المستمر ─────────────────────────────────
             logicNeuralNetwork:  'logic-neural-network.json',   // أوزان الشبكة العصبية
-            continuousImprovement: 'continuous-improvement.json' // محرك التحسين المستمر
+            continuousImprovement: 'continuous-improvement.json', // محرك التحسين المستمر
+            // ─── المبايعة الرقمية ────────────────────────────────────────────
+            mubayaa:                 'mubayaa.json',                // سجل المبايعات الرقمية
+            mubayaaNeuralWeights:    'mubayaa-neural-weights.json'  // أوزان الشبكة العصبية الجذرية للمبايعة
         }
     },
 
