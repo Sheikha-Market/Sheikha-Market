@@ -3,7 +3,7 @@ Description=Run Sheikha health check every 5 minutes
 
 [Timer]
 OnBootSec=2min
-OnUnitActiveSec=5min
+OnUnitActiveSec=1min
 Unit=sheikha-health-check.service
 Persistent=true
 
