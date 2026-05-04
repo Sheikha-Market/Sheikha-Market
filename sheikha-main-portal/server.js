@@ -36985,6 +36985,108 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 📝 REPORTS SYSTEM — نظام التقارير بين السيرفرات
+// ﴿ وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ ﴾ — التوبة: 105
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const reportsRoutes = require('./routes/reports.routes.js');
+    app.use('/api/reports', reportsRoutes);
+    console.log('✅ [REPORTS] نظام التقارير بين السيرفرات — مُفعَّل على /api/reports');
+    console.log('   ├─ POST /api/reports/write             — كتابة تقرير من أي سيرفر');
+    console.log('   ├─ GET  /api/reports/read/:serverId    — تقارير سيرفر محدد');
+    console.log('   ├─ GET  /api/reports/all               — كل التقارير');
+    console.log('   ├─ GET  /api/reports/development       — تقارير التطوير');
+    console.log('   ├─ POST /api/reports/publish           — نشر على قناة التبادل');
+    console.log('   ├─ GET  /api/reports/subscribe         — جلب رسائل القناة (HTTP polling)');
+    console.log('   ├─ POST /api/reports/sync              — مزامنة بين السيرفرات');
+    console.log('   ├─ GET  /api/reports/stats             — إحصائيات التقارير');
+    console.log('   └─ GET  /api/reports/status            — حالة النظام');
+} catch (e) {
+    console.log('⚠️ [REPORTS] فشل تحميل مسارات نظام التقارير:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 NEURAL ROOT NETWORK — شبكة الخلايا العصبية الجذرية الموحّدة
+// ﴿ وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا ﴾ — البقرة: 31
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const neuralRootRoutes = require('./routes/neural-root.routes.js');
+    app.use('/api/neural/root', neuralRootRoutes);
+    console.log('✅ [NEURAL-ROOT] شبكة الخلايا العصبية الجذرية — مُفعَّلة على /api/neural/root');
+    console.log('   ├─ GET  /api/neural/root/status        — حالة شبكة الخلايا الجذرية');
+    console.log('   ├─ POST /api/neural/root/activate      — تفعيل شبكة جذرية كاملة');
+    console.log('   ├─ GET  /api/neural/root/unity-score   — درجة التوحيد الحالية');
+    console.log('   ├─ POST /api/neural/root/digitize      — رقمنة مفهوم بالكتاب والسنة');
+    console.log('   ├─ GET  /api/neural/root/cells         — عرض كل الخلايا وحالتها');
+    console.log('   ├─ POST /api/neural/root/forward       — الانتشار الأمامي');
+    console.log('   ├─ GET  /api/neural/root/quran-db      — قاعدة بيانات الآيات');
+    console.log('   └─ POST /api/neural/root/verify        — التحقق الشرعي من إجراء');
+} catch (e) {
+    console.log('⚠️ [NEURAL-ROOT] فشل تحميل مسارات الشبكة الجذرية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏛️ SHEIKHA UNIFIED STATUS — لوحة القيادة الموحّدة
+// تجمع حالة: التقارير + الرؤية الحاسوبية + الشبكة العصبية الجذرية
+// ═══════════════════════════════════════════════════════════════════════════════
+app.get('/api/sheikha/unified-status', (req, res) => {
+    const status = {
+        bismillah: 'بسم الله الرحمن الرحيم',
+        system: 'سوق شيخة — المنظومة الموحّدة',
+        timestamp: new Date().toISOString(),
+        components: {}
+    };
+
+    // التقارير
+    try {
+        const rw = require('./lib/sheikha-report-writer.js');
+        status.components.reports = { ...rw.getStatus(), stats: rw.getStats() };
+    } catch (e) {
+        status.components.reports = { available: false, error: e.message };
+    }
+
+    // قناة التبادل
+    try {
+        const rb = require('./lib/sheikha-report-bus.js');
+        status.components.reportBus = rb.getStatus();
+    } catch (e) {
+        status.components.reportBus = { available: false, error: e.message };
+    }
+
+    // الشبكة العصبية الجذرية
+    try {
+        const nn = require('./lib/sheikha-unified-neural-network.js');
+        status.components.neuralRoot = nn.getStatus();
+    } catch (e) {
+        status.components.neuralRoot = { available: false, error: e.message };
+    }
+
+    // المُرقمِّن الإسلامي
+    try {
+        const dig = require('./lib/sheikha-islamic-digitizer.js');
+        status.components.islamicDigitizer = dig.getStatus();
+    } catch (e) {
+        status.components.islamicDigitizer = { available: false, error: e.message };
+    }
+
+    // الرؤية الحاسوبية
+    status.components.computerVision = {
+        route: '/api/computer-vision',
+        healthEndpoint: '/api/computer-vision/health',
+        quranTaggingEndpoint: '/api/computer-vision/quran-tagging'
+    };
+
+    const availableCount = Object.values(status.components)
+        .filter(c => c.available !== false && !c.error).length;
+
+    status.availableComponents = availableCount;
+    status.totalComponents = Object.keys(status.components).length;
+    status.quranRef = '﴿ وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ ﴾ — التوبة: 105';
+
+    res.json(status);
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🤝 MUBAYAA — المبايعة الرقمية
 // عقد الولاء والطاعة لولي الأمر على كتاب الله وسنة النبي ﷺ
 // "يَا أَيُّهَا الَّذِينَ آمَنُوا أَطِيعُوا اللَّهَ وَأَطِيعُوا الرَّسُولَ وَأُولِي الْأَمْرِ مِنكُمْ" — النساء: ٥٩
