@@ -77,6 +77,10 @@ const SDC  = require('./lib/sheikha-digital-core');
 // ║  مدعومة بالمعادن — بدون ربا — بدون مضاربة                  ║
 // ╚══════════════════════════════════════════════════════════════╝
 const SIDC = require('./lib/sheikha-islamic-digital-currency');
+const sovereignSevenLayers = require('./lib/sheikha-sovereign-seven-layers');
+const smartNetworkFabric = require('./lib/sheikha-smart-network-fabric');
+const cloudNeuralOrchestrator = require('./lib/sheikha-cloud-neural-orchestrator');
+const serverReportMesh = require('./lib/sheikha-server-report-mesh');
 
 // ╔══════════════════════════════════════════════════════════════╗
 // ║  🧠 ROOT NEURAL CELL NETWORK — شبكة الخلايا العصبية الجذرية ║
@@ -37091,6 +37095,19 @@ try {
     console.warn('⚠️ [GIT] فشل تحميل مسارات Git:', e.message);
 }
 
+try {
+    const serverReportMeshRoutes = require('./routes/server-report-mesh.routes.js');
+    app.use('/api/server-mesh', serverReportMeshRoutes);
+    console.log('✅ [SERVER-MESH] شبكة تقارير السيرفرات — مُفعَّلة على /api/server-mesh');
+    console.log('   ├─ GET  /api/server-mesh/status      — حالة الشبكة');
+    console.log('   ├─ GET  /api/server-mesh/reports     — قائمة التقارير');
+    console.log('   ├─ GET  /api/server-mesh/reports/:name — قراءة تقرير');
+    console.log('   ├─ POST /api/server-mesh/reports     — كتابة تقرير');
+    console.log('   └─ POST /api/server-mesh/relay       — إرسال تقرير لسيرفر آخر');
+} catch (e) {
+    console.warn('⚠️ [SERVER-MESH] فشل تحميل شبكة تقارير السيرفرات:', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📊 DASHBOARD — لوحة التحكم المركزية
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -37839,14 +37856,72 @@ app.post('/api/rnn/orchestrate', async (req, res) => {
     }
 });
 
+// ─── الطبقات السيادية السبع — Sovereign Seven Layers ───────────────────────
+app.get('/api/sheikha/sovereign-stack', async (_req, res) => {
+    try {
+        const rnn = await rootNeuralNetwork.ensureBooted().catch(() => null);
+        const smartNetwork = smartNetworkFabric.evaluateFromRuntime({
+            networkHealth: 'healthy',
+            realtimeHealth: 'ok',
+            apiHealth: 'ok'
+        });
+        const runtime = {
+            sdgn: true,
+            rnn: !!rnn,
+            sidc: !!SIDC,
+            rootIdentity: 'planned',
+            scne: 'active',
+            market: 'active',
+            globalNetwork: smartNetwork.posture === 'active' ? 'active' : 'planned'
+        };
+
+        const stack = sovereignSevenLayers.getSovereignLayers(runtime);
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                ...stack,
+                smartNetwork
+            },
+            message: 'الطبقات السيادية السبع — نموذج التشغيل المرجعي لمنظومة شيخة',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
 // ─── المنظومة الكاملة — Full Stack Status ─────────────────────────────────────
 app.get('/api/sheikha/full-stack', async (_req, res) => {
     try {
         const rnn = await rootNeuralNetwork.ensureBooted().catch(() => null);
+        const smartNetwork = smartNetworkFabric.evaluateFromRuntime({
+            networkHealth: 'healthy',
+            realtimeHealth: 'ok',
+            apiHealth: 'ok'
+        });
+        const cloudNeuralMesh = cloudNeuralOrchestrator.orchestrateCloudNeuralMesh({
+            mode: 'production'
+        });
+        const reportMeshStatus = serverReportMesh.getStatus();
+        const sovereignStack = sovereignSevenLayers.getSovereignLayers({
+            sdgn: true,
+            rnn: !!rnn,
+            sidc: true,
+            rootIdentity: 'planned',
+            scne: 'active',
+            market: 'active',
+            globalNetwork: smartNetwork.posture === 'active' ? 'active' : 'planned'
+        });
+
         return res.status(200).json({
             success: true,
             data: {
                 stack: '👑 SDGN → 🌟 SIRN → 🕌 IFL → 🧠 RNN → 💎 SDC → 🪙 SIDC → 🏪 Market',
+                sovereign7Layers: sovereignStack,
+                smartNetwork,
+                cloudNeuralMesh,
+                reportMesh: reportMeshStatus,
                 sdgn:  { version: SDGN.SDGN_VERSION, status: 'active', cells: SDGN.DIVINE_CELLS.length },
                 sirn:  { version: SIRN.SIRN_VERSION,  status: 'active', cells: SIRN.SUPREME_CELLS.length },
                 ifl:   { version: IFL.IFL_VERSION,    status: 'active', axioms: Object.keys(IFL.IFL_AXIOMS).length },
@@ -37854,9 +37929,40 @@ app.get('/api/sheikha/full-stack', async (_req, res) => {
                 sdc:   { version: SDC.SDC_VERSION,    status: 'active', modules: SDC.DIGITAL_MODULES.length },
                 sidc:  { version: SIDC.SIDC_VERSION,  status: 'active', symbol: SIDC.SIDC_SYMBOL, value_usd: SIDC.calculateSIDCValue() },
                 totalCells: SDGN.DIVINE_CELLS.length + SIRN.SUPREME_CELLS.length + 7,
-                totalLayers: 10
+                totalLayers: 10,
+                sovereignLayerModel: 7
             },
             message: 'بسم الله — المنظومة الرقمية الإسلامية الكاملة',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ─── Smart Network Fabric — الشبكة الذكية السيادية ─────────────────────────
+app.get('/api/sheikha/smart-network/status', (_req, res) => {
+    const smartNetwork = smartNetworkFabric.evaluateFromRuntime({
+        networkHealth: 'healthy',
+        realtimeHealth: 'ok',
+        apiHealth: 'ok'
+    });
+
+    return res.status(200).json({
+        success: true,
+        data: smartNetwork,
+        message: 'الشبكة الذكية السيادية — Cloud + CDN + VPN Mesh + Realtime',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/cloud-neural/orchestrate', (req, res) => {
+    try {
+        const result = cloudNeuralOrchestrator.orchestrateCloudNeuralMesh(req.body || {});
+        return res.status(200).json({
+            success: true,
+            data: result,
+            message: 'تم تفعيل orchestration الذكي بين السيرفرات الذكية والشبكة العصبية الجذرية للسحابات',
             timestamp: new Date().toISOString()
         });
     } catch (e) {

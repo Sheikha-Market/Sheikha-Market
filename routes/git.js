@@ -139,6 +139,68 @@ async function githubApiRequest(method, apiPath, body) {
     return { status: res.status, data: json };
 }
 
+function getReportsRepoConfig() {
+    const token = process.env.REPORTS_GITHUB_TOKEN || process.env.GITHUB_TOKEN || '';
+    const owner = process.env.REPORTS_GITHUB_OWNER || process.env.GITHUB_OWNER || 'Sheikha-Market';
+    const repo = process.env.REPORTS_GITHUB_REPO || '';
+    const branch = process.env.REPORTS_GITHUB_BRANCH || 'main';
+    const basePath = process.env.REPORTS_GITHUB_BASE_PATH || 'server-reports';
+
+    return {
+        token: String(token).trim(),
+        owner: String(owner).trim(),
+        repo: String(repo).trim(),
+        branch: String(branch).trim(),
+        basePath: String(basePath).trim()
+    };
+}
+
+async function githubApiRequestToRepo(method, owner, repo, token, apiPath, body) {
+    const url = `https://api.github.com/repos/${owner}/${repo}${apiPath}`;
+
+    const headers = {
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        'Content-Type': 'application/json'
+    };
+
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+
+    const options = { method, headers };
+    if (body) options.body = JSON.stringify(body);
+
+    const res = await fetch(url, options);
+    const text = await res.text();
+    let json;
+    try { json = JSON.parse(text); } catch (_) { json = { message: text }; }
+    return { status: res.status, data: json };
+}
+
+async function getRemoteFileSha(owner, repo, token, filePath, branch) {
+    const endpoint = `/contents/${encodeGitHubPath(filePath)}?ref=${encodeURIComponent(branch)}`;
+    const { status, data } = await githubApiRequestToRepo('GET', owner, repo, token, endpoint);
+    if (status === 200 && data && data.sha) {
+        return data.sha;
+    }
+    return null;
+}
+
+async function upsertFileToRepo({ owner, repo, token, branch, filePath, content, message }) {
+    const existingSha = await getRemoteFileSha(owner, repo, token, filePath, branch);
+    const payload = {
+        message,
+        content: Buffer.from(content, 'utf8').toString('base64'),
+        branch
+    };
+
+    if (existingSha) {
+        payload.sha = existingSha;
+    }
+
+    const endpoint = `/contents/${encodeGitHubPath(filePath)}`;
+    return githubApiRequestToRepo('PUT', owner, repo, token, endpoint, payload);
+}
+
 // ─── POST /api/git/create-file — إنشاء ملف مباشرةً في المستودع ──────────────
 router.post('/create-file', async (req, res) => {
     const { path: filePath, content, message, branch } = req.body || {};
@@ -274,6 +336,137 @@ router.post('/validate', (req, res) => {
         files: checked,
         timestamp: new Date().toISOString()
     });
+});
+
+// ─── POST /api/git/reports-sync — رفع تقارير السيرفر إلى مستودع تقارير مخصص ───
+router.post('/reports-sync', async (req, res) => {
+    const cfg = getReportsRepoConfig();
+    const sourceDir = path.join(__dirname, '..', 'reports', 'synchronization');
+    const maxFiles = Math.max(1, Math.min(parseInt(req.body?.maxFiles, 10) || 20, 200));
+    const dryRun = String(req.body?.dryRun || '').toLowerCase() === 'true' || req.body?.dryRun === true;
+
+    if (!cfg.repo) {
+        return res.status(400).json({
+            success: false,
+            message: 'إعداد ناقص: REPORTS_GITHUB_REPO مطلوب لتفعيل مزامنة التقارير.',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    if (!cfg.token) {
+        return res.status(400).json({
+            success: false,
+            message: 'إعداد ناقص: REPORTS_GITHUB_TOKEN (أو GITHUB_TOKEN) مطلوب.',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    try {
+        if (!fs.existsSync(sourceDir)) {
+            return res.status(404).json({
+                success: false,
+                message: 'مجلد التقارير غير موجود: reports/synchronization',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        const allEntries = fs.readdirSync(sourceDir)
+            .map((name) => {
+                const fullPath = path.join(sourceDir, name);
+                const stat = fs.statSync(fullPath);
+                return { name, fullPath, stat };
+            })
+            .filter((entry) => entry.stat.isFile())
+            .sort((a, b) => b.stat.mtimeMs - a.stat.mtimeMs)
+            .slice(0, maxFiles);
+
+        const planned = allEntries.map((entry) => ({
+            file: entry.name,
+            size: entry.stat.size,
+            mtime: entry.stat.mtime.toISOString(),
+            targetPath: `${cfg.basePath}/${entry.name}`
+        }));
+
+        if (dryRun) {
+            return res.status(200).json({
+                success: true,
+                dryRun: true,
+                data: {
+                    owner: cfg.owner,
+                    repo: cfg.repo,
+                    branch: cfg.branch,
+                    count: planned.length,
+                    files: planned
+                },
+                message: 'وضع المعاينة: تم تجهيز قائمة الملفات بدون رفع فعلي.',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        const uploaded = [];
+        const failed = [];
+
+        for (const item of planned) {
+            try {
+                const content = fs.readFileSync(path.join(sourceDir, item.file), 'utf8');
+                const commitMsg = `reports: sync ${item.file} @ ${new Date().toISOString()}`;
+                const result = await upsertFileToRepo({
+                    owner: cfg.owner,
+                    repo: cfg.repo,
+                    token: cfg.token,
+                    branch: cfg.branch,
+                    filePath: item.targetPath,
+                    content,
+                    message: commitMsg
+                });
+
+                if (result.status === 200 || result.status === 201) {
+                    uploaded.push({
+                        file: item.file,
+                        targetPath: item.targetPath,
+                        commitSha: result.data?.commit?.sha || null,
+                        url: result.data?.content?.html_url || null
+                    });
+                } else {
+                    failed.push({
+                        file: item.file,
+                        targetPath: item.targetPath,
+                        status: result.status,
+                        error: result.data?.message || 'GitHub API error'
+                    });
+                }
+            } catch (error) {
+                failed.push({
+                    file: item.file,
+                    targetPath: item.targetPath,
+                    status: 500,
+                    error: error.message
+                });
+            }
+        }
+
+        return res.status(failed.length ? 207 : 200).json({
+            success: failed.length === 0,
+            data: {
+                owner: cfg.owner,
+                repo: cfg.repo,
+                branch: cfg.branch,
+                attempted: planned.length,
+                uploadedCount: uploaded.length,
+                failedCount: failed.length,
+                uploaded,
+                failed
+            },
+            message: failed.length ? 'تمت المزامنة مع وجود ملفات فشلت.' : 'تمت مزامنة تقارير السيرفر بنجاح.',
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
 });
 
 module.exports = router;
