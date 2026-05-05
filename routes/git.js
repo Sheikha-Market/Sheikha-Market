@@ -192,10 +192,20 @@ function getGoogleConfig() {
     };
 }
 
+function getVsCoderConfig() {
+    return {
+        provider: 'vs-coder',
+        sheikhaServerUrl: String(process.env.SHEIKHA_SERVER_URL || 'http://127.0.0.1:8080').trim().replace(/\/$/, ''),
+        copilotServerUrl: String(process.env.COPILOT_SERVER_URL || `http://127.0.0.1:${process.env.COPILOT_SERVER_PORT || '3091'}`).trim().replace(/\/$/, ''),
+        extensionId: String(process.env.VSCODER_EXTENSION_ID || 'sheikha.sheikha-copilot').trim()
+    };
+}
+
 function buildNeuralGitLayer() {
     const github = getGitHubConfig();
     const gitlab = getGitLabConfig();
     const google = getGoogleConfig();
+    const vsCoder = getVsCoderConfig();
 
     const providers = [
         {
@@ -226,6 +236,15 @@ function buildNeuralGitLayer() {
                 clientId: google.clientId ? `${google.clientId.slice(0, 8)}...` : null,
                 accessToken: maskSecret(google.accessToken),
                 apiKey: maskSecret(google.apiKey)
+            }
+        },
+        {
+            id: 'vs-coder',
+            connected: Boolean(vsCoder.sheikhaServerUrl && vsCoder.copilotServerUrl),
+            config: {
+                sheikhaServerUrl: vsCoder.sheikhaServerUrl,
+                copilotServerUrl: vsCoder.copilotServerUrl,
+                extensionId: vsCoder.extensionId
             }
         }
     ];
@@ -331,6 +350,53 @@ async function verifyGoogleIntegration() {
         status: res.status,
         message: res.status === 200 ? 'Google متصل بنجاح.' : `Google connection failed (${res.status})`,
         details: body.slice(0, 220)
+    };
+}
+
+async function verifyVsCoderIntegration() {
+    const cfg = getVsCoderConfig();
+
+    const checks = [
+        {
+            key: 'sheikha-vscode-bridge',
+            url: `${cfg.sheikhaServerUrl}/api/sheikha/copilot/vscode-bridge`
+        },
+        {
+            key: 'copilot-server-health',
+            url: `${cfg.copilotServerUrl}/health`
+        }
+    ];
+
+    const results = [];
+    for (const item of checks) {
+        try {
+            const res = await fetch(item.url, { method: 'GET' });
+            const body = await res.text();
+            results.push({
+                key: item.key,
+                ok: res.status === 200,
+                status: res.status,
+                details: body.slice(0, 180)
+            });
+        } catch (error) {
+            results.push({
+                key: item.key,
+                ok: false,
+                status: 'unreachable',
+                details: error.message
+            });
+        }
+    }
+
+    const okCount = results.filter((item) => item.ok).length;
+    return {
+        provider: 'vs-coder',
+        ok: okCount === results.length,
+        status: okCount === results.length ? 200 : 207,
+        message: okCount === results.length
+            ? 'VS Coder bridge متصل بالكامل.'
+            : 'VS Coder bridge جزئي: تحقق من sheikha server أو copilot server.',
+        checks: results
     };
 }
 
@@ -531,13 +597,14 @@ router.get('/integrations/status', (_req, res) => {
 // ─── POST /api/git/integrations/verify — فحص GitHub/GitLab/Google ─────────
 router.post('/integrations/verify', async (_req, res) => {
     try {
-        const [github, gitlab, google] = await Promise.all([
+        const [github, gitlab, google, vsCoder] = await Promise.all([
             verifyGitHubIntegration(),
             verifyGitLabIntegration(),
-            verifyGoogleIntegration()
+            verifyGoogleIntegration(),
+            verifyVsCoderIntegration()
         ]);
 
-        const checks = [github, gitlab, google];
+        const checks = [github, gitlab, google, vsCoder];
         const okCount = checks.filter((check) => check.ok).length;
 
         return res.status(200).json({
