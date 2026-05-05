@@ -81,6 +81,7 @@ const sovereignSevenLayers = require('./lib/sheikha-sovereign-seven-layers');
 const smartNetworkFabric = require('./lib/sheikha-smart-network-fabric');
 const cloudNeuralOrchestrator = require('./lib/sheikha-cloud-neural-orchestrator');
 const serverReportMesh = require('./lib/sheikha-server-report-mesh');
+const llmNeuralLayer   = require('./lib/sheikha-llm-neural-layer');
 
 // ╔══════════════════════════════════════════════════════════════╗
 // ║  🧠 ROOT NEURAL CELL NETWORK — شبكة الخلايا العصبية الجذرية ║
@@ -37106,6 +37107,67 @@ try {
     console.log('   └─ POST /api/server-mesh/relay       — إرسال تقرير لسيرفر آخر');
 } catch (e) {
     console.warn('⚠️ [SERVER-MESH] فشل تحميل شبكة تقارير السيرفرات:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 LLM NEURAL LAYER — طبقة الذكاء الاصطناعي العصبية الجذرية (SNRN)
+// VS Code · Ollama · GPT · GitHub Copilot · Copilot Bridge
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    // GET /api/sheikha/llm/status — حالة جميع مزودي LLM
+    app.get('/api/sheikha/llm/status', async (_req, res) => {
+        try {
+            const mesh = await llmNeuralLayer.buildLLMNeuralMesh();
+            res.json({ success: true, data: mesh, timestamp: new Date().toISOString() });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    // POST /api/sheikha/llm/chat — دردشة ذكية عبر أفضل مزود متاح
+    app.post('/api/sheikha/llm/chat', express.json(), async (req, res) => {
+        const { prompt, model, provider } = req.body || {};
+        if (!prompt) {
+            return res.status(400).json({ success: false, message: 'prompt مطلوب' });
+        }
+        try {
+            const reply = await llmNeuralLayer.smartChat({ prompt, model, provider });
+            res.json({ success: true, data: reply, timestamp: new Date().toISOString() });
+        } catch (err) {
+            res.status(503).json({ success: false, message: err.message });
+        }
+    });
+
+    // GET /api/sheikha/llm/providers — قائمة المزودين وإعداداتهم
+    app.get('/api/sheikha/llm/providers', (_req, res) => {
+        const mask = (v) => v && v.length > 8 ? v.slice(0, 4) + '...' + v.slice(-4) : (v ? '***' : '');
+        const ollama    = llmNeuralLayer.getOllamaConfig();
+        const openai    = llmNeuralLayer.getOpenAIConfig();
+        const ghCopilot = llmNeuralLayer.getGitHubCopilotConfig();
+        const bridge    = llmNeuralLayer.getCopilotBridgeConfig();
+        const vscode    = llmNeuralLayer.getVSCodeConfig();
+        res.json({
+            success: true,
+            data: {
+                version: llmNeuralLayer.LLM_VERSION,
+                providers: [
+                    { id: 'ollama',          baseUrl: ollama.baseUrl,  model: ollama.model },
+                    { id: 'openai-gpt',      baseUrl: openai.baseUrl,  model: openai.model, apiKey: mask(openai.apiKey) },
+                    { id: 'github-copilot',  apiUrl: ghCopilot.baseUrl, model: ghCopilot.model, token: mask(ghCopilot.token) },
+                    { id: 'copilot-bridge',  baseUrl: bridge.baseUrl,  port: bridge.port },
+                    { id: 'vscode-bridge',   bridgeUrl: vscode.bridgeUrl, extensionId: vscode.extensionId },
+                ],
+            },
+            timestamp: new Date().toISOString(),
+        });
+    });
+
+    console.log('✅ [LLM-NEURAL] طبقة الذكاء الاصطناعي العصبية الجذرية — مُفعَّلة');
+    console.log('   ├─ GET  /api/sheikha/llm/status    — حالة جميع مزودي LLM');
+    console.log('   ├─ POST /api/sheikha/llm/chat      — دردشة ذكية عبر أفضل مزود');
+    console.log('   └─ GET  /api/sheikha/llm/providers — قائمة المزودين');
+} catch (e) {
+    console.warn('⚠️ [LLM-NEURAL] فشل تفعيل طبقة LLM:', e.message);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
