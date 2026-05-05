@@ -36637,6 +36637,38 @@ try {
     console.warn('⚠️ [NEURAL-ROOT] فشل تحميل الشبكة العصبية الجذرية:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐🧠 CLOUD NEURAL NETWORK — شبكة الخلايا العصبية للخوادم والسحابات
+// 18 خلية — 6 طبقات — بنية تحتية + سحابات ذكية + عمليات + ذكاء + توحيد
+// "وَفِي السَّمَاءِ رِزْقُكُمْ وَمَا تُوعَدُونَ" — الذاريات: ٢٢
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const cloudNeural = require('./core/neural/sheikha-cloud-neural-network');
+    cloudNeural.init();
+    const cloudNeuralRouter = cloudNeural.createRouter();
+    if (cloudNeuralRouter) {
+        app.use('/api/cloud-neural', cloudNeuralRouter);
+    }
+    const cns = cloudNeural.status();
+    console.log(`✅ [CLOUD-NEURAL] شبكة الخلايا العصبية السحابية — مُفعَّلة | ${cns.activeCells}/${cns.totalCells} خلية | ${cns.totalLayers} طبقات`);
+    console.log('   ├─ GET  /api/cloud-neural                — حالة الشبكة الكاملة');
+    console.log('   ├─ POST /api/cloud-neural/activate        — تفعيل جميع الخلايا');
+    console.log('   ├─ POST /api/cloud-neural/activate/cell/:id — تفعيل خلية');
+    console.log('   ├─ POST /api/cloud-neural/activate/layer/:id — تفعيل طبقة');
+    console.log('   ├─ POST /api/cloud-neural/pulse           — نبضة موحدة');
+    console.log('   ├─ POST /api/cloud-neural/read            — قراءة من السحابة');
+    console.log('   ├─ POST /api/cloud-neural/write           — كتابة إلى السحابة');
+    console.log('   ├─ POST /api/cloud-neural/edit            — تحرير المحتوى');
+    console.log('   ├─ POST /api/cloud-neural/develop         — تطوير وحدة');
+    console.log('   ├─ POST /api/cloud-neural/publish         — نشر مُنتَج');
+    console.log('   ├─ POST /api/cloud-neural/transfer        — نقل المعلومات');
+    console.log('   ├─ POST /api/cloud-neural/digitize        — رقمنة بالكتاب والسنة');
+    console.log('   ├─ POST /api/cloud-neural/unify           — توحيد السحابات');
+    console.log('   └─ GET  /api/cloud-neural/cells           — قائمة الخلايا (18 خلية)');
+} catch (e) {
+    console.warn('⚠️ [CLOUD-NEURAL] فشل تحميل شبكة الخلايا العصبية السحابية:', e.message);
+}
+
 // ─── الهوية الجذرية الموزعة — DID ──────────────────────────────────────────
 try {
     const didApiRoutes = require('./routes/did-api.js');
