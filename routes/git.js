@@ -155,6 +155,185 @@ function getReportsRepoConfig() {
     };
 }
 
+function maskSecret(secret) {
+    const value = String(secret || '').trim();
+    if (!value) return '';
+    if (value.length <= 8) return '***';
+    return `${value.slice(0, 4)}...${value.slice(-4)}`;
+}
+
+function getGitHubConfig() {
+    return {
+        provider: 'github',
+        owner: String(process.env.GITHUB_OWNER || 'Sheikha-Market').trim(),
+        repo: String(process.env.GITHUB_REPO || 'Sheikha-Market').trim(),
+        token: String(process.env.GITHUB_TOKEN || '').trim(),
+        branch: String(process.env.GITHUB_DEFAULT_BRANCH || 'main').trim()
+    };
+}
+
+function getGitLabConfig() {
+    return {
+        provider: 'gitlab',
+        baseUrl: String(process.env.GITLAB_BASE_URL || 'https://gitlab.com/api/v4').trim().replace(/\/$/, ''),
+        token: String(process.env.GITLAB_TOKEN || '').trim(),
+        projectId: String(process.env.GITLAB_PROJECT_ID || '').trim(),
+        groupId: String(process.env.GITLAB_GROUP_ID || '').trim()
+    };
+}
+
+function getGoogleConfig() {
+    return {
+        provider: 'google',
+        accessToken: String(process.env.GOOGLE_ACCESS_TOKEN || '').trim(),
+        apiKey: String(process.env.GOOGLE_API_KEY || '').trim(),
+        clientId: String(process.env.GOOGLE_CLIENT_ID || '').trim(),
+        projectId: String(process.env.GOOGLE_CLOUD_PROJECT || '').trim()
+    };
+}
+
+function buildNeuralGitLayer() {
+    const github = getGitHubConfig();
+    const gitlab = getGitLabConfig();
+    const google = getGoogleConfig();
+
+    const providers = [
+        {
+            id: 'github',
+            connected: Boolean(github.token && github.owner && github.repo),
+            config: {
+                owner: github.owner,
+                repo: github.repo,
+                branch: github.branch,
+                token: maskSecret(github.token)
+            }
+        },
+        {
+            id: 'gitlab',
+            connected: Boolean(gitlab.token && (gitlab.projectId || gitlab.groupId)),
+            config: {
+                baseUrl: gitlab.baseUrl,
+                projectId: gitlab.projectId || null,
+                groupId: gitlab.groupId || null,
+                token: maskSecret(gitlab.token)
+            }
+        },
+        {
+            id: 'google',
+            connected: Boolean(google.accessToken || google.apiKey || google.clientId),
+            config: {
+                projectId: google.projectId || null,
+                clientId: google.clientId ? `${google.clientId.slice(0, 8)}...` : null,
+                accessToken: maskSecret(google.accessToken),
+                apiKey: maskSecret(google.apiKey)
+            }
+        }
+    ];
+
+    const connectedCount = providers.filter((item) => item.connected).length;
+
+    return {
+        layer: {
+            id: 'ROOT_NEURAL_GIT_INTEGRATION_LAYER',
+            version: '1.0.0',
+            posture: connectedCount >= 2 ? 'active' : 'partial',
+            connectedCount,
+            totalProviders: providers.length,
+            providers
+        }
+    };
+}
+
+async function verifyGitHubIntegration() {
+    const cfg = getGitHubConfig();
+    if (!cfg.token || !cfg.owner || !cfg.repo) {
+        return {
+            provider: 'github',
+            ok: false,
+            status: 'not_configured',
+            message: 'GitHub غير مهيأ بالكامل.'
+        };
+    }
+
+    const url = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}`;
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/vnd.github+json',
+            'Authorization': `Bearer ${cfg.token}`,
+            'X-GitHub-Api-Version': '2022-11-28'
+        }
+    });
+
+    const body = await res.text();
+    return {
+        provider: 'github',
+        ok: res.status === 200,
+        status: res.status,
+        message: res.status === 200 ? 'GitHub متصل بنجاح.' : `GitHub connection failed (${res.status})`,
+        details: body.slice(0, 220)
+    };
+}
+
+async function verifyGitLabIntegration() {
+    const cfg = getGitLabConfig();
+    if (!cfg.token) {
+        return {
+            provider: 'gitlab',
+            ok: false,
+            status: 'not_configured',
+            message: 'GitLab token غير مضبوط.'
+        };
+    }
+
+    const res = await fetch(`${cfg.baseUrl}/user`, {
+        method: 'GET',
+        headers: {
+            'PRIVATE-TOKEN': cfg.token,
+            'Content-Type': 'application/json'
+        }
+    });
+
+    const body = await res.text();
+    return {
+        provider: 'gitlab',
+        ok: res.status === 200,
+        status: res.status,
+        message: res.status === 200 ? 'GitLab متصل بنجاح.' : `GitLab connection failed (${res.status})`,
+        details: body.slice(0, 220)
+    };
+}
+
+async function verifyGoogleIntegration() {
+    const cfg = getGoogleConfig();
+    if (!cfg.accessToken && !cfg.apiKey) {
+        return {
+            provider: 'google',
+            ok: false,
+            status: 'not_configured',
+            message: 'Google credentials غير مضبوطة.'
+        };
+    }
+
+    const url = cfg.accessToken
+        ? 'https://www.googleapis.com/oauth2/v3/userinfo'
+        : `https://www.googleapis.com/oauth2/v3/certs?key=${encodeURIComponent(cfg.apiKey)}`;
+
+    const headers = cfg.accessToken
+        ? { 'Authorization': `Bearer ${cfg.accessToken}` }
+        : {};
+
+    const res = await fetch(url, { method: 'GET', headers });
+    const body = await res.text();
+    return {
+        provider: 'google',
+        ok: res.status === 200,
+        status: res.status,
+        message: res.status === 200 ? 'Google متصل بنجاح.' : `Google connection failed (${res.status})`,
+        details: body.slice(0, 220)
+    };
+}
+
 async function githubApiRequestToRepo(method, owner, repo, token, apiPath, body) {
     const url = `https://api.github.com/repos/${owner}/${repo}${apiPath}`;
 
@@ -336,6 +515,51 @@ router.post('/validate', (req, res) => {
         files: checked,
         timestamp: new Date().toISOString()
     });
+});
+
+// ─── GET /api/git/integrations/status — طبقة التكامل العصبي فوق Git ─────────
+router.get('/integrations/status', (_req, res) => {
+    const layer = buildNeuralGitLayer();
+    return res.status(200).json({
+        success: true,
+        data: layer,
+        message: 'طبقة التكامل العصبي فوق Git جاهزة.',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── POST /api/git/integrations/verify — فحص GitHub/GitLab/Google ─────────
+router.post('/integrations/verify', async (_req, res) => {
+    try {
+        const [github, gitlab, google] = await Promise.all([
+            verifyGitHubIntegration(),
+            verifyGitLabIntegration(),
+            verifyGoogleIntegration()
+        ]);
+
+        const checks = [github, gitlab, google];
+        const okCount = checks.filter((check) => check.ok).length;
+
+        return res.status(200).json({
+            success: okCount > 0,
+            data: {
+                layer: buildNeuralGitLayer().layer,
+                checks,
+                okCount,
+                total: checks.length
+            },
+            message: okCount === checks.length
+                ? 'تم تفعيل كل التكاملات بنجاح.'
+                : 'تم تنفيذ الفحص: بعض التكاملات تحتاج إعداد مفاتيح الوصول.',
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
 });
 
 // ─── POST /api/git/reports-sync — رفع تقارير السيرفر إلى مستودع تقارير مخصص ───
