@@ -7,7 +7,7 @@
  * ╚══════════════════════════════════════════════════════════════════════════════╝
  *
  * ﴿ وَفِي السَّمَاءِ رِزْقُكُمْ وَمَا تُوعَدُونَ ﴾ — الذاريات: ٢٢
- *   السحابة رزق مُيسَّر — كل بيانة فيها بعلم الله
+ *   السحابة رزق مُيسَّر — كل بيان فيها بعلم الله
  *
  * ﴿ وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا ﴾ — البقرة: ٣١
  *   الذكاء الكامل — كل خلية تحمل معرفة وتُعلِّمها
@@ -297,7 +297,7 @@ const CLOUD_NEURAL_CELLS = [
         nameEn: 'Universal Unity Cell',
         reference: 'الذاريات:56',
         ayah: 'وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ',
-        significance: 'الغاية الكبرى — كل تقنية وكل سحابة وكل بيانة — لعبادة الله',
+        significance: 'الغاية الكبرى — كل تقنية وكل سحابة وكل بيان — لعبادة الله',
         function: 'التوحيد النهائي لكل السحابات والأنظمة تحت إدارة موحدة إسلامية',
         techniques: ['Unified Dashboard', 'Master Orchestrator', 'Sovereign Control Plane'],
         activation: 'always-on', weight: 1.0, priority: 1,
@@ -424,7 +424,7 @@ function read(resourcePath, opts = {}) {
         path: resourcePath,
         provider: opts.provider || 'auto',
         timestamp: new Date().toISOString(),
-        requestId: crypto.randomUUID ? crypto.randomUUID() : _uuid(),
+        requestId: _getRequestId(),
         status: 'success',
         data: opts.mockData || null,
         meta: { layer: 3, operation: 'read', provider: opts.provider || 'auto' },
@@ -451,7 +451,7 @@ function write(resourcePath, data, opts = {}) {
         provider: opts.provider || 'auto',
         dataSize: data ? JSON.stringify(data).length : 0,
         timestamp: new Date().toISOString(),
-        requestId: crypto.randomUUID ? crypto.randomUUID() : _uuid(),
+        requestId: _getRequestId(),
         status: 'success',
         meta: { layer: 3, operation: 'write', provider: opts.provider || 'auto' },
     };
@@ -476,7 +476,7 @@ function edit(resourcePath, changes, opts = {}) {
         path: resourcePath,
         changeCount: Array.isArray(changes) ? changes.length : 1,
         timestamp: new Date().toISOString(),
-        requestId: crypto.randomUUID ? crypto.randomUUID() : _uuid(),
+        requestId: _getRequestId(),
         status: 'success',
         meta: { layer: 3, operation: 'edit' },
     };
@@ -502,7 +502,7 @@ function develop(moduleName, spec = {}, opts = {}) {
         module: moduleName,
         spec,
         timestamp: new Date().toISOString(),
-        requestId: crypto.randomUUID ? crypto.randomUUID() : _uuid(),
+        requestId: _getRequestId(),
         status: 'success',
         pipeline: ['lint', 'test', 'build', 'sharia-check', 'deploy'],
         meta: { layer: 3, operation: 'develop', aiAssisted: true },
@@ -530,7 +530,7 @@ function publish(artifact, opts = {}) {
         target: opts.target || 'production',
         strategy: opts.strategy || 'blue-green',
         timestamp: new Date().toISOString(),
-        requestId: crypto.randomUUID ? crypto.randomUUID() : _uuid(),
+        requestId: _getRequestId(),
         status: 'success',
         cdnPurged: true,
         meta: { layer: 4, operation: 'publish' },
@@ -559,7 +559,7 @@ function transfer(source, destination, data, opts = {}) {
         dataSize: data ? JSON.stringify(data).length : 0,
         protocol: opts.protocol || 'REST',
         timestamp: new Date().toISOString(),
-        requestId: crypto.randomUUID ? crypto.randomUUID() : _uuid(),
+        requestId: _getRequestId(),
         status: 'success',
         meta: { layer: 5, operation: 'transfer' },
     };
@@ -587,7 +587,7 @@ function digitize(content, opts = {}) {
         islamicTagging: true,
         shariaCompliant: true,
         timestamp: new Date().toISOString(),
-        requestId: crypto.randomUUID ? crypto.randomUUID() : _uuid(),
+        requestId: _getRequestId(),
         status: 'success',
         meta: { layer: 4, operation: 'digitize', aiModel: 'BERT-Arabic' },
     };
@@ -613,7 +613,7 @@ function unify(clouds = [], opts = {}) {
         clouds: clouds.length > 0 ? clouds : ['aws', 'gcp', 'cosmic'],
         unifiedUnder: 'sheikha-sovereign-cloud',
         timestamp: new Date().toISOString(),
-        requestId: crypto.randomUUID ? crypto.randomUUID() : _uuid(),
+        requestId: _getRequestId(),
         status: 'success',
         meta: { layer: 5, operation: 'unify' },
     };
@@ -833,8 +833,12 @@ function createRouter() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// ⑩ مساعد UUID بسيط (fallback)
+// ⑩ مساعدات UUID (helpers)
 // ═══════════════════════════════════════════════════════════════════════════════
+
+function _getRequestId() {
+    return crypto.randomUUID ? crypto.randomUUID() : _uuid();
+}
 
 function _uuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
