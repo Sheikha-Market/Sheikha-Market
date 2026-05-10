@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Sheikha guardian every minute
+
+[Timer]
+OnBootSec=90s
+OnUnitActiveSec=1min
+Unit=sheikha-guardian.service
+
+[Install]
+WantedBy=timers.target
