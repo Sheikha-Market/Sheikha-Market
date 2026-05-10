@@ -44,7 +44,41 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
-require('dotenv').config({ path: require('path').join(__dirname, '.env') });
+// تحميل متدرّج لملفات البيئة: runtime آمن -> محلي -> .env
+// ملاحظة: dotenv لا يستبدل القيم الموجودة مسبقًا في process.env افتراضيًا.
+(() => {
+    try {
+        const fs = require('fs');
+        const path = require('path');
+        const dotenv = require('dotenv');
+
+        const envCandidates = [
+            process.env.SHEIKHA_RUNTIME_ENV_PATH,
+            '/etc/sheikha/runtime.env',
+            path.join(__dirname, '.env.runtime'),
+            path.join(__dirname, '.env.local'),
+            path.join(__dirname, '.env')
+        ].filter(Boolean);
+
+        const loaded = [];
+        for (const envPath of envCandidates) {
+            if (!fs.existsSync(envPath)) continue;
+            // Only override for secure/local files, not for .env template
+            const shouldOverride = !envPath.endsWith('/.env');
+            dotenv.config({ path: envPath, override: shouldOverride });
+            loaded.push(envPath);
+        }
+
+        if (loaded.length > 0) {
+            process.env.SHEIKHA_ENV_SOURCES = loaded.join(',');
+            console.log('🔐 [ENV] تم تحميل البيئة من:', loaded.join(' -> '));
+        } else {
+            console.warn('⚠️ [ENV] لم يتم العثور على ملفات بيئة ضمن المسارات المتوقعة.');
+        }
+    } catch (e) {
+        console.warn('⚠️ [ENV] تعذّر تحميل ملفات البيئة:', e.message);
+    }
+})();
 
 // ╔══════════════════════════════════════════════════════════════╗
 // ║  👑 SDGN — SUPREME DIVINE GOVERNANCE NETWORK — الأعلى       ║
@@ -206,9 +240,7 @@ try {
     console.error('❌ Root Server Neural Network failed:', e);
 }
 
-try {
-    require('dotenv').config();
-} catch (_) {}
+// dotenv تم تحميله مسبقًا عبر سلسلة envCandidates بالأعلى.
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📜 SHEIKHA CHARTER — Runtime Governance Switches
@@ -4274,9 +4306,12 @@ const sanitizeInput = obj => {
 let generalLimiter, authLimiter, aiLimiter;
 if (rateLimit) {
     // حد عام — 500 طلب لكل IP كل 15 دقيقة (مناسب للتصفح + APIs)
+    // health endpoints مستثناة من rate limiting (مطلوبة للـ SRE والمراقبة)
+    const healthSkipPaths = /^\/(api\/)?(health|server\/health|monitor\/health|pilot\/health|sre\/health|governance\/health|network\/health|realtime\/health)/;
     generalLimiter = rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 500,
+        skip: (req) => healthSkipPaths.test(req.path),
         message: { success: false, message: 'تم تجاوز الحد المسموح من الطلبات. حاول بعد قليل.' },
         standardHeaders: true,
         legacyHeaders: false
