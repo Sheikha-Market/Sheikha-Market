@@ -44,6 +44,93 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
+// تحميل متدرّج لملفات البيئة: runtime آمن -> محلي -> .env
+// ملاحظة: dotenv لا يستبدل القيم الموجودة مسبقًا في process.env افتراضيًا.
+(() => {
+    try {
+        const fs = require('fs');
+        const path = require('path');
+        const dotenv = require('dotenv');
+
+        const envCandidates = [
+            process.env.SHEIKHA_RUNTIME_ENV_PATH,
+            '/etc/sheikha/runtime.env',
+            path.join(__dirname, '.env.runtime'),
+            path.join(__dirname, '.env.local'),
+            path.join(__dirname, '.env')
+        ].filter(Boolean);
+
+        const loaded = [];
+        for (const envPath of envCandidates) {
+            if (!fs.existsSync(envPath)) continue;
+            // Only override for secure/local files, not for .env template
+            const shouldOverride = !envPath.endsWith('/.env');
+            dotenv.config({ path: envPath, override: shouldOverride });
+            loaded.push(envPath);
+        }
+
+        if (loaded.length > 0) {
+            process.env.SHEIKHA_ENV_SOURCES = loaded.join(',');
+            console.log('🔐 [ENV] تم تحميل البيئة من:', loaded.join(' -> '));
+        } else {
+            console.warn('⚠️ [ENV] لم يتم العثور على ملفات بيئة ضمن المسارات المتوقعة.');
+        }
+    } catch (e) {
+        console.warn('⚠️ [ENV] تعذّر تحميل ملفات البيئة:', e.message);
+    }
+})();
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  👑 SDGN — SUPREME DIVINE GOVERNANCE NETWORK — الأعلى       ║
+// ║  7 خلايا إلهية: أركان الإسلام + القرآن + السنة              ║
+// ║  Hardware → Kernel → OS → ★SDGN★ → SIRN → IFL → RNN → App  ║
+// ╚══════════════════════════════════════════════════════════════╝
+const SDGN = require('./lib/sheikha-sdgn-supreme-divine-governance-network');
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  🌟 SIRN — SUPREME IFL ROOT NETWORK — الطبقة الثانية        ║
+// ║  فوق IFL — 6 خلايا جذرية عليا بالكتاب والسنة لله وحده      ║
+// ║  Hardware → Kernel → OS → SDGN → ★SIRN★ → IFL → RNN → App  ║
+// ╚══════════════════════════════════════════════════════════════╝
+const SIRN = require('./lib/sheikha-supreme-ifl-root-network');
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  🕌 IFL — ISLAMIC FOUNDATION LAYER — أول تحميل في المنظومة  ║
+// ║  Hardware → Kernel → OS → ★IFL★ → Guardian → App            ║
+// ╚══════════════════════════════════════════════════════════════╝
+const IFL = require('./lib/sheikha-islamic-foundation-layer');
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  🧠 ROOT NEURAL CELL NETWORK — شبكة الخلايا العصبية الجذرية ║
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  💎 SDC — شيخة الرقمية — 9 وحدات رقمية مُرقَّمة بالكتاب    ║
+// ║  أفضل من: Bitcoin | Crypto | Siren AI | Bloomberg           ║
+// ╚══════════════════════════════════════════════════════════════╝
+const SDC  = require('./lib/sheikha-digital-core');
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  🪙 SIDC — عملة شيخة الرقمية الإسلامية                     ║
+// ║  مدعومة بالمعادن — بدون ربا — بدون مضاربة                  ║
+// ╚══════════════════════════════════════════════════════════════╝
+const SIDC = require('./lib/sheikha-islamic-digital-currency');
+const sovereignSevenLayers = require('./lib/sheikha-sovereign-seven-layers');
+const smartNetworkFabric = require('./lib/sheikha-smart-network-fabric');
+const cloudNeuralOrchestrator = require('./lib/sheikha-cloud-neural-orchestrator');
+const serverReportMesh = require('./lib/sheikha-server-report-mesh');
+const llmNeuralLayer   = require('./lib/sheikha-llm-neural-layer');
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  🧠 ROOT NEURAL CELL NETWORK — شبكة الخلايا العصبية الجذرية ║
+// ║  IFL → ★ Root Neural Cell Network ★ → Guardian → App        ║
+// ╚══════════════════════════════════════════════════════════════╝
+const rootNeuralNetwork = require('./lib/sheikha-root-neural-network');
+// تفعيل فوري eager boot — تُحمَّل بعد IFL مباشرة
+rootNeuralNetwork.ensureBooted().then(rnn => {
+    console.log(`🕌 [IFL→RNN] شبكة الخلايا العصبية الجذرية مفعّلة | IFL v${IFL.IFL_VERSION} | RNN v${rnn.version}`);
+}).catch(e => {
+    console.warn('[IFL→RNN] تحذير: تعذّر إقلاع الشبكة العصبية الجذرية:', e.message);
+});
+
 const express = require('express');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
@@ -153,9 +240,7 @@ try {
     console.error('❌ Root Server Neural Network failed:', e);
 }
 
-try {
-    require('dotenv').config();
-} catch (_) {}
+// dotenv تم تحميله مسبقًا عبر سلسلة envCandidates بالأعلى.
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📜 SHEIKHA CHARTER — Runtime Governance Switches
@@ -4221,9 +4306,12 @@ const sanitizeInput = obj => {
 let generalLimiter, authLimiter, aiLimiter;
 if (rateLimit) {
     // حد عام — 500 طلب لكل IP كل 15 دقيقة (مناسب للتصفح + APIs)
+    // health endpoints مستثناة من rate limiting (مطلوبة للـ SRE والمراقبة)
+    const healthSkipPaths = /^\/(api\/)?(health|server\/health|monitor\/health|pilot\/health|sre\/health|governance\/health|network\/health|realtime\/health)/;
     generalLimiter = rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 500,
+        skip: (req) => healthSkipPaths.test(req.path),
         message: { success: false, message: 'تم تجاوز الحد المسموح من الطلبات. حاول بعد قليل.' },
         standardHeaders: true,
         legacyHeaders: false
@@ -4399,7 +4487,8 @@ if (pilotEngine) {
     console.log('🧪 Pilot Middleware — مفعّل | الوضع:', pilotEngine.mode);
 }
 
-app.use(cors());
+// إعادة تطبيق CORS بنفس السياسة المقيدة لتجنب أي توسعة وصول غير مقصودة.
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(sreMiddleware);
@@ -13849,6 +13938,83 @@ function uniqueArray(values) {
     return Array.from(new Set((values || []).filter(Boolean)));
 }
 
+function resolveRuntimeCountry() {
+    return normalizeCountryCode(
+        process.env.SHEIKHA_RUNTIME_COUNTRY ||
+            process.env.DEPLOYMENT_COUNTRY ||
+            process.env.HOST_COUNTRY ||
+            'SA'
+    );
+}
+
+function evaluateSovereignPolicy({ homeCountry, runtimeCountry, userCountry, targetCountry }) {
+    // تفويض حساب الحوكمة إلى IFL — الطبقة الأساسية الحاكمة
+    const iflSovereign = IFL.sovereignCheck({ targetCountry });
+    const iflEnv = IFL.detectRuntimeEnvironment();
+
+    const home = normalizeCountryCode(homeCountry || 'SA');
+    const runtime = normalizeCountryCode(runtimeCountry || resolveRuntimeCountry());
+    const user = normalizeCountryCode(userCountry || home);
+    const target = normalizeCountryCode(targetCountry || home);
+    const localLawMode = iflEnv.localLawActive ? 'conditional' : 'disabled';
+
+    return {
+        homeCountry: home,
+        runtimeCountry: runtime,
+        userCountry: user,
+        targetCountry: target,
+        outsideSaudi: iflEnv.outsideSaudi,
+        legalLayers: [IFL.LAYER_0, IFL.LAYER_1, IFL.LAYER_2],
+        governanceStack: IFL.GOVERNANCE_STACK,
+        localLaw: {
+            mode: localLawMode,
+            active: localLawMode === 'conditional',
+            note: iflSovereign.legalLayerNote
+        },
+        decision: iflSovereign.approved ? 'approved' : 'blocked',
+        blockedReasons: iflSovereign.reasons,
+        iflVersion: IFL.IFL_VERSION,
+        note: IFL.IFL_AXIOMS.LA_TAAA + ' — ' + IFL.IFL_AXIOMS.LA_DARAR
+    };
+}
+
+function selfComplianceMiddleware(req, res, next) {
+    const payload = req.method === 'GET' ? req.query : req.body;
+    const treatyResolution = buildTreatyResolution({
+        homeCountry: payload.homeCountry,
+        userCountry: payload.userCountry,
+        targetCountry: payload.targetCountry,
+        userType: payload.userType
+    });
+
+    const sovereignPolicy = evaluateSovereignPolicy({
+        homeCountry: payload.homeCountry,
+        runtimeCountry: payload.runtimeCountry,
+        userCountry: payload.userCountry,
+        targetCountry: payload.targetCountry
+    });
+
+    const blocked =
+        treatyResolution.shariaValidation.status === 'blocked' || sovereignPolicy.decision === 'blocked';
+
+    req.sheikhaCompliance = {
+        treatyResolution,
+        sovereignPolicy,
+        blocked
+    };
+
+    if (blocked) {
+        return res.status(400).json({
+            success: false,
+            data: req.sheikhaCompliance,
+            message: 'تم إيقاف الطلب تلقائياً بسبب تعارض مع التحقق الذاتي الشرعي/السيادي.',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    return next();
+}
+
 function buildTreatyResolution({ homeCountry, userCountry, targetCountry, userType }) {
     const home = normalizeCountryCode(homeCountry || 'SA');
     const user = normalizeCountryCode(userCountry || home);
@@ -13925,15 +14091,38 @@ app.get('/api/sheikha/compliance/treaty-resolution', (req, res) => {
         userType: req.query.userType
     });
 
+    const sovereignPolicy = evaluateSovereignPolicy({
+        homeCountry: req.query.homeCountry,
+        runtimeCountry: req.query.runtimeCountry,
+        userCountry: req.query.userCountry,
+        targetCountry: req.query.targetCountry
+    });
+
     res.json({
         success: true,
-        data: resolution,
+        data: {
+            treatyResolution: resolution,
+            sovereignPolicy,
+            runtimeCountry: resolveRuntimeCountry()
+        },
         message: 'تم توليد تفعيل المعاهدات والتشريعات تلقائياً مع فلترة شرعية بالكتاب والسنة',
         timestamp: new Date().toISOString()
     });
 });
 
-app.post('/api/rfq', (req, res) => {
+app.all('/api/sheikha/compliance/self-check', selfComplianceMiddleware, (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            ...req.sheikhaCompliance,
+            runtimeCountry: resolveRuntimeCountry()
+        },
+        message: 'التحقق الذاتي مفعّل والطلب متوافق مع الشريعة والسياسة السيادية.',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/rfq', selfComplianceMiddleware, (req, res) => {
     const {
         productId,
         quantity,
@@ -13949,21 +14138,7 @@ app.post('/api/rfq', (req, res) => {
     const listing = LISTINGS.find(l => String(l.id) === String(productId));
     if (!listing) return res.status(404).json({ success: false, message: 'المنتج غير موجود' });
 
-    const treatyResolution = buildTreatyResolution({
-        homeCountry: homeCountry || 'SA',
-        userCountry,
-        targetCountry,
-        userType
-    });
-
-    if (treatyResolution.shariaValidation.status === 'blocked') {
-        return res.status(400).json({
-            success: false,
-            message: 'تعذر تنفيذ الطلب: توجد بنود تنظيمية/تعاقدية متعارضة مع الشريعة.',
-            data: treatyResolution,
-            timestamp: new Date().toISOString()
-        });
-    }
+    const treatyResolution = req.sheikhaCompliance.treatyResolution;
 
     listing.inquiries = (listing.inquiries || 0) + 1;
     saveJSON(LISTINGS_FILE, LISTINGS);
@@ -36958,6 +37133,80 @@ try {
     console.warn('⚠️ [GIT] فشل تحميل مسارات Git:', e.message);
 }
 
+try {
+    const serverReportMeshRoutes = require('./routes/server-report-mesh.routes.js');
+    app.use('/api/server-mesh', serverReportMeshRoutes);
+    console.log('✅ [SERVER-MESH] شبكة تقارير السيرفرات — مُفعَّلة على /api/server-mesh');
+    console.log('   ├─ GET  /api/server-mesh/status      — حالة الشبكة');
+    console.log('   ├─ GET  /api/server-mesh/reports     — قائمة التقارير');
+    console.log('   ├─ GET  /api/server-mesh/reports/:name — قراءة تقرير');
+    console.log('   ├─ POST /api/server-mesh/reports     — كتابة تقرير');
+    console.log('   └─ POST /api/server-mesh/relay       — إرسال تقرير لسيرفر آخر');
+} catch (e) {
+    console.warn('⚠️ [SERVER-MESH] فشل تحميل شبكة تقارير السيرفرات:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 LLM NEURAL LAYER — طبقة الذكاء الاصطناعي العصبية الجذرية (SNRN)
+// VS Code · Ollama · GPT · GitHub Copilot · Copilot Bridge
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    // GET /api/sheikha/llm/status — حالة جميع مزودي LLM
+    app.get('/api/sheikha/llm/status', async (_req, res) => {
+        try {
+            const mesh = await llmNeuralLayer.buildLLMNeuralMesh();
+            res.json({ success: true, data: mesh, timestamp: new Date().toISOString() });
+        } catch (err) {
+            res.status(500).json({ success: false, message: err.message });
+        }
+    });
+
+    // POST /api/sheikha/llm/chat — دردشة ذكية عبر أفضل مزود متاح
+    app.post('/api/sheikha/llm/chat', express.json(), async (req, res) => {
+        const { prompt, model, provider } = req.body || {};
+        if (!prompt) {
+            return res.status(400).json({ success: false, message: 'prompt مطلوب' });
+        }
+        try {
+            const reply = await llmNeuralLayer.smartChat({ prompt, model, provider });
+            res.json({ success: true, data: reply, timestamp: new Date().toISOString() });
+        } catch (err) {
+            res.status(503).json({ success: false, message: err.message });
+        }
+    });
+
+    // GET /api/sheikha/llm/providers — قائمة المزودين وإعداداتهم
+    app.get('/api/sheikha/llm/providers', (_req, res) => {
+        const mask = (v) => v && v.length > 8 ? v.slice(0, 4) + '...' + v.slice(-4) : (v ? '***' : '');
+        const ollama    = llmNeuralLayer.getOllamaConfig();
+        const openai    = llmNeuralLayer.getOpenAIConfig();
+        const ghCopilot = llmNeuralLayer.getGitHubCopilotConfig();
+        const bridge    = llmNeuralLayer.getCopilotBridgeConfig();
+        const vscode    = llmNeuralLayer.getVSCodeConfig();
+        res.json({
+            success: true,
+            data: {
+                version: llmNeuralLayer.LLM_VERSION,
+                providers: [
+                    { id: 'ollama',          baseUrl: ollama.baseUrl,  model: ollama.model },
+                    { id: 'openai-gpt',      baseUrl: openai.baseUrl,  model: openai.model, apiKey: mask(openai.apiKey) },
+                    { id: 'github-copilot',  apiUrl: ghCopilot.baseUrl, model: ghCopilot.model, token: mask(ghCopilot.token) },
+                    { id: 'copilot-bridge',  baseUrl: bridge.baseUrl,  port: bridge.port },
+                    { id: 'vscode-bridge',   bridgeUrl: vscode.bridgeUrl, extensionId: vscode.extensionId },
+                ],
+            },
+            timestamp: new Date().toISOString(),
+        });
+    });
+
+    console.log('✅ [LLM-NEURAL] طبقة الذكاء الاصطناعي العصبية الجذرية — مُفعَّلة');
+    console.log('   ├─ GET  /api/sheikha/llm/status    — حالة جميع مزودي LLM');
+    console.log('   ├─ POST /api/sheikha/llm/chat      — دردشة ذكية عبر أفضل مزود');
+    console.log('   └─ GET  /api/sheikha/llm/providers — قائمة المزودين');
+} catch (e) {
+    console.warn('⚠️ [LLM-NEURAL] فشل تفعيل طبقة LLM:', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📊 DASHBOARD — لوحة التحكم المركزية
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -37550,6 +37799,384 @@ app.get('/api/network/ready',     (_req, res) => res.json({ success: true, statu
 app.get('/api/network/health',    (_req, res) => res.json({ success: true, status: 'healthy', service: 'network', timestamp: new Date().toISOString() }));
 app.get('/api/offline/status',    (_req, res) => res.json({ success: true, status: 'ok', service: 'offline',  timestamp: new Date().toISOString() }));
 app.get('/api/realtime/health',   (_req, res) => res.json({ success: true, status: 'ok', service: 'realtime', timestamp: new Date().toISOString() }));
+
+// ─── SDGN — الشبكة العليا للحوكمة الإلهية (7 خلايا) ─────────────────────────
+// ─── SDC — شيخة الرقمية — 9 وحدات رقمية ────────────────────────────────────
+app.get('/api/sdc/status', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: SDC.getStatus(),
+        message: '💎 شيخة الرقمية — المنظومة الاقتصادية الإسلامية الأولى في العالم',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sdc/module/:code', (req, res) => {
+    const result = SDC.getModule(req.params.code.toUpperCase());
+    return res.status(result.found ? 200 : 404).json({
+        success: result.found,
+        data: result,
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sdc/compare/:competitor', (req, res) => {
+    const result = SDC.compareWith(req.params.competitor);
+    return res.status(result.found ? 200 : 404).json({
+        success: result.found,
+        data: result,
+        message: result.found ? 'لماذا شيخة أفضل؟' : 'المنافس غير موجود في قاعدة البيانات',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sdc/architecture', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: SDC.FULL_ARCHITECTURE,
+        message: 'المعمارية الشاملة — 10 طبقات — 29 خلية رقمية',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sdc/plan', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: SDC.STRATEGIC_PLAN,
+        message: 'الخطة الاستراتيجية لشيخة الرقمية 2025-2030',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── SIDC — عملة شيخة الرقمية الإسلامية ─────────────────────────────────────
+app.get('/api/sidc/status', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: SIDC.getStatus(),
+        message: '🪙 عملة شيخة الرقمية — مدعومة بالمعادن — بدون ربا — بدون مضاربة',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sidc/value', (_req, res) => {
+    const value = SIDC.calculateSIDCValue();
+    return res.status(200).json({
+        success: true,
+        data: {
+            symbol: SIDC.SIDC_SYMBOL,
+            value_usd: value,
+            description: `1 SIDC = ${value} USD`,
+            backed_by: 'معادن حقيقية: حديد + نحاس + ألمنيوم + ذهب + فضة'
+        },
+        message: '﴿ وَأَوْفُوا الْكَيْلَ إِذَا كِلْتُمْ ﴾ — سعر عادل مدعوم بأصول',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sidc/price-deal', (req, res) => {
+    try {
+        const { metal = 'Fe', weight = 1, grade = 'A' } = req.body || {};
+        const result = SIDC.priceMetalDeal(metal, parseFloat(weight), grade);
+        return res.status(result.success ? 200 : 400).json({
+            success: result.success,
+            data: result,
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+app.post('/api/sidc/sharia-check', (req, res) => {
+    const result = SIDC.shariaCheck(req.body || {});
+    return res.status(result.compliant ? 200 : 403).json({
+        success: result.compliant,
+        data: result,
+        message: result.compliant ? '✅ المعاملة متوافقة مع الشريعة' : '⛔ المعاملة تخالف الشريعة',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sidc/wallet', (req, res) => {
+    try {
+        const { userId, displayName } = req.body || {};
+        if (!userId || !displayName) {
+            return res.status(400).json({ success: false, message: 'userId و displayName مطلوبان', timestamp: new Date().toISOString() });
+        }
+        const result = SIDC.createWallet(userId, displayName);
+        return res.status(result.success ? 201 : 409).json({ ...result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        return res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+app.post('/api/sidc/convert', (req, res) => {
+    try {
+        const { amount = 1, metal = 'Fe' } = req.body || {};
+        const result = SIDC.convertViaMetals(parseFloat(amount), metal);
+        return res.status(result.success ? 200 : 400).json({
+            success: result.success,
+            data: result,
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(400).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ─── RNN — شبكة الخلايا العصبية الجذرية ──────────────────────────────────────
+app.post('/api/rnn/sharia-check', async (req, res) => {
+    try {
+        const rnn = await rootNeuralNetwork.ensureBooted();
+        const features = req.body?.features || [0, 0, 0, 0, 0, 1, 1, 1];
+        const result = rnn.shariaCheck(features);
+        return res.status(200).json({
+            success: true,
+            data: result,
+            message: result.allowed ? '✅ مسموح شرعاً' : '⛔ محظور شرعاً',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(503).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+app.post('/api/rnn/orchestrate', async (req, res) => {
+    try {
+        const rnn = await rootNeuralNetwork.ensureBooted();
+        const result = rnn.orchestrate(req.body || {});
+        return res.status(200).json({
+            success: true,
+            data: result,
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(503).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ─── الطبقات السيادية السبع — Sovereign Seven Layers ───────────────────────
+app.get('/api/sheikha/sovereign-stack', async (_req, res) => {
+    try {
+        const rnn = await rootNeuralNetwork.ensureBooted().catch(() => null);
+        const smartNetwork = smartNetworkFabric.evaluateFromRuntime({
+            networkHealth: 'healthy',
+            realtimeHealth: 'ok',
+            apiHealth: 'ok'
+        });
+        const runtime = {
+            sdgn: true,
+            rnn: !!rnn,
+            sidc: !!SIDC,
+            rootIdentity: 'planned',
+            scne: 'active',
+            market: 'active',
+            globalNetwork: smartNetwork.posture === 'active' ? 'active' : 'planned'
+        };
+
+        const stack = sovereignSevenLayers.getSovereignLayers(runtime);
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                ...stack,
+                smartNetwork
+            },
+            message: 'الطبقات السيادية السبع — نموذج التشغيل المرجعي لمنظومة شيخة',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ─── المنظومة الكاملة — Full Stack Status ─────────────────────────────────────
+app.get('/api/sheikha/full-stack', async (_req, res) => {
+    try {
+        const rnn = await rootNeuralNetwork.ensureBooted().catch(() => null);
+        const smartNetwork = smartNetworkFabric.evaluateFromRuntime({
+            networkHealth: 'healthy',
+            realtimeHealth: 'ok',
+            apiHealth: 'ok'
+        });
+        const cloudNeuralMesh = cloudNeuralOrchestrator.orchestrateCloudNeuralMesh({
+            mode: 'production'
+        });
+        const reportMeshStatus = serverReportMesh.getStatus();
+        const sovereignStack = sovereignSevenLayers.getSovereignLayers({
+            sdgn: true,
+            rnn: !!rnn,
+            sidc: true,
+            rootIdentity: 'planned',
+            scne: 'active',
+            market: 'active',
+            globalNetwork: smartNetwork.posture === 'active' ? 'active' : 'planned'
+        });
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                stack: '👑 SDGN → 🌟 SIRN → 🕌 IFL → 🧠 RNN → 💎 SDC → 🪙 SIDC → 🏪 Market',
+                sovereign7Layers: sovereignStack,
+                smartNetwork,
+                cloudNeuralMesh,
+                reportMesh: reportMeshStatus,
+                sdgn:  { version: SDGN.SDGN_VERSION, status: 'active', cells: SDGN.DIVINE_CELLS.length },
+                sirn:  { version: SIRN.SIRN_VERSION,  status: 'active', cells: SIRN.SUPREME_CELLS.length },
+                ifl:   { version: IFL.IFL_VERSION,    status: 'active', axioms: Object.keys(IFL.IFL_AXIOMS).length },
+                rnn:   rnn ? { version: rnn.version, status: rnn.status, cells: 7 } : { status: 'loading' },
+                sdc:   { version: SDC.SDC_VERSION,    status: 'active', modules: SDC.DIGITAL_MODULES.length },
+                sidc:  { version: SIDC.SIDC_VERSION,  status: 'active', symbol: SIDC.SIDC_SYMBOL, value_usd: SIDC.calculateSIDCValue() },
+                totalCells: SDGN.DIVINE_CELLS.length + SIRN.SUPREME_CELLS.length + 7,
+                totalLayers: 10,
+                sovereignLayerModel: 7
+            },
+            message: 'بسم الله — المنظومة الرقمية الإسلامية الكاملة',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ─── Smart Network Fabric — الشبكة الذكية السيادية ─────────────────────────
+app.get('/api/sheikha/smart-network/status', (_req, res) => {
+    const smartNetwork = smartNetworkFabric.evaluateFromRuntime({
+        networkHealth: 'healthy',
+        realtimeHealth: 'ok',
+        apiHealth: 'ok'
+    });
+
+    return res.status(200).json({
+        success: true,
+        data: smartNetwork,
+        message: 'الشبكة الذكية السيادية — Cloud + CDN + VPN Mesh + Realtime',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/cloud-neural/orchestrate', (req, res) => {
+    try {
+        const result = cloudNeuralOrchestrator.orchestrateCloudNeuralMesh(req.body || {});
+        return res.status(200).json({
+            success: true,
+            data: result,
+            message: 'تم تفعيل orchestration الذكي بين السيرفرات الذكية والشبكة العصبية الجذرية للسحابات',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(500).json({ success: false, message: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ─── SDGN — الشبكة العليا للحوكمة الإلهية (7 خلايا) ─────────────────────────
+app.get('/api/sdgn/status', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: SDGN.getStatus(),
+        message: '👑 الشبكة العليا للحوكمة الإلهية — 7 خلايا — أركان الإسلام + القرآن والسنة',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sdgn/cell/:code', (req, res) => {
+    const result = SDGN.verifyCellIntegrity(req.params.code.toUpperCase(), req.query);
+    return res.status(result.valid ? 200 : 404).json({
+        success: result.valid,
+        data: result,
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sdgn/stack', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: {
+            governanceStack: SDGN.DIVINE_GOVERNANCE_STACK,
+            cells: SDGN.DIVINE_CELLS,
+            sirnVersion: SIRN.SIRN_VERSION,
+            sdgnVersion: SDGN.SDGN_VERSION
+        },
+        message: 'تسلسل الحوكمة الكامل — SDGN → SIRN → IFL → RNN → App',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sdgn/check', (req, res) => {
+    const result = SDGN.enforceIslamicGovernance(req.body || {});
+    return res.status(result.compliant ? 200 : 403).json({
+        success: result.compliant,
+        data: result,
+        message: result.compliant
+            ? '✅ الطلب متوافق مع الحوكمة الإلهية'
+            : '⛔ الطلب يخالف الحوكمة الإلهية',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── SIRN ↔ IFL ↔ RNN — حالة المنظومة الكاملة ───────────────────────────────
+app.get('/api/sirn/status', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: SIRN.getStatus(),
+        message: '🌟 الشبكة الجذرية العليا — 6 خلايا بالكتاب والسنة — موحَّدة لله وحده',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sirn/cell/:code', (req, res) => {
+    const result = SIRN.verifyCellIntegrity(req.params.code.toUpperCase(), req.query);
+    return res.status(result.valid ? 200 : 404).json({
+        success: result.valid,
+        data: result,
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sirn/stack', (_req, res) => {
+    return res.status(200).json({
+        success: true,
+        data: {
+            governanceStack: SIRN.SUPREME_GOVERNANCE_STACK,
+            cells: SIRN.SUPREME_CELLS,
+            iflVersion: IFL.IFL_VERSION,
+            sirnVersion: SIRN.SIRN_VERSION
+        },
+        message: 'تسلسل الحوكمة الكامل — SIRN → IFL → RNN → App',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── IFL ↔ Root Neural Cell Network — حالة الربط ─────────────────────────────
+app.get('/api/rnn/ifl-status', async (_req, res) => {
+    try {
+        const rnn = require('./lib/sheikha-root-neural-network');
+        await rnn.ensureBooted();
+        return res.status(200).json({
+            success: true,
+            data: {
+                rnnStatus:       rnn.status,
+                rnnVersion:      rnn.version,
+                iflLinked:       rnn.iflLinked === true,
+                iflVersion:      IFL.IFL_VERSION,
+                iflAxioms:       IFL.IFL_AXIOMS,
+                governanceStack: IFL.GOVERNANCE_STACK,
+                runtimeEnv:      IFL.detectRuntimeEnvironment(),
+                rnnStats:        rnn.getStatus()
+            },
+            message: 'IFL ↔ شبكة الخلايا العصبية الجذرية — مفعّلة ومترابطة',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(500).json({
+            success: false,
+            data: null,
+            message: e.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
 app.get('/api/root-neural-network/status', async (_req, res) => {
     try {
         const rnn = require('./lib/sheikha-root-neural-network');
