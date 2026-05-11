@@ -20,6 +20,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const UNIFIED_PRINCIPLE = 'لا إله إلا الله';
 
 // ─── تحميل محرك البكسل الذكي ─────────────────────────────────────────────────
 let pixelEcosystem;
@@ -30,6 +31,106 @@ try {
     console.log('⚠️ [PIXEL-SYSTEM] فشل تحميل المحرك:', e.message);
     pixelEcosystem = null;
 }
+
+const RIBA_ROUTE_GUARD = /\b(riba|ribawi|usury|usurious|interest|interest[-\s]?based|interest[-\s]?bearing|compound\s+interest|apr)\b|(ربا|ربوي|ربوية|قرض\s*بفائدة|فائدة\s*(بنكية|ثابتة|مركبة|سنوية)|فوائد\s*ربوية)/i;
+
+function _normalizePolicyText(input) {
+    return String(input || '')
+        .toLowerCase()
+        .replace(/[\u064B-\u065F\u0670]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function _extractPayloadText(req) {
+    if (!req.body) return '';
+    if (req.path === '/process') return _normalizePolicyText(req.body.payload);
+    if (req.path === '/analyze') return _normalizePolicyText(req.body.data ? JSON.stringify(req.body.data) : '');
+    return _normalizePolicyText(JSON.stringify(req.body));
+}
+
+function _isRibaViolation(result) {
+    return Array.isArray(result?.violations) && result.violations.some(v => v?.key === 'riba');
+}
+
+function _rejectRiba(res, source) {
+    return res.status(403).json({
+        success: false,
+        error: 'SHARIAH_BLOCK_RIBA',
+        message: 'الربا محرم وغير مسموح — تم رفض الطلب',
+        source,
+        principle: 'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة:275',
+        timestamp: new Date().toISOString()
+    });
+}
+
+// تكامل أفضل بين المسارات: حارس موحّد قبل /process و /analyze
+router.use((req, res, next) => {
+    if (req.method !== 'POST') return next();
+    if (req.path !== '/process' && req.path !== '/analyze') return next();
+
+    const text = _extractPayloadText(req);
+    if (RIBA_ROUTE_GUARD.test(text)) {
+        return _rejectRiba(res, 'pixel-route-guard');
+    }
+    return next();
+});
+
+// ─── GET /unified/status ───────────────────────────────────────────────────────
+router.get('/unified/status', (_req, res) => {
+    res.json({
+        success: true,
+        principle: UNIFIED_PRINCIPLE,
+        governance: 'وحدة المسارات تحت الحوكمة الشرعية',
+        routes: {
+            status: '/api/pixel-system/status',
+            stats: '/api/pixel-system/stats',
+            process: '/api/pixel-system/process',
+            analyze: '/api/pixel-system/analyze',
+            unifiedCheck: '/api/pixel-system/unified/check'
+        },
+        protections: ['pixel-route-guard', 'pixel-ecosystem-riba-check', 'sovereign-no-harm-shield'],
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── POST /unified/check ───────────────────────────────────────────────────────
+router.post('/unified/check', (req, res) => {
+    if (!pixelCheck(res)) return;
+    const mode = String(req.body?.mode || 'analyze').toLowerCase();
+    try {
+        let result;
+        if (mode === 'process') {
+            const payload = req.body?.payload;
+            if (payload === undefined || payload === null) {
+                return res.status(400).json({ success: false, message: 'payload مطلوب عند mode=process', timestamp: new Date().toISOString() });
+            }
+            const text = _normalizePolicyText(payload);
+            if (RIBA_ROUTE_GUARD.test(text)) return _rejectRiba(res, 'pixel-unified-guard');
+            result = pixelEcosystem.process(payload);
+            if (_isRibaViolation(result)) return _rejectRiba(res, 'pixel-unified-process');
+        } else {
+            const data = req.body?.data;
+            if (data === undefined || data === null) {
+                return res.status(400).json({ success: false, message: 'data مطلوب عند mode=analyze', timestamp: new Date().toISOString() });
+            }
+            const text = _normalizePolicyText(JSON.stringify(data));
+            if (RIBA_ROUTE_GUARD.test(text)) return _rejectRiba(res, 'pixel-unified-guard');
+            result = pixelEcosystem.analyze(data);
+            if (_isRibaViolation(result)) return _rejectRiba(res, 'pixel-unified-analyze');
+        }
+
+        return res.json({
+            success: true,
+            principle: UNIFIED_PRINCIPLE,
+            mode,
+            data: result,
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(500).json({ success: false, error: e.message, timestamp: new Date().toISOString() });
+    }
+});
 
 // ─── مساعد التحقق من التوفر ──────────────────────────────────────────────────
 function pixelCheck(res) {
@@ -129,15 +230,7 @@ router.post('/process', (req, res) => {
             });
         }
         const result = pixelEcosystem.process(payload);
-        if (Array.isArray(result.violations) && result.violations.some(v => v.key === 'riba')) {
-            return res.status(403).json({
-                success: false,
-                error: 'SHARIAH_BLOCK_RIBA',
-                message: 'الربا محرم وغير مسموح — تم رفض الطلب',
-                principle: 'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة:275',
-                timestamp: new Date().toISOString()
-            });
-        }
+        if (_isRibaViolation(result)) return _rejectRiba(res, 'pixel-ecosystem-process');
         res.json({
             success:   true,
             bismillah: 'بسم الله الرحمن الرحيم',
@@ -166,15 +259,7 @@ router.post('/analyze', (req, res) => {
             });
         }
         const result = pixelEcosystem.analyze(data);
-        if (Array.isArray(result.violations) && result.violations.some(v => v.key === 'riba')) {
-            return res.status(403).json({
-                success: false,
-                error: 'SHARIAH_BLOCK_RIBA',
-                message: 'الربا محرم وغير مسموح — تم رفض الطلب',
-                principle: 'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة:275',
-                timestamp: new Date().toISOString()
-            });
-        }
+        if (_isRibaViolation(result)) return _rejectRiba(res, 'pixel-ecosystem-analyze');
         res.json({
             success:   true,
             bismillah: 'بسم الله الرحمن الرحيم',
