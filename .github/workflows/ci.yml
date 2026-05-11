@@ -69,6 +69,19 @@ jobs:
           node --check tests/integration.test.js && echo "✅ tests/integration.test.js"
           node --check scripts/seed-market-data.js && echo "✅ scripts/seed-market-data.js"
 
+      - name: 🐧 Verify Sheikha Ubuntu Upper Layer
+        run: |
+          node -e "
+            const upper = require('./core/sheikha-ubuntu-upper-layer');
+            upper.init();
+            const upperStatus = upper.status();
+            const min = Number(upperStatus.rootNeuralLayer?.minRequiredCells || upper.MIN_REQUIRED_ROOT_CELLS);
+            console.log('✅ Ubuntu base ready:', upperStatus.baseLayer.ready);
+            console.log('✅ Root neural cells:', upperStatus.rootNeuralLayer.totalCells);
+            console.log('✅ Min required root cells:', min);
+            if (!upperStatus.integrationReady || upperStatus.rootNeuralLayer.totalCells < min) process.exit(1);
+          "
+
   mvp-smoke:
     name: 🚀 MVP Smoke Test
     runs-on: ubuntu-latest
@@ -210,4 +223,3 @@ jobs:
           tags: sheikha-main-portal:ci-test
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
