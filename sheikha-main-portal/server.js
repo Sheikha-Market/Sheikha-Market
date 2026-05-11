@@ -37894,6 +37894,45 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏪 SHEIKHA MARKET MVP — نواة السوق الكاملة
+// كتالوج المنتجات + إدارة الطلبات + الموردون + التحليلات
+// المرحلة 2: نواة السوق | المرحلة 3: التحليلات الذكية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const catalogRoutes   = require('./routes/products.js');
+    const ordersRoutes    = require('./routes/orders.js');
+    const suppliersRoutes = require('./routes/suppliers.js');
+    const mktAnalytics    = require('./routes/analytics.js');
+
+    // كتالوج المنتجات المتكامل (نظام جديد مستقل عن LISTINGS القديم)
+    app.use('/api/catalog', catalogRoutes);
+
+    // إدارة الطلبات الكاملة (حالات، تتبع، إحصائيات)
+    app.use('/api/market-orders', ordersRoutes);
+
+    // إدارة الموردين (تسجيل، تحقق، تقييم)
+    app.use('/api/suppliers', suppliersRoutes);
+
+    // التحليلات ومؤشرات الأداء الحقيقية
+    app.use('/api/market-analytics', mktAnalytics);
+
+    console.log('✅ [MVP] نواة السوق الكاملة — مُفعَّلة');
+    console.log('   ├─ GET  /api/catalog              — كتالوج المنتجات (بحث + فلاتر)');
+    console.log('   ├─ POST /api/catalog              — إضافة منتج');
+    console.log('   ├─ GET  /api/catalog/categories   — التصنيفات');
+    console.log('   ├─ GET  /api/market-orders        — إدارة الطلبات');
+    console.log('   ├─ POST /api/market-orders        — إنشاء طلب');
+    console.log('   ├─ GET  /api/suppliers            — قائمة الموردين');
+    console.log('   ├─ POST /api/suppliers/register   — تسجيل مورد');
+    console.log('   ├─ GET  /api/market-analytics/overview  — إحصائيات شاملة (مشرف)');
+    console.log('   ├─ GET  /api/market-analytics/supplier  — تحليلات المورد');
+    console.log('   ├─ GET  /api/market-analytics/buyer     — تحليلات المشتري');
+    console.log('   └─ GET  /api/market-analytics/market    — مؤشرات السوق العامة');
+} catch (e) {
+    console.warn('⚠️ [MVP] فشل تحميل نواة السوق:', e.message);
+}
+
 // 🛡️ FAILSAFE ROUTES — خط الدفاع الأخير (قبل 404 مباشرة)
 // يضمن استجابة صحيحة حتى لو فشل تحميل أي router أعلاه
 // ═══════════════════════════════════════════════════════════════════════════════

@@ -50,7 +50,11 @@ const config = {
             continuousImprovement: 'continuous-improvement.json', // محرك التحسين المستمر
             // ─── المبايعة الرقمية ────────────────────────────────────────────
             mubayaa:                 'mubayaa.json',                // سجل المبايعات الرقمية
-            mubayaaNeuralWeights:    'mubayaa-neural-weights.json'  // أوزان الشبكة العصبية الجذرية للمبايعة
+            mubayaaNeuralWeights:    'mubayaa-neural-weights.json', // أوزان الشبكة العصبية الجذرية للمبايعة
+            // ─── نواة السوق MVP ────────────────────────────────────────────────
+            products:                'products.json',               // كتالوج المنتجات الكامل
+            market_orders:           'market-orders.json',          // الطلبات والمعاملات التجارية
+            suppliers:               'suppliers.json'               // ملفات الموردين
         }
     },
 
