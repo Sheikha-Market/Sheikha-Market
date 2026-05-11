@@ -97,34 +97,35 @@ const CORE = __dirname;
 
 const _modules = {
     // [١] Root NCN Layer — 92 خلية
-    rootNCNLayer:      _safeLoad(path.join(CORE, 'sheikha-root-ncn-layer'),        'Root NCN Layer'),
+    rootNCNLayer:      _safeLoad(path.join(CORE, 'sheikha-root-ncn-layer')),
     // [٢] Universal Neural Network — 100 خلية × 16 طبقة
-    universalNN:       _safeLoad(path.join(LIB, 'sheikha-universal-neural-network'), 'Universal NN'),
+    universalNN:       _safeLoad(path.join(LIB, 'sheikha-universal-neural-network')),
     // [٣] Root Neural Runtime — 19 خلية جذرية
-    rootRuntime:       _safeLoad(path.join(LIB, 'sheikha-root-neural-runtime'),    'Root Neural Runtime'),
+    rootRuntime:       _safeLoad(path.join(LIB, 'sheikha-root-neural-runtime')),
     // [٤] Unified Integrator — 55 خلية × 11 طبقة
-    unifiedIntegrator: _safeLoad(path.join(CORE, 'neural', 'sheikha-unified-integrator'), 'Unified Integrator'),
+    unifiedIntegrator: _safeLoad(path.join(CORE, 'neural', 'sheikha-unified-integrator')),
     // [٥] Root Neural Cell Network (lib) — جذر شيخة للجذور
-    rootNCN:           _safeLoad(path.join(LIB, 'sheikha-root-neural-cell-network'), 'Root NCN (lib)'),
+    rootNCN:           _safeLoad(path.join(LIB, 'sheikha-root-neural-cell-network')),
     // [٦] Genesis Engine
-    genesis:           _safeLoad(path.join(CORE, 'sheikha-genesis'),               'Genesis Engine'),
+    genesis:           _safeLoad(path.join(CORE, 'sheikha-genesis')),
     // [٧] SNRN — مخ رقمي سيادي
-    snrn:              _safeLoad(path.join(CORE, 'neural-root-network', 'snrn-engine'), 'SNRN'),
+    snrn:              _safeLoad(path.join(CORE, 'neural-root-network', 'snrn-engine')),
     // [٨] Sovereign Root — ECDSA + Shariah
-    sovereignRoot:     _safeLoad(path.join(CORE, 'sovereign-root', 'sheikha-sovereign-root'), 'Sovereign Root'),
+    sovereignRoot:     _safeLoad(path.join(CORE, 'sovereign-root', 'sheikha-sovereign-root')),
     // [٩] Mubayaa Neural Root
-    mubayaaNR:         _safeLoad(path.join(LIB, 'mubayaa-neural-root'),            'Mubayaa Neural Root'),
+    mubayaaNR:         _safeLoad(path.join(LIB, 'mubayaa-neural-root')),
     // [١٠] Cosmic Enablement Engine
-    cosmicEnablement:  _safeLoad(path.join(LIB, 'sheikha-cosmic-enablement-engine'), 'Cosmic Enablement'),
+    cosmicEnablement:  _safeLoad(path.join(LIB, 'sheikha-cosmic-enablement-engine')),
 };
 
 // ══════════════════════════════════════════════════════════════════════════════
 // ── ثوابت الخلايا لكل شبكة ────────────────────────────────────────────────
 // ══════════════════════════════════════════════════════════════════════════════
 
-// عدد خلايا كل شبكة مُحدَّد بتعريفاتها الأصلية داخل وحداتها:
+// عدد خلايا كل شبكة مُحدَّد بتعريفاتها الأصلية داخل وحداتها؛ هذه الثوابت
+// تُستخدم فقط لإحصاءات اللوحة الكونية عند عدم توفر status() للوحدة.
 // UNIFIED_INTEGRATOR_CELL_COUNT = 55 ← مُوثَّق في core/neural/sheikha-unified-integrator.js
-// MUBAYAA_CELL_COUNT            = 8  ← عدد مُدخَلات الشبكة (lib/mubayaa-neural-root.js: inputSize: 8)
+// MUBAYAA_CELL_COUNT            = 8  ← inputSize معرَّف في lib/mubayaa-neural-root.js
 const UNIFIED_INTEGRATOR_CELL_COUNT = 55;
 const MUBAYAA_CELL_COUNT            = 8;
 
