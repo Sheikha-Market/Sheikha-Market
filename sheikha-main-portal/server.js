@@ -35302,25 +35302,84 @@ app.get('/api/sunnah/display-policy', (req, res) => {
     });
 });
 
-// API — ملخص كل شيء يعمل
+// API — ملخص كل شيء يعمل — اللوحة الكونية الشاملة
 app.get('/api/sheikha/status', (req, res) => {
+    let sheikhaNodeStatus = null;
+    try {
+        const nodeLayer = sheikhaRoot && typeof sheikhaRoot.getLayer === 'function'
+            ? sheikhaRoot.getLayer('sheikha-node')
+            : require('./core/sheikha-node-layer');
+        sheikhaNodeStatus = nodeLayer && typeof nodeLayer.status === 'function'
+            ? nodeLayer.status()
+            : null;
+    } catch (_) {}
+
+    const cosmicStats   = sheikhaNodeStatus?.cosmicStats   || {};
+    const neuralNetworks = sheikhaNodeStatus?.neuralNetworks || {};
+    const rncn          = sheikhaNodeStatus?.rootNeuralCellNetwork || {};
+
     res.json({
-        بسم_الله: 'بسم الله الرحمن الرحيم',
-        success: true,
-        name: 'منظومة شيخة — الرقمنة الشاملة بالكتاب والسنة',
-        hadith: 'من حسن إسلام المرء تركه ما لا يعنيه',
-        status: 'كل شيء يعمل بالخلفية',
+        بسم_الله:  'بسم الله الرحمن الرحيم',
+        لا_إله_إلا_الله: 'لا إله إلا الله محمد رسول الله',
+        success:   true,
+        name:      'منظومة شيخة — الرقمنة الشاملة بالكتاب والسنة',
+        rank:      'COSMIC-SUPREME',
+        hadith:    'إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ',
+        quranRef:  '﴿وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ﴾ — الأنفال: ٦٠',
+        status:    'كل شيء يعمل بالخلفية — الأقوى كونياً وعالمياً',
+
+        // إحصاءات الطاقة الكونية
+        cosmicStats,
+
+        // محركات المنظومة
         engines: {
             sunnahGovernance: {
                 active: true,
                 checks: sunnahGovernanceLayer.backgroundGovernance.checks.length
             },
-            customsClearance: { active: !!customsClearanceEngine },
-            ultimatePower: { active: !!powerEngine, powers: powerEngine ? 30 : 0 }
+            customsClearance:  { active: !!customsClearanceEngine },
+            ultimatePower:     { active: !!powerEngine, powers: powerEngine ? 30 : 0 },
+            sheikhaNode: {
+                active:  !!sheikhaNodeStatus?.ready,
+                version: sheikhaNodeStatus?.version || '2.0.0',
+                runtime: sheikhaNodeStatus?.runtimeInfo?.node || process.version,
+                layer:   sheikhaNodeStatus?.layer || 'sheikha-node',
+                rank:    sheikhaNodeStatus?.rank   || 'COSMIC-SUPREME',
+            },
+            rootNeuralCellNetwork: {
+                active:  !!rncn.active,
+                cells:   rncn.cells   || 0,
+                layers:  rncn.layers  || 0,
+                embedDim: rncn.embedDim || 0,
+            },
         },
+
+        // اللوحة الكاملة لطبقة شيخة نود الكونية
+        sheikhaNode:      sheikhaNodeStatus,
+        backgroundServers: sheikhaNodeStatus?.backgroundServers || [],
+
+        // الشبكات العصبية الكونية — كل الشبكات المُفعَّلة
+        neuralNetworks,
+
         displayPolicy: sunnahGovernanceLayer.backgroundGovernance.displayPolicy,
-        timestamp: new Date().toISOString()
+        timestamp:     new Date().toISOString()
     });
+});
+
+// API — النبضة الكونية — تُشغّل كل الشبكات العصبية
+app.post('/api/sheikha/cosmic-pulse', (req, res) => {
+    try {
+        const nodeLayer = sheikhaRoot && typeof sheikhaRoot.getLayer === 'function'
+            ? sheikhaRoot.getLayer('sheikha-node')
+            : require('./core/sheikha-node-layer');
+        if (!nodeLayer || typeof nodeLayer.cosmicPulse !== 'function') {
+            return res.status(503).json({ success: false, message: 'طبقة شيخة نود الكونية غير متاحة' });
+        }
+        const result = nodeLayer.cosmicPulse(req.body || {});
+        res.json({ success: true, bismillah: 'بسم الله الرحمن الرحيم', ...result });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
 });
 
 console.log(

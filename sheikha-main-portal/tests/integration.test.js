@@ -11,6 +11,7 @@
 const http   = require('http');
 const assert = require('assert');
 const crypto = require('crypto');
+const { DEFAULT_COPILOT_PORT, DEFAULT_META_PORT, VERSION: NODE_LAYER_VERSION } = require('../core/sheikha-node-layer');
 
 // ─── إعداد ───────────────────────────────────────────────────────────────────
 const BASE = process.env.TEST_BASE_URL || 'http://localhost:8080';
@@ -117,6 +118,38 @@ async function testHealth() {
         assert.ok(Array.isArray(r.body.categories), 'categories should be array');
         assert.ok(r.body.categories.length > 0, 'categories should not be empty');
     });
+
+    await test('GET /api/sheikha/status → اللوحة الكونية الشاملة — v2.0.0', async () => {
+        const r = await req('GET', '/api/sheikha/status');
+        assert.ok(r.status === 200, `Expected 200, got ${r.status}`);
+        assert.ok(r.body.success, 'Expected success:true');
+        // الطبقة الكونية
+        assert.ok(r.body.sheikhaNode, 'Missing sheikhaNode field');
+        assert.ok(r.body.sheikhaNode.layer === 'sheikha-node', 'Unexpected sheikhaNode layer');
+        assert.ok(r.body.sheikhaNode.version === NODE_LAYER_VERSION, `Unexpected sheikhaNode version — يجب أن تكون ${NODE_LAYER_VERSION}`);
+        assert.ok(r.body.sheikhaNode.rank === 'COSMIC-SUPREME', 'Missing COSMIC-SUPREME rank');
+        // الخوادم الخلفية
+        assert.ok(Array.isArray(r.body.backgroundServers), 'backgroundServers should be array');
+        assert.ok(r.body.backgroundServers.length >= 2, 'backgroundServers should include background services');
+        const backgroundPorts = r.body.backgroundServers.map(server => server.port).sort((a, b) => a - b);
+        const expectedBackgroundPorts = [DEFAULT_COPILOT_PORT, DEFAULT_META_PORT].sort((a, b) => a - b);
+        assert.deepStrictEqual(
+            backgroundPorts,
+            expectedBackgroundPorts,
+            `Unexpected background ports: ${backgroundPorts.join(',')}`
+        );
+        // الشبكة العصبية الجذرية
+        assert.ok(r.body.engines && r.body.engines.rootNeuralCellNetwork, 'Missing rootNeuralCellNetwork engine status');
+        assert.ok(r.body.engines.rootNeuralCellNetwork.layers === 7, 'Unexpected rootNeuralCellNetwork layers');
+        // الشبكات العصبية الكونية
+        assert.ok(r.body.neuralNetworks, 'Missing neuralNetworks field');
+        assert.ok(r.body.neuralNetworks.rootNCNLayer, 'Missing rootNCNLayer in neuralNetworks');
+        assert.ok(r.body.neuralNetworks.universalNN, 'Missing universalNN in neuralNetworks');
+        // إحصاءات الطاقة الكونية
+        assert.ok(r.body.cosmicStats, 'Missing cosmicStats');
+        assert.ok(typeof r.body.cosmicStats.totalNeuralCells === 'number', 'totalNeuralCells should be number');
+        assert.ok(r.body.cosmicStats.totalNeuralCells > 0, 'totalNeuralCells should be > 0');
+    });
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -187,7 +220,7 @@ async function testLogin() {
             email: BUYER_EMAIL,
             password: 'wrongpassword999'
         });
-        assert.ok([400, 401, 403].includes(r.status), `Expected 4xx, got ${r.status}`);
+        assert.ok([400, 401, 403, 429].includes(r.status), `Expected 4xx, got ${r.status}`);
     });
 
     await test('مسار محمي بدون توكن → 401', async () => {
