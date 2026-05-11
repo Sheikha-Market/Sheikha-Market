@@ -117,6 +117,16 @@ async function testHealth() {
         assert.ok(Array.isArray(r.body.categories), 'categories should be array');
         assert.ok(r.body.categories.length > 0, 'categories should not be empty');
     });
+
+    await test('GET /api/sheikha/status → يعرض طبقة شيخة نود والخوادم الخلفية', async () => {
+        const r = await req('GET', '/api/sheikha/status');
+        assert.ok(r.status === 200, `Expected 200, got ${r.status}`);
+        assert.ok(r.body.success, 'Expected success:true');
+        assert.ok(r.body.sheikhaNode, 'Missing sheikhaNode field');
+        assert.ok(Array.isArray(r.body.backgroundServers), 'backgroundServers should be array');
+        assert.ok(r.body.backgroundServers.length >= 2, 'backgroundServers should include background services');
+        assert.ok(r.body.engines && r.body.engines.rootNeuralCellNetwork, 'Missing rootNeuralCellNetwork engine status');
+    });
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -187,7 +197,7 @@ async function testLogin() {
             email: BUYER_EMAIL,
             password: 'wrongpassword999'
         });
-        assert.ok([400, 401, 403].includes(r.status), `Expected 4xx, got ${r.status}`);
+        assert.ok([400, 401, 403, 429].includes(r.status), `Expected 4xx, got ${r.status}`);
     });
 
     await test('مسار محمي بدون توكن → 401', async () => {

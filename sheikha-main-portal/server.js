@@ -35304,6 +35304,16 @@ app.get('/api/sunnah/display-policy', (req, res) => {
 
 // API — ملخص كل شيء يعمل
 app.get('/api/sheikha/status', (req, res) => {
+    let sheikhaNodeStatus = null;
+    try {
+        const nodeLayer = sheikhaRoot && typeof sheikhaRoot.getLayer === 'function'
+            ? sheikhaRoot.getLayer('sheikha-node')
+            : require('./core/sheikha-node-layer');
+        sheikhaNodeStatus = nodeLayer && typeof nodeLayer.status === 'function'
+            ? nodeLayer.status()
+            : null;
+    } catch (_) {}
+
     res.json({
         بسم_الله: 'بسم الله الرحمن الرحيم',
         success: true,
@@ -35316,8 +35326,20 @@ app.get('/api/sheikha/status', (req, res) => {
                 checks: sunnahGovernanceLayer.backgroundGovernance.checks.length
             },
             customsClearance: { active: !!customsClearanceEngine },
-            ultimatePower: { active: !!powerEngine, powers: powerEngine ? 30 : 0 }
+            ultimatePower: { active: !!powerEngine, powers: powerEngine ? 30 : 0 },
+            sheikhaNode: {
+                active: !!sheikhaNodeStatus?.ready,
+                runtime: sheikhaNodeStatus?.runtimeInfo?.node || process.version,
+                layer: sheikhaNodeStatus?.layer || 'sheikha-node'
+            },
+            rootNeuralCellNetwork: {
+                active: !!sheikhaNodeStatus?.rootNeuralCellNetwork?.active,
+                cells: sheikhaNodeStatus?.rootNeuralCellNetwork?.cells || 0,
+                layers: sheikhaNodeStatus?.rootNeuralCellNetwork?.layers || 0
+            }
         },
+        sheikhaNode: sheikhaNodeStatus,
+        backgroundServers: sheikhaNodeStatus?.backgroundServers || [],
         displayPolicy: sunnahGovernanceLayer.backgroundGovernance.displayPolicy,
         timestamp: new Date().toISOString()
     });

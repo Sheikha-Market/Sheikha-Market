@@ -74,6 +74,20 @@ async function runTests() {
         assert(typeof result === 'object', 'boot يجب أن يُرجع كائنًا');
     });
 
+    await test('طبقة شيخة نود مُسجّلة بعد boot()', () => {
+        const nodeLayer = root.getLayer('sheikha-node');
+        assert(nodeLayer !== null, 'لم تُسجَّل طبقة شيخة نود');
+        assert(typeof nodeLayer.status === 'function', 'طبقة شيخة نود لا تُوفّر status()');
+    });
+
+    await test('طبقة شيخة نود تعرض الخوادم الخلفية والشبكة الجذرية', () => {
+        const nodeLayer = root.getLayer('sheikha-node');
+        const nodeStatus = nodeLayer.status();
+        assert(Array.isArray(nodeStatus.backgroundServers), 'backgroundServers يجب أن تكون مصفوفة');
+        assert(nodeStatus.backgroundServers.length >= 2, 'الخوادم الخلفية غير مكتملة');
+        assert(nodeStatus.rootNeuralCellNetwork && nodeStatus.rootNeuralCellNetwork.configured === true, 'الشبكة الجذرية غير مربوطة');
+    });
+
     // ─── Sheikha OS Tests ─────────────────────────────────────────────────────
 
     console.log('');
