@@ -9,6 +9,7 @@
 
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
+const { VERSION: NODE_LAYER_VERSION } = require(path.join(ROOT, 'core/sheikha-node-layer'));
 
 // ─── Test Runner ──────────────────────────────────────────────────────────────
 
@@ -84,7 +85,7 @@ async function runTests() {
         const nodeLayer  = root.getLayer('sheikha-node');
         const nodeStatus = nodeLayer.status();
         // الإصدار الكوني
-        assert(nodeStatus.version === '2.0.0', `إصدار خاطئ: ${nodeStatus.version}`);
+        assert(nodeStatus.version === NODE_LAYER_VERSION, `إصدار خاطئ: ${nodeStatus.version} (المتوقع: ${NODE_LAYER_VERSION})`);
         assert(nodeStatus.rank === 'COSMIC-SUPREME', 'Missing COSMIC-SUPREME rank');
         // الخوادم الخلفية
         assert(Array.isArray(nodeStatus.backgroundServers), 'backgroundServers يجب أن تكون مصفوفة');

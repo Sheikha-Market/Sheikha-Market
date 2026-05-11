@@ -11,7 +11,7 @@
 const http   = require('http');
 const assert = require('assert');
 const crypto = require('crypto');
-const { DEFAULT_COPILOT_PORT, DEFAULT_META_PORT } = require('../core/sheikha-node-layer');
+const { DEFAULT_COPILOT_PORT, DEFAULT_META_PORT, VERSION: NODE_LAYER_VERSION } = require('../core/sheikha-node-layer');
 
 // ─── إعداد ───────────────────────────────────────────────────────────────────
 const BASE = process.env.TEST_BASE_URL || 'http://localhost:8080';
@@ -126,7 +126,7 @@ async function testHealth() {
         // الطبقة الكونية
         assert.ok(r.body.sheikhaNode, 'Missing sheikhaNode field');
         assert.ok(r.body.sheikhaNode.layer === 'sheikha-node', 'Unexpected sheikhaNode layer');
-        assert.ok(r.body.sheikhaNode.version === '2.0.0', 'Unexpected sheikhaNode version — يجب أن تكون 2.0.0');
+        assert.ok(r.body.sheikhaNode.version === NODE_LAYER_VERSION, `Unexpected sheikhaNode version — يجب أن تكون ${NODE_LAYER_VERSION}`);
         assert.ok(r.body.sheikhaNode.rank === 'COSMIC-SUPREME', 'Missing COSMIC-SUPREME rank');
         // الخوادم الخلفية
         assert.ok(Array.isArray(r.body.backgroundServers), 'backgroundServers should be array');

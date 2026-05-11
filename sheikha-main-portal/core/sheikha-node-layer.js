@@ -78,11 +78,11 @@ const LAYER_ID = {
 // ── محمّل آمن للوحدات ─────────────────────────────────────────────────────
 // ══════════════════════════════════════════════════════════════════════════════
 
-function _safeLoad(modulePath, label) {
+function _safeLoad(modulePath) {
     try {
         return require(modulePath);
     } catch (err) {
-        // خطأ غير حرج — الوحدة اختيارية
+        // خطأ غير حرج — الوحدة اختيارية في بيئات التشغيل المختلفة
         void err;
         return null;
     }
@@ -122,6 +122,9 @@ const _modules = {
 // ── ثوابت الخلايا لكل شبكة ────────────────────────────────────────────────
 // ══════════════════════════════════════════════════════════════════════════════
 
+// عدد خلايا كل شبكة مُحدَّد بتعريفاتها الأصلية داخل وحداتها:
+// UNIFIED_INTEGRATOR_CELL_COUNT = 55 ← مُوثَّق في core/neural/sheikha-unified-integrator.js
+// MUBAYAA_CELL_COUNT            = 8  ← عدد مُدخَلات الشبكة (lib/mubayaa-neural-root.js: inputSize: 8)
 const UNIFIED_INTEGRATOR_CELL_COUNT = 55;
 const MUBAYAA_CELL_COUNT            = 8;
 
