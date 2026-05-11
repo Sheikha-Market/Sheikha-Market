@@ -37933,6 +37933,80 @@ try {
     console.warn('⚠️ [MVP] فشل تحميل نواة السوق:', e.message);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🎨 PIXEL SYSTEM — نظام بكسل الذكاء الاصطناعي الشيخي
+// تتبع وتحليل الأحداث مع الفلتر الشرعي الآلي
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const pixelSystemRoutes = require('./routes/pixel-system.routes.js');
+    app.use('/api/pixel-system', pixelSystemRoutes);
+    console.log('✅ [PIXEL-SYSTEM] نظام البكسل الذكي — مُفعَّل على /api/pixel-system');
+    console.log('   ├─ GET  /api/pixel-system/status   — حالة النظام الكاملة');
+    console.log('   ├─ GET  /api/pixel-system/stats    — الإحصائيات التراكمية');
+    console.log('   ├─ POST /api/pixel-system/process  — معالجة حدث شرعياً');
+    console.log('   ├─ POST /api/pixel-system/analyze  — تحليل ذكي شرعي');
+    console.log('   ├─ GET  /api/pixel-system/log      — سجل آخر المعالجات');
+    console.log('   └─ POST /api/pixel-system/reset    — إعادة تعيين الإحصائيات');
+} catch (e) {
+    console.log('⚠️ [PIXEL-SYSTEM] فشل تحميل مسارات البكسل:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌍 ADAPTIVE STATUS — حالة نظام التكيف الجغرافي والشبكة العصبية الجذرية
+// ═══════════════════════════════════════════════════════════════════════════════
+app.get('/api/adaptive/status', (req, res) => {
+    try {
+        // تحميل الشبكة العصبية الجذرية (cached via require)
+        let rootNeuralStatus = { status: 'unknown', totalCells: 0 };
+        try {
+            const unifiedNN = require('./lib/sheikha-unified-neural-network.js');
+            const nnStatus  = unifiedNN.getStatus();
+            rootNeuralStatus = {
+                status:     nnStatus.initialized ? 'active' : 'inactive',
+                totalCells: nnStatus.totalCells || 0,
+                unityScore: nnStatus.unityScore || 0,
+                bootTimeMs: nnStatus.uptimeMs || 0
+            };
+        } catch (_) { /* الشبكة اختيارية */ }
+
+        // اكتشاف الموقع الجغرافي من IP
+        const ip        = (req.headers['x-forwarded-for'] || req.ip || '').split(',')[0].trim();
+        const isSaudi   = ip.startsWith('10.') || ip.startsWith('192.168.') || ip === '127.0.0.1' || ip === '::1';
+        const geoProfile = isSaudi ? {
+            countryCode: 'SA',
+            countryAr:   'المملكة العربية السعودية',
+            scope:       'country',
+            continent:   'asia',
+            profile:     'saudi',
+            language:    'ar-SA',
+            timezone:    'Asia/Riyadh',
+            mode:        'saudi-priority'
+        } : {
+            countryCode: 'INTL',
+            countryAr:   'دولي',
+            scope:       'international',
+            continent:   'global',
+            profile:     'international',
+            language:    'ar-en',
+            timezone:    'UTC',
+            mode:        'international'
+        };
+
+        res.json({
+            success: true,
+            data: {
+                geography:  geoProfile,
+                rootNeural: rootNeuralStatus
+            },
+            message:   'تم تفعيل التكيف الجغرافي والشبكة العصبية الجذرية بنجاح.',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message, timestamp: new Date().toISOString() });
+    }
+});
+console.log('✅ [ADAPTIVE] نظام التكيف الجغرافي — مُفعَّل على /api/adaptive/status');
+
 // 🛡️ FAILSAFE ROUTES — خط الدفاع الأخير (قبل 404 مباشرة)
 // يضمن استجابة صحيحة حتى لو فشل تحميل أي router أعلاه
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -38126,21 +38200,33 @@ async function _startServer() {
 `);
     });
 
-    // ═══ معالج أخطاء الخادم ═══
+    // ═══ معالج أخطاء الخادم مع إعادة المحاولة التلقائية ═══
     server.on('error', (err) => {
         if (err.code === 'EADDRINUSE') {
             console.error(`
 ╔══════════════════════════════════════════════════════════════╗
 ║  ⛔ المنفذ ${actualPort} مشغول                                   ║
-║  🧠 الشبكة العصبية ستنتقل تلقائياً للمرة القادمة             ║
+║  🔄 محاولة إعادة التشغيل تلقائياً خلال 3 ثوانٍ...            ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  الحل السريع:   fuser -k ${actualPort}/tcp                        ║
 ║  أو pm2:        pm2 restart sheikha                          ║
 ╚══════════════════════════════════════════════════════════════╝`);
+            // محاولة إعادة واحدة بعد 3 ثوانٍ
+            setTimeout(() => {
+                try { server.close(); } catch (_) {}
+                const retryServer = app.listen(actualPort, HOST, () => {
+                    PORT = actualPort;
+                    console.log(`✅ [AUTO-RETRY] الخادم يعمل الآن على المنفذ ${actualPort}`);
+                });
+                retryServer.on('error', (retryErr) => {
+                    console.error('🔴 فشل إعادة التشغيل التلقائية:', retryErr.message);
+                    process.exit(1);
+                });
+            }, 3000);
         } else {
             console.error('🔴 خطأ في الخادم:', err.message);
+            process.exit(1);
         }
-        process.exit(1);
     });
 
     return server;
