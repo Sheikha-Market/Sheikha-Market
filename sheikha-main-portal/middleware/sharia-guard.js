@@ -422,7 +422,7 @@ function productShariaGuard(req, res, next) {
             message: 'رُفض المنتج — مخالفة شرعية: لا ربا والصور والفيديو بالكتاب والسنة',
             code: 'SHARIA_VIOLATION',
             shariaViolations: allViolations,
-            warnings: allWarnings.length > 0 ? allWarnings : undefined,
+            warnings: allWarnings,
             evidence: {
                 riba: RIBA_EVIDENCE,
                 media: MEDIA_EVIDENCE
