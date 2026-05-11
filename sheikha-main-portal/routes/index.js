@@ -21,6 +21,12 @@ const governanceRoutes       = require('./governance');
 const ipRoutes               = require('./intellectual-property');
 const logicsRoutes           = require('./logics');
 const pipelineRoutes         = require('./pipeline.routes');
+// ─── نواة السوق MVP ──────────────────────────────────────────────────────────
+const productsRoutes         = require('./products');
+const ordersRoutes           = require('./orders');
+const suppliersRoutes        = require('./suppliers');
+const analyticsRoutes        = require('./analytics');
+const dashboardRoutes        = require('./dashboard');
 
 // ─── المسارات الرئيسية ────────────────────────────────────────────────────────
 
@@ -62,15 +68,50 @@ router.use('/api/ip', ipRoutes);
 router.use('/api/logics', logicsRoutes);
 
 // ─── محرك شيخة الموحّد: Pipeline + Factory + Neural Network ──────────────────
-// /api/engine/status        — حالة المحرك
-// /api/engine/process       — تشغيل خط أنابيب
-// /api/engine/create        — إنشاء كيان
-// /api/engine/pipelines     — قائمة الأنابيب
-// /api/engine/factory/*     — المصانع
-// /api/engine/neural/*      — الشبكة العصبية
-// /api/engine/signal        — إشارة عبر الشبكة
-// /api/engine/learn         — دورة تعلم
 router.use('/api/engine', pipelineRoutes);
+
+// ─── نواة السوق MVP — كتالوج / طلبات / موردون / تحليلات / لوحة تحكم ──────────
+
+// كتالوج المنتجات الكامل (النظام الجديد المتكامل)
+// GET /api/catalog          — قائمة المنتجات (بحث + فلاتر + صفحات)
+// GET /api/catalog/categories — التصنيفات
+// GET /api/catalog/search   — بحث نصي
+// GET /api/catalog/:id      — تفاصيل منتج
+// POST /api/catalog         — إضافة منتج (مورد)
+// PUT /api/catalog/:id      — تعديل منتج
+// DELETE /api/catalog/:id   — حذف منتج
+// GET /api/catalog/supplier/my — منتجاتي
+router.use('/api/catalog', productsRoutes);
+
+// إدارة الطلبات التجارية الكاملة (النظام الجديد)
+// GET /api/market-orders            — قائمة الطلبات (حسب الدور)
+// POST /api/market-orders           — إنشاء طلب
+// GET /api/market-orders/:id        — تفاصيل طلب
+// PUT /api/market-orders/:id/status — تحديث الحالة
+// PUT /api/market-orders/:id/cancel — إلغاء الطلب
+// GET /api/market-orders/buyer/my   — طلباتي كمشتري
+// GET /api/market-orders/supplier/my — طلباتي كمورد
+router.use('/api/market-orders', ordersRoutes);
+
+// إدارة الموردين
+// GET /api/suppliers         — قائمة الموردين
+// GET /api/suppliers/me      — ملفي كمورد
+// POST /api/suppliers/register — تسجيل كمورد
+// GET /api/suppliers/:id     — ملف مورد عام
+// PUT /api/suppliers/me      — تعديل ملفي
+// POST /api/suppliers/:id/rate — تقييم مورد
+// PUT /api/suppliers/:id/verify — تحقق (مشرف)
+router.use('/api/suppliers', suppliersRoutes);
+
+// التحليلات ومؤشرات الأداء الحقيقية
+// GET /api/market-analytics/overview — نظرة شاملة (مشرف)
+// GET /api/market-analytics/supplier — تحليلات المورد
+// GET /api/market-analytics/buyer   — تحليلات المشتري
+// GET /api/market-analytics/market  — مؤشرات السوق العامة
+router.use('/api/market-analytics', analyticsRoutes);
+
+// لوحة التحكم المركزية
+router.use('/api/dashboard', dashboardRoutes);
 
 // ─── مسار الحالة ──────────────────────────────────────────────────────────────
 

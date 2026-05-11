@@ -10,7 +10,11 @@
   "scripts": {
     "start": "node --max-old-space-size=2048 server.js",
     "start:proxy": "node scripts/proxy-8081.js",
+    "test": "node tests/integration.test.js",
+    "test:integration": "node tests/integration.test.js",
     "test:grid": "bash scripts/test-cellular-grid.sh",
+    "seed": "node scripts/seed-market-data.js",
+    "seed:market": "node scripts/seed-market-data.js",
     "server:start": "pm2 start ecosystem.config.js --only sheikha-api && pm2 save",
     "server:stop": "pm2 stop sheikha-api && pm2 save",
     "server:restart": "pm2 describe sheikha-api > /dev/null 2>&1 && pm2 restart sheikha-api && pm2 save || pm2 start ecosystem.config.js --only sheikha-api && pm2 save",

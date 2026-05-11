@@ -11218,7 +11218,19 @@ function validateEmail(email) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🔐 تسجيل الدخول والتسجيل — داشبورد مستخدم
+// 🔐 MVP Auth Router — تسجيل ودخول بالبريد الإلكتروني (يأخذ الأولوية)
+// routes/auth.js: register(name,email,password,role) | login(email,password)
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const mvpAuthRouter = require('./routes/auth');
+    app.use('/api/auth', mvpAuthRouter);
+    console.log('✅ [MVP-AUTH] مسارات المصادقة MVP مُفعَّلة — /api/auth/register | /api/auth/login');
+} catch (e) {
+    console.warn('⚠️ [MVP-AUTH] فشل تحميل مسارات المصادقة MVP:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔐 تسجيل الدخول والتسجيل — داشبورد مستخدم (fallback برقم الجوال)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.post('/api/auth/register', (req, res) => {
     const {
@@ -31790,6 +31802,17 @@ app.get('/api/sharia/adhkar', (req, res) => {
     res.json({ success: true, data: shariaEngine.getDashboard().adhkar });
 });
 
+// ─── ضوابط الصور والفيديو والربا بالكتاب والسنة ─────────────────────────────
+// GET /api/sharia/media-guidelines — دليل الضوابط الشرعية للوسائط والمعاملات
+app.get('/api/sharia/media-guidelines', (req, res) => {
+    try {
+        const { getMediaGuidelines } = require('./middleware/sharia-guard');
+        res.json({ success: true, guidelines: getMediaGuidelines() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في تحميل الإرشادات الشرعية', error: e.message });
+    }
+});
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🔬 API — محرك العلوم والابتكار والبحث
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -37894,6 +37917,169 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🏪 SHEIKHA MARKET MVP — نواة السوق الكاملة
+// كتالوج المنتجات + إدارة الطلبات + الموردون + التحليلات
+// المرحلة 2: نواة السوق | المرحلة 3: التحليلات الذكية
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const catalogRoutes   = require('./routes/products.js');
+    const ordersRoutes    = require('./routes/orders.js');
+    const suppliersRoutes = require('./routes/suppliers.js');
+    const mktAnalytics    = require('./routes/analytics.js');
+
+    // كتالوج المنتجات المتكامل (نظام جديد مستقل عن LISTINGS القديم)
+    app.use('/api/catalog', catalogRoutes);
+
+    // إدارة الطلبات الكاملة (حالات، تتبع، إحصائيات)
+    app.use('/api/market-orders', ordersRoutes);
+
+    // إدارة الموردين (تسجيل، تحقق، تقييم)
+    app.use('/api/suppliers', suppliersRoutes);
+
+    // التحليلات ومؤشرات الأداء الحقيقية
+    app.use('/api/market-analytics', mktAnalytics);
+
+    console.log('✅ [MVP] نواة السوق الكاملة — مُفعَّلة');
+    console.log('   ├─ GET  /api/catalog              — كتالوج المنتجات (بحث + فلاتر)');
+    console.log('   ├─ POST /api/catalog              — إضافة منتج');
+    console.log('   ├─ GET  /api/catalog/categories   — التصنيفات');
+    console.log('   ├─ GET  /api/market-orders        — إدارة الطلبات');
+    console.log('   ├─ POST /api/market-orders        — إنشاء طلب');
+    console.log('   ├─ GET  /api/suppliers            — قائمة الموردين');
+    console.log('   ├─ POST /api/suppliers/register   — تسجيل مورد');
+    console.log('   ├─ GET  /api/market-analytics/overview  — إحصائيات شاملة (مشرف)');
+    console.log('   ├─ GET  /api/market-analytics/supplier  — تحليلات المورد');
+    console.log('   ├─ GET  /api/market-analytics/buyer     — تحليلات المشتري');
+    console.log('   └─ GET  /api/market-analytics/market    — مؤشرات السوق العامة');
+} catch (e) {
+    console.warn('⚠️ [MVP] فشل تحميل نواة السوق:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🎨 PIXEL SYSTEM — نظام بكسل الذكاء الاصطناعي الشيخي
+// تتبع وتحليل الأحداث مع الفلتر الشرعي الآلي
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const pixelSystemRoutes = require('./routes/pixel-system.routes.js');
+    app.use('/api/pixel-system', pixelSystemRoutes);
+    console.log('✅ [PIXEL-SYSTEM] نظام البكسل الذكي — مُفعَّل على /api/pixel-system');
+    console.log('   ├─ GET  /api/pixel-system/status   — حالة النظام الكاملة');
+    console.log('   ├─ GET  /api/pixel-system/stats    — الإحصائيات التراكمية');
+    console.log('   ├─ POST /api/pixel-system/process  — معالجة حدث شرعياً');
+    console.log('   ├─ POST /api/pixel-system/analyze  — تحليل ذكي شرعي');
+    console.log('   ├─ GET  /api/pixel-system/log      — سجل آخر المعالجات');
+    console.log('   └─ POST /api/pixel-system/reset    — إعادة تعيين الإحصائيات');
+} catch (e) {
+    console.log('⚠️ [PIXEL-SYSTEM] فشل تحميل مسارات البكسل:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌌 COSMIC PIXEL ENGINE — المنظومة الكونية الأقوى عالمياً v3.0.0-COSMIC
+// ═══════════════════════════════════════════════════════════════════════════════
+// ✦ 7 طبقات فحص شرعي  ✦ معالجة دُفعية  ✦ شرح القرار  ✦ مقاييس الأداء
+// ✦ كشف التحايل        ✦ تكيّف جغرافي   ✦ سجل تدقيق ثابت
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const cosmicPixelRoutes = require('./routes/cosmic-pixel.routes.js');
+    app.use('/api/cosmic-pixel', cosmicPixelRoutes);
+    console.log('🌌 [COSMIC-PIXEL] المنظومة الكونية — مُفعَّلة على /api/cosmic-pixel');
+    console.log('   ├─ GET  /api/cosmic-pixel/status      — الحالة الكاملة الكونية');
+    console.log('   ├─ GET  /api/cosmic-pixel/stats       — الإحصائيات التراكمية');
+    console.log('   ├─ GET  /api/cosmic-pixel/performance — مقاييس الأداء P50/P95/P99');
+    console.log('   ├─ POST /api/cosmic-pixel/process     — معالجة بـ 7 طبقات شرعية');
+    console.log('   ├─ POST /api/cosmic-pixel/analyze     — تحليل عميق متعدد الأبعاد');
+    console.log('   ├─ POST /api/cosmic-pixel/batch       — معالجة دُفعية (500 عنصر)');
+    console.log('   ├─ GET  /api/cosmic-pixel/audit       — سجل التدقيق الثابت');
+    console.log('   ├─ GET  /api/cosmic-pixel/zones       — مناطق السوق العالمية');
+    console.log('   ├─ GET  /api/cosmic-pixel/tiers       — مستويات الثقة');
+    console.log('   └─ POST /api/cosmic-pixel/reset       — إعادة التعيين');
+} catch (e) {
+    console.log('⚠️ [COSMIC-PIXEL] فشل تحميل المنظومة الكونية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌌🧠🤖 PIXEL AI — ذكاء اصطناعي + LLM الراق + شبكة الخلايا الجذرية
+// ═══════════════════════════════════════════════════════════════════════════════
+// ✦ LLM الراق       ✦ محرك الدمج الكوني   ✦ توليد سكربتات
+// ✦ الخلايا الجذرية ✦ تحليل إشارات السوق  ✦ تفسير الأحداث
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const pixelAIRoutes = require('./routes/pixel-ai.routes.js');
+    app.use('/api/pixel-ai', pixelAIRoutes);
+    console.log('🤖 [PIXEL-AI] مسارات الذكاء الاصطناعي — مُفعَّلة على /api/pixel-ai');
+    console.log('   ├─ GET  /api/pixel-ai/status           — الحالة الموحّدة');
+    console.log('   ├─ POST /api/pixel-ai/process          — معالجة بالذكاء الاصطناعي');
+    console.log('   ├─ POST /api/pixel-ai/neural-analyze   — تحليل بالخلايا الجذرية');
+    console.log('   ├─ POST /api/pixel-ai/generate-script  — توليد سكربت JS/Python/cURL');
+    console.log('   ├─ POST /api/pixel-ai/generate-bundle  — توليد حزمة بكسل كاملة');
+    console.log('   ├─ POST /api/pixel-ai/llm-prompt       — LLM الراق — محفز ذكي');
+    console.log('   ├─ POST /api/pixel-ai/interpret-event  — تفسير حدث بلغة طبيعية');
+    console.log('   ├─ POST /api/pixel-ai/market-signal    — تحليل إشارة سوقية');
+    console.log('   ├─ POST /api/pixel-ai/activate-neural  — تفعيل الخلايا الجذرية');
+    console.log('   ├─ GET  /api/pixel-ai/llm-status       — حالة LLM الراق');
+    console.log('   ├─ GET  /api/pixel-ai/context          — ذاكرة السياق');
+    console.log('   └─ POST /api/pixel-ai/clear-context    — مسح السياق');
+} catch (e) {
+    console.log('⚠️ [PIXEL-AI] فشل تحميل مسارات الذكاء الاصطناعي:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌍 ADAPTIVE STATUS — حالة نظام التكيف الجغرافي والشبكة العصبية الجذرية
+// ═══════════════════════════════════════════════════════════════════════════════
+app.get('/api/adaptive/status', (req, res) => {
+    try {
+        // تحميل الشبكة العصبية الجذرية (cached via require)
+        let rootNeuralStatus = { status: 'unknown', totalCells: 0 };
+        try {
+            const unifiedNN = require('./lib/sheikha-unified-neural-network.js');
+            const nnStatus  = unifiedNN.getStatus();
+            rootNeuralStatus = {
+                status:     nnStatus.initialized ? 'active' : 'inactive',
+                totalCells: nnStatus.totalCells || 0,
+                unityScore: nnStatus.unityScore || 0,
+                bootTimeMs: nnStatus.uptimeMs || 0
+            };
+        } catch (_) { /* الشبكة اختيارية */ }
+
+        // اكتشاف الموقع الجغرافي من IP
+        const ip        = (req.headers['x-forwarded-for'] || req.ip || '').split(',')[0].trim();
+        const isSaudi   = ip.startsWith('10.') || ip.startsWith('192.168.') || ip === '127.0.0.1' || ip === '::1';
+        const geoProfile = isSaudi ? {
+            countryCode: 'SA',
+            countryAr:   'المملكة العربية السعودية',
+            scope:       'country',
+            continent:   'asia',
+            profile:     'saudi',
+            language:    'ar-SA',
+            timezone:    'Asia/Riyadh',
+            mode:        'saudi-priority'
+        } : {
+            countryCode: 'INTL',
+            countryAr:   'دولي',
+            scope:       'international',
+            continent:   'global',
+            profile:     'international',
+            language:    'ar-en',
+            timezone:    'UTC',
+            mode:        'international'
+        };
+
+        res.json({
+            success: true,
+            data: {
+                geography:  geoProfile,
+                rootNeural: rootNeuralStatus
+            },
+            message:   'تم تفعيل التكيف الجغرافي والشبكة العصبية الجذرية بنجاح.',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message, timestamp: new Date().toISOString() });
+    }
+});
+console.log('✅ [ADAPTIVE] نظام التكيف الجغرافي — مُفعَّل على /api/adaptive/status');
+
 // 🛡️ FAILSAFE ROUTES — خط الدفاع الأخير (قبل 404 مباشرة)
 // يضمن استجابة صحيحة حتى لو فشل تحميل أي router أعلاه
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -38087,21 +38273,33 @@ async function _startServer() {
 `);
     });
 
-    // ═══ معالج أخطاء الخادم ═══
+    // ═══ معالج أخطاء الخادم مع إعادة المحاولة التلقائية ═══
     server.on('error', (err) => {
         if (err.code === 'EADDRINUSE') {
             console.error(`
 ╔══════════════════════════════════════════════════════════════╗
 ║  ⛔ المنفذ ${actualPort} مشغول                                   ║
-║  🧠 الشبكة العصبية ستنتقل تلقائياً للمرة القادمة             ║
+║  🔄 محاولة إعادة التشغيل تلقائياً خلال 3 ثوانٍ...            ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  الحل السريع:   fuser -k ${actualPort}/tcp                        ║
 ║  أو pm2:        pm2 restart sheikha                          ║
 ╚══════════════════════════════════════════════════════════════╝`);
+            // محاولة إعادة واحدة بعد 3 ثوانٍ
+            setTimeout(() => {
+                try { server.close(); } catch (_) {}
+                const retryServer = app.listen(actualPort, HOST, () => {
+                    PORT = actualPort;
+                    console.log(`✅ [AUTO-RETRY] الخادم يعمل الآن على المنفذ ${actualPort}`);
+                });
+                retryServer.on('error', (retryErr) => {
+                    console.error('🔴 فشل إعادة التشغيل التلقائية:', retryErr.message);
+                    process.exit(1);
+                });
+            }, 3000);
         } else {
             console.error('🔴 خطأ في الخادم:', err.message);
+            process.exit(1);
         }
-        process.exit(1);
     });
 
     return server;

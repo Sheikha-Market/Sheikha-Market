@@ -1,8 +1,8 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  🔍 سوق شيخة — CI: فحص الكود والأمان                                      ║
+# ║  🔍 سوق شيخة — CI: فحص الكود والأمان والتكامل                             ║
 # ║  Sheikha Market — Continuous Integration                                    ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
-name: CI — Lint & Security
+name: CI — Lint & Security & MVP Smoke Test
 
 on:
   push:
@@ -59,6 +59,134 @@ jobs:
             echo "No lint script — skipping"
           fi
 
+      - name: 🧪 Syntax check — MVP routes
+        run: |
+          echo "Checking syntax of new MVP route files..."
+          node --check routes/products.js  && echo "✅ routes/products.js"
+          node --check routes/orders.js    && echo "✅ routes/orders.js"
+          node --check routes/suppliers.js && echo "✅ routes/suppliers.js"
+          node --check routes/analytics.js && echo "✅ routes/analytics.js"
+          node --check tests/integration.test.js && echo "✅ tests/integration.test.js"
+          node --check scripts/seed-market-data.js && echo "✅ scripts/seed-market-data.js"
+
+  mvp-smoke:
+    name: 🚀 MVP Smoke Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    needs: lint
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v6
+
+      - name: 🟩 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: sheikha-main-portal/.nvmrc
+          cache: npm
+          cache-dependency-path: sheikha-main-portal/package-lock.json
+
+      - name: 📦 Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --prefer-offline
+          else
+            npm install --prefer-offline
+          fi
+
+      - name: 🔧 Setup environment
+        run: |
+          if [ ! -f .env ]; then
+            cp .env.example .env
+            # ضبط قيم اختبار آمنة
+            sed -i "s/REPLACE_WITH_A_STRONG_RANDOM_SECRET/$(openssl rand -hex 32)/" .env
+            sed -i "s/REPLACE_WITH_A_STRONG_RANDOM_SALT/$(openssl rand -hex 16)/" .env
+            sed -i "s/REPLACE_WITH_32_CHAR_KEY/$(openssl rand -hex 16)/" .env
+            sed -i "s/REPLACE_WITH_HEX_KEY/$(openssl rand -hex 32)/" .env
+            sed -i "s/NODE_ENV=production/NODE_ENV=test/" .env
+          fi
+
+      - name: 🚀 Start server in background
+        run: |
+          node server.js &
+          SERVER_PID=$!
+          echo "SERVER_PID=$SERVER_PID" >> $GITHUB_ENV
+          echo "Waiting for server to start..."
+          sleep 12
+        env:
+          NODE_ENV: test
+          PORT: 8080
+
+      - name: 🌐 Smoke test — Health endpoints
+        run: |
+          echo "Testing /api/health..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/health)
+          echo "Health: $STATUS"
+          [ "$STATUS" = "200" ] || exit 1
+
+          echo "Testing /api/catalog/categories..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/catalog/categories)
+          echo "Categories: $STATUS"
+          [ "$STATUS" = "200" ] || exit 1
+
+          echo "Testing /api/market-analytics/market..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/market-analytics/market)
+          echo "Market Analytics: $STATUS"
+          [ "$STATUS" = "200" ] || exit 1
+
+          echo "Testing /api/suppliers (public)..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/suppliers)
+          echo "Suppliers: $STATUS"
+          [ "$STATUS" = "200" ] || exit 1
+
+          echo "Testing /api/catalog (public)..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/catalog)
+          echo "Catalog: $STATUS"
+          [ "$STATUS" = "200" ] || exit 1
+
+          echo "Testing protected endpoint without token → expect 401..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/market-orders)
+          echo "Protected (no token): $STATUS"
+          [ "$STATUS" = "401" ] || exit 1
+
+          echo "✅ جميع نقاط الدخول تستجيب بشكل صحيح"
+
+      - name: 🔐 Smoke test — Auth registration
+        run: |
+          RESULT=$(curl -s -X POST http://localhost:8080/api/auth/register \
+            -H "Content-Type: application/json" \
+            -d '{"name":"Smoke User","email":"smoke-ci@sheikha.test","password":"SmokeTest@2026!","role":"user"}')
+          echo "Register result: $RESULT"
+          TOKEN=$(echo $RESULT | node -e "const d=require('fs').readFileSync(0,'utf8'); const j=JSON.parse(d); process.stdout.write(j.token||'')")
+          echo "TOKEN=$TOKEN" >> $GITHUB_ENV
+          [ -n "$TOKEN" ] || exit 1
+          echo "✅ تسجيل المستخدم يعمل"
+
+      - name: 📦 Smoke test — Product catalog
+        run: |
+          # Add product as supplier
+          SUP=$(curl -s -X POST http://localhost:8080/api/auth/register \
+            -H "Content-Type: application/json" \
+            -d '{"name":"Smoke Supplier","email":"smoke-sup-ci@sheikha.test","password":"SmokeTest@2026!","role":"supplier"}')
+          SUP_TOKEN=$(echo $SUP | node -e "const d=require('fs').readFileSync(0,'utf8'); const j=JSON.parse(d); process.stdout.write(j.token||'')")
+          
+          PROD=$(curl -s -X POST http://localhost:8080/api/catalog \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $SUP_TOKEN" \
+            -d '{"name":"Smoke Product","category":"iron","price":3.5,"unit":"kg","quantity":1000}')
+          echo "Product: $PROD"
+          PROD_ID=$(echo $PROD | node -e "const d=require('fs').readFileSync(0,'utf8'); const j=JSON.parse(d); process.stdout.write(j.product?.id||'')")
+          [ -n "$PROD_ID" ] || exit 1
+          echo "✅ إضافة المنتجات تعمل — ID: $PROD_ID"
+
+      - name: 🛑 Stop server
+        if: always()
+        run: kill $SERVER_PID 2>/dev/null || true
+        env:
+          NODE_ENV: test
+
   docker-build:
     name: 🐳 Docker Build Validation
     runs-on: ubuntu-latest
@@ -82,3 +210,4 @@ jobs:
           tags: sheikha-main-portal:ci-test
           cache-from: type=gha
           cache-to: type=gha,mode=max
+

@@ -42,6 +42,128 @@ try {
     digitizer = null;
 }
 
+const GEO_ACTIVATION_PROFILES = {
+    saudi: {
+        id: 'saudi',
+        labelAr: 'السعودية',
+        scope: 'وطني',
+        iso: ['SA'],
+        domain: 'commerce',
+        neuralInputs: { ilmu: 0.82, adlu: 0.92, rahma: 0.88, quwwa: 0.76 },
+        governance: ['sharia-core', 'pdpl', 'sama'],
+        language: 'ar-SA',
+        currency: 'SAR'
+    },
+    gulf: {
+        id: 'gulf',
+        labelAr: 'الخليج',
+        scope: 'إقليمي',
+        iso: ['SA', 'AE', 'QA', 'KW', 'BH', 'OM'],
+        domain: 'communication',
+        neuralInputs: { ilmu: 0.8, adlu: 0.88, rahma: 0.84, quwwa: 0.74 },
+        governance: ['gcc-trade', 'sharia-core', 'aml-regional'],
+        language: 'ar',
+        currency: 'SAR'
+    },
+    oic: {
+        id: 'oic',
+        labelAr: 'الدول الإسلامية',
+        scope: 'دولي',
+        iso: ['OIC'],
+        domain: 'justice',
+        neuralInputs: { ilmu: 0.78, adlu: 0.9, rahma: 0.9, quwwa: 0.72 },
+        governance: ['aaoifi', 'islamic-finance', 'trade-ethics'],
+        language: 'ar-en',
+        currency: 'multi'
+    },
+    international: {
+        id: 'international',
+        labelAr: 'دولي',
+        scope: 'دولي',
+        iso: ['INTL'],
+        domain: 'security',
+        neuralInputs: { ilmu: 0.8, adlu: 0.86, rahma: 0.78, quwwa: 0.84 },
+        governance: ['wto', 'iso-27001', 'fatf', 'sharia-core'],
+        language: 'ar-en',
+        currency: 'multi'
+    },
+    continental: {
+        id: 'continental',
+        labelAr: 'قاري',
+        scope: 'قاري',
+        iso: ['AF', 'AS', 'EU', 'NA', 'SA', 'OC'],
+        domain: 'development',
+        neuralInputs: { ilmu: 0.82, adlu: 0.82, rahma: 0.82, quwwa: 0.82 },
+        governance: ['regional-trade-zones', 'customs-unions', 'sharia-core'],
+        language: 'multi',
+        currency: 'multi'
+    },
+    global: {
+        id: 'global',
+        labelAr: 'عالمي',
+        scope: 'عالمي',
+        iso: ['ALL'],
+        domain: 'neural',
+        neuralInputs: { ilmu: 0.9, adlu: 0.85, rahma: 0.8, quwwa: 0.87 },
+        governance: ['un-global-compact', 'iso-27001', 'soc2', 'sharia-core'],
+        language: 'multi',
+        currency: 'multi'
+    },
+    cosmic: {
+        id: 'cosmic',
+        labelAr: 'كوني',
+        scope: 'كوني',
+        iso: ['COSMOS'],
+        domain: 'vision',
+        neuralInputs: { ilmu: 0.94, adlu: 0.82, rahma: 0.8, quwwa: 0.86 },
+        governance: ['research-ethics', 'no-harm', 'sharia-core'],
+        language: 'multi',
+        currency: 'multi'
+    }
+};
+
+function resolveGeoProfile(rawRegion) {
+    const value = String(rawRegion || '').trim().toLowerCase();
+    if (!value) return GEO_ACTIVATION_PROFILES.saudi;
+
+    const aliases = {
+        sa: 'saudi',
+        ksa: 'saudi',
+        saudi: 'saudi',
+        'saudi-arabia': 'saudi',
+        gcc: 'gulf',
+        gulf: 'gulf',
+        khaleeji: 'gulf',
+        oic: 'oic',
+        international: 'international',
+        global: 'global',
+        world: 'global',
+        continental: 'continental',
+        continent: 'continental',
+        cosmic: 'cosmic',
+        universal: 'cosmic'
+    };
+
+    const key = aliases[value] || value;
+    return GEO_ACTIVATION_PROFILES[key] || GEO_ACTIVATION_PROFILES.saudi;
+}
+
+function validateGeoBody(rawBody) {
+    if (rawBody && (typeof rawBody !== 'object' || Array.isArray(rawBody))) {
+        return { ok: false, status: 400, message: 'صيغة body غير صالحة' };
+    }
+
+    const body = rawBody || {};
+    if (body.region !== undefined && typeof body.region !== 'string') {
+        return { ok: false, status: 400, message: 'region يجب أن يكون نصاً' };
+    }
+    if (body.action !== undefined && typeof body.action !== 'string') {
+        return { ok: false, status: 400, message: 'action يجب أن يكون نصاً' };
+    }
+
+    return { ok: true, body };
+}
+
 // ─── مساعد التحقق ────────────────────────────────────────────────────────────
 function nnCheck(res) {
     if (!unifiedNN) {
@@ -174,6 +296,109 @@ router.post('/forward', (req, res) => {
             success: true,
             bismillah: 'بسم الله الرحمن الرحيم',
             data: result,
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ─── POST /activate/geo ───────────────────────────────────────────────────────
+/**
+ * تفعيل الشبكة الجذرية حسب المنطقة الجغرافية مع التكيّف الآلي
+ * Body: { region?, action? }
+ */
+router.post('/activate/geo', (req, res) => {
+    if (!nnCheck(res)) return;
+
+    try {
+        const validation = validateGeoBody(req.body);
+        if (!validation.ok) {
+            return res.status(validation.status).json({ success: false, message: validation.message, timestamp: new Date().toISOString() });
+        }
+        const payload = validation.body;
+
+        const region = payload.region;
+        const regionWasOmitted = !region;
+        const profile = resolveGeoProfile(region);
+        const action = (payload.action || '').trim();
+
+        const forwardResult = unifiedNN.forward(profile.neuralInputs);
+        const activationResult = unifiedNN.activate(profile.domain);
+        const verifyResult = digitizer ? digitizer.verify(action || `تشغيل ${profile.labelAr}`) : null;
+
+        res.json({
+            success: true,
+            bismillah: 'بسم الله الرحمن الرحيم',
+            mode: 'geo-adaptive-root-activation',
+            profile: {
+                id: profile.id,
+                labelAr: profile.labelAr,
+                scope: profile.scope,
+                defaultedFrom: regionWasOmitted ? 'saudi' : null,
+                iso: profile.iso,
+                governance: profile.governance,
+                language: profile.language,
+                currency: profile.currency
+            },
+            data: {
+                forward: forwardResult,
+                activation: activationResult,
+                sharia: verifyResult
+            },
+            tawheed: '﴿ قُلْ هُوَ اللَّهُ أَحَدٌ ﴾',
+            noHarm: 'لا ضرر ولا ضرار',
+            timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ─── POST /geo/halal-check ────────────────────────────────────────────────────
+/**
+ * فحص موحّد للحلال وعدم الضرر حسب المنطقة
+ * Body: { region?, action }
+ */
+router.post('/geo/halal-check', (req, res) => {
+    try {
+        const validation = validateGeoBody(req.body);
+        if (!validation.ok) {
+            return res.status(validation.status).json({ success: false, message: validation.message, timestamp: new Date().toISOString() });
+        }
+        const payload = validation.body;
+
+        const region = payload.region;
+        const regionWasOmitted = !region;
+        const action = (payload.action || '').trim();
+        if (!action) {
+            return res.status(400).json({ success: false, message: 'action مطلوب', timestamp: new Date().toISOString() });
+        }
+        if (!digitizer) {
+            return res.status(503).json({ success: false, message: 'المُرقمِّن غير متاح', timestamp: new Date().toISOString() });
+        }
+
+        const profile = resolveGeoProfile(region);
+        const check = digitizer.verify(action);
+        const risk = check.halal ? 'low' : 'high';
+
+        res.json({
+            success: true,
+            profile: {
+                id: profile.id,
+                labelAr: profile.labelAr,
+                defaultedFrom: regionWasOmitted ? 'saudi' : null,
+                governance: profile.governance
+            },
+            halal: check.halal,
+            noHarm: check.halal && !check.violations.some(v => v.action === 'harm'),
+            risk,
+            score: check.score,
+            violations: check.violations,
+            principleScores: check.principleScores,
+            recommendations: check.recommendations,
+            quran: '﴿ وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا ﴾',
+            hadith: 'لا ضرر ولا ضرار',
             timestamp: new Date().toISOString()
         });
     } catch (e) {
