@@ -11218,7 +11218,19 @@ function validateEmail(email) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🔐 تسجيل الدخول والتسجيل — داشبورد مستخدم
+// 🔐 MVP Auth Router — تسجيل ودخول بالبريد الإلكتروني (يأخذ الأولوية)
+// routes/auth.js: register(name,email,password,role) | login(email,password)
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const mvpAuthRouter = require('./routes/auth');
+    app.use('/api/auth', mvpAuthRouter);
+    console.log('✅ [MVP-AUTH] مسارات المصادقة MVP مُفعَّلة — /api/auth/register | /api/auth/login');
+} catch (e) {
+    console.warn('⚠️ [MVP-AUTH] فشل تحميل مسارات المصادقة MVP:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔐 تسجيل الدخول والتسجيل — داشبورد مستخدم (fallback برقم الجوال)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.post('/api/auth/register', (req, res) => {
     const {
@@ -31788,6 +31800,17 @@ app.get('/api/sharia/digital', (req, res) => {
 app.get('/api/sharia/adhkar', (req, res) => {
     if (!shariaEngine) return res.json({ success: false });
     res.json({ success: true, data: shariaEngine.getDashboard().adhkar });
+});
+
+// ─── ضوابط الصور والفيديو والربا بالكتاب والسنة ─────────────────────────────
+// GET /api/sharia/media-guidelines — دليل الضوابط الشرعية للوسائط والمعاملات
+app.get('/api/sharia/media-guidelines', (req, res) => {
+    try {
+        const { getMediaGuidelines } = require('./middleware/sharia-guard');
+        res.json({ success: true, guidelines: getMediaGuidelines() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: 'خطأ في تحميل الإرشادات الشرعية', error: e.message });
+    }
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════

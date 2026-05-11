@@ -14,6 +14,7 @@ const router = express.Router();
 const { v4: uuid } = require('uuid');
 const database = require('../config/database');
 const { authenticate, authorize } = require('../middleware/auth');
+const { orderShariaGuard } = require('../middleware/sharia-guard');
 
 const ORDER_STATUSES = [
     'pending', 'confirmed', 'processing', 'shipped',
@@ -182,7 +183,7 @@ router.get('/:id', authenticate, (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 // POST /api/orders — إنشاء طلب جديد
 // ═══════════════════════════════════════════════════════════════════════════════
-router.post('/', authenticate, (req, res) => {
+router.post('/', authenticate, orderShariaGuard, (req, res) => {
     try {
         const { items, productId, supplierId } = req.body;
 

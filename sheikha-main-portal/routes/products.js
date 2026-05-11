@@ -13,6 +13,7 @@ const router = express.Router();
 const { v4: uuid } = require('uuid');
 const database = require('../config/database');
 const { authenticate, authorize, optionalAuth } = require('../middleware/auth');
+const { productShariaGuard } = require('../middleware/sharia-guard');
 
 // ─── ثوابت ────────────────────────────────────────────────────────────────────
 const VALID_CATEGORIES = [
@@ -243,7 +244,7 @@ router.get('/:id', optionalAuth, (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 // POST /api/products — إضافة منتج جديد (المورد فقط)
 // ═══════════════════════════════════════════════════════════════════════════════
-router.post('/', authenticate, authorize('supplier', 'admin', 'trader', 'company'), (req, res) => {
+router.post('/', authenticate, authorize('supplier', 'admin', 'trader', 'company'), productShariaGuard, (req, res) => {
     try {
         const errors = validateProduct(req.body);
         if (errors.length > 0) return res.status(400).json({ success: false, errors });
@@ -260,7 +261,7 @@ router.post('/', authenticate, authorize('supplier', 'admin', 'trader', 'company
 // ═══════════════════════════════════════════════════════════════════════════════
 // PUT /api/products/:id — تعديل منتج (صاحب المنتج أو المشرف)
 // ═══════════════════════════════════════════════════════════════════════════════
-router.put('/:id', authenticate, (req, res) => {
+router.put('/:id', authenticate, productShariaGuard, (req, res) => {
     try {
         const product = database.findById('products', req.params.id);
         if (!product) return res.status(404).json({ success: false, message: 'المنتج غير موجود' });

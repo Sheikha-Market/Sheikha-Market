@@ -8,6 +8,7 @@
 const express = require('express');
 const router = express.Router();
 const database = require('../config/database');
+const { getMediaGuidelines } = require('../middleware/sharia-guard');
 
 // استيراد محرك الامتثال الشرعي
 let ShariaCompliance = null;
@@ -262,5 +263,14 @@ function checkTransparency(data) {
     if (!data) return true;
     return data.terms || data.conditions || data.contract;
 }
+
+// ─── ضوابط المحتوى الشرعي: الصور والفيديو والربا ──────────────────────────────
+// GET /api/sharia/media-guidelines — دليل ضوابط الوسائط بالكتاب والسنة
+router.get('/media-guidelines', (req, res) => {
+    res.json({
+        success: true,
+        guidelines: getMediaGuidelines()
+    });
+});
 
 module.exports = router;
