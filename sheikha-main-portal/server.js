@@ -37952,6 +37952,30 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🌌 COSMIC PIXEL ENGINE — المنظومة الكونية الأقوى عالمياً v3.0.0-COSMIC
+// ═══════════════════════════════════════════════════════════════════════════════
+// ✦ 7 طبقات فحص شرعي  ✦ معالجة دُفعية  ✦ شرح القرار  ✦ مقاييس الأداء
+// ✦ كشف التحايل        ✦ تكيّف جغرافي   ✦ سجل تدقيق ثابت
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const cosmicPixelRoutes = require('./routes/cosmic-pixel.routes.js');
+    app.use('/api/cosmic-pixel', cosmicPixelRoutes);
+    console.log('🌌 [COSMIC-PIXEL] المنظومة الكونية — مُفعَّلة على /api/cosmic-pixel');
+    console.log('   ├─ GET  /api/cosmic-pixel/status      — الحالة الكاملة الكونية');
+    console.log('   ├─ GET  /api/cosmic-pixel/stats       — الإحصائيات التراكمية');
+    console.log('   ├─ GET  /api/cosmic-pixel/performance — مقاييس الأداء P50/P95/P99');
+    console.log('   ├─ POST /api/cosmic-pixel/process     — معالجة بـ 7 طبقات شرعية');
+    console.log('   ├─ POST /api/cosmic-pixel/analyze     — تحليل عميق متعدد الأبعاد');
+    console.log('   ├─ POST /api/cosmic-pixel/batch       — معالجة دُفعية (500 عنصر)');
+    console.log('   ├─ GET  /api/cosmic-pixel/audit       — سجل التدقيق الثابت');
+    console.log('   ├─ GET  /api/cosmic-pixel/zones       — مناطق السوق العالمية');
+    console.log('   ├─ GET  /api/cosmic-pixel/tiers       — مستويات الثقة');
+    console.log('   └─ POST /api/cosmic-pixel/reset       — إعادة التعيين');
+} catch (e) {
+    console.log('⚠️ [COSMIC-PIXEL] فشل تحميل المنظومة الكونية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🌍 ADAPTIVE STATUS — حالة نظام التكيف الجغرافي والشبكة العصبية الجذرية
 // ═══════════════════════════════════════════════════════════════════════════════
 app.get('/api/adaptive/status', (req, res) => {
