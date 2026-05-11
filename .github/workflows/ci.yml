@@ -73,8 +73,9 @@ jobs:
         run: |
           node -e "
             const upper = require('./core/sheikha-ubuntu-upper-layer');
+            upper.init();
             const upperStatus = upper.status();
-            const min = Number(upperStatus.rootNeuralLayer.minRequiredCells || 0);
+            const min = Number(upperStatus.rootNeuralLayer?.minRequiredCells || 0);
             console.log('✅ Ubuntu base ready:', upperStatus.baseLayer.ready);
             console.log('✅ Root neural cells:', upperStatus.rootNeuralLayer.totalCells);
             console.log('✅ Min required root cells:', min);

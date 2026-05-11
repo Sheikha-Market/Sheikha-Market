@@ -108,8 +108,6 @@ function status() {
     };
 }
 
-init();
-
 module.exports = {
     ...MODULE_ID,
     init,

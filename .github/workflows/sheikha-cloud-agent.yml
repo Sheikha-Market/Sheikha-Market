@@ -98,6 +98,7 @@ jobs:
           node -e "
             const root = require('./lib/sheikha-root-neural-runtime');
             const upper = require('./core/sheikha-ubuntu-upper-layer');
+            upper.init();
             const rootStatus = root.status();
             const upperStatus = upper.status();
             const min = Number(upperStatus?.rootNeuralLayer?.minRequiredCells || 0);
@@ -111,6 +112,7 @@ jobs:
         run: |
           node -e "
             const upper = require('./core/sheikha-ubuntu-upper-layer');
+            upper.init();
             const s = upper.status();
             console.log('✅ Ubuntu base ready:', s.baseLayer.ready);
             console.log('✅ Integration ready:', s.integrationReady);
