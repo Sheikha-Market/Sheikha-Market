@@ -54,7 +54,8 @@ const config = {
             // ─── نواة السوق MVP ────────────────────────────────────────────────
             products:                'products.json',               // كتالوج المنتجات الكامل
             market_orders:           'market-orders.json',          // الطلبات والمعاملات التجارية
-            suppliers:               'suppliers.json'               // ملفات الموردين
+            suppliers:               'suppliers.json',              // ملفات الموردين
+            market_prices:           'market-prices.json'           // أسعار السوق المرجعية
         }
     },
 

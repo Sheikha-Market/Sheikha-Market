@@ -292,6 +292,18 @@ router.get('/market', (req, res) => {
         const activeProducts  = products.filter(p => p.status === 'active');
         const completedOrders = orders.filter(o => o.status === 'completed');
 
+        const defaultPrices = {
+            gold:     { price: 285.40, change: '+1.2%', unit: 'g',  currency: 'SAR' },
+            silver:   { price: 3.12,   change: '+0.8%', unit: 'g',  currency: 'SAR' },
+            copper:   { price: 42.80,  change: '-0.3%', unit: 'kg', currency: 'SAR' },
+            aluminum: { price: 28.50,  change: '+0.5%', unit: 'kg', currency: 'SAR' },
+            iron:     { price: 3.20,   change: '+0.1%', unit: 'kg', currency: 'SAR' }
+        };
+
+        // جلب أسعار مخصصة من قاعدة البيانات إن وجدت
+        const storedPrices = database.read('market_prices') || {};
+        const prices = Object.assign({}, defaultPrices, storedPrices);
+
         res.json({
             success: true,
             market: {
@@ -301,13 +313,7 @@ router.get('/market', (req, res) => {
                 totalTransactions: completedOrders.length,
                 categories: [...new Set(activeProducts.map(p => p.category))].length
             },
-            prices: {
-                gold:     { price: 285.40, change: '+1.2%', unit: 'g',  currency: 'SAR' },
-                silver:   { price: 3.12,   change: '+0.8%', unit: 'g',  currency: 'SAR' },
-                copper:   { price: 42.80,  change: '-0.3%', unit: 'kg', currency: 'SAR' },
-                aluminum: { price: 28.50,  change: '+0.5%', unit: 'kg', currency: 'SAR' },
-                iron:     { price: 3.20,   change: '+0.1%', unit: 'kg', currency: 'SAR' }
-            },
+            prices,
             timestamp: new Date().toISOString()
         });
     } catch (err) {
