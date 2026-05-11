@@ -123,9 +123,14 @@ async function testHealth() {
         assert.ok(r.status === 200, `Expected 200, got ${r.status}`);
         assert.ok(r.body.success, 'Expected success:true');
         assert.ok(r.body.sheikhaNode, 'Missing sheikhaNode field');
+        assert.ok(r.body.sheikhaNode.layer === 'sheikha-node', 'Unexpected sheikhaNode layer');
+        assert.ok(r.body.sheikhaNode.version === '1.0.0', 'Unexpected sheikhaNode version');
         assert.ok(Array.isArray(r.body.backgroundServers), 'backgroundServers should be array');
         assert.ok(r.body.backgroundServers.length >= 2, 'backgroundServers should include background services');
+        const backgroundPorts = r.body.backgroundServers.map(server => server.port).sort((a, b) => a - b);
+        assert.deepStrictEqual(backgroundPorts, [3091, 8085], `Unexpected background ports: ${backgroundPorts.join(',')}`);
         assert.ok(r.body.engines && r.body.engines.rootNeuralCellNetwork, 'Missing rootNeuralCellNetwork engine status');
+        assert.ok(r.body.engines.rootNeuralCellNetwork.layers === 7, 'Unexpected rootNeuralCellNetwork layers');
     });
 }
 
