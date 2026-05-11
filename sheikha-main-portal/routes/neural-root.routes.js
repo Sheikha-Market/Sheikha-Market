@@ -290,13 +290,14 @@ router.post('/forward', (req, res) => {
 // ─── POST /activate/geo ───────────────────────────────────────────────────────
 /**
  * تفعيل الشبكة الجذرية حسب المنطقة الجغرافية مع التكيّف الآلي
- * Body/Query: { region?, action? }
+ * Body: { region?, action? }
  */
 router.post('/activate/geo', (req, res) => {
     if (!nnCheck(res)) return;
 
     try {
-        const region = req.body?.region || req.query?.region || 'saudi';
+        const region = req.body?.region;
+        const defaultedRegion = !region;
         const profile = resolveGeoProfile(region);
         const action = req.body?.action || '';
 
@@ -312,6 +313,7 @@ router.post('/activate/geo', (req, res) => {
                 id: profile.id,
                 labelAr: profile.labelAr,
                 scope: profile.scope,
+                defaultedFrom: defaultedRegion ? 'saudi' : null,
                 iso: profile.iso,
                 governance: profile.governance,
                 language: profile.language,
@@ -338,7 +340,8 @@ router.post('/activate/geo', (req, res) => {
  */
 router.post('/geo/halal-check', (req, res) => {
     try {
-        const region = req.body?.region || req.query?.region || 'saudi';
+        const region = req.body?.region;
+        const defaultedRegion = !region;
         const action = req.body?.action;
         if (!action) {
             return res.status(400).json({ success: false, message: 'action مطلوب', timestamp: new Date().toISOString() });
@@ -356,6 +359,7 @@ router.post('/geo/halal-check', (req, res) => {
             profile: {
                 id: profile.id,
                 labelAr: profile.labelAr,
+                defaultedFrom: defaultedRegion ? 'saudi' : null,
                 governance: profile.governance
             },
             halal: check.halal,
