@@ -95,13 +95,14 @@ jobs:
 
       - name: 🧬 Verify Root Neural Runtime
         run: |
-          MIN_ROOT_CELLS=19
           node -e "
             const root = require('./lib/sheikha-root-neural-runtime');
+            const upper = require('./core/sheikha-ubuntu-upper-layer');
             const s = root.status();
+            const min = Number(upper.status()?.rootNeuralLayer?.minRequiredCells || 0);
             console.log('✅ Root Runtime ready:', s.ready);
             console.log('✅ Root cells:', s.totalCells);
-            const min = Number(process.env.MIN_ROOT_CELLS || 19);
+            console.log('✅ Min required root cells:', min);
             if (!s.ready || s.totalCells < min) process.exit(1);
           "
 

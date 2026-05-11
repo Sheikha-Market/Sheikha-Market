@@ -71,13 +71,13 @@ jobs:
 
       - name: 🐧 Verify Sheikha Ubuntu Upper Layer
         run: |
-          MIN_ROOT_CELLS=19
           node -e "
             const upper = require('./core/sheikha-ubuntu-upper-layer');
             const s = upper.status();
+            const min = Number(s.rootNeuralLayer.minRequiredCells || 0);
             console.log('✅ Ubuntu base ready:', s.baseLayer.ready);
             console.log('✅ Root neural cells:', s.rootNeuralLayer.totalCells);
-            const min = Number(process.env.MIN_ROOT_CELLS || 19);
+            console.log('✅ Min required root cells:', min);
             if (!s.integrationReady || s.rootNeuralLayer.totalCells < min) process.exit(1);
           "
 

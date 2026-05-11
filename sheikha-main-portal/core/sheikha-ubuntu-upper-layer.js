@@ -23,6 +23,7 @@ const MODULE_ID = {
     nameEn: 'Sheikha Ubuntu Upper Layer',
     version: '1.0.0',
 };
+// Root runtime currently defines 19 foundational root cells (R01..R19).
 const MIN_REQUIRED_ROOT_CELLS = 19;
 
 let _ready = false;
