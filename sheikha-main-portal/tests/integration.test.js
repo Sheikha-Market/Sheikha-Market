@@ -129,9 +129,10 @@ async function testHealth() {
         assert.ok(Array.isArray(r.body.backgroundServers), 'backgroundServers should be array');
         assert.ok(r.body.backgroundServers.length >= 2, 'backgroundServers should include background services');
         const backgroundPorts = r.body.backgroundServers.map(server => server.port).sort((a, b) => a - b);
+        const expectedBackgroundPorts = [DEFAULT_COPILOT_PORT, DEFAULT_META_PORT].sort((a, b) => a - b);
         assert.deepStrictEqual(
             backgroundPorts,
-            [DEFAULT_COPILOT_PORT, DEFAULT_META_PORT].sort((a, b) => a - b),
+            expectedBackgroundPorts,
             `Unexpected background ports: ${backgroundPorts.join(',')}`
         );
         assert.ok(r.body.engines && r.body.engines.rootNeuralCellNetwork, 'Missing rootNeuralCellNetwork engine status');

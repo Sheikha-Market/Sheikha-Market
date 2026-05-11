@@ -66,7 +66,7 @@ function getRootNeuralCellNetworkStatus() {
     }
 
     const layerStatus = _rootNCNLayer.status();
-    const layersCount = layerStatus?.network?.layersCount ?? layerStatus?.layers ?? 0;
+    const layers = layerStatus?.network?.layersCount ?? layerStatus?.layers ?? 0;
     return {
         active: !!layerStatus.ready,
         configured: true,
@@ -74,7 +74,7 @@ function getRootNeuralCellNetworkStatus() {
         name: layerStatus.name,
         nameAr: layerStatus.nameAr,
         cells: getNetworkMetric(layerStatus, 'cells'),
-        layers: layersCount,
+        layers,
         embedDim: getNetworkMetric(layerStatus, 'embedDim'),
         position: layerStatus.position,
     };
