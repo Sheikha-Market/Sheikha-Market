@@ -119,6 +119,13 @@ const _modules = {
 };
 
 // ══════════════════════════════════════════════════════════════════════════════
+// ── ثوابت الخلايا لكل شبكة ────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+
+const UNIFIED_INTEGRATOR_CELL_COUNT = 55;
+const MUBAYAA_CELL_COUNT            = 8;
+
+// ══════════════════════════════════════════════════════════════════════════════
 // ── الحالة الداخلية ────────────────────────────────────────────────────────
 // ══════════════════════════════════════════════════════════════════════════════
 
@@ -343,16 +350,16 @@ function _getNetworkDashboard() {
 
 function _getCosmicStats(networks) {
     const netList = Object.values(networks);
-    const activeNetworks  = netList.filter(n => n.active).length;
-    const totalNetworks   = netList.length;
+    const activeNetworkCount  = netList.filter(n => n.active).length;
+    const totalNetworkCount   = netList.length;
     const totalCells = (
         (networks.rootNCNLayer?.cells       || 0) +
         (networks.universalNN?.cells        || 0) +
         (networks.rootRuntime?.cells        || 0) +
-        (networks.unifiedIntegrator?.systems ? 55 : 0) +
+        (networks.unifiedIntegrator?.systems ? UNIFIED_INTEGRATOR_CELL_COUNT : 0) +
         (networks.rootNCN?.cells            || 0) +
         (networks.snrn?.totalCells          || 0) +
-        (networks.mubayaaNR?.active         ? 8  : 0)
+        (networks.mubayaaNR?.active         ? MUBAYAA_CELL_COUNT  : 0)
     );
     const totalLayers = (
         (networks.rootNCNLayer?.layers      || 0) +
@@ -360,11 +367,11 @@ function _getCosmicStats(networks) {
         (networks.rootNCN?.layers           || 0)
     );
     return {
-        activeNetworks,
-        totalNetworks,
-        totalNeuralCells: totalCells,
+        activeNetworks:    activeNetworkCount,
+        totalNetworks:     totalNetworkCount,
+        totalNeuralCells:  totalCells,
         totalLayers,
-        cosmicPower:       `${Math.round((activeNetworks / Math.max(totalNetworks, 1)) * 100)}%`,
+        cosmicPower:       `${Math.round((activeNetworkCount / Math.max(totalNetworkCount, 1)) * 100)}%`,
     };
 }
 
