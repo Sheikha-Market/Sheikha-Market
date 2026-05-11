@@ -37976,6 +37976,32 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🌌🧠🤖 PIXEL AI — ذكاء اصطناعي + LLM الراق + شبكة الخلايا الجذرية
+// ═══════════════════════════════════════════════════════════════════════════════
+// ✦ LLM الراق       ✦ محرك الدمج الكوني   ✦ توليد سكربتات
+// ✦ الخلايا الجذرية ✦ تحليل إشارات السوق  ✦ تفسير الأحداث
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const pixelAIRoutes = require('./routes/pixel-ai.routes.js');
+    app.use('/api/pixel-ai', pixelAIRoutes);
+    console.log('🤖 [PIXEL-AI] مسارات الذكاء الاصطناعي — مُفعَّلة على /api/pixel-ai');
+    console.log('   ├─ GET  /api/pixel-ai/status           — الحالة الموحّدة');
+    console.log('   ├─ POST /api/pixel-ai/process          — معالجة بالذكاء الاصطناعي');
+    console.log('   ├─ POST /api/pixel-ai/neural-analyze   — تحليل بالخلايا الجذرية');
+    console.log('   ├─ POST /api/pixel-ai/generate-script  — توليد سكربت JS/Python/cURL');
+    console.log('   ├─ POST /api/pixel-ai/generate-bundle  — توليد حزمة بكسل كاملة');
+    console.log('   ├─ POST /api/pixel-ai/llm-prompt       — LLM الراق — محفز ذكي');
+    console.log('   ├─ POST /api/pixel-ai/interpret-event  — تفسير حدث بلغة طبيعية');
+    console.log('   ├─ POST /api/pixel-ai/market-signal    — تحليل إشارة سوقية');
+    console.log('   ├─ POST /api/pixel-ai/activate-neural  — تفعيل الخلايا الجذرية');
+    console.log('   ├─ GET  /api/pixel-ai/llm-status       — حالة LLM الراق');
+    console.log('   ├─ GET  /api/pixel-ai/context          — ذاكرة السياق');
+    console.log('   └─ POST /api/pixel-ai/clear-context    — مسح السياق');
+} catch (e) {
+    console.log('⚠️ [PIXEL-AI] فشل تحميل مسارات الذكاء الاصطناعي:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🌍 ADAPTIVE STATUS — حالة نظام التكيف الجغرافي والشبكة العصبية الجذرية
 // ═══════════════════════════════════════════════════════════════════════════════
 app.get('/api/adaptive/status', (req, res) => {
