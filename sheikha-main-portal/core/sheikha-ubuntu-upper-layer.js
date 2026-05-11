@@ -38,6 +38,15 @@ function _safeStatus(mod, fallback = {}) {
     }
 }
 
+function _isIntegrationReady(baseLayerReady, nodeStatus, rootStatus) {
+    return Boolean(
+        baseLayerReady &&
+        nodeStatus.ready === true &&
+        rootStatus.ready === true &&
+        Number(rootStatus.totalCells || 0) >= MIN_REQUIRED_ROOT_CELLS
+    );
+}
+
 function init() {
     if (_ready) return status();
 
@@ -63,12 +72,7 @@ function init() {
     const nodeStatus = _safeStatus(nodeLayer);
     const rootStatus = _safeStatus(rootRuntime);
 
-    _ready = Boolean(
-        isLinuxBase &&
-        nodeStatus.ready === true &&
-        rootStatus.ready === true &&
-        Number(rootStatus.totalCells || 0) >= MIN_REQUIRED_ROOT_CELLS
-    );
+    _ready = _isIntegrationReady(isLinuxBase, nodeStatus, rootStatus);
     _initAt = new Date().toISOString();
 
     return status();
@@ -100,12 +104,7 @@ function status() {
             totalCells: Number(rootStatus.totalCells || 0),
             minRequiredCells: MIN_REQUIRED_ROOT_CELLS,
         },
-        integrationReady: Boolean(
-            baseLayerReady &&
-            nodeStatus.ready === true &&
-            rootStatus.ready === true &&
-            Number(rootStatus.totalCells || 0) >= MIN_REQUIRED_ROOT_CELLS
-        ),
+        integrationReady: _isIntegrationReady(baseLayerReady, nodeStatus, rootStatus),
     };
 }
 

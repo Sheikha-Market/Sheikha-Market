@@ -73,12 +73,12 @@ jobs:
         run: |
           node -e "
             const upper = require('./core/sheikha-ubuntu-upper-layer');
-            const s = upper.status();
-            const min = Number(s.rootNeuralLayer.minRequiredCells || 0);
-            console.log('✅ Ubuntu base ready:', s.baseLayer.ready);
-            console.log('✅ Root neural cells:', s.rootNeuralLayer.totalCells);
+            const upperStatus = upper.status();
+            const min = Number(upperStatus.rootNeuralLayer.minRequiredCells || 0);
+            console.log('✅ Ubuntu base ready:', upperStatus.baseLayer.ready);
+            console.log('✅ Root neural cells:', upperStatus.rootNeuralLayer.totalCells);
             console.log('✅ Min required root cells:', min);
-            if (!s.integrationReady || s.rootNeuralLayer.totalCells < min) process.exit(1);
+            if (!upperStatus.integrationReady || upperStatus.rootNeuralLayer.totalCells < min) process.exit(1);
           "
 
   mvp-smoke:

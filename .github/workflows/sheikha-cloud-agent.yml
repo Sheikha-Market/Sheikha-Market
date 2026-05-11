@@ -98,12 +98,13 @@ jobs:
           node -e "
             const root = require('./lib/sheikha-root-neural-runtime');
             const upper = require('./core/sheikha-ubuntu-upper-layer');
-            const s = root.status();
-            const min = Number(upper.status()?.rootNeuralLayer?.minRequiredCells || 0);
-            console.log('✅ Root Runtime ready:', s.ready);
-            console.log('✅ Root cells:', s.totalCells);
+            const rootStatus = root.status();
+            const upperStatus = upper.status();
+            const min = Number(upperStatus?.rootNeuralLayer?.minRequiredCells || 0);
+            console.log('✅ Root Runtime ready:', rootStatus.ready);
+            console.log('✅ Root cells:', rootStatus.totalCells);
             console.log('✅ Min required root cells:', min);
-            if (!s.ready || s.totalCells < min) process.exit(1);
+            if (!rootStatus.ready || rootStatus.totalCells < min) process.exit(1);
           "
 
       - name: 🐧 Verify Ubuntu Upper Layer
