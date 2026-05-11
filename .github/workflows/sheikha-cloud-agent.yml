@@ -101,7 +101,7 @@ jobs:
             upper.init();
             const rootStatus = root.status();
             const upperStatus = upper.status();
-            const min = Number(upperStatus?.rootNeuralLayer?.minRequiredCells || process.env.SHEIKHA_MIN_ROOT_CELLS || 19);
+            const min = Number(upperStatus?.rootNeuralLayer?.minRequiredCells || upper.MIN_REQUIRED_ROOT_CELLS);
             console.log('✅ Root Runtime ready:', rootStatus.ready);
             console.log('✅ Root cells:', rootStatus.totalCells);
             console.log('✅ Min required root cells:', min);
