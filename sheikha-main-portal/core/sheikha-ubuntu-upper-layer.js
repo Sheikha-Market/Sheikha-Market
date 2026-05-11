@@ -24,7 +24,11 @@ const MODULE_ID = {
     version: '1.0.0',
 };
 // Root runtime currently defines 19 foundational root cells (R01..R19).
-const MIN_REQUIRED_ROOT_CELLS = 19;
+// Allow overriding in controlled environments via SHEIKHA_MIN_ROOT_CELLS.
+const DEFAULT_MIN_REQUIRED_ROOT_CELLS = 19;
+const MIN_REQUIRED_ROOT_CELLS = Number(
+    process.env.SHEIKHA_MIN_ROOT_CELLS || DEFAULT_MIN_REQUIRED_ROOT_CELLS
+);
 
 let _ready = false;
 let _initAt = null;
@@ -89,7 +93,7 @@ function status() {
         ready: _ready,
         initAt: _initAt,
         baseLayer: {
-            name: 'ubuntu-linux',
+            name: 'linux',
             ready: baseLayerReady,
             platform,
             release: os.release(),
@@ -110,6 +114,7 @@ function status() {
 
 module.exports = {
     ...MODULE_ID,
+    MIN_REQUIRED_ROOT_CELLS,
     init,
     status,
 };
