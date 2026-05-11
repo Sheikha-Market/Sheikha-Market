@@ -148,6 +148,22 @@ function resolveGeoProfile(rawRegion) {
     return GEO_ACTIVATION_PROFILES[key] || GEO_ACTIVATION_PROFILES.saudi;
 }
 
+function validateGeoBody(rawBody) {
+    if (rawBody && (typeof rawBody !== 'object' || Array.isArray(rawBody))) {
+        return { ok: false, status: 400, message: 'صيغة body غير صالحة' };
+    }
+
+    const body = rawBody || {};
+    if (body.region !== undefined && typeof body.region !== 'string') {
+        return { ok: false, status: 400, message: 'region يجب أن يكون نصاً' };
+    }
+    if (body.action !== undefined && typeof body.action !== 'string') {
+        return { ok: false, status: 400, message: 'action يجب أن يكون نصاً' };
+    }
+
+    return { ok: true, body };
+}
+
 // ─── مساعد التحقق ────────────────────────────────────────────────────────────
 function nnCheck(res) {
     if (!unifiedNN) {
@@ -296,10 +312,16 @@ router.post('/activate/geo', (req, res) => {
     if (!nnCheck(res)) return;
 
     try {
-        const region = req.body?.region;
-        const defaultedRegion = !region;
+        const validation = validateGeoBody(req.body);
+        if (!validation.ok) {
+            return res.status(validation.status).json({ success: false, message: validation.message, timestamp: new Date().toISOString() });
+        }
+        const payload = validation.body;
+
+        const region = payload.region;
+        const regionWasOmitted = !region;
         const profile = resolveGeoProfile(region);
-        const action = req.body?.action || '';
+        const action = (payload.action || '').trim();
 
         const forwardResult = unifiedNN.forward(profile.neuralInputs);
         const activationResult = unifiedNN.activate(profile.domain);
@@ -313,7 +335,7 @@ router.post('/activate/geo', (req, res) => {
                 id: profile.id,
                 labelAr: profile.labelAr,
                 scope: profile.scope,
-                defaultedFrom: defaultedRegion ? 'saudi' : null,
+                defaultedFrom: regionWasOmitted ? 'saudi' : null,
                 iso: profile.iso,
                 governance: profile.governance,
                 language: profile.language,
@@ -340,9 +362,15 @@ router.post('/activate/geo', (req, res) => {
  */
 router.post('/geo/halal-check', (req, res) => {
     try {
-        const region = req.body?.region;
-        const defaultedRegion = !region;
-        const action = req.body?.action;
+        const validation = validateGeoBody(req.body);
+        if (!validation.ok) {
+            return res.status(validation.status).json({ success: false, message: validation.message, timestamp: new Date().toISOString() });
+        }
+        const payload = validation.body;
+
+        const region = payload.region;
+        const regionWasOmitted = !region;
+        const action = (payload.action || '').trim();
         if (!action) {
             return res.status(400).json({ success: false, message: 'action مطلوب', timestamp: new Date().toISOString() });
         }
@@ -359,7 +387,7 @@ router.post('/geo/halal-check', (req, res) => {
             profile: {
                 id: profile.id,
                 labelAr: profile.labelAr,
-                defaultedFrom: defaultedRegion ? 'saudi' : null,
+                defaultedFrom: regionWasOmitted ? 'saudi' : null,
                 governance: profile.governance
             },
             halal: check.halal,
