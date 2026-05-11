@@ -74,18 +74,38 @@ async function runTests() {
         assert(typeof result === 'object', 'boot يجب أن يُرجع كائنًا');
     });
 
-    await test('طبقة شيخة نود مُسجّلة بعد boot()', () => {
+    await test('طبقة شيخة نود الكونية مُسجّلة بعد boot()', () => {
         const nodeLayer = root.getLayer('sheikha-node');
         assert(nodeLayer !== null, 'لم تُسجَّل طبقة شيخة نود');
         assert(typeof nodeLayer.status === 'function', 'طبقة شيخة نود لا تُوفّر status()');
     });
 
-    await test('طبقة شيخة نود تعرض الخوادم الخلفية والشبكة الجذرية', () => {
-        const nodeLayer = root.getLayer('sheikha-node');
+    await test('طبقة شيخة نود الكونية v2.0.0 — الخوادم والشبكات والإحصاءات الكونية', () => {
+        const nodeLayer  = root.getLayer('sheikha-node');
         const nodeStatus = nodeLayer.status();
+        // الإصدار الكوني
+        assert(nodeStatus.version === '2.0.0', `إصدار خاطئ: ${nodeStatus.version}`);
+        assert(nodeStatus.rank === 'COSMIC-SUPREME', 'Missing COSMIC-SUPREME rank');
+        // الخوادم الخلفية
         assert(Array.isArray(nodeStatus.backgroundServers), 'backgroundServers يجب أن تكون مصفوفة');
         assert(nodeStatus.backgroundServers.length >= 2, 'الخوادم الخلفية غير مكتملة');
+        // الشبكة العصبية الجذرية (للتوافق)
         assert(nodeStatus.rootNeuralCellNetwork && nodeStatus.rootNeuralCellNetwork.configured === true, 'الشبكة الجذرية غير مربوطة');
+        // الشبكات الكونية
+        assert(nodeStatus.neuralNetworks, 'Missing neuralNetworks');
+        assert(nodeStatus.neuralNetworks.rootNCNLayer, 'Missing rootNCNLayer');
+        assert(nodeStatus.neuralNetworks.universalNN, 'Missing universalNN');
+        assert(nodeStatus.neuralNetworks.rootRuntime, 'Missing rootRuntime');
+        // إحصاءات كونية
+        assert(nodeStatus.cosmicStats, 'Missing cosmicStats');
+        assert(typeof nodeStatus.cosmicStats.totalNeuralCells === 'number', 'totalNeuralCells should be number');
+        assert(nodeStatus.cosmicStats.totalNeuralCells > 0, 'totalNeuralCells should be > 0');
+        assert(typeof nodeStatus.cosmicStats.activeNetworks === 'number', 'activeNetworks should be number');
+        // النبضة الكونية
+        assert(typeof nodeLayer.cosmicPulse === 'function', 'cosmicPulse يجب أن تكون دالة');
+        const pulse = nodeLayer.cosmicPulse({ type: 'test', context: 'unit-test' });
+        assert(pulse.id && pulse.id.startsWith('cosmic_pulse_'), 'pulse id خاطئ');
+        assert(typeof pulse.networksReached === 'number', 'networksReached يجب أن يكون رقماً');
     });
 
     // ─── Sheikha OS Tests ─────────────────────────────────────────────────────
