@@ -23,6 +23,7 @@ const MODULE_ID = {
     nameEn: 'Sheikha Ubuntu Upper Layer',
     version: '1.0.0',
 };
+const MIN_REQUIRED_ROOT_CELLS = 19;
 
 let _ready = false;
 let _initAt = null;
@@ -65,7 +66,7 @@ function init() {
         isLinuxBase &&
         nodeStatus.ready === true &&
         rootStatus.ready === true &&
-        Number(rootStatus.totalCells || 0) >= 19
+        Number(rootStatus.totalCells || 0) >= MIN_REQUIRED_ROOT_CELLS
     );
     _initAt = new Date().toISOString();
 
@@ -96,12 +97,13 @@ function status() {
             module: rootStatus.module || 'sheikha-root-neural-runtime',
             ready: rootStatus.ready === true,
             totalCells: Number(rootStatus.totalCells || 0),
+            minRequiredCells: MIN_REQUIRED_ROOT_CELLS,
         },
         integrationReady: Boolean(
             baseLayerReady &&
             nodeStatus.ready === true &&
             rootStatus.ready === true &&
-            Number(rootStatus.totalCells || 0) >= 19
+            Number(rootStatus.totalCells || 0) >= MIN_REQUIRED_ROOT_CELLS
         ),
     };
 }
