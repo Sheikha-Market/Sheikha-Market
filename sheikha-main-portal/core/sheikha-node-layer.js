@@ -122,8 +122,8 @@ const _modules = {
 // ── ثوابت الخلايا لكل شبكة ────────────────────────────────────────────────
 // ══════════════════════════════════════════════════════════════════════════════
 
-// عدد خلايا كل شبكة مُحدَّد بتعريفاتها الأصلية داخل وحداتها؛ هذه الثوابت
-// تُستخدم فقط لإحصاءات اللوحة الكونية عند عدم توفر status() للوحدة.
+// هذه قيم احتياطية (fallback) تُستخدم فقط لإحصاءات اللوحة الكونية
+// عند عدم توفر status() أو cells في الوحدة المعنية.
 // UNIFIED_INTEGRATOR_CELL_COUNT = 55 ← مُوثَّق في core/neural/sheikha-unified-integrator.js
 // MUBAYAA_CELL_COUNT            = 8  ← inputSize معرَّف في lib/mubayaa-neural-root.js
 const UNIFIED_INTEGRATOR_CELL_COUNT = 55;
@@ -360,6 +360,8 @@ function _getCosmicStats(networks) {
         (networks.rootNCNLayer?.cells       || 0) +
         (networks.universalNN?.cells        || 0) +
         (networks.rootRuntime?.cells        || 0) +
+        // unifiedIntegrator لا يُصدِّر cells مباشرةً؛ نستخدم systems كمؤشر
+        // وجوده لتطبيق عدد الخلايا الاحتياطي المُعرَّف في UNIFIED_INTEGRATOR_CELL_COUNT
         (networks.unifiedIntegrator?.systems ? UNIFIED_INTEGRATOR_CELL_COUNT : 0) +
         (networks.rootNCN?.cells            || 0) +
         (networks.snrn?.totalCells          || 0) +
@@ -484,7 +486,7 @@ function cosmicPulse(input = {}) {
         catch (_) { result.responses.unifiedIntegrator = { error: true }; }
     }
 
-    // [٤] Root NCN infer
+    // [٤] Root NCN infer — يقبل نصاً أو كائناً حسب واجهته
     if (_modules.rootNCN && typeof _modules.rootNCN.infer === 'function') {
         try { result.responses.rootNCN = _modules.rootNCN.infer(context || type); }
         catch (_) { result.responses.rootNCN = { error: true }; }
