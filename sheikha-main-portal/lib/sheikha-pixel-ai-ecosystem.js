@@ -24,7 +24,7 @@ const SYSTEM_NAME_EN = 'Sheikha Pixel AI Ecosystem';
 
 // الأفعال المحظورة في تحليل البيانات (بلا ضرر ولا ضرار)
 const PROHIBITED_SIGNALS = [
-    { key: 'riba',        patterns: ['ربا', 'فائدة ثابتة', 'interest', 'usury', 'riba'],        ref: 'البقرة: 275' },
+    { key: 'riba',        patterns: ['ربا', 'ربوي', 'ربوية', 'فائدة', 'فائدة ثابتة', 'فائدة مركبة', 'فوائد ربوية', 'interest', 'interest based', 'usury', 'riba', 'apr'], ref: 'البقرة: 275' },
     { key: 'gharar',      patterns: ['غرر', 'مجهول', 'gambling', 'qimar', 'مقامرة'],            ref: 'الحديث النبوي' },
     { key: 'fraud',       patterns: ['غش', 'تزوير', 'fraud', 'deception', 'manipulation'],     ref: 'الحديث: لا غش' },
     { key: 'harm',        patterns: ['ضرر', 'إيذاء', 'harm', 'attack', 'exploit', 'abuse'],     ref: 'الحديث: لا ضرر' },
@@ -49,6 +49,15 @@ const ACTIVE_COMPONENTS = {
     analytics:{ name: 'محرك التحليلات',        available: true,  version: '1.0.0' },
     tracking: { name: 'نظام التتبع الأمين',    available: true,  version: '1.0.0' }
 };
+
+function _normalizeText(input) {
+    return String(input || '')
+        .toLowerCase()
+        .replace(/[\u064B-\u065F\u0670]/g, '') // Arabic diacritics
+        .replace(/[\u200C-\u200F]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
 
 // ─── المنظومة الرئيسية ────────────────────────────────────────────────────────
 class SheikhapixelAIEcosystem {
@@ -87,7 +96,7 @@ class SheikhapixelAIEcosystem {
             const text = typeof payload === 'string'
                 ? payload
                 : JSON.stringify(payload);
-            const lower = text.toLowerCase();
+            const lower = _normalizeText(text);
 
             // فحص الإشارات المحظورة
             const violations = [];

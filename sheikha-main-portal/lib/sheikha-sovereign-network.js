@@ -99,24 +99,52 @@ const HARM_PATTERNS = [
     /javascript\s*:/gi,                         // JS injection
     /on\w+\s*=\s*["']/gi,                       // Event injection
     /union\s+select/gi,                         // SQL injection
-    /riba|ربا/gi,                               // Riba detection (flag — not block)
+];
+
+const RIBA_BLOCKED_PATTERNS = [
+    /\b(riba|ribawi|usury|usurious)\b/gi,
+    /\b(interest|interest[-\s]?based|interest[-\s]?bearing|compound\s+interest)\b/gi,
+    /(ربا|ربوي|ربوية)/gi,
+    /(قرض\s*بفائدة|فائدة\s*(بنكية|ثابتة|مركبة|سنوية)|فوائد\s*ربوية)/gi
 ];
 
 const SHARIAH_BLOCKED_KEYWORDS = [
     'gambling', 'casino', 'alcohol', 'pork', 'pornography',
-    'قمار', 'خمر', 'خنزير', 'ربا مباشر',
+    'قمار', 'خمر', 'خنزير', 'ربا مباشر', 'تمويل ربوي',
 ];
+
+function _normalizeForPolicy(input) {
+    return String(input || '')
+        .toLowerCase()
+        .replace(/[\u064B-\u065F\u0670]/g, '') // Arabic diacritics
+        .replace(/[\u200C-\u200F]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
 
 function buildNoHarmMiddleware() {
     return function noHarmShield(req, res, next) {
         const bodyStr = req.body ? JSON.stringify(req.body) : '';
         const urlStr  = req.originalUrl || '';
-        const fullStr = (bodyStr + urlStr).toLowerCase();
+        const fullStr = _normalizeForPolicy(bodyStr + urlStr);
+
+        // سد فجوة الربا: منع أي صياغة ربوية صريحة أو ضمنية
+        for (const pattern of RIBA_BLOCKED_PATTERNS) {
+            pattern.lastIndex = 0;
+            if (pattern.test(fullStr)) {
+                return res.status(403).json({
+                    success: false,
+                    error:   'SHARIAH_BLOCK_RIBA',
+                    message: 'الربا محرم ومحظور — تم رفض الطلب لمخالفته الضوابط الشرعية',
+                    principle: 'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة:275',
+                });
+            }
+        }
 
         // فحص المحتوى الضار
         for (const pattern of HARM_PATTERNS) {
+            pattern.lastIndex = 0;
             if (pattern.test(fullStr)) {
-                pattern.lastIndex = 0; // reset regex state
                 return res.status(400).json({
                     success: false,
                     error:   'NO_HARM_SHIELD',

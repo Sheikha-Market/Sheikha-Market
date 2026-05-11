@@ -129,6 +129,15 @@ router.post('/process', (req, res) => {
             });
         }
         const result = pixelEcosystem.process(payload);
+        if (Array.isArray(result.violations) && result.violations.some(v => v.key === 'riba')) {
+            return res.status(403).json({
+                success: false,
+                error: 'SHARIAH_BLOCK_RIBA',
+                message: 'الربا محرم وغير مسموح — تم رفض الطلب',
+                principle: 'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة:275',
+                timestamp: new Date().toISOString()
+            });
+        }
         res.json({
             success:   true,
             bismillah: 'بسم الله الرحمن الرحيم',
@@ -157,6 +166,15 @@ router.post('/analyze', (req, res) => {
             });
         }
         const result = pixelEcosystem.analyze(data);
+        if (Array.isArray(result.violations) && result.violations.some(v => v.key === 'riba')) {
+            return res.status(403).json({
+                success: false,
+                error: 'SHARIAH_BLOCK_RIBA',
+                message: 'الربا محرم وغير مسموح — تم رفض الطلب',
+                principle: 'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — البقرة:275',
+                timestamp: new Date().toISOString()
+            });
+        }
         res.json({
             success:   true,
             bismillah: 'بسم الله الرحمن الرحيم',
