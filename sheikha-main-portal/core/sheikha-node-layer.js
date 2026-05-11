@@ -27,6 +27,10 @@ const LAYER_ID = {
 
 let _ready = false;
 
+function getNetworkMetric(layerStatus, propName, fallbackValue = 0) {
+    return layerStatus?.network?.[propName] ?? layerStatus?.[propName] ?? fallbackValue;
+}
+
 function getBackgroundServers() {
     return [
         {
@@ -68,9 +72,9 @@ function getRootNeuralCellNetworkStatus() {
         layer: layerStatus.layer,
         name: layerStatus.name,
         nameAr: layerStatus.nameAr,
-        cells: layerStatus.network?.cells ?? layerStatus.cells ?? 0,
-        layers: layerStatus.network?.layersCount ?? layerStatus.layers ?? 0,
-        embedDim: layerStatus.network?.embedDim ?? layerStatus.embedDim ?? 0,
+        cells: getNetworkMetric(layerStatus, 'cells'),
+        layers: getNetworkMetric(layerStatus, 'layersCount', getNetworkMetric(layerStatus, 'layers')),
+        embedDim: getNetworkMetric(layerStatus, 'embedDim'),
         position: layerStatus.position,
     };
 }
@@ -119,4 +123,6 @@ module.exports = {
     status,
     getBackgroundServers,
     getRootNeuralCellNetworkStatus,
+    DEFAULT_COPILOT_PORT,
+    DEFAULT_META_PORT,
 };

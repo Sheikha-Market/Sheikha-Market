@@ -11,6 +11,7 @@
 const http   = require('http');
 const assert = require('assert');
 const crypto = require('crypto');
+const { DEFAULT_COPILOT_PORT, DEFAULT_META_PORT } = require('../core/sheikha-node-layer');
 
 // ─── إعداد ───────────────────────────────────────────────────────────────────
 const BASE = process.env.TEST_BASE_URL || 'http://localhost:8080';
@@ -128,7 +129,11 @@ async function testHealth() {
         assert.ok(Array.isArray(r.body.backgroundServers), 'backgroundServers should be array');
         assert.ok(r.body.backgroundServers.length >= 2, 'backgroundServers should include background services');
         const backgroundPorts = r.body.backgroundServers.map(server => server.port).sort((a, b) => a - b);
-        assert.deepStrictEqual(backgroundPorts, [3091, 8085], `Unexpected background ports: ${backgroundPorts.join(',')}`);
+        assert.deepStrictEqual(
+            backgroundPorts,
+            [DEFAULT_COPILOT_PORT, DEFAULT_META_PORT].sort((a, b) => a - b),
+            `Unexpected background ports: ${backgroundPorts.join(',')}`
+        );
         assert.ok(r.body.engines && r.body.engines.rootNeuralCellNetwork, 'Missing rootNeuralCellNetwork engine status');
         assert.ok(r.body.engines.rootNeuralCellNetwork.layers === 7, 'Unexpected rootNeuralCellNetwork layers');
     });
