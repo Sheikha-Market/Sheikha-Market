@@ -143,14 +143,31 @@ const POSITIVE_SIGNALS = [
     { key: 'empowerment',    weight: 0.75, ref: 'الحشر: 7',     patterns: ['تمكين','empowerment','توزيع الثروة','wealth distribution'] }
 ];
 
-// ─── أنماط كشف التحايل والتمويه ──────────────────────────────────────────────
-// ملاحظة: الأنماط هنا تستهدف تقنيات التحايل (تفريق الأحرف، رموز بديلة) فقط.
-// الكلمات العربية/الإنجليزية الصريحة تُعالَج في PROHIBITED_SIGNALS.
+/**
+ * BYPASS_PATTERNS — أنماط كشف التحايل والتمويه على المصطلحات المحظورة
+ *
+ * الهدف: رصد محاولات تفادي الفلتر الشرعي عبر:
+ *   - تفريق الأحرف بمسافات أو رموز: "r - i - b - a"
+ *   - استبدال أحرف بأرقام متشابهة: "r1ba"، "r!ba"
+ *   - حروف سيريلية مشابهة بصرياً: р і б а
+ *   - صيغ مرفوضة مرادفة: usury, usurey, gamb1ing
+ *   - مخططات محظورة مع تمويه: "ponzi scheme"
+ *
+ * ملاحظة: الكلمات العربية/الإنجليزية الصريحة تُعالَج في PROHIBITED_SIGNALS.
+ * هذه الأنماط تُكمِّل الفلتر ولا تُكرِّره.
+ *
+ * @example
+ *   /r[\s\-_\.]+i[\s\-_\.]+b[\s\-_\.]+a/i  ← يطابق "r-i-b-a" أو "r . i . b . a"
+ *   /r[!1|]ba\b/i                            ← يطابق "r1ba" أو "r!ba"
+ *   /[\u0440][\u0456][\u0431][\u0430]/       ← يطابق "рібa" (سيريلي مشابه)
+ */
 const BYPASS_PATTERNS = [
     /r[\s\-_\.]+i[\s\-_\.]+b[\s\-_\.]+a/i,       // r - i - b - a مفرّقة
     /r[!1|]ba\b/i,                                  // r!ba / r1ba visual spoofing
+    /[\u0440][\u0456][\u0431][\u0430]/,             // Cyrillic riba lookalikes (р і б а)
     /us[u\u00fc]r[yi]\b/i,                         // usury / usurey variants
     /\bint[\s\-_]+er[\s\-_]+est\b/i,              // int-er-est مفرّقة
+    /[\u200B-\u200F\u202A-\u202E].*(?:riba|ربا)/i, // zero-width chars before riba
     /ponz[i1]\s*scheme/i,                           // ponzi scheme variant
     /\bgam[b8]l[i1]ng\b/i                          // gamb1ing bypass
 ];
