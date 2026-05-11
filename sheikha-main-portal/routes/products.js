@@ -198,6 +198,28 @@ router.get('/search', optionalAuth, (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// GET /api/products/supplier/my — منتجات المورد الحالي
+// ملاحظة: يجب تعريف هذا المسار قبل /:id لتجنب التعارض
+// ═══════════════════════════════════════════════════════════════════════════════
+router.get('/supplier/my', authenticate, (req, res) => {
+    try {
+        const products = database.read('products') || [];
+        const myProducts = products.filter(p => p.supplierId === req.user.id);
+        const stats = {
+            total: myProducts.length,
+            active: myProducts.filter(p => p.status === 'active').length,
+            inactive: myProducts.filter(p => p.status === 'inactive').length,
+            draft: myProducts.filter(p => p.status === 'draft').length,
+            totalViews: myProducts.reduce((s, p) => s + (p.views || 0), 0),
+            totalOrders: myProducts.reduce((s, p) => s + (p.orders || 0), 0)
+        };
+        res.json({ success: true, stats, products: myProducts });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'خطأ في جلب منتجاتك', error: err.message });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // GET /api/products/:id — تفاصيل منتج واحد
 // ═══════════════════════════════════════════════════════════════════════════════
 router.get('/:id', optionalAuth, (req, res) => {
@@ -282,27 +304,6 @@ router.delete('/:id', authenticate, (req, res) => {
         res.json({ success: true, message: 'تم حذف المنتج بنجاح' });
     } catch (err) {
         res.status(500).json({ success: false, message: 'خطأ في حذف المنتج', error: err.message });
-    }
-});
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// GET /api/products/supplier/my — منتجات المورد الحالي
-// ═══════════════════════════════════════════════════════════════════════════════
-router.get('/supplier/my', authenticate, (req, res) => {
-    try {
-        const products = database.read('products') || [];
-        const myProducts = products.filter(p => p.supplierId === req.user.id);
-        const stats = {
-            total: myProducts.length,
-            active: myProducts.filter(p => p.status === 'active').length,
-            inactive: myProducts.filter(p => p.status === 'inactive').length,
-            draft: myProducts.filter(p => p.status === 'draft').length,
-            totalViews: myProducts.reduce((s, p) => s + (p.views || 0), 0),
-            totalOrders: myProducts.reduce((s, p) => s + (p.orders || 0), 0)
-        };
-        res.json({ success: true, stats, products: myProducts });
-    } catch (err) {
-        res.status(500).json({ success: false, message: 'خطأ في جلب منتجاتك', error: err.message });
     }
 });
 

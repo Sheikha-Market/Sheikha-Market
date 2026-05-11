@@ -391,7 +391,7 @@
         </div>
         <div class="form-group">
             <label class="form-label">كلمة المرور</label>
-            <input type="password" class="form-input" id="register-password" placeholder="8 أحرف على الأقل">
+            <input type="password" class="form-input" id="register-password" placeholder="8 أحرف كحد أدنى مع أرقام وحروف">
         </div>
         <div class="form-group">
             <label class="form-label">رقم الجوال (اختياري)</label>
@@ -875,7 +875,7 @@ async function doRegister() {
     err.classList.remove('show'); suc.classList.remove('show');
 
     if (!name || !email || !password) { err.textContent = 'جميع الحقول الإلزامية مطلوبة'; err.classList.add('show'); return; }
-    if (password.length < 6) { err.textContent = 'كلمة المرور يجب أن تكون 6 أحرف على الأقل'; err.classList.add('show'); return; }
+    if (password.length < 8) { err.textContent = 'كلمة المرور يجب أن تكون 8 أحرف على الأقل'; err.classList.add('show'); return; }
 
     const { ok, data } = await api('/api/auth/register', {
         method: 'POST',

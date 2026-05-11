@@ -3,6 +3,7 @@
  *  🛒 مسارات إدارة الطلبات — Orders Management Routes
  *  الوصف: إنشاء الطلبات، تتبعها، تحديث حالتها، والإحصائيات
  *  المرحلة: 2 — نواة السوق (MVP)
+ *  ملاحظة: المسارات الثابتة (buyer/my, supplier/my) قبل الديناميكية (/:id)
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
@@ -14,19 +15,11 @@ const { v4: uuid } = require('uuid');
 const database = require('../config/database');
 const { authenticate, authorize } = require('../middleware/auth');
 
-// ─── حالات الطلب المسموح بها ─────────────────────────────────────────────────
 const ORDER_STATUSES = [
-    'pending',    // بانتظار الموافقة
-    'confirmed',  // مؤكد
-    'processing', // قيد المعالجة
-    'shipped',    // تم الشحن
-    'delivered',  // تم التسليم
-    'completed',  // مكتمل
-    'cancelled',  // ملغى
-    'refunded'    // مسترد
+    'pending', 'confirmed', 'processing', 'shipped',
+    'delivered', 'completed', 'cancelled', 'refunded'
 ];
 
-// تسلسل الحالات المسموح به
 const ALLOWED_TRANSITIONS = {
     pending:    ['confirmed', 'cancelled'],
     confirmed:  ['processing', 'cancelled'],
@@ -38,7 +31,6 @@ const ALLOWED_TRANSITIONS = {
     refunded:   []
 };
 
-// ─── دالة مساعدة: بناء كائن الطلب ────────────────────────────────────────────
 function buildOrder(data, buyerId, buyerName) {
     const now = new Date().toISOString();
     const items = Array.isArray(data.items) ? data.items : (data.productId ? [{
@@ -51,10 +43,11 @@ function buildOrder(data, buyerId, buyerName) {
     }] : []);
 
     const totalAmount = items.reduce((sum, item) => sum + (item.quantity * item.unitPrice), 0);
+    const orderSeq = `${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2,6).toUpperCase()}`;
 
     return {
         id: uuid(),
-        orderNumber: `ORD-${Date.now().toString(36).toUpperCase()}`,
+        orderNumber: `ORD-${orderSeq}`,
         buyerId,
         buyerName: buyerName || 'مشتري',
         supplierId: data.supplierId || null,
@@ -63,7 +56,7 @@ function buildOrder(data, buyerId, buyerName) {
         totalAmount,
         currency: data.currency || 'SAR',
         status: 'pending',
-        paymentStatus: 'pending',   // pending | paid | refunded
+        paymentStatus: 'pending',
         paymentMethod: data.paymentMethod || null,
         shippingAddress: data.shippingAddress || null,
         notes: data.notes || null,
@@ -87,7 +80,6 @@ router.get('/', authenticate, (req, res) => {
 
         let filtered = [...allOrders];
 
-        // المشرف يرى الكل، المستخدم العادي يرى طلباته فقط
         if (req.user.role !== 'admin') {
             filtered = filtered.filter(o =>
                 o.buyerId === req.user.id || o.supplierId === req.user.id
@@ -105,7 +97,6 @@ router.get('/', authenticate, (req, res) => {
         const limitNum = Math.min(100, Math.max(1, parseInt(limit)));
         const paginated = filtered.slice((pageNum - 1) * limitNum, pageNum * limitNum);
 
-        // إحصائيات سريعة
         const stats = {
             total: filtered.length,
             pending:    filtered.filter(o => o.status === 'pending').length,
@@ -120,6 +111,53 @@ router.get('/', authenticate, (req, res) => {
         res.json({ success: true, stats, count: paginated.length, total, page: pageNum, orders: paginated });
     } catch (err) {
         res.status(500).json({ success: false, message: 'خطأ في جلب الطلبات', error: err.message });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// GET /api/orders/buyer/my — طلبات المشتري الحالي
+// يجب أن يكون قبل /:id
+// ═══════════════════════════════════════════════════════════════════════════════
+router.get('/buyer/my', authenticate, (req, res) => {
+    try {
+        const orders = database.read('market_orders') || [];
+        const myOrders = orders.filter(o => o.buyerId === req.user.id);
+        myOrders.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
+
+        const stats = {
+            total: myOrders.length,
+            active: myOrders.filter(o => !['completed', 'cancelled', 'refunded'].includes(o.status)).length,
+            completed: myOrders.filter(o => o.status === 'completed').length,
+            totalSpent: myOrders.filter(o => o.status === 'completed').reduce((s, o) => s + (o.totalAmount || 0), 0)
+        };
+
+        res.json({ success: true, stats, orders: myOrders });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'خطأ في جلب طلباتك', error: err.message });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// GET /api/orders/supplier/my — طلبات المورد الحالي
+// يجب أن يكون قبل /:id
+// ═══════════════════════════════════════════════════════════════════════════════
+router.get('/supplier/my', authenticate, (req, res) => {
+    try {
+        const orders = database.read('market_orders') || [];
+        const myOrders = orders.filter(o => o.supplierId === req.user.id);
+        myOrders.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
+
+        const stats = {
+            total: myOrders.length,
+            pending: myOrders.filter(o => o.status === 'pending').length,
+            active: myOrders.filter(o => ['confirmed', 'processing', 'shipped'].includes(o.status)).length,
+            completed: myOrders.filter(o => o.status === 'completed').length,
+            totalRevenue: myOrders.filter(o => o.status === 'completed').reduce((s, o) => s + (o.totalAmount || 0), 0)
+        };
+
+        res.json({ success: true, stats, orders: myOrders });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'خطأ في جلب طلباتك', error: err.message });
     }
 });
 
@@ -152,7 +190,6 @@ router.post('/', authenticate, (req, res) => {
             return res.status(400).json({ success: false, message: 'يجب تحديد المنتجات (items) أو معرف المنتج (productId)' });
         }
 
-        // التحقق من المنتجات
         const orderItems = Array.isArray(items) ? items : [{
             productId,
             productName: req.body.productName,
@@ -166,17 +203,14 @@ router.post('/', authenticate, (req, res) => {
             return res.status(400).json({ success: false, message: 'يجب إضافة منتج واحد على الأقل' });
         }
 
-        // التحقق من كل منتج
         for (const item of orderItems) {
             if (!item.productId) return res.status(400).json({ success: false, message: 'معرف المنتج مطلوب لكل عنصر' });
             if (!item.quantity || item.quantity <= 0) return res.status(400).json({ success: false, message: 'الكمية يجب أن تكون أكبر من صفر' });
 
-            // جلب بيانات المنتج
             const product = database.findById('products', item.productId);
             if (!product) return res.status(404).json({ success: false, message: `المنتج ${item.productId} غير موجود` });
             if (product.status !== 'active') return res.status(400).json({ success: false, message: `المنتج ${product.name} غير متاح حالياً` });
 
-            // تعبئة بيانات المنتج
             item.productName = item.productName || product.name;
             item.unitPrice = item.unitPrice || product.price;
             item.unit = item.unit || product.unit;
@@ -192,7 +226,6 @@ router.post('/', authenticate, (req, res) => {
 
         database.insert('market_orders', order);
 
-        // تحديث عداد طلبات المنتج
         orderItems.forEach(item => {
             const product = database.findById('products', item.productId);
             if (product) database.update('products', item.productId, { orders: (product.orders || 0) + 1 });
@@ -218,16 +251,14 @@ router.put('/:id/status', authenticate, (req, res) => {
         const order = database.findById('market_orders', req.params.id);
         if (!order) return res.status(404).json({ success: false, message: 'الطلب غير موجود' });
 
-        // التحقق من الصلاحية
-        const isAdmin = req.user.role === 'admin';
+        const isAdmin    = req.user.role === 'admin';
         const isSupplier = order.supplierId === req.user.id;
-        const isBuyer = order.buyerId === req.user.id;
+        const isBuyer    = order.buyerId === req.user.id;
 
         if (!isAdmin && !isSupplier && !isBuyer) {
             return res.status(403).json({ success: false, message: 'ليس لديك صلاحية لتعديل هذا الطلب' });
         }
 
-        // التحقق من تسلسل الحالات
         const allowed = ALLOWED_TRANSITIONS[order.status] || [];
         if (!isAdmin && !allowed.includes(status)) {
             return res.status(400).json({
@@ -254,7 +285,7 @@ router.put('/:id/status', authenticate, (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// PUT /api/orders/:id/cancel — إلغاء الطلب (المشتري أو المشرف)
+// PUT /api/orders/:id/cancel — إلغاء الطلب
 // ═══════════════════════════════════════════════════════════════════════════════
 router.put('/:id/cancel', authenticate, (req, res) => {
     try {
@@ -265,7 +296,8 @@ router.put('/:id/cancel', authenticate, (req, res) => {
             return res.status(403).json({ success: false, message: 'يمكن للمشتري فقط إلغاء الطلب' });
         }
 
-        if (!ALLOWED_TRANSITIONS[order.status]?.includes('cancelled')) {
+        const allowed = ALLOWED_TRANSITIONS[order.status] || [];
+        if (!allowed.includes('cancelled')) {
             return res.status(400).json({ success: false, message: `لا يمكن إلغاء الطلب في حالة: ${order.status}` });
         }
 
@@ -281,51 +313,6 @@ router.put('/:id/cancel', authenticate, (req, res) => {
         res.json({ success: true, message: 'تم إلغاء الطلب بنجاح' });
     } catch (err) {
         res.status(500).json({ success: false, message: 'خطأ في إلغاء الطلب', error: err.message });
-    }
-});
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// GET /api/orders/buyer/my — طلبات المشتري الحالي
-// ═══════════════════════════════════════════════════════════════════════════════
-router.get('/buyer/my', authenticate, (req, res) => {
-    try {
-        const orders = database.read('market_orders') || [];
-        const myOrders = orders.filter(o => o.buyerId === req.user.id);
-        myOrders.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
-
-        const stats = {
-            total: myOrders.length,
-            active: myOrders.filter(o => !['completed', 'cancelled', 'refunded'].includes(o.status)).length,
-            completed: myOrders.filter(o => o.status === 'completed').length,
-            totalSpent: myOrders.filter(o => o.status === 'completed').reduce((s, o) => s + (o.totalAmount || 0), 0)
-        };
-
-        res.json({ success: true, stats, orders: myOrders });
-    } catch (err) {
-        res.status(500).json({ success: false, message: 'خطأ في جلب طلباتك', error: err.message });
-    }
-});
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// GET /api/orders/supplier/my — طلبات المورد الحالي
-// ═══════════════════════════════════════════════════════════════════════════════
-router.get('/supplier/my', authenticate, (req, res) => {
-    try {
-        const orders = database.read('market_orders') || [];
-        const myOrders = orders.filter(o => o.supplierId === req.user.id);
-        myOrders.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
-
-        const stats = {
-            total: myOrders.length,
-            pending: myOrders.filter(o => o.status === 'pending').length,
-            active: myOrders.filter(o => ['confirmed', 'processing', 'shipped'].includes(o.status)).length,
-            completed: myOrders.filter(o => o.status === 'completed').length,
-            totalRevenue: myOrders.filter(o => o.status === 'completed').reduce((s, o) => s + (o.totalAmount || 0), 0)
-        };
-
-        res.json({ success: true, stats, orders: myOrders });
-    } catch (err) {
-        res.status(500).json({ success: false, message: 'خطأ في جلب طلباتك', error: err.message });
     }
 });
 
